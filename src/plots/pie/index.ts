@@ -1,0 +1,167 @@
+import _ from 'lodash';
+import BasePlot from '../../base/plot';
+import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/config';
+import { extractScale } from '../../util/scale';
+import * as StyleParser from '../../util/styleParser';
+import * as EventParser from './event';
+import { CoordinateType } from '@antv/g2/lib/plot/interface';
+import SpiderLabel from './guide/label/spiderLabel';
+
+export interface PieConfig extends BaseConfig {
+  angleField: string;
+  colorField?: string;
+  radius?: number;
+  pieStyle?: {};
+}
+
+interface ILabelCallbackOptions {
+  content?: Function;
+  offset?: number;
+}
+
+export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<T>{
+  pie: any;
+  constructor(container, config: T) {
+    super(container, config);
+    /**plot实例创建后的特殊逻辑 */
+    this._afterInit();
+  }
+  protected _setDefaultG2Config() { }
+
+  protected _scale() {
+    const props = this._initialProps;
+    const scales = {};
+    /** 配置x-scale */
+    scales[props.angleField] = {};
+    _.has(props, 'xAxis') && extractScale(scales[props.angleField], props.xAxis);
+  }
+
+  protected _axis() { }
+
+  protected _coord() {
+    const props = this._initialProps;
+    const coordConfig = {
+      type: 'theta' as CoordinateType,
+      cfg: {
+        radius: 1, // default radius值
+      },
+    };
+    if (_.has(props, 'radius')) {
+      coordConfig.cfg.radius = props.radius;
+    }
+    this._setConfig('coord', coordConfig);
+  }
+
+  protected _addElements() {
+    const props = this._initialProps;
+    const pie: ElementOption = {
+      type: 'interval',
+      position: {
+        fields: [ props.angleField ],
+      },
+      adjust: [ {
+        type: 'stack',
+      } ],
+    };
+    if (props.colorField || props.color) pie.color = this._pieColor();
+    if (props.pieStyle) pie.style = this._pieStyle();
+    this.pie = pie;
+    if (props.label) {
+      this._label();
+    }
+    this._setConfig('element', pie);
+  }
+
+  protected _animation() { }
+
+  protected _annotation() { }
+
+  protected _interactions() { }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
+  }
+
+  protected _afterInit() {
+    const props = this._initialProps;
+    /**蜘蛛布局label */
+    if (props.label) {
+      const labelConfig = props.label as Label;
+      if (labelConfig.type === 'spider') {
+        const spiderLabel = new SpiderLabel({
+          view: this.plot,
+          fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
+          style: labelConfig.style ? labelConfig.style : {},
+        });
+      }
+    }
+  }
+
+  private _pieColor() {
+    const props = this._initialProps;
+    const config: IColorConfig = {};
+    if (_.has(props, 'colorField')) {
+      config.fields = [ props.colorField ];
+    }
+    if (_.has(props, 'color')) {
+      const color = props.color;
+      if (_.isString(color)) {
+        config.values = [ color ];
+      } else {
+        config.values = color as [];
+      }
+    }
+    return config;
+  }
+
+  private _pieStyle() {
+    const props = this._initialProps;
+    const pieStyleProps = props.pieStyle;
+    const config = {
+      fields: null,
+      callback: null,
+      cfg: null,
+    };
+    if (_.isFunction(pieStyleProps) && props.colorField) {
+      config.fields = [ props.colorField ];
+      config.callback = pieStyleProps;
+      return config;
+    }
+    config.cfg = pieStyleProps;
+    return config;
+  }
+
+  private _label() {
+    const props = this._initialProps;
+    const labelConfig = props.label as Label;
+    this.pie.label = {
+      fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
+    };
+    const callbackOptions: ILabelCallbackOptions = {};
+    /**outter label */
+    // TODO: labelLine 加入 theme
+    /**inner label */
+    if (labelConfig.type === 'inner') {
+      const offsetBase = -20;
+      callbackOptions.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
+    }
+    if (labelConfig.type === 'spider') {
+      /**如label type为spider，则关闭default label*/
+      this.pie.label.fields = [];
+    }
+    /**formatter */
+    if (labelConfig.formatter) {
+      callbackOptions.content = labelConfig.formatter;
+    }
+    /**统一处理callback */
+    if (!_.isEmpty(callbackOptions)) {
+      this.pie.label.callback = (val1, val2) => {
+        const returnCfg = _.clone(callbackOptions);
+        if (_.has(callbackOptions, 'content')) {
+          returnCfg.content = callbackOptions.content(val1, val2);
+        }
+        return returnCfg;
+      };
+    }
+  }
+}

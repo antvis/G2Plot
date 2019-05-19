@@ -105,11 +105,15 @@ describe('radar plot', () => {
 
   it('创建雷达图', () => {
     const canvasDiv = document.createElement('div');
+    canvasDiv.style.width = '400px';
+    canvasDiv.style.height = '400px';
+    canvasDiv.style.left = '30px';
+    canvasDiv.style.top = '30px';
     canvasDiv.id = 'canvas1';
     document.body.appendChild(canvasDiv);
 
     const radarPlot = new Radar(canvasDiv, {
-      padding: 50,
+      padding: 'auto',
       data,
       xField: 'item',
       yField: 'score',

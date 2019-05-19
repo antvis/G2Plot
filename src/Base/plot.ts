@@ -1,23 +1,28 @@
 import * as G2 from '@antv/g2';
 import _ from 'lodash';
+import { Canvas } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
 import '../theme/default';
+import getAutoPadding from '../util/padding';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   /** g2实例 */
   public _container: string | HTMLElement;
-  public plot: G2.Plot;
+  public plot: G2.View;
   protected _initialProps: T;
   protected _config: G2Config;
   public eventHandlers: any[] = [];
+  protected canvasCfg;
 
   constructor(container: string | HTMLElement, config: T) {
     this._initialProps = config;
     this._container = container;
-    this._init(container);
+    this.canvasCfg = this._createCanvas(container);
+    this._init(container, this.canvasCfg);
+    this._afterInit();
   }
 
-  protected _init(container: string | HTMLElement) {
+  protected _init(container: string | HTMLElement, canvasCfg) {
     const props = this._initialProps;
     this._config = {
       scales: {},
@@ -46,10 +51,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._addElements();
     this._annotation();
     this._animation();
-    this.plot = new G2.Plot({
-      containerDOM: container,
-      forceFit: true,
-      padding: props.padding ? props.padding : [ 40, 20, 60, 20 ],
+    this.plot = new G2.View({
+      /*containerDOM: container,
+      forceFit: true,*/
+      width: canvasCfg.width,
+      height: canvasCfg.height,
+      canvas: canvasCfg.canvas,
+      container: canvasCfg.canvas.addGroup(),
+      padding: this._getPadding(),
       data: props.data,
       theme: this._config.theme,
       options: this._config,
@@ -110,6 +119,18 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     });
   }
 
+  protected _afterInit() {
+    const props = this._initialProps;
+     /** 处理autopadding逻辑 */
+    if (props.padding === 'auto') {
+      this.plot.render(false);
+      const padding = getAutoPadding(this.plot);
+      this.updateConfig({
+        padding,
+      });
+    }
+  }
+
   /** 设置G2 config，带有类型推导 */
   protected _setConfig<T extends keyof G2Config>(key: T, config: G2Config[T]): void {
     if (key === 'element') {
@@ -145,8 +166,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
-    const canvasDOM = this.plot.get('canvas').get('canvasDOM');
-    canvasDOM.remove();
     this.plot.destroy();
   }
 
@@ -155,8 +174,36 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const newProps = _.assign(this._initialProps, cfg);
     this.destroy();
     this._initialProps = newProps;
-    this._init(this._container);
+    this._init(this._container, this.canvasCfg);
     this.render();
+  }
+
+  private _createCanvas(container) {
+    // TODO: coord width问题
+    const props = this._initialProps;
+    let width = container.offsetWidth;
+    let height = container.offsetHeight;
+    if (props.width) width = props.width;
+    if (props.height) height = props.height;
+
+    const canvas = new Canvas({
+      containerDOM: container,
+      width,
+      height,
+      renderer: 'canvas',
+      pixelRatio: 2,
+    });
+
+    return { canvas, width, height };
+  }
+
+  private _getPadding() {
+    const props = this._initialProps;
+    if (props.padding) {
+      if (props.padding === 'auto') return [ 0, 0, 0, 0 ];
+      return props.padding;
+    }
+    return [ 40, 20, 60, 20 ];
   }
 
 }

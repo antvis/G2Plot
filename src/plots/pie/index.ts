@@ -21,11 +21,6 @@ interface ILabelCallbackOptions {
 
 export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<T>{
   pie: any;
-  constructor(container, config: T) {
-    super(container, config);
-    /**plot实例创建后的特殊逻辑 */
-    this._afterInit();
-  }
   protected _setDefaultG2Config() { }
 
   protected _scale() {
@@ -43,7 +38,7 @@ export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<
     const coordConfig = {
       type: 'theta' as CoordinateType,
       cfg: {
-        radius: 1, // default radius值
+        radius: 0.8, // default radius值
       },
     };
     if (_.has(props, 'radius')) {
@@ -83,6 +78,7 @@ export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<
   }
 
   protected _afterInit() {
+    super._afterInit();
     const props = this._initialProps;
     /**蜘蛛布局label */
     if (props.label) {

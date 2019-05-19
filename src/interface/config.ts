@@ -12,6 +12,8 @@ import { AdjustCfg } from '@antv/g2/lib/interface';
 export default interface Config {
   /** 数据，对象数组 */
   data: object[];
+  width?: number;
+  height?: number;
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
   meta?: { [fieldId: string]: Meta };
   /** 图表标题 */
@@ -19,7 +21,7 @@ export default interface Config {
   /** 图表描述 */
   description?: string | boolean;
   /** padding */
-  padding?: number | number[];
+  padding?: number | number[] | string;
   /** x、y轴字段 */
   xField?: string;
   yField?: string;

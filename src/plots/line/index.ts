@@ -210,7 +210,8 @@ export default class Line extends BasePlot<LineConfig>{
     super._events(EventParser);
   }
 
-  private _afterInit() {
+  protected _afterInit() {
+    super._afterInit();
     const props = this._initialProps;
     /**时间子母轴 */
     if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {

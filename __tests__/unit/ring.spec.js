@@ -26,9 +26,17 @@ describe('ring plot', () => {
       value: 5
     } ];
 
+    const canvasDiv = document.createElement('div');
+    canvasDiv.style.width = '600px';
+    canvasDiv.style.height = '600px';
+    canvasDiv.style.left = '30px';
+    canvasDiv.style.top = '30px';
+    canvasDiv.id = 'canvas1';
+    document.body.appendChild(canvasDiv);
+
     const pie = new Ring(canvasDiv, {
       data,
-      padding: 40,
+      padding: 'auto',
       radius: 0.8,
       innerRadius: 0.6,
       angleField: 'value',

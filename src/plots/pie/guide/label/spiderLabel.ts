@@ -66,7 +66,9 @@ export default class SpiderLabel {
     const data = this.view.get('data');
     const angleField = this.fields[0];
     const scale = this.view.get('scales')[angleField];
-    const { center, radius, startAngle, width, height } = coord;
+    const { center, radius, startAngle } = coord;
+    const width = this.view.get('width');
+    const height = this.view.get('height');
     let angle = startAngle;
     for (let i = 0; i < data.length; i++) {
       const d = data[i];
@@ -251,7 +253,7 @@ export default class SpiderLabel {
   }
 
   private _drawLabel(label) {
-    const width = this.view.get('coord').width;
+    const width = this.view.get('width');
     const { y, textGroup } = label;
     const children = textGroup.get('children');
     const textAttrs = {
@@ -268,7 +270,7 @@ export default class SpiderLabel {
   }
 
   private _drawLabelLine(label, maxLabelWidth) {
-    const canvasWidth = this.view.get('coord').width;
+    const canvasWidth = this.view.get('width');
     const _anchor = [ label._anchor.x, label._anchor.y ];
     const _inflection = [ label._inflection.x, label._inflection.y ];
     const { fill, y } = label;

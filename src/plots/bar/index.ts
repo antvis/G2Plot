@@ -23,16 +23,8 @@ export interface ColumnConfig extends BaseConfig {
 }
 
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{
-  constructor(container: any, config: T) {
-    super(container, config);
-
-    /**plot实例创建后的特殊逻辑 */
-    this._afterInit();
-  }
 
   protected _setDefaultG2Config() {}
-
-  protected _afterInit() {}
 
   protected _scale() {
     const props = this._initialProps;

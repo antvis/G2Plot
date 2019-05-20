@@ -2,6 +2,10 @@ import { Pie } from '../../src';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '600px';
+  canvasDiv.style.left = '30px';
+  canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -28,6 +32,7 @@ describe('Pie plot', () => {
 
     const pie = new Pie(canvasDiv, {
       data,
+      padding: 'auto',
       angleField: 'value',
       colorField: 'type',
       label: {

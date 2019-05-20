@@ -5,21 +5,21 @@ interface DataPointType {
   [ k: string ]: any;
 }
 
-const DEFAULT_PADDING = 20;
+const DEFAULT_PADDING = [ 20, 20, 95, 80 ];
 
 export default function getAutoPadding(view: View) {
   const width = view.get('width');
   const height = view.get('height');
-    /** 获取auto padding需要的components: axis annotation legend*/
+    /** 参与auto padding的components: axis annotation legend*/
   const components_bbox = [];
   getAxis(view, components_bbox);
   getLegend(view, components_bbox);
   const box = mergeBBox(components_bbox, width, height);
   const padding = [
-    0 - box.minY + DEFAULT_PADDING, // 上面超出的部分
-    box.maxX - view.get('width') + DEFAULT_PADDING, // 右边超出的部分
-    box.maxY - view.get('height') + DEFAULT_PADDING, // 下边超出的部分
-    0 - box.minX + DEFAULT_PADDING,
+    0 - box.minY + DEFAULT_PADDING[0], // 上面超出的部分
+    box.maxX - view.get('width') + DEFAULT_PADDING[1], // 右边超出的部分
+    box.maxY - view.get('height') + DEFAULT_PADDING[2], // 下边超出的部分
+    0 - box.minX + DEFAULT_PADDING[3],
   ];
   return padding;
 }
@@ -36,9 +36,14 @@ function getAxis(view, bboxes) {
 }
 
 function getLegend(view, bboxes) {
-  const legendGroup = view.get('legendController').container;
-  const bbox = legendGroup.getBBox();
-  bboxes.push(bbox);
+  const legends = view.get('legendController').legends;
+  if (legends.length > 0) {
+    _.each(legends, (l) => {
+      const  legend = l as DataPointType;
+      const bbox = legend.get('container').getBBox();
+      bboxes.push(bbox);
+    });
+  }
 }
 
 function mergeBBox(bboxes, width, height) {

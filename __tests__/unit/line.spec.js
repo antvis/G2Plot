@@ -4,6 +4,10 @@ import { income } from '../data/income';
 
 describe('Line plot', () => {
   const canvasDiv = document.createElement('div');
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '600px';
+  canvasDiv.style.left = '30px';
+  canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -39,6 +43,7 @@ describe('Line plot', () => {
 
     const linePlot = new Line(canvasDiv, {
       data,
+      padding: 'auto',
       x: 'year',
       y: 'value',
       color: 'red',
@@ -245,25 +250,20 @@ describe('Line plot', () => {
     } ];
 
     const linePlot = new Line(canvasDiv, {
-      padding: [ 10, 200, 150, 100 ],
+      padding: 'auto',
       data,
-      x: 'date',
-      y: 'value',
-      color: {
-        fields: [ 'type' ]
-      },
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
       size: 2,
-      label: {
-
-      },
       tooltip: {
         shared: false,
         crosshairs: false
       },
+      xAxis: {
+        tickCount: 5
+      },
       yAxis: {},
-      interactions: [
-        { type: 'range' }
-      ],
       /** TODO: 这里暴露出来的写法太复杂，需要一个parser */
       theme: {
         shape: {
@@ -310,7 +310,7 @@ describe('Line plot', () => {
   it.only('timeGrouping - year', () => {
 
     const linePlot = new Line(canvasDiv, {
-      padding: [ 10, 200, 150, 100 ],
+      padding: 'auto',
       data: income,
       xField: 'time',
       yField: 'rate',
@@ -510,7 +510,7 @@ describe('Line plot', () => {
     } ];
 
     const linePlot = new Line(canvasDiv, {
-      padding: [ 10, 200, 150, 100 ],
+      padding: 'auto',
       data,
       xField: 'date',
       yField: 'value',

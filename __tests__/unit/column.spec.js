@@ -2,6 +2,10 @@ import { Column } from '../../src';
 
 describe('Colomn plot', () => {
   const canvasDiv = document.createElement('div');
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '600px';
+  canvasDiv.style.left = '30px';
+  canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -47,11 +51,12 @@ describe('Colomn plot', () => {
         formatter: (val) => {
           return val + ' label';
         },
-        offsetX: 10,
-        offsetY: 20,
+        // offsetX: 10,
+        // offsetY: 20,
         style: {
           fill: 'red'
-        }
+        },
+        position: 'bottom'
       }
     });
 

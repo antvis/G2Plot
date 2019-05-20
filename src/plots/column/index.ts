@@ -98,8 +98,9 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const props = this._initialProps;
     const label = props.label as Label;
     const labelConfig = {
+      ...label,
       fields: [ props.yField ],
-      callback: null,
+      callback: null
     };
 
     /** formater */
@@ -107,6 +108,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       const formater = label.formatter;
       labelConfig.callback = (val) => {
         return {
+          ...label,
           content: formater(val),
           offsetX: label.offsetX ? label.offsetX : 0,
           offsetY: label.offsetY ? label.offsetY : 0,

@@ -2,7 +2,7 @@ import BaseColumn, { ColumnConfig } from '../column';
 import { ElementOption } from '../../interface/config';
 import { isArray, isFunction } from 'util';
 
-interface StackColumnConfig extends ColumnConfig {
+export interface StackColumnConfig extends ColumnConfig {
   stackField: string;
 }
 

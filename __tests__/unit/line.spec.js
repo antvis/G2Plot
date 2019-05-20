@@ -48,10 +48,13 @@ describe('Line plot', () => {
       y: 'value',
       color: 'red',
       smooth: true,
+      width: 600,
+      height: 400,
       size: 2,
       point: {
         size: 5
       },
+      // padding: 'auto',
       tooltip: {
         shared: true,
         /* crosshairs: {
@@ -66,7 +69,7 @@ describe('Line plot', () => {
     linePlot.render();
   });
 
-  it('多折线', () => {
+  it.only('多折线', () => {
     const data = [ {
       date: '2018/8/1',
       type: 'download',
@@ -254,8 +257,11 @@ describe('Line plot', () => {
       data,
       xField: 'date',
       yField: 'value',
+      width: 600,
+      height: 400,
       seriesField: 'type',
       size: 2,
+      label: false,
       tooltip: {
         shared: false,
         crosshairs: false
@@ -292,8 +298,10 @@ describe('Line plot', () => {
     const linePlot = new Line(canvasDiv, {
       padding: [ 10, 200, 150, 100 ],
       data: basement,
-      x: 'time',
-      y: 'UV',
+      xField: 'time',
+      yField: 'UV',
+      width: 600,
+      height: 400,
       size: 2,
       yAxis: {
       },
@@ -307,7 +315,7 @@ describe('Line plot', () => {
 
   });
 
-  it.only('timeGrouping - year', () => {
+  it('timeGrouping - year', () => {
 
     const linePlot = new Line(canvasDiv, {
       padding: 'auto',
@@ -315,6 +323,8 @@ describe('Line plot', () => {
       xField: 'time',
       yField: 'rate',
       color: 'red',
+      width: 600,
+      height: 400,
       size: 2,
       yAxis: {},
       xAxis: {
@@ -515,6 +525,8 @@ describe('Line plot', () => {
       xField: 'date',
       yField: 'value',
       seriesField: 'type',
+      width: 600,
+      height: 400,
       size: 2,
       tooltip: false,
       xAxis: {

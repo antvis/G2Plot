@@ -88,6 +88,8 @@ describe('Colomn plot', () => {
       yAxis: {
         min: 0
       },
+      width: 600,
+      height: 400,
       // // tooltip: false,
       label: {
         formatter: (val) => {

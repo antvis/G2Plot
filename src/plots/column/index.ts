@@ -46,7 +46,6 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    
     if (props.xAxis && props.xAxis.visible === false) {
       axesConfig.fields[props.xField] = false;
     } else {
@@ -73,12 +72,14 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       type: 'interval',
       position: {
         fields: [ props.xField, props.yField ],
-      }
+      },
     };
     if (props.columnStyle) column.style = this._columnStyle();
-    if (props.columnSize) column.size = {
-      values: [ props.columnSize ]
-    };
+    if (props.columnSize) {
+      column.size = {
+        values: [ props.columnSize ],
+      };
+    }
     if (props.label) {
       column.label = this._extractLabel();
     }

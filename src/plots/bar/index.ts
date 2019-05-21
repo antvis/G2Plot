@@ -83,9 +83,11 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
       },
     };
     if (props.barStyle) bar.style = this._columnStyle();
-    if (props.barSize) bar.size = {
-      values: [ props.barSize ]
-    };
+    if (props.barSize) {
+      bar.size = {
+        values: [ props.barSize ],
+      };
+    }
     if (props.label) {
       bar.label = this._extractLabel();
     }

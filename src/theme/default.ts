@@ -11,13 +11,15 @@ const themeConfig: G2.Interface.DataPointType =  {
     fill: 'black',
     textAlign: 'left',
     textBaseline:'bottom',
+    lineHeight: 20,
   },
   description: {
     fontFamily: 'PingFang SC',
-    fontSize: 14,
+    fontSize: 12,
     fill: 'grey',
     textAlign: 'left',
     textBaseline:'bottom',
+    lineHeight: 16,
   },
   description_top_margin: 20,
   axis:{

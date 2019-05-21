@@ -4,6 +4,7 @@ import { Canvas, Text } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
 import '../theme/default';
 import getAutoPadding from '../util/padding';
+import { textWrapper } from '../util/textWrapper';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   /** g2实例 */
@@ -132,15 +133,16 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       let topMargin = 0;
       if (this.description) {
         const descriptionBBox = this.description.getBBox();
-        topMargin = descriptionBBox.minY - descriptionBBox.height;
+        topMargin = descriptionBBox.minY - descriptionBBox.height + this._config.theme.description.lineHeight;
       }
       const titleStyle = _.mix(this._config.theme.title, props.title.style);
+      const content: string = textWrapper(props.title.text, panelRange.width, titleStyle);
       const container = this.plot.get('frontgroundGroup');
       const text = container.addShape('text', {
         attrs: _.mix({
           x: panelRange.minX,
           y: topMargin,
-          text: props.title.text,
+          text: content,
         },           titleStyle),
       });
       this.title = text;
@@ -153,12 +155,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.description) {
       const panelRange = this.plot.get('panelRange');
       const descriptionStyle = _.mix(this._config.theme.description, props.description.style);
+      const content: string = textWrapper(props.description.text, panelRange.width, descriptionStyle);
       const container = this.plot.get('frontgroundGroup');
       const text = container.addShape('text', {
         attrs: _.mix({
           x: panelRange.minX,
           y: panelRange.minY - this._config.theme.description_top_margin,
-          text: props.description.text,
+          text: content,
         },           descriptionStyle),
       });
       this.description = text;
@@ -253,7 +256,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   /** 自定义组件参与padding */
-  private _resgiterPadding(components) {
+  private _resgiterPadding(components: Element) {
     this.paddingComponents.push(components);
   }
 

@@ -267,9 +267,12 @@ describe('Line plot', () => {
         crosshairs: false
       },
       xAxis: {
-        tickCount: 5
+        tickCount: 5,
+        visible: false
       },
-      yAxis: {},
+      yAxis: {
+        visible: false
+      },
       /** TODO: 这里暴露出来的写法太复杂，需要一个parser */
       theme: {
         shape: {

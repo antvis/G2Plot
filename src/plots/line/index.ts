@@ -84,10 +84,17 @@ export default class Line extends BasePlot<LineConfig>{
     const axesConfig = { fields:{} };
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
-    /** 配置x轴 */
-    extractAxis(axesConfig.fields[props.xField], props.xField, props.xAxis, this._config.theme);
-    /** 配置y轴 */
-    extractAxis(axesConfig.fields[props.yField], props.yField, props.yAxis, this._config.theme);
+
+    if (props.xAxis && props.xAxis.visible === false) {
+      axesConfig.fields[props.xField] = false;
+    } else {
+      extractAxis(axesConfig.fields[props.xField], props.xField, props.xAxis, this._config.theme);
+    }
+    if (props.yAxis && props.yAxis.visible === false) {
+      axesConfig.fields[props.yField] = false;
+    } else {
+      extractAxis(axesConfig.fields[props.yField], props.yField, props.yAxis, this._config.theme);
+    }
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
   }

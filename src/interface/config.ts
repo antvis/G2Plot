@@ -35,11 +35,11 @@ export default interface Config {
   xAxis?: Axis;
   yAxis?: Axis;
   /** 数据标签 */
-  label?: Label | Boolean;
+  label?: Label | false;
   /** Tooltip */
-  tooltip?: Tooltip | false;
+  tooltip?: Tooltip;
   /** 图例 */
-  legend?: Legend | boolean;
+  legend?: Legend;
   /** 动画 */
   animation?: any | boolean;
   /** 标注 */
@@ -138,6 +138,7 @@ export interface ICatAxis extends IBaseAxis {
 type Axis = ICatAxis | IValueAxis | ITimeAxis;
 
 export interface Label {
+  visible: boolean,
   type?: string;
   formatter?: Formatter;
   style?: {};
@@ -149,6 +150,7 @@ export interface Label {
 }
 
 export interface Legend {
+  visible: boolean,
   /** 位置 */
   position?: string;
   /** 翻页 */
@@ -157,6 +159,7 @@ export interface Legend {
 }
 
 export interface Tooltip {
+  visible: boolean,
   /** html */
   html?: HTMLDivElement;
   /** 辅助线 */

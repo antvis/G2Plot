@@ -110,6 +110,9 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   private _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
+
+    if (label && label.visible == false) return false;
+  
     const labelConfig = {
       ...label,
       fields: [ props.yField ],

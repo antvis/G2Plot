@@ -145,6 +145,10 @@ export default class Line extends BasePlot<LineConfig>{
     const props = this._initialProps;
     const label = props.label as Label;
     const labelType = label.type;
+    if (label && label.visible == false) {
+      this.line.label = false;
+      return;
+    }
     this.line.label = {
       fields: labelType === 'point' ? [ props.yField ] : [ props.seriesField ],
       type: labelType,

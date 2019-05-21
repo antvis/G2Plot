@@ -51,9 +51,10 @@ describe('Bar plot', () => {
       },
       yAxis: {
         visible: false
-      }
+      },
       // tooltip: false,
       label: {
+        visible: false,
         formatter: (val) => {
           return val + ' label';
         },

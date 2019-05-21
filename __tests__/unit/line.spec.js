@@ -254,11 +254,17 @@ describe('Line plot', () => {
 
     const linePlot = new Line(canvasDiv, {
       padding: 'auto',
+      title: {
+        text: '测试测试测试'
+      },
+      description: {
+        text: '你问我资瓷不资瓷，那我肯定是资瓷的'
+      },
       data,
       xField: 'date',
       yField: 'value',
       width: 600,
-      height: 400,
+      height: 600,
       seriesField: 'type',
       size: 2,
       label: false,
@@ -270,20 +276,6 @@ describe('Line plot', () => {
         tickCount: 5
       },
       yAxis: {},
-      /** TODO: 这里暴露出来的写法太复杂，需要一个parser */
-      theme: {
-        shape: {
-          line: {
-            line: {
-              inactive: {
-                stroke: '#cccccc',
-                lineWidth: 2,
-                opacity: 0.5
-              }
-            }
-          }
-        }
-      },
       /* point: {
         size: 4,
         shape: 'hollowCircle',

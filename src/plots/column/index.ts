@@ -100,7 +100,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const labelConfig = {
       ...label,
       fields: [ props.yField ],
-      callback: null
+      callback: null,
     };
 
     /** formater */

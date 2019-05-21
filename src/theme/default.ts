@@ -4,6 +4,22 @@ import * as _ from '@antv/util';
 const G2_DEFAULT_THEME = G2.Global.theme;
 
 const themeConfig: G2.Interface.DataPointType =  {
+  title:{
+    fontFamily: 'PingFang SC',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fill: 'black',
+    textAlign: 'left',
+    textBaseline:'bottom',
+  },
+  description: {
+    fontFamily: 'PingFang SC',
+    fontSize: 14,
+    fill: 'grey',
+    textAlign: 'left',
+    textBaseline:'bottom',
+  },
+  description_top_margin: 20,
   axis:{
     left: {
       autoHideLabel: false,

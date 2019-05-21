@@ -1,6 +1,6 @@
 import * as G2 from '@antv/g2';
-import _ from 'lodash';
-import { Canvas } from '@antv/g';
+import * as _ from '@antv/util';
+import { Canvas, Text } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
 import '../theme/default';
 import getAutoPadding from '../util/padding';
@@ -13,6 +13,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected _config: G2Config;
   public eventHandlers: any[] = [];
   protected canvasCfg;
+  protected paddingComponents: any[] = [];
+  protected title: Text;
+  protected description: Text;
 
   constructor(container: string | HTMLElement, config: T) {
     this._initialProps = config;
@@ -39,7 +42,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       coord: { type: 'cartesian' },
       elements: [],
       annotations: [],
-      interactions:{},
+      interactions: {},
       theme: this._initialProps.theme ? this._initialProps.theme : G2.getTheme('plot-global'),
     };
     this._setDefaultG2Config();
@@ -63,6 +66,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       theme: this._config.theme,
       options: this._config,
     });
+    this._description();
+    this._title();
     this._interactions();
     this._events();
   }
@@ -79,7 +84,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected abstract _animation(): void;
   protected abstract _interactions(): void;
 
-  protected  _events(eventParser?): void {
+  protected _events(eventParser?): void {
     const props = this._initialProps;
     if (props.events) {
       const events = props.events;
@@ -119,12 +124,54 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     });
   }
 
+  protected _title(): void {
+    const props = this._initialProps;
+    if (props.title) {
+      const panelRange = this.plot.get('panelRange');
+      /**如果有description的话，要根据description位置计算title位置 */
+      let topMargin = 0;
+      if (this.description) {
+        const descriptionBBox = this.description.getBBox();
+        topMargin = descriptionBBox.minY - descriptionBBox.height;
+      }
+      const titleStyle = _.mix(this._config.theme.title, props.title.style);
+      const container = this.plot.get('frontgroundGroup');
+      const text = container.addShape('text', {
+        attrs: _.mix({
+          x: panelRange.minX,
+          y: topMargin,
+          text: props.title.text,
+        },           titleStyle),
+      });
+      this.title = text;
+      this._resgiterPadding(text);
+    }
+  }
+
+  protected _description(): void {
+    const props = this._initialProps;
+    if (props.description) {
+      const panelRange = this.plot.get('panelRange');
+      const descriptionStyle = _.mix(this._config.theme.description, props.description.style);
+      const container = this.plot.get('frontgroundGroup');
+      const text = container.addShape('text', {
+        attrs: _.mix({
+          x: panelRange.minX,
+          y: panelRange.minY - this._config.theme.description_top_margin,
+          text: props.description.text,
+        },           descriptionStyle),
+      });
+      this.description = text;
+      this._resgiterPadding(text);
+    }
+  }
+
   protected _afterInit() {
     const props = this._initialProps;
-     /** 处理autopadding逻辑 */
+    /** 处理autopadding逻辑 */
     if (props.padding === 'auto') {
       this.plot.render(false);
-      const padding = getAutoPadding(this.plot);
+      const padding = getAutoPadding(this.plot, this.paddingComponents);
       this.updateConfig({
         padding,
       });
@@ -170,7 +217,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   /** 更新配置项 */
-  public updateConfig(cfg):void {
+  public updateConfig(cfg): void {
     const newProps = _.assign(this._initialProps, cfg);
     this.destroy();
     this._initialProps = newProps;
@@ -193,7 +240,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       renderer: 'canvas',
       pixelRatio: 2,
     });
-
     return { canvas, width, height };
   }
 
@@ -204,6 +250,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       return props.padding;
     }
     return [ 40, 20, 60, 20 ];
+  }
+
+  /** 自定义组件参与padding */
+  private _resgiterPadding(components) {
+    this.paddingComponents.push(components);
   }
 
 }

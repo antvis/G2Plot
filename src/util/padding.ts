@@ -1,19 +1,26 @@
 import { View } from '@antv/g2';
+import { Element } from '@antv/g';
 import * as _ from '@antv/util';
 
 interface DataPointType {
   [ k: string ]: any;
 }
 
-const DEFAULT_PADDING = [ 20, 20, 95, 80 ];
+const DEFAULT_PADDING = [ 20, 20, 40, 20 ];
 
-export default function getAutoPadding(view: View) {
+export default function getAutoPadding(view: View, components) {
   const width = view.get('width');
   const height = view.get('height');
     /** 参与auto padding的components: axis annotation legend*/
-  const components_bbox = [];
+  const components_bbox = [ view.get('panelRange') ];
   getAxis(view, components_bbox);
   getLegend(view, components_bbox);
+  /**参与auto padding的自定义组件 */
+  _.each(components, (obj) => {
+    const component = obj as Element;
+    const bbox = component.getBBox();
+    components_bbox.push(bbox);
+  });
   const box = mergeBBox(components_bbox, width, height);
   const padding = [
     0 - box.minY + DEFAULT_PADDING[0], // 上面超出的部分
@@ -58,9 +65,9 @@ function mergeBBox(bboxes, width, height) {
     minY = Math.min(box.minY, minY);
     maxY = Math.max(box.maxY, maxY);
   });
-  if (Math.abs(minX) > width / 2) minX = 0;
+  /*if (Math.abs(minX) > width / 2) minX = 0;
   if (Math.abs(maxX) < width / 2) maxX = width;
   if (Math.abs(minY) > height / 2) minY = 0;
-  if (Math.abs(maxY) < height / 2) maxY = height;
+  if (Math.abs(maxY) < height / 2) maxY = height;*/
   return { minX, maxX, minY, maxY };
 }

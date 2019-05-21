@@ -17,9 +17,9 @@ export default interface Config {
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
   meta?: { [fieldId: string]: Meta };
   /** 图表标题 */
-  title?: string | boolean;
+  title?: ITitle;
   /** 图表描述 */
-  description?: string | boolean;
+  description?: IDescription;
   /** padding */
   padding?: number | number[] | string;
   /** x、y轴字段 */
@@ -65,6 +65,16 @@ interface Meta {
   name?: string;
   /** 字段值格式化 */
   formatter?: Formatter;
+}
+
+interface ITitle {
+  text: string;
+  style?: {};
+}
+
+interface IDescription {
+  text: string;
+  style?: {};
 }
 
 interface IEvents {

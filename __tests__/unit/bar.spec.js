@@ -44,9 +44,14 @@ describe('Bar plot', () => {
       data,
       xField: 'value',
       yField: 'year',
+      barSize: 10,
       xAxis: {
-        min: 0
+        min: 0,
+        visible: false
       },
+      yAxis: {
+        visible: false
+      }
       // tooltip: false,
       label: {
         formatter: (val) => {

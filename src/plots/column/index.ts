@@ -14,7 +14,7 @@ export interface ColumnConfig extends BaseConfig {
   // 图形
   type: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
-  width: number;
+  columnSize: number;
   maxthWidth: number;
   minWidth: number;
   columnStyle: ColumnStyle | Function;
@@ -46,10 +46,19 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    /** 配置x轴 */
-    extractAxis(axesConfig.fields[props.xField], props.xField, props.xAxis, this._config.theme);
-    /** 配置y轴 */
-    extractAxis(axesConfig.fields[props.yField], props.yField, props.yAxis, this._config.theme);
+    
+    if (props.xAxis && props.xAxis.visible === false) {
+      axesConfig.fields[props.xField] = false;
+    } else {
+      extractAxis(axesConfig.fields[props.xField], props.xField, props.xAxis, this._config.theme);
+    }
+
+    if (props.yAxis && props.yAxis.visible === false) {
+      axesConfig.fields[props.yField] = false;
+    } else {
+      extractAxis(axesConfig.fields[props.yField], props.yField, props.yAxis, this._config.theme);
+    }
+
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
   }
@@ -64,9 +73,12 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       type: 'interval',
       position: {
         fields: [ props.xField, props.yField ],
-      },
+      }
     };
     if (props.columnStyle) column.style = this._columnStyle();
+    if (props.columnSize) column.size = {
+      values: [ props.columnSize ]
+    };
     if (props.label) {
       column.label = this._extractLabel();
     }

@@ -273,9 +273,12 @@ describe('Line plot', () => {
         crosshairs: false
       },
       xAxis: {
-        tickCount: 5
+        tickCount: 5,
+        visible: false
       },
-      yAxis: {},
+      yAxis: {
+        visible: false
+      },
       /* point: {
         size: 4,
         shape: 'hollowCircle',

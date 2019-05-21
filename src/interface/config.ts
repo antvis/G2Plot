@@ -92,6 +92,8 @@ interface IAxisStyle {
 }
 
 interface IBaseAxis {
+  /** 轴是否需要显示，默认true */
+  visible: boolean,
   /** 轴类型，对应scale类型 */
   type: 'value' | 'time' | 'category';
   /** 轴标题 */

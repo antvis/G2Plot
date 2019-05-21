@@ -44,8 +44,10 @@ describe('Colomn plot', () => {
       xField: 'year',
       yField: 'value',
       yAxis: {
+        visible: false,
         min: 0
       },
+      columnSize: 10,
       // tooltip: false,
       label: {
         formatter: (val) => {

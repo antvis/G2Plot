@@ -37,9 +37,9 @@ export default interface Config {
   /** 数据标签 */
   label?: Label | false;
   /** Tooltip */
-  tooltip?: Tooltip | false;
+  tooltip?: Tooltip;
   /** 图例 */
-  legend?: Legend | boolean;
+  legend?: Legend;
   /** 动画 */
   animation?: any | boolean;
   /** 标注 */
@@ -150,6 +150,7 @@ export interface Label {
 }
 
 export interface Legend {
+  visible: boolean,
   /** 位置 */
   position?: string;
   /** 翻页 */
@@ -158,6 +159,7 @@ export interface Legend {
 }
 
 export interface Tooltip {
+  visible: boolean,
   /** html */
   html?: HTMLDivElement;
   /** 辅助线 */

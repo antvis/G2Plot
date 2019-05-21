@@ -263,6 +263,9 @@ describe('Line plot', () => {
       data,
       xField: 'date',
       yField: 'value',
+      legend: {
+        visible: false,
+      },
       width: 600,
       height: 600,
       seriesField: 'type',
@@ -271,6 +274,7 @@ describe('Line plot', () => {
         visible: false
       },
       tooltip: {
+        visible: false,
         shared: false,
         crosshairs: false
       },
@@ -536,6 +540,9 @@ describe('Line plot', () => {
         /* formatter: () => {
           return 'b';
         }*/
+      },
+      legend: {
+        visible: false,
       },
       pointStyle: {
         size: 3,

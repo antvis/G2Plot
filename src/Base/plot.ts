@@ -102,7 +102,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   /** plot通用配置 */
   protected _tooltip(): void {
     const props = this._initialProps;
-    if (props.tooltip === false) {
+    if (props.tooltip && props.tooltip.visible === false) {
       this._setConfig('tooltip', false);
       return;
     }
@@ -116,6 +116,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _legend(): void {
     const props = this._initialProps;
+    console.log(props.legend);
+    if (props.legend && props.legend.visible == false) {
+      this._setConfig('legends', false);
+      return;
+    }
     this._setConfig('legends', {
       position: _.get(props, 'legend.position'),
     });

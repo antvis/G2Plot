@@ -5,24 +5,24 @@ import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 
-interface ColumnStyle {
+interface BarStyle {
   opacity?: number;
   lineDash?: number[];
 }
 
-export interface ColumnConfig extends BaseConfig {
+export interface BarConfig extends BaseConfig {
   // 图形
   type: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
   width: number;
   maxthWidth: number;
   minWidth: number;
-  columnStyle: ColumnStyle | Function;
+  barStyle: BarStyle | Function;
   xAxis: ICatAxis | ITimeAxis;
   yAxis: IValueAxis;
 }
 
-export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{
+export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T>{
 
   protected _setDefaultG2Config() {}
 
@@ -63,24 +63,24 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     this._setConfig('axes', axesConfig);
   }
 
-  protected _adjustColumn(column: ElementOption) {
+  protected _adjustBar(bar: ElementOption) {
     return;
   }
 
   protected _addElements() {
     const props = this._initialProps;
-    const column: ElementOption = {
+    const bar: ElementOption = {
       type: 'interval',
       position: {
         fields: [ props.yField, props.xField ],
       },
     };
-    if (props.columnStyle) column.style = this._columnStyle();
+    if (props.barStyle) bar.style = this._columnStyle();
     if (props.label) {
-      column.label = this._extractLabel();
+      bar.label = this._extractLabel();
     }
-    this._adjustColumn(column);
-    this._setConfig('element', column);
+    this._adjustBar(bar);
+    this._setConfig('element', bar);
   }
 
   protected _interactions() {
@@ -93,13 +93,13 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
 
   private _columnStyle() {
     const props = this._initialProps;
-    const columnStyleProps = props.columnStyle;
+    const barStyleProps = props.barStyle;
     const config = {
       fields: null,
       callback: null,
       cfg: null,
     };
-    config.cfg = columnStyleProps;
+    config.cfg = barStyleProps;
     return config;
   }
 

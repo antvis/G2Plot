@@ -261,7 +261,9 @@ describe('Line plot', () => {
       height: 400,
       seriesField: 'type',
       size: 2,
-      label: false,
+      label: {
+        visible: false
+      },
       tooltip: {
         shared: false,
         crosshairs: false

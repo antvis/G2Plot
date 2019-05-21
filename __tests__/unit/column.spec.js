@@ -50,6 +50,7 @@ describe('Colomn plot', () => {
       columnSize: 10,
       // tooltip: false,
       label: {
+        visible: false,
         formatter: (val) => {
           return val + ' label';
         },

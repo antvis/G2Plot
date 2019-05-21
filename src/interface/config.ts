@@ -35,7 +35,7 @@ export default interface Config {
   xAxis?: Axis;
   yAxis?: Axis;
   /** 数据标签 */
-  label?: Label | Boolean;
+  label?: Label | false;
   /** Tooltip */
   tooltip?: Tooltip | false;
   /** 图例 */
@@ -128,6 +128,7 @@ export interface ICatAxis extends IBaseAxis {
 type Axis = ICatAxis | IValueAxis | ITimeAxis;
 
 export interface Label {
+  visible: boolean,
   type?: string;
   formatter?: Formatter;
   style?: {};

@@ -116,6 +116,9 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   private _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
+
+    if (label && label.visible == false) return false;
+
     const labelConfig = {
       fields: [ props.yField ],
       callback: null,

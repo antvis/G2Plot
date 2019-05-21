@@ -117,7 +117,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _legend(): void {
     const props = this._initialProps;
-    console.log(props.legend);
     if (props.legend && props.legend.visible == false) {
       this._setConfig('legends', false);
       return;

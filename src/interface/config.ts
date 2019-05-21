@@ -184,7 +184,7 @@ export interface ElementOption {
   size?: AttributeCfg;
   shape?:AttributeCfg;
   style?:{};
-  label?: LabelOptions;
+  label?: LabelOptions | false;
   animate?: {};
   adjust?: AdjustCfg[];
 }

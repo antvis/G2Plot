@@ -53,7 +53,7 @@ describe('Colomn plot', () => {
           },
           tickLine: {
             length: 20,
-            stroke: 'yellow'
+            stroke: 'yellow',
           }
         },
         // line: {

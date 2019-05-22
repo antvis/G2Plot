@@ -91,6 +91,6 @@ const themeConfig: G2.Interface.DataPointType =  {
   },
 };
 
-const plot_global_theme = _.assign(G2_DEFAULT_THEME, themeConfig);
+const plot_global_theme = _.deepMix(G2_DEFAULT_THEME, themeConfig);
 
 G2.registerTheme('plot-global', G2_DEFAULT_THEME);

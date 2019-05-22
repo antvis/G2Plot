@@ -90,13 +90,17 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
         };
       } else if(_.isFunction(props.color)) {
         column.color = {
-          fields: [props.yField],
+          fields: [props.xField, props.yField],
           callback: props.color
         };
       }
     }
+    // column.opacity = {
+    //   fields: [props.yField]
+    // }
     this._adjustColumn(column);
     this._setConfig('element', column);
+    this._setConfig('legends', false);
   }
 
   protected _interactions() {

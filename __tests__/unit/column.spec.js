@@ -48,61 +48,70 @@ describe('Colomn plot', () => {
         min: 0,
         style: {
           line: {
-            visible: false,
+            visible: true,
             stroke: 'red',
-            lineWidth: 5
+            lineWidth: 1
           },
           tickLine: {
+            visible: false,
             length: 20,
-            stroke: 'yellow'
+            stroke: 'red',
+            // lineWidth: 1
           },
           grid: {
-            visible: false,
+            visible: true,
             stroke: 'pink',
             lineWidth: 1
           },
           label: {
-            visible: false,
-            fill: 'green',
-            fontSize: 20
+            visible: true,
+            fill: 'green'
           }
         },
       },
       xAxis: {
-        type: 'log',
         visible: true,
         min: 0,
         ticks: [],
         style: {
           line: {
-            visible: false,
+            visible: true,
             stroke: 'purple',
-            lineWidth: 5
+            lineWidth: 1
           },
           grid: {
             visible: false
           },
           tickLine: {
-            // visible: false,
-            length: 20,
+            visible: false,
+            length: 6,
             stroke: 'pink',
-            lineWidth: 5
+            lineWidth: 1
           },
           label: {
-            visible: false,
+            visible: true,
             fill: 'orange',
-            fontSize: 18
           }
-        },
-        // line: {
-        //   stroke: 'red'
-        // },
-        // tickLine: {
-        //   length: 20,
-        //   stroke: 'yellow'
-        // }
+        }
+      },
+      tooltip: {
+        visible: true,
+        style: {
+          'g2-tooltip': {
+            backgroundColor: 'black',
+            color: 'red'
+          }
+        }
+      },
+      color: () => {
+        console.log('color callback');
+        return '#12f4f1'
       },
       columnSize: 10,
+      columnStyle: {
+        stroke: 'red',
+        lineWidth: 3
+      },
       // tooltip: false,
       label: {
         visible: false,

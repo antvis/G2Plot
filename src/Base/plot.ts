@@ -114,6 +114,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('tooltip', {
       shared: _.get(props, 'tooltip.shared'),
     });
+    if (props.tooltip && props.tooltip.style) {
+      _.deepMix(this._config.theme.tooltip, props.tooltip.style);
+    }
   }
 
   protected _legend(): void {

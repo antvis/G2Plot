@@ -58,8 +58,6 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       extractAxis(axesConfig.fields[props.yField], props.yAxis, this._config.theme, 'left');
     }
 
-    console.log(this._config.theme);
-
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
   }
@@ -113,8 +111,8 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const props = this._initialProps;
     const label = props.label as Label;
 
-    if (label && label.visible == false) return false;
-  
+    if (label && label.visible === false) return false;
+
     const labelConfig = {
       ...label,
       fields: [ props.yField ],

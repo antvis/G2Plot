@@ -138,7 +138,7 @@ export interface ICatAxis extends IBaseAxis {
 type Axis = ICatAxis | IValueAxis | ITimeAxis;
 
 export interface Label {
-  visible: boolean,
+  visible: boolean;
   type?: string;
   formatter?: Formatter;
   style?: {};
@@ -150,7 +150,7 @@ export interface Label {
 }
 
 export interface Legend {
-  visible: boolean,
+  visible: boolean;
   /** 位置 */
   position?: string;
   /** 翻页 */
@@ -159,7 +159,7 @@ export interface Legend {
 }
 
 export interface Tooltip {
-  visible: boolean,
+  visible: boolean;
   /** html */
   html?: HTMLDivElement;
   /** 辅助线 */

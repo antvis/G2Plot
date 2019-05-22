@@ -56,7 +56,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._annotation();
     this._animation();
 
-    console.log(this._config.theme);
     this.plot = new G2.View({
       /*containerDOM: container,
       forceFit: true,*/
@@ -119,7 +118,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _legend(): void {
     const props = this._initialProps;
-    if (props.legend && props.legend.visible == false) {
+    if (props.legend && props.legend.visible === false) {
       this._setConfig('legends', false);
       return;
     }

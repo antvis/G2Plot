@@ -119,7 +119,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     const props = this._initialProps;
     const label = props.label as Label;
 
-    if (label && label.visible == false) return false;
+    if (label && label.visible === false) return false;
 
     const labelConfig = {
       fields: [ props.yField ],

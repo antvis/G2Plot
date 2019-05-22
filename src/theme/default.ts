@@ -32,8 +32,8 @@ const themeConfig: G2.Interface.DataPointType =  {
         lineWidth: 1,
         lineDash: [ 0, 0 ],
       },
-      line: { opacity: 0 },
-      tickLine: { opacity:0 },
+      line: {  },
+      tickLine: {  },
       label: {
         offset: 8,
         textStyle:{ fill:'#a0a4aa', fontSize:12 },
@@ -48,7 +48,7 @@ const themeConfig: G2.Interface.DataPointType =  {
       autoRotateLabel: true,
       autoRotateTitle: true,
       grid:{},
-      line: { opacity: 0 },
+      line: {  },
       tickLine: { length: 4, stroke:'#bdc8d3', lineWidth:0.5 },
       label: {
         offset: 16,

@@ -48,12 +48,50 @@ describe('Colomn plot', () => {
         min: 0,
         style: {
           line: {
+            visible: false
             stroke: 'red',
             lineWidth: 5
           },
           tickLine: {
             length: 20,
             stroke: 'yellow'
+          },
+          grid: {
+            visible: false,
+            stroke: 'pink',
+            lineWidth: 1
+          },
+          label: {
+            visible: false,
+            fill: 'green',
+            fontSize: 20
+          }
+        },
+      },
+      xAxis: {
+        type: 'log',
+        visible: true,
+        min: 0,
+        ticks: [],
+        style: {
+          line: {
+            visible: false,
+            stroke: 'purple',
+            lineWidth: 5
+          },
+          grid: {
+            visible: false
+          },
+          tickLine: {
+            // visible: false,
+            length: 20,
+            stroke: 'pink',
+            lineWidth: 5
+          },
+          label: {
+            visible: false,
+            fill: 'orange',
+            fontSize: 18
           }
         },
         // line: {

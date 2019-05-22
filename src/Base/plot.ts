@@ -56,6 +56,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._annotation();
     this._animation();
 
+    console.log(this._config.theme);
     this.plot = new G2.View({
       /*containerDOM: container,
       forceFit: true,*/

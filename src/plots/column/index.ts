@@ -49,14 +49,16 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     if (props.xAxis && props.xAxis.visible === false) {
       axesConfig.fields[props.xField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.xField], props.xField, props.xAxis, this._config.theme);
+      extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'bottom');
     }
 
     if (props.yAxis && props.yAxis.visible === false) {
       axesConfig.fields[props.yField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.yField], props.yField, props.yAxis, this._config.theme);
+      extractAxis(axesConfig.fields[props.yField], props.yAxis, this._config.theme, 'left');
     }
+
+    console.log(this._config.theme);
 
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);

@@ -1,11 +1,9 @@
 import * as StyleParser from '../util/styleParser';
 
-export function extractAxis(desAxis, field: string, axis, theme) {
+export function extractAxis(desAxis, axis, theme, dimension) {
   if (!axis) return desAxis;
-  /** 配置x轴 */
-  // style
   if (axis.style) {
-    StyleParser.AxisStyleParser(theme, axis.style, 'bottom');
+    StyleParser.AxisStyleParser(theme, axis.style, dimension);
   }
   // formatter
   if (axis.formatter) {

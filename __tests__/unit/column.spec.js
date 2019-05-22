@@ -44,8 +44,25 @@ describe('Colomn plot', () => {
       xField: 'year',
       yField: 'value',
       yAxis: {
-        visible: false,
-        min: 0
+        visible: true,
+        min: 0,
+        style: {
+          line: {
+            stroke: 'red',
+            lineWidth: 5
+          },
+          tickLine: {
+            length: 20,
+            stroke: 'yellow'
+          }
+        },
+        // line: {
+        //   stroke: 'red'
+        // },
+        // tickLine: {
+        //   length: 20,
+        //   stroke: 'yellow'
+        // }
       },
       columnSize: 10,
       // tooltip: false,

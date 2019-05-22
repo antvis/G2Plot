@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';

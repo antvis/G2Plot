@@ -48,7 +48,7 @@ const themeConfig: G2.Interface.DataPointType =  {
       autoRotateLabel: true,
       autoRotateTitle: true,
       grid:{},
-      line: {  },
+      line: {},
       tickLine: { length: 4, stroke:'#bdc8d3', lineWidth:0.5 },
       label: {
         offset: 16,

@@ -84,14 +84,14 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       column.label = this._extractLabel();
     }
     if (props.color) {
-      if(_.isString(props.color)) {
+      if (_.isString(props.color)) {
         column.color = {
-          values: [props.color]
+          values: [ props.color ],
         };
-      } else if(_.isFunction(props.color)) {
+      } else if (_.isFunction(props.color)) {
         column.color = {
-          fields: [props.xField, props.yField],
-          callback: props.color
+          fields: [ props.xField, props.yField ],
+          callback: props.color,
         };
       }
     }

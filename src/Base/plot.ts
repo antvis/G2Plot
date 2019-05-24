@@ -44,7 +44,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       elements: [],
       annotations: [],
       interactions: {},
-      theme: this._initialProps.theme ? this._initialProps.theme : G2.getTheme('plot-global'),
+      theme: this._getTheme(),
     };
     this._setDefaultG2Config();
     this._coord();
@@ -186,6 +186,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this.updateConfig({
         padding,
       });
+
     }
   }
 
@@ -220,20 +221,24 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 销毁 */
   public destroy(): void {
-    /** TODO 清除事件 */
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
+    const canvasDOM = this.canvasCfg.canvas.get('canvasDOM');
+    canvasDOM.parentNode.removeChild(canvasDOM);
+    /**TODO: g2底层view销毁时没有销毁tooltip,经查是tooltip迁移过程中去掉了destory方法 */
     this.plot.destroy();
   }
 
   /** 更新配置项 */
   public updateConfig(cfg): void {
-    const newProps = _.assign(this._initialProps, cfg);
-    this.destroy();
+    const newProps = _.deepMix(this._initialProps, cfg);
+    _.each(this.eventHandlers, (handler) => {
+      this.plot.off(handler.type, handler.handler);
+    });
+    this.plot.destroy();
     this._initialProps = newProps;
     this._init(this._container, this.canvasCfg);
-    this.render();
   }
 
   private _createCanvas(container) {
@@ -266,6 +271,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   /** 自定义组件参与padding */
   private _resgiterPadding(components: Element) {
     this.paddingComponents.push(components);
+  }
+
+  private _getTheme() {
+    if (this._initialProps.theme) {
+      return this._initialProps.theme;
+    }
+    return _.clone(G2.getTheme('plot-global'));
   }
 
 }

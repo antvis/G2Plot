@@ -2,7 +2,6 @@ import { Shape } from '@antv/g';
 import { registerElementLabels, ElementLabels } from '@antv/g2';
 import _ from 'lodash';
 import verticalShatter from '../../../../util/layout/verticalShatter';
-import { last } from '@antv/util';
 
 interface Item {
   /** 位置 */

@@ -529,7 +529,9 @@ describe('Line plot', () => {
       width: 600,
       height: 400,
       size: 2,
-      tooltip: false,
+      tooltip: {
+        visible: false,
+      },
       xAxis: {
         tickCount: 5
         /* formatter: () => {

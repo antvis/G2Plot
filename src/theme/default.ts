@@ -32,7 +32,7 @@ const themeConfig: G2.Interface.DataPointType =  {
         lineWidth: 1,
         lineDash: [ 0, 0 ],
       },
-      line: {  },
+      line: null,
       tickLine: {  },
       label: {
         offset: 8,
@@ -47,8 +47,8 @@ const themeConfig: G2.Interface.DataPointType =  {
       autoHideLabel: false,
       autoRotateLabel: true,
       autoRotateTitle: true,
-      grid:{},
-      line: {},
+      grid:null,
+      line: null,
       tickLine: { length: 4, stroke:'#bdc8d3', lineWidth:0.5 },
       label: {
         offset: 16,
@@ -130,8 +130,8 @@ const themeConfig: G2.Interface.DataPointType =  {
     },
   },
   tooltip: {
-    
-  }
+
+  },
 };
 
 const plot_global_theme = _.deepMix(G2_DEFAULT_THEME, themeConfig);

@@ -157,10 +157,10 @@ export default class Line extends BasePlot<LineConfig>{
     }
     this.line.label = {
       fields: labelType === 'point' ? [ props.yField ] : [ props.seriesField ],
-      type: labelType,
+      labelType,
     };
     /** formater */
-    if (_.isFunction(label) && label.formatter) {
+    if (label.formatter) {
       const formater = label.formatter;
       this.line.label.callback = (val) => {
         return {
@@ -289,8 +289,8 @@ export default class Line extends BasePlot<LineConfig>{
     const props = this._initialProps;
     const pointStyleProps = props.point.style;
     const config = {
-      fields: null,
-      values: null,
+      fields: [],
+      values: [] as any,
     };
     /**多折线的数据点*/
     if (props.seriesField) {
@@ -311,8 +311,8 @@ export default class Line extends BasePlot<LineConfig>{
     /**单折线的数据点 */
     if (pointStyleProps && pointStyleProps.color) {
       config.values = [ pointStyleProps.color ];
-    } else {
-      config.values = [ props.color ];
+    } else if (props.color) {
+      config.values = props.color;
     }
     return config;
   }

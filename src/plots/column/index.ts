@@ -1,9 +1,9 @@
-import _ from 'lodash';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
+import * as _ from '@antv/util';
 
 interface ColumnStyle {
   opacity?: number;
@@ -83,8 +83,24 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     if (props.label) {
       column.label = this._extractLabel();
     }
+    if (props.color) {
+      if(_.isString(props.color)) {
+        column.color = {
+          values: [props.color]
+        };
+      } else if(_.isFunction(props.color)) {
+        column.color = {
+          fields: [props.xField, props.yField],
+          callback: props.color
+        };
+      }
+    }
+    // column.opacity = {
+    //   fields: [props.yField]
+    // }
     this._adjustColumn(column);
     this._setConfig('element', column);
+    this._setConfig('legends', false);
   }
 
   protected _interactions() {
@@ -101,9 +117,8 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const config = {
       fields: null,
       callback: null,
-      cfg: null,
+      cfg: columnStyleProps,
     };
-    config.cfg = columnStyleProps;
     return config;
   }
 

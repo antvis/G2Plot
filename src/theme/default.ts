@@ -59,6 +59,46 @@ const themeConfig: G2.Interface.DataPointType =  {
         textStyle: { fill:'#767b84', fontSize:12 },
       },
     },
+    top: {
+      autoHideLabel: false,
+      autoRotateLabel: true,
+      autoRotateTitle: true,
+      grid:{
+        stroke:'#E3E8EC',
+        lineWidth: 1,
+        lineDash: [ 0, 0 ],
+      },
+      line: {  },
+      tickLine: {  },
+      label: {
+        offset: 8,
+        textStyle:{ fill:'#a0a4aa', fontSize:12 },
+      },
+      title:{
+        offset: 48,
+        textStyle: { fill:'#767b84', fontSize:12 },
+      },
+    },
+    right: {
+      autoHideLabel: false,
+      autoRotateLabel: true,
+      autoRotateTitle: true,
+      grid:{
+        stroke:'#E3E8EC',
+        lineWidth: 1,
+        lineDash: [ 0, 0 ],
+      },
+      line: {  },
+      tickLine: {  },
+      label: {
+        offset: 8,
+        textStyle:{ fill:'#a0a4aa', fontSize:12 },
+      },
+      title:{
+        offset: 48,
+        textStyle: { fill:'#767b84', fontSize:12 },
+      },
+    },
     circle:{
       autoHideLabel: false,
       autoRotateLabel: true,
@@ -89,6 +129,9 @@ const themeConfig: G2.Interface.DataPointType =  {
       },
     },
   },
+  tooltip: {
+    
+  }
 };
 
 const plot_global_theme = _.deepMix(G2_DEFAULT_THEME, themeConfig);

@@ -5,8 +5,9 @@ import BaseConfig, {
   ITimeAxis,
   ICatAxis,
   Label,
-  IColorConfig } from '../../interface/config';
-import _ from 'lodash';
+  IColorConfig,
+} from '../../interface/config';
+import * as _ from '@antv/util';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
@@ -39,7 +40,10 @@ export interface LineConfig extends BaseConfig {
   /** 折线extra图形样式 */
   lineStyle?: LineStyle | Function;
   /** 折线数据点图形样式 */
-  pointStyle?: PointStyle;
+  point?: {
+    visible: boolean,
+    style?: PointStyle;
+  };
   xAxis: IValueAxis | ICatAxis | ITimeAxis;
   yAxis: IValueAxis;
 }
@@ -63,7 +67,7 @@ export default class Line extends BasePlot<LineConfig>{
     this._afterInit();
   }
 
-  protected _setDefaultG2Config() {}
+  protected _setDefaultG2Config() { }
 
   protected _scale() {
     const props = this._initialProps;
@@ -77,11 +81,11 @@ export default class Line extends BasePlot<LineConfig>{
     this._setConfig('scales', scales);
   }
 
-  protected _coord() {}
+  protected _coord() { }
 
   protected _axis() {
     const props = this._initialProps;
-    const axesConfig = { fields:{} };
+    const axesConfig = { fields: {} };
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
@@ -118,27 +122,29 @@ export default class Line extends BasePlot<LineConfig>{
     }
     this._setConfig('element', line);
     // 配置数据点
-    if (props.pointStyle) {
-      this._addPoint();
-    }
+    this._addPoint();
   }
 
   protected _addPoint() {
     const props = this._initialProps;
-    const pointCfg = props.pointStyle;
-    const point = {
-      type: 'point',
-      position: {
-        fields: [ props.xField, props.yField ],
-      },
-      color: this._pointColor(),
-      shape: { values: [ 'circle' ] },
-      size: { values: [ 2 ] },
-    };
-    if (pointCfg.shape)  point.shape.values[0] = pointCfg.shape;
-    if (pointCfg.size) point.size.values[0] = pointCfg.size;
-    this._setConfig('element', point);
-    this.point = point;
+    let pointConfig = { visible: false, style: {} };
+    if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
+    if (pointConfig.visible) {
+      const point = {
+        type: 'point',
+        position: {
+          fields: [ props.xField, props.yField ],
+        },
+        color: this._pointColor(),
+        shape: { values: [ 'circle' ] },
+        size: { values: [ 2 ] },
+      };
+      const pointStyle = pointConfig.style as PointStyle;
+      if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
+      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;
+      this._setConfig('element', point);
+      this.point = point;
+    }
   }
 
   protected _label() {
@@ -171,18 +177,18 @@ export default class Line extends BasePlot<LineConfig>{
     }
   }
 
-  protected _annotation() {}
+  protected _annotation() { }
 
   protected _animation() {
     const props = this._initialProps;
     if (props.animation === false) {
       /**关闭动画 */
       this.line.animate = false;
-    }else if (_.has(props, 'animation')) {
+    } else if (_.has(props, 'animation')) {
       /**根据动画类型区分图形动画和群组动画 */
       if (props.animation.type === 'clipingWithData') {
         this.line.animate = {
-          appear:{
+          appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
@@ -190,11 +196,11 @@ export default class Line extends BasePlot<LineConfig>{
           },
         };
         /**如果有数据点的话要追加数据点的动画 */
-        if (props.pointStyle) {
+        if (props.point.visible) {
           this.point.animate = {
-            appear:{
+            appear: {
               animation: 'zoomIn',
-              delay:10000,
+              delay: 10000,
             },
           };
         }
@@ -213,7 +219,7 @@ export default class Line extends BasePlot<LineConfig>{
     /** 加入其它交互 */
     const interactionProps = props.interactions;
     _.each(interactionProps, (i) => {
-      if (i.type === 'range')  this._addRangeInteraction(interactions, props);
+      if (i.type === 'range') this._addRangeInteraction(interactions, props);
     });
   }
 
@@ -247,7 +253,7 @@ export default class Line extends BasePlot<LineConfig>{
 
   private _lineColor() {
     const props = this._initialProps;
-    const config:IColorConfig = {};
+    const config: IColorConfig = {};
     if (_.has(props, 'seriesField')) {
       config.fields = [ props.seriesField ];
     }
@@ -255,7 +261,7 @@ export default class Line extends BasePlot<LineConfig>{
       const color = props.color;
       if (_.isString(color)) {
         config.values = [ color ];
-      }else {
+      } else {
         config.values = color as [];
       }
     }
@@ -281,7 +287,7 @@ export default class Line extends BasePlot<LineConfig>{
 
   private _pointColor() {
     const props = this._initialProps;
-    const pointStyleProps = props.pointStyle;
+    const pointStyleProps = props.point.style;
     const config = {
       fields: null,
       values: null,
@@ -289,7 +295,7 @@ export default class Line extends BasePlot<LineConfig>{
     /**多折线的数据点*/
     if (props.seriesField) {
       config.fields = [ props.seriesField ];
-      if (pointStyleProps.color) {
+      if (pointStyleProps && pointStyleProps.color) {
         const count = getValuesByField(props.seriesField, props.data).length;
         const values = [];
         for (let i = 0; i < count; i++) {
@@ -299,13 +305,13 @@ export default class Line extends BasePlot<LineConfig>{
         return config;
       }
       /**多折线，用户没有指定数据点颜色，则采用与折线相同的颜色 */
-      config.values =  props.color;
+      config.values = props.color;
       return config;
     }
     /**单折线的数据点 */
-    if (pointStyleProps.color) {
+    if (pointStyleProps && pointStyleProps.color) {
       config.values = [ pointStyleProps.color ];
-    }else {
+    } else {
       config.values = [ props.color ];
     }
     return config;

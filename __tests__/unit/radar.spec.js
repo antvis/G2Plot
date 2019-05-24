@@ -114,15 +114,19 @@ describe('radar plot', () => {
 
     const radarPlot = new Radar(canvasDiv, {
       padding: 'auto',
+      smooth: 'true',
       data,
       xField: 'item',
       yField: 'score',
       seriesField: 'user',
       xAxis: {},
       yAxis: {},
-      fillStyle: {},
-      lineStyle: {},
-      pointStyle: {},
+      polygon: {
+        visible: true
+      },
+      line: {
+        visible: true,
+      }
     });
     radarPlot.render();
   });

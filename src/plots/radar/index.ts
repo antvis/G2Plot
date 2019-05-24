@@ -1,12 +1,12 @@
 import BasePlot from '../../base/plot';
 import BaseConfig, {
-    ElementOption,
-    IValueAxis,
-    ITimeAxis,
-    ICatAxis,
-    IColorConfig,
+  ElementOption,
+  IValueAxis,
+  ITimeAxis,
+  ICatAxis,
+  IColorConfig,
 } from '../../interface/config';
-import _ from 'lodash';
+import * as _ from '@antv/util';
 import { extractScale } from '../../util/scale';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as StyleParser from '../../util/styleParser';
@@ -31,16 +31,25 @@ interface FillStyle {
 }
 
 export interface RadarConfig extends BaseConfig {
-    /** 分组字段 */
+  /** 分组字段 */
   seriesField?: string;
-    /** 是否平滑 */
+  /** 是否平滑 */
   smooth?: boolean;
-    /** 折线图形样式 */
-  lineStyle?: LineStyle | Function;
-    /** 数据点图形样式 */
-  pointStyle?: PointStyle;
-    /** area图形样式 */
-  fillStyle?: FillStyle;
+  /** 折线图形样式 */
+  line?: {
+    visible: boolean;
+    style?: LineStyle;
+  };
+  /** 数据点图形样式 */
+  point?: {
+    visible: boolean;
+    style?: PointStyle;
+  };
+  /** area图形样式 */
+  polygon?: {
+    visible: boolean;
+    style?: FillStyle;
+  };
   xAxis: IValueAxis | ICatAxis | ITimeAxis;
   yAxis: IValueAxis;
   radius?: number;
@@ -48,19 +57,19 @@ export interface RadarConfig extends BaseConfig {
 
 export default class Rardar extends BasePlot<RadarConfig>{
   baseElement: any;
-  line: any; // 保存line、area、point的配置项，用于后续的label、tooltip
-  point: any;
-  area: any;
+  lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
+  pointElement: any;
+  areaElement: any;
 
   protected _setDefaultG2Config() { }
 
   protected _scale() {
     const props = this._initialProps;
     const scales = {};
-        /** 配置x-scale */
+    /** 配置x-scale */
     scales[props.xField] = {};
     _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
-        /** 配置y-scale */
+    /** 配置y-scale */
     scales[props.yField] = {};
     _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
     this._setConfig('scales', scales);
@@ -83,7 +92,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
   protected _axis() {
     const props = this._initialProps;
     const axesConfig = { fields: {} };
-        /** 配置x轴 */
+    /** 配置x轴 */
     axesConfig.fields[props.xField] = {
       line: null,
       tickLine: null,
@@ -91,7 +100,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
         lineDash: null,
       },
     };
-        /** 配置y轴 */
+    /** 配置y轴 */
     axesConfig.fields[props.yField] = {
       line: null,
       tickLine: null,
@@ -101,33 +110,40 @@ export default class Rardar extends BasePlot<RadarConfig>{
       },
       gridAlternateColor: 'rgba(0, 0, 0, 0.04)',
     };
-        /** 存储坐标轴配置项到config */
+    /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
   }
 
   protected _addElements() {
     const props = this._initialProps;
-        /** 配置面积 */
-    if (props.fillStyle) {
-      const area = this._element('area', props.fillStyle);
+    /** 配置面积 */
+    let areaConfig = { visible: true };
+    if (props.polygon) areaConfig = _.deepMix(areaConfig, props.polygon);
+    if (areaConfig.visible) {
+      const area = this._element('area', areaConfig);
       if (props.smooth) area.shape = { values: [ 'smooth' ] };
       this._setConfig('element', area);
     }
-        /** 配置线 */
-    if (props.lineStyle) {
-      const line = this._element('line', props.lineStyle);
+    /** 配置线 */
+    let lineConfig = { visible: true };
+    if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
+    if (lineConfig.visible) {
+      const line = this._element('line', lineConfig);
       if (props.smooth) line.shape = { values: [ 'smooth' ] };
       this._setConfig('element', line);
     }
-        /** 配置点 */
-    if (props.pointStyle) {
-      const point = this._element('point', props.pointStyle);
+    /** 配置点 */
+    let pointConfig = { visible: false };
+    if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
+    if (pointConfig.visible) {
+      const point = this._element('point', pointConfig);
       this._setConfig('element', point);
     }
+
   }
 
   protected _element(type, cfg) {
-        /** 雷达图需配置area、line、point三种element，做一下抽象 */
+    /** 雷达图需配置area、line、point三种element，做一下抽象 */
     const props = this._initialProps;
     const element: ElementOption = {
       type,
@@ -136,7 +152,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
       },
     };
     if (props.seriesField || props.color) element.color = this._color();
-    element.style = this._style(cfg);
+    element.style = this._style(cfg.style);
     return element;
   }
 
@@ -149,7 +165,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
   protected _interactions() { }
 
   protected _events(eventParser) {
-        // super._events(EventParser);
+    // super._events(EventParser);
   }
 
   private _color() {
@@ -183,25 +199,6 @@ export default class Rardar extends BasePlot<RadarConfig>{
     }
     config.cfg = cfg;
     return config;
-  }
-
-  private _extractAxis(desAxis, field: string, axis, theme) {
-    if (!axis) return desAxis;
-        /** 配置x轴 */
-        // style
-    if (axis.style) {
-      StyleParser.AxisStyleParser(theme, axis.style, 'circle');
-    }
-        // formatter
-    if (axis.formatter) {
-      const formatter = axis.formatter;
-      desAxis.label = function (text, index, total) {
-        return {
-          text: formatter(text),
-        };
-      };
-    }
-    return desAxis;
   }
 
 }

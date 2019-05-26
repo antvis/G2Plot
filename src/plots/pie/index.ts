@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
@@ -17,10 +17,12 @@ export interface PieConfig extends BaseConfig {
 interface ILabelCallbackOptions {
   content?: Function;
   offset?: number;
+  textStyle?: {};
 }
 
-export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<T>{
+export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T>{
   pie: any;
+  spiderLabel: any;
   protected _setDefaultG2Config() { }
 
   protected _scale() {
@@ -59,7 +61,7 @@ export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<
       } ],
     };
     if (props.colorField || props.color) pie.color = this._pieColor();
-    if (props.pieStyle) pie.style = this._pieStyle();
+    pie.style = this._pieStyle();
     this.pie = pie;
     if (props.label) {
       this._label();
@@ -89,6 +91,7 @@ export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<
           fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
           style: labelConfig.style ? labelConfig.style : {},
         });
+        this.spiderLabel = spiderLabel;
       }
     }
   }
@@ -112,19 +115,24 @@ export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<
 
   private _pieStyle() {
     const props = this._initialProps;
-    const pieStyleProps = props.pieStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    if (_.isFunction(pieStyleProps) && props.colorField) {
-      config.fields = [ props.colorField ];
-      config.callback = pieStyleProps;
+    const defaultStyle = props.colorField ? {} : { stroke: 'white', lineWidth: 1 };
+    if (props.pieStyle) {
+      const pieStyleProps = _.deepMix(props.pieStyle, defaultStyle);
+      const config = {
+        fields: null,
+        callback: null,
+        cfg: null,
+      };
+      if (_.isFunction(pieStyleProps) && props.colorField) {
+        config.fields = [ props.colorField ];
+        config.callback = pieStyleProps;
+        return config;
+      }
+      config.cfg = pieStyleProps;
       return config;
     }
-    config.cfg = pieStyleProps;
-    return config;
+    return defaultStyle;
+
   }
 
   private _label() {
@@ -148,6 +156,15 @@ export default class PiePlot <T extends PieConfig = PieConfig> extends BasePlot<
     /**formatter */
     if (labelConfig.formatter) {
       callbackOptions.content = labelConfig.formatter;
+    }
+    /** label样式 */
+    if (labelConfig.style) {
+      const theme = this._config.theme;
+      StyleParser.LabelStyleParser(theme, labelConfig.style);
+      /** inner label需要在callback里设置样式，否则会失效 */
+      if (labelConfig.type === 'inner') {
+        callbackOptions.textStyle = labelConfig.style;
+      }
     }
     /**统一处理callback */
     if (!_.isEmpty(callbackOptions)) {

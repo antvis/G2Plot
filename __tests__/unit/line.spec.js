@@ -384,10 +384,10 @@ describe('Line plot', () => {
       yField: 'value',
     });
     const padding = linePlot.plot.get('padding');
-    expect(padding[0] > 20).to.be.true;
-    expect(padding[1] > 20).to.be.true;
-    expect(padding[2] > 40).to.be.true;
-    expect(padding[3] > 20).to.be.true;
+    expect(padding[0] >= 20).to.be.true;
+    expect(padding[1] >= 20).to.be.true;
+    expect(padding[2] >= 40).to.be.true;
+    expect(padding[3] >= 20).to.be.true;
     linePlot.destroy();
   });
 

@@ -327,11 +327,11 @@ describe('Line plot', () => {
         formatter: () => {
           return 'a';
         },
-        style: {
+        /* style: {
           line: { stroke: 'red' },
           tickLine: { stroke: 'red' },
           label: { fill: 'red' }
-        }
+        }*/
       }
     });
     linePlot.render();

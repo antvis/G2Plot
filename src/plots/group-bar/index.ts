@@ -1,21 +1,21 @@
-import BaseBar, { ColumnConfig } from '../bar';
+import BaseBar, { BarConfig } from '../bar';
 import { ElementOption } from '../../interface/config';
 import { isArray, isFunction } from 'util';
 
-interface GroupColumnConfig extends ColumnConfig {
+export interface GroupBarConfig extends BarConfig {
   groupField: string;
 }
 
-export default class GroupBar extends BaseBar<GroupColumnConfig> {
-  protected _adjustColumn(column: ElementOption) {
+export default class GroupBar extends BaseBar<GroupBarConfig> {
+  protected _adjustColumn(bar: ElementOption) {
     const props = this._initialProps;
 
-    column.adjust = [ {
+    bar.adjust = [ {
       type: 'dodge',
     } ];
 
     if (props.groupField) {
-      column.color = {
+      bar.color = {
         fields: [ props.groupField ],
         values: props.color && isArray(props.color) ? props.color : undefined,
         callback: this._colorCallback(props.color),

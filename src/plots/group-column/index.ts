@@ -2,7 +2,7 @@ import BaseColumn, { ColumnConfig } from '../column';
 import { ElementOption } from '../../interface/config';
 import { isArray, isFunction } from 'util';
 
-interface GroupColumnConfig extends ColumnConfig {
+export interface GroupColumnConfig extends ColumnConfig {
   groupField: string;
 }
 

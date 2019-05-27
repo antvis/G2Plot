@@ -104,8 +104,8 @@ describe('Colomn plot', () => {
         }
       },
       color: () => {
-        console.log('color callback');
-        return '#12f4f1'
+        // console.log('color callback');
+        return '#12f4f1';
       },
       columnSize: 10,
       columnStyle: {

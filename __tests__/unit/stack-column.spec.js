@@ -104,8 +104,8 @@ describe('Colomn plot', () => {
       },
       // color: [ 'red', 'black' ],
       // color: { Lon: 'pink', Bor: 'gray' },
-      color: d => {
-        if (d==='Lon') return 'red';
+      color: (d) => {
+        if (d === 'Lon') return 'red';
       },
       stackField: 'type'
     });

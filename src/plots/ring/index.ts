@@ -3,7 +3,7 @@ import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as centralTextTemplate from './guide/annotation/centralText_template';
 import * as _ from '@antv/util';
 
-interface RingConfig extends PieConfig {
+export interface RingConfig extends PieConfig {
   innerRadius?: number;
 }
 

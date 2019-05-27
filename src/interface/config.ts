@@ -160,6 +160,7 @@ export interface Legend {
 
 export interface Tooltip {
   visible: boolean;
+  style: object;
   /** html */
   html?: HTMLDivElement;
   /** 辅助线 */

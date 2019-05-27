@@ -12,7 +12,7 @@ describe('Colomn plot', () => {
   it('基础柱状图', () => {
     const data = [ {
       year: '1991',
-      value: 3
+      value: 0.2
     }, {
       year: '1992',
       value: 4
@@ -103,27 +103,28 @@ describe('Colomn plot', () => {
           }
         }
       },
-      color: () => {
+      /* color: () => {
         // console.log('color callback');
-        return '#12f4f1';
+        return '#13008B';
       },
-      columnSize: 10,
+       columnSize: 10,
       columnStyle: {
         stroke: 'red',
         lineWidth: 3
-      },
+      },*/
       // tooltip: false,
       label: {
-        visible: false,
-        formatter: (val) => {
-          return val + ' label';
-        },
+        // visible: false,
+        adjustColor: true,
+        /* formatter: (val) => {
+          return val;
+        },*/
         // offsetX: 10,
         // offsetY: 20,
-        style: {
+        /* style: {
           fill: 'red'
-        },
-        position: 'bottom'
+        },*/
+        position: 'middle'
       }
     });
 

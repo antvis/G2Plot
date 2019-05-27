@@ -3,16 +3,6 @@ import { registerElementLabels, ElementLabels } from '@antv/g2';
 import _ from 'lodash';
 import verticalShatter from '../../../../util/layout/verticalShatter';
 
-interface Item {
-  /** 位置 */
-  x: number;
-  y: number;
-  /** 点位置 */
-  start: { x: number; y: number };
-  /** 文本内容 */
-  text: string;
-}
-
 const MARGIN = 10;
 
 class LineElementLabels extends ElementLabels {

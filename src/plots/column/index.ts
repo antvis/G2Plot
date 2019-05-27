@@ -4,10 +4,20 @@ import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 import * as _ from '@antv/util';
+import '../column/guide/label/column-label';
 
 interface ColumnStyle {
   opacity?: number;
   lineDash?: number[];
+}
+
+interface ILabelCallbackOptions {
+  content?: Function;
+  offset?: number;
+  offsetX?: number;
+  offsetY?: number;
+  textStyle?: {};
+  position?: string;
 }
 
 export interface ColumnConfig extends BaseConfig {
@@ -130,20 +140,22 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
 
     const labelConfig = {
       ...label,
+      labelType: 'columnLabel',
       fields: [ props.yField ],
       callback: null,
     };
-
-    /** formater */
+    const callbackOptions: ILabelCallbackOptions = { ...label };
     if (label.formatter) {
-      const formater = label.formatter;
-      labelConfig.callback = (val) => {
-        return {
-          ...label,
-          content: formater(val),
-          offsetX: label.offsetX ? label.offsetX : 0,
-          offsetY: label.offsetY ? label.offsetY : 0,
-        };
+      callbackOptions.content = labelConfig.formatter;
+    }
+    /**统一处理callback */
+    if (!_.isEmpty(callbackOptions)) {
+      labelConfig.callback = (val1, val2) => {
+        const returnCfg = _.clone(callbackOptions);
+        if (_.has(callbackOptions, 'content')) {
+          returnCfg.content = callbackOptions.content(val1, val2);
+        }
+        return returnCfg;
       };
     }
     /** label样式 */
@@ -154,4 +166,5 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
 
     return labelConfig;
   }
+
 }

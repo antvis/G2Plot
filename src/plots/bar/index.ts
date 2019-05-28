@@ -55,16 +55,18 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    if (props.xAxis && props.xAxis.visible === false) {
-      axesConfig.fields[props.xField] = false;
-    } else {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'left');
+    if (props.xAxis) {
+      if (props.xAxis.visible === false) {
+        axesConfig.fields[props.xField] = false;
+      } else {
+        extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'bottom');
+      }
     }
-
+    
     if (props.yAxis && props.yAxis.visible === false) {
       axesConfig.fields[props.yField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis, this._config.theme, 'bottom');
+      extractAxis(axesConfig.fields[props.xField], props.yAxis, this._config.theme, 'bottom');
     }
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);

@@ -28,7 +28,7 @@ describe('Colomn plot', () => {
       type: 'Lon'
     }, {
       year: '1995',
-      value: 4.9,
+      value: 0.5,
       type: 'Lon'
     }, {
       year: '1996',
@@ -40,7 +40,7 @@ describe('Colomn plot', () => {
       type: 'Lon'
     }, {
       year: '1998',
-      value: 9,
+      value: 0.7,
       type: 'Lon'
     }, {
       year: '1999',
@@ -60,7 +60,7 @@ describe('Colomn plot', () => {
       type: 'Bor'
     }, {
       year: '1994',
-      value: 5,
+      value: 1,
       type: 'Bor'
     }, {
       year: '1995',
@@ -93,20 +93,23 @@ describe('Colomn plot', () => {
       },
       // // tooltip: false,
       label: {
-        formatter: (val) => {
+        /* formatter: (val) => {
           return val + ' label';
         },
         offsetX: 10,
         offsetY: 20,
         style: {
           fill: 'red'
-        }
+        }*/
+        position: 'middle',
+        adjustColor: true,
+        offset: 0,
       },
-      // color: [ 'red', 'black' ],
+      color: [ '#45a2fc', '#56c977' ],
       // color: { Lon: 'pink', Bor: 'gray' },
-      color: (d) => {
+      /* color: (d) => {
         if (d === 'Lon') return 'red';
-      },
+      },*/
       stackField: 'type'
     });
 

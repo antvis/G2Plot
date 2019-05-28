@@ -132,7 +132,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     return config;
   }
 
-  private _extractLabel() {
+  protected _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
 
@@ -164,7 +164,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       StyleParser.LabelStyleParser(theme, label.style);
     }
 
-    return labelConfig;
+    return labelConfig as any;
   }
 
 }

@@ -48,7 +48,7 @@ describe('Colomn plot', () => {
       type: 'Lon'
     }, {
       year: '1991',
-      value: 3,
+      value: 0.5,
       type: 'Bor'
     }, {
       year: '1992',
@@ -60,7 +60,7 @@ describe('Colomn plot', () => {
       type: 'Bor'
     }, {
       year: '1994',
-      value: 5,
+      value: 0.2,
       type: 'Bor'
     }, {
       year: '1995',
@@ -85,7 +85,7 @@ describe('Colomn plot', () => {
     } ];
 
     const columnPlot = new StackBar(canvasDiv, {
-      padding: [ 10, 80, 80, 80 ],
+      padding: 'auto',
       data,
       xField: 'value',
       yField: 'year',
@@ -96,18 +96,22 @@ describe('Colomn plot', () => {
       height: 400,
       // // tooltip: false,
       label: {
-        formatter: (val) => {
+        /* formatter: (val) => {
           return val + ' label';
         },
         style: {
           fill: 'red'
-        }
+        }*/
+        offset: 0,
+        adjustColor: true,
+        position: 'middle'
       },
+      color: [ '#45a2fc', '#56c977' ],
       // color: [ 'red', 'black' ],
       // color: { Lon: 'pink', Bor: 'gray' },
-      color: (d) => {
+      /* color: (d) => {
         if (d === 'Lon') return 'red';
-      },
+      },*/
       stackField: 'type'
     });
 

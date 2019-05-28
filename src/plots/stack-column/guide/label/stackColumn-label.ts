@@ -137,8 +137,9 @@ class StackColumnLabels extends ElementLabels {
     const shapeRange = shape.getBBox();
     if (labelRange.minY >= shapeRange.minY && labelRange.maxY <= shapeRange.maxY) {
       const shapeColor = shape.attr('fill');
+      const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
       const rgb = rgb2arr(shapeColor);
-      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114);
+      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
       const colorBand = [
                 { from: 0, to: 85, color: 'white' },
                 { from: 85, to: 170, color: '#F6F6F6' },

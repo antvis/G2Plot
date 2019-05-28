@@ -2,8 +2,6 @@ import { Shape } from '@antv/g';
 import { registerElementLabels, ElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 
-const RIGHT_MARGIN = 20;
-
 interface Point {
   [key: string]: any;
 }
@@ -26,8 +24,11 @@ function toHex(value) {
   return v;
 }
 
-class BarLabels extends ElementLabels {
-  // TODO: 先实现功能，待抽象  position这里去掉在条形图场景下不必要的逻辑，位置计算调整
+function arr2rgb(arr) {
+  return `#${toHex(arr[0]) + toHex(arr[1]) + toHex(arr[2])}`;
+}
+
+class StackBarLabels extends ElementLabels {
   setLabelPosition(point, originPoint, index, originPosition) {
     let position = originPosition;
     if (_.isFunction(position)) {
@@ -104,7 +105,7 @@ class BarLabels extends ElementLabels {
       const origin = l.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
-      this._adjustPosition(l, shape, item);
+      this._adjustPosition(l, shape);
       if (item.adjustColor) this._adjustColor(l, shape);
     });
     view.get('canvas').draw();
@@ -122,12 +123,12 @@ class BarLabels extends ElementLabels {
     return target;
   }
 
-  _adjustPosition(label, shape, item) {
+  _adjustPosition(label, shape) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
-    if (shapeRange.width <= labelRange.width && item.position !== 'top') {
-      const xPosition = shapeRange.maxX + RIGHT_MARGIN;
-      label.attr('x', xPosition);
+    if (shapeRange.width <= labelRange.width) {
+      label.attr('opacity', 0);
+      label.set('capture', false);
     }
   }
 
@@ -162,4 +163,5 @@ class BarLabels extends ElementLabels {
     return reflect;
   }
 }
-registerElementLabels('barLabel', BarLabels);
+
+registerElementLabels('stackBarLabel', StackBarLabels);

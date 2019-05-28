@@ -1,8 +1,7 @@
 import BaseColumn, { ColumnConfig } from '../column';
-import { ElementOption } from '../../interface/config';
+import { ElementOption, Label } from '../../interface/config';
 import { isArray, isFunction } from 'util';
 import * as _ from '@antv/util';
-import { Label } from '../../interface/config';
 import * as StyleParser from '../../util/styleParser';
 import './guide/label/stackColumn-label';
 

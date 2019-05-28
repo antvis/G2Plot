@@ -196,7 +196,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this._config.elements.push(config as G2Config['element']);
       return;
     }
-
     if (config === false) {
       this._config[key] = false;
       return;

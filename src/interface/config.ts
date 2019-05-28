@@ -164,7 +164,7 @@ export interface Tooltip {
   html?: HTMLDivElement;
   /** 辅助线 */
   crosshair?: 'x' | 'y' | 'cross' | boolean;
-  style: any;
+  style? :{};
 }
 
 interface Animation {

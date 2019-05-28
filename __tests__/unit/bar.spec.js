@@ -27,7 +27,7 @@ describe('Bar plot', () => {
       value: 4.9
     }, {
       year: '1996',
-      value: 6
+      value: 0.5
     }, {
       year: '1997',
       value: 7
@@ -44,25 +44,28 @@ describe('Bar plot', () => {
       data,
       xField: 'value',
       yField: 'year',
-      barSize: 10,
+      // barSize: 10,
       xAxis: {
         min: 0,
-        visible: false
+        // visible: false
       },
       yAxis: {
-        visible: false
+        // visible: false
       },
       // tooltip: false,
       label: {
-        visible: false,
-        formatter: (val) => {
+        // visible: false,
+        offset: 0,
+        adjustColor: true,
+        position: 'middle',
+        /* formatter: (val) => {
           return val + ' label';
         },
         offsetX: 10,
         offsetY: 20,
         style: {
           fill: 'red'
-        }
+        }*/
       }
     });
 

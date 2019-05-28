@@ -28,7 +28,7 @@ describe('Colomn plot', () => {
       type: 'Lon'
     }, {
       year: '1995',
-      value: 0.5,
+      value: 0.3,
       type: 'Lon'
     }, {
       year: '1996',
@@ -40,7 +40,7 @@ describe('Colomn plot', () => {
       type: 'Lon'
     }, {
       year: '1998',
-      value: 0.7,
+      value: 0.2,
       type: 'Lon'
     }, {
       year: '1999',
@@ -91,6 +91,7 @@ describe('Colomn plot', () => {
       yAxis: {
         min: 0
       },
+      padding: 'auto',
       // // tooltip: false,
       label: {
         /* formatter: (val) => {

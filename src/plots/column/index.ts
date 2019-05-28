@@ -139,10 +139,10 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     if (label && label.visible === false) return false;
 
     const labelConfig = {
-      ...label,
       labelType: 'columnLabel',
       fields: [ props.yField ],
       callback: null,
+      ...label,
     };
     const callbackOptions: ILabelCallbackOptions = { ...label };
     if (label.formatter) {

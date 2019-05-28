@@ -34,6 +34,7 @@ export default class StackColumn extends BaseColumn<StackColumnConfig> {
         callback: this._colorCallback(props.color),
       };
     }
+
   }
 
   private _colorCallback(color) {

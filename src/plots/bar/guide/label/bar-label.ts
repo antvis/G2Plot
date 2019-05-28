@@ -2,7 +2,7 @@ import { Shape } from '@antv/g';
 import { registerElementLabels, ElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 
-const TOP_MARGIN = 20;
+const RIGHT_MARGIN = 20;
 
 interface Point {
   [key: string]: any;
@@ -26,12 +26,8 @@ function toHex(value) {
   return v;
 }
 
-function arr2rgb(arr) {
-  return `#${toHex(arr[0]) + toHex(arr[1]) + toHex(arr[2])}`;
-}
-
-class ColumnLabels extends ElementLabels {
-  // TODO: 先实现功能，待抽象  position这里去掉在柱图场景下不必要的逻辑
+class BarLabels extends ElementLabels {
+  // TODO: 先实现功能，待抽象  position这里去掉在条形图场景下不必要的逻辑，位置计算调整
   setLabelPosition(point, originPoint, index, originPosition) {
     let position = originPosition;
     if (_.isFunction(position)) {
@@ -129,16 +125,16 @@ class ColumnLabels extends ElementLabels {
   _adjustPosition(label, shape, item) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
-    if (shapeRange.height <= labelRange.height && item.position !== 'top') {
-      const yPosition = shapeRange.minY - TOP_MARGIN;
-      label.attr('y', yPosition);
+    if (shapeRange.width <= labelRange.width && item.position !== 'top') {
+      const xPosition = shapeRange.maxX + RIGHT_MARGIN;
+      label.attr('x', xPosition);
     }
   }
 
   _adjustColor(label, shape) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
-    if (labelRange.minY >= shapeRange.minY && labelRange.maxY <= shapeRange.maxY) {
+    if (labelRange.minX >= shapeRange.minX && labelRange.maxX <= shapeRange.maxX) {
       const shapeColor = shape.attr('fill');
       const rgb = rgb2arr(shapeColor);
       const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114);
@@ -165,4 +161,4 @@ class ColumnLabels extends ElementLabels {
     return reflect;
   }
 }
-registerElementLabels('columnLabel', ColumnLabels);
+registerElementLabels('barLabel', BarLabels);

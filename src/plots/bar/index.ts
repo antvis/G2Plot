@@ -4,10 +4,20 @@ import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } fro
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
+import './guide/label/bar-label';
 
 interface BarStyle {
   opacity?: number;
   lineDash?: number[];
+}
+
+interface ILabelCallbackOptions {
+  content?: Function;
+  offset?: number;
+  offsetX?: number;
+  offsetY?: number;
+  textStyle?: {};
+  position?: string;
 }
 
 export interface BarConfig extends BaseConfig {
@@ -62,7 +72,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
         extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'bottom');
       }
     }
-    
+
     if (props.yAxis && props.yAxis.visible === false) {
       axesConfig.fields[props.yField] = false;
     } else {
@@ -117,26 +127,30 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     return config;
   }
 
-  private _extractLabel() {
+  protected _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
 
     if (label && label.visible === false) return false;
 
     const labelConfig = {
+      labelType: 'barLabel',
       fields: [ props.yField ],
       callback: null,
+      ...label,
     };
-
-    /** formater */
+    const callbackOptions: ILabelCallbackOptions = { ...label };
     if (label.formatter) {
-      const formater = label.formatter;
-      labelConfig.callback = (val) => {
-        return {
-          content: formater(val),
-          offsetX: label.offsetX ? label.offsetX : 0,
-          offsetY: label.offsetY ? label.offsetY : 0,
-        };
+      callbackOptions.content = labelConfig.formatter;
+    }
+    /**统一处理callback */
+    if (!_.isEmpty(callbackOptions)) {
+      labelConfig.callback = (val1, val2) => {
+        const returnCfg = _.clone(callbackOptions);
+        if (_.has(callbackOptions, 'content')) {
+          returnCfg.content = callbackOptions.content(val1, val2);
+        }
+        return returnCfg;
       };
     }
     /** label样式 */
@@ -145,6 +159,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
       StyleParser.LabelStyleParser(theme, label.style);
     }
 
-    return labelConfig;
+    return labelConfig as any;
   }
+
 }

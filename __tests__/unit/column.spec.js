@@ -43,10 +43,11 @@ describe('Colomn plot', () => {
       data,
       xField: 'year',
       yField: 'value',
+      // color: '#F3EAE3',
       yAxis: {
         visible: true,
         min: 0,
-        style: {
+        /* style: {
           line: {
             visible: true,
             stroke: 'red',
@@ -67,13 +68,13 @@ describe('Colomn plot', () => {
             visible: true,
             fill: 'green'
           }
-        },
+        },*/
       },
       xAxis: {
         visible: true,
         min: 0,
         ticks: [],
-        style: {
+        /* style: {
           line: {
             visible: true,
             stroke: 'purple',
@@ -92,7 +93,7 @@ describe('Colomn plot', () => {
             visible: true,
             fill: 'orange',
           }
-        }
+        }*/
       },
       tooltip: {
         visible: true,
@@ -116,6 +117,7 @@ describe('Colomn plot', () => {
       label: {
         // visible: false,
         adjustColor: true,
+        offset: 0,
         /* formatter: (val) => {
           return val;
         },*/

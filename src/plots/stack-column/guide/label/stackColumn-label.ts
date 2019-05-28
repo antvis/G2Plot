@@ -2,8 +2,6 @@ import { Shape } from '@antv/g';
 import { registerElementLabels, ElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 
-const TOP_MARGIN = 20;
-
 interface Point {
   [key: string]: any;
 }

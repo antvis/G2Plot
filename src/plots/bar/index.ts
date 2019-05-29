@@ -35,6 +35,9 @@ export interface BarConfig extends BaseConfig {
 export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T>{
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
+  }
+
+  protected _beforeInit() {
     this.type = 'bar';
   }
 
@@ -70,18 +73,21 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    if (props.xAxis) {
-      if (props.xAxis.visible === false) {
-        axesConfig.fields[props.xField] = false;
-      } else {
-        extractAxis(axesConfig.fields[props.xField], props.xAxis);
-      }
+    if ((props.xAxis && (props.xAxis.visible === false) 
+        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
+    ) {
+      axesConfig.fields[props.xField] = false;
+    } else if (props.xAxis) {
+      extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
 
-    if (props.yAxis && props.yAxis.visible === false) {
+    if ((props.yAxis && (props.yAxis.visible === false) 
+        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
+    ) {
       axesConfig.fields[props.yField] = false;
-    } else {
-      extractAxis(axesConfig.fields[props.xField], props.yAxis);
+    } else if(props.yAxis)
+    {
+      extractAxis(axesConfig.fields[props.yField], props.yAxis);
     }
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);

@@ -120,7 +120,35 @@ theme.registerGlobalTheme(commonTheme);
 theme.registerPlotTheme('bar', {
   axis: {
     x: {
-      position: 'top'
+      visible: false,
+      position: 'top',
+      line: {
+        visible: false
+      },
+    },
+    y: {
+      visible: false,
+      line: {
+        visible: false,
+      },
+    }
+  }
+});
+
+theme.registerPlotTheme('column', {
+  axis: {
+    x: {
+      visible: false,
+      position: 'top',
+      line: {
+        visible: false
+      },
+    },
+    y: {
+      visible: false,
+      line: {
+        visible: false,
+      },
     }
   }
 });

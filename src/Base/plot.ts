@@ -2,12 +2,17 @@ import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import { Canvas, Text } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
-import '../theme/default';
 import getAutoPadding from '../util/padding';
 import { textWrapper } from '../util/textWrapper';
+import { processAxisVisible } from '../util/axis';
+import Theme from '../theme';
+
+const globalTheme = Theme.getCurrentTheme();
+const G2DefaultTheme = G2.Global.theme;
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   /** g2实例 */
+  public type: string = 'base';
   public _container: string | HTMLElement;
   public plot: G2.View;
   protected _initialProps: T;
@@ -17,6 +22,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected paddingComponents: any[] = [];
   protected title: Text;
   protected description: Text;
+  protected plotTheme = {};
 
   constructor(container: string | HTMLElement, config: T) {
     this._initialProps = config;
@@ -28,6 +34,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _init(container: string | HTMLElement, canvasCfg) {
     const props = this._initialProps;
+    this.plotTheme = this._getTheme();
     this._config = {
       scales: {},
       legends: {
@@ -44,7 +51,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       elements: [],
       annotations: [],
       interactions: {},
-      theme: this._getTheme(),
+      theme: this._getG2Theme(this.plotTheme)
     };
     this._setDefaultG2Config();
     this._coord();
@@ -203,6 +210,21 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     _.assign(this._config[key], config);
   }
 
+  protected _convert2G2Theme(plotTheme) {
+    plotTheme.axis.left = {};
+    _.deepMix(plotTheme.axis.left, plotTheme.axis.y, {position: 'left'});
+    plotTheme.axis.right = {};
+    _.deepMix(plotTheme.axis.right, plotTheme.axis.y, {position: 'right'});
+    plotTheme.axis.bottom = {};
+    _.deepMix(plotTheme.axis.bottom, plotTheme.axis.x, {position: 'bottom'});
+    plotTheme.axis.top = {};
+    _.deepMix(plotTheme.axis.top, plotTheme.axis.x, {position: 'top'});
+    delete plotTheme.axis['x'];
+    delete plotTheme.axis['y'];
+    
+    return plotTheme;
+  }
+
   /** 修改数据 */
   public changeData(data: object[]): void {
     this.plot.changeData(data);
@@ -273,10 +295,26 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   private _getTheme() {
+    let userPlotTheme = {};
     if (this._initialProps.theme) {
-      return this._initialProps.theme;
+      userPlotTheme = this._initialProps.theme;
     }
-    return _.clone(G2.getTheme('plot-global'));
+    return _.deepMix({}, globalTheme.getPlotTheme(this.type), userPlotTheme);
   }
 
+  private _getG2Theme(plotTheme) {
+    const plotG2Theme = this._convert2G2Theme(this.plotTheme);
+    const finalTheme = {};
+    _.deepMix(finalTheme, G2DefaultTheme, plotG2Theme);
+    this._processVisible(finalTheme);
+    return finalTheme;
+  }
+
+  private _processVisible(theme) {
+    processAxisVisible(theme.axis.left);
+    processAxisVisible(theme.axis.right);
+    processAxisVisible(theme.axis.top);
+    processAxisVisible(theme.axis.bottom);
+    return theme;
+  }
 }

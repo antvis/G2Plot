@@ -1,9 +1,6 @@
-import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
+import Theme from './theme';
 
-const G2_DEFAULT_THEME = G2.Global.theme;
-
-const themeConfig: G2.Interface.DataPointType =  {
+const commonTheme = {
   title:{
     fontFamily: 'PingFang SC',
     fontSize: 18,
@@ -23,80 +20,67 @@ const themeConfig: G2.Interface.DataPointType =  {
   },
   description_top_margin: 20,
   axis:{
-    left: {
+    y: {
+      visible: true,
+      position: 'left',
       autoHideLabel: false,
       autoRotateLabel: true,
       autoRotateTitle: true,
       grid:{
-        stroke:'#E3E8EC',
-        lineWidth: 1,
-        lineDash: [ 0, 0 ],
+        visible: true,
+        stroke: 'red',
       },
-      line: null,
-      tickLine: {  },
+      line: {
+        visible: true,
+        stroke: 'black',
+        lineWidth: 1
+      },
+      tickLine: {
+        visible: true,
+        stroke: 'green',
+        lineWidth: 3,
+        length: 10
+      },
       label: {
+        visible: true,
         offset: 8,
-        textStyle:{ fill:'#a0a4aa', fontSize:12 },
+        textStyle: {
+          fill: 'purple'
+        }
       },
       title:{
+        visible: true,
         offset: 48,
-        textStyle: { fill:'#767b84', fontSize:12 },
       },
     },
-    bottom:{
+    x:{
+      visible: true,
+      position: 'bottom',
       autoHideLabel: false,
       autoRotateLabel: true,
       autoRotateTitle: true,
-      grid:null,
-      line: null,
-      tickLine: { length: 4, stroke:'#bdc8d3', lineWidth:0.5 },
+      grid: {
+        visible: false,
+      },
+      line: {
+        visible: true,
+        stroke: 'black',
+        lineWidth: 3
+      },
+      tickLine: {
+        visible: true,
+        length: 10,
+        stroke: 'purple',
+       },
       label: {
-        offset: 16,
-        textStyle:{ fill:'#a0a4aa', fontSize:12 },
+        visible: true,
+        textStyle: {
+          fill: 'gray',
+          fontSize: 20
+        }
       },
       title:{
-        offset:48,
-        textStyle: { fill:'#767b84', fontSize:12 },
-      },
-    },
-    top: {
-      autoHideLabel: false,
-      autoRotateLabel: true,
-      autoRotateTitle: true,
-      grid:{
-        stroke:'#E3E8EC',
-        lineWidth: 1,
-        lineDash: [ 0, 0 ],
-      },
-      line: {  },
-      tickLine: {  },
-      label: {
-        offset: 8,
-        textStyle:{ fill:'#a0a4aa', fontSize:12 },
-      },
-      title:{
-        offset: 48,
-        textStyle: { fill:'#767b84', fontSize:12 },
-      },
-    },
-    right: {
-      autoHideLabel: false,
-      autoRotateLabel: true,
-      autoRotateTitle: true,
-      grid:{
-        stroke:'#E3E8EC',
-        lineWidth: 1,
-        lineDash: [ 0, 0 ],
-      },
-      line: {  },
-      tickLine: {  },
-      label: {
-        offset: 8,
-        textStyle:{ fill:'#a0a4aa', fontSize:12 },
-      },
-      title:{
-        offset: 48,
-        textStyle: { fill:'#767b84', fontSize:12 },
+        visible: false
       },
     },
     circle:{
@@ -128,12 +112,17 @@ const themeConfig: G2.Interface.DataPointType =  {
         textStyle: { fill:'#767b84', fontSize:12 },
       },
     },
-  },
-  tooltip: {
-
-  },
+  }
 };
 
-const plot_global_theme = _.deepMix(G2_DEFAULT_THEME, themeConfig);
+const theme = new Theme('default');
+theme.registerGlobalTheme(commonTheme);
+theme.registerPlotTheme('bar', {
+  axis: {
+    x: {
+      position: 'top'
+    }
+  }
+});
 
-G2.registerTheme('plot-global', G2_DEFAULT_THEME);
+export default theme;

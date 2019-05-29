@@ -33,6 +33,10 @@ export interface BarConfig extends BaseConfig {
 }
 
 export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T>{
+  constructor(container: string | HTMLElement, config: T) {
+    super(container, config);
+    this.type = 'bar';
+  }
 
   protected _setDefaultG2Config() {}
 
@@ -62,6 +66,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   protected _axis() {
     const props = this._initialProps;
     const axesConfig = { fields:{} };
+    const plotTheme = this.plotTheme;
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
@@ -69,14 +74,14 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
       if (props.xAxis.visible === false) {
         axesConfig.fields[props.xField] = false;
       } else {
-        extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'bottom');
+        extractAxis(axesConfig.fields[props.xField], props.xAxis);
       }
     }
 
     if (props.yAxis && props.yAxis.visible === false) {
       axesConfig.fields[props.yField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.xField], props.yAxis, this._config.theme, 'bottom');
+      extractAxis(axesConfig.fields[props.xField], props.yAxis);
     }
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);

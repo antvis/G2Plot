@@ -33,6 +33,10 @@ export interface ColumnConfig extends BaseConfig {
 }
 
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{
+  constructor(container: string | HTMLElement, config: T) {
+    super(container, config);
+    this.type = 'column';
+  }
 
   protected _setDefaultG2Config() {}
 
@@ -59,13 +63,13 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     if (props.xAxis && props.xAxis.visible === false) {
       axesConfig.fields[props.xField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'bottom');
+      extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
 
     if (props.yAxis && props.yAxis.visible === false) {
       axesConfig.fields[props.yField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis, this._config.theme, 'left');
+      extractAxis(axesConfig.fields[props.yField], props.yAxis);
     }
 
     /** 存储坐标轴配置项到config */

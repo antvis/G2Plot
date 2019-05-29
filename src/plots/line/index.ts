@@ -92,12 +92,12 @@ export default class Line extends BasePlot<LineConfig>{
     if (props.xAxis && props.xAxis.visible === false) {
       axesConfig.fields[props.xField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis, this._config.theme, 'bottom');
+      extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
     if (props.yAxis && props.yAxis.visible === false) {
       axesConfig.fields[props.yField] = false;
     } else {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis, this._config.theme, 'left');
+      extractAxis(axesConfig.fields[props.yField], props.yAxis);
     }
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);

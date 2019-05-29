@@ -1,27 +1,16 @@
 import * as _ from '@antv/util';
 
-function AxisStyleParser(theme, style, dimension) {
-  const axisCfg = theme.axis[dimension];
-  if (style.line) {
-    axisCfg.line = checkNull(axisCfg.line);
-    _.deepMix(axisCfg.line, style.line);
+function AxisStyleParser(axisCfg, axis) {
+  _.deepMix(axisCfg, axis);
+  // const axisCfg = _.clone(axis);
+  const style = axis.style;
+
+  if (!style) {
+    return axisCfg;
   }
-  if (style.grid) {
-    axisCfg.grid = checkNull(axisCfg.grid);
-    _.deepMix(axisCfg.grid, style.grid);
-  }
-  if (style.label) {
-    _.deepMix(axisCfg.label, style.label);
-    _.deepMix(axisCfg.label.textStyle, style.label);
-  }
-  if (style.title) _.deepMix(axisCfg.title, style.title);
-  if (style.tickLine) {
-    axisCfg.tickLine = checkNull(axisCfg.tickLine);
-    _.deepMix(axisCfg.tickLine, style.tickLine);
-  }
+  _.deepMix(axisCfg, style);
 
   // TODO: 这里可以写的更简洁一点
-
   if (axisCfg.line && axisCfg.line.visible === false) {
     axisCfg.line = null;
   }
@@ -37,6 +26,9 @@ function AxisStyleParser(theme, style, dimension) {
   if (axisCfg.label && axisCfg.label.visible === false) {
     axisCfg.label = null;
   }
+
+  delete axisCfg.style;
+  return axisCfg;
 }
 
 function TooltipStyleParser() {

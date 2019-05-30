@@ -28,6 +28,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._initialProps = config;
     this._container = container;
     this.canvasCfg = this._createCanvas(container);
+    this._beforeInit();
     this._init(container, this.canvasCfg);
     this._afterInit();
   }
@@ -51,7 +52,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       elements: [],
       annotations: [],
       interactions: {},
-      theme: this._getG2Theme(this.plotTheme),
+      theme: this._getG2Theme(),
     };
     this._setDefaultG2Config();
     this._coord();
@@ -184,6 +185,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
   }
 
+  protected _beforeInit() {}
+
   protected _afterInit() {
     const props = this._initialProps;
     /** 处理autopadding逻辑 */
@@ -211,18 +214,19 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   protected _convert2G2Theme(plotTheme) {
-    plotTheme.axis.left = {};
-    _.deepMix(plotTheme.axis.left, plotTheme.axis.y, { position: 'left' });
-    plotTheme.axis.right = {};
-    _.deepMix(plotTheme.axis.right, plotTheme.axis.y, { position: 'right' });
-    plotTheme.axis.bottom = {};
-    _.deepMix(plotTheme.axis.bottom, plotTheme.axis.x, { position: 'bottom' });
-    plotTheme.axis.top = {};
-    _.deepMix(plotTheme.axis.top, plotTheme.axis.x, { position: 'top' });
-    delete plotTheme.axis['x'];
-    delete plotTheme.axis['y'];
+    const g2Theme = _.clone(plotTheme);
+    g2Theme.axis.left = {};
+    _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
+    g2Theme.axis.right = {};
+    _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
+    g2Theme.axis.bottom = {};
+    _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
+    g2Theme.axis.top = {};
+    _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
+    delete g2Theme.axis['x'];
+    delete g2Theme.axis['y'];
 
-    return plotTheme;
+    return g2Theme;
   }
 
   /** 修改数据 */
@@ -302,7 +306,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     return _.deepMix({}, globalTheme.getPlotTheme(this.type), userPlotTheme);
   }
 
-  private _getG2Theme(plotTheme) {
+  private _getG2Theme() {
     const plotG2Theme = this._convert2G2Theme(this.plotTheme);
     const finalTheme = {};
     _.deepMix(finalTheme, G2DefaultTheme, plotG2Theme);

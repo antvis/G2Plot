@@ -67,6 +67,10 @@ export default class Line extends BasePlot<LineConfig>{
     this._afterInit();
   }
 
+  protected _beforeInit() {
+    this.type = 'line';
+  }
+
   protected _setDefaultG2Config() { }
 
   protected _scale() {
@@ -85,18 +89,24 @@ export default class Line extends BasePlot<LineConfig>{
 
   protected _axis() {
     const props = this._initialProps;
-    const axesConfig = { fields: {} };
+    const axesConfig = { fields:{} };
+    const plotTheme = this.plotTheme;
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    if (props.xAxis && props.xAxis.visible === false) {
+    if ((props.xAxis && (props.xAxis.visible === false)
+        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
+    ) {
       axesConfig.fields[props.xField] = false;
-    } else {
+    } else if (props.xAxis) {
       extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
-    if (props.yAxis && props.yAxis.visible === false) {
+
+    if ((props.yAxis && (props.yAxis.visible === false)
+        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
+    ) {
       axesConfig.fields[props.yField] = false;
-    } else {
+    } else if (props.yAxis) {
       extractAxis(axesConfig.fields[props.yField], props.yAxis);
     }
     /** 存储坐标轴配置项到config */

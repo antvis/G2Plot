@@ -11,7 +11,7 @@ export function extractAxis(desAxis, axis) {
     desAxis.label = function (text, index, total) {
       return {
         text: axis.formatter(text),
-        textStyle
+        textStyle,
       };
     };
     desAxis.label.formatter = axis.formatter;

@@ -64,7 +64,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    if ((props.xAxis && (props.xAxis.visible === false) 
+    if ((props.xAxis && (props.xAxis.visible === false)
         || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
     ) {
       axesConfig.fields[props.xField] = false;
@@ -72,12 +72,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
 
-    if ((props.yAxis && (props.yAxis.visible === false) 
+    if ((props.yAxis && (props.yAxis.visible === false)
         || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
     ) {
       axesConfig.fields[props.yField] = false;
-    } else if(props.yAxis)
-    {
+    } else if (props.yAxis) {
       extractAxis(axesConfig.fields[props.yField], props.yAxis);
     }
     /** 存储坐标轴配置项到config */

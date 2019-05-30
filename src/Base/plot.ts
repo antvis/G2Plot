@@ -22,7 +22,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected paddingComponents: any[] = [];
   protected title: Text;
   protected description: Text;
-  protected plotTheme = {};
+  protected plotTheme: any;
 
   constructor(container: string | HTMLElement, config: T) {
     this._initialProps = config;
@@ -201,12 +201,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   /** 设置G2 config，带有类型推导 */
-  protected _setConfig<T extends keyof G2Config>(key: T, config: G2Config[T]): void {
+  protected _setConfig<T extends keyof G2Config>(key: T, config: G2Config[T] | boolean): void {
     if (key === 'element') {
       this._config.elements.push(config as G2Config['element']);
       return;
     }
-    if (config === false) {
+    if (config as boolean === false) {
       this._config[key] = false;
       return;
     }

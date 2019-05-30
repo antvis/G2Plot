@@ -57,7 +57,7 @@ describe('Bar plot', () => {
         // visible: false,
         offset: 0,
         adjustColor: true,
-        position: 'middle',
+        position: 'right',
         /* formatter: (val) => {
           return val + ' label';
         },

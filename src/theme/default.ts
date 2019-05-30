@@ -33,20 +33,20 @@ const commonTheme = {
       line: {
         visible: true,
         stroke: 'black',
-        lineWidth: 1
+        lineWidth: 1,
       },
       tickLine: {
         visible: true,
         stroke: 'green',
         lineWidth: 3,
-        length: 10
+        length: 10,
       },
       label: {
         visible: true,
         offset: 8,
         textStyle: {
-          fill: 'purple'
-        }
+          fill: 'purple',
+        },
       },
       title:{
         visible: true,
@@ -65,22 +65,22 @@ const commonTheme = {
       line: {
         visible: true,
         stroke: 'black',
-        lineWidth: 3
+        lineWidth: 3,
       },
       tickLine: {
         visible: true,
         length: 10,
         stroke: 'purple',
-       },
+      },
       label: {
         visible: true,
         textStyle: {
           fill: 'gray',
-          fontSize: 20
-        }
+          fontSize: 20,
+        },
       },
       title:{
-        visible: false
+        visible: false,
       },
     },
     circle:{
@@ -112,7 +112,7 @@ const commonTheme = {
         textStyle: { fill:'#767b84', fontSize:12 },
       },
     },
-  }
+  },
 };
 
 const theme = new Theme('default');
@@ -120,9 +120,9 @@ theme.registerGlobalTheme(commonTheme);
 theme.registerPlotTheme('bar', {
   axis: {
     x: {
-      position: 'top'
-    }
-  }
+      position: 'top',
+    },
+  },
 });
 
 export default theme;

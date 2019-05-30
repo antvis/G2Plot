@@ -51,7 +51,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       elements: [],
       annotations: [],
       interactions: {},
-      theme: this._getG2Theme(this.plotTheme)
+      theme: this._getG2Theme(this.plotTheme),
     };
     this._setDefaultG2Config();
     this._coord();
@@ -212,16 +212,16 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _convert2G2Theme(plotTheme) {
     plotTheme.axis.left = {};
-    _.deepMix(plotTheme.axis.left, plotTheme.axis.y, {position: 'left'});
+    _.deepMix(plotTheme.axis.left, plotTheme.axis.y, { position: 'left' });
     plotTheme.axis.right = {};
-    _.deepMix(plotTheme.axis.right, plotTheme.axis.y, {position: 'right'});
+    _.deepMix(plotTheme.axis.right, plotTheme.axis.y, { position: 'right' });
     plotTheme.axis.bottom = {};
-    _.deepMix(plotTheme.axis.bottom, plotTheme.axis.x, {position: 'bottom'});
+    _.deepMix(plotTheme.axis.bottom, plotTheme.axis.x, { position: 'bottom' });
     plotTheme.axis.top = {};
-    _.deepMix(plotTheme.axis.top, plotTheme.axis.x, {position: 'top'});
+    _.deepMix(plotTheme.axis.top, plotTheme.axis.x, { position: 'top' });
     delete plotTheme.axis['x'];
     delete plotTheme.axis['y'];
-    
+
     return plotTheme;
   }
 

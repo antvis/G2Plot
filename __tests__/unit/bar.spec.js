@@ -66,6 +66,34 @@ describe('Bar plot', () => {
     expect(barPlot.plot.destroyed).to.be.true;
   });
 
+  it('柱子样式配置', () => {
+    const barPlot = new Bar(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      color: 'red',
+      xAxis: {
+        visible: true,
+      },
+      yAxis: {
+        visible: true
+      },
+      barSize: 20,
+      barStyle: {
+        stroke: 'black',
+        lineWidth: 2,
+      },
+    });
+    barPlot.render();
+    const barEle = barPlot.plot.get('elements')[0];
+    expect(barEle.get('color').values[0]).to.be.equal('red');
+    expect(barEle.get('style').cfg.stroke).to.be.equal('black');
+    expect(barEle.get('size').values[0]).to.be.equal(20);
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).to.be.true;
+  });
+
   it('隐藏两个坐标轴', () => {
     const barPlot = new Bar(canvasDiv, {
       padding: 'auto',
@@ -109,6 +137,7 @@ describe('Bar plot', () => {
           label: { visible: true, fill: 'red', fontSize: 24 },
           title: {
             visible: true,
+            text: 'xxx',
             textStyle: {
               fill: 'red',
               fontSize: 20
@@ -117,7 +146,35 @@ describe('Bar plot', () => {
         }
       },
       yAxis: {
-        visible: false
+        visible: false,
+        line: {
+          visible: true,
+          style: {
+            stroke: 'black'
+          },
+        },
+        tickLine: {
+          visible: true,
+          style: {
+            length: 20
+          }
+        },
+        label: {
+          offsetX: 10,
+          visible: true,
+          formatter: () => { return 'xxx'; },
+          style: {}
+        },
+        title: {
+          visible: true,
+          text: 'xxx',
+          offset: 10,
+          rotate: 20,
+          style: {
+            fill: 'red',
+            fontSize: 20
+          }
+        }
       }
     });
     barPlot.render();

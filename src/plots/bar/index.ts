@@ -113,6 +113,18 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     if (props.label) {
       bar.label = this._extractLabel();
     }
+    if (props.color) {
+      if (_.isString(props.color)) {
+        bar.color = {
+          values: [ props.color ],
+        };
+      } else if (_.isFunction(props.color)) {
+        bar.color = {
+          fields: [ props.xField, props.yField ],
+          callback: props.color,
+        };
+      }
+    }
     this._adjustBar(bar);
     this._setConfig('element', bar);
   }

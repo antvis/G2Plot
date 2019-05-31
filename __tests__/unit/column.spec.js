@@ -12,7 +12,7 @@ describe('Colomn plot', () => {
   it('基础柱状图', () => {
     const data = [ {
       year: '1991',
-      value: 0.2
+      value: -0.2
     }, {
       year: '1992',
       value: 4

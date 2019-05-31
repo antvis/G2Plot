@@ -79,6 +79,7 @@ export class ColumnLabels extends ElementLabels {
   }
 
   adjustPosition(label, shape, item) {
+    const originData = shape.get('origin')._origin;
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (shapeRange.height <= labelRange.height && item.position !== 'top') {

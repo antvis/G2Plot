@@ -235,7 +235,7 @@ describe('Line plot', () => {
     expect(positionField[1]).to.be.equal('value');
     linePlot.destroy();
     expect(linePlot.plot.destroyed).to.be.true;
-    // expect(canvasDiv.childNodes.length).equal(0);
+    expect(canvasDiv.childNodes.length).equal(0);
   });
 
   it('smooth line', () => {
@@ -383,6 +383,7 @@ describe('Line plot', () => {
       xField: 'year',
       yField: 'value',
     });
+    linePlot.render();
     const padding = linePlot.plot.get('padding');
     expect(padding[0] >= 20).to.be.true;
     expect(padding[1] >= 20).to.be.true;
@@ -433,6 +434,7 @@ describe('Line plot', () => {
 
   it('line label', () => {
     const linePlot = new Line(canvasDiv, {
+      padding: 'auto',
       data: data2,
       xField: 'date',
       yField: 'value',
@@ -445,7 +447,7 @@ describe('Line plot', () => {
     const labelGroup = linePlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
     const panelGroup = linePlot.plot.get('panelRange');
     expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
-    linePlot.destroy();
+    // linePlot.destroy();
   });
 
 

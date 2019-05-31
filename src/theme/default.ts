@@ -28,29 +28,32 @@ const commonTheme = {
       autoRotateTitle: true,
       grid:{
         visible: true,
-        stroke: 'red',
+        stroke: '#E3E8EC',
+        lineWidth:1,
+        lineDash: [ 0, 0 ],
       },
       line: {
-        visible: true,
-        stroke: 'black',
+        visible: false,
+        stroke: '#BFBFBF',
         lineWidth: 1,
       },
       tickLine: {
-        visible: true,
-        stroke: 'green',
-        lineWidth: 3,
-        length: 10,
+        visible:false,
+        stroke: '#bdc8d3',
+        lineWidth: 0.5,
+        length: 4,
       },
       label: {
         visible: true,
         offset: 8,
         textStyle: {
-          fill: 'purple',
+          fill:'#a0a4aa', fontSize:12,
         },
       },
       title:{
         visible: true,
         offset: 48,
+        textStyle: { fill:'#767b84', fontSize:12 },
       },
     },
     x:{
@@ -63,24 +66,23 @@ const commonTheme = {
         visible: false,
       },
       line: {
-        visible: true,
-        stroke: 'black',
-        lineWidth: 3,
+        visible: false,
       },
       tickLine: {
         visible: true,
-        length: 10,
-        stroke: 'purple',
+        length: 4, stroke:'#bdc8d3', lineWidth:0.5,
       },
       label: {
         visible: true,
         textStyle: {
-          fill: 'gray',
-          fontSize: 20,
+          fill:'#a0a4aa', fontSize:12,
         },
+        offset: 16,
       },
       title:{
         visible: false,
+        offset:48,
+        textStyle: { fill:'#767b84', fontSize:12 },
       },
     },
     circle:{

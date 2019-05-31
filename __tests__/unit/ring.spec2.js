@@ -41,9 +41,9 @@ describe('ring plot', () => {
       innerRadius: 0.6,
       angleField: 'value',
       colorField: 'type',
-      label: {
+      /* label: {
         type: 'spider',
-      },
+      },*/
       annotation: [
         { type: 'centralText',
           onActive: true

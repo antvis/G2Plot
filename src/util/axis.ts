@@ -2,21 +2,7 @@ import * as StyleParser from '../util/styleParser';
 
 export function extractAxis(desAxis, axis) {
   if (!axis) return desAxis;
-  if (axis.style) {
-    StyleParser.AxisStyleParser(desAxis, axis);
-  }
-  // formatter
-  if (axis.formatter) {
-    const textStyle = desAxis.label;
-    desAxis.label = function (text, index, total) {
-      return {
-        text: axis.formatter(text),
-        textStyle,
-      };
-    };
-    desAxis.label.formatter = axis.formatter;
-  }
-
+  StyleParser.AxisStyleParser(desAxis, axis);
   return desAxis;
 }
 

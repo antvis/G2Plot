@@ -59,7 +59,7 @@ describe('Ring plot', () => {
     const ringPlot = new Ring(canvasDiv, {
       padding: [ 0, 0, 0, 0 ],
       data,
-      innerRadius: 0.5,
+      innerRadius: 0.1,
       angleField: 'value',
       colorField: 'type',
       annotation: [
@@ -85,7 +85,7 @@ describe('Ring plot', () => {
         const value = document.getElementsByClassName('ring-guide-value')[0].innerHTML;
         expect(name).to.be.equal(originData.type);
         expect(value).to.be.equal(originData.value.toString());
-        // ringPlot.destroy();
+        ringPlot.destroy();
         done();
       }
     }, 1000);

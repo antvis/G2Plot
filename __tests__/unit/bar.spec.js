@@ -125,62 +125,42 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        formatter: (v) => {
-          return v + 'abc';
-        },
-        style: {
-          line: {
-            visible: true,
-            stroke: 'red',
-          },
-          tickLine: { visible: true, stroke: 'red' },
-          label: { visible: true, fill: 'red', fontSize: 24 },
-          title: {
-            visible: true,
-            text: 'xxx',
-            textStyle: {
-              fill: 'red',
-              fontSize: 20
-            }
-          }
-        }
-      },
-      yAxis: {
-        visible: false,
         line: {
           visible: true,
           style: {
-            stroke: 'black'
-          },
+            stroke: 'red',
+          }
         },
         tickLine: {
           visible: true,
-          style: {
-            length: 20
-          }
+          style: { stroke: 'red' }
         },
         label: {
-          offsetX: 10,
           visible: true,
-          formatter: () => { return 'xxx'; },
-          style: {}
+          text: (v) => {
+            return v + 'abc';
+          },
+          style: { fill: 'red', fontSize: 24 }
         },
         title: {
           visible: true,
-          text: 'xxx',
-          offset: 10,
-          rotate: 20,
+          text: 'xxxx',
           style: {
             fill: 'red',
             fontSize: 20
           }
         }
+      },
+      yAxis: {
+        visible: false
       }
     });
     barPlot.render();
     const axes = barPlot.plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
+    expect(axis.get('title').text).to.be.include('xxxx');
+    expect(axis.get('title').textStyle.fill).to.be.equal('red');
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.include('abc');
     // style
@@ -204,17 +184,15 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        style: {
-          line: {
-            visible: false,
-            stroke: 'red',
-          },
-          grid: {
-            visible: false,
-          },
-          tickLine: { visible: false, stroke: 'red' },
-          label: { visible: false, fill: 'red', fontSize: 24 }
-        }
+        line: {
+          visible: false,
+          stroke: 'red',
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: { visible: false, stroke: 'red' },
+        label: { visible: false, fill: 'red', fontSize: 24 }
       },
       yAxis: {
         visible: false
@@ -244,16 +222,32 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        formatter: (v) => {
-          return v + 'abc';
-        },
-        style: {
-          line: {
-            visible: true,
+        line: {
+          visible: true,
+          style: {
             stroke: 'red',
+          }
+        },
+        tickLine: {
+          visible: true,
+          style: { stroke: 'red' }
+        },
+        title: {
+          visible: true,
+          // text: 'xxxx',
+          style: {
+            fontSize: 30,
+            fill: 'red'
+          }
+        },
+        label: {
+          text: (v) => {
+            return v + 'abc';
           },
-          tickLine: { visible: true, stroke: 'red' },
-          label: { visible: true, fill: 'red', fontSize: 24 }
+          visible: true,
+          style: {
+            fill: 'red', fontSize: 24
+          }
         }
       },
       xAxis: {
@@ -265,6 +259,8 @@ describe('Bar plot', () => {
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
+    expect(axis.get('title').text).to.be.include('year');
+    expect(axis.get('title').textStyle.fill).to.be.equal('red');
     expect(labels[0].text).to.be.include('abc');
     // style
     const line = axis.get('line');
@@ -287,17 +283,14 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        style: {
-          line: {
-            visible: false,
-            stroke: 'red',
-          },
-          grid: {
-            visible: false,
-          },
-          tickLine: { visible: false, stroke: 'red' },
-          label: { visible: false, fill: 'red', fontSize: 24 },
-        }
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: { visible: false },
+        label: { visible: false },
       },
       xAxis: {
         visible: false

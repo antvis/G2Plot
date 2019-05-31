@@ -1,13 +1,13 @@
 import Theme from './theme';
 
 const commonTheme = {
-  title:{
+  title: {
     fontFamily: 'PingFang SC',
     fontSize: 18,
     fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
-    textBaseline:'bottom',
+    textBaseline: 'bottom',
     lineHeight: 20,
   },
   description: {
@@ -15,48 +15,58 @@ const commonTheme = {
     fontSize: 12,
     fill: 'grey',
     textAlign: 'left',
-    textBaseline:'bottom',
+    textBaseline: 'bottom',
     lineHeight: 16,
   },
   description_top_margin: 20,
-  axis:{
+  axis: {
     y: {
       visible: true,
       position: 'left',
       autoHideLabel: false,
       autoRotateLabel: true,
       autoRotateTitle: true,
-      grid:{
+      grid: {
         visible: true,
-        stroke: '#E3E8EC',
-        lineWidth:1,
-        lineDash: [ 0, 0 ],
+        style: {
+          stroke: '#E3E8EC',
+          lineWidth: 1,
+          lineDash: [0, 0],
+        }
       },
       line: {
         visible: false,
-        stroke: '#BFBFBF',
-        lineWidth: 1,
+        style: {
+          stroke: '#BFBFBF',
+          lineWidth: 1,
+        }
       },
       tickLine: {
-        visible:false,
-        stroke: '#bdc8d3',
-        lineWidth: 0.5,
-        length: 4,
+        visible: false,
+        style: {
+          stroke: '#bdc8d3',
+          lineWidth: 0.5,
+          length: 4,
+        }
       },
       label: {
         visible: true,
         offset: 8,
-        textStyle: {
-          fill:'#a0a4aa', fontSize:12,
+        style: {
+          fill: '#a0a4aa',
+          fontSize: 12,
         },
       },
-      title:{
+      title: {
         visible: true,
         offset: 48,
-        textStyle: { fill:'#767b84', fontSize:12 },
+        style: {
+          fill: '#767b84',
+          fontSize: 12
+        },
       },
     },
-    x:{
+    x: {
       visible: true,
       position: 'bottom',
       autoHideLabel: false,
@@ -70,48 +80,61 @@ const commonTheme = {
       },
       tickLine: {
         visible: true,
-        length: 4, stroke:'#bdc8d3', lineWidth:0.5,
+        style: {
+          length: 4,
+          stroke: '#bdc8d3',
+          lineWidth: 0.5,
+        }
       },
       label: {
         visible: true,
-        textStyle: {
-          fill:'#a0a4aa', fontSize:12,
+        style: {
+          fill: '#a0a4aa', fontSize: 12,
         },
         offset: 16,
       },
-      title:{
+      title: {
         visible: false,
-        offset:48,
-        textStyle: { fill:'#767b84', fontSize:12 },
+        offset: 48,
+        style: { fill: '#767b84', fontSize: 12 },
       },
     },
-    circle:{
+    circle: {
       autoHideLabel: false,
       autoRotateLabel: true,
       autoRotateTitle: true,
       // gridType: 'line',
       grid: {
-        lineDash:null,
-        lineWidth: 1,
-        stroke: '#E3E8EC',
+        style: {
+          lineDash: null,
+          lineWidth: 1,
+          stroke: '#E3E8EC',
+        }
       },
       line: {
-        lineWidth: 1,
-        stroke: '#BFBFBF',
+        style: {
+          lineWidth: 1,
+          stroke: '#BFBFBF',
+        }
       },
       tickLine: {
-        lineWidth: 1,
-        stroke: '#bdc8d3',
-        length: 4,
-        alignWithLabel: true,
+        style: {
+          lineWidth: 1,
+          stroke: '#bdc8d3',
+          length: 4,
+          alignWithLabel: true,
+        }
       },
       label: {
         offset: 16,
-        textStyle:{ fill:'#a0a4aa', fontSize:12 },
+        style: {
+          fill: '#a0a4aa',
+          fontSize: 12
+        },
       },
-      title:{
-        offset:48,
-        textStyle: { fill:'#767b84', fontSize:12 },
+      title: {
+        offset: 48,
+        style: { fill: '#767b84', fontSize: 12 },
       },
     },
   },

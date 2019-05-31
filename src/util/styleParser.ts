@@ -1,34 +1,66 @@
 import * as _ from '@antv/util';
 
 function AxisStyleParser(axisCfg, axis) {
-  _.deepMix(axisCfg, axis);
-  // const axisCfg = _.clone(axis);
-  const style = axis.style;
-
-  if (!style) {
-    return axisCfg;
+  if (axis.line) {
+    if (axis.line.visible === false) {
+      axisCfg.line = null;
+    } else if (axis.line.style) {
+      axisCfg.line = _.clone(axis.line.style);
+    }
   }
-  _.deepMix(axisCfg, style);
-
-  // TODO: 这里可以写的更简洁一点
-  if (axisCfg.line && axisCfg.line.visible === false) {
-    axisCfg.line = null;
+  if (axis.title) {
+    if (axis.title.visible === false) {
+      axisCfg.showTitle = false;
+    } else {
+      if (axis.title.visible === true) {
+        axis.showTitle = true;
+      }
+      if (axisCfg.autoRotate) {
+        axisCfg.autoRotateTitle = axisCfg.autoRotate;
+      }
+      axisCfg.title = _.clone(axis.title);
+      if (axisCfg.style) {
+        axisCfg.textStyle = axisCfg.style;
+        delete axisCfg.style;
+      }
+    }
   }
-  if (axisCfg.grid && axisCfg.grid.visible === false) {
-    axisCfg.grid = null;
+  if (axis.tickLine) {
+    if (axis.tickLine.visible === false) {
+      axisCfg.tickLine = null;
+    } else if(axis.tickLine.style) {
+      axisCfg.tickLine = _.clone(axis.tickLine.style);
+    }
   }
-  if (axisCfg.tickLine && axisCfg.tickLine.visible === false) {
-    axisCfg.tickLine = null;
+  if (axis.hasOwnProperty('autoHideLabel')) {
+    axisCfg.autoHideLabel = axis.autoHideLabel;
   }
-  if (axisCfg.title && axisCfg.title.visible === false) {
-    axisCfg.title = null;
+  if (axis.hasOwnProperty('autoRotateLabel')) {
+    axisCfg.autoRotateLabel = axis.autoRotateLabel;
   }
-  if (axisCfg.label && axisCfg.label.visible === false) {
-    axisCfg.label = null;
+  if (axis.label) {
+    const newLabel = _.clone(axis.label);
+    if (newLabel.style) {
+      newLabel.textStyle = newLabel.style;
+      delete newLabel.style;
+    }
+    if (axis.label.text) {
+      const textFormatter = axis.label.text;
+      axisCfg.label = (text) => {
+        newLabel.text = textFormatter(text);
+        return newLabel;
+      }
+    } else {
+      axisCfg.label = newLabel;
+    }
   }
-
-  delete axisCfg.style;
-  return axisCfg;
+  if (axis.grid) {
+    if (axis.grid.visible === false) {
+      axisCfg.grid = null;
+    } else if(axis.grid.style) {
+      axisCfg.grid = _.clone(axis.grid.style);
+    }
+  }
 }
 
 function TooltipStyleParser() {

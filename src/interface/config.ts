@@ -81,29 +81,45 @@ interface IEvents {
   [k:string] : string;
 }
 
-interface IAxisStyle {
-  line?: {};
-  grid?: {};
-  label?: {};
-  title?: { offset:number,
-    textStyle: {},
-  };
-  tickLine: {};
-}
-
 interface IBaseAxis {
   /** 轴是否需要显示，默认true */
-  visible: boolean;
+  visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type: 'value' | 'time' | 'category';
-  /** 轴标题 */
-  title?: string | boolean;
+  type?: 'value' | 'time' | 'category';
   /** 轴位置，默认下和左 */
   position?: 'default' | 'opposite';
-  /** label内容formatter */
-  formatter?: Function;
-  /** gridLine */
-  style?: IAxisStyle;
+  line?: {
+    visible?: boolean;
+    style: {};
+  };
+  grid?: {
+    visible?: boolean;
+    style: {};
+  };
+  autoRotateLabel: boolean, // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
+  autoHideLabel: boolean, // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
+  label?: {
+    visible?: boolean;
+    text?: Function;
+    offset?: number; // 坐标轴文本距离坐标轴线的距离
+    offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
+    offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
+    rotate?: number; // label 文本旋转的角度，使用角度制
+    useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
+    htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
+    style?: {};
+  } | Function;
+  title?: { 
+    visible?: boolean;
+    autoRotate?: boolean;
+    text?: string;
+    offset?: number;
+    style?: {},
+  };
+  tickLine?: {
+    visible?: boolean;
+    style?: {};
+  };
   events?: IEvents;
 }
 /** Linear型 */

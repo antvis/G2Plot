@@ -125,56 +125,34 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        formatter: (v) => {
-          return v + 'abc';
-        },
-        style: {
-          line: {
-            visible: true,
-            stroke: 'red',
-          },
-          tickLine: { visible: true, stroke: 'red' },
-          label: { visible: true, fill: 'red', fontSize: 24 },
-          title: {
-            visible: true,
-            text: 'xxx',
-            textStyle: {
-              fill: 'red',
-              fontSize: 20
-            }
-          }
-        }
-      },
-      yAxis: {
-        visible: false,
         line: {
           visible: true,
           style: {
-            stroke: 'black'
-          },
+            stroke: 'red',
+          }
         },
         tickLine: {
           visible: true,
-          style: {
-            length: 20
-          }
+          style: { stroke: 'red' }
         },
         label: {
-          offsetX: 10,
           visible: true,
-          formatter: () => { return 'xxx'; },
-          style: {}
+          text: (v) => {
+            return v + 'abc';
+          },
+          style: { fill: 'red', fontSize: 24 }
         },
         title: {
           visible: true,
           text: 'xxx',
-          offset: 10,
-          rotate: 20,
           style: {
             fill: 'red',
             fontSize: 20
           }
         }
+      },
+      yAxis: {
+        visible: false
       }
     });
     barPlot.render();
@@ -204,17 +182,15 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        style: {
-          line: {
-            visible: false,
-            stroke: 'red',
-          },
-          grid: {
-            visible: false,
-          },
-          tickLine: { visible: false, stroke: 'red' },
-          label: { visible: false, fill: 'red', fontSize: 24 }
-        }
+        line: {
+          visible: false,
+          stroke: 'red',
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: { visible: false, stroke: 'red' },
+        label: { visible: false, fill: 'red', fontSize: 24 }
       },
       yAxis: {
         visible: false
@@ -244,16 +220,24 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        formatter: (v) => {
-          return v + 'abc';
-        },
-        style: {
-          line: {
-            visible: true,
+        line: {
+          visible: true,
+          style: {
             stroke: 'red',
+          }
+        },
+        tickLine: {
+          visible: true,
+          style: { stroke: 'red' }
+        },
+        label: {
+          text: (v) => {
+            return v + 'abc';
           },
-          tickLine: { visible: true, stroke: 'red' },
-          label: { visible: true, fill: 'red', fontSize: 24 }
+          visible: true,
+          style: {
+            fill: 'red', fontSize: 24
+          }
         }
       },
       xAxis: {
@@ -287,17 +271,14 @@ describe('Bar plot', () => {
         nice: false,
         visible: true,
         tickCount: 5,
-        style: {
-          line: {
-            visible: false,
-            stroke: 'red',
-          },
-          grid: {
-            visible: false,
-          },
-          tickLine: { visible: false, stroke: 'red' },
-          label: { visible: false, fill: 'red', fontSize: 24 },
-        }
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: { visible: false },
+        label: { visible: false },
       },
       xAxis: {
         visible: false

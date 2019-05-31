@@ -214,19 +214,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   protected _convert2G2Theme(plotTheme) {
-    const g2Theme = _.clone(plotTheme);
-    g2Theme.axis.left = {};
-    _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
-    g2Theme.axis.right = {};
-    _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
-    g2Theme.axis.bottom = {};
-    _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
-    g2Theme.axis.top = {};
-    _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
-    delete g2Theme.axis['x'];
-    delete g2Theme.axis['y'];
-
-    return g2Theme;
+    return Theme.convert2G2Theme(plotTheme);
   }
 
   /** 修改数据 */

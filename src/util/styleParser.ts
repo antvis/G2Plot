@@ -13,15 +13,15 @@ function AxisStyleParser(axisCfg, axis) {
       axisCfg.showTitle = false;
     } else {
       if (axis.title.visible === true) {
-        axis.showTitle = true;
+        axisCfg.showTitle = true;
       }
       if (axisCfg.autoRotate) {
         axisCfg.autoRotateTitle = axisCfg.autoRotate;
       }
       axisCfg.title = _.clone(axis.title);
-      if (axisCfg.style) {
-        axisCfg.textStyle = axisCfg.style;
-        delete axisCfg.style;
+      if (axisCfg.title.style) {
+        axisCfg.title.textStyle = axisCfg.title.style;
+        delete axisCfg.title.style;
       }
     }
   }

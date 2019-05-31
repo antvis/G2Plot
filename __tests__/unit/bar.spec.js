@@ -144,7 +144,7 @@ describe('Bar plot', () => {
         },
         title: {
           visible: true,
-          text: 'xxx',
+          text: 'xxxx',
           style: {
             fill: 'red',
             fontSize: 20
@@ -159,6 +159,8 @@ describe('Bar plot', () => {
     const axes = barPlot.plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
+    expect(axis.get('title').text).to.be.include('xxxx');
+    expect(axis.get('title').textStyle.fill).to.be.equal('red');
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.include('abc');
     // style
@@ -230,6 +232,14 @@ describe('Bar plot', () => {
           visible: true,
           style: { stroke: 'red' }
         },
+        title: {
+          visible: true,
+          // text: 'xxxx',
+          style: {
+            fontSize: 30,
+            fill: 'red'
+          }
+        },
         label: {
           text: (v) => {
             return v + 'abc';
@@ -249,6 +259,8 @@ describe('Bar plot', () => {
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
+    expect(axis.get('title').text).to.be.include('year');
+    expect(axis.get('title').textStyle.fill).to.be.equal('red');
     expect(labels[0].text).to.be.include('abc');
     // style
     const line = axis.get('line');

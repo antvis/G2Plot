@@ -1,6 +1,7 @@
 import { Column } from '../../src';
+import { expect } from 'chai';
 
-describe('Colomn plot', () => {
+describe('Column plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -9,128 +10,304 @@ describe('Colomn plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('基础柱状图', () => {
-    const data = [ {
-      year: '1991',
-      value: 0.2
-    }, {
-      year: '1992',
-      value: 4
-    }, {
-      year: '1993',
-      value: 3.5
-    }, {
-      year: '1994',
-      value: 5
-    }, {
-      year: '1995',
-      value: 4.9
-    }, {
-      year: '1996',
-      value: 6
-    }, {
-      year: '1997',
-      value: 7
-    }, {
-      year: '1998',
-      value: 9
-    }, {
-      year: '1999',
-      value: 13
-    } ];
+  const data = [ {
+    year: '1991',
+    value: 31
+  }, {
+    year: '1992',
+    value: 41
+  }, {
+    year: '1993',
+    value: 35
+  }, {
+    year: '1994',
+    value: 55
+  }, {
+    year: '1995',
+    value: 49
+  }, {
+    year: '1996',
+    value: 15
+  }, {
+    year: '1997',
+    value: 17
+  }, {
+    year: '1998',
+    value: 29
+  }, {
+    year: '1999',
+    value: 33
+  } ];
 
+  it('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
       data,
-      xField: 'year',
-      yField: 'value',
-      // color: '#F3EAE3',
-      yAxis: {
-        visible: true,
-        min: 0,
-        /* style: {
-          line: {
-            visible: true,
-            stroke: 'red',
-            lineWidth: 1
-          },
-          tickLine: {
-            visible: false,
-            length: 20,
-            stroke: 'red',
-            // lineWidth: 1
-          },
-          grid: {
-            visible: true,
-            stroke: 'pink',
-            lineWidth: 1
-          },
-          label: {
-            visible: true,
-            fill: 'green'
-          }
-        },*/
-      },
+      xField: 'value',
+      yField: 'year',
       xAxis: {
         visible: true,
-        min: 0,
-        ticks: [],
-        /* style: {
-          line: {
-            visible: true,
-            stroke: 'purple',
-            lineWidth: 1
-          },
-          grid: {
-            visible: false
-          },
-          tickLine: {
-            visible: false,
-            length: 6,
-            stroke: 'pink',
-            lineWidth: 1
-          },
-          label: {
-            visible: true,
-            fill: 'orange',
-          }
-        }*/
       },
-      tooltip: {
+      yAxis: {
         visible: true,
-        style: {
-          'g2-tooltip': {
-            backgroundColor: 'black',
-            color: 'red'
+      }
+    });
+    columnPlot.render();
+    const positionField = columnPlot.plot.get('elements')[0].get('position').fields;
+    const isTransposed = columnPlot.plot.get('coord').isTransposed;
+    const axes = columnPlot.plot.get('axisController').axes;
+
+    expect(columnPlot).to.be.instanceOf(Column);
+    expect(positionField[0]).to.be.equal('value');
+    expect(positionField[1]).to.be.equal('year');
+    expect(isTransposed).to.be.equal(false);
+    expect(axes.length).to.be.equal(2);
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+  it('柱子样式配置', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      color: 'red',
+      xAxis: {
+        visible: true,
+      },
+      yAxis: {
+        visible: true
+      },
+      columnSize: 20,
+      columnStyle: {
+        stroke: 'black',
+        lineWidth: 2,
+      },
+    });
+    columnPlot.render();
+    const columnEle = columnPlot.plot.get('elements')[0];
+    expect(columnEle.get('color').values[0]).to.be.equal('red');
+    console.log(columnEle);
+    expect(columnEle.get('style').cfg.stroke).to.be.equal('black');
+    expect(columnEle.get('size').values[0]).to.be.equal(20);
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+  it('隐藏两个坐标轴', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      xAxis: {
+        visible: false,
+      },
+      yAxis: {
+        visible: false
+      }
+    });
+    columnPlot.render();
+    const axes = columnPlot.plot.get('axisController').axes;
+    expect(axes.length).to.be.equal(0);
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+  it('x轴 样式', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 80,
+      data,
+      xField: 'value',
+      yField: 'year',
+      xAxis: {
+        min: 5,
+        nice: false,
+        visible: true,
+        tickCount: 5,
+        line: {
+          visible: true,
+          style: {
+            stroke: 'red',
+          }
+        },
+        tickLine: {
+          visible: true,
+          style: { stroke: 'red' }
+        },
+        label: {
+          visible: true,
+          text: (v) => {
+            return v + 'abc';
+          },
+          style: { fill: 'red', fontSize: 24 }
+        },
+        title: {
+          visible: true,
+          text: 'xxxx',
+          style: {
+            fill: 'red',
+            fontSize: 20
           }
         }
       },
-      /* color: () => {
-        // console.log('color callback');
-        return '#13008B';
-      },
-       columnSize: 10,
-      columnStyle: {
-        stroke: 'red',
-        lineWidth: 3
-      },*/
-      // tooltip: false,
-      label: {
-        // visible: false,
-        adjustColor: true,
-        offset: 0,
-        /* formatter: (val) => {
-          return val;
-        },*/
-        // offsetX: 10,
-        // offsetY: 20,
-        /* style: {
-          fill: 'red'
-        },*/
-        position: 'middle'
+      yAxis: {
+        visible: false
       }
     });
-
     columnPlot.render();
+    const axes = columnPlot.plot.get('axisController').axes;
+    expect(axes.length).to.be.equal(1);
+    const axis = axes[0];
+    expect(axis.get('title').text).to.be.include('xxxx');
+    expect(axis.get('title').textStyle.fill).to.be.equal('red');
+    const labels = axis.get('labelItems');
+    expect(labels[0].text).to.be.include('abc');
+    // style
+    const line = axis.get('line');
+    const tickLine = axis.get('tickLine');
+    expect(line.stroke).to.be.equal('red');
+    expect(tickLine.stroke).to.be.equal('red');
+    expect(labels[0].textStyle.fill).to.be.equal('red');
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+  it('x轴 隐藏 grid line tick label', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      xAxis: {
+        min: 5,
+        nice: false,
+        visible: true,
+        tickCount: 5,
+        line: {
+          visible: false,
+          stroke: 'red',
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: { visible: false, stroke: 'red' },
+        label: { visible: false, fill: 'red', fontSize: 24 }
+      },
+      yAxis: {
+        visible: false
+      }
+    });
+    columnPlot.render();
+    const axes = columnPlot.plot.get('axisController').axes;
+    expect(axes.length).to.be.equal(1);
+    const axis = axes[0];
+    // style
+    const line = axis.get('line');
+    const tickLine = axis.get('tickLine');
+    expect(line).to.be.equal(null);
+    expect(tickLine).to.be.equal(null);
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+  it('y轴 样式', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      yAxis: {
+        min: 5,
+        nice: false,
+        visible: true,
+        tickCount: 5,
+        line: {
+          visible: true,
+          style: {
+            stroke: 'red',
+          }
+        },
+        tickLine: {
+          visible: true,
+          style: { stroke: 'red' }
+        },
+        title: {
+          visible: true,
+          // text: 'xxxx',
+          style: {
+            fontSize: 30,
+            fill: 'red'
+          }
+        },
+        label: {
+          text: (v) => {
+            return v + 'abc';
+          },
+          visible: true,
+          style: {
+            fill: 'red', fontSize: 24
+          }
+        }
+      },
+      xAxis: {
+        visible: false
+      }
+    });
+    columnPlot.render();
+    const axes = columnPlot.plot.get('axisController').axes;
+    expect(axes.length).to.be.equal(1);
+    const axis = axes[0];
+    const labels = axis.get('labelItems');
+    expect(axis.get('title').text).to.be.include('year');
+    expect(axis.get('title').textStyle.fill).to.be.equal('red');
+    expect(labels[0].text).to.be.include('abc');
+    // style
+    const line = axis.get('line');
+    const tickLine = axis.get('tickLine');
+    expect(line.stroke).to.be.equal('red');
+    expect(tickLine.stroke).to.be.equal('red');
+    expect(labels[0].textStyle.fill).to.be.equal('red');
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+  it('y轴 隐藏 grid line tick label', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      yAxis: {
+        min: 5,
+        nice: false,
+        visible: true,
+        tickCount: 5,
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: { visible: false },
+        label: { visible: false },
+      },
+      xAxis: {
+        visible: false
+      }
+    });
+    columnPlot.render();
+    const axes = columnPlot.plot.get('axisController').axes;
+    expect(axes.length).to.be.equal(1);
+    const axis = axes[0];
+    // style
+    const line = axis.get('line');
+    const tickLine = axis.get('tickLine');
+    expect(line).to.be.equal(null);
+    expect(tickLine).to.be.equal(null);
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
   });
 
 });

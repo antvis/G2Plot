@@ -7,7 +7,7 @@ export interface GroupBarConfig extends BarConfig {
 }
 
 export default class GroupBar extends BaseBar<GroupBarConfig> {
-  protected _adjustColumn(bar: ElementOption) {
+  protected _adjustBar(bar: ElementOption) {
     const props = this._initialProps;
 
     bar.adjust = [ {

@@ -1,5 +1,5 @@
 {
-  "name": "g2-plot",
+  "name": "@antv/g2-plot",
   "version": "0.0.1",
   "description": "G2 Plot, a market of plots built with G2 4.0'",
   "main": "lib/index.js",

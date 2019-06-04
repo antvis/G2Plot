@@ -22,14 +22,14 @@ interface ILabelCallbackOptions {
 
 export interface ColumnConfig extends BaseConfig {
   // 图形
-  type: 'rect' | 'triangle' | 'round';
+  type?: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
-  columnSize: number;
-  maxthWidth: number;
-  minWidth: number;
-  columnStyle: ColumnStyle | Function;
-  xAxis: ICatAxis | ITimeAxis;
-  yAxis: IValueAxis;
+  columnSize?: number;
+  maxthWidth?: number;
+  minWidth?: number;
+  columnStyle?: ColumnStyle | Function;
+  xAxis?: ICatAxis | ITimeAxis;
+  yAxis?: IValueAxis;
 }
 
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{

@@ -22,14 +22,14 @@ interface ILabelCallbackOptions {
 
 export interface BarConfig extends BaseConfig {
   // 图形
-  type: 'rect' | 'triangle' | 'round';
+  type?: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
-  barSize: number;
-  maxthWidth: number;
-  minWidth: number;
-  barStyle: BarStyle | Function;
-  xAxis: ICatAxis | ITimeAxis;
-  yAxis: IValueAxis;
+  barSize?: number;
+  maxthWidth?: number;
+  minWidth?: number;
+  barStyle?: BarStyle | Function;
+  xAxis?: ICatAxis | ITimeAxis;
+  yAxis?: IValueAxis;
 }
 
 export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T>{

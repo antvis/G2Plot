@@ -41,11 +41,11 @@ export interface LineConfig extends BaseConfig {
   lineStyle?: LineStyle | Function;
   /** 折线数据点图形样式 */
   point?: {
-    visible: boolean,
+    visible?: boolean,
     style?: PointStyle;
   };
-  xAxis: IValueAxis | ICatAxis | ITimeAxis;
-  yAxis: IValueAxis;
+  xAxis?: IValueAxis | ICatAxis | ITimeAxis;
+  yAxis?: IValueAxis;
 }
 
 function getValuesByField(field, data) {

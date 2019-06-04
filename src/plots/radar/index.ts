@@ -42,7 +42,7 @@ export interface RadarConfig extends BaseConfig {
   smooth?: boolean;
   /** 折线图形样式 */
   line?: {
-    visible: boolean;
+    visible?: boolean;
     style?: LineStyle;
   };
   /** 数据点图形样式 */

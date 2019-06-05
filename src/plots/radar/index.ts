@@ -55,9 +55,13 @@ export interface RadarConfig extends BaseConfig {
     visible: boolean;
     style?: FillStyle;
   };
-  xAxis: IValueAxis | ICatAxis | ITimeAxis;
-  yAxis: IValueAxis;
+  // fixme: any --> IValueAxis  | ICatAxis | ITimeAxis
+  xAxis: any;
+  // fixme: any --> IValueAxis
+  yAxis: any;
   radius?: number;
+  // fixme: any
+  [attr: string]: any;
 }
 
 export default class Rardar extends BasePlot<RadarConfig>{

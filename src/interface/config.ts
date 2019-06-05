@@ -51,9 +51,11 @@ export default interface Config {
   /** 是否响应式 */
   responsive?: boolean;
   /** 图表层级的事件 */
-  events: {
+  events?: {
     [ k: string ]: Function | boolean;
   };
+  // fixme: any
+  [ k: string ]: any;
 }
 
 type Formatter = (value: any, index?: number, ...args: any[]) => string;

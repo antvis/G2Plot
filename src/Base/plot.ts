@@ -7,7 +7,6 @@ import { textWrapper } from '../util/textWrapper';
 import { processAxisVisible } from '../util/axis';
 import Theme from '../theme';
 
-const globalTheme = Theme.getCurrentTheme();
 const G2DefaultTheme = G2.Global.theme;
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
@@ -291,6 +290,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this._initialProps.theme) {
       userPlotTheme = this._initialProps.theme;
     }
+    const globalTheme = Theme.getCurrentTheme();
     return _.deepMix({}, globalTheme.getPlotTheme(this.type), userPlotTheme);
   }
 

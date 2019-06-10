@@ -83,7 +83,7 @@ describe('GroupBar plot', () => {
     year: '1999',
     value: 13,
     type: 'Bor'
-  }];
+  } ];
 
   it('初始化以及销毁', () => {
     const barPlot = new GroupBar(canvasDiv, {
@@ -116,7 +116,7 @@ describe('GroupBar plot', () => {
       },
       groupField: 'type',
       barSize: 7,
-      color: ['red', 'yellow']
+      color: [ 'red', 'yellow' ]
     });
     barPlot.render();
     const intervalEle = barPlot.plot.get('elements')[0];
@@ -175,6 +175,67 @@ describe('GroupBar plot', () => {
     expect(labelGroup.length).to.be.equal(18);
     expect(labelGroup[0].attrs.fill).to.be.equal('red');
     expect(labelGroup[0].attrs.text).to.be.include('dddd');
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).to.be.true;
+  });
+
+  it('legend style', () => {
+    const barPlot = new GroupBar(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      yAxis: {
+        min: 0
+      },
+      groupField: 'type',
+      legend: {
+        visible: true,
+        position: 'right-top',
+        title: {
+          visible: true
+        },
+        showTitle: true,
+        style: {
+
+        }
+      }
+    });
+    barPlot.render();
+
+    const legendCon = barPlot.plot.get('legendController');
+    expect(legendCon.legends.length).to.be.equal(1);
+    expect(legendCon.legends[0].get('position')).to.be.equal('right-top');
+
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).to.be.true;
+  });
+
+  it('legend visible false', () => {
+    const barPlot = new GroupBar(canvasDiv, {
+      data,
+      xField: 'value',
+      yField: 'year',
+      yAxis: {
+        min: 0
+      },
+      groupField: 'type',
+      label: {
+        formatter: (txt) => { return txt + 'dddd'; },
+        offsetX: 10,
+        offsetY: 10,
+        style: {
+          fill: 'red'
+        }
+      },
+      legend: {
+        visible: false,
+      }
+    });
+    barPlot.render();
+
+    const legendCon = barPlot.plot.get('legendController');
+    expect(legendCon.legends.length).to.be.equal(0);
     barPlot.destroy();
     expect(barPlot.plot.destroyed).to.be.true;
   });

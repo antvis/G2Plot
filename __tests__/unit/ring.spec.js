@@ -42,7 +42,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it('inner radius', () => {
+  it.only('inner radius', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',

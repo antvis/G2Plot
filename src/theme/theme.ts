@@ -1,7 +1,4 @@
-import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-
-const G2_DEFAULT_THEME = G2.Global.theme;
 
 const THEME_MAP = {};
 let currentThemeName = 'default';
@@ -51,18 +48,24 @@ export default class Theme {
 
   static convert2G2Theme(plotThemeCfg) {
     const g2Theme = _.clone(plotThemeCfg);
-    convert2G2Axis(g2Theme.axis.x);
-    convert2G2Axis(g2Theme.axis.y);
-    g2Theme.axis.left = {};
-    _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
-    g2Theme.axis.right = {};
-    _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
-    g2Theme.axis.bottom = {};
-    _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
-    g2Theme.axis.top = {};
-    _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
-    delete g2Theme.axis['x'];
-    delete g2Theme.axis['y'];
+    if (g2Theme.axis) {
+      if (g2Theme.axis.x) {
+        convert2G2Axis(g2Theme.axis.x);
+        g2Theme.axis.bottom = {};
+        _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
+        g2Theme.axis.top = {};
+        _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
+        delete g2Theme.axis['x'];
+      }
+      if (g2Theme.axis.y) {
+        convert2G2Axis(g2Theme.axis.y);
+        g2Theme.axis.left = {};
+        _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
+        g2Theme.axis.right = {};
+        _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
+        delete g2Theme.axis['y'];
+      }
+    }
     return g2Theme;
   }
 
@@ -77,7 +80,8 @@ export default class Theme {
   }
 
   public registerGlobalTheme(globalTheme: any) {
-    this.globalTheme = _.deepMix({}, globalTheme);
+    const defaultTheme = THEME_MAP['default'];
+    this.globalTheme = _.deepMix({}, defaultTheme.getGlobalTheme(), globalTheme);
   }
 
   public registerPlotTheme(type: string, theme: any) {
@@ -90,6 +94,10 @@ export default class Theme {
     }
 
     return _.deepMix({}, this.globalTheme, this.plotTheme[type.toLowerCase()]);
+  }
+
+  public getGlobalTheme() {
+    return this.globalTheme;
   }
 
   public getG2Theme(type: string) {

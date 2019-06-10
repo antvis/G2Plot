@@ -101,6 +101,6 @@ export default class Theme {
   }
 
   public getG2Theme(type: string) {
-    
+
   }
 }

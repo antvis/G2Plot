@@ -1,15 +1,11 @@
 import BasePlot from '../../base/plot';
 import BaseConfig, {
   ElementOption,
-  IValueAxis,
-  ITimeAxis,
-  ICatAxis,
   IColorConfig,
 } from '../../interface/config';
 import * as _ from '@antv/util';
 import { extractScale } from '../../util/scale';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
-import * as StyleParser from '../../util/styleParser';
 import { __assign } from 'tslib';
 
 interface LineStyle {

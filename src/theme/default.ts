@@ -31,15 +31,15 @@ const commonTheme = {
         style: {
           stroke: '#E3E8EC',
           lineWidth: 1,
-          lineDash: [0, 0],
-        }
+          lineDash: [ 0, 0 ],
+        },
       },
       line: {
         visible: false,
         style: {
           stroke: '#BFBFBF',
           lineWidth: 1,
-        }
+        },
       },
       tickLine: {
         visible: false,
@@ -47,7 +47,7 @@ const commonTheme = {
           stroke: '#bdc8d3',
           lineWidth: 0.5,
           length: 4,
-        }
+        },
       },
       label: {
         visible: true,
@@ -62,7 +62,7 @@ const commonTheme = {
         offset: 48,
         style: {
           fill: '#767b84',
-          fontSize: 12
+          fontSize: 12,
         },
       },
     },
@@ -84,7 +84,7 @@ const commonTheme = {
           length: 4,
           stroke: '#bdc8d3',
           lineWidth: 0.5,
-        }
+        },
       },
       label: {
         visible: true,
@@ -109,13 +109,13 @@ const commonTheme = {
           lineDash: null,
           lineWidth: 1,
           stroke: '#E3E8EC',
-        }
+        },
       },
       line: {
         style: {
           lineWidth: 1,
           stroke: '#BFBFBF',
-        }
+        },
       },
       tickLine: {
         style: {
@@ -123,13 +123,13 @@ const commonTheme = {
           stroke: '#bdc8d3',
           length: 4,
           alignWithLabel: true,
-        }
+        },
       },
       label: {
         offset: 16,
         style: {
           fill: '#a0a4aa',
-          fontSize: 12
+          fontSize: 12,
         },
       },
       title: {

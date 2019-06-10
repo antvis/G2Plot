@@ -28,7 +28,7 @@ function AxisStyleParser(axisCfg, axis) {
   if (axis.tickLine) {
     if (axis.tickLine.visible === false) {
       axisCfg.tickLine = null;
-    } else if(axis.tickLine.style) {
+    } else if (axis.tickLine.style) {
       axisCfg.tickLine = _.clone(axis.tickLine.style);
     }
   }
@@ -49,7 +49,7 @@ function AxisStyleParser(axisCfg, axis) {
       axisCfg.label = (text) => {
         newLabel.text = textFormatter(text);
         return newLabel;
-      }
+      };
     } else {
       axisCfg.label = newLabel;
     }
@@ -57,7 +57,7 @@ function AxisStyleParser(axisCfg, axis) {
   if (axis.grid) {
     if (axis.grid.visible === false) {
       axisCfg.grid = null;
-    } else if(axis.grid.style) {
+    } else if (axis.grid.style) {
       axisCfg.grid = _.clone(axis.grid.style);
     }
   }

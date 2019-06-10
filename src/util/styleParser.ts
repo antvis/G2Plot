@@ -44,8 +44,8 @@ function AxisStyleParser(axisCfg, axis) {
       newLabel.textStyle = newLabel.style;
       delete newLabel.style;
     }
-    if (axis.label.text) {
-      const textFormatter = axis.label.text;
+    if (axis.label.formatter) {
+      const textFormatter = axis.label.formatter;
       axisCfg.label = (text) => {
         newLabel.text = textFormatter(text);
         return newLabel;

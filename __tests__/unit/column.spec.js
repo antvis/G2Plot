@@ -137,7 +137,7 @@ describe('Column plot', () => {
         },
         label: {
           visible: true,
-          text: (v) => {
+          formatter: (v) => {
             return v + 'abc';
           },
           style: { fill: 'red', fontSize: 24 }
@@ -241,7 +241,7 @@ describe('Column plot', () => {
           }
         },
         label: {
-          text: (v) => {
+          formatter: (v) => {
             return v + 'abc';
           },
           visible: true,

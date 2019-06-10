@@ -298,7 +298,7 @@ describe('Line plot', () => {
           style: { stroke: 'red' },
         },
         label: {
-          text: () => {
+          formatter: () => {
             return 'a';
           },
           style: { fill: 'red' }
@@ -335,7 +335,7 @@ describe('Line plot', () => {
           style: { stroke: 'red' },
         },
         label: {
-          text: () => {
+          formatter: () => {
             return 'a';
           },
           style: { fill: 'red' }

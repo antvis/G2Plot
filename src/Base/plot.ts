@@ -35,10 +35,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected _init(container: string | HTMLElement, canvasCfg) {
     const props = this._initialProps;
     this.plotTheme = this._getTheme();
+    const g2Theme = this._getG2Theme();
     this._config = {
       scales: {},
       legends: {
-        position: 'bottom-center',
+        position: g2Theme.defaultLegendPosition,
       },
       tooltip: {
         showTitle: true,
@@ -51,7 +52,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       elements: [],
       annotations: [],
       interactions: {},
-      theme: this._getG2Theme(),
+      theme: g2Theme,
     };
     this._setDefaultG2Config();
     this._coord();

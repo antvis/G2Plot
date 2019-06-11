@@ -1,5 +1,6 @@
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
+import { DataPointType } from '@antv/g2/lib/interface';
 import { Canvas, Text } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
 import getAutoPadding from '../util/padding';
@@ -297,7 +298,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _getG2Theme() {
     const plotG2Theme = this._convert2G2Theme(this.plotTheme);
-    const finalTheme = {};
+    const finalTheme: DataPointType = {};
     _.deepMix(finalTheme, G2DefaultTheme, plotG2Theme);
     this._processVisible(finalTheme);
     return finalTheme;

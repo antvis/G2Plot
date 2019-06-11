@@ -148,7 +148,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       let topMargin = 0;
       if (this.description) {
         const descriptionBBox = this.description.getBBox();
-        topMargin = descriptionBBox.minY - descriptionBBox.height + this._config.theme.description.lineHeight;
+        topMargin = descriptionBBox.minY - descriptionBBox.height;
       }
       const titleStyle = _.mix(this._config.theme.title, props.title.style);
       const content: string = textWrapper(props.title.text, panelRange.width, titleStyle);

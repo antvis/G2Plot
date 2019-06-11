@@ -18,7 +18,7 @@ const commonTheme = {
     textBaseline: 'bottom',
     lineHeight: 16,
   },
-  description_top_margin: 20,
+  description_top_margin: 40,
   axis: {
     y: {
       visible: true,

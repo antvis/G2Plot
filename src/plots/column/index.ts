@@ -155,7 +155,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       callback: null,
       ...label,
     };
-    const callbackOptions: ILabelCallbackOptions = { ...label };
+    const callbackOptions: ILabelCallbackOptions = { ... label };
     if (label.formatter) {
       callbackOptions.content = labelConfig.formatter;
     }

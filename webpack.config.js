@@ -4,11 +4,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   entry: {
-    'eva-plot': './src/index.ts',
+    'g2-plot': './src/index.ts',
   },
   output: {
     filename: '[name].min.js',
-    library: 'eva-plot',
+    library: 'g2-plot',
     libraryTarget: 'umd',
     path: resolve(__dirname, 'build/'),
   },

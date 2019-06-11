@@ -157,7 +157,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
     const labelConfig = {
       labelType: 'barLabel',
-      fields: [ props.yField ],
+      fields: [ props.xField ],
       callback: null,
       ...label,
     };

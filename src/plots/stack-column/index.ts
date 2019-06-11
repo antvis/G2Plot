@@ -53,10 +53,10 @@ export default class StackColumn extends BaseColumn<StackColumnConfig> {
     if (label && label.visible === false) return false;
 
     const labelConfig = {
-      ...label,
       labelType: 'stackColumnLabel',
       fields: [ props.yField ],
       callback: null,
+      ...label,
     };
     const callbackOptions: ILabelCallbackOptions = { ...label };
     if (label.formatter) {

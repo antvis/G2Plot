@@ -269,7 +269,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.height) height = props.height;
 
     const canvas = new Canvas({
-      containerDOM: container,
+      containerDOM: !_.isString(container) ? container : undefined,
+      containerId: _.isString(container) ? container : undefined,
       width,
       height,
       renderer: 'canvas',

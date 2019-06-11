@@ -140,6 +140,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('legends', {
       formatter: _.get(props, 'legend.formatter'),
     });
+    this._setConfig('legends', {
+      formatter: _.get(props, 'legend.offsetX'),
+    });
+    this._setConfig('legends', {
+      formatter: _.get(props, 'legend.offsetY'),
+    });
   }
 
   protected _title(): void {
@@ -197,7 +203,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this.updateConfig({
         padding,
       });
-
     }
   }
 

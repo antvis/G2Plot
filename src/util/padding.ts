@@ -10,6 +10,7 @@ const DEFAULT_PADDING = [ 40, 20, 40, 20 ];
 
 export default function getAutoPadding(view: View, components) {
   const viewRange = view.get('viewRange');
+  const { width, height, minX, maxX, minY, maxY } = viewRange;
   /*const width = view.get('width');
   const height = view.get('height');
   const width = viewRange.width;
@@ -27,9 +28,9 @@ export default function getAutoPadding(view: View, components) {
   });
   box = mergeBBox(components_bbox);
   const padding = [
-    0 - box.minY + DEFAULT_PADDING[0], // 上面超出的部分
-    box.maxX - view.get('width') + DEFAULT_PADDING[1], // 右边超出的部分
-    box.maxY - view.get('height') + DEFAULT_PADDING[2], // 下边超出的部分
+    0 - (box.minY - minY) + DEFAULT_PADDING[0], // 上面超出的部分
+    box.maxX - maxX + DEFAULT_PADDING[1], // 右边超出的部分
+    box.maxY - maxY + DEFAULT_PADDING[2], // 下边超出的部分
     0 - box.minX + DEFAULT_PADDING[3],
   ];
   return padding;
@@ -85,9 +86,9 @@ function adjustLegend(legend, view, box) {
   const position = legend.get('position').split('-');
   const container = legend.get('container');
   const bbox = container.getBBox();
-  const { width, height } = view.get('viewRange');
+  const { width, height, maxX, minX, maxY, minY } = view.get('viewRange');
   if (position[0] === 'right') container.move(width, 0);
   if (position[0] === 'left') container.move(box.minX - bbox.width, 0);
-  if (position[0] === 'top') container.move(box.minY - bbox.height, 0);
-  if (position[0] === 'bottom') container.move(height, 0);
+  if (position[0] === 'top') container.move(0, box.minY - bbox.height);
+  if (position[0] === 'bottom') container.move(0, maxY);
 }

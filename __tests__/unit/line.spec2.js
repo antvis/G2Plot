@@ -533,8 +533,9 @@ describe('Line plot', () => {
       yField: 'value',
       seriesField: 'type',
       width: 600,
-      height: 400,
+      height: 600,
       size: 2,
+      smooth: true,
       tooltip: {
         visible: false,
       },

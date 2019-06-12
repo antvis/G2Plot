@@ -538,6 +538,10 @@ describe('Line plot', () => {
       tooltip: {
         visible: false,
       },
+      legend: {
+        visible: true,
+        position: 'top-center'
+      },
       xAxis: {
         tickCount: 5
         /* formatter: () => {
@@ -549,9 +553,9 @@ describe('Line plot', () => {
           return 'b';
         }*/
       },
-      legend: {
+      /* legend: {
         visible: false,
-      },
+      },*/
       /* label: {
         type: 'point',
         formatter: () => {

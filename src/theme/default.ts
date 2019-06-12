@@ -2,23 +2,25 @@ import Theme from './theme';
 
 const commonTheme = {
   title: {
+    top_margin: 20,
     fontFamily: 'PingFang SC',
     fontSize: 18,
     fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
-    textBaseline: 'bottom',
+    textBaseline: 'top',
     lineHeight: 20,
   },
   description: {
+    top_margin:20,
+    bottom_margin: 20,
     fontFamily: 'PingFang SC',
     fontSize: 12,
     fill: 'grey',
     textAlign: 'left',
-    textBaseline: 'bottom',
+    textBaseline: 'top',
     lineHeight: 16,
   },
-  description_top_margin: 20,
   axis: {
     y: {
       visible: true,

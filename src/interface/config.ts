@@ -72,11 +72,13 @@ interface Meta {
 interface ITitle {
   text: string;
   style?: {};
+  alignWidthAxis?: boolean;
 }
 
 interface IDescription {
   text: string;
   style?: {};
+  alignWidthAxis?: boolean;
 }
 
 interface IEvents {
@@ -174,6 +176,9 @@ export interface Legend {
   /** 翻页 */
   flipPage?: boolean;
   events?: IEvents;
+  formatter?: Function;
+  offsetX?: Number;
+  offsetY?: Number;
 }
 
 export interface Tooltip {

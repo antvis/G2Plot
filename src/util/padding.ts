@@ -6,7 +6,7 @@ interface DataPointType {
   [ k: string ]: any;
 }
 
-const DEFAULT_PADDING = [ 40, 20, 40, 20 ];
+const DEFAULT_PADDING = [ 20, 20, 20, 20 ];
 
 export default function getAutoPadding(view: View, components) {
   const viewRange = view.get('viewRange');
@@ -87,8 +87,8 @@ function adjustLegend(legend, view, box) {
   const container = legend.get('container');
   const bbox = container.getBBox();
   const { width, height, maxX, minX, maxY, minY } = view.get('viewRange');
-  if (position[0] === 'right') container.move(width, 0);
-  if (position[0] === 'left') container.move(box.minX - bbox.width, 0);
+  if (position[0] === 'right') container.move(width, minY);
+  if (position[0] === 'left') container.move(box.minX - bbox.width, minY);
   if (position[0] === 'top') container.move(0, box.minY - bbox.height);
   if (position[0] === 'bottom') container.move(0, maxY);
 }

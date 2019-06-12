@@ -59,6 +59,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       interactions: {},
       theme: g2Theme,
     };
+
+    /** 绘制title & description */
+    const range = this._getPanelRange();
+    this._title(range);
+    this._description(range);
+    this._adjustLegendOffset(range);
+    const viewMargin = this._getViewMargin();
+
     this._setDefaultG2Config();
     this._coord();
     this._scale();
@@ -68,11 +76,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._addElements();
     this._annotation();
     this._animation();
-
-    const range = this._getPanelRange();
-    this._title(range);
-    this._description(range);
-    const viewMargin = this._getViewMargin();
 
     this.plot = new G2.View({
       width: canvasCfg.width,
@@ -148,10 +151,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       formatter: _.get(props, 'legend.formatter'),
     });
     this._setConfig('legends', {
-      formatter: _.get(props, 'legend.offsetX'),
+      offsetX: _.get(props, 'legend.offsetX'),
     });
     this._setConfig('legends', {
-      formatter: _.get(props, 'legend.offsetY'),
+      offsetY: _.get(props, 'legend.offsetY'),
     });
   }
 
@@ -159,12 +162,18 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     if (props.title) {
+      let leftMargin = panelRange.minX;
+      let wrapperWidth = panelRange.width;
+      if (props.title.alignWidthAxis === false) {
+        leftMargin = 0;
+        wrapperWidth = this.canvasCfg.width;
+      }
       const titleStyle = _.mix(theme.title, props.title.style);
-      const content: string = textWrapper(props.title.text, panelRange.width, titleStyle);
+      const content: string = textWrapper(props.title.text, wrapperWidth, titleStyle);
       const container = this.canvasCfg.canvas;
       const text = container.addShape('text', {
         attrs: _.mix({
-          x: panelRange.minX,
+          x: leftMargin,
           y: theme.title.top_margin,
           text: content,
         },           titleStyle),
@@ -177,18 +186,23 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     if (props.description) {
-      /**如果有description的话，要根据description位置计算title位置 */
       let topMargin = 0;
       if (this.title) {
         const titleBBox = this.title.getBBox();
         topMargin = titleBBox.minY + titleBBox.height;
       }
+      let leftMargin = panelRange.minX;
+      let wrapperWidth = panelRange.width;
+      if (props.description.alignWidthAxis === false) {
+        leftMargin = 0;
+        wrapperWidth = this.canvasCfg.width;
+      }
       const descriptionStyle = _.mix(theme.description, props.description.style);
-      const content: string = textWrapper(props.description.text, panelRange.width, descriptionStyle);
+      const content: string = textWrapper(props.description.text, wrapperWidth, descriptionStyle);
       const container = this.canvasCfg.canvas;
       const text = container.addShape('text', {
         attrs: _.mix({
-          x: panelRange.minX,
+          x: leftMargin, // panelRange.minX
           y: topMargin + theme.description.top_margin,
           text: content,
         },           descriptionStyle),
@@ -226,6 +240,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _convert2G2Theme(plotTheme) {
     return Theme.convert2G2Theme(plotTheme);
+  }
+
+  /** 自定义组件参与padding */
+  public resgiterPadding(components: Element) {
+    this.paddingComponents.push(components);
   }
 
   /** 修改数据 */
@@ -299,11 +318,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     return [ 40, 20, 60, 20 ];
   }
 
-  /** 自定义组件参与padding */
-  private _resgiterPadding(components: Element) {
-    this.paddingComponents.push(components);
-  }
-
   private _getTheme() {
     let userPlotTheme = {};
     if (this._initialProps.theme) {
@@ -363,6 +377,16 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const bbox = { minX, maxX, minY, maxY };
       if (this.description) bbox.maxY += this._config.theme.description.bottom_margin;
       return bbox;
+    }
+  }
+
+  private _adjustLegendOffset(range) {
+    const props = this._initialProps;
+    if (props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) {
+      let offset = range.minX;
+      if (props.legend.offsetX) offset += props.legend.offsetX;
+      /** g2底层 legend offset bug */
+      props.legend.offsetX = offset;
     }
   }
 

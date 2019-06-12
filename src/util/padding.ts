@@ -1,27 +1,31 @@
 import { View } from '@antv/g2';
-import { Element } from '@antv/g';
+import { Element, BBox } from '@antv/g';
 import * as _ from '@antv/util';
 
 interface DataPointType {
   [ k: string ]: any;
 }
 
-const DEFAULT_PADDING = [ 20, 20, 40, 20 ];
+const DEFAULT_PADDING = [ 40, 20, 40, 20 ];
 
 export default function getAutoPadding(view: View, components) {
-  const width = view.get('width');
+  const viewRange = view.get('viewRange');
+  /*const width = view.get('width');
   const height = view.get('height');
+  const width = viewRange.width;
+  const height = viewRange.height;*/
     /** 参与auto padding的components: axis annotation legend*/
   const components_bbox = [ view.get('panelRange') ];
   getAxis(view, components_bbox);
-  getLegend(view, components_bbox);
+  let box = mergeBBox(components_bbox);
+  getLegend(view, components_bbox, box);
   /**参与auto padding的自定义组件 */
   _.each(components, (obj) => {
     const component = obj as Element;
     const bbox = component.getBBox();
     components_bbox.push(bbox);
   });
-  const box = mergeBBox(components_bbox, width, height);
+  box = mergeBBox(components_bbox);
   const padding = [
     0 - box.minY + DEFAULT_PADDING[0], // 上面超出的部分
     box.maxX - view.get('width') + DEFAULT_PADDING[1], // 右边超出的部分
@@ -42,18 +46,23 @@ function getAxis(view, bboxes) {
   }
 }
 
-function getLegend(view, bboxes) {
+function getLegend(view, bboxes, box) {
   const legends = view.get('legendController').legends;
   if (legends.length > 0) {
     _.each(legends, (l) => {
       const  legend = l as DataPointType;
-      const bbox = legend.get('container').getBBox();
+      adjustLegend(legend, view, box);
+      const legendBBox = legend.get('container').getBBox();
+      const legendMatrix = legend.get('container').attr('matrix');
+      const left = legendMatrix[6];
+      const top = legendMatrix[7];
+      const bbox = new BBox(left, top, legendBBox.width, legendBBox.height);
       bboxes.push(bbox);
     });
   }
 }
 
-function mergeBBox(bboxes, width, height) {
+function mergeBBox(bboxes) {
   let minX = Infinity;
   let maxX = -Infinity;
   let minY = Infinity;
@@ -70,4 +79,15 @@ function mergeBBox(bboxes, width, height) {
   if (Math.abs(minY) > height / 2) minY = 0;
   if (Math.abs(maxY) < height / 2) maxY = height;*/
   return { minX, maxX, minY, maxY };
+}
+
+function adjustLegend(legend, view, box) {
+  const position = legend.get('position').split('-');
+  const container = legend.get('container');
+  const bbox = container.getBBox();
+  const { width, height } = view.get('viewRange');
+  if (position[0] === 'right') container.move(width, 0);
+  if (position[0] === 'left') container.move(box.minX - bbox.width, 0);
+  if (position[0] === 'top') container.move(box.minY - bbox.height, 0);
+  if (position[0] === 'bottom') container.move(height, 0);
 }

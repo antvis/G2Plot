@@ -1,7 +1,6 @@
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-import { DataPointType } from '@antv/g2/lib/interface';
-import { Canvas, Text, BBox } from '@antv/g';
+import { Canvas, Text } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
 import getAutoPadding from '../util/padding';
 import { textWrapper } from '../util/textWrapper';
@@ -69,12 +68,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._annotation();
     this._animation();
 
-    const range = this._getPanelRange();
-    this._title(range);
-    this._description(range);
-    const viewMargin = this._getViewMargin();
-
     this.plot = new G2.View({
+      /*containerDOM: container,
+      forceFit: true,*/
       width: canvasCfg.width,
       height: canvasCfg.height,
       canvas: canvasCfg.canvas,
@@ -83,9 +79,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       data: props.data,
       theme: this._config.theme,
       options: this._config,
-      start: { x: 0, y: viewMargin.maxY },
-      end: { x: canvasCfg.width, y: canvasCfg.height },
     });
+    this._description();
+    this._title();
     this._interactions();
     this._events();
   }
@@ -155,49 +151,51 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     });
   }
 
-  protected _title(panelRange: BBox): void {
+  protected _title(): void {
     const props = this._initialProps;
-    const theme = this._config.theme;
     if (props.title) {
-      const titleStyle = _.mix(theme.title, props.title.style);
+      const panelRange = this.plot.get('panelRange');
+      /**如果有description的话，要根据description位置计算title位置 */
+      let topMargin = 0;
+      if (this.description) {
+        const descriptionBBox = this.description.getBBox();
+        topMargin = descriptionBBox.minY - descriptionBBox.height;
+      }
+      const titleStyle = _.mix(this._config.theme.title, props.title.style);
       const content: string = textWrapper(props.title.text, panelRange.width, titleStyle);
-      const container = this.canvasCfg.canvas;
+      const container = this.plot.get('frontgroundGroup');
       const text = container.addShape('text', {
         attrs: _.mix({
           x: panelRange.minX,
-          y: theme.title.top_margin,
+          y: topMargin,
           text: content,
         },           titleStyle),
       });
       this.title = text;
+      this._resgiterPadding(text);
     }
   }
 
-  protected _description(panelRange: BBox): void {
+  protected _description(): void {
     const props = this._initialProps;
-    const theme = this._config.theme;
     if (props.description) {
-      /**如果有description的话，要根据description位置计算title位置 */
-      let topMargin = 0;
-      if (this.title) {
-        const titleBBox = this.title.getBBox();
-        topMargin = titleBBox.minY + titleBBox.height;
-      }
-      const descriptionStyle = _.mix(theme.description, props.description.style);
+      const panelRange = this.plot.get('panelRange');
+      const descriptionStyle = _.mix(this._config.theme.description, props.description.style);
       const content: string = textWrapper(props.description.text, panelRange.width, descriptionStyle);
-      const container = this.canvasCfg.canvas;
+      const container = this.plot.get('frontgroundGroup');
       const text = container.addShape('text', {
         attrs: _.mix({
           x: panelRange.minX,
-          y: topMargin + theme.description.top_margin,
+          y: panelRange.minY - this._config.theme.description_top_margin,
           text: content,
         },           descriptionStyle),
       });
       this.description = text;
+      this._resgiterPadding(text);
     }
   }
 
-  protected _beforeInit() { }
+  protected _beforeInit() {}
 
   protected _afterInit() {
     const props = this._initialProps;
@@ -248,12 +246,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
-    /** 移除title & description */
-    if (this.title) this.title.remove();
-    if (this.description) this.description.remove();
     const canvasDOM = this.canvasCfg.canvas.get('canvasDOM');
     canvasDOM.parentNode.removeChild(canvasDOM);
-    /** TODO: g2底层view销毁时没有销毁tooltip,经查是tooltip迁移过程中去掉了destory方法 */
+    /**TODO: g2底层view销毁时没有销毁tooltip,经查是tooltip迁移过程中去掉了destory方法 */
     this.plot.destroy();
   }
 
@@ -264,9 +259,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this.plot.off(handler.type, handler.handler);
     });
     this.plot.destroy();
-    /** 移除title & description */
-    if (this.title) this.title.remove();
-    if (this.description) this.description.remove();
     this._initialProps = newProps;
     this._init(this._container, this.canvasCfg);
   }
@@ -280,8 +272,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.height) height = props.height;
 
     const canvas = new Canvas({
-      containerDOM: !_.isString(container) ? container : undefined,
-      containerId: _.isString(container) ? container : undefined,
+      containerDOM: container,
       width,
       height,
       renderer: 'canvas',
@@ -315,7 +306,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _getG2Theme() {
     const plotG2Theme = this._convert2G2Theme(this.plotTheme);
-    const finalTheme: DataPointType = {};
+    const finalTheme = {};
     _.deepMix(finalTheme, G2DefaultTheme, plotG2Theme);
     this._processVisible(finalTheme);
     return finalTheme;
@@ -328,42 +319,4 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     processAxisVisible(theme.axis.bottom);
     return theme;
   }
-
-  // 为了方便图表布局，title和description在view创建之前绘制，需要先计算view的plotRange,方便title & description文字折行
-  private _getPanelRange() {
-    const padding = this._getPadding();
-    const width = this.canvasCfg.width;
-    const height = this.canvasCfg.height;
-    const top = padding[0];
-    const right = padding[1];
-    const bottom = padding[2];
-    const left = padding[3];
-    return new BBox(left, top, width - left - right, height - top - bottom);
-  }
-
-  // view range 去除title & description所占的空间
-  private _getViewMargin() {
-    const boxes = [];
-    if (this.title) boxes.push(this.title.getBBox());
-    if (this.description) boxes.push(this.description.getBBox());
-    if (boxes.length === 0) {
-      return { minX:0, maxX:0, minY:0, maxY:0 };
-    }  {
-      let minX = Infinity;
-      let maxX = -Infinity;
-      let minY = Infinity;
-      let maxY = - Infinity;
-      _.each(boxes, (bbox) => {
-        const box = bbox as DataPointType;
-        minX = Math.min(box.minX, minX);
-        maxX = Math.max(box.maxX, maxX);
-        minY = Math.min(box.minY, minY);
-        maxY = Math.max(box.maxY, maxY);
-      });
-      const bbox = { minX, maxX, minY, maxY };
-      if (this.description) bbox.maxY += this._config.theme.description.bottom_margin;
-      return bbox;
-    }
-  }
-
 }

@@ -382,10 +382,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _adjustLegendOffset(range) {
     const props = this._initialProps;
-    if (props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) {
+    /*tslint:disable*/
+    if ((props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) && props.legend.position === 'top-left') {
       let offset = range.minX;
       if (props.legend.offsetX) offset += props.legend.offsetX;
-      /** g2底层 legend offset bug */
       props.legend.offsetX = offset;
     }
   }

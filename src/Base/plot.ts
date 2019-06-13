@@ -254,7 +254,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 完整生命周期渲染 */
   public render(): void {
-    this.plot.render();
+    const data = this._initialProps.data;
+    if (!_.isEmpty(data)) {
+      this.plot.render();
+    }
   }
 
   /** 画布内容重绘 */
@@ -383,7 +386,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   private _adjustLegendOffset(range) {
     const props = this._initialProps;
     const theme = this._config.theme;
-    const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition
+    const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
     /*tslint:disable*/
     if ((props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) && legendPosition === 'top-left') {
       let offset = range.minX;

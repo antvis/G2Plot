@@ -1,6 +1,7 @@
 import Theme from './theme';
 
 const commonTheme = {
+  defaultPadding: [20,20,20,20],
   title: {
     top_margin: 20,
     fontFamily: 'PingFang SC',

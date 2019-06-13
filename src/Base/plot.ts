@@ -164,8 +164,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.title) {
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
-      if (props.title.alignWidthAxis === false) {
-        leftMargin = 0;
+      /*tslint:disable*/
+      const alignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
+      if (alignWidthAxis === false) {
+        leftMargin = theme.defaultPadding[0];
         wrapperWidth = this.canvasCfg.width;
       }
       const titleStyle = _.mix(theme.title, props.title.style);
@@ -193,8 +195,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       }
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
-      if (props.description.alignWidthAxis === false) {
-        leftMargin = 0;
+      /*tslint:disable*/
+      const alignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+      if (alignWidthAxis === false) {
+        leftMargin = theme.defaultPadding[0];
         wrapperWidth = this.canvasCfg.width;
       }
       const descriptionStyle = _.mix(theme.description, props.description.style);
@@ -218,7 +222,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /** 处理autopadding逻辑 */
     if (props.padding === 'auto') {
       this.plot.render(false);
-      const padding = getAutoPadding(this.plot, this.paddingComponents);
+      const padding = getAutoPadding(this.plot, this.paddingComponents, this._config.theme.defaultPadding);
       this.updateConfig({
         padding,
       });
@@ -387,13 +391,19 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
-    /*tslint:disable*/
-    if ((props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) && legendPosition === 'top-left') {
-      let offset = range.minX;
-      if (props.legend == null) {
+    const titleAlignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
+    const desAlignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+
+    if ((this.title || this.description) &&  legendPosition === 'top-left') {
+      let offset = theme.defaultPadding[0];
+      if (titleAlignWidthAxis !== false || desAlignWidthAxis !== false) {
+        offset = range.minX;
+        if (props.legend.offsetX) offset += props.legend.offsetX;
+
+      }
+      if (props.legend === null) {
         props.legend = {};
       }
-      if (props.legend.offsetX) offset += props.legend.offsetX;
       props.legend.offsetX = offset;
     }
   }

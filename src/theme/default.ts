@@ -1,7 +1,7 @@
 import Theme from './theme';
 
 const commonTheme = {
-  defaultPadding: [20,20,20,20],
+  defaultPadding: [ 20, 20, 20, 20 ],
   title: {
     top_margin: 20,
     fontFamily: 'PingFang SC',
@@ -11,6 +11,7 @@ const commonTheme = {
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 20,
+    alignWidthAxis: true,
   },
   description: {
     top_margin:20,
@@ -21,6 +22,7 @@ const commonTheme = {
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 16,
+    alignWidthAxis: true,
   },
   axis: {
     y: {

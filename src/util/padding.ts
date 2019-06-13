@@ -8,7 +8,7 @@ interface DataPointType {
 
 const DEFAULT_PADDING = [ 20, 20, 20, 20 ];
 
-export default function getAutoPadding(view: View, components) {
+export default function getAutoPadding(view: View, components, defaultPadding) {
   const viewRange = view.get('viewRange');
   const { width, height, minX, maxX, minY, maxY } = viewRange;
   /*const width = view.get('width');
@@ -28,10 +28,10 @@ export default function getAutoPadding(view: View, components) {
   });
   box = mergeBBox(components_bbox);
   const padding = [
-    0 - (box.minY - minY) + DEFAULT_PADDING[0], // 上面超出的部分
-    box.maxX - maxX + DEFAULT_PADDING[1], // 右边超出的部分
-    box.maxY - maxY + DEFAULT_PADDING[2], // 下边超出的部分
-    0 - box.minX + DEFAULT_PADDING[3],
+    0 - (box.minY - minY) + defaultPadding[0], // 上面超出的部分
+    box.maxX - maxX + defaultPadding[1], // 右边超出的部分
+    box.maxY - maxY + defaultPadding[2], // 下边超出的部分
+    0 - box.minX + defaultPadding[3],
   ];
   return padding;
 }

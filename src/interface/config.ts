@@ -170,7 +170,7 @@ export interface Label {
 }
 
 export interface Legend {
-  visible: boolean;
+  visible?: boolean;
   /** 位置 */
   position?: string;
   /** 翻页 */

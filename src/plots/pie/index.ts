@@ -105,7 +105,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     if (_.has(props, 'color')) {
       const color = props.color;
       if (_.isString(color)) {
-        config.values = [ color ];
+        config.values = [ color as string ];
       } else {
         config.values = color as [];
       }

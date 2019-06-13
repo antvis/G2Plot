@@ -15,6 +15,7 @@ function genShapeStyle(DEFAULT_COLOR) {
     },
     interval: {
       fill: DEFAULT_COLOR,
+      fillOpacity: 1,
     },
     hollowInterval: {
       stroke: DEFAULT_COLOR,
@@ -28,12 +29,14 @@ function genShapeStyle(DEFAULT_COLOR) {
     },
     polygon: {
       fill: DEFAULT_COLOR,
+      fillOpacity: 1,
     },
     hollowPolygon: {
       stroke: DEFAULT_COLOR,
     },
     point: {
       fill: DEFAULT_COLOR,
+      fillOpacity: 1,
     },
     hollowPoint: {
       stroke: DEFAULT_COLOR,
@@ -337,6 +340,94 @@ export default function genTheme(config) {
       },
     },
     defaultLegendPosition: 'top-left',
-    shape: genShapeStyle(defaultColor)
+    shape: genShapeStyle(defaultColor),
+    label: {
+      textStyle: {
+        fontSize: fontSizeLabel,
+        fill: fontColorLabel,
+        fontFamily
+      }
+    },
+    treemapLabels: {
+      textStyle: {
+        fill: fontColorLabel,
+        fontSize: fontSizeLabel,
+        fontFamily,
+      },
+    },
+    innerLabels: {
+      textStyle: {
+        fill: fontColorLabel,
+        fontSize: fontSizeLabel,
+        fontFamily,
+      },
+    },
+    legend: {
+      right: {
+        textStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        },
+        titleStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        }
+      },
+      left: {
+        textStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        },
+        titleStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        }
+      },
+      top: {
+        textStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        },
+        titleStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        }
+      },
+      bottom: {
+        textStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        },
+        titleStyle: {
+          fill: fontColorLabel,
+          fontSize: fontSizeLabel,
+          fontFamily,
+        }
+      },
+      // 定义 html 渲染图例的样式
+      html: {
+        backgroundStyle: {
+          fontSize: fontSizeLabel,
+          fontFamily,
+          color: fontColorLabel,
+        }
+      },
+    },
+    tooltip: {
+      useHtml: true,
+      // css style for tooltip
+      'g2-tooltip': {
+        color: fontColorLabel,
+        fontSize: fontSizeLabel + 'px',
+        fontFamily,
+      }
+    }
   };
 }

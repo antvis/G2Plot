@@ -382,9 +382,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _adjustLegendOffset(range) {
     const props = this._initialProps;
+    const theme = this._config.theme;
+    const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition
     /*tslint:disable*/
-    if ((props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) && props.legend.position === 'top-left') {
+    if ((props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) && legendPosition === 'top-left') {
       let offset = range.minX;
+      if (props.legend == null) {
+        props.legend = {};
+      }
       if (props.legend.offsetX) offset += props.legend.offsetX;
       props.legend.offsetX = offset;
     }

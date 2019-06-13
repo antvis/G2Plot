@@ -1,13 +1,12 @@
 import { StackBar, Pie, Line, GroupColumn } from '../../src';
 import Theme from '../../src/theme/theme';
-import { expect } from 'chai';
 import genTheme from './genTheme';
 
 
 const lightThemeCfg = genTheme({
-  colors: [ '#5574f0', '#25dfd2', '#ac92ed', '#5fc8ff', '#ec87d1', '#7986cb', '#8abde5', '#feb46d', '#ffd76e', '#ff8b8b' ],
+  colors: [ '#718DFF', '#25DFD2', '#B89BFF', '#61D5FF', '#FF9CE5', '#7D8CDB', '#8ABDE5', '#FEB46D', '#FFD76E', '#FF8B8B' ],
   backgroundColor: '#fff',
-  fontFamily: '',
+  fontFamily: '"-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif"',
   fontSizeTitle: 26,
   fontColorTitle: '#36415E',
   fontSizeSubTitle: 14,
@@ -152,12 +151,13 @@ describe('主题测试', () => {
         text: '这是一个饼图',
       },
       description: {
-        text: '饼图一般用于观察数据占比',
+        text: '饼图一般用于观察数据占比成双成对开始就发动机佛得角粉底及佛；低筋粉',
       },
-      padding: 'auto',
-      legend: {
-        position: 'bottom'
-      }
+      label: {
+        visible: true,
+      },
+      padding: 'auto'
+      // padding: 0,
     });
     piePlot.render();
 
@@ -169,7 +169,13 @@ describe('主题测试', () => {
       stackField: 'year',
       yAxis: {
         min: 0
-      }
+      },
+      title: {
+        text: '这是一个条形图',
+      },
+      description: {
+        text: '测试得分就哦了发链接据占比成双成对开始就发动机佛得角粉底及佛；低筋粉',
+      },
     });
     barPlot.render();
 
@@ -181,7 +187,16 @@ describe('主题测试', () => {
       groupField: 'type',
       yAxis: {
         min: 0
-      }
+      },
+      title: {
+        text: '这是一个柱状图但除了',
+      },
+      label: {
+        visible: true,
+      },
+      description: {
+        text: '测试得分就哦了发链接据占比成双成对开始就发动机佛得角粉底及佛；低筋粉',
+      },
     });
     barPlot2.render();
 
@@ -189,7 +204,13 @@ describe('主题测试', () => {
       data,
       xField: 'year',
       yField: 'value',
-      seriesField: 'type'
+      seriesField: 'type',
+      title: {
+        text: '这是一个折线图xxxs但除了',
+      },
+      description: {
+        text: '测试得分就哦了发链接据占比成双成对开始就发动机佛得角粉底及佛；低筋粉',
+      },
     });
     linePlot.render();
 

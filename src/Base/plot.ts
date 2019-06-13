@@ -219,8 +219,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _afterInit() {
     const props = this._initialProps;
+    const padding = props.padding? props.padding : this._config.theme.padding;
     /** 处理autopadding逻辑 */
-    if (props.padding === 'auto') {
+    if (padding === 'auto') {
       this.plot.render(false);
       const padding = getAutoPadding(this.plot, this.paddingComponents, this._config.theme.defaultPadding);
       this.updateConfig({
@@ -318,11 +319,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _getPadding() {
     const props = this._initialProps;
-    if (props.padding) {
-      if (props.padding === 'auto') return [ 0, 0, 0, 0 ];
-      return props.padding;
-    }
-    return [ 40, 20, 60, 20 ];
+    const padding = props.padding? props.padding : this._config.theme.padding;
+    if (padding === 'auto') return [ 0, 0, 0, 0 ];
+    return padding;
   }
 
   private _getTheme() {
@@ -391,17 +390,17 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
+    const titleAlignWidthAxis = props.title && props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
+    const desAlignWidthAxis = props.description && props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+
     if ((this.title || this.description) &&  legendPosition === 'top-left') {
       let offset = theme.defaultPadding[0];
-      const titleAlignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
-      const desAlignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+      if (props.legend == null) {
+        props.legend = {};
+      }
       if (titleAlignWidthAxis !== false || desAlignWidthAxis !== false) {
         offset = range.minX;
         if (props.legend.offsetX) offset += props.legend.offsetX;
-
-      }
-      if (props.legend === null) {
-        props.legend = {};
       }
       props.legend.offsetX = offset;
     }

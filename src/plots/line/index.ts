@@ -147,7 +147,7 @@ export default class Line extends BasePlot<LineConfig>{
         },
         color: this._pointColor(),
         shape: { values: [ 'circle' ] },
-        size: { values: [ 2 ] },
+        size: { values: [ 3 ] },
       };
       const pointStyle = pointConfig.style as PointStyle;
       if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
@@ -322,7 +322,7 @@ export default class Line extends BasePlot<LineConfig>{
     if (pointStyleProps && pointStyleProps.color) {
       config.values = [ pointStyleProps.color ];
     } else if (props.color) {
-      config.values = props.color;
+      config.values = [ props.color ];
     }
     return config;
   }

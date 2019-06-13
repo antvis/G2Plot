@@ -6,8 +6,6 @@ interface DataPointType {
   [ k: string ]: any;
 }
 
-const DEFAULT_PADDING = [ 20, 20, 20, 20 ];
-
 export default function getAutoPadding(view: View, components, defaultPadding) {
   const viewRange = view.get('viewRange');
   const { width, height, minX, maxX, minY, maxY } = viewRange;

@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "test": "torch --compile --renderer --recursive ./__tests__/unit",
-    "test-live": "torch --compile --interactive ./__tests__/unit/line.spec2.js",
+    "test-live": "torch --compile --interactive ./__tests__/unit/line.spec.js",
     "test-column": "torch --compile --interactive ./__tests__/unit/biztheme.spec.js",
     "dist": "webpack --config webpack.config.js --mode production",
     "build": "rm -rf lib && tsc",

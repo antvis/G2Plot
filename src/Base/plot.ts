@@ -318,11 +318,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _getPadding() {
     const props = this._initialProps;
-    if (props.padding) {
-      if (props.padding === 'auto') return [ 0, 0, 0, 0 ];
-      return props.padding;
-    }
-    return [ 40, 20, 60, 20 ];
+    const padding = props.padding? props.padding : this._config.theme.padding;
+    if (padding === 'auto') return [ 0, 0, 0, 0 ];
+    return padding;
   }
 
   private _getTheme() {

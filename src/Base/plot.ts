@@ -164,7 +164,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.title) {
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
-      if (props.title.alignWidthAxis === false) {
+      const alignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
+      if (alignWidthAxis === false) {
         leftMargin = 0;
         wrapperWidth = this.canvasCfg.width;
       }
@@ -193,7 +194,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       }
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
-      if (props.description.alignWidthAxis === false) {
+      const alignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+      if (alignWidthAxis === false) {
         leftMargin = 0;
         wrapperWidth = this.canvasCfg.width;
       }
@@ -384,8 +386,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition
+    const titleAlignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
+    const desAlignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+
     /*tslint:disable*/
-    if ((props.title.alignWidthAxis !== false || props.description.alignWidthAxis !== false) && legendPosition === 'top-left') {
+    if ((titleAlignWidthAxis !== false || desAlignWidthAxis !== false) && legendPosition === 'top-left') {
       let offset = range.minX;
       if (props.legend == null) {
         props.legend = {};

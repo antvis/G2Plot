@@ -10,6 +10,7 @@ const commonTheme = {
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 20,
+    alignWidthAxis: false
   },
   description: {
     top_margin:20,
@@ -20,6 +21,7 @@ const commonTheme = {
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 16,
+    alignWidthAxis: false
   },
   axis: {
     y: {

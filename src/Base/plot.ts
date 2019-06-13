@@ -391,18 +391,17 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
-    const titleAlignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
-    const desAlignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+    const titleAlignWidthAxis = props.title && props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
+    const desAlignWidthAxis = props.description && props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
 
     if ((this.title || this.description) &&  legendPosition === 'top-left') {
       let offset = theme.defaultPadding[0];
+      if (props.legend == null) {
+        props.legend = {};
+      }
       if (titleAlignWidthAxis !== false || desAlignWidthAxis !== false) {
         offset = range.minX;
         if (props.legend.offsetX) offset += props.legend.offsetX;
-
-      }
-      if (props.legend === null) {
-        props.legend = {};
       }
       props.legend.offsetX = offset;
     }

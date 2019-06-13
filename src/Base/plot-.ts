@@ -202,7 +202,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /** 处理autopadding逻辑 */
     if (props.padding === 'auto') {
       this.plot.render(false);
-      const padding = getAutoPadding(this.plot, this.paddingComponents);
+      const padding = getAutoPadding(this.plot, this.paddingComponents, this._config.theme.defaultPadding);
       this.updateConfig({
         padding,
       });

@@ -214,6 +214,28 @@ describe('主题测试', () => {
     });
     linePlot.render();
 
+    const linePlot2 = new Line(canvasDiv, {
+      data: data2,
+      xField: 'year',
+      yField: 'value',
+      color: 'red',
+      point: {
+        visible: true,
+      },
+      // title: {
+      //   text: '这是一个xxx',
+      // },
+      // description: {
+      //   text: 'xxx一般用于观察数据占比成双成对开始就发动机佛得角粉底及佛；低筋粉',
+      // },
+      // label: {
+      //   visible: true,
+      // },
+      padding: 'auto'
+      // padding: 0,
+    });
+    linePlot2.render();
+
   });
 
 });

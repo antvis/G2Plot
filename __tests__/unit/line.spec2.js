@@ -543,10 +543,10 @@ describe('Line plot', () => {
       },
       legend: {
         visible: true,
-        position: 'top-left',
+        position: 'bottom-center',
       },
       xAxis: {
-        tickCount: 5
+        // tickCount: 5
         /* formatter: () => {
           return 'a';
         }*/

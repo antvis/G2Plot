@@ -1,7 +1,7 @@
 import Theme from './theme';
 
 const commonTheme = {
-  defaultPadding: [ 20, 20, 20, 20 ],
+  defaultPadding: [ 20, 20, 40, 20 ],
   padding: 'auto',
   title: {
     top_margin: 20,

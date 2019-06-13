@@ -88,5 +88,5 @@ function adjustLegend(legend, view, box) {
   if (position[0] === 'right') container.move(width, minY);
   if (position[0] === 'left') container.move(box.minX - bbox.width, minY);
   if (position[0] === 'top') container.move(0, box.minY - bbox.height);
-  if (position[0] === 'bottom') container.move(0, maxY);
+  if (position[0] === 'bottom') container.move(0, Math.max(maxY, box.maxY));
 }

@@ -455,7 +455,7 @@ describe('Line plot', () => {
     const labelGroup = linePlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
     const panelGroup = linePlot.plot.get('panelRange');
     expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
-    // linePlot.destroy();
+    linePlot.destroy();
   });
 
 

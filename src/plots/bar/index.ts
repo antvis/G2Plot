@@ -25,7 +25,7 @@ export interface BarConfig extends BaseConfig {
   type?: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
   barSize?: number;
-  maxthWidth?: number;
+  maxWidth?: number;
   minWidth?: number;
   barStyle?: BarStyle | Function;
   xAxis?: ICatAxis | ITimeAxis;

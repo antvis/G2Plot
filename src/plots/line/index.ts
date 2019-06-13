@@ -146,7 +146,7 @@ export default class Line extends BasePlot<LineConfig>{
           fields: [ props.xField, props.yField ],
         },
         color: this._pointColor(),
-        shape: { values: [ 'circle' ] },
+        shape: { values: [ 'point' ] },
         size: { values: [ 3 ] },
       };
       const pointStyle = pointConfig.style as PointStyle;

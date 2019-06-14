@@ -165,8 +165,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
       /*tslint:disable*/
-      const alignWidthAxis = props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
-      if (alignWidthAxis === false) {
+      const alignWithAxis = props.title.hasOwnProperty('alignWithAxis') ? props.title.alignWithAxis : theme.title.alignWithAxis;
+      if (alignWithAxis === false) {
         leftMargin = theme.defaultPadding[0];
         wrapperWidth = this.canvasCfg.width;
       }
@@ -196,8 +196,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
       /*tslint:disable*/
-      const alignWidthAxis = props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
-      if (alignWidthAxis === false) {
+      const alignWithAxis = props.description.hasOwnProperty('alignWithAxis') ? props.description.alignWithAxis : theme.description.alignWithAxis;
+      if (alignWithAxis === false) {
         leftMargin = theme.defaultPadding[0];
         wrapperWidth = this.canvasCfg.width;
       }
@@ -390,15 +390,15 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     const theme = this._config.theme;
     const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
-    const titleAlignWidthAxis = props.title && props.title.hasOwnProperty('alignWidthAxis') ? props.title.alignWidthAxis : theme.title.alignWidthAxis;
-    const desAlignWidthAxis = props.description && props.description.hasOwnProperty('alignWidthAxis') ? props.description.alignWidthAxis : theme.description.alignWidthAxis;
+    const titleAlignWithAxis = props.title && props.title.hasOwnProperty('alignWithAxis') ? props.title.alignWithAxis : theme.title.alignWithAxis;
+    const desAlignWithAxis = props.description && props.description.hasOwnProperty('alignWithAxis') ? props.description.alignWithAxis : theme.description.alignWithAxis;
 
     if ((this.title || this.description) &&  legendPosition === 'top-left') {
       let offset = theme.defaultPadding[0];
       if (props.legend == null) {
         props.legend = {};
       }
-      if (titleAlignWidthAxis !== false || desAlignWidthAxis !== false) {
+      if (titleAlignWithAxis !== false || desAlignWithAxis !== false) {
         offset = range.minX;
         if (props.legend.offsetX) offset += props.legend.offsetX;
       }

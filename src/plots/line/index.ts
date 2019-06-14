@@ -206,7 +206,7 @@ export default class Line extends BasePlot<LineConfig>{
           },
         };
         /**如果有数据点的话要追加数据点的动画 */
-        if (props.point.visible) {
+        if (props.point && props.point.visible) {
           this.point.animate = {
             appear: {
               animation: 'zoomIn',

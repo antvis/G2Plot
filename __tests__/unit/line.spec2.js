@@ -565,9 +565,9 @@ describe('Line plot', () => {
           return 'test';
         }
       },*/
-      /* animation: {
+      animation: {
         type: 'clipingWithData'
-      },*/
+      },
       events: {
         onLegendClick: () => {
           // console.log('legend click');

@@ -72,13 +72,13 @@ interface Meta {
 interface ITitle {
   text: string;
   style?: {};
-  alignWidthAxis?: boolean;
+  alignWithAxis?: boolean;
 }
 
 interface IDescription {
   text: string;
   style?: {};
-  alignWidthAxis?: boolean;
+  alignWithAxis?: boolean;
 }
 
 interface IEvents {

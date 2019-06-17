@@ -6,6 +6,8 @@ import PlotConfig, { G2Config } from '../interface/config';
 import getAutoPadding from '../util/padding';
 import { textWrapper } from '../util/textWrapper';
 import { processAxisVisible } from '../util/axis';
+import ResizeObserver from 'resize-observer-polyfill';
+
 import Theme from '../theme';
 
 interface ITheme {
@@ -27,10 +29,24 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected title: Text;
   protected description: Text;
   protected plotTheme: any;
+  private forceFitCb: any;
+  private _containerEle: HTMLElement;
+  private _resizeObserver: any;
 
   constructor(container: string | HTMLElement, config: T) {
     this._initialProps = config;
     this._container = container;
+    this._containerEle = _.isString(container) ? document.getElementById(container) : container;
+    this.forceFitCb = _.debounce(() => {
+      this._updateCanvasSize(this.canvasCfg);
+      this.updateConfig({});
+      this.render();
+    }, 300);
+    if (config.forceFit) {
+      const ro = new ResizeObserver(this.forceFitCb);
+      ro.observe(this._containerEle);
+      this._resizeObserver = ro;
+    }
     this.canvasCfg = this._createCanvas(container);
     this._beforeInit();
     this._init(container, this.canvasCfg);
@@ -272,6 +288,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 销毁 */
   public destroy(): void {
+    if (this._resizeObserver) {
+      this._resizeObserver.unobserve(this._containerEle);
+      this._containerEle = null;
+    }
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
@@ -303,7 +323,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     let width = container.offsetWidth;
     let height = container.offsetHeight;
-    if (props.width) width = props.width;
+    if (props.width && !props.forceFit ) width = props.width;
     if (props.height) height = props.height;
 
     const canvas = new Canvas({
@@ -315,6 +335,18 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       pixelRatio: 2,
     });
     return { canvas, width, height };
+  }
+
+  private _updateCanvasSize(canvasCfg) {
+    const props = this._initialProps;
+    let width = this._containerEle.offsetWidth;
+    let height = this._containerEle.offsetHeight;
+    if (props.width) width = props.width;
+    if (props.height) height = props.height;
+    
+    canvasCfg.width = width;
+    canvasCfg.height = height;
+    canvasCfg.canvas.changeSize(width, height);
   }
 
   private _getPadding() {

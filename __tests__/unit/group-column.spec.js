@@ -83,7 +83,7 @@ describe('GroupColomn plot', () => {
     year: '1999',
     value: 13,
     type: 'Bor'
-  }];
+  } ];
 
   it('初始化以及销毁', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
@@ -115,7 +115,7 @@ describe('GroupColomn plot', () => {
       },
       groupField: 'type',
       columnSize: 7,
-      color: ['red', 'yellow']
+      color: [ 'red', 'yellow' ]
     });
     columnPlot.render();
     const intervalEle = columnPlot.plot.get('elements')[0];

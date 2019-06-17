@@ -14,6 +14,8 @@ export default interface Config {
   data: object[];
   width?: number;
   height?: number;
+  /** 自适应父容器宽度 */
+  forceFit?: boolean;
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
   meta?: { [fieldId: string]: Meta };
   /** 图表标题 */
@@ -104,7 +106,7 @@ interface IBaseAxis {
   autoHideLabel: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   label?: {
     visible?: boolean;
-    text?: Function;
+    formatter?: Function;
     offset?: number; // 坐标轴文本距离坐标轴线的距离
     offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
     offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量

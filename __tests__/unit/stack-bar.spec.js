@@ -83,7 +83,7 @@ describe('StackBar plot', () => {
     year: '1999',
     value: 13,
     type: 'Bor'
-  }];
+  } ];
 
   it('初始化以及销毁', () => {
     const barPlot = new StackBar(canvasDiv, {
@@ -116,7 +116,7 @@ describe('StackBar plot', () => {
       },
       stackField: 'type',
       barSize: 7,
-      color: ['red', 'yellow']
+      color: [ 'red', 'yellow' ]
     });
     barPlot.render();
     const intervalEle = barPlot.plot.get('elements')[0];

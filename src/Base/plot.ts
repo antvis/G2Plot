@@ -341,7 +341,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     let width = this._containerEle.offsetWidth;
     let height = this._containerEle.offsetHeight;
-    if (props.width) width = props.width;
+    if (props.width && !props.forceFit) width = props.width;
     if (props.height) height = props.height;
     
     canvasCfg.width = width;

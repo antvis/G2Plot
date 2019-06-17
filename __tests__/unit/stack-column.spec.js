@@ -83,7 +83,7 @@ describe('StackColumn plot', () => {
     year: '1999',
     value: 13,
     type: 'Bor'
-  }];
+  } ];
 
   it('初始化以及销毁', () => {
     const columnPlot = new StackColumn(canvasDiv, {
@@ -115,7 +115,7 @@ describe('StackColumn plot', () => {
       },
       stackField: 'type',
       columnSize: 7,
-      color: ['red', 'yellow']
+      color: [ 'red', 'yellow' ]
     });
     columnPlot.render();
     const intervalEle = columnPlot.plot.get('elements')[0];
@@ -126,7 +126,7 @@ describe('StackColumn plot', () => {
     expect(columnPlot.plot.destroyed).to.be.true;
   });
 
-  it.only('color map', () => {
+  it('color map', () => {
     const columnPlot = new StackColumn(canvasDiv, {
       data,
       xField: 'year',

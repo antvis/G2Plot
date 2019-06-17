@@ -121,7 +121,6 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     // }
     this._adjustColumn(column);
     this._setConfig('element', column);
-    this._setConfig('legends', false);
   }
 
   protected _interactions() {

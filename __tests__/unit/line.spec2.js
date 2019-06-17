@@ -535,7 +535,7 @@ describe('Line plot', () => {
       yField: 'value',
       seriesField: 'type',
       width: 600,
-      height: 600,
+      height: 100,
       size: 2,
       smooth: true,
       tooltip: {
@@ -564,10 +564,10 @@ describe('Line plot', () => {
         formatter: () => {
           return 'test';
         }
-      },*/
+      },
       animation: {
         type: 'clipingWithData'
-      },
+      },*/
       events: {
         onLegendClick: () => {
           // console.log('legend click');

@@ -382,6 +382,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       });
       const bbox = { minX, maxX, minY, maxY };
       if (this.description) bbox.maxY += this._config.theme.description.bottom_margin;
+
+      /** 约束viewRange的start.y，防止坐标轴出现转置 */
+      if(bbox.maxY >= this.canvasCfg.height){
+        bbox.maxY =  this.canvasCfg.height - 0.1;
+      }
+
       return bbox;
     }
   }

@@ -535,11 +535,11 @@ describe('Line plot', () => {
       yField: 'value',
       seriesField: 'type',
       width: 600,
-      height: 100,
+      height: 600,
       size: 2,
       smooth: true,
       tooltip: {
-        visible: false,
+        // visible: false,
       },
       legend: {
         visible: true,

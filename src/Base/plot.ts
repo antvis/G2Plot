@@ -316,6 +316,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.description) this.description.remove();
     this._initialProps = newProps;
     this._init(this._container, this.canvasCfg);
+    this._afterInit();
   }
 
   private _createCanvas(container) {

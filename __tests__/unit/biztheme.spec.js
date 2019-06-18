@@ -3,17 +3,32 @@ import Theme from '../../src/theme/theme';
 import genTheme from './genTheme';
 
 
+// ali-light
+// const lightThemeCfg = genTheme({
+//   colors: [ '#718DFF', '#25DFD2', '#B89BFF', '#61D5FF', '#FF9CE5', '#7D8CDB', '#8ABDE5', '#FEB46D', '#FFD76E', '#FF8B8B' ],
+//   backgroundColor: '#fff',
+//   fontFamily: '"-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif"',
+//   fontSizeTitle: 26,
+//   fontColorTitle: '#36415E',
+//   fontSizeSubTitle: 14,
+//   fontColorSubTitle: '#676e7f',
+//   fontSizeLabel: 12,
+//   fontColorLabel: '#8f9aa7',
+//   lineColor: '#dbe2e9',
+// });
+
+// ant-dark
 const lightThemeCfg = genTheme({
-  colors: [ '#718DFF', '#25DFD2', '#B89BFF', '#61D5FF', '#FF9CE5', '#7D8CDB', '#8ABDE5', '#FEB46D', '#FFD76E', '#FF8B8B' ],
-  backgroundColor: '#fff',
-  fontFamily: '"-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",SimSun, "sans-serif"',
+  colors: [ '#3FA1FF', '#85D1EC', '#33CBCC', '#80E0BF', '#4ACD70', '#ABE07E', '#FCD530', '#EDA671', '#F46179', '#DF7ED5' ],
+  backgroundColor: '#3C4454',
+  fontFamily: "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
   fontSizeTitle: 26,
-  fontColorTitle: '#36415E',
+  fontColorTitle: '#fff',
   fontSizeSubTitle: 14,
-  fontColorSubTitle: '#676e7f',
+  fontColorSubTitle: '#ABACB9',
   fontSizeLabel: 12,
-  fontColorLabel: '#8f9aa7',
-  lineColor: '#dbe2e9',
+  fontColorLabel: '#DFDFDF',
+  lineColor: '#676E7F',
 });
 
 describe('主题测试', () => {
@@ -141,7 +156,10 @@ describe('主题测试', () => {
   }, ];
 
   it('全局主题 默认色', () => {
-    Theme.setTheme('test-light');
+    // Theme.setTheme('test-light');
+
+    Theme.setTheme('ant-dark');
+
 
     const piePlot = new Pie(canvasDiv, {
       data: data2,
@@ -156,7 +174,7 @@ describe('主题测试', () => {
       label: {
         visible: true,
       },
-      padding: 'auto'
+      // padding: 'auto'
       // padding: 0,
     });
     piePlot.render();
@@ -231,7 +249,6 @@ describe('主题测试', () => {
       // label: {
       //   visible: true,
       // },
-      padding: 'auto'
       // padding: 0,
     });
     linePlot2.render();

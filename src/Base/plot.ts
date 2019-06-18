@@ -76,6 +76,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       theme: g2Theme,
     };
 
+    if (g2Theme.backgroundStyle && g2Theme.backgroundStyle.fill) {
+      this.canvasCfg.canvas.get('canvasDOM').style.backgroundColor = g2Theme.backgroundStyle.fill;
+    }
     /** 绘制title & description */
     const range = this._getPanelRange();
     this._title(range);

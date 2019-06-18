@@ -427,6 +427,7 @@ export default function genTheme(config) {
         color: fontColorLabel,
         fontSize: fontSizeLabel + 'px',
         fontFamily,
+        // backgroundColor: 'rgba(59, 68, 83, 0.9)',
       }
     }
   };

@@ -21,6 +21,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public type: string = 'base';
   public _container: string | HTMLElement;
   public plot: G2.View;
+  public destroyed: boolean;
   protected _initialProps: T;
   protected _config: G2Config;
   public eventHandlers: any[] = [];
@@ -37,15 +38,20 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._initialProps = config;
     this._container = container;
     this._containerEle = _.isString(container) ? document.getElementById(container) : container;
+    this.destroyed = false;
+    const self = this;
     this.forceFitCb = _.debounce(() => {
-      const oldWidth = this.canvasCfg.width;
-      const oldHegith = this.canvasCfg.height;
-      this._updateCanvasSize(this.canvasCfg);
-      if (this.canvasCfg.width === oldWidth && this.canvasCfg.height === oldHegith) {
+      if (self.destroyed) {
         return;
       }
-      this.updateConfig({});
-      this.render();
+      const oldWidth = self.canvasCfg.width;
+      const oldHegith = self.canvasCfg.height;
+      self._updateCanvasSize(self.canvasCfg);
+      if (self.canvasCfg.width === oldWidth && self.canvasCfg.height === oldHegith) {
+        return;
+      }
+      self.updateConfig({});
+      self.render();
     },                           300);
     if (config.forceFit) {
       const ro = new ResizeObserver(this.forceFitCb);
@@ -310,6 +316,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     canvasDOM.parentNode.removeChild(canvasDOM);
     /** TODO: g2底层view销毁时没有销毁tooltip,经查是tooltip迁移过程中去掉了destory方法 */
     this.plot.destroy();
+    this.destroyed = true;
   }
 
   /** 更新配置项 */

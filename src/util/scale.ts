@@ -12,7 +12,7 @@ export function extractScale(desScale, axisConfig) {
   if (!axisConfig) return desScale;
 
   if (axisConfig.hasOwnProperty('tickCount')) desScale.tickCount = axisConfig.tickCount;
-  if (axisConfig.hasOwnProperty('tickInverval')) {
+  if (axisConfig.hasOwnProperty('tickInterval')) {
     if (axisConfig.type === 'time') {
       desScale.tickInterval = adjustTimeTickInterval(axisConfig.tickInterval);
     }else {

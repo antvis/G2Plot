@@ -166,7 +166,7 @@ export default class Line extends BasePlot<LineConfig>{
       return;
     }
     this.line.label = {
-      fields: labelType === 'point' ? [ props.yField ] : [ props.seriesField ],
+      fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
       labelType,
     };
     /** formater */

@@ -38,7 +38,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._container = container;
     this._containerEle = _.isString(container) ? document.getElementById(container) : container;
     this.forceFitCb = _.debounce(() => {
+      const oldWidth = this.canvasCfg.width;
+      const oldHegith = this.canvasCfg.height;
       this._updateCanvasSize(this.canvasCfg);
+      if (this.canvasCfg.width === oldWidth && this.canvasCfg.height === oldHegith) {
+        return;
+      }
       this.updateConfig({});
       this.render();
     },                           300);
@@ -47,6 +52,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       ro.observe(this._containerEle);
       this._resizeObserver = ro;
     }
+    this.plotTheme = this._getTheme();
     this.canvasCfg = this._createCanvas(container);
     this._beforeInit();
     this._init(container, this.canvasCfg);
@@ -55,7 +61,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _init(container: string | HTMLElement, canvasCfg) {
     const props = this._initialProps;
-    this.plotTheme = this._getTheme();
     const g2Theme: ITheme = this._getG2Theme();
     this._config = {
       scales: {},
@@ -324,33 +329,35 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _createCanvas(container) {
     // TODO: coord width问题
-    const props = this._initialProps;
-    let width = container.offsetWidth;
-    let height = container.offsetHeight;
-    if (props.width && !props.forceFit ) width = props.width;
-    if (props.height) height = props.height;
+    const size = this._getCanvasSize(this._initialProps, this._containerEle);
 
     const canvas = new Canvas({
       containerDOM: !_.isString(container) ? container : undefined,
       containerId: _.isString(container) ? container : undefined,
-      width,
-      height,
+      width: size.width,
+      height: size.height,
       renderer: 'canvas',
       pixelRatio: 2,
     });
-    return { canvas, width, height };
+    return { canvas, width: size.width, height: size.height };
   }
 
   private _updateCanvasSize(canvasCfg) {
-    const props = this._initialProps;
-    let width = this._containerEle.offsetWidth;
-    let height = this._containerEle.offsetHeight;
-    if (props.width && !props.forceFit) width = props.width;
-    if (props.height) height = props.height;
+    const size = this._getCanvasSize(this._initialProps, this._containerEle);
     
-    canvasCfg.width = width;
-    canvasCfg.height = height;
-    canvasCfg.canvas.changeSize(width, height);
+    canvasCfg.width = size.width;
+    canvasCfg.height = size.height;
+    canvasCfg.canvas.changeSize(size.width, size.height);
+  }
+
+  private _getCanvasSize(props, containerEle) {
+    const plotTheme = this.plotTheme;
+    let width = props.width ? props.width : plotTheme.width;
+    let height = props.height ? props.height : plotTheme.height;
+    if (props.forceFit && containerEle.offsetWidth) {
+      width = containerEle.offsetWidth;
+    }
+    return {width, height};
   }
 
   private _getPadding() {

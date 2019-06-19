@@ -1,6 +1,8 @@
 import Theme from './theme';
 
 const commonTheme = {
+  width: 400,
+  height: 400,
   defaultPadding: [ 20, 20, 40, 20 ],
   padding: 'auto',
   title: {

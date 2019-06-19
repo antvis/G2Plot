@@ -351,7 +351,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _updateCanvasSize(canvasCfg) {
     const size = this._getCanvasSize(this._initialProps, this._containerEle);
-    
+
     canvasCfg.width = size.width;
     canvasCfg.height = size.height;
     canvasCfg.canvas.changeSize(size.width, size.height);

@@ -36,7 +36,7 @@ export interface LineConfig extends BaseConfig {
   /** 是否平滑 */
   smooth?: boolean;
   /** 是否连接空数据 */
-  connectNull?: boolean;
+  connectNulls?: boolean;
   /** 折线extra图形样式 */
   lineStyle?: LineStyle | Function;
   /** 折线数据点图形样式 */
@@ -116,12 +116,13 @@ export default class Line extends BasePlot<LineConfig>{
   protected _addElements() {
     const props = this._initialProps;
     // 配置线
-    const line: ElementOption = {
+    const line = {
       type: 'line',
       position: {
         fields: [ props.xField, props.yField ],
       },
-    };
+      connectNulls: !!props.connectNulls,
+    } as ElementOption;
     if (props.seriesField || props.color) line.color = this._lineColor();
     if (props.size) line.size = { values: [ props.size ] };
     if (props.smooth) line.shape = { values: [ 'smooth' ] };

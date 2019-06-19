@@ -82,6 +82,15 @@ export default class Line extends BasePlot<LineConfig>{
     /** 配置y-scale */
     scales[props.yField] = {};
     _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
+    _.each(scales, (scaleConfig: any, field: string) => {
+      const meta: BaseConfig['meta']['key'] = _.get(props.meta, field);
+      // meta中存在对应配置，则补充入
+      if (meta) {
+        scaleConfig.alias = meta.name;
+        scaleConfig.formatter = meta.formatter;
+      }
+    });
+
     this._setConfig('scales', scales);
   }
 

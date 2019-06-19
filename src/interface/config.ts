@@ -151,7 +151,7 @@ export interface ICatAxis extends IBaseAxis {
   /** tick相关配置 */
   tickInterval?: number;
   tickCount?: number;
-  groupBy: string;
+  groupBy?: string;
   /** 目前DI开放的配置，如果内部自动化更好 */
   label?: Partial<{
     rotate: number;

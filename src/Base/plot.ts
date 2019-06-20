@@ -364,6 +364,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.forceFit && containerEle.offsetWidth) {
       width = containerEle.offsetWidth;
     }
+    if (props.forceFit && containerEle.offsetHeight) {
+      height = containerEle.offsetHeight;
+    }
     return {width, height};
   }
 

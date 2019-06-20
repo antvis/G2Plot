@@ -14,7 +14,7 @@ export default interface Config {
   data: object[];
   width?: number;
   height?: number;
-  /** 自适应父容器宽度 */
+  /** 自适应父容器宽度和高度 */
   forceFit?: boolean;
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
   meta?: { [fieldId: string]: Meta };

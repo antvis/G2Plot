@@ -107,6 +107,17 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._annotation();
     this._animation();
 
+    // 补充scale配置
+    const scales = _.mapValues(this._config.scales, (scaleConfig: any, field: string) => {
+      const meta: PlotConfig['meta']['key'] = _.get(props.meta, field);
+      // meta中存在对应配置，则补充入
+      if (meta) {
+        return _.assign({}, scaleConfig, meta);
+      }
+      return scaleConfig;
+    });
+    this._setConfig('scales', scales);
+
     this.plot = new G2.View({
       width: canvasCfg.width,
       height: canvasCfg.height,

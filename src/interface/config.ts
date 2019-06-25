@@ -8,6 +8,7 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
+import { Scale } from '@antv/scale';
 
 export default interface Config {
   /** 数据，对象数组 */
@@ -69,6 +70,7 @@ interface Meta {
   name?: string;
   /** 字段值格式化 */
   formatter?: Formatter;
+  type?: Scale['type'];
 }
 
 interface ITitle {

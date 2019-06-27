@@ -94,7 +94,7 @@ describe('Bar plot', () => {
     expect(barPlot.plot.destroyed).to.be.true;
   });
 
-  it.only('每个柱子颜色不一样', () => {
+  it('每个柱子颜色不一样', () => {
     const barPlot = new Bar(canvasDiv, {
       padding: 'auto',
       data,

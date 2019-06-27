@@ -123,6 +123,11 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
           fields: [ props.xField, props.yField ],
           callback: props.color,
         };
+      } else if (_.isArray(props.color)) {
+        bar.color = {
+          fields: [ props.yField ],
+          values: props.color,
+        };
       }
     }
     this._adjustBar(bar);

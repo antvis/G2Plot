@@ -552,6 +552,14 @@ describe('Line plot', () => {
         }*/
       },
       yAxis: {
+        title: {
+          visible: true,
+          style: {
+            /* textBaseLine: 'top',
+            textAlign: 'right'
+            offset: 10*/
+          }
+        }
         /* formatter: () => {
           return 'b';
         }*/

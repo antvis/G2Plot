@@ -144,10 +144,6 @@ export interface ICatAxis extends IBaseAxis {
   tickInterval?: number;
   tickCount?: number;
   groupBy?: string;
-  /** 目前DI开放的配置，如果内部自动化更好 */
-  label?: Partial<{
-    rotate: number;
-  }>;
 }
 type Axis = ICatAxis | IValueAxis | ITimeAxis;
 

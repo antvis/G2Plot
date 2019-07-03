@@ -151,9 +151,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.events) {
       const events = props.events;
       const eventmap = eventParser.EVENT_MAP;
-      _.each(events, (e) => {
+      _.each(events, (e, k) => {
         if (_.isFunction(e)) {
-          const eventName = eventmap[e.name];
+          const eventName = eventmap[e.name] || k;
           const handler = e;
           eventParser.onEvent(this, eventName, handler);
         }

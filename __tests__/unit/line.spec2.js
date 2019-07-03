@@ -593,6 +593,136 @@ describe('Line plot', () => {
       }
     ];
 
+    const data3 = [ {
+      year: 2013,
+      type: '食品烟酒',
+      value: 4127
+    }, {
+      year: 2013,
+      type: '衣着',
+      value: 1027
+    }, {
+      year: 2013,
+      type: '居住',
+      value: 2999
+    }, {
+      year: 2013,
+      type: '生活用品',
+      value: 806
+    }, {
+      year: 2013,
+      type: '交通通行',
+      value: 1627
+    }, {
+      year: 2013,
+      type: '文教娱',
+      value: 1398
+    }, {
+      year: 2013,
+      type: '医疗保健',
+      value: 912
+    }, {
+      year: 2013,
+      type: '其他',
+      value: 325
+    }, {
+      year: 2014,
+      type: '食品烟酒',
+      value: 4494
+    }, {
+      year: 2014,
+      type: '衣着',
+      value: 1099
+    }, {
+      year: 2014,
+      type: '居住',
+      value: 3201
+    }, {
+      year: 2014,
+      type: '生活用品',
+      value: 890
+    }, {
+      year: 2014,
+      type: '交通通行',
+      value: 1869
+    }, {
+      year: 2014,
+      type: '文教娱',
+      value: 1536
+    }, {
+      year: 2014,
+      type: '医疗保健',
+      value: 1045
+    }, {
+      year: 2014,
+      type: '其他',
+      value: 358
+    }, {
+      year: 2015,
+      type: '食品烟酒',
+      value: 4814
+    }, {
+      year: 2015,
+      type: '衣着',
+      value: 1164
+    }, {
+      year: 2015,
+      type: '居住',
+      value: 3419
+    }, {
+      year: 2015,
+      type: '生活用品',
+      value: 951
+    }, {
+      year: 2015,
+      type: '交通通行',
+      value: 2087
+    }, {
+      year: 2015,
+      type: '文教娱',
+      value: 1723
+    }, {
+      year: 2015,
+      type: '医疗保健',
+      value: 1165
+    }, {
+      year: 2015,
+      type: '其他',
+      value: 389
+    }, {
+      year: 2016,
+      type: '食品烟酒',
+      value: 5151
+    }, {
+      year: 2016,
+      type: '衣着',
+      value: 1203
+    }, {
+      year: 2016,
+      type: '居住',
+      value: 3746
+    }, {
+      year: 2016,
+      type: '生活用品',
+      value: 1044
+    }, {
+      year: 2016,
+      type: '交通通行',
+      value: 2338
+    }, {
+      year: 2016,
+      type: '文教娱',
+      value: 1915
+    }, {
+      year: 2016,
+      type: '医疗保健',
+      value: 1307
+    }, {
+      year: 2016,
+      type: '其他',
+      value: 406
+    } ];
+
     const linePlot = new Line(canvasDiv, {
       title: {
         text: '测试测试测试测试',
@@ -603,14 +733,14 @@ describe('Line plot', () => {
         alignWithAxis: false
       },
       padding: 'auto',
-      data: data2,
-      xField: /* 'date'*/'612ceb01-c32d-497d-9929-fdda390bac78',
-      yField: /* 'value'*/'$$measure$$',
-      seriesField: /* 'type'*/'$$series$$',
-      width: 600,
-      height: 600,
+      data: data3,
+      xField: /* 'date'*/'year',
+      yField: /* 'value'*/'value',
+      seriesField: /* 'type'*/'type',
+      width: 400,
+      height: 500,
       size: 2,
-      smooth: true,
+      // smooth: true,
       tooltip: {
         // visible: false,
       },

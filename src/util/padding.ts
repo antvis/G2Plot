@@ -13,7 +13,7 @@ export default function getAutoPadding(view: View, components, defaultPadding) {
   const height = view.get('height');
   const width = viewRange.width;
   const height = viewRange.height;*/
-    /** 参与auto padding的components: axis annotation legend*/
+  /** 参与auto padding的components: axis annotation legend*/
   const components_bbox = [ view.get('panelRange') ];
   getAxis(view, components_bbox);
   let box = mergeBBox(components_bbox);
@@ -50,12 +50,14 @@ function getLegend(view, bboxes, box) {
   if (legends.length > 0) {
     _.each(legends, (l) => {
       const  legend = l as DataPointType;
+      const width = legend.getWidth();
+      const height = legend.getHeight();
       adjustLegend(legend, view, box);
       const legendBBox = legend.get('container').getBBox();
       const legendMatrix = legend.get('container').attr('matrix');
       const left = legendMatrix[6];
       const top = legendMatrix[7];
-      const bbox = new BBox(left, top, legendBBox.width, legendBBox.height);
+      const bbox = new BBox(left, top, width, height);
       bboxes.push(bbox);
     });
   }

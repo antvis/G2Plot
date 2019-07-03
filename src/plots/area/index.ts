@@ -52,7 +52,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   line: any;
   point: any;
   area: any;
-  
+
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
   }

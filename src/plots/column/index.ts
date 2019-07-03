@@ -114,6 +114,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
           fields: [ props.xField, props.yField ],
           callback: props.color,
         };
+      } else if (_.isArray(props.color)) {
+        column.color = {
+          fields: [ props.xField ],
+          values: props.color,
+        };
       }
     }
     // column.opacity = {

@@ -94,6 +94,33 @@ describe('Column plot', () => {
     expect(columnPlot.plot.destroyed).to.be.true;
   });
 
+
+  it('柱子颜色不一样', () => {
+    const columnPlot = new Column(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'year',
+      yField: 'value',
+      color: [ 'red', 'blue', 'green', 'yellow', 'orange', 'gray', 'purple', 'brown' ],
+      xAxis: {
+        visible: true,
+      },
+      yAxis: {
+        visible: true
+      },
+      legend: {
+        visible: false,
+      }
+    });
+    columnPlot.render();
+    const columnEle = columnPlot.plot.get('elements')[0];
+    expect(columnEle.get('color').values[0]).to.be.equal('red');
+    expect(columnEle.get('color').values[1]).to.be.equal('blue');
+    columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;
+  });
+
+
   it('隐藏两个坐标轴', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: 'auto',

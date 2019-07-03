@@ -94,6 +94,28 @@ describe('Bar plot', () => {
     expect(barPlot.plot.destroyed).to.be.true;
   });
 
+  it('每个柱子颜色不一样', () => {
+    const barPlot = new Bar(canvasDiv, {
+      padding: 'auto',
+      data,
+      xField: 'value',
+      yField: 'year',
+      color: [ 'red', 'blue', 'green', 'yellow', 'orange', 'gray', 'purple', 'brown' ],
+      xAxis: {
+        visible: true,
+      },
+      yAxis: {
+        visible: true
+      }
+    });
+    barPlot.render();
+    const barEle = barPlot.plot.get('elements')[0];
+    expect(barEle.get('color').values[0]).to.be.equal('red');
+    expect(barEle.get('color').values[1]).to.be.equal('blue');
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).to.be.true;
+  });
+
   it('隐藏两个坐标轴', () => {
     const barPlot = new Bar(canvasDiv, {
       padding: 'auto',

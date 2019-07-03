@@ -8,4 +8,6 @@ export { default as GroupBar } from './plots/group-bar';
 export { default as Pie } from './plots/pie';
 export { default as Ring } from './plots/ring';
 export { default as Radar } from './plots/radar';
+export { default as Area } from './plots/area';
+
 export { default as Theme } from './theme';

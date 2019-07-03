@@ -520,6 +520,79 @@ describe('Line plot', () => {
       value: 176
     } ];
 
+    const data2 = [
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-27',
+        $$series$$: 'profit_amt',
+        $$measure$$: 8
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-27',
+        $$series$$: 'other_number',
+        $$measure$$: 17179869176
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-28',
+        $$series$$: 'profit_amt',
+        $$measure$$: 10
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-28',
+        $$series$$: 'other_number',
+        $$measure$$: 34359738352
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-29',
+        $$series$$: 'profit_amt',
+        $$measure$$: 16
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-29',
+        $$series$$: 'other_number',
+        $$measure$$: 34359738352
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-30',
+        $$series$$: 'profit_amt',
+        $$measure$$: 11
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-30',
+        $$series$$: 'other_number',
+        $$measure$$: 23622320117
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-01',
+        $$series$$: 'profit_amt',
+        $$measure$$: 11
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-01',
+        $$series$$: 'other_number',
+        $$measure$$: 23622320117
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-02',
+        $$series$$: 'profit_amt',
+        $$measure$$: 18
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-02',
+        $$series$$: 'other_number',
+        $$measure$$: 38654705646
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-03',
+        $$series$$: 'profit_amt',
+        $$measure$$: 14
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-03',
+        $$series$$: 'other_number',
+        $$measure$$: 30064771058
+      }
+    ];
+
     const linePlot = new Line(canvasDiv, {
       title: {
         text: '测试测试测试测试',
@@ -530,10 +603,10 @@ describe('Line plot', () => {
         alignWithAxis: false
       },
       padding: 'auto',
-      data,
-      xField: 'date',
-      yField: 'value',
-      seriesField: 'type',
+      data: data2,
+      xField: /* 'date'*/'612ceb01-c32d-497d-9929-fdda390bac78',
+      yField: /* 'value'*/'$$measure$$',
+      seriesField: /* 'type'*/'$$series$$',
       width: 600,
       height: 600,
       size: 2,
@@ -554,15 +627,8 @@ describe('Line plot', () => {
       yAxis: {
         title: {
           visible: true,
-          style: {
-            /* textBaseLine: 'top',
-            textAlign: 'right'
-            offset: 10*/
-          }
+          offset: 10,
         }
-        /* formatter: () => {
-          return 'b';
-        }*/
       },
       /* legend: {
         visible: false,

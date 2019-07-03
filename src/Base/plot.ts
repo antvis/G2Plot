@@ -85,6 +85,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       annotations: [],
       interactions: {},
       theme: g2Theme,
+      panelRange: {},
     };
 
     if (g2Theme.backgroundStyle && g2Theme.backgroundStyle.fill) {
@@ -92,6 +93,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
     /** 绘制title & description */
     const range = this._getPanelRange();
+    this._config.panelRange = range;
+
     this._title(range);
     this._description(range);
     this._adjustLegendOffset(range);

@@ -226,6 +226,7 @@ export interface G2Config {
   annotations: any[];
   interactions: {};
   theme: any;
+  panelRange: any;
 }
 
 export interface IColorConfig {

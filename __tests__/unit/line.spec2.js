@@ -520,6 +520,209 @@ describe('Line plot', () => {
       value: 176
     } ];
 
+    const data2 = [
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-27',
+        $$series$$: 'profit_amt',
+        $$measure$$: 8
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-27',
+        $$series$$: 'other_number',
+        $$measure$$: 17179869176
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-28',
+        $$series$$: 'profit_amt',
+        $$measure$$: 10
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-28',
+        $$series$$: 'other_number',
+        $$measure$$: 34359738352
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-29',
+        $$series$$: 'profit_amt',
+        $$measure$$: 16
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-29',
+        $$series$$: 'other_number',
+        $$measure$$: 34359738352
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-30',
+        $$series$$: 'profit_amt',
+        $$measure$$: 11
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-06-30',
+        $$series$$: 'other_number',
+        $$measure$$: 23622320117
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-01',
+        $$series$$: 'profit_amt',
+        $$measure$$: 11
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-01',
+        $$series$$: 'other_number',
+        $$measure$$: 23622320117
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-02',
+        $$series$$: 'profit_amt',
+        $$measure$$: 18
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-02',
+        $$series$$: 'other_number',
+        $$measure$$: 38654705646
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-03',
+        $$series$$: 'profit_amt',
+        $$measure$$: 14
+      },
+      {
+        '612ceb01-c32d-497d-9929-fdda390bac78': '2019-07-03',
+        $$series$$: 'other_number',
+        $$measure$$: 30064771058
+      }
+    ];
+
+    const data3 = [ {
+      year: 2013,
+      type: '食品烟酒',
+      value: 4127
+    }, {
+      year: 2013,
+      type: '衣着',
+      value: 1027
+    }, {
+      year: 2013,
+      type: '居住',
+      value: 2999
+    }, {
+      year: 2013,
+      type: '生活用品',
+      value: 806
+    }, {
+      year: 2013,
+      type: '交通通行',
+      value: 1627
+    }, {
+      year: 2013,
+      type: '文教娱',
+      value: 1398
+    }, {
+      year: 2013,
+      type: '医疗保健',
+      value: 912
+    }, {
+      year: 2013,
+      type: '其他',
+      value: 325
+    }, {
+      year: 2014,
+      type: '食品烟酒',
+      value: 4494
+    }, {
+      year: 2014,
+      type: '衣着',
+      value: 1099
+    }, {
+      year: 2014,
+      type: '居住',
+      value: 3201
+    }, {
+      year: 2014,
+      type: '生活用品',
+      value: 890
+    }, {
+      year: 2014,
+      type: '交通通行',
+      value: 1869
+    }, {
+      year: 2014,
+      type: '文教娱',
+      value: 1536
+    }, {
+      year: 2014,
+      type: '医疗保健',
+      value: 1045
+    }, {
+      year: 2014,
+      type: '其他',
+      value: 358
+    }, {
+      year: 2015,
+      type: '食品烟酒',
+      value: 4814
+    }, {
+      year: 2015,
+      type: '衣着',
+      value: 1164
+    }, {
+      year: 2015,
+      type: '居住',
+      value: 3419
+    }, {
+      year: 2015,
+      type: '生活用品',
+      value: 951
+    }, {
+      year: 2015,
+      type: '交通通行',
+      value: 2087
+    }, {
+      year: 2015,
+      type: '文教娱',
+      value: 1723
+    }, {
+      year: 2015,
+      type: '医疗保健',
+      value: 1165
+    }, {
+      year: 2015,
+      type: '其他',
+      value: 389
+    }, {
+      year: 2016,
+      type: '食品烟酒',
+      value: 5151
+    }, {
+      year: 2016,
+      type: '衣着',
+      value: 1203
+    }, {
+      year: 2016,
+      type: '居住',
+      value: 3746
+    }, {
+      year: 2016,
+      type: '生活用品',
+      value: 1044
+    }, {
+      year: 2016,
+      type: '交通通行',
+      value: 2338
+    }, {
+      year: 2016,
+      type: '文教娱',
+      value: 1915
+    }, {
+      year: 2016,
+      type: '医疗保健',
+      value: 1307
+    }, {
+      year: 2016,
+      type: '其他',
+      value: 406
+    } ];
+
     const linePlot = new Line(canvasDiv, {
       title: {
         text: '测试测试测试测试',
@@ -530,14 +733,14 @@ describe('Line plot', () => {
         alignWithAxis: false
       },
       padding: 'auto',
-      data,
-      xField: 'date',
-      yField: 'value',
-      seriesField: 'type',
-      width: 600,
-      height: 600,
+      data: data3,
+      xField: /* 'date'*/'year',
+      yField: /* 'value'*/'value',
+      seriesField: /* 'type'*/'type',
+      width: 400,
+      height: 500,
       size: 2,
-      smooth: true,
+      // smooth: true,
       tooltip: {
         // visible: false,
       },
@@ -554,15 +757,8 @@ describe('Line plot', () => {
       yAxis: {
         title: {
           visible: true,
-          style: {
-            /* textBaseLine: 'top',
-            textAlign: 'right'
-            offset: 10*/
-          }
+          offset: 10,
         }
-        /* formatter: () => {
-          return 'b';
-        }*/
       },
       /* legend: {
         visible: false,

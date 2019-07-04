@@ -27,12 +27,13 @@ export default function getAutoPadding(view: View, components, defaultPadding) {
   });
   box = mergeBBox(components_bbox);
   const padding = [
-    0 - (box.minY - minY) + defaultPadding[0], // 上面超出的部分
+    0 - box.minY + defaultPadding[0], // 上面超出的部分
     box.maxX - maxX + defaultPadding[1], // 右边超出的部分
     box.maxY - maxY + defaultPadding[2], // 下边超出的部分
     0 - box.minX + defaultPadding[3],
   ];
   return padding;
+
 }
 
 function getAxis(view, bboxes) {

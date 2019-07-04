@@ -17,36 +17,23 @@ describe('Liquid plot', () => {
       description: {
         text: '水位图用来展示数据在总集合中的占比情况，通过水位的样式展示信息。',
       },
-      width: 600,
-      height: 600,
+      width: 400,
+      height: 450,
 
       type: 'normal',
       min: 0,
-      max: 1000,
-      value: 664,
+      max: 10000,
+      value: 6640,
       showValue: true,
       format: (d) => `[${d}]`,
       style: {
         borderOpacity: 0.2,
         borderWidth: 10,
-        color: '#aB76FF',
+        color: '#3B76FF',
         fontColor: '#233F7E',
         fontOpacity: 1,
-        fontSize: 40
+        // fontSize: 40
       },
-
-      data: [ {
-        year: '1997',
-        value: 1700
-      }, {
-        year: '1998',
-        value: 2900
-      }, {
-        year: '1999',
-        value: 3300
-      } ],
-      xField: 'year',
-      yField: 'value',
     });
     liquidPlot.render();
   });

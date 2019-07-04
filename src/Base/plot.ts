@@ -189,6 +189,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('legends', {
       offsetY: _.get(props, 'legend.offsetY'),
     });
+    this._setConfig('legends', {
+      flipPage: _.get(props, 'legend.flipPage'),
+    });
   }
 
   protected _title(panelRange: BBox): void {
@@ -324,7 +327,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 更新配置项 */
   public updateConfig(cfg): void {
-    const newProps = _.deepMix(this._initialProps, cfg);
+    const newProps = _.deepMix({},this._initialProps, cfg);
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });

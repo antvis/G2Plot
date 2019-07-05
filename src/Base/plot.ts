@@ -189,6 +189,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('legends', {
       offsetY: _.get(props, 'legend.offsetY'),
     });
+
     this._setConfig('legends', {
       flipPage: _.get(props, 'legend.flipPage'),
     });
@@ -336,6 +337,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.title) this.title.remove();
     if (this.description) this.description.remove();
     this._initialProps = newProps;
+    this.canvasCfg.width = this._initialProps.width;
+    this.canvasCfg.height = this._initialProps.height;
+    this._updateCanvasSize(this.canvasCfg);
     this._init(this._container, this.canvasCfg);
     this._afterInit();
   }

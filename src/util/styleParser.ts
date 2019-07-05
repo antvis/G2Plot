@@ -39,19 +39,23 @@ function AxisStyleParser(axisCfg, axis) {
     axisCfg.autoRotateLabel = axis.autoRotateLabel;
   }
   if (axis.label) {
-    const newLabel = _.clone(axis.label);
-    if (newLabel.style) {
-      newLabel.textStyle = newLabel.style;
-      delete newLabel.style;
-    }
-    if (axis.label.formatter) {
-      const textFormatter = axis.label.formatter;
-      axisCfg.label = (text) => {
-        newLabel.text = textFormatter(text);
-        return newLabel;
-      };
-    } else {
-      axisCfg.label = newLabel;
+    if (axis.label.visible === false) {
+      axis.label = null;
+    }else {
+      const newLabel = _.clone(axis.label);
+      if (newLabel.style) {
+        newLabel.textStyle = newLabel.style;
+        delete newLabel.style;
+      }
+      if (axis.label.formatter) {
+        const textFormatter = axis.label.formatter;
+        axisCfg.label = (text) => {
+          newLabel.text = textFormatter(text);
+          return newLabel;
+        };
+      } else {
+        axisCfg.label = newLabel;
+      }
     }
   }
   if (axis.grid) {

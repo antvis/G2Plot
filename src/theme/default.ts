@@ -83,6 +83,11 @@ const commonTheme = {
       autoRotateTitle: true,
       grid: {
         visible: false,
+        style: {
+          stroke: '#E3E8EC',
+          lineWidth: 1,
+          lineDash: [ 0, 0 ],
+        },
       },
       line: {
         visible: false,

@@ -732,6 +732,7 @@ describe('Line plot', () => {
         text: '当秒级数据需要频繁刷新时（5 s 刷新一次），更新时的动画是重新渲染整个图表，闪烁明显且太频繁，期望是刷新数据时，像心电图的效果，图线向左移动，旧数据消失。',
         alignWithAxis: false
       },
+      forceFit: false,
       padding: 'auto',
       data: data3,
       xField: /* 'date'*/'year',
@@ -739,7 +740,7 @@ describe('Line plot', () => {
       seriesField: /* 'type'*/'type',
       width: 400,
       height: 500,
-      size: 2,
+      size: 7,
       // smooth: true,
       tooltip: {
         // visible: false,
@@ -749,10 +750,10 @@ describe('Line plot', () => {
         position: 'bottom-center',
       },
       xAxis: {
-        // tickCount: 5
-        /* formatter: () => {
-          return 'a';
-        }*/
+        grid: {
+          visible: true,
+        }
+
       },
       yAxis: {
         title: {
@@ -778,6 +779,8 @@ describe('Line plot', () => {
         }
       }
     });
+    linePlot.render();
+    linePlot.updateConfig({ width: 500, height: 1000 });
     linePlot.render();
   });
 

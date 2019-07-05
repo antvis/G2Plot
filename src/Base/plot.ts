@@ -468,7 +468,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _adjustLegendOffset(range) {
     const props = this._initialProps;
-    const theme = this._config.theme;
+    const theme = _.clone(this._config.theme);
     const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
     const titleAlignWithAxis = props.title && props.title.hasOwnProperty('alignWithAxis') ? props.title.alignWithAxis : theme.title.alignWithAxis;
     const desAlignWithAxis = props.description && props.description.hasOwnProperty('alignWithAxis') ? props.description.alignWithAxis : theme.description.alignWithAxis;

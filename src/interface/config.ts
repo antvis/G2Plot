@@ -8,7 +8,7 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
-import { ScaleConfig, Scale } from '@antv/scale';
+// import { ScaleConfig, Scale } from '@antv/scale';
 
 export default interface Config {
   /** 数据，对象数组 */
@@ -18,7 +18,8 @@ export default interface Config {
   /** 自适应父容器宽度和高度 */
   forceFit?: boolean;
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
-  meta?: { [fieldId: string]: ScaleConfig & { type?: Scale['type'] } };
+  // meta?: { [fieldId: string]: ScaleConfig & { type?: Scale['type'] } };
+  meta?: { [fieldId: string]: any & { type?: any } };
   /** 图表标题 */
   title?: ITitle;
   /** 图表描述 */

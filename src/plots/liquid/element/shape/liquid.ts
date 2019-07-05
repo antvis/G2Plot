@@ -227,7 +227,6 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
 
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: any, container) {
-    const self = this;
     const cy = 0.5;
     let sumX = 0;
     let minX = Infinity;
@@ -238,8 +237,8 @@ registerShape('interval', 'liquid-fill-gauge', {
       sumX += p.x;
     });
     const cx = sumX / cfg.points.length;
-    const cp = self.parsePoint({ x: cx, y: cy });
-    const minP = self.parsePoint({ x: minX, y: 0.5 });
+    const cp = this.parsePoint({ x: cx, y: cy });
+    const minP = this.parsePoint({ x: minX, y: 0.5 });
     const xWidth = cp.x - minP.x;
     const radius = Math.min(xWidth, minP.y);
     const attrs = getFillAttrs(cfg);
@@ -252,7 +251,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     });
     addWaterWave(
       cp.x, cp.y,
-      cfg.y / (2 * cp.y),
+      1 - cfg.points[1].y, // cfg.y / (2 * cp.y),
       1,
       [ attrs.fill ],
       container,

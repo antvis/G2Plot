@@ -13,6 +13,7 @@ interface LiquidStyle {
   fontSize?: number;
   borderOpacity?: number;
   borderWidth?: number;
+  size?: number;
 }
 
 export interface LiquidConfig extends BaseConfig {
@@ -25,8 +26,8 @@ export interface LiquidConfig extends BaseConfig {
   style?: LiquidStyle;
 }
 
-export default class BaseColumn<T extends LiquidConfig = LiquidConfig> extends BasePlot<T>{
-  constructor(container: string | HTMLElement, config: T) {
+export default class Liquid extends BasePlot<LiquidConfig> {
+  constructor(container: string | HTMLElement, config: LiquidConfig) {
     super(container, config);
   }
 
@@ -34,7 +35,26 @@ export default class BaseColumn<T extends LiquidConfig = LiquidConfig> extends B
     this.type = 'liquid';
   }
 
-  protected _setDefaultG2Config() {}
+  protected _setDefaultG2Config() {
+    const { value, style = {}, format = (d) => `${d}`, type = 'normal' } = this._initialProps;
+    const { width, height } = this._config.panelRange;
+
+    const valueText = this._valueText(value, format, type);
+    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, style).borderWidth;
+    const defaultStyle = {
+      color: '#3B76FF',
+      borderWidth: 10,
+      borderOpacity: 0.2,
+      fontSize: this._autoFontSize(size, valueText),
+      fontColor: '#233F7E',
+      fontOpacity: 1,
+      size,
+    };
+    this._initialProps.styleMix = Object.assign(defaultStyle, style);
+    this._initialProps.data = [ { value: typeof(value) === 'number' ? value : 0 } ];
+    this._initialProps.valueText = valueText;
+    this._initialProps.format = format;
+  }
 
   protected _scale() {
     const props = this._initialProps;
@@ -44,7 +64,6 @@ export default class BaseColumn<T extends LiquidConfig = LiquidConfig> extends B
       min: 0,
       max: 1,
       nice: false,
-      format: (d) => `${d}`,
     };
     extractScale(scales['value'], {
       min: props.min,
@@ -59,13 +78,13 @@ export default class BaseColumn<T extends LiquidConfig = LiquidConfig> extends B
   protected _axis() {
     const axesConfig = { fields: {} };
     axesConfig.fields['value'] = false;
-    // axesConfig.fields['1'] = false;
+    axesConfig.fields['1'] = false;
     this._setConfig('axes', axesConfig);
   }
 
   protected _addElements() {
-    const props = this._initialProps;
-    const style: LiquidStyle = _.has(props, 'style') ? props.style : {};
+    const { styleMix = {} } = this._initialProps;
+
     const liquid: ElementOption = {
       type: 'interval',
       position: {
@@ -76,40 +95,63 @@ export default class BaseColumn<T extends LiquidConfig = LiquidConfig> extends B
       },
     };
 
-    if (_.has(style, 'color')) {
-      liquid.color = {
-        values: [ style.color ],
-      };
-    }
-    // const { width, height } = this.canvasCfg;
-    // console.log(this.plot && this.plot.get('viewRange'));
-    const { width, height } = this._config.panelRange;
-    // const { width, height } = this.plot.cfg.viewRange;
-    // console.log(this.plot && this.plot.get('panelRange'));
-    const intervalSize = Math.min(width, height) / 1.125 - Object.assign({ borderWidth: 10 }, style).borderWidth;
-    if (_.has(style, 'color')) {
-      liquid.size = {
-        values: [ intervalSize ],
-      };
-    }
+    liquid.color = {
+      values: [ styleMix.color ],
+    };
+    liquid.size = {
+      values: [ styleMix.size ],
+    };
+    liquid.style = {
+      lineWidth: styleMix.borderWidth,
+      opacity: styleMix.borderOpacity,
+    };
+
     this._setConfig('element', liquid);
   }
 
   protected _interactions() { }
 
-  protected _annotation() {}
+  protected _annotation() {
+    const props = this._initialProps;
+    if (props.showValue === false) {
+      return;
+    }
+
+    const { valueText, styleMix } = this._initialProps;
+    const annotationConfigs = [];
+    const text = {
+      type: 'text',
+      content: valueText,
+      top: true,
+      position: [ '50%', '50%' ],
+      style: {
+        fill: styleMix.fontColor,
+        opacity: styleMix.fontOpacity,
+        fontSize: styleMix.fontSize,
+        textAlign: 'center',
+      },
+    };
+    annotationConfigs.push(text);
+    this._setConfig('annotations', annotationConfigs);
+  }
 
   protected _animation() {}
 
-  private _liquidStyle() {
-    const props = this._initialProps;
-    const liquidStyleProps = props.liquidStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: liquidStyleProps,
-    };
-    return config;
+  private _percent(num: number, fixed: number = 2): string {
+    if (isNaN(num)) return `${num}`;
+    return (`${(num * 100).toFixed(fixed)}%`).replace(/\.0*%/, '%');
   }
 
+  private _valueText(value, format, type) {
+    if (type === 'percent') {
+      return typeof(value) === 'number' ? format(this._percent(value), value) : '--';
+    }
+    return typeof(value) === 'number' ? format(value) : '--';
+  }
+
+  private _autoFontSize(space, text) {
+    const fontSizeBySpace = space / 4;
+    const fontSizeByText = space / text.length * 1.5;
+    return Math.min(fontSizeBySpace, fontSizeByText);
+  }
 }

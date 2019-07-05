@@ -110,6 +110,17 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._annotation();
     this._animation();
 
+    // 补充scale配置
+    const scales = _.mapValues(this._config.scales, (scaleConfig: any, field: string) => {
+      const meta: PlotConfig['meta']['key'] = _.get(props.meta, field);
+      // meta中存在对应配置，则补充入
+      if (meta) {
+        return _.assign({}, scaleConfig, meta);
+      }
+      return scaleConfig;
+    });
+    this._setConfig('scales', scales);
+
     this.plot = new G2.View({
       width: canvasCfg.width,
       height: canvasCfg.height,
@@ -143,9 +154,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.events) {
       const events = props.events;
       const eventmap = eventParser.EVENT_MAP;
-      _.each(events, (e) => {
+      _.each(events, (e, k) => {
         if (_.isFunction(e)) {
-          const eventName = eventmap[e.name];
+          const eventName = eventmap[e.name] || k;
           const handler = e;
           eventParser.onEvent(this, eventName, handler);
         }
@@ -373,6 +384,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     let height = props.height ? props.height : plotTheme.height;
     if (props.forceFit && containerEle.offsetWidth) {
       width = containerEle.offsetWidth;
+    }
+    if (props.forceFit && containerEle.offsetHeight) {
+      height = containerEle.offsetHeight;
     }
     return {width, height};
   }

@@ -6,7 +6,7 @@ import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 // import './guide/label/bar-label';
 
-interface areaStyle {
+interface AreaStyle {
   opacity?: number;
   lineDash?: number[];
 }
@@ -35,7 +35,7 @@ interface PointStyle {
 }
 
 export interface AreaConfig extends BaseConfig {
-  areaStyle?: areaStyle | Function;
+  areaStyle?: AreaStyle | Function;
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   line?: {

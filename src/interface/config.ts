@@ -8,16 +8,17 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
+import { ScaleConfig, Scale } from '@antv/scale';
 
 export default interface Config {
   /** 数据，对象数组 */
   data: object[];
   width?: number;
   height?: number;
-  /** 自适应父容器宽度 */
+  /** 自适应父容器宽度和高度 */
   forceFit?: boolean;
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
-  meta?: { [fieldId: string]: Meta };
+  meta?: { [fieldId: string]: ScaleConfig & { type?: Scale['type'] } };
   /** 图表标题 */
   title?: ITitle;
   /** 图表描述 */
@@ -61,15 +62,6 @@ export default interface Config {
 }
 
 type Formatter = (value: any, index?: number, ...args: any[]) => string;
-
-interface Meta {
-  /** 字段id，此处仅为了完整性 */
-  field?: string;
-  /** 字段展示名 */
-  name?: string;
-  /** 字段值格式化 */
-  formatter?: Formatter;
-}
 
 interface ITitle {
   text: string;
@@ -152,10 +144,6 @@ export interface ICatAxis extends IBaseAxis {
   tickInterval?: number;
   tickCount?: number;
   groupBy?: string;
-  /** 目前DI开放的配置，如果内部自动化更好 */
-  label?: Partial<{
-    rotate: number;
-  }>;
 }
 type Axis = ICatAxis | IValueAxis | ITimeAxis;
 

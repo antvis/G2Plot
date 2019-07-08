@@ -6,6 +6,7 @@ import PlotConfig, { G2Config } from '../interface/config';
 import getAutoPadding from '../util/padding';
 import { textWrapper } from '../util/textWrapper';
 import { processAxisVisible } from '../util/axis';
+import { EVENT_MAP, onEvent } from '../util/event';
 import ResizeObserver from 'resize-observer-polyfill';
 
 import Theme from '../theme';
@@ -153,12 +154,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     if (props.events) {
       const events = props.events;
-      const eventmap = eventParser.EVENT_MAP;
+      const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
       _.each(events, (e, k) => {
         if (_.isFunction(e)) {
           const eventName = eventmap[e.name] || k;
           const handler = e;
-          eventParser.onEvent(this, eventName, handler);
+          onEvent(this, eventName, handler);
         }
       });
     }

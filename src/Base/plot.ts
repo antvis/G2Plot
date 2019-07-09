@@ -97,7 +97,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
     this._title(range);
     this._description(range);
-    this._adjustLegendOffset(range);
+    // this._adjustLegendOffset(range);
     const viewMargin = this._getViewMargin();
 
     this._setDefaultG2Config();

@@ -3,7 +3,7 @@ import Theme from './theme';
 const commonTheme = {
   width: 400,
   height: 400,
-  defaultPadding: [ 40, 20, 40, 20 ],
+  defaultPadding: [ 20, 20, 40, 20 ],
   padding: 'auto',
   title: {
     top_margin: 20,
@@ -14,7 +14,7 @@ const commonTheme = {
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 20,
-    alignWithAxis: true,
+    alignWithAxis: false,
   },
   description: {
     top_margin:20,
@@ -25,7 +25,7 @@ const commonTheme = {
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 16,
-    alignWithAxis: true,
+    alignWithAxis: false,
   },
   axis: {
     y: {

@@ -70,7 +70,7 @@ function getLegend(view, bboxes, box) {
       }
       if (position[0] === 'top') {
         x = legendBBox.minX;
-        y = viewRange.minY - height;
+        y = - height;
       }
       if (position[0] === 'bottom') {
         x = legendBBox.minX;

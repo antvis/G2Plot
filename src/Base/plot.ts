@@ -45,14 +45,15 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       if (self.destroyed) {
         return;
       }
-      const oldWidth = self.canvasCfg.width;
-      const oldHegith = self.canvasCfg.height;
-      self._updateCanvasSize(self.canvasCfg);
-      if (self.canvasCfg.width === oldWidth && self.canvasCfg.height === oldHegith) {
+      const size = this._getCanvasSize(this._initialProps, this._containerEle);
+      /** height measure不准导致重复forcefit */
+      if (self.canvasCfg.width === size.width) {
         return;
       }
+      self._updateCanvasSize(this.canvasCfg);
       self.updateConfig({});
       self.render();
+
     },                           300);
     if (config.forceFit) {
       const ro = new ResizeObserver(this.forceFitCb);
@@ -98,7 +99,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
     this._title(range);
     this._description(range);
-    // this._adjustLegendOffset(range);
+    this._adjustLegendOffset(range);
     const viewMargin = this._getViewMargin();
 
     this._setDefaultG2Config();
@@ -227,7 +228,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
           x: leftMargin,
           y: theme.title.top_margin,
           text: content,
-        },           titleStyle),
+        }, titleStyle),
       });
       this.title = text;
     }
@@ -258,7 +259,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
           x: leftMargin, // panelRange.minX
           y: topMargin + theme.description.top_margin,
           text: content,
-        },           descriptionStyle),
+        }, descriptionStyle),
       });
       this.description = text;
     }
@@ -268,7 +269,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _afterInit() {
     const props = this._initialProps;
-    const padding = props.padding? props.padding : this._config.theme.padding;
+    const padding = props.padding ? props.padding : this._config.theme.padding;
     /** 处理autopadding逻辑 */
     if (padding === 'auto') {
       this.plot.render(false);
@@ -340,7 +341,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 更新配置项 */
   public updateConfig(cfg): void {
-    const newProps = _.deepMix({},this._initialProps, cfg);
+    const newProps = _.deepMix({}, this._initialProps, cfg);
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
@@ -389,13 +390,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.forceFit && containerEle.offsetHeight) {
       height = containerEle.offsetHeight;
     }
-    return {width, height};
+    return { width, height };
   }
 
   private _getPadding() {
     const props = this._initialProps;
-    const padding = props.padding? props.padding : this._config.theme.padding;
-    if (padding === 'auto') return [ 0, 0, 0, 0 ];
+    const padding = props.padding ? props.padding : this._config.theme.padding;
+    if (padding === 'auto') return [0, 0, 0, 0];
     return padding;
   }
 
@@ -442,8 +443,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.title) boxes.push(this.title.getBBox());
     if (this.description) boxes.push(this.description.getBBox());
     if (boxes.length === 0) {
-      return { minX:0, maxX:0, minY:0, maxY:0 };
-    }  {
+      return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
+    } {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;
@@ -459,8 +460,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       if (this.description) bbox.maxY += this._config.theme.description.bottom_margin;
 
       /** 约束viewRange的start.y，防止坐标轴出现转置 */
-      if(bbox.maxY >= this.canvasCfg.height){
-        bbox.maxY =  this.canvasCfg.height - 0.1;
+      if (bbox.maxY >= this.canvasCfg.height) {
+        bbox.maxY = this.canvasCfg.height - 0.1;
       }
 
       return bbox;
@@ -474,7 +475,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const titleAlignWithAxis = props.title && props.title.hasOwnProperty('alignWithAxis') ? props.title.alignWithAxis : theme.title.alignWithAxis;
     const desAlignWithAxis = props.description && props.description.hasOwnProperty('alignWithAxis') ? props.description.alignWithAxis : theme.description.alignWithAxis;
 
-    if ((this.title || this.description) &&  legendPosition === 'top-left') {
+    if ((this.title || this.description) && legendPosition === 'top-left') {
       let offset = theme.defaultPadding[0];
       if (props.legend == null) {
         props.legend = {};

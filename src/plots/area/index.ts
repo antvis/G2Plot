@@ -135,10 +135,24 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
         };
       }
     }
+    this._adjustArea(area);
     this._setConfig('element', area);
 
     this._addLine();
     this._addPoint();
+  }
+
+  protected _adjustArea(area: ElementOption) {
+    return;
+  }
+
+
+  protected _adjustLine(line: ElementOption) {
+    return;
+  }
+
+  protected _adjustPoint(point: ElementOption) {
+    return;
   }
 
   protected _addLine() {
@@ -153,9 +167,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
         },
         color: this._lineColor(),
         size: { values: [ 2 ] },
+        // cfg: lineConfig.style
       };
       const pointStyle = lineConfig.style as PointStyle;
       if (_.hasKey(pointStyle, 'size')) line.size.values[0] = pointStyle.size;
+      this._adjustLine(line);
       this._setConfig('element', line);
       this.line = line;
     }
@@ -173,11 +189,13 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
         },
         color: this._pointColor(),
         shape: { values: [ 'point' ] },
-        size: { values: [ 3 ] },
+        size: { values: [ 3 ] }
+        // cfg: {}
       };
       const pointStyle = pointConfig.style as PointStyle;
       if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
       if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;
+      this._adjustPoint(point);
       this._setConfig('element', point);
       this.point = point;
     }
@@ -251,7 +269,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   private _pointColor() {
     const props = this._initialProps;
-    const pointStyleProps = props.point.style;
+    const pointStyleProps = _.get(props, ['point', 'style']);
     const config = {
       fields: [],
       values: [] as any,

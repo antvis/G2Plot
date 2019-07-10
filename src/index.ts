@@ -10,5 +10,6 @@ export { default as Ring } from './plots/ring';
 export { default as Radar } from './plots/radar';
 export { default as Liquid } from './plots/liquid';
 export { default as Area } from './plots/area';
+export { default as StackArea } from './plots/stack-area';
 
 export { default as Theme } from './theme';

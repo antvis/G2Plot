@@ -26,7 +26,7 @@ describe('Liquid plot', () => {
       value: 6640,
       showValue: true,
       format: (d) => `[${d}]`,
-      style: {
+      liquidStyle: {
         borderOpacity: 0.2,
         borderWidth: 10,
         color: '#3B76FF',

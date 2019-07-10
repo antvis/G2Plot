@@ -23,7 +23,7 @@ export interface LiquidConfig extends BaseConfig {
   value?: number;
   showValue?: boolean;
   format?: Function;
-  style?: LiquidStyle;
+  liquidStyle?: LiquidStyle;
 }
 
 export default class Liquid extends BasePlot<LiquidConfig> {
@@ -36,11 +36,11 @@ export default class Liquid extends BasePlot<LiquidConfig> {
   }
 
   protected _setDefaultG2Config() {
-    const { value, style = {}, format = (d) => `${d}`, type = 'normal' } = this._initialProps;
+    const { value, liquidStyle = {}, format = (d) => `${d}`, type = 'normal' } = this._initialProps;
     const { width, height } = this._config.panelRange;
 
     const valueText = this._valueText(value, format, type);
-    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, style).borderWidth;
+    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, liquidStyle).borderWidth;
     const defaultStyle = {
       color: '#3B76FF',
       borderWidth: 10,
@@ -50,7 +50,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
       fontOpacity: 1,
       size,
     };
-    this._initialProps.styleMix = Object.assign(defaultStyle, style);
+    this._initialProps.styleMix = Object.assign(defaultStyle, liquidStyle);
     this._initialProps.data = [ { value: typeof(value) === 'number' ? value : 0 } ];
     this._initialProps.valueText = valueText;
     this._initialProps.format = format;

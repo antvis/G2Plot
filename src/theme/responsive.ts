@@ -113,10 +113,11 @@ const responsiveTheme = {
       linear:{
         label:{
           constraints: [
-            'elementMaxWidth',
+            'elementDistVertical',
           ],
           rules: [
-
+            { name: 'nodesResampling' },
+            // { name: 'textHide' }
           ],
         },
 

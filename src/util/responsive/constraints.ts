@@ -12,11 +12,21 @@ function elementDist(a, b) {
   return Math.round(dist) >= 5;
 }
 
+function elementDistVertical(a, b) {
+  const dist = a.maxY - b.minY;
+  return Math.round(dist) >= 5;
+}
+
 export const constraintsLib = {
   elementDist: {
     type:'chain',
     expression: elementDist,
   },
+  elementDistVertical: {
+    type: 'chain',
+    expression: elementDistVertical,
+  },
+
 };
 
 export function registerConstraint(name, constraint:IConstraint) {

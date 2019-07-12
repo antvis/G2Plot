@@ -17,6 +17,7 @@ import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './animation/clipInWithData';
 import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
+import responsiveMethods from './applyResponsive/index';
 
 interface LineStyle {
   opacity?: number;
@@ -60,12 +61,6 @@ function getValuesByField(field, data) {
 export default class Line extends BasePlot<LineConfig>{
   line: any; // 保存line和point的配置项，用于后续的label、tooltip和
   point: any;
-
-  constructor(container, config: LineConfig) {
-    super(container, config);
-    /**plot实例创建后的特殊逻辑 */
-    this._afterInit();
-  }
 
   protected _beforeInit() {
     this.type = 'line';
@@ -242,6 +237,12 @@ export default class Line extends BasePlot<LineConfig>{
   protected _afterInit() {
     super._afterInit();
     const props = this._initialProps;
+    /**响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.plot.once('afterrender', () => {
+        this._applyResponsive();
+      });
+    }
     /**时间子母轴 */
     if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
       const xAxis = props.xAxis as ITimeAxis;
@@ -327,5 +328,11 @@ export default class Line extends BasePlot<LineConfig>{
       config.values = [ props.color ];
     }
     return config;
+  }
+
+  private _applyResponsive() {
+    _.each(responsiveMethods, (r) => {
+      r.method(this);
+    });
   }
 }

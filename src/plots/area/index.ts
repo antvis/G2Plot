@@ -146,7 +146,6 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     return;
   }
 
-
   protected _adjustLine(line: ElementOption) {
     return;
   }
@@ -189,7 +188,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
         },
         color: this._pointColor(),
         shape: { values: [ 'point' ] },
-        size: { values: [ 3 ] }
+        size: { values: [ 3 ] },
         // cfg: {}
       };
       const pointStyle = pointConfig.style as PointStyle;
@@ -269,7 +268,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   private _pointColor() {
     const props = this._initialProps;
-    const pointStyleProps = _.get(props, ['point', 'style']);
+    const pointStyleProps = _.get(props, [ 'point', 'style' ]);
     const config = {
       fields: [],
       values: [] as any,

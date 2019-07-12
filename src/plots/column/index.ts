@@ -5,6 +5,7 @@ import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 import * as _ from '@antv/util';
 import '../column/guide/label/column-label';
+import responsiveMethods from './applyResponsive/index';
 
 interface ColumnStyle {
   opacity?: number;
@@ -136,6 +137,17 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _animation() {
   }
 
+  protected _afterInit() {
+    super._afterInit();
+    const props = this._initialProps;
+    /**响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.plot.once('afterrender', () => {
+        this._applyResponsive();
+      });
+    }
+  }
+
   private _columnStyle() {
     const props = this._initialProps;
     const columnStyleProps = props.columnStyle;
@@ -180,6 +192,12 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     }
 
     return labelConfig as any;
+  }
+
+  private _applyResponsive() {
+    _.each(responsiveMethods, (r) => {
+      r.method(this);
+    });
   }
 
 }

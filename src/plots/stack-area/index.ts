@@ -32,12 +32,12 @@ export default class StackArea extends BaseArea<StackAreaConfig> {
       type: 'stack',
     } ];
 
-    let styleColor = _.get(props, ['line', 'style', 'color']);
+    const styleColor = _.get(props, [ 'line', 'style', 'color' ]);
     let color = [];
     if (!styleColor) {
       color = props.color && _.isArray(props.color) ? props.color : undefined;
     } else {
-      color = [styleColor];
+      color = [ styleColor ];
     }
 
     if (props.stackField) {
@@ -57,12 +57,12 @@ export default class StackArea extends BaseArea<StackAreaConfig> {
       type: 'stack',
     } ];
 
-    let styleColor = _.get(props, ['point', 'style', 'color']);
+    const styleColor = _.get(props, [ 'point', 'style', 'color' ]);
     let color = [];
     if (!styleColor) {
       color = props.color && _.isArray(props.color) ? props.color : undefined;
     } else {
-      color = [styleColor];
+      color = [ styleColor ];
     }
 
     if (props.stackField) {

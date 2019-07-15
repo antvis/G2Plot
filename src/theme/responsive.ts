@@ -6,35 +6,37 @@ const responsiveTheme = {
           constraints: [
             'elementDist',
           ],
-          rules: [
-            {
-              name: 'textWrapper',
-              options: {
-                lineNumber: 2,
+          rules: {
+            elementDist: [
+              {
+                name: 'textWrapper',
+                options: {
+                  lineNumber: 2,
+                },
               },
-            },
-            {
-              name: 'textRotation',
-              options: {
-                degree: 45,
+              {
+                name: 'textRotation',
+                options: {
+                  degree: 45,
+                },
               },
-            },
-            {
-              name: 'textRotation',
-              options: {
-                degree: 90,
+              {
+                name: 'textRotation',
+                options: {
+                  degree: 90,
+                },
               },
-            },
-            {
-              name: 'textAbbreviate',
-              options: {
-                abbreviateBy: 'end',
+              {
+                name: 'textAbbreviate',
+                options: {
+                  abbreviateBy: 'end',
+                },
               },
-            },
-            {
-              name: 'textHide',
-            },
-          ],
+              {
+                name: 'textHide',
+              },
+            ],
+          },
         },
       },
       linear: {
@@ -42,87 +44,93 @@ const responsiveTheme = {
           constraints: [
             'elementDist',
           ],
-          rules: [
-            {
+          rules: {
+            elementDist:
+            [ {
               name: 'nodesResampling',
               options: {
                 keep: [ 'end' ],
               },
             },
-            {
-              name: 'textRotation',
-              options: {
-                degree: 45,
+              {
+                name: 'textRotation',
+                options: {
+                  degree: 45,
+                },
               },
-            },
-            {
-              name: 'textRotation',
-              options: {
-                degree: 90,
+              {
+                name: 'textRotation',
+                options: {
+                  degree: 90,
+                },
               },
-            },
-            {
-              name: 'robustAbbrevaite',
-              options: {
-                unit: 'thousand',
-                decimal:1,
-                abbreviateBy: 'end',
+              {
+                name: 'robustAbbrevaite',
+                options: {
+                  unit: 'thousand',
+                  decimal: 1,
+                  abbreviateBy: 'end',
+                },
               },
-            },
-            {
-              name: 'textHide',
-            },
-          ],
+              {
+                name: 'textHide',
+              },
+            ],
+          },
         },
       },
       dateTime: {
-        label:{
+        label: {
           constraints: [
             'elementDist',
           ],
-          rules:[
-            {
-              name:'datetimeStringAbbrevaite',
-            },
-            {
-              name:'nodesResamplingByAbbrevate',
-              options: {
-                               // keep:['end']
+          rules: {
+            elementDist: [
+              {
+                name: 'datetimeStringAbbrevaite',
               },
-            },
-            {
-              name: 'textRotation',
-              options: {
-                degree: 45,
+              {
+                name: 'nodesResamplingByAbbrevate',
+                options: {
+                  // keep:['end']
+                },
               },
-            },
-            {
-              name: 'textRotation',
-              options: {
-                degree: 90,
+              {
+                name: 'textRotation',
+                options: {
+                  degree: 45,
+                },
               },
-            },
-            {
-              name:'textHide',
-            },
-          ],
+              {
+                name: 'textRotation',
+                options: {
+                  degree: 90,
+                },
+              },
+              {
+                name: 'textHide',
+              },
+            ],
+          },
         },
       },
     },
-    y:{
-      linear:{
-        label:{
+    y: {
+      linear: {
+        label: {
           constraints: [
             'elementDistVertical',
           ],
-          rules: [
-            { name: 'nodesResampling' },
-            // { name: 'textHide' }
-          ],
+          rules: {
+            elementDistVertical: [
+              { name: 'nodesResampling' },
+              { name: 'textHide' },
+            ],
+          },
         },
 
       }, // linear y axis
-      category:{
+      category: {
 
       }, // categroy y axis， 条形图
     },

@@ -80,6 +80,7 @@ function distBetweenPointLine(p, p1, p2) {
   return Math.sqrt(distSquare);
 }
 
+// todo：待优化 https://blog.csdn.net/WilliamSun0122/article/details/77994526
 function minDistBetweenPointPolygon(p, polygon) {
   let min = Infinity;
     /** vertice to vertice */

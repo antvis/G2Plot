@@ -26,7 +26,6 @@ export const constraintsLib = {
     type: 'chain',
     expression: elementDistVertical,
   },
-
 };
 
 export function registerConstraint(name, constraint:IConstraint) {

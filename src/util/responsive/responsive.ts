@@ -22,7 +22,7 @@ interface ResponsiveCfg {
   region? : BBox;
   nodes: Nodes;
   constraints: any[];
-  rules?: any[];
+  rules?: any;
   iterationTime?: number;
 }
 

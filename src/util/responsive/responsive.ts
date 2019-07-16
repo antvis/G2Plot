@@ -72,7 +72,7 @@ export default class Responsive {
     }
     if (this.constraintIndex < this.constraints.length - 1) {
       this.constraintIndex ++;
-      this.currentConstraint = this.constraints[this.currentConstraint];
+      this.currentConstraint = this.constraints[this.constraintIndex];
       this.iterationTime = this.rules[this.currentConstraint].length;
       this.iterationIndex = 0;
       this._run();
@@ -85,7 +85,6 @@ export default class Responsive {
     const nodes = this.nodes.nodes;
     if (type === 'chain') return this._chainConstraint(expression, nodes);
     if (type === 'padding') return this._paddingConstraint(expression, this.region, nodes);
-
   }
 
   private _chainConstraint(expression, nodes) {
@@ -101,7 +100,12 @@ export default class Responsive {
 
   private _paddingConstraint(expression, region, nodes) {
     if (region) {
-
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        if (expression(node, region) ===  false) {
+          return false;
+        }
+      }
     }
     return true;
   }

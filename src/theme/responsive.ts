@@ -120,10 +120,15 @@ const responsiveTheme = {
         label: {
           constraints: [
             'elementDistVertical',
+            'elementWidth',
           ],
           rules: {
             elementDistVertical: [
               { name: 'nodesResampling' },
+              { name: 'textHide' },
+            ],
+            elementWidth: [
+              { name: 'digitsAbbreviate' },
               { name: 'textHide' },
             ],
           },

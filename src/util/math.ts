@@ -48,7 +48,7 @@ function getLineIntersect(p0, p1, p2, p3) {
 }
 
 function isPointInPolygon(p, polygon) {
-    /**射线法 */
+  /**射线法 */
   let inside = false;
   for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
     const xi = polygon[i].x;
@@ -57,7 +57,7 @@ function isPointInPolygon(p, polygon) {
     const yj = polygon[j].y;
 
     const intersect = ((yi > p.y) !== (yj > p.y))
-            && (p.x <= (xj - xi) * (p.y - yi) / (yj - yi) + xi);
+      && (p.x <= (xj - xi) * (p.y - yi) / (yj - yi) + xi);
     if (intersect) inside = !inside;
   }
   return inside;
@@ -83,18 +83,18 @@ function distBetweenPointLine(p, p1, p2) {
 // todo：待优化 https://blog.csdn.net/WilliamSun0122/article/details/77994526
 function minDistBetweenPointPolygon(p, polygon) {
   let min = Infinity;
-    /** vertice to vertice */
+  /** vertice to vertice */
   _.each(polygon, (v) => {
     const dist = Math.sqrt(dist2(v, p));
     if (min > dist) min = dist;
   });
-    /** vertice to edge */
+  /** vertice to edge */
   for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
     const xi = polygon[i].x;
     const yi = polygon[i].y;
     const xj = polygon[j].x;
     const yj = polygon[j].y;
-    const dist = distBetweenPointLine(p, { x:xi, y:yi }, { x:xj, y:yj });
+    const dist = distBetweenPointLine(p, { x: xi, y: yi }, { x: xj, y: yj });
     if (min > dist) min = dist;
   }
 
@@ -194,13 +194,31 @@ function bboxOnRotate(shape) {
 
 }
 
+/**统计的以后迁出去，暂时先放这里 */
+function getMedian(array) {
+  const list = _.clone(array);
+  list.sort((a, b) => {
+    return a - b;
+  });
+
+  const half = Math.floor(list.length / 2);
+
+  if (list.length % 2) {
+    return list[half];
+  }
+
+  return (list[half - 1] + list[half]) / 2.0;
+
+}
+
 export {
-    applyMatrix,
-    isBetween,
-    getLineIntersect,
-    isPointInPolygon,
-    distBetweenPointLine,
-    isPolygonIntersection,
-    minDistBetweenConvexPolygon,
-    bboxOnRotate,
+  applyMatrix,
+  isBetween,
+  getLineIntersect,
+  isPointInPolygon,
+  distBetweenPointLine,
+  isPolygonIntersection,
+  minDistBetweenConvexPolygon,
+  bboxOnRotate,
+  getMedian,
 };

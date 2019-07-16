@@ -36,10 +36,11 @@ export default class Liquid extends BasePlot<LiquidConfig> {
   }
 
   protected _setDefaultG2Config() {
-    const { value, liquidStyle = {}, format = (d) => `${d}`, type = 'normal' } = this._initialProps;
+    const { value, liquidStyle = {}, type = 'normal' } = this._initialProps;
+    const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
     const { width, height } = this._config.panelRange;
 
-    const valueText = this._valueText(value, format, type);
+    const valueText = this._valueText(type, value, format, min, max);
     const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, liquidStyle).borderWidth;
     const defaultStyle = {
       color: '#3B76FF',
@@ -51,25 +52,21 @@ export default class Liquid extends BasePlot<LiquidConfig> {
       size,
     };
     this._initialProps.styleMix = Object.assign(defaultStyle, liquidStyle);
-    this._initialProps.data = [ { value: typeof(value) === 'number' ? value : 0 } ];
+    this._initialProps.data = [ { value: typeof(value) === 'number' && valueText !== '--' ? value : 0 } ];
     this._initialProps.valueText = valueText;
     this._initialProps.format = format;
   }
 
   protected _scale() {
-    const props = this._initialProps;
+    const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
     const scales = {};
-    // default config
     scales['value'] = {
-      min: 0,
-      max: 1,
+      min,
+      // min max 相等时避免0值在中间
+      max: min !== max ? max : max + 1,
+      format,
       nice: false,
     };
-    extractScale(scales['value'], {
-      min: props.min,
-      max: props.max,
-      formatter: props.format,
-    });
     this._setConfig('scales', scales);
   }
 
@@ -142,9 +139,13 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     return (`${(num * 100).toFixed(fixed)}%`).replace(/\.0*%/, '%');
   }
 
-  private _valueText(value, format, type) {
+  private _valueText(type, value, format, min, max) {
     if (type === 'percent') {
-      return typeof(value) === 'number' ? format(this._percent(value), value) : '--';
+      if (max - min === 0) {
+        return '--';
+      }
+      const percentValue = (value - min) / (max - min);
+      return typeof(value) === 'number' ? format(this._percent(percentValue), percentValue) : '--';
     }
     return typeof(value) === 'number' ? format(value) : '--';
   }

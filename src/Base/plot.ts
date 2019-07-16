@@ -402,8 +402,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _getTheme() {
     let userPlotTheme = {};
-    if (this._initialProps.theme) {
-      userPlotTheme = this._initialProps.theme;
+    const propsTheme = this._initialProps.theme;
+    if (propsTheme) {
+      // theme 以 name 的方式配置
+      if (_.isString(propsTheme)) {
+        userPlotTheme = Theme.getThemeByName(propsTheme).getPlotTheme(this.type);
+      } else {
+        userPlotTheme = this._initialProps.theme;
+      }
     }
     const globalTheme = Theme.getCurrentTheme();
     return _.deepMix({}, globalTheme.getPlotTheme(this.type), userPlotTheme);

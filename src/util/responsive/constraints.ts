@@ -5,6 +5,8 @@ export interface IConstraint {
   expression: Function;
 }
 
+// todo: constraint加入option
+
 function elementDist(a, b) {
   const polygonA = [ a.topLeft, a.topRight, a.bottomRight, a.bottomLeft ]; // 顶点顺时针
   const polygonB = [ b.topLeft, b.topRight, b.bottomRight, b.bottomLeft ];
@@ -13,8 +15,12 @@ function elementDist(a, b) {
 }
 
 function elementDistVertical(a, b) {
-  const dist = a.maxY - b.minY;
+  const dist = Math.abs(a.bottom - b.top);
   return Math.round(dist) >= 5;
+}
+
+function elementWidth(node, region) {
+  return node.width < region.width * 0.15;
 }
 
 export const constraintsLib = {
@@ -26,8 +32,13 @@ export const constraintsLib = {
     type: 'chain',
     expression: elementDistVertical,
   },
+  elementWidth: {
+    type:'padding',
+    expression: elementWidth,
+  },
 };
 
 export function registerConstraint(name, constraint:IConstraint) {
+  // todo: 防止覆盖
   constraintsLib[name] = constraint;
 }

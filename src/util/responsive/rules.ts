@@ -1,6 +1,7 @@
 import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import moment, { months } from 'moment';
+import { getMedian } from '../math';
 
 /** 响应式规则库 */
 export interface IRule {
@@ -45,7 +46,7 @@ interface TextAbbreviateCfg {
   abbreviateBy?: 'start' | 'middle' | 'end';
 }
 function textAbbreviate(shape: Shape, cfg: TextAbbreviateCfg) {
-  const abbreviateBy = cfg.abbreviateBy ? cfg.abbreviateBy :'end';
+  const abbreviateBy = cfg.abbreviateBy ? cfg.abbreviateBy : 'end';
   const text = shape.attr('text');
   let abbravateText;
   if (abbreviateBy === 'end') abbravateText = `${text[0]}...`;
@@ -64,51 +65,106 @@ function textHide(shape) {
 }
 
 interface DigitsAbbreviateCfg {
-  unit?: 'thousand' | 'million' | 'billion' | 'trillion';
+  unit?: 'k' | 'm' | 'b' | 't' | 'auto';
   formatter?: Function;
   decimal?: number;
 }
 const unitMapper = {
-  thousand: { number: 1e3, index: 0 },
-  million: { number: 1e6, index: 1 },
-  billion: { number: 1e9, index: 2 },
-  trillion: { number: 1e12,  index: 3 },
+  k: { number: 1e3, index: 0 },
+  m: { number: 1e6, index: 1 },
+  b: { number: 1e9, index: 2 },
+  t: { number: 1e12, index: 3 },
 };
 // https://gist.github.com/MartinMuzatko/1060fe584d17c7b9ca6e
 // https://jburrows.wordpress.com/2014/11/18/abbreviating-numbers/
 /*tslint:disable*/
-function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg) {
-  const number = parseFloat(shape.attr('text'));
-  const units = [ 'k', 'm', 'b', 't' ];
+function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg, index, nodes) {
+  const number = parseFloat(shape.get('origin').text);
+  if (number === 0) {
+    return;
+  }
   if (cfg.formatter) {
     shape.attr('text', cfg.formatter(number));
     return;
-  }  if (cfg.unit) {
-    const unit = unitMapper[cfg.unit];
-    const unitname = units[unit.index];
-    const num = (number / unit.number).toFixed(cfg.decimal);
+  } if (cfg.unit) {
+    const { num, unitname } = abbravateDigitsByUnit(cfg, number);
     shape.attr('text', num + unitname);
   } else {
-    const order = Math.floor(Math.log(number) / Math.log(1000));
-    const unitname = units[order - 1];
-    const num = (number / 1000 ** order).toFixed(cfg.decimal);
+    /**自动换算逻辑 */
+    //根据中位数得到换算单位
+    const numbers = extractNumbers(nodes);
+    const median = getMedian(numbers);
+    const unitname = getUnitByNumber(median);
+    //根据数值的interval计算换算后保留的浮点数
+    let decimal = 0;
+    const unitNumber = unitMapper[unitname].number;
+    const interval = getLinearNodesInterval(nodes);
+    if (interval < unitNumber) {
+      const intervalBit = Math.floor(Math.log10(interval));
+      const unitBit = Math.floor(Math.log10(unitNumber));
+      decimal = unitBit - intervalBit;
+    }
+    const { num } = abbravateDigitsByUnit({ unit: unitname, decimal }, number);
     shape.attr('text', num + unitname);
   }
 }
+
+function abbravateDigitsByUnit(cfg, number) {
+  const units = ['k', 'm', 'b', 't'];
+  let num;
+  let unitname;
+  if (cfg.unit === 'auto') {
+    /** auto formatt k-m-b-t */
+    const order = Math.floor(Math.log(number) / Math.log(1000));
+    unitname = units[order - 1];
+    num = (number / 1000 ** order).toFixed(cfg.decimal);
+  } else if (cfg.unit) {
+    const unit = unitMapper[cfg.unit];
+    unitname = cfg.unit;
+    num = (number / unit.number).toFixed(cfg.decimal);
+  }
+  return { num, unitname };
+}
+
+function getUnitByNumber(number) {
+  const units = ['k', 'm', 'b', 't'];
+  const order = Math.floor(Math.log(number) / Math.log(1000));
+  return units[order - 1];
+}
+
+function extractNumbers(nodes) {
+  const numbers = [];
+  _.each(nodes, (node) => {
+    const number = parseFloat(node.shape.get('origin').text);
+    numbers.push(number);
+  });
+  return numbers;
+}
+
+function getLinearNodesInterval(nodes) {
+  if (nodes.length >= 2) {
+    const a = parseFloat(nodes[0].shape.get('origin').text);
+    const b = parseFloat(nodes[1].shape.get('origin').text);
+    return Math.abs(a - b);
+  }
+  return 0;
+}
+
+
 
 interface TimeStringAbbrevaiteCfg {
   keep?: string[];
 }
 
-function datetimeStringAbbrevaite(shape, cfg:TimeStringAbbrevaiteCfg, index, nodes) {
+function datetimeStringAbbrevaite(shape, cfg: TimeStringAbbrevaiteCfg, index, nodes) {
   let campareText;
   if (index === nodes.length - 1) {
     campareText = nodes[index - 1].shape.get('origin').text;
-  }else {
+  } else {
     campareText = nodes[index + 1].shape.get('origin').text;
   }
   const compare = isTime(campareText) ? timeAdaptor(campareText) : moment(campareText);
-    /**获取时间周期和时间间隔 */
+  /**获取时间周期和时间间隔 */
   const text = shape.get('origin').text;
   const current = isTime(text) ? timeAdaptor(text) : moment(text);
   const startText = nodes[0].shape.get('origin').text;
@@ -117,7 +173,7 @@ function datetimeStringAbbrevaite(shape, cfg:TimeStringAbbrevaiteCfg, index, nod
   const end = isTime(endText) ? timeAdaptor(endText) : moment(endText);
   const timeDuration = getDateTimeMode(start, end);
   const timeCycle = getDateTimeMode(current, compare); // time frequency
-    // 如果duration和frequency在同一区间
+  // 如果duration和frequency在同一区间
   if (timeDuration === timeCycle) {
     if (index !== 0 && index !== nodes.length - 1) {
       const formatter = sameSectionFormatter(timeDuration);
@@ -167,8 +223,8 @@ function getDateTimeMode(a, b) {
 }
 
 function getAbbrevaiteFormatter(duration, cycle) {
-  const times = [ 'year', 'month', 'day', 'hour', 'minite' ];
-  const formatters = [ 'YYYY', 'MM', 'DD', 'HH', 'MM' ];
+  const times = ['year', 'month', 'day', 'hour', 'minite'];
+  const formatters = ['YYYY', 'MM', 'DD', 'HH', 'MM'];
   const startIndex = times.indexOf(duration) + 1;
   const endIndex = times.indexOf(cycle);
   let formatter = '';
@@ -182,8 +238,8 @@ function getAbbrevaiteFormatter(duration, cycle) {
 }
 
 function sameSectionFormatter(mode) {
-  const times = [ 'year', 'month', 'day', 'hour', 'minite' ];
-  const formatters = [ 'YYYY', 'MM', 'DD', 'HH', 'MM' ];
+  const times = ['year', 'month', 'day', 'hour', 'minite'];
+  const formatters = ['YYYY', 'MM', 'DD', 'HH', 'MM'];
   const index = times.indexOf(mode);
   const formatter = formatters[index];
   return formatter;
@@ -192,14 +248,14 @@ function sameSectionFormatter(mode) {
 /*tslint:disable*/
 function isTime(string) {
   const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
-  const hourminSecExp =  /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
+  const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
   return hourminExp.test(string) || hourminSecExp.test(string);
 }
 
 function timeAdaptor(string) {
-    /** hh:mm hh:mm:ss 格式兼容 */
+  /** hh:mm hh:mm:ss 格式兼容 */
   const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
-  const hourminSecExp =  /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
+  const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
   if (hourminExp.test(string)) {
     return moment(string, 'hh:mm');
   } if (hourminSecExp.test(string)) {
@@ -210,19 +266,19 @@ function timeAdaptor(string) {
 interface RobustAbbrevaiteCfg {
   keep?: string[];
   abbreviateBy?: 'start' | 'middle' | 'end';
-  unit?: 'thousand' | 'million' | 'billion' | 'trillion';
+  unit?: 'k' | 'm' | 'b' | 't' | 'auto';
   decimal?: number;
 }
 
 function robustAbbrevaite(shape: Shape, cfg: RobustAbbrevaiteCfg, index, nodes) {
   const text = shape.attr('text');
-    /** 判断text类型： 数字、时间、文本 */
+  /** 判断text类型： 数字、时间、文本 */
   const isnum = /^\d+$/.test(text);
   if (isnum) {
-    digitsAbbreviate(shape, cfg);
-  }else if (moment(text).isValid() || isTime(text)) {
+    digitsAbbreviate(shape, cfg, index, nodes);
+  } else if (moment(text).isValid() || isTime(text)) {
     datetimeStringAbbrevaite(shape, cfg, index, nodes);
-  }else {
+  } else {
     textAbbreviate(shape, cfg);
   }
 }
@@ -233,11 +289,11 @@ interface NodesResamplingCfg {
 }
 
 function nodesResampling(shape, cfg: NodesResamplingCfg, index, nodes) {
-    /** nodeLength为偶数，则奇数index的shape保留，反之则偶数index的shape保留 */
+  /** nodeLength为偶数，则奇数index的shape保留，反之则偶数index的shape保留 */
   const oddKeep = (nodes.length % 2 === 0) ? false : true;
   if (isKeep(cfg.keep, index, nodes)) {
     return;
-  }  {
+  } {
     const isOdd = index % 2 === 0 ? true : false;
     if ((!oddKeep && isOdd) || (oddKeep && !isOdd)) {
       textHide(shape);
@@ -246,7 +302,7 @@ function nodesResampling(shape, cfg: NodesResamplingCfg, index, nodes) {
 }
 
 function isKeep(keepCfg, index, nodes) {
-    /** 允许设置start end 或任意index */
+  /** 允许设置start end 或任意index */
   const conditions = [];
   _.each(keepCfg, (cfg) => {
     if (cfg === 'start') {
@@ -269,7 +325,7 @@ function isKeep(keepCfg, index, nodes) {
 function nodesResamplingByAbbrevate(shape, cfg: NodesResamplingCfg, index, nodes) {
   if (isKeep(cfg.keep, index, nodes)) {
     return;
-  }  {
+  } {
     const currentText = shape.attr('text');
     const originText = shape.get('origin').text;
     if (currentText !== originText) {
@@ -291,5 +347,6 @@ export const rulesLib = {
 };
 
 export function registerResponsiveRule(name, method) {
+  //todo: 防止覆盖
   rulesLib[name] = method;
 }

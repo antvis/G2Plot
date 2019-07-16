@@ -32,15 +32,15 @@ describe('responsive line plot', () => {
     const plot = createPlot(500, 500);
   });
 
-  it('canvas size 400x400', () => {
-    const plot = createPlot(400, 400);
+  it.only('canvas size 400x400', () => {
+    const plot = createPlot(250, 400);
   });
 
   it('canvas size 300x300', () => {
     const plot = createPlot(300, 300);
   });
 
-  it.only('canvas size 200x200', () => {
+  it('canvas size 200x200', () => {
     const plot = createPlot(150, 100);
   });
 

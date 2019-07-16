@@ -40,6 +40,7 @@ function responsiveYaxis(plot, props) {
   });
   const { constraints, rules } = responsiveTheme.axis.y.linear.label;
   new Responsive({
+    region: plot.plot.get('viewRange'),
     nodes,
     constraints,
     rules,

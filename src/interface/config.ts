@@ -49,7 +49,7 @@ export default interface Config {
   /** 标注 */
   annotation?: any[];
   /** 样式 */
-  theme?: Theme;
+  theme?: Theme | string;
   /** 交互，待定 */
   interactions?: any[];
   /** 是否响应式 */

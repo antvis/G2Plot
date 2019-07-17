@@ -42,6 +42,16 @@ export default class Theme {
     currentThemeName = name;
   }
 
+  static getThemeByName(name: string) {
+    const theme = THEME_MAP[name];
+    if (theme) {
+      return THEME_MAP[name] 
+    }
+    // 如没有找到，则使用当前全局主题替代
+    console.warn("error in theme: Can't find the theme named %s. Please register theme first.", name, currentThemeName);
+    return THEME_MAP[currentThemeName];
+  }
+
   static getCurrentTheme() {
     return THEME_MAP[currentThemeName.toLowerCase()];
   }

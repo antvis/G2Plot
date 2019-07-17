@@ -26,6 +26,8 @@ function responsiveXAxis(plot, props) {
     nodes,
     constraints,
     rules,
+    onEnd:(nodes) => {
+    },
   });
 }
 

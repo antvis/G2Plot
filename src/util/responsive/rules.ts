@@ -3,6 +3,8 @@ import * as _ from '@antv/util';
 import moment, { months } from 'moment';
 import { getMedian } from '../math';
 
+/** todo: 这么铺开太乱了，稍后整理成结构化模块 */
+
 /** 响应式规则库 */
 export interface IRule {
   name: string;
@@ -96,14 +98,9 @@ function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg, index, nodes) 
     const median = getMedian(numbers);
     const unitname = getUnitByNumber(median);
     //根据数值的interval计算换算后保留的浮点数
-    let decimal = 0;
     const unitNumber = unitMapper[unitname].number;
     const interval = getLinearNodesInterval(nodes);
-    if (interval < unitNumber) {
-      const intervalBit = Math.floor(Math.log10(interval));
-      const unitBit = Math.floor(Math.log10(unitNumber));
-      decimal = unitBit - intervalBit;
-    }
+    const decimal = getDigitsDecimal(interval,unitNumber);
     const { num } = abbravateDigitsByUnit({ unit: unitname, decimal }, number);
     shape.attr('text', num + unitname);
   }
@@ -150,6 +147,20 @@ function getLinearNodesInterval(nodes) {
   return 0;
 }
 
+function getDigitsDecimal(interval,unitNumber){
+  const unitBit = Math.floor(Math.log10(unitNumber));
+  if(interval >= unitNumber){
+    const remainder = interval % unitNumber;
+    if(remainder > 0) {
+      const remainderBit = Math.floor(Math.log10(remainder));
+      return Math.abs(remainderBit - unitBit);
+    }
+  }else{
+    const intervalBit = Math.floor(Math.log10(interval));
+    return Math.abs(intervalBit-unitBit);
+  }
+  return 0;
+}
 
 
 interface TimeStringAbbrevaiteCfg {

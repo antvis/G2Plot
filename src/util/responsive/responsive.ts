@@ -24,6 +24,9 @@ interface ResponsiveCfg {
   constraints: any[];
   rules?: any;
   iterationTime?: number;
+  onStart?: Function;
+  onIteration?: Function;
+  onEnd?: Function;
 }
 
 export default class Responsive {
@@ -36,6 +39,9 @@ export default class Responsive {
   rulesLocker: any[] = [];
   currentConstraint: string;
   constraintIndex: number = 0;
+  onStart: Function;
+  onIteration: Function;
+  onEnd: Function;
 
   constructor(cfg: ResponsiveCfg) {
     _.assign(this, cfg);
@@ -43,21 +49,24 @@ export default class Responsive {
     if (this.rules) {
       this.iterationTime = this.rules[this.currentConstraint].length;
     }
-    this.start();
+    this._start();
     this._run();
-    this.end();
+    this._end();
   }
 
-  public start() {
+  private _start() {
+    this.onStart && this.onStart(this.nodes);
   }
 
-  public iteration() {
+  private _iteration() {
     this.nodes.measureNodes();
     if (this.rules) this._applyRules();
     this.nodes.measureNodes();
+    this.onIteration && this.onIteration(this.nodes);
   }
 
-  public end() {
+  private _end() {
+    this.onEnd && this.onEnd(this.nodes);
   }
 
   private _run() {
@@ -66,7 +75,7 @@ export default class Responsive {
       if (this.iterationIndex > this.iterationTime - 1) {
         break;
       }
-      this.iteration();
+      this._iteration();
       constraintPassed = this._constraintsTest();
       this.iterationIndex++;
     }

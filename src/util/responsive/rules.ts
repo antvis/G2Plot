@@ -132,7 +132,8 @@ function getUnitByNumber(number) {
 function extractNumbers(nodes) {
   const numbers = [];
   _.each(nodes, (node) => {
-    const number = parseFloat(node.shape.get('origin').text);
+    const n = node as any;
+    const number = parseFloat(n.shape.get('origin').text);
     numbers.push(number);
   });
   return numbers;

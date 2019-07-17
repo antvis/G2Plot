@@ -136,6 +136,26 @@ const responsiveTheme = {
 
       }, // linear y axis
       category: {
+        label:{
+          constraints: [
+            'elementDistVertical',
+            'elementWidth',
+          ],
+          rules: {
+            elementDistVertical: [
+              { name: 'nodesResampling' },
+              { name: 'textHide' },
+            ],
+            elementWidth: [
+              { name: 'textAbbreviate',
+                options: {
+                  abbreviateBy: 'end',
+                },
+              },
+              { name: 'textHide' },
+            ],
+          },
+        },
 
       }, // categroy y axis， 条形图
     },

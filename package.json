@@ -25,7 +25,6 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@antv/torch": "~1.0.0",
     "@types/lodash": "^4.14.123",
     "@types/moment": "^2.13.0",
     "typescript": "^3.5.1",

@@ -1,5 +1,16 @@
+import responsiveColumn from './element';
 import responsiveAxis from './axis';
 
-export default [
+const preRenderResponsive = [
+    { name: 'responsiveColumn', method: responsiveColumn }
+];
+
+const afterRenderResponsive = [
     { name:'responsiveAxis', method: responsiveAxis },
 ];
+
+
+export default {
+    preRender: preRenderResponsive,
+    afterRender: afterRenderResponsive
+};

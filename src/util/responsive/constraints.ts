@@ -23,19 +23,31 @@ function elementWidth(node, region) {
   return node.width < region.width * 0.15;
 }
 
+function columnWidth(node, region) {
+  return region.width * 0.6;
+}
+
 export const constraintsLib = {
   elementDist: {
     type:'chain',
+    usage: 'compare',
     expression: elementDist,
   },
   elementDistVertical: {
     type: 'chain',
+    usage: 'compare',
     expression: elementDistVertical,
   },
   elementWidth: {
     type:'padding',
+    usage: 'compare',
     expression: elementWidth,
   },
+  columnWidth: {
+    type:'padding',
+    usage:'assign',
+    expression: columnWidth,
+  }
 };
 
 export function registerConstraint(name, constraint:IConstraint) {

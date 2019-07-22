@@ -353,6 +353,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this.canvasCfg.width = this._initialProps.width;
     this.canvasCfg.height = this._initialProps.height;
     this._updateCanvasSize(this.canvasCfg);
+    this._beforeInit();
     this._init(this._container, this.canvasCfg);
     this._afterInit();
   }

@@ -20,7 +20,7 @@ export default class RingPlot extends PiePlot<RingConfig>{
       type: 'theta' as CoordinateType,
       cfg: {
         radius: 1, // default radius值
-        innerRadius: 0.6, // default innerRadius值
+        innerRadius: 0.8, // default innerRadius值
       },
     };
     if (_.has(props, 'radius')) {

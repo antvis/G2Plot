@@ -1,4 +1,4 @@
-import Nodes from '../../../util/responsive/nodes';
+import ShapeNodes from '../../../util/responsive/shapeNodes';
 import Responsive from '../../../util/responsive/responsive';
 import responsiveTheme from '../../../theme/responsive';
 import * as _ from '@antv/util';
@@ -20,7 +20,7 @@ function responsiveXAxis(plot, props) {
   for (let i = 0; i < rawLabels.length - 1; i++) {
     shapes.push(rawLabels[i]);
   }
-  const nodes = new Nodes({
+  const nodes = new ShapeNodes({
     shapes,
   });
   const { constraints, rules } = responsiveTheme.axis.x.category.label;
@@ -43,7 +43,7 @@ function responsiveYaxis(plot, props) {
   for (let i = 0; i < rawLabels.length - 1; i++) {
     shapes.push(rawLabels[i]);
   }
-  const nodes = new Nodes({
+  const nodes = new ShapeNodes({
     shapes,
   });
   const { constraints, rules } = responsiveTheme.axis.y.linear.label;

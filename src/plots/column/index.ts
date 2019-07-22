@@ -21,6 +21,10 @@ interface ILabelCallbackOptions {
   position?: string;
 }
 
+interface IObject {
+  [key:string]: any;
+}
+
 export interface ColumnConfig extends BaseConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';
@@ -34,12 +38,18 @@ export interface ColumnConfig extends BaseConfig {
 }
 
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{
+  column: any;
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
   }
 
   protected _beforeInit() {
     this.type = 'column';
+    const props = this._initialProps;
+    /**响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('preRender');
+    }
   }
 
   protected _setDefaultG2Config() {}
@@ -126,6 +136,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     //   fields: [props.yField]
     // }
     this._adjustColumn(column);
+    this.column = column;
     this._setConfig('element', column);
   }
 
@@ -135,6 +146,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _annotation() {}
 
   protected _animation() {
+      const props = this._initialProps;
+      if (props.animation === false) {
+        /**关闭动画 */
+        this.column.animate = false;
+      } 
   }
 
   protected _afterInit() {
@@ -143,7 +159,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     /**响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.plot.once('afterrender', () => {
-        this._applyResponsive();
+        this._applyResponsive('afterRender');
       });
     }
   }
@@ -194,9 +210,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     return labelConfig as any;
   }
 
-  private _applyResponsive() {
-    _.each(responsiveMethods, (r) => {
-      r.method(this);
+  private _applyResponsive(stage) {
+    const methods = responsiveMethods[stage];
+    _.each(methods, (r) => {
+      const responsive = r as IObject;
+      responsive.method(this);
     });
   }
 

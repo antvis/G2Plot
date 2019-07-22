@@ -1,4 +1,11 @@
 const responsiveTheme = {
+  element: {
+    column : {
+      constraints : [
+        'columnWidth'
+      ]
+    }
+  },
   axis: {
     x: {
       category: {

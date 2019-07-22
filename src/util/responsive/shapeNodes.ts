@@ -6,7 +6,7 @@ import * as MathUtil from '../math';
 interface NodesCfg {
   shapes: Shape[];
 }
-export interface INode {
+export interface IShapeNode {
   width: Number;
   height: Number;
   centerX: Number;
@@ -22,9 +22,10 @@ export interface INode {
   shape?: Shape;
 }
 
-export default class Nodes {
+export default class ShapeNodes {
   shapes: Shape[];
-  nodes: INode[];
+  nodes: IShapeNode[];
+  type: string = 'shape';
   constructor(cfg: NodesCfg) {
     this.shapes = cfg.shapes;
     this.nodes = [];

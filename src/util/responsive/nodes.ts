@@ -3,15 +3,6 @@ import * as _ from '@antv/util';
 import { Shape } from '@antv/g';
 import * as MathUtil from '../math';
 
-function  applyMatrix(point, matrix, tag = 1) {
-  const vector = [ point.x, point.y, tag ];
-  _.vec3.transformMat3(vector, vector, matrix);
-  return {
-    x: vector[0],
-    y: vector[1],
-  };
-}
-
 interface NodesCfg {
   shapes: Shape[];
 }

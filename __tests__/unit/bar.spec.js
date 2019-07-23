@@ -50,7 +50,8 @@ describe('Bar plot', () => {
       },
       yAxis: {
         visible: true,
-      }
+      },
+      animation: false
     });
     barPlot.render();
     const positionField = barPlot.plot.get('elements')[0].get('position').fields;

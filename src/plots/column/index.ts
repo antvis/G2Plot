@@ -34,6 +34,8 @@ export interface ColumnConfig extends BaseConfig {
 }
 
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{
+  column: any;
+
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
   }
@@ -126,6 +128,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     //   fields: [props.yField]
     // }
     this._adjustColumn(column);
+    this.column = column;
     this._setConfig('element', column);
   }
 
@@ -135,6 +138,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _annotation() {}
 
   protected _animation() {
+    const props = this._initialProps;
+    if (props.animation === false) {
+      /**关闭动画 */
+      this.column.animate = false;
+    } 
   }
 
   protected _afterInit() {

@@ -769,10 +769,8 @@ describe('Line plot', () => {
         formatter: () => {
           return 'test';
         }
-      },
-      animation: {
-        type: 'clipingWithData'
       },*/
+      animation: false,
       events: {
         onLegendClick: () => {
           // console.log('legend click');

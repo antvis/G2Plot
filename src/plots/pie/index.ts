@@ -74,8 +74,8 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     if (props.animation === false) {
       /**关闭动画 */
       this.pie.animate = false;
-    } 
-   }
+    }
+  }
 
   protected _annotation() { }
 

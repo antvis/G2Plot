@@ -142,7 +142,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     if (props.animation === false) {
       /**关闭动画 */
       this.column.animate = false;
-    } 
+    }
   }
 
   protected _afterInit() {

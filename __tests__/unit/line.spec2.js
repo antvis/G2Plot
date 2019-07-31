@@ -724,7 +724,6 @@ describe('Line plot', () => {
     } ];
 
     const linePlot = new Line(canvasDiv, {
-      renderer: 'svg',
       title: {
         text: '测试测试测试测试',
         alignWithAxis: false
@@ -753,13 +752,15 @@ describe('Line plot', () => {
       xAxis: {
         grid: {
           visible: true,
+        },
+        title: {
+          visible: true,
         }
-
       },
       yAxis: {
         title: {
           visible: true,
-          offset: 10,
+          // offset: 10,
         }
       },
       /* label: {

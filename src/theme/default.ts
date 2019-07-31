@@ -67,7 +67,7 @@ const commonTheme = {
       },
       title: {
         visible: true,
-        offset: 48,
+        offset: 20,
         style: {
           fill: '#767b84',
           fontSize: 12,
@@ -109,7 +109,7 @@ const commonTheme = {
       },
       title: {
         visible: false,
-        offset: 48,
+        offset: 20,
         style: { fill: '#767b84', fontSize: 12 },
       },
     },
@@ -147,7 +147,7 @@ const commonTheme = {
         },
       },
       title: {
-        offset: 48,
+        offset: 20,
         style: { fill: '#767b84', fontSize: 12 },
       },
     },

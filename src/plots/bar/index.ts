@@ -33,6 +33,7 @@ export interface BarConfig extends BaseConfig {
 }
 
 export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T>{
+  bar: any;
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
   }
@@ -131,6 +132,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
       }
     }
     this._adjustBar(bar);
+    this.bar = bar;
     this._setConfig('element', bar);
   }
 
@@ -140,6 +142,11 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   protected _annotation() {}
 
   protected _animation() {
+    const props = this._initialProps;
+    if (props.animation === false) {
+      /**关闭动画 */
+      this.bar.animate = false;
+    }
   }
 
   private _columnStyle() {

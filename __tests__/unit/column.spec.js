@@ -50,7 +50,8 @@ describe('Column plot', () => {
       },
       yAxis: {
         visible: true,
-      }
+      },
+      animation: false
     });
     columnPlot.render();
     const positionField = columnPlot.plot.get('elements')[0].get('position').fields;

@@ -93,7 +93,8 @@ describe('GroupColomn plot', () => {
       yAxis: {
         min: 0
       },
-      groupField: 'type'
+      groupField: 'type',
+      animation: false
     });
     columnPlot.render();
     const intervalShape = columnPlot.plot.get('elements')[0];

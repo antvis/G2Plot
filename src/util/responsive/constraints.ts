@@ -6,7 +6,6 @@ export interface IConstraint {
 }
 
 // todo: constraint加入option
-
 function elementDist(a, b) {
   const polygonA = [ a.topLeft, a.topRight, a.bottomRight, a.bottomLeft ]; // 顶点顺时针
   const polygonB = [ b.topLeft, b.topRight, b.bottomRight, b.bottomLeft ];
@@ -19,12 +18,29 @@ function elementDistVertical(a, b) {
   return Math.round(dist) >= 5;
 }
 
+function elementCollision(a,b) {
+  const polygonA = [ a.topLeft, a.topRight, a.bottomRight, a.bottomLeft ]; // 顶点顺时针
+  const polygonB = [ b.topLeft, b.topRight, b.bottomRight, b.bottomLeft ];
+  const dist = MathUtil.minDistBetweenConvexPolygon(polygonA, polygonB);
+  return Math.round(dist) >= 2;
+}
+
 function elementWidth(node, region) {
   return node.width < region.width * 0.15;
 }
 
 function columnWidth(node, region) {
   return region.width * 0.6;
+}
+
+function ringThickness(node,region){
+  return region.radius * 0.8;
+}
+
+function minRingThickness(node,region){
+  const minThicknessPixel = 2;
+  const minThickness = region.coord.radius / minThicknessPixel;
+  return Math.min(minThickness,node.value);
 }
 
 export const constraintsLib = {
@@ -38,6 +54,11 @@ export const constraintsLib = {
     usage: 'compare',
     expression: elementDistVertical,
   },
+  elementCollision: {
+    type:'group',
+    usage: 'compare',
+    expression: elementCollision
+  },
   elementWidth: {
     type:'padding',
     usage: 'compare',
@@ -47,6 +68,16 @@ export const constraintsLib = {
     type:'padding',
     usage:'assign',
     expression: columnWidth,
+  },
+  ringThickness: {
+    type: 'padding',
+    usage: 'assign',
+    expression: ringThickness
+  },
+  minRingThickness: {
+    type:'padding',
+    usage: 'assign',
+    expression: minRingThickness
   }
 };
 

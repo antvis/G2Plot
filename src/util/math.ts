@@ -1,6 +1,11 @@
 import * as _ from '@antv/util';
 import { BBox } from '@antv/g';
 
+
+function dotProduct2D(va,vb){
+  return va.x * vb.y + va.y * vb.x;
+}
+
 function applyMatrix(point, matrix, tag = 1) {
   const vector = [ point.x, point.y, tag ];
   _.vec3.transformMat3(vector, vector, matrix);
@@ -221,4 +226,5 @@ export {
   minDistBetweenConvexPolygon,
   bboxOnRotate,
   getMedian,
+  dotProduct2D
 };

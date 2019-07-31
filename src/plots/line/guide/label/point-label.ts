@@ -27,9 +27,9 @@ class LinePointLabels extends ElementLabels {
         height: 8,
       };
     });
-    layout(labels, anchorsBBox, view.get('panelRange'), {
+    /*layout(labels, anchorsBBox, view.get('panelRange'), {
       nsweeps: 10,
-    });
+    });*/
     view.get('canvas').draw();
   }
 }

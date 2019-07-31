@@ -21,7 +21,7 @@ interface IRule {
 }
 
 interface ResponsiveCfg {
-  region? : BBox;
+  region? : any;
   nodes: ShapeNodes | VariableNodes;
   constraints: any[];
   rules?: any;
@@ -29,6 +29,7 @@ interface ResponsiveCfg {
   onStart?: Function;
   onIteration?: Function;
   onEnd?: Function;
+  cfg?: {};
 }
 
 export default class Responsive {
@@ -91,7 +92,7 @@ export default class Responsive {
     if (this.constraintIndex < this.constraints.length - 1) {
       this.constraintIndex ++;
       this.currentConstraint = this.constraints[this.constraintIndex];
-      this.iterationTime = this.rules[this.currentConstraint].length;
+      this.iterationTime = this.rules ? this.rules[this.currentConstraint].length : 1;
       this.iterationIndex = 0;
       this._run();
     }
@@ -136,6 +137,21 @@ export default class Responsive {
     return true;
   }
 
+  private _groupConstraintCompare(expression,nodes){
+    for(let i = 0; i< nodes.length; i++){
+      const a = nodes[i];
+      for(let j = 0; j< nodes.length; j++){
+        if(j!==i){
+          const b = nodes[j];
+          if(expression(a,b) === false){
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
   private _constraintAssignment(constraint){
     const { type, expression } = constraint;
     const nodes = this.nodes.nodes;
@@ -166,15 +182,15 @@ export default class Responsive {
       const nodes = this.nodes.nodes as IShapeNode[];
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-              /** apply rule上下文 */
-        this._applyRule(node.shape, rule, options, i, nodes);
+        /** apply rule上下文 */
+        this._applyRule(node.shape, rule, options, i);
       }
       this.rulesLocker.push(ruleCfg);
     }
   }
 
-  private _applyRule(shape:Shape, rule, options, index, nodes) {
-    rule(shape, options, index, nodes);
+  private _applyRule(shape:Shape, rule, options, index) {
+    rule(shape, options, index, this);
   }
 
 

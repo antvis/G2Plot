@@ -4,6 +4,26 @@ const responsiveTheme = {
       constraints : [
         'columnWidth'
       ]
+    },
+    ring: {
+      constraints : [
+        'ringThickness',
+        'minRingThickness'
+      ]
+    }
+  },
+  labels:{
+    line : {
+      constraints: [
+        'elementCollision'
+      ],
+      rules: {
+        'elementCollision': [
+          { name: 'nodesResamplingByChange'},
+          //{ name: 'nodeJitter' },
+          { name: 'clearOverlapping'}
+        ]
+      }
     }
   },
   axis: {

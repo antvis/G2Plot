@@ -31,12 +31,12 @@ describe('Pie plot', () => {
     } ];
 
     const pie = new Pie(canvasDiv, {
-      /* title: {
+      title: {
         text: '测试测试测试'
       },
       description: {
         text: '你问我资瓷不资瓷，那我肯定是资瓷的'
-      },*/
+      },
       data,
       padding: 'auto',
       angleField: 'value',
@@ -55,6 +55,7 @@ describe('Pie plot', () => {
     });
 
     pie.render();
+    console.log(pie.plot);
 
   });
 

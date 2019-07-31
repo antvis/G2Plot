@@ -754,7 +754,10 @@ describe('Line plot', () => {
           visible: true,
         },
         title: {
-          visible: true,
+          visible: false,
+        },
+        label: {
+          visible: false
         }
       },
       yAxis: {

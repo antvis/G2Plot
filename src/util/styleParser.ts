@@ -40,8 +40,8 @@ function AxisStyleParser(axisCfg, axis) {
   }
   if (axis.label) {
     if (axis.label.visible === false) {
-      axis.label = null;
-    }else {
+      axisCfg.label = null;
+    } else {
       const newLabel = _.clone(axis.label);
       if (newLabel.style) {
         newLabel.textStyle = newLabel.style;
@@ -61,8 +61,11 @@ function AxisStyleParser(axisCfg, axis) {
   if (axis.grid) {
     if (axis.grid.visible === false) {
       axisCfg.grid = null;
-    } else if (axis.grid.style) {
-      axisCfg.grid = _.clone(axis.grid.style);
+    }else {
+      axisCfg.grid = _.clone(axis.grid);
+      if (axis.grid.style) {
+        axisCfg.grid = _.clone(axis.grid.style);
+      }
     }
   }
 }

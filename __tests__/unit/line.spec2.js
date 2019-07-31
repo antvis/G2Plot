@@ -724,6 +724,7 @@ describe('Line plot', () => {
     } ];
 
     const linePlot = new Line(canvasDiv, {
+      renderer: 'svg',
       title: {
         text: '测试测试测试测试',
         alignWithAxis: false
@@ -747,7 +748,7 @@ describe('Line plot', () => {
       },
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'right-center',
       },
       xAxis: {
         grid: {
@@ -761,9 +762,6 @@ describe('Line plot', () => {
           offset: 10,
         }
       },
-      /* legend: {
-        visible: false,
-      },*/
       /* label: {
         type: 'point',
         formatter: () => {
@@ -777,8 +775,6 @@ describe('Line plot', () => {
         }
       }
     });
-    linePlot.render();
-    linePlot.updateConfig({ width: 500, height: 1000 });
     linePlot.render();
   });
 

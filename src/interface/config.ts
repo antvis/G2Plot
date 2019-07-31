@@ -17,6 +17,8 @@ export default interface Config {
   height?: number;
   /** 自适应父容器宽度和高度 */
   forceFit?: boolean;
+  /** 渲染引擎 */
+  renderer?: string;
   /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
   // meta?: { [fieldId: string]: ScaleConfig & { type?: Scale['type'] } };
   meta?: { [fieldId: string]: any & { type?: any } };

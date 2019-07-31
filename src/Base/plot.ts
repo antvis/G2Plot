@@ -203,8 +203,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       offsetY: _.get(props, 'legend.offsetY'),
     });
 
+    let flipOption = _.get(props, 'legend.flipPage');
+    if (props.padding === 'auto') {
+      flipOption = false;
+    }
     this._setConfig('legends', {
-      flipPage: _.get(props, 'legend.flipPage'),
+      flipPage: flipOption,
     });
   }
 
@@ -359,6 +363,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   private _createCanvas(container) {
     // TODO: coord width问题
+    const props = this._initialProps;
     const size = this._getCanvasSize(this._initialProps, this._containerEle);
 
     const canvas = new Canvas({
@@ -366,7 +371,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       containerId: _.isString(container) ? container : undefined,
       width: size.width,
       height: size.height,
-      renderer: 'canvas',
+      renderer: props.renderer ? props.renderer : 'canvas',
       pixelRatio: 2,
     });
     return { canvas, width: size.width, height: size.height };

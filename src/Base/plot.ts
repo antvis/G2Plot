@@ -214,6 +214,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _title(panelRange: BBox): void {
     const props = this._initialProps;
+    this.title = null;
     const theme = this._config.theme;
     if (props.title) {
       let leftMargin = panelRange.minX;
@@ -240,6 +241,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _description(panelRange: BBox): void {
     const props = this._initialProps;
+    this.description = null;
     const theme = this._config.theme;
     if (props.description) {
       let topMargin = 0;
@@ -475,7 +477,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       if (bbox.maxY >= this.canvasCfg.height) {
         bbox.maxY = this.canvasCfg.height - 0.1;
       }
-
       return bbox;
     }
   }

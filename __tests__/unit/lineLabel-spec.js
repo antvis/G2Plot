@@ -7,11 +7,16 @@ describe('responsive line label', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '500px';
   canvasDiv.style.height = '500px';
+  canvasDiv.style.backgroundColor = 'grey';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('单折线标签布局', () => {
+  it.only('单折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
+      title: {
+        visible: true,
+        text: '参与responsive layout的元素组，通常情况下，一个元素node（dimension），或一组元素nodes（layout）对响应式是有意义的。'
+      },
       width: 500,
       height: 500,
       padding: 'auto',
@@ -28,12 +33,16 @@ describe('responsive line label', () => {
       tooltip: {
         visible: false
       },
-      responsive: true
+      // responsive: true
+    });
+    linePlot.render();
+    linePlot.updateConfig({
+      title: false
     });
     linePlot.render();
   });
 
-  it.only('多折线标签布局', () => {
+  it('多折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 400,
       height: 400,

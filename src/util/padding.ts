@@ -48,7 +48,6 @@ function getAxis(view, bboxes) {
 
 function getLegend(view, bboxes, box) {
   const viewRange = view.get('viewRange');
-  console.log(viewRange);
   const legends = view.get('legendController').legends;
   if (legends.length > 0) {
     _.each(legends, (l) => {

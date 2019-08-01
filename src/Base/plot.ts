@@ -23,7 +23,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public _container: string | HTMLElement;
   public plot: G2.View;
   public destroyed: boolean;
-  protected _initialProps: T;
+  public _initialProps: T;
+  protected _originalProps: T;
   protected _config: G2Config;
   public eventHandlers: any[] = [];
   protected canvasCfg;
@@ -37,6 +38,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   constructor(container: string | HTMLElement, config: T) {
     this._initialProps = config;
+    this._originalProps = _.deepMix({}, config);
     this._container = container;
     this._containerEle = _.isString(container) ? document.getElementById(container) : container;
     this.destroyed = false;
@@ -99,7 +101,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
     this._title(range);
     this._description(range);
-    this._adjustLegendOffset(range);
+    // this._adjustLegendOffset(range);
     const viewMargin = this._getViewMargin();
 
     this._setDefaultG2Config();
@@ -190,6 +192,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this._setConfig('legends', false);
       return;
     }
+
     this._setConfig('legends', {
       position: _.get(props, 'legend.position'),
     });
@@ -347,7 +350,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 更新配置项 */
   public updateConfig(cfg): void {
+    if(!cfg.padding && this._originalProps.padding && this._originalProps.padding === 'auto'){
+      cfg.padding = 'auto';
+    }
     const newProps = _.deepMix({}, this._initialProps, cfg);
+    
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });

@@ -24,6 +24,16 @@ const responsiveTheme = {
           { name: 'clearOverlapping'}
         ]
       }
+    },
+    column: {
+      constraints: [
+        'elementCollision'
+      ],
+      rules: {
+        'elementCollision':[
+          { name: 'nodeJitterUpward' },
+        ]
+      }
     }
   },
   axis: {

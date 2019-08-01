@@ -31,6 +31,10 @@ interface PointStyle {
   opacity?: string;
 }
 
+interface IObject {
+  [key:string]: any
+}
+
 export interface LineConfig extends BaseConfig {
   /** 分组字段 */
   seriesField?: string;

@@ -401,6 +401,57 @@ function adjustAngle(angle) {
   }
 }
 
+/**图形向上抖开并拉线 */
+//todo 允许设置offset和拉线样式
+function nodeJitterUpward(shape: Shape, cfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
+  if (index === 0) {
+    return;
+  }
+  const current = nodes[index];
+  const previous = nodes[index - 1];
+  if (isNodeOverlap(current, previous)) {
+    const y = previous.top - current.height / 2;
+    const offset = 10;
+    if (y - offset > responsive.region.top) {
+      //取到label对应的element-shape
+      const origin = current.shape.get('origin');
+      const shapeId = responsive.cfg.element.getShapeId(origin);
+      const shapes = responsive.cfg.element.getShapes();
+      const shapeBbox = getShapeById(shapeId, shapes).get('box');
+      const originX = shapeBbox.left + shapeBbox.width / 2;
+      const originY = shapeBbox.top;
+      //拉线
+      const container = responsive.cfg.labelsContainer;
+      container.addShape('path', {
+        attrs: {
+          path: [
+            ['M', originX, originY],
+            ['L', current.shape.attr('x'), y]
+          ],
+          stroke: '#ccc',
+          lineWidth: 1
+        }
+      });
+      //更新标签位置，同步更新node
+      current.shape.attr('y', y - offset);
+      nodes[index] = responsive.nodes.measure(current.shape);
+    }
+  }
+}
+
+function getShapeById(shapeId, shapes) {
+  let target;
+  _.each(shapes, (shape) => {
+    const s = shape as Shape;
+    const id = s.id;
+    if (id === shapeId) {
+      target = s;
+    }
+  });
+  return target;
+}
+
 /** 根据变化进行抽样，保留变化较大的点，类似于点简化算法*/
 function nodesResamplingByChange(shape: Shape, cfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
@@ -429,24 +480,14 @@ function findPrevious(index, nodes) {
   }
 }
 
-/** 对重叠图形进行抽样 */
-/*function clearOverlapping(shape: Shape, cfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
-  const current = nodes[index];
-  if (!current.shape.get('blank')) {
-    for (let i = 0; i < nodes.length; i++) {
-      const node = nodes[i];
-      const shape = node.shape;
-      if (i !== index && !shape.get('blank')) {
-        const isOverlap = isNodeOverlap(current, node);
-        if (isOverlap) {
-          textHide(shape);
-          shape.set('blank', true);
-        }
-      }
-    }
-  }
-}*/
+interface NodesResamplingCfg {
+  keep: string[];
+}
+
+function nodesResamplingByState(){
+
+
+}
 
 function clearOverlapping(shape: Shape, cfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
@@ -466,14 +507,14 @@ function clearOverlapping(shape: Shape, cfg, index, responsive) {
     }
   }
   /** overlap处理逻辑 */
-  if(overlaped.length > 0){
+  if (overlaped.length > 0) {
     overlaped.push(current);
-    overlaped.sort((a,b)=>{
+    overlaped.sort((a, b) => {
       return b.top - a.top;
     });
     /** 隐藏除最高点以外的node */
-    _.each(overlaped,(node,index)=>{
-      if(index>0){
+    _.each(overlaped, (node, index) => {
+      if (index > 0) {
         const shape = node.shape;
         textHide(shape);
         shape.set('blank', true);
@@ -503,6 +544,7 @@ export const rulesLib = {
   nodesResampling,
   nodesResamplingByAbbrevate,
   nodeJitter,
+  nodeJitterUpward,
   nodesResamplingByChange,
   clearOverlapping
 };

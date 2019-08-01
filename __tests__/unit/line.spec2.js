@@ -8,6 +8,7 @@ describe('Line plot', () => {
   canvasDiv.style.height = '600px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
+  canvasDiv.style.backgroundColor = 'grey';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -738,8 +739,8 @@ describe('Line plot', () => {
       xField: /* 'date'*/'year',
       yField: /* 'value'*/'value',
       seriesField: /* 'type'*/'type',
-      width: 400,
-      height: 500,
+      width: 600,
+      height: 600,
       size: 7,
       // smooth: true,
       tooltip: {

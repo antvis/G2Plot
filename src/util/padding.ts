@@ -26,6 +26,8 @@ export default function getAutoPadding(view: View, components, defaultPadding) {
     components_bbox.push(bbox);
   });
   box = mergeBBox(components_bbox);
+  /** 极坐标下padding计算错误问题 */
+  if (box.minY === viewRange.minY) box.minY = 0;
   const padding = [
     0 - box.minY + defaultPadding[0], // 上面超出的部分
     box.maxX - maxX + defaultPadding[1], // 右边超出的部分

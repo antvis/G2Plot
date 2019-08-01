@@ -41,17 +41,12 @@ describe('Pie plot', () => {
       padding: 'auto',
       angleField: 'value',
       colorField: 'type',
-      /* label: {
+      label: {
         type: 'spider',
-         style: {
-          lineWidth: 2,
-          text: {
-            fontSize: 14,
-            fill: '#ccc'
-          },
-          anchorSize: 3
+        formatter: () => {
+          return 'test';
         }
-      }*/
+      }
     });
 
     pie.render();

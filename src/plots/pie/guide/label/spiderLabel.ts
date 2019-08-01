@@ -39,10 +39,12 @@ export default class SpiderLabel {
   private halves: any[][];
   private container: Group;
   private config: IAttrs;
+  private formatter: Function;
 
   constructor(cfg) {
     this.view = cfg.view;
     this.fields = cfg.fields;
+    this.formatter = cfg.formatter;
     this.config = _.assign(getDefaultCfg(), cfg.style);
     this._adjustConfig(this.config);
     this._init();
@@ -59,11 +61,13 @@ export default class SpiderLabel {
   }
 
   public draw() {
+    /** 如果有formatter则事先处理数据 */
+    const data = _.clone(this.view.get('data'));
     this.halves = [ [], [] ];
     this.container = this.view.get('frontgroundGroup').addGroup();
     const shapes = this.view.get('elements')[0].getShapes();
     const coord = this.view.get('coord');
-    const data = this.view.get('data');
+
     const angleField = this.fields[0];
     const scale = this.view.get('scales')[angleField];
     const { center, radius, startAngle } = coord;
@@ -111,10 +115,13 @@ export default class SpiderLabel {
         fill: this.config.text.fill,
       };
             /** label1:下部label*/
+      let lowerText = d[angleField];
+      if (this.formatter) lowerText = this.formatter(lowerText);
+
       textGroup.addShape('text', {
         attrs: _.mix({
           textBaseline: 'top',
-          text: d[angleField],
+          text: lowerText,
         },           textAttrs),
         data: d,
         offsetY: LABEL1_OFFSETY,
@@ -349,7 +356,6 @@ export default class SpiderLabel {
     if (config.text.fontSize) {
       config.lineHeight = config.text.fontSize * 3;
     }
-
   }
 
 }

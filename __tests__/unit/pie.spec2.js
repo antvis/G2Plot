@@ -55,8 +55,6 @@ describe('Pie plot', () => {
     });
 
     pie.render();
-    console.log(pie.plot);
-
   });
 
 });

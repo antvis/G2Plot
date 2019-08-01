@@ -96,6 +96,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
           view: this.plot,
           fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
           style: labelConfig.style ? labelConfig.style : {},
+          formatter: props.label.formatter ? props.label.formatter : false,
         });
         this.spiderLabel = spiderLabel;
       }
@@ -157,7 +158,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     }
     if (labelConfig.type === 'spider') {
       /**如label type为spider，则关闭default label*/
-      this.pie.label.fields = [];
+      this.pie.label = null;
     }
     /**formatter */
     if (labelConfig.formatter) {
@@ -173,7 +174,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       }
     }
     /**统一处理callback */
-    if (!_.isEmpty(callbackOptions)) {
+    if (this.pie.label && !_.isEmpty(callbackOptions)) {
       this.pie.label.callback = (val1, val2) => {
         const returnCfg = _.clone(callbackOptions);
         if (_.has(callbackOptions, 'content')) {

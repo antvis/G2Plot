@@ -37,6 +37,9 @@ const responsiveTheme = {
               keep: ['min','max','median']
             }
           },
+          {
+            name: 'textHide'
+          }
         ]
       }
     }

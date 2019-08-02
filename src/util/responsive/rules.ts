@@ -423,7 +423,7 @@ function nodeJitterUpward(shape: Shape, cfg, index, responsive) {
       const originY = shapeBbox.top;
       //拉线
       const container = responsive.cfg.labelsContainer;
-      container.addShape('path', {
+      const labelLine = container.addShape('path', {
         attrs: {
           path: [
             ['M', originX, originY],
@@ -433,9 +433,14 @@ function nodeJitterUpward(shape: Shape, cfg, index, responsive) {
           lineWidth: 1
         }
       });
+      /**保存labelLine和label初始位置信息 */
+      const origin_position = {x:shape.attr('x'),y:shape.attr('y')};
+      //current.origin_position = {x:shape.attr('x'),y:shape.attr('y')};
       //更新标签位置，同步更新node
       current.shape.attr('y', y - offset);
       nodes[index] = responsive.nodes.measure(current.shape);
+      nodes[index].line = labelLine;
+      nodes[index].origin_position = origin_position;
     }
   }
 }
@@ -487,6 +492,7 @@ interface NodesResamplingCfg {
 function nodesResamplingByState(shape: Shape, cfg, index, responsive){
   const nodes = responsive.nodes.nodes;
   const current = nodes[index];
+  current.line && current.line.remove();
   const { stateNodes } = responsive.cfg;
   let isState = false;
   _.each(stateNodes,(node)=>{
@@ -494,7 +500,13 @@ function nodesResamplingByState(shape: Shape, cfg, index, responsive){
       isState = true;
     }
   });
-  if(!isState){
+  if(isState){
+    if(current.origin_position){
+      const {x,y} = current.origin_position;
+      shape.attr('x',x);
+      shape.attr('y',y);
+    }
+  }else{
     textHide(shape);
   }
 }

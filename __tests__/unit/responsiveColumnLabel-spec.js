@@ -41,7 +41,7 @@ describe('responsive line plot', () => {
   });
 
   it.only('canvas size 200x200', () => {
-    const plot = createPlot(200, 200);
+    const plot = createPlot(150, 150);
   });
 
   function createPlot(width, height) {

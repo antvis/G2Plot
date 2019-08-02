@@ -42,7 +42,7 @@ describe('Pie plot', () => {
       angleField: 'value',
       colorField: 'type',
       label: {
-        type: 'inner',
+        type: 'spider',
         formatter: () => {
           return 'test';
         }

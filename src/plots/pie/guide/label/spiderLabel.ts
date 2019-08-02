@@ -332,13 +332,29 @@ export default class SpiderLabel {
       }
     }
 
-    this.container.addShape('polyline', {
+    const path = [];
+    for (let i = 0; i < points.length ; i++) {
+      const p = points[i];
+      let starter = 'L';
+      if (i === 0) starter = 'M';
+      path.push([ starter, p[0], p[1] ]);
+    }
+
+    this.container.addShape('path', {
+      attrs: {
+        path,
+        lineWidth: this.config.lineWidth,
+        stroke: fill,
+      },
+    });
+
+    /*this.container.addShape('polyline', {
       attrs: {
         points,
         lineWidth: this.config.lineWidth,
         stroke: fill,
       },
-    });
+    });*/
 
         // 绘制锚点
     this.container.addShape('circle', {

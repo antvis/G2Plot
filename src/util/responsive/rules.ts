@@ -484,9 +484,19 @@ interface NodesResamplingCfg {
   keep: string[];
 }
 
-function nodesResamplingByState(){
-
-
+function nodesResamplingByState(shape: Shape, cfg, index, responsive){
+  const nodes = responsive.nodes.nodes;
+  const current = nodes[index];
+  const { stateNodes } = responsive.cfg;
+  let isState = false;
+  _.each(stateNodes,(node)=>{
+    if(node.shape.get('origin') === current.shape.get('origin')){
+      isState = true;
+    }
+  });
+  if(!isState){
+    textHide(shape);
+  }
 }
 
 function clearOverlapping(shape: Shape, cfg, index, responsive) {
@@ -542,10 +552,11 @@ export const rulesLib = {
   datetimeStringAbbrevaite,
   robustAbbrevaite,
   nodesResampling,
-  nodesResamplingByAbbrevate,
+  nodesResamplingByAbbrevate,  
+  nodesResamplingByChange,
+  nodesResamplingByState,
   nodeJitter,
   nodeJitterUpward,
-  nodesResamplingByChange,
   clearOverlapping
 };
 

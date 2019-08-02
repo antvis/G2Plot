@@ -32,6 +32,11 @@ const responsiveTheme = {
       rules: {
         'elementCollision':[
           { name: 'nodeJitterUpward' },
+          { name: 'nodesResamplingByState',
+            options:{
+              keep: ['min','max','median']
+            }
+          },
         ]
       }
     }

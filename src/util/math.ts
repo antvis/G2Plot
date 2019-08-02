@@ -213,7 +213,6 @@ function getMedian(array) {
   }
 
   return (list[half - 1] + list[half]) / 2.0;
-
 }
 
 export {

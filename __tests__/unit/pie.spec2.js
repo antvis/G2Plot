@@ -42,13 +42,20 @@ describe('Pie plot', () => {
       angleField: 'value',
       colorField: 'type',
       label: {
-        type: 'spider',
+        type: 'inner',
         formatter: () => {
           return 'test';
         }
       }
     });
 
+    pie.render();
+
+    pie.updateConfig({
+      label: {
+        visible: false
+      }
+    });
     pie.render();
   });
 

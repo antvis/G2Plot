@@ -109,7 +109,7 @@ const commonTheme = {
       },
       title: {
         visible: false,
-        offset: 20,
+        offset: 10,
         style: { fill: '#767b84', fontSize: 12 },
       },
     },

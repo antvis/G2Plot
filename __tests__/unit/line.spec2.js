@@ -739,7 +739,7 @@ describe('Line plot', () => {
       yField: /* 'value'*/'value',
       seriesField: /* 'type'*/'type',
       width: 400,
-      height: 600,
+      height: 400,
       size: 2,
       // smooth: true,
       tooltip: {
@@ -747,7 +747,7 @@ describe('Line plot', () => {
       },
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'right-center',
       },
       xAxis: {
         grid: {
@@ -762,7 +762,7 @@ describe('Line plot', () => {
       },
       yAxis: {
         title: {
-          visible: true,
+          visible: false,
           // offset: 10,
         }
       },
@@ -777,12 +777,6 @@ describe('Line plot', () => {
         onLegendClick: () => {
           // console.log('legend click');
         }
-      }
-    });
-    linePlot.render();
-    linePlot.updateConfig({
-      legend: {
-        position: 'right-center',
       }
     });
     linePlot.render();

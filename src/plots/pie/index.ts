@@ -145,6 +145,10 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   private _label() {
     const props = this._initialProps;
     const labelConfig = props.label as Label;
+    if (labelConfig  && labelConfig .visible === false) {
+      this.pie.label = false;
+      return;
+    }
     this.pie.label = {
       fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
     };

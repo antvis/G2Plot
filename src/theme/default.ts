@@ -66,7 +66,7 @@ const commonTheme = {
         },
       },
       title: {
-        visible: true,
+        visible: false,
         offset: 20,
         style: {
           fill: '#767b84',

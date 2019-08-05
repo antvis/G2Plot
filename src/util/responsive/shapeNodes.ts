@@ -6,7 +6,7 @@ import * as MathUtil from '../math';
 interface NodesCfg {
   shapes: Shape[];
 }
-export interface INode {
+export interface IShapeNode {
   width: Number;
   height: Number;
   centerX: Number;
@@ -22,13 +22,16 @@ export interface INode {
   shape?: Shape;
 }
 
-export default class Nodes {
+export default class ShapeNodes {
   shapes: Shape[];
-  nodes: INode[];
+  nodes: IShapeNode[];
+  origion_nodes: IShapeNode[];
+  type: string = 'shape';
   constructor(cfg: NodesCfg) {
     this.shapes = cfg.shapes;
     this.nodes = [];
     this._parserNodes();
+    this.origion_nodes = _.deepMix([], this.nodes);
   }
 
   private _parserNodes() {
@@ -46,8 +49,8 @@ export default class Nodes {
   public measureNodes() {
     const nodes = [];
     const shapes = [];
-    _.each(this.shapes, (shape) => {
-      const node = this.measure(shape);
+    _.each(this.shapes, (shape, index) => {
+      const node = _.deepMix({}, this.nodes[index], this.measure(shape));
       if (node.width !== 0 && node.height !== 0) {
         nodes.push(node);
         shapes.push(shape);

@@ -6,9 +6,10 @@
   "scripts": {
     "postinstall": "npm run build",
     "test": "torch --compile --renderer --recursive ./__tests__/unit",
-    "test-live": "torch --compile --interactive ./__tests__/unit/pie.spec2.js",
+    "test-live": "torch --compile --interactive ./__tests__/unit",
 		"dist": "webpack --config webpack.config.js --mode production",
     "build": "rm -rf lib && tsc",
+    "pack": "webpack",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "@antv/g2": "~4.0.0",
     "@antv/guide": "~1.0.0",
     "@antv/util": "~1.3.1",
+    "@antv/coord": "~1.0.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "resize-observer-polyfill": "^1.5.1"

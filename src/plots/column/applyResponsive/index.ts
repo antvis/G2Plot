@@ -1,5 +1,17 @@
+import responsiveColumn from './element';
 import responsiveAxis from './axis';
+import responsiveLabel from './label';
 
-export default [
-    { name:'responsiveAxis', method: responsiveAxis },
+const preRenderResponsive = [
+    { name: 'responsiveColumn', method: responsiveColumn },
 ];
+
+const afterRenderResponsive = [
+    { name:'responsiveAxis', method: responsiveAxis },
+    { name: 'responsiveLabel', method: responsiveLabel },
+];
+
+export default {
+  preRender: preRenderResponsive,
+  afterRender: afterRenderResponsive,
+};

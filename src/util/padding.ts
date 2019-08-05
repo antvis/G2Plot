@@ -35,7 +35,6 @@ export default function getAutoPadding(view: View, components, defaultPadding) {
     0 - box.minX + defaultPadding[3],
   ];
   return padding;
-
 }
 
 function getAxis(view, bboxes) {

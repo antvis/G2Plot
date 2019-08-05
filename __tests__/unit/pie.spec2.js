@@ -2,8 +2,8 @@ import { Pie } from '../../src';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '600px';
-  canvasDiv.style.height = '600px';
+  canvasDiv.style.width = '300px';
+  canvasDiv.style.height = '300px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
@@ -30,22 +30,54 @@ describe('Pie plot', () => {
       value: 5
     } ];
 
+    const data2 = [ {
+      x: '分类一',
+      y: 385,
+      serie: 'default'
+    }, {
+      x: '分类二',
+      y: 888,
+      serie: 'default'
+    }, {
+      x: '分类三',
+      y: 349,
+      serie: 'default'
+    }, {
+      x: '分类四',
+      y: 468,
+      serie: 'default'
+    }, {
+      x: '分类五',
+      y: 477,
+      serie: 'default'
+    } ];
+
     const pie = new Pie(canvasDiv, {
+      width: 300,
+      height: 300,
+      data: data2,
+      label: {
+        type: 'inner',
+        visible: true
+      },
+      tooltip: {
+        visible: false
+      },
+      angleField: 'y',
+      colorField: 'x',
+      padding: 'auto',
+      animation: false,
+      radius: 1,
+      innerRadius: 0.5,
       title: {
-        text: '测试测试测试'
+        text: '环图'
       },
       description: {
-        text: '你问我资瓷不资瓷，那我肯定是资瓷的'
+        text: '一个简单的环图'
       },
-      data,
-      padding: 'auto',
-      angleField: 'value',
-      colorField: 'type',
-      label: {
-        type: 'spider',
-        formatter: () => {
-          return 'test';
-        }
+      legend: {
+        visible: true,
+        position: 'right-bottom'
       }
     });
 

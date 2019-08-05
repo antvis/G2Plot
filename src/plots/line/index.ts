@@ -31,6 +31,10 @@ interface PointStyle {
   opacity?: string;
 }
 
+interface IObject {
+  [key:string]: any;
+}
+
 export interface LineConfig extends BaseConfig {
   /** 分组字段 */
   seriesField?: string;
@@ -157,7 +161,7 @@ export default class Line extends BasePlot<LineConfig>{
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;
-    const labelType = label.type;
+    const labelType = label.type ? label.type :'point';
     if (label && label.visible === false) {
       this.line.label = false;
       return;
@@ -240,7 +244,7 @@ export default class Line extends BasePlot<LineConfig>{
     /**响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.plot.once('afterrender', () => {
-        this._applyResponsive();
+        this._applyResponsive('afterRender');
       });
     }
     /**时间子母轴 */
@@ -330,9 +334,12 @@ export default class Line extends BasePlot<LineConfig>{
     return config;
   }
 
-  private _applyResponsive() {
-    _.each(responsiveMethods, (r) => {
-      r.method(this);
+  private _applyResponsive(stage) {
+    const methods = responsiveMethods[stage];
+    _.each(methods, (r) => {
+      const responsive = r as IObject;
+      responsive.method(this);
     });
   }
+
 }

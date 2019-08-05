@@ -1,4 +1,49 @@
 const responsiveTheme = {
+  element: {
+    column : {
+      constraints : [
+        'columnWidth',
+      ],
+    },
+    ring: {
+      constraints : [
+        'ringThickness',
+        'minRingThickness',
+      ],
+    },
+  },
+  labels:{
+    line : {
+      constraints: [
+        'elementCollision',
+      ],
+      rules: {
+        elementCollision: [
+          { name: 'nodesResamplingByChange' },
+          // { name: 'nodeJitter' },
+          { name: 'clearOverlapping' },
+        ],
+      },
+    },
+    column: {
+      constraints: [
+        'elementCollision',
+      ],
+      rules: {
+        elementCollision:[
+          { name: 'nodeJitterUpward' },
+          { name: 'nodesResamplingByState',
+            options:{
+              keep: [ 'min', 'max', 'median' ],
+            },
+          },
+          {
+            name: 'textHide',
+          },
+        ],
+      },
+    },
+  },
   axis: {
     x: {
       category: {

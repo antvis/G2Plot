@@ -2,6 +2,7 @@ import PiePlot, { PieConfig } from '../pie/index';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as centralTextTemplate from './guide/annotation/centralText_template';
 import * as _ from '@antv/util';
+import responsiveMethods from './applyResponsive/index';
 
 export interface RingConfig extends PieConfig {
   innerRadius?: number;
@@ -14,13 +15,22 @@ interface IAttrs {
 export default class RingPlot extends PiePlot<RingConfig>{
   private centralText: any; // 保存中心文本实例用于响应交互
 
+  protected _beforeInit() {
+    this.type = 'ring';
+    const props = this._initialProps;
+    /**响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('preRender');
+    }
+  }
+
   protected _coord() {
     const props = this._initialProps;
     const coordConfig = {
       type: 'theta' as CoordinateType,
       cfg: {
         radius: 1, // default radius值
-        innerRadius: 0.6, // default innerRadius值
+        innerRadius: 0.8, // default innerRadius值
       },
     };
     if (_.has(props, 'radius')) {
@@ -118,6 +128,14 @@ export default class RingPlot extends PiePlot<RingConfig>{
         document.getElementsByClassName('ring-guide-html')[0].innerHTML = htmlString;
       });
     }
+  }
+
+  private _applyResponsive(stage) {
+    const methods = responsiveMethods[stage];
+    _.each(methods, (r) => {
+      const responsive = r as IAttrs;
+      responsive.method(this);
+    });
   }
 
 }

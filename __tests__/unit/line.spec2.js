@@ -8,6 +8,7 @@ describe('Line plot', () => {
   canvasDiv.style.height = '600px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
+  canvasDiv.style.backgroundColor = 'grey';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 

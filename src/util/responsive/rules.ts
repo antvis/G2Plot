@@ -1,7 +1,7 @@
 import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import moment, { months } from 'moment';
-import { getMedian } from '../math';
+import { getMedian, dotProduct2D } from '../math';
 
 /** todo: 这么铺开太乱了，稍后整理成结构化模块 */
 
@@ -80,7 +80,8 @@ const unitMapper = {
 // https://gist.github.com/MartinMuzatko/1060fe584d17c7b9ca6e
 // https://jburrows.wordpress.com/2014/11/18/abbreviating-numbers/
 /*tslint:disable*/
-function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg, index, nodes) {
+function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
   const number = parseFloat(shape.get('origin').text);
   if (number === 0) {
     return;
@@ -100,7 +101,7 @@ function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg, index, nodes) 
     //根据数值的interval计算换算后保留的浮点数
     const unitNumber = unitMapper[unitname].number;
     const interval = getLinearNodesInterval(nodes);
-    const decimal = getDigitsDecimal(interval,unitNumber);
+    const decimal = getDigitsDecimal(interval, unitNumber);
     const { num } = abbravateDigitsByUnit({ unit: unitname, decimal }, number);
     shape.attr('text', num + unitname);
   }
@@ -148,17 +149,17 @@ function getLinearNodesInterval(nodes) {
   return 0;
 }
 
-function getDigitsDecimal(interval,unitNumber){
+function getDigitsDecimal(interval, unitNumber) {
   const unitBit = Math.floor(Math.log10(unitNumber));
-  if(interval >= unitNumber){
+  if (interval >= unitNumber) {
     const remainder = interval % unitNumber;
-    if(remainder > 0) {
+    if (remainder > 0) {
       const remainderBit = Math.floor(Math.log10(remainder));
       return Math.abs(remainderBit - unitBit);
     }
-  }else{
+  } else {
     const intervalBit = Math.floor(Math.log10(interval));
-    return Math.abs(intervalBit-unitBit);
+    return Math.abs(intervalBit - unitBit);
   }
   return 0;
 }
@@ -168,7 +169,8 @@ interface TimeStringAbbrevaiteCfg {
   keep?: string[];
 }
 
-function datetimeStringAbbrevaite(shape, cfg: TimeStringAbbrevaiteCfg, index, nodes) {
+function datetimeStringAbbrevaite(shape, cfg: TimeStringAbbrevaiteCfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
   let campareText;
   if (index === nodes.length - 1) {
     campareText = nodes[index - 1].shape.get('origin').text;
@@ -282,7 +284,8 @@ interface RobustAbbrevaiteCfg {
   decimal?: number;
 }
 
-function robustAbbrevaite(shape: Shape, cfg: RobustAbbrevaiteCfg, index, nodes) {
+function robustAbbrevaite(shape: Shape, cfg: RobustAbbrevaiteCfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
   const text = shape.attr('text');
   /** 判断text类型： 数字、时间、文本 */
   const isnum = /^\d+$/.test(text);
@@ -300,7 +303,8 @@ interface NodesResamplingCfg {
   keep: string[];
 }
 
-function nodesResampling(shape, cfg: NodesResamplingCfg, index, nodes) {
+function nodesResampling(shape, cfg: NodesResamplingCfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
   /** nodeLength为偶数，则奇数index的shape保留，反之则偶数index的shape保留 */
   const oddKeep = (nodes.length % 2 === 0) ? false : true;
   if (isKeep(cfg.keep, index, nodes)) {
@@ -334,7 +338,8 @@ function isKeep(keepCfg, index, nodes) {
   return false;
 }
 
-function nodesResamplingByAbbrevate(shape, cfg: NodesResamplingCfg, index, nodes) {
+function nodesResamplingByAbbrevate(shape, cfg: NodesResamplingCfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
   if (isKeep(cfg.keep, index, nodes)) {
     return;
   } {
@@ -346,6 +351,210 @@ function nodesResamplingByAbbrevate(shape, cfg: NodesResamplingCfg, index, nodes
   }
 }
 
+/**图形在水平或垂直方向抖开 */
+function nodeJitter(shape: Shape, cfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
+  if (index === nodes.length - 1) {
+    return;
+  }
+  const current = nodes[index];
+  const next = nodes[index + 1];
+  const { dir, distX, distY } = alignDirection(current, next);
+  const startPoint = shape.get('startPoint');
+  if (dir === 'x') {
+    shape.attr('y', startPoint.y + 20);
+  }
+}
+
+function alignDirection(nodeA, nodeB) {
+  let dir;
+  /** 计算两个node 中心点向量的角度 */
+  const vector = { x: nodeB.centerX - nodeA.centerX, y: nodeB.centerY - nodeA.centerY };
+  const mag = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+  const vector_horizontal = { x: 10, y: 0 };//水平方向向量
+  const mag_horizontal = Math.sqrt(vector_horizontal.x * vector_horizontal.x + vector_horizontal.y * vector_horizontal.y);
+  const dot = dotProduct2D(vector, vector_horizontal);
+  let angle = dot / (mag * mag_horizontal) * 180 / Math.PI;
+  if (angle < 0) angle = 360 - angle;
+  angle = adjustAngle(angle); //将角度从0-360转换到0-90
+
+  /** 计算两个node在x、y两个方向上的距离 */
+  const distX = Math.abs(nodeA.centerX - nodeB.centerX);
+  const distY = Math.abs(nodeA.centerY - nodeB.centerY);
+
+  if (angle > 45) {
+    dir = 'x';
+  } else if (angle < 45) {
+    dir = 'y';
+  }
+
+  return { dir, distX, distY };
+}
+
+function adjustAngle(angle) {
+  if (angle > 90 && angle <= 180) {
+    return 180 - angle;
+  } else if (angle > 180 && angle < 270) {
+    return angle - 180;
+  } else {
+    return 360 - angle;
+  }
+}
+
+/**图形向上抖开并拉线 */
+//todo 允许设置offset和拉线样式
+function nodeJitterUpward(shape: Shape, cfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
+  if (index === 0) {
+    return;
+  }
+  const current = nodes[index];
+  const previous = nodes[index - 1];
+  if (isNodeOverlap(current, previous)) {
+    const y = previous.top - current.height / 2;
+    const offset = 10;
+    if (y - offset > responsive.region.top) {
+      //取到label对应的element-shape
+      const origin = current.shape.get('origin');
+      const shapeId = responsive.cfg.element.getShapeId(origin);
+      const shapes = responsive.cfg.element.getShapes();
+      const shapeBbox = getShapeById(shapeId, shapes).get('box');
+      const originX = shapeBbox.left + shapeBbox.width / 2;
+      const originY = shapeBbox.top;
+      //拉线
+      const container = responsive.cfg.labelsContainer;
+      const labelLine = container.addShape('path', {
+        attrs: {
+          path: [
+            ['M', originX, originY],
+            ['L', current.shape.attr('x'), y]
+          ],
+          stroke: '#ccc',
+          lineWidth: 1
+        }
+      });
+      /**保存labelLine和label初始位置信息 */
+      const origin_position = {x:shape.attr('x'),y:shape.attr('y')};
+      //current.origin_position = {x:shape.attr('x'),y:shape.attr('y')};
+      //更新标签位置，同步更新node
+      current.shape.attr('y', y - offset);
+      nodes[index] = responsive.nodes.measure(current.shape);
+      nodes[index].line = labelLine;
+      nodes[index].origin_position = origin_position;
+    }
+  }
+}
+
+function getShapeById(shapeId, shapes) {
+  let target;
+  _.each(shapes, (shape) => {
+    const s = shape as Shape;
+    const id = s.id;
+    if (id === shapeId) {
+      target = s;
+    }
+  });
+  return target;
+}
+
+/** 根据变化进行抽样，保留变化较大的点，类似于点简化算法*/
+function nodesResamplingByChange(shape: Shape, cfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
+  const tolerance = responsive.cfg.tolerance;
+  if (index <= 1) {
+    return;
+  }
+  const current = nodes[index];
+  //const previous = nodes[index-1];
+  const previous = findPrevious(index, nodes);
+  const distX = previous.centerX - current.centerX;
+  const distY = previous.centerY - current.centerY;
+  const dist = Math.sqrt(distX * distX + distY * distY);
+  if (dist < tolerance) {
+    textHide(shape);
+    shape.set('blank', true);
+  }
+}
+
+function findPrevious(index, nodes) {
+  for (let i = index - 1; i > 0; i--) {
+    const node = nodes[i];
+    if (!node.shape.get('blank')) {
+      return node;
+    }
+  }
+}
+
+interface NodesResamplingCfg {
+  keep: string[];
+}
+
+function nodesResamplingByState(shape: Shape, cfg, index, responsive){
+  const nodes = responsive.nodes.nodes;
+  const current = nodes[index];
+  current.line && current.line.remove();
+  const { stateNodes } = responsive.cfg;
+  let isState = false;
+  _.each(stateNodes,(node)=>{
+    if(node.shape.get('origin') === current.shape.get('origin')){
+      isState = true;
+    }
+  });
+  if(isState){
+    if(current.origin_position){
+      const {x,y} = current.origin_position;
+      shape.attr('x',x);
+      shape.attr('y',y);
+    }
+  }else{
+    textHide(shape);
+  }
+}
+
+function clearOverlapping(shape: Shape, cfg, index, responsive) {
+  const nodes = responsive.nodes.nodes;
+  const current = nodes[index];
+  const overlaped = [];
+  /** 找到所有与当前点overlap的node */
+  if (!current.shape.get('blank')) {
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      const shape = node.shape;
+      if (i !== index && !shape.get('blank')) {
+        const isOverlap = isNodeOverlap(current, node);
+        if (isOverlap) {
+          overlaped.push(node);
+        }
+      }
+    }
+  }
+  /** overlap处理逻辑 */
+  if (overlaped.length > 0) {
+    overlaped.push(current);
+    overlaped.sort((a, b) => {
+      return b.top - a.top;
+    });
+    /** 隐藏除最高点以外的node */
+    _.each(overlaped, (node, index) => {
+      if (index > 0) {
+        const shape = node.shape;
+        textHide(shape);
+        shape.set('blank', true);
+      }
+    });
+  }
+}
+
+function isNodeOverlap(nodeA, nodeB) {
+  if (nodeA.bottom < nodeB.top || nodeB.bottom < nodeA.top) {
+    return false;
+  } else if (nodeA.right < nodeB.left || nodeB.right < nodeA.left) {
+    return false;
+  }
+  return true;
+}
+
+
 export const rulesLib = {
   textWrapper,
   textRotation,
@@ -355,7 +564,12 @@ export const rulesLib = {
   datetimeStringAbbrevaite,
   robustAbbrevaite,
   nodesResampling,
-  nodesResamplingByAbbrevate,
+  nodesResamplingByAbbrevate,  
+  nodesResamplingByChange,
+  nodesResamplingByState,
+  nodeJitter,
+  nodeJitterUpward,
+  clearOverlapping
 };
 
 export function registerResponsiveRule(name, method) {

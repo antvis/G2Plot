@@ -1,9 +1,10 @@
 /** 可插拔的responsive模块 */
-import Nodes, { INode } from './nodes';
-import * as _ from '@antv/util';
-import { BBox, Shape } from '@antv/g';
+import ShapeNodes, { IShapeNode } from './shapeNodes';
+import VariableNodes from './variableNode';
 import { constraintsLib } from '../responsive/constraints';
 import { rulesLib } from '../responsive/rules';
+import * as _ from '@antv/util';
+import { BBox, Shape } from '@antv/g';
 
 interface IConstraint {
   name: string;
@@ -19,19 +20,20 @@ interface IRule {
 }
 
 interface ResponsiveCfg {
-  region? : BBox;
-  nodes: Nodes;
+  region? : any;
+  nodes: ShapeNodes | VariableNodes;
   constraints: any[];
   rules?: any;
   iterationTime?: number;
   onStart?: Function;
   onIteration?: Function;
   onEnd?: Function;
+  cfg?: {};
 }
 
 export default class Responsive {
   region: BBox;
-  nodes: Nodes;
+  nodes: ShapeNodes | VariableNodes;
   constraints: any[];
   rules: any[];
   iterationTime: number = 10;
@@ -59,9 +61,15 @@ export default class Responsive {
   }
 
   private _iteration() {
-    this.nodes.measureNodes();
+    let nodes;
+    if (this.nodes.type === 'shape') {
+      nodes = this.nodes as ShapeNodes;
+    }else {
+      nodes = this.nodes as VariableNodes;
+    }
+    nodes.type === 'shape' && nodes.measureNodes();
     if (this.rules) this._applyRules();
-    this.nodes.measureNodes();
+    nodes.type === 'shape' && nodes.measureNodes();
     this.onIteration && this.onIteration(this.nodes);
   }
 
@@ -82,21 +90,29 @@ export default class Responsive {
     if (this.constraintIndex < this.constraints.length - 1) {
       this.constraintIndex ++;
       this.currentConstraint = this.constraints[this.constraintIndex];
-      this.iterationTime = this.rules[this.currentConstraint].length;
+      this.iterationTime = this.rules ? this.rules[this.currentConstraint].length : 1;
       this.iterationIndex = 0;
       this._run();
     }
   }
 
-  private _constraintsTest() {
+  private _constraintsTest():Boolean {
     const constraint = constraintsLib[this.currentConstraint];
-    const { type, expression } = constraint;
-    const nodes = this.nodes.nodes;
-    if (type === 'chain') return this._chainConstraint(expression, nodes);
-    if (type === 'padding') return this._paddingConstraint(expression, this.region, nodes);
+    if (constraint.usage === 'compare') {
+      return this._constraintCompare(constraint);
+    }
+    return this._constraintAssignment(constraint);
+
   }
 
-  private _chainConstraint(expression, nodes) {
+  private _constraintCompare(constraint) {
+    const { type, expression } = constraint;
+    const nodes = this.nodes.nodes;
+    if (type === 'chain') return this._chainConstraintCompare(expression, nodes);
+    if (type === 'padding') return this._paddingConstraintCompare(expression, this.region, nodes);
+  }
+
+  private _chainConstraintCompare(expression, nodes) {
     for (let i = 0; i < nodes.length - 1; i++) {
       const a = nodes[i];
       const b = nodes[i + 1];
@@ -107,7 +123,7 @@ export default class Responsive {
     return true;
   }
 
-  private _paddingConstraint(expression, region, nodes) {
+  private _paddingConstraintCompare(expression, region, nodes) {
     if (region) {
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
@@ -119,23 +135,60 @@ export default class Responsive {
     return true;
   }
 
+  private _groupConstraintCompare(expression, nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = 0; j < nodes.length; j++) {
+        if (j !== i) {
+          const b = nodes[j];
+          if (expression(a, b) === false) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  private _constraintAssignment(constraint) {
+    const { type, expression } = constraint;
+    const nodes = this.nodes.nodes;
+    if (type === 'chain') return this._chainConstraintAssign(expression, nodes);
+    if (type === 'padding') return this._paddingConstraintAssign(expression, this.region, nodes);
+  }
+
+  private _chainConstraintAssign(expression, nodes) {
+    return true;
+  }
+
+  private _paddingConstraintAssign(expression, region, nodes) {
+    if (region) {
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        const value = expression(node, region);
+        node.value = value;
+      }
+    }
+    return true;
+  }
+
   private _applyRules() {
     const ruleCfg = this.rules[this.currentConstraint][this.iterationIndex];
     if (this.rulesLocker.indexOf(ruleCfg) < 0) {
       const rule = rulesLib[ruleCfg.name];
       const options = ruleCfg.options ? ruleCfg.options :{};
-      const nodes = this.nodes.nodes;
+      const nodes = this.nodes.nodes as IShapeNode[];
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-              /** apply rule上下文 */
-        this._applyRule(node.shape, rule, options, i, nodes);
+        /** apply rule上下文 */
+        this._applyRule(node.shape, rule, options, i);
       }
       this.rulesLocker.push(ruleCfg);
     }
   }
 
-  private _applyRule(shape:Shape, rule, options, index, nodes) {
-    rule(shape, options, index, nodes);
+  private _applyRule(shape:Shape, rule, options, index) {
+    rule(shape, options, index, this);
   }
 
 }

@@ -3,28 +3,27 @@ import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
 import { BBox } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
-import getAutoPadding from '../util/padding';
 import { EVENT_MAP, onEvent } from '../util/event';
 import TextDescription from '../components/description';
 import CanvasController from './controller/canvas';
 import ThemeController from './controller/theme';
+import PaddingController from './controller/padding';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
-  /** g2实例 */
-  public type: string = 'base';
-  private _container: HTMLElement;
   public plot: G2.View;
-  public destroyed: boolean = false;
   public _initialProps: T;
   protected _originalProps: T;
   protected _config: G2Config;
-  public eventHandlers: any[] = [];
-  protected paddingComponents: any[] = [];
+  private _container: HTMLElement;
+  private canvasController: CanvasController;
+  private themeController: ThemeController;
+  private paddingController: PaddingController;
   protected title: TextDescription;
   protected description: TextDescription;
   protected plotTheme: any;
-  private canvasController: CanvasController;
-  private themeController: ThemeController;
+  public eventHandlers: any[] = [];
+  public destroyed: boolean = false;
+  public type: string = 'base';
 
   constructor(container: string | HTMLElement, config: T) {
     /**
@@ -41,6 +40,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       plot: this,
     });
     this.plotTheme = this.themeController.plotTheme;
+    this.paddingController = new PaddingController({
+      plot: this,
+    });
     /**
      * 启动主流程，挂载钩子
      */
@@ -100,7 +102,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       height: this.canvasController.height,
       canvas: this.canvasController.canvas,
       container: this.canvasController.canvas.addGroup(),
-      padding: this._getPadding(),
+      padding: this.paddingController.getPadding(),
       data: props.data,
       theme: this._config.theme,
       options: this._config,
@@ -246,11 +248,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const padding = props.padding ? props.padding : this._config.theme.padding;
     /** 处理autopadding逻辑 */
     if (padding === 'auto') {
-      this.plot.render(false);
-      const padding = getAutoPadding(this.plot, this.paddingComponents, this._config.theme.defaultPadding);
-      this.updateConfig({
-        padding,
-      });
+      this.paddingController.processAutoPadding();
     }
   }
 
@@ -268,8 +266,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   /** 自定义组件参与padding */
-  public resgiterPadding(components: Element) {
-    this.paddingComponents.push(components);
+  public resgiterPadding(component: Element) {
+    this.paddingController.resgiterPadding(component);
   }
 
   /** 修改数据 */
@@ -328,16 +326,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._afterInit();
   }
 
-  private _getPadding() {
-    const props = this._initialProps;
-    const padding = props.padding ? props.padding : this._config.theme.padding;
-    if (padding === 'auto') return [ 0, 0, 0, 0 ];
-    return padding;
-  }
-
   // 为了方便图表布局，title和description在view创建之前绘制，需要先计算view的plotRange,方便title & description文字折行
   private _getPanelRange() {
-    const padding = this._getPadding();
+    const padding = this.paddingController.getPadding();
     const width = this.canvasController.width;
     const height = this.canvasController.height;
     const top = padding[0];
@@ -354,7 +345,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.description) boxes.push(this.description.getBBox());
     if (boxes.length === 0) {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    } {
+    }  {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;

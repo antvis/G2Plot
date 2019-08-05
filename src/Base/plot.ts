@@ -1,6 +1,5 @@
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-import Theme from '../theme';
 import { DataPointType } from '@antv/g2/lib/interface';
 import { BBox } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
@@ -36,21 +35,21 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._container = _.isString(container) ? document.getElementById(container) : container;
     this.canvasController = new CanvasController({
       container: this._container,
-      plot: this
+      plot: this,
     });
     this.themeController = new ThemeController({
-      plot: this
+      plot: this,
     });
     this.plotTheme = this.themeController.plotTheme;
     /**
      * 启动主流程，挂载钩子
      */
     this._beforeInit();
-    this._init(this._container, this.canvasController);
+    this._init();
     this._afterInit();
   }
 
-  protected _init(container: HTMLElement, canvasController) {
+  protected _init() {
     const props = this._initialProps;
     const theme = this.themeController.theme;
     this._config = {
@@ -69,11 +68,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       elements: [],
       annotations: [],
       interactions: {},
-      theme: theme,
+      theme,
       panelRange: {},
     };
-     
-    //todo: 太丑了，待优化
+
+    // todo: 太丑了，待优化
     if (theme.backgroundStyle && theme.backgroundStyle.fill) {
       this.canvasController.canvas.get('canvasDOM').style.backgroundColor = theme.backgroundStyle.fill;
     }
@@ -96,17 +95,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._annotation();
     this._animation();
 
-    // 补充scale配置
-    const scales = _.mapValues(this._config.scales, (scaleConfig: any, field: string) => {
-      const meta: PlotConfig['meta']['key'] = _.get(props.meta, field);
-      // meta中存在对应配置，则补充入
-      if (meta) {
-        return _.assign({}, scaleConfig, meta);
-      }
-      return scaleConfig;
-    });
-    this._setConfig('scales', scales);
-
     this.plot = new G2.View({
       width: this.canvasController.width,
       height: this.canvasController.height,
@@ -126,14 +114,66 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   /** 设置G2默认配置项 */
   protected abstract _setDefaultG2Config(): void;
 
-  /** 配置G2 */
-  protected abstract _scale(): void;
+  /** 配置G2各组件 */
   protected abstract _axis(): void;
   protected abstract _coord(): void;
   protected abstract _annotation(): void;
   protected abstract _addElements(): void;
   protected abstract _animation(): void;
   protected abstract _interactions(): void;
+
+  /** plot通用配置 */
+
+  protected _scale(): void {
+    /** scale meta配置 */
+    const props = this._initialProps;
+    const scales = _.mapValues(this._config.scales, (scaleConfig: any, field: string) => {
+      const meta: PlotConfig['meta']['key'] = _.get(props.meta, field);
+      // meta中存在对应配置，则补充入
+      if (meta) {
+        return _.assign({}, scaleConfig, meta);
+      }
+      return scaleConfig;
+    });
+    this._setConfig('scales', scales);
+  }
+
+  protected _tooltip(): void {
+    const props = this._initialProps;
+    if (props.tooltip && props.tooltip.visible === false) {
+      this._setConfig('tooltip', false);
+      return;
+    }
+
+    this._setConfig('tooltip', {
+      crosshairs: _.get(props, 'tooltip.crosshairs'),
+      shared: _.get(props, 'tooltip.shared'),
+    });
+
+    if (props.tooltip && props.tooltip.style) {
+      _.deepMix(this._config.theme.tooltip, props.tooltip.style);
+    }
+
+  }
+
+  protected _legend(): void {
+    const props = this._initialProps;
+    if (props.legend && props.legend.visible === false) {
+      this._setConfig('legends', false);
+      return;
+    }
+
+    const flipOption = _.get(props, 'legend.flipPage');
+
+    this._setConfig('legends', {
+      position: _.get(props, 'legend.position'),
+      formatter: _.get(props, 'legend.formatter'),
+      offsetX: _.get(props, 'legend.offsetX'),
+      offsetY: _.get(props, 'legend.offsetY'),
+      flipPage: flipOption,
+    });
+
+  }
 
   protected _events(eventParser?): void {
     const props = this._initialProps;
@@ -150,56 +190,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
   }
 
-  /** plot通用配置 */
-  protected _tooltip(): void {
-    const props = this._initialProps;
-    if (props.tooltip && props.tooltip.visible === false) {
-      this._setConfig('tooltip', false);
-      return;
-    }
-    this._setConfig('tooltip', {
-      crosshairs: _.get(props, 'tooltip.crosshairs'),
-    });
-    this._setConfig('tooltip', {
-      shared: _.get(props, 'tooltip.shared'),
-    });
-    if (props.tooltip && props.tooltip.style) {
-      _.deepMix(this._config.theme.tooltip, props.tooltip.style);
-    }
-  }
-
-  protected _legend(): void {
-    const props = this._initialProps;
-    if (props.legend && props.legend.visible === false) {
-      this._setConfig('legends', false);
-      return;
-    }
-
-    this._setConfig('legends', {
-      position: _.get(props, 'legend.position'),
-    });
-    this._setConfig('legends', {
-      formatter: _.get(props, 'legend.formatter'),
-    });
-    this._setConfig('legends', {
-      offsetX: _.get(props, 'legend.offsetX'),
-    });
-    this._setConfig('legends', {
-      offsetY: _.get(props, 'legend.offsetY'),
-    });
-
-    const flipOption = _.get(props, 'legend.flipPage');
-    this._setConfig('legends', {
-      flipPage: flipOption,
-    });
-  }
-
   protected _title(panelRange: BBox): void {
     const props = this._initialProps;
     this.title = null;
     if (props.title) {
       const theme = this._config.theme;
-      const alignWithAxis = _.mix(props.title.alignWithAxis,theme.title.alignWithAxis);
+      const alignWithAxis = _.mix(props.title.alignWithAxis, theme.title.alignWithAxis);
       const title = new TextDescription({
         leftMargin:panelRange.minX,
         topMargin: theme.title.top_margin,
@@ -217,7 +213,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected _description(panelRange: BBox): void {
     const props = this._initialProps;
     this.description = null;
-    
+
     if (props.description) {
       let topMargin = 0;
       if (this.title) {
@@ -226,7 +222,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       }
 
       const theme = this._config.theme;
-      const alignWithAxis = _.mix(props.title.alignWithAxis,theme.title.alignWithAxis);
+      const alignWithAxis = _.mix(props.title.alignWithAxis, theme.title.alignWithAxis);
 
       const description = new TextDescription({
         leftMargin:panelRange.minX,
@@ -271,10 +267,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     _.assign(this._config[key], config);
   }
 
-  protected _convert2G2Theme(plotTheme) {
-    return Theme.convert2G2Theme(plotTheme);
-  }
-
   /** 自定义组件参与padding */
   public resgiterPadding(components: Element) {
     this.paddingComponents.push(components);
@@ -298,47 +290,48 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this.plot.get('canvas').draw();
   }
 
-  /** 销毁 */
-  public destroy(): void {
-    this.canvasController.destory();
+  /** 抽取destory和updateConfig共有代码为_destory方法 */
+  private _destory() {
+     /** 关闭事件监听 */
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
     /** 移除title & description */
     this.title && this.title.destory();
     this.description && this.description.destory();
+    /** 销毁g2.plot实例 */
+    this.plot.destroy();
+  }
+
+  /** 销毁 */
+  public destroy(): void {
+    /** 销毁挂载在canvasController上的forcefit监听器 */
+    this.canvasController.destory();
+    /** 销毁canvas dom */
     const canvasDOM = this.canvasController.canvas.get('canvasDOM');
     canvasDOM.parentNode.removeChild(canvasDOM);
-    /** TODO: g2底层view销毁时没有销毁tooltip,经查是tooltip迁移过程中去掉了destory方法 */
-    this.plot.destroy();
+    this._destory();
     this.destroyed = true;
   }
 
   /** 更新配置项 */
   public updateConfig(cfg): void {
-    if(!cfg.padding && this._originalProps.padding && this._originalProps.padding === 'auto'){
+    this._destory();
+    if (!cfg.padding && this._originalProps.padding && this._originalProps.padding === 'auto') {
       cfg.padding = 'auto';
     }
     const newProps = _.deepMix({}, this._initialProps, cfg);
-    
-    _.each(this.eventHandlers, (handler) => {
-      this.plot.off(handler.type, handler.handler);
-    });
-    this.plot.destroy();
-    /** 移除title & description */
-    if (this.title) this.title.destory();
-    if (this.description) this.description.destory();
     this._initialProps = newProps;
     this.canvasController.updateCanvasSize();
     this._beforeInit();
-    this._init(this._container, this.canvasController);
+    this._init();
     this._afterInit();
   }
 
   private _getPadding() {
     const props = this._initialProps;
     const padding = props.padding ? props.padding : this._config.theme.padding;
-    if (padding === 'auto') return [0, 0, 0, 0];
+    if (padding === 'auto') return [ 0, 0, 0, 0 ];
     return padding;
   }
 

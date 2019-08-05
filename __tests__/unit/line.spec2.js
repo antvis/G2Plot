@@ -778,6 +778,12 @@ describe('Line plot', () => {
       }
     });
     linePlot.render();
+    linePlot.updateConfig({
+      legend: {
+        position: 'bottom-center'
+      }
+    });
+    linePlot.render();
   });
 
 

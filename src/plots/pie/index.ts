@@ -26,6 +26,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   protected _setDefaultG2Config() { }
 
   protected _scale() {
+    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */

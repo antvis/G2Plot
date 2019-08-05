@@ -7,6 +7,8 @@ import * as _ from '@antv/util';
 
 export default class TextDescription {
     private container: Canvas | Group;
+    private theme: any;
+    private alignWithAxis: boolean;
     private topMargin: number;
     private leftMargin: number;
     private wrapperWidth: number;
@@ -20,8 +22,9 @@ export default class TextDescription {
     }
 
     private _init(){
-        const content = this._textWrapper(this.wrapperWidth,this.style);
-        this.shape = this.container.addShape('text', {
+      this._adjustLeftMargin();
+      const content = this._textWrapper(this.wrapperWidth,this.style);
+      this.shape = this.container.addShape('text', {
             attrs: _.mix({
               x: this.leftMargin, 
               y: this.topMargin,
@@ -41,6 +44,13 @@ export default class TextDescription {
 
     public destory(){
         this.shape && this.shape.remove();
+    }
+
+    private _adjustLeftMargin(){
+      if(!this.alignWithAxis){
+        this.leftMargin = this.theme.defaultPadding[0];
+        this.wrapperWidth = this.container.get('width');
+      }
     }
 
     private _textWrapper(width, style) {

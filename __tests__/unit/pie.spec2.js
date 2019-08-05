@@ -57,7 +57,7 @@ describe('Pie plot', () => {
       height: 300,
       data: data2,
       label: {
-        type: 'inner',
+        type: 'spider',
         visible: true
       },
       tooltip: {
@@ -77,17 +77,10 @@ describe('Pie plot', () => {
       },
       legend: {
         visible: true,
-        position: 'right-bottom'
+        // position: 'right-bottom'
       }
     });
 
-    pie.render();
-
-    pie.updateConfig({
-      label: {
-        visible: false
-      }
-    });
     pie.render();
   });
 

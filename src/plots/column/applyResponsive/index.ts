@@ -3,16 +3,15 @@ import responsiveAxis from './axis';
 import responsiveLabel from './label';
 
 const preRenderResponsive = [
-    { name: 'responsiveColumn', method: responsiveColumn }
+    { name: 'responsiveColumn', method: responsiveColumn },
 ];
 
 const afterRenderResponsive = [
     { name:'responsiveAxis', method: responsiveAxis },
-    { name: 'responsiveLabel', method: responsiveLabel }
+    { name: 'responsiveLabel', method: responsiveLabel },
 ];
 
-
 export default {
-    preRender: preRenderResponsive,
-    afterRender: afterRenderResponsive
+  preRender: preRenderResponsive,
+  afterRender: afterRenderResponsive,
 };

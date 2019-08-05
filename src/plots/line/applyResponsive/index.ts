@@ -5,10 +5,10 @@ const preRenderResponsive = [];
 
 const afterRenderResponsive = [
     { name:'responsiveAxis', method: responsiveAxis },
-    { name: 'responsivePointLabel', method: responsivePointLabel}
+    { name: 'responsivePointLabel', method: responsivePointLabel },
 ];
 
 export default {
-    preRender: preRenderResponsive,
-    afterRender: afterRenderResponsive
+  preRender: preRenderResponsive,
+  afterRender: afterRenderResponsive,
 };

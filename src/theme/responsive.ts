@@ -2,47 +2,47 @@ const responsiveTheme = {
   element: {
     column : {
       constraints : [
-        'columnWidth'
-      ]
+        'columnWidth',
+      ],
     },
     ring: {
       constraints : [
         'ringThickness',
-        'minRingThickness'
-      ]
-    }
+        'minRingThickness',
+      ],
+    },
   },
   labels:{
     line : {
       constraints: [
-        'elementCollision'
+        'elementCollision',
       ],
       rules: {
-        'elementCollision': [
-          { name: 'nodesResamplingByChange'},
-          //{ name: 'nodeJitter' },
-          { name: 'clearOverlapping'}
-        ]
-      }
+        elementCollision: [
+          { name: 'nodesResamplingByChange' },
+          // { name: 'nodeJitter' },
+          { name: 'clearOverlapping' },
+        ],
+      },
     },
     column: {
       constraints: [
-        'elementCollision'
+        'elementCollision',
       ],
       rules: {
-        'elementCollision':[
+        elementCollision:[
           { name: 'nodeJitterUpward' },
           { name: 'nodesResamplingByState',
             options:{
-              keep: ['min','max','median']
-            }
+              keep: [ 'min', 'max', 'median' ],
+            },
           },
           {
-            name: 'textHide'
-          }
-        ]
-      }
-    }
+            name: 'textHide',
+          },
+        ],
+      },
+    },
   },
   axis: {
     x: {

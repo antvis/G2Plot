@@ -6,7 +6,6 @@ import { rulesLib } from '../responsive/rules';
 import * as _ from '@antv/util';
 import { BBox, Shape } from '@antv/g';
 
-
 interface IConstraint {
   name: string;
   expression: Function;
@@ -63,9 +62,9 @@ export default class Responsive {
 
   private _iteration() {
     let nodes;
-    if(this.nodes.type === 'shape'){
+    if (this.nodes.type === 'shape') {
       nodes = this.nodes as ShapeNodes;
-    }else{
+    }else {
       nodes = this.nodes as VariableNodes;
     }
     nodes.type === 'shape' && nodes.measureNodes();
@@ -73,7 +72,6 @@ export default class Responsive {
     nodes.type === 'shape' && nodes.measureNodes();
     this.onIteration && this.onIteration(this.nodes);
   }
-
 
   private _end() {
     this.onEnd && this.onEnd(this.nodes);
@@ -100,14 +98,14 @@ export default class Responsive {
 
   private _constraintsTest():Boolean {
     const constraint = constraintsLib[this.currentConstraint];
-    if(constraint.usage === 'compare') {
+    if (constraint.usage === 'compare') {
       return this._constraintCompare(constraint);
-    }else{
-      return this._constraintAssignment(constraint);
     }
+    return this._constraintAssignment(constraint);
+
   }
 
-  private _constraintCompare(constraint){
+  private _constraintCompare(constraint) {
     const { type, expression } = constraint;
     const nodes = this.nodes.nodes;
     if (type === 'chain') return this._chainConstraintCompare(expression, nodes);
@@ -137,13 +135,13 @@ export default class Responsive {
     return true;
   }
 
-  private _groupConstraintCompare(expression,nodes){
-    for(let i = 0; i< nodes.length; i++){
+  private _groupConstraintCompare(expression, nodes) {
+    for (let i = 0; i < nodes.length; i++) {
       const a = nodes[i];
-      for(let j = 0; j< nodes.length; j++){
-        if(j!==i){
+      for (let j = 0; j < nodes.length; j++) {
+        if (j !== i) {
           const b = nodes[j];
-          if(expression(a,b) === false){
+          if (expression(a, b) === false) {
             return false;
           }
         }
@@ -152,22 +150,22 @@ export default class Responsive {
     return true;
   }
 
-  private _constraintAssignment(constraint){
+  private _constraintAssignment(constraint) {
     const { type, expression } = constraint;
     const nodes = this.nodes.nodes;
     if (type === 'chain') return this._chainConstraintAssign(expression, nodes);
     if (type === 'padding') return this._paddingConstraintAssign(expression, this.region, nodes);
   }
 
-  private _chainConstraintAssign(expression,nodes){
+  private _chainConstraintAssign(expression, nodes) {
     return true;
   }
 
-  private _paddingConstraintAssign(expression, region, nodes){
-    if(region){
-      for(let i=0; i<nodes.length; i++){
+  private _paddingConstraintAssign(expression, region, nodes) {
+    if (region) {
+      for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-        const value = expression(node,region);
+        const value = expression(node, region);
         node.value = value;
       }
     }
@@ -192,6 +190,5 @@ export default class Responsive {
   private _applyRule(shape:Shape, rule, options, index) {
     rule(shape, options, index, this);
   }
-
 
 }

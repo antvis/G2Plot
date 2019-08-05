@@ -1,8 +1,7 @@
 import * as _ from '@antv/util';
 import { BBox } from '@antv/g';
 
-
-function dotProduct2D(va,vb){
+function dotProduct2D(va, vb) {
   return va.x * vb.y + va.y * vb.x;
 }
 
@@ -225,5 +224,5 @@ export {
   minDistBetweenConvexPolygon,
   bboxOnRotate,
   getMedian,
-  dotProduct2D
+  dotProduct2D,
 };

@@ -31,7 +31,7 @@ export default class ShapeNodes {
     this.shapes = cfg.shapes;
     this.nodes = [];
     this._parserNodes();
-    this.origion_nodes = _.deepMix([],this.nodes);
+    this.origion_nodes = _.deepMix([], this.nodes);
   }
 
   private _parserNodes() {
@@ -49,8 +49,8 @@ export default class ShapeNodes {
   public measureNodes() {
     const nodes = [];
     const shapes = [];
-    _.each(this.shapes, (shape,index) => {
-      const node = _.deepMix({},this.nodes[index],this.measure(shape));
+    _.each(this.shapes, (shape, index) => {
+      const node = _.deepMix({}, this.nodes[index], this.measure(shape));
       if (node.width !== 0 && node.height !== 0) {
         nodes.push(node);
         shapes.push(shape);

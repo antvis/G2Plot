@@ -32,7 +32,7 @@ interface PointStyle {
 }
 
 interface IObject {
-  [key:string]: any
+  [key:string]: any;
 }
 
 export interface LineConfig extends BaseConfig {
@@ -161,7 +161,7 @@ export default class Line extends BasePlot<LineConfig>{
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;
-    const labelType = label.type?label.type:'point';
+    const labelType = label.type ? label.type :'point';
     if (label && label.visible === false) {
       this.line.label = false;
       return;
@@ -341,6 +341,5 @@ export default class Line extends BasePlot<LineConfig>{
       responsive.method(this);
     });
   }
-
 
 }

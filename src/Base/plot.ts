@@ -4,10 +4,10 @@ import { DataPointType } from '@antv/g2/lib/interface';
 import { Canvas, Text, BBox } from '@antv/g';
 import PlotConfig, { G2Config } from '../interface/config';
 import getAutoPadding from '../util/padding';
-import { textWrapper } from '../util/textWrapper';
 import { processAxisVisible } from '../util/axis';
 import { EVENT_MAP, onEvent } from '../util/event';
 import ResizeObserver from 'resize-observer-polyfill';
+import TextDescription from '../components/description';
 
 import Theme from '../theme';
 
@@ -29,8 +29,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public eventHandlers: any[] = [];
   protected canvasCfg;
   protected paddingComponents: any[] = [];
-  protected title: Text;
-  protected description: Text;
+  protected title: TextDescription;
+  protected description: TextDescription;
   protected plotTheme: any;
   private forceFitCb: any;
   private _containerEle: HTMLElement;
@@ -215,8 +215,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected _title(panelRange: BBox): void {
     const props = this._initialProps;
     this.title = null;
-    const theme = this._config.theme;
     if (props.title) {
+      const theme = this._config.theme;
       let leftMargin = panelRange.minX;
       let wrapperWidth = panelRange.width;
       /*tslint:disable*/
@@ -225,17 +225,15 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
         leftMargin = theme.defaultPadding[0];
         wrapperWidth = this.canvasCfg.width;
       }
-      const titleStyle = _.mix(theme.title, props.title.style);
-      const content: string = textWrapper(props.title.text, wrapperWidth, titleStyle);
-      const container = this.canvasCfg.canvas;
-      const text = container.addShape('text', {
-        attrs: _.mix({
-          x: leftMargin,
-          y: theme.title.top_margin,
-          text: content,
-        }, titleStyle),
+      const title = new TextDescription({
+        leftMargin,
+        topMargin: theme.title.top_margin,
+        text: props.title.text,
+        style: _.mix(theme.title, props.title.style),
+        wrapperWidth,
+        container: this.canvasCfg.canvas
       });
-      this.title = text;
+      this.title = title;
     }
   }
 
@@ -258,16 +256,16 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
         wrapperWidth = this.canvasCfg.width;
       }
       const descriptionStyle = _.mix(theme.description, props.description.style);
-      const content: string = textWrapper(props.description.text, wrapperWidth, descriptionStyle);
-      const container = this.canvasCfg.canvas;
-      const text = container.addShape('text', {
-        attrs: _.mix({
-          x: leftMargin, // panelRange.minX
-          y: topMargin + theme.description.top_margin,
-          text: content,
-        }, descriptionStyle),
+      const description = new TextDescription({
+        leftMargin,
+        topMargin: topMargin + theme.description.top_margin,
+        text: props.description.text,
+        style: descriptionStyle,
+        wrapperWidth,
+        container: this.canvasCfg.canvas
       });
-      this.description = text;
+
+      this.description = description;
     }
   }
 
@@ -336,8 +334,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this.plot.off(handler.type, handler.handler);
     });
     /** 移除title & description */
-    if (this.title) this.title.remove();
-    if (this.description) this.description.remove();
+    if (this.title) this.title.destory();
+    if (this.description) this.description.destory();
     const canvasDOM = this.canvasCfg.canvas.get('canvasDOM');
     canvasDOM.parentNode.removeChild(canvasDOM);
     /** TODO: g2底层view销毁时没有销毁tooltip,经查是tooltip迁移过程中去掉了destory方法 */
@@ -357,8 +355,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     });
     this.plot.destroy();
     /** 移除title & description */
-    if (this.title) this.title.remove();
-    if (this.description) this.description.remove();
+    if (this.title) this.title.destory();
+    if (this.description) this.description.destory();
     this._initialProps = newProps;
     this.canvasCfg.width = this._initialProps.width;
     this.canvasCfg.height = this._initialProps.height;
@@ -484,25 +482,4 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       return bbox;
     }
   }
-
-  private _adjustLegendOffset(range) {
-    const props = this._initialProps;
-    const theme = _.clone(this._config.theme);
-    const legendPosition = props.legend && props.legend.position ? props.legend.position : theme.defaultLegendPosition;
-    const titleAlignWithAxis = props.title && props.title.hasOwnProperty('alignWithAxis') ? props.title.alignWithAxis : theme.title.alignWithAxis;
-    const desAlignWithAxis = props.description && props.description.hasOwnProperty('alignWithAxis') ? props.description.alignWithAxis : theme.description.alignWithAxis;
-
-    if ((this.title || this.description) && legendPosition === 'top-left') {
-      let offset = theme.defaultPadding[0];
-      if (props.legend == null) {
-        props.legend = {};
-      }
-      if (titleAlignWithAxis !== false || desAlignWithAxis !== false) {
-        offset = range.minX;
-        if (props.legend.offsetX) offset += props.legend.offsetX;
-      }
-      props.legend.offsetX = offset;
-    }
-  }
-
 }

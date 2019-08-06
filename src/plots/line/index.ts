@@ -263,7 +263,7 @@ export default class Line extends BasePlot<LineConfig>{
     });
   }
 
-  private _lineColor() {
+  /*private _lineColor() {
     const props = this._initialProps;
     const config: IColorConfig = {};
     if (_.has(props, 'seriesField')) {
@@ -295,7 +295,7 @@ export default class Line extends BasePlot<LineConfig>{
     }
     config.cfg = lineStyleProps;
     return config;
-  }
+  }*/
 
   private _pointColor() {
     const props = this._initialProps;

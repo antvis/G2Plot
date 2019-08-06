@@ -1,5 +1,7 @@
 import LineParser from './main';
+import GuideLineParser from './guide';
 
 export default {
-    main: LineParser
+    main: LineParser,
+    guide: GuideLineParser
 };

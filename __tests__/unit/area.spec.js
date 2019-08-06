@@ -41,6 +41,8 @@ describe('Column plot', () => {
 
   it('初始化以及销毁', () => {
     const areaPlot = new Area(canvasDiv, {
+      width: 300,
+      height: 300,
       padding: 'auto',
       data,
       xField: 'year',
@@ -61,8 +63,8 @@ describe('Column plot', () => {
       line: {
         visible: true,
         style: {
-          color: 'blue',
-          size: 4
+          size: 6,
+          color: 'blue'
         }
       },
       label: {

@@ -3,7 +3,7 @@ import { ElementOption } from '../interface/config';
 
 export default class ElementParser {
     public plot: any;
-    private type: string;
+    public type: string;
     private positionFields: string[];
     public element: ElementOption;
 

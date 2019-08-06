@@ -4,6 +4,7 @@ import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } fro
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
+import GuideLineParser from '../../elements/line/guide';
 // import './guide/label/bar-label';
 
 interface AreaStyle {
@@ -140,6 +141,8 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     this._setConfig('element', area);
 
     this._addLine();
+    
+
     this._addPoint();
   }
 
@@ -160,7 +163,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let lineConfig = { visible: false, style: {} };
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
-      const line = {
+      /*const line = {
         type: 'line',
         position: {
           fields: [ props.xField, props.yField ],
@@ -170,7 +173,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
         // cfg: lineConfig.style
       };
       const pointStyle = lineConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'size')) line.size.values[0] = pointStyle.size;
+      if (_.hasKey(pointStyle, 'size')) line.size.values[0] = pointStyle.size;*/
+      const line = new GuideLineParser({
+        type:'line',
+        plot: this
+      }).element;
       this._adjustLine(line);
       this._setConfig('element', line);
       this.line = line;
@@ -258,14 +265,13 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       fields: [],
       values: [] as any,
     };
-    /**单折线的数据点 */
     if (lineStyleProps && lineStyleProps.color) {
       config.values = [ lineStyleProps.color ];
     } else if (props.color) {
       config.values = [ props.color ];
     }
     return config;
-  }
+}
 
   private _pointColor() {
     const props = this._initialProps;

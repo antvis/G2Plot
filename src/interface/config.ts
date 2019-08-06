@@ -223,6 +223,7 @@ export interface G2Config {
 export interface IColorConfig {
   fields?: string[];
   values?: string[];
+  callback?: Function;
 }
 
 const SECOND = 1000;

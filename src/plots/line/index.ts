@@ -18,6 +18,7 @@ import './animation/clipInWithData';
 import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
+import LineElement from '../../elements/line';
 
 interface LineStyle {
   opacity?: number;
@@ -115,24 +116,17 @@ export default class Line extends BasePlot<LineConfig>{
   }
 
   protected _addElements() {
-    const props = this._initialProps;
-    // 配置线
-    const line = {
-      type: 'line',
-      position: {
-        fields: [ props.xField, props.yField ],
-      },
-      connectNulls: !!props.connectNulls,
-    } as ElementOption;
-    if (props.seriesField || props.color) line.color = this._lineColor();
-    if (props.size) line.size = { values: [ props.size ] };
-    if (props.smooth) line.shape = { values: [ 'smooth' ] };
-    if (props.lineStyle) line.style = this._lineStyle();
-    this.line = line;
+   const props = this._initialProps;
+    const LineParser = LineElement.main;
+    this.line = new LineParser({
+      type:'line',
+      positionFields: [ props.xField, props.yField ],
+      plot: this
+    }).element;
     if (props.label) {
       this._label();
     }
-    this._setConfig('element', line);
+    this._setConfig('element', this.line);
     // 配置数据点
     this._addPoint();
   }

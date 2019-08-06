@@ -7,6 +7,7 @@ import * as _ from '@antv/util';
 import { extractScale } from '../../util/scale';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import { __assign } from 'tslib';
+import LineElement from '../../elements/line';
 
 interface LineStyle {
   opacity?: number;
@@ -174,8 +175,14 @@ export default class Rardar extends BasePlot<RadarConfig>{
     let lineConfig = { visible: true };
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
-      const line = this._element('line', lineConfig);
-      if (props.smooth) line.shape = { values: [ 'smooth' ] };
+      /*const line = this._element('line', lineConfig);
+      if (props.smooth) line.shape = { values: [ 'smooth' ] };*/
+      const LineParser = LineElement.main;
+      const line = new LineParser({
+        type:'line',
+        positionFields: [ props.xField, props.yField ],
+        plot: this
+      }).element;
       this._setConfig('element', line);
     }
     /** 配置点 */

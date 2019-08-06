@@ -37,7 +37,7 @@ const commonTheme = {
       grid: {
         visible: true,
         style: {
-          stroke: '#E3E8EC',
+          stroke: '#e3e8ec',
           lineWidth: 1,
           lineDash: [ 0, 0 ],
         },
@@ -69,7 +69,7 @@ const commonTheme = {
         visible: false,
         offset: 20,
         style: {
-          fill: '#767b84',
+          fill: '#595959',
           fontSize: 12,
           textBaseline:'bottom',
         },
@@ -84,7 +84,7 @@ const commonTheme = {
       grid: {
         visible: false,
         style: {
-          stroke: '#E3E8EC',
+          stroke: '#e3e8ec',
           lineWidth: 1,
           lineDash: [ 0, 0 ],
         },
@@ -110,7 +110,7 @@ const commonTheme = {
       title: {
         visible: false,
         offset: 10,
-        style: { fill: '#767b84', fontSize: 12 },
+        style: { fill: '#595959', fontSize: 12 },
       },
     },
     circle: {

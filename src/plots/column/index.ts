@@ -187,7 +187,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       callback: null,
       ...label,
     };
+
     const callbackOptions: ILabelCallbackOptions = { ... label };
+    /** label position 为middle时offset为0 */
+    if (callbackOptions.position && callbackOptions.position === 'middle')  callbackOptions.offset = 0;
+
     if (label.formatter) {
       callbackOptions.content = labelConfig.formatter;
     }

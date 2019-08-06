@@ -134,7 +134,7 @@ export default class Line extends BasePlot<LineConfig>{
 
   protected _addPoint() {
     const props = this._initialProps;
-    const defaultConfig = { visible: false, style: {} };
+    const defaultConfig = { visible: false };
     if (props.point) props.point = _.deepMix(defaultConfig, props.point);
     if (props.point.visible) {
      /* const point = {

@@ -11,7 +11,7 @@ function getValuesByField(field, data) {
     return _.uniq(values);
 }
 
-export default class GuidePointParser extends ElementParser{
+export default class GuidePointParser extends ElementParser {
 
     public init(){
         const props = this.plot._initialProps;
@@ -25,7 +25,6 @@ export default class GuidePointParser extends ElementParser{
                 fields: [props.xField, props.yField]
             } 
         };
-
         if(this._needParseAttribute('color')) this.parseColor();
         if(this._needParseAttribute('size')) this.parseSize();
         if(this.style && this.style.shape) this.parseShape();

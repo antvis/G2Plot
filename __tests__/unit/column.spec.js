@@ -41,6 +41,8 @@ describe('Column plot', () => {
 
   it('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -69,6 +71,8 @@ describe('Column plot', () => {
 
   it('柱子样式配置', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -98,6 +102,8 @@ describe('Column plot', () => {
 
   it('柱子颜色不一样', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'year',
@@ -124,6 +130,8 @@ describe('Column plot', () => {
 
   it('隐藏两个坐标轴', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -144,6 +152,8 @@ describe('Column plot', () => {
 
   it('x轴 样式', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 80,
       data,
       xField: 'value',
@@ -203,6 +213,8 @@ describe('Column plot', () => {
 
   it('x轴 隐藏 grid line tick label', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -241,6 +253,8 @@ describe('Column plot', () => {
 
   it('y轴 样式', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -302,6 +316,8 @@ describe('Column plot', () => {
 
   it('y轴 隐藏 grid line tick label', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',

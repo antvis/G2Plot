@@ -2,6 +2,7 @@ import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import moment, { months } from 'moment';
 import { getMedian, dotProduct2D } from '../math';
+import { DataPointType } from '@antv/g2/lib/interface';
 
 /** todo: 这么铺开太乱了，稍后整理成结构化模块 */
 
@@ -495,7 +496,7 @@ function nodesResamplingByState(shape: Shape, cfg, index, responsive){
   current.line && current.line.remove();
   const { stateNodes } = responsive.cfg;
   let isState = false;
-  _.each(stateNodes,(node)=>{
+  _.each(stateNodes,(node:DataPointType)=>{
     if(node.shape.get('origin') === current.shape.get('origin')){
       isState = true;
     }

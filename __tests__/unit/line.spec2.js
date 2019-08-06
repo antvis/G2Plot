@@ -724,12 +724,12 @@ describe('Line plot', () => {
     } ];
 
     const linePlot = new Line(canvasDiv, {
-      title: {
+      /* title: {
         text: '测试测试测试测试',
       },
       description: {
         text: '当秒级数据需要频繁刷新时（5 s 刷新一次），更新时的动画是重新渲染整个图表，闪烁明显且太频繁，期望是刷新数据时，像心电图的效果，图线向左移动，旧数据消失。',
-      },
+      },*/
       forceFit: false,
       padding: 'auto',
       data: data3,
@@ -770,6 +770,14 @@ describe('Line plot', () => {
           return 'test';
         }
       },*/
+      point: {
+        visible: true,
+        /* style: {
+           size: 5,
+          color: 'red',
+          shape: 'circle'
+        }*/
+      },
       animation: false,
       events: {
         onLegendClick: () => {

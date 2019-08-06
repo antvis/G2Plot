@@ -19,6 +19,7 @@ import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
 import LineElement from '../../elements/line';
+import GuidePointParser from '../../elements/point/guide';
 
 interface LineStyle {
   opacity?: number;
@@ -133,10 +134,10 @@ export default class Line extends BasePlot<LineConfig>{
 
   protected _addPoint() {
     const props = this._initialProps;
-    let pointConfig = { visible: false, style: {} };
-    if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
-    if (pointConfig.visible) {
-      const point = {
+    const defaultConfig = { visible: false, style: {} };
+    if (props.point) props.point = _.deepMix(defaultConfig, props.point);
+    if (props.point.visible) {
+     /* const point = {
         type: 'point',
         position: {
           fields: [ props.xField, props.yField ],
@@ -147,7 +148,10 @@ export default class Line extends BasePlot<LineConfig>{
       };
       const pointStyle = pointConfig.style as PointStyle;
       if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
-      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;
+      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;*/
+      const point:ElementOption = new GuidePointParser({
+        plot: this
+      }).element;
       this._setConfig('element', point);
       this.point = point;
     }
@@ -295,7 +299,7 @@ export default class Line extends BasePlot<LineConfig>{
     }
     config.cfg = lineStyleProps;
     return config;
-  }*/
+  }
 
   private _pointColor() {
     const props = this._initialProps;
@@ -304,7 +308,6 @@ export default class Line extends BasePlot<LineConfig>{
       fields: [],
       values: [] as any,
     };
-    /**多折线的数据点*/
     if (props.seriesField) {
       config.fields = [ props.seriesField ];
       if (pointStyleProps && pointStyleProps.color) {
@@ -316,18 +319,16 @@ export default class Line extends BasePlot<LineConfig>{
         config.values = values;
         return config;
       }
-      /**多折线，用户没有指定数据点颜色，则采用与折线相同的颜色 */
       config.values = props.color;
       return config;
     }
-    /**单折线的数据点 */
     if (pointStyleProps && pointStyleProps.color) {
       config.values = [ pointStyleProps.color ];
     } else if (props.color) {
       config.values = [ props.color ];
     }
     return config;
-  }
+}*/
 
   private _applyResponsive(stage) {
     const methods = responsiveMethods[stage];

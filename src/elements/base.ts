@@ -6,6 +6,7 @@ export default class ElementParser {
     public type: string;
     private positionFields: string[];
     public element: ElementOption;
+    public style: any;
 
     constructor (cfg){
         _.assign(this,cfg);

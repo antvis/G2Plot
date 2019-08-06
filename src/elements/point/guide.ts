@@ -15,6 +15,7 @@ export default class GuidePointParser extends ElementParser{
 
     public init(){
         const props = this.plot._initialProps;
+        this.style = props.point.style;
         if(!props.xField || !props.yField){
             return;
         }
@@ -27,31 +28,32 @@ export default class GuidePointParser extends ElementParser{
 
         if(this._needParseAttribute('color')) this.parseColor();
         if(this._needParseAttribute('size')) this.parseSize();
+        if(this.style && this.style.shape) this.parseShape();
 
     }
 
     public parseColor(){
         const props = this.plot._initialProps;
-        const pointStyleProps = props.point.style;
         const config: DataPointType = {};
         if (props.seriesField) {
-            this._parseColorBySeries(props,pointStyleProps,config);
+            this._parseColorBySeries(props,config);
         }else{
-            if (pointStyleProps && pointStyleProps.color) {
-                config.values = [ pointStyleProps.color ];
+            if (this.style && this.style.color) {
+                config.values = [ this.style.color ];
             } else if (props.color) {
                 this.parseColor();
             }
         }
+        this.element.color = config;
     }
 
-    private _parseColorBySeries(props, pointStyleProps,config){
+    private _parseColorBySeries(props, config){
         config.fields = [ props.seriesField ];
-        if (pointStyleProps && pointStyleProps.color) {
+        if (this.style && this.style.color) {
             const count = getValuesByField(props.seriesField, props.data).length;
             const values = [];
             for (let i = 0; i < count; i++) {
-                values.push(pointStyleProps.color);
+                values.push(this.style.color);
             }
             config.values = values;
           }else if(props.color) {
@@ -72,8 +74,8 @@ export default class GuidePointParser extends ElementParser{
     public parseSize(){
         const props = this.plot._initialProps;
         const config:DataPointType = {};
-        if(props.point.style && props.point.style.color){
-            config.values = [props.point.style.size];
+        if(this.style && this.style.size){
+            config.values = [this.style.size];
         }else{
             /**Point作为辅助图形没有在style里指定size属性的情况下，设置默认值 */
             config.values = [3];
@@ -82,12 +84,14 @@ export default class GuidePointParser extends ElementParser{
     }
 
     public parseShape(){
-
+        const config: DataPointType = {
+            values: [this.style.shape]
+        };
+        this.element.shape = config;
     }
 
     private _needParseAttribute(attr){
-        const props = this.plot._initialProps;
-        const condition = !props.line.style || props.line.style[attr];
+        const condition = !this.style || this.style[attr];
         return condition;
     }
 

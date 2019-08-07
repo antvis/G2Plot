@@ -198,6 +198,7 @@ describe('Column plot', () => {
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     expect(axis.get('title').text).to.be.include('xxxx');
+
     expect(axis.get('title').textStyle.fill).to.be.equal('red');
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.include('abc');
@@ -220,10 +221,8 @@ describe('Column plot', () => {
       xField: 'value',
       yField: 'year',
       xAxis: {
-        min: 5,
         nice: false,
         visible: true,
-        tickCount: 5,
         line: {
           visible: false,
           stroke: 'red',
@@ -276,7 +275,7 @@ describe('Column plot', () => {
         },
         title: {
           visible: true,
-          // text: 'xxxx',
+          text: 'xxxx',
           style: {
             fontSize: 30,
             fill: 'red'
@@ -301,7 +300,7 @@ describe('Column plot', () => {
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
-    expect(axis.get('title').text).to.be.include('year');
+    expect(axis.get('title').text).to.be.include('xxxx');
     expect(axis.get('title').textStyle.fill).to.be.equal('red');
     expect(labels[0].text).to.be.include('abc');
     // style

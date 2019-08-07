@@ -72,7 +72,8 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _coord() {}
 
   protected _axis() {
-    /*const props = this._initialProps;
+    const props = this._initialProps;
+    const axesConfig = { fields:{} };
     const xAxis_parser = new AxisParser({
       plot: this,
       dim: 'x'
@@ -81,11 +82,12 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       plot: this,
       dim: 'y'
     }).config;
-    const axesConfig = { fields:{} };
+    
     axesConfig.fields[props.xField] = xAxis_parser;
     axesConfig.fields[props.yField] = yAxis_parser;
-    this._setConfig('axes', axesConfig);*/
-    const props = this._initialProps;
+    this._setConfig('axes', axesConfig);
+
+    /*const props = this._initialProps;
     const axesConfig = { fields:{} };
     const plotTheme = this.plotTheme;
     axesConfig.fields[props.xField] = {};
@@ -106,8 +108,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     } else if (props.yAxis) {
       extractAxis(axesConfig.fields[props.yField], props.yAxis);
     }
-    /** 存储坐标轴配置项到config */
-    this._setConfig('axes', axesConfig);
+    this._setConfig('axes', axesConfig);*/
   }
 
   protected _adjustColumn(column: ElementOption) {

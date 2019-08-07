@@ -156,7 +156,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     axesConfig.fields[props.yField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
-    
   }
   
 

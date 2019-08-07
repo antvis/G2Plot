@@ -1,6 +1,12 @@
 import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
 
+function propertyMapping(source,target,field){
+    if(source[field]){
+        target[field] = source.field;
+    }
+}
+
 export default class AxisParser {
     private plot: any;
     private dim: string;
@@ -9,15 +15,15 @@ export default class AxisParser {
 
     constructor(cfg){
         _.assign(this,cfg);
-        this.init();
+        this._init();
     }
 
-    public init(){
-        this.config = null;
-        if(this._needDraw()) this.styleParser();
+    private _init(){
+        this.config = false;
+        if(this._needDraw()) this._styleParser();
     }
 
-    public styleParser(){
+    private _styleParser(){
         this.config = {};
         const axisComponensMapper = [
             { name: 'line', parser: this._lineParser() },
@@ -36,8 +42,8 @@ export default class AxisParser {
 
         /** 特殊的坐标轴组件及配置项 */
         if(this.localProps.title) this._titleParser();
-        if(this.localProps.autoHideLabel) this.config.autoHideLabel = this.localProps.autoHideLabel;
-        if(this.localProps.autoRotateLabel) this.config.autoRotateLabel = this.localProps.autoRotateLabel;
+        propertyMapping(this.localProps,this.config,'autoHideLabel');
+        propertyMapping(this.localProps,this.config,'autoRotateLabel');
     }
 
     private _needDraw(){
@@ -54,6 +60,7 @@ export default class AxisParser {
     }
 
     private _lineParser(){
+        this.config.line = this.localProps.line;
         if (this.localProps.line.style) {
             this.config.line = this.localProps.line.style;
         }
@@ -67,6 +74,7 @@ export default class AxisParser {
     }
 
     private _tickLineParser(){
+        this.config.tickLine = this.localProps.tickLine;
         if (this.localProps.tickLine.style) {
             this.config.tickLine = this.localProps.tickLine.style;
         }
@@ -103,7 +111,13 @@ export default class AxisParser {
             titleConfig.textStyle = this.localProps.title.style;
         }
 
+        if(this.localProps.title.text){
+            titleConfig.text = this.localProps.title.text;
+        }
+
         this.config.title = titleConfig;
     }
+
+    
 
 }

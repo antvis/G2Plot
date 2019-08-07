@@ -767,12 +767,13 @@ describe('Line plot', () => {
           // offset: 10,
         }
       },
-      /* label: {
+      label: {
         type: 'point',
         formatter: () => {
-          return 'test';
-        }
-      },*/
+          return 'a';
+        },
+        offsetY: 30
+      },
       point: {
         visible: true,
         /* style: {

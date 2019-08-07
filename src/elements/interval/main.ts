@@ -7,7 +7,7 @@ export default class IntervalParser extends ElementParser {
         this.type = 'interval';
         super.init();
         const props = this.plot._initialProps;
-        if(props.color) this.parseColor();
+        if(props.color || props.colorField) this.parseColor();
         const sizeProps = this._getSizeProps(props);
         if(sizeProps) this.parseSize(sizeProps);
         const styleProps = this._getStyleProps(props);
@@ -18,14 +18,19 @@ export default class IntervalParser extends ElementParser {
         const props = this.plot._initialProps;
         const colorField = this._getColorMappingField(props);
         const config: DataPointType = {};
-        if(_.isString(props.color)){
-            config.values = [props.color];
-        }else if(_.isFunction(props.color)){
-           config.fields = colorField;
-           config.callback = props.color;
-        }else if(_.isArray(props.color)){
-           config.fields = colorField;
-           config.values = props.color;
+        if(colorField){
+            config.fields = colorField;
+        }
+        if(props.color){
+            if(_.isString(props.color)){
+                config.values = [props.color];
+            }else if(_.isFunction(props.color)){
+                config.fields = colorField;
+                config.callback = props.color;
+            }else if(_.isArray(props.color)){
+                config.fields = colorField;
+                config.values = props.color;
+            }
         }
         this.element.color = config;
     }
@@ -62,7 +67,7 @@ export default class IntervalParser extends ElementParser {
     }
 
     private _getStyleProps(props){
-        const sizeMapper = ['columnStyle','barStyle'];
+        const sizeMapper = ['columnStyle','barStyle','pieStyle'];
         for(let i =0; i<sizeMapper.length; i++){
             const m = sizeMapper[i];
             if(_.get(props,m)){

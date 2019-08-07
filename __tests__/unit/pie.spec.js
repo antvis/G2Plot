@@ -32,6 +32,8 @@ describe('Pie plot', () => {
 
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value'
     });
@@ -46,6 +48,8 @@ describe('Pie plot', () => {
 
   it('radius', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       padding: [ 0, 0, 0, 0 ],
       angleField: 'value',
@@ -59,6 +63,8 @@ describe('Pie plot', () => {
 
   it('单色饼图', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value'
     });
@@ -71,6 +77,8 @@ describe('Pie plot', () => {
 
   it('饼图颜色', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       colorField: 'type',
@@ -86,6 +94,8 @@ describe('Pie plot', () => {
 
   it('图形style', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       colorField: 'type',
@@ -103,6 +113,8 @@ describe('Pie plot', () => {
 
   it('inner label', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       label: {
@@ -129,6 +141,8 @@ describe('Pie plot', () => {
 
   it('outter label', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       label: {
@@ -155,6 +169,8 @@ describe('Pie plot', () => {
 
   it('spider label', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       colorField: 'type',
@@ -185,6 +201,8 @@ describe('Pie plot', () => {
 
   it('auto padding', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title'
       },
@@ -205,6 +223,8 @@ describe('Pie plot', () => {
 
   it('title & description', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title',
         style: {

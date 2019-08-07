@@ -55,8 +55,12 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     const props = this._initialProps;
     this._adjustPieStyle();
     const pie = new IntervalParser({
-
+      plot: this,
+      positionFields: [ props.angleField ],
     }).element;
+    pie.adjust = [
+      { type: 'stack' } 
+    ];
     /*const pie: ElementOption = {
       type: 'interval',
       position: {
@@ -65,9 +69,9 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       adjust: [ {
         type: 'stack',
       } ],
-    };*/
-    if (props.colorField || props.color) pie.color = this._pieColor();
-    pie.style = this._pieStyle();
+    };
+    /*if (props.colorField || props.color) pie.color = this._pieColor();
+    pie.style = this._pieStyle();*/
     this.pie = pie;
     if (props.label) {
       this._label();
@@ -109,7 +113,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     }
   }
 
-  private _pieColor() {
+   /*private _pieColor() {
     const props = this._initialProps;
     const config: IColorConfig = {};
     if (_.has(props, 'colorField')) {
@@ -126,7 +130,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     return config;
   }
 
-  private _pieStyle() {
+ private _pieStyle() {
     const props = this._initialProps;
     const defaultStyle = props.colorField ? {} : { stroke: 'white', lineWidth: 1 };
     props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
@@ -146,12 +150,15 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       return config;
     }
     return defaultStyle;
-  }
+  }*/
 
   private _adjustPieStyle(){
     const props = this._initialProps;
-    const defaultStyle = props.colorField ? {} : { stroke: 'white', lineWidth: 1 };
-    props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
+    if(!props.colorField ){
+      const defaultStyle = { stroke: 'white', lineWidth: 1 };
+      if(!props.pieStyle) props.pieStyle = {};
+      props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
+    }
   }
 
   private _label() {

@@ -5,7 +5,11 @@ import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 import GuideLineParser from '../../elements/line/guide';
+import GuidePointParser from '../../elements/point/guide';
+import AreaParser from '../../elements/area/main';
 // import './guide/label/bar-label';
+
+
 
 interface AreaStyle {
   opacity?: number;
@@ -109,18 +113,22 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _addElements() {
     const props = this._initialProps;
-    const area: ElementOption = {
+    const area = new AreaParser({
+      plot: this
+    }).element;
+   /* const area: ElementOption = {
       type: 'area',
       position: {
         fields: [ props.xField, props.yField ],
       },
-    };
+    };*/
+
     this.area = area;
-    if (props.area) area.style = this._areaStyle();
+    //if (props.area) area.style = this._areaStyle();
     if (props.label) {
       this._label();
     }
-    if (props.color) {
+    /*if (props.color) {
       if (_.isString(props.color)) {
         area.color = {
           values: [ props.color ],
@@ -135,8 +143,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
           fields: [ props.xField ],
           values: props.color,
         };
-      }
-    }
+    }}*/
     this._adjustArea(area);
     this._setConfig('element', area);
 
@@ -189,7 +196,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let pointConfig = { visible: false, style: {} };
     if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
     if (pointConfig.visible) {
-      const point = {
+      /*const point = {
         type: 'point',
         position: {
           fields: [ props.xField, props.yField ],
@@ -198,10 +205,13 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
         shape: { values: [ 'point' ] },
         size: { values: [ 3 ] },
         // cfg: {}
-      };
-      const pointStyle = pointConfig.style as PointStyle;
+      };*/
+      const point = new GuidePointParser({
+        plot: this
+      }).element;
+      /*const pointStyle = pointConfig.style as PointStyle;
       if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
-      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;
+      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;*/
       this._adjustPoint(point);
       this._setConfig('element', point);
       this.point = point;
@@ -216,7 +226,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _animation() {
   }
 
-  private _areaStyle() {
+  /*private _areaStyle() {
     const props = this._initialProps;
     const areaStyleProps = props.areaStyle;
     const config = {
@@ -226,7 +236,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     };
     config.cfg = areaStyleProps;
     return config;
-  }
+  }*/
 
   protected _label() {
     const props = this._initialProps;
@@ -258,7 +268,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     }
   }
 
-  private _lineColor() {
+  /*private _lineColor() {
     const props = this._initialProps;
     const lineStyleProps = props.line.style;
     const config = {
@@ -280,12 +290,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       fields: [],
       values: [] as any,
     };
-    /**单折线的数据点 */
     if (pointStyleProps && pointStyleProps.color) {
       config.values = [ pointStyleProps.color ];
     } else if (props.color) {
       config.values = [ props.color ];
     }
     return config;
-  }
+  }*/
 }

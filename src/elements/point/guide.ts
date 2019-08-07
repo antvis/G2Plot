@@ -40,7 +40,7 @@ export default class GuidePointParser extends ElementParser {
             if (this.style && this.style.color) {
                 config.values = [ this.style.color ];
             } else if (props.color) {
-                this.parseColor();
+                this._parseColor(props,config);
             }
         }
         this.element.color = config;

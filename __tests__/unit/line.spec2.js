@@ -749,13 +749,16 @@ describe('Line plot', () => {
       },
       xAxis: {
         grid: {
-          visible: false,
+          visible: false
         },
         title: {
           visible: true,
         },
         label: {
-          visible: true
+          visible: true,
+          style: {
+            fill: 'red'
+          }
         }
       },
       yAxis: {

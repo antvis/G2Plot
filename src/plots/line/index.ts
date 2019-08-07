@@ -4,13 +4,11 @@ import BaseConfig, {
   IValueAxis,
   ITimeAxis,
   ICatAxis,
-  Label,
-  IColorConfig,
+  Label
 } from '../../interface/config';
 import * as _ from '@antv/util';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import { extractScale } from '../../util/scale';
-import { extractAxis } from '../../util/axis';
 import './guide/label/point-label';
 import './guide/label/line-label';
 import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
@@ -20,6 +18,7 @@ import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
 import LineElement from '../../elements/line';
 import GuidePointParser from '../../elements/point/guide';
+import AxisParser from '../../components/axis';
 
 interface LineStyle {
   opacity?: number;
@@ -55,14 +54,14 @@ export interface LineConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-function getValuesByField(field, data) {
+/*function getValuesByField(field, data) {
   const values = [];
   _.each(data, (d) => {
     const v = d[field];
     values.push(v);
   });
   return _.uniq(values);
-}
+}*/
 
 export default class Line extends BasePlot<LineConfig>{
   line: any; // 保存line和point的配置项，用于后续的label、tooltip和
@@ -89,32 +88,6 @@ export default class Line extends BasePlot<LineConfig>{
   }
 
   protected _coord() { }
-
-  protected _axis() {
-    const props = this._initialProps;
-    const axesConfig = { fields:{} };
-    const plotTheme = this.plotTheme;
-    axesConfig.fields[props.xField] = {};
-    axesConfig.fields[props.yField] = {};
-
-    if ((props.xAxis && (props.xAxis.visible === false)
-        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
-    ) {
-      axesConfig.fields[props.xField] = false;
-    } else if (props.xAxis) {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis);
-    }
-
-    if ((props.yAxis && (props.yAxis.visible === false)
-        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
-    ) {
-      axesConfig.fields[props.yField] = false;
-    } else if (props.yAxis) {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis);
-    }
-    /** 存储坐标轴配置项到config */
-    this._setConfig('axes', axesConfig);
-  }
 
   protected _addElements() {
    const props = this._initialProps;

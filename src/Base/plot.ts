@@ -8,6 +8,7 @@ import TextDescription from '../components/description';
 import CanvasController from './controller/canvas';
 import ThemeController from './controller/theme';
 import PaddingController from './controller/padding';
+import AxisParser from '../components/axis';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public plot: G2.View;
@@ -117,7 +118,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected abstract _setDefaultG2Config(): void;
 
   /** 配置G2各组件 */
-  protected abstract _axis(): void;
+  //protected abstract _axis(): void;
   protected abstract _coord(): void;
   protected abstract _annotation(): void;
   protected abstract _addElements(): void;
@@ -139,6 +140,25 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     });
     this._setConfig('scales', scales);
   }
+
+  protected _axis(): void {
+    const props = this._initialProps;
+    const xAxis_parser = new AxisParser({
+      plot: this,
+      dim: 'x'
+    }).config;
+    const yAxis_parser = new AxisParser({
+      plot: this,
+      dim: 'y'
+    }).config;
+    const axesConfig = { fields:{} };
+    axesConfig.fields[props.xField] = xAxis_parser;
+    axesConfig.fields[props.yField] = yAxis_parser;
+    /** 存储坐标轴配置项到config */
+    this._setConfig('axes', axesConfig);
+    
+  }
+  
 
   protected _tooltip(): void {
     const props = this._initialProps;

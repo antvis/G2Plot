@@ -3,7 +3,7 @@ import Theme from './theme';
 const commonTheme = {
   width: 400,
   height: 400,
-  defaultPadding: [ 20, 20, 40, 20 ],
+  defaultPadding: [ 24, 24, 24, 24 ],
   padding: 'auto',
   title: {
     top_margin: 20,

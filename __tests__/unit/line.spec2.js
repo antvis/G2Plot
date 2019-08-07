@@ -8,7 +8,7 @@ describe('Line plot', () => {
   canvasDiv.style.height = '600px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
-  canvasDiv.style.backgroundColor = 'grey';
+  // canvasDiv.style.backgroundColor = 'grey';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -739,8 +739,8 @@ describe('Line plot', () => {
       xField: /* 'date'*/'year',
       yField: /* 'value'*/'value',
       seriesField: /* 'type'*/'type',
-      width: 400,
-      height: 400,
+      width: 600,
+      height: 600,
       size: 2,
       // smooth: true,
       tooltip: {
@@ -748,7 +748,8 @@ describe('Line plot', () => {
       },
       legend: {
         visible: true,
-        position: 'right-center',
+        flipPage: true,
+        position: 'top-center',
       },
       xAxis: {
         grid: {
@@ -781,6 +782,12 @@ describe('Line plot', () => {
       }
     });
     linePlot.render();
+    /* linePlot.updateConfig({
+      legend: {
+        position: 'left-center'
+      }
+    });
+    linePlot.render();*/
   });
 
 

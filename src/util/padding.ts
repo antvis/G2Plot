@@ -29,10 +29,10 @@ export default function getAutoPadding(view: View, components, defaultPadding) {
   /** 极坐标下padding计算错误问题 */
   if (box.minY === viewRange.minY) box.minY = 0;
   const padding = [
-    0 - box.minY + defaultPadding[0], // 上面超出的部分
-    box.maxX - maxX + defaultPadding[1], // 右边超出的部分
-    box.maxY - maxY + defaultPadding[2], // 下边超出的部分
-    0 - box.minX + defaultPadding[3],
+    0 - box.minY + defaultPadding[0] * 2, // 上面超出的部分
+    box.maxX - maxX + defaultPadding[1] * 2, // 右边超出的部分
+    box.maxY - maxY + defaultPadding[2] * 2, // 下边超出的部分
+    0 - box.minX + defaultPadding[3] * 2,
   ];
   return padding;
 }
@@ -54,8 +54,9 @@ function getLegend(view, bboxes, box) {
   if (legends.length > 0) {
     _.each(legends, (l) => {
       const legend = l as DataPointType;
-      const width = legend.getWidth();
-      const height = legend.getHeight();
+      /*const width = legend.getWidth();
+      const height = legend.getHeight();*/
+      const { width, height } = legend.get('container').getBBox();
       adjustLegend(legend, view, box);
       const legendBBox = legend.get('container').getBBox();
       let x = 0;
@@ -66,7 +67,8 @@ function getLegend(view, bboxes, box) {
         y = legendBBox.minY;
       }
       if (position[0] === 'left') {
-        x = viewRange.minX - width;
+        const minX = Math.min(box.minX, viewRange.minX);
+        x = minX - width;
         y = legendBBox.minY;
       }
       if (position[0] === 'top') {

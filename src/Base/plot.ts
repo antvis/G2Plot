@@ -205,10 +205,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('legends', {
       offsetY: _.get(props, 'legend.offsetY'),
     });
-
-    const flipOption = _.get(props, 'legend.flipPage');
     this._setConfig('legends', {
-      flipPage: flipOption,
+      flipPage: false,
     });
   }
 

@@ -5,6 +5,7 @@ import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 import './guide/label/bar-label';
+import IntervalParser from '../../elements/interval/main';
 
 interface BarStyle {
   opacity?: number;
@@ -100,7 +101,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    const bar: ElementOption = {
+    /*const bar: ElementOption = {
       type: 'interval',
       position: {
         fields: [ props.yField, props.xField ],
@@ -111,11 +112,16 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
       bar.size = {
         values: [ props.barSize ],
       };
-    }
+    }*/
+    const bar = new IntervalParser({
+      positionFields: [props.yField, props.xField],
+      plot:this
+    }).element;
+
     if (props.label) {
       bar.label = this._extractLabel();
     }
-    if (props.color) {
+    /*if (props.color) {
       if (_.isString(props.color)) {
         bar.color = {
           values: [ props.color ],
@@ -131,7 +137,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
           values: props.color,
         };
       }
-    }
+    }*/
     this._adjustBar(bar);
     this.bar = bar;
     this._setConfig('element', bar);
@@ -150,7 +156,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     }
   }
 
-  private _columnStyle() {
+  /*private _columnStyle() {
     const props = this._initialProps;
     const barStyleProps = props.barStyle;
     const config = {
@@ -160,7 +166,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     };
     config.cfg = barStyleProps;
     return config;
-  }
+  }*/
 
   protected _extractLabel() {
     const props = this._initialProps;

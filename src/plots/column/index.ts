@@ -115,6 +115,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       };
     }*/
     const column = new IntervalParser({
+      positionFields: [props.yField, props.xField],
       plot:this
     }).element;
 

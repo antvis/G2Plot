@@ -6,6 +6,7 @@ import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import SpiderLabel from './guide/label/spiderLabel';
+import IntervalParser from '../../elements/interval/main';
 
 export interface PieConfig extends BaseConfig {
   angleField: string;
@@ -52,7 +53,11 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    const pie: ElementOption = {
+    this._adjustPieStyle();
+    const pie = new IntervalParser({
+
+    }).element;
+    /*const pie: ElementOption = {
       type: 'interval',
       position: {
         fields: [ props.angleField ],
@@ -60,7 +65,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       adjust: [ {
         type: 'stack',
       } ],
-    };
+    };*/
     if (props.colorField || props.color) pie.color = this._pieColor();
     pie.style = this._pieStyle();
     this.pie = pie;
@@ -124,6 +129,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   private _pieStyle() {
     const props = this._initialProps;
     const defaultStyle = props.colorField ? {} : { stroke: 'white', lineWidth: 1 };
+    props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
     if (props.pieStyle) {
       const pieStyleProps = _.deepMix(props.pieStyle, defaultStyle);
       const config = {
@@ -140,7 +146,12 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       return config;
     }
     return defaultStyle;
+  }
 
+  private _adjustPieStyle(){
+    const props = this._initialProps;
+    const defaultStyle = props.colorField ? {} : { stroke: 'white', lineWidth: 1 };
+    props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
   }
 
   private _label() {

@@ -6,8 +6,13 @@ import ElementParser from '../base';
 export default class LineParser extends ElementParser {
 
     public init(){
-        super.init();
         const props = this.plot._initialProps;
+        this.element = {
+            type: 'line',
+            position:{
+                fields: [props.xField, props.yField]
+            } 
+        };
         if (props.size) this.parseSize();
         if (props.smooth) this.element.shape = { values: [ 'smooth' ] };
         if (props.seriesField || props.color) this.parseColor();

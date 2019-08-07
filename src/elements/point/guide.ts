@@ -92,8 +92,5 @@ export default class GuidePointParser extends ElementParser {
     private _needParseAttribute(attr){
         const condition = !this.style || this.style[attr];
         return condition;
-    }
-
-
-    
+    }    
 }

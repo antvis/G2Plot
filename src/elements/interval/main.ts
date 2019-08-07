@@ -4,13 +4,9 @@ import ElementParser from '../base';
 
 export default class IntervalParser extends ElementParser {
     public init(){
+        this.type = 'interval';
+        super.init();
         const props = this.plot._initialProps;
-        this.element = {
-            type: 'interval',
-            position:{
-                fields: [props.xField, props.yField]
-            } 
-        };
         if(props.color) this.parseColor();
         const sizeProps = this._getSizeProps(props);
         if(sizeProps) this.parseSize(sizeProps);
@@ -20,14 +16,15 @@ export default class IntervalParser extends ElementParser {
 
     public parseColor(){
         const props = this.plot._initialProps;
+        const colorField = this._getColorMappingField(props);
         const config: DataPointType = {};
         if(_.isString(props.color)){
             config.values = [props.color];
         }else if(_.isFunction(props.color)){
-           config.fields = this.element.position.fields;
+           config.fields = colorField;
            config.callback = props.color;
         }else if(_.isArray(props.color)){
-           config.fields = [this.element.position.fields];
+           config.fields = colorField;
            config.values = props.color;
         }
         this.element.color = config;
@@ -72,5 +69,16 @@ export default class IntervalParser extends ElementParser {
                 return m;
             }
         }
+    }
+
+    private _getColorMappingField(props){
+        /**如果有colorFiled配置项，则参与colorMapping的字段为对应值
+         * 如没有特别设定，则一般是callback中的传参，传入位置映射的字段
+         */
+        if(props.colorField){
+            return [props.colorField];
+        }else{
+            return this.element.position.fields;
+        }  
     }
 }

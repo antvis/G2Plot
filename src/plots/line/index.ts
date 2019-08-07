@@ -120,8 +120,6 @@ export default class Line extends BasePlot<LineConfig>{
    const props = this._initialProps;
     const LineParser = LineElement.main;
     this.line = new LineParser({
-      type:'line',
-      positionFields: [ props.xField, props.yField ],
       plot: this
     }).element;
     if (props.label) {

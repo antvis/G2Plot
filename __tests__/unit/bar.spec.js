@@ -41,6 +41,8 @@ describe('Bar plot', () => {
 
   it('初始化以及销毁', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -69,6 +71,8 @@ describe('Bar plot', () => {
 
   it('柱子样式配置', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -97,6 +101,8 @@ describe('Bar plot', () => {
 
   it('每个柱子颜色不一样', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -119,6 +125,8 @@ describe('Bar plot', () => {
 
   it('隐藏两个坐标轴', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -139,6 +147,8 @@ describe('Bar plot', () => {
 
   it('x轴 样式', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 80,
       data,
       xField: 'value',
@@ -198,6 +208,8 @@ describe('Bar plot', () => {
 
   it('x轴 隐藏 grid line tick label', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -236,6 +248,8 @@ describe('Bar plot', () => {
 
   it('y轴 样式', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -297,6 +311,8 @@ describe('Bar plot', () => {
 
   it('y轴 隐藏 grid line tick label', () => {
     const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',

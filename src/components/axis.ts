@@ -20,7 +20,19 @@ export default class AxisParser {
 
     private _init(){
         this.config = false;
-        if(this._needDraw()) this._styleParser();
+        /**
+         * step 1: 判断axis的visibility
+         * step 2: 配置项中只声明了走g2底层的default逻辑
+         * TODO： 这样太取巧了，待改造
+         */
+        if(this._needDraw()) {
+           console.log( _.keys(this.localProps) );
+            if(this.localProps.style){
+                this._styleParser();
+            }else{
+                this.config = {};
+            }  
+        }
     }
 
     private _styleParser(){
@@ -31,7 +43,7 @@ export default class AxisParser {
             { name: 'tickLine', parser: this._tickLineParser() },
             { name: 'label', parser: this._labelParser() },
         ];
-
+        
         _.each(axisComponensMapper,(m)=>{
             if(this.localProps[m.name] && this.localProps[m.name].visible) {
                 m.parser;
@@ -47,12 +59,13 @@ export default class AxisParser {
     }
 
     private _needDraw(){
+        /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
         const propos = this.plot._initialProps;
         const theme = this.plot.plotTheme;
         const propsConfig = propos[`${this.dim}Axis`]? propos[`${this.dim}Axis`] : {};
         const themeConfig = theme.axis[this.dim];
         const config = _.mix({},themeConfig,propsConfig);
-        this.localProps = config;
+        this.localProps = propsConfig;
         if(config.visible){
             return true;
         }
@@ -118,6 +131,9 @@ export default class AxisParser {
         this.config.title = titleConfig;
     }
 
-    
+    //tempo
+    private _processByDefault(){
+
+    }
 
 }

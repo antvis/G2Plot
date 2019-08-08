@@ -2,10 +2,11 @@ import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import { extractAxis } from '../../util/axis';
 import './guide/label/bar-label';
 import IntervalParser from '../../elements/interval/main';
+import AxisParser from '../../components/axis';
 import LabelParser from '../../components/label';
+import { extractAxis } from '../../util/axis';
 
 interface BarStyle {
   opacity?: number;
@@ -58,15 +59,6 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
       ],
     };
     this._setConfig('coord', coordConfig);
-  }
-
-  protected _axis() {
-    //todo: 这里要自定义theme
-    const props = this._initialProps;
-    const axesConfig = { fields:{} };
-    axesConfig.fields[props.xField] = {};
-    axesConfig.fields[props.yField] = {};
-    this._setConfig('axes', axesConfig);
   }
 
   protected _adjustBar(bar: ElementOption) {

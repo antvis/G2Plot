@@ -65,8 +65,8 @@ describe('Column plot', () => {
     expect(positionField[1]).to.be.equal('year');
     expect(isTransposed).to.be.equal(false);
     expect(axes.length).to.be.equal(2);
-    columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    /* columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;*/
   });
 
   it('柱子样式配置', () => {

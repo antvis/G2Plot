@@ -9,20 +9,9 @@ import GuidePointParser from '../../elements/point/guide';
 import AreaParser from '../../elements/area/main';
 // import './guide/label/bar-label';
 
-
-
 interface AreaStyle {
   opacity?: number;
   lineDash?: number[];
-}
-
-interface ILabelCallbackOptions {
-  content?: Function;
-  offset?: number;
-  offsetX?: number;
-  offsetY?: number;
-  textStyle?: {};
-  position?: string;
 }
 
 interface LineStyle {
@@ -116,34 +105,12 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     const area = new AreaParser({
       plot: this
     }).element;
-   /* const area: ElementOption = {
-      type: 'area',
-      position: {
-        fields: [ props.xField, props.yField ],
-      },
-    };*/
 
     this.area = area;
-    //if (props.area) area.style = this._areaStyle();
+
     if (props.label) {
       this._label();
     }
-    /*if (props.color) {
-      if (_.isString(props.color)) {
-        area.color = {
-          values: [ props.color ],
-        };
-      } else if (_.isFunction(props.color)) {
-        area.color = {
-          fields: [ props.xField, props.yField ],
-          callback: props.color,
-        };
-      } else if (_.isArray(props.color)) {
-        area.color = {
-          fields: [ props.xField ],
-          values: props.color,
-        };
-    }}*/
     this._adjustArea(area);
     this._setConfig('element', area);
 
@@ -170,17 +137,6 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let lineConfig = { visible: false, style: {} };
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
-      /*const line = {
-        type: 'line',
-        position: {
-          fields: [ props.xField, props.yField ],
-        },
-        color: this._lineColor(),
-        size: { values: [ 2 ] },
-        // cfg: lineConfig.style
-      };
-      const pointStyle = lineConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'size')) line.size.values[0] = pointStyle.size;*/
       const line = new GuideLineParser({
         type:'line',
         plot: this
@@ -196,22 +152,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let pointConfig = { visible: false, style: {} };
     if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
     if (pointConfig.visible) {
-      /*const point = {
-        type: 'point',
-        position: {
-          fields: [ props.xField, props.yField ],
-        },
-        color: this._pointColor(),
-        shape: { values: [ 'point' ] },
-        size: { values: [ 3 ] },
-        // cfg: {}
-      };*/
+ 
       const point = new GuidePointParser({
         plot: this
       }).element;
-      /*const pointStyle = pointConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
-      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;*/
+
       this._adjustPoint(point);
       this._setConfig('element', point);
       this.point = point;
@@ -225,18 +170,6 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _animation() {
   }
-
-  /*private _areaStyle() {
-    const props = this._initialProps;
-    const areaStyleProps = props.areaStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    config.cfg = areaStyleProps;
-    return config;
-  }*/
 
   protected _label() {
     const props = this._initialProps;
@@ -268,33 +201,4 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     }
   }
 
-  /*private _lineColor() {
-    const props = this._initialProps;
-    const lineStyleProps = props.line.style;
-    const config = {
-      fields: [],
-      values: [] as any,
-    };
-    if (lineStyleProps && lineStyleProps.color) {
-      config.values = [ lineStyleProps.color ];
-    } else if (props.color) {
-      config.values = [ props.color ];
-    }
-    return config;
-}
-
-  private _pointColor() {
-    const props = this._initialProps;
-    const pointStyleProps = _.get(props, [ 'point', 'style' ]);
-    const config = {
-      fields: [],
-      values: [] as any,
-    };
-    if (pointStyleProps && pointStyleProps.color) {
-      config.values = [ pointStyleProps.color ];
-    } else if (props.color) {
-      config.values = [ props.color ];
-    }
-    return config;
-  }*/
 }

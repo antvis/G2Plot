@@ -58,7 +58,7 @@ describe('Pie plot', () => {
       data: data2,
       label: {
         type: 'spider',
-        visible: true
+        visible: true,
       },
       tooltip: {
         visible: false

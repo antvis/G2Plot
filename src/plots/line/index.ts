@@ -13,12 +13,11 @@ import './guide/label/point-label';
 import './guide/label/line-label';
 import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './animation/clipInWithData';
-import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
 import LineElement from '../../elements/line';
 import GuidePointParser from '../../elements/point/guide';
-import AxisParser from '../../components/axis';
+import LabelParser from '../../components/label';
 
 interface LineStyle {
   opacity?: number;
@@ -53,15 +52,6 @@ export interface LineConfig extends BaseConfig {
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
-
-/*function getValuesByField(field, data) {
-  const values = [];
-  _.each(data, (d) => {
-    const v = d[field];
-    values.push(v);
-  });
-  return _.uniq(values);
-}*/
 
 export default class Line extends BasePlot<LineConfig>{
   line: any; // 保存line和point的配置项，用于后续的label、tooltip和
@@ -108,18 +98,6 @@ export default class Line extends BasePlot<LineConfig>{
     const defaultConfig = { visible: false };
     if (props.point) props.point = _.deepMix(defaultConfig, props.point);
     if (props.point.visible) {
-     /* const point = {
-        type: 'point',
-        position: {
-          fields: [ props.xField, props.yField ],
-        },
-        color: this._pointColor(),
-        shape: { values: [ 'point' ] },
-        size: { values: [ 3 ] },
-      };
-      const pointStyle = pointConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
-      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;*/
       const point:ElementOption = new GuidePointParser({
         plot: this
       }).element;
@@ -131,31 +109,18 @@ export default class Line extends BasePlot<LineConfig>{
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;
-    const labelType = label.type ? label.type :'point';
+   
     if (label && label.visible === false) {
       this.line.label = false;
       return;
-    }
-    this.line.label = {
+    } 
+    const labelType = label.type ? label.type :'point';
+
+    this.line.label = new LabelParser({
       fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
       labelType,
-    };
-    /** formater */
-    if (label.formatter) {
-      const formater = label.formatter;
-      this.line.label.callback = (val) => {
-        return {
-          content: formater(val),
-          offsetX: label.offsetX ? label.offsetX : 0,
-          offsetY: label.offsetY ? label.offsetY : 0,
-        };
-      };
-    }
-    /** label样式 */
-    if (label.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, label.style);
-    }
+      plot: this
+    }).config;
   }
 
   protected _annotation() { }
@@ -237,69 +202,6 @@ export default class Line extends BasePlot<LineConfig>{
       interactions.range = range;
     });
   }
-
-  /*private _lineColor() {
-    const props = this._initialProps;
-    const config: IColorConfig = {};
-    if (_.has(props, 'seriesField')) {
-      config.fields = [ props.seriesField ];
-    }
-    if (_.has(props, 'color')) {
-      const color = props.color;
-      if (_.isString(color)) {
-        config.values = [ color ];
-      } else {
-        config.values = color as [];
-      }
-    }
-    return config;
-  }
-
-  private _lineStyle() {
-    const props = this._initialProps;
-    const lineStyleProps = props.lineStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    if (_.isFunction(lineStyleProps) && props.seriesField) {
-      config.fields = [ props.seriesField ];
-      config.callback = lineStyleProps;
-      return config;
-    }
-    config.cfg = lineStyleProps;
-    return config;
-  }
-
-  private _pointColor() {
-    const props = this._initialProps;
-    const pointStyleProps = props.point.style;
-    const config = {
-      fields: [],
-      values: [] as any,
-    };
-    if (props.seriesField) {
-      config.fields = [ props.seriesField ];
-      if (pointStyleProps && pointStyleProps.color) {
-        const count = getValuesByField(props.seriesField, props.data).length;
-        const values = [];
-        for (let i = 0; i < count; i++) {
-          values.push(pointStyleProps.color);
-        }
-        config.values = values;
-        return config;
-      }
-      config.values = props.color;
-      return config;
-    }
-    if (pointStyleProps && pointStyleProps.color) {
-      config.values = [ pointStyleProps.color ];
-    } else if (props.color) {
-      config.values = [ props.color ];
-    }
-    return config;
-}*/
 
   private _applyResponsive(stage) {
     const methods = responsiveMethods[stage];

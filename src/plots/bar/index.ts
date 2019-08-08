@@ -3,22 +3,13 @@ import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
-import * as StyleParser from '../../util/styleParser';
 import './guide/label/bar-label';
 import IntervalParser from '../../elements/interval/main';
+import LabelParser from '../../components/label';
 
 interface BarStyle {
   opacity?: number;
   lineDash?: number[];
-}
-
-interface ILabelCallbackOptions {
-  content?: Function;
-  offset?: number;
-  offsetX?: number;
-  offsetY?: number;
-  textStyle?: {};
-  position?: string;
 }
 
 export interface BarConfig extends BaseConfig {
@@ -70,28 +61,11 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   }
 
   protected _axis() {
+    //todo: 这里要自定义theme
     const props = this._initialProps;
     const axesConfig = { fields:{} };
-    const plotTheme = this.plotTheme;
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
-
-    if ((props.xAxis && (props.xAxis.visible === false)
-        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
-    ) {
-      axesConfig.fields[props.xField] = false;
-    } else if (props.xAxis) {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis);
-    }
-
-    if ((props.yAxis && (props.yAxis.visible === false)
-        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
-    ) {
-      axesConfig.fields[props.yField] = false;
-    } else if (props.yAxis) {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis);
-    }
-    /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
   }
 
@@ -101,43 +75,13 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    /*const bar: ElementOption = {
-      type: 'interval',
-      position: {
-        fields: [ props.yField, props.xField ],
-      },
-    };
-    if (props.barStyle) bar.style = this._columnStyle();
-    if (props.barSize) {
-      bar.size = {
-        values: [ props.barSize ],
-      };
-    }*/
     const bar = new IntervalParser({
       positionFields: [props.yField, props.xField],
       plot:this
     }).element;
-
     if (props.label) {
       bar.label = this._extractLabel();
     }
-    /*if (props.color) {
-      if (_.isString(props.color)) {
-        bar.color = {
-          values: [ props.color ],
-        };
-      } else if (_.isFunction(props.color)) {
-        bar.color = {
-          fields: [ props.xField, props.yField ],
-          callback: props.color,
-        };
-      } else if (_.isArray(props.color)) {
-        bar.color = {
-          fields: [ props.yField ],
-          values: props.color,
-        };
-      }
-    }*/
     this._adjustBar(bar);
     this.bar = bar;
     this._setConfig('element', bar);
@@ -156,50 +100,19 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     }
   }
 
-  /*private _columnStyle() {
-    const props = this._initialProps;
-    const barStyleProps = props.barStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    config.cfg = barStyleProps;
-    return config;
-  }*/
-
   protected _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
 
     if (label && label.visible === false) return false;
 
-    const labelConfig = {
+    const labelConfig = new LabelParser({
+      plot:this,
       labelType: 'barLabel',
       fields: [ props.xField ],
-      callback: null,
-      ...label,
-    };
-    const callbackOptions: ILabelCallbackOptions = { ...label };
-    if (label.formatter) {
-      callbackOptions.content = labelConfig.formatter;
-    }
-    /**统一处理callback */
-    if (!_.isEmpty(callbackOptions)) {
-      labelConfig.callback = (val1, val2) => {
-        const returnCfg = _.clone(callbackOptions);
-        if (_.has(callbackOptions, 'content')) {
-          returnCfg.content = callbackOptions.content(val1, val2);
-        }
-        return returnCfg;
-      };
-    }
-    /** label样式 */
-    if (label.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, label.style);
-    }
-
+      ...label
+    }).config;
+  
     return labelConfig as any;
   }
 

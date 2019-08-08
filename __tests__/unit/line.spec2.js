@@ -768,11 +768,8 @@ describe('Line plot', () => {
         }
       },
       label: {
-        type: 'point',
-        formatter: () => {
-          return 'a';
-        },
-        offsetY: 30
+        visible: false,
+        type: 'line',
       },
       point: {
         visible: true,

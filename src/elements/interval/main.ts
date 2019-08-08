@@ -2,12 +2,14 @@ import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
 import ElementParser from '../base';
 
+const COLOR_MAPPER = ['colorField','stackField','groupField'];
+
 export default class IntervalParser extends ElementParser {
     public init(){
         this.type = 'interval';
         super.init();
         const props = this.plot._initialProps;
-        if(props.color || props.colorField) this.parseColor();
+        if(this._needParserColor()) this.parseColor();
         const sizeProps = this._getSizeProps(props);
         if(sizeProps) this.parseSize(sizeProps);
         const styleProps = this._getStyleProps(props);
@@ -52,7 +54,6 @@ export default class IntervalParser extends ElementParser {
             config.cfg = style;
         }
         
-
         this.element.style = config;
     }
 
@@ -77,13 +78,22 @@ export default class IntervalParser extends ElementParser {
     }
 
     private _getColorMappingField(props){
-        /**如果有colorFiled配置项，则参与colorMapping的字段为对应值
+        /**如果有colorFiled或stackField配置项(后者为堆叠interval)，则参与colorMapping的字段为对应值
          * 如没有特别设定，则一般是callback中的传参，传入位置映射的字段
          */
-        if(props.colorField){
-            return [props.colorField];
-        }else{
-            return this.element.position.fields;
-        }  
+        for(let i =0; i < COLOR_MAPPER.length; i++){
+            const m = COLOR_MAPPER[i];
+            if(_.get(props,m)) return [props[m]];
+        }
+        return this.element.position.fields;
+    }
+
+    private _needParserColor(){
+        const props = this.plot._initialProps;
+        if(props.color) return true;
+        for(let i = 0; i<COLOR_MAPPER.length; i++) {
+            const m = COLOR_MAPPER[i];
+            if(props[m]) return true;
+        }
     }
 }

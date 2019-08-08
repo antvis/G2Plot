@@ -8,6 +8,7 @@ import BaseConfig, {
   IColorConfig,
 } from '../../interface/config';
 import * as _ from '@antv/util';
+import { DataPointType } from '@antv/g2/lib/interface';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
@@ -169,9 +170,10 @@ export default class Line extends BasePlot<LineConfig>{
     this.line.label = {
       fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
       labelType,
+      ...label,
     };
-    /** formater */
-    if (label.formatter) {
+
+    /*if (label.formatter) {
       const formater = label.formatter;
       this.line.label.callback = (val) => {
         return {
@@ -181,11 +183,30 @@ export default class Line extends BasePlot<LineConfig>{
         };
       };
     }
+    if (label.style) {
+      const theme = this._config.theme;
+      StyleParser.LabelStyleParser(theme, label.style);
+    }*/
+    const callbackOptions: DataPointType = { ...label };
+    if (label.formatter) {
+      callbackOptions.content = label.formatter;
+    }
+    /**统一处理callback */
+    if (!_.isEmpty(callbackOptions)) {
+      this.line.label.callback = (val1, val2) => {
+        const returnCfg = _.clone(callbackOptions);
+        if (_.has(callbackOptions, 'content')) {
+          returnCfg.content = callbackOptions.content(val1, val2);
+        }
+        return returnCfg;
+      };
+    }
     /** label样式 */
     if (label.style) {
       const theme = this._config.theme;
       StyleParser.LabelStyleParser(theme, label.style);
     }
+
   }
 
   protected _annotation() { }

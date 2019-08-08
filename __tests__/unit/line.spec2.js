@@ -768,12 +768,10 @@ describe('Line plot', () => {
           // offset: 10,
         }
       },
-      /* label: {
+      label: {
         type: 'point',
-        formatter: () => {
-          return 'test';
-        }
-      },*/
+        offset: 100
+      },
       animation: false,
       events: {
         onLegendClick: () => {

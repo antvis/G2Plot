@@ -5,7 +5,7 @@ import * as _ from '@antv/util';
 
 export default function responsiveAxis(plot) {
   const props = plot._initialProps;
-  const canvas = plot.canvasCfg.canvas;
+  const canvas = plot.canvasController.canvas;
     // x-axis
   responsiveXAxis(plot, props);
   // y-axis

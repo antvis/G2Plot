@@ -15,9 +15,9 @@ import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './animation/clipInWithData';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
-import LineElement from '../../elements/line';
-import GuidePointParser from '../../elements/point/guide';
-import LabelParser from '../../components/label';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
+
 
 interface LineStyle {
   opacity?: number;
@@ -81,10 +81,9 @@ export default class Line extends BasePlot<LineConfig>{
 
   protected _addElements() {
    const props = this._initialProps;
-    const LineParser = LineElement.main;
-    this.line = new LineParser({
-      plot: this
-    }).element;
+   this.line = getGeom('line','main',{
+     plot: this
+   });
     if (props.label) {
       this._label();
     }
@@ -97,10 +96,10 @@ export default class Line extends BasePlot<LineConfig>{
     const props = this._initialProps;
     const defaultConfig = { visible: false };
     if (props.point) props.point = _.deepMix(defaultConfig, props.point);
-    if (props.point.visible) {
-      const point:ElementOption = new GuidePointParser({
+    if (props.point && props.point.visible) {
+      const point = getGeom('point','guide',{ 
         plot: this
-      }).element;
+      });
       this._setConfig('element', point);
       this.point = point;
     }
@@ -115,12 +114,12 @@ export default class Line extends BasePlot<LineConfig>{
       return;
     } 
     const labelType = label.type ? label.type :'point';
-
-    this.line.label = new LabelParser({
+    this.line.label = getComponent('label',{
       fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
       labelType,
       plot: this
-    }).config;
+    });
+
   }
 
   protected _annotation() { }

@@ -8,7 +8,7 @@ import TextDescription from '../components/description';
 import CanvasController from './controller/canvas';
 import ThemeController from './controller/theme';
 import PaddingController from './controller/padding';
-import AxisParser from '../components/axis';
+import { getComponent } from '../components/factory';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public plot: G2.View;
@@ -143,14 +143,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _axis(): void {
     const props = this._initialProps;
-    const xAxis_parser = new AxisParser({
+    const  xAxis_parser = getComponent('axis',{
       plot: this,
       dim: 'x'
-    }).config;
-    const yAxis_parser = new AxisParser({
+    });
+    const yAxis_parser = getComponent('axis',{
       plot: this,
       dim: 'y'
-    }).config;
+    });
     const axesConfig = { fields:{} };
     axesConfig.fields[props.xField] = xAxis_parser;
     axesConfig.fields[props.yField] = yAxis_parser;

@@ -14,16 +14,16 @@ export default class GroupColumn extends BaseColumn<GroupColumnConfig> {
       type: 'dodge',
     } ];
 
-    if (props.groupField) {
+    /*if (props.groupField) {
       column.color = {
         fields: [ props.groupField ],
         values: props.color && isArray(props.color) ? props.color : undefined,
         callback: this._colorCallback(props.color),
       };
-    }
+    }*/
   }
 
-  private _colorCallback(color) {
+  /*private _colorCallback(color) {
     if (!color) return;
 
     if (isFunction(color)) return color;
@@ -31,5 +31,5 @@ export default class GroupColumn extends BaseColumn<GroupColumnConfig> {
     return (d) => {
       return color[d];
     };
-  }
+  }*/
 }

@@ -224,6 +224,8 @@ describe('Line plot', () => {
 
   it('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
@@ -240,6 +242,8 @@ describe('Line plot', () => {
 
   it('smooth line', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
@@ -252,6 +256,8 @@ describe('Line plot', () => {
 
   it('折线size', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
@@ -265,6 +271,8 @@ describe('Line plot', () => {
 
   it('折线数据点', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
@@ -286,18 +294,22 @@ describe('Line plot', () => {
 
   it('x 坐标轴', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
       xAxis: {
-        tickCount: 5,
         line: {
+          visible: true,
           style: { stroke: 'red' },
         },
         tickLine: {
+          visible: true,
           style: { stroke: 'red' },
         },
         label: {
+          visible: true,
           formatter: () => {
             return 'a';
           },
@@ -307,9 +319,6 @@ describe('Line plot', () => {
     });
     linePlot.render();
     const axis = linePlot.plot.get('axisController').axes[0];
-    // tickCount
-    const ticks = axis.get('ticks');
-    expect(ticks.length).to.be.equal(5);
     // formatter
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.equal('a');
@@ -324,14 +333,18 @@ describe('Line plot', () => {
 
   it('y坐标轴', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
       yAxis: {
         line: {
+          visible: true,
           style: { stroke: 'red' },
         },
         tickLine: {
+          visible: true,
           style: { stroke: 'red' },
         },
         label: {
@@ -349,6 +362,7 @@ describe('Line plot', () => {
     expect(labels[0].text).to.be.equal('a');
     // style
     const line = axis.get('line');
+
     const tickLine = axis.get('tickLine');
     expect(line.stroke).to.be.equal('red');
     expect(tickLine.stroke).to.be.equal('red');
@@ -358,6 +372,8 @@ describe('Line plot', () => {
 
   it('point label', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
@@ -380,6 +396,8 @@ describe('Line plot', () => {
 
   it('padding', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title'
       },
@@ -402,6 +420,8 @@ describe('Line plot', () => {
 
   it('title and description', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title',
         style: {
@@ -418,8 +438,8 @@ describe('Line plot', () => {
       xField: 'year',
       yField: 'value',
     });
-    const title = linePlot.title;
-    const description = linePlot.description;
+    const title = linePlot.title.shape;
+    const description = linePlot.description.shape;
     expect(title.attr('text')).to.be.equal('title');
     expect(title.attr('fill')).to.be.equal('red');
     expect(description.attr('text')).to.be.equal('description');
@@ -429,6 +449,8 @@ describe('Line plot', () => {
 
   it('多折线', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       data: data2,
       xField: 'date',
       yField: 'value',
@@ -442,6 +464,8 @@ describe('Line plot', () => {
 
   it('line label', () => {
     const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data: data2,
       xField: 'date',

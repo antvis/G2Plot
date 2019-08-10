@@ -34,27 +34,27 @@ export default class IntervalParser extends ElementParser {
                 config.values = props.color;
             }
         }
-        this.element.color = config;
+        this.config.color = config;
     }
 
     public parseSize(sizeProps){
         const props = this.plot._initialProps;
         const config: DataPointType = {};
         config.values = [ props[sizeProps] ];
-        this.element.size = config;
+        this.config.size = config;
     }
 
     public parseStyle(styleProps){
         const style = this.plot._initialProps[styleProps];
         const config: DataPointType = {};
         if (_.isFunction(style)) {
-            config.fields = [ this.element.position.fields ];
+            config.fields = [ this.config.position.fields ];
             config.callback = style;
         }else{
             config.cfg = style;
         }
         
-        this.element.style = config;
+        this.config.style = config;
     }
 
     private _getSizeProps(props){
@@ -85,7 +85,7 @@ export default class IntervalParser extends ElementParser {
             const m = COLOR_MAPPER[i];
             if(_.get(props,m)) return [props[m]];
         }
-        return this.element.position.fields;
+        return this.config.position.fields;
     }
 
     private _needParserColor(){
@@ -95,5 +95,6 @@ export default class IntervalParser extends ElementParser {
             const m = COLOR_MAPPER[i];
             if(props[m]) return true;
         }
+        return false;
     }
 }

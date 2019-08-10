@@ -2,15 +2,24 @@ import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import './guide/label/bar-label';
-import IntervalParser from '../../elements/interval/main';
-import AxisParser from '../../components/axis';
-import LabelParser from '../../components/label';
 import { extractAxis } from '../../util/axis';
+import * as StyleParser from '../../util/styleParser';
+import './guide/label/bar-label';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 
 interface BarStyle {
   opacity?: number;
   lineDash?: number[];
+}
+
+interface ILabelCallbackOptions {
+  content?: Function;
+  offset?: number;
+  offsetX?: number;
+  offsetY?: number;
+  textStyle?: {};
+  position?: string;
 }
 
 export interface BarConfig extends BaseConfig {
@@ -38,7 +47,6 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   protected _setDefaultG2Config() {}
 
   protected _scale() {
-    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
@@ -60,6 +68,33 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     };
     this._setConfig('coord', coordConfig);
   }
+  
+  //TODO： 条形图的坐标轴样式需要在theme里注册一下
+  protected _axis() {
+    const props = this._initialProps;
+    const axesConfig = { fields:{} };
+    const plotTheme = this.plotTheme;
+    axesConfig.fields[props.xField] = {};
+    axesConfig.fields[props.yField] = {};
+
+    if ((props.xAxis && (props.xAxis.visible === false)
+        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
+    ) {
+      axesConfig.fields[props.xField] = false;
+    } else if (props.xAxis) {
+      extractAxis(axesConfig.fields[props.xField], props.xAxis);
+    }
+
+    if ((props.yAxis && (props.yAxis.visible === false)
+        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
+    ) {
+      axesConfig.fields[props.yField] = false;
+    } else if (props.yAxis) {
+      extractAxis(axesConfig.fields[props.yField], props.yAxis);
+    }
+    /** 存储坐标轴配置项到config */
+    this._setConfig('axes', axesConfig);
+  }
 
   protected _adjustBar(bar: ElementOption) {
     return;
@@ -67,10 +102,10 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    const bar = new IntervalParser({
-      positionFields: [props.yField, props.xField],
-      plot:this
-    }).element;
+    const bar = getGeom('interval','main',{
+      positionFields: [ props.yField, props.xField ],
+      plot: this
+    });
     if (props.label) {
       bar.label = this._extractLabel();
     }
@@ -97,15 +132,14 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     const label = props.label as Label;
 
     if (label && label.visible === false) return false;
-
-    const labelConfig = new LabelParser({
+    const labelConfig = getComponent('label',{
       plot:this,
       labelType: 'barLabel',
       fields: [ props.xField ],
-      ...label
-    }).config;
-  
-    return labelConfig as any;
+      ...label,
+    });
+
+    return labelConfig;
   }
 
 }

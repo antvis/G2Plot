@@ -20,39 +20,17 @@ export default class AxisParser {
 
     private _init(){
         this.config = false;
-        /**
-         * step 1: 判断axis的visibility
-         * step 2: 配置项中只声明了走g2底层的default逻辑
-         * TODO： 这样太取巧了，待改造
-         */
         if(this._needDraw()) {
-           console.log( _.keys(this.localProps) );
-            if(this.localProps.style){
-                this._styleParser();
-            }else{
-                this.config = {};
-            }  
+            this._styleParser();
         }
     }
 
     private _styleParser(){
         this.config = {};
-        const axisComponensMapper = [
-            { name: 'line', parser: this._lineParser() },
-            { name: 'grid', parser: this._gridParser() },
-            { name: 'tickLine', parser: this._tickLineParser() },
-            { name: 'label', parser: this._labelParser() },
-        ];
-        
-        _.each(axisComponensMapper,(m)=>{
-            if(this.localProps[m.name] && this.localProps[m.name].visible) {
-                m.parser;
-            }else{
-                this.config[m.name] = null;
-            }
-        });
-
-        /** 特殊的坐标轴组件及配置项 */
+        this._isVisible('line') ? this._lineParser() : this.config.line = null;
+        this._isVisible('grid') ? this._gridParser() : this.config.grid = null;
+        this._isVisible('tickLine') ? this._tickLineParser() : this.config.tickLine = null;
+        this._isVisible('label') ? this._labelParser() : this.config.label = null;
         if(this.localProps.title) this._titleParser();
         propertyMapping(this.localProps,this.config,'autoHideLabel');
         propertyMapping(this.localProps,this.config,'autoRotateLabel');
@@ -64,8 +42,8 @@ export default class AxisParser {
         const theme = this.plot.plotTheme;
         const propsConfig = propos[`${this.dim}Axis`]? propos[`${this.dim}Axis`] : {};
         const themeConfig = theme.axis[this.dim];
-        const config = _.mix({},themeConfig,propsConfig);
-        this.localProps = propsConfig;
+        const config = _.deepMix({},themeConfig,propsConfig);
+        this.localProps = config;
         if(config.visible){
             return true;
         }
@@ -131,9 +109,11 @@ export default class AxisParser {
         this.config.title = titleConfig;
     }
 
-    //tempo
-    private _processByDefault(){
-
+    private _isVisible(name){
+        if(this.localProps[name] && this.localProps[name].visible){
+            return true;
+        }
+        return false;
     }
 
 }

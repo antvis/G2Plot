@@ -4,9 +4,8 @@ import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } fro
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
-import GuideLineParser from '../../elements/line/guide';
-import GuidePointParser from '../../elements/point/guide';
-import AreaParser from '../../elements/area/main';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 // import './guide/label/bar-label';
 
 interface AreaStyle {
@@ -102,10 +101,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _addElements() {
     const props = this._initialProps;
-    const area = new AreaParser({
+    const area = getGeom('area','main',{
       plot: this
-    }).element;
-
+    });
     this.area = area;
 
     if (props.label) {
@@ -137,10 +135,10 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let lineConfig = { visible: false, style: {} };
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
-      const line = new GuideLineParser({
+      const line = getGeom('line','guide',{
         type:'line',
         plot: this
-      }).element;
+      });
       this._adjustLine(line);
       this._setConfig('element', line);
       this.line = line;
@@ -152,11 +150,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let pointConfig = { visible: false, style: {} };
     if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
     if (pointConfig.visible) {
- 
-      const point = new GuidePointParser({
-        plot: this
-      }).element;
-
+      const point = getGeom('point','guide',{
+        plot:this
+      });
       this._adjustPoint(point);
       this._setConfig('element', point);
       this.point = point;

@@ -118,6 +118,7 @@ describe('Pie plot', () => {
       data,
       angleField: 'value',
       label: {
+        visible: true,
         type: 'inner',
         formatter: () => {
           return 'test';
@@ -146,6 +147,7 @@ describe('Pie plot', () => {
       data,
       angleField: 'value',
       label: {
+        visible: true,
         type: 'outter',
         formatter: () => {
           return 'test';
@@ -245,8 +247,8 @@ describe('Pie plot', () => {
     const description = piePlot.description;
     expect(title.attr('text')).to.be.equal('title');
     expect(title.attr('fill')).to.be.equal('red');
-    expect(description.attr('text')).to.be.equal('description');
-    expect(description.attr('fill')).to.be.equal('red');
+    expect(description.shape.attr('text')).to.be.equal('description');
+    expect(description.shape.attr('fill')).to.be.equal('red');
     piePlot.destroy();
   });
 

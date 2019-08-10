@@ -113,6 +113,8 @@ describe('Radar plot', () => {
 
   it('创建 & 销毁图表', () => {
     const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
@@ -125,11 +127,13 @@ describe('Radar plot', () => {
     expect(positionField[0]).to.be.equal('item');
     expect(positionField[1]).to.be.equal('score');
     expect(colorField[0]).to.be.equal('user');
-    radarPlot.destroy();
+    // radarPlot.destroy();
   });
 
   it('x 坐标轴', () => {
     const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
@@ -161,6 +165,8 @@ describe('Radar plot', () => {
 
   it('y 坐标轴', () => {
     const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
@@ -194,13 +200,15 @@ describe('Radar plot', () => {
   });
 
   it('ploygon 显示及样式', () => {
-    /** polygon不显示 */
+    /** area不显示 */
     let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
       seriesField: 'user',
-      polygon: {
+      area: {
         visible: false
       }
     });
@@ -209,13 +217,15 @@ describe('Radar plot', () => {
     expect(elements.length).to.be.equal(1);
     expect(elements[0].get('type')).to.be.equal('line');
     radarPlot.destroy();
-    /** polygon样式 */
+    /** area样式 */
     radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
       seriesField: 'user',
-      polygon: {
+      area: {
         style: {
           stroke: 'red',
           lineWidth: 2
@@ -235,6 +245,8 @@ describe('Radar plot', () => {
   it('line 显示及样式', () => {
     /** line不显示 */
     let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
@@ -250,28 +262,34 @@ describe('Radar plot', () => {
     radarPlot.destroy();
     /** line样式 */
     radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
       seriesField: 'user',
-      polygon: {
-        visible: false
+      area: {
+        visible: true
       },
       line: {
+        visible: true,
         style: {
-          lineDash: [ 2, 2 ]
+          lineDash: [ 2, 2 ],
+          color: 'red'
         }
       }
     });
     radarPlot.render();
-    const shapes = radarPlot.plot.get('elements')[0].getShapes();
-    expect(shapes[0].attr('lineDash')[0]).to.be.equal(2);
+    const shapes = radarPlot.plot.get('elements')[1].getShapes();
+    expect(shapes[1].attr('lineDash')[0]).to.be.equal(2);
     radarPlot.destroy();
   });
 
   it('point 显示及样式', () => {
     /** 显示point */
     const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'item',
       yField: 'score',
@@ -279,7 +297,7 @@ describe('Radar plot', () => {
       point: {
         visible: true,
         style: {
-          lineWidth: 4
+          color: 'red'
         }
       }
     });
@@ -288,12 +306,14 @@ describe('Radar plot', () => {
     expect(elements.length).to.be.equal(3);
     expect(elements[2].get('type')).to.be.equal('point');
     const shapes = radarPlot.plot.get('elements')[2].getShapes();
-    expect(shapes[0].attr('lineWidth')).to.be.equal(4);
+    expect(shapes[0].attr('stroke')).to.be.equal('red');
     radarPlot.destroy();
   });
 
   it('auto padding', () => {
     const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title',
         style: {
@@ -323,6 +343,8 @@ describe('Radar plot', () => {
 
   it('title & description', () => {
     const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title',
         style: {
@@ -344,8 +366,8 @@ describe('Radar plot', () => {
     const description = radarPlot.description;
     expect(title.attr('text')).to.be.equal('title');
     expect(title.attr('fill')).to.be.equal('red');
-    expect(description.attr('text')).to.be.equal('description');
-    expect(description.attr('fill')).to.be.equal('red');
+    expect(description.shape.attr('text')).to.be.equal('description');
+    expect(description.shape.attr('fill')).to.be.equal('red');
     radarPlot.destroy();
   });
 

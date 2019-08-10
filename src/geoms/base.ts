@@ -5,7 +5,7 @@ export default class ElementParser {
     public plot: any;
     public type: string;
     private positionFields: string[];
-    public element: ElementOption;
+    public config: ElementOption;
     public style: any;
 
     constructor (cfg){
@@ -14,7 +14,7 @@ export default class ElementParser {
     }
 
     public init(){
-        this.element = {
+        this.config = {
             type: this.type,
             position: {
                 fields: this.positionFields

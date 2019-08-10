@@ -4,9 +4,8 @@ import { extractScale } from '../../util/scale';
 import * as _ from '@antv/util';
 import '../column/guide/label/column-label';
 import responsiveMethods from './applyResponsive/index';
-import IntervalParser from '../../elements/interval/main';
-import AxisParser from '../../components/axis';
-import LabelParser from '../../components/label';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 
 interface ColumnStyle {
   opacity?: number;
@@ -55,13 +54,13 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
       /** 配置y-scale */
     scales[props.yField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.xField], props.yAxis);
+    _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
     this._setConfig('scales', scales);
   }
 
   protected _coord() {}
 
-  protected _axis() {
+  /*protected _axis() {
     const props = this._initialProps;
     const axesConfig = { fields:{} };
     const xAxis_parser = new AxisParser({
@@ -76,7 +75,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     axesConfig.fields[props.xField] = xAxis_parser;
     axesConfig.fields[props.yField] = yAxis_parser;
     this._setConfig('axes', axesConfig);
-  }
+  }*/
 
   protected _adjustColumn(column: ElementOption) {
     return;
@@ -85,10 +84,10 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _addElements() {
     const props = this._initialProps;
 
-    const column = new IntervalParser({
+    const column = getGeom('interval','main',{
       positionFields: [props.xField, props.yField],
       plot:this
-    }).element;
+    });
 
     if (props.label) {
       column.label = this._extractLabel();
@@ -126,13 +125,13 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const props = this._initialProps;
     const label = props.label as Label;
     if (label && label.visible === false) return false;
-    const labelConfig = new LabelParser({
+    const labelConfig = getComponent('label',{
       plot:this,
       labelType: 'columnLabel',
       fields: [ props.yField ],
       ...label
-    }).config;
-    return labelConfig as any;
+    });
+    return labelConfig;
   }
 
   private _applyResponsive(stage) {

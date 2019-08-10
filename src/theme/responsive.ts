@@ -2,20 +2,24 @@ const responsiveTheme = {
   element: {
     column : {
       constraints : [
-        'columnWidth',
+        { name: 'columnWidth',
+          option:{
+            ratio: 0.1
+          }
+        }
       ],
     },
     ring: {
       constraints : [
-        'ringThickness',
-        'minRingThickness',
+        { name: 'ringThickness' },
+        { name: 'minRingThickness' },
       ],
     },
   },
   labels:{
     line : {
       constraints: [
-        'elementCollision',
+        { name: 'elementCollision' }
       ],
       rules: {
         elementCollision: [
@@ -27,13 +31,13 @@ const responsiveTheme = {
     },
     column: {
       constraints: [
-        'elementCollision',
+        { name: 'elementCollision'},
       ],
       rules: {
         elementCollision:[
           { name: 'nodeJitterUpward' },
           { name: 'nodesResamplingByState',
-            options:{
+            option:{
               keep: [ 'min', 'max', 'median' ],
             },
           },
@@ -49,31 +53,31 @@ const responsiveTheme = {
       category: {
         label: {
           constraints: [
-            'elementDist',
+            {name:'elementDist'},
           ],
           rules: {
             elementDist: [
               {
                 name: 'textWrapper',
-                options: {
+                option: {
                   lineNumber: 2,
                 },
               },
               {
                 name: 'textRotation',
-                options: {
+                option: {
                   degree: 45,
                 },
               },
               {
                 name: 'textRotation',
-                options: {
+                option: {
                   degree: 90,
                 },
               },
               {
                 name: 'textAbbreviate',
-                options: {
+                option: {
                   abbreviateBy: 'end',
                 },
               },
@@ -87,31 +91,31 @@ const responsiveTheme = {
       linear: {
         label: {
           constraints: [
-            'elementDist',
+            { name: 'elementDist'},
           ],
           rules: {
             elementDist:
             [ {
               name: 'nodesResampling',
-              options: {
+              option: {
                 keep: [ 'end' ],
               },
             },
               {
                 name: 'textRotation',
-                options: {
+                option: {
                   degree: 45,
                 },
               },
               {
                 name: 'textRotation',
-                options: {
+                option: {
                   degree: 90,
                 },
               },
               {
                 name: 'robustAbbrevaite',
-                options: {
+                option: {
                   unit: 'thousand',
                   decimal: 1,
                   abbreviateBy: 'end',
@@ -127,7 +131,7 @@ const responsiveTheme = {
       dateTime: {
         label: {
           constraints: [
-            'elementDist',
+            {name: 'elementDist'},
           ],
           rules: {
             elementDist: [
@@ -136,19 +140,19 @@ const responsiveTheme = {
               },
               {
                 name: 'nodesResamplingByAbbrevate',
-                options: {
+                option: {
                   // keep:['end']
                 },
               },
               {
                 name: 'textRotation',
-                options: {
+                option: {
                   degree: 45,
                 },
               },
               {
                 name: 'textRotation',
-                options: {
+                option: {
                   degree: 90,
                 },
               },
@@ -164,8 +168,8 @@ const responsiveTheme = {
       linear: {
         label: {
           constraints: [
-            'elementDistVertical',
-            'elementWidth',
+            {name:'elementDistVertical'},
+            {name:'elementWidth'},
           ],
           rules: {
             elementDistVertical: [
@@ -183,8 +187,8 @@ const responsiveTheme = {
       category: {
         label:{
           constraints: [
-            'elementDistVertical',
-            'elementWidth',
+            {name:'elementDistVertical'},
+            {name: 'elementWidth'},
           ],
           rules: {
             elementDistVertical: [
@@ -193,7 +197,7 @@ const responsiveTheme = {
             ],
             elementWidth: [
               { name: 'textAbbreviate',
-                options: {
+                option: {
                   abbreviateBy: 'end',
                 },
               },

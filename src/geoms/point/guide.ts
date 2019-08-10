@@ -11,6 +11,8 @@ function getValuesByField(field, data) {
     return _.uniq(values);
 }
 
+const COLOR_MAPPER = ['seriesField','stackField'];
+
 export default class GuidePointParser extends ElementParser {
 
     public init(){
@@ -19,7 +21,7 @@ export default class GuidePointParser extends ElementParser {
         if(!props.xField || !props.yField){
             return;
         }
-        this.element = {
+        this.config = {
             type: 'point',
             position:{
                 fields: [props.xField, props.yField]
@@ -34,8 +36,9 @@ export default class GuidePointParser extends ElementParser {
     public parseColor(){
         const props = this.plot._initialProps;
         const config: DataPointType = {};
-        if (props.seriesField) {
-            this._parseColorBySeries(props,config);
+        const mappingField = this._getColorMappingField(props);
+        if (mappingField) {
+            this._parseColorByField(props,config,mappingField);
         }else{
             if (this.style && this.style.color) {
                 config.values = [ this.style.color ];
@@ -43,13 +46,13 @@ export default class GuidePointParser extends ElementParser {
                 this._parseColor(props,config);
             }
         }
-        this.element.color = config;
+        this.config.color = config;
     }
 
-    private _parseColorBySeries(props, config){
-        config.fields = [ props.seriesField ];
+    private _parseColorByField(props, config,field){
+        config.fields = [ field ];
         if (this.style && this.style.color) {
-            const count = getValuesByField(props.seriesField, props.data).length;
+            const count = getValuesByField(field, props.data).length;
             const values = [];
             for (let i = 0; i < count; i++) {
                 values.push(this.style.color);
@@ -63,7 +66,7 @@ export default class GuidePointParser extends ElementParser {
     private _parseColor(props,config){
         if(_.isString(props.color)){
             config.values = [props.color];
-       }else if(_.isFunction(props.color)){
+        }else if(_.isFunction(props.color)){
            config.callback = props.color;
        }else if(_.isArray(props.color)){
            config.values = props.color;
@@ -71,7 +74,6 @@ export default class GuidePointParser extends ElementParser {
     }
 
     public parseSize(){
-        const props = this.plot._initialProps;
         const config:DataPointType = {};
         if(this.style && this.style.size){
             config.values = [this.style.size];
@@ -79,18 +81,25 @@ export default class GuidePointParser extends ElementParser {
             /**Point作为辅助图形没有在style里指定size属性的情况下，设置默认值 */
             config.values = [3];
         }
-        this.element.size = config;
+        this.config.size = config;
     }
 
     public parseShape(){
         const config: DataPointType = {
             values: [this.style.shape]
         };
-        this.element.shape = config;
+        this.config.shape = config;
     }
 
     private _needParseAttribute(attr){
         const condition = !this.style || this.style[attr];
         return condition;
-    }    
+    }
+    
+    private _getColorMappingField(props){
+        for(let i =0; i < COLOR_MAPPER.length; i++){
+            const m = COLOR_MAPPER[i];
+            if(_.get(props,m)) return [props[m]];
+        }
+    }
 }

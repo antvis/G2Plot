@@ -5,8 +5,8 @@ import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import SpiderLabel from './guide/label/spiderLabel';
-import IntervalParser from '../../elements/interval/main';
-import LabelParser from '../../components/label';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 
 export interface PieConfig extends BaseConfig {
   angleField: string;
@@ -48,10 +48,10 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   protected _addElements() {
     const props = this._initialProps;
     this._adjustPieStyle();
-    const pie = new IntervalParser({
+    const pie = getGeom('interval','main',{
       plot: this,
       positionFields: [ props.angleField ],
-    }).element;
+    });
     pie.adjust = [
       { type: 'stack' } 
     ];
@@ -117,11 +117,11 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       labelConfig.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
     }
 
-    this.pie.label = new LabelParser({
+    this.pie.label = getComponent('label',{
       plot:this,
       fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
       ...labelConfig
-    }).config;
+    });
 
   }
 

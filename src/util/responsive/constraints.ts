@@ -19,6 +19,7 @@ function elementDistVertical(a, b) {
 }
 
 function elementCollision(a, b) {
+  console.log('coll');
   const polygonA = [ a.topLeft, a.topRight, a.bottomRight, a.bottomLeft ]; // 顶点顺时针
   const polygonB = [ b.topLeft, b.topRight, b.bottomRight, b.bottomLeft ];
   const dist = MathUtil.minDistBetweenConvexPolygon(polygonA, polygonB);
@@ -80,6 +81,7 @@ export const constraintsLib = {
     expression: minRingThickness,
   },
 };
+
 
 export function registerConstraint(name, constraint:IConstraint) {
   // todo: 防止覆盖

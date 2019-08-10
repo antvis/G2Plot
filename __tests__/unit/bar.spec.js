@@ -65,8 +65,8 @@ describe('Bar plot', () => {
     expect(positionField[1]).to.be.equal('value');
     expect(isTransposed).to.be.equal(true);
     expect(axes.length).to.be.equal(2);
-    /* barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;*/
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).to.be.true;
   });
 
   it('柱子样式配置', () => {
@@ -145,7 +145,7 @@ describe('Bar plot', () => {
     expect(barPlot.plot.destroyed).to.be.true;
   });
 
-  it.only('x轴 样式', () => {
+  it('x轴 样式', () => {
     const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,

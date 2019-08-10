@@ -1,4 +1,4 @@
-interface RingThicknessCfg {
+export interface RingThicknessCfg {
     ratio: number
 }
 

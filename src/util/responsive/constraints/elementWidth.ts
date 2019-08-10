@@ -1,4 +1,4 @@
-interface ElementWidthCfg {
+export interface ElementWidthCfg {
     ratio: number;
 }
 

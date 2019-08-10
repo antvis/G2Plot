@@ -1,6 +1,5 @@
 import BasePlot from '../../base/plot';
 import BaseConfig, {
-  ElementOption,
   IValueAxis,
   ITimeAxis,
   ICatAxis,
@@ -9,14 +8,16 @@ import BaseConfig, {
 import * as _ from '@antv/util';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import { extractScale } from '../../util/scale';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 import './guide/label/point-label';
 import './guide/label/line-label';
 import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './animation/clipInWithData';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
-import { getComponent } from '../../components/factory';
-import { getGeom } from '../../geoms/factory';
+import './applyResponsive/theme';
+
 
 
 interface LineStyle {

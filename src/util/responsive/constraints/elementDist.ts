@@ -1,6 +1,6 @@
 import * as MathUtil from '../../math';
 
-interface ElementDistCfg {
+export interface ElementDistCfg {
     value: number
 }
 

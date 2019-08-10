@@ -1,4 +1,4 @@
-interface ElementDistVerticalCfg {
+export interface ElementDistVerticalCfg {
     value: number
 }
 

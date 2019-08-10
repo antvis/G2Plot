@@ -1,53 +1,7 @@
-const responsiveTheme = {
-  geometry: {
-    column : {
-      constraints : [
-        { name: 'columnWidth',
-          option:{
-            ratio: 0.1
-          }
-        }
-      ],
-    },
-    ring: {
-      constraints : [
-        { name: 'ringThickness' },
-        { name: 'minRingThickness' },
-      ],
-    },
-  },
-  labels:{
-    line : {
-      constraints: [
-        { name: 'elementCollision' }
-      ],
-      rules: {
-        elementCollision: [
-          { name: 'nodesResamplingByChange' },
-          // { name: 'nodeJitter' },
-          { name: 'clearOverlapping' },
-        ],
-      },
-    },
-    column: {
-      constraints: [
-        { name: 'elementCollision'},
-      ],
-      rules: {
-        elementCollision:[
-          { name: 'nodeJitterUpward' },
-          { name: 'nodesResamplingByState',
-            option:{
-              keep: [ 'min', 'max', 'median' ],
-            },
-          },
-          {
-            name: 'textHide',
-          },
-        ],
-      },
-    },
-  },
+import * as _ from '@antv/util';
+
+//存储一些共用部分
+const defaultResponsiveTheme = {
   axis: {
     x: {
       category: {
@@ -211,16 +165,27 @@ const responsiveTheme = {
   },
 };
 
-export default responsiveTheme;
 
 
-function registerResponsiveTheme(name,theme){
+const RESPONSIVE_THEME_MAP = {};
 
+export function registerResponsiveTheme(name:string,theme){
+  if (getResponsiveTheme(name)) {
+    throw new Error(`responsive theme type '${name}' existed.`);
+  }
+  RESPONSIVE_THEME_MAP[name] = theme;
 }
 
-function getResponsiveTheme(){
-  
+export function getResponsiveTheme(name: string){
+  return RESPONSIVE_THEME_MAP[name];
 }
 
+export function updateResponsiveTheme(name:string,cfg){
+  let theme = RESPONSIVE_THEME_MAP[name];
+  if(!theme){
+    throw new Error(`responsive theme type '${name}' does not existed.`);
+  }
+  theme = _.deepMix(theme,cfg);
+}
 
-
+registerResponsiveTheme('default',defaultResponsiveTheme);

@@ -1,5 +1,5 @@
 
-interface ColumnWidthCfg {
+export interface ColumnWidthCfg {
     ratio?: number
 }
 

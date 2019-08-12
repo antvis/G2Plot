@@ -191,15 +191,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       formatter: _.get(props, 'legend.formatter'),
       offsetX: _.get(props, 'legend.offsetX'),
       offsetY: _.get(props, 'legend.offsetY'),
-<<<<<<< HEAD
-    });
-    this._setConfig('legends', {
-      flipPage: false,
-=======
       flipPage: flipOption,
->>>>>>> refactor
     });
-
   }
 
   protected _events(eventParser?): void {

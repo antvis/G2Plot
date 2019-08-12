@@ -3,7 +3,7 @@ import BaseConfig, {
   IValueAxis,
   ITimeAxis,
   ICatAxis,
-  Label
+  Label,
 } from '../../interface/config';
 import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
@@ -18,8 +18,6 @@ import './animation/clipInWithData';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
-
-
 
 interface LineStyle {
   opacity?: number;
@@ -82,10 +80,10 @@ export default class Line extends BasePlot<LineConfig>{
   protected _coord() { }
 
   protected _addElements() {
-   const props = this._initialProps;
-   this.line = getGeom('line','main',{
-     plot: this
-   });
+    const props = this._initialProps;
+    this.line = getGeom('line', 'main', {
+      plot: this,
+    });
     if (props.label) {
       this._label();
     }
@@ -99,8 +97,8 @@ export default class Line extends BasePlot<LineConfig>{
     const defaultConfig = { visible: false };
     if (props.point) props.point = _.deepMix(defaultConfig, props.point);
     if (props.point && props.point.visible) {
-      const point = getGeom('point','guide',{ 
-        plot: this
+      const point = getGeom('point', 'guide', {
+        plot: this,
       });
       this._setConfig('element', point);
       this.point = point;
@@ -110,16 +108,16 @@ export default class Line extends BasePlot<LineConfig>{
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;
-   
+
     if (label && label.visible === false) {
       this.line.label = false;
       return;
-    } 
+    }
     const labelType = label.type ? label.type :'point';
-    this.line.label = getComponent('label',{
+    this.line.label = getComponent('label', {
       fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
       labelType,
-      plot: this
+      plot: this,
     });
 
   }

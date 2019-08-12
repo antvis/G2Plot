@@ -159,7 +159,7 @@ export interface Label {
   offsetX?: number;
   offsetY?: number;
   events?: IEvents;
-  position?: string
+  position?: string;
   /** 展示优化策略 */
 }
 

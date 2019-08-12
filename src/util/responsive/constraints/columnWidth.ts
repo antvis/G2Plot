@@ -1,14 +1,14 @@
 
 export interface ColumnWidthCfg {
-    ratio?: number
+  ratio?: number;
 }
 
-function columnWidth(node, region, cfg:ColumnWidthCfg = {ratio:0.6}) {
-    return region.width * cfg.ratio;
+function columnWidth(node, region, cfg:ColumnWidthCfg = { ratio:0.6 }) {
+  return region.width * cfg.ratio;
 }
 
 export default {
-    type:'padding',
-    usage:'assign',
-    expression: columnWidth,
-}
+  type:'padding',
+  usage:'assign',
+  expression: columnWidth,
+};

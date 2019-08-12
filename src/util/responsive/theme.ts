@@ -1,13 +1,13 @@
 import * as _ from '@antv/util';
 
-//存储一些共用部分
+// 存储一些共用部分
 const defaultResponsiveTheme = {
   axis: {
     x: {
       category: {
         label: {
           constraints: [
-            {name:'elementDist'},
+            { name:'elementDist' },
           ],
           rules: {
             elementDist: [
@@ -45,7 +45,7 @@ const defaultResponsiveTheme = {
       linear: {
         label: {
           constraints: [
-            { name: 'elementDist'},
+            { name: 'elementDist' },
           ],
           rules: {
             elementDist:
@@ -85,7 +85,7 @@ const defaultResponsiveTheme = {
       dateTime: {
         label: {
           constraints: [
-            {name: 'elementDist'},
+            { name: 'elementDist' },
           ],
           rules: {
             elementDist: [
@@ -122,8 +122,8 @@ const defaultResponsiveTheme = {
       linear: {
         label: {
           constraints: [
-            {name:'elementDistVertical'},
-            {name:'elementWidth'},
+            { name:'elementDistVertical' },
+            { name:'elementWidth' },
           ],
           rules: {
             elementDistVertical: [
@@ -141,8 +141,8 @@ const defaultResponsiveTheme = {
       category: {
         label:{
           constraints: [
-            {name:'elementDistVertical'},
-            {name: 'elementWidth'},
+            { name:'elementDistVertical' },
+            { name: 'elementWidth' },
           ],
           rules: {
             elementDistVertical: [
@@ -165,27 +165,25 @@ const defaultResponsiveTheme = {
   },
 };
 
-
-
 const RESPONSIVE_THEME_MAP = {};
 
-export function registerResponsiveTheme(name:string,theme){
+export function registerResponsiveTheme(name:string, theme) {
   if (getResponsiveTheme(name)) {
     throw new Error(`responsive theme type '${name}' existed.`);
   }
   RESPONSIVE_THEME_MAP[name] = theme;
 }
 
-export function getResponsiveTheme(name: string){
+export function getResponsiveTheme(name: string) {
   return RESPONSIVE_THEME_MAP[name];
 }
 
-export function updateResponsiveTheme(name:string,cfg){
+export function updateResponsiveTheme(name:string, cfg) {
   let theme = RESPONSIVE_THEME_MAP[name];
-  if(!theme){
+  if (!theme) {
     throw new Error(`responsive theme type '${name}' does not existed.`);
   }
-  theme = _.deepMix(theme,cfg);
+  theme = _.deepMix(theme, cfg);
 }
 
-registerResponsiveTheme('default',defaultResponsiveTheme);
+registerResponsiveTheme('default', defaultResponsiveTheme);

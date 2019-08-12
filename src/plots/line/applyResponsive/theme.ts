@@ -3,19 +3,19 @@ import { registerResponsiveTheme, getResponsiveTheme } from '../../../util/respo
 
 /** 组装theme */
 const defaultTheme = getResponsiveTheme('default');
-const lineTheme = _.deepMix({},defaultTheme,{
-    label:{
-          constraints: [
-            { name: 'elementCollision' }
-          ],
-          rules: {
-            elementCollision: [
+const lineTheme = _.deepMix({}, defaultTheme, {
+  label:{
+    constraints: [
+            { name: 'elementCollision' },
+    ],
+    rules: {
+      elementCollision: [
               { name: 'nodesResamplingByChange' },
               { name: 'clearOverlapping' },
-            ],
-          },
-    }
+      ],
+    },
+  },
 });
-registerResponsiveTheme('line',lineTheme);
+registerResponsiveTheme('line', lineTheme);
 
 export default lineTheme;

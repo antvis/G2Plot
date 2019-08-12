@@ -9,13 +9,13 @@ import Interval from './interval/index';
  */
 
 const GEOMETRY_MAP = {
-    'area': Area,
-    'line': Line,
-    'point': Point,
-    'interval': Interval
+  area: Area,
+  line: Line,
+  point: Point,
+  interval: Interval,
 };
 
-export function getGeom(name,type,cfg){
-    const Geom = GEOMETRY_MAP[name][type];
-    return new Geom(cfg).config;
+export function getGeom(name, type, cfg) {
+  const Geom = GEOMETRY_MAP[name][type];
+  return new Geom(cfg).config;
 }

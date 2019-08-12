@@ -167,17 +167,17 @@ export default class Rardar extends BasePlot<RadarConfig>{
     let areaConfig = { visible: true };
     if (props.area) areaConfig = _.deepMix(areaConfig, props.area);
     if (areaConfig.visible) {
-      const area = getGeom('area','main',{
-        plot: this
+      const area = getGeom('area', 'main', {
+        plot: this,
       });
       this._setConfig('element', area);
     }
     /** 配置线 */
-    let lineConfig = { visible: true };
+    const lineConfig = { visible: true };
     props.line = _.deepMix(lineConfig, props.line);
     if (props.line.visible) {
-      const line = getGeom('line','guide',{
-        plot: this
+      const line = getGeom('line', 'guide', {
+        plot: this,
       });
       this._setConfig('element', line);
     }
@@ -185,9 +185,9 @@ export default class Rardar extends BasePlot<RadarConfig>{
     let pointConfig = { visible: false };
     if (props.point) pointConfig = _.assign(pointConfig, props.point);
     if (pointConfig.visible) {
-      const point = getGeom('point','guide',{
-        plot: this
-      })
+      const point = getGeom('point', 'guide', {
+        plot: this,
+      });
       this._setConfig('element', point);
     }
   }

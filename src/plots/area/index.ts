@@ -101,8 +101,8 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _addElements() {
     const props = this._initialProps;
-    const area = getGeom('area','main',{
-      plot: this
+    const area = getGeom('area', 'main', {
+      plot: this,
     });
     this.area = area;
 
@@ -113,7 +113,6 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     this._setConfig('element', area);
 
     this._addLine();
-    
 
     this._addPoint();
   }
@@ -135,9 +134,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let lineConfig = { visible: false, style: {} };
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
-      const line = getGeom('line','guide',{
+      const line = getGeom('line', 'guide', {
         type:'line',
-        plot: this
+        plot: this,
       });
       this._adjustLine(line);
       this._setConfig('element', line);
@@ -150,8 +149,8 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let pointConfig = { visible: false, style: {} };
     if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
     if (pointConfig.visible) {
-      const point = getGeom('point','guide',{
-        plot:this
+      const point = getGeom('point', 'guide', {
+        plot:this,
       });
       this._adjustPoint(point);
       this._setConfig('element', point);

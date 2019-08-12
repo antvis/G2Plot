@@ -68,8 +68,8 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     };
     this._setConfig('coord', coordConfig);
   }
-  
-  //TODO： 条形图的坐标轴样式需要在theme里注册一下
+
+  // TODO： 条形图的坐标轴样式需要在theme里注册一下
   protected _axis() {
     const props = this._initialProps;
     const axesConfig = { fields:{} };
@@ -102,9 +102,9 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    const bar = getGeom('interval','main',{
+    const bar = getGeom('interval', 'main', {
       positionFields: [ props.yField, props.xField ],
-      plot: this
+      plot: this,
     });
     if (props.label) {
       bar.label = this._extractLabel();
@@ -132,7 +132,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     const label = props.label as Label;
 
     if (label && label.visible === false) return false;
-    const labelConfig = getComponent('label',{
+    const labelConfig = getComponent('label', {
       plot:this,
       labelType: 'barLabel',
       fields: [ props.xField ],

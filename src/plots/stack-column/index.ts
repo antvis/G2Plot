@@ -4,7 +4,6 @@ import * as _ from '@antv/util';
 import './guide/label/stackColumn-label';
 import { getComponent } from '../../components/factory';
 
-
 export interface StackColumnConfig extends ColumnConfig {
   stackField: string;
 }
@@ -21,15 +20,15 @@ export default class StackColumn extends BaseColumn<StackColumnConfig> {
     const props = this._initialProps;
 
     const label = props.label as Label;
-    if(!label.position) label.position = 'middle';
+    if (!label.position) label.position = 'middle';
 
     if (label && label.visible === false) return false;
-    
-    const labelConfig = getComponent('label',{
+
+    const labelConfig = getComponent('label', {
       plot:this,
       labelType: 'stackColumnLabel',
       fields: [ props.yField ],
-      ...label
+      ...label,
     });
 
     return labelConfig as any;

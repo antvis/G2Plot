@@ -1,13 +1,13 @@
 export interface ElementWidthCfg {
-    ratio: number;
+  ratio: number;
 }
 
-function elementWidth(node, region, cfg:ElementWidthCfg = {ratio:0.15}) {
-    return node.width < region.width * cfg.ratio;
+function elementWidth(node, region, cfg:ElementWidthCfg = { ratio:0.15 }) {
+  return node.width < region.width * cfg.ratio;
 }
 
 export default {
-    type:'padding',
-    usage: 'compare',
-    expression: elementWidth,
-}
+  type:'padding',
+  usage: 'compare',
+  expression: elementWidth,
+};

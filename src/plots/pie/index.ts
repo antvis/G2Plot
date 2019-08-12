@@ -48,12 +48,12 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   protected _addElements() {
     const props = this._initialProps;
     this._adjustPieStyle();
-    const pie = getGeom('interval','main',{
+    const pie = getGeom('interval', 'main', {
       plot: this,
       positionFields: [ props.angleField ],
     });
     pie.adjust = [
-      { type: 'stack' } 
+      { type: 'stack' },
     ];
     this.pie = pie;
     if (props.label) {
@@ -96,11 +96,11 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     }
   }
 
-  private _adjustPieStyle(){
+  private _adjustPieStyle() {
     const props = this._initialProps;
-    if(!props.colorField ){
+    if (!props.colorField) {
       const defaultStyle = { stroke: 'white', lineWidth: 1 };
-      if(!props.pieStyle) props.pieStyle = {};
+      if (!props.pieStyle) props.pieStyle = {};
       props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
     }
   }
@@ -112,20 +112,20 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
       this.pie.label = false;
       return;
     }
-    if(labelConfig.type === 'inner'){
+    if (labelConfig.type === 'inner') {
       const offsetBase = -2;
       labelConfig.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
     }
 
-    this.pie.label = getComponent('label',{
+    this.pie.label = getComponent('label', {
       plot:this,
       fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
-      ...labelConfig
+      ...labelConfig,
     });
 
   }
 
-  private _showLabel(){
+  private _showLabel() {
     const props = this._initialProps;
     return props.label  && props.label.visible === true && props.label.type !== 'spider';
   }

@@ -3,15 +3,15 @@ import * as _ from '@antv/util';
 import { getMedian } from '../../math';
 
 interface DigitsAbbreviateCfg {
-    unit?: 'k' | 'm' | 'b' | 't' | 'auto';
-    formatter?: Function;
-    decimal?: number;
+  unit?: 'k' | 'm' | 'b' | 't' | 'auto';
+  formatter?: Function;
+  decimal?: number;
 }
 const unitMapper = {
-    k: { number: 1e3, index: 0 },
-    m: { number: 1e6, index: 1 },
-    b: { number: 1e9, index: 2 },
-    t: { number: 1e12, index: 3 },
+  k: { number: 1e3, index: 0 },
+  m: { number: 1e6, index: 1 },
+  b: { number: 1e9, index: 2 },
+  t: { number: 1e12, index: 3 },
 };
 
 // https://gist.github.com/MartinMuzatko/1060fe584d17c7b9ca6e

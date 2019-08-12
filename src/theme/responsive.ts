@@ -4,9 +4,9 @@ const responsiveTheme = {
       constraints : [
         { name: 'columnWidth',
           option:{
-            ratio: 0.1
-          }
-        }
+            ratio: 0.1,
+          },
+        },
       ],
     },
     ring: {
@@ -19,7 +19,7 @@ const responsiveTheme = {
   labels:{
     line : {
       constraints: [
-        { name: 'elementCollision' }
+        { name: 'elementCollision' },
       ],
       rules: {
         elementCollision: [
@@ -31,7 +31,7 @@ const responsiveTheme = {
     },
     column: {
       constraints: [
-        { name: 'elementCollision'},
+        { name: 'elementCollision' },
       ],
       rules: {
         elementCollision:[
@@ -53,7 +53,7 @@ const responsiveTheme = {
       category: {
         label: {
           constraints: [
-            {name:'elementDist'},
+            { name:'elementDist' },
           ],
           rules: {
             elementDist: [
@@ -91,7 +91,7 @@ const responsiveTheme = {
       linear: {
         label: {
           constraints: [
-            { name: 'elementDist'},
+            { name: 'elementDist' },
           ],
           rules: {
             elementDist:
@@ -131,7 +131,7 @@ const responsiveTheme = {
       dateTime: {
         label: {
           constraints: [
-            {name: 'elementDist'},
+            { name: 'elementDist' },
           ],
           rules: {
             elementDist: [
@@ -168,8 +168,8 @@ const responsiveTheme = {
       linear: {
         label: {
           constraints: [
-            {name:'elementDistVertical'},
-            {name:'elementWidth'},
+            { name:'elementDistVertical' },
+            { name:'elementWidth' },
           ],
           rules: {
             elementDistVertical: [
@@ -187,8 +187,8 @@ const responsiveTheme = {
       category: {
         label:{
           constraints: [
-            {name:'elementDistVertical'},
-            {name: 'elementWidth'},
+            { name:'elementDistVertical' },
+            { name: 'elementWidth' },
           ],
           rules: {
             elementDistVertical: [

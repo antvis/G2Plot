@@ -118,7 +118,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected abstract _setDefaultG2Config(): void;
 
   /** 配置G2各组件 */
-  //protected abstract _axis(): void;
+  // protected abstract _axis(): void;
   protected abstract _coord(): void;
   protected abstract _annotation(): void;
   protected abstract _addElements(): void;
@@ -143,13 +143,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _axis(): void {
     const props = this._initialProps;
-    const  xAxis_parser = getComponent('axis',{
+    const  xAxis_parser = getComponent('axis', {
       plot: this,
-      dim: 'x'
+      dim: 'x',
     });
-    const yAxis_parser = getComponent('axis',{
+    const yAxis_parser = getComponent('axis', {
       plot: this,
-      dim: 'y'
+      dim: 'y',
     });
     const axesConfig = { fields:{} };
     axesConfig.fields[props.xField] = xAxis_parser;
@@ -157,7 +157,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /** 存储坐标轴配置项到config */
     this._setConfig('axes', axesConfig);
   }
-  
 
   protected _tooltip(): void {
     const props = this._initialProps;

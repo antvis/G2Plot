@@ -22,15 +22,15 @@ export default class StackBar extends BaseBar<StackBarConfig> {
 
     if (label && label.visible === false) return false;
 
-    if(!label.position) label.position = 'middle';
+    if (!label.position) label.position = 'middle';
 
-    const labelConfig = getComponent('label',{
+    const labelConfig = getComponent('label', {
       plot:this,
       labelType: 'stackBarLabel',
       fields: [ props.xField ],
-      ...label
+      ...label,
     });
-    
+
     return labelConfig as any;
   }
 

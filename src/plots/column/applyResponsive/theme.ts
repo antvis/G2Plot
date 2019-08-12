@@ -3,35 +3,35 @@ import { registerResponsiveTheme, getResponsiveTheme } from '../../../util/respo
 
 /** 组装theme */
 const defaultTheme = getResponsiveTheme('default');
-const columnTheme = _.deepMix({},defaultTheme,{
-    column : {
-        constraints : [
-          { name: 'columnWidth',
-            option:{
-              ratio: 0.1
-            }
-          }
-        ],
-    },
-    label:{
-        constraints: [
-            { name: 'elementCollision'},
-          ],
-          rules: {
-            elementCollision:[
+const columnTheme = _.deepMix({}, defaultTheme, {
+  column : {
+    constraints : [
+      { name: 'columnWidth',
+        option:{
+          ratio: 0.1,
+        },
+      },
+    ],
+  },
+  label:{
+    constraints: [
+            { name: 'elementCollision' },
+    ],
+    rules: {
+      elementCollision:[
               { name: 'nodeJitterUpward' },
-              { name: 'nodesResamplingByState',
-                option:{
-                  keep: [ 'min', 'max', 'median' ],
-                },
-              },
-              {
-                name: 'textHide',
-              },
-            ],
+        { name: 'nodesResamplingByState',
+          option:{
+            keep: [ 'min', 'max', 'median' ],
           },
-        }
+        },
+        {
+          name: 'textHide',
+        },
+      ],
+    },
+  },
 });
-registerResponsiveTheme('column',columnTheme);
+registerResponsiveTheme('column', columnTheme);
 
 export default columnTheme;

@@ -98,13 +98,13 @@ export default class Responsive {
     const constraint = constraintsLib[this.currentConstraint.name];
     const constraintOption = this.currentConstraint.option;
     if (constraint.usage === 'compare') {
-      return this._constraintCompare(constraint,constraintOption);
+      return this._constraintCompare(constraint, constraintOption);
     }
-    return this._constraintAssignment(constraint,constraintOption);
+    return this._constraintAssignment(constraint, constraintOption);
 
   }
 
-  private _constraintCompare(constraint,option) {
+  private _constraintCompare(constraint, option) {
     const { type, expression } = constraint;
     const nodes = this.nodes.nodes;
     if (type === 'chain') return this._chainConstraintCompare(expression, nodes, option);
@@ -150,22 +150,22 @@ export default class Responsive {
     return true;
   }
 
-  private _constraintAssignment(constraint,option) {
+  private _constraintAssignment(constraint, option) {
     const { type, expression } = constraint;
     const nodes = this.nodes.nodes;
-    if (type === 'chain') return this._chainConstraintAssign(expression, nodes,option);
-    if (type === 'padding') return this._paddingConstraintAssign(expression, this.region, nodes,option);
+    if (type === 'chain') return this._chainConstraintAssign(expression, nodes, option);
+    if (type === 'padding') return this._paddingConstraintAssign(expression, this.region, nodes, option);
   }
 
-  private _chainConstraintAssign(expression, nodes,option) {
+  private _chainConstraintAssign(expression, nodes, option) {
     return true;
   }
 
-  private _paddingConstraintAssign(expression, region, nodes,option) {
+  private _paddingConstraintAssign(expression, region, nodes, option) {
     if (region) {
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-        const value = expression(node, region,option);
+        const value = expression(node, region, option);
         node.value = value;
       }
     }

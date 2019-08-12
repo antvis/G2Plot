@@ -71,7 +71,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       plot: this,
       dim: 'y'
     }).config;
-    
+
     axesConfig.fields[props.xField] = xAxis_parser;
     axesConfig.fields[props.yField] = yAxis_parser;
     this._setConfig('axes', axesConfig);
@@ -84,9 +84,9 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _addElements() {
     const props = this._initialProps;
 
-    const column = getGeom('interval','main',{
-      positionFields: [props.xField, props.yField],
-      plot:this
+    const column = getGeom('interval', 'main', {
+      positionFields: [ props.xField, props.yField ],
+      plot:this,
     });
 
     if (props.label) {
@@ -125,11 +125,11 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const props = this._initialProps;
     const label = props.label as Label;
     if (label && label.visible === false) return false;
-    const labelConfig = getComponent('label',{
+    const labelConfig = getComponent('label', {
       plot:this,
       labelType: 'columnLabel',
       fields: [ props.yField ],
-      ...label
+      ...label,
     });
     return labelConfig;
   }

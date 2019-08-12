@@ -33,14 +33,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
     this._container = _.isString(container) ? document.getElementById(container) : container;
-    this.canvasController = new CanvasController({
-      container: this._container,
-      plot: this,
-    });
     this.themeController = new ThemeController({
       plot: this,
     });
     this.plotTheme = this.themeController.plotTheme;
+    this.canvasController = new CanvasController({
+      container: this._container,
+      plot: this,
+    });
     this.paddingController = new PaddingController({
       plot: this,
     });

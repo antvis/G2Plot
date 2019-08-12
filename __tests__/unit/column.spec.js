@@ -39,10 +39,8 @@ describe('Column plot', () => {
     value: 33
   } ];
 
-  it('初始化以及销毁', () => {
+  it.only('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
-      width: 600,
-      height: 600,
       padding: 'auto',
       data,
       xField: 'value',

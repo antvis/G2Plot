@@ -113,8 +113,10 @@ describe('radar plot', () => {
     document.body.appendChild(canvasDiv);
 
     const radarPlot = new Radar(canvasDiv, {
+      width: 400,
+      height: 400,
       padding: 'auto',
-      smooth: 'true',
+      // smooth: 'true',
       data,
       xField: 'item',
       yField: 'score',

@@ -88,12 +88,17 @@ describe('StackColumn plot', () => {
   it('初始化以及销毁', () => {
     const columnPlot = new StackColumn(canvasDiv, {
       data,
+      width: 600,
+      height: 600,
       xField: 'year',
       yField: 'value',
       yAxis: {
         min: 0
       },
-      stackField: 'type'
+      stackField: 'type',
+      label: {
+        visible: true,
+      }
     });
     columnPlot.render();
     const intervalShape = columnPlot.plot.get('elements')[0];
@@ -107,6 +112,8 @@ describe('StackColumn plot', () => {
 
   it('color size and interval style', () => {
     const columnPlot = new StackColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',
@@ -128,6 +135,8 @@ describe('StackColumn plot', () => {
 
   it('color map', () => {
     const columnPlot = new StackColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',
@@ -136,21 +145,17 @@ describe('StackColumn plot', () => {
       },
       stackField: 'type',
       columnSize: 7,
-      color: {
-        Lon: 'red',
-        Bor: 'yellow'
-      }
+      color: [ 'red', 'yellow' ]
     });
     columnPlot.render();
-    const intervalEle = columnPlot.plot.get('elements')[0];
-
-    expect(isFunction(intervalEle.get('color').callback)).to.be.true;
     columnPlot.destroy();
     expect(columnPlot.plot.destroyed).to.be.true;
   });
 
   it('label', () => {
     const columnPlot = new StackColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',

@@ -32,6 +32,8 @@ describe('Pie plot', () => {
 
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value'
     });
@@ -46,6 +48,8 @@ describe('Pie plot', () => {
 
   it('radius', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       padding: [ 0, 0, 0, 0 ],
       angleField: 'value',
@@ -59,6 +63,8 @@ describe('Pie plot', () => {
 
   it('单色饼图', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value'
     });
@@ -71,6 +77,8 @@ describe('Pie plot', () => {
 
   it('饼图颜色', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       colorField: 'type',
@@ -86,6 +94,8 @@ describe('Pie plot', () => {
 
   it('图形style', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       colorField: 'type',
@@ -103,9 +113,12 @@ describe('Pie plot', () => {
 
   it('inner label', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       label: {
+        visible: true,
         type: 'inner',
         formatter: () => {
           return 'test';
@@ -129,9 +142,12 @@ describe('Pie plot', () => {
 
   it('outter label', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       label: {
+        visible: true,
         type: 'outter',
         formatter: () => {
           return 'test';
@@ -155,6 +171,8 @@ describe('Pie plot', () => {
 
   it('spider label', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       angleField: 'value',
       colorField: 'type',
@@ -185,6 +203,8 @@ describe('Pie plot', () => {
 
   it('auto padding', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title'
       },
@@ -205,6 +225,8 @@ describe('Pie plot', () => {
 
   it('title & description', () => {
     const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
       title: {
         text: 'title',
         style: {
@@ -225,8 +247,8 @@ describe('Pie plot', () => {
     const description = piePlot.description;
     expect(title.attr('text')).to.be.equal('title');
     expect(title.attr('fill')).to.be.equal('red');
-    expect(description.attr('text')).to.be.equal('description');
-    expect(description.attr('fill')).to.be.equal('red');
+    expect(description.shape.attr('text')).to.be.equal('description');
+    expect(description.shape.attr('fill')).to.be.equal('red');
     piePlot.destroy();
   });
 

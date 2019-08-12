@@ -87,6 +87,8 @@ describe('GroupColomn plot', () => {
 
   it('初始化以及销毁', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',
@@ -108,6 +110,8 @@ describe('GroupColomn plot', () => {
 
   it('color size and interval style', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',
@@ -129,6 +133,8 @@ describe('GroupColomn plot', () => {
 
   it('color map', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',
@@ -152,6 +158,8 @@ describe('GroupColomn plot', () => {
 
   it('label', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'year',
       yField: 'value',

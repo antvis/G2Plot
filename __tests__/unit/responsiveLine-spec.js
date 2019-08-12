@@ -17,7 +17,7 @@ describe('responsive line plot', () => {
     const plot = createPlot(300, 300);
   });
 
-  it.only('canvas size 200x200', () => {
+  it('canvas size 200x200', () => {
     const plot = createPlot(150, 150);
   });
 
@@ -42,7 +42,7 @@ describe('responsive line plot', () => {
         visible: true,
       },
       forceFit: false,
-      responsive: false
+      responsive: true
     });
     linePlot.render();
     return linePlot;

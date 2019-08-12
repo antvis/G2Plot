@@ -7,6 +7,7 @@ import * as _ from '@antv/util';
 import { extractScale } from '../../util/scale';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import { __assign } from 'tslib';
+import { getGeom } from '../../geoms/factory';
 
 interface LineStyle {
   opacity?: number;
@@ -47,7 +48,7 @@ export interface RadarConfig extends BaseConfig {
     style?: PointStyle;
   };
   /** area图形样式 */
-  polygon?: {
+  area?: {
     visible: boolean;
     style?: FillStyle;
   };
@@ -69,6 +70,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
   protected _setDefaultG2Config() { }
 
   protected _scale() {
+    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
@@ -163,41 +165,31 @@ export default class Rardar extends BasePlot<RadarConfig>{
     const props = this._initialProps;
     /** 配置面积 */
     let areaConfig = { visible: true };
-    if (props.polygon) areaConfig = _.deepMix(areaConfig, props.polygon);
+    if (props.area) areaConfig = _.deepMix(areaConfig, props.area);
     if (areaConfig.visible) {
-      const area = this._element('area', areaConfig);
-      if (props.smooth) area.shape = { values: [ 'smooth' ] };
+      const area = getGeom('area','main',{
+        plot: this
+      });
       this._setConfig('element', area);
     }
     /** 配置线 */
     let lineConfig = { visible: true };
-    if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
-    if (lineConfig.visible) {
-      const line = this._element('line', lineConfig);
-      if (props.smooth) line.shape = { values: [ 'smooth' ] };
+    props.line = _.deepMix(lineConfig, props.line);
+    if (props.line.visible) {
+      const line = getGeom('line','guide',{
+        plot: this
+      });
       this._setConfig('element', line);
     }
     /** 配置点 */
     let pointConfig = { visible: false };
     if (props.point) pointConfig = _.assign(pointConfig, props.point);
     if (pointConfig.visible) {
-      const point = this._element('point', pointConfig);
+      const point = getGeom('point','guide',{
+        plot: this
+      })
       this._setConfig('element', point);
     }
-  }
-
-  protected _element(type, cfg) {
-    /** 雷达图需配置area、line、point三种element，做一下抽象 */
-    const props = this._initialProps;
-    const element: ElementOption = {
-      type,
-      position: {
-        fields: [ props.xField, props.yField ],
-      },
-    };
-    if (props.seriesField || props.color) element.color = this._color();
-    element.style = this._style(cfg.style);
-    return element;
   }
 
   protected _label() { }
@@ -210,39 +202,6 @@ export default class Rardar extends BasePlot<RadarConfig>{
 
   protected _events(eventParser) {
     // super._events(EventParser);
-  }
-
-  private _color() {
-    const props = this._initialProps;
-    const config: IColorConfig = {};
-    if (_.has(props, 'seriesField')) {
-      config.fields = [ props.seriesField ];
-    }
-    if (_.has(props, 'color')) {
-      const color = props.color;
-      if (_.isString(color)) {
-        config.values = [ color ];
-      } else {
-        config.values = color as [];
-      }
-    }
-    return config;
-  }
-
-  private _style(cfg) {
-    const props = this._initialProps;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    if (_.isFunction(cfg) && props.seriesField) {
-      config.fields = [ props.seriesField ];
-      config.callback = cfg;
-      return config;
-    }
-    config.cfg = cfg;
-    return config;
   }
 
   private _axisStyleParser(styleProps, axisConfig) {

@@ -139,6 +139,7 @@ export default class SpiderLabel {
           name:'label',
         });
       }
+
       label.textGroup = textGroup;
 
             /** 将label分组 */

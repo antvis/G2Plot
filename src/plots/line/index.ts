@@ -1,24 +1,25 @@
 import BasePlot from '../../base/plot';
 import BaseConfig, {
-  ElementOption,
   IValueAxis,
   ITimeAxis,
   ICatAxis,
-  Label,
-  IColorConfig,
+  Label
 } from '../../interface/config';
 import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import { extractScale } from '../../util/scale';
-import { extractAxis } from '../../util/axis';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 import './guide/label/point-label';
 import './guide/label/line-label';
 import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './animation/clipInWithData';
-import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
+import './applyResponsive/theme';
+
+
 
 interface LineStyle {
   opacity?: number;
@@ -54,15 +55,6 @@ export interface LineConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-function getValuesByField(field, data) {
-  const values = [];
-  _.each(data, (d) => {
-    const v = d[field];
-    values.push(v);
-  });
-  return _.uniq(values);
-}
-
 export default class Line extends BasePlot<LineConfig>{
   line: any; // 保存line和point的配置项，用于后续的label、tooltip和
   point: any;
@@ -74,6 +66,7 @@ export default class Line extends BasePlot<LineConfig>{
   protected _setDefaultG2Config() { }
 
   protected _scale() {
+    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
@@ -88,72 +81,27 @@ export default class Line extends BasePlot<LineConfig>{
 
   protected _coord() { }
 
-  protected _axis() {
-    const props = this._initialProps;
-    const axesConfig = { fields:{} };
-    const plotTheme = this.plotTheme;
-    axesConfig.fields[props.xField] = {};
-    axesConfig.fields[props.yField] = {};
-
-    if ((props.xAxis && (props.xAxis.visible === false)
-        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
-    ) {
-      axesConfig.fields[props.xField] = false;
-    } else if (props.xAxis) {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis);
-    }
-
-    if ((props.yAxis && (props.yAxis.visible === false)
-        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
-    ) {
-      axesConfig.fields[props.yField] = false;
-    } else if (props.yAxis) {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis);
-    }
-    /** 存储坐标轴配置项到config */
-    this._setConfig('axes', axesConfig);
-  }
-
   protected _addElements() {
-    const props = this._initialProps;
-    // 配置线
-    const line = {
-      type: 'line',
-      position: {
-        fields: [ props.xField, props.yField ],
-      },
-      connectNulls: !!props.connectNulls,
-    } as ElementOption;
-    if (props.seriesField || props.color) line.color = this._lineColor();
-    if (props.size) line.size = { values: [ props.size ] };
-    if (props.smooth) line.shape = { values: [ 'smooth' ] };
-    if (props.lineStyle) line.style = this._lineStyle();
-    this.line = line;
+   const props = this._initialProps;
+   this.line = getGeom('line','main',{
+     plot: this
+   });
     if (props.label) {
       this._label();
     }
-    this._setConfig('element', line);
+    this._setConfig('element', this.line);
     // 配置数据点
     this._addPoint();
   }
 
   protected _addPoint() {
     const props = this._initialProps;
-    let pointConfig = { visible: false, style: {} };
-    if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
-    if (pointConfig.visible) {
-      const point = {
-        type: 'point',
-        position: {
-          fields: [ props.xField, props.yField ],
-        },
-        color: this._pointColor(),
-        shape: { values: [ 'point' ] },
-        size: { values: [ 3 ] },
-      };
-      const pointStyle = pointConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
-      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;
+    const defaultConfig = { visible: false };
+    if (props.point) props.point = _.deepMix(defaultConfig, props.point);
+    if (props.point && props.point.visible) {
+      const point = getGeom('point','guide',{ 
+        plot: this
+      });
       this._setConfig('element', point);
       this.point = point;
     }
@@ -162,50 +110,17 @@ export default class Line extends BasePlot<LineConfig>{
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;
-    const labelType = label.type ? label.type :'point';
+   
     if (label && label.visible === false) {
       this.line.label = false;
       return;
-    }
-    this.line.label = {
+    } 
+    const labelType = label.type ? label.type :'point';
+    this.line.label = getComponent('label',{
       fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
       labelType,
-      ...label,
-    };
-
-    /*if (label.formatter) {
-      const formater = label.formatter;
-      this.line.label.callback = (val) => {
-        return {
-          content: formater(val),
-          offsetX: label.offsetX ? label.offsetX : 0,
-          offsetY: label.offsetY ? label.offsetY : 0,
-        };
-      };
-    }
-    if (label.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, label.style);
-    }*/
-    const callbackOptions: DataPointType = { ...label };
-    if (label.formatter) {
-      callbackOptions.content = label.formatter;
-    }
-    /**统一处理callback */
-    if (!_.isEmpty(callbackOptions)) {
-      this.line.label.callback = (val1, val2) => {
-        const returnCfg = _.clone(callbackOptions);
-        if (_.has(callbackOptions, 'content')) {
-          returnCfg.content = callbackOptions.content(val1, val2);
-        }
-        return returnCfg;
-      };
-    }
-    /** label样式 */
-    if (label.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, label.style);
-    }
+      plot: this
+    });
 
   }
 
@@ -287,72 +202,6 @@ export default class Line extends BasePlot<LineConfig>{
       const range = new Range({ view: this.plot, container, padding });
       interactions.range = range;
     });
-  }
-
-  private _lineColor() {
-    const props = this._initialProps;
-    const config: IColorConfig = {};
-    if (_.has(props, 'seriesField')) {
-      config.fields = [ props.seriesField ];
-    }
-    if (_.has(props, 'color')) {
-      const color = props.color;
-      if (_.isString(color)) {
-        config.values = [ color ];
-      } else {
-        config.values = color as [];
-      }
-    }
-    return config;
-  }
-
-  private _lineStyle() {
-    const props = this._initialProps;
-    const lineStyleProps = props.lineStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    if (_.isFunction(lineStyleProps) && props.seriesField) {
-      config.fields = [ props.seriesField ];
-      config.callback = lineStyleProps;
-      return config;
-    }
-    config.cfg = lineStyleProps;
-    return config;
-  }
-
-  private _pointColor() {
-    const props = this._initialProps;
-    const pointStyleProps = props.point.style;
-    const config = {
-      fields: [],
-      values: [] as any,
-    };
-    /**多折线的数据点*/
-    if (props.seriesField) {
-      config.fields = [ props.seriesField ];
-      if (pointStyleProps && pointStyleProps.color) {
-        const count = getValuesByField(props.seriesField, props.data).length;
-        const values = [];
-        for (let i = 0; i < count; i++) {
-          values.push(pointStyleProps.color);
-        }
-        config.values = values;
-        return config;
-      }
-      /**多折线，用户没有指定数据点颜色，则采用与折线相同的颜色 */
-      config.values = props.color;
-      return config;
-    }
-    /**单折线的数据点 */
-    if (pointStyleProps && pointStyleProps.color) {
-      config.values = [ pointStyleProps.color ];
-    } else if (props.color) {
-      config.values = [ props.color ];
-    }
-    return config;
   }
 
   private _applyResponsive(stage) {

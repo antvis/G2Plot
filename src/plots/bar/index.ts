@@ -5,6 +5,8 @@ import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
 import './guide/label/bar-label';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 
 interface BarStyle {
   opacity?: number;
@@ -66,7 +68,8 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     };
     this._setConfig('coord', coordConfig);
   }
-
+  
+  //TODO： 条形图的坐标轴样式需要在theme里注册一下
   protected _axis() {
     const props = this._initialProps;
     const axesConfig = { fields:{} };
@@ -99,37 +102,12 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    const bar: ElementOption = {
-      type: 'interval',
-      position: {
-        fields: [ props.yField, props.xField ],
-      },
-    };
-    if (props.barStyle) bar.style = this._columnStyle();
-    if (props.barSize) {
-      bar.size = {
-        values: [ props.barSize ],
-      };
-    }
+    const bar = getGeom('interval','main',{
+      positionFields: [ props.yField, props.xField ],
+      plot: this
+    });
     if (props.label) {
       bar.label = this._extractLabel();
-    }
-    if (props.color) {
-      if (_.isString(props.color)) {
-        bar.color = {
-          values: [ props.color ],
-        };
-      } else if (_.isFunction(props.color)) {
-        bar.color = {
-          fields: [ props.xField, props.yField ],
-          callback: props.color,
-        };
-      } else if (_.isArray(props.color)) {
-        bar.color = {
-          fields: [ props.yField ],
-          values: props.color,
-        };
-      }
     }
     this._adjustBar(bar);
     this.bar = bar;
@@ -149,51 +127,19 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     }
   }
 
-  private _columnStyle() {
-    const props = this._initialProps;
-    const barStyleProps = props.barStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    config.cfg = barStyleProps;
-    return config;
-  }
-
   protected _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
 
     if (label && label.visible === false) return false;
-
-    const labelConfig = {
+    const labelConfig = getComponent('label',{
+      plot:this,
       labelType: 'barLabel',
       fields: [ props.xField ],
-      callback: null,
       ...label,
-    };
-    const callbackOptions: ILabelCallbackOptions = { ...label };
-    if (label.formatter) {
-      callbackOptions.content = labelConfig.formatter;
-    }
-    /**统一处理callback */
-    if (!_.isEmpty(callbackOptions)) {
-      labelConfig.callback = (val1, val2) => {
-        const returnCfg = _.clone(callbackOptions);
-        if (_.has(callbackOptions, 'content')) {
-          returnCfg.content = callbackOptions.content(val1, val2);
-        }
-        return returnCfg;
-      };
-    }
-    /** label样式 */
-    if (label.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, label.style);
-    }
+    });
 
-    return labelConfig as any;
+    return labelConfig;
   }
 
 }

@@ -4,20 +4,13 @@ import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } fro
 import { extractScale } from '../../util/scale';
 import { extractAxis } from '../../util/axis';
 import * as StyleParser from '../../util/styleParser';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 // import './guide/label/bar-label';
 
 interface AreaStyle {
   opacity?: number;
   lineDash?: number[];
-}
-
-interface ILabelCallbackOptions {
-  content?: Function;
-  offset?: number;
-  offsetX?: number;
-  offsetY?: number;
-  textStyle?: {};
-  position?: string;
 }
 
 interface LineStyle {
@@ -64,6 +57,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _setDefaultG2Config() {}
 
   protected _scale() {
+    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
@@ -107,38 +101,20 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _addElements() {
     const props = this._initialProps;
-    const area: ElementOption = {
-      type: 'area',
-      position: {
-        fields: [ props.xField, props.yField ],
-      },
-    };
+    const area = getGeom('area','main',{
+      plot: this
+    });
     this.area = area;
-    if (props.area) area.style = this._areaStyle();
+
     if (props.label) {
       this._label();
-    }
-    if (props.color) {
-      if (_.isString(props.color)) {
-        area.color = {
-          values: [ props.color ],
-        };
-      } else if (_.isFunction(props.color)) {
-        area.color = {
-          fields: [ props.xField, props.yField ],
-          callback: props.color,
-        };
-      } else if (_.isArray(props.color)) {
-        area.color = {
-          fields: [ props.xField ],
-          values: props.color,
-        };
-      }
     }
     this._adjustArea(area);
     this._setConfig('element', area);
 
     this._addLine();
+    
+
     this._addPoint();
   }
 
@@ -159,17 +135,10 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let lineConfig = { visible: false, style: {} };
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
-      const line = {
-        type: 'line',
-        position: {
-          fields: [ props.xField, props.yField ],
-        },
-        color: this._lineColor(),
-        size: { values: [ 2 ] },
-        // cfg: lineConfig.style
-      };
-      const pointStyle = lineConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'size')) line.size.values[0] = pointStyle.size;
+      const line = getGeom('line','guide',{
+        type:'line',
+        plot: this
+      });
       this._adjustLine(line);
       this._setConfig('element', line);
       this.line = line;
@@ -181,19 +150,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     let pointConfig = { visible: false, style: {} };
     if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
     if (pointConfig.visible) {
-      const point = {
-        type: 'point',
-        position: {
-          fields: [ props.xField, props.yField ],
-        },
-        color: this._pointColor(),
-        shape: { values: [ 'point' ] },
-        size: { values: [ 3 ] },
-        // cfg: {}
-      };
-      const pointStyle = pointConfig.style as PointStyle;
-      if (_.hasKey(pointStyle, 'shape')) point.shape.values[0] = pointStyle.shape;
-      if (_.hasKey(pointStyle, 'size')) point.size.values[0] = pointStyle.size;
+      const point = getGeom('point','guide',{
+        plot:this
+      });
       this._adjustPoint(point);
       this._setConfig('element', point);
       this.point = point;
@@ -206,18 +165,6 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _annotation() {}
 
   protected _animation() {
-  }
-
-  private _areaStyle() {
-    const props = this._initialProps;
-    const areaStyleProps = props.areaStyle;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    config.cfg = areaStyleProps;
-    return config;
   }
 
   protected _label() {
@@ -250,35 +197,4 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     }
   }
 
-  private _lineColor() {
-    const props = this._initialProps;
-    const lineStyleProps = props.line.style;
-    const config = {
-      fields: [],
-      values: [] as any,
-    };
-    /**单折线的数据点 */
-    if (lineStyleProps && lineStyleProps.color) {
-      config.values = [ lineStyleProps.color ];
-    } else if (props.color) {
-      config.values = [ props.color ];
-    }
-    return config;
-  }
-
-  private _pointColor() {
-    const props = this._initialProps;
-    const pointStyleProps = _.get(props, [ 'point', 'style' ]);
-    const config = {
-      fields: [],
-      values: [] as any,
-    };
-    /**单折线的数据点 */
-    if (pointStyleProps && pointStyleProps.color) {
-      config.values = [ pointStyleProps.color ];
-    } else if (props.color) {
-      config.values = [ props.color ];
-    }
-    return config;
-  }
 }

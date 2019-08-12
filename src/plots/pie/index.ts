@@ -2,10 +2,11 @@ import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import * as StyleParser from '../../util/styleParser';
 import * as EventParser from './event';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import SpiderLabel from './guide/label/spiderLabel';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 
 export interface PieConfig extends BaseConfig {
   angleField: string;
@@ -14,18 +15,13 @@ export interface PieConfig extends BaseConfig {
   pieStyle?: {};
 }
 
-interface ILabelCallbackOptions {
-  content?: Function;
-  offset?: number;
-  textStyle?: {};
-}
-
 export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T>{
   pie: any;
   spiderLabel: any;
   protected _setDefaultG2Config() { }
 
   protected _scale() {
+    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
@@ -51,17 +47,14 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
 
   protected _addElements() {
     const props = this._initialProps;
-    const pie: ElementOption = {
-      type: 'interval',
-      position: {
-        fields: [ props.angleField ],
-      },
-      adjust: [ {
-        type: 'stack',
-      } ],
-    };
-    if (props.colorField || props.color) pie.color = this._pieColor();
-    pie.style = this._pieStyle();
+    this._adjustPieStyle();
+    const pie = getGeom('interval','main',{
+      plot: this,
+      positionFields: [ props.angleField ],
+    });
+    pie.adjust = [
+      { type: 'stack' } 
+    ];
     this.pie = pie;
     if (props.label) {
       this._label();
@@ -103,89 +96,37 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     }
   }
 
-  private _pieColor() {
+  private _adjustPieStyle(){
     const props = this._initialProps;
-    const config: IColorConfig = {};
-    if (_.has(props, 'colorField')) {
-      config.fields = [ props.colorField ];
+    if(!props.colorField ){
+      const defaultStyle = { stroke: 'white', lineWidth: 1 };
+      if(!props.pieStyle) props.pieStyle = {};
+      props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
     }
-    if (_.has(props, 'color')) {
-      const color = props.color;
-      if (_.isString(color)) {
-        config.values = [ color as string ];
-      } else {
-        config.values = color as [];
-      }
-    }
-    return config;
-  }
-
-  private _pieStyle() {
-    const props = this._initialProps;
-    const defaultStyle = props.colorField ? {} : { stroke: 'white', lineWidth: 1 };
-    if (props.pieStyle) {
-      const pieStyleProps = _.deepMix(props.pieStyle, defaultStyle);
-      const config = {
-        fields: null,
-        callback: null,
-        cfg: null,
-      };
-      if (_.isFunction(pieStyleProps) && props.colorField) {
-        config.fields = [ props.colorField ];
-        config.callback = pieStyleProps;
-        return config;
-      }
-      config.cfg = pieStyleProps;
-      return config;
-    }
-    return defaultStyle;
-
   }
 
   private _label() {
     const props = this._initialProps;
     const labelConfig = props.label as Label;
-    if (labelConfig  && labelConfig .visible === false) {
+    if (!this._showLabel()) {
       this.pie.label = false;
       return;
     }
-    this.pie.label = {
+    if(labelConfig.type === 'inner'){
+      const offsetBase = -2;
+      labelConfig.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
+    }
+
+    this.pie.label = getComponent('label',{
+      plot:this,
       fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
-    };
-    const callbackOptions: ILabelCallbackOptions = {};
-    /**outter label */
-    // TODO: labelLine 加入 theme
-    /**inner label */
-    if (labelConfig.type === 'inner') {
-      const offsetBase = -20;
-      callbackOptions.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
-    }
-    if (labelConfig.type === 'spider') {
-      /**如label type为spider，则关闭default label*/
-      this.pie.label = null;
-    }
-    /**formatter */
-    if (labelConfig.formatter) {
-      callbackOptions.content = labelConfig.formatter;
-    }
-    /** label样式 */
-    if (labelConfig.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, labelConfig.style);
-      /** inner label需要在callback里设置样式，否则会失效 */
-      if (labelConfig.type === 'inner') {
-        callbackOptions.textStyle = labelConfig.style;
-      }
-    }
-    /**统一处理callback */
-    if (this.pie.label && !_.isEmpty(callbackOptions)) {
-      this.pie.label.callback = (val1, val2) => {
-        const returnCfg = _.clone(callbackOptions);
-        if (_.has(callbackOptions, 'content')) {
-          returnCfg.content = callbackOptions.content(val1, val2);
-        }
-        return returnCfg;
-      };
-    }
+      ...labelConfig
+    });
+
+  }
+
+  private _showLabel(){
+    const props = this._initialProps;
+    return props.label  && props.label.visible === true && props.label.type !== 'spider';
   }
 }

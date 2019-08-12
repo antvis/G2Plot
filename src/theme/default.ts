@@ -33,7 +33,7 @@ const commonTheme = {
       position: 'left',
       autoHideLabel: false,
       autoRotateLabel: false,
-      autoRotateTitle: true,
+      autoRotateTitle: false,
       grid: {
         visible: true,
         style: {
@@ -79,8 +79,8 @@ const commonTheme = {
       visible: true,
       position: 'bottom',
       autoHideLabel: false,
-      autoRotateLabel: true,
-      autoRotateTitle: true,
+      autoRotateLabel: false,
+      autoRotateTitle: false,
       grid: {
         visible: false,
         style: {

@@ -58,6 +58,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
   }
 
   protected _scale() {
+    super._scale();
     const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
     const scales = {};
     scales['value'] = {

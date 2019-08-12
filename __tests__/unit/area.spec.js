@@ -41,6 +41,8 @@ describe('Column plot', () => {
 
   it('初始化以及销毁', () => {
     const areaPlot = new Area(canvasDiv, {
+      width: 300,
+      height: 300,
       padding: 'auto',
       data,
       xField: 'year',
@@ -51,25 +53,31 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
+      area: {
+        style: {
+          /* stroke: 'black',
+          lineWidth: 2*/
+        }
+      },
       point: {
         visible: true,
-        style: {
+        /* style: {
           color: 'green',
           size: 8
-        }
+        }*/
       },
       line: {
         visible: true,
-        style: {
-          color: 'blue',
-          size: 4
-        }
+        /* style: {
+          size: 6,
+          color: 'blue'
+        }*/
       },
       label: {
         visible: true,
         // type: 'point'
       },
-      color: 'red',
+      color: 'green',
     });
     areaPlot.render();
     // const positionField = areaPlot.plot.get('elements')[0].get('position').fields;

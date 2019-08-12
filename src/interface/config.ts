@@ -41,7 +41,7 @@ export default interface Config {
   xAxis?: Axis;
   yAxis?: Axis;
   /** 数据标签 */
-  label?: Label | false;
+  label?: Label;
   /** Tooltip */
   tooltip?: Tooltip;
   /** 图例 */
@@ -159,6 +159,7 @@ export interface Label {
   offsetX?: number;
   offsetY?: number;
   events?: IEvents;
+  position?: string
   /** 展示优化策略 */
 }
 
@@ -223,6 +224,7 @@ export interface G2Config {
 export interface IColorConfig {
   fields?: string[];
   values?: string[];
+  callback?: Function;
 }
 
 const SECOND = 1000;

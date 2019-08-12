@@ -41,6 +41,8 @@ describe('Column plot', () => {
 
   it('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -63,12 +65,14 @@ describe('Column plot', () => {
     expect(positionField[1]).to.be.equal('year');
     expect(isTransposed).to.be.equal(false);
     expect(axes.length).to.be.equal(2);
-    columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    /* columnPlot.destroy();
+    expect(columnPlot.plot.destroyed).to.be.true;*/
   });
 
   it('柱子样式配置', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -98,6 +102,8 @@ describe('Column plot', () => {
 
   it('柱子颜色不一样', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'year',
@@ -124,6 +130,8 @@ describe('Column plot', () => {
 
   it('隐藏两个坐标轴', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -144,6 +152,8 @@ describe('Column plot', () => {
 
   it('x轴 样式', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 80,
       data,
       xField: 'value',
@@ -188,6 +198,7 @@ describe('Column plot', () => {
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     expect(axis.get('title').text).to.be.include('xxxx');
+
     expect(axis.get('title').textStyle.fill).to.be.equal('red');
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.include('abc');
@@ -203,15 +214,15 @@ describe('Column plot', () => {
 
   it('x轴 隐藏 grid line tick label', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
       yField: 'year',
       xAxis: {
-        min: 5,
         nice: false,
         visible: true,
-        tickCount: 5,
         line: {
           visible: false,
           stroke: 'red',
@@ -241,6 +252,8 @@ describe('Column plot', () => {
 
   it('y轴 样式', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',
@@ -262,7 +275,7 @@ describe('Column plot', () => {
         },
         title: {
           visible: true,
-          // text: 'xxxx',
+          text: 'xxxx',
           style: {
             fontSize: 30,
             fill: 'red'
@@ -287,7 +300,7 @@ describe('Column plot', () => {
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
-    expect(axis.get('title').text).to.be.include('year');
+    expect(axis.get('title').text).to.be.include('xxxx');
     expect(axis.get('title').textStyle.fill).to.be.equal('red');
     expect(labels[0].text).to.be.include('abc');
     // style
@@ -302,6 +315,8 @@ describe('Column plot', () => {
 
   it('y轴 隐藏 grid line tick label', () => {
     const columnPlot = new Column(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'value',

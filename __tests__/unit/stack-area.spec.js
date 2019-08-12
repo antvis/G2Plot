@@ -1,7 +1,7 @@
 import { StackArea } from '../../src';
 // import { expect } from 'chai';
 
-describe('Column plot', () => {
+describe('stack-area plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -86,6 +86,8 @@ describe('Column plot', () => {
 
   it('初始化以及销毁', () => {
     const areaPlot = new StackArea(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
       xField: 'year',
@@ -100,7 +102,7 @@ describe('Column plot', () => {
       point: {
         visible: true,
         style: {
-          // color: 'green',
+          color: 'green',
           size: 8,
           lineWith: 3
         }
@@ -108,7 +110,7 @@ describe('Column plot', () => {
       line: {
         visible: true,
         style: {
-          // color: 'blue',
+          color: 'blue',
           size: 4
         }
       },
@@ -116,7 +118,7 @@ describe('Column plot', () => {
         visible: true,
         // type: 'point'
       },
-      color: [ 'red', 'blue' ],
+      // color: [ 'red', 'blue' ],
     });
     areaPlot.render();
     // const positionField = areaPlot.plot.get('elements')[0].get('position').fields;

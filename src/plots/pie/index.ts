@@ -21,12 +21,12 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   protected _setDefaultG2Config() { }
 
   protected _scale() {
-    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
     scales[props.angleField] = {};
     _.has(props, 'xAxis') && extractScale(scales[props.angleField], props.xAxis);
+    super._scale();
   }
 
   protected _axis() { }

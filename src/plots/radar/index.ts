@@ -70,7 +70,6 @@ export default class Rardar extends BasePlot<RadarConfig>{
   protected _setDefaultG2Config() { }
 
   protected _scale() {
-    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
@@ -80,6 +79,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
     scales[props.yField] = {};
     _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
     this._setConfig('scales', scales);
+    super._scale();
   }
 
   protected _coord() {

@@ -1,8 +1,6 @@
 import * as _ from '@antv/util';
-
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption } from '../../interface/config';
-import { extractScale } from '../../util/scale';
 
 import './element/shape/liquid';
 

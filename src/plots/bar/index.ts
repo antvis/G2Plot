@@ -47,6 +47,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   protected _setDefaultG2Config() {}
 
   protected _scale() {
+    super._scale();
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */

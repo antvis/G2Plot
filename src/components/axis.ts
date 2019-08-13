@@ -3,7 +3,7 @@ import { DataPointType } from '@antv/g2/lib/interface';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
-    target[field] = source.field;
+    target[field] = source[field];
   }
 }
 
@@ -76,6 +76,10 @@ export default class AxisParser {
         /** label style */
     if (this.localProps.label.style) {
       labelConfig.textStyle = this.localProps.label.style;
+    }
+
+    if (this.localProps.label.rotate) {
+      labelConfig.rotate = this.localProps.label.rotate;
     }
         /** label formatter */
     if (this.localProps.label.formatter) {

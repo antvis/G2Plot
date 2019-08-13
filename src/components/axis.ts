@@ -34,6 +34,7 @@ export default class AxisParser {
     if (this.localProps.title) this._titleParser();
     propertyMapping(this.localProps, this.config, 'autoHideLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateLabel');
+    propertyMapping(this.localProps, this.config, 'autoRotateTitle');
   }
 
   private _needDraw() {
@@ -97,9 +98,9 @@ export default class AxisParser {
     const titleConfig: DataPointType = {};
 
     if (!this.localProps.title.visible) {
-      titleConfig.showTitle = false;
+      this.config.showTitle = false;
     }else {
-      titleConfig.showTitle = true;
+      this.config.showTitle = true;
     }
 
     if (this.localProps.title.style) {

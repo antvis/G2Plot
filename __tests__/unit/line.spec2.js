@@ -729,7 +729,7 @@ describe('Line plot', () => {
       },
       description: {
         text: '当秒级数据需要频繁刷新时（5 s 刷新一次），更新时的动画是重新渲染整个图表，闪烁明显且太频繁，期望是刷新数据时，像心电图的效果，图线向左移动，旧数据消失。',
-      },*/
+      },
       meta: {
         year: {
           field: 'year',
@@ -749,7 +749,7 @@ describe('Line plot', () => {
           field: 'value',
           alias: 'y'
         }
-      },
+      },*/
       forceFit: false,
       padding: 'auto',
       data: data3,
@@ -780,15 +780,16 @@ describe('Line plot', () => {
           style: {
             fill: 'red'
           },
-
         },
         autoRotateLabel: true
       },
       yAxis: {
         type: 'value',
+        title: {
+          visible: true
+        },
         label: {
           visible: true,
-          rotate: 90
         }
       },
       label: {

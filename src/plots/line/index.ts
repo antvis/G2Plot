@@ -19,7 +19,7 @@ import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
 
-interface LineStyle {
+export interface LineStyle {
   opacity?: number;
   lineDash?: number[];
 }

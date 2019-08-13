@@ -3,7 +3,6 @@ import * as G2 from '@antv/g2';
 import { distBetweenPointLine } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import LineParser from './main';
-import { Line } from '@antv/g';
 
 const THRESHOLD = 4;
 
@@ -85,5 +84,19 @@ function parseSplineShape(points) {
 }
 
 export default class MiniLineParser extends LineParser {
+
+  public init(){
+    super.init();
+    this.parseShape();
+  }
+
+  private parseShape(){
+    const props = this.plot._initialProps;
+    if (props.smooth) {
+      this.config.shape = { values: [ 'miniLineSmooth' ] };
+    }else{
+      this.config.shape = { values: ['miniLine'] };
+    }
+  }
   
 }

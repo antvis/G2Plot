@@ -231,7 +231,7 @@ export function getLinePath(points: PointObject[], isInCircle: boolean): any[] {
 }
 
 // get spline： 限定了范围的平滑线
-export function getSplinePath(points: PointObject[], isInCircle: boolean, constaint: PointArray[]): any[] {
+export function getSplinePath(points: PointObject[], isInCircle: boolean, constaint:any): any[] {
   const data = [];
   const first = points[0];
   let prePoint = null;

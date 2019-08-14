@@ -27,10 +27,10 @@ export default class AxisParser {
 
   private _styleParser() {
     this.config = {};
-    this._isVisible('line') ? this._lineParser() : this.config.line = null;
-    this._isVisible('grid') ? this._gridParser() : this.config.grid = null;
-    this._isVisible('tickLine') ? this._tickLineParser() : this.config.tickLine = null;
-    this._isVisible('label') ? this._labelParser() : this.config.label = null;
+    this._isVisible('line') ? this._lineParser() : (this.config.line = null);
+    this._isVisible('grid') ? this._gridParser() : (this.config.grid = null);
+    this._isVisible('tickLine') ? this._tickLineParser() : (this.config.tickLine = null);
+    this._isVisible('label') ? this._labelParser() : (this.config.label = null);
     if (this.localProps.title) this._titleParser();
     propertyMapping(this.localProps, this.config, 'autoHideLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateLabel');
@@ -38,7 +38,7 @@ export default class AxisParser {
   }
 
   private _needDraw() {
-        /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
+    /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
     const propos = this.plot._initialProps;
     const theme = this.plot.plotTheme;
     const propsConfig = propos[`${this.dim}Axis`] ? propos[`${this.dim}Axis`] : {};
@@ -73,23 +73,20 @@ export default class AxisParser {
   }
 
   private _labelParser() {
-    const labelConfig:DataPointType = {};
-        /** label style */
-    if (this.localProps.label.style) {
+    const { formatter, style, ...restLabelProps } = this.localProps.label;
+    const labelConfig: DataPointType = { ...restLabelProps };
+    /** label style */
+    if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }
-
-    if (this.localProps.label.rotate) {
-      labelConfig.rotate = this.localProps.label.rotate;
-    }
-        /** label formatter */
-    if (this.localProps.label.formatter) {
+    /** label formatter */
+    if (formatter) {
       const textFormatter = this.localProps.label.formatter;
       this.config.label = (text) => {
         labelConfig.text = textFormatter(text);
         return labelConfig;
       };
-    }else {
+    } else {
       this.config.label = labelConfig;
     }
   }
@@ -99,7 +96,7 @@ export default class AxisParser {
 
     if (!this.localProps.title.visible) {
       this.config.showTitle = false;
-    }else {
+    } else {
       this.config.showTitle = true;
     }
 
@@ -120,5 +117,4 @@ export default class AxisParser {
     }
     return false;
   }
-
 }

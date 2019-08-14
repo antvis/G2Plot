@@ -9,6 +9,7 @@ export default function nodesResamplingByState(shape: Shape, cfg, index, respons
   const { stateNodes } = responsive.cfg;
   let isState = false;
   _.each(stateNodes, (node) => {
+      // @ts-ignore
     if (node.shape.get('origin') === current.shape.get('origin')) {
       isState = true;
     }

@@ -1,7 +1,6 @@
-import TinyLine from '../../../src/tinyChart/tiny-line/index';
-import { income } from '../../data/income';
+import TinyColumn from '../../../src/tinyChart/tiny-column/index';
 
-describe('tinyLine plot', () => {
+describe('tiny column', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '200px';
   canvasDiv.style.height = '100px';
@@ -12,40 +11,45 @@ describe('tinyLine plot', () => {
 
   const data = [ {
     year: '1991',
-    value: 3
+    value: 31
   }, {
     year: '1992',
-    value: 4
+    value: 41
   }, {
     year: '1993',
-    value: 3.5
+    value: 35
   }, {
     year: '1994',
-    value: 5
+    value: 55
   }, {
     year: '1995',
-    value: 4.9
+    value: 49
   }, {
     year: '1996',
-    value: 6
+    value: 15
   }, {
     year: '1997',
-    value: 7
+    value: 17
   }, {
     year: '1998',
-    value: 9
+    value: 29
   }, {
     year: '1999',
-    value: 13
+    value: 33
   } ];
 
-  it('图形渲染', () => {
-    const tinyLine = new TinyLine(canvasDiv, {
+  it.only('图形渲染', () => {
+    const tinyLine = new TinyColumn(canvasDiv, {
       width: 200,
       height: 100,
-      data: income,
-      xField: 'time',
-      yField: 'rate'
+      data,
+      xField: 'year',
+      yField: 'value',
+      guideLine: [
+        {
+          type: 'median'
+        }
+      ]
     });
     tinyLine.render();
   });

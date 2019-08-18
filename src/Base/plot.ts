@@ -16,7 +16,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected _originalProps: T;
   protected _config: G2Config;
   private _container: HTMLElement;
-  private canvasController: CanvasController;
+  public canvasController: CanvasController;
   private themeController: ThemeController;
   private paddingController: PaddingController;
   protected title: TextDescription;

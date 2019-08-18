@@ -1,4 +1,5 @@
-import TinyArea from '../../../src/plots/tiny-area';
+import TinyArea from '../../../src/tinyChart/tiny-area';
+import { fireWorks } from '../../data/fireworks-sales';
 
 describe('tinyLine plot', () => {
   const canvasDiv = document.createElement('div');
@@ -42,10 +43,20 @@ describe('tinyLine plot', () => {
     const tinyArea = new TinyArea(canvasDiv, {
       width: 200,
       height: 100,
-      data,
-      xField: 'year',
-      yField: 'value',
-      smooth: true
+      data: fireWorks,
+      xField: 'Data',
+      yField: 'scales',
+      smooth: true,
+      guideLine: [ {
+        type: 'mean',
+        text: {
+          position: 'end',
+          content: '均值线',
+          style: {
+            textAlign: 'end'
+          }
+        }
+      } ]
     });
     tinyArea.render();
   });

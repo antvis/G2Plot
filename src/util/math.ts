@@ -198,27 +198,11 @@ function bboxOnRotate(shape) {
 
 }
 
-/**统计的以后迁出去，暂时先放这里 */
-function getMedian(array) {
-  const list = _.clone(array);
-  list.sort((a, b) => {
-    return a - b;
-  });
-
-  const half = Math.floor(list.length / 2);
-
-  if (list.length % 2) {
-    return list[half];
-  }
-
-  return (list[half - 1] + list[half]) / 2.0;
-}
-
 /**
  * 线简化算法
  */
 
-const THRESHOLD = 2; 
+const THRESHOLD = 0; 
 
 function lineSimplification(points) {
   if (points.length < 5) {
@@ -253,6 +237,30 @@ function DouglasPeucker(points, threshold) {
   return result;
 }
 
+/**统计的以后迁出去，暂时先放这里 */
+function getMedian(array) {
+  const list = _.clone(array);
+  list.sort((a, b) => {
+    return a - b;
+  });
+
+  const half = Math.floor(list.length / 2);
+
+  if (list.length % 2) {
+    return list[half];
+  }
+
+  return (list[half - 1] + list[half]) / 2.0;
+}
+
+function getMean(array){
+  let sum: number = 0;
+  _.each(array,(num:number)=>{
+    sum += num;
+  });
+  return sum / array.length;
+}
+
 
 export {
   applyMatrix,
@@ -266,4 +274,5 @@ export {
   dotProduct2D,
   lineSimplification,
   getMedian,
+  getMean
 };

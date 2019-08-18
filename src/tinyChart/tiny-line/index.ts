@@ -1,11 +1,9 @@
 import * as _ from '@antv/util';
-import TinyPlot from '../../Base/tinyPlot';
+import TinyPlot from '../tinyPlot';
 import { getGeom } from '../../geoms/factory';
 
 export default class TinyLine extends TinyPlot {
   line: any;
-
-  protected _setDefaultG2Config() { }
 
   protected _beforeInit() {
     super._beforeInit();
@@ -19,11 +17,4 @@ export default class TinyLine extends TinyPlot {
     this._setConfig('element', this.line);
   }
 
-  protected _annotation() {
-
-  }
-
-  protected _animation() { }
-
-  protected _interactions() {}
 }

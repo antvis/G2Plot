@@ -17,7 +17,7 @@ export default class RingProgress extends Progress {
       type: 'theta' as CoordinateType,
       cfg: {
         radius: 1.0,
-        innerRadius: this._getThickness()
+        innerRadius: this._getThickness(),
       },
     };
     this._setConfig('coord', coordConfig);
@@ -28,36 +28,36 @@ export default class RingProgress extends Progress {
   protected _addElements() {
     const props = this._initialProps;
     this.ring = getGeom('interval', 'main', {
-      positionFields: [props.yField, props.xField],
+      positionFields: [ props.yField, props.xField ],
       plot: this,
     });
-    this.ring.adjust = [{
+    this.ring.adjust = [ {
       type: 'stack',
-    }];
+    } ];
     this._setConfig('element', this.ring);
   }
 
-  protected _animation(){
+  protected _animation() {
     this.ring.animate = {
       appear:{
-        duration: 1000
+        duration: 1000,
       },
       update:{
         easing: 'easeLinear',
         animation: 'groupProgress',
-        duration: 1000
-      }
-    }
-  };
+        duration: 1000,
+      },
+    };
+  }
 
   public processProps() {
     let props = this._initialProps;
     const cfg = {
-      padding: [0, 0, 0, 0],
+      padding: [ 0, 0, 0, 0 ],
       xField: 'value',
       yField: '1',
       stackField: 'type',
-      color: props.color || ['#55A6F3', '#E8EDF3']
+      color: props.color || [ '#55A6F3', '#E8EDF3' ],
     } as any;
     props = _.mix(props, cfg);
   }

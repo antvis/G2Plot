@@ -25,7 +25,7 @@ describe('tinyProgress plot', () => {
     }, 800);
   });
 
-  it.only('环形进度图', () => {
+  it('环形进度图', () => {
     const tinyProgress = new TinyRingProgress(canvasDiv, {
       width: 200,
       height: 100,

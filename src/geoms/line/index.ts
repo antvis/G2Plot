@@ -5,5 +5,5 @@ import MiniLineParser from './mini';
 export default {
   main: LineParser,
   guide: GuideLineParser,
-  mini: MiniLineParser
+  mini: MiniLineParser,
 };

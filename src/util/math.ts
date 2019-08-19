@@ -80,7 +80,7 @@ function distBetweenPointLine(p, p1, p2) {
   if (l2 === 0) return dist2(p, p1);
   let t = ((p.x - p1.x) * (p2.x - p1.x) + (p.y - p1.y) * (p2.y - p1.y)) / l2;
   t = Math.max(0, Math.min(1, t));
-  const distSquare = dist2(p, {x: p1.x + t * (p2.x - p1.x), y:p1.y + t * (p2.y - p1.y) });
+  const distSquare = dist2(p, { x: p1.x + t * (p2.x - p1.x), y:p1.y + t * (p2.y - p1.y) });
   return Math.sqrt(distSquare);
 }
 
@@ -202,7 +202,7 @@ function bboxOnRotate(shape) {
  * 线简化算法
  */
 
-const THRESHOLD = 0; 
+const THRESHOLD = 0;
 
 function lineSimplification(points) {
   if (points.length < 5) {
@@ -253,14 +253,13 @@ function getMedian(array) {
   return (list[half - 1] + list[half]) / 2.0;
 }
 
-function getMean(array){
+function getMean(array) {
   let sum: number = 0;
-  _.each(array,(num:number)=>{
+  _.each(array, (num:number) => {
     sum += num;
   });
   return sum / array.length;
 }
-
 
 export {
   applyMatrix,
@@ -274,5 +273,5 @@ export {
   dotProduct2D,
   lineSimplification,
   getMedian,
-  getMean
+  getMean,
 };

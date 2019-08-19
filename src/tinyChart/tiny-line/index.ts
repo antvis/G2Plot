@@ -11,8 +11,8 @@ export default class TinyLine extends TinyPlot {
   }
 
   protected _addElements() {
-    this.line = getGeom('line','mini',{
-      plot: this
+    this.line = getGeom('line', 'mini', {
+      plot: this,
     });
     this._setConfig('element', this.line);
   }

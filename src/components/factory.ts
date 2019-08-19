@@ -6,7 +6,7 @@ import TextDescription from './description';
 const COMPONENT_MAPPER = {
   axis: AxisParser,
   label: LabelParser,
-  guideLine: GuideLine
+  guideLine: GuideLine,
 };
 
 export function getComponent(name, cfg) {

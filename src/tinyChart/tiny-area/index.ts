@@ -12,14 +12,14 @@ export default class TinyArea extends TinyPlot {
   }
 
   protected _addElements() {
-    this.area = getGeom('area','mini',{
-      plot: this
+    this.area = getGeom('area', 'mini', {
+      plot: this,
     });
     this._setConfig('element', this.area);
 
-    this.line = getGeom('line','mini',{
-        plot: this
-      });
+    this.line = getGeom('line', 'mini', {
+      plot: this,
+    });
     this._setConfig('element', this.line);
   }
 

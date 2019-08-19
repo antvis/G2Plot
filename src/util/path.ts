@@ -6,9 +6,9 @@ import * as _ from '@antv/util';
 const vector2 = _.vec2;
 
 interface PointObject {
-    x: number;
-    y: number;
-  }
+  x: number;
+  y: number;
+}
 
 type PointArray = [ number, number ];
 

@@ -3,5 +3,5 @@ import MiniAreaParser from './mini';
 
 export default {
   main: AreaParser,
-  mini: MiniAreaParser
+  mini: MiniAreaParser,
 };

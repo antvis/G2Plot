@@ -1,11 +1,12 @@
 import { Shape } from '@antv/g';
 import textHide from './textHide';
+import * as _ from '@antv/util';
 
 export default function clearOverlapping(shape: Shape, cfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
   const current = nodes[index];
   const overlaped = [];
-    /** 找到所有与当前点overlap的node */
+  /** 找到所有与当前点overlap的node */
   if (!current.shape.get('blank')) {
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -18,13 +19,13 @@ export default function clearOverlapping(shape: Shape, cfg, index, responsive) {
       }
     }
   }
-    /** overlap处理逻辑 */
+  /** overlap处理逻辑 */
   if (overlaped.length > 0) {
     overlaped.push(current);
     overlaped.sort((a, b) => {
       return b.top - a.top;
     });
-      /** 隐藏除最高点以外的node */
+    /** 隐藏除最高点以外的node */
     _.each(overlaped, (node, index) => {
       if (index > 0) {
         const shape = node.shape;
@@ -38,7 +39,8 @@ export default function clearOverlapping(shape: Shape, cfg, index, responsive) {
 export function isNodeOverlap(nodeA, nodeB) {
   if (nodeA.bottom < nodeB.top || nodeB.bottom < nodeA.top) {
     return false;
-  }  if (nodeA.right < nodeB.left || nodeB.right < nodeA.left) {
+  }
+  if (nodeA.right < nodeB.left || nodeB.right < nodeA.left) {
     return false;
   }
   return true;

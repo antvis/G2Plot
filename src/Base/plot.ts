@@ -143,7 +143,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _axis(): void {
     const props = this._initialProps;
-    const  xAxis_parser = getComponent('axis', {
+    const xAxis_parser = getComponent('axis', {
       plot: this,
       dim: 'x',
     });
@@ -151,7 +151,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       plot: this,
       dim: 'y',
     });
-    const axesConfig = { fields:{} };
+    const axesConfig = { fields: {} };
     axesConfig.fields[props.xField] = xAxis_parser;
     axesConfig.fields[props.yField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
@@ -168,12 +168,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('tooltip', {
       crosshairs: _.get(props, 'tooltip.crosshairs'),
       shared: _.get(props, 'tooltip.shared'),
+      htmlContent: _.get(props, 'tooltip.htmlContent'),
+      containerTpl: _.get(props, 'tooltip.containerTpl'),
+      itemTpl: _.get(props, 'tooltip.itemTpl'),
     });
 
     if (props.tooltip && props.tooltip.style) {
       _.deepMix(this._config.theme.tooltip, props.tooltip.style);
     }
-
   }
 
   protected _legend(): void {
@@ -216,7 +218,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const theme = this._config.theme;
       const alignWithAxis = _.mix(props.title.alignWithAxis, theme.title.alignWithAxis);
       const title = new TextDescription({
-        leftMargin:panelRange.minX,
+        leftMargin: panelRange.minX,
         topMargin: theme.title.top_margin,
         text: props.title.text,
         style: _.mix(theme.title, props.title.style),
@@ -244,7 +246,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const alignWithAxis = _.mix(props.title.alignWithAxis, theme.title.alignWithAxis);
 
       const description = new TextDescription({
-        leftMargin:panelRange.minX,
+        leftMargin: panelRange.minX,
         topMargin: topMargin + theme.description.top_margin,
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
@@ -258,7 +260,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
   }
 
-  protected _beforeInit() { }
+  protected _beforeInit() {}
 
   protected _afterInit() {
     const props = this._initialProps;
@@ -275,7 +277,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this._config.elements.push(config as G2Config['element']);
       return;
     }
-    if (config as boolean === false) {
+    if ((config as boolean) === false) {
       this._config[key] = false;
       return;
     }
@@ -307,7 +309,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 抽取destory和updateConfig共有代码为_destory方法 */
   private _destory() {
-     /** 关闭事件监听 */
+    /** 关闭事件监听 */
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
@@ -362,11 +364,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.description) boxes.push(this.description.getBBox());
     if (boxes.length === 0) {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    }  {
+    }
+    {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;
-      let maxY = - Infinity;
+      let maxY = -Infinity;
       _.each(boxes, (bbox) => {
         const box = bbox as DataPointType;
         minX = Math.min(box.minX, minX);

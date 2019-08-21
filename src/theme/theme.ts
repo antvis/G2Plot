@@ -33,6 +33,7 @@ function convert2G2Axis(axis) {
   }
 }
 
+
 /**
  * 主题类
  * @param type
@@ -58,6 +59,11 @@ export default class Theme {
 
   static convert2G2Theme(plotThemeCfg) {
     const g2Theme = _.clone(plotThemeCfg);
+    /** tempo: legend margin设置为0*/
+    if (!g2Theme.legend) {
+      g2Theme.legend = {};
+    }
+    g2Theme.legend.margin = [ 0, 0, 0, 0 ];
     if (g2Theme.axis) {
       if (g2Theme.axis.x) {
         convert2G2Axis(g2Theme.axis.x);

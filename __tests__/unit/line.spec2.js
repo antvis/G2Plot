@@ -6,8 +6,9 @@ describe('Line plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
-  canvasDiv.style.left = '30px';
-  canvasDiv.style.top = '30px';
+  canvasDiv.style.left = '0px';
+  canvasDiv.style.top = '0px';
+  canvasDiv.style.backgroundColor = '#ccc';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -724,13 +725,13 @@ describe('Line plot', () => {
     } ];
 
     const linePlot = new Line(canvasDiv, {
-      /* title: {
+      title: {
         text: '测试测试测试测试',
       },
       description: {
         text: '当秒级数据需要频繁刷新时（5 s 刷新一次），更新时的动画是重新渲染整个图表，闪烁明显且太频繁，期望是刷新数据时，像心电图的效果，图线向左移动，旧数据消失。',
       },
-      meta: {
+      /* meta: {
         year: {
           field: 'year',
           alias: 'x',
@@ -766,7 +767,7 @@ describe('Line plot', () => {
       legend: {
         visible: true,
         flipPage: true,
-        position: 'top-center',
+        position: 'top-left',
       },
       xAxis: {
         grid: {
@@ -809,12 +810,6 @@ describe('Line plot', () => {
         onLegendClick: () => {
           // console.log('legend click');
         }
-      }
-    });
-    linePlot.render();
-    linePlot.updateConfig({
-      legend: {
-        position: 'bottom-center'
       }
     });
     linePlot.render();

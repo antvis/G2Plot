@@ -213,17 +213,16 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     const props = this._initialProps;
     this.title = null;
     if (props.title) {
+      const width = this.canvasController.width;
       const theme = this._config.theme;
-      const alignWithAxis = _.mix(props.title.alignWithAxis, theme.title.alignWithAxis);
       const title = new TextDescription({
-        leftMargin:panelRange.minX,
-        topMargin: theme.title.top_margin,
+        leftMargin:theme.title.leftMargin,
+        topMargin: theme.title.topMargin,
         text: props.title.text,
         style: _.mix(theme.title, props.title.style),
-        wrapperWidth: panelRange.width,
+        wrapperWidth: width - theme.title.leftMargin - theme.title.rightMargin,
         container: this.canvasController.canvas,
         theme,
-        alignWithAxis,
       });
       this.title = title;
     }
@@ -234,6 +233,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this.description = null;
 
     if (props.description) {
+      const width = this.canvasController.width;
       let topMargin = 0;
       if (this.title) {
         const titleBBox = this.title.getBBox();
@@ -241,17 +241,15 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       }
 
       const theme = this._config.theme;
-      const alignWithAxis = _.mix(props.title.alignWithAxis, theme.title.alignWithAxis);
-
+ 
       const description = new TextDescription({
-        leftMargin:panelRange.minX,
-        topMargin: topMargin + theme.description.top_margin,
+        leftMargin:theme.description.leftMargin,
+        topMargin: topMargin + theme.description.topMargin,
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
-        wrapperWidth: panelRange.width,
+        wrapperWidth: width - theme.description.leftMargin - theme.description.rightMargin,
         container: this.canvasController.canvas,
-        theme,
-        alignWithAxis,
+        theme
       });
 
       this.description = description;
@@ -357,12 +355,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   // view range 去除title & description所占的空间
   private _getViewMargin() {
+    const props = this._initialProps;
     const boxes = [];
     if (this.title) boxes.push(this.title.getBBox());
     if (this.description) boxes.push(this.description.getBBox());
     if (boxes.length === 0) {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    }  {
+    } else {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;
@@ -375,8 +374,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
         maxY = Math.max(box.maxY, maxY);
       });
       const bbox = { minX, maxX, minY, maxY };
-      if (this.description) bbox.maxY += this._config.theme.description.bottom_margin;
-
+      if (this.description) {
+        const legendPosition = this._getLegendPosition();
+        bbox.maxY += this._config.theme.description.bottomMargin(legendPosition);
+      }
       /** 约束viewRange的start.y，防止坐标轴出现转置 */
       if (bbox.maxY >= this.canvasController.height) {
         bbox.maxY = this.canvasController.height - 0.1;
@@ -384,4 +385,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       return bbox;
     }
   }
+
+  private _getLegendPosition(){
+    const props = this._initialProps;
+    if(props.legend && props.legend.position) {
+      const position = props.legend.position;
+      return position;
+    }
+    return 'bottom-center';
+  }
+
 }

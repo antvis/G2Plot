@@ -22,7 +22,6 @@ export default class TextDescription {
   }
 
   private _init() {
-    this._adjustLeftMargin();
     const content = this._textWrapper(this.wrapperWidth, this.style);
     this.shape = this.container.addShape('text', {
       attrs: _.mix({
@@ -44,13 +43,6 @@ export default class TextDescription {
 
   public destory() {
     this.shape && this.shape.remove();
-  }
-
-  private _adjustLeftMargin() {
-    if (!this.alignWithAxis) {
-      this.leftMargin = this.theme.defaultPadding[0];
-      this.wrapperWidth = this.container.get('width');
-    }
   }
 
   private _textWrapper(width, style) {

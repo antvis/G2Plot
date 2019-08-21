@@ -2,7 +2,6 @@ import * as _ from '@antv/util';
 import { View } from '@antv/g2';
 import { Element, BBox } from '@antv/g';
 import { DataPointType } from '@antv/g2/lib/interface';
-
 /**
  * 处理图表padding的逻辑：
  * 注册参与padding的自定义组件
@@ -11,6 +10,7 @@ import { DataPointType } from '@antv/g2/lib/interface';
 export default class PaddingController {
   private plot: any;
   private paddingComponents: any[] = [];
+  private defaultPadding;
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -36,10 +36,15 @@ export default class PaddingController {
   }
 
   private _getAutoPadding() {
+    const props = this.plot._initialProps;
     const view = this.plot.plot;
     const viewRange = view.get('viewRange');
     const { maxX, maxY } = viewRange;
     const defaultPadding = this.plot._config.theme.defaultPadding;
+    defaultPadding[0] = defaultPadding[0](props);
+    this.plot._config.theme.legend.margin = defaultPadding;
+    this.defaultPadding = _.clone(defaultPadding);
+    
         /** 参与auto padding的components: axis legend*/
     const components_bbox = [ view.get('panelRange') ];
     this._getAxis(view, components_bbox);
@@ -56,10 +61,10 @@ export default class PaddingController {
         /** 极坐标下padding计算错误问题 */
     if (box.minY === viewRange.minY) box.minY = 0;
     const padding = [
-      0 - box.minY + defaultPadding[0], // 上面超出的部分
-      box.maxX - maxX + defaultPadding[1], // 右边超出的部分
-      box.maxY - maxY + defaultPadding[2], // 下边超出的部分
-      0 - box.minX + defaultPadding[3],
+      0 - box.minY + this.defaultPadding[0], // 上面超出的部分
+      box.maxX - maxX + this.defaultPadding[1], // 右边超出的部分
+      box.maxY - maxY + this.defaultPadding[2], // 下边超出的部分
+      0 - box.minX + this.defaultPadding[3],
     ];
     return padding;
   }
@@ -106,6 +111,8 @@ export default class PaddingController {
         }
         const bbox = new BBox(x, y, width, height);
         bboxes.push(bbox);
+        const innerPadding = this._getLegendInnerPadding(legend);
+        this._mergePadding(innerPadding);
       });
     }
   }
@@ -134,6 +141,25 @@ export default class PaddingController {
     if (position[0] === 'left') container.move(box.minX - bbox.width, minY);
     if (position[0] === 'top') container.move(0, box.minY - bbox.height);
     if (position[0] === 'bottom') container.move(0, Math.max(maxY, box.maxY));
+  }
+
+  private _getLegendInnerPadding(legend){
+    const innerPadding = this.plot.plotTheme.legend.innerPadding;
+    const position = legend.get('position').split('-');
+    if(position[0]==='top')  return [innerPadding[0],0,0,0];
+    if(position[0]==='bottom') return [0,0,innerPadding[2],0];
+    if(position[0]==='left') return [0,0,0,innerPadding[3]];
+    if(position[0]==='right') return [0,innerPadding[1],0,0];
+  }
+
+  private _mergePadding(source){
+    const target = this.defaultPadding;
+    if(source.length !== target.length){
+      return;
+    }
+    for(let i=0; i<source.length; i++){
+      target[i]+=source[i];
+    }
   }
 
 }

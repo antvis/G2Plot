@@ -1,12 +1,28 @@
 import Theme from './theme';
 
+const DESCRIPTION_BOTTOM_MARGIN = function (legendPosition) {
+  if (legendPosition && legendPosition.split('-')[0] === 'top') {
+    return 0;
+  }
+  return 24;
+};
+
+const TOP_PADDING = function (props) {
+  if (props.title || props.description) {
+    return 16;
+  }
+  return 24;
+};
+
 const commonTheme = {
   width: 400,
   height: 400,
-  defaultPadding: [ 24, 24, 24, 24 ],
+  defaultPadding: [ TOP_PADDING, 24, 24, 24 ],
   padding: 'auto',
   title: {
-    top_margin: 20,
+    topMargin: 24,
+    leftMargin: 24,
+    rightMargin: 24,
     fontFamily: 'PingFang SC',
     fontSize: 18,
     fontWeight: 'bold',
@@ -17,8 +33,10 @@ const commonTheme = {
     alignWithAxis: false,
   },
   description: {
-    top_margin:20,
-    bottom_margin: 20,
+    topMargin: 20,
+    bottomMargin: DESCRIPTION_BOTTOM_MARGIN,
+    leftMargin: 24,
+    rightMargin: 24,
     fontFamily: 'PingFang SC',
     fontSize: 12,
     fill: 'grey',
@@ -151,6 +169,11 @@ const commonTheme = {
         style: { fill: '#767b84', fontSize: 12 },
       },
     },
+  },
+  legend:{
+    position:'bottom-center',
+    // 距离panelRange的距离
+    innerPadding: [ 16, 12, 16, 12 ],
   },
 };
 

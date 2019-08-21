@@ -44,7 +44,7 @@ export default class PaddingController {
     defaultPadding[0] = defaultPadding[0](props);
     this.plot._config.theme.legend.margin = defaultPadding;
     this.defaultPadding = _.clone(defaultPadding);
-    
+
         /** 参与auto padding的components: axis legend*/
     const components_bbox = [ view.get('panelRange') ];
     this._getAxis(view, components_bbox);
@@ -143,22 +143,22 @@ export default class PaddingController {
     if (position[0] === 'bottom') container.move(0, Math.max(maxY, box.maxY));
   }
 
-  private _getLegendInnerPadding(legend){
+  private _getLegendInnerPadding(legend) {
     const innerPadding = this.plot.plotTheme.legend.innerPadding;
     const position = legend.get('position').split('-');
-    if(position[0]==='top')  return [innerPadding[0],0,0,0];
-    if(position[0]==='bottom') return [0,0,innerPadding[2],0];
-    if(position[0]==='left') return [0,0,0,innerPadding[3]];
-    if(position[0]==='right') return [0,innerPadding[1],0,0];
+    if (position[0] === 'top')  return [ innerPadding[0], 0, 0, 0 ];
+    if (position[0] === 'bottom') return [ 0, 0, innerPadding[2], 0 ];
+    if (position[0] === 'left') return [ 0, 0, 0, innerPadding[3] ];
+    if (position[0] === 'right') return [ 0, innerPadding[1], 0, 0 ];
   }
 
-  private _mergePadding(source){
+  private _mergePadding(source) {
     const target = this.defaultPadding;
-    if(source.length !== target.length){
+    if (source.length !== target.length) {
       return;
     }
-    for(let i=0; i<source.length; i++){
-      target[i]+=source[i];
+    for (let i = 0; i < source.length; i++) {
+      target[i] += source[i];
     }
   }
 

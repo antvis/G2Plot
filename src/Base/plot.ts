@@ -241,7 +241,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       }
 
       const theme = this._config.theme;
- 
+
       const description = new TextDescription({
         leftMargin:theme.description.leftMargin,
         topMargin: topMargin + theme.description.topMargin,
@@ -249,7 +249,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
         style: _.mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.leftMargin - theme.description.rightMargin,
         container: this.canvasController.canvas,
-        theme
+        theme,
       });
 
       this.description = description;
@@ -361,7 +361,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.description) boxes.push(this.description.getBBox());
     if (boxes.length === 0) {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    } else {
+    }  {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;
@@ -386,9 +386,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
   }
 
-  private _getLegendPosition(){
+  private _getLegendPosition() {
     const props = this._initialProps;
-    if(props.legend && props.legend.position) {
+    if (props.legend && props.legend.position) {
       const position = props.legend.position;
       return position;
     }

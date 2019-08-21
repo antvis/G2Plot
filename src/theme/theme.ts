@@ -33,7 +33,6 @@ function convert2G2Axis(axis) {
   }
 }
 
-
 /**
  * 主题类
  * @param type

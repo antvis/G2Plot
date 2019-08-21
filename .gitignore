@@ -66,8 +66,9 @@ temp
 .DS_Store
 .idea
 demos/assets/screenshots
-lib
-esm
+/lib
+/esm
+/dist
 
 *.sw*
 *.un~

@@ -54,10 +54,10 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     scales[props.yField] = {
       type: 'cat',
     };
-    _.has(props, 'xAxis') && extractScale(scales[props.yField], props.xAxis);
+    _.has(props, 'xAxis') && extractScale(scales[props.yField], props.yAxis);
       /** 配置y-scale */
     scales[props.xField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.xField], props.yAxis);
+    _.has(props, 'yAxis') && extractScale(scales[props.xField], props.xAxis);
     this._setConfig('scales', scales);
     super._scale();
   }

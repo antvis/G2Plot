@@ -41,7 +41,7 @@ export interface AreaConfig extends BaseConfig {
   };
 }
 
-export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot<T>{
+export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot<T> {
   line: any;
   point: any;
   area: any;
@@ -64,7 +64,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       type: 'cat',
     };
     _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
-      /** 配置y-scale */
+    /** 配置y-scale */
     scales[props.yField] = {};
     _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
     this._setConfig('scales', scales);
@@ -75,21 +75,23 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _axis() {
     const props = this._initialProps;
-    const axesConfig = { fields:{} };
+    const axesConfig = { fields: {} };
     const plotTheme = this.plotTheme;
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    if ((props.xAxis && (props.xAxis.visible === false)
-        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
+    if (
+      (props.xAxis && props.xAxis.visible === false) ||
+      (plotTheme.axis.x.visible === false && (!props.xAxis || props.xAxis.visible !== true))
     ) {
       axesConfig.fields[props.xField] = false;
     } else if (props.xAxis) {
       extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
 
-    if ((props.yAxis && (props.yAxis.visible === false)
-        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
+    if (
+      (props.yAxis && props.yAxis.visible === false) ||
+      (plotTheme.axis.y.visible === false && (!props.yAxis || props.yAxis.visible !== true))
     ) {
       axesConfig.fields[props.yField] = false;
     } else if (props.yAxis) {
@@ -135,7 +137,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
     if (lineConfig.visible) {
       const line = getGeom('line', 'guide', {
-        type:'line',
+        type: 'line',
         plot: this,
       });
       this._adjustLine(line);
@@ -150,7 +152,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
     if (pointConfig.visible) {
       const point = getGeom('point', 'guide', {
-        plot:this,
+        plot: this,
       });
       this._adjustPoint(point);
       this._setConfig('element', point);
@@ -158,13 +160,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     }
   }
 
-  protected _interactions() {
-  }
+  protected _interactions() {}
 
   protected _annotation() {}
 
-  protected _animation() {
-  }
+  protected _animation() {}
 
   protected _label() {
     const props = this._initialProps;
@@ -180,10 +180,10 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     };
     /** formater */
     if (label.formatter) {
-      const formater = label.formatter;
-      this.area.label.callback = (val) => {
+      const formatter = label.formatter;
+      this.area.label.callback = (val: any) => {
         return {
-          content: formater(val),
+          formatter,
           offsetX: label.offsetX ? label.offsetX : 0,
           offsetY: label.offsetY ? label.offsetY : 0,
         };
@@ -195,5 +195,4 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       StyleParser.LabelStyleParser(theme, label.style);
     }
   }
-
 }

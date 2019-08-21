@@ -58,10 +58,10 @@ export default interface Config {
   responsive?: boolean;
   /** 图表层级的事件 */
   events?: {
-    [ k: string ]: Function | boolean;
+    [k: string]: Function | boolean;
   };
   // fixme: any
-  [ k: string ]: any;
+  [k: string]: any;
 }
 
 type Formatter = (value: any, index?: number, ...args: any[]) => string;
@@ -79,7 +79,7 @@ interface IDescription {
 }
 
 interface IEvents {
-  [k:string] : string;
+  [k: string]: string;
 }
 
 interface IBaseAxis {
@@ -99,23 +99,25 @@ interface IBaseAxis {
   };
   autoRotateLabel: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
-  label?: {
-    visible?: boolean;
-    formatter?: Function;
-    offset?: number; // 坐标轴文本距离坐标轴线的距离
-    offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
-    offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
-    rotate?: number; // label 文本旋转的角度，使用角度制
-    useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
-    htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
-    style?: {};
-  } | Function;
+  label?:
+    | {
+      visible?: boolean;
+      formatter?: Function;
+      offset?: number; // 坐标轴文本距离坐标轴线的距离
+      offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
+      offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
+      rotate?: number; // label 文本旋转的角度，使用角度制
+      useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
+      htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
+      style?: {};
+    }
+    | Function;
   title?: {
     visible?: boolean;
     autoRotate?: boolean;
     text?: string;
     offset?: number;
-    style?: {},
+    style?: {};
   };
   tickLine?: {
     visible?: boolean;
@@ -153,7 +155,7 @@ type Axis = ICatAxis | IValueAxis | ITimeAxis;
 export interface Label {
   visible: boolean;
   type?: string;
-  formatter?: Formatter;
+  formatter?: (text: string, item: any, idx: number) => string;
   style?: {};
   offset?: number;
   offsetX?: number;
@@ -177,11 +179,15 @@ export interface Legend {
 
 export interface Tooltip {
   visible: boolean;
+  shared: boolean;
   /** html */
   html?: HTMLDivElement;
+  htmlContent?: (title: string, items: any[]) => string;
+  containerTpl?: string;
+  itemTpl?: string;
   /** 辅助线 */
   crosshair?: 'x' | 'y' | 'cross' | boolean;
-  style? :{};
+  style?: {};
 }
 
 interface Animation {
@@ -196,12 +202,12 @@ interface Theme {}
 export interface ElementOption {
   type: string;
   position: {
-    fields: string[],
+    fields: string[];
   };
   color?: AttributeCfg;
   size?: AttributeCfg;
-  shape?:AttributeCfg;
-  style?:{};
+  shape?: AttributeCfg;
+  style?: {};
   label?: LabelOptions | false;
   animate?: {};
   adjust?: AdjustCfg[];

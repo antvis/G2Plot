@@ -1,5 +1,5 @@
-import { Group, Canvas } from '@antv/g';
-import { View, Scale } from '@antv/g2';
+import { Canvas, Group } from '@antv/g';
+import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
 
 const ANCHOR_OFFSET = 5; // 锚点偏移量
@@ -39,7 +39,7 @@ export default class SpiderLabel {
   private halves: any[][];
   private container: Group;
   private config: IAttrs;
-  private formatter: Function;
+  private formatter: (...args: any[]) => string;
   private width: number;
   private height: number;
 
@@ -50,16 +50,6 @@ export default class SpiderLabel {
     this.config = _.assign(getDefaultCfg(), cfg.style);
     this._adjustConfig(this.config);
     this._init();
-  }
-
-  private _init() {
-    this.view.on('beforerender', () => {
-      this.clear();
-    });
-
-    this.view.on('afterrender', () => {
-      this.draw();
-    });
   }
 
   public draw() {
@@ -77,17 +67,18 @@ export default class SpiderLabel {
     this.width = width;
     this.height = height;
     let angle = startAngle;
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < data.length; i++) {
       const d = data[i];
-            /** 计算每个切片的middle angle */
+      // 计算每个切片的middle angle
       const angleValue = scale.scale(d[angleField]);
       const targetAngle = angle + Math.PI * 2 * angleValue;
       const middleAngle = angle + (targetAngle - angle) / 2;
       angle = targetAngle;
-            /** 根据middle angle计算锚点和拐点距离 */
+      // 根据middle angle计算锚点和拐点距离
       const anchorPoint = getEndPoint(center, middleAngle, radius + ANCHOR_OFFSET);
       const inflectionPoint = getEndPoint(center, middleAngle, radius + INFLECTION_OFFSET);
-            /** 获取对应shape的color*/
+      // 获取对应shape的color
       let color = DEFAULT_COLOR;
       if (this.fields.length === 2) {
         const colorField = this.fields[1];
@@ -96,7 +87,7 @@ export default class SpiderLabel {
         const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
         color = shapes[shapeIndex].attr('fill');
       }
-            /**组装label数据 */
+      // 组装label数据
       const label = {
         _anchor: anchorPoint,
         _inflection: inflectionPoint,
@@ -108,7 +99,7 @@ export default class SpiderLabel {
         textGroup: null,
         _side: null,
       };
-            /** 创建label文本*/
+      // 创建label文本
       const textGroup = new Group();
       const textAttrs: IAttrs = {
         x: 0,
@@ -117,10 +108,11 @@ export default class SpiderLabel {
         lineHeight: this.config.text.fontSize,
         fill: this.config.text.fill,
       };
-            /** label1:下部label*/
+      // label1:下部label
       let lowerText = d[angleField];
-      if (this.formatter) lowerText = this.formatter(lowerText);
-
+      if (this.formatter) {
+        lowerText = this.formatter(lowerText);
+      }
       textGroup.addShape('text', {
         attrs: _.mix({
           textBaseline: 'top',
@@ -174,7 +166,19 @@ export default class SpiderLabel {
   }
 
   public clear() {
-    this.container && this.container.clear();
+    if(this.container) {
+      this.container.clear();
+    }
+  }
+
+  private _init() {
+    this.view.on('beforerender', () => {
+      this.clear();
+    });
+
+    this.view.on('afterrender', () => {
+      this.draw();
+    });
   }
 
   private _antiCollision(half) {
@@ -213,8 +217,8 @@ export default class SpiderLabel {
       totalH = maxY - startY;
     }
 
-    const iteratorBoxed = function (boxes) {
-      boxes.forEach((box) => {
+    const iteratorBoxed = function (items) {
+      items.forEach((box) => {
         const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
         box.pos = Math.min(Math.max(minY, target - box.size / 2), totalH - box.size);
       });
@@ -339,7 +343,9 @@ export default class SpiderLabel {
     for (let i = 0; i < points.length ; i++) {
       const p = points[i];
       let starter = 'L';
-      if (i === 0) starter = 'M';
+      if (i === 0) {
+        starter = 'M';
+      }
       path.push([ starter, p[0], p[1] ]);
     }
 

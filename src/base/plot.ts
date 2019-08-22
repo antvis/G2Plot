@@ -4,7 +4,7 @@ import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
-import PlotConfig, { G2Config } from '../interface/config';
+import PlotConfig, { G2Config, RecursivePartial } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import CanvasController from './controller/canvas';
 import PaddingController from './controller/padding';
@@ -32,7 +32,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
      */
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
-    this._container = _.isString(container) ? document.getElementById(container) : container;
+    this._container = _.isString(container) ? document.getElementById(container as string) : container;
     this.themeController = new ThemeController({
       plot: this,
     });
@@ -216,6 +216,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._setConfig('tooltip', {
       crosshairs: _.get(props, 'tooltip.crosshairs'),
       shared: _.get(props, 'tooltip.shared'),
+      htmlContent: _.get(props, 'tooltip.htmlContent'),
+      containerTpl: _.get(props, 'tooltip.containerTpl'),
+      itemTpl: _.get(props, 'tooltip.itemTpl'),
     });
 
     if (props.tooltip && props.tooltip.style) {
@@ -316,8 +319,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   /** 设置G2 config，带有类型推导 */
-  // tslint:disable-next-line: no-shadowed-variable
-  protected _setConfig<T extends keyof G2Config>(key: T, config: G2Config[T] | boolean): void {
+  protected _setConfig<K extends keyof G2Config>(key:K, config: G2Config[K] | boolean): void {
     if (key === 'element') {
       this._config.elements.push(config as G2Config['element']);
       return;
@@ -363,7 +365,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   // view range 去除title & description所占的空间
   private _getViewMargin() {
     const props = this._initialProps;
-    const boxes = [];
+    const boxes: DataPointType[] = [];
     if (this.title) {
       boxes.push(this.title.getBBox());
     }

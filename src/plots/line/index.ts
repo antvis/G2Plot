@@ -1,23 +1,22 @@
-import BasePlot from '../../base/plot';
-import BaseConfig, {
-  IValueAxis,
-  ITimeAxis,
-  ICatAxis,
-  Label,
-} from '../../interface/config';
 import * as _ from '@antv/util';
-import { DataPointType } from '@antv/g2/lib/interface';
-import { LineActive, LineSelect, Range } from './interaction/index';
-import { extractScale } from '../../util/scale';
+import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import './guide/label/point-label';
-import './guide/label/line-label';
-import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
+import BaseConfig, {
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+} from '../../interface/config';
+import { extractScale } from '../../util/scale';
 import './animation/clipInWithData';
-import * as EventParser from './event';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
+import * as EventParser from './event';
+import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
+import './guide/label/line-label';
+import './guide/label/point-label';
+import { LineActive, LineSelect, Range } from './interaction/index';
 
 export interface LineStyle {
   opacity?: number;
@@ -43,10 +42,10 @@ export interface LineConfig extends BaseConfig {
   /** 是否连接空数据 */
   connectNulls?: boolean;
   /** 折线extra图形样式 */
-  lineStyle?: LineStyle | Function;
+  lineStyle?: LineStyle | ((...args: any[]) => LineStyle);
   /** 折线数据点图形样式 */
   point?: {
-    visible?: boolean,
+    visible?: boolean;
     style?: PointStyle;
   };
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
@@ -54,8 +53,8 @@ export interface LineConfig extends BaseConfig {
 }
 
 export default class Line extends BasePlot<LineConfig>{
-  line: any; // 保存line和point的配置项，用于后续的label、tooltip和
-  point: any;
+  public line: any; // 保存line和point的配置项，用于后续的label、tooltip
+  public point: any;
 
   protected _beforeInit() {
     this.type = 'line';
@@ -69,11 +68,14 @@ export default class Line extends BasePlot<LineConfig>{
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
+    if(_.has(props, 'xAxis') ){
+      extractScale(scales[props.xField], props.xAxis);
+    }
     /** 配置y-scale */
     scales[props.yField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
-
+    if(_.has(props, 'yAxis') ){
+      extractScale(scales[props.yField], props.yAxis);
+    }
     this._setConfig('scales', scales);
     super._scale();
   }
@@ -96,7 +98,7 @@ export default class Line extends BasePlot<LineConfig>{
   protected _addPoint() {
     const props = this._initialProps;
     const defaultConfig = { visible: false };
-    if (props.point) props.point = _.deepMix(defaultConfig, props.point);
+    if (props.point) { props.point = _.deepMix(defaultConfig, props.point); }
     if (props.point && props.point.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
@@ -116,7 +118,7 @@ export default class Line extends BasePlot<LineConfig>{
     }
     const labelType = label.type ? label.type :'point';
     /** label类型为line，即跟随在折线尾部时，设置offset为0 */
-    if(labelType === 'line') label.offset = 0;
+    if(labelType === 'line') { label.offset = 0; }
 
     this.line.label = getComponent('label', {
       fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
@@ -131,10 +133,10 @@ export default class Line extends BasePlot<LineConfig>{
   protected _animation() {
     const props = this._initialProps;
     if (props.animation === false) {
-      /**关闭动画 */
+      // 关闭动画 
       this.line.animate = false;
     } else if (_.has(props, 'animation')) {
-      /**根据动画类型区分图形动画和群组动画 */
+      // 根据动画类型区分图形动画和群组动画 
       if (props.animation.type === 'clipingWithData') {
         this.line.animate = {
           appear: {
@@ -144,7 +146,7 @@ export default class Line extends BasePlot<LineConfig>{
             yField: props.yField,
           },
         };
-        /**如果有数据点的话要追加数据点的动画 */
+        // 如果有数据点的话要追加数据点的动画
         if (props.point && props.point.visible) {
           this.point.animate = {
             appear: {
@@ -159,7 +161,7 @@ export default class Line extends BasePlot<LineConfig>{
 
   protected _interactions() {
     const props = this._initialProps;
-    /** 加入默认交互 */
+    // 加入默认交互
     const interactions = this.plot.get('interactions');
     const lineActive = new LineActive({ view: this.plot });
     interactions.lineActive = lineActive;
@@ -168,7 +170,7 @@ export default class Line extends BasePlot<LineConfig>{
     /** 加入其它交互 */
     const interactionProps = props.interactions;
     _.each(interactionProps, (i) => {
-      if (i.type === 'range') this._addRangeInteraction(interactions, props);
+      if (i.type === 'range') { this._addRangeInteraction(interactions, props); }
     });
   }
 
@@ -179,13 +181,13 @@ export default class Line extends BasePlot<LineConfig>{
   protected _afterInit() {
     super._afterInit();
     const props = this._initialProps;
-    /**响应式 */
+    // 响应式
     if (props.responsive && props.padding !== 'auto') {
       this.plot.once('afterrender', () => {
         this._applyResponsive('afterRender');
       });
     }
-    /**时间子母轴 */
+    // 时间子母轴 
     if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
       const xAxis = props.xAxis as ITimeAxis;
       const timeGroup = new TimeGroupAnnotation({

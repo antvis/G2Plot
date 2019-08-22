@@ -22,16 +22,22 @@ export default class TextDescription {
   }
 
   public getBBox() {
-    if (this.shape) return this.shape.getBBox();
+    if (this.shape) {
+      return this.shape.getBBox();
+    }
     return null;
   }
 
   public clear() {
-    this.shape && this.shape.attr('text', '');
+    if(this.shape){
+      this.shape.attr('text', '');
+    } 
   }
 
   public destory() {
-    this.shape && this.shape.remove();
+    if(this.shape) {
+      this.shape.remove();
+    }
   }
 
   private _init() {
@@ -57,16 +63,15 @@ export default class TextDescription {
         ...style,
       },
     });
-    const indexes = [];
     for (let i = 0; i < wrapperedText.length; i++) {
       const t = wrapperedText[i];
       /*tslint:disable*/
       tShape.attr('text', t+' ');
+      // 字数不多就不缓存了吧.....
       const textWidth = Math.floor(tShape.measureText());
       currentWidth += textWidth;
       if (currentWidth > width) {
         wrapperedText = `${wrapperedText.slice(0, i)}\n${wrapperedText.slice(i)}`;
-        indexes.push(i);
         currentWidth = 0;
       }
     }

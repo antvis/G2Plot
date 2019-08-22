@@ -10,34 +10,44 @@ describe('Column plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  const data = [ {
-    year: '1991',
-    value: 31
-  }, {
-    year: '1992',
-    value: 41
-  }, {
-    year: '1993',
-    value: 35
-  }, {
-    year: '1994',
-    value: 55
-  }, {
-    year: '1995',
-    value: 49
-  }, {
-    year: '1996',
-    value: 15
-  }, {
-    year: '1997',
-    value: 17
-  }, {
-    year: '1998',
-    value: 29
-  }, {
-    year: '1999',
-    value: 33
-  } ];
+  const data = [
+    {
+      year: '1991',
+      value: 31,
+    },
+    {
+      year: '1992',
+      value: 41,
+    },
+    {
+      year: '1993',
+      value: 35,
+    },
+    {
+      year: '1994',
+      value: 55,
+    },
+    {
+      year: '1995',
+      value: 49,
+    },
+    {
+      year: '1996',
+      value: 15,
+    },
+    {
+      year: '1997',
+      value: 17,
+    },
+    {
+      year: '1998',
+      value: 29,
+    },
+    {
+      year: '1999',
+      value: 33,
+    },
+  ];
 
   it.only('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
@@ -51,7 +61,7 @@ describe('Column plot', () => {
       },
       yAxis: {
         visible: true,
-      }
+      },
     });
     columnPlot.render();
     // const positionField = columnPlot.plot.get('elements')[0].get('position').fields;
@@ -78,7 +88,7 @@ describe('Column plot', () => {
         visible: true,
       },
       yAxis: {
-        visible: true
+        visible: true,
       },
       columnSize: 20,
       columnStyle: {
@@ -105,8 +115,8 @@ describe('Column plot', () => {
         visible: false,
       },
       yAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     columnPlot.render();
     const axes = columnPlot.plot.get('axisController').axes;
@@ -130,31 +140,31 @@ describe('Column plot', () => {
           visible: true,
           style: {
             stroke: 'red',
-          }
+          },
         },
         tickLine: {
           visible: true,
-          style: { stroke: 'red' }
+          style: { stroke: 'red' },
         },
         label: {
           visible: true,
           formatter: (v) => {
             return v + 'abc';
           },
-          style: { fill: 'red', fontSize: 24 }
+          style: { fill: 'red', fontSize: 24 },
         },
         title: {
           visible: true,
           text: 'xxxx',
           style: {
             fill: 'red',
-            fontSize: 20
-          }
-        }
+            fontSize: 20,
+          },
+        },
       },
       yAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     columnPlot.render();
     const axes = columnPlot.plot.get('axisController').axes;
@@ -193,11 +203,11 @@ describe('Column plot', () => {
           visible: false,
         },
         tickLine: { visible: false, stroke: 'red' },
-        label: { visible: false, fill: 'red', fontSize: 24 }
+        label: { visible: false, fill: 'red', fontSize: 24 },
       },
       yAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     columnPlot.render();
     const axes = columnPlot.plot.get('axisController').axes;
@@ -227,19 +237,19 @@ describe('Column plot', () => {
           visible: true,
           style: {
             stroke: 'red',
-          }
+          },
         },
         tickLine: {
           visible: true,
-          style: { stroke: 'red' }
+          style: { stroke: 'red' },
         },
         title: {
           visible: true,
           // text: 'xxxx',
           style: {
             fontSize: 30,
-            fill: 'red'
-          }
+            fill: 'red',
+          },
         },
         label: {
           formatter: (v) => {
@@ -247,13 +257,14 @@ describe('Column plot', () => {
           },
           visible: true,
           style: {
-            fill: 'red', fontSize: 24
-          }
-        }
+            fill: 'red',
+            fontSize: 24,
+          },
+        },
       },
       xAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     columnPlot.render();
     const axes = columnPlot.plot.get('axisController').axes;
@@ -294,8 +305,8 @@ describe('Column plot', () => {
         label: { visible: false },
       },
       xAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     columnPlot.render();
     const axes = columnPlot.plot.get('axisController').axes;
@@ -309,5 +320,4 @@ describe('Column plot', () => {
     columnPlot.destroy();
     expect(columnPlot.plot.destroyed).to.be.true;
   });
-
 });

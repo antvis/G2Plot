@@ -9,15 +9,9 @@ export default class Pinch extends MobileInteraction {
     });
   }
 
-  start(ev) {
+  public start(ev) {}
 
-  }
+  public process(ev) {}
 
-  process(ev) {
-
-  }
-
-  end(ev) {
-
-  }
+  public end(ev) {}
 }

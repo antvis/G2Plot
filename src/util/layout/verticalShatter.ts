@@ -22,15 +22,14 @@ export default function verticalShatter(items, view) {
     }
     return {
       size: item.getBBox().height,
-      targets: [ y - startY ],
+      targets: [y - startY],
     };
   });
   minY -= startY;
 
   let i = 0;
   while (overlapping) {
-    for (let i = 0; i < boxes.length; i++) {
-      const box = boxes[i];
+    for (const box of boxes) {
       const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
       box.pos = Math.min(Math.max(minY, target - box.size / 2), totalHeight - box.size);
     }
@@ -40,16 +39,17 @@ export default function verticalShatter(items, view) {
       if (i > 0) {
         const previous = boxes[i - 1];
         const current = boxes[i];
-        if (previous.pos + previous.size > current.pos) { // overlapping
+        if (previous.pos + previous.size > current.pos) {
+          // overlapping
           previous.size += current.size;
           previous.targets = previous.targets.concat(current.targets);
           boxes.splice(i, 1);
           overlapping = true;
         }
       }
-    }// end of while i
-  }// end of while
-    // adjust y
+    } // end of while i
+  } // end of while
+  // adjust y
   i = 0;
   boxes.forEach((b) => {
     let posInCompositeBox = startY + elementHeight;

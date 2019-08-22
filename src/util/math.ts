@@ -1,13 +1,14 @@
-import * as _ from '@antv/util';
 import { BBox } from '@antv/g';
+import * as matrixUtil from '@antv/matrix-util';
+import * as _ from '@antv/util';
 
 function dotProduct2D(va, vb) {
   return va.x * vb.y + va.y * vb.x;
 }
 
 function applyMatrix(point, matrix, tag = 1) {
-  const vector = [ point.x, point.y, tag ];
-  _.vec3.transformMat3(vector, vector, matrix);
+  const vector = [point.x, point.y, tag];
+  matrixUtil.vec3.transformMat3(vector, vector, matrix);
   return {
     x: vector[0],
     y: vector[1],
@@ -52,7 +53,7 @@ function getLineIntersect(p0, p1, p2, p3) {
 }
 
 function isPointInPolygon(p, polygon) {
-  /**射线法 */
+  /** 射线法 */
   let inside = false;
   for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
     const xi = polygon[i].x;
@@ -60,9 +61,10 @@ function isPointInPolygon(p, polygon) {
     const xj = polygon[j].x;
     const yj = polygon[j].y;
 
-    const intersect = ((yi > p.y) !== (yj > p.y))
-      && (p.x <= (xj - xi) * (p.y - yi) / (yj - yi) + xi);
-    if (intersect) inside = !inside;
+    const intersect = yi > p.y !== yj > p.y && p.x <= ((xj - xi) * (p.y - yi)) / (yj - yi) + xi;
+    if (intersect) {
+      inside = !inside;
+    }
   }
   return inside;
 }
@@ -77,10 +79,12 @@ function dist2(a, b) {
 
 function distBetweenPointLine(p, p1, p2) {
   const l2 = dist2(p1, p2);
-  if (l2 === 0) return dist2(p, p1);
+  if (l2 === 0) {
+    return dist2(p, p1);
+  }
   let t = ((p.x - p1.x) * (p2.x - p1.x) + (p.y - p1.y) * (p2.y - p1.y)) / l2;
   t = Math.max(0, Math.min(1, t));
-  const distSquare = dist2(p, { x: p1.x + t * (p2.x - p1.x), y:p1.y + t * (p2.y - p1.y) });
+  const distSquare = dist2(p, { x: p1.x + t * (p2.x - p1.x), y: p1.y + t * (p2.y - p1.y) });
   return Math.sqrt(distSquare);
 }
 
@@ -90,7 +94,9 @@ function minDistBetweenPointPolygon(p, polygon) {
   /** vertice to vertice */
   _.each(polygon, (v) => {
     const dist = Math.sqrt(dist2(v, p));
-    if (min > dist) min = dist;
+    if (min > dist) {
+      min = dist;
+    }
   });
   /** vertice to edge */
   for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -99,15 +105,16 @@ function minDistBetweenPointPolygon(p, polygon) {
     const xj = polygon[j].x;
     const yj = polygon[j].y;
     const dist = distBetweenPointLine(p, { x: xi, y: yi }, { x: xj, y: yj });
-    if (min > dist) min = dist;
+    if (min > dist) {
+      min = dist;
+    }
   }
 
   return min;
 }
 
 function isPolygonIntersection(polyA, polyB) {
-  for (let i = 0; i < polyA.length; i++) {
-    const p = polyA[i];
+  for (const p of polyA) {
     const inside = isPointInPolygon(p, polyB);
     if (inside) {
       return true;
@@ -124,11 +131,15 @@ function minDistBetweenConvexPolygon(polyA, polyB) {
   let minB = Infinity;
   _.each(polyA, (v) => {
     const localMin = minDistBetweenPointPolygon(v, polyB);
-    if (minA > localMin) minA = localMin;
+    if (minA > localMin) {
+      minA = localMin;
+    }
   });
   _.each(polyB, (v) => {
     const localMin = minDistBetweenPointPolygon(v, polyA);
-    if (minB > localMin) minB = localMin;
+    if (minB > localMin) {
+      minB = localMin;
+    }
   });
 
   return Math.min(minA, minB);
@@ -138,17 +149,16 @@ function bboxOnRotate(shape) {
   const bbox = shape.getBBox();
   const x = bbox.minX;
   const y = bbox.minY;
-  /** step1: 获得旋转后的shape包围盒
-   *将包围盒对齐到原点，apply旋转矩阵
-   *移回原来的位置
+  /*
+   * step1: 获得旋转后的shape包围盒
+   * 将包围盒对齐到原点，apply旋转矩阵
+   * 移回原来的位置
    */
   const bboxWidth = bbox.tr.x - bbox.tl.x;
   const bboxHeight = bbox.bl.y - bbox.tl.y;
   // const matrix = shape.getTotalMatrix();
   const matrix = shape.attr('matrix');
-  const ulMatrix = [ matrix[0], matrix[1], 0,
-    matrix[3], matrix[4], 0,
-    0, 0, 1 ];
+  const ulMatrix = [matrix[0], matrix[1], 0, matrix[3], matrix[4], 0, 0, 0, 1];
   const top_left = applyMatrix({ x: 0, y: 0 }, ulMatrix);
   top_left.x += x;
   top_left.y += y;
@@ -162,14 +172,14 @@ function bboxOnRotate(shape) {
   bottom_right.x += x;
   bottom_right.y += y;
   /** step2：根据旋转后的画布位置重新计算包围盒，以免图形进行旋转后上下颠倒 */
-  const points = [ top_left, top_right, bottom_left, bottom_right ];
+  const points = [top_left, top_right, bottom_left, bottom_right];
   points.sort((a, b) => {
     return a.y - b.y;
   });
   const minY = points[0].y;
   const maxY = points[points.length - 1].y;
-  const tops = [ points[0], points[1] ];
-  const bottoms = [ points[2], points[3] ];
+  const tops = [points[0], points[1]];
+  const bottoms = [points[2], points[3]];
   const topLeft = tops[0].x < tops[1].x ? tops[0] : tops[1];
   const topRight = tops[0].x < tops[1].x ? tops[1] : tops[0];
   const bottomLeft = bottoms[0].x < bottoms[1].x ? bottoms[0] : bottoms[1];
@@ -195,7 +205,6 @@ function bboxOnRotate(shape) {
     // shape
   };
   return node;
-
 }
 
 /**
@@ -232,12 +241,12 @@ function DouglasPeucker(points, threshold) {
     const list2 = DouglasPeucker(points.slice(index, points.length), threshold);
     result = list1.concat(list2);
   } else {
-    result = [ points[0], points[points.length - 1] ];
+    result = [points[0], points[points.length - 1]];
   }
   return result;
 }
 
-/**统计的以后迁出去，暂时先放这里 */
+/** 统计的以后迁出去，暂时先放这里 */
 function getMedian(array) {
   const list = _.clone(array);
   list.sort((a, b) => {
@@ -255,7 +264,7 @@ function getMedian(array) {
 
 function getMean(array) {
   let sum: number = 0;
-  _.each(array, (num:number) => {
+  _.each(array, (num: number) => {
     sum += num;
   });
   return sum / array.length;

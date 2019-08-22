@@ -1,7 +1,7 @@
+import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import Theme from '../../theme';
 import { processAxisVisible } from '../../util/axis';
-import * as G2 from '@antv/g2';
 
 /**
  * 负责图表theme的管理
@@ -10,9 +10,9 @@ import * as G2 from '@antv/g2';
 const G2DefaultTheme = G2.Global.theme;
 
 export default class ThemeController {
-  private plot: any;
   public plotTheme: any;
   public theme: any;
+  private plot: any;
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -29,7 +29,7 @@ export default class ThemeController {
     let userPlotTheme = {};
     const propsTheme = props.theme;
     if (propsTheme) {
-            // theme 以 name 的方式配置
+      // theme 以 name 的方式配置
       if (_.isString(propsTheme)) {
         userPlotTheme = Theme.getThemeByName(propsTheme).getPlotTheme(this.plot.type);
       } else {

@@ -10,12 +10,10 @@ interface IVariableNode {
 }
 
 export default class VariableNodes {
-  nodes: IVariableNode[];
-  type: string = 'variable';
+  public nodes: IVariableNode[];
+  public type: string = 'variable';
   constructor(cfg: NodesCfg) {
     _.assign(this, cfg);
   }
-  public normalize() {
-
-  }
+  public normalize() {}
 }

@@ -43,4 +43,3 @@ export const dataWithSplit = [
     area: '西南',
   },
 ];
-

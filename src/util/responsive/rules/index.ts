@@ -1,17 +1,17 @@
-import textWrapper from './textWrapper';
-import textRotation from './textRotation';
-import textAbbreviate from './textAbbreviate';
-import textHide from './textHide';
-import digitsAbbreviate from './digitsAbbreviate';
+import clearOverlapping from './clearOverlapping';
 import datetimeStringAbbrevaite from './datetimeStringAbbrevaite';
-import robustAbbrevaite from './robustAbbrevaite';
+import digitsAbbreviate from './digitsAbbreviate';
+import nodeJitter from './nodeJitter';
+import nodeJitterUpward from './nodeJitterUpward';
 import nodesResampling from './nodesResampling';
 import nodesResamplingByAbbrevate from './nodesResamplingByAbbrevate';
 import nodesResamplingByChange from './nodesResamplingByChange';
 import nodesResamplingByState from './nodesResamplingByState';
-import nodeJitter from './nodeJitter';
-import nodeJitterUpward from './nodeJitterUpward';
-import clearOverlapping from './clearOverlapping';
+import robustAbbrevaite from './robustAbbrevaite';
+import textAbbreviate from './textAbbreviate';
+import textHide from './textHide';
+import textRotation from './textRotation';
+import textWrapper from './textWrapper';
 
 export const rulesLib = {
   textWrapper,
@@ -31,6 +31,6 @@ export const rulesLib = {
 };
 
 export function registerResponsiveRule(name, method) {
-    // todo: 防止覆盖
+  // todo: 防止覆盖
   rulesLib[name] = method;
 }

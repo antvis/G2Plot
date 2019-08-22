@@ -1,22 +1,17 @@
-import { Interaction } from '@antv/g2';
 import { GM } from '@antv/g-gesture';
+import { Interaction } from '@antv/g2';
 import * as _ from '@antv/util';
 
-const EVENT_TYPES = [
-  'touchstart',
-  'touchmove',
-  'touchend',
-  'touchcancel',
-];
+const EVENT_TYPES = ['touchstart', 'touchmove', 'touchend', 'touchcancel'];
 
 export default class MobileInteraction extends Interaction {
-  gm: GM;
+  public gm: GM;
   private _handlers: any[];
   constructor(cfg) {
     super(cfg);
     const container = this.view.get('container');
     this.gm = new GM(container, {
-      gestures: [ 'Pinch, Pan' ], // 后续需要的添加到这个列表里
+      gestures: ['Pinch, Pan'], // 后续需要的添加到这个列表里
     });
   }
   /*_bindEvents() {

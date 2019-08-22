@@ -1,14 +1,14 @@
 import * as _ from '@antv/util';
-import TinyPlot from '../tinyPlot';
 import { getGeom } from '../../geoms/factory';
+import TinyPlot from '../tinyPlot';
 
 const WIDTH_RATIO = 0.6;
 
 export default class TinyColumn extends TinyPlot {
-  line: any;
-  area: any;
+  public line: any;
+  public area: any;
 
-  protected _setDefaultG2Config() { }
+  protected _setDefaultG2Config() {}
 
   protected _beforeInit() {
     super._beforeInit();
@@ -19,8 +19,8 @@ export default class TinyColumn extends TinyPlot {
   protected _addElements() {
     const props = this._initialProps;
     const column = getGeom('interval', 'main', {
-      positionFields: [ props.xField, props.yField ],
-      plot:this,
+      positionFields: [props.xField, props.yField],
+      plot: this,
     });
     this._setConfig('element', column);
   }
@@ -28,7 +28,7 @@ export default class TinyColumn extends TinyPlot {
   private _processProps() {
     let props = this._initialProps;
     const cfg = {
-      padding: [ 0, 0, 0, 0 ],
+      padding: [0, 0, 0, 0],
       columnSize: this._getSize(),
     } as any;
     props = _.mix(props, cfg);
@@ -38,7 +38,7 @@ export default class TinyColumn extends TinyPlot {
     const props = this._initialProps;
     const columnNumber = this._getColumnNum(props.data, props.xField);
     const width = this.canvasController.width;
-    return width / columnNumber * WIDTH_RATIO;
+    return (width / columnNumber) * WIDTH_RATIO;
   }
 
   private _getColumnNum(data, field) {
@@ -51,5 +51,4 @@ export default class TinyColumn extends TinyPlot {
     });
     return values.length;
   }
-
 }

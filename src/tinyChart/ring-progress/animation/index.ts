@@ -1,27 +1,29 @@
-import { Animate } from '@antv/g2';
 import * as G from '@antv/g';
+import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
 
-/**记录之前的状态**/
-const preState = {};
+// 记录之前的状态
+const preState: any = {};
 
-/**更新动画 */
+/** 更新动画 */
 function progressUpdate(shape, animateCfg, coord) {
   const path = shape.attr('path');
   let clip;
-  const uniform:any = {};
+  const uniform: any = {};
   const index = shape.get('index');
   const { startAngle, endAngle } = getAngle(shape, coord);
   if (preState[shape.id]) {
     const { preStart, preEnd, prePath } = getState(shape);
     const anchor = getAnchor(preStart, startAngle);
     const direction = getDirection(preStart, preEnd, startAngle, endAngle);
-    direction === 'antiClockWise' && shape.attr('path', prePath);
+    if (direction === 'antiClockWise') {
+      shape.attr('path', prePath);
+    }
 
     if (anchor === 'start') {
       clip = createClip(coord, startAngle, preEnd);
       uniform.endAngle = endAngle;
-    }else {
+    } else {
       clip = createClip(coord, preStart, endAngle);
       uniform.startAngle = startAngle;
     }
@@ -34,11 +36,13 @@ function progressUpdate(shape, animateCfg, coord) {
         shape.setSilent('cacheShape', null);
         shape.setSilent('animating', false);
         clip.remove();
-        direction === 'antiClockWise' && shape.attr('path', path);
+        if (direction === 'antiClockWise') {
+          shape.attr('path', path);
+        }
       }
     };
-        /** 执行动画 */
-        /** 准备动画参数 */
+    /** 执行动画 */
+    /** 准备动画参数 */
     let delay = animateCfg.delay;
     if (_.isFunction(delay)) {
       delay = animateCfg.delay(index);
@@ -47,7 +51,7 @@ function progressUpdate(shape, animateCfg, coord) {
     if (_.isFunction(easing)) {
       easing = animateCfg.easing(index);
     }
-        /** 动起来 */
+    /** 动起来 */
     clip.animate(uniform, animateCfg.duration, easing, animateCfg.callback, delay);
   }
 
@@ -55,14 +59,16 @@ function progressUpdate(shape, animateCfg, coord) {
 }
 
 export function setState(shape, start, end) {
-  if (!preState[shape.id]) preState[shape.id] = {};
+  if (!preState[shape.id]) {
+    preState[shape.id] = {};
+  }
   preState[shape.id].preStart = start;
   preState[shape.id].preEnd = end;
   preState[shape.id].prePath = shape.attr('path');
 }
 
 function getState(shape) {
-  return  preState[shape.id] || null;
+  return preState[shape.id] || null;
 }
 
 /**

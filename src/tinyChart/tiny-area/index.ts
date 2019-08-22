@@ -1,10 +1,10 @@
 import * as _ from '@antv/util';
-import TinyPlot from '../tinyPlot';
 import { getGeom } from '../../geoms/factory';
+import TinyPlot from '../tinyPlot';
 
 export default class TinyArea extends TinyPlot {
-  line: any;
-  area: any;
+  public line: any;
+  public area: any;
 
   protected _beforeInit() {
     super._beforeInit();
@@ -22,5 +22,4 @@ export default class TinyArea extends TinyPlot {
     });
     this._setConfig('element', this.line);
   }
-
 }

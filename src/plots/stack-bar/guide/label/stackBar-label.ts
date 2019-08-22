@@ -1,11 +1,10 @@
 import { Shape } from '@antv/g';
 import { registerElementLabels } from '@antv/g2';
-import { BarLabels } from '../../../bar/guide/label/bar-label';
 import * as _ from '@antv/util';
+import { BarLabels } from '../../../bar/guide/label/bar-label';
 
 class StackBarLabels extends BarLabels {
-
-  adjustPosition(label, shape) {
+  public adjustPosition(label, shape) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (shapeRange.width <= labelRange.width) {
@@ -13,7 +12,6 @@ class StackBarLabels extends BarLabels {
       label.set('capture', false);
     }
   }
-
 }
 
 registerElementLabels('stackBarLabel', StackBarLabels);

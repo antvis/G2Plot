@@ -13,7 +13,7 @@ module.exports = {
     path: resolve(__dirname, 'build/'),
   },
   resolve: {
-    extensions: [ '.ts', '.js', '.less' ],
+    extensions: ['.ts', '.js', '.less'],
   },
   module: {
     rules: [
@@ -28,27 +28,31 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: [ {
-          loader: 'style-loader' // creates style nodes from JS strings
-        }, {
-          loader: 'css-loader' // translates CSS into CommonJS
-        }, {
-          loader: 'less-loader' // compiles Less to CSS
-        } ]
+        use: [
+          {
+            loader: 'style-loader', // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'less-loader', // compiles Less to CSS
+          },
+        ],
       },
     ],
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    ...(process.env.MODE === 'ANALYZER' ? [ new BundleAnalyzerPlugin({ analyzerMode: 'static' }) ] : []),
+    ...(process.env.MODE === 'ANALYZER' ? [new BundleAnalyzerPlugin({ analyzerMode: 'static' })] : []),
   ],
   externals: {
     moment: 'moment',
     '../moment': 'moment',
   },
   performance: {
-    hints: false
+    hints: false,
   },
   devtool: 'source-map',
 };

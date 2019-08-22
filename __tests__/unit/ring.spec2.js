@@ -6,25 +6,32 @@ describe('ring plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('创建饼图', () => {
-    const data = [ {
-      type: '分类一',
-      value: 27
-    }, {
-      type: '分类二',
-      value: 25
-    }, {
-      type: '分类三',
-      value: 18
-    }, {
-      type: '分类四',
-      value: 15
-    }, {
-      type: '分类五',
-      value: 10
-    }, {
-      type: 'Other',
-      value: 5
-    } ];
+    const data = [
+      {
+        type: '分类一',
+        value: 27,
+      },
+      {
+        type: '分类二',
+        value: 25,
+      },
+      {
+        type: '分类三',
+        value: 18,
+      },
+      {
+        type: '分类四',
+        value: 15,
+      },
+      {
+        type: '分类五',
+        value: 10,
+      },
+      {
+        type: 'Other',
+        value: 5,
+      },
+    ];
 
     const canvasDiv = document.createElement('div');
     canvasDiv.style.width = '600px';
@@ -44,14 +51,9 @@ describe('ring plot', () => {
       /* label: {
         type: 'spider',
       },*/
-      annotation: [
-        { type: 'centralText',
-          onActive: true
-        }
-      ]
+      annotation: [{ type: 'centralText', onActive: true }],
     });
 
     pie.render();
   });
-
 });

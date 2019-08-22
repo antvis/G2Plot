@@ -1,10 +1,9 @@
 import { registerElementLabels } from '@antv/g2';
-import { ColumnLabels } from '../../../column/guide/label/column-label';
 import * as _ from '@antv/util';
+import { ColumnLabels } from '../../../column/guide/label/column-label';
 
 class StackColumnLabels extends ColumnLabels {
-
-  adjustPosition(label, shape) {
+  public adjustPosition(label, shape) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (shapeRange.height <= labelRange.height) {
@@ -12,7 +11,6 @@ class StackColumnLabels extends ColumnLabels {
       label.set('capture', false);
     }
   }
-
 }
 
 registerElementLabels('stackColumnLabel', StackColumnLabels);

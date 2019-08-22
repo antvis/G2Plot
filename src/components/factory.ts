@@ -1,7 +1,7 @@
 import AxisParser from './axis';
-import LabelParser from './label';
-import GuideLine from './guideLine';
 import TextDescription from './description';
+import GuideLine from './guideLine';
+import LabelParser from './label';
 
 const COMPONENT_MAPPER = {
   axis: AxisParser,

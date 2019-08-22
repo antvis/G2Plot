@@ -11,79 +11,98 @@ describe('StackColumn plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  const data = [ {
-    year: '1991',
-    value: 3,
-    type: 'Lon'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Lon'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Lon'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Lon'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Lon'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Lon'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Lon'
-  }, {
-    year: '1991',
-    value: 3,
-    type: 'Bor'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Bor'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Bor'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Bor'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Bor'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Bor'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Bor'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Bor'
-  } ];
+  const data = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Lon',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Lon',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Lon',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Lon',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Lon',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Lon',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Lon',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Lon',
+    },
+    {
+      year: '1991',
+      value: 3,
+      type: 'Bor',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Bor',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Bor',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Bor',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Bor',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Bor',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Bor',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Bor',
+    },
+  ];
 
   it('初始化以及销毁', () => {
     const columnPlot = new StackColumn(canvasDiv, {
@@ -93,12 +112,12 @@ describe('StackColumn plot', () => {
       xField: 'year',
       yField: 'value',
       yAxis: {
-        min: 0
+        min: 0,
       },
       stackField: 'type',
       label: {
         visible: true,
-      }
+      },
     });
     columnPlot.render();
     const intervalShape = columnPlot.plot.get('elements')[0];
@@ -118,11 +137,11 @@ describe('StackColumn plot', () => {
       xField: 'year',
       yField: 'value',
       yAxis: {
-        min: 0
+        min: 0,
       },
       stackField: 'type',
       columnSize: 7,
-      color: [ 'red', 'yellow' ]
+      color: ['red', 'yellow'],
     });
     columnPlot.render();
     const intervalEle = columnPlot.plot.get('elements')[0];
@@ -141,11 +160,11 @@ describe('StackColumn plot', () => {
       xField: 'year',
       yField: 'value',
       yAxis: {
-        min: 0
+        min: 0,
       },
       stackField: 'type',
       columnSize: 7,
-      color: [ 'red', 'yellow' ]
+      color: ['red', 'yellow'],
     });
     columnPlot.render();
     columnPlot.destroy();
@@ -160,21 +179,28 @@ describe('StackColumn plot', () => {
       xField: 'year',
       yField: 'value',
       yAxis: {
-        min: 0
+        min: 0,
       },
       stackField: 'type',
       label: {
-        formatter: (txt) => { return txt + 'dddd'; },
+        formatter: (txt) => {
+          return txt + 'dddd';
+        },
         offsetX: 10,
         offsetY: 10,
         style: {
-          fill: 'red'
-        }
-      }
+          fill: 'red',
+        },
+      },
     });
     columnPlot.render();
 
-    const labelGroup = columnPlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = columnPlot.plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     // const panelGroup = columnPlot.plot.get('panelRange');
     expect(labelGroup.length).to.be.equal(18);
     expect(labelGroup[0].attrs.fill).to.be.equal('red');
@@ -182,6 +208,4 @@ describe('StackColumn plot', () => {
     columnPlot.destroy();
     expect(columnPlot.plot.destroyed).to.be.true;
   });
-
-
 });

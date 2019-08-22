@@ -74,7 +74,7 @@ export default class Slider extends Group {
     });
   }
 
-  _initHandle(type) {
+  public _initHandle(type) {
     const handle = this.addGroup();
     const layout = this.get('layout');
     const handleStyle = this.get('handleStyle');
@@ -87,6 +87,7 @@ export default class Slider extends Group {
     let triggerCursor;
 
     if (layout === 'horizontal') {
+      // tslint:disable-next-line: no-shadowed-variable
       const iconWidth = handleStyle.width;
       triggerCursor = 'ew-resize';
       handleIcon = handle.addShape('Image', {
@@ -100,14 +101,17 @@ export default class Slider extends Group {
         },
       });
       text = handle.addShape('Text', {
-        attrs: _.mix({
-          x: (type === 'min') ? -(iconWidth / 2 + OFFSET) : iconWidth / 2 + OFFSET,
-          y: iconHeight / 2,
-          textAlign: (type === 'min') ? 'end' : 'start',
-          textBaseline: 'middle',
-          text: type === 'min' ? this.get('minText') : this.get('maxText'),
-          cursor: triggerCursor,
-        },           this.get('textStyle')),
+        attrs: _.mix(
+          {
+            x: type === 'min' ? -(iconWidth / 2 + OFFSET) : iconWidth / 2 + OFFSET,
+            y: iconHeight / 2,
+            textAlign: type === 'min' ? 'end' : 'start',
+            textBaseline: 'middle',
+            text: type === 'min' ? this.get('minText') : this.get('maxText'),
+            cursor: triggerCursor,
+          },
+          this.get('textStyle')
+        ),
       });
     } else {
       triggerCursor = 'ns-resize';
@@ -122,14 +126,17 @@ export default class Slider extends Group {
         },
       });
       text = handle.addShape('Text', {
-        attrs: _.mix({
-          x: iconWidth / 2,
-          y: (type === 'min') ? (iconHeight / 2 + OFFSET) : -(iconHeight / 2 + OFFSET),
-          textAlign: 'center',
-          textBaseline: 'middle',
-          text: type === 'min' ? this.get('minText') : this.get('maxText'),
-          cursor: triggerCursor,
-        },           this.get('textStyle')),
+        attrs: _.mix(
+          {
+            x: iconWidth / 2,
+            y: type === 'min' ? iconHeight / 2 + OFFSET : -(iconHeight / 2 + OFFSET),
+            textAlign: 'center',
+            textBaseline: 'middle',
+            text: type === 'min' ? this.get('minText') : this.get('maxText'),
+            cursor: triggerCursor,
+          },
+          this.get('textStyle')
+        ),
       });
     }
 
@@ -138,22 +145,25 @@ export default class Slider extends Group {
     return handle;
   }
 
-  _initSliderBackground() {
+  public _initSliderBackground() {
     const backgroundElement = this.addGroup();
     backgroundElement.initTransform();
     backgroundElement.translate(0, 0);
     backgroundElement.addShape('Rect', {
-      attrs: _.mix({
-        x: 0,
-        y: 0,
-        width: this.get('width'),
-        height: this.get('height'),
-      },           this.get('backgroundStyle')),
+      attrs: _.mix(
+        {
+          x: 0,
+          y: 0,
+          width: this.get('width'),
+          height: this.get('height'),
+        },
+        this.get('backgroundStyle')
+      ),
     });
     return backgroundElement;
   }
 
-  _beforeRenderUI() {
+  public _beforeRenderUI() {
     const backgroundElement = this._initSliderBackground();
     const minHandleElement = this._initHandle('min');
     const maxHandleElement = this._initHandle('max');
@@ -173,7 +183,7 @@ export default class Slider extends Group {
     this.sort();
   }
 
-  _renderUI() {
+  public _renderUI() {
     if (this.get('layout') === 'horizontal') {
       this._renderHorizontal();
     } else {
@@ -181,7 +191,7 @@ export default class Slider extends Group {
     }
   }
 
-  _transform(layout) {
+  public _transform(layout) {
     const range = this.get('range');
     const minRatio = range[0] / 100;
     const maxRatio = range[1] / 100;
@@ -215,20 +225,20 @@ export default class Slider extends Group {
     }
   }
 
-  _renderHorizontal() {
-
+  public _renderHorizontal() {
     this._transform('horizontal');
   }
 
-  _renderVertical() {
+  public _renderVertical() {
     this._transform('vertical');
   }
 
-  _bindUI() {
+  public _bindUI() {
     this.on('mousedown', _.wrapBehavior(this, '_onMouseDown'));
   }
 
-  _isElement(target, name) { // 判断是否是该元素
+  public _isElement(target, name) {
+    // 判断是否是该元素
     const element = this.get(name);
     if (target === element) {
       return true;
@@ -240,14 +250,14 @@ export default class Slider extends Group {
     return false;
   }
 
-  _getRange(diff, range) {
+  public _getRange(diff, range) {
     let rst = diff + range;
     rst = rst > 100 ? 100 : rst;
     rst = rst < 0 ? 0 : rst;
     return rst;
   }
 
-  _limitRange(diff, limit, range) {
+  public _limitRange(diff, limit, range) {
     range[0] = this._getRange(diff, range[0]);
     range[1] = range[0] + limit;
     if (range[1] > 100) {
@@ -256,7 +266,7 @@ export default class Slider extends Group {
     }
   }
 
-  _updateStatus(dimension, ev) {
+  public _updateStatus(dimension, ev) {
     const totalLength = dimension === 'x' ? this.get('width') : this.get('height');
     const dim = _.upperFirst(dimension);
     const range = this.get('range');
@@ -281,13 +291,15 @@ export default class Slider extends Group {
     } else {
       if (this._isElement(currentTarget, 'minHandleElement')) {
         range[0] = this._getRange(diffRange, range[0]);
-        if (minRange) { // 设置了最小范围
-          if ((range[1] - range[0]) <= minRange) {
+        if (minRange) {
+          // 设置了最小范围
+          if (range[1] - range[0] <= minRange) {
             this._limitRange(diffRange, minRange, range);
           }
         }
 
-        if (maxRange) { // 设置了最大范围
+        if (maxRange) {
+          // 设置了最大范围
           if (range[1] - range[0] >= maxRange) {
             this._limitRange(diffRange, maxRange, range);
           }
@@ -296,13 +308,15 @@ export default class Slider extends Group {
       if (this._isElement(currentTarget, 'maxHandleElement')) {
         range[1] = this._getRange(diffRange, range[1]);
 
-        if (minRange) { // 设置了最小范围
-          if ((range[1] - range[0]) <= minRange) {
+        if (minRange) {
+          // 设置了最小范围
+          if (range[1] - range[0] <= minRange) {
             this._limitRange(diffRange, minRange, range);
           }
         }
 
-        if (maxRange) { // 设置了最大范围
+        if (maxRange) {
+          // 设置了最大范围
           if (range[1] - range[0] >= maxRange) {
             this._limitRange(diffRange, maxRange, range);
           }
@@ -311,7 +325,7 @@ export default class Slider extends Group {
     }
 
     if (this._isElement(currentTarget, 'middleHandleElement')) {
-      diffStashRange = (rangeStash[1] - rangeStash[0]);
+      diffStashRange = rangeStash[1] - rangeStash[0];
       this._limitRange(diffRange, diffStashRange, range);
     }
 
@@ -323,7 +337,7 @@ export default class Slider extends Group {
     this.get('canvas').draw(); // need delete
   }
 
-  _onMouseDown(ev) {
+  public _onMouseDown(ev) {
     const currentTarget = ev.target;
     const originEvent = ev.event;
     const range = this.get('range');
@@ -332,22 +346,22 @@ export default class Slider extends Group {
     this.set('pageX', originEvent.pageX);
     this.set('pageY', originEvent.pageY);
     this.set('currentTarget', currentTarget);
-    this.set('rangeStash', [ range[0], range[1] ]);
+    this.set('rangeStash', [range[0], range[1]]);
     this._bindCanvasEvents();
   }
 
-  _bindCanvasEvents() {
+  public _bindCanvasEvents() {
     const containerDOM = this.get('canvas').get('containerDOM');
     this.onMouseMoveListener = _.wrapBehavior(this, '_onCanvasMouseMove');
     containerDOM.addEventListener('mousemove', this.onMouseMoveListener);
-    this.onMouseUpListener =  _.wrapBehavior(this, '_onCanvasMouseUp');
+    this.onMouseUpListener = _.wrapBehavior(this, '_onCanvasMouseUp');
     containerDOM.addEventListener('mouseup', this.onMouseUpListener);
     // @2018-06-06 by blue.lb 添加mouseleave事件监听，让用户在操作出滑块区域后有一个“正常”的效果，可以正常重新触发滑块的操作流程
     this.onMouseLeaveListener = _.wrapBehavior(this, '_onCanvasMouseUp');
     containerDOM.addEventListener('mouseleave', this.onMouseLeaveListener);
   }
 
-  _onCanvasMouseMove(ev) {
+  public _onCanvasMouseMove(ev) {
     const layout = this.get('layout');
     if (layout === 'horizontal') {
       this._updateStatus('x', ev);
@@ -356,11 +370,11 @@ export default class Slider extends Group {
     }
   }
 
-  _onCanvasMouseUp() {
+  public _onCanvasMouseUp() {
     this._removeDocumentEvents();
   }
 
-  _removeDocumentEvents() {
+  public _removeDocumentEvents() {
     const containerDOM = this.get('canvas').get('containerDOM');
     containerDOM.removeEventListener('mousemove', this.onMouseMoveListener);
     containerDOM.removeEventListener('mouseleave', this.onMouseLeaveListener);

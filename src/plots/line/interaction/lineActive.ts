@@ -9,7 +9,7 @@ export default class LineActive extends Interaction {
     });
   }
 
-  process(ev) {
+  public process(ev) {
     const target = ev.target;
     if (target.name === 'line') {
       const data = ev.data[0]._origin;
@@ -22,5 +22,4 @@ export default class LineActive extends Interaction {
       });
     }
   }
-
 }

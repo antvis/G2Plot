@@ -1,12 +1,12 @@
+import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
+import { getComponent } from '../../components/factory';
+import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
-import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import SpiderLabel from './guide/label/spiderLabel';
-import { getComponent } from '../../components/factory';
-import { getGeom } from '../../geoms/factory';
 
 export interface PieConfig extends BaseConfig {
   angleField: string;
@@ -15,21 +15,23 @@ export interface PieConfig extends BaseConfig {
   pieStyle?: {};
 }
 
-export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T>{
-  pie: any;
-  spiderLabel: any;
-  protected _setDefaultG2Config() { }
+export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T> {
+  public pie: any;
+  public spiderLabel: any;
+  protected _setDefaultG2Config() {}
 
   protected _scale() {
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
     scales[props.angleField] = {};
-    _.has(props, 'xAxis') && extractScale(scales[props.angleField], props.xAxis);
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.angleField], props.xAxis);
+    }
     super._scale();
   }
 
-  protected _axis() { }
+  protected _axis() {}
 
   protected _coord() {
     const props = this._initialProps;
@@ -50,11 +52,9 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     this._adjustPieStyle();
     const pie = getGeom('interval', 'main', {
       plot: this,
-      positionFields: [ props.angleField ],
+      positionFields: [props.angleField],
     });
-    pie.adjust = [
-      { type: 'stack' },
-    ];
+    pie.adjust = [{ type: 'stack' }];
     this.pie = pie;
     if (props.label) {
       this._label();
@@ -65,14 +65,14 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   protected _animation() {
     const props = this._initialProps;
     if (props.animation === false) {
-      /**关闭动画 */
+      /** 关闭动画 */
       this.pie.animate = false;
     }
   }
 
-  protected _annotation() { }
+  protected _annotation() {}
 
-  protected _interactions() { }
+  protected _interactions() {}
 
   protected _events(eventParser) {
     super._events(EventParser);
@@ -81,13 +81,13 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   protected _afterInit() {
     super._afterInit();
     const props = this._initialProps;
-    /**蜘蛛布局label */
+    /** 蜘蛛布局label */
     if (props.label) {
       const labelConfig = props.label as Label;
       if (labelConfig.type === 'spider') {
         const spiderLabel = new SpiderLabel({
           view: this.plot,
-          fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
+          fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
           style: labelConfig.style ? labelConfig.style : {},
           formatter: props.label.formatter ? props.label.formatter : false,
         });
@@ -100,7 +100,9 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     const props = this._initialProps;
     if (!props.colorField) {
       const defaultStyle = { stroke: 'white', lineWidth: 1 };
-      if (!props.pieStyle) props.pieStyle = {};
+      if (!props.pieStyle) {
+        props.pieStyle = {};
+      }
       props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
     }
   }
@@ -118,15 +120,14 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     }
 
     this.pie.label = getComponent('label', {
-      plot:this,
-      fields: props.colorField ? [ props.angleField, props.colorField ] : [ props.angleField ],
+      plot: this,
+      fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
       ...labelConfig,
     });
-
   }
 
   private _showLabel() {
     const props = this._initialProps;
-    return props.label  && props.label.visible === true && props.label.type !== 'spider';
+    return props.label && props.label.visible === true && props.label.type !== 'spider';
   }
 }

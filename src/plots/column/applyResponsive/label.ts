@@ -1,11 +1,11 @@
-import ShapeNodes from '../../../util/responsive/shapeNodes';
-import Responsive from '../../../util/responsive/responsive';
-import responsiveTheme from '../../../theme/responsive';
 import * as _ from '@antv/util';
+import responsiveTheme from '../../../theme/responsive';
+import Responsive from '../../../util/responsive/responsive';
+import ShapeNodes from '../../../util/responsive/shapeNodes';
 
 export default function responsiveLabel(plot) {
   const props = plot._initialProps;
-    /** 判断是否应用响应式规则 */
+  /** 判断是否应用响应式规则 */
   if (isTopLabel(plot)) {
     const element = plot.plot.get('elements')[0];
     const labelsContainer = element.get('labelController').labelsContainer;
@@ -73,8 +73,7 @@ function getMedian(array) {
 }
 
 function getNodeByNumber(nodes, field, num) {
-  for (let i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
+  for (const node of nodes) {
     const d = node.shape.get('origin');
     if (d[field] === num) {
       return node;

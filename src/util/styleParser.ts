@@ -61,7 +61,7 @@ function AxisStyleParser(axisCfg, axis) {
   if (axis.grid) {
     if (axis.grid.visible === false) {
       axisCfg.grid = null;
-    }else {
+    } else {
       axisCfg.grid = _.clone(axis.grid);
       if (axis.grid.style) {
         axisCfg.grid = _.clone(axis.grid.style);
@@ -70,18 +70,14 @@ function AxisStyleParser(axisCfg, axis) {
   }
 }
 
-function TooltipStyleParser() {
-
-}
+function TooltipStyleParser() {}
 
 function LabelStyleParser(theme, style) {
   const labelCfg = theme.label;
   labelCfg.textStyle = style;
 }
 
-function AnnotationStyleParser() {
-
-}
+function AnnotationStyleParser() {}
 
 function checkNull(cfg) {
   if (cfg === null) {
@@ -90,8 +86,4 @@ function checkNull(cfg) {
   return cfg;
 }
 
-export {AxisStyleParser,
-        TooltipStyleParser,
-        LabelStyleParser,
-        AnnotationStyleParser,
-    };
+export { AxisStyleParser, TooltipStyleParser, LabelStyleParser, AnnotationStyleParser };

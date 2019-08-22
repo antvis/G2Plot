@@ -1,5 +1,5 @@
 import { Shape } from '@antv/g';
-import { registerElementLabels, ElementLabels } from '@antv/g2';
+import { ElementLabels, registerElementLabels } from '@antv/g2';
 import _ from 'lodash';
 import layout from '../../../../util/layout/annealing';
 
@@ -14,7 +14,7 @@ interface Item {
 }
 
 class LinePointLabels extends ElementLabels {
-  showLabels(points: any, shapes: Shape[]) {
+  public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');

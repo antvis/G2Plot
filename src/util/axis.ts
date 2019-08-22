@@ -1,7 +1,9 @@
 import * as StyleParser from '../util/styleParser';
 
 export function extractAxis(desAxis, axis) {
-  if (!axis) return desAxis;
+  if (!axis) {
+    return desAxis;
+  }
   StyleParser.AxisStyleParser(desAxis, axis);
   return desAxis;
 }

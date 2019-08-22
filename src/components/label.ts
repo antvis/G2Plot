@@ -1,9 +1,9 @@
-import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
+import * as _ from '@antv/util';
 
 export default class LabelParser {
-  private plot: any;
   public config: DataPointType = {};
+  private plot: any;
 
   constructor(cfg) {
     this.plot = cfg.plot;
@@ -34,7 +34,7 @@ export default class LabelParser {
   }
 
   private _parseOffset(props, config) {
-    const mapper = [ 'offset', 'offsetX', 'offsetY' ];
+    const mapper = ['offset', 'offsetX', 'offsetY'];
     let count = 0;
     _.each(mapper, (m) => {
       if (props[m]) {
@@ -42,7 +42,7 @@ export default class LabelParser {
         count++;
       }
     });
-    /**如用户没有设置offset，而label position又为middle时，则默认设置offset为0 */
+    // 如用户没有设置offset，而label position又为middle时，则默认设置offset为0
     if (count === 0 && _.get(props, 'position') === 'middle') {
       config.offset = 0;
     }

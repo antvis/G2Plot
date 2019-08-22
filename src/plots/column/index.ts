@@ -1,11 +1,11 @@
-import BasePlot from '../../base/plot';
-import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
-import { extractScale } from '../../util/scale';
 import * as _ from '@antv/util';
-import '../column/guide/label/column-label';
-import responsiveMethods from './applyResponsive/index';
+import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
+import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { extractScale } from '../../util/scale';
+import '../column/guide/label/column-label';
+import responsiveMethods from './applyResponsive/index';
 
 interface ColumnStyle {
   opacity?: number;
@@ -13,7 +13,7 @@ interface ColumnStyle {
 }
 
 interface IObject {
-  [key:string]: any;
+  [key: string]: any;
 }
 
 export interface ColumnConfig extends BaseConfig {
@@ -23,13 +23,13 @@ export interface ColumnConfig extends BaseConfig {
   columnSize?: number;
   maxthWidth?: number;
   minWidth?: number;
-  columnStyle?: ColumnStyle | Function;
+  columnStyle?: ColumnStyle | ((...args: any[]) => ColumnStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
 
-export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T>{
-  column: any;
+export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T> {
+  public column: any;
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
   }
@@ -37,7 +37,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _beforeInit() {
     this.type = 'column';
     const props = this._initialProps;
-    /**响应式图形 */
+    /** 响应式图形 */
     if (props.responsive && props.padding !== 'auto') {
       this._applyResponsive('preRender');
     }
@@ -46,15 +46,18 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _setDefaultG2Config() {}
 
   protected _scale() {
-
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
-      /** 配置y-scale */
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.xField], props.xAxis);
+    }
+    /** 配置y-scale */
     scales[props.yField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
+    if (_.has(props, 'yAxis')) {
+      extractScale(scales[props.yField], props.yAxis);
+    }
     this._setConfig('scales', scales);
     super._scale();
   }
@@ -86,8 +89,8 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     const props = this._initialProps;
 
     const column = getGeom('interval', 'main', {
-      positionFields: [ props.xField, props.yField ],
-      plot:this,
+      positionFields: [props.xField, props.yField],
+      plot: this,
     });
 
     if (props.label) {
@@ -98,15 +101,14 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     this._setConfig('element', column);
   }
 
-  protected _interactions() {
-  }
+  protected _interactions() {}
 
   protected _annotation() {}
 
   protected _animation() {
     const props = this._initialProps;
     if (props.animation === false) {
-      /**关闭动画 */
+      /** 关闭动画 */
       this.column.animate = false;
     }
   }
@@ -114,7 +116,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _afterInit() {
     super._afterInit();
     const props = this._initialProps;
-    /**响应式 */
+    /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.plot.once('afterrender', () => {
         this._applyResponsive('afterRender');
@@ -125,11 +127,13 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   protected _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
-    if (label && label.visible === false) return false;
+    if (label && label.visible === false) {
+      return false;
+    }
     const labelConfig = getComponent('label', {
-      plot:this,
+      plot: this,
       labelType: 'columnLabel',
-      fields: [ props.yField ],
+      fields: [props.yField],
       ...label,
     });
     return labelConfig;
@@ -142,5 +146,4 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       responsive.method(this);
     });
   }
-
 }

@@ -10,7 +10,7 @@ describe('radar plot', () => {
     {
       item: 'Design',
       user: 'b',
-      score: 30
+      score: 30,
     },
     {
       item: 'Development',
@@ -20,12 +20,12 @@ describe('radar plot', () => {
     {
       item: 'Development',
       user: 'b',
-      score: 70
+      score: 70,
     },
     {
       item: 'Marketing',
       user: 'a',
-      score: 60
+      score: 60,
     },
     {
       item: 'Marketing',
@@ -40,7 +40,7 @@ describe('radar plot', () => {
     {
       item: 'Users',
       user: 'b',
-      score: 50
+      score: 50,
     },
     {
       item: 'Test',
@@ -50,7 +50,7 @@ describe('radar plot', () => {
     {
       item: 'Test',
       user: 'b',
-      score: 70
+      score: 70,
     },
     {
       item: 'Language',
@@ -60,7 +60,7 @@ describe('radar plot', () => {
     {
       item: 'Language',
       user: 'b',
-      score: 50
+      score: 50,
     },
     {
       item: 'Technology',
@@ -70,7 +70,7 @@ describe('radar plot', () => {
     {
       item: 'Technology',
       user: 'b',
-      score: 40
+      score: 40,
     },
     {
       item: 'Support',
@@ -80,7 +80,7 @@ describe('radar plot', () => {
     {
       item: 'Support',
       user: 'b',
-      score: 40
+      score: 40,
     },
     {
       item: 'Sales',
@@ -90,18 +90,19 @@ describe('radar plot', () => {
     {
       item: 'Sales',
       user: 'b',
-      score: 40
+      score: 40,
     },
     {
       item: 'UX',
       user: 'a',
-      score: 50
+      score: 50,
     },
     {
       item: 'UX',
       user: 'b',
-      score: 60
-    } ];
+      score: 60,
+    },
+  ];
 
   it('创建雷达图', () => {
     const canvasDiv = document.createElement('div');
@@ -124,13 +125,12 @@ describe('radar plot', () => {
       xAxis: {},
       yAxis: {},
       polygon: {
-        visible: true
+        visible: true,
       },
       line: {
         visible: true,
-      }
+      },
     });
     radarPlot.render();
   });
-
 });

@@ -18,7 +18,7 @@ describe('Radar plot', () => {
     {
       item: 'Design',
       user: 'b',
-      score: 30
+      score: 30,
     },
     {
       item: 'Development',
@@ -28,12 +28,12 @@ describe('Radar plot', () => {
     {
       item: 'Development',
       user: 'b',
-      score: 70
+      score: 70,
     },
     {
       item: 'Marketing',
       user: 'a',
-      score: 60
+      score: 60,
     },
     {
       item: 'Marketing',
@@ -48,7 +48,7 @@ describe('Radar plot', () => {
     {
       item: 'Users',
       user: 'b',
-      score: 50
+      score: 50,
     },
     {
       item: 'Test',
@@ -58,7 +58,7 @@ describe('Radar plot', () => {
     {
       item: 'Test',
       user: 'b',
-      score: 70
+      score: 70,
     },
     {
       item: 'Language',
@@ -68,7 +68,7 @@ describe('Radar plot', () => {
     {
       item: 'Language',
       user: 'b',
-      score: 50
+      score: 50,
     },
     {
       item: 'Technology',
@@ -78,7 +78,7 @@ describe('Radar plot', () => {
     {
       item: 'Technology',
       user: 'b',
-      score: 40
+      score: 40,
     },
     {
       item: 'Support',
@@ -88,7 +88,7 @@ describe('Radar plot', () => {
     {
       item: 'Support',
       user: 'b',
-      score: 40
+      score: 40,
     },
     {
       item: 'Sales',
@@ -98,18 +98,19 @@ describe('Radar plot', () => {
     {
       item: 'Sales',
       user: 'b',
-      score: 40
+      score: 40,
     },
     {
       item: 'UX',
       user: 'a',
-      score: 50
+      score: 50,
     },
     {
       item: 'UX',
       user: 'b',
-      score: 60
-    } ];
+      score: 60,
+    },
+  ];
 
   it('创建 & 销毁图表', () => {
     const radarPlot = new Radar(canvasDiv, {
@@ -145,9 +146,9 @@ describe('Radar plot', () => {
         style: {
           line: { stroke: 'red' },
           tickLine: { stroke: 'red', length: 5, lineWidth: 1 },
-          label: { fill: 'red', }
-        }
-      }
+          label: { fill: 'red' },
+        },
+      },
     });
     radarPlot.render();
     const axis = radarPlot.plot.get('axisController').axes[0];
@@ -178,9 +179,9 @@ describe('Radar plot', () => {
         style: {
           line: { stroke: 'red' },
           tickLine: { stroke: 'red', length: 5, lineWidth: 1 },
-          label: { fill: 'red', }
-        }
-      }
+          label: { fill: 'red' },
+        },
+      },
     });
     radarPlot.render();
     const axis = radarPlot.plot.get('axisController').axes[1];
@@ -196,8 +197,7 @@ describe('Radar plot', () => {
     radarPlot.destroy();
   });
 
-  it('label', () => {
-  });
+  it('label', () => {});
 
   it('ploygon 显示及样式', () => {
     /** area不显示 */
@@ -209,8 +209,8 @@ describe('Radar plot', () => {
       yField: 'score',
       seriesField: 'user',
       area: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     radarPlot.render();
     const elements = radarPlot.plot.get('elements');
@@ -228,12 +228,12 @@ describe('Radar plot', () => {
       area: {
         style: {
           stroke: 'red',
-          lineWidth: 2
-        }
+          lineWidth: 2,
+        },
       },
       line: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     radarPlot.render();
     const shapes = radarPlot.plot.get('elements')[0].getShapes();
@@ -252,8 +252,8 @@ describe('Radar plot', () => {
       yField: 'score',
       seriesField: 'user',
       line: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     radarPlot.render();
     const elements = radarPlot.plot.get('elements');
@@ -269,15 +269,15 @@ describe('Radar plot', () => {
       yField: 'score',
       seriesField: 'user',
       area: {
-        visible: true
+        visible: true,
       },
       line: {
         visible: true,
         style: {
-          lineDash: [ 2, 2 ],
-          color: 'red'
-        }
-      }
+          lineDash: [2, 2],
+          color: 'red',
+        },
+      },
     });
     radarPlot.render();
     const shapes = radarPlot.plot.get('elements')[1].getShapes();
@@ -297,9 +297,9 @@ describe('Radar plot', () => {
       point: {
         visible: true,
         style: {
-          color: 'red'
-        }
-      }
+          color: 'red',
+        },
+      },
     });
     radarPlot.render();
     const elements = radarPlot.plot.get('elements');
@@ -317,14 +317,14 @@ describe('Radar plot', () => {
       title: {
         text: 'title',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       description: {
         text: 'description',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       padding: 'auto',
       data,
@@ -348,14 +348,14 @@ describe('Radar plot', () => {
       title: {
         text: 'title',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       description: {
         text: 'description',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       data,
       xField: 'item',
@@ -370,5 +370,4 @@ describe('Radar plot', () => {
     expect(description.shape.attr('fill')).to.be.equal('red');
     radarPlot.destroy();
   });
-
 });

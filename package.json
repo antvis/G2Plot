@@ -2,43 +2,82 @@
   "name": "@antv/g2-plot",
   "version": "1.0.0",
   "description": "G2 Plot, a market of plots built with G2 4.0'",
+  "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "esm",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:antvis/g2-plot.git"
+  },
   "scripts": {
-    "postinstall": "npm run build",
+    "build": "run-s clean lib dist",
+    "clean": "rimraf lib esm dist",
+    "lib": "run-p lib:*",
+    "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
+    "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
+    "dist": "webpack --config webpack.config.js --mode production",
+    "lint": "lint-staged",
+    "coverage": "exit 0",
     "test": "torch --compile --renderer --recursive ./__tests__/unit",
     "test-live": "torch --compile --interactive ./__tests__/unit",
-		"dist": "webpack --config webpack.config.js --mode production",
-    "build": "rm -rf lib && tsc",
-    "pack": "webpack",
-    "tsc": "tsc --noEmit"
+    "ci": "run-s build test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-s lint build test"
+    }
   },
   "dependencies": {
-    "@antv/data-source": "~1.0.0",
-    "@antv/g": "~3.4.1",
-    "@antv/g-gesture": "1.0.0",
-    "@antv/g2": "~4.0.0",
-    "@antv/guide": "~1.0.0",
-    "@antv/util": "~1.3.1",
-    "@antv/coord": "~1.0.0",
+    "@antv/g": "~3.5.0-beta.1",
+    "@antv/g-gesture": "0.1.0-beta.1",
+    "@antv/g2": "~3.6.0-beta.1",
+    "@antv/component": "~0.4.0",
+    "@antv/util": "~2.0.4",
+    "@antv/dom-util": "~2.0.1",
+    "@antv/matrix-util": "~2.0.2",
+    "@antv/coord": "~0.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@antv/torch": "^1.0.3",
+    "@antv/torch": "~1.0.5",
     "@types/lodash": "^4.14.123",
-    "@types/moment": "^2.13.0",
-    "typescript": "^3.5.1",
-    "webpack": "^4.29.6",
-    "webpack-bundle-analyzer": "^3.1.0",
-    "webpack-cli": "^3.3.0",
-    "event-simulate": "~1.0.0"
+    "event-simulate": "^1.0.0",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-bundle-analyzer": "^3.4.1",
+    "webpack-cli": "^3.3.7",
+    "webpack-merge": "^4.2.1"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts}": [
+      "tslint -c tslint.json --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "keywords": [
     "g2",
     "plot"
   ],
-  "author": "mipha.ly@alibaba-inc.com",
-  "license": "ISC",
-  "__npminstall_done": false
+  "license": "MIT"
 }

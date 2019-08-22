@@ -1,7 +1,7 @@
-import { IEventmap, EVENT_MAP, onEvent } from '../../util/event';
 import * as _ from '@antv/util';
+import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
-const SHAPE_EVENT_MAP:IEventmap = {
+const SHAPE_EVENT_MAP: IEventmap = {
   onLineClick: 'line:click',
   onLineDoubleclick: 'line:dblclick',
   onLineMousemove: 'line:mousemove',
@@ -14,7 +14,4 @@ const SHAPE_EVENT_MAP:IEventmap = {
 
 _.assign(EVENT_MAP, SHAPE_EVENT_MAP);
 
-export {
-    EVENT_MAP,
-    onEvent,
-};
+export { EVENT_MAP, onEvent };

@@ -1,4 +1,3 @@
-
 function genShapeStyle(DEFAULT_COLOR) {
   const SHAPE_STYLE = {
     area: {
@@ -238,7 +237,7 @@ export default function genTheme(config) {
     colors,
     backgroundStyle: {
       // fill: '#47495a'
-      fill: backgroundColor
+      fill: backgroundColor,
     },
     title: {
       fontFamily,
@@ -297,7 +296,7 @@ export default function genTheme(config) {
         tickLine: {
           visible: true,
           style: {
-            stroke: lineColor
+            stroke: lineColor,
           },
         },
         label: {
@@ -305,7 +304,7 @@ export default function genTheme(config) {
           style: {
             fill: fontColorLabel,
             fontSize: fontSizeLabel,
-          }
+          },
         },
         title: {
           visible: false,
@@ -345,8 +344,8 @@ export default function genTheme(config) {
       textStyle: {
         fontSize: fontSizeLabel,
         fill: fontColorLabel,
-        fontFamily
-      }
+        fontFamily,
+      },
     },
     treemapLabels: {
       textStyle: {
@@ -373,7 +372,7 @@ export default function genTheme(config) {
           fill: fontColorLabel,
           fontSize: fontSizeLabel,
           fontFamily,
-        }
+        },
       },
       left: {
         textStyle: {
@@ -385,7 +384,7 @@ export default function genTheme(config) {
           fill: fontColorLabel,
           fontSize: fontSizeLabel,
           fontFamily,
-        }
+        },
       },
       top: {
         textStyle: {
@@ -397,7 +396,7 @@ export default function genTheme(config) {
           fill: fontColorLabel,
           fontSize: fontSizeLabel,
           fontFamily,
-        }
+        },
       },
       bottom: {
         textStyle: {
@@ -409,7 +408,7 @@ export default function genTheme(config) {
           fill: fontColorLabel,
           fontSize: fontSizeLabel,
           fontFamily,
-        }
+        },
       },
       // 定义 html 渲染图例的样式
       html: {
@@ -417,7 +416,7 @@ export default function genTheme(config) {
           fontSize: fontSizeLabel,
           fontFamily,
           color: fontColorLabel,
-        }
+        },
       },
     },
     tooltip: {
@@ -428,7 +427,7 @@ export default function genTheme(config) {
         fontSize: fontSizeLabel + 'px',
         fontFamily,
         // backgroundColor: 'rgba(59, 68, 83, 0.9)',
-      }
-    }
+      },
+    },
   };
 }

@@ -20,7 +20,7 @@ export interface LiquidConfig extends BaseConfig {
   max?: number;
   value?: number;
   showValue?: boolean;
-  format?: Function;
+  format?: (...args: any[]) => void;
   liquidStyle?: LiquidStyle;
 }
 
@@ -50,7 +50,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
       size,
     };
     this._initialProps.styleMix = Object.assign(defaultStyle, liquidStyle);
-    this._initialProps.data = [ { value: typeof(value) === 'number' && valueText !== '--' ? value : 0 } ];
+    this._initialProps.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];
     this._initialProps.valueText = valueText;
     this._initialProps.format = format;
   }
@@ -58,23 +58,28 @@ export default class Liquid extends BasePlot<LiquidConfig> {
   protected _scale() {
     super._scale();
     const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
-    const scales = {};
-    scales['value'] = {
-      min,
-      // min max 相等时避免0值在中间
-      max: min !== max ? max : max + 1,
-      format,
-      nice: false,
+    const scales = {
+      value: {
+        min,
+        // min max 相等时避免0值在中间
+        max: min !== max ? max : max + 1,
+        format,
+        nice: false,
+      },
     };
+    // @ts-ignore
     this._setConfig('scales', scales);
   }
 
   protected _coord() {}
 
   protected _axis() {
-    const axesConfig = { fields: {} };
-    axesConfig.fields['value'] = false;
-    axesConfig.fields['1'] = false;
+    const axesConfig = {
+      fields: {
+        value: false,
+        1: false,
+      },
+    };
     this._setConfig('axes', axesConfig);
   }
 
@@ -84,18 +89,18 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     const liquid: ElementOption = {
       type: 'interval',
       position: {
-        fields: [ '1', 'value' ],
+        fields: ['1', 'value'],
       },
       shape: {
-        values: [ 'liquid-fill-gauge' ],
+        values: ['liquid-fill-gauge'],
       },
     };
 
     liquid.color = {
-      values: [ styleMix.color ],
+      values: [styleMix.color],
     };
     liquid.size = {
-      values: [ styleMix.size ],
+      values: [styleMix.size],
     };
     liquid.style = {
       lineWidth: styleMix.borderWidth,
@@ -105,7 +110,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     this._setConfig('element', liquid);
   }
 
-  protected _interactions() { }
+  protected _interactions() {}
 
   protected _annotation() {
     const props = this._initialProps;
@@ -119,7 +124,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
       type: 'text',
       content: valueText,
       top: true,
-      position: [ '50%', '50%' ],
+      position: ['50%', '50%'],
       style: {
         fill: styleMix.fontColor,
         opacity: styleMix.fontOpacity,
@@ -134,8 +139,10 @@ export default class Liquid extends BasePlot<LiquidConfig> {
   protected _animation() {}
 
   private _percent(num: number, fixed: number = 2): string {
-    if (isNaN(num)) return `${num}`;
-    return (`${(num * 100).toFixed(fixed)}%`).replace(/\.0*%/, '%');
+    if (isNaN(num)) {
+      return `${num}`;
+    }
+    return `${(num * 100).toFixed(fixed)}%`.replace(/\.0*%/, '%');
   }
 
   private _valueText(type, value, format, min, max) {
@@ -144,14 +151,14 @@ export default class Liquid extends BasePlot<LiquidConfig> {
         return '--';
       }
       const percentValue = (value - min) / (max - min);
-      return typeof(value) === 'number' ? format(this._percent(percentValue), percentValue) : '--';
+      return typeof value === 'number' ? format(this._percent(percentValue), percentValue) : '--';
     }
-    return typeof(value) === 'number' ? format(value) : '--';
+    return typeof value === 'number' ? format(value) : '--';
   }
 
   private _autoFontSize(space, text) {
     const fontSizeBySpace = space / 4;
-    const fontSizeByText = space / text.length * 1.5;
+    const fontSizeByText = (space / text.length) * 1.5;
     return Math.min(fontSizeBySpace, fontSizeByText);
   }
 }

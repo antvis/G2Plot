@@ -1,8 +1,8 @@
 /** 简化折线点 */
-import * as _ from '@antv/util';
 import * as G2 from '@antv/g2';
-import { lineSimplification } from '../../util/math';
+import * as _ from '@antv/util';
 import { rgb2arr } from '../../util/color';
+import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import AreaParser from './main';
 
@@ -37,10 +37,7 @@ G2.registerShape('area', 'miniAreaSmooth', {
 });
 
 function getPath(cfg, shape, isSmooth) {
-  const constraint = [
-    [ 0, 0 ],
-    [ 1, 1 ],
-  ];
+  const constraint = [[0, 0], [1, 1]];
   let topLinePoints = [];
   let bottomLinePoints = [];
   _.each(cfg.points, (point) => {
@@ -62,7 +59,7 @@ function getStraightPath(points) {
   for (let i = 0; i < points.length; i++) {
     const p = points[i];
     const flag = i === 0 ? 'M' : 'L';
-    path.push([ flag, p.x, p.y ]);
+    path.push([flag, p.x, p.y]);
   }
   return path;
 }
@@ -72,7 +69,6 @@ function parseGradient(color) {
 }
 
 export default class MiniAreaParser extends AreaParser {
-
   public init() {
     super.init();
     this.parseShape();
@@ -81,10 +77,9 @@ export default class MiniAreaParser extends AreaParser {
   private parseShape() {
     const props = this.plot._initialProps;
     if (props.smooth) {
-      this.config.shape = { values: [ 'miniAreaSmooth' ] };
+      this.config.shape = { values: ['miniAreaSmooth'] };
     } else {
-      this.config.shape = { values: [ 'miniArea' ] };
+      this.config.shape = { values: ['miniArea'] };
     }
   }
-
 }

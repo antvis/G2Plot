@@ -1,5 +1,5 @@
-import { Group, Canvas } from '@antv/g';
-import { View, Scale } from '@antv/g2';
+import { Canvas, Group } from '@antv/g';
+import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
 
 const ANCHOR_OFFSET = 5; // 锚点偏移量
@@ -22,9 +22,9 @@ function getEndPoint(center, angle, r) {
 
 function getDefaultCfg() {
   return {
-    text:{
-      fill:'#808080',
-      fontSize:12,
+    text: {
+      fill: '#808080',
+      fontSize: 12,
     },
     lineWidth: 1,
     sidePadding: 20,
@@ -39,7 +39,7 @@ export default class SpiderLabel {
   private halves: any[][];
   private container: Group;
   private config: IAttrs;
-  private formatter: Function;
+  private formatter: (...args: any[]) => string;
 
   constructor(cfg) {
     this.view = cfg.view;
@@ -50,20 +50,10 @@ export default class SpiderLabel {
     this._init();
   }
 
-  private _init() {
-    this.view.on('beforerender', () => {
-      this.clear();
-    });
-
-    this.view.on('afterrender', () => {
-      this.draw();
-    });
-  }
-
   public draw() {
     /** 如果有formatter则事先处理数据 */
     const data = _.clone(this.view.get('data'));
-    this.halves = [ [], [] ];
+    this.halves = [[], []];
     this.container = this.view.get('frontgroundGroup').addGroup();
     const shapes = this.view.get('elements')[0].getShapes();
     const coord = this.view.get('coord');
@@ -74,17 +64,18 @@ export default class SpiderLabel {
     const width = this.view.get('width');
     const height = this.view.get('height');
     let angle = startAngle;
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < data.length; i++) {
       const d = data[i];
-            /** 计算每个切片的middle angle */
+      /** 计算每个切片的middle angle */
       const angleValue = scale.scale(d[angleField]);
       const targetAngle = angle + Math.PI * 2 * angleValue;
       const middleAngle = angle + (targetAngle - angle) / 2;
       angle = targetAngle;
-            /** 根据middle angle计算锚点和拐点距离 */
+      /** 根据middle angle计算锚点和拐点距离 */
       const anchorPoint = getEndPoint(center, middleAngle, radius + ANCHOR_OFFSET);
       const inflectionPoint = getEndPoint(center, middleAngle, radius + INFLECTION_OFFSET);
-            /** 获取对应shape的color*/
+      /** 获取对应shape的color */
       let color = DEFAULT_COLOR;
       if (this.fields.length === 2) {
         const colorField = this.fields[1];
@@ -93,7 +84,7 @@ export default class SpiderLabel {
         const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
         color = shapes[shapeIndex].attr('fill');
       }
-            /**组装label数据 */
+      /** 组装label数据 */
       const label = {
         _anchor: anchorPoint,
         _inflection: inflectionPoint,
@@ -105,7 +96,7 @@ export default class SpiderLabel {
         textGroup: null,
         _side: null,
       };
-            /** 创建label文本*/
+      /** 创建label文本 */
       const textGroup = new Group();
       const textAttrs: IAttrs = {
         x: 0,
@@ -114,35 +105,43 @@ export default class SpiderLabel {
         lineHeight: this.config.text.fontSize,
         fill: this.config.text.fill,
       };
-            /** label1:下部label*/
+      /** label1:下部label */
       let lowerText = d[angleField];
-      if (this.formatter) lowerText = this.formatter(lowerText);
+      if (this.formatter) {
+        lowerText = this.formatter(lowerText);
+      }
 
       textGroup.addShape('text', {
-        attrs: _.mix({
-          textBaseline: 'top',
-          text: lowerText,
-        },           textAttrs),
+        attrs: _.mix(
+          {
+            textBaseline: 'top',
+            text: lowerText,
+          },
+          textAttrs
+        ),
         data: d,
         offsetY: LABEL1_OFFSETY,
-        name:'label',
+        name: 'label',
       });
-            /** label2:上部label */
+      /** label2:上部label */
       if (this.fields.length === 2) {
         textGroup.addShape('text', {
-          attrs: _.mix({
-            textBaseline: 'bottom',
-            text: d[this.fields[1]],
-          },           textAttrs),
+          attrs: _.mix(
+            {
+              textBaseline: 'bottom',
+              text: d[this.fields[1]],
+            },
+            textAttrs
+          ),
           data: d,
           offsetY: LABEL2_OFFSETY,
-          name:'label',
+          name: 'label',
         });
       }
 
       label.textGroup = textGroup;
 
-            /** 将label分组 */
+      /** 将label分组 */
       if (anchorPoint.x < center.x) {
         label._side = 'left';
         this.halves[0].push(label);
@@ -152,7 +151,7 @@ export default class SpiderLabel {
       }
     }
 
-        /** 绘制label */
+    /** 绘制label */
     const _drawnLabels = [];
     const maxCountForOneSide = Math.floor(height / this.config.lineHeight);
 
@@ -171,7 +170,19 @@ export default class SpiderLabel {
   }
 
   public clear() {
-    this.container && this.container.clear();
+    if (this.container) {
+      this.container.clear();
+    }
+  }
+
+  private _init() {
+    this.view.on('beforerender', () => {
+      this.clear();
+    });
+
+    this.view.on('afterrender', () => {
+      this.draw();
+    });
   }
 
   private _antiCollision(half) {
@@ -203,15 +214,15 @@ export default class SpiderLabel {
 
       return {
         size: this.config.lineHeight,
-        targets: [ labelY - startY ],
+        targets: [labelY - startY],
       };
     });
-    if ((maxY - startY) > totalH) {
+    if (maxY - startY > totalH) {
       totalH = maxY - startY;
     }
 
-    const iteratorBoxed = function (boxes) {
-      boxes.forEach((box) => {
+    const iteratorBoxed = function(items) {
+      items.forEach((box) => {
         const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
         box.pos = Math.min(Math.max(minY, target - box.size / 2), totalH - box.size);
       });
@@ -219,18 +230,19 @@ export default class SpiderLabel {
 
     while (overlapping) {
       iteratorBoxed(boxes);
-            // detect overlapping and join boxes
+      // detect overlapping and join boxes
       overlapping = false;
       i = boxes.length;
       while (i--) {
         if (i > 0) {
           const previousBox = boxes[i - 1];
           const box = boxes[i];
-          if (previousBox.pos + previousBox.size > box.pos) { // overlapping
+          if (previousBox.pos + previousBox.size > box.pos) {
+            // overlapping
             previousBox.size += box.size;
             previousBox.targets = previousBox.targets.concat(box.targets);
 
-                        // overflow, shift up
+            // overflow, shift up
             if (previousBox.pos + previousBox.size > totalH) {
               previousBox.pos = totalH - previousBox.size;
             }
@@ -279,66 +291,43 @@ export default class SpiderLabel {
 
   private _drawLabelLine(label, maxLabelWidth) {
     const canvasWidth = this.view.get('width');
-    const _anchor = [ label._anchor.x, label._anchor.y ];
-    const _inflection = [ label._inflection.x, label._inflection.y ];
+    const _anchor = [label._anchor.x, label._anchor.y];
+    const _inflection = [label._inflection.x, label._inflection.y];
     const { fill, y } = label;
-    const lastPoint = [
-      label._side === 'left' ? this.config.sidePadding : canvasWidth - this.config.sidePadding,
-      y,
-    ];
+    const lastPoint = [label._side === 'left' ? this.config.sidePadding : canvasWidth - this.config.sidePadding, y];
 
-    let points = [
-      _anchor,
-      _inflection,
-      lastPoint,
-    ];
-    if (_inflection[1] !== y) { // 展示全部文本文本位置做过调整
-      if (_inflection[1] < y) { // 文本被调整下去了，则添加拐点连接线
+    let points = [_anchor, _inflection, lastPoint];
+    if (_inflection[1] !== y) {
+      // 展示全部文本文本位置做过调整
+      if (_inflection[1] < y) {
+        // 文本被调整下去了，则添加拐点连接线
         const point1 = _inflection;
         const leftPoint = lastPoint[0] + maxLabelWidth + ADJUSTOFFSET;
         const rightPoint = lastPoint[0] - maxLabelWidth - ADJUSTOFFSET;
-        const point2 = [
-          label._side === 'left' ?  leftPoint : rightPoint,
-          _inflection[1],
-        ];
+        const point2 = [label._side === 'left' ? leftPoint : rightPoint, _inflection[1]];
         const point3 = [
           label._side === 'left' ? lastPoint[0] + maxLabelWidth : lastPoint[0] - maxLabelWidth,
           lastPoint[1],
         ];
 
-        points = [
-          _anchor,
-          point1,
-          point2,
-          point3,
-          lastPoint,
-        ];
+        points = [_anchor, point1, point2, point3, lastPoint];
 
         if ((label._side === 'right' && point2[0] < point1[0]) || (label._side === 'left' && point2[0] > point1[0])) {
-          points = [
-            _anchor,
-            point3,
-            lastPoint,
-          ];
+          points = [_anchor, point3, lastPoint];
         }
       } else {
-        points = [
-          _anchor,
-          [
-            _inflection[0],
-            y,
-          ],
-          lastPoint,
-        ];
+        points = [_anchor, [_inflection[0], y], lastPoint];
       }
     }
 
     const path = [];
-    for (let i = 0; i < points.length ; i++) {
+    for (let i = 0; i < points.length; i++) {
       const p = points[i];
       let starter = 'L';
-      if (i === 0) starter = 'M';
-      path.push([ starter, p[0], p[1] ]);
+      if (i === 0) {
+        starter = 'M';
+      }
+      path.push([starter, p[0], p[1]]);
     }
 
     this.container.addShape('path', {
@@ -357,7 +346,7 @@ export default class SpiderLabel {
       },
     });*/
 
-        // 绘制锚点
+    // 绘制锚点
     this.container.addShape('circle', {
       attrs: {
         x: _anchor[0],
@@ -366,7 +355,6 @@ export default class SpiderLabel {
         fill,
       },
     });
-
   }
 
   private _adjustConfig(config) {
@@ -374,5 +362,4 @@ export default class SpiderLabel {
       config.lineHeight = config.text.fontSize * 3;
     }
   }
-
 }

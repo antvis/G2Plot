@@ -1,9 +1,9 @@
-import { Animate } from '@antv/g2';
 import * as G from '@antv/g';
+import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
 
 function clipingWithData(shape, animateCfg) {
-    /** 动画初始状态 */
+  /** 动画初始状态 */
   const index = shape.get('index');
   const coord = shape.get('coord');
   const scales = shape.get('scales');
@@ -14,31 +14,35 @@ function clipingWithData(shape, animateCfg) {
   shape.setSilent('animating', true);
   const parent = shape.get('parent');
   const marker = parent.addShape('text', {
-    attrs:{
-      x:coord.start.x,
-      y:20,
-      text:`test${index}`,
+    attrs: {
+      x: coord.start.x,
+      y: 20,
+      text: `test${index}`,
       fill: shape.attr('stroke'),
       fontSize: 14,
       textAlign: 'start',
     },
   });
-    /** 动画执行之后 */
+  /** 动画执行之后 */
   animateCfg.callback = () => {
     if (shape && !shape.get('destroyed')) {
       shape.attr('clip', null);
       shape.setSilent('cacheShape', null);
       shape.setSilent('animating', false);
       clip.remove();
-      marker.animate({
-        opacity:0,
-      },             300, () => {
-        marker.remove();
-      });
+      marker.animate(
+        {
+          opacity: 0,
+        },
+        300,
+        () => {
+          marker.remove();
+        }
+      );
     }
   };
-    /** 执行动画 */
-    /** 准备动画参数 */
+  /** 执行动画 */
+  /** 准备动画参数 */
   let delay = animateCfg.delay;
   if (_.isFunction(delay)) {
     delay = animateCfg.delay(index);
@@ -47,20 +51,32 @@ function clipingWithData(shape, animateCfg) {
   if (_.isFunction(easing)) {
     easing = animateCfg.easing(index);
   }
-    /** 动起来 */
+  /** 动起来 */
   const i = 0;
-  clip.animate({
-    width:coord.width,
-  },           animateCfg.duration, easing, animateCfg.callback, delay);
-  marker.animate({
-    onFrame:(ratio) => {
-      const position = getPositionByRatio(ratio, shapeData, coord, i);
-      marker.attr('x', position[0]);
-      marker.attr('y', position[1]);
-      const yText = getDataByPosition(yScale, position[1], coord);
-      marker.attr('text', yText);
+  clip.animate(
+    {
+      width: coord.width,
     },
-  },             animateCfg.duration, easing, animateCfg.callback, delay);
+    animateCfg.duration,
+    easing,
+    animateCfg.callback,
+    delay
+  );
+  marker.animate(
+    {
+      onFrame: (ratio) => {
+        const position = getPositionByRatio(ratio, shapeData, coord, i);
+        marker.attr('x', position[0]);
+        marker.attr('y', position[1]);
+        const yText = getDataByPosition(yScale, position[1], coord);
+        marker.attr('text', yText);
+      },
+    },
+    animateCfg.duration,
+    easing,
+    animateCfg.callback,
+    delay
+  );
 }
 
 function getClip(coord) {
@@ -69,7 +85,7 @@ function getClip(coord) {
     attrs: {
       x: start.x,
       y: end.y,
-      width:  0,
+      width: 0,
       height,
     },
   });
@@ -89,7 +105,7 @@ function getPositionByRatio(ratio, dataPoints, coord, index) {
           index = i;
       }*/
       const y = current.y + m * (currentX - current.x);
-      return [ currentX, y ];
+      return [currentX, y];
     }
   }
 }

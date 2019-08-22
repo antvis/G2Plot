@@ -1,5 +1,5 @@
-import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
+import * as _ from '@antv/util';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
@@ -8,10 +8,10 @@ function propertyMapping(source, target, field) {
 }
 
 export default class AxisParser {
+  public config: any;
   private plot: any;
   private dim: string;
   private localProps: any;
-  public config: any;
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -31,7 +31,9 @@ export default class AxisParser {
     this._isVisible('grid') ? this._gridParser() : (this.config.grid = null);
     this._isVisible('tickLine') ? this._tickLineParser() : (this.config.tickLine = null);
     this._isVisible('label') ? this._labelParser() : (this.config.label = null);
-    if (this.localProps.title) this._titleParser();
+    if (this.localProps.title) {
+      this._titleParser();
+    }
     propertyMapping(this.localProps, this.config, 'autoHideLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateTitle');

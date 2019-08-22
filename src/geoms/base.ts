@@ -4,11 +4,11 @@ import { ElementOption } from '../interface/config';
 export default class ElementParser {
   public plot: any;
   public type: string;
-  private positionFields: string[];
   public config: ElementOption;
   public style: any;
+  private positionFields: string[];
 
-  constructor (cfg) {
+  constructor(cfg) {
     _.assign(this, cfg);
     this.init();
   }

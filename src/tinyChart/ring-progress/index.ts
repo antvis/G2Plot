@@ -1,11 +1,23 @@
-import * as _ from '@antv/util';
-import Progress from '../progress';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
+import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
+import Progress from '../progress';
 import './animation/index';
 
 export default class RingProgress extends Progress {
-  ring: any;
+  public ring: any;
+
+  public processProps() {
+    let props = this._initialProps;
+    const cfg = {
+      padding: [0, 0, 0, 0],
+      xField: 'value',
+      yField: '1',
+      stackField: 'type',
+      color: props.color || ['#55A6F3', '#E8EDF3'],
+    } as any;
+    props = _.mix(props, cfg);
+  }
 
   protected _beforeInit() {
     super._beforeInit();
@@ -28,38 +40,28 @@ export default class RingProgress extends Progress {
   protected _addElements() {
     const props = this._initialProps;
     this.ring = getGeom('interval', 'main', {
-      positionFields: [ props.yField, props.xField ],
+      positionFields: [props.yField, props.xField],
       plot: this,
     });
-    this.ring.adjust = [ {
-      type: 'stack',
-    } ];
+    this.ring.adjust = [
+      {
+        type: 'stack',
+      },
+    ];
     this._setConfig('element', this.ring);
   }
 
   protected _animation() {
     this.ring.animate = {
-      appear:{
+      appear: {
         duration: 1000,
       },
-      update:{
+      update: {
         easing: 'easeLinear',
         animation: 'groupProgress',
         duration: 1000,
       },
     };
-  }
-
-  public processProps() {
-    let props = this._initialProps;
-    const cfg = {
-      padding: [ 0, 0, 0, 0 ],
-      xField: 'value',
-      yField: '1',
-      stackField: 'type',
-      color: props.color || [ '#55A6F3', '#E8EDF3' ],
-    } as any;
-    props = _.mix(props, cfg);
   }
 
   private _getThickness() {
@@ -70,5 +72,4 @@ export default class RingProgress extends Progress {
     }
     return 1.0 - 10 / size;
   }
-
 }

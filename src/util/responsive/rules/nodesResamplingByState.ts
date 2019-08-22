@@ -5,11 +5,13 @@ import textHide from './textHide';
 export default function nodesResamplingByState(shape: Shape, cfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
   const current = nodes[index];
-  current.line && current.line.remove();
+  if (current.line) {
+    current.line.remove();
+  }
   const { stateNodes } = responsive.cfg;
   let isState = false;
   _.each(stateNodes, (node) => {
-      // @ts-ignore
+    // @ts-ignore
     if (node.shape.get('origin') === current.shape.get('origin')) {
       isState = true;
     }
@@ -20,7 +22,7 @@ export default function nodesResamplingByState(shape: Shape, cfg, index, respons
       shape.attr('x', x);
       shape.attr('y', y);
     }
-  }else {
+  } else {
     textHide(shape);
   }
 }

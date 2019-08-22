@@ -1,13 +1,13 @@
 import Theme from './theme';
 
-const DESCRIPTION_BOTTOM_MARGIN = function (legendPosition) {
+const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 0;
   }
   return 24;
 };
 
-const TOP_PADDING = function (props) {
+const TOP_PADDING = function(props) {
   if (props.title || props.description) {
     return 16;
   }
@@ -17,7 +17,7 @@ const TOP_PADDING = function (props) {
 const commonTheme = {
   width: 400,
   height: 400,
-  defaultPadding: [ TOP_PADDING, 24, 24, 24 ],
+  defaultPadding: [TOP_PADDING, 24, 24, 24],
   padding: 'auto',
   title: {
     topMargin: 24,
@@ -57,7 +57,7 @@ const commonTheme = {
         style: {
           stroke: '#e3e8ec',
           lineWidth: 1,
-          lineDash: [ 0, 0 ],
+          lineDash: [0, 0],
         },
       },
       line: {
@@ -89,7 +89,7 @@ const commonTheme = {
         style: {
           fill: '#595959',
           fontSize: 12,
-          textBaseline:'bottom',
+          textBaseline: 'bottom',
         },
       },
     },
@@ -104,7 +104,7 @@ const commonTheme = {
         style: {
           stroke: '#e3e8ec',
           lineWidth: 1,
-          lineDash: [ 0, 0 ],
+          lineDash: [0, 0],
         },
       },
       line: {
@@ -121,7 +121,8 @@ const commonTheme = {
       label: {
         visible: true,
         style: {
-          fill: '#a0a4aa', fontSize: 12,
+          fill: '#a0a4aa',
+          fontSize: 12,
         },
         offset: 16,
       },
@@ -170,10 +171,10 @@ const commonTheme = {
       },
     },
   },
-  legend:{
-    position:'bottom-center',
+  legend: {
+    position: 'bottom-center',
     // 距离panelRange的距离
-    innerPadding: [ 16, 12, 16, 12 ],
+    innerPadding: [16, 12, 16, 12],
   },
 };
 

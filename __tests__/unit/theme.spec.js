@@ -229,15 +229,15 @@ describe('主题测试', () => {
 
   const lightThemeCfg = {
     defaultColor: 'red',
-    colors: [ 'red', 'yellow', 'dark' ],
+    colors: ['red', 'yellow', 'dark'],
     background: {
-      fill: 'blue'
+      fill: 'blue',
     },
-    shape: genShapeStyle('red')
+    shape: genShapeStyle('red'),
   };
 
   const darkThemeCfg = {
-    colors: [ 'blue', 'green', 'pink' ],
+    colors: ['blue', 'green', 'pink'],
   };
 
   const lightTheme = new Theme('test-light');
@@ -246,117 +246,146 @@ describe('主题测试', () => {
   const darkTheme = new Theme('test-dark');
   darkTheme.registerGlobalTheme(darkThemeCfg);
 
-  const data = [ {
-    year: '1991',
-    value: 3,
-    type: 'Lon'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Lon'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Lon'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Lon'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Lon'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Lon'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Lon'
-  }, {
-    year: '1991',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1992',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1993',
-    value: 13.5,
-    type: 'Bor'
-  }, {
-    year: '1994',
-    value: 7,
-    type: 'Bor'
-  }, {
-    year: '1995',
-    value: 1,
-    type: 'Bor'
-  }, {
-    year: '1996',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1997',
-    value: 9.7,
-    type: 'Bor'
-  }, {
-    year: '1998',
-    value: 3,
-    type: 'Bor'
-  }, {
-    year: '1999',
-    value: 8,
-    type: 'Bor'
-  }, ];
+  const data = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Lon',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Lon',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Lon',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Lon',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Lon',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Lon',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Lon',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Lon',
+    },
+    {
+      year: '1991',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1992',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1993',
+      value: 13.5,
+      type: 'Bor',
+    },
+    {
+      year: '1994',
+      value: 7,
+      type: 'Bor',
+    },
+    {
+      year: '1995',
+      value: 1,
+      type: 'Bor',
+    },
+    {
+      year: '1996',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1997',
+      value: 9.7,
+      type: 'Bor',
+    },
+    {
+      year: '1998',
+      value: 3,
+      type: 'Bor',
+    },
+    {
+      year: '1999',
+      value: 8,
+      type: 'Bor',
+    },
+  ];
 
-  const data2 = [ {
-    year: '1991',
-    value: 3,
-    type: 'Lon'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Lon'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Lon'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Lon'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Lon'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Lon'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Lon'
-  }, ];
+  const data2 = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Lon',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Lon',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Lon',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Lon',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Lon',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Lon',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Lon',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Lon',
+    },
+  ];
 
   it('全局主题 默认色', () => {
     Theme.setTheme('test-light');
@@ -366,8 +395,8 @@ describe('主题测试', () => {
       xField: 'value',
       yField: 'year',
       yAxis: {
-        min: 0
-      }
+        min: 0,
+      },
     });
     barPlot.render();
 
@@ -384,7 +413,10 @@ describe('主题测试', () => {
     });
     linePlot.render();
 
-    const lshapes = linePlot.plot.get('elements')[0].get('shapeContainer').get('children');
+    const lshapes = linePlot.plot
+      .get('elements')[0]
+      .get('shapeContainer')
+      .get('children');
     expect(lshapes[0].attrs.stroke).to.be.equal('red');
     linePlot.destroy();
     expect(linePlot.plot.destroyed).to.be.true;
@@ -398,9 +430,9 @@ describe('主题测试', () => {
       xField: 'value',
       yField: 'year',
       yAxis: {
-        min: 0
+        min: 0,
       },
-      stackField: 'type'
+      stackField: 'type',
     });
     barPlot.render();
 
@@ -412,7 +444,6 @@ describe('主题测试', () => {
     barPlot.destroy();
     expect(barPlot.plot.destroyed).to.be.true;
 
-
     const linePlot = new Line(canvasDiv, {
       data,
       xField: 'year',
@@ -421,12 +452,14 @@ describe('主题测试', () => {
     });
     linePlot.render();
 
-    const lshapes = linePlot.plot.get('elements')[0].get('shapeContainer').get('children');
+    const lshapes = linePlot.plot
+      .get('elements')[0]
+      .get('shapeContainer')
+      .get('children');
     expect(lshapes.length).to.be.equal(2);
     expect(lshapes[0].attrs.stroke).to.be.equal('red');
     expect(lshapes[1].attrs.stroke).to.be.equal('yellow');
     linePlot.destroy();
     expect(linePlot.plot.destroyed).to.be.true;
   });
-
 });

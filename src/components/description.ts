@@ -1,4 +1,4 @@
-import { Group, Canvas, Text } from '@antv/g';
+import { Canvas, Group, Text } from '@antv/g';
 import * as _ from '@antv/util';
 
 /**
@@ -6,6 +6,7 @@ import * as _ from '@antv/util';
  */
 
 export default class TextDescription {
+  public shape: Text;
   private container: Canvas | Group;
   private theme: any;
   private alignWithAxis: boolean;
@@ -14,35 +15,43 @@ export default class TextDescription {
   private wrapperWidth: number;
   private text: string;
   private style: any;
-  public shape: Text;
 
   constructor(cfg) {
     _.assign(this, cfg);
     this._init();
   }
 
-  private _init() {
-    const content = this._textWrapper(this.wrapperWidth, this.style);
-    this.shape = this.container.addShape('text', {
-      attrs: _.mix({
-        x: this.leftMargin,
-        y: this.topMargin,
-        text: content,
-      },           this.style),
-    });
-  }
-
   public getBBox() {
-    if (this.shape) return this.shape.getBBox();
+    if (this.shape) {
+      return this.shape.getBBox();
+    }
     return null;
   }
 
   public clear() {
-    this.shape && this.shape.attr('text', '');
+    if (this.shape) {
+      this.shape.attr('text', '');
+    }
   }
 
   public destory() {
-    this.shape && this.shape.remove();
+    if (this.shape) {
+      this.shape.remove();
+    }
+  }
+
+  private _init() {
+    const content = this._textWrapper(this.wrapperWidth, this.style);
+    this.shape = this.container.addShape('text', {
+      attrs: _.mix(
+        {
+          x: this.leftMargin,
+          y: this.topMargin,
+          text: content,
+        },
+        this.style
+      ),
+    });
   }
 
   private _textWrapper(width, style) {
@@ -50,7 +59,7 @@ export default class TextDescription {
     let currentWidth = 0;
     let wrapperedText = _.clone(text);
     const tShape = new Text({
-      attrs:{
+      attrs: {
         text: '',
         x: 0,
         y: 0,
@@ -70,5 +79,4 @@ export default class TextDescription {
     tShape.remove();
     return wrapperedText;
   }
-
 }

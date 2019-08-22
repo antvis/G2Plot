@@ -8,7 +8,7 @@ export default class LineSelect extends Interaction {
     });
   }
 
-  end(ev) {
+  public end(ev) {
     const target = ev.target;
     if (target.name === 'line') {
       const data = ev.data[0]._origin;
@@ -23,5 +23,4 @@ export default class LineSelect extends Interaction {
       // TODO: 重置z-index
     }
   }
-
 }

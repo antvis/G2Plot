@@ -1,6 +1,6 @@
-import BaseColumn, { ColumnConfig } from '../column';
-import { ElementOption } from '../../interface/config';
 import { isArray, isFunction } from 'util';
+import { ElementOption } from '../../interface/config';
+import BaseColumn, { ColumnConfig } from '../column';
 
 export interface GroupColumnConfig extends ColumnConfig {
   groupField: string;
@@ -10,9 +10,11 @@ export default class GroupColumn extends BaseColumn<GroupColumnConfig> {
   protected _adjustColumn(column: ElementOption) {
     const props = this._initialProps;
 
-    column.adjust = [ {
-      type: 'dodge',
-    } ];
+    column.adjust = [
+      {
+        type: 'dodge',
+      },
+    ];
 
     /*if (props.groupField) {
       column.color = {

@@ -1,7 +1,7 @@
 import { Shape } from '@antv/g';
-import { registerElementLabels, ElementLabels } from '@antv/g2';
-import { rgb2arr } from '../../../../util/color';
+import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
+import { rgb2arr } from '../../../../util/color';
 
 const RIGHT_MARGIN = 20;
 
@@ -11,7 +11,7 @@ interface Point {
 
 export class BarLabels extends ElementLabels {
   // TODO: 先实现功能，待抽象  position这里去掉在条形图场景下不必要的逻辑，位置计算调整
-  setLabelPosition(point, originPoint, index, originPosition) {
+  public setLabelPosition(point, originPoint, index, originPosition) {
     let position = originPosition;
     if (_.isFunction(position)) {
       position = position(originPoint);
@@ -19,8 +19,8 @@ export class BarLabels extends ElementLabels {
     const coord = this.get('coord');
     const point0 = coord.convertPoint(originPoint.points[0]);
     const point1 = coord.convertPoint(originPoint.points[2]);
-    const width = (point0.x - point1.x) / 2 * -1;
-    const height = (point0.y - point1.y) / 2 * -1;
+    const width = ((point0.x - point1.x) / 2) * -1;
+    const height = ((point0.y - point1.y) / 2) * -1;
 
     switch (position) {
       case 'bottom':
@@ -34,7 +34,7 @@ export class BarLabels extends ElementLabels {
         point.textAlign = point.textAlign || 'center';
         break;
       case 'left':
-        point.x -= (width * 2);
+        point.x -= width * 2;
         point.textAlign = point.textAlign || 'left';
         break;
       case 'middle':
@@ -48,7 +48,7 @@ export class BarLabels extends ElementLabels {
         break;
     }
   }
-  showLabels(points: any, shapes: Shape[]) {
+  public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
@@ -61,12 +61,14 @@ export class BarLabels extends ElementLabels {
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
       this.adjustPosition(l, shape, item);
-      if (item.adjustColor) this.adjustColor(l, shape);
+      if (item.adjustColor) {
+        this.adjustColor(l, shape);
+      }
     });
     view.get('canvas').draw();
   }
 
-  _getShape(shapeId, shapes) {
+  public _getShape(shapeId, shapes) {
     let target;
     _.each(shapes, (shape) => {
       const s = shape as Point;
@@ -78,7 +80,7 @@ export class BarLabels extends ElementLabels {
     return target;
   }
 
-  adjustPosition(label, shape, item) {
+  public adjustPosition(label, shape, item) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (shapeRange.width <= labelRange.width && item.position !== 'right') {
@@ -87,7 +89,7 @@ export class BarLabels extends ElementLabels {
     }
   }
 
-  adjustColor(label, shape) {
+  public adjustColor(label, shape) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (labelRange.minX >= shapeRange.minX && labelRange.maxX <= shapeRange.maxX) {
@@ -107,7 +109,7 @@ export class BarLabels extends ElementLabels {
     }
   }
 
-  _mappingColor(band, gray) {
+  public _mappingColor(band, gray) {
     let reflect;
     _.each(band, (b) => {
       const map = b as Point;

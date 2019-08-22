@@ -4,10 +4,10 @@ import * as _ from '@antv/util';
  */
 
 interface IEventmap {
-  [k:string]: string;
+  [k: string]: string;
 }
 
-const EVENT_MAP:IEventmap = {
+const EVENT_MAP: IEventmap = {
   onPlotClick: 'click',
   onPlotDblclick: 'dblclick',
   onPlotMousemove: 'mousemove',
@@ -29,12 +29,7 @@ const EVENT_MAP:IEventmap = {
 function onEvent(plot, eventName, handler) {
   const g2Plot = plot.plot;
   g2Plot.on(eventName, handler);
-  plot.eventHandlers.push({type: eventName,
-    handler});
+  plot.eventHandlers.push({ type: eventName, handler });
 }
 
-export {
-    IEventmap,
-    EVENT_MAP,
-    onEvent,
-};
+export { IEventmap, EVENT_MAP, onEvent };

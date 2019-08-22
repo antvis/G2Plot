@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 
-const THEME_MAP = {};
+const THEME_MAP: { [key: string]: Theme } = {};
 let currentThemeName = 'default';
 
 function convert2G2Axis(axis) {
@@ -38,11 +38,11 @@ function convert2G2Axis(axis) {
  * @param type
  */
 export default class Theme {
-  static setTheme(name: string) {
+  public static setTheme(name: string) {
     currentThemeName = name;
   }
 
-  static getThemeByName(name: string) {
+  public static getThemeByName(name: string) {
     const theme = THEME_MAP[name];
     if (theme) {
       return THEME_MAP[name];
@@ -52,17 +52,17 @@ export default class Theme {
     return THEME_MAP[currentThemeName];
   }
 
-  static getCurrentTheme() {
+  public static getCurrentTheme() {
     return THEME_MAP[currentThemeName.toLowerCase()];
   }
 
-  static convert2G2Theme(plotThemeCfg) {
+  public static convert2G2Theme(plotThemeCfg) {
     const g2Theme = _.clone(plotThemeCfg);
-    /** tempo: legend margin设置为0*/
+    /** tempo: legend margin设置为0 */
     if (!g2Theme.legend) {
       g2Theme.legend = {};
     }
-    g2Theme.legend.margin = [ 0, 0, 0, 0 ];
+    g2Theme.legend.margin = [0, 0, 0, 0];
     if (g2Theme.axis) {
       if (g2Theme.axis.x) {
         convert2G2Axis(g2Theme.axis.x);
@@ -70,7 +70,7 @@ export default class Theme {
         _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
         g2Theme.axis.top = {};
         _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
-        delete g2Theme.axis['x'];
+        delete g2Theme.axis.x;
       }
       if (g2Theme.axis.y) {
         convert2G2Axis(g2Theme.axis.y);
@@ -78,7 +78,7 @@ export default class Theme {
         _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
         g2Theme.axis.right = {};
         _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
-        delete g2Theme.axis['y'];
+        delete g2Theme.axis.y;
       }
     }
     return g2Theme;
@@ -95,7 +95,7 @@ export default class Theme {
   }
 
   public registerGlobalTheme(globalTheme: any) {
-    const defaultTheme = THEME_MAP['default'];
+    const defaultTheme = THEME_MAP.default;
     this.globalTheme = _.deepMix({}, defaultTheme.getGlobalTheme(), globalTheme);
   }
 
@@ -115,7 +115,5 @@ export default class Theme {
     return this.globalTheme;
   }
 
-  public getG2Theme(type: string) {
-
-  }
+  public getG2Theme(type: string) {}
 }

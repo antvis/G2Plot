@@ -58,7 +58,7 @@ export default interface Config {
   responsive?: boolean;
   /** 图表层级的事件 */
   events?: {
-    [k: string]: Function | boolean;
+    [k: string]: ((...args: any[]) => any) | boolean;
   };
   // fixme: any
   [k: string]: any;
@@ -101,17 +101,17 @@ interface IBaseAxis {
   autoHideLabel: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   label?:
     | {
-      visible?: boolean;
-      formatter?: Function;
-      offset?: number; // 坐标轴文本距离坐标轴线的距离
-      offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
-      offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
-      rotate?: number; // label 文本旋转的角度，使用角度制
-      useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
-      htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
-      style?: {};
-    }
-    | Function;
+        visible?: boolean;
+        formatter?: (...args: any[]) => string;
+        offset?: number; // 坐标轴文本距离坐标轴线的距离
+        offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
+        offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
+        rotate?: number; // label 文本旋转的角度，使用角度制
+        useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
+        htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
+        style?: {};
+      }
+    | ((...args: any[]) => any);
   title?: {
     visible?: boolean;
     autoRotate?: boolean;
@@ -172,9 +172,9 @@ export interface Legend {
   /** 翻页 */
   flipPage?: boolean;
   events?: IEvents;
-  formatter?: Function;
-  offsetX?: Number;
-  offsetY?: Number;
+  formatter?: (...args: any) => string;
+  offsetX?: number;
+  offsetY?: number;
 }
 
 export interface Tooltip {
@@ -197,6 +197,7 @@ interface Animation {
   easing?: string;
 }
 
+// tslint:disable-next-line: no-empty-interface
 interface Theme {}
 
 export interface ElementOption {
@@ -230,8 +231,12 @@ export interface G2Config {
 export interface IColorConfig {
   fields?: string[];
   values?: string[];
-  callback?: Function;
+  callback?: (...args: any[]) => any;
 }
+
+export type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;

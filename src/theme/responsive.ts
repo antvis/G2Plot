@@ -1,26 +1,22 @@
 const responsiveTheme = {
   element: {
-    column : {
-      constraints : [
-        { name: 'columnWidth',
-          option:{
+    column: {
+      constraints: [
+        {
+          name: 'columnWidth',
+          option: {
             ratio: 0.1,
           },
         },
       ],
     },
     ring: {
-      constraints : [
-        { name: 'ringThickness' },
-        { name: 'minRingThickness' },
-      ],
+      constraints: [{ name: 'ringThickness' }, { name: 'minRingThickness' }],
     },
   },
-  labels:{
-    line : {
-      constraints: [
-        { name: 'elementCollision' },
-      ],
+  labels: {
+    line: {
+      constraints: [{ name: 'elementCollision' }],
       rules: {
         elementCollision: [
           { name: 'nodesResamplingByChange' },
@@ -30,15 +26,14 @@ const responsiveTheme = {
       },
     },
     column: {
-      constraints: [
-        { name: 'elementCollision' },
-      ],
+      constraints: [{ name: 'elementCollision' }],
       rules: {
-        elementCollision:[
+        elementCollision: [
           { name: 'nodeJitterUpward' },
-          { name: 'nodesResamplingByState',
-            option:{
-              keep: [ 'min', 'max', 'median' ],
+          {
+            name: 'nodesResamplingByState',
+            option: {
+              keep: ['min', 'max', 'median'],
             },
           },
           {
@@ -52,9 +47,7 @@ const responsiveTheme = {
     x: {
       category: {
         label: {
-          constraints: [
-            { name:'elementDist' },
-          ],
+          constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
               {
@@ -90,17 +83,15 @@ const responsiveTheme = {
       },
       linear: {
         label: {
-          constraints: [
-            { name: 'elementDist' },
-          ],
+          constraints: [{ name: 'elementDist' }],
           rules: {
-            elementDist:
-            [ {
-              name: 'nodesResampling',
-              option: {
-                keep: [ 'end' ],
+            elementDist: [
+              {
+                name: 'nodesResampling',
+                option: {
+                  keep: ['end'],
+                },
               },
-            },
               {
                 name: 'textRotation',
                 option: {
@@ -130,9 +121,7 @@ const responsiveTheme = {
       },
       dateTime: {
         label: {
-          constraints: [
-            { name: 'elementDist' },
-          ],
+          constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
               {
@@ -167,36 +156,21 @@ const responsiveTheme = {
     y: {
       linear: {
         label: {
-          constraints: [
-            { name:'elementDistVertical' },
-            { name:'elementWidth' },
-          ],
+          constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
           rules: {
-            elementDistVertical: [
-              { name: 'nodesResampling' },
-              { name: 'textHide' },
-            ],
-            elementWidth: [
-              { name: 'digitsAbbreviate' },
-              { name: 'textHide' },
-            ],
+            elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
+            elementWidth: [{ name: 'digitsAbbreviate' }, { name: 'textHide' }],
           },
         },
-
       }, // linear y axis
       category: {
-        label:{
-          constraints: [
-            { name:'elementDistVertical' },
-            { name: 'elementWidth' },
-          ],
+        label: {
+          constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
           rules: {
-            elementDistVertical: [
-              { name: 'nodesResampling' },
-              { name: 'textHide' },
-            ],
+            elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
             elementWidth: [
-              { name: 'textAbbreviate',
+              {
+                name: 'textAbbreviate',
                 option: {
                   abbreviateBy: 'end',
                 },
@@ -205,7 +179,6 @@ const responsiveTheme = {
             ],
           },
         },
-
       }, // categroy y axis， 条形图
     },
   },

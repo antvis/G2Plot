@@ -1,32 +1,40 @@
 import { Column } from '../../src';
 
-
 describe('responsive line plot', () => {
-  const data = [ {
-    type: '家具家电',
-    value: 34000
-  }, {
-    type: '粮油副食',
-    value: 25000
-  }, {
-    type: '生鲜水果',
-    value: 11000
-  }, {
-    type: '美容洗护',
-    value: 9000
-  }, {
-    type: '母婴用品',
-    value: 7000
-  }, {
-    type: '进口食品',
-    value: 6000
-  }, {
-    type: '食品饮料',
-    value: 4800
-  }, {
-    type: '家庭清洁',
-    value: 500
-  } ];
+  const data = [
+    {
+      type: '家具家电',
+      value: 34000,
+    },
+    {
+      type: '粮油副食',
+      value: 25000,
+    },
+    {
+      type: '生鲜水果',
+      value: 11000,
+    },
+    {
+      type: '美容洗护',
+      value: 9000,
+    },
+    {
+      type: '母婴用品',
+      value: 7000,
+    },
+    {
+      type: '进口食品',
+      value: 6000,
+    },
+    {
+      type: '食品饮料',
+      value: 4800,
+    },
+    {
+      type: '家庭清洁',
+      value: 500,
+    },
+  ];
 
   it('canvas size 500x500', () => {
     const plot = createPlot(500, 500);
@@ -58,19 +66,18 @@ describe('responsive line plot', () => {
       xField: 'type',
       yField: 'value',
       xAxis: {
-        autoRotateLabel: false
+        autoRotateLabel: false,
       },
       yAxis: {
         visible: true,
       },
       label: {
-        visible: true
+        visible: true,
       },
       forceFit: false,
-      responsive: true
+      responsive: true,
     });
     columnPlot.render();
     return columnPlot;
   }
-
 });

@@ -5,7 +5,6 @@ import { income } from '../data/income';
 import { distBetweenPointLine } from '../../src/util/math';
 import { getSplinePath } from '../../src/util/path';
 
-
 G2.Shape.registerShape('line', 'miniLine', {
   draw: (cfg, container) => {
     const points = lineSimplification(cfg.points);
@@ -20,18 +19,15 @@ G2.Shape.registerShape('line', 'miniLine', {
       attrs: {
         path,
         stroke: cfg.color,
-        lineWidth: cfg.size
-      }
+        lineWidth: cfg.size,
+      },
     });
     return shape;
-  }
+  },
 });
 
 function parseSplineShape(points) {
-  const constraint = [
-    [ 0, 100 ],
-    [ 200, 0 ],
-  ];
+  const constraint = [[0, 100], [200, 0]];
   return getSplinePath(points, false, constraint);
 }
 
@@ -64,7 +60,7 @@ function DouglasPeucker(points, threshold) {
     const list2 = DouglasPeucker(points.slice(index, points.length), threshold);
     result = list1.concat(list2);
   } else {
-    result = [ points[0], points[points.length - 1] ];
+    result = [points[0], points[points.length - 1]];
   }
 
   return result;
@@ -96,25 +92,26 @@ describe('mini line shape', () => {
         coord: { type: 'cartesian' },
         scales: {
           time: { type: 'time' },
-          rate: { type: 'linear' }
+          rate: { type: 'linear' },
         },
         elements: [
-          { type: 'line',
+          {
+            type: 'line',
             position: {
-              fields: [ 'time', 'rate' ]
+              fields: ['time', 'rate'],
             },
             color: {
-              values: [ 'blue' ]
+              values: ['blue'],
             },
             size: {
-              values: [ 2 ]
+              values: [2],
             },
             shape: {
-              values: [ 'miniLine' ]
-            }
-          }
-        ]
-      }
+              values: ['miniLine'],
+            },
+          },
+        ],
+      },
     });
     plot.render();
   });

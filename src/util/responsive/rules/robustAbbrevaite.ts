@@ -1,8 +1,8 @@
-import moment from 'moment';
 import { Shape } from '@antv/g';
+import moment from 'moment';
 
-import digitsAbbreviate from './digitsAbbreviate';
 import datetimeStringAbbrevaite, { isTime } from './datetimeStringAbbrevaite';
+import digitsAbbreviate from './digitsAbbreviate';
 import textAbbreviate from './textAbbreviate';
 
 interface RobustAbbrevaiteCfg {
@@ -15,7 +15,7 @@ interface RobustAbbrevaiteCfg {
 export default function robustAbbrevaite(shape: Shape, cfg: RobustAbbrevaiteCfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
   const text = shape.attr('text');
-    /** 判断text类型： 数字、时间、文本 */
+  /** 判断text类型： 数字、时间、文本 */
   const isnum = /^\d+$/.test(text);
   if (isnum) {
     digitsAbbreviate(shape, cfg, index, nodes);

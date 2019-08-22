@@ -2,7 +2,6 @@ import { StackBar, Pie, Line, GroupColumn } from '../../src';
 import Theme from '../../src/theme/theme';
 import genTheme from './genTheme';
 
-
 // ali-light
 // const lightThemeCfg = genTheme({
 //   colors: [ '#718DFF', '#25DFD2', '#B89BFF', '#61D5FF', '#FF9CE5', '#7D8CDB', '#8ABDE5', '#FEB46D', '#FFD76E', '#FF8B8B' ],
@@ -19,9 +18,21 @@ import genTheme from './genTheme';
 
 // ant-dark
 const lightThemeCfg = genTheme({
-  colors: [ '#3FA1FF', '#85D1EC', '#33CBCC', '#80E0BF', '#4ACD70', '#ABE07E', '#FCD530', '#EDA671', '#F46179', '#DF7ED5' ],
+  colors: [
+    '#3FA1FF',
+    '#85D1EC',
+    '#33CBCC',
+    '#80E0BF',
+    '#4ACD70',
+    '#ABE07E',
+    '#FCD530',
+    '#EDA671',
+    '#F46179',
+    '#DF7ED5',
+  ],
   backgroundColor: '#3C4454',
-  fontFamily: "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+  fontFamily:
+    "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
   fontSizeTitle: 26,
   fontColorTitle: '#fff',
   fontSizeSubTitle: 14,
@@ -43,123 +54,151 @@ describe('主题测试', () => {
   const lightTheme = new Theme('test-light');
   lightTheme.registerGlobalTheme(lightThemeCfg);
 
-  const data = [ {
-    year: '1991',
-    value: 3,
-    type: 'Lon'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Lon'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Lon'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Lon'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Lon'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Lon'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Lon'
-  }, {
-    year: '1991',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1992',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1993',
-    value: 13.5,
-    type: 'Bor'
-  }, {
-    year: '1994',
-    value: 7,
-    type: 'Bor'
-  }, {
-    year: '1995',
-    value: 1,
-    type: 'Bor'
-  }, {
-    year: '1996',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1997',
-    value: 9.7,
-    type: 'Bor'
-  }, {
-    year: '1998',
-    value: 3,
-    type: 'Bor'
-  }, {
-    year: '1999',
-    value: 8,
-    type: 'Bor'
-  }, ];
+  const data = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Lon',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Lon',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Lon',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Lon',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Lon',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Lon',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Lon',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Lon',
+    },
+    {
+      year: '1991',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1992',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1993',
+      value: 13.5,
+      type: 'Bor',
+    },
+    {
+      year: '1994',
+      value: 7,
+      type: 'Bor',
+    },
+    {
+      year: '1995',
+      value: 1,
+      type: 'Bor',
+    },
+    {
+      year: '1996',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1997',
+      value: 9.7,
+      type: 'Bor',
+    },
+    {
+      year: '1998',
+      value: 3,
+      type: 'Bor',
+    },
+    {
+      year: '1999',
+      value: 8,
+      type: 'Bor',
+    },
+  ];
 
-  const data2 = [ {
-    year: '1991',
-    value: 3,
-    type: 'Lon'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Lon'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Lon'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Lon'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Lon'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Lon'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Lon'
-  }, ];
+  const data2 = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Lon',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Lon',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Lon',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Lon',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Lon',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Lon',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Lon',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Lon',
+    },
+  ];
 
   it('全局主题 默认色', () => {
     // Theme.setTheme('test-light');
 
     Theme.setTheme('ant-dark');
-
 
     const piePlot = new Pie(canvasDiv, {
       data: data2,
@@ -186,7 +225,7 @@ describe('主题测试', () => {
       yField: 'year',
       stackField: 'year',
       yAxis: {
-        min: 0
+        min: 0,
       },
       title: {
         text: '这是一个条形图',
@@ -204,7 +243,7 @@ describe('主题测试', () => {
       yField: 'value',
       groupField: 'type',
       yAxis: {
-        min: 0
+        min: 0,
       },
       title: {
         text: '这是一个柱状图但除了',
@@ -252,7 +291,5 @@ describe('主题测试', () => {
       // padding: 0,
     });
     linePlot2.render();
-
   });
-
 });

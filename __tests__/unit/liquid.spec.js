@@ -37,6 +37,4 @@ describe('Liquid plot', () => {
     });
     liquidPlot.render();
   });
-
-
 });

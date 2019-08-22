@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
-import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
-import { extractScale } from '../../util/scale';
-import { extractAxis } from '../../util/axis';
-import * as StyleParser from '../../util/styleParser';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
+import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { extractAxis } from '../../util/axis';
+import { extractScale } from '../../util/scale';
+import * as StyleParser from '../../util/styleParser';
 // import './guide/label/bar-label';
 
 interface AreaStyle {
@@ -28,7 +28,7 @@ interface PointStyle {
 }
 
 export interface AreaConfig extends BaseConfig {
-  areaStyle?: AreaStyle | Function;
+  areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   line?: {
@@ -42,9 +42,9 @@ export interface AreaConfig extends BaseConfig {
 }
 
 export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot<T> {
-  line: any;
-  point: any;
-  area: any;
+  public line: any;
+  public point: any;
+  public area: any;
 
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
@@ -63,10 +63,14 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     scales[props.xField] = {
       type: 'cat',
     };
-    _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.xField], props.xAxis);
+    }
     /** 配置y-scale */
     scales[props.yField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
+    if (_.has(props, 'yAxis')) {
+      extractScale(scales[props.yField], props.yAxis);
+    }
     this._setConfig('scales', scales);
     super._scale();
   }
@@ -134,7 +138,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _addLine() {
     const props = this._initialProps;
     let lineConfig = { visible: false, style: {} };
-    if (props.line) lineConfig = _.deepMix(lineConfig, props.line);
+    if (props.line) {
+      lineConfig = _.deepMix(lineConfig, props.line);
+    }
     if (lineConfig.visible) {
       const line = getGeom('line', 'guide', {
         type: 'line',
@@ -149,7 +155,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _addPoint() {
     const props = this._initialProps;
     let pointConfig = { visible: false, style: {} };
-    if (props.point) pointConfig = _.deepMix(pointConfig, props.point);
+    if (props.point) {
+      pointConfig = _.deepMix(pointConfig, props.point);
+    }
     if (pointConfig.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
@@ -175,7 +183,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       return;
     }
     this.area.label = {
-      fields: [ props.yField ],
+      fields: [props.yField],
       type: labelType || 'line',
     };
     /** formater */

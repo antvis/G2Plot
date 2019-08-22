@@ -1,20 +1,25 @@
-import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
+import * as _ from '@antv/util';
 import ElementParser from '../base';
 
 export default class AreaParser extends ElementParser {
-
   public init() {
     const props = this.plot._initialProps;
     this.config = {
       type: 'area',
-      position:{
-        fields: [ props.xField, props.yField ],
+      position: {
+        fields: [props.xField, props.yField],
       },
     };
-    if (props.smooth) this.config.shape = { values: [ 'smooth' ] };
-    if (this._getColorMappingField() || props.color) this.parseColor();
-    if (props.area && props.area.style) this.parseStyle();
+    if (props.smooth) {
+      this.config.shape = { values: ['smooth'] };
+    }
+    if (this._getColorMappingField() || props.color) {
+      this.parseColor();
+    }
+    if (props.area && props.area.style) {
+      this.parseStyle();
+    }
   }
 
   public parseColor() {
@@ -27,8 +32,8 @@ export default class AreaParser extends ElementParser {
     if (_.has(props, 'color')) {
       const color = props.color;
       if (_.isString(color)) {
-        config.values = [ color ];
-      }else if (_.isFunction(color)) {
+        config.values = [color];
+      } else if (_.isFunction(color)) {
         config.callback = color;
       } else {
         config.values = color as [];
@@ -40,11 +45,11 @@ export default class AreaParser extends ElementParser {
   public parseStyle() {
     const props = this.plot._initialProps;
     const styleProps = props.area.style;
-    const config:DataPointType = {};
+    const config: DataPointType = {};
     if (_.isFunction(styleProps) && props.seriesField) {
-      config.fields = [ props.seriesField ];
+      config.fields = [props.seriesField];
       config.callback = styleProps;
-    }else {
+    } else {
       config.cfg = styleProps;
     }
     this.config.style = config;
@@ -52,11 +57,11 @@ export default class AreaParser extends ElementParser {
 
   private _getColorMappingField() {
     const props = this.plot._initialProps;
-    const colorMapper = [ 'stackField', 'seriesField' ];
-    for (let i = 0; i < colorMapper.length; i++) {
-      const m = colorMapper[i];
-      if (_.get(props, m)) return [ props[m] ];
+    const colorMapper = ['stackField', 'seriesField'];
+    for (const m of colorMapper) {
+      if (_.get(props, m)) {
+        return [props[m]];
+      }
     }
   }
-
 }

@@ -1,10 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "target": "es5",
     "outDir": "lib",
-    "experimentalDecorators": true,
-    "esModuleInterop": true
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["esnext", "dom"]
   },
   "include": ["src"]
 }

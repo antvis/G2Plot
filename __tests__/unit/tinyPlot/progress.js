@@ -14,7 +14,7 @@ describe('tinyProgress plot', () => {
     const tinyProgress = new TinyProgress(canvasDiv, {
       width: 200,
       height: 100,
-      percent: 0.3
+      percent: 0.3,
     });
     tinyProgress.render();
     let percent = 0.3;
@@ -29,7 +29,7 @@ describe('tinyProgress plot', () => {
     const tinyProgress = new TinyRingProgress(canvasDiv, {
       width: 200,
       height: 100,
-      percent: 0.4
+      percent: 0.4,
     });
     tinyProgress.render();
     let percent = 0.4;

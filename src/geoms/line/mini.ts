@@ -13,7 +13,7 @@ G2.registerShape('line', 'miniLine', {
     for (let i = 0; i < points.length; i++) {
       const p = points[i];
       const flag = i === 0 ? 'M' : 'L';
-      path.push([ flag, p.x, p.y ]);
+      path.push([flag, p.x, p.y]);
     }
     const shape = container.addShape('path', {
       attrs: {
@@ -27,12 +27,9 @@ G2.registerShape('line', 'miniLine', {
 });
 
 G2.registerShape('line', 'miniLineSmooth', {
-  draw (cfg, container) {
+  draw(cfg, container) {
     const points = lineSimplification(cfg.points);
-    const constraint = [
-        [ 0, 0 ],
-        [ 1, 1 ],
-    ];
+    const constraint = [[0, 0], [1, 1]];
     const path = getSplinePath(points, false, constraint);
     const shape = container.addShape('path', {
       attrs: {
@@ -46,7 +43,6 @@ G2.registerShape('line', 'miniLineSmooth', {
 });
 
 export default class MiniLineParser extends LineParser {
-
   public init() {
     super.init();
     this.parseShape();
@@ -55,10 +51,9 @@ export default class MiniLineParser extends LineParser {
   private parseShape() {
     const props = this.plot._initialProps;
     if (props.smooth) {
-      this.config.shape = { values: [ 'miniLineSmooth' ] };
-    }else {
-      this.config.shape = { values: [ 'miniLine' ] };
+      this.config.shape = { values: ['miniLineSmooth'] };
+    } else {
+      this.config.shape = { values: ['miniLine'] };
     }
   }
-
 }

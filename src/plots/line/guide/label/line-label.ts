@@ -1,12 +1,12 @@
 import { Shape } from '@antv/g';
-import { registerElementLabels, ElementLabels } from '@antv/g2';
+import { ElementLabels, registerElementLabels } from '@antv/g2';
 import _ from 'lodash';
 import verticalShatter from '../../../../util/layout/verticalShatter';
 
 const MARGIN = 10;
 
 class LineElementLabels extends ElementLabels {
-  showLabels(points: any, shapes: Shape[]) {
+  public showLabels(points: any, shapes: Shape[]) {
     const labelPoints = [];
     _.each(shapes, (shape) => {
       const originData = shape.get('origin');
@@ -25,14 +25,14 @@ class LineElementLabels extends ElementLabels {
       label.attr('textBaseline', 'middle');
       const origin = label.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
-      const color  = this._adjustColor(shapeId, shapes);
+      const color = this._adjustColor(shapeId, shapes);
       label.attr('fill', color);
     });
     verticalShatter(labels, view);
     view.get('canvas').draw();
   }
 
-  _adjustColor(shapeId, shapes) {
+  public _adjustColor(shapeId, shapes) {
     let color;
     _.each(shapes, (shape) => {
       const id = shape.id;

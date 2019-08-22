@@ -1,30 +1,30 @@
-import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
-import { DataPointType } from '@antv/g2/lib/interface';
 import { BBox } from '@antv/g';
-import PlotConfig, { G2Config } from '../interface/config';
-import { EVENT_MAP, onEvent } from '../util/event';
+import * as G2 from '@antv/g2';
+import { DataPointType } from '@antv/g2/lib/interface';
+import * as _ from '@antv/util';
 import TextDescription from '../components/description';
-import CanvasController from './controller/canvas';
-import ThemeController from './controller/theme';
-import PaddingController from './controller/padding';
 import { getComponent } from '../components/factory';
+import PlotConfig, { G2Config, RecursivePartial } from '../interface/config';
+import { EVENT_MAP, onEvent } from '../util/event';
+import CanvasController from './controller/canvas';
+import PaddingController from './controller/padding';
+import ThemeController from './controller/theme';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public plot: G2.View;
   public _initialProps: T;
-  protected _originalProps: T;
-  protected _config: G2Config;
-  private _container: HTMLElement;
   public canvasController: CanvasController;
-  private themeController: ThemeController;
-  private paddingController: PaddingController;
-  protected title: TextDescription;
-  protected description: TextDescription;
-  protected plotTheme: any;
   public eventHandlers: any[] = [];
   public destroyed: boolean = false;
   public type: string = 'base';
+  protected _originalProps: T;
+  protected _config: G2Config;
+  protected title: TextDescription;
+  protected description: TextDescription;
+  protected plotTheme: any;
+  private _container: HTMLElement;
+  private themeController: ThemeController;
+  private paddingController: PaddingController;
 
   constructor(container: string | HTMLElement, config: T) {
     /**
@@ -32,7 +32,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
      */
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
-    this._container = _.isString(container) ? document.getElementById(container) : container;
+    this._container = _.isString(container) ? document.getElementById(container as string) : (container as HTMLElement);
     this.themeController = new ThemeController({
       plot: this,
     });
@@ -47,6 +47,54 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /**
      * 启动主流程，挂载钩子
      */
+    this._beforeInit();
+    this._init();
+    this._afterInit();
+  }
+
+  /** 自定义组件参与padding */
+  public resgiterPadding(component: Element) {
+    this.paddingController.resgiterPadding(component);
+  }
+
+  /** 修改数据 */
+  public changeData(data: object[]): void {
+    this.plot.changeData(data);
+  }
+
+  /** 完整生命周期渲染 */
+  public render(): void {
+    const data = this._initialProps.data;
+    if (!_.isEmpty(data)) {
+      this.plot.render();
+    }
+  }
+
+  /** 画布内容重绘 */
+  public repaint(): void {
+    this.plot.get('canvas').draw();
+  }
+
+  /** 销毁 */
+  public destroy(): void {
+    /** 销毁挂载在canvasController上的forcefit监听器 */
+    this.canvasController.destory();
+    /** 销毁canvas dom */
+    const canvasDOM = this.canvasController.canvas.get('canvasDOM');
+    canvasDOM.parentNode.removeChild(canvasDOM);
+    this._destory();
+    this.destroyed = true;
+  }
+
+  /** 更新配置项 */
+  public updateConfig(cfg): void {
+    this._destory();
+    if (!cfg.padding && this._originalProps.padding && this._originalProps.padding === 'auto') {
+      cfg.padding = 'auto';
+    }
+    const newProps = _.deepMix({}, this._initialProps, cfg);
+    this._initialProps = newProps;
+    this.canvasController.updateCanvasSize();
     this._beforeInit();
     this._init();
     this._afterInit();
@@ -218,7 +266,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const width = this.canvasController.width;
       const theme = this._config.theme;
       const title = new TextDescription({
-        leftMargin:theme.title.leftMargin,
+        leftMargin: theme.title.leftMargin,
         topMargin: theme.title.topMargin,
         text: props.title.text,
         style: _.mix(theme.title, props.title.style),
@@ -245,7 +293,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const theme = this._config.theme;
 
       const description = new TextDescription({
-        leftMargin:theme.description.leftMargin,
+        leftMargin: theme.description.leftMargin,
         topMargin: topMargin + theme.description.topMargin,
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
@@ -270,7 +318,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   /** 设置G2 config，带有类型推导 */
-  protected _setConfig<T extends keyof G2Config>(key: T, config: G2Config[T] | boolean): void {
+  protected _setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
     if (key === 'element') {
       this._config.elements.push(config as G2Config['element']);
       return;
@@ -282,29 +330,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     _.assign(this._config[key], config);
   }
 
-  /** 自定义组件参与padding */
-  public resgiterPadding(component: Element) {
-    this.paddingController.resgiterPadding(component);
-  }
-
-  /** 修改数据 */
-  public changeData(data: object[]): void {
-    this.plot.changeData(data);
-  }
-
-  /** 完整生命周期渲染 */
-  public render(): void {
-    const data = this._initialProps.data;
-    if (!_.isEmpty(data)) {
-      this.plot.render();
-    }
-  }
-
-  /** 画布内容重绘 */
-  public repaint(): void {
-    this.plot.get('canvas').draw();
-  }
-
   /** 抽取destory和updateConfig共有代码为_destory方法 */
   private _destory() {
     /** 关闭事件监听 */
@@ -312,35 +337,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this.plot.off(handler.type, handler.handler);
     });
     /** 移除title & description */
-    this.title && this.title.destory();
-    this.description && this.description.destory();
+    if (this.title) {
+      this.title.destory();
+    }
+    if (this.description) {
+      this.description.destory();
+    }
     /** 销毁g2.plot实例 */
     this.plot.destroy();
-  }
-
-  /** 销毁 */
-  public destroy(): void {
-    /** 销毁挂载在canvasController上的forcefit监听器 */
-    this.canvasController.destory();
-    /** 销毁canvas dom */
-    const canvasDOM = this.canvasController.canvas.get('canvasDOM');
-    canvasDOM.parentNode.removeChild(canvasDOM);
-    this._destory();
-    this.destroyed = true;
-  }
-
-  /** 更新配置项 */
-  public updateConfig(cfg): void {
-    this._destory();
-    if (!cfg.padding && this._originalProps.padding && this._originalProps.padding === 'auto') {
-      cfg.padding = 'auto';
-    }
-    const newProps = _.deepMix({}, this._initialProps, cfg);
-    this._initialProps = newProps;
-    this.canvasController.updateCanvasSize();
-    this._beforeInit();
-    this._init();
-    this._afterInit();
   }
 
   // 为了方便图表布局，title和description在view创建之前绘制，需要先计算view的plotRange,方便title & description文字折行
@@ -358,9 +362,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   // view range 去除title & description所占的空间
   private _getViewMargin() {
     const props = this._initialProps;
-    const boxes = [];
-    if (this.title) boxes.push(this.title.getBBox());
-    if (this.description) boxes.push(this.description.getBBox());
+    const boxes: DataPointType[] = [];
+    if (this.title) {
+      boxes.push(this.title.getBBox());
+    }
+    if (this.description) {
+      boxes.push(this.description.getBBox());
+    }
     if (boxes.length === 0) {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
     }
@@ -369,8 +377,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       let maxX = -Infinity;
       let minY = Infinity;
       let maxY = -Infinity;
-      _.each(boxes, (bbox) => {
-        const box = bbox as DataPointType;
+      _.each(boxes, (box) => {
         minX = Math.min(box.minX, minX);
         maxX = Math.max(box.maxX, maxX);
         minY = Math.min(box.minY, minY);
@@ -397,5 +404,4 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
     return 'bottom-center';
   }
-
 }

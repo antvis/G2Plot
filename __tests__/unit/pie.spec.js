@@ -10,32 +10,39 @@ describe('Pie plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  const data = [ {
-    type: '分类一',
-    value: 27
-  }, {
-    type: '分类二',
-    value: 25
-  }, {
-    type: '分类三',
-    value: 18
-  }, {
-    type: '分类四',
-    value: 15
-  }, {
-    type: '分类五',
-    value: 10
-  }, {
-    type: 'Other',
-    value: 5
-  } ];
+  const data = [
+    {
+      type: '分类一',
+      value: 27,
+    },
+    {
+      type: '分类二',
+      value: 25,
+    },
+    {
+      type: '分类三',
+      value: 18,
+    },
+    {
+      type: '分类四',
+      value: 15,
+    },
+    {
+      type: '分类五',
+      value: 10,
+    },
+    {
+      type: 'Other',
+      value: 5,
+    },
+  ];
 
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
       data,
-      angleField: 'value'
+      angleField: 'value',
     });
     piePlot.render();
     const positionField = piePlot.plot.get('elements')[0].get('position').fields;
@@ -51,9 +58,9 @@ describe('Pie plot', () => {
       width: 600,
       height: 600,
       data,
-      padding: [ 0, 0, 0, 0 ],
+      padding: [0, 0, 0, 0],
       angleField: 'value',
-      radius: 0.5
+      radius: 0.5,
     });
     piePlot.render();
     const coord = piePlot.plot.get('coord');
@@ -66,7 +73,7 @@ describe('Pie plot', () => {
       width: 600,
       height: 600,
       data,
-      angleField: 'value'
+      angleField: 'value',
     });
     piePlot.render();
     const shapes = piePlot.plot.get('elements')[0].getShapes();
@@ -82,7 +89,7 @@ describe('Pie plot', () => {
       data,
       angleField: 'value',
       colorField: 'type',
-      color: [ 'yellow', 'green', 'blue' ]
+      color: ['yellow', 'green', 'blue'],
     });
     piePlot.render();
     const shapes = piePlot.plot.get('elements')[0].getShapes();
@@ -101,8 +108,8 @@ describe('Pie plot', () => {
       colorField: 'type',
       pieStyle: {
         stroke: 'red',
-        lineWidth: 2
-      }
+        lineWidth: 2,
+      },
     });
     piePlot.render();
     const shapes = piePlot.plot.get('elements')[0].getShapes();
@@ -124,12 +131,17 @@ describe('Pie plot', () => {
           return 'test';
         },
         style: {
-          fill: 'red'
-        }
-      }
+          fill: 'red',
+        },
+      },
     });
     piePlot.render();
-    const labelGroup = piePlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = piePlot.plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     const coord = piePlot.plot.get('coord');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
@@ -153,12 +165,17 @@ describe('Pie plot', () => {
           return 'test';
         },
         style: {
-          fill: 'red'
-        }
-      }
+          fill: 'red',
+        },
+      },
     });
     piePlot.render();
-    const labelGroup = piePlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = piePlot.plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     const coord = piePlot.plot.get('coord');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
@@ -182,11 +199,11 @@ describe('Pie plot', () => {
           lineWidth: 2,
           text: {
             fontSize: 14,
-            fill: '#ccc'
+            fill: '#ccc',
           },
-          anchorSize: 3
-        }
-      }
+          anchorSize: 3,
+        },
+      },
     });
     piePlot.render();
     const spiderLabel = piePlot.spiderLabel;
@@ -206,10 +223,10 @@ describe('Pie plot', () => {
       width: 600,
       height: 600,
       title: {
-        text: 'title'
+        text: 'title',
       },
       description: {
-        text: 'description'
+        text: 'description',
       },
       padding: 'auto',
       data,
@@ -230,14 +247,14 @@ describe('Pie plot', () => {
       title: {
         text: 'title',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       description: {
         text: 'description',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       padding: 'auto',
       data,
@@ -251,5 +268,4 @@ describe('Pie plot', () => {
     expect(description.shape.attr('fill')).to.be.equal('red');
     piePlot.destroy();
   });
-
 });

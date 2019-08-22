@@ -10,34 +10,44 @@ describe('Bar plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  const data = [ {
-    year: '1991',
-    value: 31
-  }, {
-    year: '1992',
-    value: 41
-  }, {
-    year: '1993',
-    value: 35
-  }, {
-    year: '1994',
-    value: 55
-  }, {
-    year: '1995',
-    value: 49
-  }, {
-    year: '1996',
-    value: 15
-  }, {
-    year: '1997',
-    value: 17
-  }, {
-    year: '1998',
-    value: 29
-  }, {
-    year: '1999',
-    value: 33
-  } ];
+  const data = [
+    {
+      year: '1991',
+      value: 31,
+    },
+    {
+      year: '1992',
+      value: 41,
+    },
+    {
+      year: '1993',
+      value: 35,
+    },
+    {
+      year: '1994',
+      value: 55,
+    },
+    {
+      year: '1995',
+      value: 49,
+    },
+    {
+      year: '1996',
+      value: 15,
+    },
+    {
+      year: '1997',
+      value: 17,
+    },
+    {
+      year: '1998',
+      value: 29,
+    },
+    {
+      year: '1999',
+      value: 33,
+    },
+  ];
 
   it('初始化以及销毁', () => {
     const barPlot = new Bar(canvasDiv, {
@@ -53,7 +63,7 @@ describe('Bar plot', () => {
       yAxis: {
         visible: true,
       },
-      animation: false
+      animation: false,
     });
     barPlot.render();
     const positionField = barPlot.plot.get('elements')[0].get('position').fields;
@@ -82,7 +92,7 @@ describe('Bar plot', () => {
         visible: true,
       },
       yAxis: {
-        visible: true
+        visible: true,
       },
       barSize: 20,
       barStyle: {
@@ -107,13 +117,13 @@ describe('Bar plot', () => {
       data,
       xField: 'value',
       yField: 'year',
-      color: [ 'red', 'blue', 'green', 'yellow', 'orange', 'gray', 'purple', 'brown' ],
+      color: ['red', 'blue', 'green', 'yellow', 'orange', 'gray', 'purple', 'brown'],
       xAxis: {
         visible: true,
       },
       yAxis: {
-        visible: true
-      }
+        visible: true,
+      },
     });
     barPlot.render();
     const barEle = barPlot.plot.get('elements')[0];
@@ -135,8 +145,8 @@ describe('Bar plot', () => {
         visible: false,
       },
       yAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     barPlot.render();
     const axes = barPlot.plot.get('axisController').axes;
@@ -162,31 +172,31 @@ describe('Bar plot', () => {
           visible: true,
           style: {
             stroke: 'red',
-          }
+          },
         },
         tickLine: {
           visible: true,
-          style: { stroke: 'red' }
+          style: { stroke: 'red' },
         },
         label: {
           visible: true,
           formatter: (v) => {
             return v + 'abc';
           },
-          style: { fill: 'red', fontSize: 24 }
+          style: { fill: 'red', fontSize: 24 },
         },
         title: {
           visible: true,
           text: 'xxxx',
           style: {
             fill: 'red',
-            fontSize: 20
-          }
-        }
+            fontSize: 20,
+          },
+        },
       },
       yAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     barPlot.render();
     const axes = barPlot.plot.get('axisController').axes;
@@ -227,11 +237,11 @@ describe('Bar plot', () => {
           visible: false,
         },
         tickLine: { visible: false, stroke: 'red' },
-        label: { visible: false, fill: 'red', fontSize: 24 }
+        label: { visible: false, fill: 'red', fontSize: 24 },
       },
       yAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     barPlot.render();
     const axes = barPlot.plot.get('axisController').axes;
@@ -263,19 +273,19 @@ describe('Bar plot', () => {
           visible: true,
           style: {
             stroke: 'red',
-          }
+          },
         },
         tickLine: {
           visible: true,
-          style: { stroke: 'red' }
+          style: { stroke: 'red' },
         },
         title: {
           visible: true,
           // text: 'xxxx',
           style: {
             fontSize: 30,
-            fill: 'red'
-          }
+            fill: 'red',
+          },
         },
         label: {
           formatter: (v) => {
@@ -283,13 +293,14 @@ describe('Bar plot', () => {
           },
           visible: true,
           style: {
-            fill: 'red', fontSize: 24
-          }
-        }
+            fill: 'red',
+            fontSize: 24,
+          },
+        },
       },
       xAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     barPlot.render();
     const axes = barPlot.plot.get('axisController').axes;
@@ -332,8 +343,8 @@ describe('Bar plot', () => {
         label: { visible: false },
       },
       xAxis: {
-        visible: false
-      }
+        visible: false,
+      },
     });
     barPlot.render();
     const axes = barPlot.plot.get('axisController').axes;
@@ -347,5 +358,4 @@ describe('Bar plot', () => {
     barPlot.destroy();
     expect(barPlot.plot.destroyed).to.be.true;
   });
-
 });

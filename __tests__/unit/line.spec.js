@@ -10,217 +10,272 @@ describe('Line plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  const data1 = [ {
-    year: '1991',
-    value: 3
-  }, {
-    year: '1992',
-    value: 4
-  }, {
-    year: '1993',
-    value: 3.5
-  }, {
-    year: '1994',
-    value: 5
-  }, {
-    year: '1995',
-    value: 4.9
-  }, {
-    year: '1996',
-    value: 6
-  }, {
-    year: '1997',
-    value: 7
-  }, {
-    year: '1998',
-    value: 9
-  }, {
-    year: '1999',
-    value: 13
-  } ];
+  const data1 = [
+    {
+      year: '1991',
+      value: 3,
+    },
+    {
+      year: '1992',
+      value: 4,
+    },
+    {
+      year: '1993',
+      value: 3.5,
+    },
+    {
+      year: '1994',
+      value: 5,
+    },
+    {
+      year: '1995',
+      value: 4.9,
+    },
+    {
+      year: '1996',
+      value: 6,
+    },
+    {
+      year: '1997',
+      value: 7,
+    },
+    {
+      year: '1998',
+      value: 9,
+    },
+    {
+      year: '1999',
+      value: 13,
+    },
+  ];
 
-  const data2 = [ {
-    date: '2018/8/1',
-    type: 'download',
-    value: 4623
-  }, {
-    date: '2018/8/1',
-    type: 'register',
-    value: 2208
-  }, {
-    date: '2018/8/1',
-    type: 'bill',
-    value: 182
-  }, {
-    date: '2018/8/2',
-    type: 'download',
-    value: 6145
-  }, {
-    date: '2018/8/2',
-    type: 'register',
-    value: 2016
-  }, {
-    date: '2018/8/2',
-    type: 'bill',
-    value: 257
-  }, {
-    date: '2018/8/3',
-    type: 'download',
-    value: 508
-  }, {
-    date: '2018/8/3',
-    type: 'register',
-    value: 2916
-  }, {
-    date: '2018/8/3',
-    type: 'bill',
-    value: 289
-  }, {
-    date: '2018/8/4',
-    type: 'download',
-    value: 6268
-  }, {
-    date: '2018/8/4',
-    type: 'register',
-    value: 4512
-  }, {
-    date: '2018/8/4',
-    type: 'bill',
-    value: 428
-  }, {
-    date: '2018/8/5',
-    type: 'download',
-    value: 6411
-  }, {
-    date: '2018/8/5',
-    type: 'register',
-    value: 8281
-  }, {
-    date: '2018/8/5',
-    type: 'bill',
-    value: 619
-  }, {
-    date: '2018/8/6',
-    type: 'download',
-    value: 1890
-  }, {
-    date: '2018/8/6',
-    type: 'register',
-    value: 2008
-  }, {
-    date: '2018/8/6',
-    type: 'bill',
-    value: 87
-  }, {
-    date: '2018/8/7',
-    type: 'download',
-    value: 4251
-  }, {
-    date: '2018/8/7',
-    type: 'register',
-    value: 1963
-  }, {
-    date: '2018/8/7',
-    type: 'bill',
-    value: 706
-  }, {
-    date: '2018/8/8',
-    type: 'download',
-    value: 2978
-  }, {
-    date: '2018/8/8',
-    type: 'register',
-    value: 2367
-  }, {
-    date: '2018/8/8',
-    type: 'bill',
-    value: 387
-  }, {
-    date: '2018/8/9',
-    type: 'download',
-    value: 3880
-  }, {
-    date: '2018/8/9',
-    type: 'register',
-    value: 2956
-  }, {
-    date: '2018/8/9',
-    type: 'bill',
-    value: 488
-  }, {
-    date: '2018/8/10',
-    type: 'download',
-    value: 3606
-  }, {
-    date: '2018/8/10',
-    type: 'register',
-    value: 678
-  }, {
-    date: '2018/8/10',
-    type: 'bill',
-    value: 507
-  }, {
-    date: '2018/8/11',
-    type: 'download',
-    value: 4311
-  }, {
-    date: '2018/8/11',
-    type: 'register',
-    value: 3188
-  }, {
-    date: '2018/8/11',
-    type: 'bill',
-    value: 548
-  }, {
-    date: '2018/8/12',
-    type: 'download',
-    value: 4116
-  }, {
-    date: '2018/8/12',
-    type: 'register',
-    value: 3491
-  }, {
-    date: '2018/8/12',
-    type: 'bill',
-    value: 456
-  }, {
-    date: '2018/8/13',
-    type: 'download',
-    value: 6419
-  }, {
-    date: '2018/8/13',
-    type: 'register',
-    value: 2852
-  }, {
-    date: '2018/8/13',
-    type: 'bill',
-    value: 689
-  }, {
-    date: '2018/8/14',
-    type: 'download',
-    value: 1643
-  }, {
-    date: '2018/8/14',
-    type: 'register',
-    value: 4788
-  }, {
-    date: '2018/8/14',
-    type: 'bill',
-    value: 280
-  }, {
-    date: '2018/8/15',
-    type: 'download',
-    value: 445
-  }, {
-    date: '2018/8/15',
-    type: 'register',
-    value: 4319
-  }, {
-    date: '2018/8/15',
-    type: 'bill',
-    value: 176
-  } ];
-
+  const data2 = [
+    {
+      date: '2018/8/1',
+      type: 'download',
+      value: 4623,
+    },
+    {
+      date: '2018/8/1',
+      type: 'register',
+      value: 2208,
+    },
+    {
+      date: '2018/8/1',
+      type: 'bill',
+      value: 182,
+    },
+    {
+      date: '2018/8/2',
+      type: 'download',
+      value: 6145,
+    },
+    {
+      date: '2018/8/2',
+      type: 'register',
+      value: 2016,
+    },
+    {
+      date: '2018/8/2',
+      type: 'bill',
+      value: 257,
+    },
+    {
+      date: '2018/8/3',
+      type: 'download',
+      value: 508,
+    },
+    {
+      date: '2018/8/3',
+      type: 'register',
+      value: 2916,
+    },
+    {
+      date: '2018/8/3',
+      type: 'bill',
+      value: 289,
+    },
+    {
+      date: '2018/8/4',
+      type: 'download',
+      value: 6268,
+    },
+    {
+      date: '2018/8/4',
+      type: 'register',
+      value: 4512,
+    },
+    {
+      date: '2018/8/4',
+      type: 'bill',
+      value: 428,
+    },
+    {
+      date: '2018/8/5',
+      type: 'download',
+      value: 6411,
+    },
+    {
+      date: '2018/8/5',
+      type: 'register',
+      value: 8281,
+    },
+    {
+      date: '2018/8/5',
+      type: 'bill',
+      value: 619,
+    },
+    {
+      date: '2018/8/6',
+      type: 'download',
+      value: 1890,
+    },
+    {
+      date: '2018/8/6',
+      type: 'register',
+      value: 2008,
+    },
+    {
+      date: '2018/8/6',
+      type: 'bill',
+      value: 87,
+    },
+    {
+      date: '2018/8/7',
+      type: 'download',
+      value: 4251,
+    },
+    {
+      date: '2018/8/7',
+      type: 'register',
+      value: 1963,
+    },
+    {
+      date: '2018/8/7',
+      type: 'bill',
+      value: 706,
+    },
+    {
+      date: '2018/8/8',
+      type: 'download',
+      value: 2978,
+    },
+    {
+      date: '2018/8/8',
+      type: 'register',
+      value: 2367,
+    },
+    {
+      date: '2018/8/8',
+      type: 'bill',
+      value: 387,
+    },
+    {
+      date: '2018/8/9',
+      type: 'download',
+      value: 3880,
+    },
+    {
+      date: '2018/8/9',
+      type: 'register',
+      value: 2956,
+    },
+    {
+      date: '2018/8/9',
+      type: 'bill',
+      value: 488,
+    },
+    {
+      date: '2018/8/10',
+      type: 'download',
+      value: 3606,
+    },
+    {
+      date: '2018/8/10',
+      type: 'register',
+      value: 678,
+    },
+    {
+      date: '2018/8/10',
+      type: 'bill',
+      value: 507,
+    },
+    {
+      date: '2018/8/11',
+      type: 'download',
+      value: 4311,
+    },
+    {
+      date: '2018/8/11',
+      type: 'register',
+      value: 3188,
+    },
+    {
+      date: '2018/8/11',
+      type: 'bill',
+      value: 548,
+    },
+    {
+      date: '2018/8/12',
+      type: 'download',
+      value: 4116,
+    },
+    {
+      date: '2018/8/12',
+      type: 'register',
+      value: 3491,
+    },
+    {
+      date: '2018/8/12',
+      type: 'bill',
+      value: 456,
+    },
+    {
+      date: '2018/8/13',
+      type: 'download',
+      value: 6419,
+    },
+    {
+      date: '2018/8/13',
+      type: 'register',
+      value: 2852,
+    },
+    {
+      date: '2018/8/13',
+      type: 'bill',
+      value: 689,
+    },
+    {
+      date: '2018/8/14',
+      type: 'download',
+      value: 1643,
+    },
+    {
+      date: '2018/8/14',
+      type: 'register',
+      value: 4788,
+    },
+    {
+      date: '2018/8/14',
+      type: 'bill',
+      value: 280,
+    },
+    {
+      date: '2018/8/15',
+      type: 'download',
+      value: 445,
+    },
+    {
+      date: '2018/8/15',
+      type: 'register',
+      value: 4319,
+    },
+    {
+      date: '2018/8/15',
+      type: 'bill',
+      value: 176,
+    },
+  ];
 
   it('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
@@ -247,7 +302,7 @@ describe('Line plot', () => {
       data: data1,
       xField: 'year',
       yField: 'value',
-      smooth: true
+      smooth: true,
     });
     const elementShape = linePlot._config.elements[0].shape.values[0];
     expect(elementShape).to.be.equal('smooth');
@@ -261,7 +316,7 @@ describe('Line plot', () => {
       data: data1,
       xField: 'year',
       yField: 'value',
-      size: 5
+      size: 5,
     });
     linePlot.render();
     const lineSize = linePlot.plot.get('elements')[0].get('size').values[0];
@@ -280,9 +335,9 @@ describe('Line plot', () => {
         visible: true,
         style: {
           size: 5,
-          color: 'red'
-        }
-      }
+          color: 'red',
+        },
+      },
     });
     linePlot.render();
     const elements = linePlot.plot.get('elements');
@@ -313,9 +368,9 @@ describe('Line plot', () => {
           formatter: () => {
             return 'a';
           },
-          style: { fill: 'red' }
-        }
-      }
+          style: { fill: 'red' },
+        },
+      },
     });
     linePlot.render();
     const axis = linePlot.plot.get('axisController').axes[0];
@@ -351,9 +406,9 @@ describe('Line plot', () => {
           formatter: () => {
             return 'a';
           },
-          style: { fill: 'red' }
-        }
-      }
+          style: { fill: 'red' },
+        },
+      },
     });
     linePlot.render();
     const axis = linePlot.plot.get('axisController').axes[1];
@@ -383,12 +438,17 @@ describe('Line plot', () => {
           return 'test';
         },
         style: {
-          fill: 'red'
-        }
-      }
+          fill: 'red',
+        },
+      },
     });
     linePlot.render();
-    const labelGroup = linePlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = linePlot.plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
     linePlot.destroy();
@@ -399,10 +459,10 @@ describe('Line plot', () => {
       width: 600,
       height: 600,
       title: {
-        text: 'title'
+        text: 'title',
       },
       description: {
-        text: 'description'
+        text: 'description',
       },
       padding: 'auto',
       data: data1,
@@ -425,14 +485,14 @@ describe('Line plot', () => {
       title: {
         text: 'title',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       description: {
         text: 'description',
         style: {
-          fill: 'red'
-        }
+          fill: 'red',
+        },
       },
       data: data1,
       xField: 'year',
@@ -457,7 +517,10 @@ describe('Line plot', () => {
       seriesField: 'type',
     });
     linePlot.render();
-    const shapes = linePlot.plot.get('elements')[0].get('shapeContainer').get('children');
+    const shapes = linePlot.plot
+      .get('elements')[0]
+      .get('shapeContainer')
+      .get('children');
     expect(shapes.length).to.be.equal(3);
     linePlot.destroy();
   });
@@ -472,15 +535,18 @@ describe('Line plot', () => {
       yField: 'value',
       seriesField: 'type',
       label: {
-        type: 'line'
-      }
+        type: 'line',
+      },
     });
     linePlot.render();
-    const labelGroup = linePlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = linePlot.plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     const panelGroup = linePlot.plot.get('panelRange');
     expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
     linePlot.destroy();
   });
-
-
 });

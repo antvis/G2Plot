@@ -1,13 +1,10 @@
-import BasePlot from '../../base/plot';
-import BaseConfig, {
-  ElementOption,
-  IColorConfig,
-} from '../../interface/config';
-import * as _ from '@antv/util';
-import { extractScale } from '../../util/scale';
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
+import * as _ from '@antv/util';
 import { __assign } from 'tslib';
+import BasePlot from '../../base/plot';
 import { getGeom } from '../../geoms/factory';
+import BaseConfig, { ElementOption, IColorConfig } from '../../interface/config';
+import { extractScale } from '../../util/scale';
 
 interface LineStyle {
   opacity?: number;
@@ -29,7 +26,7 @@ interface FillStyle {
 }
 
 interface Point {
-  [k:string]: any;
+  [k: string]: any;
 }
 
 export interface RadarConfig extends BaseConfig {
@@ -61,23 +58,27 @@ export interface RadarConfig extends BaseConfig {
   [attr: string]: any;
 }
 
-export default class Rardar extends BasePlot<RadarConfig>{
-  baseElement: any;
-  lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
-  pointElement: any;
-  areaElement: any;
+export default class Rardar extends BasePlot<RadarConfig> {
+  public baseElement: any;
+  public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
+  public pointElement: any;
+  public areaElement: any;
 
-  protected _setDefaultG2Config() { }
+  protected _setDefaultG2Config() {}
 
   protected _scale() {
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    _.has(props, 'xAxis') && extractScale(scales[props.xField], props.xAxis);
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.xField], props.xAxis);
+    }
     /** 配置y-scale */
     scales[props.yField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.yField], props.yAxis);
+    if (_.has(props, 'yAxis')) {
+      extractScale(scales[props.yField], props.yAxis);
+    }
     this._setConfig('scales', scales);
     super._scale();
   }
@@ -101,9 +102,9 @@ export default class Rardar extends BasePlot<RadarConfig>{
     const axesConfig = { fields: {} };
     /** 配置x轴 */
     if (props.xAxis && props.xAxis.visible === false) {
-      axesConfig.fields[props.xField]  = false;
+      axesConfig.fields[props.xField] = false;
     } else if (props.xAxis) {
-      axesConfig.fields[props.xField]  = {
+      axesConfig.fields[props.xField] = {
         line: null,
         tickLine: null,
         grid: {
@@ -112,11 +113,11 @@ export default class Rardar extends BasePlot<RadarConfig>{
       };
       if (props.xAxis.style) {
         const styleCfg = this._axisStyleParser(props.xAxis.style, axesConfig.fields[props.xField]);
-        axesConfig.fields[props.xField]  = _.deepMix(axesConfig.fields[props.xField] , styleCfg);
+        axesConfig.fields[props.xField] = _.deepMix(axesConfig.fields[props.xField], styleCfg);
       }
       if (props.xAxis.formatter) {
         const formatter = props.xAxis.formatter;
-        axesConfig.fields[props.xField].label = function (text, index, total) {
+        axesConfig.fields[props.xField].label = function(text, index, total) {
           const returnCfg = {
             text: formatter(text),
           } as Point;
@@ -129,7 +130,7 @@ export default class Rardar extends BasePlot<RadarConfig>{
     }
     /** 配置y轴 */
     if (props.yAxis && props.yAxis.visible === false) {
-      axesConfig.fields[props.yField]  = false;
+      axesConfig.fields[props.yField] = false;
     } else if (props.yAxis) {
       axesConfig.fields[props.yField] = {
         line: null,
@@ -142,11 +143,11 @@ export default class Rardar extends BasePlot<RadarConfig>{
       };
       if (props.yAxis.style) {
         const styleCfg = this._axisStyleParser(props.yAxis.style, axesConfig.fields[props.yField]);
-        axesConfig.fields[props.yField]  = _.deepMix(axesConfig.fields[props.yField] , styleCfg);
+        axesConfig.fields[props.yField] = _.deepMix(axesConfig.fields[props.yField], styleCfg);
       }
       if (props.yAxis.formatter) {
         const formatter = props.yAxis.formatter;
-        axesConfig.fields[props.yField].label = function (text, index, total) {
+        axesConfig.fields[props.yField].label = function(text, index, total) {
           const returnCfg = {
             text: formatter(text),
           } as Point;
@@ -165,7 +166,9 @@ export default class Rardar extends BasePlot<RadarConfig>{
     const props = this._initialProps;
     /** 配置面积 */
     let areaConfig = { visible: true };
-    if (props.area) areaConfig = _.deepMix(areaConfig, props.area);
+    if (props.area) {
+      areaConfig = _.deepMix(areaConfig, props.area);
+    }
     if (areaConfig.visible) {
       const area = getGeom('area', 'main', {
         plot: this,
@@ -183,7 +186,9 @@ export default class Rardar extends BasePlot<RadarConfig>{
     }
     /** 配置点 */
     let pointConfig = { visible: false };
-    if (props.point) pointConfig = _.assign(pointConfig, props.point);
+    if (props.point) {
+      pointConfig = _.assign(pointConfig, props.point);
+    }
     if (pointConfig.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
@@ -192,13 +197,13 @@ export default class Rardar extends BasePlot<RadarConfig>{
     }
   }
 
-  protected _label() { }
+  protected _label() {}
 
-  protected _annotation() { }
+  protected _annotation() {}
 
-  protected _animation() { }
+  protected _animation() {}
 
-  protected _interactions() { }
+  protected _interactions() {}
 
   protected _events(eventParser) {
     // super._events(EventParser);
@@ -207,27 +212,36 @@ export default class Rardar extends BasePlot<RadarConfig>{
   private _axisStyleParser(styleProps, axisConfig) {
     const styleCfg = {} as Point;
     if (styleProps.line) {
-      if (axisConfig.line === null) axisConfig.line = {};
+      if (axisConfig.line === null) {
+        axisConfig.line = {};
+      }
       styleCfg.line = styleProps.line;
     }
     if (styleProps.grid) {
-      if (axisConfig.grid === null) axisConfig.grid = {};
+      if (axisConfig.grid === null) {
+        axisConfig.grid = {};
+      }
       styleCfg.grid = styleProps.grid;
     }
     if (styleProps.title) {
-      if (axisConfig.title === null) axisConfig.title = {};
+      if (axisConfig.title === null) {
+        axisConfig.title = {};
+      }
       styleCfg.title = styleProps.title;
     }
     if (styleProps.tickLine) {
-      if (axisConfig.tickLine === null) axisConfig.tickLine = {};
+      if (axisConfig.tickLine === null) {
+        axisConfig.tickLine = {};
+      }
       styleCfg.tickLine = styleProps.tickLine;
     }
     if (styleProps.label) {
-      if (axisConfig.label === null) axisConfig.label = {};
+      if (axisConfig.label === null) {
+        axisConfig.label = {};
+      }
       styleCfg.label = {} as Point;
       styleCfg.label.textStyle = styleProps.label;
     }
     return styleCfg;
   }
-
 }

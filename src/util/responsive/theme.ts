@@ -6,9 +6,7 @@ const defaultResponsiveTheme = {
     x: {
       category: {
         label: {
-          constraints: [
-            { name:'elementDist' },
-          ],
+          constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
               {
@@ -44,17 +42,15 @@ const defaultResponsiveTheme = {
       },
       linear: {
         label: {
-          constraints: [
-            { name: 'elementDist' },
-          ],
+          constraints: [{ name: 'elementDist' }],
           rules: {
-            elementDist:
-            [ {
-              name: 'nodesResampling',
-              option: {
-                keep: [ 'end' ],
+            elementDist: [
+              {
+                name: 'nodesResampling',
+                option: {
+                  keep: ['end'],
+                },
               },
-            },
               {
                 name: 'textRotation',
                 option: {
@@ -84,9 +80,7 @@ const defaultResponsiveTheme = {
       },
       dateTime: {
         label: {
-          constraints: [
-            { name: 'elementDist' },
-          ],
+          constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
               {
@@ -121,36 +115,21 @@ const defaultResponsiveTheme = {
     y: {
       linear: {
         label: {
-          constraints: [
-            { name:'elementDistVertical' },
-            { name:'elementWidth' },
-          ],
+          constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
           rules: {
-            elementDistVertical: [
-              { name: 'nodesResampling' },
-              { name: 'textHide' },
-            ],
-            elementWidth: [
-              { name: 'digitsAbbreviate' },
-              { name: 'textHide' },
-            ],
+            elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
+            elementWidth: [{ name: 'digitsAbbreviate' }, { name: 'textHide' }],
           },
         },
-
       }, // linear y axis
       category: {
-        label:{
-          constraints: [
-            { name:'elementDistVertical' },
-            { name: 'elementWidth' },
-          ],
+        label: {
+          constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
           rules: {
-            elementDistVertical: [
-              { name: 'nodesResampling' },
-              { name: 'textHide' },
-            ],
+            elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
             elementWidth: [
-              { name: 'textAbbreviate',
+              {
+                name: 'textAbbreviate',
                 option: {
                   abbreviateBy: 'end',
                 },
@@ -159,7 +138,6 @@ const defaultResponsiveTheme = {
             ],
           },
         },
-
       }, // categroy y axis， 条形图
     },
   },
@@ -167,7 +145,7 @@ const defaultResponsiveTheme = {
 
 const RESPONSIVE_THEME_MAP = {};
 
-export function registerResponsiveTheme(name:string, theme) {
+export function registerResponsiveTheme(name: string, theme) {
   if (getResponsiveTheme(name)) {
     throw new Error(`responsive theme type '${name}' existed.`);
   }
@@ -178,7 +156,7 @@ export function getResponsiveTheme(name: string) {
   return RESPONSIVE_THEME_MAP[name];
 }
 
-export function updateResponsiveTheme(name:string, cfg) {
+export function updateResponsiveTheme(name: string, cfg) {
   let theme = RESPONSIVE_THEME_MAP[name];
   if (!theme) {
     throw new Error(`responsive theme type '${name}' does not existed.`);

@@ -2,26 +2,29 @@
  * @description path 计算、转换的辅助工具
  */
 
+import * as matrixUtil from '@antv/matrix-util';
 import * as _ from '@antv/util';
-const vector2 = _.vec2;
+const vector2 = matrixUtil.vec2;
 
 interface PointObject {
   x: number;
   y: number;
 }
 
-type PointArray = [ number, number ];
+type PointArray = [number, number];
 
 function _points2path(points: PointObject[], isInCircle: boolean): any[] {
   const path = [];
   if (points.length) {
     for (let i = 0, length = points.length; i < length; i += 1) {
       const item = points[i];
-      const command = (i === 0) ? 'M' : 'L';
-      path.push([ command, item.x, item.y ]);
+      const command = i === 0 ? 'M' : 'L';
+      path.push([command, item.x, item.y]);
     }
 
-    isInCircle && path.push([ 'Z' ]);
+    if (isInCircle) {
+      path.push(['Z']);
+    }
   }
 
   return path;
@@ -34,7 +37,7 @@ function _getPointRadius(coord, point: PointObject): number {
 }
 
 function _convertArr(arr: number[], coord): any[] {
-  const tmp = [ arr[0] ];
+  const tmp = [arr[0]];
   for (let i = 1, len = arr.length; i < len; i = i + 2) {
     const point = coord.convertPoint({
       x: arr[i],
@@ -63,17 +66,18 @@ function _convertPolarPath(pre: any[], cur: any[], coord): any[] {
   const flag = angleRange > Math.PI ? 1 : 0; // 大弧还是小弧标志位
   const convertPoint = coord.convertPoint(curPoint);
   const r = _getPointRadius(coord, convertPoint);
-  if (r >= 0.5) { // 小于1像素的圆在图像上无法识别
+  if (r >= 0.5) {
+    // 小于1像素的圆在图像上无法识别
     if (angleRange === Math.PI * 2) {
       const middlePoint = {
         x: (curPoint.x + prePoint.x) / 2,
         y: (curPoint.y + prePoint.y) / 2,
       };
       const middleConvertPoint = coord.convertPoint(middlePoint);
-      rst.push([ 'A', r, r, 0, flag, direction, middleConvertPoint.x, middleConvertPoint.y ]);
-      rst.push([ 'A', r, r, 0, flag, direction, convertPoint.x, convertPoint.y ]);
+      rst.push(['A', r, r, 0, flag, direction, middleConvertPoint.x, middleConvertPoint.y]);
+      rst.push(['A', r, r, 0, flag, direction, convertPoint.x, convertPoint.y]);
     } else {
-      rst.push([ 'A', r, r, 0, flag, direction, convertPoint.x, convertPoint.y ]);
+      rst.push(['A', r, r, 0, flag, direction, convertPoint.x, convertPoint.y]);
     }
   }
   return rst;
@@ -99,11 +103,11 @@ function _filterFullCirleLine(path: any[]): void {
   });
 }
 
-export const  smoothBezier = (
+export const smoothBezier = (
   points: PointArray[],
   smooth: number,
   isLoop: boolean,
-  constraint: PointArray[],
+  constraint: PointArray[]
 ): PointArray[] => {
   const cps = [];
 
@@ -113,8 +117,8 @@ export const  smoothBezier = (
   let min: PointArray;
   let max: PointArray;
   if (hasConstraint) {
-    min = [ Infinity, Infinity ];
-    max = [ -Infinity, -Infinity ];
+    min = [Infinity, Infinity];
+    max = [-Infinity, -Infinity];
 
     for (let i = 0, l = points.length; i < l; i++) {
       const point = points[i];
@@ -180,7 +184,7 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointAr
   const isLoop = !!z;
   const pointList = [];
   for (let i = 0, l = crp.length; i < l; i += 2) {
-    pointList.push([ crp[i], crp[i + 1] ]);
+    pointList.push([crp[i], crp[i + 1]]);
   }
 
   const controlPointList = smoothBezier(pointList, 0.4, isLoop, constraint);
@@ -196,15 +200,7 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointAr
     cp2 = controlPointList[i * 2 + 1];
     p = pointList[i + 1];
 
-    d1.push([
-      'C',
-      cp1[0],
-      cp1[1],
-      cp2[0],
-      cp2[1],
-      p[0],
-      p[1],
-    ]);
+    d1.push(['C', cp1[0], cp1[1], cp2[0], cp2[1], p[0], p[1]]);
   }
 
   if (isLoop) {
@@ -212,15 +208,7 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: PointAr
     cp2 = controlPointList[len + 1];
     p = pointList[0];
 
-    d1.push([
-      'C',
-      cp1[0],
-      cp1[1],
-      cp2[0],
-      cp2[1],
-      p[0],
-      p[1],
-    ]);
+    d1.push(['C', cp1[0], cp1[1], cp2[0], cp2[1], p[0], p[1]]);
   }
   return d1;
 }
@@ -231,11 +219,12 @@ export function getLinePath(points: PointObject[], isInCircle: boolean): any[] {
 }
 
 // get spline： 限定了范围的平滑线
-export function getSplinePath(points: PointObject[], isInCircle: boolean, constaint:any): any[] {
+export function getSplinePath(points: PointObject[], isInCircle: boolean, constaint: any): any[] {
   const data = [];
   const first = points[0];
   let prePoint = null;
-  if (points.length <= 2) { // 两点以内直接绘制成路径
+  if (points.length <= 2) {
+    // 两点以内直接绘制成路径
     return getLinePath(points, isInCircle);
   }
   _.each(points, (point) => {
@@ -245,12 +234,13 @@ export function getSplinePath(points: PointObject[], isInCircle: boolean, consta
       prePoint = point;
     }
   });
-  const constraint = constaint || [ // 范围
-    [ 0, 0 ],
-    [ 1, 1 ],
+  const constraint = constaint || [
+    // 范围
+    [0, 0],
+    [1, 1],
   ];
   const splinePath = catmullRom2bezier(data, isInCircle, constraint);
-  splinePath.unshift([ 'M', first.x, first.y ]);
+  splinePath.unshift(['M', first.x, first.y]);
   return splinePath;
 }
 
@@ -307,7 +297,8 @@ export function convertPolarPath(coord, path: any[]): any[] {
         equals = transposed ? pre[pre.length - 2] === cur[1] : pre[pre.length - 1] === cur[2];
         if (equals) {
           tmp = tmp.concat(_convertPolarPath(pre, cur, coord));
-        } else { // y 不相等，所以直接转换
+        } else {
+          // y 不相等，所以直接转换
           tmp.push(_convertArr(subPath, coord));
         }
         break;

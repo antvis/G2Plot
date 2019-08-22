@@ -1,16 +1,15 @@
 import * as _ from '@antv/util';
 import BasePlot from '../Base/plot';
-import BaseConfig from '../interface/config';
 import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
+import BaseConfig from '../interface/config';
 
 export interface TinyConfig extends BaseConfig {
   indicator?: any;
 }
 
-export default class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlot<T>{
-
-  protected _setDefaultG2Config() { }
+export default class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlot<T> {
+  protected _setDefaultG2Config() {}
 
   protected _beforeInit() {
     const props = this._initialProps;
@@ -18,9 +17,9 @@ export default class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlo
     this._initialProps = _.deepMix({}, props, defaultProps);
   }
 
-  protected _coord() { }
+  protected _coord() {}
 
-  protected _addElements() { }
+  protected _addElements() {}
 
   protected _annotation() {
     const props = this._initialProps;
@@ -35,13 +34,13 @@ export default class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlo
     this._setConfig('annotations', config);
   }
 
-  protected _animation() { }
+  protected _animation() {}
 
-  protected _interactions() { }
+  protected _interactions() {}
 
   private _getDefaultProps() {
     return {
-      padding: [ 0, 0, 0, 0 ],
+      padding: [0, 0, 0, 0],
       legend: {
         visible: false,
       },

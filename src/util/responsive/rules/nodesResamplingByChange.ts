@@ -1,7 +1,7 @@
 import { Shape } from '@antv/g';
 import textHide from './textHide';
 
-/** 根据变化进行抽样，保留变化较大的点，类似于点简化算法*/
+/** 根据变化进行抽样，保留变化较大的点，类似于点简化算法 */
 export default function nodesResamplingByChange(shape: Shape, cfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
   const tolerance = responsive.cfg.tolerance;
@@ -9,7 +9,7 @@ export default function nodesResamplingByChange(shape: Shape, cfg, index, respon
     return;
   }
   const current = nodes[index];
-    // const previous = nodes[index-1];
+  // const previous = nodes[index-1];
   const previous = findPrevious(index, nodes);
   const distX = previous.centerX - current.centerX;
   const distY = previous.centerY - current.centerY;

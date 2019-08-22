@@ -1,5 +1,5 @@
-import { registerShape, Global } from '@antv/g2';
 import { Circle } from '@antv/g';
+import { Global, registerShape } from '@antv/g2';
 import * as _ from '@antv/util';
 
 const ShapeUtil = {
@@ -7,7 +7,7 @@ const ShapeUtil = {
     const points = [];
     const x = obj.x;
     let y = obj.y;
-    y = _.isArray(y) ? y : [ y ];
+    y = _.isArray(y) ? y : [y];
     _.each(y, (yItem, index) => {
       const point = {
         x: _.isArray(x) ? x[index] : x,
@@ -75,33 +75,29 @@ const getLineAttrs = (cfg) => {
 function getWaterWavePositions(x, stage, waveLength, amplitude) {
   if (stage === 0) {
     return [
-      [ x + 1 / 2 * waveLength / Math.PI / 2, amplitude / 2 ],
-      [ x + 1 / 2 * waveLength / Math.PI, amplitude ],
-      [ x + waveLength / 4, amplitude ],
+      [x + ((1 / 2) * waveLength) / Math.PI / 2, amplitude / 2],
+      [x + ((1 / 2) * waveLength) / Math.PI, amplitude],
+      [x + waveLength / 4, amplitude],
     ];
   }
   if (stage === 1) {
     return [
-      [ x + 1 / 2 * waveLength / Math.PI / 2 * (Math.PI - 2),
-        amplitude,
-      ],
-      [ x + 1 / 2 * waveLength / Math.PI / 2 * (Math.PI - 1),
-        amplitude / 2,
-      ],
-      [ x + waveLength / 4, 0 ],
+      [x + (((1 / 2) * waveLength) / Math.PI / 2) * (Math.PI - 2), amplitude],
+      [x + (((1 / 2) * waveLength) / Math.PI / 2) * (Math.PI - 1), amplitude / 2],
+      [x + waveLength / 4, 0],
     ];
   }
   if (stage === 2) {
     return [
-      [ x + 1 / 2 * waveLength / Math.PI / 2, -amplitude / 2 ],
-      [ x + 1 / 2 * waveLength / Math.PI, -amplitude ],
-      [ x + waveLength / 4, -amplitude ],
+      [x + ((1 / 2) * waveLength) / Math.PI / 2, -amplitude / 2],
+      [x + ((1 / 2) * waveLength) / Math.PI, -amplitude],
+      [x + waveLength / 4, -amplitude],
     ];
   }
   return [
-    [ x + 1 / 2 * waveLength / Math.PI / 2 * (Math.PI - 2), -amplitude ],
-    [ x + 1 / 2 * waveLength / Math.PI / 2 * (Math.PI - 1), -amplitude / 2 ],
-    [ x + waveLength / 4, 0 ],
+    [x + (((1 / 2) * waveLength) / Math.PI / 2) * (Math.PI - 2), -amplitude],
+    [x + (((1 / 2) * waveLength) / Math.PI / 2) * (Math.PI - 1), -amplitude / 2],
+    [x + waveLength / 4, 0],
   ];
 }
 /**
@@ -117,7 +113,7 @@ function getWaterWavePositions(x, stage, waveLength, amplitude) {
  * @reference http://gitlab.alipay-inc.com/datavis/g6/blob/1.2.0/src/graph/utils/path.js#L135
  */
 function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, cy) {
-  const curves = Math.ceil(2 * radius / waveLength * 4) * 2;
+  const curves = Math.ceil(((2 * radius) / waveLength) * 4) * 2;
   const path = [];
   let _phase = phase;
 
@@ -128,7 +124,7 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
   while (_phase > 0) {
     _phase -= Math.PI * 2;
   }
-  _phase = _phase / Math.PI / 2 * waveLength;
+  _phase = (_phase / Math.PI / 2) * waveLength;
 
   const left = cx - radius + _phase - radius * 2;
   /**
@@ -141,7 +137,7 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
    *  |      |
    *  +------+
    */
-  path.push([ 'M', left, waterLevel ]);
+  path.push(['M', left, waterLevel]);
 
   /**
    * top wave
@@ -153,12 +149,15 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
   let waveRight = 0;
   for (let c = 0; c < curves; ++c) {
     const stage = c % 4;
-    const pos = getWaterWavePositions(c * waveLength / 4, stage, waveLength, amplitude);
+    const pos = getWaterWavePositions((c * waveLength) / 4, stage, waveLength, amplitude);
     path.push([
       'C',
-      pos[0][0] + left, -pos[0][1] + waterLevel,
-      pos[1][0] + left, -pos[1][1] + waterLevel,
-      pos[2][0] + left, -pos[2][1] + waterLevel,
+      pos[0][0] + left,
+      -pos[0][1] + waterLevel,
+      pos[1][0] + left,
+      -pos[1][1] + waterLevel,
+      pos[2][0] + left,
+      -pos[2][1] + waterLevel,
     ]);
 
     if (c === curves - 1) {
@@ -176,9 +175,9 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
    *                          |
    *                  2. draws this line
    */
-  path.push([ 'L', waveRight + left, cy + radius ]);
-  path.push([ 'L', left, cy + radius ]);
-  path.push([ 'L', left, waterLevel ]);
+  path.push(['L', waveRight + left, cy + radius]);
+  path.push(['L', left, cy + radius]);
+  path.push(['L', left, waterLevel]);
   return path;
 }
 
@@ -202,11 +201,7 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
   for (let i = 0; i < waveCount; i++) {
     const wave = group.addShape('path', {
       attrs: {
-        path: getWaterWavePath(
-          radius,
-          bbox.minY + height * level,
-          width / 4, 0, width / 64, x, y,
-        ),
+        path: getWaterWavePath(radius, bbox.minY + height * level, width / 4, 0, width / 64, x, y),
         fill: colors[i],
         clip,
       },
@@ -215,12 +210,11 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
     if (Global.renderer === 'canvas') {
       wave.animate(
         {
-          transform: [
-            [ 't', width / 2, 0 ],
-          ],
+          transform: [['t', width / 2, 0]],
           repeat: true,
         },
-        duration - i * delayDiff);
+        duration - i * delayDiff
+      );
     }
   }
 }
@@ -250,13 +244,14 @@ registerShape('interval', 'liquid-fill-gauge', {
       },
     });
     addWaterWave(
-      cp.x, cp.y,
+      cp.x,
+      cp.y,
       1 - cfg.points[1].y, // cfg.y / (2 * cp.y),
       1,
-      [ attrs.fill ],
+      [attrs.fill],
       container,
       clipCircle,
-      radius * 4,
+      radius * 4
     );
     return container.addShape('circle', {
       attrs: _.mix(getLineAttrs(cfg), {

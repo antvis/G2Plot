@@ -1,5 +1,5 @@
-import * as _ from '@antv/util';
 import { Canvas } from '@antv/g';
+import * as _ from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 
 /**
@@ -7,34 +7,16 @@ import ResizeObserver from 'resize-observer-polyfill';
  */
 
 export default class CanvasController {
-  private container: HTMLElement | string;
-  private plot: any; // temp
-  private resizeObserver: any;
   public width: number;
   public height: number;
   public canvas: Canvas;
+  private container: HTMLElement | string;
+  private plot: any; // temp
+  private resizeObserver: any;
 
   constructor(cfg) {
     _.assign(this, cfg);
     this._init();
-  }
-
-  private _init() {
-        /** 创建canvas */
-    const props = this.plot._initialProps;
-    const size = this.getCanvasSize();
-    this.canvas = new Canvas({
-      containerDOM: this.container,
-      width: size.width,
-      height: size.height,
-      renderer: props.renderer ? props.renderer : 'canvas',
-      pixelRatio: 2,
-    });
-    this.width = size.width;
-    this.height = size.height;
-    if (props.forceFit) {
-      this.forceFit();
-    }
   }
 
   public getCanvasSize() {
@@ -66,15 +48,14 @@ export default class CanvasController {
         return;
       }
       const size = this.getCanvasSize();
-            /** height measure不准导致重复forcefit */
+      /** height measure不准导致重复forcefit */
       if (this.width === size.width) {
         return;
       }
       this.updateCanvasSize();
       this.plot.updateConfig({});
       this.plot.render();
-
-    },                            300);
+    }, 300);
     const ro = new ResizeObserver(forceFitCb);
     const container = this.container as HTMLElement;
     ro.observe(container);
@@ -88,4 +69,21 @@ export default class CanvasController {
     }
   }
 
+  private _init() {
+    /** 创建canvas */
+    const props = this.plot._initialProps;
+    const size = this.getCanvasSize();
+    this.canvas = new Canvas({
+      containerDOM: this.container,
+      width: size.width,
+      height: size.height,
+      renderer: props.renderer ? props.renderer : 'canvas',
+      pixelRatio: 2,
+    });
+    this.width = size.width;
+    this.height = size.height;
+    if (props.forceFit) {
+      this.forceFit();
+    }
+  }
 }

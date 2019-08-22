@@ -1,8 +1,9 @@
-import Slider from '../../../interaction/components/slider';
-import { getColDefs, getColDef } from '../../../interaction/helper/get-color-def';
-import * as _ from '@antv/util';
-import { Interaction, Plot } from '@antv/g2';
+import * as domUtil from '@antv/dom-util';
 import { Canvas, Group } from '@antv/g';
+import { Interaction, Plot, View } from '@antv/g2';
+import * as _ from '@antv/util';
+import Slider from '../../../interaction/components/slider';
+import { getColDef, getColDefs } from '../../../interaction/helper/get-color-def';
 
 function parsePadding(padding: number[] | number | string) {
   let top = padding[0];
@@ -19,18 +20,13 @@ function parsePadding(padding: number[] | number | string) {
     left = !_.isNil(padding[3]) ? padding[3] : right;
   }
 
-  return [ top, right, bottom, left ];
+  return [top, right, bottom, left];
 }
 
-function getFirstShapeData(shapes) {// 用于分组的场景
-  const shapeData = shapes[0].get('origin'); // 分组中的第一个shape的data
-  const data = [];
-  for (let i = 0; i < shapeData.length; i++) {
-    const d = shapeData[i];
-    data.push(d._origin);
-  }
-
-  return data;
+function getFirstShapeData(shapes) {
+  // 用于分组的场景
+  const shapeData: any[] = shapes[0].get('origin'); // 分组中的第一个shape的data
+  return _.map(shapeData, (d) => d._origin);
 }
 
 export default class Range extends Interaction {
@@ -59,15 +55,15 @@ export default class Range extends Interaction {
   private backgroundStyle: {};
   private textStyle: {};
   private bgChart: Plot;
-  private backgroundChart:{
-    type?: string,
-    color?: string,
+  private backgroundChart: {
+    type?: string;
+    color?: string;
   }; // bgChart配置
   private plotWidth: number | string;
   private plotHeight: number;
   private plotPadding: number;
   private rangeElement: Group;
-  private onChange: Function;
+  private onChange: (...args: any[]) => void;
 
   constructor(cfg) {
     super({
@@ -80,32 +76,32 @@ export default class Range extends Interaction {
       container: null,
       xAxis: null,
       yAxis: null,
-        // 选中区域的样式
+      // 选中区域的样式
       fillerStyle: {
         fill: '#BDCCED',
         fillOpacity: 0.3,
       },
-        // 滑动条背景样式
+      // 滑动条背景样式
       backgroundStyle: {
         stroke: '#CCD6EC',
         fill: '#CCD6EC',
         fillOpacity: 0.3,
         lineWidth: 1,
       },
-      range: [ 0, 100 ],
+      range: [0, 100],
       layout: 'horizontal',
-        // 文本颜色
+      // 文本颜色
       textStyle: {
         fill: '#545454',
       },
-        // 滑块的样式
+      // 滑块的样式
       handleStyle: {
         img: 'https://gw.alipayobjects.com/zos/rmsportal/QXtfhORGlDuRvLXFzpsQ.png',
         width: 5,
       },
-        // 背景图表的配置，如果为 false 则表示不渲染
+      // 背景图表的配置，如果为 false 则表示不渲染
       backgroundChart: {
-        type: [ 'area' ], // 图表的类型，可以是字符串也可是是数组
+        type: ['area'], // 图表的类型，可以是字符串也可是是数组
         color: '#CCD6EC',
       },
       ...cfg,
@@ -114,28 +110,30 @@ export default class Range extends Interaction {
     this._initStyle();
     this.render();
   }
-  _initContainer() {
+  public _initContainer() {
     const container = this.container;
     if (!container) {
       throw new Error('Please specify the container for the Slider!');
     }
     if (_.isString(container)) {
-      this.domContainer = document.getElementById(container);
+      this.domContainer = document.getElementById(container as string);
     } else {
-      this.domContainer = container;
+      this.domContainer = container as HTMLElement;
     }
   }
 
-  forceFit() {
+  public forceFit() {
     if (this.destroyed) {
       return;
     }
-    const width = _.getWidth(this.domContainer);
+    const width = domUtil.getWidth(this.domContainer);
     const height = this.height;
     if (width !== this.domWidth) {
       const canvas = this.canvas;
       canvas.changeSize(width, height); // 改变画布尺寸
-      this.bgChart && this.bgChart.changeSize(width, this.bgChart.get('height'));
+      if (this.bgChart) {
+        this.bgChart.changeSize(width, this.bgChart.get('height'));
+      }
       canvas.clear();
       this._initWidth();
       this._initSlider(); // 初始化滑动条
@@ -143,24 +141,28 @@ export default class Range extends Interaction {
       canvas.draw();
     }
   }
-  _initForceFitEvent() {
+  public _initForceFitEvent() {
     const timer = setTimeout(_.wrapBehavior(this, 'forceFit'), 200);
     clearTimeout(this.resizeTimer);
     this.resizeTimer = timer;
   }
-  _initStyle() {
-    this.handleStyle = _.mix({
-      width: this.height,
-      height: this.height,
-    },                       this.handleStyle);
-    if (this.width === 'auto') { // 宽度自适应
-      window.addEventListener('resize', _.wrapBehavior(this, '_initForceFitEvent'));
+  public _initStyle() {
+    this.handleStyle = _.mix(
+      {
+        width: this.height,
+        height: this.height,
+      },
+      this.handleStyle
+    );
+    if (this.width === 'auto') {
+      // 宽度自适应
+      window.addEventListener('resize', _.wrapBehavior(this, '_initForceFitEvent') as () => void);
     }
   }
-  _initWidth() {
+  public _initWidth() {
     let width;
     if (this.width === 'auto') {
-      width = _.getWidth(this.domContainer);
+      width = domUtil.getWidth(this.domContainer);
     } else {
       width = this.width;
     }
@@ -177,7 +179,7 @@ export default class Range extends Interaction {
       this.plotPadding = padding[0];
     }
   }
-  _initCanvas() {
+  public _initCanvas() {
     const width = this.domWidth;
     const height = this.height;
     const canvas = new Canvas({
@@ -193,23 +195,28 @@ export default class Range extends Interaction {
     node.style.zIndex = 3;
     this.canvas = canvas;
   }
-  _initBackground() {
+  public _initBackground() {
     const chart = this.view;
     const geom = chart.get('elements')[0];
     const shapes = geom.get('shapeContainer').get('children');
-    const chartData = shapes.length > 0 ? getFirstShapeData(shapes) :chart.get('data');
-    const data = this.data = this.data || chartData;
+    const chartData = shapes.length > 0 ? getFirstShapeData(shapes) : chart.get('data');
+    const data = (this.data = this.data || chartData);
     const xScale = chart.getXScale();
     const xAxis = this.view.xAxis || xScale.field;
     const yAxis = this.view.yAxis || chart.getYScales()[0].field;
-    const scales = _.deepMix({
-      [`${xAxis}`]: {
-        range: [ 0, 1 ],
+    const scales = _.deepMix(
+      {
+        [`${xAxis}`]: {
+          range: [0, 1],
+        },
       },
-    },                       getColDefs(chart), this.view.scales); // 用户列定义
+      getColDefs(chart),
+      this.view.scales
+    ); // 用户列定义
     delete scales[xAxis].min;
     delete scales[xAxis].max;
-    if (!data) { // 没有数据，则不创建
+    if (!data) {
+      // 没有数据，则不创建
       throw new Error('Please specify the data!');
     }
     if (!xAxis) {
@@ -223,7 +230,7 @@ export default class Range extends Interaction {
     let type = backgroundChart.type || geom.get('type');
     const color = backgroundChart.color || 'grey';
     if (!_.isArray(type)) {
-      type = [ type ];
+      type = [type];
     }
 
     const padding = parsePadding(this.padding);
@@ -231,7 +238,7 @@ export default class Range extends Interaction {
       containerDOM: this.container,
       width: this.domWidth,
       height: this.height,
-      padding: [ 0, padding[1], 0, padding[3] ],
+      padding: [0, padding[1], 0, padding[3]],
       animate: false,
     });
     bgChart.data(data);
@@ -240,7 +247,8 @@ export default class Range extends Interaction {
     bgChart.tooltip(false);
     bgChart.legend(false);
     _.each(type, (eachType) => {
-      bgChart['area']()
+      bgChart
+        .area()
         .position(`${xAxis}*${yAxis}`)
         .color(color)
         .opacity(1);
@@ -253,7 +261,7 @@ export default class Range extends Interaction {
     }
   }
 
-  _initRange() {
+  public _initRange() {
     const startRadio = this.startRatio;
     const endRadio = this.endRatio;
     const start = this._startValue;
@@ -277,7 +285,8 @@ export default class Range extends Interaction {
     }
     const { minSpan, maxSpan } = this;
     let totalSpan = 0;
-    if (scale.type === 'time' || scale.type === 'timeCat') { // 时间类型已排序
+    if (scale.type === 'time' || scale.type === 'timeCat') {
+      // 时间类型已排序
       const values = scale.values;
       const firstValue = values[0];
       const lastValue = values[values.length - 1];
@@ -292,11 +301,11 @@ export default class Range extends Interaction {
       this.maxRange = (maxSpan / totalSpan) * 100;
     }
 
-    const range = [ min * 100, max * 100 ];
+    const range = [min * 100, max * 100];
     this.range = range;
     return range;
   }
-  _getHandleValue(type) {
+  public _getHandleValue(type) {
     let value;
     const range = this.range;
     const min = range[0] / 100;
@@ -310,7 +319,7 @@ export default class Range extends Interaction {
     return value;
   }
 
-  _initSlider() {
+  public _initSlider() {
     const canvas = this.canvas;
     const range = this._initRange();
     const scale = this.scale;
@@ -339,7 +348,7 @@ export default class Range extends Interaction {
     this.rangeElement = rangeElement;
   }
 
-  _updateElement(minRatio, maxRatio) {
+  public _updateElement(minRatio, maxRatio) {
     const { view, scale, rangeElement } = this;
     const { field } = scale;
     const minTextElement = rangeElement.get('minTextElement');
@@ -367,15 +376,15 @@ export default class Range extends Interaction {
 
     view.filter(field, (val) => {
       const valRatio = scale.scale(val);
-      const minRatio = scale.scale(minText);
-      const maxRatio = scale.scale(maxText);
-      return  valRatio > minRatio && valRatio < maxRatio;
+      const minR = scale.scale(minText);
+      const maxR = scale.scale(maxText);
+      return valRatio > minR && valRatio < maxR;
     });
 
     view.repaint();
   }
 
-  _bindEvent() {
+  public _bindEvent() {
     const rangeElement = this.rangeElement;
     rangeElement.on('sliderchange', (ev) => {
       const range = ev.range;
@@ -385,20 +394,22 @@ export default class Range extends Interaction {
     });
   }
 
-  clear() {
+  public clear() {
     this.canvas.clear();
-    this.bgChart && this.bgChart.destroy();
+    if (this.bgChart) {
+      this.bgChart.destroy();
+    }
     this.bgChart = null;
     this.scale = null;
     this.canvas.draw();
   }
 
-  repaint() {
+  public repaint() {
     this.clear();
     this.render();
   }
 
-  render() {
+  public render() {
     this._initWidth();
     this._initCanvas();
     this._initBackground();
@@ -407,17 +418,19 @@ export default class Range extends Interaction {
     this.canvas.draw();
   }
 
-  destroy() {
+  public destroy() {
     clearTimeout(this.resizeTimer);
     const rangeElement = this.rangeElement;
     rangeElement.off('sliderchange');
-    this.bgChart && this.bgChart.destroy();
+    if (this.bgChart) {
+      this.bgChart.destroy();
+    }
     this.canvas.destroy();
     const container = this.domContainer;
     while (container.hasChildNodes()) {
       container.removeChild(container.firstChild);
     }
-    window.removeEventListener('resize', _.getWrapBehavior(this, '_initForceFitEvent'));
+    window.removeEventListener('resize', _.getWrapBehavior(this, '_initForceFitEvent') as () => void);
     this.destroyed = true;
   }
 }

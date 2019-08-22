@@ -8,25 +8,32 @@ describe('Ring plot', () => {
   canvasDiv.style.height = '600px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
-  const data = [ {
-    type: '分类一',
-    value: 27
-  }, {
-    type: '分类二',
-    value: 25
-  }, {
-    type: '分类三',
-    value: 18
-  }, {
-    type: '分类四',
-    value: 15
-  }, {
-    type: '分类五',
-    value: 10
-  }, {
-    type: 'Other',
-    value: 5
-  } ];
+  const data = [
+    {
+      type: '分类一',
+      value: 27,
+    },
+    {
+      type: '分类二',
+      value: 25,
+    },
+    {
+      type: '分类三',
+      value: 18,
+    },
+    {
+      type: '分类四',
+      value: 15,
+    },
+    {
+      type: '分类五',
+      value: 10,
+    },
+    {
+      type: 'Other',
+      value: 5,
+    },
+  ];
 
   it('创建 & 销毁图表', () => {
     const ringPlot = new Ring(canvasDiv, {
@@ -47,7 +54,7 @@ describe('Ring plot', () => {
       data,
       angleField: 'value',
       colorField: 'type',
-      innerRadius: 0.2
+      innerRadius: 0.2,
     });
     ringPlot.render();
     const coord = ringPlot.plot.get('coord');
@@ -57,16 +64,12 @@ describe('Ring plot', () => {
 
   it('centralText annotation', (done) => {
     const ringPlot = new Ring(canvasDiv, {
-      padding: [ 0, 0, 0, 0 ],
+      padding: [0, 0, 0, 0],
       data,
       innerRadius: 0.1,
       angleField: 'value',
       colorField: 'type',
-      annotation: [
-        { type: 'centralText',
-          onActive: true
-        }
-      ]
+      annotation: [{ type: 'centralText', onActive: true }],
     });
     ringPlot.render();
     const canvas = ringPlot.plot.get('canvas');

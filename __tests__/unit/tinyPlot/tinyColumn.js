@@ -9,34 +9,44 @@ describe('tiny column', () => {
   canvasDiv.id = 'canvas';
   document.body.appendChild(canvasDiv);
 
-  const data = [ {
-    year: '1991',
-    value: 31
-  }, {
-    year: '1992',
-    value: 41
-  }, {
-    year: '1993',
-    value: 35
-  }, {
-    year: '1994',
-    value: 55
-  }, {
-    year: '1995',
-    value: 49
-  }, {
-    year: '1996',
-    value: 15
-  }, {
-    year: '1997',
-    value: 17
-  }, {
-    year: '1998',
-    value: 29
-  }, {
-    year: '1999',
-    value: 33
-  } ];
+  const data = [
+    {
+      year: '1991',
+      value: 31,
+    },
+    {
+      year: '1992',
+      value: 41,
+    },
+    {
+      year: '1993',
+      value: 35,
+    },
+    {
+      year: '1994',
+      value: 55,
+    },
+    {
+      year: '1995',
+      value: 49,
+    },
+    {
+      year: '1996',
+      value: 15,
+    },
+    {
+      year: '1997',
+      value: 17,
+    },
+    {
+      year: '1998',
+      value: 29,
+    },
+    {
+      year: '1999',
+      value: 33,
+    },
+  ];
 
   it.only('图形渲染', () => {
     const tinyLine = new TinyColumn(canvasDiv, {
@@ -47,11 +57,10 @@ describe('tiny column', () => {
       yField: 'value',
       guideLine: [
         {
-          type: 'median'
-        }
-      ]
+          type: 'median',
+        },
+      ],
     });
     tinyLine.render();
   });
-
 });

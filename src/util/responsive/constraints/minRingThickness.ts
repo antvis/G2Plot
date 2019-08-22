@@ -5,7 +5,7 @@ function minRingThickness(node, region) {
 }
 
 export default {
-  type:'padding',
+  type: 'padding',
   usage: 'assign',
   expression: minRingThickness,
 };

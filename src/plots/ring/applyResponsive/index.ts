@@ -1,12 +1,8 @@
 import responsiveRing from './element';
 
-const preRenderResponsive = [
-    { name: 'responsiveRing', method: responsiveRing },
-];
+const preRenderResponsive = [{ name: 'responsiveRing', method: responsiveRing }];
 
-const afterRenderResponsive = [
-
-];
+const afterRenderResponsive = [];
 
 export default {
   preRender: preRenderResponsive,

@@ -1,7 +1,6 @@
 import { Line } from '../../src';
 import { income } from '../data/income';
 
-
 describe('responsive line plot', () => {
   const data = income;
 
@@ -36,16 +35,15 @@ describe('responsive line plot', () => {
       yField: 'rate',
       xAxis: {
         type: 'dateTime',
-        autoRotateLabel: false
+        autoRotateLabel: false,
       },
       yAxis: {
         visible: true,
       },
       forceFit: false,
-      responsive: true
+      responsive: true,
     });
     linePlot.render();
     return linePlot;
   }
-
 });

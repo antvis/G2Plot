@@ -1,7 +1,7 @@
 import { Shape } from '@antv/g';
-import { registerElementLabels, ElementLabels } from '@antv/g2';
-import { rgb2arr } from '../../../../util/color';
+import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
+import { rgb2arr } from '../../../../util/color';
 
 const TOP_MARGIN = 20;
 
@@ -10,8 +10,7 @@ interface Point {
 }
 
 export class ColumnLabels extends ElementLabels {
-
-  setLabelPosition(point, originPoint, index, originPosition) {
+  public setLabelPosition(point, originPoint, index, originPosition) {
     let position = originPosition;
     if (_.isFunction(position)) {
       position = position(originPoint);
@@ -34,7 +33,7 @@ export class ColumnLabels extends ElementLabels {
         point.textAlign = point.textAlign || 'right';
         break;
       case 'bottom':
-        point.y += (height * 2);
+        point.y += height * 2;
         point.textAlign = point.textAlign || 'center';
         break;
       case 'middle':
@@ -48,7 +47,7 @@ export class ColumnLabels extends ElementLabels {
         break;
     }
   }
-  showLabels(points: any, shapes: Shape[]) {
+  public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
@@ -61,12 +60,14 @@ export class ColumnLabels extends ElementLabels {
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
       this.adjustPosition(l, shape, item);
-      if (item.adjustColor) this.adjustColor(l, shape);
+      if (item.adjustColor) {
+        this.adjustColor(l, shape);
+      }
     });
     view.get('canvas').draw();
   }
 
-  _getShape(shapeId, shapes) {
+  public _getShape(shapeId, shapes) {
     let target;
     _.each(shapes, (shape) => {
       const s = shape as Point;
@@ -78,7 +79,7 @@ export class ColumnLabels extends ElementLabels {
     return target;
   }
 
-  adjustPosition(label, shape, item) {
+  public adjustPosition(label, shape, item) {
     const originData = shape.get('origin')._origin;
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
@@ -88,7 +89,7 @@ export class ColumnLabels extends ElementLabels {
     }
   }
 
-  adjustColor(label, shape) {
+  public adjustColor(label, shape) {
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (labelRange.minY >= shapeRange.minY && labelRange.maxY <= shapeRange.maxY) {
@@ -108,7 +109,7 @@ export class ColumnLabels extends ElementLabels {
     }
   }
 
-  _mappingColor(band, gray) {
+  public _mappingColor(band, gray) {
     let reflect;
     _.each(band, (b) => {
       const map = b as Point;

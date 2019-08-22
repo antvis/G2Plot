@@ -1,4 +1,4 @@
-import { Shape, BBox } from '@antv/g';
+import { BBox, Shape } from '@antv/g';
 import _ from 'lodash';
 
 interface Box {
@@ -58,7 +58,7 @@ export class Annealing {
       maxMover: config.maxMover || 5,
       maxAngle: config.maxAngle || 0.5,
       nsweeps: config.nsweeps || 1000,
-      weight: config.weight || [ 30, 30, 0.2, 1, 3 ],
+      weight: config.weight || [30, 30, 0.2, 1, 3],
       passingEnergy: 20,
     };
   }
@@ -157,8 +157,8 @@ export class Annealing {
     const oldY = label.y;
 
     const oldEnergy = this.energy(i);
-    (<any>label).x += (Math.random() - 0.5) * maxMover;
-    (<any>label).y += (Math.random() - 0.5) * maxMover;
+    (label as any).x += (Math.random() - 0.5) * maxMover;
+    (label as any).y += (Math.random() - 0.5) * maxMover;
     this._inPanelRange(label);
     const newEnergy = this.energy(i);
 
@@ -184,8 +184,8 @@ export class Annealing {
      * x' = x0 + cos(θ + θ') * r
      * x' = x0 + (cosθ * cosθ' - sinθ * sinθ') * r
      */
-    (<any>label).x = anchor.x + (label.x - anchor.x) * Math.cos(angle) - (label.y - anchor.y) * Math.sin(angle);
-    (<any>label).y = anchor.y + (label.y - anchor.y) * Math.cos(angle) + (label.x - anchor.x) * Math.sin(angle);
+    (label as any).x = anchor.x + (label.x - anchor.x) * Math.cos(angle) - (label.y - anchor.y) * Math.sin(angle);
+    (label as any).y = anchor.y + (label.y - anchor.y) * Math.cos(angle) + (label.x - anchor.x) * Math.sin(angle);
     const newEnergy = this.energy(i);
 
     const delta = newEnergy - oldEnergy;
@@ -233,8 +233,8 @@ export class Annealing {
       });
     } else {
       // reject
-      (<any>label).x = oldX;
-      (<any>label).y = oldY;
+      (label as any).x = oldX;
+      (label as any).y = oldY;
     }
   }
 
@@ -294,12 +294,12 @@ export class Annealing {
       }
       if (label.y <= panel.minY) {
         res.deltaY = panel.minY - label.y;
-        (<any>label).y = panel.minY;
+        (label as any).y = panel.minY;
       } else if (label.y + label.height >= panel.maxY) {
         res.deltaY = panel.maxY - label.height - label.y;
       }
-      (<any>label).x += res.deltaX;
-      (<any>label).y += res.deltaY;
+      (label as any).x += res.deltaX;
+      (label as any).y += res.deltaY;
     }
     return res;
   }

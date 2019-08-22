@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
-import TinyPlot from '../tinyPlot';
 import { getGeom } from '../../geoms/factory';
+import TinyPlot from '../tinyPlot';
 
 export default class TinyLine extends TinyPlot {
-  line: any;
+  public line: any;
 
   protected _beforeInit() {
     super._beforeInit();
@@ -16,5 +16,4 @@ export default class TinyLine extends TinyPlot {
     });
     this._setConfig('element', this.line);
   }
-
 }

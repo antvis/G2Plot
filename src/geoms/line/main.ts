@@ -1,21 +1,28 @@
-import * as _ from '@antv/util';
 import { DataPointType } from '@antv/g2/lib/interface';
+import * as _ from '@antv/util';
 import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
-
   public init() {
     const props = this.plot._initialProps;
     this.config = {
       type: 'line',
-      position:{
-        fields: [ props.xField, props.yField ],
+      position: {
+        fields: [props.xField, props.yField],
       },
     };
-    if (props.size) this.parseSize();
-    if (props.smooth) this.config.shape = { values: [ 'smooth' ] };
-    if (props.seriesField || props.color) this.parseColor();
-    if (props.lineStyle) this.parseStyle();
+    if (props.size) {
+      this.parseSize();
+    }
+    if (props.smooth) {
+      this.config.shape = { values: ['smooth'] };
+    }
+    if (props.seriesField || props.color) {
+      this.parseColor();
+    }
+    if (props.lineStyle) {
+      this.parseStyle();
+    }
   }
 
   public parseSize() {
@@ -23,8 +30,8 @@ export default class LineParser extends ElementParser {
     const config: DataPointType = {};
     if (_.isFunction(sizeProps)) {
       config.callback = sizeProps;
-    }else {
-      config.values = [ sizeProps ];
+    } else {
+      config.values = [sizeProps];
     }
     this.config.size = config;
   }
@@ -33,13 +40,13 @@ export default class LineParser extends ElementParser {
     const props = this.plot._initialProps;
     const config: DataPointType = {};
     if (_.has(props, 'seriesField')) {
-      config.fields = [ props.seriesField ];
+      config.fields = [props.seriesField];
     }
     if (_.has(props, 'color')) {
       const color = props.color;
       if (_.isString(color)) {
-        config.values = [ color ];
-      }else if (_.isFunction(color)) {
+        config.values = [color];
+      } else if (_.isFunction(color)) {
         config.callback = color;
       } else {
         config.values = color as [];
@@ -58,9 +65,9 @@ export default class LineParser extends ElementParser {
       cfg: null,
     };
     if (_.isFunction(styleProps) && props.seriesField) {
-      config.fields = [ props.seriesField ];
+      config.fields = [props.seriesField];
       config.callback = styleProps;
-    }else {
+    } else {
       config.cfg = styleProps;
     }
     this.config.style = config;

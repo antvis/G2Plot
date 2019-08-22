@@ -1,10 +1,11 @@
 const webpackConfig = require('./webpack.config');
-const _ = require('@antv/util');
+const merge = require('webpack-merge');
 
-module.exports = _.deepMix({
+module.exports = merge(webpackConfig, {
+  mode: 'development',
   watch: true,
   watchOptions: {
     aggregateTimeout: 300,
     poll: 1000,
   },
-}, webpackConfig);
+});

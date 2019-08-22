@@ -1,12 +1,12 @@
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
-import BaseConfig, { ElementOption, IValueAxis, ITimeAxis, ICatAxis, Label } from '../../interface/config';
-import { extractScale } from '../../util/scale';
-import { extractAxis } from '../../util/axis';
-import * as StyleParser from '../../util/styleParser';
-import './guide/label/bar-label';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
+import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { extractAxis } from '../../util/axis';
+import { extractScale } from '../../util/scale';
+import * as StyleParser from '../../util/styleParser';
+import './guide/label/bar-label';
 
 interface BarStyle {
   opacity?: number;
@@ -14,7 +14,7 @@ interface BarStyle {
 }
 
 interface ILabelCallbackOptions {
-  content?: Function;
+  content?: (...args: any[]) => any;
   offset?: number;
   offsetX?: number;
   offsetY?: number;
@@ -29,13 +29,13 @@ export interface BarConfig extends BaseConfig {
   barSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  barStyle?: BarStyle | Function;
+  barStyle?: BarStyle | ((...args: any[]) => BarStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
 
-export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T>{
-  bar: any;
+export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T> {
+  public bar: any;
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
   }
@@ -47,26 +47,27 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   protected _setDefaultG2Config() {}
 
   protected _scale() {
-
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
     scales[props.yField] = {
       type: 'cat',
     };
-    _.has(props, 'xAxis') && extractScale(scales[props.yField], props.yAxis);
-      /** 配置y-scale */
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.yField], props.xAxis);
+    }
+    /** 配置y-scale */
     scales[props.xField] = {};
-    _.has(props, 'yAxis') && extractScale(scales[props.xField], props.xAxis);
+    if (_.has(props, 'yAxis')) {
+      extractScale(scales[props.xField], props.yAxis);
+    }
     this._setConfig('scales', scales);
     super._scale();
   }
 
   protected _coord() {
     const coordConfig = {
-      actions: [
-        [ 'transpose' ],
-      ],
+      actions: [['transpose']],
     };
     this._setConfig('coord', coordConfig);
   }
@@ -74,21 +75,23 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   // TODO： 条形图的坐标轴样式需要在theme里注册一下
   protected _axis() {
     const props = this._initialProps;
-    const axesConfig = { fields:{} };
+    const axesConfig = { fields: {} };
     const plotTheme = this.plotTheme;
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
 
-    if ((props.xAxis && (props.xAxis.visible === false)
-        || (plotTheme.axis.x.visible === false &&  (!props.xAxis || props.xAxis.visible !== true)))
+    if (
+      (props.xAxis && props.xAxis.visible === false) ||
+      (plotTheme.axis.x.visible === false && (!props.xAxis || props.xAxis.visible !== true))
     ) {
       axesConfig.fields[props.xField] = false;
     } else if (props.xAxis) {
       extractAxis(axesConfig.fields[props.xField], props.xAxis);
     }
 
-    if ((props.yAxis && (props.yAxis.visible === false)
-        || (plotTheme.axis.y.visible === false &&  (!props.yAxis || props.yAxis.visible !== true)))
+    if (
+      (props.yAxis && props.yAxis.visible === false) ||
+      (plotTheme.axis.y.visible === false && (!props.yAxis || props.yAxis.visible !== true))
     ) {
       axesConfig.fields[props.yField] = false;
     } else if (props.yAxis) {
@@ -105,7 +108,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
   protected _addElements() {
     const props = this._initialProps;
     const bar = getGeom('interval', 'main', {
-      positionFields: [ props.yField, props.xField ],
+      positionFields: [props.yField, props.xField],
       plot: this,
     });
     if (props.label) {
@@ -116,15 +119,14 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     this._setConfig('element', bar);
   }
 
-  protected _interactions() {
-  }
+  protected _interactions() {}
 
   protected _annotation() {}
 
   protected _animation() {
     const props = this._initialProps;
     if (props.animation === false) {
-      /**关闭动画 */
+      /** 关闭动画 */
       this.bar.animate = false;
     }
   }
@@ -133,15 +135,16 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     const props = this._initialProps;
     const label = props.label as Label;
 
-    if (label && label.visible === false) return false;
+    if (label && label.visible === false) {
+      return false;
+    }
     const labelConfig = getComponent('label', {
-      plot:this,
+      plot: this,
       labelType: 'barLabel',
-      fields: [ props.xField ],
+      fields: [props.xField],
       ...label,
     });
 
     return labelConfig;
   }
-
 }

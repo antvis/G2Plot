@@ -11,79 +11,98 @@ describe('StackBar plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  const data = [ {
-    year: '1991',
-    value: 3,
-    type: 'Lon'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Lon'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Lon'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Lon'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Lon'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Lon'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Lon'
-  }, {
-    year: '1991',
-    value: 3,
-    type: 'Bor'
-  }, {
-    year: '1992',
-    value: 4,
-    type: 'Bor'
-  }, {
-    year: '1993',
-    value: 3.5,
-    type: 'Bor'
-  }, {
-    year: '1994',
-    value: 5,
-    type: 'Bor'
-  }, {
-    year: '1995',
-    value: 4.9,
-    type: 'Bor'
-  }, {
-    year: '1996',
-    value: 6,
-    type: 'Bor'
-  }, {
-    year: '1997',
-    value: 7,
-    type: 'Bor'
-  }, {
-    year: '1998',
-    value: 9,
-    type: 'Bor'
-  }, {
-    year: '1999',
-    value: 13,
-    type: 'Bor'
-  } ];
+  const data = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Lon',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Lon',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Lon',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Lon',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Lon',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Lon',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Lon',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Lon',
+    },
+    {
+      year: '1991',
+      value: 3,
+      type: 'Bor',
+    },
+    {
+      year: '1992',
+      value: 4,
+      type: 'Bor',
+    },
+    {
+      year: '1993',
+      value: 3.5,
+      type: 'Bor',
+    },
+    {
+      year: '1994',
+      value: 5,
+      type: 'Bor',
+    },
+    {
+      year: '1995',
+      value: 4.9,
+      type: 'Bor',
+    },
+    {
+      year: '1996',
+      value: 6,
+      type: 'Bor',
+    },
+    {
+      year: '1997',
+      value: 7,
+      type: 'Bor',
+    },
+    {
+      year: '1998',
+      value: 9,
+      type: 'Bor',
+    },
+    {
+      year: '1999',
+      value: 13,
+      type: 'Bor',
+    },
+  ];
 
   it('初始化以及销毁', () => {
     const barPlot = new StackBar(canvasDiv, {
@@ -94,9 +113,9 @@ describe('StackBar plot', () => {
       xField: 'value',
       yField: 'year',
       yAxis: {
-        min: 0
+        min: 0,
       },
-      stackField: 'type'
+      stackField: 'type',
     });
     barPlot.render();
     const intervalShape = barPlot.plot.get('elements')[0];
@@ -116,11 +135,11 @@ describe('StackBar plot', () => {
       xField: 'value',
       yField: 'year',
       yAxis: {
-        min: 0
+        min: 0,
       },
       stackField: 'type',
       barSize: 7,
-      color: [ 'red', 'yellow' ]
+      color: ['red', 'yellow'],
     });
     barPlot.render();
     const intervalEle = barPlot.plot.get('elements')[0];
@@ -164,21 +183,28 @@ describe('StackBar plot', () => {
       xField: 'value',
       yField: 'year',
       yAxis: {
-        min: 0
+        min: 0,
       },
       stackField: 'type',
       label: {
-        formatter: (txt) => { return txt + 'dddd'; },
+        formatter: (txt) => {
+          return txt + 'dddd';
+        },
         offsetX: 10,
         offsetY: 10,
         style: {
-          fill: 'red'
-        }
-      }
+          fill: 'red',
+        },
+      },
     });
     barPlot.render();
 
-    const labelGroup = barPlot.plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = barPlot.plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     // const panelGroup = barPlot.plot.get('panelRange');
     expect(labelGroup.length).to.be.equal(18);
     expect(labelGroup[0].attrs.fill).to.be.equal('red');
@@ -186,6 +212,4 @@ describe('StackBar plot', () => {
     barPlot.destroy();
     expect(barPlot.plot.destroyed).to.be.true;
   });
-
-
 });

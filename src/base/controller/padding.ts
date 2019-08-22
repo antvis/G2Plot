@@ -43,7 +43,9 @@ export default class PaddingController {
     const viewRange = view.get('viewRange');
     const { maxX, maxY } = viewRange;
     const defaultPadding = this.plot._config.theme.defaultPadding;
-    defaultPadding[0] = defaultPadding[0](props);
+    if (typeof defaultPadding[0] === 'function') {
+      defaultPadding[0] = defaultPadding[0](props);
+    }
     this.plot._config.theme.legend.margin = defaultPadding;
     this.defaultPadding = _.clone(defaultPadding);
 

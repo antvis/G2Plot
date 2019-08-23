@@ -1,4 +1,5 @@
 import { Liquid } from '../../src';
+import Theme from '../../src/theme/theme';
 
 describe('Liquid plot', () => {
   const canvasDiv = document.createElement('div');
@@ -10,6 +11,7 @@ describe('Liquid plot', () => {
   document.body.appendChild(canvasDiv);
 
   it.only('liquid', () => {
+    Theme.setTheme('ant-light');
     const liquidPlot = new Liquid(canvasDiv, {
       title: {
         text: '水位图测试',
@@ -27,11 +29,11 @@ describe('Liquid plot', () => {
       showValue: true,
       format: (d) => `[${d}]`,
       liquidStyle: {
-        borderOpacity: 0.2,
-        borderWidth: 10,
-        color: '#3B76FF',
-        fontColor: '#233F7E',
-        fontOpacity: 1,
+        // borderOpacity: 0.2,
+        // borderWidth: 10,
+        // color: '#3B76FF',
+        // fontColor: '#233F7E',
+        // fontOpacity: 1,
         // fontSize: 40
       },
     });

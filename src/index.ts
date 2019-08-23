@@ -11,6 +11,7 @@ export { default as Pie, PieConfig } from './plots/pie';
 export { default as Ring, RingConfig } from './plots/ring';
 export { default as Radar, RadarConfig } from './plots/radar';
 export { default as Liquid, LiquidConfig } from './plots/liquid';
+export { default as Gauge, GaugeConfig } from './plots/gauge';
 export { default as Area, AreaConfig } from './plots/area';
 export { default as StackArea, StackAreaConfig } from './plots/stack-area';
 

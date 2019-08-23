@@ -33,10 +33,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
     this._container = _.isString(container) ? document.getElementById(container as string) : (container as HTMLElement);
-    this.themeController = new ThemeController({
-      plot: this,
-    });
-    this.plotTheme = this.themeController.plotTheme;
     this.canvasController = new CanvasController({
       container: this._container,
       plot: this,
@@ -101,6 +97,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   protected _init() {
+    this.themeController = new ThemeController({
+      plot: this,
+    });
+    this.plotTheme = this.themeController.plotTheme;
     const props = this._initialProps;
     const theme = this.themeController.theme;
     this._config = {

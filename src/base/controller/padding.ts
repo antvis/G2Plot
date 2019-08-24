@@ -48,7 +48,6 @@ export default class PaddingController {
     }
     this.plot._config.theme.legend.margin = bleeding;
     this.bleeding = _.clone(bleeding);
-    
     // 参与auto padding的components: axis legend
     const components_bbox = [ view.get('panelRange') ];
     this._getAxis(view, components_bbox);

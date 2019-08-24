@@ -101,6 +101,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   protected _init() {
+    this.themeController = new ThemeController({
+      plot: this,
+    });
+    this.plotTheme = this.themeController.plotTheme;
     const props = this._initialProps;
     const theme = this.themeController.theme;
     this._config = {

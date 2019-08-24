@@ -530,4 +530,26 @@ const commonConfig = {
 const theme = new Theme('ant-light');
 theme.registerGlobalTheme(commonConfig);
 
+theme.registerPlotTheme('liquid', {
+  color: '#3B76FF',
+  borderWidth: 10,
+  borderOpacity: 0.2,
+  fontColor: '#233F7E',
+  fontOpacity: 1,
+});
+
+theme.registerPlotTheme('gauge', {
+  stripWidth: 30,
+  stripBackColor: '#ddd',
+  tickInterval: 20,
+  tickLabelPos: 'inner',
+  tickLabelSize: 16,
+  tickLabelColor: '#aaa',
+  tickLineColor: '#aaa',
+  subTickCount: 4,
+  labelPos: ['50%', '80%'],
+  labelColor: '#666',
+  labelSize: 30,
+});
+
 export default theme;

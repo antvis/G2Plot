@@ -4,6 +4,7 @@ import BaseConfig, { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
 import './element/shape/liquid';
+import './theme';
 
 interface LiquidStyle {
   color?: string;

@@ -17,7 +17,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public canvasController: CanvasController;
   public eventHandlers: any[] = [];
   public destroyed: boolean = false;
-  public type: string = 'base';
+  public type: string;
   protected _originalProps: T;
   protected _config: G2Config;
   protected title: TextDescription;
@@ -35,6 +35,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
     this._container = _.isString(container) ? document.getElementById(container as string) : (container as HTMLElement);
+
+    this.setType();
+    
     this.themeController = new ThemeController({
       plot: this,
     });
@@ -110,7 +113,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       this.stateController.bindStateManager(stateManager,cfg);
     }
   
-    protected abstract geometryParser(type:string): string;
+    protected abstract geometryParser(dim:string, type:string): string;
+  
+  protected abstract setType():void
 
   protected _init() {
     const props = this._initialProps;

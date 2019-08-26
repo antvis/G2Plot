@@ -26,7 +26,7 @@
     "lint": "lint-staged",
     "coverage": "exit 0",
     "test": "torch --compile --renderer --recursive ./__tests__/unit",
-    "test-live": "torch --compile --interactive ./__tests__/unit",
+    "test-live": "torch --compile --interactive ./__tests__/unit/stateManager-spec.js",
     "ci": "run-s build test"
   },
   "husky": {
@@ -50,6 +50,7 @@
   "devDependencies": {
     "@antv/torch": "~1.0.5",
     "@types/lodash": "^4.14.123",
+    "@types/moment": "^2.13.0",
     "event-simulate": "^1.0.0",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",

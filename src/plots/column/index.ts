@@ -16,6 +16,10 @@ interface IObject {
   [key: string]: any;
 }
 
+const GEOM_MAP = {
+  column: 'interval',
+};
+
 export interface ColumnConfig extends BaseConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';
@@ -32,6 +36,10 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   public column: any;
   constructor(container: string | HTMLElement, config: T) {
     super(container, config);
+  }
+
+  protected geometryParser(type) {
+    return GEOM_MAP[type];
   }
 
   protected _beforeInit() {

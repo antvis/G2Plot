@@ -8,6 +8,7 @@ import PlotConfig, { G2Config, RecursivePartial } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import CanvasController from './controller/canvas';
 import PaddingController from './controller/padding';
+import StateController from './controller/state';
 import ThemeController from './controller/theme';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
@@ -25,6 +26,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   private _container: HTMLElement;
   private themeController: ThemeController;
   private paddingController: PaddingController;
+  private stateController: StateController;
 
   constructor(container: string | HTMLElement, config: T) {
     /**
@@ -44,6 +46,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this.paddingController = new PaddingController({
       plot: this,
     });
+    this.stateController = new StateController({
+      plot: this,
+    })
     /**
      * 启动主流程，挂载钩子
      */
@@ -99,6 +104,13 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._init();
     this._afterInit();
   }
+
+    // 绑定一个外部的stateManager
+    public bindStateManager(stateManager,cfg):void {
+      this.stateController.bindStateManager(stateManager,cfg);
+    }
+  
+    protected abstract geometryParser(type:string): string;
 
   protected _init() {
     const props = this._initialProps;

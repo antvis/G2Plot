@@ -30,6 +30,11 @@ interface IObject {
   [key: string]: any;
 }
 
+const GEOM_MAP = {
+  line: 'line',
+  point: 'point',
+};
+
 export interface LineConfig extends BaseConfig {
   /** 分组字段 */
   seriesField?: string;
@@ -51,6 +56,10 @@ export interface LineConfig extends BaseConfig {
 export default class Line extends BasePlot<LineConfig> {
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip和
   public point: any;
+
+  protected geometryParser(type){
+    return GEOM_MAP[type];
+  }
 
   protected _beforeInit() {
     this.type = 'line';

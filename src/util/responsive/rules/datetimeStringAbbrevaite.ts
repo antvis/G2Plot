@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import moment, { months } from 'moment';
+import * as moment from 'moment';
 
 interface TimeStringAbbrevaiteCfg {
   keep?: string[];

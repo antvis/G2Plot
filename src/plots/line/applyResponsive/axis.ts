@@ -45,7 +45,7 @@ function responsiveYaxis(plot, props) {
   const axis = plot.plot.get('axisController').axes[1];
   const rawLabels = axis
     .get('group')
-    .get('children')[2]
+    .get('children')[1]
     .get('children');
   const shapes = [];
   for (let i = 0; i < rawLabels.length - 1; i++) {

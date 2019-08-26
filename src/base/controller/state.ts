@@ -35,6 +35,11 @@ export default class StateController{
 
   }
 
+  public setDisable(condition,style){
+    this.setState('disable',condition,style);
+
+  }
+
   public setNormal(condition){
     this.setState('normal',condition,{});
   }

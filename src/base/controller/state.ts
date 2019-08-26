@@ -1,16 +1,16 @@
 /**
  * stateManager负责stateManager的创建/绑定，对状态量更新的响应
  */
-import * as _ from '@antv/util';
-import StateManager from '../../util/stateManager';
-import { onEvent } from '../../util/event';
 import { Shape } from '@antv/g';
+import * as _ from '@antv/util';
+import { onEvent } from '../../util/event';
+import StateManager from '../../util/stateManager';
 
 export default class StateController{
   private plot: any;
   private stateManager: StateManager;
   private shapes: Shape[];
-  private originAttrs: any[]; //缓存图形的原始属性
+  private originAttrs: any[]; // 缓存图形的原始属性
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -30,11 +30,16 @@ export default class StateController{
     this.setState('active',condition,style);
   }
 
+  public setSelected(condition,style){
+    this.setState('selected',condition,style);
+
+  }
+
   public setNormal(condition){
     this.setState('normal',condition,{});
   }
 
-  public setState(type,condition,style){
+  public setState(type,condition,style?){
     if(!this.shapes) {
       this.shapes = this._getShapes();
       this.originAttrs = this._getOriginAttrs();
@@ -43,8 +48,9 @@ export default class StateController{
       const shapeOrigin = shape.get('origin');
       const origin = _.isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
       if(this._compare(origin,condition)){
+        const stateStyle = style ? style : this._getDefaultStateStyle(type,shape);
         const originAttr = this.originAttrs[index];
-        const attrs = _.mix({},originAttr,style);
+        const attrs = _.mix({},originAttr,stateStyle);
         shape.attr(attrs);
       }
     });
@@ -106,12 +112,26 @@ export default class StateController{
     return condition(origin);
   }
 
-  //将g2 geomtry转为plot层geometry
+  // 将g2 geomtry转为plot层geometry
   private _eventParser(event){
     const eventCfg = event.split(':');
-    const eventTarget = this.plot.geometryParser(eventCfg[0]);
+    const eventTarget = this.plot.geometryParser('g2',eventCfg[0]);
     const eventName = eventCfg[1];
     return `${eventTarget}:${eventName}`;
+  }
+
+  private _getDefaultStateStyle(type,shape){
+    const theme = this.plot.plotTheme;
+    const plotGeomType = this.plot.geometryParser('plot',shape.name);
+    const styleField = `${plotGeomType}Style`;
+    if(theme[styleField]){
+      let style = theme[styleField][type];
+      if(_.isFunction(style)){
+        style = style(shape.attr());
+      }
+      return style;
+    }
+    return {};
   }
 
 }

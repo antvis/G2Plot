@@ -264,9 +264,7 @@ describe('stateManager', () => {
         {
           name: 'type',
           callback: (d, plot) => {
-            plot.stateController.setActive(d, {
-              lineWidth: 4
-            });
+            plot.stateController.setSelected(d);
             plot.stateController.setNormal((origin) => {
               return origin[d.name] !== d.exp;
             });
@@ -290,10 +288,10 @@ describe('stateManager', () => {
         {
           name: 'type',
           callback: (d, plot) => {
-            plot.stateController.setActive(d, {
+            plot.stateController.setSelected(d/*, {
               lineWidth: 2,
               stroke: 'black'
-            });
+            }*/);
             plot.stateController.setNormal((origin) => {
               return origin[d.name] !== d.exp;
             });

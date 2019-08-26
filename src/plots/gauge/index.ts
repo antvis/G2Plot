@@ -6,6 +6,7 @@ import BaseConfig, { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
 import './element/shape/pointer';
+import './theme';
 
 interface GaugeStyle {
   fontColor?: string;

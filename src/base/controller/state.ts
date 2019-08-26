@@ -26,22 +26,12 @@ export default class StateController{
     cfg.onStateChange &&  this._stateChangeProcess(cfg.onStateChange);
   }
 
-  public setActive(condition,style){
-    this.setState('active',condition,style);
-  }
-
-  public setSelected(condition,style){
-    this.setState('selected',condition,style);
-
-  }
-
-  public setDisable(condition,style){
-    this.setState('disable',condition,style);
-
-  }
-
-  public setNormal(condition){
-    this.setState('normal',condition,{});
+  
+  public defaultStates(states){
+    _.each(states,(state,type)=>{
+      const { condition, style } = state;
+      this.setState(type,condition);
+    });
   }
 
   public setState(type,condition,style?){

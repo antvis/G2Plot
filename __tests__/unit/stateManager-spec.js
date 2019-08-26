@@ -197,57 +197,58 @@ describe('stateManager', () => {
     value: 176
   } ];
 
-  const linePlot = new Line(canvasDiv1, {
-    width: 400,
-    height: 300,
-    data: data1,
-    xField: 'date',
-    yField: 'value',
-    seriesField: 'type',
-    xAxis: {
-      type: 'dateTime'
-    },
-    tooltip: {
-      visible: false
-    },
-    responsive: true
-  });
-  linePlot.render();
-
-  // 创建柱状图，柱状图数据是折线图type字段的聚合
-  const canvasDiv2 = document.createElement('div');
-  canvasDiv2.style.width = '400px';
-  canvasDiv2.style.height = '300px';
-  canvasDiv2.style.marginLeft = '10px';
-  canvasDiv2.style.marginTop = '0px';
-  canvasDiv2.style.float = 'left';
-  canvasDiv2.id = 'canvas2';
-  document.body.appendChild(canvasDiv2);
-
-  const data2 = [
-    { type: 'bill', value: 0 },
-    { type: 'register', value: 0 },
-    { type: 'download', value: 0 }
-  ];
-  _.each(data1, (d) => {
-    const type = d.type;
-    const value = d.value;
-    const row = getTargetRow('type', type, data2);
-    row.value += value;
-  });
-  const columnPlot = new Column(canvasDiv2, {
-    width: 400,
-    height: 300,
-    data: data2,
-    xField: 'type',
-    yField: 'value',
-    tooltip: {
-      visible: false
-    }
-  });
-  columnPlot.render();
-
+ 
   it('stateManager', () => {
+    const linePlot = new Line(canvasDiv1, {
+      width: 400,
+      height: 300,
+      data: data1,
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      xAxis: {
+        type: 'dateTime'
+      },
+      tooltip: {
+        visible: false
+      },
+      responsive: true
+    });
+    linePlot.render();
+  
+    // 创建柱状图，柱状图数据是折线图type字段的聚合
+    const canvasDiv2 = document.createElement('div');
+    canvasDiv2.style.width = '400px';
+    canvasDiv2.style.height = '300px';
+    canvasDiv2.style.marginLeft = '10px';
+    canvasDiv2.style.marginTop = '0px';
+    canvasDiv2.style.float = 'left';
+    canvasDiv2.id = 'canvas2';
+    document.body.appendChild(canvasDiv2);
+  
+    const data2 = [
+      { type: 'bill', value: 0 },
+      { type: 'register', value: 0 },
+      { type: 'download', value: 0 }
+    ];
+    _.each(data1, (d) => {
+      const type = d.type;
+      const value = d.value;
+      const row = getTargetRow('type', type, data2);
+      row.value += value;
+    });
+    const columnPlot = new Column(canvasDiv2, {
+      width: 400,
+      height: 300,
+      data: data2,
+      xField: 'type',
+      yField: 'value',
+      tooltip: {
+        visible: false
+      }
+    });
+    columnPlot.render();
+  
     const stateManager = new StateManager();
     linePlot.bindStateManager(stateManager, {
       setState: [
@@ -322,6 +323,34 @@ describe('stateManager', () => {
     stateManager.on('type:change', (d) => {
       selector.value = d.exp;
     });
+
+  });
+
+  it.only('default state',()=>{
+    const linePlot = new Line(canvasDiv1, {
+      width: 400,
+      height: 300,
+      data: data1,
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      xAxis: {
+        type: 'dateTime'
+      },
+      tooltip: {
+        visible: false
+      },
+      defaultState:{
+        active:{
+          condition:{
+            name:'type',
+            exp: 'download'
+          }
+        }
+      },
+      responsive: true
+    });
+    linePlot.render();
 
   });
 });

@@ -6,6 +6,7 @@ import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } fro
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import './guide/label/bar-label';
+import './theme';
 
 interface BarStyle {
   opacity?: number;

@@ -76,7 +76,7 @@ export default class Rardar extends BasePlot<RadarConfig> {
   }
 
   protected setType(){
-    // this.type = 'rardar';
+    this.type = 'rardar';
   }
 
   protected _setDefaultG2Config() {}

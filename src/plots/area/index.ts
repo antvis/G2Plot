@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import * as StyleParser from '../../util/styleParser';
+import './theme';
 // import './guide/label/bar-label';
 
 interface AreaStyle {
@@ -57,11 +57,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     return GEOM_MAP[type]; 
   }
 
-  protected setType(){}
-
-  protected _beforeInit() {
+  protected setType(){
     this.type = 'area';
   }
+
+  protected _beforeInit() {}
 
   protected _setDefaultG2Config() {}
 

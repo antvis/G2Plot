@@ -15,9 +15,29 @@ export interface PieConfig extends BaseConfig {
   pieStyle?: {};
 }
 
+const G2_GEOM_MAP = {
+  pie: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  pie: 'column'
+};
+
 export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T> {
   public pie: any;
   public spiderLabel: any;
+
+  protected geometryParser(dim,type) {
+    if(dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type]; 
+  }
+
+  protected setType(){
+    //this.type = 'pie';
+  }
+
   protected _setDefaultG2Config() {}
 
   protected _scale() {

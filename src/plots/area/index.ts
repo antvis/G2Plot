@@ -27,6 +27,13 @@ interface PointStyle {
   opacity?: string;
 }
 
+const GEOM_MAP = {
+  area: 'area',
+  line: 'line',
+  point: 'point'
+};
+
+
 export interface AreaConfig extends BaseConfig {
   areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
   xAxis?: ICatAxis | ITimeAxis;
@@ -46,9 +53,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   public point: any;
   public area: any;
 
-  constructor(container: string | HTMLElement, config: T) {
-    super(container, config);
+  protected geometryParser(dim,type) {
+    return GEOM_MAP[type]; 
   }
+
+  protected setType(){}
 
   protected _beforeInit() {
     this.type = 'area';

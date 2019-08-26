@@ -58,6 +58,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+
   }
 
   /** 自定义组件参与padding */
@@ -106,11 +107,31 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
 
     // 绑定一个外部的stateManager
     public bindStateManager(stateManager,cfg):void {
       this.stateController.bindStateManager(stateManager,cfg);
+    }
+
+    // 响应状态量更新的快捷方法
+    public setActive(condition,style){
+      this.stateController.setState('active',condition,style);
+    }
+  
+    public setSelected(condition,style){
+      this.stateController.setState('selected',condition,style);
+    }
+  
+    public setDisable(condition,style){
+      this.stateController.setState('disable',condition,style);
+    }
+  
+    public setNormal(condition){
+      this.stateController.setState('normal',condition,{});
     }
   
     protected abstract geometryParser(dim:string, type:string): string;
@@ -331,6 +352,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /** 处理autopadding逻辑 */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
+    }
+  }
+
+  protected _afterRender(){
+    const props = this._initialProps;
+    /** defaultState */
+    if(props.defaultState){ 
+      this.stateController.defaultStates(props.defaultState);
     }
   }
 

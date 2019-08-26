@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption } from '../../interface/config';
+import { defaultTheme } from '../../theme';
 import { extractScale } from '../../util/scale';
 
 import './element/shape/liquid';
@@ -24,6 +25,14 @@ export interface LiquidConfig extends BaseConfig {
   format?: (...args: any[]) => string;
   liquidStyle?: LiquidStyle;
 }
+
+defaultTheme.registerPlotTheme('liquid', {
+  color: '#3B76FF',
+  borderWidth: 10,
+  borderOpacity: 0.2,
+  fontColor: '#233F7E',
+  fontOpacity: 1,
+});
 
 export default class Liquid extends BasePlot<LiquidConfig> {
   constructor(container: string | HTMLElement, config: LiquidConfig) {

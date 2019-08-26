@@ -1,13 +1,13 @@
 import Theme from './theme';
 
-const DESCRIPTION_BOTTOM_MARGIN = function (legendPosition) {
+const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 0;
   }
   return 24;
 };
 
-const TOP_BLEEDING = function (props) {
+const TOP_BLEEDING = function(props) {
   if (props.title || props.description) {
     return 16;
   }
@@ -17,10 +17,10 @@ const TOP_BLEEDING = function (props) {
 const commonTheme = {
   width: 400,
   height: 400,
-  bleeding: [ TOP_BLEEDING, 24, 24, 24 ],
+  bleeding: [TOP_BLEEDING, 24, 24, 24],
   padding: 'auto',
   title: {
-    padding:[ 24, 24, 24, 24 ],
+    padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
     fontWeight: 'bold',
@@ -31,7 +31,7 @@ const commonTheme = {
     alignWithAxis: false,
   },
   description: {
-    padding:[ 20, 24, DESCRIPTION_BOTTOM_MARGIN, 24 ],
+    padding: [20, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
     fontFamily: 'PingFang SC',
     fontSize: 12,
     fill: 'grey',
@@ -52,7 +52,7 @@ const commonTheme = {
         style: {
           stroke: '#e3e8ec',
           lineWidth: 1,
-          lineDash: [ 0, 0 ],
+          lineDash: [0, 0],
         },
       },
       line: {
@@ -84,7 +84,7 @@ const commonTheme = {
         style: {
           fill: '#595959',
           fontSize: 12,
-          textBaseline:'bottom',
+          textBaseline: 'bottom',
         },
       },
     },
@@ -99,7 +99,7 @@ const commonTheme = {
         style: {
           stroke: '#e3e8ec',
           lineWidth: 1,
-          lineDash: [ 0, 0 ],
+          lineDash: [0, 0],
         },
       },
       line: {
@@ -116,7 +116,8 @@ const commonTheme = {
       label: {
         visible: true,
         style: {
-          fill: '#a0a4aa', fontSize: 12,
+          fill: '#a0a4aa',
+          fontSize: 12,
         },
         offset: 16,
       },
@@ -165,38 +166,15 @@ const commonTheme = {
       },
     },
   },
-  legend:{
+  legend: {
     flipPage: false,
-    position:'bottom-center',
+    position: 'bottom-center',
     // 距离panelRange的距离
-    innerPadding: [ 16, 16, 16, 16 ],
+    innerPadding: [16, 16, 16, 16],
   },
 };
 
 const theme = new Theme('default');
 theme.registerGlobalTheme(commonTheme);
-
-
-theme.registerPlotTheme('liquid', {
-  color: '#3B76FF',
-  borderWidth: 10,
-  borderOpacity: 0.2,
-  fontColor: '#233F7E',
-  fontOpacity: 1,
-});
-
-theme.registerPlotTheme('gauge', {
-  stripWidth: 30,
-  stripBackColor: '#ddd',
-  tickInterval: 20,
-  tickLabelPos: 'inner',
-  tickLabelSize: 16,
-  tickLabelColor: '#aaa',
-  tickLineColor: '#aaa',
-  subTickCount: 4,
-  labelPos: ['50%', '80%'],
-  labelColor: '#666',
-  labelSize: 30,
-});
 
 export default theme;

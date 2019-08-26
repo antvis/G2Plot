@@ -3,6 +3,7 @@ import * as _ from '@antv/util';
 
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption } from '../../interface/config';
+import { defaultTheme } from '../../theme';
 import { extractScale } from '../../util/scale';
 
 import './element/shape/pointer';
@@ -15,6 +16,20 @@ interface GaugeStyle {
   borderWidth?: number;
   size?: number;
 }
+
+defaultTheme.registerPlotTheme('gauge', {
+  stripWidth: 30,
+  stripBackColor: '#ddd',
+  tickInterval: 20,
+  tickLabelPos: 'inner',
+  tickLabelSize: 16,
+  tickLabelColor: '#aaa',
+  tickLineColor: '#aaa',
+  subTickCount: 4,
+  labelPos: ['50%', '80%'],
+  labelColor: '#666',
+  labelSize: 30,
+});
 
 export interface GaugeConfig extends BaseConfig {
   type?: 'normal' | 'percent';

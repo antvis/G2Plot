@@ -15,10 +15,6 @@ const LINE_SELECTED_STYLE = (style) =>{
     return { lineWidth: lineWidth+2 }
 };
 
-const POINT_ACTIVE_STYLE = (style) =>{
-
-};
-
 defaultTheme.registerPlotTheme('line',{
     lineStyle:{
         normal:{},

@@ -7,6 +7,7 @@ import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import SpiderLabel from './guide/label/spiderLabel';
+import './theme';
 
 export interface PieConfig extends BaseConfig {
   angleField: string;
@@ -35,7 +36,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
   }
 
   protected setType(){
-    //this.type = 'pie';
+    this.type = 'pie';
   }
 
   protected _setDefaultG2Config() {}

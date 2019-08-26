@@ -1,0 +1,13 @@
+language: node_js
+cache:
+  directories:
+    - ~/.npm
+notifications:
+  email: false
+node_js:
+  - '10'
+script:
+  - npm run ci
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/

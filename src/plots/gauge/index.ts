@@ -216,7 +216,7 @@ export default class Gauge extends BasePlot<GaugeConfig> {
     return Arcs;
   }
 
-  private _labelText() {
+  private _labelHtml() {
     const { value, format } = this._initialProps;
     const label: any = this._initialProps.label;
     const formatted: string = format(value);
@@ -235,13 +235,12 @@ export default class Gauge extends BasePlot<GaugeConfig> {
 
   private _renderLabel() {
     const { label, styleMix } = this._initialProps;
-
-    const labelText: string | null = this._labelText();
+    const labelHtml: string | HTMLElement | null = this._labelHtml();
 
     if (typeof label !== 'function') {
       const text = {
         type: 'text',
-        content: labelText,
+        content: labelHtml,
         top: true,
         position: styleMix.labelPos,
         style: {
@@ -258,7 +257,7 @@ export default class Gauge extends BasePlot<GaugeConfig> {
         type: 'html',
         zIndex: 10,
         position: styleMix.labelPos,
-        html: labelText,
+        html: labelHtml,
       };
       return html;
     }

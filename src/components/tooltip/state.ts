@@ -1,5 +1,5 @@
-import { Plot } from '@antv/g2';
 import * as _ from '@antv/util';
+import { compare } from '../../base/controller/state';
 
 const POSITION_MAPPER = ['xField', 'yField', 'angleField'];
 
@@ -46,16 +46,6 @@ function getPositionField(props) {
   return fields;
 }
 
-function compare(data, condition) {
-  if (!_.isFunction(condition)) {
-    const { name, exp } = condition;
-    if (_.isFunction(exp)) {
-      return exp(data[name]);
-    }
-    return data[name] === exp;
-  }
-  return condition(origin);
-}
 
 export default {
   active: onActive,

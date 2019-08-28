@@ -7,6 +7,17 @@ import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
 import StateManager from '../../util/stateManager';
 
+export function compare(origin, condition) {
+  if (!_.isFunction(condition)) {
+    const { name, exp } = condition;
+    if (_.isFunction(exp)) {
+      return exp(origin[name]);
+    }
+    return origin[name] === exp;
+  }
+  return condition(origin);
+}
+
 export default class StateController {
   private plot: any;
   private stateManager: StateManager;
@@ -47,7 +58,7 @@ export default class StateController {
     _.each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin');
       const origin = _.isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
-      if (this._compare(origin, condition)) {
+      if (compare(origin, condition)) {
         const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];
         let attrs;
@@ -111,17 +122,6 @@ export default class StateController {
       attrs.push(_.clone(shape.attr()));
     });
     return attrs;
-  }
-
-  private _compare(origin, condition) {
-    if (!_.isFunction(condition)) {
-      const { name, exp } = condition;
-      if (_.isFunction(exp)) {
-        return exp(origin[name]);
-      }
-      return origin[name] === exp;
-    }
-    return condition(origin);
   }
 
   // 将g2 geomtry转为plot层geometry

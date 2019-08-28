@@ -95,8 +95,9 @@ export default class Theme {
   }
 
   public registerGlobalTheme(globalTheme: any) {
-    const defaultTheme = THEME_MAP.default;
-    this.globalTheme = _.deepMix({}, defaultTheme.getGlobalTheme(), globalTheme);
+    const defaultCfg = THEME_MAP.default
+    const defaultTheme = defaultCfg ? defaultCfg.getGlobalTheme() : {};
+    this.globalTheme = _.deepMix({}, defaultTheme, globalTheme);
   }
 
   public registerPlotTheme(type: string, theme: any) {

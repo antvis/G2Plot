@@ -29,13 +29,13 @@ export default class TextDescription {
   }
 
   public clear() {
-    if (this.shape) {
+    if(this.shape){
       this.shape.attr('text', '');
-    }
+    } 
   }
 
   public destory() {
-    if (this.shape) {
+    if(this.shape) {
       this.shape.remove();
     }
   }
@@ -43,14 +43,11 @@ export default class TextDescription {
   private _init() {
     const content = this._textWrapper(this.wrapperWidth, this.style);
     this.shape = this.container.addShape('text', {
-      attrs: _.mix(
-        {
-          x: this.leftMargin,
-          y: this.topMargin,
-          text: content,
-        },
-        this.style
-      ),
+      attrs: _.mix({
+        x: this.leftMargin,
+        y: this.topMargin,
+        text: content,
+      },           this.style),
     });
   }
 
@@ -59,7 +56,7 @@ export default class TextDescription {
     let currentWidth = 0;
     let wrapperedText = _.clone(text);
     const tShape = new Text({
-      attrs: {
+      attrs:{
         text: '',
         x: 0,
         y: 0,
@@ -68,10 +65,12 @@ export default class TextDescription {
     });
     for (let i = 0; i < wrapperedText.length; i++) {
       const t = wrapperedText[i];
-      tShape.attr('text', t);
-      const textWidth = tShape.getBBox().width;
+      /*tslint:disable*/
+      tShape.attr('text', t+' ');
+      // 字数不多就不缓存了吧.....
+      const textWidth = Math.floor(tShape.measureText());
       currentWidth += textWidth;
-      if (currentWidth >= width) {
+      if (currentWidth > width) {
         wrapperedText = `${wrapperedText.slice(0, i)}\n${wrapperedText.slice(i)}`;
         currentWidth = 0;
       }

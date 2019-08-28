@@ -379,13 +379,17 @@ describe('stateManager', () => {
       tooltip: {
         visible: false,
       },
+      label:{
+        visible: true,
+        type: 'line'
+      },
       defaultState: {
         active: {
           condition: {
             name: 'value',
             exp: 3880,
           },
-          related: ['tooltip'],
+          related: ['tooltip','label'],
         },
         disable: {
           condition: {
@@ -394,7 +398,7 @@ describe('stateManager', () => {
               return d !== 'download';
             },
           },
-          related: ['tooltip'],
+          related: ['tooltip','label'],
         },
       },
       //responsive: true

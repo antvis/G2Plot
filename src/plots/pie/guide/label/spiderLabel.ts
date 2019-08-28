@@ -22,9 +22,9 @@ function getEndPoint(center, angle, r) {
 
 function getDefaultCfg() {
   return {
-    text:{
-      fill:'#808080',
-      fontSize:12,
+    text: {
+      fill: '#808080',
+      fontSize: 12,
     },
     lineWidth: 1,
     sidePadding: 20,
@@ -55,7 +55,7 @@ export default class SpiderLabel {
   public draw() {
     /** 如果有formatter则事先处理数据 */
     const data = _.clone(this.view.get('data'));
-    this.halves = [ [], [] ];
+    this.halves = [[], []];
     this.container = this.view.get('frontgroundGroup').addGroup();
     const shapes = this.view.get('elements')[0].getShapes();
     const coord = this.view.get('coord');
@@ -114,30 +114,36 @@ export default class SpiderLabel {
         lowerText = this.formatter(lowerText);
       }
       textGroup.addShape('text', {
-        attrs: _.mix({
-          textBaseline: 'top',
-          text: lowerText,
-        },           textAttrs),
+        attrs: _.mix(
+          {
+            textBaseline: 'top',
+            text: lowerText,
+          },
+          textAttrs
+        ),
         data: d,
         offsetY: LABEL1_OFFSETY,
-        name:'label',
+        name: 'label',
       });
-            /** label2:上部label */
+      /** label2:上部label */
       if (this.fields.length === 2) {
         textGroup.addShape('text', {
-          attrs: _.mix({
-            textBaseline: 'bottom',
-            text: d[this.fields[1]],
-          },           textAttrs),
+          attrs: _.mix(
+            {
+              textBaseline: 'bottom',
+              text: d[this.fields[1]],
+            },
+            textAttrs
+          ),
           data: d,
           offsetY: LABEL2_OFFSETY,
-          name:'label',
+          name: 'label',
         });
       }
 
       label.textGroup = textGroup;
 
-            /** 将label分组 */
+      /** 将label分组 */
       if (anchorPoint.x < center.x) {
         label._side = 'left';
         this.halves[0].push(label);
@@ -147,7 +153,7 @@ export default class SpiderLabel {
       }
     }
 
-        /** 绘制label */
+    /** 绘制label */
     const _drawnLabels = [];
     const maxCountForOneSide = Math.floor(height / this.config.lineHeight);
 
@@ -166,7 +172,7 @@ export default class SpiderLabel {
   }
 
   public clear() {
-    if(this.container) {
+    if (this.container) {
       this.container.clear();
     }
   }
@@ -210,14 +216,14 @@ export default class SpiderLabel {
 
       return {
         size: this.config.lineHeight,
-        targets: [ labelY - startY ],
+        targets: [labelY - startY],
       };
     });
-    if ((maxY - startY) > totalH) {
+    if (maxY - startY > totalH) {
       totalH = maxY - startY;
     }
 
-    const iteratorBoxed = function (items) {
+    const iteratorBoxed = function(items) {
       items.forEach((box) => {
         const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
         box.pos = Math.min(Math.max(minY, target - box.size / 2), totalH - box.size);
@@ -226,18 +232,19 @@ export default class SpiderLabel {
 
     while (overlapping) {
       iteratorBoxed(boxes);
-            // detect overlapping and join boxes
+      // detect overlapping and join boxes
       overlapping = false;
       i = boxes.length;
       while (i--) {
         if (i > 0) {
           const previousBox = boxes[i - 1];
           const box = boxes[i];
-          if (previousBox.pos + previousBox.size > box.pos) { // overlapping
+          if (previousBox.pos + previousBox.size > box.pos) {
+            // overlapping
             previousBox.size += box.size;
             previousBox.targets = previousBox.targets.concat(box.targets);
 
-                        // overflow, shift up
+            // overflow, shift up
             if (previousBox.pos + previousBox.size > totalH) {
               previousBox.pos = totalH - previousBox.size;
             }
@@ -285,68 +292,43 @@ export default class SpiderLabel {
   }
 
   private _drawLabelLine(label, maxLabelWidth) {
-    const _anchor = [ label._anchor.x, label._anchor.y ];
-    const _inflection = [ label._inflection.x, label._inflection.y ];
+    const _anchor = [label._anchor.x, label._anchor.y];
+    const _inflection = [label._inflection.x, label._inflection.y];
     const { fill, y } = label;
-    const lastPoint = [
-      label._side === 'left' ? this.config.sidePadding : this.width - this.config.sidePadding,
-      y,
-    ];
+    const lastPoint = [label._side === 'left' ? this.config.sidePadding : this.width - this.config.sidePadding, y];
 
-    let points = [
-      _anchor,
-      _inflection,
-      lastPoint,
-    ];
-    if (_inflection[1] !== y) { // 展示全部文本文本位置做过调整
-      if (_inflection[1] < y) { // 文本被调整下去了，则添加拐点连接线
+    let points = [_anchor, _inflection, lastPoint];
+    if (_inflection[1] !== y) {
+      // 展示全部文本文本位置做过调整
+      if (_inflection[1] < y) {
+        // 文本被调整下去了，则添加拐点连接线
         const point1 = _inflection;
         const leftPoint = lastPoint[0] + maxLabelWidth + ADJUSTOFFSET;
         const rightPoint = lastPoint[0] - maxLabelWidth - ADJUSTOFFSET;
-        const point2 = [
-          label._side === 'left' ?  leftPoint : rightPoint,
-          _inflection[1],
-        ];
+        const point2 = [label._side === 'left' ? leftPoint : rightPoint, _inflection[1]];
         const point3 = [
           label._side === 'left' ? lastPoint[0] + maxLabelWidth : lastPoint[0] - maxLabelWidth,
           lastPoint[1],
         ];
 
-        points = [
-          _anchor,
-          point1,
-          point2,
-          point3,
-          lastPoint,
-        ];
+        points = [_anchor, point1, point2, point3, lastPoint];
 
         if ((label._side === 'right' && point2[0] < point1[0]) || (label._side === 'left' && point2[0] > point1[0])) {
-          points = [
-            _anchor,
-            point3,
-            lastPoint,
-          ];
+          points = [_anchor, point3, lastPoint];
         }
       } else {
-        points = [
-          _anchor,
-          [
-            _inflection[0],
-            y,
-          ],
-          lastPoint,
-        ];
+        points = [_anchor, [_inflection[0], y], lastPoint];
       }
     }
 
     const path = [];
-    for (let i = 0; i < points.length ; i++) {
+    for (let i = 0; i < points.length; i++) {
       const p = points[i];
       let starter = 'L';
       if (i === 0) {
         starter = 'M';
       }
-      path.push([ starter, p[0], p[1] ]);
+      path.push([starter, p[0], p[1]]);
     }
 
     this.container.addShape('path', {
@@ -365,7 +347,7 @@ export default class SpiderLabel {
       },
     });*/
 
-        // 绘制锚点
+    // 绘制锚点
     this.container.addShape('circle', {
       attrs: {
         x: _anchor[0],
@@ -374,7 +356,6 @@ export default class SpiderLabel {
         fill,
       },
     });
-
   }
 
   private _adjustConfig(config) {
@@ -382,5 +363,4 @@ export default class SpiderLabel {
       config.lineHeight = config.text.fontSize * 3;
     }
   }
-
 }

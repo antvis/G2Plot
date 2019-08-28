@@ -6,9 +6,12 @@ export default class TinyArea extends TinyPlot {
   public line: any;
   public area: any;
 
-  protected _beforeInit() {
-    super._beforeInit();
-    this.type = 'tinyLine';
+  protected geometryParser(dim: string, type: string): string {
+    throw new Error('Method not implemented.');
+  }
+
+  protected setType(): void {
+    this.type = 'tineArea';
   }
 
   protected _addElements() {

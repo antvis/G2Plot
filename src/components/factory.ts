@@ -1,7 +1,10 @@
-import AxisParser from './axis';
-import TextDescription from './description';
+// components parser
+import AxisParser from './axis/parser';
 import GuideLine from './guideLine';
-import LabelParser from './label';
+import LabelParser from './label/parser';
+
+// components state methods
+import tooltipState from './tooltip/state';
 
 const COMPONENT_MAPPER = {
   axis: AxisParser,
@@ -9,7 +12,15 @@ const COMPONENT_MAPPER = {
   guideLine: GuideLine,
 };
 
+const STATE_MAPPER = {
+  tooltip: tooltipState,
+};
+
 export function getComponent(name, cfg) {
   const Components = COMPONENT_MAPPER[name];
   return new Components(cfg).config;
+}
+
+export function getComponentStateMethod(name, type) {
+  return STATE_MAPPER[name][type];
 }

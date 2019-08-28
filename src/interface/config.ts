@@ -264,13 +264,12 @@ export const timeIntervals = {
 };
 
 interface StateCondition {
-  field: string,
-  value: string | number
+  name: string,
+  exp: ()=>boolean | string | number;
 }
 
 export interface StateConfig {
-  condition: () => string | StateCondition;
+  condition: () => any | StateCondition;
   style?: {},
   related?: string[]
 }
-

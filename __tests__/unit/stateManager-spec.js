@@ -265,8 +265,8 @@ describe('stateManager', () => {
         {
           name: 'type',
           callback: (d, plot) => {
-            plot.stateController.setSelected(d);
-            plot.stateController.setNormal((origin) => {
+            plot.setSelected(d);
+            plot.setNormal((origin) => {
               return origin[d.name] !== d.exp;
             });
           }
@@ -289,18 +289,17 @@ describe('stateManager', () => {
         {
           name: 'type',
           callback: (d, plot) => {
-            plot.stateController.setSelected(d/*, {
+            plot.setSelected(d/*, {
               lineWidth: 2,
               stroke: 'black'
             }*/);
-            plot.stateController.setNormal((origin) => {
+            plot.setNormal((origin) => {
               return origin[d.name] !== d.exp;
             });
           }
         }
       ]
     });
-
 
     // 加入外部组件
     const selector = document.createElement('select');

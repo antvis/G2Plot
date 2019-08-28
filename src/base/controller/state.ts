@@ -26,7 +26,7 @@ export default class StateController{
     cfg.onStateChange &&  this._stateChangeProcess(cfg.onStateChange);
   }
 
-  
+
   public defaultStates(states){
     _.each(states,(state,type)=>{
       const { condition, style } = state;
@@ -45,7 +45,12 @@ export default class StateController{
       if(this._compare(origin,condition)){
         const stateStyle = style ? style : this._getDefaultStateStyle(type,shape);
         const originAttr = this.originAttrs[index];
-        const attrs = _.mix({},originAttr,stateStyle);
+        let attrs;
+        if(_.isFunction(stateStyle)){
+          attrs = stateStyle(originAttr);
+        }else{
+          attrs = _.mix({},originAttr,stateStyle);
+        }
         shape.attr(attrs);
       }
     });
@@ -102,6 +107,9 @@ export default class StateController{
   private _compare(origin,condition){
     if(!_.isFunction(condition)){
       const {name,exp} = condition;
+      if(_.isFunction(exp)){
+        return exp(origin[name]);
+      }
       return origin[name] === exp;
     }
     return condition(origin);

@@ -61,7 +61,7 @@ export interface RadarConfig extends BaseConfig {
 const GEOM_MAP = {
   area: 'area',
   line: 'line',
-  point: 'point'
+  point: 'point',
 };
 
 export default class Rardar extends BasePlot<RadarConfig> {
@@ -70,12 +70,11 @@ export default class Rardar extends BasePlot<RadarConfig> {
   public pointElement: any;
   public areaElement: any;
 
-  protected geometryParser(dim,type) {
-
-    return GEOM_MAP[type]; 
+  protected geometryParser(dim, type) {
+    return GEOM_MAP[type];
   }
 
-  protected setType(){
+  protected setType() {
     this.type = 'rardar';
   }
 

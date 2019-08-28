@@ -6,6 +6,7 @@ import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } fro
 import { extractScale } from '../../util/scale';
 import '../column/guide/label/column-label';
 import responsiveMethods from './applyResponsive/index';
+import './theme';
 
 interface ColumnStyle {
   opacity?: number;
@@ -15,6 +16,14 @@ interface ColumnStyle {
 interface IObject {
   [key: string]: any;
 }
+
+const G2_GEOM_MAP = {
+  column: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'column'
+};
 
 export interface ColumnConfig extends BaseConfig {
   // 图形
@@ -30,12 +39,19 @@ export interface ColumnConfig extends BaseConfig {
 
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T> {
   public column: any;
-  constructor(container: string | HTMLElement, config: T) {
-    super(container, config);
+
+  protected geometryParser(dim,type) {
+    if(dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type]; 
+  }
+
+  protected setType(){
+    this.type = 'column';
   }
 
   protected _beforeInit() {
-    this.type = 'column';
     const props = this._initialProps;
     /** 响应式图形 */
     if (props.responsive && props.padding !== 'auto') {

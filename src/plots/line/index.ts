@@ -17,6 +17,7 @@ import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './guide/label/line-label';
 import './guide/label/point-label';
 import { LineActive, LineSelect, Range } from './interaction/index';
+import './theme';
 
 export interface LineStyle {
   opacity?: number;
@@ -33,6 +34,12 @@ interface PointStyle {
 interface IObject {
   [key:string]: any;
 }
+
+const GEOM_MAP = {
+  line: 'line',
+  point: 'point',
+};
+
 
 export interface LineConfig extends BaseConfig {
   /** 分组字段 */
@@ -56,11 +63,15 @@ export default class Line extends BasePlot<LineConfig>{
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
 
-  protected _beforeInit() {
+  protected setType(){
     this.type = 'line';
   }
 
-  protected _setDefaultG2Config() { }
+  protected geometryParser(dim,type){
+    return GEOM_MAP[type];
+  }
+
+  protected _setDefaultG2Config() {}
 
   protected _scale() {
 

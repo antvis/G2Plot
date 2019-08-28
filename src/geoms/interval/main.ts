@@ -71,7 +71,7 @@ export default class IntervalParser extends ElementParser {
   }
 
   private _getStyleProps(props) {
-    const sizeMapper = ['columnStyle', 'barStyle', 'pieStyle'];
+    const sizeMapper = ['columnStyle', 'barStyle', 'pieStyle','ringStyle'];
     for (const m of sizeMapper) {
       if (_.get(props, m)) {
         return m;

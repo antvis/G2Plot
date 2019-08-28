@@ -2,12 +2,7 @@ import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, {
-  ICatAxis,
-  ITimeAxis,
-  IValueAxis,
-  Label,
-} from '../../interface/config';
+import BaseConfig, { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './animation/clipInWithData';
 import responsiveMethods from './applyResponsive/index';
@@ -32,14 +27,13 @@ interface PointStyle {
 }
 
 interface IObject {
-  [key:string]: any;
+  [key: string]: any;
 }
 
 const GEOM_MAP = {
   line: 'line',
   point: 'point',
 };
-
 
 export interface LineConfig extends BaseConfig {
   /** 分组字段 */
@@ -59,39 +53,38 @@ export interface LineConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class Line extends BasePlot<LineConfig>{
+export default class Line extends BasePlot<LineConfig> {
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
 
-  protected setType(){
+  protected setType() {
     this.type = 'line';
   }
 
-  protected geometryParser(dim,type){
+  protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }
 
   protected _setDefaultG2Config() {}
 
   protected _scale() {
-
     const props = this._initialProps;
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    if(_.has(props, 'xAxis') ){
+    if (_.has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if(_.has(props, 'yAxis') ){
+    if (_.has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this._setConfig('scales', scales);
     super._scale();
   }
 
-  protected _coord() { }
+  protected _coord() {}
 
   protected _addElements() {
     const props = this._initialProps;
@@ -109,7 +102,9 @@ export default class Line extends BasePlot<LineConfig>{
   protected _addPoint() {
     const props = this._initialProps;
     const defaultConfig = { visible: false };
-    if (props.point) { props.point = _.deepMix(defaultConfig, props.point); }
+    if (props.point) {
+      props.point = _.deepMix(defaultConfig, props.point);
+    }
     if (props.point && props.point.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
@@ -127,27 +122,28 @@ export default class Line extends BasePlot<LineConfig>{
       this.line.label = false;
       return;
     }
-    const labelType = label.type ? label.type :'point';
+    const labelType = label.type ? label.type : 'point';
     /** label类型为line，即跟随在折线尾部时，设置offset为0 */
-    if(labelType === 'line') { label.offset = 0; }
+    if (labelType === 'line') {
+      label.offset = 0;
+    }
 
     this.line.label = getComponent('label', {
-      fields: labelType === 'line' ? [ props.seriesField ] : [ props.yField ],
+      fields: labelType === 'line' ? [props.seriesField] : [props.yField],
       labelType,
       plot: this,
     });
-
   }
 
-  protected _annotation() { }
+  protected _annotation() {}
 
   protected _animation() {
     const props = this._initialProps;
     if (props.animation === false) {
-      // 关闭动画 
+      // 关闭动画
       this.line.animate = false;
     } else if (_.has(props, 'animation')) {
-      // 根据动画类型区分图形动画和群组动画 
+      // 根据动画类型区分图形动画和群组动画
       if (props.animation.type === 'clipingWithData') {
         this.line.animate = {
           appear: {
@@ -181,7 +177,9 @@ export default class Line extends BasePlot<LineConfig>{
     /** 加入其它交互 */
     const interactionProps = props.interactions;
     _.each(interactionProps, (i) => {
-      if (i.type === 'range') { this._addRangeInteraction(interactions, props); }
+      if (i.type === 'range') {
+        this._addRangeInteraction(interactions, props);
+      }
     });
   }
 
@@ -198,7 +196,7 @@ export default class Line extends BasePlot<LineConfig>{
         this._applyResponsive('afterRender');
       });
     }
-    // 时间子母轴 
+    // 时间子母轴
     if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
       const xAxis = props.xAxis as ITimeAxis;
       const timeGroup = new TimeGroupAnnotation({
@@ -226,5 +224,4 @@ export default class Line extends BasePlot<LineConfig>{
       responsive.method(this);
     });
   }
-
 }

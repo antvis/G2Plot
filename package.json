@@ -26,7 +26,7 @@
     "lint": "lint-staged",
     "coverage": "exit 0",
     "test": "torch -t 5000 --compile --renderer --recursive ./__tests__/unit",
-    "test-live": "torch --compile --interactive ./__tests__/unit",
+    "test-live": "torch --compile --interactive ./__tests__/unit/stateManager-spec.js",
     "ci": "run-s build test"
   },
   "husky": {

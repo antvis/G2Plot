@@ -3,10 +3,11 @@
  */
 import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
+import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
 import StateManager from '../../util/stateManager';
 
-export default class StateController{
+export default class StateController {
   private plot: any;
   private stateManager: StateManager;
   private shapes: Shape[];
@@ -20,94 +21,102 @@ export default class StateController{
     this.stateManager = new StateManager(cfg);
   }
 
-  public bindStateManager(manager:StateManager, cfg) {
+  public bindStateManager(manager: StateManager, cfg) {
     this.stateManager = manager;
-    cfg.setState && this._updateStateProcess(cfg.setState);
-    cfg.onStateChange &&  this._stateChangeProcess(cfg.onStateChange);
+    if (cfg.setState) {
+      this._updateStateProcess(cfg.setState);
+    }
+    if (cfg.onStateChange) {
+      this._stateChangeProcess(cfg.onStateChange);
+    }
   }
 
-
-  public defaultStates(states){
-    _.each(states,(state,type)=>{
-      const { condition, style } = state;
-      this.setState(type,condition);
+  public defaultStates(states) {
+    _.each(states, (state, type) => {
+      const { condition, style, related } = state;
+      this.setState({ type, condition, related });
     });
   }
 
-  public setState(type,condition,style?){
-    if(!this.shapes) {
+  public setState(/*type,condition,style?,related?*/ cfg) {
+    const { type, condition, related } = cfg;
+    if (!this.shapes) {
       this.shapes = this._getShapes();
       this.originAttrs = this._getOriginAttrs();
     }
-    _.each(this.shapes,(shape,index)=>{
+    _.each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin');
       const origin = _.isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
-      if(this._compare(origin,condition)){
-        const stateStyle = style ? style : this._getDefaultStateStyle(type,shape);
+      if (this._compare(origin, condition)) {
+        const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];
         let attrs;
-        if(_.isFunction(stateStyle)){
+        if (_.isFunction(stateStyle)) {
           attrs = stateStyle(originAttr);
-        }else{
-          attrs = _.mix({},originAttr,stateStyle);
+        } else {
+          attrs = _.mix({}, originAttr, stateStyle);
         }
         shape.attr(attrs);
       }
     });
+    // 组件与图形对状态量的响应不一定同步
+    if (related) {
+      this._parserRelated(type, related, condition);
+    }
     this.plot.canvasController.canvas.draw();
   }
 
   private _updateStateProcess(setStateCfg) {
-    _.each(setStateCfg, (cfg:any) => {
+    _.each(setStateCfg, (cfg: any) => {
       const state = cfg.state;
       let handler;
-      if(_.isFunction(state)){
-        handler = (e) =>{
+      if (_.isFunction(state)) {
+        handler = (e) => {
           const s = state(e);
           this.stateManager.setState(s.name, s.exp);
         };
-      }else{
+      } else {
         handler = () => {
           this.stateManager.setState(state.name, state.exp);
         };
       }
       if (cfg.event) {
         onEvent(this.plot, this._eventParser(cfg.event), handler);
-      }else {
+      } else {
         handler();
       }
     });
   }
 
   private _stateChangeProcess(onChangeCfg) {
-    _.each(onChangeCfg, (cfg:any) => {
+    _.each(onChangeCfg, (cfg: any) => {
       this.stateManager.on(`${cfg.name}:change`, (props) => {
-        cfg.callback(props,this.plot);
+        cfg.callback(props, this.plot);
       });
     });
   }
 
-  private _getShapes(){
-   const shapes = [];
+  private _getShapes() {
+    const shapes = [];
     const geoms = this.plot.plot.get('elements');
-    _.each(geoms,(geom:any)=>{
+    _.each(geoms, (geom: any) => {
       shapes.push(...geom.getShapes());
     });
     return shapes;
   }
 
-  private _getOriginAttrs(){
+  private _getOriginAttrs() {
     const attrs = [];
-    _.each(this.shapes,(shape)=>{
+    _.each(this.shapes, (shape) => {
       attrs.push(_.clone(shape.attr()));
     });
     return attrs;
   }
 
-  private _compare(origin,condition){
-    if(!_.isFunction(condition)){
-      const {name,exp} = condition;
-      if(_.isFunction(exp)){
+  private _compare(origin, condition) {
+    if (!_.isFunction(condition)) {
+      const { name, exp } = condition;
+      if (_.isFunction(exp)) {
         return exp(origin[name]);
       }
       return origin[name] === exp;
@@ -116,20 +125,20 @@ export default class StateController{
   }
 
   // 将g2 geomtry转为plot层geometry
-  private _eventParser(event){
+  private _eventParser(event) {
     const eventCfg = event.split(':');
-    const eventTarget = this.plot.geometryParser('g2',eventCfg[0]);
+    const eventTarget = this.plot.geometryParser('g2', eventCfg[0]);
     const eventName = eventCfg[1];
     return `${eventTarget}:${eventName}`;
   }
 
-  private _getDefaultStateStyle(type,shape){
+  private _getDefaultStateStyle(type, shape) {
     const theme = this.plot.plotTheme;
-    const plotGeomType = this.plot.geometryParser('plot',shape.name);
+    const plotGeomType = this.plot.geometryParser('plot', shape.name);
     const styleField = `${plotGeomType}Style`;
-    if(theme[styleField]){
+    if (theme[styleField]) {
       let style = theme[styleField][type];
-      if(_.isFunction(style)){
+      if (_.isFunction(style)) {
         style = style(shape.attr());
       }
       return style;
@@ -137,4 +146,10 @@ export default class StateController{
     return {};
   }
 
+  private _parserRelated(type, related, condition) {
+    _.each(related, (r) => {
+      const method = getComponentStateMethod(r, type);
+      method(this.plot, condition);
+    });
+  }
 }

@@ -1,13 +1,26 @@
 language: node_js
-cache:
-  directories:
-    - ~/.npm
-notifications:
-  email: false
+
 node_js:
-  - '10'
+  - "8"
+  - "10"
+
+env:
+  matrix:
+    - TEST_TYPE=ci
+
+addons:
+  apt:
+    packages:
+      - xvfb
+      - libgconf-2-4
+
+install:
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - npm install
+
 script:
-  - npm run ci
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
+  - |
+    if [ "$TEST_TYPE" = ci ]; then
+      npm run ci
+    fi

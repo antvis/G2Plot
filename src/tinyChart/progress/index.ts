@@ -30,11 +30,19 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
     this.processData();
     this.changeData(props.data);
   }
+
+  protected geometryParser(dim: string, type: string): string {
+    throw new Error('Method not implemented.');
+  }
+
+  protected setType(): void {
+    this.type = 'tinyProgress';
+  }
+
   protected _beforeInit() {
     super._beforeInit();
     this.processData();
     this.processProps();
-    this.type = 'tinyProgress';
   }
 
   protected _coord() {

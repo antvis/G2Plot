@@ -8,6 +8,7 @@ import PlotConfig, { G2Config, RecursivePartial } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import CanvasController from './controller/canvas';
 import PaddingController from './controller/padding';
+import StateController from './controller/state';
 import ThemeController from './controller/theme';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
@@ -16,7 +17,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public canvasController: CanvasController;
   public eventHandlers: any[] = [];
   public destroyed: boolean = false;
-  public type: string = 'base';
+  public type: string;
   protected _originalProps: T;
   protected _config: G2Config;
   protected title: TextDescription;
@@ -25,6 +26,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   private _container: HTMLElement;
   private themeController: ThemeController;
   private paddingController: PaddingController;
+  private stateController: StateController;
 
   constructor(container: string | HTMLElement, config: T) {
     /**
@@ -32,7 +34,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
      */
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
-    this._container = _.isString(container) ? document.getElementById(container as string) : container;
+    this._container = _.isString(container) ? document.getElementById(container as string) : (container as HTMLElement);
+
+    this.setType();
+    
     this.themeController = new ThemeController({
       plot: this,
     });
@@ -44,12 +49,16 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this.paddingController = new PaddingController({
       plot: this,
     });
+    this.stateController = new StateController({
+      plot: this,
+    })
     /**
      * 启动主流程，挂载钩子
      */
     this._beforeInit();
     this._init();
     this._afterInit();
+
   }
 
   /** 自定义组件参与padding */
@@ -98,7 +107,36 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
+
+    // 绑定一个外部的stateManager
+    public bindStateManager(stateManager,cfg):void {
+      this.stateController.bindStateManager(stateManager,cfg);
+    }
+
+    // 响应状态量更新的快捷方法
+    public setActive(condition,style){
+      this.stateController.setState('active',condition,style);
+    }
+  
+    public setSelected(condition,style){
+      this.stateController.setState('selected',condition,style);
+    }
+  
+    public setDisable(condition,style){
+      this.stateController.setState('disable',condition,style);
+    }
+  
+    public setNormal(condition){
+      this.stateController.setState('normal',condition,{});
+    }
+  
+    protected abstract geometryParser(dim:string, type:string): string;
+  
+  protected abstract setType():void
 
   protected _init() {
     this.themeController = new ThemeController({
@@ -319,6 +357,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /** 处理autopadding逻辑 */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
+    }
+  }
+
+  protected _afterRender(){
+    const props = this._initialProps;
+    /** defaultState */
+    if(props.defaultState){ 
+      this.stateController.defaultStates(props.defaultState);
     }
   }
 

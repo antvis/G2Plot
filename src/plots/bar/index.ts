@@ -5,22 +5,21 @@ import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
-import * as StyleParser from '../../util/styleParser';
 import './guide/label/bar-label';
+import './theme';
 
 interface BarStyle {
   opacity?: number;
   lineDash?: number[];
 }
 
-interface ILabelCallbackOptions {
-  content?: (...args: any[]) => any;
-  offset?: number;
-  offsetX?: number;
-  offsetY?: number;
-  textStyle?: {};
-  position?: string;
-}
+const G2_GEOM_MAP = {
+  bar: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'bar'
+};
 
 export interface BarConfig extends BaseConfig {
   // 图形
@@ -36,13 +35,19 @@ export interface BarConfig extends BaseConfig {
 
 export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T> {
   public bar: any;
-  constructor(container: string | HTMLElement, config: T) {
-    super(container, config);
+
+  protected geometryParser(dim,type) {
+    if(dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type]; 
   }
 
-  protected _beforeInit() {
+  protected setType(){
     this.type = 'bar';
   }
+
+  protected _beforeInit() {}
 
   protected _setDefaultG2Config() {}
 

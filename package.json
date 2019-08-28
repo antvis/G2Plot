@@ -1,7 +1,7 @@
 {
   "name": "@antv/g2-plot",
   "version": "1.0.0",
-  "description": "G2 Plot, a market of plots built with G2 4.0'",
+  "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -50,6 +50,7 @@
   "devDependencies": {
     "@antv/torch": "~1.0.5",
     "@types/lodash": "^4.14.123",
+    "@types/moment": "^2.13.0",
     "event-simulate": "^1.0.0",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",

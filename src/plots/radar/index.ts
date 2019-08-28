@@ -58,11 +58,26 @@ export interface RadarConfig extends BaseConfig {
   [attr: string]: any;
 }
 
+const GEOM_MAP = {
+  area: 'area',
+  line: 'line',
+  point: 'point'
+};
+
 export default class Rardar extends BasePlot<RadarConfig> {
   public baseElement: any;
   public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
   public pointElement: any;
   public areaElement: any;
+
+  protected geometryParser(dim,type) {
+
+    return GEOM_MAP[type]; 
+  }
+
+  protected setType(){
+    this.type = 'rardar';
+  }
 
   protected _setDefaultG2Config() {}
 

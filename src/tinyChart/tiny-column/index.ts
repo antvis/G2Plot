@@ -8,12 +8,19 @@ export default class TinyColumn extends TinyPlot {
   public line: any;
   public area: any;
 
+  protected geometryParser(dim: string, type: string): string {
+    throw new Error('Method not implemented.');
+  }
+
+  protected setType(): void {
+    this.type = 'tinyColumn';
+  }
+
   protected _setDefaultG2Config() {}
 
   protected _beforeInit() {
     super._beforeInit();
     this._processProps();
-    this.type = 'tinyColumn';
   }
 
   protected _addElements() {

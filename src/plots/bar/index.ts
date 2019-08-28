@@ -18,7 +18,7 @@ const G2_GEOM_MAP = {
 };
 
 const PLOT_GEOM_MAP = {
-  interval: 'bar'
+  interval: 'bar',
 };
 
 export interface BarConfig extends BaseConfig {
@@ -36,14 +36,14 @@ export interface BarConfig extends BaseConfig {
 export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T> {
   public bar: any;
 
-  protected geometryParser(dim,type) {
-    if(dim === 'g2') {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
       return G2_GEOM_MAP[type];
     }
-    return PLOT_GEOM_MAP[type]; 
+    return PLOT_GEOM_MAP[type];
   }
 
-  protected setType(){
+  protected setType() {
     this.type = 'bar';
   }
 

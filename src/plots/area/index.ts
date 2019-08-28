@@ -30,9 +30,8 @@ interface PointStyle {
 const GEOM_MAP = {
   area: 'area',
   line: 'line',
-  point: 'point'
+  point: 'point',
 };
-
 
 export interface AreaConfig extends BaseConfig {
   areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
@@ -53,11 +52,11 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   public point: any;
   public area: any;
 
-  protected geometryParser(dim,type) {
-    return GEOM_MAP[type]; 
+  protected geometryParser(dim, type) {
+    return GEOM_MAP[type];
   }
 
-  protected setType(){
+  protected setType() {
     this.type = 'area';
   }
 

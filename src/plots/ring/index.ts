@@ -17,21 +17,21 @@ const G2_GEOM_MAP = {
 };
 
 const PLOT_GEOM_MAP = {
-  interval: 'ring'
+  interval: 'ring',
 };
 
 export default class RingPlot extends PiePlot<RingConfig> {
   private centralText: any; // 保存中心文本实例用于响应交互
 
-  protected geometryParser(dim,type) {
-    if(dim === 'g2') {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
       return G2_GEOM_MAP[type];
     }
-    return PLOT_GEOM_MAP[type]; 
+    return PLOT_GEOM_MAP[type];
   }
 
-  protected setType(){
-    // this.type = 'ring';
+  protected setType() {
+    this.type = 'ring';
   }
 
   protected _beforeInit() {

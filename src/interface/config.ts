@@ -62,12 +62,12 @@ export default interface Config {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
   /** 图表初始状态 */
-  defaultState:{
+  defaultState: {
     active?: StateConfig;
     inActive?: StateConfig;
     selected?: StateConfig;
     disabled?: StateConfig;
-  },
+  };
   // fixme: any
   [k: string]: any;
 }
@@ -264,12 +264,12 @@ export const timeIntervals = {
 };
 
 interface StateCondition {
-  name: string,
-  exp: ()=>boolean | string | number;
+  name: string;
+  exp: () => boolean | string | number;
 }
 
 export interface StateConfig {
   condition: () => any | StateCondition;
-  style?: {},
-  related?: string[]
+  style?: {};
+  related?: string[];
 }

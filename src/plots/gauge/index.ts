@@ -18,7 +18,7 @@ interface GaugeStyle {
 }
 
 export interface GaugeConfig extends BaseConfig {
-  type?: 'normal' | 'percent';
+  // type?: 'normal' | 'percent';
   min?: number;
   max?: number;
   value?: number;

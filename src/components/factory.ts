@@ -4,6 +4,7 @@ import GuideLine from './guideLine';
 import LabelParser from './label/parser';
 
 // components state methods
+import axisState from './axis/state';
 import labelState from './label/state';
 import tooltipState from './tooltip/state';
 
@@ -15,7 +16,8 @@ const COMPONENT_MAPPER = {
 
 const STATE_MAPPER = {
   tooltip: tooltipState,
-  label: labelState
+  label: labelState,
+  axis: axisState
 };
 
 export function getComponent(name, cfg) {

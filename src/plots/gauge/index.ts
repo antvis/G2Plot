@@ -161,6 +161,7 @@ export default class Gauge extends BasePlot<GaugeConfig> {
       color: {
         values: [pointerColor],
       },
+      animate: false,
     };
 
     this._setConfig('element', pointer);

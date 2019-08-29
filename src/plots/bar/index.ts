@@ -5,7 +5,6 @@ import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
-import * as StyleParser from '../../util/styleParser';
 import './guide/label/bar-label';
 
 interface BarStyle {
@@ -24,7 +23,7 @@ interface ILabelCallbackOptions {
 
 export interface BarConfig extends BaseConfig {
   // 图形
-  type?: 'rect' | 'triangle' | 'round';
+  type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
   barSize?: number;
   maxWidth?: number;

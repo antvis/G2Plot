@@ -1,33 +1,52 @@
 import * as _ from '@antv/util';
 import { compare } from '../../base/controller/state';
-import { func } from 'prop-types';
+
+// 对label和label样式进行缓存
+let labels;
+let originAttrs;
 
 
 function onActive(plot,condition){
-
+    if(!labels){
+        getAllLabels(plot);
+    }
+    _.each(labels,(label,index)=>{
+        const origin = label.get('origin');
+        if(compare(origin,condition)){
+            const originAttr = originAttrs[index];
+            const style = _.mix({},originAttr,{opacity:1})
+            label.attr(style);
+        }
+    });
 }
 
 function onDisable(plot,condition){
-    const labels = getAllLabels(plot);
-    _.each(labels,(label)=>{
+    if(!labels){
+        getAllLabels(plot);
+    }
+    _.each(labels,(label,index)=>{
         const origin = label.get('origin');
         if(compare(origin,condition)){
-            const disableStyle = labelDisableStyle(label.attr());
+            const originAttr = originAttrs[index];
+            const disableStyle = labelDisableStyle(originAttr);
             label.attr(disableStyle);
         }
     });
 }
 
 function getAllLabels(plot){
-    const labels = [];
+    labels = [];
+    originAttrs = [];
     const geoms = plot.plot.get('elements');
     _.each(geoms,(geom)=>{
         const geomLabels = geom.get('labels');
         if(geomLabels){
-            labels.push(...geomLabels);
+            _.each(geomLabels,(label)=>{
+                labels.push(label);
+                originAttrs.push(label.attr());
+            });
         }
     });
-    return labels;
 }
 
 function labelDisableStyle(style){

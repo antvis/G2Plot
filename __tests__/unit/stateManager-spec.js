@@ -375,6 +375,9 @@ describe('stateManager', () => {
       seriesField: 'type',
       xAxis: {
         type: 'dateTime',
+        formatter:()=>{
+          return 'test';
+        }
       },
       tooltip: {
         visible: false,
@@ -398,7 +401,7 @@ describe('stateManager', () => {
               return d !== 'download';
             },
           },
-          related: ['tooltip','label'],
+          related: ['tooltip','label','axis'],
         },
       },
       //responsive: true

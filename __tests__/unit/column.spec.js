@@ -53,15 +53,21 @@ describe('Column plot', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: 'auto',
       data,
-      xField: 'value',
-      yField: 'year',
+      xField: 'year',
+      yField: 'value',
       xAxis: {
-        visible: true,
+        // visible: true,
       },
       yAxis: {
-        visible: true,
+        // visible: true,
       },
-      animation: false,
+      title: {
+        text: '我是title'
+      },
+      description: {
+        text: '描述描述，柱状图，柱状图'
+      },
+      animation: true,
     });
     columnPlot.render();
     const positionField = columnPlot.plot.get('elements')[0].get('position').fields;
@@ -69,8 +75,8 @@ describe('Column plot', () => {
     const axes = columnPlot.plot.get('axisController').axes;
 
     expect(columnPlot).to.be.instanceOf(Column);
-    expect(positionField[0]).to.be.equal('value');
-    expect(positionField[1]).to.be.equal('year');
+    expect(positionField[0]).to.be.equal('year');
+    expect(positionField[1]).to.be.equal('value');
     expect(isTransposed).to.be.equal(false);
     expect(axes.length).to.be.equal(2);
     /* columnPlot.destroy();

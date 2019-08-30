@@ -8,7 +8,7 @@ export interface TinyConfig extends BaseConfig {
   indicator?: any;
 }
 
-export default class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlot<T> {
+export default abstract class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlot<T> {
   protected _setDefaultG2Config() {}
 
   protected _beforeInit() {

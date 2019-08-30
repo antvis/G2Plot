@@ -8,6 +8,7 @@ import PlotConfig, { G2Config, RecursivePartial } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import CanvasController from './controller/canvas';
 import PaddingController from './controller/padding';
+import StateController from './controller/state';
 import ThemeController from './controller/theme';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
@@ -16,7 +17,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public canvasController: CanvasController;
   public eventHandlers: any[] = [];
   public destroyed: boolean = false;
-  public type: string = 'base';
+  public type: string;
   protected _originalProps: T;
   protected _config: G2Config;
   protected title: TextDescription;
@@ -25,6 +26,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   private _container: HTMLElement;
   private themeController: ThemeController;
   private paddingController: PaddingController;
+  private stateController: StateController;
 
   constructor(container: string | HTMLElement, config: T) {
     /**
@@ -32,7 +34,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
      */
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
-    this._container = _.isString(container) ? document.getElementById(container as string) : container;
+    this._container = _.isString(container) ? document.getElementById(container as string) : (container as HTMLElement);
+
+    this.setType();
+
     this.themeController = new ThemeController({
       plot: this,
     });
@@ -42,6 +47,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       plot: this,
     });
     this.paddingController = new PaddingController({
+      plot: this,
+    });
+    this.stateController = new StateController({
       plot: this,
     });
     /**
@@ -98,7 +106,36 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
+
+  // 绑定一个外部的stateManager
+  public bindStateManager(stateManager, cfg): void {
+    this.stateController.bindStateManager(stateManager, cfg);
+  }
+
+  // 响应状态量更新的快捷方法
+  public setActive(condition, style) {
+    this.stateController.setState({ type: 'active', condition, style });
+  }
+
+  public setSelected(condition, style) {
+    this.stateController.setState({ type: 'selected', condition, style });
+  }
+
+  public setDisable(condition, style) {
+    this.stateController.setState({ type: 'disable', condition, style });
+  }
+
+  public setNormal(condition) {
+    this.stateController.setState({ type: 'normal', condition, style: {} });
+  }
+
+  protected abstract geometryParser(dim: string, type: string): string;
+
+  protected abstract setType(): void;
 
   protected _init() {
     this.themeController = new ThemeController({
@@ -195,7 +232,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   protected _axis(): void {
     const props = this._initialProps;
-    const  xAxis_parser = getComponent('axis', {
+    const xAxis_parser = getComponent('axis', {
       plot: this,
       dim: 'x',
     });
@@ -203,7 +240,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       plot: this,
       dim: 'y',
     });
-    const axesConfig = { fields:{} };
+    const axesConfig = { fields: {} };
     axesConfig.fields[props.xField] = xAxis_parser;
     axesConfig.fields[props.yField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
@@ -228,7 +265,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.tooltip && props.tooltip.style) {
       _.deepMix(this._config.theme.tooltip, props.tooltip.style);
     }
-
   }
 
   protected _legend(): void {
@@ -271,7 +307,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const width = this.canvasController.width;
       const theme = this._config.theme;
       const title = new TextDescription({
-        leftMargin:theme.title.padding[3],
+        leftMargin: theme.title.padding[3],
         topMargin: theme.title.padding[0],
         text: props.title.text,
         style: _.mix(theme.title, props.title.style),
@@ -289,7 +325,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
     if (props.description) {
       const width = this.canvasController.width;
-      
+
       let topMargin = 0;
       if (this.title) {
         const titleBBox = this.title.getBBox();
@@ -298,20 +334,20 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
       const theme = this._config.theme;
       const description = new TextDescription({
-        leftMargin:theme.description.padding[3],
+        leftMargin: theme.description.padding[3],
         topMargin: topMargin + theme.description.padding[0],
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
         container: this.canvasController.canvas,
-        theme
+        theme,
       });
 
       this.description = description;
     }
   }
 
-  protected _beforeInit() { }
+  protected _beforeInit() {}
 
   protected _afterInit() {
     const props = this._initialProps;
@@ -322,13 +358,21 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
   }
 
+  protected _afterRender() {
+    const props = this._initialProps;
+    /** defaultState */
+    if (props.defaultState) {
+      this.stateController.defaultStates(props.defaultState);
+    }
+  }
+
   /** 设置G2 config，带有类型推导 */
-  protected _setConfig<K extends keyof G2Config>(key:K, config: G2Config[K] | boolean): void {
+  protected _setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
     if (key === 'element') {
       this._config.elements.push(config as G2Config['element']);
       return;
     }
-    if (config as boolean === false) {
+    if ((config as boolean) === false) {
       this._config[key] = false;
       return;
     }
@@ -337,22 +381,20 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 抽取destory和updateConfig共有代码为_destory方法 */
   private _destory() {
-     /** 关闭事件监听 */
+    /** 关闭事件监听 */
     _.each(this.eventHandlers, (handler) => {
       this.plot.off(handler.type, handler.handler);
     });
     /** 移除title & description */
-    if(this.title) {
+    if (this.title) {
       this.title.destory();
     }
-    if(this.description) {
+    if (this.description) {
       this.description.destory();
     }
     /** 销毁g2.plot实例 */
     this.plot.destroy();
   }
-
-
 
   // 为了方便图表布局，title和description在view创建之前绘制，需要先计算view的plotRange,方便title & description文字折行
   private _getPanelRange() {
@@ -373,7 +415,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     if (this.title) {
       boxes.push(this.title.getBBox());
     }
-    if (this.description){
+    if (this.description) {
       boxes.push(this.description.getBBox());
     }
     if (boxes.length === 0) {
@@ -382,8 +424,8 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;
-      let maxY = - Infinity;
-      _.each(boxes, (box:DataPointType) => {
+      let maxY = -Infinity;
+      _.each(boxes, (box: DataPointType) => {
         minX = Math.min(box.minX, minX);
         maxX = Math.max(box.maxX, maxX);
         minY = Math.min(box.minY, minY);
@@ -402,13 +444,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
   }
 
-  private _getLegendPosition(){
+  private _getLegendPosition() {
     const props = this._initialProps;
-    if(props.legend && props.legend.position) {
+    if (props.legend && props.legend.position) {
       const position = props.legend.position;
       return position;
     }
     return 'bottom-center';
   }
-
 }

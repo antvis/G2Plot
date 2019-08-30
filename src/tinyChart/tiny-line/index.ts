@@ -5,8 +5,11 @@ import TinyPlot from '../tinyPlot';
 export default class TinyLine extends TinyPlot {
   public line: any;
 
-  protected _beforeInit() {
-    super._beforeInit();
+  protected geometryParser(dim: string, type: string): string {
+    throw new Error('Method not implemented.');
+  }
+
+  protected setType(): void {
     this.type = 'tinyLine';
   }
 

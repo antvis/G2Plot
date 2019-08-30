@@ -12,11 +12,29 @@ interface IAttrs {
   [key: string]: any;
 }
 
+const G2_GEOM_MAP = {
+  ring: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'ring',
+};
+
 export default class RingPlot extends PiePlot<RingConfig> {
   private centralText: any; // 保存中心文本实例用于响应交互
 
-  protected _beforeInit() {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
+  }
+
+  protected setType() {
     this.type = 'ring';
+  }
+
+  protected _beforeInit() {
     const props = this._initialProps;
     /** 响应式图形 */
     if (props.responsive && props.padding !== 'auto') {

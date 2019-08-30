@@ -8,6 +8,7 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
+
 // import { ScaleConfig, Scale } from '@antv/scale';
 
 export default interface Config {
@@ -59,6 +60,13 @@ export default interface Config {
   /** 图表层级的事件 */
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
+  };
+  /** 图表初始状态 */
+  defaultState: {
+    active?: StateConfig;
+    inActive?: StateConfig;
+    selected?: StateConfig;
+    disabled?: StateConfig;
   };
   // fixme: any
   [k: string]: any;
@@ -254,3 +262,14 @@ export const timeIntervals = {
   month: { value: MONTH, format: 'YYYY-MM' },
   year: { value: YEAR, format: 'YYYY' },
 };
+
+interface StateCondition {
+  name: string;
+  exp: () => boolean | string | number;
+}
+
+export interface StateConfig {
+  condition: () => any | StateCondition;
+  style?: {};
+  related?: string[];
+}

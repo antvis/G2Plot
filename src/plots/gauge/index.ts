@@ -32,7 +32,11 @@ export default class Gauge extends BasePlot<GaugeConfig> {
     super(container, config);
   }
 
-  protected _beforeInit() {
+  protected geometryParser(dim: string, type: string): string {
+    throw new Error('Method not implemented.');
+  }
+
+  protected setType(): void {
     this.type = 'gauge';
   }
 

@@ -899,7 +899,7 @@ describe('Line plot', () => {
       legend: {
         visible: true,
         flipPage: true,
-        position: 'top-left',
+        position: 'bottom-left',
       },
       xAxis: {
         grid: {

@@ -7,7 +7,7 @@ const LINE_ACTIVE_STYLE = (style) => {
 
 const LINE_DISABLE_STYLE = (style) => {
   const opacity = style.opacity || 1;
-  return { opacity: opacity * 0.5 };
+  return { opacity: opacity * 0.2 };
 };
 
 const LINE_SELECTED_STYLE = (style) => {

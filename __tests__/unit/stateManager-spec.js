@@ -375,9 +375,6 @@ describe('stateManager', () => {
       seriesField: 'type',
       xAxis: {
         type: 'dateTime',
-        formatter:()=>{
-          return 'test';
-        }
       },
       tooltip: {
         visible: false,
@@ -392,7 +389,7 @@ describe('stateManager', () => {
             name: 'value',
             exp: 3880,
           },
-          related: ['tooltip','label'],
+          related: ['tooltip','label','axis'],
         },
         disable: {
           condition: {

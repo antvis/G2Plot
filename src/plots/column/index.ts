@@ -22,7 +22,7 @@ const G2_GEOM_MAP = {
 };
 
 const PLOT_GEOM_MAP = {
-  interval: 'column'
+  interval: 'column',
 };
 
 export interface ColumnConfig extends BaseConfig {
@@ -40,14 +40,14 @@ export interface ColumnConfig extends BaseConfig {
 export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends BasePlot<T> {
   public column: any;
 
-  protected geometryParser(dim,type) {
-    if(dim === 'g2') {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
       return G2_GEOM_MAP[type];
     }
-    return PLOT_GEOM_MAP[type]; 
+    return PLOT_GEOM_MAP[type];
   }
 
-  protected setType(){
+  protected setType() {
     this.type = 'column';
   }
 

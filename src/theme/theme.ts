@@ -95,7 +95,7 @@ export default class Theme {
   }
 
   public registerGlobalTheme(globalTheme: any) {
-    const defaultCfg = THEME_MAP.default
+    const defaultCfg = THEME_MAP.default;
     const defaultTheme = defaultCfg ? defaultCfg.getGlobalTheme() : {};
     this.globalTheme = _.deepMix({}, defaultTheme, globalTheme);
   }

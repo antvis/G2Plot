@@ -21,7 +21,7 @@ const G2_GEOM_MAP = {
 };
 
 const PLOT_GEOM_MAP = {
-  interval: 'liquid'
+  interval: 'liquid',
 };
 
 export interface LiquidConfig extends BaseConfig {
@@ -39,14 +39,14 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     super(container, config);
   }
 
-  protected geometryParser(dim,type) {
-    if(dim === 'g2') {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
       return G2_GEOM_MAP[type];
     }
-    return PLOT_GEOM_MAP[type]; 
+    return PLOT_GEOM_MAP[type];
   }
 
-  protected setType(){
+  protected setType() {
     this.type = 'liquid';
   }
 

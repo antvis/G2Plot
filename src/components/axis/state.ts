@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-//import { compare } from '../../base/controller/state';
+// import { compare } from '../../base/controller/state';
 
 // 对axis label和label样式进行缓存
 let labels;

@@ -8,7 +8,7 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
-import { string } from 'prop-types';
+
 // import { ScaleConfig, Scale } from '@antv/scale';
 
 export default interface Config {

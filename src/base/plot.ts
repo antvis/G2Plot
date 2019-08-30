@@ -8,6 +8,7 @@ import PlotConfig, { G2Config, RecursivePartial } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import CanvasController from './controller/canvas';
 import PaddingController from './controller/padding';
+import StateController from './controller/state';
 import ThemeController from './controller/theme';
 
 export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
@@ -16,7 +17,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public canvasController: CanvasController;
   public eventHandlers: any[] = [];
   public destroyed: boolean = false;
-  public type: string = 'base';
+  public type: string;
   protected _originalProps: T;
   protected _config: G2Config;
   protected title: TextDescription;
@@ -25,6 +26,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   private _container: HTMLElement;
   private themeController: ThemeController;
   private paddingController: PaddingController;
+  private stateController: StateController;
 
   constructor(container: string | HTMLElement, config: T) {
     /**
@@ -33,6 +35,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._initialProps = config;
     this._originalProps = _.deepMix({}, config);
     this._container = _.isString(container) ? document.getElementById(container as string) : (container as HTMLElement);
+
+    this.setType();
+
     this.themeController = new ThemeController({
       plot: this,
     });
@@ -42,6 +47,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       plot: this,
     });
     this.paddingController = new PaddingController({
+      plot: this,
+    });
+    this.stateController = new StateController({
       plot: this,
     });
     /**
@@ -98,9 +106,42 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
 
+  // 绑定一个外部的stateManager
+  public bindStateManager(stateManager, cfg): void {
+    this.stateController.bindStateManager(stateManager, cfg);
+  }
+
+  // 响应状态量更新的快捷方法
+  public setActive(condition, style) {
+    this.stateController.setState('active', condition, style);
+  }
+
+  public setSelected(condition, style) {
+    this.stateController.setState('selected', condition, style);
+  }
+
+  public setDisable(condition, style) {
+    this.stateController.setState('disable', condition, style);
+  }
+
+  public setNormal(condition) {
+    this.stateController.setState('normal', condition, {});
+  }
+
+  protected abstract geometryParser(dim: string, type: string): string;
+
+  protected abstract setType(): void;
+
   protected _init() {
+    this.themeController = new ThemeController({
+      plot: this,
+    });
+    this.plotTheme = this.themeController.plotTheme;
     const props = this._initialProps;
     const theme = this.themeController.theme;
     this._config = {
@@ -266,11 +307,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const width = this.canvasController.width;
       const theme = this._config.theme;
       const title = new TextDescription({
-        leftMargin: theme.title.leftMargin,
-        topMargin: theme.title.topMargin,
+        leftMargin: theme.title.padding[3],
+        topMargin: theme.title.padding[0],
         text: props.title.text,
         style: _.mix(theme.title, props.title.style),
-        wrapperWidth: width - theme.title.leftMargin - theme.title.rightMargin,
+        wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
         container: this.canvasController.canvas,
         theme,
       });
@@ -284,6 +325,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
     if (props.description) {
       const width = this.canvasController.width;
+
       let topMargin = 0;
       if (this.title) {
         const titleBBox = this.title.getBBox();
@@ -291,13 +333,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       }
 
       const theme = this._config.theme;
-
       const description = new TextDescription({
-        leftMargin: theme.description.leftMargin,
-        topMargin: topMargin + theme.description.topMargin,
+        leftMargin: theme.description.padding[3],
+        topMargin: topMargin + theme.description.padding[0],
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
-        wrapperWidth: width - theme.description.leftMargin - theme.description.rightMargin,
+        wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
         container: this.canvasController.canvas,
         theme,
       });
@@ -314,6 +355,14 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     /** 处理autopadding逻辑 */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
+    }
+  }
+
+  protected _afterRender() {
+    const props = this._initialProps;
+    /** defaultState */
+    if (props.defaultState) {
+      this.stateController.defaultStates(props.defaultState);
     }
   }
 
@@ -371,13 +420,12 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     }
     if (boxes.length === 0) {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    }
-    {
+    } else {
       let minX = Infinity;
       let maxX = -Infinity;
       let minY = Infinity;
       let maxY = -Infinity;
-      _.each(boxes, (box) => {
+      _.each(boxes, (box: DataPointType) => {
         minX = Math.min(box.minX, minX);
         maxX = Math.max(box.maxX, maxX);
         minY = Math.min(box.minY, minY);
@@ -386,7 +434,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
       const bbox = { minX, maxX, minY, maxY };
       if (this.description) {
         const legendPosition = this._getLegendPosition();
-        bbox.maxY += this._config.theme.description.bottomMargin(legendPosition);
+        bbox.maxY += this._config.theme.description.padding[2](legendPosition);
       }
       /** 约束viewRange的start.y，防止坐标轴出现转置 */
       if (bbox.maxY >= this.canvasController.height) {

@@ -1,7 +1,7 @@
 {
   "name": "@antv/g2-plot",
   "version": "1.0.0",
-  "description": "G2 Plot, a market of plots built with G2 4.0'",
+  "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -24,10 +24,14 @@
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "dist": "webpack --config webpack.config.js --mode production",
     "lint": "lint-staged",
+    "lint-check": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint-fix": "run-s lint-fix:*",
+    "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
+    "lint-fix:tslint": "tslint -c tslint.json --fix 'src/**/*.ts'",
     "coverage": "exit 0",
-    "test": "torch --compile --renderer --recursive ./__tests__/unit",
+    "test": "torch -t 5000 --compile --renderer --recursive ./__tests__/unit",
     "test-live": "torch --compile --interactive ./__tests__/unit",
-    "ci": "run-s build test"
+    "ci": "run-s lint-check build test"
   },
   "husky": {
     "hooks": {
@@ -35,14 +39,14 @@
     }
   },
   "dependencies": {
+    "@antv/component": "~0.4.0-beta.1",
+    "@antv/coord": "~0.2.0",
+    "@antv/dom-util": "~2.0.1",
     "@antv/g": "~3.5.0-beta.1",
     "@antv/g-gesture": "0.1.0-beta.1",
     "@antv/g2": "~3.6.0-beta.1",
-    "@antv/component": "~0.4.0",
-    "@antv/util": "~2.0.4",
-    "@antv/dom-util": "~2.0.1",
     "@antv/matrix-util": "~2.0.2",
-    "@antv/coord": "~0.2.0",
+    "@antv/util": "~2.0.4",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "resize-observer-polyfill": "^1.5.1"
@@ -50,6 +54,7 @@
   "devDependencies": {
     "@antv/torch": "~1.0.5",
     "@types/lodash": "^4.14.123",
+    "@types/moment": "^2.13.0",
     "event-simulate": "^1.0.0",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.3",

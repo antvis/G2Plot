@@ -68,10 +68,12 @@ export default class TextDescription {
     });
     for (let i = 0; i < wrapperedText.length; i++) {
       const t = wrapperedText[i];
-      tShape.attr('text', t);
-      const textWidth = tShape.getBBox().width;
+      /*tslint:disable*/
+      tShape.attr('text', t + ' ');
+      // 字数不多就不缓存了吧.....
+      const textWidth = Math.floor(tShape.measureText());
       currentWidth += textWidth;
-      if (currentWidth >= width) {
+      if (currentWidth > width) {
         wrapperedText = `${wrapperedText.slice(0, i)}\n${wrapperedText.slice(i)}`;
         currentWidth = 0;
       }

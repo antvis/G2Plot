@@ -32,4 +32,7 @@ export function extractScale(desScale, axisConfig) {
   if (axisConfig.hasOwnProperty('nice')) {
     desScale.nice = axisConfig.nice;
   }
+  if (axisConfig.hasOwnProperty('formatter')) {
+    desScale.formatter = axisConfig.formatter;
+  }
 }

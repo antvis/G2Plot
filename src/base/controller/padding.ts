@@ -10,7 +10,7 @@ import * as _ from '@antv/util';
 export default class PaddingController {
   private plot: any;
   private paddingComponents: any[] = [];
-  private defaultPadding;
+  private bleeding;
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -42,13 +42,12 @@ export default class PaddingController {
     const view = this.plot.plot;
     const viewRange = view.get('viewRange');
     const { maxX, maxY } = viewRange;
-    const defaultPadding = this.plot._config.theme.defaultPadding;
-    if (typeof defaultPadding[0] === 'function') {
-      defaultPadding[0] = defaultPadding[0](props);
+    const bleeding = this.plot._config.theme.bleeding;
+    if (typeof bleeding[0] === 'function') {
+      bleeding[0] = bleeding[0](props);
     }
-    this.plot._config.theme.legend.margin = defaultPadding;
-    this.defaultPadding = _.clone(defaultPadding);
-
+    this.plot._config.theme.legend.margin = bleeding;
+    this.bleeding = _.clone(bleeding);
     // 参与auto padding的components: axis legend
     const components_bbox = [view.get('panelRange')];
     this._getAxis(view, components_bbox);
@@ -67,10 +66,10 @@ export default class PaddingController {
       box.minY = 0;
     }
     const padding = [
-      0 - box.minY + this.defaultPadding[0], // 上面超出的部分
-      box.maxX - maxX + this.defaultPadding[1], // 右边超出的部分
-      box.maxY - maxY + this.defaultPadding[2], // 下边超出的部分
-      0 - box.minX + this.defaultPadding[3],
+      0 - box.minY + this.bleeding[0], // 上面超出的部分
+      box.maxX - maxX + this.bleeding[1], // 右边超出的部分
+      box.maxY - maxY + this.bleeding[2], // 下边超出的部分
+      0 - box.minX + this.bleeding[3],
     ];
     return padding;
   }
@@ -92,10 +91,9 @@ export default class PaddingController {
     if (legends.length > 0) {
       _.each(legends, (l) => {
         const legend = l as DataPointType;
-        const width = legend.getWidth();
-        const height = legend.getHeight();
         this._adjustLegend(legend, view, box);
         const legendBBox = legend.get('container').getBBox();
+        const { width, height } = legendBBox;
         let x = 0;
         let y = 0;
         const position = legend.get('position').split('-');
@@ -118,7 +116,7 @@ export default class PaddingController {
         const bbox = new BBox(x, y, width, height);
         bboxes.push(bbox);
         const innerPadding = this._getLegendInnerPadding(legend);
-        this._mergePadding(innerPadding);
+        this._mergeBleeding(innerPadding);
       });
     }
   }
@@ -174,8 +172,8 @@ export default class PaddingController {
     }
   }
 
-  private _mergePadding(source) {
-    const target = this.defaultPadding;
+  private _mergeBleeding(source) {
+    const target = this.bleeding;
     if (source.length !== target.length) {
       return;
     }

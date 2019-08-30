@@ -292,7 +292,7 @@ describe('Line plot', () => {
     expect(positionField[1]).to.be.equal('value');
     linePlot.destroy();
     expect(linePlot.plot.destroyed).to.be.true;
-    // expect(canvasDiv.childNodes.length).equal(0);
+    expect(canvasDiv.childNodes.length).equal(0);
   });
 
   it('smooth line', () => {
@@ -324,7 +324,7 @@ describe('Line plot', () => {
     linePlot.destroy();
   });
 
-  it('折线数据点', () => {
+  it('折线数据点 line point', () => {
     const linePlot = new Line(canvasDiv, {
       width: 600,
       height: 600,
@@ -333,9 +333,11 @@ describe('Line plot', () => {
       yField: 'value',
       point: {
         visible: true,
+        size: 5,
+        color: 'red',
         style: {
-          size: 5,
-          color: 'red',
+          fillStyle: 'blue',
+          strokeStyle: 'black',
         },
       },
     });
@@ -344,7 +346,9 @@ describe('Line plot', () => {
     expect(elements[1].get('type')).to.be.equal('point');
     expect(elements[1].get('size').values[0]).to.be.equal(5);
     expect(elements[1].get('color').values[0]).to.be.equal('red');
-    linePlot.destroy();
+    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('blue');
+    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
+    // linePlot.destroy();
   });
 
   it('x 坐标轴', () => {
@@ -547,6 +551,6 @@ describe('Line plot', () => {
       .get('children');
     const panelGroup = linePlot.plot.get('panelRange');
     expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
-    linePlot.destroy();
+    // linePlot.destroy();
   });
 });

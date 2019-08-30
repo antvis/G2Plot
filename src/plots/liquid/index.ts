@@ -16,6 +16,14 @@ interface LiquidStyle {
   size?: number;
 }
 
+const G2_GEOM_MAP = {
+  liquid: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'liquid',
+};
+
 export interface LiquidConfig extends BaseConfig {
   type?: 'normal' | 'percent';
   min?: number;
@@ -31,7 +39,14 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     super(container, config);
   }
 
-  protected _beforeInit() {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
+  }
+
+  protected setType() {
     this.type = 'liquid';
   }
 

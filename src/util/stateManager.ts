@@ -2,8 +2,8 @@
  * 可插拔的状态量管理机
  */
 // todo: 后续还需要加入交互互斥的维护机制
-import * as _ from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
+import * as _ from '@antv/util';
 
 interface States {
   [key: string]: any;
@@ -24,20 +24,20 @@ export default class StateManager extends EventEmitter {
     this._stateStack = {};
   }
 
-  setState(name: string, exp: any) {
+  public setState(name: string, exp: any) {
     this._stateStack[name] = exp;
     this._onUpdate();
   }
 
-  getState(name: string) {
+  public getState(name: string) {
     return this._states[name];
   }
 
-  getAllStates() {
+  public getAllStates() {
     return this._states;
   }
 
-  clear() {
+  public clear() {
     this._states = {};
     this._stateStack = {};
     if (this._changeTimer) {
@@ -68,8 +68,7 @@ export default class StateManager extends EventEmitter {
       // }
       // clear stack
       this._stateStack = {};
-    },                             16);
-
+    }, 16);
   }
 
   private _triggerEvent(name: string, exp: any) {
@@ -78,5 +77,4 @@ export default class StateManager extends EventEmitter {
       exp,
     });
   }
-
 }

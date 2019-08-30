@@ -49,7 +49,7 @@ export default class StateController {
     });
   }
 
-  public setState(/*type,condition,style?,related?*/ cfg) {
+  public setState(cfg) {
     const { type, condition, related } = cfg;
     if (!this.shapes) {
       this.shapes = this._getShapes();

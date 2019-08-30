@@ -21,21 +21,21 @@ const G2_GEOM_MAP = {
 };
 
 const PLOT_GEOM_MAP = {
-  pie: 'column'
+  pie: 'column',
 };
 
 export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T> {
   public pie: any;
   public spiderLabel: any;
 
-  protected geometryParser(dim,type) {
-    if(dim === 'g2') {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
       return G2_GEOM_MAP[type];
     }
-    return PLOT_GEOM_MAP[type]; 
+    return PLOT_GEOM_MAP[type];
   }
 
-  protected setType(){
+  protected setType() {
     this.type = 'pie';
   }
 

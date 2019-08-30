@@ -3,8 +3,20 @@
  */
 import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
+import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
 import StateManager from '../../util/stateManager';
+
+export function compare(origin, condition) {
+  if (!_.isFunction(condition)) {
+    const { name, exp } = condition;
+    if (_.isFunction(exp)) {
+      return exp(origin[name]);
+    }
+    return origin[name] === exp;
+  }
+  return condition(origin);
+}
 
 export default class StateController {
   private plot: any;
@@ -32,12 +44,13 @@ export default class StateController {
 
   public defaultStates(states) {
     _.each(states, (state, type) => {
-      const { condition, style } = state;
-      this.setState(type, condition);
+      const { condition, style, related } = state;
+      this.setState({ type, condition, related });
     });
   }
 
-  public setState(type, condition, style?) {
+  public setState(cfg) {
+    const { type, condition, related } = cfg;
     if (!this.shapes) {
       this.shapes = this._getShapes();
       this.originAttrs = this._getOriginAttrs();
@@ -45,8 +58,8 @@ export default class StateController {
     _.each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin');
       const origin = _.isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
-      if (this._compare(origin, condition)) {
-        const stateStyle = style ? style : this._getDefaultStateStyle(type, shape);
+      if (compare(origin, condition)) {
+        const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];
         let attrs;
         if (_.isFunction(stateStyle)) {
@@ -57,6 +70,10 @@ export default class StateController {
         shape.attr(attrs);
       }
     });
+    // 组件与图形对状态量的响应不一定同步
+    if (related) {
+      this._parserRelated(type, related, condition);
+    }
     this.plot.canvasController.canvas.draw();
   }
 
@@ -107,17 +124,6 @@ export default class StateController {
     return attrs;
   }
 
-  private _compare(origin, condition) {
-    if (!_.isFunction(condition)) {
-      const { name, exp } = condition;
-      if (_.isFunction(exp)) {
-        return exp(origin[name]);
-      }
-      return origin[name] === exp;
-    }
-    return condition(origin);
-  }
-
   // 将g2 geomtry转为plot层geometry
   private _eventParser(event) {
     const eventCfg = event.split(':');
@@ -138,5 +144,12 @@ export default class StateController {
       return style;
     }
     return {};
+  }
+
+  private _parserRelated(type, related, condition) {
+    _.each(related, (r) => {
+      const method = getComponentStateMethod(r, type);
+      method(this.plot, condition);
+    });
   }
 }

@@ -62,7 +62,7 @@ export default class Theme {
     if (!g2Theme.legend) {
       g2Theme.legend = {};
     }
-    g2Theme.legend.margin = [0, 0, 0, 0];
+    // g2Theme.legend.margin = [0, 0, 0, 0];
     if (g2Theme.axis) {
       if (g2Theme.axis.x) {
         convert2G2Axis(g2Theme.axis.x);

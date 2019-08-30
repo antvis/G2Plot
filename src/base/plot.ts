@@ -118,19 +118,19 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   // 响应状态量更新的快捷方法
   public setActive(condition, style) {
-    this.stateController.setState('active', condition, style);
+    this.stateController.setState({ type: 'active', condition, style });
   }
 
   public setSelected(condition, style) {
-    this.stateController.setState('selected', condition, style);
+    this.stateController.setState({ type: 'selected', condition, style });
   }
 
   public setDisable(condition, style) {
-    this.stateController.setState('disable', condition, style);
+    this.stateController.setState({ type: 'disable', condition, style });
   }
 
   public setNormal(condition) {
-    this.stateController.setState('normal', condition, {});
+    this.stateController.setState({ type: 'normal', condition, style: {} });
   }
 
   protected abstract geometryParser(dim: string, type: string): string;

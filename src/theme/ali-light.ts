@@ -1,529 +1,518 @@
 import Theme from './theme';
 
 const commonConfig = {
-  defaultColor: '#718DFF',
-  colors: [
-    '#718DFF',
-    '#25DFD2',
-    '#B89BFF',
-    '#61D5FF',
-    '#FF9CE5',
-    '#7D8CDB',
-    '#8ABDE5',
-    '#FEB46D',
-    '#FFD76E',
-    '#FF8B8B',
+  defaultColor:'#FF7D4B',
+  colors:[
+    '#FF7D4B',
+    '#E05654',
+    '#BD8874',
+    '#E0873E',
+    '#F2A06A',
+    '#F2BB94',
+    '#E5999E',
+    '#AF677D',
+    '#B278A8',
+    '#7F5F9E',
   ],
-  backgroundStyle: {
-    fill: '#fff',
+  backgroundStyle:{
+    fill:'#fff',
   },
-  title: {
+  title:{
     /*tslint:disable*/
-    fontFamily:
-      "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
-    fontSize: 26,
-    fill: '#36415E',
+    fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+    fontSize:16,
+    fill:'#3C4454',
+    top_margin: 12,
   },
-  description: {
+  description:{
     /*tslint:disable*/
-    fontFamily:
-      "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
-    fontSize: 14,
-    fill: '#676e7f',
+    fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+    fontSize:12,
+    top_margin: 6,
+    bottom_margin: 0,
+    lineHeight: 12,
+    fill:'#9DA0A7',
   },
-  axis: {
-    y: {
-      grid: {
-        style: {
-          stroke: '#dbe2e9',
-        },
+  axis:{
+    y:{
+      grid:{
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      line: {
-        style: {
-          stroke: '#dbe2e9',
-        },
+      line:{
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      tickLine: {
-        style: {
-          stroke: '#dbe2e9',
-        },
+      tickLine:{
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      label: {
-        style: {
-          fill: '#8f9aa7',
-          fontSize: 12,
-        },
+      label:{
+        style:{
+            fill:'#8f9aa7',
+            fontSize:12,
+          },
       },
-      title: {
-        style: {
-          fill: '#8f9aa7',
-          fontSize: 12,
-        },
-      },
-    },
-    x: {
-      grid: {
-        visible: false,
-        style: {
-          stroke: '#dbe2e9',
-        },
-      },
-      line: {
-        visible: false,
-        style: {
-          stroke: '#dbe2e9',
-        },
-      },
-      tickLine: {
-        visible: true,
-        style: {
-          stroke: '#dbe2e9',
-        },
-      },
-      label: {
-        visible: true,
-        style: {
-          fill: '#8f9aa7',
-          fontSize: 12,
-        },
-      },
-      title: {
-        visible: false,
-        style: {
-          fill: '#8f9aa7',
-          fontSize: 12,
-        },
+      title:{
+        style:{
+            fill:'#8f9aa7',
+            fontSize:12,
+          },
       },
     },
-    circle: {
-      grid: {
-        style: {
-          stroke: '#dbe2e9',
-        },
+    x:{
+      grid:{
+        visible:false,
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      line: {
-        style: {
-          stroke: '#dbe2e9',
-        },
+      line:{
+        visible:false,
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      tickLine: {
-        style: {
-          stroke: '#dbe2e9',
-        },
+      tickLine:{
+        visible:true,
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      label: {
-        style: {
-          fill: '#8f9aa7',
-          fontSize: 12,
-        },
+      label:{
+        visible:true,
+        style:{
+            fill:'#8f9aa7',
+            fontSize:12,
+          },
       },
-      title: {
-        style: {
-          fill: '#8f9aa7',
-          fontSize: 12,
-        },
-      },
-    },
-  },
-  defaultLegendPosition: 'top-left',
-  shape: {
-    area: {
-      area: {
-        default: {
-          fill: '#718DFF',
-        },
-      },
-      smooth: {
-        default: {
-          fill: '#718DFF',
-        },
-      },
-      line: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      smoothLine: {
-        default: {
-          stroke: '#718DFF',
-        },
+      title:{
+        visible:false,
+        style:{
+            fill:'#8f9aa7',
+            fontSize:12,
+          },
       },
     },
-    box: {
-      box: {
-        default: {
-          stroke: '#718DFF',
-        },
+    circle:{
+      grid:{
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-    },
-    edge: {
-      line: {
-        default: {
-          stroke: '#718DFF',
-        },
+      line:{
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      vhv: {
-        default: {
-          stroke: '#718DFF',
-        },
+      tickLine:{
+        style:{
+            stroke:'#dbe2e9',
+          },
       },
-      smooth: {
-        default: {
-          stroke: '#718DFF',
-        },
+      label:{
+        style:{
+            fill:'#8f9aa7',
+            fontSize:12,
+          },
       },
-      arc: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-    },
-    interval: {
-      rect: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      hollowInterval: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      line: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      tick: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      funnel: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      pyramid: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      'top-line': {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-    },
-    kline: {
-      kline: {
-        default: {
-          fill: '#718DFF',
-          stroke: '#718DFF',
-        },
-      },
-    },
-    line: {
-      line: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      dot: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      dash: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      smooth: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hv: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      vh: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hvh: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      vhv: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-    },
-    polygon: {
-      polygon: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      hollow: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-    },
-    point: {
-      circle: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      square: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      bowtie: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      diamond: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      hexagon: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      triangle: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      triangleDown: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      hollowCircle: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hollowSquare: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hollowBowtie: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hollowDiamond: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hollowHexagon: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hollowTriangle: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hollowTriangleDown: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      cross: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      tick: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      plus: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      hyphen: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      line: {
-        default: {
-          stroke: '#718DFF',
-        },
-      },
-      rect: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      image: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-      path: {
-        default: {
-          fill: '#718DFF',
-          fillOpacity: 1,
-        },
-      },
-    },
-    text: {
-      text: {
-        default: {
-          fill: '#718DFF',
-        },
+      title:{
+        style:{
+            fill:'#8f9aa7',
+            fontSize:12,
+          },
       },
     },
   },
-  label: {
-    textStyle: {
-      fontSize: 12,
-      fill: '#8f9aa7',
+  defaultLegendPosition:'top-left',
+  shape:{
+    area:{
+      area:{
+        default:{
+            fill:'#FF7D4B',
+          },
+      },
+      smooth:{
+        default:{
+            fill:'#FF7D4B',
+          },
+      },
+      line:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      smoothLine:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+    },
+    box:{
+      box:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+    },
+    edge:{
+      line:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      vhv:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      smooth:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      arc:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+    },
+    interval:{
+      rect:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      hollowInterval:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      line:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      tick:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      funnel:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      pyramid:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      'top-line':{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+    },
+    kline:{
+      kline:{
+        default:{
+            fill:'#FF7D4B',
+            stroke:'#FF7D4B',
+          },
+      },
+    },
+    line:{
+      line:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      dot:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      dash:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      smooth:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hv:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      vh:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hvh:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      vhv:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+    },
+    polygon:{
+      polygon:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      hollow:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+    },
+    point:{
+      circle:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      square:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      bowtie:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      diamond:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      hexagon:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      triangle:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      triangleDown:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      hollowCircle:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hollowSquare:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hollowBowtie:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hollowDiamond:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hollowHexagon:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hollowTriangle:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hollowTriangleDown:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      cross:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      tick:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      plus:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      hyphen:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      line:{
+        default:{
+            stroke:'#FF7D4B',
+          },
+      },
+      rect:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      image:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+      path:{
+        default:{
+            fill:'#FF7D4B',
+            fillOpacity:1,
+          },
+      },
+    },
+    text:{
+      text:{
+        default:{
+            fill:'#FF7D4B',
+          },
+      },
+    },
+  },
+  label:{
+    textStyle:{
+      fontSize:12,
+      fill:'#8f9aa7',
       /*tslint:disable*/
-      fontFamily:
-        "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+      fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
     },
   },
-  treemapLabels: {
-    textStyle: {
-      fill: '#8f9aa7',
-      fontSize: 12,
+  treemapLabels:{
+    textStyle:{
+      fill:'#8f9aa7',
+      fontSize:12,
       /*tslint:disable*/
-      fontFamily:
-        "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+      fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
     },
   },
-  innerLabels: {
-    textStyle: {
-      fill: '#8f9aa7',
-      fontSize: 12,
+  innerLabels:{
+    textStyle:{
+      fill:'#8f9aa7',
+      fontSize:12,
       /*tslint:disable*/
-      fontFamily:
-        "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+      fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
     },
   },
-  legend: {
-    right: {
-      textStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+  legend:{
+    right:{
+      textStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
-      titleStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+      titleStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
     },
-    left: {
-      textStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+    left:{
+      textStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
-      titleStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+      titleStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
     },
-    top: {
-      textStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+    top:{
+      textStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
-      titleStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+      titleStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
     },
-    bottom: {
-      textStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+    bottom:{
+      textStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
-      titleStyle: {
-        fill: '#8f9aa7',
-        fontSize: 12,
+      titleStyle:{
+        fill:'#3C4454',
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
       },
     },
-    html: {
-      backgroundStyle: {
-        fontSize: 12,
+    html:{
+      backgroundStyle:{
+        fontSize:12,
         /*tslint:disable*/
-        fontFamily:
-          "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
-        color: '#8f9aa7',
+        fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+        color:'#8f9aa7',
       },
     },
   },
-  tooltip: {
-    useHtml: true,
-    'g2-tooltip': {
-      color: '#fff',
+  tooltip:{
+    useHtml:true,
+    'g2-tooltip':{
+      color:'#fff',
       boxShadow: null,
-      fontSize: '12px',
-      'background-color': 'rgba(77, 84, 105, 0.9)',
+      fontSize:'12px',
+      'background-color':'rgba(77, 84, 105, 0.9)',
       /*tslint:disable*/
-      fontFamily:
-        "'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
+      fontFamily:"'-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto,'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',SimSun, 'sans-serif'",
     },
   },
 };

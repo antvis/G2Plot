@@ -23,7 +23,7 @@ const PLOT_GEOM_MAP = {
 
 export interface BarConfig extends BaseConfig {
   // 图形
-  type?: 'rect' | 'triangle' | 'round';
+  type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
   barSize?: number;
   maxWidth?: number;

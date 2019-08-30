@@ -80,23 +80,6 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
 
   protected _coord() {}
 
-  /*protected _axis() {
-    const props = this._initialProps;
-    const axesConfig = { fields:{} };
-    const xAxis_parser = new AxisParser({
-      plot: this,
-      dim: 'x'
-    }).config;
-    const yAxis_parser = new AxisParser({
-      plot: this,
-      dim: 'y'
-    }).config;
-
-    axesConfig.fields[props.xField] = xAxis_parser;
-    axesConfig.fields[props.yField] = yAxis_parser;
-    this._setConfig('axes', axesConfig);
-  }*/
-
   protected _adjustColumn(column: ElementOption) {
     return;
   }

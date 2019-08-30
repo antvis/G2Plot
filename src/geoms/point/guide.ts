@@ -32,8 +32,11 @@ export default class GuidePointParser extends ElementParser {
     if (this._needParseAttribute('size')) {
       this.parseSize();
     }
-    if (this.style && this.style.shape) {
+    if (props.point && props.point.shape) {
       this.parseShape();
+    }
+    if (props.point.style) {
+      this.parseStyle();
     }
   }
 
@@ -44,8 +47,8 @@ export default class GuidePointParser extends ElementParser {
     if (mappingField) {
       this._parseColorByField(props, config, mappingField);
     } else {
-      if (this.style && this.style.color) {
-        config.values = [this.style.color];
+      if (props.point && props.point.color) {
+        config.values = [props.point.color];
       } else if (props.color) {
         this._parseColor(props, config);
       }
@@ -54,9 +57,10 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseSize() {
+    const props = this.plot._initialProps;
     const config: DataPointType = {};
-    if (this.style && this.style.size) {
-      config.values = [this.style.size];
+    if (props.point.size) {
+      config.values = [props.point.size];
     } else {
       // Point作为辅助图形没有在style里指定size属性的情况下，设置默认值
       config.values = [3];
@@ -73,11 +77,11 @@ export default class GuidePointParser extends ElementParser {
 
   private _parseColorByField(props, config, field) {
     config.fields = [field];
-    if (this.style && this.style.color) {
+    if (props.point.color) {
       const count = getValuesByField(field, props.data).length;
       const values = [];
       for (let i = 0; i < count; i++) {
-        values.push(this.style.color);
+        values.push(props.point.color);
       }
       config.values = values;
     } else if (props.color) {
@@ -96,7 +100,8 @@ export default class GuidePointParser extends ElementParser {
   }
 
   private _needParseAttribute(attr) {
-    const condition = !this.style || this.style[attr];
+    const props = this.plot._initialProps;
+    const condition = props.point && props.point[attr];
     return condition;
   }
 
@@ -106,5 +111,23 @@ export default class GuidePointParser extends ElementParser {
         return [props[m]];
       }
     }
+  }
+
+  public parseStyle() {
+    const props = this.plot._initialProps;
+    const styleProps = props.point && props.point.style;
+    const config = {
+      fields: null,
+      callback: null,
+      cfg: null,
+    };
+    const field = this._getColorMappingField(props);
+    if (_.isFunction(styleProps) && field) {
+      config.fields = [field];
+      config.callback = styleProps;
+    } else {
+      config.cfg = styleProps;
+    }
+    this.config.style = config;
   }
 }

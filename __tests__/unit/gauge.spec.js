@@ -28,6 +28,7 @@ describe('Gauge plot', () => {
       range: [20, 40, 60, 80],
       label: true,
       // label: (value, formatted) => `<div>${value}+++${formatted}</div>`,
+      // label: (value, formatted) => {const a = document.createElement("div"); a.innerText = `${formatted}`; return a;},
       format: (d) => `[${d}]`,
       gaugeStyle: {
         // colors: [ '#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864' ],

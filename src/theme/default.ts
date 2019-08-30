@@ -7,7 +7,7 @@ const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   return 24;
 };
 
-const TOP_PADDING = function(props) {
+const TOP_BLEEDING = function(props) {
   if (props.title || props.description) {
     return 16;
   }
@@ -17,12 +17,10 @@ const TOP_PADDING = function(props) {
 const commonTheme = {
   width: 400,
   height: 400,
-  defaultPadding: [TOP_PADDING, 24, 24, 24],
+  bleeding: [TOP_BLEEDING, 24, 24, 24],
   padding: 'auto',
   title: {
-    topMargin: 24,
-    leftMargin: 24,
-    rightMargin: 24,
+    padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
     fontWeight: 'bold',
@@ -33,10 +31,7 @@ const commonTheme = {
     alignWithAxis: false,
   },
   description: {
-    topMargin: 20,
-    bottomMargin: DESCRIPTION_BOTTOM_MARGIN,
-    leftMargin: 24,
-    rightMargin: 24,
+    padding: [20, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
     fontFamily: 'PingFang SC',
     fontSize: 12,
     fill: 'grey',
@@ -85,7 +80,7 @@ const commonTheme = {
       },
       title: {
         visible: false,
-        offset: 20,
+        offset: 12,
         style: {
           fill: '#595959',
           fontSize: 12,
@@ -128,7 +123,7 @@ const commonTheme = {
       },
       title: {
         visible: false,
-        offset: 10,
+        offset: 12,
         style: { fill: '#595959', fontSize: 12 },
       },
     },
@@ -166,54 +161,20 @@ const commonTheme = {
         },
       },
       title: {
-        offset: 20,
+        offset: 12,
         style: { fill: '#767b84', fontSize: 12 },
       },
     },
   },
   legend: {
+    flipPage: false,
     position: 'bottom-center',
     // 距离panelRange的距离
-    innerPadding: [16, 12, 16, 12],
+    innerPadding: [16, 16, 16, 16],
   },
 };
 
 const theme = new Theme('default');
 theme.registerGlobalTheme(commonTheme);
-// theme.registerPlotTheme('bar', {
-//   axis: {
-//     x: {
-//       visible: false,
-//       position: 'top',
-//       line: {
-//         visible: false
-//       },
-//     },
-//     y: {
-//       visible: false,
-//       line: {
-//         visible: false,
-//       },
-//     }
-//   }
-// });
-
-// theme.registerPlotTheme('column', {
-//   axis: {
-//     x: {
-//       visible: false,
-//       position: 'top',
-//       line: {
-//         visible: false
-//       },
-//     },
-//     y: {
-//       visible: false,
-//       line: {
-//         visible: false,
-//       },
-//     }
-//   }
-// });
 
 export default theme;

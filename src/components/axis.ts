@@ -94,7 +94,7 @@ export default class AxisParser {
   }
 
   private _titleParser() {
-    const titleConfig: DataPointType = {};
+    const titleConfig: DataPointType = { ...this.localProps.title };
 
     if (!this.localProps.title.visible) {
       this.config.showTitle = false;

@@ -12,12 +12,12 @@ export default class LabelParser {
 
   private _init(cfg) {
     _.assign(this.config, cfg);
-    this.config.callback = (...args: any[]) => {
-      return this._parseCallBack(...args);
+    this.config.callback = (val) => {
+      return this._parseCallBack(val);
     };
   }
 
-  private _parseCallBack(...args: any[]) {
+  private _parseCallBack(val) {
     const labelProps = this.plot._initialProps.label;
     const config: DataPointType = {};
     this._parseOffset(labelProps, config);
@@ -25,7 +25,7 @@ export default class LabelParser {
       config.position = labelProps.position;
     }
     if (labelProps.formatter) {
-      config.formatter = labelProps.formatter;
+      config.content = labelProps.formatter(val);
     }
     if (labelProps.style) {
       config.textStyle = labelProps.style;
@@ -37,7 +37,7 @@ export default class LabelParser {
     const mapper = ['offset', 'offsetX', 'offsetY'];
     let count = 0;
     _.each(mapper, (m) => {
-      if (props[m]) {
+      if (_.has(props, m)) {
         config[m] = props[m];
         count++;
       }

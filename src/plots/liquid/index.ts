@@ -1,8 +1,10 @@
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption } from '../../interface/config';
+import { extractScale } from '../../util/scale';
 
 import './element/shape/liquid';
+import './theme';
 
 interface LiquidStyle {
   color?: string;
@@ -14,13 +16,21 @@ interface LiquidStyle {
   size?: number;
 }
 
+const G2_GEOM_MAP = {
+  liquid: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'liquid',
+};
+
 export interface LiquidConfig extends BaseConfig {
   type?: 'normal' | 'percent';
   min?: number;
   max?: number;
   value?: number;
   showValue?: boolean;
-  format?: (...args: any[]) => void;
+  format?: (...args: any[]) => string;
   liquidStyle?: LiquidStyle;
 }
 
@@ -29,46 +39,57 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     super(container, config);
   }
 
-  protected _beforeInit() {
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
+  }
+
+  protected setType() {
     this.type = 'liquid';
   }
 
-  protected _setDefaultG2Config() {
-    const { value, liquidStyle = {}, type = 'normal' } = this._initialProps;
-    const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
+  protected _getStyleMix(valueText) {
+    const { liquidStyle = {} } = this._initialProps;
     const { width, height } = this._config.panelRange;
+    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, liquidStyle).borderWidth;
+    const defaultStyle = Object.assign({}, this.plotTheme, {
+      fontSize: this._autoFontSize(size, valueText),
+      size,
+    });
+    return Object.assign(defaultStyle, liquidStyle);
+  }
+
+  protected _setDefaultG2Config() {
+    const { value, type = 'normal' } = this._initialProps;
+    const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
 
     const valueText = this._valueText(type, value, format, min, max);
-    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, liquidStyle).borderWidth;
-    const defaultStyle = {
-      color: '#3B76FF',
-      borderWidth: 10,
-      borderOpacity: 0.2,
-      fontSize: this._autoFontSize(size, valueText),
-      fontColor: '#233F7E',
-      fontOpacity: 1,
-      size,
-    };
-    this._initialProps.styleMix = Object.assign(defaultStyle, liquidStyle);
+    const styleMix = this._getStyleMix(valueText);
+    this._initialProps.styleMix = styleMix;
     this._initialProps.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];
     this._initialProps.valueText = valueText;
+    this._initialProps.min = min;
+    this._initialProps.max = max;
     this._initialProps.format = format;
   }
 
   protected _scale() {
-    super._scale();
-    const { min = 0, max = 1, format = (d) => `${d}` } = this._initialProps;
+    const { min, max, format } = this._initialProps;
     const scales = {
-      value: {
-        min,
-        // min max 相等时避免0值在中间
-        max: min !== max ? max : max + 1,
-        format,
-        nice: false,
-      },
+      value: {},
     };
+    extractScale(scales.value, {
+      min,
+      // min max 相等时避免0值在中间
+      max: min !== max ? max : max + 1,
+      format,
+      nice: false,
+    });
     // @ts-ignore
     this._setConfig('scales', scales);
+    super._scale();
   }
 
   protected _coord() {}
@@ -77,7 +98,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     const axesConfig = {
       fields: {
         value: false,
-        1: false,
+        '1': false,
       },
     };
     this._setConfig('axes', axesConfig);

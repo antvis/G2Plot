@@ -33,10 +33,8 @@ export default class IntervalParser extends ElementParser {
       if (_.isString(props.color)) {
         config.values = [props.color];
       } else if (_.isFunction(props.color)) {
-        config.fields = colorField;
         config.callback = props.color;
       } else if (_.isArray(props.color)) {
-        config.fields = colorField;
         config.values = props.color;
       } else if (_.isObject(props.color)) {
         config.fields = colorField;
@@ -78,7 +76,7 @@ export default class IntervalParser extends ElementParser {
   }
 
   private _getStyleProps(props) {
-    const sizeMapper = ['columnStyle', 'barStyle', 'pieStyle'];
+    const sizeMapper = ['columnStyle', 'barStyle', 'pieStyle', 'ringStyle'];
     for (const m of sizeMapper) {
       if (_.get(props, m)) {
         return m;
@@ -95,7 +93,6 @@ export default class IntervalParser extends ElementParser {
         return [props[m]];
       }
     }
-    return this.config.position.fields;
   }
 
   private _needParserColor() {

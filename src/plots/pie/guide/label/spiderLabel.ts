@@ -40,6 +40,8 @@ export default class SpiderLabel {
   private container: Group;
   private config: IAttrs;
   private formatter: (...args: any[]) => string;
+  private width: number;
+  private height: number;
 
   constructor(cfg) {
     this.view = cfg.view;
@@ -61,21 +63,22 @@ export default class SpiderLabel {
     const angleField = this.fields[0];
     const scale = this.view.get('scales')[angleField];
     const { center, radius, startAngle } = coord;
-    const width = this.view.get('width');
-    const height = this.view.get('height');
+    const { width, height } = this.view.get('panelRange');
+    this.width = width;
+    this.height = height;
     let angle = startAngle;
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < data.length; i++) {
       const d = data[i];
-      /** 计算每个切片的middle angle */
+      // 计算每个切片的middle angle
       const angleValue = scale.scale(d[angleField]);
       const targetAngle = angle + Math.PI * 2 * angleValue;
       const middleAngle = angle + (targetAngle - angle) / 2;
       angle = targetAngle;
-      /** 根据middle angle计算锚点和拐点距离 */
+      // 根据middle angle计算锚点和拐点距离
       const anchorPoint = getEndPoint(center, middleAngle, radius + ANCHOR_OFFSET);
       const inflectionPoint = getEndPoint(center, middleAngle, radius + INFLECTION_OFFSET);
-      /** 获取对应shape的color */
+      // 获取对应shape的color
       let color = DEFAULT_COLOR;
       if (this.fields.length === 2) {
         const colorField = this.fields[1];
@@ -84,7 +87,7 @@ export default class SpiderLabel {
         const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
         color = shapes[shapeIndex].attr('fill');
       }
-      /** 组装label数据 */
+      // 组装label数据
       const label = {
         _anchor: anchorPoint,
         _inflection: inflectionPoint,
@@ -96,7 +99,7 @@ export default class SpiderLabel {
         textGroup: null,
         _side: null,
       };
-      /** 创建label文本 */
+      // 创建label文本
       const textGroup = new Group();
       const textAttrs: IAttrs = {
         x: 0,
@@ -105,12 +108,11 @@ export default class SpiderLabel {
         lineHeight: this.config.text.fontSize,
         fill: this.config.text.fill,
       };
-      /** label1:下部label */
+      // label1:下部label
       let lowerText = d[angleField];
       if (this.formatter) {
         lowerText = this.formatter(lowerText);
       }
-
       textGroup.addShape('text', {
         attrs: _.mix(
           {
@@ -273,7 +275,7 @@ export default class SpiderLabel {
   }
 
   private _drawLabel(label) {
-    const width = this.view.get('width');
+    const width = this.width;
     const { y, textGroup } = label;
     const children = textGroup.get('children');
     const textAttrs = {
@@ -290,11 +292,10 @@ export default class SpiderLabel {
   }
 
   private _drawLabelLine(label, maxLabelWidth) {
-    const canvasWidth = this.view.get('width');
     const _anchor = [label._anchor.x, label._anchor.y];
     const _inflection = [label._inflection.x, label._inflection.y];
     const { fill, y } = label;
-    const lastPoint = [label._side === 'left' ? this.config.sidePadding : canvasWidth - this.config.sidePadding, y];
+    const lastPoint = [label._side === 'left' ? this.config.sidePadding : this.width - this.config.sidePadding, y];
 
     let points = [_anchor, _inflection, lastPoint];
     if (_inflection[1] !== y) {

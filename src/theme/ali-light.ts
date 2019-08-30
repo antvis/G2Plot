@@ -531,4 +531,26 @@ const commonConfig = {
 const theme = new Theme('ali-light');
 theme.registerGlobalTheme(commonConfig);
 
+theme.registerPlotTheme('liquid', {
+  color: '#FEB46D',
+  borderWidth: 10,
+  borderOpacity: 0.2,
+  fontColor: '#7E340D',
+  fontOpacity: 1,
+});
+
+theme.registerPlotTheme('gauge', {
+  stripWidth: 30,
+  stripBackColor: '#ddd',
+  tickInterval: 20,
+  tickLabelPos: 'inner',
+  tickLabelSize: 16,
+  tickLabelColor: '#aaa',
+  tickLineColor: '#aaa',
+  subTickCount: 4,
+  labelPos: ['50%', '80%'],
+  labelColor: '#666',
+  labelSize: 30,
+});
+
 export default theme;

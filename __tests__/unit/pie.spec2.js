@@ -2,8 +2,8 @@ import { Pie } from '../../src';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '300px';
-  canvasDiv.style.height = '300px';
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '600px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
@@ -66,12 +66,19 @@ describe('Pie plot', () => {
     ];
 
     const pie = new Pie(canvasDiv, {
-      width: 300,
-      height: 300,
+      width: 600,
+      height: 600,
       data: data2,
       label: {
-        type: 'spider',
+        type: 'inner',
         visible: true,
+        formatter:()=>{
+          return 'test';
+        },
+        style:{
+          fontSize: 30,
+          fill:'red'
+        }
       },
       tooltip: {
         visible: false,
@@ -81,12 +88,11 @@ describe('Pie plot', () => {
       padding: 'auto',
       animation: false,
       radius: 1,
-      innerRadius: 0.5,
       title: {
-        text: '环图',
+        text: '饼图',
       },
       description: {
-        text: '一个简单的环图',
+        text: '一个简单的饼图',
       },
       legend: {
         visible: true,

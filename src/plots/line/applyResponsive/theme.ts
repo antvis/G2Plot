@@ -12,5 +12,3 @@ const lineTheme = _.deepMix({}, defaultTheme, {
   },
 });
 registerResponsiveTheme('line', lineTheme);
-
-export default lineTheme;

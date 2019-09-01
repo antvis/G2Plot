@@ -12,6 +12,9 @@ function onActive(plot, condition) {
       if (compare(d, condition)) {
         const point = plot.plot.getXY(d);
         // 调用showTooltip方法
+        plot.plot.on('tooltip:create', (e) => {
+          processState(condition,e,false);
+        });
         plot.plot.showTooltip(point);
       }
     });
@@ -20,16 +23,22 @@ function onActive(plot, condition) {
 
 function onDisable(plot, condition) {
   plot.plot.on('tooltip:change', (e) => {
-    const originItems = _.clone(e.items);
+    processState(condition,e,true);
+  });
+}
+
+function processState(condition,e,inverse){
+  const expected = inverse ? false : true;
+  const originItems = _.clone(e.items);
     e.items.splice(0);
     _.each(originItems, (item) => {
       const origin = item.point._origin;
-      if (!compare(origin, condition)) {
+      if (compare(origin, condition) ===  expected) {
         e.items.push(item);
       }
     });
-  });
 }
+
 
 function shouldActive(props, condition) {
   const fields = getPositionField(props);

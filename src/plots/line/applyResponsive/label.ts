@@ -1,9 +1,10 @@
 import * as _ from '@antv/util';
-import responsiveTheme from '../../../theme/responsive';
+// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 import ShapeNodes from '../../../util/responsive/shapeNodes';
 
 export default function responsivePointLabel(plot) {
+  const responsiveTheme = plot.themeController.responsiveTheme;
   /** 判断是否应用响应式规则 */
   if (isPointLabel(plot)) {
     const labelShapes = plot.plot.get('elements')[0].get('labels');

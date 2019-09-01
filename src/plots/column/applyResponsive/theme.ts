@@ -33,5 +33,3 @@ const columnTheme = _.deepMix({}, defaultTheme, {
   },
 });
 registerResponsiveTheme('column', columnTheme);
-
-export default columnTheme;

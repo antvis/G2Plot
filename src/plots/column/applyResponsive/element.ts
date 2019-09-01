@@ -1,12 +1,13 @@
 import { getCoord } from '@antv/coord';
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
-import responsiveTheme from '../../../theme/responsive';
+// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 import VariableNodes from '../../../util/responsive/variableNode';
 
 export default function responsiveColumn(plot) {
   const props = plot._initialProps;
+  const responsiveTheme = plot.themeController.responsiveTheme;
   /** 有几个column */
   const columnNum = getFieldNumber(props.data, props.xField);
   /** 创建coord */
@@ -23,7 +24,7 @@ export default function responsiveColumn(plot) {
   const nodes = new VariableNodes({
     nodes: [{ name: 'width', value: 0 }],
   });
-  const { constraints } = responsiveTheme.element.column;
+  const { constraints } = responsiveTheme.column;
   new Responsive({
     nodes,
     constraints,

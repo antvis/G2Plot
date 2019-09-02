@@ -7,6 +7,7 @@ import { extractScale } from '../../util/scale';
 import './animation/clipInWithData';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
+import './applyResponsive/theme';
 import * as EventParser from './event';
 import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
 import './guide/label/line-label';

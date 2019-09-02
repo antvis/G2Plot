@@ -31,7 +31,7 @@ const commonTheme = {
     alignWithAxis: false,
   },
   description: {
-    padding: [20, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
+    padding: [10, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
     fontFamily: 'PingFang SC',
     fontSize: 12,
     fill: 'grey',

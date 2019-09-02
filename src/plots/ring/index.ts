@@ -2,6 +2,7 @@ import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import PiePlot, { PieConfig } from '../pie/index';
 import responsiveMethods from './applyResponsive/index';
+import './applyResponsive/theme';
 import * as centralTextTemplate from './guide/annotation/centralText_template';
 
 export interface RingConfig extends PieConfig {

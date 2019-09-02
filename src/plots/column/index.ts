@@ -6,6 +6,7 @@ import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } fro
 import { extractScale } from '../../util/scale';
 import '../column/guide/label/column-label';
 import responsiveMethods from './applyResponsive/index';
+import './applyResponsive/theme';
 import './theme';
 
 interface ColumnStyle {

@@ -2,6 +2,7 @@ import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import Theme from '../../theme';
 import { processAxisVisible } from '../../util/axis';
+import { getResponsiveTheme } from '../../util/responsive/theme';
 
 /**
  * 负责图表theme的管理
@@ -12,6 +13,7 @@ const G2DefaultTheme = G2.Global.theme;
 export default class ThemeController {
   public plotTheme: any;
   public theme: any;
+  public responsiveTheme: any;
   private plot: any;
 
   constructor(cfg) {
@@ -22,6 +24,7 @@ export default class ThemeController {
   private _init() {
     this.plotTheme = this._getTheme();
     this.theme = this._G2ThemeParser();
+    this.responsiveTheme = this._getResponsiveTheme();
   }
 
   private _getTheme() {
@@ -54,5 +57,10 @@ export default class ThemeController {
     processAxisVisible(theme.axis.top);
     processAxisVisible(theme.axis.bottom);
     return theme;
+  }
+
+  private _getResponsiveTheme(){
+     const type = this.plot.type;
+     return getResponsiveTheme(type) || getResponsiveTheme('default');
   }
 }

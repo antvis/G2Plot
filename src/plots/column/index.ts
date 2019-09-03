@@ -113,14 +113,12 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     }
   }
 
-  protected _afterInit() {
-    super._afterInit();
+  protected _afterRender() {
+    super._afterRender();
     const props = this._initialProps;
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
-      this.plot.once('afterrender', () => {
-        this._applyResponsive('afterRender');
-      });
+      this._applyResponsive('afterRender');
     }
   }
 

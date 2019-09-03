@@ -191,12 +191,6 @@ export default class Line extends BasePlot<LineConfig> {
   protected _afterInit() {
     super._afterInit();
     const props = this._initialProps;
-    // 响应式
-    if (props.responsive && props.padding !== 'auto') {
-      this.plot.once('afterrender', () => {
-        this._applyResponsive('afterRender');
-      });
-    }
     // 时间子母轴
     if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
       const xAxis = props.xAxis as ITimeAxis;
@@ -205,6 +199,15 @@ export default class Line extends BasePlot<LineConfig> {
         field: props.xField,
         groupDim: xAxis.groupBy,
       });
+    }
+  }
+
+  protected _afterRender(){
+    super._afterRender();
+    const props = this._initialProps;
+     // 响应式
+     if (props.responsive && props.padding !== 'auto') {
+        this._applyResponsive('afterRender');
     }
   }
 

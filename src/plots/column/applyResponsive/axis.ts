@@ -16,10 +16,7 @@ export default function responsiveAxis(plot) {
 
 function responsiveXAxis(plot, props, responsiveTheme) {
   const axis = plot.plot.get('axisController').axes[0];
-  const rawLabels = axis
-    .get('labelRenderer')
-    .get('group')
-    .get('children');
+  const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
   for (let i = 0; i < rawLabels.length - 1; i++) {
     shapes.push(rawLabels[i]);
@@ -42,10 +39,7 @@ function responsiveXAxis(plot, props, responsiveTheme) {
 
 function responsiveYaxis(plot, props, responsiveTheme) {
   const axis = plot.plot.get('axisController').axes[1];
-  const rawLabels = axis
-    .get('labelRenderer')
-    .get('group')
-    .get('children');
+  const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
   for (let i = 0; i < rawLabels.length - 1; i++) {
     shapes.push(rawLabels[i]);

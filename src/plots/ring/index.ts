@@ -106,8 +106,8 @@ export default class RingPlot extends PiePlot<RingConfig> {
     };
     /** 中心文本内容 */
     let displayData;
-    if (config.formatter) {
-      displayData = config.formatter();
+    if (config.content) {
+      displayData = config.content;
     } else {
       /** 用户没有指定文本内容时，默认显示第一条数据 */
       const data = props.data[0];

@@ -16,7 +16,7 @@ export default function responsiveLabel(plot) {
       shapes: labelShapes,
     });
     const region = plot.plot.get('panelRange');
-    const { constraints, rules } = responsiveTheme.labels.column;
+    const { constraints, rules } = responsiveTheme.label;
     new Responsive({
       nodes,
       constraints,

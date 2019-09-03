@@ -12,7 +12,7 @@ export default function responsivePointLabel(plot) {
       shapes: labelShapes,
     });
     const tolerance = getGlobalTolerance(nodes.nodes);
-    const { constraints, rules } = responsiveTheme.labels.line;
+    const { constraints, rules } = responsiveTheme.label;
     new Responsive({
       nodes,
       constraints,

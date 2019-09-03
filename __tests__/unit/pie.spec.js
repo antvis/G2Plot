@@ -194,14 +194,11 @@ describe('Pie plot', () => {
       angleField: 'value',
       colorField: 'type',
       label: {
+        visible: true,
         type: 'spider',
         style: {
-          lineWidth: 2,
-          text: {
-            fontSize: 14,
-            fill: '#ccc',
-          },
-          anchorSize: 3,
+          fontSize: 14,
+          fill: '#ccc',
         },
       },
     });
@@ -213,7 +210,6 @@ describe('Pie plot', () => {
     expect(labelShapes[0].get('children')[0].attr('text')).to.be.equal(5);
     expect(labelShapes[0].get('children')[1].attr('text')).to.be.equal('Other');
     expect(labelShapes[0].get('children')[1].attr('fill')).to.be.equal('#ccc');
-    expect(labelShapes[1].attr('lineWidth')).to.be.equal(2);
     expect(labelShapes[1].attr('stroke')).to.be.equal(shapes[shapes.length - 1].attr('fill'));
     piePlot.destroy();
   });

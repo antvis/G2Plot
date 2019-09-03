@@ -40,6 +40,8 @@ export default class SpiderLabel {
   private container: Group;
   private config: IAttrs;
   private formatter: (...args: any[]) => string;
+  private offsetX: number;
+  private offsetY: number;
   private width: number;
   private height: number;
 
@@ -47,7 +49,13 @@ export default class SpiderLabel {
     this.view = cfg.view;
     this.fields = cfg.fields;
     this.formatter = cfg.formatter;
-    this.config = _.assign(getDefaultCfg(), cfg.style);
+    this.offsetX = cfg.offsetX;
+    this.offsetY = cfg.offsetY;
+    // this.config = _.assign(getDefaultCfg(), cfg.style);
+    this.config = getDefaultCfg();
+    if(cfg.style){
+      this.config.text = _.mix(this.config.text,cfg.style);
+    }
     this._adjustConfig(this.config);
     this._init();
   }
@@ -100,6 +108,17 @@ export default class SpiderLabel {
         _side: null,
       };
       // 创建label文本
+      let texts = [];
+      _.each(this.fields,(f)=>{
+        texts.push(d[f]);
+      });
+      if(this.formatter){
+        let formatted:any = this.formatter(...texts);
+        if(_.isString(formatted)){
+          formatted = [ formatted ];
+        }
+        texts = formatted;
+      }
       const textGroup = new Group();
       const textAttrs: IAttrs = {
         x: 0,
@@ -111,7 +130,7 @@ export default class SpiderLabel {
       // label1:下部label
       let lowerText = d[angleField];
       if (this.formatter) {
-        lowerText = this.formatter(lowerText);
+        lowerText = texts[0];
       }
       textGroup.addShape('text', {
         attrs: _.mix(
@@ -131,7 +150,7 @@ export default class SpiderLabel {
           attrs: _.mix(
             {
               textBaseline: 'bottom',
-              text: d[this.fields[1]],
+              text: texts[1]
             },
             textAttrs
           ),
@@ -278,14 +297,22 @@ export default class SpiderLabel {
     const width = this.width;
     const { y, textGroup } = label;
     const children = textGroup.get('children');
+    const x_dir = label._side === 'left' ? 1 : -1;
+
     const textAttrs = {
-      textAlign: label._side === 'left' ? 'left' : 'right',
+      textAlign: label._side,
       x: label._side === 'left' ? this.config.sidePadding : width - this.config.sidePadding,
     };
 
+    if(this.offsetX){
+      textAttrs.x += this.offsetX * x_dir;
+    }
+
     children.forEach((child) => {
+      const offsetY = child.get('offsetY');
+      const yPosition = this.offsetY ? y+offsetY*this.offsetY : y;
       child.attr(textAttrs);
-      child.attr('y', y + child.get('offsetY'));
+      child.attr('y', yPosition);
     });
 
     return textGroup;

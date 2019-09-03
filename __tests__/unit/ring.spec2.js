@@ -56,9 +56,10 @@ describe('ring plot', () => {
       innerRadius: 0.6,
       angleField: 'value',
       colorField: 'type',
-      /* label: {
+      label: {
+        visible: true,
         type: 'spider',
-      },*/
+      },
       legend: {
         position: 'top-left'
       },

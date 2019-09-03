@@ -69,16 +69,9 @@ describe('Pie plot', () => {
       width: 600,
       height: 600,
       data: data2,
-      label: {
-        type: 'inner',
+      label: {  
         visible: true,
-        formatter:()=>{
-          return 'test';
-        },
-        style:{
-          fontSize: 30,
-          fill:'red'
-        }
+        type: 'spider',
       },
       tooltip: {
         visible: false,

@@ -103,7 +103,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     super._afterInit();
     const props = this._initialProps;
     /** 蜘蛛布局label */
-    if (props.label) {
+    if (props.label && props.label.visible) {
       const labelConfig = props.label as Label;
       if (labelConfig.type === 'spider') {
         const spiderLabel = new SpiderLabel({
@@ -111,6 +111,8 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
           fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
           style: labelConfig.style ? labelConfig.style : {},
           formatter: props.label.formatter ? props.label.formatter : false,
+          offsetX: props.label.offsetX,
+          offsetY: props.label.offsetY
         });
         this.spiderLabel = spiderLabel;
       }

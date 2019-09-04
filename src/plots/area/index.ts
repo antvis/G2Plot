@@ -5,8 +5,8 @@ import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } fro
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import * as StyleParser from '../../util/styleParser';
+import * as EventParser from './event';
 import './theme';
-// import './guide/label/bar-label';
 
 interface AreaStyle {
   opacity?: number;
@@ -210,5 +210,9 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       const theme = this._config.theme;
       StyleParser.LabelStyleParser(theme, label.style);
     }
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 }

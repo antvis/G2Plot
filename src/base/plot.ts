@@ -58,6 +58,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
 
   /** 自定义组件参与padding */
@@ -106,9 +109,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
-    this.plot.on('afterrender', () => {
-      this._afterRender();
-    });
   }
 
   // 绑定一个外部的stateManager

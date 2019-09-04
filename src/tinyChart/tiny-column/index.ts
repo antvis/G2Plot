@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import TinyPlot from '../tinyPlot';
+import * as EventParser from './event';
 
 const WIDTH_RATIO = 0.6;
 
@@ -30,6 +31,10 @@ export default class TinyColumn extends TinyPlot {
       plot: this,
     });
     this._setConfig('element', column);
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   private _processProps() {

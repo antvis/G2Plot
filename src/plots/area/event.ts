@@ -2,8 +2,16 @@ import * as _ from '@antv/util';
 import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const SHAPE_EVENT_MAP: IEventmap = {
+  onAreaClick: 'area:click',
+  onAreaDblclick: 'area:dblclick',
+  onAreaMousemove: 'area:mousemove',
+  onAreaMouseenter: 'area:mouseenter',
+  onAreaMouseleave: 'area:mouseleave',
+  onAreaMousedown: 'area:mousedown',
+  onAreaMouseup: 'area:mouseup',
+  onAreaContextmenu: 'area:contextmenu',
   onLineClick: 'line:click',
-  onLineDoubleclick: 'line:dblclick',
+  onLineDblclick: 'line:dblclick',
   onLineMousemove: 'line:mousemove',
   onLineMouseenter: 'line:mouseenter',
   onLineMouseleave: 'line:mouseleave',

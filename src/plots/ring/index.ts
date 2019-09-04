@@ -3,6 +3,7 @@ import * as _ from '@antv/util';
 import PiePlot, { PieConfig } from '../pie/index';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
+import * as EventParser from './event';
 import * as centralTextTemplate from './guide/annotation/centralText_template';
 
 export interface RingConfig extends PieConfig {
@@ -76,6 +77,10 @@ export default class RingPlot extends PiePlot<RingConfig> {
       });
       this._setConfig('annotations', annotationConfigs);
     }
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   protected _afterInit() {

@@ -3,6 +3,7 @@ import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import Progress from '../progress';
 import {getAngle,setShapeInfo} from './animation/index';
+import * as EventParser from './event';
 
 export default class RingProgress extends Progress {
   public ring: any;
@@ -76,6 +77,10 @@ export default class RingProgress extends Progress {
         duration: 1000,
       },
     };
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   private _getThickness() {

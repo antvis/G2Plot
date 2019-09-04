@@ -7,6 +7,7 @@ import { extractScale } from '../../util/scale';
 import '../column/guide/label/column-label';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
+import * as EventParser from './event';
 import './theme';
 
 interface ColumnStyle {
@@ -111,6 +112,10 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
       /** 关闭动画 */
       this.column.animate = false;
     }
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   protected _afterRender() {

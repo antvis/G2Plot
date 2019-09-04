@@ -2,7 +2,7 @@ import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import Progress from '../progress';
-import './animation/index';
+import {getAngle,setShapeInfo} from './animation/index';
 
 export default class RingProgress extends Progress {
   public ring: any;
@@ -22,6 +22,20 @@ export default class RingProgress extends Progress {
   protected _beforeInit() {
     super._beforeInit();
     this.type = 'tinyRingProgress';
+  }
+
+  protected _afterRender(){
+    super._afterRender();
+    const coord = this.plot.get('coord');
+    // 缓存图形
+    const geoms = this.plot.get('elements');
+    _.each(geoms,(geom)=>{
+      const shapes = geom.getShapes();
+      _.each(shapes,(shape)=>{
+        const { startAngle, endAngle } = getAngle(shape, coord);
+        setShapeInfo(shape, startAngle, endAngle);
+      });
+    });
   }
 
   protected _coord() {

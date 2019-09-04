@@ -3,7 +3,7 @@ import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/config';
+import BaseConfig, { Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import SpiderLabel from './guide/label/spiderLabel';

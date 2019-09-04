@@ -5,6 +5,7 @@ import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
+import * as EventParser from './event';
 import './guide/label/bar-label';
 import './theme';
 
@@ -152,4 +153,9 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
     return labelConfig;
   }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
+  }
+  
 }

@@ -30,7 +30,7 @@
     "lint-fix:tslint": "tslint -c tslint.json --fix 'src/**/*.ts'",
     "coverage": "exit 0",
     "test": "torch -t 5000 --compile --renderer --recursive ./__tests__/unit",
-    "test-live": "torch --compile --interactive ./__tests__/unit/ring.spec2.js",
+    "test-live": "torch --compile --interactive ./__tests__/unit",
     "ci": "run-s lint-check build test"
   },
   "husky": {

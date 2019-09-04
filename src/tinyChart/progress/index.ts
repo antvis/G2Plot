@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import TinyPlot, { TinyConfig } from '../tinyPlot';
+import * as EventParser from './event';
 
 interface TinyProgressCfg extends TinyConfig {
   stackField?: number;
@@ -64,6 +65,10 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
       },
     ];
     this._setConfig('element', bar);
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   private processData() {

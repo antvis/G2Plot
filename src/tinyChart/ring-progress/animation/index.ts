@@ -3,7 +3,7 @@ import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
 
 // 记录之前的状态
-const preState: any = {};
+const preShapeInfo: any = {};
 
 /** 更新动画 */
 function progressUpdate(shape, animateCfg, coord) {
@@ -12,14 +12,13 @@ function progressUpdate(shape, animateCfg, coord) {
   const uniform: any = {};
   const index = shape.get('index');
   const { startAngle, endAngle } = getAngle(shape, coord);
-  if (preState[shape.id]) {
-    const { preStart, preEnd, prePath } = getState(shape);
+  if (preShapeInfo[shape.id]) {
+    const { preStart, preEnd, prePath } = getShapeInfo(shape);
     const anchor = getAnchor(preStart, startAngle);
     const direction = getDirection(preStart, preEnd, startAngle, endAngle);
     if (direction === 'antiClockWise') {
       shape.attr('path', prePath);
     }
-
     if (anchor === 'start') {
       clip = createClip(coord, startAngle, preEnd);
       uniform.endAngle = endAngle;
@@ -55,20 +54,20 @@ function progressUpdate(shape, animateCfg, coord) {
     clip.animate(uniform, animateCfg.duration, easing, animateCfg.callback, delay);
   }
 
-  setState(shape, startAngle, endAngle);
+  setShapeInfo(shape, startAngle, endAngle);
 }
 
-export function setState(shape, start, end) {
-  if (!preState[shape.id]) {
-    preState[shape.id] = {};
+export function setShapeInfo(shape, start, end) {
+  if (!preShapeInfo[shape.id]) {
+    preShapeInfo[shape.id] = {};
   }
-  preState[shape.id].preStart = start;
-  preState[shape.id].preEnd = end;
-  preState[shape.id].prePath = shape.attr('path');
+  preShapeInfo[shape.id].preStart = start;
+  preShapeInfo[shape.id].preEnd = end;
+  preShapeInfo[shape.id].prePath = shape.attr('path');
 }
 
-function getState(shape) {
-  return preState[shape.id] || null;
+function getShapeInfo(shape) {
+  return preShapeInfo[shape.id] || null;
 }
 
 /**

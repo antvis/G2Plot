@@ -198,7 +198,7 @@ describe('主题测试', () => {
   it('全局主题 默认色', () => {
     // Theme.setTheme('test-light');
 
-    Theme.setTheme('ant-dark');
+    Theme.setTheme('ali-dark');
 
     const piePlot = new Pie(canvasDiv, {
       data: data2,

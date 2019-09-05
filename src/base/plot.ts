@@ -15,7 +15,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public plot: G2.View;
   public _initialProps: T;
   public canvasController: CanvasController;
-  public eventHandlers: any[] = [];
   public destroyed: boolean = false;
   public type: string;
   protected _originalProps: T;
@@ -381,10 +380,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 抽取destory和updateConfig共有代码为_destory方法 */
   private _destory() {
-    /** 关闭事件监听 */
-    _.each(this.eventHandlers, (handler) => {
-      this.plot.off(handler.type, handler.handler);
-    });
     /** 移除title & description */
     if (this.title) {
       this.title.destory();

@@ -3,8 +3,8 @@ import * as _ from '@antv/util';
 import PiePlot, { PieConfig } from '../pie/index';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
+import * as centralTextTemplate from './component/annotation/centralText_template';
 import * as EventParser from './event';
-import * as centralTextTemplate from './guide/annotation/centralText_template';
 
 export interface RingConfig extends PieConfig {
   innerRadius?: number;

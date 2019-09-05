@@ -2,7 +2,7 @@ import * as _ from '@antv/util';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseBar, { BarConfig } from '../bar';
-import './guide/label/stackBar-label';
+import './component/label/stackBar-label';
 
 export interface StackBarConfig extends BarConfig {
   stackField: string;

@@ -45,7 +45,6 @@ const EVENT_MAP: IEventmap = {
 function onEvent(plot, eventName, handler) {
   const g2Plot = plot.plot;
   g2Plot.on(eventName, handler);
-  plot.eventHandlers.push({ type: eventName, handler });
 }
 
 export { IEventmap, EVENT_MAP, onEvent };

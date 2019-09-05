@@ -1,3 +1,4 @@
+import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import { getGeom } from '../../geoms/factory';
@@ -5,6 +6,7 @@ import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } fro
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import * as StyleParser from '../../util/styleParser';
+import responsiveMethods from './applyResponsive/index';
 import * as EventParser from './event';
 import './theme';
 
@@ -60,7 +62,13 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     this.type = 'area';
   }
 
-  protected _beforeInit() {}
+  protected _beforeInit() {
+    const props = this._initialProps;
+    /** 响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('preRender');
+    }
+  }
 
   protected _setDefaultG2Config() {}
 
@@ -113,7 +121,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
     this._setConfig('axes', axesConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     const area = getGeom('area', 'main', {
       plot: this,
@@ -215,4 +223,22 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _events(eventParser) {
     super._events(EventParser);
   }
+
+  protected _afterRender() {
+    super._afterRender();
+    const props = this._initialProps;
+    /** 响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('afterRender');
+    }
+  }
+
+  private _applyResponsive(stage) {
+    const methods = responsiveMethods[stage];
+    _.each(methods, (r) => {
+      const responsive = r as DataPointType;
+      responsive.method(this);
+    });
+  }
+
 }

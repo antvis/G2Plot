@@ -182,7 +182,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._axis();
     this._tooltip();
     this._legend();
-    this._addElements();
+    this._addGeometry();
     this._annotation();
     this._animation();
 
@@ -209,7 +209,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   // protected abstract _axis(): void;
   protected abstract _coord(): void;
   protected abstract _annotation(): void;
-  protected abstract _addElements(): void;
+  protected abstract _addGeometry(): void;
   protected abstract _animation(): void;
   protected abstract _interactions(): void;
 

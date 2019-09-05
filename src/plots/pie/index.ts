@@ -5,8 +5,8 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
+import SpiderLabel from './component/label/spiderLabel';
 import * as EventParser from './event';
-import SpiderLabel from './guide/label/spiderLabel';
 import './theme';
 
 export interface PieConfig extends BaseConfig {
@@ -68,7 +68,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     this._setConfig('coord', coordConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     this._adjustPieStyle();
     const pie = getGeom('interval', 'main', {

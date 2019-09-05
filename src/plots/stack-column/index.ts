@@ -2,7 +2,7 @@ import * as _ from '@antv/util';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseColumn, { ColumnConfig } from '../column';
-import './guide/label/stackColumn-label';
+import './component/label/stackColumn-label';
 
 export interface StackColumnConfig extends ColumnConfig {
   stackField: string;

@@ -8,10 +8,10 @@ import './animation/clipInWithData';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
 import './applyResponsive/theme';
+import TimeGroupAnnotation from './component/annotation/timeGroupAnnotation';
+import './component/label/line-label';
+import './component/label/point-label';
 import * as EventParser from './event';
-import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
-import './guide/label/line-label';
-import './guide/label/point-label';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import './theme';
 
@@ -87,7 +87,7 @@ export default class Line extends BasePlot<LineConfig> {
 
   protected _coord() {}
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     this.line = getGeom('line', 'main', {
       plot: this,

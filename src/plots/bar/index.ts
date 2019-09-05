@@ -1,3 +1,4 @@
+import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
@@ -5,8 +6,9 @@ import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
+import responsiveMethods from './applyResponsive/index';
+import './component/label/bar-label';
 import * as EventParser from './event';
-import './guide/label/bar-label';
 import './theme';
 
 interface BarStyle {
@@ -48,7 +50,13 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     this.type = 'bar';
   }
 
-  protected _beforeInit() {}
+  protected _beforeInit() {
+    const props = this._initialProps;
+    /** 响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('preRender');
+    }
+  }
 
   protected _setDefaultG2Config() {}
 
@@ -111,7 +119,7 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     return;
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     const bar = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],
@@ -137,6 +145,15 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
     }
   }
 
+  protected _afterRender() {
+    super._afterRender();
+    const props = this._initialProps;
+    /** 响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('afterRender');
+    }
+  }
+
   protected _extractLabel() {
     const props = this._initialProps;
     const label = props.label as Label;
@@ -156,6 +173,14 @@ export default class BaseBar<T extends BarConfig = BarConfig> extends BasePlot<T
 
   protected _events(eventParser) {
     super._events(EventParser);
+  }
+
+  private _applyResponsive(stage) {
+    const methods = responsiveMethods[stage];
+    _.each(methods, (r) => {
+      const responsive = r as DataPointType;
+      responsive.method(this);
+    });
   }
   
 }

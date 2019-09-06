@@ -8,12 +8,12 @@ const name_style = 'font-weight:300;';
 
 const value_style = 'font-size:20px;font-weight:bold;color:#4D4D4D';
 
-function getSingleDataTemplate(value) {
-  return `<div class="ring-guide-html" style=${container_style}><span class="ring-guide-value" style=${value_style}>${value}</span></div>`;
+function getSingleDataTemplate(value, classId) {
+  return `<div class="ring-guide-html ${classId}" style=${container_style}><span class="ring-guide-value" style=${value_style}>${value}</span></div>`;
 }
 
-function getTwoDataTemplate(name, value) {
-  return `<div class="ring-guide-html" style=${container_style}><span class="ring-guide-name" style=${name_style}>${name}</span><br/><span class="ring-guide-value" style=${value_style}>${value}</span></div>`;
+function getTwoDataTemplate(name, value, classId) {
+  return `<div class="ring-guide-html ${classId}" style=${container_style}><span class="ring-guide-name" style=${name_style}>${name}</span><br/><span class="ring-guide-value" style=${value_style}>${value}</span></div>`;
 }
 
 export { getSingleDataTemplate, getTwoDataTemplate };

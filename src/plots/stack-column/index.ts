@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import  ConnectedArea from  '../../components/connectedArea';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseColumn, { ColumnConfig } from '../column';
@@ -38,4 +39,17 @@ export default class StackColumn extends BaseColumn<StackColumnConfig> {
 
     return labelConfig as any;
   }
+
+  protected _afterRender(){
+    const props = this._initialProps;
+    super._afterRender();
+    // 绘制区域连接组件
+    if(props.connectedArea && props.connectedArea.visible){
+      const connectedArea = new ConnectedArea({
+        view: this.plot,
+        field: props.stackField
+      });
+    }
+  }
+
 }

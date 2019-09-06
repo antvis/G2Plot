@@ -23,7 +23,9 @@ const PLOT_GEOM_MAP = {
 };
 
 export default class RingPlot extends PiePlot<RingConfig> {
+  static centralId = 0;
   private centralText: any; // 保存中心文本实例用于响应交互
+  private centralClass: string; //中心文本的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
@@ -37,6 +39,8 @@ export default class RingPlot extends PiePlot<RingConfig> {
   }
 
   protected _beforeInit() {
+    RingPlot.centralId++;
+    this.centralClass = `centralclassId${RingPlot.centralId}`;
     const props = this._initialProps;
     /** 响应式图形 */
     if (props.responsive && props.padding !== 'auto') {
@@ -90,13 +94,14 @@ export default class RingPlot extends PiePlot<RingConfig> {
       const onActiveConfig = this.centralText.onActive;
       this.plot.on('interval:mousemove', (e) => {
         const displayData = this._parseCentralTextData(e.data._origin);
-        let htmlString;
+        let htmlString: string;
         if (_.isBoolean(onActiveConfig)) {
           htmlString = this._getCentralTextTemplate(displayData);
         } else if (_.isFunction(onActiveConfig)) {
           htmlString = onActiveConfig(displayData);
+          htmlString = `<div class="ring-guide-html ${this.centralClass}">${htmlString}</div>`;
         }
-        document.getElementsByClassName('ring-guide-html')[0].innerHTML = htmlString;
+        document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
       });
     }
   }
@@ -144,11 +149,11 @@ export default class RingPlot extends PiePlot<RingConfig> {
     let htmlString;
     /** 如果文本内容为string或单条数据 */
     if (_.isString(displayData)) {
-      htmlString = centralTextTemplate.getSingleDataTemplate(displayData);
+      htmlString = centralTextTemplate.getSingleDataTemplate(displayData, this.centralClass);
     } else if (_.isObject(displayData) && _.keys(displayData).length === 2) {
       /** 如果文本内容为两条数据 */
       const content = displayData as IAttrs;
-      htmlString = centralTextTemplate.getTwoDataTemplate(content.name, content.value);
+      htmlString = centralTextTemplate.getTwoDataTemplate(content.name, content.value, this.centralClass);
     }
     /** 更为复杂的文本要求用户自行制定html模板 */
     return htmlString;

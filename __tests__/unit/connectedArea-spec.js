@@ -116,7 +116,15 @@ describe('connectedArea components',()=>{
             stackField: 'type',
             connectedArea:{
                 visible: true,
-                // triggerOn:'mouseenter'
+                triggerOn:'mouseenter',
+                lineStyle:{
+                  stroke:'#afb1b5',
+                  opacity: 0.8
+                },
+                areaStyle:{
+                  fill:'#e8e8e8',
+                  opacity: 0.8
+                }
             }
           });
           columnPlot.render();

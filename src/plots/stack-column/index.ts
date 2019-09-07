@@ -7,9 +7,11 @@ import './component/label/stackColumn-label';
 
 export interface StackColumnConfig extends ColumnConfig {
   stackField: string;
+  connectedArea?: any;
 }
 
 export default class StackColumn extends BaseColumn<StackColumnConfig> {
+  public connectedArea: any;
   protected _adjustColumn(column: ElementOption) {
     column.adjust = [
       {
@@ -42,16 +44,16 @@ export default class StackColumn extends BaseColumn<StackColumnConfig> {
 
   protected _afterRender(){
     const props = this._initialProps;
-    super._afterRender();
     // 绘制区域连接组件
     if(props.connectedArea && props.connectedArea.visible){
-      const connectedArea = new ConnectedArea({
+      this.connectedArea = new ConnectedArea({
         view: this.plot,
         field: props.stackField,
         animation: props.animation === false ? false : true,
         ...props.connectedArea
       });
     }
+    super._afterRender();
   }
 
 }

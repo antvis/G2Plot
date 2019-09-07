@@ -4,6 +4,7 @@
 import { Group, Shape, Shapes } from '@antv/g';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
+import { compare } from '../base/controller/state';
 
 function parsePoints(shape){
     const parsedPoints = [];
@@ -73,6 +74,19 @@ export default class ConnectedArea {
         }
     }
 
+    public setState(state,condition){
+        if(state === 'active') {
+            this._onActive(condition);
+        }
+        if(state === 'disables') {
+            this._onDisabled(condition);
+        }
+        if(state === 'selected'){
+           this._onSelected(condition); 
+        } 
+    }
+
+    
     private _init(){
         this.draw();
         this.view.on('beforerender', () => {
@@ -107,7 +121,6 @@ export default class ConnectedArea {
         for(let i = 0; i < shapes.length-1; i++){
             const current = parsePoints(shapes[i]);
             const next = parsePoints(shapes[i+1]);
-            // const { areaStyle,lineStyle } = getDefaultStyle();
             const areaStyle  = _.mix({},this._areaStyle[name]);
             const lineStyle =  _.mix({},this._lineStyle[name]);
             if(this.triggerOn){
@@ -122,7 +135,6 @@ export default class ConnectedArea {
                         [ 'L', next[0].x, next[0].y ],
                         [ 'L', current[3].x, current[3].y ],
                     ],
-                    // fill: shapes[i].attr('fill'),
                 }),
                 name:'connectedArea'
             });
@@ -138,8 +150,8 @@ export default class ConnectedArea {
             });
             // 在辅助图形上记录数据，用以交互和响应状态量
             const originData = shapes[i].get('origin')._origin;
-            area.set('data',originData[this.field]);
-            line.set('data',originData[this.field]);
+            area.set('data',originData);
+            line.set('data',originData);
             this.areas.push(area);
             this.lines.push(line);
         }
@@ -164,44 +176,27 @@ export default class ConnectedArea {
         const eventName = this.triggerOn;
         this.view.on(`interval:${eventName}`,(e)=>{
             const origin = e.target.get('origin')._origin[this.field];
-            this._onActive(origin);
-            this._onDisabled(origin);
+            this.setState('active',{
+                name: this.field,
+                exp: origin
+            });
+            this.setState('disabled',{
+                name: this.field,
+                exp: (d) =>{
+                    return d !== origin;
+                }
+            });
             this.view.get('canvas').draw();
         });
         // 当鼠标移动到其他区域时取消显示
         this.view.on('mousemove',(e)=>{
             if(e.target.name !== 'interval'){
-                this._onDisabled({});
-            }
-        });
-    }
-
-    private _onActive(data){
-        _.each(this.areas,(area)=>{
-            const shapeData = area.get('data');
-            if(shapeData === data){
-                area.attr('opacity',this._areaStyle[data].opacity || 1);
-            }
-        });
-        _.each(this.lines,(line)=>{
-            const shapeData = line.get('data');
-            if(shapeData === data){
-                line.attr('opacity',this._lineStyle[data].opacity || 1);
-            }
-        });
-    }
-
-    private _onDisabled(data){
-        _.each(this.areas,(area)=>{
-            const shapeData = area.get('data');
-            if(shapeData !== data){
-                area.attr('opacity',0);
-            }
-        });
-        _.each(this.lines,(line)=>{
-            const shapeData = line.get('data');
-            if(shapeData !== data){
-                line.attr('opacity',0);
+                this.setState('disabled',{
+                    name: this.field,
+                    exp:()=>{
+                        return true;
+                    }
+                });
             }
         });
     }
@@ -223,4 +218,41 @@ export default class ConnectedArea {
             width
         }, 600, 'easeQuadOut',()=>{},400);
     }
+
+    private _onActive(condition){
+        _.each(this.areas,(area)=>{
+            const shapeData = area.get('data');
+            const styleField = shapeData[this.field];
+            if(compare(shapeData,condition)){
+                area.attr('opacity',this._areaStyle[styleField].opacity || 1);
+            }
+        });
+        _.each(this.lines,(line)=>{
+            const shapeData = line.get('data');
+            const styleField = shapeData[this.field];
+            if(compare(shapeData,condition)){
+                line.attr('opacity',this._lineStyle[styleField].opacity || 1);
+            }
+        });
+    }
+
+    private _onDisabled(condition){
+        _.each(this.areas,(area)=>{
+            const shapeData = area.get('data');
+            if(compare(shapeData,condition)){
+                area.attr('opacity',0);
+            }
+        });
+        _.each(this.lines,(line)=>{
+            const shapeData = line.get('data');
+            if(compare(shapeData,condition)){
+                line.attr('opacity',0);
+            }
+        });
+    }
+
+    private _onSelected(condition){
+        this._onActive(condition);
+    }
+
 }

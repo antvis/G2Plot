@@ -33,6 +33,10 @@ export default class ConnectedArea {
     private field: string; // 堆叠字段
     private areas: Shape[] = [];
     private lines: Shape[] = [];
+    private areaStyle:any;
+    private _areaStyle: any = {};
+    private lineStyle:any;
+    private _lineStyle: any = {};
     private triggerOn: string;
     private animation: boolean;
 
@@ -45,8 +49,8 @@ export default class ConnectedArea {
         const layer = this.view.get('backgroundGroup');
         this.container = layer.addGroup();
         const groupedShapes = this._getGroupedShapes();
-        _.each(groupedShapes,(shaps)=>{
-            this._drawConnection(shaps);
+        _.each(groupedShapes,(shaps,name)=>{
+            this._drawConnection(shaps,name);
         });
         if(this.triggerOn){
             this._addInteraction();
@@ -95,12 +99,17 @@ export default class ConnectedArea {
         return groups;
     }
 
-    private _drawConnection(shapes){
+    private _drawConnection(shapes,name){
         // tslint:disable-next-line: prefer-for-of
+        const originColor = shapes[0].attr('fill');
+        this._areaStyle[name] = this._getShapeStyle(originColor, 'area');
+        this._lineStyle[name] = this._getShapeStyle(originColor, 'line');
         for(let i = 0; i < shapes.length-1; i++){
             const current = parsePoints(shapes[i]);
             const next = parsePoints(shapes[i+1]);
-            const { areaStyle,lineStyle } = getDefaultStyle();
+            // const { areaStyle,lineStyle } = getDefaultStyle();
+            const areaStyle  = _.mix({},this._areaStyle[name]);
+            const lineStyle =  _.mix({},this._lineStyle[name]);
             if(this.triggerOn){
                 areaStyle.opacity = 0;
                 lineStyle.opacity = 0;
@@ -113,8 +122,9 @@ export default class ConnectedArea {
                         [ 'L', next[0].x, next[0].y ],
                         [ 'L', current[3].x, current[3].y ],
                     ],
-                    fill: shapes[i].attr('fill'),
-                })
+                    // fill: shapes[i].attr('fill'),
+                }),
+                name:'connectedArea'
             });
             const line = this.container.addShape('path',{
                 attrs:_.mix({} as any,lineStyle,{
@@ -122,8 +132,9 @@ export default class ConnectedArea {
                         ['M',current[2].x, current[2].y],
                         ['L',next[1].x, next[1].y]
                     ],
-                    stroke: shapes[i].attr('fill'),
-                })
+                    // stroke: shapes[i].attr('fill'),
+                }),
+                name:'connectedArea'
             });
             // 在辅助图形上记录数据，用以交互和响应状态量
             const originData = shapes[i].get('origin')._origin;
@@ -132,6 +143,21 @@ export default class ConnectedArea {
             this.areas.push(area);
             this.lines.push(line);
         }
+    }
+
+    private _getShapeStyle(originColor,shapeType){
+        const styleName = `${shapeType}Style`;
+        // 如果用户自己指定了样式，则不采用默认颜色映射
+        if(this[styleName]){
+            return this[styleName];
+        }
+        const defaultStyle = getDefaultStyle()[styleName];
+        let mappedStyle:any = { fill: originColor};
+        if(shapeType === 'line'){
+            mappedStyle = { stroke: originColor };
+        }
+
+        return _.mix(defaultStyle,mappedStyle);
     }
 
     private _addInteraction(){
@@ -151,18 +177,16 @@ export default class ConnectedArea {
     }
 
     private _onActive(data){
-        const { areaStyle,lineStyle } = getDefaultStyle();
         _.each(this.areas,(area)=>{
             const shapeData = area.get('data');
             if(shapeData === data){
-                area.attr('opacity',areaStyle.opacity);
+                area.attr('opacity',this._areaStyle[data].opacity || 1);
             }
         });
-
         _.each(this.lines,(line)=>{
             const shapeData = line.get('data');
             if(shapeData === data){
-                line.attr('opacity',lineStyle.opacity);
+                line.attr('opacity',this._lineStyle[data].opacity || 1);
             }
         });
     }
@@ -199,5 +223,4 @@ export default class ConnectedArea {
             width
         }, 600, 'easeQuadOut',()=>{},400);
     }
-
 }

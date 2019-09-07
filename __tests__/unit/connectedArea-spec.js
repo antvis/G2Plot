@@ -116,19 +116,36 @@ describe('connectedArea components',()=>{
             stackField: 'type',
             connectedArea:{
                 visible: true,
-                triggerOn:'mouseenter',
-                lineStyle:{
+                // triggerOn:'mouseenter',
+                /*lineStyle:{
                   stroke:'#afb1b5',
                   opacity: 0.8
                 },
                 areaStyle:{
                   fill:'#e8e8e8',
                   opacity: 0.8
-                }
+                }*/
+            },
+            defaultState: {
+              active:{
+                condition:{
+                  name: 'type',
+                  exp: 'Lon'
+                },
+                related:['connectedArea']
+              },
+              disables:{
+                condition:{
+                  name: 'type',
+                  exp:(d)=>{
+                    return d !== 'Lon';
+                  }
+                },
+                related:['connectedArea']
+              }
             }
           });
           columnPlot.render();
-
     });
 
 });

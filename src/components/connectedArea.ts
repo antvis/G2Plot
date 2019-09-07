@@ -1,7 +1,7 @@
 /**
  * 区域连接组件，用于堆叠柱状图和堆叠条形图
  */
-import { Group, Shape } from '@antv/g';
+import { Group, Shape, Shapes } from '@antv/g';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 
@@ -34,6 +34,7 @@ export default class ConnectedArea {
     private areas: Shape[] = [];
     private lines: Shape[] = [];
     private triggerOn: string;
+    private animation: boolean;
 
     constructor(cfg){
         _.assign(this,cfg);
@@ -49,10 +50,23 @@ export default class ConnectedArea {
         });
         if(this.triggerOn){
             this._addInteraction();
+        }else if(this.animation){
+            // 如果定义了triggerOn的方式，则组件是响应交互的，初始化为不可见状态，因此无需动画
+            this._initialAnimation();
         }
     }
     public clear(){
-        
+        if(this.container){
+            this.container.clear();
+        }
+        this.areas= [];
+        this.lines = [];
+    }
+
+    public destory(){
+        if(this.container){
+            this.container.remove();
+        }
     }
 
     private _init(){
@@ -166,6 +180,24 @@ export default class ConnectedArea {
                 line.attr('opacity',0);
             }
         });
+    }
+
+    private _initialAnimation(){
+        // clipIn动画
+        const {start,end,width,height} = this.view.get('coord');
+        const clipRect = new Shapes.Rect({
+            attrs:{
+                x: start.x,
+                y: end.y,
+                width:0,
+                height,
+            }
+        });
+        this.container.attr('clip', clipRect);
+        this.container.setSilent('animating', true);
+        clipRect.animate({
+            width
+        }, 600, 'easeQuadOut',()=>{},400);
     }
 
 }

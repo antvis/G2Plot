@@ -75,6 +75,24 @@ export default class GuidePointParser extends ElementParser {
     this.config.shape = config;
   }
 
+  public parseStyle() {
+    const props = this.plot._initialProps;
+    const styleProps = props.point && props.point.style;
+    const config = {
+      fields: null,
+      callback: null,
+      cfg: null,
+    };
+    const field = this._getColorMappingField(props);
+    if (_.isFunction(styleProps) && field) {
+      config.fields = [field];
+      config.callback = styleProps;
+    } else {
+      config.cfg = styleProps;
+    }
+    this.config.style = config;
+  }
+
   private _parseColorByField(props, config, field) {
     config.fields = [field];
     if (props.point.color) {
@@ -113,23 +131,5 @@ export default class GuidePointParser extends ElementParser {
         return [props[m]];
       }
     }
-  }
-
-  public parseStyle() {
-    const props = this.plot._initialProps;
-    const styleProps = props.point && props.point.style;
-    const config = {
-      fields: null,
-      callback: null,
-      cfg: null,
-    };
-    const field = this._getColorMappingField(props);
-    if (_.isFunction(styleProps) && field) {
-      config.fields = [field];
-      config.callback = styleProps;
-    } else {
-      config.cfg = styleProps;
-    }
-    this.config.style = config;
   }
 }

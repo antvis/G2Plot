@@ -116,7 +116,7 @@ describe('connectedArea components',()=>{
             stackField: 'type',
             connectedArea:{
                 visible: true,
-                triggerOn:'mouseenter'
+                // triggerOn:'mouseenter'
             }
           });
           columnPlot.render();

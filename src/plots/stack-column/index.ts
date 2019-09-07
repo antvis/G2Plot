@@ -48,6 +48,7 @@ export default class StackColumn extends BaseColumn<StackColumnConfig> {
       const connectedArea = new ConnectedArea({
         view: this.plot,
         field: props.stackField,
+        animation: props.animation === false ? false : true,
         ...props.connectedArea
       });
     }

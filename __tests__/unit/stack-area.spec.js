@@ -119,23 +119,26 @@ describe('stack-area plot', () => {
         visible: true,
       },
       point: {
-        visible: true,
-        style: {
+        visible: false,
+        /*style: {
           color: 'green',
           size: 8,
           lineWith: 3,
-        },
+        },*/
       },
       line: {
         visible: true,
-        style: {
+        /*style: {
           color: 'blue',
           size: 4,
-        },
+        },*/
       },
       label: {
         visible: true,
-        // type: 'point'
+        type: 'area',
+        style:{
+          fontSize: 20
+        }
       },
       // color: [ 'red', 'blue' ],
     });

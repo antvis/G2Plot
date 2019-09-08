@@ -28,6 +28,7 @@ export default class StackArea extends BaseArea<StackAreaConfig> {
       fields: [props.stackField],
       labelType,
       plot: this,
+      ...label
     });
   }
 

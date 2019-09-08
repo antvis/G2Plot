@@ -47,8 +47,6 @@ export default class ConnectedArea {
     }
 
     public draw(){
-        const layer = this.view.get('backgroundGroup');
-        this.container = layer.addGroup();
         const groupedShapes = this._getGroupedShapes();
         _.each(groupedShapes,(shaps,name)=>{
             this._drawConnection(shaps,name);
@@ -88,6 +86,8 @@ export default class ConnectedArea {
 
     
     private _init(){
+        const layer = this.view.get('backgroundGroup');
+        this.container = layer.addGroup();
         this.draw();
         this.view.on('beforerender', () => {
             this.clear();

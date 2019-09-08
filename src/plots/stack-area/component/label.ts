@@ -2,10 +2,10 @@ import { BBox, Shape, Text } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 
-const LABEL_PADDING = [4,4,4,4];
+const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;
 const MAX_ITERATION = 100;
-const MIN_HEIGHT = 2;
+const MIN_HEIGHT = 12;
 
 function getRange(points){
     let maxHeight = -Infinity;
@@ -55,15 +55,23 @@ function getXIndex(data,x){
 
 
 class AreaLabel extends ElementLabels {
+    private scaleFactor: number;
 
     public showLabels(points: any, shapes: Shape[]) {
         // 获取堆叠字段
         const stackField = this.get('element').get('attrs').color.scales[0].field;
         // 根据stackField将point分组
         const groupedPoints = this._groupPoints(points,stackField);
+        const labelPoints = [];
         _.each(groupedPoints,(pointArray,name)=>{
-            this._drawLabel(pointArray,name);
+            const labelPoint = this._drawLabel(pointArray,name);
+            labelPoints.push(_.mix({},pointArray[0],labelPoint));
         });
+        super.showLabels(labelPoints, shapes);
+        const labelOptions = this.get('labelOptions');
+        if(labelOptions.autoScale){
+            this._adjuestLabelSize();
+        }
     }
 
     private _groupPoints(points,field){
@@ -96,12 +104,16 @@ class AreaLabel extends ElementLabels {
             return;
         }
         fitOption.justTest = false;
-        const fit = this._testFit(fitOption);
+        const fit:any = this._testFit(fitOption);
+        fit.x = fit.x;
+        fit.y = fit.y0 + (fit.y1 - fit.y0)/2;
+        this.scaleFactor = height / bbox.height * 0.5;
+        return fit;
     }
 
     private _getInterpolatedPoints(minX, resolution,points){
         const interpolatedPoints = [];
-        const step = 4;
+        const step = 2;
         for(let i = minX; i<resolution; i+=step){
             const y0 = interpolateY(i,points,0);
             const y1 = interpolateY(i,points,1);
@@ -144,6 +156,7 @@ class AreaLabel extends ElementLabels {
             }
             const x1_index = getXIndex(data,x1);
             let ceiling = -Infinity;
+            let ceilingFloor = null; // 保存ceiling时对应的bottom位置，ceil和floor不一定是一对坐标
             let floor = Infinity;
             for(let j = i; j<x1_index; j++){
                 const top = data[j].y[1];
@@ -153,6 +166,7 @@ class AreaLabel extends ElementLabels {
                 }
                 if(top > ceiling){
                     ceiling = top;
+                    ceilingFloor = bottom;
                 }
                 if ((floor - ceiling) < height) {
                     break;
@@ -164,7 +178,8 @@ class AreaLabel extends ElementLabels {
                 }
                 return {
                     x: x0,
-                    y: ceiling,
+                    y0: ceiling,
+                    y1: ceilingFloor,
                     width,
                     height
                 }
@@ -175,7 +190,8 @@ class AreaLabel extends ElementLabels {
 
     private _getLabelBbox(text){
         const plot = this.get('labelOptions').plot;
-        const labelStyle = plot.themeController.theme.label.textStyle;
+        const labelStyle = _.clone(plot.themeController.theme.label.textStyle);
+        labelStyle.fontSize = DEFAULT_SIZE;
         const tShape = new Text({
             attrs: {
               text,
@@ -185,6 +201,21 @@ class AreaLabel extends ElementLabels {
             }
         });
         return tShape.getBBox();
+    }
+
+    private _adjuestLabelSize(){
+        const renderer = this.get('labelsRenderer');
+        const labels = renderer.get('group').get('children');
+        const view = this.get('element').get('view');
+        _.each(labels, (label) => {
+            label.attr('fontSize',DEFAULT_SIZE);
+            label.transform([
+                ['t', - label.attr('x'), -label.attr('y')],
+                ['s', this.scaleFactor, this.scaleFactor], 
+                ['t', label.attr('x'), label.attr('y')],
+            ])
+        });
+        view.get('canvas').draw();
     }
 }
 

@@ -136,9 +136,7 @@ describe('stack-area plot', () => {
       label: {
         visible: true,
         type: 'area',
-        style:{
-          fontSize: 20
-        }
+        autoScale: true
       },
       // color: [ 'red', 'blue' ],
     });

@@ -333,10 +333,11 @@ describe('Line plot', () => {
       yField: 'value',
       point: {
         visible: true,
-        size: 5,
         color: 'red',
+        size: 5,
         style: {
-          fillStyle: 'blue',
+          fillStyle: 'pink',
+          lineWidth: 2,
           strokeStyle: 'black',
         },
       },
@@ -346,9 +347,9 @@ describe('Line plot', () => {
     expect(elements[1].get('type')).to.be.equal('point');
     expect(elements[1].get('size').values[0]).to.be.equal(5);
     expect(elements[1].get('color').values[0]).to.be.equal('red');
-    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('blue');
+    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('pink');
     expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
-    // linePlot.destroy();
+    linePlot.destroy();
   });
 
   it('x 坐标轴', () => {
@@ -475,9 +476,9 @@ describe('Line plot', () => {
     });
     linePlot.render();
     const padding = linePlot.plot.get('padding');
-    expect(padding[0] >= 20).to.be.true;
+    expect(padding[0] >= 15).to.be.true;
     expect(padding[1] >= 20).to.be.true;
-    expect(padding[2] >= 40).to.be.true;
+    expect(padding[2] >= 20).to.be.true;
     expect(padding[3] >= 20).to.be.true;
     linePlot.destroy();
   });
@@ -519,13 +520,30 @@ describe('Line plot', () => {
       xField: 'date',
       yField: 'value',
       seriesField: 'type',
+      point: {
+        visible: true,
+        color: 'red',
+        size: 5,
+        style: {
+          fillStyle: 'pink',
+          lineWidth: 2,
+          strokeStyle: 'black',
+        },
+      },
     });
+
     linePlot.render();
+    const elements = linePlot.plot.get('elements');
     const shapes = linePlot.plot
       .get('elements')[0]
       .get('shapeContainer')
       .get('children');
     expect(shapes.length).to.be.equal(3);
+    expect(elements[1].get('type')).to.be.equal('point');
+    expect(elements[1].get('size').values[0]).to.be.equal(5);
+    expect(elements[1].get('color').values[0]).to.be.equal('red');
+    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('pink');
+    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
     linePlot.destroy();
   });
 
@@ -551,6 +569,6 @@ describe('Line plot', () => {
       .get('children');
     const panelGroup = linePlot.plot.get('panelRange');
     expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
-    // linePlot.destroy();
+    linePlot.destroy();
   });
 });

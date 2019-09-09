@@ -52,7 +52,7 @@ export default class RingProgress extends Progress {
 
   protected _annotation() {}
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     this.ring = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],

@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import TinyPlot from '../tinyPlot';
+import * as EventParser from './event';
 
 const WIDTH_RATIO = 0.6;
 
@@ -23,13 +24,17 @@ export default class TinyColumn extends TinyPlot {
     this._processProps();
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     const column = getGeom('interval', 'main', {
       positionFields: [props.xField, props.yField],
       plot: this,
     });
     this._setConfig('element', column);
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   private _processProps() {

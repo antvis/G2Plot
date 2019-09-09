@@ -11,5 +11,3 @@ const ringTheme = _.deepMix({}, defaultTheme, {
   },
 });
 registerResponsiveTheme('ring', ringTheme);
-
-export default ringTheme;

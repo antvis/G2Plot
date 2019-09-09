@@ -5,7 +5,7 @@ import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
-import './element/shape/pointer';
+import './geometry/shape/pointer';
 import './theme';
 
 interface GaugeStyle {
@@ -150,7 +150,7 @@ export default class Gauge extends BasePlot<GaugeConfig> {
     this._setConfig('axes', axesConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const { styleMix } = this._initialProps;
     const pointerColor = styleMix.pointerColor || this._config.theme.defaultColor;
 

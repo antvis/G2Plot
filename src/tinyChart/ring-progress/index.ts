@@ -2,7 +2,8 @@ import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import Progress from '../progress';
-import './animation/index';
+import {getAngle,setShapeInfo} from './animation/index';
+import * as EventParser from './event';
 
 export default class RingProgress extends Progress {
   public ring: any;
@@ -24,6 +25,20 @@ export default class RingProgress extends Progress {
     this.type = 'tinyRingProgress';
   }
 
+  protected _afterRender(){
+    super._afterRender();
+    const coord = this.plot.get('coord');
+    // 缓存图形
+    const geoms = this.plot.get('elements');
+    _.each(geoms,(geom)=>{
+      const shapes = geom.getShapes();
+      _.each(shapes,(shape)=>{
+        const { startAngle, endAngle } = getAngle(shape, coord);
+        setShapeInfo(shape, startAngle, endAngle);
+      });
+    });
+  }
+
   protected _coord() {
     const coordConfig = {
       type: 'theta' as CoordinateType,
@@ -37,7 +52,7 @@ export default class RingProgress extends Progress {
 
   protected _annotation() {}
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     this.ring = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],
@@ -62,6 +77,10 @@ export default class RingProgress extends Progress {
         duration: 1000,
       },
     };
+  }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
   }
 
   private _getThickness() {

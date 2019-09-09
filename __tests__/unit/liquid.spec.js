@@ -11,7 +11,7 @@ describe('Liquid plot', () => {
   document.body.appendChild(canvasDiv);
 
   it.only('liquid', () => {
-    Theme.setTheme('ant-light');
+    Theme.setTheme('ali-light');
     const liquidPlot = new Liquid(canvasDiv, {
       title: {
         text: '水位图测试',

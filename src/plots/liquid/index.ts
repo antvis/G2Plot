@@ -3,7 +3,7 @@ import BasePlot from '../../base/plot';
 import BaseConfig, { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
-import './element/shape/liquid';
+import './geometry/shape/liquid';
 import './theme';
 
 interface LiquidStyle {
@@ -104,7 +104,7 @@ export default class Liquid extends BasePlot<LiquidConfig> {
     this._setConfig('axes', axesConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const { styleMix = {} } = this._initialProps;
 
     const liquid: ElementOption = {

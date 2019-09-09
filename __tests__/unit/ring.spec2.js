@@ -42,16 +42,29 @@ describe('ring plot', () => {
     document.body.appendChild(canvasDiv);
 
     const pie = new Ring(canvasDiv, {
+      title:{
+        visible: true,
+        text: 'test'
+      },
+      description:{
+        visible: true,
+        text: 'testtesttesttest'
+      },
       data,
       padding: 'auto',
       radius: 0.8,
       innerRadius: 0.6,
       angleField: 'value',
       colorField: 'type',
-      /* label: {
+      label: {
+        visible: true,
         type: 'spider',
-      },*/
+      },
+      legend: {
+        position: 'top-left'
+      },
       annotation: [{ type: 'centralText', onActive: true }],
+      responsive: true
     });
 
     pie.render();

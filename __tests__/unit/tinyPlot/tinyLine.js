@@ -49,13 +49,18 @@ describe('tinyLine plot', () => {
     },
   ];
 
-  it('图形渲染', () => {
+  it.only('图形渲染', () => {
     const tinyLine = new TinyLine(canvasDiv, {
       width: 200,
       height: 100,
       data: income,
       xField: 'time',
       yField: 'rate',
+      events:{
+        onLineClick:(e)=>{
+          console.log(e);
+        }
+      }
     });
     tinyLine.render();
   });

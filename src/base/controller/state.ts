@@ -148,8 +148,13 @@ export default class StateController {
 
   private _parserRelated(type, related, condition) {
     _.each(related, (r) => {
-      const method = getComponentStateMethod(r, type);
-      method(this.plot, condition);
+      if(this.plot[related]){
+        // 自定义组件
+        this.plot[related].setState(type,condition);
+      }else{
+        const method = getComponentStateMethod(r, type);
+        method(this.plot, condition);
+      }
     });
   }
 }

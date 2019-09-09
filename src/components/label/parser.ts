@@ -25,7 +25,7 @@ export default class LabelParser {
       config.position = labelProps.position;
     }
     if (labelProps.formatter) {
-      config.content = labelProps.formatter(val);
+      config.formatter = labelProps.formatter;
     }
     if (labelProps.style) {
       config.textStyle = labelProps.style;

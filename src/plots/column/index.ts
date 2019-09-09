@@ -1,20 +1,19 @@
+import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import '../column/guide/label/column-label';
 import responsiveMethods from './applyResponsive/index';
+import './applyResponsive/theme';
+import './component/label/column-label';
+import * as EventParser from './event';
 import './theme';
 
 interface ColumnStyle {
   opacity?: number;
   lineDash?: number[];
-}
-
-interface IObject {
-  [key: string]: any;
 }
 
 const G2_GEOM_MAP = {
@@ -84,7 +83,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     return;
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
 
     const column = getGeom('interval', 'main', {
@@ -112,14 +111,16 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
     }
   }
 
-  protected _afterInit() {
-    super._afterInit();
+  protected _events(eventParser) {
+    super._events(EventParser);
+  }
+
+  protected _afterRender() {
+    super._afterRender();
     const props = this._initialProps;
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
-      this.plot.once('afterrender', () => {
-        this._applyResponsive('afterRender');
-      });
+      this._applyResponsive('afterRender');
     }
   }
 
@@ -141,7 +142,7 @@ export default class BaseColumn<T extends ColumnConfig = ColumnConfig> extends B
   private _applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
-      const responsive = r as IObject;
+      const responsive = r as DataPointType;
       responsive.method(this);
     });
   }

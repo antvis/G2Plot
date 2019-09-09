@@ -3,10 +3,10 @@ import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, IColorConfig, Label } from '../../interface/config';
+import BaseConfig, { Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
+import SpiderLabel from './component/label/spiderLabel';
 import * as EventParser from './event';
-import SpiderLabel from './guide/label/spiderLabel';
 import './theme';
 
 export interface PieConfig extends BaseConfig {
@@ -68,7 +68,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     this._setConfig('coord', coordConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     this._adjustPieStyle();
     const pie = getGeom('interval', 'main', {
@@ -103,7 +103,7 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
     super._afterInit();
     const props = this._initialProps;
     /** 蜘蛛布局label */
-    if (props.label) {
+    if (props.label && props.label.visible) {
       const labelConfig = props.label as Label;
       if (labelConfig.type === 'spider') {
         const spiderLabel = new SpiderLabel({
@@ -111,6 +111,8 @@ export default class PiePlot<T extends PieConfig = PieConfig> extends BasePlot<T
           fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
           style: labelConfig.style ? labelConfig.style : {},
           formatter: props.label.formatter ? props.label.formatter : false,
+          offsetX: props.label.offsetX,
+          offsetY: props.label.offsetY
         });
         this.spiderLabel = spiderLabel;
       }

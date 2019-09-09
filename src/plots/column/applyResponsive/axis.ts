@@ -1,24 +1,22 @@
 import * as _ from '@antv/util';
-import responsiveTheme from '../../../theme/responsive';
+// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 import ShapeNodes from '../../../util/responsive/shapeNodes';
 
 export default function responsiveAxis(plot) {
   const props = plot._initialProps;
+  const responsiveTheme = plot.themeController.responsiveTheme;
   const canvas = plot.canvasController.canvas;
   // x-axis
-  responsiveXAxis(plot, props);
+  responsiveXAxis(plot, props, responsiveTheme);
   // y-axis
-  responsiveYaxis(plot, props);
+  responsiveYaxis(plot, props, responsiveTheme);
   canvas.draw();
 }
 
-function responsiveXAxis(plot, props) {
+function responsiveXAxis(plot, props, responsiveTheme) {
   const axis = plot.plot.get('axisController').axes[0];
-  const rawLabels = axis
-    .get('labelRenderer')
-    .get('group')
-    .get('children');
+  const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
   for (let i = 0; i < rawLabels.length - 1; i++) {
     shapes.push(rawLabels[i]);
@@ -39,12 +37,9 @@ function responsiveXAxis(plot, props) {
   });
 }
 
-function responsiveYaxis(plot, props) {
+function responsiveYaxis(plot, props, responsiveTheme) {
   const axis = plot.plot.get('axisController').axes[1];
-  const rawLabels = axis
-    .get('labelRenderer')
-    .get('group')
-    .get('children');
+  const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
   for (let i = 0; i < rawLabels.length - 1; i++) {
     shapes.push(rawLabels[i]);

@@ -1,4 +1,4 @@
-import TinyColumn from '../../../src/tinyChart/tiny-column/index';
+import TinyColumn from '../../../src/tinyPlots/tiny-column';
 
 describe('tiny column', () => {
   const canvasDiv = document.createElement('div');
@@ -49,7 +49,7 @@ describe('tiny column', () => {
   ];
 
   it.only('图形渲染', () => {
-    const tinyLine = new TinyColumn(canvasDiv, {
+    const tinyColumn = new TinyColumn(canvasDiv, {
       width: 200,
       height: 100,
       data,
@@ -61,6 +61,6 @@ describe('tiny column', () => {
         },
       ],
     });
-    tinyLine.render();
+    tinyColumn.render();
   });
 });

@@ -53,7 +53,7 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
     this._setConfig('coord', coordConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     const bar = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],

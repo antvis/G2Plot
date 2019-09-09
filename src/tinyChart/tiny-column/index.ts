@@ -24,7 +24,7 @@ export default class TinyColumn extends TinyPlot {
     this._processProps();
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     const column = getGeom('interval', 'main', {
       positionFields: [props.xField, props.yField],

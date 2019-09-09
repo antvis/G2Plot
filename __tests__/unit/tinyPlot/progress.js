@@ -1,5 +1,5 @@
-import TinyProgress from '../../../src/tinyChart/progress';
-import TinyRingProgress from '../../../src/tinyChart/ring-progress';
+import Progress from '../../../src/tinyPlots/progress';
+import RingProgress from '../../../src/tinyPlots/ring-progress';
 
 describe('tinyProgress plot', () => {
   const canvasDiv = document.createElement('div');
@@ -11,10 +11,15 @@ describe('tinyProgress plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('条形进度图', () => {
-    const tinyProgress = new TinyProgress(canvasDiv, {
+    const tinyProgress = new Progress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,
+      color:['red','blue'],
+      style:{
+        stroke:'black',
+        lineWidth: 1
+      }
     });
     tinyProgress.render();
     let percent = 0.3;
@@ -26,10 +31,15 @@ describe('tinyProgress plot', () => {
   });
 
   it.only('环形进度图', () => {
-    const tinyProgress = new TinyRingProgress(canvasDiv, {
+    const tinyProgress = new RingProgress(canvasDiv, {
       width: 200,
       height: 100,
       percent: 0.4,
+      color:['red','blue'],
+      style:{
+        stroke:'black',
+        lineWidth: 1
+      }
     });
     tinyProgress.render();
     let percent = 0.4;

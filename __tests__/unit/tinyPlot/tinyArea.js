@@ -1,7 +1,7 @@
-import TinyArea from '../../../src/tinyChart/tiny-area';
+import TinyArea from '../../../src/tinyPlots/tiny-area';
 import { fireWorks } from '../../data/fireworks-sales';
 
-describe('tinyLine plot', () => {
+describe('tinyArea plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '200px';
   canvasDiv.style.height = '100px';
@@ -57,6 +57,10 @@ describe('tinyLine plot', () => {
       xField: 'Data',
       yField: 'scales',
       smooth: true,
+      color:'#699BDB',
+      /*lineStyle:{
+        lineWidth: 4
+      },*/
       guideLine: [
         {
           type: 'mean',

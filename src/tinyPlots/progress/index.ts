@@ -7,6 +7,14 @@ interface TinyProgressCfg extends TinyConfig {
   stackField?: number;
 }
 
+const G2_GEOM_MAP = {
+  progress: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'progress',
+};
+
 export default class Progress extends TinyPlot<TinyProgressCfg> {
   /**
    * 将进度条配置项转为堆叠条形图配置项
@@ -20,6 +28,7 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
       yField: '1',
       stackField: 'type',
       barSize: this._getSize(),
+      barStyle: props.progressStyle,
       color: props.color || ['#55A6F3', '#E8EDF3'],
     } as any;
     props = _.mix(props, cfg);
@@ -33,7 +42,10 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
   }
 
   protected geometryParser(dim: string, type: string): string {
-    throw new Error('Method not implemented.');
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
   }
 
   protected setType(): void {

@@ -1,5 +1,6 @@
 /** 简化折线点 */
 import * as G2 from '@antv/g2';
+import * as _ from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import LineParser from './main';
@@ -16,11 +17,11 @@ G2.registerShape('line', 'miniLine', {
       path.push([flag, p.x, p.y]);
     }
     const shape = container.addShape('path', {
-      attrs: {
+      attrs: _.mix({
         path,
         stroke: cfg.color || G2DefaultTheme.defaultColor,
         lineWidth: cfg.size || 2,
-      },
+      },cfg.style)
     });
     return shape;
   },
@@ -32,11 +33,11 @@ G2.registerShape('line', 'miniLineSmooth', {
     const constraint = [[0, 0], [1, 1]];
     const path = getSplinePath(points, false, constraint);
     const shape = container.addShape('path', {
-      attrs: {
+      attrs: _.mix({
         path,
         stroke: cfg.color || G2DefaultTheme.defaultColor,
         lineWidth: cfg.size || 2,
-      },
+      },cfg.style)
     });
     return shape;
   },

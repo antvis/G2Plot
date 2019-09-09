@@ -53,6 +53,8 @@ export default interface Config {
   annotation?: any[];
   /** 样式 */
   theme?: Theme | string;
+  /** 响应式规则 */
+  responsiveTheme? : {} | string;
   /** 交互，待定 */
   interactions?: any[];
   /** 是否响应式 */

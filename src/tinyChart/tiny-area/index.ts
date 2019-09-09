@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { getGeom } from '../../geoms/factory';
 import TinyPlot from '../tinyPlot';
+import * as EventParser from './event';
 
 export default class TinyArea extends TinyPlot {
   public line: any;
@@ -14,7 +15,7 @@ export default class TinyArea extends TinyPlot {
     this.type = 'tineArea';
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     this.area = getGeom('area', 'mini', {
       plot: this,
     });
@@ -25,4 +26,9 @@ export default class TinyArea extends TinyPlot {
     });
     this._setConfig('element', this.line);
   }
+
+  protected _events(eventParser) {
+    super._events(EventParser);
+  }
+  
 }

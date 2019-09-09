@@ -211,7 +211,7 @@ function bboxOnRotate(shape) {
  * 线简化算法
  */
 
-const THRESHOLD = 0;
+const THRESHOLD = 2;
 
 function lineSimplification(points) {
   if (points.length < 5) {

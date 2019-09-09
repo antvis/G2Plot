@@ -11,25 +11,40 @@ const EVENT_MAP: IEventmap = {
   onPlotClick: 'click',
   onPlotDblclick: 'dblclick',
   onPlotMousemove: 'mousemove',
+  onPlotMousedown: 'mousedown',
+  onPlotMouseup: 'mouseup',
+  onPlotMouseenter: 'mouseenter',
+  onPlotMouseleave: 'mouseleave',
   onPlotContextmenu: 'contextmenu',
   onAxisClick: 'axis-label:click',
   onAxisDblclick: 'axis-label:dblclick',
   onAxisMousemove: 'axis-label:mousemove',
+  onAxisMousedown: 'axis-label:mousedown',
+  onAxisMouseup: 'axis-label:mouseup',
+  onAxisMouseenter: 'axis-label:mouseenter',
+  onAxisMouseleave: 'axis-label:mouseleave',
   onAxisContextmenu: 'axis-label:contextmenu',
   onLabelClick: 'label:click',
   onLabelDblclick: 'label:dblclick',
   onLabelMousemove: 'label:mousemove',
+  onLabelMouseup: 'label:mouseup',
+  onLabelMousedown: 'label:mousedown',
+  onLabelMouseenter: 'label:mouseenter',
+  onLabelMouseleave: 'label:mouseleave',
   onLabelContextmenu: 'label:contextmenu',
   onLegendClick: 'legend-item:click',
   onLegendDblclick: 'legend-item:dblclick',
-  onLegendMousemove: 'legend-item:mousemove',
+  onLegendMouseMove: 'legend-item:mousemove',
+  onLegendMouseDown: 'legend-item:mousedown',
+  onLegendMouseUp: 'legend-item:mouseup',
+  onLegendMouseLeave: 'legend-item:mouseleave',
+  onLegendMouseEnter: 'legend-item:mouseenter',
   onLegendContextmenu: 'legend-item:contextmenu',
 };
 
 function onEvent(plot, eventName, handler) {
   const g2Plot = plot.plot;
   g2Plot.on(eventName, handler);
-  plot.eventHandlers.push({ type: eventName, handler });
 }
 
 export { IEventmap, EVENT_MAP, onEvent };

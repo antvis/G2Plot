@@ -43,6 +43,14 @@ describe('Pie plot', () => {
       height: 600,
       data,
       angleField: 'value',
+      legend: {
+        visible: true,
+        position: 'top-left'
+      },
+      title: {
+        text: 'title title'
+      },
+      colorField: 'type',
     });
     piePlot.render();
     const positionField = piePlot.plot.get('elements')[0].get('position').fields;
@@ -194,14 +202,11 @@ describe('Pie plot', () => {
       angleField: 'value',
       colorField: 'type',
       label: {
+        visible: true,
         type: 'spider',
         style: {
-          lineWidth: 2,
-          text: {
-            fontSize: 14,
-            fill: '#ccc',
-          },
-          anchorSize: 3,
+          fontSize: 14,
+          fill: '#ccc',
         },
       },
     });
@@ -213,7 +218,6 @@ describe('Pie plot', () => {
     expect(labelShapes[0].get('children')[0].attr('text')).to.be.equal(5);
     expect(labelShapes[0].get('children')[1].attr('text')).to.be.equal('Other');
     expect(labelShapes[0].get('children')[1].attr('fill')).to.be.equal('#ccc');
-    expect(labelShapes[1].attr('lineWidth')).to.be.equal(2);
     expect(labelShapes[1].attr('stroke')).to.be.equal(shapes[shapes.length - 1].attr('fill'));
     piePlot.destroy();
   });
@@ -226,16 +230,17 @@ describe('Pie plot', () => {
         text: 'title',
       },
       description: {
-        text: 'description',
+        text: 'descriptiondescriptiondescriptiondescription',
       },
       padding: 'auto',
       data,
       angleField: 'value',
     });
-    const padding = piePlot.plot.get('padding');
-    expect(padding[0] >= 20).to.be.true;
+    piePlot.render();
+    const padding = piePlot.plot.get("padding");
+    expect(padding[0] >= 16).to.be.true;
     expect(padding[1] >= 20).to.be.true;
-    expect(padding[2] >= 40).to.be.true;
+    expect(padding[2] >= 20).to.be.true;
     expect(padding[3] >= 20).to.be.true;
     piePlot.destroy();
   });
@@ -262,8 +267,8 @@ describe('Pie plot', () => {
     });
     const title = piePlot.title;
     const description = piePlot.description;
-    expect(title.attr('text')).to.be.equal('title');
-    expect(title.attr('fill')).to.be.equal('red');
+    expect(title.text).to.be.equal('title');
+    expect(title.style.fill).to.be.equal('red');
     expect(description.shape.attr('text')).to.be.equal('description');
     expect(description.shape.attr('fill')).to.be.equal('red');
     piePlot.destroy();

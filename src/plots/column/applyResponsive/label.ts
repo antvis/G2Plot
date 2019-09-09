@@ -1,10 +1,11 @@
 import * as _ from '@antv/util';
-import responsiveTheme from '../../../theme/responsive';
+// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 import ShapeNodes from '../../../util/responsive/shapeNodes';
 
 export default function responsiveLabel(plot) {
   const props = plot._initialProps;
+  const responsiveTheme = plot.themeController.responsiveTheme;
   /** 判断是否应用响应式规则 */
   if (isTopLabel(plot)) {
     const element = plot.plot.get('elements')[0];
@@ -15,7 +16,7 @@ export default function responsiveLabel(plot) {
       shapes: labelShapes,
     });
     const region = plot.plot.get('panelRange');
-    const { constraints, rules } = responsiveTheme.labels.column;
+    const { constraints, rules } = responsiveTheme.label;
     new Responsive({
       nodes,
       constraints,

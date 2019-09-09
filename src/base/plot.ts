@@ -15,7 +15,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   public plot: G2.View;
   public _initialProps: T;
   public canvasController: CanvasController;
-  public eventHandlers: any[] = [];
   public destroyed: boolean = false;
   public type: string;
   protected _originalProps: T;
@@ -58,6 +57,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
 
   /** 自定义组件参与padding */
@@ -106,9 +108,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
-    this.plot.on('afterrender', () => {
-      this._afterRender();
-    });
   }
 
   // 绑定一个外部的stateManager
@@ -183,7 +182,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._axis();
     this._tooltip();
     this._legend();
-    this._addElements();
+    this._addGeometry();
     this._annotation();
     this._animation();
 
@@ -210,7 +209,7 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   // protected abstract _axis(): void;
   protected abstract _coord(): void;
   protected abstract _annotation(): void;
-  protected abstract _addElements(): void;
+  protected abstract _addGeometry(): void;
   protected abstract _animation(): void;
   protected abstract _interactions(): void;
 
@@ -381,10 +380,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
 
   /** 抽取destory和updateConfig共有代码为_destory方法 */
   private _destory() {
-    /** 关闭事件监听 */
-    _.each(this.eventHandlers, (handler) => {
-      this.plot.off(handler.type, handler.handler);
-    });
     /** 移除title & description */
     if (this.title) {
       this.title.destory();

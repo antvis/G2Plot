@@ -387,7 +387,7 @@ describe('stateManager', () => {
         active: {
           condition: {
             name: 'value',
-            exp: 3880,
+            exp: 6411,
           },
           related: ['tooltip','label','axis'],
         },
@@ -401,7 +401,7 @@ describe('stateManager', () => {
           related: ['tooltip','label','axis'],
         },
       },
-      //responsive: true
+      responsive: true
     });
     linePlot.render();
   });

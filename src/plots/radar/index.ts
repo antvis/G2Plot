@@ -3,8 +3,9 @@ import * as _ from '@antv/util';
 import { __assign } from 'tslib';
 import BasePlot from '../../base/plot';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, IColorConfig } from '../../interface/config';
+import BaseConfig from '../../interface/config';
 import { extractScale } from '../../util/scale';
+import * as EventParser from './event';
 
 interface LineStyle {
   opacity?: number;
@@ -176,7 +177,7 @@ export default class Rardar extends BasePlot<RadarConfig> {
     this._setConfig('axes', axesConfig);
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     /** 配置面积 */
     let areaConfig = { visible: true };
@@ -220,7 +221,7 @@ export default class Rardar extends BasePlot<RadarConfig> {
   protected _interactions() {}
 
   protected _events(eventParser) {
-    // super._events(EventParser);
+    super._events(EventParser);
   }
 
   private _axisStyleParser(styleProps, axisConfig) {

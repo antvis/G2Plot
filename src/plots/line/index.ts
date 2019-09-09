@@ -7,10 +7,11 @@ import { extractScale } from '../../util/scale';
 import './animation/clipInWithData';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
+import './applyResponsive/theme';
+import TimeGroupAnnotation from './component/annotation/timeGroupAnnotation';
+import './component/label/line-label';
+import './component/label/point-label';
 import * as EventParser from './event';
-import TimeGroupAnnotation from './guide/annotation/timeGroupAnnotation';
-import './guide/label/line-label';
-import './guide/label/point-label';
 import { LineActive, LineSelect, Range } from './interaction/index';
 import './theme';
 
@@ -86,7 +87,7 @@ export default class Line extends BasePlot<LineConfig> {
 
   protected _coord() {}
 
-  protected _addElements() {
+  protected _addGeometry() {
     const props = this._initialProps;
     this.line = getGeom('line', 'main', {
       plot: this,
@@ -190,12 +191,6 @@ export default class Line extends BasePlot<LineConfig> {
   protected _afterInit() {
     super._afterInit();
     const props = this._initialProps;
-    // 响应式
-    if (props.responsive && props.padding !== 'auto') {
-      this.plot.once('afterrender', () => {
-        this._applyResponsive('afterRender');
-      });
-    }
     // 时间子母轴
     if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
       const xAxis = props.xAxis as ITimeAxis;
@@ -204,6 +199,15 @@ export default class Line extends BasePlot<LineConfig> {
         field: props.xField,
         groupDim: xAxis.groupBy,
       });
+    }
+  }
+
+  protected _afterRender(){
+    super._afterRender();
+    const props = this._initialProps;
+     // 响应式
+     if (props.responsive && props.padding !== 'auto') {
+        this._applyResponsive('afterRender');
     }
   }
 

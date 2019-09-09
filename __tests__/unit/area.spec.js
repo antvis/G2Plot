@@ -291,11 +291,9 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
-      area: {
-        style: {
-          stroke: 'black',
-          lineWidth: 2
-        },
+      areaStyle: {
+        stroke: 'black',
+        lineWidth: 2
       },
       point: {
         visible: true,
@@ -391,11 +389,9 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
-      // area: {
-      //   style: {
-      //     stroke: 'black',
-      //     lineWidth: 2
-      //   },
+      // areaStyle: {
+      //   stroke: 'black',
+      //   lineWidth: 2
       // },
       // point: {
       //   visible: true,
@@ -441,11 +437,9 @@ describe('Column plot', () => {
   //     yAxis: {
   //       visible: true,
   //     },
-  //     area: {
-  //       style: {
-  //         stroke: 'black',
-  //         lineWidth: 2
-  //       },
+  //     areaStyle: {
+  //       stroke: 'black',
+  //       lineWidth: 2
   //     },
   //     point: {
   //       visible: true,
@@ -494,11 +488,9 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
-      // area: {
-      //   style: {
-      //     stroke: 'black',
-      //     lineWidth: 2
-      //   },
+      // areaStyle: {
+      //   stroke: 'black',
+      //   lineWidth: 2
       // },
       point: {
         visible: true,
@@ -551,11 +543,9 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
-      area: {
-        style: {
-          stroke: 'black',
-          lineWidth: 2
-        },
+      areaStyle: {
+        stroke: 'black',
+        lineWidth: 2
       },
       point: {
         visible: true,

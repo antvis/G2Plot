@@ -5,12 +5,23 @@ import * as EventParser from './event';
 
 const WIDTH_RATIO = 0.6;
 
+const G2_GEOM_MAP = {
+  column: 'interval',
+};
+
+const PLOT_GEOM_MAP = {
+  interval: 'column',
+};
+
 export default class TinyColumn extends TinyPlot {
   public line: any;
   public area: any;
 
   protected geometryParser(dim: string, type: string): string {
-    throw new Error('Method not implemented.');
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
   }
 
   protected setType(): void {

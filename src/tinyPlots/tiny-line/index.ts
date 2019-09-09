@@ -3,11 +3,15 @@ import { getGeom } from '../../geoms/factory';
 import TinyPlot from '../tinyPlot';
 import * as EventParser from './event';
 
+const GEOM_MAP = {
+  line: 'line',
+};
+
 export default class TinyLine extends TinyPlot {
   public line: any;
 
   protected geometryParser(dim: string, type: string): string {
-    throw new Error('Method not implemented.');
+    return GEOM_MAP[type];
   }
 
   protected setType(): void {

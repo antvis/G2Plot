@@ -1,4 +1,4 @@
-import TinyLine from '../../../src/tinyChart/tiny-line/index';
+import TinyLine from '../../../src/tinyPlots/tiny-line';
 import { income } from '../../data/income';
 
 describe('tinyLine plot', () => {
@@ -56,6 +56,8 @@ describe('tinyLine plot', () => {
       data: income,
       xField: 'time',
       yField: 'rate',
+      color: 'red',
+      size: 1,
       events:{
         onLineClick:(e)=>{
           console.log(e);

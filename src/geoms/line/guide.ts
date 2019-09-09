@@ -29,8 +29,8 @@ export default class GuideLineParser extends LineParser {
   public parseSize() {
     const props = this.plot._initialProps;
     const config: DataPointType = {};
-    if (props.line.style && props.line.style.color) {
-      config.values = [props.line.style.size];
+    if (props.line && props.line.size) {
+      config.values = [props.line.size];
     } else {
       // line作为辅助图形没有在style里指定size属性的情况下，设置默认值
       config.values = [2];
@@ -45,8 +45,8 @@ export default class GuideLineParser extends LineParser {
     if (colorField) {
       config.fields = colorField;
     }
-    if (props.line.style && props.line.style.color) {
-      config.values = [props.line.style.color];
+    if (props.style && props.line.color) {
+      config.values = [props.line.color];
     } else {
       if (!colorField) {
         colorField = this.config.position.fields;
@@ -81,7 +81,7 @@ export default class GuideLineParser extends LineParser {
 
   private _needParseAttribute(attr) {
     const props = this.plot._initialProps;
-    const condition = !props.line.style || props.line.style[attr];
+    const condition = !props.line || props.line[attr];
     return condition;
   }
 

@@ -15,7 +15,7 @@ export default class TinyArea extends TinyPlot {
     this.type = 'tineArea';
   }
 
-  protected _addElements() {
+  protected _addGeometry() {
     this.area = getGeom('area', 'mini', {
       plot: this,
     });

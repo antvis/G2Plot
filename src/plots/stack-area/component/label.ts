@@ -55,7 +55,7 @@ function getXIndex(data,x){
 
 
 class AreaLabel extends ElementLabels {
-    private scaleFactor: number;
+    private scaleFactor: number[] = [];
 
     public showLabels(points: any, shapes: Shape[]) {
         // 获取堆叠字段
@@ -65,7 +65,10 @@ class AreaLabel extends ElementLabels {
         const labelPoints = [];
         _.each(groupedPoints,(pointArray,name)=>{
             const labelPoint = this._drawLabel(pointArray,name);
-            labelPoints.push(_.mix({},pointArray[0],labelPoint));
+            if(labelPoint){
+                labelPoints.push(_.mix({},pointArray[0],labelPoint));
+                this.scaleFactor.push(labelPoint.scaleFactor);
+            }
         });
         super.showLabels(labelPoints, shapes);
         const labelOptions = this.get('labelOptions');
@@ -107,7 +110,7 @@ class AreaLabel extends ElementLabels {
         const fit:any = this._testFit(fitOption);
         fit.x = fit.x;
         fit.y = fit.y0 + (fit.y1 - fit.y0)/2;
-        this.scaleFactor = height / bbox.height * 0.5;
+        fit.scaleFactor = height / bbox.height * 0.4;
         return fit;
     }
 
@@ -207,11 +210,12 @@ class AreaLabel extends ElementLabels {
         const renderer = this.get('labelsRenderer');
         const labels = renderer.get('group').get('children');
         const view = this.get('element').get('view');
-        _.each(labels, (label) => {
+        _.each(labels, (label,index) => {
+            const scaleFactor = this.scaleFactor[index];
             label.attr('fontSize',DEFAULT_SIZE);
             label.transform([
                 ['t', - label.attr('x'), -label.attr('y')],
-                ['s', this.scaleFactor, this.scaleFactor], 
+                ['s', scaleFactor, scaleFactor], 
                 ['t', label.attr('x'), label.attr('y')],
             ])
         });

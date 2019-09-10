@@ -3,6 +3,13 @@ import * as _ from '@antv/util';
 import Responsive from '../../../util/responsive/responsive';
 import ShapeNodes from '../../../util/responsive/shapeNodes';
 
+const SCALE_MAPPER = {
+  cat:'category',
+  timeCat: 'category',
+  time: 'dateTime',
+  linear: 'linear'
+};
+
 export default function responsiveAxis(plot) {
   const props = plot._initialProps;
   const canvas = plot.canvasController.canvas;
@@ -15,6 +22,7 @@ export default function responsiveAxis(plot) {
 }
 
 function responsiveXAxis(plot, props, responsiveTheme) {
+  const scaleType = plot.plot.get('scales')[props.xField].type;
   const axis = plot.plot.get('axisController').axes[0];
   const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
@@ -25,7 +33,7 @@ function responsiveXAxis(plot, props, responsiveTheme) {
     shapes,
   });
   const responsiveCon = props.xAxis.type && props.xAxis.type === 'dateTime';
-  const responsiveType = responsiveCon ? 'dateTime' : 'linear';
+  const responsiveType = responsiveCon ? 'dateTime' : SCALE_MAPPER[scaleType];
   const { constraints, rules } = responsiveTheme.axis.x[responsiveType].label;
   new Responsive({
     nodes: shapeNodes,

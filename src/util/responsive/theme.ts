@@ -89,7 +89,7 @@ const defaultResponsiveTheme = {
               {
                 name: 'nodesResamplingByAbbrevate',
                 option: {
-                  // keep:['end']
+                  keep:['end']
                 },
               },
               {
@@ -103,6 +103,12 @@ const defaultResponsiveTheme = {
                 option: {
                   degree: 90,
                 },
+              },
+              { 
+                name: 'nodesResampling' 
+              },
+              { 
+                name: 'nodesResampling' 
               },
               {
                 name: 'textHide',

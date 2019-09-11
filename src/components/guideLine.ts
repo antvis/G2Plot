@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
 import { getMean, getMedian } from '../util/math';
+import { getScale } from '@antv/scale';
 
 export default class GuideLine {
   public config: any;
@@ -14,19 +15,27 @@ export default class GuideLine {
   private _init() {
     const props = this.plot._initialProps;
     const defaultStyle = this._getDefaultStyle();
-    const baseConfig = _.mix(
+    const baseConfig = _.mix(  defaultStyle,
       {
         ...this.cfg,
         type: 'line',
         top: true,
-      },
-      defaultStyle
+      }
     ) as any;
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);
       const minValue = this._getState('min');
       const maxValue = this._getState('max');
-      const percent = `${((stateValue - minValue) / maxValue) * 100}%`;
+      const Scale = getScale('linear');
+      // 重新组织scale并使用scale的min和max来计算guide point的百分比位置，以避免受nice的影响
+      const scale = new Scale(
+        _.mix({},{
+          min: minValue,
+          max: maxValue,
+          nice: true
+        },props.meta)
+      );
+      const percent = `${((stateValue - scale.min) / (scale.max - scale.min)) * 100}%`;
       const start = ['0%', percent];
       const end = ['100%', percent];
       this.config = _.mix(

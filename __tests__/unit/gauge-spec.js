@@ -11,7 +11,7 @@ describe('Gauge plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it.only('initialize & destory',() => {
+  it('initialize & destory',() => {
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
       height: 650,
@@ -33,7 +33,7 @@ describe('Gauge plot', () => {
 
   const titleText = '仪表图测试';
   const descriptionText = '仪表图';
-  it.only('title & description',() => {
+  it('title & description',() => {
     const gaugePlot = new Gauge(canvasDiv, {
       title: {
         text: titleText,
@@ -53,7 +53,7 @@ describe('Gauge plot', () => {
     gaugePlot.destroy();
   });
 
-  it.only('gauge-value', () => {
+  it('gauge-value', () => {
     Theme.setTheme('ali-light');
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
@@ -78,7 +78,7 @@ describe('Gauge plot', () => {
   });
 
 
-  it.only('gauge-label', () => {
+  it('gauge-label', () => {
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
       height: 650,
@@ -97,7 +97,7 @@ describe('Gauge plot', () => {
   });
 
   
-  it.only('gauge-scale', () => {
+  it('gauge-scale', () => {
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
       height: 650,
@@ -115,7 +115,7 @@ describe('Gauge plot', () => {
   });
 
 
-  it.only('gauge style', () => {
+  it('gauge style', () => {
     // Theme.setTheme('ali-light');
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,

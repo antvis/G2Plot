@@ -6,6 +6,11 @@ export interface GroupBarConfig extends BarConfig {
 }
 
 export default class GroupBar extends BaseBar<GroupBarConfig> {
+
+  protected setType() {
+    this.type = 'groupBar';
+  }
+
   protected _adjustBar(bar: ElementOption) {
     bar.adjust = [
       {

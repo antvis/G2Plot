@@ -7,6 +7,9 @@ export interface GroupColumnConfig extends ColumnConfig {
 }
 
 export default class GroupColumn extends BaseColumn<GroupColumnConfig> {
+  protected setType() {
+    this.type = 'groupColumn';
+  }
   protected _adjustColumn(column: ElementOption) {
     column.adjust = [
       {

@@ -143,10 +143,11 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this.plotTheme = this.themeController.plotTheme;
     const props = this._initialProps;
     const theme = this.themeController.theme;
+
     this._config = {
       scales: {},
       legends: {
-        position: theme.defaultLegendPosition,
+        position: theme.legend.position,
       },
       tooltip: {
         showTitle: true,

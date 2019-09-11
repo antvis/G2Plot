@@ -5,6 +5,8 @@ import Progress from '../progress';
 import {getAngle,setShapeInfo} from './animation/index';
 import * as EventParser from './event';
 
+const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
+
 export default class RingProgress extends Progress {
   public ring: any;
 
@@ -15,7 +17,8 @@ export default class RingProgress extends Progress {
       xField: 'value',
       yField: '1',
       stackField: 'type',
-      color: props.color || ['#55A6F3', '#E8EDF3'],
+      barStyle: props.progressStyle,
+      color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
     props = _.mix(props, cfg);
   }

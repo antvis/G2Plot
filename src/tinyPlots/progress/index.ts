@@ -15,6 +15,8 @@ const PLOT_GEOM_MAP = {
   interval: 'progress',
 };
 
+const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
+
 export default class Progress extends TinyPlot<TinyProgressCfg> {
   /**
    * 将进度条配置项转为堆叠条形图配置项
@@ -29,7 +31,7 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
       stackField: 'type',
       barSize: this._getSize(),
       barStyle: props.progressStyle,
-      color: props.color || ['#55A6F3', '#E8EDF3'],
+      color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
     props = _.mix(props, cfg);
   }
@@ -95,5 +97,19 @@ export default class Progress extends TinyPlot<TinyProgressCfg> {
       return 10;
     }
     return 4;
+  }
+
+  protected parseColorProps(props){
+    if(props.color){
+      if(_.isString(props.color)){
+        const color = _.clone(DEFAULT_COLOR);
+        color[0] = props.color;
+        return color;
+      }
+      if(_.isFunction(props.color)){
+        return props.color(props.percent);
+      }
+    }
+    return props.color;
   }
 }

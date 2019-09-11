@@ -11,15 +11,75 @@ describe('Gauge plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it.only('gauge', () => {
-    Theme.setTheme('ali-light');
+  it.only('initialize & destory',() => {
+    const gaugePlot = new Gauge(canvasDiv, {
+      width: 600,
+      height: 650,
+
+      value: 64,
+      range: [0, 100],
+    });
+    gaugePlot.render();
+    expect(gaugePlot).to.be.instanceOf(Gauge);
+    const canvas = gaugePlot.plot.get('canvas');
+    expect(canvas.get('width')).to.be.equal(600);
+    expect(canvas.get('height')).to.be.equal(650);
+    const geometry = gaugePlot.plot.get('elements')[0];
+    expect(geometry.get('type')).to.be.equal('point');
+    gaugePlot.destroy();
+    expect(gaugePlot.plot.destroyed).to.be.true;
+  });
+
+
+  const titleText = '仪表图测试';
+  const descriptionText = '仪表图';
+  it.only('title & description',() => {
     const gaugePlot = new Gauge(canvasDiv, {
       title: {
-        text: '水位图测试',
+        text: titleText,
       },
       description: {
-        text: '水位图用来展示数据在总集合中的占比情况，通过水位的样式展示信息。',
+        text: descriptionText,
       },
+      width: 600,
+      height: 650,
+
+      value: 64,
+      range: [0, 100],
+    });
+    gaugePlot.render();
+    expect(gaugePlot.title.text).to.be.equal(titleText);
+    expect(gaugePlot.description.text).to.be.equal(descriptionText);
+    gaugePlot.destroy();
+  });
+
+  it.only('gauge-value', () => {
+    Theme.setTheme('ali-light');
+    const gaugePlot = new Gauge(canvasDiv, {
+      width: 600,
+      height: 650,
+
+      value: 64,
+      min: 0,
+      max: 100,
+      range: [20, 40, 60, 80],
+      label: true,
+    });
+    gaugePlot.render();
+    expect(gaugePlot).to.be.instanceOf(Gauge);
+    const element = gaugePlot.plot.get('elements')[0];
+    const data = element.get('data')[0].value;
+    expect(data).to.be.equal(64);
+    const positionField = element.get('position').fields;
+    expect(positionField[0]).to.be.equal('value');
+    expect(positionField[1]).to.be.equal('1');
+    expect(gaugePlot.plot.get('coord').type).to.be.equal('polar');
+    gaugePlot.destroy();
+  });
+
+
+  it.only('gauge-label', () => {
+    const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
       height: 650,
 
@@ -31,25 +91,33 @@ describe('Gauge plot', () => {
       format: (d) => `[${d}]`,
     });
     gaugePlot.render();
-    expect(gaugePlot).to.be.instanceOf(Gauge);
-    const positionField = gaugePlot.plot.get('elements')[0].get('position').fields;
-    expect(positionField[0]).to.be.equal('value');
-    expect(positionField[1]).to.be.equal('1');
-    expect(gaugePlot.plot.get('coord').type).to.be.equal('polar');
+    const annotationText = gaugePlot.plot.cfg.annotationController.annotations[0].cfg.content;
+    expect(annotationText).to.be.equal('[64]');
     gaugePlot.destroy();
-    expect(gaugePlot.plot.destroyed).to.be.true;
+  });
+
+  
+  it.only('gauge-scale', () => {
+    const gaugePlot = new Gauge(canvasDiv, {
+      width: 600,
+      height: 650,
+
+      value: 64,
+      min: 0,
+      max: 100,
+      range: [20, 40, 60, 80],
+    });
+    gaugePlot.render();
+    const scale = gaugePlot.plot.get('scales')['value'];
+    expect(scale.min).to.be.equal(0);
+    expect(scale.max).to.be.equal(100);
+    gaugePlot.destroy();
   });
 
 
   it.only('gauge style', () => {
     // Theme.setTheme('ali-light');
     const gaugePlot = new Gauge(canvasDiv, {
-      title: {
-        text: '水位图测试',
-      },
-      description: {
-        text: '水位图用来展示数据在总集合中的占比情况，通过水位的样式展示信息。',
-      },
       width: 600,
       height: 650,
 
@@ -59,7 +127,6 @@ describe('Gauge plot', () => {
       range: [20, 40, 60, 80],
       // label: (value, formatted) => `<div>${value}+++${formatted}</div>`,
       label: (value, formatted) => {const a = document.createElement("div"); a.innerText = `${formatted}`; return a;},
-      format: (d) => `[${d}]`,
       gaugeStyle: {
         colors: [ '#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864' ],
         // stripWidth: 30,
@@ -80,6 +147,5 @@ describe('Gauge plot', () => {
     const colorCfg = gaugePlot.plot.get('elements')[0].get('color').values;
     expect(colorCfg[0]).to.be.equal('#1890FF');
     gaugePlot.destroy();
-    expect(gaugePlot.plot.destroyed).to.be.true;
   });
 });

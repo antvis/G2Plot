@@ -10,6 +10,10 @@ export interface StackAreaConfig extends AreaConfig {
 
 export default class StackArea extends BaseArea<StackAreaConfig> {
 
+  protected setType() {
+    this.type = 'stackArea';
+  }
+
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;

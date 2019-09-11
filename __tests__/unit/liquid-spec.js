@@ -11,7 +11,7 @@ describe('Liquid plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it.only('initialize & destory',() => {
+  it('initialize & destory',() => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
@@ -36,7 +36,7 @@ describe('Liquid plot', () => {
 
   const titleText = '水位图测试';
   const descriptionText = '水位图用来展示数据在总集合中的占比情况，通过水位的样式展示信息。';
-  it.only('title & description',() => {
+  it('title & description',() => {
     const liquidPlot = new Liquid(canvasDiv, {
       title: {
         text: titleText,
@@ -60,7 +60,7 @@ describe('Liquid plot', () => {
   });
 
 
-  it.only('liquid-normal', () => {
+  it('liquid-normal', () => {
     Theme.setTheme('ali-light');
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
@@ -85,7 +85,7 @@ describe('Liquid plot', () => {
   });
 
 
-  it.only('liquid-percent', () => {
+  it('liquid-percent', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
@@ -104,7 +104,7 @@ describe('Liquid plot', () => {
   });
 
 
-  it.only('liquid-showValue', () => {
+  it('liquid-showValue', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
@@ -123,7 +123,7 @@ describe('Liquid plot', () => {
   });
 
 
-  it.only('liquid-scale', () => {
+  it('liquid-scale', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
@@ -141,7 +141,7 @@ describe('Liquid plot', () => {
   });
 
 
-  it.only('liquid-style', () => {
+  it('liquid-style', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,

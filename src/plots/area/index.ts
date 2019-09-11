@@ -13,20 +13,18 @@ import './theme';
 interface AreaStyle {
   opacity?: number;
   lineDash?: number[];
+  strokeStyle?: string;
+  lineWidth?: number;
 }
 
 interface LineStyle {
-  opacity?: number;
   lineDash?: number[];
-  color?: string;
-  size?: number;
+  stroke?: string;
 }
 
 interface PointStyle {
-  shape?: string;
-  size?: number;
-  color?: string;
-  opacity?: string;
+  fillStyle?: string;
+  strokeStyle?: string;
 }
 
 const GEOM_MAP = {
@@ -37,14 +35,22 @@ const GEOM_MAP = {
 
 export interface AreaConfig extends BaseConfig {
   areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
+  seriesField?: string;
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   line?: {
     visible?: boolean;
+    opacity?: number;
+    color?: string;
+    size?: number;
     style?: LineStyle;
   };
   point?: {
     visible?: boolean;
+    opacity?: number;
+    color?: string;
+    size?: number;
+    shape?: string;
     style?: PointStyle;
   };
 }
@@ -158,10 +164,15 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
       lineConfig = _.deepMix(lineConfig, props.line);
     }
     if (lineConfig.visible) {
-      const line = getGeom('line', 'guide', {
-        type: 'line',
-        plot: this,
-      });
+      const line = getGeom(
+        'line',
+        'guide',
+        {
+          type: 'line',
+          plot: this,
+          line: lineConfig
+        }
+      );
       this._adjustLine(line);
       this._setConfig('element', line);
       this.line = line;

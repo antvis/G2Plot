@@ -45,7 +45,7 @@ export default class GuideLineParser extends LineParser {
     if (colorField) {
       config.fields = colorField;
     }
-    if (props.style && props.line.color) {
+    if (props.line && props.line.color) {
       config.values = [props.line.color];
     } else {
       if (!colorField) {

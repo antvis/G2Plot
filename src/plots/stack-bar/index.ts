@@ -9,6 +9,11 @@ export interface StackBarConfig extends BarConfig {
 }
 
 export default class StackBar extends BaseBar<StackBarConfig> {
+
+  protected setType() {
+    this.type = 'stackBar';
+  }
+
   protected _adjustBar(bar: ElementOption) {
     bar.adjust = [
       {

@@ -54,7 +54,7 @@ export default interface Config {
   /** 样式 */
   theme?: Theme | string;
   /** 响应式规则 */
-  responsiveTheme? : {} | string;
+  responsiveTheme?: {} | string;
   /** 交互，待定 */
   interactions?: any[];
   /** 是否响应式 */
@@ -103,10 +103,12 @@ interface IBaseAxis {
     visible?: boolean;
     style: {};
   };
-  grid?: {
-    visible?: boolean;
-    style: {};
-  };
+  grid?:
+    | {
+        visible?: boolean;
+        style: {};
+      }
+    | ((text: string, idx: number, count: number) => any);
   autoRotateLabel: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   label?:
@@ -141,6 +143,8 @@ export interface IValueAxis extends IBaseAxis {
   /** tick相关配置 */
   min?: number;
   max?: number;
+  minLimit?: number;
+  maxLimit?: number;
   tickCount?: number;
   tickInterval?: number;
 }

@@ -12,6 +12,11 @@ export interface StackColumnConfig extends ColumnConfig {
 
 export default class StackColumn extends BaseColumn<StackColumnConfig> {
   public connectedArea: any;
+
+  protected setType() {
+    this.type = 'stackColumn';
+  }
+
   protected _adjustColumn(column: ElementOption) {
     column.adjust = [
       {

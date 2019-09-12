@@ -29,6 +29,12 @@ export function extractScale(desScale, axisConfig) {
   if (axisConfig.hasOwnProperty('max')) {
     desScale.max = axisConfig.max;
   }
+  if (axisConfig.hasOwnProperty('minLimit')) {
+    desScale.minLimit = axisConfig.minLimit;
+  }
+  if (axisConfig.hasOwnProperty('maxLimit')) {
+    desScale.maxLimit = axisConfig.maxLimit;
+  }
   if (axisConfig.hasOwnProperty('nice')) {
     desScale.nice = axisConfig.nice;
   }

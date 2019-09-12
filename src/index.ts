@@ -1,4 +1,5 @@
 export { default as Config } from './interface/config';
+export * from './interface/config';
 export { default as Base } from './base/plot';
 export { default as Line, LineConfig } from './plots/line';
 export { default as Column, ColumnConfig } from './plots/column';

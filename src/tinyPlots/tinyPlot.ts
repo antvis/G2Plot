@@ -18,8 +18,8 @@ export default abstract class TinyPlot<T extends TinyConfig = TinyConfig> extend
   }
 
   protected _coord() {}
-
-  protected _addElements() {}
+  
+  protected _addGeometry() {}
 
   protected _annotation() {
     const props = this._initialProps;

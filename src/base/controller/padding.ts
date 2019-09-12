@@ -92,8 +92,7 @@ export default class PaddingController {
       _.each(legends, (l) => {
         const legend = l as DataPointType;
         this._adjustLegend(legend, view, box);
-        // const legendBBox = legend.getFlippedBBox();
-        const legendBBox = legend.get('container').getBBox();
+        const legendBBox = legend.getBBox();
         const { width, height } = legendBBox;
         let x = 0;
         let y = 0;

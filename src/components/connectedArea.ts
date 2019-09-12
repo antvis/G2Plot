@@ -76,7 +76,7 @@ export default class ConnectedArea {
         if(state === 'active') {
             this._onActive(condition);
         }
-        if(state === 'disables') {
+        if(state === 'disabled') {
             this._onDisabled(condition);
         }
         if(state === 'selected'){

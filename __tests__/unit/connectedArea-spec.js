@@ -10,105 +10,110 @@ describe('connectedArea components',()=>{
     canvasDiv.id = 'canvas1';
     document.body.appendChild(canvasDiv);
   
-    const data = [
-      {
-        year: '1991',
-        value: 3,
-        type: 'Lon',
-      },
-      {
-        year: '1992',
-        value: 4,
-        type: 'Lon',
-      },
-      {
-        year: '1993',
-        value: 3.5,
-        type: 'Lon',
-      },
-      {
-        year: '1994',
-        value: 5,
-        type: 'Lon',
-      },
-      {
-        year: '1995',
-        value: 4.9,
-        type: 'Lon',
-      },
-      {
-        year: '1996',
-        value: 6,
-        type: 'Lon',
-      },
-      {
-        year: '1997',
-        value: 7,
-        type: 'Lon',
-      },
-      {
-        year: '1998',
-        value: 9,
-        type: 'Lon',
-      },
-      {
-        year: '1999',
-        value: 13,
-        type: 'Lon',
-      },
-      {
-        year: '1991',
-        value: 3,
-        type: 'Bor',
-      },
-      {
-        year: '1992',
-        value: 4,
-        type: 'Bor',
-      },
-      {
-        year: '1993',
-        value: 3.5,
-        type: 'Bor',
-      },
-      {
-        year: '1994',
-        value: 5,
-        type: 'Bor',
-      },
-      {
-        year: '1995',
-        value: 4.9,
-        type: 'Bor',
-      },
-      {
-        year: '1996',
-        value: 6,
-        type: 'Bor',
-      },
-      {
-        year: '1997',
-        value: 7,
-        type: 'Bor',
-      },
-      {
-        year: '1998',
-        value: 9,
-        type: 'Bor',
-      },
-      {
-        year: '1999',
-        value: 13,
-        type: 'Bor',
-      },
-    ];
+     var data = [{
+    time: '16 Q1',
+    type: '移动游戏',
+    value: 0
+  }, {
+    time: '16 Q1',
+    type: '移动购物',
+    value: 17.8
+  }, {
+    time: '16 Q1',
+    type: '移动营销',
+    value: 69.4
+  }, {
+    time: '16 Q1',
+    type: '共享单车',
+    value: 12.8
+  }, {
+    time: '16 Q2',
+    type: '移动游戏',
+    value: 0
+  }, {
+    time: '16 Q2',
+    type: '移动购物',
+    value: 18.1
+  }, {
+    time: '16 Q2',
+    type: '移动营销',
+    value: 70.7
+  }, {
+    time: '16 Q2',
+    type: '共享单车',
+    value: 11.2
+  }, {
+    time: '16 Q3',
+    type: '移动游戏',
+    value: 0
+  }, {
+    time: '16 Q3',
+    type: '移动购物',
+    value: 20.8
+  }, {
+    time: '16 Q3',
+    type: '移动营销',
+    value: 67.4
+  }, {
+    time: '16 Q3',
+    type: '共享单车',
+    value: 11.8
+  }, {
+    time: '16 Q4',
+    type: '移动游戏',
+    value: 0.1
+  }, {
+    time: '16 Q4',
+    type: '移动购物',
+    value: 20.3
+  }, {
+    time: '16 Q4',
+    type: '移动营销',
+    value: 69.2
+  }, {
+    time: '16 Q4',
+    type: '共享单车',
+    value: 10.4
+  }, {
+    time: '17 Q1',
+    type: '移动游戏',
+    value: 0.4
+  }, {
+    time: '17 Q1',
+    type: '移动购物',
+    value: 17.3
+  }, {
+    time: '17 Q1',
+    type: '移动营销',
+    value: 68.3
+  }, {
+    time: '17 Q1',
+    type: '共享单车',
+    value: 14
+  }, {
+    time: '17 Q2',
+    type: '移动游戏',
+    value: 1.2
+  }, {
+    time: '17 Q2',
+    type: '移动购物',
+    value: 18.3
+  }, {
+    time: '17 Q2',
+    type: '移动营销',
+    value: 68.6
+  }, {
+    time: '17 Q2',
+    type: '共享单车',
+    value: 11.9
+  }];
   
     it('stackedColumn',()=>{
         const columnPlot = new StackColumn(canvasDiv, {
             data,
             width: 400,
             height: 400,
-            xField: 'year',
+            xField: 'time',
             yField: 'value',
             yAxis: {
               min: 0,
@@ -116,7 +121,7 @@ describe('connectedArea components',()=>{
             stackField: 'type',
             connectedArea:{
                 visible: true,
-                // triggerOn:'mouseenter',
+                triggerOn:'mouseenter',
                 /*lineStyle:{
                   stroke:'#afb1b5',
                   opacity: 0.8
@@ -130,7 +135,7 @@ describe('connectedArea components',()=>{
               active:{
                 condition:{
                   name: 'type',
-                  exp: 'Lon'
+                  exp: '移动营销'
                 },
                 related:['connectedArea']
               },
@@ -138,7 +143,7 @@ describe('connectedArea components',()=>{
                 condition:{
                   name: 'type',
                   exp:(d)=>{
-                    return d !== 'Lon';
+                    return d !== '移动营销';
                   }
                 },
                 related:['connectedArea']

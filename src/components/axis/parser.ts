@@ -116,6 +116,8 @@ export default class AxisParser {
   private _isVisible(name) {
     if (this.localProps[name] && this.localProps[name].visible) {
       return true;
+    } else if (_.isFunction(this.localProps[name])) {
+      return true;
     }
     return false;
   }

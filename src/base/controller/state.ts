@@ -68,6 +68,8 @@ export default class StateController {
           attrs = _.mix({}, originAttr, stateStyle);
         }
         shape.attr(attrs);
+        const canvas = this.plot.canvasController.canvas;
+        canvas.draw();
       }
     });
     // 组件与图形对状态量的响应不一定同步

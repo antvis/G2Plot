@@ -224,14 +224,20 @@ export default class ConnectedArea {
             const shapeData = area.get('data');
             const styleField = shapeData[this.field];
             if(compare(shapeData,condition)){
-                area.attr('opacity',this._areaStyle[styleField].opacity || 1);
+                const opacity = this._areaStyle[styleField].opacity || 1;
+                // area.attr('opacity',this._areaStyle[styleField].opacity || 1);
+                area.stopAnimate();
+                area.animate({ opacity},400,'easeQuadOut');
             }
         });
         _.each(this.lines,(line)=>{
             const shapeData = line.get('data');
             const styleField = shapeData[this.field];
             if(compare(shapeData,condition)){
-                line.attr('opacity',this._lineStyle[styleField].opacity || 1);
+                const opacity = this._lineStyle[styleField].opacity || 1;
+                // line.attr('opacity',this._lineStyle[styleField].opacity || 1);
+                line.stopAnimate();
+                line.animate({ opacity},400,'easeQuadOut');
             }
         });
     }
@@ -240,13 +246,21 @@ export default class ConnectedArea {
         _.each(this.areas,(area)=>{
             const shapeData = area.get('data');
             if(compare(shapeData,condition)){
-                area.attr('opacity',0);
+                // area.attr('opacity',0);
+                area.stopAnimate();
+                area.animate({
+                    opacity: 0
+                },400, 'easeQuadOut');
             }
         });
         _.each(this.lines,(line)=>{
             const shapeData = line.get('data');
             if(compare(shapeData,condition)){
-                line.attr('opacity',0);
+                // line.attr('opacity',0);
+                line.stopAnimate();
+                line.animate({
+                    opacity: 0
+                },400, 'easeQuadOut');
             }
         });
     }

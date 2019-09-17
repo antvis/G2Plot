@@ -152,10 +152,8 @@ const defaultResponsiveTheme = {
 const RESPONSIVE_THEME_MAP = {};
 
 export function registerResponsiveTheme(name: string, theme) {
-  if (getResponsiveTheme(name)) {
-    throw new Error(`responsive theme type '${name}' existed.`);
-  }
-  RESPONSIVE_THEME_MAP[name] = theme;
+  const defaultTheme = getResponsiveTheme('default');
+  RESPONSIVE_THEME_MAP[name] = _.mix({},defaultTheme,theme);
 }
 
 export function getResponsiveTheme(name: string) {

@@ -29,6 +29,7 @@ export default function responsiveRing(plot) {
     nodes,
     constraints,
     region,
+    plot,
     onEnd: () => {
       props.innerRadius = nodes.nodes[0].value;
     },

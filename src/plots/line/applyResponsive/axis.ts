@@ -39,6 +39,7 @@ function responsiveXAxis(plot, props, responsiveTheme) {
     nodes: shapeNodes,
     constraints,
     rules,
+    plot,
     onEnd: (nodes) => {
       if (axis.get('tickLine')) {
         updateTicks(nodes, axis);
@@ -62,6 +63,7 @@ function responsiveYaxis(plot, props, responsiveTheme) {
     nodes: shapeNodes,
     constraints,
     rules,
+    plot,
     onEnd: (nodes) => {
       if (axis.get('tickLine')) {
         updateTicks(nodes, axis);

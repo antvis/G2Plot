@@ -333,7 +333,7 @@ describe('stateManager', () => {
             plot.setSelected(d /*, {
               lineWidth: 2,
               stroke: 'black'
-            }*/);
+            }*/);3
             plot.setNormal((origin) => {
               return origin[d.name] !== d.exp;
             });

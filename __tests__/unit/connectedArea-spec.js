@@ -119,6 +119,9 @@ describe('connectedArea components',()=>{
               min: 0,
             },
             stackField: 'type',
+            tooltip:{
+              visible: false
+            },
             connectedArea:{
                 visible: true,
                 triggerOn:'mouseenter',
@@ -131,7 +134,7 @@ describe('connectedArea components',()=>{
                   opacity: 0.8
                 }*/
             },
-            defaultState: {
+            /* defaultState: {
               active:{
                 condition:{
                   name: 'type',
@@ -148,7 +151,7 @@ describe('connectedArea components',()=>{
                 },
                 related:['connectedArea']
               }
-            }
+            }*/
           });
           columnPlot.render();
     });

@@ -30,7 +30,7 @@ describe('stackArea label', () => {
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        // autoScale: true
       },
       responsive: true
     });

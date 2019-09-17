@@ -8,8 +8,9 @@ import ringThickness from './ringThickness';
 
 /** constraints约束库 */
 export interface IConstraint {
+  usage: string;
   type: string;
-  expression: (...args: any) => any;
+  method: (...args: any) => any;
 }
 
 export const constraintsLib = {

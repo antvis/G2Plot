@@ -1,15 +1,14 @@
 import * as _ from '@antv/util';
-import { getResponsiveTheme, registerResponsiveTheme } from '../../../util/responsive/theme';
+import { registerResponsiveTheme } from '../../../util/responsive/theme';
 
 /** 组装theme */
-const defaultTheme = getResponsiveTheme('default');
-const columnTheme = _.deepMix({}, defaultTheme, {
+const columnTheme = {
   column: {
     constraints: [
       {
         name: 'columnWidth',
         option: {
-          ratio: 0.1,
+          ratio: 0.6,
         },
       },
     ],
@@ -31,5 +30,6 @@ const columnTheme = _.deepMix({}, defaultTheme, {
       ],
     },
   },
-});
+};
+
 registerResponsiveTheme('column', columnTheme);

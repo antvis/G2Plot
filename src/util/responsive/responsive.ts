@@ -18,6 +18,7 @@ interface IRule {
 }
 
 interface ResponsiveCfg {
+  plot: any;
   region?: any;
   nodes: ShapeNodes | VariableNodes;
   constraints: IConstraint[];
@@ -30,6 +31,7 @@ interface ResponsiveCfg {
 }
 
 export default class Responsive {
+  public plot: any;
   public region: BBox;
   public nodes: ShapeNodes | VariableNodes;
   public constraints: any[];
@@ -207,6 +209,12 @@ export default class Responsive {
   }
 
   private _applyRule(shape: Shape, rule, option, index) {
-    rule(shape, option, index, this);
+    const cfg = {
+      nodes: this.nodes,
+      region: this.region,
+      plot: this.plot
+    };
+    // rule(shape, option, index, this);
+    rule(shape, option, index, cfg);
   }
 }

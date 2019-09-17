@@ -11,15 +11,12 @@ export default function responsivePointLabel(plot) {
     const nodes = new ShapeNodes({
       shapes: labelShapes,
     });
-    const tolerance = getGlobalTolerance(nodes.nodes);
     const { constraints, rules } = responsiveTheme.label;
     new Responsive({
       nodes,
       constraints,
       rules,
-      cfg: {
-        tolerance,
-      },
+      plot,
     });
   }
 }
@@ -29,14 +26,6 @@ function isPointLabel(plot) {
     return true;
   }
   return false;
-}
-
-function getGlobalTolerance(nodes) {
-  const nodesClone = _.deepMix([], nodes);
-  nodesClone.sort((a, b) => {
-    return b.width - a.width;
-  });
-  return Math.round(nodesClone[0].width);
 }
 
 function getLocalMaxMin(width, nodes) {

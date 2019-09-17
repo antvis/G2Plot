@@ -2,7 +2,7 @@ import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import textHide from './textHide';
 
-export default function clearOverlapping(shape: Shape, _cfg, index, responsive) {
+export default function clearOverlapping(shape: Shape, cfg, index, responsive) {
   const nodes = responsive.nodes.nodes;
   const current = nodes[index];
   const overlapped = [];

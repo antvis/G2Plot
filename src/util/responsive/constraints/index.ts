@@ -23,7 +23,7 @@ export const constraintsLib = {
   minRingThickness,
 };
 
-export function registerConstraint(name, constraint: IConstraint) {
+export function registerResponsiveConstraint(name, constraint: IConstraint) {
   // todo: 防止覆盖
   constraintsLib[name] = constraint;
 }

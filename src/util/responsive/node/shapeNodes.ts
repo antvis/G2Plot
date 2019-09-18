@@ -1,7 +1,7 @@
 /** 负责将shape数据转为node，使shape根据node数据进行update */
 import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
-import * as MathUtil from '../math';
+import * as MathUtil from '../../math';
 
 interface NodesCfg {
   shapes: Shape[];

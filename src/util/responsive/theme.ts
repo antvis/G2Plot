@@ -150,12 +150,4 @@ export function getResponsiveTheme(name: string) {
   return RESPONSIVE_THEME_MAP[name];
 }
 
-export function updateResponsiveTheme(name: string, cfg) {
-  let theme = RESPONSIVE_THEME_MAP[name];
-  if (!theme) {
-    throw new Error(`responsive theme type '${name}' does not existed.`);
-  }
-  theme = _.deepMix(theme, cfg);
-}
-
 registerResponsiveTheme('default', defaultResponsiveTheme);

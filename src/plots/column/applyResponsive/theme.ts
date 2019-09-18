@@ -1,35 +1,37 @@
 import * as _ from '@antv/util';
-import { getResponsiveTheme, registerResponsiveTheme } from '../../../util/responsive/theme';
+import { registerResponsiveTheme } from '../../../util/responsive/theme';
 
 /** 组装theme */
-const defaultTheme = getResponsiveTheme('default');
-const columnTheme = _.deepMix({}, defaultTheme, {
+const columnTheme = {
   column: {
     constraints: [
       {
         name: 'columnWidth',
         option: {
-          ratio: 0.1,
+          ratio: 0.6,
         },
       },
     ],
   },
   label: {
-    constraints: [{ name: 'elementCollision' }],
-    rules: {
-      elementCollision: [
-        { name: 'nodeJitterUpward' },
-        {
-          name: 'nodesResamplingByState',
-          option: {
-            keep: ['min', 'max', 'median'],
+    top:{
+      constraints: [{ name: 'elementCollision' }],
+      rules: {
+        elementCollision: [
+          { name: 'nodeJitterUpward' },
+          {
+            name: 'nodesResamplingByState',
+            option: {
+              keep: ['min', 'max', 'median'],
+            },
           },
-        },
-        {
-          name: 'textHide',
-        },
-      ],
+          {
+            name: 'textHide',
+          },
+        ],
+      },
     },
-  },
-});
+  }
+};
+
 registerResponsiveTheme('column', columnTheme);

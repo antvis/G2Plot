@@ -5,8 +5,8 @@ interface TimeStringAbbrevaiteCfg {
   keep?: string[];
 }
 
-export default function datetimeStringAbbrevaite(shape, cfg: TimeStringAbbrevaiteCfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
+export default function datetimeStringAbbrevaite(shape, option: TimeStringAbbrevaiteCfg, index, cfg) {
+  const nodes = cfg.nodes.nodes;
   let campareText;
   if (index === nodes.length - 1) {
     campareText = nodes[index - 1].shape.get('origin').text;

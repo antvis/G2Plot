@@ -1,4 +1,4 @@
-import responsiveRing from './element';
+import responsiveRing from './geometry';
 
 const preRenderResponsive = [{ name: 'responsiveRing', method: responsiveRing }];
 

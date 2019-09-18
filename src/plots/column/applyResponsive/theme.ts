@@ -14,22 +14,24 @@ const columnTheme = {
     ],
   },
   label: {
-    constraints: [{ name: 'elementCollision' }],
-    rules: {
-      elementCollision: [
-        { name: 'nodeJitterUpward' },
-        {
-          name: 'nodesResamplingByState',
-          option: {
-            keep: ['min', 'max', 'median'],
+    top:{
+      constraints: [{ name: 'elementCollision' }],
+      rules: {
+        elementCollision: [
+          { name: 'nodeJitterUpward' },
+          {
+            name: 'nodesResamplingByState',
+            option: {
+              keep: ['min', 'max', 'median'],
+            },
           },
-        },
-        {
-          name: 'textHide',
-        },
-      ],
+          {
+            name: 'textHide',
+          },
+        ],
+      },
     },
-  },
+  }
 };
 
 registerResponsiveTheme('column', columnTheme);

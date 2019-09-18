@@ -1,5 +1,5 @@
 import responsiveAxis from './axis';
-import responsiveColumn from './element';
+import responsiveColumn from './geomtery';
 import responsiveLabel from './label';
 
 const preRenderResponsive = [{ name: 'responsiveColumn', method: responsiveColumn }];

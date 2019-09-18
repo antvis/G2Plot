@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="geometry" content="interval">
   <link rel="stylesheet" href="./assets/common.css">
-  <title>Column Plot</title>
+  <title>配置图表标题及描述的文本内容</title>
 </head>
 
 <body>
@@ -54,9 +54,20 @@
     },
   ];
 
-  console.log(window);
-
   const columnPlot = new g2plot.Column('canvas', {
+      title:{
+        text: '图表标题及描述',
+        style:{
+            fill:'#1c3747'
+        }
+      },
+      description:{
+        text: '这是一个配置图表标题和描述文本样式的demo',
+        style:{
+            fill:'#177ca6',
+            fontSize: 14
+        }
+      },
       padding: 'auto',
       data,
       xField: 'year',

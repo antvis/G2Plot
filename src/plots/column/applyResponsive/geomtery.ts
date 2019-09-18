@@ -29,6 +29,7 @@ export default function responsiveColumn(plot) {
     nodes,
     constraints,
     region,
+    plot,
     onEnd: () => {
       const columnWidth = nodes.nodes[0].value;
       props.columnSize = columnWidth;

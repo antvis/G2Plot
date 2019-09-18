@@ -3,8 +3,8 @@ import { Shape } from '@antv/g';
 interface TextAbbreviateCfg {
   abbreviateBy?: 'start' | 'middle' | 'end';
 }
-export default function textAbbreviate(shape: Shape, cfg: TextAbbreviateCfg) {
-  const abbreviateBy = cfg.abbreviateBy ? cfg.abbreviateBy : 'end';
+export default function textAbbreviate(shape: Shape, option: TextAbbreviateCfg) {
+  const abbreviateBy = option.abbreviateBy ? option.abbreviateBy : 'end';
   const text = shape.attr('text');
   let abbravateText;
   if (abbreviateBy === 'end') {

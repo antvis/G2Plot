@@ -18,18 +18,18 @@ const unitMapper = {
 // https://jburrows.wordpress.com/2014/11/18/abbreviating-numbers/
 /*tslint:disable*/
 
-export default function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
+export default function digitsAbbreviate(shape: Shape, option: DigitsAbbreviateCfg, index, cfg) {
+  const nodes = cfg.nodes.nodes;
   const number = parseFloat(shape.get('origin').text);
   if (number === 0) {
     return;
   }
-  if (cfg.formatter) {
-    shape.attr('text', cfg.formatter(number));
+  if (option.formatter) {
+    shape.attr('text', option.formatter(number));
     return;
   }
-  if (cfg.unit) {
-    const { num, unitname } = abbravateDigitsByUnit(cfg, number);
+  if (option.unit) {
+    const { num, unitname } = abbravateDigitsByUnit(option, number);
     shape.attr('text', num + unitname);
   } else {
     // 自动换算逻辑
@@ -46,19 +46,19 @@ export default function digitsAbbreviate(shape: Shape, cfg: DigitsAbbreviateCfg,
   }
 }
 
-function abbravateDigitsByUnit(cfg, number) {
+function abbravateDigitsByUnit(option, number) {
   const units = ['k', 'm', 'b', 't'];
   let num;
   let unitname;
-  if (cfg.unit === 'auto') {
+  if (option.unit === 'auto') {
     /** auto formatt k-m-b-t */
     const order = Math.floor(Math.log(number) / Math.log(1000));
     unitname = units[order - 1];
-    num = (number / 1000 ** order).toFixed(cfg.decimal);
-  } else if (cfg.unit) {
-    const unit = unitMapper[cfg.unit];
-    unitname = cfg.unit;
-    num = (number / unit.number).toFixed(cfg.decimal);
+    num = (number / 1000 ** order).toFixed(option.decimal);
+  } else if (option.unit) {
+    const unit = unitMapper[option.unit];
+    unitname = option.unit;
+    num = (number / unit.number).toFixed(option.decimal);
   }
   return { num, unitname };
 }

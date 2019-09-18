@@ -1,9 +1,9 @@
 import { isKeep, NodesResamplingCfg } from './nodesResampling';
 import textHide from './textHide';
 
-export default function nodesResamplingByAbbrevate(shape, cfg: NodesResamplingCfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
-  if (isKeep(cfg.keep, index, nodes)) {
+export default function nodesResamplingByAbbrevate(shape, option: NodesResamplingCfg, index, cfg) {
+  const nodes = cfg.nodes.nodes;
+  if (isKeep(option.keep, index, nodes)) {
     return;
   }
   {

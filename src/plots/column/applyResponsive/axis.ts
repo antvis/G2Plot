@@ -1,20 +1,36 @@
 import * as _ from '@antv/util';
-// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 import ShapeNodes from '../../../util/responsive/shapeNodes';
 
+const SCALE_MAPPER = {
+  cat:'category',
+  timeCat: 'category',
+  time: 'dateTime',
+  linear: 'linear'
+};
+
 export default function responsiveAxis(plot) {
-  const props = plot._initialProps;
   const responsiveTheme = plot.themeController.responsiveTheme;
+  if(!responsiveTheme.axis){
+    return;
+  }
   const canvas = plot.canvasController.canvas;
+
   // x-axis
-  responsiveXAxis(plot, props, responsiveTheme);
+  const x_resonsiveType = getAxisRresponsiveType(plot,'x');
+  if(responsiveTheme.axis.x && x_resonsiveType){
+    responsiveXAxis(plot, responsiveTheme, x_resonsiveType);
+  }
   // y-axis
-  responsiveYaxis(plot, props, responsiveTheme);
+  const y_responsiveType = getAxisRresponsiveType(plot,'y');
+  if(responsiveTheme.axis.y && y_responsiveType){
+    responsiveYaxis(plot, responsiveTheme, y_responsiveType);
+  }
+
   canvas.draw();
 }
 
-function responsiveXAxis(plot, props, responsiveTheme) {
+function responsiveXAxis(plot, responsiveTheme, responsiveType) {
   const axis = plot.plot.get('axisController').axes[0];
   const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
@@ -24,12 +40,14 @@ function responsiveXAxis(plot, props, responsiveTheme) {
   const shapeNodes = new ShapeNodes({
     shapes,
   });
-  const { constraints, rules } = responsiveTheme.axis.x.category.label;
+  const { constraints, rules } = responsiveTheme.axis.x[responsiveType];
   new Responsive({
     nodes: shapeNodes,
     constraints,
+    region: plot.plot.get('viewRange'),
     rules,
-    onEnd: (nodes: any) => {
+    plot,
+    onEnd: (nodes) => {
       if (axis.get('tickLine')) {
         updateTicks(nodes, axis);
       }
@@ -37,7 +55,7 @@ function responsiveXAxis(plot, props, responsiveTheme) {
   });
 }
 
-function responsiveYaxis(plot, props, responsiveTheme) {
+function responsiveYaxis(plot, responsiveTheme, responsiveType) {
   const axis = plot.plot.get('axisController').axes[1];
   const rawLabels = axis.get('labelRenderer').get('group').get('children');
   const shapes = [];
@@ -47,12 +65,12 @@ function responsiveYaxis(plot, props, responsiveTheme) {
   const shapeNodes = new ShapeNodes({
     shapes,
   });
-  const { constraints, rules } = responsiveTheme.axis.y.linear.label;
+  const { constraints, rules } = responsiveTheme.axis.y[responsiveType];
   new Responsive({
-    region: plot.plot.get('viewRange'),
     nodes: shapeNodes,
     constraints,
     rules,
+    plot,
     onEnd: (nodes) => {
       if (axis.get('tickLine')) {
         updateTicks(nodes, axis);
@@ -86,4 +104,15 @@ function updateTicks(nodes, axis) {
   }
 
   tickShape.attr('path', pathes);
+}
+
+function getAxisRresponsiveType(plot,dim){
+  const props = plot._initialProps;
+  const axis = `${dim}Axis`;
+  const field = `${dim}Field`;
+  if(props[axis] && props[axis].type && props[axis].type === 'dateTime'){
+    return 'dateTime';
+  }
+  const scaleType = plot.plot.get('scales')[props[field]].type;
+  return SCALE_MAPPER[scaleType];
 }

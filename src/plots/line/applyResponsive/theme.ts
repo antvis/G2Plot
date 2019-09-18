@@ -1,14 +1,15 @@
 import * as _ from '@antv/util';
-import { getResponsiveTheme, registerResponsiveTheme } from '../../../util/responsive/theme';
+import { registerResponsiveTheme } from '../../../util/responsive/theme';
 
 /** 组装theme */
-const defaultTheme = getResponsiveTheme('default');
-const lineTheme = _.deepMix({}, defaultTheme, {
+const lineTheme = {
   label: {
-    constraints: [{ name: 'elementCollision' }],
-    rules: {
-      elementCollision: [{ name: 'nodesResamplingByChange' }, { name: 'clearOverlapping' }],
-    },
-  },
-});
+    point:{
+      constraints: [{ name: 'elementCollision' }],
+      rules: {
+        elementCollision: [{ name: 'nodesResamplingByChange' }, { name: 'clearOverlapping' }],
+      },
+    }
+  }
+};
 registerResponsiveTheme('line', lineTheme);

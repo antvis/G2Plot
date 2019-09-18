@@ -5,11 +5,11 @@ export interface NodesResamplingCfg {
   keep: string[];
 }
 
-export default function nodesResampling(shape, cfg: NodesResamplingCfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
+export default function nodesResampling(shape, option: NodesResamplingCfg, index, cfg) {
+  const nodes = cfg.nodes.nodes;
   /** nodeLength为偶数，则奇数index的shape保留，反之则偶数index的shape保留 */
   const oddKeep = nodes.length % 2 === 0 ? false : true;
-  if (isKeep(cfg.keep, index, nodes)) {
+  if (isKeep(option.keep, index, nodes)) {
     return;
   }
   {

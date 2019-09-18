@@ -5,7 +5,6 @@ const defaultResponsiveTheme = {
   axis: {
     x: {
       category: {
-        label: {
           constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
@@ -38,10 +37,8 @@ const defaultResponsiveTheme = {
               },
             ],
           },
-        },
       },
       linear: {
-        label: {
           constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
@@ -76,10 +73,8 @@ const defaultResponsiveTheme = {
               },
             ],
           },
-        },
       },
       dateTime: {
-        label: {
           constraints: [{ name: 'elementDist' }],
           rules: {
             elementDist: [
@@ -115,21 +110,17 @@ const defaultResponsiveTheme = {
               },
             ],
           },
-        },
       },
     },
     y: {
       linear: {
-        label: {
           constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
           rules: {
             elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
             elementWidth: [{ name: 'digitsAbbreviate' }, { name: 'textHide' }],
           },
-        },
       }, // linear y axis
       category: {
-        label: {
           constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
           rules: {
             elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
@@ -145,17 +136,14 @@ const defaultResponsiveTheme = {
           },
         },
       }, // categroy y axis， 条形图
-    },
   },
 };
 
 const RESPONSIVE_THEME_MAP = {};
 
 export function registerResponsiveTheme(name: string, theme) {
-  if (getResponsiveTheme(name)) {
-    throw new Error(`responsive theme type '${name}' existed.`);
-  }
-  RESPONSIVE_THEME_MAP[name] = theme;
+  const defaultTheme = getResponsiveTheme('default');
+  RESPONSIVE_THEME_MAP[name] = _.mix({},defaultTheme,theme);
 }
 
 export function getResponsiveTheme(name: string) {

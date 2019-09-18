@@ -1,5 +1,5 @@
 {
-  "name": "@antv/g2-plot",
+  "name": "@antv/g2plot",
   "version": "1.0.0",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
@@ -31,7 +31,10 @@
     "coverage": "exit 0",
     "test": "torch -t 5000 --compile --renderer --recursive ./__tests__/unit",
     "test-live": "torch --compile --interactive ./__tests__/unit",
-    "ci": "run-s lint-check build test"
+    "ci": "run-s lint-check build test",
+    "demos-web": "node ./demos/app.js --web --port 2046",
+    "dev": "npm run watch & npm run demos-web",
+    "watch": "webpack --config webpack-dev.config.js"
   },
   "husky": {
     "hooks": {
@@ -68,7 +71,10 @@
     "webpack": "^4.39.2",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.7",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "connect": "~3.6.6",
+    "open": "~0.0.5",
+    "nunjucks": "~3.0.1"
   },
   "lint-staged": {
     "*.{js,css,json,md}": [

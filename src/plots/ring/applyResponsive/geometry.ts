@@ -1,7 +1,6 @@
 import { getCoord } from '@antv/coord';
-// import responsiveTheme from '../../../theme/responsive';
+import VariableNodes from '../../../util/responsive/node/variableNode';
 import Responsive from '../../../util/responsive/responsive';
-import VariableNodes from '../../../util/responsive/variableNode';
 
 export default function responsiveRing(plot) {
   const props = plot._initialProps;

@@ -2,9 +2,9 @@
 import { BBox, Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import { constraintsLib } from './constraints/index';
+import ShapeNodes, { IShapeNode } from './node/shapeNodes';
+import VariableNodes from './node/variableNode';
 import { rulesLib } from './rules/index';
-import ShapeNodes, { IShapeNode } from './shapeNodes';
-import VariableNodes from './variableNode';
 
 interface IConstraint {
   name: string;

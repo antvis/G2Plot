@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="geometry" content="interval">
+    <link rel="stylesheet" href="./assets/common.css">
+    <title>配置折线数据点样式</title>
+</head>
+
+<body>
+    <div id="canvas"></div>
+    <script src="./assets/jquery-3.2.1.min.js"></script>
+    <script src="../build/g2plot.js"></script>
+    <script>
+        const data = [{
+            "year": "1991",
+            "value": 3
+        }, {
+            "year": "1992",
+            "value": 4
+        }, {
+            "year": "1993",
+            "value": 3.5
+        }, {
+            "year": "1994",
+            "value": 5
+        }, {
+            "year": "1995",
+            "value": 4.9
+        }, {
+            "year": "1996",
+            "value": 6
+        }, {
+            "year": "1997",
+            "value": 7
+        }, {
+            "year": "1998",
+            "value": 9
+        }, {
+            "year": "1999",
+            "value": 13
+        }]
+
+        const linePlot = new g2plot.Line('canvas', {
+            padding: 'auto',
+            data,
+            xField: 'year',
+            yField: 'value',
+            point: {
+                visible: true,
+                size: 5,
+                shape:'diamond',
+                style:{
+                    shape:'diamond',
+                    fill: 'white',
+                    stroke:'#2593fc',
+                    lineWidth: 2
+                }
+            }
+        });
+        linePlot.render();
+    </script>
+</body>
+
+</html>

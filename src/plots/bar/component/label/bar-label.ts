@@ -61,7 +61,7 @@ export class BarLabels extends ElementLabels {
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
       this.adjustPosition(l, shape, item);
-      if (item.adjustColor) {
+      if (_.has(this.get('labelOptions'),'adjustColor')) {
         this.adjustColor(l, shape);
       }
     });

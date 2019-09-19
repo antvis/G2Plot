@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="geometry" content="interval">
     <link rel="stylesheet" href="./assets/common.css">
-    <title>带数据点的折线图</title>
+    <title>基础折线图</title>
 </head>
 
 <body>
@@ -48,14 +48,7 @@
             padding: 'auto',
             data,
             xField: 'year',
-            yField: 'value',
-            point:{
-                visible: true
-            },
-            label:{
-                visible: true,
-                type: 'point'
-            }
+            yField: 'value'
         });
         linePlot.render();
     </script>

@@ -13,6 +13,7 @@
 <body>
     <div id="canvas"></div>
     <script src="./assets/jquery-3.2.1.min.js"></script>
+    <script src="./assets/moment.min.js"></script>
     <script src="../build/g2plot.js"></script>
     <script>
         const data = [{
@@ -203,6 +204,7 @@
             xField: 'date',
             yField: 'value',
             seriesField: 'type',
+            responsive: true
         });
         linePlot.render();
     </script>

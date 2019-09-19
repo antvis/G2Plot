@@ -2,8 +2,8 @@ import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import textHide from './textHide';
 
-export default function clearOverlapping(shape: Shape, _cfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
+export default function clearOverlapping(shape: Shape, option, index, cfg) {
+  const nodes = cfg.nodes.nodes;
   const current = nodes[index];
   const overlapped = [];
   /** 找到所有与当前点overlap的node */

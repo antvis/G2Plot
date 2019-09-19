@@ -1,10 +1,11 @@
 import { Shape } from '@antv/g';
+import * as _ from '@antv/util';
 import textHide from './textHide';
 
 /** 根据变化进行抽样，保留变化较大的点，类似于点简化算法 */
-export default function nodesResamplingByChange(shape: Shape, cfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
-  const tolerance = responsive.cfg.tolerance;
+export default function nodesResamplingByChange(shape: Shape, option, index, cfg) {
+  const nodes = cfg.nodes.nodes;
+  const tolerance = getGlobalTolerance(nodes);
   if (index <= 1) {
     return;
   }
@@ -27,4 +28,12 @@ function findPrevious(index, nodes) {
       return node;
     }
   }
+}
+
+function getGlobalTolerance(nodes) {
+  const nodesClone = _.deepMix([], nodes);
+  nodesClone.sort((a, b) => {
+    return b.width - a.width;
+  });
+  return Math.round(nodesClone[0].width);
 }

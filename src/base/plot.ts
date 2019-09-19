@@ -350,6 +350,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   protected _beforeInit() {}
 
   protected _afterInit() {
+    if (!this.plot || this.plot.destroyed) {
+      return;
+    }
     const props = this._initialProps;
     const padding = props.padding ? props.padding : this._config.theme.padding;
     /** 处理autopadding逻辑 */

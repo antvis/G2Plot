@@ -30,6 +30,7 @@ export const rulesLib = {
   clearOverlapping,
 };
 
+
 export function registerResponsiveRule(name, method) {
   // todo: 防止覆盖
   rulesLib[name] = method;

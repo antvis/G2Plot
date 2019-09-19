@@ -3,7 +3,7 @@ import { getGeom } from '../../geoms/factory';
 import TinyPlot, { TinyConfig } from '../tinyPlot';
 import * as EventParser from './event';
 
-interface TinyProgressCfg extends TinyConfig {
+export interface ProgressCfg extends TinyConfig {
   stackField?: number;
 }
 
@@ -17,7 +17,7 @@ const PLOT_GEOM_MAP = {
 
 const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
 
-export default class Progress extends TinyPlot<TinyProgressCfg> {
+export default class Progress extends TinyPlot<ProgressCfg> {
   /**
    * 将进度条配置项转为堆叠条形图配置项
    */

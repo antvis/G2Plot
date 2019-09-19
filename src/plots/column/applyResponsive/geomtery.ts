@@ -1,9 +1,8 @@
 import { getCoord } from '@antv/coord';
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
-// import responsiveTheme from '../../../theme/responsive';
+import VariableNodes from '../../../util/responsive/node/variableNode';
 import Responsive from '../../../util/responsive/responsive';
-import VariableNodes from '../../../util/responsive/variableNode';
 
 export default function responsiveColumn(plot) {
   const props = plot._initialProps;
@@ -29,6 +28,7 @@ export default function responsiveColumn(plot) {
     nodes,
     constraints,
     region,
+    plot,
     onEnd: () => {
       const columnWidth = nodes.nodes[0].value;
       props.columnSize = columnWidth;

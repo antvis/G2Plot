@@ -12,16 +12,16 @@ interface RobustAbbrevaiteCfg {
   decimal?: number;
 }
 
-export default function robustAbbrevaite(shape: Shape, cfg: RobustAbbrevaiteCfg, index, responsive) {
-  const nodes = responsive.nodes.nodes;
+export default function robustAbbrevaite(shape: Shape, option: RobustAbbrevaiteCfg, index, cfg) {
+  const nodes = cfg.nodes.nodes;
   const text = shape.attr('text');
   /** 判断text类型： 数字、时间、文本 */
   const isnum = /^\d+$/.test(text);
   if (isnum) {
-    digitsAbbreviate(shape, cfg, index, nodes);
+    digitsAbbreviate(shape, option, index, nodes);
   } else if (moment(text).isValid() || isTime(text)) {
-    datetimeStringAbbrevaite(shape, cfg, index, nodes);
+    datetimeStringAbbrevaite(shape, option, index, nodes);
   } else {
-    textAbbreviate(shape, cfg);
+    textAbbreviate(shape, option);
   }
 }

@@ -4,10 +4,10 @@ interface TextRotationCfg {
   degree: number;
 }
 
-export default function textRotation(shape: Shape, cfg: TextRotationCfg) {
+export default function textRotation(shape: Shape, option: TextRotationCfg) {
   shape.resetMatrix();
   shape.attr({
-    rotate: 360 - cfg.degree,
+    rotate: 360 - option.degree,
     textAlign: 'right',
     textBaseline: 'middle',
   });

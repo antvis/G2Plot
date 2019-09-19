@@ -4,11 +4,11 @@ interface TextWrapperCfg {
   lineNumber: number;
 }
 
-export default function textWrapper(shape: Shape, cfg: TextWrapperCfg) {
+export default function textWrapper(shape: Shape, option: TextWrapperCfg) {
   const text = shape.attr('text');
-  const step = Math.ceil(text.length / cfg.lineNumber);
+  const step = Math.ceil(text.length / option.lineNumber);
   let wrapperText = '';
-  for (let i = 1; i < cfg.lineNumber; i++) {
+  for (let i = 1; i < option.lineNumber; i++) {
     const index = step * i;
     wrapperText = `${text.slice(0, index)}\n${text.slice(index)}`;
   }

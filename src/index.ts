@@ -15,5 +15,13 @@ export { default as Liquid, LiquidConfig } from './plots/liquid';
 export { default as Gauge, GaugeConfig } from './plots/gauge';
 export { default as Area, AreaConfig } from './plots/area';
 export { default as StackArea, StackAreaConfig } from './plots/stack-area';
+export { default as Progress, ProgressCfg } from './tinyPlots/progress';
+export { default as RingProgress } from './tinyPlots/ring-progress';
+export { default as TinyColumn } from './tinyPlots/tiny-column';
+export { default as TinyArea } from './tinyPlots/tiny-area';
+export { default as TinyLine } from './tinyPlots/tiny-line';
 
 export { default as Theme } from './theme';
+export { registerResponsiveConstraint, IConstraint } from './util/responsive/constraints';
+export { registerResponsiveRule } from './util/responsive/rules';
+export { registerResponsiveTheme,  getResponsiveTheme } from './util/responsive/theme';

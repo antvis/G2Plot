@@ -1,7 +1,6 @@
 import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import _ from 'lodash';
-import verticalShatter from '../../../../util/layout/verticalShatter';
 
 const MARGIN = 10;
 
@@ -28,7 +27,6 @@ class LineElementLabels extends ElementLabels {
       const color = this._adjustColor(shapeId, shapes);
       label.attr('fill', color);
     });
-    // verticalShatter(labels, view);
     view.get('canvas').draw();
   }
 

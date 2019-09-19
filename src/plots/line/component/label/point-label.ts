@@ -1,7 +1,7 @@
 import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
-import _ from 'lodash';
-import layout from '../../../../util/layout/annealing';
+
+// import layout from '../../../../util/layout/annealing';
 
 interface Item {
   /** 位置 */

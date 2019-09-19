@@ -1,16 +1,17 @@
 import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
-import _ from 'lodash';
-import verticalShatter from '../../../../util/layout/verticalShatter';
+import _each from '@antv/util/lib/each';
+import _cloneDeep from '@antv/util/lib/clone';
+// import verticalShatter from '../../../../util/layout/verticalShatter';
 
 const MARGIN = 10;
 
 class LineElementLabels extends ElementLabels {
   public showLabels(points: any, shapes: Shape[]) {
     const labelPoints = [];
-    _.each(shapes, (shape) => {
+    _each(shapes, (shape) => {
       const originData = shape.get('origin');
-      const lastPoint = _.cloneDeep(originData[originData.length - 1]);
+      const lastPoint = _cloneDeep(originData[originData.length - 1]);
       const bbox = shape.getBBox();
       lastPoint.x = bbox.maxX + MARGIN;
       labelPoints.push(lastPoint);
@@ -20,7 +21,7 @@ class LineElementLabels extends ElementLabels {
     const field = this.get('labelOptions').fields[0];
     const labels = renderer.get('group').get('children');
     const view = this.get('element').get('view');
-    _.each(labels, (label) => {
+    _each(labels, (label) => {
       label.attr('textAlign', 'left');
       label.attr('textBaseline', 'middle');
       const origin = label.get('origin');
@@ -34,7 +35,7 @@ class LineElementLabels extends ElementLabels {
 
   public _adjustColor(shapeId, shapes) {
     let color;
-    _.each(shapes, (shape) => {
+    _each(shapes, (shape) => {
       const id = shape.id;
       if (id === shapeId) {
         color = shape.attr('stroke');

@@ -1,6 +1,7 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import BasePlot from '../../base/plot';
+import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
@@ -159,7 +160,7 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
 
   protected _addLine() {
     const props = this._initialProps;
-    let lineConfig = { visible: false, style: {} };
+    let lineConfig = { visible: true, style:{} };
     if (props.line) {
       lineConfig = _.deepMix(lineConfig, props.line);
     }
@@ -204,31 +205,15 @@ export default class BaseBar<T extends AreaConfig = AreaConfig> extends BasePlot
   protected _label() {
     const props = this._initialProps;
     const label = props.label as Label;
-    const labelType = label.type;
+
     if (label && label.visible === false) {
-      this.area.label = false;
+      this.line.label = false;
       return;
     }
-    this.area.label = {
+    this.area.label = getComponent('label', {
       fields: [props.yField],
-      type: labelType || 'line',
-    };
-    /** formater */
-    if (label.formatter) {
-      const formatter = label.formatter;
-      this.area.label.callback = (val: any) => {
-        return {
-          formatter,
-          offsetX: label.offsetX ? label.offsetX : 0,
-          offsetY: label.offsetY ? label.offsetY : 0,
-        };
-      };
-    }
-    /** label样式 */
-    if (label.style) {
-      const theme = this._config.theme;
-      StyleParser.LabelStyleParser(theme, label.style);
-    }
+      plot: this,
+    });
   }
 
   protected _events(eventParser) {

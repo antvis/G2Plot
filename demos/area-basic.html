@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="geometry" content="interval">
+    <link rel="stylesheet" href="./assets/common.css">
+    <title>基础面积图</title>
+</head>
+
+<body>
+    <div id="canvas"></div>
+    <script src="./assets/jquery-3.2.1.min.js"></script>
+    <script src="./assets/moment.min.js"></script>
+    <script src="../build/g2plot.js"></script>
+    <script>
+    $.getJSON('data/fireworks-sales.json', function(data) {
+        const areaPlot = new g2plot.Area('canvas',{
+            width:600,
+            height:600,
+            padding:'auto',
+            data,
+            xField:'Data',
+            yField:'scales',
+            xAxis:{
+                type:'dateTime',
+                tickCount: 5
+            }
+        });
+        areaPlot.render();
+    });
+    </script>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ import { AdjustCfg } from '@antv/g2/lib/interface';
 
 export default interface Config {
   /** 数据，对象数组 */
-  data: object[] | number;
+  data: object[];
   width?: number;
   height?: number;
   /** 自适应父容器宽度和高度 */

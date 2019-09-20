@@ -21,6 +21,7 @@ export interface GaugeConfig extends BaseConfig {
   // type?: 'normal' | 'percent';
   min?: number;
   max?: number;
+  value?: number;
   showValue?: boolean;
   format?: (...args: any[]) => string;
   gaugeStyle?: GaugeStyle;
@@ -52,7 +53,7 @@ export default class Gauge extends BasePlot<GaugeConfig> {
   }
 
   protected _setDefaultG2Config() {
-    const { data, range } = this._initialProps;
+    const { value, range } = this._initialProps;
     const rangeSorted = range.map((d: number) => +d).sort((a: number, b: number) => a - b);
 
     const {
@@ -61,10 +62,10 @@ export default class Gauge extends BasePlot<GaugeConfig> {
       format = (d) => `${d}`,
     } = this._initialProps;
 
-    const valueText = format(data);
+    const valueText = format(value);
     const styleMix = this._getStyleMix();
     this._initialProps.styleMix = styleMix;
-    this._initialProps.data = [{ value: data || 0 }];
+    this._initialProps.data = [{ value: value || 0 }];
     this._initialProps.valueText = valueText;
     this._initialProps.min = min;
     this._initialProps.max = max;

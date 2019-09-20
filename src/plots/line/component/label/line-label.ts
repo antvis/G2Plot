@@ -29,7 +29,6 @@ class LineElementLabels extends ElementLabels {
       const color = this._adjustColor(shapeId, shapes);
       label.attr('fill', color);
     });
-    // verticalShatter(labels, view);
     view.get('canvas').draw();
   }
 

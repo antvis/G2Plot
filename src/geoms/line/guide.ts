@@ -21,7 +21,7 @@ export default class GuideLineParser extends LineParser {
     if (this._needParseAttribute('size')) {
       this.parseSize();
     }
-    if (props.line.style) {
+    if (props.line && props.line.style) {
       this.parseStyle();
     }
   }

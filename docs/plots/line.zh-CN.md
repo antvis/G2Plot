@@ -172,15 +172,3 @@ const data = [
 
 
 - 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
-
-
-
-
-
-
-
-
-
-
-
-

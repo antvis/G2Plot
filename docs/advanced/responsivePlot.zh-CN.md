@@ -15,7 +15,7 @@
 
 这种非常典型的信息密度(information density)过载现象正是G2Plot响应式模块所要解决的问题 — 当信息密度过高时，对图表辅助信息进行抽稀，保证图表主要信息的展示，以使图表的信息密度达到合理平衡。
 
-G2Plot响应式方案由三块组成： constraints（约束条件）、 rules（响应规则) 和 responsiveTheme（响应式主题）。基本思路是：首先定义图表合理信息密度的衡量标准(constraints)，然后去判断图表各组成部分是否满足该标准，如果不满足标准，则对图表应用响应规则(rules）。这个过程是iterative的，如果不满足约束条件，响应规则会被依次执行下去。
+g2plot响应式方案由三块组成： constraints（约束条件）、 rules（响应规则) 和 responsiveTheme（响应式主题）。基本思路是：首先定义图表合理信息密度的衡量标准(constraints)，然后去判断图表各组成部分是否满足该标准，如果不满足标准，则对图表应用响应规则(rules）。这个过程是iterative的，如果不满足约束条件，响应规则会被依次执行下去。
 
 一个约束条件(constraint)对应一组响应规则(rules)，多个约束组构成一个完整的响应式方案 — resonsiveTheme。
 
@@ -43,7 +43,7 @@ axis: {
 <br/>
 ### 约束库
 
-G2Plot内置了一套常用的constraint library，目前响应式模块还在试验和打磨阶段，该库将会持续更新：
+g2plot内置了一套常用的constraint library，目前响应式模块还在试验和打磨阶段，该库将会持续更新：
 
 | constraint name | option | type | usage | intro |
 | --- | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ G2Plot内置了一套常用的constraint library，目前响应式模块还在�
 > - assign：赋值方法
 
 ### 注册自定义约束条件
-G2Plot允许用户注册自己的约束条件，允许覆盖现有约束库中的条件。
+g2plot允许用户注册自己的约束条件，允许覆盖现有约束库中的条件。
 
 ```
 function myConstraint(parameters,cfg?){
@@ -85,7 +85,7 @@ plot.registerConstraint(name,{
 响应规则是当constraint（约束条件）不满足的时候，对图表组件的优化策略。一个constraint可能对应着多个优化策略，这些优化策略将按配置的顺序执行。
 
 ### 规则库
-G2Plot内置了一套常用的rule library，目前响应式模块还在试验和打磨阶段，该库将会持续更新：
+g2plot内置了一套常用的rule library，目前响应式模块还在试验和打磨阶段，该库将会持续更新：
 
 | rule name | option | intro |
 | --- | --- | --- |
@@ -106,7 +106,7 @@ G2Plot内置了一套常用的rule library，目前响应式模块还在试验�
 | clearOverlapping |  | 在一组元素中去除overlap的元素，当多个元素发生重叠时，只保留位于最高点的元素。此方法用于多折线数据点label的overlapping。 |
 
 ### 注册自定义响应规则
-G2Plot允许用户注册自己的响应规则，允许覆盖现有规则库中的规则。
+g2plot允许用户注册自己的响应规则，允许覆盖现有规则库中的规则。
 
 ```
 function myRule(){}

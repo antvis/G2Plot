@@ -24,8 +24,6 @@ work in progress
 ## API
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-<br/>
-
 ### 特殊配置
 
 #### stackField: string

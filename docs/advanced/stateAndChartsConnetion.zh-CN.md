@@ -11,10 +11,8 @@
 
 UI状态的变化是数据驱动的，能够响应状态量的图表元素记录所对应的数据，而状态量本身是一个数据判断条件。当图表元素对应的数据符合状态量的判断条件时，它的UI就会切换到状态量所对应的图形样式。
 
-<br/>
-
 ## 状态量的使用
-<br/>
+
 ### 快捷方法
 g2plot提供了状态量变化的快捷方法：`setActive()`  `setDisable()`  `setSelected()` `setNormal()`
 
@@ -128,14 +126,14 @@ const stateManager = new StateManager();
 
 #### setState(name,exp)
 设置和更新状态量。
-<br />
+
 `name: string`  状态量名字<br />
 `exp: string | number | function`   状态量条件，可以设为一个值或回调函数
 
 
 #### getState(name)
 获取状态量。
-<br />
+
 `name: string`  状态量名字
 
 

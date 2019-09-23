@@ -1,10 +1,10 @@
 
-#图表通用配置
+# 图表通用配置
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
 
-##title
+## title
 **optional**
 
 配置图表的标题，默认显示在图表左上角。
@@ -15,7 +15,7 @@
 `style`：`object`  标题样式，详见文本样式配置
 
 
-##description
+## description
 **optional**
 
 配置图表的描述，description显示在title下方，默认在图表左上角。

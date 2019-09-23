@@ -1,7 +1,6 @@
-#响应式图表
+# 响应式图表
 
-##概述
-<br/>
+## 概述
 
 响应式图表( responsive plot) 的目的是为了保证图表在任何数据和显示尺寸下的基本可读性问题。
 
@@ -21,10 +20,8 @@ g2plot响应式方案由三块组成： constraints（约束条件）、 rules�
 
 ![responsiveConstruction](../img/responsive-construction.jpg)
 
-<br/>
+## Constraint （约束条件）
 
-##Constraint （约束条件）
-<br/>
 可以将constraint（约束条件) 理解为一个判断方法，定义某图表组成部分的信息密度衡量标准，并判断该部分是否符合该标准。
 
 下面的例子中声明了一个axis（坐标轴）的约束条件，该条件判断坐标轴label之间的间距是否大于4像素。
@@ -40,7 +37,6 @@ axis: {
 }
 ```
 
-<br/>
 ### 约束库
 
 g2plot内置了一套常用的constraint library，目前响应式模块还在试验和打磨阶段，该库将会持续更新：
@@ -79,12 +75,12 @@ plot.registerConstraint(name,{
 });
 ```
 
-<br/>
 ## Rules （响应规则）
-<br/>
+
 响应规则是当constraint（约束条件）不满足的时候，对图表组件的优化策略。一个constraint可能对应着多个优化策略，这些优化策略将按配置的顺序执行。
 
 ### 规则库
+
 g2plot内置了一套常用的rule library，目前响应式模块还在试验和打磨阶段，该库将会持续更新：
 
 | rule name | option | intro |
@@ -198,5 +194,3 @@ const lineTheme = {
 });
 registerResponsiveTheme('line', lineTheme);
 ```
-
-

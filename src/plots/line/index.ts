@@ -52,6 +52,21 @@ export interface LineConfig extends BaseConfig {
   };
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
+  // dataZoom 组件
+  dataZoom?: IDataZoom;
+}
+
+interface IDataZoom {
+  // 初始范围 0 ~ 1
+  readonly start?: number;
+  readonly end?: number;
+  // 横向 slider 的高度大小
+  readonly size?: number;
+  // 一些样式
+  readonly backgroundStyle?: object;
+  readonly foregroundStyle?: object;
+  readonly handlerStyle?: object;
+  readonly textStyle?: object;
 }
 
 export default class Line extends BasePlot<LineConfig> {
@@ -202,12 +217,12 @@ export default class Line extends BasePlot<LineConfig> {
     }
   }
 
-  protected _afterRender(){
+  protected _afterRender() {
     super._afterRender();
     const props = this._initialProps;
-     // 响应式
-     if (props.responsive && props.padding !== 'auto') {
-        this._applyResponsive('afterRender');
+    // 响应式
+    if (props.responsive && props.padding !== 'auto') {
+      this._applyResponsive('afterRender');
     }
   }
 

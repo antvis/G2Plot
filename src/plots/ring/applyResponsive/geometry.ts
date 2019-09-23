@@ -1,5 +1,6 @@
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import VariableNodes from '../../../util/responsive/node/variableNode';
+// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 
 export default function responsiveRing(plot) {
@@ -7,9 +8,9 @@ export default function responsiveRing(plot) {
   const responsiveTheme = plot.themeController.responsiveTheme;
   const padding = props.padding;
   const radius = props.radius ? props.radius : 1;
-  const {width,height} = plot.canvasController;
+  const { width, height } = plot.canvasController;
   /** 创建坐标系 */
-  const polar = getCoord('polar');
+  const polar = getCoordinate('polar');
   const coord = new polar({
     radius,
     start: { x: padding[3], y: padding[0] },

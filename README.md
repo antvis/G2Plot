@@ -37,11 +37,11 @@ const data = [
   ];
 
 const barPlot = new g2plot.Bar('c1', {
-            data,
-            xField: 'sales',
-            yField: 'year',
-            colorField: 'year'
-      });
+  data,
+  xField: 'sales',
+  yField: 'year',
+  colorField: 'year'
+});
         
 barPlot.render();
 

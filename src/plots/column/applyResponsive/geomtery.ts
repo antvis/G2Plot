@@ -1,4 +1,4 @@
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import VariableNodes from '../../../util/responsive/node/variableNode';
@@ -11,7 +11,7 @@ export default function responsiveColumn(plot) {
   const columnNum = getFieldNumber(props.data, props.xField);
   /** 创建coord */
   const padding = props.padding;
-  const cartesian = getCoord('cartesian');
+  const cartesian = getCoordinate('cartesian');
   const coord = new cartesian({
     start: { x: padding[3], y: padding[0] },
     end: { x: props.width - padding[1], y: props.height - padding[2] },

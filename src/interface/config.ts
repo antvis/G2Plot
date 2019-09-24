@@ -64,7 +64,7 @@ export default interface Config {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
   /** 图表初始状态 */
-  defaultState: {
+  defaultState?: {
     active?: StateConfig;
     inActive?: StateConfig;
     selected?: StateConfig;

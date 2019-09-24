@@ -208,7 +208,7 @@ export default class Line extends BasePlot<LineConfig> {
      // 响应式
      if (props.responsive && props.padding !== 'auto') {
         this._applyResponsive('afterRender');
-    }
+      }
   }
 
   private _addRangeInteraction(interactions, props) {
@@ -227,5 +227,8 @@ export default class Line extends BasePlot<LineConfig> {
       const responsive = r as IObject;
       responsive.method(this);
     });
+    const canvas = this.canvasController.canvas;
+    canvas.draw();
   }
+
 }

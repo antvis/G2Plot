@@ -57,9 +57,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     this._beforeInit();
     this._init();
     this._afterInit();
-    this.plot.on('afterrender', () => {
-      this._afterRender();
-    });
   }
 
   /** 自定义组件参与padding */
@@ -201,6 +198,9 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
     });
     this._interactions();
     this._events();
+    this.plot.on('afterrender', () => {
+      this._afterRender();
+    });
   }
 
   /** 设置G2默认配置项 */
@@ -362,6 +362,10 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   protected _afterRender() {
+    console.log('afterRender');
+    if (!this.plot || this.plot.destroyed) {
+      return;
+    }
     const props = this._initialProps;
     /** defaultState */
     if (props.defaultState) {

@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BasePlot from '../Base/plot';
+import BasePlot from '../base/plot';
 import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
 import BaseConfig from '../interface/config';

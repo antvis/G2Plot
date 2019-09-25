@@ -362,7 +362,6 @@ export default abstract class BasePlot<T extends PlotConfig = PlotConfig> {
   }
 
   protected _afterRender() {
-    console.log('afterRender');
     if (!this.plot || this.plot.destroyed) {
       return;
     }

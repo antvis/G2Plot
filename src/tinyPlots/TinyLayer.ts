@@ -1,28 +1,28 @@
 import * as _ from '@antv/util';
-import BasePlot from '../base/plot';
+import BaseLayer from '../base/ViewLayer';
 import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
 import BaseConfig from '../interface/config';
 
-export interface TinyConfig extends BaseConfig {
+export interface TinyLayerConfig extends BaseConfig {
   indicator?: any;
 }
 
-export default abstract class TinyPlot<T extends TinyConfig = TinyConfig> extends BasePlot<T> {
+export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerConfig> extends BaseLayer<T> {
   protected _setDefaultG2Config() {}
 
-  protected _beforeInit() {
-    const props = this._initialProps;
+  protected beforeInit() {
+    const props = this.initialProps;
     const defaultProps = this._getDefaultProps();
-    this._initialProps = _.deepMix({}, props, defaultProps);
+    this.initialProps = _.deepMix({}, props, defaultProps);
   }
 
   protected _coord() {}
-  
+
   protected _addGeometry() {}
 
   protected _annotation() {
-    const props = this._initialProps;
+    const props = this.initialProps;
     const config = [];
     _.each(props.guideLine, (line) => {
       const guideLine = getComponent('guideLine', {
@@ -31,7 +31,7 @@ export default abstract class TinyPlot<T extends TinyConfig = TinyConfig> extend
       });
       config.push(guideLine);
     });
-    this._setConfig('annotations', config);
+    this.setConfig('annotations', config);
   }
 
   protected _animation() {}

@@ -293,7 +293,7 @@ describe('Column plot', () => {
       },
       areaStyle: {
         stroke: 'black',
-        lineWidth: 2
+        lineWidth: 2,
       },
       point: {
         visible: true,
@@ -304,13 +304,14 @@ describe('Column plot', () => {
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: 'green',
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
-    const positionField = areaPlot.plot.get('elements')[0].get('position').fields;
+    const plot = areaPlot.getLayer().plot;
+    const positionField = plot.get('elements')[0].get('position').fields;
     const axes = areaPlot.plot.get('axisController').axes;
 
     expect(areaPlot).to.be.instanceOf(Area);
@@ -318,7 +319,7 @@ describe('Column plot', () => {
     expect(positionField[1]).to.be.equal('value');
     expect(axes.length).to.be.equal(2);
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('area style', () => {
@@ -337,35 +338,36 @@ describe('Column plot', () => {
       },
       areaStyle: {
         strokeStyle: 'black',
-        lineWidth: 2
+        lineWidth: 2,
       },
       point: {
         visible: true,
         size: 8,
         style: {
           color: 'red',
-        }
+        },
       },
       line: {
         visible: true,
         style: {
           size: 6,
-          color: 'blue'
-        }
+          color: 'blue',
+        },
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: 'green',
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
-    const elements = areaPlot.plot.get('elements');
+    const plot = areaPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements[0].get('type')).to.be.equal('area');
     expect(elements[0].get('style').cfg.strokeStyle).to.be.equal('black');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('line shape attr map', () => {
@@ -389,20 +391,20 @@ describe('Column plot', () => {
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: 'green',
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
-    const elements = areaPlot.plot.get('elements');
+    const plot = areaPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('line');
     expect(elements[1].get('size').values[0]).to.be.equal(6);
     expect(elements[1].get('color').values[0]).to.be.equal('pink');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
-
 
   it('line style obj', () => {
     const areaPlot = new Area(canvasDiv, {
@@ -433,23 +435,24 @@ describe('Column plot', () => {
         visible: true,
         size: 6,
         style: {
-          color: 'blue'
-        }
+          color: 'blue',
+        },
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: 'green',
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
-    const elements = areaPlot.plot.get('elements');
+    const plot = areaPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('line');
     expect(elements[1].get('size').values[0]).to.be.equal(6);
     expect(elements[1].get('style').cfg.color).to.be.equal('blue');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   // it('line style func', () => {
@@ -527,18 +530,19 @@ describe('Column plot', () => {
         size: 6,
         color: 'pink',
         style: {
-          strokeStyle: 'blue'
-        }
+          strokeStyle: 'blue',
+        },
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: 'green',
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
-    const elements = areaPlot.plot.get('elements');
+    const plot = areaPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('line');
     expect(elements[1].get('size').values[0]).to.be.equal(6);
     expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('blue');
@@ -546,7 +550,7 @@ describe('Column plot', () => {
     expect(elements[2].get('size').values[0]).to.be.equal(8);
     expect(elements[2].get('color').values[0]).to.be.equal('yellow');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('point style obj', () => {
@@ -573,22 +577,22 @@ describe('Column plot', () => {
         color: 'yellow',
         style: {
           fillStyle: 'red',
-        }
+        },
       },
       line: {
         visible: true,
         size: 6,
         color: 'pink',
         style: {
-          strokeStyle: 'blue'
-        }
+          strokeStyle: 'blue',
+        },
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: 'green',
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
     const elements = areaPlot.plot.get('elements');
@@ -601,7 +605,6 @@ describe('Column plot', () => {
     areaPlot.destroy();
     expect(areaPlot.plot.destroyed).to.be.true;
   });
-
 
   it('area seriesField', () => {
     const areaPlot = new Area(canvasDiv, {
@@ -620,7 +623,7 @@ describe('Column plot', () => {
       },
       areaStyle: {
         stroke: 'black',
-        lineWidth: 2
+        lineWidth: 2,
       },
       point: {
         visible: true,
@@ -628,29 +631,30 @@ describe('Column plot', () => {
         color: 'yellow',
         style: {
           fillStyle: 'red',
-        }
+        },
       },
       line: {
         visible: true,
         size: 6,
         color: 'pink',
         style: {
-          strokeStyle: 'blue'
-        }
+          strokeStyle: 'blue',
+        },
       },
       label: {
         visible: true,
-        type: 'point'
+        type: 'point',
       },
       color: ['green', 'pink', 'yellow'],
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
-    const elements = areaPlot.plot.get('elements');
+    const plot = areaPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements[0].get('type')).to.be.equal('area');
     expect(elements[0].get('color').values[0]).to.be.equal('green');
     expect(elements[0].get('color').fields[0]).to.be.equal('type');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 });

@@ -16,13 +16,13 @@ export default class PaddingController {
     _.assign(this, cfg);
   }
 
-  public resgiterPadding(component) {
+  public registerPadding(component) {
     this.paddingComponents.push(component);
   }
 
   public getPadding() {
-    const props = this.plot._initialProps;
-    const padding = props.padding ? props.padding : this.plot._config.theme.padding;
+    const props = this.plot.initialProps;
+    const padding = props.padding ? props.padding : this.plot.config.theme.padding;
     if (padding === 'auto') {
       return [0, 0, 0, 0];
     }
@@ -38,15 +38,15 @@ export default class PaddingController {
   }
 
   private _getAutoPadding() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const view = this.plot.plot;
     const viewRange = view.get('viewRange');
     const { maxX, maxY } = viewRange;
-    const bleeding = this.plot._config.theme.bleeding;
+    const bleeding = this.plot.config.theme.bleeding;
     if (typeof bleeding[0] === 'function') {
       bleeding[0] = bleeding[0](props);
     }
-    this.plot._config.theme.legend.margin = bleeding;
+    this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = _.clone(bleeding);
     // 参与auto padding的components: axis legend
     const components_bbox = [view.get('panelRange')];
@@ -61,12 +61,13 @@ export default class PaddingController {
       components_bbox.push(bbox);
     });
     box = this._mergeBBox(components_bbox);
+    let minY = box.minY;
     /** 极坐标下padding计算错误问题 */
-    if (box.minY === viewRange.minY) {
-      box.minY = 0;
+    if (minY === viewRange.minY) {
+      minY = 0;
     }
     const padding = [
-      0 - box.minY + this.bleeding[0], // 上面超出的部分
+      0 - minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
@@ -127,6 +128,7 @@ export default class PaddingController {
     let maxX = -Infinity;
     let minY = Infinity;
     let maxY = -Infinity;
+
     _.each(bboxes, (bbox) => {
       const box = bbox as DataPointType;
       minX = Math.min(box.minX, minX);
@@ -134,7 +136,9 @@ export default class PaddingController {
       minY = Math.min(box.minY, minY);
       maxY = Math.max(box.maxY, maxY);
     });
+
     return { minX, maxX, minY, maxY };
+    // return new BBox(minX, minY, maxX - minX, maxY - minY);
   }
 
   private _adjustLegend(legend, view, box) {

@@ -103,7 +103,7 @@ export default class Rardar extends BasePlot<RadarConfig> {
     const coordConfig = {
       type: 'polar' as CoordinateType,
       cfg: {
-        radius: 0.8, // default radius值
+        radius: 1.0, // default radius值
       },
     };
     if (_.has(props, 'radius')) {

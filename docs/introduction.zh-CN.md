@@ -12,6 +12,13 @@ g2plot是一套简单、易用、并具备一定扩展能力和组合能力的�
 
 - 🔳 图层化设计方法：在g2plot体系下，图表不仅仅只是各不相关的实例，图层概念的引入提供了多图表组合叠联动，共同讲述一个数据故事的可能性
 
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MjhQQLsbWeQAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CkSoSpPfWQMAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZYmtSqcNDtkAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gV_JQZVbDWAAAAAAAAAAAABkARQnAQ" width="200">
+<br/>
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e4G-SIQnrUEAAAAAAAAAAABkARQnAQ" width="600"></p>
+<br/>
+
+
 ## 安装
 
 ```

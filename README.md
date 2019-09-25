@@ -11,7 +11,9 @@ G2plot is an interactive and responsive charting library based on [the grammar o
 Moreover, combining with AntV design principles, g2plot provides standard and elegant visual styles as well as better user experience. 
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MjhQQLsbWeQAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CkSoSpPfWQMAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZYmtSqcNDtkAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gV_JQZVbDWAAAAAAAAAAAABkARQnAQ" width="200">
-
+<br/>
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e4G-SIQnrUEAAAAAAAAAAABkARQnAQ" width="600"></p>
+<br/>
 
 ## Installation
 

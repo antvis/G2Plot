@@ -1,3 +1,5 @@
+import StateManager from 'util/stateManager';
+
 export { default as Config } from './interface/config';
 export * from './interface/config';
 export { default as Base } from './base/plot';
@@ -25,3 +27,5 @@ export { default as Theme } from './theme';
 export { registerResponsiveConstraint, IConstraint } from './util/responsive/constraints';
 export { registerResponsiveRule } from './util/responsive/rules';
 export { registerResponsiveTheme,  getResponsiveTheme } from './util/responsive/theme';
+
+export { default as StateManager } from './util/stateManager';

@@ -33,7 +33,7 @@ export default class GuidePointParser extends ElementParser {
       this.parseSize();
     }
     if (props.point && props.point.shape) {
-      this.parseShape();
+      this.parseShape(props.point.shape);
     }
     if (props.point.style) {
       this.parseStyle();
@@ -68,9 +68,9 @@ export default class GuidePointParser extends ElementParser {
     this.config.size = config;
   }
 
-  public parseShape() {
+  public parseShape(shapeName) {
     const config: DataPointType = {
-      values: [this.style.shape],
+      values: [shapeName],
     };
     this.config.shape = config;
   }

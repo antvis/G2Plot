@@ -8,10 +8,10 @@ export default function nodesResamplingByState(shape: Shape, option, index, cfg)
   if (current.line) {
     current.line.remove();
   }
-  
-  const data = cfg.plot._initialProps.data;
-  const field = cfg.plot[cfg.plot.type].label.fields[0]
-  const stateNodes = getStateNodes(data,field,nodes);
+
+  const data = cfg.plot.initialProps.data;
+  const field = cfg.plot[cfg.plot.type].label.fields[0];
+  const stateNodes = getStateNodes(data, field, nodes);
 
   let isState = false;
   _.each(stateNodes, (node) => {
@@ -72,4 +72,3 @@ function getNodeByNumber(nodes, field, num) {
     }
   }
 }
-

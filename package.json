@@ -9,12 +9,13 @@
   "files": [
     "lib",
     "esm",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:antvis/g2-plot.git"
+    "url": "git@github.com:antvis/g2plot.git"
   },
   "scripts": {
     "build": "run-s clean lib dist",

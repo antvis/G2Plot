@@ -14,7 +14,7 @@ const columnTheme = {
     ],
   },
   label: {
-    top:{
+    top: {
       constraints: [{ name: 'elementCollision' }],
       rules: {
         elementCollision: [
@@ -31,7 +31,7 @@ const columnTheme = {
         ],
       },
     },
-  }
+  },
 };
 
 registerResponsiveTheme('column', columnTheme);

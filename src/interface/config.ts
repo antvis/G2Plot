@@ -9,8 +9,6 @@ import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
 
-// import { ScaleConfig, Scale } from '@antv/scale';
-
 export default interface Config {
   /** 数据，对象数组 */
   data: object[];
@@ -247,10 +245,6 @@ export interface IColorConfig {
   values?: string[];
   callback?: (...args: any[]) => any;
 }
-
-export type RecursivePartial<T> = {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-};
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;

@@ -1,46 +1,16 @@
-import * as _ from '@antv/util';
-import { getComponent } from '../../components/factory';
-import { ElementOption, Label } from '../../interface/config';
-import BaseBar, { BarConfig } from '../bar';
-import './component/label/stackBar-label';
+import Bar from '../bar';
+import StackBarLayer, { StackBarLayerConfig } from './StackBarLayer';
 
-export interface StackBarConfig extends BarConfig {
-  stackField: string;
-}
+export { StackBarLayerConfig as StackBarConfig };
 
-export default class StackBar extends BaseBar<StackBarConfig> {
-
-  protected setType() {
-    this.type = 'stackBar';
-  }
-
-  protected _adjustBar(bar: ElementOption) {
-    bar.adjust = [
-      {
-        type: 'stack',
-      },
-    ];
-  }
-
-  protected _extractLabel() {
-    const props = this._initialProps;
-    const label = props.label as Label;
-
-    if (label && label.visible === false) {
-      return false;
-    }
-
-    if (!label.position) {
-      label.position = 'middle';
-    }
-
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'stackBarLabel',
-      fields: [props.xField],
-      ...label,
-    });
-
-    return labelConfig as any;
+export default class StackBar extends Bar<StackBarLayerConfig> {
+  protected init() {
+    const layer = new StackBarLayer(
+      this.getCanvasController(),
+      this.getThemeController(),
+      this.getPlotRange(),
+      this.initialProps
+    );
+    this.addLayer(layer);
   }
 }

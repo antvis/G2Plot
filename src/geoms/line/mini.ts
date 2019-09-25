@@ -17,11 +17,14 @@ G2.registerShape('line', 'miniLine', {
       path.push([flag, p.x, p.y]);
     }
     const shape = container.addShape('path', {
-      attrs: _.mix({
-        path,
-        stroke: cfg.color || G2DefaultTheme.defaultColor,
-        lineWidth: cfg.size || 2,
-      },cfg.style)
+      attrs: _.mix(
+        {
+          path,
+          stroke: cfg.color || G2DefaultTheme.defaultColor,
+          lineWidth: cfg.size || 2,
+        },
+        cfg.style
+      ),
     });
     return shape;
   },
@@ -33,11 +36,14 @@ G2.registerShape('line', 'miniLineSmooth', {
     const constraint = [[0, 0], [1, 1]];
     const path = getSplinePath(points, false, constraint);
     const shape = container.addShape('path', {
-      attrs: _.mix({
-        path,
-        stroke: cfg.color || G2DefaultTheme.defaultColor,
-        lineWidth: cfg.size || 2,
-      },cfg.style)
+      attrs: _.mix(
+        {
+          path,
+          stroke: cfg.color || G2DefaultTheme.defaultColor,
+          lineWidth: cfg.size || 2,
+        },
+        cfg.style
+      ),
     });
     return shape;
   },
@@ -50,7 +56,7 @@ export default class MiniLineParser extends LineParser {
   }
 
   private parseShape() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     if (props.smooth) {
       this.config.shape = { values: ['miniLineSmooth'] };
     } else {

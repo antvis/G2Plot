@@ -144,7 +144,7 @@ const data = [
 `visible: boolean`   图形标签是否显示<br />
 `type: 'point' | 'line'`  图形标签类型
 
-![lineLabel](../img/lineLabel.jpg)
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m9CuRrHRW78AAAAAAAAAAABkARQnAQ" width="600"></p>
 
 `formatter: function`  对label的显示文本进行格式化。<br />
 `offsetX: number`   在label位置的基础上再往x方向的偏移量。<br />

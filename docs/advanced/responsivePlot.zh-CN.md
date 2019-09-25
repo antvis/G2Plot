@@ -8,7 +8,7 @@
 
 图表数据量和展示空间的矛盾会造成图表布局错乱、组件遮挡图形、组件各部分相互重叠等问题。下图是两个典型案例：
 
-![uglyChart](../img/ugly-chart.jpg)
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y-k1Q4V7jXsAAAAAAAAAAABkARQnAQ" width="600"></p>
 
 这种非常典型的信息密度(information density)过载现象正是G2Plot响应式模块所要解决的问题 — 当信息密度过高时，对图表辅助信息进行抽稀，保证图表主要信息的展示，以使图表的信息密度达到合理平衡。
 
@@ -18,7 +18,7 @@ g2plot响应式方案由三块组成： constraints（约束条件）、 rules�
 
 一个约束条件(constraint)对应一组响应规则(rules)，多个约束组构成一个完整的响应式方案 — resonsiveTheme。
 
-![responsiveConstruction](../img/responsive-construction.jpg)
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqCOLwAAAAAAAAAAABkARQnAQ" width="600"></p>
 
 ## Constraint （约束条件）
 

@@ -24,6 +24,10 @@ export default class GuideLineParser extends LineParser {
     if (props.line && props.line.style) {
       this.parseStyle();
     }
+
+    if (props.smooth) {
+      this.config.shape = { values: ['smooth'] };
+    }
   }
 
   public parseSize() {

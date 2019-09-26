@@ -55,7 +55,7 @@ function clipingWithData(shape, animateCfg) {
   const i = 0;
   clip.animate(
     {
-      width: coord.width,
+      width: coord.getWidth(),
     },
     animateCfg.duration,
     easing,
@@ -94,7 +94,7 @@ function getClip(coord) {
 }
 
 function getPositionByRatio(ratio, dataPoints, coord, index) {
-  const currentX = coord.start.x + coord.width * ratio;
+  const currentX = coord.start.x + coord.getWidth() * ratio;
   for (let i = 0; i < dataPoints.length - 1; i++) {
     const current = dataPoints[i];
     const next = dataPoints[i + 1];

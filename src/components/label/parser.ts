@@ -22,13 +22,21 @@ export default class LabelParser {
     const config: DataPointType = {};
     this._parseOffset(labelProps, config);
     if (labelProps.position) {
-      config.position = labelProps.position;
+      if (_.isFunction(labelProps.position)) {
+        config.position = labelProps.position(val);
+      } else {
+        config.position = labelProps.position;
+      }
     }
     if (labelProps.formatter) {
       config.formatter = labelProps.formatter;
     }
     if (labelProps.style) {
-      config.textStyle = labelProps.style;
+      if (_.isFunction(labelProps.style)) {
+        config.textStyle = labelProps.style(val);
+      } else {
+        config.textStyle = labelProps.style;
+      }
     }
     return config;
   }

@@ -49,7 +49,12 @@ export default class IntervalParser extends ElementParser {
   public parseSize(sizeProps) {
     const props = this.plot.initialProps;
     const config: DataPointType = {};
-    config.values = [props[sizeProps]];
+    if (_.isFunction(props[sizeProps])) {
+      config.fields = [this.config.position.fields];
+      config.callback = props[sizeProps];
+    } else {
+      config.values = [props[sizeProps]];
+    }
     this.config.size = config;
   }
 

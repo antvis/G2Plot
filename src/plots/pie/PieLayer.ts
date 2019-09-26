@@ -59,11 +59,15 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     const coordConfig = {
       type: 'theta' as CoordinateType,
       cfg: {
+        innerRadius: 0,
         radius: 0.8, // default radius值
       },
     };
     if (_.has(props, 'radius')) {
       coordConfig.cfg.radius = props.radius;
+    }
+    if (_.has(props, 'innerRadius')) {
+      coordConfig.cfg.innerRadius = props.innerRadius;
     }
     this.setConfig('coord', coordConfig);
   }

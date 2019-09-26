@@ -21,7 +21,7 @@ export default class TextDescription {
     this._init();
   }
 
-  public getBBox() {
+  public getBBox(): any {
     if (this.shape) {
       return this.shape.getBBox();
     }

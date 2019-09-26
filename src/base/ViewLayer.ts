@@ -346,7 +346,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   }
 
   protected afterRender() {
-    if (!this.plot || this.plot.destroyed ) {
+    if (!this.plot || this.plot.destroyed) {
       return;
     }
     const props = this.initialProps;

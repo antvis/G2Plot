@@ -56,7 +56,7 @@
     <script src="../dist/g2plot.js"></script>
     <script>
         const stateManager = new g2plot.StateManager();
-        const colors = ['#69755a','#a2aac6','#d1ad4e', '#cfcab3', '#beceb7'];
+        const color = ['#69755a','#a2aac6','#d1ad4e', '#cfcab3', '#beceb7'];
         // 原始数据
         const data1 = [
             {
@@ -465,7 +465,8 @@
                 visible: false
             },
             colorField: 'type',
-            color: colors,
+            // color: colors,
+            color,
             animation: false
         });
         columnPlot.render();
@@ -504,7 +505,8 @@
             data: data2,
             colorField: 'type',
             angleField: 'value',
-            color: ['#d1ad4e', '#a2aac6', '#69755a', '#cfcab3'],
+            // color: ['#d1ad4e', '#a2aac6', '#69755a', '#cfcab3'],
+            color,
             tooltip: {
                 visible: false,
             },
@@ -554,7 +556,8 @@
             xField: 'date',
             yField: 'value',
             seriesField: 'type',
-            color: ['#d1ad4e', '#69755a', '#cfcab3'],
+            // color: ['#d1ad4e', '#69755a', '#cfcab3'],
+            color,
             tooltip: {
                 visible: false,
             },
@@ -606,7 +609,8 @@
             xField: 'date',
             yField: 'value',
             stackField: 'type',
-            color: ['#cfcab3', '#a2aac6', '#d1ad4e', '#69755a',],
+            color,
+            // color: ['#cfcab3', '#a2aac6', '#d1ad4e', '#69755a',],
             tooltip: {
                 visible: false,
             },
@@ -659,7 +663,8 @@
             xField: 'date',
             yField: 'value',
             stackField: 'type',
-            color: ['#beceb7', '#d1ad4e', '#69755a', '#a2aac6', '#cfcab3',],
+            // color: ['#beceb7', '#d1ad4e', '#69755a', '#a2aac6', '#cfcab3',],
+            color,
             tooltip: {
                 visible: false,
             },
@@ -712,7 +717,8 @@
             xField: 'date',
             yField: 'value',
             seriesField: 'type',
-            color: colors,
+            // color: colors,
+            color,
             line: {
                 visible: false
             },
@@ -769,7 +775,8 @@
             colorField: 'type',
             angleField: 'value',
             innerRadius: 0.5,
-            color: ['#cfcab3', '#d1ad4e', '#69755a', '#a2aac6'],
+            // color: ['#cfcab3', '#d1ad4e', '#69755a', '#a2aac6'],
+            color,
             tooltip: {
                 visible: false,
             },

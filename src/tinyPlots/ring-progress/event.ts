@@ -9,7 +9,7 @@ const SHAPE_EVENT_MAP: IEventmap = {
   onProgressMouseup: 'interval:mouseup',
   onProgressMouseenter: 'interval:mouseenter',
   onProgressMouseleave: 'interval:mouseleave',
-  onProgressContextmenu: 'interval:contextmenu'
+  onProgressContextmenu: 'interval:contextmenu',
 };
 
 _.assign(EVENT_MAP, SHAPE_EVENT_MAP);

@@ -17,7 +17,7 @@ const COMPONENT_MAPPER = {
 const STATE_MAPPER = {
   tooltip: tooltipState,
   label: labelState,
-  axis: axisState
+  axis: axisState,
 };
 
 export function getComponent(name, cfg) {

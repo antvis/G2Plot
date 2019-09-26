@@ -53,8 +53,8 @@ export default class SpiderLabel {
     this.offsetY = cfg.offsetY;
     // this.config = _.assign(getDefaultCfg(), cfg.style);
     this.config = getDefaultCfg();
-    if(cfg.style){
-      this.config.text = _.mix(this.config.text,cfg.style);
+    if (cfg.style) {
+      this.config.text = _.mix(this.config.text, cfg.style);
     }
     this._adjustConfig(this.config);
     this._init();
@@ -109,13 +109,13 @@ export default class SpiderLabel {
       };
       // 创建label文本
       let texts = [];
-      _.each(this.fields,(f)=>{
+      _.each(this.fields, (f) => {
         texts.push(d[f]);
       });
-      if(this.formatter){
-        let formatted:any = this.formatter(...texts);
-        if(_.isString(formatted)){
-          formatted = [ formatted ];
+      if (this.formatter) {
+        let formatted: any = this.formatter(...texts);
+        if (_.isString(formatted)) {
+          formatted = [formatted];
         }
         texts = formatted;
       }
@@ -150,7 +150,7 @@ export default class SpiderLabel {
           attrs: _.mix(
             {
               textBaseline: 'bottom',
-              text: texts[1]
+              text: texts[1],
             },
             textAttrs
           ),
@@ -304,13 +304,13 @@ export default class SpiderLabel {
       x: label._side === 'left' ? this.config.sidePadding : width - this.config.sidePadding,
     };
 
-    if(this.offsetX){
+    if (this.offsetX) {
       textAttrs.x += this.offsetX * x_dir;
     }
 
     children.forEach((child) => {
       const offsetY = child.get('offsetY');
-      const yPosition = this.offsetY ? y+offsetY*this.offsetY : y;
+      const yPosition = this.offsetY ? y + offsetY * this.offsetY : y;
       child.attr(textAttrs);
       child.attr('y', yPosition);
     });

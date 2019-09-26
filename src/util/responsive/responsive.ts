@@ -196,15 +196,15 @@ export default class Responsive {
   private _applyRules() {
     const ruleCfg = this.rules[this.currentConstraint.name][this.iterationIndex];
     // if (this.rulesLocker.indexOf(ruleCfg) < 0) {
-      const rule = rulesLib[ruleCfg.name];
-      const option = ruleCfg.option ? ruleCfg.option : {};
-      const nodes = this.nodes.nodes as IShapeNode[];
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        /** apply rule上下文 */
-        this._applyRule(node.shape, rule, option, i);
-      }
-      // this.rulesLocker.push(ruleCfg);
+    const rule = rulesLib[ruleCfg.name];
+    const option = ruleCfg.option ? ruleCfg.option : {};
+    const nodes = this.nodes.nodes as IShapeNode[];
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      /** apply rule上下文 */
+      this._applyRule(node.shape, rule, option, i);
+    }
+    // this.rulesLocker.push(ruleCfg);
     // }
   }
 
@@ -212,7 +212,7 @@ export default class Responsive {
     const cfg = {
       nodes: this.nodes,
       region: this.region,
-      plot: this.plot
+      plot: this.plot,
     };
     // rule(shape, option, index, this);
     rule(shape, option, index, cfg);

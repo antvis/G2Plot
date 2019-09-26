@@ -60,7 +60,7 @@ export class ColumnLabels extends ElementLabels {
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
       this.adjustPosition(l, shape, item);
-      if (_.has(this.get('labelOptions'),'adjustColor')) {
+      if (_.has(this.get('labelOptions'), 'adjustColor')) {
         this.adjustColor(l, shape);
       }
     });
@@ -102,7 +102,7 @@ export class ColumnLabels extends ElementLabels {
         { from: 85, to: 170, color: '#F6F6F6' },
         { from: 170, to: 255, color: 'black' },
       ];
-      
+
       const reflect = this._mappingColor(colorBand, gray);
       label.attr('fill', reflect);
     } else if (labelRange.maxY < shapeRange.minY) {

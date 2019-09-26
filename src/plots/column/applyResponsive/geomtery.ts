@@ -18,8 +18,8 @@ export default function responsiveColumn(layer: ColumnLayer) {
     end: { x: props.width - padding[1], y: props.height - padding[2] },
   });
   /** 计算单柱响应region */
-  const regionWidth = coord.width / columnNum;
-  const region = new BBox(0, 0, regionWidth, coord.height);
+  const regionWidth = coord.getWidth() / columnNum;
+  const region = new BBox(0, 0, regionWidth, coord.getHeight());
   /** 运用响应式规则 */
   const nodes = new VariableNodes({
     nodes: [{ name: 'width', value: 0 }],

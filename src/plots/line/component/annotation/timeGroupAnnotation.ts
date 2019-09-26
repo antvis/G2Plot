@@ -196,9 +196,9 @@ export default class TimeGroupAnnotation {
       y: Math.min(start.y, end.y),
     };
     if (dim === 'x') {
-      return coord.width * percent + topLeft.x;
+      return coord.getWidth() * percent + topLeft.x;
     }
-    return coord.height * percent + topLeft.y;
+    return coord.getHeight() * percent + topLeft.y;
   }
 
   private _adjustPosition() {

@@ -346,12 +346,13 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   }
 
   protected afterRender() {
-    if (!this.plot || this.plot.destroyed) {
+    if (!this.plot || this.plot.destroyed ) {
       return;
     }
     const props = this.initialProps;
+    const padding = props.padding ? props.padding : this.config.theme.padding;
     /** defaultState */
-    if (props.defaultState) {
+    if (props.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(props.defaultState);
     }
   }

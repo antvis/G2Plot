@@ -66,9 +66,10 @@ describe('Bar plot', () => {
       animation: false,
     });
     barPlot.render();
-    const positionField = barPlot.plot.get('elements')[0].get('position').fields;
-    const isTransposed = barPlot.plot.get('coord').isTransposed;
-    const axes = barPlot.plot.get('axisController').axes;
+    const plot = barPlot.getLayer().plot;
+    const positionField = plot.get('elements')[0].get('position').fields;
+    const isTransposed = plot.get('coord').isTransposed;
+    const axes = plot.get('axisController').axes;
 
     expect(barPlot).to.be.instanceOf(Bar);
     expect(positionField[0]).to.be.equal('year');
@@ -76,7 +77,7 @@ describe('Bar plot', () => {
     expect(isTransposed).to.be.equal(true);
     expect(axes.length).to.be.equal(2);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('柱子样式配置', () => {
@@ -149,10 +150,11 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const axes = barPlot.plot.get('axisController').axes;
+    const plot = barPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(0);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('x轴 样式', () => {
@@ -199,7 +201,8 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const axes = barPlot.plot.get('axisController').axes;
+    const plot = barPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     expect(axis.get('title').text).to.be.include('xxxx');
@@ -213,7 +216,7 @@ describe('Bar plot', () => {
     expect(tickLine.stroke).to.be.equal('red');
     expect(labels[0].textStyle.fill).to.be.equal('red');
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('x轴 隐藏 grid line tick label', () => {
@@ -244,7 +247,8 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const axes = barPlot.plot.get('axisController').axes;
+    const plot = barPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     // style
@@ -253,7 +257,7 @@ describe('Bar plot', () => {
     expect(line).to.be.equal(null);
     expect(tickLine).to.be.equal(null);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('y轴 样式', () => {
@@ -303,7 +307,8 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const axes = barPlot.plot.get('axisController').axes;
+    const plot = barPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
@@ -317,7 +322,7 @@ describe('Bar plot', () => {
     expect(tickLine.stroke).to.be.equal('red');
     expect(labels[0].textStyle.fill).to.be.equal('red');
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('y轴 隐藏 grid line tick label', () => {
@@ -347,7 +352,8 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const axes = barPlot.plot.get('axisController').axes;
+    const plot = barPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     // style
@@ -356,6 +362,6 @@ describe('Bar plot', () => {
     expect(line).to.be.equal(null);
     expect(tickLine).to.be.equal(null);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 });

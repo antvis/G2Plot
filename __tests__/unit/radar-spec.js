@@ -122,8 +122,9 @@ describe('Radar plot', () => {
       seriesField: 'user',
     });
     radarPlot.render();
-    const positionField = radarPlot.plot.get('elements')[0].get('position').fields;
-    const colorField = radarPlot.plot.get('elements')[0].get('color').fields;
+    const plot = radarPlot.getLayer().plot;
+    const positionField = plot.get('elements')[0].get('position').fields;
+    const colorField = plot.get('elements')[0].get('color').fields;
     expect(radarPlot).to.be.instanceOf(Radar);
     expect(positionField[0]).to.be.equal('item');
     expect(positionField[1]).to.be.equal('score');
@@ -151,7 +152,8 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
-    const axis = radarPlot.plot.get('axisController').axes[0];
+    const plot = radarPlot.getLayer().plot;
+    const axis = plot.get('axisController').axes[0];
     // formatter
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.equal('a');
@@ -184,7 +186,8 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
-    const axis = radarPlot.plot.get('axisController').axes[1];
+    const plot = radarPlot.getLayer().plot;
+    const axis = plot.get('axisController').axes[1];
     // formatter
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.equal('a');
@@ -213,7 +216,8 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
-    const elements = radarPlot.plot.get('elements');
+    let plot = radarPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements.length).to.be.equal(1);
     expect(elements[0].get('type')).to.be.equal('line');
     radarPlot.destroy();
@@ -236,6 +240,7 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
+    plot = radarPlot.getLayer().plot;
     const shapes = radarPlot.plot.get('elements')[0].getShapes();
     expect(shapes[0].attr('stroke')).to.be.equal('red');
     expect(shapes[0].attr('lineWidth')).to.be.equal(2);
@@ -256,7 +261,8 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
-    const elements = radarPlot.plot.get('elements');
+    const plot = radarPlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements.length).to.be.equal(1);
     expect(elements[0].get('type')).to.be.equal('area');
     radarPlot.destroy();
@@ -280,7 +286,10 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
-    const shapes = radarPlot.plot.get('elements')[1].getShapes();
+    const shapes = radarPlot
+      .getLayer()
+      .plot.get('elements')[1]
+      .getShapes();
     expect(shapes[1].attr('lineDash')[0]).to.be.equal(2);
     radarPlot.destroy();
   });
@@ -302,7 +311,7 @@ describe('Radar plot', () => {
       },
     });
     radarPlot.render();
-    const elements = radarPlot.plot.get('elements');
+    const elements = radarPlot.getLayer().plot.get('elements');
     expect(elements.length).to.be.equal(3);
     expect(elements[2].get('type')).to.be.equal('point');
     const shapes = radarPlot.plot.get('elements')[2].getShapes();
@@ -333,7 +342,7 @@ describe('Radar plot', () => {
       seriesField: 'user',
     });
     radarPlot.render();
-    const padding = radarPlot.plot.get('padding');
+    const padding = radarPlot.getLayer().plot.get('padding');
     expect(padding[0] >= 20).to.be.true;
     expect(padding[1] >= 20).to.be.true;
     expect(padding[2] >= 40).to.be.true;
@@ -362,8 +371,8 @@ describe('Radar plot', () => {
       yField: 'score',
       seriesField: 'user',
     });
-    const title = radarPlot.title;
-    const description = radarPlot.description;
+    const title = radarPlot.getLayer().title;
+    const description = radarPlot.getLayer().description;
     expect(title.attr('text')).to.be.equal('title');
     expect(title.attr('fill')).to.be.equal('red');
     expect(description.shape.attr('text')).to.be.equal('description');

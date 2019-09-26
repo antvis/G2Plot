@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
 import ApplyResponsiveLabel from '../../../util/responsive/apply/label';
+import ColumnLayer from '../ColumnLayer';
 
 class ApplyResponsiveColumnLabel extends ApplyResponsiveLabel {
-
-  protected getType(){
+  protected getType() {
     if (this.plot.column.label) {
       if (!this.plot.column.label.position || this.plot.column.label.position === 'top') {
         return 'top';
@@ -11,13 +11,12 @@ class ApplyResponsiveColumnLabel extends ApplyResponsiveLabel {
     }
     return 'inner';
   }
-  
 }
 
-export default function responsivePointLabel(plot) {
-  const responsiveTheme = plot.themeController.responsiveTheme;
+export default function responsivePointLabel(layer: ColumnLayer) {
+  const responsiveTheme = layer.getResponsiveTheme();
   const applyResponsiveColumnLabel = new ApplyResponsiveColumnLabel({
-    plot,
-    responsiveTheme
-  });  
+    plot: layer,
+    responsiveTheme,
+  });
 }

@@ -128,13 +128,14 @@ describe('stack-area plot', () => {
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        autoScale: true,
       },
     });
     areaPlot.render();
-    const positionField = areaPlot.plot.get('elements')[0].get('position').fields;
-    const colorField = areaPlot.plot.get('elements')[0].get('color').fields;
-    const axes = areaPlot.plot.get('axisController').axes;
+    const plot = areaPlot.getLayer().plot;
+    const positionField = plot.get('elements')[0].get('position').fields;
+    const colorField = plot.get('elements')[0].get('color').fields;
+    const axes = plot.get('axisController').axes;
 
     expect(areaPlot).to.be.instanceOf(StackArea);
     expect(positionField[0]).to.be.equal('year');
@@ -142,7 +143,7 @@ describe('stack-area plot', () => {
     expect(colorField[0]).to.be.equal('type');
     expect(axes.length).to.be.equal(2);
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('area shape attr map', () => {
@@ -171,15 +172,16 @@ describe('stack-area plot', () => {
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        autoScale: true,
       },
     });
     areaPlot.render();
-    const intervalEle = areaPlot.plot.get('elements')[0];
+    const plot = areaPlot.getLayer().plot;
+    const intervalEle = plot.get('elements')[0];
     expect(intervalEle.get('color').values[0]).to.be.equal('red');
     expect(intervalEle.get('color').values[1]).to.be.equal('pink');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('point shape attr map and style', () => {
@@ -206,7 +208,7 @@ describe('stack-area plot', () => {
         style: {
           strokeStyle: 'black',
           lineWidth: 2,
-        }
+        },
       },
       line: {
         visible: false,
@@ -214,25 +216,26 @@ describe('stack-area plot', () => {
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        autoScale: true,
       },
     });
     areaPlot.render();
-    const pointEle = areaPlot.plot.get('elements')[1];
+    const plot = areaPlot.getLayer().plot;
+    const pointEle = plot.get('elements')[1];
     expect(pointEle.get('type')).to.be.equal('point');
     expect(pointEle.get('size').values[0]).to.be.equal(6);
     expect(pointEle.get('color').values[0]).to.be.equal('yellow');
     expect(pointEle.get('style').cfg.strokeStyle).to.be.equal('black');
     expect(pointEle.get('style').cfg.lineWidth).to.be.equal(2);
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('point style func', () => {
-    const styleFunc = d => {
+    const styleFunc = (d) => {
       return {
         strokeStyle: 'black',
-      }
+      };
     };
     const areaPlot = new StackArea(canvasDiv, {
       responsive: true,
@@ -254,7 +257,7 @@ describe('stack-area plot', () => {
         visible: true,
         size: 6,
         color: 'yellow',
-        style: styleFunc
+        style: styleFunc,
       },
       line: {
         visible: false,
@@ -262,14 +265,15 @@ describe('stack-area plot', () => {
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        autoScale: true,
       },
     });
     areaPlot.render();
-    const pointEle = areaPlot.plot.get('elements')[1];
+    const plot = areaPlot.getLayer().plot;
+    const pointEle = plot.get('elements')[1];
     expect(pointEle.get('style').callback).to.be.equal(styleFunc);
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('line shape attr map and style', () => {
@@ -301,30 +305,31 @@ describe('stack-area plot', () => {
         style: {
           strokeStyle: 'blue',
           lineWidth: 3,
-        }
+        },
       },
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        autoScale: true,
       },
     });
     areaPlot.render();
-    const lineEle = areaPlot.plot.get('elements')[1];
+    const plot = areaPlot.getLayer().plot;
+    const lineEle = plot.get('elements')[1];
     expect(lineEle.get('type')).to.be.equal('line');
     expect(lineEle.get('size').values[0]).to.be.equal(4);
     expect(lineEle.get('color').values[0]).to.be.equal('purple');
     expect(lineEle.get('style').cfg.strokeStyle).to.be.equal('blue');
     expect(lineEle.get('style').cfg.lineWidth).to.be.equal(3);
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('line style func', () => {
-    const styleFunc = d => {
+    const styleFunc = (d) => {
       return {
         strokeStyle: 'black',
-      }
+      };
     };
     const areaPlot = new StackArea(canvasDiv, {
       responsive: true,
@@ -356,13 +361,14 @@ describe('stack-area plot', () => {
       label: {
         visible: true,
         type: 'area',
-        autoScale: true
+        autoScale: true,
       },
     });
     areaPlot.render();
-    const lineEle = areaPlot.plot.get('elements')[1];
+    const plot = areaPlot.getLayer().plot;
+    const lineEle = plot.get('elements')[1];
     expect(lineEle.get('style').callback).to.be.equal(styleFunc);
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 });

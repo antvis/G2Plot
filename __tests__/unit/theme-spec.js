@@ -413,13 +413,13 @@ describe('主题测试', () => {
     });
     linePlot.render();
 
-    const lshapes = linePlot.plot
-      .get('elements')[0]
+    const lshapes = linePlot
+      .getLayer()
+      .plot.get('elements')[0]
       .get('shapeContainer')
       .get('children');
     expect(lshapes[0].attrs.stroke).to.be.equal('red');
     linePlot.destroy();
-    expect(linePlot.plot.destroyed).to.be.true;
   });
 
   it('全局主题 色盘', () => {
@@ -436,13 +436,12 @@ describe('主题测试', () => {
     });
     barPlot.render();
 
-    const intervalShape = barPlot.plot.get('elements')[0];
+    const intervalShape = barPlot.getLayer().plot.get('elements')[0];
     const shapes = intervalShape.get('shapeContainer').get('children');
     expect(shapes.length).to.be.equal(18);
     expect(shapes[0].attrs.fill).to.be.equal('red');
     expect(shapes[17].attrs.fill).to.be.equal('yellow');
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
 
     const linePlot = new Line(canvasDiv, {
       data,
@@ -452,14 +451,14 @@ describe('主题测试', () => {
     });
     linePlot.render();
 
-    const lshapes = linePlot.plot
-      .get('elements')[0]
+    const lshapes = linePlot
+      .getLayer()
+      .plot.get('elements')[0]
       .get('shapeContainer')
       .get('children');
     expect(lshapes.length).to.be.equal(2);
     expect(lshapes[0].attrs.stroke).to.be.equal('red');
     expect(lshapes[1].attrs.stroke).to.be.equal('yellow');
     linePlot.destroy();
-    expect(linePlot.plot.destroyed).to.be.true;
   });
 });

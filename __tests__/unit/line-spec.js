@@ -286,12 +286,13 @@ describe('Line plot', () => {
       yField: 'value',
     });
     linePlot.render();
-    const positionField = linePlot.plot.get('elements')[0].get('position').fields;
+    const plot = linePlot.getLayer().plot;
+    const positionField = plot.get('elements')[0].get('position').fields;
     expect(linePlot).to.be.instanceOf(Line);
     expect(positionField[0]).to.be.equal('year');
     expect(positionField[1]).to.be.equal('value');
     linePlot.destroy();
-    expect(linePlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -304,7 +305,8 @@ describe('Line plot', () => {
       yField: 'value',
       smooth: true,
     });
-    const elementShape = linePlot._config.elements[0].shape.values[0];
+    const plot = linePlot.getLayer().plot;
+    const elementShape = plot.config.elements[0].shape.values[0];
     expect(elementShape).to.be.equal('smooth');
     linePlot.destroy();
   });
@@ -319,7 +321,8 @@ describe('Line plot', () => {
       size: 5,
     });
     linePlot.render();
-    const lineSize = linePlot.plot.get('elements')[0].get('size').values[0];
+    const plot = linePlot.getLayer().plot;
+    const lineSize = plot.get('elements')[0].get('size').values[0];
     expect(lineSize).to.be.equal(5);
     linePlot.destroy();
   });
@@ -343,7 +346,8 @@ describe('Line plot', () => {
       },
     });
     linePlot.render();
-    const elements = linePlot.plot.get('elements');
+    const plot = linePlot.getLayer().plot;
+    const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('point');
     expect(elements[1].get('size').values[0]).to.be.equal(5);
     expect(elements[1].get('color').values[0]).to.be.equal('red');
@@ -378,7 +382,8 @@ describe('Line plot', () => {
       },
     });
     linePlot.render();
-    const axis = linePlot.plot.get('axisController').axes[0];
+    const plot = linePlot.getLayer().plot;
+    const axis = plot.get('axisController').axes[0];
     // formatter
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.equal('a');
@@ -416,7 +421,8 @@ describe('Line plot', () => {
       },
     });
     linePlot.render();
-    const axis = linePlot.plot.get('axisController').axes[1];
+    const plot = linePlot.getLayer().plot;
+    const axis = plot.get('axisController').axes[1];
     // formatter
     const labels = axis.get('labelItems');
     expect(labels[0].text).to.be.equal('a');
@@ -448,7 +454,8 @@ describe('Line plot', () => {
       },
     });
     linePlot.render();
-    const labelGroup = linePlot.plot
+    const plot = linePlot.getLayer().plot;
+    const labelGroup = plot
       .get('elements')[0]
       .get('container')
       .get('children')[1]
@@ -503,8 +510,9 @@ describe('Line plot', () => {
       xField: 'year',
       yField: 'value',
     });
-    const title = linePlot.title.shape;
-    const description = linePlot.description.shape;
+    const plot = linePlot.getLayer().plot;
+    const title = plot.title.shape;
+    const description = plot.description.shape;
     expect(title.attr('text')).to.be.equal('title');
     expect(title.attr('fill')).to.be.equal('red');
     expect(description.attr('text')).to.be.equal('description');
@@ -533,8 +541,9 @@ describe('Line plot', () => {
     });
 
     linePlot.render();
-    const elements = linePlot.plot.get('elements');
-    const shapes = linePlot.plot
+    const plot = linePlot.getLayer().plot;
+    const elements = plot.get('elements');
+    const shapes = plot
       .get('elements')[0]
       .get('shapeContainer')
       .get('children');
@@ -561,7 +570,8 @@ describe('Line plot', () => {
       },
     });
     linePlot.render();
-    const labelGroup = linePlot.plot
+    const plot = linePlot.getLayer().plot;
+    const labelGroup = plot
       .get('elements')[0]
       .get('container')
       .get('children')[1]

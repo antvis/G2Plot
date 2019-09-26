@@ -2,13 +2,14 @@ import { getCoordinate } from '@antv/coord';
 import VariableNodes from '../../../util/responsive/node/variableNode';
 // import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
+import RingLayer from '../RingLayer';
 
-export default function responsiveRing(plot) {
-  const props = plot._initialProps;
-  const responsiveTheme = plot.themeController.responsiveTheme;
+export default function responsiveRing(layer: RingLayer) {
+  const props = layer.initialProps;
+  const responsiveTheme = layer.getResponsiveTheme();
   const padding = props.padding;
   const radius = props.radius ? props.radius : 1;
-  const { width, height } = plot.canvasController;
+  const { width, height } = layer.getCanvasController();
   /** 创建坐标系 */
   const polar = getCoordinate('polar');
   const coord = new polar({
@@ -29,7 +30,7 @@ export default function responsiveRing(plot) {
     nodes,
     constraints,
     region,
-    plot,
+    plot: layer,
     onEnd: () => {
       props.innerRadius = nodes.nodes[0].value;
     },

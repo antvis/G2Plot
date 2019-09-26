@@ -4,13 +4,13 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   entry: {
-    'g2plot': './src/index.ts',
+    g2plot: './src/index.ts',
   },
   output: {
     filename: '[name].js',
     library: 'g2plot',
     libraryTarget: 'umd',
-    path: resolve(__dirname, 'build/'),
+    path: resolve(__dirname, 'dist/'),
   },
   resolve: {
     extensions: ['.ts', '.js', '.less'],

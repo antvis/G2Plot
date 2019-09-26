@@ -1,7 +1,7 @@
 # Contribution Guide
 
-If you have any comment or advice, please report your [issue](https://github.com/antvis/scale/issues),
-or make any change as you wish and submit an [PR](https://github.com/antvis/scale/pulls).
+If you have any comment or advice, please report your [issue](https://github.com/antvis/g2plot/issues),
+or make any change as you wish and submit an [PR](https://github.com/antvis/g2plot/pulls).
 
 ## Reporting New Issues
 
@@ -30,14 +30,14 @@ $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
 ```
 
-Then you can create a Pull Request at [scale](https://github.com/antvis/scale/pulls).
+Then you can create a Pull Request at [g2plot](https://github.com/antvis/g2plot/pulls).
 
 No one can garantee how much will be remembered about certain PR after some time. To make sure we can easily recap what happened previously, please provide the following information in your PR.
 
 1. Need: What function you want to achieve (Generally, please point out which issue is related).
 2. Updating Reason: Different with issue. Briefly describe your reason and logic about why you need to make such modification.
 3. Related Testing: Briefly descirbe what part of testing is relevant to your modification.
-4. User Tips: Notice for scale users. You can skip this part, if the PR is not about update in API or potential compatibility problem.
+4. User Tips: Notice for g2plot users. You can skip this part, if the PR is not about update in API or potential compatibility problem.
 
 ### Style Guide
 
@@ -95,7 +95,7 @@ Older IEs serialize html uppercased, but IE9 does not...
 Would be better to expect case insensitive, unfortunately jasmine does
 not allow to user regexps for throw expectations.
 
-Document change on antvis/scale#123
+Document change on antvis/g2plot#123
 
 Closes #392
 
@@ -108,7 +108,7 @@ Look at [these files](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJyg
 
 ## Release
 
-scale uses semantic versioning in release process based on [semver].
+g2plot uses semantic versioning in release process based on [semver].
 
 ### Branch Strategy
 

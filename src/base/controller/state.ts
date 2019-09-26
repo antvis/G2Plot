@@ -113,7 +113,9 @@ export default class StateController {
     const shapes = [];
     const geoms = this.plot.plot.get('elements');
     _.each(geoms, (geom: any) => {
-      shapes.push(...geom.getShapes());
+      if(!geom.destroyed){
+         shapes.push(...geom.getShapes());
+      }
     });
     return shapes;
   }

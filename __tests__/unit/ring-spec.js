@@ -42,7 +42,10 @@ describe('Ring plot', () => {
       colorField: 'type',
     });
     ringPlot.render();
-    const positionField = ringPlot.plot.get('elements')[0].get('position').fields;
+    const positionField = ringPlot
+      .getLayer()
+      .plot.get('elements')[0]
+      .get('position').fields;
     expect(ringPlot).to.be.instanceOf(Ring);
     expect(positionField[0]).to.be.equal('1');
     expect(positionField[1]).to.be.equal('value');
@@ -57,7 +60,7 @@ describe('Ring plot', () => {
       innerRadius: 0.2,
     });
     ringPlot.render();
-    const coord = ringPlot.plot.get('coord');
+    const coord = ringPlot.getLayer().plot.get('coord');
     expect(coord.innerRadius).to.be.equal(0.2);
     ringPlot.destroy();
   });
@@ -72,10 +75,11 @@ describe('Ring plot', () => {
       annotation: [{ type: 'centralText', onActive: true }],
     });
     ringPlot.render();
-    const canvas = ringPlot.plot.get('canvas');
+    const plot = ringPlot.getLayer().plot;
+    const canvas = plot.get('canvas');
     const bbox = canvas.get('el').getBoundingClientRect();
     let originData = null;
-    ringPlot.plot.on('interval:mousemove', (e) => {
+    plot.on('interval:mousemove', (e) => {
       originData = e.target.get('origin')._origin;
     });
     setTimeout(() => {

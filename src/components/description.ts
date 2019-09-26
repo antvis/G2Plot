@@ -34,7 +34,7 @@ export default class TextDescription {
     }
   }
 
-  public destory() {
+  public destroy() {
     if (this.shape) {
       this.shape.remove();
     }
@@ -57,7 +57,7 @@ export default class TextDescription {
   private _textWrapper(width, style) {
     const text = this.text;
     let currentWidth = 0;
-    let wrapperedText = _.clone(text);
+    let wrappedText = _.clone(text);
     const tShape = new Text({
       attrs: {
         text: '',
@@ -66,19 +66,19 @@ export default class TextDescription {
         ...style,
       },
     });
-    for (let i = 0; i < wrapperedText.length; i++) {
-      const t = wrapperedText[i];
+    for (let i = 0; i < wrappedText.length; i++) {
+      const t = wrappedText[i];
       /*tslint:disable*/
       tShape.attr('text', t + ' ');
       // 字数不多就不缓存了吧.....
       const textWidth = Math.floor(tShape.measureText());
       currentWidth += textWidth;
       if (currentWidth > width) {
-        wrapperedText = `${wrapperedText.slice(0, i)}\n${wrapperedText.slice(i)}`;
+        wrappedText = `${wrappedText.slice(0, i)}\n${wrappedText.slice(i)}`;
         currentWidth = 0;
       }
     }
     tShape.remove();
-    return wrapperedText;
+    return wrappedText;
   }
 }

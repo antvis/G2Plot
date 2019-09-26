@@ -1,6 +1,6 @@
+import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import { getMean, getMedian } from '../util/math';
-import { getScale } from '@antv/scale';
 
 export default class GuideLine {
   public config: any;
@@ -13,15 +13,13 @@ export default class GuideLine {
   }
 
   private _init() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const defaultStyle = this._getDefaultStyle();
-    const baseConfig = _.mix(  defaultStyle,
-      {
-        ...this.cfg,
-        type: 'line',
-        top: true,
-      }
-    ) as any;
+    const baseConfig = _.mix(defaultStyle, {
+      ...this.cfg,
+      type: 'line',
+      top: true,
+    }) as any;
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);
       const minValue = this._getState('min');
@@ -29,11 +27,15 @@ export default class GuideLine {
       const Scale = getScale('linear');
       // 重新组织scale并使用scale的min和max来计算guide point的百分比位置，以避免受nice的影响
       const scale = new Scale(
-        _.mix({},{
-          min: minValue,
-          max: maxValue,
-          nice: true
-        },props.meta)
+        _.mix(
+          {},
+          {
+            min: minValue,
+            max: maxValue,
+            nice: true,
+          },
+          props.meta
+        )
       );
       const percent = `${((stateValue - scale.min) / (scale.max - scale.min)) * 100}%`;
       const start = ['0%', percent];
@@ -67,7 +69,7 @@ export default class GuideLine {
   }
 
   private _extractValues() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const field = props.yField;
     const values = [];
     _.each(props.data, (d) => {

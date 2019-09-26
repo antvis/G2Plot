@@ -11,7 +11,7 @@ describe('Gauge plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('initialize & destory',() => {
+  it('initialize & destory', () => {
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
       height: 650,
@@ -20,20 +20,20 @@ describe('Gauge plot', () => {
       range: [0, 100],
     });
     gaugePlot.render();
+    const plot = gaugePlot.getLayer().plot;
     expect(gaugePlot).to.be.instanceOf(Gauge);
-    const canvas = gaugePlot.plot.get('canvas');
+    const canvas = plot.get('canvas');
     expect(canvas.get('width')).to.be.equal(600);
     expect(canvas.get('height')).to.be.equal(650);
     const geometry = gaugePlot.plot.get('elements')[0];
     expect(geometry.get('type')).to.be.equal('point');
     gaugePlot.destroy();
-    expect(gaugePlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
-
 
   const titleText = '仪表图测试';
   const descriptionText = '仪表图';
-  it('title & description',() => {
+  it('title & description', () => {
     const gaugePlot = new Gauge(canvasDiv, {
       title: {
         text: titleText,
@@ -48,8 +48,9 @@ describe('Gauge plot', () => {
       range: [0, 100],
     });
     gaugePlot.render();
-    expect(gaugePlot.title.text).to.be.equal(titleText);
-    expect(gaugePlot.description.text).to.be.equal(descriptionText);
+    const plot = gaugePlot.getLayer().plot;
+    expect(plot.title.text).to.be.equal(titleText);
+    expect(plot.description.text).to.be.equal(descriptionText);
     gaugePlot.destroy();
   });
 
@@ -66,17 +67,17 @@ describe('Gauge plot', () => {
       label: true,
     });
     gaugePlot.render();
+    const plot = gaugePlot.getLayer().plot;
     expect(gaugePlot).to.be.instanceOf(Gauge);
-    const element = gaugePlot.plot.get('elements')[0];
+    const element = plot.get('elements')[0];
     const data = element.get('data')[0].value;
     expect(data).to.be.equal(64);
     const positionField = element.get('position').fields;
     expect(positionField[0]).to.be.equal('value');
     expect(positionField[1]).to.be.equal('1');
-    expect(gaugePlot.plot.get('coord').type).to.be.equal('polar');
+    expect(plot.get('coord').type).to.be.equal('polar');
     gaugePlot.destroy();
   });
-
 
   it('gauge-label', () => {
     const gaugePlot = new Gauge(canvasDiv, {
@@ -91,12 +92,12 @@ describe('Gauge plot', () => {
       format: (d) => `[${d}]`,
     });
     gaugePlot.render();
-    const annotationText = gaugePlot.plot.cfg.annotationController.annotations[0].cfg.content;
+    const plot = gaugePlot.getLayer().plot;
+    const annotationText = plot.cfg.annotationController.annotations[0].cfg.content;
     expect(annotationText).to.be.equal('[64]');
     gaugePlot.destroy();
   });
 
-  
   it('gauge-scale', () => {
     const gaugePlot = new Gauge(canvasDiv, {
       width: 600,
@@ -108,12 +109,12 @@ describe('Gauge plot', () => {
       range: [20, 40, 60, 80],
     });
     gaugePlot.render();
-    const scale = gaugePlot.plot.get('scales')['value'];
+    const plot = gaugePlot.getLayer().plot;
+    const scale = plot.get('scales')['value'];
     expect(scale.min).to.be.equal(0);
     expect(scale.max).to.be.equal(100);
     gaugePlot.destroy();
   });
-
 
   it('gauge style', () => {
     // Theme.setTheme('ali-light');
@@ -126,9 +127,13 @@ describe('Gauge plot', () => {
       max: 100,
       range: [20, 40, 60, 80],
       // label: (value, formatted) => `<div>${value}+++${formatted}</div>`,
-      label: (value, formatted) => {const a = document.createElement("div"); a.innerText = `${formatted}`; return a;},
+      label: (value, formatted) => {
+        const a = document.createElement('div');
+        a.innerText = `${formatted}`;
+        return a;
+      },
       gaugeStyle: {
-        colors: [ '#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864' ],
+        colors: ['#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864'],
         // stripWidth: 30,
         // stripBackColor: '#ddd',
         // tickInterval: 20,
@@ -144,7 +149,8 @@ describe('Gauge plot', () => {
       },
     });
     gaugePlot.render();
-    const colorCfg = gaugePlot.plot.get('elements')[0].get('color').values;
+    const plot = gaugePlot.getLayer().plot;
+    const colorCfg = plot.get('elements')[0].get('color').values;
     expect(colorCfg[0]).to.be.equal('#1890FF');
     gaugePlot.destroy();
   });

@@ -1,6 +1,6 @@
 import { Column } from '../../src';
 
-describe('responsive line plot', () => {
+describe('responsive column plot', () => {
   const data = [
     {
       type: '家具家电',

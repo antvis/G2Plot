@@ -74,7 +74,7 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().plot;
     const coord = plot.get('coord');
-    expect(coord.radius * 2).to.be.equal(coord.getWidth() / 2);
+    expect(coord.getRadius() * 2).to.be.equal(coord.getWidth() / 2);
     piePlot.destroy();
   });
 
@@ -159,10 +159,10 @@ describe('Pie plot', () => {
     const coord = piePlot.plot.get('coord');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
-    const distX = Math.abs(coord.center.x - labelGroup[0].attr('x'));
-    const distY = Math.abs(coord.center.y - labelGroup[0].attr('y'));
+    const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
+    const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
     const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist < coord.radius).to.be.true;
+    expect(dist < coord.getRadius()).to.be.true;
     piePlot.destroy();
   });
 
@@ -194,10 +194,10 @@ describe('Pie plot', () => {
     const coord = piePlot.plot.get('coord');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
-    const distX = Math.abs(coord.center.x - labelGroup[0].attr('x'));
-    const distY = Math.abs(coord.center.y - labelGroup[0].attr('y'));
+    const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
+    const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
     const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist > coord.radius).to.be.true;
+    expect(dist > coord.getRadius()).to.be.true;
     piePlot.destroy();
   });
 

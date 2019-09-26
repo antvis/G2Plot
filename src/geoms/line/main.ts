@@ -4,7 +4,7 @@ import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
   public init() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     this.config = {
       type: 'line',
       position: {
@@ -26,7 +26,7 @@ export default class LineParser extends ElementParser {
   }
 
   public parseSize() {
-    const sizeProps = this.plot._initialProps.size;
+    const sizeProps = this.plot.initialProps.size;
     const config: DataPointType = {};
     if (_.isFunction(sizeProps)) {
       config.callback = sizeProps;
@@ -37,7 +37,7 @@ export default class LineParser extends ElementParser {
   }
 
   public parseColor() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const config: DataPointType = {};
     if (_.has(props, 'seriesField')) {
       config.fields = [props.seriesField];
@@ -57,7 +57,7 @@ export default class LineParser extends ElementParser {
   }
 
   public parseStyle() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const styleProps = props.lineStyle;
     const config = {
       fields: null,

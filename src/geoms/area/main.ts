@@ -4,7 +4,7 @@ import ElementParser from '../base';
 
 export default class AreaParser extends ElementParser {
   public init() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     this.config = {
       type: 'area',
       position: {
@@ -23,7 +23,7 @@ export default class AreaParser extends ElementParser {
   }
 
   public parseColor() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const config: DataPointType = {};
     const colorMappingField = this._getColorMappingField();
     if (colorMappingField) {
@@ -43,7 +43,7 @@ export default class AreaParser extends ElementParser {
   }
 
   public parseStyle() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const styleProps = props.areaStyle;
     const config: DataPointType = {};
     if (_.isFunction(styleProps) && props.seriesField) {
@@ -56,7 +56,7 @@ export default class AreaParser extends ElementParser {
   }
 
   private _getColorMappingField() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const colorMapper = ['stackField', 'seriesField'];
     for (const m of colorMapper) {
       if (_.get(props, m)) {

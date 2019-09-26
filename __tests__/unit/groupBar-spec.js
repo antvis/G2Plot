@@ -118,13 +118,14 @@ describe('GroupBar plot', () => {
       groupField: 'type',
     });
     barPlot.render();
-    const intervalShape = barPlot.plot.get('elements')[0];
+    const plot = barPlot.getLayer().plot;
+    const intervalShape = plot.get('elements')[0];
     const shapes = intervalShape.get('shapeContainer').get('children');
     expect(shapes.length).to.be.equal(18);
     expect(intervalShape.get('groupScales')[0].field).to.be.equal('type');
     expect(intervalShape.get('adjustOptions')[0].type).to.be.equal('dodge');
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('color size and interval style', () => {
@@ -142,12 +143,13 @@ describe('GroupBar plot', () => {
       color: ['red', 'yellow'],
     });
     barPlot.render();
-    const intervalEle = barPlot.plot.get('elements')[0];
+    const plot = barPlot.getLayer().plot;
+    const intervalEle = plot.get('elements')[0];
     expect(intervalEle.get('color').values[0]).to.be.equal('red');
     expect(intervalEle.get('color').values[1]).to.be.equal('yellow');
     expect(intervalEle.get('size').values[0]).to.be.equal(7);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   /* it('color map', () => {
@@ -196,8 +198,8 @@ describe('GroupBar plot', () => {
       },
     });
     barPlot.render();
-
-    const labelGroup = barPlot.plot
+    const plot = barPlot.getLayer().plot;
+    const labelGroup = plot
       .get('elements')[0]
       .get('container')
       .get('children')[1]
@@ -208,7 +210,7 @@ describe('GroupBar plot', () => {
     expect(labelGroup[0].attrs.fill).to.be.equal('red');
     expect(labelGroup[0].attrs.text).to.be.include('dddd');
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('legend style', () => {
@@ -235,12 +237,13 @@ describe('GroupBar plot', () => {
     });
     barPlot.render();
 
-    const legendCon = barPlot.plot.get('legendController');
+    const plot = barPlot.getLayer().plot;
+    const legendCon = plot.get('legendController');
     expect(legendCon.legends.length).to.be.equal(1);
     expect(legendCon.legends[0].get('position')).to.be.equal('right-top');
 
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('legend visible false', () => {
@@ -270,9 +273,10 @@ describe('GroupBar plot', () => {
     });
     barPlot.render();
 
-    const legendCon = barPlot.plot.get('legendController');
+    const plot = barPlot.getLayer().plot;
+    const legendCon = plot.get('legendController');
     expect(legendCon.legends.length).to.be.equal(0);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 });

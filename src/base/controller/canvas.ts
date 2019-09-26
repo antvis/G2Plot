@@ -1,6 +1,9 @@
+import { modifyCSS } from '@antv/dom-util';
 import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
+import BasePlot from '../Plot';
+import ThemeController from './theme';
 
 /**
  * 负责图表canvas画布的创建、更新、销毁
@@ -11,17 +14,18 @@ export default class CanvasController {
   public height: number;
   public canvas: Canvas;
   private container: HTMLElement | string;
-  private plot: any; // temp
+  private plot: BasePlot; // temp
   private resizeObserver: any;
+  private themeController: ThemeController;
 
   constructor(cfg) {
     _.assign(this, cfg);
-    this._init();
+    this.init();
   }
 
   public getCanvasSize() {
-    const props = this.plot._initialProps;
-    const plotTheme = this.plot.plotTheme;
+    const props = this.plot.getProps();
+    const plotTheme = this.themeController.getPlotTheme(props, '');
     const container = this.container as HTMLElement;
     let width = props.width ? props.width : plotTheme.width;
     let height = props.height ? props.height : plotTheme.height;
@@ -35,11 +39,19 @@ export default class CanvasController {
     return { width, height };
   }
 
+  public getCanvasDOM() {
+    return this.canvas.get('canvasDOM');
+  }
+
   public updateCanvasSize() {
     const size = this.getCanvasSize();
     this.width = size.width;
     this.height = size.height;
     this.canvas.changeSize(size.width, size.height);
+  }
+
+  public updateCanvasStyle(styles: { [attr: string]: string | number }) {
+    modifyCSS(this.getCanvasDOM(), styles);
   }
 
   public forceFit() {
@@ -62,16 +74,16 @@ export default class CanvasController {
     this.resizeObserver = ro;
   }
 
-  public destory() {
+  public destroy() {
     if (this.resizeObserver) {
       this.resizeObserver.unobserve(this.container);
       this.container = null;
     }
   }
 
-  private _init() {
+  private init() {
     /** 创建canvas */
-    const props = this.plot._initialProps;
+    const props = this.plot.getProps();
     const size = this.getCanvasSize();
     this.canvas = new Canvas({
       containerDOM: this.container,

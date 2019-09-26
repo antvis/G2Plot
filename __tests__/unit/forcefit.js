@@ -97,12 +97,13 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const columnEle = columnPlot.plot.get('elements')[0];
+    const plot = columnPlot.getLayer().plot;
+    const columnEle = plot.get('elements')[0];
     expect(columnEle.get('color').values[0]).to.be.equal('red');
     expect(columnEle.get('style').cfg.stroke).to.be.equal('black');
     expect(columnEle.get('size').values[0]).to.be.equal(20);
     columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('隐藏两个坐标轴', () => {
@@ -119,10 +120,11 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const axes = columnPlot.plot.get('axisController').axes;
+    const plot = columnPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(0);
     columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('x轴 样式', () => {
@@ -167,7 +169,8 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const axes = columnPlot.plot.get('axisController').axes;
+    const plot = columnPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     expect(axis.get('title').text).to.be.include('xxxx');
@@ -181,7 +184,7 @@ describe('Column plot', () => {
     expect(tickLine.stroke).to.be.equal('red');
     expect(labels[0].textStyle.fill).to.be.equal('red');
     columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('x轴 隐藏 grid line tick label', () => {
@@ -210,7 +213,8 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const axes = columnPlot.plot.get('axisController').axes;
+    const plot = columnPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     // style
@@ -219,7 +223,7 @@ describe('Column plot', () => {
     expect(line).to.be.equal(null);
     expect(tickLine).to.be.equal(null);
     columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('y轴 样式', () => {
@@ -267,7 +271,8 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const axes = columnPlot.plot.get('axisController').axes;
+    const plot = columnPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
@@ -281,7 +286,7 @@ describe('Column plot', () => {
     expect(tickLine.stroke).to.be.equal('red');
     expect(labels[0].textStyle.fill).to.be.equal('red');
     columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 
   it('y轴 隐藏 grid line tick label', () => {
@@ -309,7 +314,8 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const axes = columnPlot.plot.get('axisController').axes;
+    const plot = columnPlot.getLayer().plot;
+    const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
     // style
@@ -318,6 +324,6 @@ describe('Column plot', () => {
     expect(line).to.be.equal(null);
     expect(tickLine).to.be.equal(null);
     columnPlot.destroy();
-    expect(columnPlot.plot.destroyed).to.be.true;
+    expect(plot.destroyed).to.be.true;
   });
 });

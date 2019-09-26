@@ -65,6 +65,7 @@ dist
 temp
 .DS_Store
 .idea
+.cache
 demos/assets/screenshots
 /lib
 /esm

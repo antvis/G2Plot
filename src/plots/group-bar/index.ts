@@ -1,21 +1,16 @@
-import { ElementOption } from '../../interface/config';
-import BaseBar, { BarConfig } from '../bar';
+import Bar from '../bar';
+import GroupBarLayer, { GroupBarLayerConfig } from './GroupBarLayer';
 
-export interface GroupBarConfig extends BarConfig {
-  groupField: string;
-}
+export { GroupBarLayerConfig as GroupBarConfig };
 
-export default class GroupBar extends BaseBar<GroupBarConfig> {
-
-  protected setType() {
-    this.type = 'groupBar';
-  }
-
-  protected _adjustBar(bar: ElementOption) {
-    bar.adjust = [
-      {
-        type: 'dodge',
-      },
-    ];
+export default class GroupBar extends Bar<GroupBarLayerConfig> {
+  protected init() {
+    const layer = new GroupBarLayer(
+      this.getCanvasController(),
+      this.getThemeController(),
+      this.getPlotRange(),
+      this.initialProps
+    );
+    this.addLayer(layer);
   }
 }

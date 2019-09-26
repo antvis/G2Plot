@@ -15,7 +15,7 @@ const COLOR_MAPPER = ['seriesField', 'stackField'];
 
 export default class GuidePointParser extends ElementParser {
   public init() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     this.style = props.point.style;
     if (!props.xField || !props.yField) {
       return;
@@ -27,13 +27,13 @@ export default class GuidePointParser extends ElementParser {
       },
     };
     // if (this._needParseAttribute('color')) {
-      this.parseColor();
+    this.parseColor();
     // }
     if (this._needParseAttribute('size')) {
       this.parseSize();
     }
     if (props.point && props.point.shape) {
-      this.parseShape();
+      this.parseShape(props.point.shape);
     }
     if (props.point.style) {
       this.parseStyle();
@@ -41,7 +41,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseColor() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const config: DataPointType = {};
     const mappingField = this._getColorMappingField(props);
     if (mappingField) {
@@ -57,7 +57,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseSize() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const config: DataPointType = {};
     if (props.point.size) {
       config.values = [props.point.size];
@@ -68,15 +68,15 @@ export default class GuidePointParser extends ElementParser {
     this.config.size = config;
   }
 
-  public parseShape() {
+  public parseShape(shapeName) {
     const config: DataPointType = {
-      values: [this.style.shape],
+      values: [shapeName],
     };
     this.config.shape = config;
   }
 
   public parseStyle() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const styleProps = props.point && props.point.style;
     const config = {
       fields: null,
@@ -118,7 +118,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   private _needParseAttribute(attr) {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const condition = props.point && props.point[attr];
     return condition;
     // const condition = !this.style || this.style[attr];

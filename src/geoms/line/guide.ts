@@ -4,7 +4,7 @@ import LineParser from './main';
 
 export default class GuideLineParser extends LineParser {
   public init() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     if (!props.xField || !props.yField) {
       return;
     }
@@ -24,10 +24,14 @@ export default class GuideLineParser extends LineParser {
     if (props.line && props.line.style) {
       this.parseStyle();
     }
+
+    if (props.smooth) {
+      this.config.shape = { values: ['smooth'] };
+    }
   }
 
   public parseSize() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const config: DataPointType = {};
     if (props.line && props.line.size) {
       config.values = [props.line.size];
@@ -39,7 +43,7 @@ export default class GuideLineParser extends LineParser {
   }
 
   public parseColor() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const config: DataPointType = {};
     let colorField = this._getColorMappingField();
     if (colorField) {
@@ -67,7 +71,7 @@ export default class GuideLineParser extends LineParser {
   }
 
   public parseStyle() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const styleProps = props.line.style;
     const config: DataPointType = {};
     if (_.isFunction(styleProps)) {
@@ -80,13 +84,13 @@ export default class GuideLineParser extends LineParser {
   }
 
   private _needParseAttribute(attr) {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const condition = !props.line || props.line[attr];
     return condition;
   }
 
   private _getColorMappingField() {
-    const props = this.plot._initialProps;
+    const props = this.plot.initialProps;
     const colorMapper = ['stackField', 'seriesField'];
     for (const m of colorMapper) {
       if (_.get(props, m)) {

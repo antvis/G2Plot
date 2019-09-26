@@ -1,17 +1,18 @@
-import { getCoord } from '@antv/coord';
+import { getCoordinate } from '@antv/coord';
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import VariableNodes from '../../../util/responsive/node/variableNode';
 import Responsive from '../../../util/responsive/responsive';
+import ColumnLayer from '../ColumnLayer';
 
-export default function responsiveColumn(plot) {
-  const props = plot._initialProps;
-  const responsiveTheme = plot.themeController.responsiveTheme;
+export default function responsiveColumn(layer: ColumnLayer) {
+  const props = layer.initialProps;
+  const responsiveTheme = layer.getResponsiveTheme();
   /** 有几个column */
   const columnNum = getFieldNumber(props.data, props.xField);
   /** 创建coord */
   const padding = props.padding;
-  const cartesian = getCoord('cartesian');
+  const cartesian = getCoordinate('cartesian');
   const coord = new cartesian({
     start: { x: padding[3], y: padding[0] },
     end: { x: props.width - padding[1], y: props.height - padding[2] },
@@ -28,7 +29,7 @@ export default function responsiveColumn(plot) {
     nodes,
     constraints,
     region,
-    plot,
+    plot: layer,
     onEnd: () => {
       const columnWidth = nodes.nodes[0].value;
       props.columnSize = columnWidth;

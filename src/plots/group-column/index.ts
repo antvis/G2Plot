@@ -1,20 +1,16 @@
-import { isArray, isFunction } from 'util';
-import { ElementOption } from '../../interface/config';
-import BaseColumn, { ColumnConfig } from '../column';
+import Column from '../column';
+import GroupColumnLayer, { GroupColumnLayerConfig } from './GroupColumnLayer';
 
-export interface GroupColumnConfig extends ColumnConfig {
-  groupField: string;
-}
+export { GroupColumnLayerConfig as GroupColumnConfig };
 
-export default class GroupColumn extends BaseColumn<GroupColumnConfig> {
-  protected setType() {
-    this.type = 'groupColumn';
-  }
-  protected _adjustColumn(column: ElementOption) {
-    column.adjust = [
-      {
-        type: 'dodge',
-      },
-    ];
+export default class GroupColumn extends Column<GroupColumnLayerConfig> {
+  protected init() {
+    const layer = new GroupColumnLayer(
+      this.getCanvasController(),
+      this.getThemeController(),
+      this.getPlotRange(),
+      this.initialProps
+    );
+    this.addLayer(layer);
   }
 }

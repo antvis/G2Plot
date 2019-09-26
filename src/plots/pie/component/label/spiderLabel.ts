@@ -208,7 +208,7 @@ export default class SpiderLabel {
 
   private _antiCollision(half) {
     const coord = this.view.get('coord');
-    const canvasHeight = coord.height;
+    const canvasHeight = coord.getHeight();
     const { center, radius: r } = coord;
     const startY = center.y - r - INFLECTION_OFFSET - this.config.lineHeight;
     let overlapping = true;

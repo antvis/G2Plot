@@ -74,7 +74,7 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().plot;
     const coord = plot.get('coord');
-    expect(coord.radius * 2).to.be.equal(coord.width / 2);
+    expect(coord.radius * 2).to.be.equal(coord.getWidth() / 2);
     piePlot.destroy();
   });
 

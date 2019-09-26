@@ -7,7 +7,7 @@ const COLUMN_ACTIVE_STYLE = (style) => {
 
 const COLUMN_DISABLE_STYLE = (style) => {
   const opacity = style.opacity || 1;
-  return { opacity: opacity * 0.5, fillOpacity: opacity* 0.5 };
+  return { opacity: opacity * 0.5, fillOpacity: opacity * 0.5 };
 };
 
 defaultTheme.registerPlotTheme('column', {

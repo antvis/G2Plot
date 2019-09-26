@@ -113,8 +113,8 @@ export default class StateController {
     const shapes = [];
     const geoms = this.plot.plot.get('elements');
     _.each(geoms, (geom: any) => {
-      if(!geom.destroyed){
-         shapes.push(...geom.getShapes());
+      if (!geom.destroyed) {
+        shapes.push(...geom.getShapes());
       }
     });
     return shapes;
@@ -152,10 +152,10 @@ export default class StateController {
 
   private _parserRelated(type, related, condition) {
     _.each(related, (r) => {
-      if(this.plot[related]){
+      if (this.plot[related]) {
         // 自定义组件
-        this.plot[related].setState(type,condition);
-      }else{
+        this.plot[related].setState(type, condition);
+      } else {
         const method = getComponentStateMethod(r, type);
         method(this.plot, condition);
       }

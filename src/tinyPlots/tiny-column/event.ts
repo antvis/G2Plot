@@ -9,7 +9,7 @@ const SHAPE_EVENT_MAP: IEventmap = {
   onColumnMouseup: 'interval:mouseup',
   onColumnMouseenter: 'interval:mouseenter',
   onColumnMouseleave: 'interval:mouseleave',
-  onColumnContextmenu: 'interval:contextmenu'
+  onColumnContextmenu: 'interval:contextmenu',
 };
 
 _.assign(EVENT_MAP, SHAPE_EVENT_MAP);

@@ -1,7 +1,7 @@
 import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
-import _each from '@antv/util/lib/each';
 import _cloneDeep from '@antv/util/lib/clone';
+import _each from '@antv/util/lib/each';
 // import verticalShatter from '../../../../util/layout/verticalShatter';
 
 const MARGIN = 10;

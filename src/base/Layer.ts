@@ -33,10 +33,6 @@ export default abstract class Layer<T = void> {
     return this.themeController;
   }
 
-  public getResponsiveTheme() {
-    return this.themeController.getResponsiveTheme(this.type);
-  }
-
   public updateRange(range: BBox): void {
     this.range = range;
   }

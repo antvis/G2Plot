@@ -49,6 +49,14 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     this.afterInit();
   }
 
+  public getTheme(): any {
+    return this.themeController.getTheme(this.initialProps, this.type);
+  }
+
+  public getResponsiveTheme() {
+    return this.themeController.getResponsiveTheme(this.type);
+  }
+
   /** 自定义组件参与padding */
   public registerPadding(component: Element) {
     this.paddingController.registerPadding(component);

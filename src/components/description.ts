@@ -21,6 +21,7 @@ export default class TextDescription {
     this._init();
   }
 
+  // @2019-09-26 by blue.lb 这里校验会通不过，因为BBox类型还是在g里面声明的，不太确认如何修改，先返回any
   public getBBox(): any {
     if (this.shape) {
       return this.shape.getBBox();

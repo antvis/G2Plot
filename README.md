@@ -6,7 +6,7 @@
 ![最近提交](https://badgen.net/github/last-commit/antvis/g2plot)
 
 
-G2plot is an interactive and responsive charting library based on [the grammar of graphics](https://github.com/antvis/g2), which enables users to generate high quality stastical charts through a few lines of code easily. 
+G2plot is an interactive and responsive charting library based on [the grammar of graphics](https://github.com/antvis/g2), which enables users to generate high quality statistical charts through a few lines of code easily. 
 
 Moreover, combining with AntV design principles, g2plot provides standard and elegant visual styles as well as better user experience. 
 
@@ -30,14 +30,14 @@ $ npm install @antv/g2plot
 ```
 
 ```js
-import g2plot from '@antv/g2plot';
+import { Bar } from '@antv/g2plot';
 
 const data = [
-    {"year":"1951 年","sales":38},
-    {"year":"1952 年","sales":52},
-    {"year":"1956 年","sales":61},
-    {"year":"1957 年","sales":145},
-    {"year":"1958 年","sales":48}
+    {'year':'1951 年','sales':38},
+    {'year':'1952 年','sales':52},
+    {'year':'1956 年','sales':61},
+    {'year':'1957 年','sales':145},
+    {'year':'1958 年',"sales":48}
   ];
 
 const barPlot = new g2plot.Bar('c1', {

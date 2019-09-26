@@ -111,7 +111,7 @@ plot.registerTheme('line',{
 ```
 
 ## stateManager - 状态管理机
-stateManager是一个可插拔的抽象中间层，主要负责三件事：(1). 状态量的存储 （2). 状态量的更新和更新事假的分发  （3). 获取状态量。
+stateManager是一个可插拔的抽象中间层，主要负责三件事：(1). 状态量的存储 （2). 状态量的更新和更新事件的分发  （3). 获取状态量。
 
 stateManager可用于多个图表之间，以及图表与外部组件的联动。g2plot提供`bindStateManager()`方法用以将stateManager实例绑定到图表。
 

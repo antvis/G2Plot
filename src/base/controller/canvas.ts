@@ -90,7 +90,7 @@ export default class CanvasController {
       width: size.width,
       height: size.height,
       renderer: props.renderer ? props.renderer : 'canvas',
-      pixelRatio: 2,
+      pixelRatio: props.pixelRatio ? props.pixelRatio : null,
     });
     this.width = size.width;
     this.height = size.height;

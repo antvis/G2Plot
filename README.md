@@ -1,4 +1,6 @@
-# g2plot : a charting library based on the Grammar of Graphics
+# g2plot 
+
+A charting library based on the Grammar of Graphics.
 
 
 [![版本](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
@@ -33,18 +35,18 @@ $ npm install @antv/g2plot
 import { Bar } from '@antv/g2plot';
 
 const data = [
-    { year: '1951 年', sales: 38 },
-    { year: '1952 年', sales: 52 },
-    { year: '1956 年', sales: 61 },
-    { year: '1957 年', sales: 145 },
-    { year: '1958 年', sales: 48 }
-  ];
+  { year: '1951 年', sales: 38 },
+  { year: '1952 年', sales: 52 },
+  { year: '1956 年', sales: 61 },
+  { year: '1957 年', sales: 145 },
+  { year: '1958 年', sales: 48 }
+];
 
-const barPlot = new g2plot.Bar('c1', {
+const barPlot = new Bar('#c1', {
   data,
   xField: 'sales',
   yField: 'year',
-  colorField: 'year'
+  colorField: 'year',
 });
 
 barPlot.render();

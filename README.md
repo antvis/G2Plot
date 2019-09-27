@@ -42,7 +42,7 @@ const data = [
   { year: '1958 年', sales: 48 }
 ];
 
-const barPlot = new Bar('#c1', {
+const barPlot = new Bar(document.getElementById('c1'), {
   data,
   xField: 'sales',
   yField: 'year',

@@ -28,7 +28,7 @@ $ npm install @antv/g2plot
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450">
 
 ```html
-<div id="c1"></div>
+<div id="container"></div>
 ```
 
 ```js
@@ -42,14 +42,14 @@ const data = [
   { year: '1958 年', sales: 48 }
 ];
 
-const barPlot = new Bar(document.getElementById('c1'), {
+const bar = new Bar(document.getElementById('container'), {
   data,
   xField: 'sales',
   yField: 'year',
   colorField: 'year',
 });
 
-barPlot.render();
+bar.render();
 ```
 
 ## Development

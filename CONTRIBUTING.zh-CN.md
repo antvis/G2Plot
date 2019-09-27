@@ -1,7 +1,7 @@
 # 代码贡献规范
 
-有任何疑问，欢迎提交 [issue](https://github.com/antvis/scale/issues)，
-或者直接修改提交 [PR](https://github.com/antvis/scale/pulls)!
+有任何疑问，欢迎提交 [issue](https://github.com/antvis/g2plot/issues)，
+或者直接修改提交 [PR](https://github.com/antvis/g2plot/pulls)!
 
 ## 提交 issue
 
@@ -31,7 +31,7 @@ $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
 ```
 
-提交后就可以在 [scale](https://github.com/antvis/scale/pulls) 创建 Pull Request 了。
+提交后就可以在 [g2plot](https://github.com/antvis/g2plot/pulls) 创建 Pull Request 了。
 
 由于谁也无法保证过了多久之后还记得多少，为了后期回溯历史的方便，请在提交 MR 时确保提供了以下信息。
 

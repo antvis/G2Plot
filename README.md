@@ -1,6 +1,7 @@
 # g2plot : a charting library based on the Grammar of Graphics
 
 
+[![Build Status](https://travis-ci.org/antvis/g2plot.svg?branch=master)](https://travis-ci.org/antvis/g2plot)
 [![版本](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
 ![最近提交](https://badgen.net/github/last-commit/antvis/g2plot)

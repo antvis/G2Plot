@@ -10,7 +10,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "baseUrl": "src",
     "types": ["mocha"]
   },
   "include": ["src"]

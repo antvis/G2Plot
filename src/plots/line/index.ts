@@ -1,22 +1,16 @@
 import { BBox } from '@antv/g';
 import { head, last, map, size, throttle } from '@antv/util';
 import BasePlot from '../../base/Plot';
+import { SliderConfig } from '../../interface/config';
 import { RecursivePartial } from '../../interface/types';
+import SliderLayer from '../../layers/SliderLayer';
 import LineLayer, { LineLayerConfig } from './LineLayer';
-import SliderLayer from './SliderLayer';
 
 const DEFAULT_HEIGHT: number = 16;
 const DEFAULT_PADDING = 16;
 
 export interface LineConfig extends LineLayerConfig {
-  slider?: {
-    visible?: boolean;
-    start?: number;
-    end?: number;
-    height?: number;
-    paddingTop?: number;
-    paddingBottom?: number;
-  };
+  slider?: SliderConfig;
 }
 
 export default class Line extends BasePlot<LineConfig> {
@@ -58,7 +52,7 @@ export default class Line extends BasePlot<LineConfig> {
   protected init(): void {
     this.lineLayer = null;
     this.sliderLayer = null;
-    this.onSliderChangeFn = throttle(this.onSliderChange.bind(this), 50, { leading: true }) as (
+    this.onSliderChangeFn = throttle(this.onSliderChange.bind(this), 13, { leading: true }) as (
       range: [number, number]
     ) => void;
     this.addLineLayer();

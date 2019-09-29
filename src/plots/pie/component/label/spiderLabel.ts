@@ -70,7 +70,7 @@ export default class SpiderLabel {
 
     const angleField = this.fields[0];
     const scale = this.view.get('scales')[angleField];
-    const { center, radius, startAngle } = coord;
+    const { center, polarRadius, startAngle } = coord;
     const { width, height } = this.view.get('panelRange');
     this.width = width;
     this.height = height;
@@ -84,8 +84,8 @@ export default class SpiderLabel {
       const middleAngle = angle + (targetAngle - angle) / 2;
       angle = targetAngle;
       // 根据middle angle计算锚点和拐点距离
-      const anchorPoint = getEndPoint(center, middleAngle, radius + ANCHOR_OFFSET);
-      const inflectionPoint = getEndPoint(center, middleAngle, radius + INFLECTION_OFFSET);
+      const anchorPoint = getEndPoint(center, middleAngle, polarRadius + ANCHOR_OFFSET);
+      const inflectionPoint = getEndPoint(center, middleAngle, polarRadius + INFLECTION_OFFSET);
       // 获取对应shape的color
       let color = DEFAULT_COLOR;
       if (this.fields.length === 2) {
@@ -102,7 +102,7 @@ export default class SpiderLabel {
         _data: d,
         x: inflectionPoint.x,
         y: inflectionPoint.y,
-        r: radius + INFLECTION_OFFSET,
+        r: polarRadius + INFLECTION_OFFSET,
         fill: color,
         textGroup: null,
         _side: null,
@@ -209,7 +209,7 @@ export default class SpiderLabel {
   private _antiCollision(half) {
     const coord = this.view.get('coord');
     const canvasHeight = coord.getHeight();
-    const { center, radius: r } = coord;
+    const { center, polarRadius: r } = coord;
     const startY = center.y - r - INFLECTION_OFFSET - this.config.lineHeight;
     let overlapping = true;
     let totalH = canvasHeight;

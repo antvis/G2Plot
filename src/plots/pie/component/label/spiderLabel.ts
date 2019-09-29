@@ -70,7 +70,8 @@ export default class SpiderLabel {
 
     const angleField = this.fields[0];
     const scale = this.view.get('scales')[angleField];
-    const { center, radius, startAngle } = coord;
+    const { center, startAngle } = coord;
+    const radius = coord.getRadius();
     const { width, height } = this.view.get('panelRange');
     this.width = width;
     this.height = height;
@@ -209,8 +210,9 @@ export default class SpiderLabel {
   private _antiCollision(half) {
     const coord = this.view.get('coord');
     const canvasHeight = coord.getHeight();
-    const { center, radius: r } = coord;
-    const startY = center.y - r - INFLECTION_OFFSET - this.config.lineHeight;
+    const { center } = coord;
+    const radius = coord.getRadius();
+    const startY = center.y - radius - INFLECTION_OFFSET - this.config.lineHeight;
     let overlapping = true;
     let totalH = canvasHeight;
     let i;

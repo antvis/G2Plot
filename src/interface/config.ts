@@ -273,3 +273,12 @@ export interface StateConfig {
   style?: {};
   related?: string[];
 }
+
+export interface SliderConfig {
+  visible?: boolean;
+  start?: number;
+  end?: number;
+  height?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
+}

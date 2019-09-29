@@ -1,7 +1,7 @@
 import { Group } from '@antv/g';
 import { Slider } from '@antv/gui';
-import Layer from '../../base/Layer';
-import { RecursivePartial } from '../../interface/types';
+import Layer from '../base/Layer';
+import { RecursivePartial } from '../interface/types';
 
 export interface SliderLayerConfig {
   start?: number;

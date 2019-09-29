@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="geometry" content="interval" />
     <link rel="stylesheet" href="./assets/common.css" />
-    <title>折线图缩略轴</title>
+    <title>柱形图缩略轴</title>
   </head>
 
   <body>
@@ -15,7 +15,7 @@
     <script src="../dist/g2plot.js"></script>
     <script>
       $.get('data/sales.json', (data) => {
-        const linePlot = new g2plot.Line('canvas', {
+        const column = new g2plot.Column('canvas', {
           padding: 'auto',
           width: 800,
           height: 600,
@@ -32,7 +32,7 @@
             end: 0.5,
           },
         });
-        linePlot.render();
+        column.render();
       });
     </script>
   </body>

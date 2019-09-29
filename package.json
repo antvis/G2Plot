@@ -18,6 +18,7 @@
     "url": "git@github.com:antvis/g2plot.git"
   },
   "scripts": {
+    "prepublishOnly": "run-s lint-check test build",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",

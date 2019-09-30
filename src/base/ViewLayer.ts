@@ -337,12 +337,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     if (!this.plot || this.plot.destroyed) {
       return;
     }
-    const props = this.initialProps;
-    const padding = props.padding ? props.padding : this.config.theme.padding;
-    /** 处理autopadding逻辑 */
-    if (padding === 'auto') {
-      this.paddingController.processAutoPadding();
-    }
   }
 
   protected afterRender() {
@@ -354,6 +348,10 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     /** defaultState */
     if (props.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(props.defaultState);
+    }
+    /** autopadding */
+    if (padding === 'auto') {
+      this.paddingController.processAutoPadding();
     }
   }
 

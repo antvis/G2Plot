@@ -224,6 +224,7 @@ export interface ElementOption {
   label?: LabelOptions | false;
   animate?: {};
   adjust?: AdjustCfg[];
+  connectNulls?: boolean;
 }
 
 export interface G2Config {

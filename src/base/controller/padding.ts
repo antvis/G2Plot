@@ -30,11 +30,12 @@ export default class PaddingController {
   }
 
   public processAutoPadding() {
-    this.plot.plot.render(false);
+    // this.plot.plot.render(false);
     const padding = this._getAutoPadding();
     this.plot.updateConfig({
       padding,
     });
+    this.plot.render();
   }
 
   private _getAutoPadding() {

@@ -146,12 +146,12 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   protected afterRender() {
-    super.afterRender();
     const props = this.initialProps;
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this._applyResponsive('afterRender');
     }
+    super.afterRender();
   }
 
   protected _extractLabel() {

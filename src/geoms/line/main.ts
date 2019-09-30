@@ -10,6 +10,7 @@ export default class LineParser extends ElementParser {
       position: {
         fields: [props.xField, props.yField],
       },
+      connectNulls: props.connectNulls || false,
     };
     if (props.size) {
       this.parseSize();

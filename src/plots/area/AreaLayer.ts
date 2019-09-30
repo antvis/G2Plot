@@ -217,12 +217,12 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   }
 
   protected afterRender() {
-    super.afterRender();
     const props = this.initialProps;
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this._applyResponsive('afterRender');
     }
+    super.afterRender();
   }
 
   private _applyResponsive(stage) {

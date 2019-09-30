@@ -10,6 +10,7 @@ export default class AreaParser extends ElementParser {
       position: {
         fields: [props.xField, props.yField],
       },
+      connectNulls: props.connectNulls || false,
     };
     if (props.smooth) {
       this.config.shape = { values: ['smooth'] };

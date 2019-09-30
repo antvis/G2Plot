@@ -116,12 +116,12 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   }
 
   protected afterRender() {
-    super.afterRender();
     const props = this.initialProps;
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this._applyResponsive('afterRender');
     }
+    super.afterRender();
   }
 
   protected _extractLabel() {

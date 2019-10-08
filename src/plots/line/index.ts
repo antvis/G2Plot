@@ -24,29 +24,20 @@ export default class Line extends BasePlot<LineConfig> {
     this.sliderLayer = null;
   }
 
+  public render(): void {
+    this.removeSliderLayer();
+    super.render();
+    if (this.showSlider()) {
+      this.addSliderLayer();
+      this.sliderLayer.render();
+    }
+  }
+
   public updateConfig(config: RecursivePartial<LineConfig>): void {
     this.updateConfigBase(config);
-    // 1. line: adjust range, adjust config
+    // line: adjust range, adjust config
     this.lineLayer.updateRange(this.getLineLayerRange());
     this.lineLayer.updateConfig(config);
-    // 2. slider:  update if needed
-    if (this.showSlider()) {
-      const { slider = {} } = this.initialProps;
-      if (!this.sliderLayer) {
-        this.addSliderLayer();
-      } else {
-        this.sliderLayer.updateRange(this.getSliderLayerRange());
-        this.sliderLayer.updateConfig({
-          start: slider.start,
-          end: slider.end,
-          data: this.getSliderTrendData(),
-          onChange: this.onSliderChangeFn,
-        });
-        this.onSliderChange([slider.start, slider.end]);
-      }
-    } else {
-      this.removeSliderLayer();
-    }
   }
 
   protected init(): void {
@@ -56,9 +47,6 @@ export default class Line extends BasePlot<LineConfig> {
       range: [number, number]
     ) => void;
     this.addLineLayer();
-    if (this.showSlider()) {
-      this.addSliderLayer();
-    }
   }
 
   private showSlider(): boolean {
@@ -129,6 +117,8 @@ export default class Line extends BasePlot<LineConfig> {
       {
         start: slider.start,
         end: slider.end,
+        foregroundColor: slider.foregroundColor,
+        backgroundColor: slider.backgroundColor,
         data: this.getSliderTrendData(),
         onChange: this.onSliderChangeFn,
       }
@@ -149,7 +139,9 @@ export default class Line extends BasePlot<LineConfig> {
     const { data = [], xField } = this.initialProps;
     const length = size(data);
     const [start = 0, end = 1] = range;
-    const newData = data.slice(Math.round(start * length), Math.round(end * length));
+    const startIdx = Math.round(start * length);
+    const endIdx = Math.max(startIdx + 1, Math.round(end * length));
+    const newData = data.slice(startIdx, endIdx);
     this.sliderLayer.updateSlider({
       start,
       end,

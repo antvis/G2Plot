@@ -4,13 +4,21 @@ import Layer from '../base/Layer';
 import { RecursivePartial } from '../interface/types';
 
 export interface SliderLayerConfig {
+  // 开始位置，[0-1]
   start?: number;
+  // 结束位置，[0-1]
   end?: number;
+  // 开始位置对应文本
   minText?: string;
+  // 结束位置对应文本
   maxText?: string;
+  // 前景颜色
   foregroundColor?: string;
+  // 背景颜色
   backgroundColor?: string;
+  // 数据
   data: number[];
+  // 缩略轴变化时的回调函数
   onChange?: (range: [number, number]) => void;
 }
 

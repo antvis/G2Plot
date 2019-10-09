@@ -33,13 +33,18 @@ function getDefaultCfg() {
   };
 }
 
+interface DataItem {
+  _origin: object;
+  [key: string]: any;
+}
 export default class SpiderLabel {
   private view: View;
   private fields: string[];
   private halves: any[][];
   private container: Group;
   private config: IAttrs;
-  private formatter: (...args: any[]) => string;
+  // private formatter: (...args: any[]) => string;
+  private formatter?: (text: string, item: DataItem, idx: number) => string;
   private offsetX: number;
   private offsetY: number;
   private width: number;
@@ -61,6 +66,9 @@ export default class SpiderLabel {
   }
 
   public draw() {
+    if (!this.view || this.view.destroyed) {
+      return;
+    }
     /** 如果有formatter则事先处理数据 */
     const data = _.clone(this.view.get('data'));
     this.halves = [[], []];
@@ -114,7 +122,9 @@ export default class SpiderLabel {
         texts.push(d[f]);
       });
       if (this.formatter) {
-        let formatted: any = this.formatter(...texts);
+        const text = d[this.fields[0]];
+        const item = { _origin: d };
+        let formatted: any = this.formatter(text, item, i);
         if (_.isString(formatted)) {
           formatted = [formatted];
         }

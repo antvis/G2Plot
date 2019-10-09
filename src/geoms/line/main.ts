@@ -40,7 +40,7 @@ export default class LineParser extends ElementParser {
   public parseColor() {
     const props = this.plot.initialProps;
     const config: DataPointType = {};
-    if (_.has(props, 'seriesField')) {
+    if (props.seriesField) {
       config.fields = [props.seriesField];
     }
     if (_.has(props, 'color')) {

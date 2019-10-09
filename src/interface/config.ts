@@ -279,6 +279,8 @@ export interface SliderConfig {
   visible?: boolean;
   start?: number;
   end?: number;
+  foregroundColor?: string;
+  backgroundColor?: string;
   height?: number;
   paddingTop?: number;
   paddingBottom?: number;

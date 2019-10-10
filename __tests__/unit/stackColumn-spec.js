@@ -2,7 +2,7 @@ import { StackColumn } from '../../src';
 import { expect } from 'chai';
 import { isFunction } from 'util';
 
-describe('StackColumn plot', () => {
+describe.skip('StackColumn plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

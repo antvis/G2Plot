@@ -1,6 +1,6 @@
 import { Bar } from '../../src';
 
-describe('responsive bar plot', () => {
+describe.skip('responsive bar plot', () => {
   const data = [
     {
       type: '家具家电',

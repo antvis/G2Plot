@@ -4,7 +4,7 @@ import { income } from '../data/income';
 describe('responsive line plot', () => {
   const data = income;
 
-  it.only('canvas size 500x500', () => {
+  it('canvas size 500x500', () => {
     const plot = createPlot(500, 500);
   });
 

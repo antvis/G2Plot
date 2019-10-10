@@ -44,7 +44,7 @@ describe('responsive column plot', () => {
     const plot = createPlot(250, 400);
   });
 
-  it.only('canvas size 300x300', () => {
+  it('canvas size 300x300', () => {
     const plot = createPlot(300, 300);
   });
 

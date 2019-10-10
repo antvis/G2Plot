@@ -48,7 +48,7 @@ describe('responsive column label plot', () => {
     const plot = createPlot(300, 300);
   });
 
-  it.only('canvas size 200x200', () => {
+  it('canvas size 200x200', () => {
     const plot = createPlot(150, 150);
   });
 

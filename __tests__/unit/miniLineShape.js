@@ -79,7 +79,7 @@ describe('mini line shape', () => {
     width: 200,
     height: 100,
   });
-  it.only('test', () => {
+  it('test', () => {
     const plot = new G2.View({
       canvas,
       container: canvas.addGroup(),

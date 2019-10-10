@@ -390,7 +390,7 @@ describe('Line plot', () => {
     linePlot.render();
   });
 
-  it.only('animation', () => {
+  it('animation', () => {
     const data = [
       {
         date: '2018/8/1',

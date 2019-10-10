@@ -466,6 +466,38 @@ describe('Line plot', () => {
     linePlot.destroy();
   });
 
+  it.only('point label formatter', () => {
+    const xField = 'year';
+    const yField = 'value';
+    const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
+      data: data1,
+      xField,
+      yField,
+      label: {
+        type: 'point',
+        formatter: (text, item, index) => {
+          const origin = item._origin;
+          return `${origin[xField]}_${origin[yField]}`;
+        },
+        style: {
+          fill: 'red',
+        },
+      },
+    });
+    linePlot.render();
+    const plot = linePlot.getLayer().plot;
+    const labelGroup = plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
+    expect(labelGroup[0].attr('text')).to.be.equal(`${data1[0][xField]}_${data1[0][yField]}`);
+    linePlot.destroy();
+  });
+
   it('padding', () => {
     const linePlot = new Line(canvasDiv, {
       width: 600,

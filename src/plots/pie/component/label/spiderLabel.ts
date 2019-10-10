@@ -1,4 +1,4 @@
-import { Canvas, Group } from '@antv/g';
+import { Canvas, Group, Shape } from '@antv/g';
 import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
 
@@ -11,6 +11,11 @@ const ADJUSTOFFSET = 15;
 
 interface IAttrs {
   [key: string]: any;
+}
+
+interface FormatterItem {
+  _origin: object;
+  [k: string]: any;
 }
 
 function getEndPoint(center, angle, r) {
@@ -33,18 +38,13 @@ function getDefaultCfg() {
   };
 }
 
-interface DataItem {
-  _origin: object;
-  [key: string]: any;
-}
 export default class SpiderLabel {
   private view: View;
   private fields: string[];
   private halves: any[][];
   private container: Group;
   private config: IAttrs;
-  // private formatter: (...args: any[]) => string;
-  private formatter?: (text: string, item: DataItem, idx: number) => string;
+  private formatter?: (text: string, item: FormatterItem, idx: number) => string;
   private offsetX: number;
   private offsetY: number;
   private width: number;
@@ -123,7 +123,8 @@ export default class SpiderLabel {
       });
       if (this.formatter) {
         const text = d[this.fields[0]];
-        const item = { _origin: d };
+        const shape = shapes[i] as Shape;
+        const item = shape && shape.get('origin');
         let formatted: any = this.formatter(text, item, i);
         if (_.isString(formatted)) {
           formatted = [formatted];

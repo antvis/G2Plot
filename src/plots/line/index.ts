@@ -36,8 +36,10 @@ export default class Line extends BasePlot<LineConfig> {
   public updateConfig(config: RecursivePartial<LineConfig>): void {
     this.updateConfigBase(config);
     // line: adjust range, adjust config
-    this.lineLayer.updateRange(this.getLineLayerRange());
-    this.lineLayer.updateConfig(config);
+    if (this.lineLayer) {
+      this.lineLayer.updateRange(this.getLineLayerRange());
+      this.lineLayer.updateConfig(config);
+    }
   }
 
   protected init(): void {

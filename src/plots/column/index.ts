@@ -14,7 +14,7 @@ export interface ColumnConfig extends ColumnLayerConfig {
 }
 
 export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> extends BasePlot<T> {
-  private columnLayer: ColumnLayer;
+  protected columnLayer: ColumnLayer;
   private sliderLayer: SliderLayer;
   private onSliderChangeFn: (range: [number, number]) => void;
 
@@ -36,8 +36,10 @@ export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> ext
   public updateConfig(config: RecursivePartial<ColumnConfig>): void {
     this.updateConfigBase(config);
     // column: adjust range, adjust config
-    this.columnLayer.updateRange(this.getColumnLayerRange());
-    this.columnLayer.updateConfig(config);
+    if (this.columnLayer) {
+      this.columnLayer.updateRange(this.getColumnLayerRange());
+      this.columnLayer.updateConfig(config);
+    }
   }
 
   protected init() {
@@ -46,7 +48,17 @@ export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> ext
     this.onSliderChangeFn = throttle(this.onSliderChange.bind(this), 50, { leading: true }) as (
       range: [number, number]
     ) => void;
-    this.addLineLayer();
+    this.addColumnLayer();
+  }
+
+  protected addColumnLayer(): void {
+    this.columnLayer = new ColumnLayer(
+      this.getCanvasController(),
+      this.getThemeController(),
+      this.getColumnLayerRange(),
+      this.initialProps
+    );
+    this.addLayer(this.columnLayer);
   }
 
   private showSlider(): boolean {
@@ -96,16 +108,6 @@ export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> ext
           sliderHeight
         )
       : new BBox(0, 0, 0, 0);
-  }
-
-  private addLineLayer(): void {
-    this.columnLayer = new ColumnLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getColumnLayerRange(),
-      this.initialProps
-    );
-    this.addLayer(this.columnLayer);
   }
 
   private addSliderLayer(): void {

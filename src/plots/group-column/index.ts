@@ -1,16 +1,20 @@
+import { SliderPlotConfig } from '../../base/SliderPlot';
+import ViewLayer from '../../base/ViewLayer';
 import Column from '../column';
 import GroupColumnLayer, { GroupColumnLayerConfig } from './GroupColumnLayer';
 
-export { GroupColumnLayerConfig as GroupColumnConfig };
+export interface GroupColumnConfig extends GroupColumnLayerConfig, SliderPlotConfig {}
 
 export default class GroupColumn extends Column<GroupColumnLayerConfig> {
-  protected addColumnLayer(): void {
-    this.columnLayer = new GroupColumnLayer(
+  protected addMainLayer(): ViewLayer<GroupColumnLayerConfig> {
+    const layer = new GroupColumnLayer(
       this.getCanvasController(),
       this.getThemeController(),
-      this.getPlotRange(),
+      this.getMainLayerRange(),
       this.initialProps
     );
-    this.addLayer(this.columnLayer);
+    this.addLayer(layer);
+
+    return layer;
   }
 }

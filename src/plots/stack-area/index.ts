@@ -1,16 +1,20 @@
+import { SliderPlotConfig } from '../../base/SliderPlot';
+import ViewLayer from '../../base/ViewLayer';
 import Area from '../area';
 import StackAreaLayer, { StackAreaLayerConfig } from './StackAreaLayer';
 
-export { StackAreaLayerConfig as StackAreaConfig };
+export interface StackAreaConfig extends StackAreaLayerConfig, SliderPlotConfig {}
 
-export default class StackArea extends Area<StackAreaLayerConfig> {
-  protected init() {
+export default class StackArea extends Area<StackAreaConfig> {
+  protected addMainLayer(): ViewLayer<StackAreaConfig> {
     const layer = new StackAreaLayer(
       this.getCanvasController(),
       this.getThemeController(),
-      this.getPlotRange(),
+      this.getMainLayerRange(),
       this.initialProps
     );
     this.addLayer(layer);
+
+    return layer;
   }
 }

@@ -49,7 +49,7 @@ describe('Column plot', () => {
     },
   ];
 
-  it('初始化以及销毁', () => {
+  it.skip('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: 'auto',
       data,

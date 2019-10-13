@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { Gauge } from '../../src';
 import Theme from '../../src/theme/theme';
 
-describe('Gauge plot', () => {
+describe.skip('Gauge plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

@@ -3,7 +3,7 @@ import { Column } from '../../src';
 import * as _ from '@antv/util';
 import StateManager from '../../src/util/stateManager';
 
-describe('stateManager', () => {
+describe.skip('stateManager', () => {
   // 分别创建两份图表
   // 创建折线图
   const canvasDiv1 = document.createElement('div');

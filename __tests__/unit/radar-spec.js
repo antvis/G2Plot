@@ -1,7 +1,7 @@
 import { Radar } from '../../src';
 import { expect } from 'chai';
 
-describe('Radar plot', () => {
+describe.skip('Radar plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

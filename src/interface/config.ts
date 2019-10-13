@@ -6,7 +6,7 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { Option } from '@antv/g2';
-import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
+import { AttributeCfg, LabelOptions, StyleCfg } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
 
 export default interface Config {
@@ -217,10 +217,10 @@ export interface ElementOption {
   position: {
     fields: string[];
   };
-  color?: AttributeCfg;
-  size?: AttributeCfg;
-  shape?: AttributeCfg;
-  style?: {};
+  color?: ColorConfig;
+  size?: SizeConfig;
+  shape?: ShapeConfig;
+  style?: StyleConfig;
   label?: LabelOptions | false;
   animate?: {};
   adjust?: AdjustCfg[];
@@ -241,10 +241,27 @@ export interface G2Config {
   panelRange: any;
 }
 
-export interface IColorConfig {
+/** AttributeCfg: Color, Shape, Size */
+export interface ColorConfig extends AttributeCfg {
   fields?: string[];
   values?: string[];
-  callback?: (...args: any[]) => any;
+  callback?: (...fields: any[]) => string;
+}
+
+export interface SizeConfig extends AttributeCfg {
+  fields?: string[];
+  values?: number[];
+}
+
+export interface ShapeConfig extends AttributeCfg {
+  fields?: string[];
+  values?: string[];
+}
+
+/** StyleCfg */
+export interface StyleConfig extends StyleCfg {
+  lineWidth?: number;
+  opacity?: number;
 }
 
 const SECOND = 1000;
@@ -271,7 +288,7 @@ interface StateCondition {
 
 export interface StateConfig {
   condition: () => any | StateCondition;
-  style?: {};
+  style?: StyleConfig;
   related?: string[];
 }
 

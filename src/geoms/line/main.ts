@@ -1,5 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { ColorConfig } from '../../interface/config';
 import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
@@ -39,7 +40,7 @@ export default class LineParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.initialProps;
-    const config: DataPointType = {};
+    const config: ColorConfig = {};
     if (props.seriesField) {
       config.fields = [props.seriesField];
     }

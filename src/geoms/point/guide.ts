@@ -1,5 +1,5 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { ColorConfig, ShapeConfig, SizeConfig } from '../..';
 import ElementParser from '../base';
 
 function getValuesByField(field, data) {
@@ -42,7 +42,7 @@ export default class GuidePointParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.initialProps;
-    const config: DataPointType = {};
+    const config: ColorConfig = {};
     const mappingField = this._getColorMappingField(props);
     if (mappingField) {
       this._parseColorByField(props, config, mappingField);
@@ -58,7 +58,7 @@ export default class GuidePointParser extends ElementParser {
 
   public parseSize() {
     const props = this.plot.initialProps;
-    const config: DataPointType = {};
+    const config: SizeConfig = {};
     if (props.point.size) {
       config.values = [props.point.size];
     } else {
@@ -69,7 +69,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseShape(shapeName) {
-    const config: DataPointType = {
+    const config: ShapeConfig = {
       values: [shapeName],
     };
     this.config.shape = config;
@@ -93,7 +93,7 @@ export default class GuidePointParser extends ElementParser {
     this.config.style = config;
   }
 
-  private _parseColorByField(props, config, field) {
+  private _parseColorByField(props, config: ColorConfig, field) {
     config.fields = [field];
     if (props.point.color) {
       const count = getValuesByField(field, props.data).length;
@@ -107,7 +107,7 @@ export default class GuidePointParser extends ElementParser {
     }
   }
 
-  private _parseColor(props, config) {
+  private _parseColor(props, config: ColorConfig): void {
     if (_.isString(props.color)) {
       config.values = [props.color];
     } else if (_.isFunction(props.color)) {

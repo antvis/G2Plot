@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
-import { ElementOption } from '../interface/config';
+import { ElementOption, StyleConfig } from '../interface/config';
 
 export default class ElementParser {
   public plot: any;
   public type: string;
   public config: ElementOption;
-  public style: any;
+  public style: StyleConfig;
   private positionFields: string[];
 
   constructor(cfg) {

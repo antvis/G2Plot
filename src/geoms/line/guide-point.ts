@@ -1,5 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { ColorConfig, SizeConfig, StyleConfig } from '../../interface/config';
 import LineParser from './main';
 
 export default class GuideLineParser extends LineParser {
@@ -28,7 +29,7 @@ export default class GuideLineParser extends LineParser {
 
   public parseSize() {
     const props = this.plot.initialProps;
-    const config: DataPointType = {};
+    const config: SizeConfig = {};
     if (props.line && props.line.size) {
       config.values = [props.line.size];
     } else {
@@ -40,7 +41,7 @@ export default class GuideLineParser extends LineParser {
 
   public parseColor() {
     const props = this.plot.initialProps;
-    const config: DataPointType = {};
+    const config: ColorConfig = {};
     let colorField = this._getColorMappingField();
     if (colorField) {
       config.fields = colorField;
@@ -69,7 +70,7 @@ export default class GuideLineParser extends LineParser {
   public parseStyle() {
     const props = this.plot.initialProps;
     const styleProps = props.line.style;
-    const config: DataPointType = {};
+    const config: StyleConfig = {};
     if (_.isFunction(styleProps)) {
       config.fields = this.config.position.fields;
       config.callback = styleProps;

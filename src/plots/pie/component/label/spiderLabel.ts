@@ -61,6 +61,9 @@ export default class SpiderLabel {
   }
 
   public draw() {
+    if (!this.view || this.view.destroyed) {
+      return;
+    }
     /** 如果有formatter则事先处理数据 */
     const data = _.clone(this.view.get('data'));
     this.halves = [[], []];

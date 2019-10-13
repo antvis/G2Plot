@@ -2,7 +2,7 @@ import { income } from '../data/income';
 import { partySupport } from '../data/partySupport';
 import { Line } from '../../src';
 
-describe('responsive line label', () => {
+describe.skip('responsive line label', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '500px';
   canvasDiv.style.height = '500px';

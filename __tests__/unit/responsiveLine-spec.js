@@ -1,7 +1,7 @@
 import { Line } from '../../src';
 import { income } from '../data/income';
 
-describe('responsive line plot', () => {
+describe.skip('responsive line plot', () => {
   const data = income;
 
   it('canvas size 500x500', () => {

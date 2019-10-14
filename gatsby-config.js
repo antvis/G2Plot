@@ -1,6 +1,7 @@
 const { homepage, repository } = require('./package.json');
 
 module.exports = {
+  pathPrefix: `/g2plot`,
   plugins: [
     {
       resolve: '@antv/gatsby-theme-antv',

@@ -142,8 +142,14 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       labelConfig.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
     }
 
+    // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
+    let labelType = labelConfig.type;
+    if (['inner', 'outter', 'spider'].indexOf(labelType) !== -1) {
+      labelType = null;
+    }
     this.pie.label = getComponent('label', {
       plot: this,
+      labelType,
       fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
       ...labelConfig,
     });

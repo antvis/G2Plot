@@ -13,11 +13,13 @@
     "README.md",
     "LICENSE"
   ],
+  "homepage": "https://antvis.github.io/g2plot",
   "repository": {
     "type": "git",
-    "url": "git@github.com:antvis/g2plot.git"
+    "url": "https://github.com/antvis/g2plot"
   },
   "scripts": {
+    "start": "gatsby develop --open",
     "prepublishOnly": "run-s lint-check test build",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
@@ -60,18 +62,22 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
+    "@antv/gatsby-theme-antv": "^0.2.6",
     "@antv/torch": "~1.0.5",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "connect": "~3.7.0",
     "event-simulate": "^1.0.0",
+    "gatsby": "^2.16.0",
     "get-port": "^5.0.0",
     "husky": "^3.0.4",
+    "i18next": "^17.2.0",
     "lint-staged": "^9.2.3",
     "npm-run-all": "^4.1.5",
     "nunjucks": "~3.2.0",
     "open": "~7.0.0",
     "prettier": "^1.18.2",
+    "react-i18next": "^10.13.1",
     "rimraf": "^3.0.0",
     "ts-loader": "^6.0.4",
     "tslint": "^5.19.0",

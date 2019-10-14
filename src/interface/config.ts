@@ -262,6 +262,7 @@ export interface ShapeConfig extends AttributeCfg {
 export interface StyleConfig extends StyleCfg {
   lineWidth?: number;
   opacity?: number;
+  [k: string]: any;
 }
 
 const SECOND = 1000;

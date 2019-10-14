@@ -2,7 +2,7 @@ import { income } from '../data/income';
 import { partySupport } from '../data/partySupport';
 import { Line } from '../../src';
 
-describe('responsive line label', () => {
+describe.skip('responsive line label', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '500px';
   canvasDiv.style.height = '500px';
@@ -27,12 +27,12 @@ describe('responsive line label', () => {
       tooltip: {
         visible: false,
       },
-      responsive: true
+      responsive: true,
     });
     linePlot.render();
   });
 
-  it.only('多折线标签布局', () => {
+  it('多折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 400,
       height: 400,

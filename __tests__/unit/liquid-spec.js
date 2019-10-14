@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { Liquid } from '../../src';
 import Theme from '../../src/theme/theme';
 
-describe('Liquid plot', () => {
+describe.skip('Liquid plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

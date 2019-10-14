@@ -2,7 +2,7 @@ import { Line } from '../../src';
 import { basement } from '../data/basement';
 import { income } from '../data/income';
 
-describe('Line plot', () => {
+describe.skip('Line plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -390,7 +390,7 @@ describe('Line plot', () => {
     linePlot.render();
   });
 
-  it.only('animation', () => {
+  it('animation', () => {
     const data = [
       {
         date: '2018/8/1',

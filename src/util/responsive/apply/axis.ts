@@ -1,5 +1,4 @@
 import * as _ from '@antv/util';
-import ringThickness from '../constraints/ringThickness';
 import ShapeNodes from '../node/shapeNodes';
 import Responsive from '../responsive';
 import ApplyResponsive from './base';

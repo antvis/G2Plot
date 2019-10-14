@@ -1,6 +1,6 @@
 import { Bar } from '../../src';
 
-describe('responsive bar plot', () => {
+describe.skip('responsive bar plot', () => {
   const data = [
     {
       type: '家具家电',
@@ -48,7 +48,7 @@ describe('responsive bar plot', () => {
     const plot = createPlot(300, 300);
   });
 
-  it.only('canvas size 200x200', () => {
+  it('canvas size 200x200', () => {
     const plot = createPlot(250, 250);
   });
 

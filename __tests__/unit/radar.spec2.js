@@ -1,6 +1,6 @@
 import { Radar } from '../../src';
 
-describe('radar plot', () => {
+describe.skip('radar plot', () => {
   const data = [
     {
       item: 'Design',

@@ -95,6 +95,13 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   /**
+   * 获取顶层g2的plot实例
+   */
+  public getPlot() {
+    return this.getLayer(0); // layers[0] 即顶层实例
+  }
+
+  /**
    * 绑定一个外部的stateManager
    * 先直接传递给各个子 Layer
    *
@@ -122,6 +129,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
       }
     });
   }
+
 
   public setSelected(condition: any, style: any) {
     each(this.layers, (layer) => {

@@ -1,3 +1,4 @@
+import { Axis } from '@antv/component';
 import * as _ from '@antv/util';
 import ShapeNodes from '../node/shapeNodes';
 import Responsive from '../responsive';
@@ -39,7 +40,7 @@ function updateTicks(nodes, axis) {
 
 export default class ApplyResponsiveAxis extends ApplyResponsive {
   private dim: string;
-  private axisInstance: any;
+  private axisInstance: Axis.Base;
 
   protected init() {
     super.init();

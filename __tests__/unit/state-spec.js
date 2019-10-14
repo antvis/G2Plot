@@ -4,7 +4,7 @@ import StateManager from '../../src/util/stateManager';
 import { simulate } from 'event-simulate';
 import * as _ from '@antv/util';
 
-describe('state', () => {
+describe.skip('state', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '300px';
   canvasDiv.style.height = '300px';

@@ -1,7 +1,7 @@
 import { Area } from '../../src';
 import { expect } from 'chai';
 
-describe('Column plot', () => {
+describe('Area plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -277,7 +277,7 @@ describe('Column plot', () => {
     },
   ];
 
-  it('初始化以及销毁', () => {
+  it.skip('初始化以及销毁', () => {
     const areaPlot = new Area(canvasDiv, {
       width: 600,
       height: 600,
@@ -553,7 +553,7 @@ describe('Column plot', () => {
     expect(plot.destroyed).to.be.true;
   });
 
-  it('point style obj', () => {
+  it.skip('point style obj', () => {
     const areaPlot = new Area(canvasDiv, {
       width: 600,
       height: 600,

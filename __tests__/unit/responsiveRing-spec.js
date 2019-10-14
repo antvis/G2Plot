@@ -28,7 +28,7 @@ describe('responsive ring plot', () => {
     },
   ];
 
-  it.only('canvas size 500x500', () => {
+  it('canvas size 500x500', () => {
     const plot = createPlot(500, 500);
   });
 

@@ -3,7 +3,7 @@ import { Column } from '../../src';
 import * as _ from '@antv/util';
 import StateManager from '../../src/util/stateManager';
 
-describe('stateManager', () => {
+describe.skip('stateManager', () => {
   // 分别创建两份图表
   // 创建折线图
   const canvasDiv1 = document.createElement('div');
@@ -365,7 +365,7 @@ describe('stateManager', () => {
     });
   });
 
-  it.only('default state', () => {
+  it('default state', () => {
     const linePlot = new Line(canvasDiv1, {
       width: 400,
       height: 300,
@@ -379,9 +379,9 @@ describe('stateManager', () => {
       tooltip: {
         visible: false,
       },
-      label:{
+      label: {
         visible: true,
-        type: 'line'
+        type: 'line',
       },
       defaultState: {
         active: {
@@ -389,7 +389,7 @@ describe('stateManager', () => {
             name: 'value',
             exp: 6411,
           },
-          related: ['tooltip','label','axis'],
+          related: ['tooltip', 'label', 'axis'],
         },
         disable: {
           condition: {
@@ -398,10 +398,10 @@ describe('stateManager', () => {
               return d !== 'download';
             },
           },
-          related: ['tooltip','label','axis'],
+          related: ['tooltip', 'label', 'axis'],
         },
       },
-      responsive: true
+      responsive: true,
     });
     linePlot.render();
   });

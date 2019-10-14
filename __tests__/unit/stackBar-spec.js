@@ -2,7 +2,7 @@ import { StackBar } from '../../src';
 import { expect } from 'chai';
 import { isFunction } from 'util';
 
-describe('StackBar plot', () => {
+describe.skip('StackBar plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

@@ -1,4 +1,7 @@
-# 快速上手
+---
+title: 快速上手
+order: 1
+---
 
 ## 安装
 
@@ -40,8 +43,7 @@ import g2plot from '@antv/g2plot';
 <div id="canvas"></div>
 ```
 
-
-**step2**: 引入数据。g2plot的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+**step2**: 引入数据。g2plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
 
 ```
  const data = [{
@@ -90,11 +92,9 @@ linePlot.render();
 
 <p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulnDT6yfBOkAAAAAAAAAAABkARQnAQ" width="400"></p>
 
-
 ## 搭配图表组件
 
 在上一步生成的基础折线图，已经具备了图表的基础组件之一：坐标轴。接下来，我们来为图表加入四个组件：图表标题(title)、图表描述(description)、辅助数据点(point)和图形标签(label)，使图表承载的信息更加丰富，更具有可读性：
-
 
 **step1**: 配置图表标题文本
 
@@ -175,12 +175,9 @@ linePlot.render();
 
 <p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_COMAAAAAAAAAAABkARQnAQ" width="400"></p>
 
-
 ## 个性化设置
 
-
-现在图表的内容足够丰富了，但图表各元素的视觉样式采用的是图表默认主题的样式，还没有经过特别定制。图表主体中的文本元素也没有进行格式化。下面我们来对图表进行一些个性化配置，我们将配置折线的颜色、更改辅助数据点的样式、为y轴标签加上单位：
-
+现在图表的内容足够丰富了，但图表各元素的视觉样式采用的是图表默认主题的样式，还没有经过特别定制。图表主体中的文本元素也没有进行格式化。下面我们来对图表进行一些个性化配置，我们将配置折线的颜色、更改辅助数据点的样式、为 y 轴标签加上单位：
 
 **step1**: 配置折线颜色，来个冷色到暖色的大变身
 
@@ -237,7 +234,7 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-**step3**: 格式化y轴标签加单位
+**step3**: 格式化 y 轴标签加单位
 
 ```
 const linePlot = new g2plot.Line('canvas', {
@@ -276,4 +273,4 @@ linePlot.render();
 
 <p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wYxGRJUDoloAAAAAAAAAAABkARQnAQ" width="400"></p>
 
-经过上面由浅至深的三步教程，你应该已经基本了解g2plot的使用方法了，不过这远远不是终点，g2plot还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[图表通用配置](generalConfig.zh-CN.md)及[各图表配置项](./plots/)，一些尚在实验阶段的高级功能请移步[高级功能](./advanced)。
+经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[图表通用配置](generalConfig.zh-CN.md)及[各图表配置项](./plots/)，一些尚在实验阶段的高级功能请移步[高级功能](./advanced)。

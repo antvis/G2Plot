@@ -1,4 +1,7 @@
-# Radar - 雷达图
+---
+title: Radar - 雷达图
+order: 0
+---
 
 ## 图表故事
 

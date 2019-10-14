@@ -1,6 +1,9 @@
-# 简介
+---
+title: 简介
+order: 0
+---
 
-g2plot是一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，"g2plot"中的g2即意指图形语法(the Gramma of Graphics)，同时也致敬了ggplot2。
+g2plot 是一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，"g2plot"中的 g2 即意指图形语法(the Gramma of Graphics)，同时也致敬了 ggplot2。
 
 ## 特性
 
@@ -10,14 +13,13 @@ g2plot是一套简单、易用、并具备一定扩展能力和组合能力的�
 
 - 📊 响应式图表：致力于解决图表在任何数据和显示尺寸下的基本可读性问题
 
-- 🔳 图层化设计方法：在g2plot体系下，图表不仅仅只是各不相关的实例，图层概念的引入提供了多图表组合叠联动，共同讲述一个数据故事的可能性
-
+- 🔳 图层化设计方法：在 g2plot 体系下，图表不仅仅只是各不相关的实例，图层概念的引入提供了多图表组合叠联动，共同讲述一个数据故事的可能性
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MjhQQLsbWeQAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CkSoSpPfWQMAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZYmtSqcNDtkAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gV_JQZVbDWAAAAAAAAAAAABkARQnAQ" width="200">
 <br/>
+
 <p align="center"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*mkcRToWJGlIAAAAAAAAAAABkARQnAQ" width="500"></p>
 <br/>
-
 
 ## 安装
 
@@ -37,22 +39,21 @@ $ npm install @antv/g2plot
 import g2plot from '@antv/g2plot';
 
 const data = [
-    {"year":"1951 年","sales":38},
-    {"year":"1952 年","sales":52},
-    {"year":"1956 年","sales":61},
-    {"year":"1957 年","sales":145},
-    {"year":"1958 年","sales":48}
-  ];
+  { year: '1951 年', sales: 38 },
+  { year: '1952 年', sales: 52 },
+  { year: '1956 年', sales: 61 },
+  { year: '1957 年', sales: 145 },
+  { year: '1958 年', sales: 48 },
+];
 
 const barPlot = new g2plot.Bar('c1', {
   data,
   xField: 'sales',
   yField: 'year',
-  colorField: 'year'
+  colorField: 'year',
 });
-        
-barPlot.render();
 
+barPlot.render();
 ```
 
 ## 开发

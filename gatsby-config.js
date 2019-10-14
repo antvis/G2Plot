@@ -11,19 +11,39 @@ module.exports = {
   ],
   // Customize your site metadata:
   siteMetadata: {
-    title: 'My Blog Title',
-    author: 'My Name',
-    description: 'My site description...',
+    title: 'G2Plot',
+    description: 'A collection of charts made with the Grammar of Graphics',
     siteUrl: homepage,
     githubUrl: repository.url,
-    social: [
+    languages: {
+      langs: ['en', 'zh'],
+      defaultLangKey: 'zh',
+    },
+    docs: [
       {
-        name: 'twitter',
-        url: 'https://twitter.com/gatsbyjs',
+        slug: 'manual',
+        title: {
+          zh: '使用文档',
+          en: 'docs',
+        },
+        redirect: 'introduction',
+        order: 0,
       },
       {
-        name: 'github',
-        url: 'https://github.com/gatsbyjs',
+        slug: 'manual/plots',
+        title: {
+          zh: '图表',
+          en: 'Charts',
+        },
+        order: 3,
+      },
+      {
+        slug: 'manual/advanced',
+        title: {
+          zh: '进阶',
+          en: 'Advanced',
+        },
+        order: 4,
       },
     ],
   },

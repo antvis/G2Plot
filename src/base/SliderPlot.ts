@@ -115,7 +115,7 @@ export default abstract class SliderPlot<T extends SliderPlotConfig & Config> ex
       }
     );
     this.addLayer(this.sliderLayer);
-    this.onSliderChange([slider.start, slider.end]);
+    this.onSliderChange([slider.start, slider.end], true);
   }
 
   private destroySliderLayer(): void {
@@ -126,19 +126,27 @@ export default abstract class SliderPlot<T extends SliderPlotConfig & Config> ex
     }
   }
 
-  private onSliderChange(range: [number, number]) {
+  private onSliderChange(range: [number, number], animation: boolean = false) {
     const { data = [], xField } = this.initialProps;
     const length = size(data);
     const [start = 0, end = 1] = range;
     const startIdx = Math.round(start * length);
     const endIdx = Math.max(startIdx + 1, Math.round(end * length));
     const newData = data.slice(startIdx, endIdx);
+    let origAnimation;
     this.sliderLayer.updateSlider({
       start,
       end,
       minText: head(newData)[xField],
       maxText: last(newData)[xField],
     });
+    if (!animation) {
+      origAnimation = this.mainLayer.plot.get('animation');
+      this.mainLayer.plot.animate(false);
+    }
     this.mainLayer.changeData(newData);
+    if (!animation) {
+      this.mainLayer.plot.animate(origAnimation);
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { StackArea } from '../../src';
 import { oil } from '../data/global-oil-new';
 
-describe('stackArea label', () => {
+describe.skip('stackArea label', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -10,19 +10,18 @@ describe('stackArea label', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-
   it('初始化以及销毁', () => {
     const areaPlot = new StackArea(canvasDiv, {
       width: 600,
       height: 600,
-      padding: [20,20,100,100],
-      data:oil,
+      padding: [20, 20, 100, 100],
+      data: oil,
       xField: 'date',
       yField: 'value',
       stackField: 'country',
       xAxis: {
         visible: true,
-        type:'dateTime'
+        type: 'dateTime',
       },
       yAxis: {
         visible: true,
@@ -32,7 +31,7 @@ describe('stackArea label', () => {
         type: 'area',
         // autoScale: true
       },
-      responsive: true
+      responsive: true,
     });
     areaPlot.render();
     // const positionField = areaPlot.plot.get('elements')[0].get('position').fields;

@@ -42,7 +42,7 @@ const lightThemeCfg = genTheme({
   lineColor: '#676E7F',
 });
 
-describe('主题测试', () => {
+describe.skip('主题测试', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '500px';

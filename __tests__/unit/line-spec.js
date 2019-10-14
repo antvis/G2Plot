@@ -1,7 +1,7 @@
 import { Line } from '../../src';
 import { expect } from 'chai';
 
-describe('Line plot', () => {
+describe.skip('Line plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -296,7 +296,7 @@ describe('Line plot', () => {
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
-  it('smooth line', () => {
+  it.skip('smooth line', () => {
     const linePlot = new Line(canvasDiv, {
       width: 600,
       height: 600,

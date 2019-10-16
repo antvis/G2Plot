@@ -445,9 +445,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       const legendPosition = this.getLegendPosition();
       margin[0] += this.config.theme.description.padding[2](legendPosition);
     }
-    if (margin[0] >= this.getLayerHeight()) {
-      margin[0] -= 0.1;
-    }
 
     // 有 Range 的 Interaction 参与 ViewMargin 计算
     interactions.forEach((interaction) => {
@@ -466,6 +463,10 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
         }
       }
     });
+
+    if (margin[0] >= this.getLayerHeight()) {
+      margin[0] -= 0.1;
+    }
 
     return margin;
   }

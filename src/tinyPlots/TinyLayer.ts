@@ -36,8 +36,6 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
 
   protected _animation() {}
 
-  protected _interactions() {}
-
   private _getDefaultProps() {
     return {
       padding: [0, 0, 0, 0],

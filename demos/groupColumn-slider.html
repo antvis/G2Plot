@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="geometry" content="interval" />
     <link rel="stylesheet" href="./assets/common.css" />
-    <title>折线图缩略轴</title>
+    <title>簇状柱形图缩略轴</title>
   </head>
 
   <body>
@@ -14,18 +14,19 @@
     <script src="./assets/jquery-3.2.1.min.js"></script>
     <script src="../dist/g2plot.js"></script>
     <script>
-      $.get('data/sales.json', (data) => {
-        const linePlot = new g2plot.Line('canvas', {
+      $.get('data/subsales.json', (data) => {
+        const column = new g2plot.GroupColumn('canvas', {
           padding: 'auto',
           width: 800,
           height: 600,
           data,
           xField: '城市',
+          yField: '销售额',
+          groupField: '细分',
           xAxis: {
             visible: true,
             autoHideLabel: true,
           },
-          yField: '销售额',
           interactions: [
             {
               type: 'slider',
@@ -36,7 +37,7 @@
             },
           ],
         });
-        linePlot.render();
+        column.render();
       });
     </script>
   </body>

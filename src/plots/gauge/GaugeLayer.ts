@@ -165,8 +165,6 @@ export default class GaugeLayer extends BaseLayer<GaugeLayerConfig> {
     this.setConfig('element', pointer);
   }
 
-  protected _interactions() {}
-
   protected _annotation() {
     const { min, max, label, range, styleMix } = this.initialProps;
     const annotationConfigs = [];

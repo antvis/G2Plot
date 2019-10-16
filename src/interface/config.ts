@@ -54,7 +54,7 @@ export default interface Config {
   /** 响应式规则 */
   responsiveTheme?: {} | string;
   /** 交互，待定 */
-  interactions?: any[];
+  interactions?: IInteractions[];
   /** 是否响应式 */
   responsive?: boolean;
   /** 图表层级的事件 */
@@ -284,4 +284,35 @@ export interface SliderConfig {
   height?: number;
   paddingTop?: number;
   paddingBottom?: number;
+}
+
+export interface ISliderInteractionConfig {
+  /** 在图表中的位置，默认 horizontal */
+  type?: 'horizontal' | 'vertical';
+  /** 宽度，在 vertical 下生效 */
+  width?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: [number, number, number, number];
+  /** 前景框颜色  */
+  foregroundColor?: string;
+  /** 背景框颜色 */
+  backgroundColor?: string;
+  /** 默认开始位置, 0~1 */
+  start?: number;
+  /** 默认结束位置, 0~1 */
+  end?: number;
+}
+
+// TODO: to remove
+export interface IAnyInteractionConfig {
+  [key: string]: any;
+}
+
+export type IInteractionConfig = IAnyInteractionConfig | ISliderInteractionConfig;
+
+export interface IInteractions {
+  type: string;
+  cfg?: IAnyInteractionConfig | ISliderInteractionConfig;
 }

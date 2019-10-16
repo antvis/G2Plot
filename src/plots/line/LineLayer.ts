@@ -12,7 +12,7 @@ import TimeGroupAnnotation from './component/annotation/timeGroupAnnotation';
 import './component/label/line-label';
 import './component/label/point-label';
 import * as EventParser from './event';
-import { LineActive, LineSelect, Range } from './interaction/index';
+import { LineActive, LineSelect } from './interaction/index';
 import './theme';
 
 export interface LineStyle {
@@ -168,6 +168,7 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
   }
 
   protected _interactions() {
+    super._interactions();
     const props = this.initialProps;
     // 加入默认交互
     const interactions = this.plot.get('interactions');
@@ -175,13 +176,6 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
     interactions.lineActive = lineActive;
     const lineSelect = new LineSelect({ view: this.plot });
     interactions.lineSelect = lineSelect;
-    /** 加入其它交互 */
-    const interactionProps = props.interactions;
-    _.each(interactionProps, (i) => {
-      if (i.type === 'range') {
-        this._addRangeInteraction(interactions, props);
-      }
-    });
   }
 
   protected _events(eventParser) {
@@ -209,16 +203,6 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
       this._applyResponsive('afterRender');
     }
     super.afterRender();
-  }
-
-  private _addRangeInteraction(interactions, props) {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    const padding = props.padding;
-    this.plot.once('afterrender', () => {
-      const range = new Range({ view: this.plot, container, padding });
-      interactions.range = range;
-    });
   }
 
   private _applyResponsive(stage) {

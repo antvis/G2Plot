@@ -1,22 +1,16 @@
-import SliderPlot, { SliderPlotConfig, SliderType } from '../../base/SliderPlot';
-import ViewLayer from '../../base/ViewLayer';
-
+import BasePlot from '../../base/Plot';
 import ColumnLayer, { ColumnLayerConfig } from './ColumnLayer';
 
-export interface ColumnConfig extends ColumnLayerConfig, SliderPlotConfig {}
+export interface ColumnConfig extends ColumnLayerConfig {}
 
-export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> extends SliderPlot<T> {
-  protected sliderType: SliderType = SliderType.Horizontal;
-
-  protected addMainLayer(): ViewLayer<T> {
+export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> extends BasePlot<T> {
+  protected init() {
     const layer = new ColumnLayer(
       this.getCanvasController(),
       this.getThemeController(),
-      this.getMainLayerRange(),
+      this.getPlotRange(),
       this.initialProps
     );
     this.addLayer(layer);
-
-    return layer;
   }
 }

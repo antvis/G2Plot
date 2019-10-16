@@ -99,8 +99,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     this.setConfig('element', column);
   }
 
-  protected _interactions() {}
-
   protected _annotation() {}
 
   protected _animation() {

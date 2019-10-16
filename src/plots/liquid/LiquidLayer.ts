@@ -127,8 +127,6 @@ export default class LiquidLayer extends BaseLayer<LiquidLayerConfig> {
     this.setConfig('element', liquid);
   }
 
-  protected _interactions() {}
-
   protected _annotation() {
     const props = this.initialProps;
     if (props.showValue === false) {

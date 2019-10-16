@@ -43,14 +43,15 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
   private axisInstance: Axis.Base;
 
   protected init() {
-    super.init();
     this.axisInstance = this.getAxisInstance();
+    super.init();
   }
 
   protected shouldApply() {
     if (!this.responsiveTheme.axis) {
       return false;
     }
+
     if (this.responsiveTheme.axis[this.dim] && this.type && this.axisInstance) {
       return true;
     }

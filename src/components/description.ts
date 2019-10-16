@@ -1,4 +1,4 @@
-import { Canvas, Group, Text } from '@antv/g';
+import { BBox, Canvas, Group, Text } from '@antv/g';
 import * as _ from '@antv/util';
 
 /**
@@ -21,7 +21,7 @@ export default class TextDescription {
     this._init();
   }
 
-  public getBBox() {
+  public getBBox(): BBox | null {
     if (this.shape) {
       return this.shape.getBBox();
     }

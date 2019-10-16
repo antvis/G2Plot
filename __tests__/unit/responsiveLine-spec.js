@@ -1,7 +1,7 @@
 import { Line } from '../../src';
 import { income } from '../data/income';
 
-describe.skip('responsive line plot', () => {
+describe('responsive line plot', () => {
   const data = income;
 
   it('canvas size 500x500', () => {
@@ -39,6 +39,9 @@ describe.skip('responsive line plot', () => {
       },
       yAxis: {
         visible: true,
+      },
+      tooltip: {
+        visible: false,
       },
       forceFit: false,
       responsive: true,

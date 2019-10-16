@@ -1,9 +1,9 @@
 import Area from '../area';
 import StackAreaLayer, { StackAreaLayerConfig } from './StackAreaLayer';
 
-export { StackAreaLayerConfig as StackAreaConfig };
+export interface StackAreaConfig extends StackAreaLayerConfig {}
 
-export default class StackArea extends Area<StackAreaLayerConfig> {
+export default class StackArea extends Area<StackAreaConfig> {
   protected init() {
     const layer = new StackAreaLayer(
       this.getCanvasController(),

@@ -192,8 +192,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected _interactions() {}
-
   protected _annotation() {}
 
   protected _animation() {}

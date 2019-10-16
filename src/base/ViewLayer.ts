@@ -3,6 +3,7 @@ import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
+import BaseInteraction, { InteractionCtor } from '../interaction';
 import Config, { G2Config } from '../interface/config';
 import { MarginPadding } from '../interface/types';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -25,6 +26,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   protected container: Group;
   protected paddingController: PaddingController;
   protected stateController: StateController;
+  private interactions: BaseInteraction[];
 
   constructor(canvasController: CanvasController, themeController: ThemeController, range: BBox, config: T) {
     /**
@@ -154,7 +156,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     this._title(panelRange);
     this._description(panelRange);
 
-    const viewMargin = this.getViewMargin();
+    const layerRange = this.getLayerRange();
+    const [marginTop, marginRight, marginBottom, marginLeft] = this.getViewMargin();
 
     this._setDefaultG2Config();
     this._coord();
@@ -175,8 +178,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       data: props.data,
       theme: this.config.theme,
       options: this.config,
-      start: { x: this.getLayerRange().minX, y: this.getLayerRange().minY + viewMargin[0] },
-      end: this.getLayerRange().br,
+      start: { x: layerRange.minX + marginLeft, y: layerRange.minY + marginTop },
+      end: { x: layerRange.maxX - marginRight, y: layerRange.maxY - marginBottom },
     });
     this._interactions();
     this._events();
@@ -194,7 +197,26 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   protected abstract _annotation(): void;
   protected abstract _addGeometry(): void;
   protected abstract _animation(): void;
-  protected abstract _interactions(): void;
+
+  protected _interactions(): void {
+    const { interactions = [] } = this.initialProps;
+    if (this.interactions) {
+      this.interactions.forEach((inst) => {
+        inst.destroy();
+      });
+    }
+    this.interactions = [];
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor = BaseInteraction.getInteraction(interaction.type, this.type);
+      const inst: BaseInteraction = new Ctor(
+        { view: this.plot },
+        this,
+        Ctor.getInteractionRange(this.getLayerRange(), interaction.cfg),
+        interaction.cfg
+      );
+      this.interactions.push(inst);
+    });
+  }
 
   /** plot通用配置 */
 
@@ -377,6 +399,12 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     if (this.description) {
       this.description.destroy();
     }
+    // 移除注册的 interactions
+    if (this.interactions) {
+      this.interactions.forEach((inst) => {
+        inst.destroy();
+      });
+    }
     /** 销毁g2.plot实例 */
     this.plot.destroy();
   }
@@ -394,6 +422,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   // view range 去除title & description所占的空间
   private getViewMargin(): MarginPadding {
+    const { interactions = [] } = this.initialProps;
+    const layerRange = this.getLayerRange();
     const margin: MarginPadding = [0, 0, 0, 0];
     const boxes: BBox[] = [];
 
@@ -418,6 +448,24 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     if (margin[0] >= this.getLayerHeight()) {
       margin[0] -= 0.1;
     }
+
+    // 有 Range 的 Interaction 参与 ViewMargin 计算
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | null = BaseInteraction.getInteraction(interaction.type, this.type);
+      const range: BBox | null = Ctor ? Ctor.getInteractionRange(layerRange, interaction.cfg) : null;
+      if (range) {
+        // 先只考虑 Range 靠边的情况
+        if (range.bottom === layerRange.bottom) {
+          margin[2] += range.height;
+        } else if (range.right === layerRange.right) {
+          margin[1] += range.width;
+        } else if (range.left === layerRange.left) {
+          margin[3] += range.width;
+        } else if (range.top === layerRange.top) {
+          margin[0] += range.height;
+        }
+      }
+    });
 
     return margin;
   }

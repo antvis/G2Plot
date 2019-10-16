@@ -133,8 +133,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('element', bar);
   }
 
-  protected _interactions() {}
-
   protected _annotation() {}
 
   protected _animation() {

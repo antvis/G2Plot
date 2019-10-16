@@ -1,21 +1,16 @@
-import SliderPlot, { SliderPlotConfig, SliderType } from '../../base/SliderPlot';
-import ViewLayer from '../../base/ViewLayer';
+import BasePlot from '../../base/Plot';
 import AreaLayer, { AreaLayerConfig } from './AreaLayer';
 
-export interface AreaConfig extends AreaLayerConfig, SliderPlotConfig {}
+export interface AreaConfig extends AreaLayerConfig {}
 
-export default class Area<T extends AreaConfig> extends SliderPlot<T> {
-  protected sliderType: SliderType = SliderType.Horizontal;
-
-  protected addMainLayer(): ViewLayer<T> {
+export default class Area<T extends AreaConfig> extends BasePlot<T> {
+  protected init() {
     const layer = new AreaLayer(
       this.getCanvasController(),
       this.getThemeController(),
-      this.getMainLayerRange(),
+      this.getPlotRange(),
       this.initialProps
     );
     this.addLayer(layer);
-
-    return layer;
   }
 }

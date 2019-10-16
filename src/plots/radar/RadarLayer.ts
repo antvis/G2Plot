@@ -218,8 +218,6 @@ export default class RadarLayer extends BaseLayer<RadarLayerConfig> {
 
   protected _animation() {}
 
-  protected _interactions() {}
-
   protected _events(eventParser) {
     super._events(EventParser);
   }

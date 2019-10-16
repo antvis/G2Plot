@@ -1,20 +1,16 @@
-import { SliderPlotConfig } from '../../base/SliderPlot';
-import ViewLayer from '../../base/ViewLayer';
 import Column from '../column';
 import StackColumnLayer, { StackColumnLayerConfig } from './StackColumnLayer';
 
-export interface StackColumnConfig extends StackColumnLayerConfig, SliderPlotConfig {}
+export interface StackColumnConfig extends StackColumnLayerConfig {}
 
 export default class StackColumn extends Column<StackColumnConfig> {
-  protected addMainLayer(): ViewLayer<StackColumnConfig> {
+  protected init() {
     const layer = new StackColumnLayer(
       this.getCanvasController(),
       this.getThemeController(),
-      this.getMainLayerRange(),
+      this.getPlotRange(),
       this.initialProps
     );
     this.addLayer(layer);
-
-    return layer;
   }
 }

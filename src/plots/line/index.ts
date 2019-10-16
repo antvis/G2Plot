@@ -1,21 +1,16 @@
-import SliderPlot, { SliderPlotConfig, SliderType } from '../../base/SliderPlot';
-import ViewLayer from '../../base/ViewLayer';
+import BasePlot from '../../base/Plot';
 import LineLayer, { LineLayerConfig } from './LineLayer';
 
-export interface LineConfig extends LineLayerConfig, SliderPlotConfig {}
+export interface LineConfig extends LineLayerConfig {}
 
-export default class Line extends SliderPlot<LineConfig> {
-  protected sliderType: SliderType = SliderType.Horizontal;
-
-  protected addMainLayer(): ViewLayer<LineConfig> {
+export default class Line extends BasePlot<LineConfig> {
+  protected init() {
     const layer = new LineLayer(
       this.getCanvasController(),
       this.getThemeController(),
-      this.getMainLayerRange(),
+      this.getPlotRange(),
       this.initialProps
     );
     this.addLayer(layer);
-
-    return layer;
   }
 }

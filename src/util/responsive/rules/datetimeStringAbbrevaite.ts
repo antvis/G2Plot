@@ -1,5 +1,15 @@
 import * as _ from '@antv/util';
+import * as Fecha from 'fecha';
 import moment from 'moment';
+
+const fecha = Fecha as any;
+
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const MONTH = 30 * DAY;
+const YEAR = 365 * DAY;
 
 interface TimeStringAbbrevaiteCfg {
   keep?: string[];
@@ -13,39 +23,39 @@ export default function datetimeStringAbbrevaite(shape, option: TimeStringAbbrev
   } else {
     campareText = nodes[index + 1].shape.get('origin').text;
   }
-  const compare = isTime(campareText) ? timeAdaptor(campareText) : moment(campareText);
+  const compare = new Date(campareText);
   /** 获取时间周期和时间间隔 */
   const text = shape.get('origin').text;
-  const current = isTime(text) ? timeAdaptor(text) : moment(text);
+  const current = new Date(text);
   const startText = nodes[0].shape.get('origin').text;
-  const start = isTime(startText) ? timeAdaptor(startText) : moment(startText);
+  const start = new Date(startText);
   const endText = nodes[nodes.length - 1].shape.get('origin').text;
-  const end = isTime(endText) ? timeAdaptor(endText) : moment(endText);
+  const end = new Date(endText);
   const timeDuration = getDateTimeMode(start, end);
   const timeCycle = getDateTimeMode(current, compare); // time frequency
   // 如果duration和frequency在同一区间
   if (timeDuration === timeCycle) {
     if (index !== 0 && index !== nodes.length - 1) {
       const formatter = sameSectionFormatter(timeDuration);
-      shape.attr('text', current.format(formatter));
+      shape.attr('text', fecha.format(current, formatter));
     }
     return;
   }
   if (index !== 0) {
     const previousText = nodes[index - 1].shape.get('origin').text;
-    const previous = isTime(previousText) ? timeAdaptor(previousText) : moment(previousText);
+    const previous = new Date(previousText);
     const isAbbreviate = needAbbrevaite(timeDuration, current, previous);
     if (isAbbreviate) {
       const formatter = getAbbrevaiteFormatter(timeDuration, timeCycle);
-      shape.attr('text', current.format(formatter));
+      shape.attr('text', fecha.format(current, formatter));
       return;
     }
   }
 }
 
 function needAbbrevaite(mode, current, previous) {
-  const currentStamp = current.get(mode);
-  const previousStamp = previous.get(mode);
+  const currentStamp = getTime(current, mode);
+  const previousStamp = getTime(previous, mode);
   if (currentStamp !== previousStamp) {
     return false;
   }
@@ -53,25 +63,21 @@ function needAbbrevaite(mode, current, previous) {
 }
 
 function getDateTimeMode(a, b) {
-  const dist = moment.duration(Math.abs(a.diff(b)));
-  const oneMinute = moment.duration(1, 'minutes');
-  const oneHour = moment.duration(1, 'hours');
-  const oneDay = moment.duration(1, 'days');
-  const oneMonth = moment.duration(1, 'months');
-  const oneYear = moment.duration(1, 'years');
-  if (dist >= oneMinute && dist < oneHour) {
+  const dist = Math.abs(a - b);
+
+  if (dist >= MINUTE && dist < HOUR) {
     return 'minute';
   }
-  if (dist >= oneHour && dist < oneDay) {
+  if (dist >= HOUR && dist < DAY) {
     return 'hour';
   }
-  if (dist >= oneDay && dist < oneMonth) {
+  if (dist >= DAY && dist < MONTH) {
     return 'day';
   }
-  if (dist >= oneMonth && dist < oneYear) {
+  if (dist >= MONTH && dist < YEAR) {
     return 'month';
   }
-  if (dist >= oneYear) {
+  if (dist >= YEAR) {
     return 'year';
   }
 }
@@ -99,6 +105,26 @@ function sameSectionFormatter(mode) {
   return formatter;
 }
 
+function getTime(date, mode) {
+  if (mode === 'year') {
+    return date.getFullYear();
+  }
+  if (mode === 'month') {
+    return date.getMonth() + 1;
+  }
+  if (mode === 'day') {
+    return date.getDay() + 1;
+  }
+
+  if (mode === 'hour') {
+    return date.getHours() + 1;
+  }
+
+  if (mode === 'minite') {
+    return date.getMinites() + 1;
+  }
+}
+
 /*tslint:disable*/
 export function isTime(string) {
   const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
@@ -106,8 +132,7 @@ export function isTime(string) {
   return hourminExp.test(string) || hourminSecExp.test(string);
 }
 
-function timeAdaptor(string) {
-  /** hh:mm hh:mm:ss 格式兼容 */
+/*function timeAdaptor(string) {
   const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
   const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
   if (hourminExp.test(string)) {
@@ -116,4 +141,4 @@ function timeAdaptor(string) {
   if (hourminSecExp.test(string)) {
     return moment(string, 'hh:mm:ss');
   }
-}
+}*/

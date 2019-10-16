@@ -55,6 +55,7 @@
     "@antv/scale": "^0.2.1",
     "@antv/util": "~2.0.4",
     "moment": "^2.24.0",
+    "fecha": "~3.0.3",
     "resize-observer-polyfill": "^1.5.1",
     "tslib": "^1.10.0"
   },

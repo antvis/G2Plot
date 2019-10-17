@@ -54,7 +54,6 @@
     "@antv/matrix-util": "~2.0.2",
     "@antv/scale": "^0.2.1",
     "@antv/util": "~2.0.4",
-    "moment": "^2.24.0",
     "fecha": "~3.0.3",
     "resize-observer-polyfill": "^1.5.1",
     "tslib": "^1.10.0"
@@ -62,7 +61,6 @@
   "devDependencies": {
     "@antv/torch": "~1.0.5",
     "@types/mocha": "^5.2.7",
-    "@types/moment": "^2.13.0",
     "chai": "^4.2.0",
     "connect": "~3.7.0",
     "event-simulate": "^1.0.0",

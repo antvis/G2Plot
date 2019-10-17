@@ -1,6 +1,5 @@
 import * as _ from '@antv/util';
 import * as Fecha from 'fecha';
-import moment from 'moment';
 
 const fecha = Fecha as any;
 
@@ -8,7 +7,7 @@ const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
-const MONTH = 30 * DAY;
+const MONTH = 31 * DAY;
 const YEAR = 365 * DAY;
 
 interface TimeStringAbbrevaiteCfg {
@@ -63,23 +62,21 @@ function needAbbrevaite(mode, current, previous) {
 }
 
 function getDateTimeMode(a, b) {
+  let mode;
   const dist = Math.abs(a - b);
-
-  if (dist >= MINUTE && dist < HOUR) {
-    return 'minute';
-  }
-  if (dist >= HOUR && dist < DAY) {
-    return 'hour';
-  }
-  if (dist >= DAY && dist < MONTH) {
-    return 'day';
-  }
-  if (dist >= MONTH && dist < YEAR) {
-    return 'month';
-  }
-  if (dist >= YEAR) {
-    return 'year';
-  }
+  const mapper = {
+    minute: [MINUTE, HOUR],
+    hour: [HOUR, DAY],
+    day: [DAY, MONTH],
+    month: [MONTH, YEAR],
+    year: [YEAR, Infinity],
+  };
+  _.each(mapper, (range, key) => {
+    if (dist >= range[0] && dist < range[1]) {
+      mode = key;
+    }
+  });
+  return mode;
 }
 
 function getAbbrevaiteFormatter(duration, cycle) {

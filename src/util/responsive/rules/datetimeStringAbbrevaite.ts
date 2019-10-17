@@ -1,7 +1,5 @@
 import * as _ from '@antv/util';
-import * as Fecha from 'fecha';
-
-const fecha = Fecha as any;
+import fecha from 'fecha';
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;

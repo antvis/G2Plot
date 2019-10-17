@@ -80,7 +80,7 @@ function getDateTimeMode(a, b) {
 }
 
 function getAbbrevaiteFormatter(duration, cycle) {
-  const times = ['year', 'month', 'day', 'hour', 'minite'];
+  const times = ['year', 'month', 'day', 'hour', 'minute'];
   const formatters = ['YYYY', 'MM', 'DD', 'HH', 'MM'];
   const startIndex = times.indexOf(duration) + 1;
   const endIndex = times.indexOf(cycle);
@@ -95,14 +95,14 @@ function getAbbrevaiteFormatter(duration, cycle) {
 }
 
 function sameSectionFormatter(mode) {
-  const times = ['year', 'month', 'day', 'hour', 'minite'];
+  const times = ['year', 'month', 'day', 'hour', 'minute'];
   const formatters = ['YYYY', 'MM', 'DD', 'HH', 'MM'];
   const index = times.indexOf(mode);
   const formatter = formatters[index];
   return formatter;
 }
 
-function getTime(date, mode) {
+function getTime(date: Date, mode: string) {
   if (mode === 'year') {
     return date.getFullYear();
   }
@@ -117,8 +117,8 @@ function getTime(date, mode) {
     return date.getHours() + 1;
   }
 
-  if (mode === 'minite') {
-    return date.getMinites() + 1;
+  if (mode === 'minute') {
+    return date.getMinutes() + 1;
   }
 }
 

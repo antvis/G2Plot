@@ -8,7 +8,6 @@ import './animation/clipInWithData';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
 import './applyResponsive/theme';
-import TimeGroupAnnotation from './component/annotation/timeGroupAnnotation';
 import './component/label/line-label';
 import './component/label/point-label';
 import * as EventParser from './event';
@@ -180,20 +179,6 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
 
   protected _events(eventParser) {
     super._events(EventParser);
-  }
-
-  protected afterInit() {
-    super.afterInit();
-    const props = this.initialProps;
-    // 时间子母轴
-    if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
-      const xAxis = props.xAxis as ITimeAxis;
-      const timeGroup = new TimeGroupAnnotation({
-        view: this.plot,
-        field: props.xField,
-        groupDim: xAxis.groupBy,
-      });
-    }
   }
 
   protected afterRender() {

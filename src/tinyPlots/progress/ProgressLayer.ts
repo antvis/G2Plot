@@ -39,8 +39,7 @@ export default class ProgressLayer extends TinyLayer<ProgressLayerConfig> {
   public update(value) {
     const props = this.initialProps;
     props.percent = value;
-    this.processData();
-    this.changeData(props.data);
+    this.changeData(this.processData(props.data));
   }
 
   protected geometryParser(dim: string, type: string): string {
@@ -98,12 +97,11 @@ export default class ProgressLayer extends TinyLayer<ProgressLayerConfig> {
     return props.color;
   }
 
-  protected processData() {
+  protected processData(originData?: object[]) {
     const props = this.initialProps;
     const data = [{ type: 'current', value: props.percent }, { type: 'rest', value: 1.0 - props.percent }];
-    props.data = data;
-    this.originData = null;
-    this.plotData = data;
+
+    return data;
   }
 
   private _getSize() {

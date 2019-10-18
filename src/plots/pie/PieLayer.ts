@@ -1,6 +1,6 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { Label } from '../../interface/config';
@@ -24,7 +24,7 @@ const PLOT_GEOM_MAP = {
   pie: 'column',
 };
 
-export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends BaseLayer<T> {
+export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends ViewLayer<T> {
   public pie: any;
   public spiderLabel: any;
 

@@ -1,6 +1,6 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import BaseConfig, { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './geometry/shape/pointer';
@@ -25,7 +25,7 @@ export interface GaugeLayerConfig extends BaseConfig {
   gaugeStyle?: GaugeStyle;
 }
 
-export default class GaugeLayer extends BaseLayer<GaugeLayerConfig> {
+export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   protected geometryParser(dim: string, type: string): string {
     throw new Error('Method not implemented.');
   }

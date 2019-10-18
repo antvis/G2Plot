@@ -2,9 +2,9 @@ import { BBox, Group } from '@antv/g';
 import { Slider } from '@antv/gui';
 import { clamp, head, last, map, size, throttle } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';
-import BaseInteraction from './base';
+import BaseInteraction from './BaseInteraction';
 
-const DEFAULT_PADDING: number = 16;
+const DEFAULT_PADDING: number = 8;
 const DEFAULT_SIZE: number = 16;
 
 const getValidSliderConfig = (cfg: ISliderInteractionConfig): ISliderInteractionConfig => {
@@ -113,7 +113,7 @@ export default class SliderInteraction extends BaseInteraction {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const { minText, maxText } = this.getSliderMinMaxText(this.curStart, this.curEnd);
     const cfg: any = {
-      x: panelRange.minX,
+      x: panelRange.minX + paddingLeft,
       y: range.tl.y + paddingTop,
       width: panelRange.width - paddingLeft - paddingRight,
       height: range.height - paddingTop - paddingBottom,
@@ -147,11 +147,11 @@ export default class SliderInteraction extends BaseInteraction {
   }
 
   private getSliderData(start: number, end: number): any[] {
-    const { data = [], xField } = this.getViewLayer().initialProps;
+    const data = this.getViewLayer().getData();
     const length = size(data);
     const startIdx = Math.round(start * length);
     const endIdx = Math.max(startIdx + 1, Math.round(end * length));
-    return data.slice(startIdx, endIdx);
+    return this.getViewLayer().getData(startIdx, endIdx);
   }
 
   private getSliderMinMaxText(start: number, end: number): { minText: string; maxText: string } {
@@ -183,7 +183,8 @@ export default class SliderInteraction extends BaseInteraction {
     });
     const origAnimation = view.get('animation');
     view.animate(false);
-    this.getViewLayer().changeData(data);
+    view.set('data', data);
+    view.repaint();
     view.animate(origAnimation);
   }
 }

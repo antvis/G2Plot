@@ -66,7 +66,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   /** 修改数据 */
   public changeData(data: object[]): void {
-    this.plot.changeData(data);
+    this.plot.changeData(this.adjustData(data));
   }
 
   /** 完整生命周期渲染 */
@@ -116,6 +116,11 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   public setNormal(condition) {
     this.stateController.setState({ type: 'normal', condition, style: {} });
+  }
+
+  // 获取 ViewLayer 的数据项
+  public getData(start?: number, end?: number): object[] {
+    return this.adjustData((this.initialProps.data || []).slice(start, end));
   }
 
   protected abstract geometryParser(dim: string, type: string): string;
@@ -175,7 +180,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       canvas: this.canvas,
       container: this.container,
       padding: this.paddingController.getPadding(),
-      data: props.data,
+      data: this.adjustData(props.data),
       theme: this.config.theme,
       options: this.config,
       start: { x: layerRange.minX + marginLeft, y: layerRange.minY + marginTop },
@@ -198,6 +203,11 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   protected abstract _addGeometry(): void;
   protected abstract _animation(): void;
 
+  /** 数据调整hook */
+  protected adjustData(data?: object[]): object[] {
+    return data;
+  }
+
   protected _interactions(): void {
     const { interactions = [] } = this.initialProps;
     if (this.interactions) {
@@ -207,14 +217,16 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     }
     this.interactions = [];
     interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor = BaseInteraction.getInteraction(interaction.type, this.type);
-      const inst: BaseInteraction = new Ctor(
-        { view: this.plot },
-        this,
-        Ctor.getInteractionRange(this.getLayerRange(), interaction.cfg),
-        interaction.cfg
-      );
-      this.interactions.push(inst);
+      const Ctor: InteractionCtor | null = BaseInteraction.getInteraction(interaction.type, this.type);
+      if (Ctor) {
+        const inst: BaseInteraction = new Ctor(
+          { view: this.plot },
+          this,
+          Ctor.getInteractionRange(this.getLayerRange(), interaction.cfg),
+          interaction.cfg
+        );
+        this.interactions.push(inst);
+      }
     });
   }
 
@@ -452,13 +464,13 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       const range: BBox | null = Ctor ? Ctor.getInteractionRange(layerRange, interaction.cfg) : null;
       if (range) {
         // 先只考虑 Range 靠边的情况
-        if (range.bottom === layerRange.bottom) {
+        if (range.bottom === layerRange.bottom && range.top > layerRange.top) {
           margin[2] += range.height;
-        } else if (range.right === layerRange.right) {
+        } else if (range.right === layerRange.right && range.left > layerRange.left) {
           margin[1] += range.width;
-        } else if (range.left === layerRange.left) {
+        } else if (range.left === layerRange.left && range.right > layerRange.right) {
           margin[3] += range.width;
-        } else if (range.top === layerRange.top) {
+        } else if (range.top === layerRange.top && range.bottom > layerRange.bottom) {
           margin[0] += range.height;
         }
       }

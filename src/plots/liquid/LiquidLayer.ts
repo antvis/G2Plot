@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import BaseConfig, { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
@@ -34,7 +34,7 @@ export interface LiquidLayerConfig extends BaseConfig {
   liquidStyle?: LiquidStyle;
 }
 
-export default class LiquidLayer extends BaseLayer<LiquidLayerConfig> {
+export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
       return G2_GEOM_MAP[type];

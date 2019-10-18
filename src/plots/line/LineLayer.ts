@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -54,7 +54,7 @@ export interface LineLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class LineLayer extends BaseLayer<LineLayerConfig> {
+export default class LineLayer extends ViewLayer<LineLayerConfig> {
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
 

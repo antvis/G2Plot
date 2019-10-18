@@ -1,6 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -56,7 +56,7 @@ export interface AreaLayerConfig extends BaseConfig {
   };
 }
 
-export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends BaseLayer<T> {
+export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
   public line: any;
   public point: any;
   public area: any;

@@ -56,7 +56,6 @@ export default class ProgressLayer extends TinyLayer<ProgressLayerConfig> {
 
   protected beforeInit() {
     super.beforeInit();
-    this.processData();
     this.processProps();
   }
 
@@ -99,10 +98,12 @@ export default class ProgressLayer extends TinyLayer<ProgressLayerConfig> {
     return props.color;
   }
 
-  private processData() {
+  protected processData() {
     const props = this.initialProps;
     const data = [{ type: 'current', value: props.percent }, { type: 'rest', value: 1.0 - props.percent }];
     props.data = data;
+    this.originData = null;
+    this.plotData = data;
   }
 
   private _getSize() {

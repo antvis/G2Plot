@@ -15,6 +15,8 @@ import Layer from './Layer';
 
 export default abstract class ViewLayer<T extends Config = Config> extends Layer<T> {
   public plot: G2.View;
+  public originData: object[];
+  public plotData: object[] | object;
 
   protected originalProps: T;
   protected config: G2Config;
@@ -46,6 +48,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     /**
      * 启动主流程，挂载钩子
      */
+    this.processData();
     this.beforeInit();
     this.init();
     this.afterInit();
@@ -120,6 +123,12 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   protected abstract geometryParser(dim: string, type: string): string;
 
+  protected processData() {
+    const props = this.initialProps;
+    this.originData = props.data;
+    this.plotData = props.data;
+  }
+
   protected init() {
     const props = this.initialProps;
     const theme = this.themeController.getTheme(props, this.getType());
@@ -175,7 +184,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       canvas: this.canvas,
       container: this.container,
       padding: this.paddingController.getPadding(),
-      data: props.data,
+      data: this.plotData,
       theme: this.config.theme,
       options: this.config,
       start: { x: layerRange.minX + marginLeft, y: layerRange.minY + marginTop },

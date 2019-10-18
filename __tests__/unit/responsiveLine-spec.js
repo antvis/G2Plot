@@ -40,9 +40,9 @@ describe('responsive line plot', () => {
       yAxis: {
         visible: true,
       },
-      tooltip: {
+      /* tooltip: {
         visible: false,
-      },
+      },*/
       forceFit: false,
       responsive: true,
     });

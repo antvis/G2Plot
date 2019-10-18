@@ -1,6 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -36,7 +36,7 @@ export interface BarLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends BaseLayer<T> {
+export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
   public bar: any;
 
   protected geometryParser(dim, type) {
@@ -48,6 +48,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected setType() {
     this.type = 'bar';
+  }
+
+  /** 条形图数据从上往下 */
+  protected processData(data?: object[]): object[] {
+    return data ? data.slice().reverse() : data;
   }
 
   protected beforeInit() {

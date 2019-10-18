@@ -1,10 +1,15 @@
 import { BBox } from '@antv/g';
-import { Interaction } from '@antv/g2';
+import { Interaction, View } from '@antv/g2';
 import { ViewLayer } from '..';
 import { IInteractionConfig } from '../interface/config';
 
 export interface InteractionCtor {
-  new (cfg: any, viewLayer: ViewLayer<any>, interactionRange?: BBox, interaction?: IInteractionConfig): BaseInteraction;
+  new (
+    cfg: { view: View },
+    viewLayer: ViewLayer<any>,
+    interactionRange?: BBox,
+    interaction?: IInteractionConfig
+  ): BaseInteraction;
   getInteractionRange(layerRange: BBox, interaction?: IInteractionConfig): BBox;
 }
 
@@ -41,7 +46,12 @@ export default abstract class BaseInteraction extends Interaction {
   private interactionRange: BBox;
   private viewLayer: ViewLayer<any>;
 
-  constructor(cfg: any, viewLayer: ViewLayer<any>, interactionRange?: BBox, interaction?: IInteractionConfig) {
+  constructor(
+    cfg: { view: View },
+    viewLayer: ViewLayer<any>,
+    interactionRange?: BBox,
+    interaction?: IInteractionConfig
+  ) {
     super(cfg);
     this.viewLayer = viewLayer;
     this.interactionRange = interactionRange || null;

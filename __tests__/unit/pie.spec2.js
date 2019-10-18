@@ -8,68 +8,40 @@ describe('Pie plot', () => {
   canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
+  const data2 = [
+    {
+      x: '分类一',
+      y: 385,
+      serie: 'default',
+    },
+    {
+      x: '分类二',
+      y: 888,
+      serie: 'default',
+    },
+    {
+      x: '分类三',
+      y: 349,
+      serie: 'default',
+    },
+    {
+      x: '分类四',
+      y: 468,
+      serie: 'default',
+    },
+    {
+      x: '分类五',
+      y: 477,
+      serie: 'default',
+    },
+  ];
 
   it('创建饼图', () => {
-    const data = [
-      {
-        type: '分类一',
-        value: 27,
-      },
-      {
-        type: '分类二',
-        value: 25,
-      },
-      {
-        type: '分类三',
-        value: 18,
-      },
-      {
-        type: '分类四',
-        value: 15,
-      },
-      {
-        type: '分类五',
-        value: 10,
-      },
-      {
-        type: 'Other',
-        value: 5,
-      },
-    ];
-
-    const data2 = [
-      {
-        x: '分类一',
-        y: 385,
-        serie: 'default',
-      },
-      {
-        x: '分类二',
-        y: 888,
-        serie: 'default',
-      },
-      {
-        x: '分类三',
-        y: 349,
-        serie: 'default',
-      },
-      {
-        x: '分类四',
-        y: 468,
-        serie: 'default',
-      },
-      {
-        x: '分类五',
-        y: 477,
-        serie: 'default',
-      },
-    ];
-
     const pie = new Pie(canvasDiv, {
       width: 600,
       height: 600,
       data: data2,
-      label: {  
+      label: {
         visible: true,
         type: 'spider',
       },
@@ -90,6 +62,43 @@ describe('Pie plot', () => {
       legend: {
         visible: true,
         // position: 'right-bottom'
+      },
+    });
+
+    pie.render();
+  });
+
+  it('Events in spider pie', () => {
+    const pie = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
+      data: data2,
+      label: {
+        visible: true,
+        type: 'spider',
+      },
+      tooltip: {
+        visible: false,
+      },
+      angleField: 'y',
+      colorField: 'x',
+      padding: 'auto',
+      animation: false,
+      radius: 1,
+      title: {
+        text: 'spider-pie with events',
+      },
+      legend: {
+        visible: true,
+      },
+      events: {
+        'label:mouseenter': (e) => {
+          console.log('label:mouseenter');
+        },
+        // 两种写法都可以
+        onLabelMouseenter: (e) => {
+          console.log('onLabelMouseenter');
+        },
       },
     });
 

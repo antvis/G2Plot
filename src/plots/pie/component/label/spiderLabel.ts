@@ -136,7 +136,7 @@ export default class SpiderLabel {
       if (this.formatter) {
         lowerText = texts[0];
       }
-      textGroup.addShape('text', {
+      const topTextShape = textGroup.addShape('text', {
         attrs: _.mix(
           {
             textBaseline: 'top',
@@ -148,9 +148,10 @@ export default class SpiderLabel {
         offsetY: LABEL1_OFFSETY,
         name: 'label',
       });
+      topTextShape.name = 'label'; // 用于事件标记 shapeName
       /** label2:上部label */
       if (this.fields.length === 2) {
-        textGroup.addShape('text', {
+        const bottomTextShape = textGroup.addShape('text', {
           attrs: _.mix(
             {
               textBaseline: 'bottom',
@@ -162,6 +163,7 @@ export default class SpiderLabel {
           offsetY: LABEL2_OFFSETY,
           name: 'label',
         });
+        bottomTextShape.name = 'label'; // 用于事件标记 shapeName
       }
 
       label.textGroup = textGroup;

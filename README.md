@@ -72,5 +72,5 @@ Please let us know how can we help. Do check out [issues](https://github.com/ant
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
 
-
+Thank You
 

@@ -41,23 +41,24 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   /**
+   * 更新图形size
+   * @param config
+   */
+  public updateRange() {
+    each(this.layers, (layer) => {
+      const newRange = this.getPlotRange();
+      layer.updateRange(newRange);
+    });
+  }
+
+  /**
    * 更新图形配置
    */
   public updateConfig(config: RecursivePartial<T>) {
     this.updateConfigBase(config);
-    const { forceFit } = this.getProps();
-    if (forceFit) {
-      // 更新size
-      each(this.layers, (layer) => {
-        const newRange = this.getPlotRange();
-        layer.updateRange(newRange);
-        layer.updateConfig(config);
-      });
-    } else {
-      each(this.layers, (layer) => {
-        layer.updateConfig(config);
-      });
-    }
+    each(this.layers, (layer) => {
+      layer.updateConfig(config);
+    });
   }
 
   /**

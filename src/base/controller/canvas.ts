@@ -65,6 +65,7 @@ export default class CanvasController {
         return;
       }
       this.updateCanvasSize();
+      this.plot.updateRange();
       this.plot.updateConfig({});
       this.plot.render();
     }, 300);

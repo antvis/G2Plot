@@ -1,10 +1,15 @@
 import { BBox } from '@antv/g';
-import { Interaction } from '@antv/g2';
+import { Interaction, View } from '@antv/g2';
 import { ViewLayer } from '..';
 import { IInteractionConfig } from '../interface/config';
 
 export interface InteractionCtor {
-  new (cfg: any, viewLayer: ViewLayer<any>, interactionRange?: BBox, interaction?: IInteractionConfig): BaseInteraction;
+  new (
+    cfg: { view: View },
+    viewLayer: ViewLayer<any>,
+    interactionRange?: BBox,
+    interaction?: IInteractionConfig
+  ): BaseInteraction;
   getInteractionRange(layerRange: BBox, interaction?: IInteractionConfig): BBox;
 }
 
@@ -24,15 +29,15 @@ export default abstract class BaseInteraction extends Interaction {
     BaseInteraction.PLOT_INTERACTION_MAP[plotType][type] = ctor;
   }
 
-  public static getInteraction(type: string, plotType?: string): InteractionCtor | null {
+  public static getInteraction(type: string, plotType?: string): InteractionCtor | undefined {
     if (plotType && BaseInteraction.PLOT_INTERACTION_MAP[plotType] && BaseInteraction[plotType][type]) {
       return BaseInteraction.PLOT_INTERACTION_MAP[plotType][type];
     }
-    return BaseInteraction.GLOBAL_INTERACTION_MAP[type] || null;
+    return BaseInteraction.GLOBAL_INTERACTION_MAP[type];
   }
 
-  public static getInteractionRange(layerRange: BBox, interaction?: IInteractionConfig): BBox | null {
-    return null;
+  public static getInteractionRange(layerRange: BBox, interaction?: IInteractionConfig): BBox | undefined {
+    return undefined;
   }
 
   private static GLOBAL_INTERACTION_MAP: InteractionMap = {};
@@ -41,11 +46,16 @@ export default abstract class BaseInteraction extends Interaction {
   private interactionRange: BBox;
   private viewLayer: ViewLayer<any>;
 
-  constructor(cfg: any, viewLayer: ViewLayer<any>, interactionRange?: BBox, interaction?: IInteractionConfig) {
+  constructor(
+    cfg: { view: View },
+    viewLayer: ViewLayer<any>,
+    interactionRange?: BBox,
+    interaction?: IInteractionConfig
+  ) {
     super(cfg);
     this.viewLayer = viewLayer;
-    this.interactionRange = interactionRange || null;
-    this.interactionConfig = interaction || null;
+    this.interactionRange = interactionRange;
+    this.interactionConfig = interaction;
     this.render();
   }
 
@@ -58,12 +68,12 @@ export default abstract class BaseInteraction extends Interaction {
     return this.viewLayer;
   }
 
-  protected getRange(): BBox | null {
-    return this.interactionRange || null;
+  protected getRange(): BBox | undefined {
+    return this.interactionRange;
   }
 
-  protected getInteractionConfig(): IInteractionConfig | null {
-    return this.interactionConfig || null;
+  protected getInteractionConfig(): IInteractionConfig | undefined {
+    return this.interactionConfig;
   }
 
   protected render(): void {}

@@ -130,7 +130,6 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
     });
   }
 
-
   public setSelected(condition: any, style: any) {
     each(this.layers, (layer) => {
       if (layer instanceof ViewLayer) {

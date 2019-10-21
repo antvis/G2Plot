@@ -15,8 +15,6 @@ import Layer from './Layer';
 
 export default abstract class ViewLayer<T extends Config = Config> extends Layer<T> {
   public plot: G2.View;
-  public originData: object[];
-  public plotData: object[] | object;
 
   protected originalProps: T;
   protected config: G2Config;
@@ -69,7 +67,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   /** 修改数据 */
   public changeData(data: object[]): void {
-    this.plot.changeData(data);
+    this.plot.changeData(this.processData(data));
   }
 
   /** 完整生命周期渲染 */
@@ -121,12 +119,9 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     this.stateController.setState({ type: 'normal', condition, style: {} });
   }
 
-  protected abstract geometryParser(dim: string, type: string): string;
-
-  protected processData() {
-    const props = this.initialProps;
-    this.originData = props.data;
-    this.plotData = props.data;
+  // 获取 ViewLayer 的数据项
+  public getData(start?: number, end?: number): object[] {
+    return this.processData((this.initialProps.data || []).slice(start, end));
   }
 
   protected init() {
@@ -184,7 +179,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       canvas: this.canvas,
       container: this.container,
       padding: this.paddingController.getPadding(),
-      data: this.plotData,
+      data: this.processData(props.data),
       theme: this.config.theme,
       options: this.config,
       start: { x: layerRange.minX + marginLeft, y: layerRange.minY + marginTop },
@@ -207,6 +202,12 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   protected abstract _addGeometry(): void;
   protected abstract _animation(): void;
 
+  protected abstract geometryParser(dim: string, type: string): string;
+
+  protected processData(data?: object[]): object[] | undefined {
+    return data;
+  }
+
   protected _interactions(): void {
     const { interactions = [] } = this.initialProps;
     if (this.interactions) {
@@ -216,14 +217,16 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     }
     this.interactions = [];
     interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor = BaseInteraction.getInteraction(interaction.type, this.type);
-      const inst: BaseInteraction = new Ctor(
-        { view: this.plot },
-        this,
-        Ctor.getInteractionRange(this.getLayerRange(), interaction.cfg),
-        interaction.cfg
-      );
-      this.interactions.push(inst);
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      if (Ctor) {
+        const inst: BaseInteraction = new Ctor(
+          { view: this.plot },
+          this,
+          Ctor.getInteractionRange(this.getLayerRange(), interaction.cfg),
+          interaction.cfg
+        );
+        this.interactions.push(inst);
+      }
     });
   }
 
@@ -457,17 +460,17 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
     // 有 Range 的 Interaction 参与 ViewMargin 计算
     interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor | null = BaseInteraction.getInteraction(interaction.type, this.type);
-      const range: BBox | null = Ctor ? Ctor.getInteractionRange(layerRange, interaction.cfg) : null;
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerRange, interaction.cfg);
       if (range) {
         // 先只考虑 Range 靠边的情况
-        if (range.bottom === layerRange.bottom) {
+        if (range.bottom === layerRange.bottom && range.top > layerRange.top) {
           margin[2] += range.height;
-        } else if (range.right === layerRange.right) {
+        } else if (range.right === layerRange.right && range.left > layerRange.left) {
           margin[1] += range.width;
-        } else if (range.left === layerRange.left) {
+        } else if (range.left === layerRange.left && range.right > layerRange.right) {
           margin[3] += range.width;
-        } else if (range.top === layerRange.top) {
+        } else if (range.top === layerRange.top && range.bottom > layerRange.bottom) {
           margin[0] += range.height;
         }
       }

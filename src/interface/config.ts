@@ -305,14 +305,27 @@ export interface ISliderInteractionConfig {
   end?: number;
 }
 
+export interface IScrollBarInteractionConfig {
+  /** 在图表中的位置，默认 horizontal */
+  type?: 'horizontal' | 'vertical';
+  /** 宽度，在 vertical 下生效 */
+  width?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: [number, number, number, number];
+  /** 对应水平滚动条，为X轴每个分类字段的宽度；对于垂直滚动条，为X轴每个分类字段的高度 */
+  categorySize?: number;
+}
+
 // TODO: to remove
 export interface IAnyInteractionConfig {
   [key: string]: any;
 }
 
-export type IInteractionConfig = IAnyInteractionConfig | ISliderInteractionConfig;
+export type IInteractionConfig = IAnyInteractionConfig | IScrollBarInteractionConfig | ISliderInteractionConfig;
 
 export interface IInteractions {
   type: string;
-  cfg?: IAnyInteractionConfig | ISliderInteractionConfig;
+  cfg?: IInteractionConfig;
 }

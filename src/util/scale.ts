@@ -24,6 +24,7 @@ export function extractScale(desScale, axisConfig) {
     desScale.tickCount = axisConfig.tickCount;
   }
   if (axisConfig.hasOwnProperty('type')) {
+    // fixme: dateTime plot层处理
     if (axisConfig.type !== 'dateTime') {
       desScale.type = axisConfig.type;
     }

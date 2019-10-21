@@ -1,9 +1,9 @@
 import BaseInteraction from './BaseInteraction';
-import ScrollbarInteraction from './ScrollbarInteraction';
+import ScrollBarInteraction from './ScrollBarInteraction';
 import SliderInteraction from './SliderInteraction';
 
 BaseInteraction.registerInteraction('slider', SliderInteraction);
-BaseInteraction.registerInteraction('scrollbar', ScrollbarInteraction);
+BaseInteraction.registerInteraction('scrollbar', ScrollBarInteraction);
 
 export * from './BaseInteraction';
 export default BaseInteraction;

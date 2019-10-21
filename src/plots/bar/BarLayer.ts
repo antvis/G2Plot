@@ -169,8 +169,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return labelConfig;
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   private _applyResponsive(stage) {

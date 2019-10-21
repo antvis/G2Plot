@@ -45,10 +45,19 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    */
   public updateConfig(config: RecursivePartial<T>) {
     this.updateConfigBase(config);
-
-    each(this.layers, (layer) => {
-      layer.updateConfig(config);
-    });
+    const { forceFit } = this.getProps();
+    if (forceFit) {
+      // 更新size
+      each(this.layers, (layer) => {
+        const newRange = this.getPlotRange();
+        layer.updateRange(newRange);
+        layer.updateConfig(config);
+      });
+    } else {
+      each(this.layers, (layer) => {
+        layer.updateConfig(config);
+      });
+    }
   }
 
   /**
@@ -95,10 +104,12 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   /**
-   * 获取顶层g2的plot实例
+   * 获取g2的plot实例, 默认顶层
    */
-  public getPlot() {
-    return this.getLayer(0); // layers[0] 即顶层实例
+  public getPlot(idx: number = 0) {
+    const layer = this.getLayer(idx);
+    // @ts-ignore
+    return layer.plot; // layers[0] 即顶层实例
   }
 
   /**
@@ -129,7 +140,6 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
       }
     });
   }
-
 
   public setSelected(condition: any, style: any) {
     each(this.layers, (layer) => {

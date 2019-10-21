@@ -95,10 +95,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     }
     const newProps = _.deepMix({}, this.initialProps, cfg);
 
-    // forceFit
-    if (newProps.forceFit) {
-      const range = this.plot;
-    }
     this.initialProps = newProps;
     this.beforeInit();
     this.init();

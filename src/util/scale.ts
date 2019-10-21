@@ -8,13 +8,6 @@ function adjustTimeTickInterval(interval: string) {
   return [basicInterval.format, intervalCount * basicInterval.value];
 }
 
-const SCALE_MAPPER = {
-  cat: 'cat',
-  dateTime: undefined,
-  time: 'dateTime',
-  linear: 'linear',
-};
-
 export function extractScale(desScale, axisConfig) {
   if (!axisConfig) {
     return desScale;

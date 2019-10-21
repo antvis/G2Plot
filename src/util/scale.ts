@@ -8,6 +8,13 @@ function adjustTimeTickInterval(interval: string) {
   return [basicInterval.format, intervalCount * basicInterval.value];
 }
 
+const SCALE_MAPPER = {
+  cat: 'cat',
+  dateTime: undefined,
+  time: 'dateTime',
+  linear: 'linear',
+};
+
 export function extractScale(desScale, axisConfig) {
   if (!axisConfig) {
     return desScale;
@@ -15,6 +22,11 @@ export function extractScale(desScale, axisConfig) {
 
   if (axisConfig.hasOwnProperty('tickCount')) {
     desScale.tickCount = axisConfig.tickCount;
+  }
+  if (axisConfig.hasOwnProperty('type')) {
+    if (axisConfig.type !== 'dateTime') {
+      desScale.type = axisConfig.type;
+    }
   }
   if (axisConfig.hasOwnProperty('tickInterval')) {
     if (axisConfig.type === 'time') {

@@ -80,8 +80,8 @@ export default class ProgressLayer extends TinyLayer<ProgressLayerConfig> {
     this.setConfig('element', bar);
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected parseColorProps(props) {

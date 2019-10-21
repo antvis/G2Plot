@@ -217,7 +217,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     }
     this.interactions = [];
     interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor | null = BaseInteraction.getInteraction(interaction.type, this.type);
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
       if (Ctor) {
         const inst: BaseInteraction = new Ctor(
           { view: this.plot },
@@ -460,8 +460,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
     // 有 Range 的 Interaction 参与 ViewMargin 计算
     interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor | null = BaseInteraction.getInteraction(interaction.type, this.type);
-      const range: BBox | null = Ctor ? Ctor.getInteractionRange(layerRange, interaction.cfg) : null;
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerRange, interaction.cfg);
       if (range) {
         // 先只考虑 Range 靠边的情况
         if (range.bottom === layerRange.bottom && range.top > layerRange.top) {

@@ -7,25 +7,30 @@ import BaseInteraction from './BaseInteraction';
 const DEFAULT_PADDING: number = 8;
 const DEFAULT_SIZE: number = 16;
 
-const getValidSliderConfig = (cfg: ISliderInteractionConfig): ISliderInteractionConfig => {
-  const _cfg: ISliderInteractionConfig = {
+const getValidSliderConfig = (cfg: ISliderInteractionConfig = {}): Required<ISliderInteractionConfig> => {
+  const _cfg: Required<ISliderInteractionConfig> = {
     type: 'horizontal',
     start: 0,
     end: 1,
+    width: undefined,
+    height: undefined,
+    padding: [0, 0, 0, 0],
+    backgroundColor: undefined,
+    foregroundColor: undefined,
     ...cfg,
   };
 
   // default padding
-  if (!_cfg.padding) {
+  if (!cfg.padding) {
     _cfg.padding =
       _cfg.type === 'horizontal' ? [DEFAULT_PADDING, 0, DEFAULT_PADDING, 0] : [0, DEFAULT_PADDING, 0, DEFAULT_PADDING];
   }
 
   // default size
-  if (!_cfg.height) {
+  if (!cfg.height) {
     _cfg.height = DEFAULT_SIZE;
   }
-  if (!_cfg.width) {
+  if (!cfg.width) {
     _cfg.width = DEFAULT_SIZE;
   }
 

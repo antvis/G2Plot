@@ -11,7 +11,7 @@ const DEFAULT_CATEGORY_SIZE: number = 32;
 const MIN_THUMB_LENGTH: number = 4;
 const SCROLL_BAR_Z_INDEX: number = 999;
 
-const getValidScrollBarConfig = (cfg: IScrollBarInteractionConfig): Required<IScrollBarInteractionConfig> => {
+const getValidScrollBarConfig = (cfg: IScrollBarInteractionConfig = {}): Required<IScrollBarInteractionConfig> => {
   const _cfg: Required<IScrollBarInteractionConfig> = {
     type: 'horizontal',
     categorySize: DEFAULT_CATEGORY_SIZE,

@@ -22,7 +22,7 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     const range = _.getRange(values);
     const rangeWidth = range.max - range.min;
     // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
-    // todo: 当binWidth和binNumber都没有指定的情况，采用Sturges'_formula自动生成bindWidth
+    // todo: 当binWidth和binNumber都没有指定的情况，采用Sturges formula自动生成binWidth
     let _binWidth = binWidth;
     if (!binWidth && binNumber) {
       _binWidth = rangeWidth / binNumber;
@@ -30,7 +30,7 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     const bins = {};
     _.each(originData_copy, (data) => {
       const value = data[binField];
-      const bin = this.getBin(value, _binWidth, range.min);
+      const bin = this.getBin(value, _binWidth);
       const binName = `${bin[0]}-${bin[1]}`;
       if (!_.hasKey(bins, binName)) {
         bins[binName] = { name: binName, range: bin, count: 0, data: [] };
@@ -48,9 +48,15 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     return plotData;
   }
 
-  private getBin(value, binWidth, min) {
-    const dist = value - min;
-    const index = Math.floor(dist / binWidth);
-    return [min + binWidth * index, min + binWidth * (index + 1)];
+  protected _scale() {
+    super._scale();
+    // fixme: 类型定义
+    const range = this.config.scales.range as any;
+    range.nice = false;
+  }
+
+  private getBin(value, binWidth) {
+    const index = Math.floor(value / binWidth);
+    return [binWidth * index, binWidth * (index + 1)];
   }
 }

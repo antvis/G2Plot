@@ -46,7 +46,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     /**
      * 启动主流程，挂载钩子
      */
-    this.processData();
+    this.processData(this.initialProps.data);
     this.beforeInit();
     this.init();
     this.afterInit();

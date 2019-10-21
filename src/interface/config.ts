@@ -94,7 +94,7 @@ interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type?: 'value' | 'time' | 'category';
+  type?: 'linear' | 'time' | 'cat' | 'dateTime' | 'category' | 'log' | 'pow' | 'timeCat';
   /** 轴位置，默认下和左 */
   position?: 'default' | 'opposite';
   line?: {

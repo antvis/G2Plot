@@ -8,12 +8,6 @@ function adjustTimeTickInterval(interval: string) {
   return [basicInterval.format, intervalCount * basicInterval.value];
 }
 
-const SCALE_MAP = {
-  category: 'cat',
-  value: 'linear',
-  time: 'time',
-};
-
 export function extractScale(desScale, axisConfig) {
   if (!axisConfig) {
     return desScale;
@@ -25,7 +19,7 @@ export function extractScale(desScale, axisConfig) {
   if (axisConfig.hasOwnProperty('type')) {
     // fixme: dateTime plot层处理
     if (axisConfig.type !== 'dateTime') {
-      desScale.type = SCALE_MAP[axisConfig.type];
+      desScale.type = axisConfig.type;
     }
   }
   if (axisConfig.hasOwnProperty('tickInterval')) {

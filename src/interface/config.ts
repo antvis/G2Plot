@@ -137,7 +137,7 @@ interface IBaseAxis {
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
-  type: 'value';
+  type: 'linear';
   /** tick相关配置 */
   min?: number;
   max?: number;

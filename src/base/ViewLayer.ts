@@ -96,6 +96,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const newProps = _.deepMix({}, this.initialProps, cfg);
 
     this.initialProps = newProps;
+    this.processData();
     this.beforeInit();
     this.init();
     this.afterInit();

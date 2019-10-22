@@ -210,8 +210,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     });
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected afterRender() {

@@ -83,8 +83,8 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     }
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected afterInit() {

@@ -16,6 +16,12 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     this.type = 'histogram';
   }
 
+  protected beforeInit() {
+    super.beforeInit();
+    this.initialProps.xField = 'range';
+    this.initialProps.yField = 'count';
+  }
+
   protected processData(originData?: object[]) {
     const { binField, binWidth, binNumber } = this.initialProps;
     const originData_copy = _.clone(originData);
@@ -51,8 +57,6 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     _.each(bins, (bin) => {
       plotData.push(bin);
     });
-    this.initialProps.xField = 'range';
-    this.initialProps.yField = 'count';
     return plotData;
   }
 

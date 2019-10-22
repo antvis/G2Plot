@@ -7,6 +7,7 @@ export { default as Layer } from './base/Layer';
 export { default as ViewLayer } from './base/ViewLayer';
 export { default as Base } from './base/Plot';
 export { default as Line, LineConfig } from './plots/line';
+export { default as Density, DensityConfig } from './plots/density';
 export { default as Column, ColumnConfig } from './plots/column';
 export { default as GroupColumn, GroupColumnConfig } from './plots/group-column';
 export { default as StackColumn, StackColumnConfig } from './plots/stack-column';

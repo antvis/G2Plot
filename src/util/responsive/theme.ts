@@ -1,153 +1,28 @@
 import * as _ from '@antv/util';
+import { DEFAULT_RESPONSIVE_THEME } from './default';
 
-// 存储一些共用部分
-const defaultResponsiveTheme = {
-  axis: {
-    x: {
-      category: {
-        constraints: [{ name: 'elementDist' }],
-        rules: {
-          elementDist: [
-            {
-              name: 'textWrapper',
-              option: {
-                lineNumber: 2,
-              },
-            },
-            {
-              name: 'textRotation',
-              option: {
-                degree: 45,
-              },
-            },
-            {
-              name: 'textRotation',
-              option: {
-                degree: 90,
-              },
-            },
-            {
-              name: 'textAbbreviate',
-              option: {
-                abbreviateBy: 'end',
-              },
-            },
-            {
-              name: 'textHide',
-            },
-          ],
-        },
-      },
-      linear: {
-        constraints: [{ name: 'elementDist' }],
-        rules: {
-          elementDist: [
-            {
-              name: 'nodesResampling',
-              option: {
-                keep: ['end'],
-              },
-            },
-            {
-              name: 'textRotation',
-              option: {
-                degree: 45,
-              },
-            },
-            {
-              name: 'textRotation',
-              option: {
-                degree: 90,
-              },
-            },
-            {
-              name: 'robustAbbrevaite',
-              option: {
-                unit: 'thousand',
-                decimal: 1,
-                abbreviateBy: 'end',
-              },
-            },
-            {
-              name: 'textHide',
-            },
-          ],
-        },
-      },
-      dateTime: {
-        constraints: [{ name: 'elementDist' }],
-        rules: {
-          elementDist: [
-            {
-              name: 'datetimeStringAbbrevaite',
-            },
-            {
-              name: 'nodesResamplingByAbbrevate',
-              option: {
-                keep: ['end'],
-              },
-            },
-            {
-              name: 'textRotation',
-              option: {
-                degree: 45,
-              },
-            },
-            {
-              name: 'textRotation',
-              option: {
-                degree: 90,
-              },
-            },
-            {
-              name: 'nodesResampling',
-            },
-            {
-              name: 'nodesResampling',
-            },
-            {
-              name: 'textHide',
-            },
-          ],
-        },
-      },
-    },
-    y: {
-      linear: {
-        constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
-        rules: {
-          elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
-          elementWidth: [{ name: 'digitsAbbreviate' }, { name: 'textHide' }],
-        },
-      }, // linear y axis
-      category: {
-        constraints: [{ name: 'elementDistVertical' }, { name: 'elementWidth' }],
-        rules: {
-          elementDistVertical: [{ name: 'nodesResampling' }, { name: 'textHide' }],
-          elementWidth: [
-            {
-              name: 'textAbbreviate',
-              option: {
-                abbreviateBy: 'end',
-              },
-            },
-            { name: 'textHide' },
-          ],
-        },
-      },
-    }, // categroy y axis， 条形图
-  },
+/**
+ * 所有的响应式主题配置
+ */
+const RESPONSIVE_THEME_MAP = {
+  default: DEFAULT_RESPONSIVE_THEME,
 };
 
-const RESPONSIVE_THEME_MAP = {};
-
+/**
+ * 添加一个响应式主题配置
+ * @param name
+ * @param theme
+ */
 export function registerResponsiveTheme(name: string, theme) {
-  const defaultTheme = getResponsiveTheme('default');
-  RESPONSIVE_THEME_MAP[name] = _.mix({}, defaultTheme, theme);
+  RESPONSIVE_THEME_MAP[name.toLowerCase()] = _.deepMix({}, DEFAULT_RESPONSIVE_THEME, theme);
 }
 
+/**
+ * 获取一个响应式主题配置，如果找不到则返回默认
+ * @param name
+ */
 export function getResponsiveTheme(name: string) {
-  return RESPONSIVE_THEME_MAP[name];
-}
+  const theme = RESPONSIVE_THEME_MAP[name.toLowerCase()];
 
-registerResponsiveTheme('default', defaultResponsiveTheme);
+  return theme ? theme : DEFAULT_RESPONSIVE_THEME;
+}

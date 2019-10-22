@@ -1,4 +1,4 @@
-import { defaultTheme } from '../../theme';
+import { registerTheme } from '../../theme';
 
 const BAR_ACTIVE_STYLE = (style) => {
   const opacity = style.opacity || 1;
@@ -10,7 +10,7 @@ const BAR_DISABLE_STYLE = (style) => {
   return { opacity: opacity * 0.5 };
 };
 
-defaultTheme.registerPlotTheme('bar', {
+registerTheme('bar', {
   columnStyle: {
     normal: {},
     active: BAR_ACTIVE_STYLE,

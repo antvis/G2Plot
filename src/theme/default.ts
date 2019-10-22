@@ -1,5 +1,3 @@
-import Theme from './theme';
-
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 0;
@@ -14,7 +12,7 @@ const TOP_BLEEDING = function(props) {
   return 24;
 };
 
-const commonTheme = {
+export const DEFAULT_GLOBAL_THEME = {
   width: 400,
   height: 400,
   bleeding: [TOP_BLEEDING, 24, 24, 24],
@@ -174,7 +172,7 @@ const commonTheme = {
   },
 };
 
-const theme = new Theme('default');
-theme.registerGlobalTheme(commonTheme);
-
-export default theme;
+// const theme = new Theme('default');
+// theme.registerGlobalTheme(DEFAULT_THEME);
+//
+// export default theme;

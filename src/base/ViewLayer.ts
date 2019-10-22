@@ -53,7 +53,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   }
 
   public getTheme(): any {
-    return this.themeController.getTheme(this.initialProps, this.type);
+    return this.themeController.getTheme(this.initialProps, this.getType());
   }
 
   public getResponsiveTheme() {
@@ -126,7 +126,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   protected init() {
     const props = this.initialProps;
-    const theme = this.themeController.getTheme(props, this.getType());
+    const theme = this.getTheme();
     this.plotTheme = this.themeController.getPlotTheme(props, this.getType());
 
     this.config = {

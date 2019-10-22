@@ -1,4 +1,4 @@
-import { defaultTheme } from '../../theme';
+import { registerTheme } from '../../theme';
 
 const PIE_ACTIVE_STYLE = (style) => {
   const opacity = style.opacity || 1;
@@ -10,7 +10,7 @@ const PIE_DISABLE_STYLE = (style) => {
   return { opacity: opacity * 0.5 };
 };
 
-defaultTheme.registerPlotTheme('pie', {
+registerTheme('pie', {
   columnStyle: {
     normal: {},
     active: PIE_ACTIVE_STYLE,

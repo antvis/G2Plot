@@ -178,7 +178,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
   }
 
   private onChange({ thumbOffset }: { thumbOffset: number }): void {
-    this.ratio = thumbOffset / this.trackLen;
+    this.ratio = clamp(thumbOffset / this.trackLen, 0, 1);
 
     const origAnimation = this.view.get('animation');
     this.view.animate(false);

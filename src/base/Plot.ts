@@ -1,5 +1,6 @@
 import { BBox } from '@antv/g';
 import { assign, deepMix, each, findIndex } from '@antv/util';
+import * as _ from '@antv/util';
 import BaseConfig from '../interface/config';
 import { RecursivePartial } from '../interface/types';
 import StateManager from '../util/stateManager';
@@ -241,4 +242,11 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @memberof BasePlot
    */
   protected abstract init(): void;
+
+  private isDiffCfg(config) {
+    return (name) => {
+      const current = this.getProps()[name];
+      return _.has(config, name) && config[name] !== current;
+    };
+  }
 }

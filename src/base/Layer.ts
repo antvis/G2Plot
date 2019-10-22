@@ -1,10 +1,11 @@
+import EventEmitter from '@antv/event-emitter';
 import { BBox } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { RecursivePartial } from '../interface/types';
 import CanvasController from './controller/canvas';
 import ThemeController from './controller/theme';
 
-export default abstract class Layer<T = void> {
+export default abstract class Layer<T = void> extends EventEmitter {
   public initialProps: T;
   public type: string;
   public destroyed: boolean = false;
@@ -14,6 +15,7 @@ export default abstract class Layer<T = void> {
   protected themeController: ThemeController;
 
   constructor(canvasController: CanvasController, themeController: ThemeController, range: BBox, config: T) {
+    super();
     this.canvasController = canvasController;
     this.themeController = themeController;
     this.initialProps = config;

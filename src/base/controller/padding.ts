@@ -44,8 +44,12 @@ export default class PaddingController {
     const viewRange = view.get('viewRange');
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
-    if (typeof bleeding[0] === 'function') {
-      bleeding[0] = bleeding[0](props);
+    if (_.isArray(bleeding)) {
+      _.each(bleeding, (it, index) => {
+        if (typeof bleeding[index] === 'function') {
+          bleeding[index] = bleeding[index](props);
+        }
+      });
     }
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = _.clone(bleeding);

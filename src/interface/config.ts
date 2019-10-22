@@ -94,7 +94,7 @@ interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type?: 'value' | 'time' | 'category';
+  type?: 'linear' | 'time' | 'cat' | 'dateTime' | 'category' | 'log' | 'pow' | 'timeCat';
   /** 轴位置，默认下和左 */
   position?: 'default' | 'opposite';
   line?: {
@@ -107,8 +107,8 @@ interface IBaseAxis {
         style: {};
       }
     | ((text: string, idx: number, count: number) => any);
-  autoRotateLabel: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
-  autoHideLabel: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
+  autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
+  autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   label?:
     | {
         visible?: boolean;
@@ -137,7 +137,7 @@ interface IBaseAxis {
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
-  type: 'value';
+  type: 'linear';
   /** tick相关配置 */
   min?: number;
   max?: number;

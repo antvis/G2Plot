@@ -242,11 +242,4 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @memberof BasePlot
    */
   protected abstract init(): void;
-
-  private isDiffCfg(config) {
-    return (name) => {
-      const current = this.getProps()[name];
-      return _.has(config, name) && config[name] !== current;
-    };
-  }
 }

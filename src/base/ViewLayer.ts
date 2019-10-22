@@ -75,6 +75,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const data = this.initialProps.data;
     if (!_.isEmpty(data)) {
       this.plot.render();
+      // fixme: 业务支持放一个勾子，待商榷
+      this.emit('afterrender');
     }
   }
 
@@ -91,10 +93,17 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       cfg.padding = 'auto';
     }
     const newProps = _.deepMix({}, this.initialProps, cfg);
+
     this.initialProps = newProps;
+    this.processData();
     this.beforeInit();
     this.init();
     this.afterInit();
+  }
+
+  // plot 不断销毁重建，需要一个api获取最新的plot
+  public getPlot() {
+    return this.plot;
   }
 
   // 绑定一个外部的stateManager
@@ -186,7 +195,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       end: { x: layerRange.maxX - marginRight, y: layerRange.maxY - marginBottom },
     });
     this._interactions();
-    this._events();
+    this._parserEvents();
     this.plot.on('afterrender', () => {
       this.afterRender();
     });
@@ -301,7 +310,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     });
   }
 
-  protected _events(eventParser?): void {
+  // fixme: 原函数名 _events 同event-emit重名，修改为_parserEvents
+  protected _parserEvents(eventParser?): void {
     const props = this.initialProps;
     if (props.events) {
       const events = props.events;

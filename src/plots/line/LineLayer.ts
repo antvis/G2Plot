@@ -177,8 +177,8 @@ export default class LineLayer extends ViewLayer<LineLayerConfig> {
     interactions.lineSelect = lineSelect;
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected afterRender() {

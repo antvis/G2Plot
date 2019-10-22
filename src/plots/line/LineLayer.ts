@@ -53,7 +53,7 @@ export interface LineLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class LineLayer extends ViewLayer<LineLayerConfig> {
+export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
 

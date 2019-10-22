@@ -1,12 +1,12 @@
-const { homepage, repository } = require('./package.json');
+const { repository } = require('./package.json');
 
 module.exports = {
-  pathPrefix: `/g2plot`,
   plugins: [
     {
       resolve: '@antv/gatsby-theme-antv',
       options: {
         GATrackingId: `UA-148148901-2`,
+        pathPrefix: '/g2plot',
       },
     },
   ],
@@ -14,12 +14,7 @@ module.exports = {
   siteMetadata: {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
-    siteUrl: homepage,
     githubUrl: repository.url,
-    languages: {
-      langs: ['en', 'zh'],
-      defaultLangKey: 'zh',
-    },
     docs: [
       {
         slug: 'manual',

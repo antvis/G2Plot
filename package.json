@@ -20,6 +20,9 @@
   },
   "scripts": {
     "start": "gatsby develop --open",
+    "clean:site": "gatsby clean",
+    "build:site": "npm run clean:site && gatsby build",
+    "deploy": "npm run build:site && gh-pages -d public",
     "prepublishOnly": "run-s lint-check test build",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
@@ -62,7 +65,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.2.7",
+    "@antv/gatsby-theme-antv": "^0.3.0",
     "@antv/torch": "~1.0.5",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
@@ -70,6 +73,7 @@
     "event-simulate": "^1.0.0",
     "gatsby": "^2.16.0",
     "get-port": "^5.0.0",
+    "gh-pages": "^2.1.1",
     "husky": "^3.0.4",
     "i18next": "^17.2.0",
     "lint-staged": "^9.2.3",

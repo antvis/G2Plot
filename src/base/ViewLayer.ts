@@ -46,7 +46,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     /**
      * 启动主流程，挂载钩子
      */
-    this.processData(this.initialProps.data);
     this.beforeInit();
     this.init();
     this.afterInit();
@@ -95,7 +94,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const newProps = _.deepMix({}, this.initialProps, cfg);
 
     this.initialProps = newProps;
-    this.processData(this.initialProps.data);
     this.beforeInit();
     this.init();
     this.afterInit();
@@ -252,6 +250,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       }
       return scaleConfig;
     });
+    console.log(scales);
     this.setConfig('scales', scales);
   }
 

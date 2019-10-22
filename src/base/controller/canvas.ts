@@ -48,6 +48,7 @@ export default class CanvasController {
     this.width = size.width;
     this.height = size.height;
     this.canvas.changeSize(size.width, size.height);
+    this.plot.updateRange();
   }
 
   public updateCanvasStyle(styles: { [attr: string]: string | number }) {
@@ -65,6 +66,7 @@ export default class CanvasController {
         return;
       }
       this.updateCanvasSize();
+      this.plot.updateRange();
       this.plot.updateConfig({});
       this.plot.render();
     }, 300);

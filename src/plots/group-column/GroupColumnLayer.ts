@@ -6,6 +6,10 @@ export interface GroupColumnLayerConfig extends ColumnLayerConfig {
 }
 
 export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerConfig> {
+  // fixme: groupColumn Responsive未注册
+  public getResponsiveTheme() {
+    return this.themeController.getResponsiveTheme('column');
+  }
   protected setType() {
     this.type = 'groupColumn';
   }

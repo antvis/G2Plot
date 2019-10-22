@@ -1,5 +1,6 @@
 import { BBox } from '@antv/g';
 import { assign, deepMix, each, findIndex } from '@antv/util';
+import * as _ from '@antv/util';
 import BaseConfig from '../interface/config';
 import { RecursivePartial } from '../interface/types';
 import StateManager from '../util/stateManager';
@@ -41,11 +42,21 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   /**
+   * 更新图形size
+   * @param config
+   */
+  public updateRange() {
+    each(this.layers, (layer) => {
+      const newRange = this.getPlotRange();
+      layer.updateRange(newRange);
+    });
+  }
+
+  /**
    * 更新图形配置
    */
   public updateConfig(config: RecursivePartial<T>) {
     this.updateConfigBase(config);
-
     each(this.layers, (layer) => {
       layer.updateConfig(config);
     });
@@ -95,10 +106,12 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   /**
-   * 获取顶层g2的plot实例
+   * 获取g2的plot实例, 默认顶层
    */
-  public getPlot() {
-    return this.getLayer(0); // layers[0] 即顶层实例
+  public getPlot(idx: number = 0) {
+    const layer = this.getLayer(idx);
+    // @ts-ignore
+    return layer.plot; // layers[0] 即顶层实例
   }
 
   /**

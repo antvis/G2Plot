@@ -246,9 +246,10 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const props = this.initialProps;
     const scales = _.mapValues(this.config.scales, (scaleConfig: any, field: string) => {
       const meta: Config['meta']['key'] = _.get(props.meta, field);
+      const type = scaleConfig.type;
       // meta中存在对应配置，则补充入
       if (meta) {
-        return _.assign({}, scaleConfig, meta);
+        return _.assign({}, scaleConfig, type ? { ...meta, type } : meta);
       }
       return scaleConfig;
     });

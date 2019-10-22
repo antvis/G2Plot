@@ -1,7 +1,7 @@
 import { BBox, Group } from '@antv/g';
 import { ScrollBar } from '@antv/gui';
 import { Scale } from '@antv/scale';
-import { clamp, each, isEqual, map, throttle } from '@antv/util';
+import { clamp, get, isEqual, map, throttle } from '@antv/util';
 import { IScrollBarInteractionConfig } from '../interface/config';
 import BaseInteraction from './BaseInteraction';
 
@@ -160,11 +160,14 @@ export default class ScrollBarInteraction extends BaseInteraction {
   }
 
   private changeViewRange([startIdx, endIdx]: [number, number]): void {
+    const { meta } = this.getViewLayer().initialProps;
     const newData: object[] = this.getViewLayer().getData(startIdx, endIdx);
 
     // ScrollBar在滚动过程中保持Y轴上scale配置: min/max/ticks
     this.yScalesCfg.forEach((cfg) => {
+      const metaCfg = get(meta, cfg.field) || {};
       this.view.scale(cfg.field, {
+        ...metaCfg,
         type: cfg.type as 'linear' | 'cat' | 'log' | 'pow' | 'identity' | 'time',
         min: cfg.min,
         max: cfg.max,

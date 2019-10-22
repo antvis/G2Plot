@@ -77,6 +77,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const data = this.initialProps.data;
     if (!_.isEmpty(data)) {
       this.plot.render();
+      // fixme: 业务支持放一个勾子，待商榷
       this.emit('afterrender');
     }
   }

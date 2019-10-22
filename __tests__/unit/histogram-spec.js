@@ -1,4 +1,5 @@
 import { Histogram } from '../../src';
+import { expect } from 'chai';
 
 describe('Histogram plot', () => {
   const canvasDiv = document.createElement('div');
@@ -66,12 +67,50 @@ describe('Histogram plot', () => {
     { value: 23.4 },
   ];
 
-  const histogram = new Histogram(canvasDiv, {
-    width: 300,
-    height: 300,
-    data,
-    binField: 'value',
-    binWidth: 2,
+  it('binWidth', () => {
+    const histogram = new Histogram(canvasDiv, {
+      width: 300,
+      height: 300,
+      data,
+      binField: 'value',
+      binWidth: 2,
+    });
+    histogram.render();
+    const layer = histogram.getLayer();
+    const geom = layer.plot.get('elements')[0];
+    const shapeOrigin = geom.getShapes()[0].get('origin')._origin;
+    expect(shapeOrigin.range[1] - shapeOrigin.range[0]).to.be.equal(2);
+    histogram.destroy();
   });
-  histogram.render();
+
+  it('binNumber', () => {
+    const histogram = new Histogram(canvasDiv, {
+      width: 300,
+      height: 300,
+      data,
+      binField: 'value',
+      binNumber: 4,
+    });
+    histogram.render();
+    const layer = histogram.getLayer();
+    const geom = layer.plot.get('elements')[0];
+    const shapes = geom.getShapes();
+    expect(shapes.length).to.be.equal(5);
+    histogram.destroy();
+  });
+
+  it('automatic calculate binNumber', () => {
+    const histogram = new Histogram(canvasDiv, {
+      width: 300,
+      height: 300,
+      data,
+      binField: 'value',
+    });
+    histogram.render();
+    const layer = histogram.getLayer();
+    const geom = layer.plot.get('elements')[0];
+    const shapes = geom.getShapes();
+    expect(shapes.length).to.be.equal(8);
+    histogram.destroy();
+  });
 });

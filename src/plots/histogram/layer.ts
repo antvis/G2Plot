@@ -7,6 +7,10 @@ export interface HistogramLayerConfig extends ColumnLayerConfig {
   binNumber?: number;
 }
 
+function sturges(values) {
+  return Math.ceil(Math.log(values.length) / Math.LN2) + 1;
+}
+
 export default class HistogramLayer extends Column<HistogramLayerConfig> {
   protected setType() {
     this.type = 'histogram';
@@ -22,10 +26,15 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     const range = _.getRange(values);
     const rangeWidth = range.max - range.min;
     // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
-    // todo: 当binWidth和binNumber都没有指定的情况，采用Sturges formula自动生成binWidth
+
     let _binWidth = binWidth;
     if (!binWidth && binNumber) {
       _binWidth = rangeWidth / binNumber;
+    }
+    // 当binWidth和binNumber都没有指定的情况，采用Sturges formula自动生成binWidth
+    if (!binWidth && binNumber) {
+      const _defaultBinNumber = sturges(values);
+      _binWidth = rangeWidth / _defaultBinNumber;
     }
     const bins = {};
     _.each(originData_copy, (data) => {

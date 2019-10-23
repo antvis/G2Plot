@@ -1,8 +1,8 @@
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
-import Line, { LineLayerConfig } from '../line/LineLayer';
+import Area, { AreaLayerConfig } from '../area/areaLayer';
 
-export interface DensityLayerConfig extends LineLayerConfig {
+export interface DensityLayerConfig extends AreaLayerConfig {
   binField: string;
   binWidth?: number;
   kernel?: 'uniform' | 'triangle' | 'epanechnikov' | 'quartic' | 'triweight' | 'gaussian' | 'cosinus';
@@ -35,15 +35,17 @@ const kernels = {
   },
 };
 
-export default class DensityLayer extends Line<DensityLayerConfig> {
+export default class DensityLayer extends Area<DensityLayerConfig> {
   protected setType() {
     this.type = 'density';
   }
 
   protected beforeInit() {
     super.beforeInit();
+    const originXAxisConfig = this.initialProps.xAxis ? _.clone(this.initialProps.xAxis) : {};
     this.initialProps.xField = 'value';
     this.initialProps.yField = 'density';
+    this.initialProps.xAxis = _.deepMix({}, originXAxisConfig, { type: 'linear' });
     this.initialProps.smooth = true;
   }
 

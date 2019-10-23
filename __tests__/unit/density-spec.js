@@ -74,6 +74,7 @@ describe('Density plot', () => {
       data,
       binField: 'value',
       binWidth: 2,
+      responsive: true,
     });
     density.render();
   });

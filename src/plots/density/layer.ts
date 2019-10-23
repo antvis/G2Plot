@@ -1,6 +1,6 @@
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
-import Area, { AreaLayerConfig } from '../area/areaLayer';
+import Area, { AreaLayerConfig } from '../area/AreaLayer';
 
 export interface DensityLayerConfig extends AreaLayerConfig {
   binField: string;

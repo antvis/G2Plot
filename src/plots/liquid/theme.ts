@@ -1,6 +1,6 @@
-import { defaultTheme } from '../../theme';
+import { registerTheme } from '../../theme';
 
-defaultTheme.registerPlotTheme('liquid', {
+registerTheme('liquid', {
   color: '#3B76FF',
   borderWidth: 10,
   borderOpacity: 0.2,

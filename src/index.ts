@@ -12,6 +12,7 @@ export { default as Column, ColumnConfig } from './plots/column';
 export { default as GroupColumn, GroupColumnConfig } from './plots/group-column';
 export { default as StackColumn, StackColumnConfig } from './plots/stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './plots/percentage-stack-column';
+export { default as Histogram, HistogramConfig } from './plots/histogram';
 export { default as Bar, BarConfig } from './plots/bar';
 export { default as StackBar, StackBarConfig } from './plots/stack-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './plots/percentage-stack-bar';

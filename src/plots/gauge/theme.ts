@@ -1,6 +1,6 @@
-import { defaultTheme } from '../../theme';
+import { registerTheme } from '../../theme';
 
-defaultTheme.registerPlotTheme('gauge', {
+registerTheme('gauge', {
   stripWidth: 30,
   stripBackColor: '#ddd',
   tickInterval: 20,

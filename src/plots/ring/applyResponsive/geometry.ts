@@ -1,6 +1,5 @@
 import { getCoordinate } from '@antv/coord';
 import VariableNodes from '../../../util/responsive/node/variableNode';
-// import responsiveTheme from '../../../theme/responsive';
 import Responsive from '../../../util/responsive/responsive';
 import RingLayer from '../RingLayer';
 

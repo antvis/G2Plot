@@ -46,14 +46,13 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     /**
      * 启动主流程，挂载钩子
      */
-    this.processData();
     this.beforeInit();
     this.init();
     this.afterInit();
   }
 
   public getTheme(): any {
-    return this.themeController.getTheme(this.initialProps, this.type);
+    return this.themeController.getTheme(this.initialProps, this.getType());
   }
 
   public getResponsiveTheme() {
@@ -95,7 +94,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const newProps = _.deepMix({}, this.initialProps, cfg);
 
     this.initialProps = newProps;
-    this.processData();
     this.beforeInit();
     this.init();
     this.afterInit();
@@ -135,7 +133,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   protected init() {
     const props = this.initialProps;
-    const theme = this.themeController.getTheme(props, this.getType());
+    const theme = this.getTheme();
     this.plotTheme = this.themeController.getPlotTheme(props, this.getType());
 
     this.config = {
@@ -253,6 +251,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       }
       return scaleConfig;
     });
+    console.log(scales);
     this.setConfig('scales', scales);
   }
 

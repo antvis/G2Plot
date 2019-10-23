@@ -251,7 +251,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       }
       return scaleConfig;
     });
-    console.log(scales);
     this.setConfig('scales', scales);
   }
 

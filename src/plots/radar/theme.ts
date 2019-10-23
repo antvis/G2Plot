@@ -1,4 +1,4 @@
-import { defaultTheme } from '../../theme';
+import { registerTheme } from '../../theme';
 
 const AREA_ACTIVE_STYLE = (style) => {
   const opacity = style.opacity || 1;
@@ -58,7 +58,7 @@ const POINT_DISABLED_STYLE = (style) => {
   return { opacity: opacity * 0.5 };
 };
 
-defaultTheme.registerPlotTheme('radar', {
+registerTheme('radar', {
   areaStyle: {
     normal: {},
     active: AREA_ACTIVE_STYLE,

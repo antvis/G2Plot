@@ -1,10 +1,12 @@
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
+import { sturges } from '../../util/math';
 import Area, { AreaLayerConfig } from '../area/AreaLayer';
 
 export interface DensityLayerConfig extends AreaLayerConfig {
   binField: string;
   binWidth?: number;
+  binNumber?: number;
   kernel?: 'uniform' | 'triangle' | 'epanechnikov' | 'quartic' | 'triweight' | 'gaussian' | 'cosinus';
 }
 
@@ -50,27 +52,41 @@ export default class DensityLayer extends Area<DensityLayerConfig> {
   }
 
   protected processData(originData?: object[]) {
-    const { binField, binWidth, kernel } = this.initialProps;
+    const { binField, binWidth, binNumber, kernel } = this.initialProps;
     const _kernel = kernel ? kernel : 'epanechnikov';
     const kernelFunc = kernels[_kernel];
     const originData_copy = _.clone(originData);
     _.sortBy(originData_copy, binField);
-    // 根据binWidth获取samples
+    // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
     const values = _.valuesOfKey(originData_copy, binField);
     const range = _.getRange(values);
-    const binNumber = Math.floor((range.max - range.min) / binWidth);
+    const rangeWidth = range.max - range.min;
+    let _binNumber = binNumber;
+    let _binWidth = binWidth;
+    if (!binNumber && binWidth) {
+      _binNumber = Math.floor(rangeWidth / binWidth);
+    }
+    if (!binWidth && binNumber) {
+      _binWidth = rangeWidth / binNumber;
+    }
+    // 当binWidth和binNumber都没有指定的情况，采用Sturges formula自动生成binWidth
+    if (!binNumber && !binWidth) {
+      _binNumber = sturges(values);
+      _binWidth = rangeWidth / binNumber;
+    }
+    // 根据binNumber获取samples
     const LinearScale = getScale('linear');
     const scale = new LinearScale({
       min: range.min,
       max: range.max,
-      tickCount: binNumber,
+      tickCount: _binNumber,
       nice: false,
     });
     const samples = scale.getTicks();
     // 计算KDE
     const densities = [];
     _.each(samples, (s) => {
-      const density = this._kernelDensityEstimator(binWidth, kernelFunc, s, values);
+      const density = this._kernelDensityEstimator(_binWidth, kernelFunc, s, values);
       densities.push({ value: s.text, density });
     });
 

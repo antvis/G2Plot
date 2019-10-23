@@ -1,14 +1,11 @@
 import * as _ from '@antv/util';
+import { sturges } from '../../util/math';
 import Column, { ColumnLayerConfig } from '../column/ColumnLayer';
 
 export interface HistogramLayerConfig extends ColumnLayerConfig {
   binField: string;
   binWidth?: number;
   binNumber?: number;
-}
-
-function sturges(values) {
-  return Math.ceil(Math.log(values.length) / Math.LN2) + 1;
 }
 
 export default class HistogramLayer extends Column<HistogramLayerConfig> {

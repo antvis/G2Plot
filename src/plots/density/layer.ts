@@ -1,3 +1,4 @@
+import { DataPointType } from '@antv/g2/lib/interface';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import { sturges } from '../../util/math';
@@ -55,10 +56,10 @@ export default class DensityLayer extends Area<DensityLayerConfig> {
     const { binField, binWidth, binNumber, kernel } = this.initialProps;
     const _kernel = kernel ? kernel : 'epanechnikov';
     const kernelFunc = kernels[_kernel];
-    const originData_copy = _.clone(originData);
-    _.sortBy(originData_copy, binField);
+    const originDataCopy = _.clone(originData);
+    _.sortBy(originDataCopy, binField);
     // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
-    const values = _.valuesOfKey(originData_copy, binField);
+    const values = _.valuesOfKey(originDataCopy, binField);
     const range = _.getRange(values);
     const rangeWidth = range.max - range.min;
     let _binNumber = binNumber;
@@ -86,19 +87,24 @@ export default class DensityLayer extends Area<DensityLayerConfig> {
     // 计算KDE
     const densities = [];
     _.each(samples, (s) => {
-      const density = this._kernelDensityEstimator(_binWidth, kernelFunc, s, values);
+      const density = this.kernelDensityEstimator(_binWidth, kernelFunc, s, values);
       densities.push({ value: s.text, density });
     });
 
     return densities;
   }
 
-  private _kernelDensityEstimator(binWidth, kernelFunc, x, values) {
+  private kernelDensityEstimator(
+    binWidth: number,
+    kernelFunc: (dist: number) => number,
+    x: DataPointType,
+    values: number[]
+  ) {
     let sum = 0;
     _.each(values, (v) => {
       const dist = (x.tickValue - v) / binWidth;
       sum += kernelFunc(dist);
     });
-    return sum === 0 ? 0 : sum / values.length;
+    return values.length === 0 ? 0 : sum / values.length;
   }
 }

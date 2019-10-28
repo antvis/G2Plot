@@ -317,7 +317,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
       _.each(events, (e, k) => {
         if (_.isFunction(e)) {
-          const eventName = eventmap[k];
+          const eventName = eventmap[k] || k;
           const handler = e;
           onEvent(this, eventName, handler);
         }

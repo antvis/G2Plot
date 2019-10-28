@@ -21,10 +21,10 @@ export default class ThemeController<T extends BaseConfig = BaseConfig> {
   public getPlotTheme(props: T, type: string) {
     const { theme } = props;
 
-    // 用户配置了 theme 主题板，则从配套中选择，否则使用默认的配置 + theme
-    const themeBase = _.isString(theme) ? getGlobalTheme(theme) : _.deepMix({}, getGlobalTheme(), theme);
-
-    return _.deepMix({}, themeBase, getTheme(type));
+    if (_.isString(theme)) {
+      return _.deepMix({}, getGlobalTheme(theme), getTheme(type));
+    }
+    return _.deepMix({}, getGlobalTheme(), getTheme(type), theme);
   }
 
   /**

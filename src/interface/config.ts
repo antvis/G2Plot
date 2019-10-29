@@ -75,12 +75,14 @@ export default interface Config {
 type Formatter = (value: any, index?: number, ...args: any[]) => string;
 
 interface ITitle {
+  visible: boolean;
   text: string;
   style?: {};
   alignWithAxis?: boolean;
 }
 
 interface IDescription {
+  visible: boolean;
   text: string;
   style?: {};
   alignWithAxis?: boolean;

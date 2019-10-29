@@ -329,7 +329,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const props = this.initialProps;
     const range = this.range;
     this.title = null;
-    if (props.title) {
+    if (props.title && props.title.visible) {
       const width = this.getLayerWidth();
       const theme = this.config.theme;
       const title = new TextDescription({
@@ -350,7 +350,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const range = this.range;
     this.description = null;
 
-    if (props.description) {
+    if (props.description && props.description.visible) {
       const width = this.getLayerWidth();
 
       let topMargin = range.minY;

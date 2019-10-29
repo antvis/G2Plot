@@ -1,6 +1,5 @@
 import { BBox } from '@antv/g';
-import { assign, deepMix, each, findIndex } from '@antv/util';
-import * as _ from '@antv/util';
+import { deepMix, each, findIndex } from '@antv/util';
 import BaseConfig from '../interface/config';
 import { RecursivePartial } from '../interface/types';
 import StateManager from '../util/stateManager';
@@ -23,9 +22,9 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   private canvasController: CanvasController;
   private themeController: ThemeController;
 
-  constructor(container: string | HTMLElement, config: T) {
-    this.initialProps = config;
-    this.originalProps = deepMix({}, config);
+  constructor(container: string | HTMLElement, props: T) {
+    this.initialProps = props;
+    this.originalProps = deepMix({}, props);
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
 
     // themeController 在 Plot 级别
@@ -43,11 +42,10 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
 
   /**
    * 更新图形size
-   * @param config
    */
   public updateRange() {
-    each(this.layers, (layer) => {
-      const newRange = this.getPlotRange();
+    const newRange = this.getPlotRange();
+    this.eachLayer((layer) => {
       layer.updateRange(newRange);
     });
   }
@@ -57,7 +55,8 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    */
   public updateConfig(config: RecursivePartial<T>) {
     this.updateConfigBase(config);
-    each(this.layers, (layer) => {
+
+    this.eachLayer((layer) => {
       layer.updateConfig(config);
     });
   }
@@ -68,7 +67,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @param data
    */
   public changeData(data: any[]) {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       layer.changeData(data);
     });
   }
@@ -84,7 +83,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * 完整生命周期渲染
    */
   public render(): void {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       layer.render();
     });
   }
@@ -98,8 +97,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
 
   /**
    * 获取图形下的图层 Layer，默认第一个 Layer
-   *
-   * @param idx {number}
+   * @param idx
    */
   public getLayer(idx: number = 0) {
     return this.layers[idx];
@@ -122,7 +120,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @param cfg
    */
   public bindStateManager(stateManager: StateManager, cfg: any) {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
         layer.bindStateManager(stateManager, cfg);
       }
@@ -136,7 +134,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @param style
    */
   public setActive(condition: any, style: any) {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
         layer.setActive(condition, style);
       }
@@ -144,7 +142,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   public setSelected(condition: any, style: any) {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
         layer.setSelected(condition, style);
       }
@@ -152,7 +150,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   public setDisable(condition: any, style: any) {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
         layer.setDisable(condition, style);
       }
@@ -160,7 +158,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   public setNormal(condition: any) {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
         layer.setNormal(condition);
       }
@@ -173,7 +171,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @memberof BasePlot
    */
   public destroy(): void {
-    each(this.layers, (layer) => {
+    this.eachLayer((layer) => {
       layer.destroy();
     });
 
@@ -240,4 +238,8 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
    * @memberof BasePlot
    */
   protected abstract init(): void;
+
+  private eachLayer(cb: (layer) => void) {
+    each(this.layers, cb);
+  }
 }

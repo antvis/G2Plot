@@ -178,8 +178,6 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
     });
 
     this.canvasController.destroy();
-    const canvasDOM = this.canvasController.canvas.get('canvasDOM');
-    canvasDOM.parentNode.removeChild(canvasDOM);
 
     this.layers = [];
     this.destroyed = true;

@@ -201,7 +201,10 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     const label = props.label as Label;
 
     if (label && label.visible === false) {
-      this.line.label = false;
+      if (this.line) {
+        this.line.label = false;
+      }
+      this.area.label = false;
       return;
     }
     this.area.label = getComponent('label', {

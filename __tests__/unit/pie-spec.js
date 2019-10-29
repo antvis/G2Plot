@@ -260,12 +260,14 @@ describe('Pie plot', () => {
       width: 600,
       height: 600,
       title: {
+        visible: true,
         text: 'title',
         style: {
           fill: 'red',
         },
       },
       description: {
+        visible: true,
         text: 'description',
         style: {
           fill: 'red',

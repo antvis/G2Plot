@@ -331,3 +331,11 @@ export interface IInteractions {
   type: string;
   cfg?: IInteractionConfig;
 }
+
+/**
+ * 一个点位置
+ */
+export interface Point {
+  readonly x: number;
+  readonly y: number;
+}

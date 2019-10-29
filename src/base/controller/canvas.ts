@@ -12,7 +12,10 @@ export interface CanvasControllerCfg {
 }
 
 /**
- * 负责图表canvas画布的创建、更新、销毁
+ * Canvas controller
+ * 1. create G.Canvas, destroy G.Canvas
+ * 2. process auto fit container
+ * 3. API for G.Canvas
  */
 
 export default class CanvasController {

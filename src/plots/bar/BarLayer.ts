@@ -106,6 +106,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       axesConfig.fields[props.xField] = false;
     } else if (props.xAxis) {
       extractAxis(axesConfig.fields[props.xField], props.xAxis);
+      axesConfig.fields[props.xField].autoRotateTitle = false;
     }
 
     if (
@@ -115,6 +116,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       axesConfig.fields[props.yField] = false;
     } else if (props.yAxis) {
       extractAxis(axesConfig.fields[props.yField], props.yAxis);
+      axesConfig.fields[props.yField].autoRotateTitle = true;
     }
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);

@@ -24,7 +24,7 @@ export interface Range {
   height: number;
 }
 
-export default abstract class Layer<T = void> extends EventEmitter {
+export default class Layer<T = void> extends EventEmitter {
   public x: number;
   public y: number;
   public width: number;
@@ -35,6 +35,7 @@ export default abstract class Layer<T = void> extends EventEmitter {
   public layers: Layer[] = [];
   public container: Group;
   protected visibility: boolean = true;
+  protected destroyed: boolean = false;
   protected layerRegion: Region;
 
   constructor(props: LayerCfg) {
@@ -55,7 +56,25 @@ export default abstract class Layer<T = void> extends EventEmitter {
     this.layerRegion = this.calculateLayerRegion();
   }
 
-  public render() {}
+  public render() {
+    this.canvas.draw();
+  }
+
+  public clear() {
+    this.eachLayer((layer) => {
+      layer.destory();
+    });
+    this.layers = [];
+    this.container.clear();
+  }
+
+  public destory() {
+    this.eachLayer((layer) => {
+      layer.destory();
+    });
+    this.container.remove(true);
+    this.destroyed = true;
+  }
 
   public show() {
     this.container.set('visible', true);
@@ -65,6 +84,17 @@ export default abstract class Layer<T = void> extends EventEmitter {
   public hide() {
     this.container.set('visible', false);
     this.visibility = false;
+  }
+
+  public addLayer(layer: Layer) {
+    this.layers.push(layer);
+  }
+
+  public removeLayer(layer: Layer) {
+    const idx = _.findIndex(this.layers, (item) => item === layer);
+    if (idx >= 0) {
+      this.layers.splice(idx, 1);
+    }
   }
 
   public updateRange(props: Range, recursive: boolean = true) {

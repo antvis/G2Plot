@@ -73,9 +73,9 @@ export default class ScrollBarInteraction extends BaseInteraction {
   private thumbOffset: number;
   private trackLen: number;
   private thumbLen: number;
-  private onChangeFn: ({ ratio: number }) => void = throttle(this.onChange.bind(this), 20, {
+  private onChangeFn = throttle(this.onChange.bind(this), 20, {
     leading: true,
-  }) as ({ ratio: number }) => void;
+  });
 
   protected render(): void {
     const view = this.view;
@@ -87,7 +87,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
       if (!isEqual([0, 0, 0, 0], padding)) {
         if (!this.trackLen) {
           this.measureScrollBar();
-          this.changeViewRange(this.getScrollRange());
+          this.changeViewData(this.getScrollRange());
         } else {
           this.renderScrollbar();
         }
@@ -169,7 +169,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
     return [startIdx, endIdx];
   }
 
-  private changeViewRange([startIdx, endIdx]: [number, number]): void {
+  private changeViewData([startIdx, endIdx]: [number, number]): void {
     const viewLayer: ViewLayer = this.getViewLayer();
     const { meta } = viewLayer.initialProps;
     const origData: object[] = viewLayer.getData();
@@ -198,7 +198,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
 
     const origAnimation = this.view.get('animation');
     this.view.animate(false);
-    this.changeViewRange(this.getScrollRange());
+    this.changeViewData(this.getScrollRange());
     this.view.animate(origAnimation);
   }
 }

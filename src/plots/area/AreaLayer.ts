@@ -1,6 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -56,7 +56,7 @@ export interface AreaLayerConfig extends BaseConfig {
   };
 }
 
-export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends BaseLayer<T> {
+export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
   public line: any;
   public point: any;
   public area: any;
@@ -192,8 +192,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected _interactions() {}
-
   protected _annotation() {}
 
   protected _animation() {}
@@ -203,7 +201,10 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     const label = props.label as Label;
 
     if (label && label.visible === false) {
-      this.line.label = false;
+      if (this.line) {
+        this.line.label = false;
+      }
+      this.area.label = false;
       return;
     }
     this.area.label = getComponent('label', {
@@ -212,8 +213,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     });
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected afterRender() {

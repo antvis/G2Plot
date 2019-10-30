@@ -1,3 +1,4 @@
+import { Axis } from '@antv/component';
 import * as _ from '@antv/util';
 import ShapeNodes from '../node/shapeNodes';
 import Responsive from '../responsive';
@@ -39,12 +40,19 @@ function updateTicks(nodes, axis) {
 
 export default class ApplyResponsiveAxis extends ApplyResponsive {
   private dim: string;
+  private axisInstance: Axis.Base;
+
+  protected init() {
+    this.axisInstance = this.getAxisInstance();
+    super.init();
+  }
 
   protected shouldApply() {
     if (!this.responsiveTheme.axis) {
       return false;
     }
-    if (this.responsiveTheme.axis[this.dim] && this.type) {
+
+    if (this.responsiveTheme.axis[this.dim] && this.type && this.axisInstance) {
       return true;
     }
     return false;
@@ -88,5 +96,11 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     }
     const scaleType = this.plot.plot.get('scales')[props[field]].type;
     return SCALE_MAPPER[scaleType];
+  }
+
+  private getAxisInstance() {
+    const axisIndex = this.dim === 'x' ? 0 : 1;
+    const axis = this.plot.plot.get('axisController').axes[axisIndex];
+    return axis;
   }
 }

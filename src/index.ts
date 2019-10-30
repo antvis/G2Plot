@@ -7,11 +7,15 @@ export { default as Layer } from './base/Layer';
 export { default as ViewLayer } from './base/ViewLayer';
 export { default as Base } from './base/Plot';
 export { default as Line, LineConfig } from './plots/line';
+export { default as Density, DensityConfig } from './plots/density';
 export { default as Column, ColumnConfig } from './plots/column';
 export { default as GroupColumn, GroupColumnConfig } from './plots/group-column';
 export { default as StackColumn, StackColumnConfig } from './plots/stack-column';
+export { default as PercentageStackColumn, PercentageStackColumnConfig } from './plots/percentage-stack-column';
+export { default as Histogram, HistogramConfig } from './plots/histogram';
 export { default as Bar, BarConfig } from './plots/bar';
 export { default as StackBar, StackBarConfig } from './plots/stack-bar';
+export { default as PercentageStackBar, PercentageStackBarConfig } from './plots/percentage-stack-bar';
 export { default as GroupBar, GroupBarConfig } from './plots/group-bar';
 export { default as Pie, PieConfig } from './plots/pie';
 export { default as Ring, RingConfig } from './plots/ring';
@@ -20,6 +24,7 @@ export { default as Liquid, LiquidConfig } from './plots/liquid';
 export { default as Gauge, GaugeConfig } from './plots/gauge';
 export { default as Area, AreaConfig } from './plots/area';
 export { default as StackArea, StackAreaConfig } from './plots/stack-area';
+export { default as PercentageStackArea, PercentageStackAreaConfig } from './plots/percentage-stack-area';
 
 // MINI 图形
 export { TinyLayerConfig } from './tinyPlots/TinyLayer';

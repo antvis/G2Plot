@@ -10,7 +10,8 @@
     "object-literal-sort-keys": false,
     "no-unused-expression": [true, "allow-new"],
     "no-empty": false,
-    "no-console": false
+    "no-console": false,
+    "no-empty-interface": false
   },
   "rulesDirectory": []
 }

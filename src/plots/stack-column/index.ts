@@ -1,16 +1,16 @@
 import Column from '../column';
 import StackColumnLayer, { StackColumnLayerConfig } from './StackColumnLayer';
 
-export { StackColumnLayerConfig as StackColumnConfig };
+export interface StackColumnConfig extends StackColumnLayerConfig {}
 
-export default class StackColumn extends Column<StackColumnLayerConfig> {
-  protected addColumnLayer(): void {
-    this.columnLayer = new StackColumnLayer(
+export default class StackColumn extends Column<StackColumnConfig> {
+  protected init() {
+    const layer = new StackColumnLayer(
       this.getCanvasController(),
       this.getThemeController(),
       this.getPlotRange(),
       this.initialProps
     );
-    this.addLayer(this.columnLayer);
+    this.addLayer(layer);
   }
 }

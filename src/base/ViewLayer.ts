@@ -3,6 +3,7 @@ import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
+import BaseInteraction, { InteractionCtor } from '../interaction';
 import Config, { G2Config } from '../interface/config';
 import { MarginPadding } from '../interface/types';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -25,6 +26,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   protected container: Group;
   protected paddingController: PaddingController;
   protected stateController: StateController;
+  private interactions: BaseInteraction[];
 
   constructor(canvasController: CanvasController, themeController: ThemeController, range: BBox, config: T) {
     /**
@@ -50,7 +52,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   }
 
   public getTheme(): any {
-    return this.themeController.getTheme(this.initialProps, this.type);
+    return this.themeController.getTheme(this.initialProps, this.getType());
   }
 
   public getResponsiveTheme() {
@@ -64,7 +66,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   /** 修改数据 */
   public changeData(data: object[]): void {
-    this.plot.changeData(data);
+    this.plot.changeData(this.processData(data));
   }
 
   /** 完整生命周期渲染 */
@@ -72,6 +74,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const data = this.initialProps.data;
     if (!_.isEmpty(data)) {
       this.plot.render();
+      // fixme: 业务支持放一个勾子，待商榷
+      this.emit('afterrender');
     }
   }
 
@@ -88,10 +92,16 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       cfg.padding = 'auto';
     }
     const newProps = _.deepMix({}, this.initialProps, cfg);
+
     this.initialProps = newProps;
     this.beforeInit();
     this.init();
     this.afterInit();
+  }
+
+  // plot 不断销毁重建，需要一个api获取最新的plot
+  public getPlot() {
+    return this.plot;
   }
 
   // 绑定一个外部的stateManager
@@ -116,11 +126,14 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     this.stateController.setState({ type: 'normal', condition, style: {} });
   }
 
-  protected abstract geometryParser(dim: string, type: string): string;
+  // 获取 ViewLayer 的数据项
+  public getData(start?: number, end?: number): object[] {
+    return this.processData((this.initialProps.data || []).slice(start, end));
+  }
 
   protected init() {
     const props = this.initialProps;
-    const theme = this.themeController.getTheme(props, this.getType());
+    const theme = this.getTheme();
     this.plotTheme = this.themeController.getPlotTheme(props, this.getType());
 
     this.config = {
@@ -154,7 +167,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     this._title(panelRange);
     this._description(panelRange);
 
-    const viewMargin = this.getViewMargin();
+    const layerRange = this.getLayerRange();
+    const [marginTop, marginRight, marginBottom, marginLeft] = this.getViewMargin();
 
     this._setDefaultG2Config();
     this._coord();
@@ -172,14 +186,14 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       canvas: this.canvas,
       container: this.container,
       padding: this.paddingController.getPadding(),
-      data: props.data,
+      data: this.processData(props.data),
       theme: this.config.theme,
       options: this.config,
-      start: { x: this.getLayerRange().minX, y: this.getLayerRange().minY + viewMargin[0] },
-      end: this.getLayerRange().br,
+      start: { x: layerRange.minX + marginLeft, y: layerRange.minY + marginTop },
+      end: { x: layerRange.maxX - marginRight, y: layerRange.maxY - marginBottom },
     });
     this._interactions();
-    this._events();
+    this._parserEvents();
     this.plot.on('afterrender', () => {
       this.afterRender();
     });
@@ -194,7 +208,34 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   protected abstract _annotation(): void;
   protected abstract _addGeometry(): void;
   protected abstract _animation(): void;
-  protected abstract _interactions(): void;
+
+  protected abstract geometryParser(dim: string, type: string): string;
+
+  protected processData(data?: object[]): object[] | undefined {
+    return data;
+  }
+
+  protected _interactions(): void {
+    const { interactions = [] } = this.initialProps;
+    if (this.interactions) {
+      this.interactions.forEach((inst) => {
+        inst.destroy();
+      });
+    }
+    this.interactions = [];
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      if (Ctor) {
+        const inst: BaseInteraction = new Ctor(
+          { view: this.plot },
+          this,
+          Ctor.getInteractionRange(this.getLayerRange(), interaction.cfg),
+          interaction.cfg
+        );
+        this.interactions.push(inst);
+      }
+    });
+  }
 
   /** plot通用配置 */
 
@@ -203,9 +244,10 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const props = this.initialProps;
     const scales = _.mapValues(this.config.scales, (scaleConfig: any, field: string) => {
       const meta: Config['meta']['key'] = _.get(props.meta, field);
+      const type = scaleConfig.type;
       // meta中存在对应配置，则补充入
       if (meta) {
-        return _.assign({}, scaleConfig, meta);
+        return _.assign({}, scaleConfig, type ? { ...meta, type } : meta);
       }
       return scaleConfig;
     });
@@ -267,14 +309,15 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     });
   }
 
-  protected _events(eventParser?): void {
+  // fixme: 原函数名 _events 同event-emit重名，修改为_parserEvents
+  protected _parserEvents(eventParser?): void {
     const props = this.initialProps;
     if (props.events) {
       const events = props.events;
       const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
       _.each(events, (e, k) => {
         if (_.isFunction(e)) {
-          const eventName = eventmap[e.name] || k;
+          const eventName = eventmap[k] || k;
           const handler = e;
           onEvent(this, eventName, handler);
         }
@@ -286,7 +329,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const props = this.initialProps;
     const range = this.range;
     this.title = null;
-    if (props.title) {
+    if (props.title && props.title.visible) {
       const width = this.getLayerWidth();
       const theme = this.config.theme;
       const title = new TextDescription({
@@ -307,7 +350,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     const range = this.range;
     this.description = null;
 
-    if (props.description) {
+    if (props.description && props.description.visible) {
       const width = this.getLayerWidth();
 
       let topMargin = range.minY;
@@ -377,6 +420,12 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
     if (this.description) {
       this.description.destroy();
     }
+    // 移除注册的 interactions
+    if (this.interactions) {
+      this.interactions.forEach((inst) => {
+        inst.destroy();
+      });
+    }
     /** 销毁g2.plot实例 */
     this.plot.destroy();
   }
@@ -394,6 +443,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
 
   // view range 去除title & description所占的空间
   private getViewMargin(): MarginPadding {
+    const { interactions = [] } = this.initialProps;
+    const layerRange = this.getLayerRange();
     const margin: MarginPadding = [0, 0, 0, 0];
     const boxes: BBox[] = [];
 
@@ -415,6 +466,25 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       const legendPosition = this.getLegendPosition();
       margin[0] += this.config.theme.description.padding[2](legendPosition);
     }
+
+    // 有 Range 的 Interaction 参与 ViewMargin 计算
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerRange, interaction.cfg);
+      if (range) {
+        // 先只考虑 Range 靠边的情况
+        if (range.bottom === layerRange.bottom && range.top > layerRange.top) {
+          margin[2] += range.height;
+        } else if (range.right === layerRange.right && range.left > layerRange.left) {
+          margin[1] += range.width;
+        } else if (range.left === layerRange.left && range.right > layerRange.right) {
+          margin[3] += range.width;
+        } else if (range.top === layerRange.top && range.bottom > layerRange.bottom) {
+          margin[0] += range.height;
+        }
+      }
+    });
+
     if (margin[0] >= this.getLayerHeight()) {
       margin[0] -= 0.1;
     }

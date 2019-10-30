@@ -1,6 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -36,7 +36,7 @@ export interface BarLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends BaseLayer<T> {
+export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
   public bar: any;
 
   protected geometryParser(dim, type) {
@@ -48,6 +48,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected setType() {
     this.type = 'bar';
+  }
+
+  /** 条形图数据从上往下 */
+  protected processData(data?: object[]): object[] {
+    return data ? data.slice().reverse() : data;
   }
 
   protected beforeInit() {
@@ -101,6 +106,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       axesConfig.fields[props.xField] = false;
     } else if (props.xAxis) {
       extractAxis(axesConfig.fields[props.xField], props.xAxis);
+      axesConfig.fields[props.xField].autoRotateTitle = false;
     }
 
     if (
@@ -110,6 +116,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       axesConfig.fields[props.yField] = false;
     } else if (props.yAxis) {
       extractAxis(axesConfig.fields[props.yField], props.yAxis);
+      axesConfig.fields[props.yField].autoRotateTitle = true;
     }
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);
@@ -132,8 +139,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.bar = bar;
     this.setConfig('element', bar);
   }
-
-  protected _interactions() {}
 
   protected _annotation() {}
 
@@ -171,8 +176,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return labelConfig;
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   private _applyResponsive(stage) {

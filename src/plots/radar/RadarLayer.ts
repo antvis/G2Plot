@@ -1,7 +1,6 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
-import { __assign } from 'tslib';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig from '../../interface/config';
 import { extractScale } from '../../util/scale';
@@ -65,7 +64,7 @@ const GEOM_MAP = {
   point: 'point',
 };
 
-export default class RadarLayer extends BaseLayer<RadarLayerConfig> {
+export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
   public baseElement: any;
   public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
   public pointElement: any;
@@ -218,10 +217,8 @@ export default class RadarLayer extends BaseLayer<RadarLayerConfig> {
 
   protected _animation() {}
 
-  protected _interactions() {}
-
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   private _axisStyleParser(styleProps, axisConfig) {

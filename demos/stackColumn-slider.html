@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="geometry" content="interval" />
+    <link rel="stylesheet" href="./assets/common.css" />
+    <title>堆叠柱形图缩略轴</title>
+  </head>
+
+  <body>
+    <div id="canvas"></div>
+    <script src="./assets/jquery-3.2.1.min.js"></script>
+    <script src="../dist/g2plot.js"></script>
+    <script>
+      $.get('data/subsales.json', (data) => {
+        const column = new g2plot.StackColumn('canvas', {
+          padding: 'auto',
+          width: 800,
+          height: 600,
+          data,
+          xField: '城市',
+          yField: '销售额',
+          stackField: '细分',
+          xAxis: {
+            visible: true,
+            autoHideLabel: true,
+          },
+          interactions: [
+            {
+              type: 'slider',
+              cfg: {
+                start: 0,
+                end: 1,
+              },
+            },
+          ],
+        });
+        column.render();
+      });
+    </script>
+  </body>
+</html>

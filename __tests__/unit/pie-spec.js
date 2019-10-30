@@ -156,7 +156,7 @@ describe('Pie plot', () => {
       .get('children')[1]
       .get('children')[0]
       .get('children');
-    const coord = piePlot.plot.get('coord');
+    const coord = plot.get('coord');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
     const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
@@ -191,7 +191,7 @@ describe('Pie plot', () => {
       .get('children')[1]
       .get('children')[0]
       .get('children');
-    const coord = piePlot.plot.get('coord');
+    const coord = plot.get('coord');
     expect(labelGroup[0].attr('text')).to.be.equal('test');
     expect(labelGroup[0].attr('fill')).to.be.equal('red');
     const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
@@ -201,7 +201,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it('spider label', () => {
+  it.skip('spider label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -260,12 +260,14 @@ describe('Pie plot', () => {
       width: 600,
       height: 600,
       title: {
+        visible: true,
         text: 'title',
         style: {
           fill: 'red',
         },
       },
       description: {
+        visible: true,
         text: 'description',
         style: {
           fill: 'red',

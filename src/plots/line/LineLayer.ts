@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -8,11 +8,10 @@ import './animation/clipInWithData';
 import responsiveMethods from './applyResponsive/index';
 import './applyResponsive/theme';
 import './applyResponsive/theme';
-import TimeGroupAnnotation from './component/annotation/timeGroupAnnotation';
 import './component/label/line-label';
 import './component/label/point-label';
 import * as EventParser from './event';
-import { LineActive, LineSelect, Range } from './interaction/index';
+import { LineActive, LineSelect } from './interaction/index';
 import './theme';
 
 export interface LineStyle {
@@ -54,7 +53,7 @@ export interface LineLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class LineLayer extends BaseLayer<LineLayerConfig> {
+export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
 
@@ -168,6 +167,7 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
   }
 
   protected _interactions() {
+    super._interactions();
     const props = this.initialProps;
     // 加入默认交互
     const interactions = this.plot.get('interactions');
@@ -175,31 +175,10 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
     interactions.lineActive = lineActive;
     const lineSelect = new LineSelect({ view: this.plot });
     interactions.lineSelect = lineSelect;
-    /** 加入其它交互 */
-    const interactionProps = props.interactions;
-    _.each(interactionProps, (i) => {
-      if (i.type === 'range') {
-        this._addRangeInteraction(interactions, props);
-      }
-    });
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
-  }
-
-  protected afterInit() {
-    super.afterInit();
-    const props = this.initialProps;
-    // 时间子母轴
-    if (props.xAxis && props.xAxis.hasOwnProperty('groupBy')) {
-      const xAxis = props.xAxis as ITimeAxis;
-      const timeGroup = new TimeGroupAnnotation({
-        view: this.plot,
-        field: props.xField,
-        groupDim: xAxis.groupBy,
-      });
-    }
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected afterRender() {
@@ -209,16 +188,6 @@ export default class LineLayer extends BaseLayer<LineLayerConfig> {
       this._applyResponsive('afterRender');
     }
     super.afterRender();
-  }
-
-  private _addRangeInteraction(interactions, props) {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    const padding = props.padding;
-    this.plot.once('afterrender', () => {
-      const range = new Range({ view: this.plot, container, padding });
-      interactions.range = range;
-    });
   }
 
   private _applyResponsive(stage) {

@@ -54,7 +54,7 @@ export default interface Config {
   /** 响应式规则 */
   responsiveTheme?: {} | string;
   /** 交互，待定 */
-  interactions?: any[];
+  interactions?: IInteractions[];
   /** 是否响应式 */
   responsive?: boolean;
   /** 图表层级的事件 */
@@ -75,12 +75,14 @@ export default interface Config {
 type Formatter = (value: any, index?: number, ...args: any[]) => string;
 
 interface ITitle {
+  visible: boolean;
   text: string;
   style?: {};
   alignWithAxis?: boolean;
 }
 
 interface IDescription {
+  visible: boolean;
   text: string;
   style?: {};
   alignWithAxis?: boolean;
@@ -94,7 +96,7 @@ interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type?: 'value' | 'time' | 'category';
+  type?: 'linear' | 'time' | 'cat' | 'dateTime' | 'category' | 'log' | 'pow' | 'timeCat';
   /** 轴位置，默认下和左 */
   position?: 'default' | 'opposite';
   line?: {
@@ -107,8 +109,8 @@ interface IBaseAxis {
         style: {};
       }
     | ((text: string, idx: number, count: number) => any);
-  autoRotateLabel: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
-  autoHideLabel: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
+  autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
+  autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   label?:
     | {
         visible?: boolean;
@@ -137,7 +139,7 @@ interface IBaseAxis {
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
-  type: 'value';
+  type: 'linear';
   /** tick相关配置 */
   min?: number;
   max?: number;
@@ -302,4 +304,48 @@ export interface SliderConfig {
   height?: number;
   paddingTop?: number;
   paddingBottom?: number;
+}
+
+export interface ISliderInteractionConfig {
+  /** 在图表中的位置，默认 horizontal */
+  type?: 'horizontal' | 'vertical';
+  /** 宽度，在 vertical 下生效 */
+  width?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: [number, number, number, number];
+  /** 前景框颜色  */
+  foregroundColor?: string;
+  /** 背景框颜色 */
+  backgroundColor?: string;
+  /** 默认开始位置, 0~1 */
+  start?: number;
+  /** 默认结束位置, 0~1 */
+  end?: number;
+}
+
+export interface IScrollBarInteractionConfig {
+  /** 在图表中的位置，默认 horizontal */
+  type?: 'horizontal' | 'vertical';
+  /** 宽度，在 vertical 下生效 */
+  width?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: [number, number, number, number];
+  /** 对应水平滚动条，为X轴每个分类字段的宽度；对于垂直滚动条，为X轴每个分类字段的高度 */
+  categorySize?: number;
+}
+
+// TODO: to remove
+export interface IAnyInteractionConfig {
+  [key: string]: any;
+}
+
+export type IInteractionConfig = IAnyInteractionConfig | IScrollBarInteractionConfig | ISliderInteractionConfig;
+
+export interface IInteractions {
+  type: string;
+  cfg?: IInteractionConfig;
 }

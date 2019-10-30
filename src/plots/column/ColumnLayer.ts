@@ -1,6 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import BaseLayer from '../../base/ViewLayer';
+import ViewLayer from '../../base/ViewLayer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -36,7 +36,7 @@ export interface ColumnLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
-export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends BaseLayer<T> {
+export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
   public column: any;
 
   protected geometryParser(dim, type) {
@@ -99,8 +99,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     this.setConfig('element', column);
   }
 
-  protected _interactions() {}
-
   protected _annotation() {}
 
   protected _animation() {
@@ -111,8 +109,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     }
   }
 
-  protected _events(eventParser) {
-    super._events(EventParser);
+  protected _parserEvents(eventParser) {
+    super._parserEvents(EventParser);
   }
 
   protected afterRender() {

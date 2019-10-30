@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="geometry" content="interval" />
+    <link rel="stylesheet" href="./assets/common.css" />
+    <title>堆叠条形图滚动条</title>
+  </head>
+
+  <body>
+    <div id="canvas"></div>
+    <script src="./assets/jquery-3.2.1.min.js"></script>
+    <script src="../dist/g2plot.js"></script>
+    <script>
+      $.get('data/subsales.json', (data) => {
+        const column = new g2plot.StackBar('canvas', {
+          padding: 'auto',
+          width: 800,
+          height: 600,
+          data,
+          yField: '城市',
+          xField: '销售额',
+          stackField: '细分',
+          xAxis: {
+            visible: true,
+            autoHideLabel: true,
+          },
+          yAxis: {
+            visible: true,
+            autoHideLabel: true,
+          },
+          interactions: [
+            {
+              type: 'scrollbar',
+              cfg: {
+                type: 'vertical',
+              },
+            },
+          ],
+        });
+        column.render();
+      });
+    </script>
+  </body>
+</html>

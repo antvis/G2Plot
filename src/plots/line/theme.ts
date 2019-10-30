@@ -1,4 +1,4 @@
-import { defaultTheme } from '../../theme';
+import { registerTheme } from '../../theme';
 
 const LINE_ACTIVE_STYLE = (style) => {
   const lineWidth = style.lineWidth || 1;
@@ -15,7 +15,7 @@ const LINE_SELECTED_STYLE = (style) => {
   return { lineWidth: lineWidth + 2 };
 };
 
-defaultTheme.registerPlotTheme('line', {
+registerTheme('line', {
   lineStyle: {
     normal: {},
     active: LINE_ACTIVE_STYLE,

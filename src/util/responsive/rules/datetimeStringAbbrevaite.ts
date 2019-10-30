@@ -1,5 +1,12 @@
 import * as _ from '@antv/util';
-import moment from 'moment';
+import fecha from 'fecha';
+
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const MONTH = 31 * DAY;
+const YEAR = 365 * DAY;
 
 interface TimeStringAbbrevaiteCfg {
   keep?: string[];
@@ -13,39 +20,39 @@ export default function datetimeStringAbbrevaite(shape, option: TimeStringAbbrev
   } else {
     campareText = nodes[index + 1].shape.get('origin').text;
   }
-  const compare = isTime(campareText) ? timeAdaptor(campareText) : moment(campareText);
+  const compare = new Date(campareText);
   /** 获取时间周期和时间间隔 */
   const text = shape.get('origin').text;
-  const current = isTime(text) ? timeAdaptor(text) : moment(text);
+  const current = new Date(text);
   const startText = nodes[0].shape.get('origin').text;
-  const start = isTime(startText) ? timeAdaptor(startText) : moment(startText);
+  const start = new Date(startText);
   const endText = nodes[nodes.length - 1].shape.get('origin').text;
-  const end = isTime(endText) ? timeAdaptor(endText) : moment(endText);
+  const end = new Date(endText);
   const timeDuration = getDateTimeMode(start, end);
   const timeCycle = getDateTimeMode(current, compare); // time frequency
   // 如果duration和frequency在同一区间
   if (timeDuration === timeCycle) {
     if (index !== 0 && index !== nodes.length - 1) {
       const formatter = sameSectionFormatter(timeDuration);
-      shape.attr('text', current.format(formatter));
+      shape.attr('text', fecha.format(current, formatter));
     }
     return;
   }
   if (index !== 0) {
     const previousText = nodes[index - 1].shape.get('origin').text;
-    const previous = isTime(previousText) ? timeAdaptor(previousText) : moment(previousText);
+    const previous = new Date(previousText);
     const isAbbreviate = needAbbrevaite(timeDuration, current, previous);
     if (isAbbreviate) {
       const formatter = getAbbrevaiteFormatter(timeDuration, timeCycle);
-      shape.attr('text', current.format(formatter));
+      shape.attr('text', fecha.format(current, formatter));
       return;
     }
   }
 }
 
 function needAbbrevaite(mode, current, previous) {
-  const currentStamp = current.get(mode);
-  const previousStamp = previous.get(mode);
+  const currentStamp = getTime(current, mode);
+  const previousStamp = getTime(previous, mode);
   if (currentStamp !== previousStamp) {
     return false;
   }
@@ -53,31 +60,25 @@ function needAbbrevaite(mode, current, previous) {
 }
 
 function getDateTimeMode(a, b) {
-  const dist = moment.duration(Math.abs(a.diff(b)));
-  const oneMinute = moment.duration(1, 'minutes');
-  const oneHour = moment.duration(1, 'hours');
-  const oneDay = moment.duration(1, 'days');
-  const oneMonth = moment.duration(1, 'months');
-  const oneYear = moment.duration(1, 'years');
-  if (dist >= oneMinute && dist < oneHour) {
-    return 'minute';
-  }
-  if (dist >= oneHour && dist < oneDay) {
-    return 'hour';
-  }
-  if (dist >= oneDay && dist < oneMonth) {
-    return 'day';
-  }
-  if (dist >= oneMonth && dist < oneYear) {
-    return 'month';
-  }
-  if (dist >= oneYear) {
-    return 'year';
-  }
+  let mode;
+  const dist = Math.abs(a - b);
+  const mapper = {
+    minute: [MINUTE, HOUR],
+    hour: [HOUR, DAY],
+    day: [DAY, MONTH],
+    month: [MONTH, YEAR],
+    year: [YEAR, Infinity],
+  };
+  _.each(mapper, (range, key) => {
+    if (dist >= range[0] && dist < range[1]) {
+      mode = key;
+    }
+  });
+  return mode;
 }
 
 function getAbbrevaiteFormatter(duration, cycle) {
-  const times = ['year', 'month', 'day', 'hour', 'minite'];
+  const times = ['year', 'month', 'day', 'hour', 'minute'];
   const formatters = ['YYYY', 'MM', 'DD', 'HH', 'MM'];
   const startIndex = times.indexOf(duration) + 1;
   const endIndex = times.indexOf(cycle);
@@ -92,11 +93,31 @@ function getAbbrevaiteFormatter(duration, cycle) {
 }
 
 function sameSectionFormatter(mode) {
-  const times = ['year', 'month', 'day', 'hour', 'minite'];
+  const times = ['year', 'month', 'day', 'hour', 'minute'];
   const formatters = ['YYYY', 'MM', 'DD', 'HH', 'MM'];
   const index = times.indexOf(mode);
   const formatter = formatters[index];
   return formatter;
+}
+
+function getTime(date: Date, mode: string) {
+  if (mode === 'year') {
+    return date.getFullYear();
+  }
+  if (mode === 'month') {
+    return date.getMonth() + 1;
+  }
+  if (mode === 'day') {
+    return date.getDay() + 1;
+  }
+
+  if (mode === 'hour') {
+    return date.getHours() + 1;
+  }
+
+  if (mode === 'minute') {
+    return date.getMinutes() + 1;
+  }
 }
 
 /*tslint:disable*/
@@ -106,8 +127,7 @@ export function isTime(string) {
   return hourminExp.test(string) || hourminSecExp.test(string);
 }
 
-function timeAdaptor(string) {
-  /** hh:mm hh:mm:ss 格式兼容 */
+/*function timeAdaptor(string) {
   const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
   const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
   if (hourminExp.test(string)) {
@@ -116,4 +136,4 @@ function timeAdaptor(string) {
   if (hourminSecExp.test(string)) {
     return moment(string, 'hh:mm:ss');
   }
-}
+}*/

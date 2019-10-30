@@ -1,6 +1,6 @@
 import { Column } from '../../src';
 
-describe('responsive column label plot', () => {
+describe.skip('responsive column label plot', () => {
   const data = [
     {
       type: '家具家电',
@@ -48,7 +48,7 @@ describe('responsive column label plot', () => {
     const plot = createPlot(300, 300);
   });
 
-  it.only('canvas size 200x200', () => {
+  it('canvas size 200x200', () => {
     const plot = createPlot(150, 150);
   });
 

@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BaseLayer from '../base/ViewLayer';
+import ViewLayer from '../base/ViewLayer';
 import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
 import BaseConfig from '../interface/config';
@@ -8,7 +8,7 @@ export interface TinyLayerConfig extends BaseConfig {
   indicator?: any;
 }
 
-export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerConfig> extends BaseLayer<T> {
+export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerConfig> extends ViewLayer<T> {
   protected _setDefaultG2Config() {}
 
   protected beforeInit() {
@@ -35,8 +35,6 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
   }
 
   protected _animation() {}
-
-  protected _interactions() {}
 
   private _getDefaultProps() {
     return {

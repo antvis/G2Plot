@@ -16,6 +16,12 @@ export function extractScale(desScale, axisConfig) {
   if (axisConfig.hasOwnProperty('tickCount')) {
     desScale.tickCount = axisConfig.tickCount;
   }
+  if (axisConfig.hasOwnProperty('type')) {
+    // fixme: dateTime plot层处理
+    if (axisConfig.type !== 'dateTime') {
+      desScale.type = axisConfig.type;
+    }
+  }
   if (axisConfig.hasOwnProperty('tickInterval')) {
     if (axisConfig.type === 'time') {
       desScale.tickInterval = adjustTimeTickInterval(axisConfig.tickInterval);

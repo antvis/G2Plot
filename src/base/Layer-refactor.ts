@@ -4,16 +4,23 @@ import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 
 export interface LayerCfg {
+  /** the top-left-x of layer, local position relative to the parent layer */
   x: number;
+  /** the top-left-y of layer, local position telative to the parent layer */
   y: number;
+  /** layer width */
   width?: number;
+  /** layer height */
   height?: number;
+  /** the parent node of layer */
   parent?: any;
   canvas: Canvas;
 }
 
 export interface Region {
+  /** the top-left corner of layer-range, range from 0 to 1, relative to parent layer's range */
   readonly start: Point;
+  /** the bottom-right corner of layer-range, range from 0 to 1, relative to parent layer's range */
   readonly end: Point;
 }
 
@@ -38,6 +45,9 @@ export default class Layer<T = void> extends EventEmitter {
   protected destroyed: boolean = false;
   protected layerRegion: Region;
 
+  /**
+   * layer base for g2plot
+   */
   constructor(props: LayerCfg) {
     super();
     const defaultOptions = this.getDefaultOptions(props);
@@ -50,16 +60,29 @@ export default class Layer<T = void> extends EventEmitter {
     this.init();
   }
 
+  /**
+   * init life cycle
+   */
   public init() {
     this.container = this.parent.container.addGroup();
+    this.container.transform([['t', this.x, this.y]]);
     this.layerRange = this.calculateLayerRange();
     this.layerRegion = this.calculateLayerRegion();
   }
 
+  /**
+   * render layer recursively
+   */
   public render() {
+    this.eachLayer((layer) => {
+      layer.render();
+    });
     this.canvas.draw();
   }
 
+  /**
+   * clear layer content
+   */
   public clear() {
     this.eachLayer((layer) => {
       layer.destory();
@@ -68,28 +91,45 @@ export default class Layer<T = void> extends EventEmitter {
     this.container.clear();
   }
 
-  public destory() {
+  /**
+   * destory layer recursively, remove the container of layer
+   */
+  public destroy() {
     this.eachLayer((layer) => {
-      layer.destory();
+      layer.destroy();
     });
     this.container.remove(true);
     this.destroyed = true;
   }
 
+  /**
+   * display layer
+   */
   public show() {
     this.container.set('visible', true);
     this.visibility = true;
   }
 
+  /**
+   * hide layer
+   */
   public hide() {
     this.container.set('visible', false);
     this.visibility = false;
   }
 
+  /**
+   * add children layer
+   * @param layer
+   */
   public addLayer(layer: Layer) {
     this.layers.push(layer);
   }
 
+  /**
+   * remove children layer
+   * @param layer
+   */
   public removeLayer(layer: Layer) {
     const idx = _.findIndex(this.layers, (item) => item === layer);
     if (idx >= 0) {
@@ -97,6 +137,11 @@ export default class Layer<T = void> extends EventEmitter {
     }
   }
 
+  /**
+   * update layer's display range
+   * @param props
+   * @param recursive whether update children layers or not
+   */
   public updateRange(props: Range, recursive: boolean = true) {
     const origin_range = {
       x: this.x,
@@ -121,6 +166,9 @@ export default class Layer<T = void> extends EventEmitter {
     this.canvas.draw();
   }
 
+  /**
+   * update display range according to parent layer's range
+   */
   public updateRangeByParent() {
     const region = this.layerRegion;
     this.x = this.parent.x + this.parent.width * region.start.x;
@@ -128,6 +176,21 @@ export default class Layer<T = void> extends EventEmitter {
     this.width = this.parent.width * (region.end.x - region.start.x);
     this.height = this.parent.height * (region.end.y - region.start.y);
     this.calculateLayerRegion();
+  }
+
+  /**
+   * get global postion of layer
+   */
+  public getGlobalPosition() {
+    let global_x = this.x;
+    let global_y = this.y;
+    let parent = this.parent;
+    while (parent) {
+      global_x += parent.x;
+      global_y += parent.y;
+      parent = parent.parent;
+    }
+    return { x: global_x, y: global_y };
   }
 
   private getDefaultOptions(props: LayerCfg) {

@@ -4,6 +4,7 @@ import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 
 export interface LayerCfg {
+  id?: string;
   /** the top-left-x of layer, local position relative to the parent layer */
   x: number;
   /** the top-left-y of layer, local position telative to the parent layer */
@@ -32,6 +33,7 @@ export interface Range {
 }
 
 export default class Layer<T = void> extends EventEmitter {
+  public id: string;
   public x: number;
   public y: number;
   public width: number;
@@ -52,10 +54,12 @@ export default class Layer<T = void> extends EventEmitter {
     super();
     const defaultOptions = this.getDefaultOptions(props);
     const options = _.deepMix({}, defaultOptions, props);
+    this.id = options.id;
     this.x = options.x;
     this.y = options.y;
     this.width = options.width;
     this.height = options.height;
+    this.canvas = options.canvas;
     this.parent = options.parent;
     this.init();
   }
@@ -64,10 +68,17 @@ export default class Layer<T = void> extends EventEmitter {
    * init life cycle
    */
   public init() {
-    this.container = this.parent.container.addGroup();
+    if (this.parent) {
+      this.container = this.parent.container.addGroup();
+    } else {
+      this.container = this.canvas.addGroup();
+    }
     this.container.transform([['t', this.x, this.y]]);
     this.layerRange = this.calculateLayerRange();
     this.layerRegion = this.calculateLayerRegion();
+    this.eachLayer((layer) => {
+      layer.init();
+    });
   }
 
   /**
@@ -123,6 +134,8 @@ export default class Layer<T = void> extends EventEmitter {
    * @param layer
    */
   public addLayer(layer: Layer) {
+    layer.parent = this;
+    layer.init();
     this.layers.push(layer);
   }
 
@@ -142,7 +155,7 @@ export default class Layer<T = void> extends EventEmitter {
    * @param props
    * @param recursive whether update children layers or not
    */
-  public updateRange(props: Range, recursive: boolean = true) {
+  public updateRange(props: Range, recursive: boolean = false) {
     const origin_range = {
       x: this.x,
       y: this.y,
@@ -175,7 +188,7 @@ export default class Layer<T = void> extends EventEmitter {
     this.y = this.parent.y + this.parent.height * region.start.y;
     this.width = this.parent.width * (region.end.x - region.start.x);
     this.height = this.parent.height * (region.end.y - region.start.y);
-    this.calculateLayerRegion();
+    this.layerRange = this.calculateLayerRange();
   }
 
   /**
@@ -213,15 +226,19 @@ export default class Layer<T = void> extends EventEmitter {
   }
 
   private calculateLayerRegion() {
-    const parent_width = this.parent.width;
-    const parent_height = this.parent.height;
-    const parent_x = this.parent.x;
-    const parent_y = this.parent.y;
-    const start_x = (this.x - parent_x) / parent_width;
-    const start_y = (this.y - parent_y) / parent_height;
-    const end_x = (this.x + this.width - parent_x) / parent_width;
-    const end_y = (this.y + this.height - parent_y) / parent_height;
-    return { start: { x: start_x, y: start_y }, end: { x: end_x, y: end_y } };
+    if (this.parent) {
+      const parent_width = this.parent.width;
+      const parent_height = this.parent.height;
+      const parent_x = this.parent.x;
+      const parent_y = this.parent.y;
+      const start_x = (this.x - parent_x) / parent_width;
+      const start_y = (this.y - parent_y) / parent_height;
+      const end_x = (this.x + this.width - parent_x) / parent_width;
+      const end_y = (this.y + this.height - parent_y) / parent_height;
+      return { start: { x: start_x, y: start_y }, end: { x: end_x, y: end_y } };
+    }
+
+    return { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } };
   }
 
   private eachLayer(cb: (layer) => void) {

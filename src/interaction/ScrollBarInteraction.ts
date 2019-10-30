@@ -2,13 +2,15 @@ import { BBox, Group } from '@antv/g';
 import { ScrollBar } from '@antv/gui';
 import { Scale } from '@antv/scale';
 import { clamp, get, isEqual, map, throttle } from '@antv/util';
+import ViewLayer from '../base/ViewLayer';
 import { IScrollBarInteractionConfig } from '../interface/config';
 import BaseInteraction from './BaseInteraction';
+import { getDataByScaleRange } from './helper/data-range';
 
 const DEFAULT_PADDING: number = 8;
 const DEFAULT_SIZE: number = 16;
 const DEFAULT_CATEGORY_SIZE: number = 32;
-const MIN_THUMB_LENGTH: number = 4;
+const MIN_THUMB_LENGTH: number = 8;
 const SCROLL_BAR_Z_INDEX: number = 999;
 
 const getValidScrollBarConfig = (cfg: IScrollBarInteractionConfig = {}): Required<IScrollBarInteractionConfig> => {
@@ -56,6 +58,10 @@ export default class ScrollBarInteraction extends BaseInteraction {
   private scrollBar: ScrollBar;
   private cnt: number;
   private step: number;
+  private xScaleCfg: {
+    field: string;
+    values: string[];
+  };
   private yScalesCfg: Array<{
     field: string;
     type: string;
@@ -64,24 +70,27 @@ export default class ScrollBarInteraction extends BaseInteraction {
     ticks: number[];
   }>;
   private ratio: number;
+  private thumbOffset: number;
   private trackLen: number;
   private thumbLen: number;
-  private onChangeFn: ({ thumbOffset: number }) => void = throttle(this.onChange.bind(this), 20, {
+  private onChangeFn = throttle(this.onChange.bind(this), 20, {
     leading: true,
-  }) as ({ thumbOffset: number }) => void;
+  });
 
   protected render(): void {
     const view = this.view;
     this.ratio = 0;
+    this.thumbOffset = 0;
     view.on('afterrender', () => {
       const padding = this.view.get('padding');
       // if we're not in `auto padding` process
       if (!isEqual([0, 0, 0, 0], padding)) {
         if (!this.trackLen) {
           this.measureScrollBar();
-          this.changeViewRange(this.getScrollRange());
+          this.changeViewData(this.getScrollRange());
+        } else {
+          this.renderScrollbar();
         }
-        this.renderScrollbar();
       }
     });
   }
@@ -104,7 +113,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
     const range: BBox = this.getRange();
     const isHorizontal = config.type !== 'vertical';
     const panelRange: BBox = this.view.get('panelRange');
-    const [paddingTop, paddingRight, paddingBottom, paddingLeft] = config.padding;
+    const [paddingTop, , , paddingLeft] = config.padding;
     const position = isHorizontal
       ? { x: panelRange.minX + paddingLeft, y: range.tl.y + paddingTop }
       : { x: range.tl.x + paddingLeft, y: panelRange.minY + paddingTop };
@@ -125,7 +134,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
       this.scrollBar.updateTrackLen(this.trackLen);
       this.scrollBar.updateThumbLen(this.thumbLen);
       this.scrollBar.updateScrollBarPos(position);
-      this.scrollBar.updateThumbOffset(this.ratio * this.trackLen);
+      this.scrollBar.updateThumbOffset(this.thumbOffset);
     }
   }
 
@@ -138,6 +147,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
     const yScales: Scale[] = this.view.getYScales();
 
     this.cnt = xScale.values.length;
+    this.xScaleCfg = { field: xScale.field, values: xScale.values || [] };
     this.yScalesCfg = map(yScales, (item) => ({
       field: item.field,
       type: item.type,
@@ -153,15 +163,20 @@ export default class ScrollBarInteraction extends BaseInteraction {
   }
 
   private getScrollRange(): [number, number] {
-    const startIdx = Math.floor(this.cnt * this.ratio);
-    const endIdx = startIdx + this.step + 1;
+    const startIdx: number = Math.floor((this.cnt - this.step) * this.ratio);
+    const endIdx: number = startIdx + this.step;
 
     return [startIdx, endIdx];
   }
 
-  private changeViewRange([startIdx, endIdx]: [number, number]): void {
-    const { meta } = this.getViewLayer().initialProps;
-    const newData: object[] = this.getViewLayer().getData(startIdx, endIdx);
+  private changeViewData([startIdx, endIdx]: [number, number]): void {
+    const viewLayer: ViewLayer = this.getViewLayer();
+    const { meta } = viewLayer.initialProps;
+    const origData: object[] = viewLayer.getData();
+    const newData: object[] = getDataByScaleRange(this.xScaleCfg.field, this.xScaleCfg.values, origData, [
+      startIdx,
+      endIdx,
+    ]);
 
     // ScrollBar在滚动过程中保持Y轴上scale配置: min/max/ticks
     this.yScalesCfg.forEach((cfg) => {
@@ -177,12 +192,13 @@ export default class ScrollBarInteraction extends BaseInteraction {
     this.view.repaint();
   }
 
-  private onChange({ thumbOffset }: { thumbOffset: number }): void {
-    this.ratio = clamp(thumbOffset / this.trackLen, 0, 1);
+  private onChange({ ratio, thumbOffset }: { ratio: number; thumbOffset: number }): void {
+    this.ratio = ratio;
+    this.thumbOffset = thumbOffset;
 
     const origAnimation = this.view.get('animation');
     this.view.animate(false);
-    this.changeViewRange(this.getScrollRange());
+    this.changeViewData(this.getScrollRange());
     this.view.animate(origAnimation);
   }
 }

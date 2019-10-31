@@ -4,7 +4,7 @@ export * from './interface/config';
 
 // 图形
 export { default as Layer } from './base/Layer';
-export { default as ViewLayer } from './base/ViewLayer';
+export { default as ViewLayer } from './base/view-layer';
 export { default as Base } from './base/Plot';
 export { default as Line, LineConfig } from './plots/line';
 export { default as Density, DensityConfig } from './plots/density';
@@ -27,12 +27,12 @@ export { default as StackArea, StackAreaConfig } from './plots/stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './plots/percentage-stack-area';
 
 // MINI 图形
-export { TinyLayerConfig } from './tinyPlots/TinyLayer';
-export { default as Progress, ProgressConfig } from './tinyPlots/progress';
-export { default as RingProgress } from './tinyPlots/ring-progress';
-export { default as TinyColumn } from './tinyPlots/tiny-column';
-export { default as TinyArea } from './tinyPlots/tiny-area';
-export { default as TinyLine } from './tinyPlots/tiny-line';
+export { TinyLayerConfig } from './tiny-plots/tiny-layer';
+export { default as Progress, ProgressConfig } from './tiny-plots/progress';
+export { default as RingProgress } from './tiny-plots/ring-progress';
+export { default as TinyColumn } from './tiny-plots/tiny-column';
+export { default as TinyArea } from './tiny-plots/tiny-area';
+export { default as TinyLine } from './tiny-plots/tiny-line';
 
 // 主题
 export { default as Theme } from './theme';
@@ -40,4 +40,4 @@ export { registerResponsiveConstraint, IConstraint } from './util/responsive/con
 export { registerResponsiveRule } from './util/responsive/rules';
 export { registerResponsiveTheme, getResponsiveTheme } from './util/responsive/theme';
 
-export { default as StateManager } from './util/stateManager';
+export { default as StateManager } from './util/state-manager';

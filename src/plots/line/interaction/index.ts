@@ -1,4 +1,4 @@
-import LineActive from './lineActive';
-import LineSelect from './lineSelect';
+import LineActive from './line-active';
+import LineSelect from './line-select';
 
 export { LineActive, LineSelect };

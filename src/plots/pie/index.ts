@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import PieLayer, { PieLayerConfig } from './PieLayer';
+import BasePlot from '../../base/plot';
+import PieLayer, { PieLayerConfig } from './layer';
 
 export { PieLayerConfig as PieConfig };
 

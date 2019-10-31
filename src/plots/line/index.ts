@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import LineLayer, { LineLayerConfig } from './LineLayer';
+import BasePlot from '../../base/plot';
+import LineLayer, { LineLayerConfig } from './layer';
 
 export interface LineConfig extends LineLayerConfig {}
 

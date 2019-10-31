@@ -1,6 +1,6 @@
 import { Axis } from '@antv/component';
 import * as _ from '@antv/util';
-import ShapeNodes from '../node/shapeNodes';
+import ShapeNodes from '../node/shape-nodes';
 import Responsive from '../responsive';
 import ApplyResponsive from './base';
 

@@ -1,8 +1,10 @@
 import { BBox, Group } from '@antv/g';
 import { Slider } from '@antv/gui';
+import { Scale } from '@antv/scale';
 import { clamp, head, last, map, size, throttle } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
+import { getDataByScaleRange } from './helper/data-range';
 
 const DEFAULT_PADDING: number = 8;
 const DEFAULT_SIZE: number = 16;
@@ -69,21 +71,37 @@ export default class SliderInteraction extends BaseInteraction {
   private slider: Slider;
   private curStart: number;
   private curEnd: number;
+  private xScaleCfg:
+    | {
+        field: string;
+        values: string[];
+      }
+    | undefined;
   private onChangeFn: (range: [number, number]) => void = throttle(this.onChange.bind(this), 20, { leading: true }) as (
     range: [number, number]
   ) => void;
 
   protected render(): void {
-    const view = this.view;
     // 设置初始化的 start/end
     const config = getValidSliderConfig(this.getInteractionConfig());
     this.curStart = config.start;
     this.curEnd = config.end;
-    // 初始化 data
-    this.view.set('data', this.getSliderData(this.curStart, this.curEnd));
+    this.xScaleCfg = undefined;
     // 等待 view 每次 render 完成后更新 slider 组件
-    view.on('afterrender', () => {
-      this.renderSlider();
+    this.view.on('afterrender', () => {
+      if (!this.xScaleCfg) {
+        // 初始化配置和数据
+        const xScale: Scale = this.view.getXScale();
+        this.xScaleCfg = {
+          field: xScale.field,
+          values: xScale.values || [],
+        };
+        // 初始化 data
+        this.view.set('data', this.getSliderData(this.curStart, this.curEnd));
+        this.view.repaint();
+      } else {
+        this.renderSlider();
+      }
     });
   }
 
@@ -152,11 +170,12 @@ export default class SliderInteraction extends BaseInteraction {
   }
 
   private getSliderData(start: number, end: number): any[] {
-    const data = this.getViewLayer().getData();
-    const length = size(data);
+    const origData = this.getViewLayer().getData();
+    const length = size(this.xScaleCfg.values);
     const startIdx = Math.round(start * length);
     const endIdx = Math.max(startIdx + 1, Math.round(end * length));
-    return this.getViewLayer().getData(startIdx, endIdx);
+
+    return getDataByScaleRange(this.xScaleCfg.field, this.xScaleCfg.values, origData, [startIdx, endIdx]);
   }
 
   private getSliderMinMaxText(start: number, end: number): { minText: string; maxText: string } {

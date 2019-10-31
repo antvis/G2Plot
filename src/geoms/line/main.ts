@@ -10,7 +10,7 @@ export default class LineParser extends ElementParser {
       position: {
         fields: [props.xField, props.yField],
       },
-      connectNulls: props.connectNulls || false,
+      connectNulls: props.connectNulls,
     };
     if (props.size) {
       this.parseSize();
@@ -27,7 +27,7 @@ export default class LineParser extends ElementParser {
   }
 
   public parseSize() {
-    const sizeProps = this.plot.initialProps.size;
+    const sizeProps = this.plot.initialProps.lineSize;
     const config: DataPointType = {};
     if (_.isFunction(sizeProps)) {
       config.callback = sizeProps;

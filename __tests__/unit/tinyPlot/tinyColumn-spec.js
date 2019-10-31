@@ -1,4 +1,4 @@
-import TinyColumn from '../../../src/tinyPlots/tiny-column';
+import TinyColumn from '../../../src/tiny-plots/tiny-column';
 import { expect } from 'chai';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';

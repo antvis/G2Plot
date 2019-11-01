@@ -2,11 +2,11 @@ import { BBox } from '@antv/g';
 import { deepMix, each, findIndex } from '@antv/util';
 import BaseConfig from '../interface/config';
 import { RecursivePartial } from '../interface/types';
-import StateManager from '../util/stateManager';
+import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
 import ThemeController from './controller/theme';
-import Layer from './Layer';
-import ViewLayer from './ViewLayer';
+import Layer from './layer';
+import ViewLayer from './view-layer';
 
 /**
  * 基础图形

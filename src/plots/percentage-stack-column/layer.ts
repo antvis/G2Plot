@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import StackColumn, { StackColumnLayerConfig } from '../stack-column/StackColumnLayer';
+import StackColumn, { StackColumnLayerConfig } from '../stack-column/layer';
 
 export interface PercentageStackColumnLayerConfig extends StackColumnLayerConfig {}
 

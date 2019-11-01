@@ -1,5 +1,5 @@
 import Area from '../area';
-import StackAreaLayer, { StackAreaLayerConfig } from './StackAreaLayer';
+import StackAreaLayer, { StackAreaLayerConfig } from './layer';
 
 export interface StackAreaConfig extends StackAreaLayerConfig {}
 

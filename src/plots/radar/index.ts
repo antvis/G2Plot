@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import RadarLayer, { RadarLayerConfig } from './RadarLayer';
+import BasePlot from '../../base/plot';
+import RadarLayer, { RadarLayerConfig } from './layer';
 
 export { RadarLayerConfig as RadarConfig };
 

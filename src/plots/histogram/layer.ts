@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import { sturges } from '../../util/math';
-import Column, { ColumnLayerConfig } from '../column/ColumnLayer';
+import Column, { ColumnLayerConfig } from '../column/layer';
 
 export interface HistogramLayerConfig extends ColumnLayerConfig {
   binField: string;

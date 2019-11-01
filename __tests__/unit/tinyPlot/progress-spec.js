@@ -1,4 +1,4 @@
-import Progress from '../../../src/tinyPlots/progress';
+import Progress from '../../../src/tiny-plots/progress';
 import { expect } from 'chai';
 
 describe.skip('progress', () => {

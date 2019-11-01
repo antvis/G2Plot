@@ -1,5 +1,5 @@
 import Column from '../column';
-import GroupColumnLayer, { GroupColumnLayerConfig } from './GroupColumnLayer';
+import GroupColumnLayer, { GroupColumnLayerConfig } from './layer';
 
 export interface GroupColumnConfig extends GroupColumnLayerConfig {}
 

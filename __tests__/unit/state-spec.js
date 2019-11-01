@@ -1,6 +1,6 @@
 import { Column } from '../../src';
 import { expect } from 'chai';
-import StateManager from '../../src/util/stateManager';
+import StateManager from '../../src/util/state-manager';
 import { simulate } from 'event-simulate';
 import * as _ from '@antv/util';
 

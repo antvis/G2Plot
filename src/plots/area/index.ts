@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import AreaLayer, { AreaLayerConfig } from './AreaLayer';
+import BasePlot from '../../base/plot';
+import AreaLayer, { AreaLayerConfig } from './layer';
 
 export interface AreaConfig extends AreaLayerConfig {}
 

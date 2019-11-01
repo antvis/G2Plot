@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import StackBar, { StackBarLayerConfig } from '../stack-bar/StackBarLayer';
+import StackBar, { StackBarLayerConfig } from '../stack-bar/layer';
 
 export interface PercentageStackBarLayerConfig extends StackBarLayerConfig {}
 

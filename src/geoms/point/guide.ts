@@ -32,7 +32,7 @@ export default class GuidePointParser extends ElementParser {
     if (this._needParseAttribute('size')) {
       this.parseSize();
     }
-    if (props.point && props.point.shape) {
+    if (props.point.shape) {
       this.parseShape(props.point.shape);
     }
     if (props.point.style) {
@@ -59,12 +59,7 @@ export default class GuidePointParser extends ElementParser {
   public parseSize() {
     const props = this.plot.initialProps;
     const config: DataPointType = {};
-    if (props.point.size) {
-      config.values = [props.point.size];
-    } else {
-      // Point作为辅助图形没有在style里指定size属性的情况下，设置默认值
-      config.values = [3];
-    }
+    config.values = [props.point.size];
     this.config.size = config;
   }
 

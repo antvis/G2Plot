@@ -105,7 +105,7 @@ const data = [
 
 ### label
 
-optional<br />`visible: boolean`    图形标签是否显示<br />`type: 'inner' | 'outter' | 'spider'`    图形标签的类型
+optional<br />`visible: boolean`    图形标签是否显示<br />`type: 'inner' | 'outer' | 'spider'`    图形标签的类型
 
 <p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E-2WTKY2BEIAAAAAAAAAAABkARQnAQ" width="600"></p>
 `formatter: function`  对label的显示文本进行格式化。<br />注意：当配置了colorField，即扇形切片接受分类类型的颜色映射，此时spider label的文本为上下显示，此时formatter方法入参为angleField及colorField两个字段对应的值，返回值应为数组。

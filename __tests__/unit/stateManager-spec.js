@@ -1,7 +1,7 @@
 import { Line } from '../../src';
 import { Column } from '../../src';
 import * as _ from '@antv/util';
-import StateManager from '../../src/util/stateManager';
+import StateManager from '../../src/util/state-manager';
 
 describe.skip('stateManager', () => {
   // 分别创建两份图表

@@ -117,8 +117,8 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
     });
     radarPlot.render();
@@ -137,10 +137,10 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
-      xAxis: {
+      angleAxis: {
         formatter: () => {
           return 'a';
         },
@@ -171,10 +171,10 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
-      yAxis: {
+      radiusAxis: {
         formatter: () => {
           return 'a';
         },
@@ -208,8 +208,8 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
       area: {
         visible: false,
@@ -226,8 +226,8 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
       area: {
         style: {
@@ -253,8 +253,8 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
       line: {
         visible: false,
@@ -271,8 +271,8 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
       area: {
         visible: true,
@@ -300,8 +300,8 @@ describe.skip('Radar plot', () => {
       width: 600,
       height: 600,
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
       point: {
         visible: true,
@@ -337,8 +337,8 @@ describe.skip('Radar plot', () => {
       },
       padding: 'auto',
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
     });
     radarPlot.render();
@@ -367,8 +367,8 @@ describe.skip('Radar plot', () => {
         },
       },
       data,
-      xField: 'item',
-      yField: 'score',
+      angleField: 'item',
+      radiusField: 'score',
       seriesField: 'user',
     });
     const title = radarPlot.getLayer().title;

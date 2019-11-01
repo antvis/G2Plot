@@ -2,7 +2,7 @@ import { DataPointType } from '@antv/g2/lib/interface';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import { sturges } from '../../util/math';
-import Area, { AreaLayerConfig } from '../area/AreaLayer';
+import Area, { AreaLayerConfig } from '../area/layer';
 
 export interface DensityLayerConfig extends AreaLayerConfig {
   binField: string;

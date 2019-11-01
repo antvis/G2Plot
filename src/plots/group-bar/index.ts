@@ -1,5 +1,5 @@
 import Bar from '../bar';
-import GroupBarLayer, { GroupBarLayerConfig } from './GroupBarLayer';
+import GroupBarLayer, { GroupBarLayerConfig } from './layer';
 
 export { GroupBarLayerConfig as GroupBarConfig };
 

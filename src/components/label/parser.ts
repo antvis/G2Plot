@@ -38,6 +38,10 @@ export default class LabelParser {
         config.textStyle = labelProps.style;
       }
     }
+    if (labelProps.autoRotate) {
+      config.autoRotate = labelProps.autoRotate;
+    }
+
     return config;
   }
 

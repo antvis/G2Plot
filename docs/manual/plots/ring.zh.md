@@ -145,7 +145,7 @@ annotation: [
 **optional**
 
 `visible: boolean`    图形标签是否显示<br />
-`type: 'inner' | 'outter' | 'spider'`    图形标签的类型<br/>
+`type: 'inner' | 'outer' | 'spider'`    图形标签的类型<br/>
 `formatter: function`  对 label 的显示文本进行格式化。<br />
 
 注意：当配置了 colorField，即扇形切片接受分类类型的颜色映射，此时 spider label 的文本为上下显示，此时 formatter 方法入参为 angleField 及 colorField 两个字段对应的值，返回值应为数组。

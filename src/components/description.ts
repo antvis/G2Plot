@@ -54,10 +54,12 @@ export default class TextDescription {
     });
   }
 
+  /**
+   * 当text过长时，默认换行
+   * 1. 注意初始text带换行符的场景
+   */
   private _textWrapper(width, style) {
     const text = this.text;
-    let currentWidth = 0;
-    let wrappedText = _.clone(text);
     const tShape = new Text({
       attrs: {
         text: '',
@@ -66,19 +68,25 @@ export default class TextDescription {
         ...style,
       },
     });
-    for (let i = 0; i < wrappedText.length; i++) {
-      const t = wrappedText[i];
-      /*tslint:disable*/
-      tShape.attr('text', t + ' ');
-      // 字数不多就不缓存了吧.....
-      const textWidth = Math.floor(tShape.measureText());
-      currentWidth += textWidth;
-      if (currentWidth > width) {
-        wrappedText = `${wrappedText.slice(0, i)}\n${wrappedText.slice(i)}`;
-        currentWidth = 0;
+    const textArr = text.split('\n');
+    const wrappedTextArr = textArr.map((wrappedText) => {
+      let currentWidth = 0;
+      for (let i = 0; i < wrappedText.length; i++) {
+        const t = wrappedText[i];
+        /*tslint:disable*/
+        tShape.attr('text', t + ' ');
+        // 字数不多就不缓存了吧.....
+        const textWidth = Math.floor(tShape.measureText());
+        currentWidth += textWidth;
+        if (currentWidth > width) {
+          wrappedText = `${wrappedText.slice(0, i)}\n${wrappedText.slice(i)}`;
+          currentWidth = 0;
+        }
       }
-    }
+      return wrappedText;
+    });
+
     tShape.remove();
-    return wrappedText;
+    return wrappedTextArr.join('\n');
   }
 }

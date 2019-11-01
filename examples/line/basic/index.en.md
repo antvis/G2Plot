@@ -1,5 +1,5 @@
 ---
-title: Component
+title: Line Chart
 order: 0
 ---
 

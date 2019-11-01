@@ -1,5 +1,5 @@
 ---
-title: 图表演示
+title: 某某饼图
 order: 0
 ---
 

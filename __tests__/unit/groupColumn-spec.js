@@ -190,6 +190,7 @@ describe('GroupColomn plot', () => {
       },
       groupField: 'type',
       label: {
+        visible: true,
         formatter: (txt) => {
           return txt + 'dddd';
         },
@@ -203,6 +204,7 @@ describe('GroupColomn plot', () => {
     columnPlot.render();
 
     const plot = columnPlot.getLayer().plot;
+    console.log(plot);
     const labelGroup = plot
       .get('elements')[0]
       .get('container')

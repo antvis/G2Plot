@@ -1,6 +1,6 @@
 // components parser
 import AxisParser from './axis/parser';
-import GuideLine from './guideLine';
+import GuideLine from './guide-line';
 import LabelParser from './label/parser';
 
 // components state methods

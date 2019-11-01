@@ -1,5 +1,5 @@
 import Bar from '../bar';
-import StackBarLayer, { StackBarLayerConfig } from './StackBarLayer';
+import StackBarLayer, { StackBarLayerConfig } from './layer';
 
 export { StackBarLayerConfig as StackBarConfig };
 

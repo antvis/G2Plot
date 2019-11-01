@@ -26,7 +26,7 @@ export default class AxisParser {
   }
 
   private _styleParser() {
-    this.config = {};
+    this.config = { ...this.localProps };
     this._isVisible('line') ? this._lineParser() : (this.config.line = null);
     this._isVisible('grid') ? this._gridParser() : (this.config.grid = null);
     this._isVisible('tickLine') ? this._tickLineParser() : (this.config.tickLine = null);

@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import GaugeLayer, { GaugeLayerConfig } from './GaugeLayer';
+import BasePlot from '../../base/plot';
+import GaugeLayer, { GaugeLayerConfig } from './layer';
 
 export { GaugeLayerConfig as GaugeConfig };
 

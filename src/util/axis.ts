@@ -1,4 +1,4 @@
-import * as StyleParser from '../util/styleParser';
+import * as StyleParser from '../util/style-parser';
 
 export function extractAxis(desAxis, axis) {
   if (!axis) {

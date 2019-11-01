@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import BarLayer, { BarLayerConfig } from './BarLayer';
+import BasePlot from '../../base/plot';
+import BarLayer, { BarLayerConfig } from './layer';
 
 export { BarLayerConfig as BarConfig };
 

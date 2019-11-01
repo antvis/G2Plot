@@ -41,6 +41,15 @@ module.exports = {
         },
         order: 4,
       },
+      {
+        slug: 'examples',
+        title: {
+          zh: '图表演示',
+          en: 'Examples',
+        },
+        order: 100,
+        redirect: 'basic',
+      },
     ],
   },
 };

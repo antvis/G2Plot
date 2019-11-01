@@ -166,7 +166,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it('outter label', () => {
+  it('outer label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -174,7 +174,7 @@ describe('Pie plot', () => {
       angleField: 'value',
       label: {
         visible: true,
-        type: 'outter',
+        type: 'outer',
         formatter: () => {
           return 'test';
         },

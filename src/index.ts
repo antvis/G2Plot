@@ -3,9 +3,9 @@ export { default as Config } from './interface/config';
 export * from './interface/config';
 
 // 图形
-export { default as Layer } from './base/Layer';
+export { default as Layer } from './base/layer';
 export { default as ViewLayer } from './base/view-layer';
-export { default as Base } from './base/Plot';
+export { default as Base } from './base/plot';
 export { default as Line, LineConfig } from './plots/line';
 export { default as Density, DensityConfig } from './plots/density';
 export { default as Column, ColumnConfig } from './plots/column';

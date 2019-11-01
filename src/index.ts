@@ -35,7 +35,7 @@ export { default as TinyArea } from './tiny-plots/tiny-area';
 export { default as TinyLine } from './tiny-plots/tiny-line';
 
 // 主题
-export { default as Theme } from './theme';
+export { registerTheme, registerGlobalTheme } from './theme';
 export { registerResponsiveConstraint, IConstraint } from './util/responsive/constraints';
 export { registerResponsiveRule } from './util/responsive/rules';
 export { registerResponsiveTheme, getResponsiveTheme } from './util/responsive/theme';

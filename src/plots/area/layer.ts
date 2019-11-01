@@ -6,7 +6,6 @@ import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
-import * as StyleParser from '../../util/style-parser';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';

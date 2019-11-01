@@ -40,7 +40,7 @@ export default class Layer<T = void> extends EventEmitter {
   public height: number;
   public parent: Layer;
   public canvas: Canvas;
-  public layerRange: BBox;
+  public layerBBox: BBox;
   public layers: Layer[] = [];
   public container: Group;
   protected visibility: boolean = true;
@@ -52,8 +52,7 @@ export default class Layer<T = void> extends EventEmitter {
    */
   constructor(props: LayerCfg) {
     super();
-    const defaultOptions = this.getDefaultOptions(props);
-    const options = _.deepMix({}, defaultOptions, props);
+    const options = this.getOptions(props);
     this.id = options.id;
     this.x = options.x;
     this.y = options.y;
@@ -74,8 +73,8 @@ export default class Layer<T = void> extends EventEmitter {
       this.container = this.canvas.addGroup();
     }
     this.container.transform([['t', this.x, this.y]]);
-    this.layerRange = this.calculateLayerRange();
-    this.layerRegion = this.calculateLayerRegion();
+    this.layerBBox = this.getLayerBBox();
+    this.layerRegion = this.getLayerRegion();
     this.eachLayer((layer) => {
       layer.init();
     });
@@ -134,9 +133,12 @@ export default class Layer<T = void> extends EventEmitter {
    * @param layer
    */
   public addLayer(layer: Layer) {
-    layer.parent = this;
-    layer.init();
-    this.layers.push(layer);
+    const idx = _.findIndex(this.layers, (item) => item === layer);
+    if (idx < 0) {
+      layer.parent = this;
+      layer.init();
+      this.layers.push(layer);
+    }
   }
 
   /**
@@ -155,24 +157,24 @@ export default class Layer<T = void> extends EventEmitter {
    * @param props
    * @param recursive whether update children layers or not
    */
-  public updateRange(props: Range, recursive: boolean = false) {
-    const origin_range = {
+  public updateBBox(props: Range, recursive: boolean = false) {
+    const originRange = {
       x: this.x,
       y: this.y,
       width: this.width,
       height: this.height,
     };
-    const new_range = _.deepMix({}, origin_range, props);
-    this.x = new_range.x;
-    this.y = new_range.y;
-    this.width = new_range.width;
-    this.height = new_range.height;
-    this.layerRange = this.calculateLayerRange();
-    this.layerRegion = this.calculateLayerRegion();
+    const newRange = _.deepMix({}, originRange, props);
+    this.x = newRange.x;
+    this.y = newRange.y;
+    this.width = newRange.width;
+    this.height = newRange.height;
+    this.layerBBox = this.getLayerBBox();
+    this.layerRegion = this.getLayerRegion();
     this.render();
     if (recursive) {
       this.eachLayer((layer) => {
-        layer.updateRangeByParent();
+        layer.updateBBoxByParent();
         layer.render();
       });
     }
@@ -182,60 +184,62 @@ export default class Layer<T = void> extends EventEmitter {
   /**
    * update display range according to parent layer's range
    */
-  public updateRangeByParent() {
+  public updateBBoxByParent() {
     const region = this.layerRegion;
     this.x = this.parent.x + this.parent.width * region.start.x;
     this.y = this.parent.y + this.parent.height * region.start.y;
     this.width = this.parent.width * (region.end.x - region.start.x);
     this.height = this.parent.height * (region.end.y - region.start.y);
-    this.layerRange = this.calculateLayerRange();
+    this.layerBBox = this.getLayerBBox();
   }
 
   /**
    * get global postion of layer
    */
   public getGlobalPosition() {
-    let global_x = this.x;
-    let global_y = this.y;
+    let globalX = this.x;
+    let globalY = this.y;
     let parent = this.parent;
     while (parent) {
-      global_x += parent.x;
-      global_y += parent.y;
+      globalX += parent.x;
+      globalY += parent.y;
       parent = parent.parent;
     }
-    return { x: global_x, y: global_y };
+    return { x: globalX, y: globalY };
   }
 
-  private getDefaultOptions(props: LayerCfg) {
-    let parent_width = 0;
-    let parent_height = 0;
+  private getOptions(props: LayerCfg) {
+    let parentWidth = 0;
+    let parentHeight = 0;
     if (props.parent) {
-      parent_width = props.parent.width;
-      parent_height = props.parent.height;
+      parentWidth = props.parent.width;
+      parentHeight = props.parent.height;
     }
-    return {
+    const defaultOptions = {
       x: 0,
       y: 0,
-      width: parent_width,
-      height: parent_height,
+      width: parentWidth,
+      height: parentHeight,
     };
+
+    return _.deepMix({}, defaultOptions, props);
   }
 
-  private calculateLayerRange() {
+  private getLayerBBox() {
     return new BBox(this.x, this.y, this.width, this.height);
   }
 
-  private calculateLayerRegion() {
+  private getLayerRegion() {
     if (this.parent) {
-      const parent_width = this.parent.width;
-      const parent_height = this.parent.height;
-      const parent_x = this.parent.x;
-      const parent_y = this.parent.y;
-      const start_x = (this.x - parent_x) / parent_width;
-      const start_y = (this.y - parent_y) / parent_height;
-      const end_x = (this.x + this.width - parent_x) / parent_width;
-      const end_y = (this.y + this.height - parent_y) / parent_height;
-      return { start: { x: start_x, y: start_y }, end: { x: end_x, y: end_y } };
+      const parentWidth = this.parent.width;
+      const parentHeight = this.parent.height;
+      const parentX = this.parent.x;
+      const parentY = this.parent.y;
+      const startX = (this.x - parentX) / parentWidth;
+      const startY = (this.y - parentY) / parentHeight;
+      const endX = (this.x + this.width - parentX) / parentWidth;
+      const endY = (this.y + this.height - parentY) / parentHeight;
+      return { start: { x: startX, y: startY }, end: { x: endX, y: endY } };
     }
 
     return { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } };

@@ -25,10 +25,10 @@ describe('base layer', () => {
     expect(layer.y).to.be.equal(0);
     expect(layer.width).to.be.equal(500);
     expect(layer.height).to.be.equal(500);
-    expect(layer.layerRange.minX).to.be.equal(0);
-    expect(layer.layerRange.minY).to.be.equal(0);
-    expect(layer.layerRange.maxX).to.be.equal(500);
-    expect(layer.layerRange.maxY).to.be.equal(500);
+    expect(layer.layerBBox.minX).to.be.equal(0);
+    expect(layer.layerBBox.minY).to.be.equal(0);
+    expect(layer.layerBBox.maxX).to.be.equal(500);
+    expect(layer.layerBBox.maxY).to.be.equal(500);
     expect(layer.layerRegion.start.x).to.be.equal(0);
     expect(layer.layerRegion.end.y).to.be.equal(1);
     layer.destroy();
@@ -101,12 +101,12 @@ describe('base layer', () => {
       height: 200,
       canvas,
     });
-    layer.updateRange({ x: 0, y: 0, width: 100, height: 100 });
-    const { layerRange } = layer;
-    expect(layerRange.minX).to.be.equal(0);
-    expect(layerRange.minY).to.be.equal(0);
-    expect(layerRange.maxX).to.be.equal(100);
-    expect(layerRange.maxY).to.be.equal(100);
+    layer.updateBBox({ x: 0, y: 0, width: 100, height: 100 });
+    const { layerBBox } = layer;
+    expect(layerBBox.minX).to.be.equal(0);
+    expect(layerBBox.minY).to.be.equal(0);
+    expect(layerBBox.maxX).to.be.equal(100);
+    expect(layerBBox.maxY).to.be.equal(100);
     layer.destroy();
   });
 
@@ -124,14 +124,14 @@ describe('base layer', () => {
       canvas,
     });
     layer1.addLayer(layer2);
-    layer1.updateRange({ x: 10, y: 10, width: 500, height: 500 }, true);
-    const layer1_range = layer1.layerRange;
-    const layer2_range = layer2.layerRange;
-    const layer2_region = layer2.layerRegion;
-    expect(layer1_range.minX).to.be.equal(10);
-    expect(layer1_range.maxX).to.be.equal(510);
-    expect(layer2_range.minX).to.be.equal(layer1_range.minX + layer1.width * layer2_region.start.x);
-    expect(layer2_range.maxX).to.be.equal(layer1_range.minX + layer1.width * layer2_region.end.x);
+    layer1.updateBBox({ x: 10, y: 10, width: 500, height: 500 }, true);
+    const layer1Range = layer1.layerBBox;
+    const layer2Range = layer2.layerBBox;
+    const layer2Region = layer2.layerRegion;
+    expect(layer1Range.minX).to.be.equal(10);
+    expect(layer1Range.maxX).to.be.equal(510);
+    expect(layer2Range.minX).to.be.equal(layer1Range.minX + layer1.width * layer2Region.start.x);
+    expect(layer2Range.maxX).to.be.equal(layer1Range.minX + layer1.width * layer2Region.end.x);
     layer1.destroy();
     layer2.destroy();
   });

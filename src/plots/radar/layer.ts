@@ -118,7 +118,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
           visible: false,
         },
         grid: {
-          visible: false,
+          visible: true,
           style: {
             lineDash: [0, 0],
           },
@@ -131,6 +131,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
       },
       radiusAxis: {
+        min: 0,
         visible: true,
         autoHideLabel: false,
         autoRotateLabel: true,

@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import ColumnLayer, { ColumnLayerConfig } from './ColumnLayer';
+import BasePlot from '../../base/plot';
+import ColumnLayer, { ColumnLayerConfig } from './layer';
 
 export interface ColumnConfig extends ColumnLayerConfig {}
 

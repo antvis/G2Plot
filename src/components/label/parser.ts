@@ -19,7 +19,7 @@ export default class LabelParser {
 
   private _parseCallBack(val) {
     const labelProps = this.plot.initialProps.label;
-    const config: DataPointType = {};
+    const config: DataPointType = { ...labelProps };
     this._parseOffset(labelProps, config);
     if (labelProps.position) {
       if (_.isFunction(labelProps.position)) {
@@ -38,6 +38,10 @@ export default class LabelParser {
         config.textStyle = labelProps.style;
       }
     }
+    if (labelProps.autoRotate) {
+      config.autoRotate = labelProps.autoRotate;
+    }
+
     return config;
   }
 

@@ -1,5 +1,5 @@
 import Pie from '../pie';
-import RingLayer, { RingLayerConfig } from './RingLayer';
+import RingLayer, { RingLayerConfig } from './layer';
 
 export { RingLayerConfig as RingConfig };
 

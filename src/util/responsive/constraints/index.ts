@@ -1,10 +1,10 @@
-import columnWidth from './columnWidth';
-import elementCollision from './elementCollision';
-import elementDist from './elementDist';
-import elementDistVertical from './elementDistVertical';
-import elementWidth from './elementWidth';
-import minRingThickness from './minRingThickness';
-import ringThickness from './ringThickness';
+import columnWidth from './column-width';
+import elementCollision from './element-collision';
+import elementDist from './element-dist';
+import elementDistVertical from './element-dist-vertical';
+import elementWidth from './element-width';
+import minRingThickness from './min-ring-thickness';
+import ringThickness from './ring-thickness';
 
 /** constraints约束库 */
 export interface IConstraint {

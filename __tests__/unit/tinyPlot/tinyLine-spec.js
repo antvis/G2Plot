@@ -1,4 +1,4 @@
-import TinyLine from '../../../src/tinyPlots/tiny-line';
+import TinyLine from '../../../src/tiny-plots/tiny-line';
 import { expect } from 'chai';
 import { income } from '../../data/income';
 import { getMean, getMedian } from '../../../src/util/math';

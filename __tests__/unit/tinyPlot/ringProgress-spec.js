@@ -1,4 +1,4 @@
-import RingProgress from '../../../src/tinyPlots/ring-progress';
+import RingProgress from '../../../src/tiny-plots/ring-progress';
 import { expect } from 'chai';
 
 describe.skip('progress', () => {

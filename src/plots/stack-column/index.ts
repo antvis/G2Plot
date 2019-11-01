@@ -1,5 +1,5 @@
 import Column from '../column';
-import StackColumnLayer, { StackColumnLayerConfig } from './StackColumnLayer';
+import StackColumnLayer, { StackColumnLayerConfig } from './layer';
 
 export interface StackColumnConfig extends StackColumnLayerConfig {}
 

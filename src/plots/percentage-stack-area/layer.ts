@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import StackArea, { StackAreaLayerConfig } from '../stack-area/StackAreaLayer';
+import StackArea, { StackAreaLayerConfig } from '../stack-area/layer';
 
 export interface PercentageStackAreaLayerConfig extends StackAreaLayerConfig {}
 

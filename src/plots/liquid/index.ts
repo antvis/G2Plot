@@ -1,5 +1,5 @@
-import BasePlot from '../../base/Plot';
-import LiquidLayer, { LiquidLayerConfig } from './LiquidLayer';
+import BasePlot from '../../base/plot';
+import LiquidLayer, { LiquidLayerConfig } from './layer';
 
 export { LiquidLayerConfig as LiquidConfig };
 

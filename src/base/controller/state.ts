@@ -5,7 +5,7 @@ import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
-import StateManager from '../../util/stateManager';
+import StateManager from '../../util/state-manager';
 
 export function compare(origin, condition) {
   if (!_.isFunction(condition)) {

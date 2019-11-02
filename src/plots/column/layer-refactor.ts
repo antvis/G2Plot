@@ -1,8 +1,8 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import ViewLayer, { ViewLayerCfg } from '../../base/view-layer-refactor';
-import { getComponent } from '../../components/factory';
-import { getGeom } from '../../geoms/factory';
+import { getComponent } from '../../components/factory-refactor';
+import { getGeom } from '../../geoms/factory-refactor';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';

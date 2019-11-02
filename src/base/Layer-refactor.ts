@@ -60,21 +60,20 @@ export default class Layer<T = void> extends EventEmitter {
     this.height = options.height;
     this.canvas = options.canvas;
     this.parent = options.parent;
-    this.init();
-  }
-
-  /**
-   * init life cycle
-   */
-  public init() {
+    this.layerBBox = this.getLayerBBox();
+    this.layerRegion = this.getLayerRegion();
     if (this.parent) {
       this.container = this.parent.container.addGroup();
     } else {
       this.container = this.canvas.addGroup();
     }
     this.container.transform([['t', this.x, this.y]]);
-    this.layerBBox = this.getLayerBBox();
-    this.layerRegion = this.getLayerRegion();
+  }
+
+  /**
+   * init life cycle
+   */
+  public init() {
     this.eachLayer((layer) => {
       layer.init();
     });
@@ -84,6 +83,7 @@ export default class Layer<T = void> extends EventEmitter {
    * render layer recursively
    */
   public render() {
+    this.init();
     this.eachLayer((layer) => {
       layer.render();
     });

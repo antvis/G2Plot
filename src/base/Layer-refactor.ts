@@ -208,7 +208,7 @@ export default class Layer<T = void> extends EventEmitter {
     return { x: globalX, y: globalY };
   }
 
-  private getOptions(props: LayerCfg) {
+  public getOptions(props: LayerCfg) {
     let parentWidth = 0;
     let parentHeight = 0;
     if (props.parent) {

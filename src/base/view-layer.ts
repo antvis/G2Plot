@@ -15,7 +15,6 @@ import Layer from './layer';
 
 export default abstract class ViewLayer<T extends Config = Config> extends Layer<T> {
   public plot: G2.View;
-
   protected originalProps: T;
   protected config: G2Config;
   protected title: TextDescription;

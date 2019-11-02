@@ -1,11 +1,11 @@
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-import { getComponent } from '../components/factory';
+import { getComponent } from '../components/factory-refactor';
 import BaseInteraction, { InteractionCtor } from '../interaction';
 import { Axis, IInteractions, Label, Legend, StateConfig, Tooltip } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
-import PaddingController from './controller/padding';
+import PaddingController from './controller/padding-refactor';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerCfg } from './Layer-refactor';
@@ -64,10 +64,6 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.stateController = new StateController({
       plot: this,
     });
-    this.themeController = new ThemeController();
-    this.beforeInit();
-    this.init();
-    this.afterInit();
   }
 
   public getOptions(props: ViewLayerCfg) {
@@ -219,6 +215,10 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
 
   /** 完整生命周期渲染 */
   public render(): void {
+    this.themeController = new ThemeController();
+    this.beforeInit();
+    this.init();
+    this.afterInit();
     const { data } = this.options;
     if (!_.isEmpty(data)) {
       this.view.render();
@@ -240,9 +240,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     }
     const newProps = _.deepMix({}, this.options, cfg);
     this.options = newProps;
-    this.beforeInit();
-    this.init();
-    this.afterInit();
+    this.render();
   }
 
   // plot 不断销毁重建，需要一个api获取最新的plot

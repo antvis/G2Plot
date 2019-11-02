@@ -22,7 +22,6 @@ module.exports = {
           zh: '使用文档',
           en: 'docs',
         },
-        redirect: 'introduction',
       },
       {
         slug: 'examples',
@@ -30,7 +29,6 @@ module.exports = {
           zh: '图表演示',
           en: 'Examples',
         },
-        redirect: 'line/basic',
       },
     ],
     docs: [
@@ -40,6 +38,7 @@ module.exports = {
           zh: '图表',
           en: 'Charts',
         },
+        order: 3,
       },
       {
         slug: 'manual/advanced',
@@ -47,6 +46,7 @@ module.exports = {
           zh: '进阶',
           en: 'Advanced',
         },
+        order: 4,
       },
     ],
     examples: [

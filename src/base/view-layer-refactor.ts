@@ -4,9 +4,10 @@ import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction';
 import { Axis, IInteractions, Label, Legend, StateConfig, Tooltip } from '../interface/config';
 import { G2Config } from '../interface/config';
-import { getGlobalTheme } from '../theme';
+import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
+import ThemeController from './controller/theme';
 import Layer, { LayerCfg } from './Layer-refactor';
 
 export interface ViewLayerCfg extends LayerCfg {
@@ -42,12 +43,14 @@ export interface ViewLayerCfg extends LayerCfg {
 }
 
 export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> extends Layer {
+  public type: string;
   public view: G2.View;
   public theme: any;
   public initialOptions: T;
   public options: T;
   protected paddingController: PaddingController;
   protected stateController: StateController;
+  protected themeController: ThemeController;
   protected config: G2Config;
   private interactions: BaseInteraction[];
 
@@ -61,6 +64,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.stateController = new StateController({
       plot: this,
     });
+    this.themeController = new ThemeController();
     this.beforeInit();
     this.init();
     this.afterInit();
@@ -144,7 +148,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
 
   public init() {
     const { layerBBox } = this;
-    this.theme = getGlobalTheme(); // tempo: function getTheme
+    this.theme = this.themeController.getTheme(this.options, this.type);
     this.config = {
       scales: {},
       legends: {},
@@ -162,14 +166,14 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
       theme: this.theme,
       panelRange: {},
     };
-    this._coord();
-    this._scale();
-    this._axis();
-    this._tooltip();
-    this._legend();
-    this._addGeometry();
-    this._annotation();
-    this._animation();
+    this.coord();
+    this.scale();
+    this.axis();
+    this.tooltip();
+    this.legend();
+    this.addGeometry();
+    this.annotation();
+    this.animation();
 
     this.view = new G2.View({
       width: this.width,
@@ -178,16 +182,38 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
       container: this.container,
       padding: this.paddingController.getPadding(),
       data: this.processData(this.options.data),
-      theme: this.config.theme,
+      theme: this.theme,
       options: this.config,
       start: { x: layerBBox.minX, y: layerBBox.minY },
       end: { x: layerBBox.maxX, y: layerBBox.maxY },
+    });
+
+    this.applyInteractions();
+    this.parserEvents();
+    this.view.on('afterrender', () => {
+      this.afterRender();
     });
   }
 
   public afterInit() {
     if (!this.view || this.view.destroyed) {
       return;
+    }
+  }
+
+  public afterRender() {
+    if (!this.view || this.view.destroyed) {
+      return;
+    }
+    const { options } = this;
+    const padding = options.padding ? options.padding : this.config.theme.padding;
+    /** defaultState */
+    if (options.defaultState && padding !== 'auto') {
+      this.stateController.defaultStates(options.defaultState);
+    }
+    /** autopadding */
+    if (padding === 'auto') {
+      this.paddingController.processAutoPadding();
     }
   }
 
@@ -224,6 +250,10 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     return this.view;
   }
 
+  public getResponsiveTheme() {
+    return this.themeController.getResponsiveTheme(this.type);
+  }
+
   // 绑定一个外部的stateManager
   public bindStateManager(stateManager, cfg): void {
     this.stateController.bindStateManager(stateManager, cfg);
@@ -255,16 +285,16 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     return data;
   }
 
-  protected abstract _coord(): void;
+  protected abstract coord(): void;
 
-  protected _scale(): void {
+  protected scale(): void {
     /** scale meta配置 */
     // this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
     const scales = _.assign({}, this.config.scales, this.options.meta || {});
     this.setConfig('scales', scales);
   }
 
-  protected _axis(): void {
+  protected axis(): void {
     const xAxis_parser = getComponent('axis', {
       plot: this,
       dim: 'x',
@@ -280,7 +310,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.setConfig('axes', axesConfig);
   }
 
-  protected _tooltip(): void {
+  protected tooltip(): void {
     if (this.options.tooltip.visible === false) {
       this.setConfig('tooltip', false);
       return;
@@ -299,7 +329,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     }
   }
 
-  protected _legend(): void {
+  protected legend(): void {
     if (this.options.legend.visible === false) {
       this.setConfig('legends', false);
       return;
@@ -314,11 +344,11 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     });
   }
 
-  protected abstract _annotation(): void;
-  protected abstract _addGeometry(): void;
+  protected abstract annotation(): void;
+  protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
-  protected abstract _animation(): void;
-  protected _interactions(): void {}
+  protected abstract animation(): void;
+  protected applyInteractions(): void {}
 
   /** 设置G2 config，带有类型推导 */
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
@@ -331,6 +361,20 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
       return;
     }
     _.assign(this.config[key], config);
+  }
+
+  protected parserEvents(eventParser?): void {
+    const { options } = this;
+    if (options.events) {
+      const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
+      _.each(options.events, (e, k) => {
+        if (_.isFunction(e)) {
+          const eventName = eventmap[k] || k;
+          const handler = e;
+          onEvent(this, eventName, handler);
+        }
+      });
+    }
   }
 
   /** 抽取destroy和updateConfig共有代码为_destroy方法 */

@@ -15,16 +15,23 @@ module.exports = {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
     githubUrl: repository.url,
-    docs: [
+    navs: [
       {
-        slug: 'manual',
+        slug: 'docs/manual',
         title: {
           zh: '使用文档',
           en: 'docs',
         },
-        redirect: 'introduction',
-        order: 0,
       },
+      {
+        slug: 'examples',
+        title: {
+          zh: '图表演示',
+          en: 'Examples',
+        },
+      },
+    ],
+    docs: [
       {
         slug: 'manual/plots',
         title: {
@@ -41,19 +48,10 @@ module.exports = {
         },
         order: 4,
       },
-      {
-        slug: 'examples',
-        title: {
-          zh: '图表演示',
-          en: 'Examples',
-        },
-        order: 100,
-        redirect: 'line/basic',
-      },
     ],
     examples: [
       {
-        slug: 'examples/line',
+        slug: 'line',
         icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {
           zh: '折线图',
@@ -61,8 +59,8 @@ module.exports = {
         },
       },
       {
-        slug: 'examples/pie',
-        icon: 'pie', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        slug: 'pie',
+        icon: 'pie',
         title: {
           zh: '饼图',
           en: 'Pie Charts',

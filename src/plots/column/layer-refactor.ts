@@ -1,5 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import ViewLayer, { ViewLayerCfg } from '../../base/view-layer-refactor';
 import { getComponent } from '../../components/factory-refactor';
 import { getGeom } from '../../geoms/factory-refactor';
@@ -58,8 +59,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     return _.deepMix({}, options, defaultOptions, props);
   }
 
-  public beforeInit() {
-    super.beforeInit();
+  public beforeCreate() {
+    super.beforeCreate();
     /** 响应式图形 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('preRender');
@@ -153,3 +154,5 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     });
   }
 }
+
+registerPlotType('column', BaseColumnLayer);

@@ -43,8 +43,8 @@ export default class Layer<T = void> extends EventEmitter {
   public layerBBox: BBox;
   public layers: Layer[] = [];
   public container: Group;
+  public destroyed: boolean = false;
   protected visibility: boolean = true;
-  protected destroyed: boolean = false;
   protected layerRegion: Region;
 
   /**
@@ -60,6 +60,12 @@ export default class Layer<T = void> extends EventEmitter {
     this.height = options.height;
     this.canvas = options.canvas;
     this.parent = options.parent;
+  }
+
+  /**
+   * init life cycle
+   */
+  public init() {
     this.layerBBox = this.getLayerBBox();
     this.layerRegion = this.getLayerRegion();
     if (this.parent) {
@@ -68,12 +74,6 @@ export default class Layer<T = void> extends EventEmitter {
       this.container = this.canvas.addGroup();
     }
     this.container.transform([['t', this.x, this.y]]);
-  }
-
-  /**
-   * init life cycle
-   */
-  public init() {
     this.eachLayer((layer) => {
       layer.init();
     });

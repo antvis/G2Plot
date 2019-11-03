@@ -1,5 +1,6 @@
 import * as G from '@antv/g';
 import BaseColumnLayer from '../../src/plots/column/layer-refactor';
+import BasePlot from '../../src/base/plot-refactor';
 
 const canvasDiv = document.createElement('div');
 canvasDiv.style.width = '600px';
@@ -64,5 +65,20 @@ describe('view layer test', () => {
       yField: 'value',
     });
     column.render();
+  });
+
+  it('base plot', () => {
+    const plot = new BasePlot(canvasDiv, {
+      forfit: true,
+      type: 'column',
+      width: 500,
+      height: 500,
+      canvas: canvas,
+      padding: 'auto',
+      data,
+      xField: 'year',
+      yField: 'value',
+    });
+    plot.render();
   });
 });

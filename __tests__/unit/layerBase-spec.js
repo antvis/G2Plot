@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as G from '@antv/g';
 import Layer from '../../src/base/Layer-refactor';
 
-describe('base layer', () => {
+/* describe('base layer', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -158,4 +158,4 @@ describe('base layer', () => {
     layer1.destroy();
     layer2.destroy();
   });
-});
+}); */

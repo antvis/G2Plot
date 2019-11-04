@@ -10,7 +10,7 @@ export interface StackAreaLayerConfig extends AreaLayerConfig {
 }
 
 export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       label: {

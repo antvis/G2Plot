@@ -25,10 +25,7 @@ const PLOT_GEOM_MAP = {
 };
 
 export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends ViewLayer<T> {
-  public pie: any;
-  public spiderLabel: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     return {
       width: 400,
       height: 400,
@@ -60,6 +57,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       },
     };
   }
+  public pie: any;
+  public spiderLabel: any;
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

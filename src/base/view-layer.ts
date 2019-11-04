@@ -14,6 +14,78 @@ import ThemeController from './controller/theme';
 import Layer from './layer';
 
 export default abstract class ViewLayer<T extends Config = Config> extends Layer<T> {
+  public static getDefaultProps(): any {
+    return {
+      width: 400,
+      height: 400,
+      title: {
+        visible: false,
+      },
+      description: {
+        visible: false,
+      },
+      forceFit: true,
+      padding: 'auto',
+      legend: {
+        visible: true,
+        position: 'bottom-center',
+      },
+      tooltip: {
+        visible: true,
+        shared: true,
+        crosshairs: {
+          type: 'y',
+        },
+      },
+      xAxis: {
+        visible: true,
+        autoHideLabel: false,
+        autoRotateLabel: false,
+        autoRotateTitle: false,
+        grid: {
+          visible: false,
+        },
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: true,
+        },
+        label: {
+          visible: true,
+        },
+        title: {
+          visible: false,
+          offset: 12,
+        },
+      },
+      yAxis: {
+        visible: true,
+        autoHideLabel: false,
+        autoRotateLabel: false,
+        autoRotateTitle: true,
+        grid: {
+          visible: true,
+        },
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+        },
+        title: {
+          visible: false,
+          offset: 12,
+        },
+      },
+      label: {
+        visible: false,
+      },
+    };
+  }
   public plot: G2.View;
 
   protected originalProps: T;
@@ -129,79 +201,6 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   // 获取 ViewLayer 的数据项
   public getData(start?: number, end?: number): object[] {
     return this.processData((this.initialProps.data || []).slice(start, end));
-  }
-
-  public getDefaultProps(): any {
-    return {
-      width: 400,
-      height: 400,
-      title: {
-        visible: false,
-      },
-      description: {
-        visible: false,
-      },
-      forceFit: true,
-      padding: 'auto',
-      legend: {
-        visible: true,
-        position: 'bottom-center',
-      },
-      tooltip: {
-        visible: true,
-        shared: true,
-        crosshairs: {
-          type: 'y',
-        },
-      },
-      xAxis: {
-        visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: false,
-        grid: {
-          visible: false,
-        },
-        line: {
-          visible: false,
-        },
-        tickLine: {
-          visible: true,
-        },
-        label: {
-          visible: true,
-        },
-        title: {
-          visible: false,
-          offset: 12,
-        },
-      },
-      yAxis: {
-        visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: true,
-        grid: {
-          visible: true,
-        },
-        line: {
-          visible: false,
-        },
-        tickLine: {
-          visible: false,
-        },
-        label: {
-          visible: true,
-        },
-        title: {
-          visible: false,
-          offset: 12,
-        },
-      },
-      label: {
-        visible: false,
-      },
-    };
   }
 
   protected init() {
@@ -437,7 +436,8 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
   }
 
   protected beforeInit() {
-    const defaultProps = this.getDefaultProps();
+    // @ts-ignore
+    const defaultProps = this.constructor.getDefaultProps();
     this.initialProps = _.deepMix({}, defaultProps, this.initialProps);
   }
 

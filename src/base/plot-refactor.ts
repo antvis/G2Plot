@@ -40,7 +40,6 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
   public destroy() {
     super.destroy();
     this.canvasController.destroy();
-
     this.layers = [];
     this.destroyed = true;
   }
@@ -141,9 +140,10 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
       const viewLayerCtr = getPlotType(props.type);
       const viewLayerProps = _.deepMix({}, props, {
         canvas: this.canvasController.canvas,
+        parent: this,
       });
       const viewLayer = new viewLayerCtr(viewLayerProps);
-      this.layers.push(viewLayer);
+      this.addLayer(viewLayer);
     }
   }
 }

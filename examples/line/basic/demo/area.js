@@ -1,6 +1,6 @@
 import { Area } from '@antv/g2plot';
 
-fetch('data/fireworks-sales.json')
+fetch('../data/fireworks-sales.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new Area(document.getElementById('container'), {

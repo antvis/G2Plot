@@ -480,6 +480,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
             getBBox: () => {
               return range;
             },
+            position: 'bottom',
           },
           'outer'
         );

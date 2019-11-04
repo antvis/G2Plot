@@ -59,8 +59,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     return _.deepMix({}, options, defaultOptions, props);
   }
 
-  public beforeCreate() {
-    super.beforeCreate();
+  public beforeInit() {
+    super.beforeInit();
     /** 响应式图形 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('preRender');

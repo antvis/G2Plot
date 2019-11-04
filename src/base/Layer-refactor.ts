@@ -1,5 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
-import { BBox, Canvas, Group } from '@antv/g';
+import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 
@@ -15,7 +15,7 @@ export interface LayerCfg {
   height?: number;
   /** the parent node of layer */
   parent?: any;
-  canvas: Canvas;
+  canvas: G.Canvas;
 }
 
 export interface Region {
@@ -39,10 +39,10 @@ export default class Layer<T = void> extends EventEmitter {
   public width: number;
   public height: number;
   public parent: Layer;
-  public canvas: Canvas;
-  public layerBBox: BBox;
+  public canvas: G.Canvas;
+  public layerBBox: G.BBox;
   public layers: Layer[] = [];
-  public container: Group;
+  public container: G.Group;
   public destroyed: boolean = false;
   protected visibility: boolean = true;
   protected layerRegion: Region;
@@ -60,7 +60,10 @@ export default class Layer<T = void> extends EventEmitter {
     this.height = options.height;
     this.canvas = options.canvas;
     this.parent = options.parent;
+    this.container = new G.Group();
   }
+
+  public beforeInit() {}
 
   /**
    * init life cycle
@@ -68,22 +71,26 @@ export default class Layer<T = void> extends EventEmitter {
   public init() {
     this.layerBBox = this.getLayerBBox();
     this.layerRegion = this.getLayerRegion();
-    if (this.parent) {
-      this.container = this.parent.container.addGroup();
-    } else {
-      this.container = this.canvas.addGroup();
-    }
-    this.container.transform([['t', this.x, this.y]]);
     this.eachLayer((layer) => {
       layer.init();
     });
   }
 
+  public afterInit() {}
+
   /**
    * render layer recursively
    */
   public render() {
+    if (this.parent) {
+      this.parent.container.add(this.container);
+    } else {
+      this.canvas.add(this.container);
+    }
+    this.beforeInit();
     this.init();
+    this.container.transform([['t', this.x, this.y]]);
+
     this.eachLayer((layer) => {
       layer.render();
     });
@@ -135,8 +142,10 @@ export default class Layer<T = void> extends EventEmitter {
   public addLayer(layer: Layer) {
     const idx = _.findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
-      layer.parent = this;
-      layer.init();
+      if (layer.parent !== this) {
+        layer.parent = this;
+        layer.init();
+      }
       this.layers.push(layer);
     }
   }
@@ -226,7 +235,7 @@ export default class Layer<T = void> extends EventEmitter {
   }
 
   private getLayerBBox() {
-    return new BBox(this.x, this.y, this.width, this.height);
+    return new G.BBox(this.x, this.y, this.width, this.height);
   }
 
   private getLayerRegion() {

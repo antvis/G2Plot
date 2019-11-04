@@ -141,9 +141,10 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     return _.deepMix({}, options, defaultOptions, props);
   }
 
-  public beforeCreate() {}
+  public beforeInit() {}
 
-  public createView() {
+  public init() {
+    super.init();
     const { layerBBox } = this;
     this.theme = this.themeController.getTheme(this.options, this.type);
     this.config = {
@@ -192,7 +193,8 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     });
   }
 
-  public afterCreate() {
+  public afterInit() {
+    super.afterInit();
     if (!this.view || this.view.destroyed) {
       return;
     }
@@ -217,9 +219,6 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
   /** 完整生命周期渲染 */
   public render(): void {
     super.render();
-    this.beforeCreate();
-    this.createView();
-    this.afterCreate();
     const { data } = this.options;
     if (!_.isEmpty(data)) {
       this.view.render();

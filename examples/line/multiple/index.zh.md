@@ -1,6 +1,6 @@
 ---
-title: 基础折线图
-order: 0
+title: 多折线图
+order: 1
 redirect_from:
   - /zh/examples
 ---

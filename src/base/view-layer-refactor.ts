@@ -1,5 +1,6 @@
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
+import TextDescription from '../components/description';
 import { getComponent } from '../components/factory-refactor';
 import BaseInteraction, { InteractionCtor } from '../interaction';
 import { Axis, IInteractions, Label, Legend, StateConfig, Tooltip } from '../interface/config';
@@ -52,6 +53,8 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
   protected stateController: StateController;
   protected themeController: ThemeController;
   protected config: G2Config;
+  protected title: TextDescription;
+  protected description: TextDescription;
   private interactions: BaseInteraction[];
 
   constructor(props: ViewLayerCfg) {
@@ -164,6 +167,10 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
       theme: this.theme,
       panelRange: {},
     };
+
+    this.drawTitle();
+    this.drawDescription();
+
     this.coord();
     this.scale();
     this.axis();
@@ -172,6 +179,8 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.addGeometry();
     this.annotation();
     this.animation();
+
+    const viewRange = this.paddingController.processOuterPadding();
 
     this.view = new G2.View({
       width: this.width,
@@ -182,8 +191,8 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
       data: this.processData(this.options.data),
       theme: this.theme,
       options: this.config,
-      start: { x: layerBBox.minX, y: layerBBox.minY },
-      end: { x: layerBBox.maxX, y: layerBBox.maxY },
+      start: { x: viewRange.minX, y: viewRange.minY },
+      end: { x: viewRange.maxX, y: viewRange.maxY },
     });
 
     this.applyInteractions();
@@ -375,6 +384,56 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
           onEvent(this, eventName, handler);
         }
       });
+    }
+  }
+
+  protected drawTitle(): void {
+    const props = this.options;
+    const range = this.layerBBox;
+    this.title = null;
+    if (props.title.visible) {
+      const width = this.width;
+      const theme = this.config.theme;
+      const title = new TextDescription({
+        leftMargin: range.minX + theme.title.padding[3],
+        topMargin: range.minY + theme.title.padding[0],
+        text: props.title.text,
+        style: _.mix(theme.title, props.title.style),
+        wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
+        container: this.container.addGroup(),
+        theme,
+      });
+      this.title = title;
+      this.paddingController.registerPadding(title, 'outer');
+    }
+  }
+
+  protected drawDescription(): void {
+    const props = this.options;
+    const range = this.layerBBox;
+    this.description = null;
+
+    if (props.description.visible) {
+      const width = this.width;
+
+      let topMargin = range.minY;
+      if (this.title) {
+        const titleBBox = this.title.getBBox();
+        topMargin = titleBBox.minY + titleBBox.height;
+      }
+
+      const theme = this.config.theme;
+      const description = new TextDescription({
+        leftMargin: range.minX + theme.description.padding[3],
+        topMargin: topMargin + theme.description.padding[0],
+        text: props.description.text,
+        style: _.mix(theme.description, props.description.style),
+        wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
+        container: this.container.addGroup(),
+        theme,
+      });
+      this.description = description;
+      this.paddingController.registerPadding(description, 'outer');
     }
   }
 

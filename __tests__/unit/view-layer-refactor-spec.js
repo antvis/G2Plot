@@ -3,15 +3,15 @@ import BaseColumnLayer from '../../src/plots/column/layer-refactor';
 import BasePlot from '../../src/base/plot-refactor';
 
 const canvasDiv = document.createElement('div');
-canvasDiv.style.width = '600px';
-canvasDiv.style.height = '600px';
+canvasDiv.style.width = '400px';
+canvasDiv.style.height = '300px';
 canvasDiv.id = 'canvas';
 document.body.appendChild(canvasDiv);
 
 const canvas = new G.Canvas({
   containerId: 'canvas',
-  width: 600,
-  height: 600,
+  width: 400,
+  height: 300,
 });
 
 const data = [
@@ -54,10 +54,18 @@ const data = [
 ];
 
 describe('view layer test', () => {
-  it('initialize', () => {
+  it.only('initialize', () => {
     const column = new BaseColumnLayer({
-      width: 500,
-      height: 500,
+      title: {
+        visible: true,
+        text: '先帝创业未半而中道崩殂',
+      },
+      description: {
+        visible: true,
+        text: '今天下三分，益州疲弊，此诚危急存亡之秋也',
+      },
+      width: 400,
+      height: 300,
       canvas: canvas,
       padding: 'auto',
       data,
@@ -71,8 +79,8 @@ describe('view layer test', () => {
     const plot = new BasePlot(canvasDiv, {
       forfit: true,
       type: 'column',
-      width: 500,
-      height: 500,
+      width: 400,
+      height: 300,
       canvas: canvas,
       padding: 'auto',
       data,

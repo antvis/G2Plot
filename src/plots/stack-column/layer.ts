@@ -11,9 +11,7 @@ export interface StackColumnLayerConfig extends ColumnLayerConfig {
 }
 
 export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerConfig> {
-  public connectedArea: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       label: {
@@ -26,6 +24,7 @@ export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerCo
       },
     });
   }
+  public connectedArea: any;
 
   protected setType() {
     this.type = 'stackColumn';

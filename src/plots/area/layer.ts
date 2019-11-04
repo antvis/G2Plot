@@ -56,11 +56,7 @@ export interface AreaLayerConfig extends BaseConfig {
 }
 
 export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
-  public line: any;
-  public point: any;
-  public area: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       smooth: false,
@@ -82,6 +78,9 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       },
     });
   }
+  public line: any;
+  public point: any;
+  public area: any;
 
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];

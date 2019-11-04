@@ -4,6 +4,7 @@ import StackBarLayer, { StackBarLayerConfig } from './layer';
 export { StackBarLayerConfig as StackBarConfig };
 
 export default class StackBar extends Bar<StackBarLayerConfig> {
+  public static getDefaultProps = StackBarLayer.getDefaultProps;
   protected init() {
     const layer = new StackBarLayer(
       this.getCanvasController(),

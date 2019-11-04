@@ -339,13 +339,7 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       return;
     }
 
-    this.setConfig('tooltip', {
-      crosshairs: _.get(props, 'tooltip.crosshairs'),
-      shared: _.get(props, 'tooltip.shared'),
-      htmlContent: _.get(props, 'tooltip.htmlContent'),
-      containerTpl: _.get(props, 'tooltip.containerTpl'),
-      itemTpl: _.get(props, 'tooltip.itemTpl'),
-    });
+    this.setConfig('tooltip', _.deepMix({}, _.get(props, 'tooltip')));
 
     if (props.tooltip.style) {
       _.deepMix(this.config.theme.tooltip, props.tooltip.style);

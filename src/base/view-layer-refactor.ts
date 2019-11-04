@@ -242,6 +242,10 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.render();
   }
 
+  public changeData(data: object[]): void {
+    this.view.changeData(this.processData(data));
+  }
+
   // plot 不断销毁重建，需要一个api获取最新的plot
   public getPlot() {
     return this.view;

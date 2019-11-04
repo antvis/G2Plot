@@ -234,6 +234,10 @@ export default class Layer<T = void> extends EventEmitter {
     return _.deepMix({}, defaultOptions, props);
   }
 
+  public eachLayer(cb: (layer) => void) {
+    _.each(this.layers, cb);
+  }
+
   private getLayerBBox() {
     return new G.BBox(this.x, this.y, this.width, this.height);
   }
@@ -252,9 +256,5 @@ export default class Layer<T = void> extends EventEmitter {
     }
 
     return { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } };
-  }
-
-  private eachLayer(cb: (layer) => void) {
-    _.each(this.layers, cb);
   }
 }

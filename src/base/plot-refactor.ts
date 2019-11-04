@@ -1,10 +1,9 @@
-import { deepMix, each, findIndex, get } from '@antv/util';
 import * as _ from '@antv/util';
-import BaseConfig from '../interface/config';
 import { RecursivePartial } from '../interface/types';
+import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas-refactor';
 import { getPlotType } from './global';
-import Layer, { LayerCfg } from './layer-refactor';
+import Layer from './layer-refactor';
 import ViewLayer, { ViewLayerCfg } from './view-layer-refactor';
 
 export interface PlotCfg {
@@ -13,7 +12,7 @@ export interface PlotCfg {
   forceFit: boolean;
 }
 
-export default class BasePlot extends Layer {
+export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
   public width: number;
   public height: number;
   public forceFit: boolean;
@@ -35,6 +34,105 @@ export default class BasePlot extends Layer {
     this.canvas = this.canvasController.canvas;
 
     this.createLayers(props);
+  }
+
+  /** 生命周期 */
+  public destroy() {
+    super.destroy();
+    this.canvasController.destroy();
+
+    this.layers = [];
+    this.destroyed = true;
+  }
+
+  /**
+   * 重新绘制图形
+   */
+  public repaint(): void {
+    this.canvasController.canvas.draw();
+  }
+
+  public updateConfig(config: RecursivePartial<T>, all: boolean = false) {
+    if (all) {
+      this.eachLayer((layer) => {
+        if (layer.isViewLayer) {
+          layer.updateConfig(config);
+        }
+      });
+    } else {
+      const layer: any = this.layers[0];
+      if (layer.isViewLayer) {
+        layer.updateConfig(config);
+      }
+    }
+  }
+
+  public changeData(data: any[], all: boolean = false) {
+    if (all) {
+      this.eachLayer((layer) => {
+        if (layer instanceof ViewLayer) {
+          layer.changeData(data);
+        }
+      });
+    } else {
+      const layer: any = this.layers[0];
+      if (layer instanceof ViewLayer) {
+        layer.changeData(data);
+      }
+    }
+  }
+
+  /**
+   * 绑定一个外部的stateManager
+   * 先直接传递给各个子 Layer
+   *
+   *  @param stateManager
+   *  @param cfg
+   */
+  public bindStateManager(stateManager: StateManager, cfg: any) {
+    this.eachLayer((layer) => {
+      if (layer instanceof ViewLayer) {
+        layer.bindStateManager(stateManager, cfg);
+      }
+    });
+  }
+
+  /**
+   * 响应状态量更新的快捷方法
+   *
+   *  @param condition
+   * @param style
+   */
+  public setActive(condition: any, style: any) {
+    this.eachLayer((layer) => {
+      if (layer instanceof ViewLayer) {
+        layer.setActive(condition, style);
+      }
+    });
+  }
+
+  public setSelected(condition: any, style: any) {
+    this.eachLayer((layer) => {
+      if (layer instanceof ViewLayer) {
+        layer.setSelected(condition, style);
+      }
+    });
+  }
+
+  public setDisable(condition: any, style: any) {
+    this.eachLayer((layer) => {
+      if (layer instanceof ViewLayer) {
+        layer.setDisable(condition, style);
+      }
+    });
+  }
+
+  public setNormal(condition: any) {
+    this.eachLayer((layer) => {
+      if (layer instanceof ViewLayer) {
+        layer.setNormal(condition);
+      }
+    });
   }
 
   private createLayers(props) {

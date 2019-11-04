@@ -4,6 +4,7 @@ import PercentageStackAreaLayer, { PercentageStackAreaLayerConfig } from './laye
 export interface PercentageStackAreaConfig extends PercentageStackAreaLayerConfig {}
 
 export default class PercentageStackArea extends StackArea {
+  public static getDefaultProps = PercentageStackAreaLayer.getDefaultProps;
   protected init() {
     const layer = new PercentageStackAreaLayer(
       this.getCanvasController(),

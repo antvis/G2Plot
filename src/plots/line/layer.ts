@@ -54,10 +54,7 @@ export interface LineLayerConfig extends BaseConfig {
 }
 
 export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
-  public line: any; // 保存line和point的配置项，用于后续的label、tooltip
-  public point: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       connectNulls: false,
@@ -74,6 +71,8 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       },
     });
   }
+  public line: any; // 保存line和point的配置项，用于后续的label、tooltip
+  public point: any;
 
   protected setType() {
     this.type = 'line';

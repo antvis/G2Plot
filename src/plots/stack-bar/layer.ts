@@ -9,7 +9,7 @@ export interface StackBarLayerConfig extends BarLayerConfig {
 }
 
 export default class StackBarLayer extends BaseBarLayer<StackBarLayerConfig> {
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       label: {

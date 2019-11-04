@@ -4,6 +4,7 @@ import AreaLayer, { AreaLayerConfig } from './layer';
 export interface AreaConfig extends AreaLayerConfig {}
 
 export default class Area<T extends AreaConfig> extends BasePlot<T> {
+  public static getDefaultProps = AreaLayer.getDefaultProps;
   protected init() {
     const layer = new AreaLayer(
       this.getCanvasController(),

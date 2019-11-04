@@ -37,9 +37,7 @@ export interface ColumnLayerConfig extends BaseConfig {
 }
 
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
-  public column: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       tooltip: {
@@ -55,6 +53,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       },
     });
   }
+  public column: any;
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

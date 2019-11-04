@@ -66,12 +66,7 @@ const GEOM_MAP = {
 };
 
 export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
-  public baseElement: any;
-  public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
-  public pointElement: any;
-  public areaElement: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     return {
       width: 400,
       height: 400,
@@ -172,6 +167,10 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
     };
   }
+  public baseElement: any;
+  public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
+  public pointElement: any;
+  public areaElement: any;
 
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];

@@ -71,6 +71,15 @@ describe('view layer test', () => {
       data,
       xField: 'year',
       yField: 'value',
+      interactions: [
+        {
+          type: 'slider',
+          cfg: {
+            start: 0,
+            end: 1,
+          },
+        },
+      ],
     });
     column.render();
   });

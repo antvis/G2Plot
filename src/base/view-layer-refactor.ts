@@ -1,8 +1,9 @@
+import { BBox } from '@antv/g';
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory-refactor';
-import BaseInteraction, { InteractionCtor } from '../interaction';
+import BaseInteraction, { InteractionCtor } from '../interaction/index-refactor';
 import { Axis, IInteractions, Label, Legend, StateConfig, Tooltip } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -55,7 +56,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
   protected config: G2Config;
   protected title: TextDescription;
   protected description: TextDescription;
-  private interactions: BaseInteraction[];
+  private interactions: BaseInteraction[] = [];
 
   constructor(props: ViewLayerCfg) {
     super(props);
@@ -148,7 +149,6 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
 
   public init() {
     super.init();
-    const { layerBBox } = this;
     this.theme = this.themeController.getTheme(this.options, this.type);
     this.config = {
       scales: {},
@@ -180,7 +180,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.annotation();
     this.animation();
 
-    const viewRange = this.paddingController.processOuterPadding();
+    const viewRange = this.getViewRange();
 
     this.view = new G2.View({
       width: this.width,
@@ -194,7 +194,6 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
       start: { x: viewRange.minX, y: viewRange.minY },
       end: { x: viewRange.maxX, y: viewRange.maxY },
     });
-
     this.applyInteractions();
     this.parserEvents();
     this.view.on('afterrender', () => {
@@ -358,7 +357,28 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
   protected abstract animation(): void;
-  protected applyInteractions(): void {}
+
+  protected applyInteractions(): void {
+    const { interactions = [] } = this.options;
+    if (this.interactions) {
+      this.interactions.forEach((inst) => {
+        inst.destroy();
+      });
+    }
+    this.interactions = [];
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      if (Ctor) {
+        const inst: BaseInteraction = new Ctor(
+          { view: this.view },
+          this,
+          Ctor.getInteractionRange(this.layerBBox, interaction.cfg),
+          interaction.cfg
+        );
+        this.interactions.push(inst);
+      }
+    });
+  }
 
   /** 设置G2 config，带有类型推导 */
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
@@ -447,5 +467,25 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     }
     /** 销毁g2.view实例 */
     this.view.destroy();
+  }
+
+  private getViewRange() {
+    // 有 Range 的 Interaction 参与 ViewMargin 计算
+    this.interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction('slider', this.type);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(this.layerBBox, interaction.cfg);
+      if (range) {
+        this.paddingController.registerPadding(
+          {
+            getBBox: () => {
+              return range;
+            },
+          },
+          'outer'
+        );
+      }
+    });
+    const viewRange = this.paddingController.processOuterPadding();
+    return viewRange;
   }
 }

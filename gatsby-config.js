@@ -59,6 +59,14 @@ module.exports = {
         },
       },
       {
+        slug: 'column',
+        icon: 'column',
+        title: {
+          zh: '柱状图',
+          en: 'Column Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {

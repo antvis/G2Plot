@@ -14,8 +14,6 @@ fetch('../data/sales.json')
       },
       forceFit: true,
       padding: 'auto',
-      width: 800,
-      height: 600,
       data,
       xField: '城市',
       xAxis: {

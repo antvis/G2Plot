@@ -1,7 +1,7 @@
 // components parser
 import AxisParser from './axis/parser-refactor';
 import GuideLine from './guide-line';
-import LabelParser from './label/parser';
+import LabelParser from './label/parser-refactor';
 
 // components state methods
 import axisState from './axis/state';

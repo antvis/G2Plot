@@ -10,7 +10,7 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding-refactor';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerCfg } from './Layer-refactor';
+import Layer, { LayerCfg } from './layer-refactor';
 
 export interface ViewLayerCfg extends LayerCfg {
   data: object[];
@@ -152,7 +152,9 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     return _.deepMix({}, options, defaultOptions, props);
   }
 
-  public beforeInit() {}
+  public beforeInit() {
+    super.beforeInit();
+  }
 
   public init() {
     super.init();

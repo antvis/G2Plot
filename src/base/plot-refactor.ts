@@ -21,7 +21,7 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
 
   constructor(container: HTMLElement, props: ViewLayerCfg) {
     super(props);
-    this.containerDOM = container;
+    this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
     this.canvasController = new CanvasController({
       containerDOM: this.containerDOM,
       plot: this,

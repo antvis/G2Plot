@@ -194,7 +194,7 @@ export default class PaddingController {
   }
 
   private _getLegendInnerPadding(legend) {
-    const innerPadding = this.plot.plotTheme.legend.innerPadding;
+    const innerPadding = this.plot.theme.legend.innerPadding;
     const position = legend.get('position').split('-');
     if (position[0] === 'top') {
       return [innerPadding[0], 0, 0, 0];

@@ -1,10 +1,10 @@
 import * as _ from '@antv/util';
 import ApplyResponsiveLabel from '../../../util/responsive/apply/label';
-import LineLayer from '../layer';
+import LineLayer from '../layer-refactor';
 
 class ApplyResponsiveLineLabel extends ApplyResponsiveLabel {
   protected getType() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     if (props.label && props.label.type) {
       return props.label.type;
     }

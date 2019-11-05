@@ -1,10 +1,10 @@
 import * as _ from '@antv/util';
 import ApplyResponsiveAxis from '../../../util/responsive/apply/axis';
-import AreaLayer from '../layer';
+import AreaLayer from '../layer-refactor';
 
 export default function responsiveAxis(layer: AreaLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
-  const canvas = layer.getCanvasController().canvas;
+  const canvas = layer.canvas;
   // x-axis
   const x_responsiveAxis = new ApplyResponsiveAxis({
     plot: layer,

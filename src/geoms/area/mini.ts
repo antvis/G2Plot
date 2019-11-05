@@ -75,7 +75,7 @@ export default class MiniAreaParser extends AreaParser {
   }
 
   private parseShape() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     if (props.smooth) {
       this.config.shape = { values: ['miniAreaSmooth'] };
     } else {

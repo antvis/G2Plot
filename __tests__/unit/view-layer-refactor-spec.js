@@ -1,6 +1,7 @@
 import * as G from '@antv/g';
 import BaseColumnLayer from '../../src/plots/column/layer-refactor';
 import BasePlot from '../../src/base/plot-refactor';
+import { Column } from '../../src';
 
 const canvasDiv = document.createElement('div');
 canvasDiv.style.width = '400px';
@@ -8,11 +9,11 @@ canvasDiv.style.height = '300px';
 canvasDiv.id = 'canvas';
 document.body.appendChild(canvasDiv);
 
-const canvas = new G.Canvas({
+/* const canvas = new G.Canvas({
   containerId: 'canvas',
   width: 400,
   height: 300,
-});
+}); */
 
 const data = [
   {
@@ -54,7 +55,7 @@ const data = [
 ];
 
 describe('view layer test', () => {
-  it.only('initialize', () => {
+  it('initialize', () => {
     const column = new BaseColumnLayer({
       title: {
         visible: true,
@@ -97,5 +98,18 @@ describe('view layer test', () => {
       yField: 'value',
     });
     plot.render();
+  });
+
+  it.only('plot test', () => {
+    const columnPlot = new Column(canvasDiv, {
+      width: 400,
+      height: 300,
+      canvas: canvas,
+      padding: 'auto',
+      data,
+      xField: 'year',
+      yField: 'value',
+    });
+    columnPlot.render();
   });
 });

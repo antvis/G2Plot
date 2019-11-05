@@ -20,9 +20,11 @@ export default abstract class ViewLayer<T extends Config = Config> extends Layer
       height: 400,
       title: {
         visible: false,
+        text: '',
       },
       description: {
         visible: false,
+        text: '',
       },
       forceFit: true,
       padding: 'auto',

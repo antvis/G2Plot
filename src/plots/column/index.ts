@@ -1,7 +1,9 @@
 import BasePlot from '../../base/plot';
 import ColumnLayer, { ColumnLayerConfig } from './layer';
 
-export interface ColumnConfig extends ColumnLayerConfig {}
+export interface ColumnConfig extends ColumnLayerConfig {
+  forceFit: boolean;
+}
 
 export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> extends BasePlot<T> {
   public static getDefaultProps = ColumnLayer.getDefaultProps;

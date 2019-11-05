@@ -38,12 +38,8 @@ export interface ColumnLayerConfig extends ViewLayerCfg {
 }
 
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
-  public column: any;
-  public type: string = 'column';
-
-  public getOptions(props: ViewLayerCfg) {
-    const options = super.getOptions(props);
-    const defaultOptions = {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       tooltip: {
         visible: true,
         shared: false,
@@ -55,8 +51,15 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         visible: false,
         position: 'top',
       },
-    };
-    return _.deepMix({}, options, defaultOptions, props);
+    });
+  }
+  public column: any;
+  public type: string = 'column';
+
+  public getOptions(props: ViewLayerCfg) {
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, defaultOptions, props);
   }
 
   public beforeInit() {

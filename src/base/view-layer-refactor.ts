@@ -45,40 +45,17 @@ export interface ViewLayerCfg extends LayerCfg {
 }
 
 export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> extends Layer {
-  public type: string;
-  public view: G2.View;
-  public theme: any;
-  public initialOptions: T;
-  public options: T;
-  protected paddingController: PaddingController;
-  protected stateController: StateController;
-  protected themeController: ThemeController;
-  protected config: G2Config;
-  protected title: TextDescription;
-  protected description: TextDescription;
-  private interactions: BaseInteraction[] = [];
-
-  constructor(props: ViewLayerCfg) {
-    super(props);
-    this.options = this.getOptions(props);
-    this.initialOptions = _.deepMix({}, this.options);
-    this.paddingController = new PaddingController({
-      plot: this,
-    });
-    this.stateController = new StateController({
-      plot: this,
-    });
-    this.themeController = new ThemeController();
-  }
-
-  public getOptions(props: ViewLayerCfg) {
-    const options = super.getOptions(props);
-    const defaultOptions = {
+  public static getDefaultOptions(): any {
+    return {
+      width: 400,
+      height: 400,
       title: {
         visible: false,
+        text: '',
       },
       description: {
         visible: false,
+        text: '',
       },
       forceFit: true,
       padding: 'auto',
@@ -141,7 +118,37 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
         visible: false,
       },
     };
+  }
+  public type: string;
+  public view: G2.View;
+  public theme: any;
+  public initialOptions: T;
+  public options: T;
+  protected paddingController: PaddingController;
+  protected stateController: StateController;
+  protected themeController: ThemeController;
+  protected config: G2Config;
+  protected title: TextDescription;
+  protected description: TextDescription;
+  private interactions: BaseInteraction[] = [];
 
+  constructor(props: ViewLayerCfg) {
+    super(props);
+    this.options = this.getOptions(props);
+    this.initialOptions = _.deepMix({}, this.options);
+    this.paddingController = new PaddingController({
+      plot: this,
+    });
+    this.stateController = new StateController({
+      plot: this,
+    });
+    this.themeController = new ThemeController();
+  }
+
+  public getOptions(props: ViewLayerCfg) {
+    const options = super.getOptions(props);
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
     return _.deepMix({}, options, defaultOptions, props);
   }
 

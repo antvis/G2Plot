@@ -7,8 +7,6 @@ import Layer from './layer-refactor';
 import ViewLayer, { ViewLayerCfg } from './view-layer-refactor';
 
 export interface PlotCfg {
-  width: number;
-  height: number;
   forceFit: boolean;
 }
 
@@ -134,7 +132,7 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
     });
   }
 
-  private createLayers(props) {
+  public createLayers(props) {
     if (props.layers) {
     } else if (props.type) {
       const viewLayerCtr = getPlotType(props.type);

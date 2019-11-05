@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
-import { getGeom } from '../../geoms/factory';
-import TinyLayer from '../tiny-layer';
+import { registerPlotType } from '../../base/global';
+import { getGeom } from '../../geoms/factory-refactor';
+import TinyLayer, { TinyLayerConfig } from '../tiny-layer';
 import * as EventParser from './event';
 
 const GEOM_MAP = {
@@ -8,19 +9,18 @@ const GEOM_MAP = {
   line: 'line',
 };
 
+export interface TinyAreaLayerConfig extends TinyLayerConfig {}
+
 export default class TinyAreaLayer extends TinyLayer {
   public line: any;
   public area: any;
+  public type: string = 'tinyArea';
 
   protected geometryParser(dim: string, type: string): string {
     return GEOM_MAP[type];
   }
 
-  protected setType(): void {
-    this.type = 'tineArea';
-  }
-
-  protected _addGeometry() {
+  protected addGeometry() {
     this.area = getGeom('area', 'mini', {
       plot: this,
     });
@@ -32,7 +32,9 @@ export default class TinyAreaLayer extends TinyLayer {
     this.setConfig('element', this.line);
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 }
+
+registerPlotType('tinyArea', TinyAreaLayer);

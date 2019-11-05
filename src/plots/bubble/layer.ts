@@ -25,14 +25,16 @@ const PLOT_GEOM_MAP = {
 export interface BubbleLayerConfig extends BaseConfig {
   /** TODO 待补充 */
   bubbleStyle?: BubbleStyle | ((...args: any[]) => BubbleStyle);
+  /** 气泡大小字段 */
+  sizeField?: string;
+  /** 气泡颜色字段 */
+  colorField?: string;
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
 
 export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ViewLayer<T> {
-  public bubbles: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       tooltip: {
@@ -43,8 +45,14 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
         },
       },
       point: {
-        shape: 'cicle',
-        size: 8,
+        shape: 'circle',
+        size: [8, 58],
+        style: {
+          lineWidth: 1,
+          strokeOpacity: 1,
+          fillOpacity: 0.4,
+          opacity: 0.65,
+        },
       },
       label: {
         visible: false,
@@ -52,6 +60,8 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
       },
     });
   }
+
+  public bubbles: any;
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
@@ -102,16 +112,22 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
     const props = this.initialProps;
 
     const bubbles = getGeom('point', 'circle', {
-      positionFields: [props.xField, props.yField],
       plot: this,
     });
 
     if (props.label) {
-      // column.label = this._extractLabel();
+      bubbles.label = this._extractLabel();
     }
+
+    /** 取消颜色的图例 */
+    this.setConfig('legends', {
+      fields: {
+        [props.sizeField]: false,
+      },
+    });
+
     this._adjustColumn(bubbles);
     this.bubbles = bubbles;
-    console.log(bubbles, '=====');
     this.setConfig('element', bubbles);
   }
 

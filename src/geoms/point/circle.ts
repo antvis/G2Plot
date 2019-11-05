@@ -26,12 +26,9 @@ export default class CircleParser extends ElementParser {
         fields: [props.xField, props.yField],
       },
     };
-    // if (this._needParseAttribute('color')) {
     this.parseColor();
-    // }
-    if (this._needParseAttribute('size')) {
-      this.parseSize();
-    }
+    this.parseSize();
+
     if (props.point.shape) {
       this.parseShape(props.point.shape);
     }
@@ -43,9 +40,9 @@ export default class CircleParser extends ElementParser {
   public parseColor() {
     const props = this.plot.initialProps;
     const config: DataPointType = {};
-    const mappingField = this._getColorMappingField(props);
-    if (mappingField) {
-      this._parseColorByField(props, config, mappingField);
+    const colorField = props.colorField;
+    if (colorField) {
+      this._parseColorByField(props, config, colorField);
     } else {
       if (props.point && props.point.color) {
         config.values = [props.point.color];
@@ -59,6 +56,9 @@ export default class CircleParser extends ElementParser {
   public parseSize() {
     const props = this.plot.initialProps;
     const config: DataPointType = {};
+    if (props.sizeField) {
+      config.fields = [props.sizeField];
+    }
     if (Array.isArray(props.point.size)) {
       config.values = props.point.size;
     } else {
@@ -82,7 +82,7 @@ export default class CircleParser extends ElementParser {
       callback: null,
       cfg: null,
     };
-    const field = this._getColorMappingField(props);
+    const field = props.colorField;
     if (_.isFunction(styleProps) && field) {
       config.fields = [field];
       config.callback = styleProps;
@@ -113,22 +113,6 @@ export default class CircleParser extends ElementParser {
       config.callback = props.color;
     } else if (_.isArray(props.color)) {
       config.values = props.color;
-    }
-  }
-
-  private _needParseAttribute(attr) {
-    const props = this.plot.initialProps;
-    const condition = props.point && props.point[attr];
-    return condition;
-    // const condition = !this.style || this.style[attr];
-    // return condition;
-  }
-
-  private _getColorMappingField(props) {
-    for (const m of COLOR_MAPPER) {
-      if (_.get(props, m)) {
-        return [props[m]];
-      }
     }
   }
 }

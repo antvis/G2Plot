@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import StackArea, { StackAreaLayerConfig } from '../stack-area/layer-refactor';
+import StackColumn, { StackColumnLayerConfig } from '../stack-column/layer-refactor';
 
-export interface PercentageStackAreaLayerConfig extends StackAreaLayerConfig {}
+export interface PercentageStackColumnLayerConfig extends StackColumnLayerConfig {}
 
-export default class PercentageStackAreaLayer extends StackArea {
-  public type: string = 'percentageStackArea';
+export default class PercentageStackColumnLayer extends StackColumn {
+  public type: string = 'percentageStackColumn';
 
   protected processData(originData?: object[]) {
     const props = this.options;
@@ -21,7 +21,7 @@ export default class PercentageStackAreaLayer extends StackArea {
       }
       sum[sumField] += d[yField];
     });
-    // step2: 获取每一条数据stackField的值在对应xField数值总和的占比
+    // step2: 获取每一条数据yField的值在对应xField数值总和的占比
     _.each(originData, (d) => {
       const total = sum[d[xField]];
       const d_copy = _.clone(d);
@@ -35,4 +35,4 @@ export default class PercentageStackAreaLayer extends StackArea {
   }
 }
 
-registerPlotType('percentageStackArea', PercentageStackAreaLayer);
+registerPlotType('percentageStackColumn', PercentageStackColumnLayer);

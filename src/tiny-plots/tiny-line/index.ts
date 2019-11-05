@@ -1,11 +1,15 @@
-import TinyPlot from '../tiny-plot';
-import TinyLineLayer from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot-refactor';
+import TinyLineLayer, { TinyLineLayerConfig } from './layer';
 
-export default class TinyArea extends TinyPlot {
-  public static getDefaultProps = TinyLineLayer.getDefaultProps;
-  protected init(): void {
-    this.addLayer(
-      new TinyLineLayer(this.getCanvasController(), this.getThemeController(), this.getPlotRange(), this.initialProps)
-    );
+export interface TinyLineConfig extends TinyLineLayerConfig, PlotCfg {}
+
+export default class TinyLine<T extends TinyLineConfig = TinyLineConfig> extends BasePlot<T> {
+  public static getDefaultOptions = TinyLineLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'tinyLine';
+    super.createLayers(layerProps);
   }
 }

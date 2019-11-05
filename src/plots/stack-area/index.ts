@@ -4,6 +4,7 @@ import StackAreaLayer, { StackAreaLayerConfig } from './layer';
 export interface StackAreaConfig extends StackAreaLayerConfig {}
 
 export default class StackArea extends Area<StackAreaConfig> {
+  public static getDefaultProps = StackAreaLayer.getDefaultProps;
   protected init() {
     const layer = new StackAreaLayer(
       this.getCanvasController(),

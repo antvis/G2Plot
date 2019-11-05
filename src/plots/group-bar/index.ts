@@ -4,6 +4,7 @@ import GroupBarLayer, { GroupBarLayerConfig } from './layer';
 export { GroupBarLayerConfig as GroupBarConfig };
 
 export default class GroupBar extends Bar<GroupBarLayerConfig> {
+  public static getDefaultProps = GroupBarLayer.getDefaultProps;
   protected init() {
     const layer = new GroupBarLayer(
       this.getCanvasController(),

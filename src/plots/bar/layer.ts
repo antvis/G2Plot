@@ -37,9 +37,7 @@ export interface BarLayerConfig extends BaseConfig {
 }
 
 export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
-  public bar: any;
-
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       xAxis: {
@@ -99,6 +97,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       },
     });
   }
+  public bar: any;
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

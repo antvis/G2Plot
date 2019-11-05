@@ -24,15 +24,15 @@ const PLOT_GEOM_MAP = {
 
 export default class RingLayer extends PieLayer<RingLayerConfig> {
   public static centralId = 0;
-  private centralText: any; // 保存中心文本实例用于响应交互
-  private centralClass: string; // 中心文本的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
 
-  public getDefaultProps() {
+  public static getDefaultProps() {
     const globalDefaultProps = super.getDefaultProps();
     return _.deepMix({}, globalDefaultProps, {
       innerRadius: 0.5,
     });
   }
+  private centralText: any; // 保存中心文本实例用于响应交互
+  private centralClass: string; // 中心文本的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

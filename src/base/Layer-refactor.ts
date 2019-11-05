@@ -89,6 +89,7 @@ export default class Layer<T = void> extends EventEmitter {
     }
     this.beforeInit();
     this.init();
+    this.afterInit();
     this.container.transform([['t', this.x, this.y]]);
 
     this.eachLayer((layer) => {

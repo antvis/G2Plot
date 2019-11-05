@@ -57,9 +57,10 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   public type: string = 'column';
 
   public getOptions(props: ViewLayerCfg) {
+    const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, defaultOptions, props);
+    return _.deepMix({}, options, defaultOptions, props);
   }
 
   public beforeInit() {

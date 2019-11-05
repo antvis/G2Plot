@@ -1,5 +1,5 @@
 import BaseInteraction from './base-refactor';
-import ScrollBarInteraction from './scrollbar';
+import ScrollBarInteraction from './scrollbar-refactor';
 import SliderInteraction from './slider-refactor';
 
 BaseInteraction.registerInteraction('slider', SliderInteraction);

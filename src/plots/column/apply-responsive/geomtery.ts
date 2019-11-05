@@ -3,10 +3,10 @@ import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import VariableNodes from '../../../util/responsive/node/variable-node';
 import Responsive from '../../../util/responsive/responsive';
-import ColumnLayer from '../layer';
+import ColumnLayer from '../layer-refactor';
 
 export default function responsiveColumn(layer: ColumnLayer) {
-  const props = layer.initialProps;
+  const props = layer.options;
   const responsiveTheme = layer.getResponsiveTheme();
   /** 有几个column */
   const columnNum = getFieldNumber(props.data, props.xField);

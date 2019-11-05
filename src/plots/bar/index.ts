@@ -4,6 +4,7 @@ import BarLayer, { BarLayerConfig } from './layer';
 export { BarLayerConfig as BarConfig };
 
 export default class Bar<T extends BarLayerConfig = BarLayerConfig> extends BasePlot<T> {
+  public static getDefaultProps = BarLayer.getDefaultProps;
   protected init() {
     const layer = new BarLayer(
       this.getCanvasController(),

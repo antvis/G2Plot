@@ -4,6 +4,7 @@ import PercentageStackColumnLayer, { PercentageStackColumnLayerConfig } from './
 export interface PercentageStackColumnConfig extends PercentageStackColumnLayerConfig {}
 
 export default class PercentageStackColumn extends StackColumn {
+  public static getDefaultProps = PercentageStackColumnLayer.getDefaultProps;
   protected init() {
     const layer = new PercentageStackColumnLayer(
       this.getCanvasController(),

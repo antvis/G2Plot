@@ -9,6 +9,7 @@ export { default as Base } from './base/plot';
 export { default as Line, LineConfig } from './plots/line';
 export { default as Density, DensityConfig } from './plots/density';
 export { default as Column, ColumnConfig } from './plots/column';
+export { default as Bubble, BubbleConfig } from './plots/bubble';
 export { default as GroupColumn, GroupColumnConfig } from './plots/group-column';
 export { default as StackColumn, StackColumnConfig } from './plots/stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './plots/percentage-stack-column';

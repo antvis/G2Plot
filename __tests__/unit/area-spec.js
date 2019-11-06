@@ -310,7 +310,6 @@ describe('Area plot', () => {
       responsive: true,
     });
     areaPlot.render();
-    areaPlot.getD;
     const plot = areaPlot.getLayer().plot;
     const positionField = plot.get('elements')[0].get('position').fields;
     const axes = areaPlot.plot.get('axisController').axes;

@@ -134,6 +134,7 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
 
   public createLayers(props) {
     if (props.layers) {
+      // TODO: combo plot
     } else if (props.type) {
       const viewLayerCtr = getPlotType(props.type);
       const viewLayerProps = _.deepMix({}, props, {

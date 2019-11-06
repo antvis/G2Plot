@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
-import BaseConfig, { ElementOption } from '../../interface/config';
+import { registerPlotType } from '../../base/global';
+import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
 import './geometry/shape/liquid';
@@ -24,7 +25,7 @@ const PLOT_GEOM_MAP = {
   interval: 'liquid',
 };
 
-export interface LiquidLayerConfig extends BaseConfig {
+export interface LiquidLayerConfig extends ViewLayerCfg {
   type?: 'normal' | 'percent';
   min?: number;
   max?: number;
@@ -35,6 +36,23 @@ export interface LiquidLayerConfig extends BaseConfig {
 }
 
 export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
+  public type: string = 'liquid';
+
+  public init() {
+    const { value, type = 'normal' } = this.options;
+    const { min = 0, max = 1, format = (d) => `${d}` } = this.options;
+
+    const valueText = this.valueText(type, value, format, min, max);
+    const styleMix = this.getStyleMix(valueText);
+    this.options.styleMix = styleMix;
+    this.options.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];
+    this.options.valueText = valueText;
+    this.options.min = min;
+    this.options.max = max;
+    this.options.format = format;
+    super.init();
+  }
+
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
       return G2_GEOM_MAP[type];
@@ -42,37 +60,19 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     return PLOT_GEOM_MAP[type];
   }
 
-  protected setType() {
-    this.type = 'liquid';
-  }
-
-  protected _getStyleMix(valueText) {
-    const { liquidStyle = {} } = this.initialProps;
-    const { width, height } = this.config.panelRange;
+  protected getStyleMix(valueText) {
+    const { liquidStyle = {} } = this.options;
+    const { width, height } = this;
     const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, liquidStyle).borderWidth;
-    const defaultStyle = Object.assign({}, this.plotTheme, {
-      fontSize: this._autoFontSize(size, valueText),
+    const defaultStyle = Object.assign({}, this.theme, {
+      fontSize: this.autoFontSize(size, valueText),
       size,
     });
     return Object.assign(defaultStyle, liquidStyle);
   }
 
-  protected _setDefaultG2Config() {
-    const { value, type = 'normal' } = this.initialProps;
-    const { min = 0, max = 1, format = (d) => `${d}` } = this.initialProps;
-
-    const valueText = this._valueText(type, value, format, min, max);
-    const styleMix = this._getStyleMix(valueText);
-    this.initialProps.styleMix = styleMix;
-    this.initialProps.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];
-    this.initialProps.valueText = valueText;
-    this.initialProps.min = min;
-    this.initialProps.max = max;
-    this.initialProps.format = format;
-  }
-
-  protected _scale() {
-    const { min, max, format } = this.initialProps;
+  protected scale() {
+    const { min, max, format } = this.options;
     const scales = {
       value: {},
     };
@@ -85,12 +85,12 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     });
     // @ts-ignore
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {}
+  protected coord() {}
 
-  protected _axis() {
+  protected axis() {
     const axesConfig = {
       fields: {
         value: false,
@@ -100,8 +100,8 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     this.setConfig('axes', axesConfig);
   }
 
-  protected _addGeometry() {
-    const { styleMix = {} } = this.initialProps;
+  protected addGeometry() {
+    const { styleMix = {} } = this.options;
 
     const liquid: ElementOption = {
       type: 'interval',
@@ -127,13 +127,13 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     this.setConfig('element', liquid);
   }
 
-  protected _annotation() {
-    const props = this.initialProps;
+  protected annotation() {
+    const props = this.options;
     if (props.showValue === false) {
       return;
     }
 
-    const { valueText, styleMix } = this.initialProps;
+    const { valueText, styleMix } = this.options;
     const annotationConfigs = [];
     const text = {
       type: 'text',
@@ -151,29 +151,31 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     this.setConfig('annotations', annotationConfigs);
   }
 
-  protected _animation() {}
+  protected animation() {}
 
-  private _percent(num: number, fixed: number = 2): string {
+  private percent(num: number, fixed: number = 2): string {
     if (isNaN(num)) {
       return `${num}`;
     }
     return `${(num * 100).toFixed(fixed)}%`.replace(/\.0*%/, '%');
   }
 
-  private _valueText(type, value, format, min, max) {
+  private valueText(type, value, format, min, max) {
     if (type === 'percent') {
       if (max - min === 0) {
         return '--';
       }
       const percentValue = (value - min) / (max - min);
-      return typeof value === 'number' ? format(this._percent(percentValue), percentValue) : '--';
+      return typeof value === 'number' ? format(this.percent(percentValue), percentValue) : '--';
     }
     return typeof value === 'number' ? format(value) : '--';
   }
 
-  private _autoFontSize(space, text) {
+  private autoFontSize(space, text) {
     const fontSizeBySpace = space / 4;
     const fontSizeByText = (space / text.length) * 1.5;
     return Math.min(fontSizeBySpace, fontSizeByText);
   }
 }
+
+registerPlotType('liquid', LiquidLayer);

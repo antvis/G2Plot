@@ -4,25 +4,25 @@ import { compare } from '../../base/controller/state';
 const POSITION_MAPPER = ['xField', 'yField', 'angleField'];
 
 function onActive(plot, condition) {
-  const props = plot.initialProps;
+  const props = plot.options;
   // 获取state condition对应在画布的位置，只有在state condition对应字段为位置映射字段时，tooltip才会对齐进行响应
   if (shouldActive(props, condition)) {
     const data = props.data;
     _.each(data, (d) => {
       if (compare(d, condition)) {
-        const point = plot.plot.getXY(d);
+        const point = plot.view.getXY(d);
         // 调用showTooltip方法
-        plot.plot.on('tooltip:create', (e) => {
+        plot.view.on('tooltip:create', (e) => {
           processState(condition, e, false);
         });
-        plot.plot.showTooltip(point);
+        plot.view.showTooltip(point);
       }
     });
   }
 }
 
 function onDisable(plot, condition) {
-  plot.plot.on('tooltip:change', (e) => {
+  plot.view.on('tooltip:change', (e) => {
     processState(condition, e, true);
   });
 }

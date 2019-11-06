@@ -36,7 +36,7 @@ function onDisable(plot, condition) {
 function getAllAxisLabels(plot) {
   labels = [];
   originAttrs = [];
-  const axes = plot.plot.get('axisController').axes;
+  const axes = plot.view.get('axisController').axes;
   _.each(axes, (axis) => {
     const labelArr = [];
     const scale = getScale(plot, axis);
@@ -65,14 +65,14 @@ function getAllAxisLabels(plot) {
 
 // 获取坐标轴对应的scale
 function getScale(plot, axis) {
-  const props = plot.initialProps;
+  const props = plot.options;
   let dim = 'y';
   const position = axis.get('position');
   if (position === 'bottom' || position === 'top') {
     dim = 'x';
   }
   const scaleField = props[`${dim}Field`];
-  return plot.plot.get('scales')[scaleField];
+  return plot.view.get('scales')[scaleField];
 }
 
 function beforeCompare(label, condition) {

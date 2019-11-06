@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseBarLayer, { BarLayerConfig } from '../bar/layer';
@@ -9,9 +10,8 @@ export interface StackBarLayerConfig extends BarLayerConfig {
 }
 
 export default class StackBarLayer extends BaseBarLayer<StackBarLayerConfig> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions() {
+    return _.deepMix({}, super.getDefaultOptions(), {
       label: {
         visible: false,
         position: 'middle',
@@ -19,11 +19,9 @@ export default class StackBarLayer extends BaseBarLayer<StackBarLayerConfig> {
     });
   }
 
-  protected setType() {
-    this.type = 'stackBar';
-  }
+  public type: string = 'stackBar';
 
-  protected _adjustBar(bar: ElementOption) {
+  protected adjustBar(bar: ElementOption) {
     bar.adjust = [
       {
         type: 'stack',
@@ -31,8 +29,8 @@ export default class StackBarLayer extends BaseBarLayer<StackBarLayerConfig> {
     ];
   }
 
-  protected _extractLabel() {
-    const props = this.initialProps;
+  protected extractLabel() {
+    const props = this.options;
     const label = props.label as Label;
 
     if (label && label.visible === false) {
@@ -53,3 +51,5 @@ export default class StackBarLayer extends BaseBarLayer<StackBarLayerConfig> {
     return labelConfig as any;
   }
 }
+
+registerPlotType('stackBar', StackBarLayer);

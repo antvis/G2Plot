@@ -1,9 +1,10 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
+import { registerPlotType } from '../../base/global';
+import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -33,7 +34,7 @@ const GEOM_MAP = {
   point: 'point',
 };
 
-export interface AreaLayerConfig extends BaseConfig {
+export interface AreaLayerConfig extends ViewLayerCfg {
   areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
   seriesField?: string;
   xAxis?: ICatAxis | ITimeAxis;
@@ -53,12 +54,12 @@ export interface AreaLayerConfig extends BaseConfig {
     shape?: string;
     style?: PointStyle;
   };
+  smooth?: boolean;
 }
 
 export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       smooth: false,
       line: {
         visible: true,
@@ -78,31 +79,34 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       },
     });
   }
+
   public line: any;
   public point: any;
   public area: any;
+  public type: string = 'area';
+
+  public beforeInit() {
+    super.beforeInit();
+    /** 响应式图形 */
+    if (this.options.responsive && this.options.padding !== 'auto') {
+      this.applyResponsive('preRender');
+    }
+  }
+
+  public afterRender() {
+    /** 响应式 */
+    if (this.options.responsive && this.options.padding !== 'auto') {
+      this.applyResponsive('afterRender');
+    }
+    super.afterRender();
+  }
 
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }
 
-  protected setType() {
-    this.type = 'area';
-  }
-
-  protected beforeInit() {
-    super.beforeInit();
-    const props = this.initialProps;
-    /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('preRender');
-    }
-  }
-
-  protected _setDefaultG2Config() {}
-
-  protected _scale() {
-    const props = this.initialProps;
+  protected scale() {
+    const props = this.options;
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {
@@ -117,13 +121,13 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {}
+  protected coord() {}
 
-  protected _axis() {
-    const props = this.initialProps;
+  protected axis() {
+    const props = this.options;
     const axesConfig = { fields: {} };
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
@@ -143,38 +147,38 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     this.setConfig('axes', axesConfig);
   }
 
-  protected _addGeometry() {
-    const props = this.initialProps;
+  protected addGeometry() {
+    const props = this.options;
     const area = getGeom('area', 'main', {
       plot: this,
     });
     this.area = area;
 
     if (props.label) {
-      this._label();
+      this.label();
     }
-    this._adjustArea(area);
+    this.adjustArea(area);
     this.setConfig('element', area);
 
-    this._addLine();
+    this.addLine();
 
-    this._addPoint();
+    this.addPoint();
   }
 
-  protected _adjustArea(area: ElementOption) {
+  protected adjustArea(area: ElementOption) {
     return;
   }
 
-  protected _adjustLine(line: ElementOption) {
+  protected adjustLine(line: ElementOption) {
     return;
   }
 
-  protected _adjustPoint(point: ElementOption) {
+  protected adjustPoint(point: ElementOption) {
     return;
   }
 
-  protected _addLine() {
-    const props = this.initialProps;
+  protected addLine() {
+    const props = this.options;
     const lineConfig = _.deepMix({}, props.line);
     if (lineConfig.visible) {
       const line = getGeom('line', 'guide', {
@@ -182,31 +186,31 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
         plot: this,
         line: lineConfig,
       });
-      this._adjustLine(line);
+      this.adjustLine(line);
       this.setConfig('element', line);
       this.line = line;
     }
   }
 
-  protected _addPoint() {
-    const props = this.initialProps;
+  protected addPoint() {
+    const props = this.options;
     const pointConfig = _.deepMix({}, props.point);
     if (pointConfig.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
       });
-      this._adjustPoint(point);
+      this.adjustPoint(point);
       this.setConfig('element', point);
       this.point = point;
     }
   }
 
-  protected _annotation() {}
+  protected annotation() {}
 
-  protected _animation() {}
+  protected animation() {}
 
-  protected _label() {
-    const props = this.initialProps;
+  protected label() {
+    const props = this.options;
     const label = props.label as Label;
 
     if (label.visible === false) {
@@ -222,20 +226,11 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     });
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  protected afterRender() {
-    const props = this.initialProps;
-    /** 响应式 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('afterRender');
-    }
-    super.afterRender();
-  }
-
-  private _applyResponsive(stage) {
+  private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as DataPointType;
@@ -243,3 +238,5 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     });
   }
 }
+
+registerPlotType('area', AreaLayer);

@@ -164,7 +164,8 @@ export interface ICatAxis extends IBaseAxis {
   tickCount?: number;
   groupBy?: string;
 }
-type Axis = ICatAxis | IValueAxis | ITimeAxis;
+
+export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 
 export interface Label {
   visible: boolean;
@@ -212,7 +213,7 @@ interface Animation {
 }
 
 // tslint:disable-next-line: no-empty-interface
-interface Theme {}
+export interface Theme {}
 
 export interface ElementOption {
   type: string;
@@ -330,4 +331,12 @@ export type IInteractionConfig = IAnyInteractionConfig | IScrollBarInteractionCo
 export interface IInteractions {
   type: string;
   cfg?: IInteractionConfig;
+}
+
+/**
+ * 一个点位置
+ */
+export interface Point {
+  readonly x: number;
+  readonly y: number;
 }

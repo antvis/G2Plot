@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import ApplyResponsiveLabel from '../../../util/responsive/apply/label';
-import LineLayer from '../layer-refactor';
+import LineLayer from '../layer';
 
 class ApplyResponsiveLineLabel extends ApplyResponsiveLabel {
   protected getType() {

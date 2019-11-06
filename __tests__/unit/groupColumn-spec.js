@@ -118,7 +118,7 @@ describe('GroupColomn plot', () => {
       animation: false,
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const intervalShape = plot.get('elements')[0];
     const shapes = intervalShape.get('shapeContainer').get('children');
     expect(shapes.length).to.be.equal(18);
@@ -143,7 +143,7 @@ describe('GroupColomn plot', () => {
       color: ['red', 'yellow'],
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const intervalEle = plot.get('elements')[0];
     expect(intervalEle.get('color').values[0]).to.be.equal('red');
     expect(intervalEle.get('color').values[1]).to.be.equal('yellow');
@@ -170,7 +170,7 @@ describe('GroupColomn plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const intervalEle = plot.get('elements')[0];
 
     expect(isFunction(intervalEle.get('color').callback)).to.be.true;
@@ -203,7 +203,7 @@ describe('GroupColomn plot', () => {
     });
     columnPlot.render();
 
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     console.log(plot);
     const labelGroup = plot
       .get('elements')[0]

@@ -1,4 +1,4 @@
-import BasePlot, { PlotCfg } from '../base/plot-refactor';
+import BasePlot, { PlotCfg } from '../base/plot';
 import { TinyLayerConfig } from './tiny-layer';
 
 export interface TinyPlotConfig extends TinyLayerConfig, PlotCfg {}

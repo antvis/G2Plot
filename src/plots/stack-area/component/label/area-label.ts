@@ -1,7 +1,7 @@
 import { BBox, Shape, Text } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
-import ViewLayer from '../../../../base/view-layer-refactor';
+import ViewLayer from '../../../../base/view-layer';
 
 const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;

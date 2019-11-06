@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import ApplyResponsiveLabel from '../../../util/responsive/apply/label';
-import ColumnLayer from '../layer-refactor';
+import ColumnLayer from '../layer';
 
 class ApplyResponsiveColumnLabel extends ApplyResponsiveLabel {
   protected getType() {

@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot-refactor';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import TinyPlot from '../tiny-plot';
 import RingProgressLayer, { RingProgressLayerConfig } from './layer';
 

@@ -1,6 +1,7 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
+import { registerPlotType } from '../../base/global';
+import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { Label } from '../../interface/config';
@@ -9,7 +10,7 @@ import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
 import './theme';
 
-export interface PieLayerConfig extends BaseConfig {
+export interface PieLayerConfig extends ViewLayerCfg {
   angleField: string;
   colorField?: string;
   radius?: number;
@@ -25,8 +26,8 @@ const PLOT_GEOM_MAP = {
 };
 
 export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends ViewLayer<T> {
-  public static getDefaultProps() {
-    return {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -55,85 +56,29 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         stroke: 'white',
         lineWidth: 1,
       },
-    };
+    });
   }
+
   public pie: any;
   public spiderLabel: any;
+  public type: string = 'pie';
 
-  protected geometryParser(dim, type) {
-    if (dim === 'g2') {
-      return G2_GEOM_MAP[type];
-    }
-    return PLOT_GEOM_MAP[type];
+  public getOptions(props: ViewLayerCfg) {
+    const options = super.getOptions(props);
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, options, defaultOptions, props);
   }
 
-  protected setType() {
-    this.type = 'pie';
-  }
-
-  protected _setDefaultG2Config() {}
-
-  protected _scale() {
-    const props = this.initialProps;
-    const scales = {};
-    /** 配置x-scale */
-    scales[props.angleField] = {};
-    if (_.has(props, 'xAxis')) {
-      extractScale(scales[props.angleField], props.xAxis);
-    }
-    super._scale();
-  }
-
-  protected _axis() {}
-
-  protected _coord() {
-    const props = this.initialProps;
-    const coordConfig = {
-      type: 'theta' as CoordinateType,
-      cfg: {
-        radius: props.radius,
-      },
-    };
-    this.setConfig('coord', coordConfig);
-  }
-
-  protected _addGeometry() {
-    const props = this.initialProps;
-    const pie = getGeom('interval', 'main', {
-      plot: this,
-      positionFields: [props.angleField],
-    });
-    pie.adjust = [{ type: 'stack' }];
-    this.pie = pie;
-    if (props.label) {
-      this._label();
-    }
-    this.setConfig('element', pie);
-  }
-
-  protected _animation() {
-    const props = this.initialProps;
-    if (props.animation === false) {
-      /** 关闭动画 */
-      this.pie.animate = false;
-    }
-  }
-
-  protected _annotation() {}
-
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
-  }
-
-  protected afterInit() {
+  public afterInit() {
     super.afterInit();
-    const props = this.initialProps;
+    const props = this.options;
     /** 蜘蛛布局label */
     if (props.label && props.label.visible) {
       const labelConfig = props.label as Label;
       if (labelConfig.type === 'spider') {
         const spiderLabel = new SpiderLabel({
-          view: this.plot,
+          view: this.view,
           fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
           style: labelConfig.style ? labelConfig.style : {},
           formatter: props.label.formatter ? props.label.formatter : false,
@@ -145,8 +90,67 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
   }
 
-  private _adjustPieStyle() {
-    const props = this.initialProps;
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
+  }
+
+  protected scale() {
+    const props = this.options;
+    const scales = {};
+    /** 配置x-scale */
+    scales[props.angleField] = {};
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.angleField], props.xAxis);
+    }
+    super.scale();
+  }
+
+  protected axis() {}
+
+  protected coord() {
+    const props = this.options;
+    const coordConfig = {
+      type: 'theta' as CoordinateType,
+      cfg: {
+        radius: props.radius,
+      },
+    };
+    this.setConfig('coord', coordConfig);
+  }
+
+  protected addGeometry() {
+    const props = this.options;
+    const pie = getGeom('interval', 'main', {
+      plot: this,
+      positionFields: [props.angleField],
+    });
+    pie.adjust = [{ type: 'stack' }];
+    this.pie = pie;
+    if (props.label) {
+      this.label();
+    }
+    this.setConfig('element', pie);
+  }
+
+  protected animation() {
+    const props = this.options;
+    if (props.animation === false) {
+      /** 关闭动画 */
+      this.pie.animate = false;
+    }
+  }
+
+  protected annotation() {}
+
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
+  }
+
+  private adjustPieStyle() {
+    const props = this.options;
     if (!props.colorField) {
       const defaultStyle = { stroke: 'white', lineWidth: 1 };
       if (!props.pieStyle) {
@@ -156,10 +160,10 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
   }
 
-  private _label() {
-    const props = this.initialProps;
+  private label() {
+    const props = this.options;
     const labelConfig = props.label as Label;
-    if (!this._showLabel()) {
+    if (!this.showLabel()) {
       this.pie.label = false;
       return;
     }
@@ -181,8 +185,10 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     });
   }
 
-  private _showLabel() {
-    const props = this.initialProps;
+  private showLabel() {
+    const props = this.options;
     return props.label && props.label.visible === true && props.label.type !== 'spider';
   }
 }
+
+registerPlotType('pie', PieLayer);

@@ -1,7 +1,7 @@
 import { getCoordinate } from '@antv/coord';
 import VariableNodes from '../../../util/responsive/node/variable-node';
 import Responsive from '../../../util/responsive/responsive';
-import RingLayer from '../layer-refactor';
+import RingLayer from '../layer';
 
 export default function responsiveRing(layer: RingLayer) {
   const props = layer.options;

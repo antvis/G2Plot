@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import ApplyResponsiveAxis from '../../../util/responsive/apply/axis';
-import LineLayer from '../layer-refactor';
+import LineLayer from '../layer';
 
 export default function responsiveAxis(layer: LineLayer) {
   const responsiveTheme = layer.getResponsiveTheme();

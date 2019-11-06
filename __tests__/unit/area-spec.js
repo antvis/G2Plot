@@ -363,7 +363,7 @@ describe('Area plot', () => {
       responsive: true,
     });
     areaPlot.render();
-    const plot = areaPlot.getLayer().plot;
+    const plot = areaPlot.getLayer().view;
     const elements = plot.get('elements');
     expect(elements[0].get('type')).to.be.equal('area');
     expect(elements[0].get('style').cfg.strokeStyle).to.be.equal('black');
@@ -398,7 +398,7 @@ describe('Area plot', () => {
       responsive: true,
     });
     areaPlot.render();
-    const plot = areaPlot.getLayer().plot;
+    const plot = areaPlot.getLayer().view;
     const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('line');
     expect(elements[1].get('size').values[0]).to.be.equal(6);
@@ -447,7 +447,7 @@ describe('Area plot', () => {
       responsive: true,
     });
     areaPlot.render();
-    const plot = areaPlot.getLayer().plot;
+    const plot = areaPlot.getLayer().view;
     const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('line');
     expect(elements[1].get('size').values[0]).to.be.equal(6);
@@ -542,7 +542,7 @@ describe('Area plot', () => {
       responsive: true,
     });
     areaPlot.render();
-    const plot = areaPlot.getLayer().plot;
+    const plot = areaPlot.getLayer().view;
     const elements = plot.get('elements');
     expect(elements[1].get('type')).to.be.equal('line');
     expect(elements[1].get('size').values[0]).to.be.equal(6);
@@ -650,7 +650,7 @@ describe('Area plot', () => {
       responsive: true,
     });
     areaPlot.render();
-    const plot = areaPlot.getLayer().plot;
+    const plot = areaPlot.getLayer().view;
     const elements = plot.get('elements');
     expect(elements[0].get('type')).to.be.equal('area');
     expect(elements[0].get('color').values[0]).to.be.equal('green');

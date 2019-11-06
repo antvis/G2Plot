@@ -1,3 +1,4 @@
+import { registerPlotType } from '../../base/global';
 import { ElementOption } from '../../interface/config';
 import BaseColumnLayer, { ColumnLayerConfig } from '../column/layer';
 
@@ -6,15 +7,12 @@ export interface GroupColumnLayerConfig extends ColumnLayerConfig {
 }
 
 export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerConfig> {
-  // fixme: groupColumn Responsive未注册
+  public type: string = 'groupColumn';
   public getResponsiveTheme() {
     return this.themeController.getResponsiveTheme('column');
   }
-  protected setType() {
-    this.type = 'groupColumn';
-  }
 
-  protected _adjustColumn(column: ElementOption) {
+  protected adjustColumn(column: ElementOption) {
     column.adjust = [
       {
         type: 'dodge',
@@ -22,3 +20,5 @@ export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerCo
     ];
   }
 }
+
+registerPlotType('groupColumn', GroupColumnLayer);

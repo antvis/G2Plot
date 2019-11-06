@@ -1,7 +1,7 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import { getGeom } from '../../geoms/factory-refactor';
+import { getGeom } from '../../geoms/factory';
 import ProgressLayer, { ProgressLayerConfig } from '../progress/layer';
 import { getAngle, setShapeInfo } from './animation/index';
 import * as EventParser from './event';

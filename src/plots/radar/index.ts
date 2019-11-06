@@ -1,17 +1,15 @@
-import BasePlot from '../../base/plot';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import RadarLayer, { RadarLayerConfig } from './layer';
 
-export { RadarLayerConfig as RadarConfig };
+export interface RadarConfig extends RadarLayerConfig, PlotCfg {}
 
-export default class Radar extends BasePlot<RadarLayerConfig> {
-  public static getDefaultProps = RadarLayer.getDefaultProps;
-  protected init() {
-    const layer = new RadarLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class Radar<T extends RadarConfig = RadarConfig> extends BasePlot<T> {
+  public static getDefaultProps = RadarLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'radar';
+    super.createLayers(layerProps);
   }
 }

@@ -9,19 +9,25 @@ import * as _ from '@antv/util';
 
 export default class PaddingController {
   private plot: any;
-  private paddingComponents: any[] = [];
   private bleeding;
+
+  private innerPaddingComponents: any[] = [];
+  private outerPaddingComponents: any[] = [];
 
   constructor(cfg) {
     _.assign(this, cfg);
   }
 
-  public registerPadding(component) {
-    this.paddingComponents.push(component);
+  public registerPadding(component, type: string = 'outer') {
+    if (type === 'inner') {
+      this.innerPaddingComponents.push(component);
+    } else {
+      this.outerPaddingComponents.push(component);
+    }
   }
 
   public getPadding() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const padding = props.padding ? props.padding : this.plot.config.theme.padding;
     if (padding === 'auto') {
       return [0, 0, 0, 0];
@@ -29,18 +35,41 @@ export default class PaddingController {
     return padding;
   }
 
+  /** view层的padding计算 */
   public processAutoPadding() {
-    // this.plot.plot.render(false);
-    const padding = this._getAutoPadding();
+    const padding = this._getInnerAutoPadding();
     this.plot.updateConfig({
       padding,
     });
-    this.plot.render();
   }
 
-  private _getAutoPadding() {
-    const props = this.plot.initialProps;
-    const view = this.plot.plot;
+  public processOuterPadding() {
+    let viewMinX = this.plot.layerBBox.minX;
+    let viewMaxX = this.plot.layerBBox.maxX;
+    let viewMinY = _.clone(this.plot.layerBBox.minY);
+    let viewMaxY = this.plot.layerBBox.maxY;
+    _.each(this.outerPaddingComponents, (component) => {
+      const { position } = component;
+      const { minX, maxX, minY, maxY } = component.getBBox();
+      if (maxY > viewMinY && maxY < viewMaxY && position === 'top') {
+        viewMinY = maxY;
+      }
+      if (minY > viewMinY && minY < viewMaxY && position === 'bottom') {
+        viewMaxY = minY;
+      }
+      if (maxX > viewMinX && maxX < viewMaxX && position === 'left') {
+        viewMinX = maxX;
+      }
+      if (minX > viewMinX && maxX < viewMaxX && position === 'right') {
+        viewMaxX = minX;
+      }
+    });
+    return new BBox(viewMinX, viewMinY, viewMaxX - viewMinX, viewMaxY - viewMinY);
+  }
+
+  private _getInnerAutoPadding() {
+    const props = this.plot.options;
+    const view = this.plot.view;
     const viewRange = view.get('viewRange');
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
@@ -59,7 +88,7 @@ export default class PaddingController {
     let box = this._mergeBBox(components_bbox);
     this._getLegend(view, components_bbox, box);
     // 参与auto padding的自定义组件
-    const components = this.paddingComponents;
+    const components = this.innerPaddingComponents;
     _.each(components, (obj) => {
       const component = obj as Element;
       const bbox = component.getBBox();
@@ -165,7 +194,7 @@ export default class PaddingController {
   }
 
   private _getLegendInnerPadding(legend) {
-    const innerPadding = this.plot.plotTheme.legend.innerPadding;
+    const innerPadding = this.plot.theme.legend.innerPadding;
     const position = legend.get('position').split('-');
     if (position[0] === 'top') {
       return [innerPadding[0], 0, 0, 0];

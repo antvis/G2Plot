@@ -1,17 +1,15 @@
-import Pie from '../pie';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import RingLayer, { RingLayerConfig } from './layer';
 
-export { RingLayerConfig as RingConfig };
+export interface RingConfig extends RingLayerConfig, PlotCfg {}
 
-export default class Ring extends Pie<RingLayerConfig> {
-  public static getDefaultProps = RingLayer.getDefaultProps;
-  protected init() {
-    const layer = new RingLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class Ring<T extends RingConfig = RingConfig> extends BasePlot<T> {
+  public static getDefaultProps = RingLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'ring';
+    super.createLayers(layerProps);
   }
 }

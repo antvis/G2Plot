@@ -1,17 +1,17 @@
-import StackColumn from '../stack-column';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import PercentageStackColumnLayer, { PercentageStackColumnLayerConfig } from './layer';
 
-export interface PercentageStackColumnConfig extends PercentageStackColumnLayerConfig {}
+export interface PercentageStackColumnConfig extends PercentageStackColumnLayerConfig, PlotCfg {}
 
-export default class PercentageStackColumn extends StackColumn {
-  public static getDefaultProps = PercentageStackColumnLayer.getDefaultProps;
-  protected init() {
-    const layer = new PercentageStackColumnLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class PercentageStackColumn<
+  T extends PercentageStackColumnConfig = PercentageStackColumnConfig
+> extends BasePlot<T> {
+  public static getDefaultProps = PercentageStackColumnLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'percentageStackColumn';
+    super.createLayers(layerProps);
   }
 }

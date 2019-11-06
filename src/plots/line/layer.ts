@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
+import { registerPlotType } from '../../base/global';
+import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -35,7 +36,7 @@ const GEOM_MAP = {
   point: 'point',
 };
 
-export interface LineLayerConfig extends BaseConfig {
+export interface LineLayerConfig extends ViewLayerCfg {
   /** 分组字段 */
   seriesField?: string;
   /** 是否平滑 */
@@ -54,9 +55,8 @@ export interface LineLayerConfig extends BaseConfig {
 }
 
 export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       connectNulls: false,
       smooth: false,
       lineSize: 2,
@@ -71,21 +71,33 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       },
     });
   }
+
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
+  public type: string = 'line';
 
-  protected setType() {
-    this.type = 'line';
+  public getOptions(props: ViewLayerCfg) {
+    const options = super.getOptions(props);
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, options, defaultOptions, props);
+  }
+
+  public afterRender() {
+    const props = this.options;
+    // 响应式
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('afterRender');
+    }
+    super.afterRender();
   }
 
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }
 
-  protected _setDefaultG2Config() {}
-
-  protected _scale() {
-    const props = this.initialProps;
+  protected scale() {
+    const props = this.options;
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
@@ -98,26 +110,26 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {}
+  protected coord() {}
 
-  protected _addGeometry() {
-    const props = this.initialProps;
+  protected addGeometry() {
+    const props = this.options;
     this.line = getGeom('line', 'main', {
       plot: this,
     });
     if (props.label) {
-      this._label();
+      this.label();
     }
     this.setConfig('element', this.line);
     // 配置数据点
-    this._addPoint();
+    this.addPoint();
   }
 
-  protected _addPoint() {
-    const props = this.initialProps;
+  protected addPoint() {
+    const props = this.options;
     const defaultConfig = { visible: false };
     if (props.point) {
       props.point = _.deepMix(defaultConfig, props.point);
@@ -131,8 +143,8 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
-  protected _label() {
-    const props = this.initialProps;
+  protected label() {
+    const props = this.options;
     const label = props.label as Label;
 
     if (label.visible === false) {
@@ -151,10 +163,10 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     });
   }
 
-  protected _annotation() {}
+  protected annotation() {}
 
-  protected _animation() {
-    const props = this.initialProps;
+  protected animation() {
+    const props = this.options;
     if (props.animation === false) {
       // 关闭动画
       this.line.animate = false;
@@ -182,31 +194,22 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
-  protected _interactions() {
-    super._interactions();
-    const props = this.initialProps;
+  protected applyInteractions() {
+    super.applyInteractions();
+    const props = this.options;
     // 加入默认交互
-    const interactions = this.plot.get('interactions');
-    const lineActive = new LineActive({ view: this.plot });
+    const interactions = this.view.get('interactions');
+    const lineActive = new LineActive({ view: this.view });
     interactions.lineActive = lineActive;
-    const lineSelect = new LineSelect({ view: this.plot });
+    const lineSelect = new LineSelect({ view: this.view });
     interactions.lineSelect = lineSelect;
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  protected afterRender() {
-    const props = this.initialProps;
-    // 响应式
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('afterRender');
-    }
-    super.afterRender();
-  }
-
-  private _applyResponsive(stage) {
+  private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as IObject;
@@ -214,3 +217,5 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     });
   }
 }
+
+registerPlotType('line', LineLayer);

@@ -1,15 +1,14 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import StackBar, { StackBarLayerConfig } from '../stack-bar/layer';
 
 export interface PercentageStackBarLayerConfig extends StackBarLayerConfig {}
 
 export default class PercentageStackBarLayer extends StackBar {
-  protected setType() {
-    this.type = 'percentageStackBar';
-  }
+  public type: string = 'percentageStackBar';
 
   protected processData(originData?: object[]) {
-    const props = this.initialProps;
+    const props = this.options;
     const { xField, yField } = props;
     // 百分比堆叠条形图需要对原始数据进行预处理
     // step1: 以yField为单位，对xField做聚合
@@ -35,3 +34,5 @@ export default class PercentageStackBarLayer extends StackBar {
     return plotData;
   }
 }
+
+registerPlotType('percentageStackBar', PercentageStackBarLayer);

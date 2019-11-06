@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
-import ViewLayer, { ViewLayerCfg } from '../base/view-layer-refactor';
-import { getComponent } from '../components/factory-refactor';
+import ViewLayer, { ViewLayerCfg } from '../base/view-layer';
+import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
 import BaseConfig from '../interface/config';
 

@@ -1,5 +1,6 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import PieLayer, { PieLayerConfig } from '../pie/layer';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
@@ -25,14 +26,45 @@ const PLOT_GEOM_MAP = {
 export default class RingLayer extends PieLayer<RingLayerConfig> {
   public static centralId = 0;
 
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       innerRadius: 0.5,
     });
   }
+
+  public type: string = 'ring';
   private centralText: any; // 保存中心文本实例用于响应交互
   private centralClass: string; // 中心文本的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
+
+  public beforeInit() {
+    super.beforeInit();
+    RingLayer.centralId++;
+    this.centralClass = `centralclassId${RingLayer.centralId}`;
+    const props = this.options;
+    /** 响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('preRender');
+    }
+  }
+
+  public afterInit() {
+    super.afterInit();
+    /** 处理环图中心文本响应交互的问题 */
+    if (this.centralText && this.centralText.onActive) {
+      const onActiveConfig = this.centralText.onActive;
+      this.view.on('interval:mousemove', (e) => {
+        const displayData = this.parseCentralTextData(e.data._origin);
+        let htmlString: string;
+        if (_.isBoolean(onActiveConfig)) {
+          htmlString = this.getCentralTextTemplate(displayData);
+        } else if (_.isFunction(onActiveConfig)) {
+          htmlString = onActiveConfig(displayData);
+          htmlString = `<div class="ring-guide-html ${this.centralClass}">${htmlString}</div>`;
+        }
+        document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
+      });
+    }
+  }
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
@@ -41,23 +73,8 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     return PLOT_GEOM_MAP[type];
   }
 
-  protected setType() {
-    this.type = 'ring';
-  }
-
-  protected beforeInit() {
-    super.beforeInit();
-    RingLayer.centralId++;
-    this.centralClass = `centralclassId${RingLayer.centralId}`;
-    const props = this.initialProps;
-    /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('preRender');
-    }
-  }
-
-  protected _coord() {
-    const props = this.initialProps;
+  protected coord() {
+    const props = this.options;
     const coordConfig = {
       type: 'theta' as CoordinateType,
       cfg: {
@@ -68,13 +85,13 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     this.setConfig('coord', coordConfig);
   }
 
-  protected _annotation() {
-    const props = this.initialProps;
+  protected annotation() {
+    const props = this.options;
     if (props.annotation) {
       const annotationConfigs = [];
       _.each(props.annotation, (a) => {
         if (a.type === 'centralText') {
-          const centralText = this._centralText(a);
+          const centralText = this.drawCentralText(a);
           annotationConfigs.push(centralText);
           this.centralText = centralText;
         }
@@ -83,31 +100,12 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     }
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  protected afterInit() {
-    super.afterInit();
-    /** 处理环图中心文本响应交互的问题 */
-    if (this.centralText && this.centralText.onActive) {
-      const onActiveConfig = this.centralText.onActive;
-      this.plot.on('interval:mousemove', (e) => {
-        const displayData = this._parseCentralTextData(e.data._origin);
-        let htmlString: string;
-        if (_.isBoolean(onActiveConfig)) {
-          htmlString = this._getCentralTextTemplate(displayData);
-        } else if (_.isFunction(onActiveConfig)) {
-          htmlString = onActiveConfig(displayData);
-          htmlString = `<div class="ring-guide-html ${this.centralClass}">${htmlString}</div>`;
-        }
-        document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
-      });
-    }
-  }
-
-  private _centralText(config) {
-    const props = this.initialProps;
+  private drawCentralText(config) {
+    const props = this.options;
     const centralText: IAttrs = {
       type: 'html',
       top: true,
@@ -121,14 +119,14 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     } else {
       /** 用户没有指定文本内容时，默认显示第一条数据 */
       const data = props.data[0];
-      displayData = this._parseCentralTextData(data);
+      displayData = this.parseCentralTextData(data);
     }
     /** 中心文本显示 */
     let htmlString;
     if (config.htmlContent) {
       htmlString = config.htmlContent(displayData);
     } else {
-      htmlString = this._getCentralTextTemplate(displayData);
+      htmlString = this.getCentralTextTemplate(displayData);
     }
     centralText.html = htmlString;
     /** 是否响应状态量 */
@@ -139,13 +137,13 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     return centralText;
   }
 
-  private _parseCentralTextData(data) {
-    const props = this.initialProps;
+  private parseCentralTextData(data) {
+    const props = this.options;
     const angleField = props.angleField;
     return props.colorField ? { name: data[props.colorField], value: data[angleField] } : data[angleField];
   }
 
-  private _getCentralTextTemplate(displayData) {
+  private getCentralTextTemplate(displayData) {
     let htmlString;
     /** 如果文本内容为string或单条数据 */
     if (_.isString(displayData)) {
@@ -159,7 +157,7 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     return htmlString;
   }
 
-  private _applyResponsive(stage) {
+  private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as IAttrs;
@@ -167,3 +165,5 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
     });
   }
 }
+
+registerPlotType('ring', RingLayer);

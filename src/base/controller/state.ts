@@ -68,7 +68,7 @@ export default class StateController {
           attrs = _.mix({}, originAttr, stateStyle);
         }
         shape.attr(attrs);
-        const canvas = this.plot.canvasController.canvas;
+        const canvas = this.plot.canvas;
         canvas.draw();
       }
     });
@@ -76,7 +76,7 @@ export default class StateController {
     if (related) {
       this._parserRelated(type, related, condition);
     }
-    this.plot.canvasController.canvas.draw();
+    this.plot.canvas.draw();
   }
 
   private _updateStateProcess(setStateCfg) {
@@ -111,7 +111,7 @@ export default class StateController {
 
   private _getShapes() {
     const shapes = [];
-    const geoms = this.plot.plot.get('elements');
+    const geoms = this.plot.view.get('elements');
     _.each(geoms, (geom: any) => {
       if (!geom.destroyed) {
         shapes.push(...geom.getShapes());
@@ -137,7 +137,7 @@ export default class StateController {
   }
 
   private _getDefaultStateStyle(type, shape) {
-    const theme = this.plot.plotTheme;
+    const theme = this.plot.theme;
     const plotGeomType = this.plot.geometryParser('plot', shape.name);
     const styleField = `${plotGeomType}Style`;
     if (theme[styleField]) {
@@ -152,10 +152,9 @@ export default class StateController {
 
   private _parserRelated(type, related, condition) {
     _.each(related, (r) => {
-      if (this.plot[related]) {
-        // 自定义组件
-        this.plot[related].setState(type, condition);
-      } else {
+      if (this.plot[r]) {
+        // fixme: 自定义组件
+        // this.plot[r].setState(type, condition);
         const method = getComponentStateMethod(r, type);
         method(this.plot, condition);
       }

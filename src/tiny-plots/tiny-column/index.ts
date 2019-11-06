@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot-refactor';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import TinyColumnLayer, { TinyColumnLayerConfig } from './layer';
 
 export interface TinyColumnConfig extends TinyColumnLayerConfig, PlotCfg {}

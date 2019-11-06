@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import { ElementOption } from '../../interface/config';
 import BaseBarLayer, { BarLayerConfig } from '../bar/layer';
 
@@ -7,11 +8,9 @@ export interface GroupBarLayerConfig extends BarLayerConfig {
 }
 
 export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
-  protected setType() {
-    this.type = 'groupBar';
-  }
+  public type: string = 'groupBar';
 
-  protected _adjustBar(bar: ElementOption) {
+  protected adjustBar(bar: ElementOption) {
     bar.adjust = [
       {
         type: 'dodge',
@@ -19,3 +18,5 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
     ];
   }
 }
+
+registerPlotType('groupBar', GroupBarLayer);

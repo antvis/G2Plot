@@ -1,15 +1,14 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import StackArea, { StackAreaLayerConfig } from '../stack-area/layer';
 
 export interface PercentageStackAreaLayerConfig extends StackAreaLayerConfig {}
 
 export default class PercentageStackAreaLayer extends StackArea {
-  protected setType() {
-    this.type = 'percentageStackArea';
-  }
+  public type: string = 'percentageStackArea';
 
   protected processData(originData?: object[]) {
-    const props = this.initialProps;
+    const props = this.options;
     const { xField, yField } = props;
     // 百分比堆叠面积图需要对原始数据进行预处理
     // step1: 以xField为单位，对yField做聚合
@@ -35,3 +34,5 @@ export default class PercentageStackAreaLayer extends StackArea {
     return plotData;
   }
 }
+
+registerPlotType('percentageStackArea', PercentageStackAreaLayer);

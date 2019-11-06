@@ -41,8 +41,8 @@ export default class AxisParser {
 
   private _needDraw() {
     /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
-    const propos = this.plot.initialProps;
-    const theme = this.plot.plotTheme;
+    const propos = this.plot.options;
+    const theme = this.plot.theme;
     const propsConfig = propos[`${this.dim}Axis`] ? propos[`${this.dim}Axis`] : {};
     const themeConfig = theme.axis[this.dim];
     const config = _.deepMix({}, themeConfig, propsConfig);

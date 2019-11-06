@@ -60,7 +60,7 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
 
   protected apply() {
     const axisIndex = this.dim === 'x' ? 0 : 1;
-    const axis = this.plot.plot.get('axisController').axes[axisIndex];
+    const axis = this.plot.view.get('axisController').axes[axisIndex];
     const rawLabels = axis
       .get('labelRenderer')
       .get('group')
@@ -76,7 +76,7 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     new Responsive({
       nodes: shapeNodes,
       constraints,
-      region: this.plot.plot.get('viewRange'),
+      region: this.plot.view.get('viewRange'),
       rules,
       plot: this.plot,
       onEnd: (nodes) => {
@@ -88,19 +88,19 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
   }
 
   protected getType() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const axis = `${this.dim}Axis`;
     const field = `${this.dim}Field`;
     if (props[axis] && props[axis].type && props[axis].type === 'dateTime') {
       return 'dateTime';
     }
-    const scaleType = this.plot.plot.get('scales')[props[field]].type;
+    const scaleType = this.plot.view.get('scales')[props[field]].type;
     return SCALE_MAPPER[scaleType];
   }
 
   private getAxisInstance() {
     const axisIndex = this.dim === 'x' ? 0 : 1;
-    const axis = this.plot.plot.get('axisController').axes[axisIndex];
+    const axis = this.plot.view.get('axisController').axes[axisIndex];
     return axis;
   }
 }

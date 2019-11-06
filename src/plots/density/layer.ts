@@ -1,6 +1,7 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import { sturges } from '../../util/math';
 import Area, { AreaLayerConfig } from '../area/layer';
 
@@ -38,22 +39,20 @@ const kernels = {
   },
 };
 
-export default class DensityLayer extends Area<DensityLayerConfig> {
-  protected setType() {
-    this.type = 'density';
-  }
+export default class DensityLayer<T extends DensityLayerConfig = DensityLayerConfig> extends Area<T> {
+  public type: string = 'density';
 
-  protected beforeInit() {
-    super.beforeInit();
-    const originXAxisConfig = this.initialProps.xAxis ? _.clone(this.initialProps.xAxis) : {};
-    this.initialProps.xField = 'value';
-    this.initialProps.yField = 'density';
-    this.initialProps.xAxis = _.deepMix({}, originXAxisConfig, { type: 'linear' });
-    this.initialProps.smooth = true;
+  public init() {
+    const originXAxisConfig = this.options.xAxis ? _.clone(this.options.xAxis) : {};
+    this.options.xField = 'value';
+    this.options.yField = 'density';
+    this.options.xAxis = _.deepMix({}, originXAxisConfig, { type: 'linear' });
+    this.options.smooth = true;
+    super.init();
   }
 
   protected processData(originData?: object[]) {
-    const { binField, binWidth, binNumber, kernel } = this.initialProps;
+    const { binField, binWidth, binNumber, kernel } = this.options;
     const _kernel = kernel ? kernel : 'epanechnikov';
     const kernelFunc = kernels[_kernel];
     const originDataCopy = _.clone(originData);
@@ -108,3 +107,5 @@ export default class DensityLayer extends Area<DensityLayerConfig> {
     return values.length === 0 ? 0 : sum / values.length;
   }
 }
+
+registerPlotType('density', DensityLayer);

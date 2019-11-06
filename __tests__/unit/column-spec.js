@@ -70,7 +70,7 @@ describe('Column plot', () => {
       animation: true,
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const positionField = plot.get('elements')[0].get('position').fields;
     const isTransposed = plot.get('coord').isTransposed;
     const axes = plot.get('axisController').axes;
@@ -104,7 +104,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const columnEle = plot.get('elements')[0];
     expect(columnEle.get('color').values[0]).to.be.equal('red');
     expect(columnEle.get('style').cfg.stroke).to.be.equal('black');
@@ -133,7 +133,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const columnEle = plot.get('elements')[0];
     expect(columnEle.get('color').values[0]).to.be.equal('red');
     expect(columnEle.get('color').values[1]).to.be.equal('blue');
@@ -157,7 +157,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(0);
     columnPlot.destroy();
@@ -208,7 +208,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
@@ -253,7 +253,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
@@ -313,7 +313,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
@@ -358,7 +358,7 @@ describe('Column plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];

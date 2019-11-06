@@ -15,7 +15,7 @@ const COLOR_MAPPER = ['seriesField', 'stackField'];
 
 export default class GuidePointParser extends ElementParser {
   public init() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     this.style = props.point.style;
     if (!props.xField || !props.yField) {
       return;
@@ -41,7 +41,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseColor() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const config: DataPointType = {};
     const mappingField = this._getColorMappingField(props);
     if (mappingField) {
@@ -57,7 +57,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseSize() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const config: DataPointType = {};
     config.values = [props.point.size];
     this.config.size = config;
@@ -71,7 +71,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   public parseStyle() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const styleProps = props.point && props.point.style;
     const config = {
       fields: null,
@@ -113,7 +113,7 @@ export default class GuidePointParser extends ElementParser {
   }
 
   private _needParseAttribute(attr) {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const condition = props.point && props.point[attr];
     return condition;
     // const condition = !this.style || this.style[attr];

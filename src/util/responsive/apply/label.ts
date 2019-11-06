@@ -12,7 +12,7 @@ export default class ApplyResponsiveLabel extends ApplyResponsive {
   }
 
   protected apply() {
-    const labelShapes = this.plot.plot.get('elements')[0].get('labels');
+    const labelShapes = this.plot.view.get('elements')[0].get('labels');
     const nodes = new ShapeNodes({
       shapes: labelShapes,
     });
@@ -22,7 +22,7 @@ export default class ApplyResponsiveLabel extends ApplyResponsive {
       constraints,
       rules,
       plot: this.plot,
-      region: this.plot.plot.get('viewRange'),
+      region: this.plot.view.get('viewRange'),
     });
   }
 

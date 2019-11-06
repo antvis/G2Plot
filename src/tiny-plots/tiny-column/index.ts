@@ -1,11 +1,15 @@
-import TinyPlot from '../tiny-plot';
-import TinyColumnLayer from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
+import TinyColumnLayer, { TinyColumnLayerConfig } from './layer';
 
-export default class TinyColumn extends TinyPlot {
-  public static getDefaultProps = TinyColumnLayer.getDefaultProps;
-  protected init(): void {
-    this.addLayer(
-      new TinyColumnLayer(this.getCanvasController(), this.getThemeController(), this.getPlotRange(), this.initialProps)
-    );
+export interface TinyColumnConfig extends TinyColumnLayerConfig, PlotCfg {}
+
+export default class TinyColumn<T extends TinyColumnConfig = TinyColumnConfig> extends BasePlot<T> {
+  public static getDefaultOptions = TinyColumnLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'tinyColumn';
+    super.createLayers(layerProps);
   }
 }

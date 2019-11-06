@@ -36,7 +36,7 @@ function onDisable(plot, condition) {
 function getAllLabels(plot) {
   labels = [];
   originAttrs = [];
-  const geoms = plot.plot.get('elements');
+  const geoms = plot.view.get('elements');
   _.each(geoms, (geom) => {
     const geomLabels = geom.get('labels');
     if (geomLabels) {

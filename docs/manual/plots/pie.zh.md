@@ -75,7 +75,7 @@ const data = [
 
 **optional**
 
-饼图的半径，原点为画布中心。配置值域为[0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。<br />默认值为 0.8, 即 width / 2 \* 0.8。
+饼图的半径，原点为画布中心。配置值域为[0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。/>默认值为 0.8, 即 width / as br 2 \* 0.8。
 
 ### angleField: string
 
@@ -107,8 +107,8 @@ const data = [
 
 optional<br />`visible: boolean`    图形标签是否显示<br />`type: 'inner' | 'outer' | 'spider'`    图形标签的类型
 
-<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E-2WTKY2BEIAAAAAAAAAAABkARQnAQ" width="600"></p>
-`formatter: function`  对label的显示文本进行格式化。<br />注意：当配置了colorField，即扇形切片接受分类类型的颜色映射，此时spider label的文本为上下显示，此时formatter方法入参为angleField及colorField两个字段对应的值，返回值应为数组。
+<p>(src as img)="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E-2WTKY2BEIAAAAAAAAAAABkARQnAQ" width="600">(/p>
+`formatter: function` as )  对label的显示文本进行格式化。/>注意：当配置了colorField，即扇形切片接受分类类型的颜色映射，此时spider label的文本为上下显示，此时formatter方法入参为angleField及colorField两个字段对应的值，返回值应为数组。
 
 ```
 label: {
@@ -117,7 +117,7 @@ label: {
     return ['value1','value2'];
   }
 }
-```
+``` as br
 
 ### events
 

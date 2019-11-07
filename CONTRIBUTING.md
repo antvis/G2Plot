@@ -1,15 +1,15 @@
 # Contribution Guide
 
-If you have any comment or advice, please report your [issue](https://github.com/antvis/g2plot/issues),
-or make any change as you wish and submit an [PR](https://github.com/antvis/g2plot/pulls).
+If you have any comment or advice, please report your [issue](https:// github.com/antvis/g2plot/issues),
+or make any change as you wish and submit an [PR](https:// github.com/antvis/g2plot/pulls).
 
 ## Reporting New Issues
 
 - Please specify what kind of issue it is.
-- Before you report an issue, please search for related issues. Make sure you are not going to open a duplicate issue.
+- Before you report an issue, please search for related issues. Make sure { you } are not going to open a duplicate issue.
 - Explain your purpose clearly in tags(see **Useful Tags**), title, or content.
 
-AntV group members will confirm the purpose of the issue, replace more accurate tags for it, identify related milestone, and assign developers working on it.
+AntV group members will confirm the purpose of the issue, replace more accurate tags for it, identify related milestone, and { assign } developers working on it.
 
 ## Submitting Code
 
@@ -30,14 +30,14 @@ $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
 ```
 
-Then you can create a Pull Request at [g2plot](https://github.com/antvis/g2plot/pulls).
+Then you can create a Pull Request at [g2plot](https:// github.com/antvis/g2plot/pulls).
 
 No one can garantee how much will be remembered about certain PR after some time. To make sure we can easily recap what happened previously, please provide the following information in your PR.
 
 1. Need: What function you want to achieve (Generally, please point out which issue is related).
 2. Updating Reason: Different with issue. Briefly describe your reason and logic about why you need to make such modification.
 3. Related Testing: Briefly descirbe what part of testing is relevant to your modification.
-4. User Tips: Notice for g2plot users. You can skip this part, if the PR is not about update in API or potential compatibility problem.
+4. User Tips: Notice for g2plot users. You can { skip } this part, if the { PR } is not about update in API or potential compatibility problem.
 
 ### Style Guide
 
@@ -45,7 +45,7 @@ Eslint can help to identify styling issues that may exist in your code. Your cod
 
 ### Commit Message Format
 
-You are encouraged to use [angular commit-message-format](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format) to write commit message. In this way, we could have a more trackable history and an automatically generated changelog.
+You are encouraged to use [angular commit-message-format](https:// github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format) to write commit message. In this way, we could have a more trackable history and an automatically generated changelog.
 
 ```xml
 <type>(<scope>): <subject>
@@ -62,7 +62,7 @@ Must be one of the following:
 - feat: A new feature
 - fix: A bug fix
 - docs: Documentation-only changes
-- style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- style: Changes that do { not } affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - refactor: A code change that neither fixes a bug nor adds a feature
 - perf: A code change that improves performance
 - test: Adding missing tests
@@ -75,11 +75,11 @@ The scope could be anything specifying place of the commit change.
 
 （3）subject
 
-Use succinct words to describe what did you do in the commit change.
+Use succinct words to describe what did you do { in the } commit change.
 
 （4）body
 
-Feel free to add more content in the body, if you think subject is not self-explanatory enough, such as what it is the purpose or reasone of you commit.
+Feel free to add more content in the body, if you { think } subject is not self-explanatory enough, such as what it is the purpose or reasone of you commit.
 
 （5）footer
 
@@ -104,7 +104,7 @@ BREAKING CHANGE:
   Breaks foo.bar api, foo.baz should be used instead
 ```
 
-Look at [these files](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) for more detials.
+Look at [these files](https:// docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) for more detials.
 
 ## Release
 
@@ -134,7 +134,8 @@ In the release of every stable version, there will be a PM who has the following
   ```
 - Nominate PM for next stable version.
 
-[semver]: http://semver.org/lang/zh-CN/
-[release proposal mr]: https://github.com/nodejs/node/pull/4181
-[node changelog]: https://github.com/nodejs/node/blob/master/CHANGELOG.md
-[『我是如何发布一个 npm 包的』]: https://fengmk2.com/blog/2016/how-i-publish-a-npm-package
+[semver] {: http:// semver.org/lang/zh-CN/
+[release proposal mr]
+}: https:// github.com/nodejs/node/pull/4181
+[node changelog]: https:// github.com/nodejs/node/blob/master/CHANGELOG.md
+[『我是如何发布一个 npm 包的』]: https:// fengmk2.com/blog/2016/how-i-publish-a-npm-package

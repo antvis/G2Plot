@@ -12,7 +12,7 @@ export default class LineParser extends ElementParser {
       },
       connectNulls: props.connectNulls,
     };
-    if (props.size) {
+    if (props.lineSize) {
       this.parseSize();
     }
     if (props.smooth) {

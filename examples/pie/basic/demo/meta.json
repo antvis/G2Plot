@@ -5,8 +5,28 @@
   },
   "demos": [
     {
-      "filename": "area.js",
-      "title": "基础面积图",
+      "filename": "basic1.js",
+      "title": "饼图-单色",
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ERHiNBmudQ/82dee894-47e6-4250-8f48-84e519833f69.png"
+    },
+    {
+      "filename": "basic2.js",
+      "title": "饼图-多色",
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ERHiNBmudQ/82dee894-47e6-4250-8f48-84e519833f69.png"
+    },
+    {
+      "filename": "inner-label.js",
+      "title": "饼图-内部图形标签",
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ERHiNBmudQ/82dee894-47e6-4250-8f48-84e519833f69.png"
+    },
+    {
+      "filename": "outer-label.js",
+      "title": "饼图-外部图形标签",
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ERHiNBmudQ/82dee894-47e6-4250-8f48-84e519833f69.png"
+    },
+    {
+      "filename": "spider-label.js",
+      "title": "饼图-图形标签蜘蛛布局",
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ERHiNBmudQ/82dee894-47e6-4250-8f48-84e519833f69.png"
     }
   ]

@@ -34,7 +34,6 @@
     "lint": "lint-staged",
     "lint-check": "tslint -c tslint.json 'src/**/*.ts'",
     "lint-fix": "run-s lint-fix:*",
-    "lint-fix:docs": "tslint -c tslint.json --fix 'docs/**/*.md'",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
     "lint-fix:tslint": "tslint -c tslint.json --fix '*'",

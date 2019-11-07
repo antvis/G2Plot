@@ -52,13 +52,13 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
   public updateConfig(config: RecursivePartial<T>, all: boolean = false) {
     if (all) {
       this.eachLayer((layer) => {
-        if (layer.isViewLayer) {
+        if (layer instanceof ViewLayer) {
           layer.updateConfig(config);
         }
       });
     } else {
       const layer: any = this.layers[0];
-      if (layer.isViewLayer) {
+      if (layer instanceof ViewLayer) {
         layer.updateConfig(config);
       }
     }

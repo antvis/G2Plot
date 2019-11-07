@@ -15,8 +15,8 @@ const COLOR_MAPPER = ['seriesField', 'color'];
 
 export default class CircleParser extends ElementParser {
   public init() {
-    const props = this.plot.initialProps;
-    this.style = props.point.style;
+    const props = this.plot.options;
+    this.style = props.pointStyle;
     if (!props.xField || !props.yField) {
       return;
     }
@@ -29,23 +29,23 @@ export default class CircleParser extends ElementParser {
     this.parseColor();
     this.parseSize();
 
-    if (props.point.shape) {
-      this.parseShape(props.point.shape);
+    if (props.shape) {
+      this.parseShape(props.shape);
     }
-    if (props.point.style) {
+    if (props.pointStyle) {
       this.parseStyle();
     }
   }
 
   public parseColor() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const config: DataPointType = {};
     const colorField = props.colorField;
     if (colorField) {
       this._parseColorByField(props, config, colorField);
     } else {
-      if (props.point && props.point.color) {
-        config.values = [props.point.color];
+      if (props.color) {
+        config.values = [props.color];
       } else if (props.color) {
         this._parseColor(props, config);
       }
@@ -54,15 +54,15 @@ export default class CircleParser extends ElementParser {
   }
 
   public parseSize() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const config: DataPointType = {};
     if (props.sizeField) {
       config.fields = [props.sizeField];
     }
-    if (Array.isArray(props.point.size)) {
-      config.values = props.point.size;
+    if (Array.isArray(props.size)) {
+      config.values = props.pointSize;
     } else {
-      config.values = props.point.size;
+      config.values = props.pointSize;
     }
     this.config.size = config;
   }
@@ -75,8 +75,8 @@ export default class CircleParser extends ElementParser {
   }
 
   public parseStyle() {
-    const props = this.plot.initialProps;
-    const styleProps = props.point && props.point.style;
+    const props = this.plot.options;
+    const styleProps = props.pointStyle;
     const config = {
       fields: null,
       callback: null,
@@ -94,11 +94,11 @@ export default class CircleParser extends ElementParser {
 
   private _parseColorByField(props, config, field) {
     config.fields = [field];
-    if (props.point.color) {
+    if (props.color) {
       const count = getValuesByField(field, props.data).length;
       const values = [];
       for (let i = 0; i < count; i++) {
-        values.push(props.point.color);
+        values.push(props.color);
       }
       config.values = values;
     } else if (props.color) {

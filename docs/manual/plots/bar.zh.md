@@ -26,6 +26,7 @@ const data = [
 - **Dont's**
   - 尽量避免在基础条形图中使用颜色映射。
   - x 轴不以 0 值为起点，将有可能导致条形图显示错误的比例关系。
+
 * **Do**
   - 如果分类之间的序列关系(ranking)有意义且不是时间周期，可以考虑将数据进行排序。
   - 如果需要关注具体数据，可以考虑移除坐标轴，显示图形标签，使用户的注意力更加聚焦。
@@ -126,10 +127,10 @@ const data = [
 
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
-`formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number`    在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number`    在 label 位置的基础上再往 y 方向的偏移量。<br />
-`style: object`    配置 label 文本
+`formatter: function`  对 label 的显示文本进行格式化。/>
+`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
+`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
+`style: object` as br    配置 label 文本
 
 ### events
 

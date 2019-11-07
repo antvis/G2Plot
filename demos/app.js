@@ -28,9 +28,11 @@ function isFile(source) {
 }
 
 function getFiles(source) {
-  return readdirSync(source).map(function(name) {
-    return join(source, name);
-  }).filter(isFile);
+  return readdirSync(source)
+    .map(function(name) {
+      return join(source, name);
+    })
+    .filter(isFile);
 }
 
 const screenshotsPath = join(process.cwd(), './demos/assets/screenshots');
@@ -53,23 +55,25 @@ function startService(port) {
       const pathname = parseurl(req).pathname;
       if (pathname === '/demos/index.html') {
         const demoFiles = getFiles(__dirname)
-          .filter(filename => {
+          .filter((filename) => {
             return extname(filename) === '.html';
           })
-          .map(filename => {
+          .map((filename) => {
             const bn = basename(filename, '.html');
             const file = {
               screenshot: `/demos/assets/screenshots/${bn}.png`,
               basename: bn,
               content: readFileSync(filename),
-              filename
+              filename,
             };
             return file;
           });
         const template = readFileSync(join(__dirname, './index.njk'), 'utf8');
-        res.end(renderString(template, {
-          demoFiles
-        }));
+        res.end(
+          renderString(template, {
+            demoFiles,
+          })
+        );
       } else {
         next();
       }
@@ -97,12 +101,17 @@ function startService(port) {
 
     let win;
     app.once('ready', () => {
-      win = new BrowserWindow(assign({
-        // transparent: true
-        webPreferences: {
-          nodeIntegration: false
-        }
-      }, windowBoundsConfig.get('demos')));
+      win = new BrowserWindow(
+        assign(
+          {
+            // transparent: true
+            webPreferences: {
+              nodeIntegration: false,
+            },
+          },
+          windowBoundsConfig.get('demos')
+        )
+      );
       win.loadURL(url);
       win.openDevTools();
 
@@ -112,10 +121,7 @@ function startService(port) {
       win.on('closed', () => {
         win = null;
       });
-      watch([
-        'demos/**/*.*',
-        'src/**/*.*'
-      ], () => {
+      watch(['demos/**/*.*', 'src/**/*.*'], () => {
         win.webContents.reloadIgnoringCache();
       });
     });
@@ -128,7 +134,7 @@ function startService(port) {
 if (commander.port) {
   startService(commander.port);
 } else {
-  getPort().then(port => {
+  getPort().then((port) => {
     startService(port);
   });
 }

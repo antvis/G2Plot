@@ -7,7 +7,8 @@ export interface PercentageStackColumnConfig extends PercentageStackColumnLayerC
 export default class PercentageStackColumn<
   T extends PercentageStackColumnConfig = PercentageStackColumnConfig
 > extends BasePlot<T> {
-  public static getDefaultProps = PercentageStackColumnLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof PercentageStackColumnLayer.getDefaultOptions =
+    PercentageStackColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

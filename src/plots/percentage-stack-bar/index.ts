@@ -7,7 +7,8 @@ export interface PercentageStackBarConfig extends PercentageStackBarLayerConfig,
 export default class PercentageStackBar<T extends PercentageStackBarConfig = PercentageStackBarConfig> extends BasePlot<
   T
 > {
-  public static getDefaultProps = PercentageStackBarLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof PercentageStackBarLayer.getDefaultOptions =
+    PercentageStackBarLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

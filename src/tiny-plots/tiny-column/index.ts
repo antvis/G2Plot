@@ -5,7 +5,7 @@ import TinyColumnLayer, { TinyColumnLayerConfig } from './layer';
 export interface TinyColumnConfig extends TinyColumnLayerConfig, PlotCfg {}
 
 export default class TinyColumn<T extends TinyColumnConfig = TinyColumnConfig> extends BasePlot<T> {
-  public static getDefaultOptions = TinyColumnLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof TinyColumnLayer.getDefaultOptions = TinyColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

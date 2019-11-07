@@ -5,7 +5,7 @@ import TinyAreaLayer, { TinyAreaLayerConfig } from './layer';
 export interface TinyAreaConfig extends TinyAreaLayerConfig, PlotCfg {}
 
 export default class TinyArea<T extends TinyAreaConfig = TinyAreaConfig> extends BasePlot<T> {
-  public static getDefaultOptions = TinyAreaLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof TinyAreaLayer.getDefaultOptions = TinyAreaLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

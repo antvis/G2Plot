@@ -5,7 +5,7 @@ import StackColumnLayer, { StackColumnLayerConfig } from './layer';
 export interface StackColumnConfig extends StackColumnLayerConfig, PlotCfg {}
 
 export default class StackColumn<T extends StackColumnConfig = StackColumnConfig> extends BasePlot<T> {
-  public static getDefaultProps = StackColumnLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof StackColumnLayer.getDefaultOptions = StackColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

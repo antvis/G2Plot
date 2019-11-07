@@ -5,7 +5,7 @@ import GroupColumnLayer, { GroupColumnLayerConfig } from './layer';
 export interface GroupColumnConfig extends GroupColumnLayerConfig, PlotCfg {}
 
 export default class GroupColumn<T extends GroupColumnConfig = GroupColumnConfig> extends BasePlot<T> {
-  public static getDefaultProps = GroupColumnLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof GroupColumnLayer.getDefaultOptions = GroupColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

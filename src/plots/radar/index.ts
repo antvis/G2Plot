@@ -5,7 +5,7 @@ import RadarLayer, { RadarLayerConfig } from './layer';
 export interface RadarConfig extends RadarLayerConfig, PlotCfg {}
 
 export default class Radar<T extends RadarConfig = RadarConfig> extends BasePlot<T> {
-  public static getDefaultProps = RadarLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof RadarLayer.getDefaultOptions = RadarLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

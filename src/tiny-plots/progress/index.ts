@@ -6,7 +6,7 @@ import ProgressLayer, { ProgressLayerConfig } from './layer';
 export interface ProgressConfig extends ProgressLayerConfig, PlotCfg {}
 
 export default class Progress<T extends ProgressConfig = ProgressConfig> extends BasePlot<T> {
-  public static getDefaultOptions = ProgressLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof ProgressLayer.getDefaultOptions = ProgressLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

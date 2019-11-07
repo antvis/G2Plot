@@ -5,7 +5,7 @@ import StackAreaLayer, { StackAreaLayerConfig } from './layer';
 export interface StackAreaConfig extends StackAreaLayerConfig, PlotCfg {}
 
 export default class StackArea<T extends StackAreaConfig = StackAreaConfig> extends BasePlot<T> {
-  public static getDefaultProps = StackAreaLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof StackAreaLayer.getDefaultOptions = StackAreaLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

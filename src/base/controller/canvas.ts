@@ -122,7 +122,6 @@ export default class CanvasController {
     /** 创建canvas */
     const { renderer = 'canvas', pixelRatio } = this.plot;
     const { width, height } = this.getCanvasSize();
-
     this.canvas = new Canvas({
       containerDOM: this.containerDOM,
       width,

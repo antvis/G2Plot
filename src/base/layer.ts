@@ -46,6 +46,7 @@ export default class Layer<T = void> extends EventEmitter {
   public destroyed: boolean = false;
   protected visibility: boolean = true;
   protected layerRegion: Region;
+  private rendered: boolean = false;
 
   /**
    * layer base for g2plot
@@ -82,11 +83,15 @@ export default class Layer<T = void> extends EventEmitter {
    * render layer recursively
    */
   public render() {
-    if (this.parent) {
-      this.parent.container.add(this.container);
-    } else {
-      this.canvas.add(this.container);
+    // fixme: 等plot不再继承layer，这个就可以挪到构造函数里去，不需要再加是否render过的判断了
+    if (!this.rendered) {
+      if (this.parent) {
+        this.parent.container.add(this.container);
+      } else {
+        this.canvas.add(this.container);
+      }
     }
+    this.rendered = true;
     this.beforeInit();
     this.init();
     this.afterInit();

@@ -5,7 +5,7 @@ import LineLayer, { LineLayerConfig } from './layer';
 export interface LineConfig extends LineLayerConfig, PlotCfg {}
 
 export default class Line<T extends LineConfig = LineConfig> extends BasePlot<T> {
-  public static getDefaultProps = LineLayer.getDefaultOptions;
+  public static getDefaultOptions: typeof LineLayer.getDefaultOptions = LineLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);

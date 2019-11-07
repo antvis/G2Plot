@@ -4,7 +4,7 @@ import LineLayer from '../layer';
 
 export default function responsiveAxis(layer: LineLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
-  const canvas = layer.getCanvasController().canvas;
+  const canvas = layer.canvas;
   // x-axis
   const x_responsiveAxis = new ApplyResponsiveAxis({
     plot: layer,

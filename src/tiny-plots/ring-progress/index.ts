@@ -1,16 +1,21 @@
-import Progress from '../progress';
-import RingProgressLayer from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
+import TinyPlot from '../tiny-plot';
+import RingProgressLayer, { RingProgressLayerConfig } from './layer';
 
-export default class RingProgress extends Progress {
-  public static getDefaultProps = RingProgressLayer.getDefaultProps;
-  protected init(): void {
-    this.addLayer(
-      new RingProgressLayer(
-        this.getCanvasController(),
-        this.getThemeController(),
-        this.getPlotRange(),
-        this.initialProps
-      )
-    );
+export interface RingProgressConfig extends RingProgressLayerConfig, PlotCfg {}
+
+export default class RingProgress<T extends RingProgressConfig = RingProgressConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof RingProgressLayer.getDefaultOptions = RingProgressLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'ringProgress';
+    super.createLayers(layerProps);
+  }
+
+  public update(value: number) {
+    const layer = this.layers[0] as any;
+    layer.update(value);
   }
 }

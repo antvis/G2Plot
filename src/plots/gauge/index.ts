@@ -1,16 +1,15 @@
-import BasePlot from '../../base/plot';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import GaugeLayer, { GaugeLayerConfig } from './layer';
 
-export { GaugeLayerConfig as GaugeConfig };
+export interface GaugeConfig extends GaugeLayerConfig, PlotCfg {}
 
-export default class Gauge extends BasePlot<GaugeLayerConfig> {
-  protected init() {
-    const layer = new GaugeLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class Gauge<T extends GaugeConfig = GaugeConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof GaugeLayer.getDefaultOptions = GaugeLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'gauge';
+    super.createLayers(layerProps);
   }
 }

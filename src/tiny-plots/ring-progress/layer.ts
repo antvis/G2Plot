@@ -1,17 +1,21 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
 import { getGeom } from '../../geoms/factory';
-import ProgressLayer from '../progress/layer';
+import ProgressLayer, { ProgressLayerConfig } from '../progress/layer';
 import { getAngle, setShapeInfo } from './animation/index';
 import * as EventParser from './event';
 
 const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
 
+export interface RingProgressLayerConfig extends ProgressLayerConfig {}
+
 export default class RingProgressLayer extends ProgressLayer {
   public ring: any;
+  public type: string = 'ringProgrsss';
 
   public processProps() {
-    let props = this.initialProps;
+    let props = this.options;
     const cfg = {
       padding: [0, 0, 0, 0],
       xField: 'value',
@@ -23,16 +27,11 @@ export default class RingProgressLayer extends ProgressLayer {
     props = _.mix(props, cfg);
   }
 
-  protected beforeInit() {
-    super.beforeInit();
-    this.type = 'tinyRingProgress';
-  }
-
-  protected afterRender() {
+  public afterRender() {
     super.afterRender();
-    const coord = this.plot.get('coord');
+    const coord = this.view.get('coord');
     // 缓存图形
-    const geoms = this.plot.get('elements');
+    const geoms = this.view.get('elements');
     _.each(geoms, (geom) => {
       const shapes = geom.getShapes();
       _.each(shapes, (shape) => {
@@ -42,21 +41,21 @@ export default class RingProgressLayer extends ProgressLayer {
     });
   }
 
-  protected _coord() {
+  protected coord() {
     const coordConfig = {
       type: 'theta' as CoordinateType,
       cfg: {
         radius: 1.0,
-        innerRadius: this._getThickness(),
+        innerRadius: this.getThickness(),
       },
     };
     this.setConfig('coord', coordConfig);
   }
 
-  protected _annotation() {}
+  protected annotation() {}
 
-  protected _addGeometry() {
-    const props = this.initialProps;
+  protected addGeometry() {
+    const props = this.options;
     this.ring = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],
       plot: this,
@@ -69,7 +68,7 @@ export default class RingProgressLayer extends ProgressLayer {
     this.setConfig('element', this.ring);
   }
 
-  protected _animation() {
+  protected animation() {
     this.ring.animate = {
       appear: {
         duration: 1000,
@@ -82,13 +81,13 @@ export default class RingProgressLayer extends ProgressLayer {
     };
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  private _getThickness() {
-    const width = this.getLayerWidth();
-    const height = this.getLayerHeight();
+  private getThickness() {
+    const width = this.width;
+    const height = this.height;
     const size = Math.min(width, height);
     if (size >= 60) {
       return 1.0 - 20 / size;
@@ -96,3 +95,5 @@ export default class RingProgressLayer extends ProgressLayer {
     return 1.0 - 10 / size;
   }
 }
+
+registerPlotType('ringProgress', RingProgressLayer);

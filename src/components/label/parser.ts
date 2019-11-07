@@ -18,7 +18,7 @@ export default class LabelParser {
   }
 
   private _parseCallBack(val) {
-    const labelProps = this.plot.initialProps.label;
+    const labelProps = this.plot.options.label;
     const config: DataPointType = { ...labelProps };
     this._parseOffset(labelProps, config);
     if (labelProps.position) {

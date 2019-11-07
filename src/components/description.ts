@@ -7,6 +7,7 @@ import * as _ from '@antv/util';
 
 export default class TextDescription {
   public shape: Text;
+  public position: string = 'top';
   private container: Canvas | Group;
   private theme: any;
   private alignWithAxis: boolean;

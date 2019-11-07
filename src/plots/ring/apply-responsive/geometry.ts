@@ -4,11 +4,11 @@ import Responsive from '../../../util/responsive/responsive';
 import RingLayer from '../layer';
 
 export default function responsiveRing(layer: RingLayer) {
-  const props = layer.initialProps;
+  const props = layer.options;
   const responsiveTheme = layer.getResponsiveTheme();
   const padding = props.padding;
   const radius = props.radius ? props.radius : 1;
-  const { width, height } = layer.getCanvasController();
+  const { width, height } = layer;
   /** 创建坐标系 */
   const polar = getCoordinate('polar');
   const coord = new polar({

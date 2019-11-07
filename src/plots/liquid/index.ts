@@ -1,16 +1,15 @@
-import BasePlot from '../../base/plot';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
 import LiquidLayer, { LiquidLayerConfig } from './layer';
 
-export { LiquidLayerConfig as LiquidConfig };
+export interface LiquidConfig extends LiquidLayerConfig, PlotCfg {}
 
-export default class Liquid extends BasePlot<LiquidLayerConfig> {
-  protected init() {
-    const layer = new LiquidLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class Liquid<T extends LiquidConfig = LiquidConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof LiquidLayer.getDefaultOptions = LiquidLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'liquid';
+    super.createLayers(layerProps);
   }
 }

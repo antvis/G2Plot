@@ -1,11 +1,15 @@
-import TinyPlot from '../tiny-plot';
-import TinyAreaLayer from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotCfg } from '../../base/plot';
+import TinyAreaLayer, { TinyAreaLayerConfig } from './layer';
 
-export default class TinyArea extends TinyPlot {
-  public static getDefaultProps = TinyAreaLayer.getDefaultProps;
-  protected init(): void {
-    this.addLayer(
-      new TinyAreaLayer(this.getCanvasController(), this.getThemeController(), this.getPlotRange(), this.initialProps)
-    );
+export interface TinyAreaConfig extends TinyAreaLayerConfig, PlotCfg {}
+
+export default class TinyArea<T extends TinyAreaConfig = TinyAreaConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof TinyAreaLayer.getDefaultOptions = TinyAreaLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'tinyArea';
+    super.createLayers(layerProps);
   }
 }

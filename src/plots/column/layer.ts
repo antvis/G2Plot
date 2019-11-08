@@ -40,6 +40,12 @@ export interface ColumnLayerConfig extends ViewLayerCfg {
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
+      xAxis: {
+        visible: true,
+        tickLine: {
+          visible: false,
+        },
+      },
       tooltip: {
         visible: true,
         shared: false,

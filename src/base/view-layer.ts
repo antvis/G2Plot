@@ -255,6 +255,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     }
     const newProps = _.deepMix({}, this.options, cfg);
     this.options = newProps;
+    this.width = cfg.width ? cfg.width : this.width;
+    this.height = cfg.height ? cfg.height : this.height;
+    // todo: 这里的更新逻辑还应该包含更新x、y，重新计算layerRange
     this.render();
   }
 

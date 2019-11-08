@@ -9,79 +9,14 @@ import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
 
-export default interface Config {
-  /** 数据，对象数组 */
-  data: object[];
-  width?: number;
-  height?: number;
-  /** 自适应父容器宽度和高度 */
-  forceFit?: boolean;
-  /** 渲染引擎 */
-  renderer?: string;
-  /** 字段描述信息，G2用于设置Tooltip、Scale等配置 */
-  // meta?: { [fieldId: string]: ScaleConfig & { type?: Scale['type'] } };
-  meta?: { [fieldId: string]: any & { type?: any } };
-  /** 图表标题 */
-  title?: ITitle;
-  /** 图表描述 */
-  description?: IDescription;
-  /** padding */
-  padding?: number | number[] | string;
-  /** x、y轴字段 */
-  xField?: string;
-  yField?: string;
-  /** 颜色映射 */
-  color?: string | string[] | {};
-  /** 大小映射 */
-  size?: number | number[] | {};
-  /** 形状映射 */
-  shape?: string | string[] | {};
-  /** 轴 */
-  xAxis?: Axis;
-  yAxis?: Axis;
-  /** 数据标签 */
-  label?: Label;
-  /** Tooltip */
-  tooltip?: Tooltip;
-  /** 图例 */
-  legend?: Legend;
-  /** 动画 */
-  animation?: any | boolean;
-  /** 标注 */
-  annotation?: any[];
-  /** 样式 */
-  theme?: Theme | string;
-  /** 响应式规则 */
-  responsiveTheme?: {} | string;
-  /** 交互，待定 */
-  interactions?: IInteractions[];
-  /** 是否响应式 */
-  responsive?: boolean;
-  /** 图表层级的事件 */
-  events?: {
-    [k: string]: ((...args: any[]) => any) | boolean;
-  };
-  /** 图表初始状态 */
-  defaultState?: {
-    active?: StateConfig;
-    inActive?: StateConfig;
-    selected?: StateConfig;
-    disabled?: StateConfig;
-  };
-  // fixme: any
-  [k: string]: any;
-}
-
-type Formatter = (value: any, index?: number, ...args: any[]) => string;
-
-interface ITitle {
+export interface ITitle {
   visible: boolean;
   text: string;
   style?: {};
   alignWithAxis?: boolean;
 }
 
-interface IDescription {
+export interface IDescription {
   visible: boolean;
   text: string;
   style?: {};
@@ -178,6 +113,7 @@ export interface Label {
   offsetY?: number;
   events?: IEvents;
   position?: string;
+  adjustColor?: boolean;
   /** 展示优化策略 */
 }
 
@@ -324,12 +260,7 @@ export interface IScrollBarInteractionConfig {
   categorySize?: number;
 }
 
-// TODO: to remove
-export interface IAnyInteractionConfig {
-  [key: string]: any;
-}
-
-export type IInteractionConfig = IAnyInteractionConfig | IScrollBarInteractionConfig | ISliderInteractionConfig;
+export type IInteractionConfig = IScrollBarInteractionConfig | ISliderInteractionConfig;
 
 export interface IInteractions {
   type: string;

@@ -1,10 +1,10 @@
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-import BaseConfig from '../../interface/config';
 // import Theme from '../../theme';
 import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
 import { processAxisVisible } from '../../util/axis';
 import { getResponsiveTheme } from '../../util/responsive/theme';
+import { ViewConfig } from '../view-layer';
 
 /**
  * 负责图表theme的管理
@@ -12,7 +12,7 @@ import { getResponsiveTheme } from '../../util/responsive/theme';
 
 const G2DefaultTheme = G2.Global.theme;
 
-export default class ThemeController<T extends BaseConfig = BaseConfig> {
+export default class ThemeController<T extends ViewConfig = ViewConfig> {
   /**
    * 通过 theme 和图表类型，获取当前 plot 对应的主题
    * @param props

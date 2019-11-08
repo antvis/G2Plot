@@ -4,7 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
@@ -199,7 +199,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected applyInteractions() {
     super.applyInteractions();
-    const props = this.options;
     // 加入默认交互
     const interactions = this.view.get('interactions');
     const lineActive = new LineActive({ view: this.view });

@@ -197,6 +197,7 @@ export interface Tooltip {
   shared: boolean;
   /** html */
   html?: HTMLDivElement;
+  formatter?: (...args: any) => string;
   htmlContent?: (title: string, items: any[]) => string;
   containerTpl?: string;
   itemTpl?: string;

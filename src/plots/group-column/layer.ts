@@ -12,10 +12,15 @@ export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerCo
     return this.themeController.getResponsiveTheme('column');
   }
 
+  protected addGeometry() {
+    super.addGeometry();
+  }
+
   protected adjustColumn(column: ElementOption) {
     column.adjust = [
       {
         type: 'dodge',
+        marginRatio: 0.1,
       },
     ];
   }

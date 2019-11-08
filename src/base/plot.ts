@@ -79,6 +79,15 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
         layer.updateConfig(config);
       }
     }
+
+    if (config.width) {
+      this.width = config.width as number;
+    }
+    if (config.height) {
+      this.height = config.height as number;
+    }
+
+    this.canvasController.updateCanvasSize();
   }
 
   public changeData(data: any[], all: boolean = false) {

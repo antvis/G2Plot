@@ -5,6 +5,21 @@ import StackBar, { StackBarLayerConfig } from '../stack-bar/layer';
 export interface PercentageStackBarLayerConfig extends StackBarLayerConfig {}
 
 export default class PercentageStackBarLayer extends StackBar {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      xAxis: {
+        visible: true,
+        label: {
+          visible: true,
+          formatter: (v) => {
+            const reg = /%/gi;
+            return v.replace(reg, '');
+          },
+        },
+      },
+    });
+  }
+
   public type: string = 'percentageStackBar';
 
   protected processData(originData?: object[]) {
@@ -32,6 +47,18 @@ export default class PercentageStackBarLayer extends StackBar {
     });
 
     return plotData;
+  }
+
+  protected scale() {
+    const metaConfig = {};
+    metaConfig[this.options.xField] = {
+      formatter: (v) => {
+        const formattedValue = (v * 100).toFixed(1);
+        return `${formattedValue}%`;
+      },
+    };
+    this.options.meta = metaConfig;
+    super.scale();
   }
 }
 

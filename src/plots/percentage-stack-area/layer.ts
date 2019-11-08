@@ -5,6 +5,21 @@ import StackArea, { StackAreaLayerConfig } from '../stack-area/layer';
 export interface PercentageStackAreaLayerConfig extends StackAreaLayerConfig {}
 
 export default class PercentageStackAreaLayer extends StackArea {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      yAxis: {
+        visible: true,
+        label: {
+          visible: true,
+          formatter: (v) => {
+            const reg = /%/gi;
+            return v.replace(reg, '');
+          },
+        },
+      },
+    });
+  }
+
   public type: string = 'percentageStackArea';
 
   protected processData(originData?: object[]) {
@@ -32,6 +47,18 @@ export default class PercentageStackAreaLayer extends StackArea {
     });
 
     return plotData;
+  }
+
+  protected scale() {
+    const metaConfig = {};
+    metaConfig[this.options.yField] = {
+      formatter: (v) => {
+        const formattedValue = (v * 100).toFixed(1);
+        return `${formattedValue}%`;
+      },
+    };
+    this.options.meta = metaConfig;
+    super.scale();
   }
 }
 

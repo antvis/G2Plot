@@ -8,13 +8,15 @@ import ViewLayer, { ViewLayerCfg } from './view-layer';
 
 export interface PlotCfg {
   forceFit: boolean;
+  renderer?: string;
+  pixelRatio: number;
 }
 
 export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
   public width: number;
   public height: number;
   public forceFit: boolean;
-  public renderer: string = 'canvas';
+  public renderer: string;
   public pixelRatio: number;
   private canvasController: CanvasController;
   private containerDOM: HTMLElement;
@@ -22,6 +24,9 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
   constructor(container: HTMLElement, props: ViewLayerCfg) {
     super(props);
     this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
+    this.forceFit = props.forceFit || true;
+    this.renderer = props.renderer || 'canvas';
+    this.pixelRatio = props.pixelRatio || null;
     this.canvasController = new CanvasController({
       containerDOM: this.containerDOM,
       plot: this,

@@ -250,7 +250,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
 
   /** 更新配置项 */
   public updateConfig(cfg): void {
-    this.doDestroy();
+    this.view.destroy();
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }

@@ -20,7 +20,6 @@ export default class ThemeController<T extends BaseConfig = BaseConfig> {
    */
   public getPlotTheme(props: T, type: string) {
     const { theme } = props;
-
     if (_.isString(theme)) {
       return _.deepMix({}, getGlobalTheme(theme), getTheme(type));
     }

@@ -14,9 +14,14 @@ export interface StackColumnLayerConfig extends ColumnLayerConfig {
 export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerConfig> {
   public static getDefaultOptions() {
     return _.deepMix({}, super.getDefaultOptions(), {
+      legend: {
+        visible: true,
+        position: 'right-top',
+      },
       label: {
-        visible: false,
+        visible: true,
         position: 'middle',
+        adjustColor: true,
       },
       connectedArea: {
         visible: false,

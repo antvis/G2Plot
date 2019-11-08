@@ -41,26 +41,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       xAxis: {
-        visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: false,
-        grid: {
-          visible: true,
-        },
-        line: {
-          visible: false,
-        },
-        tickLine: {
-          visible: true,
-        },
-        label: {
-          visible: true,
-        },
-        title: {
-          visible: false,
-          offset: 12,
-        },
+        visible: false,
       },
       yAxis: {
         visible: true,
@@ -74,7 +55,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
           visible: false,
         },
         tickLine: {
-          visible: true,
+          visible: false,
         },
         label: {
           visible: true,
@@ -92,8 +73,14 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
       },
       label: {
-        visible: false,
-        position: 'right',
+        visible: true,
+        position: 'left',
+        offset: 8,
+        adjustColor: true,
+      },
+      legend: {
+        visible: true,
+        position: 'top-left',
       },
     });
   }

@@ -8,12 +8,28 @@ export interface GroupBarLayerConfig extends BarLayerConfig {
 }
 
 export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      label: {
+        visble: false,
+        position: 'right',
+        offset: 8,
+        adjustColor: true,
+      },
+      legend: {
+        visble: true,
+        position: 'right-top',
+      },
+    });
+  }
+
   public type: string = 'groupBar';
 
   protected adjustBar(bar: ElementOption) {
     bar.adjust = [
       {
         type: 'dodge',
+        marginRatio: 0.1,
       },
     ];
   }

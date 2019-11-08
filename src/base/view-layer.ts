@@ -4,7 +4,7 @@ import * as _ from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
-import { Axis, IInteractions, Label, Legend, StateConfig, Tooltip } from '../interface/config';
+import { Axis, IDescription, IInteractions, ITitle, Label, Legend, StateConfig, Tooltip } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
@@ -32,16 +32,8 @@ export interface ViewConfig {
   interactions?: IInteractions[];
   responsive?: boolean;
   forceFit?: boolean;
-  title?: {
-    visible: boolean;
-    text: string;
-    style?: any;
-  };
-  description?: {
-    visible: boolean;
-    text: string;
-    style?: any;
-  };
+  title?: ITitle;
+  description?: IDescription;
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };

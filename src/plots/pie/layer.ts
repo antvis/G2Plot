@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { Label } from '../../interface/config';
+import { Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
@@ -150,17 +150,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected parserEvents(eventParser) {
     super.parserEvents(EventParser);
-  }
-
-  private adjustPieStyle() {
-    const props = this.options;
-    if (!props.colorField) {
-      const defaultStyle = { stroke: 'white', lineWidth: 1 };
-      if (!props.pieStyle) {
-        props.pieStyle = {};
-      }
-      props.pieStyle = _.deepMix(props.pieStyle, defaultStyle);
-    }
   }
 
   private label() {

@@ -49,10 +49,13 @@ const columnPlot = new StackColumn(document.getElementById('container'), {
   data,
   xField: 'year',
   yField: 'value',
+  stackField: 'type',
   yAxis: {
     min: 0,
   },
-  stackField: 'type',
+  label: {
+    visible: false,
+  },
   connectedArea: {
     visible: true,
     triggerOn: false,

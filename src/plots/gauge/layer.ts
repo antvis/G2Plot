@@ -1,7 +1,9 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
-import BaseConfig, { ElementOption } from '../../interface/config';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './geometry/shape/pointer';
 import './theme';
@@ -15,30 +17,49 @@ interface GaugeStyle {
   size?: number;
 }
 
-export interface GaugeLayerConfig extends BaseConfig {
-  // type?: 'normal' | 'percent';
+export interface GaugeViewConfig extends ViewConfig {
   min?: number;
   max?: number;
   value?: number;
   showValue?: boolean;
   format?: (...args: any[]) => string;
   gaugeStyle?: GaugeStyle;
+  range: number[];
+  styleMix?: any;
+  valueText?: string;
 }
 
+export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
+
 export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
+  public type: string = 'gauge';
+
+  public init() {
+    const { value, range } = this.options;
+    const rangeSorted = range.map((d: number) => +d).sort((a: number, b: number) => a - b);
+
+    const { min = rangeSorted[0], max = rangeSorted[rangeSorted.length - 1], format = (d) => `${d}` } = this.options;
+
+    const valueText = format(value);
+    const styleMix = this.getStyleMix();
+    this.options.styleMix = styleMix;
+    this.options.data = [{ value: value || 0 }];
+    this.options.valueText = valueText;
+    this.options.min = min;
+    this.options.max = max;
+    this.options.format = format;
+    super.init();
+  }
+
   protected geometryParser(dim: string, type: string): string {
     throw new Error('Method not implemented.');
   }
 
-  protected setType(): void {
-    this.type = 'gauge';
-  }
-
-  protected _getStyleMix() {
-    const { gaugeStyle = {} } = this.initialProps;
-    const { width, height } = this.config.panelRange;
+  protected getStyleMix() {
+    const { gaugeStyle = {} } = this.options;
+    const { width, height } = this;
     const size = Math.max(width, height) / 20;
-    const defaultStyle = Object.assign({}, this.plotTheme, {
+    const defaultStyle = Object.assign({}, this.theme, {
       stripWidth: size,
       tickLabelSize: size / 2,
       labelSize: size * 1.5,
@@ -46,28 +67,8 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     return Object.assign(defaultStyle, gaugeStyle);
   }
 
-  protected _setDefaultG2Config() {
-    const { value, range } = this.initialProps;
-    const rangeSorted = range.map((d: number) => +d).sort((a: number, b: number) => a - b);
-
-    const {
-      min = rangeSorted[0],
-      max = rangeSorted[rangeSorted.length - 1],
-      format = (d) => `${d}`,
-    } = this.initialProps;
-
-    const valueText = format(value);
-    const styleMix = this._getStyleMix();
-    this.initialProps.styleMix = styleMix;
-    this.initialProps.data = [{ value: value || 0 }];
-    this.initialProps.valueText = valueText;
-    this.initialProps.min = min;
-    this.initialProps.max = max;
-    this.initialProps.format = format;
-  }
-
-  protected _scale() {
-    const { min, max, format, styleMix } = this.initialProps;
+  protected scale() {
+    const { min, max, format, styleMix } = this.options;
     const scales = {
       value: {},
     };
@@ -83,10 +84,10 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     });
     // @ts-ignore
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {
+  protected coord() {
     const coordConfig = {
       type: 'polar' as CoordinateType,
       cfg: {
@@ -98,8 +99,8 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.setConfig('coord', coordConfig);
   }
 
-  protected _axis() {
-    const { styleMix } = this.initialProps;
+  protected axis() {
+    const { styleMix } = this.options;
 
     const offset =
       typeof styleMix.tickLabelPos === 'number'
@@ -144,8 +145,8 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.setConfig('axes', axesConfig);
   }
 
-  protected _addGeometry() {
-    const { styleMix } = this.initialProps;
+  protected addGeometry() {
+    const { styleMix } = this.options;
     const pointerColor = styleMix.pointerColor || this.config.theme.defaultColor;
 
     const pointer: ElementOption = {
@@ -165,13 +166,13 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.setConfig('element', pointer);
   }
 
-  protected _annotation() {
-    const { min, max, label, range, styleMix } = this.initialProps;
+  protected annotation() {
+    const { min, max, label, range, styleMix } = this.options;
     const annotationConfigs = [];
 
     // @ts-ignore
     if (label !== false) {
-      const labels = this._renderLabel();
+      const labels = this.renderLabel();
       annotationConfigs.push(labels);
     }
 
@@ -186,14 +187,14 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       },
     };
     annotationConfigs.push(bg);
-    const strips = this._renderArcs(range, arcSize, styleMix);
+    const strips = this.renderArcs(range, arcSize, styleMix);
     const allArcs = annotationConfigs.concat(strips);
     this.setConfig('annotations', allArcs);
   }
 
-  protected _animation() {}
+  protected animation() {}
 
-  private _renderArcs(range, arcSize, styleMix) {
+  private renderArcs(range, arcSize, styleMix) {
     const colors = styleMix.colors || this.config.theme.colors;
     const rangeArray = (d: number) => [
       ...Array(d)
@@ -213,9 +214,9 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     return Arcs;
   }
 
-  private _labelHtml() {
-    const { value, format } = this.initialProps;
-    const label: any = this.initialProps.label;
+  private labelHtml() {
+    const { value, format } = this.options;
+    const label: any = this.options.label;
     const formatted: string = format(value);
 
     if (typeof label === 'boolean' && label === true) {
@@ -230,9 +231,9 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     return null;
   }
 
-  private _renderLabel() {
-    const { label, styleMix } = this.initialProps;
-    const labelHtml: string | HTMLElement | null = this._labelHtml();
+  private renderLabel() {
+    const { label, styleMix } = this.options;
+    const labelHtml: string | HTMLElement | null = this.labelHtml();
 
     if (typeof label !== 'function') {
       const text = {
@@ -260,3 +261,5 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     }
   }
 }
+
+registerPlotType('gauge', GaugeLayer);

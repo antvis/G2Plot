@@ -1,9 +1,10 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 
@@ -30,7 +31,7 @@ interface Point {
   [k: string]: any;
 }
 
-export interface RadarLayerConfig extends BaseConfig {
+export interface RadarViewConfig extends ViewConfig {
   /** 分组字段 */
   seriesField?: string;
   /** 是否平滑 */
@@ -59,6 +60,8 @@ export interface RadarLayerConfig extends BaseConfig {
   [attr: string]: any;
 }
 
+export interface RadarLayerConfig extends RadarViewConfig, LayerConfig {}
+
 const GEOM_MAP = {
   area: 'area',
   line: 'line',
@@ -66,8 +69,8 @@ const GEOM_MAP = {
 };
 
 export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
-  public static getDefaultProps() {
-    return {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -165,32 +168,34 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         shared: true,
         crosshairs: null,
       },
-    };
+    });
   }
+  public type: string = 'radar';
   public baseElement: any;
   public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
   public pointElement: any;
   public areaElement: any;
 
+  public init() {
+    const props = this.options;
+    props.xField = props.angleField;
+    props.yField = props.radiusField;
+    super.init();
+  }
+
+  public getOptions(props: RadarLayerConfig) {
+    const options = super.getOptions(props);
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, options, defaultOptions, props);
+  }
+
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }
 
-  protected setType() {
-    this.type = 'radar';
-  }
-
-  protected beforeInit() {
-    super.beforeInit();
-    const props = this.initialProps;
-    props.xField = props.angleField;
-    props.yField = props.radiusField;
-  }
-
-  protected _setDefaultG2Config() {}
-
-  protected _scale() {
-    const props = this.initialProps;
+  protected scale() {
+    const props = this.options;
     const scales = {};
     /** 配置x-scale */
     scales[props.angleField] = {};
@@ -203,11 +208,11 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       extractScale(scales[props.radiusField], props.radiusAxis);
     }
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {
-    const props = this.initialProps;
+  protected coord() {
+    const props = this.options;
     const coordConfig = {
       type: 'polar' as CoordinateType,
       cfg: {
@@ -217,8 +222,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     this.setConfig('coord', coordConfig);
   }
 
-  protected _axis(): void {
-    const props = this.initialProps;
+  protected axis(): void {
+    const props = this.options;
     const xAxis_parser = getComponent('axis', {
       plot: this,
       dim: 'angle',
@@ -235,54 +240,54 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
   }
 
   /* protected _axis() {
-    const props = this.initialProps;
-    const axesConfig = { fields: {} };
-    if (props.angleAxis.visible === false) {
-      axesConfig.fields[props.angleField] = false;
-    } else {
-      if (props.angleAxis.style) {
-        const styleCfg = this._axisStyleParser(props.angleAxis.style, axesConfig.fields[props.angleField]);
-        axesConfig.fields[props.angleField] = _.deepMix(axesConfig.fields[props.angleField], styleCfg);
+      const props = this.initialProps;
+      const axesConfig = { fields: {} };
+      if (props.angleAxis.visible === false) {
+        axesConfig.fields[props.angleField] = false;
+      } else {
+        if (props.angleAxis.style) {
+          const styleCfg = this._axisStyleParser(props.angleAxis.style, axesConfig.fields[props.angleField]);
+          axesConfig.fields[props.angleField] = _.deepMix(axesConfig.fields[props.angleField], styleCfg);
+        }
+        if (props.angleAxis.formatter) {
+          const formatter = props.angleAxis.formatter;
+          axesConfig.fields[props.angleField].label = function(text, index, total) {
+            const returnCfg = {
+              text: formatter(text),
+            } as Point;
+            if (props.angleAxis.style && props.angleAxis.style.label) {
+              returnCfg.textStyle = props.angleAxis.style.label;
+            }
+            return returnCfg;
+          };
+        }
       }
-      if (props.angleAxis.formatter) {
-        const formatter = props.angleAxis.formatter;
-        axesConfig.fields[props.angleField].label = function(text, index, total) {
-          const returnCfg = {
-            text: formatter(text),
-          } as Point;
-          if (props.angleAxis.style && props.angleAxis.style.label) {
-            returnCfg.textStyle = props.angleAxis.style.label;
-          }
-          return returnCfg;
-        };
-      }
-    }
 
-    if (props.radiusAxis.visible === false) {
-      axesConfig.fields[props.radiusField] = false;
-    } else {
-      if (props.radiusAxis.style) {
-        const styleCfg = this._axisStyleParser(props.radiusAxis.style, axesConfig.fields[props.radiusField]);
-        axesConfig.fields[props.radiusField] = _.deepMix(axesConfig.fields[props.radiusField], styleCfg);
+      if (props.radiusAxis.visible === false) {
+        axesConfig.fields[props.radiusField] = false;
+      } else {
+        if (props.radiusAxis.style) {
+          const styleCfg = this._axisStyleParser(props.radiusAxis.style, axesConfig.fields[props.radiusField]);
+          axesConfig.fields[props.radiusField] = _.deepMix(axesConfig.fields[props.radiusField], styleCfg);
+        }
+        if (props.radiusAxis.formatter) {
+          const formatter = props.radiusAxis.formatter;
+          axesConfig.fields[props.radiusField].label = function(text, index, total) {
+            const returnCfg = {
+              text: formatter(text),
+            } as Point;
+            if (props.radiusAxis.style && props.radiusAxis.style.label) {
+              returnCfg.textStyle = props.radiusAxis.style.label;
+            }
+            return returnCfg;
+          };
+        }
       }
-      if (props.radiusAxis.formatter) {
-        const formatter = props.radiusAxis.formatter;
-        axesConfig.fields[props.radiusField].label = function(text, index, total) {
-          const returnCfg = {
-            text: formatter(text),
-          } as Point;
-          if (props.radiusAxis.style && props.radiusAxis.style.label) {
-            returnCfg.textStyle = props.radiusAxis.style.label;
-          }
-          return returnCfg;
-        };
-      }
-    }
-    this.setConfig('axes', axesConfig);
-  }*/
+      this.setConfig('axes', axesConfig);
+    }*/
 
-  protected _addGeometry() {
-    const props = this.initialProps;
+  protected addGeometry() {
+    const props = this.options;
     /** 配置面积 */
     if (props.area.visible) {
       const area = getGeom('area', 'main', {
@@ -306,17 +311,17 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     }
   }
 
-  protected _label() {}
+  protected label() {}
 
-  protected _annotation() {}
+  protected annotation() {}
 
-  protected _animation() {}
+  protected animation() {}
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  private _axisStyleParser(styleProps, axisConfig) {
+  private axisStyleParser(styleProps, axisConfig) {
     const styleCfg = {} as Point;
     if (styleProps.line) {
       if (axisConfig.line === null) {
@@ -352,3 +357,5 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     return styleCfg;
   }
 }
+
+registerPlotType('radar', RadarLayer);

@@ -8,7 +8,7 @@ export default class IntervalParser extends ElementParser {
   public init() {
     this.type = 'interval';
     super.init();
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     if (this._needParserColor()) {
       this.parseColor();
     }
@@ -23,7 +23,7 @@ export default class IntervalParser extends ElementParser {
   }
 
   public parseColor() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const colorField = this._getColorMappingField(props);
     const config: DataPointType = {};
     if (colorField) {
@@ -47,7 +47,7 @@ export default class IntervalParser extends ElementParser {
   }
 
   public parseSize(sizeProps) {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const config: DataPointType = {};
     if (_.isFunction(props[sizeProps])) {
       config.fields = [this.config.position.fields];
@@ -59,7 +59,7 @@ export default class IntervalParser extends ElementParser {
   }
 
   public parseStyle(styleProps) {
-    const style = this.plot.initialProps[styleProps];
+    const style = this.plot.options[styleProps];
     const config: DataPointType = {};
     if (_.isFunction(style)) {
       config.fields = [this.config.position.fields];
@@ -101,7 +101,7 @@ export default class IntervalParser extends ElementParser {
   }
 
   private _needParserColor() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     if (props.color) {
       return true;
     }

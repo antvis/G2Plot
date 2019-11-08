@@ -193,7 +193,7 @@ class AreaLabel extends ElementLabels {
 
   private _getLabelBbox(text) {
     const plot: ViewLayer = this.get('labelOptions').plot;
-    const labelStyle = _.clone(plot.getTheme().label.textStyle);
+    const labelStyle = _.clone(plot.theme.label.textStyle);
     labelStyle.fontSize = DEFAULT_SIZE;
     const tShape = new Text({
       attrs: {

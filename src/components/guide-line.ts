@@ -13,7 +13,7 @@ export default class GuideLine {
   }
 
   private _init() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const defaultStyle = this._getDefaultStyle();
     const baseConfig = _.mix(defaultStyle, {
       ...this.cfg,
@@ -69,7 +69,7 @@ export default class GuideLine {
   }
 
   private _extractValues() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     const field = props.yField;
     const values = [];
     _.each(props.data, (d) => {

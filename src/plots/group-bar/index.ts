@@ -1,17 +1,15 @@
-import Bar from '../bar';
-import GroupBarLayer, { GroupBarLayerConfig } from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import GroupBarLayer, { GroupBarViewConfig } from './layer';
 
-export { GroupBarLayerConfig as GroupBarConfig };
+export interface GroupBarConfig extends GroupBarViewConfig, PlotConfig {}
 
-export default class GroupBar extends Bar<GroupBarLayerConfig> {
-  public static getDefaultProps = GroupBarLayer.getDefaultProps;
-  protected init() {
-    const layer = new GroupBarLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class GroupBar<T extends GroupBarConfig = GroupBarConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof GroupBarLayer.getDefaultOptions = GroupBarLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'groupBar';
+    super.createLayers(layerProps);
   }
 }

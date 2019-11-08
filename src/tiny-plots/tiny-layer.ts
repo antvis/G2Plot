@@ -1,17 +1,19 @@
 import * as _ from '@antv/util';
-import ViewLayer from '../base/view-layer';
+import { LayerConfig } from '../base/layer';
+import ViewLayer, { ViewConfig } from '../base/view-layer';
 import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
-import BaseConfig from '../interface/config';
 
-export interface TinyLayerConfig extends BaseConfig {
+export interface TinyViewConfig extends ViewConfig {
   indicator?: any;
+  guideLine?: any; // FIXME:
 }
 
+export interface TinyLayerConfig extends TinyViewConfig, LayerConfig {}
+
 export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerConfig> extends ViewLayer<T> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       title: {
         visible: false,
       },
@@ -33,14 +35,13 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
       },
     });
   }
-  protected _setDefaultG2Config() {}
 
-  protected _coord() {}
+  protected coord() {}
 
-  protected _addGeometry() {}
+  protected addGeometry() {}
 
-  protected _annotation() {
-    const props = this.initialProps;
+  protected annotation() {
+    const props = this.options;
     const config = [];
     _.each(props.guideLine, (line) => {
       const guideLine = getComponent('guideLine', {
@@ -52,5 +53,5 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
     this.setConfig('annotations', config);
   }
 
-  protected _animation() {}
+  protected animation() {}
 }

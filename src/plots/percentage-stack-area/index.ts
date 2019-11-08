@@ -1,17 +1,18 @@
-import StackArea from '../stack-area';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import PercentageStackAreaLayer, { PercentageStackAreaLayerConfig } from './layer';
 
-export interface PercentageStackAreaConfig extends PercentageStackAreaLayerConfig {}
+export interface PercentageStackAreaConfig extends PercentageStackAreaLayerConfig, PlotConfig {}
 
-export default class PercentageStackArea extends StackArea {
-  public static getDefaultProps = PercentageStackAreaLayer.getDefaultProps;
-  protected init() {
-    const layer = new PercentageStackAreaLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class PercentageStackArea<
+  T extends PercentageStackAreaConfig = PercentageStackAreaConfig
+> extends BasePlot<T> {
+  public static getDefaultOptions: typeof PercentageStackAreaLayer.getDefaultOptions =
+    PercentageStackAreaLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'percentageStackArea';
+    super.createLayers(layerProps);
   }
 }

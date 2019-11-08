@@ -1,22 +1,32 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import ConnectedArea from '../../components/connected-area';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
-import BaseColumnLayer, { ColumnLayerConfig } from '../column/layer';
+import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 import './component/label/stack-column-label';
 
-export interface StackColumnLayerConfig extends ColumnLayerConfig {
+export interface StackColumnViewConfig extends ColumnViewConfig {
   stackField: string;
   connectedArea?: any;
 }
 
-export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerConfig> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+export interface StackColumnLayerConfig extends StackColumnViewConfig, LayerConfig {}
+
+export default class StackColumnLayer<
+  T extends StackColumnLayerConfig = StackColumnLayerConfig
+> extends BaseColumnLayer<T> {
+  public static getDefaultOptions() {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      legend: {
+        visible: true,
+        position: 'right-top',
+      },
       label: {
-        visible: false,
+        visible: true,
         position: 'middle',
+        adjustColor: true,
       },
       connectedArea: {
         visible: false,
@@ -24,13 +34,25 @@ export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerCo
       },
     });
   }
+
+  public type: string = 'stackColum';
   public connectedArea: any;
 
-  protected setType() {
-    this.type = 'stackColumn';
+  public afterRender() {
+    const props = this.options;
+    // 绘制区域连接组件
+    if (props.connectedArea.visible) {
+      this.connectedArea = new ConnectedArea({
+        view: this.view,
+        field: props.stackField,
+        animation: props.animation === false ? false : true,
+        ...props.connectedArea,
+      });
+    }
+    super.afterRender();
   }
 
-  protected _adjustColumn(column: ElementOption) {
+  protected adjustColumn(column: ElementOption) {
     column.adjust = [
       {
         type: 'stack',
@@ -38,8 +60,8 @@ export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerCo
     ];
   }
 
-  protected _extractLabel() {
-    const props = this.initialProps;
+  protected extractLabel() {
+    const props = this.options;
 
     const label = props.label as Label;
     if (!label.position) {
@@ -59,18 +81,6 @@ export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerCo
 
     return labelConfig as any;
   }
-
-  protected afterRender() {
-    const props = this.initialProps;
-    // 绘制区域连接组件
-    if (props.connectedArea.visible) {
-      this.connectedArea = new ConnectedArea({
-        view: this.plot,
-        field: props.stackField,
-        animation: props.animation === false ? false : true,
-        ...props.connectedArea,
-      });
-    }
-    super.afterRender();
-  }
 }
+
+registerPlotType('stackColumn', StackColumnLayer);

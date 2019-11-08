@@ -66,7 +66,7 @@ describe('Bar plot', () => {
       animation: false,
     });
     barPlot.render();
-    const plot = barPlot.getLayer().plot;
+    const plot = barPlot.getLayer().view;
     const positionField = plot.get('elements')[0].get('position').fields;
     const isTransposed = plot.get('coord').isTransposed;
     const axes = plot.get('axisController').axes;
@@ -150,7 +150,7 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().plot;
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(0);
     barPlot.destroy();
@@ -201,7 +201,7 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().plot;
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
@@ -247,7 +247,7 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().plot;
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
@@ -307,7 +307,7 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().plot;
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];
@@ -352,7 +352,7 @@ describe('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().plot;
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
     expect(axes.length).to.be.equal(1);
     const axis = axes[0];

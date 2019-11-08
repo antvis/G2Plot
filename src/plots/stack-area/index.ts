@@ -1,17 +1,15 @@
-import Area from '../area';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import StackAreaLayer, { StackAreaLayerConfig } from './layer';
 
-export interface StackAreaConfig extends StackAreaLayerConfig {}
+export interface StackAreaConfig extends StackAreaLayerConfig, PlotConfig {}
 
-export default class StackArea extends Area<StackAreaConfig> {
-  public static getDefaultProps = StackAreaLayer.getDefaultProps;
-  protected init() {
-    const layer = new StackAreaLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class StackArea<T extends StackAreaConfig = StackAreaConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof StackAreaLayer.getDefaultOptions = StackAreaLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'stackArea';
+    super.createLayers(layerProps);
   }
 }

@@ -1,15 +1,30 @@
 import * as _ from '@antv/util';
-import StackBar, { StackBarLayerConfig } from '../stack-bar/layer';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import StackBar, { StackBarViewConfig } from '../stack-bar/layer';
 
-export interface PercentageStackBarLayerConfig extends StackBarLayerConfig {}
+export interface PercentageStackBarViewConfig extends StackBarViewConfig {}
+export interface PercentageStackBarLayerConfig extends PercentageStackBarViewConfig, LayerConfig {}
 
-export default class PercentageStackBarLayer extends StackBar {
-  protected setType() {
-    this.type = 'percentageStackBar';
+export default class PercentageStackBarLayer extends StackBar<PercentageStackBarLayerConfig> {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      xAxis: {
+        visible: true,
+        label: {
+          visible: true,
+          formatter: (v) => {
+            const reg = /%/gi;
+            return v.replace(reg, '');
+          },
+        },
+      },
+    });
   }
+  public type: string = 'percentageStackBar';
 
   protected processData(originData?: object[]) {
-    const props = this.initialProps;
+    const props = this.options;
     const { xField, yField } = props;
     // 百分比堆叠条形图需要对原始数据进行预处理
     // step1: 以yField为单位，对xField做聚合
@@ -34,4 +49,18 @@ export default class PercentageStackBarLayer extends StackBar {
 
     return plotData;
   }
+
+  protected scale() {
+    const metaConfig = {};
+    metaConfig[this.options.xField] = {
+      formatter: (v) => {
+        const formattedValue = (v * 100).toFixed(1);
+        return `${formattedValue}%`;
+      },
+    };
+    this.options.meta = metaConfig;
+    super.scale();
+  }
 }
+
+registerPlotType('percentageStackBar', PercentageStackBarLayer);

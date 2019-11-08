@@ -1,14 +1,14 @@
 // 通用配置
-export { default as Config } from './interface/config';
 export * from './interface/config';
 
 // 图形
-export { default as Layer } from './base/layer';
-export { default as ViewLayer } from './base/view-layer';
-export { default as Base } from './base/plot';
+export { default as Layer, LayerConfig } from './base/layer';
+export { default as ViewLayer, ViewConfig } from './base/view-layer';
+export { default as Base, PlotConfig } from './base/plot';
 export { default as Line, LineConfig } from './plots/line';
 export { default as Density, DensityConfig } from './plots/density';
 export { default as Column, ColumnConfig } from './plots/column';
+export { default as Bubble, BubbleConfig } from './plots/bubble';
 export { default as GroupColumn, GroupColumnConfig } from './plots/group-column';
 export { default as StackColumn, StackColumnConfig } from './plots/stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './plots/percentage-stack-column';

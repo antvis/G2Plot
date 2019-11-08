@@ -1,26 +1,28 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
-import Column, { ColumnLayerConfig } from '../column/layer';
+import Column, { ColumnViewConfig } from '../column/layer';
 
-export interface HistogramLayerConfig extends ColumnLayerConfig {
+export interface HistogramViewConfig extends ColumnViewConfig {
   binField: string;
   binWidth?: number;
   binNumber?: number;
 }
 
-export default class HistogramLayer extends Column<HistogramLayerConfig> {
-  protected setType() {
-    this.type = 'histogram';
-  }
+export interface HistogramLayerConfig extends HistogramViewConfig, LayerConfig {}
 
-  protected beforeInit() {
-    super.beforeInit();
-    this.initialProps.xField = 'range';
-    this.initialProps.yField = 'count';
+export default class HistogramLayer extends Column<HistogramLayerConfig> {
+  public type: string = 'histogram';
+
+  public init() {
+    this.options.xField = 'range';
+    this.options.yField = 'count';
+    super.init();
   }
 
   protected processData(originData?: object[]) {
-    const { binField, binWidth, binNumber } = this.initialProps;
+    const { binField, binWidth, binNumber } = this.options;
     const originData_copy = _.clone(originData);
     // 根据binField value对源数据进行排序
     _.sortBy(originData_copy, binField);
@@ -57,8 +59,8 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     return plotData;
   }
 
-  protected _scale() {
-    super._scale();
+  protected scale() {
+    super.scale();
     // fixme: 类型定义
     const range = this.config.scales.range as any;
     range.nice = false;
@@ -69,3 +71,5 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     return [binWidth * index, binWidth * (index + 1)];
   }
 }
+
+registerPlotType('histogram', HistogramLayer);

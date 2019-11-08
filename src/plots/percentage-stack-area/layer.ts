@@ -1,10 +1,12 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import StackArea, { StackAreaLayerConfig } from '../stack-area/layer';
+import { LayerConfig } from '../../base/layer';
+import StackArea, { StackAreaViewConfig } from '../stack-area/layer';
 
-export interface PercentageStackAreaLayerConfig extends StackAreaLayerConfig {}
+export interface PercentageStackAreaViewConfig extends StackAreaViewConfig {}
+export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewConfig, LayerConfig {}
 
-export default class PercentageStackAreaLayer extends StackArea {
+export default class PercentageStackAreaLayer extends StackArea<PercentageStackAreaLayerConfig> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       yAxis: {
@@ -19,7 +21,6 @@ export default class PercentageStackAreaLayer extends StackArea {
       },
     });
   }
-
   public type: string = 'percentageStackArea';
 
   protected processData(originData?: object[]) {

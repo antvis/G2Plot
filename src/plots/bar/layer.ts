@@ -1,10 +1,11 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -25,7 +26,7 @@ const PLOT_GEOM_MAP = {
   interval: 'bar',
 };
 
-export interface BarLayerConfig extends ViewLayerCfg {
+export interface BarViewConfig extends ViewConfig {
   // 图形
   type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
@@ -37,9 +38,11 @@ export interface BarLayerConfig extends ViewLayerCfg {
   yAxis?: IValueAxis;
 }
 
+export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
+
 export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
-  public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+  public static getDefaultOptions(): Partial<BarViewConfig> {
+    const cfg: Partial<BarViewConfig> = {
       xAxis: {
         visible: false,
       },
@@ -82,7 +85,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         visible: true,
         position: 'top-left',
       },
-    });
+    };
+    return _.deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public bar: any;

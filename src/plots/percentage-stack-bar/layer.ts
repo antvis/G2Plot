@@ -1,10 +1,12 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import StackBar, { StackBarLayerConfig } from '../stack-bar/layer';
+import { LayerConfig } from '../../base/layer';
+import StackBar, { StackBarViewConfig } from '../stack-bar/layer';
 
-export interface PercentageStackBarLayerConfig extends StackBarLayerConfig {}
+export interface PercentageStackBarViewConfig extends StackBarViewConfig {}
+export interface PercentageStackBarLayerConfig extends PercentageStackBarViewConfig, LayerConfig {}
 
-export default class PercentageStackBarLayer extends StackBar {
+export default class PercentageStackBarLayer extends StackBar<PercentageStackBarLayerConfig> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       xAxis: {
@@ -19,7 +21,6 @@ export default class PercentageStackBarLayer extends StackBar {
       },
     });
   }
-
   public type: string = 'percentageStackBar';
 
   protected processData(originData?: object[]) {

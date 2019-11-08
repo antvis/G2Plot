@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import StackColumnLayer, { StackColumnLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import StackColumnLayer, { StackColumnViewConfig } from './layer';
 
-export interface StackColumnConfig extends StackColumnLayerConfig, PlotCfg {}
+export interface StackColumnConfig extends StackColumnViewConfig, PlotConfig {}
 
 export default class StackColumn<T extends StackColumnConfig = StackColumnConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof StackColumnLayer.getDefaultOptions = StackColumnLayer.getDefaultOptions;

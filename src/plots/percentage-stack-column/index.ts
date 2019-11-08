@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import PercentageStackColumnLayer, { PercentageStackColumnLayerConfig } from './layer';
 
-export interface PercentageStackColumnConfig extends PercentageStackColumnLayerConfig, PlotCfg {}
+export interface PercentageStackColumnConfig extends PercentageStackColumnLayerConfig, PlotConfig {}
 
 export default class PercentageStackColumn<
   T extends PercentageStackColumnConfig = PercentageStackColumnConfig

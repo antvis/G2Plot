@@ -3,12 +3,12 @@ import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 
-export interface LayerCfg {
+export interface LayerConfig {
   id?: string;
   /** the top-left-x of layer, local position relative to the parent layer */
-  x: number;
-  /** the top-left-y of layer, local position telative to the parent layer */
-  y: number;
+  x?: number;
+  /** the top-left-y of layer, local position relative to the parent layer */
+  y?: number;
   /** layer width */
   width?: number;
   /** layer height */
@@ -26,13 +26,13 @@ export interface Region {
 }
 
 export interface Range {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
 }
 
-export default class Layer<T = void> extends EventEmitter {
+export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmitter {
   public id: string;
   public x: number;
   public y: number;
@@ -51,7 +51,7 @@ export default class Layer<T = void> extends EventEmitter {
   /**
    * layer base for g2plot
    */
-  constructor(props: LayerCfg) {
+  constructor(props: T) {
     super();
     const options = this.getOptions(props);
     this.id = options.id;
@@ -108,14 +108,14 @@ export default class Layer<T = void> extends EventEmitter {
    */
   public clear() {
     this.eachLayer((layer) => {
-      layer.destory();
+      layer.destroy();
     });
     this.layers = [];
     this.container.clear();
   }
 
   /**
-   * destory layer recursively, remove the container of layer
+   * destroy layer recursively, remove the container of layer
    */
   public destroy() {
     this.eachLayer((layer) => {
@@ -145,7 +145,7 @@ export default class Layer<T = void> extends EventEmitter {
    * add children layer
    * @param layer
    */
-  public addLayer(layer: Layer) {
+  public addLayer(layer: Layer<any>) {
     const idx = _.findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       if (layer.parent !== this) {
@@ -160,7 +160,7 @@ export default class Layer<T = void> extends EventEmitter {
    * remove children layer
    * @param layer
    */
-  public removeLayer(layer: Layer) {
+  public removeLayer(layer: Layer<any>) {
     const idx = _.findIndex(this.layers, (item) => item === layer);
     if (idx >= 0) {
       this.layers.splice(idx, 1);
@@ -209,7 +209,7 @@ export default class Layer<T = void> extends EventEmitter {
   }
 
   /**
-   * get global postion of layer
+   * get global position of layer
    */
   public getGlobalPosition() {
     let globalX = this.x;
@@ -223,7 +223,7 @@ export default class Layer<T = void> extends EventEmitter {
     return { x: globalX, y: globalY };
   }
 
-  public getOptions(props: LayerCfg) {
+  public getOptions(props: T): T {
     let parentWidth = 0;
     let parentHeight = 0;
     if (props.parent) {
@@ -240,7 +240,7 @@ export default class Layer<T = void> extends EventEmitter {
     return _.deepMix({}, defaultOptions, props);
   }
 
-  public eachLayer(cb: (layer) => void) {
+  public eachLayer(cb: (layer: Layer<any>) => void) {
     _.each(this.layers, cb);
   }
 

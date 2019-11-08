@@ -1,7 +1,8 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import TinyLayer, { TinyLayerConfig } from '../tiny-layer';
+import TinyLayer, { TinyLayerConfig, TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
 
 const WIDTH_RATIO = 0.6;
@@ -14,9 +15,10 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export interface TinyColumnLayerConfig extends TinyLayerConfig {}
+export interface TinyColumnViewConfig extends TinyViewConfig {}
+export interface TinyColumnLayerConfig extends TinyColumnViewConfig, LayerConfig {}
 
-export default class TinyColumnLayer extends TinyLayer {
+export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
   public line: any;
   public area: any;
   public type: string = 'tinyColumn';

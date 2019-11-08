@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import DensityLayer, { DensityLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import DensityLayer, { DensityViewConfig } from './layer';
 
-export interface DensityConfig extends DensityLayerConfig, PlotCfg {}
+export interface DensityConfig extends DensityViewConfig, PlotConfig {}
 
 export default class Density<T extends DensityConfig = DensityConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof DensityLayer.getDefaultOptions = DensityLayer.getDefaultOptions;

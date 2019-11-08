@@ -1,7 +1,8 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './geometry/shape/pointer';
@@ -16,14 +17,19 @@ interface GaugeStyle {
   size?: number;
 }
 
-export interface GaugeLayerConfig extends ViewLayerCfg {
+export interface GaugeViewConfig extends ViewConfig {
   min?: number;
   max?: number;
   value?: number;
   showValue?: boolean;
   format?: (...args: any[]) => string;
   gaugeStyle?: GaugeStyle;
+  range: number[];
+  styleMix?: any;
+  valueText?: string;
 }
+
+export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
 
 export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   public type: string = 'gauge';

@@ -50,6 +50,11 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       label: {
         visible: false,
         position: 'top',
+        adjustColor: true,
+      },
+      legend: {
+        visible: true,
+        position: 'top-left',
       },
     });
   }

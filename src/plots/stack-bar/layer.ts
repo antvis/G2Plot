@@ -12,9 +12,49 @@ export interface StackBarLayerConfig extends BarLayerConfig {
 export default class StackBarLayer extends BaseBarLayer<StackBarLayerConfig> {
   public static getDefaultOptions() {
     return _.deepMix({}, super.getDefaultOptions(), {
-      label: {
-        visible: false,
-        position: 'middle',
+      xAxis: {
+        visible: true,
+        autoHideLabel: false,
+        autoRotateLabel: false,
+        autoRotateTitle: false,
+        grid: {
+          visible: true,
+        },
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: true,
+        },
+        label: {
+          visible: true,
+        },
+        title: {
+          visible: false,
+          offset: 12,
+        },
+      },
+      yAxis: {
+        visible: true,
+        autoHideLabel: false,
+        autoRotateLabel: false,
+        autoRotateTitle: true,
+        grid: {
+          visible: false,
+        },
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+        },
+        title: {
+          visible: false,
+          offset: 12,
+        },
       },
     });
   }

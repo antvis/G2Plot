@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import HistogramLayer, { HistogramLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import HistogramLayer, { HistogramViewConfig } from './layer';
 
-export interface HistogramConfig extends HistogramLayerConfig, PlotCfg {}
+export interface HistogramConfig extends HistogramViewConfig, PlotConfig {}
 
 export default class Histogram<T extends HistogramConfig = HistogramConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof HistogramLayer.getDefaultOptions = HistogramLayer.getDefaultOptions;

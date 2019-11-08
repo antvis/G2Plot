@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import BubbleLayer, { BubbleLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import BubbleLayer, { BubbleViewConfig } from './layer';
 
-export interface BubbleConfig extends BubbleLayerConfig, PlotCfg {}
+export interface BubbleConfig extends BubbleViewConfig, PlotConfig {}
 
 export default class Bubble<T extends BubbleConfig = BubbleConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof BubbleLayer.getDefaultOptions = BubbleLayer.getDefaultOptions;

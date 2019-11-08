@@ -1,7 +1,8 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import BaseConfig, { Label } from '../../interface/config';
@@ -10,12 +11,14 @@ import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
 import './theme';
 
-export interface PieLayerConfig extends ViewLayerCfg {
+export interface PieViewConfig extends ViewConfig {
   angleField: string;
   colorField?: string;
   radius?: number;
   pieStyle?: {};
 }
+
+export interface PieLayerConfig extends PieViewConfig, LayerConfig {}
 
 const G2_GEOM_MAP = {
   pie: 'interval',
@@ -63,7 +66,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   public spiderLabel: any;
   public type: string = 'pie';
 
-  public getOptions(props: ViewLayerCfg) {
+  public getOptions(props: T) {
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();

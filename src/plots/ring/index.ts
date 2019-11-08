@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import RingLayer, { RingLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import RingLayer, { RingViewConfig } from './layer';
 
-export interface RingConfig extends RingLayerConfig, PlotCfg {}
+export interface RingConfig extends RingViewConfig, PlotConfig {}
 
 export default class Ring<T extends RingConfig = RingConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof RingLayer.getDefaultOptions = RingLayer.getDefaultOptions;

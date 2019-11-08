@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import RadarLayer, { RadarLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import RadarLayer, { RadarViewConfig } from './layer';
 
-export interface RadarConfig extends RadarLayerConfig, PlotCfg {}
+export interface RadarConfig extends RadarViewConfig, PlotConfig {}
 
 export default class Radar<T extends RadarConfig = RadarConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof RadarLayer.getDefaultOptions = RadarLayer.getDefaultOptions;

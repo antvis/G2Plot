@@ -1,32 +1,40 @@
+import EventEmitter from '@antv/event-emitter';
+import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { RecursivePartial } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
 import { getPlotType } from './global';
 import Layer from './layer';
-import ViewLayer, { ViewLayerCfg } from './view-layer';
+import ViewLayer, { ViewConfig } from './view-layer';
 
-export interface PlotCfg {
-  forceFit: boolean;
+export interface PlotConfig {
+  forceFit?: boolean;
+  width?: number;
   renderer?: string;
-  pixelRatio: number;
+  height?: number;
+  pixelRatio?: number;
 }
 
-export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
+export default class BasePlot<T extends PlotConfig = PlotConfig> {
   public width: number;
   public height: number;
   public forceFit: boolean;
   public renderer: string;
   public pixelRatio: number;
+  public canvas: G.Canvas;
+  public destroyed: boolean;
+  protected layers: Array<Layer<any>>;
   private canvasController: CanvasController;
   private containerDOM: HTMLElement;
 
-  constructor(container: HTMLElement, props: ViewLayerCfg) {
-    super(props);
+  constructor(container: HTMLElement, props: T) {
     this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
-    this.forceFit = props.forceFit || false;
+    this.forceFit = !_.isNil(props.forceFit) ? props.forceFit : _.isNil(props.width) && _.isNil(props.height);
     this.renderer = props.renderer || 'canvas';
     this.pixelRatio = props.pixelRatio || null;
+    this.width = props.width;
+    this.height = props.height;
     this.canvasController = new CanvasController({
       containerDOM: this.containerDOM,
       plot: this,
@@ -35,13 +43,17 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
     this.width = this.canvasController.width;
     this.height = this.canvasController.height;
     this.canvas = this.canvasController.canvas;
+    this.layers = [];
+    this.destroyed = false;
 
     this.createLayers(props);
   }
 
   /** 生命周期 */
   public destroy() {
-    super.destroy();
+    this.eachLayer((layer) => {
+      layer.destroy();
+    });
     this.canvasController.destroy();
     this.layers = [];
     this.destroyed = true;
@@ -137,25 +149,47 @@ export default class BasePlot<T extends PlotCfg = PlotCfg> extends Layer {
     });
   }
 
-  public createLayers(props) {
-    if (props.layers) {
-      // TODO: combo plot
-    } else if (props.type) {
-      const viewLayerCtr = getPlotType(props.type);
-      const viewLayerProps = _.deepMix({}, props, {
-        canvas: this.canvasController.canvas,
-        parent: this,
-      });
-      const viewLayer = new viewLayerCtr(viewLayerProps);
-      this.addLayer(viewLayer);
-    }
-  }
-
   /**
    * 获取图形下的图层 Layer，默认第一个 Layer
    * @param idx
    */
   public getLayer(idx: number = 0) {
     return this.layers[idx];
+  }
+
+  public render() {
+    this.eachLayer((layer) => layer.render());
+  }
+
+  protected eachLayer(cb: (layer: Layer<any>) => void) {
+    _.each(this.layers, cb);
+  }
+
+  /**
+   * add children layer
+   * @param layer
+   */
+  protected addLayer(layer: Layer<any>) {
+    const idx = _.findIndex(this.layers, (item) => item === layer);
+    if (idx < 0) {
+      this.layers.push(layer);
+    }
+  }
+
+  protected createLayers(props: T & { type?: string; layers?: any }) {
+    if (props.layers) {
+      // TODO: combo plot
+    } else if (props.type) {
+      const viewLayerCtr = getPlotType(props.type);
+      const viewLayerProps: T = _.deepMix({}, props, {
+        canvas: this.canvasController.canvas,
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height,
+      });
+      const viewLayer = new viewLayerCtr(viewLayerProps);
+      this.addLayer(viewLayer);
+    }
   }
 }

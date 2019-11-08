@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import LineLayer, { LineLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import LineLayer, { LineViewConfig } from './layer';
 
-export interface LineConfig extends LineLayerConfig, PlotCfg {}
+export interface LineConfig extends LineViewConfig, PlotConfig {}
 
 export default class Line<T extends LineConfig = LineConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof LineLayer.getDefaultOptions = LineLayer.getDefaultOptions;

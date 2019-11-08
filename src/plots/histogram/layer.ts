@@ -1,13 +1,16 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
-import Column, { ColumnLayerConfig } from '../column/layer';
+import Column, { ColumnViewConfig } from '../column/layer';
 
-export interface HistogramLayerConfig extends ColumnLayerConfig {
+export interface HistogramViewConfig extends ColumnViewConfig {
   binField: string;
   binWidth?: number;
   binNumber?: number;
 }
+
+export interface HistogramLayerConfig extends HistogramViewConfig, LayerConfig {}
 
 export default class HistogramLayer extends Column<HistogramLayerConfig> {
   public type: string = 'histogram';

@@ -1,7 +1,8 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -34,7 +35,7 @@ const GEOM_MAP = {
   point: 'point',
 };
 
-export interface AreaLayerConfig extends ViewLayerCfg {
+export interface AreaViewConfig extends ViewConfig {
   areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
   seriesField?: string;
   xAxis?: ICatAxis | ITimeAxis;
@@ -56,6 +57,8 @@ export interface AreaLayerConfig extends ViewLayerCfg {
   };
   smooth?: boolean;
 }
+
+export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}
 
 export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {

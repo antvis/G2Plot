@@ -10,9 +10,9 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerCfg } from './layer';
+import Layer, { LayerConfig } from './layer';
 
-export interface ViewLayerCfg extends LayerCfg {
+export interface ViewConfig {
   data: object[];
   meta?: { [fieldId: string]: any & { type?: any } };
   padding?: number | number[] | string;
@@ -31,6 +31,17 @@ export interface ViewLayerCfg extends LayerCfg {
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
   responsive?: boolean;
+  forceFit?: boolean;
+  title?: {
+    visible: boolean;
+    text: string;
+    style?: any;
+  };
+  description?: {
+    visible: boolean;
+    text: string;
+    style?: any;
+  };
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
@@ -40,15 +51,13 @@ export interface ViewLayerCfg extends LayerCfg {
     selected?: StateConfig;
     disabled?: StateConfig;
   };
-  // fixme: any
-  [k: string]: any;
 }
 
-export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> extends Layer {
-  public static getDefaultOptions(): any {
+export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
+
+export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
+  public static getDefaultOptions(): Partial<ViewConfig> {
     return {
-      width: 400,
-      height: 400,
       title: {
         visible: false,
         text: '',
@@ -132,7 +141,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
   protected description: TextDescription;
   private interactions: BaseInteraction[] = [];
 
-  constructor(props: ViewLayerCfg) {
+  constructor(props: T) {
     super(props);
     this.options = this.getOptions(props);
     this.initialOptions = _.deepMix({}, this.options);
@@ -145,7 +154,7 @@ export default abstract class ViewLayer<T extends ViewLayerCfg = ViewLayerCfg> e
     this.themeController = new ThemeController();
   }
 
-  public getOptions(props: ViewLayerCfg) {
+  public getOptions(props: T): T {
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();

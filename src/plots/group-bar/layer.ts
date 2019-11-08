@@ -29,6 +29,7 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
     bar.adjust = [
       {
         type: 'dodge',
+        marginRatio: 0.1,
       },
     ];
   }

@@ -1,6 +1,6 @@
 ---
-title: Grouped Column Chart
-order: 3
+title: Stacked Bar Chart
+order: 1
 ---
 
 Description about this component.

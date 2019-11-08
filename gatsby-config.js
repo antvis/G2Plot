@@ -67,6 +67,14 @@ module.exports = {
         },
       },
       {
+        slug: 'bar',
+        icon: 'bar',
+        title: {
+          zh: '条形图',
+          en: 'Bar Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {

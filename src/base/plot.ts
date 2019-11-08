@@ -1,75 +1,62 @@
-import { BBox } from '@antv/g';
-import { deepMix, each, findIndex } from '@antv/util';
-import BaseConfig from '../interface/config';
+import EventEmitter from '@antv/event-emitter';
+import * as G from '@antv/g';
+import * as _ from '@antv/util';
 import { RecursivePartial } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
-import ThemeController from './controller/theme';
+import { getPlotType } from './global';
 import Layer from './layer';
-import ViewLayer from './view-layer';
+import ViewLayer, { ViewConfig } from './view-layer';
 
-/**
- * 基础图形
- */
-export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
-  public destroyed: boolean = false;
+export interface PlotConfig {
+  forceFit?: boolean;
+  width?: number;
+  renderer?: string;
+  height?: number;
+  pixelRatio?: number;
+}
 
-  protected initialProps: T;
-  protected originalProps: T;
-  protected layers: Array<Layer<any>> = [];
-
-  private container: HTMLElement;
+export default class BasePlot<T extends PlotConfig = PlotConfig> {
+  public width: number;
+  public height: number;
+  public forceFit: boolean;
+  public renderer: string;
+  public pixelRatio: number;
+  public canvas: G.Canvas;
+  public destroyed: boolean;
+  protected layers: Array<Layer<any>>;
   private canvasController: CanvasController;
-  private themeController: ThemeController;
+  private containerDOM: HTMLElement;
 
-  constructor(container: string | HTMLElement, props: T) {
-    this.initialProps = props;
-    this.originalProps = deepMix({}, props);
-    this.container = typeof container === 'string' ? document.getElementById(container) : container;
-
-    // themeController 在 Plot 级别
-    this.themeController = new ThemeController();
-
-    // canvasController 在 Plot 级别
+  constructor(container: HTMLElement, props: T) {
+    this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
+    this.forceFit = !_.isNil(props.forceFit) ? props.forceFit : _.isNil(props.width) && _.isNil(props.height);
+    this.renderer = props.renderer || 'canvas';
+    this.pixelRatio = props.pixelRatio || null;
+    this.width = props.width;
+    this.height = props.height;
     this.canvasController = new CanvasController({
-      container: this.container,
-      themeController: this.themeController,
+      containerDOM: this.containerDOM,
       plot: this,
     });
+    /** update layer properties */
+    this.width = this.canvasController.width;
+    this.height = this.canvasController.height;
+    this.canvas = this.canvasController.canvas;
+    this.layers = [];
+    this.destroyed = false;
 
-    this.init();
+    this.createLayers(props);
   }
 
-  /**
-   * 更新图形size
-   */
-  public updateRange() {
-    const newRange = this.getPlotRange();
+  /** 生命周期 */
+  public destroy() {
     this.eachLayer((layer) => {
-      layer.updateRange(newRange);
+      layer.destroy();
     });
-  }
-
-  /**
-   * 更新图形配置
-   */
-  public updateConfig(config: RecursivePartial<T>) {
-    this.updateConfigBase(config);
-
-    this.eachLayer((layer) => {
-      layer.updateConfig(config);
-    });
-  }
-
-  /**
-   * 更新数据
-   *
-   * @param data
-   */
-  public changeData(data: any[]) {
-    this.eachLayer((layer) => {
-      layer.changeData(data);
-    });
+    this.canvasController.destroy();
+    this.layers = [];
+    this.destroyed = true;
   }
 
   /**
@@ -79,45 +66,51 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
     this.canvasController.canvas.draw();
   }
 
-  /**
-   * 完整生命周期渲染
-   */
-  public render(): void {
-    this.eachLayer((layer) => {
-      layer.render();
-    });
+  public updateConfig(config: RecursivePartial<T>, all: boolean = false) {
+    if (all) {
+      this.eachLayer((layer) => {
+        if (layer instanceof ViewLayer) {
+          layer.updateConfig(config);
+        }
+      });
+    } else {
+      const layer: any = this.layers[0];
+      if (layer instanceof ViewLayer) {
+        layer.updateConfig(config);
+      }
+    }
+
+    if (config.width) {
+      this.width = config.width as number;
+    }
+    if (config.height) {
+      this.height = config.height as number;
+    }
+
+    this.canvasController.updateCanvasSize();
   }
 
-  /**
-   * TODO: 可以去掉 getProps 方法
-   */
-  public getProps(): T {
-    return this.initialProps;
-  }
-
-  /**
-   * 获取图形下的图层 Layer，默认第一个 Layer
-   * @param idx
-   */
-  public getLayer(idx: number = 0) {
-    return this.layers[idx];
-  }
-
-  /**
-   * 获取g2的plot实例, 默认顶层
-   */
-  public getPlot(idx: number = 0) {
-    const layer = this.getLayer(idx);
-    // @ts-ignore
-    return layer.plot; // layers[0] 即顶层实例
+  public changeData(data: any[], all: boolean = false) {
+    if (all) {
+      this.eachLayer((layer) => {
+        if (layer instanceof ViewLayer) {
+          layer.changeData(data);
+        }
+      });
+    } else {
+      const layer: any = this.layers[0];
+      if (layer instanceof ViewLayer) {
+        layer.changeData(data);
+      }
+    }
   }
 
   /**
    * 绑定一个外部的stateManager
    * 先直接传递给各个子 Layer
    *
-   * @param stateManager
-   * @param cfg
+   *  @param stateManager
+   *  @param cfg
    */
   public bindStateManager(stateManager: StateManager, cfg: any) {
     this.eachLayer((layer) => {
@@ -130,7 +123,7 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   /**
    * 响应状态量更新的快捷方法
    *
-   * @param condition
+   *  @param condition
    * @param style
    */
   public setActive(condition: any, style: any) {
@@ -166,80 +159,46 @@ export default abstract class BasePlot<T extends BaseConfig = BaseConfig> {
   }
 
   /**
-   * 销毁图形
-   *
-   * @memberof BasePlot
+   * 获取图形下的图层 Layer，默认第一个 Layer
+   * @param idx
    */
-  public destroy(): void {
-    this.eachLayer((layer) => {
-      layer.destroy();
-    });
-
-    this.canvasController.destroy();
-
-    this.layers = [];
-    this.destroyed = true;
+  public getLayer(idx: number = 0) {
+    return this.layers[idx];
   }
 
-  protected updateConfigBase(config: RecursivePartial<T>) {
-    // @ts-ignore
-    this.initialProps = deepMix({}, this.initialProps, config);
-    this.originalProps = deepMix({}, this.originalProps, deepMix({}, config));
+  public render() {
+    this.eachLayer((layer) => layer.render());
+  }
 
-    this.canvasController.updateCanvasSize();
+  protected eachLayer(cb: (layer: Layer<any>) => void) {
+    _.each(this.layers, cb);
   }
 
   /**
-   * 方便子图形获取 CanvasController
-   */
-  protected getCanvasController(): CanvasController {
-    return this.canvasController;
-  }
-
-  /**
-   * 方便子图形获取 ThemeController
-   */
-  protected getThemeController(): ThemeController {
-    return this.themeController;
-  }
-
-  /**
-   * 获取整个 Plot 的 Range
-   */
-  protected getPlotRange(): BBox {
-    const { width, height } = this.canvasController.getCanvasSize();
-    return new BBox(0, 0, width, height);
-  }
-
-  /**
-   * 添加一个 Layer
+   * add children layer
    * @param layer
    */
-  protected addLayer(layer: Layer<any>): void {
-    this.layers.push(layer);
-  }
-
-  /**
-   * 删除一个 Layer
-   * @param layer
-   */
-  protected removeLayer(layer: Layer<any>): void {
-    const idx = findIndex(this.layers, (item) => item === layer);
-    if (idx >= 0) {
-      this.layers.splice(idx, 1);
+  protected addLayer(layer: Layer<any>) {
+    const idx = _.findIndex(this.layers, (item) => item === layer);
+    if (idx < 0) {
+      this.layers.push(layer);
     }
   }
 
-  /**
-   * 配置 Layers
-   *
-   * @protected
-   * @abstract
-   * @memberof BasePlot
-   */
-  protected abstract init(): void;
-
-  private eachLayer(cb: (layer) => void) {
-    each(this.layers, cb);
+  protected createLayers(props: T & { type?: string; layers?: any }) {
+    if (props.layers) {
+      // TODO: combo plot
+    } else if (props.type) {
+      const viewLayerCtr = getPlotType(props.type);
+      const viewLayerProps: T = _.deepMix({}, props, {
+        canvas: this.canvasController.canvas,
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height,
+      });
+      const viewLayer = new viewLayerCtr(viewLayerProps);
+      this.addLayer(viewLayer);
+    }
   }
 }

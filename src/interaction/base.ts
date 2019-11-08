@@ -1,6 +1,6 @@
 import { BBox } from '@antv/g';
 import { Interaction, View } from '@antv/g2';
-import { ViewLayer } from '..';
+import ViewLayer from '../base/view-layer';
 import { IInteractionConfig } from '../interface/config';
 
 export interface InteractionCtor {
@@ -42,6 +42,9 @@ export default abstract class BaseInteraction extends Interaction {
 
   private static GLOBAL_INTERACTION_MAP: InteractionMap = {};
   private static PLOT_INTERACTION_MAP: { [plot: string]: InteractionMap } = {};
+
+  public type: string;
+  public cfg: any;
   private interactionConfig: IInteractionConfig;
   private interactionRange: BBox;
   private viewLayer: ViewLayer<any>;

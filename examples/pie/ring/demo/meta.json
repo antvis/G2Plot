@@ -1,0 +1,23 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "ring-basic.js",
+      "title": "环图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zhg7Sq3I77sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "ring-radius.js",
+      "title": "环图-内半径外半径",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*hCwUSYSaZqwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "ring-central-text.js",
+      "title": "环图-中心文本",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5u68Q5cbUpsAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

@@ -1,17 +1,15 @@
-import BasePlot from '../../base/plot';
-import PieLayer, { PieLayerConfig } from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import PieLayer, { PieViewConfig } from './layer';
 
-export { PieLayerConfig as PieConfig };
+export interface PieConfig extends PieViewConfig, PlotConfig {}
 
-export default class Pie<T extends PieLayerConfig = PieLayerConfig> extends BasePlot<PieLayerConfig> {
-  public static getDefaultProps = PieLayer.getDefaultProps;
-  protected init() {
-    const layer = new PieLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class Pie<T extends PieConfig = PieConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof PieLayer.getDefaultOptions = PieLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'pie';
+    super.createLayers(layerProps);
   }
 }

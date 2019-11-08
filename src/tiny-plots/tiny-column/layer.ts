@@ -1,6 +1,8 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import TinyLayer from '../tiny-layer';
+import TinyLayer, { TinyLayerConfig, TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
 
 const WIDTH_RATIO = 0.6;
@@ -13,9 +15,18 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export default class TinyColumnLayer extends TinyLayer {
+export interface TinyColumnViewConfig extends TinyViewConfig {}
+export interface TinyColumnLayerConfig extends TinyColumnViewConfig, LayerConfig {}
+
+export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
   public line: any;
   public area: any;
+  public type: string = 'tinyColumn';
+
+  public init() {
+    this.processProps();
+    super.init();
+  }
 
   protected geometryParser(dim: string, type: string): string {
     if (dim === 'g2') {
@@ -24,19 +35,8 @@ export default class TinyColumnLayer extends TinyLayer {
     return PLOT_GEOM_MAP[type];
   }
 
-  protected setType(): void {
-    this.type = 'tinyColumn';
-  }
-
-  protected _setDefaultG2Config() {}
-
-  protected beforeInit() {
-    super.beforeInit();
-    this._processProps();
-  }
-
-  protected _addGeometry() {
-    const props = this.initialProps;
+  protected addGeometry() {
+    const props = this.options;
     const column = getGeom('interval', 'main', {
       positionFields: [props.xField, props.yField],
       plot: this,
@@ -44,27 +44,27 @@ export default class TinyColumnLayer extends TinyLayer {
     this.setConfig('element', column);
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  private _processProps() {
-    let props = this.initialProps;
+  private processProps() {
+    let props = this.options;
     const cfg = {
       padding: [0, 0, 0, 0],
-      columnSize: this._getSize(),
+      columnSize: this.getSize(),
     } as any;
     props = _.mix(props, cfg);
   }
 
-  private _getSize() {
-    const props = this.initialProps;
-    const columnNumber = this._getColumnNum(props.data, props.xField);
-    const width = this.getLayerWidth();
+  private getSize() {
+    const props = this.options;
+    const columnNumber = this.getColumnNum(props.data, props.xField);
+    const width = this.width;
     return (width / columnNumber) * WIDTH_RATIO;
   }
 
-  private _getColumnNum(data, field) {
+  private getColumnNum(data, field) {
     const values = [];
     _.each(data, (d) => {
       const v = d[field];
@@ -75,3 +75,5 @@ export default class TinyColumnLayer extends TinyLayer {
     return values.length;
   }
 }
+
+registerPlotType('tinyColumn', TinyColumnLayer);

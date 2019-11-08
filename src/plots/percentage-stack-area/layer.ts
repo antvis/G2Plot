@@ -1,15 +1,30 @@
 import * as _ from '@antv/util';
-import StackArea, { StackAreaLayerConfig } from '../stack-area/layer';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import StackArea, { StackAreaViewConfig } from '../stack-area/layer';
 
-export interface PercentageStackAreaLayerConfig extends StackAreaLayerConfig {}
+export interface PercentageStackAreaViewConfig extends StackAreaViewConfig {}
+export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewConfig, LayerConfig {}
 
-export default class PercentageStackAreaLayer extends StackArea {
-  protected setType() {
-    this.type = 'percentageStackArea';
+export default class PercentageStackAreaLayer extends StackArea<PercentageStackAreaLayerConfig> {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      yAxis: {
+        visible: true,
+        label: {
+          visible: true,
+          formatter: (v) => {
+            const reg = /%/gi;
+            return v.replace(reg, '');
+          },
+        },
+      },
+    });
   }
+  public type: string = 'percentageStackArea';
 
   protected processData(originData?: object[]) {
-    const props = this.initialProps;
+    const props = this.options;
     const { xField, yField } = props;
     // 百分比堆叠面积图需要对原始数据进行预处理
     // step1: 以xField为单位，对yField做聚合
@@ -34,4 +49,18 @@ export default class PercentageStackAreaLayer extends StackArea {
 
     return plotData;
   }
+
+  protected scale() {
+    const metaConfig = {};
+    metaConfig[this.options.yField] = {
+      formatter: (v) => {
+        const formattedValue = (v * 100).toFixed(1);
+        return `${formattedValue}%`;
+      },
+    };
+    this.options.meta = metaConfig;
+    super.scale();
+  }
 }
+
+registerPlotType('percentageStackArea', PercentageStackAreaLayer);

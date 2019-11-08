@@ -57,6 +57,9 @@ const columnPlot = new StackColumn(document.getElementById('container'), {
   yAxis: {
     min: 0,
   },
+  label: {
+    visible: false,
+  },
   stackField: 'type',
   connectedArea: {
     visible: true,

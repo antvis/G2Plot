@@ -1,9 +1,11 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
@@ -24,7 +26,7 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export interface ColumnLayerConfig extends BaseConfig {
+export interface ColumnViewConfig extends ViewConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
@@ -36,10 +38,17 @@ export interface ColumnLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
+export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}
+
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      xAxis: {
+        visible: true,
+        tickLine: {
+          visible: false,
+        },
+      },
       tooltip: {
         visible: true,
         shared: false,
@@ -50,10 +59,39 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       label: {
         visible: false,
         position: 'top',
+        adjustColor: true,
+      },
+      legend: {
+        visible: true,
+        position: 'top-left',
       },
     });
   }
   public column: any;
+  public type: string = 'column';
+
+  public getOptions(props: T) {
+    const options = super.getOptions(props);
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, options, defaultOptions, props);
+  }
+
+  public beforeInit() {
+    super.beforeInit();
+    /** 响应式图形 */
+    if (this.options.responsive && this.options.padding !== 'auto') {
+      this.applyResponsive('preRender');
+    }
+  }
+
+  public afterRender() {
+    /** 响应式 */
+    if (this.options.responsive && this.options.padding !== 'auto') {
+      this.applyResponsive('afterRender');
+    }
+    super.afterRender();
+  }
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
@@ -62,99 +100,71 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     return PLOT_GEOM_MAP[type];
   }
 
-  protected setType() {
-    this.type = 'column';
-  }
-
-  protected beforeInit() {
-    super.beforeInit();
-    const props = this.initialProps;
-    /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('preRender');
-    }
-  }
-
-  protected _setDefaultG2Config() {}
-
-  protected _scale() {
-    const props = this.initialProps;
+  protected scale() {
+    const { options } = this;
     const scales = {};
     /** 配置x-scale */
-    scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
-      extractScale(scales[props.xField], props.xAxis);
+    scales[options.xField] = {};
+    if (_.has(options, 'xAxis')) {
+      extractScale(scales[options.xField], options.xAxis);
     }
     /** 配置y-scale */
-    scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
-      extractScale(scales[props.yField], props.yAxis);
+    scales[options.yField] = {};
+    if (_.has(options, 'yAxis')) {
+      extractScale(scales[options.yField], options.yAxis);
     }
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {}
+  protected coord() {}
 
-  protected _adjustColumn(column: ElementOption) {
+  protected adjustColumn(column: ElementOption) {
     return;
   }
 
-  protected _addGeometry() {
-    const props = this.initialProps;
-
+  protected addGeometry() {
+    const { options } = this;
     const column = getGeom('interval', 'main', {
-      positionFields: [props.xField, props.yField],
+      positionFields: [options.xField, options.yField],
       plot: this,
     });
-
-    if (props.label) {
-      column.label = this._extractLabel();
+    if (options.label) {
+      column.label = this.extractLabel();
     }
-    this._adjustColumn(column);
+    this.adjustColumn(column);
     this.column = column;
     this.setConfig('element', column);
   }
 
-  protected _annotation() {}
+  protected annotation() {}
 
-  protected _animation() {
-    const props = this.initialProps;
-    if (props.animation === false) {
+  protected animation() {
+    if (this.options.animation === false) {
       /** 关闭动画 */
       this.column.animate = false;
     }
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  protected afterRender() {
-    const props = this.initialProps;
-    /** 响应式 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('afterRender');
-    }
-    super.afterRender();
-  }
-
-  protected _extractLabel() {
-    const props = this.initialProps;
-    const label = props.label as Label;
+  protected extractLabel() {
+    const label = this.options.label as Label;
     if (label && label.visible === false) {
       return false;
     }
     const labelConfig = getComponent('label', {
       plot: this,
       labelType: 'columnLabel',
-      fields: [props.yField],
+      fields: [this.options.yField],
       ...label,
     });
     return labelConfig;
   }
 
-  private _applyResponsive(stage) {
+  private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as DataPointType;
@@ -162,3 +172,5 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     });
   }
 }
+
+registerPlotType('column', BaseColumnLayer);

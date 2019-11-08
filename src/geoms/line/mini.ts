@@ -56,7 +56,7 @@ export default class MiniLineParser extends LineParser {
   }
 
   private parseShape() {
-    const props = this.plot.initialProps;
+    const props = this.plot.options;
     if (props.smooth) {
       this.config.shape = { values: ['miniLineSmooth'] };
     } else {

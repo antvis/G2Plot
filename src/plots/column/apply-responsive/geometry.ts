@@ -6,7 +6,7 @@ import Responsive from '../../../util/responsive/responsive';
 import ColumnLayer from '../layer';
 
 export default function responsiveColumn(layer: ColumnLayer) {
-  const props = layer.initialProps;
+  const props = layer.options;
   const responsiveTheme = layer.getResponsiveTheme();
   /** 有几个column */
   const columnNum = getFieldNumber(props.data, props.xField);

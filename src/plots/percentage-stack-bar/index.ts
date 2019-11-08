@@ -1,17 +1,18 @@
-import StackBar from '../stack-bar';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import PercentageStackBarLayer, { PercentageStackBarLayerConfig } from './layer';
 
-export interface PercentageStackBarConfig extends PercentageStackBarLayerConfig {}
+export interface PercentageStackBarConfig extends PercentageStackBarLayerConfig, PlotConfig {}
 
-export default class PercentageStackBar extends StackBar {
-  public static getDefaultProps = PercentageStackBarLayer.getDefaultProps;
-  protected init() {
-    const layer = new PercentageStackBarLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class PercentageStackBar<T extends PercentageStackBarConfig = PercentageStackBarConfig> extends BasePlot<
+  T
+> {
+  public static getDefaultOptions: typeof PercentageStackBarLayer.getDefaultOptions =
+    PercentageStackBarLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'percentageStackBar';
+    super.createLayers(layerProps);
   }
 }

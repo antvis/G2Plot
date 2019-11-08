@@ -2,12 +2,12 @@ import { modifyCSS } from '@antv/dom-util';
 import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
-import BasePlot from '../Plot';
-import ThemeController from './theme';
+import { getGlobalTheme } from '../../theme/global';
+import { Range } from '../layer';
+import BasePlot from '../plot';
 
 export interface CanvasControllerCfg {
-  readonly container: HTMLElement;
-  readonly themeController: ThemeController;
+  readonly containerDOM: HTMLElement;
   readonly plot: BasePlot;
 }
 
@@ -23,17 +23,14 @@ export default class CanvasController {
   public height: number;
   public canvas: Canvas;
 
-  private container: HTMLElement;
+  private containerDOM: HTMLElement;
   private plot: BasePlot; // temp
   private resizeObserver: any;
-  private themeController: ThemeController;
 
   constructor(cfg: CanvasControllerCfg) {
-    const { container, themeController, plot } = cfg;
-    this.container = container;
-    this.themeController = themeController;
+    const { containerDOM, plot } = cfg;
+    this.containerDOM = containerDOM;
     this.plot = plot;
-
     this.init();
   }
 
@@ -42,17 +39,15 @@ export default class CanvasController {
    * @returns the width, height of canvas
    */
   public getCanvasSize() {
-    const props = this.plot.getProps();
-    const plotTheme = this.themeController.getPlotTheme(props, '');
-    let width = props.width ? props.width : plotTheme.width;
-    let height = props.height ? props.height : plotTheme.height;
+    const theme = getGlobalTheme();
+    let width = this.plot.width ? this.plot.width : theme.width;
+    let height = this.plot.height ? this.plot.height : theme.height;
 
     // if forceFit = true, then use the container's size as default.
-    if (props.forceFit) {
-      width = this.container.offsetWidth ? this.container.offsetWidth : width;
-      height = this.container.offsetHeight ? this.container.offsetHeight : height;
+    if (this.plot.forceFit) {
+      width = this.containerDOM.offsetWidth ? this.containerDOM.offsetWidth : width;
+      height = this.containerDOM.offsetHeight ? this.containerDOM.offsetHeight : height;
     }
-
     return { width, height };
   }
 
@@ -73,7 +68,7 @@ export default class CanvasController {
     this.width = width;
     this.height = height;
     this.canvas.changeSize(width, height);
-    this.plot.updateRange();
+    // this.plot.updateRange();
   }
 
   /**
@@ -90,9 +85,9 @@ export default class CanvasController {
   public destroy() {
     // remove event
     if (this.resizeObserver) {
-      this.resizeObserver.unobserve(this.container);
+      this.resizeObserver.unobserve(this.containerDOM);
       this.resizeObserver.disconnect();
-      this.container = null;
+      this.containerDOM = null;
     }
     // remove G.Canvas
     this.canvas.destroy();
@@ -102,12 +97,12 @@ export default class CanvasController {
    * when forceFit = true, then bind the event to listen the container size change
    */
   private bindForceFit() {
-    const { forceFit } = this.plot.getProps();
+    const { forceFit } = this.plot;
 
     // use ResizeObserver to listen the container size change.
     if (forceFit) {
       this.resizeObserver = new ResizeObserver(this.onResize);
-      this.resizeObserver.observe(this.container);
+      this.resizeObserver.observe(this.containerDOM);
     }
   }
 
@@ -125,11 +120,10 @@ export default class CanvasController {
    */
   private initGCanvas() {
     /** 创建canvas */
-    const { renderer = 'canvas', pixelRatio } = this.plot.getProps();
+    const { renderer = 'canvas', pixelRatio } = this.plot;
     const { width, height } = this.getCanvasSize();
-
     this.canvas = new Canvas({
-      containerDOM: this.container,
+      containerDOM: this.containerDOM,
       width,
       height,
       renderer,
@@ -159,8 +153,8 @@ export default class CanvasController {
 
       this.canvas.changeSize(width, height);
 
-      this.plot.updateRange();
-      this.plot.updateConfig({});
-      this.plot.render();
+      // this.plot.updateBBox({width,height} as Range );
+      // this.plot.updateConfig({});
+      // this.plot.render();
     }, 300);
 }

@@ -164,7 +164,7 @@ export default class SliderInteraction extends BaseInteraction {
   }
 
   private getSliderTrendData(): number[] {
-    const { data, yField } = this.getViewLayer().initialProps;
+    const { data, yField } = this.getViewLayer().options;
 
     return map(data, (item) => item[yField]);
   }
@@ -179,7 +179,7 @@ export default class SliderInteraction extends BaseInteraction {
   }
 
   private getSliderMinMaxText(start: number, end: number): { minText: string; maxText: string } {
-    const { data = [], xField } = this.getViewLayer().initialProps;
+    const { data = [], xField } = this.getViewLayer().options;
     const length = size(data);
     const startIdx = Math.round(start * length);
     const endIdx = Math.max(startIdx + 1, Math.round(end * length));
@@ -207,8 +207,7 @@ export default class SliderInteraction extends BaseInteraction {
     });
     const origAnimation = view.get('animation');
     view.animate(false);
-    view.set('data', data);
-    view.repaint();
+    view.changeData(data);
     view.animate(origAnimation);
   }
 }

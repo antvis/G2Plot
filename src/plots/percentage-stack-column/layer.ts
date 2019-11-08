@@ -1,15 +1,30 @@
 import * as _ from '@antv/util';
-import StackColumn, { StackColumnLayerConfig } from '../stack-column/layer';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import StackColumn, { StackColumnViewConfig } from '../stack-column/layer';
 
-export interface PercentageStackColumnLayerConfig extends StackColumnLayerConfig {}
+export interface PercentageStackColumnViewConfig extends StackColumnViewConfig {}
+export interface PercentageStackColumnLayerConfig extends PercentageStackColumnViewConfig, LayerConfig {}
 
-export default class PercentageStackColumnLayer extends StackColumn {
-  protected setType() {
-    this.type = 'percentageStackColumn';
+export default class PercentageStackColumnLayer extends StackColumn<PercentageStackColumnLayerConfig> {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      yAxis: {
+        visible: true,
+        label: {
+          visible: true,
+          formatter: (v) => {
+            const reg = /%/gi;
+            return v.replace(reg, '');
+          },
+        },
+      },
+    });
   }
+  public type: string = 'percentageStackColumn';
 
   protected processData(originData?: object[]) {
-    const props = this.initialProps;
+    const props = this.options;
     const { xField, yField } = props;
     // 百分比堆叠面积图需要对原始数据进行预处理
     // step1: 以xField为单位，对yField做聚合
@@ -34,4 +49,18 @@ export default class PercentageStackColumnLayer extends StackColumn {
 
     return plotData;
   }
+
+  protected scale() {
+    const metaConfig = {};
+    metaConfig[this.options.yField] = {
+      formatter: (v) => {
+        const formattedValue = (v * 100).toFixed(1);
+        return `${formattedValue}%`;
+      },
+    };
+    this.options.meta = metaConfig;
+    super.scale();
+  }
 }
+
+registerPlotType('percentageStackColumn', PercentageStackColumnLayer);

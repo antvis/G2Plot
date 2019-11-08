@@ -1,17 +1,15 @@
-import BasePlot from '../../base/plot';
-import ColumnLayer, { ColumnLayerConfig } from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import ColumnLayer, { ColumnViewConfig } from './layer';
 
-export interface ColumnConfig extends ColumnLayerConfig {}
+export interface ColumnConfig extends ColumnViewConfig, PlotConfig {}
 
-export default class Column<T extends ColumnLayerConfig = ColumnLayerConfig> extends BasePlot<T> {
-  public static getDefaultProps = ColumnLayer.getDefaultProps;
-  protected init() {
-    const layer = new ColumnLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class Column<T extends ColumnConfig = ColumnConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof ColumnLayer.getDefaultOptions = ColumnLayer.getDefaultOptions;
+
+  public createLayers(props: T) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'column';
+    super.createLayers(layerProps);
   }
 }

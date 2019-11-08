@@ -4,7 +4,7 @@ import ColumnLayer from '../layer';
 
 export default function responsiveAxis(layer: ColumnLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
-  const canvas = layer.getCanvasController().canvas;
+  const canvas = layer.canvas;
   // x-axis
   const x_responsiveAxis = new ApplyResponsiveAxis({
     plot: layer,

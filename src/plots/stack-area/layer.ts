@@ -1,18 +1,21 @@
 import * as _ from '@antv/util';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
-import BaseArea, { AreaLayerConfig } from '../area/layer';
+import BaseArea, { AreaViewConfig } from '../area/layer';
 import './component/label/area-label';
 import './component/label/line-label';
 
-export interface StackAreaLayerConfig extends AreaLayerConfig {
+export interface StackAreaViewConfig extends AreaViewConfig {
   stackField: string;
 }
 
-export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+export interface StackAreaLayerConfig extends StackAreaViewConfig, LayerConfig {}
+
+export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLayerConfig> extends BaseArea<T> {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
       label: {
         visible: false,
         type: 'area',
@@ -20,33 +23,31 @@ export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
     });
   }
 
-  protected setType() {
-    this.type = 'stackArea';
-  }
+  public type: string = 'stackArea';
 
-  protected _label() {
-    const props = this.initialProps;
+  protected label() {
+    const props = this.options;
     const label = props.label as Label;
 
     if (label && label.visible === false) {
       this.area.label = false;
       return;
     }
-    const labelType = this._getLabelType(label);
+    const labelType = this.getLabelType(label);
     /** label类型为line，即跟随在折线尾部时，设置offset为0 */
     if (labelType === 'areaLine' || labelType === 'area') {
       label.offset = 0;
     }
 
     this.area.label = getComponent('label', {
-      fields: [this._getLabelField(labelType, props)],
+      fields: [this.getLabelField(labelType, props)],
       labelType,
       plot: this,
       ...label,
     });
   }
 
-  protected _adjustArea(ele: ElementOption) {
+  protected adjustArea(ele: ElementOption) {
     ele.adjust = [
       {
         type: 'stack',
@@ -54,7 +55,7 @@ export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
     ];
   }
 
-  protected _adjustLine(ele: ElementOption) {
+  protected adjustLine(ele: ElementOption) {
     ele.adjust = [
       {
         type: 'stack',
@@ -62,7 +63,7 @@ export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
     ];
   }
 
-  protected _adjustPoint(ele: ElementOption) {
+  protected adjustPoint(ele: ElementOption) {
     ele.adjust = [
       {
         type: 'stack',
@@ -70,19 +71,21 @@ export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
     ];
   }
 
-  private _getLabelField(type, props) {
+  private getLabelField(type, props) {
     const mapper = {
-      point: props.xField,
+      point: props.yField,
       areaLine: props.stackField,
       area: props.stackField,
     };
     return mapper[type];
   }
 
-  private _getLabelType(labelProps) {
+  private getLabelType(labelProps) {
     if (labelProps.type === 'line') {
       return 'areaLine';
     }
     return labelProps.type;
   }
 }
+
+registerPlotType('stackArea', StackAreaLayer);

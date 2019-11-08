@@ -1,6 +1,8 @@
-import BasePlot from '../base/plot';
-import { TinyLayerConfig } from './tiny-layer';
+import BasePlot, { PlotConfig } from '../base/plot';
+import { TinyViewConfig } from './tiny-layer';
 
-export default abstract class TinyPlot<T extends TinyLayerConfig = TinyLayerConfig> extends BasePlot<T> {
+export interface TinyPlotConfig extends TinyViewConfig, PlotConfig {}
+
+export default abstract class TinyPlot<T extends TinyPlotConfig = TinyPlotConfig> extends BasePlot<T> {
   //
 }

@@ -1,9 +1,11 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import ViewLayer from '../../base/view-layer';
+import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -24,7 +26,7 @@ const PLOT_GEOM_MAP = {
   interval: 'bar',
 };
 
-export interface BarLayerConfig extends BaseConfig {
+export interface BarViewConfig extends ViewConfig {
   // 图形
   type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
@@ -36,31 +38,13 @@ export interface BarLayerConfig extends BaseConfig {
   yAxis?: IValueAxis;
 }
 
+export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
+
 export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
-  public static getDefaultProps() {
-    const globalDefaultProps = super.getDefaultProps();
-    return _.deepMix({}, globalDefaultProps, {
+  public static getDefaultOptions(): Partial<BarViewConfig> {
+    const cfg: Partial<BarViewConfig> = {
       xAxis: {
-        visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: false,
-        grid: {
-          visible: true,
-        },
-        line: {
-          visible: false,
-        },
-        tickLine: {
-          visible: true,
-        },
-        label: {
-          visible: true,
-        },
-        title: {
-          visible: false,
-          offset: 12,
-        },
+        visible: false,
       },
       yAxis: {
         visible: true,
@@ -74,7 +58,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
           visible: false,
         },
         tickLine: {
-          visible: true,
+          visible: false,
         },
         label: {
           visible: true,
@@ -92,12 +76,39 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
       },
       label: {
-        visible: false,
-        position: 'right',
+        visible: true,
+        position: 'left',
+        offset: 8,
+        adjustColor: true,
       },
-    });
+      legend: {
+        visible: true,
+        position: 'top-left',
+      },
+    };
+    return _.deepMix({}, super.getDefaultOptions(), cfg);
   }
+
   public bar: any;
+  public type: string = 'bar';
+
+  public beforeInit() {
+    super.beforeInit();
+    const props = this.options;
+    /** 响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('preRender');
+    }
+  }
+
+  public afterRender() {
+    const props = this.options;
+    /** 响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('afterRender');
+    }
+    super.afterRender();
+  }
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
@@ -106,28 +117,12 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return PLOT_GEOM_MAP[type];
   }
 
-  protected setType() {
-    this.type = 'bar';
-  }
-
-  /** 条形图数据从上往下 */
   protected processData(data?: object[]): object[] {
     return data ? data.slice().reverse() : data;
   }
 
-  protected beforeInit() {
-    super.beforeInit();
-    const props = this.initialProps;
-    /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('preRender');
-    }
-  }
-
-  protected _setDefaultG2Config() {}
-
-  protected _scale() {
-    const props = this.initialProps;
+  protected scale() {
+    const props = this.options;
     const scales = {};
     /** 配置x-scale */
     scales[props.yField] = {
@@ -142,19 +137,18 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       extractScale(scales[props.xField], props.xAxis);
     }
     this.setConfig('scales', scales);
-    super._scale();
+    super.scale();
   }
 
-  protected _coord() {
+  protected coord() {
     const coordConfig = {
       actions: [['transpose']],
     };
     this.setConfig('coord', coordConfig);
   }
 
-  // TODO： 条形图的坐标轴样式需要在theme里注册一下
-  protected _axis() {
-    const props = this.initialProps;
+  protected axis() {
+    const props = this.options;
     const axesConfig = { fields: {} };
     axesConfig.fields[props.xField] = {};
     axesConfig.fields[props.yField] = {};
@@ -174,45 +168,36 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('axes', axesConfig);
   }
 
-  protected _adjustBar(bar: ElementOption) {
+  protected adjustBar(bar: ElementOption) {
     return;
   }
 
-  protected _addGeometry() {
-    const props = this.initialProps;
+  protected addGeometry() {
+    const props = this.options;
     const bar = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],
       plot: this,
     });
     if (props.label) {
-      bar.label = this._extractLabel();
+      bar.label = this.extractLabel();
     }
-    this._adjustBar(bar);
+    this.adjustBar(bar);
     this.bar = bar;
     this.setConfig('element', bar);
   }
 
-  protected _annotation() {}
+  protected annotation() {}
 
-  protected _animation() {
-    const props = this.initialProps;
+  protected animation() {
+    const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */
       this.bar.animate = false;
     }
   }
 
-  protected afterRender() {
-    const props = this.initialProps;
-    /** 响应式 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('afterRender');
-    }
-    super.afterRender();
-  }
-
-  protected _extractLabel() {
-    const props = this.initialProps;
+  protected extractLabel() {
+    const props = this.options;
     const label = props.label as Label;
 
     if (label && label.visible === false) {
@@ -228,11 +213,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return labelConfig;
   }
 
-  protected _parserEvents(eventParser) {
-    super._parserEvents(EventParser);
+  protected parserEvents(eventParser) {
+    super.parserEvents(EventParser);
   }
 
-  private _applyResponsive(stage) {
+  private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as DataPointType;
@@ -240,3 +225,5 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     });
   }
 }
+
+registerPlotType('bar', BaseBarLayer);

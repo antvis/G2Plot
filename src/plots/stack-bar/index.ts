@@ -1,17 +1,15 @@
-import Bar from '../bar';
-import StackBarLayer, { StackBarLayerConfig } from './layer';
+import * as _ from '@antv/util';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import StackBarLayer, { StackBarViewConfig } from './layer';
 
-export { StackBarLayerConfig as StackBarConfig };
+export interface StackBarConfig extends StackBarViewConfig, PlotConfig {}
 
-export default class StackBar extends Bar<StackBarLayerConfig> {
-  public static getDefaultProps = StackBarLayer.getDefaultProps;
-  protected init() {
-    const layer = new StackBarLayer(
-      this.getCanvasController(),
-      this.getThemeController(),
-      this.getPlotRange(),
-      this.initialProps
-    );
-    this.addLayer(layer);
+export default class StackBar<T extends StackBarConfig = StackBarConfig> extends BasePlot<T> {
+  public static getDefaultOptions: typeof StackBarLayer.getDefaultOptions = StackBarLayer.getDefaultOptions;
+
+  public createLayers(props) {
+    const layerProps = _.deepMix({}, props);
+    layerProps.type = 'stackBar';
+    super.createLayers(layerProps);
   }
 }

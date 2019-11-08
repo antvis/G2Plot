@@ -171,7 +171,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
 
   private changeViewData([startIdx, endIdx]: [number, number]): void {
     const viewLayer: ViewLayer = this.getViewLayer();
-    const { meta } = viewLayer.initialProps;
+    const { meta } = viewLayer.options;
     const origData: object[] = viewLayer.getData();
     const newData: object[] = getDataByScaleRange(this.xScaleCfg.field, this.xScaleCfg.values, origData, [
       startIdx,

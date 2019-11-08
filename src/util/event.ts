@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import ViewLayer from '../base/view-layer';
 /** 事件类型
  * click | dblclick | mousemove | contextmenu
  */
@@ -42,9 +43,10 @@ const EVENT_MAP: IEventmap = {
   onLegendContextmenu: 'legend-item:contextmenu',
 };
 
-function onEvent(plot, eventName, handler) {
-  const g2Plot = plot.plot;
-  g2Plot.on(eventName, handler);
+type Handler = (...__: any[]) => {};
+
+function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
+  layer.view.on(eventName, handler);
 }
 
 export { IEventmap, EVENT_MAP, onEvent };

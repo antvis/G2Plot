@@ -5,29 +5,14 @@
   },
   "demos": [
     {
-      "filename": "stackColumn.js",
-      "title": "堆叠柱状图",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*n4Z0QY4VssUAAAAAAAAAAABkARQnAQ"
+      "filename": "basic.js",
+      "title": "堆叠条形图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N8smQYy45fAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "connected-area.js",
-      "title": "区域联通组件",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZvmqR7EZrPQAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "connected-area-interaction.js",
-      "title": "区域联通组件交互",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kkv6Tbp338EAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "connected-area-style.js",
-      "title": "区域联通组件样式",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8PZnRJLKrfAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "label-auto-hide.js",
-      "title": "图形标签自动隐藏",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*G-bJRqvvbIsAAAAAAAAAAABkARQnAQ"
+      "filename": "adjust-label-display.js",
+      "title": "堆叠条形图-标签自动隐藏",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9SPmQ7Kqt-8AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

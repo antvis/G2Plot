@@ -101,16 +101,17 @@ interface IBaseAxis {
   position?: 'default' | 'opposite';
   line?: {
     visible?: boolean;
-    style: {};
+    style?: {};
   };
   grid?:
     | {
         visible?: boolean;
-        style: {};
+        style?: {};
       }
     | ((text: string, idx: number, count: number) => any);
   autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
+  autoRotateTitle?: boolean;
   label?:
     | {
         visible?: boolean;
@@ -139,7 +140,7 @@ interface IBaseAxis {
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
-  type: 'linear';
+  type?: 'linear';
   /** tick相关配置 */
   min?: number;
   max?: number;
@@ -150,7 +151,7 @@ export interface IValueAxis extends IBaseAxis {
 }
 /** 时间型 */
 export interface ITimeAxis extends IBaseAxis {
-  type: 'time';
+  type?: 'time';
   /** tick相关配置 */
   tickInterval?: string;
   tickCount?: number;
@@ -158,7 +159,7 @@ export interface ITimeAxis extends IBaseAxis {
 }
 /** 离散类目型 */
 export interface ICatAxis extends IBaseAxis {
-  type: 'category';
+  type?: 'category';
   /** tick相关配置 */
   tickInterval?: number;
   tickCount?: number;
@@ -203,6 +204,7 @@ export interface Tooltip {
   itemTpl?: string;
   /** 辅助线 */
   crosshair?: 'x' | 'y' | 'cross' | boolean;
+  crosshairs?: { type: string }; // FIXME:
   style?: {};
 }
 

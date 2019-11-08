@@ -1,16 +1,19 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
-import BaseArea, { AreaLayerConfig } from '../area/layer';
+import BaseArea, { AreaViewConfig } from '../area/layer';
 import './component/label/area-label';
 import './component/label/line-label';
 
-export interface StackAreaLayerConfig extends AreaLayerConfig {
+export interface StackAreaViewConfig extends AreaViewConfig {
   stackField: string;
 }
 
-export default class StackAreaLayer extends BaseArea<StackAreaLayerConfig> {
+export interface StackAreaLayerConfig extends StackAreaViewConfig, LayerConfig {}
+
+export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLayerConfig> extends BaseArea<T> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       label: {

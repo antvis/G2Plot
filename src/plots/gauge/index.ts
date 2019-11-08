@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import GaugeLayer, { GaugeLayerConfig } from './layer';
 
-export interface GaugeConfig extends GaugeLayerConfig, PlotCfg {}
+export interface GaugeConfig extends GaugeLayerConfig, PlotConfig {}
 
 export default class Gauge<T extends GaugeConfig = GaugeConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof GaugeLayer.getDefaultOptions = GaugeLayer.getDefaultOptions;

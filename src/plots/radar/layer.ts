@@ -1,7 +1,8 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
@@ -30,7 +31,7 @@ interface Point {
   [k: string]: any;
 }
 
-export interface RadarLayerConfig extends ViewLayerCfg {
+export interface RadarViewConfig extends ViewConfig {
   /** 分组字段 */
   seriesField?: string;
   /** 是否平滑 */
@@ -58,6 +59,8 @@ export interface RadarLayerConfig extends ViewLayerCfg {
   // fixme: any
   [attr: string]: any;
 }
+
+export interface RadarLayerConfig extends RadarViewConfig, LayerConfig {}
 
 const GEOM_MAP = {
   area: 'area',
@@ -180,7 +183,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     super.init();
   }
 
-  public getOptions(props: ViewLayerCfg) {
+  public getOptions(props: RadarLayerConfig) {
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
@@ -259,7 +262,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
           };
         }
       }
-  
+
       if (props.radiusAxis.visible === false) {
         axesConfig.fields[props.radiusField] = false;
       } else {

@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import LiquidLayer, { LiquidLayerConfig } from './layer';
 
-export interface LiquidConfig extends LiquidLayerConfig, PlotCfg {}
+export interface LiquidConfig extends LiquidLayerConfig, PlotConfig {}
 
 export default class Liquid<T extends LiquidConfig = LiquidConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof LiquidLayer.getDefaultOptions = LiquidLayer.getDefaultOptions;

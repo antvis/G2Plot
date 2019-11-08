@@ -1,11 +1,14 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
-import BaseBarLayer, { BarLayerConfig } from '../bar/layer';
+import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 
-export interface GroupBarLayerConfig extends BarLayerConfig {
+export interface GroupBarViewConfig extends BarViewConfig {
   groupField: string;
 }
+
+export interface GroupBarLayerConfig extends GroupBarViewConfig, LayerConfig {}
 
 export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
   public static getDefaultOptions(): any {

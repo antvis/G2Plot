@@ -2,15 +2,18 @@ import { DataPointType } from '@antv/g2/lib/interface';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
-import Area, { AreaLayerConfig } from '../area/layer';
+import Area, { AreaViewConfig } from '../area/layer';
 
-export interface DensityLayerConfig extends AreaLayerConfig {
+export interface DensityViewConfig extends AreaViewConfig {
   binField: string;
   binWidth?: number;
   binNumber?: number;
   kernel?: 'uniform' | 'triangle' | 'epanechnikov' | 'quartic' | 'triweight' | 'gaussian' | 'cosinus';
 }
+
+export interface DensityLayerConfig extends DensityViewConfig, LayerConfig {}
 
 const kernels = {
   epanechnikov: (dist: number) => {

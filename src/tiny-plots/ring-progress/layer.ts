@@ -1,16 +1,18 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import ProgressLayer, { ProgressLayerConfig } from '../progress/layer';
+import ProgressLayer, { ProgressViewConfig } from '../progress/layer';
 import { getAngle, setShapeInfo } from './animation/index';
 import * as EventParser from './event';
 
 const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
 
-export interface RingProgressLayerConfig extends ProgressLayerConfig {}
+export interface RingProgressViewConfig extends ProgressViewConfig {}
+export interface RingProgressLayerConfig extends RingProgressViewConfig, LayerConfig {}
 
-export default class RingProgressLayer extends ProgressLayer {
+export default class RingProgressLayer extends ProgressLayer<RingProgressLayerConfig> {
   public ring: any;
   public type: string = 'ringProgrsss';
 

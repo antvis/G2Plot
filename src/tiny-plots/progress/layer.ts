@@ -1,12 +1,17 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import TinyLayer, { TinyLayerConfig } from '../tiny-layer';
+import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
 
-export interface ProgressLayerConfig extends TinyLayerConfig {
+export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
+  progressStyle?: any; // FIXME:
+  percent?: number; // FIXME:
 }
+
+export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}
 
 const G2_GEOM_MAP = {
   progress: 'interval',
@@ -18,7 +23,7 @@ const PLOT_GEOM_MAP = {
 
 const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
 
-export default class ProgressLayer extends TinyLayer<ProgressLayerConfig> {
+export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayerConfig> extends TinyLayer<T> {
   /**
    * 将进度条配置项转为堆叠条形图配置项
    */

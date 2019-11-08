@@ -1,16 +1,18 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import TinyLayer, { TinyLayerConfig } from '../tiny-layer';
+import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
 
 const GEOM_MAP = {
   line: 'line',
 };
 
-export interface TinyLineLayerConfig extends TinyLayerConfig {}
+export interface TinyLineViewConfig extends TinyViewConfig {}
+export interface TinyLineLayerConfig extends TinyLineViewConfig, LayerConfig {}
 
-export default class TinyLineLayer extends TinyLayer {
+export default class TinyLineLayer extends TinyLayer<TinyLineLayerConfig> {
   public line: any;
   public type: string = 'tinyLine';
 

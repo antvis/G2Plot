@@ -1,7 +1,8 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -25,7 +26,7 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export interface ColumnLayerConfig extends ViewLayerCfg {
+export interface ColumnViewConfig extends ViewConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
@@ -36,6 +37,8 @@ export interface ColumnLayerConfig extends ViewLayerCfg {
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
+
+export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}
 
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
@@ -67,7 +70,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   public column: any;
   public type: string = 'column';
 
-  public getOptions(props: ViewLayerCfg) {
+  public getOptions(props: T) {
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();

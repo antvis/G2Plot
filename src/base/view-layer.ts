@@ -31,7 +31,6 @@ export interface ViewConfig {
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
   responsive?: boolean;
-  forceFit?: boolean;
   title?: ITitle;
   description?: IDescription;
   events?: {
@@ -58,7 +57,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
         text: '',
       },
-      forceFit: true,
       padding: 'auto',
       legend: {
         visible: true,

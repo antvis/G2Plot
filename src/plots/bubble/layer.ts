@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
@@ -21,7 +22,7 @@ const PLOT_GEOM_MAP = {
   point: 'bubble',
 };
 
-export interface BubbleLayerConfig extends ViewLayerCfg {
+export interface BubbleViewConfig extends ViewConfig {
   /** TODO 待补充 */
   bubbleStyle?: BubbleStyle | ((...args: any[]) => BubbleStyle);
   /** 气泡大小字段 */
@@ -31,6 +32,8 @@ export interface BubbleLayerConfig extends ViewLayerCfg {
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
+
+export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
 
 export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {

@@ -1,7 +1,8 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import TinyLayer, { TinyLayerConfig } from '../tiny-layer';
+import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
 
 const GEOM_MAP = {
@@ -9,9 +10,10 @@ const GEOM_MAP = {
   line: 'line',
 };
 
-export interface TinyAreaLayerConfig extends TinyLayerConfig {}
+export interface TinyAreaViewConfig extends TinyViewConfig {}
+export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {}
 
-export default class TinyAreaLayer extends TinyLayer {
+export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
   public line: any;
   public area: any;
   public type: string = 'tinyArea';

@@ -1,9 +1,10 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import BaseConfig, { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
@@ -36,7 +37,7 @@ const GEOM_MAP = {
   point: 'point',
 };
 
-export interface LineLayerConfig extends ViewLayerCfg {
+export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */
   seriesField?: string;
   /** 是否平滑 */
@@ -53,6 +54,8 @@ export interface LineLayerConfig extends ViewLayerCfg {
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
+
+export interface LineLayerConfig extends LineViewConfig, LayerConfig {}
 
 export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
@@ -76,7 +79,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   public point: any;
   public type: string = 'line';
 
-  public getOptions(props: ViewLayerCfg) {
+  public getOptions(props: T) {
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
@@ -196,7 +199,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected applyInteractions() {
     super.applyInteractions();
-    const props = this.options;
     // 加入默认交互
     const interactions = this.view.get('interactions');
     const lineActive = new LineActive({ view: this.view });

@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import TinyPlot from '../tiny-plot';
-import ProgressLayer, { ProgressLayerConfig } from './layer';
+import ProgressLayer, { ProgressViewConfig } from './layer';
 
-export interface ProgressConfig extends ProgressLayerConfig, PlotCfg {}
+export interface ProgressConfig extends ProgressViewConfig, PlotConfig {}
 
 export default class Progress<T extends ProgressConfig = ProgressConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof ProgressLayer.getDefaultOptions = ProgressLayer.getDefaultOptions;

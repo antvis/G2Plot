@@ -1,9 +1,10 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewLayerCfg } from '../../base/view-layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 
+import { LayerConfig } from '../../base/layer';
 import './geometry/shape/liquid';
 import './theme';
 
@@ -25,7 +26,7 @@ const PLOT_GEOM_MAP = {
   interval: 'liquid',
 };
 
-export interface LiquidLayerConfig extends ViewLayerCfg {
+export interface LiquidViewConfig extends ViewConfig {
   type?: 'normal' | 'percent';
   min?: number;
   max?: number;
@@ -33,7 +34,11 @@ export interface LiquidLayerConfig extends ViewLayerCfg {
   showValue?: boolean;
   format?: (...args: any[]) => string;
   liquidStyle?: LiquidStyle;
+  styleMix?: any;
+  valueText?: string;
 }
+
+export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {}
 
 export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
   public type: string = 'liquid';

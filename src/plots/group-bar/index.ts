@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import GroupBarLayer, { GroupBarLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import GroupBarLayer, { GroupBarViewConfig } from './layer';
 
-export interface GroupBarConfig extends GroupBarLayerConfig, PlotCfg {}
+export interface GroupBarConfig extends GroupBarViewConfig, PlotConfig {}
 
 export default class GroupBar<T extends GroupBarConfig = GroupBarConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof GroupBarLayer.getDefaultOptions = GroupBarLayer.getDefaultOptions;

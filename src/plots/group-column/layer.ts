@@ -1,10 +1,13 @@
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
-import BaseColumnLayer, { ColumnLayerConfig } from '../column/layer';
+import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 
-export interface GroupColumnLayerConfig extends ColumnLayerConfig {
+export interface GroupColumnViewConfig extends ColumnViewConfig {
   groupField: string;
 }
+
+export interface GroupColumnLayerConfig extends GroupColumnViewConfig, LayerConfig {}
 
 export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerConfig> {
   public type: string = 'groupColumn';

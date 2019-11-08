@@ -1,9 +1,9 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
+import BasePlot, { PlotConfig } from '../../base/plot';
 import TinyPlot from '../tiny-plot';
-import RingProgressLayer, { RingProgressLayerConfig } from './layer';
+import RingProgressLayer, { RingProgressViewConfig } from './layer';
 
-export interface RingProgressConfig extends RingProgressLayerConfig, PlotCfg {}
+export interface RingProgressConfig extends RingProgressViewConfig, PlotConfig {}
 
 export default class RingProgress<T extends RingProgressConfig = RingProgressConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof RingProgressLayer.getDefaultOptions = RingProgressLayer.getDefaultOptions;

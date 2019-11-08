@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import BarLayer, { BarLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import BarLayer, { BarViewConfig } from './layer';
 
-export interface BarConfig extends BarLayerConfig, PlotCfg {}
+export interface BarConfig extends BarViewConfig, PlotConfig {}
 
 export default class Bar<T extends BarConfig = BarConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof BarLayer.getDefaultOptions = BarLayer.getDefaultOptions;

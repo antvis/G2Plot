@@ -1,17 +1,22 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
+import { LayerConfig } from '../../base/layer';
 import ConnectedArea from '../../components/connected-area';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
-import BaseColumnLayer, { ColumnLayerConfig } from '../column/layer';
+import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 import './component/label/stack-column-label';
 
-export interface StackColumnLayerConfig extends ColumnLayerConfig {
+export interface StackColumnViewConfig extends ColumnViewConfig {
   stackField: string;
   connectedArea?: any;
 }
 
-export default class StackColumnLayer extends BaseColumnLayer<StackColumnLayerConfig> {
+export interface StackColumnLayerConfig extends StackColumnViewConfig, LayerConfig {}
+
+export default class StackColumnLayer<
+  T extends StackColumnLayerConfig = StackColumnLayerConfig
+> extends BaseColumnLayer<T> {
   public static getDefaultOptions() {
     return _.deepMix({}, super.getDefaultOptions(), {
       legend: {

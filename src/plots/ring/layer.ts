@@ -1,15 +1,19 @@
 import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import PieLayer, { PieLayerConfig } from '../pie/layer';
+import { LayerConfig } from '../../base/layer';
+import PieLayer, { PieViewConfig } from '../pie/layer';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import * as centralTextTemplate from './component/annotation/central-text-template';
 import * as EventParser from './event';
 
-export interface RingLayerConfig extends PieLayerConfig {
+export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
+  annotation?: any; // FIXME:
 }
+
+export interface RingLayerConfig extends RingViewConfig, LayerConfig {}
 
 interface IAttrs {
   [key: string]: any;

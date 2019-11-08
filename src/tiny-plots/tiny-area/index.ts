@@ -1,8 +1,8 @@
 import * as _ from '@antv/util';
-import BasePlot, { PlotCfg } from '../../base/plot';
-import TinyAreaLayer, { TinyAreaLayerConfig } from './layer';
+import BasePlot, { PlotConfig } from '../../base/plot';
+import TinyAreaLayer, { TinyAreaViewConfig } from './layer';
 
-export interface TinyAreaConfig extends TinyAreaLayerConfig, PlotCfg {}
+export interface TinyAreaConfig extends TinyAreaViewConfig, PlotConfig {}
 
 export default class TinyArea<T extends TinyAreaConfig = TinyAreaConfig> extends BasePlot<T> {
   public static getDefaultOptions: typeof TinyAreaLayer.getDefaultOptions = TinyAreaLayer.getDefaultOptions;

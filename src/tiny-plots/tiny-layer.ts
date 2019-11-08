@@ -1,12 +1,15 @@
 import * as _ from '@antv/util';
-import ViewLayer, { ViewLayerCfg } from '../base/view-layer';
+import { LayerConfig } from '../base/layer';
+import ViewLayer, { ViewConfig } from '../base/view-layer';
 import { getComponent } from '../components/factory';
 import '../geoms/line/mini';
-import BaseConfig from '../interface/config';
 
-export interface TinyLayerConfig extends ViewLayerCfg {
+export interface TinyViewConfig extends ViewConfig {
   indicator?: any;
+  guideLine?: any; // FIXME:
 }
+
+export interface TinyLayerConfig extends TinyViewConfig, LayerConfig {}
 
 export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {

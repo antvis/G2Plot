@@ -1,6 +1,6 @@
 ---
-title: Grouped Column Chart
-order: 3
+title: Percentage Stack Bar Chart
+order: 2
 ---
 
 Description about this component.

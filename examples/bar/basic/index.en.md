@@ -1,6 +1,6 @@
 ---
-title: Grouped Column Chart
-order: 3
+title: Bar Chart
+order: 0
 ---
 
 Description about this component.

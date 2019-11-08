@@ -1,5 +1,5 @@
 ---
-title: Grouped Column Chart
+title: Grouped Bar Chart
 order: 3
 ---
 

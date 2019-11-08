@@ -1,6 +1,6 @@
 ---
 title: Histogram Chart
-order: 3
+order: 4
 ---
 
 Description about this component.

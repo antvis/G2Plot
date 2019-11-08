@@ -73,7 +73,7 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
 
   private getLabelField(type, props) {
     const mapper = {
-      point: props.xField,
+      point: props.yField,
       areaLine: props.stackField,
       area: props.stackField,
     };

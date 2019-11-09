@@ -90,6 +90,14 @@ module.exports = {
           en: 'Pie Charts',
         },
       },
+      {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts',
+        },
+      },
     ],
   },
 };

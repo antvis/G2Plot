@@ -119,6 +119,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       type: 'theta' as CoordinateType,
       cfg: {
         radius: props.radius,
+        // @ts-ignore 业务定制,不开放配置
+        innerRadius: props.innerRadius || 0,
       },
     };
     this.setConfig('coord', coordConfig);

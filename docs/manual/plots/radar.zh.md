@@ -134,10 +134,10 @@ const data = [
 **optional**
 
 `visible: boolean`    图形标签是否显示<br />
-`formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number`    在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number`    在 label 位置的基础上再往 y 方向的偏移量。<br />
-`style: object`    配置 label 文本
+`formatter: function`  对 label 的显示文本进行格式化。/>
+`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
+`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
+`style: object` as br    配置 label 文本
 
 ### events
 

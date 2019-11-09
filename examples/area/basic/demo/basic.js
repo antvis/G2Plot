@@ -4,8 +4,10 @@ fetch('../data/fireworks-sales.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new Area(document.getElementById('container'), {
-      forceFit: true,
-      padding: 'auto',
+      title: {
+        visible: true,
+        text: '基础面积图',
+      },
       data,
       xField: 'Date',
       yField: 'scales',

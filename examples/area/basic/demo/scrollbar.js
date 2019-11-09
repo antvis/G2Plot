@@ -4,8 +4,10 @@ fetch('../data/sales.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new Area(document.getElementById('container'), {
-      padding: 'auto',
-      forceFit: true,
+      title: {
+        visible: true,
+        text: '基础面积图 - 滚动条',
+      },
       data,
       xField: '城市',
       xAxis: {

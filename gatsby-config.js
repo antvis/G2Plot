@@ -67,6 +67,14 @@ module.exports = {
         },
       },
       {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts',
+        },
+      },
+      {
         slug: 'column',
         icon: 'column',
         title: {
@@ -91,11 +99,19 @@ module.exports = {
         },
       },
       {
-        slug: 'area',
-        icon: 'area',
+        slug: 'liquid',
+        icon: 'other',
         title: {
-          zh: '面积图',
-          en: 'Area Charts',
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
+        slug: 'gauge',
+        icon: 'gauge',
+        title: {
+          zh: '仪表盘',
+          en: 'Gauge Charts',
         },
       },
     ],

@@ -4,12 +4,20 @@ fetch('../data/oil.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new StackArea(document.getElementById('container'), {
+      title: {
+        visible: true,
+        text: '堆叠面积图',
+      },
       data,
       xField: 'date',
       yField: 'value',
       stackField: 'country',
       xAxis: {
         type: 'dateTime',
+      },
+      legend: {
+        visible: true,
+        position: 'right-top',
       },
       responsive: true,
     });

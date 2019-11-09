@@ -1,6 +1,6 @@
 ---
-title: Set State
-order: 1
+title: Liquid Chart
+order: 0
 ---
 
 Description about this component.

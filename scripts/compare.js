@@ -11,13 +11,13 @@ const headless = false;
 
 const demoDir = path.resolve(__dirname, '../demos');
 
-const snapshotDir = path.resolve(__dirname, '../snapshot');
+const snapshotDir = path.resolve(__dirname, '../demos/assets/screenshots');
 
 const ignore = /(general|line-animation|gauge|liqiud|progress)/gi;
 
 const htmls = fs
   .readdirSync(demoDir)
-  .filter((item) => path.extname(item) === '.html')
+  .filter((item) => path.extname(item) === '.ts')
   .filter((filename) => {
     ignore.lastIndex = -1;
     return !ignore.test(filename);
@@ -101,8 +101,8 @@ puppeteer
       const [load, cb] = ps();
       const page = await browser.newPage();
       page.on('load', cb);
-      const name = path.basename(item, '.html');
-      await page.goto(`http://localhost:8080/demos/${item}`);
+      const name = path.basename(item, '.ts');
+      await page.goto(`http://localhost:2046/demos/${name}.html`);
       await load;
       await sleep();
       const pngSource = await page.evaluate(function() {

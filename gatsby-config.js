@@ -51,6 +51,14 @@ module.exports = {
     ],
     examples: [
       {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '通用配置',
+          en: 'General Config',
+        },
+      },
+      {
         slug: 'line',
         icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {

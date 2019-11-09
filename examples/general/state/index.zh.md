@@ -1,6 +1,8 @@
 ---
-title: 基础折线图
-order: 0
+title: 设置图表状态量
+order: 1
+redirect_from:
+  - /zh/examples
 ---
 
 图表的基本描述。

@@ -51,6 +51,14 @@ module.exports = {
     ],
     examples: [
       {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '通用配置',
+          en: 'General Config',
+        },
+      },
+      {
         slug: 'line',
         icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {
@@ -59,11 +67,51 @@ module.exports = {
         },
       },
       {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts',
+        },
+      },
+      {
+        slug: 'column',
+        icon: 'column',
+        title: {
+          zh: '柱状图',
+          en: 'Column Charts',
+        },
+      },
+      {
+        slug: 'bar',
+        icon: 'bar',
+        title: {
+          zh: '条形图',
+          en: 'Bar Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {
           zh: '饼图',
           en: 'Pie Charts',
+        },
+      },
+      {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
+        slug: 'gauge',
+        icon: 'gauge',
+        title: {
+          zh: '仪表盘',
+          en: 'Gauge Charts',
         },
       },
     ],

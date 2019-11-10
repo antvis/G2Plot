@@ -1,3 +1,45 @@
+const DEFAULT_COLOR = '#1890FF';
+
+const COLOR_PLATE_10 = [
+  '#5B8FF9',
+  '#5AD8A6',
+  '#5D7092',
+  '#F6BD16',
+  '#E8684A',
+  '#6DC8EC',
+  '#9270CA',
+  '#FF9D4D',
+  '#269A99',
+  '#FF99C3',
+];
+
+const COLOR_PLATE_20 = [
+  '#5B8FF9',
+  '#BDD2FD',
+  '#5AD8A6',
+  '#BDEFDB',
+  '#5D7092',
+  '#C2C8D5',
+  '#F6BD16',
+  '#FBE5A2',
+  '#E8684A',
+  '#F6C3B7',
+  '#6DC8EC',
+  '#B6E3F5',
+  '#9270CA',
+  '#D3C6EA',
+  '#FF9D4D',
+  '#FFD8B8',
+  '#269A99',
+  '#AAD8D8',
+  '#FF99C3',
+  '#FFD6E7',
+];
+
+
+
+
+
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 0;
@@ -17,6 +59,9 @@ export const DEFAULT_GLOBAL_THEME = {
   height: 400,
   bleeding: [TOP_BLEEDING, 24, 24, 24],
   padding: 'auto',
+  defaultColor: DEFAULT_COLOR, // 默认主题色
+  colors: COLOR_PLATE_10,
+  colors_20: COLOR_PLATE_20,
   title: {
     padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',

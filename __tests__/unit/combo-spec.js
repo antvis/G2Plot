@@ -62,6 +62,6 @@ describe('Combo plot', () => {
         },
       ],
     });
-    combo.render();
+    // combo.render();
   });
 });

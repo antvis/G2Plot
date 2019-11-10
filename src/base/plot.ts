@@ -166,6 +166,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     return this.layers[idx];
   }
 
+  public getCanvas(){
+    return this.canvasController.canvas;
+  }
+
   public render() {
     this.eachLayer((layer) => layer.render());
   }

@@ -1,10 +1,12 @@
+import {Group} from '@antv/g';
+import { formatPath } from '@antv/g/lib/util/path';
 import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
 import Plot, { PlotConfig } from '../base/plot';
 import ViewLayer from '../base/view-layer';
 import '../index';
-import { getColorConfig } from './util/adjustColorConfig';
+import { createLegend, getColorConfig, getLegendData, mergeLegendData } from './util';
 
 
 export interface ComboPlotConfig extends PlotConfig {
@@ -16,8 +18,11 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     protected isOverlapped: boolean;
     protected topLayer: Layer;
     protected backLayer: Layer;
+    protected legendInfo: any[] = [];
+    protected legendContainer: Group;
 
     protected createLayers(props: T & { layers?: any }) {
+        this.legendInfo = [];
         this.isOverlapped = this.detectOverlapping(props.layers);
         if(this.isOverlapped){
             /** add top layer for legend & tooltip */
@@ -41,6 +46,8 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                     height: layerCfg.height ? layerCfg.height : this.height,
                 },overlapConfig);
                 const viewLayer = new viewLayerCtr(viewLayerProps);
+                viewLayer.render();
+                this.legendInfo.push(...getLegendData(viewLayer));
                 this.addLayer(viewLayer);
             });
         }
@@ -53,6 +60,8 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 height: this.height
             });
         }
+
+        this.globalLegend();
         
     }
 
@@ -102,9 +111,15 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
             legend:{
                 visible: false
             },
+            padding: [0,0,0,0],
             color: getColorConfig(layerCfg.type,layerCfg)
         }
     }
 
+    protected globalLegend(){
+        const legendItems = mergeLegendData(this.legendInfo);
+        this.legendContainer = this.topLayer.container.addGroup();
+        createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
+    }
 
 }

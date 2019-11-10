@@ -104,11 +104,11 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
     }
 
     /** 取消颜色的图例 */
-    this.setConfig('legends', {
+    /* this.setConfig('legends', {
       fields: {
         [props.sizeField]: false,
       },
-    });
+    });*/
 
     this.bubbles = bubbles;
     this.setConfig('element', bubbles);

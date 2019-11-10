@@ -2,7 +2,7 @@ import ComboPlot from '../../src/combo-plots/basePlot';
 
 describe('Combo plot', () => {
   const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '400px';
+  canvasDiv.style.width = '500px';
   canvasDiv.style.height = '400px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
@@ -20,9 +20,9 @@ describe('Combo plot', () => {
   const billData = [
     { time: '2019-03', value: 220 },
     { time: '2019-04', value: 300 },
-    { time: '2019-05', value: 220 },
-    { time: '2019-06', value: 100 },
-    { time: '2019-07', value: 450 },
+    { time: '2019-05', value: 250 },
+    { time: '2019-06', value: 220 },
+    { time: '2019-07', value: 362 },
   ];
 
   const transformData = [
@@ -35,7 +35,7 @@ describe('Combo plot', () => {
 
   it('column + bubble + line', () => {
     const combo = new ComboPlot(canvasDiv, {
-      width: 400,
+      width: 500,
       height: 400,
       layers: [
         {
@@ -50,6 +50,9 @@ describe('Combo plot', () => {
           xField: 'time',
           yField: 'value',
           pointSize: 10,
+          yAxis: {
+            min: 0,
+          },
         },
         {
           type: 'line',

@@ -4,6 +4,8 @@ import Layer from '../base/layer';
 import Plot, { PlotConfig } from '../base/plot';
 import ViewLayer from '../base/view-layer';
 import '../index';
+import { getColorConfig } from './util/adjustColorConfig';
+
 
 export interface ComboPlotConfig extends PlotConfig {
     layers: ViewLayer[]
@@ -17,7 +19,6 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
 
     protected createLayers(props: T & { layers?: any }) {
         this.isOverlapped = this.detectOverlapping(props.layers);
-        const overlapConfig = this.isOverlapped ? this.getOverlappedConfig() : {};
         if(this.isOverlapped){
             /** add top layer for legend & tooltip */
             this.topLayer = new Layer({
@@ -30,6 +31,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         if(props.layers.length>0){
             /** create layers */
             _.each(props.layers,(layerCfg)=>{
+                const overlapConfig = this.isOverlapped ? this.getOverlappedConfig(layerCfg) : {};
                 const viewLayerCtr = getPlotType(layerCfg.type);
                 const viewLayerProps: T = _.deepMix({}, layerCfg, {
                     canvas: this.getCanvas(),
@@ -89,14 +91,18 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
 
 
     /** 图层叠加时的layer config */
-    protected getOverlappedConfig(){
+    protected getOverlappedConfig(layerCfg){
         return {
             xAxis:{
                 visible: false
             },
             yAxis:{
                 visible: false
-            }
+            },
+            legend:{
+                visible: false
+            },
+            color: getColorConfig(layerCfg.type,layerCfg)
         }
     }
 

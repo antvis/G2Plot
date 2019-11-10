@@ -45,16 +45,14 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
           type: 'rect',
         },
       },
-      point: {
         shape: 'circle',
-        size: [8, 58],
-        style: {
-          lineWidth: 1,
+        // size: [8, 58],
+        pointStyle: {
+          lineWidth: 2,
           strokeOpacity: 1,
           fillOpacity: 0.4,
-          opacity: 0.65,
+          opacity: 1,
         },
-      },
       label: {
         visible: false,
         position: 'top',

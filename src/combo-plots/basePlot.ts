@@ -47,7 +47,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 },overlapConfig);
                 const viewLayer = new viewLayerCtr(viewLayerProps);
                 viewLayer.render();
-                this.legendInfo.push(...getLegendData(viewLayer));
+                this.legendInfo.push(...getLegendData(viewLayer,viewLayerProps));
                 this.addLayer(viewLayer);
             });
         }

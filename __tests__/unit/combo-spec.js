@@ -40,12 +40,14 @@ describe('Combo plot', () => {
       layers: [
         {
           type: 'column',
+          name: '浏览',
           data: uvData,
           xField: 'time',
           yField: 'value',
         },
         {
           type: 'bubble',
+          name: '下单',
           data: billData,
           xField: 'time',
           yField: 'value',
@@ -56,6 +58,7 @@ describe('Combo plot', () => {
         },
         {
           type: 'line',
+          name: '转化',
           data: transformData,
           xField: 'time',
           yField: 'value',

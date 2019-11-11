@@ -11,11 +11,16 @@ import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
 import './theme';
 
+interface PieStyle {
+  stroke?: string;
+  lineWidth?: number;
+}
+
 export interface PieViewConfig extends ViewConfig {
   angleField: string;
   colorField?: string;
   radius?: number;
-  pieStyle?: {};
+  pieStyle?: PieStyle | ((...args: any[]) => PieStyle);
 }
 
 export interface PieLayerConfig extends PieViewConfig, LayerConfig {}

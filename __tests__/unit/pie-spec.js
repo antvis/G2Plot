@@ -48,6 +48,23 @@ describe('Pie plot', () => {
     piePlot.render();
   });
 
+  it('饼图 回调方式修改pieStyle', () => {
+    const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      pieStyle: (...args) => {
+        return {
+          stroke: 'red',
+          lineWidth: 2,
+        };
+      },
+    });
+    piePlot.render();
+  });
+
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,

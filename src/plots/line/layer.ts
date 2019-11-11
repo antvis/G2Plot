@@ -215,6 +215,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as IObject;
+      console.log(responsive);
       responsive.method(this);
     });
   }

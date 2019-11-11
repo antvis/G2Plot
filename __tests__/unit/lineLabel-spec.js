@@ -2,14 +2,14 @@ import { income } from '../data/income';
 import { partySupport } from '../data/partySupport';
 import { Line } from '../../src';
 
-describe.skip('responsive line label', () => {
+describe('responsive line label', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '500px';
   canvasDiv.style.height = '500px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('单折线标签布局', () => {
+  it.skip('单折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 500,
       height: 500,
@@ -32,7 +32,7 @@ describe.skip('responsive line label', () => {
     linePlot.render();
   });
 
-  it('多折线标签布局', () => {
+  it.only('多折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 400,
       height: 400,
@@ -48,6 +48,7 @@ describe.skip('responsive line label', () => {
         },
       },
       xAxis: {
+        visible: false,
         type: 'dateTime',
         autoRotateLabel: false,
       },

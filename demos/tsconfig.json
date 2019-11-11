@@ -6,8 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noEmit": true,
-    "lib": ["esnext", "dom"],
-    "types": []
+    "lib": ["esnext", "dom"]
   },
   "include": ["./"]
 }

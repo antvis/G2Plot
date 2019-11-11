@@ -9,8 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "lib": ["esnext", "dom"],
-    "types": ["mocha"]
+    "lib": ["esnext", "dom"]
   },
   "include": ["src"]
 }

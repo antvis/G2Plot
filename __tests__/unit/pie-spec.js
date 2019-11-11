@@ -37,6 +37,17 @@ describe('Pie plot', () => {
     },
   ];
 
+  it('饼图 默认配置项', () => {
+    const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+    });
+    piePlot.render();
+  });
+
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,

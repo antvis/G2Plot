@@ -57,6 +57,11 @@ const IndexPage = () => {
     },
   ];
 
+  const downloadButton = {
+    text: '下载使用',
+    link: 'https://antv.alipay.com/zh-cn/index.html',
+  };
+
   const cases = [
     {
       logo:
@@ -83,6 +88,8 @@ const IndexPage = () => {
         buttonHref={'/zh/docs/manual/getting-started'}
         notifications={notifications}
         className='banner'
+        githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
+        downloadButton={downloadButton}
       />
       <Features
         features={features}

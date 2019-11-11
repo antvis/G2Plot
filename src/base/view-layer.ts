@@ -10,7 +10,7 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerConfig } from './layer';
+import Layer, { LayerConfig, Region } from './layer';
 
 export interface ViewConfig {
   data: object[];
@@ -45,6 +45,15 @@ export interface ViewConfig {
 }
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
+
+/**
+ * 获取Region
+ *
+ * @param viewRange - box
+ */
+function getRegion(viewRange: BBox): Region {
+  return { start: { x: viewRange.minX, y: viewRange.minY }, end: { x: viewRange.maxX, y: viewRange.maxY } };
+}
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(): Partial<ViewConfig> {
@@ -123,12 +132,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public theme: any;
   public initialOptions: T;
   public options: T;
+  public title: TextDescription;
+  public description: TextDescription;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
   protected config: G2Config;
-  protected title: TextDescription;
-  protected description: TextDescription;
   private interactions: BaseInteraction[] = [];
 
   constructor(props: T) {
@@ -189,7 +198,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.animation();
 
     const viewRange = this.getViewRange();
-
     this.view = new G2.View({
       width: this.width,
       height: this.height,
@@ -257,7 +265,17 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.options = newProps;
     this.width = cfg.width ? cfg.width : this.width;
     this.height = cfg.height ? cfg.height : this.height;
-    // todo: 这里的更新逻辑还应该包含更新x、y，重新计算layerRange
+
+    this.paddingController.clear();
+    const viewRange = this.getViewRange();
+    // TODO: 实现需要更新View的其他属性
+    // 更新padding region height width
+    Object.assign(this.view.cfg, {
+      width: this.width,
+      height: this.height,
+      padding: this.paddingController.getPadding(),
+      ...getRegion(viewRange),
+    });
     this.render();
   }
 
@@ -421,6 +439,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected drawTitle(): void {
     const props = this.options;
     const range = this.layerBBox;
+    if (this.title) this.title.destroy();
     this.title = null;
     if (props.title.visible) {
       const width = this.width;
@@ -442,6 +461,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected drawDescription(): void {
     const props = this.options;
     const range = this.layerBBox;
+    if (this.description) this.description.destroy();
     this.description = null;
 
     if (props.description.visible) {

@@ -44,7 +44,16 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   public static getDefaultOptions(): Partial<BarViewConfig> {
     const cfg: Partial<BarViewConfig> = {
       xAxis: {
-        visible: false,
+        visible: true,
+        title: {
+          visible: true,
+        },
+        label: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
       },
       yAxis: {
         visible: true,

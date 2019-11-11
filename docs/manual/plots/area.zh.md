@@ -21,7 +21,7 @@ const data = [
  ];
 ```
 
-在进行图表绘制的时候，连续字段将映射到折线形状在 x 方向上的信息，而离散字段将映射到折线形状在 y 方向上的信息。<br />在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向(时间)的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
+在进行图表绘制的时候，连续字段将映射到折线形状在 x 方向上的信息，而离散字段将映射到折线形状在 y 方向上的信息。/>在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向(时间)的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
 
 ```
 const data = [
@@ -32,13 +32,14 @@ const data = [
   time:'2001',value:120,type:'b',
   time:'2002',value: 40, type: 'b',
  ];
-```
+``` as br
 
 ## 图表用法
 
 - **Dont's**
   - 避免面积数量过多，且在视觉样式上无法区分主次
   - 谨慎使用曲线面积图
+
 * **Do**
   - 多面积时，考虑堆叠面积图而不是重叠面积图。
 
@@ -148,10 +149,10 @@ const data = [
 
 `visible: boolean`    图形标签是否显示<br />
 `type: 'area' | 'point' | 'line'`  图形标签类型，默认为 area
-`formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number`    在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number`    在 label 位置的基础上再往 y 方向的偏移量。<br />
-`style: object`    配置 label 文本
+`formatter: function`  对 label 的显示文本进行格式化。/>
+`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
+`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
+`style: object` as br    配置 label 文本
 
 ### events
 

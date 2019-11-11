@@ -27,7 +27,7 @@ const PLOT_GEOM_MAP = {
 };
 
 export interface LiquidViewConfig extends ViewConfig {
-  type?: 'normal' | 'percent';
+  indicator?: string;
   min?: number;
   max?: number;
   value?: number;
@@ -35,7 +35,7 @@ export interface LiquidViewConfig extends ViewConfig {
   format?: (...args: any[]) => string;
   liquidStyle?: LiquidStyle;
   styleMix?: any;
-  valueText?: string;
+  text?: number;
 }
 
 export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {}
@@ -44,14 +44,14 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
   public type: string = 'liquid';
 
   public init() {
-    const { value, type = 'normal' } = this.options;
+    const { value, indicator = 'normal' } = this.options;
     const { min = 0, max = 1, format = (d) => `${d}` } = this.options;
-
-    const valueText = this.valueText(type, value, format, min, max);
+    const valueText = this.valueText(indicator, value, format, min, max);
+    console.log(valueText);
     const styleMix = this.getStyleMix(valueText);
     this.options.styleMix = styleMix;
     this.options.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];
-    this.options.valueText = valueText;
+    this.options.text = valueText;
     this.options.min = min;
     this.options.max = max;
     this.options.format = format;
@@ -118,9 +118,12 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
       },
     };
 
-    liquid.color = {
-      values: [styleMix.color],
-    };
+    if (_.has(styleMix, 'color')) {
+      liquid.color = {
+        values: [styleMix.color],
+      };
+    }
+
     liquid.size = {
       values: [styleMix.size],
     };
@@ -138,11 +141,11 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
       return;
     }
 
-    const { valueText, styleMix } = this.options;
+    const { text, styleMix } = this.options;
     const annotationConfigs = [];
-    const text = {
+    const textAnnotation = {
       type: 'text',
-      content: valueText,
+      content: text,
       top: true,
       position: ['50%', '50%'],
       style: {
@@ -152,7 +155,7 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
         textAlign: 'center',
       },
     };
-    annotationConfigs.push(text);
+    annotationConfigs.push(textAnnotation);
     this.setConfig('annotations', annotationConfigs);
   }
 

@@ -4,10 +4,11 @@ fetch('../data/fireworks-sales.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new Area(document.getElementById('container'), {
+      title: {
+        visible: true,
+        text: '基础面积图',
+      },
       data,
-      width: 700,
-      height: 500,
-      padding: 'auto',
       xField: 'Date',
       yField: 'scales',
       xAxis: {
@@ -15,6 +16,5 @@ fetch('../data/fireworks-sales.json')
         tickCount: 5,
       },
     });
-
     areaPlot.render();
   });

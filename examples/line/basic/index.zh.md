@@ -1,8 +1,6 @@
 ---
-title: 某某折线图
+title: 基础折线图
 order: 0
-redirect_from:
-  - /zh/examples
 ---
 
 图表的基本描述。

@@ -1,5 +1,4 @@
 import {Group} from '@antv/g';
-import { formatPath } from '@antv/g/lib/util/path';
 import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
@@ -18,11 +17,19 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     protected isOverlapped: boolean;
     protected topLayer: Layer;
     protected backLayer: Layer;
-    protected legendInfo: any[] = [];
+    protected legendInfo: any[];
     protected legendContainer: Group;
+    protected paddingComponents: any[];
+
+
+    constructor(container: HTMLElement, props: T){
+        super(container, props);
+    }
 
     protected createLayers(props: T & { layers?: any }) {
         this.legendInfo = [];
+        this.paddingComponents = [];
+
         this.isOverlapped = this.detectOverlapping(props.layers);
         if(this.isOverlapped){
             /** add top layer for legend & tooltip */
@@ -59,10 +66,9 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 width: this.width,
                 height: this.height
             });
+            const legend = this.overlappingLegend();
+            this.overlappingLayout();
         }
-
-        this.globalLegend();
-        
     }
 
     /** 判断图层是否叠加 */
@@ -116,10 +122,14 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         }
     }
 
-    protected globalLegend(){
+    protected overlappingLegend(){
         const legendItems = mergeLegendData(this.legendInfo);
         this.legendContainer = this.topLayer.container.addGroup();
-        createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
+        return createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
+    }
+
+    protected overlappingLayout(){
+
     }
 
 }

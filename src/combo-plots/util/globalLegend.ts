@@ -1,6 +1,8 @@
 import { Legend } from '@antv/component';
+import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
-import ViewLayer,{ViewLayerConfig} from '../../base/view-layer';
+import ViewLayer,{ ViewLayerConfig } from '../../base/view-layer';
+import { getGlobalTheme } from '../../theme/global';
 
 export function getLegendData(viewLayer: ViewLayer,props){
     const legendItems = [];
@@ -30,12 +32,12 @@ export function mergeLegendData(items){
 }
 
 export function createLegend(items,container,width,canvas){
+    const legendTheme  =  getGlobalTheme().legend;
     const legendCfg = {
         type:'category-legend',
         items,
         maxSize: width,
         container:canvas,
-        group:container,
         textStyle: {
             fill: '#8C8C8C',
             fontSize: 12,
@@ -53,4 +55,12 @@ export function createLegend(items,container,width,canvas){
     };
     const legend = new Legend.CanvasCategory(legendCfg);
     legend.draw();
+    /** return legend as a padding component */
+    return {
+        position: 'top',
+        getBBox:()=>{
+            const bbox = legend.get('itemsGroup').getBBox();
+            return new BBox(bbox.minX,bbox.minX,bbox.width,bbox.height + legendTheme.innerPadding[0])           
+        }
+    }
 }

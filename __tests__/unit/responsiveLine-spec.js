@@ -24,12 +24,14 @@ describe('responsive line plot', () => {
     const canvasDiv = document.createElement('div');
     canvasDiv.style.width = `${width}px`;
     canvasDiv.style.height = `${height}px`;
+    canvasDiv.style.left = '50px';
+    canvasDiv.style.top = '50px';
     canvasDiv.id = 'canvas1';
     document.body.appendChild(canvasDiv);
     const linePlot = new Line(canvasDiv, {
       width,
       height,
-      padding: 'auto',
+      padding: [20, 20, 80, 50],
       data,
       xField: 'time',
       yField: 'rate',

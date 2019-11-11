@@ -23,6 +23,5 @@ export function registerResponsiveTheme(name: string, theme) {
  */
 export function getResponsiveTheme(name: string) {
   const theme = RESPONSIVE_THEME_MAP[name.toLowerCase()];
-
   return theme ? theme : DEFAULT_RESPONSIVE_THEME;
 }

@@ -3,7 +3,7 @@ import ComboPlot from '../../src/combo-plots/basePlot';
 describe('Combo plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '500px';
-  canvasDiv.style.height = '400px';
+  canvasDiv.style.height = '300px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
@@ -36,7 +36,7 @@ describe('Combo plot', () => {
   it('column + bubble + line', () => {
     const combo = new ComboPlot(canvasDiv, {
       width: 500,
-      height: 400,
+      height: 300,
       layers: [
         {
           type: 'column',

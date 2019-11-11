@@ -1,0 +1,23 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": "堆叠面积图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rFIOTocVe-0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "area-label.js",
+      "title": "堆叠面积图 - 图形标签",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ymqxRpXrPpoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-label.js",
+      "title": "堆叠面积图 - 尾部跟随标签",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rSBPRpGX3yEAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

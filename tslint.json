@@ -1,14 +1,17 @@
 {
   "defaultSeverity": "error",
   "extends": ["tslint:recommended", "tslint-config-prettier"],
-  "jsRules": {},
+  "jsRules": {
+    "object-literal-sort-keys": false
+  },
   "rules": {
     "interface-name": false,
     "variable-name": false,
     "no-bitwise": false,
     "only-arrow-functions": false,
     "object-literal-sort-keys": false,
-    "no-unused-expression": [true, "allow-new"],
+    "sorted-alphabetically": false,
+    "no-unused-expression": false,
     "no-empty": false,
     "no-console": false,
     "no-empty-interface": false

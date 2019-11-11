@@ -1,4 +1,4 @@
-(function () {
+(function() {
   // filtering
   const $query = $('#query');
   function filter() {
@@ -6,7 +6,7 @@
     if (!str) {
       $('.demo-thumbnail').show();
     } else {
-      $('.demo-thumbnail').each(function () {
+      $('.demo-thumbnail').each(function() {
         const $thumbnail = $(this);
         const basename = $thumbnail.data('basename');
         if (basename.indexOf(str) === -1) {
@@ -23,17 +23,14 @@
   let currentId;
   const $code = $('#code');
   const htmlEditor = CodeMirror.fromTextArea($code[0], {
-    mode: "text/html",
+    mode: 'text/html',
     extraKeys: {
-      'Ctrl-Space': 'autocomplete'
+      'Ctrl-Space': 'autocomplete',
     },
     foldGutter: true,
-    gutters: [
-      'CodeMirror-linenumbers',
-      'CodeMirror-foldgutter'
-    ],
+    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     lineNumbers: true,
-    lineWrapping: false
+    lineWrapping: false,
   });
 
   const $docContainer = $('#doc-container');
@@ -47,15 +44,15 @@
   }
 
   routie({
-    '/:id': id => {
+    '/:id': (id) => {
       $docContainer.show();
       const $htmlCode = $(`#code-${id}`);
       const code = $htmlCode.text();
-      syncCode(code)
+      syncCode(code);
     },
     '': () => {
       $docContainer.hide();
-    }
+    },
   });
 
   // resizable
@@ -81,7 +78,7 @@
     text: () => htmlEditor.getValue(),
   });
   let timer;
-  clipboard.on('success', e => {
+  clipboard.on('success', (e) => {
     e.clearSelection();
     $(BTN_COPY_SELECTOR).text('Succeed!');
     clearTimeout(timer);
@@ -89,7 +86,7 @@
       $(BTN_COPY_SELECTOR).text('Copy');
     }, 2000);
   });
-  clipboard.on('error', e => {
+  clipboard.on('error', (e) => {
     e.clearSelection();
     $(BTN_COPY_SELECTOR).text('Failed!');
     clearTimeout(timer);

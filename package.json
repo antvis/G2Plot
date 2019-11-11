@@ -34,8 +34,9 @@
     "lint": "lint-staged",
     "lint-check": "tslint -c tslint.json 'src/**/*.ts'",
     "lint-fix": "run-s lint-fix:*",
+    "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
-    "lint-fix:tslint": "tslint -c tslint.json --fix 'src/**/*.ts'",
+    "lint-fix:tslint": "tslint -c tslint.json --fix '*'",
     "coverage": "exit 0",
     "test": "torch -t 5000 --compile --renderer --recursive ./__tests__/unit",
     "test-live": "torch --compile --interactive ./__tests__/unit/combo-spec.js",
@@ -66,7 +67,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.9.16",
+    "@antv/gatsby-theme-antv": "^0.9.32",
     "@antv/torch": "~1.0.5",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",

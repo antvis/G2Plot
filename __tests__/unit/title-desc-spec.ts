@@ -72,12 +72,24 @@ describe('Area plot', () => {
     const view = plot.getLayer() as LineLayer;
     expect(view.title).not.to.be.equal(null);
     expect(view.description).not.to.be.equal(null);
+    const region1 = { start: view.view.get('start'), end: view.view.get('end') };
     plot.updateConfig({
       title: {
         visible: false,
       },
     });
+    const region2 = { start: view.view.get('start'), end: view.view.get('end') };
+    expect(region1).not.to.be.deep.equal(region2);
     expect(view.title).to.be.equal(null);
     expect(view.description).not.to.be.equal(null);
+    plot.updateConfig({
+      description: {
+        visible: false,
+      },
+    });
+    const region3 = { start: view.view.get('start'), end: view.view.get('end') };
+    expect(view.title).to.be.equal(null);
+    expect(view.description).to.be.equal(null);
+    expect(region2).not.to.be.deep.equal(region3);
   });
 });

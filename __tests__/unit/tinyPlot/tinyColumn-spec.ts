@@ -1,5 +1,4 @@
 import TinyColumn from '../../../src/tiny-plots/tiny-column';
-import { expect } from 'chai';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';
 
@@ -60,14 +59,14 @@ describe.skip('tiny column', () => {
       yField: 'value',
     });
     tinyColumn.render();
-    expect(tinyColumn).to.be.an.instanceOf(TinyColumn);
+    expect(tinyColumn).toBeInstanceOf(TinyColumn);
     const canvas = tinyColumn.plot.get('canvas');
-    expect(canvas.get('width')).to.be.equal(200);
-    expect(canvas.get('height')).to.be.equal(100);
+    expect(canvas.get('width')).toBe(200);
+    expect(canvas.get('height')).toBe(100);
     const geoms = tinyColumn.plot.get('elements');
-    expect(geoms[0].get('type')).to.be.equal('interval');
+    expect(geoms[0].get('type')).toBe('interval');
     tinyColumn.destroy();
-    expect(tinyColumn.plot.destroyed).to.be.true;
+    expect(tinyColumn.plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -84,8 +83,8 @@ describe.skip('tiny column', () => {
     tinyColumn.render();
     const geom = tinyColumn.plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('#c43a22');
-    expect(shapes[1].attr('fill')).to.be.equal('#e86e3e');
+    expect(shapes[0].attr('fill')).toBe('#c43a22');
+    expect(shapes[1].attr('fill')).toBe('#e86e3e');
     tinyColumn.destroy();
   });
 
@@ -101,7 +100,7 @@ describe.skip('tiny column', () => {
     tinyColumn.render();
     const geom = tinyColumn.plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('red');
+    expect(shapes[0].attr('fill')).toBe('red');
     tinyColumn.destroy();
   });
 
@@ -123,9 +122,9 @@ describe.skip('tiny column', () => {
     tinyColumn.render();
     const geom = tinyColumn.plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('blue');
-    expect(shapes[5].attr('fill')).to.be.equal('red');
-    expect(shapes[6].attr('fill')).to.be.equal('red');
+    expect(shapes[0].attr('fill')).toBe('blue');
+    expect(shapes[5].attr('fill')).toBe('red');
+    expect(shapes[6].attr('fill')).toBe('red');
     tinyColumn.destroy();
   });
 
@@ -144,8 +143,8 @@ describe.skip('tiny column', () => {
     tinyColumn.render();
     const geom = tinyColumn.plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('black');
-    expect(shapes[0].attr('lineWidth')).to.be.equal(1);
+    expect(shapes[0].attr('stroke')).toBe('black');
+    expect(shapes[0].attr('lineWidth')).toBe(1);
     tinyColumn.destroy();
   });
 
@@ -164,7 +163,7 @@ describe.skip('tiny column', () => {
     const geom = tinyColumn.plot.get('elements')[0];
     const shapes = geom.getShapes();
     const bbox = shapes[0].getBBox();
-    expect(bbox.width).to.be.equal(columnWidth);
+    expect(bbox.width).toBe(columnWidth);
     tinyColumn.destroy();
   });
 });

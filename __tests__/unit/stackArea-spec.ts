@@ -1,5 +1,4 @@
 import { StackArea } from '../../src';
-import { expect } from 'chai';
 
 describe.skip('stack-area plot', () => {
   const canvasDiv = document.createElement('div');
@@ -137,13 +136,13 @@ describe.skip('stack-area plot', () => {
     const colorField = plot.get('elements')[0].get('color').fields;
     const axes = plot.get('axisController').axes;
 
-    expect(areaPlot).to.be.instanceOf(StackArea);
-    expect(positionField[0]).to.be.equal('year');
-    expect(positionField[1]).to.be.equal('value');
-    expect(colorField[0]).to.be.equal('type');
-    expect(axes.length).to.be.equal(2);
+    expect(areaPlot).toBeInstanceOf(StackArea);
+    expect(positionField[0]).toBe('year');
+    expect(positionField[1]).toBe('value');
+    expect(colorField[0]).toBe('type');
+    expect(axes.length).toBe(2);
     areaPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('area shape attr map', () => {
@@ -178,10 +177,10 @@ describe.skip('stack-area plot', () => {
     areaPlot.render();
     const plot = areaPlot.getLayer().plot;
     const intervalEle = plot.get('elements')[0];
-    expect(intervalEle.get('color').values[0]).to.be.equal('red');
-    expect(intervalEle.get('color').values[1]).to.be.equal('pink');
+    expect(intervalEle.get('color').values[0]).toBe('red');
+    expect(intervalEle.get('color').values[1]).toBe('pink');
     areaPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('point shape attr map and style', () => {
@@ -222,13 +221,13 @@ describe.skip('stack-area plot', () => {
     areaPlot.render();
     const plot = areaPlot.getLayer().plot;
     const pointEle = plot.get('elements')[1];
-    expect(pointEle.get('type')).to.be.equal('point');
-    expect(pointEle.get('size').values[0]).to.be.equal(6);
-    expect(pointEle.get('color').values[0]).to.be.equal('yellow');
-    expect(pointEle.get('style').cfg.strokeStyle).to.be.equal('black');
-    expect(pointEle.get('style').cfg.lineWidth).to.be.equal(2);
+    expect(pointEle.get('type')).toBe('point');
+    expect(pointEle.get('size').values[0]).toBe(6);
+    expect(pointEle.get('color').values[0]).toBe('yellow');
+    expect(pointEle.get('style').cfg.strokeStyle).toBe('black');
+    expect(pointEle.get('style').cfg.lineWidth).toBe(2);
     areaPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('point style func', () => {
@@ -271,9 +270,9 @@ describe.skip('stack-area plot', () => {
     areaPlot.render();
     const plot = areaPlot.getLayer().plot;
     const pointEle = plot.get('elements')[1];
-    expect(pointEle.get('style').callback).to.be.equal(styleFunc);
+    expect(pointEle.get('style').callback).toBe(styleFunc);
     areaPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('line shape attr map and style', () => {
@@ -316,13 +315,13 @@ describe.skip('stack-area plot', () => {
     areaPlot.render();
     const plot = areaPlot.getLayer().plot;
     const lineEle = plot.get('elements')[1];
-    expect(lineEle.get('type')).to.be.equal('line');
-    expect(lineEle.get('size').values[0]).to.be.equal(4);
-    expect(lineEle.get('color').values[0]).to.be.equal('purple');
-    expect(lineEle.get('style').cfg.strokeStyle).to.be.equal('blue');
-    expect(lineEle.get('style').cfg.lineWidth).to.be.equal(3);
+    expect(lineEle.get('type')).toBe('line');
+    expect(lineEle.get('size').values[0]).toBe(4);
+    expect(lineEle.get('color').values[0]).toBe('purple');
+    expect(lineEle.get('style').cfg.strokeStyle).toBe('blue');
+    expect(lineEle.get('style').cfg.lineWidth).toBe(3);
     areaPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('line style func', () => {
@@ -367,8 +366,8 @@ describe.skip('stack-area plot', () => {
     areaPlot.render();
     const plot = areaPlot.getLayer().plot;
     const lineEle = plot.get('elements')[1];
-    expect(lineEle.get('style').callback).to.be.equal(styleFunc);
+    expect(lineEle.get('style').callback).toBe(styleFunc);
     areaPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 });

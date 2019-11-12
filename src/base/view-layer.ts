@@ -440,7 +440,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected drawTitle(): void {
     const props = this.options;
     const range = this.layerBBox;
-    if (this.title) this.title.destroy();
+    if (this.title) {
+      this.title.destroy();
+    }
     this.title = null;
     if (props.title.visible) {
       const width = this.width;
@@ -462,7 +464,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected drawDescription(): void {
     const props = this.options;
     const range = this.layerBBox;
-    if (this.description) this.description.destroy();
+    if (this.description) {
+      this.description.destroy();
+    }
     this.description = null;
 
     if (props.description.visible) {

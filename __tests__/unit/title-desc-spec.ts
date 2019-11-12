@@ -1,8 +1,5 @@
 import Line, { LineConfig } from '../../src/plots/line';
-import * as chai from 'chai';
 import LineLayer from '../../src/plots/line/layer';
-
-const { expect } = chai;
 
 describe('Area plot', () => {
   const canvasDiv = document.createElement('div');
@@ -70,8 +67,8 @@ describe('Area plot', () => {
     });
     plot.render();
     const view = plot.getLayer() as LineLayer;
-    expect(view.title).not.to.be.equal(null);
-    expect(view.description).not.to.be.equal(null);
+    expect(view.title).not.toBe(null);
+    expect(view.description).not.toBe(null);
     const region1 = { start: view.view.get('start'), end: view.view.get('end') };
     plot.updateConfig({
       title: {
@@ -79,17 +76,17 @@ describe('Area plot', () => {
       },
     });
     const region2 = { start: view.view.get('start'), end: view.view.get('end') };
-    expect(region1).not.to.be.deep.equal(region2);
-    expect(view.title).to.be.equal(null);
-    expect(view.description).not.to.be.equal(null);
+    expect(region1).not.toEqual(region2);
+    expect(view.title).toBe(null);
+    expect(view.description).not.toBe(null);
     plot.updateConfig({
       description: {
         visible: false,
       },
     });
     const region3 = { start: view.view.get('start'), end: view.view.get('end') };
-    expect(view.title).to.be.equal(null);
-    expect(view.description).to.be.equal(null);
-    expect(region2).not.to.be.deep.equal(region3);
+    expect(view.title).toBe(null);
+    expect(view.description).toBe(null);
+    expect(region2).not.toEqual(region3);
   });
 });

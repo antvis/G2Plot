@@ -1,8 +1,7 @@
-import { GroupBar } from '../../src';
-import { expect } from 'chai';
+import { StackBar } from '../../src';
 import { isFunction } from 'util';
 
-describe.skip('GroupBar plot', () => {
+describe.skip('StackBar plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -105,7 +104,7 @@ describe.skip('GroupBar plot', () => {
   ];
 
   it('初始化以及销毁', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new StackBar(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -115,21 +114,21 @@ describe.skip('GroupBar plot', () => {
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
+      stackField: 'type',
     });
     barPlot.render();
     const plot = barPlot.getLayer().plot;
     const intervalShape = plot.get('elements')[0];
     const shapes = intervalShape.get('shapeContainer').get('children');
-    expect(shapes.length).to.be.equal(18);
-    expect(intervalShape.get('groupScales')[0].field).to.be.equal('type');
-    expect(intervalShape.get('adjustOptions')[0].type).to.be.equal('dodge');
+    expect(shapes.length).toBe(18);
+    expect(intervalShape.get('groupScales')[0].field).toBe('type');
+    expect(intervalShape.get('adjustOptions')[0].type).toBe('stack');
     barPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('color size and interval style', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new StackBar(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -138,29 +137,31 @@ describe.skip('GroupBar plot', () => {
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
+      stackField: 'type',
       barSize: 7,
       color: ['red', 'yellow'],
     });
     barPlot.render();
     const plot = barPlot.getLayer().plot;
     const intervalEle = plot.get('elements')[0];
-    expect(intervalEle.get('color').values[0]).to.be.equal('red');
-    expect(intervalEle.get('color').values[1]).to.be.equal('yellow');
-    expect(intervalEle.get('size').values[0]).to.be.equal(7);
+    expect(intervalEle.get('color').values[0]).toBe('red');
+    expect(intervalEle.get('color').values[1]).toBe('yellow');
+    expect(intervalEle.get('size').values[0]).toBe(7);
     barPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   /* it('color map', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new StackBar(canvasDiv, {
+      width: 600,
+      height: 600,
       data,
       xField: 'value',
       yField: 'year',
       yAxis: {
         min: 0
       },
-      groupField: 'type',
+      stackField: 'type',
       barSize: 7,
       color: {
         Lon: 'red',
@@ -170,13 +171,13 @@ describe.skip('GroupBar plot', () => {
     barPlot.render();
     const intervalEle = barPlot.plot.get('elements')[0];
 
-    expect(isFunction(intervalEle.get('color').callback)).to.be.true;
+    expect(isFunction(intervalEle.get('color').callback)).toBe(true);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).to.be.true;
+    expect(barPlot.plot.destroyed).toBe(true);
   });*/
 
   it('label', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new StackBar(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -185,7 +186,7 @@ describe.skip('GroupBar plot', () => {
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
+      stackField: 'type',
       label: {
         formatter: (txt) => {
           return txt + 'dddd';
@@ -198,6 +199,7 @@ describe.skip('GroupBar plot', () => {
       },
     });
     barPlot.render();
+
     const plot = barPlot.getLayer().plot;
     const labelGroup = plot
       .get('elements')[0]
@@ -206,77 +208,10 @@ describe.skip('GroupBar plot', () => {
       .get('children')[0]
       .get('children');
     // const panelGroup = barPlot.plot.get('panelRange');
-    expect(labelGroup.length).to.be.equal(18);
-    expect(labelGroup[0].attrs.fill).to.be.equal('red');
-    expect(labelGroup[0].attrs.text).to.be.include('dddd');
+    expect(labelGroup.length).toBe(18);
+    expect(labelGroup[0].attrs.fill).toBe('red');
+    expect(labelGroup[0].attrs.text).toInclude('dddd');
     barPlot.destroy();
-    expect(plot.destroyed).to.be.true;
-  });
-
-  it('legend style', () => {
-    const barPlot = new GroupBar(canvasDiv, {
-      width: 600,
-      height: 600,
-      padding: 'auto',
-      data,
-      xField: 'value',
-      yField: 'year',
-      yAxis: {
-        min: 0,
-      },
-      groupField: 'type',
-      legend: {
-        visible: true,
-        position: 'right-top',
-        title: {
-          visible: true,
-        },
-        showTitle: true,
-        style: {},
-      },
-    });
-    barPlot.render();
-
-    const plot = barPlot.getLayer().plot;
-    const legendCon = plot.get('legendController');
-    expect(legendCon.legends.length).to.be.equal(1);
-    expect(legendCon.legends[0].get('position')).to.be.equal('right-top');
-
-    barPlot.destroy();
-    expect(plot.destroyed).to.be.true;
-  });
-
-  it('legend visible false', () => {
-    const barPlot = new GroupBar(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      xField: 'value',
-      yField: 'year',
-      yAxis: {
-        min: 0,
-      },
-      groupField: 'type',
-      label: {
-        formatter: (txt) => {
-          return txt + 'dddd';
-        },
-        offsetX: 10,
-        offsetY: 10,
-        style: {
-          fill: 'red',
-        },
-      },
-      legend: {
-        visible: false,
-      },
-    });
-    barPlot.render();
-
-    const plot = barPlot.getLayer().plot;
-    const legendCon = plot.get('legendController');
-    expect(legendCon.legends.length).to.be.equal(0);
-    barPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 });

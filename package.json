@@ -37,9 +37,9 @@
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
     "lint-fix:tslint": "tslint -c tslint.json --fix '*'",
-    "coverage": "exit 0",
-    "test": "torch -t 5000 --compile --renderer --recursive ./__tests__/unit",
-    "test-live": "torch --compile --interactive ./__tests__/unit",
+    "test": "jest",
+    "test-live": "DEBUG_MODE=1 jest --watch",
+    "coverage": "jest --coverage",
     "compare-live": "node scripts/compare.js",
     "ci": "run-s lint-check build test",
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
@@ -64,20 +64,19 @@
     "@antv/util": "~2.0.4",
     "fecha": "~3.0.3",
     "resize-observer-polyfill": "^1.5.1",
-    "ts-jest": "^24.1.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.9.41",
-    "@antv/torch": "~1.0.5",
-    "@types/chai": "^4.2.4",
-    "@types/mocha": "^5.2.7",
-    "chai": "^4.2.0",
+    "@types/jest": "^24.0.22",
     "colors": "^1.4.0",
     "event-simulate": "^1.0.0",
     "gatsby": "^2.16.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "jest-electron": "^0.1.7",
+    "jest-extended": "^0.11.2",
     "lint-staged": "^9.2.3",
     "npm-run-all": "^4.1.5",
     "nunjucks": "~3.2.0",
@@ -86,7 +85,7 @@
     "react-i18next": "^11.0.1",
     "resemblejs": "^3.2.3",
     "rimraf": "^3.0.0",
-    "ts-loader": "^6.0.4",
+    "ts-jest": "^24.1.0",
     "tslint": "^5.19.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3",
@@ -94,6 +93,28 @@
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.9.0"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "warnOnly": true
+        }
+      }
+    },
+    "runner": "jest-electron/runner",
+    "testEnvironment": "jest-electron/environment",
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ],
+    "preset": "ts-jest",
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "testRegex": "/__tests__/.*-spec\\.ts?$"
   },
   "lint-staged": {
     "*.{js,css,json,md}": [

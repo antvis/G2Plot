@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { Liquid } from '../../src';
 import Theme from '../../src/theme/theme';
 
@@ -24,14 +23,14 @@ describe.skip('Liquid plot', () => {
     });
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
-    expect(liquidPlot).to.be.instanceOf(Liquid);
+    expect(liquidPlot).toBeInstanceOf(Liquid);
     const canvas = liquidPlot.plot.get('canvas');
-    expect(canvas.get('width')).to.be.equal(400);
-    expect(canvas.get('height')).to.be.equal(450);
+    expect(canvas.get('width')).toBe(400);
+    expect(canvas.get('height')).toBe(450);
     const geometry = plot.get('elements')[0];
-    expect(geometry.get('type')).to.be.equal('interval');
+    expect(geometry.get('type')).toBe('interval');
     liquidPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   const titleText = '水位图测试';
@@ -55,8 +54,8 @@ describe.skip('Liquid plot', () => {
     });
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
-    expect(plot.title.text).to.be.equal(titleText);
-    expect(plot.description.text).to.be.equal(descriptionText);
+    expect(plot.title.text).toBe(titleText);
+    expect(plot.description.text).toBe(descriptionText);
     liquidPlot.destroy();
   });
 
@@ -74,14 +73,14 @@ describe.skip('Liquid plot', () => {
     });
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
-    expect(liquidPlot).to.be.instanceOf(Liquid);
+    expect(liquidPlot).toBeInstanceOf(Liquid);
     const element = plot.get('elements')[0];
     const data = element.get('data')[0].value;
-    expect(data).to.be.equal(6640);
+    expect(data).toBe(6640);
     const positionField = element.get('position').fields;
-    expect(positionField[0]).to.be.equal('1');
-    expect(positionField[1]).to.be.equal('value');
-    expect(plot.get('coord').type).to.be.equal('cartesian');
+    expect(positionField[0]).toBe('1');
+    expect(positionField[1]).toBe('value');
+    expect(plot.get('coord').type).toBe('cartesian');
     liquidPlot.destroy();
   });
 
@@ -100,7 +99,7 @@ describe.skip('Liquid plot', () => {
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
     const annotationText = plot.cfg.annotationController.annotations[0].cfg.content;
-    expect(annotationText).to.be.equal('[66.40%]');
+    expect(annotationText).toBe('[66.40%]');
     liquidPlot.destroy();
   });
 
@@ -119,7 +118,7 @@ describe.skip('Liquid plot', () => {
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
     const annotationText = plot.cfg.annotationController.annotations[0].cfg.content;
-    expect(annotationText).to.be.equal('[6640]');
+    expect(annotationText).toBe('[6640]');
     liquidPlot.destroy();
   });
 
@@ -136,8 +135,8 @@ describe.skip('Liquid plot', () => {
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
     const scale = plot.get('scales')['value'];
-    expect(scale.min).to.be.equal(0);
-    expect(scale.max).to.be.equal(10000);
+    expect(scale.min).toBe(0);
+    expect(scale.max).toBe(10000);
     liquidPlot.destroy();
   });
 
@@ -163,7 +162,7 @@ describe.skip('Liquid plot', () => {
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
     const colorCfg = plot.get('elements')[0].get('color').values;
-    expect(colorCfg[0]).to.be.equal('#3B76FF');
+    expect(colorCfg[0]).toBe('#3B76FF');
     liquidPlot.destroy();
   });
 });

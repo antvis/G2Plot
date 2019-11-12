@@ -1,5 +1,4 @@
 import TinyArea from '../../../src/tiny-plots/tiny-area';
-import { expect } from 'chai';
 import { fireWorks } from '../../data/fireworks-sales';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';
@@ -22,15 +21,15 @@ describe.skip('tiny area', () => {
       yField: 'scales',
     });
     tinyArea.render();
-    expect(tinyArea).to.be.an.instanceOf(TinyArea);
+    expect(tinyArea).toBeInstanceOf(TinyArea);
     const canvas = tinyArea.plot.get('canvas');
-    expect(canvas.get('width')).to.be.equal(200);
-    expect(canvas.get('height')).to.be.equal(100);
+    expect(canvas.get('width')).toBe(200);
+    expect(canvas.get('height')).toBe(100);
     const geoms = tinyArea.plot.get('elements');
-    expect(geoms[0].get('type')).to.be.equal('area');
-    expect(geoms[1].get('type')).to.be.equal('line');
+    expect(geoms[0].get('type')).toBe('area');
+    expect(geoms[1].get('type')).toBe('line');
     tinyArea.destroy();
-    expect(tinyArea.plot.destroyed).to.be.true;
+    expect(tinyArea.plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -49,8 +48,8 @@ describe.skip('tiny area', () => {
     _.each(geoms, (geom) => {
       shapes.push(...geom.getShapes());
     });
-    expect(shapes[0].attr('fill')).to.be.equal('l(90) 0:#039919 1:#ffffff');
-    expect(shapes[1].attr('stroke')).to.be.equal('#039919');
+    expect(shapes[0].attr('fill')).toBe('l(90) 0:#039919 1:#ffffff');
+    expect(shapes[1].attr('stroke')).toBe('#039919');
     tinyArea.destroy();
   });
 
@@ -69,8 +68,8 @@ describe.skip('tiny area', () => {
     _.each(geoms, (geom) => {
       shapes.push(...geom.getShapes());
     });
-    expect(shapes[0].attr('path')[2][0]).to.be.equal('C');
-    expect(shapes[1].attr('path')[2][0]).to.be.equal('C');
+    expect(shapes[0].attr('path')[2][0]).toBe('C');
+    expect(shapes[1].attr('path')[2][0]).toBe('C');
     tinyArea.destroy();
   });
 
@@ -92,8 +91,8 @@ describe.skip('tiny area', () => {
     _.each(geoms, (geom) => {
       shapes.push(...geom.getShapes());
     });
-    expect(shapes[1].attr('stroke')).to.be.equal('red');
-    expect(shapes[1].attr('lineWidth')).to.be.equal(4);
+    expect(shapes[1].attr('stroke')).toBe('red');
+    expect(shapes[1].attr('lineWidth')).toBe(4);
     tinyArea.destroy();
   });
 
@@ -122,10 +121,10 @@ describe.skip('tiny area', () => {
     const medianAnnotation = annotations[1];
     const minAnnotation = annotations[2];
     const maxAnnotation = annotations[3];
-    expect(meanAnnotation.get('start')[1]).to.be.equal(meanPos);
-    expect(medianAnnotation.get('start')[1]).to.be.equal(medianPos);
-    expect(minAnnotation.get('start')[1]).to.be.equal(minPos);
-    expect(maxAnnotation.get('start')[1]).to.be.equal(maxPos);
+    expect(meanAnnotation.get('start')[1]).toBe(meanPos);
+    expect(medianAnnotation.get('start')[1]).toBe(medianPos);
+    expect(minAnnotation.get('start')[1]).toBe(minPos);
+    expect(maxAnnotation.get('start')[1]).toBe(maxPos);
     tinyArea.destroy();
   });
 
@@ -146,7 +145,10 @@ describe.skip('tiny area', () => {
     const y0 = height * 0.1;
     const x1 = width * 0.5;
     const y1 = height * 0.5;
-    expect(lineShape.attr('path')).to.eql([['M', x0, y0], ['L', x1, y1]]);
+    expect(lineShape.attr('path')).to.eql([
+      ['M', x0, y0],
+      ['L', x1, y1],
+    ]);
     tinyArea.destroy();
   });
 
@@ -172,8 +174,8 @@ describe.skip('tiny area', () => {
     tinyArea.render();
     const annotation = tinyArea.plot.get('annotationController').annotations[0];
     const lineShape = annotation.get('el').get('children')[0];
-    expect(lineShape.attr('stroke')).to.be.equal('black');
-    expect(lineShape.attr('lineWidth')).to.be.equal(5);
+    expect(lineShape.attr('stroke')).toBe('black');
+    expect(lineShape.attr('lineWidth')).toBe(5);
     tinyArea.destroy();
   });
 
@@ -200,9 +202,9 @@ describe.skip('tiny area', () => {
     tinyArea.render();
     const annotation = tinyArea.plot.get('annotationController').annotations[0];
     const text = annotation.get('el').get('children')[1];
-    expect(text.attr('text')).to.be.equal('test');
-    expect(text.attr('fontSize')).to.be.equal(30);
-    expect(text.attr('x')).to.be.equal(0);
+    expect(text.attr('text')).toBe('test');
+    expect(text.attr('fontSize')).toBe(30);
+    expect(text.attr('x')).toBe(0);
     tinyArea.destroy();
   });
 

@@ -1,5 +1,4 @@
 import { Line } from '../../src';
-import { expect } from 'chai';
 
 const data1 = [
   {
@@ -288,11 +287,11 @@ describe.skip('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const positionField = plot.get('elements')[0].get('position').fields;
-    expect(linePlot).to.be.instanceOf(Line);
-    expect(positionField[0]).to.be.equal('year');
-    expect(positionField[1]).to.be.equal('value');
+    expect(linePlot).toBeInstanceOf(Line);
+    expect(positionField[0]).toBe('year');
+    expect(positionField[1]).toBe('value');
     linePlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -307,7 +306,7 @@ describe.skip('Line plot', () => {
     });
     const plot = linePlot.getLayer().plot;
     const elementShape = plot.config.elements[0].shape.values[0];
-    expect(elementShape).to.be.equal('smooth');
+    expect(elementShape).toBe('smooth');
     linePlot.destroy();
   });
 
@@ -323,7 +322,7 @@ describe.skip('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const lineSize = plot.get('elements')[0].get('size').values[0];
-    expect(lineSize).to.be.equal(5);
+    expect(lineSize).toBe(5);
     linePlot.destroy();
   });
 
@@ -348,11 +347,11 @@ describe.skip('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const elements = plot.get('elements');
-    expect(elements[1].get('type')).to.be.equal('point');
-    expect(elements[1].get('size').values[0]).to.be.equal(5);
-    expect(elements[1].get('color').values[0]).to.be.equal('red');
-    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('pink');
-    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
+    expect(elements[1].get('type')).toBe('point');
+    expect(elements[1].get('size').values[0]).toBe(5);
+    expect(elements[1].get('color').values[0]).toBe('red');
+    expect(elements[1].get('style').cfg.fillStyle).toBe('pink');
+    expect(elements[1].get('style').cfg.strokeStyle).toBe('black');
     linePlot.destroy();
   });
 
@@ -386,13 +385,13 @@ describe.skip('Line plot', () => {
     const axis = plot.get('axisController').axes[0];
     // formatter
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.equal('a');
+    expect(labels[0].text).toBe('a');
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
     linePlot.destroy();
   });
 
@@ -425,14 +424,14 @@ describe.skip('Line plot', () => {
     const axis = plot.get('axisController').axes[1];
     // formatter
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.equal('a');
+    expect(labels[0].text).toBe('a');
     // style
     const line = axis.get('line');
 
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
     linePlot.destroy();
   });
 
@@ -461,8 +460,8 @@ describe.skip('Line plot', () => {
       .get('children')[1]
       .get('children')[0]
       .get('children');
-    expect(labelGroup[0].attr('text')).to.be.equal('test');
-    expect(labelGroup[0].attr('fill')).to.be.equal('red');
+    expect(labelGroup[0].attr('text')).toBe('test');
+    expect(labelGroup[0].attr('fill')).toBe('red');
     linePlot.destroy();
   });
 
@@ -483,10 +482,10 @@ describe.skip('Line plot', () => {
     });
     linePlot.render();
     const padding = linePlot.plot.get('padding');
-    expect(padding[0] >= 15).to.be.true;
-    expect(padding[1] >= 20).to.be.true;
-    expect(padding[2] >= 20).to.be.true;
-    expect(padding[3] >= 20).to.be.true;
+    expect(padding[0] >= 15).toBe(true);
+    expect(padding[1] >= 20).toBe(true);
+    expect(padding[2] >= 20).toBe(true);
+    expect(padding[3] >= 20).toBe(true);
     linePlot.destroy();
   });
 
@@ -513,10 +512,10 @@ describe.skip('Line plot', () => {
     const plot = linePlot.getLayer().plot;
     const title = plot.title.shape;
     const description = plot.description.shape;
-    expect(title.attr('text')).to.be.equal('title');
-    expect(title.attr('fill')).to.be.equal('red');
-    expect(description.attr('text')).to.be.equal('description');
-    expect(description.attr('fill')).to.be.equal('red');
+    expect(title.attr('text')).toBe('title');
+    expect(title.attr('fill')).toBe('red');
+    expect(description.attr('text')).toBe('description');
+    expect(description.attr('fill')).toBe('red');
     linePlot.destroy();
   });
 
@@ -547,12 +546,12 @@ describe.skip('Line plot', () => {
       .get('elements')[0]
       .get('shapeContainer')
       .get('children');
-    expect(shapes.length).to.be.equal(3);
-    expect(elements[1].get('type')).to.be.equal('point');
-    expect(elements[1].get('size').values[0]).to.be.equal(5);
-    expect(elements[1].get('color').values[0]).to.be.equal('red');
-    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('pink');
-    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
+    expect(shapes.length).toBe(3);
+    expect(elements[1].get('type')).toBe('point');
+    expect(elements[1].get('size').values[0]).toBe(5);
+    expect(elements[1].get('color').values[0]).toBe('red');
+    expect(elements[1].get('style').cfg.fillStyle).toBe('pink');
+    expect(elements[1].get('style').cfg.strokeStyle).toBe('black');
     linePlot.destroy();
   });
 
@@ -578,7 +577,7 @@ describe.skip('Line plot', () => {
       .get('children')[0]
       .get('children');
     const panelGroup = linePlot.plot.get('panelRange');
-    expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
+    expect(labelGroup[0].attr('x') > panelGroup.maxX).toBe(true);
     linePlot.destroy();
   });
 });
@@ -611,8 +610,8 @@ describe('Line plot', () => {
     const plot = linePlot.getLayer().getPlot();
     const legend = plot.get('legendController').legends[0];
 
-    expect(legend.get('position')).to.be.equal('top-left');
-    expect(legend.get('wordSpacing')).to.be.equal(4);
+    expect(legend.get('position')).toBe('top-left');
+    expect(legend.get('wordSpacing')).toBe(4);
     linePlot.destroy();
   });
 });

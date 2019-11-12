@@ -21,7 +21,6 @@ export const DEFAULT_GLOBAL_THEME = {
     padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
-    fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
     textBaseline: 'top',
@@ -168,7 +167,7 @@ export const DEFAULT_GLOBAL_THEME = {
     flipPage: false,
     position: 'bottom-center',
     // 距离panelRange的距离
-    innerPadding: [16, 16, 16, 16],
+    innerPadding: [10, 16, 16, 16],
   },
 };
 

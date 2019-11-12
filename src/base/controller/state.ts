@@ -1,7 +1,7 @@
 /**
  * stateManager负责stateManager的创建/绑定，对状态量更新的响应
  */
-import { Shape } from '@antv/g';
+import { Group,Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
@@ -23,6 +23,7 @@ export default class StateController {
   private stateManager: StateManager;
   private shapes: Shape[];
   private originAttrs: any[]; // 缓存图形的原始属性
+  private shapeContainers: Group[] = [];
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -54,10 +55,12 @@ export default class StateController {
     if (!this.shapes) {
       this.shapes = this._getShapes();
       this.originAttrs = this._getOriginAttrs();
-    }
+    } 
+    // this.resetZIndex();
     _.each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin');
       const origin = _.isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
+     
       if (compare(origin, condition)) {
         const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];
@@ -68,8 +71,9 @@ export default class StateController {
           attrs = _.mix({}, originAttr, stateStyle);
         }
         shape.attr(attrs);
-        const canvas = this.plot.canvas;
-        canvas.draw();
+        this.setZIndex(type,shape);
+        // const canvas = this.plot.canvas;
+        // canvas.draw();
       }
     });
     // 组件与图形对状态量的响应不一定同步
@@ -113,6 +117,8 @@ export default class StateController {
     const shapes = [];
     const geoms = this.plot.view.get('elements');
     _.each(geoms, (geom: any) => {
+      const shapeContainer = geom.get('shapeContainer');
+      this.shapeContainers.push(shapeContainer);
       if (!geom.destroyed) {
         shapes.push(...geom.getShapes());
       }
@@ -159,5 +165,24 @@ export default class StateController {
         method(this.plot, condition);
       }
     });
+  }
+
+  // private set
+  private setZIndex(stateType: string, shape: Shape){
+    if(stateType === 'active' || stateType === 'selected'){
+      // shape.setZIndex(1);
+      const children = shape.get('parent').get('children');
+      children[children.length-1].setZIndex(0);
+      shape.setZIndex(1);      
+    }
+  }
+
+  private resetZIndex(){
+      _.each(this.shapeContainers,(container)=>{
+        const children = container.get('children');
+        children.sort((obj1, obj2) => {
+          return obj1._INDEX - obj2._INDEX;
+        });
+     });
   }
 }

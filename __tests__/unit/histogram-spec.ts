@@ -1,7 +1,6 @@
-import { Density } from '../../src';
-import { expect } from 'chai';
+import { Histogram } from '../../src';
 
-describe('Density plot', () => {
+describe('Histogram plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -68,14 +67,49 @@ describe('Density plot', () => {
   ];
 
   it('binWidth', () => {
-    const density = new Density(canvasDiv, {
+    const histogram = new Histogram(canvasDiv, {
       width: 300,
       height: 300,
       data,
       binField: 'value',
       binWidth: 2,
-      responsive: true,
     });
-    density.render();
+    histogram.render();
+    const layer = histogram.getLayer();
+    const geom = layer.view.get('elements')[0];
+    const shapeOrigin = geom.getShapes()[0].get('origin')._origin;
+    expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(2);
+    histogram.destroy();
+  });
+
+  it('binNumber', () => {
+    const histogram = new Histogram(canvasDiv, {
+      width: 300,
+      height: 300,
+      data,
+      binField: 'value',
+      binNumber: 4,
+    });
+    histogram.render();
+    const layer = histogram.getLayer();
+    const geom = layer.view.get('elements')[0];
+    const shapes = geom.getShapes();
+    expect(shapes.length).toBe(5);
+    histogram.destroy();
+  });
+
+  it('automatic calculate binNumber', () => {
+    const histogram = new Histogram(canvasDiv, {
+      width: 300,
+      height: 300,
+      data,
+      binField: 'value',
+    });
+    histogram.render();
+    const layer = histogram.getLayer();
+    const geom = layer.view.get('elements')[0];
+    const shapes = geom.getShapes();
+    expect(shapes.length).toBe(8);
+    histogram.destroy();
   });
 });

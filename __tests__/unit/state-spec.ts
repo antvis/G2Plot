@@ -1,5 +1,4 @@
 import { Column } from '../../src';
-import { expect } from 'chai';
 import StateManager from '../../src/util/state-manager';
 import { simulate } from 'event-simulate';
 import * as _ from '@antv/util';
@@ -56,19 +55,19 @@ describe.skip('state', () => {
 
   it('stateManager initialize', () => {
     stateManager = new StateManager();
-    expect(stateManager).to.be.instanceOf(StateManager);
+    expect(stateManager).toBeInstanceOf(StateManager);
   });
 
   it('stateManager set state', (done) => {
     stateManager.setState('test', 'a');
     setTimeout(() => {
-      expect(stateManager._states['test']).to.be.equal('a');
+      expect(stateManager._states['test']).toBe('a');
       done();
     }, 16);
   });
 
   it('stateManager get state', () => {
-    expect(stateManager.getState('test')).to.be.equal('a');
+    expect(stateManager.getState('test')).toBe('a');
   });
 
   it('stateManager get all state', (done) => {
@@ -77,16 +76,15 @@ describe.skip('state', () => {
     });
     setTimeout(() => {
       const states = stateManager.getAllStates();
-      expect(_.keys(states).length).to.be.equal(2);
-      expect(states.test).to.be.equal('a');
-      expect(states.test2).instanceof(Function);
+      expect(_.keys(states).length).toBe(2);
+      expect(states.test).toBe('a');
       done();
     }, 20);
   });
 
   it('stateManager clear state', () => {
     stateManager.clear();
-    expect(stateManager._states).to.be.empty;
+    expect(stateManager._states).toBeEmpty();
   });
 
   it('bind stateManager to plot', (done) => {
@@ -120,8 +118,8 @@ describe.skip('state', () => {
     });
 
     setTimeout(() => {
-      expect(stateChanged).to.be.true;
-      expect(stateManager._states.year).to.be.equal('1991');
+      expect(stateChanged).toBe(true);
+      expect(stateManager._states.year).toBe('1991');
       columnPlot.destroy();
       done();
     }, 20);
@@ -147,7 +145,7 @@ describe.skip('state', () => {
     );
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fillStyle')).to.be.equal('red');
+    expect(shapes[0].attr('fillStyle')).toBe('red');
     columnPlot.destroy();
   });
 
@@ -164,7 +162,7 @@ describe.skip('state', () => {
     columnPlot.setActive({ name: 'year', exp: '1993' }, { fillStyle: 'red' });
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[2].attr('fillStyle')).to.be.equal('red');
+    expect(shapes[2].attr('fillStyle')).toBe('red');
     columnPlot.destroy();
   });
 
@@ -189,11 +187,11 @@ describe.skip('state', () => {
     );
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fillStyle')).to.be.equal('#1890FF');
-    expect(shapes[1].attr('fillStyle')).to.be.equal('red');
-    expect(shapes[2].attr('fillStyle')).to.be.equal('red');
-    expect(shapes[3].attr('fillStyle')).to.be.equal('red');
-    expect(shapes[4].attr('fillStyle')).to.be.equal('red');
+    expect(shapes[0].attr('fillStyle')).toBe('#1890FF');
+    expect(shapes[1].attr('fillStyle')).toBe('red');
+    expect(shapes[2].attr('fillStyle')).toBe('red');
+    expect(shapes[3].attr('fillStyle')).toBe('red');
+    expect(shapes[4].attr('fillStyle')).toBe('red');
     columnPlot.destroy();
   });
 
@@ -210,7 +208,7 @@ describe.skip('state', () => {
     columnPlot.setDisable({ name: 'year', exp: '1991' }, { fillStyle: 'grey' });
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fillStyle')).to.be.equal('grey');
+    expect(shapes[0].attr('fillStyle')).toBe('grey');
     columnPlot.destroy();
   });
 
@@ -227,8 +225,8 @@ describe.skip('state', () => {
     columnPlot.setSelected({ name: 'year', exp: '1991' }, { stroke: 'black', lineWidth: 1 });
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('black');
-    expect(shapes[0].attr('lineWidth')).to.be.equal(1);
+    expect(shapes[0].attr('stroke')).toBe('black');
+    expect(shapes[0].attr('lineWidth')).toBe(1);
     columnPlot.destroy();
   });
 
@@ -246,7 +244,7 @@ describe.skip('state', () => {
     columnPlot.setNormal({ name: 'year', exp: '1991' });
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('fillStyle')).to.be.equal('#1890FF');
+    expect(shapes[0].attr('fillStyle')).toBe('#1890FF');
     columnPlot.destroy();
   });
 
@@ -278,10 +276,10 @@ describe.skip('state', () => {
     columnPlot.render();
     const geom = columnPlot.getLayer().plot.get('elements')[0];
     const shapes = geom.getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('black');
-    expect(shapes[1].attr('opacity')).to.be.equal(0.5);
-    expect(shapes[2].attr('opacity')).to.be.equal(0.5);
-    expect(shapes[3].attr('opacity')).to.be.equal(0.5);
+    expect(shapes[0].attr('stroke')).toBe('black');
+    expect(shapes[1].attr('opacity')).toBe(0.5);
+    expect(shapes[2].attr('opacity')).toBe(0.5);
+    expect(shapes[3].attr('opacity')).toBe(0.5);
     columnPlot.destroy();
   });
 });

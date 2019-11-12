@@ -1,5 +1,4 @@
 import { Area, StackArea } from '../../src';
-import { expect } from 'chai';
 
 const data = [
   {
@@ -314,12 +313,12 @@ describe('Area plot', () => {
     const positionField = view.get('elements')[0].get('position').fields;
     const axes = view.get('axisController').axes;
 
-    expect(areaPlot).to.be.instanceOf(Area);
-    expect(positionField[0]).to.be.equal('year');
-    expect(positionField[1]).to.be.equal('value');
-    expect(axes.length).to.be.equal(2);
+    expect(areaPlot). toBeInstanceOf(Area);
+    expect(positionField[0]).toBe('year');
+    expect(positionField[1]).toBe('value');
+    expect(axes.length).toBe(2);
     areaPlot.destroy();
-    expect(view.destroyed).to.be.true;
+    expect(view.destroyed).toBe(true);
   });
 
   it('area style', () => {
@@ -364,10 +363,10 @@ describe('Area plot', () => {
     areaPlot.render();
     const view = areaPlot.getLayer().view;
     const elements = view.get('elements');
-    expect(elements[0].get('type')).to.be.equal('area');
-    expect(elements[0].get('style').cfg.strokeStyle).to.be.equal('black');
+    expect(elements[0].get('type')).toBe('area');
+    expect(elements[0].get('style').cfg.strokeStyle).toBe('black');
     areaPlot.destroy();
-    expect(view.destroyed).to.be.true;
+    expect(view.destroyed).toBe(true);
   });
 
   it('line shape attr map', () => {
@@ -399,11 +398,11 @@ describe('Area plot', () => {
     areaPlot.render();
     const view = areaPlot.getLayer().view;
     const elements = view.get('elements');
-    expect(elements[1].get('type')).to.be.equal('line');
-    expect(elements[1].get('size').values[0]).to.be.equal(6);
-    expect(elements[1].get('color').values[0]).to.be.equal('pink');
+    expect(elements[1].get('type')).toBe('line');
+    expect(elements[1].get('size').values[0]).toBe(6);
+    expect(elements[1].get('color').values[0]).toBe('pink');
     areaPlot.destroy();
-    expect(view.destroyed).to.be.true;
+    expect(view.destroyed).toBe(true);
   });
 
   it('line style obj', () => {
@@ -448,11 +447,11 @@ describe('Area plot', () => {
     areaPlot.render();
     const view = areaPlot.getLayer().view;
     const elements = view.get('elements');
-    expect(elements[1].get('type')).to.be.equal('line');
-    expect(elements[1].get('size').values[0]).to.be.equal(6);
-    expect(elements[1].get('style').cfg.color).to.be.equal('blue');
+    expect(elements[1].get('type')).toBe('line');
+    expect(elements[1].get('size').values[0]).toBe(6);
+    expect(elements[1].get('style').cfg.color).toBe('blue');
     areaPlot.destroy();
-    expect(view.destroyed).to.be.true;
+    expect(view.destroyed).toBe(true);
   });
 
   // it('line style func', () => {
@@ -498,12 +497,12 @@ describe('Area plot', () => {
   //   const positionField = areaPlot.plot.get('elements')[0].get('position').fields;
   //   const axes = areaPlot.plot.get('axisController').axes;
 
-  //   expect(areaPlot).to.be.instanceOf(Area);
-  //   expect(positionField[0]).to.be.equal('year');
-  //   expect(positionField[1]).to.be.equal('value');
-  //   expect(axes.length).to.be.equal(2);
+  //   expect(areaPlot). toBeInstanceOf(Area);
+  //   expect(positionField[0]).toBe('year');
+  //   expect(positionField[1]).toBe('value');
+  //   expect(axes.length).toBe(2);
   //   // areaPlot.destroy();
-  //   // expect(areaPlot.plot.destroyed).to.be.true;
+  //   // expect(areaPlot.plot.destroyed).toBe(true);
   // });
 
   it('point shape attr map', () => {
@@ -543,14 +542,14 @@ describe('Area plot', () => {
     areaPlot.render();
     const view = areaPlot.getLayer().view;
     const elements = view.get('elements');
-    expect(elements[1].get('type')).to.be.equal('line');
-    expect(elements[1].get('size').values[0]).to.be.equal(6);
-    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('blue');
-    expect(elements[2].get('type')).to.be.equal('point');
-    expect(elements[2].get('size').values[0]).to.be.equal(8);
-    expect(elements[2].get('color').values[0]).to.be.equal('yellow');
+    expect(elements[1].get('type')).toBe('line');
+    expect(elements[1].get('size').values[0]).toBe(6);
+    expect(elements[1].get('style').cfg.strokeStyle).toBe('blue');
+    expect(elements[2].get('type')).toBe('point');
+    expect(elements[2].get('size').values[0]).toBe(8);
+    expect(elements[2].get('color').values[0]).toBe('yellow');
     areaPlot.destroy();
-    expect(view.destroyed).to.be.true;
+    expect(view.destroyed).toBe(true);
   });
 
   it.skip('point style obj', () => {
@@ -596,14 +595,14 @@ describe('Area plot', () => {
     });
     areaPlot.render();
     const elements = areaPlot.getLayer().view.get('elements');
-    expect(elements[1].get('type')).to.be.equal('line');
-    expect(elements[1].get('size').values[0]).to.be.equal(6);
-    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('blue');
-    expect(elements[2].get('type')).to.be.equal('point');
-    expect(elements[2].get('size').values[0]).to.be.equal(8);
-    expect(elements[2].get('style').cfg.fillStyle).to.be.equal('red');
+    expect(elements[1].get('type')).toBe('line');
+    expect(elements[1].get('size').values[0]).toBe(6);
+    expect(elements[1].get('style').cfg.strokeStyle).toBe('blue');
+    expect(elements[2].get('type')).toBe('point');
+    expect(elements[2].get('size').values[0]).toBe(8);
+    expect(elements[2].get('style').cfg.fillStyle).toBe('red');
     areaPlot.destroy();
-    expect(areaPlot.plot.destroyed).to.be.true;
+    expect(areaPlot.plot.destroyed).toBe(true);
   });
 
   it('area seriesField', () => {
@@ -651,11 +650,11 @@ describe('Area plot', () => {
     areaPlot.render();
     const view = areaPlot.getLayer().view;
     const elements = view.get('elements');
-    expect(elements[0].get('type')).to.be.equal('area');
-    expect(elements[0].get('color').values[0]).to.be.equal('green');
-    expect(elements[0].get('color').fields[0]).to.be.equal('type');
+    expect(elements[0].get('type')).toBe('area');
+    expect(elements[0].get('color').values[0]).toBe('green');
+    expect(elements[0].get('color').fields[0]).toBe('type');
     areaPlot.destroy();
-    expect(view.destroyed).to.be.true;
+    expect(view.destroyed).toBe(true);
   });
 });
 
@@ -685,9 +684,9 @@ describe('Area plot', () => {
     const legend = plot.get('legendController').legends[0];
     const area = plot.get('elements')[0];
 
-    expect(legend.get('position')).to.be.equal('top-left');
-    expect(legend.get('wordSpacing')).to.be.equal(4);
-    expect(area.get('styleOptions').cfg.opacity).to.be.equal(0.25);
+    expect(legend.get('position')).toBe('top-left');
+    expect(legend.get('wordSpacing')).toBe(4);
+    expect(area.get('styleOptions').cfg.opacity).toBe(0.25);
     areaPlot.destroy();
   });
 });

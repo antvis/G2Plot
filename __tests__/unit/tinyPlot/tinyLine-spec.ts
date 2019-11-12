@@ -1,5 +1,4 @@
 import TinyLine from '../../../src/tiny-plots/tiny-line';
-import { expect } from 'chai';
 import { income } from '../../data/income';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';
@@ -22,21 +21,21 @@ describe.skip('tiny line', () => {
       yField: 'rate',
     });
     tinyLine.render();
-    expect(tinyLine).to.be.an.instanceOf(TinyLine);
+    expect(tinyLine).toBeInstanceOf(TinyLine);
     const canvas = tinyLine.plot.get('canvas');
-    expect(canvas.get('width')).to.be.equal(200);
-    expect(canvas.get('height')).to.be.equal(100);
+    expect(canvas.get('width')).toBe(200);
+    expect(canvas.get('height')).toBe(100);
     const geometry = tinyLine.plot.get('elements')[0];
-    expect(geometry.get('type')).to.be.equal('line');
+    expect(geometry.get('type')).toBe('line');
     const dataArray = geometry.get('dataArray')[0];
     const p0 = dataArray[0];
     const p1 = dataArray[1];
     const dx = p1.x - p0.x;
     const dy = p1.y - p0.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    expect(dist >= 2).to.be.true;
+    expect(dist >= 2).toBe(true);
     tinyLine.destroy();
-    expect(tinyLine.plot.destroyed).to.be.true;
+    expect(tinyLine.plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -52,7 +51,7 @@ describe.skip('tiny line', () => {
     tinyLine.render();
     const geometry = tinyLine.plot.get('elements')[0];
     const shape = geometry.getShapes()[0];
-    expect(shape.attr('lineWidth')).to.be.equal(4);
+    expect(shape.attr('lineWidth')).toBe(4);
     tinyLine.destroy();
   });
 
@@ -69,7 +68,7 @@ describe.skip('tiny line', () => {
     const geometry = tinyLine.plot.get('elements')[0];
     const shape = geometry.getShapes()[0];
     const path = shape.attr('path');
-    expect(path[1][0]).to.be.equal('C');
+    expect(path[1][0]).toBe('C');
     tinyLine.destroy();
   });
 
@@ -85,7 +84,7 @@ describe.skip('tiny line', () => {
     tinyLine.render();
     const geometry = tinyLine.plot.get('elements')[0];
     const shape = geometry.getShapes()[0];
-    expect(shape.attr('stroke')).to.be.equal('red');
+    expect(shape.attr('stroke')).toBe('red');
     tinyLine.destroy();
   });
 
@@ -104,8 +103,8 @@ describe.skip('tiny line', () => {
     tinyLine.render();
     const geometry = tinyLine.plot.get('elements')[0];
     const shape = geometry.getShapes()[0];
-    expect(shape.attr('lineDash')[0]).to.be.equal(2);
-    expect(shape.attr('opacity')).to.be.equal(0.5);
+    expect(shape.attr('lineDash')[0]).toBe(2);
+    expect(shape.attr('opacity')).toBe(0.5);
     tinyLine.destroy();
   });
 
@@ -134,10 +133,10 @@ describe.skip('tiny line', () => {
     const medianAnnotation = annotations[1];
     const minAnnotation = annotations[2];
     const maxAnnotation = annotations[3];
-    expect(meanAnnotation.get('start')[1]).to.be.equal(meanPos);
-    expect(medianAnnotation.get('start')[1]).to.be.equal(medianPos);
-    expect(minAnnotation.get('start')[1]).to.be.equal(minPos);
-    expect(maxAnnotation.get('start')[1]).to.be.equal(maxPos);
+    expect(meanAnnotation.get('start')[1]).toBe(meanPos);
+    expect(medianAnnotation.get('start')[1]).toBe(medianPos);
+    expect(minAnnotation.get('start')[1]).toBe(minPos);
+    expect(maxAnnotation.get('start')[1]).toBe(maxPos);
     tinyLine.destroy();
   });
 
@@ -158,7 +157,10 @@ describe.skip('tiny line', () => {
     const y0 = height * 0.1;
     const x1 = width * 0.5;
     const y1 = height * 0.5;
-    expect(lineShape.attr('path')).to.eql([['M', x0, y0], ['L', x1, y1]]);
+    expect(lineShape.attr('path')).to.eql([
+      ['M', x0, y0],
+      ['L', x1, y1],
+    ]);
     tinyLine.destroy();
   });
 
@@ -184,8 +186,8 @@ describe.skip('tiny line', () => {
     tinyLine.render();
     const annotation = tinyLine.plot.get('annotationController').annotations[0];
     const lineShape = annotation.get('el').get('children')[0];
-    expect(lineShape.attr('stroke')).to.be.equal('black');
-    expect(lineShape.attr('lineWidth')).to.be.equal(5);
+    expect(lineShape.attr('stroke')).toBe('black');
+    expect(lineShape.attr('lineWidth')).toBe(5);
     tinyLine.destroy();
   });
 
@@ -212,9 +214,9 @@ describe.skip('tiny line', () => {
     tinyLine.render();
     const annotation = tinyLine.plot.get('annotationController').annotations[0];
     const text = annotation.get('el').get('children')[1];
-    expect(text.attr('text')).to.be.equal('test');
-    expect(text.attr('fontSize')).to.be.equal(30);
-    expect(text.attr('x')).to.be.equal(0);
+    expect(text.attr('text')).toBe('test');
+    expect(text.attr('fontSize')).toBe(30);
+    expect(text.attr('x')).toBe(0);
     tinyLine.destroy();
   });
 
@@ -234,7 +236,7 @@ describe.skip('tiny line', () => {
     tinyLine.render();
     const geometry = tinyLine.plot.get('elements')[0];
     const shape = geometry.getShapes()[0];
-    expect(shape.attr('lineWidth')).to.be.equal(5);
+    expect(shape.attr('lineWidth')).toBe(5);
     tinyLine.destroy();
   });
 

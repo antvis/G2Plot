@@ -1,4 +1,3 @@
-import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { RecursivePartial } from '../interface/types';

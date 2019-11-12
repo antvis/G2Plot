@@ -306,7 +306,10 @@ describe.skip('stateManager', () => {
         {
           name: 'type',
           callback: (d, plot) => {
-            plot.setSelected(d);
+            plot.setSelected(d,{
+              lineWidth: 2,
+              stroke: 'black'
+            });
             plot.setNormal((origin) => {
               return origin[d.name] !== d.exp;
             });

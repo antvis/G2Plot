@@ -25,7 +25,7 @@ function trimJS(source) {
 
   for (let i = source.length - 1; i > 0; i--) {
     const line = source[i].trim();
-    if (!line || line.startsWith('//') || line === 'export {}') {
+    if (!line || line.startsWith('//') || line === 'export {}' || line === 'export {};') {
       end++;
     } else {
       break;

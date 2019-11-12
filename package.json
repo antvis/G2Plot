@@ -64,11 +64,13 @@
     "@antv/util": "~2.0.4",
     "fecha": "~3.0.3",
     "resize-observer-polyfill": "^1.5.1",
+    "ts-jest": "^24.1.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.9.41",
     "@antv/torch": "~1.0.5",
+    "@types/chai": "^4.2.4",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "colors": "^1.4.0",

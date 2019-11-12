@@ -378,6 +378,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       formatter: _.get(this.options, 'legend.formatter'),
       offsetX: _.get(this.options, 'legend.offsetX'),
       offsetY: _.get(this.options, 'legend.offsetY'),
+      wordSpacing: _.get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
     });
   }

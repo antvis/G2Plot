@@ -41,7 +41,7 @@
     "test-live": "DEBUG_MODE=1 jest --watch",
     "coverage": "jest --coverage",
     "compare-live": "node scripts/compare.js",
-    "ci": "run-s lint-check build test",
+    "ci": "run-s lint-check build test coverage",
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
     "watch": "webpack --config webpack-dev.config.js"
   },

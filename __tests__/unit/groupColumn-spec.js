@@ -204,7 +204,6 @@ describe('GroupColomn plot', () => {
     columnPlot.render();
 
     const plot = columnPlot.getLayer().view;
-    console.log(plot);
     const labelGroup = plot
       .get('elements')[0]
       .get('container')

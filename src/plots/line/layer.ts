@@ -58,7 +58,7 @@ export interface LineViewConfig extends ViewConfig {
 export interface LineLayerConfig extends LineViewConfig, LayerConfig {}
 
 export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
-  public static getDefaultOptions(): any {
+  public static getDefaultOptions(): Partial<LineLayerConfig> {
     return _.deepMix({}, super.getDefaultOptions(), {
       connectNulls: false,
       smooth: false,
@@ -71,6 +71,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       label: {
         visible: false,
         type: 'point',
+      },
+      legend: {
+        visible: true,
+        position: 'top-left',
+        wordSpacing: 4,
       },
     });
   }

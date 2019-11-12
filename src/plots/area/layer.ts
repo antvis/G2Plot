@@ -64,6 +64,9 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       smooth: false,
+      areaStyle: {
+        opacity: 0.25,
+      },
       line: {
         visible: true,
         size: 2,
@@ -79,6 +82,11 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       label: {
         visible: false,
         type: 'point',
+      },
+      legend: {
+        visible: true,
+        position: 'top-left',
+        wordSpacing: 4,
       },
     });
   }

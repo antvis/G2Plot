@@ -27,7 +27,10 @@ export default function nodeJitterUpward(shape: Shape, option, index, cfg) {
       const container = element.get('labelController').labelsContainer;
       const labelLine = container.addShape('path', {
         attrs: {
-          path: [['M', originX, originY], ['L', current.shape.attr('x'), y]],
+          path: [
+            ['M', originX, originY],
+            ['L', current.shape.attr('x'), y],
+          ],
           stroke: '#ccc',
           lineWidth: 1,
         },

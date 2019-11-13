@@ -37,7 +37,10 @@ G2.registerShape('area', 'miniAreaSmooth', {
 });
 
 function getPath(cfg, shape, isSmooth) {
-  const constraint = [[0, 0], [1, 1]];
+  const constraint = [
+    [0, 0],
+    [1, 1],
+  ];
   let topLinePoints = [];
   let bottomLinePoints = [];
   _.each(cfg.points, (point) => {

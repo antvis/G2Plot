@@ -13,38 +13,38 @@ export function extractScale(desScale, axisConfig) {
     return desScale;
   }
 
-  if (axisConfig.hasOwnProperty('tickCount')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'tickCount')) {
     desScale.tickCount = axisConfig.tickCount;
   }
-  if (axisConfig.hasOwnProperty('type')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'type')) {
     // fixme: dateTime plot层处理
     if (axisConfig.type !== 'dateTime') {
       desScale.type = axisConfig.type;
     }
   }
-  if (axisConfig.hasOwnProperty('tickInterval')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'tickInterval')) {
     if (axisConfig.type === 'time') {
       desScale.tickInterval = adjustTimeTickInterval(axisConfig.tickInterval);
     } else {
       desScale.tickInterval = axisConfig.tickInterval;
     }
   }
-  if (axisConfig.hasOwnProperty('min')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'min')) {
     desScale.min = axisConfig.min;
   }
-  if (axisConfig.hasOwnProperty('max')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'max')) {
     desScale.max = axisConfig.max;
   }
-  if (axisConfig.hasOwnProperty('minLimit')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'minLimit')) {
     desScale.minLimit = axisConfig.minLimit;
   }
-  if (axisConfig.hasOwnProperty('maxLimit')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'maxLimit')) {
     desScale.maxLimit = axisConfig.maxLimit;
   }
-  if (axisConfig.hasOwnProperty('nice')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'nice')) {
     desScale.nice = axisConfig.nice;
   }
-  if (axisConfig.hasOwnProperty('formatter')) {
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'formatter')) {
     desScale.formatter = axisConfig.formatter;
   }
 }

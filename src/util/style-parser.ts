@@ -32,10 +32,10 @@ function AxisStyleParser(axisCfg, axis) {
       axisCfg.tickLine = _.clone(axis.tickLine.style);
     }
   }
-  if (axis.hasOwnProperty('autoHideLabel')) {
+  if (Object.prototype.hasOwnProperty.call(axis, 'autoHideLabel')) {
     axisCfg.autoHideLabel = axis.autoHideLabel;
   }
-  if (axis.hasOwnProperty('autoRotateLabel')) {
+  if (Object.prototype.hasOwnProperty.call(axis, 'autoRotateLabel')) {
     axisCfg.autoRotateLabel = axis.autoRotateLabel;
   }
   if (axis.label) {

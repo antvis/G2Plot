@@ -75,6 +75,7 @@ describe('Area plot', () => {
         visible: false,
       },
     });
+    plot.render();
     const region2 = { start: view.view.get('start'), end: view.view.get('end') };
     expect(region1).not.toEqual(region2);
     expect(view.title).toBe(null);
@@ -84,6 +85,7 @@ describe('Area plot', () => {
         visible: false,
       },
     });
+    plot.render();
     const region3 = { start: view.view.get('start'), end: view.view.get('end') };
     expect(view.title).toBe(null);
     expect(view.description).toBe(null);

@@ -185,6 +185,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       panelRange: {},
     };
 
+    this.paddingController.clear();
+
     this.drawTitle();
     this.drawDescription();
 
@@ -256,27 +258,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   /** 更新配置项 */
-  public updateConfig(cfg): void {
-    this.view.destroy();
+  public updateConfig(cfg: Partial<T>): void {
+    this.doDestroy();
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }
-    const newProps = _.deepMix({}, this.options, cfg);
-    this.options = newProps;
-    this.width = cfg.width ? cfg.width : this.width;
-    this.height = cfg.height ? cfg.height : this.height;
-
-    this.paddingController.clear();
-    const viewRange = this.getViewRange();
-    // TODO: 实现需要更新View的其他属性
-    // 更新padding region height width
-    Object.assign(this.view.cfg, {
-      width: this.width,
-      height: this.height,
-      padding: this.paddingController.getPadding(),
-      ...getRegion(viewRange),
-    });
-    this.render();
+    this.options = _.deepMix({}, this.options, cfg);
   }
 
   public changeData(data: object[]): void {
@@ -489,28 +476,50 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   /** 抽取destroy和updateConfig共有代码为_destroy方法 */
   private doDestroy() {
+    this.doDestroyInteractions();
+    /** 销毁g2.view实例 */
+    this.view.destroy();
+  }
+
+  private doDestroyInteractions() {
     // 移除注册的 interactions
     if (this.interactions) {
       this.interactions.forEach((inst) => {
         inst.destroy();
       });
     }
-    /** 销毁g2.view实例 */
-    this.view.destroy();
+    this.interactions = [];
   }
 
   private getViewRange() {
     // 有 Range 的 Interaction 参与 ViewMargin 计算
-    this.interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction('slider', this.type);
-      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(this.layerBBox, interaction.cfg);
+    const { interactions = [] } = this.options;
+    const layerBBox = this.layerBBox;
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
+      let position = '';
       if (range) {
+        // 先只考虑 Range 靠边的情况
+        if (range.bottom === layerBBox.bottom && range.top > layerBBox.top) {
+          // margin[2] += range.height;
+          position = 'bottom';
+        } else if (range.right === layerBBox.right && range.left > layerBBox.left) {
+          // margin[1] += range.width;
+          position = 'right';
+        } else if (range.left === layerBBox.left && range.right > layerBBox.right) {
+          // margin[3] += range.width;
+          position = 'left';
+        } else if (range.top === layerBBox.top && range.bottom > layerBBox.bottom) {
+          // margin[0] += range.height;
+          position = 'top';
+        }
         this.paddingController.registerPadding(
           {
             getBBox: () => {
               return range;
             },
-            position: 'bottom',
+            position,
           },
           'outer'
         );

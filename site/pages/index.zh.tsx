@@ -5,21 +5,11 @@ import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
 import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
 import Cases from '@antv/gatsby-theme-antv/site/components/Cases';
-import BannerSVG from '@antv/gatsby-theme-antv/site/components/BannerSVG';
-import alipay from '../images/alipay.png';
-import aliyun from '../images/aliyun.png';
-import cainiao from '../images/cainiao.png';
-import gi from '../images/gi.png';
-import mybank from '../images/mybank.png';
-import taobao from '../images/taobao.png';
-import tmall from '../images/tmall.png';
-import yunos from '../images/yunos.png';
-import jd from '../images/jd.png';
 
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
 
-  const coverImage = BannerSVG();
+  // const coverImage = BannerSVG();
 
   const features = [
     {
@@ -79,7 +69,8 @@ const IndexPage = () => {
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
-        coverImage={coverImage}
+        coverImage = {
+          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWXcTY-VMmYAAAAAAAAAAABkARQnAQ" /> }
         title={t('g2plot 开箱即用的图表库')}
         description={t(
           'g2plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',

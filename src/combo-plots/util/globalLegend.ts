@@ -60,7 +60,7 @@ export function createLegend(items,container,width,canvas){
         position: 'top',
         getBBox:()=>{
             const bbox = legend.get('itemsGroup').getBBox();
-            return new BBox(bbox.minX,bbox.minX,bbox.width,bbox.height + legendTheme.innerPadding[0])           
+            return new BBox(bbox.minX,bbox.minX,bbox.width,bbox.height + legendTheme.innerPadding[0]);           
         }
     }
 }

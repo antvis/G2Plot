@@ -157,6 +157,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     });
   }
 
+
   /**
    * 获取图形下的图层 Layer，默认第一个 Layer
    * @param idx

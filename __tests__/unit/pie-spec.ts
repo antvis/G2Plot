@@ -1,5 +1,4 @@
 import { Pie } from '../../src';
-import { expect } from 'chai';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
@@ -37,6 +36,34 @@ describe('Pie plot', () => {
     },
   ];
 
+  it('饼图 默认配置项', () => {
+    const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+    });
+    piePlot.render();
+  });
+
+  it('饼图 回调方式修改pieStyle', () => {
+    const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      pieStyle: (...args) => {
+        return {
+          stroke: 'red',
+          lineWidth: 2,
+        };
+      },
+    });
+    piePlot.render();
+  });
+
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
@@ -55,11 +82,11 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const positionField = plot.get('elements')[0].get('position').fields;
-    expect(piePlot).to.be.instanceOf(Pie);
-    expect(positionField[0]).to.be.equal('1');
-    expect(positionField[1]).to.be.equal('value');
+    expect(piePlot).toBeInstanceOf(Pie);
+    expect(positionField[0]).toBe('1');
+    expect(positionField[1]).toBe('value');
     piePlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('radius', () => {
@@ -74,7 +101,7 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const coord = plot.get('coord');
-    expect(coord.getRadius() * 2).to.be.equal(coord.getWidth() / 2);
+    expect(coord.getRadius() * 2).toBe(coord.getWidth() / 2);
     piePlot.destroy();
   });
 
@@ -88,8 +115,8 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const shapes = plot.get('elements')[0].getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('white');
-    expect(shapes[0].attr('lineWidth')).to.be.equal(1);
+    expect(shapes[0].attr('stroke')).toBe('white');
+    expect(shapes[0].attr('lineWidth')).toBe(1);
     piePlot.destroy();
   });
 
@@ -105,9 +132,9 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const shapes = plot.get('elements')[0].getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('yellow');
-    expect(shapes[1].attr('fill')).to.be.equal('green');
-    expect(shapes[2].attr('fill')).to.be.equal('blue');
+    expect(shapes[0].attr('fill')).toBe('yellow');
+    expect(shapes[1].attr('fill')).toBe('green');
+    expect(shapes[2].attr('fill')).toBe('blue');
     piePlot.destroy();
   });
 
@@ -126,8 +153,8 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const shapes = plot.get('elements')[0].getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('red');
-    expect(shapes[0].attr('lineWidth')).to.be.equal(2);
+    expect(shapes[0].attr('stroke')).toBe('red');
+    expect(shapes[0].attr('lineWidth')).toBe(2);
     piePlot.destroy();
   });
 
@@ -157,12 +184,12 @@ describe('Pie plot', () => {
       .get('children')[0]
       .get('children');
     const coord = plot.get('coord');
-    expect(labelGroup[0].attr('text')).to.be.equal('test');
-    expect(labelGroup[0].attr('fill')).to.be.equal('red');
+    expect(labelGroup[0].attr('text')).toBe('test');
+    expect(labelGroup[0].attr('fill')).toBe('red');
     const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
     const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
     const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist < coord.getRadius()).to.be.true;
+    expect(dist < coord.getRadius()).toBe(true);
     piePlot.destroy();
   });
 
@@ -192,12 +219,12 @@ describe('Pie plot', () => {
       .get('children')[0]
       .get('children');
     const coord = plot.get('coord');
-    expect(labelGroup[0].attr('text')).to.be.equal('test');
-    expect(labelGroup[0].attr('fill')).to.be.equal('red');
+    expect(labelGroup[0].attr('text')).toBe('test');
+    expect(labelGroup[0].attr('fill')).toBe('red');
     const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
     const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
     const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist > coord.getRadius()).to.be.true;
+    expect(dist > coord.getRadius()).toBe(true);
     piePlot.destroy();
   });
 
@@ -223,11 +250,11 @@ describe('Pie plot', () => {
     const spiderLabel = pieLayer.spiderLabel;
     const labelShapes = pieLayer.container.get('children');
     const shapes = plot.get('elements')[0].getShapes();
-    expect(labelShapes.length / 3).to.be.equal(shapes.length);
-    expect(labelShapes[0].get('children')[0].attr('text')).to.be.equal(5);
-    expect(labelShapes[0].get('children')[1].attr('text')).to.be.equal('Other');
-    expect(labelShapes[0].get('children')[1].attr('fill')).to.be.equal('#ccc');
-    expect(labelShapes[1].attr('stroke')).to.be.equal(shapes[shapes.length - 1].attr('fill'));
+    expect(labelShapes.length / 3).toBe(shapes.length);
+    expect(labelShapes[0].get('children')[0].attr('text')).toBe(5);
+    expect(labelShapes[0].get('children')[1].attr('text')).toBe('Other');
+    expect(labelShapes[0].get('children')[1].attr('fill')).toBe('#ccc');
+    expect(labelShapes[1].attr('stroke')).toBe(shapes[shapes.length - 1].attr('fill'));
     piePlot.destroy();
   });
 
@@ -248,10 +275,10 @@ describe('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const padding = plot.get('padding');
-    expect(padding[0] >= 16).to.be.true;
-    expect(padding[1] >= 20).to.be.true;
-    expect(padding[2] >= 20).to.be.true;
-    expect(padding[3] >= 20).to.be.true;
+    expect(padding[0] >= 16).toBe(true);
+    expect(padding[1] >= 20).toBe(true);
+    expect(padding[2] >= 20).toBe(true);
+    expect(padding[3] >= 20).toBe(true);
     piePlot.destroy();
   });
 
@@ -281,10 +308,10 @@ describe('Pie plot', () => {
     const pieLayer = piePlot.getLayer();
     const title = pieLayer.title;
     const description = pieLayer.description;
-    expect(title.text).to.be.equal('title');
-    expect(title.style.fill).to.be.equal('red');
-    expect(description.shape.attr('text')).to.be.equal('description');
-    expect(description.shape.attr('fill')).to.be.equal('red');
+    expect(title.text).toBe('title');
+    expect(title.style.fill).toBe('red');
+    expect(description.shape.attr('text')).toBe('description');
+    expect(description.shape.attr('fill')).toBe('red');
     piePlot.destroy();
   });
 });

@@ -1,5 +1,4 @@
 import { Ring } from '../../src';
-import { expect } from 'chai';
 import { simulate } from 'event-simulate';
 
 describe.skip('Ring plot', () => {
@@ -46,9 +45,9 @@ describe.skip('Ring plot', () => {
       .getLayer()
       .plot.get('elements')[0]
       .get('position').fields;
-    expect(ringPlot).to.be.instanceOf(Ring);
-    expect(positionField[0]).to.be.equal('1');
-    expect(positionField[1]).to.be.equal('value');
+    expect(ringPlot).toBeInstanceOf(Ring);
+    expect(positionField[0]).toBe('1');
+    expect(positionField[1]).toBe('value');
     ringPlot.destroy();
   });
 
@@ -61,7 +60,7 @@ describe.skip('Ring plot', () => {
     });
     ringPlot.render();
     const coord = ringPlot.getLayer().plot.get('coord');
-    expect(coord.innerRadius).to.be.equal(0.2);
+    expect(coord.innerRadius).toBe(0.2);
     ringPlot.destroy();
   });
 
@@ -90,8 +89,8 @@ describe.skip('Ring plot', () => {
       if (originData !== null) {
         const name = document.getElementsByClassName('ring-guide-name')[0].innerHTML;
         const value = document.getElementsByClassName('ring-guide-value')[0].innerHTML;
-        expect(name).to.be.equal(originData.type);
-        expect(value).to.be.equal(originData.value.toString());
+        expect(name).toBe(originData.type);
+        expect(value).toBe(originData.value.toString());
         ringPlot.destroy();
         done();
       }

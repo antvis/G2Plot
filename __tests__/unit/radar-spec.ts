@@ -1,5 +1,4 @@
 import { Radar } from '../../src';
-import { expect } from 'chai';
 
 describe.skip('Radar plot', () => {
   const canvasDiv = document.createElement('div');
@@ -125,10 +124,10 @@ describe.skip('Radar plot', () => {
     const plot = radarPlot.getLayer().plot;
     const positionField = plot.get('elements')[0].get('position').fields;
     const colorField = plot.get('elements')[0].get('color').fields;
-    expect(radarPlot).to.be.instanceOf(Radar);
-    expect(positionField[0]).to.be.equal('item');
-    expect(positionField[1]).to.be.equal('score');
-    expect(colorField[0]).to.be.equal('user');
+    expect(radarPlot).toBeInstanceOf(Radar);
+    expect(positionField[0]).toBe('item');
+    expect(positionField[1]).toBe('score');
+    expect(colorField[0]).toBe('user');
     // radarPlot.destroy();
   });
 
@@ -156,13 +155,13 @@ describe.skip('Radar plot', () => {
     const axis = plot.get('axisController').axes[0];
     // formatter
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.equal('a');
+    expect(labels[0].text).toBe('a');
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
     radarPlot.destroy();
   });
 
@@ -190,13 +189,13 @@ describe.skip('Radar plot', () => {
     const axis = plot.get('axisController').axes[1];
     // formatter
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.equal('a');
+    expect(labels[0].text).toBe('a');
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
     radarPlot.destroy();
   });
 
@@ -218,8 +217,8 @@ describe.skip('Radar plot', () => {
     radarPlot.render();
     let plot = radarPlot.getLayer().plot;
     const elements = plot.get('elements');
-    expect(elements.length).to.be.equal(1);
-    expect(elements[0].get('type')).to.be.equal('line');
+    expect(elements.length).toBe(1);
+    expect(elements[0].get('type')).toBe('line');
     radarPlot.destroy();
     /** area样式 */
     radarPlot = new Radar(canvasDiv, {
@@ -242,8 +241,8 @@ describe.skip('Radar plot', () => {
     radarPlot.render();
     plot = radarPlot.getLayer().plot;
     const shapes = radarPlot.plot.get('elements')[0].getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('red');
-    expect(shapes[0].attr('lineWidth')).to.be.equal(2);
+    expect(shapes[0].attr('stroke')).toBe('red');
+    expect(shapes[0].attr('lineWidth')).toBe(2);
     radarPlot.destroy();
   });
 
@@ -263,8 +262,8 @@ describe.skip('Radar plot', () => {
     radarPlot.render();
     const plot = radarPlot.getLayer().plot;
     const elements = plot.get('elements');
-    expect(elements.length).to.be.equal(1);
-    expect(elements[0].get('type')).to.be.equal('area');
+    expect(elements.length).toBe(1);
+    expect(elements[0].get('type')).toBe('area');
     radarPlot.destroy();
     /** line样式 */
     radarPlot = new Radar(canvasDiv, {
@@ -290,7 +289,7 @@ describe.skip('Radar plot', () => {
       .getLayer()
       .plot.get('elements')[1]
       .getShapes();
-    expect(shapes[1].attr('lineDash')[0]).to.be.equal(2);
+    expect(shapes[1].attr('lineDash')[0]).toBe(2);
     radarPlot.destroy();
   });
 
@@ -312,10 +311,10 @@ describe.skip('Radar plot', () => {
     });
     radarPlot.render();
     const elements = radarPlot.getLayer().plot.get('elements');
-    expect(elements.length).to.be.equal(3);
-    expect(elements[2].get('type')).to.be.equal('point');
+    expect(elements.length).toBe(3);
+    expect(elements[2].get('type')).toBe('point');
     const shapes = radarPlot.plot.get('elements')[2].getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('red');
+    expect(shapes[0].attr('stroke')).toBe('red');
     radarPlot.destroy();
   });
 
@@ -343,10 +342,10 @@ describe.skip('Radar plot', () => {
     });
     radarPlot.render();
     const padding = radarPlot.getLayer().plot.get('padding');
-    expect(padding[0] >= 20).to.be.true;
-    expect(padding[1] >= 20).to.be.true;
-    expect(padding[2] >= 40).to.be.true;
-    expect(padding[3] >= 20).to.be.true;
+    expect(padding[0] >= 20).toBe(true);
+    expect(padding[1] >= 20).toBe(true);
+    expect(padding[2] >= 40).toBe(true);
+    expect(padding[3] >= 20).toBe(true);
     radarPlot.destroy();
   });
 
@@ -373,10 +372,10 @@ describe.skip('Radar plot', () => {
     });
     const title = radarPlot.getLayer().title;
     const description = radarPlot.getLayer().description;
-    expect(title.attr('text')).to.be.equal('title');
-    expect(title.attr('fill')).to.be.equal('red');
-    expect(description.shape.attr('text')).to.be.equal('description');
-    expect(description.shape.attr('fill')).to.be.equal('red');
+    expect(title.attr('text')).toBe('title');
+    expect(title.attr('fill')).toBe('red');
+    expect(description.shape.attr('text')).toBe('description');
+    expect(description.shape.attr('fill')).toBe('red');
     radarPlot.destroy();
   });
 });

@@ -236,7 +236,6 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       width: parentWidth,
       height: parentHeight,
     };
-
     return _.deepMix({}, defaultOptions, props);
   }
 

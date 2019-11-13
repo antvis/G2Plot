@@ -27,6 +27,30 @@ export default class CanvasController {
   private plot: BasePlot; // temp
   private resizeObserver: any;
 
+  /**
+   * when the container size changed, trigger it after 300ms.
+   */
+  private onResize = _.debounce(() => {
+    if (this.plot.destroyed) {
+      return;
+    }
+    const { width, height } = this.getCanvasSize();
+    /** height measure不准导致重复 forceFit */
+    if (this.width === width && this.height === height) {
+      return;
+    }
+
+    // got new width, height, re-render the plot
+    this.width = width;
+    this.height = height;
+
+    this.canvas.changeSize(width, height);
+
+    // this.plot.updateBBox({width,height} as Range );
+    // this.plot.updateConfig({});
+    // this.plot.render();
+  }, 300);
+
   constructor(cfg: CanvasControllerCfg) {
     const { containerDOM, plot } = cfg;
     this.containerDOM = containerDOM;
@@ -132,29 +156,4 @@ export default class CanvasController {
     this.width = width;
     this.height = height;
   }
-
-  /**
-   * when the container size changed, trigger it after 300ms.
-   */
-  private onResize = () =>
-    _.debounce(() => {
-      if (this.plot.destroyed) {
-        return;
-      }
-      const { width, height } = this.getCanvasSize();
-      /** height measure不准导致重复 forceFit */
-      if (this.width === width && this.height === height) {
-        return;
-      }
-
-      // got new width, height, re-render the plot
-      this.width = width;
-      this.height = height;
-
-      this.canvas.changeSize(width, height);
-
-      // this.plot.updateBBox({width,height} as Range );
-      // this.plot.updateConfig({});
-      // this.plot.render();
-    }, 300);
 }

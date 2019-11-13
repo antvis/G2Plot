@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { Gauge } from '../../src';
 import Theme from '../../src/theme/theme';
 
@@ -21,14 +20,14 @@ describe.skip('Gauge plot', () => {
     });
     gaugePlot.render();
     const plot = gaugePlot.getLayer().plot;
-    expect(gaugePlot).to.be.instanceOf(Gauge);
+    expect(gaugePlot).toBeInstanceOf(Gauge);
     const canvas = plot.get('canvas');
-    expect(canvas.get('width')).to.be.equal(600);
-    expect(canvas.get('height')).to.be.equal(650);
+    expect(canvas.get('width')).toBe(600);
+    expect(canvas.get('height')).toBe(650);
     const geometry = gaugePlot.plot.get('elements')[0];
-    expect(geometry.get('type')).to.be.equal('point');
+    expect(geometry.get('type')).toBe('point');
     gaugePlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   const titleText = '仪表图测试';
@@ -49,8 +48,8 @@ describe.skip('Gauge plot', () => {
     });
     gaugePlot.render();
     const plot = gaugePlot.getLayer().plot;
-    expect(plot.title.text).to.be.equal(titleText);
-    expect(plot.description.text).to.be.equal(descriptionText);
+    expect(plot.title.text).toBe(titleText);
+    expect(plot.description.text).toBe(descriptionText);
     gaugePlot.destroy();
   });
 
@@ -68,14 +67,14 @@ describe.skip('Gauge plot', () => {
     });
     gaugePlot.render();
     const plot = gaugePlot.getLayer().plot;
-    expect(gaugePlot).to.be.instanceOf(Gauge);
+    expect(gaugePlot).toBeInstanceOf(Gauge);
     const element = plot.get('elements')[0];
     const data = element.get('data')[0].value;
-    expect(data).to.be.equal(64);
+    expect(data).toBe(64);
     const positionField = element.get('position').fields;
-    expect(positionField[0]).to.be.equal('value');
-    expect(positionField[1]).to.be.equal('1');
-    expect(plot.get('coord').type).to.be.equal('polar');
+    expect(positionField[0]).toBe('value');
+    expect(positionField[1]).toBe('1');
+    expect(plot.get('coord').type).toBe('polar');
     gaugePlot.destroy();
   });
 
@@ -94,7 +93,7 @@ describe.skip('Gauge plot', () => {
     gaugePlot.render();
     const plot = gaugePlot.getLayer().plot;
     const annotationText = plot.cfg.annotationController.annotations[0].cfg.content;
-    expect(annotationText).to.be.equal('[64]');
+    expect(annotationText).toBe('[64]');
     gaugePlot.destroy();
   });
 
@@ -111,8 +110,8 @@ describe.skip('Gauge plot', () => {
     gaugePlot.render();
     const plot = gaugePlot.getLayer().plot;
     const scale = plot.get('scales')['value'];
-    expect(scale.min).to.be.equal(0);
-    expect(scale.max).to.be.equal(100);
+    expect(scale.min).toBe(0);
+    expect(scale.max).toBe(100);
     gaugePlot.destroy();
   });
 
@@ -151,7 +150,7 @@ describe.skip('Gauge plot', () => {
     gaugePlot.render();
     const plot = gaugePlot.getLayer().plot;
     const colorCfg = plot.get('elements')[0].get('color').values;
-    expect(colorCfg[0]).to.be.equal('#1890FF');
+    expect(colorCfg[0]).toBe('#1890FF');
     gaugePlot.destroy();
   });
 });

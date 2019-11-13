@@ -24,7 +24,7 @@ export default class StackColumnLayer<
         position: 'right-top',
       },
       label: {
-        visible: true,
+        visible: false,
         position: 'middle',
         adjustColor: true,
       },

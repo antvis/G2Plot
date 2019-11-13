@@ -18,12 +18,20 @@ export default class PaddingController {
     _.assign(this, cfg);
   }
 
-  public registerPadding(component, type: string = 'outer') {
+  public registerPadding(component, type: 'outer' | 'inner' = 'outer') {
     if (type === 'inner') {
       this.innerPaddingComponents.push(component);
     } else {
       this.outerPaddingComponents.push(component);
     }
+  }
+
+  /**
+   * 清除已经注册的元素
+   */
+  public clear() {
+    this.innerPaddingComponents = [];
+    this.outerPaddingComponents = [];
   }
 
   public getPadding() {
@@ -41,6 +49,7 @@ export default class PaddingController {
     this.plot.updateConfig({
       padding,
     });
+    this.plot.render();
   }
 
   public processOuterPadding() {

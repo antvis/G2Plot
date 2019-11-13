@@ -6,7 +6,7 @@ A charting library based on the Grammar of Graphics.
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
 ![最近提交](https://badgen.net/github/last-commit/antvis/g2plot)
 
-G2plot is an interactive and responsive charting library based on [the grammar of graphics](https:// github.com/antvis/g2), which enables users to generate high quality statistical charts through a few lines of code easily.
+G2plot is an interactive and responsive charting library based on [the grammar of graphics](https://github.com/antvis/g2), which enables users to generate high quality statistical charts through a few lines of code easily.
 
 Moreover, combining with AntV design principles, g2plot provides standard and elegant visual styles as well as better user experience.
 
@@ -57,17 +57,18 @@ bar.render();
 $ npm install
 
 # run test case
-$ npm run test-live
-
-# build watching file changes and run demos
-$ npm run dev
+$ npm run test
 
 # run demos
-$ npm run demos
+$ npm start
 ```
 
 ## How to Contribute
 
-Please let us know how can we help. Do check out [issues](https:// github.com/antvis/g2plot/issues) for bug reports or suggestions first.
+Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2plot/issues) for bug reports or suggestions first.
 
-To become a contributor, please follow our [contributing guide](https:// github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
+To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
+
+## License
+
+MIT

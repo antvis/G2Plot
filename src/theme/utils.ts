@@ -45,23 +45,23 @@ export function convertToG2Theme(plotTheme: any): any {
     g2Theme.legend = {};
   }
   // g2Theme.legend.margin = [0, 0, 0, 0];
-  if (g2Theme.axis) {
-    if (g2Theme.axis.x) {
-      convertToG2Axis(g2Theme.axis.x);
-      g2Theme.axis.bottom = {};
-      _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
-      g2Theme.axis.top = {};
-      _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
-      delete g2Theme.axis.x;
-    }
-    if (g2Theme.axis.y) {
-      convertToG2Axis(g2Theme.axis.y);
-      g2Theme.axis.left = {};
-      _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
-      g2Theme.axis.right = {};
-      _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
-      delete g2Theme.axis.y;
-    }
-  }
+  // if (g2Theme.axis) {
+  //   if (g2Theme.axis.x) {
+  //     convertToG2Axis(g2Theme.axis.x);
+  //     g2Theme.axis.bottom = {};
+  //     _.deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
+  //     g2Theme.axis.top = {};
+  //     _.deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
+  //     delete g2Theme.axis.x;
+  //   }
+  //   if (g2Theme.axis.y) {
+  //     convertToG2Axis(g2Theme.axis.y);
+  //     g2Theme.axis.left = {};
+  //     _.deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
+  //     g2Theme.axis.right = {};
+  //     _.deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
+  //     delete g2Theme.axis.y;
+  //   }
+  // }
   return g2Theme;
 }

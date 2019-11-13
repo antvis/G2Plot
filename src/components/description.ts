@@ -80,7 +80,7 @@ export default class TextDescription {
    * 1. 注意初始text带换行符的场景
    */
   private _textWrapper(width: number, style) {
-    const text: string = this.text;
+    const textContent: string = this.text;
     const tShape = new Text({
       attrs: {
         text: '',
@@ -89,7 +89,7 @@ export default class TextDescription {
         ...style,
       },
     });
-    const textArr = text.split('\n');
+    const textArr = textContent.split('\n');
     const wrappedTextArr = textArr.map((wrappedText) => {
       let currentWidth = 0;
       const chars = wrappedText.split('');
@@ -101,7 +101,9 @@ export default class TextDescription {
         const textWidth = Math.floor(tShape.measureText());
         currentWidth += textWidth;
         if (currentWidth > width) {
-          if (i === 0) break;
+          if (i === 0) {
+            break;
+          }
           breakIndex.push(i);
           currentWidth = 0;
           text = '';

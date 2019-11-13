@@ -38,12 +38,12 @@ describe.skip('stackArea label', () => {
     // const isTransposed = areaPlot.plot.get('coord').isTransposed;
     // const axes = areaPlot.plot.get('axisController').axes;
 
-    // expect(areaPlot).to.be.instanceOf(Area);
-    // expect(positionField[0]).to.be.equal('value');
-    // expect(positionField[1]).to.be.equal('year');
-    // expect(isTransposed).to.be.equal(false);
-    // expect(axes.length).to.be.equal(2);
+    // expect(areaPlot). toBeInstanceOf(Area);
+    // expect(positionField[0]).toBe('value');
+    // expect(positionField[1]).toBe('year');
+    // expect(isTransposed).toBe(false);
+    // expect(axes.length).toBe(2);
     // areaPlot.destroy();
-    // expect(areaPlot.plot.destroyed).to.be.true;
+    // expect(areaPlot.plot.destroyed).toBe(true);
   });
 });

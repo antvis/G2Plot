@@ -10,7 +10,7 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerConfig } from './layer';
+import Layer, { LayerConfig, Region } from './layer';
 
 export interface ViewConfig {
   data: object[];
@@ -45,6 +45,15 @@ export interface ViewConfig {
 }
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
+
+/**
+ * 获取Region
+ *
+ * @param viewRange - box
+ */
+function getRegion(viewRange: BBox): Region {
+  return { start: { x: viewRange.minX, y: viewRange.minY }, end: { x: viewRange.maxX, y: viewRange.maxY } };
+}
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(): Partial<ViewConfig> {
@@ -123,12 +132,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public theme: any;
   public initialOptions: T;
   public options: T;
+  public title: TextDescription;
+  public description: TextDescription;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
   protected config: G2Config;
-  protected title: TextDescription;
-  protected description: TextDescription;
   private interactions: BaseInteraction[] = [];
 
   constructor(props: T) {
@@ -176,6 +185,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       panelRange: {},
     };
 
+    this.paddingController.clear();
+
     this.drawTitle();
     this.drawDescription();
 
@@ -189,7 +200,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.animation();
 
     const viewRange = this.getViewRange();
-
     this.view = new G2.View({
       width: this.width,
       height: this.height,
@@ -248,17 +258,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   /** 更新配置项 */
-  public updateConfig(cfg): void {
-    this.view.destroy();
+  public updateConfig(cfg: Partial<T>): void {
+    this.doDestroy();
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }
-    const newProps = _.deepMix({}, this.options, cfg);
-    this.options = newProps;
-    this.width = cfg.width ? cfg.width : this.width;
-    this.height = cfg.height ? cfg.height : this.height;
-    // todo: 这里的更新逻辑还应该包含更新x、y，重新计算layerRange
-    this.render();
+    this.options = _.deepMix({}, this.options, cfg);
   }
 
   public changeData(data: object[]): void {
@@ -336,13 +341,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
 
-    this.setConfig('tooltip', {
-      crosshairs: _.get(this.options, 'tooltip.crosshairs'),
-      shared: _.get(this.options, 'tooltip.shared'),
-      htmlContent: _.get(this.options, 'tooltip.htmlContent'),
-      containerTpl: _.get(this.options, 'tooltip.containerTpl'),
-      itemTpl: _.get(this.options, 'tooltip.itemTpl'),
-    });
+    this.setConfig('tooltip', _.deepMix({}, _.get(this.options, 'tooltip')));
 
     if (this.options.tooltip.style) {
       _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
@@ -360,6 +359,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       formatter: _.get(this.options, 'legend.formatter'),
       offsetX: _.get(this.options, 'legend.offsetX'),
       offsetY: _.get(this.options, 'legend.offsetY'),
+      wordSpacing: _.get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
     });
   }
@@ -421,6 +421,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected drawTitle(): void {
     const props = this.options;
     const range = this.layerBBox;
+    if (this.title) {
+      this.title.destroy();
+    }
     this.title = null;
     if (props.title.visible) {
       const width = this.width;
@@ -442,6 +445,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected drawDescription(): void {
     const props = this.options;
     const range = this.layerBBox;
+    if (this.description) {
+      this.description.destroy();
+    }
     this.description = null;
 
     if (props.description.visible) {
@@ -470,28 +476,50 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   /** 抽取destroy和updateConfig共有代码为_destroy方法 */
   private doDestroy() {
+    this.doDestroyInteractions();
+    /** 销毁g2.view实例 */
+    this.view.destroy();
+  }
+
+  private doDestroyInteractions() {
     // 移除注册的 interactions
     if (this.interactions) {
       this.interactions.forEach((inst) => {
         inst.destroy();
       });
     }
-    /** 销毁g2.view实例 */
-    this.view.destroy();
+    this.interactions = [];
   }
 
   private getViewRange() {
     // 有 Range 的 Interaction 参与 ViewMargin 计算
-    this.interactions.forEach((interaction) => {
-      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction('slider', this.type);
-      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(this.layerBBox, interaction.cfg);
+    const { interactions = [] } = this.options;
+    const layerBBox = this.layerBBox;
+    interactions.forEach((interaction) => {
+      const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
+      let position = '';
       if (range) {
+        // 先只考虑 Range 靠边的情况
+        if (range.bottom === layerBBox.bottom && range.top > layerBBox.top) {
+          // margin[2] += range.height;
+          position = 'bottom';
+        } else if (range.right === layerBBox.right && range.left > layerBBox.left) {
+          // margin[1] += range.width;
+          position = 'right';
+        } else if (range.left === layerBBox.left && range.right > layerBBox.right) {
+          // margin[3] += range.width;
+          position = 'left';
+        } else if (range.top === layerBBox.top && range.bottom > layerBBox.bottom) {
+          // margin[0] += range.height;
+          position = 'top';
+        }
         this.paddingController.registerPadding(
           {
             getBBox: () => {
               return range;
             },
-            position: 'bottom',
+            position,
           },
           'outer'
         );

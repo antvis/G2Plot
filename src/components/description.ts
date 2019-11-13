@@ -2,6 +2,26 @@ import { BBox, Canvas, Group, Text } from '@antv/g';
 import * as _ from '@antv/util';
 
 /**
+ * 为字符串添加换行符
+ * @param source - 字符串数组 ['a', 'b', 'c']
+ * @param breaks - 要添加换行的index
+ *
+ * @example
+ * ```js
+ * breakText(['a','b','c'], [1])
+ *
+ * // a\nbc
+ * ```
+ */
+function breakText(source: string[], breaks: number[]): string {
+  const result = [...source];
+  breaks.forEach((pos, index) => {
+    result.splice(pos + index, 0, '\n');
+  });
+  return result.join('');
+}
+
+/**
  * 图表的文字描述，一般用于生成图表的标题和副标题
  */
 
@@ -59,8 +79,8 @@ export default class TextDescription {
    * 当text过长时，默认换行
    * 1. 注意初始text带换行符的场景
    */
-  private _textWrapper(width, style) {
-    const text = this.text;
+  private _textWrapper(width: number, style) {
+    const textContent: string = this.text;
     const tShape = new Text({
       attrs: {
         text: '',
@@ -69,22 +89,28 @@ export default class TextDescription {
         ...style,
       },
     });
-    const textArr = text.split('\n');
+    const textArr = textContent.split('\n');
     const wrappedTextArr = textArr.map((wrappedText) => {
       let currentWidth = 0;
-      for (let i = 0; i < wrappedText.length; i++) {
-        const t = wrappedText[i];
-        /*tslint:disable*/
-        tShape.attr('text', t + ' ');
-        // 字数不多就不缓存了吧.....
+      const chars = wrappedText.split('');
+      const breakIndex: number[] = [];
+      let text = '';
+      for (let i = 0; i < chars.length; i++) {
+        const item = chars[i];
+        tShape.attr('text', (text += item));
         const textWidth = Math.floor(tShape.measureText());
         currentWidth += textWidth;
         if (currentWidth > width) {
-          wrappedText = `${wrappedText.slice(0, i)}\n${wrappedText.slice(i)}`;
+          if (i === 0) {
+            break;
+          }
+          breakIndex.push(i);
           currentWidth = 0;
+          text = '';
         }
       }
-      return wrappedText;
+
+      return breakText(chars, breakIndex);
     });
 
     tShape.remove();

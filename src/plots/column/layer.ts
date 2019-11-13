@@ -48,6 +48,20 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         tickLine: {
           visible: false,
         },
+        title: {
+          visible: true,
+        },
+      },
+      yAxis: {
+        title: {
+          visible: true,
+        },
+        label: {
+          visible: true,
+        },
+        grid: {
+          visible: true,
+        },
       },
       tooltip: {
         visible: true,
@@ -58,7 +72,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       },
       label: {
         visible: false,
-        position: 'top',
+        position: 'bottom',
         adjustColor: true,
       },
       legend: {

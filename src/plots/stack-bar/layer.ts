@@ -33,7 +33,7 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
           visible: true,
         },
         title: {
-          visible: false,
+          visible: true,
           offset: 12,
         },
       },

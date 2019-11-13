@@ -190,6 +190,7 @@ describe('GroupColomn plot', () => {
       groupField: 'type',
       label: {
         visible: true,
+        adjustColor: false,
         formatter: (txt) => {
           return txt + 'dddd';
         },

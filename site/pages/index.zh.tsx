@@ -9,8 +9,6 @@ import Cases from '@antv/gatsby-theme-antv/site/components/Cases';
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
 
-  // const coverImage = BannerSVG();
-
   const features = [
     {
       icon:
@@ -47,10 +45,17 @@ const IndexPage = () => {
     },
   ];
 
-  const downloadButton = {
-    text: '下载使用',
-    link: 'https://antv.alipay.com/zh-cn/index.html',
-  };
+  const bannerButtons = [
+    {
+      text: t('图表示例'),
+      link: '/zh/examples/general/title-description',
+      type: 'primary',
+    },
+    {
+      text: t('下载使用'),
+      link: '/zh/docs/manual/getting-started',
+    },
+  ];
 
   const cases = [
     {
@@ -80,7 +85,7 @@ const IndexPage = () => {
         notifications={notifications}
         className='banner'
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
-        downloadButton={downloadButton}
+        buttons={bannerButtons}
       />
       <Features
         features={features}

@@ -398,7 +398,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.config.elements.push(config as G2Config['element']);
       return;
     }
-    if ((config as boolean) === false) {
+    if (config === false) {
       this.config[key] = false;
       return;
     }

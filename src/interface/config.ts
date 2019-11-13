@@ -33,7 +33,6 @@ interface IBaseAxis {
   /** 轴类型，对应scale类型 */
   type?: 'linear' | 'time' | 'cat' | 'dateTime' | 'category' | 'log' | 'pow' | 'timeCat';
   /** 轴位置，默认下和左 */
-  position?: 'default' | 'opposite';
   line?: {
     visible?: boolean;
     style?: {};

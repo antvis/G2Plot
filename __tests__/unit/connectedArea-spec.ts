@@ -9,7 +9,7 @@ describe('connectedArea components', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  var data = [
+  const data = [
     {
       time: '16 Q1',
       type: '移动游戏',

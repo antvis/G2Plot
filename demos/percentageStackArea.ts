@@ -117,4 +117,4 @@ const areaPlot = new g2plot.PercentageStackArea(document.getElementById('canvas'
 areaPlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

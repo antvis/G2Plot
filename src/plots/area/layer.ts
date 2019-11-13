@@ -6,7 +6,6 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
-import { extractAxis } from '../../util/axis';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
@@ -136,27 +135,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   }
 
   protected coord() {}
-
-  protected axis() {
-    const props = this.options;
-    const axesConfig = { fields: {} };
-    axesConfig.fields[props.xField] = {};
-    axesConfig.fields[props.yField] = {};
-
-    if (props.xAxis.visible === false) {
-      axesConfig.fields[props.xField] = false;
-    } else {
-      extractAxis(axesConfig.fields[props.xField], props.xAxis);
-    }
-
-    if (props.yAxis.visible === false) {
-      axesConfig.fields[props.yField] = false;
-    } else {
-      extractAxis(axesConfig.fields[props.yField], props.yAxis);
-    }
-    /** 存储坐标轴配置项到config */
-    this.setConfig('axes', axesConfig);
-  }
 
   protected addGeometry() {
     const props = this.options;

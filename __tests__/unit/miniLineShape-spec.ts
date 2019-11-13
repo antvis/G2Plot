@@ -27,7 +27,10 @@ G2.Shape.registerShape('line', 'miniLine', {
 });
 
 function parseSplineShape(points) {
-  const constraint = [[0, 100], [200, 0]];
+  const constraint = [
+    [0, 100],
+    [200, 0],
+  ];
   return getSplinePath(points, false, constraint);
 }
 

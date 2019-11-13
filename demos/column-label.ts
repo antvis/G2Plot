@@ -31,4 +31,4 @@ const columnPlot = new g2plot.Column(document.getElementById('canvas'), {
 columnPlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

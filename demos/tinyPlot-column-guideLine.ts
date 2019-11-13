@@ -67,4 +67,4 @@ const tinyColumn = new g2plot.TinyColumn(document.getElementById('canvas'), {
 tinyColumn.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

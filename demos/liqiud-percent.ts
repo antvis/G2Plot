@@ -10,4 +10,4 @@ const liquidPlot = new g2plot.Liquid(document.getElementById('canvas'), {
 liquidPlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

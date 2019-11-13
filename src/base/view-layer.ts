@@ -11,6 +11,7 @@ import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
+import { isTextUsable } from '../util/common';
 
 export interface ViewConfig {
   data: object[];
@@ -137,7 +138,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
-  protected config: G2Config;
+  public config: G2Config;
   private interactions: BaseInteraction[] = [];
 
   constructor(props: T) {
@@ -423,9 +424,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const range = this.layerBBox;
     if (this.title) {
       this.title.destroy();
+      this.title = null;
     }
-    this.title = null;
-    if (props.title.visible) {
+
+    if (isTextUsable(props.title)) {
       const width = this.width;
       const theme = this.config.theme;
       const title = new TextDescription({
@@ -447,22 +449,26 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const range = this.layerBBox;
     if (this.description) {
       this.description.destroy();
+      this.description = null;
     }
-    this.description = null;
 
-    if (props.description.visible) {
+    if (isTextUsable(props.description)) {
       const width = this.width;
+      const theme = this.config.theme;
+      let topMargin = 0;
 
-      let topMargin = range.minY;
       if (this.title) {
         const titleBBox = this.title.getBBox();
-        topMargin = titleBBox.minY + titleBBox.height;
+        topMargin += titleBBox.minY + titleBBox.height;
+        topMargin += theme.description.padding[0];
+      } else {
+        // 无title的情况下使用title的上padding
+        topMargin += range.minY + theme.title.padding[0];
       }
 
-      const theme = this.config.theme;
       const description = new TextDescription({
         leftMargin: range.minX + theme.description.padding[3],
-        topMargin: topMargin + theme.description.padding[0],
+        topMargin,
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],

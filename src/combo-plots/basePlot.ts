@@ -6,6 +6,7 @@ import Plot, { PlotConfig } from '../base/plot';
 import ViewLayer from '../base/view-layer';
 import '../index';
 import { createLegend, getColorConfig, getLegendData, mergeLegendData } from './util';
+import { getOverlappingPadding } from './util/padding';
 
 
 export interface ComboPlotConfig extends PlotConfig {
@@ -67,6 +68,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 height: this.height
             });
             const legend = this.overlappingLegend();
+            this.paddingComponents.push(legend);
             this.overlappingLayout();
         }
     }
@@ -129,7 +131,13 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     }
 
     protected overlappingLayout(){
-
+        const padding = getOverlappingPadding(this.layers[0],this.paddingComponents);
+        _.each(this.layers,(layer)=>{
+            layer.updateConfig({
+                padding
+            });
+            layer.render();
+        });
     }
 
 }

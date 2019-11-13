@@ -178,8 +178,3 @@ export const DEFAULT_GLOBAL_THEME = {
     }
   }
 };
-
-// const theme = new Theme('default');
-// theme.registerGlobalTheme(DEFAULT_THEME);
-//
-// export default theme;

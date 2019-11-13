@@ -21,7 +21,6 @@ export default class AreaParser extends ElementParser {
     if (props.areaStyle || props.area.style) {
       this.parseStyle();
     }
-    console.log(this.config);
   }
 
   public parseColor() {

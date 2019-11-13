@@ -81,7 +81,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       forceFit: true,
       padding: 'auto',
-      radius: 1,
+      radius: 0.6,
       smooth: false,
       line: {
         visible: true,
@@ -93,7 +93,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       area: {
         visible: true,
         style: {
-          opacity: 0.8,
+          fillOpacity: 0.4,
         },
       },
       point: {
@@ -147,7 +147,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
             lineDash: [0, 0],
           },
         },
-        gridAlternateColor: 'rgba(0, 0, 0, 0.04)',
         label: {
           visible: true,
         },
@@ -161,7 +160,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'right-center',
       },
       tooltip: {
         visible: true,

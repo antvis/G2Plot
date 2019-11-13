@@ -18,9 +18,10 @@ export default class AreaParser extends ElementParser {
     if (this._getColorMappingField() || props.color) {
       this.parseColor();
     }
-    if (props.areaStyle) {
+    if (props.areaStyle || props.area.style) {
       this.parseStyle();
     }
+    console.log(this.config);
   }
 
   public parseColor() {
@@ -45,7 +46,7 @@ export default class AreaParser extends ElementParser {
 
   public parseStyle() {
     const props = this.plot.options;
-    const styleProps = props.areaStyle;
+    const styleProps = props.areaStyle ? props.areaStyle : props.area.style;
     const config: DataPointType = {};
     if (_.isFunction(styleProps) && props.seriesField) {
       config.fields = [props.seriesField];

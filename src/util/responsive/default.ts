@@ -82,7 +82,7 @@ export const DEFAULT_RESPONSIVE_THEME = {
             {
               name: 'nodesResamplingByAbbrevate',
               option: {
-                keep: ['end'],
+                // keep: ['end'],
               },
             },
             {

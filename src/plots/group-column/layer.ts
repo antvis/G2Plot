@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
@@ -10,6 +11,15 @@ export interface GroupColumnViewConfig extends ColumnViewConfig {
 export interface GroupColumnLayerConfig extends GroupColumnViewConfig, LayerConfig {}
 
 export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerConfig> {
+  public static getDefaultOptions(): Partial<GroupColumnViewConfig> {
+    return deepMix({}, super.getDefaultOptions(), {
+      yAxis: {
+        title: {
+          visible: true,
+        },
+      },
+    });
+  }
   public type: string = 'groupColumn';
   public getResponsiveTheme() {
     return this.themeController.getResponsiveTheme('column');

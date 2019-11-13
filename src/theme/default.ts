@@ -169,9 +169,11 @@ export const DEFAULT_GLOBAL_THEME = {
     // 距离panelRange的距离
     innerPadding: [10, 16, 16, 16],
   },
+  label:{
+    offset: 12,
+    style:{
+      stroke:'#ffffff',
+      lineWidth:2
+    }
+  }
 };
-
-// const theme = new Theme('default');
-// theme.registerGlobalTheme(DEFAULT_THEME);
-//
-// export default theme;

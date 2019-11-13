@@ -4,6 +4,14 @@ $.get('data/fireworks-sales.json', function(data) {
   const areaPlot = new g2plot.Area(document.getElementById('canvas'), {
     width: 600,
     height: 600,
+    title: {
+      visible: true,
+      text: '1234',
+    },
+    description: {
+      visible: true,
+      text: '3456',
+    },
     padding: 'auto',
     data,
     xField: 'Data',
@@ -14,7 +22,10 @@ $.get('data/fireworks-sales.json', function(data) {
     },
   });
   areaPlot.render();
+  areaPlot.updateConfig({
+    title: {},
+  });
 });
 
 // 作为模块 避免变量冲突
-export {}
+export {};

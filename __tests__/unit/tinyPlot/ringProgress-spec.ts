@@ -1,5 +1,4 @@
 import RingProgress from '../../../src/tiny-plots/ring-progress';
-import { expect } from 'chai';
 
 describe.skip('progress', () => {
   const canvasDiv = document.createElement('div');
@@ -17,17 +16,17 @@ describe.skip('progress', () => {
       percent: 0.3,
     });
     progress.render();
-    expect(progress).to.be.an.instanceOf(RingProgress);
+    expect(progress).toBeInstanceOf(RingProgress);
     const canvas = progress.plot.get('canvas');
-    expect(canvas.get('width')).to.be.equal(200);
-    expect(canvas.get('height')).to.be.equal(100);
+    expect(canvas.get('width')).toBe(200);
+    expect(canvas.get('height')).toBe(100);
     const geometry = progress.plot.get('elements')[0];
-    expect(geometry.get('type')).to.be.equal('interval');
+    expect(geometry.get('type')).toBe('interval');
     const shapes = geometry.getShapes();
-    expect(shapes[0].get('origin')._origin.value).to.be.equal(0.3);
-    expect(shapes[1].get('origin')._origin.value).to.be.equal(0.7);
+    expect(shapes[0].get('origin')._origin.value).toBe(0.3);
+    expect(shapes[1].get('origin')._origin.value).toBe(0.7);
     progress.destroy();
-    expect(progress.plot.destroyed).to.be.true;
+    expect(progress.plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -41,7 +40,7 @@ describe.skip('progress', () => {
     progress.render();
     const geometry = progress.plot.get('elements')[0];
     const shapes = geometry.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('red');
+    expect(shapes[0].attr('fill')).toBe('red');
     progress.destroy();
   });
 
@@ -55,8 +54,8 @@ describe.skip('progress', () => {
     progress.render();
     const geometry = progress.plot.get('elements')[0];
     const shapes = geometry.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('red');
-    expect(shapes[1].attr('fill')).to.be.equal('blue');
+    expect(shapes[0].attr('fill')).toBe('red');
+    expect(shapes[1].attr('fill')).toBe('blue');
     progress.destroy();
   });
 
@@ -74,9 +73,9 @@ describe.skip('progress', () => {
     progress.render();
     const geometry = progress.plot.get('elements')[0];
     const shapes = geometry.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('red');
-    expect(shapes[1].attr('fill')).to.be.equal('blue');
-    expect(currentPrecent).to.be.equal(0.3);
+    expect(shapes[0].attr('fill')).toBe('red');
+    expect(shapes[1].attr('fill')).toBe('blue');
+    expect(currentPrecent).toBe(0.3);
     progress.destroy();
   });
 
@@ -93,8 +92,8 @@ describe.skip('progress', () => {
     progress.render();
     const geometry = progress.plot.get('elements')[0];
     const shapes = geometry.getShapes();
-    expect(shapes[0].attr('stroke')).to.be.equal('black');
-    expect(shapes[0].attr('lineWidth')).to.be.equal(1);
+    expect(shapes[0].attr('stroke')).toBe('black');
+    expect(shapes[0].attr('lineWidth')).toBe(1);
     progress.destroy();
   });
 
@@ -109,8 +108,8 @@ describe.skip('progress', () => {
     setTimeout(() => {
       const geometry = progress.plot.get('elements')[0];
       const shapes = geometry.getShapes();
-      expect(shapes[0].get('origin')._origin.value).to.be.equal(0.5);
-      expect(shapes[1].get('origin')._origin.value).to.be.equal(0.5);
+      expect(shapes[0].get('origin')._origin.value).toBe(0.5);
+      expect(shapes[1].get('origin')._origin.value).toBe(0.5);
       progress.destroy();
       done();
     }, 500);
@@ -130,7 +129,7 @@ describe.skip('progress', () => {
     progress.render();
     const geometry = progress.plot.get('elements')[0];
     const shapes = geometry.getShapes();
-    expect(shapes[0].attr('fill')).to.be.equal('green');
+    expect(shapes[0].attr('fill')).toBe('green');
     progress.destroy();
   });
 });

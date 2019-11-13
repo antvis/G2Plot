@@ -1,7 +1,7 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { ElementOption } from '../../interface/config';
+import { ElementOption, timeIntervals } from '../../interface/config';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 
 export interface GroupBarViewConfig extends BarViewConfig {
@@ -11,16 +11,28 @@ export interface GroupBarViewConfig extends BarViewConfig {
 export interface GroupBarLayerConfig extends GroupBarViewConfig, LayerConfig {}
 
 export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
-  public static getDefaultOptions(): any {
+  public static getDefaultOptions(): Partial<GroupBarViewConfig> {
     return _.deepMix({}, super.getDefaultOptions(), {
+      xAxis: {
+        visible: true,
+        grid: {
+          visible: true,
+        },
+      },
+      yAxis: {
+        visible: true,
+        title: {
+          visible: false,
+        },
+      },
       label: {
-        visble: false,
+        visible: false,
         position: 'right',
         offset: 8,
         adjustColor: true,
       },
       legend: {
-        visble: true,
+        visible: true,
         position: 'right-top',
       },
     });

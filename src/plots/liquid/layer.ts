@@ -47,7 +47,6 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     const { value, indicator = 'normal' } = this.options;
     const { min = 0, max = 1, format = (d) => `${d}` } = this.options;
     const valueText = this.valueText(indicator, value, format, min, max);
-    console.log(valueText);
     const styleMix = this.getStyleMix(valueText);
     this.options.styleMix = styleMix;
     this.options.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];

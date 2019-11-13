@@ -1,8 +1,7 @@
-import { GroupColumn } from '../../src';
-import { expect } from 'chai';
+import { StackColumn } from '../../src';
 import { isFunction } from 'util';
 
-describe('GroupColomn plot', () => {
+describe.skip('StackColumn plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -105,31 +104,33 @@ describe('GroupColomn plot', () => {
   ];
 
   it('初始化以及销毁', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new StackColumn(canvasDiv, {
+      data,
       width: 600,
       height: 600,
-      data,
       xField: 'year',
       yField: 'value',
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
-      animation: false,
+      stackField: 'type',
+      label: {
+        visible: true,
+      },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    const plot = columnPlot.getLayer().plot;
     const intervalShape = plot.get('elements')[0];
     const shapes = intervalShape.get('shapeContainer').get('children');
-    expect(shapes.length).to.be.equal(18);
-    expect(intervalShape.get('groupScales')[0].field).to.be.equal('type');
-    expect(intervalShape.get('adjustOptions')[0].type).to.be.equal('dodge');
+    expect(shapes.length).toBe(18);
+    expect(intervalShape.get('groupScales')[0].field).toBe('type');
+    expect(intervalShape.get('adjustOptions')[0].type).toBe('stack');
     columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('color size and interval style', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new StackColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -138,22 +139,22 @@ describe('GroupColomn plot', () => {
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
+      stackField: 'type',
       columnSize: 7,
       color: ['red', 'yellow'],
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    const plot = columnPlot.getLayer().plot;
     const intervalEle = plot.get('elements')[0];
-    expect(intervalEle.get('color').values[0]).to.be.equal('red');
-    expect(intervalEle.get('color').values[1]).to.be.equal('yellow');
-    expect(intervalEle.get('size').values[0]).to.be.equal(7);
+    expect(intervalEle.get('color').values[0]).toBe('red');
+    expect(intervalEle.get('color').values[1]).toBe('yellow');
+    expect(intervalEle.get('size').values[0]).toBe(7);
     columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('color map', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new StackColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -162,24 +163,18 @@ describe('GroupColomn plot', () => {
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
+      stackField: 'type',
       columnSize: 7,
-      color: {
-        Lon: 'red',
-        Bor: 'yellow',
-      },
+      color: ['red', 'yellow'],
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const intervalEle = plot.get('elements')[0];
-
-    expect(isFunction(intervalEle.get('color').callback)).to.be.true;
+    const plot = columnPlot.getLayer().plot;
     columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 
   it('label', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new StackColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -188,9 +183,8 @@ describe('GroupColomn plot', () => {
       yAxis: {
         min: 0,
       },
-      groupField: 'type',
+      stackField: 'type',
       label: {
-        visible: true,
         formatter: (txt) => {
           return txt + 'dddd';
         },
@@ -203,8 +197,7 @@ describe('GroupColomn plot', () => {
     });
     columnPlot.render();
 
-    const plot = columnPlot.getLayer().view;
-    console.log(plot);
+    const plot = columnPlot.getLayer().plot;
     const labelGroup = plot
       .get('elements')[0]
       .get('container')
@@ -212,10 +205,10 @@ describe('GroupColomn plot', () => {
       .get('children')[0]
       .get('children');
     // const panelGroup = columnPlot.plot.get('panelRange');
-    expect(labelGroup.length).to.be.equal(18);
-    expect(labelGroup[0].attrs.fill).to.be.equal('red');
-    expect(labelGroup[0].attrs.text).to.be.include('dddd');
+    expect(labelGroup.length).toBe(18);
+    expect(labelGroup[0].attrs.fill).toBe('red');
+    expect(labelGroup[0].attrs.text).toInclude('dddd');
     columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
   });
 });

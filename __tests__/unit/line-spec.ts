@@ -1,5 +1,271 @@
 import { Line } from '../../src';
-import { expect } from 'chai';
+
+const data1 = [
+  {
+    year: '1991',
+    value: 3,
+  },
+  {
+    year: '1992',
+    value: 4,
+  },
+  {
+    year: '1993',
+    value: 3.5,
+  },
+  {
+    year: '1994',
+    value: 5,
+  },
+  {
+    year: '1995',
+    value: 4.9,
+  },
+  {
+    year: '1996',
+    value: 6,
+  },
+  {
+    year: '1997',
+    value: 7,
+  },
+  {
+    year: '1998',
+    value: 9,
+  },
+  {
+    year: '1999',
+    value: 13,
+  },
+];
+
+const data2 = [
+  {
+    date: '2018/8/1',
+    type: 'download',
+    value: 4623,
+  },
+  {
+    date: '2018/8/1',
+    type: 'register',
+    value: 2208,
+  },
+  {
+    date: '2018/8/1',
+    type: 'bill',
+    value: 182,
+  },
+  {
+    date: '2018/8/2',
+    type: 'download',
+    value: 6145,
+  },
+  {
+    date: '2018/8/2',
+    type: 'register',
+    value: 2016,
+  },
+  {
+    date: '2018/8/2',
+    type: 'bill',
+    value: 257,
+  },
+  {
+    date: '2018/8/3',
+    type: 'download',
+    value: 508,
+  },
+  {
+    date: '2018/8/3',
+    type: 'register',
+    value: 2916,
+  },
+  {
+    date: '2018/8/3',
+    type: 'bill',
+    value: 289,
+  },
+  {
+    date: '2018/8/4',
+    type: 'download',
+    value: 6268,
+  },
+  {
+    date: '2018/8/4',
+    type: 'register',
+    value: 4512,
+  },
+  {
+    date: '2018/8/4',
+    type: 'bill',
+    value: 428,
+  },
+  {
+    date: '2018/8/5',
+    type: 'download',
+    value: 6411,
+  },
+  {
+    date: '2018/8/5',
+    type: 'register',
+    value: 8281,
+  },
+  {
+    date: '2018/8/5',
+    type: 'bill',
+    value: 619,
+  },
+  {
+    date: '2018/8/6',
+    type: 'download',
+    value: 1890,
+  },
+  {
+    date: '2018/8/6',
+    type: 'register',
+    value: 2008,
+  },
+  {
+    date: '2018/8/6',
+    type: 'bill',
+    value: 87,
+  },
+  {
+    date: '2018/8/7',
+    type: 'download',
+    value: 4251,
+  },
+  {
+    date: '2018/8/7',
+    type: 'register',
+    value: 1963,
+  },
+  {
+    date: '2018/8/7',
+    type: 'bill',
+    value: 706,
+  },
+  {
+    date: '2018/8/8',
+    type: 'download',
+    value: 2978,
+  },
+  {
+    date: '2018/8/8',
+    type: 'register',
+    value: 2367,
+  },
+  {
+    date: '2018/8/8',
+    type: 'bill',
+    value: 387,
+  },
+  {
+    date: '2018/8/9',
+    type: 'download',
+    value: 3880,
+  },
+  {
+    date: '2018/8/9',
+    type: 'register',
+    value: 2956,
+  },
+  {
+    date: '2018/8/9',
+    type: 'bill',
+    value: 488,
+  },
+  {
+    date: '2018/8/10',
+    type: 'download',
+    value: 3606,
+  },
+  {
+    date: '2018/8/10',
+    type: 'register',
+    value: 678,
+  },
+  {
+    date: '2018/8/10',
+    type: 'bill',
+    value: 507,
+  },
+  {
+    date: '2018/8/11',
+    type: 'download',
+    value: 4311,
+  },
+  {
+    date: '2018/8/11',
+    type: 'register',
+    value: 3188,
+  },
+  {
+    date: '2018/8/11',
+    type: 'bill',
+    value: 548,
+  },
+  {
+    date: '2018/8/12',
+    type: 'download',
+    value: 4116,
+  },
+  {
+    date: '2018/8/12',
+    type: 'register',
+    value: 3491,
+  },
+  {
+    date: '2018/8/12',
+    type: 'bill',
+    value: 456,
+  },
+  {
+    date: '2018/8/13',
+    type: 'download',
+    value: 6419,
+  },
+  {
+    date: '2018/8/13',
+    type: 'register',
+    value: 2852,
+  },
+  {
+    date: '2018/8/13',
+    type: 'bill',
+    value: 689,
+  },
+  {
+    date: '2018/8/14',
+    type: 'download',
+    value: 1643,
+  },
+  {
+    date: '2018/8/14',
+    type: 'register',
+    value: 4788,
+  },
+  {
+    date: '2018/8/14',
+    type: 'bill',
+    value: 280,
+  },
+  {
+    date: '2018/8/15',
+    type: 'download',
+    value: 445,
+  },
+  {
+    date: '2018/8/15',
+    type: 'register',
+    value: 4319,
+  },
+  {
+    date: '2018/8/15',
+    type: 'bill',
+    value: 176,
+  },
+];
 
 describe.skip('Line plot', () => {
   const canvasDiv = document.createElement('div');
@@ -9,273 +275,6 @@ describe.skip('Line plot', () => {
   canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
-
-  const data1 = [
-    {
-      year: '1991',
-      value: 3,
-    },
-    {
-      year: '1992',
-      value: 4,
-    },
-    {
-      year: '1993',
-      value: 3.5,
-    },
-    {
-      year: '1994',
-      value: 5,
-    },
-    {
-      year: '1995',
-      value: 4.9,
-    },
-    {
-      year: '1996',
-      value: 6,
-    },
-    {
-      year: '1997',
-      value: 7,
-    },
-    {
-      year: '1998',
-      value: 9,
-    },
-    {
-      year: '1999',
-      value: 13,
-    },
-  ];
-
-  const data2 = [
-    {
-      date: '2018/8/1',
-      type: 'download',
-      value: 4623,
-    },
-    {
-      date: '2018/8/1',
-      type: 'register',
-      value: 2208,
-    },
-    {
-      date: '2018/8/1',
-      type: 'bill',
-      value: 182,
-    },
-    {
-      date: '2018/8/2',
-      type: 'download',
-      value: 6145,
-    },
-    {
-      date: '2018/8/2',
-      type: 'register',
-      value: 2016,
-    },
-    {
-      date: '2018/8/2',
-      type: 'bill',
-      value: 257,
-    },
-    {
-      date: '2018/8/3',
-      type: 'download',
-      value: 508,
-    },
-    {
-      date: '2018/8/3',
-      type: 'register',
-      value: 2916,
-    },
-    {
-      date: '2018/8/3',
-      type: 'bill',
-      value: 289,
-    },
-    {
-      date: '2018/8/4',
-      type: 'download',
-      value: 6268,
-    },
-    {
-      date: '2018/8/4',
-      type: 'register',
-      value: 4512,
-    },
-    {
-      date: '2018/8/4',
-      type: 'bill',
-      value: 428,
-    },
-    {
-      date: '2018/8/5',
-      type: 'download',
-      value: 6411,
-    },
-    {
-      date: '2018/8/5',
-      type: 'register',
-      value: 8281,
-    },
-    {
-      date: '2018/8/5',
-      type: 'bill',
-      value: 619,
-    },
-    {
-      date: '2018/8/6',
-      type: 'download',
-      value: 1890,
-    },
-    {
-      date: '2018/8/6',
-      type: 'register',
-      value: 2008,
-    },
-    {
-      date: '2018/8/6',
-      type: 'bill',
-      value: 87,
-    },
-    {
-      date: '2018/8/7',
-      type: 'download',
-      value: 4251,
-    },
-    {
-      date: '2018/8/7',
-      type: 'register',
-      value: 1963,
-    },
-    {
-      date: '2018/8/7',
-      type: 'bill',
-      value: 706,
-    },
-    {
-      date: '2018/8/8',
-      type: 'download',
-      value: 2978,
-    },
-    {
-      date: '2018/8/8',
-      type: 'register',
-      value: 2367,
-    },
-    {
-      date: '2018/8/8',
-      type: 'bill',
-      value: 387,
-    },
-    {
-      date: '2018/8/9',
-      type: 'download',
-      value: 3880,
-    },
-    {
-      date: '2018/8/9',
-      type: 'register',
-      value: 2956,
-    },
-    {
-      date: '2018/8/9',
-      type: 'bill',
-      value: 488,
-    },
-    {
-      date: '2018/8/10',
-      type: 'download',
-      value: 3606,
-    },
-    {
-      date: '2018/8/10',
-      type: 'register',
-      value: 678,
-    },
-    {
-      date: '2018/8/10',
-      type: 'bill',
-      value: 507,
-    },
-    {
-      date: '2018/8/11',
-      type: 'download',
-      value: 4311,
-    },
-    {
-      date: '2018/8/11',
-      type: 'register',
-      value: 3188,
-    },
-    {
-      date: '2018/8/11',
-      type: 'bill',
-      value: 548,
-    },
-    {
-      date: '2018/8/12',
-      type: 'download',
-      value: 4116,
-    },
-    {
-      date: '2018/8/12',
-      type: 'register',
-      value: 3491,
-    },
-    {
-      date: '2018/8/12',
-      type: 'bill',
-      value: 456,
-    },
-    {
-      date: '2018/8/13',
-      type: 'download',
-      value: 6419,
-    },
-    {
-      date: '2018/8/13',
-      type: 'register',
-      value: 2852,
-    },
-    {
-      date: '2018/8/13',
-      type: 'bill',
-      value: 689,
-    },
-    {
-      date: '2018/8/14',
-      type: 'download',
-      value: 1643,
-    },
-    {
-      date: '2018/8/14',
-      type: 'register',
-      value: 4788,
-    },
-    {
-      date: '2018/8/14',
-      type: 'bill',
-      value: 280,
-    },
-    {
-      date: '2018/8/15',
-      type: 'download',
-      value: 445,
-    },
-    {
-      date: '2018/8/15',
-      type: 'register',
-      value: 4319,
-    },
-    {
-      date: '2018/8/15',
-      type: 'bill',
-      value: 176,
-    },
-  ];
 
   it('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
@@ -288,11 +287,11 @@ describe.skip('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const positionField = plot.get('elements')[0].get('position').fields;
-    expect(linePlot).to.be.instanceOf(Line);
-    expect(positionField[0]).to.be.equal('year');
-    expect(positionField[1]).to.be.equal('value');
+    expect(linePlot).toBeInstanceOf(Line);
+    expect(positionField[0]).toBe('year');
+    expect(positionField[1]).toBe('value');
     linePlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);
   });
 
@@ -307,7 +306,7 @@ describe.skip('Line plot', () => {
     });
     const plot = linePlot.getLayer().plot;
     const elementShape = plot.config.elements[0].shape.values[0];
-    expect(elementShape).to.be.equal('smooth');
+    expect(elementShape).toBe('smooth');
     linePlot.destroy();
   });
 
@@ -323,7 +322,7 @@ describe.skip('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const lineSize = plot.get('elements')[0].get('size').values[0];
-    expect(lineSize).to.be.equal(5);
+    expect(lineSize).toBe(5);
     linePlot.destroy();
   });
 
@@ -348,11 +347,11 @@ describe.skip('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const elements = plot.get('elements');
-    expect(elements[1].get('type')).to.be.equal('point');
-    expect(elements[1].get('size').values[0]).to.be.equal(5);
-    expect(elements[1].get('color').values[0]).to.be.equal('red');
-    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('pink');
-    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
+    expect(elements[1].get('type')).toBe('point');
+    expect(elements[1].get('size').values[0]).toBe(5);
+    expect(elements[1].get('color').values[0]).toBe('red');
+    expect(elements[1].get('style').cfg.fillStyle).toBe('pink');
+    expect(elements[1].get('style').cfg.strokeStyle).toBe('black');
     linePlot.destroy();
   });
 
@@ -386,13 +385,13 @@ describe.skip('Line plot', () => {
     const axis = plot.get('axisController').axes[0];
     // formatter
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.equal('a');
+    expect(labels[0].text).toBe('a');
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
     linePlot.destroy();
   });
 
@@ -425,14 +424,14 @@ describe.skip('Line plot', () => {
     const axis = plot.get('axisController').axes[1];
     // formatter
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.equal('a');
+    expect(labels[0].text).toBe('a');
     // style
     const line = axis.get('line');
 
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
     linePlot.destroy();
   });
 
@@ -461,8 +460,8 @@ describe.skip('Line plot', () => {
       .get('children')[1]
       .get('children')[0]
       .get('children');
-    expect(labelGroup[0].attr('text')).to.be.equal('test');
-    expect(labelGroup[0].attr('fill')).to.be.equal('red');
+    expect(labelGroup[0].attr('text')).toBe('test');
+    expect(labelGroup[0].attr('fill')).toBe('red');
     linePlot.destroy();
   });
 
@@ -483,10 +482,10 @@ describe.skip('Line plot', () => {
     });
     linePlot.render();
     const padding = linePlot.plot.get('padding');
-    expect(padding[0] >= 15).to.be.true;
-    expect(padding[1] >= 20).to.be.true;
-    expect(padding[2] >= 20).to.be.true;
-    expect(padding[3] >= 20).to.be.true;
+    expect(padding[0] >= 15).toBe(true);
+    expect(padding[1] >= 20).toBe(true);
+    expect(padding[2] >= 20).toBe(true);
+    expect(padding[3] >= 20).toBe(true);
     linePlot.destroy();
   });
 
@@ -513,10 +512,10 @@ describe.skip('Line plot', () => {
     const plot = linePlot.getLayer().plot;
     const title = plot.title.shape;
     const description = plot.description.shape;
-    expect(title.attr('text')).to.be.equal('title');
-    expect(title.attr('fill')).to.be.equal('red');
-    expect(description.attr('text')).to.be.equal('description');
-    expect(description.attr('fill')).to.be.equal('red');
+    expect(title.attr('text')).toBe('title');
+    expect(title.attr('fill')).toBe('red');
+    expect(description.attr('text')).toBe('description');
+    expect(description.attr('fill')).toBe('red');
     linePlot.destroy();
   });
 
@@ -547,12 +546,12 @@ describe.skip('Line plot', () => {
       .get('elements')[0]
       .get('shapeContainer')
       .get('children');
-    expect(shapes.length).to.be.equal(3);
-    expect(elements[1].get('type')).to.be.equal('point');
-    expect(elements[1].get('size').values[0]).to.be.equal(5);
-    expect(elements[1].get('color').values[0]).to.be.equal('red');
-    expect(elements[1].get('style').cfg.fillStyle).to.be.equal('pink');
-    expect(elements[1].get('style').cfg.strokeStyle).to.be.equal('black');
+    expect(shapes.length).toBe(3);
+    expect(elements[1].get('type')).toBe('point');
+    expect(elements[1].get('size').values[0]).toBe(5);
+    expect(elements[1].get('color').values[0]).toBe('red');
+    expect(elements[1].get('style').cfg.fillStyle).toBe('pink');
+    expect(elements[1].get('style').cfg.strokeStyle).toBe('black');
     linePlot.destroy();
   });
 
@@ -578,7 +577,41 @@ describe.skip('Line plot', () => {
       .get('children')[0]
       .get('children');
     const panelGroup = linePlot.plot.get('panelRange');
-    expect(labelGroup[0].attr('x') > panelGroup.maxX).to.be.true;
+    expect(labelGroup[0].attr('x') > panelGroup.maxX).toBe(true);
+    linePlot.destroy();
+  });
+});
+
+describe('Line plot', () => {
+  const canvasDiv = document.createElement('div');
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '600px';
+  canvasDiv.style.left = '30px';
+  canvasDiv.style.top = '30px';
+  canvasDiv.id = 'canvas1';
+  document.body.appendChild(canvasDiv);
+
+  it('line defaultCfg', () => {
+    const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
+      padding: 'auto',
+      data: data2,
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      label: {
+        type: 'line',
+      },
+    });
+
+    linePlot.render();
+
+    const plot = linePlot.getLayer().getPlot();
+    const legend = plot.get('legendController').legends[0];
+
+    expect(legend.get('position')).toBe('top-left');
+    expect(legend.get('wordSpacing')).toBe(4);
     linePlot.destroy();
   });
 });

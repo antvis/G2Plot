@@ -1,7 +1,6 @@
-import { Column } from '../../src';
-import { expect } from 'chai';
+import { Bar } from '../../src';
 
-describe('Column plot', () => {
+describe('Bar plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -49,41 +48,39 @@ describe('Column plot', () => {
     },
   ];
 
-  it.skip('初始化以及销毁', () => {
-    const columnPlot = new Column(canvasDiv, {
+  it('初始化以及销毁', () => {
+    const barPlot = new Bar(canvasDiv, {
+      width: 600,
+      height: 600,
       padding: 'auto',
       data,
-      xField: 'year',
-      yField: 'value',
+      xField: 'value',
+      yField: 'year',
       xAxis: {
-        // visible: true,
+        visible: true,
       },
       yAxis: {
-        // visible: true,
+        visible: true,
       },
-      title: {
-        text: '我是title',
-      },
-      description: {
-        text: '描述描述，柱状图，柱状图',
-      },
-      animation: true,
+      animation: false,
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    barPlot.render();
+    const plot = barPlot.getLayer().view;
     const positionField = plot.get('elements')[0].get('position').fields;
     const isTransposed = plot.get('coord').isTransposed;
     const axes = plot.get('axisController').axes;
 
-    expect(columnPlot).to.be.instanceOf(Column);
-    expect(positionField[0]).to.be.equal('year');
-    expect(positionField[1]).to.be.equal('value');
-    expect(isTransposed).to.be.equal(false);
-    expect(axes.length).to.be.equal(2);
+    expect(barPlot).toBeInstanceOf(Bar);
+    expect(positionField[0]).toBe('year');
+    expect(positionField[1]).toBe('value');
+    expect(isTransposed).toBe(true);
+    expect(axes.length).toBe(2);
+    barPlot.destroy();
+    expect(plot.destroyed).toBe(true);
   });
 
-  it('柱子样式配置', () => {
-    const columnPlot = new Column(canvasDiv, {
+  it.skip('柱子样式配置', () => {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
@@ -97,30 +94,29 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
-      columnSize: 20,
-      columnStyle: {
+      barSize: 20,
+      barStyle: {
         stroke: 'black',
         lineWidth: 2,
       },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const columnEle = plot.get('elements')[0];
-    expect(columnEle.get('color').values[0]).to.be.equal('red');
-    expect(columnEle.get('style').cfg.stroke).to.be.equal('black');
-    expect(columnEle.get('size').values[0]).to.be.equal(20);
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    barPlot.render();
+    const barEle = barPlot.plot.get('elements')[0];
+    expect(barEle.get('color').values[0]).toBe('red');
+    expect(barEle.get('style').cfg.stroke).toBe('black');
+    expect(barEle.get('size').values[0]).toBe(20);
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).toBe(true);
   });
 
-  it('柱子颜色不一样', () => {
-    const columnPlot = new Column(canvasDiv, {
+  it.skip('每个柱子颜色不一样', () => {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
       data,
-      xField: 'year',
-      yField: 'value',
+      xField: 'value',
+      yField: 'year',
       color: ['red', 'blue', 'green', 'yellow', 'orange', 'gray', 'purple', 'brown'],
       xAxis: {
         visible: true,
@@ -128,21 +124,17 @@ describe('Column plot', () => {
       yAxis: {
         visible: true,
       },
-      legend: {
-        visible: false,
-      },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const columnEle = plot.get('elements')[0];
-    expect(columnEle.get('color').values[0]).to.be.equal('red');
-    expect(columnEle.get('color').values[1]).to.be.equal('blue');
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    barPlot.render();
+    const barEle = barPlot.plot.get('elements')[0];
+    expect(barEle.get('color').values[0]).toBe('red');
+    expect(barEle.get('color').values[1]).toBe('blue');
+    barPlot.destroy();
+    expect(barPlot.plot.destroyed).toBe(true);
   });
 
   it('隐藏两个坐标轴', () => {
-    const columnPlot = new Column(canvasDiv, {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
@@ -156,16 +148,16 @@ describe('Column plot', () => {
         visible: false,
       },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    barPlot.render();
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
-    expect(axes.length).to.be.equal(0);
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(axes.length).toBe(0);
+    barPlot.destroy();
+    expect(plot.destroyed).toBe(true);
   });
 
   it('x轴 样式', () => {
-    const columnPlot = new Column(canvasDiv, {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 80,
@@ -207,28 +199,27 @@ describe('Column plot', () => {
         visible: false,
       },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    barPlot.render();
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
-    expect(axes.length).to.be.equal(1);
+    expect(axes.length).toBe(1);
     const axis = axes[0];
-    expect(axis.get('title').text).to.be.include('xxxx');
-
-    expect(axis.get('title').textStyle.fill).to.be.equal('red');
+    expect(axis.get('title').text).toInclude('xxxx');
+    expect(axis.get('title').textStyle.fill).toBe('red');
     const labels = axis.get('labelItems');
-    expect(labels[0].text).to.be.include('abc');
+    expect(labels[0].text).toInclude('abc');
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
+    barPlot.destroy();
+    expect(plot.destroyed).toBe(true);
   });
 
   it('x轴 隐藏 grid line tick label', () => {
-    const columnPlot = new Column(canvasDiv, {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
@@ -236,8 +227,10 @@ describe('Column plot', () => {
       xField: 'value',
       yField: 'year',
       xAxis: {
+        min: 5,
         nice: false,
         visible: true,
+        tickCount: 5,
         line: {
           visible: false,
           stroke: 'red',
@@ -252,22 +245,22 @@ describe('Column plot', () => {
         visible: false,
       },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    barPlot.render();
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
-    expect(axes.length).to.be.equal(1);
+    expect(axes.length).toBe(1);
     const axis = axes[0];
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line).to.be.equal(null);
-    expect(tickLine).to.be.equal(null);
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(line).toBe(null);
+    expect(tickLine).toBe(null);
+    barPlot.destroy();
+    expect(plot.destroyed).toBe(true);
   });
 
   it('y轴 样式', () => {
-    const columnPlot = new Column(canvasDiv, {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
@@ -291,7 +284,7 @@ describe('Column plot', () => {
         },
         title: {
           visible: true,
-          text: 'xxxx',
+          // text: 'xxxx',
           style: {
             fontSize: 30,
             fill: 'red',
@@ -312,27 +305,27 @@ describe('Column plot', () => {
         visible: false,
       },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    barPlot.render();
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
-    expect(axes.length).to.be.equal(1);
+    expect(axes.length).toBe(1);
     const axis = axes[0];
     const labels = axis.get('labelItems');
-    expect(axis.get('title').text).to.be.include('xxxx');
-    expect(axis.get('title').textStyle.fill).to.be.equal('red');
-    expect(labels[0].text).to.be.include('abc');
+    expect(axis.get('title').text).toInclude('year');
+    expect(axis.get('title').textStyle.fill).toBe('red');
+    expect(labels[0].text).toInclude('abc');
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line.stroke).to.be.equal('red');
-    expect(tickLine.stroke).to.be.equal('red');
-    expect(labels[0].textStyle.fill).to.be.equal('red');
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(line.stroke).toBe('red');
+    expect(tickLine.stroke).toBe('red');
+    expect(labels[0].textStyle.fill).toBe('red');
+    barPlot.destroy();
+    expect(plot.destroyed).toBe(true);
   });
 
   it('y轴 隐藏 grid line tick label', () => {
-    const columnPlot = new Column(canvasDiv, {
+    const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
@@ -357,17 +350,17 @@ describe('Column plot', () => {
         visible: false,
       },
     });
-    columnPlot.render();
-    const plot = columnPlot.getLayer().view;
+    barPlot.render();
+    const plot = barPlot.getLayer().view;
     const axes = plot.get('axisController').axes;
-    expect(axes.length).to.be.equal(1);
+    expect(axes.length).toBe(1);
     const axis = axes[0];
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
-    expect(line).to.be.equal(null);
-    expect(tickLine).to.be.equal(null);
-    columnPlot.destroy();
-    expect(plot.destroyed).to.be.true;
+    expect(line).toBe(null);
+    expect(tickLine).toBe(null);
+    barPlot.destroy();
+    expect(plot.destroyed).toBe(true);
   });
 });

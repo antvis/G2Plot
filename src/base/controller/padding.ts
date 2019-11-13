@@ -49,6 +49,7 @@ export default class PaddingController {
     this.plot.updateConfig({
       padding,
     });
+    this.plot.render();
   }
 
   public processOuterPadding() {

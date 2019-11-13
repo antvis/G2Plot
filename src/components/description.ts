@@ -1,24 +1,15 @@
 import { BBox, Canvas, Group, Text } from '@antv/g';
 import * as _ from '@antv/util';
+import { breakText } from '../util/common';
 
-/**
- * 为字符串添加换行符
- * @param source - 字符串数组 ['a', 'b', 'c']
- * @param breaks - 要添加换行的index
- *
- * @example
- * ```js
- * breakText(['a','b','c'], [1])
- *
- * // a\nbc
- * ```
- */
-function breakText(source: string[], breaks: number[]): string {
-  const result = [...source];
-  breaks.forEach((pos, index) => {
-    result.splice(pos + index, 0, '\n');
-  });
-  return result.join('');
+interface TextConfig {
+  leftMargin: number;
+  topMargin: number;
+  text: string;
+  style: any;
+  wrapperWidth: number;
+  container: Canvas | Group;
+  theme: any;
 }
 
 /**
@@ -29,16 +20,14 @@ export default class TextDescription {
   public shape: Text;
   public position: string = 'top';
   private container: Canvas | Group;
-  private theme: any;
-  private alignWithAxis: boolean;
   private topMargin: number;
   private leftMargin: number;
   private wrapperWidth: number;
   private text: string;
   private style: any;
 
-  constructor(cfg) {
-    _.assign(this, cfg);
+  constructor(cfg: TextConfig) {
+    _.assign(this as any, cfg);
     this._init();
   }
 
@@ -62,7 +51,7 @@ export default class TextDescription {
   }
 
   private _init() {
-    const content = this._textWrapper(this.wrapperWidth, this.style);
+    const content = this._textWrapper();
     this.shape = this.container.addShape('text', {
       attrs: _.mix(
         {
@@ -79,7 +68,9 @@ export default class TextDescription {
    * 当text过长时，默认换行
    * 1. 注意初始text带换行符的场景
    */
-  private _textWrapper(width: number, style) {
+  private _textWrapper() {
+    const width = this.wrapperWidth;
+    const style = this.style;
     const textContent: string = this.text;
     const tShape = new Text({
       attrs: {
@@ -101,6 +92,7 @@ export default class TextDescription {
         const textWidth = Math.floor(tShape.measureText());
         currentWidth += textWidth;
         if (currentWidth > width) {
+          // 如果是第一个字符就大于宽度不做任何换行处理
           if (i === 0) {
             break;
           }

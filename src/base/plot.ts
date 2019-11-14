@@ -1,11 +1,12 @@
-import * as G from '@antv/g';
+import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
+import ResizeObserver from 'resize-observer-polyfill';
 import { RecursivePartial } from '../interface/types';
+import { getGlobalTheme } from '../theme';
 import StateManager from '../util/state-manager';
-import CanvasController from './controller/canvas';
 import { getPlotType } from './global';
 import Layer from './layer';
-import ViewLayer, { ViewConfig } from './view-layer';
+import ViewLayer  from './view-layer';
 
 export interface PlotConfig {
   forceFit?: boolean;
@@ -21,29 +22,59 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
   public forceFit: boolean;
   public renderer: string;
   public pixelRatio: number;
-  public canvas: G.Canvas;
+  public canvas: Canvas;
   public destroyed: boolean;
   protected layers: Array<Layer<any>>;
-  private canvasController: CanvasController;
+  // private canvasController: CanvasController;
   private containerDOM: HTMLElement;
+  private resizeObserver: ResizeObserver;
+
+  /**
+   * when the container size changed, trigger it after 300ms.
+   */
+  private onResize = _.debounce(() => {
+    if (this.destroyed) {
+      return;
+    }
+    const { width, height } = this.getCanvasSize();
+    /** height measure不准导致重复 forceFit */
+    if (this.width === width && this.height === height) {
+      return;
+    }
+    // change canvas size
+    this.canvas.changeSize(width, height);
+    // update layer width height
+    this.updateConfig({ width, height });
+
+    this.render();
+  }, 300);
 
   constructor(container: HTMLElement, props: T) {
     this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
     this.forceFit = !_.isNil(props.forceFit) ? props.forceFit : _.isNil(props.width) && _.isNil(props.height);
     this.renderer = props.renderer || 'canvas';
     this.pixelRatio = props.pixelRatio || null;
+
+    // calculate initial width height
     this.width = props.width;
     this.height = props.height;
-    this.canvasController = new CanvasController({
-      containerDOM: this.containerDOM,
-      plot: this,
-    });
-    /** update layer properties */
-    this.width = this.canvasController.width;
-    this.height = this.canvasController.height;
-    this.canvas = this.canvasController.canvas;
+    const { width, height } = this.getCanvasSize();
+    this.width = width;
+    this.height = height;
+
     this.layers = [];
     this.destroyed = false;
+
+    this.init(props);
+  }
+
+  /**
+   * init
+   * @param props
+   */
+  public init(props) {
+    this.createGCanvas();
+    this.bindForceFit();
 
     this.createLayers(props);
   }
@@ -53,16 +84,23 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     this.eachLayer((layer) => {
       layer.destroy();
     });
-    this.canvasController.destroy();
+    // this.canvasController.destroy();
     this.layers = [];
     this.destroyed = true;
+
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.containerDOM);
+      this.resizeObserver.disconnect();
+      this.containerDOM = null;
+    }
+    this.canvas.destroy();
   }
 
   /**
    * 重新绘制图形
    */
   public repaint(): void {
-    this.canvasController.canvas.draw();
+    this.canvas.draw();
   }
 
   public updateConfig(config: RecursivePartial<T>, all: boolean = false) {
@@ -85,8 +123,6 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     if (config.height) {
       this.height = config.height as number;
     }
-
-    this.canvasController.updateCanvasSize();
   }
 
   public changeData(data: any[], all: boolean = false) {
@@ -188,16 +224,56 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     if (props.layers) {
       // TODO: combo plot
     } else if (props.type) {
-      const viewLayerCtr = getPlotType(props.type);
+      const ViewLayerCtor = getPlotType(props.type);
       const viewLayerProps: T = _.deepMix({}, props, {
-        canvas: this.canvasController.canvas,
+        canvas: this.canvas,
         x: 0,
         y: 0,
         width: this.width,
         height: this.height,
       });
-      const viewLayer = new viewLayerCtr(viewLayerProps);
+      const viewLayer = new ViewLayerCtor(viewLayerProps);
       this.addLayer(viewLayer);
     }
+  }
+  /**
+   * create G.Canvas
+   */
+  private createGCanvas() {
+    /** 创建canvas */
+    const { renderer, pixelRatio } = this;
+    const { width, height } = this.getCanvasSize();
+    this.canvas = new Canvas({
+      containerDOM: this.containerDOM,
+      width,
+      height,
+      renderer,
+      pixelRatio,
+    });
+  }
+
+  private bindForceFit() {
+    if (this.forceFit) {
+      // TODO 目前会导致多次渲染，先暂时关闭
+      // this.resizeObserver = new ResizeObserver(this.onResize);
+      // this.resizeObserver.observe(this.containerDOM);
+    }
+  }
+
+  /**
+   * get canvas size from props.
+   * @returns the width, height of canvas
+   */
+  private getCanvasSize() {
+    const theme = getGlobalTheme();
+    let width = this.width ? this.width : theme.width;
+    let height = this.height ? this.height : theme.height;
+
+    // if forceFit = true, then use the container's size as default.
+    if (this.forceFit) {
+      width = this.containerDOM.offsetWidth ? this.containerDOM.offsetWidth : width;
+      height = this.containerDOM.offsetHeight ? this.containerDOM.offsetHeight : height;
+    }
+    return { width, height };
   }
 }

@@ -54,6 +54,12 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   constructor(props: T) {
     super();
     const options = this.getOptions(props);
+    this.processOptions(options);
+
+    this.container = new G.Group();
+  }
+
+  public processOptions(options) {
     this.id = options.id;
     this.x = options.x;
     this.y = options.y;
@@ -61,7 +67,6 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.height = options.height;
     this.canvas = options.canvas;
     this.parent = options.parent;
-    this.container = new G.Group();
   }
 
   public beforeInit() {}

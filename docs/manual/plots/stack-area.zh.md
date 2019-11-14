@@ -26,6 +26,17 @@ work in progress
 
 ### 特殊配置
 
+### label
+
+**optional**
+
+`visible: boolean`    图形标签是否显示<br />
+`type: 'area' | 'point' | 'line'`  图形标签类型，默认为 area
+`formatter: function`  对 label 的显示文本进行格式化。<br/>
+`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。<br/>
+`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object` as br    配置 label 文本
+
 #### stackField: string
 
 **required**

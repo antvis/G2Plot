@@ -139,7 +139,10 @@ export default class ConnectedArea {
       });
       const line = this.container.addShape('path', {
         attrs: _.mix({} as any, lineStyle, {
-          path: [['M', current[2].x, current[2].y], ['L', next[1].x, next[1].y]],
+          path: [
+            ['M', current[2].x, current[2].y],
+            ['L', next[1].x, next[1].y],
+          ],
           // stroke: shapes[i].attr('fill'),
         }),
         name: 'connectedArea',

@@ -22,4 +22,4 @@ $.get('data/oil.json', function(data) {
 });
 
 // 作为模块 避免变量冲突
-export {}
+export {};

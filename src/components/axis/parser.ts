@@ -1,7 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { ViewLayer } from '../..';
-import { isTextUsable } from '../../util/common';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {

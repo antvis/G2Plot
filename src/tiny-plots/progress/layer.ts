@@ -105,7 +105,10 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   protected processData() {
     const props = this.options;
-    const data = [{ type: 'current', value: props.percent }, { type: 'rest', value: 1.0 - props.percent }];
+    const data = [
+      { type: 'current', value: props.percent },
+      { type: 'rest', value: 1.0 - props.percent },
+    ];
     return data;
   }
 

@@ -4,7 +4,7 @@ import BubbleLayer, { BubbleViewConfig } from './layer';
 
 export interface BubbleConfig extends BubbleViewConfig, PlotConfig {}
 
-export default class Bubble<T extends BubbleConfig = BubbleConfig> extends BasePlot<T> {
+export default class Bubble extends BasePlot<BubbleConfig> {
   public static getDefaultOptions: typeof BubbleLayer.getDefaultOptions = BubbleLayer.getDefaultOptions;
 
   public createLayers(props) {

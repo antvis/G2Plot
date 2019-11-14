@@ -1,21 +1,23 @@
 import { Line } from '@antv/g2plot';
 
-fetch('../data/fireworks-sales.json')
+fetch('../data/11-11.json')
   .then((res) => res.json())
   .then((data) => {
-    const linePlot = new Line(document.getElementById('container'), {
+    const linePlot = new Line('container', {
       title: {
         visible: true,
-        text: '单折线图的基础用法',
+        text: '双十一历年成交额',
       },
       forceFit: true,
       data,
       padding: 'auto',
-      xField: 'Date',
-      yField: 'scales',
-      xAxis: {
-        type: 'dateTime',
-        tickCount: 5,
+      xField: 'year',
+      yField: 'sale',
+      yAxis: {
+        title: {
+          visible: true,
+          text: '双十一历年成交额(亿)',
+        },
       },
     });
 

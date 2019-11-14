@@ -13,12 +13,6 @@ fetch('../data/11-11.json')
       padding: 'auto',
       xField: 'year',
       yField: 'sale',
-      yAxis: {
-        title: {
-          visible: true,
-          text: '双十一历年成交额(亿)',
-        },
-      },
     });
 
     linePlot.render();

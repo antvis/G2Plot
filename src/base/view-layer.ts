@@ -247,7 +247,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     super.render();
     const { data } = this.options;
     if (!_.isEmpty(data)) {
-      this.view.repaint();
+      this.view.render();
     }
   }
 

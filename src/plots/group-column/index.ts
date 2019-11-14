@@ -1,10 +1,10 @@
 import * as _ from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import GroupColumnLayer, { GroupColumnLayerConfig } from './layer';
+import GroupColumnLayer, { GroupColumnViewConfig } from './layer';
 
-export interface GroupColumnConfig extends GroupColumnLayerConfig, PlotConfig {}
+export interface GroupColumnConfig extends GroupColumnViewConfig, PlotConfig {}
 
-export default class GroupColumn<T extends GroupColumnConfig = GroupColumnConfig> extends BasePlot<T> {
+export default class GroupColumn extends BasePlot<GroupColumnConfig> {
   public static getDefaultOptions: typeof GroupColumnLayer.getDefaultOptions = GroupColumnLayer.getDefaultOptions;
 
   public createLayers(props) {

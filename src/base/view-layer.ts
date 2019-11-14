@@ -264,6 +264,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       cfg.padding = 'auto';
     }
     this.options = _.deepMix({}, this.options, cfg);
+    this.processOptions(this.options);
   }
 
   public changeData(data: object[]): void {

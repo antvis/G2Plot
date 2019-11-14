@@ -4,7 +4,7 @@ import RadarLayer, { RadarViewConfig } from './layer';
 
 export interface RadarConfig extends RadarViewConfig, PlotConfig {}
 
-export default class Radar<T extends RadarConfig = RadarConfig> extends BasePlot<T> {
+export default class Radar extends BasePlot<RadarConfig> {
   public static getDefaultOptions: typeof RadarLayer.getDefaultOptions = RadarLayer.getDefaultOptions;
 
   public createLayers(props) {

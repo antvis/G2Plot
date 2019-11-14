@@ -5,7 +5,7 @@ import Layer from '../base/layer';
 import Plot, { PlotConfig } from '../base/plot';
 import ViewLayer from '../base/view-layer';
 import '../index';
-import { createLegend, getColorConfig, getLegendData, mergeLegendData } from './util';
+import { createAxis, createLegend, getAxisData, getColorConfig, getLegendData, mergeAxis, mergeLegendData } from './util';
 import { getOverlappingPadding } from './util/padding';
 
 
@@ -19,6 +19,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     protected topLayer: Layer;
     protected backLayer: Layer;
     protected legendInfo: any[];
+    protected axisInfo: any[];
     protected legendContainer: Group;
     protected paddingComponents: any[];
 
@@ -29,6 +30,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
 
     protected createLayers(props: T & { layers?: any }) {
         this.legendInfo = [];
+        this.axisInfo = [];
         this.paddingComponents = [];
 
         this.isOverlapped = this.detectOverlapping(props.layers);
@@ -55,6 +57,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 },overlapConfig);
                 const viewLayer = new viewLayerCtr(viewLayerProps);
                 viewLayer.render();
+                this.axisInfo.push(...getAxisData(viewLayer,viewLayerProps));
                 this.legendInfo.push(...getLegendData(viewLayer,viewLayerProps));
                 this.addLayer(viewLayer);
             });
@@ -68,6 +71,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 height: this.height
             });
             const legend = this.overlappingLegend();
+            this.overlappingAxis();
             this.paddingComponents.push(legend);
             this.overlappingLayout();
         }
@@ -130,13 +134,18 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         return createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
     }
 
+    protected overlappingAxis(){
+        const xAxis = mergeAxis(this.axisInfo,'x');
+        const yAxis = mergeAxis(this.axisInfo,'y');
+    }
+
     protected overlappingLayout(){
         const padding = getOverlappingPadding(this.layers[0],this.paddingComponents);
         _.each(this.layers,(layer)=>{
-            layer.updateConfig({
+            /* layer.updateConfig({
                 padding
             });
-            layer.render();
+            layer.render(); */
         });
     }
 

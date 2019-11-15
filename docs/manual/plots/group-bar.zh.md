@@ -11,7 +11,7 @@ order: 0
 
 ## 数据类型
 
-分组柱状图适合的数据类型为两个**分类字段**(分类字段、分组字段)和一个**连续字段**(数值)。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
+分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
 
 ```typescript
 const data = [
@@ -96,7 +96,7 @@ const data = [
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 #### xField: string
 

@@ -25,13 +25,13 @@ const data = [
 
 ```typescript
 const data = [
-  type:'a',mark:'top',value: 100,
-  type:'b',mark:'top',value:60,
-  type:'c',mark:'top',value: 30,
-  type:'a',mark:'bottom',value: 100,
-  type:'b',mark:'bottom',value:60,
-  type:'c',mark:'bottom',value: 30,
- ];
+  { type: 'a', mark: 'top', value: 100 },
+  { type: 'b', mark: 'top', value: 60 },
+  { type: 'c', mark: 'top', value: 30 },
+  { type: 'a', mark: 'bottom', value: 100 },
+  { type: 'b', mark: 'bottom', value: 60 },
+  { type: 'c', mark: 'bottom', value: 30 },
+];
 ```
 
 在进行图表绘制的时候，分类字段将映射到圆周上的角度，连续字段映射到半径长度。
@@ -72,7 +72,7 @@ const data = [
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 ### angleField: string
 

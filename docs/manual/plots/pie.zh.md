@@ -69,19 +69,19 @@ const data = [
 
 **required**
 
-数据源为对象集合，例如： [{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 ### radius: number
 
 **optional**
 
-饼图的半径，原点为画布中心。配置值域为[0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。/>默认值为 0.8, 即 width / as br 2 \* 0.8。
+饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。/>默认值为 0.8, 即 width / as br 2 \* 0.8。
 
 ### angleField: string
 
 **required**
 
-扇形切片大小(弧度)所对应的数据字段名。
+扇形切片大小（弧度）所对应的数据字段名。
 
 ### colorField: string
 
@@ -120,8 +120,8 @@ optional
 ```typescript
 label: {
   type: 'spider',
-  formatter:(angleField, colorField)=>{
-    return ['value1','value2'];
+  formatter: (angleField, colorField) => {
+    return [ 'value1','value2' ];
   }
 }
 ```

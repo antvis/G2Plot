@@ -92,7 +92,7 @@ describe('title description', () => {
     expect(region2).not.toEqual(region3);
   });
   it('title desription wrap', () => {
-    const plot = new Line<LineConfig>(canvasDiv, {
+    const plot = new Line(canvasDiv, {
       width: 600,
       height: 600,
       data,

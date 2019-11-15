@@ -21,15 +21,15 @@ order: 1
 
 ### 通过 npm 安装
 
-我们提供了 g2plot npm 包，通过下面的命令即可完成安装:
+我们提供了 g2plot npm 包，通过下面的命令即可完成安装：
 
-```
+```bash
 npm install @antv/g2plot --save
 ```
 
-成功安装完成之后，即可使用 `import` 或 `require` 进行引用:
+成功安装完成之后，即可使用 `import` 或 `require` 进行引用：
 
-```
+```typescript
 import g2plot from '@antv/g2plot';
 ```
 
@@ -45,44 +45,27 @@ import g2plot from '@antv/g2plot';
 
 **step2**: 引入数据。g2plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
 
-```
- const data = [{
-            "year": "1991",
-            "value": 3
-        }, {
-            "year": "1992",
-            "value": 4
-        }, {
-            "year": "1993",
-            "value": 3.5
-        }, {
-            "year": "1994",
-            "value": 5
-        }, {
-            "year": "1995",
-            "value": 4.9
-        }, {
-            "year": "1996",
-            "value": 6
-        }, {
-            "year": "1997",
-            "value": 7
-        }, {
-            "year": "1998",
-            "value": 9
-        }, {
-            "year": "1999",
-            "value": 13
-   }];
+```typescript
+const data = [
+  { year: '1991', value: 3 },
+  { year: '1992', value: 4 },
+  { year: '1993', value: 3.5 },
+  { year: '1994', value: 5 },
+  { year: '1995', value: 4.9 },
+  { year: '1996', value: 6 },
+  { year: '1997', value: 7 },
+  { year: '1998', value: 9 },
+  { year: '1999', value: 13 },
+];
 ```
 
 **step3**: 创建并渲染图表
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   data,
   xField: 'year',
-  yField: 'value'
+  yField: 'value',
 });
 
 linePlot.render();
@@ -94,18 +77,18 @@ src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulnDT6yf
 
 ## 搭配图表组件
 
-在上一步生成的基础折线图，已经具备了图表的基础组件之一：坐标轴。接下来，我们来为图表加入四个组件：图表标题(title)、图表描述(description)、辅助数据点(point)和图形标签(label)，使图表承载的信息更加丰富，更具有可读性：
+在上一步生成的基础折线图，已经具备了图表的基础组件之一：坐标轴。接下来，我们来为图表加入四个组件：图表标题 (title)、图表描述 (description)、辅助数据点 (point) 和图形标签 (label)，使图表承载的信息更加丰富，更具有可读性：
 
 **step1**: 配置图表标题文本
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
   data,
   xField: 'year',
-  yField: 'value'
+  yField: 'value',
 });
 
 linePlot.render();
@@ -113,60 +96,60 @@ linePlot.render();
 
 **step2**: 配置图表描述文本
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
-  description:{
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。'
+  description: {
+    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
   xField: 'year',
-  yField: 'value'
+  yField: 'value',
 });
 linePlot.render();
 ```
 
 **step3**: 显示辅助数据点
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
-  description:{
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。'
+  description: {
+    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
   xField: 'year',
   yField: 'value',
-  point:{
+  point: {
     visible: true,
-  }
+  },
 });
 linePlot.render();
 ```
 
 **step4**: 显示图形标签
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
-  description:{
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。'
+  description: {
+    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
   xField: 'year',
   yField: 'value',
-  point:{
+  point: {
     visible: true,
   },
-  label:{
-    visible: true
-  }
+  label: {
+    visible: true,
+  },
 });
 linePlot.render();
 ```
@@ -181,24 +164,24 @@ src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_
 
 **step1**: 配置折线颜色，来个冷色到暖色的大变身
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
-  description:{
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。'
+  description: {
+    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
   xField: 'year',
   yField: 'value',
-  color:'#FE740C',
-  point:{
+  color: '#FE740C',
+  point: {
     visible: true,
   },
-  label:{
-    visible: true
-  }
+  label: {
+    visible: true,
+  },
 });
 
 linePlot.render();
@@ -206,65 +189,65 @@ linePlot.render();
 
 **step2**: 更改辅助数据点大小及样式
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
-  description:{
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。'
+  description: {
+    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
   xField: 'year',
   yField: 'value',
-  color:'#FE740C',
+  color: '#FE740C',
   point: {
     visible: true,
     size: 5,
-    style:{
-      fill:'#7979F5',
+    style: {
+      fill: '#7979F5',
       lineWidth: 2,
-      fillOpacity: 0.6
-    }
+      fillOpacity: 0.6,
+    },
   },
-  label:{
-    visible: true
-  }
+  label: {
+    visible: true,
+  },
 });
 linePlot.render();
 ```
 
 **step3**: 格式化 y 轴标签加单位
 
-```
+```typescript
 const linePlot = new g2plot.Line('canvas', {
-  title:{
-    text:'这是一个基础折线图'
+  title: {
+    text: '这是一个基础折线图',
   },
-  description:{
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。'
+  description: {
+    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
   xField: 'year',
   yField: 'value',
-  color:'#FE740C',
+  color: '#FE740C',
   point: {
     visible: true,
     size: 5,
-    style:{
-      fill:'#7979F5',
+    style: {
+      fill: '#7979F5',
       lineWidth: 2,
-      fillOpacity: 0.6
-    }
+      fillOpacity: 0.6,
+    },
   },
-  yAxis:{
-    formatter:(v)=>{
-      return v +'k';
-    }
+  yAxis: {
+    formatter: (v) => {
+      return v + 'k';
+    },
   },
-  label:{
-    visible: true
-  }
+  label: {
+    visible: true,
+  },
 });
 linePlot.render();
 ```

@@ -12,7 +12,10 @@ const TOP_BLEEDING = function(props) {
   return 24;
 };
 
-export const DEFAULT_GLOBAL_THEME = {
+export const DEFAULT_DARK_THEME = {
+  backgroundStyle: {
+    fill: '#262626',
+  },
   width: 400,
   height: 400,
   bleeding: [TOP_BLEEDING, 24, 24, 24],
@@ -22,7 +25,8 @@ export const DEFAULT_GLOBAL_THEME = {
     fontFamily: 'PingFang SC',
     fontSize: 18,
     fontWeight: 'bold',
-    fill: 'black',
+    fill: 'rgba(255,255,255,0.65)',
+    stroke: 'rgba(0,0,0,0.95)',
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 20,
@@ -32,7 +36,8 @@ export const DEFAULT_GLOBAL_THEME = {
     padding: [10, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
     fontFamily: 'PingFang SC',
     fontSize: 12,
-    fill: 'grey',
+    fill: 'rgba(255, 255, 255, 0.65)',
+    stroke: 'rgba(0,0,0,0.95)',
     textAlign: 'left',
     textBaseline: 'top',
     lineHeight: 16,
@@ -48,7 +53,7 @@ export const DEFAULT_GLOBAL_THEME = {
       grid: {
         visible: true,
         style: {
-          stroke: '#e3e8ec',
+          stroke: 'rgba(255, 255, 255, 0.15)',
           lineWidth: 1,
           lineDash: [0, 0],
         },
@@ -56,14 +61,14 @@ export const DEFAULT_GLOBAL_THEME = {
       line: {
         visible: false,
         style: {
-          stroke: '#BFBFBF',
+          stroke: 'rgba(255, 255, 255, 0.45)',
           lineWidth: 1,
         },
       },
       tickLine: {
         visible: false,
         style: {
-          stroke: '#bdc8d3',
+          stroke: 'rgba(255, 255, 255, 0.45)',
           lineWidth: 0.5,
           length: 4,
         },
@@ -72,7 +77,7 @@ export const DEFAULT_GLOBAL_THEME = {
         visible: true,
         offset: 8,
         style: {
-          fill: '#a0a4aa',
+          fill: 'rgba(255, 255, 255, 0.45)',
           fontSize: 12,
         },
       },
@@ -80,7 +85,7 @@ export const DEFAULT_GLOBAL_THEME = {
         visible: false,
         offset: 12,
         style: {
-          fill: '#595959',
+          fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,
           textBaseline: 'bottom',
         },
@@ -95,7 +100,7 @@ export const DEFAULT_GLOBAL_THEME = {
       grid: {
         visible: false,
         style: {
-          stroke: '#e3e8ec',
+          stroke: 'rgba(255, 255, 255, 0.15)',
           lineWidth: 1,
           lineDash: [0, 0],
         },
@@ -103,22 +108,21 @@ export const DEFAULT_GLOBAL_THEME = {
       line: {
         visible: false,
         style: {
-          stroke: '#BFBFBF',
-          lineWidth: 1,
+          stroke: 'rgba(255, 255, 255, 0.45)',
         },
       },
       tickLine: {
         visible: true,
         style: {
           length: 4,
-          stroke: '#bdc8d3',
+          stroke: 'rgba(255, 255, 255, 0.45)',
           lineWidth: 0.5,
         },
       },
       label: {
         visible: true,
         style: {
-          fill: '#a0a4aa',
+          fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,
         },
         offset: 16,
@@ -126,7 +130,10 @@ export const DEFAULT_GLOBAL_THEME = {
       title: {
         visible: false,
         offset: 12,
-        style: { fill: '#595959', fontSize: 12 },
+        style: {
+          fill: 'rgba(255, 255, 255, 0.65)',
+          fontSize: 12,
+        },
       },
     },
     circle: {
@@ -177,7 +184,15 @@ export const DEFAULT_GLOBAL_THEME = {
   label: {
     offset: 12,
     style: {
-      fill: 'rgba(0, 0, 0, 0.95)',
+      fill: 'rgba(255, 255, 255, 0.95)',
+      lineWidth: 1,
+    },
+  },
+  tooltip: {
+    'g2-tooltip': {
+      backgroundColor: 'rgba(33,33,33, 0.95)',
+      boxShadow: '0px 0px 10px rgba(0,0,0,0.65)',
+      color: 'rgba(255, 255, 255, 0.65)',
     },
   },
 };

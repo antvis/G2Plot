@@ -91,13 +91,13 @@ work in progress
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 #### xField: string
 
 **required**
 
-面积形状在 x 方向(横向延伸)对应的数据字段名，一般对应一个连续字段。
+面积形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
 #### yField: string
 
@@ -157,7 +157,8 @@ work in progress
   `onAreaMouseenter: function`    区域鼠标进入事件<br />
   `onAreaMouseleave: function`    区域鼠标移出事件<br />
   `onAreaMousedown: function`    区域鼠标点击事件<br />
-  `onAreaMouseup: function`    区域鼠标抬起事件<br />`onAreaContextmenu: function`    右键事件
+  `onAreaMouseup: function`    区域鼠标抬起事件<br />
+  `onAreaContextmenu: function`    右键事件
 
   如配置了区域图上的数据点：
 

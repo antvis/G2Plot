@@ -29,7 +29,7 @@ npm install @antv/g2plot --save
 
 成功安装完成之后，即可使用 `import` 或 `require` 进行引用：
 
-```js
+```typescript
 import g2plot from '@antv/g2plot';
 ```
 
@@ -45,7 +45,7 @@ import g2plot from '@antv/g2plot';
 
 **step2**: 引入数据。g2plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
 
-```js
+```typescript
 const data = [
   { year: '1991', value: 3 },
   { year: '1992', value: 4 },
@@ -61,7 +61,7 @@ const data = [
 
 **step3**: 创建并渲染图表
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   data,
   xField: 'year',
@@ -81,7 +81,7 @@ src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulnDT6yf
 
 **step1**: 配置图表标题文本
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',
@@ -96,7 +96,7 @@ linePlot.render();
 
 **step2**: 配置图表描述文本
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',
@@ -113,7 +113,7 @@ linePlot.render();
 
 **step3**: 显示辅助数据点
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',
@@ -133,7 +133,7 @@ linePlot.render();
 
 **step4**: 显示图形标签
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',
@@ -164,7 +164,7 @@ src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_
 
 **step1**: 配置折线颜色，来个冷色到暖色的大变身
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',
@@ -189,7 +189,7 @@ linePlot.render();
 
 **step2**: 更改辅助数据点大小及样式
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',
@@ -219,7 +219,7 @@ linePlot.render();
 
 **step3**: 格式化 y 轴标签加单位
 
-```js
+```typescript
 const linePlot = new g2plot.Line('canvas', {
   title: {
     text: '这是一个基础折线图',

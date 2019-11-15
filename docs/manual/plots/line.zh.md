@@ -13,7 +13,7 @@ order: 0
 
 折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
 
-```js
+```typescript
 const data = [{ time: '2000', value: 100 }, { time: '2001', value: 60 }, { time: '2002', value: 30 }];
 ```
 
@@ -21,7 +21,7 @@ const data = [{ time: '2000', value: 100 }, { time: '2001', value: 60 }, { time:
 
 在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
 
-```js
+```typescript
 const data = [
   { time: '2000', value: 100, type: 'a' },
   { time: '2001', value: 60, type: 'a' },

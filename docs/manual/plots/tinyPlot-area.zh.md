@@ -27,13 +27,13 @@ order: 0
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 ### xField: string
 
 **required**
 
-面积图在 x 方向(横向延伸)对应的数据字段名，一般对应一个连续字段。
+面积图在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
 ### yField: string
 
@@ -72,13 +72,13 @@ order: 0
 
 `start: array | function | object`  指定辅助线起始位置，如不配置`type`，则该辅助线为自定义辅助线，`start`是必选项。(/>支持两种数据形式，两者不能混用： as br)
 
-- 原始数据值，如['2010-01-01', 100]
-- 绘图区域百分比位置，如['50%', '50%']
+- 原始数据值，如 ['2010-01-01', 100]
+- 绘图区域百分比位置，如 ['50%', '50%']
 
 `end: array | function | object`  指定辅助线终点位置，如不配置`type`，则该辅助线为自定义辅助线，`end`是必选项。(/>支持两种数据形式，两者不能混用： as br)
 
-- 原始数据值，如['2010-01-01', 100]
-- 绘图区域百分比位置，如['50%', '50%']
+- 原始数据值，如 ['2010-01-01', 100]
+- 绘图区域百分比位置，如 ['50%', '50%']
 
 `lineStyle: object`    设置辅助线样式。(/> -`stroke: string`    辅助线颜色<br / as br)> -`lineWidth: number`  辅助线宽度<br /> -`lineDash: number[]`    辅助线虚线显示<br />-
 `opacity: number`    辅助线透明度
@@ -93,26 +93,30 @@ order: 0
 
 配置统计辅助线示例代码：
 
-```
+```js
 {
-  guideLine:[
-    {type: 'mean',
-     lineStyle:{},
-     text:{}
-  ]
+  guideLine: [
+    {
+      type: 'mean',
+      lineStyle: {},
+      text: {},
+    },
+  ];
 }
 ```
 
 配置自定义辅助线示例代码：
 
-```
+```js
 {
-  guideLine:[
-    {start: ['2010-01-01', 100] || ['0%','50%'],
-     end: ['2010-01-10', 50] || ['100%','80%'],
-     lineStyle:{},
-     text:{}
-  ]
+  guideLine: [
+    {
+      start: ['2010-01-01', 100] || ['0%', '50%'],
+      end: ['2010-01-10', 50] || ['100%', '80%'],
+      lineStyle: {},
+      text: {},
+    },
+  ];
 }
 ```
 
@@ -131,7 +135,7 @@ order: 0
 `onLineMousemove: function`  折线形状鼠标移动事件<br />
 `onLineContextmenu: function`    折线形状右键事件<br />
 
-图表区域事件:
+图表区域事件：
 
 `onPlotClick: function`    图表区域点击事件<br />
 `onPlotDblClick: function`  图表区域双击事件<br />

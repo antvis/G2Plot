@@ -13,12 +13,8 @@ order: 0
 
 饼图适合的数据类型为一个分类数据字段和一个连续数据字段。在下面这个例子中，`type`为分类字段，`value`为联系字段。
 
-```
-const data = [
-  {type:'a',value: 100},
-  {type:'b',value:60},
-  {type:'c',value: 30}
- ];
+```js
+const data = [{ type: 'a', value: 100 }, { type: 'b', value: 60 }, { type: 'c', value: 30 }];
 ```
 
 在进行图表绘制的时候，分类字段将映射到扇形切片的颜色，而连续字段将映射到扇形的面积（占比）。
@@ -69,19 +65,19 @@ const data = [
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 ### radius: number
 
 **optional**
 
-饼图的半径，原点为画布中心。配置值域为[0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。/>默认值为 0.8, 即 width / as br 2 \* 0.8。
+饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。/>默认值为 0.8, 即 width / as br 2 \* 0.8。
 
 ### angleField: string
 
 **required**
 
-扇形切片大小(弧度)所对应的数据字段名。
+扇形切片大小（弧度）所对应的数据字段名。
 
 ### colorField: string
 
@@ -108,16 +104,16 @@ const data = [
 optional<br />`visible: boolean`    图形标签是否显示<br />`type: 'inner' | 'outer' | 'spider'`    图形标签的类型
 
 <p>(src as img)="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E-2WTKY2BEIAAAAAAAAAAABkARQnAQ" width="600">(/p>
-`formatter: function` as )  对label的显示文本进行格式化。/>注意：当配置了colorField，即扇形切片接受分类类型的颜色映射，此时spider label的文本为上下显示，此时formatter方法入参为angleField及colorField两个字段对应的值，返回值应为数组。
+`formatter: function` as )  对 label 的显示文本进行格式化。/>注意：当配置了 colorField，即扇形切片接受分类类型的颜色映射，此时 spider label 的文本为上下显示，此时 formatter 方法入参为 angleField 及 colorField 两个字段对应的值，返回值应为数组。
 
-```
+```js
 label: {
   type: 'spider',
-  formatter:(angleField, colorField)=>{
-    return ['value1','value2'];
+  formatter: (angleField, colorField) => {
+    return [ 'value1','value2' ];
   }
 }
-``` as br
+```
 
 ### events
 

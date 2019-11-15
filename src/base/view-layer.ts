@@ -277,8 +277,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return this.view;
   }
 
+  // 获取对应的G2 Theme
+  public getTheme() {
+    return this.theme;
+  }
+
   public getResponsiveTheme() {
     return this.themeController.getResponsiveTheme(this.type);
+  }
+
+  // 获取对应的Plot Theme
+  public getPlotTheme() {
+    return this.themeController.getPlotTheme(this.options, this.type);
   }
 
   // 绑定一个外部的stateManager
@@ -345,9 +355,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.setConfig('tooltip', _.deepMix({}, _.get(this.options, 'tooltip')));
 
-    if (this.options.tooltip.style) {
-      _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
-    }
+    _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
   }
 
   protected legend(): void {

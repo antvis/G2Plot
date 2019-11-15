@@ -5,19 +5,9 @@
   },
   "demos": [
     {
-      "filename": "basic1.js",
-      "title": "饼图-单色",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tuZ0Q4dz5GcAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "basic2.js",
+      "filename": "basic.js",
       "title": "饼图-多色",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xtnBSY2eHf8AAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "inner-label.js",
-      "title": "饼图-内部图形标签",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fAI1Qotbh7EAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "outer-label.js",

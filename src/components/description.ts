@@ -1,24 +1,15 @@
 import { BBox, Canvas, Group, Text } from '@antv/g';
 import * as _ from '@antv/util';
+import { breakText } from '../util/common';
 
-/**
- * 为字符串添加换行符
- * @param source - 字符串数组 ['a', 'b', 'c']
- * @param breaks - 要添加换行的index
- *
- * @example
- * ```js
- * breakText(['a','b','c'], [1])
- *
- * // a\nbc
- * ```
- */
-function breakText(source: string[], breaks: number[]): string {
-  const result = [...source];
-  breaks.forEach((pos, index) => {
-    result.splice(pos + index, 0, '\n');
-  });
-  return result.join('');
+interface TextConfig {
+  leftMargin: number;
+  topMargin: number;
+  text: string;
+  style: any;
+  wrapperWidth: number;
+  container: Canvas | Group;
+  theme: any;
 }
 
 /**
@@ -35,8 +26,8 @@ export default class TextDescription {
   private text: string;
   private style: any;
 
-  constructor(cfg) {
-    _.assign(this, cfg);
+  constructor(cfg: TextConfig) {
+    _.assign(this as any, cfg);
     this._init();
   }
 

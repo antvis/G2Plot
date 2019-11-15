@@ -1,3 +1,3 @@
 export { getColorConfig } from './adjustColorConfig';
 export { getLegendData, mergeLegendData, createLegend } from './globalLegend';
-export { getAxisData, mergeAxis, createAxis } from './globalAxis';
+export { getAxisData, mergeAxisScale, createAxis, axesLayout } from './globalAxis';

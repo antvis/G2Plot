@@ -5,8 +5,10 @@ import Layer from '../base/layer';
 import Plot, { PlotConfig } from '../base/plot';
 import ViewLayer from '../base/view-layer';
 import '../index';
-import { createAxis, createLegend, getAxisData, getColorConfig, getLegendData, mergeAxis, mergeLegendData } from './util';
+import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
+import { Scale } from '@antv/g2';
+import { BBox } from '@antv/g';
 
 
 export interface ComboPlotConfig extends PlotConfig {
@@ -57,8 +59,8 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 },overlapConfig);
                 const viewLayer = new viewLayerCtr(viewLayerProps);
                 viewLayer.render();
-                this.axisInfo.push(...getAxisData(viewLayer,viewLayerProps));
-                this.legendInfo.push(...getLegendData(viewLayer,viewLayerProps));
+                this.axisInfo.push(...ComboUtil.getAxisData(viewLayer,viewLayerProps));
+                this.legendInfo.push(...ComboUtil.getLegendData(viewLayer,viewLayerProps));
                 this.addLayer(viewLayer);
             });
         }
@@ -124,29 +126,38 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 visible: false
             },
             padding: [0,0,0,0],
-            color: getColorConfig(layerCfg.type,layerCfg)
+            color: ComboUtil.getColorConfig(layerCfg.type,layerCfg)
         }
     }
 
     protected overlappingLegend(){
-        const legendItems = mergeLegendData(this.legendInfo);
+        const legendItems = ComboUtil.mergeLegendData(this.legendInfo);
         this.legendContainer = this.topLayer.container.addGroup();
-        return createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
+        return ComboUtil.createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
     }
 
     protected overlappingAxis(){
-        const xAxis = mergeAxis(this.axisInfo,'x');
+        /* const xAxis = mergeAxis(this.axisInfo,'x');
         const yAxis = mergeAxis(this.axisInfo,'y');
+        createAxis(xAxis,'x',this.getCanvas());
+        createAxis([yAxis[2]],'y',this.getCanvas());*/
     }
 
     protected overlappingLayout(){
+        // 先获取legend的padding
+        const legendPadding = getOverlappingPadding(this.layers[0],this.paddingComponents);
+        const axisComponents = ComboUtil.axesLayout(this.axisInfo,legendPadding,this.layers[0],this.width,this.height,this.getCanvas());
+        this.paddingComponents.push(...axisComponents);
+        // 计算padding
         const padding = getOverlappingPadding(this.layers[0],this.paddingComponents);
+        // 更新layers
         _.each(this.layers,(layer)=>{
-            /* layer.updateConfig({
+            layer.updateConfig({
                 padding
             });
-            layer.render(); */
+            layer.render();
         });
     }
 
+    
 }

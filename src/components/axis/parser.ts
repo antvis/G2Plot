@@ -18,6 +18,7 @@ export default class AxisParser {
   private plot: any;
   private dim: string;
   private localProps: any;
+  private themeConfig: any;
 
   constructor(cfg: AxisConfig) {
     this.plot = cfg.plot;
@@ -26,22 +27,10 @@ export default class AxisParser {
   }
 
   private _init() {
-    /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
-    const propos = this.plot.options;
-    const { dim } = this;
-    const axisConfig = propos[`${this.dim}Axis`];
-    if (axisConfig !== undefined) {
-      if (!(axisConfig && axisConfig.visible)) return;
-    }
-    const propsConfig = axisConfig || {};
-    const theme = this.plot.theme;
-    const themeConfig = theme.axis[dim];
-    const config = _.deepMix({}, themeConfig, propsConfig);
-    if (dim === 'x' || dim === 'y') {
-      config.position = { x: 'bottom', y: 'left' }[dim];
-    }
-    this.localProps = config;
-    if (config.visible) {
+    this.config = false;
+    const theme = this.plot.getPlotTheme();
+    this.themeConfig = theme && theme.axis && theme.axis[this.dim];
+    if (this._needDraw()) {
       this._styleParser();
     }
   }
@@ -60,11 +49,24 @@ export default class AxisParser {
     propertyMapping(this.localProps, this.config, 'autoRotateTitle');
   }
 
+  private _needDraw() {
+    /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
+    const propos = this.plot.options;
+    const propsConfig = propos[`${this.dim}Axis`] ? propos[`${this.dim}Axis`] : {};
+    const config = _.deepMix({}, this.themeConfig, propsConfig);
+    this.localProps = config;
+    if (config.visible) {
+      return true;
+    }
+    return false;
+  }
+
   private _lineParser() {
     this.config.line = this.localProps.line;
     if (this.localProps.line.style) {
       this.config.line = this.localProps.line.style;
     }
+    this.applyThemeConfig('line');
   }
 
   private _gridParser() {
@@ -72,6 +74,7 @@ export default class AxisParser {
     if (this.localProps.grid.style) {
       this.config.grid = this.localProps.grid.style;
     }
+    this.applyThemeConfig('grid');
   }
 
   private _tickLineParser() {
@@ -79,6 +82,7 @@ export default class AxisParser {
     if (this.localProps.tickLine.style) {
       this.config.tickLine = this.localProps.tickLine.style;
     }
+    this.applyThemeConfig('tickLine');
   }
 
   private _labelParser() {
@@ -88,6 +92,7 @@ export default class AxisParser {
     if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }
+    labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
     /** label formatter */
     if (formatter) {
       const textFormatter = this.localProps.label.formatter;
@@ -112,6 +117,7 @@ export default class AxisParser {
     if (this.localProps.title.style) {
       titleConfig.textStyle = this.localProps.title.style;
     }
+    titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
 
     if (this.localProps.title.text) {
       titleConfig.text = this.localProps.title.text;
@@ -127,5 +133,9 @@ export default class AxisParser {
       return true;
     }
     return false;
+  }
+
+  private applyThemeConfig(type: 'line' | 'grid' | 'tickLine') {
+    this.config[type] = _.deepMix({}, _.get(this.themeConfig, `${type}.style`), this.config[type]);
   }
 }

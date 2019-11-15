@@ -82,22 +82,20 @@ export default class TextDescription {
     });
     const textArr = textContent.split('\n');
     const wrappedTextArr = textArr.map((wrappedText) => {
-      let currentWidth = 0;
+      let text = '';
       const chars = wrappedText.split('');
       const breakIndex: number[] = [];
-      let text = '';
       for (let i = 0; i < chars.length; i++) {
         const item = chars[i];
-        tShape.attr('text', (text += item));
-        const textWidth = Math.floor(tShape.measureText());
-        currentWidth += textWidth;
+        // 注意: 后面每个char后面需要添加一个空格
+        tShape.attr('text', (text += `${item} `));
+        const currentWidth = Math.floor(tShape.measureText());
         if (currentWidth > width) {
           // 如果是第一个字符就大于宽度不做任何换行处理
           if (i === 0) {
             break;
           }
           breakIndex.push(i);
-          currentWidth = 0;
           text = '';
         }
       }

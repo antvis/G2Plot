@@ -19,6 +19,7 @@ fetch('../data/oil.json')
       stackField: 'country',
       xAxis: {
         type: 'dateTime',
+        tickCount: 5,
       },
       label: {
         visible: true,

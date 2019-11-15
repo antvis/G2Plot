@@ -98,7 +98,7 @@ order: 0
 
 配置统计辅助线示例代码：
 
-```js
+```typescript
 {
   guideLine: [
     {
@@ -112,7 +112,7 @@ order: 0
 
 配置自定义辅助线示例代码：
 
-```js
+```typescript
 {
   guideLine: [
     {

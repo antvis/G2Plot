@@ -13,13 +13,13 @@ order: 0
 
 单组雷达图适合的数据类型为一个分类字段和一个连续字段。在下面这个例子中，`type`为分类字段，`value`为联系字段。
 
-```js
+```typescript
 const data = [{ type: 'a', value: 100 }, { type: 'b', value: 60 }, { type: 'c', value: 30 }];
 ```
 
 多组雷达图需要在此基础上再加入一个分类字段作为分组字段。雷达图将根据此字段分为 N 组。在下面的例子中，`mark`为分组字段，将雷达图分为上下叠加的两组。
 
-```js
+```typescript
 const data = [
   { type: 'a', mark: 'top', value: 100 },
   { type: 'b', mark: 'top', value: 60 },

@@ -29,7 +29,7 @@ src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqC
 
 下面的例子中声明了一个 axis（坐标轴）的约束条件，该条件判断坐标轴 label 之间的间距是否大于 4 像素。
 
-```js
+```typescript
 axis: {
   constraint:{
     name: 'elementDist',
@@ -70,7 +70,7 @@ g2plot 内置了一套常用的 constraint library，目前响应式模块还在
 
 g2plot 允许用户注册自己的约束条件，允许覆盖现有约束库中的条件。
 
-```js
+```typescript
 function myConstraint(parameters, cfg?) {}
 
 plot.registerConstraint(name, {
@@ -110,7 +110,7 @@ g2plot 内置了一套常用的 rule library，目前响应式模块还在试验
 
 g2plot 允许用户注册自己的响应规则，允许覆盖现有规则库中的规则。
 
-```js
+```typescript
 function myRule() {}
 plot.registerResponsiveRule(name, myRule);
 ```
@@ -127,7 +127,7 @@ plot.registerResponsiveRule(name, myRule);
 
 以柱状图为例，柱状图参与响应式的图表元素为图形 (column)、坐标轴 (axis)、图形标签 (label)，它的 responsiveTheme 结构如下：
 
-```js
+```typescript
 const responsiveTheme = {
   axis: {
     x: {
@@ -162,7 +162,7 @@ const responsiveTheme = {
 
 调用一个 constraint 方法：
 
-```js
+```typescript
 // 调用elementDist约束条件，并声明元素最小间距为8
 {
   name: 'elementDist',
@@ -174,7 +174,7 @@ const responsiveTheme = {
 
 调用一个 rule 方法：
 
-```js
+```typescript
 // 调用textAbbravaite响应规则，并声明省略文字的尾部
 {
   name: 'textAbbrevaite',
@@ -186,7 +186,7 @@ const responsiveTheme = {
 
 组装：
 
-```js
+```typescript
 const lineTheme = {
   label: {
     constraints: [{

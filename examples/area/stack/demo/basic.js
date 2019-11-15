@@ -14,6 +14,7 @@ fetch('../data/oil.json')
       stackField: 'country',
       xAxis: {
         type: 'dateTime',
+        tickCount: 5,
       },
       legend: {
         visible: true,

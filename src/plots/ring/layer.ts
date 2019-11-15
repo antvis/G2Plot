@@ -27,13 +27,24 @@ const PLOT_GEOM_MAP = {
   interval: 'ring',
 };
 
-export default class RingLayer extends PieLayer<RingLayerConfig> {
+export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> extends PieLayer<T> {
   public static centralId = 0;
 
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
-      innerRadius: 0.65,
+      radius: 0.8,
+      innerRadius: 0.8 * 0.8,
     });
+  }
+
+  public getOptions(props: T) {
+    const options = super.getOptions(props);
+    if (!props.innerRadius && props.radius) {
+      return _.deepMix({}, options, {
+        innerRadius: props.radius * 0.8,
+      });
+    }
+    return options;
   }
 
   public type: string = 'ring';

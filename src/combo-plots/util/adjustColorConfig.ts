@@ -20,7 +20,7 @@ export function getColorConfig(type:string,props:ViewLayerConfig){
 
 
 /** 判断是不是单图元类型的图表：单折线图、基础柱状图、散点图、基础面积图等 */
-function isSingleGraph(type:string,props:ViewLayerConfig){
+export function isSingleGraph(type:string,props:ViewLayerConfig){
     if(_.contains(SINGLE_TYPE,type)){
         if(type === 'line' && _.has(props,'seriesField')){
             return false;

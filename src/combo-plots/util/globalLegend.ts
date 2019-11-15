@@ -1,43 +1,61 @@
 import { Legend } from '@antv/component';
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
-import ViewLayer,{ ViewLayerConfig } from '../../base/view-layer';
+import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
+import { element } from '_@types_prop-types@15.7.3@@types/prop-types';
 
-export function getLegendData(viewLayer: ViewLayer,props){
+export function getLegendData(viewLayer: ViewLayer, props) {
     const legendItems = [];
     const view = viewLayer.view;
     const geometry = view.get('elements')[0];
     const colorAttr = geometry.getAttr('color'); // color和shape决定cat legend的生成，暂时先不考虑shape 
-    const markerCfg:any  = {
+    const markerCfg: any = {
         isInCircle: geometry.isInCircle(),
-        color:colorAttr.values[0]
-      }; 
-    const marker = geometry.get('shapeFactory').getMarkerStyle(geometry.get('type'),markerCfg);
+        color: colorAttr.values[0]
+    };
+    const marker = geometry.get('shapeFactory').getMarkerStyle(geometry.get('type'), markerCfg);
     /** 处理default不生成图例的场景 */
-    if(colorAttr.scales.length === 0){
+    if (colorAttr.scales.length === 0) {
         legendItems.push({
-            value:props.name,
+            value: props.name,
             checked: true,
             marker
         });
+    } else {
+        /** 正常生成图例 */
+        const values = colorAttr.scales[0].values;
+        _.each(values, (v, index) => {
+            const markerColor = colorAttr.values[index];
+            const markerValue = v;
+            const cfg: any = {
+                isInCircle: geometry.isInCircle(),
+                color: markerColor
+            };
+            const markerItem = geometry.get('shapeFactory').getMarkerStyle(geometry.get('type'),cfg);
+            legendItems.push({
+                value: markerValue,
+                checked: true,
+                marker: markerItem
+            });
+        });
+
     }
-    /** 正常生成图例 */
 
     return legendItems;
 }
 
-export function mergeLegendData(items){
+export function mergeLegendData(items) {
     return items;
 }
 
-export function createLegend(items,container,width,canvas){
-    const legendTheme  =  getGlobalTheme().legend;
+export function createLegend(items, container, width, canvas) {
+    const legendTheme = getGlobalTheme().legend;
     const legendCfg = {
-        type:'category-legend',
+        type: 'category-legend',
         items,
         maxSize: width,
-        container:canvas,
+        container: canvas,
         textStyle: {
             fill: '#8C8C8C',
             fontSize: 12,
@@ -48,7 +66,7 @@ export function createLegend(items,container,width,canvas){
         titleDistance: 10,// 标题和图例项的间距
         autoWrap: true, // 图例项是否自动换行
         itemWidth: 50, // 图例项目宽度
-        wordSpacing:10, // 图例项文本同 marker 之间的间距
+        wordSpacing: 10, // 图例项文本同 marker 之间的间距
         itemMarginBottom: 0, // 图例项之间的底部间距
         backgroundPadding: 0,// 背景内边距
         maxLength: width// 图例的最大高度或者宽度
@@ -58,9 +76,9 @@ export function createLegend(items,container,width,canvas){
     /** return legend as a padding component */
     return {
         position: 'top',
-        getBBox:()=>{
+        getBBox: () => {
             const bbox = legend.get('itemsGroup').getBBox();
-            return new BBox(bbox.minX,bbox.minX,bbox.width,bbox.height + legendTheme.innerPadding[0]);           
+            return new BBox(bbox.minX, bbox.minX, bbox.width, bbox.height + legendTheme.innerPadding[0]);
         }
     }
 }

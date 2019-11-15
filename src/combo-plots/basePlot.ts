@@ -7,8 +7,6 @@ import ViewLayer from '../base/view-layer';
 import '../index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
-import { Scale } from '@antv/g2';
-import { BBox } from '@antv/g';
 
 
 export interface ComboPlotConfig extends PlotConfig {
@@ -73,7 +71,6 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
                 height: this.height
             });
             const legend = this.overlappingLegend();
-            this.overlappingAxis();
             this.paddingComponents.push(legend);
             this.overlappingLayout();
         }
@@ -136,13 +133,6 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         return ComboUtil.createLegend(legendItems,this.legendContainer,this.width,this.getCanvas());
     }
 
-    protected overlappingAxis(){
-        /* const xAxis = mergeAxis(this.axisInfo,'x');
-        const yAxis = mergeAxis(this.axisInfo,'y');
-        createAxis(xAxis,'x',this.getCanvas());
-        createAxis([yAxis[2]],'y',this.getCanvas());*/
-    }
-
     protected overlappingLayout(){
         // 先获取legend的padding
         const legendPadding = getOverlappingPadding(this.layers[0],this.paddingComponents);
@@ -151,12 +141,12 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         // 计算padding
         const padding = getOverlappingPadding(this.layers[0],this.paddingComponents);
         // 更新layers
-        _.each(this.layers,(layer)=>{
+         _.each(this.layers,(layer)=>{
             layer.updateConfig({
                 padding
             });
             layer.render();
-        });
+        }); 
     }
 
     

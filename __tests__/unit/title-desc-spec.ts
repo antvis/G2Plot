@@ -112,7 +112,7 @@ describe('title description', () => {
     const view = plot.getLayer() as LineLayer;
     expect(view.description).not.toBe(null);
     expect(view.description.shape.attrs.text)
-      .toBe(`我们经过大量的项目实践和经验总结，总结了以下四条核心原则，并以重要等级进行排序，四
-条原则相辅相成且呈递进关系，希望你在设计时也可以采纳。`);
+      .toBe(`我们经过大量的项目实践和经验总结，总结了以下四条核心原则，并以重要等级进行排序，四条原则相辅
+相成且呈递进关系，希望你在设计时也可以采纳。`);
   });
 });

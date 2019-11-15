@@ -26,7 +26,7 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
         },
       },
       label: {
-        visible: false,
+        visible: true,
         position: 'right',
         offset: 8,
         adjustColor: true,

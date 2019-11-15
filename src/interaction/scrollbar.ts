@@ -68,6 +68,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
     min: number;
     max: number;
     ticks: number[];
+    formatter: any;
   }>;
   private ratio: number;
   private thumbOffset: number;
@@ -154,6 +155,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
       min: item.min,
       max: item.max,
       ticks: item.ticks,
+      formatter: item.formatter,
     }));
     this.step = Math.floor((isHorizontal ? panelRange.width : panelRange.height) / config.categorySize);
     this.trackLen = isHorizontal
@@ -182,6 +184,7 @@ export default class ScrollBarInteraction extends BaseInteraction {
     this.yScalesCfg.forEach((cfg) => {
       const metaCfg = get(meta, cfg.field) || {};
       this.view.scale(cfg.field, {
+        formatter: cfg.formatter,
         ...metaCfg,
         type: cfg.type as 'linear' | 'cat' | 'log' | 'pow' | 'identity' | 'time',
         min: cfg.min,

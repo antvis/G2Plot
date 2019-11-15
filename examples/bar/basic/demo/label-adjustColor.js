@@ -22,11 +22,12 @@ const barPlot = new Bar(document.getElementById('container'), {
   data,
   xField: 'sales',
   yField: 'year',
-  color: '#000000',
+  colorField: 'year',
+  color: ['#55A6F3', '#CED4DE', '#55A6F3', '#55A6F3', '#55A6F3'],
   label: {
     visible: true,
     position: 'middle', // options: left / middle / right
-    // adjustColor: false
+    adjustColor: true,
   },
 });
 

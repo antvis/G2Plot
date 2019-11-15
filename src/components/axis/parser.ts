@@ -107,20 +107,21 @@ export default class AxisParser {
 
   private _titleParser() {
     const titleConfig: DataPointType = { ...this.localProps.title };
+    const { visible, style, text } = this.localProps.title;
 
-    if (!this.localProps.title.visible) {
+    if (!visible) {
       this.config.showTitle = false;
     } else {
       this.config.showTitle = true;
     }
 
-    if (this.localProps.title.style) {
-      titleConfig.textStyle = this.localProps.title.style;
+    if (style) {
+      titleConfig.textStyle = style;
     }
     titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
 
-    if (this.localProps.title.text) {
-      titleConfig.text = this.localProps.title.text;
+    if (text) {
+      titleConfig.text = text;
     }
 
     this.config.title = titleConfig;

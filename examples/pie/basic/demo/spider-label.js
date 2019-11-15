@@ -22,7 +22,7 @@ const data = [
     value: 10,
   },
   {
-    type: 'Other',
+    type: '其它',
     value: 5,
   },
 ];

@@ -19,6 +19,7 @@ export default class LabelParser {
 
   private _parseCallBack(val) {
     const labelProps = this.plot.options.label;
+    const theme = this.plot.getPlotTheme();
     const config: DataPointType = { ...labelProps };
     this._parseOffset(labelProps, config);
     if (labelProps.position) {
@@ -38,6 +39,7 @@ export default class LabelParser {
         config.textStyle = labelProps.style;
       }
     }
+    config.textStyle = _.deepMix({}, _.get(theme, 'label.style'), config.textStyle);
     if (labelProps.autoRotate) {
       config.autoRotate = labelProps.autoRotate;
     }

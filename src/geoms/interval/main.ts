@@ -12,6 +12,9 @@ export default class IntervalParser extends ElementParser {
     if (this._needParserColor()) {
       this.parseColor();
     }
+    if (!this.config.color) {
+      this.config.color = { values: ['#5b8ff9'] };
+    }
     const sizeProps = this._getSizeProps(props);
     if (sizeProps) {
       this.parseSize(sizeProps);

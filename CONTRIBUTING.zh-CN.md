@@ -7,7 +7,7 @@
 
 - 请确定 issue 的类型。
 - 请避免提交重复的 issue，在提交之前搜索现有的 issue。
-- 在标签(分类参考**标签分类**), 标题 或者内容中体现明确的意图。
+- 在标签（分类参考**标签分类**), 标题 或者内容中体现明确的意图。
 
 随后 AntV 负责人会确认 issue 意图，更新合适的标签，关联 milestone，指派开发者。
 
@@ -85,7 +85,7 @@ $ git push origin branch-name
 
 （5）footer
 
-- **当有非兼容修改(Breaking Change)时必须在这里描述清楚**
+- **当有非兼容修改 (Breaking Change) 时必须在这里描述清楚**
 - 关联相关 issue，如 `Closes #1, Closes #2, #3`
 
 示例
@@ -119,7 +119,7 @@ scale 基于 [semver] 语义化版本号进行发布。
 
 ### 发布策略
 
-每个大版本都有一个发布经理管理（PM），他/她要做的事情
+每个大版本都有一个发布经理管理（PM），他 / 她要做的事情
 
 #### 准备工作：
 
@@ -129,16 +129,18 @@ scale 基于 [semver] 语义化版本号进行发布。
 
 - 确认当前 Milestone 所有的 issue 都已关闭或可延期，完成性能测试。
 - 发起一个新的 [Release Proposal MR]，按照 [node CHANGELOG] 进行 `History` 的编写，修正文档中与版本相关的内容，commits 可以自动生成。
+
   ```bash
   $ npm run commits
   ```
+
 - 指定下一个大版本的 PM。
 
 #### 发布时：
 
 - 将老的稳定版本（master）备份到以当前大版本为名字的分支上（例如 `1.x`），并设置 tag 为 {v}.x`（ v 为当前版本，例如`1.x`）。
 - 发布新的稳定版本到 [npm]，并通知上层框架进行更新。
-- `npm publish` 之前，请先阅读[『我是如何发布一个 npm 包的』]。
+- `npm publish` 之前，请先阅读 [『我是如何发布一个 npm 包的』]。
 
 [semver]: http://semver.org/lang/zh-CN/
 [release proposal mr]: https://github.com/nodejs/node/pull/4181

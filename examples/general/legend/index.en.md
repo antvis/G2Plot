@@ -1,6 +1,6 @@
 ---
-title: Set State
-order: 4
+title: Legend
+order: 2
 ---
 
 Description about this component.

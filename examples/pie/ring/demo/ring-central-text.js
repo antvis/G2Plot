@@ -22,7 +22,7 @@ const data = [
     value: 10,
   },
   {
-    type: 'Other',
+    type: '其它',
     value: 5,
   },
 ];
@@ -31,7 +31,7 @@ const ringPlot = new Ring(document.getElementById('container'), {
   forceFit: true,
   title: {
     visible: true,
-    text: '环形图-中心文本',
+    text: '环图-中心文本',
   },
   description: {
     visible: true,
@@ -43,6 +43,9 @@ const ringPlot = new Ring(document.getElementById('container'), {
   angleField: 'value',
   colorField: 'type',
   annotation: [{ type: 'centralText', onActive: true }],
+  label: {
+    offset: -22,
+  },
 });
 
 ringPlot.render();

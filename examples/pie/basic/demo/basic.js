@@ -22,7 +22,7 @@ const data = [
     value: 10,
   },
   {
-    type: 'Other',
+    type: '其它',
     value: 5,
   },
 ];
@@ -31,17 +31,22 @@ const piePlot = new Pie(document.getElementById('container'), {
   forceFit: true,
   title: {
     visible: true,
-    text: '单色饼图',
+    text: '多色饼图',
   },
   description: {
     visible: true,
-    text: '不指定colorField(颜色映射字段)，或color颜色设为单值时，饼图所有切片显示为一种颜色。',
+    text:
+      '指定颜色映射字段(colorField)，饼图切片将根据该字段数据显示为不同的颜色。指定颜色需要将color配置为一个数组。\n当把饼图label的类型设置为inner时，标签会显示在切片内部。设置offset控制标签的偏移值。',
   },
   radius: 0.8,
-  padding: 'auto',
   data,
   angleField: 'value',
-  // color: '#FDAD9F'
+  colorField: 'type',
+  label: {
+    visible: true,
+    type: 'inner',
+    offset: -60,
+  },
 });
 
 piePlot.render();

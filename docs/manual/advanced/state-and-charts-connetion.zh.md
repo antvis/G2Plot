@@ -6,12 +6,12 @@ order: 1
 ## 状态量
 
 <br/>
-状态量被用于驱动图表内各元素元子级的UI状态变化。在g2plot中，元子级UI状态是可以枚举的，共有以下四种：
+状态量被用于驱动图表内各元素元子级的 UI 状态变化。在 g2plot 中，元子级 UI 状态是可以枚举的，共有以下四种：
 
-- 图形 default 状态: `normal`
-- 图形高亮:  `active`
-- 图形置灰:  `disable`
-- 图形选中:  `selected`
+- 图形 default 状态：`normal`
+- 图形高亮：`active`
+- 图形置灰：`disable`
+- 图形选中：`selected`
 
 UI 状态的变化是数据驱动的，能够响应状态量的图表元素记录所对应的数据，而状态量本身是一个数据判断条件。当图表元素对应的数据符合状态量的判断条件时，它的 UI 就会切换到状态量所对应的图形样式。
 
@@ -30,28 +30,27 @@ g2plot 提供了状态量变化的快捷方法：`setActive()`  `setDisable()`
 
 `style: object`  可选，设置状态量驱动的 UI 样式。如不配置，则会默认去取 theme 中的状态样式。
 
-代码示例:
+代码示例：
 
-```
+```typescript
 // 通过回调函数设置状态量
-plot.setActive((shapeData)=>{
+plot.setActive((shapeData) => {
   return shapeData.type !== 'a';
 });
 
 // 设置单值状态量
-plot.setActive({ name: 'type', exp: 'a'});
+plot.setActive({ name: 'type', exp: 'a' });
 
 // 设置多值状态量
 plot.setActive({
   name: 'type',
-  exp:(value)=>{
-    return value !== 'a'
-  }
+  exp: (value) => {
+    return value !== 'a';
+  },
 });
 
 // 设置状态量样式
-plot.setActive( { name:'type', exp:'a' }, { stroke:'black', lineWidth:2 });
-
+plot.setActive({ name: 'type', exp: 'a' }, { stroke: 'black', lineWidth: 2 });
 ```
 
 #### setDisable(condition,style?)
@@ -83,7 +82,7 @@ plot.setActive( { name:'type', exp:'a' }, { stroke:'black', lineWidth:2 });
 
 用法：
 
-```
+```typescript
 defaultState:{
     active:{
       condition:{
@@ -102,20 +101,18 @@ defaultState:{
       related: ['tooltip','label','axis']
     }
 }
-
-
 ```
 
 ### 在图表主题中定义状态样式
 
-```
-plot.registerTheme('line',{
-    lineStyle:{
-      normal: {} | Function,
-      active: {} | Function,
-      disable: {} | Function,
-      selected: {} | Function
-    }
+```typescript
+plot.registerTheme('line', {
+  lineStyle: {
+    normal: {} | Function,
+    active: {} | Function,
+    disable: {} | Function,
+    selected: {} | Function,
+  },
 });
 ```
 
@@ -129,7 +126,7 @@ stateManager 可用于多个图表之间，以及图表与外部组件的联动�
 
 新建一个 stateManager 实例：
 
-```
+```typescript
 import { StateManager } from '@antv/g2plot';
 
 const stateManager = new StateManager();
@@ -177,7 +174,7 @@ const stateManager = new StateManager();
 
 代码示例：
 
-```
+```typescript
 plot.bindStateManager(manager,{
   setState:[
     {

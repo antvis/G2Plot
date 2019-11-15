@@ -41,9 +41,9 @@ const data = [
 
 **optional**
 
-环图的内环半径，原点为画布中心。半径和内环半径决定了环图的厚度(thickness)。
+环图的内环半径，原点为画布中心。半径和内环半径决定了环图的厚度 (thickness)。
 
-配置范围为[0,1]，0 代表环图被完全填充，变为饼图，没有中心挖空部分，1 代表环图的厚度为 0。默认值为 0.8。
+配置范围为 [0,1]，0 代表环图被完全填充，变为饼图，没有中心挖空部分，1 代表环图的厚度为 0。默认值为 0.8。
 
 #### annotation
 
@@ -70,7 +70,12 @@ const data = [
 用法：
 
 ```typescript
-annotation: [{ type: 'centralText', onActive: true }];
+annotation: [
+  {
+    type: 'centralText',
+    onActive: true,
+  },
+];
 ```
 
 ### 通用图表配置
@@ -119,7 +124,7 @@ annotation: [{ type: 'centralText', onActive: true }];
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 #### radius: number
 
@@ -131,7 +136,7 @@ annotation: [{ type: 'centralText', onActive: true }];
 
 **required**
 
-扇形切片大小(弧度)所对应的数据字段名。
+扇形切片大小（弧度）所对应的数据字段名。
 
 #### colorField: string
 
@@ -158,7 +163,7 @@ annotation: [{ type: 'centralText', onActive: true }];
 ```typescript
 label: {
   type: 'spider',
-  formatter:(angleField, colorField)=>{
+  formatter: (angleField, colorField) => {
     return ['value1','value2'];
   }
 }

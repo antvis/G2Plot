@@ -25,8 +25,8 @@ fetch('../data/sales.json')
         {
           type: 'slider',
           cfg: {
-            start: 0,
-            end: 1,
+            start: 0.1,
+            end: 0.2,
           },
         },
       ],

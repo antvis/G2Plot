@@ -14,6 +14,17 @@ const G2DefaultTheme = G2.Global.theme;
 
 export default class ThemeController<T extends ViewConfig = ViewConfig> {
   /**
+   * 获取指定的全局theme
+   * @param theme
+   */
+  public static getGlobalTheme(theme: string | object) {
+    if (_.isString(theme)) {
+      return getGlobalTheme(theme);
+    }
+    return _.deepMix(getGlobalTheme(), theme);
+  }
+
+  /**
    * 通过 theme 和图表类型，获取当前 plot 对应的主题
    * @param props
    * @param type

@@ -45,7 +45,7 @@ const piePlot = new Pie(document.getElementById('container'), {
   label: {
     visible: true,
     type: 'inner',
-    offset: -20,
+    offset: -60,
   },
 });
 

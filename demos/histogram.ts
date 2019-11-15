@@ -69,4 +69,4 @@ const histogramPlot = new g2plot.Histogram(document.getElementById('canvas'), {
 histogramPlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

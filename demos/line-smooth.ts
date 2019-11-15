@@ -49,4 +49,4 @@ const linePlot = new g2plot.Line(document.getElementById('canvas'), {
 linePlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

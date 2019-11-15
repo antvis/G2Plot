@@ -29,6 +29,7 @@ const PLOT_GEOM_MAP = {
 export interface ColumnViewConfig extends ViewConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';
+  colorField?: string;
   // 百分比, 数值, 最小最大宽度
   columnSize?: number;
   maxWidth?: number;

@@ -4,7 +4,7 @@ import RingLayer, { RingViewConfig } from './layer';
 
 export interface RingConfig extends RingViewConfig, PlotConfig {}
 
-export default class Ring<T extends RingConfig = RingConfig> extends BasePlot<T> {
+export default class Ring extends BasePlot<RingConfig> {
   public static getDefaultOptions: typeof RingLayer.getDefaultOptions = RingLayer.getDefaultOptions;
 
   public createLayers(props) {

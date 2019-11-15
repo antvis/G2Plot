@@ -102,6 +102,10 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       line: {
         visible: false,
+        style: {
+          stroke: '#BFBFBF',
+          lineWidth: 1,
+        },
       },
       tickLine: {
         visible: true,
@@ -170,11 +174,11 @@ export const DEFAULT_GLOBAL_THEME = {
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
   },
-  label:{
+  label: {
     offset: 12,
-    style:{
-      stroke:'#ffffff',
-      lineWidth:2
-    }
-  }
+    style: {
+      stroke: '#ffffff',
+      lineWidth: 2,
+    },
+  },
 };

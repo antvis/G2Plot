@@ -231,7 +231,11 @@ const data1 = [
   },
 ];
 // 总和数据
-const data2 = [{ type: 'bill', value: 0 }, { type: 'register', value: 0 }, { type: 'download', value: 0 }];
+const data2 = [
+  { type: 'bill', value: 0 },
+  { type: 'register', value: 0 },
+  { type: 'download', value: 0 },
+];
 _.each(data1, (d) => {
   const type = d.type;
   const value = d.value;
@@ -754,4 +758,4 @@ function getTargetRow(field, value, data) {
 }
 
 // 作为模块 避免变量冲突
-export {}
+export {};

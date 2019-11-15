@@ -4,7 +4,7 @@ import TinyAreaLayer, { TinyAreaViewConfig } from './layer';
 
 export interface TinyAreaConfig extends TinyAreaViewConfig, PlotConfig {}
 
-export default class TinyArea<T extends TinyAreaConfig = TinyAreaConfig> extends BasePlot<T> {
+export default class TinyArea extends BasePlot<TinyAreaConfig> {
   public static getDefaultOptions: typeof TinyAreaLayer.getDefaultOptions = TinyAreaLayer.getDefaultOptions;
 
   public createLayers(props) {

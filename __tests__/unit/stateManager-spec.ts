@@ -271,7 +271,11 @@ describe.skip('stateManager', () => {
     canvasDiv2.id = 'canvas2';
     document.body.appendChild(canvasDiv2);
 
-    const data2 = [{ type: 'bill', value: 0 }, { type: 'register', value: 0 }, { type: 'download', value: 0 }];
+    const data2 = [
+      { type: 'bill', value: 0 },
+      { type: 'register', value: 0 },
+      { type: 'download', value: 0 },
+    ];
     _.each(data1, (d) => {
       const type = d.type;
       const value = d.value;

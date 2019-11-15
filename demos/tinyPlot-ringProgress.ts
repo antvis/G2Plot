@@ -10,4 +10,4 @@ progress.render();
 progress.update(0.5);
 
 // 作为模块 避免变量冲突
-export {}
+export {};

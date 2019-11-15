@@ -1,9 +1,11 @@
 import * as _ from '@antv/util';
 import { DEFAULT_GLOBAL_THEME } from './default';
+import { DEFAULT_DARK_THEME } from './dark';
 
 /** 所有的全局主题 */
 const GLOBAL_THEME_MAP: Record<string, any> = {
   default: DEFAULT_GLOBAL_THEME,
+  dark: DEFAULT_DARK_THEME,
 };
 
 /**

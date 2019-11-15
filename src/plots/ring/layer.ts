@@ -32,7 +32,7 @@ export default class RingLayer extends PieLayer<RingLayerConfig> {
 
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
-      innerRadius: 0.5,
+      innerRadius: 0.65,
     });
   }
 

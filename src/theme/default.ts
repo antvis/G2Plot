@@ -102,6 +102,10 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       line: {
         visible: false,
+        style: {
+          stroke: '#BFBFBF',
+          lineWidth: 1,
+        },
       },
       tickLine: {
         visible: true,

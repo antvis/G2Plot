@@ -2,48 +2,47 @@ import { Axis } from '@antv/component';
 import { BBox } from '@antv/g';
 import { getScale, Scale } from '@antv/scale';
 import * as _ from '@antv/util';
-import ViewLayer,{ ViewLayerConfig } from '../../base/view-layer';
-import { getGlobalTheme } from '../../theme/global';
+import ViewLayer from '../../base/view-layer';
+import { getOverlappingPadding } from './padding';
 
-
-export function getAxisData(viewLayer: ViewLayer,props){
-    const  { view } = viewLayer;
+export function getAxisData(viewLayer: ViewLayer, props) {
+    const { view } = viewLayer;
     const scales = view.get('scales');
     const scalesInfo = [];
-   // get xscale info
-   if(props.xField){
-       const xscale = scales[props.xField];
-       const scaleInfo = {
-           dim: 'x',
-           scale: xscale,
-           originalData: props.data
-       };
-       scalesInfo.push(scaleInfo);  
-   }
-   // get yscale info
-   if(props.yField){
-    const yscale = scales[props.yField];
-    const scaleInfo = {
-        dim: 'y',
-        scale: yscale,
-        originalData: props.data
-    };
-    scalesInfo.push(scaleInfo);  
-   }
-   return scalesInfo; 
+    // get xscale info
+    if (props.xField) {
+        const xscale = scales[props.xField];
+        const scaleInfo = {
+            dim: 'x',
+            scale: xscale,
+            originalData: props.data
+        };
+        scalesInfo.push(scaleInfo);
+    }
+    // get yscale info
+    if (props.yField) {
+        const yscale = scales[props.yField];
+        const scaleInfo = {
+            dim: 'y',
+            scale: yscale,
+            originalData: props.data
+        };
+        scalesInfo.push(scaleInfo);
+    }
+    return scalesInfo;
 }
 
-export function mergeAxis(axisInfo,dim){
-    if(dim === 'x'){
-        const xAxisInfo = axisInfo.filter((axis)=>{
-            if(axis.dim === 'x'){
+export function mergeAxisScale(axisInfo, dim) {
+    if (dim === 'x') {
+        const xAxisInfo = axisInfo.filter((axis) => {
+            if (axis.dim === 'x') {
                 return axis;
             }
         });
         return mergeXAxis(xAxisInfo);
-    }else{
-        const yAxisInfo = axisInfo.filter((axis)=>{
-            if(axis.dim === 'y'){
+    } else {
+        const yAxisInfo = axisInfo.filter((axis) => {
+            if (axis.dim === 'y') {
                 return axis;
             }
         });
@@ -51,36 +50,36 @@ export function mergeAxis(axisInfo,dim){
     }
 }
 
-function mergeXAxis(axisInfo){
+function mergeXAxis(axisInfo) {
     // 判断是否能够合并度量
     const isSameScale = sameScaleTest(axisInfo);
-    if(!isSameScale){
-        return axisInfo[0].scale;
+    if (!isSameScale) {
+        return [axisInfo[0].scale];
     }
-    if(axisInfo[0].scale.type === 'cat'){
+    if (axisInfo[0].scale.type === 'cat') {
         return getCatScale(axisInfo);
-    }else{
-       return getLinearScale(axisInfo); 
-    }
-}
-
-function mergeYAxis(axisInfo){
-    const isSameScale = sameScaleTest(axisInfo);
-    if(!isSameScale){
-        return axisInfo.map((axis)=>{
-            return axis.scale;
-        });
-    }else{
+    } else {
         return getLinearScale(axisInfo);
     }
 }
 
-function getLinearScale(axisInfo){
+function mergeYAxis(axisInfo) {
+    const isSameScale = sameScaleTest(axisInfo);
+    if (!isSameScale) {
+        return axisInfo.map((axis) => {
+            return axis.scale;
+        });
+    } else {
+        return getLinearScale(axisInfo);
+    }
+}
+
+function getLinearScale(axisInfo) {
     let scaleMin = axisInfo[0].scale.min;
     let scaleMax = axisInfo[0].scale.max;
-    for(const axis of axisInfo){
-        scaleMin = Math.min(scaleMin,axis.scale.min);
-        scaleMax = Math.max(scaleMax,axis.scale.max);
+    for (const axis of axisInfo) {
+        scaleMin = Math.min(scaleMin, axis.scale.min);
+        scaleMax = Math.max(scaleMax, axis.scale.max);
     }
     const LinearScale = getScale('linear');
     const scale = new LinearScale({
@@ -91,11 +90,11 @@ function getLinearScale(axisInfo){
     return scale;
 }
 
-function getCatScale(axisInfo){
+function getCatScale(axisInfo) {
     const scaleValues = [];
-    for(const axis of axisInfo){
+    for (const axis of axisInfo) {
         scaleValues.push(...axis.scale.values);
-    }    
+    }
     // todo: time cat 重新排序
     const CatScale = getScale('cat');
     const scale = new CatScale({
@@ -105,20 +104,128 @@ function getCatScale(axisInfo){
     return scale;
 }
 
-function sameScaleTest(axisInfo){
+function sameScaleTest(axisInfo) {
     const sampleDataSource = axisInfo[0].originalData;
     const sampleField = axisInfo[0].scale.field;
-    for(const axis of axisInfo){
+    for (const axis of axisInfo) {
         const data = axis.originalData;
         const field = axis.scale.field;
         // 判断数据源和scale字段
-        if(data !== sampleDataSource || field !== sampleField){
+        if (data !== sampleDataSource || field !== sampleField) {
             return false;
         }
     }
     return true;
 }
 
-export function createAxis(){
+export function createAxis(scale, dim, canvas, cfg) {
+    const isVertical = dim === 'x' ? false : true;
+    const group = canvas.addGroup();
+    const ticks = getAxisTicks(scale,dim);
+    const axisConfig = {
+        type: 'line',
+        group,
+        canvas,
+        start: cfg.start,
+        end: cfg.end,
+        isVertical,
+        factor: cfg.factor,
+        ticks,
+        label(text) {
+            return {
+                text
+            };
+        },
+    };
+    const axis = new Axis.Line(axisConfig as any);
+    axis.render();
+    return axis;
+}
 
+function getAxisTicks(scale,dim) {
+    const tickValues = [];
+    const { ticks, range } = scale;
+    const step = (range[1] - range[0]) / (ticks.length - 1);
+    _.each(ticks, (tick, index) => {
+        const value = dim === 'y' ?  1.0- (range[0]+step * index): range[0]+step * index;
+        tickValues.push({ text: tick, value });
+    });
+
+    return tickValues;
+}
+
+
+
+export function axesLayout(axisInfo,padding,layer,width,height,canvas){
+    const paddingComponents = [];
+    // 创建axis
+    const axes = [];
+    const xAxisScale = mergeAxisScale(axisInfo,'x');
+    let xAxis = createAxis(xAxisScale[0],'x',canvas,{
+        start:{x:0,y:0},
+        end:{x:width,y:0},
+        factor:1
+    });
+
+    const yAxisScale = mergeAxisScale(axisInfo,'y');
+    _.each(yAxisScale,(scale,index)=>{
+        const factor = index === 0? -1 :1;
+        const axis = createAxis(scale,'y',canvas,{
+            start:{x:0,y:padding[0]+10},
+            end:{x:0,y:height- xAxis.get('group').getBBox().height},
+            factor
+        });
+        axes.push(axis);
+    });
+    axisLayout(axes,paddingComponents,width);
+    const axisPadding = getOverlappingPadding(layer,paddingComponents);
+    const ypos = axes[0].get('group').getBBox().maxY;
+    xAxis.destroy();
+    xAxis = createAxis(xAxisScale[0],'x',canvas,{
+        start:{x:axisPadding[3],y:ypos},
+        end:{x:width - axisPadding[1],y:ypos},
+        factor:1
+    });
+    paddingComponents.push({
+        position:'bottom',
+        getBBox:()=>{
+            const container = xAxis.get('group');
+            const bbox = container.getBBox();
+            return new BBox(bbox.minX,bbox.minY+ypos,bbox.width,100);
+        }
+    });
+    return paddingComponents;
+}
+
+function axisLayout(axes,paddingComponents,width){
+    // 先处理最左边的
+    const leftAxis = axes[0];
+    const leftContainer = leftAxis.get('group');
+    const leftBbox = leftContainer.getBBox();
+    leftContainer.translate(leftBbox.width, 0);
+    paddingComponents.push({
+        position:'left',
+        getBBox:()=>{
+            const matrix = leftContainer.attr('matrix');
+            return new BBox(leftBbox.minX+matrix[6],leftBbox.minY,leftBbox.width,leftBbox.height );
+        }
+    });
+    let temp_width = 20;
+    const gap = 4;
+    // 处理右边的
+    for(let i = axes.length - 1; i>0; i--){
+        const axis = axes[i];
+        const container = axis.get('group');
+        const bbox = container.getBBox();
+        container.translate(width - temp_width - bbox.width,0);
+        temp_width += bbox.width+gap;
+        const component =  {
+            position: 'right',
+            getBBox:()=>{
+                const matrix = container.attr('matrix');
+                return new BBox(bbox.minX+matrix[6],bbox.minX,bbox.width,bbox.height );
+            }
+        };
+        paddingComponents.push(component);
+    }
 }

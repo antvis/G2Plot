@@ -21,6 +21,10 @@ fetch('../data/sales.json')
         visible: true,
         autoHideLabel: true,
       },
+      yAxis: {
+        visible: true,
+        formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+      },
       yField: '销售额',
       interactions: [
         {

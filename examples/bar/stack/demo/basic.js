@@ -2,94 +2,64 @@ import { StackBar } from '@antv/g2plot';
 
 const data = [
   {
-    year: '1991',
-    value: 3,
-    type: 'Lon',
+    地区: '华东',
+    细分: '公司',
+    销售额: 1454715.807999998,
   },
   {
-    year: '1992',
-    value: 4,
-    type: 'Lon',
+    地区: '华东',
+    细分: '消费者',
+    销售额: 2287358.261999998,
   },
   {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon',
+    地区: '中南',
+    细分: '公司',
+    销售额: 1335665.3239999984,
   },
   {
-    year: '1994',
-    value: 5,
-    type: 'Lon',
+    地区: '中南',
+    细分: '消费者',
+    销售额: 2057936.7620000008,
   },
   {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon',
+    地区: '东北',
+    细分: '公司',
+    销售额: 834842.827,
   },
   {
-    year: '1996',
-    value: 6,
-    type: 'Lon',
+    地区: '东北',
+    细分: '消费者',
+    销售额: 1323985.6069999991,
   },
   {
-    year: '1997',
-    value: 7,
-    type: 'Lon',
+    地区: '华北',
+    细分: '公司',
+    销售额: 804769.4689999995,
   },
   {
-    year: '1998',
-    value: 9,
-    type: 'Lon',
+    地区: '华北',
+    细分: '消费者',
+    销售额: 1220430.5610000012,
   },
   {
-    year: '1999',
-    value: 13,
-    type: 'Lon',
+    地区: '西南',
+    细分: '公司',
+    销售额: 469341.684,
   },
   {
-    year: '1991',
-    value: 3,
-    type: 'Bor',
+    地区: '西南',
+    细分: '消费者',
+    销售额: 677302.8919999995,
   },
   {
-    year: '1992',
-    value: 4,
-    type: 'Bor',
+    地区: '西北',
+    细分: '公司',
+    销售额: 253458.1840000001,
   },
   {
-    year: '1993',
-    value: 3.5,
-    type: 'Bor',
-  },
-  {
-    year: '1994',
-    value: 5,
-    type: 'Bor',
-  },
-  {
-    year: '1995',
-    value: 4.9,
-    type: 'Bor',
-  },
-  {
-    year: '1996',
-    value: 6,
-    type: 'Bor',
-  },
-  {
-    year: '1997',
-    value: 7,
-    type: 'Bor',
-  },
-  {
-    year: '1998',
-    value: 9,
-    type: 'Bor',
-  },
-  {
-    year: '1999',
-    value: 13,
-    type: 'Bor',
+    地区: '西北',
+    细分: '消费者',
+    销售额: 458058.1039999998,
   },
 ];
 
@@ -100,12 +70,12 @@ const stackBarPlot = new StackBar(document.getElementById('container'), {
     text: '百分比堆叠条形图',
   },
   data,
-  xField: 'value',
-  yField: 'year',
-  yAxis: {
-    min: 0,
+  yField: '地区',
+  xField: '销售额',
+  xAxis: {
+    formatter: (v) => Math.round(v / 10000) + '万',
   },
-  stackField: 'type',
+  stackField: '细分',
 });
 
 stackBarPlot.render();

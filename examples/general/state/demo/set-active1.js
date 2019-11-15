@@ -56,7 +56,7 @@ columnPlot.render();
 columnPlot.setActive(
   { name: 'year', exp: '1994' },
   {
-    fillStyle: '#C11008',
+    fillStyle: '#5AD8A6',
     fillOpacity: 0.8,
   }
 );

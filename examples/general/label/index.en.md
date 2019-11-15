@@ -1,6 +1,6 @@
 ---
-title: Set Padding
-order: 4
+title: Lable
+order: 3
 ---
 
 Description about this component.

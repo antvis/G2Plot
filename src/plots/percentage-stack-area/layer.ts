@@ -52,7 +52,10 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
 
   protected scale() {
     const metaConfig = {};
+    const { yField } = this.options;
     metaConfig[this.options.yField] = {
+      tickCount: 6,
+      alias: `${yField} (%)`,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

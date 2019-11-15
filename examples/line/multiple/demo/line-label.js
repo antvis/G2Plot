@@ -250,6 +250,9 @@ const linePlot = new Line(document.getElementById('container'), {
       formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
     },
   },
+  legend: {
+    visible: false,
+  },
   label: {
     visible: true,
     type: 'line',

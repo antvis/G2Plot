@@ -1,6 +1,6 @@
 ---
 title: Set Padding
-order: 1
+order: 3
 ---
 
 Description about this component.

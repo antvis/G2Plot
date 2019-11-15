@@ -1,5 +1,4 @@
 ---
 title: 设置图表出血
-order: 1
+order: 3
 ---
-

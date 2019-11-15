@@ -14,7 +14,11 @@ order: 0
 单组雷达图适合的数据类型为一个分类字段和一个连续字段。在下面这个例子中，`type`为分类字段，`value`为联系字段。
 
 ```typescript
-const data = [{ type: 'a', value: 100 }, { type: 'b', value: 60 }, { type: 'c', value: 30 }];
+const data = [
+  { type: 'a', value: 100 },
+  { type: 'b', value: 60 },
+  { type: 'c', value: 30 },
+];
 ```
 
 多组雷达图需要在此基础上再加入一个分类字段作为分组字段。雷达图将根据此字段分为 N 组。在下面的例子中，`mark`为分组字段，将雷达图分为上下叠加的两组。
@@ -102,7 +106,7 @@ const data = [
 - `stroke: string`  线的颜色<br />
 - `lineWidth: number`  线的宽度<br />
 - `lineDash: number[]`  虚线<br />
-- - `opacity: number`  透明度
+- `opacity: number`  透明度
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
@@ -129,11 +133,11 @@ const data = [
 
 **optional**
 
-`visible: boolean`    图形标签是否显示<br />
-`formatter: function`  对 label 的显示文本进行格式化。/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
-`style: object` as br    配置 label 文本
+`visible: boolean`    图形标签是否显示。<br />
+`formatter: function`  对 label 的显示文本进行格式化。<br />
+`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br />
+`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br />
+`style: object` 配置 label 文本
 
 ### events
 

@@ -55,7 +55,7 @@ order: 2
 
 **optional**
 
-图表内边距，是边框相对绘图区域的边距。坐标轴(axis）和图例(legend)都显示在这一区域。/>目前支持以下两种配置方式： as br
+图表内边距，是边框相对绘图区域的边距。坐标轴 (axis）和图例 (legend) 都显示在这一区域。/>目前支持以下两种配置方式： as br
 
 1. `padding: [10,10,10,10]`，顺序与 CSS 盒模型相同：上边距、右边距、下边距、左边距
 1. `padding: 'auto'`，此为默认配置，将会自动计算边距所占的空间
@@ -80,18 +80,18 @@ order: 2
 
 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
 
-```
-htmlContent:(title,items)=>{
+```js
+htmlContent: (title, items) => {
   return '<div><ul><li>.....</li></ul></div>';
-}
+};
 ```
 
 此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器。
 
-```
-htmlContent:(title,items)=>{
+```js
+htmlContent: (title, items) => {
   return dom | dom.id;
-}
+};
 ```
 
 ## legend
@@ -137,15 +137,14 @@ htmlContent:(title,items)=>{
 
 更新图表配置项。
 
-```
+```js
 plot.updateConfig({
-   width: 500,
-   height: 600,
-   legend:{
-     visible: false
-   }
+  width: 500,
+  height: 600,
+  legend: {
+    visible: false,
+  },
 });
-
 ```
 
 ### repaint()

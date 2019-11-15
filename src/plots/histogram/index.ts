@@ -4,7 +4,7 @@ import HistogramLayer, { HistogramViewConfig } from './layer';
 
 export interface HistogramConfig extends HistogramViewConfig, PlotConfig {}
 
-export default class Histogram<T extends HistogramConfig = HistogramConfig> extends BasePlot<T> {
+export default class Histogram extends BasePlot<HistogramConfig> {
   public static getDefaultOptions: typeof HistogramLayer.getDefaultOptions = HistogramLayer.getDefaultOptions;
 
   public createLayers(props) {

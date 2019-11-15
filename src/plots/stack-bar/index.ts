@@ -4,7 +4,7 @@ import StackBarLayer, { StackBarViewConfig } from './layer';
 
 export interface StackBarConfig extends StackBarViewConfig, PlotConfig {}
 
-export default class StackBar<T extends StackBarConfig = StackBarConfig> extends BasePlot<T> {
+export default class StackBar extends BasePlot<StackBarConfig> {
   public static getDefaultOptions: typeof StackBarLayer.getDefaultOptions = StackBarLayer.getDefaultOptions;
 
   public createLayers(props) {

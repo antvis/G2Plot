@@ -5,7 +5,7 @@ import RingProgressLayer, { RingProgressViewConfig } from './layer';
 
 export interface RingProgressConfig extends RingProgressViewConfig, PlotConfig {}
 
-export default class RingProgress<T extends RingProgressConfig = RingProgressConfig> extends BasePlot<T> {
+export default class RingProgress extends BasePlot<RingProgressConfig> {
   public static getDefaultOptions: typeof RingProgressLayer.getDefaultOptions = RingProgressLayer.getDefaultOptions;
 
   public createLayers(props) {

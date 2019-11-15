@@ -13,18 +13,18 @@ order: 0
 
 堆叠柱状图适合的数据类型为两个**分类字段**(分类字段、堆叠字段)和一个**连续字段**(数值)。在下面这个例子中，`type`为分类数据字段，`quarter`为堆叠数据字段，`value`为离散数据字段。
 
-```
+```typescript
 const data = [
-  {type:'a',quarter:'Q1',value: 100},
-  {type:'a',quarter:'Q2',value: 70},
-  {type:'a',quarter:'Q3',value: 20},
-  {type:'b',quarter:'Q1',value: 10},
-  {type:'b',quarter:'Q2',value: 50},
-  {type:'b',quarter:'Q3',value: 40},
-  {type:'c',quarter:'Q1',value: 30},
-  {type:'c',quarter:'Q2',value: 50},
-  {type:'c',quarter:'Q3',value: 20},
- ];
+  { type: 'a', quarter: 'Q1', value: 100 },
+  { type: 'a', quarter: 'Q2', value: 70 },
+  { type: 'a', quarter: 'Q3', value: 20 },
+  { type: 'b', quarter: 'Q1', value: 10 },
+  { type: 'b', quarter: 'Q2', value: 50 },
+  { type: 'b', quarter: 'Q3', value: 40 },
+  { type: 'c', quarter: 'Q1', value: 30 },
+  { type: 'c', quarter: 'Q2', value: 50 },
+  { type: 'c', quarter: 'Q3', value: 20 },
+];
 ```
 
 图表绘制时，每一个分类对应一根柱子，映射到 x 轴，而堆叠字段决定柱子被如何分割，连续字段决定每块细分的高度，映射到 y 轴，细分高度之和即是柱子的总体高度。

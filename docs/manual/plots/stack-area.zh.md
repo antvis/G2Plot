@@ -157,7 +157,8 @@ work in progress
   `onAreaMouseenter: function`    区域鼠标进入事件<br />
   `onAreaMouseleave: function`    区域鼠标移出事件<br />
   `onAreaMousedown: function`    区域鼠标点击事件<br />
-  `onAreaMouseup: function`    区域鼠标抬起事件<br />`onAreaContextmenu: function`    右键事件
+  `onAreaMouseup: function`    区域鼠标抬起事件<br />
+  `onAreaContextmenu: function`    右键事件
 
   如配置了区域图上的数据点：
 

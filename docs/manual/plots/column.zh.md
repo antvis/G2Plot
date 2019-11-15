@@ -11,12 +11,12 @@ order: 0
 
 基础柱状图适合的数据类型为一个**分类字段**(类型)和一个**离散字段**(数值)。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
 
-```
+```typescript
 const data = [
-  {type:'a',value: 100},
-  {type:'b',value:60},
-  {type:'c',value: 30}
- ];
+  { type: 'a', value: 100 },
+  { type: 'b', value: 60 },
+  { type: 'c', value: 30 },
+];
 ```
 
 图表绘制时，每一个分类对应一根柱子，映射到 x 轴，而分类数值对应柱子的高度，映射到 y 轴。

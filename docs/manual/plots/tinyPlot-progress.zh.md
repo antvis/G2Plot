@@ -77,7 +77,7 @@ order: 0
 
 更新进度。
 
-```
+```typescript
 progress.update(0.5);
 ```
 

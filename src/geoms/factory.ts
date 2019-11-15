@@ -15,7 +15,14 @@ const GEOMETRY_MAP = {
   interval: Interval,
 };
 
-export function getGeom(name, type, cfg) {
-  const Geom = GEOMETRY_MAP[name][type];
+type FirstCtrParam<T> = T extends new (first: infer R) => any ? R : never;
+type MapType = typeof GEOMETRY_MAP;
+
+export function getGeom<T extends keyof MapType, U extends keyof MapType[T]>(
+  name: T,
+  type: U,
+  cfg: FirstCtrParam<MapType[T][U]>
+) {
+  const Geom: any = GEOMETRY_MAP[name][type];
   return new Geom(cfg).config;
 }

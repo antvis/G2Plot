@@ -25,7 +25,7 @@ fetch('../data/subsales.json')
           type: 'slider',
           cfg: {
             start: 0.4,
-            end: 0.45,
+            end: 0.42,
           },
         },
       ],

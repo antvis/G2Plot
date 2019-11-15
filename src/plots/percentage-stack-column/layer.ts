@@ -9,14 +9,23 @@ export interface PercentageStackColumnLayerConfig extends PercentageStackColumnV
 export default class PercentageStackColumnLayer extends StackColumn<PercentageStackColumnLayerConfig> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
+      label: {
+        visible: true,
+        position: 'middle',
+      },
       yAxis: {
         visible: true,
-        label: {
+        tick: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        title: {
           visible: true,
-          formatter: (v) => {
-            const reg = /%/gi;
-            return v.replace(reg, '');
-          },
+        },
+        label: {
+          visible: false,
         },
       },
     });
@@ -52,7 +61,10 @@ export default class PercentageStackColumnLayer extends StackColumn<PercentageSt
 
   protected scale() {
     const metaConfig = {};
-    metaConfig[this.options.yField] = {
+    const { yField } = this.options;
+    metaConfig[yField] = {
+      tickCount: 6,
+      alias: `${yField} (%)`,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

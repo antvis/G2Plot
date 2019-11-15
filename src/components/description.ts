@@ -87,9 +87,8 @@ export default class TextDescription {
       const breakIndex: number[] = [];
       for (let i = 0; i < chars.length; i++) {
         const item = chars[i];
-        // 注意: 后面每个char后面需要添加一个空格
-        tShape.attr('text', (text += `${item} `));
-        const currentWidth = Math.floor(tShape.measureText());
+        tShape.attr('text', (text += item));
+        const currentWidth = tShape.getBBox().width - 1;
         if (currentWidth > width) {
           // 如果是第一个字符就大于宽度不做任何换行处理
           if (i === 0) {

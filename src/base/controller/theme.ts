@@ -34,7 +34,7 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
   public getTheme(props: T, type: string): any {
     const plotG2Theme = convertToG2Theme(this.getPlotTheme(props, type));
     const g2Theme = _.deepMix({}, G2DefaultTheme, plotG2Theme);
-    this._processVisible(g2Theme);
+    // this._processVisible(g2Theme);
     return g2Theme;
   }
 

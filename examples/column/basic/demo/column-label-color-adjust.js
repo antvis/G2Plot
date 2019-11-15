@@ -27,7 +27,8 @@ const columnPlot = new Column(document.getElementById('container'), {
   data,
   xField: 'year',
   yField: 'sales',
-  color: '#2C225B',
+  colorField: 'year',
+  color: ['#55A6F3', '#55A6F3', '#55A6F3', '#CED4DE', '#55A6F3', '#55A6F3', '#55A6F3', '#55A6F3'],
   label: {
     visible: true,
     position: 'middle',

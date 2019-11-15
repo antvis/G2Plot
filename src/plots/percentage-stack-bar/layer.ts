@@ -11,8 +11,18 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
     return _.deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        label: {
+        tick: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        title: {
           visible: true,
+          formatter: (v) => `${v} (%)`,
+        },
+        label: {
+          visible: false,
           formatter: (v) => {
             const reg = /%/gi;
             return v.replace(reg, '');
@@ -52,7 +62,10 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
 
   protected scale() {
     const metaConfig = {};
-    metaConfig[this.options.xField] = {
+    const { xField } = this.options;
+    metaConfig[xField] = {
+      tickCount: 6,
+      alias: `${xField} (%)`,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

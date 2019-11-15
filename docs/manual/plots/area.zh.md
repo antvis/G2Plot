@@ -49,37 +49,37 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### data: collection
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+数据源为对象集合，例如：`[{ segment: '分类一'，value: 20 }, { segment: '分类二'，value: 20 }]`。
 
 ### xField: string
 
@@ -133,60 +133,61 @@ const data = [
 `visible: boolean`  是否显示数据点<br />
 `shape: string`  数据点形状<br />
 `size: number`  数据点大小<br />
-`style: object | function`  数据点图形样式，另外该属性还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+`style: object | function`  数据点图形样式，另外该属性还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### label
 
 **optional**
 
-`visible: boolean`    图形标签是否显示<br />
-`formatter: function`  对 label 的显示文本进行格式化。<br/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。<br/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object` as br    配置 label 文本
+`visible: boolean`  图形标签是否显示<br />
+`formatter: function`  对 label 的显示文本进行格式化<br/>
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br/>
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br/>
+`style: object` 配置 label 文本
 
 ### events
 
 **optional**
 
 - 图形事件
-  `onAreaClick: function`  区域点击事件<br />
-  `onAreaDblclick: function`    区域双击事件<br />
-  `onAreaMousemove: function`  区域鼠标移动事件<br />
-  `onAreaMouseenter: function`    区域鼠标进入事件<br />
-  `onAreaMouseleave: function`    区域鼠标移出事件<br />
-  `onAreaMousedown: function`    区域鼠标点击事件<br />
-  `onAreaMouseup: function`    区域鼠标抬起事件<br />`onAreaContextmenu: function`    右键事件
+  `onAreaClick: function` 区域点击事件<br />
+  `onAreaDblclick: function` 区域双击事件<br />
+  `onAreaMousemove: function` 区域鼠标移动事件<br />
+  `onAreaMouseenter: function` 区域鼠标进入事件<br />
+  `onAreaMouseleave: function` 区域鼠标移出事件<br />
+  `onAreaMousedown: function` 区域鼠标点击事件<br />
+  `onAreaMouseup: function` 区域鼠标抬起事件<br />
+  `onAreaContextmenu: function` 右键事件
 
   如配置了区域图上的数据点：
 
   `onPointClick: function`  数据点点击事件<br />
-  `onPointDblClick: function`    数据点双击事件<br />
-  `onPointMousemove: function`  数据点鼠标移动事件<br />
-  `onPointMouseenter: function`    数据点鼠标进入事件<br />
-  `onPointMouseleave: function`    数据点鼠标移出事件<br />
-  `onPointMousedown: function`    数据点鼠标点击事件<br />
-  `onPointMouseup: function`    数据点鼠标抬起事件<br />
-  `onPointContextmenu: function`    数据点右键事件
+  `onPointDblClick: function` 数据点双击事件<br />
+  `onPointMousemove: function` 数据点鼠标移动事件<br />
+  `onPointMouseenter: function` 数据点鼠标进入事件<br />
+  `onPointMouseleave: function` 数据点鼠标移出事件<br />
+  `onPointMousedown: function` 数据点鼠标点击事件<br />
+  `onPointMouseup: function` 数据点鼠标抬起事件<br />
+  `onPointContextmenu: function` 数据点右键事件
 
   如配置了区域图上的折线：
 
-  `onLineClick: function`  折线点击事件<br />
-  `onLineDblClick: function`  折线双击事件<br />
-  `onLineMousemove: function`  折线鼠标移动事件<br />
-  `onLineMouseenter: function`    折线鼠标进入事件<br />
-  `onLineMouseleave: function`    折线鼠标移出事件<br />
-  `onLineMousedown: function`    折线鼠标点击事件<br />
-  `onLineMouseup: function`    折线鼠标抬起事件<br />
-  `onLineContextmenu: function`    折线右键事件<br />
+  `onLineClick: function` 折线点击事件<br />
+  `onLineDblClick: function` 折线双击事件<br />
+  `onLineMousemove: function` 折线鼠标移动事件<br />
+  `onLineMouseenter: function` 折线鼠标进入事件<br />
+  `onLineMouseleave: function` 折线鼠标移出事件<br />
+  `onLineMousedown: function` 折线鼠标点击事件<br />
+  `onLineMouseup: function` 折线鼠标抬起事件<br />
+  `onLineContextmenu: function` 折线右键事件
+  c
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
-
+- 其他事件类型见[通用图表配置](../general-config.zh.md)。

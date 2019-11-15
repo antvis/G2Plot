@@ -80,6 +80,8 @@ export default class TextDescription {
         ...style,
       },
     });
+    // 调用该方法 主要是为了初始化text的font属性，要不然measureText不准确(会使用默认字体)
+    tShape._assembleFont();
     const textArr = textContent.split('\n');
     const wrappedTextArr = textArr.map((wrappedText) => {
       let text = '';
@@ -87,8 +89,7 @@ export default class TextDescription {
       const breakIndex: number[] = [];
       for (let i = 0; i < chars.length; i++) {
         const item = chars[i];
-        // 注意: 后面每个char后面需要添加一个空格
-        tShape.attr('text', (text += `${item} `));
+        tShape.attr('text', (text += item));
         const currentWidth = Math.floor(tShape.measureText());
         if (currentWidth > width) {
           // 如果是第一个字符就大于宽度不做任何换行处理

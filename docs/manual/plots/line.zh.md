@@ -53,37 +53,37 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### data: collection
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+数据源为对象集合，例如：`[{ segment: '分类一'，value: 20 }, { segment: '分类二'，value: 20 }]`。
 
 ### xField: string
 
@@ -151,11 +151,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### label
 
@@ -164,12 +164,12 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `type: 'point' | 'line'`  图形标签类型
 
-<p>(src as img)="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m9CuRrHRW78AAAAAAAAAAABkARQnAQ" width="600">(/p>
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m9CuRrHRW78AAAAAAAAAAABkARQnAQ" width="600"></p>
 
-`formatter: function` as )  对 label 的显示文本进行格式化。/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
-`style: object` as br    配置 label 文本
+`formatter: function` 对 label 的显示文本进行格式化<br />
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br />
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br />
+`style: object` 配置 label 文本
 
 ### events
 
@@ -189,4 +189,4 @@ const data = [
 `onPointMousemove: function`  数据点鼠标移动事件<br />
 `onPointContextmenu: function`    数据点右键事件<br />
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
+- 其他事件类型见[通用图表配置](../general-config.zh.md)。

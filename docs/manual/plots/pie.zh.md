@@ -39,31 +39,31 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### data: collection
 
@@ -97,11 +97,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config.zh.md)。
 
 ### label
 
@@ -137,4 +137,4 @@ label: {
 `onPieMousemove: function`  图形鼠标移动事件<br />
 `onPieContextmenu: function`    图形右键事件<br />
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
+- 其他事件类型见[通用图表配置](../general-config.zh.md)。

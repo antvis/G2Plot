@@ -122,6 +122,14 @@ module.exports = {
           en: 'General Config',
         },
       },
+      {
+        slug: 'advanced',
+        icon: 'other',
+        title: {
+          zh: '高级功能尝鲜',
+          en: 'advanced',
+        },
+      },
     ],
   },
 };

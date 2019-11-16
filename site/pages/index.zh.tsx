@@ -48,7 +48,7 @@ const IndexPage = () => {
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: '/zh/examples/general/title-description',
+      link: '/zh/examples/line/basic',
       type: 'primary',
     },
     {

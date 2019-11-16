@@ -16,6 +16,7 @@ export const DEFAULT_DARK_THEME = {
   backgroundStyle: {
     fill: '#262626',
   },
+  defaultColor: '#5B8FF9',
   width: 400,
   height: 400,
   bleeding: [TOP_BLEEDING, 24, 24, 24],

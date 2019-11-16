@@ -73,7 +73,7 @@ linePlot.render();
 
 最终结果：
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulnDT6yfBOkAAAAAAAAAAABkARQnAQ" width="400">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulnDT6yfBOkAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 搭配图表组件
 
@@ -156,7 +156,7 @@ linePlot.render();
 
 最终结果：
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_COMAAAAAAAAAAABkARQnAQ" width="400">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_COMAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 个性化设置
 
@@ -254,6 +254,6 @@ linePlot.render();
 
 最终结果：
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wYxGRJUDoloAAAAAAAAAAABkARQnAQ" width="400">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wYxGRJUDoloAAAAAAAAAAABkARQnAQ" width="400">
 
 经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[图表通用配置](../manual/general-config)及[各图表配置项](../plots/column)，一些尚在实验阶段的高级功能请移步[高级功能](../advanced/responsive)。

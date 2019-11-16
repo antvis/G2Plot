@@ -1,5 +1,4 @@
-
-import {TinyLine, TinyColumn, RingProgress} from '@antv/g2plot';
+import { TinyLine, TinyColumn, RingProgress } from '@antv/g2plot';
 
 const CSS = `
 .g2plot-table {
@@ -100,32 +99,32 @@ container.innerHTML = TABLE;
 const data = [
   {
     id: 'local-001',
-    times: randomData(20,200,400),
-    trend: randomData(10,10,1000),
+    times: randomData(20, 200, 400),
+    trend: randomData(10, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-002',
-    times: randomData(20,200,400),
-    trend: randomData(10,10,1000),
+    times: randomData(20, 200, 400),
+    trend: randomData(10, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-003',
-    times: randomData(20,200,400),
-    trend: randomData(10,10,1000),
+    times: randomData(20, 200, 400),
+    trend: randomData(10, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-004',
-    times: randomData(20,200,400),
-    trend: randomData(10,10,1000),
+    times: randomData(20, 200, 400),
+    trend: randomData(10, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-005',
-    times: randomData(20,200,400),
-    trend: randomData(10,10,1000),
+    times: randomData(20, 200, 400),
+    trend: randomData(10, 10, 1000),
     load: Math.random(),
   },
 ];
@@ -145,18 +144,18 @@ const content = data.map((d) => {
 
 $tbody.innerHTML = content.join('');
 
-function randomData(num,max,min){
+function randomData(num, max, min) {
   const data = [];
-  for(let i =0; i<num; i++){
-    data.push({index:String(i),value:min+Math.random()*(max - min)});
+  for (let i = 0; i < num; i++) {
+    data.push({ index: String(i), value: min + Math.random() * (max - min) });
   }
   return data;
 }
 
-data.forEach((d)=>{
+data.forEach((d) => {
   //tiny-line
   const tinyLineContainer = $(`#tiny-line-${d.id}`);
-  const tinyLine = new TinyLine(tinyLineContainer,{
+  const tinyLine = new TinyLine(tinyLineContainer, {
     width: 200,
     height: 50,
     data: d.times,
@@ -164,51 +163,53 @@ data.forEach((d)=>{
     yField: 'value',
     smooth: true,
     guideLine: [
-      { type: 'mean',
+      {
+        type: 'mean',
         text: {
           position: 'start',
-          content: '平均值', 
-          style:{
-            stroke:'white',
-            lineWidth: 2
-          }
-        }
-      }
+          content: '平均值',
+          style: {
+            stroke: 'white',
+            lineWidth: 2,
+          },
+        },
+      },
     ],
   });
   tinyLine.render();
   //tiny-column
   const tinyColumnContainer = $(`#tiny-bar-${d.id}`);
-  const tinyColumn= new TinyColumn(tinyColumnContainer,{
+  const tinyColumn = new TinyColumn(tinyColumnContainer, {
     width: 200,
     height: 50,
     data: d.trend,
     xField: 'index',
     yField: 'value',
-    guideLine: [ 
-      { type: 'median',
+    guideLine: [
+      {
+        type: 'median',
         text: {
           position: 'start',
-          content: '中位数', 
-          style:{
-            stroke:'white',
-            lineWidth: 2
-          }
-        } 
-      } 
+          content: '中位数',
+          style: {
+            stroke: 'white',
+            lineWidth: 2,
+          },
+        },
+      },
     ],
   });
   tinyColumn.render();
   //ring-progress
   const progressContainer = $(`#ring-progress-${d.id}`);
-  const progress = new RingProgress(progressContainer,{
+  const progress = new RingProgress(progressContainer, {
     width: 50,
     height: 50,
-    percent:d.load,
+    percent: d.load,
     color: (v) => {
-      if(v < 0.3){
+      if (v < 0.3) {
         return ['green', '#E8EDF3'];
-      }else if( v>= 0.3 && v< 0.7){
+      } else if (v >= 0.3 && v < 0.7) {
         return ['#55A6F3', '#E8EDF3'];
       }
       return ['red', '#E8EDF3'];

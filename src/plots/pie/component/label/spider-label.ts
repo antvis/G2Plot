@@ -5,8 +5,8 @@ import * as _ from '@antv/util';
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
 const DEFAULT_COLOR = '#CCC';
-const LABEL1_OFFSETY = 1;
-const LABEL2_OFFSETY = -1;
+const LABEL1_OFFSETY = 4;
+const LABEL2_OFFSETY = -4;
 const ADJUSTOFFSET = 15;
 
 interface IAttrs {
@@ -318,7 +318,7 @@ export default class SpiderLabel {
 
     children.forEach((child) => {
       const offsetY = child.get('offsetY');
-      const yPosition = this.offsetY ? y + offsetY * this.offsetY : y;
+      const yPosition = y + offsetY;
       child.attr(textAttrs);
       child.attr('y', yPosition);
     });

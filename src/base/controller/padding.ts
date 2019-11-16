@@ -151,7 +151,7 @@ export default class PaddingController {
           y = legendBBox.minY;
         }
         if (position[0] === 'left') {
-          x = viewRange.minX - width;
+          x = box.minX - width;
           y = legendBBox.minY;
         }
         if (position[0] === 'top') {

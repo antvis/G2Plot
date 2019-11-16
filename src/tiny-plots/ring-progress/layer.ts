@@ -18,6 +18,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
 
   public processProps() {
     let props = this.options;
+    props.data = this.processData();
     const cfg = {
       padding: [0, 0, 0, 0],
       xField: 'value',

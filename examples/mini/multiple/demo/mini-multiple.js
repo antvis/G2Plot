@@ -1,3 +1,6 @@
+
+import {TinyLine, TinyColumn, RingProgress} from '@antv/g2plot';
+
 const CSS = `
 .g2plot-table {
   width: 100%;
@@ -87,10 +90,6 @@ function loadCssCode(code) {
   head.appendChild(style);
 }
 
-function randomArray(n) {
-  return Array(n).map(() => Math.random() * 100);
-}
-
 loadCssCode(CSS);
 
 // create table dom
@@ -101,32 +100,32 @@ container.innerHTML = TABLE;
 const data = [
   {
     id: 'local-001',
-    times: randomArray(10),
-    trend: randomArray(10),
+    times: randomData(20,200,400),
+    trend: randomData(10,10,1000),
     load: Math.random(),
   },
   {
     id: 'local-002',
-    times: randomArray(10),
-    trend: randomArray(10),
+    times: randomData(20,200,400),
+    trend: randomData(10,10,1000),
     load: Math.random(),
   },
   {
     id: 'local-003',
-    times: randomArray(10),
-    trend: randomArray(10),
+    times: randomData(20,200,400),
+    trend: randomData(10,10,1000),
     load: Math.random(),
   },
   {
     id: 'local-004',
-    times: randomArray(10),
-    trend: randomArray(10),
+    times: randomData(20,200,400),
+    trend: randomData(10,10,1000),
     load: Math.random(),
   },
   {
     id: 'local-005',
-    times: randomArray(10),
-    trend: randomArray(10),
+    times: randomData(20,200,400),
+    trend: randomData(10,10,1000),
     load: Math.random(),
   },
 ];
@@ -138,12 +137,82 @@ const content = data.map((d) => {
   return `
     <tr class="g2plot-table-row">
       <td class="g2plot-table-column g2plot-table-column-id">${d.id}</td>
-      <td class="g2plot-table-column" id="tiny-bar-${d.id}">tiny bar</td>
-      <td class="g2plot-table-column" id="tiny-line-${d.id}">tiny line</td>
-      <td class="g2plot-table-column" id="ring-progress-${d.id}">ring-progress</td>
+      <td class="g2plot-table-column" id="tiny-bar-${d.id}"></td>
+      <td class="g2plot-table-column" id="tiny-line-${d.id}"></td>
+      <td class="g2plot-table-column" id="ring-progress-${d.id}"></td>
     </tr>`;
 });
 
-console.log(content.join(''));
-
 $tbody.innerHTML = content.join('');
+
+function randomData(num,max,min){
+  const data = [];
+  for(let i =0; i<num; i++){
+    data.push({index:String(i),value:min+Math.random()*(max - min)});
+  }
+  return data;
+}
+
+data.forEach((d)=>{
+  //tiny-line
+  const tinyLineContainer = $(`#tiny-line-${d.id}`);
+  const tinyLine = new TinyLine(tinyLineContainer,{
+    width: 200,
+    height: 50,
+    data: d.times,
+    xField: 'index',
+    yField: 'value',
+    smooth: true,
+    guideLine: [
+      { type: 'mean',
+        text: {
+          position: 'start',
+          content: '平均值', 
+          style:{
+            stroke:'white',
+            lineWidth: 2
+          }
+        }
+      }
+    ],
+  });
+  tinyLine.render();
+  //tiny-column
+  const tinyColumnContainer = $(`#tiny-bar-${d.id}`);
+  const tinyColumn= new TinyColumn(tinyColumnContainer,{
+    width: 200,
+    height: 50,
+    data: d.trend,
+    xField: 'index',
+    yField: 'value',
+    guideLine: [ 
+      { type: 'median',
+        text: {
+          position: 'start',
+          content: '中位数', 
+          style:{
+            stroke:'white',
+            lineWidth: 2
+          }
+        } 
+      } 
+    ],
+  });
+  tinyColumn.render();
+  //ring-progress
+  const progressContainer = $(`#ring-progress-${d.id}`);
+  const progress = new RingProgress(progressContainer,{
+    width: 50,
+    height: 50,
+    percent:d.load,
+    color: (v) => {
+      if(v < 0.3){
+        return ['green', '#E8EDF3'];
+      }else if( v>= 0.3 && v< 0.7){
+        return ['#55A6F3', '#E8EDF3'];
+      }
+      return ['red', '#E8EDF3'];
+    },
+  });
+  progress.render();
+});

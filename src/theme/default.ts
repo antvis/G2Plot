@@ -1,12 +1,5 @@
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
-    return 0;
-  }
-  return 24;
-};
-
-const TOP_BLEEDING = function(props) {
-  if (props.title || props.description) {
     return 16;
   }
   return 24;
@@ -16,13 +9,12 @@ export const DEFAULT_GLOBAL_THEME = {
   width: 400,
   height: 400,
   defaultColor: '#5B8FF9',
-  bleeding: [TOP_BLEEDING, 24, 24, 24],
+  bleeding: [24, 24, 24, 24],
   padding: 'auto',
   title: {
     padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
-    fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
     textBaseline: 'top',
@@ -30,7 +22,7 @@ export const DEFAULT_GLOBAL_THEME = {
     alignWithAxis: false,
   },
   description: {
-    padding: [10, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
+    padding: [24, 24, DESCRIPTION_BOTTOM_MARGIN, 24],
     fontFamily: 'PingFang SC',
     fontSize: 12,
     fill: 'grey',
@@ -173,7 +165,7 @@ export const DEFAULT_GLOBAL_THEME = {
     flipPage: false,
     position: 'bottom-center',
     // 距离panelRange的距离
-    innerPadding: [16, 16, 16, 16],
+    innerPadding: [8, 16, 16, 16],
   },
   label: {
     offset: 12,

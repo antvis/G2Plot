@@ -1,6 +1,7 @@
 import { BBox, Canvas, Group, Text } from '@antv/g';
 import * as _ from '@antv/util';
 import { breakText } from '../util/common';
+import ViewLayer from '../base/view-layer';
 
 interface TextConfig {
   leftMargin: number;
@@ -10,6 +11,8 @@ interface TextConfig {
   wrapperWidth: number;
   container: Canvas | Group;
   theme: any;
+  index: number;
+  plot: ViewLayer;
 }
 
 /**
@@ -25,6 +28,8 @@ export default class TextDescription {
   private wrapperWidth: number;
   private text: string;
   private style: any;
+  private index: number;
+  private plot: ViewLayer;
 
   constructor(cfg: TextConfig) {
     _.assign(this as any, cfg);
@@ -33,7 +38,20 @@ export default class TextDescription {
 
   public getBBox(): BBox | null {
     if (this.shape) {
-      return this.shape.getBBox();
+      const bbox = this.shape.getBBox();
+      if (this.index === 0) {
+        return bbox;
+      }
+      const padding = this.plot.theme.description.padding;
+      if (_.isArray(padding)) {
+        _.each(padding, (it, index) => {
+          if (typeof padding[index] === 'function') {
+            padding[index] = padding[index](this.plot.options.legend.position);
+          }
+        });
+      }
+      console.log(padding);
+      return new BBox(bbox.maxX, bbox.minY, bbox.width, bbox.height + padding[2]);
     }
     return null;
   }

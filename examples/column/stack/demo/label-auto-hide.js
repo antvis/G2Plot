@@ -13,7 +13,7 @@ const data = [
   },
   {
     year: '1993',
-    value: 3.5,
+    value: 7,
     type: 'Lon',
   },
   {
@@ -43,7 +43,7 @@ const data = [
   },
   {
     year: '1999',
-    value: 13,
+    value: 0.5,
     type: 'Lon',
   },
   {
@@ -58,7 +58,7 @@ const data = [
   },
   {
     year: '1993',
-    value: 3.5,
+    value: 0.5,
     type: 'Bor',
   },
   {
@@ -78,7 +78,7 @@ const data = [
   },
   {
     year: '1997',
-    value: 7,
+    value: 0.5,
     type: 'Bor',
   },
   {
@@ -90,6 +90,51 @@ const data = [
     year: '1999',
     value: 13,
     type: 'Bor',
+  },
+  {
+    year: '1991',
+    value: 1,
+    type: 'Wiz',
+  },
+  {
+    year: '1992',
+    value: 2,
+    type: 'Wiz',
+  },
+  {
+    year: '1993',
+    value: 5,
+    type: 'Wiz',
+  },
+  {
+    year: '1994',
+    value: 4,
+    type: 'Wiz',
+  },
+  {
+    year: '1995',
+    value: 6,
+    type: 'Wiz',
+  },
+  {
+    year: '1996',
+    value: 2,
+    type: 'Wiz',
+  },
+  {
+    year: '1997',
+    value: 10,
+    type: 'Wiz',
+  },
+  {
+    year: '1998',
+    value: 12,
+    type: 'Wiz',
+  },
+  {
+    year: '1999',
+    value: 3,
+    type: 'Wiz',
   },
 ];
 

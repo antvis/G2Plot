@@ -49,31 +49,31 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data: collection
 
@@ -137,11 +137,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ### label
 
@@ -188,6 +188,5 @@ const data = [
   `onLineMousedown: function` 折线鼠标点击事件<br />
   `onLineMouseup: function` 折线鼠标抬起事件<br />
   `onLineContextmenu: function` 折线右键事件
-  c
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

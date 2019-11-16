@@ -54,39 +54,39 @@ const data = [
 
 #### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 #### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 #### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 #### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 #### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 #### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 #### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ---
 
@@ -152,4 +152,4 @@ const data = [
   `onBarMousemove: function`  条形鼠标移动事件<br />
   `onBarContextmenu: function`    条形右键事件
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

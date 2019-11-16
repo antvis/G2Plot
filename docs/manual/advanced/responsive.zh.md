@@ -11,7 +11,7 @@ order: 0
 
 图表数据量和展示空间的矛盾会造成图表布局错乱、组件遮挡图形、组件各部分相互重叠等问题。下图是两个典型案例：
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y-k1Q4V7jXsAAAAAAAAAAABkARQnAQ" width="600">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y-k1Q4V7jXsAAAAAAAAAAABkARQnAQ" width="600">
 
 这种非常典型的信息密度 (information density) 过载现象正是 G2Plot 响应式模块所要解决的问题 — 当信息密度过高时，对图表辅助信息进行抽稀，保证图表主要信息的展示，以使图表的信息密度达到合理平衡。
 
@@ -21,7 +21,7 @@ g2plot 响应式方案由三块组成：constraints（约束条件）、rules（
 
 一个约束条件 (constraint) 对应一组响应规则 (rules)，多个约束组构成一个完整的响应式方案 — resonsiveTheme。
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqCOLwAAAAAAAAAAABkARQnAQ" width="600">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqCOLwAAAAAAAAAAABkARQnAQ" width="600">
 
 ## Constraint （约束条件）
 
@@ -101,7 +101,7 @@ g2plot 内置了一套常用的 rule library，目前响应式模块还在试验
 | nodesSampling             | keep: array                                              | 抽样显示，可设置保头保尾或任意一个 index                                                                                     |
 | nodesSamplingByAbbraviate |                                                          | 配合 dateTimeAbbraviate 方法使用，抽样掉经过省略的文本，保留完整的文本。                                                     |
 | nodeSamplingByChange      |                                                          | 根据数据间的变化进行抽样，保留变化较大的点                                                                                   |
-| nodeSamplingByState       | state: {(/>    name: string,<br / as br)>    exp: string | function<br />}                                                                                                              | 根据状态量进行抽样，保留符合状态量的 node |
+| nodeSamplingByState       | state: {name: string,<br>    exp: string  }| function<br />                                                                                                              | 根据状态量进行抽样，保留符合状态量的 node |
 | nodeJitter                |                                                          | 元素在水平和垂直方向抖开                                                                                                     |
 | nodeJitterUpward          |                                                          | 元素向上抖开并拉线                                                                                                           |
 | clearOverlapping          |                                                          | 在一组元素中去除 overlap 的元素，当多个元素发生重叠时，只保留位于最高点的元素。此方法用于多折线数据点 label 的 overlapping。 |

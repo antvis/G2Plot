@@ -1,0 +1,18 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "legend-position.js",
+      "title": "图例位置",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*R6NWS4aNqPMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "legend-flip-page.js",
+      "title": "图例翻页",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*R6NWS4aNqPMAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

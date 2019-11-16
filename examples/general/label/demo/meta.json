@@ -1,0 +1,23 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "label-formatter.js",
+      "title": "图形标签文本格式化",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*R6NWS4aNqPMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-style.js",
+      "title": "图形标签文本样式",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*R6NWS4aNqPMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-offset.js",
+      "title": "图形标签文本偏移量",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*R6NWS4aNqPMAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

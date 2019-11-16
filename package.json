@@ -119,7 +119,7 @@
     "testRegex": "/__tests__/.*-spec\\.ts?$"
   },
   "lint-staged": {
-    "*.{js,css,json,md}": [
+    "*.{js,css,json}": [
       "prettier --write",
       "git add"
     ],

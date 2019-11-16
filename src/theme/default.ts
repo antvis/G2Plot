@@ -1,6 +1,6 @@
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
-    return 0;
+    return 12;
   }
   return 24;
 };
@@ -22,7 +22,6 @@ export const DEFAULT_GLOBAL_THEME = {
     padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
-    fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
     textBaseline: 'top',

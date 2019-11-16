@@ -50,7 +50,6 @@ export default class TextDescription {
           }
         });
       }
-      console.log(padding);
       return new BBox(bbox.maxX, bbox.minY, bbox.width, bbox.height + padding[2]);
     }
     return null;

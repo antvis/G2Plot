@@ -4,9 +4,12 @@ import * as _ from '@antv/util';
 export default class LabelParser {
   public config: DataPointType = {};
   private plot: any;
+  private originConfig: any;
 
   constructor(cfg) {
-    this.plot = cfg.plot;
+    const { plot, ...rest } = cfg;
+    this.plot = plot;
+    this.originConfig = rest;
     this._init(cfg);
   }
 
@@ -18,7 +21,7 @@ export default class LabelParser {
   }
 
   private _parseCallBack(val) {
-    const labelProps = this.plot.options.label;
+    const labelProps = this.originConfig;
     const theme = this.plot.getPlotTheme();
     const config: DataPointType = { ...labelProps };
     this._parseOffset(labelProps, config);

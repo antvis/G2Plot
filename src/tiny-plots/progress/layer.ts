@@ -31,7 +31,6 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   public type: string = 'progress';
   public processProps() {
     this.getSize();
-
     let props = this.options;
     props.data = this.processData();
     const cfg = {

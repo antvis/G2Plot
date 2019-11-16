@@ -447,6 +447,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
         container: this.container.addGroup(),
         theme,
+        index: isTextUsable(props.description) ? 0 : 1,
+        plot: this,
       });
       this.title = title;
       this.paddingController.registerPadding(title, 'outer');
@@ -483,6 +485,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
         container: this.container.addGroup(),
         theme,
+        index: 1,
+        plot: this,
       });
       this.description = description;
       this.paddingController.registerPadding(description, 'outer');

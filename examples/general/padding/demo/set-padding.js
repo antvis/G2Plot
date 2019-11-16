@@ -51,7 +51,7 @@ const columnPlot = new Column(document.getElementById('container'), {
   data,
   xField: 'year',
   yField: 'value',
-  padding: [100,100,100,100]
+  padding: [100, 100, 100, 100],
 });
 
 columnPlot.render();

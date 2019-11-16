@@ -1,5 +1,4 @@
-
-import {TinyArea, Progress} from '@antv/g2plot';
+import { TinyArea, Progress } from '@antv/g2plot';
 
 const CSS = `
 .g2plot-table {
@@ -99,27 +98,27 @@ container.innerHTML = TABLE;
 const data = [
   {
     id: 'local-001',
-    trend: randomData(50,10,1000),
+    trend: randomData(50, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-002',
-    trend: randomData(50,10,1000),
+    trend: randomData(50, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-003',
-    trend: randomData(50,10,1000),
+    trend: randomData(50, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-004',
-    trend: randomData(50,10,1000),
+    trend: randomData(50, 10, 1000),
     load: Math.random(),
   },
   {
     id: 'local-005',
-    trend: randomData(50,10,1000),
+    trend: randomData(50, 10, 1000),
     load: Math.random(),
   },
 ];
@@ -138,48 +137,49 @@ const content = data.map((d) => {
 
 $tbody.innerHTML = content.join('');
 
-function randomData(num,max,min){
+function randomData(num, max, min) {
   const data = [];
-  for(let i =0; i<num; i++){
-    data.push({index:String(i),value:min+Math.random()*(max - min)});
+  for (let i = 0; i < num; i++) {
+    data.push({ index: String(i), value: min + Math.random() * (max - min) });
   }
   return data;
 }
 
-data.forEach((d)=>{
+data.forEach((d) => {
   //tiny-area
   const tinyAreaContainer = $(`#tiny-area-${d.id}`);
-  const tinyArea = new TinyArea(tinyAreaContainer,{
-    width:200,
+  const tinyArea = new TinyArea(tinyAreaContainer, {
+    width: 200,
     height: 50,
     data: d.trend,
     xField: 'index',
     yField: 'value',
     smooth: true,
     guideLine: [
-      { type: 'mean',
+      {
+        type: 'mean',
         text: {
           position: 'start',
-          content: '平均值', 
-          style:{
-            stroke:'white',
-            lineWidth: 2
-          }
-        }
-      }
+          content: '平均值',
+          style: {
+            stroke: 'white',
+            lineWidth: 2,
+          },
+        },
+      },
     ],
   });
   tinyArea.render();
   //ring-progress
   const progressContainer = $(`#progress-${d.id}`);
-  const progress = new Progress(progressContainer,{
+  const progress = new Progress(progressContainer, {
     width: 200,
     height: 50,
-    percent:d.load,
+    percent: d.load,
     color: (v) => {
-      if(v < 0.3){
+      if (v < 0.3) {
         return ['green', '#E8EDF3'];
-      }else if( v>= 0.3 && v< 0.7){
+      } else if (v >= 0.3 && v < 0.7) {
         return ['#55A6F3', '#E8EDF3'];
       }
       return ['red', '#E8EDF3'];

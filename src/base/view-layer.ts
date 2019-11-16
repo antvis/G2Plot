@@ -493,7 +493,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   private doDestroy() {
     this.doDestroyInteractions();
     /** 销毁g2.view实例 */
-    this.view.destroy();
+    if (!this.view.destroyed) {
+      this.view.destroy();
+    }
   }
 
   private doDestroyInteractions() {

@@ -37,10 +37,9 @@ export default class CanvasController {
     }
     const { width, height } = this.getCanvasSize();
     /** height measure不准导致重复 forceFit */
-    if (this.width === width && this.height === height) {
+    if (this.width === width /*&& this.height === height*/) {
       return;
     }
-
     // got new width, height, re-render the plot
     this.width = width;
     this.height = height;

@@ -78,7 +78,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       },
       tooltip: {
         visible: true,
-        shared: false,
+        shared: true,
         crosshairs: {
           type: 'rect',
         },

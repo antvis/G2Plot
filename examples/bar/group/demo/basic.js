@@ -2,54 +2,54 @@ import { GroupBar } from '@antv/g2plot';
 
 const data = [
   {
-    year: '1991',
-    value: 3,
-    type: 'Lon',
+    label: 'Mon.',
+    type: 'series1',
+    value: 2800,
   },
   {
-    year: '1992',
-    value: 4,
-    type: 'Lon',
+    label: 'Mon.',
+    type: 'series2',
+    value: 2260,
   },
   {
-    year: '1993',
-    value: 3.5,
-    type: 'Lon',
+    label: 'Tues.',
+    type: 'series1',
+    value: 1800,
   },
   {
-    year: '1994',
-    value: 5,
-    type: 'Lon',
+    label: 'Tues.',
+    type: 'series2',
+    value: 1300,
   },
   {
-    year: '1995',
-    value: 4.9,
-    type: 'Lon',
+    label: 'Wed.',
+    type: 'series1',
+    value: 950,
   },
   {
-    year: '1991',
-    value: 3,
-    type: 'Bor',
+    label: 'Wed.',
+    type: 'series2',
+    value: 900,
   },
   {
-    year: '1992',
-    value: 4,
-    type: 'Bor',
+    label: 'Thur.',
+    type: 'series1',
+    value: 500,
   },
   {
-    year: '1993',
-    value: 3.5,
-    type: 'Bor',
+    label: 'Thur.',
+    type: 'series2',
+    value: 390,
   },
   {
-    year: '1994',
-    value: 5,
-    type: 'Bor',
+    label: 'Fri.',
+    type: 'series1',
+    value: 170,
   },
   {
-    year: '1995',
-    value: 4.9,
-    type: 'Bor',
+    label: 'Fri.',
+    type: 'series2',
+    value: 100,
   },
 ];
 
@@ -60,10 +60,7 @@ const barPlot = new GroupBar(document.getElementById('container'), {
   },
   data,
   xField: 'value',
-  yField: 'year',
-  yAxis: {
-    min: 0,
-  },
+  yField: 'label',
   groupField: 'type',
 });
 

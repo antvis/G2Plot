@@ -166,6 +166,9 @@ export interface ElementOption {
   animate?: {};
   adjust?: AdjustCfg[];
   connectNulls?: boolean;
+  widthRatio?: {
+    [type: string]: number;
+  };
 }
 
 export interface G2Config {

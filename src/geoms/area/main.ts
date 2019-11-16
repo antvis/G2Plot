@@ -18,7 +18,8 @@ export default class AreaParser extends ElementParser {
     if (this._getColorMappingField() || props.color) {
       this.parseColor();
     }
-    if (props.areaStyle || props.area.style) {
+
+    if (props.areaStyle || (props.area && props.area.style)) {
       this.parseStyle();
     }
   }

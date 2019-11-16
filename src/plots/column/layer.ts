@@ -66,14 +66,14 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       },
       tooltip: {
         visible: true,
-        shared: false,
+        shared: true,
         crosshairs: {
           type: 'rect',
         },
       },
       label: {
         visible: false,
-        position: 'bottom',
+        position: 'top',
         adjustColor: true,
       },
       legend: {

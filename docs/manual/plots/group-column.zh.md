@@ -3,6 +3,8 @@ title: Grouped-Column 分组柱状图
 order: 0
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8nw0SqtQJ6AAAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 分组柱状图是柱状图的扩展形式，适合于在同一个轴上展示不同维度下相同分类的数据。相比于堆叠柱状图，分组柱状图更适合进行不同维度下同一分类的横向数值的比较，但缺点是无法直观的看到各维度总和的对比。

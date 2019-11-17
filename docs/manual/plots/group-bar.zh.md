@@ -3,6 +3,8 @@ title: Group-Bar 分组条形图
 order: 0
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PGBvQ7a8Iz4AAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 分组条形图是基础条形图的扩展形式，适合于在同一个轴上展示不同维度下相同分类的数据。相比于堆叠条形图，分组条形图更适合进行不同维度下同一分类的横向数值的比较，但缺点是无法直观的看到各维度总和的对比。

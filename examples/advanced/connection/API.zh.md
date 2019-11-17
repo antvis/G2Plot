@@ -12,7 +12,7 @@ stateManager 可用于多个图表之间，以及图表与外部组件的联动�
 
 新建一个 stateManager 实例：
 
-```typescript
+```
 import { StateManager } from '@antv/g2plot';
 
 const stateManager = new StateManager();
@@ -60,7 +60,7 @@ const stateManager = new StateManager();
 
 代码示例：
 
-```typescript
+```
 plot.bindStateManager(manager,{
   setState:[
     {

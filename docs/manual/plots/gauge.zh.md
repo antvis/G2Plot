@@ -93,6 +93,6 @@ order: 12
 
 示例如下：
 
-```typescript
+```
 format = (value) => `${value}%`;
 ```

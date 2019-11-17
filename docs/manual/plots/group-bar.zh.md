@@ -15,7 +15,7 @@ order: 8
 
 分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
 
-```typescript
+```
 const data = [
   { type: 'a', quarter: 'Q1', value: 100 },
   { type: 'a', quarter: 'Q2', value: 70 },

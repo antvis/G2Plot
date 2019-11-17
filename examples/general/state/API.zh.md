@@ -31,7 +31,7 @@ g2plot 提供了状态量变化的快捷方法：`setActive()`  `setDisable()`
 
 代码示例：
 
-```typescript
+```
 // 通过回调函数设置状态量
 plot.setActive((shapeData) => {
   return shapeData.type !== 'a';
@@ -81,7 +81,7 @@ plot.setActive({ name: 'type', exp: 'a' }, { stroke: 'black', lineWidth: 2 });
 
 用法：
 
-```typescript
+```
 defaultState:{
     active:{
       condition:{
@@ -104,7 +104,7 @@ defaultState:{
 
 ### 在图表主题中定义状态样式
 
-```typescript
+```
 plot.registerTheme('line', {
   lineStyle: {
     normal: {} | Function,

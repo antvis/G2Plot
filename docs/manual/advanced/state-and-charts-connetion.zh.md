@@ -32,7 +32,7 @@ g2plot 提供了状态量变化的快捷方法：`setActive()`  `setDisable()`
 
 代码示例：
 
-```typescript
+```
 // 通过回调函数设置状态量
 plot.setActive((shapeData) => {
   return shapeData.type !== 'a';
@@ -82,7 +82,7 @@ plot.setActive({ name: 'type', exp: 'a' }, { stroke: 'black', lineWidth: 2 });
 
 用法：
 
-```typescript
+```
 defaultState:{
     active:{
       condition:{
@@ -105,7 +105,7 @@ defaultState:{
 
 ### 在图表主题中定义状态样式
 
-```typescript
+```
 plot.registerTheme('line', {
   lineStyle: {
     normal: {} | Function,
@@ -126,7 +126,7 @@ stateManager 可用于多个图表之间，以及图表与外部组件的联动�
 
 新建一个 stateManager 实例：
 
-```typescript
+```
 import { StateManager } from '@antv/g2plot';
 
 const stateManager = new StateManager();
@@ -174,7 +174,7 @@ const stateManager = new StateManager();
 
 代码示例：
 
-```typescript
+```
 plot.bindStateManager(manager,{
   setState:[
     {

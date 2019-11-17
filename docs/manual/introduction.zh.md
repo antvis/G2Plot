@@ -38,7 +38,7 @@ $ npm install @antv/g2plot
 <div id="c1"></div>
 ```
 
-```typescript
+```
 import g2plot from '@antv/g2plot';
 
 const data = [

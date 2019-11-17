@@ -79,7 +79,7 @@ order: 14
 
 更新进度。
 
-```typescript
+```
 progress.update(0.5);
 ```
 

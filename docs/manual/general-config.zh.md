@@ -80,7 +80,7 @@ order: 2
 
 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
 
-```typescript
+```
 htmlContent: (title, items) => {
   return '<div><ul><li>.....</li></ul></div>';
 };
@@ -88,7 +88,7 @@ htmlContent: (title, items) => {
 
 此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器。
 
-```typescript
+```
 htmlContent: (title, items) => {
   return dom | dom.id;
 };
@@ -137,7 +137,7 @@ htmlContent: (title, items) => {
 
 更新图表配置项。
 
-```typescript
+```
 plot.updateConfig({
   width: 500,
   height: 600,

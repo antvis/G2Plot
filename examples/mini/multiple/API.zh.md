@@ -111,7 +111,7 @@ title: API
 
 配置统计辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -125,7 +125,7 @@ title: API
 
 配置自定义辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -247,7 +247,7 @@ title: API
 
 配置统计辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -261,7 +261,7 @@ title: API
 
 配置自定义辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -378,7 +378,7 @@ title: API
 
 配置统计辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -392,7 +392,7 @@ title: API
 
 配置自定义辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -465,7 +465,7 @@ title: API
 
 更新进度。
 
-```typescript
+```
 progress.update(0.5);
 ```
 
@@ -518,7 +518,7 @@ progress.update(0.5);
 
 更新进度。
 
-```typescript
+```
 progress.update(0.5);
 
 

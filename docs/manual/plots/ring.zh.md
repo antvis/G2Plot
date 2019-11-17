@@ -13,7 +13,7 @@ order: 10
 
 环图适合的数据类型为一个分类数据字段和一个连续数据字段。在下面这个例子中，`type`为分类字段，`value`为联系字段。
 
-```typescript
+```
 const data = [
   { type: 'a', value: 100 },
   { type: 'b', value: 60 },
@@ -71,7 +71,7 @@ const data = [
 
 用法：
 
-```typescript
+```
 annotation: [
   {
     type: 'centralText',

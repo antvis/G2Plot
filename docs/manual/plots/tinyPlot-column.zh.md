@@ -117,7 +117,7 @@ order: 16
 
 配置统计辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -131,7 +131,7 @@ order: 16
 
 配置自定义辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {

@@ -4,7 +4,7 @@ import LiquidLayer, { LiquidLayerConfig } from './layer';
 
 export interface LiquidConfig extends LiquidLayerConfig, PlotConfig {}
 
-export default class Liquid<T extends LiquidConfig = LiquidConfig> extends BasePlot<T> {
+export default class Liquid extends BasePlot<LiquidConfig> {
   public static getDefaultOptions: typeof LiquidLayer.getDefaultOptions = LiquidLayer.getDefaultOptions;
 
   public createLayers(props) {

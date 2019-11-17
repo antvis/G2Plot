@@ -29,6 +29,7 @@ const PLOT_GEOM_MAP = {
 export interface ColumnViewConfig extends ViewConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';
+  colorField?: string;
   // 百分比, 数值, 最小最大宽度
   columnSize?: number;
   maxWidth?: number;
@@ -65,14 +66,14 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       },
       tooltip: {
         visible: true,
-        shared: false,
+        shared: true,
         crosshairs: {
           type: 'rect',
         },
       },
       label: {
         visible: false,
-        position: 'bottom',
+        position: 'top',
         adjustColor: true,
       },
       legend: {

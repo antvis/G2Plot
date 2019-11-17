@@ -13,6 +13,7 @@ export interface PlotConfig {
   renderer?: string;
   height?: number;
   pixelRatio?: number;
+  theme?: string | {};
 }
 
 export default class BasePlot<T extends PlotConfig = PlotConfig> {
@@ -21,6 +22,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
   public forceFit: boolean;
   public renderer: string;
   public pixelRatio: number;
+  public theme: string | object;
   public canvas: G.Canvas;
   public destroyed: boolean;
   protected layers: Array<Layer<any>>;
@@ -34,6 +36,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     this.pixelRatio = props.pixelRatio || null;
     this.width = props.width;
     this.height = props.height;
+    this.theme = props.theme;
     this.canvasController = new CanvasController({
       containerDOM: this.containerDOM,
       plot: this,
@@ -85,8 +88,12 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     if (config.height) {
       this.height = config.height as number;
     }
+    if (config.theme) {
+      this.theme = config.theme;
+    }
 
     this.canvasController.updateCanvasSize();
+    this.canvasController.updateCanvasTheme();
   }
 
   public changeData(data: any[], all: boolean = false) {

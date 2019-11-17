@@ -32,7 +32,7 @@
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "dist": "webpack --config webpack.config.js --mode production",
     "lint": "lint-staged",
-    "lint-check": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint-check": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
     "lint-fix": "run-s lint-fix:*",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
@@ -42,12 +42,11 @@
     "test-live": "DEBUG_MODE=1 jest --watch  ./__tests__/unit/combo-spec",
     "compare-live": "node scripts/compare.js",
     "ci": "run-s lint-check build test coverage",
-    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
-    "watch": "webpack --config webpack-dev.config.js"
+    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint build test"
+      "pre-commit": "run-s lint test build "
     }
   },
   "dependencies": {
@@ -67,9 +66,14 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.9.45",
-    "@types/jest": "^24.0.22",
+    "@antv/gatsby-theme-antv": "^0.9.58",
+    "@types/jest": "^24.0.23",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "colors": "^1.4.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "event-simulate": "^1.0.0",
     "gatsby": "^2.16.0",
     "gh-pages": "^2.1.1",
@@ -87,8 +91,6 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.2.1",
-    "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
     "webpack-bundle-analyzer": "^3.4.1",
@@ -118,13 +120,12 @@
     "testRegex": "/__tests__/.*-spec\\.ts?$"
   },
   "lint-staged": {
-    "*.{js,css,json,md}": [
+    "*.{js,css,json}": [
       "prettier --write",
       "git add"
     ],
-    "src/*.{ts}": [
-      "tslint -c tslint.json --fix",
-      "prettier --write",
+    "*.ts": [
+      "eslint --ext .ts --fix ./src ./__tests__ ./demos",
       "git add"
     ]
   },

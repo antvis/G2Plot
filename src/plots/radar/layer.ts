@@ -170,6 +170,9 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     });
   }
   public type: string = 'radar';
+  public line: any;
+  public point: any;
+  public area: any;
   public baseElement: any;
   public lineElement: any; // 保存line、area、point的配置项，用于后续的label、tooltip
   public pointElement: any;
@@ -293,20 +296,23 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         plot: this,
       });
       this.setConfig('element', area);
+      this.area = area;
     }
     /** 配置线 */
-    if (props.line.visible) {
+    if (props.line && props.line.visible) {
       const line = getGeom('line', 'guide', {
         plot: this,
       });
       this.setConfig('element', line);
+      this.line = line;
     }
     /** 配置点 */
-    if (props.point.visible) {
+    if (props.point && props.point.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
       });
       this.setConfig('element', point);
+      this.point = point;
     }
   }
 
@@ -314,7 +320,15 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
 
   protected annotation() {}
 
-  protected animation() {}
+  protected animation() {
+    const props = this.options;
+    if (props.animation === false) {
+      // 关闭动画
+      if (this.area) this.area.animate = false;
+      if (this.line) this.line.animate = false;
+      if (this.point) this.point.animate = false;
+    }
+  }
 
   protected parserEvents(eventParser) {
     super.parserEvents(EventParser);

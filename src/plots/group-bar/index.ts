@@ -4,7 +4,7 @@ import GroupBarLayer, { GroupBarViewConfig } from './layer';
 
 export interface GroupBarConfig extends GroupBarViewConfig, PlotConfig {}
 
-export default class GroupBar<T extends GroupBarConfig = GroupBarConfig> extends BasePlot<T> {
+export default class GroupBar extends BasePlot<GroupBarConfig> {
   public static getDefaultOptions: typeof GroupBarLayer.getDefaultOptions = GroupBarLayer.getDefaultOptions;
 
   public createLayers(props) {

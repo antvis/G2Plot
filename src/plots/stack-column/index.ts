@@ -4,7 +4,7 @@ import StackColumnLayer, { StackColumnViewConfig } from './layer';
 
 export interface StackColumnConfig extends StackColumnViewConfig, PlotConfig {}
 
-export default class StackColumn<T extends StackColumnConfig = StackColumnConfig> extends BasePlot<T> {
+export default class StackColumn extends BasePlot<StackColumnConfig> {
   public static getDefaultOptions: typeof StackColumnLayer.getDefaultOptions = StackColumnLayer.getDefaultOptions;
 
   public createLayers(props) {

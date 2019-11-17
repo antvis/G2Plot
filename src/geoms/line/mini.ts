@@ -33,7 +33,10 @@ G2.registerShape('line', 'miniLine', {
 G2.registerShape('line', 'miniLineSmooth', {
   draw(cfg, container) {
     const points = lineSimplification(cfg.points);
-    const constraint = [[0, 0], [1, 1]];
+    const constraint = [
+      [0, 0],
+      [1, 1],
+    ];
     const path = getSplinePath(points, false, constraint);
     const shape = container.addShape('path', {
       attrs: _.mix(

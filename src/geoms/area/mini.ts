@@ -1,7 +1,6 @@
 /** 简化折线点 */
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-import { rgb2arr } from '../../util/color';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import AreaParser from './main';
@@ -37,7 +36,10 @@ G2.registerShape('area', 'miniAreaSmooth', {
 });
 
 function getPath(cfg, shape, isSmooth) {
-  const constraint = [[0, 0], [1, 1]];
+  const constraint = [
+    [0, 0],
+    [1, 1],
+  ];
   let topLinePoints = [];
   let bottomLinePoints = [];
   _.each(cfg.points, (point) => {

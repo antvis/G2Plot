@@ -8,6 +8,8 @@ import axisState from './axis/state';
 import labelState from './label/state';
 import tooltipState from './tooltip/state';
 
+type FirstArgs<T> = T extends new (first: infer U) => any ? U : never;
+
 const COMPONENT_MAPPER = {
   axis: AxisParser,
   label: LabelParser,
@@ -20,7 +22,10 @@ const STATE_MAPPER = {
   axis: axisState,
 };
 
-export function getComponent(name, cfg) {
+export function getComponent<K extends keyof typeof COMPONENT_MAPPER>(
+  name: K,
+  cfg: FirstArgs<typeof COMPONENT_MAPPER[K]>
+) {
   const Components = COMPONENT_MAPPER[name];
   return new Components(cfg).config;
 }

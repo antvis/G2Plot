@@ -114,4 +114,4 @@ const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
 radarPlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

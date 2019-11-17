@@ -42,7 +42,7 @@ const COLOR_PLATE_20 = [
 
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
-    return 0;
+    return 12;
   }
   return 24;
 };
@@ -57,6 +57,7 @@ const TOP_BLEEDING = function(props) {
 export const DEFAULT_GLOBAL_THEME = {
   width: 400,
   height: 400,
+  defaultColor: '#5B8FF9',
   bleeding: [TOP_BLEEDING, 24, 24, 24],
   padding: 'auto',
   defaultColor: DEFAULT_COLOR, // 默认主题色
@@ -66,7 +67,6 @@ export const DEFAULT_GLOBAL_THEME = {
     padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
-    fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
     textBaseline: 'top',
@@ -147,6 +147,10 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       line: {
         visible: false,
+        style: {
+          stroke: '#BFBFBF',
+          lineWidth: 1,
+        },
       },
       tickLine: {
         visible: true,
@@ -215,11 +219,10 @@ export const DEFAULT_GLOBAL_THEME = {
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
   },
-  label:{
+  label: {
     offset: 12,
-    style:{
-      stroke:'#ffffff',
-      lineWidth:2
-    }
-  }
+    style: {
+      fill: 'rgba(0, 0, 0, 0.95)',
+    },
+  },
 };

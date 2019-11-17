@@ -3,6 +3,8 @@ title: Line - 折线图
 order: 0
 ---
 
+<img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FAMKRLERiAEAAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式：是上升还是下降，是否存在周期性的循环？因此，相对于独立的数据点，折线图关注的是全局趋势。
@@ -11,29 +13,29 @@ order: 0
 
 ## 数据类型
 
-折线图适合的数据类型为一个**连续字段**(时间)和一个**离散字段**(数值)。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
+折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
 
 ```
 const data = [
-  {time:'2000',value: 100},
-  {time:'2001',value:60},
-  {time:'2002',value: 30}
- ];
+  { time: '2000', value: 100 },
+  { time: '2001', value: 60 },
+  { time: '2002', value: 30 },
+];
 ```
 
 在进行图表绘制的时候，连续字段将映射到折线形状在 x 方向上的信息，而离散字段将映射到折线形状在 y 方向上的信息。
 
-在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向(时间)的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
+在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
 
 ```
 const data = [
-  { time:'2000',value: 100,type:'a'},
-  { time:'2001',value:60,type:'a' },
-  { time:'2002',value: 30, type: 'a' },
-  { time:'2000',value: 70,type:'b' },
-  { time:'2001',value:120,type:'b' },
-  { time:'2002',value: 40, type: 'b' },
- ];
+  { time: '2000', value: 100, type: 'a' },
+  { time: '2001', value: 60, type: 'a' },
+  { time: '2002', value: 30, type: 'a' },
+  { time: '2000', value: 70, type: 'b' },
+  { time: '2001', value: 120, type: 'b' },
+  { time: '2002', value: 40, type: 'b' },
+];
 ```
 
 ## 图表用法
@@ -45,7 +47,7 @@ const data = [
 
 - **Do**
 
-  - 多折线时，善用视觉样式(线宽、颜色、透明度)突出重点。对于辅助数据可以采用灰色或降低透明度的方法与主要数据进行区分。
+  - 多折线时，善用视觉样式（线宽、颜色、透明度）突出重点。对于辅助数据可以采用灰色或降低透明度的方法与主要数据进行区分。
 
 ## API
 
@@ -53,43 +55,43 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data: collection
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：`[{ segment: '分类一'，value: 20 }, { segment: '分类二'，value: 20 }]`。
 
 ### xField: string
 
 **required**
 
-折线形状在 x 方向(横向延伸)对应的数据字段名，一般对应一个连续字段。
+折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
 ### yField: string
 
@@ -117,7 +119,7 @@ const data = [
 
 **optional**
 
-是否将折线绘制为曲线(spline)。
+是否将折线绘制为曲线 (spline)。
 
 ### color: string[] | function
 
@@ -151,11 +153,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ### label
 
@@ -164,12 +166,12 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `type: 'point' | 'line'`  图形标签类型
 
-<p>(src as img)="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m9CuRrHRW78AAAAAAAAAAABkARQnAQ" width="600">(/p>
+<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m9CuRrHRW78AAAAAAAAAAABkARQnAQ" width="600"></p>
 
-`formatter: function` as )  对 label 的显示文本进行格式化。/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
-`style: object` as br    配置 label 文本
+`formatter: function` 对 label 的显示文本进行格式化<br />
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br />
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br />
+`style: object` 配置 label 文本
 
 ### events
 
@@ -189,4 +191,4 @@ const data = [
 `onPointMousemove: function`  数据点鼠标移动事件<br />
 `onPointContextmenu: function`    数据点右键事件<br />
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

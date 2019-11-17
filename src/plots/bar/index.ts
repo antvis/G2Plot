@@ -4,7 +4,7 @@ import BarLayer, { BarViewConfig } from './layer';
 
 export interface BarConfig extends BarViewConfig, PlotConfig {}
 
-export default class Bar<T extends BarConfig = BarConfig> extends BasePlot<T> {
+export default class Bar extends BasePlot<BarConfig> {
   public static getDefaultOptions: typeof BarLayer.getDefaultOptions = BarLayer.getDefaultOptions;
 
   public createLayers(props) {

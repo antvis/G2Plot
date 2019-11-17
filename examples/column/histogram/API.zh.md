@@ -2,7 +2,7 @@
 title: API
 ---
 
-API 信息。
+暂无。
 
 - Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 - Server-side Rendering

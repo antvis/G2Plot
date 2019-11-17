@@ -1,7 +1,9 @@
 ---
 title: Grouped-Column 分组柱状图
-order: 0
+order: 5
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8nw0SqtQJ6AAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 

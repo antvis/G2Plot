@@ -1,7 +1,9 @@
 ---
 title: TinyLine - 迷你折线图
-order: 0
+order: 17
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rgLDQLzr5AkAAAAAAAAAAABkARQnAQ" width="200">
 
 迷你折线是 g2plot 图表体系中，迷你图表的一种。
 

@@ -1,7 +1,9 @@
 ---
 title: Bar - 基础条形图
-order: 0
+order: 6
 ---
+
+<img src = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*T1ZHSphm71YAAAAAAAAAAABkARQnAQ' width="400">
 
 ## 图表故事
 

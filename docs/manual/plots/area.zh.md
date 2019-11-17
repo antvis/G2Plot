@@ -1,7 +1,9 @@
 ---
 title: Area - 面积图
-order: 0
+order: 1
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5rF7R5DCP9QAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 

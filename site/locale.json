@@ -5,6 +5,7 @@
   "AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。": "AntV is a new generation of data visualization solution of Ant Financial. We provide a best practice of data visualization with simplicity and convenience, profession and reliability, and infinite possibilities.",
   "继续了解": "More",
   "更新": "Update",
+  "下载使用": "Download",
   "L7 发布新版本，让地图动起来！": "L7 has published the new viewsion!",
   "推荐": "Recommand",
   "Kitchen 3.75，效率大幅提升！": "Kitchen 3.75, lift your efficient!",
@@ -20,13 +21,14 @@
   "G6 3.2 全新上线！": "G6 3.2 has already updated!",
   "合作公司": "Companies",
 
-  "精品 Gallery": "Gallery",
-  "真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，然用户达到开箱即用的效果。": "真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，然用户达到开箱即用的效果。",
-  "g2plot 开箱即用的图表库": "g2plot",
-  "开箱即用": "开箱即用",
-  "配置项优化精简，仅需几行代码轻松生成图表": "从数据出发，仅需几行代码就可以轻松获得想要的图表展示效果",
-  "默认好用": "默认好用",
-  "即使你不懂可视化或者设计小白，也能制作优雅、标准的统计图表": "即使你不懂可视化或者设计小白，也能制作优雅、标准的统计图表",
-  "响应式图表": "响应式图表",
-  "保证图表在任何显示尺寸、任何数据状态下的可读性": "保证图表在任何显示尺寸、任何数据状态下的可读性"
+  "图表实验室": "Advanced Features",
+  "来这里尝试一下我们正在开发中的高级图表功能": "We are now working on some advanced and powerful chart features.",
+  "g2plot 开箱即用的图表库": "g2plot: a charting libaray",
+  "g2plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。":"g2plot is an interactive and responsive charting library based on the grammar of graphics.",
+  "开箱即用": "easy to use",
+  "配置项优化精简，仅需几行代码轻松生成图表": "Generating high quality statistical charts through a few lines of code.",
+  "默认好用": "default by good",
+  "即使你不懂可视化或者设计小白，也能制作优雅、标准的统计图表": "Even though you are not an expert in data visualization and design, you still can create elegant as well as standard charts as you want by using g2plot.",
+  "响应式图表": "responsive plots",
+  "保证图表在任何显示尺寸、任何数据状态下的可读性": "The responsive ablity of g2plot guarantee your chart's readability in any display space and data status."
 }

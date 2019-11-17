@@ -28,8 +28,6 @@ title: API
 `text`: `string`  描述文本<br />
 `style`：`object`  描述样式，详见文本样式配置
 
-
-
 - Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 - Server-side Rendering
 - [Electron](http:// electron.atom.io/)

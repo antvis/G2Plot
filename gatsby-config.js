@@ -91,6 +91,14 @@ module.exports = {
         },
       },
       {
+        slug: 'radar',
+        icon: 'radar',
+        title: {
+          zh: '雷达图',
+          en: 'radar',
+        },
+      },
+      {
         slug: 'liquid',
         icon: 'other',
         title: {

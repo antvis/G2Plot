@@ -65,7 +65,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.9.45",
+    "@antv/gatsby-theme-antv": "^0.9.60",
     "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",

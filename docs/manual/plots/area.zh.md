@@ -3,6 +3,8 @@ title: Area - 面积图
 order: 0
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5rF7R5DCP9QAAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 面积图又叫区域图。 它是在折线图的基础之上形成的，它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充，这样一个填充区域我们叫做面积，颜色的填充可以更好的突出趋势信息。

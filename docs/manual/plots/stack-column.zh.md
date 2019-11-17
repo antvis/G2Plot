@@ -3,6 +3,8 @@ title: Stacked-Column 堆叠柱状图
 order: 0
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GFrwQqIkhjUAAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 堆叠柱状图是基础柱状图的扩展形式，将每根柱子进行分割，以显示大类目下的细分类目占比情况。堆叠柱状图可以展示更多维度的数据：大类目之间的数值比较、大类目下各细分类目的占比情况、不同大类目下同一细分类目的横向数值比较。

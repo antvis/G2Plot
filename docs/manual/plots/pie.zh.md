@@ -3,6 +3,8 @@ title: Pie - 饼图
 order: 0
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qFVQQL25Lo4AAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 饼图主要用于表示不同分类的占比情况。饼图中的每个扇形切片表现一个分类，扇形切片的弧度表示该分类在整体中的占比，所有切片构成一个整体，即 100%。

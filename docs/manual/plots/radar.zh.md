@@ -3,6 +3,8 @@ title: Radar - 雷达图
 order: 0
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EopBRptmqjAAAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 雷达图又叫蜘蛛网图。传统的雷达图被认为是一种表现多维（4 维以上）数据的图表。它将多个维度的数据量映射到坐标轴上，这些坐标轴起始于同一个圆心点，通常结束于圆周边缘，将同一组的点使用线连接起来就称为了雷达图。

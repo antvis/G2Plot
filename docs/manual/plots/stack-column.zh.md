@@ -1,6 +1,6 @@
 ---
 title: Stacked-Column 堆叠柱状图
-order: 0
+order: 4
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GFrwQqIkhjUAAAAAAAAAAABkARQnAQ" width="400">

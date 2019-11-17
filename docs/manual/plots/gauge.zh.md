@@ -1,6 +1,6 @@
 ---
 title: Gauge 仪表盘
-order: 0
+order: 12
 ---
 
 ## 图表故事

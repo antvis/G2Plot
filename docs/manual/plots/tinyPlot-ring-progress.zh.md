@@ -1,6 +1,6 @@
 ---
 title: RingProgress - 环形进度条
-order: 0
+order: 14
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4TyJT7-iB4wAAAAAAAAAAABkARQnAQ" width="200">

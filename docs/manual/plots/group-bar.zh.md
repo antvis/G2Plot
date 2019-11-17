@@ -1,7 +1,9 @@
 ---
 title: Group-Bar 分组条形图
-order: 0
+order: 8
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PGBvQ7a8Iz4AAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 

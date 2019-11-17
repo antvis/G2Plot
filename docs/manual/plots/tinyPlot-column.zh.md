@@ -1,7 +1,9 @@
 ---
 title: TinyColumn - 迷你柱形图
-order: 0
+order: 16
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KLIjQI5vjCsAAAAAAAAAAABkARQnAQ" width="200">
 
 迷你柱形图是 g2plot 图表体系中，迷你图表的一种。
 

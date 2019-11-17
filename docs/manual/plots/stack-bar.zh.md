@@ -1,7 +1,9 @@
 ---
 title: Stacked-Bar 堆叠条形图
-order: 0
+order: 7
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FBITRJghFFcAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 

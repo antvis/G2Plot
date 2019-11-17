@@ -61,9 +61,9 @@ const IndexPage = () => {
     {
       logo:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
-      title: t('精品 Gallery'),
+      title: t('图表实验室'),
       description:
-        '真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，然用户达到开箱即用的效果。',
+        t('来这里尝试一下我们正在开发中的高级图表功能'),
       link: 'examples/gallery/line',
       image:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',

@@ -115,7 +115,6 @@ plot.registerTheme('line', {
 });
 ```
 
-
 - Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 - Server-side Rendering
 - [Electron](http:// electron.atom.io/)

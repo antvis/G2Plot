@@ -5,6 +5,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
 import { Range } from '../layer';
 import BasePlot from '../plot';
+import ThemeController from './theme';
 
 export interface CanvasControllerCfg {
   readonly containerDOM: HTMLElement;
@@ -36,10 +37,9 @@ export default class CanvasController {
     }
     const { width, height } = this.getCanvasSize();
     /** height measure不准导致重复 forceFit */
-    if (this.width === width && this.height === height) {
+    if (this.width === width /*&& this.height === height*/) {
       return;
     }
-
     // got new width, height, re-render the plot
     this.width = width;
     this.height = height;
@@ -93,6 +93,20 @@ export default class CanvasController {
     this.height = height;
     this.canvas.changeSize(width, height);
     // this.plot.updateRange();
+  }
+
+  /**
+   * 根据主题调整canvas样式
+   */
+  public updateCanvasTheme() {
+    const { theme } = this.plot;
+    const globalTheme = ThemeController.getGlobalTheme(theme);
+    const fill: string = _.get(globalTheme, 'backgroundStyle.fill');
+    if (fill) {
+      this.updateCanvasStyle({
+        backgroundColor: fill,
+      });
+    }
   }
 
   /**
@@ -155,5 +169,6 @@ export default class CanvasController {
     });
     this.width = width;
     this.height = height;
+    this.updateCanvasTheme();
   }
 }

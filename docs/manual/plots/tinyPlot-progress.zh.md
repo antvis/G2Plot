@@ -1,7 +1,9 @@
 ---
 title: Progress - 进度条
-order: 0
+order: 13
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lO9ITInUZhQAAAAAAAAAAABkARQnAQ" width="200">
 
 进度条是 g2plot 图表体系中，迷你图表的一种。
 
@@ -27,7 +29,7 @@ order: 0
 
 **required**
 
-进度百分比，值域为[0,1]。
+进度百分比，值域为 [0,1]。
 
 ### color: number | number[] | function
 
@@ -36,8 +38,8 @@ order: 0
 设置进度条颜色，该值的类型如下
 
 - number    指定值为单值时，配置进度条已完成分段的颜色
-- number[]    指定值为一个数组时，同时配置进度条已完成和未完成分段的颜色，顺序为[ 已完成,未完成 ]
-- function  指定值为一个回调函数时，入参为当前进度(percent)，出参为一个数组，需要同时指定进度条已完成和未完成分段的颜色，顺序为[ 已完成,未完成 ]
+- number[]    指定值为一个数组时，同时配置进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
+- function  指定值为一个回调函数时，入参为当前进度 (percent)，出参为一个数组，需要同时指定进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
 
 ### progressStyle: object | function
 
@@ -51,7 +53,7 @@ order: 0
 `lineDash: number[]`  描边虚线显示<br />
 `opacity: number`  透明度
 
-另外还支持回调函数的配置方式，入参为当前进度(percent)，出参为一个样式配置对象。
+另外还支持回调函数的配置方式，入参为当前进度 (percent)，出参为一个样式配置对象。
 
 ### events
 
@@ -81,4 +83,4 @@ order: 0
 progress.update(0.5);
 ```
 
-其他方法见[通用图表配置](../generalConfig.zh-CN.md)。
+其他方法见[通用图表配置](../general-config.zh.md)。

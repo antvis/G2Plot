@@ -1,7 +1,7 @@
 import Line, { LineConfig } from '../../src/plots/line';
 import LineLayer from '../../src/plots/line/layer';
 
-describe('Area plot', () => {
+describe('title description', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -90,5 +90,29 @@ describe('Area plot', () => {
     expect(view.title).toBe(null);
     expect(view.description).toBe(null);
     expect(region2).not.toEqual(region3);
+  });
+  it('title desription wrap', () => {
+    const plot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      xField: 'year',
+      yField: 'value',
+      title: {
+        visible: true,
+        text: '标题',
+      },
+      description: {
+        visible: true,
+        text:
+          '我们经过大量的项目实践和经验总结，总结了以下四条核心原则，并以重要等级进行排序，四条原则相辅相成且呈递进关系，希望你在设计时也可以采纳。',
+      },
+    });
+    plot.render();
+    const view = plot.getLayer() as LineLayer;
+    expect(view.description).not.toBe(null);
+    expect(view.description.shape.attrs.text)
+      .toBe(`我们经过大量的项目实践和经验总结，总结了以下四条核心原则，并以重要等级进行排序，四条原则相辅
+相成且呈递进关系，希望你在设计时也可以采纳。`);
   });
 });

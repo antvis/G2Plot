@@ -2,11 +2,11 @@ import { Canvas, Group } from '@antv/g';
 import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
 
-const ANCHOR_OFFSET = 5; // 锚点偏移量
+const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
 const DEFAULT_COLOR = '#CCC';
-const LABEL1_OFFSETY = 1;
-const LABEL2_OFFSETY = -1;
+const LABEL1_OFFSETY = 4;
+const LABEL2_OFFSETY = -4;
 const ADJUSTOFFSET = 15;
 
 interface IAttrs {
@@ -23,13 +23,14 @@ function getEndPoint(center, angle, r) {
 function getDefaultCfg() {
   return {
     text: {
-      fill: '#808080',
+      fill: 'rgba(0, 0, 0, 0.65)',
       fontSize: 12,
     },
-    lineWidth: 1,
+    lineWidth: 0.5,
+    lineStroke: 'rgba(0, 0, 0, 0.45)',
     sidePadding: 20,
     lineHeight: 32,
-    anchorSize: 2,
+    // anchorSize: 2,
   };
 }
 
@@ -317,7 +318,7 @@ export default class SpiderLabel {
 
     children.forEach((child) => {
       const offsetY = child.get('offsetY');
-      const yPosition = this.offsetY ? y + offsetY * this.offsetY : y;
+      const yPosition = y + offsetY;
       child.attr(textAttrs);
       child.attr('y', yPosition);
     });
@@ -369,27 +370,19 @@ export default class SpiderLabel {
       attrs: {
         path,
         lineWidth: this.config.lineWidth,
-        stroke: fill,
+        stroke: this.config.lineStroke,
       },
     });
-
-    /*this.container.addShape('polyline', {
-      attrs: {
-        points,
-        lineWidth: this.config.lineWidth,
-        stroke: fill,
-      },
-    });*/
 
     // 绘制锚点
-    this.container.addShape('circle', {
-      attrs: {
-        x: _anchor[0],
-        y: _anchor[1],
-        r: this.config.anchorSize,
-        fill,
-      },
-    });
+    // this.container.addShape('circle', {
+    //   attrs: {
+    //     x: _anchor[0],
+    //     y: _anchor[1],
+    //     r: this.config.anchorSize,
+    //     fill,
+    //   },
+    // });
   }
 
   private _adjustConfig(config) {

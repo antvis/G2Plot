@@ -5,7 +5,7 @@ import ProgressLayer, { ProgressViewConfig } from './layer';
 
 export interface ProgressConfig extends ProgressViewConfig, PlotConfig {}
 
-export default class Progress<T extends ProgressConfig = ProgressConfig> extends BasePlot<T> {
+export default class Progress extends BasePlot<ProgressConfig> {
   public static getDefaultOptions: typeof ProgressLayer.getDefaultOptions = ProgressLayer.getDefaultOptions;
 
   public createLayers(props) {

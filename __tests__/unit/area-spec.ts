@@ -313,7 +313,7 @@ describe('Area plot', () => {
     const positionField = view.get('elements')[0].get('position').fields;
     const axes = view.get('axisController').axes;
 
-    expect(areaPlot). toBeInstanceOf(Area);
+    expect(areaPlot).toBeInstanceOf(Area);
     expect(positionField[0]).toBe('year');
     expect(positionField[1]).toBe('value');
     expect(axes.length).toBe(2);

@@ -178,6 +178,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     if (props.animation === false) {
       // 关闭动画
       this.line.animate = false;
+      if (this.point) this.point.animate = false;
     } else if (_.has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
       if (props.animation.type === 'clipingWithData') {

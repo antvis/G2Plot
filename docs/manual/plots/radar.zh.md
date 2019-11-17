@@ -1,7 +1,9 @@
 ---
 title: Radar - 雷达图
-order: 0
+order: 11
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EopBRptmqjAAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 
@@ -15,23 +17,23 @@ order: 0
 
 ```
 const data = [
-  {type:'a',value: 100},
-  {type:'b',value:60},
-  {type:'c',value: 30}
- ];
+  { type: 'a', value: 100 },
+  { type: 'b', value: 60 },
+  { type: 'c', value: 30 },
+];
 ```
 
 多组雷达图需要在此基础上再加入一个分类字段作为分组字段。雷达图将根据此字段分为 N 组。在下面的例子中，`mark`为分组字段，将雷达图分为上下叠加的两组。
 
 ```
 const data = [
-  type:'a',mark:'top',value: 100,
-  type:'b',mark:'top',value:60,
-  type:'c',mark:'top',value: 30,
-  type:'a',mark:'bottom',value: 100,
-  type:'b',mark:'bottom',value:60,
-  type:'c',mark:'bottom',value: 30,
- ];
+  { type: 'a', mark: 'top', value: 100 },
+  { type: 'b', mark: 'top', value: 60 },
+  { type: 'c', mark: 'top', value: 30 },
+  { type: 'a', mark: 'bottom', value: 100 },
+  { type: 'b', mark: 'bottom', value: 60 },
+  { type: 'c', mark: 'bottom', value: 30 },
+];
 ```
 
 在进行图表绘制的时候，分类字段将映射到圆周上的角度，连续字段映射到半径长度。
@@ -42,37 +44,37 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data: collection
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 ### angleField: string
 
@@ -106,7 +108,7 @@ const data = [
 - `stroke: string`  线的颜色<br />
 - `lineWidth: number`  线的宽度<br />
 - `lineDash: number[]`  虚线<br />
-- - `opacity: number`  透明度
+- `opacity: number`  透明度
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
@@ -123,21 +125,21 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ### label
 
 **optional**
 
-`visible: boolean`    图形标签是否显示<br />
-`formatter: function`  对 label 的显示文本进行格式化。/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
-`style: object` as br    配置 label 文本
+`visible: boolean`    图形标签是否显示。<br />
+`formatter: function`  对 label 的显示文本进行格式化。<br />
+`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br />
+`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br />
+`style: object` 配置 label 文本
 
 ### events
 
@@ -164,4 +166,4 @@ const data = [
   `onPointMousemove: function`  数据点鼠标移动事件<br />
   `onPointContextmenu: function`    数据点右键事件
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

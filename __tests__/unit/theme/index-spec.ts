@@ -26,7 +26,7 @@ describe('theme', () => {
     registerTheme('test-pie', { b: 2 });
 
     // not exist
-    expect(getTheme('test-circle')).toEqual(getGlobalTheme());
-    expect(getTheme('test-pie')).toEqual({ ...getGlobalTheme(), b: 2 });
+    expect(getTheme('test-circle')).toEqual({});
+    expect(getTheme('test-pie')).toEqual({ b: 2 });
   });
 });

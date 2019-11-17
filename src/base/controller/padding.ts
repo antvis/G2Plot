@@ -1,24 +1,29 @@
 import { BBox, Element } from '@antv/g';
-import { View } from '@antv/g2';
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { ViewLayer } from '../..';
+
+interface ControllerConfig {
+  plot: ViewLayer;
+}
+
 /**
  * 处理图表padding的逻辑：
  * 注册参与padding的自定义组件
  */
 
 export default class PaddingController {
-  private plot: any;
-  private bleeding;
+  private plot: ViewLayer;
+  private bleeding: number[];
 
   private innerPaddingComponents: any[] = [];
   private outerPaddingComponents: any[] = [];
 
-  constructor(cfg) {
-    _.assign(this, cfg);
+  constructor(cfg: ControllerConfig) {
+    this.plot = cfg.plot;
   }
 
-  public registerPadding(component, type: 'outer' | 'inner' = 'outer') {
+  public registerPadding(component: any, type: 'outer' | 'inner' = 'outer') {
     if (type === 'inner') {
       this.innerPaddingComponents.push(component);
     } else {
@@ -52,10 +57,10 @@ export default class PaddingController {
     this.plot.render();
   }
 
-  public processOuterPadding() {
+  public processOuterPadding(): BBox {
     let viewMinX = this.plot.layerBBox.minX;
     let viewMaxX = this.plot.layerBBox.maxX;
-    let viewMinY = _.clone(this.plot.layerBBox.minY);
+    let viewMinY = this.plot.layerBBox.minY;
     let viewMaxY = this.plot.layerBBox.maxY;
     _.each(this.outerPaddingComponents, (component) => {
       const { position } = component;
@@ -79,7 +84,7 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange = view.get('viewRange');
+    const viewRange: BBox = view.get('viewRange');
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (_.isArray(bleeding)) {
@@ -146,7 +151,7 @@ export default class PaddingController {
           y = legendBBox.minY;
         }
         if (position[0] === 'left') {
-          x = viewRange.minX - width;
+          x = box.minX - width;
           y = legendBBox.minY;
         }
         if (position[0] === 'top') {

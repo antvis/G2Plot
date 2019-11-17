@@ -11,6 +11,7 @@ import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
+import { isTextUsable } from '../util/common';
 
 export interface ViewConfig {
   data: object[];
@@ -137,7 +138,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
-  protected config: G2Config;
+  public config: G2Config;
   private interactions: BaseInteraction[] = [];
 
   constructor(props: T) {
@@ -264,6 +265,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       cfg.padding = 'auto';
     }
     this.options = _.deepMix({}, this.options, cfg);
+    this.processOptions(this.options);
   }
 
   public changeData(data: object[]): void {
@@ -275,8 +277,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return this.view;
   }
 
+  // 获取对应的G2 Theme
+  public getTheme() {
+    return this.theme;
+  }
+
   public getResponsiveTheme() {
     return this.themeController.getResponsiveTheme(this.type);
+  }
+
+  // 获取对应的Plot Theme
+  public getPlotTheme() {
+    return this.themeController.getPlotTheme(this.options, this.type);
   }
 
   // 绑定一个外部的stateManager
@@ -343,9 +355,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.setConfig('tooltip', _.deepMix({}, _.get(this.options, 'tooltip')));
 
-    if (this.options.tooltip.style) {
-      _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
-    }
+    _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
   }
 
   protected legend(): void {
@@ -397,7 +407,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.config.elements.push(config as G2Config['element']);
       return;
     }
-    if ((config as boolean) === false) {
+    if (config === false) {
       this.config[key] = false;
       return;
     }
@@ -423,9 +433,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const range = this.layerBBox;
     if (this.title) {
       this.title.destroy();
+      this.title = null;
     }
-    this.title = null;
-    if (props.title.visible) {
+
+    if (isTextUsable(props.title)) {
       const width = this.width;
       const theme = this.config.theme;
       const title = new TextDescription({
@@ -436,6 +447,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
         container: this.container.addGroup(),
         theme,
+        index: isTextUsable(props.description) ? 0 : 1,
+        plot: this,
       });
       this.title = title;
       this.paddingController.registerPadding(title, 'outer');
@@ -447,27 +460,33 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const range = this.layerBBox;
     if (this.description) {
       this.description.destroy();
+      this.description = null;
     }
-    this.description = null;
 
-    if (props.description.visible) {
+    if (isTextUsable(props.description)) {
       const width = this.width;
+      const theme = this.config.theme;
+      let topMargin = 0;
 
-      let topMargin = range.minY;
       if (this.title) {
         const titleBBox = this.title.getBBox();
-        topMargin = titleBBox.minY + titleBBox.height;
+        topMargin += titleBBox.minY + titleBBox.height;
+        topMargin += theme.description.padding[0];
+      } else {
+        // 无title的情况下使用title的上padding
+        topMargin += range.minY + theme.title.padding[0];
       }
 
-      const theme = this.config.theme;
       const description = new TextDescription({
         leftMargin: range.minX + theme.description.padding[3],
-        topMargin: topMargin + theme.description.padding[0],
+        topMargin,
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
         container: this.container.addGroup(),
         theme,
+        index: 1,
+        plot: this,
       });
       this.description = description;
       this.paddingController.registerPadding(description, 'outer');
@@ -478,7 +497,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   private doDestroy() {
     this.doDestroyInteractions();
     /** 销毁g2.view实例 */
-    this.view.destroy();
+    if (!this.view.destroyed) {
+      this.view.destroy();
+    }
   }
 
   private doDestroyInteractions() {

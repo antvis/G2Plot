@@ -21,4 +21,4 @@ const gaugePlot = new g2plot.Gauge(document.getElementById('canvas'), {
 gaugePlot.render();
 
 // 作为模块 避免变量冲突
-export {}
+export {};

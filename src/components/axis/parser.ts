@@ -1,5 +1,6 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { ViewLayer } from '../..';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
@@ -7,19 +8,28 @@ function propertyMapping(source, target, field) {
   }
 }
 
+interface AxisConfig {
+  plot: ViewLayer;
+  dim: string;
+}
+
 export default class AxisParser {
-  public config: any;
+  public config: any = false;
   private plot: any;
   private dim: string;
   private localProps: any;
+  private themeConfig: any;
 
-  constructor(cfg) {
-    _.assign(this, cfg);
+  constructor(cfg: AxisConfig) {
+    this.plot = cfg.plot;
+    this.dim = cfg.dim;
     this._init();
   }
 
   private _init() {
     this.config = false;
+    const theme = this.plot.getPlotTheme();
+    this.themeConfig = theme && theme.axis && theme.axis[this.dim];
     if (this._needDraw()) {
       this._styleParser();
     }
@@ -42,10 +52,8 @@ export default class AxisParser {
   private _needDraw() {
     /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
     const propos = this.plot.options;
-    const theme = this.plot.theme;
     const propsConfig = propos[`${this.dim}Axis`] ? propos[`${this.dim}Axis`] : {};
-    const themeConfig = theme.axis[this.dim];
-    const config = _.deepMix({}, themeConfig, propsConfig);
+    const config = _.deepMix({}, this.themeConfig, propsConfig);
     this.localProps = config;
     if (config.visible) {
       return true;
@@ -58,6 +66,7 @@ export default class AxisParser {
     if (this.localProps.line.style) {
       this.config.line = this.localProps.line.style;
     }
+    this.applyThemeConfig('line');
   }
 
   private _gridParser() {
@@ -65,6 +74,7 @@ export default class AxisParser {
     if (this.localProps.grid.style) {
       this.config.grid = this.localProps.grid.style;
     }
+    this.applyThemeConfig('grid');
   }
 
   private _tickLineParser() {
@@ -72,6 +82,7 @@ export default class AxisParser {
     if (this.localProps.tickLine.style) {
       this.config.tickLine = this.localProps.tickLine.style;
     }
+    this.applyThemeConfig('tickLine');
   }
 
   private _labelParser() {
@@ -81,6 +92,7 @@ export default class AxisParser {
     if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }
+    labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
     /** label formatter */
     if (formatter) {
       const textFormatter = this.localProps.label.formatter;
@@ -95,30 +107,36 @@ export default class AxisParser {
 
   private _titleParser() {
     const titleConfig: DataPointType = { ...this.localProps.title };
+    const { visible, style, text } = this.localProps.title;
 
-    if (!this.localProps.title.visible) {
+    if (!visible) {
       this.config.showTitle = false;
     } else {
       this.config.showTitle = true;
     }
 
-    if (this.localProps.title.style) {
-      titleConfig.textStyle = this.localProps.title.style;
+    if (style) {
+      titleConfig.textStyle = style;
     }
+    titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
 
-    if (this.localProps.title.text) {
-      titleConfig.text = this.localProps.title.text;
+    if (text) {
+      titleConfig.text = text;
     }
 
     this.config.title = titleConfig;
   }
 
-  private _isVisible(name) {
+  private _isVisible(name: string) {
     if (this.localProps[name] && this.localProps[name].visible) {
       return true;
     } else if (_.isFunction(this.localProps[name])) {
       return true;
     }
     return false;
+  }
+
+  private applyThemeConfig(type: 'line' | 'grid' | 'tickLine') {
+    this.config[type] = _.deepMix({}, _.get(this.themeConfig, `${type}.style`), this.config[type]);
   }
 }

@@ -1,7 +1,9 @@
 ---
 title: Bar - 基础条形图
-order: 0
+order: 6
 ---
+
+<img src = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*T1ZHSphm71YAAAAAAAAAAABkARQnAQ' width="400">
 
 ## 图表故事
 
@@ -9,14 +11,14 @@ order: 0
 
 ## 数据类型
 
-条形图适合的数据类型为一个**分类字段**(类型)和一个**离散字段**(数值)。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
+条形图适合的数据类型为一个**分类字段**（类型）和一个**离散字段**（数值）。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
 
 ```
 const data = [
-  {type:'a',value: 100},
-  {type:'b',value:60},
-  {type:'c',value: 30}
- ];
+  { type: 'a', value: 100 },
+  { type: 'b', value: 60 },
+  { type: 'c', value: 30 },
+];
 ```
 
 图表绘制时，每一个分类对应一根柱子，映射到 y 轴，而分类数值对应柱子的长度，映射到 x 轴。
@@ -28,7 +30,7 @@ const data = [
   - x 轴不以 0 值为起点，将有可能导致条形图显示错误的比例关系。
 
 * **Do**
-  - 如果分类之间的序列关系(ranking)有意义且不是时间周期，可以考虑将数据进行排序。
+  - 如果分类之间的序列关系 (ranking) 有意义且不是时间周期，可以考虑将数据进行排序。
   - 如果需要关注具体数据，可以考虑移除坐标轴，显示图形标签，使用户的注意力更加聚焦。
 
 ## API
@@ -37,37 +39,37 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data: collection
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一, value: 20 }, { segment: 分类二, value: 20 }]。
+数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
 ### xField: string
 
@@ -115,11 +117,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ### label
 
@@ -127,10 +129,10 @@ const data = [
 
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
-`formatter: function`  对 label 的显示文本进行格式化。/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
-`style: object` as br    配置 label 文本
+`formatter: function`  对 label 的显示文本进行格式化。<br/>
+`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br/>
+`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object`  配置 label 文本
 
 ### events
 
@@ -142,4 +144,4 @@ const data = [
   `onBarMousemove: function`  条形鼠标移动事件<br />
   `onBarContextmenu: function`    条形右键事件
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

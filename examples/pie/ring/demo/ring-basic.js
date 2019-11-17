@@ -22,7 +22,7 @@ const data = [
     value: 10,
   },
   {
-    type: 'Other',
+    type: '其它',
     value: 5,
   },
 ];
@@ -31,13 +31,20 @@ const ringPlot = new Ring(document.getElementById('container'), {
   forceFit: true,
   title: {
     visible: true,
-    text: '环形图',
+    text: '环图',
+  },
+  description: {
+    visible: true,
+    text: '环图的外半径决定环图的大小，而内半径决定环图的厚度。',
   },
   radius: 0.8,
   padding: 'auto',
   data,
   angleField: 'value',
   colorField: 'type',
+  label: {
+    offset: -22,
+  },
 });
 
 ringPlot.render();

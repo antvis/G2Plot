@@ -1,7 +1,9 @@
 ---
 title: Grouped-Column 分组柱状图
-order: 0
+order: 5
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8nw0SqtQJ6AAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 
@@ -11,20 +13,20 @@ order: 0
 
 ## 数据类型
 
-分组柱状图适合的数据类型为两个**分类字段**(分类字段、分组字段)和一个**连续字段**(数值)。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
+分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
 
 ```
 const data = [
-  {type:'a',quarter:'Q1',value: 100},
-  {type:'a',quarter:'Q2',value: 70},
-  {type:'a',quarter:'Q3',value: 20},
-  {type:'b',quarter:'Q1',value: 10},
-  {type:'b',quarter:'Q2',value: 50},
-  {type:'b',quarter:'Q3',value: 40},
-  {type:'c',quarter:'Q1',value: 30},
-  {type:'c',quarter:'Q2',value: 50},
-  {type:'c',quarter:'Q3',value: 20},
- ];
+  { type: 'a', quarter: 'Q1', value: 100 },
+  { type: 'a', quarter: 'Q2', value: 70 },
+  { type: 'a', quarter: 'Q3', value: 20 },
+  { type: 'b', quarter: 'Q1', value: 10 },
+  { type: 'b', quarter: 'Q2', value: 50 },
+  { type: 'b', quarter: 'Q3', value: 40 },
+  { type: 'c', quarter: 'Q1', value: 30 },
+  { type: 'c', quarter: 'Q2', value: 50 },
+  { type: 'c', quarter: 'Q3', value: 20 },
+];
 ```
 
 图表绘制时，每一个分类对应一组柱子，映射到 x 轴，而分组字段决定一组柱子的分布情况，而连续字段决定柱子的高度，映射到 y 轴。
@@ -54,39 +56,39 @@ const data = [
 
 #### title
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 #### description
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 #### width
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 #### height
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 #### forceFit
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 #### padding
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 #### theme
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### tooltip
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../generalConfig.zh-CN.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ---
 
@@ -94,36 +96,36 @@ const data = [
 
 #### data: collection
 
-**required** 见[基础柱状图配置](./column.zh-CN.md)
+**required** 见[基础柱状图配置](./column#data-collection)
 
 #### xField: string
 
-**reqiured** 见[基础柱状图配置](./column.zh-CN.md)
+**reqiured** 见[基础柱状图配置](./column#xfield-string)
 
 #### yField: string
 
-**reqiured** 见[基础柱状图配置](./column.zh-CN.md)
+**reqiured** 见[基础柱状图配置](./column#yField-string)
 
 #### color: string | string[] | function
 
-**optional** 见[基础柱状图配置](./column.zh-CN.md)
+**optional** 见[基础柱状图配置](./column#color-string--string--function)
 
 #### columnSize: number
 
-**optional** 见[基础柱状图配置](./column.zh-CN.md)
+**optional** 见[基础柱状图配置](./column#columnsize-number)
 
 #### columnStyle: object | function
 
-**optional** 见[基础柱状图配置](./column.zh-CN.md)
+**optional** 见[基础柱状图配置](./column.zh#columnstyle-object--function)
 
 #### label
 
-**optional** 见[基础柱状图配置](./column.zh-CN.md)
+**optional** 见[基础柱状图配置](./column#label)
 
 #### events
 
 **optional**
 
-- 图形事件 见[基础柱状图配置](./column.zh-CN.md)
+- 图形事件 见[基础柱状图配置](./column#events)
 
-- 其他事件类型见[通用图表配置](../generalConfig.zh-CN.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

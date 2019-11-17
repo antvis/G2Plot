@@ -12,7 +12,7 @@ const IndexPage = () => {
   const features = [
     {
       icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
+        'https://gw.alipayobjects.com/zos/basement_prod/eae0ee4e-acbf-4486-88eb-ea17f441a0d5.svg',
       title: t('开箱即用'),
       description: t(
         '配置项优化精简，仅需几行代码轻松生成图表',
@@ -20,7 +20,7 @@ const IndexPage = () => {
     },
     {
       icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
+        'https://gw.alipayobjects.com/zos/basement_prod/7269ccc5-fbe2-4e55-85d1-17c05917e8b0.svg',
       title: t('默认好用'),
       description: t(
         '即使你不懂可视化或者设计小白，也能制作优雅、标准的统计图表',
@@ -28,7 +28,7 @@ const IndexPage = () => {
     },
     {
       icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
+        'https://gw.alipayobjects.com/zos/basement_prod/d77e48ed-4e4c-43f5-bd83-329e12c28c16.svg',
       title: t('响应式图表'),
       description: t(
         '保证图表在任何显示尺寸、任何数据状态下的可读性',
@@ -64,7 +64,7 @@ const IndexPage = () => {
       title: t('图表实验室'),
       description:
         t('来这里尝试一下我们正在开发中的高级图表功能'),
-      link: 'examples/gallery/line',
+      link: 'examples/advanced/connection',
       image:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',
     },

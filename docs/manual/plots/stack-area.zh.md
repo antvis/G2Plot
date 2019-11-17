@@ -1,7 +1,8 @@
 ---
 title: StackArea - 堆叠面积图
-order: 0
+order: 2
 ---
+<img src = "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GPm6Q7Sna9wAAAAAAAAAAABkARQnAQ" width = "400">
 
 ## 图表故事
 
@@ -33,9 +34,9 @@ work in progress
 `visible: boolean`    图形标签是否显示<br />
 `type: 'area' | 'point' | 'line'`  图形标签类型，默认为 area
 `formatter: function`  对 label 的显示文本进行格式化。<br/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。<br/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object` as br    配置 label 文本
+`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br/>
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object` 配置 label 文本
 
 #### stackField: string
 
@@ -49,39 +50,39 @@ work in progress
 
 #### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 #### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 #### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 #### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 #### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 #### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 #### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ---
 
@@ -182,4 +183,4 @@ work in progress
   `onLineMouseup: function`    折线鼠标抬起事件<br />
   `onLineContextmenu: function`    折线右键事件<br />
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

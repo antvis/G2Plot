@@ -11,7 +11,7 @@ order: 0
 
 图表数据量和展示空间的矛盾会造成图表布局错乱、组件遮挡图形、组件各部分相互重叠等问题。下图是两个典型案例：
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y-k1Q4V7jXsAAAAAAAAAAABkARQnAQ" width="600">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y-k1Q4V7jXsAAAAAAAAAAABkARQnAQ" width="600">
 
 这种非常典型的信息密度 (information density) 过载现象正是 G2Plot 响应式模块所要解决的问题 — 当信息密度过高时，对图表辅助信息进行抽稀，保证图表主要信息的展示，以使图表的信息密度达到合理平衡。
 
@@ -21,7 +21,7 @@ g2plot 响应式方案由三块组成：constraints（约束条件）、rules（
 
 一个约束条件 (constraint) 对应一组响应规则 (rules)，多个约束组构成一个完整的响应式方案 — resonsiveTheme。
 
-src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqCOLwAAAAAAAAAAABkARQnAQ" width="600">(/p> as )
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqCOLwAAAAAAAAAAABkARQnAQ" width="600">
 
 ## Constraint （约束条件）
 
@@ -29,7 +29,7 @@ src as img as p="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L6qZRrqC
 
 下面的例子中声明了一个 axis（坐标轴）的约束条件，该条件判断坐标轴 label 之间的间距是否大于 4 像素。
 
-```typescript
+```
 axis: {
   constraint:{
     name: 'elementDist',
@@ -70,7 +70,7 @@ g2plot 内置了一套常用的 constraint library，目前响应式模块还在
 
 g2plot 允许用户注册自己的约束条件，允许覆盖现有约束库中的条件。
 
-```typescript
+```
 function myConstraint(parameters, cfg?) {}
 
 plot.registerConstraint(name, {
@@ -101,7 +101,7 @@ g2plot 内置了一套常用的 rule library，目前响应式模块还在试验
 | nodesSampling             | keep: array                                              | 抽样显示，可设置保头保尾或任意一个 index                                                                                     |
 | nodesSamplingByAbbraviate |                                                          | 配合 dateTimeAbbraviate 方法使用，抽样掉经过省略的文本，保留完整的文本。                                                     |
 | nodeSamplingByChange      |                                                          | 根据数据间的变化进行抽样，保留变化较大的点                                                                                   |
-| nodeSamplingByState       | state: {(/>    name: string,<br / as br)>    exp: string | function<br />}                                                                                                              | 根据状态量进行抽样，保留符合状态量的 node |
+| nodeSamplingByState       | state: {name: string,<br>    exp: string  }| function<br />                                                                                                              | 根据状态量进行抽样，保留符合状态量的 node |
 | nodeJitter                |                                                          | 元素在水平和垂直方向抖开                                                                                                     |
 | nodeJitterUpward          |                                                          | 元素向上抖开并拉线                                                                                                           |
 | clearOverlapping          |                                                          | 在一组元素中去除 overlap 的元素，当多个元素发生重叠时，只保留位于最高点的元素。此方法用于多折线数据点 label 的 overlapping。 |
@@ -110,7 +110,7 @@ g2plot 内置了一套常用的 rule library，目前响应式模块还在试验
 
 g2plot 允许用户注册自己的响应规则，允许覆盖现有规则库中的规则。
 
-```typescript
+```
 function myRule() {}
 plot.registerResponsiveRule(name, myRule);
 ```
@@ -127,7 +127,7 @@ plot.registerResponsiveRule(name, myRule);
 
 以柱状图为例，柱状图参与响应式的图表元素为图形 (column)、坐标轴 (axis)、图形标签 (label)，它的 responsiveTheme 结构如下：
 
-```typescript
+```
 const responsiveTheme = {
   axis: {
     x: {
@@ -162,7 +162,7 @@ const responsiveTheme = {
 
 调用一个 constraint 方法：
 
-```typescript
+```
 // 调用elementDist约束条件，并声明元素最小间距为8
 {
   name: 'elementDist',
@@ -174,7 +174,7 @@ const responsiveTheme = {
 
 调用一个 rule 方法：
 
-```typescript
+```
 // 调用textAbbravaite响应规则，并声明省略文字的尾部
 {
   name: 'textAbbrevaite',
@@ -186,7 +186,7 @@ const responsiveTheme = {
 
 组装：
 
-```typescript
+```
 const lineTheme = {
   label: {
     constraints: [{

@@ -55,7 +55,7 @@ order: 2
 
 **optional**
 
-图表内边距，是边框相对绘图区域的边距。坐标轴 (axis）和图例 (legend) 都显示在这一区域。/>目前支持以下两种配置方式： as br
+图表内边距，是边框相对绘图区域的边距。坐标轴 (axis）和图例 (legend) 都显示在这一区域。/>目前支持以下两种配置方式： 
 
 1. `padding: [10,10,10,10]`，顺序与 CSS 盒模型相同：上边距、右边距、下边距、左边距
 1. `padding: 'auto'`，此为默认配置，将会自动计算边距所占的空间
@@ -80,7 +80,7 @@ order: 2
 
 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
 
-```typescript
+```
 htmlContent: (title, items) => {
   return '<div><ul><li>.....</li></ul></div>';
 };
@@ -88,7 +88,7 @@ htmlContent: (title, items) => {
 
 此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器。
 
-```typescript
+```
 htmlContent: (title, items) => {
   return dom | dom.id;
 };
@@ -105,20 +105,20 @@ htmlContent: (title, items) => {
 
 `formatter: function`  对图例的显示信息进行格式化<br />
 `offsetX: number`    图例在 position 的基础上再往 x 方向偏移量，单位 px。/>
-`offsetY: number` as br    图例在 position 的基础上再往 y 方向偏移量，单位 px。
+`offsetY: number`    图例在 position 的基础上再往 y 方向偏移量，单位 px。
 
 ## events
 
 **optional**
 
 - 图表区域事件：/>
-  `onPlotClick: function` as br    图表区域点击事件<br />
+  `onPlotClick: function`     图表区域点击事件<br />
   `onPlotDblClick: function`  图表区域双击事件<br />
   `onPlotMousemove: function`    图表区域鼠标移动事件<br />
   `onPlotContextmenu: function`    图表区域右键事件
 
 - 图例事件：/>
-  `onLabelClick: function` as br    图例点击事件<br />
+  `onLabelClick: function`     图例点击事件<br />
   `onLabelDblClick: function`  图例双击事件<br />
   `onLabelMouseMove: function`  图例鼠标移动事件<br />
   `onLabelContextmenu: function`    图例右键事件
@@ -137,7 +137,7 @@ htmlContent: (title, items) => {
 
 更新图表配置项。
 
-```typescript
+```
 plot.updateConfig({
   width: 500,
   height: 600,

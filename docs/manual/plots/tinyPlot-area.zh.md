@@ -1,7 +1,9 @@
 ---
 title: TinyArea - 迷你面积图
-order: 0
+order: 15
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZLIySY28IMsAAAAAAAAAAABkARQnAQ" width="200">
 
 迷你面积图是 g2plot 图表体系中，迷你图表的一种。
 
@@ -107,7 +109,7 @@ order: 0
 
 配置统计辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {
@@ -121,7 +123,7 @@ order: 0
 
 配置自定义辅助线示例代码：
 
-```typescript
+```
 {
   guideLine: [
     {

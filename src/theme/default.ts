@@ -1,6 +1,6 @@
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
-    return 0;
+    return 12;
   }
   return 24;
 };
@@ -15,13 +15,13 @@ const TOP_BLEEDING = function(props) {
 export const DEFAULT_GLOBAL_THEME = {
   width: 400,
   height: 400,
+  defaultColor: '#5B8FF9',
   bleeding: [TOP_BLEEDING, 24, 24, 24],
   padding: 'auto',
   title: {
     padding: [24, 24, 24, 24],
     fontFamily: 'PingFang SC',
     fontSize: 18,
-    fontWeight: 'bold',
     fill: 'black',
     textAlign: 'left',
     textBaseline: 'top',

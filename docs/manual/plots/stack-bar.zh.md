@@ -1,7 +1,9 @@
 ---
 title: Stacked-Bar 堆叠条形图
-order: 0
+order: 7
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FBITRJghFFcAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 
@@ -13,7 +15,7 @@ order: 0
 
 堆叠条形图适合的数据类型为两个**分类字段**（分类字段、堆叠字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为堆叠数据字段，`value`为离散数据字段。
 
-```typescript
+```
 const data = [
   { type: 'a', quarter: 'Q1', value: 100 },
   { type: 'a', quarter: 'Q2', value: 70 },
@@ -56,39 +58,39 @@ const data = [
 
 #### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 #### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 #### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 #### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 #### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 #### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 #### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ---
 
@@ -154,4 +156,4 @@ const data = [
   `onBarMousemove: function`  条形鼠标移动事件<br />
   `onBarContextmenu: function`    条形右键事件
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

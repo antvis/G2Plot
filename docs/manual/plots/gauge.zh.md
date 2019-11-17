@@ -1,13 +1,13 @@
 ---
 title: Gauge 仪表盘
-order: 0
+order: 12
 ---
 
 ## 图表故事
 
 仪表盘 (Gauge) 是一种拟物化的图表，刻度表示度量，指针表示维度，指针角度表示数值。仪表盘图表就像汽车的速度表一样，有一个圆形的表盘及相应的刻度，有一个指针指向当前数值。目前很多的管理报表或报告上都是用这种图表，以直观的表现出某个指标的进度或实际情况。
 
-仪表盘的好处在于它能跟人们的常识结合，使大家马上能理解看什么、怎么看。拟物化的方式使图标变得更友好更`人性化`，正确使用可以提升用户体验。/>仪表盘的圆形结构，可以更有效的`利用空间`。 as br
+仪表盘的好处在于它能跟人们的常识结合，使大家马上能理解看什么、怎么看。拟物化的方式使图标变得更友好更`人性化`，正确使用可以提升用户体验。仪表盘的圆形结构，可以更有效的`利用空间`。
 
 为了视觉上的不拥挤且符合常识，我们建议指针的数量不超过  **3**  根。
 
@@ -27,31 +27,31 @@ order: 0
 
 ### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data:number
 
@@ -93,6 +93,6 @@ order: 0
 
 示例如下：
 
-```typescript
+```
 format = (value) => `${value}%`;
 ```

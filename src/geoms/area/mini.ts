@@ -1,7 +1,6 @@
 /** 简化折线点 */
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
-import { rgb2arr } from '../../util/color';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import AreaParser from './main';

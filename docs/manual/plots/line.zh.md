@@ -3,6 +3,8 @@ title: Line - 折线图
 order: 0
 ---
 
+<img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FAMKRLERiAEAAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式：是上升还是下降，是否存在周期性的循环？因此，相对于独立的数据点，折线图关注的是全局趋势。
@@ -13,7 +15,7 @@ order: 0
 
 折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
 
-```typescript
+```
 const data = [
   { time: '2000', value: 100 },
   { time: '2001', value: 60 },
@@ -25,7 +27,7 @@ const data = [
 
 在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
 
-```typescript
+```
 const data = [
   { time: '2000', value: 100, type: 'a' },
   { time: '2001', value: 60, type: 'a' },
@@ -53,31 +55,31 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data: collection
 
@@ -151,11 +153,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ### label
 
@@ -189,4 +191,4 @@ const data = [
 `onPointMousemove: function`  数据点鼠标移动事件<br />
 `onPointContextmenu: function`    数据点右键事件<br />
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

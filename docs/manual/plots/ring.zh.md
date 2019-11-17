@@ -1,7 +1,9 @@
 ---
 title: Ring - 环图
-order: 0
+order: 10
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VedhRrBfpUgAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 图表故事
 
@@ -11,7 +13,7 @@ order: 0
 
 环图适合的数据类型为一个分类数据字段和一个连续数据字段。在下面这个例子中，`type`为分类字段，`value`为联系字段。
 
-```typescript
+```
 const data = [
   { type: 'a', value: 100 },
   { type: 'b', value: 60 },
@@ -69,7 +71,7 @@ const data = [
 
 用法：
 
-```typescript
+```
 annotation: [
   {
     type: 'centralText',
@@ -82,39 +84,39 @@ annotation: [
 
 #### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 #### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 #### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 #### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 #### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 #### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 #### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ---
 
@@ -160,7 +162,7 @@ annotation: [
 
 > 注意：当配置了 colorField，即扇形切片接受分类类型的颜色映射，此时 spider label 的文本为上下显示，此时 formatter 方法入参为 angleField 及 colorField 两个字段对应的值，返回值应为数组。
 
-```typescript
+```
 label: {
   type: 'spider',
   formatter: (angleField, colorField) => {
@@ -180,4 +182,4 @@ label: {
   `onPieMousemove: function`  图形鼠标移动事件<br />
   `onPieContextmenu: function`    图形右键事件<br />
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

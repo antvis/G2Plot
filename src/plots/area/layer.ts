@@ -196,7 +196,15 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   protected annotation() {}
 
-  protected animation() {}
+  protected animation() {
+    const props = this.options;
+    if (props.animation === false) {
+      // 关闭动画
+      this.area.animate = false;
+      if (this.line) this.line.animate = false;
+      if (this.point) this.point.animate = false;
+    }
+  }
 
   protected label() {
     const props = this.options;

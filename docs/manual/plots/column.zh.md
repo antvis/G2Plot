@@ -1,7 +1,9 @@
 ---
 title: Column - 基础柱状图
-order: 0
+order: 3
 ---
+
+<img src = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j4gkSL9OhCIAAAAAAAAAAABkARQnAQ' width = '400'>
 
 ## 图表故事
 
@@ -11,7 +13,7 @@ order: 0
 
 基础柱状图适合的数据类型为一个**分类字段**（类型）和一个**离散字段**（数值）。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
 
-```typescript
+```
 const data = [
   { type: 'a', value: 100 },
   { type: 'b', value: 60 },
@@ -37,31 +39,31 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#theme)。
 
 ### data: collection
 
@@ -115,11 +117,11 @@ const data = [
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config.zh.md)。
+**optional** 见[通用图表配置](../general-config#legend)。
 
 ### label
 
@@ -128,9 +130,9 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
 `formatter: function`  对 label 的显示文本进行格式化。/>
-`offsetX: number` as br    在 label 位置的基础上再往 x 方向的偏移量。/>
-`offsetY: number` as br    在 label 位置的基础上再往 y 方向的偏移量。/>
-`style: object` as br    配置 label 文本
+`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br />
+`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object`  配置 label 文本
 
 ### events
 
@@ -142,4 +144,4 @@ const data = [
   `onColumnMousemove: function`  柱形鼠标移动事件<br />
   `onColumnContextmenu: function`    柱形右键事件
 
-- 其他事件类型见[通用图表配置](../general-config.zh.md)。
+- 其他事件类型见[通用图表配置](../general-config#events)。

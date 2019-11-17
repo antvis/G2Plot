@@ -53,7 +53,7 @@ const IndexPage = () => {
     },
     {
       text: t('下载使用'),
-      link: '/zh/docs/manual/getting-started',
+      link: 'https://github.com/antvis/g2plot',
     },
   ];
 

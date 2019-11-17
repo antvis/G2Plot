@@ -1,6 +1,6 @@
 ---
 title: Column - 基础柱状图
-order: 0
+order: 3
 ---
 
 <img src = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j4gkSL9OhCIAAAAAAAAAAABkARQnAQ' width = '400'>

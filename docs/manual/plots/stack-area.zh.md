@@ -1,6 +1,6 @@
 ---
 title: StackArea - 堆叠面积图
-order: 0
+order: 2
 ---
 <img src = "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GPm6Q7Sna9wAAAAAAAAAAABkARQnAQ" width = "400">
 

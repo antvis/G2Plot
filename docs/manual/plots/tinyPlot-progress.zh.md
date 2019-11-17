@@ -1,6 +1,6 @@
 ---
 title: Progress - 进度条
-order: 0
+order: 13
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lO9ITInUZhQAAAAAAAAAAABkARQnAQ" width="200">

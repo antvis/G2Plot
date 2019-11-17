@@ -1,6 +1,6 @@
 ---
 title: Pie - 饼图
-order: 0
+order: 9
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qFVQQL25Lo4AAAAAAAAAAABkARQnAQ" width="400">

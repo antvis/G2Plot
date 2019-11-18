@@ -62,6 +62,9 @@ const barPlot = new GroupBar(document.getElementById('container'), {
   xField: 'value',
   yField: 'label',
   groupField: 'type',
+  label: {
+    formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+  },
 });
 
 barPlot.render();

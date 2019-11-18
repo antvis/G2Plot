@@ -88,10 +88,10 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         position: 'left',
         offset: 8,
         adjustColor: true,
-        style:{
+        style: {
           stroke: null,
-          lineWidth: 0
-        }
+          lineWidth: 0,
+        },
       },
       legend: {
         visible: true,

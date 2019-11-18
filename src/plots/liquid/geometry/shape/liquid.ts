@@ -204,6 +204,7 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
         path: getWaterWavePath(radius, bbox.minY + height * level, width / 4, 0, width / 64, x, y),
         fill: colors[i],
         clip,
+        opacity: 0.8,
       },
     });
     // FIXME wave animation error in svg
@@ -257,7 +258,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       attrs: _.mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,
-        r: radius + radius / 8,
+        r: radius,
       }),
     });
   },

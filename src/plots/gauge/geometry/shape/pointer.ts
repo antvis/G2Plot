@@ -1,27 +1,63 @@
 import { registerShape } from '@antv/g2';
 
+const POINTER_RADIUS = 10;
+const POINTER_LINE_WIDTH = 4;
+
 registerShape('point', 'pointer', {
   draw(cfg, group) {
-    // 获取第一个标记点
-    let point = cfg.points[0];
-    point = this.parsePoint({ ...point, y: 2 / 3 });
-    // 获取极坐标系下画布中心点
+    const point = cfg.points[0];
     const center = this.parsePoint({
       x: 0,
       y: 0,
     });
-    const points = [
-      [point.x, point.y],
-      [center.x + (point.y - center.y) / 16, center.y - (point.x - center.x) / 16],
-      [(13 * center.x - point.x) / 12, (13 * center.y - point.y) / 12],
-      [center.x - (point.y - center.y) / 16, center.y + (point.x - center.x) / 16],
+    const target = this.parsePoint({
+      x: point.x,
+      y: 0.5,
+    });
+    const dir_vec = {
+      x: center.x - target.x,
+      y: center.y - target.y,
+    };
+    //normalize
+    const length = Math.sqrt(dir_vec.x * dir_vec.x + dir_vec.y * dir_vec.y);
+    dir_vec.x *= 1 / length;
+    dir_vec.y *= 1 / length;
+    //rotate dir_vector by -90 and scale
+    const angle1 = -Math.PI / 2;
+    const x_1 = Math.cos(angle1) * dir_vec.x - Math.sin(angle1) * dir_vec.y;
+    const y_1 = Math.sin(angle1) * dir_vec.x + Math.cos(angle1) * dir_vec.y;
+    //rotate dir_vector by 90 and scale
+    const angle2 = Math.PI / 2;
+    const x_2 = Math.cos(angle2) * dir_vec.x - Math.sin(angle2) * dir_vec.y;
+    const y_2 = Math.sin(angle2) * dir_vec.x + Math.cos(angle2) * dir_vec.y;
+    // startx
+    const angle = Math.atan2(dir_vec.y, dir_vec.x);
+    const offset = POINTER_LINE_WIDTH / 2 - POINTER_RADIUS;
+    const startX = center.x + Math.cos(angle) * offset;
+    const startY = center.y + Math.sin(angle) * offset;
+    //polygon vertex
+    const path = [
+      ['M', target.x + x_1 * 1, target.y + y_1 * 1],
+      ['L', startX + x_1 * 3, startY + y_1 * 3],
+      ['L', startX + x_2 * 3, startY + y_2 * 3],
+      ['L', target.x + x_2 * 1, target.y + y_2 * 1],
+      ['Z'],
     ];
-    // 绘制指针
-    return group.addShape('polygon', {
+    group.addShape('circle', {
       attrs: {
-        points,
+        x: center.x,
+        y: center.y,
+        r: POINTER_RADIUS,
+        lineWidth: POINTER_LINE_WIDTH,
+        stroke: cfg.color,
+      },
+    });
+    const tick = group.addShape('path', {
+      attrs: {
+        path: path,
         fill: cfg.color,
       },
     });
+    return tick;
   },
 });

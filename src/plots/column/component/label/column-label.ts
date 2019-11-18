@@ -81,7 +81,6 @@ export class ColumnLabels extends ElementLabels {
   }
 
   public adjustPosition(label, shape, item) {
-    const originData = shape.get('origin')._origin;
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
     if (shapeRange.height <= labelRange.height && item.position !== 'top') {
@@ -103,9 +102,15 @@ export class ColumnLabels extends ElementLabels {
         { from: 85, to: 170, color: '#F6F6F6' },
         { from: 170, to: 255, color: 'black' },
       ];
-
       const reflect = this._mappingColor(colorBand, gray);
       label.attr('fill', reflect);
+      if(reflect !=='black'){
+        label.attr('stroke',null);
+        label.attr('lineWidth',0);
+      }else{
+        label.attr("stroke","white");
+        label.attr("lineWidth",2);
+      }
     } else if (labelRange.maxY < shapeRange.minY) {
       label.attr('fill', 'black');
     }

@@ -8,6 +8,8 @@ class StackColumnLabels extends ColumnLabels {
     const shapeRange = shape.getBBox();
     if (shapeRange.height <= labelRange.height) {
       label.attr('opacity', 0);
+      label.attr('fillOpacity', 0);
+      label.attr('strokeOpacity', 0);
       label.set('capture', false);
     }
   }

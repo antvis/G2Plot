@@ -76,6 +76,9 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         position: 'top',
         adjustColor: true,
         offset: 4,
+        style: {
+          textBaseline: 'bottom',
+        },
       },
       legend: {
         visible: true,

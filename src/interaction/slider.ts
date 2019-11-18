@@ -6,7 +6,7 @@ import { ISliderInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
 import { getDataByScaleRange } from './helper/data-range';
 
-const DEFAULT_PADDING: number = 8;
+const DEFAULT_PADDING: number = 4;
 const DEFAULT_SIZE: number = 16;
 
 const getValidSliderConfig = (cfg: ISliderInteractionConfig = {}): Required<ISliderInteractionConfig> => {

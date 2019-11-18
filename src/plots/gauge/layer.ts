@@ -21,6 +21,8 @@ const GAP = 1;
 const RADIUS = 0.9;
 
 export interface GaugeViewConfig extends ViewConfig {
+  startAngle?: number;
+  endAngle?: number;
   min?: number;
   max?: number;
   value?: number;
@@ -37,6 +39,8 @@ export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
 export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
+      startAngle: -7 / 6,
+      endAngle: 1 / 6,
       range: [0, 25, 50, 75, 100],
       gaugeStyle: {
         tickLineColor: 'rgba(0,0,0,0)',
@@ -105,8 +109,8 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       type: 'polar' as CoordinateType,
       cfg: {
         radius: 0.9,
-        startAngle: (-7 / 6) * Math.PI,
-        endAngle: (1 / 6) * Math.PI,
+        startAngle: this.options.startAngle * Math.PI,
+        endAngle: this.options.endAngle * Math.PI,
       },
     };
     this.setConfig('coord', coordConfig);
@@ -190,16 +194,6 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     }
 
     const arcSize = 1; // 0.965;
-    /*const bg = {
-      type: 'arc',
-      start: [min, arcSize],
-      end: [max, arcSize],
-      style: {
-        stroke: styleMix.stripBackColor,
-        lineWidth: styleMix.stripWidth,
-      },
-    };
-    annotationConfigs.push(bg);*/
     const strips = this.renderArcs(range, arcSize, styleMix);
     const allArcs = annotationConfigs.concat(strips);
     this.setConfig('annotations', allArcs);
@@ -226,6 +220,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
         end: [range[index + 1] - gap, arcSize],
         style: {
           stroke: colors[index % colors.length],
+          // stroke: 'l(90) 0:#1890ff 1:#70cdd0',
           lineWidth: styleMix.stripWidth,
         },
       };
@@ -313,7 +308,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   }
 
   private calGapAngle() {
-    const ratio = (Math.abs(-7 / 6 - 1 / 6) / Math.PI) * 100;
+    const ratio = (Math.abs(this.options.startAngle - this.options.endAngle) / Math.PI) * 100;
     const radius = (this.width / 2) * RADIUS;
     return (GAP / radius) * ratio;
   }

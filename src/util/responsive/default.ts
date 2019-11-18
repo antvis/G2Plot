@@ -1,6 +1,6 @@
 // 存储一些共用部分
 export const DEFAULT_RESPONSIVE_THEME = {
- axis: {
+  axis: {
     x: {
       category: {
         constraints: [{ name: 'elementDist' }],

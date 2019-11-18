@@ -36,10 +36,6 @@ const COLOR_PLATE_20 = [
   '#FFD6E7',
 ];
 
-
-
-
-
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 12;

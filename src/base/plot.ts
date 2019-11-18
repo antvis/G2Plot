@@ -164,7 +164,6 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     });
   }
 
-
   /**
    * 获取图形下的图层 Layer，默认第一个 Layer
    * @param idx
@@ -173,7 +172,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     return this.layers[idx];
   }
 
-  public getCanvas(){
+  public getCanvas() {
     return this.canvasController.canvas;
   }
 

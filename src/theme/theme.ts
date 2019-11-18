@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
 import { getGlobalTheme } from './global';
 
-
 /**
  * 所有的 plot theme object，每个图类型只会存在一个 theme
  */

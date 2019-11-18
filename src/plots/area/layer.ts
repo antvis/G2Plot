@@ -21,6 +21,8 @@ interface AreaStyle {
 interface LineStyle {
   lineDash?: number[];
   stroke?: string;
+  lineJoin?: 'bevel' | 'round' | 'miter';
+  lineCap?: 'butt' | 'round' | 'square';
 }
 
 interface PointStyle {
@@ -71,6 +73,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
         size: 2,
         style: {
           opacity: 1,
+          lineJoin: 'round',
+          lineCap: 'round',
         },
       },
       point: {

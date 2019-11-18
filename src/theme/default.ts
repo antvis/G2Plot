@@ -1,3 +1,6 @@
+import { some } from '@antv/util';
+import { ViewConfig } from '../base/view-layer';
+
 const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 12;
@@ -5,9 +8,23 @@ const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   return 24;
 };
 
-const TOP_BLEEDING = function(props) {
+const TOP_BLEEDING = (props: ViewConfig) => {
   if (props.title || props.description) {
     return 16;
+  }
+  return 24;
+};
+
+const BOTTOM_BLEEDING = (props: ViewConfig) => {
+  if (
+    some(
+      props.interactions || [],
+      (interaction) =>
+        (interaction.type === 'slider' || interaction.type === 'scrollbar') &&
+        (interaction.cfg && interaction.cfg.type) !== 'vertical'
+    )
+  ) {
+    return 8;
   }
   return 24;
 };
@@ -16,7 +33,7 @@ export const DEFAULT_GLOBAL_THEME = {
   width: 400,
   height: 400,
   defaultColor: '#5B8FF9',
-  bleeding: [TOP_BLEEDING, 24, 24, 24],
+  bleeding: [TOP_BLEEDING, 24, BOTTOM_BLEEDING, 24],
   padding: 'auto',
   title: {
     padding: [24, 24, 24, 24],
@@ -80,7 +97,7 @@ export const DEFAULT_GLOBAL_THEME = {
         visible: false,
         offset: 12,
         style: {
-          fill: '#595959',
+          fill: 'rgba(0, 0, 0, 0.95)',
           fontSize: 12,
           textBaseline: 'bottom',
         },
@@ -126,7 +143,7 @@ export const DEFAULT_GLOBAL_THEME = {
       title: {
         visible: false,
         offset: 12,
-        style: { fill: '#595959', fontSize: 12 },
+        style: { fill: 'rgba(0, 0, 0, 0.95)', fontSize: 12 },
       },
     },
     circle: {
@@ -178,8 +195,8 @@ export const DEFAULT_GLOBAL_THEME = {
     offset: 12,
     style: {
       fill: 'rgba(0, 0, 0, 0.95)',
-      stroke:'#ffffff',
-      lineWidth:2
+      stroke: '#ffffff',
+      lineWidth: 2,
     },
   },
 };

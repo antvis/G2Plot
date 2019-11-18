@@ -237,8 +237,6 @@ const linePlot = new Line(document.getElementById('container'), {
     visible: true,
     text: '图形标签 (label) 位于折线尾部，用于标注整根折线。',
   },
-  width: 500,
-  height: 600,
   padding: 'auto',
   forceFit: true,
   data,

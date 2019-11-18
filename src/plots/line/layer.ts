@@ -19,6 +19,8 @@ import './theme';
 export interface LineStyle {
   opacity?: number;
   lineDash?: number[];
+  lineJoin?: 'bevel' | 'round' | 'miter';
+  lineCap?: 'butt' | 'round' | 'square';
 }
 
 interface PointStyle {
@@ -63,10 +65,17 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       connectNulls: false,
       smooth: false,
       lineSize: 2,
+      lineStyle: {
+        lineJoin: 'round',
+        lineCap: 'round',
+      },
       point: {
         visible: false,
-        size: 4,
-        shape: 'point',
+        size: 3,
+        shape: 'circle',
+        style: {
+          stroke: '#fff',
+        },
       },
       label: {
         visible: false,

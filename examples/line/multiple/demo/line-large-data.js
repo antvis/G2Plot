@@ -9,6 +9,7 @@ fetch('../data/emissions.json')
         text: 'The causes of CO2 emissions',
       },
       padding: 'auto',
+      forceFit: true,
       data,
       xField: 'year',
       yField: 'value',

@@ -5,12 +5,15 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     visible: true,
     text: '仪表盘样式',
   },
+  width: 400,
+  height: 400,
   value: 64,
   min: 0,
   max: 100,
   range: [20, 40, 60, 80],
   gaugeStyle: {
-    colors: ['#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864'],
+    colors: ['#f4664a', '#faad14', '#a0d911', '#30bf78'],
+    tickLabelSize: 20,
     // stripWidth: 30,
     // stripBackColor: '#ddd',
     // tickInterval: 20,
@@ -19,7 +22,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     // tickLabelColor: '#aaa',
     // tickLineColor: '#aaa',
     // subTickCount: 4,
-    pointerColor: '#1890FF',
+    // pointerColor: '#1890FF',
   },
 });
 gaugePlot.render();

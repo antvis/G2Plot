@@ -17,6 +17,9 @@ interface GaugeStyle {
   size?: number;
 }
 
+const GAP = 1;
+const RADIUS = 0.9;
+
 export interface GaugeViewConfig extends ViewConfig {
   min?: number;
   max?: number;
@@ -32,6 +35,16 @@ export interface GaugeViewConfig extends ViewConfig {
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
 
 export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
+  public static getDefaultOptions(): any {
+    return _.deepMix({}, super.getDefaultOptions(), {
+      range: [0, 25, 50, 75, 100],
+      gaugeStyle: {
+        tickLineColor: 'rgba(0,0,0,0)',
+        pointerColor: '#bfbfbf',
+      },
+    });
+  }
+
   public type: string = 'gauge';
 
   public init() {
@@ -177,7 +190,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     }
 
     const arcSize = 1; // 0.965;
-    const bg = {
+    /*const bg = {
       type: 'arc',
       start: [min, arcSize],
       end: [max, arcSize],
@@ -186,7 +199,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
         lineWidth: styleMix.stripWidth,
       },
     };
-    annotationConfigs.push(bg);
+    annotationConfigs.push(bg);*/
     const strips = this.renderArcs(range, arcSize, styleMix);
     const allArcs = annotationConfigs.concat(strips);
     this.setConfig('annotations', allArcs);
@@ -202,16 +215,54 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
         .map((data, i) => i),
     ];
     const count = range.length - 1;
-    const Arcs = rangeArray(count).map((index) => ({
-      type: 'arc',
-      start: [range[index], arcSize],
-      end: [range[index + 1], arcSize],
-      style: {
-        stroke: colors[index % colors.length],
-        lineWidth: styleMix.stripWidth,
-      },
-    }));
-    return Arcs;
+    const Arcs = [];
+    const Bks = [];
+    const countArray = rangeArray(count);
+    _.each(countArray, (index) => {
+      const gap = index === countArray.length - 1 ? 0 : this.calGapAngle();
+      const arc = {
+        type: 'arc',
+        start: [range[index], arcSize],
+        end: [range[index + 1] - gap, arcSize],
+        style: {
+          stroke: colors[index % colors.length],
+          lineWidth: styleMix.stripWidth,
+        },
+      };
+      const base = _.deepMix({}, arc, {
+        style: {
+          stroke: styleMix.stripBackColor,
+        },
+      });
+      Bks.push(base);
+      Arcs.push(arc);
+    });
+    // 如果range不以0为起始
+    if (range[0] !== 0) {
+      Bks.push({
+        type: 'arc',
+        start: [0, arcSize],
+        end: [range[0] - this.calGapAngle(), arcSize],
+        style: {
+          stroke: styleMix.stripBackColor,
+          lineWidth: styleMix.stripWidth,
+        },
+      });
+    }
+    // 如果range不以100为结束
+    if (range[range.length - 1] !== 100) {
+      Bks.push({
+        type: 'arc',
+        start: [range[range.length - 1] + this.calGapAngle(), arcSize],
+        end: [100, arcSize],
+        style: {
+          stroke: styleMix.stripBackColor,
+          lineWidth: styleMix.stripWidth,
+        },
+      });
+    }
+
+    return Bks.concat(Arcs);
   }
 
   private labelHtml() {
@@ -259,6 +310,12 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       };
       return html;
     }
+  }
+
+  private calGapAngle() {
+    const ratio = (Math.abs(-7 / 6 - 1 / 6) / Math.PI) * 100;
+    const radius = (this.width / 2) * RADIUS;
+    return (GAP / radius) * ratio;
   }
 }
 

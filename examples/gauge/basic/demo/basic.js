@@ -5,9 +5,14 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     visible: true,
     text: '仪表盘',
   },
+  width: 400,
+  height: 400,
   value: 64,
   min: 0,
   max: 100,
-  range: [20, 40, 60, 80],
+  gaugeStyle: {
+    colors: ['#f4664a', '#faad14', '#a0d911', '#30bf78'],
+    tickLabelSize: 20,
+  },
 });
 gaugePlot.render();

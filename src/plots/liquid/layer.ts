@@ -9,7 +9,7 @@ import './geometry/shape/liquid';
 import './theme';
 
 interface LiquidStyle {
-  color?: string;
+  color?: string | string[];
   fontColor?: string;
   fontOpacity?: number;
   fontSize?: number;
@@ -67,9 +67,9 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
   protected getStyleMix(valueText) {
     const { liquidStyle = {} } = this.options;
     const { width, height } = this;
-    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 10 }, liquidStyle).borderWidth;
+    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 50 }, liquidStyle).borderWidth;
     const defaultStyle = Object.assign({}, this.theme, {
-      fontSize: this.autoFontSize(size, valueText),
+      fontSize: this.autoFontSize(size, valueText, 1.5),
       size,
     });
     return Object.assign(defaultStyle, liquidStyle);
@@ -142,19 +142,25 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
 
     const { text, styleMix } = this.options;
     const annotationConfigs = [];
+    const adjustStyle = this.adjustStyle();
     const textAnnotation = {
       type: 'text',
       content: text,
       top: true,
-      position: ['50%', '50%'],
-      style: {
-        fill: styleMix.fontColor,
-        opacity: styleMix.fontOpacity,
-        fontSize: styleMix.fontSize,
-        textAlign: 'center',
-      },
+      position: ['50%', '55%'],
+      style: _.deepMix(
+        {},
+        {
+          fill: styleMix.fontColor,
+          opacity: styleMix.fontOpacity,
+          fontSize: styleMix.fontSize,
+          textAlign: 'center',
+        },
+        adjustStyle
+      ),
     };
     annotationConfigs.push(textAnnotation);
+
     this.setConfig('annotations', annotationConfigs);
   }
 
@@ -178,10 +184,28 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     return typeof value === 'number' ? format(value) : '--';
   }
 
-  private autoFontSize(space, text) {
-    const fontSizeBySpace = space / 4;
-    const fontSizeByText = (space / text.length) * 1.5;
+  private autoFontSize(space, text, ratio) {
+    const fontSizeBySpace = space / 5;
+    const fontSizeByText = (space / text.length) * ratio;
     return Math.min(fontSizeBySpace, fontSizeByText);
+  }
+
+  private adjustStyle() {
+    const { max, min, value } = this.options;
+    const percent = (value - min) / (max - min);
+    if (percent > 0.3 && percent < 0.6) {
+      return {
+        stroke: 'white',
+        lineWidth: 2,
+      };
+    } else if (percent >= 0.6) {
+      return {
+        fill: 'white',
+        shadowBlur: 6,
+        shadowColor: 'rgba(0, 0, 0, .4)',
+      };
+    }
+    return {};
   }
 }
 

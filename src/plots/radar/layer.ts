@@ -123,6 +123,11 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
         label: {
           visible: true,
+          offset: 8,
+          textStyle: {
+            fill: '#000',
+            opacity: 0.65,
+          },
         },
         title: {
           visible: false,
@@ -160,7 +165,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       legend: {
         visible: true,
-        position: 'right-center',
+        position: 'left-top',
       },
       tooltip: {
         visible: true,

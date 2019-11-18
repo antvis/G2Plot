@@ -240,6 +240,7 @@ const linePlot = new Line(document.getElementById('container'), {
   width: 500,
   height: 600,
   padding: 'auto',
+  forceFit: true,
   data,
   xField: 'date',
   yField: 'value',

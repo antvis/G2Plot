@@ -3,7 +3,6 @@ import { Canvas } from '@antv/g';
 import * as _ from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
-import { Range } from '../layer';
 import BasePlot from '../plot';
 import ThemeController from './theme';
 
@@ -44,11 +43,8 @@ export default class CanvasController {
     this.width = width;
     this.height = height;
 
-    this.canvas.changeSize(width, height);
-
-    // this.plot.updateBBox({width,height} as Range );
-    // this.plot.updateConfig({});
-    // this.plot.render();
+    this.plot.updateConfig({ width, height });
+    this.plot.render();
   }, 300);
 
   constructor(cfg: CanvasControllerCfg) {

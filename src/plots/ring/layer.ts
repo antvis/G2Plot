@@ -66,18 +66,23 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     super.afterInit();
     /** 处理环图中心文本响应交互的问题 */
     if (this.centralText && this.centralText.onActive) {
-      const onActiveConfig = this.centralText.onActive;
-      this.view.on('interval:mousemove', (e) => {
-        const displayData = this.parseCentralTextData(e.data._origin);
-        let htmlString: string;
-        if (_.isBoolean(onActiveConfig)) {
-          htmlString = this.getCentralTextTemplate(displayData);
-        } else if (_.isFunction(onActiveConfig)) {
-          htmlString = onActiveConfig(displayData);
-          htmlString = `<div class="ring-guide-html ${this.centralClass}">${htmlString}</div>`;
-        }
-        document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
-      });
+      this.view.on(
+        'interval:mouseenter',
+        _.debounce((e) => {
+          const displayData = this.parseCentralTextData(e.data._origin);
+          const htmlString = this.getCenterHtmlString(displayData);
+          document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
+        }, 150)
+      );
+      this.view.on(
+        'interval:mouseleave',
+        _.debounce((e) => {
+          const totalValue = this.getTotalValue();
+          const displayData = this.parseCentralTextData(totalValue);
+          const htmlString = this.getCenterHtmlString(displayData);
+          document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
+        }, 150)
+      );
     }
   }
 
@@ -120,7 +125,6 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   private drawCentralText(config) {
-    const props = this.options;
     const centralText: IAttrs = {
       type: 'html',
       top: true,
@@ -132,8 +136,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     if (config.content) {
       displayData = config.content;
     } else {
-      /** 用户没有指定文本内容时，默认显示第一条数据 */
-      const data = props.data[0];
+      /** 用户没有指定文本内容时，默认显示总计 */
+      const data = this.getTotalValue();
       displayData = this.parseCentralTextData(data);
     }
     /** 中心文本显示 */
@@ -150,6 +154,18 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       this.setConfig('tooltip', false);
     }
     return centralText;
+  }
+
+  /** 获取总计数据 */
+  private getTotalValue(): object {
+    const props = this.options;
+    let total = 0;
+    props.data.forEach((item) => (total += item[props.angleField]));
+    const data = {
+      [props.angleField]: total,
+      [props.colorField]: '总计',
+    };
+    return data;
   }
 
   private parseCentralTextData(data) {
@@ -169,6 +185,19 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       htmlString = centralTextTemplate.getTwoDataTemplate(content.name, content.value, this.centralClass);
     }
     /** 更为复杂的文本要求用户自行制定html模板 */
+    return htmlString;
+  }
+
+  /** 获取中心文本的htmlString */
+  private getCenterHtmlString(_displayData): string {
+    const onActiveConfig = this.centralText.onActive;
+    let htmlString: string;
+    if (_.isBoolean(onActiveConfig)) {
+      htmlString = this.getCentralTextTemplate(_displayData);
+    } else if (_.isFunction(onActiveConfig)) {
+      htmlString = onActiveConfig(_displayData);
+      htmlString = `<div class="ring-guide-html ${this.centralClass}">${htmlString}</div>`;
+    }
     return htmlString;
   }
 

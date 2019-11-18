@@ -195,6 +195,8 @@ export const DEFAULT_GLOBAL_THEME = {
     offset: 12,
     style: {
       fill: 'rgba(0, 0, 0, 0.95)',
+      stroke:'#ffffff',
+      lineWidth:2
     },
   },
 };

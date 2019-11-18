@@ -162,13 +162,13 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   private label() {
     const props = this.options;
-    const labelConfig = props.label as Label;
+    const labelConfig = { ...props.label } as Label;
     if (!this.showLabel()) {
       this.pie.label = false;
       return;
     }
     if (labelConfig.type === 'inner') {
-      const offsetBase = -4;
+      const offsetBase = -8;
       labelConfig.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
     }
 
@@ -179,7 +179,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
     this.pie.label = getComponent('label', {
       plot: this,
-      // labelType,
+      labelType,
       fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
       ...labelConfig,
     });

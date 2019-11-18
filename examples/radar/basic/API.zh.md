@@ -130,9 +130,6 @@ title: API
 
 - 其他事件类型见[通用图表配置](../../../../zh/docs/manual/general-config#events)。
 
-
-
-
 * Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 * Server-side Rendering
 * [Electron](http:// electron.atom.io/)

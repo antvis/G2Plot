@@ -14,7 +14,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/fertility.json')
       xField: 'year',
       yField: 'value',
       seriesField: 'country',
-      smooth: true,
       xAxis: {
         visible: true,
         type: 'dateTime',

@@ -7,8 +7,8 @@ import { IScrollBarInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
 import { getDataByScaleRange } from './helper/data-range';
 
-const DEFAULT_PADDING: number = 8;
-const DEFAULT_SIZE: number = 16;
+const DEFAULT_PADDING: number = 4;
+const DEFAULT_SIZE: number = 8;
 const DEFAULT_CATEGORY_SIZE: number = 32;
 const MIN_THUMB_LENGTH: number = 8;
 const SCROLL_BAR_Z_INDEX: number = 999;

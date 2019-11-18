@@ -6,6 +6,7 @@ import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 import './component/label/stack-column-label';
+import { tsPropertySignature } from '@babel/types';
 
 export interface StackColumnViewConfig extends ColumnViewConfig {
   stackField: string;
@@ -37,6 +38,14 @@ export default class StackColumnLayer<
 
   public type: string = 'stackColum';
   public connectedArea: any;
+
+  public init() {
+    if (this.options.connectedArea.visible) {
+      this.options.tooltip.crosshairs = null;
+      console.log(this.options);
+    }
+    super.init();
+  }
 
   public afterRender() {
     const props = this.options;

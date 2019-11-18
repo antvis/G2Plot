@@ -10,17 +10,21 @@ const G2DefaultTheme = G2.Global.theme;
 G2.registerShape('area', 'miniArea', {
   draw(cfg, container) {
     const path = getPath(cfg, this, false);
-    const style = _.deepMix({},{
-      lineJoin: 'round',
-      lineCap: 'round'
-    },cfg.style);
+    const style = _.deepMix(
+      {},
+      {
+        lineJoin: 'round',
+        lineCap: 'round',
+      },
+      cfg.style
+    );
     const shape = container.addShape('path', {
       attrs: {
         path,
         fill: parseGradient(cfg.color || G2DefaultTheme.defaultColor),
         opacity: cfg.opacity || 0.4,
       },
-      style
+      style,
     });
     return shape;
   },

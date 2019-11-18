@@ -143,7 +143,7 @@ export const DEFAULT_GLOBAL_THEME = {
       title: {
         visible: false,
         offset: 12,
-        style: {  fill: 'rgba(0, 0, 0, 0.95)', fontSize: 12 },
+        style: { fill: 'rgba(0, 0, 0, 0.95)', fontSize: 12 },
       },
     },
     circle: {
@@ -195,8 +195,8 @@ export const DEFAULT_GLOBAL_THEME = {
     offset: 12,
     style: {
       fill: 'rgba(0, 0, 0, 0.95)',
-      stroke:'#ffffff',
-      lineWidth:2
+      stroke: '#ffffff',
+      lineWidth: 2,
     },
   },
 };

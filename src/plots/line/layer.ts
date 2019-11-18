@@ -71,8 +71,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       },
       point: {
         visible: false,
-        size: 4,
-        shape: 'point',
+        size: 3,
+        shape: 'circle',
+        style: {
+          stroke: '#fff',
+        },
       },
       label: {
         visible: false,

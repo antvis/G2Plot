@@ -82,7 +82,7 @@ export default class GuideLine {
     return {
       line: {
         style: {
-          lineWidth: 2,
+          lineWidth: 1,
           stroke: '#66d6a8',
           opacity: 0.7,
           lineDash: [0, 0],

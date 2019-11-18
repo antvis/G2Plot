@@ -16,6 +16,10 @@ G2.registerShape('line', 'miniLine', {
       const flag = i === 0 ? 'M' : 'L';
       path.push([flag, p.x, p.y]);
     }
+    const style = _.deepMix({},{
+      lineJoin: 'round',
+      lineCap: 'round'
+    },cfg.style);
     const shape = container.addShape('path', {
       attrs: _.mix(
         {
@@ -23,7 +27,7 @@ G2.registerShape('line', 'miniLine', {
           stroke: cfg.color || G2DefaultTheme.defaultColor,
           lineWidth: cfg.size || 2,
         },
-        cfg.style
+        style
       ),
     });
     return shape;

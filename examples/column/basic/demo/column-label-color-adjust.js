@@ -1,14 +1,38 @@
 import { Column } from '@antv/g2plot';
 
 const data = [
-  { year: '1951 年', sales: 38, category: 'A' },
-  { year: '1952 年', sales: 52, category: 'A' },
-  { year: '1956 年', sales: 61, category: 'A' },
-  { year: '1957 年', sales: 145, category: 'A' },
-  { year: '1958 年', sales: 48, category: 'B' },
-  { year: '1959 年', sales: 38, category: 'B' },
-  { year: '1960 年', sales: 38, category: 'B' },
-  { year: '1962 年', sales: 38, category: 'B' },
+  {
+    type: '家具家电',
+    sales: 38,
+  },
+  {
+    type: '粮油副食',
+    sales: 52,
+  },
+  {
+    type: '生鲜水果',
+    sales: 61,
+  },
+  {
+    type: '美容洗护',
+    sales: 145,
+  },
+  {
+    type: '母婴用品',
+    sales: 48,
+  },
+  {
+    type: '进口食品',
+    sales: 38,
+  },
+  {
+    type: '食品饮料',
+    sales: 38,
+  },
+  {
+    type: '家庭清洁',
+    sales: 38,
+  },
 ];
 
 const columnPlot = new Column(document.getElementById('container'), {
@@ -25,9 +49,17 @@ const columnPlot = new Column(document.getElementById('container'), {
   data,
   padding: 'auto',
   data,
-  xField: 'year',
+  xField: 'type',
   yField: 'sales',
-  colorField: 'year',
+  meta: {
+    type: {
+      alias: '类别',
+    },
+    sales: {
+      alias: '销售额(万)',
+    },
+  },
+  colorField: 'type',
   color: ['#55A6F3', '#55A6F3', '#55A6F3', '#CED4DE', '#55A6F3', '#55A6F3', '#55A6F3', '#55A6F3'],
   label: {
     visible: true,

@@ -10,7 +10,7 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
   height: 400,
   min: 0,
   max: 10000,
-  value: 6640,
+  value: 4500,
   showValue: true,
 });
 liquidPlot.render();

@@ -21,11 +21,12 @@ export interface LineStyle {
   lineDash?: number[];
 }
 
-interface PointStyle {
-  shape?: string;
-  size?: number;
-  color?: string;
+export interface PointStyle {
+  lineDash?: number[];
+  lineWidth?: number;
   opacity?: string;
+  fillStyle?: string;
+  strokeStyle?: string;
 }
 
 interface IObject {
@@ -49,6 +50,9 @@ export interface LineViewConfig extends ViewConfig {
   /** 折线数据点图形样式 */
   point?: {
     visible?: boolean;
+    shape?: string;
+    size?: number;
+    color?: string;
     style?: PointStyle;
   };
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;

@@ -10,22 +10,13 @@ import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
+import { PointStyle, LineStyle } from '../line/layer';
 
 interface AreaStyle {
   opacity?: number;
   lineDash?: number[];
   strokeStyle?: string;
   lineWidth?: number;
-}
-
-interface LineStyle {
-  lineDash?: number[];
-  stroke?: string;
-}
-
-interface PointStyle {
-  fillStyle?: string;
-  strokeStyle?: string;
 }
 
 const GEOM_MAP = {

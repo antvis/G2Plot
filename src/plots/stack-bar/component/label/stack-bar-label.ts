@@ -9,6 +9,8 @@ class StackBarLabels extends BarLabels {
     const shapeRange = shape.getBBox();
     if (shapeRange.width <= labelRange.width) {
       label.attr('opacity', 0);
+      label.attr('fillOpacity', 0);
+      label.attr('strokeOpacity', 0);
       label.set('capture', false);
     }
   }

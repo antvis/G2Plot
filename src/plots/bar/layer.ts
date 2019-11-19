@@ -70,6 +70,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
         label: {
           visible: true,
+          style: {
+            fill: 'rgba(0, 0, 0, 0.65)',
+          },
         },
         title: {
           visible: false,

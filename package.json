@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.1.0-beta.5",
+  "version": "0.1.0-beta.6",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -25,6 +25,7 @@
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
     "prepublishOnly": "run-s lint-check test build",
+    "publish": "npm publish && tnpm sync",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",

@@ -15,6 +15,7 @@ interface GaugeStyle {
   borderOpacity?: number;
   borderWidth?: number;
   size?: number;
+  tickLabelOffset?: number[];
 }
 
 const GAP = 1;
@@ -158,6 +159,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
         lineWidth: 1,
         lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
       },
+      labelAutoRotate: true,
     };
     axesConfig.fields['1'] = false;
     this.setConfig('axes', axesConfig);

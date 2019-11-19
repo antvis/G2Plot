@@ -45,6 +45,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       gaugeStyle: {
         tickLineColor: 'rgba(0,0,0,0)',
         pointerColor: '#bfbfbf',
+        labelPos: ['50%', '100%'],
       },
     });
   }
@@ -220,7 +221,6 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
         end: [range[index + 1] - gap, arcSize],
         style: {
           stroke: colors[index % colors.length],
-          // stroke: 'l(90) 0:#1890ff 1:#70cdd0',
           lineWidth: styleMix.stripWidth,
         },
       };

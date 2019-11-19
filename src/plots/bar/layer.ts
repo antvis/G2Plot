@@ -86,12 +86,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       label: {
         visible: true,
         position: 'left',
-        offset: 8,
         adjustColor: true,
-        style: {
-          stroke: null,
-          lineWidth: 0,
-        },
       },
       legend: {
         visible: true,
@@ -189,11 +184,13 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected extractLabel() {
     const props = this.options;
-    const label = props.label as Label;
+    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
+    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
 
     if (label && label.visible === false) {
       return false;
     }
+
     const labelConfig = getComponent('label', {
       plot: this,
       labelType: 'barLabel',
@@ -214,6 +211,30 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       const responsive = r as DataPointType;
       responsive.method(this);
     });
+  }
+
+  public getLabelOptionsByPosition(position: string) {
+    if (position === 'middle') {
+      return {
+        offset: 0,
+      };
+    }
+
+    if (position === 'left') {
+      return {
+        offset: 7,
+        style: {
+          stroke: null,
+          lineWidth: 0,
+        },
+      };
+    }
+
+    if (position === 'right') {
+      return {
+        offset: 4,
+      };
+    }
   }
 }
 

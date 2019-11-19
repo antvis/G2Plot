@@ -89,7 +89,7 @@ export const DEFAULT_GLOBAL_THEME = {
         visible: true,
         offset: 8,
         style: {
-          fill: '#a0a4aa',
+          fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
       },
@@ -112,7 +112,7 @@ export const DEFAULT_GLOBAL_THEME = {
       grid: {
         visible: false,
         style: {
-          stroke: '#e3e8ec',
+          stroke: 'rgba(0, 0, 0, 0.15)',
           lineWidth: 1,
           lineDash: [0, 0],
         },
@@ -120,7 +120,7 @@ export const DEFAULT_GLOBAL_THEME = {
       line: {
         visible: false,
         style: {
-          stroke: '#BFBFBF',
+          stroke: 'rgba(0, 0, 0, 0.45)',
           lineWidth: 1,
         },
       },
@@ -128,14 +128,14 @@ export const DEFAULT_GLOBAL_THEME = {
         visible: true,
         style: {
           length: 4,
-          stroke: '#bdc8d3',
+          stroke: 'rgba(0, 0, 0, 0.45)',
           lineWidth: 0.5,
         },
       },
       label: {
         visible: true,
         style: {
-          fill: '#a0a4aa',
+          fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
         offset: 16,
@@ -197,6 +197,11 @@ export const DEFAULT_GLOBAL_THEME = {
       fill: 'rgba(0, 0, 0, 0.65)',
       stroke: '#ffffff',
       lineWidth: 2,
+    },
+  },
+  tooltip: {
+    'g2-tooltip': {
+      boxShadow: '0px 0px 8px rgba(0,0,0,0.15)',
     },
   },
 };

@@ -3,6 +3,8 @@ title: Gauge 仪表盘
 order: 12
 ---
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Kq3TQ4-I710AAAAAAAAAAABkARQnAQ" width="400">
+
 ## 图表故事
 
 仪表盘 (Gauge) 是一种拟物化的图表，刻度表示度量，指针表示维度，指针角度表示数值。仪表盘图表就像汽车的速度表一样，有一个圆形的表盘及相应的刻度，有一个指针指向当前数值。目前很多的管理报表或报告上都是用这种图表，以直观的表现出某个指标的进度或实际情况。

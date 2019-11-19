@@ -1,6 +1,8 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { ViewLayer } from '../..';
+import { ViewConfig } from '../../base/view-layer';
+import { IBaseAxis } from '../../interface/config';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
@@ -17,7 +19,7 @@ export default class AxisParser {
   public config: any = false;
   private plot: any;
   private dim: string;
-  private localProps: any;
+  private localProps: IBaseAxis;
   private themeConfig: any;
 
   constructor(cfg: AxisConfig) {
@@ -70,11 +72,19 @@ export default class AxisParser {
   }
 
   private _gridParser() {
-    this.config.grid = this.localProps.grid;
-    if (this.localProps.grid.style) {
-      this.config.grid = this.localProps.grid.style;
+    const { grid: gridCfg } = this.localProps;
+    const { style } = gridCfg;
+
+    if (_.isFunction(style)) {
+      // @see g2/component/src/axis/base:_renderGrid
+      this.config.grid = (text: string, index: number, count: number) => {
+        const cfg = style(text, index, count);
+        return _.deepMix({}, _.get(this.themeConfig, `grid.style`), cfg);
+      };
+    } else if (style) {
+      this.config.grid = style;
+      this.applyThemeConfig('grid');
     }
-    this.applyThemeConfig('grid');
   }
 
   private _tickLineParser() {
@@ -129,8 +139,6 @@ export default class AxisParser {
 
   private _isVisible(name: string) {
     if (this.localProps[name] && this.localProps[name].visible) {
-      return true;
-    } else if (_.isFunction(this.localProps[name])) {
       return true;
     }
     return false;

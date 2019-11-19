@@ -33,6 +33,4 @@ fetch('../data/sales.json')
       ],
     });
     columnPlot.render();
-
-    window.__plot = columnPlot;
   });

@@ -42,7 +42,6 @@ export default class StackColumnLayer<
   public init() {
     if (this.options.connectedArea.visible) {
       this.options.tooltip.crosshairs = null;
-      console.log(this.options);
     }
     super.init();
   }

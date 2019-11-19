@@ -185,14 +185,14 @@ export const DEFAULT_DARK_THEME = {
   label: {
     offset: 12,
     style: {
-      fill: 'rgba(255, 255, 255, 0.95)',
+      fill: 'rgba(255, 255, 255, 0.65)',
       lineWidth: 1,
     },
   },
   tooltip: {
     'g2-tooltip': {
       backgroundColor: 'rgba(33,33,33, 0.95)',
-      boxShadow: '0px 0px 10px rgba(0,0,0,0.65)',
+      boxShadow: '0px 0px 8px rgba(0,0,0,0.65)',
       color: 'rgba(255, 255, 255, 0.65)',
     },
   },

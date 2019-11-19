@@ -1,6 +1,6 @@
 import { Area } from '@antv/g2plot';
 
-fetch('../data/sales.json')
+fetch('../data/fireworks-sales.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new Area(document.getElementById('container'), {
@@ -8,19 +8,29 @@ fetch('../data/sales.json')
         visible: true,
         text: '基础面积图 - 缩略轴',
       },
-      data,
-      xField: '城市',
-      xAxis: {
+      description: {
         visible: true,
-        autoHideLabel: true,
+        text: '缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。',
       },
-      yField: '销售额',
+      data,
+      xField: 'Date',
+      xAxis: {
+        type: 'dateTime',
+        tickCount: 5,
+      },
+      yField: 'scales',
+      yAxis: {
+        label: {
+          // 数值格式化为千分位
+          formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+        },
+      },
       interactions: [
         {
           type: 'slider',
           cfg: {
-            start: 0.5,
-            end: 0.55,
+            start: 0.2,
+            end: 0.7,
           },
         },
       ],

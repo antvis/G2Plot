@@ -175,14 +175,15 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   private getCentralTextTemplate(displayData) {
+    const size = this.getCentralTextSize();
     let htmlString;
     /** 如果文本内容为string或单条数据 */
     if (_.isString(displayData)) {
-      htmlString = centralTextTemplate.getSingleDataTemplate(displayData, this.centralClass);
+      htmlString = centralTextTemplate.getSingleDataTemplate(displayData, this.centralClass, size);
     } else if (_.isObject(displayData) && _.keys(displayData).length === 2) {
       /** 如果文本内容为两条数据 */
       const content = displayData as IAttrs;
-      htmlString = centralTextTemplate.getTwoDataTemplate(content.name, content.value, this.centralClass);
+      htmlString = centralTextTemplate.getTwoDataTemplate(content.name, content.value, this.centralClass, size);
     }
     /** 更为复杂的文本要求用户自行制定html模板 */
     return htmlString;
@@ -207,6 +208,10 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       const responsive = r as IAttrs;
       responsive.method(this);
     });
+  }
+
+  private getCentralTextSize() {
+    return this.width * this.options.radius;
   }
 }
 

@@ -8,6 +8,10 @@ fetch('../data/fireworks-sales.json')
         visible: true,
         text: '单折线图的基础用法',
       },
+      description: {
+        visible: true,
+        text: '最基础简单的折线图使用方式，显示一个指标的趋势',
+      },
       forceFit: true,
       data,
       padding: 'auto',

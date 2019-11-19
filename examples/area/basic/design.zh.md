@@ -18,11 +18,11 @@ title: 设计规范
 
 ## 用法建议
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*apZASYZEX68AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*apZASYZEX68AAAAAAAAAAABkARQnAQ" width="1000">
 
 ## 元素
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ENU-Q78K3w8AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ENU-Q78K3w8AAAAAAAAAAABkARQnAQ" width="800">
 
 - X 轴：通常对应连续数据，值为时间，调用连续数据 X 轴。
 - Y 轴：通常对应连续数据，值为数字，调用连续数据 Y 轴。

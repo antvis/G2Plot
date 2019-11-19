@@ -64,11 +64,6 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
 
   public afterInit() {
     super.afterInit();
-    const centralTextSize = this.getCentralTextSize();
-    const centralTextDom: any = document.getElementsByClassName('ring-guide-html')[0];
-    console.log(document.getElementsByClassName('ring-guide-html'));
-    // centralTextDom.style.width = centralTextSize;
-    // centralTextDom.style.height = centralTextSize;;
     /** 处理环图中心文本响应交互的问题 */
     if (this.centralText && this.centralText.onActive) {
       this.view.on(

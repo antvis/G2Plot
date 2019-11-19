@@ -5,6 +5,7 @@ import { Group, Shape, Shapes } from '@antv/g';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { compare } from '../base/controller/state';
+import { shape } from '_@types_prop-types@15.7.3@@types/prop-types';
 
 function parsePoints(shape) {
   const parsedPoints = [];
@@ -48,8 +49,10 @@ export default class ConnectedArea {
 
   public draw() {
     const groupedShapes = this._getGroupedShapes();
-    _.each(groupedShapes, (shaps, name) => {
-      this._drawConnection(shaps, name);
+    _.each(groupedShapes, (shapes, name) => {
+      if (shapes.length > 0) {
+        this._drawConnection(shapes, name);
+      }
     });
     if (this.triggerOn) {
       this._addInteraction();

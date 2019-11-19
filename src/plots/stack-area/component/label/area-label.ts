@@ -58,7 +58,6 @@ class AreaLabel extends ElementLabels {
   private scaleFactor: number[] = [];
 
   public showLabels(points: any, shapes: Shape[]) {
-    console.log(this.get('labelOptions'));
     // 获取堆叠字段
     const stackField = this.get('element').get('attrs').color.scales[0].field;
     // 根据stackField将point分组

@@ -25,6 +25,7 @@
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
     "prepublishOnly": "run-s lint-check test build",
+    "publish": "npm publish && tnpm sync",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",

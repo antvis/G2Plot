@@ -194,7 +194,7 @@ export const DEFAULT_GLOBAL_THEME = {
   label: {
     offset: 12,
     style: {
-      fill: 'rgba(0, 0, 0, 0.45)',
+      fill: 'rgba(0, 0, 0, 0.65)',
       stroke: '#ffffff',
       lineWidth: 2,
     },

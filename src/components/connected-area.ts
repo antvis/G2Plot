@@ -48,8 +48,10 @@ export default class ConnectedArea {
 
   public draw() {
     const groupedShapes = this._getGroupedShapes();
-    _.each(groupedShapes, (shaps, name) => {
-      this._drawConnection(shaps, name);
+    _.each(groupedShapes, (shapes, name) => {
+      if (shapes.length > 0) {
+        this._drawConnection(shapes, name);
+      }
     });
     if (this.triggerOn) {
       this._addInteraction();

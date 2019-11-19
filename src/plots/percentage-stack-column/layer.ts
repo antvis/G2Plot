@@ -12,6 +12,7 @@ export default class PercentageStackColumnLayer extends StackColumn<PercentageSt
       label: {
         visible: true,
         position: 'middle',
+        offset: 0,
       },
       yAxis: {
         visible: true,

@@ -43,9 +43,8 @@ export default class AxisParser {
     this._isVisible('grid') ? this._gridParser() : (this.config.grid = null);
     this._isVisible('tickLine') ? this._tickLineParser() : (this.config.tickLine = null);
     this._isVisible('label') ? this._labelParser() : (this.config.label = null);
-    if (this.localProps.title) {
-      this._titleParser();
-    }
+    this._isVisible('title') ? this._titleParser() : (this.config.title = null);
+
     propertyMapping(this.localProps, this.config, 'autoHideLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateTitle');
@@ -118,22 +117,19 @@ export default class AxisParser {
   private _titleParser() {
     const titleConfig: DataPointType = { ...this.localProps.title };
     const { visible, style, text } = this.localProps.title;
-
     if (!visible) {
       this.config.showTitle = false;
     } else {
       this.config.showTitle = true;
-    }
+      if (style) {
+        titleConfig.textStyle = style;
+      }
+      titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
 
-    if (style) {
-      titleConfig.textStyle = style;
+      if (text) {
+        titleConfig.text = text;
+      }
     }
-    titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
-
-    if (text) {
-      titleConfig.text = text;
-    }
-
     this.config.title = titleConfig;
   }
 

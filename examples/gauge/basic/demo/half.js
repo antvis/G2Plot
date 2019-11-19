@@ -26,7 +26,7 @@ insertCss(`
 const gaugePlot = new Gauge(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '仪表盘',
+    text: '半圆仪表盘',
   },
   width: 400,
   height: 400,

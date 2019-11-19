@@ -5,7 +5,6 @@ import { Group, Shape, Shapes } from '@antv/g';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { compare } from '../base/controller/state';
-import { shape } from '_@types_prop-types@15.7.3@@types/prop-types';
 
 function parsePoints(shape) {
   const parsedPoints = [];

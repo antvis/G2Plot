@@ -47,35 +47,34 @@ const data = [
 
 配置范围为 [0,1]，0 代表环图被完全填充，变为饼图，没有中心挖空部分，1 代表环图的厚度为 0。默认值为 0.8。
 
-#### annotation
+
+### statistic
 
 **optional**
 
-图表的辅助标注
+指标卡
 
-##### centralText
+`content: string|object`  指标卡内容
 
-中心文本
+用户可以指定一段文字(此时指标卡单行显示)或一组数据(此时指标卡分两行显示)，指定数据时需采用`{ name:xxx, value:xxx }`的格式。如不配置 content，则默认显示第一行数据。
 
-`content: string|object`  中心文本内容
+`htmlContent: string` 自定义指标卡
 
-用户可以指定一段文字(此时中心文本单行显示)或一组数据(此时中心文本分两行显示)，指定数据时需采用`{ name:xxx, value:xxx }`的格式。如不配置 content，则默认显示第一行数据。
+用户可以根据 htmlContent 方法的 data 参数定义指标卡 dom 节点的构成和显示方式。
 
-`htmlContent: string` 自定义中心文本
+`triggerOn: string` 响应鼠标交互交互的事件，默认为`mouseenter`，此时 tooltip 默认不再显示。
 
-用户可以根据 htmlContent 方法的 data 参数定义中心文本 dom 节点的构成和显示方式。
+`triggerOff: string` 关闭鼠标交互交互的事件，默认为`mouseleave`。
 
-`onActive: boolean` 是否自动响应鼠标交互
-
-当设置为 true 时，鼠标滑过弧形切片时中心文本显示当前弧形切片内容，此时 tooltip 默认不再显示。
 
 用法：
 
-```js
-annotation: [
+```
+statistic: [
   {
-    type: 'centralText',
-    onActive: true,
+    visible: true,
+    triggerOn: 'mouseenter,
+    triggerOff: 'mouseleave'
   },
 ];
 ```

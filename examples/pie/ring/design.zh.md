@@ -19,17 +19,17 @@ title: 设计规范
 
 ### 相对于饼图，更推荐使用环图
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*1OTpRJrwhgoAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*1OTpRJrwhgoAAAAAAAAAAABkARQnAQ' width='800'>
 
 
 ### 推荐使用复合指标显示在中心
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulhDRpGQRmoAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulhDRpGQRmoAAAAAAAAAAABkARQnAQ' width='800'>
 
 
 ## 元素
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rUSJQJmhtQ8AAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rUSJQJmhtQ8AAAAAAAAAAABkARQnAQ' width='800'>
 
 * 图形(Element)：饼图由扇形组成，环图由滑块组成。
 * 图形标签(Label)：显示各个区块的占比（%），名称（华东、华南、华北）和实际数值（123.45）。

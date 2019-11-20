@@ -2,7 +2,7 @@
 title: 简介
 order: 0
 redirect_from:
-  - /zh/docs/manual
+  - /en/docs/manual
 ---
 
 g2plot 是一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，"g2plot"中的 g2 即意指图形语法 (the Gramma of Graphics)，同时也致敬了 ggplot2。

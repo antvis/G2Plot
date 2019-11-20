@@ -17,6 +17,10 @@ const linePlot = new Line(document.getElementById('container'), {
     visible: true,
     text: '配置折线数据点样式',
   },
+  description: {
+    visible: true,
+    text: '自定义配置趋势线上数据点的样式',
+  },
   padding: 'auto',
   forceFit: true,
   data,

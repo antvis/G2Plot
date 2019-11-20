@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.1.0-beta.5",
+  "version": "0.1.0-beta.6",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -25,6 +25,7 @@
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
     "prepublishOnly": "run-s lint-check test build",
+    "publish": "npm publish && tnpm sync",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",
@@ -34,7 +35,7 @@
     "lint": "lint-staged",
     "lint-check": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
     "lint-fix": "run-s lint-fix:*",
-    "lint-fix:examples": "prettier --write examples/**/*.{js,md}",
+    "lint-fix:examples": "prettier --write examples/**/*.js",
     "lint-fix:eslint": "eslint --ext .ts --fix ./src ./__tests__ ./demos",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch",
@@ -65,7 +66,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.9.61",
+    "@antv/gatsby-theme-antv": "^0.9.77",
     "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",

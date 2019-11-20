@@ -33,7 +33,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       radius: 0.8,
-      innerRadius: 0.8 * 0.8,
+      innerRadius: 0.64,
     });
   }
 
@@ -41,7 +41,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     const options = super.getOptions(props);
     if (!props.innerRadius && props.radius) {
       return _.deepMix({}, options, {
-        innerRadius: props.radius * 0.8,
+        innerRadius: (props.radius * 0.8).toFixed(2),
       });
     }
     return options;

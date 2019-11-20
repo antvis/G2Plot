@@ -21,6 +21,12 @@ fetch('../data/sales.json')
         autoHideLabel: true,
       },
       yField: '销售额',
+      yAxis: {
+        label: {
+          // 数值格式化为千分位
+          formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+        },
+      },
       interactions: [
         {
           type: 'slider',

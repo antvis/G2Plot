@@ -1,6 +1,6 @@
 ---
 title: Legend
-order: 2
+order: 3
 ---
 
 Description about this component.

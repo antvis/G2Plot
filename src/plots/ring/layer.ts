@@ -37,21 +37,19 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     return _.deepMix({}, super.getDefaultOptions(), {
       radius: 0.8,
       innerRadius: 0.64,
-      static: {
+      statistic: {
         visible: true,
-        onActive: true,
+        triggerOn: 'mouseenter',
+        triggerOff: 'mouseleave',
       },
     });
   }
 
   public getOptions(props: T) {
     const options = super.getOptions(props);
-    if (!props.innerRadius && props.radius) {
-      return _.deepMix({}, options, {
-        innerRadius: (props.radius * 0.8).toFixed(2),
-      });
-    }
-    return options;
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, options, defaultOptions, props);
   }
 
   public beforeInit() {
@@ -68,21 +66,23 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   public afterInit() {
     super.afterInit();
     /** 处理环图中心文本响应交互的问题 */
-    if (this.statistic && this.statistic.visible && this.statistic.onActive) {
+    if (this.statistic && this.statistic.visible && this.statistic.triggerOn) {
+      const triggerOnEvent = this.statistic.triggerOn;
       this.view.on(
-        'interval:mouseenter',
+        `interval:${triggerOnEvent}`,
         _.debounce((e) => {
           const displayData = this.parseStatisticData(e.data._origin);
-          const htmlString = this.getCenterHtmlString(displayData);
+          const htmlString = this.getStatisticHtmlString(displayData);
           document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
         }, 150)
       );
+      const triggerOffEvent = this.statistic.triggerOff ? this.statistic.triggerOff : 'mouseleave';
       this.view.on(
-        'interval:mouseleave',
+        `interval:${triggerOffEvent}`,
         _.debounce((e) => {
           const totalValue = this.getTotalValue();
           const displayData = this.parseStatisticData(totalValue);
-          const htmlString = this.getCenterHtmlString(displayData);
+          const htmlString = this.getStatisticHtmlString(displayData);
           document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
         }, 150)
       );
@@ -124,12 +124,16 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   private drawStatistic(config) {
-    const statistic: IAttrs = {
-      type: 'html',
-      top: true,
-      position: ['50%', '50%'],
-      onActive: false,
-    };
+    const statistic: IAttrs = _.deepMix(
+      {},
+      {
+        type: 'html',
+        top: true,
+        position: ['50%', '50%'],
+        triggerOn: 'mouseenter',
+      },
+      config
+    );
     /** 中心文本内容 */
     let displayData;
     if (config.content) {
@@ -148,8 +152,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     }
     statistic.html = htmlString;
     /** 是否响应状态量 */
-    if (config.onActive) {
-      statistic.onActive = config.onActive;
+    if (statistic.triggerOn) {
       this.setConfig('tooltip', false);
     }
     return statistic;
@@ -189,13 +192,14 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   /** 获取中心文本的htmlString */
-  private getCenterHtmlString(_displayData): string {
-    const onActiveConfig = this.statistic.onActive;
+  private getStatisticHtmlString(_displayData): string {
+    const triggerOnConfig = this.statistic.triggerOn;
     let htmlString: string;
-    if (_.isBoolean(onActiveConfig)) {
+    if (_.isString(triggerOnConfig)) {
       htmlString = this.getStatisticTemplate(_displayData);
-    } else if (_.isFunction(onActiveConfig)) {
-      htmlString = onActiveConfig(_displayData);
+    }
+    if (_.isFunction(triggerOnConfig)) {
+      htmlString = triggerOnConfig(_displayData);
       htmlString = `<div class="ring-guide-html ${this.statisticClass}">${htmlString}</div>`;
     }
     return htmlString;

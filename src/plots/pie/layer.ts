@@ -10,8 +10,9 @@ import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
 import './theme';
+import { LineStyle } from '../line/layer';
 
-interface PieStyle {
+interface PieStyle extends LineStyle {
   stroke?: string;
   lineWidth?: number;
 }

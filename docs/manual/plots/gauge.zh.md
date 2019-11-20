@@ -11,11 +11,11 @@ order: 12
 
 仪表盘的好处在于它能跟人们的常识结合，使大家马上能理解看什么、怎么看。拟物化的方式使图标变得更友好更`人性化`，正确使用可以提升用户体验。仪表盘的圆形结构，可以更有效的`利用空间`。
 
-为了视觉上的不拥挤且符合常识，我们建议指针的数量不超过  **3**  根。
+为了视觉上的不拥挤且符合常识，我们建议指针的数量不超过 **3** 根。
 
 ## 数据类型
 
-仪表盘适合的数据类型为一个`numder`类型
+仪表盘适合的数据类型为一个 `numder` 类型
 
 ## 图表用法
 
@@ -55,46 +55,46 @@ order: 12
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
-### data:number
+### data
 
-**required**
+**required**, number 类型
 
 数据源为对象集合，数据类型为 number。
 
-### min:number
+### min
 
-**optional**
+**optional**, number 类型
 
 仪表盘刻度最小值。默认为 0。
 
-### max:number
+### max
 
-**optional**
+**optional**, number 类型
 
 仪表盘刻度最大值。默认为 1。
 
-### range:number[]
+### range
 
-**optional**
+**optional**, number[] 类型
 
 仪表的色条范围区间，数组的前后两项组成的元组将对应一个颜色区间，例如：[0, 40, 60, 100]。
 
-### label:number
+### label
 
-**optional**
+**optional**, number 类型
 
 当 label 为 boolean 值时，为指示文字标签是否显示；
 
 当 label 为一个 function 时，则该函数的两个入参分别是将要显示的数值 value，以及经过了格式化函数后的 formatted，该函数返回 html 字符串。
 
-### formatter:number
+### formatter
 
-**optional**
+**optional**, number 类型
 
 显示文字标签时对数值文本进行格式化的函数。该函数的入参为原本显示的数值。
 
 示例如下：
 
-```
+```js
 format = (value) => `${value}%`;
 ```

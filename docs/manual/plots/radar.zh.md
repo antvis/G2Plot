@@ -15,7 +15,7 @@ order: 11
 
 单组雷达图适合的数据类型为一个分类字段和一个连续字段。在下面这个例子中，`type`为分类字段，`value`为联系字段。
 
-```
+```js
 const data = [
   { type: 'a', value: 100 },
   { type: 'b', value: 60 },
@@ -23,9 +23,9 @@ const data = [
 ];
 ```
 
-多组雷达图需要在此基础上再加入一个分类字段作为分组字段。雷达图将根据此字段分为 N 组。在下面的例子中，`mark`为分组字段，将雷达图分为上下叠加的两组。
+多组雷达图需要在此基础上再加入一个分类字段作为分组字段。雷达图将根据此字段分为 N 组。在下面的例子中，`mark` 为分组字段，将雷达图分为上下叠加的两组。
 
-```
+```js
 const data = [
   { type: 'a', mark: 'top', value: 100 },
   { type: 'b', mark: 'top', value: 60 },
@@ -70,27 +70,27 @@ const data = [
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
-### data: collection
+### data
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+数据源为对象集合，例如：`[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]`。
 
-### angleField: string
+### angleField
 
-**required**
+**required**, string 类型
 
 雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
 
-### radiusField: string
+### radiusField
 
-**required**
+**required**, string 类型
 
 雷达图映射到半径所对应的字段，一般为一个连续字段。
 
-### seriesField: string
+### seriesField
 
-**required**
+**required**, string 类型
 
 多组雷达图必选。对雷达图进行分组的字段，一般对应一个分类字段。
 

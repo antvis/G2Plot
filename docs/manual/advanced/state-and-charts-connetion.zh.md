@@ -32,7 +32,7 @@ g2plot 提供了状态量变化的快捷方法：`setActive()`  `setDisable()`
 
 代码示例：
 
-```
+```js
 // 通过回调函数设置状态量
 plot.setActive((shapeData) => {
   return shapeData.type !== 'a';
@@ -82,30 +82,31 @@ plot.setActive({ name: 'type', exp: 'a' }, { stroke: 'black', lineWidth: 2 });
 
 用法：
 
-```
-defaultState:{
-    active:{
-      condition:{
-        name: 'value',
-        exp: 5
-      },
-      related: ['axis','label']
+```js
+defaultState: {
+  active: {
+    condition: {
+      name: 'value',
+      exp: 5,
     },
-    disable:{
-      condition: {
-        name: 'type',
-        exp: (d)=>{
-          return d !== 'a';
-        }
+    related: ['axis','label'],
+  },
+
+  disable: {
+    condition: {
+      name: 'type',
+      exp: (d) => {
+        return d !== 'a';
       },
-      related: ['tooltip','label','axis']
-    }
+    },
+    related: ['tooltip','label','axis'],
+  },
 }
 ```
 
 ### 在图表主题中定义状态样式
 
-```
+```js
 plot.registerTheme('line', {
   lineStyle: {
     normal: {} | Function,
@@ -118,7 +119,11 @@ plot.registerTheme('line', {
 
 ## stateManager - 状态管理机
 
-stateManager 是一个可插拔的抽象中间层，主要负责三件事：(1). 状态量的存储 （2). 状态量的更新和更新事件的分发   （3). 获取状态量。
+stateManager 是一个可插拔的抽象中间层，主要负责三件事：
+
+1. 状态量的存储
+2. 状态量的更新和更新事件的分发
+3. 获取状态量。
 
 stateManager 可用于多个图表之间，以及图表与外部组件的联动。g2plot 提供`bindStateManager()`方法用以将 stateManager 实例绑定到图表。
 
@@ -126,7 +131,7 @@ stateManager 可用于多个图表之间，以及图表与外部组件的联动�
 
 新建一个 stateManager 实例：
 
-```
+```js
 import { StateManager } from '@antv/g2plot';
 
 const stateManager = new StateManager();
@@ -174,19 +179,19 @@ const stateManager = new StateManager();
 
 代码示例：
 
-```
-plot.bindStateManager(manager,{
-  setState:[
+```js
+plot.bindStateManager(manager, {
+  setState: [
     {
-      event:'column:click',
-      state: {name:'xxx',exp } || ()=>{}
-    }
+      event: 'column:click',
+      state: { name: 'xxx', exp } | () => {},
+    },
   ],
   onStateChange: [
     {
-      name:'xxx',
-      callback:()=>{}
-    }
-  ]
+      name: 'xxx',
+      callback: () => {},
+    },
+  ],
 });
 ```

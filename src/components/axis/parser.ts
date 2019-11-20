@@ -1,6 +1,8 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { ViewLayer } from '../..';
+import { ViewConfig } from '../../base/view-layer';
+import { IBaseAxis } from '../../interface/config';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
@@ -17,7 +19,7 @@ export default class AxisParser {
   public config: any = false;
   private plot: any;
   private dim: string;
-  private localProps: any;
+  private localProps: IBaseAxis;
   private themeConfig: any;
 
   constructor(cfg: AxisConfig) {
@@ -41,9 +43,8 @@ export default class AxisParser {
     this._isVisible('grid') ? this._gridParser() : (this.config.grid = null);
     this._isVisible('tickLine') ? this._tickLineParser() : (this.config.tickLine = null);
     this._isVisible('label') ? this._labelParser() : (this.config.label = null);
-    if (this.localProps.title) {
-      this._titleParser();
-    }
+    this._isVisible('title') ? this._titleParser() : (this.config.title = null);
+
     propertyMapping(this.localProps, this.config, 'autoHideLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateLabel');
     propertyMapping(this.localProps, this.config, 'autoRotateTitle');
@@ -70,11 +71,19 @@ export default class AxisParser {
   }
 
   private _gridParser() {
-    this.config.grid = this.localProps.grid;
-    if (this.localProps.grid.style) {
-      this.config.grid = this.localProps.grid.style;
+    const { grid: gridCfg } = this.localProps;
+    const { style } = gridCfg;
+
+    if (_.isFunction(style)) {
+      // @see g2/component/src/axis/base:_renderGrid
+      this.config.grid = (text: string, index: number, count: number) => {
+        const cfg = style(text, index, count);
+        return _.deepMix({}, _.get(this.themeConfig, `grid.style`), cfg);
+      };
+    } else if (style) {
+      this.config.grid = style;
+      this.applyThemeConfig('grid');
     }
-    this.applyThemeConfig('grid');
   }
 
   private _tickLineParser() {
@@ -108,29 +117,24 @@ export default class AxisParser {
   private _titleParser() {
     const titleConfig: DataPointType = { ...this.localProps.title };
     const { visible, style, text } = this.localProps.title;
-
     if (!visible) {
       this.config.showTitle = false;
     } else {
       this.config.showTitle = true;
-    }
+      if (style) {
+        titleConfig.textStyle = style;
+      }
+      titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
 
-    if (style) {
-      titleConfig.textStyle = style;
+      if (text) {
+        titleConfig.text = text;
+      }
     }
-    titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
-
-    if (text) {
-      titleConfig.text = text;
-    }
-
     this.config.title = titleConfig;
   }
 
   private _isVisible(name: string) {
     if (this.localProps[name] && this.localProps[name].visible) {
-      return true;
-    } else if (_.isFunction(this.localProps[name])) {
       return true;
     }
     return false;

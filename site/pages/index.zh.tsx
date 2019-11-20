@@ -60,13 +60,13 @@ const IndexPage = () => {
   const cases = [
     {
       logo:
-        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
+        'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HZrrSI4yZYQAAAAAAAAAAABkARQnAQ',
       title: t('图表实验室'),
       description:
         t('来这里尝试一下我们正在开发中的高级图表功能'),
-      link: 'examples/advanced/connection',
+      link: `/${i18n.language}/examples/advanced/connection`,
       image:
-        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',
+        'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SXLtRaVPGvMAAAAAAAAAAABkARQnAQ',
     },
   ];
 

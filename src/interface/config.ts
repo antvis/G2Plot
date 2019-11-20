@@ -27,7 +27,12 @@ interface IEvents {
   [k: string]: string;
 }
 
-interface IBaseAxis {
+// TODO: g 提供详细style的类型定义
+export interface IStyleConfig {
+  [key: string]: string | number | boolean;
+}
+
+export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
@@ -35,40 +40,36 @@ interface IBaseAxis {
   /** 轴位置，默认下和左 */
   line?: {
     visible?: boolean;
-    style?: {};
+    style?: IStyleConfig;
   };
-  grid?:
-    | {
-        visible?: boolean;
-        style?: {};
-      }
-    | ((text: string, idx: number, count: number) => any);
+  grid?: {
+    visible?: boolean;
+    style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
+  };
   autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   autoRotateTitle?: boolean;
-  label?:
-    | {
-        visible?: boolean;
-        formatter?: (...args: any[]) => string;
-        offset?: number; // 坐标轴文本距离坐标轴线的距离
-        offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
-        offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
-        rotate?: number; // label 文本旋转的角度，使用角度制
-        useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
-        htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
-        style?: {};
-      }
-    | ((...args: any[]) => any);
+  label?: {
+    visible?: boolean;
+    formatter?: (...args: any[]) => string;
+    offset?: number; // 坐标轴文本距离坐标轴线的距离
+    offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
+    offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
+    rotate?: number; // label 文本旋转的角度，使用角度制
+    useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
+    htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
+    style?: IStyleConfig;
+  };
   title?: {
     visible?: boolean;
     autoRotate?: boolean;
     text?: string;
     offset?: number;
-    style?: {};
+    style?: IStyleConfig;
   };
   tickLine?: {
     visible?: boolean;
-    style?: {};
+    style?: IStyleConfig;
   };
   events?: IEvents;
 }
@@ -140,7 +141,7 @@ export interface Tooltip {
   /** 辅助线 */
   crosshair?: 'x' | 'y' | 'cross' | boolean;
   crosshairs?: { type: string }; // FIXME:
-  style?: {};
+  style?: IStyleConfig;
 }
 
 interface Animation {
@@ -161,7 +162,7 @@ export interface ElementOption {
   color?: AttributeCfg;
   size?: AttributeCfg;
   shape?: AttributeCfg;
-  style?: {};
+  style?: IStyleConfig;
   label?: LabelOptions | false;
   animate?: {};
   adjust?: AdjustCfg[];
@@ -215,7 +216,7 @@ interface StateCondition {
 
 export interface StateConfig {
   condition: () => any | StateCondition;
-  style?: {};
+  style?: IStyleConfig;
   related?: string[];
 }
 

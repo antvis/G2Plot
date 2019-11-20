@@ -75,7 +75,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         visible: false,
         position: 'top',
         adjustColor: true,
-        offset: 4,
       },
       legend: {
         visible: true,
@@ -167,8 +166,10 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   }
 
   protected extractLabel() {
-    const label = this.options.label as Label;
-    if (label && label.visible === false) {
+    const props = this.options;
+    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
+    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
+    if (label.visible === false) {
       return false;
     }
     const labelConfig = getComponent('label', {
@@ -186,6 +187,27 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       const responsive = r as DataPointType;
       responsive.method(this);
     });
+  }
+
+  public getLabelOptionsByPosition(position: string) {
+    if (position === 'middle') {
+      return {
+        offset: 0,
+        style: {
+          textBaseline: 'middle',
+        },
+      };
+    }
+
+    if (position === 'top') {
+      return {
+        offset: 4,
+        style: {
+          textBaseline: 'bottom',
+        },
+      };
+    }
+    return { offset: 0 };
   }
 }
 

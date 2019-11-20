@@ -6,7 +6,6 @@ import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 import './component/label/stack-column-label';
-import { tsPropertySignature } from '@babel/types';
 
 export interface StackColumnViewConfig extends ColumnViewConfig {
   stackField: string;
@@ -27,6 +26,7 @@ export default class StackColumnLayer<
       label: {
         visible: false,
         position: 'middle',
+        offset: 0,
         adjustColor: true,
       },
       connectedArea: {
@@ -42,7 +42,6 @@ export default class StackColumnLayer<
   public init() {
     if (this.options.connectedArea.visible) {
       this.options.tooltip.crosshairs = null;
-      console.log(this.options);
     }
     super.init();
   }
@@ -71,11 +70,8 @@ export default class StackColumnLayer<
 
   protected extractLabel() {
     const props = this.options;
-
-    const label = props.label as Label;
-    if (!label.position) {
-      label.position = 'middle';
-    }
+    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
+    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
 
     if (label && label.visible === false) {
       return false;

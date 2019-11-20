@@ -7,18 +7,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
-
-interface LineStyle {
-  opacity?: number;
-  lineDash?: number[];
-}
-
-interface PointStyle {
-  shape?: string;
-  size?: number;
-  color?: string;
-  opacity?: string;
-}
+import { PointStyle, LineStyle } from '../line/layer';
 
 interface FillStyle {
   shape?: string;
@@ -39,11 +28,16 @@ export interface RadarViewConfig extends ViewConfig {
   /** 折线图形样式 */
   line?: {
     visible?: boolean;
+    size: number;
+    color: string;
     style?: LineStyle;
   };
   /** 数据点图形样式 */
   point?: {
-    visible: boolean;
+    visible?: boolean;
+    shape?: string;
+    size?: number;
+    color?: string;
     style?: PointStyle;
   };
   /** area图形样式 */

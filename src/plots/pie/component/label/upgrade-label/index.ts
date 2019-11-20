@@ -387,13 +387,11 @@ class UpgradePieLabels extends PieElementLabels {
     const r = coord.getRadius();
     const start = getEndPoint(center, angle, r);
     // because shape is adjusted, so we should getAttrbutes by shape
-    const offsetX = this.getTextLineOffset(labelItem) * Math.cos(angle);
-    const inner = getEndPoint(center, angle, r + Math.min(offsetX, 8));
+    const offset = this.getOffsetOfLabel(labelItem);
+    const breakAt = getEndPoint(center, angle, r + offset);
     const end = { x: label.attr('x'), y: label.attr('y') };
-    path = [`M ${start.x}`, `${start.y} Q${inner.x}`, `${inner.y} ${end.x}`, end.y].join(',');
+    path = [`M ${start.x}`, `${start.y} Q${breakAt.x}`, `${breakAt.y} ${end.x}`, end.y].join(',');
     if (!smooth) {
-      const offset = this.getOffsetOfLabel(labelItem);
-      const breakAt = getEndPoint(center, angle, r + offset);
       const alignment = labelItem.textAlign;
       const distance = this.getTextLineOffset(labelItem) * (alignment === 'left' ? 1 : -1);
       const quadrant = getQuadrantByAngle(angle);

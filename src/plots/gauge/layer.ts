@@ -33,6 +33,7 @@ export interface GaugeViewConfig extends ViewConfig {
   range: number[];
   styleMix?: any;
   valueText?: string;
+  statistic: any; // todo: 指标卡类型定义
 }
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
@@ -46,7 +47,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       gaugeStyle: {
         tickLineColor: 'rgba(0,0,0,0)',
         pointerColor: '#bfbfbf',
-        labelPos: ['50%', '100%'],
+        statisticPos: ['50%', '100%'],
       },
     });
   }
@@ -81,7 +82,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     const defaultStyle = Object.assign({}, this.theme, {
       stripWidth: size,
       tickLabelSize: size / 2,
-      labelSize: size * 1.5,
+      statisticSize: size * 1.5,
     });
     return Object.assign(defaultStyle, gaugeStyle);
   }
@@ -187,13 +188,13 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   }
 
   protected annotation() {
-    const { min, max, label, range, styleMix } = this.options;
+    const { min, max, statistic, range, styleMix } = this.options;
     const annotationConfigs = [];
 
     // @ts-ignore
-    if (label !== false) {
-      const labels = this.renderLabel();
-      annotationConfigs.push(labels);
+    if (statistic !== false) {
+      const statistics = this.renderStatistic();
+      annotationConfigs.push(statistics);
     }
 
     const arcSize = 1; // 0.965;
@@ -262,48 +263,48 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     return Bks.concat(Arcs);
   }
 
-  private labelHtml() {
+  private statisticHtml() {
     const { value, format } = this.options;
-    const label: any = this.options.label;
+    const statistic: any = this.options.statistic;
     const formatted: string = format(value);
 
-    if (typeof label === 'boolean' && label === true) {
+    if (typeof statistic === 'boolean' && statistic === true) {
       return value !== null ? formatted : '--';
     }
-    if (typeof label === 'string') {
-      return label;
+    if (typeof statistic === 'string') {
+      return statistic;
     }
-    if (typeof label === 'function') {
-      return label(value, formatted);
+    if (typeof statistic === 'function') {
+      return statistic(value, formatted);
     }
     return null;
   }
 
-  private renderLabel() {
-    const { label, styleMix } = this.options;
-    const labelHtml: string | HTMLElement | null = this.labelHtml();
+  private renderStatistic() {
+    const { statistic, styleMix } = this.options;
+    const statisticHtml: string | HTMLElement | null = this.statisticHtml();
 
-    if (typeof label !== 'function') {
+    if (typeof statistic !== 'function') {
       const text = {
         type: 'text',
-        content: labelHtml,
+        content: statisticHtml,
         top: true,
-        position: styleMix.labelPos,
+        position: styleMix.statisticPos,
         style: {
-          fill: styleMix.labelColor,
-          fontSize: styleMix.labelSize,
+          fill: styleMix.statisticColor,
+          fontSize: styleMix.statisticSize,
           textAlign: 'center',
         },
       };
       return text;
     }
 
-    if (typeof label === 'function') {
+    if (typeof statistic === 'function') {
       const html = {
         type: 'html',
         zIndex: 10,
-        position: styleMix.labelPos,
-        html: labelHtml,
+        position: styleMix.statisticPos,
+        html: statisticHtml,
       };
       return html;
     }

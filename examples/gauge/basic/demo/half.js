@@ -42,7 +42,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     }
     return '';
   },
-  label: () => {
+  statistic: () => {
     return '<div class="g2plot-gauge-label"><p class="title">70%</p><p class="value">加载进度</p></div>';
   },
   gaugeStyle: {

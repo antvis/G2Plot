@@ -37,7 +37,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     colors: ['#f4664a', '#faad14', '#a0d911', '#30bf78'],
     tickLabelSize: 20,
   },
-  label: () => {
+  statistic: () => {
     return '<div class="g2plot-gauge-label"><p class="title">优</p><p class="value">系统表现</p></div>';
   },
 });

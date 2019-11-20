@@ -1,4 +1,4 @@
-import { getElementLabels, registerElementLabels } from '@antv/g2';
+/* import { getElementLabels, registerElementLabels } from '@antv/g2';
 import { Shape, BBox, Marker } from '@antv/g';
 import Polar from '@antv/coord/lib/coord/polar';
 import _ from 'lodash';
@@ -7,14 +7,14 @@ import { LabelItem as BaseLabelItem } from '@antv/component/lib/interface';
 
 const PieElementLabels = getElementLabels('pie');
 
-/** upgrade-pie label config */
+// upgrade-pie label config 
 interface LabelItem extends BaseLabelItem {
   offset?: number;
   labelLine?: {
     smooth?: boolean;
   };
 }
-/** 默认label和element的偏移 16px */
+// 默认label和element的偏移 16px 
 const DEFAULT_OFFSET = 16;
 const DEFAULT_TEXT_LINE_OFFSET = 4;
 const MaxOverlapArea = 28;
@@ -51,7 +51,7 @@ class UpgradePieLabels extends PieElementLabels {
     view.get('canvas').draw();
   }
 
-  /** label shape position */
+  // label shape position 
   public adjustLabelPosition(labels: Shape[], items: LabelItem[], panel: BBox) {
     const coord = this.get('coord');
     const center = coord.getCenter();
@@ -66,7 +66,7 @@ class UpgradePieLabels extends PieElementLabels {
       l.attr('y', pos.y);
       l.set('box', newBox);
     });
-    /** 处理各象限坐标位置 */
+    // 处理各象限坐标位置 
     const part1 = items.filter((a) => getQuadrantByAngle(a.angle) === 0);
     const part1Labels = part1.map((a) => labels.find((l) => l.id === a.id));
     const part2 = items.filter((a) => getQuadrantByAngle(a.angle) === 1);
@@ -91,9 +91,9 @@ class UpgradePieLabels extends PieElementLabels {
     const center = coord.getCenter();
     const top = _.head(labels) ? _.head(labels).getBBox().minY : 0;
     const { rx, ry } = cr;
-    /** 理想情况下的标签可用空间 */
+    // 理想情况下的标签可用空间 
     if (center.y - ry < top) {
-      /** adjust 椭圆的y半轴 b */
+      // adjust 椭圆的y半轴 b 
       labels.forEach((l, idx) => {
         const item = items[idx];
         const oldBox = l.getBBox();
@@ -119,9 +119,9 @@ class UpgradePieLabels extends PieElementLabels {
     _.each(labels, (l) => (totalHeight += l.getBBox().height));
     const top = _.head(labels) ? _.head(labels).getBBox().minY : 0;
     const bottom = _.last(labels) ? _.last(labels).getBBox().maxY : 0;
-    /** 总高度超出, 溢出的设置隐藏 */
+    // 总高度超出, 溢出的设置隐藏 
     if (totalHeight > ry) {
-      /** adjust 椭圆的y半轴 b */
+      // adjust 椭圆的y半轴 b 
       let yPos = top;
       labels.forEach((l, idx) => {
         const oldBox = l.getBBox();
@@ -172,9 +172,9 @@ class UpgradePieLabels extends PieElementLabels {
     let totalHeight = 0;
     const bottom = _.head(labels) ? _.head(labels).getBBox().maxY : ry;
     _.each(labels, (l) => (totalHeight += l.getBBox().height));
-    /** 总高度超出, 溢出的设置隐藏 */
+    // 总高度超出, 溢出的设置隐藏 
     if (totalHeight > ry) {
-      /** adjust 椭圆的y半轴 b */
+      // adjust 椭圆的y半轴 b 
       let yPos = center.y + ry;
       labels.forEach((l, idx) => {
         const oldBox = l.getBBox();
@@ -222,12 +222,12 @@ class UpgradePieLabels extends PieElementLabels {
 
   private _adjustQ4Label(labels: Shape[], items: LabelItem[], cr: C, coord: Polar): void {
     const center = coord.getCenter();
-    /** 所有标签的累计高度 */
+    // 所有标签的累计高度 
     let totalHeight = 0;
     labels.forEach((l) => (totalHeight += l.getBBox().height));
     const top = _.last(labels) ? _.last(labels).getBBox().minY : 0;
     const { rx, ry } = cr;
-    /** 总高度超出, 溢出的设置隐藏 */
+    // 总高度超出, 溢出的设置隐藏 
     if (totalHeight > ry) {
       let yPos = center.y;
       labels.forEach((l, idx) => {
@@ -278,51 +278,49 @@ class UpgradePieLabels extends PieElementLabels {
     }
   }
 
-  /** 获取第一象限和第四象限的长半轴和短半轴 */
+  // 获取第一象限和第四象限的长半轴和短半轴
   private _getQTRadius(labels: Shape[], panel: BBox, coord: Polar): C {
-    /** 所有标签的累计高度 */
+    // 所有标签的累计高度 
     let totalHeight = 0;
     labels.forEach((l) => (totalHeight += l.getBBox().height));
     const top = _.last(labels) ? _.last(labels).getBBox().minY : 0;
     const bottom = _.head(labels) ? _.head(labels).getBBox().maxY : 0;
     const offset = DEFAULT_OFFSET;
     const r = coord.getRadius() + offset;
-    /** 椭圆的x半轴 a */
+    // 椭圆的x半轴 a 
     const rx = r;
-    /** 椭圆的y半轴 b */
+    // 椭圆的y半轴 b 
     let ry = r;
-    /** 理想情况下的标签可用空间 */
+    // 理想情况下的标签可用空间 
     if (bottom - top < totalHeight) {
-      /** adjust 椭圆的y半轴 b */
+      // adjust 椭圆的y半轴 b 
       ry = r + (top - panel.minY - labels[0].getBBox().height);
     }
     return { rx, ry };
   }
 
-  /** 获取第二象限和第三象限的长半轴和短半轴 */
+  // 获取第二象限和第三象限的长半轴和短半轴 
   private _getQBRadius(labels: Shape[], panel: BBox, coord: Polar): C {
-    /** 所有标签的累计高度 */
+    // 所有标签的累计高度 
     let totalHeight = 0;
     labels.forEach((l) => (totalHeight += l.getBBox().height));
     const bottom = _.last(labels) ? _.last(labels).getBBox().maxY : 0;
     const top = _.head(labels) ? _.head(labels).getBBox().minY : 0;
     const offset = DEFAULT_OFFSET;
     const r = coord.getRadius() + offset;
-    /** 椭圆的x半轴 a */
+    // 椭圆的x半轴 a 
     const rx = r;
-    /** 椭圆的y半轴 b */
+    // 椭圆的y半轴 b 
     let ry = r;
-    /** 理想情况下的标签可用空间 */
+    // 理想情况下的标签可用空间 
     if (bottom - top < totalHeight) {
-      /** adjust 椭圆的y半轴 b */
+      // adjust 椭圆的y半轴 b 
       ry = panel.maxY - labels[0].getBBox().maxY;
     }
     return { rx, ry };
   }
 
-  /**
-   * 处理label遮挡问题
-   */
+  // 处理label遮挡问题
   protected adjustOverlap(labels: Shape[], panel: BBox, forceVisible?: boolean): void {
     // clearOverlap;
     function hideLabel(shape: Shape): void {
@@ -352,16 +350,14 @@ class UpgradePieLabels extends PieElementLabels {
     labels.forEach((label) => this.checkInPanel(label, panel));
   }
 
-  /**
-   * 超出panel边界的标签默认隐藏
-   */
+  // 超出panel边界的标签默认隐藏
   protected checkInPanel(label: Shape, panel: BBox): void {
     if (!inPanel(panel, label.getBBox())) {
       label.set('visible', false);
     }
   }
 
-  /** adjust label leader-line */
+  // adjust label leader-line 
   public adjustLines(labels: Shape[], labelItems: LabelItem[], labelLines: any) {
     const coord = this.get('coord');
     const panel = this.get('element')
@@ -377,7 +373,7 @@ class UpgradePieLabels extends PieElementLabels {
     });
   }
 
-  /** 获取label leader-line */
+  // 获取label leader-line
   private getLinePath(label: Shape, labelItem: LabelItem, coord: Polar, panel: BBox): string {
     let path = '';
     // 处理smooth
@@ -427,24 +423,22 @@ class UpgradePieLabels extends PieElementLabels {
     return path;
   }
 
-  /**
-   * @override
-   */
+
   public adjustItems(originItems: LabelItem[]) {
     // could not extends super
     return originItems;
   }
 
-  /** 获取label offset, 不允许 <= 0 */
+  // 获取label offset, 不允许 <= 0 
   public getOffsetOfLabel(labelItem?: LabelItem): number {
     const offset = (labelItem && labelItem.offset) || DEFAULT_OFFSET;
     return offset > 0 ? offset : 1;
   }
 
-  /** 获取offset betwee label-text and label-line */
+  // 获取offset betwee label-text and label-line 
   private getTextLineOffset(labelItem?: LabelItem): number {
     return Math.min(this.getOffsetOfLabel(labelItem), DEFAULT_TEXT_LINE_OFFSET);
   }
 }
 
-registerElementLabels('upgrade-pie', UpgradePieLabels);
+registerElementLabels('upgrade-pie', UpgradePieLabels);*/

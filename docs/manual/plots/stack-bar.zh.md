@@ -84,6 +84,14 @@ const data = [
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#categoryaxis)。
+
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。

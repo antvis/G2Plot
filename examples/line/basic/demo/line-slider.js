@@ -1,6 +1,6 @@
 import { Line } from '@antv/g2plot';
 
-fetch('../data/fireworks-sales.json')
+fetch('../data/sales.json')
   .then((res) => res.json())
   .then((data) => {
     const linePlot = new Line(document.getElementById('container'), {
@@ -15,12 +15,12 @@ fetch('../data/fireworks-sales.json')
       forceFit: true,
       padding: 'auto',
       data,
-      xField: 'Date',
+      xField: '城市',
       xAxis: {
-        type: 'dateTime',
-        tickCount: 5,
+        visible: true,
+        autoHideLabel: true,
       },
-      yField: 'scales',
+      yField: '销售额',
       yAxis: {
         label: {
           // 数值格式化为千分位
@@ -31,8 +31,8 @@ fetch('../data/fireworks-sales.json')
         {
           type: 'slider',
           cfg: {
-            start: 0.2,
-            end: 0.7,
+            start: 0.1,
+            end: 0.2,
           },
         },
       ],

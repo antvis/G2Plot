@@ -216,6 +216,22 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   private getStatisticSize() {
     return this.width * this.options.radius;
   }
+
+  protected getDefaultLabelInnerOffset() {
+    let size = 0;
+    const { width, height } = this;
+    const { padding } = this.options;
+    if (width < height) {
+      size = width - padding[1] - padding[3];
+    } else {
+      size = height - padding[0] - padding[2];
+    }
+    const offset = Math.round((size / 8) * (this.options.radius - this.options.radius * this.options.innerRadius) * -1);
+    if (_.isNull(offset)) {
+      return 0;
+    }
+    return offset;
+  }
 }
 
 registerPlotType('ring', RingLayer);

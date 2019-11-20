@@ -81,7 +81,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       forceFit: true,
       padding: 'auto',
-      radius: 0.6,
+      radius: 0.8,
       smooth: false,
       line: {
         visible: true,

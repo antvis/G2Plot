@@ -5,7 +5,7 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
     visible: true,
     text: '水波图',
   },
-  indicator: 'normal',
+  statistic: 'normal',
   width: 400,
   height: 400,
   min: 0,

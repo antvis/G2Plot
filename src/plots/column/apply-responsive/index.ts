@@ -1,8 +1,7 @@
 import responsiveAxis from './axis';
-import responsiveColumn from './geometry';
 import responsiveLabel from './label';
 
-const preRenderResponsive = [{ name: 'responsiveColumn', method: responsiveColumn }];
+const preRenderResponsive = [];
 
 const afterRenderResponsive = [
   { name: 'responsiveAxis', method: responsiveAxis },

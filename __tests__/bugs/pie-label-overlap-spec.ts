@@ -1,6 +1,7 @@
 import { Pie } from '../../src';
+import '../../src/plots/pie/component/label/upgrade-label';
 
-describe('#112', () => {
+describe('', () => {
   const createDiv = (id: string) => {
     const canvasDiv = document.createElement('div');
     canvasDiv.style.width = '600px';

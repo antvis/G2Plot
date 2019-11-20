@@ -8,7 +8,6 @@ import { getGeom } from '../../geoms/factory';
 import { Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
-import './component/label/upgrade-label';
 import * as EventParser from './event';
 import './theme';
 
@@ -52,9 +51,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         visible: true,
         type: 'inner',
         autoRotate: false,
-        textStyle: {
-          fill: 'rgba(0, 0, 0, 0.65)',
-        },
       },
       legend: {
         visible: true,

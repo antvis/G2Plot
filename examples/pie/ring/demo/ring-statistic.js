@@ -45,9 +45,6 @@ const ringPlot = new Ring(document.getElementById('container'), {
   statistic: {
     visible: true,
   },
-  label: {
-    offset: -22,
-  },
 });
 
 ringPlot.render();

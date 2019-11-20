@@ -31,18 +31,21 @@ const ringPlot = new Ring(document.getElementById('container'), {
   forceFit: true,
   title: {
     visible: true,
-    text: '环图-中心文本',
+    text: '环图-指标卡',
   },
   description: {
     visible: true,
-    text: '环图中心文本能够代替tooltip，在环图中心挖空部分显示各分类的详细信息。',
+    text: '环图指标卡能够代替tooltip，在环图中心挖空部分显示各分类的详细信息。',
   },
   radius: 0.8,
   padding: 'auto',
   data,
   angleField: 'value',
   colorField: 'type',
-  annotation: [{ type: 'centralText', onActive: true }],
+  statistic: {
+    visible: true,
+    onActive: true,
+  },
   label: {
     offset: -22,
   },

@@ -81,7 +81,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       forceFit: true,
       padding: 'auto',
-      radius: 0.6,
+      radius: 0.8,
       smooth: false,
       line: {
         visible: true,
@@ -246,53 +246,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     this.setConfig('axes', axesConfig);
   }
 
-  /* protected _axis() {
-      const props = this.initialProps;
-      const axesConfig = { fields: {} };
-      if (props.angleAxis.visible === false) {
-        axesConfig.fields[props.angleField] = false;
-      } else {
-        if (props.angleAxis.style) {
-          const styleCfg = this._axisStyleParser(props.angleAxis.style, axesConfig.fields[props.angleField]);
-          axesConfig.fields[props.angleField] = _.deepMix(axesConfig.fields[props.angleField], styleCfg);
-        }
-        if (props.angleAxis.formatter) {
-          const formatter = props.angleAxis.formatter;
-          axesConfig.fields[props.angleField].label = function(text, index, total) {
-            const returnCfg = {
-              text: formatter(text),
-            } as Point;
-            if (props.angleAxis.style && props.angleAxis.style.label) {
-              returnCfg.textStyle = props.angleAxis.style.label;
-            }
-            return returnCfg;
-          };
-        }
-      }
-
-      if (props.radiusAxis.visible === false) {
-        axesConfig.fields[props.radiusField] = false;
-      } else {
-        if (props.radiusAxis.style) {
-          const styleCfg = this._axisStyleParser(props.radiusAxis.style, axesConfig.fields[props.radiusField]);
-          axesConfig.fields[props.radiusField] = _.deepMix(axesConfig.fields[props.radiusField], styleCfg);
-        }
-        if (props.radiusAxis.formatter) {
-          const formatter = props.radiusAxis.formatter;
-          axesConfig.fields[props.radiusField].label = function(text, index, total) {
-            const returnCfg = {
-              text: formatter(text),
-            } as Point;
-            if (props.radiusAxis.style && props.radiusAxis.style.label) {
-              returnCfg.textStyle = props.radiusAxis.style.label;
-            }
-            return returnCfg;
-          };
-        }
-      }
-      this.setConfig('axes', axesConfig);
-    }*/
-
   protected addGeometry() {
     const props = this.options;
     /** 配置面积 */
@@ -337,42 +290,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
 
   protected parserEvents(eventParser) {
     super.parserEvents(EventParser);
-  }
-
-  private axisStyleParser(styleProps, axisConfig) {
-    const styleCfg = {} as Point;
-    if (styleProps.line) {
-      if (axisConfig.line === null) {
-        axisConfig.line = {};
-      }
-      styleCfg.line = styleProps.line;
-    }
-    if (styleProps.grid) {
-      if (axisConfig.grid === null) {
-        axisConfig.grid = {};
-      }
-      styleCfg.grid = styleProps.grid;
-    }
-    if (styleProps.title) {
-      if (axisConfig.title === null) {
-        axisConfig.title = {};
-      }
-      styleCfg.title = styleProps.title;
-    }
-    if (styleProps.tickLine) {
-      if (axisConfig.tickLine === null) {
-        axisConfig.tickLine = {};
-      }
-      styleCfg.tickLine = styleProps.tickLine;
-    }
-    if (styleProps.label) {
-      if (axisConfig.label === null) {
-        axisConfig.label = {};
-      }
-      styleCfg.label = {} as Point;
-      styleCfg.label.textStyle = styleProps.label;
-    }
-    return styleCfg;
   }
 }
 

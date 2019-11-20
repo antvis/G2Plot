@@ -137,6 +137,15 @@ const data = [
 `size: number`  数据点大小<br />
 `style: object | function`  数据点图形样式，另外该属性还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象
 
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#axis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
+
+
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。

@@ -151,6 +151,14 @@ const data = [
 `size: number`  数据点大小<br />
 `style: object | function`  数据点样式
 
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#axis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
+
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。

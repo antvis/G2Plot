@@ -65,7 +65,7 @@ export const DEFAULT_GLOBAL_THEME = {
       grid: {
         visible: true,
         style: {
-          stroke: '#e3e8ec',
+          stroke: 'rgba(0, 0, 0, 0.15)',
           lineWidth: 1,
           lineDash: [0, 0],
         },
@@ -73,14 +73,14 @@ export const DEFAULT_GLOBAL_THEME = {
       line: {
         visible: false,
         style: {
-          stroke: '#BFBFBF',
+          stroke: 'rgba(0, 0, 0, 0.45)',
           lineWidth: 1,
         },
       },
       tickLine: {
         visible: false,
         style: {
-          stroke: '#bdc8d3',
+          stroke: 'rgba(0,0,0,0.45)',
           lineWidth: 0.5,
           length: 4,
         },
@@ -155,19 +155,19 @@ export const DEFAULT_GLOBAL_THEME = {
         style: {
           lineDash: null,
           lineWidth: 1,
-          stroke: '#E3E8EC',
+          stroke: 'rgba(0, 0, 0, 0.15)',
         },
       },
       line: {
         style: {
           lineWidth: 1,
-          stroke: '#BFBFBF',
+          stroke: 'rgba(0, 0, 0, 0.45)',
         },
       },
       tickLine: {
         style: {
           lineWidth: 1,
-          stroke: '#bdc8d3',
+          stroke: 'rgba(0, 0, 0, 0.45)',
           length: 4,
           alignWithLabel: true,
         },
@@ -175,13 +175,13 @@ export const DEFAULT_GLOBAL_THEME = {
       label: {
         offset: 16,
         style: {
-          fill: '#a0a4aa',
+          fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
       },
       title: {
         offset: 12,
-        style: { fill: '#767b84', fontSize: 12 },
+        style: { fill: 'rgba(0, 0, 0, 0.65)', fontSize: 12 },
       },
     },
   },

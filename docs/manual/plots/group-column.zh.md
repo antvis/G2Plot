@@ -15,7 +15,7 @@ order: 5
 
 分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
 
-```
+```js
 const data = [
   { type: 'a', quarter: 'Q1', value: 100 },
   { type: 'a', quarter: 'Q2', value: 70 },
@@ -44,9 +44,9 @@ const data = [
 
 ### 特殊配置
 
-### groupField: string
+### groupField
 
-**reqiured**
+**reqiured**, string 类型
 
 数据集中的分组字段名，通过该字段的值，柱子将会被分为多个组，通过颜色进行区分。
 
@@ -102,27 +102,27 @@ const data = [
 
 ### 与基础柱状图相同的配置
 
-#### data: collection
+#### data
 
 **required** 见[基础柱状图配置](./column#data-collection)
 
-#### xField: string
+#### xField
 
 **reqiured** 见[基础柱状图配置](./column#xfield-string)
 
-#### yField: string
+#### yField
 
 **reqiured** 见[基础柱状图配置](./column#yField-string)
 
-#### color: string | string[] | function
+#### color
 
 **optional** 见[基础柱状图配置](./column#color-string--string--function)
 
-#### columnSize: number
+#### columnSize
 
 **optional** 见[基础柱状图配置](./column#columnsize-number)
 
-#### columnStyle: object | function
+#### columnStyle
 
 **optional** 见[基础柱状图配置](./column.zh#columnstyle-object--function)
 

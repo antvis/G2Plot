@@ -116,7 +116,8 @@ export function getOverlapArea(a: Box, b: Box, margin = 0): number {
  */
 export function getQuadrantByAngle(angle: number): number {
   const left = angle > Math.PI / 2 || angle < -Math.PI / 2;
-  const top = angle < 0;
+  // fix angle > Math.PI
+  const top = angle < 0 || angle > Math.PI;
   let index: number;
 
   if (left) {

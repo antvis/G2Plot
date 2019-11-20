@@ -13,57 +13,57 @@ order: 17
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-### width: number
+### width
 
-**reuired**
+**reuired**, number 类型
 
 图表宽度
 
-### height: number
+### height
 
-**reuired**
+**reuired**, number 类型
 
 图表高度
 
-### data: collection
+### data
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+数据源为对象集合，例如：`[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]`。
 
-### xField: string
+### xField
 
-**required**
+**required**, string 类型
 
 折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
-### yField: string
+### yField
 
-**required**
+**required**, string 类型
 
 折线形状在 y 方向对应的数据字段名，一般对应一个离散字段。
 
-### size: number
+### size
 
-**optional**
+**optional**, number 类型
 
 设置折线宽度，默认为 2。
 
-### smooth: boolean
+### smooth
 
-**optional**
+**optional**, boolean 类型
 
 是否将折线绘制为曲线 (spline)。
 
-### color: string | function
+### color
 
-**optional**
+**optional**, string | function 类型
 
 指定折线颜色。如不进行配置则采用 theme 中的配色。
 
-### lineStyle: object | function
+### lineStyle
 
-**optional**
+**optional**, object | function 类型
 
 设置折线的样式。
 
@@ -72,9 +72,9 @@ order: 17
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
-### guideLine: object[]
+### guideLine
 
-**optional**
+**optional**, object[] 类型
 
 为图表添加辅助线，可以同时添加多条辅助线。
 
@@ -116,7 +116,7 @@ order: 17
 
 配置统计辅助线示例代码：
 
-```
+```js
 {
   guideLine: [
     {
@@ -124,13 +124,13 @@ order: 17
       lineStyle: {},
       text: {},
     },
-  ];
+  ],
 }
 ```
 
 配置自定义辅助线示例代码：
 
-```
+```js
 {
   guideLine: [
     {
@@ -139,7 +139,7 @@ order: 17
       lineStyle: {},
       text: {},
     },
-  ];
+  ],
 }
 ```
 

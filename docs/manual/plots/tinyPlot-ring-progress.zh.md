@@ -13,27 +13,27 @@ order: 14
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-### width: number
+### width
 
-**reuired**
+**reuired**, number 类型
 
 图表宽度
 
-### height: number
+### height
 
-**reuired**
+**reuired**, number 类型
 
 图表高度
 
-### percent: number
+### percent
 
-**required**
+**required**, number 类型
 
 进度百分比，值域为 [0,1]。
 
-### color: number | number[] | function
+### color
 
-**optional**
+**optional**, number | number[] | function 类型
 
 设置进度条颜色，该值的类型如下
 
@@ -41,9 +41,9 @@ order: 14
 - number[]    指定值为一个数组时，同时配置进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
 - function  指定值为一个回调函数时，入参为当前进度 (percent)，出参为一个数组，需要同时指定进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
 
-### progressStyle: object | function
+### progressStyle
 
-**optional**
+**optional**, object | function 类型
 
 设置进度条的样式。
 
@@ -79,7 +79,7 @@ order: 14
 
 更新进度。
 
-```
+```js
 progress.update(0.5);
 ```
 

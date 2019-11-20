@@ -13,9 +13,9 @@ order: 8
 
 ## 数据类型
 
-分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
+分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type` 为分类数据字段，`quarter` 为分组数据字段，`value` 为离散数据字段。
 
-```
+```js
 const data = [
   { type: 'a', quarter: 'Q1', value: 100 },
   { type: 'a', quarter: 'Q2', value: 70 },
@@ -44,9 +44,9 @@ const data = [
 
 ### 特殊配置
 
-#### groupField: string
+#### groupField
 
-**reqiured**
+**reqiured**, string 类型
 
 数据集中的分组字段名，通过该字段的值，条形将会被分为多个组，通过颜色进行区分。
 
@@ -94,45 +94,45 @@ const data = [
 
 ### 与基础条形图相同的配置
 
-#### data: collection
+#### data
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+数据源为对象集合，例如：`[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]`。
 
-#### xField: string
+#### xField
 
-**required**
+**required**, string 类型
 
 条形在 x 方向长度映射对应的数据字段名，一般对应一个离散字段。
 
-#### yField: string
+#### yField
 
-**required**
+**required**, string 类型
 
 条形在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
 
-#### colorField: string
+#### colorField
 
-**optional**
+**optional**, string 类型
 
 条形颜色映射对应的数据字段名。
 
-#### color: string | string[] | function
+#### color
 
-**optional**
+**optional**, string | string[] | function 类型
 
 指定条形颜色。如不进行配置则采用 theme 中的配色。
 
 #### barSize: number
 
-**optional**
+**optional**, number 类型
 
 设置条形的高度为一个固定值。
 
-#### barStyle: object | function
+#### barStyle
 
-**optional**
+**optional**, object | function 类型
 
 配置条形样式。
 

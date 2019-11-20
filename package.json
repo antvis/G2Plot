@@ -56,7 +56,7 @@
     "@antv/event-emitter": "^0.1.1",
     "@antv/g": "~3.5.0-beta.1",
     "@antv/g-gesture": "~0.1.0-beta.2",
-    "@antv/g2": "~3.6.0-beta.4",
+    "@antv/g2": "~3.6.0-beta.5",
     "@antv/gui": "~0.1.0-beta.4",
     "@antv/matrix-util": "~2.0.2",
     "@antv/scale": "^0.2.1",

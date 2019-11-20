@@ -5,12 +5,12 @@ import { LayerConfig } from '../../base/layer';
 import PieLayer, { PieViewConfig } from '../pie/layer';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
-import * as centralTextTemplate from './component/annotation/central-text-template';
+import * as statisticTemplate from './component/statistic-template';
 import * as EventParser from './event';
 
 export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
-  annotation?: any; // FIXME:
+  statistic?: any; //FIXME: 指标卡
 }
 
 export interface RingLayerConfig extends RingViewConfig, LayerConfig {}
@@ -29,32 +29,33 @@ const PLOT_GEOM_MAP = {
 
 export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> extends PieLayer<T> {
   public static centralId = 0;
+  public type: string = 'ring';
+  private statistic: any; // 保存指标卡实例用于响应交互
+  private statisticClass: string; // 指标卡的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
 
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       radius: 0.8,
       innerRadius: 0.64,
+      statistic: {
+        visible: true,
+        triggerOn: 'mouseenter',
+        triggerOff: 'mouseleave',
+      },
     });
   }
 
   public getOptions(props: T) {
     const options = super.getOptions(props);
-    if (!props.innerRadius && props.radius) {
-      return _.deepMix({}, options, {
-        innerRadius: (props.radius * 0.8).toFixed(2),
-      });
-    }
-    return options;
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions();
+    return _.deepMix({}, options, defaultOptions, props);
   }
-
-  public type: string = 'ring';
-  private centralText: any; // 保存中心文本实例用于响应交互
-  private centralClass: string; // 中心文本的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
 
   public beforeInit() {
     super.beforeInit();
     RingLayer.centralId++;
-    this.centralClass = `centralclassId${RingLayer.centralId}`;
+    this.statisticClass = `statisticClassId${RingLayer.centralId}`;
     const props = this.options;
     /** 响应式图形 */
     if (props.responsive && props.padding !== 'auto') {
@@ -65,22 +66,24 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   public afterInit() {
     super.afterInit();
     /** 处理环图中心文本响应交互的问题 */
-    if (this.centralText && this.centralText.onActive) {
+    if (this.statistic && this.statistic.visible && this.statistic.triggerOn) {
+      const triggerOnEvent = this.statistic.triggerOn;
       this.view.on(
-        'interval:mouseenter',
+        `interval:${triggerOnEvent}`,
         _.debounce((e) => {
-          const displayData = this.parseCentralTextData(e.data._origin);
-          const htmlString = this.getCenterHtmlString(displayData);
-          document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
+          const displayData = this.parseStatisticData(e.data._origin);
+          const htmlString = this.getStatisticHtmlString(displayData);
+          document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
         }, 150)
       );
+      const triggerOffEvent = this.statistic.triggerOff ? this.statistic.triggerOff : 'mouseleave';
       this.view.on(
-        'interval:mouseleave',
+        `interval:${triggerOffEvent}`,
         _.debounce((e) => {
           const totalValue = this.getTotalValue();
-          const displayData = this.parseCentralTextData(totalValue);
-          const htmlString = this.getCenterHtmlString(displayData);
-          document.getElementsByClassName(this.centralClass)[0].innerHTML = htmlString;
+          const displayData = this.parseStatisticData(totalValue);
+          const htmlString = this.getStatisticHtmlString(displayData);
+          document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
         }, 150)
       );
     }
@@ -106,31 +109,31 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   protected annotation() {
+    const annotationConfigs = [];
     const props = this.options;
-    if (props.annotation) {
-      const annotationConfigs = [];
-      _.each(props.annotation, (a) => {
-        if (a.type === 'centralText') {
-          const centralText = this.drawCentralText(a);
-          annotationConfigs.push(centralText);
-          this.centralText = centralText;
-        }
-      });
-      this.setConfig('annotations', annotationConfigs);
+    if (props.statistic && props.statistic.visible) {
+      const statistic = this.drawStatistic(props.statistic);
+      annotationConfigs.push(statistic);
+      this.statistic = statistic;
     }
+    this.setConfig('annotations', annotationConfigs);
   }
 
   protected parserEvents(eventParser) {
     super.parserEvents(EventParser);
   }
 
-  private drawCentralText(config) {
-    const centralText: IAttrs = {
-      type: 'html',
-      top: true,
-      position: ['50%', '50%'],
-      onActive: false,
-    };
+  private drawStatistic(config) {
+    const statistic: IAttrs = _.deepMix(
+      {},
+      {
+        type: 'html',
+        top: true,
+        position: ['50%', '50%'],
+        triggerOn: 'mouseenter',
+      },
+      config
+    );
     /** 中心文本内容 */
     let displayData;
     if (config.content) {
@@ -138,22 +141,21 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     } else {
       /** 用户没有指定文本内容时，默认显示总计 */
       const data = this.getTotalValue();
-      displayData = this.parseCentralTextData(data);
+      displayData = this.parseStatisticData(data);
     }
     /** 中心文本显示 */
     let htmlString;
     if (config.htmlContent) {
       htmlString = config.htmlContent(displayData);
     } else {
-      htmlString = this.getCentralTextTemplate(displayData);
+      htmlString = this.getStatisticTemplate(displayData);
     }
-    centralText.html = htmlString;
+    statistic.html = htmlString;
     /** 是否响应状态量 */
-    if (config.onActive) {
-      centralText.onActive = config.onActive;
+    if (statistic.triggerOn) {
       this.setConfig('tooltip', false);
     }
-    return centralText;
+    return statistic;
   }
 
   /** 获取总计数据 */
@@ -168,36 +170,37 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     return data;
   }
 
-  private parseCentralTextData(data) {
+  private parseStatisticData(data) {
     const props = this.options;
     const angleField = props.angleField;
     return props.colorField ? { name: data[props.colorField], value: data[angleField] } : data[angleField];
   }
 
-  private getCentralTextTemplate(displayData) {
-    const size = this.getCentralTextSize();
+  private getStatisticTemplate(displayData) {
+    const size = this.getStatisticSize();
     let htmlString;
     /** 如果文本内容为string或单条数据 */
     if (_.isString(displayData)) {
-      htmlString = centralTextTemplate.getSingleDataTemplate(displayData, this.centralClass, size);
+      htmlString = statisticTemplate.getSingleDataTemplate(displayData, this.statisticClass, size);
     } else if (_.isObject(displayData) && _.keys(displayData).length === 2) {
       /** 如果文本内容为两条数据 */
       const content = displayData as IAttrs;
-      htmlString = centralTextTemplate.getTwoDataTemplate(content.name, content.value, this.centralClass, size);
+      htmlString = statisticTemplate.getTwoDataTemplate(content.name, content.value, this.statisticClass, size);
     }
     /** 更为复杂的文本要求用户自行制定html模板 */
     return htmlString;
   }
 
   /** 获取中心文本的htmlString */
-  private getCenterHtmlString(_displayData): string {
-    const onActiveConfig = this.centralText.onActive;
+  private getStatisticHtmlString(_displayData): string {
+    const triggerOnConfig = this.statistic.triggerOn;
     let htmlString: string;
-    if (_.isBoolean(onActiveConfig)) {
-      htmlString = this.getCentralTextTemplate(_displayData);
-    } else if (_.isFunction(onActiveConfig)) {
-      htmlString = onActiveConfig(_displayData);
-      htmlString = `<div class="ring-guide-html ${this.centralClass}">${htmlString}</div>`;
+    if (_.isString(triggerOnConfig)) {
+      htmlString = this.getStatisticTemplate(_displayData);
+    }
+    if (_.isFunction(triggerOnConfig)) {
+      htmlString = triggerOnConfig(_displayData);
+      htmlString = `<div class="ring-guide-html ${this.statisticClass}">${htmlString}</div>`;
     }
     return htmlString;
   }
@@ -210,8 +213,24 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     });
   }
 
-  private getCentralTextSize() {
+  private getStatisticSize() {
     return this.width * this.options.radius;
+  }
+
+  protected getDefaultLabelInnerOffset() {
+    let size = 0;
+    const { width, height } = this;
+    const { padding } = this.options;
+    if (width < height) {
+      size = width - padding[1] - padding[3];
+    } else {
+      size = height - padding[0] - padding[2];
+    }
+    const offset = Math.round((size / 8) * (this.options.radius - this.options.radius * this.options.innerRadius) * -1);
+    if (isNaN(offset) || offset === Infinity) {
+      return 0;
+    }
+    return offset;
   }
 }
 

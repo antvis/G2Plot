@@ -33,7 +33,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   value: 40,
   min: 0,
   max: 100,
-  label: () => {
+  statistic: () => {
     return '<div class="g2plot-gauge-label"><p class="title">良</p><p class="value">系统表现</p></div>';
   },
   gaugeStyle: {

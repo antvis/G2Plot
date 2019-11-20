@@ -9,7 +9,7 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
     visible: true,
     text: '水波图 - 百分比显示',
   },
-  indicator: 'percent',
+  statistic: 'percent',
   width: 400,
   height: 400,
   min: 0,

@@ -27,7 +27,7 @@ const PLOT_GEOM_MAP = {
 };
 
 export interface LiquidViewConfig extends ViewConfig {
-  indicator?: string;
+  statictic?: string;
   min?: number;
   max?: number;
   value?: number;
@@ -44,9 +44,9 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
   public type: string = 'liquid';
 
   public init() {
-    const { value, indicator = 'normal' } = this.options;
+    const { value, statictic = 'normal' } = this.options;
     const { min = 0, max = 1, format = (d) => `${d}` } = this.options;
-    const valueText = this.valueText(indicator, value, format, min, max);
+    const valueText = this.valueText(statictic, value, format, min, max);
     const styleMix = this.getStyleMix(valueText);
     this.options.styleMix = styleMix;
     this.options.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];

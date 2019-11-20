@@ -1,5 +1,4 @@
 import { Pie } from '../../src';
-import '../../src/plots/pie/component/label/upgrade-label';
 
 describe('', () => {
   const createDiv = (id: string) => {

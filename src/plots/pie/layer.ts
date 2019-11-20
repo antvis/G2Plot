@@ -8,6 +8,8 @@ import { getGeom } from '../../geoms/factory';
 import { Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
+// 引入自定义pie-label
+import './component/label/upgrade-label';
 import * as EventParser from './event';
 import './theme';
 

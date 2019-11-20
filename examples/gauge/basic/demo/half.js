@@ -50,7 +50,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     tickLabelSize: 16,
     stripWidth: 20,
     pointerColor: 'rgba(0,0,0,0)',
-    labelPos: ['50%', '80%'],
+    statisticPos: ['50%', '80%'],
     tickLabelPos: 'outer',
   },
 });

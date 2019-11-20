@@ -200,7 +200,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       size = height - padding[0] - padding[2];
     }
     const offset = Math.round((size / 8) * this.options.radius * -1);
-    if (_.isNull(offset)) {
+    if (isNaN(offset) || offset === Infinity) {
       return 0;
     }
     return offset;

@@ -227,7 +227,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       size = height - padding[0] - padding[2];
     }
     const offset = Math.round((size / 8) * (this.options.radius - this.options.radius * this.options.innerRadius) * -1);
-    if (_.isNull(offset)) {
+    if (isNaN(offset) || offset === Infinity) {
       return 0;
     }
     return offset;

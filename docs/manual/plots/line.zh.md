@@ -15,7 +15,7 @@ order: 0
 
 折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
 
-```
+```js
 const data = [
   { time: '2000', value: 100 },
   { time: '2001', value: 60 },
@@ -25,9 +25,9 @@ const data = [
 
 在进行图表绘制的时候，连续字段将映射到折线形状在 x 方向上的信息，而离散字段将映射到折线形状在 y 方向上的信息。
 
-在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
+在上面的示例数据中再加入一个**分类字段** `type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
 
-```
+```js
 const data = [
   { time: '2000', value: 100, type: 'a' },
   { time: '2001', value: 60, type: 'a' },
@@ -41,12 +41,9 @@ const data = [
 ## 图表用法
 
 - **Dont's**
-
   - 避免折线数量过多，且在视觉样式上无法区分主次
   - 谨慎使用曲线
-
 - **Do**
-
   - 多折线时，善用视觉样式（线宽、颜色、透明度）突出重点。对于辅助数据可以采用灰色或降低透明度的方法与主要数据进行区分。
 
 ## API
@@ -81,27 +78,27 @@ const data = [
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
-### data: collection
+### data
 
 **required**
 
 数据源为对象集合，例如：`[{ segment: '分类一'，value: 20 }, { segment: '分类二'，value: 20 }]`。
 
-### xField: string
+### xField
 
-**required**
+**required**, string 类型
 
 折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
-### yField: string
+### yField
 
-**required**
+**required**, string 类型
 
 折线形状在 y 方向对应的数据字段名，一般对应一个离散字段。
 
-### seriesField: string
+### seriesField
 
-**required**
+**required**, string 类型
 
 多折线必选。
 
@@ -109,27 +106,27 @@ const data = [
 
 通过该字段的值，折线图将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
 
-### lineSize: number
+### lineSize
 
-**optional**
+**optional**, number 类型
 
 设置折线宽度，默认为 2。
 
-### smooth: boolean
+### smooth
 
-**optional**
+**optional**, boolean 类型
 
 是否将折线绘制为曲线 (spline)。
 
-### color: string[] | function
+### color
 
-**optional**
+**optional**, string[] | function 类型
 
 指定折线颜色。如不进行配置则采用 theme 中的配色。
 
-### lineStyle: object | function
+### lineStyle
 
-**optional**
+**optional**, object | function 类型
 
 配置折线样式。
 
@@ -174,7 +171,10 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `type: 'point' | 'line'`  图形标签类型
 
-<p><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m9CuRrHRW78AAAAAAAAAAABkARQnAQ" width="600"></p>
+| `type` 类型  | 表现 |
+| ------------- | ------------- |
+| `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350">  |
+| `type: 'line'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350">  |
 
 `formatter: function` 对 label 的显示文本进行格式化<br />
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br />

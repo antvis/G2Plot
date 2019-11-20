@@ -1,6 +1,7 @@
 import { Canvas, Group } from '@antv/g';
 import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
+import { getEndPoint } from './utils';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
@@ -11,13 +12,6 @@ const ADJUSTOFFSET = 15;
 
 interface IAttrs {
   [key: string]: any;
-}
-
-function getEndPoint(center, angle, r) {
-  return {
-    x: center.x + r * Math.cos(angle),
-    y: center.y + r * Math.sin(angle),
-  };
 }
 
 function getDefaultCfg() {

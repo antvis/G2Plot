@@ -2,7 +2,6 @@ import React from 'react';
 import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
 import { useTranslation } from 'react-i18next';
 import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
-import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
 import Cases from '@antv/gatsby-theme-antv/site/components/Cases';
 
@@ -36,14 +35,6 @@ const IndexPage = () => {
     },
   ];
 
-  const notifications = [
-    {
-      type: t('测试'),
-      title: t('G6 3.2 全新上线！'),
-      date: '2019.12.04',
-      link: '#',
-    },
-  ];
 
   const bannerButtons = [
     {
@@ -76,13 +67,12 @@ const IndexPage = () => {
       <Banner
         coverImage = {
           <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWXcTY-VMmYAAAAAAAAAAABkARQnAQ" /> }
-        title={t('g2plot 开箱即用的图表库')}
+        title={t('G2Plot 开箱即用的图表库')}
         description={t(
-          'g2plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',
+          'G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',
         )}
         buttonText={t('继续了解')}
         buttonHref={'/zh/docs/manual/getting-started'}
-        notifications={notifications}
         className='banner'
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
         buttons={bannerButtons}

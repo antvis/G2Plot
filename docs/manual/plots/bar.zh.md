@@ -115,6 +115,16 @@ const data = [
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
+
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#categoryaxis)。
+
+
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。

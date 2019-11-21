@@ -19,32 +19,32 @@ title: 设计规范
 
 ### 分类数不超过9个
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JRd_TLOoVhgAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JRd_TLOoVhgAAAAAAAAAAABkARQnAQ' width='800'>
 
 ### 将多个极小值合并展示
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-0l7QLDcs2QAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-0l7QLDcs2QAAAAAAAAAAABkARQnAQ' width='800'>
 
 
 ### 排列顺序
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RQ4ARoHq2VoAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RQ4ARoHq2VoAAAAAAAAAAABkARQnAQ' width='800'>
 
 ### 如果每个数值的差异不大，那么不建议使用饼图
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*C0prR7ZpOdcAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*C0prR7ZpOdcAAAAAAAAAAABkARQnAQ' width='800'>
 
 ### 何时将标签放在内部/外部
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*elfETrq8NDcAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*elfETrq8NDcAAAAAAAAAAABkARQnAQ' width='800'>
 
 ### 所有的项目相加之和为100%
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tk2zTqTyMvEAAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tk2zTqTyMvEAAAAAAAAAAABkARQnAQ' width='800'>
 
 ## 元素
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rUSJQJmhtQ8AAAAAAAAAAABkARQnAQ' width='1000'>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rUSJQJmhtQ8AAAAAAAAAAABkARQnAQ' width='800'>
 
 * 图形(Element)：饼图由扇形组成，环图由滑块组成。
 * 图形标签(Label)：显示各个区块的占比（%），名称（华东、华南、华北）和实际数值（123.45）。

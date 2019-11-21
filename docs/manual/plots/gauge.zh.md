@@ -79,13 +79,11 @@ order: 12
 
 仪表的色条范围区间，数组的前后两项组成的元组将对应一个颜色区间，例如：[0, 40, 60, 100]。
 
-### label
+### statistic:function
 
 **optional**, number 类型
 
-当 label 为 boolean 值时，为指示文字标签是否显示；
-
-当 label 为一个 function 时，则该函数的两个入参分别是将要显示的数值 value，以及经过了格式化函数后的 formatted，该函数返回 html 字符串。
+配置指标卡。该函数的两个入参分别是将要显示的数值 value，以及经过了格式化函数后的 formatted，该函数返回 html 字符串。
 
 ### formatter
 

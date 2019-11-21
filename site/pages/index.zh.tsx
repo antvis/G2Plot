@@ -22,7 +22,7 @@ const IndexPage = () => {
         'https://gw.alipayobjects.com/zos/basement_prod/7269ccc5-fbe2-4e55-85d1-17c05917e8b0.svg',
       title: t('默认好用'),
       description: t(
-        '即使你不懂可视化或者设计小白，也能制作优雅、标准的统计图表',
+        '即使你是可视化或设计小白，也能制作优雅、标准的统计图表',
       ),
     },
     {
@@ -66,7 +66,7 @@ const IndexPage = () => {
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
         coverImage = {
-          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWXcTY-VMmYAAAAAAAAAAABkARQnAQ" /> }
+          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }
         title={t('G2Plot 开箱即用的图表库')}
         description={t(
           'G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',

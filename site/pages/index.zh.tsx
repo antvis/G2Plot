@@ -51,7 +51,7 @@ const IndexPage = () => {
   const cases = [
     {
       logo:
-        'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HZrrSI4yZYQAAAAAAAAAAABkARQnAQ',
+        'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Uh1MSpdcj-kAAAAAAAAAAABkARQnAQ',
       title: t('图表实验室'),
       description:
         t('来这里尝试一下我们正在开发中的高级图表功能'),

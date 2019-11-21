@@ -1,4 +1,4 @@
-# g2plot
+# G2Plot
 
 A charting library based on the Grammar of Graphics.
 

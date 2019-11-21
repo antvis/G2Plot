@@ -58,6 +58,7 @@ const IndexPage = () => {
       link: `/${i18n.language}/examples/advanced/connection`,
       image:
         'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SXLtRaVPGvMAAAAAAAAAAABkARQnAQ',
+      isAppLogo: true
     },
   ];
 

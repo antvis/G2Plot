@@ -4,17 +4,17 @@ title: 设计规范
 
 ## 定义
 
-轴是用来定义一个坐标系的一组直线或一组曲线。
+二维空间里统计图表中的轴，是用来定义坐标系中数据在方向和值的映射关系的图表组件。
 
 ## 何时使用
 
-目的是显示数据中的尺寸。常在：折线图、面积图，条形图、柱形图、散点图等图表中使用
+在二维笛卡尔坐标系中，轴通常为水平方向的横轴（x 轴）和竖直方向的纵轴（y 轴）。极坐标系中，轴分为切向的切向轴（angle）和径向轴（radius）。
 
 ## 元素
 
-轴的常见元素包括：轴线、刻度线、轴上的网格线、文字标签和文字标题
+轴的元素包括：轴线、轴刻度线、轴标签和轴标题和坐标网格线。
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Dbb_TqO0WdwAAAAAAAAAAABkARQnAQ' width='800>
+<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Dbb_TqO0WdwAAAAAAAAAAABkARQnAQ' width='800'>
 
 ## 轴类型
 

@@ -42,11 +42,13 @@
     "coverage": "jest --coverage",
     "compare-live": "node scripts/compare.js",
     "ci": "run-s lint-check build test coverage",
-    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html"
+    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
+    "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint test build "
+      "pre-commit": "run-s lint test build ",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
@@ -67,10 +69,13 @@
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.9.77",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "colors": "^1.4.0",
+    "conventional-changelog-cli": "^2.0.28",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",

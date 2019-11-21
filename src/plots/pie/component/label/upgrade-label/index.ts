@@ -1,7 +1,7 @@
 import { getElementLabels, registerElementLabels } from '@antv/g2';
 import { Shape, BBox, Marker } from '@antv/g';
 import Polar from '@antv/coord/lib/coord/polar';
-import _ from 'lodash';
+import * as _ from '@antv/util';
 import { getEndPoint, getQuadrantByAngle, getOverlapArea, inPanel, getCenter } from '../utils';
 import { LabelItem as BaseLabelItem } from '@antv/component/lib/interface';
 
@@ -75,10 +75,10 @@ class UpgradePieLabels extends PieElementLabels {
     const part3Labels = part3.map((a) => labels.find((l) => l.id === a.id));
     const part4 = items.filter((a) => getQuadrantByAngle(a.angle) === 3);
     const part4Labels = part4.map((a) => labels.find((l) => l.id === a.id));
-    const { rx: rx1, ry: ry1 } = this._getQTRadius(_.reverse([...part1Labels]), panel, coord);
+    const { rx: rx1, ry: ry1 } = this._getQTRadius([...part1Labels].reverse(), panel, coord);
     const { ry: ry4 } = this._getQTRadius(part4Labels, panel, coord);
     const { rx: rx2, ry: ry2 } = this._getQBRadius(part2Labels, panel, coord);
-    const { ry: ry3 } = this._getQBRadius(_.reverse([...part3Labels]), panel, coord);
+    const { ry: ry3 } = this._getQBRadius([...part3Labels].reverse(), panel, coord);
     const cTop = { rx: rx1, ry: Math.max(ry1, ry4) };
     const cBottom = { rx: rx2, ry: Math.max(ry2, ry3) };
     this._adjustQ1Label(part1Labels, part1, cTop, coord);
@@ -100,7 +100,7 @@ class UpgradePieLabels extends PieElementLabels {
         const newY = oldBox.y + (ry - rx) * Math.cos(Math.PI / 2 - item.angle);
         // 椭圆公式
         let newX = center.x + Math.sqrt(1 - Math.pow(newY - center.y, 2) / Math.pow(ry, 2)) * rx;
-        if (_.isNaN(newX)) {
+        if (Number.isNaN(newX)) {
           newX = oldBox.x - DEFAULT_OFFSET;
         }
         // offset between label-text and label-line
@@ -139,7 +139,7 @@ class UpgradePieLabels extends PieElementLabels {
       });
     } else {
       // 总高度没溢出 调整所有label在椭圆轨道上
-      _.reverse(labels);
+      labels.reverse();
       let yPos = Math.max(center.y + ry, bottom);
       labels.forEach((l, idx) => {
         const oldBox = l.getBBox();
@@ -151,7 +151,7 @@ class UpgradePieLabels extends PieElementLabels {
         newY = Math.min(newY, yPos - oldBox.height);
         // 椭圆公式
         let newX = center.x + Math.sqrt(1 - Math.pow(newY - center.y, 2) / Math.pow(ry, 2)) * rx;
-        if (_.isNaN(newX)) {
+        if (Number.isNaN(newX)) {
           newX = oldBox.x + DEFAULT_OFFSET;
         }
         newX = Math.min(oldBox.x, newX);
@@ -162,7 +162,8 @@ class UpgradePieLabels extends PieElementLabels {
         l.set('box', newBox);
         yPos = newBox.minY;
       });
-      _.reverse(labels);
+      // 反转回去
+      labels.reverse();
     }
   }
 
@@ -182,7 +183,7 @@ class UpgradePieLabels extends PieElementLabels {
         const newY = Math.max(yPos - oldBox.height, center.y);
         // 椭圆公式
         let newX = center.x - Math.sqrt(1 - Math.pow(newY - center.y, 2) / Math.pow(ry, 2)) * rx;
-        if (_.isNaN(newX)) {
+        if (Number.isNaN(newX)) {
           newX = oldBox.x - DEFAULT_OFFSET;
         }
         newX = Math.min(oldBox.x, newX);
@@ -206,7 +207,7 @@ class UpgradePieLabels extends PieElementLabels {
         newY = Math.min(newY, yPos - oldBox.height);
         // 椭圆公式
         let newX = center.x - Math.sqrt(1 - Math.pow(newY - center.y, 2) / Math.pow(ry, 2)) * rx;
-        if (_.isNaN(newX)) {
+        if (Number.isNaN(newX)) {
           newX = oldBox.x - DEFAULT_OFFSET;
         }
         newX = Math.min(oldBox.x, newX);
@@ -235,7 +236,7 @@ class UpgradePieLabels extends PieElementLabels {
         const newY = yPos - oldBox.height;
         // 椭圆公式
         let newX = center.x - Math.sqrt(1 - Math.pow(newY - center.y, 2) / Math.pow(ry, 2)) * rx;
-        if (_.isNaN(newX)) {
+        if (Number.isNaN(newX)) {
           const prevLabel = labels[idx - 1];
           newX = prevLabel ? prevLabel.getBBox().x + 8 : oldBox.x - DEFAULT_OFFSET;
         }
@@ -251,7 +252,7 @@ class UpgradePieLabels extends PieElementLabels {
     } else {
       // 总高度没溢出 调整所有label在椭圆轨道上
       // from top to bottom
-      _.reverse(labels);
+      labels.reverse();
       let yPos = center.y - ry;
       labels.forEach((l, idx) => {
         const oldBox = l.getBBox();
@@ -261,7 +262,7 @@ class UpgradePieLabels extends PieElementLabels {
         newY = Math.max(newY, yPos);
         // 椭圆公式
         let newX = center.x - Math.sqrt(1 - Math.pow(newY - center.y, 2) / Math.pow(ry, 2)) * rx;
-        if (_.isNaN(newX)) {
+        if (Number.isNaN(newX)) {
           const prevLabel = labels[idx - 1];
           newX = prevLabel ? prevLabel.getBBox().x - 8 : oldBox.x - DEFAULT_OFFSET;
         }
@@ -274,7 +275,7 @@ class UpgradePieLabels extends PieElementLabels {
         l.set('box', newBox);
         yPos = newBox.maxY;
       });
-      _.reverse(labels);
+      labels.reverse();
     }
   }
 

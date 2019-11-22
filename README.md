@@ -2,7 +2,7 @@
 
 　　G2Plot 是一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，『G2Plot』中的 G2 即意指图形语法 (the Grammar of Graphics)，同时也致敬了 [ggplot2](https://ggplot2.tidyverse.org/)。我们想做的事有三件：（1）使用户不用成为可视化专家也能够轻松制作出优雅美观的图表 （2）保证图表能够经受得起业务的检验，在真实的场景中易用、好用 （3）探索统计图表的更多可能性，使统计图表变得更好玩、更酷。
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MzUNRp0-sSwAAAAAAAAAAABkARQnAQ" width="1000">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pivcSq450scAAAAAAAAAAABkARQnAQ" width="1000">
 
 ## 特性
 

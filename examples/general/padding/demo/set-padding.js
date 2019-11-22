@@ -42,11 +42,11 @@ const data = [
 const columnPlot = new Column(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '手动设置图表出血',
+    text: '手动设置图表内边距',
   },
   description: {
     visible: true,
-    text: 'g2plot图表的出血默认自动计算，但用户可以通过padding配置项手动设置出血。',
+    text: 'G2Plot图表默认自动计算图表内边距，但用户可以通过padding配置项手动设置。',
   },
   data,
   xField: 'year',

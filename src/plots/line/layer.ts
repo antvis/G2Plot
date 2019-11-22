@@ -178,9 +178,10 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
 
     this.line.label = getComponent('label', {
-      fields: label.type === 'line' ? [props.seriesField] : [props.yField],
-      labelType: label.type,
       plot: this,
+      labelType: label.type,
+      fields: label.type === 'line' ? [props.seriesField] : [props.yField],
+      ...label,
     });
   }
 

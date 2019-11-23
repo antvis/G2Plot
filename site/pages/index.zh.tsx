@@ -64,7 +64,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
+      <SEO title={t('G2Plot 开箱即用的图表库')} lang={i18n.language} />
       <Banner
         coverImage = {
           <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }

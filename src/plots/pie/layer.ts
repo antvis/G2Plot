@@ -118,6 +118,11 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     super.scale();
   }
 
+  protected processData(data?: object[]): object[] | undefined {
+    const key = this.options.angleField;
+    return data.map((item) => ({ ...item, [key]: Number.parseFloat(item[key]) }));
+  }
+
   protected axis() {}
 
   protected coord() {

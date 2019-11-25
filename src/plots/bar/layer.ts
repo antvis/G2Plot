@@ -50,6 +50,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         label: {
           visible: false,
         },
+        tickLine: {
+          visible: false,
+        },
         grid: {
           visible: false,
         },

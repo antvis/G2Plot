@@ -11,7 +11,7 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
     return _.deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        tick: {
+        tickLine: {
           visible: false,
         },
         grid: {

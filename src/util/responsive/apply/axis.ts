@@ -12,7 +12,16 @@ const SCALE_MAPPER = {
 };
 
 function updateTicks(nodes, axis) {
-  const tickShape = axis.get('group').get('children')[0];
+  let tickShape = null;
+  axis
+    .get('group')
+    .get('children')
+    .forEach((shape) => {
+      if (shape.name === 'axis-ticks') {
+        tickShape = shape;
+        return false;
+      }
+    });
   const ticks = axis.get('ticks');
   const tickItems = axis.get('tickItems');
   const tickTexts = [];

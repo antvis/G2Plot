@@ -35,7 +35,7 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
       if (!_.has(sum, sumField)) {
         sum[sumField] = 0;
       }
-      sum[sumField] += d[yField];
+      sum[sumField] += Number.parseFloat(d[yField]);
     });
     // step2: 获取每一条数据stackField的值在对应xField数值总和的占比
     _.each(originData, (d) => {

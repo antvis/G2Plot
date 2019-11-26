@@ -31,8 +31,6 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
         },
         label: {
           visible: true,
-          position: 'middle',
-          offset: 0,
         },
         title: {
           visible: true,

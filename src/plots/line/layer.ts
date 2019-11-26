@@ -9,7 +9,6 @@ import { extractScale } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
-import './apply-responsive/theme';
 import './component/label/line-label';
 import './component/label/point-label';
 import * as EventParser from './event';

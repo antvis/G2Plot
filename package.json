@@ -42,7 +42,6 @@
     "coverage": "jest --coverage",
     "compare-live": "node scripts/compare.js",
     "ci": "run-s lint-check build test coverage",
-    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
     "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
   },
   "husky": {
@@ -131,7 +130,7 @@
       "git add"
     ],
     "*.ts": [
-      "eslint --ext .ts --fix ./src ./__tests__ ./demos",
+      "eslint --ext .ts --fix ./src ./__tests__",
       "git add"
     ]
   },

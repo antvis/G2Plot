@@ -31,9 +31,6 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
         },
         label: {
           visible: true,
-          style: {
-            textAlign: 'center'
-          }
         },
         title: {
           visible: true,

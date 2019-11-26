@@ -13,17 +13,20 @@ const SCALE_MAPPER = {
 
 function updateTicks(nodes, axis) {
   let tickShape = null;
-  axis.get('group').get('children').forEach(shape => {
-    if (shape.name === 'axis-ticks') {
-      tickShape = shape;
-      return false;
-    }
-  });
+  axis
+    .get('group')
+    .get('children')
+    .forEach((shape) => {
+      if (shape.name === 'axis-ticks') {
+        tickShape = shape;
+        return false;
+      }
+    });
   const ticks = axis.get('ticks');
   const tickItems = axis.get('tickItems');
   const tickTexts = [];
   _.each(ticks, (tick) => {
-    const t = tick as any; 
+    const t = tick as any;
     tickTexts.push(t.text);
   });
   let pathes = [];

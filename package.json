@@ -24,7 +24,6 @@
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
-    "publish": "npm publish",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",

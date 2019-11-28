@@ -7,7 +7,7 @@ order: 1
 
 ## 图表故事
 
-面积图又叫区域图。 它是在折线图的基础之上形成的，它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充，这样一个填充区域我们叫做面积，颜色的填充可以更好的突出趋势信息。
+面积图又叫区域图。它是在折线图的基础之上形成的，它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充，这样一个填充区域我们叫做面积，颜色的填充可以更好的突出趋势信息。
 
 面积图用于强调数量随时间而变化的程度，也可用于引起人们对总值趋势的注意。他们最常用于表现趋势和关系，而不是传达特定的值。
 
@@ -15,7 +15,7 @@ order: 1
 
 折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
 
-```
+```js
 const data = [
   { time: '2000', value: 100 },
   { time: '2001', value: 60 },
@@ -25,7 +25,7 @@ const data = [
 
 在进行图表绘制的时候，连续字段将映射到折线形状在 x 方向上的信息，而离散字段将映射到折线形状在 y 方向上的信息。/>在上面的示例数据中再加入一个**分类字段**`type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
 
-```
+```js
 const data = [
   { time: '2000', value: 100, type: 'a' },
   { time: '2001', value: 60, type: 'a' },
@@ -77,33 +77,33 @@ const data = [
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
-### data: collection
+### data
 
 **required**
 
 数据源为对象集合，例如：`[{ segment: '分类一'，value: 20 }, { segment: '分类二'，value: 20 }]`。
 
-### xField: string
+### xField
 
-**required**
+**required**, string 类型
 
 面积形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
-### yField: string
+### yField
 
-**required**
+**required**, string 类型
 
 面积形状在 y 方向对应的数据字段名，一般对应一个离散字段。
 
-### color: string[] | function
+### color
 
-**optional**
+**optional**, string[] | function 类型
 
 指定折线颜色。如不进行配置则采用 theme 中的配色。
 
-### areaStyle: object | function
+### areaStyle
 
-**optional**
+**optional**, object | function 类型
 
 配置面积样式。
 
@@ -114,9 +114,9 @@ const data = [
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
-### line: object
+### line
 
-**optional**
+**optional**, object 类型
 
 配置面积图上线，起到辅助阅读的作用。分组及颜色映射方式与面积图形保持一致。
 
@@ -124,11 +124,11 @@ const data = [
 `opacity: number`  透明度<br />
 `color: string`  颜色<br />
 `size: number`  线宽<br />
-`style: object | function`  线图形样式，另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+`style: object | function`  线图形样式，另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象
 
-### point: object
+### point
 
-**optional**
+**optional**, object 类型
 
 配置面积图上的数据点，起到辅助阅读的作用。分组及颜色映射方式与面积图形保持一致。
 
@@ -136,6 +136,14 @@ const data = [
 `shape: string`  数据点形状<br />
 `size: number`  数据点大小<br />
 `style: object | function`  数据点图形样式，另外该属性还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象
+
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#axis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
 
 ### tooltip
 

@@ -1,6 +1,6 @@
 ---
 title: Axis
-order: 1
+order: 2
 ---
 
 Description about this component.

@@ -42,9 +42,6 @@ const ringPlot = new Ring(document.getElementById('container'), {
   data,
   angleField: 'value',
   colorField: 'type',
-  label: {
-    offset: -22,
-  },
 });
 
 ringPlot.render();

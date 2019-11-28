@@ -1,6 +1,6 @@
 ---
 title: Set State
-order: 5
+order: 6
 ---
 
 Description about this component.

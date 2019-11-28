@@ -77,14 +77,14 @@ function $(selector) {
 }
 
 function loadCssCode(code) {
-  var style = document.createElement('style');
+  const style = document.createElement('style');
   style.type = 'text/css';
   style.rel = 'stylesheet';
   // for Chrome Firefox Opera Safari
   style.appendChild(document.createTextNode(code));
   // for IE
   // style.styleSheet.cssText = code;
-  var head = document.getElementsByTagName('head')[0];
+  const head = document.getElementsByTagName('head')[0];
   head.appendChild(style);
 }
 
@@ -154,7 +154,6 @@ data.forEach((d) => {
     data: d.trend,
     xField: 'index',
     yField: 'value',
-    smooth: true,
     guideLine: [
       {
         type: 'mean',
@@ -178,11 +177,11 @@ data.forEach((d) => {
     percent: d.load,
     color: (v) => {
       if (v < 0.3) {
-        return ['green', '#E8EDF3'];
+        return ['#30BF78', '#E8EDF3'];
       } else if (v >= 0.3 && v < 0.7) {
-        return ['#55A6F3', '#E8EDF3'];
+        return ['#FAAD14', '#E8EDF3'];
       }
-      return ['red', '#E8EDF3'];
+      return ['#F4664A', '#E8EDF3'];
     },
   });
   progress.render();

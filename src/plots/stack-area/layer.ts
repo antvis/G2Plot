@@ -39,6 +39,13 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
       label.offset = 0;
     }
 
+    if (labelType === 'area') {
+      label.style = _.deepMix({}, label.style, {
+        lineWidth: 0,
+        stroke: 'rgba(0,0,0,0)',
+      });
+    }
+
     this.area.label = getComponent('label', {
       fields: [this.getLabelField(labelType, props)],
       labelType,

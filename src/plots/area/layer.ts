@@ -10,22 +10,13 @@ import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
+import { PointStyle, LineStyle } from '../line/layer';
 
 interface AreaStyle {
   opacity?: number;
   lineDash?: number[];
   strokeStyle?: string;
   lineWidth?: number;
-}
-
-interface LineStyle {
-  lineDash?: number[];
-  stroke?: string;
-}
-
-interface PointStyle {
-  fillStyle?: string;
-  strokeStyle?: string;
 }
 
 const GEOM_MAP = {
@@ -41,14 +32,12 @@ export interface AreaViewConfig extends ViewConfig {
   yAxis?: IValueAxis;
   line?: {
     visible?: boolean;
-    opacity?: number;
     color?: string;
     size?: number;
     style?: LineStyle;
   };
   point?: {
     visible?: boolean;
-    opacity?: number;
     color?: string;
     size?: number;
     shape?: string;
@@ -71,6 +60,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
         size: 2,
         style: {
           opacity: 1,
+          lineJoin: 'round',
+          lineCap: 'round',
         },
       },
       point: {

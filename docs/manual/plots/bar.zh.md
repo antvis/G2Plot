@@ -13,7 +13,7 @@ order: 6
 
 条形图适合的数据类型为一个**分类字段**（类型）和一个**离散字段**（数值）。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
 
-```
+```js
 const data = [
   { type: 'a', value: 100 },
   { type: 'b', value: 60 },
@@ -65,45 +65,45 @@ const data = [
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
-### data: collection
+### data
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+数据源为对象集合，例如：`[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]`。
 
-### xField: string
+### xField
 
-**required**
+**required**, string 类型
 
 条形在 x 方向长度映射对应的数据字段名，一般对应一个离散字段。
 
-### yField: string
+### yField
 
-**required**
+**required**, string 类型
 
 条形在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
 
-### colorField: string
+### colorField
 
-**optional**
+**optional**, string 类型
 
 条形颜色映射对应的数据字段名。
 
-### color: string | string[] | function
+### color
 
-**optional**
+**optional**, string | string[] | function 类型
 
 指定条形颜色。如不进行配置则采用 theme 中的配色。
 
 ### barSize: number
 
-**optional**
+**optional**, number 类型
 
 设置条形的高度为一个固定值。
 
-### barStyle: object | function
+### barStyle
 
-**optional**
+**optional**, object | function 类型
 
 配置条形样式。
 
@@ -114,6 +114,14 @@ const data = [
 `opacity: number`  透明度<br />
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#categoryaxis)。
 
 ### tooltip
 
@@ -130,9 +138,9 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
 `formatter: function`  对 label 的显示文本进行格式化。<br/>
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br/>
-`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object`  配置 label 文本
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br/>
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object` 配置 label 文本
 
 ### events
 

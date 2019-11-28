@@ -8,14 +8,8 @@ import '../index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
 
-interface IComboAxis {
-  colorMapping?: boolean;
-  synchroTick?: boolean;
-}
-
 export interface ComboPlotConfig extends PlotConfig {
   layers: ViewLayer[];
-  axis?: IComboAxis;
 }
 
 export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> extends Plot<T> {
@@ -26,18 +20,16 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
   protected axisInfo: any[];
   protected legendContainer: Group;
   protected paddingComponents: any[];
-  protected axisOptions: IComboAxis = {};
+  protected globalOptions: any;
 
   constructor(container: HTMLElement, props: T) {
     super(container, props);
   }
 
   protected createLayers(props: T & { layers?: any }) {
+    this.globalOptions = this.getGlobalOptions(props);
     this.legendInfo = [];
     this.axisInfo = [];
-    if (props.axis) {
-      this.axisOptions = props.axis;
-    }
     this.paddingComponents = [];
 
     this.isOverlapped = this.detectOverlapping(props.layers);
@@ -69,7 +61,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         );
         const viewLayer = new viewLayerCtr(viewLayerProps);
         viewLayer.render();
-        this.axisInfo.push(...ComboUtil.getAxisData(viewLayer, viewLayerProps));
+        this.axisInfo.push(...ComboUtil.getAxisData(viewLayer, viewLayerProps, this.globalOptions));
         this.legendInfo.push(...ComboUtil.getLegendData(viewLayer, viewLayerProps));
         this.addLayer(viewLayer);
       });
@@ -84,7 +76,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
       });
       const legend = this.overlappingLegend();
       this.paddingComponents.push(legend);
-      this.overlappingLayout();
+      this.overlappingLayout(props);
     }
   }
 
@@ -121,6 +113,13 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     return isOverlapped;
   }
 
+  protected getGlobalOptions(props) {
+    return {
+      xAxis: props.xAxis,
+      yAxis: props.yAxis,
+    };
+  }
+
   /** 图层叠加时的layer config */
   protected getOverlappedConfig(layerCfg) {
     return _.deepMix(
@@ -137,12 +136,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
         },
         padding: [0, 0, 0, 0],
         color: ComboUtil.getColorConfig(layerCfg.type, layerCfg),
-        axis: {
-          colorMapping: true,
-          synchroTick: true,
-        },
-      },
-      { axis: this.axisOptions }
+      }
     );
   }
 
@@ -152,10 +146,11 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     return ComboUtil.createLegend(legendItems, this.legendContainer, this.width, this.getCanvas());
   }
 
-  protected overlappingLayout() {
+  protected overlappingLayout(options) {
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
     const axisComponents = ComboUtil.axesLayout(
+      this.globalOptions,
       this.axisInfo,
       legendPadding,
       this.layers[0],

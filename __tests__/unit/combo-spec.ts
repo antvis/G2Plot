@@ -84,12 +84,12 @@ describe('Combo plot', () => {
     const combo = new ComboPlot(canvasDiv, {
       width: 500,
       height: 300,
-      axis:{
-        colorMapping: false,
-        synchroTick: false
+      axis: {
+        colorMapping: true,
+        synchroTick: false,
       },
-      xAxis:{
-        visible: false
+      xAxis: {
+        visible: false,
       },
       layers: [
         {
@@ -98,7 +98,7 @@ describe('Combo plot', () => {
           data: uvBillData,
           xField: 'time',
           yField: 'value',
-          groupField: 'type'
+          groupField: 'type',
         },
         {
           type: 'line',
@@ -106,7 +106,7 @@ describe('Combo plot', () => {
           data: transformData,
           xField: 'time',
           yField: 'value',
-          color: '#f8ca45'
+          color: '#f8ca45',
         },
       ],
     });

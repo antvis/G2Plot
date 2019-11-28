@@ -38,7 +38,7 @@ export function getAxisData(viewLayer: ViewLayer, props) {
   return scalesInfo;
 }
 
-export function mergeAxisScale(axisInfo, dim) {
+export function mergeAxisScale(axisInfo, dim, axisOptions) {
   if (dim === 'x') {
     const xAxisInfo = axisInfo.filter((axis) => {
       if (axis.dim === 'x') {
@@ -52,7 +52,7 @@ export function mergeAxisScale(axisInfo, dim) {
         return axis;
       }
     });
-    return mergeYAxis(yAxisInfo);
+    return mergeYAxis(yAxisInfo, axisOptions.synchroTick);
   }
 }
 
@@ -69,7 +69,7 @@ function mergeXAxis(axisInfo) {
   }
 }
 
-function mergeYAxis(axisInfo) {
+function mergeYAxis(axisInfo, synchroTick: boolean) {
   const isSameScale = sameScaleTest(axisInfo);
   // 默认全部采用左轴的tickCount，具体标度对齐逻辑留待以后优化
   const tickCount = axisInfo[0].scale.tickCount;
@@ -78,13 +78,17 @@ function mergeYAxis(axisInfo) {
     return axisInfo.map((axis) => {
       const scale = axis.scale;
       const values = calValues(scale, tickCount);
-      return new LinearScale({
-        min: scale.min,
-        max: scale.max,
-        ticks: values,
-        tickCount,
-        color: axis.color,
-      } as any);
+      if (synchroTick) {
+        return new LinearScale({
+          min: scale.min,
+          max: scale.max,
+          ticks: values,
+          tickCount,
+          color: axis.color,
+        } as any);
+      } else {
+        return scale;
+      }
     });
   } else {
     return getLinearScale(axisInfo, tickCount);
@@ -192,18 +196,17 @@ function calValues(scale, tickCount) {
 }
 
 export function axesLayout(axisInfo, padding, layer, width, height, canvas) {
-  console.log(layer);
   const theme = getGlobalTheme();
   const paddingComponents = [];
   // 创建axis
   const axes = [];
-  const xAxisScale = mergeAxisScale(axisInfo, 'x');
+  const xAxisScale = mergeAxisScale(axisInfo, 'x', layer.options.axis);
   let xAxis = createAxis(xAxisScale[0], 'x', canvas, {
     start: { x: 0, y: 0 },
     end: { x: width, y: 0 },
     factor: 1,
   });
-  const yAxisScale = mergeAxisScale(axisInfo, 'y');
+  const yAxisScale = mergeAxisScale(axisInfo, 'y', layer.options.axis);
   _.each(yAxisScale, (scale, index) => {
     const factor = index === 0 ? -1 : 1;
     const axis = createAxis(scale, 'y', canvas, {

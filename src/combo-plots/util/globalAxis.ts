@@ -192,6 +192,7 @@ function calValues(scale, tickCount) {
 }
 
 export function axesLayout(axisInfo, padding, layer, width, height, canvas) {
+  console.log(layer);
   const theme = getGlobalTheme();
   const paddingComponents = [];
   // 创建axis
@@ -207,7 +208,7 @@ export function axesLayout(axisInfo, padding, layer, width, height, canvas) {
     const factor = index === 0 ? -1 : 1;
     const axis = createAxis(scale, 'y', canvas, {
       start: { x: 0, y: padding[0] },
-      end: { x: 0, y: height - xAxis.get('group').getBBox().height - theme.bleeding[2] },
+      end: { x: 0, y: height - xAxis.get('group').getBBox().height - theme.bleeding[2](layer.options) },
       factor,
     });
     axes.push(axis);

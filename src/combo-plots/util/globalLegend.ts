@@ -68,6 +68,7 @@ export function createLegend(items, container, width, canvas) {
     maxLength: width, // 图例的最大高度或者宽度
   };
   const legend = new Legend.CanvasCategory(legendCfg as any);
+  legend.moveTo(24, 24);
   legend.draw();
   /** return legend as a padding component */
   return {
@@ -78,5 +79,3 @@ export function createLegend(items, container, width, canvas) {
     },
   };
 }
-
-function getMaxSize() {}

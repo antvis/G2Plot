@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import StackBar, { StackBarViewConfig } from '../stack-bar/layer';
 
-export interface PercentageStackBarViewConfig extends StackBarViewConfig {}
+export type PercentageStackBarViewConfig = StackBarViewConfig;
 export interface PercentageStackBarLayerConfig extends PercentageStackBarViewConfig, LayerConfig {}
 
 export default class PercentageStackBarLayer extends StackBar<PercentageStackBarLayerConfig> {

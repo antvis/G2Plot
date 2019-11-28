@@ -202,7 +202,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
   const axes = [];
   let xAxisScale;
   let xAxis;
-  let xAxisHeight = 0;
+  let xAxisHeight = bleeding[2];
   if (globalOptions.xAxis.visible) {
     xAxisScale = mergeAxisScale(axisInfo, 'x');
     xAxis = createAxis(xAxisScale[0], 'x', canvas, {
@@ -210,7 +210,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
       end: { x: width, y: 0 },
       factor: 1,
     });
-    xAxisHeight = xAxis.get('group').getBBox().height;
+    xAxisHeight += xAxis.get('group').getBBox().height;
   }
 
   if (globalOptions.yAxis.visible) {
@@ -230,7 +230,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
 
   if (globalOptions.xAxis.visible) {
     const axisPadding = getOverlappingPadding(layer, paddingComponents);
-    const ypos = axes.length === 0 ? height - bleeding[2] : axes[0].get('group').getBBox().maxY;
+    const ypos = axes.length === 0 ? height - xAxisHeight : axes[0].get('group').getBBox().maxY;
     xAxis.destroy();
     xAxis = createAxis(xAxisScale[0], 'x', canvas, {
       start: { x: axisPadding[3], y: ypos },
@@ -251,7 +251,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
 }
 
 function axisLayout(axes, paddingComponents, width) {
-  const theme = getGlobalTheme();
+  const { bleeding } = getGlobalTheme();
   // 先处理最左边的
   const leftAxis = axes[0];
   const leftContainer = leftAxis.get('group');
@@ -264,7 +264,7 @@ function axisLayout(axes, paddingComponents, width) {
       return new BBox(leftBbox.minX + matrix[6], leftBbox.minY, leftBbox.width, leftBbox.height);
     },
   });
-  let temp_width = theme.bleeding[1];
+  let temp_width = bleeding[1];
   // 处理右边的
   for (let i = axes.length - 1; i > 0; i--) {
     const axis = axes[i];

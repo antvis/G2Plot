@@ -7,6 +7,7 @@ import ViewLayer from '../base/view-layer';
 import '../index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
+import { getGlobalTheme } from '../theme/global';
 
 export interface ComboPlotConfig extends PlotConfig {
   layers: ViewLayer[];
@@ -76,7 +77,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
       });
       const legend = this.overlappingLegend();
       this.paddingComponents.push(legend);
-      this.overlappingLayout(props);
+      this.overlappingLayout();
     }
   }
 
@@ -146,7 +147,8 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     return ComboUtil.createLegend(legendItems, this.legendContainer, this.width, this.getCanvas());
   }
 
-  protected overlappingLayout(options) {
+  protected overlappingLayout() {
+    const { bleeding } = getGlobalTheme();
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
     const axisComponents = ComboUtil.axesLayout(
@@ -161,6 +163,9 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     this.paddingComponents.push(...axisComponents);
     // 计算padding
     const padding = getOverlappingPadding(this.layers[0], this.paddingComponents);
+    if (!this.globalOptions.xAxis.visible) {
+      padding[2] += bleeding[2];
+    }
     // 更新layers
     _.each(this.layers, (layer) => {
       layer.updateConfig({

@@ -16,13 +16,7 @@ export const getDataByScaleRange = (
   vertical: boolean = false
 ): object[] => {
   const groupedData = groupBy(data, field);
-  const newValues = vertical
-    ? values
-        .slice()
-        .reverse()
-        .slice(start, end)
-        .reverse()
-    : values.slice(start, end);
+  const newValues = vertical ? values.slice(values.length - end, values.length - start) : values.slice(start, end);
 
   return flatten(map(newValues, (value: string) => groupedData[value] || []));
 };

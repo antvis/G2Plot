@@ -40,21 +40,10 @@ const EVENT_MAP: IEventmap = {
   onLegendContextmenu: 'legend-item:contextmenu',
 };
 
-const CANVAS_EVENT_MAP: IEventmap = {
-  onCanvasClick: 'click',
-  onCanvasDblClick: 'dblclick',
-  onCanvasMousemove: 'mousemove',
-  onCanvasMousedown: 'mousedown',
-  onCanvasMouseup: 'mouseup',
-  onCanvasMouseenter: 'mouseenter',
-  onCanvasMouseleave: 'mouseleave',
-  onCanvasContextmenu: 'contextmenu',
-};
-
 type Handler = (...__: any[]) => {};
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
   layer.view.on(eventName, handler);
 }
 
-export { IEventmap, EVENT_MAP, CANVAS_EVENT_MAP, onEvent };
+export { IEventmap, EVENT_MAP, onEvent };

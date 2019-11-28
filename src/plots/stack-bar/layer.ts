@@ -76,12 +76,8 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
     const props = this.options;
     const label = props.label as Label;
 
-    if (label && label.visible === false) {
+    if (label.visible === false) {
       return false;
-    }
-
-    if (!label.position) {
-      label.position = 'middle';
     }
 
     const labelConfig = getComponent('label', {

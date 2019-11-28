@@ -10,8 +10,9 @@ import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
 import './theme';
+import { LineStyle } from '../line/layer';
 
-interface PieStyle {
+interface PieStyle extends LineStyle {
   stroke?: string;
   lineWidth?: number;
 }
@@ -117,6 +118,11 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     super.scale();
   }
 
+  protected processData(data?: object[]): object[] | undefined {
+    const key = this.options.angleField;
+    return data.map((item) => ({ ...item, [key]: Number.parseFloat(item[key]) }));
+  }
+
   protected axis() {}
 
   protected coord() {
@@ -162,14 +168,14 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   private label() {
     const props = this.options;
-    const labelConfig = props.label as Label;
+    const labelConfig = { ...props.label } as Label;
     if (!this.showLabel()) {
       this.pie.label = false;
       return;
     }
     if (labelConfig.type === 'inner') {
-      const offsetBase = -4;
-      labelConfig.offset = labelConfig.offset ? offsetBase + labelConfig.offset : offsetBase;
+      const offsetBase = this.getDefaultLabelInnerOffset();
+      labelConfig.offset = labelConfig.offset ? labelConfig.offset : offsetBase;
     }
 
     // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
@@ -179,7 +185,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
     this.pie.label = getComponent('label', {
       plot: this,
-      // labelType,
+      labelType,
       fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
       ...labelConfig,
     });
@@ -188,6 +194,22 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   private showLabel() {
     const props = this.options;
     return props.label && props.label.visible === true && props.label.type !== 'spider';
+  }
+
+  protected getDefaultLabelInnerOffset() {
+    let size = 0;
+    const { width, height } = this;
+    const { padding } = this.options;
+    if (width < height) {
+      size = width - padding[1] - padding[3];
+    } else {
+      size = height - padding[0] - padding[2];
+    }
+    const offset = Math.round((size / 8) * this.options.radius * -1);
+    if (isNaN(offset) || offset === Infinity) {
+      return 0;
+    }
+    return offset;
   }
 }
 

@@ -1,8 +1,5 @@
 import * as _ from '@antv/util';
 import ViewLayer from '../base/view-layer';
-/** 事件类型
- * click | dblclick | mousemove | contextmenu
- */
 
 interface IEventmap {
   [k: string]: string;
@@ -10,7 +7,7 @@ interface IEventmap {
 
 const EVENT_MAP: IEventmap = {
   onPlotClick: 'click',
-  onPlotDblclick: 'dblclick',
+  onPlotDblClick: 'dblclick',
   onPlotMousemove: 'mousemove',
   onPlotMousedown: 'mousedown',
   onPlotMouseup: 'mouseup',
@@ -18,7 +15,7 @@ const EVENT_MAP: IEventmap = {
   onPlotMouseleave: 'mouseleave',
   onPlotContextmenu: 'contextmenu',
   onAxisClick: 'axis-label:click',
-  onAxisDblclick: 'axis-label:dblclick',
+  onAxisDblClick: 'axis-label:dblclick',
   onAxisMousemove: 'axis-label:mousemove',
   onAxisMousedown: 'axis-label:mousedown',
   onAxisMouseup: 'axis-label:mouseup',
@@ -26,7 +23,7 @@ const EVENT_MAP: IEventmap = {
   onAxisMouseleave: 'axis-label:mouseleave',
   onAxisContextmenu: 'axis-label:contextmenu',
   onLabelClick: 'label:click',
-  onLabelDblclick: 'label:dblclick',
+  onLabelDblClick: 'label:dblclick',
   onLabelMousemove: 'label:mousemove',
   onLabelMouseup: 'label:mouseup',
   onLabelMousedown: 'label:mousedown',
@@ -34,7 +31,7 @@ const EVENT_MAP: IEventmap = {
   onLabelMouseleave: 'label:mouseleave',
   onLabelContextmenu: 'label:contextmenu',
   onLegendClick: 'legend-item:click',
-  onLegendDblclick: 'legend-item:dblclick',
+  onLegendDblClick: 'legend-item:dblclick',
   onLegendMouseMove: 'legend-item:mousemove',
   onLegendMouseDown: 'legend-item:mousedown',
   onLegendMouseUp: 'legend-item:mouseup',

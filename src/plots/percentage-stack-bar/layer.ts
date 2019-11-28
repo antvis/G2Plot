@@ -11,7 +11,7 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
     return _.deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        tick: {
+        tickLine: {
           visible: false,
         },
         grid: {
@@ -45,7 +45,7 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
       if (!_.has(sum, sumField)) {
         sum[sumField] = 0;
       }
-      sum[sumField] += d[xField];
+      sum[sumField] += Number.parseFloat(d[xField]);
     });
     // step2: 获取每一条数据yField的值在对应xField数值总和的占比
     _.each(originData, (d) => {

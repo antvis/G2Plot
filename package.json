@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.1.0-beta.5",
+  "version": "0.11.1",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -13,7 +13,7 @@
     "README.md",
     "LICENSE"
   ],
-  "homepage": "https://antvis.github.io/g2plot",
+  "homepage": "https://g2plot.antv.vision",
   "repository": {
     "type": "git",
     "url": "https://github.com/antvis/g2plot"
@@ -24,7 +24,6 @@
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
-    "prepublishOnly": "run-s lint-check test build",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",
@@ -34,30 +33,30 @@
     "lint": "lint-staged",
     "lint-check": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
     "lint-fix": "run-s lint-fix:*",
+    "lint-fix:eslint": "eslint --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
-    "lint-fix:prettier": "prettier --write 'src/**/*.ts'",
-    "lint-fix:tslint": "tslint -c tslint.json --fix '*'",
-    "coverage": "exit 0",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch  ./__tests__/unit/combo-spec",
     "compare-live": "node scripts/compare.js",
     "ci": "run-s lint-check build test coverage",
-    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html"
+    "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
+    "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint test build "
+      "pre-commit": "pretty-quick --staged run-s lint test build",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
-    "@antv/component": "~0.4.0-beta.3",
+    "@antv/component": "~0.4.0-beta.5",
     "@antv/coord": "~0.2.2",
     "@antv/dom-util": "~2.0.1",
     "@antv/event-emitter": "^0.1.1",
     "@antv/g": "~3.5.0-beta.1",
-    "@antv/g-gesture": "~0.1.0-beta.2",
-    "@antv/g2": "~3.6.0-beta.4",
-    "@antv/gui": "~0.1.0-beta.4",
+    "@antv/g-gesture": "~0.1.0",
+    "@antv/g2": "~3.6.0-beta.6",
+    "@antv/gui": "~0.1.0",
     "@antv/matrix-util": "~2.0.2",
     "@antv/scale": "^0.2.1",
     "@antv/util": "~2.0.4",
@@ -66,11 +65,14 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.9.61",
+    "@antv/gatsby-theme-antv": "^0.10.0",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "colors": "^1.4.0",
+    "conventional-changelog-cli": "^2.0.28",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
@@ -85,6 +87,7 @@
     "npm-run-all": "^4.1.5",
     "nunjucks": "~3.2.0",
     "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "puppeteer": "^2.0.0",
     "react-i18next": "^11.0.1",
     "resemblejs": "^3.2.3",
@@ -130,7 +133,7 @@
     ]
   },
   "keywords": [
-    "g2",
+    "chart",
     "plot"
   ],
   "license": "MIT"

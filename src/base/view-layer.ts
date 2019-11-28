@@ -326,8 +326,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected scale(): void {
     /** scale meta配置 */
-    // this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
-    const scales = _.assign({}, this.config.scales, this.options.meta || {});
+    // 1. this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
+    // 2. 同时xAxis/yAxis中的type优先级更高，覆盖meta中的type配置
+    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig) => {
+      const type = scaleConfig.type;
+      return type ? { type } : {};
+    });
+    const scales = _.deepMix({}, this.config.scales, this.options.meta || {}, scaleTypes);
+
     this.setConfig('scales', scales);
   }
 

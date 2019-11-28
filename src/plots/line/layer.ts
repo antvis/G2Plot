@@ -9,7 +9,6 @@ import { extractScale } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
-import './apply-responsive/theme';
 import './component/label/line-label';
 import './component/label/point-label';
 import * as EventParser from './event';
@@ -19,13 +18,16 @@ import './theme';
 export interface LineStyle {
   opacity?: number;
   lineDash?: number[];
+  lineJoin?: 'bevel' | 'round' | 'miter';
+  lineCap?: 'butt' | 'round' | 'square';
 }
 
-interface PointStyle {
-  shape?: string;
-  size?: number;
-  color?: string;
+export interface PointStyle {
+  lineDash?: number[];
+  lineWidth?: number;
   opacity?: string;
+  fillStyle?: string;
+  strokeStyle?: string;
 }
 
 interface IObject {
@@ -49,6 +51,9 @@ export interface LineViewConfig extends ViewConfig {
   /** 折线数据点图形样式 */
   point?: {
     visible?: boolean;
+    shape?: string;
+    size?: number;
+    color?: string;
     style?: PointStyle;
   };
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
@@ -63,10 +68,17 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       connectNulls: false,
       smooth: false,
       lineSize: 2,
+      lineStyle: {
+        lineJoin: 'round',
+        lineCap: 'round',
+      },
       point: {
         visible: false,
-        size: 4,
-        shape: 'point',
+        size: 3,
+        shape: 'circle',
+        style: {
+          stroke: '#fff',
+        },
       },
       label: {
         visible: false,
@@ -165,9 +177,10 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
 
     this.line.label = getComponent('label', {
-      fields: label.type === 'line' ? [props.seriesField] : [props.yField],
-      labelType: label.type,
       plot: this,
+      labelType: label.type,
+      fields: label.type === 'line' ? [props.seriesField] : [props.yField],
+      ...label,
     });
   }
 

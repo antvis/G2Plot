@@ -2,15 +2,8 @@
 title: StackArea - 堆叠面积图
 order: 2
 ---
+
 <img src = "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GPm6Q7Sna9wAAAAAAAAAAABkARQnAQ" width = "400">
-
-## 图表故事
-
-work in progress
-
-## 数据类型
-
-work in progress
 
 ## 图表用法
 
@@ -32,10 +25,10 @@ work in progress
 **optional**
 
 `visible: boolean`    图形标签是否显示<br />
-`type: 'area' | 'point' | 'line'`  图形标签类型，默认为 area
-`formatter: function`  对 label 的显示文本进行格式化。<br/>
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br/>
-`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`type: 'area' | 'point' | 'line'`  图形标签类型，默认为 area<br/>
+`formatter: function`  对 label 的显示文本进行格式化<br/>
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br/>
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br/>
 `style: object` 配置 label 文本
 
 #### stackField: string
@@ -76,6 +69,14 @@ work in progress
 
 **optional** 见[通用图表配置](../general-config#theme)。
 
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#axis)。
+
+### yAxis
+
+**optional** 见[通用图表配置](../general-config#linearaxis)。
+
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。
@@ -88,33 +89,33 @@ work in progress
 
 ## 与基础面积图相同的配置
 
-#### data: collection
+#### data
 
 **required**
 
 数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
 
-#### xField: string
+#### xField
 
-**required**
+**required**, string 类型
 
 面积形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
-#### yField: string
+#### yField
 
-**required**
+**required**, string 类型
 
 面积形状在 y 方向对应的数据字段名，一般对应一个离散字段。
 
 #### color: string[] | function
 
-**optional**
+**optional**, string[] | function 类型
 
 指定折线颜色。如不进行配置则采用 theme 中的配色。
 
-#### areaStyle: object | function
+#### areaStyle
 
-**optional**
+**optional**, object | function 类型
 
 配置面积样式。
 
@@ -125,9 +126,9 @@ work in progress
 
 另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
-#### line: object
+#### line
 
-**optional**
+**optional**, object 类型
 
 配置面积图上线，起到辅助阅读的作用。分组及颜色映射方式与面积图形保持一致。
 
@@ -137,9 +138,9 @@ work in progress
 `size: number`  线宽<br />
 `style: object | function`  线图形样式，另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
-#### point: object
+#### point
 
-**optional**
+**optional**, object 类型
 
 配置面积图上的数据点，起到辅助阅读的作用。分组及颜色映射方式与面积图形保持一致。
 

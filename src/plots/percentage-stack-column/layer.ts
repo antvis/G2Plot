@@ -12,6 +12,7 @@ export default class PercentageStackColumnLayer extends StackColumn<PercentageSt
       label: {
         visible: true,
         position: 'middle',
+        offset: 0,
       },
       yAxis: {
         visible: true,
@@ -44,7 +45,7 @@ export default class PercentageStackColumnLayer extends StackColumn<PercentageSt
       if (!_.has(sum, sumField)) {
         sum[sumField] = 0;
       }
-      sum[sumField] += d[yField];
+      sum[sumField] += Number.parseFloat(d[yField]);
     });
     // step2: 获取每一条数据yField的值在对应xField数值总和的占比
     _.each(originData, (d) => {

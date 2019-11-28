@@ -26,6 +26,7 @@ export default class StackColumnLayer<
       label: {
         visible: false,
         position: 'middle',
+        offset: 0,
         adjustColor: true,
       },
       connectedArea: {
@@ -37,6 +38,13 @@ export default class StackColumnLayer<
 
   public type: string = 'stackColum';
   public connectedArea: any;
+
+  public init() {
+    if (this.options.connectedArea.visible) {
+      this.options.tooltip.crosshairs = null;
+    }
+    super.init();
+  }
 
   public afterRender() {
     const props = this.options;
@@ -62,11 +70,8 @@ export default class StackColumnLayer<
 
   protected extractLabel() {
     const props = this.options;
-
-    const label = props.label as Label;
-    if (!label.position) {
-      label.position = 'middle';
-    }
+    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
+    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
 
     if (label && label.visible === false) {
       return false;

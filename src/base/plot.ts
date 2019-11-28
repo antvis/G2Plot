@@ -5,7 +5,7 @@ import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
 import { getPlotType } from './global';
 import Layer from './layer';
-import ViewLayer, { ViewConfig } from './view-layer';
+import ViewLayer from './view-layer';
 
 export interface PlotConfig {
   forceFit?: boolean;

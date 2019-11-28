@@ -43,8 +43,8 @@ const IndexPage = () => {
       type: 'primary',
     },
     {
-      text: t('下载使用'),
-      link: 'https://github.com/antvis/g2plot',
+      text: t('开始使用'),
+      link: '/zh/docs/manual/introduction',
     },
   ];
 

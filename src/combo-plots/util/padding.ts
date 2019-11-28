@@ -1,7 +1,16 @@
 import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
+import { getGlobalTheme } from '../../theme/global';
 
 export function getOverlappingPadding(layer, components) {
+  const { bleeding } = getGlobalTheme();
+  if (_.isArray(bleeding)) {
+    _.each(bleeding, (it, index) => {
+      if (typeof bleeding[index] === 'function') {
+        bleeding[index] = bleeding[index]({});
+      }
+    });
+  }
   let viewMinX = layer.layerBBox.minX;
   let viewMaxX = layer.layerBBox.maxX;
   let viewMinY = _.clone(layer.layerBBox.minY);

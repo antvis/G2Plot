@@ -1,6 +1,6 @@
 import { Axis } from '@antv/component';
 import { BBox } from '@antv/g';
-import { getScale, Scale } from '@antv/scale';
+import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
@@ -9,7 +9,7 @@ import { getOverlappingPadding } from './padding';
 
 const AXIS_GAP = 4;
 
-export function getAxisData(viewLayer: ViewLayer, props) {
+export function getAxisData(viewLayer: ViewLayer, props, globalOptions) {
   const { view } = viewLayer;
   const scales = view.get('scales');
   const scalesInfo = [];
@@ -31,14 +31,14 @@ export function getAxisData(viewLayer: ViewLayer, props) {
       dim: 'y',
       scale: yscale,
       originalData: props.data,
-      color: singleGraph && props.axis.colorMapping ? props.color : null,
+      color: singleGraph && globalOptions.yAxis.colorMapping ? props.color : null,
     };
     scalesInfo.push(scaleInfo);
   }
   return scalesInfo;
 }
 
-export function mergeAxisScale(axisInfo, dim, axisOptions) {
+export function mergeAxisScale(axisInfo, dim, axisOptions?) {
   if (dim === 'x') {
     const xAxisInfo = axisInfo.filter((axis) => {
       if (axis.dim === 'x') {
@@ -195,44 +195,58 @@ function calValues(scale, tickCount) {
   return values;
 }
 
-export function axesLayout(axisInfo, padding, layer, width, height, canvas) {
-  const theme = getGlobalTheme();
+export function axesLayout(globalOptions, axisInfo, padding, layer, width, height, canvas) {
+  const { bleeding } = getGlobalTheme();
   const paddingComponents = [];
   // 创建axis
   const axes = [];
-  const xAxisScale = mergeAxisScale(axisInfo, 'x', layer.options.axis);
-  let xAxis = createAxis(xAxisScale[0], 'x', canvas, {
-    start: { x: 0, y: 0 },
-    end: { x: width, y: 0 },
-    factor: 1,
-  });
-  const yAxisScale = mergeAxisScale(axisInfo, 'y', layer.options.axis);
-  _.each(yAxisScale, (scale, index) => {
-    const factor = index === 0 ? -1 : 1;
-    const axis = createAxis(scale, 'y', canvas, {
-      start: { x: 0, y: padding[0] },
-      end: { x: 0, y: height - xAxis.get('group').getBBox().height - theme.bleeding[2](layer.options) },
-      factor,
+  let xAxisScale;
+  let xAxis;
+  let xAxisHeight = 0;
+  if (globalOptions.xAxis.visible) {
+    xAxisScale = mergeAxisScale(axisInfo, 'x');
+    xAxis = createAxis(xAxisScale[0], 'x', canvas, {
+      start: { x: 0, y: 0 },
+      end: { x: width, y: 0 },
+      factor: 1,
     });
-    axes.push(axis);
-  });
-  axisLayout(axes, paddingComponents, width);
-  const axisPadding = getOverlappingPadding(layer, paddingComponents);
-  const ypos = axes[0].get('group').getBBox().maxY;
-  xAxis.destroy();
-  xAxis = createAxis(xAxisScale[0], 'x', canvas, {
-    start: { x: axisPadding[3], y: ypos },
-    end: { x: width - axisPadding[1], y: ypos },
-    factor: 1,
-  });
-  paddingComponents.push({
-    position: 'bottom',
-    getBBox: () => {
-      const container = xAxis.get('group');
-      const bbox = container.getBBox();
-      return new BBox(bbox.minX, bbox.minY + ypos, bbox.width, bbox.height);
-    },
-  });
+    xAxisHeight = xAxis.get('group').getBBox().height;
+  }
+
+  if (globalOptions.yAxis.visible) {
+    const yAxisScale = mergeAxisScale(axisInfo, 'y', globalOptions.yAxis);
+    _.each(yAxisScale, (scale, index) => {
+      const factor = index === 0 ? -1 : 1;
+      const axis = createAxis(scale, 'y', canvas, {
+        start: { x: 0, y: padding[0] },
+        end: { x: 0, y: height - xAxisHeight },
+        factor,
+      });
+      axes.push(axis);
+    });
+
+    axisLayout(axes, paddingComponents, width);
+  }
+
+  if (globalOptions.xAxis.visible) {
+    const axisPadding = getOverlappingPadding(layer, paddingComponents);
+    const ypos = axes.length === 0 ? height - bleeding[2] : axes[0].get('group').getBBox().maxY;
+    xAxis.destroy();
+    xAxis = createAxis(xAxisScale[0], 'x', canvas, {
+      start: { x: axisPadding[3], y: ypos },
+      end: { x: width - axisPadding[1], y: ypos },
+      factor: 1,
+    });
+    paddingComponents.push({
+      position: 'bottom',
+      getBBox: () => {
+        const container = xAxis.get('group');
+        const bbox = container.getBBox();
+        return new BBox(bbox.minX, bbox.minY + ypos, bbox.width, bbox.height);
+      },
+    });
+  }
+
   return paddingComponents;
 }
 

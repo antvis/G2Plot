@@ -84,9 +84,10 @@ describe('Combo plot', () => {
     const combo = new ComboPlot(canvasDiv, {
       width: 500,
       height: 300,
-      axis: {
-        colorMapping: true,
-        synchroTick: false,
+      yAxis: {
+        visible: true,
+        colorMapping: false,
+        synchroTick: true,
       },
       xAxis: {
         visible: false,

@@ -86,11 +86,11 @@ describe('Combo plot', () => {
       height: 300,
       yAxis: {
         visible: true,
-        colorMapping: false,
-        synchroTick: true,
+        colorMapping: true,
+        synchroTick: false,
       },
       xAxis: {
-        visible: false,
+        visible: true,
       },
       layers: [
         {

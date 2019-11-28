@@ -20,6 +20,8 @@ export function getLegendData(viewLayer: ViewLayer, props) {
       value: props.name,
       checked: true,
       marker,
+      isSingle: true,
+      layer: viewLayer,
     });
   } else {
     /** 正常生成图例 */
@@ -36,6 +38,8 @@ export function getLegendData(viewLayer: ViewLayer, props) {
         value: markerValue,
         checked: true,
         marker: markerItem,
+        isSingle: false,
+        layer: viewLayer,
       });
     });
   }
@@ -70,6 +74,7 @@ export function createLegend(items, container, width, canvas) {
   const legend = new Legend.CanvasCategory(legendCfg as any);
   legend.moveTo(24, 24);
   legend.draw();
+  addLegendInteraction(legend);
   /** return legend as a padding component */
   return {
     position: 'top',
@@ -78,4 +83,18 @@ export function createLegend(items, container, width, canvas) {
       return new BBox(bbox.minX, bbox.minX, bbox.width, bbox.height + legendTheme.innerPadding[0]);
     },
   };
+}
+
+function addLegendInteraction(legend) {
+  legend.on('itemclick', (ev) => {
+    const { item, checked } = ev;
+    // 如果是单图例模式
+    if (item.isSingle) {
+      if (!checked) {
+        item.layer.hide();
+      } else {
+        item.layer.show();
+      }
+    }
+  });
 }

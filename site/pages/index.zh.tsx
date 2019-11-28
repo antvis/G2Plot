@@ -39,12 +39,12 @@ const IndexPage = () => {
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: '/zh/examples/line/basic',
+      link: `/${i18n.language}/examples/line/basic`,
       type: 'primary',
     },
     {
       text: t('开始使用'),
-      link: '/zh/docs/manual/introduction',
+      link: `/${i18n.language}/docs/manual/introduction`,
     },
   ];
 
@@ -73,7 +73,7 @@ const IndexPage = () => {
           'G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',
         )}
         buttonText={t('继续了解')}
-        buttonHref={'/zh/docs/manual/getting-started'}
+        buttonHref={`/${i18n.language}/docs/manual/getting-started`}
         className='banner'
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
         buttons={bannerButtons}

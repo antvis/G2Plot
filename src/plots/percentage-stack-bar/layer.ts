@@ -34,13 +34,14 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
   public type: string = 'percentageStackBar';
 
   protected processData(originData?: object[]) {
+    const processedData = super.processData(originData);
     const props = this.options;
     const { xField, yField } = props;
     // 百分比堆叠条形图需要对原始数据进行预处理
     // step1: 以yField为单位，对xField做聚合
     const plotData = [];
     const sum = {};
-    _.each(originData, (d) => {
+    _.each(processedData, (d) => {
       const sumField = d[yField];
       if (!_.has(sum, sumField)) {
         sum[sumField] = 0;
@@ -48,7 +49,7 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
       sum[sumField] += Number.parseFloat(d[xField]);
     });
     // step2: 获取每一条数据yField的值在对应xField数值总和的占比
-    _.each(originData, (d) => {
+    _.each(processedData, (d) => {
       const total = sum[d[yField]];
       const d_copy = _.clone(d);
       d_copy[xField] = d[xField] / total;

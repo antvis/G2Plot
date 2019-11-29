@@ -87,7 +87,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       area: {
         visible: true,
         style: {
-          fillOpacity: 0.4,
+          opacity: 0.25,
+          fillOpacity: 1,
         },
       },
       point: {

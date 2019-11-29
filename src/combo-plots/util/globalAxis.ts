@@ -32,6 +32,7 @@ export function getAxisData(viewLayer: ViewLayer, props, globalOptions) {
       scale: yscale,
       originalData: props.data,
       color: singleGraph && globalOptions.yAxis.colorMapping ? props.color : null,
+      layer: viewLayer,
     };
     scalesInfo.push(scaleInfo);
   }
@@ -79,14 +80,17 @@ function mergeYAxis(axisInfo, synchroTick: boolean) {
       const scale = axis.scale;
       const values = calValues(scale, tickCount);
       if (synchroTick) {
-        return new LinearScale({
+        const linearScale: any = new LinearScale({
           min: scale.min,
           max: scale.max,
           ticks: values,
           tickCount,
           color: axis.color,
         } as any);
+        linearScale.layer = axis.layer;
+        return linearScale;
       } else {
+        scale.layer = axis.layer;
         return scale;
       }
     });
@@ -142,7 +146,12 @@ function sameScaleTest(axisInfo) {
 
 export function createAxis(scale, dim, canvas, cfg) {
   const isVertical = dim === 'x' ? false : true;
-  const group = canvas.addGroup();
+  let group;
+  if (scale.layer) {
+    group = scale.layer.container.addGroup();
+  } else {
+    group = canvas.addGroup();
+  }
   const ticks = getAxisTicks(scale, dim);
   let defaultStyle = {};
   if (scale.color) {
@@ -167,7 +176,8 @@ export function createAxis(scale, dim, canvas, cfg) {
     },
     defaultStyle
   );
-  const axis = new Axis.Line(axisConfig as any);
+  const axis: any = new Axis.Line(axisConfig as any);
+  axis.layer = scale.layer;
   axis.render();
   return axis;
 }

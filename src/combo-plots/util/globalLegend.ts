@@ -3,7 +3,6 @@ import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
-import { Layer } from '../..';
 
 export function getLegendData(viewLayer: ViewLayer, props) {
   const legendItems = [];
@@ -90,7 +89,6 @@ export function createLegend(items, container, width, canvas) {
 function addLegendInteraction(legend) {
   legend.on('itemclick', (ev) => {
     const { item, checked } = ev;
-    console.log(item);
     // 如果是单图例模式
     if (item.isSingle) {
       if (!checked) {

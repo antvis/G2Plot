@@ -87,6 +87,7 @@ export function createLegend(items, container, width, canvas) {
 }
 
 function addLegendInteraction(legend) {
+  const filteredValue = [];
   legend.on('itemclick', (ev) => {
     const { item, checked } = ev;
     // 如果是单图例模式
@@ -98,22 +99,29 @@ function addLegendInteraction(legend) {
       }
     } else {
       // 正常的图例筛选数据逻辑
-      const viewData = item.layer.getData();
-      const filteredData = getFilteredData(viewData, item.field, item.value);
       const view = item.layer.view;
       if (!checked) {
-        view.set('data', filteredData);
+        filteredValue.push(item.value);
+        view.filter(item.field, (f) => {
+          return !_.contains(filteredValue, f);
+        });
         view.repaint();
+        const filteredData = view.get('filteredData');
+        if (filteredData.length === 0) {
+          item.layer.hide();
+        } else if (!item.layer.visibility) {
+          item.layer.show();
+        }
       } else {
-        view.set('data', viewData);
+        _.pull(filteredValue, item.value);
+        view.filter(item.value, (f) => {
+          return !_.contains(filteredValue, f);
+        });
         view.repaint();
+        if (!item.layer.visibility) {
+          item.layer.show();
+        }
       }
     }
-  });
-}
-
-function getFilteredData(data, field, value) {
-  return data.filter((d) => {
-    return d[field] === value;
   });
 }

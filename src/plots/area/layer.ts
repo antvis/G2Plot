@@ -54,6 +54,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       smooth: false,
       areaStyle: {
         opacity: 0.25,
+        fillOpacity: 1,
       },
       line: {
         visible: true,

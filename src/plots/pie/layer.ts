@@ -176,6 +176,11 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     if (labelConfig.type === 'inner') {
       const offsetBase = this.getDefaultLabelInnerOffset();
       labelConfig.offset = labelConfig.offset ? labelConfig.offset : offsetBase;
+      // @ts-ignore
+      labelConfig.labelLine = false;
+    } else {
+      // @ts-ignore
+      labelConfig.labelLine = true;
     }
 
     // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label

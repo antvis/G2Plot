@@ -3,6 +3,7 @@ import { BBox } from '@antv/g';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
+import { Layer } from '../..';
 
 export function getLegendData(viewLayer: ViewLayer, props) {
   const legendItems = [];
@@ -35,6 +36,7 @@ export function getLegendData(viewLayer: ViewLayer, props) {
       };
       const markerItem = geometry.get('shapeFactory').getMarkerStyle(geometry.get('type'), cfg);
       legendItems.push({
+        field: colorAttr.scales[0].field,
         value: markerValue,
         checked: true,
         marker: markerItem,
@@ -88,6 +90,7 @@ export function createLegend(items, container, width, canvas) {
 function addLegendInteraction(legend) {
   legend.on('itemclick', (ev) => {
     const { item, checked } = ev;
+    console.log(item);
     // 如果是单图例模式
     if (item.isSingle) {
       if (!checked) {
@@ -95,6 +98,24 @@ function addLegendInteraction(legend) {
       } else {
         item.layer.show();
       }
+    } else {
+      // 正常的图例筛选数据逻辑
+      const viewData = item.layer.getData();
+      const filteredData = getFilteredData(viewData, item.field, item.value);
+      const view = item.layer.view;
+      if (!checked) {
+        view.set('data', filteredData);
+        view.repaint();
+      } else {
+        view.set('data', viewData);
+        view.repaint();
+      }
     }
+  });
+}
+
+function getFilteredData(data, field, value) {
+  return data.filter((d) => {
+    return d[field] === value;
   });
 }

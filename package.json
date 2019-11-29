@@ -13,6 +13,7 @@
     "README.md",
     "LICENSE"
   ],
+  "sideEffects": false,
   "homepage": "https://g2plot.antv.vision",
   "repository": {
     "type": "git",

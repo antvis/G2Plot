@@ -1,38 +1,11 @@
-## 0.11.0 (2019-11-22)
-
-- Start a new journey
-
 ## <small>0.11.1 (2019-11-26)</small>
 
-- chore: :up: upgrade @antv/gatsby-theme-antv ([4e917df](https://github.com/antvis/g2plot/commit/4e917df))
-- chore: add design principles for components ([a17476d](https://github.com/antvis/g2plot/commit/a17476d))
-- chore: add header image to readme ([df16646](https://github.com/antvis/g2plot/commit/df16646))
-- chore: add npm publish to release action ([6f120b5](https://github.com/antvis/g2plot/commit/6f120b5))
-- chore: add titleSuffix ([8b039df](https://github.com/antvis/g2plot/commit/8b039df))
-- chore: fix lint ([aa94993](https://github.com/antvis/g2plot/commit/aa94993))
-- chore: prettier code ([7304b64](https://github.com/antvis/g2plot/commit/7304b64))
-- chore: update g2 and component version ([4d7043d](https://github.com/antvis/g2plot/commit/4d7043d))
-- chore: update gatsby-theme-antv ([15374bf](https://github.com/antvis/g2plot/commit/15374bf))
-- chore: update homepage address ([1010f35](https://github.com/antvis/g2plot/commit/1010f35))
-- chore: update package.json ([cb1ef7a](https://github.com/antvis/g2plot/commit/cb1ef7a))
-- chore: update readme ([566ceb9](https://github.com/antvis/g2plot/commit/566ceb9))
-- chore: update readme ([f371024](https://github.com/antvis/g2plot/commit/f371024))
-- chore: update readme header ([3126ab8](https://github.com/antvis/g2plot/commit/3126ab8))
-- chore: update readme header ([317d111](https://github.com/antvis/g2plot/commit/317d111))
-- chore: update readme image ([3fcd5c0](https://github.com/antvis/g2plot/commit/3fcd5c0))
-- chore: update site & readme ([94f5552](https://github.com/antvis/g2plot/commit/94f5552))
-- chore: 优化文档样式 ([e7460bb](https://github.com/antvis/g2plot/commit/e7460bb))
-- chore(action): update gh-pages trigger to on release published ([e98a995](https://github.com/antvis/g2plot/commit/e98a995))
-- chore(website): build website and gh-pages on action ([cf7d6e0](https://github.com/antvis/g2plot/commit/cf7d6e0))
-- add ggplot2 link ([891bbcd](https://github.com/antvis/g2plot/commit/891bbcd))
-- add isAppLogo config to homepage ([aad0d93](https://github.com/antvis/g2plot/commit/aad0d93))
-- update hpmepage image ([47f4999](https://github.com/antvis/g2plot/commit/47f4999))
-- Update locale.json ([201a487](https://github.com/antvis/g2plot/commit/201a487))
-- Update README.md ([057a0aa](https://github.com/antvis/g2plot/commit/057a0aa))
-- Update README.md ([55a6a0e](https://github.com/antvis/g2plot/commit/55a6a0e))
-- fix: axisLine style won't work in responsive plots ([99e7f3c](https://github.com/antvis/g2plot/commit/99e7f3c))
-- fix: homepage english version ([135db97](https://github.com/antvis/g2plot/commit/135db97))
-- fix: homepage typo ([770dacf](https://github.com/antvis/g2plot/commit/770dacf))
-- fix: support line label formatter config ([df84160](https://github.com/antvis/g2plot/commit/df84160))
-- docs: remove wrong title and description ([bfa101f](https://github.com/antvis/g2plot/commit/bfa101f))
-- feat: 隐藏 bar 和 percentagestackbar x 轴的 tickline ([b443f21](https://github.com/antvis/g2plot/commit/b443f21))
+- 🔥 官网文档和图表示例大量更新 [#287](https://github.com/antvis/G2Plot/pull/287), [#298](https://github.com/antvis/G2Plot/pull/298)
+- 🌟 默认隐藏条形图、和百分比条形图 X 轴的刻度线 [#297](https://github.com/antvis/G2Plot/pull/297)
+- 🐞 修复折线图数据标签中某些配置项不生效问题 [#290](https://github.com/antvis/G2Plot/pull/290)
+- 🐞 修复折线图轴样式在响应式布局下可能不生效的问题 [#299](https://github.com/antvis/G2Plot/pull/299)
+- 🐞 修复鼠标悬浮提示在图形边缘时可能出现位置错误的问题 [#302](https://github.com/antvis/G2Plot/pull/302)
+
+## 0.11.0 (2019-11-22)
+
+- 🌟G2Plot 0.11.0

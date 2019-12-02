@@ -277,3 +277,7 @@ export interface Point {
   readonly x: number;
   readonly y: number;
 }
+
+export interface DataItem {
+  [field: string]: string | number | null | undefined;
+}

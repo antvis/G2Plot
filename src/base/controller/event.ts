@@ -34,6 +34,24 @@ export default class EventController {
   }
 
   private onEvents(ev) {
+    // 判断是否拾取到view以外的shape
+    const { target } = ev;
+    if (target.isShape && !this.isShapeInView(target) && target.name) {
+      this.plot.emit(`${target.name}:${ev.type}`, ev);
+    }
     this.plot.emit(`${ev.type}`, ev);
+  }
+
+  private isShapeInView(shape) {
+    const groupName = ['frontgroundGroup', 'backgroundGroup', 'panelGroup'];
+    let parent = shape.get('parent');
+    while (parent) {
+      const parentName = parent.get('name');
+      if (parentName && _.contains(groupName, parentName)) {
+        return true;
+      }
+      parent = parent.get('parent');
+    }
+    return false;
   }
 }

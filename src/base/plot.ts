@@ -198,7 +198,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
    * add children layer
    * @param layer
    */
-  protected addLayer(layer: Layer<any>) {
+  public addLayer(layer: Layer<any>) {
     const idx = _.findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       this.layers.push(layer);

@@ -48,6 +48,8 @@ export default class EventController {
       this.plot.emit(`${target.name}:${ev.type}`, ev);
     }
     this.plot.emit(`${ev.type}`, ev);
+    // layer事件
+    //const layers = this.plot.
   }
 
   private onMove(ev) {

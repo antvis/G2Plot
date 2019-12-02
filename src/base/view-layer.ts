@@ -178,6 +178,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public init() {
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
+    console.log(this.theme);
     this.config = {
       scales: {},
       legends: {},

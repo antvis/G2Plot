@@ -3,6 +3,7 @@ import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
+import { eventNames } from 'cluster';
 
 export interface LayerConfig {
   id?: string;
@@ -48,6 +49,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   protected visibility: boolean = true;
   protected layerRegion: Region;
   private rendered: boolean = false;
+  private eventHandlers: any[] = [];
 
   /**
    * layer base for g2plot
@@ -125,6 +127,9 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public destroy() {
     this.eachLayer((layer) => {
       layer.destroy();
+    });
+    _.each(this.eventHandlers, (h) => {
+      this.off(h.eventName, h.handler);
     });
     this.container.remove(true);
     this.destroyed = true;
@@ -253,13 +258,14 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     _.each(this.layers, cb);
   }
 
-  protected parseEvents(eventOptions) {
+  protected parseEvents(eventOptions?) {
     const eventsName = _.keys(LAYER_EVENT_MAP);
     _.each(eventOptions, (e, k) => {
       if (_.contains(eventsName, k) && _.isFunction(e)) {
         const eventName = LAYER_EVENT_MAP[k] || k;
         const handler = e;
         this.on(eventName, handler);
+        this.eventHandlers.push({ name: eventName, handler });
       }
     });
   }
@@ -280,7 +286,6 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       const endY = (this.y + this.height - parentY) / parentHeight;
       return { start: { x: startX, y: startY }, end: { x: endX, y: endY } };
     }
-
     return { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } };
   }
 }

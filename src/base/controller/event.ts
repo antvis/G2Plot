@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
 import { Canvas, Shape } from '@antv/g';
 import BasePlot from '../plot';
-import { eventNames } from 'cluster';
 
 interface ControllerConfig {
   canvas: Canvas;
@@ -44,6 +43,13 @@ export default class EventController {
     this.addEvent(this.canvas, 'dblclick', _.wrapBehavior(this, 'onEvents'));
     this.addEvent(this.canvas, 'contextmenu', _.wrapBehavior(this, 'onEvents'));
     this.addEvent(this.canvas, 'wheel', _.wrapBehavior(this, 'onEvents'));
+  }
+
+  public clearEvents() {
+    const eventHandlers = this.eventHandlers;
+    _.each(eventHandlers, (eh) => {
+      eh.target.off(eh.type, eh.handler);
+    });
   }
 
   private addEvent(target, eventType, handler) {

@@ -71,6 +71,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
       layer.destroy();
     });
     this.canvasController.destroy();
+    this.eventController.clearEvents();
     this.layers = [];
     this.destroyed = true;
   }

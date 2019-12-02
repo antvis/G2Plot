@@ -69,10 +69,21 @@ const CANVAS_EVENT_MAP = {
   onDescriptionContextmenu: 'description:contextmenu',
 };
 
+const LAYER_EVENT_MAP = {
+  onLayerClick: 'click',
+  onLayerDblClick: 'dblclick',
+  onLayerMousemove: 'mousemove',
+  onLayerMousedown: 'mousedown',
+  onLayerMouseup: 'mouseup',
+  onLayerMouseenter: 'mouseenter',
+  onLayerMouseleave: 'mouseleave',
+  onLayerContextmenu: 'contextmenu',
+};
+
 type Handler = (...__: any[]) => {};
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
   layer.view.on(eventName, handler);
 }
 
-export { IEventmap, EVENT_MAP, CANVAS_EVENT_MAP, onEvent };
+export { IEventmap, EVENT_MAP, CANVAS_EVENT_MAP, LAYER_EVENT_MAP, onEvent };

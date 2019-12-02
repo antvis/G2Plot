@@ -178,7 +178,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public init() {
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
-    console.log(this.theme);
     this.config = {
       scales: {},
       legends: {},
@@ -434,6 +433,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected parserEvents(eventParser?): void {
     const { options } = this;
     if (options.events) {
+      super.parseEvents(options.events);
       const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
       _.each(options.events, (e, k) => {
         if (_.isFunction(e)) {

@@ -227,6 +227,11 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     return { x: globalX, y: globalY };
   }
 
+  public getGlobalBBox() {
+    const globalPosition = this.getGlobalPosition();
+    return new G.BBox(globalPosition.x, globalPosition.y, this.width, this.height);
+  }
+
   public getOptions(props: T): T {
     let parentWidth = 0;
     let parentHeight = 0;

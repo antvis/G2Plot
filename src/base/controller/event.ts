@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { Canvas } from '@antv/g';
+import { Canvas, Shape } from '@antv/g';
 import BasePlot from '../plot';
 
 interface ControllerConfig {
@@ -7,10 +7,18 @@ interface ControllerConfig {
   plot: BasePlot;
 }
 
+function isSameShape(shape1: Shape, shape2: Shape) {
+  if (shape1 && shape2 && shape1 === shape2) {
+    return true;
+  }
+  return false;
+}
+
 export default class EventController {
   private plot: BasePlot;
   private canvas: Canvas;
   private eventHandlers: any[];
+  private lastShape: Shape;
 
   constructor(cfg: ControllerConfig) {
     this.plot = cfg.plot;
@@ -20,7 +28,7 @@ export default class EventController {
 
   public bindEvents() {
     this.addEvent(this.canvas, 'mousedown', _.wrapBehavior(this, 'onEvents'));
-    this.addEvent(this.canvas, 'mousemove', _.wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'mousemove', _.wrapBehavior(this, 'onMove'));
     this.addEvent(this.canvas, 'mouseup', _.wrapBehavior(this, 'onEvents'));
     this.addEvent(this.canvas, 'click', _.wrapBehavior(this, 'onEvents'));
     this.addEvent(this.canvas, 'dblclick', _.wrapBehavior(this, 'onEvents'));
@@ -40,6 +48,23 @@ export default class EventController {
       this.plot.emit(`${target.name}:${ev.type}`, ev);
     }
     this.plot.emit(`${ev.type}`, ev);
+  }
+
+  private onMove(ev) {
+    const { target } = ev;
+    // shape的mouseenter, mouseleave和mousemove事件
+    if (target.isShape && !this.isShapeInView(target) && target.name) {
+      this.plot.emit(`${target.name}:${ev.type}`, ev);
+      // mouseleave & mouseenter
+      if (this.lastShape && !isSameShape(target, this.lastShape)) {
+        if (this.lastShape) {
+          this.plot.emit(`${this.lastShape.name}:mouseleave`, ev);
+        }
+        this.plot.emit(`${target.name}:mouseenter`, ev);
+      }
+      this.lastShape = target;
+    }
+    this.plot.emit('mousemove', ev);
   }
 
   private isShapeInView(shape) {

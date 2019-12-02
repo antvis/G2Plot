@@ -186,6 +186,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
     return this.layers[idx];
   }
 
+  public getLayers() {
+    return this.layers;
+  }
+
   public render() {
     this.eachLayer((layer) => layer.render());
   }

@@ -2,6 +2,7 @@ import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
+import { LAYER_EVENT_MAP } from '../util/event';
 
 export interface LayerConfig {
   id?: string;
@@ -250,6 +251,17 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
 
   public eachLayer(cb: (layer: Layer<any>) => void) {
     _.each(this.layers, cb);
+  }
+
+  protected parseEvents(eventOptions) {
+    const eventsName = _.keys(LAYER_EVENT_MAP);
+    _.each(eventOptions, (e, k) => {
+      if (_.contains(eventsName, k) && _.isFunction(e)) {
+        const eventName = LAYER_EVENT_MAP[k] || k;
+        const handler = e;
+        this.on(eventName, handler);
+      }
+    });
   }
 
   private getLayerBBox() {

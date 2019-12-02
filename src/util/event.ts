@@ -6,6 +6,14 @@ interface IEventmap {
 }
 
 const EVENT_MAP: IEventmap = {
+  onViewClick: 'click',
+  onViewDblClick: 'dblclick',
+  onViewMousemove: 'mousemove',
+  onViewMousedown: 'mousedown',
+  onViewMouseup: 'mouseup',
+  onViewMouseenter: 'mouseenter',
+  onViewMouseleave: 'mouseleave',
+  onViewContextmenu: 'contextmenu',
   onAxisClick: 'axis-label:click',
   onAxisDblClick: 'axis-label:dblclick',
   onAxisMousemove: 'axis-label:mousemove',

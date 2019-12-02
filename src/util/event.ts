@@ -41,6 +41,24 @@ const CANVAS_EVENT_MAP = {
   onPlotMouseenter: 'mouseenter',
   onPlotMouseleave: 'mouseleave',
   onPlotContextmenu: 'contextmenu',
+
+  onTitleClick: 'title:click',
+  onTitleDblClick: 'title:dblclick',
+  onTitleMousemove: 'title:mousemove',
+  onTitleMousedown: 'title:mousedown',
+  onTitleMouseup: 'title:mouseup',
+  onTitleMouseenter: 'title:mouseenter',
+  onTitleMouseleave: 'title:mouseleave',
+  onTitleContextmenu: 'title:contextmenu',
+
+  onDescriptionClick: 'description:click',
+  onDescriptionDblClick: 'description:dblclick',
+  onDescriptionMousemove: 'description:mousemove',
+  onDescriptionMousedown: 'description:mousedown',
+  onDescriptionMouseup: 'description:mouseup',
+  onDescriptionMouseenter: 'description:mouseenter',
+  onDescriptionMouseleave: 'description:mouseleave',
+  onDescriptionContextmenu: 'description:contextmenu',
 };
 
 type Handler = (...__: any[]) => {};

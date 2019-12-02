@@ -223,9 +223,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   protected parseEvents(props) {
+    const eventsName = _.keys(CANVAS_EVENT_MAP);
     if (props.events) {
       _.each(props.events, (e, k) => {
-        if (_.contains(k, 'Plot') && _.isFunction(e)) {
+        if (_.contains(eventsName, k) && _.isFunction(e)) {
           const eventName = CANVAS_EVENT_MAP[k] || k;
           const handler = e;
           this.on(eventName, handler);

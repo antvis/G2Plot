@@ -1,6 +1,7 @@
 import * as _ from '@antv/util';
 import { Canvas, Shape } from '@antv/g';
 import BasePlot from '../plot';
+import { eventNames } from 'cluster';
 
 interface ControllerConfig {
   canvas: Canvas;
@@ -14,15 +15,24 @@ function isSameShape(shape1: Shape, shape2: Shape) {
   return false;
 }
 
+function isPointInBBox(point, bbox) {
+  if (point.x >= bbox.minX && point.x <= bbox.maxX && point.y >= bbox.minY && point.y <= bbox.maxY) {
+    return true;
+  }
+  return false;
+}
+
 export default class EventController {
   private plot: BasePlot;
   private canvas: Canvas;
+  private pixelRatio: number;
   private eventHandlers: any[];
   private lastShape: Shape;
 
   constructor(cfg: ControllerConfig) {
     this.plot = cfg.plot;
     this.canvas = cfg.canvas;
+    this.pixelRatio = this.canvas.get('pixelRatio');
     this.eventHandlers = [];
   }
 
@@ -42,31 +52,41 @@ export default class EventController {
   }
 
   private onEvents(ev) {
-    // 判断是否拾取到view以外的shape
+    const eventObj = this.getEventObj(ev);
     const { target } = ev;
+    // 判断是否拾取到view以外的shape
     if (target.isShape && !this.isShapeInView(target) && target.name) {
       this.plot.emit(`${target.name}:${ev.type}`, ev);
     }
-    this.plot.emit(`${ev.type}`, ev);
+    this.plot.emit(`${ev.type}`, eventObj);
     // layer事件
-    //const layers = this.plot.
+    const layers = this.plot.getLayers();
+    if (layers.length > 0) {
+      this.onLayerEvent(layers, eventObj, ev.type);
+    }
   }
 
   private onMove(ev) {
     const { target } = ev;
+    const eventObj = this.getEventObj(ev);
     // shape的mouseenter, mouseleave和mousemove事件
     if (target.isShape && !this.isShapeInView(target) && target.name) {
-      this.plot.emit(`${target.name}:${ev.type}`, ev);
+      this.plot.emit(`${target.name}:${ev.type}`, eventObj);
       // mouseleave & mouseenter
       if (this.lastShape && !isSameShape(target, this.lastShape)) {
         if (this.lastShape) {
-          this.plot.emit(`${this.lastShape.name}:mouseleave`, ev);
+          this.plot.emit(`${this.lastShape.name}:mouseleave`, eventObj);
         }
-        this.plot.emit(`${target.name}:mouseenter`, ev);
+        this.plot.emit(`${target.name}:mouseenter`, eventObj);
       }
       this.lastShape = target;
     }
-    this.plot.emit('mousemove', ev);
+    this.plot.emit('mousemove', eventObj);
+    // layer事件
+    const layers = this.plot.getLayers();
+    if (layers.length > 0) {
+      this.onLayerEvent(layers, eventObj, 'mousemove');
+    }
   }
 
   private isShapeInView(shape) {
@@ -80,5 +100,28 @@ export default class EventController {
       parent = parent.get('parent');
     }
     return false;
+  }
+
+  private getEventObj(ev) {
+    const obj = {
+      x: ev.x / this.pixelRatio,
+      y: ev.y / this.pixelRatio,
+      target: ev.target,
+      event: ev.event, // g事件的event
+    };
+    return obj;
+  }
+
+  private onLayerEvent(layers, eventObj, eventName) {
+    _.each(layers, (layer) => {
+      const bbox = layer.getGlobalBBox();
+      if (isPointInBBox({ x: eventObj.x, y: eventObj.y }, bbox)) {
+        layer.emit(`${eventName}`, eventObj);
+        const subLayers = layer.layers;
+        if (subLayers.length > 0) {
+          this.onLayerEvent(subLayers, eventObj, eventName);
+        }
+      }
+    });
   }
 }

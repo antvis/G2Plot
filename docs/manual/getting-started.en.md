@@ -1,49 +1,47 @@
 ---
-title: 快速上手
+title: Getting Started
 order: 1
 ---
 
-## 安装
+## Installation
 
-### 浏览器引入
-
-既可以通过将脚本下载到本地也可以直接引入在线资源。
+### Import by CDN in browser
 
 ```html
-<!-- 引入在线资源 -->
-<script src="https://gw.alipayobjects.com/os/lib/antv/g2plot/1.0.0-beta/dist/g2plot.min.js"></script>
+<!-- import CDN source -->
+<script src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
 ```
 
 ```html
-<!-- 引入本地脚本 -->
+<!-- import local source -->
 <script src="./g2plot.js"></script>
 ```
 
-### 通过 npm 安装
-
-我们提供了 g2plot npm 包，通过下面的命令即可完成安装：
+### Import via NPM
 
 ```bash
 npm install @antv/g2plot --save
 ```
 
-成功安装完成之后，即可使用 `import` 或 `require` 进行引用：
+Use `import` or `require` to import when installation was complete:
 
 ```
-import g2plot from '@antv/g2plot';
+import { Line } from '@antv/g2plot';
 ```
 
-## 快速试用
+## Create your first chart!
 
-在 g2plot 引入页面后，我们就已经做好了创建第一个图表的准备了。下面是以一个基础折线图为例开始我们的第一个图表创建。
+Now we're ready to create our first chart by using G2Plot. Let's begin with a basic line Chart.
 
-**step1**: 创建图表容器
+**step1**: create chart container
 
 ```html
 <div id="canvas"></div>
 ```
 
-**step2**: 引入数据。g2plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+**step2**: prepare your data
+
+The standard data format in G2Plot is JSON array with JSON object elements.
 
 ```js
 const data = [
@@ -59,10 +57,10 @@ const data = [
 ];
 ```
 
-**step3**: 创建并渲染图表
+**step3**: create and render chart
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   data,
   xField: 'year',
   yField: 'value',
@@ -71,21 +69,21 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-最终结果：
+the result：
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ulnDT6yfBOkAAAAAAAAAAABkARQnAQ" width="400">
 
-## 搭配图表组件
+## Add more chart components
 
-在上一步生成的基础折线图，已经具备了图表的基础组件之一：坐标轴。接下来，我们来为图表加入四个组件：图表标题 (title)、图表描述 (description)、辅助数据点 (point) 和图形标签 (label)，使图表承载的信息更加丰富，更具有可读性：
+The line chart created in former step already had an axis which is belong to the core chart componets. In this stage, in order to enrich chart information, we'll add four componnets to the chart: Title, Description, Data Point on the line and Label.
 
-**step1**: 配置图表标题文本
+**step1**: add title
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   // highlight-start
   title: {
-    text: '这是一个基础折线图',
+    text: 'this is a basic line chart',
   },
   // highlight-end
   data,
@@ -96,16 +94,16 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-**step2**: 配置图表描述文本
+**step2**: add description
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
-    text: '这是一个基础折线图',
+    text: 'this is a basic line chart',
   },
   // highlight-start
   description: {
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
+    text: 'a breif description of Basic Line Chart',
   },
   // highlight-end
   data,
@@ -115,15 +113,17 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-**step3**: 显示辅助数据点
+**step3**: display data points on the line
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
-    text: '这是一个基础折线图',
+    visible: true,
+    text: 'this is a basic line chart',
   },
   description: {
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
+    visible: true,
+    text: 'a breif description of Basic Line Chart',
   },
   data,
   xField: 'year',
@@ -137,15 +137,17 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-**step4**: 显示图形标签
+**step4**: add label
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
-    text: '这是一个基础折线图',
+    visible: true,
+    text: 'this is a basic line chart',
   },
   description: {
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
+    visible: true,
+    text: 'a breif description of Basic Line Chart',
   },
   data,
   xField: 'year',
@@ -162,23 +164,25 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-最终结果：
+the result：
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_COMAAAAAAAAAAABkARQnAQ" width="400">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sbL3QqAIJdQAAAAAAAAAAABkARQnAQ" width="500">
 
-## 个性化设置
+## Stlylize your chart
 
-现在图表的内容足够丰富了，但图表各元素的视觉样式采用的是图表默认主题的样式，还没有经过特别定制。图表主体中的文本元素也没有进行格式化。下面我们来对图表进行一些个性化配置，我们将配置折线的颜色、更改辅助数据点的样式、为 y 轴标签加上单位：
+Till now, the visual style of our chart was defaultly applied by chart theme, not to mention the unformatted text content of labels. In this step, we'll stylize the chart through several steps: changing line color and point style, formatting the numbers on Y axis:
 
-**step1**: 配置折线颜色，来个冷色到暖色的大变身
+**step1**: change line color
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
-    text: '这是一个基础折线图',
+    visible: true,
+    text: 'this is a basic line chart',
   },
   description: {
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
+    visible: true,
+    text: 'a breif description of Basic Line Chart',
   },
   data,
   xField: 'year',
@@ -195,15 +199,17 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-**step2**: 更改辅助数据点大小及样式
+**step2**: change the size and style of data points
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
-    text: '这是一个基础折线图',
+    visble: true,
+    text: 'this is a basic line chart',
   },
   description: {
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
+    visible: true,
+    text: 'a breif description of Basic Line Chart',
   },
   data,
   xField: 'year',
@@ -213,8 +219,9 @@ const linePlot = new g2plot.Line('canvas', {
   point: {
     visible: true,
     size: 5,
+    color: 'white',
     style: {
-      fill: '#7979F5',
+      stroke: '#FE740C',
       lineWidth: 2,
       fillOpacity: 0.6,
     },
@@ -227,15 +234,17 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-**step3**: 格式化 y 轴标签加单位
+**step3**: format labels text on Y axis
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
-    text: '这是一个基础折线图',
+    visible: true,
+    text: 'this is a basic line chart',
   },
   description: {
-    text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
+    visible: true,
+    text: 'a breif description of Basic Line Chart',
   },
   data,
   xField: 'year',
@@ -244,8 +253,9 @@ const linePlot = new g2plot.Line('canvas', {
   point: {
     visible: true,
     size: 5,
+    color: 'white',
     style: {
-      fill: '#7979F5',
+      stroke: '#FE740C',
       lineWidth: 2,
       fillOpacity: 0.6,
     },
@@ -264,8 +274,16 @@ const linePlot = new g2plot.Line('canvas', {
 linePlot.render();
 ```
 
-最终结果：
+the result：
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wYxGRJUDoloAAAAAAAAAAABkARQnAQ" width="400">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_Z-jR7DOtycAAAAAAAAAAABkARQnAQ" width="500">
 
-经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[图表通用配置](../manual/general-config)及[各图表配置项](../manual/plots/line)，一些尚在实验阶段的高级功能请移步[高级功能](../manual/advanced/responsive)。
+### More
+
+In this chapter, we only briefly introduce the installation and basic usage of G2Plot. We hope you'll find more useful or funny features in our project.
+
+General configrations: [url](../manual/general-config)
+
+Charts configrations: [url](../manual/plots/line)
+
+Advanced features: [url](../manual/advanced/responsive)

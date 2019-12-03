@@ -2,6 +2,8 @@ import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import StackBar, { StackBarViewConfig } from '../stack-bar/layer';
+import { DataItem } from '../../interface/config';
+import { transformDataPercentage } from '../../util/data';
 
 export interface PercentageStackBarViewConfig extends StackBarViewConfig {}
 export interface PercentageStackBarLayerConfig extends PercentageStackBarViewConfig, LayerConfig {}
@@ -33,32 +35,11 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
   }
   public type: string = 'percentageStackBar';
 
-  protected processData(originData?: object[]) {
-    const processedData = super.processData(originData);
-    const props = this.options;
-    const { xField, yField } = props;
-    // 百分比堆叠条形图需要对原始数据进行预处理
-    // step1: 以yField为单位，对xField做聚合
-    const plotData = [];
-    const sum = {};
-    _.each(processedData, (d) => {
-      const sumField = d[yField];
-      if (!_.has(sum, sumField)) {
-        sum[sumField] = 0;
-      }
-      sum[sumField] += Number.parseFloat(d[xField]);
-    });
-    // step2: 获取每一条数据yField的值在对应xField数值总和的占比
-    _.each(processedData, (d) => {
-      const total = sum[d[yField]];
-      const d_copy = _.clone(d);
-      d_copy[xField] = d[xField] / total;
-      d_copy._origin = d;
-      d_copy.total = total;
-      plotData.push(d_copy);
-    });
+  protected processData(originData?: DataItem[]) {
+    const { xField, yField } = this.options;
+    const processData = super.processData(originData);
 
-    return plotData;
+    return transformDataPercentage(processData, yField, [xField]);
   }
 
   protected scale() {
@@ -67,6 +48,8 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
     metaConfig[xField] = {
       tickCount: 6,
       alias: `${xField} (%)`,
+      minLimit: 0,
+      maxLimit: 1,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

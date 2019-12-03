@@ -119,8 +119,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     this.setConfig('annotations', annotationConfigs);
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private drawStatistic(config) {

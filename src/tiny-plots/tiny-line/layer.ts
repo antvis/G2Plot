@@ -27,8 +27,8 @@ export default class TinyLineLayer extends TinyLayer<TinyLineLayerConfig> {
     this.setConfig('element', this.line);
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

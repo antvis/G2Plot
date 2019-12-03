@@ -215,8 +215,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     });
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private applyResponsive(stage) {

@@ -84,8 +84,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     this.setConfig('element', bar);
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   protected parseColorProps(props) {

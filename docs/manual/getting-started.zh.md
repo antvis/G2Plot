@@ -11,7 +11,7 @@ order: 1
 
 ```html
 <!-- 引入在线资源 -->
-<script src="https://gw.alipayobjects.com/os/lib/antv/g2plot/0.11.1/dist/g2plot.js"></script>
+<script src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
 ```
 
 ```html

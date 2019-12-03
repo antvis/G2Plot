@@ -1,10 +1,25 @@
 import * as _ from '@antv/util';
-import { Canvas, Shape } from '@antv/g';
+import { Element, Canvas, Shape, BBox } from '@antv/g';
 import BasePlot from '../plot';
+import Layer from '../layer';
+import { Point } from '../../interface/config';
 
 interface ControllerConfig {
   canvas: Canvas;
   plot: BasePlot;
+}
+
+interface IEventHandler {
+  target: Element;
+  type: string;
+  handler: Function;
+}
+
+interface EventObj {
+  x: number;
+  y: number;
+  target: any;
+  event: object;
 }
 
 function isSameShape(shape1: Shape, shape2: Shape) {
@@ -14,7 +29,7 @@ function isSameShape(shape1: Shape, shape2: Shape) {
   return false;
 }
 
-function isPointInBBox(point, bbox) {
+function isPointInBBox(point: Point, bbox: BBox) {
   if (point.x >= bbox.minX && point.x <= bbox.maxX && point.y >= bbox.minY && point.y <= bbox.maxY) {
     return true;
   }
@@ -25,7 +40,7 @@ export default class EventController {
   private plot: BasePlot;
   private canvas: Canvas;
   private pixelRatio: number;
-  private eventHandlers: any[];
+  private eventHandlers: IEventHandler[];
   private lastShape: Shape;
 
   constructor(cfg: ControllerConfig) {
@@ -52,7 +67,7 @@ export default class EventController {
     });
   }
 
-  private addEvent(target, eventType, handler) {
+  private addEvent(target: Element, eventType: string, handler: Function) {
     target.on(eventType, handler);
     this.eventHandlers.push({ target, type: eventType, handler });
   }
@@ -95,7 +110,7 @@ export default class EventController {
     }
   }
 
-  private isShapeInView(shape) {
+  private isShapeInView(shape: Shape) {
     const groupName = ['frontgroundGroup', 'backgroundGroup', 'panelGroup'];
     let parent = shape.get('parent');
     while (parent) {
@@ -118,7 +133,7 @@ export default class EventController {
     return obj;
   }
 
-  private onLayerEvent(layers, eventObj, eventName) {
+  private onLayerEvent(layers: Layer[], eventObj: EventObj, eventName: string) {
     _.each(layers, (layer) => {
       const bbox = layer.getGlobalBBox();
       if (isPointInBBox({ x: eventObj.x, y: eventObj.y }, bbox)) {

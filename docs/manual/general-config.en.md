@@ -1,25 +1,23 @@
 ---
-title: 图表通用配置
+title: General Configeration
 order: 2
 ---
 
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
-
 ## title
 
-**optional**, object 类型
+**optional**, Object
 
-配置图表的标题，默认显示在图表左上角。
+the title of chart, defaultly placed in the upper-left corner of chart's container.
 
-> 请注意设置 title 将会压缩图表展示区域
+> note: setting the title will compress chart display area.
 
-`visible`:  `boolean`  是否显示标题<br />
-`text`: `string`  标题文本<br />
-`style`：`object`  标题样式，详见文本样式配置
+`visible`:  `boolean`  whether to show the title<br />
+`text`: `string`  title content<br />
+`style`：`object`  the style of title
 
 ## description
 
-**optional**, object 类型
+**optional**, Object
 
 配置图表的描述，description 显示在 title 下方，默认在图表左上角。
 
@@ -75,7 +73,7 @@ order: 2
 `visible: boolean`  tooltip 是否可见<br />
 `shared: boolean`    设置 tooltip 是否只展示单条数据<br />
 `crosshairs`: 配置 tooltip 辅助线<br />   `false`: 不显示辅助线<br />   `type: 'x' | 'y' | 'cross'`  配置辅助线的形态<br />   `style: object`  配置辅助线样式，详见图形属性<br />
-`htmlContent: function`<br />   自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
+`htmlContent: function`<br />    自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
 
 ```js
 htmlContent: (title, items) => {
@@ -102,7 +100,7 @@ htmlContent: (title, items) => {
 
 `formatter: function`  对图例的显示信息进行格式化<br />
 `offsetX: number`    图例在 position 的基础上再往 x 方向偏移量，单位 px<br />
-`offsetY: number`    图例在 position 的基础上再往 y 方向偏移量，单位 px
+`offsetY: number`     图例在 position 的基础上再往 y 方向偏移量，单位 px
 
 ## events
 

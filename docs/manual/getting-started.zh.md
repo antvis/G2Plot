@@ -30,12 +30,12 @@ npm install @antv/g2plot --save
 成功安装完成之后，即可使用 `import` 或 `require` 进行引用：
 
 ```
-import g2plot from '@antv/g2plot';
+import { Line } from '@antv/g2plot';
 ```
 
 ## 快速试用
 
-在 g2plot 引入页面后，我们就已经做好了创建第一个图表的准备了。下面是以一个基础折线图为例开始我们的第一个图表创建。
+在 G2Plot 引入页面后，我们就已经做好了创建第一个图表的准备了。下面是以一个基础折线图为例开始我们的第一个图表创建。
 
 **step1**: 创建图表容器
 
@@ -43,7 +43,7 @@ import g2plot from '@antv/g2plot';
 <div id="canvas"></div>
 ```
 
-**step2**: 引入数据。g2plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+**step2**: 引入数据。G2Plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
 
 ```js
 const data = [
@@ -62,7 +62,7 @@ const data = [
 **step3**: 创建并渲染图表
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   data,
   xField: 'year',
   yField: 'value',
@@ -82,7 +82,7 @@ linePlot.render();
 **step1**: 配置图表标题文本
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   // highlight-start
   title: {
     text: '这是一个基础折线图',
@@ -99,12 +99,14 @@ linePlot.render();
 **step2**: 配置图表描述文本
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
+    visible: true,
     text: '这是一个基础折线图',
   },
   // highlight-start
   description: {
+    visible: true,
     text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   // highlight-end
@@ -118,11 +120,13 @@ linePlot.render();
 **step3**: 显示辅助数据点
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
+    visible: true,
     text: '这是一个基础折线图',
   },
   description: {
+    visible: true,
     text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
@@ -140,11 +144,13 @@ linePlot.render();
 **step4**: 显示图形标签
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
+    visible: true,
     text: '这是一个基础折线图',
   },
   description: {
+    visible: true,
     text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
@@ -164,7 +170,7 @@ linePlot.render();
 
 最终结果：
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_COMAAAAAAAAAAABkARQnAQ" width="400">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*920SRqZ_COMAAAAAAAAAAABkARQnAQ" width="500">
 
 ## 个性化设置
 
@@ -173,11 +179,13 @@ linePlot.render();
 **step1**: 配置折线颜色，来个冷色到暖色的大变身
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
+    visible: true,
     text: '这是一个基础折线图',
   },
   description: {
+    visible: true,
     text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
@@ -198,11 +206,13 @@ linePlot.render();
 **step2**: 更改辅助数据点大小及样式
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
+    visible: true,
     text: '这是一个基础折线图',
   },
   description: {
+    visible: true,
     text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
@@ -213,8 +223,9 @@ const linePlot = new g2plot.Line('canvas', {
   point: {
     visible: true,
     size: 5,
+    color: 'white',
     style: {
-      fill: '#7979F5',
+      stroke: '#FE740C',
       lineWidth: 2,
       fillOpacity: 0.6,
     },
@@ -230,11 +241,13 @@ linePlot.render();
 **step3**: 格式化 y 轴标签加单位
 
 ```js
-const linePlot = new g2plot.Line('canvas', {
+const linePlot = new Line('canvas', {
   title: {
+    visible: true,
     text: '这是一个基础折线图',
   },
   description: {
+    visible: true,
     text: '折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式。',
   },
   data,
@@ -244,8 +257,9 @@ const linePlot = new g2plot.Line('canvas', {
   point: {
     visible: true,
     size: 5,
+    color: 'white',
     style: {
-      fill: '#7979F5',
+      stroke: '#FE740C',
       lineWidth: 2,
       fillOpacity: 0.6,
     },
@@ -266,6 +280,6 @@ linePlot.render();
 
 最终结果：
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wYxGRJUDoloAAAAAAAAAAABkARQnAQ" width="400">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XhqLTrn36ekAAAAAAAAAAABkARQnAQ" width="500">
 
 经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[图表通用配置](../manual/general-config)及[各图表配置项](../manual/plots/line)，一些尚在实验阶段的高级功能请移步[高级功能](../manual/advanced/responsive)。

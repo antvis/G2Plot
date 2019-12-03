@@ -148,7 +148,6 @@ function sameScaleTest(axisInfo) {
 
 export function createAxis(scale, dim, canvas, cfg, globalOptions) {
   const isVertical = dim === 'x' ? false : true;
-  const axisGlobalCfg = globalOptions[`${dim}Axis`];
   let group;
   if (scale.layer) {
     group = scale.layer.container.addGroup();
@@ -171,7 +170,10 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
     defaultStyle = adjustColorStyle(scale.color, parser);
   }
 
+  console.log(parser);
+
   const axisConfig = _.deepMix(
+    {},
     parser,
     {
       type: 'line',
@@ -185,6 +187,7 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
       label(text) {
         return {
           text,
+          textStyle: parser.label.textStyle,
         };
       },
     },

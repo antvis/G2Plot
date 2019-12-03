@@ -91,6 +91,13 @@ describe('Combo plot', () => {
         line: {
           visible: false,
         },
+        tickLine: {
+          visible: true,
+          style: {
+            stroke: 'red',
+            lineWidth: 1,
+          },
+        },
       },
       xAxis: {
         visible: true,

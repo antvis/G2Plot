@@ -258,9 +258,9 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     _.each(this.layers, cb);
   }
 
-  protected parseEvents(eventOptions?) {
+  protected parseEvents(eventParser?) {
     const eventsName = _.keys(LAYER_EVENT_MAP);
-    _.each(eventOptions, (e, k) => {
+    _.each(eventParser, (e, k) => {
       if (_.contains(eventsName, k) && _.isFunction(e)) {
         const eventName = LAYER_EVENT_MAP[k] || k;
         const handler = e;

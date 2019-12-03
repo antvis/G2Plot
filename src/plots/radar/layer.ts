@@ -283,8 +283,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     }
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

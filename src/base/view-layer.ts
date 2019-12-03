@@ -224,7 +224,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       end: { x: viewRange.maxX, y: viewRange.maxY },
     });
     this.applyInteractions();
-    //this.parserEvents();
     this.view.on('afterrender', () => {
       this.afterRender();
     });
@@ -236,7 +235,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
     if (this.options.padding !== 'auto') {
-      this.parserEvents();
+      this.parseEvents();
     }
   }
 
@@ -433,7 +432,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     _.assign(this.config[key], config);
   }
 
-  protected parserEvents(eventParser?): void {
+  protected parseEvents(eventParser?): void {
     const { options } = this;
     if (options.events) {
       super.parseEvents(options.events);

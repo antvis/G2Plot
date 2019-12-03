@@ -5,64 +5,64 @@ order: 2
 
 ## title
 
-**optional**, Object
+**optional**, `Object`
 
-the title of chart, defaultly placed in the upper-left corner of chart's container.
+The title of chart, defaultly placed in the upper-left corner of chart's container.
 
-> note: setting the title will compress chart display area.
+> note: setting title will compress the display area of statistical graphics.
 
-`visible`:  `boolean`  whether to show the title<br />
+`visible`:  `boolean`  whether to show title<br />
 `text`: `string`  title content<br />
 `style`：`object`  the style of title
 
 ## description
 
-**optional**, Object
+**optional**, `Object`
 
-配置图表的描述，description 显示在 title 下方，默认在图表左上角。
+The descriprion ( subtile ) of chart，defaultly placed in the upper-left corner of chart's container, below title.
 
-> 请注意设置 description 将会压缩图表展示区域
+> Note: setting description will compress of statistical graphics.
 
-`visible`:  `boolean`  是否显示描述<br />
-`text`: `string`  描述文本<br />
-`style`：`object`  描述样式，详见文本样式配置
+`visible`:  `boolean`  whether to show descriprion<br />
+`text`: `string`  descriprion content<br />
+`style`：`object`  the style of descriprion
 
 ## width
 
-**optional**, number 类型
+**optional**, `Number`
 
-图表宽度。
+The width of chart in pixel.
 
-如不进行配置，则默认采用 theme 中的宽度。
+If not configured, the width setting in theme will be used by default.
 
 ## height
 
-**optional**, number 类型
+**optional**, `Number`
 
-图表高度。
+The width of chart in pixel.
 
-如不进行配置，则默认采用 theme 中的高度。
+If not configured, the height setting in theme will be used by default.
 
 ## forceFit
 
-**optional**, boolean 类型
+**optional**, `Boolean`
 
-图表是否自适应容器宽高。
+Whether the chart size is adaptive to the container width and height.
 
 ## padding
 
-**optional**, number[] | string 类型
+**optional**, `number[] | string`
 
-图表内边距，是边框相对绘图区域的边距。坐标轴 (axis）和图例 (legend) 都显示在这一区域。
+Chart padding is the inner margin relative to the drawing pannel of statistical graphics. Both axis and legend are displayed in this area.
 
-目前支持以下两种配置方式：
+Currently support the following two confogration methods:
 
-1. `padding: [10,10,10,10]`，顺序与 CSS 盒模型相同：上边距、右边距、下边距、左边距
-1. `padding: 'auto'`，此为默认配置，将会自动计算边距所占的空间
+1. `padding: [10,10,10,10]`，The order is the same as the CSS box model: top, right, bottom, left.
+1. `padding: 'auto'`，automatically calculate padding space, which is the default configeration.
 
 ## theme
 
-**optional**, object 类型
+**optional**, `Object`
 
 图表主题，如不进行配置则默认使用 G2Plot 默认主题。详见 theme 文档。
 
@@ -118,19 +118,19 @@ htmlContent: (title, items) => {
   `onLabelMouseMove: function`  图例鼠标移动事件<br />
   `onLabelContextmenu: function`    图例右键事件
 
-## 通用方法
+## General Methods
 
 ### render()
 
 **reqiured**
 
-渲染图表。
+Render chart.
 
 ### updateConfig()
 
 **optional**
 
-更新图表配置项。
+Update configrations of chart
 
 ```js
 plot.updateConfig({
@@ -146,10 +146,10 @@ plot.updateConfig({
 
 **optional**
 
-图表画布重绘。
+Repaint chart.
 
 ### destory()
 
 **optional**
 
-销毁图表。
+Destory chart.

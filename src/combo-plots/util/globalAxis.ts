@@ -156,11 +156,6 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
     group = canvas.addGroup();
   }
   const ticks = getAxisTicks(scale, dim);
-  let defaultStyle = {};
-  if (scale.color) {
-    defaultStyle = adjustColorStyle(scale.color);
-  }
-
   const parser = getComponent('axis', {
     dim,
     plot: {
@@ -170,6 +165,11 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
       },
     } as any,
   });
+
+  let defaultStyle = {};
+  if (scale.color) {
+    defaultStyle = adjustColorStyle(scale.color, parser);
+  }
 
   const axisConfig = _.deepMix(
     parser,
@@ -325,21 +325,27 @@ function axisLayout(axes, paddingComponents, width) {
   }
 }
 
-function adjustColorStyle(color) {
+function adjustColorStyle(color, options) {
   return {
-    line: {
-      stroke: color,
-      lineWidth: 1,
-    },
-    tickLine: {
-      stroke: color,
-      lineWidth: 1,
-      length: 5,
-    },
-    label: {
-      textStyle: {
-        fill: color,
-      },
-    },
+    line: options.line
+      ? {
+          stroke: color,
+          lineWidth: 1,
+        }
+      : null,
+    tickLine: options.tickLine
+      ? {
+          stroke: color,
+          lineWidth: 1,
+          length: 5,
+        }
+      : null,
+    label: options.label
+      ? {
+          textStyle: {
+            fill: color,
+          },
+        }
+      : null,
   };
 }

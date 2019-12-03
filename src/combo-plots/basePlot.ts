@@ -27,8 +27,60 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     super(container, props);
   }
 
+  public getDefaultOptions() {
+    return {
+      xAxis: {
+        visible: true,
+        autoHideLabel: false,
+        autoRotateLabel: false,
+        autoRotateTitle: false,
+        grid: {
+          visible: false,
+        },
+        line: {
+          visible: true,
+        },
+        tickLine: {
+          visible: true,
+        },
+        label: {
+          visible: true,
+        },
+        title: {
+          visible: false,
+          offset: 12,
+        },
+      },
+      yAxis: {
+        visible: true,
+        autoHideLabel: false,
+        autoRotateLabel: false,
+        autoRotateTitle: true,
+        grid: {
+          visible: true,
+        },
+        line: {
+          visible: true,
+        },
+        tickLine: {
+          visible: true,
+        },
+        label: {
+          visible: true,
+        },
+        title: {
+          visible: false,
+          offset: 12,
+        },
+      },
+      label: {
+        visible: false,
+      },
+    };
+  }
+
   protected createLayers(props: T & { layers?: any }) {
-    this.globalOptions = this.getGlobalOptions(props);
+    this.globalOptions = _.deepMix({}, this.getDefaultOptions(), this.getGlobalOptions(props));
     this.legendInfo = [];
     this.axisInfo = [];
     this.paddingComponents = [];

@@ -2,14 +2,12 @@ import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import './component/label/bubble-label';
-import * as EventParser from './event';
+import * as EventParser from '../bubble/event';
 
-interface BubbleStyle {
+interface PointStyle {
   /** 圆边大小 */
   lineWidth?: number;
   /** 圆边透明度 */
@@ -21,21 +19,19 @@ interface BubbleStyle {
 }
 
 const G2_GEOM_MAP = {
-  bubble: 'point',
+  scatter: 'point',
 };
 
 const PLOT_GEOM_MAP = {
-  point: 'bubble',
+  point: 'scatter',
 };
 
-export interface BubbleViewConfig extends ViewConfig {
-  /** 气泡大小 */
-  bubbleSize?: [number, number];
-  /** 气泡样式 */
-  bubbleStyle?: BubbleStyle | ((...args: any) => BubbleStyle);
-  /** 气泡大小字段 */
-  sizeField?: string;
-  /** 气泡颜色字段 */
+export interface ScatterViewConfig extends ViewConfig {
+  /** 散点大小 */
+  pointSize?: number;
+  /** 散点样式 */
+  pointStyle?: PointStyle | ((...args: any) => PointStyle);
+  /** 颜色字段 */
   colorFields?: string | string[];
   /** x 轴配置 */
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
@@ -43,14 +39,13 @@ export interface BubbleViewConfig extends ViewConfig {
   yAxis?: IValueAxis;
 }
 
-export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
+export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
 
-export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ViewLayer<T> {
+export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
-      bubbleSize: [8, 58],
-      bubbleStyle: {
-        lineWidth: 1,
+      pointSize: 4,
+      pointStyle: {
         strokeOpacity: 1,
         fillOpacity: 0.4,
         opacity: 0.65,
@@ -70,19 +65,9 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     });
   }
 
-  public getOptions(props: T) {
-    const options = super.getOptions(props);
+  public type: string = 'scatter';
 
-    // 气泡图对外暴露 bubbleSize，geom 需要 pointSize
-    return _.deepMix({}, options, {
-      pointSize: options.bubbleSize,
-      pointStyle: options.bubbleStyle,
-    });
-  }
-
-  public type: string = 'bubble';
-
-  public bubbles: any;
+  public points: any;
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
@@ -111,25 +96,12 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
   protected coord() {}
 
   protected addGeometry() {
-    const props = this.options;
-
-    const bubbles = getGeom('point', 'circle', {
+    const points = getGeom('point', 'circle', {
       plot: this,
     });
 
-    if (props.label) {
-      bubbles.label = this.extractLabel();
-    }
-
-    /** 取消气泡大小图例 */
-    this.setConfig('legends', {
-      fields: {
-        [props.sizeField]: false,
-      },
-    });
-
-    this.bubbles = bubbles;
-    this.setConfig('element', bubbles);
+    this.points = points;
+    this.setConfig('element', points);
   }
 
   protected annotation() {}
@@ -138,28 +110,13 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */
-      this.bubbles.animate = false;
+      this.points.animate = false;
     }
   }
 
   protected parserEvents(eventParser) {
     super.parserEvents(EventParser);
   }
-
-  protected extractLabel() {
-    const props = this.options;
-    const label = props.label as Label;
-    if (label && label.visible === false) {
-      return false;
-    }
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'bubbleLabel',
-      fields: [props.yField],
-      ...label,
-    });
-    return labelConfig;
-  }
 }
 
-registerPlotType('bubble', BubbleLayer);
+registerPlotType('scatter', ScatterLayer);

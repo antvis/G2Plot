@@ -33,7 +33,7 @@ order: 14
 
 ### color
 
-**optional**, number | number[] | function 类型
+**optional**, string | string[] | function 类型
 
 设置进度条颜色，该值的类型如下
 

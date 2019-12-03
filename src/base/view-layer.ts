@@ -4,7 +4,17 @@ import * as _ from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
-import { Axis, IDescription, IInteractions, ITitle, Label, Legend, StateConfig, Tooltip } from '../interface/config';
+import {
+  Axis,
+  IDescription,
+  IInteractions,
+  ITitle,
+  Label,
+  Legend,
+  StateConfig,
+  Tooltip,
+  DataItem,
+} from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
@@ -14,7 +24,7 @@ import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 
 export interface ViewConfig {
-  data: object[];
+  data: DataItem[];
   meta?: { [fieldId: string]: any & { type?: any } };
   padding?: number | number[] | string;
   xField?: string;
@@ -268,7 +278,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.processOptions(this.options);
   }
 
-  public changeData(data: object[]): void {
+  public changeData(data: DataItem[]): void {
     this.view.changeData(this.processData(data));
   }
 
@@ -318,7 +328,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return this.processData((this.options.data || []).slice(start, end));
   }
 
-  protected processData(data?: object[]): object[] | undefined {
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
     return data;
   }
 

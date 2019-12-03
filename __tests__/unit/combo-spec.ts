@@ -88,6 +88,9 @@ describe('Combo plot', () => {
         visible: true,
         colorMapping: true,
         synchroTick: false,
+        line: {
+          visible: false,
+        },
       },
       xAxis: {
         visible: true,

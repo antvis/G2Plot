@@ -146,8 +146,9 @@ function sameScaleTest(axisInfo) {
   return true;
 }
 
-export function createAxis(scale, dim, canvas, cfg) {
+export function createAxis(scale, dim, canvas, cfg, globalOptions) {
   const isVertical = dim === 'x' ? false : true;
+  const axisGlobalCfg = globalOptions[`${dim}Axis`];
   let group;
   if (scale.layer) {
     group = scale.layer.container.addGroup();
@@ -160,12 +161,18 @@ export function createAxis(scale, dim, canvas, cfg) {
     defaultStyle = adjustColorStyle(scale.color);
   }
 
-  /* const paser = getComponent('axis',{
-    
-  })*/
+  const parser = getComponent('axis', {
+    dim,
+    plot: {
+      options: globalOptions,
+      getPlotTheme: () => {
+        return getGlobalTheme();
+      },
+    } as any,
+  });
 
   const axisConfig = _.deepMix(
-    {},
+    parser,
     {
       type: 'line',
       group,
@@ -222,11 +229,17 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
   let xAxisHeight = bleeding[2];
   if (globalOptions.xAxis.visible) {
     xAxisScale = mergeAxisScale(axisInfo, 'x');
-    xAxis = createAxis(xAxisScale[0], 'x', canvas, {
-      start: { x: 0, y: 0 },
-      end: { x: width, y: 0 },
-      factor: 1,
-    });
+    xAxis = createAxis(
+      xAxisScale[0],
+      'x',
+      canvas,
+      {
+        start: { x: 0, y: 0 },
+        end: { x: width, y: 0 },
+        factor: 1,
+      },
+      globalOptions
+    );
     xAxisHeight += xAxis.get('group').getBBox().height;
   }
 
@@ -234,11 +247,17 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
     const yAxisScale = mergeAxisScale(axisInfo, 'y', globalOptions.yAxis);
     _.each(yAxisScale, (scale, index) => {
       const factor = index === 0 ? -1 : 1;
-      const axis = createAxis(scale, 'y', canvas, {
-        start: { x: 0, y: padding[0] },
-        end: { x: 0, y: height - xAxisHeight },
-        factor,
-      });
+      const axis = createAxis(
+        scale,
+        'y',
+        canvas,
+        {
+          start: { x: 0, y: padding[0] },
+          end: { x: 0, y: height - xAxisHeight },
+          factor,
+        },
+        globalOptions
+      );
       axes.push(axis);
     });
 
@@ -249,11 +268,17 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
     const axisPadding = getOverlappingPadding(layer, paddingComponents);
     const ypos = axes.length === 0 ? height - xAxisHeight : axes[0].get('group').getBBox().maxY;
     xAxis.destroy();
-    xAxis = createAxis(xAxisScale[0], 'x', canvas, {
-      start: { x: axisPadding[3], y: ypos },
-      end: { x: width - axisPadding[1], y: ypos },
-      factor: 1,
-    });
+    xAxis = createAxis(
+      xAxisScale[0],
+      'x',
+      canvas,
+      {
+        start: { x: axisPadding[3], y: ypos },
+        end: { x: width - axisPadding[1], y: ypos },
+        factor: 1,
+      },
+      globalOptions
+    );
     paddingComponents.push({
       position: 'bottom',
       getBBox: () => {

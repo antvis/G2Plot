@@ -161,8 +161,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     }
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   protected extractLabel() {

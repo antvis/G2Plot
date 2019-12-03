@@ -124,8 +124,8 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
     }
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   protected extractLabel() {

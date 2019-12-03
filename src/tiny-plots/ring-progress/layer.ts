@@ -84,8 +84,8 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     };
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private getThickness() {

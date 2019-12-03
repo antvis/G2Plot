@@ -6,6 +6,7 @@ import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
 import { isSingleGraph } from './adjustColorConfig';
 import { getOverlappingPadding } from './padding';
+import { getComponent } from '../../components/factory';
 
 const AXIS_GAP = 4;
 
@@ -91,6 +92,7 @@ function mergeYAxis(axisInfo, synchroTick: boolean) {
         return linearScale;
       } else {
         scale.layer = axis.layer;
+        scale.color = axis.color;
         return scale;
       }
     });
@@ -157,6 +159,11 @@ export function createAxis(scale, dim, canvas, cfg) {
   if (scale.color) {
     defaultStyle = adjustColorStyle(scale.color);
   }
+
+  /* const paser = getComponent('axis',{
+    
+  })*/
+
   const axisConfig = _.deepMix(
     {},
     {

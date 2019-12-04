@@ -38,7 +38,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       xField: 'value',
       yField: '1',
       stackField: 'type',
-      barSize: this.getSize(),
+      barSize: props.size ? props.size : this.getSize(),
       barStyle: props.progressStyle,
       color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
@@ -89,14 +89,19 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   }
 
   protected parseColorProps(props) {
+    let colorOption;
     if (props.color) {
-      if (_.isString(props.color)) {
-        const color = _.clone(DEFAULT_COLOR);
-        color[0] = props.color;
-        return color;
-      }
       if (_.isFunction(props.color)) {
-        return props.color(props.percent);
+        colorOption = props.color(props.percent);
+      } else {
+        colorOption = props.color;
+      }
+      if (_.isString(colorOption)) {
+        const color = _.clone(DEFAULT_COLOR);
+        color[0] = colorOption;
+        return color;
+      } else {
+        return colorOption;
       }
     }
     return props.color;

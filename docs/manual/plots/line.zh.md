@@ -171,15 +171,15 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `type: 'point' | 'line'`  图形标签类型
 
-| `type` 类型  | 表现 |
-| ------------- | ------------- |
-| `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350">  |
-| `type: 'line'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350">  |
+| `type` 类型     | 表现                                                                                                          |
+| --------------- | ------------------------------------------------------------------------------------------------------------- |
+| `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350"> |
+| `type: 'line'`  | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350"> |
 
 `formatter: function` 对 label 的显示文本进行格式化<br />
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br />
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br />
-`style: object` 配置 label 文本
+`style: object` 配置 label 文本样式
 
 ### events
 

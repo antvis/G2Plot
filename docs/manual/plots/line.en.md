@@ -141,54 +141,54 @@ In addition, it also supports callback function as configuration method. The inp
 
 **optional**
 
-配置折线上的数据点，起到辅助阅读的作用。分组及颜色映射方式与折线图形保持一致。
+The data points on the line to assist reading with the same grouping and color-mapping strategy as line shape.
 
-`visible: boolean`  是否显示数据点<br />
-`shape: string`  数据点形状<br />
-`size: number`  数据点大小<br />
-`style: object | function`  数据点样式
+`visible: boolean`  whether to show data points<br />
+`shape: string`  the shape of data points<br />
+`size: number`  the size of data points<br />
+`style: object | function`  the visual style of data points
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config#tooltip)。
+**optional** check[general configeration](../general-config#tooltip)。
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config#legend)。
+**optional** check[general configeration](../general-config#legend)。
 
 ### label
 
 **optional**
 
-`visible: boolean`    图形标签是否显示<br />
-`type: 'point' | 'line'`  图形标签类型
+`visible: boolean`    whether to show label<br />
+`type: 'point' | 'line'`  label type
 
-| `type` 类型     | 表现                                                                                                          |
+| `type`          | performance                                                                                                   |
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
 | `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350"> |
 | `type: 'line'`  | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350"> |
 
-`formatter: function` 对 label 的显示文本进行格式化<br />
-`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br />
-`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br />
-`style: object` 配置 label 文本
+`formatter: function` format label content<br />
+`offsetX: number` offset in x direction based on label position, the unit is px<br />
+`offsetY: number` offset in y direction based on label position, the unit is px<br />
+`style: object` label text style
 
 ### events
 
 **optional**
 
-- 图形事件：
+- shape events：
 
-`onLineClick: function`  折线点击事件<br />
-`onLineDblClick: function`    折线双击事件<br />
-`onLineMousemove: function`  折线鼠标移动事件<br />
-`onLineContextmenu: function`    折线右键事件<br />
+`onLineClick: function`  the click event of line shape<br />
+`onLineDblClick: function`   the double click event of line shape<br />
+`onLineMousemove: function`  the mousemove event of line shape<br />
+`onLineContextmenu: function`   the contenxmenu evnet of line shape<br />
 
-如配置了折线上的数据点：
+if the data points on line shape was been configrated:
 
-`onPointClick: function`  数据点点击事件<br />
-`onPointDblClick: function`    数据点双击事件<br />
-`onPointMousemove: function`  数据点鼠标移动事件<br />
-`onPointContextmenu: function`    数据点右键事件<br />
+`onPointClick: function`  the click event of data point shape<br />
+`onPointDblClick: function`   the double click event of data point shape<br />
+`onPointMousemove: function`  the mousemove event of data point shape<br />
+`onPointContextmenu: function`  the contextmenu event of data point shape<br />
 
-- 其他事件类型见[通用图表配置](../general-config#events)。
+- for other events, please check [general configeration](../general-config#events)。

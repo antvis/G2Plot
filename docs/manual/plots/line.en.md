@@ -13,7 +13,7 @@ Generally speaking, the horizontal axis (x axis) reprents timeline with equal in
 
 ## Data
 
-折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
+Line chart is suitable for a linear data field (time) combining with a discrete field ( value ). In the follow example, `time` is the linear data field and `value` is the discrete data field.
 
 ```js
 const data = [
@@ -23,9 +23,9 @@ const data = [
 ];
 ```
 
-在进行图表绘制的时候，连续字段将映射到折线形状在 x 方向上的信息，而离散字段将映射到折线形状在 y 方向上的信息。
+The **linear** field will be mapped to the horizontal poisition of line shape, while the **discrete** field will be mapped to the horizontal position of line shape.
 
-在上面的示例数据中再加入一个**分类字段** `type`，折线将根据该分类字段分为两根，两根折线在 x 方向（时间）的信息是完全一致的，通常用作同一时间区间内两个变量发展趋势的对比。
+If we add an additional **category** field `type` in the sample data, line will be splited into two according to the category field, and we got a Multi-Line chart, the position informaion in horizontal (x) direction is completely the same. So Multi-Line chart is usually used to compare the development trend of two variables in the same time span.
 
 ```js
 const data = [

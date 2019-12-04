@@ -5,7 +5,7 @@ order: 14
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4TyJT7-iB4wAAAAAAAAAAABkARQnAQ" width="200">
 
-环形进度条是 g2plot 图表体系中，迷你图表的一种。
+环形进度条是 G2Plot 图表体系中，迷你图表的一种。
 
 > 迷你图表通常在空间有限的情况下作为 fullsize chart 的降级显示形式，相比于 fullsize chart，迷你图表省略了轴和图例，标题，标签等组件，而只保留了图表图形的基本态势。因此展现的信息量是有限的。通常，迷你图表会搭配表格进行使用。
 
@@ -37,9 +37,15 @@ order: 14
 
 设置进度条颜色，该值的类型如下
 
-- number    指定值为单值时，配置进度条已完成分段的颜色
-- number[]    指定值为一个数组时，同时配置进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
+- string    指定值为单值时，配置进度条已完成分段的颜色
+- string[]    指定值为一个数组时，同时配置进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
 - function  指定值为一个回调函数时，入参为当前进度 (percent)，出参为一个数组，需要同时指定进度条已完成和未完成分段的颜色，顺序为 [ 已完成，未完成 ]
+
+### size
+
+**optional**, number 类型
+
+设置进度条高度
 
 ### progressStyle
 

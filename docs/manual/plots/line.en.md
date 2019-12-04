@@ -50,31 +50,31 @@ const data = [
 
 ### title
 
-**optional** 见[通用图表配置](../general-config#title)。
+**optional** check [general configeration](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../general-config#description)。
+**optional** check [general configeration](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../general-config#width)。
+**optional** check [general configeration](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../general-config#height)。
+**optional** check [general configeration](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config#forceFit)。
+**optional** check [general configeration](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../general-config#padding)。
+**optional** check [general configeration](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../general-config#theme)。
+**optional** check [general configeration](../general-config#theme)。
 
 ### data
 

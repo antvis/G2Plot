@@ -88,7 +88,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     super.parseEvents(EventParser);
   }
 
-  private getThickness(value?: number) {
+  private getThickness(value?: number): number {
     const width = this.width;
     const height = this.height;
     const size = Math.min(width, height);

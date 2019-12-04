@@ -1,17 +1,17 @@
 ---
-title: Line - 折线图
+title: Line Chart
 order: 0
 ---
 
 <img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FAMKRLERiAEAAAAAAAAAAABkARQnAQ" width="400">
 
-## 图表故事
+## Story
 
-折线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式：是上升还是下降，是否存在周期性的循环？因此，相对于独立的数据点，折线图关注的是全局趋势。
+The Line chart is ideal to present data in a continous time span, which is usually used to show the changing patterns of data over time: is it rising or falling, is there any trending can be discovred visually? As a result, Line chart focues on the global trend of data rather than single independent data point.
 
 在折线图中，一般水平轴（X 轴）用来表示时间的推移，并且间隔相同；而垂直轴（Y 轴）代表不同时刻的数据的大小。
 
-## 数据类型
+## Data
 
 折线图适合的数据类型为一个**连续字段**（时间）和一个**离散字段**（数值）。在下面这个例子中，`time`为连续数据字段，`value`为离散数据字段。
 
@@ -163,10 +163,10 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `type: 'point' | 'line'`  图形标签类型
 
-| `type` 类型  | 表现 |
-| ------------- | ------------- |
-| `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350">  |
-| `type: 'line'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350">  |
+| `type` 类型     | 表现                                                                                                          |
+| --------------- | ------------------------------------------------------------------------------------------------------------- |
+| `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350"> |
+| `type: 'line'`  | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350"> |
 
 `formatter: function` 对 label 的显示文本进行格式化<br />
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br />

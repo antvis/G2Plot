@@ -9,6 +9,7 @@ export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
   progressStyle?: any; // FIXME:
   percent?: number; // FIXME:
+  size?: number;
 }
 
 export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}

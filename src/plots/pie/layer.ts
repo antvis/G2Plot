@@ -165,8 +165,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected annotation() {}
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private label() {

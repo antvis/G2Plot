@@ -13,6 +13,7 @@ interface TextConfig {
   theme: any;
   index: number;
   plot: ViewLayer;
+  name: string;
 }
 
 /**
@@ -22,6 +23,7 @@ interface TextConfig {
 export default class TextDescription {
   public shape: Text;
   public position: string = 'top';
+  public name: string;
   private container: Canvas | Group;
   private topMargin: number;
   private leftMargin: number;
@@ -79,6 +81,7 @@ export default class TextDescription {
         this.style
       ),
     });
+    this.shape.name = this.name;
   }
 
   /**

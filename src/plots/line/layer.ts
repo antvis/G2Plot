@@ -226,8 +226,8 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     interactions.lineSelect = lineSelect;
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private applyResponsive(stage) {

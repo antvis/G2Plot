@@ -224,7 +224,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       end: { x: viewRange.maxX, y: viewRange.maxY },
     });
     this.applyInteractions();
-    this.parserEvents();
     this.view.on('afterrender', () => {
       this.afterRender();
     });
@@ -234,6 +233,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     super.afterInit();
     if (!this.view || this.view.destroyed) {
       return;
+    }
+    if (this.options.padding !== 'auto') {
+      this.parseEvents();
     }
   }
 
@@ -430,9 +432,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     _.assign(this.config[key], config);
   }
 
-  protected parserEvents(eventParser?): void {
+  protected parseEvents(eventParser?): void {
     const { options } = this;
     if (options.events) {
+      super.parseEvents(options.events);
       const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
       _.each(options.events, (e, k) => {
         if (_.isFunction(e)) {
@@ -465,6 +468,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: isTextUsable(props.description) ? 0 : 1,
         plot: this,
+        name: 'title',
       });
       this.title = title;
       this.paddingController.registerPadding(title, 'outer');
@@ -503,6 +507,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: 1,
         plot: this,
+        name: 'description',
       });
       this.description = description;
       this.paddingController.registerPadding(description, 'outer');

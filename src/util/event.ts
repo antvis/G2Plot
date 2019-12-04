@@ -6,14 +6,14 @@ interface IEventmap {
 }
 
 const EVENT_MAP: IEventmap = {
-  onPlotClick: 'click',
-  onPlotDblClick: 'dblclick',
-  onPlotMousemove: 'mousemove',
-  onPlotMousedown: 'mousedown',
-  onPlotMouseup: 'mouseup',
-  onPlotMouseenter: 'mouseenter',
-  onPlotMouseleave: 'mouseleave',
-  onPlotContextmenu: 'contextmenu',
+  onViewClick: 'click',
+  onViewDblClick: 'dblclick',
+  onViewMousemove: 'mousemove',
+  onViewMousedown: 'mousedown',
+  onViewMouseup: 'mouseup',
+  onViewMouseenter: 'mouseenter',
+  onViewMouseleave: 'mouseleave',
+  onViewContextmenu: 'contextmenu',
   onAxisClick: 'axis-label:click',
   onAxisDblClick: 'axis-label:dblclick',
   onAxisMousemove: 'axis-label:mousemove',
@@ -40,10 +40,50 @@ const EVENT_MAP: IEventmap = {
   onLegendContextmenu: 'legend-item:contextmenu',
 };
 
+const CANVAS_EVENT_MAP = {
+  onPlotClick: 'click',
+  onPlotDblClick: 'dblclick',
+  onPlotMousemove: 'mousemove',
+  onPlotMousedown: 'mousedown',
+  onPlotMouseup: 'mouseup',
+  onPlotMouseenter: 'mouseenter',
+  onPlotMouseleave: 'mouseleave',
+  onPlotContextmenu: 'contextmenu',
+
+  onTitleClick: 'title:click',
+  onTitleDblClick: 'title:dblclick',
+  onTitleMousemove: 'title:mousemove',
+  onTitleMousedown: 'title:mousedown',
+  onTitleMouseup: 'title:mouseup',
+  onTitleMouseenter: 'title:mouseenter',
+  onTitleMouseleave: 'title:mouseleave',
+  onTitleContextmenu: 'title:contextmenu',
+
+  onDescriptionClick: 'description:click',
+  onDescriptionDblClick: 'description:dblclick',
+  onDescriptionMousemove: 'description:mousemove',
+  onDescriptionMousedown: 'description:mousedown',
+  onDescriptionMouseup: 'description:mouseup',
+  onDescriptionMouseenter: 'description:mouseenter',
+  onDescriptionMouseleave: 'description:mouseleave',
+  onDescriptionContextmenu: 'description:contextmenu',
+};
+
+const LAYER_EVENT_MAP = {
+  onLayerClick: 'click',
+  onLayerDblClick: 'dblclick',
+  onLayerMousemove: 'mousemove',
+  onLayerMousedown: 'mousedown',
+  onLayerMouseup: 'mouseup',
+  onLayerMouseenter: 'mouseenter',
+  onLayerMouseleave: 'mouseleave',
+  onLayerContextmenu: 'contextmenu',
+};
+
 type Handler = (...__: any[]) => {};
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
   layer.view.on(eventName, handler);
 }
 
-export { IEventmap, EVENT_MAP, onEvent };
+export { IEventmap, EVENT_MAP, CANVAS_EVENT_MAP, LAYER_EVENT_MAP, onEvent };

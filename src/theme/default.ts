@@ -190,6 +190,7 @@ export const DEFAULT_GLOBAL_THEME = {
     position: 'bottom-center',
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
+    margin: [0, 24, 24, 24],
   },
   label: {
     offset: 12,

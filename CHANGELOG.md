@@ -1,15 +1,3 @@
-## <small>0.11.1 (2019-11-26)</small>
-
-- 🔥 官网文档和图表示例大量更新 [#287](https://github.com/antvis/G2Plot/pull/287), [#298](https://github.com/antvis/G2Plot/pull/298)
-- 🌟 默认隐藏条形图、和百分比条形图 X 轴的刻度线 [#297](https://github.com/antvis/G2Plot/pull/297)
-- 🐞 修复折线图数据标签中某些配置项不生效问题 [#290](https://github.com/antvis/G2Plot/pull/290)
-- 🐞 修复折线图轴样式在响应式布局下可能不生效的问题 [#299](https://github.com/antvis/G2Plot/pull/299)
-- 🐞 修复鼠标悬浮提示在图形边缘时可能出现位置错误的问题 [#302](https://github.com/antvis/G2Plot/pull/302)
-
-## 0.11.0 (2019-11-22)
-
-- 🌟G2Plot 0.11.0
-
 ## <small>0.11.2 (2019-12-04)</small>
 
 - feat: add legend margin to theme ([4dba674](https://github.com/antvis/g2plot/commit/4dba674))
@@ -55,3 +43,15 @@
 - docs: update changelog for v0.11.1 ([be6d94d](https://github.com/antvis/g2plot/commit/be6d94d))
 - docs: 更新资源地址 ([14271f0](https://github.com/antvis/g2plot/commit/14271f0))
 - docs(readme): optimize readme style, and fix typo ([86db2cf](https://github.com/antvis/g2plot/commit/86db2cf))
+
+## <small>0.11.1 (2019-11-26)</small>
+
+- 🔥 官网文档和图表示例大量更新 [#287](https://github.com/antvis/G2Plot/pull/287), [#298](https://github.com/antvis/G2Plot/pull/298)
+- 🌟 默认隐藏条形图、和百分比条形图 X 轴的刻度线 [#297](https://github.com/antvis/G2Plot/pull/297)
+- 🐞 修复折线图数据标签中某些配置项不生效问题 [#290](https://github.com/antvis/G2Plot/pull/290)
+- 🐞 修复折线图轴样式在响应式布局下可能不生效的问题 [#299](https://github.com/antvis/G2Plot/pull/299)
+- 🐞 修复鼠标悬浮提示在图形边缘时可能出现位置错误的问题 [#302](https://github.com/antvis/G2Plot/pull/302)
+
+## 0.11.0 (2019-11-22)
+
+- 🌟G2Plot 0.11.0

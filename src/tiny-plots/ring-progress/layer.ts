@@ -49,7 +49,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
       type: 'theta' as CoordinateType,
       cfg: {
         radius: 1.0,
-        innerRadius: this.getThickness(),
+        innerRadius: this.getThickness(this.options.size),
       },
     };
     this.setConfig('coord', coordConfig);
@@ -88,10 +88,15 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     super.parseEvents(EventParser);
   }
 
-  private getThickness() {
+  private getThickness(value?: number) {
     const width = this.width;
     const height = this.height;
     const size = Math.min(width, height);
+
+    if (value) {
+      return 1.0 - value / size;
+    }
+
     if (size >= 60) {
       return 1.0 - 20 / size;
     }

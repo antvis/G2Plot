@@ -80,60 +80,62 @@ const data = [
 
 **required**
 
-数据源为对象集合，例如：`[{ segment: '分类一'，value: 20 }, { segment: '分类二'，value: 20 }]`。
+The data source of chart，the standard data format in G2Plot is JSON array.
+
+Example:
+
+`[{ segment: 'category1'，value: 20 }, { segment: 'category2'，value: 20 }]`
 
 ### xField
 
-**required**, string 类型
+**required**, `string`
 
-折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
+The data field mapped to the horizontal (x) poisition of line shape, usually is a linear field.
 
 ### yField
 
-**required**, string 类型
+**required**, `string`
 
-折线形状在 y 方向对应的数据字段名，一般对应一个离散字段。
+The data field mapped to the vertical (y) poisition of line shape, usually is a discrete field.
 
 ### seriesField
 
-**required**, string 类型
+**required**, `string`
 
-多折线必选。
+Reuired in Multi-line chart.
 
-数据集中的分组字段名，一般对应一个分类字段。
-
-通过该字段的值，折线图将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
+The data field to group data items which visually displayed as multiple line shapes with different colors, usually is a category field.
 
 ### lineSize
 
-**optional**, number 类型
+**optional**, `number`
 
-设置折线宽度，默认为 2。
+The width of line shape, default value is 2.
 
 ### smooth
 
-**optional**, boolean 类型
+**optional**, `boolean`
 
-是否将折线绘制为曲线 (spline)。
+Whether to transfer line to spline。
 
 ### color
 
-**optional**, string[] | function 类型
+**optional**, `string[] | function`
 
-指定折线颜色。如不进行配置则采用 theme 中的配色。
+The color of line shape, default as theme color.
 
 ### lineStyle
 
-**optional**, object | function 类型
+**optional**, `object | function`
 
-配置折线样式。
+Setting visual style of line shape.
 
-`stroke: string`  折线颜色<br />
-`lineWidth: number`  折线宽度<br />
-`lineDash: number[]` 虚线显示<br />
-`opacity: number`  透明度<br />
+`stroke: string`  line color<br />
+`lineWidth: number`  line width<br />
+`lineDash: number[]` dash<br />
+`opacity: number`  opacity<br />
 
-另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+In addition, it also supports callback function as configuration method. The input parameter is shape data, and the output parameter is a configuration object.
 
 ### point
 

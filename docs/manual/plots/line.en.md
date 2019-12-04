@@ -38,17 +38,15 @@ const data = [
 ];
 ```
 
-## 图表用法
+## Usage
 
 - **Dont's**
-  - 避免折线数量过多，且在视觉样式上无法区分主次
-  - 谨慎使用曲线
+  - avoid too many lines with the same visual importance.
+  - be careful to use smooth line.
 - **Do**
-  - 多折线时，善用视觉样式（线宽、颜色、透明度）突出重点。对于辅助数据可以采用灰色或降低透明度的方法与主要数据进行区分。
+  - use visual style such as lineWidth, color, opacity to enhance emphasis in Multi-Line chart. Grey color and lower opacity is good choice to seperate not important data from important ones.
 
 ## API
-
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
 ### title
 

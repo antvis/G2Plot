@@ -9,7 +9,7 @@ order: 0
 
 The Line chart is ideal to present data in a continous time span, which is usually used to show the changing patterns of data over time: is it rising or falling, is there any trending can be discovred visually? As a result, Line chart focues on the global trend of data rather than single independent data point.
 
-在折线图中，一般水平轴（X 轴）用来表示时间的推移，并且间隔相同；而垂直轴（Y 轴）代表不同时刻的数据的大小。
+Generally speaking, the horizontal axis (x axis) reprents timeline with equal intervals, and vertical axis (y axis) indicates values in different points of time.
 
 ## Data
 

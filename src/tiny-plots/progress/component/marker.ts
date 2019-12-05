@@ -23,7 +23,9 @@ export default class Marker {
   }
 
   public destory() {
-    this.shape.destroy();
+    if (this.shape) {
+      this.shape.destroy();
+    }
   }
 
   protected init() {

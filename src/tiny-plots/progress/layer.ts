@@ -34,6 +34,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
    */
 
   public type: string = 'progress';
+  protected markers: IMarker[] = [];
+
   public processProps() {
     let props = this.options;
     props.data = this.processData();
@@ -63,19 +65,29 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     }
   }
 
+  public destroy() {
+    if (this.markers && this.markers.length > 0) {
+      _.each(this.markers, (marker) => {
+        marker.destory();
+      });
+    }
+    super.destory();
+  }
+
   public afterRender() {
     if (this.options.marker) {
+      this.markers = [];
       _.each(this.options.marker, (cfg) => {
-        const marker = new Marker(
-          _.mix(
-            {
-              canvas: this.canvas,
-              view: this.view,
-              progressSize: this.options.barSize,
-            },
-            cfg
-          )
+        const markerCfg = _.mix(
+          {
+            canvas: this.canvas,
+            view: this.view,
+            progressSize: this.options.barSize,
+          },
+          cfg
         );
+        const marker = new Marker(markerCfg);
+        this.markers.push(marker);
       });
     }
   }

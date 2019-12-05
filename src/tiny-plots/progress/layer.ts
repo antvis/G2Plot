@@ -3,6 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
+import Marker from './component/marker';
 import * as EventParser from './event';
 
 export interface ProgressViewConfig extends TinyViewConfig {
@@ -31,7 +32,6 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public type: string = 'progress';
   public processProps() {
-    this.getSize();
     let props = this.options;
     props.data = this.processData();
     const cfg = {
@@ -57,6 +57,23 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     this.changeData(this.processData());
     if (style) {
       this.styleUpdateAnimation(style);
+    }
+  }
+
+  public afterRender() {
+    if (this.options.marker) {
+      _.each(this.options.marker, (cfg) => {
+        const marker = new Marker(
+          _.mix(
+            {
+              canvas: this.canvas,
+              view: this.view,
+              progressSize: this.options.barSize,
+            },
+            cfg
+          )
+        );
+      });
     }
   }
 

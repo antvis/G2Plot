@@ -13,18 +13,30 @@ it.only('initialize & destory', () => {
     width: 200,
     height: 100,
     percent: 0.1,
-    animation: {
+    /*animation: {
       update: {
         duration: 1000,
       },
-    },
+    },*/
+    marker: [
+      {
+        value: 0.3,
+        /*style:{
+          stroke:'red',
+          lineWidth: 2
+       }*/
+      },
+      {
+        value: 0.5,
+      },
+    ],
   });
   progress.render();
-  window.setTimeout(() => {
+
+  /*window.setTimeout(() => {
     progress.update(0.6, [{ fill: 'red' }, { fill: 'green' }]);
   }, 2000);
-
-  /* expect(progress).toBeInstanceOf(Progress);
+   expect(progress).toBeInstanceOf(Progress);
     const canvas = progress.plot.get('canvas');
     expect(canvas.get('width')).toBe(200);
     expect(canvas.get('height')).toBe(100);

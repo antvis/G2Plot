@@ -2,27 +2,30 @@ import * as _ from '@antv/util';
 import { View } from '@antv/g2';
 import { Group, Shape, Canvas } from '@antv/g';
 
-export interface IMarker {
+export interface MarkerConfig {
+  view: View;
+  canvas: Canvas;
+  progressSize: number;
   value: number;
   style?: any;
 }
 
-export default class Marker {
-  protected canvas: Canvas;
-  protected view: View;
+export default class Marker<T extends MarkerConfig = MarkerConfig> {
+  public canvas: Canvas;
+  public view: View;
+  public progressSize: number;
+  public value: number;
+  public style: any;
   protected coord: any; //fixme: 类型定义
   protected container: Group;
   protected shape: Shape;
-  protected progressSize: number;
-  protected value: number;
-  protected style: any;
 
   constructor(cfg) {
     _.assign(this, cfg);
     this.init();
   }
 
-  public destory() {
+  public destroy() {
     if (this.shape) {
       this.shape.destroy();
     }

@@ -1,40 +1,53 @@
-# G2Plot
+<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
 
-> A charting library based on the Grammar of Graphics.
+<h1 align="center">G2Plot</h1>
 
-English | [简体中文](./README.zh-CN.md)
+<div align="center">
+
+A charting library based on the Grammar of Graphics.
 
 [![Version](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
 ![Latest commit](https://badgen.net/github/last-commit/antvis/g2plot)
 
-`G2Plot` is an interactive and responsive charting library based on [the grammar of graphics](https://github.com/antvis/g2), which enables users to generate high quality statistical charts through a few lines of code easily.
+</div>
 
-Moreover, combining with AntV design principles, G2Plot provides standard and elegant visual styles as well as better user experience.
+G2Plot is an interactive and responsive charting library.
+Based on [the grammar of graphics](https://github.com/antvis/g2), you can easily make superior statistical charts through a few lines of code.
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MjhQQLsbWeQAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CkSoSpPfWQMAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZYmtSqcNDtkAAAAAAAAAAABkARQnAQ" width="200"><img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gV_JQZVbDWAAAAAAAAAAAABkARQnAQ" width="200">
+<div align="center">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MjhQQLsbWeQAAAAAAAAAAABkARQnAQ" width="200">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CkSoSpPfWQMAAAAAAAAAAABkARQnAQ" width="200">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZYmtSqcNDtkAAAAAAAAAAABkARQnAQ" width="200">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gV_JQZVbDWAAAAAAAAAAAABkARQnAQ" width="200">
+</div>
+<br/>
 
 ## Features
 
-### pretty and high-quality charts out of box
+### Pretty & Lightweight
 
-G2Plot is powered by an enterprise-class visualization design principle, which not only focuses on the entire visual style of the charting library, but also provides users the best default options for each chart concerning to their own features.
+With [AntV](https://antv.vision/en) design principles of data visualization, G2Plot provides standard and elegant visual styles as well as neat config options.
 
-Even though you are not an expert in data visualization, you still can create elegant charts through a few lines of code.
-
+<div align="center">
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rqI2Qqt0pTwAAAAAAAAAAABkARQnAQ" width="600" />
+</div>
 
-### responsive charts
+### Responsive
 
-The responsive ability of G2Plot guarantee your chart’s readability and information density in any display space and data status.
+G2Plot guarantees the readability of the charts in different sizes and data.
 
+<div align="center">
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" width="600" />
+</div>
 
-### story-telling charts
+### Storytelling
 
-The layer concept in G2Plot provides the possibilities of multi-chart storytelling through the overlapping, combination and connection mode of charts. In addition, G2Plot is exploring the technique of enriching the visual expressiveness of charts, such as transferring statistical chart to infographics.
+With the feature of _layers_, charts can be grouped, nested or linked to do exploratory analysis and expressive storytelling.
 
+<div align="center">
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" width="600" />
+</div>
 
 ## Installation
 
@@ -44,7 +57,9 @@ $ npm install @antv/g2plot
 
 ## Usage
 
+<div align="center">
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450">
+</div>
 
 ```html
 <div id="container"></div>
@@ -71,24 +86,16 @@ const bar = new Bar(document.getElementById('container'), {
 bar.render();
 ```
 
-## Development
+## Contributing
 
-```bash
-$ npm install
-
-# run test case
-$ npm run test
-
-# run demos
-$ npm start
-```
-
-## How to Contribute
-
-Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2plot/issues) for bug reports or suggestions first.
+Your contributions are always welcome! Please Do have a look at the [issues](https://github.com/antvis/g2plot/issues) first.
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
 
 ## License
 
 MIT
+
+## Links
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - Online chart making tool based on G2Plot.

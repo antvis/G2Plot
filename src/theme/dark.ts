@@ -1,16 +1,4 @@
-const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
-  if (legendPosition && legendPosition.split('-')[0] === 'top') {
-    return 0;
-  }
-  return 24;
-};
-
-const TOP_BLEEDING = function(props) {
-  if (props.title || props.description) {
-    return 16;
-  }
-  return 24;
-};
+import { DESCRIPTION_BOTTOM_MARGIN, TOP_BLEEDING, BOTTOM_BLEEDING } from './default';
 
 export const DEFAULT_DARK_THEME = {
   backgroundStyle: {
@@ -19,7 +7,7 @@ export const DEFAULT_DARK_THEME = {
   defaultColor: '#5B8FF9',
   width: 400,
   height: 400,
-  bleeding: [TOP_BLEEDING, 24, 24, 24],
+  bleeding: [TOP_BLEEDING, 24, BOTTOM_BLEEDING, 24],
   padding: 'auto',
   title: {
     padding: [24, 24, 24, 24],

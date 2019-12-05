@@ -1,3 +1,9 @@
+## <small>0.11.3 (2019-12-05)</small>
+
+- 🌟tinyChart-progress update 方法支持第二个参数：更新时的样式配置,增加动画配置 ([b10719c](https://github.com/antvis/G2Plot/commit/b10719c))
+- 🌟tinyChart-progress 增加 marker 组件 ([afe05e7](https://github.com/antvis/G2Plot/commit/afe05e7))
+- 🌟 相关文档更新 ([e214f83](https://github.com/antvis/G2Plot/commit/e214f83))
+
 ## <small>0.11.2 (2019-12-04)</small>
 
 - feat: add legend margin to theme ([4dba674](https://github.com/antvis/g2plot/commit/4dba674))

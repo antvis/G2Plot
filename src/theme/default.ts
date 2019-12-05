@@ -1,21 +1,24 @@
 import { some } from '@antv/util';
 import { ViewConfig } from '../base/view-layer';
 
-const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
+export const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 12;
   }
   return 24;
 };
 
-const TOP_BLEEDING = (props: ViewConfig) => {
-  if (props.title || props.description) {
-    return 16;
+export const TOP_BLEEDING = (props: ViewConfig) => {
+  const titleVisible = props.title && props.title.visible;
+  const descriptionVisible = props.description && props.description.visible;
+  if (titleVisible || descriptionVisible) {
+    // 由 title/description 的 bottom-padding 负责
+    return 0;
   }
   return 24;
 };
 
-const BOTTOM_BLEEDING = (props: ViewConfig) => {
+export const BOTTOM_BLEEDING = (props: ViewConfig) => {
   if (
     some(
       props.interactions || [],

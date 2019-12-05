@@ -61,6 +61,34 @@ order: 13
 
 另外还支持回调函数的配置方式，入参为当前进度 (percent)，出参为一个样式配置对象。
 
+### marker
+
+**optional**, object[] 类型
+
+为进度条添加数值标记，支持同时添加多条标记。
+
+`value: number` 标记数值，取值范围为[0,1]<br />
+`style: object` 标记样式，详情见 图形属性
+
+用法：
+
+```js
+marker: [
+  {
+    value: 0.3,
+    style: {
+      stroke: 'red',
+    },
+  },
+  {
+    value: 0.5,
+    style: {
+      stroke: 'green',
+    },
+  },
+];
+```
+
 ### events
 
 **optional**
@@ -81,12 +109,30 @@ order: 13
 
 ## 方法
 
-### update( percent:number )
+### update(percent: number, style)
 
 更新进度。
 
+参数：
+
+`percent: number` 更新数值，必选
+
+`style` 更新进度条样式，可选。 该值的类型如下：
+
+- object    指定样式为 object 时，配置进度条已完成分段的样式
+- object[]  指定样式为一个数组时，同时配置进度条已完成和未完成分段的样式，顺序为 [ 已完成，未完成 ]
+
+用法：
+
 ```js
 progress.update(0.5);
+```
+
+```js
+progress.update(0.5, {
+  fill: 'red',
+  opacity: 0.3,
+});
 ```
 
 其他方法见[通用图表配置](../general-config.zh.md)。

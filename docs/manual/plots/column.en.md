@@ -11,7 +11,7 @@ Column chart is uesed to present the data comparison between catergories. It als
 
 ## Data
 
-基础柱状图适合的数据类型为一个**分类字段**（类型）和一个**离散字段**（数值）。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
+The data which is ideal for basic column chart is a **category** data field combining with a **discrete** field (value). In the example below, `type` is the category data field and `value` is the discrete data field.
 
 ```js
 const data = [
@@ -21,9 +21,9 @@ const data = [
 ];
 ```
 
-图表绘制时，每一个分类对应一根柱子，映射到 x 轴，而分类数值对应柱子的高度，映射到 y 轴。
+The category will be mapped to the horizontal poisition of column shapes, while discrete field will be mapped to the height of columns in the vertical direction (y axis).
 
-## Use
+## How to use
 
 - **Dont's**
   - 尽量避免在基础柱状图中使用颜色映射。

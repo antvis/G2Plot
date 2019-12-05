@@ -37,31 +37,31 @@ The category will be mapped to the horizontal poisition of column shapes, while 
 
 ### title
 
-**optional** check [general configeration](../general-config#title)。
+**optional** check [general configeration](../general-config#title)
 
 ### description
 
-**optional** check [general configeration](../general-config#description)。
+**optional** check [general configeration](../general-config#description)
 
 ### width
 
-**optional** check [general configeration](../general-config#width)。
+**optional** check [general configeration](../general-config#width)
 
 ### height
 
-**optional** check [general configeration](../general-config#height)。
+**optional** check [general configeration](../general-config#height)
 
 ### forceFit
 
-**optional** check [general configeration](../general-config#forceFit)。
+**optional** check [general configeration](../general-config#forceFit)
 
 ### padding
 
-**optional** check [general configeration](../general-config#padding)。
+**optional** check [general configeration](../general-config#padding)
 
 ### theme
 
-**optional** check [general configeration](../general-config#theme)。
+**optional** check [general configeration](../general-config#theme)
 
 ### data
 
@@ -71,7 +71,7 @@ The data source of chart，the standard data format in G2Plot is JSON array.
 
 Example:
 
-`[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]`
+`[{ segment: cat1，value: 20 }, { segment: cat2，value: 20 }]`
 
 ### xField
 
@@ -119,31 +119,31 @@ In addition, it also supports callback function as configuration method. The inp
 
 ### tooltip
 
-**optional** 见[通用图表配置](../general-config#tooltip)。
+**optional** check [general configeration](../general-config#tooltip)
 
 ### legend
 
-**optional** 见[通用图表配置](../general-config#legend)。
+**optional** check [general configeration](../general-config#legend)
 
 ### label
 
 **optional**
 
-`visible: boolean`    图形标签是否显示<br />
-`position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
-`formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object` 配置 label 文本
+`visible: boolean`    whether to show label<br />
+`position: 'top' | 'middle' | 'bottom'`    label position according to column shape<br />
+`formatter: function`  format label content<br />
+`offsetX: number` offset in x direction based on label position, the unit is px<br />
+`offsetY: number` offset in y direction based on label position, the unit is px<br/>
+`style: object` label text style
 
 ### events
 
 **optional**
 
-- 图形事件
-  `onColumnClick: function`  柱形点击事件<br />
-  `onColumnDblClick: function`  柱形双击事件<br />
-  `onColumnMousemove: function`  柱形鼠标移动事件<br />
-  `onColumnContextmenu: function`    柱形右键事件
+- shape events
+  `onColumnClick: function`  the click event of column shape<br />
+  `onColumnDblClick: function`  the double click event of column shape<br />
+  `onColumnMousemove: function`  the mousemove event of column shape<br />
+  `onColumnContextmenu: function`  the contextmenu event of column shape
 
-- 其他事件类型见[通用图表配置](../general-config#events)。
+- for other events, please check [general configeration](../general-config#events)

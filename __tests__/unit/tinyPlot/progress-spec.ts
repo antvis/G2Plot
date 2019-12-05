@@ -21,10 +21,10 @@ it.only('initialize & destory', () => {
     marker: [
       {
         value: 0.3,
-        /*style:{
-          stroke:'red',
-          lineWidth: 2
-       }*/
+        style: {
+          stroke: 'red',
+          lineWidth: 2,
+        },
       },
       {
         value: 0.5,

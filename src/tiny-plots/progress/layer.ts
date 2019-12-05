@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
-import Marker from './component/marker';
+import Marker, { IMarker } from './component/marker';
 import * as EventParser from './event';
 
 export interface ProgressViewConfig extends TinyViewConfig {
@@ -11,6 +11,9 @@ export interface ProgressViewConfig extends TinyViewConfig {
   progressStyle?: any; // FIXME:
   percent?: number;
   size?: number;
+  marker?: IMarker;
+  barSize?: number;
+  barStyle?: any;
 }
 
 export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}

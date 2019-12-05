@@ -14,8 +14,8 @@ export default class Progress extends BasePlot<ProgressConfig> {
     super.createLayers(layerProps);
   }
 
-  public update(value: number) {
+  public update(value: number, style?) {
     const layer = this.layers[0] as any;
-    layer.update(value);
+    layer.update(value, style);
   }
 }

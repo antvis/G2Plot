@@ -38,7 +38,7 @@ const data = [
 ];
 ```
 
-## Usage
+## How to use
 
 - **Dont's**
   - avoid too many lines with the same visual importance.

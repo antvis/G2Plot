@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { Label } from '../../interface/config';
+import { Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
 import * as EventParser from './event';
@@ -118,9 +118,12 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     super.scale();
   }
 
-  protected processData(data?: object[]): object[] | undefined {
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
     const key = this.options.angleField;
-    return data.map((item) => ({ ...item, [key]: Number.parseFloat(item[key]) }));
+    return data.map((item) => ({
+      ...item,
+      [key]: typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key],
+    }));
   }
 
   protected axis() {}
@@ -162,8 +165,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected annotation() {}
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private label() {

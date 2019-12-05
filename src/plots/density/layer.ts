@@ -5,6 +5,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
 import Area, { AreaViewConfig } from '../area/layer';
+import { DataItem } from '../../interface/config';
 
 export interface DensityViewConfig extends AreaViewConfig {
   binField: string;
@@ -54,7 +55,7 @@ export default class DensityLayer<T extends DensityLayerConfig = DensityLayerCon
     super.init();
   }
 
-  protected processData(originData?: object[]) {
+  protected processData(originData?: DataItem[]) {
     const { binField, binWidth, binNumber, kernel } = this.options;
     const _kernel = kernel ? kernel : 'epanechnikov';
     const kernelFunc = kernels[_kernel];

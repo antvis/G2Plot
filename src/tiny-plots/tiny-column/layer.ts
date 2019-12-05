@@ -44,8 +44,8 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
     this.setConfig('element', column);
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private processProps() {

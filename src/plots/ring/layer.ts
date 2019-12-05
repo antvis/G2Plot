@@ -119,8 +119,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     this.setConfig('annotations', annotationConfigs);
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private drawStatistic(config) {
@@ -162,7 +162,11 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   private getTotalValue(): object {
     const props = this.options;
     let total = 0;
-    props.data.forEach((item) => (total += item[props.angleField]));
+    _.each(props.data, (item) => {
+      if (typeof item[props.angleField] === 'number') {
+        total += item[props.angleField];
+      }
+    });
     const data = {
       [props.angleField]: total,
       [props.colorField]: '总计',

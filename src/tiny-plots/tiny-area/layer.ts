@@ -34,8 +34,8 @@ export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
     this.setConfig('element', this.line);
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

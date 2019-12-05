@@ -100,7 +100,3 @@ MIT
 ## 相关链接
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - 基于 G2Plot 的在线图表制作工具，交互简单，一键导出图表代码！
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/PW4OPnAKwy/a.svg" width="18"> [AntV](https://antv.vision/en) - 蚂蚁金服数据可视化团队官网
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/NZDGg2q9Qo/empty.svg" width="18"> [G2](https://g2.antv.vision/en) - 专业级图形语法 JS 图表类库

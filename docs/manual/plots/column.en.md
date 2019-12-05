@@ -26,12 +26,12 @@ The category will be mapped to the horizontal poisition of column shapes, while 
 ## How to use
 
 - **Dont's**
-  - 尽量避免在基础柱状图中使用颜色映射。
-  - y 轴不以 0 值为起点，将有可能导致柱状图显示错误的比例关系。
+  - mapping column shapes in diffrent colors should be cautious.
+  - starting at a non-zero baseline may lead to inaccurate proportionality display in column chart.
 
 * **Do**
-  - 如果分类之间的序列关系 (ranking) 有意义且不是时间周期，可以考虑将数据进行排序。
-  - 如果需要关注具体数据，可以考虑移除坐标轴，显示图形标签，使用户的注意力更加聚焦。
+  - If the display order of categories is meaningful and the categories are not time cat, sorting data is a good choice.
+  - Removing axis and showing labels makes data ranther than comparison, become the focal point.
 
 ## API
 

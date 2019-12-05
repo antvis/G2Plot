@@ -31,87 +31,91 @@ The category will be mapped to the horizontal poisition of column shapes, while 
 
 * **Do**
   - If the display order of categories is meaningful and the categories are not time cat, sorting data is a good choice.
-  - Removing axis and showing labels makes data ranther than comparison, become the focal point.
+  - Removing axis and showing labels makes data, ranther than comparison, become the focal point.
 
 ## API
 
 ### title
 
-**optional** 见[通用图表配置](../general-config#title)。
+**optional** check [general configeration](../general-config#title)。
 
 ### description
 
-**optional** 见[通用图表配置](../general-config#description)。
+**optional** check [general configeration](../general-config#description)。
 
 ### width
 
-**optional** 见[通用图表配置](../general-config#width)。
+**optional** check [general configeration](../general-config#width)。
 
 ### height
 
-**optional** 见[通用图表配置](../general-config#height)。
+**optional** check [general configeration](../general-config#height)。
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config#forceFit)。
+**optional** check [general configeration](../general-config#forceFit)。
 
 ### padding
 
-**optional** 见[通用图表配置](../general-config#padding)。
+**optional** check [general configeration](../general-config#padding)。
 
 ### theme
 
-**optional** 见[通用图表配置](../general-config#theme)。
+**optional** check [general configeration](../general-config#theme)。
 
 ### data
 
 **required**
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+The data source of chart，the standard data format in G2Plot is JSON array.
+
+Example:
+
+`[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]`
 
 ### xField
 
-**required**, string 类型
+**required**, `string`
 
-柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
+The data field mapped to the horizontal (x) poisition of column shape, usually is a category field.
 
 ### yField
 
-**required**, string 类型
+**required**, `string`
 
-柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
+The data field mapped to the height of column shape in y direction, usually is a discrete field.
 
 ### colorField
 
-**optional**, string 类型
+**optional**, `string`
 
-柱形颜色映射对应的数据字段名。
+The data field mapped to the color of column shape.
 
 ### color
 
-**optional**, string | string[] | function 类型
+**optional**, `string | string[] | function`
 
-指定柱形颜色。如不进行配置则采用 theme 中的配色。
+Settig the color value of column shapes, default as theme color | colors.
 
 ### columnSize
 
-**optional**, number 类型
+**optional**, `number`
 
-设置柱形的宽度为一个固定值。
+Setting the width of column shapes as a fixed value.
 
 ### columnStyle
 
-**optional**, object | function 类型
+**optional**, `object | function`
 
-配置柱形样式。
+The style of column shape.
 
-`fill: string`  填充颜色<br />
-`stroke: string`  描边颜色<br />
-`lineWidth: number`  描边宽度<br />
-`lineDash: number[]`  描边虚线显示<br />
-`opacity: number`  透明度
+`fill: string`  column filling color<br />
+`stroke: string`  stroke color<br />
+`lineWidth: number`  line width<br />
+`lineDash: number[]`  line dash<br />
+`opacity: number`  opacity
 
-另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+In addition, it also supports callback function as configuration method. The input parameter is shape data, and the output parameter is a configuration object.
 
 ### tooltip
 

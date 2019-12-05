@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
-import Marker, { IMarker } from './component/marker';
+import Marker, { MarkerConfig } from './component/marker';
 import * as EventParser from './event';
 
 export interface ProgressViewConfig extends TinyViewConfig {
@@ -11,7 +11,7 @@ export interface ProgressViewConfig extends TinyViewConfig {
   progressStyle?: any; // FIXME:
   percent?: number;
   size?: number;
-  marker?: IMarker;
+  marker?: MarkerConfig;
   barSize?: number;
   barStyle?: any;
 }
@@ -34,7 +34,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
    */
 
   public type: string = 'progress';
-  protected markers: IMarker[] = [];
+  protected markers: MarkerConfig[] = [];
 
   public processProps() {
     let props = this.options;
@@ -68,10 +68,10 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   public destroy() {
     if (this.markers && this.markers.length > 0) {
       _.each(this.markers, (marker) => {
-        marker.destory();
+        marker.destroy();
       });
     }
-    super.destory();
+    super.destroy();
   }
 
   public afterRender() {

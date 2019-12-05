@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './component/label/bar-label';
@@ -130,7 +130,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return PLOT_GEOM_MAP[type];
   }
 
-  protected processData(data?: object[]): object[] {
+  protected processData(data?: DataItem[]): DataItem[] {
     return data ? data.slice().reverse() : data;
   }
 
@@ -207,8 +207,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return labelConfig;
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private applyResponsive(stage) {

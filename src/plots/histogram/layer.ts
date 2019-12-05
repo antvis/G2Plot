@@ -3,6 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
 import Column, { ColumnViewConfig } from '../column/layer';
+import { DataItem } from '../../interface/config';
 
 export interface HistogramViewConfig extends ColumnViewConfig {
   binField: string;
@@ -21,7 +22,7 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     super.init();
   }
 
-  protected processData(originData?: object[]) {
+  protected processData(originData?: DataItem[]) {
     const { binField, binWidth, binNumber } = this.options;
     const originData_copy = _.clone(originData);
     // 根据binField value对源数据进行排序

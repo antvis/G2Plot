@@ -35,7 +35,7 @@ With [AntV](https://antv.vision/en) design principles of data visualization, G2P
 
 ### Responsive
 
-G2Plot guarantees the readability of the charts in different sizes.
+G2Plot guarantees the readability of the charts in different sizes and data.
 
 <div align="center">
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" width="600" />

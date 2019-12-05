@@ -99,7 +99,3 @@ MIT
 ## Links
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - Online chart making tool based on G2Plot.
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/PW4OPnAKwy/a.svg" width="18"> [AntV](https://antv.vision/en) - Ant Financial Data Visualization Team.
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/NZDGg2q9Qo/empty.svg" width="18"> [G2](https://g2.antv.vision/en) - Professional JS charting library based on grammar of graphics.

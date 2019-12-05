@@ -8,7 +8,7 @@ import * as EventParser from './event';
 export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
   progressStyle?: any; // FIXME:
-  percent?: number; // FIXME:
+  percent?: number;
   size?: number;
 }
 
@@ -51,10 +51,13 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     super.init();
   }
 
-  public update(value) {
+  public update(value, style?) {
     const props = this.options;
     props.percent = value;
     this.changeData(this.processData());
+    if (style) {
+      this.styleUpdateAnimation(style);
+    }
   }
 
   protected geometryParser(dim: string, type: string): string {
@@ -82,6 +85,9 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
         type: 'stack',
       },
     ];
+    if (_.has(props, 'animation')) {
+      bar.animate = props.animation;
+    }
     this.setConfig('element', bar);
   }
 
@@ -123,6 +129,43 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       return 10;
     }
     return 4;
+  }
+
+  private styleUpdateAnimation(style) {
+    // style更新动画接受用户animation配置的透传
+    const { duration, easing } = this.getUpdateAnimationOptions();
+    // get geometry shapes
+    const progressShapes = [];
+    const { view } = this;
+    const geometry = view.get('elements');
+    _.each(geometry, (geom) => {
+      if (geom.get('shapeType') === 'interval') {
+        const shapes = geom.getShapes();
+        progressShapes.push(...shapes);
+      }
+    });
+    if (_.isArray(style)) {
+      _.each(style, (s, index) => {
+        progressShapes[index].animate(s, duration, easing);
+      });
+    } else {
+      progressShapes[0].animate(style, duration, easing);
+    }
+  }
+
+  private getUpdateAnimationOptions() {
+    let duration = 450;
+    let easing = 'easeQuadInOut';
+    const animationOptions = this.options.animation;
+    if (animationOptions && animationOptions.update) {
+      if (animationOptions.update.duration) {
+        duration = animationOptions.update.duration;
+      }
+      if (animationOptions.update.easing) {
+        easing = animationOptions.update.easing;
+      }
+    }
+    return { duration, easing };
   }
 }
 

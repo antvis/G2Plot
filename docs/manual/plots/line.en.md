@@ -1,5 +1,5 @@
 ---
-title: Line Chart
+title: Line
 order: 0
 ---
 

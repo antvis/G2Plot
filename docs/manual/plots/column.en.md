@@ -1,15 +1,15 @@
 ---
-title: Column - 基础柱状图
+title: Column
 order: 3
 ---
 
 <img src = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j4gkSL9OhCIAAAAAAAAAAABkARQnAQ' width = '400'>
 
-## 图表故事
+## Story
 
-柱状图用于描述分类数据之间的对比，如果我们把时间周期，如周、月、年，也理解为一种分类数据 (time category)，那么柱状图也可以用于描述时间周期之间的数值比较。
+Column chart is uesed to present the data comparison between catergories. It also capable of show numerical comparison between diffrent time periods, if we consider time periods, like week, month, year, as category (time category).
 
-## 数据类型
+## Data
 
 基础柱状图适合的数据类型为一个**分类字段**（类型）和一个**离散字段**（数值）。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
 
@@ -23,7 +23,7 @@ const data = [
 
 图表绘制时，每一个分类对应一根柱子，映射到 x 轴，而分类数值对应柱子的高度，映射到 y 轴。
 
-## 图表用法
+## Use
 
 - **Dont's**
   - 尽量避免在基础柱状图中使用颜色映射。
@@ -34,8 +34,6 @@ const data = [
   - 如果需要关注具体数据，可以考虑移除坐标轴，显示图形标签，使用户的注意力更加聚焦。
 
 ## API
-
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
 ### title
 
@@ -130,9 +128,9 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
 `formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object`  配置 label 文本
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br />
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object` 配置 label 文本
 
 ### events
 

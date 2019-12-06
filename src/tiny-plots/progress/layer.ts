@@ -5,6 +5,7 @@ import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import Marker, { MarkerConfig } from './component/marker';
 import * as EventParser from './event';
+import { EVENT_MAP } from './event';
 
 export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
@@ -92,18 +93,33 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       });
     }
 
-    this.view.on('interval:mouseenter', (ev) => {
+    const progressContainer = this.view.get('elements')[0].get('container');
+    const bbox = progressContainer.getBBox();
+    const rect = progressContainer.addShape('rect', {
+      attrs: {
+        width: bbox.width,
+        height: bbox.height,
+        x: bbox.minX,
+        y: bbox.minY,
+        fill: 'rgba(0,0,0,0)',
+      },
+    });
+    this.canvas.draw();
+
+    rect.on('mouseenter', (ev) => {
       this.isEntered = true;
+      this.view.emit('progress:mouseenter', ev);
     });
 
-    this.view.on('interval:mouseleave', (ev) => {
+    rect.on('mouseleave', (ev) => {
       this.isEntered = false;
+      this.view.emit('progress:mouseleave', ev);
     });
 
     const canvasDom = this.canvas.get('canvasDOM');
     canvasDom.addEventListener('mouseleave', (ev) => {
       if (this.isEntered) {
-        this.view.emit('initerval:mouseleave', ev);
+        this.view.emit('progress:mouseleave', ev);
         this.isEntered = false;
       }
     });

@@ -1,3 +1,7 @@
+## <small>0.11.4 (2019-12-06)</small>
+
+- 🐞 优化 tinyChart-progress 的 mouseleave 事件 ([52512d8](https://github.com/antvis/G2Plot/commit/52512d8))
+
 ## <small>0.11.3 (2019-12-05)</small>
 
 - 🌟tinyChart-progress update 方法支持第二个参数：更新时的样式配置,增加动画配置 ([b10719c](https://github.com/antvis/G2Plot/commit/b10719c))

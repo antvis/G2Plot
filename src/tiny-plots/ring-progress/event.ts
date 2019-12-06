@@ -2,14 +2,14 @@ import * as _ from '@antv/util';
 import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const SHAPE_EVENT_MAP: IEventmap = {
-  onProgressClick: 'interval:click',
-  onProgressDblclick: 'interval:dblclick',
-  onProgressMousemove: 'interval:mousemove',
-  onProgressMousedown: 'interval:mousedown',
-  onProgressMouseup: 'interval:mouseup',
-  onProgressMouseenter: 'interval:mouseenter',
-  onProgressMouseleave: 'interval:mouseleave',
-  onProgressContextmenu: 'interval:contextmenu',
+  onRingProgressClick: 'interval:click',
+  onRingProgressDblclick: 'interval:dblclick',
+  onRingProgressMousemove: 'interval:mousemove',
+  onRingProgressMousedown: 'interval:mousedown',
+  onRingProgressMouseup: 'interval:mouseup',
+  onRingProgressMouseenter: 'interval:mouseenter',
+  onRingProgressMouseleave: 'interval:mouseleave',
+  onRingProgressContextmenu: 'interval:contextmenu',
 };
 
 _.assign(EVENT_MAP, SHAPE_EVENT_MAP);

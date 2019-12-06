@@ -35,6 +35,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public type: string = 'progress';
   protected markers: MarkerConfig[] = [];
+  private isEntered = false;
 
   public processProps() {
     let props = this.options;
@@ -90,6 +91,22 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
         this.markers.push(marker);
       });
     }
+
+    this.view.on('interval:mouseenter', (ev) => {
+      this.isEntered = true;
+    });
+
+    this.view.on('interval:mouseleave', (ev) => {
+      this.isEntered = false;
+    });
+
+    const canvasDom = this.canvas.get('canvasDOM');
+    canvasDom.addEventListener('mouseleave', (ev) => {
+      if (this.isEntered) {
+        this.view.emit('initerval:mouseleave', ev);
+        this.isEntered = false;
+      }
+    });
   }
 
   protected geometryParser(dim: string, type: string): string {

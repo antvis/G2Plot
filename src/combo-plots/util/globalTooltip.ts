@@ -1,4 +1,4 @@
-import { each, contains, isArray, indexOf, isNil, deepMix } from '@antv/util';
+import { each, contains, isArray, isObject, indexOf, isNil, deepMix } from '@antv/util';
 import { Tooltip } from '@antv/component';
 import { getShapeFactory } from '@antv/g2';
 import { getGlobalTheme } from '../../theme/global';
@@ -27,9 +27,13 @@ export function showTooltip(canvas, layers) {
         });
       }
     });
-    tooltip.setContent('', tooltipItems);
-    tooltip.setPosition(point.x, point.y, ev.target);
-    tooltip.show();
+    if (tooltipItems.length > 0) {
+      tooltip.setContent('', getUniqueItems(tooltipItems));
+      tooltip.setPosition(point.x, point.y, ev.target);
+      tooltip.show();
+    } else if (tooltip.get('visible')) {
+      tooltip.hide();
+    }
   });
 }
 
@@ -84,4 +88,35 @@ function getItemMarker(geom, color) {
   const cfg = { color };
   const marker = shapeObject.getMarkerStyle(shape, cfg);
   return marker;
+}
+
+function getUniqueItems(items) {
+  const tmp = [];
+  each(items, (item) => {
+    const index = indexOfArray(tmp, item);
+    if (index === -1) {
+      tmp.push(item);
+    }
+  });
+  return tmp;
+}
+
+function indexOfArray(items, item) {
+  let rst = -1;
+  each(items, (sub, index: number) => {
+    let isEqual = true;
+    for (const key in item) {
+      if (item.hasOwnProperty(key)) {
+        if (!isObject(item[key]) && item[key] !== sub[key]) {
+          isEqual = false;
+          break;
+        }
+      }
+    }
+    if (isEqual) {
+      rst = index;
+      return false;
+    }
+  });
+  return rst;
 }

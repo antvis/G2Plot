@@ -1,5 +1,6 @@
 import Plot, { PlotConfig } from '../base/plot';
 import { deepMix } from '@antv/util';
+import ViewLayer from '../base/view-layer';
 
 export interface ComboPlotConfig extends PlotConfig {
   layers: ViewLayer[];

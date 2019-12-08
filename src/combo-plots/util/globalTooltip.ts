@@ -1,11 +1,16 @@
-import { each, contains, isArray, indexOf, isNil } from '@antv/util';
+import { each, contains, isArray, indexOf, isNil, deepMix } from '@antv/util';
+import { Tooltip } from '@antv/component';
 import { getShapeFactory } from '@antv/g2';
+import { getGlobalTheme } from '../../theme/global';
+import { Group } from '@antv/g';
 
 const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack'];
 
 export function showTooltip(canvas, layers) {
-  const tooltipItems = [];
+  const tooltip = renderTooltip(layers[0], canvas);
+
   canvas.on('mousemove', (ev) => {
+    const tooltipItems = [];
     const point = { x: ev.x / 2, y: ev.y / 2 };
     each(layers, (layer) => {
       const { view } = layer;
@@ -15,12 +20,16 @@ export function showTooltip(canvas, layers) {
         each(geoms, (geom) => {
           const type = geom.get('type');
           const dataArray = geom.get('dataArray');
-          if (contains(['area', 'line', 'path'], type)) {
-            getTooltipItems(point, geom, type, dataArray, coord);
+          if (contains(['area', 'line', 'path', 'interval'], type)) {
+            const items = getTooltipItems(point, geom, type, dataArray, coord);
+            tooltipItems.push(...items);
           }
         });
       }
     });
+    tooltip.setContent('', tooltipItems);
+    tooltip.setPosition(point.x, point.y, ev.target);
+    tooltip.show();
   });
 }
 
@@ -47,11 +56,25 @@ function getTooltipItems(point, geom, type, dataArray, coord) {
           }
         }
       });
-      items = items.concat(subItems);
+      items.push(...subItems);
     }
   });
-  console.log(items);
   return items;
+}
+
+function renderTooltip(layer, canvas) {
+  const tooltipTheme = getGlobalTheme().tooltip;
+  const options = {
+    panelGroup: new Group(),
+    panelRange: layer.view.get('panelRange'),
+    capture: false,
+    canvas,
+    frontgroundGroup: new Group(),
+    theme: tooltipTheme,
+    backgroundGroup: null,
+  };
+
+  return new Tooltip.Html(options);
 }
 
 function getItemMarker(geom, color) {

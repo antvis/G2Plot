@@ -170,8 +170,6 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
     defaultStyle = adjustColorStyle(scale.color, parser);
   }
 
-  console.log(parser);
-
   const axisConfig = _.deepMix(
     {},
     parser,

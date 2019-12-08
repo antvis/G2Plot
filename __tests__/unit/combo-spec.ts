@@ -88,17 +88,7 @@ describe('Combo plot', () => {
       yAxis: {
         visible: true,
         colorMapping: true,
-        synchroTick: false,
-        line: {
-          visible: false,
-        },
-        tickLine: {
-          visible: true,
-          style: {
-            stroke: 'red',
-            lineWidth: 1,
-          },
-        },
+        synchroTick: true,
       },
       xAxis: {
         visible: true,
@@ -111,6 +101,9 @@ describe('Combo plot', () => {
           xField: 'time',
           yField: 'value',
           groupField: 'type',
+          tooltip: {
+            visible: false,
+          },
         },
         {
           type: 'line',
@@ -119,6 +112,9 @@ describe('Combo plot', () => {
           xField: 'time',
           yField: 'value',
           color: '#f8ca45',
+          tooltip: {
+            visible: false,
+          },
         },
       ],
     });

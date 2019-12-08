@@ -63,6 +63,9 @@ export default class OverlappedComboPlot<
       label: {
         visible: false,
       },
+      tooltip: {
+        visible: false,
+      },
     };
   }
 
@@ -81,7 +84,7 @@ export default class OverlappedComboPlot<
     if (props.layers.length > 0) {
       /** create layers */
       _.each(props.layers, (layerCfg) => {
-        const overlapConfig = this.isOverlapped ? this.getOverlappedConfig(layerCfg) : {};
+        const overlapConfig = this.getOverlappedConfig(layerCfg);
         const viewLayerCtr = getPlotType(layerCfg.type);
         const viewLayerProps: T = _.deepMix(
           {},
@@ -108,6 +111,7 @@ export default class OverlappedComboPlot<
       width: this.width,
       height: this.height,
     });
+
     const legend = this.overlappingLegend();
     this.paddingComponents.push(legend);
     this.overlappingLayout();
@@ -164,6 +168,17 @@ export default class OverlappedComboPlot<
         padding,
       });
       layer.render();
+      // layer.view.get('frontGroup').get('backShape').remove();
+      layer.view
+        .get('backgroundGroup')
+        .get('backShape')
+        .set('capture', false);
+      layer.view
+        .get('panelGroup')
+        .get('backShape')
+        .set('capture', false);
     });
+
+    ComboUtil.showTooltip(this.canvas, this.layers);
   }
 }

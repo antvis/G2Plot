@@ -1,9 +1,9 @@
-import ComboPlot, { ComboPlotConfig } from './base.ts';
+import ComboPlot, { ComboPlotConfig } from './base';
 import { Group } from '@antv/g';
 import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
-import ViewLayer from '../base/view-layer';
+
 import '../index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
@@ -14,6 +14,15 @@ export interface OverlappedComboPlotConfig extends ComboPlotConfig {}
 export default class OverlappedComboPlot<
   T extends OverlappedComboPlotConfig = OverlappedComboPlotConfig
 > extends ComboPlot<T> {
+  protected isOverlapped: boolean;
+  protected topLayer: Layer;
+  protected backLayer: Layer;
+  protected legendInfo: any[];
+  protected axisInfo: any[];
+  protected legendContainer: Group;
+  protected paddingComponents: any[];
+  protected globalOptions: any;
+
   public getDefaultOptions() {
     return {
       xAxis: {

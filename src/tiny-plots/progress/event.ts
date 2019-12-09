@@ -7,8 +7,8 @@ const SHAPE_EVENT_MAP: IEventmap = {
   onProgressMousemove: 'interval:mousemove',
   onProgressMousedown: 'interval:mousedown',
   onProgressMouseup: 'interval:mouseup',
-  onProgressMouseenter: 'interval:mouseenter',
-  onProgressMouseleave: 'interval:mouseleave',
+  onProgressMouseenter: 'progress:mouseenter',
+  onProgressMouseleave: 'progress:mouseleave',
   onProgressContextmenu: 'interval:contextmenu',
 };
 

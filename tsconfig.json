@@ -4,6 +4,7 @@
     "sourceMap": true,
     "target": "es5",
     "outDir": "lib",
+    "declaration": true,
     "importHelpers": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,

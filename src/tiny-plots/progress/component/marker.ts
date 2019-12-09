@@ -31,7 +31,23 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
     }
   }
 
-  public update() {}
+  public update(cfg, duration, easing) {
+    let updateCfg: any = {};
+    _.assign(this, cfg);
+    this.coord = this.view.get('coord');
+    if (cfg.value) {
+      const x = this.coord.convert({ x: 0, y: this.value }).x;
+      const matrix = [1, 0, 0, 0, 1, 0, x, 0, 1];
+      updateCfg.matrix = matrix;
+    }
+    if (cfg.style) {
+      const origin_attr = this.shape.attrs;
+      const attrs = _.deepMix({}, origin_attr, cfg.style);
+      updateCfg = _.deepMix({}, attrs, updateCfg);
+    }
+    this.shape.stopAnimate();
+    this.shape.animate(updateCfg, duration, easing);
+  }
 
   protected init() {
     this.coord = this.view.get('coord');
@@ -43,13 +59,14 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
     this.shape = this.container.addShape('path', {
       attrs: {
         path: [
-          ['M', x, y0],
-          ['L', x, y1],
+          ['M', 0, y0],
+          ['L', 0, y1],
         ],
         ...style,
       },
       name: 'progress-marker',
     });
+    this.shape.move(x, 0);
     this.canvas.draw();
   }
 }

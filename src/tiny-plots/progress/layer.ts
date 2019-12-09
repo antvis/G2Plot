@@ -35,7 +35,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
    */
 
   public type: string = 'progress';
-  protected markers: MarkerConfig[] = [];
+  protected markers: MarkerConfig[];
   private isEntered = false;
 
   public processProps() {
@@ -57,15 +57,6 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     this.processProps();
     super.init();
   }
-
-  /*public update(value, style?) {
-    const props = this.options;
-    props.percent = value;
-    this.changeData(this.processData());
-    if (style) {
-      this.styleUpdateAnimation(style);
-    }
-  }*/
 
   public update(cfg) {
     const props = this.options;
@@ -92,6 +83,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     }
 
     if (cfg.marker) {
+      this.updateMarkers(cfg.marker);
     }
   }
 
@@ -100,12 +92,13 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       _.each(this.markers, (marker) => {
         marker.destroy();
       });
+      this.markers = [];
     }
     super.destroy();
   }
 
   public afterRender() {
-    if (this.options.marker) {
+    if (this.options.marker && !this.markers) {
       this.markers = [];
       _.each(this.options.marker, (cfg) => {
         const markerCfg = _.mix(
@@ -214,6 +207,35 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       { type: 'rest', value: 1.0 - props.percent },
     ];
     return data;
+  }
+
+  protected updateMarkers(markerCfg) {
+    const markerLength = markerCfg.length;
+    const animationOptions = this.getUpdateAnimationOptions();
+    // marker diff
+    _.each(this.markers, (marker, index) => {
+      if (index > markerLength - 1) {
+        marker.destroy();
+      } else {
+        marker.update(markerCfg[index], animationOptions.duration, animationOptions.easing);
+      }
+    });
+    // add new markers
+    if (this.markers.length < markerLength) {
+      const startIndex = this.markers.length;
+      for (let i = startIndex; i < markerLength; i++) {
+        const cfg = _.mix(
+          {
+            canvas: this.canvas,
+            view: this.view,
+            progressSize: this.options.barSize,
+          },
+          markerCfg[i]
+        );
+        const marker = new Marker(cfg);
+        this.markers.push(marker);
+      }
+    }
   }
 
   private getSize() {

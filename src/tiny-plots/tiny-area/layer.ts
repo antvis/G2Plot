@@ -10,7 +10,7 @@ const GEOM_MAP = {
   line: 'line',
 };
 
-export interface TinyAreaViewConfig extends TinyViewConfig {}
+export type TinyAreaViewConfig = TinyViewConfig;
 export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {}
 
 export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {

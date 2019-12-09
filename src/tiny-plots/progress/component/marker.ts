@@ -31,6 +31,8 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
     }
   }
 
+  public update() {}
+
   protected init() {
     this.coord = this.view.get('coord');
     this.container = this.view.get('container');

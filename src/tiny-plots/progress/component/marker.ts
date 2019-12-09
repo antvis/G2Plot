@@ -31,7 +31,7 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
     }
   }
 
-  public update(cfg, duration, easing) {
+  public update(cfg: MarkerConfig, duration: number, easing: string) {
     let updateCfg: any = {};
     _.assign(this, cfg);
     this.coord = this.view.get('coord');

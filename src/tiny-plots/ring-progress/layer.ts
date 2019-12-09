@@ -9,7 +9,7 @@ import * as EventParser from './event';
 
 const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
 
-export interface RingProgressViewConfig extends ProgressViewConfig {}
+export type RingProgressViewConfig = ProgressViewConfig;
 export interface RingProgressLayerConfig extends RingProgressViewConfig, LayerConfig {}
 
 export default class RingProgressLayer extends ProgressLayer<RingProgressLayerConfig> {

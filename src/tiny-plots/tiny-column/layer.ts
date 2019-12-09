@@ -15,7 +15,7 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export interface TinyColumnViewConfig extends TinyViewConfig {}
+export type TinyColumnViewConfig = TinyViewConfig;
 export interface TinyColumnLayerConfig extends TinyColumnViewConfig, LayerConfig {}
 
 export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {

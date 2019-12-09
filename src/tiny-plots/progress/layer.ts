@@ -5,16 +5,22 @@ import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import Marker, { MarkerConfig } from './component/marker';
 import * as EventParser from './event';
-import { EVENT_MAP } from './event';
 
 export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
   progressStyle?: any; // FIXME:
   percent?: number;
   size?: number;
-  marker?: MarkerConfig;
+  marker?: MarkerConfig[];
   barSize?: number;
   barStyle?: any;
+}
+
+interface UpdateConfig {
+  percent?: number;
+  color?: string | string[];
+  style?: {} | {}[];
+  marker: MarkerConfig[];
 }
 
 export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}
@@ -58,7 +64,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     super.init();
   }
 
-  public update(cfg) {
+  public update(cfg: UpdateConfig) {
     const props = this.options;
     if (cfg.percent) {
       props.percent = cfg.percent;
@@ -210,7 +216,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     return data;
   }
 
-  protected updateMarkers(markerCfg) {
+  protected updateMarkers(markerCfg: MarkerConfig[]) {
     const markerLength = markerCfg.length;
     const animationOptions = this.getUpdateAnimationOptions();
     // marker diff
@@ -225,7 +231,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     if (this.markers.length < markerLength) {
       const startIndex = this.markers.length;
       for (let i = startIndex; i < markerLength; i++) {
-        const cfg = _.mix(
+        const cfg = _.deepMix(
+          {},
           {
             canvas: this.canvas,
             view: this.view,

@@ -57,12 +57,40 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     super.init();
   }
 
-  public update(value, style?) {
+  /*public update(value, style?) {
     const props = this.options;
     props.percent = value;
     this.changeData(this.processData());
     if (style) {
       this.styleUpdateAnimation(style);
+    }
+  }*/
+
+  public update(cfg) {
+    const props = this.options;
+    if (cfg.percent) {
+      props.percent = cfg.percent;
+      this.changeData(this.processData());
+    }
+
+    if (cfg.style) {
+      this.styleUpdateAnimation(cfg.style);
+      this.updateColorConfigByStyle(cfg.style);
+    }
+
+    if (cfg.color) {
+      let style;
+      if (_.isArray(cfg.color)) {
+        this.options.color = cfg.color;
+        style = [{ fill: cfg.color[0] }, { fill: cfg.color[1] }];
+      } else {
+        this.options.color[0] = cfg.color;
+        style = { fill: cfg.color };
+      }
+      this.styleUpdateAnimation(style);
+    }
+
+    if (cfg.marker) {
     }
   }
 
@@ -215,6 +243,18 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       }
     }
     return { duration, easing };
+  }
+
+  private updateColorConfigByStyle(style) {
+    if (_.isArray(style)) {
+      _.each(style, (s, index) => {
+        if (s.fill) {
+          this.options.color[index] = s.fill;
+        }
+      });
+    } else if (style.fill) {
+      this.options.color[0] = style.fill;
+    }
   }
 }
 

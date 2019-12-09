@@ -84,6 +84,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
     if (cfg.marker) {
       this.updateMarkers(cfg.marker);
+      this.options.marker = cfg.marker;
     }
   }
 

@@ -1,3 +1,10 @@
+## <small>0.11.5 (2019-12-09)</small>
+
+- 🐞 miniChart-progress 使用代理shape解决mouseenter & mouseleave问题([63253c6](https://github.com/antvis/G2Plot/commit/63253c6))
+- 🐞 column chart无法正确绘制timecat数据([2950739](https://github.com/antvis/G2Plot/commit/2950739))
+- 🌟 miniChart-progress 更强大的update()方法 ([b77d489](https://github.com/antvis/G2Plot/commit/b77d489))
+- 🌟 export declaration file ([6f73e29](https://github.com/antvis/G2Plot/commit/6f73e29))
+
 ## <small>0.11.4 (2019-12-06)</small>
 
 - 🐞 优化 tinyChart-progress 的 mouseleave 事件 ([52512d8](https://github.com/antvis/G2Plot/commit/52512d8))

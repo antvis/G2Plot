@@ -66,7 +66,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public update(cfg: UpdateConfig) {
     const props = this.options;
-    if (cfg.percent) {
+    if (_.hasKey(cfg, 'percent')) {
       props.percent = cfg.percent;
       this.changeData(this.processData());
     }

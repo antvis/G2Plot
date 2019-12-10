@@ -23,6 +23,7 @@
         "ignoreRestSiblings": true
       }
     ],
+    "no-constant-condition": 1,
     "no-inner-declarations": 1,
     "@typescript-eslint/no-empty-function": 1,
     "prettier/prettier": 2,

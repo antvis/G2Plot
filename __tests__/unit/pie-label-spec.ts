@@ -163,6 +163,34 @@ describe('Pie plot with outer-label', () => {
     }
   });
 
+  it('when label offset < 0, all labels still outside element', () => {
+    const canvasDiv = createDiv('canvas-2');
+    const piePlot1 = new Pie(canvasDiv, {
+      ...pieConfig,
+      data,
+      radius: 0.5,
+      label: {
+        visible: true,
+        type: 'outer',
+        offset: -1,
+        formatter: (text, item) => {
+          return `${item._origin['type']} (${item._origin['value'].toFixed(2)})`;
+        },
+      },
+    });
+    piePlot1.render();
+    const plot = piePlot1.getLayer().view;
+    const element = plot.get('elements')[0];
+    const labelShapes: Shape[] = element.get('labels');
+    const coord = plot.get('coord');
+    labelShapes.forEach((label) => {
+      const distX = Math.abs(coord.getCenter().x - label.attr('x'));
+      const distY = Math.abs(coord.getCenter().y - label.attr('y'));
+      const dist = Math.sqrt(distX * distX + distY * distY);
+      expect(dist > coord.getRadius()).toBe(true);
+    });
+  });
+
   afterAll(() => {
     // piePlot.destroy();
   });

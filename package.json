@@ -50,20 +50,22 @@
     }
   },
   "dependencies": {
+    "@antv/g2": "~3.6.0-beta.6",
+    "@antv/gui": "~0.1.0",
+    "@antv/g-gesture": "~0.1.0",
+    "fecha": "~3.0.3",
+    "resize-observer-polyfill": "^1.5.1",
+    "tslib": "^1.10.0"
+  },
+  "peerDependencies": {
+    "@antv/g": "~3.5.0-beta.1",
     "@antv/component": "~0.4.0-beta.5",
     "@antv/coord": "~0.2.2",
     "@antv/dom-util": "~2.0.1",
     "@antv/event-emitter": "^0.1.1",
-    "@antv/g": "~3.5.0-beta.1",
-    "@antv/g-gesture": "~0.1.0",
-    "@antv/g2": "~3.6.0-beta.6",
-    "@antv/gui": "~0.1.0",
     "@antv/matrix-util": "~2.0.2",
     "@antv/scale": "^0.2.1",
-    "@antv/util": "~2.0.4",
-    "fecha": "~3.0.3",
-    "resize-observer-polyfill": "^1.5.1",
-    "tslib": "^1.10.0"
+    "@antv/util": "~2.0.4"
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.10.15",

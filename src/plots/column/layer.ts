@@ -119,7 +119,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const { options } = this;
     const scales = {};
     /** 配置x-scale */
-    scales[options.xField] = {};
+    scales[options.xField] = { type: 'cat' };
     if (_.has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
@@ -161,8 +161,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     }
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   protected extractLabel() {

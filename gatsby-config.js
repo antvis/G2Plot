@@ -115,11 +115,11 @@ module.exports = {
         },
       },
       {
-        slug: 'mini',
+        slug: 'sparkline',
         icon: 'other',
         title: {
           zh: '迷你图表',
-          en: 'Mini Chart',
+          en: 'Sparkline',
         },
       },
       {

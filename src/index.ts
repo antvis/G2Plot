@@ -28,12 +28,12 @@ export { default as StackArea, StackAreaConfig } from './plots/stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './plots/percentage-stack-area';
 
 // MINI 图形
-export { TinyLayerConfig } from './tiny-plots/tiny-layer';
-export { default as Progress, ProgressConfig } from './tiny-plots/progress';
-export { default as RingProgress } from './tiny-plots/ring-progress';
-export { default as TinyColumn } from './tiny-plots/tiny-column';
-export { default as TinyArea } from './tiny-plots/tiny-area';
-export { default as TinyLine } from './tiny-plots/tiny-line';
+export { TinyLayerConfig } from './sparkline/tiny-layer';
+export { default as Progress, ProgressConfig } from './sparkline/progress';
+export { default as RingProgress } from './sparkline/ring-progress';
+export { default as TinyColumn } from './sparkline/tiny-column';
+export { default as TinyArea } from './sparkline/tiny-area';
+export { default as TinyLine } from './sparkline/tiny-line';
 
 // 主题
 export { registerTheme, registerGlobalTheme } from './theme';

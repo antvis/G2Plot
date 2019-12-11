@@ -1,11 +1,14 @@
+import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { RecursivePartial } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
+import EventController from './controller/event';
 import { getPlotType } from './global';
 import Layer from './layer';
 import ViewLayer from './view-layer';
+import { CANVAS_EVENT_MAP } from '../util/event';
 
 export interface PlotConfig {
   forceFit?: boolean;
@@ -16,7 +19,7 @@ export interface PlotConfig {
   theme?: string | {};
 }
 
-export default class BasePlot<T extends PlotConfig = PlotConfig> {
+export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEmitter {
   public width: number;
   public height: number;
   public forceFit: boolean;
@@ -27,9 +30,11 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
   public destroyed: boolean;
   protected layers: Array<Layer<any>>;
   private canvasController: CanvasController;
+  private eventController: EventController;
   private containerDOM: HTMLElement;
 
   constructor(container: HTMLElement, props: T) {
+    super();
     this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
     this.forceFit = !_.isNil(props.forceFit) ? props.forceFit : _.isNil(props.width) && _.isNil(props.height);
     this.renderer = props.renderer || 'canvas';
@@ -49,6 +54,15 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     this.destroyed = false;
 
     this.createLayers(props);
+
+    /** bind events */
+    this.eventController = new EventController({
+      plot: this,
+      canvas: this.canvasController.canvas,
+    });
+
+    this.eventController.bindEvents();
+    this.parseEvents(props);
   }
 
   /** 生命周期 */
@@ -57,6 +71,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
       layer.destroy();
     });
     this.canvasController.destroy();
+    this.eventController.clearEvents();
     this.layers = [];
     this.destroyed = true;
   }
@@ -172,6 +187,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
     return this.layers[idx];
   }
 
+  public getLayers() {
+    return this.layers;
+  }
+
   public render() {
     this.eachLayer((layer) => layer.render());
   }
@@ -184,7 +203,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
    * add children layer
    * @param layer
    */
-  protected addLayer(layer: Layer<any>) {
+  public addLayer(layer: Layer<any>) {
     const idx = _.findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       this.layers.push(layer);
@@ -205,6 +224,19 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> {
       });
       const viewLayer = new viewLayerCtr(viewLayerProps);
       this.addLayer(viewLayer);
+    }
+  }
+
+  protected parseEvents(props) {
+    const eventsName = _.keys(CANVAS_EVENT_MAP);
+    if (props.events) {
+      _.each(props.events, (e, k) => {
+        if (_.contains(eventsName, k) && _.isFunction(e)) {
+          const eventName = CANVAS_EVENT_MAP[k] || k;
+          const handler = e;
+          this.on(eventName, handler);
+        }
+      });
     }
   }
 }

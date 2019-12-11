@@ -2,7 +2,7 @@ name: Release
 
 on:
   release:
-    types: [created]
+    types: [created, edited]
 
 jobs:
   build:
@@ -26,12 +26,18 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm run site:build
-      - uses: JamesIves/github-pages-deploy-action@releases/v3
+      - run: |
+          cd public
+          git init
+          git config --local user.name antv
+          git config --local user.email antv@antfin.com
+          git commit -am "update by release action"
+      - uses: ad-m/github-push-action@master
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: public
-          CLEAN: true
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          directory: public
+          branch: gh-pages
+          force: true
 
   publish-npm:
     needs: build

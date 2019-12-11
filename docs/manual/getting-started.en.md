@@ -9,7 +9,13 @@ order: 1
 
 ```html
 <!-- import CDN source -->
-<script src="https://gw.alipayobjects.com/os/lib/antv/g2plot/0.11.1/dist/g2plot.min.js"></script>
+<script src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
+<script>
+  const plot = new G2Plot.Line(document.getElementById('app'), {
+    // ...
+  });
+  plot.render();
+</script>
 ```
 
 ```html

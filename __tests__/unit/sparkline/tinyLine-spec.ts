@@ -1,4 +1,4 @@
-import TinyLine from '../../../src/tiny-plots/tiny-line';
+import TinyLine from '../../../src/sparkline/tiny-line';
 import { income } from '../../data/income';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';

@@ -8,6 +8,7 @@ import { getGeom } from '../../geoms/factory';
 import { Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
+import './component/label/outer-label';
 import * as EventParser from './event';
 import './theme';
 import { LineStyle } from '../line/layer';
@@ -188,7 +189,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
     // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
     let labelType = labelConfig.type;
-    if (['inner', 'outer', 'spider'].indexOf(labelType) !== -1) {
+    if (['inner', 'spider'].indexOf(labelType) !== -1) {
       labelType = null;
     }
     this.pie.label = getComponent('label', {

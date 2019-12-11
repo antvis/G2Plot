@@ -68,7 +68,7 @@
     "@antv/util": "~2.0.4"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.10.0",
+    "@antv/gatsby-theme-antv": "^0.10.15",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",

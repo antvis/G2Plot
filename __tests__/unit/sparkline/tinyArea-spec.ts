@@ -1,4 +1,4 @@
-import TinyArea from '../../../src/tiny-plots/tiny-area';
+import TinyArea from '../../../src/sparkline/tiny-area';
 import { fireWorks } from '../../data/fireworks-sales';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';

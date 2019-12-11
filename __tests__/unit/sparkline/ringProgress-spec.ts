@@ -1,4 +1,4 @@
-import RingProgress from '../../../src/tiny-plots/ring-progress';
+import RingProgress from '../../../src/sparkline/ring-progress';
 
 describe.skip('progress', () => {
   const canvasDiv = document.createElement('div');

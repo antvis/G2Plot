@@ -1,5 +1,5 @@
 ---
-title: Multiple Mini Chart
+title: Sparkline
 order: 1
 ---
 

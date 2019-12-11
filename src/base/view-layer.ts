@@ -223,6 +223,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       start: { x: viewRange.minX, y: viewRange.minY },
       end: { x: viewRange.maxX, y: viewRange.maxY },
     });
+    console.log(this.view);
     this.applyInteractions();
     this.view.on('afterrender', () => {
       this.afterRender();

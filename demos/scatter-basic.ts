@@ -9,6 +9,10 @@ $.get('data/country-economy.json', function(data) {
     xField: 'GDP',
     yField: 'LifeExpectancy',
     colorFields: 'continent',
+    quadrant: {
+      xBaseline: 20000,
+      yBaseline: 70,
+    },
   });
   scatterPlot.render();
 });

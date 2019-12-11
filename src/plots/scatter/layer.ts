@@ -5,6 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import { extractScale } from '../../util/scale';
+import Quadrant, { IQuadrant, QuadrantConfig } from './components/quadrant';
 import * as EventParser from '../bubble/event';
 
 interface PointStyle {
@@ -37,6 +38,7 @@ export interface ScatterViewConfig extends ViewConfig {
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   /** y 轴配置 */
   yAxis?: IValueAxis;
+  quadrant?: QuadrantConfig;
 }
 
 export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
@@ -66,8 +68,19 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   }
 
   public type: string = 'scatter';
-
   public points: any;
+  protected quadrant: Quadrant;
+
+  public afterRender() {
+    if (this.options.quadrant) {
+      this.quadrant = new Quadrant({
+        view: this.view,
+        plotOptions: this.options,
+        ...this.options.quadrant,
+      });
+      this.quadrant.render();
+    }
+  }
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

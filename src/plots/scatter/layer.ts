@@ -114,8 +114,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     }
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

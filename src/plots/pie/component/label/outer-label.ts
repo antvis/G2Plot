@@ -36,7 +36,7 @@ class OuterPieLabel extends BasePieLabel {
     const r = coord.getRadius();
     labels.forEach((l, idx) => {
       const item = items[idx];
-      const offset = this.getOffsetOfLabel(item);
+      const offset = this.getOffsetOfLabel();
       const pos = getEndPoint(center, item.angle, r + offset);
       l.attr('x', pos.x + (item.textAlign === 'left' ? 12 : -12));
       l.attr('y', pos.y);
@@ -57,7 +57,7 @@ class OuterPieLabel extends BasePieLabel {
     const center = coord.getCenter();
     const filterLabels = labels.filter((l, idx) => l.attr('textAlign') === 'left' && items[idx].angle < 0);
     const labelHeight = _.head(filterLabels).getBBox().height;
-    const offset = this.getOffsetOfLabel(_.head(filterLabels));
+    const offset = this.getOffsetOfLabel();
     for (let idx = 0; idx < filterLabels.length; idx += 1) {
       const l = filterLabels[idx];
       const box = l.getBBox();
@@ -111,7 +111,7 @@ class OuterPieLabel extends BasePieLabel {
   private _adjustRigthBottomLabels(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
     const filterLabels = labels.filter((l, idx) => l.attr('textAlign') === 'left' && items[idx].angle >= 0);
     const labelHeight = _.head(filterLabels).getBBox().height;
-    const offset = this.getOffsetOfLabel(_.head(filterLabels));
+    const offset = this.getOffsetOfLabel();
     const center = coord.getCenter();
     const lastRightTopLabel = _.last(labels.filter((l, idx) => l.attr('textAlign') === 'left' && items[idx].angle < 0));
     filterLabels.forEach((l, idx) => {
@@ -171,7 +171,7 @@ class OuterPieLabel extends BasePieLabel {
     const filterLabels = labels.filter(
       (l, idx) => l.attr('textAlign') === 'right' && items[idx].angle >= 0 && items[idx].angle <= Math.PI
     );
-    const offset = this.getOffsetOfLabel(_.head(filterLabels));
+    const offset = this.getOffsetOfLabel();
     const labelHeight = _.head(filterLabels).getBBox().height;
     // filterLabels.forEach((l, idx) => {
     for (let idx = 0; idx < filterLabels.length; idx += 1) {
@@ -235,7 +235,7 @@ class OuterPieLabel extends BasePieLabel {
       (l, idx) => l.attr('textAlign') === 'right' && (items[idx].angle < 0 || items[idx].angle > Math.PI)
     );
     const labelHeight = _.head(filterLabels).getBBox().height;
-    const offset = this.getOffsetOfLabel(_.head(filterLabels));
+    const offset = this.getOffsetOfLabel();
     const lastLeftBottomLabel = _.last(
       labels.filter((l, idx) => l.attr('textAlign') === 'right' && items[idx].angle >= 0 && items[idx].angle <= Math.PI)
     );
@@ -294,7 +294,7 @@ class OuterPieLabel extends BasePieLabel {
     const r = coord.getRadius();
     const start = getEndPoint(center, angle, r);
     const end = { x: label.attr('x') - (item.textAlign === 'left' ? 4 : -4), y: label.attr('y') };
-    const offset = this.getOffsetOfLabel(item);
+    const offset = this.getOffsetOfLabel();
     const alignment = item.textAlign;
     const breakAt = getEndPoint(center, angle, r + offset);
     breakAt.x = alignment === 'left' ? Math.min(breakAt.x, end.x) : Math.max(breakAt.x, end.x);
@@ -303,10 +303,15 @@ class OuterPieLabel extends BasePieLabel {
   }
 
   /** 获取label offset, 默认 16px 不允许 <= 0 */
-  private getOffsetOfLabel(labelItem: LabelItem): number {
-    // @ts-ignore
-    const offset = (labelItem && labelItem.offset) || DEFAULT_OFFSET;
-    return offset > 0 ? offset : 1;
+  private getOffsetOfLabel(): number {
+    const labelOptions = this.get('labelOptions');
+    const offset = labelOptions.offset;
+    return offset === undefined ? DEFAULT_OFFSET : offset > 0 ? offset : 1;
+  }
+
+  public getDefaultOffset(point) {
+    const offset = super.getDefaultOffset(point);
+    return offset === undefined ? DEFAULT_OFFSET : offset > 0 ? offset : 1;
   }
 }
 

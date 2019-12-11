@@ -1,4 +1,4 @@
-import Progress from '../../../src/tiny-plots/progress';
+import Progress from '../../../src/sparkline/progress';
 
 describe.skip('progress', () => {
   const canvasDiv = document.createElement('div');

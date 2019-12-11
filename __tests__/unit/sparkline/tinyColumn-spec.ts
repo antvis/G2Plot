@@ -1,4 +1,4 @@
-import TinyColumn from '../../../src/tiny-plots/tiny-column';
+import TinyColumn from '../../../src/sparkline/tiny-column';
 import { getMean, getMedian } from '../../../src/util/math';
 import * as _ from '@antv/util';
 

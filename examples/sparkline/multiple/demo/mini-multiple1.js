@@ -12,7 +12,7 @@ const CSS = `
   display: table-header-group;
   vertical-align: middle;
   border-bottom-color: #e8e8e8;
-  border-bottom-style: solid;
+  border-bottom-style: solid;9
   border-bottom-width: 1px;
   background-color: #fafafa
 }

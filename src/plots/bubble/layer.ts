@@ -10,8 +10,14 @@ import './component/label/bubble-label';
 import * as EventParser from './event';
 
 interface BubbleStyle {
+  /** 圆边大小 */
+  lineWidth?: number;
+  /** 圆边透明度 */
+  strokeOpacity?: number;
+  /** 填充透明度 */
+  fillOpacity?: number;
+  /** 整体透明度 */
   opacity?: number;
-  lineDash?: number[];
 }
 
 const G2_GEOM_MAP = {
@@ -23,21 +29,32 @@ const PLOT_GEOM_MAP = {
 };
 
 export interface BubbleViewConfig extends ViewConfig {
-  /** TODO 待补充 */
-  bubbleStyle?: BubbleStyle | ((...args: any[]) => BubbleStyle);
+  /** 气泡大小 */
+  bubbleSize?: [number, number];
+  /** 气泡样式 */
+  bubbleStyle?: BubbleStyle | ((...args: any) => BubbleStyle);
   /** 气泡大小字段 */
   sizeField?: string;
   /** 气泡颜色字段 */
-  colorField?: string;
-  xAxis?: ICatAxis | ITimeAxis;
+  colorFields?: string | string[];
+  /** x 轴配置 */
+  xAxis?: ICatAxis | ITimeAxis | IValueAxis;
+  /** y 轴配置 */
   yAxis?: IValueAxis;
 }
 
 export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
 
-export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ViewLayer<T> {
+export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
+      bubbleSize: [8, 58],
+      bubbleStyle: {
+        lineWidth: 1,
+        strokeOpacity: 1,
+        fillOpacity: 0.4,
+        opacity: 0.65,
+      },
       tooltip: {
         visible: true,
         shared: false,
@@ -45,20 +62,21 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
           type: 'rect',
         },
       },
-      point: {
-        shape: 'circle',
-        size: [8, 58],
-        style: {
-          lineWidth: 1,
-          strokeOpacity: 1,
-          fillOpacity: 0.4,
-          opacity: 0.65,
-        },
-      },
       label: {
         visible: false,
         position: 'top',
       },
+      shape: 'circle',
+    });
+  }
+
+  public getOptions(props: T) {
+    const options = super.getOptions(props);
+
+    // 气泡图对外暴露 bubbleSize，geom 需要 pointSize
+    return _.deepMix({}, options, {
+      pointSize: options.bubbleSize,
+      pointStyle: options.bubbleStyle,
     });
   }
 
@@ -103,7 +121,7 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
       bubbles.label = this.extractLabel();
     }
 
-    /** 取消颜色的图例 */
+    /** 取消气泡大小图例 */
     this.setConfig('legends', {
       fields: {
         [props.sizeField]: false,
@@ -144,4 +162,4 @@ export default class BaseBubbleLayer<T extends BubbleLayerConfig = BubbleLayerCo
   }
 }
 
-registerPlotType('bubble', BaseBubbleLayer);
+registerPlotType('bubble', BubbleLayer);

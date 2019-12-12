@@ -41,6 +41,7 @@ export default class Quadrant {
   public init() {
     const { xBaseline, yBaseline } = this.options;
     const coord = this.view.get('coord');
+    // TODO: xBaseline和yBaseline支持百分比
     // 根据xBaseline和yBaseline分割象限
     const scales = this.view.get('scales');
     const xScale = scales[this.options.plotOptions.xField];
@@ -100,6 +101,7 @@ export default class Quadrant {
 
   public render() {
     if (this.regionData.length > 0) {
+      const defaultStyle = this.getDefaultStyle();
       const regionStyle = this.getRegionStyle(this.regionData);
       each(this.regionData, (d, index) => {
         const group = this.container.addGroup();
@@ -113,12 +115,22 @@ export default class Quadrant {
           },
           name: 'quadrant',
         });
+        if (this.options.label && this.options.label.text) {
+          const labelOptions = deepMix({}, defaultStyle.label, this.options.label);
+          const labelCfg = this.getLabelConfig(d, labelOptions);
+          const label = group.addShape('text', {
+            attrs: {
+              text: isArray(labelOptions.text) ? labelOptions.text[index] : labelOptions.text,
+              ...labelCfg,
+            },
+          });
+        }
         rect.setSilent('data', d);
         this.quadrantGroups.push(group);
       });
 
       //绘制象限辅助线
-      const lineStyle = deepMix({}, this.getDefaultStyle().line, this.options.lineStyle);
+      const lineStyle = deepMix({}, defaultStyle.line, this.options.lineStyle);
       each(this.lineData, (d) => {
         this.container.addShape('path', {
           attrs: {
@@ -162,7 +174,15 @@ export default class Quadrant {
         { fill: '#ffffff', opacity: 0 },
         { fill: '#000000', opacity: 0.05 },
       ],
-      label: {},
+      label: {
+        position: 'outter-inner',
+        offset: 10,
+        style: {
+          fontSize: 16,
+          fill: '#ccc',
+          // fontWeight: 100
+        },
+      },
     };
   }
 
@@ -192,5 +212,60 @@ export default class Quadrant {
     }
 
     return style;
+  }
+
+  private getLabelConfig(region, labelOptions) {
+    let x = 0;
+    let y = 0;
+    let style: any = {};
+    const { position } = labelOptions;
+    const pos = position.split('-');
+    const dim = region.name.split('-');
+    // x方向
+    if (dim[1] === 'left') {
+      if (pos[0] === 'inner') {
+        x = region.bbox.maxX - labelOptions.offset;
+        style.textAlign = 'right';
+      }
+      if (pos[0] === 'outter') {
+        x = region.bbox.minX + labelOptions.offset;
+        style.textAlign = 'left';
+      }
+    } else if (dim[1] === 'right') {
+      if (pos[0] === 'inner') {
+        x = region.bbox.minX + labelOptions.offset;
+        style.textAlign = 'left';
+      }
+      if (pos[0] === 'outter') {
+        x = region.bbox.maxX - labelOptions.offset;
+        style.textAlign = 'right';
+      }
+    }
+    // y方向
+    if (dim[0] === 'top') {
+      if (pos[1] === 'inner') {
+        y = region.bbox.maxY - labelOptions.offset;
+        style.textBaseline = 'bottom';
+      }
+      if (pos[1] === 'outter') {
+        y = region.bbox.minY + labelOptions.offset;
+        style.textBaseline = 'top';
+      }
+    } else if (dim[0] === 'bottom') {
+      if (pos[1] === 'inner') {
+        y = region.bbox.minY + labelOptions.offset;
+        style.textBaseline = 'top';
+      }
+      if (pos[1] === 'outter') {
+        y = region.bbox.maxY - labelOptions.offset;
+        style.textBaseline = 'bottom';
+      }
+    }
+    style = deepMix({}, labelOptions.style, style);
+    return {
+      x,
+      y,
+      ...style,
+    };
   }
 }

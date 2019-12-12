@@ -117,10 +117,9 @@ export default class Quadrant {
         });
         if (this.options.label && this.options.label.text) {
           const labelOptions = deepMix({}, defaultStyle.label, this.options.label);
-          const labelCfg = this.getLabelConfig(d, labelOptions);
+          const labelCfg = this.getLabelConfig(d, labelOptions, index);
           const label = group.addShape('text', {
             attrs: {
-              text: isArray(labelOptions.text) ? labelOptions.text[index] : labelOptions.text,
               ...labelCfg,
             },
           });
@@ -214,10 +213,16 @@ export default class Quadrant {
     return style;
   }
 
-  private getLabelConfig(region, labelOptions) {
+  private getLabelConfig(region, labelOptions, index) {
     let x = 0;
     let y = 0;
     let style: any = {};
+    let text = labelOptions.text;
+    if (isFunction(text)) {
+      text = text(region);
+    } else if (isArray(text)) {
+      text = text[index];
+    }
     const { position } = labelOptions;
     const pos = position.split('-');
     const dim = region.name.split('-');
@@ -265,6 +270,7 @@ export default class Quadrant {
     return {
       x,
       y,
+      text,
       ...style,
     };
   }

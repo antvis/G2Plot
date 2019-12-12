@@ -28,7 +28,7 @@ export default class Quadrant {
   protected yBaseline: number = 0;
   protected quadrantGroups: Group[] = [];
   protected container: Group;
-  protected regionData: BBox[] = [];
+  protected regionData: any[] = [];
   protected lineData: any[] = [];
 
   constructor(cfg: IQuadrant) {
@@ -68,13 +68,30 @@ export default class Quadrant {
         end: { x: coord.end.x, y: coord.end.y + coord.height * ratio },
       };
       this.lineData.push(horizontalLineData);
-      each(xRegion, (region) => {
-        const yRegion = [
-          new BBox(region.minX, region.minY, region.width, region.height * ratio),
-          new BBox(region.minX, region.minY + region.height * ratio, region.width, region.height * (1 - ratio)),
-        ];
-        this.regionData.push(...yRegion);
+      each(xRegion, (region, index) => {
+        const lastName = ['left', 'right'];
+        const upper = {
+          name: xRegion.length > 1 ? `top-${lastName[index]}` : 'top',
+          bbox: new BBox(region.minX, region.minY, region.width, region.height * ratio),
+        };
+        this.regionData.push(upper);
+        const lower = {
+          name: xRegion.length > 1 ? `bottom-${lastName[index]}` : 'bottom',
+          bbox: new BBox(region.minX, region.minY + region.height * ratio, region.width, region.height * (1 - ratio)),
+        };
+        this.regionData.push(lower);
       });
+    } else if (xRegion.length === 2) {
+      const left = {
+        name: 'left',
+        bbox: xRegion[0],
+      };
+      this.regionData.push(left);
+      const right = {
+        name: 'right',
+        bbox: xRegion[1],
+      };
+      this.regionData.push(right);
     }
     // 创建container
     this.container = this.view.get('backgroundGroup').addGroup();
@@ -86,15 +103,16 @@ export default class Quadrant {
         const group = this.container.addGroup();
         const rect = group.addShape('rect', {
           attrs: {
-            x: d.minX,
-            y: d.minY,
-            width: d.width,
-            height: d.height,
+            x: d.bbox.minX,
+            y: d.bbox.minY,
+            width: d.bbox.width,
+            height: d.bbox.height,
             fill: 'red',
             opacity: 0.2,
           },
+          name: 'quadrant',
         });
-
+        rect.setSilent('data', d);
         this.quadrantGroups.push(group);
       });
 

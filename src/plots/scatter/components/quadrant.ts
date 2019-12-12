@@ -111,8 +111,8 @@ export default class Quadrant {
           },
         });
       });
+      this.view.get('canvas').draw();
     }
-    this.view.get('canvas').draw();
   }
 
   public clear() {}

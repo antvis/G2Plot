@@ -100,6 +100,8 @@ title: API
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br />
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
 `style: object` 配置 label 文本
+`adjustColor: boolean` 自动调整 label 的文本颜色
+`adjustPosition: boolean` 自动调整 label 相对柱形的位置
 
 ### events
 

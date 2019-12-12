@@ -114,6 +114,7 @@ export interface Label {
   events?: IEvents;
   position?: string;
   adjustColor?: boolean;
+  adjustPosition?: boolean;
   /** 展示优化策略 */
 }
 

@@ -97,6 +97,11 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   public destroy() {
     if (this.quadrant) {
       this.quadrant.destroy();
+      this.quadrant = null;
+    }
+    if (this.trendline) {
+      this.trendline.destroy();
+      this.trendline = null;
     }
     super.destroy();
   }

@@ -1,5 +1,5 @@
 import { each, isArray, isFunction, deepMix, minBy, maxBy } from '@antv/util';
-import { Group, BBox } from '@antv/g';
+import { Group, BBox, Shape } from '@antv/g';
 import { View } from '@antv/g2';
 import { getScale } from '@antv/scale';
 import {
@@ -39,6 +39,7 @@ export default class Quadrant {
   protected options: any;
   protected view: View;
   protected container: Group;
+  protected shape: Shape;
 
   constructor(cfg: ITrendline) {
     const defaultOptions = {
@@ -85,7 +86,7 @@ export default class Quadrant {
       [1, 1],
     ];
     const path = getSplinePath(points, false, constraint);
-    this.container.addShape('path', {
+    this.shape = this.container.addShape('path', {
       attrs: {
         path,
         ...this.options.style,
@@ -93,9 +94,17 @@ export default class Quadrant {
     });
   }
 
-  public clear() {}
+  public clear() {
+    if (this.container) {
+      this.container.clear();
+    }
+  }
 
-  public destory() {}
+  public destroy() {
+    if (this.container) {
+      this.container.destroy();
+    }
+  }
 
   private processData(data) {
     const output = [];

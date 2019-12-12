@@ -18,6 +18,9 @@ $.get('data/country-economy.json', function(data) {
         { fill: 'white', opacity: 0 },
         { fill: 'white', opacity: 0 },
       ],
+      label: {
+        text: ['第一象限', '第二象限', '第三象限', '第四象限'],
+      },
     },
   });
   scatterPlot.render();

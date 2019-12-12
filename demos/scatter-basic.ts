@@ -12,6 +12,12 @@ $.get('data/country-economy.json', function(data) {
     quadrant: {
       xBaseline: 20000,
       yBaseline: 70,
+      regionStyle: [
+        { fill: 'black', opacity: 0.05 },
+        { fill: 'green', opacity: 0.05 },
+        { fill: 'white', opacity: 0 },
+        { fill: 'white', opacity: 0 },
+      ],
     },
   });
   scatterPlot.render();

@@ -1,4 +1,4 @@
-import { each } from '@antv/util';
+import { each, isArray, isFunction } from '@antv/util';
 import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
 
@@ -12,7 +12,7 @@ interface ILabel {
 export interface QuadrantConfig {
   xBaseline?: number;
   yBaseline?: number;
-  styles: any[];
+  regionStyle: any[] | any;
   label: ILabel;
 }
 
@@ -99,7 +99,8 @@ export default class Quadrant {
 
   public render() {
     if (this.regionData.length > 0) {
-      each(this.regionData, (d) => {
+      const regionStyle = this.getRegionStyle(this.regionData);
+      each(this.regionData, (d, index) => {
         const group = this.container.addGroup();
         const rect = group.addShape('rect', {
           attrs: {
@@ -107,8 +108,7 @@ export default class Quadrant {
             y: d.bbox.minY,
             width: d.bbox.width,
             height: d.bbox.height,
-            fill: 'red',
-            opacity: 0.2,
+            ...regionStyle[index],
           },
           name: 'quadrant',
         });
@@ -136,4 +136,52 @@ export default class Quadrant {
   public clear() {}
 
   public destroy() {}
+
+  protected getDefaultStyle() {
+    return {
+      line: {
+        stroke: '#9ba29a',
+        lineWidth: 1,
+      },
+      region_2: [
+        { fill: '#000000', opacity: 0.05 },
+        { fill: '#ffffff', opacity: 0 },
+      ],
+      region_4: [
+        { fill: '#000000', opacity: 0.05 },
+        { fill: '#ffffff', opacity: 0 },
+        { fill: '#ffffff', opacity: 0 },
+        { fill: '#000000', opacity: 0.05 },
+      ],
+      label: {},
+    };
+  }
+
+  private getRegionStyle(regionData) {
+    const regionNum = regionData.length;
+    const defaultStyle = this.getDefaultStyle();
+    let style;
+    if (regionNum === 2) {
+      style = defaultStyle.region_2;
+    } else {
+      style = defaultStyle.region_4;
+    }
+    if (this.options.regionStyle) {
+      const { regionStyle } = this.options;
+      if (isArray(regionStyle)) {
+        style = style.map((s, index) => {
+          if (regionStyle.length >= index) {
+            return regionStyle[index];
+          }
+          return s;
+        });
+      } else if (isFunction(regionStyle)) {
+        each(regionData, (d, index) => {
+          style[index] = regionStyle(d);
+        });
+      }
+    }
+
+    return style;
+  }
 }

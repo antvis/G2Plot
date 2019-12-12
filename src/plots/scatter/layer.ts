@@ -5,7 +5,8 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import Quadrant, { IQuadrant, QuadrantConfig } from './components/quadrant';
+import Quadrant, { QuadrantConfig } from './components/quadrant';
+import Trendline, { TrendlineConfig } from './components/trendline';
 import * as EventParser from '../bubble/event';
 
 interface PointStyle {
@@ -39,6 +40,7 @@ export interface ScatterViewConfig extends ViewConfig {
   /** y 轴配置 */
   yAxis?: IValueAxis;
   quadrant?: QuadrantConfig;
+  trendline?: TrendlineConfig;
 }
 
 export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
@@ -70,6 +72,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   public type: string = 'scatter';
   public points: any;
   protected quadrant: Quadrant;
+  protected trendline: Trendline;
 
   public afterRender() {
     super.afterRender();
@@ -80,6 +83,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         ...this.options.quadrant,
       });
       this.quadrant.render();
+    }
+    if (this.options.trendline) {
+      this.trendline = new Trendline({
+        view: this.view,
+        plotOptions: this.options,
+        ...this.options.trendline,
+      });
     }
   }
 

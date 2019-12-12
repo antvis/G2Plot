@@ -55,7 +55,8 @@
     "@antv/g-gesture": "~0.1.0",
     "fecha": "~3.0.3",
     "resize-observer-polyfill": "^1.5.1",
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "d3-regression": "^1.2.8"
   },
   "peerDependencies": {
     "@antv/g": "~3.5.0-beta.1",

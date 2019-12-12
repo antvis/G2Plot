@@ -22,6 +22,9 @@ $.get('data/country-economy.json', function(data) {
         text: ['第一象限', '第二象限', '第三象限', '第四象限'],
       },
     },
+    trendline: {
+      type: 'linear',
+    },
   });
   scatterPlot.render();
 });

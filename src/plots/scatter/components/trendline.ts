@@ -5,18 +5,19 @@ import { getScale } from '@antv/scale';
 import {
   regressionLinear,
   regressionExp,
-  regressionLoes,
+  regressionLoess,
   regressionLog,
   regressionPoly,
   regressionPow,
   regressionQuad,
 } from 'd3-regression';
+
 import { getSplinePath } from '../../../util/path';
 
 const REGRESSION_MAP = {
   exp: regressionExp,
   linear: regressionLinear,
-  loess: regressionLoes,
+  loess: regressionLoess,
   log: regressionLog,
   poly: regressionPoly,
   pow: regressionPow,
@@ -40,7 +41,17 @@ export default class Quadrant {
   protected container: Group;
 
   constructor(cfg: ITrendline) {
-    this.options = cfg;
+    const defaultOptions = {
+      type: 'linear',
+      style: {
+        stroke: '#9ba29a',
+        lineWidth: 2,
+        opacity: 0.5,
+        lineJoin: 'round',
+        lineCap: 'round',
+      },
+    };
+    this.options = deepMix({}, defaultOptions, cfg);
     this.view = this.options.view;
     this.init();
   }
@@ -77,8 +88,7 @@ export default class Quadrant {
     this.container.addShape('path', {
       attrs: {
         path,
-        stroke: 'black',
-        lineWidth: 1,
+        ...this.options.style,
       },
     });
   }

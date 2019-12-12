@@ -54,14 +54,16 @@ export class BarLabels extends ElementLabels {
     const labels = renderer.get('group').get('children');
     const items = renderer.get('items');
     const view = this.get('element').get('view');
+    const { adjustColor, adjustPosition } = this.get('labelOptions');
     _.each(labels, (label, index) => {
       const l = label as Shape;
       const item = items[index];
       const origin = l.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
-      this.adjustPosition(l, shape, item);
-      const { adjustColor } = this.get('labelOptions');
+      if (adjustPosition) {
+        this.adjustPosition(l, shape, item);
+      }
       if (adjustColor) {
         this.adjustColor(l, shape);
       }

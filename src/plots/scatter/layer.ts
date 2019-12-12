@@ -90,6 +90,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         plotOptions: this.options,
         ...this.options.trendline,
       });
+      this.trendline.render();
     }
   }
 

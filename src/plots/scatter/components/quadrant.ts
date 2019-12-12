@@ -134,9 +134,17 @@ export default class Quadrant {
     }
   }
 
-  public clear() {}
+  public clear() {
+    if (this.container) {
+      this.container.clear();
+    }
+  }
 
-  public destroy() {}
+  public destroy() {
+    if (this.container) {
+      this.container.remove();
+    }
+  }
 
   protected getDefaultStyle() {
     return {

@@ -72,7 +72,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   protected quadrant: Quadrant;
 
   public afterRender() {
-    if (this.options.quadrant) {
+    super.afterRender();
+    if (this.options.quadrant && !this.quadrant) {
       this.quadrant = new Quadrant({
         view: this.view,
         plotOptions: this.options,
@@ -80,6 +81,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       });
       this.quadrant.render();
     }
+  }
+
+  public destroy() {
+    if (this.quadrant) {
+      this.quadrant.destroy();
+    }
+    super.destroy();
   }
 
   protected geometryParser(dim, type) {

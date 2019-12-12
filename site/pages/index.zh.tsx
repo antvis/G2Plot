@@ -67,14 +67,14 @@ const IndexPage = () => {
       <SEO title={t('G2Plot 开箱即用的图表库')} titleSuffix="AntV" lang={i18n.language} />
       <Banner
         coverImage = {
-          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }
+          <img width="100%" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }
         title={t('G2Plot 开箱即用的图表库')}
         description={t(
           'G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',
         )}
         buttonText={t('继续了解')}
         buttonHref={`/${i18n.language}/docs/manual/getting-started`}
-        className='banner'
+        className="banner"
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
         buttons={bannerButtons}
       />

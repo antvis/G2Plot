@@ -1,4 +1,4 @@
-import { each, isArray, isFunction } from '@antv/util';
+import { each, isArray, isFunction, deepMix } from '@antv/util';
 import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
 
@@ -13,6 +13,7 @@ export interface QuadrantConfig {
   xBaseline?: number;
   yBaseline?: number;
   regionStyle: any[] | any;
+  lineStyle: any;
   label: ILabel;
 }
 
@@ -117,6 +118,7 @@ export default class Quadrant {
       });
 
       //绘制象限辅助线
+      const lineStyle = deepMix({}, this.getDefaultStyle().line, this.options.lineStyle);
       each(this.lineData, (d) => {
         this.container.addShape('path', {
           attrs: {
@@ -124,8 +126,7 @@ export default class Quadrant {
               ['M', d.start.x, d.start.y],
               ['L', d.end.x, d.end.y],
             ],
-            stroke: 'black',
-            lineWidth: 1,
+            ...lineStyle,
           },
         });
       });

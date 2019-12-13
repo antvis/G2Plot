@@ -10,6 +10,9 @@ $.get('data/country-economy.json', function(data) {
     yField: 'LifeExpectancy',
     sizeField: 'Population',
     colorFields: 'continent',
+    label: {
+      visible: true,
+    },
   });
   bubblePlot.render();
 });

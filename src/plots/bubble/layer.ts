@@ -162,7 +162,7 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
       plot: this,
     });
 
-    if (props.label) {
+    if (props.label && props.label.visible) {
       bubbles.label = this.extractLabel();
     }
 
@@ -201,6 +201,8 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
       plot: this,
       labelType: 'bubbleLabel',
       fields: [props.yField],
+      position: 'right',
+      offset: 0,
       ...label,
     });
     return labelConfig;

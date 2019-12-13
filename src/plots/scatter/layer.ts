@@ -54,6 +54,16 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         fillOpacity: 0.4,
         opacity: 0.65,
       },
+      xAxis: {
+        grid: {
+          visible: true,
+        },
+      },
+      yAxis: {
+        grid: {
+          visible: true,
+        },
+      },
       tooltip: {
         visible: true,
         shared: false,

@@ -60,6 +60,7 @@ $.get('data/country-economy.json', function(data) {
     },*/
     trendline: {
       type: 'quad',
+      showConfidence: true,
     },
   });
   scatterPlot.render();

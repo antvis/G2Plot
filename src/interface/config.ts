@@ -133,6 +133,7 @@ export interface Tooltip {
   visible: boolean;
   shared: boolean;
   /** html */
+  showTitle?: boolean;
   html?: HTMLDivElement;
   formatter?: (...args: any) => string;
   htmlContent?: (title: string, items: any[]) => string;
@@ -140,7 +141,7 @@ export interface Tooltip {
   itemTpl?: string;
   /** 辅助线 */
   crosshair?: 'x' | 'y' | 'cross' | boolean;
-  crosshairs?: { type: string }; // FIXME:
+  crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
   style?: IStyleConfig;
 }
 

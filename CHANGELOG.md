@@ -1,3 +1,11 @@
+## <small>0.11.6 (2019-12-12)</small>
+- 🐞 fix dependency version ([1369b34](https://github.com/antvis/G2Plot/commit/1369b34))
+
+- 🌟 pie label enhancement ([52e77c0](https://github.com/antvis/G2Plot/commit/52e77c0))
+
+- 🌟 column & bar chart label add adjustPosition option ([e0bbc53](https://github.com/antvis/G2Plot/commit/e0bbc53))
+
+
 ## <small>0.11.5 (2019-12-09)</small>
 
 - 🐞 miniChart-progress 使用代理shape解决mouseenter & mouseleave问题([63253c6](https://github.com/antvis/G2Plot/commit/63253c6))

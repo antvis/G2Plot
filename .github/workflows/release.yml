@@ -31,7 +31,8 @@ jobs:
           git init
           git config --local user.name antv
           git config --local user.email antv@antfin.com
-          git commit -am "update by release action"
+          git add .
+          git commit -m "update by release action"
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}

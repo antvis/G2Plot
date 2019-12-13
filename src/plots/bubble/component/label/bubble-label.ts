@@ -15,33 +15,34 @@ export class BubbleLabels extends ElementLabels {
     if (_.isFunction(position)) {
       position = position(originPoint);
     }
+    const { size } = originPoint;
+    const p = originPoint.points[0];
     const coord = this.get('coord');
-    const point0 = coord.convertPoint(originPoint.points[0]);
-    const point1 = coord.convertPoint(originPoint.points[2]);
-    const width = (point0.x - point1.x) / 2;
-    const height = (point0.y - point1.y) / 2;
+    const width = size;
+    const height = size;
 
     switch (position) {
       case 'right':
-        point.x -= width;
-        point.y += height;
+        point.x += width * 2;
         point.textAlign = point.textAlign || 'left';
         break;
       case 'left':
-        point.x += width;
-        point.y += height;
+        point.x -= width * 2;
         point.textAlign = point.textAlign || 'right';
         break;
       case 'bottom':
         point.y += height * 2;
         point.textAlign = point.textAlign || 'center';
+        point.textBaseline = 'top';
         break;
       case 'middle':
-        point.y += height;
+        point.textBaseline = 'middle';
         point.textAlign = point.textAlign || 'center';
         break;
       case 'top':
+        point.y -= height * 2;
         point.textAlign = point.textAlign || 'center';
+        point.textBaseline = 'bottom';
         break;
       default:
         break;
@@ -59,8 +60,11 @@ export class BubbleLabels extends ElementLabels {
       const origin = l.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
-      this.adjustPosition(l, shape, item);
-      if (_.has(this.get('labelOptions'), 'adjustColor')) {
+      const { adjustColor, adjustPosition } = this.get('labelOptions');
+      if (adjustPosition) {
+        this.adjustPosition(l, shape, item);
+      }
+      if (adjustColor) {
         this.adjustColor(l, shape);
       }
     });
@@ -83,9 +87,11 @@ export class BubbleLabels extends ElementLabels {
     const originData = shape.get('origin')._origin;
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
-    if (shapeRange.height <= labelRange.height && item.position !== 'top') {
-      const yPosition = shapeRange.minY - TOP_MARGIN;
-      label.attr('y', yPosition);
+    if (
+      shapeRange.height <= labelRange.height ||
+      (shapeRange.width <= labelRange.width && item.position === 'middle')
+    ) {
+      label.attr('text', '');
     }
   }
 

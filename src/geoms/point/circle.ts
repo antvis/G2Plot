@@ -29,9 +29,9 @@ export default class CircleParser extends ElementParser {
   public parseColor() {
     const props = this.plot.options;
     const config: DataPointType = {};
-    const colorFields = props.colorFields;
-    if (colorFields) {
-      config.fields = _.isArray(colorFields) ? colorFields : [colorFields];
+    const colorField = props.colorField;
+    if (colorField) {
+      config.fields = _.isArray(colorField) ? colorField : [colorField];
     }
     if (props.color) {
       this._parseColor(props, config);
@@ -66,9 +66,9 @@ export default class CircleParser extends ElementParser {
       callback: null,
       cfg: null,
     };
-    const colorFields = props.colorFields;
-    if (_.isFunction(styleProps) && colorFields) {
-      config.fields = _.isArray(colorFields) ? colorFields : [colorFields];
+    const colorField = props.colorField;
+    if (_.isFunction(styleProps) && colorField) {
+      config.fields = _.isArray(colorField) ? colorField : [colorField];
       config.callback = styleProps;
     } else {
       config.cfg = styleProps;

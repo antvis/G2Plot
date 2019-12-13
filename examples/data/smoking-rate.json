@@ -2,7 +2,7 @@
   {
     "iso3": "ARE",
     "change in female rate": -0.7,
-    "change in male rate&nbsp;<br>": 3.3000000000000043,
+    "change in male rate": 3.3000000000000043,
     "female_2000": 1.9,
     "male_2000": 34.3,
     "female_2015": 1.2,
@@ -24,7 +24,7 @@
   {
     "iso3": "ARG",
     "change in female rate": -20.2,
-    "change in male rate&nbsp;<br>": -16.8,
+    "change in male rate": -16.8,
     "female_2000": 36.4,
     "male_2000": 45.1,
     "female_2015": 16.2,
@@ -46,7 +46,7 @@
   {
     "iso3": "AUS",
     "change in female rate": -8.899999999999999,
-    "change in male rate&nbsp;<br>": -10.100000000000001,
+    "change in male rate": -10.100000000000001,
     "female_2000": 21.7,
     "male_2000": 26.6,
     "female_2015": 12.8,
@@ -68,7 +68,7 @@
   {
     "iso3": "AUT",
     "change in female rate": -14.400000000000002,
-    "change in male rate&nbsp;<br>": -23.499999999999996,
+    "change in male rate": -23.499999999999996,
     "female_2000": 39.7,
     "male_2000": 53.8,
     "female_2015": 25.3,
@@ -90,7 +90,7 @@
   {
     "iso3": "AZE",
     "change in female rate": -0.3,
-    "change in male rate&nbsp;<br>": -11.200000000000003,
+    "change in male rate": -11.200000000000003,
     "female_2000": 0.6,
     "male_2000": 54.5,
     "female_2015": 0.3,
@@ -112,7 +112,7 @@
   {
     "iso3": "BEL",
     "change in female rate": -5.399999999999999,
-    "change in male rate&nbsp;<br>": -12.600000000000001,
+    "change in male rate": -12.600000000000001,
     "female_2000": 28.4,
     "male_2000": 43.1,
     "female_2015": 23,
@@ -134,7 +134,7 @@
   {
     "iso3": "BEN",
     "change in female rate": -1.4,
-    "change in male rate&nbsp;<br>": -3.5,
+    "change in male rate": -3.5,
     "female_2000": 2,
     "male_2000": 15.1,
     "female_2015": 0.6,
@@ -156,7 +156,7 @@
   {
     "iso3": "BFA",
     "change in female rate": -5.800000000000001,
-    "change in male rate&nbsp;<br>": -2.900000000000002,
+    "change in male rate": -2.900000000000002,
     "female_2000": 7.4,
     "male_2000": 27.3,
     "female_2015": 1.6,
@@ -178,7 +178,7 @@
   {
     "iso3": "BGD",
     "change in female rate": -4.1,
-    "change in male rate&nbsp;<br>": -9.200000000000003,
+    "change in male rate": -9.200000000000003,
     "female_2000": 5.1,
     "male_2000": 53.6,
     "female_2015": 1,
@@ -200,7 +200,7 @@
   {
     "iso3": "BLR",
     "change in female rate": -2.8000000000000007,
-    "change in male rate&nbsp;<br>": -17.099999999999994,
+    "change in male rate": -17.099999999999994,
     "female_2000": 12,
     "male_2000": 64.6,
     "female_2015": 9.2,
@@ -222,7 +222,7 @@
   {
     "iso3": "BRA",
     "change in female rate": -9.200000000000001,
-    "change in male rate&nbsp;<br>": -11.399999999999999,
+    "change in male rate": -11.399999999999999,
     "female_2000": 19.8,
     "male_2000": 29.9,
     "female_2015": 10.6,
@@ -244,7 +244,7 @@
   {
     "iso3": "CAN",
     "change in female rate": -13.7,
-    "change in male rate&nbsp;<br>": -12.899999999999999,
+    "change in male rate": -12.899999999999999,
     "female_2000": 25.7,
     "male_2000": 29.7,
     "female_2015": 12,
@@ -266,7 +266,7 @@
   {
     "iso3": "CHE",
     "change in female rate": -2.8999999999999986,
-    "change in male rate&nbsp;<br>": -8.5,
+    "change in male rate": -8.5,
     "female_2000": 23.5,
     "male_2000": 36.5,
     "female_2015": 20.6,
@@ -288,7 +288,7 @@
   {
     "iso3": "CHL",
     "change in female rate": -20.800000000000004,
-    "change in male rate&nbsp;<br>": -18.800000000000004,
+    "change in male rate": -18.800000000000004,
     "female_2000": 54.1,
     "male_2000": 60.6,
     "female_2015": 33.3,
@@ -310,7 +310,7 @@
   {
     "iso3": "CHN",
     "change in female rate": -0.6999999999999997,
-    "change in male rate&nbsp;<br>": -5.899999999999999,
+    "change in male rate": -5.899999999999999,
     "female_2000": 2.9,
     "male_2000": 56.5,
     "female_2015": 2.2,
@@ -332,7 +332,7 @@
   {
     "iso3": "COL",
     "change in female rate": -7.800000000000001,
-    "change in male rate&nbsp;<br>": -12.6,
+    "change in male rate": -12.6,
     "female_2000": 12.8,
     "male_2000": 26.7,
     "female_2015": 5,
@@ -354,7 +354,7 @@
   {
     "iso3": "CUB",
     "change in female rate": -15,
-    "change in male rate&nbsp;<br>": -2.6999999999999957,
+    "change in male rate": -2.6999999999999957,
     "female_2000": 33.6,
     "male_2000": 58.8,
     "female_2015": 18.6,
@@ -376,7 +376,7 @@
   {
     "iso3": "CZE",
     "change in female rate": 0.1999999999999993,
-    "change in male rate&nbsp;<br>": -2.8000000000000043,
+    "change in male rate": -2.8000000000000043,
     "female_2000": 26.8,
     "male_2000": 39.7,
     "female_2015": 27,
@@ -398,7 +398,7 @@
   {
     "iso3": "DEU",
     "change in female rate": -3.400000000000002,
-    "change in male rate&nbsp;<br>": -8.299999999999997,
+    "change in male rate": -8.299999999999997,
     "female_2000": 27.1,
     "male_2000": 38.8,
     "female_2015": 23.7,
@@ -420,7 +420,7 @@
   {
     "iso3": "DOM",
     "change in female rate": -5.199999999999999,
-    "change in male rate&nbsp;<br>": -1.6999999999999993,
+    "change in male rate": -1.6999999999999993,
     "female_2000": 13.6,
     "male_2000": 19.9,
     "female_2015": 8.4,
@@ -442,7 +442,7 @@
   {
     "iso3": "DZA",
     "change in female rate": -4.8,
-    "change in male rate&nbsp;<br>": 2.799999999999997,
+    "change in male rate": 2.799999999999997,
     "female_2000": 5.6,
     "male_2000": 27.6,
     "female_2015": 0.8,
@@ -464,7 +464,7 @@
   {
     "iso3": "ECU",
     "change in female rate": -3.4999999999999996,
-    "change in male rate&nbsp;<br>": -8.899999999999999,
+    "change in male rate": -8.899999999999999,
     "female_2000": 5.6,
     "male_2000": 21.4,
     "female_2015": 2.1,
@@ -486,7 +486,7 @@
   {
     "iso3": "EGY",
     "change in female rate": -1.5,
-    "change in male rate&nbsp;<br>": 16.200000000000003,
+    "change in male rate": 16.200000000000003,
     "female_2000": 1.7,
     "male_2000": 31.9,
     "female_2015": 0.2,
@@ -508,7 +508,7 @@
   {
     "iso3": "ESP",
     "change in female rate": -5.699999999999999,
-    "change in male rate&nbsp;<br>": -15.599999999999998,
+    "change in male rate": -15.599999999999998,
     "female_2000": 28.3,
     "male_2000": 45.9,
     "female_2015": 22.6,
@@ -530,7 +530,7 @@
   {
     "iso3": "ETH",
     "change in female rate": -0.3,
-    "change in male rate&nbsp;<br>": -0.7000000000000011,
+    "change in male rate": -0.7000000000000011,
     "female_2000": 0.6,
     "male_2000": 8.3,
     "female_2015": 0.3,
@@ -552,7 +552,7 @@
   {
     "iso3": "FRA",
     "change in female rate": -1.9000000000000021,
-    "change in male rate&nbsp;<br>": -5.5,
+    "change in male rate": -5.5,
     "female_2000": 26.8,
     "male_2000": 38,
     "female_2015": 24.9,
@@ -574,7 +574,7 @@
   {
     "iso3": "GBR",
     "change in female rate": -15.900000000000002,
-    "change in male rate&nbsp;<br>": -13.3,
+    "change in male rate": -13.3,
     "female_2000": 35.1,
     "male_2000": 37.5,
     "female_2015": 19.2,
@@ -596,7 +596,7 @@
   {
     "iso3": "GHA",
     "change in female rate": -0.5,
-    "change in male rate&nbsp;<br>": -2.5,
+    "change in male rate": -2.5,
     "female_2000": 0.8,
     "male_2000": 9.6,
     "female_2015": 0.3,
@@ -618,7 +618,7 @@
   {
     "iso3": "GRC",
     "change in female rate": -10.799999999999997,
-    "change in male rate&nbsp;<br>": -9.100000000000001,
+    "change in male rate": -9.100000000000001,
     "female_2000": 43.4,
     "male_2000": 60.4,
     "female_2015": 32.6,
@@ -640,7 +640,7 @@
   {
     "iso3": "HND",
     "change in female rate": -1.6999999999999997,
-    "change in male rate&nbsp;<br>": "NA",
+    "change in male rate": "NA",
     "female_2000": 3.8,
     "male_2000": "NA",
     "female_2015": 2.1,
@@ -662,7 +662,7 @@
   {
     "iso3": "HTI",
     "change in female rate": -2.4,
-    "change in male rate&nbsp;<br>": 3.6999999999999993,
+    "change in male rate": 3.6999999999999993,
     "female_2000": 5.3,
     "male_2000": 17.8,
     "female_2015": 2.9,
@@ -684,7 +684,7 @@
   {
     "iso3": "HUN",
     "change in female rate": -8.700000000000003,
-    "change in male rate&nbsp;<br>": -12.100000000000001,
+    "change in male rate": -12.100000000000001,
     "female_2000": 32.2,
     "male_2000": 46,
     "female_2015": 23.5,
@@ -706,7 +706,7 @@
   {
     "iso3": "IDN",
     "change in female rate": -2,
-    "change in male rate&nbsp;<br>": 15.500000000000007,
+    "change in male rate": 15.500000000000007,
     "female_2000": 4.7,
     "male_2000": 59.4,
     "female_2015": 2.7,
@@ -728,7 +728,7 @@
   {
     "iso3": "IND",
     "change in female rate": -3.8,
-    "change in male rate&nbsp;<br>": -11.699999999999996,
+    "change in male rate": -11.699999999999996,
     "female_2000": 5.6,
     "male_2000": 32.3,
     "female_2015": 1.8,
@@ -750,7 +750,7 @@
   {
     "iso3": "IRN",
     "change in female rate": -3.3,
-    "change in male rate&nbsp;<br>": -5.300000000000001,
+    "change in male rate": -5.300000000000001,
     "female_2000": 4.1,
     "male_2000": 26.5,
     "female_2015": 0.8,
@@ -772,7 +772,7 @@
   {
     "iso3": "ISR",
     "change in female rate": -8.6,
-    "change in male rate&nbsp;<br>": -4.799999999999997,
+    "change in male rate": -4.799999999999997,
     "female_2000": 24,
     "male_2000": 39.9,
     "female_2015": 15.4,
@@ -794,7 +794,7 @@
   {
     "iso3": "ITA",
     "change in female rate": -1.2999999999999972,
-    "change in male rate&nbsp;<br>": -5.899999999999999,
+    "change in male rate": -5.899999999999999,
     "female_2000": 18.9,
     "male_2000": 32.8,
     "female_2015": 17.6,
@@ -816,7 +816,7 @@
   {
     "iso3": "JPN",
     "change in female rate": -3.6999999999999993,
-    "change in male rate&nbsp;<br>": -18.599999999999994,
+    "change in male rate": -18.599999999999994,
     "female_2000": 13,
     "male_2000": 51.3,
     "female_2015": 9.3,
@@ -838,7 +838,7 @@
   {
     "iso3": "KAZ",
     "change in female rate": -3.3999999999999995,
-    "change in male rate&nbsp;<br>": -11.299999999999997,
+    "change in male rate": -11.299999999999997,
     "female_2000": 10.6,
     "male_2000": 55.8,
     "female_2015": 7.2,
@@ -860,7 +860,7 @@
   {
     "iso3": "KEN",
     "change in female rate": -1.2999999999999998,
-    "change in male rate&nbsp;<br>": -8.2,
+    "change in male rate": -8.2,
     "female_2000": 2.4,
     "male_2000": 27.8,
     "female_2015": 1.1,
@@ -882,7 +882,7 @@
   {
     "iso3": "KHM",
     "change in female rate": -4,
-    "change in male rate&nbsp;<br>": -15,
+    "change in male rate": -15,
     "female_2000": 5.9,
     "male_2000": 43.9,
     "female_2015": 1.9,
@@ -904,7 +904,7 @@
   {
     "iso3": "KOR",
     "change in female rate": -0.8999999999999995,
-    "change in male rate&nbsp;<br>": -22.400000000000006,
+    "change in male rate": -22.400000000000006,
     "female_2000": 6.8,
     "male_2000": 63.7,
     "female_2015": 5.9,
@@ -926,7 +926,7 @@
   {
     "iso3": "LKA",
     "change in female rate": -1.3,
-    "change in male rate&nbsp;<br>": -2.599999999999998,
+    "change in male rate": -2.599999999999998,
     "female_2000": 1.6,
     "male_2000": 30.7,
     "female_2015": 0.3,
@@ -948,7 +948,7 @@
   {
     "iso3": "MAR",
     "change in female rate": -4,
-    "change in male rate&nbsp;<br>": 12.300000000000004,
+    "change in male rate": 12.300000000000004,
     "female_2000": 4.9,
     "male_2000": 34.3,
     "female_2015": 0.9,
@@ -970,7 +970,7 @@
   {
     "iso3": "MEX",
     "change in female rate": -5.499999999999999,
-    "change in male rate&nbsp;<br>": -14.100000000000001,
+    "change in male rate": -14.100000000000001,
     "female_2000": 12.7,
     "male_2000": 36.5,
     "female_2015": 7.2,
@@ -992,7 +992,7 @@
   {
     "iso3": "MLI",
     "change in female rate": -2.4,
-    "change in male rate&nbsp;<br>": 1.0999999999999979,
+    "change in male rate": 1.0999999999999979,
     "female_2000": 4,
     "male_2000": 22.1,
     "female_2015": 1.6,
@@ -1014,7 +1014,7 @@
   {
     "iso3": "MMR",
     "change in female rate": -7,
-    "change in male rate&nbsp;<br>": -14.399999999999999,
+    "change in male rate": -14.399999999999999,
     "female_2000": 13.5,
     "male_2000": 50.1,
     "female_2015": 6.5,
@@ -1036,7 +1036,7 @@
   {
     "iso3": "MOZ",
     "change in female rate": -3.5,
-    "change in male rate&nbsp;<br>": -10.2,
+    "change in male rate": -10.2,
     "female_2000": 8.4,
     "male_2000": 38,
     "female_2015": 4.9,
@@ -1058,7 +1058,7 @@
   {
     "iso3": "MWI",
     "change in female rate": -4,
-    "change in male rate&nbsp;<br>": -7.300000000000001,
+    "change in male rate": -7.300000000000001,
     "female_2000": 7.8,
     "male_2000": 28.5,
     "female_2015": 3.8,
@@ -1080,7 +1080,7 @@
   {
     "iso3": "MYS",
     "change in female rate": -1.6,
-    "change in male rate&nbsp;<br>": -10.399999999999999,
+    "change in male rate": -10.399999999999999,
     "female_2000": 2.6,
     "male_2000": 54,
     "female_2015": 1,
@@ -1102,7 +1102,7 @@
   {
     "iso3": "NER",
     "change in female rate": -0.30000000000000004,
-    "change in male rate&nbsp;<br>": 2.5,
+    "change in male rate": 2.5,
     "female_2000": 0.4,
     "male_2000": 13,
     "female_2015": 0.1,
@@ -1124,7 +1124,7 @@
   {
     "iso3": "NGA",
     "change in female rate": -1.6,
-    "change in male rate&nbsp;<br>": -2.1000000000000014,
+    "change in male rate": -2.1000000000000014,
     "female_2000": 2.2,
     "male_2000": 12.8,
     "female_2015": 0.6,
@@ -1146,7 +1146,7 @@
   {
     "iso3": "NLD",
     "change in female rate": -9.600000000000001,
-    "change in male rate&nbsp;<br>": -14.400000000000002,
+    "change in male rate": -14.400000000000002,
     "female_2000": 33.1,
     "male_2000": 41.7,
     "female_2015": 23.5,
@@ -1168,7 +1168,7 @@
   {
     "iso3": "NPL",
     "change in female rate": -19.2,
-    "change in male rate&nbsp;<br>": -5.299999999999997,
+    "change in male rate": -5.299999999999997,
     "female_2000": 28.4,
     "male_2000": 40.8,
     "female_2015": 9.2,
@@ -1190,7 +1190,7 @@
   {
     "iso3": "PAK",
     "change in female rate": -5.3999999999999995,
-    "change in male rate&nbsp;<br>": -1.7000000000000028,
+    "change in male rate": -1.7000000000000028,
     "female_2000": 8.1,
     "male_2000": 36.6,
     "female_2015": 2.7,
@@ -1212,7 +1212,7 @@
   {
     "iso3": "PER",
     "change in female rate": -7,
-    "change in male rate&nbsp;<br>": "NA",
+    "change in male rate": "NA",
     "female_2000": 12,
     "male_2000": "NA",
     "female_2015": 5,
@@ -1234,7 +1234,7 @@
   {
     "iso3": "PHL",
     "change in female rate": -2.9000000000000004,
-    "change in male rate&nbsp;<br>": -15.399999999999999,
+    "change in male rate": -15.399999999999999,
     "female_2000": 10.3,
     "male_2000": 57,
     "female_2015": 7.4,
@@ -1256,7 +1256,7 @@
   {
     "iso3": "POL",
     "change in female rate": -12.3,
-    "change in male rate&nbsp;<br>": -11.400000000000006,
+    "change in male rate": -11.400000000000006,
     "female_2000": 34.6,
     "male_2000": 45.7,
     "female_2015": 22.3,
@@ -1278,7 +1278,7 @@
   {
     "iso3": "PRT",
     "change in female rate": -0.3000000000000007,
-    "change in male rate&nbsp;<br>": -8.399999999999999,
+    "change in male rate": -8.399999999999999,
     "female_2000": 13.4,
     "male_2000": 35.8,
     "female_2015": 13.1,
@@ -1300,7 +1300,7 @@
   {
     "iso3": "ROU",
     "change in female rate": -5,
-    "change in male rate&nbsp;<br>": -15.199999999999996,
+    "change in male rate": -15.199999999999996,
     "female_2000": 25.3,
     "male_2000": 51.9,
     "female_2015": 20.3,
@@ -1322,7 +1322,7 @@
   {
     "iso3": "RUS",
     "change in female rate": 0.8000000000000007,
-    "change in male rate&nbsp;<br>": -9.499999999999993,
+    "change in male rate": -9.499999999999993,
     "female_2000": 18.8,
     "male_2000": 68.6,
     "female_2015": 19.6,
@@ -1344,7 +1344,7 @@
   {
     "iso3": "RWA",
     "change in female rate": -2.2,
-    "change in male rate&nbsp;<br>": -7.100000000000001,
+    "change in male rate": -7.100000000000001,
     "female_2000": 6.5,
     "male_2000": 25.5,
     "female_2015": 4.3,
@@ -1366,7 +1366,7 @@
   {
     "iso3": "SAU",
     "change in female rate": -2.4000000000000004,
-    "change in male rate&nbsp;<br>": 3.1999999999999993,
+    "change in male rate": 3.1999999999999993,
     "female_2000": 4.2,
     "male_2000": 22.6,
     "female_2015": 1.8,
@@ -1388,7 +1388,7 @@
   {
     "iso3": "SEN",
     "change in female rate": -1.2000000000000002,
-    "change in male rate&nbsp;<br>": -3.700000000000003,
+    "change in male rate": -3.700000000000003,
     "female_2000": 1.6,
     "male_2000": 20.6,
     "female_2015": 0.4,
@@ -1410,7 +1410,7 @@
   {
     "iso3": "SWE",
     "change in female rate": -12.8,
-    "change in male rate&nbsp;<br>": -12.100000000000001,
+    "change in male rate": -12.100000000000001,
     "female_2000": 31.6,
     "male_2000": 31.3,
     "female_2015": 18.8,
@@ -1432,7 +1432,7 @@
   {
     "iso3": "THA",
     "change in female rate": -0.5,
-    "change in male rate&nbsp;<br>": -7.799999999999997,
+    "change in male rate": -7.799999999999997,
     "female_2000": 2.7,
     "male_2000": 48.3,
     "female_2015": 2.2,
@@ -1454,7 +1454,7 @@
   {
     "iso3": "TUN",
     "change in female rate": -5.8999999999999995,
-    "change in male rate&nbsp;<br>": 8.299999999999997,
+    "change in male rate": 8.299999999999997,
     "female_2000": 7.1,
     "male_2000": 57.3,
     "female_2015": 1.2,
@@ -1476,7 +1476,7 @@
   {
     "iso3": "TUR",
     "change in female rate": -5.200000000000001,
-    "change in male rate&nbsp;<br>": -16.9,
+    "change in male rate": -16.9,
     "female_2000": 19.6,
     "male_2000": 59.6,
     "female_2015": 14.4,
@@ -1498,7 +1498,7 @@
   {
     "iso3": "TZA",
     "change in female rate": -2.1,
-    "change in male rate&nbsp;<br>": -11.2,
+    "change in male rate": -11.2,
     "female_2000": 5.2,
     "male_2000": 37.4,
     "female_2015": 3.1,
@@ -1520,7 +1520,7 @@
   {
     "iso3": "UGA",
     "change in female rate": -1.5000000000000004,
-    "change in male rate&nbsp;<br>": -10.4,
+    "change in male rate": -10.4,
     "female_2000": 4.4,
     "male_2000": 25.5,
     "female_2015": 2.9,
@@ -1542,7 +1542,7 @@
   {
     "iso3": "UKR",
     "change in female rate": -1.8999999999999986,
-    "change in male rate&nbsp;<br>": -12.100000000000001,
+    "change in male rate": -12.100000000000001,
     "female_2000": 12.7,
     "male_2000": 60.4,
     "female_2015": 10.8,
@@ -1564,7 +1564,7 @@
   {
     "iso3": "USA",
     "change in female rate": -9,
-    "change in male rate&nbsp;<br>": -9.800000000000004,
+    "change in male rate": -9.800000000000004,
     "female_2000": 27.6,
     "male_2000": 34.2,
     "female_2015": 18.6,
@@ -1586,7 +1586,7 @@
   {
     "iso3": "UZB",
     "change in female rate": -0.19999999999999996,
-    "change in male rate&nbsp;<br>": -5.099999999999998,
+    "change in male rate": -5.099999999999998,
     "female_2000": 1.5,
     "male_2000": 29.2,
     "female_2015": 1.3,
@@ -1608,7 +1608,7 @@
   {
     "iso3": "VNM",
     "change in female rate": -0.6000000000000001,
-    "change in male rate&nbsp;<br>": -1.0999999999999943,
+    "change in male rate": -1.0999999999999943,
     "female_2000": 1.6,
     "male_2000": 48.3,
     "female_2015": 1,
@@ -1630,7 +1630,7 @@
   {
     "iso3": "YEM",
     "change in female rate": -6.4,
-    "change in male rate&nbsp;<br>": -2.299999999999997,
+    "change in male rate": -2.299999999999997,
     "female_2000": 13.8,
     "male_2000": 29.9,
     "female_2015": 7.4,
@@ -1652,7 +1652,7 @@
   {
     "iso3": "ZAF",
     "change in female rate": -2.5999999999999996,
-    "change in male rate&nbsp;<br>": -1.8000000000000043,
+    "change in male rate": -1.8000000000000043,
     "female_2000": 10.6,
     "male_2000": 34.6,
     "female_2015": 8,
@@ -1674,7 +1674,7 @@
   {
     "iso3": "ZMB",
     "change in female rate": -2.1999999999999997,
-    "change in male rate&nbsp;<br>": -4.600000000000001,
+    "change in male rate": -4.600000000000001,
     "female_2000": 4.6,
     "male_2000": 26.8,
     "female_2015": 2.4,
@@ -1696,7 +1696,7 @@
   {
     "iso3": "ZWE",
     "change in female rate": -1.2000000000000002,
-    "change in male rate&nbsp;<br>": -1.7999999999999972,
+    "change in male rate": -1.7999999999999972,
     "female_2000": 2.6,
     "male_2000": 29.4,
     "female_2015": 1.4,

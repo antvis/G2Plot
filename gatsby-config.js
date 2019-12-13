@@ -99,6 +99,14 @@ module.exports = {
         },
       },
       {
+        slug: 'bubble',
+        icon: 'point',
+        title: {
+          zh: '气泡图',
+          en: 'Bubble Charts',
+        },
+      },
+      {
         slug: 'radar',
         icon: 'radar',
         title: {

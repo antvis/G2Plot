@@ -89,7 +89,8 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
 
   public afterRender() {
     super.afterRender();
-    if (this.options.quadrant && !this.quadrant) {
+    if (this.options.quadrant) {
+      if (this.quadrant) this.quadrant.destroy();
       this.quadrant = new Quadrant({
         view: this.view,
         plotOptions: this.options,

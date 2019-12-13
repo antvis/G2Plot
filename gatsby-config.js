@@ -91,6 +91,14 @@ module.exports = {
         },
       },
       {
+        slug: 'scatter',
+        icon: 'point',
+        title: {
+          zh: '散点图',
+          en: 'Scatter Charts',
+        },
+      },
+      {
         slug: 'radar',
         icon: 'radar',
         title: {

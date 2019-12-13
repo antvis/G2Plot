@@ -24,7 +24,6 @@ fetch('../data/revenue.json')
       },
       trendline: {
         type: 'log',
-        showConfidence: true,
       },
     });
     bubblePlot.render();

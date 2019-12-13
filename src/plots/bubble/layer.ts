@@ -8,6 +8,8 @@ import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './component/label/bubble-label';
 import * as EventParser from './event';
+import Quadrant, { QuadrantConfig } from '../scatter/components/quadrant';
+import Trendline, { TrendlineConfig } from '../scatter/components/trendline';
 
 interface BubbleStyle {
   /** 圆边大小 */
@@ -41,6 +43,8 @@ export interface BubbleViewConfig extends ViewConfig {
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   /** y 轴配置 */
   yAxis?: IValueAxis;
+  quadrant?: QuadrantConfig;
+  trendline?: TrendlineConfig;
 }
 
 export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
@@ -50,10 +54,17 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     return _.deepMix({}, super.getDefaultOptions(), {
       bubbleSize: [8, 58],
       bubbleStyle: {
-        lineWidth: 1,
-        strokeOpacity: 1,
-        fillOpacity: 0.4,
-        opacity: 0.65,
+        opacity: 0.5,
+      },
+      xAxis: {
+        grid: {
+          visible: true,
+        },
+      },
+      yAxis: {
+        grid: {
+          visible: true,
+        },
       },
       tooltip: {
         visible: true,
@@ -70,6 +81,44 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     });
   }
 
+  public type: string = 'bubble';
+
+  public bubbles: any;
+  protected quadrant: Quadrant;
+  protected trendline: Trendline;
+
+  public afterRender() {
+    super.afterRender();
+    if (this.options.quadrant && !this.quadrant) {
+      this.quadrant = new Quadrant({
+        view: this.view,
+        plotOptions: this.options,
+        ...this.options.quadrant,
+      });
+      this.quadrant.render();
+    }
+    if (this.options.trendline) {
+      this.trendline = new Trendline({
+        view: this.view,
+        plotOptions: this.options,
+        ...this.options.trendline,
+      });
+      this.trendline.render();
+    }
+  }
+
+  public destroy() {
+    if (this.quadrant) {
+      this.quadrant.destroy();
+      this.quadrant = null;
+    }
+    if (this.trendline) {
+      this.trendline.destroy();
+      this.trendline = null;
+    }
+    super.destroy();
+  }
+
   public getOptions(props: T) {
     const options = super.getOptions(props);
 
@@ -79,10 +128,6 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
       pointStyle: options.bubbleStyle,
     });
   }
-
-  public type: string = 'bubble';
-
-  public bubbles: any;
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

@@ -21,8 +21,6 @@ export class BubbleLabels extends ElementLabels {
     const width = size;
     const height = size;
 
-    console.log(position);
-
     switch (position) {
       case 'right':
         point.x += width * 2;
@@ -50,7 +48,7 @@ export class BubbleLabels extends ElementLabels {
         break;
     }
   }
-  /* public showLabels(points: any, shapes: Shape[]) {
+  public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
@@ -62,8 +60,11 @@ export class BubbleLabels extends ElementLabels {
       const origin = l.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
-      this.adjustPosition(l, shape, item);
-      if (_.has(this.get('labelOptions'), 'adjustColor')) {
+      const { adjustColor, adjustPosition } = this.get('labelOptions');
+      if (adjustPosition) {
+        this.adjustPosition(l, shape, item);
+      }
+      if (adjustColor) {
         this.adjustColor(l, shape);
       }
     });
@@ -86,9 +87,11 @@ export class BubbleLabels extends ElementLabels {
     const originData = shape.get('origin')._origin;
     const labelRange = label.getBBox();
     const shapeRange = shape.getBBox();
-    if (shapeRange.height <= labelRange.height && item.position !== 'top') {
-      const yPosition = shapeRange.minY - TOP_MARGIN;
-      label.attr('y', yPosition);
+    if (
+      shapeRange.height <= labelRange.height ||
+      (shapeRange.width <= labelRange.width && item.position === 'middle')
+    ) {
+      label.attr('text', '');
     }
   }
 
@@ -122,7 +125,7 @@ export class BubbleLabels extends ElementLabels {
       }
     });
     return reflect;
-  }*/
+  }
 }
 
 registerElementLabels('bubbleLabel', BubbleLabels);

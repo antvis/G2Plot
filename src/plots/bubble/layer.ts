@@ -75,7 +75,7 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
       },
       label: {
         visible: false,
-        position: 'top',
+        position: 'middle',
       },
       shape: 'circle',
     });

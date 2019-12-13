@@ -12,6 +12,9 @@ $.get('data/country-economy.json', function(data) {
     colorFields: 'continent',
     label: {
       visible: true,
+      formatter: (v) => {
+        return parseFloat(v).toFixed(1);
+      },
     },
   });
   bubblePlot.render();

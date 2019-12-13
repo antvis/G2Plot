@@ -56,6 +56,7 @@ class OuterPieLabel extends BasePieLabel {
   private _adjustRigthTopLabels(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
     const center = coord.getCenter();
     const filterLabels = labels.filter((l, idx) => l.attr('textAlign') === 'left' && items[idx].angle < 0);
+    if (!filterLabels.length) return;
     const labelHeight = _.head(filterLabels).getBBox().height;
     const offset = this.getOffsetOfLabel();
     for (let idx = 0; idx < filterLabels.length; idx += 1) {
@@ -110,6 +111,7 @@ class OuterPieLabel extends BasePieLabel {
   /** 调整右下角labels */
   private _adjustRigthBottomLabels(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
     const filterLabels = labels.filter((l, idx) => l.attr('textAlign') === 'left' && items[idx].angle >= 0);
+    if (!filterLabels.length) return;
     const labelHeight = _.head(filterLabels).getBBox().height;
     const offset = this.getOffsetOfLabel();
     const center = coord.getCenter();
@@ -127,8 +129,9 @@ class OuterPieLabel extends BasePieLabel {
         if (overlapY) {
           // 判断是否需要后退 且可以后退
           const down =
-            panel.maxY - box.maxY < (filterLabels.length - idx) * labelHeight &&
-            box.minY - Math.min(center.y, lastRightTopLabel.getBBox().maxY) > labelHeight * idx;
+            panel.maxY - box.maxY < (filterLabels.length - idx) * labelHeight && box.minY - lastRightTopLabel
+              ? Math.min(center.y, lastRightTopLabel.getBBox().maxY)
+              : center.y > labelHeight * idx;
           if (down) {
             // 回退
             let deltaY = overlapY;
@@ -171,6 +174,7 @@ class OuterPieLabel extends BasePieLabel {
     const filterLabels = labels.filter(
       (l, idx) => l.attr('textAlign') === 'right' && items[idx].angle >= 0 && items[idx].angle <= Math.PI
     );
+    if (!filterLabels.length) return;
     const offset = this.getOffsetOfLabel();
     const labelHeight = _.head(filterLabels).getBBox().height;
     // filterLabels.forEach((l, idx) => {
@@ -234,6 +238,7 @@ class OuterPieLabel extends BasePieLabel {
     const filterLabels = labels.filter(
       (l, idx) => l.attr('textAlign') === 'right' && (items[idx].angle < 0 || items[idx].angle > Math.PI)
     );
+    if (!filterLabels.length) return;
     const labelHeight = _.head(filterLabels).getBBox().height;
     const offset = this.getOffsetOfLabel();
     const lastLeftBottomLabel = _.last(
@@ -245,42 +250,44 @@ class OuterPieLabel extends BasePieLabel {
       let yPos = (box.minY + box.maxY) / 2;
       let xPos = box.maxX;
       const prev = filterLabels[idx - 1] || lastLeftBottomLabel;
-      // could not overlap with prev label
-      const overlapY = Math.max(box.maxY - prev.getBBox().minY, 0);
-      if (overlapY) {
-        // 判断是否需要回退 且可以回退
-        const down =
-          box.maxY - panel.minY < labelHeight * (filterLabels.length - idx) &&
-          Math.min(center.y, lastLeftBottomLabel.getBBox().minY) - box.maxY > labelHeight * idx;
-        if (down) {
-          // 回退
-          let deltaY = overlapY;
-          for (let i = idx - 1; i >= 0; i -= 1) {
-            if (!deltaY) break;
-            const p = filterLabels[i];
-            const pBox = p.getBBox();
-            const pYPos = pBox.y + pBox.height / 2 + deltaY;
-            p.attr('y', pYPos);
-            let pXPos = pBox.x;
-            if (coord.getRadius() + offset > center.y - pYPos) {
-              pXPos = center.x - Math.sqrt(Math.pow(coord.getRadius() + offset, 2) - Math.pow(center.y - pYPos, 2));
-            } else {
-              pXPos = filterLabels[i + 1] ? Math.min(filterLabels[i + 1].getBBox().maxX, center.x) : center.x;
+      if (prev) {
+        // could not overlap with prev label
+        const overlapY = Math.max(box.maxY - prev.getBBox().minY, 0);
+        if (overlapY) {
+          // 判断是否需要回退 且可以回退
+          const down =
+            box.maxY - panel.minY < labelHeight * (filterLabels.length - idx) &&
+            Math.min(center.y, lastLeftBottomLabel ? lastLeftBottomLabel.getBBox().minY : Infinity) - box.maxY >
+              labelHeight * idx;
+          if (down) {
+            // 回退
+            let deltaY = overlapY;
+            for (let i = idx - 1; i >= 0; i -= 1) {
+              if (!deltaY) break;
+              const p = filterLabels[i];
+              const pBox = p.getBBox();
+              const pYPos = pBox.y + pBox.height / 2 + deltaY;
+              p.attr('y', pYPos);
+              let pXPos = pBox.x;
+              if (coord.getRadius() + offset > center.y - pYPos) {
+                pXPos = center.x - Math.sqrt(Math.pow(coord.getRadius() + offset, 2) - Math.pow(center.y - pYPos, 2));
+              } else {
+                pXPos = filterLabels[i + 1] ? Math.min(filterLabels[i + 1].getBBox().maxX, center.x) : center.x;
+              }
+              p.attr('x', pXPos);
+              if (filterLabels[i - 1]) {
+                deltaY = Math.max(p.getBBox().maxY - filterLabels[i - 1].getBBox().minY, 0);
+              }
             }
-            p.attr('x', pXPos);
-            if (filterLabels[i - 1]) {
-              deltaY = Math.max(p.getBBox().maxY - filterLabels[i - 1].getBBox().minY, 0);
+          } else {
+            // 否则, 前进
+            yPos -= overlapY;
+            if (coord.getRadius() + offset > center.y - yPos) {
+              xPos = center.x - Math.sqrt(Math.pow(coord.getRadius() + offset, 2) - Math.pow(center.y - yPos, 2));
             }
-          }
-        } else {
-          // 否则, 前进
-          yPos -= overlapY;
-          if (coord.getRadius() + offset > center.y - yPos) {
-            xPos = center.x - Math.sqrt(Math.pow(coord.getRadius() + offset, 2) - Math.pow(center.y - yPos, 2));
           }
         }
       }
-
       label.attr('x', xPos);
       label.attr('y', yPos);
     });

@@ -5,6 +5,8 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import { extractScale } from '../../util/scale';
+import Quadrant, { QuadrantConfig } from './components/quadrant';
+import Trendline, { TrendlineConfig } from './components/trendline';
 import * as EventParser from '../bubble/event';
 
 interface PointStyle {
@@ -37,6 +39,8 @@ export interface ScatterViewConfig extends ViewConfig {
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   /** y 轴配置 */
   yAxis?: IValueAxis;
+  quadrant?: QuadrantConfig;
+  trendline?: TrendlineConfig;
 }
 
 export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
@@ -49,6 +53,16 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         strokeOpacity: 1,
         fillOpacity: 0.4,
         opacity: 0.65,
+      },
+      xAxis: {
+        grid: {
+          visible: true,
+        },
+      },
+      yAxis: {
+        grid: {
+          visible: true,
+        },
       },
       tooltip: {
         visible: true,
@@ -66,8 +80,41 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   }
 
   public type: string = 'scatter';
-
   public points: any;
+  protected quadrant: Quadrant;
+  protected trendline: Trendline;
+
+  public afterRender() {
+    super.afterRender();
+    if (this.options.quadrant && !this.quadrant) {
+      this.quadrant = new Quadrant({
+        view: this.view,
+        plotOptions: this.options,
+        ...this.options.quadrant,
+      });
+      this.quadrant.render();
+    }
+    if (this.options.trendline) {
+      this.trendline = new Trendline({
+        view: this.view,
+        plotOptions: this.options,
+        ...this.options.trendline,
+      });
+      this.trendline.render();
+    }
+  }
+
+  public destroy() {
+    if (this.quadrant) {
+      this.quadrant.destroy();
+      this.quadrant = null;
+    }
+    if (this.trendline) {
+      this.trendline.destroy();
+      this.trendline = null;
+    }
+    super.destroy();
+  }
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

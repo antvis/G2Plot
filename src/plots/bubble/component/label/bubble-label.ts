@@ -15,39 +15,42 @@ export class BubbleLabels extends ElementLabels {
     if (_.isFunction(position)) {
       position = position(originPoint);
     }
+    const { size } = originPoint;
+    const p = originPoint.points[0];
     const coord = this.get('coord');
-    const point0 = coord.convertPoint(originPoint.points[0]);
-    const point1 = coord.convertPoint(originPoint.points[2]);
-    const width = (point0.x - point1.x) / 2;
-    const height = (point0.y - point1.y) / 2;
+    const width = size;
+    const height = size;
+
+    console.log(position);
 
     switch (position) {
       case 'right':
-        point.x -= width;
-        point.y += height;
+        point.x += width * 2;
         point.textAlign = point.textAlign || 'left';
         break;
       case 'left':
-        point.x += width;
-        point.y += height;
+        point.x -= width * 2;
         point.textAlign = point.textAlign || 'right';
         break;
       case 'bottom':
         point.y += height * 2;
         point.textAlign = point.textAlign || 'center';
+        point.textBaseline = 'top';
         break;
       case 'middle':
-        point.y += height;
+        point.textBaseline = 'middle';
         point.textAlign = point.textAlign || 'center';
         break;
       case 'top':
+        point.y -= height * 2;
         point.textAlign = point.textAlign || 'center';
+        point.textBaseline = 'bottom';
         break;
       default:
         break;
     }
   }
-  public showLabels(points: any, shapes: Shape[]) {
+  /* public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
@@ -119,7 +122,7 @@ export class BubbleLabels extends ElementLabels {
       }
     });
     return reflect;
-  }
+  }*/
 }
 
 registerElementLabels('bubbleLabel', BubbleLabels);

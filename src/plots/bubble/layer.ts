@@ -6,7 +6,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import './component/label/bubble-label';
+import '../scatter/components/label/scatter-label';
 import * as EventParser from './event';
 import Quadrant, { QuadrantConfig } from '../scatter/components/quadrant';
 import Trendline, { TrendlineConfig } from '../scatter/components/trendline';
@@ -200,7 +200,7 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     }
     const labelConfig = getComponent('label', {
       plot: this,
-      labelType: 'bubbleLabel',
+      labelType: 'scatterLabel',
       fields: [props.yField],
       position: 'right',
       offset: 0,

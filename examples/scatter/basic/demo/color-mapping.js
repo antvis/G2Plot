@@ -8,6 +8,10 @@ fetch('../data/IMDB.json')
         visible: true,
         text: '散点图颜色映射',
       },
+      description: {
+        visible: true,
+        text: '通过colorField配置项定义颜色映射字段，通过color配置项传入色值',
+      },
       data,
       xField: 'Revenue (Millions)',
       yField: 'Rating',

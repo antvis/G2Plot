@@ -8,7 +8,7 @@ import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
 import { getComponent } from '../../components/factory';
-import * as EventParser from '../bubble/event';
+import * as EventParser from './event';
 import './components/label/scatter-label';
 
 interface PointStyle {

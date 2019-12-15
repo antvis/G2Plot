@@ -7,11 +7,11 @@ import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import '../scatter/components/label/scatter-label';
-import * as EventParser from './event';
+import * as EventParser from '../scatter/event';
 import Quadrant, { QuadrantConfig } from '../scatter/components/quadrant';
 import Trendline, { TrendlineConfig } from '../scatter/components/trendline';
 
-interface BubbleStyle {
+interface PointStyle {
   /** 圆边大小 */
   lineWidth?: number;
   /** 圆边透明度 */
@@ -23,18 +23,18 @@ interface BubbleStyle {
 }
 
 const G2_GEOM_MAP = {
-  bubble: 'point',
+  point: 'point',
 };
 
 const PLOT_GEOM_MAP = {
-  point: 'bubble',
+  point: 'point',
 };
 
 export interface BubbleViewConfig extends ViewConfig {
   /** 气泡大小 */
-  bubbleSize?: [number, number];
+  pointSize?: [number, number];
   /** 气泡样式 */
-  bubbleStyle?: BubbleStyle | ((...args: any) => BubbleStyle);
+  pointStyle?: PointStyle | ((...args: any) => PointStyle);
   /** 气泡大小字段 */
   sizeField?: string;
   /** 气泡颜色字段 */
@@ -52,8 +52,8 @@ export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
 export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
-      bubbleSize: [8, 58],
-      bubbleStyle: {
+      pointSize: [8, 58],
+      pointStyle: {
         opacity: 0.5,
       },
       xAxis: {
@@ -118,16 +118,6 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
       this.trendline = null;
     }
     super.destroy();
-  }
-
-  public getOptions(props: T) {
-    const options = super.getOptions(props);
-
-    // 气泡图对外暴露 bubbleSize，geom 需要 pointSize
-    return _.deepMix({}, options, {
-      pointSize: options.bubbleSize,
-      pointStyle: options.bubbleStyle,
-    });
   }
 
   protected geometryParser(dim, type) {

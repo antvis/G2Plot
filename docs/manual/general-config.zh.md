@@ -68,6 +68,47 @@ order: 2
 
 图表主题，如不进行配置则默认使用 G2Plot 默认主题。详见 theme 文档。
 
+## meta
+
+**optional**, 全局化配置图表数据元信息。
+
+`alias: string`  配置字段的别名，在mata配置别名将会影响坐标轴、tooltip和legend上的字段名称显示<br/>
+`range: number[]`  字段数据的映射区间，默认为[0,1]<br/>
+
+```js
+const data = [
+  { country: 'Asia', year: '1750', value: 502,},
+  { country: 'Asia', year: '1800', value: 635,},
+  { country: 'Europe', year: '1750', value: 163,},
+  { country: 'Europe', year: '1800', value: 203,},
+];
+
+const areaPlot = new PercentageStackArea(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '百分比堆叠面积图',
+  },
+  data,
+  // highlight-start
+  meta: {
+    year: {
+      alias:'年份'
+      range: [0, 1],
+    },
+    value: {
+      alias: '数量'
+    }
+  },
+  // highlight-end
+  xField: 'year',
+  yField: 'value',
+  stackField: 'country',
+});
+areaPlot.render();
+
+```
+
+
 ## tooltip
 
 **optional**, object 类型

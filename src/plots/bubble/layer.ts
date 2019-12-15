@@ -168,8 +168,6 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     this.setConfig('element', bubbles);
   }
 
-  protected annotation() {}
-
   protected animation() {
     const props = this.options;
     if (props.animation === false) {

@@ -155,8 +155,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     this.setConfig('element', points);
   }
 
-  protected annotation() {}
-
   protected animation() {
     const props = this.options;
     if (props.animation === false) {

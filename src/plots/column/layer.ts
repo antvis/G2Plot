@@ -152,8 +152,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     this.setConfig('element', column);
   }
 
-  protected annotation() {}
-
   protected animation() {
     if (this.options.animation === false) {
       /** 关闭动画 */

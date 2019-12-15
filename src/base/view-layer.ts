@@ -346,6 +346,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
     const scales = _.deepMix({}, this.config.scales, this.options.meta || {}, scaleTypes);
 
+    console.log(this.options);
+
     this.setConfig('scales', scales);
   }
 

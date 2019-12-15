@@ -208,17 +208,108 @@ htmlContent: (title, items) => {
 
 **optional**
 
-- 图表区域事件:
+- 图表区域事件:<br />
+<img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fKxnR6HZPtsAAAAAAAAAAABkARQnAQ" width="300"><br />
   `onPlotClick: function`     图表区域点击事件<br />
   `onPlotDblClick: function`  图表区域双击事件<br />
+  `onPlotMouseenter: function`    图表区域鼠标进入事件<br />
+  `onPlotMouseleave: function`    图表区域鼠标离开事件<br />
   `onPlotMousemove: function`    图表区域鼠标移动事件<br />
-  `onPlotContextmenu: function`    图表区域右键事件
+  `onPlotMousedown: function`    图表区域鼠标按下事件<br />
+  `onPlotMouseup: function`    图表区域鼠标松开事件<br />
+  `onPlotContextmenu: function`    图表区域右键事件<br />
+  <br/>
 
-- 图例事件:
-  `onLabelClick: function`     图例点击事件<br />
-  `onLabelDblClick: function`  图例双击事件<br />
-  `onLabelMouseMove: function`  图例鼠标移动事件<br />
-  `onLabelContextmenu: function`    图例右键事件
+- 图层事件：<br />
+  ** 一般图层事件用于组合型混合图表中<br />
+  `onLayerClick: function`     图层点击事件<br />
+  `onLayerDblClick: function`  图层双击事件<br />
+  `onLayerMouseenter: function`    图层鼠标进入事件<br />
+  `onLayerMouseleave: function`    图层鼠标离开事件<br />
+  `onLayerMousemove: function`    图层鼠标移动事件<br />
+  `onLayerMousedown: function`    图层鼠标按下事件<br />
+  `onLayerMouseup: function`    图层鼠标松开事件<br />
+  `onLayerContextmenu: function`    图层右键事件<br/>
+   <br/>
+
+- 图形区域事件：<br />
+<img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PhmNS5z135wAAAAAAAAAAABkARQnAQ" width="300"><br />
+  `onViewClick: function`     图形区域点击事件<br />
+  `onViewDblClick: function`  图层双击事件<br />
+  `onViewMouseenter: function`    图形区域鼠标进入事件<br />
+  `onViewMouseleave: function`    图形区域鼠标离开事件<br />
+  `onViewMousemove: function`    图形区域鼠标移动事件<br />
+  `onViewMousedown: function`    图形区域鼠标按下事件<br />
+  `onViewMouseup: function`    图形区域鼠标松开事件<br />
+  `onViewContextmenu: function`    图形区域右键事件<br/>
+   <br/>
+
+
+- 图例事件:<br />
+  `onLegendClick: function`     图例点击事件<br />
+  `onLegendDblClick: function`  图例双击事件<br />
+  `onLegendMouseenter: function`  图例鼠标进入事件<br />
+  `onLegendMouseleave: function`  图例鼠标离开事件<br />
+  `onLegendMousedown: function`  图例鼠标按下事件<br />
+  `onLegendMouseup: function`  图例鼠标松开事件<br />
+  `onLegendMousemove: function`  图例鼠标移动事件<br />
+  `onLegendContextmenu: function`    图例右键事件<br/>
+  <br/>
+
+- 坐标轴事件:<br />
+  `onAxisClick: function`     坐标轴点击事件<br />
+  `onAxisDblClick: function`  坐标轴双击事件<br />
+  `onAxisMouseenter: function`  坐标轴鼠标进入事件<br />
+  `onAxisMouseleave: function`  坐标轴鼠标离开事件<br />
+  `onAxisMousedown: function`  坐标轴鼠标按下事件<br />
+  `onAxisMouseup: function`  坐标轴鼠标松开事件<br />
+  `onAxisMousemove: function`  坐标轴鼠标移动事件<br />
+  `onAxisContextmenu: function`    坐标轴右键事件<br/>
+  <br/>
+
+- 图形标签事件:<br />
+  `onLabelClick: function`     图形标签点击事件<br />
+  `onLabelDblClick: function`  图形标签双击事件<br />
+  `onLabelMouseenter: function`  图形标签鼠标进入事件<br />
+  `onLabelMouseleave: function`  图形标签鼠标离开事件<br />
+  `onLabelMousedown: function`  图形标签鼠标按下事件<br />
+  `onLabelMouseup: function`  图形标签鼠标松开事件<br />
+  `onLabelMousemove: function`  图形标签鼠标移动事件<br />
+  `onLabelContextmenu: function`    图形标签右键事件<br/>
+  <br/>
+
+- 图表标题事件:<br />
+  `onTitleClick: function`     图表标题点击事件<br />
+  `onTitleDblClick: function`  图表标题双击事件<br />
+  `onTitleMouseenter: function`  图表标题鼠标进入事件<br />
+  `onTitleMouseleave: function`  图表标题鼠标离开事件<br />
+  `onTitleMousedown: function`  图表标题鼠标按下事件<br />
+  `onTitleMouseup: function`  图表标题鼠标松开事件<br />
+  `onTitleMousemove: function`  图表标题鼠标移动事件<br />
+  `onTitleContextmenu: function`    图表标题右键事件<br/>
+  <br/>
+
+- 图表描述事件:<br />
+  `onDescriptionClick: function`     图表描述点击事件<br />
+  `onDescriptionDblClick: function`  图表描述双击事件<br />
+  `onDescriptionMouseenter: function`  图表描述鼠标进入事件<br />
+  `onDescriptionMouseleave: function`  图表描述鼠标离开事件<br />
+  `onDescriptionMousedown: function`  图表描述鼠标按下事件<br />
+  `onDescriptionMouseup: function`  图表描述鼠标松开事件<br />
+  `onDescriptionMousemove: function`  图表描述鼠标移动事件<br />
+  `onDescriptionContextmenu: function`    图表描述右键事件<br/>
+  <br/>
+
+用法示例：
+
+```js
+events:{
+  onPlotClick:(ev)=>{
+    console.log(ev);
+  }
+}
+```
+
 
 ## 通用方法
 
@@ -242,6 +333,17 @@ plot.updateConfig({
     visible: false,
   },
 });
+
+plot.render();
+```
+
+### changeData()
+
+更新图表数据。`updateConfig()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
+
+```js
+plot.changeData(newData);
+
 ```
 
 ### repaint()
@@ -255,3 +357,11 @@ plot.updateConfig({
 **optional**
 
 销毁图表。
+
+### getData()
+
+获取图表数据。
+
+### getPlotTheme()
+
+获取图表theme。

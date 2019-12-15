@@ -126,6 +126,16 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
     }
   }
 
+  public getPlotTheme() {
+    const layer: any = this.layers[0];
+    return layer.getPlotTheme();
+  }
+
+  public getData() {
+    const layer: any = this.layers[0];
+    return layer.getData();
+  }
+
   /**
    * 绑定一个外部的stateManager
    * 先直接传递给各个子 Layer

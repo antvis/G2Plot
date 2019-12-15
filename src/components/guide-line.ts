@@ -18,6 +18,8 @@ export default class GuideLine {
     const baseConfig: any = {
       type: 'line',
       top: true,
+      start: this.cfg.start,
+      end: this.cfg.end,
     };
     baseConfig.line = _.deepMix({}, defaultStyle.line, { style: this.cfg.lineStyle });
     baseConfig.text = _.deepMix({}, defaultStyle.text, this.cfg.text);
@@ -84,8 +86,7 @@ export default class GuideLine {
       line: {
         style: {
           lineWidth: 2,
-          // stroke: '#66d6a8',
-          stroke: '#9ba29a',
+          stroke: '#333333',
           opacity: 0.7,
           lineDash: [0, 0],
         },
@@ -93,6 +94,7 @@ export default class GuideLine {
       text: {
         offsetY: -5,
         style: {
+          fontSize: 14,
           stroke: 'white',
           lineWidth: 2,
         },

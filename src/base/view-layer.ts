@@ -44,7 +44,7 @@ export interface ViewConfig {
   responsive?: boolean;
   title?: ITitle;
   description?: IDescription;
-  guideLine: any;
+  guideLine?: any;
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };

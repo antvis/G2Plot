@@ -184,8 +184,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     });
   }
 
-  protected annotation() {}
-
   protected animation() {
     const props = this.options;
     if (props.animation === false) {

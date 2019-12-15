@@ -44,6 +44,7 @@ export interface ViewConfig {
   responsive?: boolean;
   title?: ITitle;
   description?: IDescription;
+  guideLine: any;
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
@@ -392,7 +393,20 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
   }
 
-  protected abstract annotation(): void;
+  protected annotation() {
+    const config = [];
+    if (this.config.coord.type === 'cartesian' && this.options.guideLine) {
+      _.each(this.options.guideLine, (line) => {
+        const guideLine = getComponent('guideLine', {
+          plot: this,
+          cfg: line,
+        });
+        config.push(guideLine);
+      });
+    }
+    this.setConfig('annotations', config);
+  }
+
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
   protected abstract animation(): void;

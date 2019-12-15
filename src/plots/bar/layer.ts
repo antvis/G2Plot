@@ -178,8 +178,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('element', bar);
   }
 
-  protected annotation() {}
-
   protected animation() {
     const props = this.options;
     if (props.animation === false) {

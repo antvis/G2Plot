@@ -15,11 +15,12 @@ export default class GuideLine {
   private _init() {
     const props = this.plot.options;
     const defaultStyle = this._getDefaultStyle();
-    const baseConfig = _.mix(defaultStyle, {
-      ...this.cfg,
+    const baseConfig: any = {
       type: 'line',
       top: true,
-    }) as any;
+    };
+    baseConfig.line = _.deepMix({}, defaultStyle.line, { style: this.cfg.lineStyle });
+    baseConfig.text = _.deepMix({}, defaultStyle.text, this.cfg.text);
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);
       const minValue = this._getState('min');
@@ -82,10 +83,18 @@ export default class GuideLine {
     return {
       line: {
         style: {
-          lineWidth: 1,
-          stroke: '#66d6a8',
+          lineWidth: 2,
+          // stroke: '#66d6a8',
+          stroke: '#9ba29a',
           opacity: 0.7,
           lineDash: [0, 0],
+        },
+      },
+      text: {
+        offsetY: -5,
+        style: {
+          stroke: 'white',
+          lineWidth: 2,
         },
       },
     };

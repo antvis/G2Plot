@@ -136,8 +136,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       label: {
         visible: false,
-      },
-    };
+      }
+    } as any;
   }
   public type: string;
   public view: G2.View;
@@ -223,6 +223,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       options: this.config,
       start: { x: viewRange.minX, y: viewRange.minY },
       end: { x: viewRange.maxX, y: viewRange.maxY },
+      contourHeatmap: true      
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {

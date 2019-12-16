@@ -2,6 +2,9 @@ import { registerElement, Element } from '@antv/g2';
 import * as _ from '@antv/util';
 import * as colorUtil from '../../util/color';
 
+const GAUSS_COEF = 0.3989422804014327;
+const ZERO = 1.0 / 255.0 / 16.0;
+
 const ORIGIN_FIELD = '_origin';
 const SHADOW_CANVAS = 'shadowCanvas';
 const VALUE_RANGE = 'valueRange';
@@ -44,10 +47,16 @@ class LinearHeatmap extends Element {
       }
     
       _prepareSize() {
-        let radius = this.getDefaultValue('size');
-        if (!_.isNumber(radius)) {
-          radius = this.getDefaultSize();
+        let radius;
+        if(this.get('radius')){
+            radius = this.get('radius');
+        }else{
+            radius = this.getDefaultValue('size');
+            if (!_.isNumber(radius)) {
+              radius = this.getDefaultSize();
+            }
         }
+
         const styleOptions = this.get('styleOptions');
         let blur = styleOptions && _.isObject(styleOptions.cfg) ? styleOptions.cfg.blur : null;
         if (!_.isFinite(blur) || blur === null) {
@@ -83,7 +92,7 @@ class LinearHeatmap extends Element {
               palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
               paletteCache[alpha] = palette;
             }
-                // const palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
+            // const palette = colorUtil.rgb2arr(colorAttr.gradient(alpha / 256));
             pixels[i - 3] = palette[0];
             pixels[i - 2] = palette[1];
             pixels[i - 1] = palette[2];
@@ -92,13 +101,16 @@ class LinearHeatmap extends Element {
         }
       }
     
-      _prepareGreyScaleBlurredCircle(r, blur) {
+      _prepareGreyScaleBlurredCircle(r) {
         let circleCanvas = this.get(GRAY_SCALE_BLURRED_CANVAS);
         if (!circleCanvas) {
           circleCanvas = document.createElement('canvas');
           this.set(GRAY_SCALE_BLURRED_CANVAS, circleCanvas);
         }
-        const r2 = r + blur;
+        const intensity = this.get('intensity')? this.get('intensity') : 2;
+        const circleRadius = Math.sqrt(-2.0 * Math.log(ZERO / r / intensity / GAUSS_COEF)) / 3.0 * r;
+        const blur = circleRadius - r;
+        const r2 = circleRadius + blur;
         const ctx = circleCanvas.getContext('2d');
         circleCanvas.width = circleCanvas.height = r2 * 2;
         ctx.clearRect(0, 0, circleCanvas.width, circleCanvas.height);
@@ -205,11 +217,10 @@ class LinearHeatmap extends Element {
         this._prepareSize();
     
         const size = this.get(HEATMAP_SIZE);
-        this._prepareGreyScaleBlurredCircle(size.radius, size.blur);
+        this._prepareGreyScaleBlurredCircle(size.radius);
     
         const range = this.get(VALUE_RANGE);
         this.drawWithRange(range);
-            // super.draw(data, container, shapeFactory, index);
       }
 
 }

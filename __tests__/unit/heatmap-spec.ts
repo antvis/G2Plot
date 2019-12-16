@@ -18,7 +18,8 @@ describe('heatmap layer',()=>{
             colorField:'tmp',
             legend:{
                 visible: false
-            }
+            },
+            radius: 16
           });
           heatmap.render();
     });

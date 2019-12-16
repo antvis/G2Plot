@@ -12,6 +12,7 @@ import '../../geoms/heatmap/linear';
 
 export interface HeatmapViewConfig extends ViewConfig {
     colorField: string;
+    radius?: number;
 }
 
 export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
@@ -56,7 +57,11 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
                 fields:[this.options.colorField],
                 values:['green']
             }
-        };
+        } as any;
+
+        if(this.options.radius) {
+            config.radius = this.options.radius;
+        }
  
         this.setConfig('element', config);
     }

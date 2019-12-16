@@ -44,7 +44,7 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
         return `${formattedValue}%`;
       },
     };
-    this.options.meta = metaConfig;
+    this.options.meta = _.deepMix({}, metaConfig, this.options.meta);
     super.scale();
   }
 }

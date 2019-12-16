@@ -186,8 +186,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected annotation() {}
-
   protected animation() {
     const props = this.options;
     if (props.animation === false) {

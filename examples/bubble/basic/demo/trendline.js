@@ -4,14 +4,18 @@ fetch('../data/revenue.json')
   .then((res) => res.json())
   .then((data) => {
     const bubblePlot = new Bubble(document.getElementById('container'), {
+      title: {
+        visible: true,
+        text: '气泡图添加趋势线',
+      },
       data,
       xField: 'Revenue per club[€ m]',
       yField: 'UEFA points*',
       sizeField: 'UEFA points*',
-      bubbleSize: [4, 25],
+      pointSize: [4, 25],
       colorField: 'revenueGroup',
       color: ['#72302f', '#beb298', '#d18768', '#e3cda1'],
-      bubbleStyle: {
+      pointStyle: {
         stroke: '#777777',
         lineWidth: 1,
         opacity: 0.9,
@@ -24,7 +28,6 @@ fetch('../data/revenue.json')
       },
       trendline: {
         type: 'log',
-        showConfidence: true,
       },
     });
     bubblePlot.render();

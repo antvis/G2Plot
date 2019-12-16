@@ -6,7 +6,7 @@ fetch('../data/smoking-rate.json')
     const bubblePlot = new Bubble(document.getElementById('container'), {
       title: {
         visible: true,
-        text: '基础气泡图',
+        text: '为气泡图配置四象限',
       },
       data,
       xField: 'change in female rate',
@@ -24,6 +24,24 @@ fetch('../data/smoking-rate.json')
         visble: true,
         max: 5,
         min: -25,
+      },
+      quadrant: {
+        xBaseline: 0,
+        yBaseline: 0,
+        regionStyle: [
+          { fill: '#d8d0c0', opacity: 0.2 },
+          { fill: '#a3dda1', opacity: 0.1 },
+          { fill: 'white', opacity: 0 },
+          { fill: '#d8d0c0', opacity: 0.2 },
+        ],
+        label: {
+          text: [
+            'Female decrease,\nmale increase',
+            'Female & male decrease',
+            'Female &\n male increase',
+            'Male decrease,\nfemale increase',
+          ],
+        },
       },
     });
     bubblePlot.render();

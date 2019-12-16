@@ -66,9 +66,15 @@ export default class CircleParser extends ElementParser {
       callback: null,
       cfg: null,
     };
-    const colorField = props.colorField;
-    if (_.isFunction(styleProps) && colorField) {
-      config.fields = _.isArray(colorField) ? colorField : [colorField];
+    const { xField, yField, colorField } = props;
+    if (_.isFunction(styleProps)) {
+      if (colorField) {
+        config.fields = _.isArray(colorField)
+          ? [xField, yField, colorField].concat(colorField)
+          : [xField, yField, colorField];
+      } else {
+        config.fields = [xField, yField];
+      }
       config.callback = styleProps;
     } else {
       config.cfg = styleProps;

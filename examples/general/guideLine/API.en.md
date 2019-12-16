@@ -1,47 +1,12 @@
 ---
 title: API
 ---
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-### 特殊配置
+API.
 
-** 除特殊配置外, 气泡图API与[散点图(Scatter)](../../../../zh/docs/manual/scatter)相同。
-
-### sizeField
-
-**reqiured**, string 类型
-
-决定气泡图点大小的字段名。
-
-
-### pointSize
-
-**optional**, number[ ]
-
-指定气泡图点大小的值域，顺序为[`min`,`max`]。
-
-用法示例：
-
-```js
-const bubblePlot = new Bubble(document.getElementById('container'), {
-      data,
-      xField: 'change in female rate',
-      yField: 'change in male rate',
-      colorField: 'continent',
-      color: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
-      // highlight-start
-      sizeField: 'pop',
-      bubbleSize: [4, 30],
-      // highlight-end
-    });
-    bubblePlot.render();
-```
-
-效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*yN9WSJ8X1wcAAAAAAAAAAABkARQnAQ" width="400">
-
-* Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
-* Server-side Rendering
-* [Electron](http:// electron.atom.io/)
+- Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
+- Server-side Rendering
+- [Electron](http:// electron.atom.io/)
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http:// godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

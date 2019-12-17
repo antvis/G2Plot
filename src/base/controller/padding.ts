@@ -36,7 +36,7 @@ export default class PaddingController {
    */
   public clear() {
     this.innerPaddingComponents = [];
-    this.outerPaddingComponents = [];
+    // this.outerPaddingComponents = [];
   }
 
   public getPadding() {
@@ -68,7 +68,7 @@ export default class PaddingController {
       if (maxY > viewMinY && maxY < viewMaxY && position === 'top') {
         viewMinY = maxY;
       }
-      if (minY > viewMinY && minY < viewMaxY && position === 'bottom') {
+      if (position === 'bottom') {
         viewMaxY = minY;
       }
       if (maxX > viewMinX && maxX < viewMaxX && position === 'left') {

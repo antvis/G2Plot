@@ -114,10 +114,8 @@ export default class GuidePointParser extends ElementParser {
 
   private _needParseAttribute(attr) {
     const props = this.plot.options;
-    const condition = props.point && props.point[attr];
+    const condition = props.point && _.has(props.point,attr);
     return condition;
-    // const condition = !this.style || this.style[attr];
-    // return condition;
   }
 
   private _getColorMappingField(props) {

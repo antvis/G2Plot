@@ -7,6 +7,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
+import HeatmapLegend, {IHeatmapLegend} from './components/legend';
 import '../scatter/components/label/scatter-label';
 
 
@@ -35,6 +36,7 @@ export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig { }
 
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
     public type: string = 'heatmap';
+    protected heatmap_legend: HeatmapLegend;
 
     public static getDefaultOptions(): any {
         return _.deepMix({}, super.getDefaultOptions(), {
@@ -91,6 +93,10 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
                     }
                 }
             },
+            legend:{
+                visible: true,
+                position: 'bottom-center'
+            },
             color: [
                 'rgba(33,102,172,0)',
                 'rgb(103,169,207)',
@@ -98,14 +104,23 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
                 'rgb(253,219,199)',
                 'rgb(239,138,98)',
                 'rgb(178,24,43)'
-            ],
-            point: {
-                visible: false,
-                shape: 'circle',
-                size: 2,
-                color: 'white'
-            }
+            ]
         });
+    }
+
+    public afterRender(){
+        if(this.options.legend && this.options.legend.visible){
+            this.heatmap_legend = new HeatmapLegend({
+                view: this.view,
+                position: this.options.legend.position,
+                plot: this
+            });
+            this.heatmap_legend.render();
+            //if(this.options.padding === 'auto'){
+                this.paddingController.registerPadding(this.heatmap_legend, 'outer');
+            //}
+        }
+        super.afterRender();
     }
 
     protected scale() {
@@ -160,13 +175,15 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     protected addPoint() {
         const props = this.options;
         const defaultConfig = { visible: false, size: 0 };
-        if (props.point) {
+        if (props.point && props.point.visible) {
             props.point = _.deepMix(defaultConfig, props.point);
+        }else{
+            props.point = defaultConfig;
         }
         const point = getGeom('point', 'guide', {
             plot: this,
         });
-        this.setConfig('element', point);
+        point.active = false;
         point.label = this.extractLabel();
         this.setConfig('element', point);
     }
@@ -188,7 +205,11 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         return labelConfig;
     }
 
-    protected animation() { }
+    protected legend() {
+        this.setConfig('legends', false);
+    }
+
+    protected animation() {}
 }
 
 registerPlotType('heatmap', HeatmapLayer);

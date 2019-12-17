@@ -183,5 +183,10 @@ export const DEFAULT_DARK_THEME = {
       boxShadow: '0px 0px 8px rgba(0,0,0,0.65)',
       color: 'rgba(255, 255, 255, 0.65)',
     },
+    crosshairs:{
+      style:{
+        stroke: 'rgba(255, 255, 255, 0.4)'
+      }
+    }
   },
 };

@@ -222,8 +222,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       theme: this.theme,
       options: this.config,
       start: { x: viewRange.minX, y: viewRange.minY },
-      end: { x: viewRange.maxX, y: viewRange.maxY },
-      contourHeatmap: true      
+      end: { x: viewRange.maxX, y: viewRange.maxY },    
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -486,7 +485,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         name: 'title',
       });
       this.title = title;
-      this.paddingController.registerPadding(title, 'outer');
+      if(this.options.padding === 'auto'){
+        this.paddingController.registerPadding(title, 'outer');
+      }
     }
   }
 

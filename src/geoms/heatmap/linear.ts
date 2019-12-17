@@ -139,7 +139,9 @@ class LinearHeatmap extends Element {
         const viewRange = this.get('view').get('panelRange');
         canvas.width = viewRange.width;
         canvas.height = viewRange.height;
-        return canvas.getContext('2d');
+        const context = canvas.getContext('2d');
+        context.globalCompositeOperation = 'lighter';
+        return context;
       }
     
       _clearShadowCanvasCtx() {

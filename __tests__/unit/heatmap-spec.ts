@@ -10,6 +10,7 @@ describe('heatmap layer',()=>{
 
     it('contour heatmap',()=>{
         const heatmap = new Heatmap(canvasDiv, {
+            theme: 'dark',
             width: 500,
             height: 500,
             data: heatmapData,
@@ -19,7 +20,8 @@ describe('heatmap layer',()=>{
             legend:{
                 visible: false
             },
-            radius: 16
+            radius: 10,
+            intensity: 4
           });
           heatmap.render();
     });

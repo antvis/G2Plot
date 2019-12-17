@@ -113,10 +113,10 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     const scales = {};
     /** 配置x-scale */
     scales[props.angleField] = {};
-    if (_.has(props, 'xAxis')) {
-      extractScale(scales[props.angleField], props.xAxis);
-    }
-    super.scale();
+    scales[props.colorField] = {type:'cat'};
+    this.setConfig('scales', scales);
+
+    // super.scale();
   }
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {

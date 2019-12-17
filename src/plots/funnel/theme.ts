@@ -1,5 +1,5 @@
 import { registerTheme } from '../../theme';
 
 registerTheme('funnel', {
-  bleeding: [16, 128, 40, 8],
+  bleeding: [8, 8, 28, 8],
 });

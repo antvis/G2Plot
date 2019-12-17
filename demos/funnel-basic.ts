@@ -11,7 +11,6 @@ const data = [
 const funnelPlot = new g2plot.Funnel(document.getElementById('canvas'), {
   width: 650,
   height: 450,
-  padding: 'auto',
   data,
   xField: 'action',
   yField: 'pv',

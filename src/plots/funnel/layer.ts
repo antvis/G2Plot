@@ -1,12 +1,9 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
-import { extractScale } from '../../util/scale';
+import { ElementOption, DataItem } from '../../interface/config';
 import './theme';
 
 const G2_GEOM_MAP = {
@@ -33,11 +30,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       },
       label: {
         visible: true,
-        adjustColor: false,
       },
+      padding: 'auto',
       legend: {
         position: 'bottom-center',
-        offsetX: -64,
       },
       tooltip: {
         visible: true,
@@ -155,6 +151,31 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       return G2_GEOM_MAP[type];
     }
     return PLOT_GEOM_MAP[type];
+  }
+
+  public afterRender() {
+    this.paddingController.clear();
+    this.view.get('elements').forEach((el) => {
+      this.paddingController.registerPadding(el.get('container'), 'inner');
+    });
+    super.afterRender();
+    this.refineLegend();
+  }
+
+  protected refineLegend() {
+    const { options } = this;
+
+    if (['top-center', 'bottom-center'].indexOf(options.legend.position) >= 0) {
+      const legendController = this.view.get('legendController');
+      legendController.legends.forEach((legend) => {
+        const legendGroup = legend.get('container');
+        const offsetX =
+          -(options.padding[1] - options.padding[3]) / 2 +
+          this.config.theme.bleeding[1] +
+          this.config.theme.bleeding[3];
+        legendGroup.transform([['t', offsetX, 0]]);
+      });
+    }
   }
 }
 

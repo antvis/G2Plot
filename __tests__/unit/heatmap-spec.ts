@@ -19,7 +19,7 @@ describe('heatmap layer',()=>{
             colorField:'tmp',
             legend:{
                 visible: true,
-                position: 'right-center'
+                position: 'right-center',
             },
             radius: 10,
             intensity: 4,

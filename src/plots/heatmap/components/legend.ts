@@ -4,11 +4,20 @@ import { View } from '@antv/g2';
 
 const LABEL_MARGIN = 5;
 
-export interface IHeatmapLegend {
-    view: View;
-    position: string;
+export interface HeatmapLegendConfig {
+    visible?: boolean;
+    position?: string;
     width?: number;
     height?: number;
+    text?: {
+        style: any;
+        formatter:()=>string
+    },
+    gridlineStyle?: any;
+}
+
+export interface IHeatmapLegend extends HeatmapLegendConfig {
+    view: View;
     plot: any;
 }
 
@@ -24,7 +33,11 @@ export default class HeatmapLegend {
     protected y: number;
 
     constructor(cfg: IHeatmapLegend) {
-        this.options = cfg;
+        let defaultOptions = this.getDefaultOptions();
+        if(cfg.plot.options.theme && cfg.plot.options.theme === 'dark'){
+            defaultOptions = this.getDarkOptions();
+        }
+        this.options = deepMix({},defaultOptions,cfg);
         this.view = this.options.view;
         this.init();
     }
@@ -57,7 +70,7 @@ export default class HeatmapLegend {
         }
     }
 
-    public destory(){
+    public destroy(){
         if (this.container) {
             this.container.remove();
         }
@@ -90,8 +103,7 @@ export default class HeatmapLegend {
                         ['M',0,y+gridHeight],
                         ['L',gridWidth,y+gridHeight]
                     ],
-                    stroke:'white',
-                    lineWidth: 1,
+                    ...this.options.gridlineStyle
                 }
             });
         });
@@ -101,10 +113,9 @@ export default class HeatmapLegend {
                 text: min,
                 x: gridWidth / 2,
                 y: -LABEL_MARGIN,
-                fontSize:12,
-                fill:'white',
                 textAlign: 'center',
-                textBaseline: 'bottom'
+                textBaseline: 'bottom',
+                ...this.options.text.style
             }
         });
         const textMax = this.container.addShape('text',{
@@ -112,10 +123,9 @@ export default class HeatmapLegend {
                 text: max,
                 x: gridWidth / 2,
                 y: this.height + LABEL_MARGIN,
-                fontSize:12,
-                fill:'white',
                 textAlign: 'center',
-                textBaseline: 'top'
+                textBaseline: 'top',
+                ...this.options.text.style
             }
         });
         // 绘制包围线
@@ -127,9 +137,7 @@ export default class HeatmapLegend {
                        ['L',0, this.height],
                        ['L',0, 0],
                     ],
-                stroke:'white',
-                lineWidth : 1,
-                opacity: 0.5
+                ...this.options.gridlineStyle
             }
         });
         this.container.add(gridLineContainer);
@@ -270,5 +278,35 @@ export default class HeatmapLegend {
         this.y = y;
 
         this.container.translate(x,y);
+    }
+
+    protected getDefaultOptions(){
+        return {
+            text:{
+                style:{
+                    fontSize: 12,
+                    fill:'rgba(0, 0, 0, 0.45)'
+                }
+            },
+            gridlineStyle:{
+                lineWidth: 1,
+                stroke:'rgba(0, 0, 0, 0.45)'
+            }
+        }
+    }
+
+    protected getDarkOptions(){
+        return {
+           text:{
+               style:{
+                   fontSize: 12,
+                   fill:'rgba(255, 255, 255, 0.45)'
+               }
+           },
+           gridlineStyle:{
+               lineWidth: 1,
+               stroke:'rgba(255, 255, 255, 0.25)'
+           }
+        }
     }
 }

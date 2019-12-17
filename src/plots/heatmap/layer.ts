@@ -7,7 +7,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
-import HeatmapLegend, {IHeatmapLegend} from './components/legend';
+import HeatmapLegend, { HeatmapLegendConfig } from './components/legend';
 import '../scatter/components/label/scatter-label';
 
 
@@ -30,6 +30,7 @@ export interface HeatmapViewConfig extends ViewConfig {
         color?: string;
         style?: PointStyle;
     };
+    legend: HeatmapLegendConfig
 }
 
 export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig { }
@@ -112,8 +113,8 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         if(this.options.legend && this.options.legend.visible){
             this.heatmap_legend = new HeatmapLegend({
                 view: this.view,
-                position: this.options.legend.position,
-                plot: this
+                plot: this,
+                ...this.options.legend
             });
             this.heatmap_legend.render();
             this.paddingController.registerPadding(this.heatmap_legend, 'outer');
@@ -123,7 +124,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
     public destroy(){
         if(this.heatmap_legend){
-            this.heatmap_legend.destory();
+            this.heatmap_legend.destroy();
             this.heatmap_legend = null;
         }
         super.destroy();

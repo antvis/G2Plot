@@ -1,4 +1,4 @@
-import { each, isArray, isFunction, deepMix } from '@antv/util';
+import { each, isArray, isFunction, deepMix,clone } from '@antv/util';
 import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
 
@@ -85,8 +85,9 @@ export default class HeatmapLegend {
         const gridWidth = this.width;
         const gridHeight = this.height / colors.length;
         const gridLineContainer = new Group();
+        const gridColors = clone(colors).reverse();
         // 绘制色彩格子
-        each(colors,(c,i)=>{
+        each(gridColors,(c,i)=>{
             const y = gridHeight * i;
             this.container.addShape('rect',{
                 attrs:{
@@ -108,9 +109,9 @@ export default class HeatmapLegend {
             });
         });
         // 绘制两边的label
-        const textMin = this.container.addShape('text',{
+        const textMax = this.container.addShape('text',{
             attrs:{
-                text: min,
+                text: max,
                 x: gridWidth / 2,
                 y: -LABEL_MARGIN,
                 textAlign: 'center',
@@ -118,9 +119,9 @@ export default class HeatmapLegend {
                 ...this.options.text.style
             }
         });
-        const textMax = this.container.addShape('text',{
+        const textMin = this.container.addShape('text',{
             attrs:{
-                text: max,
+                text: min,
                 x: gridWidth / 2,
                 y: this.height + LABEL_MARGIN,
                 textAlign: 'center',

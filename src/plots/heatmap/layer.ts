@@ -8,6 +8,7 @@ import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
 import HeatmapLegend, { HeatmapLegendConfig } from './components/legend';
+import HeatmapBackground, {  HeatmapBackgroundConfig } from './components/background';
 import '../scatter/components/label/scatter-label';
 
 
@@ -30,7 +31,10 @@ export interface HeatmapViewConfig extends ViewConfig {
         color?: string;
         style?: PointStyle;
     };
-    legend: HeatmapLegendConfig
+    legend: HeatmapLegendConfig,
+    background?: {
+        
+    }
 }
 
 export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig { }
@@ -38,6 +42,7 @@ export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig { }
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
     public type: string = 'heatmap';
     protected heatmap_legend: HeatmapLegend;
+    protected background: HeatmapBackground;
 
     public static getDefaultOptions(): any {
         return _.deepMix({}, super.getDefaultOptions(), {
@@ -119,6 +124,14 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
             this.heatmap_legend.render();
             this.paddingController.registerPadding(this.heatmap_legend, 'outer');
         }
+        if(this.options.background && this.options.padding!=='auto'){
+            this.background = new HeatmapBackground({
+                view: this.view,
+                plot: this,
+                ...this.options.background
+            });
+            this.background.render();
+        }
         super.afterRender();
     }
 
@@ -126,6 +139,10 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         if(this.heatmap_legend){
             this.heatmap_legend.destroy();
             this.heatmap_legend = null;
+        }
+        if(this.background){
+            this.background.destroy();
+            this.background = null;
         }
         super.destroy();
     }

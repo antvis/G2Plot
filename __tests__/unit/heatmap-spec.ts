@@ -21,7 +21,7 @@ describe('heatmap layer',()=>{
                 visible: false
             },
             radius: 10,
-            intensity: 4
+            intensity: 4,
           });
           heatmap.render();
     });

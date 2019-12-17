@@ -5,18 +5,33 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
+import '../scatter/components/label/scatter-label';
 
+
+interface PointStyle {
+    lineDash?: number[];
+    lineWidth?: number;
+    opacity?: string;
+    fillStyle?: string;
+    strokeStyle?: string;
+}
 
 export interface HeatmapViewConfig extends ViewConfig {
     colorField: string;
     radius?: number;
     intensity?: number;
+    point?: {
+        visible?: boolean;
+        shape?: string;
+        size?: number;
+        color?: string;
+        style?: PointStyle;
+    };
 }
 
-export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
+export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig { }
 
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
     public type: string = 'heatmap';
@@ -29,56 +44,71 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
                 autoRotateLabel: true,
                 autoRotateTitle: false,
                 grid: {
-                  visible: false,
+                    visible: false,
                 },
                 line: {
-                  visible: true,
+                    visible: true,
                 },
                 tickLine: {
-                  visible: true,
+                    visible: true,
                 },
                 label: {
-                  visible: true,
+                    visible: true,
                 },
                 title: {
-                  visible: true,
-                  offset: 12,
+                    visible: true,
+                    offset: 12,
                 },
-              },
+            },
             yAxis: {
                 visible: true,
                 autoHideLabel: true,
                 autoRotateLabel: false,
                 autoRotateTitle: true,
                 grid: {
-                  visible: false,
+                    visible: false,
                 },
                 line: {
-                  visible: true,
+                    visible: true,
                 },
                 tickLine: {
-                  visible: true,
+                    visible: true,
                 },
                 label: {
-                  visible: true,
+                    visible: true,
                 },
                 title: {
-                  visible: true,
-                  offset: 12,
+                    visible: true,
+                    offset: 12,
                 },
             },
-            color:[
+            tooltip: {
+                visible: true,
+                crosshairs: {
+                    type: 'cross',
+                    style: {
+                        lineWidth: 2
+                    }
+                }
+            },
+            color: [
                 'rgba(33,102,172,0)',
                 'rgb(103,169,207)',
                 'rgb(209,229,240)',
                 'rgb(253,219,199)',
                 'rgb(239,138,98)',
                 'rgb(178,24,43)'
-            ]
+            ],
+            point: {
+                visible: false,
+                shape: 'circle',
+                size: 2,
+                color: 'white'
+            }
         });
     }
 
-    protected scale(){
+    protected scale() {
         const props = this.options;
         const scales = {};
         /** 配置x-scale */
@@ -95,36 +125,70 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         super.scale();
     }
 
-    protected coord() {}
+    protected coord() { }
 
-    protected geometryParser(dim,type) {
+    protected geometryParser(dim, type) {
         return 'heatmap';
     }
 
-    protected addGeometry(){
+    protected addGeometry() {
+
         const config = {
-            type:'linearHeatmap',
-            position:{
-                fields:[this.options.xField,this.options.yField]
+            type: 'linearHeatmap',
+            position: {
+                fields: [this.options.xField, this.options.yField]
             },
-            color:{
-                fields:[this.options.colorField],
-                values:this.options.color
-            }
+            color: {
+                fields: [this.options.colorField],
+                values: this.options.color
+            },
         } as any;
 
-        if(this.options.radius) {
+        if (this.options.radius) {
             config.radius = this.options.radius;
         }
 
-        if(this.options.intensity) {
+        if (this.options.intensity) {
             config.intensity = this.options.intensity;
         }
- 
+
         this.setConfig('element', config);
+
+        this.addPoint();
     }
 
-    protected animation(){}
+    protected addPoint() {
+        const props = this.options;
+        const defaultConfig = { visible: false, size: 0 };
+        if (props.point) {
+            props.point = _.deepMix(defaultConfig, props.point);
+        }
+        const point = getGeom('point', 'guide', {
+            plot: this,
+        });
+        this.setConfig('element', point);
+        point.label = this.extractLabel();
+        this.setConfig('element', point);
+    }
+
+    protected extractLabel() {
+        const props = this.options;
+        const label = props.label;
+        if (label && label.visible === false) {
+            return false;
+        }
+        const labelConfig = getComponent('label', {
+            plot: this,
+            labelType: 'scatterLabel',
+            fields: [props.xField, props.yField],
+            position: 'middle',
+            offset: 0,
+            ...label,
+        });
+        return labelConfig;
+    }
+
+    protected animation() { }
 }
 
 registerPlotType('heatmap', HeatmapLayer);

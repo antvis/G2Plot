@@ -26,6 +26,7 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
+
 export interface ColumnViewConfig extends ViewConfig {
   // 图形
   type?: 'rect' | 'triangle' | 'round';

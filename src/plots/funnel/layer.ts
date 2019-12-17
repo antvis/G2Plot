@@ -4,6 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
+import { rgb2arr } from '../../util/color';
 import './theme';
 
 const G2_GEOM_MAP = {
@@ -21,7 +22,6 @@ export interface FunnelLayerConfig extends FunnelViewConfig, LayerConfig {}
 export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<FunnelViewConfig> {
     const cfg: Partial<FunnelViewConfig> = {
-      color: ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'],
       xAxis: {
         visible: false,
       },
@@ -80,7 +80,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     funnel.color = {
       fields: [options.xField],
-      values: Array.isArray(options.color) ? options.color : [options.color],
+      values: options.color && (Array.isArray(options.color) ? options.color : [options.color]),
     };
 
     funnel.adjust = [
@@ -96,7 +96,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           offsetX: 16,
           labelLine: {
             lineWidth: 1,
-            stroke: 'lightgray',
+            stroke: 'rgba(0, 0, 0, 0.25)',
           },
           content: `${xValue} ${yValue}`,
         };
@@ -119,18 +119,18 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { options } = this;
     const annotationConfigs = [];
 
-    this.getData().forEach((o) => {
+    this.getData().forEach((datum, i) => {
       annotationConfigs.push({
         top: true,
         type: 'text',
-        position: [o[options.xField], 'median'],
-        content: this.funnelTop ? ((100 * o[options.yField]) / this.funnelTop).toFixed(1) + ' %' : '',
+        position: [datum[options.xField], 'median'],
+        content: this.funnelTop ? ((100 * datum[options.yField]) / this.funnelTop).toFixed(1) + ' %' : '',
         style: {
-          fill: '#fff',
+          fill: 'transparent',
           fontSize: '12',
           textAlign: 'center',
           shadowBlur: 2,
-          shadowColor: 'rgba(0, 0, 0, .45)',
+          shadowColor: 'transparent',
         },
       });
     });
@@ -159,10 +159,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       this.paddingController.registerPadding(el.get('container'), 'inner');
     });
     super.afterRender();
-    this.refineLegend();
+    this.adjustLegend();
+    this.adjustAnnotation();
   }
 
-  protected refineLegend() {
+  protected adjustLegend() {
     const { options } = this;
 
     if (['top-center', 'bottom-center'].indexOf(options.legend.position) >= 0) {
@@ -170,12 +171,31 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       legendController.legends.forEach((legend) => {
         const legendGroup = legend.get('container');
         const offsetX =
-          -(options.padding[1] - options.padding[3]) / 2 +
-          this.config.theme.bleeding[1] +
-          this.config.theme.bleeding[3];
-        legendGroup.transform([['t', offsetX, 0]]);
+          -(options.padding[1] - this.config.theme.bleeding[1] - (options.padding[3] - this.config.theme.bleeding[3])) /
+          4;
+        legendGroup.translate(offsetX, 0);
       });
     }
+  }
+
+  protected adjustAnnotation() {
+    const { options } = this;
+    const { annotations } = this.view.annotation();
+    this.view.eachShape((datum, shape) => {
+      const annotation = annotations.find((annotation) => annotation.cfg.position[0] == datum[options.xField]);
+      if (annotation) {
+        const shapeColor = shape.attr('fill');
+        const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
+
+        const rgb = rgb2arr(shapeColor);
+        const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
+
+        const fill = gray < 128 ? '#f6f6f6' : '#303030';
+
+        annotation.change(_.deepMix(annotation.cfg, { style: { fill } }));
+      }
+    });
+    this.view.annotation().repaint();
   }
 }
 

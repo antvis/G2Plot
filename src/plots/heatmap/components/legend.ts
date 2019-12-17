@@ -51,6 +51,18 @@ export default class HeatmapLegend {
         this.legendLayout();
     }
 
+    public clear(){
+        if (this.container) {
+            this.container.clear();
+        }
+    }
+
+    public destory(){
+        if (this.container) {
+            this.container.remove();
+        }
+    }
+
     public getBBox(){
         const origin_bbox = this.container.getBBox();
         return new BBox(this.x,this.y,origin_bbox.width,origin_bbox.height);
@@ -253,7 +265,7 @@ export default class HeatmapLegend {
         }else if(positions[1] === 'bottom'){
             y = plotHeight - bleeding[2] - bbox.height;
         }
-        
+
         this.x = x;
         this.y = y;
 

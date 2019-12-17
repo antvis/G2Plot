@@ -68,7 +68,7 @@ export default class PaddingController {
       if (maxY > viewMinY && maxY < viewMaxY && position === 'top') {
         viewMinY = maxY;
       }
-      if (position === 'bottom') {
+      if (minY > viewMinY && minY < viewMaxY && position === 'bottom') {
         viewMaxY = minY;
       }
       if (maxX > viewMinX && maxX < viewMaxX && position === 'left') {

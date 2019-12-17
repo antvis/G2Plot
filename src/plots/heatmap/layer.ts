@@ -116,11 +116,17 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
                 plot: this
             });
             this.heatmap_legend.render();
-            //if(this.options.padding === 'auto'){
-                this.paddingController.registerPadding(this.heatmap_legend, 'outer');
-            //}
+            this.paddingController.registerPadding(this.heatmap_legend, 'outer');
         }
         super.afterRender();
+    }
+
+    public destroy(){
+        if(this.heatmap_legend){
+            this.heatmap_legend.destory();
+            this.heatmap_legend = null;
+        }
+        super.destroy();
     }
 
     protected scale() {

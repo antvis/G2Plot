@@ -1,6 +1,6 @@
 import { each, isArray, isFunction, deepMix,clone } from '@antv/util';
 import { Group, BBox } from '@antv/g';
-import { View } from '@antv/g2';
+import { View,Scale} from '@antv/g2';
 
 const LABEL_MARGIN = 5;
 const ACTIVE_OPACITY = 1;
@@ -35,6 +35,7 @@ export default class HeatmapLegend {
     protected x: number;
     protected y: number;
     protected dataSlides: any = {};
+    protected colorScale: any;
 
     constructor(cfg: IHeatmapLegend) {
         let defaultOptions = this.getDefaultOptions();
@@ -57,8 +58,8 @@ export default class HeatmapLegend {
     public render(){
         const scales = this.view.get('scales');
         const colorField = this.options.plot.options.colorField;
-        const colorScale = scales[colorField];
-        const {min,max} = colorScale;
+        this.colorScale = scales[colorField];
+        const {min,max} = this.colorScale;
         const {color} = this.options.plot.options;
         if(this.layout === 'horizontal') {
             this.renderHorizontal(min,max,color);
@@ -192,7 +193,7 @@ export default class HeatmapLegend {
             });
         });
         // 绘制两边的label
-        this.container.addShape('text',{
+        const textMin = this.container.addShape('text',{
             attrs:{
                 text: min,
                 x: 0,
@@ -325,6 +326,7 @@ export default class HeatmapLegend {
     }
 
     protected addInteraction(){
+        const { colorField,data } = this.options.plot.options;
         this.container.on('click',(ev)=>{
             const { target } = ev;
             if(target.get('name') === 'grid'){
@@ -347,6 +349,11 @@ export default class HeatmapLegend {
                 const filteredData = this.getFilteredData();
                 if(filteredData.length > 0){
                     this.view.set('data',filteredData);
+                    this.view.scale(colorField,{
+                        min: this.colorScale.min,
+                        max: this.colorScale.max,
+                        nice: this.colorScale.nice
+                    } as any);
                     this.view.render();
                 }
             }

@@ -153,6 +153,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   }
 
   protected animation() {
+    super.animation();
     if (this.options.animation === false) {
       /** 关闭动画 */
       this.column.animate = false;

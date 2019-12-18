@@ -169,6 +169,7 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
   }
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */

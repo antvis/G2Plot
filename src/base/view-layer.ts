@@ -195,6 +195,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       interactions: {},
       theme: this.theme,
       panelRange: {},
+      animate: true,
     };
 
     this.paddingController.clear();
@@ -409,7 +410,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
-  protected abstract animation(): void;
+
+  protected animation() {
+    if (this.options.animation === false) {
+      this.config.animate = false;
+    }
+  }
 
   protected applyInteractions(): void {
     const { interactions = [] } = this.options;

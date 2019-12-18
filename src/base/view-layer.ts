@@ -99,7 +99,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
           visible: false,
         },
         line: {
-          visible: false,
+          visible: true,
         },
         tickLine: {
           visible: true,

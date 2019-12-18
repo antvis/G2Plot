@@ -44,6 +44,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     const cfg: Partial<BarViewConfig> = {
       xAxis: {
         visible: true,
+        line: {
+          visible: false,
+        },
         title: {
           visible: true,
         },

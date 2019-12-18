@@ -3,11 +3,11 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    g2plot: './src/index.ts',
+    biChart: './src/index.ts',
   },
   output: {
     filename: '[name].js',
-    library: 'g2plot',
+    library: 'bi-chart',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist/'),
   },

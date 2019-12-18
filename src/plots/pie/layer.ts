@@ -157,6 +157,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */

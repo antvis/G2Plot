@@ -185,6 +185,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   }
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       // 关闭动画

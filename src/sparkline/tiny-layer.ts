@@ -60,6 +60,4 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
     });
     this.setConfig('annotations', config);
   }
-
-  protected animation() {}
 }

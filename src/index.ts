@@ -41,4 +41,5 @@ export { registerResponsiveConstraint, IConstraint } from './util/responsive/con
 export { registerResponsiveRule } from './util/responsive/rules';
 export { registerResponsiveTheme, getResponsiveTheme } from './util/responsive/theme';
 
+// 状态机
 export { default as StateManager } from './util/state-manager';

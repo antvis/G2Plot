@@ -65,8 +65,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
     this.parseEvents(props);
   }
 
-  /** 生命周期 */
-  public destroy() {
+  /**
+   * 注销操作(生命周期)
+   */
+  public destroy(): void {
     this.eachLayer((layer) => {
       layer.destroy();
     });

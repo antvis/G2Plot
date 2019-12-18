@@ -10,13 +10,13 @@ describe('heatmap layer',()=>{
 
     it('contour heatmap',()=>{
         const heatmap = new Heatmap(canvasDiv, {
-            // theme: 'dark',
             width: 600,
             height: 600,
             data: heatmapData,
             xField: 'g',
             yField: 'l',
             colorField:'tmp',
+            color:['#075050','#128584','#56BBB8','#A0ECE9','#F7F7F7','#FEDBC4','#FD8A77','#CA4D42','#8E1217'],
             meta:{
                 l:{
                     alias: 'latitude'
@@ -33,7 +33,7 @@ describe('heatmap layer',()=>{
             intensity: 4,
             background:{
                 type: 'image',
-                src:'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png'
+                src:'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TU_aSrMV6KYAAAAAAAAAAABkARQnAQ'
                 //value: '#262626'
             }
           });

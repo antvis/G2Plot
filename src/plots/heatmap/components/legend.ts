@@ -95,7 +95,8 @@ export default class HeatmapLegend {
                     y,
                     width: gridWidth,
                     height: gridHeight,
-                    fill: c
+                    fill: c,
+                    opacity: 0.8
                 }
             });
             const line = gridLineContainer.addShape('path',{
@@ -157,7 +158,8 @@ export default class HeatmapLegend {
                     y:0,
                     width: gridWidth,
                     height: gridHeight,
-                    fill: c
+                    fill: c,
+                    opacity: 0.8
                 }
             });
             const line = gridLineContainer.addShape('path',{
@@ -166,8 +168,7 @@ export default class HeatmapLegend {
                         ['M',x+gridWidth,0],
                         ['L',x+gridWidth,gridHeight]
                     ],
-                    stroke:'white',
-                    lineWidth: 1,
+                    ...this.options.gridlineStyle
                 }
             });
         });
@@ -177,9 +178,7 @@ export default class HeatmapLegend {
                 text: min,
                 x: 0,
                 y: gridHeight + LABEL_MARGIN,
-                fontSize:12,
-                fill:'white',
-                textBaseline: 'top'
+                ...this.options.text.style
             }
         });
         const textMax = this.container.addShape('text',{
@@ -187,10 +186,7 @@ export default class HeatmapLegend {
                 text: max,
                 x: this.width,
                 y: gridHeight + LABEL_MARGIN,
-                fontSize:12,
-                fill:'white',
-                textAlign: 'right',
-                textBaseline: 'top'
+                ...this.options.text.style
             }
         });
         // 绘制包围线
@@ -202,9 +198,7 @@ export default class HeatmapLegend {
                        ['L',0, this.height],
                        ['L',0, 0],
                     ],
-                stroke:'white',
-                lineWidth : 1,
-                opacity: 0.5
+                ...this.options.gridlineStyle
             }
         });
         this.container.add(gridLineContainer);

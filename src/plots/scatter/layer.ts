@@ -60,9 +60,15 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         grid: {
           visible: true,
         },
+        line: {
+          visible: true,
+        },
       },
       yAxis: {
         grid: {
+          visible: true,
+        },
+        line: {
           visible: true,
         },
       },

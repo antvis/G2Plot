@@ -16,7 +16,7 @@ describe('heatmap layer',()=>{
             xField: 'g',
             yField: 'l',
             colorField:'tmp',
-            color:['#075050','#128584','#56BBB8','#A0ECE9','#F7F7F7','#FEDBC4','#FD8A77','#CA4D42','#8E1217'],
+            color:['#295599','#3e94c0','#78c6d0','#b4d9e4','#fffef0','#f9cdac','#ec7d92','#bc448c'],
             meta:{
                 l:{
                     alias: 'latitude'
@@ -34,7 +34,7 @@ describe('heatmap layer',()=>{
             background:{
                 type: 'image',
                 src:'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TU_aSrMV6KYAAAAAAAAAAABkARQnAQ'
-                //value: '#262626'
+                // value: '#262626'
             }
           });
           heatmap.render();

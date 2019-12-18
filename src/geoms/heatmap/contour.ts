@@ -40,7 +40,6 @@ private calDensity(x,y,data){
   const density  = 0;
   each(data,(d)=>{
     const dist = Math.sqrt((d.x - x) * (d.x - x) + (d.y -y) * (d.y - y));
-    console.log(dist);
   });
 
 }

@@ -3,6 +3,8 @@ import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
 
 const LABEL_MARGIN = 5;
+const ACTIVE_OPACITY = 1;
+const DEACTIVE_OPACITY = 0.4;
 
 export interface HeatmapLegendConfig {
     visible?: boolean;
@@ -14,6 +16,7 @@ export interface HeatmapLegendConfig {
         formatter:()=>string
     },
     gridlineStyle?: any;
+    triggerOn?: string;
 }
 
 export interface IHeatmapLegend extends HeatmapLegendConfig {
@@ -31,6 +34,7 @@ export default class HeatmapLegend {
     protected position: string;
     protected x: number;
     protected y: number;
+    protected dataSlides: any = {};
 
     constructor(cfg: IHeatmapLegend) {
         let defaultOptions = this.getDefaultOptions();
@@ -62,6 +66,7 @@ export default class HeatmapLegend {
             this.renderVertical(min,max,color);
         }
         this.legendLayout();
+        this.addInteraction();
     }
 
     public clear(){
@@ -86,19 +91,27 @@ export default class HeatmapLegend {
         const gridHeight = this.height / colors.length;
         const gridLineContainer = new Group();
         const gridColors = clone(colors).reverse();
+        const valueStep = (max - min) / colors.length;
         // 绘制色彩格子
         each(gridColors,(c,i)=>{
             const y = gridHeight * i;
-            this.container.addShape('rect',{
+            // 记录每个grid代表的区间信息用于legend交互
+            const appendInfo = {to:max - valueStep*i,from: max - valueStep*(i+1)};
+            const rect= this.container.addShape('rect',{
                 attrs:{
                     x:0,
                     y,
                     width: gridWidth,
                     height: gridHeight,
                     fill: c,
-                    opacity: 0.8
-                }
+                    opacity: ACTIVE_OPACITY,
+                    cursor: 'pointer'
+                },
+                name: 'grid',
             });
+            rect.set('info',appendInfo);
+            const dataSlide = this.getDataSlide(appendInfo);
+            this.dataSlides[`${appendInfo.from}-${appendInfo.to}`] = {mode:'active',data: dataSlide};
             const line = gridLineContainer.addShape('path',{
                 attrs:{
                     path: [
@@ -149,19 +162,25 @@ export default class HeatmapLegend {
         const gridWidth = this.width / colors.length;
         const gridHeight = this.height;
         const gridLineContainer = new Group();
+        const valueStep = (max - min) / colors.length;
         // 绘制色彩格子
         each(colors,(c,i)=>{
             const x = gridWidth * i;
-            this.container.addShape('rect',{
+             // 记录每个grid代表的区间信息用于legend交互
+             const appendInfo = {from:valueStep*i,to:valueStep*(i+1)};
+             const rect = this.container.addShape('rect',{
                 attrs:{
                     x,
                     y:0,
                     width: gridWidth,
                     height: gridHeight,
                     fill: c,
-                    opacity: 0.8
-                }
+                    opacity: 0.8,
+                    cursor: 'pointer'
+                },
+                name: 'grid'
             });
+            rect.set('info',appendInfo);
             const line = gridLineContainer.addShape('path',{
                 attrs:{
                     path: [
@@ -181,7 +200,7 @@ export default class HeatmapLegend {
                 ...this.options.text.style
             }
         });
-        const textMax = this.container.addShape('text',{
+        this.container.addShape('text',{
             attrs:{
                 text: max,
                 x: this.width,
@@ -190,7 +209,7 @@ export default class HeatmapLegend {
             }
         });
         // 绘制包围线
-        const path = gridLineContainer.addShape('path',{
+        gridLineContainer.addShape('path',{
             attrs:{
                 path: [['M',0,0],
                        ['L',this.width, 0],
@@ -303,5 +322,57 @@ export default class HeatmapLegend {
                stroke:'rgba(255, 255, 255, 0.25)'
            }
         }
+    }
+
+    protected addInteraction(){
+        this.container.on('click',(ev)=>{
+            const { target } = ev;
+            if(target.get('name') === 'grid'){
+                const appendInfo = target.get('info');
+                const targetInfo = `${appendInfo.from}-${appendInfo.to}`;
+                const relativeData = this.dataSlides[targetInfo];
+                if(relativeData.mode === 'active'){
+                    relativeData.mode = 'deactive';
+                    target.stopAnimate();
+                    target.animate({
+                        opacity: DEACTIVE_OPACITY
+                    },200);
+                }else {
+                    relativeData.mode = 'active';
+                    target.stopAnimate();
+                    target.animate({
+                        opacity: ACTIVE_OPACITY
+                    },200);
+                }
+                const filteredData = this.getFilteredData();
+                if(filteredData.length > 0){
+                    this.view.set('data',filteredData);
+                    this.view.render();
+                }
+            }
+        });
+    }
+
+    protected getFilteredData(){
+        const filteredData = [];
+        each(this.dataSlides,(s)=>{
+            if(s.mode == 'active'){
+                filteredData.push(...s.data);
+            }
+        });
+        return filteredData;
+    }
+    
+    //预先对数据进行分组
+    protected getDataSlide(range){
+        const slide = [];
+        const { colorField,data } = this.options.plot.options;
+        each(data,(d)=>{
+            const value = d[colorField];
+            if(value>=range.from && value < range.to){
+                slide.push(d);
+            }
+        });
+        return slide;
     }
 }

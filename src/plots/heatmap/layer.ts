@@ -43,6 +43,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     public type: string = 'heatmap';
     protected heatmap_legend: HeatmapLegend;
     protected background: HeatmapBackground;
+    protected count:number = 0;
 
     public static getDefaultOptions(): any {
         return _.deepMix({}, super.getDefaultOptions(), {
@@ -115,7 +116,8 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     }
 
     public afterRender(){
-        if(this.options.legend && this.options.legend.visible){
+        if(this.options.legend && this.options.legend.visible && this.count < 2){
+            this.heatmap_legend && this.heatmap_legend.destroy();
             this.heatmap_legend = new HeatmapLegend({
                 view: this.view,
                 plot: this,
@@ -133,6 +135,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
             this.background.render();
         }
         super.afterRender();
+        this.count += 1;
     }
 
     public destroy(){

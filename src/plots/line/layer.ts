@@ -158,6 +158,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       const point = getGeom('point', 'guide', {
         plot: this,
       });
+      point.active = false;
       this.setConfig('element', point);
       this.point = point;
     }

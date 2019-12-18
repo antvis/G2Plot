@@ -4,7 +4,6 @@ title: API
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-
 - `style: object`    辅助线文本样式。<br />
 
   - `fontSize: number`    字号<br />

@@ -1,6 +1,7 @@
 ---
 title: API
 ---
+
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
 ### title
@@ -63,44 +64,44 @@ title: API
 
 用法：
 
-* 没有设置colorField, color仅设定单值(string)，此时所有点都显示为一种颜色。
+- 没有设置 colorField, color 仅设定单值(string)，此时所有点都显示为一种颜色。
 
 ```js
 const scatterPlot = new Scatter(document.getElementById('container'), {
-      data,
-      xField: 'Revenue (Millions)',
-      yField: 'Rating',
-      // highlight-start
-      color: '#a8ddb5',
-      // highlight-end
-      xAxis: {
-        visible: true,
-        min: -5,
-      },
-    });
-    scatterPlot.render();
+  data,
+  xField: 'Revenue (Millions)',
+  yField: 'Rating',
+  // highlight-start
+  color: '#a8ddb5',
+  // highlight-end
+  xAxis: {
+    visible: true,
+    min: -5,
+  },
+});
+scatterPlot.render();
 ```
 
 效果：
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QHRIRInL2xwAAAAAAAAAAABkARQnAQ" width = "400">
 
-* 设置了colorField, color设定为多值（数组，string[])，此时点的颜色按照colorField字段对应值的顺序在color数组中取值。
+- 设置了 colorField, color 设定为多值（数组，string[])，此时点的颜色按照 colorField 字段对应值的顺序在 color 数组中取值。
 
 ```js
 const scatterPlot = new Scatter(document.getElementById('container'), {
-      data,
-      xField: 'Revenue (Millions)',
-      yField: 'Rating',
-      // highlight-start
-      colorField: 'Genre',
-      color: ['#d62728', '#2ca02c', '#000000', '#9467bd', '#ffd500', '#1f77b4', '#00518a', '#ffbc69', '#9bd646'],
-      // highlight-end
-      xAxis: {
-        visible: true,
-        min: -5,
-      },
-    });
-    scatterPlot.render();
+  data,
+  xField: 'Revenue (Millions)',
+  yField: 'Rating',
+  // highlight-start
+  colorField: 'Genre',
+  color: ['#d62728', '#2ca02c', '#000000', '#9467bd', '#ffd500', '#1f77b4', '#00518a', '#ffbc69', '#9bd646'],
+  // highlight-end
+  xAxis: {
+    visible: true,
+    min: -5,
+  },
+});
+scatterPlot.render();
 ```
 
 效果：
@@ -120,19 +121,19 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 
 ```js
 const scatterPlot = new Scatter(document.getElementById('container'), {
-      data,
-      xField: 'Revenue (Millions)',
-      yField: 'Rating',
-      // highlight-start
-      pointStyle:(v)=>{
-         if(v>=50){
-             return 'red';
-         } 
-         return 'blue';
-      }
-      // highlight-end
-    });
-    scatterPlot.render();
+  data,
+  xField: 'Revenue (Millions)',
+  yField: 'Rating',
+  // highlight-start
+  pointStyle: (v) => {
+    if (v >= 50) {
+      return 'red';
+    }
+    return 'blue';
+  },
+  // highlight-end
+});
+scatterPlot.render();
 ```
 
 ### tooltip
@@ -152,11 +153,11 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'bottom' | 'left' | 'right' | 'middle'`    图形标签相对于点的位置<br />
 `formatter: function`  对 label 的显示文本进行格式化。<br/>
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br/>
-`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object`  配置 label 文本<br/>
-`adjustColor: boolean` 只在label position为`middle`时生效。设置为`true`时，文本颜色会根据对应图形颜色自动调整。<br/>
-`adjustPosition: boolean` 只在label position为`middle`时生效。设置为`true`时，当文本显示空间不够时自动隐藏。
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br/>
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object` 配置 label 文本<br/>
+`adjustColor: boolean` 只在 label position 为`middle`时生效。设置为`true`时，文本颜色会根据对应图形颜色自动调整。<br/>
+`adjustPosition: boolean` 只在 label position 为`middle`时生效。设置为`true`时，当文本显示空间不够时自动隐藏。
 
 ### quadrant
 
@@ -164,13 +165,14 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 
 四象限组件。将图表区域进行象限划分，用以展示线性数据的分类趋势。
 
-`xBaseline: number`  x方向上的象限分割基准线，默认数值为0<br />
-`yBaseline: number`  y方向上的象限分割基准线，默认数值为0<br />
-`lineStyle: object`  配置象限分割线的样式<br />
-`regionStyle: object[] | Function`  配置象限分割线的样式，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以callback的方式进行配置<br />
+`xBaseline: number` x 方向上的象限分割基准线，默认数值为 0<br />
+`yBaseline: number` y 方向上的象限分割基准线，默认数值为 0<br />
+`lineStyle: object` 配置象限分割线的样式<br />
+`regionStyle: object[] | Function` 配置象限分割线的样式，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以 callback 的方式进行配置<br />
 `label: object` 为象限配置说明文本<br />
-- `text: string[] | Function`  配置象限文本内容，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以callback的方式进行配置
-- `style: object`  配置象限文本内容，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以callback的方式进行配置
+
+- `text: string[] | Function` 配置象限文本内容，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以 callback 的方式进行配置
+- `style: object` 配置象限文本内容，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以 callback 的方式进行配置
 
 完整示例：
 
@@ -204,8 +206,8 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
     });
     scatterPlot.render();
 ```
-效果： <img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ptIxSpu2vxAAAAAAAAAAAABkARQnAQ' width='400'>
 
+效果： <img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ptIxSpu2vxAAAAAAAAAAAABkARQnAQ' width='400'>
 
 ### trendline
 
@@ -213,7 +215,7 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 
 趋势线组件，为图表田间回归曲线。
 
-`type: string` 趋势线类型，支持 `linear`  `exp`  `loess`  `log`  `poly`  `pow` `quad` 7种 <br />
+`type: string` 趋势线类型，支持 `linear` `exp` `loess` `log` `poly` `pow` `quad` 7 种 <br />
 `style: Object` 配置趋势线样式<br />
 `showConfidence: boolean` 是否绘制置信区间曲线<br />
 `confidenceStyle: Object` 配置置信区间样式
@@ -222,26 +224,27 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 
 ```js
 const scatterPlot = new Scatter(document.getElementById('container'), {
-      data,
-      xField: 'x',
-      yField: 'y',
-      // highlight-start
-      trendline:{
-        type:'poly',
-        style:{
-            stroke:'black',
-            lineWidth: 1
-        },
-        showConfidence: true,
-        confidenceStyle: {
-            fill:'red',
-            opacity: 0.1
-        }        
-      }
-      // highlight-end
-    });
-    scatterPlot.render();
+  data,
+  xField: 'x',
+  yField: 'y',
+  // highlight-start
+  trendline: {
+    type: 'poly',
+    style: {
+      stroke: 'black',
+      lineWidth: 1,
+    },
+    showConfidence: true,
+    confidenceStyle: {
+      fill: 'red',
+      opacity: 0.1,
+    },
+  },
+  // highlight-end
+});
+scatterPlot.render();
 ```
+
 效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*K27lT5hfEx8AAAAAAAAAAABkARQnAQ" width="400">
 
 ### events
@@ -256,10 +259,9 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
   `onPointMousemove: function`  点形状鼠标移动事件<br />
   `onPointMousedown: function`  点形状鼠标按下事件<br />
   `onPointMouseup: function`  点形状鼠标松开事件<br />
-  `onPointContextmenu: function`   点形状右键事件
+  `onPointContextmenu: function`    点形状右键事件
 
 - 其他事件类型见[通用图表配置](../../../../zh/docs/manual/general-config#events)。
-
 
 * Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 * Server-side Rendering

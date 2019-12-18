@@ -206,10 +206,11 @@ describe('GroupColomn plot', () => {
     const plot = columnPlot.getLayer().view;
     const labelGroup = plot
       .get('elements')[0]
-      .get('container')
-      .get('children')[1]
+      .get('frontgroundGroup')
+      .get('children')[0]
       .get('children')[0]
       .get('children');
+
     // const panelGroup = columnPlot.plot.get('panelRange');
     expect(labelGroup.length).toBe(18);
     expect(labelGroup[0].attrs.fill).toBe('red');

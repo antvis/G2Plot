@@ -97,11 +97,25 @@ export default class AxisParser {
   private _labelParser() {
     const { formatter, style, ...restLabelProps } = this.localProps.label;
     const labelConfig: DataPointType = { ...restLabelProps };
+    const rotate = labelConfig.rotate;
     /** label style */
     if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }
     labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
+    if (rotate && !labelConfig.textStyle.textAlign) {
+      labelConfig.textStyle.textAlign =
+        rotate % 180 === 0
+          ? 'center'
+          : rotate > 0
+          ? rotate % 360 < 180
+            ? 'left'
+            : 'right'
+          : rotate % 360 > -180
+          ? 'right'
+          : 'left';
+      labelConfig.offsetY = -6 * Math.abs(Math.sin((rotate * Math.PI) / 180));
+    }
     /** label formatter */
     if (formatter) {
       const textFormatter = this.localProps.label.formatter;

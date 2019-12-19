@@ -6,7 +6,7 @@ import { Group } from '@antv/g';
 
 const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack'];
 
-export function showTooltip(canvas, layers) {
+export function showTooltip(canvas, layers, tooltipCfg) {
   const tooltip = renderTooltip(layers[0], canvas);
 
   canvas.on('mousemove', (ev) => {
@@ -27,7 +27,7 @@ export function showTooltip(canvas, layers) {
         });
       }
     });
-    adjustItems(tooltipItems, ev.target);
+    adjustItems(tooltipItems, ev.target, tooltipCfg);
     if (tooltipItems.length > 0) {
       tooltip.setContent('', getUniqueItems(tooltipItems));
       tooltip.setPosition(point.x, point.y, ev.target);
@@ -55,6 +55,7 @@ function getTooltipItems(point, geom, type, dataArray, coord) {
           v.y = point[1];
           v.showMarker = true;
           const itemMarker = getItemMarker(geom, v.color);
+          itemMarker.radius = 20;
           v.marker = itemMarker;
           if (indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
             items.push(v);
@@ -122,7 +123,7 @@ function indexOfArray(items, item) {
   return rst;
 }
 
-function adjustItems(items, target) {
+function adjustItems(items, target, cfg) {
   if (target.get('origin')) {
     let data;
     if (isArray(target.get('origin'))) {
@@ -136,9 +137,11 @@ function adjustItems(items, target) {
       }
     });
   }
-  items.sort((a, b) => {
-    return parseFloat(b.value) - parseFloat(a.value);
-  });
+  if (cfg.sort) {
+    items.sort((a, b) => {
+      return parseFloat(b.value) - parseFloat(a.value);
+    });
+  }
 }
 
 function getDataByTitle(title, data) {

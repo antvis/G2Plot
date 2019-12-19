@@ -73,7 +73,8 @@ export default class OverlappedComboPlot<
         visible: false,
       },
       tooltip: {
-        visible: false,
+        visible: true,
+        sort: true,
       },
     };
   }
@@ -123,7 +124,7 @@ export default class OverlappedComboPlot<
 
     const legend = this.overlappingLegend();
     this.paddingComponents.push(legend);
-    this.overlappingLayout();
+    this.overlappingLayout(props);
   }
 
   /** 图层叠加时的layer config */
@@ -140,6 +141,9 @@ export default class OverlappedComboPlot<
         legend: {
           visible: false,
         },
+        tooltip: {
+          visible: false,
+        },
         padding: [0, 0, 0, 0],
         color: ComboUtil.getColorConfig(layerCfg.type, layerCfg),
       }
@@ -152,7 +156,7 @@ export default class OverlappedComboPlot<
     return ComboUtil.createLegend(legendItems, this.legendContainer, this.width, this.getCanvas());
   }
 
-  protected overlappingLayout() {
+  protected overlappingLayout(props) {
     const { bleeding } = getGlobalTheme();
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
@@ -185,16 +189,10 @@ export default class OverlappedComboPlot<
         .get('panelGroup')
         .get('backShape')
         .remove();
-      /*layer.view
-        .get('backgroundGroup')
-        .get('backShape')
-        .set('capture', false);
-      layer.view
-        .get('panelGroup')
-        .get('backShape')
-        .set('capture', false);*/
     });
 
-    ComboUtil.showTooltip(this.canvas, this.layers);
+    if (props.tooltip.visible) {
+      ComboUtil.showTooltip(this.canvas, this.layers, props.tooltip);
+    }
   }
 }

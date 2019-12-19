@@ -1,12 +1,14 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
+import { getComponent } from '../../components/factory';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
 import './theme';
 import './animation/funnel-scale-in-y';
+import './animation/funnel-fade-out';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -16,21 +18,36 @@ const PLOT_GEOM_MAP = {
   interval: 'funnel',
 };
 
-export type FunnelViewConfig = ViewConfig;
+export interface FunnelViewConfig extends ViewConfig {
+  percentage?: {
+    visible?: boolean;
+    adjustColor?: boolean;
+    style?: {};
+    formatter?: (yValueTop: any, yValue: any) => string;
+  };
+}
 
 export interface FunnelLayerConfig extends FunnelViewConfig, LayerConfig {}
 
 export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<FunnelViewConfig> {
     const cfg: Partial<FunnelViewConfig> = {
-      xAxis: {
-        visible: false,
-      },
-      yAxis: {
-        visible: false,
-      },
       label: {
         visible: true,
+        offsetX: 16,
+        labelLine: {
+          lineWidth: 1,
+          stroke: 'rgba(0, 0, 0, 0.25)',
+        },
+        formatter: (xValue, yValue) => `${xValue} ${yValue}`,
+      },
+      percentage: {
+        visible: true,
+        style: {
+          fontSize: '12',
+          textAlign: 'center',
+        },
+        formatter: (yValueTop, yValue) => ((100 * yValue) / yValueTop).toFixed(1) + ' %',
       },
       padding: 'auto',
       legend: {
@@ -56,16 +73,16 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   public funnel: any;
   public type: string = 'funnel';
-  private funnelTop?: number;
+  private yValueTop?: any;
   private shouldAdjustLegends: boolean = true;
   private shouldAdjustAnnotations: boolean = false;
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
     const { options: props } = this;
     if (data && data[0]) {
-      this.funnelTop = +data[0][props.yField] || undefined;
+      this.yValueTop = data[0][props.yField];
     } else {
-      this.funnelTop = undefined;
+      this.yValueTop = undefined;
     }
     return super.processData(data);
   }
@@ -75,6 +92,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       actions: [['transpose'], ['scale', 1, -1]],
     };
     this.setConfig('coord', coordConfig);
+  }
+
+  protected axis(): void {
+    this.setConfig('axes', false);
   }
 
   protected adjustFunnel(funnel: ElementOption) {
@@ -94,20 +115,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         type: 'symmetric',
       },
     ];
-
-    funnel.label = {
-      fields: [props.xField, props.yField],
-      callback(xValue, yValue) {
-        return {
-          offsetX: 16,
-          labelLine: {
-            lineWidth: 1,
-            stroke: 'rgba(0, 0, 0, 0.25)',
-          },
-          content: `${xValue} ${yValue}`,
-        };
-      },
-    };
   }
 
   protected addGeometry() {
@@ -116,27 +123,20 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       positionFields: [props.xField, props.yField],
       plot: this,
     });
+    if (props.label) {
+      funnel.label = this.extractLabel();
+    }
     this.adjustFunnel(funnel);
     this.funnel = funnel;
     this.setConfig('element', funnel);
   }
 
   protected annotation() {
-    const { options: props } = this;
     const annotationConfigs = [];
 
     this.getData().forEach((datum, i) => {
-      annotationConfigs.push({
-        top: true,
-        type: 'text',
-        position: [datum[props.xField], 'median'],
-        content: this.funnelTop ? ((100 * datum[props.yField]) / this.funnelTop).toFixed(1) + ' %' : '',
-        style: {
-          fill: 'transparent',
-          fontSize: '12',
-          textAlign: 'center',
-        },
-      });
+      const percentageConfig = this.extractPercentage(datum);
+      annotationConfigs.push(percentageConfig);
     });
 
     this.setConfig('annotations', annotationConfigs);
@@ -148,7 +148,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       /** 关闭动画 */
       this.funnel.animate = false;
     } else {
-      const duration = _.get(props, 'animation.duration', 800);
+      const duration = _.get(props, 'animation.duration');
       setTimeout(() => {
         this.shouldAdjustAnnotations = true;
       }, duration);
@@ -159,6 +159,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           callback: (shape) => {
             const annotation = this.view.annotation().annotations[shape.get('index')];
             this.adjustAnnotationWithoutRepaint(shape, annotation);
+            this.view.annotation().repaint();
+          },
+        },
+        leave: {
+          animation: 'funnelFadeOut',
+          prepare: (shape) => {
+            const annotation = this.view.annotation().annotations[shape.get('index')];
+            annotation.change({ style: { opacity: 0 } });
             this.view.annotation().repaint();
           },
         },
@@ -187,6 +195,65 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     super.updateConfig(cfg);
     this.shouldAdjustLegends = true;
     this.shouldAdjustAnnotations = false;
+  }
+
+  protected extractLabel() {
+    const props = this.options;
+    const label = props.label;
+
+    if (label && label.visible === false) {
+      return false;
+    }
+
+    const labelConfig = getComponent('label', {
+      plot: this,
+      fields: [props.xField, props.yField],
+      ...label,
+    });
+
+    const callback = labelConfig.callback.bind(labelConfig);
+    labelConfig.callback = (xValue, yValue) => {
+      const config = callback(xValue, yValue);
+      if (_.isFunction(label.formatter)) {
+        config.formatter = (text, item, idx) => label.formatter(xValue, yValue, item, idx);
+      }
+      return config;
+    };
+
+    return labelConfig;
+  }
+
+  protected extractPercentage(datum) {
+    const props = this.options;
+    const percentage = props.percentage || {};
+
+    const percentageConfig = _.deepMix(
+      {
+        style: {
+          fill: percentage.adjustColor === false ? 'white' : 'transparent',
+        },
+      },
+      percentage,
+      {
+        top: true,
+        type: 'text',
+        position: [datum[props.xField], 'median'],
+        style: {},
+      }
+    );
+
+    if (percentage.visible === false) {
+      percentageConfig.style.opacity = 0;
+    }
+
+    if (_.isFunction(percentage.formatter)) {
+      percentageConfig.content = percentage.formatter(this.yValueTop, datum[props.yField]);
+    }
+
+    delete percentageConfig.visible;
+    delete percentageConfig.formatter;
+    delete percentageConfig.adjustColor;
+    return percentageConfig;
   }
 
   protected adjustLegends() {
@@ -218,17 +285,19 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   protected adjustAnnotationWithoutRepaint(shape, annotation) {
+    const { options: props } = this;
+    if (_.get(props, 'percentage.adjustColor') === false) return;
+
     if (annotation) {
       const shapeColor = shape.attr('fill');
-      const shapeOpacity =
-        typeof shape.attr('opacity') == 'number' ? Math.min(Math.max(0, shape.attr('opacity')), 1) : 1;
+      const shapeOpacity = _.isNumber(shape.attr('opacity')) ? Math.min(Math.max(0, shape.attr('opacity')), 1) : 1;
 
       const rgb = rgb2arr(shapeColor);
       const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
 
       const fill = gray < 156 ? '#f6f6f6' : '#303030';
 
-      annotation.change(_.deepMix(annotation.cfg, { style: { fill } }));
+      annotation.change({ style: { fill } });
     }
   }
 }

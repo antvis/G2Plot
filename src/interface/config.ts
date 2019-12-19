@@ -106,7 +106,9 @@ export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 export interface Label {
   visible: boolean;
   type?: string;
-  formatter?: (text: string, item: any, idx: number) => string;
+  formatter?:
+    | ((text: string, item: any, idx: number) => string)
+    | ((xValue: string, yValue: string, item: any, idx: number) => string);
   style?: {};
   offset?: number;
   offsetX?: number;
@@ -115,6 +117,7 @@ export interface Label {
   position?: string;
   adjustColor?: boolean;
   adjustPosition?: boolean;
+  labelLine?: {};
   /** 展示优化策略 */
 }
 

@@ -1,4 +1,4 @@
-import { each, contains, isArray, isObject, indexOf, isNil, deepMix } from '@antv/util';
+import { each, contains, isArray, isObject, indexOf, isNil, deepMix, keys } from '@antv/util';
 import { Tooltip } from '@antv/component';
 import { getShapeFactory } from '@antv/g2';
 import { getGlobalTheme } from '../../theme/global';
@@ -124,8 +124,12 @@ function indexOfArray(items, item) {
 
 function adjustItems(items, target) {
   if (target.get('origin')) {
-    let data = target.get('origin')._origin;
-    console.log(target);
+    let data;
+    if (isArray(target.get('origin'))) {
+      data = getDataByTitle(items[0].title, target.get('origin')).data;
+    } else {
+      data = target.get('origin')._origin;
+    }
     each(items, (item) => {
       if (item.point._origin !== data) {
         item.color = '#ccc';
@@ -135,4 +139,17 @@ function adjustItems(items, target) {
   items.sort((a, b) => {
     return parseFloat(b.value) - parseFloat(a.value);
   });
+}
+
+function getDataByTitle(title, data) {
+  for (const i in data) {
+    const d = data[i]._origin;
+    const ks = keys(d);
+    for (const j in ks) {
+      const key = ks[j];
+      if (d[key] === title) {
+        return { data: d, key };
+      }
+    }
+  }
 }

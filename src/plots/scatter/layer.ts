@@ -7,7 +7,9 @@ import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
-import * as EventParser from '../bubble/event';
+import { getComponent } from '../../components/factory';
+import * as EventParser from './event';
+import './components/label/scatter-label';
 
 interface PointStyle {
   /** 圆边大小 */
@@ -58,9 +60,15 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         grid: {
           visible: true,
         },
+        line: {
+          visible: true,
+        },
       },
       yAxis: {
         grid: {
+          visible: true,
+        },
+        line: {
           visible: true,
         },
       },
@@ -146,14 +154,15 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     const points = getGeom('point', 'circle', {
       plot: this,
     });
-
     this.points = points;
+    if (this.options.label && this.options.label.visible) {
+      this.points.label = this.extractLabel();
+    }
     this.setConfig('element', points);
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */
@@ -163,6 +172,23 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
+  }
+
+  protected extractLabel() {
+    const props = this.options;
+    const label = props.label;
+    if (label && label.visible === false) {
+      return false;
+    }
+    const labelConfig = getComponent('label', {
+      plot: this,
+      labelType: 'scatterLabel',
+      fields: [props.yField],
+      position: 'right',
+      offset: 0,
+      ...label,
+    });
+    return labelConfig;
   }
 }
 

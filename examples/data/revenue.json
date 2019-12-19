@@ -1,0 +1,434 @@
+[
+  {
+    "UEFA rank": 1,
+    "country": "Spain",
+    "UEFA points*": 98.284,
+    "Clubs": "7/7",
+    "Revenue per club[€ m]": 102.3,
+    "revenueGroup": "€50M+"
+  },
+  {
+    "UEFA rank": 2,
+    "country": "England",
+    "UEFA points*": 71.748,
+    "Clubs": "6/7",
+    "Revenue per club[€ m]": 220.3,
+    "revenueGroup": "€50M+"
+  },
+  {
+    "UEFA rank": 3,
+    "country": "Italy",
+    "UEFA points*": 69.749,
+    "Clubs": "6/6",
+    "Revenue per club[€ m]": 95.2,
+    "revenueGroup": "€50M+"
+  },
+  {
+    "UEFA rank": 4,
+    "country": "Germany",
+    "UEFA points*": 67.57,
+    "Clubs": "3/7",
+    "Revenue per club[€ m]": 134.5,
+    "revenueGroup": "€50M+"
+  },
+  {
+    "UEFA rank": 5,
+    "country": "France",
+    "UEFA points*": 52.415,
+    "Clubs": "4/6",
+    "Revenue per club[€ m]": 70.9,
+    "revenueGroup": "€50M+"
+  },
+  {
+    "UEFA rank": 6,
+    "country": "Russia",
+    "UEFA points*": 50.182,
+    "Clubs": "4/5",
+    "Revenue per club[€ m]": 46.4,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 7,
+    "country": "Portugal",
+    "UEFA points*": 44.582,
+    "Clubs": "3/6",
+    "Revenue per club[€ m]": 19.1,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 8,
+    "country": "Ukraine",
+    "UEFA points*": 39.133,
+    "Clubs": "2/5",
+    "Revenue per club[€ m]": 12.5,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 9,
+    "country": "Belgium",
+    "UEFA points*": 38.5,
+    "Clubs": "0/5",
+    "Revenue per club[€ m]": 19.7,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 10,
+    "country": "Turkey",
+    "UEFA points*": 34.8,
+    "Clubs": "1/5",
+    "Revenue per club[€ m]": 36,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 11,
+    "country": "Austria",
+    "UEFA points*": 29.85,
+    "Clubs": "1/4",
+    "Revenue per club[€ m]": 12.9,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 12,
+    "country": "Netherlands",
+    "UEFA points*": 29.749,
+    "Clubs": "0/5",
+    "Revenue per club[€ m]": 24.9,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 13,
+    "country": "Czech Republic",
+    "UEFA points*": 29.175,
+    "Clubs": "1/5",
+    "Revenue per club[€ m]": 3.2,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 14,
+    "country": "Switzerland",
+    "UEFA points*": 28.8,
+    "Clubs": "1/5",
+    "Revenue per club[€ m]": 21.1,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 15,
+    "country": "Greece",
+    "UEFA points*": 28.2,
+    "Clubs": "1/5",
+    "Revenue per club[€ m]": 7.8,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 16,
+    "country": "Croatia",
+    "UEFA points*": 26,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 4.3,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 17,
+    "country": "Denmark",
+    "UEFA points*": 25.95,
+    "Clubs": "1/4",
+    "Revenue per club[€ m]": 11.9,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 18,
+    "country": "Israel",
+    "UEFA points*": 21.75,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 4.4,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 19,
+    "country": "Cyprus",
+    "UEFA points*": 21.55,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 3.3,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 20,
+    "country": "Poland",
+    "UEFA points*": 20.125,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 6.7,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 21,
+    "country": "Romania",
+    "UEFA points*": 20.05,
+    "Clubs": "1/5",
+    "Revenue per club[€ m]": 5.1,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 22,
+    "country": "Sweden",
+    "UEFA points*": 19.475,
+    "Clubs": "1/4",
+    "Revenue per club[€ m]": 10.4,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 23,
+    "country": "Azerbaijan",
+    "UEFA points*": 19.125,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 4,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 24,
+    "country": "Bulgaria",
+    "UEFA points*": 19.125,
+    "Clubs": "1/4",
+    "Revenue per club[€ m]": 4.2,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 25,
+    "country": "Belarus",
+    "UEFA points*": 18.625,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 4.2,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 26,
+    "country": "Serbia",
+    "UEFA points*": 18.25,
+    "Clubs": "2/4",
+    "Revenue per club[€ m]": 1.6,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 27,
+    "country": "Scotland",
+    "UEFA points*": 18.125,
+    "Clubs": "1/4",
+    "Revenue per club[€ m]": 11.1,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 28,
+    "country": "Kazakhstan",
+    "UEFA points*": 17.875,
+    "Clubs": "1/4",
+    "Revenue per club[€ m]": 11.1,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 29,
+    "country": "Norway",
+    "UEFA points*": 17.425,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 9,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 30,
+    "country": "Slovenia",
+    "UEFA points*": 14.5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 1.5,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 31,
+    "country": "Liechtenstein",
+    "UEFA points*": 13,
+    "Clubs": "0/1",
+    "Revenue per club[€ m]": 1.5,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 32,
+    "country": "Slovakia",
+    "UEFA points*": 12.125,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 2.2,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 33,
+    "country": "Moldova",
+    "UEFA points*": 10,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.6,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 34,
+    "country": "Albania",
+    "UEFA points*": 8.5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.7,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 35,
+    "country": "Iceland",
+    "UEFA points*": 8.25,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 1.1,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 36,
+    "country": "Hungary",
+    "UEFA points*": 8.125,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 5.5,
+    "revenueGroup": "€5M to €50M"
+  },
+  {
+    "UEFA rank": 37,
+    "country": "FYR Macedonia",
+    "UEFA points*": 7.5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.8,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 38,
+    "country": "Finland",
+    "UEFA points*": 6.9,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 2,
+    "revenueGroup": "€1M to €5M"
+  },
+  {
+    "UEFA rank": 39,
+    "country": "Republic of Ireland",
+    "UEFA points*": 6.7,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.9,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 40,
+    "country": "Bosnia and Herzegovina",
+    "UEFA points*": 6.625,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.6,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 41,
+    "country": "Latvia",
+    "UEFA points*": 5.625,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.4,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 42,
+    "country": "Estonia",
+    "UEFA points*": 5.5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.4,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 43,
+    "country": "Lithuania",
+    "UEFA points*": 5.375,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.6,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 44,
+    "country": "Montenegro",
+    "UEFA points*": 5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.4,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 45,
+    "country": "Georgia",
+    "UEFA points*": 5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.7,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 46,
+    "country": "Armenia",
+    "UEFA points*": 4.875,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.5,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 47,
+    "country": "Malta",
+    "UEFA points*": 4.5,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.4,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 48,
+    "country": "Luxembourg",
+    "UEFA points*": 4.375,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.7,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 49,
+    "country": "Northern Ireland",
+    "UEFA points*": 4.25,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.8,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 50,
+    "country": "Wales",
+    "UEFA points*": 3.875,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.5,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 51,
+    "country": "Faroe Islands",
+    "UEFA points*": 3.75,
+    "Clubs": "0/4",
+    "Revenue per club[€ m]": 0.5,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 52,
+    "country": "Gibraltar",
+    "UEFA points*": 3,
+    "Clubs": "0/3",
+    "Revenue per club[€ m]": 0.3,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 53,
+    "country": "Andorra",
+    "UEFA points*": 1.331,
+    "Clubs": "0/3",
+    "Revenue per club[€ m]": 0.2,
+    "revenueGroup": "€0.1M to €1M"
+  },
+  {
+    "UEFA rank": 54,
+    "country": "San Marino",
+    "UEFA points*": 0.499,
+    "Clubs": "0/3",
+    "Revenue per club[€ m]": 0.1,
+    "revenueGroup": "€0.1M to €1M"
+  }
+]

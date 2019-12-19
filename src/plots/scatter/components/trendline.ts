@@ -1,4 +1,4 @@
-import { each, isArray, isFunction, deepMix, minBy, maxBy } from '@antv/util';
+import { each, deepMix, minBy, maxBy, isNull } from '@antv/util';
 import { Group, BBox, Shape } from '@antv/g';
 import { View } from '@antv/g2';
 import { getScale } from '@antv/scale';
@@ -80,19 +80,24 @@ export default class Quadrant {
   }
 
   public render() {
+    const scales = this.view.get('scales');
+    const xscale_view = scales[this.options.plotOptions.xField];
+    const yscale_view = scales[this.options.plotOptions.yField];
     const coord = this.view.get('coord');
     const { trendlineData } = this.data;
     // 创建图形绘制的scale
     const LinearScale = getScale('linear');
+    const xRange = this.adjustScale(xscale_view, trendlineData, 'x');
     const xScale = new LinearScale({
-      min: minBy(trendlineData, 'x').x,
-      max: maxBy(trendlineData, 'x').x,
-      nice: true,
+      min: xRange.min,
+      max: xRange.max,
+      nice: xscale_view.nice,
     });
+    const yRange = this.adjustScale(yscale_view, trendlineData, 'y');
     const yScale = new LinearScale({
-      min: minBy(trendlineData, 'y').y,
-      max: maxBy(trendlineData, 'y').y,
-      nice: true,
+      min: yRange.min,
+      max: yRange.max,
+      nice: yscale_view.nice,
     });
     // 绘制置信区间曲线
     if (this.options.showConfidence) {
@@ -171,13 +176,33 @@ export default class Quadrant {
     for (let i = 0; i < upperPoints.length; i++) {
       const flag = i === 0 ? 'M' : 'L';
       const p = upperPoints[i];
-      path.push([flag, p.x, p.y]);
+      if (!isNaN(p.x) && !isNaN(p.y)) {
+        path.push([flag, p.x, p.y]);
+      }
     }
     for (let j = lowerPoints.length - 1; j > 0; j--) {
       const p = lowerPoints[j];
-      path.push(['L', p.x, p.y]);
+      if (!isNaN(p.x) && !isNaN(p.y)) {
+        path.push(['L', p.x, p.y]);
+      }
     }
-
     return path;
+  }
+
+  private adjustScale(viewScale, trendlineData, dim) {
+    // 处理用户自行配置min max的情况
+    const { min, max } = viewScale;
+    const { data, xField, yField } = this.options.plotOptions;
+    const field = dim === 'x' ? xField : yField;
+    const dataMin = minBy(data, field)[field];
+    const dataMax = maxBy(data, field)[field];
+    const minRatio = (min - dataMin) / (dataMax - dataMin);
+    const maxRatio = (max - dataMax) / (dataMax - dataMin);
+    const trendMin = minBy(trendlineData, dim)[dim];
+    const trendMax = maxBy(trendlineData, dim)[dim];
+    return {
+      min: trendMin + minRatio * (trendMax - trendMin),
+      max: trendMax + maxRatio * (trendMax - trendMin),
+    };
   }
 }

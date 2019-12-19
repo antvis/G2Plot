@@ -3,7 +3,6 @@ import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
-import { eventNames } from 'cluster';
 
 export interface LayerConfig {
   id?: string;

@@ -9,7 +9,7 @@ $.get('data/country-economy.json', function(data) {
     xField: 'GDP',
     yField: 'LifeExpectancy',
     sizeField: 'Population',
-    colorFields: 'continent',
+    colorField: 'continent',
     label: {
       visible: true,
       formatter: (v) => {

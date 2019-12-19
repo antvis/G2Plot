@@ -177,7 +177,7 @@ export default class Quadrant {
         position: 'outter-inner',
         offset: 10,
         style: {
-          fontSize: 16,
+          fontSize: 14,
           fill: '#ccc',
           // fontWeight: 100
         },
@@ -267,6 +267,7 @@ export default class Quadrant {
       }
     }
     style = deepMix({}, labelOptions.style, style);
+    style.lineHeight = style.fontSize;
     return {
       x,
       y,

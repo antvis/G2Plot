@@ -43,15 +43,21 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
   protected annotation() {
     const props = this.options;
     const config = [];
+    const defaultGuidelineCfg = {
+      line: {
+        style: {
+          lineWidth: 1,
+          stroke: '#66d6a8',
+        },
+      },
+    };
     _.each(props.guideLine, (line) => {
       const guideLine = getComponent('guideLine', {
         plot: this,
-        cfg: line,
+        cfg: _.deepMix({}, defaultGuidelineCfg, line),
       });
       config.push(guideLine);
     });
     this.setConfig('annotations', config);
   }
-
-  protected animation() {}
 }

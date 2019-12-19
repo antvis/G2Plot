@@ -164,8 +164,6 @@ export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
     this.setConfig('annotations', annotationConfigs);
   }
 
-  protected animation() {}
-
   private percent(num: number, fixed: number = 2): string {
     if (isNaN(num)) {
       return `${num}`;

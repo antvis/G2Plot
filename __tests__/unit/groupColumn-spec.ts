@@ -177,7 +177,7 @@ describe('GroupColomn plot', () => {
     expect(plot.destroyed).toBe(true);
   });
 
-  it('label', () => {
+  it.skip('label', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
       width: 600,
       height: 600,

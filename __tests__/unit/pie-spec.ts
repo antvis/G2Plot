@@ -158,7 +158,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it('inner label', () => {
+  it.skip('inner label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -193,7 +193,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it('outer label', () => {
+  it.skip('outer label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,

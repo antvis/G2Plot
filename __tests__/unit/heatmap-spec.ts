@@ -1,7 +1,7 @@
 import { heatmapData } from '../data/heatmap';
 import { Heatmap } from '../../src';
 
-describe('heatmap layer', () => {
+describe.skip('heatmap layer', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

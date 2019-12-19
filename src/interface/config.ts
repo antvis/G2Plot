@@ -186,6 +186,7 @@ export interface G2Config {
   interactions: {};
   theme: any;
   panelRange: any;
+  animate: any;
 }
 
 export interface IColorConfig {

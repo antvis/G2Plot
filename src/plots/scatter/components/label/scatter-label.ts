@@ -9,7 +9,7 @@ interface Point {
   [key: string]: any;
 }
 
-export class BubbleLabels extends ElementLabels {
+export class ScatterLabels extends ElementLabels {
   public setLabelPosition(point, originPoint, index, originPosition) {
     let position = originPosition;
     if (_.isFunction(position)) {
@@ -128,4 +128,4 @@ export class BubbleLabels extends ElementLabels {
   }
 }
 
-registerElementLabels('bubbleLabel', BubbleLabels);
+registerElementLabels('scatterLabel', ScatterLabels);

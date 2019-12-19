@@ -44,6 +44,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     const cfg: Partial<BarViewConfig> = {
       xAxis: {
         visible: true,
+        line: {
+          visible: false,
+        },
         title: {
           visible: true,
         },
@@ -178,9 +181,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('element', bar);
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */

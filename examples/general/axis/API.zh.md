@@ -6,7 +6,7 @@ title: API
 
 **optional**
 
-`visible: boolean`  坐标轴是否可见
+`visible: boolean` 坐标轴是否可见
 
 ### line
 
@@ -15,7 +15,8 @@ title: API
 `visible: boolean` 坐标轴轴线是否可见
 
 `style: object | function` 坐标轴轴线样式
-- `stroke: string` 坐标轴轴线颜色 
+
+- `stroke: string` 坐标轴轴线颜色
 - `lineWidth: number`  描边宽度<br />
 - `lineDash: number[]`  描边虚线显示<br />
 - `opacity: number`  透明度
@@ -27,11 +28,11 @@ title: API
 `visible: boolean` 坐标轴网格是否可见
 
 `style: object | function` 坐标轴网格样式
-- `stroke: string` 坐标轴轴线颜色 
+
+- `stroke: string` 坐标轴轴线颜色
 - `lineWidth: number`  描边宽度<br />
 - `lineDash: number[]`  描边虚线显示<br />
 - `opacity: number`  透明度
-
 
 ### label
 
@@ -46,12 +47,13 @@ title: API
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量
 
 `style: object` 配置 label 文本样式
-- `fill: string` label颜色
-- `fontSize: number` label文本大小
-- `fontWeight: number` label文本字体粗细
-- `stroke: string` label文本描边颜色
-- `lineWidth: number` label文本描边粗细
-- `opacity: number` label文本透明度
+
+- `fill: string` label 颜色
+- `fontSize: number` label 文本大小
+- `fontWeight: number` label 文本字体粗细
+- `stroke: string` label 文本描边颜色
+- `lineWidth: number` label 文本描边粗细
+- `opacity: number` label 文本透明度
 
 ### title
 
@@ -62,13 +64,13 @@ title: API
 `offset: number` 坐标轴标题位置偏移量
 
 `style: object` 配置 title 文本样式
+
 - `fill: string` title 颜色
 - `fontSize: number` title 文本大小
 - `fontWeight: number` title 文本字体粗细
 - `stroke: string` title 文本描边颜色
 - `lineWidth: number` title 文本描边粗细
 - `opacity: number` title 文本透明度
-
 
 ### tickLine
 
@@ -77,15 +79,15 @@ title: API
 `visible: boolean` 坐标轴标题是否可见
 
 `style: object | function` 坐标轴网格样式
-- `stroke: string` 坐标轴轴线颜色 
+
+- `stroke: string` 坐标轴轴线颜色
 - `lineWidth: number`  描边宽度<br />
 - `lineDash: number[]`  描边虚线显示<br />
 - `opacity: number`  透明度
 
+## linearAxis
 
-## linearAxis 
-
-连续型坐标轴，通常用于展示连续型数值映射的坐标轴。常见于表示时间连续性的x轴 (折线图) 和大部分直角坐标系图表的y轴（如折线图、面积图、柱状图等）。
+连续型坐标轴，通常用于展示连续型数值映射的坐标轴。常见于表示时间连续性的 x 轴 (折线图) 和大部分直角坐标系图表的 y 轴（如折线图、面积图、柱状图等）。
 
 `min: number` 设置坐标轴最小值
 
@@ -95,10 +97,9 @@ title: API
 
 `tickInterval: number` 设置坐标轴刻度间隔
 
-
 ## categoryAxis
 
-分类型坐标轴，通常用于展示分类型数据的映射关系。常见于柱状图系列的X轴及条形图系列的y轴。
+分类型坐标轴，通常用于展示分类型数据的映射关系。常见于柱状图系列的 X 轴及条形图系列的 y 轴。
 
 - Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 - Server-side Rendering

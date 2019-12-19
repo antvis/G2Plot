@@ -203,8 +203,6 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.setConfig('annotations', allArcs);
   }
 
-  protected animation() {}
-
   private renderArcs(range, arcSize, styleMix) {
     const colors = styleMix.colors || this.config.theme.colors;
     const rangeArray = (d: number) => [

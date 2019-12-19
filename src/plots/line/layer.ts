@@ -136,16 +136,22 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   protected coord() {}
 
   protected addGeometry() {
+    // 配置线
+    this.addLine();
+    // 配置数据点
+    this.addPoint();
+  }
+
+  private addLine() {
     const props = this.options;
     this.line = getGeom('line', 'main', {
       plot: this,
     });
+
     if (props.label) {
       this.label();
     }
     this.setConfig('element', this.line);
-    // 配置数据点
-    this.addPoint();
   }
 
   protected addPoint() {
@@ -155,11 +161,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       props.point = _.deepMix(defaultConfig, props.point);
     }
     if (props.point && props.point.visible) {
-      const point = getGeom('point', 'guide', {
+      this.point = getGeom('point', 'guide', {
         plot: this,
       });
-      this.setConfig('element', point);
-      this.point = point;
+      this.point.active = false;
+      this.setConfig('element', this.point);
     }
   }
 
@@ -178,15 +184,15 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
     this.line.label = getComponent('label', {
       plot: this,
+      top: true,
       labelType: label.type,
       fields: label.type === 'line' ? [props.seriesField] : [props.yField],
       ...label,
     });
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       // 关闭动画

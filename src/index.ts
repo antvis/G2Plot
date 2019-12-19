@@ -27,6 +27,7 @@ export { default as Area, AreaConfig } from './plots/area';
 export { default as StackArea, StackAreaConfig } from './plots/stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './plots/percentage-stack-area';
 export { default as Funnel, FunnelConfig } from './plots/funnel';
+export { default as Heatmap, HeatmapConfig } from './plots/heatmap';
 
 // MINI 图形
 export { TinyLayerConfig } from './sparkline/tiny-layer';

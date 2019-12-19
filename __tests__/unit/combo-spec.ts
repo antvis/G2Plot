@@ -93,6 +93,10 @@ describe('Combo plot', () => {
       xAxis: {
         visible: true,
       },
+      tooltip: {
+        visible: true,
+        sort: true,
+      },
       layers: [
         {
           type: 'groupColumn',
@@ -101,9 +105,6 @@ describe('Combo plot', () => {
           xField: 'time',
           yField: 'value',
           groupField: 'type',
-          tooltip: {
-            visible: false,
-          },
         },
         {
           type: 'line',
@@ -113,9 +114,6 @@ describe('Combo plot', () => {
           yField: 'value',
           color: '#f8ca45',
           lineSize: 5,
-          tooltip: {
-            visible: false,
-          },
         },
       ],
     });

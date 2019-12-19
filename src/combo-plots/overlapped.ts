@@ -177,15 +177,22 @@ export default class OverlappedComboPlot<
         padding,
       });
       layer.render();
-      // layer.view.get('frontGroup').get('backShape').remove();
       layer.view
+        .get('backgroundGroup')
+        .get('backShape')
+        .remove();
+      layer.view
+        .get('panelGroup')
+        .get('backShape')
+        .remove();
+      /*layer.view
         .get('backgroundGroup')
         .get('backShape')
         .set('capture', false);
       layer.view
         .get('panelGroup')
         .get('backShape')
-        .set('capture', false);
+        .set('capture', false);*/
     });
 
     ComboUtil.showTooltip(this.canvas, this.layers);

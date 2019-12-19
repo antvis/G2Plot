@@ -83,8 +83,8 @@ describe('Combo plot', () => {
   });
   it.only('groupColumn + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
-      width: 500,
-      height: 300,
+      width: 600,
+      height: 400,
       yAxis: {
         visible: true,
         colorMapping: true,
@@ -112,6 +112,7 @@ describe('Combo plot', () => {
           xField: 'time',
           yField: 'value',
           color: '#f8ca45',
+          lineSize: 5,
           tooltip: {
             visible: false,
           },

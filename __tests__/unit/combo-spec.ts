@@ -113,7 +113,7 @@ describe('Combo plot', () => {
           xField: 'time',
           yField: 'value',
           color: '#f8ca45',
-          lineSize: 5,
+          lineSize: 2,
         },
       ],
     });

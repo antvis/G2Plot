@@ -37,7 +37,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       },
       tooltip: {
         visible: true,
-        shared: false,
+        shared: true,
         showTitle: false,
         crosshairs: {
           type: 'cross',
@@ -53,6 +53,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   public funnel: any;
   public type: string = 'funnel';
   private funnelTop?: number;
+  private legendAdjusted: boolean = false;
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
     const { options } = this;
@@ -129,8 +130,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           fill: 'transparent',
           fontSize: '12',
           textAlign: 'center',
-          shadowBlur: 2,
-          shadowColor: 'transparent',
         },
       });
     });
@@ -164,15 +163,18 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   protected adjustLegend() {
-    const { options } = this;
+    if (this.legendAdjusted) return;
 
+    this.legendAdjusted = true;
+
+    const { options } = this;
     if (['top-center', 'bottom-center'].indexOf(options.legend.position) >= 0) {
       const legendController = this.view.get('legendController');
       legendController.legends.forEach((legend) => {
         const legendGroup = legend.get('container');
         const offsetX =
           -(options.padding[1] - this.config.theme.bleeding[1] - (options.padding[3] - this.config.theme.bleeding[3])) /
-          4;
+          2;
         legendGroup.translate(offsetX, 0);
       });
     }
@@ -196,6 +198,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       }
     });
     this.view.annotation().repaint();
+  }
+
+  public updateConfig(cfg: Partial<T>): void {
+    super.updateConfig(cfg);
+    this.legendAdjusted = false;
   }
 }
 

@@ -55,7 +55,7 @@ function getTooltipItems(point, geom, type, dataArray, coord) {
           v.y = point[1];
           v.showMarker = true;
           const itemMarker = getItemMarker(geom, v.color);
-          itemMarker.radius = 20;
+          itemMarker.radius = 40;
           v.marker = itemMarker;
           if (indexOf(TYPE_SHOW_MARKERS, type) !== -1) {
             items.push(v);

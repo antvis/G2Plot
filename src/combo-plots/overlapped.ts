@@ -122,7 +122,7 @@ export default class OverlappedComboPlot<
       height: this.height,
     });
 
-    const legend = this.overlappingLegend();
+    const legend = this.overlappingLegend(props);
     this.paddingComponents.push(legend);
     this.overlappingLayout(props);
   }
@@ -150,10 +150,10 @@ export default class OverlappedComboPlot<
     );
   }
 
-  protected overlappingLegend() {
+  protected overlappingLegend(props) {
     const legendItems = ComboUtil.mergeLegendData(this.legendInfo);
     this.legendContainer = this.topLayer.container.addGroup();
-    return ComboUtil.createLegend(legendItems, this.legendContainer, this.width, this.getCanvas());
+    return ComboUtil.createLegend(legendItems, this.width, this.height, this.getCanvas(), 'top-right');
   }
 
   protected overlappingLayout(props) {

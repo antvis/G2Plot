@@ -48,7 +48,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       },
       forceFit: true,
       padding: 'auto',
-      radius: 1,
+      radius: 0.8,
       label: {
         visible: true,
         type: 'inner',

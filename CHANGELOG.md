@@ -1,3 +1,6 @@
+## <small>0.11.9 (2019-12-16)</small>
+- 🐞 update dependency version: g2 scale component ([23ca0ec](https://github.com/antvis/G2Plot/commit/23ca0ec))
+
 ## <small>0.11.7 (2019-12-16)</small>
 
 - 🌟 add quadrant and trendline components to Scatter Plot and Bubble Plot ([2f6c8a0](https://github.com/antvis/G2Plot/commit/2f6c8a0))

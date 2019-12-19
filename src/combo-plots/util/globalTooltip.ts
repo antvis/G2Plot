@@ -27,6 +27,7 @@ export function showTooltip(canvas, layers) {
         });
       }
     });
+    adjustItems(tooltipItems,ev.target);
     if (tooltipItems.length > 0) {
       tooltip.setContent('', getUniqueItems(tooltipItems));
       tooltip.setPosition(point.x, point.y, ev.target);
@@ -119,4 +120,16 @@ function indexOfArray(items, item) {
     }
   });
   return rst;
+}
+
+function adjustItems(items,target){
+  if(target.get('origin')){
+    console.log(target);
+    const data = target.get('origin')._origin;
+    each(items,(item)=>{
+      if(item.point._origin !== data){
+        item.color = '#ccc';
+      }
+    });
+  }
 }

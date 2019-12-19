@@ -14,7 +14,7 @@ export function showTooltip(canvas, layers) {
     const point = { x: ev.x / 2, y: ev.y / 2 };
     each(layers, (layer) => {
       const { view } = layer;
-      if (view) {
+      if (view && layer.visibility) {
         const coord = view.get('coord');
         const geoms = view.get('elements');
         each(geoms, (geom) => {
@@ -27,7 +27,7 @@ export function showTooltip(canvas, layers) {
         });
       }
     });
-    adjustItems(tooltipItems,ev.target);
+    adjustItems(tooltipItems, ev.target);
     if (tooltipItems.length > 0) {
       tooltip.setContent('', getUniqueItems(tooltipItems));
       tooltip.setPosition(point.x, point.y, ev.target);
@@ -122,14 +122,17 @@ function indexOfArray(items, item) {
   return rst;
 }
 
-function adjustItems(items,target){
-  if(target.get('origin')){
+function adjustItems(items, target) {
+  if (target.get('origin')) {
+    let data = target.get('origin')._origin;
     console.log(target);
-    const data = target.get('origin')._origin;
-    each(items,(item)=>{
-      if(item.point._origin !== data){
+    each(items, (item) => {
+      if (item.point._origin !== data) {
         item.color = '#ccc';
       }
     });
   }
+  items.sort((a, b) => {
+    return parseFloat(b.value) - parseFloat(a.value);
+  });
 }

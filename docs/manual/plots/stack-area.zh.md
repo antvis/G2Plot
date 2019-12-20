@@ -5,7 +5,6 @@ order: 2
 
 <img src = "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GPm6Q7Sna9wAAAAAAAAAAABkARQnAQ" width = "400">
 
-
 ## 图表用法
 
 - **Dont's**
@@ -28,7 +27,7 @@ order: 2
 `visible: boolean`    图形标签是否显示<br />
 `type: 'area' | 'point' | 'line'`  图形标签类型，默认为 area<br/>
 `formatter: function`  对 label 的显示文本进行格式化<br/>
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量<br/>
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br/>
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br/>
 `style: object` 配置 label 文本
 

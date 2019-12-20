@@ -47,7 +47,6 @@ const data = [
 
 配置范围为 [0,1]，0 代表环图被完全填充，变为饼图，没有中心挖空部分，1 代表环图的厚度为 0。默认值为 0.8。
 
-
 ### statistic
 
 **optional**
@@ -65,7 +64,6 @@ const data = [
 `triggerOn: string` 响应鼠标交互交互的事件，默认为`mouseenter`，此时 tooltip 默认不再显示。
 
 `triggerOff: string` 关闭鼠标交互交互的事件，默认为`mouseleave`。
-
 
 用法：
 

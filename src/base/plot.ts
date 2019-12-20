@@ -197,6 +197,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
     return this.layers[idx];
   }
 
+  public getCanvas() {
+    return this.canvasController.canvas;
+  }
+
   public getLayers() {
     return this.layers;
   }

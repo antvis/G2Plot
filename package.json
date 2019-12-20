@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.10",
+  "version": "0.11.11",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -56,8 +56,7 @@
     "fecha": "~3.0.3",
     "resize-observer-polyfill": "^1.5.1",
     "tslib": "^1.10.0",
-    "d3-regression": "^1.2.8",
-    "@antv/coord": "~0.2.2"
+    "d3-regression": "^1.2.8"
   },
   "peerDependencies": {
     "@antv/g": "~3.5.0-beta.1",
@@ -66,7 +65,8 @@
     "@antv/event-emitter": "^0.1.1",
     "@antv/matrix-util": "~2.0.2",
     "@antv/scale": "^0.2.2",
-    "@antv/util": "~2.0.4"
+    "@antv/util": "~2.0.4",
+    "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.10.18",

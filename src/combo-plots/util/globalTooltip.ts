@@ -71,13 +71,16 @@ function getTooltipItems(point, geom, type, dataArray, coord) {
 function renderTooltip(layer, canvas) {
   const tooltipTheme = getGlobalTheme().tooltip;
   const options = {
-    panelGroup: new Group(),
+    panelGroup: layer.view.get('panelGroup'),
     panelRange: layer.view.get('panelRange'),
     capture: false,
     canvas,
-    frontgroundGroup: new Group(),
+    frontgroundGroup: layer.view.get('frontgroundGroup'),
     theme: tooltipTheme,
-    backgroundGroup: null,
+    backgroundGroup: layer.view.get('backgroundGroup'),
+    crosshairs: {
+      type: 'rect',
+    },
   };
 
   return new Tooltip.Html(options);

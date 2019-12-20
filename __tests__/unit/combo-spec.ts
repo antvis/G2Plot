@@ -3,8 +3,8 @@ import OverlappedComboPlot from '../../src/combo-plots/overlapped';
 
 describe('Combo plot', () => {
   const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '500px';
-  canvasDiv.style.height = '300px';
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '400px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';

@@ -90,7 +90,6 @@ export default class OverlappedComboPlot<
       width: this.width,
       height: this.height,
     });
-
     if (props.layers.length > 0) {
       /** create layers */
       _.each(props.layers, (layerCfg) => {
@@ -153,7 +152,7 @@ export default class OverlappedComboPlot<
   protected overlappingLegend(props) {
     const legendItems = ComboUtil.mergeLegendData(this.legendInfo);
     this.legendContainer = this.topLayer.container.addGroup();
-    return ComboUtil.createLegend(legendItems, this.width, this.height, this.getCanvas(), 'top-right');
+    return ComboUtil.createLegend(legendItems, this.width, this.height, this.getCanvas(), 'top-center');
   }
 
   protected overlappingLayout(props) {

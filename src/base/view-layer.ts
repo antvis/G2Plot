@@ -54,6 +54,7 @@ export interface ViewConfig {
     selected?: StateConfig;
     disabled?: StateConfig;
   };
+  name?: string;
 }
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}

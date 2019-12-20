@@ -17,6 +17,7 @@ export interface LayerConfig {
   /** the parent node of layer */
   parent?: any;
   canvas: G.Canvas;
+  name?: string;
 }
 
 export interface Region {

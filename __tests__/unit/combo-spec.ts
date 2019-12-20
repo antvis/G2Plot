@@ -104,5 +104,6 @@ describe('Combo plot', () => {
         },
       ],
     });
+    combo.render();
   });
 });

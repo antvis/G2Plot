@@ -87,7 +87,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       area: {
         visible: true,
         style: {
-          fillOpacity: 0.4,
+          opacity: 0.25,
         },
       },
       point: {
@@ -273,6 +273,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
   protected annotation() {}
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       // 关闭动画
@@ -282,8 +283,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     }
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

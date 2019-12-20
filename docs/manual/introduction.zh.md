@@ -34,7 +34,7 @@ $ npm install @antv/g2plot
 ```
 
 ```js
-import g2plot from '@antv/g2plot';
+import { Bar } from '@antv/g2plot';
 
 const data = [
   { year: '1951 年', sales: 38 },
@@ -44,7 +44,7 @@ const data = [
   { year: '1958 年', sales: 48 },
 ];
 
-const barPlot = new g2plot.Bar('c1', {
+const barPlot = new Bar('c1', {
   data,
   xField: 'sales',
   yField: 'year',

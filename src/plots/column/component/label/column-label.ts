@@ -59,8 +59,10 @@ export class ColumnLabels extends ElementLabels {
       const origin = l.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
-      this.adjustPosition(l, shape, item);
-      const { adjustColor } = this.get('labelOptions');
+      const { adjustColor, adjustPosition } = this.get('labelOptions');
+      if (adjustPosition) {
+        this.adjustPosition(l, shape, item);
+      }
       if (adjustColor) {
         this.adjustColor(l, shape);
       }

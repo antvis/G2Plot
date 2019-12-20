@@ -165,20 +165,24 @@ export default class ScrollBarInteraction extends BaseInteraction {
   }
 
   private getScrollRange(): [number, number] {
-    const startIdx: number = Math.floor((this.cnt - this.step) * this.ratio);
-    const endIdx: number = startIdx + this.step;
+    const startIdx: number = Math.floor((this.cnt - this.step) * clamp(this.ratio, 0, 1));
+    const endIdx: number = Math.min(startIdx + this.step, this.cnt);
 
     return [startIdx, endIdx];
   }
 
   private changeViewData([startIdx, endIdx]: [number, number]): void {
+    const config: Required<IScrollBarInteractionConfig> = getValidScrollBarConfig(this.getInteractionConfig());
     const viewLayer: ViewLayer = this.getViewLayer();
     const { meta } = viewLayer.options;
     const origData: object[] = viewLayer.getData();
-    const newData: object[] = getDataByScaleRange(this.xScaleCfg.field, this.xScaleCfg.values, origData, [
-      startIdx,
-      endIdx,
-    ]);
+    const newData: object[] = getDataByScaleRange(
+      this.xScaleCfg.field,
+      this.xScaleCfg.values,
+      origData,
+      [startIdx, endIdx],
+      config.type === 'vertical'
+    );
 
     // ScrollBar在滚动过程中保持Y轴上scale配置: min/max/ticks
     this.yScalesCfg.forEach((cfg) => {

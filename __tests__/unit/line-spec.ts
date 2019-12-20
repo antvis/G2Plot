@@ -611,7 +611,7 @@ describe('Line plot', () => {
     const legend = plot.get('legendController').legends[0];
 
     expect(legend.get('position')).toBe('top-left');
-    expect(legend.get('wordSpacing')).toBe(4);
+    expect(legend.get('wordSpacing')).toBe(8);
     linePlot.destroy();
   });
 });

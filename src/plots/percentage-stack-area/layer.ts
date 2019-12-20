@@ -2,6 +2,8 @@ import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import StackArea, { StackAreaViewConfig } from '../stack-area/layer';
+import { DataItem } from '../../interface/config';
+import { transformDataPercentage } from '../../util/data';
 
 export type PercentageStackAreaViewConfig = StackAreaViewConfig;
 export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewConfig, LayerConfig {}
@@ -23,31 +25,10 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
   }
   public type: string = 'percentageStackArea';
 
-  protected processData(originData?: object[]) {
-    const props = this.options;
-    const { xField, yField } = props;
-    // 百分比堆叠面积图需要对原始数据进行预处理
-    // step1: 以xField为单位，对yField做聚合
-    const plotData = [];
-    const sum = {};
-    _.each(originData, (d) => {
-      const sumField = d[xField];
-      if (!_.has(sum, sumField)) {
-        sum[sumField] = 0;
-      }
-      sum[sumField] += Number.parseFloat(d[yField]);
-    });
-    // step2: 获取每一条数据stackField的值在对应xField数值总和的占比
-    _.each(originData, (d) => {
-      const total = sum[d[xField]];
-      const d_copy = _.clone(d);
-      d_copy[yField] = d[yField] / total;
-      d_copy._origin = d;
-      d_copy.total = total;
-      plotData.push(d_copy);
-    });
+  protected processData(originData?: DataItem[]) {
+    const { xField, yField } = this.options;
 
-    return plotData;
+    return transformDataPercentage(originData, xField, [yField]);
   }
 
   protected scale() {
@@ -56,12 +37,14 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
     metaConfig[this.options.yField] = {
       tickCount: 6,
       alias: `${yField} (%)`,
+      minLimit: 0,
+      maxLimit: 1,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;
       },
     };
-    this.options.meta = metaConfig;
+    this.options.meta = _.deepMix({}, metaConfig, this.options.meta);
     super.scale();
   }
 }

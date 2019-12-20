@@ -274,6 +274,8 @@ function sturges(values) {
   return Math.ceil(Math.log(values.length) / Math.LN2) + 1;
 }
 
+function linearRegression() {}
+
 export {
   applyMatrix,
   isBetween,
@@ -288,4 +290,5 @@ export {
   getMedian,
   getMean,
   sturges,
+  linearRegression,
 };

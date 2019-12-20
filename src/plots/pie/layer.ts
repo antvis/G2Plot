@@ -5,9 +5,10 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { Label } from '../../interface/config';
+import { Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
+import './component/label/outer-label';
 import * as EventParser from './event';
 import './theme';
 import { LineStyle } from '../line/layer';
@@ -47,7 +48,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       },
       forceFit: true,
       padding: 'auto',
-      radius: 1,
+      radius: 0.8,
       label: {
         visible: true,
         type: 'inner',
@@ -110,17 +111,17 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   protected scale() {
     const props = this.options;
     const scales = {};
-    /** 配置x-scale */
     scales[props.angleField] = {};
-    if (_.has(props, 'xAxis')) {
-      extractScale(scales[props.angleField], props.xAxis);
-    }
-    super.scale();
+    scales[props.colorField] = { type: 'cat' };
+    this.setConfig('scales', scales);
   }
 
-  protected processData(data?: object[]): object[] | undefined {
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
     const key = this.options.angleField;
-    return data.map((item) => ({ ...item, [key]: Number.parseFloat(item[key]) }));
+    return data.map((item) => ({
+      ...item,
+      [key]: typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key],
+    }));
   }
 
   protected axis() {}
@@ -153,6 +154,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */
@@ -162,8 +164,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected annotation() {}
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private label() {
@@ -176,11 +178,16 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     if (labelConfig.type === 'inner') {
       const offsetBase = this.getDefaultLabelInnerOffset();
       labelConfig.offset = labelConfig.offset ? labelConfig.offset : offsetBase;
+      // @ts-ignore
+      labelConfig.labelLine = false;
+    } else {
+      // @ts-ignore
+      labelConfig.labelLine = true;
     }
 
     // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
     let labelType = labelConfig.type;
-    if (['inner', 'outer', 'spider'].indexOf(labelType) !== -1) {
+    if (['inner', 'spider'].indexOf(labelType) !== -1) {
       labelType = null;
     }
     this.pie.label = getComponent('label', {

@@ -1,4 +1,3 @@
-import ComboPlot from '../../src/combo-plots/basePlot';
 import OverlappedComboPlot from '../../src/combo-plots/overlapped';
 
 describe('Combo plot', () => {
@@ -48,7 +47,7 @@ describe('Combo plot', () => {
   ];
 
   it('column + bubble + line', () => {
-    const combo = new ComboPlot(canvasDiv, {
+    const combo = new OverlappedComboPlot(canvasDiv, {
       width: 500,
       height: 300,
       layers: [

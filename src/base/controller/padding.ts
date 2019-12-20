@@ -1,7 +1,7 @@
 import { BBox, Element } from '@antv/g';
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
-import { ViewLayer } from '../..';
+import ViewLayer from '../view-layer';
 
 interface ControllerConfig {
   plot: ViewLayer;

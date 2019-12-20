@@ -32,7 +32,10 @@ export function getOverlappingPadding(layer, components) {
     }
   });
   const range = new BBox(viewMinX, viewMinY, viewMaxX - viewMinX, viewMaxY - viewMinY);
-  const top_padding = range.minY - layer.layerBBox.minY;
+  let top_padding = range.minY - layer.layerBBox.minY;
+  if (top_padding === 0) {
+    top_padding = bleeding[0];
+  }
   const right_padding = layer.layerBBox.maxX - range.maxX;
   const bottom_padding = layer.layerBBox.maxY - range.maxY;
   const left_padding = range.minX - layer.layerBBox.minX;

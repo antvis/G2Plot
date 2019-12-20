@@ -222,12 +222,18 @@ function calValues(scale, tickCount) {
 
 export function axesLayout(globalOptions, axisInfo, padding, layer, width, height, canvas) {
   const { bleeding } = getGlobalTheme();
+  // merge padding and bleeding by zero value
+  _.each(padding, (p, index) => {
+    if (p === 0) {
+      padding[index] = bleeding[index];
+    }
+  });
   const paddingComponents = [];
   // 创建axis
   const axes = [];
   let xAxisScale;
   let xAxis;
-  let xAxisHeight = bleeding[2];
+  let xAxisHeight = 0;
   if (globalOptions.xAxis.visible) {
     xAxisScale = mergeAxisScale(axisInfo, 'x');
     xAxis = createAxis(
@@ -254,11 +260,17 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
         canvas,
         {
           start: { x: 0, y: padding[0] },
-          end: { x: 0, y: height - xAxisHeight },
+          end: { x: 0, y: height - xAxisHeight - padding[2] },
           factor,
         },
         globalOptions
       );
+      if (index === 0) {
+        axis.get('group').translate(padding[3], 0);
+      }
+      if (index === yAxisScale.length - 1) {
+        axis.get('group').translate(-padding[1], 0);
+      }
       axes.push(axis);
     });
 
@@ -267,7 +279,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
 
   if (globalOptions.xAxis.visible) {
     const axisPadding = getOverlappingPadding(layer, paddingComponents);
-    const ypos = axes.length === 0 ? height - xAxisHeight : axes[0].get('group').getBBox().maxY;
+    const ypos = axes.length === 0 ? height - xAxisHeight - padding[2] : axes[0].get('group').getBBox().maxY;
     xAxis.destroy();
     xAxis = createAxis(
       xAxisScale[0],
@@ -307,7 +319,7 @@ function axisLayout(axes, paddingComponents, width) {
       return new BBox(leftBbox.minX + matrix[6], leftBbox.minY, leftBbox.width, leftBbox.height);
     },
   });
-  let temp_width = bleeding[1];
+  let temp_width = 0;
   // 处理右边的
   for (let i = axes.length - 1; i > 0; i--) {
     const axis = axes[i];

@@ -54,11 +54,17 @@ export function mergeLegendData(items) {
 
 export function createLegend(items, width, height, canvas, position) {
   const legendTheme = getGlobalTheme().legend;
+  const positions = position.split('-');
+  let layout = 'horizontal';
+  if (positions[0] === 'left' || positions[0] === 'right') {
+    layout = 'vertical';
+  }
   const legendCfg = {
     type: 'category-legend',
     items,
     maxSize: width,
     container: canvas.addGroup(),
+    layout: layout,
     textStyle: {
       fill: '#8C8C8C',
       fontSize: 12,
@@ -68,21 +74,32 @@ export function createLegend(items, width, height, canvas, position) {
     }, // 图例项目文本样式
     titleDistance: 10, // 标题和图例项的间距
     autoWrap: true, // 图例项是否自动换行
-    itemMarginBottom: 0, // 图例项之间的底部间距
+    itemMarginBottom: 4, // 图例项之间的底部间距
     backgroundPadding: 0, // 背景内边距
     maxLength: width, // 图例的最大高度或者宽度
   };
   const legend = new Legend.CanvasCategory(legendCfg as any);
-  // legend.moveTo(24, 24);
-  // legend.draw();
   legendLayout(width, height, legend, position);
   addLegendInteraction(legend);
   /** return legend as a padding component */
+  const bbox = legend.get('itemsGroup').getBBox();
+  let paddingBbox;
+  // merge legend inner padding
+  const { innerPadding } = legendTheme;
+
+  if (positions[0] === 'left') {
+    paddingBbox = new BBox(legend.get('x') + innerPadding[3], legend.get('y'), bbox.width, bbox.height);
+  } else if (positions[0] === 'right') {
+    paddingBbox = new BBox(legend.get('x') - innerPadding[1], legend.get('y'), bbox.width, bbox.height);
+  } else if (positions[0] === 'top') {
+    paddingBbox = new BBox(legend.get('x'), legend.get('y') + innerPadding[0], bbox.width, bbox.height);
+  } else if (positions[0] === 'bottom') {
+    paddingBbox = new BBox(legend.get('x'), legend.get('y') - innerPadding[2], bbox.width, bbox.height);
+  }
   return {
-    position: 'top',
+    position: positions[0],
     getBBox: () => {
-      const bbox = legend.get('itemsGroup').getBBox();
-      return new BBox(legend.get('x'), legend.get('y'), bbox.width, bbox.height + legendTheme.innerPadding[0]);
+      return paddingBbox;
     },
   };
 }

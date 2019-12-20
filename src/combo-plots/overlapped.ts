@@ -4,7 +4,7 @@ import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
 
-import '../index';
+import '../plots/index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
 import { getGlobalTheme } from '../theme/global';

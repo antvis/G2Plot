@@ -46,8 +46,6 @@ export default class OverlappedComboPlot<
           visible: false,
           offset: 12,
         },
-        colorMapping: true,
-        synchroTick: true,
       },
       yAxis: {
         visible: true,
@@ -70,6 +68,8 @@ export default class OverlappedComboPlot<
           visible: false,
           offset: 12,
         },
+        colorMapping: true,
+        synchroTick: true,
       },
       label: {
         visible: false,
@@ -77,6 +77,10 @@ export default class OverlappedComboPlot<
       tooltip: {
         visible: true,
         sort: true,
+      },
+      legend: {
+        visible: true,
+        position: 'top-left',
       },
     };
   }
@@ -123,12 +127,12 @@ export default class OverlappedComboPlot<
       height: this.height,
     });
 
-    if (props.legend.visible) {
-      const legend = this.overlappingLegend(props);
+    if (this.globalOptions.legend.visible) {
+      const legend = this.overlappingLegend();
       this.paddingComponents.push(legend);
     }
 
-    this.overlappingLayout(props);
+    this.overlappingLayout();
   }
 
   /** 图层叠加时的layer config */
@@ -154,13 +158,19 @@ export default class OverlappedComboPlot<
     );
   }
 
-  protected overlappingLegend(props) {
+  protected overlappingLegend() {
     const legendItems = ComboUtil.mergeLegendData(this.legendInfo);
     this.legendContainer = this.topLayer.container.addGroup();
-    return ComboUtil.createLegend(legendItems, this.width, this.height, this.getCanvas(), props.legend.position);
+    return ComboUtil.createLegend(
+      legendItems,
+      this.width,
+      this.height,
+      this.getCanvas(),
+      this.globalOptions.legend.position
+    );
   }
 
-  protected overlappingLayout(props) {
+  protected overlappingLayout() {
     const { bleeding } = getGlobalTheme();
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
@@ -195,8 +205,8 @@ export default class OverlappedComboPlot<
         .remove();
     });
 
-    if (props.tooltip.visible) {
-      ComboUtil.showTooltip(this.canvas, this.layers, props.tooltip);
+    if (this.globalOptions.tooltip.visible) {
+      ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
     }
   }
 }

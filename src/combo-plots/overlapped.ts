@@ -46,6 +46,8 @@ export default class OverlappedComboPlot<
           visible: false,
           offset: 12,
         },
+        colorMapping: true,
+        synchroTick: true,
       },
       yAxis: {
         visible: true,
@@ -121,8 +123,11 @@ export default class OverlappedComboPlot<
       height: this.height,
     });
 
-    const legend = this.overlappingLegend(props);
-    this.paddingComponents.push(legend);
+    if (props.legend.visible) {
+      const legend = this.overlappingLegend(props);
+      this.paddingComponents.push(legend);
+    }
+
     this.overlappingLayout(props);
   }
 
@@ -152,7 +157,7 @@ export default class OverlappedComboPlot<
   protected overlappingLegend(props) {
     const legendItems = ComboUtil.mergeLegendData(this.legendInfo);
     this.legendContainer = this.topLayer.container.addGroup();
-    return ComboUtil.createLegend(legendItems, this.width, this.height, this.getCanvas(), 'top-center');
+    return ComboUtil.createLegend(legendItems, this.width, this.height, this.getCanvas(), props.legend.position);
   }
 
   protected overlappingLayout(props) {

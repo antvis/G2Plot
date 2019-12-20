@@ -9,7 +9,7 @@ import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
 import { getGlobalTheme } from '../theme/global';
 
-export interface OverlappedComboPlotConfig extends ComboPlotConfig {}
+export type OverlappedComboPlotConfig = ComboPlotConfig;
 
 export default class OverlappedComboPlot<
   T extends OverlappedComboPlotConfig = OverlappedComboPlotConfig

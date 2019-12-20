@@ -9,6 +9,7 @@ export { default as Line, LineConfig } from './plots/line';
 export { default as Density, DensityConfig } from './plots/density';
 export { default as Column, ColumnConfig } from './plots/column';
 export { default as Bubble, BubbleConfig } from './plots/bubble';
+export { default as Scatter, ScatterConfig } from './plots/scatter';
 export { default as GroupColumn, GroupColumnConfig } from './plots/group-column';
 export { default as StackColumn, StackColumnConfig } from './plots/stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './plots/percentage-stack-column';
@@ -25,14 +26,15 @@ export { default as Gauge, GaugeConfig } from './plots/gauge';
 export { default as Area, AreaConfig } from './plots/area';
 export { default as StackArea, StackAreaConfig } from './plots/stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './plots/percentage-stack-area';
+export { default as Heatmap, HeatmapConfig } from './plots/heatmap';
 
 // MINI 图形
-export { TinyLayerConfig } from './tiny-plots/tiny-layer';
-export { default as Progress, ProgressConfig } from './tiny-plots/progress';
-export { default as RingProgress } from './tiny-plots/ring-progress';
-export { default as TinyColumn } from './tiny-plots/tiny-column';
-export { default as TinyArea } from './tiny-plots/tiny-area';
-export { default as TinyLine } from './tiny-plots/tiny-line';
+export { TinyLayerConfig } from './sparkline/tiny-layer';
+export { default as Progress, ProgressConfig } from './sparkline/progress';
+export { default as RingProgress } from './sparkline/ring-progress';
+export { default as TinyColumn } from './sparkline/tiny-column';
+export { default as TinyArea } from './sparkline/tiny-area';
+export { default as TinyLine } from './sparkline/tiny-line';
 
 // 主题
 export { registerTheme, registerGlobalTheme } from './theme';

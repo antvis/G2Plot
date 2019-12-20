@@ -2,6 +2,7 @@ import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
+import { LAYER_EVENT_MAP } from '../util/event';
 
 export interface LayerConfig {
   id?: string;
@@ -47,6 +48,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   protected visibility: boolean = true;
   protected layerRegion: Region;
   private rendered: boolean = false;
+  private eventHandlers: any[] = [];
 
   /**
    * layer base for g2plot
@@ -124,6 +126,9 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public destroy() {
     this.eachLayer((layer) => {
       layer.destroy();
+    });
+    _.each(this.eventHandlers, (h) => {
+      this.off(h.eventName, h.handler);
     });
     this.container.remove(true);
     this.destroyed = true;
@@ -227,6 +232,11 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     return { x: globalX, y: globalY };
   }
 
+  public getGlobalBBox() {
+    const globalPosition = this.getGlobalPosition();
+    return new G.BBox(globalPosition.x, globalPosition.y, this.width, this.height);
+  }
+
   public getOptions(props: T): T {
     let parentWidth = 0;
     let parentHeight = 0;
@@ -247,6 +257,18 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     _.each(this.layers, cb);
   }
 
+  protected parseEvents(eventParser?) {
+    const eventsName = _.keys(LAYER_EVENT_MAP);
+    _.each(eventParser, (e, k) => {
+      if (_.contains(eventsName, k) && _.isFunction(e)) {
+        const eventName = LAYER_EVENT_MAP[k] || k;
+        const handler = e;
+        this.on(eventName, handler);
+        this.eventHandlers.push({ name: eventName, handler });
+      }
+    });
+  }
+
   private getLayerBBox() {
     return new G.BBox(this.x, this.y, this.width, this.height);
   }
@@ -263,7 +285,6 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       const endY = (this.y + this.height - parentY) / parentHeight;
       return { start: { x: startX, y: startY }, end: { x: endX, y: endY } };
     }
-
     return { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } };
   }
 }

@@ -54,6 +54,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       smooth: false,
       areaStyle: {
         opacity: 0.25,
+        fillOpacity: 1,
       },
       line: {
         visible: true,
@@ -185,9 +186,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       // 关闭动画
@@ -214,8 +214,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     });
   }
 
-  protected parserEvents(eventParser) {
-    super.parserEvents(EventParser);
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private applyResponsive(stage) {

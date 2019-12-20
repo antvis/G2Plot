@@ -1,8 +1,7 @@
-import { each, contains, isArray, isObject, indexOf, isNil, deepMix, keys } from '@antv/util';
+import { each, contains, isArray, isObject, indexOf, isNil, has, keys } from '@antv/util';
 import { Tooltip } from '@antv/component';
 import { getShapeFactory } from '@antv/g2';
 import { getGlobalTheme } from '../../theme/global';
-import { Group } from '@antv/g';
 
 const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack'];
 
@@ -108,7 +107,7 @@ function indexOfArray(items, item) {
   each(items, (sub, index: number) => {
     let isEqual = true;
     for (const key in item) {
-      if (item.hasOwnProperty(key)) {
+      if (has(item, key)) {
         if (!isObject(item[key]) && item[key] !== sub[key]) {
           isEqual = false;
           break;

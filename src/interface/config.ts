@@ -114,6 +114,7 @@ export interface Label {
   events?: IEvents;
   position?: string;
   adjustColor?: boolean;
+  adjustPosition?: boolean;
   /** 展示优化策略 */
 }
 
@@ -184,6 +185,7 @@ export interface G2Config {
   interactions: {};
   theme: any;
   panelRange: any;
+  animate: any;
 }
 
 export interface IColorConfig {
@@ -276,4 +278,8 @@ export interface IInteractions {
 export interface Point {
   readonly x: number;
   readonly y: number;
+}
+
+export interface DataItem {
+  [field: string]: string | number | null | undefined;
 }

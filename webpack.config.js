@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    library: 'g2plot',
+    library: 'G2Plot',
     libraryTarget: 'umd',
     path: resolve(__dirname, 'dist/'),
   },

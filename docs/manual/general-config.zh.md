@@ -115,7 +115,7 @@ areaPlot.render();
 `visible: boolean`  tooltip 是否可见<br />
 `shared: boolean`    设置 tooltip 是否只展示单条数据<br />
 `crosshairs`: 配置 tooltip 辅助线<br />   `false`: 不显示辅助线<br />   `type: 'x' | 'y' | 'cross'`  配置辅助线的形态<br />   `style: object`  配置辅助线样式，详见图形属性<br />
-`htmlContent: function`<br />   自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
+`htmlContent: function`<br />    自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
 
 ```js
 htmlContent: (title, items) => {
@@ -142,13 +142,13 @@ htmlContent: (title, items) => {
 
 `formatter: function`  对图例的显示信息进行格式化<br />
 `offsetX: number`    图例在 position 的基础上再往 x 方向偏移量，单位 px<br />
-`offsetY: number`    图例在 position 的基础上再往 y 方向偏移量，单位 px
+`offsetY: number`     图例在 position 的基础上再往 y 方向偏移量，单位 px
 
 ## axis
 
 **optional**
 
-`visible: boolean`  坐标轴是否可见
+`visible: boolean` 坐标轴是否可见
 
 ### line
 
@@ -157,7 +157,8 @@ htmlContent: (title, items) => {
 `visible: boolean` 坐标轴轴线是否可见
 
 `style: object | function` 坐标轴轴线样式
-- `stroke: string` 坐标轴轴线颜色 
+
+- `stroke: string` 坐标轴轴线颜色
 - `lineWidth: number`  描边宽度<br />
 - `lineDash: number[]`  描边虚线显示<br />
 - `opacity: number`  透明度
@@ -169,11 +170,11 @@ htmlContent: (title, items) => {
 `visible: boolean` 坐标轴网格是否可见
 
 `style: object | function` 坐标轴网格样式
-- `stroke: string` 坐标轴轴线颜色 
+
+- `stroke: string` 坐标轴轴线颜色
 - `lineWidth: number`  描边宽度<br />
 - `lineDash: number[]`  描边虚线显示<br />
 - `opacity: number`  透明度
-
 
 ### label
 
@@ -188,12 +189,13 @@ htmlContent: (title, items) => {
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量
 
 `style: object` 配置 label 文本样式
-- `fill: string` label颜色
-- `fontSize: number` label文本大小
-- `fontWeight: number` label文本字体粗细
-- `stroke: string` label文本描边颜色
-- `lineWidth: number` label文本描边粗细
-- `opacity: number` label文本透明度
+
+- `fill: string` label 颜色
+- `fontSize: number` label 文本大小
+- `fontWeight: number` label 文本字体粗细
+- `stroke: string` label 文本描边颜色
+- `lineWidth: number` label 文本描边粗细
+- `opacity: number` label 文本透明度
 
 ### title
 
@@ -204,13 +206,13 @@ htmlContent: (title, items) => {
 `offset: number` 坐标轴标题位置偏移量
 
 `style: object` 配置 title 文本样式
+
 - `fill: string` title 颜色
 - `fontSize: number` title 文本大小
 - `fontWeight: number` title 文本字体粗细
 - `stroke: string` title 文本描边颜色
 - `lineWidth: number` title 文本描边粗细
 - `opacity: number` title 文本透明度
-
 
 ### tickLine
 
@@ -219,15 +221,15 @@ htmlContent: (title, items) => {
 `visible: boolean` 坐标轴标题是否可见
 
 `style: object | function` 坐标轴网格样式
-- `stroke: string` 坐标轴轴线颜色 
+
+- `stroke: string` 坐标轴轴线颜色
 - `lineWidth: number`  描边宽度<br />
 - `lineDash: number[]`  描边虚线显示<br />
 - `opacity: number`  透明度
 
+## linearAxis
 
-## linearAxis 
-
-连续型坐标轴，通常用于展示连续型数值映射的坐标轴。常见于表示时间连续性的x轴 (折线图) 和大部分直角坐标系图表的y轴（如折线图、面积图、柱状图等）。
+连续型坐标轴，通常用于展示连续型数值映射的坐标轴。常见于表示时间连续性的 x 轴 (折线图) 和大部分直角坐标系图表的 y 轴（如折线图、面积图、柱状图等）。
 
 `min: number` 设置坐标轴最小值
 
@@ -236,7 +238,6 @@ htmlContent: (title, items) => {
 `tickCount: number` 设置坐标轴刻度数量
 
 `tickInterval: number` 设置坐标轴刻度间隔
-
 
 ## categoryAxis
 

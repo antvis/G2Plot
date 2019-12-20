@@ -138,9 +138,9 @@ const data = [
 `visible: boolean`    图形标签是否显示<br />
 `position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
 `formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object`  配置 label 文本
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br />
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
+`style: object` 配置 label 文本
 
 ### events
 

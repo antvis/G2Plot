@@ -1,5 +1,8 @@
 // 通用配置
 export * from './interface/config';
+export { default as Layer, LayerConfig } from './base/layer';
+export { default as ViewLayer, ViewConfig } from './base/view-layer';
+export { default as Base, PlotConfig } from './base/plot';
 
 // 图形
 export * from './plots/index';

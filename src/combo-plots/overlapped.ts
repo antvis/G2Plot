@@ -114,6 +114,7 @@ export default class OverlappedComboPlot<
           overlapConfig
         );
         const viewLayer = new viewLayerCtr(viewLayerProps);
+        viewLayer.hide();
         viewLayer.render();
         this.axisInfo.push(...ComboUtil.getAxisData(viewLayer, viewLayerProps, this.globalOptions));
         this.legendInfo.push(...ComboUtil.getLegendData(viewLayer, viewLayerProps));
@@ -132,7 +133,7 @@ export default class OverlappedComboPlot<
       this.paddingComponents.push(legend);
     }
 
-    this.overlappingLayout();
+    // this.overlappingLayout();
   }
 
   /** 图层叠加时的layer config */
@@ -170,7 +171,7 @@ export default class OverlappedComboPlot<
     );
   }
 
-  protected overlappingLayout() {
+  public render() {
     const { bleeding } = getGlobalTheme();
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
@@ -194,6 +195,7 @@ export default class OverlappedComboPlot<
       layer.updateConfig({
         padding,
       });
+      layer.show();
       layer.render();
       layer.view
         .get('backgroundGroup')

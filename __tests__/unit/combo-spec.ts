@@ -85,17 +85,21 @@ describe('Combo plot', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
       width: 600,
       height: 400,
-      yAxis: {
+      /*yAxis: {
         visible: true,
         colorMapping: true,
         synchroTick: true,
       },
       xAxis: {
         visible: true,
-      },
+      },*/
       tooltip: {
         visible: true,
         sort: true,
+      },
+      legend: {
+        visible: false,
+        position: 'right-center',
       },
       layers: [
         {

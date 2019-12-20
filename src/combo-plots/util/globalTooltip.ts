@@ -78,9 +78,6 @@ function renderTooltip(layer, canvas) {
     frontgroundGroup: layer.view.get('frontgroundGroup'),
     theme: tooltipTheme,
     backgroundGroup: layer.view.get('backgroundGroup'),
-    crosshairs: {
-      type: 'rect',
-    },
   };
 
   return new Tooltip.Html(options);

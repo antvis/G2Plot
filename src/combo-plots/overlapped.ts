@@ -8,6 +8,7 @@ import '../plots/index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
 import { getGlobalTheme } from '../theme/global';
+import { ViewLayer } from '..';
 
 export type OverlappedComboPlotConfig = ComboPlotConfig;
 
@@ -90,12 +91,13 @@ export default class OverlappedComboPlot<
     this.legendInfo = [];
     this.axisInfo = [];
     this.paddingComponents = [];
-    /** add top layer for legend & tooltip */
-    this.topLayer = new Layer({
+
+    this.backLayer = new Layer({
       canvas: this.getCanvas(),
       width: this.width,
       height: this.height,
     });
+
     if (props.layers.length > 0) {
       /** create layers */
       _.each(props.layers, (layerCfg) => {
@@ -122,7 +124,8 @@ export default class OverlappedComboPlot<
       });
     }
 
-    this.backLayer = new Layer({
+    /** add top layer for legend & tooltip */
+    this.topLayer = new Layer({
       canvas: this.getCanvas(),
       width: this.width,
       height: this.height,
@@ -206,6 +209,15 @@ export default class OverlappedComboPlot<
         .get('backShape')
         .remove();
     });
+
+    //补画坐标轴grid
+    if (this.globalOptions.yAxis.grid.visible) {
+      const leftAxis = axisComponents[0].axis;
+      const containerLayer = this.layers[0] as ViewLayer;
+      const coord = containerLayer.view.get('coord');
+      const container = containerLayer.view.get('backgroundGroup');
+      ComboUtil.drawYGrid(leftAxis, coord, container, this.globalOptions.yAxis.grid);
+    }
 
     if (this.globalOptions.tooltip.visible) {
       ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);

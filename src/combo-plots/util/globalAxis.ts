@@ -294,6 +294,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
     );
     paddingComponents.push({
       position: 'bottom',
+      axis: xAxis,
       getBBox: () => {
         const container = xAxis.get('group');
         const bbox = container.getBBox();
@@ -314,6 +315,7 @@ function axisLayout(axes, paddingComponents, width) {
   leftContainer.translate(leftBbox.width, 0);
   paddingComponents.push({
     position: 'left',
+    axis: leftAxis,
     getBBox: () => {
       const matrix = leftContainer.attr('matrix');
       return new BBox(leftBbox.minX + matrix[6], leftBbox.minY, leftBbox.width, leftBbox.height);
@@ -329,6 +331,7 @@ function axisLayout(axes, paddingComponents, width) {
     temp_width += bbox.width + AXIS_GAP;
     const component = {
       position: 'right',
+      axis,
       getBBox: () => {
         const matrix = container.attr('matrix');
         return new BBox(bbox.minX + matrix[6], bbox.minX, bbox.width, bbox.height);
@@ -361,4 +364,24 @@ function adjustColorStyle(color, options) {
         }
       : null,
   };
+}
+
+export function drawYGrid(axis, coord, container, cfg) {
+  const defaultStyle = getGlobalTheme().axis.y.grid.style;
+  const style = _.deepMix({}, defaultStyle, cfg.style);
+  const gridGroup = container.addGroup();
+  const labelItems = axis.get('labelItems');
+  _.each(labelItems, (item, index) => {
+    if (index > 0) {
+      gridGroup.addShape('path', {
+        attrs: {
+          path: [
+            ['M', coord.start.x, item.point.y],
+            ['L', coord.end.x, item.point.y],
+          ],
+          ...style,
+        },
+      });
+    }
+  });
 }

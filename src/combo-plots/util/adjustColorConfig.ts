@@ -2,7 +2,7 @@ import * as _ from '@antv/util';
 import { ViewLayerConfig } from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
 
-const SINGLE_TYPE = ['line', 'area', 'column', 'bar', 'bubble'];
+const SINGLE_TYPE = ['line', 'area', 'column', 'bar', 'bubble', 'scatter'];
 
 let count = 0;
 

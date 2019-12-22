@@ -4,17 +4,14 @@ import { getGlobalTheme } from '../../theme/global';
 
 const SINGLE_TYPE = ['line', 'area', 'column', 'bar', 'bubble', 'scatter'];
 
-let count = 0;
-
-export function getColorConfig(type: string, props: ViewLayerConfig) {
+export function getColorConfig(type: string, props: ViewLayerConfig, count: number) {
   if (props.color) {
-    return props.color;
+    return { single: false, color: props.color };
   }
   const isSingle = isSingleGraph(type, props);
   const { colors } = getGlobalTheme();
   if (isSingle && !props.color) {
-    count++;
-    return colors[count - 1];
+    return { single: true, color: colors[count] };
   }
 }
 

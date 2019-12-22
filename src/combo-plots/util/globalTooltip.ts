@@ -44,6 +44,8 @@ export function showTooltip(canvas, layers, tooltipCfg) {
       tooltip.hide();
     }
   });
+
+  return tooltip;
 }
 
 function getTooltipItems(point, geom, type, dataArray, coord) {

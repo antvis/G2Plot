@@ -98,6 +98,7 @@ export function createLegend(items, width, height, canvas, position) {
   }
   return {
     position: positions[0],
+    component: legend,
     getBBox: () => {
       return paddingBbox;
     },

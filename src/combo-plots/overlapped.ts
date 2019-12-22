@@ -23,6 +23,8 @@ export default class OverlappedComboPlot<
   protected legendContainer: Group;
   protected paddingComponents: any[];
   protected globalOptions: any;
+  protected globalComponents: any[];
+  protected singleGeomCount: number;
 
   public getDefaultOptions() {
     return {
@@ -91,6 +93,8 @@ export default class OverlappedComboPlot<
     this.legendInfo = [];
     this.axisInfo = [];
     this.paddingComponents = [];
+    this.globalComponents = [];
+    this.singleGeomCount = 0;
 
     this.backLayer = new Layer({
       canvas: this.getCanvas(),
@@ -130,17 +134,14 @@ export default class OverlappedComboPlot<
       width: this.width,
       height: this.height,
     });
-
-    if (this.globalOptions.legend.visible) {
-      const legend = this.overlappingLegend();
-      this.paddingComponents.push(legend);
-    }
-
-    // this.overlappingLayout();
   }
 
   /** 图层叠加时的layer config */
   protected getOverlappedConfig(layerCfg) {
+    const colorCfg = ComboUtil.getColorConfig(layerCfg.type, layerCfg, this.singleGeomCount);
+    if (colorCfg && colorCfg.single) {
+      this.singleGeomCount++;
+    }
     return _.deepMix(
       {},
       {
@@ -157,7 +158,7 @@ export default class OverlappedComboPlot<
           visible: false,
         },
         padding: [0, 0, 0, 0],
-        color: ComboUtil.getColorConfig(layerCfg.type, layerCfg),
+        color: colorCfg ? colorCfg.color : null,
       }
     );
   }
@@ -175,7 +176,13 @@ export default class OverlappedComboPlot<
   }
 
   public render() {
+    this.clearComponents();
     const { bleeding } = getGlobalTheme();
+    if (this.globalOptions.legend.visible) {
+      const legend = this.overlappingLegend();
+      this.globalComponents.push({ type: 'legend', component: legend.component });
+      this.paddingComponents.push(legend);
+    }
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
     const axisComponents = ComboUtil.axesLayout(
@@ -188,6 +195,9 @@ export default class OverlappedComboPlot<
       this.getCanvas()
     );
     this.paddingComponents.push(...axisComponents);
+    _.each(axisComponents, (axis) => {
+      this.globalComponents.push({ type: 'axis', component: axis.component });
+    });
     // 计算padding
     const padding = getOverlappingPadding(this.layers[0], this.paddingComponents);
     if (!this.globalOptions.xAxis.visible) {
@@ -212,7 +222,7 @@ export default class OverlappedComboPlot<
 
     //补画坐标轴grid
     if (this.globalOptions.yAxis.grid.visible) {
-      const leftAxis = axisComponents[0].axis;
+      const leftAxis = axisComponents[0].component;
       const containerLayer = this.layers[0] as ViewLayer;
       const coord = containerLayer.view.get('coord');
       const container = containerLayer.view.get('backgroundGroup');
@@ -220,7 +230,26 @@ export default class OverlappedComboPlot<
     }
 
     if (this.globalOptions.tooltip.visible) {
-      ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+      const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+      this.globalComponents.push({ type: 'tooltip', component: tooltip });
     }
+  }
+
+  public destroy() {
+    this.clearComponents();
+    super.destroy();
+  }
+
+  protected clearComponents() {
+    _.each(this.globalComponents, (c) => {
+      if (c.type === 'legend' || c.type === 'tooltip') {
+        c.component.destroy();
+      }
+      if (c.type === 'axis') {
+        c.component.clear();
+      }
+    });
+    this.paddingComponents = [];
+    this.globalComponents = [];
   }
 }

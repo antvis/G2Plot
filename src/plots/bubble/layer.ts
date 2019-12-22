@@ -1,7 +1,6 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { getGeom } from '../../geoms/factory';
 import '../scatter/components/label/scatter-label';
 import * as EventParser from '../scatter/event';
 import ScatterLayer, { PointViewConfig } from '../scatter/layer';

@@ -59,7 +59,7 @@ describe('Combo plot', () => {
           yField: 'value',
         },
         {
-          type: 'bubble',
+          type: 'scatter',
           name: '下单',
           data: billData,
           xField: 'time',
@@ -78,7 +78,7 @@ describe('Combo plot', () => {
         },
       ],
     });
-    // combo.render();
+    combo.render();
   });
   it.only('groupColumn + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {

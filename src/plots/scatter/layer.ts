@@ -79,7 +79,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       },
       tooltip: {
         visible: true,
-        shared: false,
+        // false 会造成 tooltip 只能显示一条数据，true 会造成 tooltip 在空白区域也会显示
+        shared: null,
         crosshairs: {
           type: 'rect',
         },
@@ -168,6 +169,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     if (this.options.label && this.options.label.visible) {
       this.points.label = this.extractLabel();
     }
+    if (this.options.tooltip && this.options.tooltip.visible) {
+      this.points.tooltip = this.extractTooltip();
+      this.setConfig('tooltip', {
+        showTitle: false,
+        ...this.options.tooltip,
+      } as any);
+    }
     this.setConfig('element', points);
   }
 
@@ -200,6 +208,22 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       ...label,
     });
     return labelConfig;
+  }
+
+  protected extractTooltip() {
+    const props = this.options;
+    if (_.isString(props.colorField)) {
+      return {
+        fields: [props.xField, props.yField, props.colorField],
+      };
+    } else if (_.isArray(props.colorField) && props.colorField.length) {
+      return {
+        fields: [props.xField, props.yField, ...props.colorField],
+      };
+    }
+    return {
+      fields: [props.xField, props.yField],
+    };
   }
 }
 

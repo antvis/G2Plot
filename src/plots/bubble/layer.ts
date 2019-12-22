@@ -20,37 +20,18 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     return _.deepMix({}, super.getDefaultOptions(), {
       pointSize: [8, 58],
       pointStyle: {
+        strokeOpacity: 1,
+        fillOpacity: 1,
         opacity: 0.5,
       },
-      xAxis: {
-        grid: {
-          visible: true,
-        },
-      },
-      yAxis: {
-        grid: {
-          visible: true,
-        },
-      },
-      tooltip: {
-        visible: true,
-        shared: false,
-        crosshairs: {
-          type: 'rect',
-        },
-      },
       label: {
-        visible: false,
         position: 'middle',
       },
-      shape: 'circle',
     });
   }
 
   public type: string = 'bubble';
-
-  public bubbles: any;
-
+  
   protected legend() {
     super.legend();
     /** 取消气泡大小图例 */
@@ -59,30 +40,6 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
         [this.options.sizeField]: false,
       },
     });
-  }
-
-  protected addGeometry() {
-    const props = this.options;
-
-    const bubbles = getGeom('point', 'circle', {
-      plot: this,
-    });
-
-    if (props.label && props.label.visible) {
-      bubbles.label = this.extractLabel();
-    }
-
-    this.bubbles = bubbles;
-    this.setConfig('element', bubbles);
-  }
-
-  protected animation() {
-    super.animation();
-    const props = this.options;
-    if (props.animation === false) {
-      /** 关闭动画 */
-      this.bubbles.animate = false;
-    }
   }
 
   protected parseEvents() {

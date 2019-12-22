@@ -19,7 +19,7 @@ export function showTooltip(canvas, layers, tooltipCfg) {
         each(geoms, (geom) => {
           const type = geom.get('type');
           const dataArray = geom.get('dataArray');
-          if (contains(['area', 'line', 'path', 'interval'], type)) {
+          if (contains(['area', 'line', 'path', 'interval', 'point'], type)) {
             const items = getTooltipItems(point, geom, type, dataArray, coord);
             tooltipItems.push(...items);
           }

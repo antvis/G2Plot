@@ -268,13 +268,10 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
       if (index === 0) {
         axis.get('group').translate(padding[3], 0);
       }
-      if (index === yAxisScale.length - 1) {
-        axis.get('group').translate(-padding[1], 0);
-      }
       axes.push(axis);
     });
 
-    axisLayout(axes, paddingComponents, width);
+    axisLayout(axes, paddingComponents, width, padding);
   }
 
   if (globalOptions.xAxis.visible) {
@@ -306,8 +303,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
   return paddingComponents;
 }
 
-function axisLayout(axes, paddingComponents, width) {
-  const { bleeding } = getGlobalTheme();
+function axisLayout(axes, paddingComponents, width, padding) {
   // 先处理最左边的
   const leftAxis = axes[0];
   const leftContainer = leftAxis.get('group');
@@ -321,7 +317,7 @@ function axisLayout(axes, paddingComponents, width) {
       return new BBox(leftBbox.minX + matrix[6], leftBbox.minY, leftBbox.width, leftBbox.height);
     },
   });
-  let temp_width = 0;
+  let temp_width = padding[1];
   // 处理右边的
   for (let i = axes.length - 1; i > 0; i--) {
     const axis = axes[i];

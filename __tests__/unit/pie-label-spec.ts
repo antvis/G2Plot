@@ -61,8 +61,8 @@ describe('Pie plot with outer-label', () => {
   };
 
   const data = [];
-  for (let i = 0; i < 16; i++) {
-    data.push({ type: `分类 ${i + 1}`, value: 10 + Math.random() * 100 });
+  for (let i = 0; i < 30; i++) {
+    data.push({ type: `分类 ${i + 1}`, value: 400 - 10 * i });
   }
 
   // 记录 label 可视率
@@ -100,9 +100,7 @@ describe('Pie plot with outer-label', () => {
   it('all labels visible', () => {
     const labelShapes: Shape[] = element.get('labels');
     if (data.length < 30) {
-      labelShapes.forEach((label) => {
-        expect(label.get('visible')).toBe(true);
-      });
+      expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     }
   });
 
@@ -155,14 +153,6 @@ describe('Pie plot with outer-label', () => {
     return visibleRate;
   }
 
-  it('label 可见率 > 90%(data count < 90)', () => {
-    const labelShapes: Shape[] = element.get('labels');
-    const visibleRate = calcVisibleRate(labelShapes, labelVisibleRecordDiv);
-    if (data.length < 90) {
-      expect(visibleRate > 0.9).toBe(true);
-    }
-  });
-
   it('when label offset < 0, all labels still outside element', () => {
     const canvasDiv = createDiv('canvas-2');
     const piePlot1 = new Pie(canvasDiv, {
@@ -184,8 +174,10 @@ describe('Pie plot with outer-label', () => {
     const labelShapes: Shape[] = element.get('labels');
     const coord = plot.get('coord');
     labelShapes.forEach((label) => {
-      const distX = Math.abs(coord.getCenter().x - label.attr('x'));
-      const distY = Math.abs(coord.getCenter().y - label.attr('y'));
+      const labelBox = label.getBBox();
+      const labelCenter = { x: (labelBox.minX + labelBox.maxX) / 2, y: (labelBox.minY + labelBox.maxY) / 2 };
+      const distX = Math.abs(coord.getCenter().x - labelCenter.x);
+      const distY = Math.abs(coord.getCenter().y - labelCenter.y);
       const dist = Math.sqrt(distX * distX + distY * distY);
       expect(dist > coord.getRadius()).toBe(true);
     });

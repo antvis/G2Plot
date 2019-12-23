@@ -4,6 +4,7 @@ import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
+import { bboxOnRotate } from '../../util/math';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -125,11 +126,11 @@ export default class PaddingController {
     ];
     this.adjustAxisPadding(view, padding);
     // label、annotation等
-    const panelPadding = this._getPanel(view, components_bbox, box);
+    const panelPadding = this._getPanel(view, box);
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
-    padding[2] += panelPadding[2];
-    padding[2] += panelPadding[3];
+    // padding[2] += panelPadding[2];
+    padding[3] += panelPadding[3];
     return padding;
   }
 
@@ -180,7 +181,7 @@ export default class PaddingController {
     }
   }
 
-  private _getPanel(view, bboxes, box) {
+  private _getPanel(view, box) {
     const groups = [];
     const geoms = view.get('elements');
     _.each(geoms, (geom) => {
@@ -195,20 +196,27 @@ export default class PaddingController {
     let maxX = -Infinity;
     let minY = Infinity;
     let maxY = -Infinity;
+    console.log(groups);
     _.each(groups, (group) => {
-      const bbox = group.getBBox();
-      if (bbox.minX < minX) {
-        minX = bbox.minX;
-      }
-      if (bbox.maxX > maxX) {
-        maxX = bbox.maxX;
-      }
-      if (bbox.minY < minY) {
-        minY = bbox.minY;
-      }
-      if (bbox.maxY > maxY) {
-        maxY = bbox.maxY;
-      }
+      const children = group.get('children');
+      children.forEach((child) => {
+        if (child.type === 'group' && child.get('children').length === 0) {
+          return;
+        }
+        const bbox = child.getBBox();
+        if (bbox.minX < minX) {
+          minX = bbox.minX;
+        }
+        if (bbox.maxX > maxX) {
+          maxX = bbox.maxX;
+        }
+        if (bbox.minY < minY) {
+          minY = bbox.minY;
+        }
+        if (bbox.maxY > maxY) {
+          maxY = bbox.maxY;
+        }
+      });
     });
     const panelRange = view.get('panelRange');
     //right

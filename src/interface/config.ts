@@ -46,7 +46,7 @@ export interface IBaseAxis {
     visible?: boolean;
     style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
   };
-  autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
+  autoRotateLabel?: boolean | number[]; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   autoRotateTitle?: boolean;
   label?: {

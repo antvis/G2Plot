@@ -66,9 +66,18 @@ function clipingWithData(shape, animateCfg) {
     {
       onFrame: (ratio) => {
         const position = getPositionByRatio(ratio, shapeData, coord, i);
+
+        if (!position) return;
+
         marker.attr('x', position[0]);
         marker.attr('y', position[1]);
-        const yText = getDataByPosition(yScale, position[1], coord);
+        let yText = getDataByPosition(yScale, position[1], coord);
+
+        // use formatter
+        if (yScale.formatter) {
+          yText = yScale.formatter(yText);
+        }
+
         marker.attr('text', yText);
       },
     },

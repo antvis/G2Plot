@@ -1,7 +1,9 @@
 import { BBox, Element } from '@antv/g';
 import { DataPointType } from '@antv/g2/lib/interface';
+import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
+import { MarginPadding } from '../../interface/types';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -114,12 +116,13 @@ export default class PaddingController {
     if (minY === viewRange.minY) {
       minY = 0;
     }
-    const padding = [
+    const padding: MarginPadding = [
       0 - minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
+    this.adjustAxisPadding(view, padding);
     return padding;
   }
 
@@ -231,6 +234,26 @@ export default class PaddingController {
     }
     for (let i = 0; i < source.length; i++) {
       target[i] += source[i];
+    }
+  }
+
+  private adjustAxisPadding(view: View, padding: MarginPadding) {
+    // 3.6.x Axis组件的 autoRotate padding 修正
+    const xAxis = view.get('axisController').axes[0];
+    if (!xAxis || !xAxis.get('autoRotateLabel') || !xAxis.getOffsetByRotateAngle) {
+      return;
+    }
+    const labelRenderer = xAxis.get('labelRenderer');
+    const labels = labelRenderer.getLabels();
+    const curOffset = xAxis.getOffsetByRotateAngle(xAxis.get('autoRotateAngle'));
+    const curTotalWidth = Math.abs(xAxis.get('end').x - xAxis.get('start').x);
+    const curAvgWidth = Math.abs(labels[1].attr('x') - labels[0].attr('x'));
+    const newTotalWidth = curTotalWidth - padding[1] - padding[3];
+    const newAvgWidth = (curAvgWidth * newTotalWidth) / curTotalWidth;
+    const newOffset = xAxis.getOffsetByRotateAngle(xAxis.getAutoRotateAngleByAvgWidth(newAvgWidth));
+
+    if (newOffset > curOffset) {
+      padding[2] += newOffset - curOffset;
     }
   }
 }

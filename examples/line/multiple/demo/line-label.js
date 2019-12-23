@@ -23,10 +23,7 @@ fetch('../../data/GDP.json')
         autoHideLabel: true,
       },
       yAxis: {
-        label: {
-          // 数值格式化为千分位
-          formatter: (v) => `${(v / 10e8).toFixed(1)} B`,
-        },
+        formatter: (v) => `${(v / 10e8).toFixed(1)} B`,
       },
       legend: {
         visible: false,
@@ -35,6 +32,10 @@ fetch('../../data/GDP.json')
         visible: true,
         type: 'line',
       },
+      animation: {
+        type: 'clipingWithData',
+      },
+      smooth: true,
     });
 
     linePlot.render();

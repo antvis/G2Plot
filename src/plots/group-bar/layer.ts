@@ -40,6 +40,35 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
 
   public type: string = 'groupBar';
 
+  public afterRender() {
+    super.afterRender();
+    const names = _.valuesOfKey(this.options.data, this.options.groupField);
+    this.view.on('tooltip:change', (e) => {
+      const { items } = e;
+      const origin_items = _.clone(items);
+      for (let i = 0; i < names.length; i++) {
+        const name = names[i];
+        for (let j = 0; j < origin_items.length; j++) {
+          const item = origin_items[j];
+          if (item.name === name) {
+            e.items[i] = item;
+          }
+        }
+      }
+    });
+  }
+
+  protected scale() {
+    const defaultMeta = {};
+    defaultMeta[this.options.groupField] = {
+      values: _.valuesOfKey(this.options.data, this.options.groupField),
+    };
+    if (!this.options.meta) {
+      this.options.meta = defaultMeta;
+    }
+    super.scale();
+  }
+
   protected adjustBar(bar: ElementOption) {
     bar.adjust = [
       {

@@ -196,7 +196,6 @@ export default class PaddingController {
     let maxX = -Infinity;
     let minY = Infinity;
     let maxY = -Infinity;
-    console.log(groups);
     _.each(groups, (group) => {
       const children = group.get('children');
       children.forEach((child) => {

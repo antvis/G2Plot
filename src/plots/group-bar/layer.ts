@@ -65,6 +65,8 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
     };
     if (!this.options.meta) {
       this.options.meta = defaultMeta;
+    } else {
+      this.options.meta = _.deepMix({}, this.options.meta, defaultMeta);
     }
     super.scale();
   }

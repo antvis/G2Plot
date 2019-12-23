@@ -1,3 +1,6 @@
+## <small>0.11.13 (2019-12-23)</small>
+- 🐞 修改条形图legend和tooltip顺序颠倒问题 ([e4f8f68](https://github.com/antvis/G2Plot/commit/e4f8f68))
+
 ## <small>0.11.9 (2019-12-16)</small>
 - 🐞 update dependency version: g2 scale component ([23ca0ec](https://github.com/antvis/G2Plot/commit/23ca0ec))
 

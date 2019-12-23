@@ -4,6 +4,7 @@ import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
+import { bboxOnRotate } from '../../util/math';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -103,6 +104,7 @@ export default class PaddingController {
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
     this._getLegend(view, components_bbox, box);
+    box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
     _.each(components, (obj) => {
@@ -123,6 +125,12 @@ export default class PaddingController {
       0 - box.minX + this.bleeding[3],
     ];
     this.adjustAxisPadding(view, padding);
+    // label、annotation等
+    const panelPadding = this._getPanel(view, box);
+    padding[0] += panelPadding[0];
+    padding[1] += panelPadding[1];
+    // padding[2] += panelPadding[2];
+    padding[3] += panelPadding[3];
     return padding;
   }
 
@@ -171,6 +179,71 @@ export default class PaddingController {
         this._mergeBleeding(innerPadding);
       });
     }
+  }
+
+  private _getPanel(view, box) {
+    const groups = [];
+    const geoms = view.get('elements');
+    _.each(geoms, (geom) => {
+      if (geom.get('labelController')) {
+        const labelContainer = geom.get('labelController').labelsContainer;
+        if (labelContainer) {
+          groups.push(labelContainer);
+        }
+      }
+    });
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    _.each(groups, (group) => {
+      const children = group.get('children');
+      children.forEach((child) => {
+        if (child.type === 'group' && child.get('children').length === 0) {
+          return;
+        }
+        const bbox = child.getBBox();
+        if (bbox.minX < minX) {
+          minX = bbox.minX;
+        }
+        if (bbox.maxX > maxX) {
+          maxX = bbox.maxX;
+        }
+        if (bbox.minY < minY) {
+          minY = bbox.minY;
+        }
+        if (bbox.maxY > maxY) {
+          maxY = bbox.maxY;
+        }
+      });
+    });
+    const panelRange = view.get('panelRange');
+    //right
+    let rightDist = Math.max(maxX - parseFloat(panelRange.maxX), 0);
+    if (rightDist > 0) {
+      const ratio = panelRange.width / (panelRange.width + rightDist);
+      rightDist *= ratio;
+    }
+    //left
+    let leftDist = Math.max(parseFloat(panelRange.minX) - minX, 0);
+    if (leftDist > 0) {
+      const ratio = panelRange.width / (panelRange.width + leftDist);
+      leftDist *= ratio;
+    }
+    //top
+    let topDist = Math.max(parseFloat(panelRange.minY) - minY, 0);
+    if (topDist > 0) {
+      const ratio = panelRange.height / (panelRange.height + topDist);
+      topDist *= ratio;
+    }
+    //bottom
+    let bottomDist = Math.max(maxY - parseFloat(panelRange.maxY), 0);
+    if (bottomDist > 0) {
+      const ratio = panelRange.height / (panelRange.height + bottomDist);
+      bottomDist *= ratio;
+    }
+
+    return [topDist, rightDist, bottomDist, leftDist];
   }
 
   private _mergeBBox(bboxes) {

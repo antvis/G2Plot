@@ -176,6 +176,7 @@ export default class OverlappedComboPlot<
   }
 
   public render() {
+    console.log('re render');
     this.clearComponents();
     const { bleeding } = getGlobalTheme();
     if (this.globalOptions.legend.visible) {

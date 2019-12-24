@@ -1,3 +1,6 @@
+## <small>0.11.15 (2019-12-23)</small>
+- 🐞 label参与auto-padding计算 ([0c566c1](https://github.com/antvis/G2Plot/commit/0c566c1))
+
 ## <small>0.11.13 (2019-12-23)</small>
 - 🐞 修改条形图legend和tooltip顺序颠倒问题 ([e4f8f68](https://github.com/antvis/G2Plot/commit/e4f8f68))
 

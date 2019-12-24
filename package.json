@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.14",
+  "version": "0.11.15",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -36,7 +36,7 @@
     "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch  ./__tests__/unit/combo-spec.ts",
+    "test-live": "DEBUG_MODE=1 jest --watch",
     "coverage": "jest --coverage",
     "ci": "run-s lint-check build test coverage",
     "compare-live": "node scripts/compare.js",

@@ -413,7 +413,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract geometryParser(dim: string, type: string): string;
 
   protected animation() {
-    if (this.options.animation === false) {
+    if (this.options.animation === false || this.options.padding === 'auto') {
       this.config.animate = false;
     }
   }

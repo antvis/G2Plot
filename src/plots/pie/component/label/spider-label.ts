@@ -1,16 +1,29 @@
-import { Canvas, Group } from '@antv/g';
+import { Group, Shape } from '@antv/g';
 import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
 const DEFAULT_COLOR = '#CCC';
-const LABEL1_OFFSETY = 4;
-const LABEL2_OFFSETY = -4;
+const LABEL1_OFFSETY = 2;
+const LABEL2_OFFSETY = -2;
 const ADJUSTOFFSET = 15;
 
 interface IAttrs {
   [key: string]: any;
+}
+
+type Point = { x: number; y: number };
+interface LabelData {
+  _anchor: Point;
+  _inflection: Point;
+  _data: object;
+  x: number;
+  y: number;
+  r: number;
+  fill: string;
+  textGroup: Group;
+  _side?: 'left' | 'right';
 }
 
 function getEndPoint(center, angle, r) {
@@ -28,10 +41,17 @@ function getDefaultCfg() {
     },
     lineWidth: 0.5,
     lineStroke: 'rgba(0, 0, 0, 0.45)',
+    /** distance between label and edge */
     sidePadding: 20,
     lineHeight: 32,
     // anchorSize: 2,
   };
+}
+
+interface OriginLabelItem {
+  /** 原始数据值 */
+  _origin: object;
+  color?: string;
 }
 
 export default class SpiderLabel {
@@ -40,7 +60,7 @@ export default class SpiderLabel {
   private halves: any[][];
   private container: Group;
   private config: IAttrs;
-  private formatter: (...args: any[]) => string;
+  private formatter: (text: string, item: OriginLabelItem, index: number) => string | string[];
   private offsetX: number;
   private offsetY: number;
   private width: number;
@@ -52,8 +72,7 @@ export default class SpiderLabel {
     this.formatter = cfg.formatter;
     this.offsetX = cfg.offsetX;
     this.offsetY = cfg.offsetY;
-    // this.config = _.assign(getDefaultCfg(), cfg.style);
-    this.config = getDefaultCfg();
+    this.config = _.assign(getDefaultCfg(), _.pick(cfg.style, ['lineStroke', 'lineWidth']));
     if (cfg.style) {
       this.config.text = _.mix(this.config.text, cfg.style);
     }
@@ -81,8 +100,8 @@ export default class SpiderLabel {
     this.height = height;
     let angle = startAngle;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < data.length; i++) {
-      const d = data[i];
+    for (let idx = 0; idx < data.length; idx++) {
+      const d = data[idx];
       // 计算每个切片的middle angle
       const angleValue = scale.scale(d[angleField]);
       const targetAngle = angle + Math.PI * 2 * angleValue;
@@ -101,7 +120,7 @@ export default class SpiderLabel {
         color = shapes[shapeIndex].attr('fill');
       }
       // 组装label数据
-      const label = {
+      const label: LabelData = {
         _anchor: anchorPoint,
         _inflection: inflectionPoint,
         _data: d,
@@ -118,7 +137,7 @@ export default class SpiderLabel {
         texts.push(d[f]);
       });
       if (this.formatter) {
-        let formatted: any = this.formatter(...texts);
+        let formatted: any = this.formatter(d[angleField], { _origin: d, color }, idx);
         if (_.isString(formatted)) {
           formatted = [formatted];
         }
@@ -130,6 +149,7 @@ export default class SpiderLabel {
         y: 0,
         fontSize: this.config.text.fontSize,
         lineHeight: this.config.text.fontSize,
+        fontWeight: this.config.text.fontWeight,
         fill: this.config.text.fill,
       };
       // label1:下部label
@@ -137,22 +157,26 @@ export default class SpiderLabel {
       if (this.formatter) {
         lowerText = texts[0];
       }
-      const topTextShape = textGroup.addShape('text', {
+      const lowerTextAttrs = _.clone(textAttrs);
+      if (texts.length === 2) {
+        lowerTextAttrs.fontWeight = 700;
+      }
+      const lowerTextShape = textGroup.addShape('text', {
         attrs: _.mix(
           {
-            textBaseline: 'top',
+            textBaseline: texts.length === 2 ? 'top' : 'middle',
             text: lowerText,
           },
-          textAttrs
+          lowerTextAttrs
         ),
         data: d,
-        offsetY: LABEL1_OFFSETY,
+        offsetY: texts.length === 2 ? LABEL1_OFFSETY : 0,
         name: 'label',
       });
-      topTextShape.name = 'label'; // 用于事件标记 shapeName
+      lowerTextShape.name = 'label'; // 用于事件标记 shapeName
       /** label2:上部label */
-      if (this.fields.length === 2) {
-        const bottomTextShape = textGroup.addShape('text', {
+      if (texts.length === 2) {
+        const topTextShape = textGroup.addShape('text', {
           attrs: _.mix(
             {
               textBaseline: 'bottom',
@@ -164,7 +188,7 @@ export default class SpiderLabel {
           offsetY: LABEL2_OFFSETY,
           name: 'label',
         });
-        bottomTextShape.name = 'label'; // 用于事件标记 shapeName
+        topTextShape.name = 'label'; // 用于事件标记 shapeName
       }
 
       label.textGroup = textGroup;
@@ -213,7 +237,7 @@ export default class SpiderLabel {
     });
   }
 
-  private _antiCollision(half) {
+  private _antiCollision(half: LabelData[]) {
     const coord = this.view.get('coord');
     const canvasHeight = coord.getHeight();
     const { center } = coord;
@@ -226,7 +250,7 @@ export default class SpiderLabel {
     let maxY = 0;
     let minY = Number.MIN_VALUE;
     let maxLabelWidth = 0;
-    const boxes = half.map((label) => {
+    const boxes: any[] = half.map((label) => {
       const labelY = label.y;
       if (labelY > maxY) {
         maxY = labelY;
@@ -301,15 +325,22 @@ export default class SpiderLabel {
     });
   }
 
-  private _drawLabel(label) {
+  private _drawLabel(label: LabelData) {
+    const coord = this.view.get('coord');
+    const center = coord.getCenter();
+    const radius = coord.getRadius();
+
     const width = this.width;
     const { y, textGroup } = label;
     const children = textGroup.get('children');
     const x_dir = label._side === 'left' ? 1 : -1;
 
     const textAttrs = {
-      textAlign: label._side,
-      x: label._side === 'left' ? this.config.sidePadding : width - this.config.sidePadding,
+      textAlign: label._side === 'left' ? 'right' : 'left',
+      x:
+        label._side === 'left'
+          ? center.x - radius - this.config.sidePadding
+          : center.x + radius + this.config.sidePadding,
     };
 
     if (this.offsetX) {
@@ -326,11 +357,12 @@ export default class SpiderLabel {
     return textGroup;
   }
 
-  private _drawLabelLine(label, maxLabelWidth) {
+  private _drawLabelLine(label: LabelData, maxLabelWidth): Shape {
     const _anchor = [label._anchor.x, label._anchor.y];
     const _inflection = [label._inflection.x, label._inflection.y];
-    const { fill, y } = label;
-    const lastPoint = [label._side === 'left' ? this.config.sidePadding : this.width - this.config.sidePadding, y];
+    const { fill, y, textGroup } = label;
+    if (!textGroup) return;
+    const lastPoint = [label._side === 'left' ? textGroup.getBBox().maxX + 4 : textGroup.getBBox().minX - 4, y];
 
     let points = [_anchor, _inflection, lastPoint];
     if (_inflection[1] !== y) {

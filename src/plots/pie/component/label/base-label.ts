@@ -98,7 +98,7 @@ export default abstract class extends PieElementLabels {
   protected checkInPanel(label: Shape, panel: BBox): void {
     const box = label.getBBox();
     //  横向溢出 暂不隐藏
-    if (!(panel.y < box.y && panel.y + panel.height > box.y + box.height)) {
+    if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
       label.set('visible', false);
     }
   }

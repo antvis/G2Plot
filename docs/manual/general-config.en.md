@@ -1,5 +1,5 @@
 ---
-title: General Configeration
+title: General Configuration
 order: 2
 ---
 

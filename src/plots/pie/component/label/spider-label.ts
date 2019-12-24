@@ -85,7 +85,7 @@ export default class SpiderLabel {
       return;
     }
     /** 如果有formatter则事先处理数据 */
-    const data = _.clone(this.view.get('data'));
+    const data = _.clone(this.view.get('filteredData'));
     this.halves = [[], []];
     this.container = this.view.get('frontgroundGroup').addGroup();
     const shapes = this.view.get('elements')[0].getShapes();

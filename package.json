@@ -36,7 +36,7 @@
     "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/matrix-spec.ts",
     "coverage": "jest --coverage",
     "ci": "run-s lint-check build test coverage",
     "compare-live": "node scripts/compare.js",
@@ -69,7 +69,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "0.10.17",
+    "@antv/gatsby-theme-antv": "0.10.26",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",

@@ -115,7 +115,10 @@ describe('matrix plot', () => {
       height: 500,
       xField: 'name',
       yField: 'country',
-      sizeField: 'value',
+      colorField: 'value',
+      // sizeField: 'value',
+      shapeType: 'circle',
+      // shapeSize: [5,20],
       data,
     });
     matrixPlot.render();

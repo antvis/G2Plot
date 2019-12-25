@@ -19,4 +19,5 @@ export { default as Gauge, GaugeConfig } from './gauge';
 export { default as Area, AreaConfig } from './area';
 export { default as StackArea, StackAreaConfig } from './stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
+export { default as Funnel, FunnelConfig } from './funnel';
 export { default as Heatmap, HeatmapConfig } from './heatmap';

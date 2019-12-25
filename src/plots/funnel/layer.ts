@@ -227,20 +227,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const props = this.options;
     const percentage = props.percentage || {};
 
-    const percentageConfig = _.deepMix(
-      {
-        style: {
-          fill: percentage.adjustColor === false ? 'white' : 'transparent',
-        },
+    const percentageConfig = _.deepMix({}, percentage, {
+      top: true,
+      type: 'text',
+      position: [datum[props.xField], 'median'],
+      style: {
+        fill: 'transparent',
       },
-      percentage,
-      {
-        top: true,
-        type: 'text',
-        position: [datum[props.xField], 'median'],
-        style: {},
-      }
-    );
+    });
 
     if (percentage.visible === false) {
       percentageConfig.style.opacity = 0;
@@ -286,18 +280,21 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   protected adjustAnnotationWithoutRepaint(shape, annotation) {
     const { options: props } = this;
-    if (_.get(props, 'percentage.adjustColor') === false) return;
 
     if (annotation) {
-      const shapeColor = shape.attr('fill');
-      const shapeOpacity = _.isNumber(shape.attr('opacity')) ? Math.min(Math.max(0, shape.attr('opacity')), 1) : 1;
+      if (_.get(props, 'percentage.adjustColor') === false) {
+        annotation.change({ style: { fill: _.get(props, 'percentage.style.fill', 'white') } });
+      } else {
+        const shapeColor = shape.attr('fill');
+        const shapeOpacity = _.isNumber(shape.attr('opacity')) ? Math.min(Math.max(0, shape.attr('opacity')), 1) : 1;
 
-      const rgb = rgb2arr(shapeColor);
-      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
+        const rgb = rgb2arr(shapeColor);
+        const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
 
-      const fill = gray < 156 ? '#f6f6f6' : '#303030';
+        const fill = gray < 156 ? '#f6f6f6' : '#303030';
 
-      annotation.change({ style: { fill } });
+        annotation.change({ style: { fill } });
+      }
     }
   }
 }

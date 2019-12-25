@@ -1,11 +1,11 @@
-// 百分比水位图
+// 水波图
 
 const liquidPlot = new g2plot.Liquid(document.getElementById('canvas'), {
-  type: 'normal',
+  width: 650,
+  height: 450,
   min: 0,
   max: 10000,
-  value: 6640,
-  showValue: true,
+  value: 5739,
 });
 liquidPlot.render();
 

@@ -200,6 +200,14 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
   const delayDiff = 300;
   for (let i = 0; i < waveCount; i++) {
     const wave = group.addShape('path', {
+      role: 'wave',
+      anim: {
+        attrs: {
+          transform: [['t', width / 2, 0]],
+          repeat: true,
+        },
+        delay: duration - i * delayDiff,
+      },
       attrs: {
         path: getWaterWavePath(radius, bbox.minY + height * level, width / 4, 0, width / 64, x, y),
         fill: colors[i],
@@ -209,13 +217,7 @@ function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
     });
     // FIXME wave animation error in svg
     if (Global.renderer === 'canvas') {
-      wave.animate(
-        {
-          transform: [['t', width / 2, 0]],
-          repeat: true,
-        },
-        duration - i * delayDiff
-      );
+      wave.animate(wave.get('anim').attrs, wave.get('anim').delay);
     }
   }
 }
@@ -255,6 +257,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       radius * 4
     );
     return container.addShape('circle', {
+      role: 'wrap',
       attrs: _.mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,

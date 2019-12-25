@@ -160,7 +160,7 @@ interface Animation {
 export interface Theme {}
 
 export interface ElementOption {
-  [x: string]: {};
+  [x: string]: any;
   type: string;
   position: {
     fields: string[];

@@ -29,7 +29,7 @@ const IndexPage = () => {
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: `/${i18n.language}/examples/line/basic`,
+      link: `/${i18n.language}/examples/gallary`,
       type: 'primary',
     },
     {

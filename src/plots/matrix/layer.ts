@@ -2,12 +2,11 @@ import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
-import { extractScale } from '../../util/scale';
 import { getComponent } from '../../components/factory';
 import { registerShape } from '@antv/g2';
+import MatrixLegend, { MatrixLegendConfig } from './component/legend';
 import './component/label';
+import './component/legend';
 
 registerShape('polygon', 'rect', {
   draw(cfg, container) {
@@ -52,7 +51,8 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       forceSquare: false,
       shapeType: 'rect',
       legend: {
-        visible: false,
+        visible: true,
+        position: 'right-center',
       },
       tooltip: {
         shared: false,
@@ -97,12 +97,33 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   public type: string = 'matrix';
   protected gridSize: number[] = [];
+  protected matrixLegend: MatrixLegend;
+
+  public afterRender() {
+    if (this.options.legend && this.options.legend.visible) {
+      if (this.matrixLegend) {
+        this.matrixLegend.destroy();
+      }
+      this.matrixLegend = new MatrixLegend({
+        view: this.view,
+        plot: this,
+        ...this.options.legend,
+      });
+      this.matrixLegend.render();
+      this.paddingController.registerPadding(this.matrixLegend, 'outer');
+    }
+    super.afterRender();
+  }
 
   protected geometryParser() {
     return '';
   }
 
   protected coord() {}
+
+  protected legend() {
+    this.setConfig('legends', false);
+  }
 
   protected addGeometry() {
     this.gridSize = this.getGridSize();

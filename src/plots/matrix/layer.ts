@@ -7,6 +7,7 @@ import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import { getComponent } from '../../components/factory';
 import { registerShape } from '@antv/g2';
+import './component/label';
 
 registerShape('polygon', 'rect', {
   draw(cfg, container) {
@@ -69,6 +70,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
         line: {
           visible: false,
         },
+        autoRotateLabel: true,
       },
       yAxis: {
         visible: true,
@@ -77,8 +79,13 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
           visible: true,
           align: 'center',
         },
+        autoRotateLabel: true,
       },
       color: ['#9ae3d5', '#66cdbb', '#e7a744', '#f1e066', '#f27664', '#e7c1a2'],
+      label: {
+        visible: true,
+        adjustColor: true,
+      },
     });
   }
 
@@ -140,8 +147,8 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     if (this.options.shapeSize) {
       size = this.options.shapeSize;
     } else {
-      size[0] = this.gridSize[0] * size[0];
-      size[1] = this.gridSize[1] * size[1];
+      size[0] = this.gridSize[0] * size[0] * 0.5;
+      size[1] = this.gridSize[1] * size[1] * 0.5;
     }
     const circle: any = {
       type: 'point',
@@ -155,6 +162,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       shape: {
         values: ['circle'],
       },
+      label: this.extractLabel(),
     };
     if (this.options.sizeField) {
       circle.size = {
@@ -163,11 +171,31 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       };
     } else {
       circle.size = {
-        values: [(Math.min(this.gridSize[0], this.gridSize[1]) / 2) * 0.9],
+        values: [Math.min(this.gridSize[0], this.gridSize[1]) * 0.5 * 0.9],
       };
     }
 
     return circle;
+  }
+
+  protected extractLabel() {
+    const labelOptions = this.options.label;
+    // 不显示label的情况
+    if (!labelOptions.visible) {
+      return false;
+    }
+    if (!this.options.sizeField && !this.options.colorField) {
+      return false;
+    }
+
+    const label = getComponent('label', {
+      plot: this,
+      top: true,
+      labelType: labelOptions.type,
+      fields: this.options.colorField ? [this.options.colorField] : [this.options.sizeField],
+      ...labelOptions,
+    });
+    return label;
   }
 
   private getGridSize() {

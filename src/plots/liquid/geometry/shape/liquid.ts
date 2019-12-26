@@ -18,7 +18,7 @@ const ShapeUtil = {
     return points;
   },
   addFillAttrs(attrs, cfg) {
-    if (cfg.color) {
+    if (cfg.color && !attrs.fill) {
       attrs.fill = cfg.color;
     }
     if (_.isNumber(cfg.opacity)) {
@@ -26,7 +26,7 @@ const ShapeUtil = {
     }
   },
   addStrokeAttrs(attrs, cfg) {
-    if (cfg.color) {
+    if (cfg.color && !attrs.stroke) {
       attrs.stroke = cfg.color;
     }
     if (_.isNumber(cfg.opacity)) {
@@ -35,11 +35,17 @@ const ShapeUtil = {
   },
 };
 
+const ValueUtil = {
+  lerp(a, b, factor) {
+    return (1 - factor) * a + factor * b;
+  },
+};
+
 const getFillAttrs = (cfg) => {
   const defaultAttrs = Global.theme.shape.interval;
   const attrs = _.mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(attrs, cfg);
-  if (cfg.color) {
+  if (cfg.color && !attrs.stroke) {
     attrs.stroke = attrs.stroke || cfg.color;
   }
   return attrs;
@@ -192,32 +198,38 @@ function getWaterWavePath(radius, waterLevel, waveLength, phase, amplitude, cx, 
  * @param {number} clip        用于剪切的图形
  * @param {number} radius      绘制图形的高度
  */
-function addWaterWave(x, y, level, waveCount, colors, group, clip, radius) {
+function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
   const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
   const duration = 5000;
-  const delayDiff = 300;
   for (let i = 0; i < waveCount; i++) {
+    const factor = waveCount <= 1 ? 0 : i / (waveCount - 1);
     const wave = group.addShape('path', {
-      role: 'wave',
-      anim: {
-        attrs: {
-          transform: [['t', width / 2, 0]],
-          repeat: true,
-        },
-        delay: duration - i * delayDiff,
-      },
       attrs: {
-        path: getWaterWavePath(radius, bbox.minY + height * level, width / 4, 0, width / 64, x, y),
-        fill: colors[i],
+        path: getWaterWavePath(
+          radius,
+          bbox.minY + height * level,
+          width / 4,
+          0,
+          width / ValueUtil.lerp(56, 64, factor),
+          x,
+          y
+        ),
+        fill: color,
         clip,
-        opacity: 0.8,
+        opacity: ValueUtil.lerp(0.6, 0.3, factor),
       },
     });
     // FIXME wave animation error in svg
     if (Global.renderer === 'canvas') {
-      wave.animate(wave.get('anim').attrs, wave.get('anim').delay);
+      wave.animate(
+        {
+          transform: [['t', width / 2, 0]],
+          repeat: true,
+        },
+        ValueUtil.lerp(duration, 0.7 * duration, factor)
+      );
     }
   }
 }
@@ -238,7 +250,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const minP = this.parsePoint({ x: minX, y: 0.5 });
     const xWidth = cp.x - minP.x;
     const radius = Math.min(xWidth, minP.y);
-    const attrs = getFillAttrs(cfg);
+    const { fill } = getFillAttrs(cfg);
     const clipCircle = new Circle({
       attrs: {
         x: cp.x,
@@ -246,13 +258,21 @@ registerShape('interval', 'liquid-fill-gauge', {
         r: radius,
       },
     });
+    const waves = container.addGroup({
+      role: 'waves',
+      attrs: {
+        x: cp.x,
+        y: cp.y,
+        clip: clipCircle,
+      },
+    });
     addWaterWave(
       cp.x,
       cp.y,
       1 - cfg.points[1].y, // cfg.y / (2 * cp.y),
-      1,
-      [attrs.fill],
-      container,
+      3,
+      fill,
+      waves,
       clipCircle,
       radius * 4
     );
@@ -262,6 +282,7 @@ registerShape('interval', 'liquid-fill-gauge', {
         x: cp.x,
         y: cp.y,
         r: radius,
+        fill: 'transparent',
       }),
     });
   },

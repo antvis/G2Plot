@@ -1,209 +1,281 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { ElementOption } from '../../interface/config';
-import { extractScale } from '../../util/scale';
-
 import { LayerConfig } from '../../base/layer';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import { getGeom } from '../../geoms/factory';
+import { extractScale } from '../../util/scale';
 import './geometry/shape/liquid';
-import './theme';
-
-interface LiquidStyle {
-  color?: string | string[];
-  fontColor?: string;
-  fontOpacity?: number;
-  fontSize?: number;
-  borderOpacity?: number;
-  borderWidth?: number;
-  size?: number;
-}
+import './animation/liquid-move-in';
+import { DataItem } from '../../interface/config';
+import { rgb2arr } from '../../util/color';
 
 const G2_GEOM_MAP = {
-  liquid: 'interval',
+  column: 'interval',
 };
 
 const PLOT_GEOM_MAP = {
   interval: 'liquid',
 };
 
-export interface LiquidViewConfig extends ViewConfig {
-  statistic?: string;
-  min?: number;
-  max?: number;
-  value?: number;
-  showValue?: boolean;
-  format?: (...args: any[]) => string;
-  liquidStyle?: LiquidStyle;
-  styleMix?: any;
-  text?: number;
+export interface LiquidStyle {}
+
+export interface LiquidViewConfig extends Partial<ViewConfig> {
+  statistic?: {
+    visible?: boolean;
+    adjustColor?: boolean;
+    style?: {};
+    formatter?: (value) => string;
+  };
+  min: number;
+  max: number;
+  value: number;
+  liquidStyle?: LiquidStyle | ((...args: any[]) => LiquidStyle);
 }
 
-export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {}
+export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
+  data: DataItem[];
+}
 
-export default class LiquidLayer extends ViewLayer<LiquidLayerConfig> {
+export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig> extends ViewLayer<T> {
+  public static getDefaultOptions(): Partial<LiquidViewConfig> {
+    const cfg: Partial<LiquidViewConfig> = {
+      animation: {
+        factor: 0.4,
+        easing: 'easeExpOut',
+        duration: 800,
+      },
+      liquidStyle: {
+        lineWidth: 2,
+      },
+    };
+    return _.deepMix({}, super.getDefaultOptions(), cfg);
+  }
+
+  public liquid: any;
   public type: string = 'liquid';
+  private shouldFadeInAnnotation: boolean = true;
 
   public init() {
-    const { value, statistic = 'normal' } = this.options;
-    const { min = 0, max = 1, format = (d) => `${d}` } = this.options;
-    const valueText = this.valueText(statistic, value, format, min, max);
-    const styleMix = this.getStyleMix(valueText);
-    this.options.styleMix = styleMix;
-    this.options.data = [{ value: typeof value === 'number' && valueText !== '--' ? value : 0 }];
-    this.options.text = valueText;
-    this.options.min = min;
-    this.options.max = max;
-    this.options.format = format;
+    this.options.data = [{}];
     super.init();
   }
 
-  protected geometryParser(dim, type) {
-    if (dim === 'g2') {
-      return G2_GEOM_MAP[type];
-    }
-    return PLOT_GEOM_MAP[type];
-  }
-
-  protected getStyleMix(valueText) {
-    const { liquidStyle = {} } = this.options;
-    const { width, height } = this;
-    const size = Math.min(width, height) / 1.2 - Object.assign({ borderWidth: 50 }, liquidStyle).borderWidth;
-    const defaultStyle = Object.assign({}, this.theme, {
-      fontSize: this.autoFontSize(size, valueText, 1.5),
-      size,
-    });
-    return Object.assign(defaultStyle, liquidStyle);
-  }
+  protected coord(): void {}
 
   protected scale() {
-    const { min, max, format } = this.options;
+    const props = this.options;
+    const { min, max } = props;
     const scales = {
       value: {},
     };
     extractScale(scales.value, {
-      min,
-      // min max 相等时避免0值在中间
-      max: min !== max ? max : max + 1,
-      format,
-      nice: false,
+      min: Math.min(min, max),
+      max: Math.max(min, max),
     });
     // @ts-ignore
     this.setConfig('scales', scales);
     super.scale();
   }
 
-  protected coord() {}
-
-  protected axis() {
-    const axesConfig = {
-      fields: {
-        value: false,
-        '1': false,
-      },
-    };
-    this.setConfig('axes', axesConfig);
+  protected axis(): void {
+    this.setConfig('axes', false);
   }
 
-  protected addGeometry() {
-    const { styleMix = {} } = this.options;
+  protected adjustLiquid(liquid) {
+    const { options: props } = this;
 
-    const liquid: ElementOption = {
-      type: 'interval',
-      position: {
-        fields: ['1', 'value'],
-      },
-      shape: {
-        values: ['liquid-fill-gauge'],
-      },
+    liquid.shape = {
+      values: ['liquid-fill-gauge'],
     };
 
-    if (_.has(styleMix, 'color')) {
-      liquid.color = {
-        values: [styleMix.color],
-      };
+    liquid.tooltip = false;
+
+    let liquidStyle = props.liquidStyle;
+    if (_.isFunction(liquidStyle)) liquidStyle = liquidStyle();
+    if (liquidStyle) {
+      liquid.style = liquidStyle;
     }
+  }
 
-    liquid.size = {
-      values: [styleMix.size],
-    };
-    liquid.style = {
-      lineWidth: styleMix.borderWidth,
-      opacity: styleMix.borderOpacity,
-    };
-
+  protected addGeometry(): void {
+    const liquid = getGeom('interval', 'main', {
+      positionFields: ['_', 'value'],
+      plot: this,
+    });
+    this.adjustLiquid(liquid);
+    this.liquid = liquid;
     this.setConfig('element', liquid);
   }
 
-  protected annotation() {
+  protected animation() {
     const props = this.options;
-    if (props.showValue === false) {
-      return;
-    }
-
-    const { text, styleMix } = this.options;
-    const annotationConfigs = [];
-    const adjustStyle = this.adjustStyle();
-    const textAnnotation = {
-      type: 'text',
-      content: text,
-      top: true,
-      position: ['50%', '55%'],
-      style: _.deepMix(
-        {},
-        {
-          fill: styleMix.fontColor,
-          opacity: styleMix.fontOpacity,
-          fontSize: styleMix.fontSize,
-          textAlign: 'center',
+    if (props.animation === false) {
+      /** 关闭动画 */
+      this.liquid.animate = false;
+    } else {
+      const factor = _.get(props, 'animation.factor');
+      const easing = _.get(props, 'animation.easing');
+      const duration = _.get(props, 'animation.duration');
+      this.liquid.animate = {
+        appear: {
+          animation: 'liquidMoveIn',
+          factor,
+          easing,
+          duration,
         },
-        adjustStyle
-      ),
-    };
-    annotationConfigs.push(textAnnotation);
+      };
+    }
+  }
+
+  protected geometryParser(dim: string, type: string): string {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
+  }
+
+  protected annotation() {
+    const annotationConfigs = [];
+
+    const statisticConfig = this.extractStatistic();
+    annotationConfigs.push(statisticConfig);
 
     this.setConfig('annotations', annotationConfigs);
   }
 
-  private percent(num: number, fixed: number = 2): string {
-    if (isNaN(num)) {
-      return `${num}`;
-    }
-    return `${(num * 100).toFixed(fixed)}%`.replace(/\.0*%/, '%');
-  }
+  protected extractStatistic() {
+    const props = this.options;
+    const statistic = props.statistic || {};
 
-  private valueText(type, value, format, min, max) {
-    if (type === 'percent') {
-      if (max - min === 0) {
-        return '--';
+    let content;
+    if (_.isFunction(statistic.formatter)) {
+      content = statistic.formatter(props.value);
+    } else {
+      content = `${props.value}`;
+    }
+
+    let fontSize;
+    let shadowBlur;
+    if (content) {
+      let contentWidth;
+      if (props.width < props.height) {
+        contentWidth = props.width * 0.8;
+      } else {
+        contentWidth = props.height;
       }
-      const percentValue = (value - min) / (max - min);
-      return typeof value === 'number' ? format(this.percent(percentValue), percentValue) : '--';
+      fontSize = (0.8 * contentWidth) / content.length;
+      shadowBlur = Math.max(1, Math.ceil(0.025 * fontSize));
     }
-    return typeof value === 'number' ? format(value) : '--';
+
+    let opacity;
+    if (statistic.visible === false) {
+      opacity = 0;
+    }
+
+    const statisticConfig = _.deepMix(
+      {
+        style: {
+          fontSize,
+          shadowBlur,
+        },
+      },
+      statistic,
+      {
+        top: true,
+        content,
+        type: 'text',
+        position: ['_', 'median'],
+        style: {
+          opacity,
+          fill: 'transparent',
+          shadowColor: 'transparent',
+          textAlign: 'center',
+        },
+      }
+    );
+
+    delete statisticConfig.visible;
+    delete statisticConfig.formatter;
+    delete statisticConfig.adjustColor;
+    return statisticConfig;
   }
 
-  private autoFontSize(space, text, ratio) {
-    const fontSizeBySpace = space / 5;
-    const fontSizeByText = (space / text.length) * ratio;
-    return Math.min(fontSizeBySpace, fontSizeByText);
+  public afterRender() {
+    super.afterRender();
+    this.fadeInAnnotation();
   }
 
-  private adjustStyle() {
-    const { max, min, value } = this.options;
-    const percent = (value - min) / (max - min);
-    if (percent > 0.3 && percent < 0.6) {
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
+    const props = this.options;
+    return [{ _: '_', value: props.value }];
+  }
+
+  public changeValue(value: number): void {
+    const props = this.options;
+    props.value = value;
+    this.changeData([]);
+  }
+
+  protected fadeInAnnotation() {
+    const props = this.options;
+    const animation = props.animation || {};
+
+    const { annotations } = this.view.annotation();
+    const annotationEl = annotations[0].get('el');
+    const colorStyle = this.calcAnnotationColorStyle();
+    if (this.shouldFadeInAnnotation) {
+      annotationEl.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {
+        this.shouldFadeInAnnotation = false;
+      });
+    } else {
+      _.forIn(colorStyle, (v, k) => annotationEl.attr(k, v));
+    }
+  }
+
+  protected calcAnnotationColorStyle() {
+    const { options: props } = this;
+
+    const lightColorStyle = { fill: '#f6f6f6', shadowColor: 'black' };
+    const darkColorStyle = { fill: '#303030', shadowColor: 'white' };
+
+    if (_.get(props, 'statistic.adjustColor') === false) {
       return {
-        stroke: 'white',
-        lineWidth: 2,
-      };
-    } else if (percent >= 0.6) {
-      return {
-        fill: 'white',
-        shadowBlur: 6,
-        shadowColor: 'rgba(0, 0, 0, .4)',
+        fill: _.get(props, 'statistic.style.fill', darkColorStyle.fill),
+        shadowColor: _.get(props, 'statistic.style.shadowColor', darkColorStyle.shadowColor),
       };
     }
-    return {};
+
+    let { min, max, value } = props;
+    min = Math.min(min, max);
+    max = Math.max(min, max);
+    let percent;
+    if (min == max) {
+      percent = 1;
+    } else {
+      percent = (value - min) / (max - min);
+    }
+
+    if (percent > 0.55) {
+      const waves = this.view
+        .get('elements')[0]
+        .get('container')
+        .find((shape) => shape.get('role') == 'waves');
+      const wave = waves.getChildByIndex(0);
+
+      const waveColor = wave.attr('fill');
+      const waveOpacity = 0.8;
+      const rgb = rgb2arr(waveColor);
+      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / waveOpacity;
+
+      return gray < 156 ? lightColorStyle : darkColorStyle;
+    }
+
+    return darkColorStyle;
+  }
+
+  public updateConfig(cfg: Partial<T>): void {
+    super.updateConfig(cfg);
+    this.shouldFadeInAnnotation = true;
   }
 }
 

@@ -2,12 +2,11 @@ import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 import { rgb2arr } from '../../../../util/color';
+import { LooseMap } from '../../../../interface/types';
 
 const TOP_MARGIN = 20;
 
-interface Point {
-  [key: string]: any;
-}
+type Point = LooseMap;
 
 export class ColumnLabels extends ElementLabels {
   public setLabelPosition(point, originPoint, index, originPosition) {

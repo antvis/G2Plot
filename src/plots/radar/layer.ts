@@ -16,10 +16,6 @@ interface FillStyle {
   opacity?: string;
 }
 
-interface Point {
-  [k: string]: any;
-}
-
 export interface RadarViewConfig extends ViewConfig {
   /** 分组字段 */
   seriesField?: string;

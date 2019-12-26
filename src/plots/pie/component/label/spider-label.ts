@@ -1,6 +1,7 @@
 import { Group, Shape } from '@antv/g';
 import { Scale, View } from '@antv/g2';
 import * as _ from '@antv/util';
+import { LooseMap } from '../../../../interface/types';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
@@ -9,9 +10,7 @@ const LABEL1_OFFSETY = 2;
 const LABEL2_OFFSETY = -2;
 const ADJUSTOFFSET = 15;
 
-interface IAttrs {
-  [key: string]: any;
-}
+type IAttrs = LooseMap;
 
 type Point = { x: number; y: number };
 interface LabelData {
@@ -85,7 +84,7 @@ export default class SpiderLabel {
       return;
     }
     /** 如果有formatter则事先处理数据 */
-    const data = _.clone(this.view.get('data'));
+    const data = _.clone(this.view.get('filteredData'));
     this.halves = [[], []];
     this.container = this.view.get('frontgroundGroup').addGroup();
     const shapes = this.view.get('elements')[0].getShapes();

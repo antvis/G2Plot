@@ -2,12 +2,11 @@ import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 import { rgb2arr } from '../../../../util/color';
+import { LooseMap } from '../../../../interface/types';
 
 const RIGHT_MARGIN = 20;
 
-interface Point {
-  [key: string]: any;
-}
+type Point = LooseMap;
 
 export class BarLabels extends ElementLabels {
   // TODO: 先实现功能，待抽象  position这里去掉在条形图场景下不必要的逻辑，位置计算调整

@@ -14,6 +14,7 @@ import './component/label/point-label';
 import * as EventParser from './event';
 import { LineActive, LineSelect } from './interaction/index';
 import './theme';
+import { LooseMap } from '../../interface/types';
 
 export interface LineStyle {
   opacity?: number;
@@ -30,9 +31,7 @@ export interface PointStyle {
   strokeStyle?: string;
 }
 
-interface IObject {
-  [key: string]: any;
-}
+type IObject = LooseMap;
 
 const GEOM_MAP = {
   line: 'line',

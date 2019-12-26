@@ -22,10 +22,11 @@ import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
+import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
   data: DataItem[];
-  meta?: { [fieldId: string]: any & { type?: any } };
+  meta?: LooseMap;
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
@@ -38,7 +39,7 @@ export interface ViewConfig {
   tooltip?: Tooltip;
   legend?: Legend;
   animation?: any | boolean;
-  theme?: {} | string;
+  theme?: LooseMap | string;
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
   responsive?: boolean;

@@ -24,6 +24,9 @@ export class MatrixLabels extends ElementLabels {
       if (adjustColor) {
         this.adjustColor(l, shape);
       }
+      if (adjustPosition) {
+        this.adjustPosition(l, shape);
+      }
     });
     view.get('canvas').draw();
   }
@@ -53,12 +56,12 @@ export class MatrixLabels extends ElementLabels {
         { from: 85, to: 170, color: '#F6F6F6' },
         { from: 170, to: 255, color: 'black' },
       ];
-      const reflect = this._mappingColor(colorBand, gray);
+      const reflect = this.mappingColor(colorBand, gray);
       label.attr('fill', reflect);
     }
   }
 
-  public _mappingColor(band, gray) {
+  public mappingColor(band, gray) {
     let reflect;
     _.each(band, (b) => {
       const map = b as Point;
@@ -67,6 +70,18 @@ export class MatrixLabels extends ElementLabels {
       }
     });
     return reflect;
+  }
+
+  public adjustPosition(label, shape) {
+    const labelRange = label.getBBox();
+    const shapeRange = shape.getBBox();
+
+    if (labelRange.width > shapeRange.width || labelRange.height > shapeRange.height) {
+      label.attr('opacity', 0);
+      label.attr('fillOpacity', 0);
+      label.attr('strokeOpacity', 0);
+      label.set('capture', false);
+    }
   }
 }
 

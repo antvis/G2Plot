@@ -5,7 +5,7 @@ const liquidPlot = new g2plot.Liquid(document.getElementById('canvas'), {
   height: 450,
   min: 0,
   max: 10000,
-  value: 5739,
+  value: 5639,
 });
 liquidPlot.render();
 

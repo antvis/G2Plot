@@ -39,7 +39,7 @@ export default class PaddingController {
    */
   public clear() {
     this.innerPaddingComponents = [];
-    this.outerPaddingComponents = [];
+    // this.outerPaddingComponents = [];
   }
 
   public getPadding() {

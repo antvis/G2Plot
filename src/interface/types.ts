@@ -7,3 +7,7 @@ export type RecursivePartial<T> = {
 };
 
 export type MarginPadding = [number, number, number, number];
+
+export interface LooseMap<T = any> {
+  [key: string]: T;
+}

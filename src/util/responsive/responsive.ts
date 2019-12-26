@@ -5,6 +5,7 @@ import { constraintsLib } from './constraints/index';
 import ShapeNodes, { IShapeNode } from './node/shape-nodes';
 import VariableNodes from './node/variable-node';
 import { rulesLib } from './rules/index';
+import { LooseMap } from '../../interface/types';
 
 interface IConstraint {
   name: string;
@@ -27,7 +28,7 @@ interface ResponsiveCfg {
   onStart?: (...args: any[]) => any;
   onIteration?: (...args: any[]) => any;
   onEnd?: (...args: any[]) => any;
-  cfg?: { [key: string]: any };
+  cfg?: LooseMap;
 }
 
 export default class Responsive {

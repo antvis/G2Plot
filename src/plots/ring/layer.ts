@@ -7,6 +7,7 @@ import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import * as statisticTemplate from './component/statistic-template';
 import * as EventParser from './event';
+import { LooseMap } from '../../interface/types';
 
 export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
@@ -14,10 +15,6 @@ export interface RingViewConfig extends PieViewConfig {
 }
 
 export interface RingLayerConfig extends RingViewConfig, LayerConfig {}
-
-interface IAttrs {
-  [key: string]: any;
-}
 
 const G2_GEOM_MAP = {
   ring: 'interval',
@@ -124,7 +121,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   private drawStatistic(config) {
-    const statistic: IAttrs = _.deepMix(
+    const statistic: LooseMap = _.deepMix(
       {},
       {
         type: 'html',
@@ -188,7 +185,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       htmlString = statisticTemplate.getSingleDataTemplate(displayData, this.statisticClass, size);
     } else if (_.isObject(displayData) && _.keys(displayData).length === 2) {
       /** 如果文本内容为两条数据 */
-      const content = displayData as IAttrs;
+      const content = displayData as LooseMap;
       htmlString = statisticTemplate.getTwoDataTemplate(content.name, content.value, this.statisticClass, size);
     }
     /** 更为复杂的文本要求用户自行制定html模板 */
@@ -212,7 +209,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
-      const responsive = r as IAttrs;
+      const responsive = r as LooseMap;
       responsive.method(this);
     });
   }

@@ -116,8 +116,9 @@ describe('matrix plot', () => {
       xField: 'name',
       yField: 'country',
       colorField: 'value',
-      // sizeField: 'value',
+      sizeField: 'value',
       shapeType: 'circle',
+      color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
       // shapeSize: [5,20],
       data,
     });

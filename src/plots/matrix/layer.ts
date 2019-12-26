@@ -85,6 +85,11 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       label: {
         visible: true,
         adjustColor: true,
+        offset: 0,
+        style: {
+          stroke: 'rgba(255,255,255,0)',
+          lineWidth: 0,
+        },
       },
     });
   }
@@ -128,6 +133,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       shape: {
         values: ['rect'],
       },
+      label: this.extractLabel(),
     };
     if (this.options.sizeField) {
       rect.size = {
@@ -143,7 +149,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   protected addCircle() {
-    let size = [0.3, 1];
+    let size = [0.3, 0.9];
     if (this.options.shapeSize) {
       size = this.options.shapeSize;
     } else {
@@ -191,7 +197,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     const label = getComponent('label', {
       plot: this,
       top: true,
-      labelType: labelOptions.type,
+      labelType: 'matrixLabel',
       fields: this.options.colorField ? [this.options.colorField] : [this.options.sizeField],
       ...labelOptions,
     });

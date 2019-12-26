@@ -55,15 +55,6 @@ export class MatrixLabels extends ElementLabels {
       ];
       const reflect = this._mappingColor(colorBand, gray);
       label.attr('fill', reflect);
-      if (reflect !== 'black') {
-        label.attr('stroke', null);
-        label.attr('lineWidth', 0);
-      } else {
-        label.attr('stroke', 'white');
-        label.attr('lineWidth', 2);
-      }
-    } else if (labelRange.maxY < shapeRange.minY) {
-      label.attr('fill', 'black');
     }
   }
 

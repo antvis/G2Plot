@@ -1,12 +1,12 @@
 import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
-import { Group, BBox } from '@antv/g';
+import { Group, BBox, Shape } from '@antv/g';
 import { View, Scale } from '@antv/g2';
-
-const LABEL_MARGIN = 5;
 
 export interface MatrixLegendConfig {
   visible?: boolean;
   position?: string;
+  width?: number;
+  height?: number;
   text?: {
     style: any;
     formatter: () => string;
@@ -23,6 +23,7 @@ export interface IMatrixLegend extends MatrixLegendConfig {
 export default class MatrixLegend {
   public options: IMatrixLegend;
   public container: Group;
+  public anchor: Shape;
   protected view: View;
   protected layout: string;
   protected width: number;
@@ -42,8 +43,8 @@ export default class MatrixLegend {
 
   public init() {
     this.layout = this.getLayout();
-    this.width = this.getDefaultWidth();
-    this.height = this.getDefaultHeight();
+    this.width = this.options.width ? this.options.width : this.getDefaultWidth();
+    this.height = this.options.height ? this.options.height : this.getDefaultHeight();
     const plotContainer = this.options.plot.container;
     this.container = plotContainer.addGroup();
   }
@@ -81,14 +82,60 @@ export default class MatrixLegend {
   }
 
   protected renderVertical(min, max, colors) {
+    const valueStep = (max - min) / (colors.length - 1);
+    const colorStep = 1 / (colors.length - 1);
+    const tickStep = this.height / (colors.length - 1);
+    let gradientColor = 'l(90)';
+    each(colors, (c, index) => {
+      const stepNum = colorStep * index;
+      gradientColor += `${stepNum}:${c} `;
+    });
     this.container.addShape('rect', {
       attrs: {
         x: 0,
         y: 0,
         width: this.width,
         height: this.height,
-        fill: 'black',
-        opacity: 0.2,
+        fill: gradientColor,
+      },
+    });
+    // draw tick and label
+    each(colors, (c, index) => {
+      // tick
+      const step = tickStep * index;
+      this.container.addShape('path', {
+        attrs: {
+          path: [
+            ['M', 0, step],
+            ['L', this.width, step],
+          ],
+          stroke: 'black',
+          lineWidth: 1,
+          opacity: 0.5,
+        },
+      });
+      // value
+      const value = Math.round(valueStep * index);
+      this.container.addShape('text', {
+        attrs: {
+          text: value,
+          fill: 'rgba(0,0,0,0.5)',
+          fontSize: 12,
+          textAlign: 'left',
+          textBaseline: 'middle',
+          x: this.width + 4,
+          y: step,
+        },
+      });
+    });
+    //scroll bar
+    const tri_width = 10;
+    const tri_height = 14;
+    const tri_path = [['M', -tri_width, -tri_height / 2], ['L', 0, 0], ['L', -tri_width, tri_height / 2], ['Z']];
+    this.anchor = this.container.addShape('path', {
+      attrs: {
+        path: tri_path,
+        fill: 'rgba(0,0,0,0.5)',
       },
     });
   }
@@ -159,7 +206,13 @@ export default class MatrixLegend {
     } else if (positions[0] === 'top') {
       y = bleeding[0];
     } else if (positions[1] === 'center') {
-      y = (plotHeight - bbox.height) / 2;
+      // default
+      if (this.height === panelRange.height) {
+        y = panelRange.y;
+      } else {
+        //用户自行设定
+        y = (plotHeight - bbox.height) / 2;
+      }
     } else if (positions[1] === 'top') {
       y = bleeding[0];
     } else if (positions[1] === 'bottom') {
@@ -184,8 +237,49 @@ export default class MatrixLegend {
         lineWidth: 1,
         stroke: 'rgba(0, 0, 0, 0.45)',
       },
+      triggerOn: 'mousemove',
     };
   }
 
-  protected addInteraction() {}
+  protected addInteraction() {
+    let geomType;
+    if (this.options.plot.options.shapeType === 'rect') {
+      geomType = 'polygon';
+    } else {
+      geomType = 'point';
+    }
+
+    const eventName = `${geomType}:${this.options.triggerOn}`;
+    const labelEventName = `label:${this.options.triggerOn}`;
+    const field = this.options.plot.options.colorField;
+    const { min, max } = this.colorScale;
+
+    this.view.on(eventName, (ev) => {
+      const value = ev.data._origin[field];
+      const ratio = (value - min) / (max - min);
+      this.moveAnchor(ratio);
+    });
+
+    this.view.on(labelEventName, (ev) => {
+      const value = ev.data[field];
+      const ratio = (value - min) / (max - min);
+      this.moveAnchor(ratio);
+    });
+  }
+
+  private moveAnchor(ratio) {
+    if (this.layout === 'vertical') {
+      const pos = this.height * ratio;
+      const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+      ulMatrix[7] = pos;
+      this.anchor.stopAnimate();
+      this.anchor.animate(
+        {
+          matrix: ulMatrix,
+        },
+        400,
+        'easeLinear'
+      );
+    }
+  }
 }

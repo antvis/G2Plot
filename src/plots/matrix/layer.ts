@@ -65,7 +65,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
           visible: true,
         },
         tickLine: {
-          visible: false,
+          visible: true,
         },
         line: {
           visible: false,
@@ -78,6 +78,9 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
         grid: {
           visible: true,
           align: 'center',
+        },
+        tickLine: {
+          visible: true,
         },
         autoRotateLabel: true,
       },

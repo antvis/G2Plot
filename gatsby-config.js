@@ -24,7 +24,7 @@ module.exports = {
         },
       },
       {
-        slug: 'examples/gallery',
+        slug: 'examples',
         title: {
           zh: '图表演示',
           en: 'Examples',

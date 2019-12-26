@@ -85,6 +85,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       label: {
         visible: true,
         adjustColor: true,
+        adjustPosition: true,
         offset: 0,
         style: {
           stroke: 'rgba(255,255,255,0)',

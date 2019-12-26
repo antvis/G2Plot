@@ -119,7 +119,7 @@ describe('matrix plot', () => {
       sizeField: 'value',
       shapeType: 'circle',
       color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
-      // shapeSize: [5,20],
+      // shapeSize: [2,20],
       data,
     });
     matrixPlot.render();

@@ -141,10 +141,62 @@ export default class MatrixLegend {
   }
 
   protected renderHorizontal(min, max, colors) {
-    const gridWidth = this.width / colors.length;
-    const gridHeight = this.height;
-    const gridLineContainer = new Group();
-    const valueStep = (max - min) / colors.length;
+    const valueStep = (max - min) / (colors.length - 1);
+    const colorStep = 1 / (colors.length - 1);
+    const tickStep = this.width / (colors.length - 1);
+    let gradientColor = 'l(0)';
+    each(colors, (c, index) => {
+      const stepNum = colorStep * index;
+      gradientColor += `${stepNum}:${c} `;
+    });
+    this.container.addShape('rect', {
+      attrs: {
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height,
+        fill: gradientColor,
+      },
+    });
+    // draw tick and label
+    each(colors, (c, index) => {
+      // tick
+      const step = tickStep * index;
+      this.container.addShape('path', {
+        attrs: {
+          path: [
+            ['M', step, 0],
+            ['L', step, this.height],
+          ],
+          stroke: 'black',
+          lineWidth: 1,
+          opacity: 0.5,
+        },
+      });
+      // value
+      const value = Math.round(valueStep * index);
+      this.container.addShape('text', {
+        attrs: {
+          text: value,
+          fill: 'rgba(0,0,0,0.5)',
+          fontSize: 12,
+          textAlign: 'center',
+          textBaseline: 'top',
+          x: step,
+          y: this.height + 4,
+        },
+      });
+    });
+    //scroll bar
+    const tri_width = 14;
+    const tri_height = 10;
+    const tri_path = [['M', 0, 0], ['L', -tri_width / 2, -tri_height], ['L', tri_width / 2, -tri_height], ['Z']];
+    this.anchor = this.container.addShape('path', {
+      attrs: {
+        path: tri_path,
+        fill: 'rgba(0,0,0,0.5)',
+      },
+    });
   }
 
   protected getLayout() {
@@ -158,8 +210,8 @@ export default class MatrixLegend {
 
   protected getDefaultWidth() {
     if (this.layout === 'horizontal') {
-      const { width } = this.options.plot.options;
-      return width * 0.5;
+      const width = this.view.get('panelRange').width;
+      return width;
     }
     return 10;
   }
@@ -194,7 +246,12 @@ export default class MatrixLegend {
     } else if (positions[0] === 'right') {
       x = plotWidth - bleeding[1] - bbox.width;
     } else if (positions[1] === 'center') {
-      x = (plotWidth - bbox.width) / 2;
+      // default
+      if (this.width === panelRange.width) {
+        x = panelRange.x;
+      } else {
+        x = (plotWidth - bbox.width) / 2;
+      }
     } else if (positions[1] === 'left') {
       x = bleeding[3];
     } else if (positions[1] === 'right') {
@@ -272,6 +329,18 @@ export default class MatrixLegend {
       const pos = this.height * ratio;
       const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
       ulMatrix[7] = pos;
+      this.anchor.stopAnimate();
+      this.anchor.animate(
+        {
+          matrix: ulMatrix,
+        },
+        400,
+        'easeLinear'
+      );
+    } else {
+      const pos = this.width * ratio;
+      const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+      ulMatrix[6] = pos;
       this.anchor.stopAnimate();
       this.anchor.animate(
         {

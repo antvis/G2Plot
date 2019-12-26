@@ -52,7 +52,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       shapeType: 'rect',
       legend: {
         visible: true,
-        position: 'right-center',
+        position: 'bottom-center',
       },
       tooltip: {
         shared: false,

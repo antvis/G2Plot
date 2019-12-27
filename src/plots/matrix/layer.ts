@@ -9,6 +9,43 @@ import MatrixLegend, { MatrixLegendConfig } from './component/legend';
 import './component/label';
 import './component/legend';
 
+function getRectPath(cx, cy, width, height, size) {
+  const w = width * size;
+  const h = height * size;
+  const path = [
+    ['M', cx - w / 2, cy + h / 2],
+    ['Q', cx - w / 2, cy, cx - w / 2, cy - h / 2],
+    ['Q', cx, cy - h / 2, cx + w / 2, cy - h / 2],
+    ['Q', cx + w / 2, cy, cx + w / 2, cy + h / 2],
+    ['Z'],
+  ];
+  return path;
+}
+
+function getCirclePath(x, y, size) {
+  const path = [
+    ['M', x, y],
+    ['m', -size, 0],
+    ['a', size, size, 0, 1, 0, size * 2, 0],
+    ['a', size, size, 0, 1, 0, -(size * 2), 0],
+    ['Z'],
+  ];
+  return path;
+}
+
+function getCircleCurve(x, y, size) {
+  // 计算四个角和中点
+  const path = [
+    ['M', x - size, y],
+    ['Q', x - size, y - size, x, y - size],
+    ['Q', x + size, y - size, x + size, y],
+    ['Q', x + size, y + size, x, y + size],
+    ['Q', x - size, y + size, x - size, y],
+    ['Z'],
+  ];
+  return path;
+}
+
 registerShape('polygon', 'rect', {
   draw(cfg, container) {
     const points = this.parsePoints(cfg.points);
@@ -16,8 +53,7 @@ registerShape('polygon', 'rect', {
     const height = points[0].y - points[1].y;
     const centerX = points[0].x + width / 2;
     const centerY = points[1].y + height / 2;
-    const w = width * cfg.origin.size;
-    const h = height * cfg.origin.size;
+    /*
     const path = [
       ['M', centerX - w / 2, centerY + h / 2],
       ['L', centerX - w / 2, centerY - h / 2],
@@ -25,6 +61,21 @@ registerShape('polygon', 'rect', {
       ['L', centerX + w / 2, centerY + h / 2],
       ['Z'],
     ];
+    */
+    const path = getRectPath(centerX, centerY, width, height, cfg.origin.size);
+    return container.addShape('path', {
+      attrs: {
+        path,
+        fill: cfg.color,
+        opacity: 1,
+      },
+    });
+  },
+});
+
+registerShape('point', 'curvePoint', {
+  draw(cfg, container) {
+    const path = getCirclePath(cfg.x, cfg.y, cfg.size);
     return container.addShape('path', {
       attrs: {
         path,
@@ -136,6 +187,58 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     super.afterRender();
   }
 
+  public changeShape(type: string) {
+    if (this.options.shapeType === type) {
+      return;
+    }
+    if (type === 'rect') {
+      const geom = this.view.get('elements')[0];
+      const shapes = geom.getShapes();
+      this.circleToRect(shapes);
+    }
+  }
+
+  private circleToRect(shapes) {
+    const gridSize = this.gridSize;
+    _.each(shapes, (shape) => {
+      const { x, y, size } = shape.get('origin');
+      let sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
+      if (!this.options.sizeField) {
+        sizeRatio = 1;
+      }
+      const curvePath = getCircleCurve(x, y, size);
+      const rectPath = getRectPath(x, y, gridSize[0], gridSize[1], sizeRatio);
+      shape.stopAnimate();
+      shape.attr('path', curvePath);
+      shape.animate(
+        {
+          path: rectPath,
+        },
+        1000,
+        'easeLinear'
+      );
+    });
+  }
+
+  private rectToCircle(shapes) {
+    const gridSize = this.gridSize;
+    _.each(shapes, (shape) => {
+      const { x, y, size } = shape.get('origin');
+      const sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
+      const curvePath = getCircleCurve(x, y, size);
+      const rectPath = getRectPath(x, y, gridSize[0], gridSize[1], sizeRatio);
+      shape.stopAnimate();
+      shape.attr('path', curvePath);
+      shape.animate(
+        {
+          path: rectPath,
+        },
+        1000,
+        'easeCubic'
+      );
+    });
+  }
+
   protected geometryParser() {
     return '';
   }
@@ -209,7 +312,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
         values: this.options.color,
       },
       shape: {
-        values: ['circle'],
+        values: ['curvePoint'],
       },
       label: this.extractLabel(),
     };
@@ -223,7 +326,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
         values: [Math.min(this.gridSize[0], this.gridSize[1]) * 0.5 * 0.9],
       };
     }
-
     return circle;
   }
 

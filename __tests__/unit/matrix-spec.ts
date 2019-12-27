@@ -121,12 +121,15 @@ describe('matrix plot', () => {
       xField: 'name',
       yField: 'country',
       colorField: 'value',
-      sizeField: 'value',
-      // shapeType: 'circle',
+      //sizeField: 'value',
+      shapeType: 'circle',
       color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
       // shapeSize: [2,20],
       data,
     });
     matrixPlot.render();
+    window.setTimeout(() => {
+      matrixPlot.changeShape('rect');
+    }, 2000);
   });
 });

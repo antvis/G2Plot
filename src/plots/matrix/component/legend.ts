@@ -1,6 +1,6 @@
-import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
+import { each, isArray, deepMix } from '@antv/util';
 import { Group, BBox, Shape } from '@antv/g';
-import { View, Scale } from '@antv/g2';
+import { View } from '@antv/g2';
 
 export interface MatrixLegendConfig {
   visible?: boolean;
@@ -24,6 +24,7 @@ export default class MatrixLegend {
   public options: IMatrixLegend;
   public container: Group;
   public anchor: Shape;
+  public afterRender: boolean;
   protected view: View;
   protected layout: string;
   protected width: number;
@@ -38,6 +39,7 @@ export default class MatrixLegend {
     const defaultOptions = this.getDefaultOptions();
     this.options = deepMix({}, defaultOptions, cfg);
     this.view = this.options.view;
+    this.afterRender = true;
     this.init();
   }
 

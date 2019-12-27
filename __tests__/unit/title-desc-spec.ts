@@ -49,7 +49,7 @@ describe('title description', () => {
     },
   ];
 
-  it.skip('title, desc render', () => {
+  it('title, desc render', () => {
     const plot = new Line<LineConfig>(canvasDiv, {
       width: 600,
       height: 600,

@@ -27,6 +27,7 @@ export interface IHeatmapLegend extends HeatmapLegendConfig {
 export default class HeatmapLegend {
   public options: IHeatmapLegend;
   public container: Group;
+  public afterRender: boolean;
   protected view: View;
   protected layout: string;
   protected width: number;
@@ -44,6 +45,7 @@ export default class HeatmapLegend {
     }
     this.options = deepMix({}, defaultOptions, cfg);
     this.view = this.options.view;
+    this.afterRender = true;
     this.init();
   }
 

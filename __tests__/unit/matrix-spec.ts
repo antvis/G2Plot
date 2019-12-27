@@ -111,6 +111,10 @@ describe('matrix plot', () => {
 
   it('mateix init', () => {
     const matrixPlot = new Matrix(canvasDiv, {
+      title: {
+        visible: true,
+        text: '测试测试测试',
+      },
       // forceSquare: true,
       width: 600,
       height: 500,

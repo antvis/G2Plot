@@ -283,7 +283,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (annotation) {
       if (_.get(props, 'percentage.adjustColor') === false) {
-        annotation.change({ style: { fill: _.get(props, 'percentage.style.fill', 'f6f6f6') } });
+        annotation.change({ style: { fill: _.get(props, 'percentage.style.fill', '#f6f6f6') } });
       } else {
         const shapeColor = shape.attr('fill');
         const shapeOpacity = _.isNumber(shape.attr('opacity')) ? Math.min(Math.max(0, shape.attr('opacity')), 1) : 1;

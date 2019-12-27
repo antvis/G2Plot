@@ -195,6 +195,10 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       const geom = this.view.get('elements')[0];
       const shapes = geom.getShapes();
       this.circleToRect(shapes);
+    } else if (type === 'circle') {
+      const geom = this.view.get('elements')[0];
+      const shapes = geom.getShapes();
+      this.rectToCircle(shapes);
     }
   }
 
@@ -215,7 +219,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
           path: rectPath,
         },
         1000,
-        'easeLinear'
+        'easeCubic'
       );
     });
   }
@@ -223,18 +227,28 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   private rectToCircle(shapes) {
     const gridSize = this.gridSize;
     _.each(shapes, (shape) => {
-      const { x, y, size } = shape.get('origin');
-      const sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
-      const curvePath = getCircleCurve(x, y, size);
-      const rectPath = getRectPath(x, y, gridSize[0], gridSize[1], sizeRatio);
+      const coord = shape.get('coord');
+      const { points } = shape.get('origin');
+      const ps = [];
+      _.each(points, (p) => {
+        ps.push(coord.convertPoint(p));
+      });
+      const width = ps[2].x - ps[0].x;
+      const height = ps[0].y - ps[1].y;
+      const centerX = ps[0].x + width / 2;
+      const centerY = ps[1].y + height / 2;
+      const curvePath = getCircleCurve(centerX, centerY, Math.min(gridSize[0], gridSize[1]) / 2);
+      const circlePath = getCirclePath(centerX, centerY, Math.min(gridSize[0], gridSize[1]) / 2);
       shape.stopAnimate();
-      shape.attr('path', curvePath);
       shape.animate(
         {
-          path: rectPath,
+          path: curvePath,
         },
         1000,
-        'easeCubic'
+        'easeLinear',
+        () => {
+          shape.attr('path', circlePath);
+        }
       );
     });
   }

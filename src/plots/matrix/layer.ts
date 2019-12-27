@@ -17,6 +17,7 @@ function getRectPath(cx, cy, width, height, size) {
     ['Q', cx - w / 2, cy, cx - w / 2, cy - h / 2],
     ['Q', cx, cy - h / 2, cx + w / 2, cy - h / 2],
     ['Q', cx + w / 2, cy, cx + w / 2, cy + h / 2],
+    ['Q', cx, cy + h / 2, cx - w / 2, cy + h / 2],
     ['Z'],
   ];
   return path;
@@ -202,57 +203,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     }
   }
 
-  private circleToRect(shapes) {
-    const gridSize = this.gridSize;
-    _.each(shapes, (shape) => {
-      const { x, y, size } = shape.get('origin');
-      let sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
-      if (!this.options.sizeField) {
-        sizeRatio = 1;
-      }
-      const curvePath = getCircleCurve(x, y, size);
-      const rectPath = getRectPath(x, y, gridSize[0], gridSize[1], sizeRatio);
-      shape.stopAnimate();
-      shape.attr('path', curvePath);
-      shape.animate(
-        {
-          path: rectPath,
-        },
-        1000,
-        'easeCubic'
-      );
-    });
-  }
-
-  private rectToCircle(shapes) {
-    const gridSize = this.gridSize;
-    _.each(shapes, (shape) => {
-      const coord = shape.get('coord');
-      const { points } = shape.get('origin');
-      const ps = [];
-      _.each(points, (p) => {
-        ps.push(coord.convertPoint(p));
-      });
-      const width = ps[2].x - ps[0].x;
-      const height = ps[0].y - ps[1].y;
-      const centerX = ps[0].x + width / 2;
-      const centerY = ps[1].y + height / 2;
-      const curvePath = getCircleCurve(centerX, centerY, Math.min(gridSize[0], gridSize[1]) / 2);
-      const circlePath = getCirclePath(centerX, centerY, Math.min(gridSize[0], gridSize[1]) / 2);
-      shape.stopAnimate();
-      shape.animate(
-        {
-          path: curvePath,
-        },
-        1000,
-        'easeLinear',
-        () => {
-          shape.attr('path', circlePath);
-        }
-      );
-    });
-  }
-
   protected geometryParser() {
     return '';
   }
@@ -375,6 +325,59 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       const yCount = _.valuesOfKey(data, yField).length;
       return [width / xCount, height / yCount];
     }
+  }
+
+  private circleToRect(shapes) {
+    const gridSize = this.gridSize;
+    _.each(shapes, (shape) => {
+      const { x, y, size } = shape.get('origin');
+      let sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
+      if (!this.options.sizeField) {
+        sizeRatio = 1;
+      }
+      const curvePath = getCircleCurve(x, y, size);
+      const rectPath = getRectPath(x, y, gridSize[0], gridSize[1], sizeRatio);
+      shape.stopAnimate();
+      shape.attr('path', curvePath);
+      shape.animate(
+        {
+          path: rectPath,
+        },
+        500,
+        'easeLinear'
+      );
+    });
+  }
+
+  private rectToCircle(shapes) {
+    const gridSize = this.gridSize;
+    _.each(shapes, (shape) => {
+      const coord = shape.get('coord');
+      const { points } = shape.get('origin');
+      const ps = [];
+      _.each(points, (p) => {
+        ps.push(coord.convertPoint(p));
+      });
+      const bbox = shape.getBBox();
+      const width = bbox.width;
+      const height = bbox.height;
+      const centerX = bbox.minX + width / 2;
+      const centerY = bbox.minY + height / 2;
+      const offsetRatio = this.options.sizeField ? 1 : 0.9;
+      const curvePath = getCircleCurve(centerX, centerY, (Math.min(width, height) / 2) * offsetRatio);
+      const circlePath = getCirclePath(centerX, centerY, (Math.min(width, height) / 2) * offsetRatio);
+      shape.stopAnimate();
+      shape.animate(
+        {
+          path: curvePath,
+        },
+        500,
+        'easeLinear',
+        () => {
+          shape.attr('path', circlePath);
+        }
+      );
+    });
   }
 }
 

@@ -206,6 +206,14 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         },
       };
     }
+    if (position === 'bottom') {
+      return {
+        offset: 4,
+        style: {
+          textBaseline: 'bottom',
+        },
+      };
+    }
     return { offset: 0 };
   }
 }

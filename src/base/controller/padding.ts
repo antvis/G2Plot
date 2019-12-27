@@ -4,7 +4,6 @@ import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
-import { bboxOnRotate } from '../../util/math';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -39,6 +38,12 @@ export default class PaddingController {
    */
   public clear() {
     this.innerPaddingComponents = [];
+    _.each(this.outerPaddingComponents, (component, index) => {
+      // 一些组件是在view渲染完成之后渲染初始化的
+      if (component && !component.afterRender) {
+        this.outerPaddingComponents.splice(1, index);
+      }
+    });
     // this.outerPaddingComponents = [];
   }
 

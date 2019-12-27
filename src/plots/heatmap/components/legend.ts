@@ -2,7 +2,7 @@ import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
 import { Group, BBox } from '@antv/g';
 import { View, Scale } from '@antv/g2';
 
-const LABEL_MARGIN = 5;
+const LABEL_MARGIN = 4;
 const ACTIVE_OPACITY = 1;
 const DEACTIVE_OPACITY = 0.4;
 
@@ -12,8 +12,8 @@ export interface HeatmapLegendConfig {
   width?: number;
   height?: number;
   text?: {
-    style: any;
-    formatter: () => string;
+    style?: any;
+    formatter?: () => string;
   };
   gridlineStyle?: any;
   triggerOn?: string;

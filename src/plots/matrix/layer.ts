@@ -42,6 +42,7 @@ export interface MatrixViewConfig extends ViewConfig {
   shapeSize?: number[];
   shapeType?: string;
   color?: string[];
+  legend?: MatrixLegendConfig;
 }
 
 export interface MatrixLayerConfig extends MatrixViewConfig, LayerConfig {}

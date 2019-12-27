@@ -259,7 +259,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       },
     });
     const waves = container.addGroup({
-      role: 'waves',
+      name: 'waves',
       attrs: {
         x: cp.x,
         y: cp.y,
@@ -277,7 +277,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       radius * 4
     );
     return container.addShape('circle', {
-      role: 'wrap',
+      name: 'wrap',
       attrs: _.mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,

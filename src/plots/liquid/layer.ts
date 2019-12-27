@@ -245,7 +245,8 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       };
     }
 
-    let { min, max, value } = props;
+    let { min, max } = props;
+    const { value } = props;
     min = Math.min(min, max);
     max = Math.max(min, max);
     let percent;
@@ -259,7 +260,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       const waves = this.view
         .get('elements')[0]
         .get('container')
-        .find((shape) => shape.get('role') == 'waves');
+        .find((shape) => shape.get('name') == 'waves');
       const wave = waves.getChildByIndex(0);
 
       const waveColor = wave.attr('fill');

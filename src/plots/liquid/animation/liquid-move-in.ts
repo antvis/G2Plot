@@ -12,12 +12,12 @@ function liquidMoveIn(shape, animateCfg) {
   const originX = (box.minX + box.maxX) / 2;
   const originY = box.maxY;
 
-  const wrap = container.find((shape) => shape.get('role') == 'wrap');
+  const wrap = container.find((shape) => shape.get('name') == 'wrap');
   const wrapTargetOpacity = wrap.attr('opacity');
   wrap.attr('opacity', 0);
   wrap.animate({ opacity: wrapTargetOpacity }, duration * factor, 'easeLinear', null, delay);
 
-  const waves = container.find((shape) => shape.get('role') == 'waves');
+  const waves = container.find((shape) => shape.get('name') == 'waves');
   const wavesTargetMatrix = _.clone(waves.attr('matrix'));
   waves.attr('transform', [
     ['t', -originX, -originY],

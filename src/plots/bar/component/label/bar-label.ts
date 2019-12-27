@@ -18,6 +18,7 @@ export class BarLabels extends ElementLabels {
     const coord = this.get('coord');
     const point0 = coord.convertPoint(originPoint.points[0]);
     const point1 = coord.convertPoint(originPoint.points[2]);
+    const negative = point0.x > point1.x;
     const width = ((point0.x - point1.x) / 2) * -1;
     const height = ((point0.y - point1.y) / 2) * -1;
 
@@ -34,21 +35,41 @@ export class BarLabels extends ElementLabels {
         break;
       case 'left':
         point.x -= width * 2;
-        point.textAlign = point.textAlign || 'left';
+        point.textAlign = point.textAlign || (negative ? 'right' : 'left');
         break;
       case 'middle':
         point.x -= width;
         point.textAlign = point.textAlign || 'center';
         break;
       case 'right':
-        point.textAlign = point.textAlign || 'left';
+        point.textAlign = point.textAlign || (negative ? 'right' : 'left');
         break;
       default:
         break;
     }
   }
+
+  // 针对负数值的label调整
+  private adjustOffset(points: any[], shapes: Shape[]) {
+    const renderer = this.get('labelsRenderer');
+    const items = renderer.get('items');
+    const labels = renderer.get('group').get('children');
+    const coord = this.get('coord');
+    _.each(items, (item, idx) => {
+      const label = labels[idx];
+      const point0 = coord.convertPoint(points[idx].points[0]);
+      const point1 = coord.convertPoint(points[idx].points[2]);
+      const negative = point0.x > point1.x;
+      if (negative && item.offset) {
+        item.x -= item.offset * 2;
+        label.attr('x', label.attr('x') - item.offset * 2);
+      }
+    });
+  }
+
   public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
+    this.adjustOffset(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
     const items = renderer.get('items');

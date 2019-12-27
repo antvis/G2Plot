@@ -12,4 +12,9 @@ export default class Matrix extends BasePlot<MatrixConfig> {
     layerProps.type = 'matrix';
     super.createLayers(layerProps);
   }
+
+  public changeShape(type: string) {
+    const layer: any = this.layers[0];
+    layer.changeShape(type);
+  }
 }

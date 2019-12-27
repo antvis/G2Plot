@@ -2,16 +2,18 @@ import { each, isArray, deepMix } from '@antv/util';
 import { Group, BBox, Shape } from '@antv/g';
 import { View } from '@antv/g2';
 
+const LABEL_MARGIN = 4;
+
 export interface MatrixLegendConfig {
   visible?: boolean;
   position?: string;
   width?: number;
   height?: number;
   text?: {
-    style: any;
-    formatter: () => string;
+    style?: any;
+    formatter?: () => string;
   };
-  gridlineStyle?: any;
+  ticklineStyle?: any;
   triggerOn?: string;
 }
 
@@ -111,9 +113,7 @@ export default class MatrixLegend {
             ['M', 0, step],
             ['L', this.width, step],
           ],
-          stroke: 'black',
-          lineWidth: 1,
-          opacity: 0.5,
+          ...this.options.ticklineStyle,
         },
       });
       // value
@@ -121,12 +121,11 @@ export default class MatrixLegend {
       this.container.addShape('text', {
         attrs: {
           text: value,
-          fill: 'rgba(0,0,0,0.5)',
-          fontSize: 12,
           textAlign: 'left',
           textBaseline: 'middle',
-          x: this.width + 4,
+          x: this.width + LABEL_MARGIN,
           y: step,
+          ...this.options.text.style,
         },
       });
     });
@@ -140,6 +139,7 @@ export default class MatrixLegend {
         fill: 'rgba(0,0,0,0.5)',
       },
     });
+    this.anchor.set('visible', false);
   }
 
   protected renderHorizontal(min: number, max: number, colors: string[]) {
@@ -185,7 +185,7 @@ export default class MatrixLegend {
           textAlign: 'center',
           textBaseline: 'top',
           x: step,
-          y: this.height + 4,
+          y: this.height + LABEL_MARGIN,
         },
       });
     });
@@ -199,6 +199,7 @@ export default class MatrixLegend {
         fill: 'rgba(0,0,0,0.5)',
       },
     });
+    this.anchor.set('visible', false);
   }
 
   protected getLayout() {
@@ -292,9 +293,9 @@ export default class MatrixLegend {
           fill: 'rgba(0, 0, 0, 0.45)',
         },
       },
-      gridlineStyle: {
+      ticklineStyle: {
         lineWidth: 1,
-        stroke: 'rgba(0, 0, 0, 0.45)',
+        stroke: 'rgba(0, 0, 0, 0.8)',
       },
       triggerOn: 'mousemove',
     };

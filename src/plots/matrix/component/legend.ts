@@ -322,9 +322,14 @@ export default class MatrixLegend {
       const ratio = (value - min) / (max - min);
       this.moveAnchor(ratio);
     });
+
+    this.options.plot.canvas.on('mouseleave', (ev) => {
+      this.anchor.set('visible', false);
+    });
   }
 
   private moveAnchor(ratio) {
+    this.anchor.set('visible', true);
     if (this.layout === 'vertical') {
       const pos = this.height * ratio;
       const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];

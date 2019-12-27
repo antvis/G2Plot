@@ -4,6 +4,8 @@
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
+  "browser": "dist/g2plot.js",
+  "umd:main": "dist/g2plot.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
   "files": [

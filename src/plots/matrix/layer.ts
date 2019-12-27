@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { BBox } from '@antv/g';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -52,7 +53,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       shapeType: 'rect',
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'right-center',
       },
       tooltip: {
         shared: false,
@@ -101,6 +102,22 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   public type: string = 'matrix';
   protected gridSize: number[] = [];
   protected matrixLegend: MatrixLegend;
+
+  public afterInit() {
+    super.afterInit();
+    if (this.options.forceSquare) {
+      const panelRange = this.view.get('panelRange');
+      const { xField, yField, data } = this.options;
+      const xCount = _.valuesOfKey(data, xField).length;
+      const yCount = _.valuesOfKey(data, yField).length;
+      const rangeSize = Math.max(panelRange.width, panelRange.height);
+      const count = Math.max(xCount, yCount);
+      const gridSize = rangeSize / count;
+      const width = gridSize * xCount;
+      const height = gridSize * yCount;
+      this.view.set('panelRange', new BBox(panelRange.x, panelRange.y, width, height));
+    }
+  }
 
   public afterRender() {
     if (this.options.legend && this.options.legend.visible) {

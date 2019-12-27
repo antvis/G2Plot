@@ -111,13 +111,14 @@ describe('matrix plot', () => {
 
   it('mateix init', () => {
     const matrixPlot = new Matrix(canvasDiv, {
+      forceSquare: true,
       width: 600,
       height: 500,
       xField: 'name',
       yField: 'country',
       colorField: 'value',
       sizeField: 'value',
-      shapeType: 'circle',
+      // shapeType: 'circle',
       color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
       // shapeSize: [2,20],
       data,

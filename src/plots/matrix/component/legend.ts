@@ -81,7 +81,7 @@ export default class MatrixLegend {
     return new BBox(this.x, this.y, origin_bbox.width, origin_bbox.height);
   }
 
-  protected renderVertical(min, max, colors) {
+  protected renderVertical(min: number, max: number, colors: string[]) {
     const valueStep = (max - min) / (colors.length - 1);
     const colorStep = 1 / (colors.length - 1);
     const tickStep = this.height / (colors.length - 1);
@@ -140,7 +140,7 @@ export default class MatrixLegend {
     });
   }
 
-  protected renderHorizontal(min, max, colors) {
+  protected renderHorizontal(min: number, max: number, colors: string[]) {
     const valueStep = (max - min) / (colors.length - 1);
     const colorStep = 1 / (colors.length - 1);
     const tickStep = this.width / (colors.length - 1);
@@ -328,7 +328,7 @@ export default class MatrixLegend {
     });
   }
 
-  private moveAnchor(ratio) {
+  private moveAnchor(ratio: number) {
     this.anchor.set('visible', true);
     if (this.layout === 'vertical') {
       const pos = this.height * ratio;

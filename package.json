@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.15",
+  "version": "0.11.17",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -69,7 +69,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "0.10.26",
+    "@antv/gatsby-theme-antv": "0.10.31",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",

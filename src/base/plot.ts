@@ -1,7 +1,7 @@
 import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g';
 import * as _ from '@antv/util';
-import { RecursivePartial } from '../interface/types';
+import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
 import EventController from './controller/event';
@@ -16,7 +16,7 @@ export interface PlotConfig {
   renderer?: string;
   height?: number;
   pixelRatio?: number;
-  theme?: string | {};
+  theme?: LooseMap | string;
 }
 
 export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEmitter {

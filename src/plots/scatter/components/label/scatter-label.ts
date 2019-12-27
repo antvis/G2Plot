@@ -2,12 +2,9 @@ import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 import { rgb2arr } from '../../../../util/color';
+import { LooseMap } from '../../../../interface/types';
 
 const TOP_MARGIN = 20;
-
-interface Point {
-  [key: string]: any;
-}
 
 export class ScatterLabels extends ElementLabels {
   public setLabelPosition(point, originPoint, index, originPosition) {
@@ -74,7 +71,7 @@ export class ScatterLabels extends ElementLabels {
   public _getShape(shapeId, shapes) {
     let target;
     _.each(shapes, (shape) => {
-      const s = shape as Point;
+      const s = shape as LooseMap;
       const id = s.id;
       if (id === shapeId) {
         target = s;
@@ -119,7 +116,7 @@ export class ScatterLabels extends ElementLabels {
   public _mappingColor(band, gray) {
     let reflect;
     _.each(band, (b) => {
-      const map = b as Point;
+      const map = b as LooseMap;
       if (gray >= map.from && gray < map.to) {
         reflect = map.color;
       }

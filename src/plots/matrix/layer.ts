@@ -1,5 +1,6 @@
 import * as _ from '@antv/util';
 import { BBox } from '@antv/g';
+import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -192,6 +193,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     if (this.options.shapeType === type) {
       return;
     }
+    this.options.shapeType = type;
     if (type === 'rect') {
       const geom = this.view.get('elements')[0];
       const shapes = geom.getShapes();
@@ -200,6 +202,38 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       const geom = this.view.get('elements')[0];
       const shapes = geom.getShapes();
       this.rectToCircle(shapes);
+    }
+  }
+
+  public mappingSize(field: string) {
+    if (this.options.sizeField && this.options.sizeField === field) {
+      return;
+    }
+    // 创建scale
+    const values = _.valuesOfKey(this.options.data, field);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const LinearScale = getScale('linear');
+    const scale = new LinearScale({
+      min,
+      max,
+    });
+    const geom = this.view.get('elements')[0];
+    const shapes = geom.getShapes();
+    if (this.options.shapeType === 'rect') {
+      this.rectSizeMapping(shapes, scale, field);
+    } else if (this.options.shapeType === 'circle') {
+      this.circleSizeMapping(shapes, scale, field);
+    }
+  }
+
+  public disableMappingSize() {
+    const geom = this.view.get('elements')[0];
+    const shapes = geom.getShapes();
+    if (this.options.shapeType === 'rect') {
+      this.rectDisableSizeMapping(shapes);
+    } else if (this.options.shapeType === 'circle') {
+      this.circleDisableSizeMapping(shapes);
     }
   }
 
@@ -350,7 +384,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   private rectToCircle(shapes) {
-    const gridSize = this.gridSize;
     _.each(shapes, (shape) => {
       const coord = shape.get('coord');
       const { points } = shape.get('origin');
@@ -376,6 +409,81 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
         () => {
           shape.attr('path', circlePath);
         }
+      );
+    });
+  }
+
+  private rectSizeMapping(shapes, scale, field) {
+    _.each(shapes, (shape) => {
+      const data = shape.get('origin')._origin;
+      const ratio = 0.3 + scale.scale(data[field]) * 0.6;
+      const bbox = shape.getBBox();
+      const width = bbox.width;
+      const height = bbox.height;
+      const centerX = bbox.minX + width / 2;
+      const centerY = bbox.minY + height / 2;
+      const path = getRectPath(centerX, centerY, width, height, ratio);
+      shape.stopAnimate();
+      shape.animate(
+        {
+          path: path,
+        },
+        500,
+        'easeLinear'
+      );
+    });
+  }
+
+  private circleSizeMapping(shapes, scale, field) {
+    _.each(shapes, (shape) => {
+      const data = shape.get('origin')._origin;
+      const ratio = 0.3 + scale.scale(data[field]) * 0.6;
+      const { x, y, size } = shape.get('origin');
+      const path = getCirclePath(x, y, size * ratio);
+      shape.get('origin').size = size * ratio;
+      shape.stopAnimate();
+      shape.animate(
+        {
+          path: path,
+        },
+        500,
+        'easeLinear'
+      );
+    });
+  }
+
+  private circleDisableSizeMapping(shapes) {
+    _.each(shapes, (shape) => {
+      const { x, y } = shape.get('origin');
+      const size = Math.min(this.gridSize[0], this.gridSize[1]) * 0.9;
+      shape.get('origin').size = size / 2;
+      const path = getCirclePath(x, y, size / 2);
+      shape.stopAnimate();
+      shape.animate(
+        {
+          path: path,
+        },
+        500,
+        'easeLinear'
+      );
+    });
+  }
+
+  private rectDisableSizeMapping(shapes) {
+    _.each(shapes, (shape) => {
+      const bbox = shape.getBBox();
+      const width = bbox.width;
+      const height = bbox.height;
+      const centerX = bbox.minX + width / 2;
+      const centerY = bbox.minY + height / 2;
+      const path = getRectPath(centerX, centerY, this.gridSize[0], this.gridSize[1], 1);
+      shape.stopAnimate();
+      shape.animate(
+        {
+          path: path,
+        },
+        500,
+        'easeLinear'
       );
     });
   }

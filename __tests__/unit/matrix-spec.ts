@@ -111,10 +111,6 @@ describe('matrix plot', () => {
 
   it('mateix init', () => {
     const matrixPlot = new Matrix(canvasDiv, {
-      title: {
-        visible: true,
-        text: '测试测试测试',
-      },
       // forceSquare: true,
       width: 600,
       height: 500,
@@ -122,14 +118,23 @@ describe('matrix plot', () => {
       yField: 'country',
       colorField: 'value',
       sizeField: 'value',
-      //shapeType: 'circle',
+      shapeType: 'circle',
       color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
       // shapeSize: [2,20],
       data,
+      tooltip: {
+        visible: false,
+      },
     });
     matrixPlot.render();
-    window.setTimeout(() => {
-      matrixPlot.changeShape('circle');
+    /*window.setTimeout(() => {
+      matrixPlot.mappingSize('value');
     }, 2000);
+    window.setTimeout(() => {
+      matrixPlot.changeShape('rect');
+    }, 4000);
+    window.setTimeout(() => {
+      matrixPlot.mappingSize('value');
+    }, 6000);*/
   });
 });

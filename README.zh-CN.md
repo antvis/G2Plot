@@ -6,9 +6,11 @@
 
 基于图形语法（the Grammar of Graphics）的图表库
 
-[![版本](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
+[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
-![最近提交](https://badgen.net/github/last-commit/antvis/g2plot)
+![Latest commit](https://badgen.net/github/last-commit/antvis/g2plot)
+[![CircleCI](https://circleci.com/gh/umijs/umi/tree/master.svg?style=svg)](https://github.com/antvis/G2Plot/tree/master)
+[![coverage:?](https://img.shields.io/coveralls/antvis/g2plot/master.svg?style=flat-square)](https://coveralls.io/github/antvis/g2plot)
 
 </div>
 

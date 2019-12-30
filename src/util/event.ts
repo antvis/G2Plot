@@ -1,9 +1,8 @@
 import * as _ from '@antv/util';
 import ViewLayer from '../base/view-layer';
+import { LooseMap } from '../interface/types';
 
-interface IEventmap {
-  [k: string]: string;
-}
+type IEventmap = LooseMap<string>;
 
 const EVENT_MAP: IEventmap = {
   onViewClick: 'click',

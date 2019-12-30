@@ -117,24 +117,24 @@ describe('matrix plot', () => {
       xField: 'name',
       yField: 'country',
       colorField: 'value',
-      sizeField: 'value',
+      // sizeField: 'value',
       shapeType: 'circle',
       color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
       // shapeSize: [2,20],
       data,
-      tooltip: {
-        visible: false,
-      },
     });
     matrixPlot.render();
-    /*window.setTimeout(() => {
+    window.setTimeout(() => {
       matrixPlot.mappingSize('value');
     }, 2000);
     window.setTimeout(() => {
       matrixPlot.changeShape('rect');
     }, 4000);
     window.setTimeout(() => {
+      matrixPlot.disableMappingSize();
+    }, 6000);
+    window.setTimeout(() => {
       matrixPlot.mappingSize('value');
-    }, 6000);*/
+    }, 8000);
   });
 });

@@ -16,7 +16,7 @@ export interface LayerConfig {
   height?: number;
   /** the parent node of layer */
   parent?: any;
-  canvas: G.Canvas;
+  canvas?: G.Canvas;
   name?: string;
 }
 

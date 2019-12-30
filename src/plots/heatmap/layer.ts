@@ -38,7 +38,7 @@ export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
 
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
   public type: string = 'heatmap';
-  protected heatmap_legend: HeatmapLegend;
+  protected heatmapLegend: HeatmapLegend;
   protected background: HeatmapBackground;
   protected count: number = 0;
 
@@ -114,14 +114,14 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
   public afterRender() {
     if (this.options.legend && this.options.legend.visible && this.count < 2) {
-      this.heatmap_legend && this.heatmap_legend.destroy();
-      this.heatmap_legend = new HeatmapLegend({
+      this.heatmapLegend && this.heatmapLegend.destroy();
+      this.heatmapLegend = new HeatmapLegend({
         view: this.view,
         plot: this,
         ...this.options.legend,
       });
-      this.heatmap_legend.render();
-      this.paddingController.registerPadding(this.heatmap_legend, 'outer');
+      this.heatmapLegend.render();
+      this.paddingController.registerPadding(this.heatmapLegend, 'outer');
     }
     if (this.options.background && this.options.padding !== 'auto') {
       this.background = new HeatmapBackground({
@@ -136,9 +136,9 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public destroy() {
-    if (this.heatmap_legend) {
-      this.heatmap_legend.destroy();
-      this.heatmap_legend = null;
+    if (this.heatmapLegend) {
+      this.heatmapLegend.destroy();
+      this.heatmapLegend = null;
     }
     if (this.background) {
       this.background.destroy();

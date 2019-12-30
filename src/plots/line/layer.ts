@@ -5,7 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
-import { extractScale } from '../../util/scale';
+import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
@@ -129,6 +129,10 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
+    trySetScaleMinToZero(
+      scales[props.yField],
+      _.map(props.data, (item) => item[props.yField])
+    );
     super.scale();
   }
 

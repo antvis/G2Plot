@@ -47,7 +47,7 @@ export interface PointViewConfig extends ViewConfig {
 
 export interface ScatterViewConfig extends PointViewConfig {
   /** 散点大小 */
-  pointSize?: number;
+  pointSize?: number | any;
 }
 
 export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}

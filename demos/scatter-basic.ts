@@ -1,50 +1,15 @@
 // 基础散点图
 
 $.get('data/country-economy.json', function(data) {
-  const data2 = [
-    { x: 1, y: 4.181 },
-    { x: 2, y: 4.665 },
-    { x: 3, y: 5.296 },
-    { x: 4, y: 5.365 },
-    { x: 5, y: 5.448 },
-    { x: 6, y: 5.744 },
-    { x: 7, y: 5.653 },
-    { x: 8, y: 5.844 },
-    { x: 9, y: 6.362 },
-    { x: 10, y: 6.38 },
-    { x: 11, y: 6.311 },
-    { x: 12, y: 6.457 },
-    { x: 13, y: 6.479 },
-    { x: 14, y: 6.59 },
-    { x: 15, y: 6.74 },
-    { x: 16, y: 6.58 },
-    { x: 17, y: 6.852 },
-    { x: 18, y: 6.531 },
-    { x: 19, y: 6.682 },
-    { x: 20, y: 7.013 },
-    { x: 21, y: 6.82 },
-    { x: 22, y: 6.647 },
-    { x: 23, y: 6.951 },
-    { x: 24, y: 7.121 },
-    { x: 25, y: 7.143 },
-    { x: 26, y: 6.914 },
-    { x: 27, y: 6.941 },
-    { x: 28, y: 7.226 },
-    { x: 29, y: 6.898 },
-    { x: 30, y: 7.392 },
-    { x: 31, y: 6.938 },
-  ];
   const scatterPlot = new g2plot.Scatter(document.getElementById('canvas'), {
     width: 800,
     height: 600,
     padding: 'auto',
-    data: data2,
-    // xField: 'GDP',
-    xField: 'x',
-    // yField: 'LifeExpectancy',
-    yField: 'y',
+    data,
+    xField: 'GDP',
+    yField: 'LifeExpectancy',
     pointSize: 5,
-    /* colorFields: 'continent',
+    colorField: 'continent',
     quadrant: {
       xBaseline: 20000,
       yBaseline: 70,
@@ -57,7 +22,7 @@ $.get('data/country-economy.json', function(data) {
       label: {
         text: ['第一象限', '第二象限', '第三象限', '第四象限'],
       },
-    },*/
+    },
     trendline: {
       type: 'quad',
       showConfidence: true,

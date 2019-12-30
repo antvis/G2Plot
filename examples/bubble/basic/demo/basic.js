@@ -21,7 +21,7 @@ fetch('../data/smoking-rate.json')
         opacity: 0.8,
       },
       xAxis: {
-        visble: true,
+        visible: true,
         max: 5,
         min: -25,
       },

@@ -20,4 +20,5 @@ export { default as Area, AreaConfig } from './area';
 export { default as StackArea, StackAreaConfig } from './stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
+export { default as Matrix, MatrixConfig } from './matrix';
 export { default as Waterfall, WaterfallConfig } from './waterfall';

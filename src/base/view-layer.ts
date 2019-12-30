@@ -555,7 +555,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.interactions = [];
   }
 
-  private getViewRange() {
+  protected getViewRange() {
     // 有 Range 的 Interaction 参与 ViewMargin 计算
     const { interactions = [] } = this.options;
     const layerBBox = this.layerBBox;

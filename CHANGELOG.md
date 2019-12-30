@@ -1,3 +1,9 @@
+## <small>0.11.18 (2019-12-30)</small>
+- 🐞 散点图tooltip & legend bug fix ([b452862](https://github.com/antvis/G2Plot/commit/b452862))
+- 🐞 移除util中的moment依赖 ([077a2c6](https://github.com/antvis/G2Plot/commit/077a2c6))
+- 🌟 新增瀑布图 ([4c6d703](https://github.com/antvis/G2Plot/commit/4c6d703))
+
+
 ## <small>0.11.15 (2019-12-23)</small>
 - 🐞 label参与auto-padding计算 ([0c566c1](https://github.com/antvis/G2Plot/commit/0c566c1))
 

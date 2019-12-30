@@ -30,7 +30,7 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
   }
 
   public type: string = 'bubble';
-  
+
   protected legend() {
     super.legend();
     /** 取消气泡大小图例 */

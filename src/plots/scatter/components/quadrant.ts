@@ -3,10 +3,10 @@ import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
 
 interface ILabel {
-  position: string;
+  position?: string;
   text: string[] | Function;
-  offset: number | Function;
-  style: any;
+  offset?: number | Function;
+  style?: any;
 }
 
 export interface QuadrantConfig {
@@ -14,7 +14,7 @@ export interface QuadrantConfig {
   xBaseline?: number;
   yBaseline?: number;
   regionStyle: any[] | any;
-  lineStyle: any;
+  lineStyle?: any;
   label: ILabel;
 }
 

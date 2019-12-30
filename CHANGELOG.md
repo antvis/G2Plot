@@ -1,3 +1,8 @@
+## <small>0.11.19 (2019-12-30)</small>
+- 🐞 修复直方图绘制失效 ([d8097dc](https://github.com/antvis/G2Plot/commit/d8097dc))
+- 🌟 优化折线图动画效果 ([4a8a028](https://github.com/antvis/G2Plot/commit/4a8a028))
+
+
 ## <small>0.11.18 (2019-12-30)</small>
 - 🐞 散点图tooltip & legend bug fix ([b452862](https://github.com/antvis/G2Plot/commit/b452862))
 - 🐞 移除util中的moment依赖 ([077a2c6](https://github.com/antvis/G2Plot/commit/077a2c6))

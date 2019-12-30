@@ -3,11 +3,11 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import '../scatter/components/label/scatter-label';
 import * as EventParser from '../scatter/event';
-import ScatterLayer, { PointViewConfig } from '../scatter/layer';
+import ScatterLayer, { ScatterViewConfig } from '../scatter/layer';
 
-export interface BubbleViewConfig extends PointViewConfig {
+export interface BubbleViewConfig extends ScatterViewConfig {
   /** 气泡大小 */
-  pointSize: [number, number];
+  pointSize?: [number, number];
   /** 气泡大小字段 */
   sizeField?: string;
 }

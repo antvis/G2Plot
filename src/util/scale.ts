@@ -1,4 +1,6 @@
+import { isNil, some, isNumber, filter } from '@antv/util';
 import { timeIntervals } from '../interface/config';
+import { ScaleConfig } from '@antv/scale';
 
 function adjustTimeTickInterval(interval: string) {
   const intervals = timeIntervals;
@@ -46,5 +48,21 @@ export function extractScale(desScale, axisConfig) {
   }
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'formatter')) {
     desScale.formatter = axisConfig.formatter;
+  }
+}
+
+export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | string | undefined | null)[]) {
+  const validData: number[] = filter(data, (v) => isNumber(v)) as number[];
+  const min = Math.min(...validData);
+  const max = Math.max(...validData);
+
+  if (min > 0) {
+    if (isNil(desScale.min) && isNil(desScale.minLimit)) {
+      desScale.min = 0;
+    }
+  } else if (max <= 0) {
+    if (isNil(desScale.max) && isNil(desScale.maxLimit)) {
+      desScale.max = 0;
+    }
   }
 }

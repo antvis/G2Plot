@@ -1,11 +1,9 @@
-// 基础气泡图
+// 四象限气泡图
 
 $.get('../examples/data/smoking-rate.json', function(data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
-    title: {
-      visible: true,
-      text: '基础气泡图',
-    },
+    width: 800,
+    height: 600,
     data,
     xField: 'change in female rate',
     yField: 'change in male rate',
@@ -22,6 +20,25 @@ $.get('../examples/data/smoking-rate.json', function(data) {
       visible: true,
       max: 5,
       min: -25,
+    },
+    quadrant: {
+      visible: true,
+      xBaseline: 0,
+      yBaseline: 0,
+      regionStyle: [
+        { fill: '#d8d0c0', opacity: 0.2 },
+        { fill: '#a3dda1', opacity: 0.1 },
+        { fill: 'white', opacity: 0 },
+        { fill: '#d8d0c0', opacity: 0.2 },
+      ],
+      label: {
+        text: [
+          'Female decrease,\nmale increase',
+          'Female & male decrease',
+          'Female &\n male increase',
+          'Male decrease,\nfemale increase',
+        ],
+      },
     },
   });
   bubblePlot.render();

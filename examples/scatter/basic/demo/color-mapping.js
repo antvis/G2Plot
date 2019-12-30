@@ -1,6 +1,6 @@
 import { Scatter } from '@antv/g2plot';
 
-fetch('../data/IMDB.json')
+fetch('https://gw.alipayobjects.com/os/basement_prod/7a78a36d-c97c-459d-9090-9e664cd17167.json')
   .then((res) => res.json())
   .then((data) => {
     const scatterPlot = new Scatter(document.getElementById('container'), {

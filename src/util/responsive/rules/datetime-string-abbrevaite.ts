@@ -126,14 +126,3 @@ export function isTime(string) {
   const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
   return hourminExp.test(string) || hourminSecExp.test(string);
 }
-
-/*function timeAdaptor(string) {
-  const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
-  const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
-  if (hourminExp.test(string)) {
-    return moment(string, 'hh:mm');
-  }
-  if (hourminSecExp.test(string)) {
-    return moment(string, 'hh:mm:ss');
-  }
-}*/

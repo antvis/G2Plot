@@ -4,7 +4,6 @@ import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
-import { bboxOnRotate } from '../../util/math';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -39,7 +38,13 @@ export default class PaddingController {
    */
   public clear() {
     this.innerPaddingComponents = [];
-    this.outerPaddingComponents = [];
+    _.each(this.outerPaddingComponents, (component, index) => {
+      // 一些组件是在view渲染完成之后渲染初始化的
+      if (component && !component.afterRender) {
+        this.outerPaddingComponents.splice(1, index);
+      }
+    });
+    // this.outerPaddingComponents = [];
   }
 
   public getPadding() {
@@ -320,7 +325,12 @@ export default class PaddingController {
     const labels = labelRenderer.getLabels();
     const curOffset = xAxis.getOffsetByRotateAngle(xAxis.get('autoRotateAngle'));
     const curTotalWidth = Math.abs(xAxis.get('end').x - xAxis.get('start').x);
-    const curAvgWidth = Math.abs(labels[1].attr('x') - labels[0].attr('x'));
+    // 如果只有一项数据, 平均宽度 = 总宽
+    let curAvgWidth = curTotalWidth;
+    // 当多项数据时，根据 label 位置计算均宽
+    if (labels.length > 1) {
+      curAvgWidth = Math.abs(labels[1].attr('x') - labels[0].attr('x'));
+    }
     const newTotalWidth = curTotalWidth - padding[1] - padding[3];
     const newAvgWidth = (curAvgWidth * newTotalWidth) / curTotalWidth;
     const newOffset = xAxis.getOffsetByRotateAngle(xAxis.getAutoRotateAngleByAvgWidth(newAvgWidth));

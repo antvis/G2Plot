@@ -25,6 +25,7 @@ const REGRESSION_MAP = {
 };
 
 export interface TrendlineConfig {
+  visible?: boolean;
   type?: string;
   style?: any;
   showConfidence?: boolean;

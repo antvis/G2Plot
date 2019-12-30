@@ -1,20 +1,27 @@
 // 基础气泡图
 
-$.get('data/country-economy.json', function(data) {
+$.get('../examples/data/smoking-rate.json', function(data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
-    width: 800,
-    height: 600,
-    padding: 'auto',
-    data,
-    xField: 'GDP',
-    yField: 'LifeExpectancy',
-    sizeField: 'Population',
-    colorField: 'continent',
-    label: {
+    title: {
       visible: true,
-      formatter: (v) => {
-        return parseFloat(v).toFixed(1);
-      },
+      text: '基础气泡图',
+    },
+    data,
+    xField: 'change in female rate',
+    yField: 'change in male rate',
+    sizeField: 'pop',
+    pointSize: [4, 30],
+    colorField: 'continent',
+    color: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
+    pointStyle: {
+      stroke: '#777777',
+      lineWidth: 1,
+      opacity: 0.8,
+    },
+    xAxis: {
+      visible: true,
+      max: 5,
+      min: -25,
     },
   });
   bubblePlot.render();

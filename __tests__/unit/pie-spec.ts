@@ -229,36 +229,6 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it.skip('spider label', () => {
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      colorField: 'type',
-      label: {
-        visible: true,
-        type: 'spider',
-        style: {
-          fontSize: 14,
-          fill: '#ccc',
-        },
-      },
-    });
-    piePlot.render();
-    const pieLayer = piePlot.getLayer();
-    const plot = pieLayer.plot;
-    const spiderLabel = pieLayer.spiderLabel;
-    const labelShapes = pieLayer.container.get('children');
-    const shapes = plot.get('elements')[0].getShapes();
-    expect(labelShapes.length / 3).toBe(shapes.length);
-    expect(labelShapes[0].get('children')[0].attr('text')).toBe(5);
-    expect(labelShapes[0].get('children')[1].attr('text')).toBe('Other');
-    expect(labelShapes[0].get('children')[1].attr('fill')).toBe('#ccc');
-    expect(labelShapes[1].attr('stroke')).toBe(shapes[shapes.length - 1].attr('fill'));
-    piePlot.destroy();
-  });
-
   it('auto padding', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,

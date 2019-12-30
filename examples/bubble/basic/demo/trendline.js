@@ -27,6 +27,7 @@ fetch('../data/revenue.json')
         nice: false,
       },
       trendline: {
+        visible: true,
         type: 'log',
       },
     });

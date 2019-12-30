@@ -1,9 +1,11 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.15",
+  "version": "0.11.19",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
+  "browser": "dist/g2plot.js",
+  "umd:main": "dist/g2plot.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -50,7 +52,7 @@
     }
   },
   "dependencies": {
-    "@antv/g2": "~3.6.0-beta.11",
+    "@antv/g2": "~3.6.0-beta.14",
     "@antv/gui": "~0.1.0",
     "@antv/g-gesture": "~0.1.0",
     "fecha": "~3.0.3",
@@ -69,7 +71,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "0.10.17",
+    "@antv/gatsby-theme-antv": "0.10.33",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",

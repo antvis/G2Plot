@@ -13,6 +13,19 @@ function clipingWithData(shape, animateCfg) {
   shape.attr('clip', clip);
   shape.setSilent('animating', true);
   const parent = shape.get('parent');
+  let title;
+  if (animateCfg.seriesField) {
+    title = parent.addShape('text', {
+      attrs: {
+        x: coord.start.x,
+        y: 0,
+        text: shapeData[animateCfg.seriesField],
+        fill: shape.attr('stroke'),
+        fontSize: 14,
+        textAlign: 'start',
+      },
+    });
+  }
   const marker = parent.addShape('text', {
     attrs: {
       x: coord.start.x,
@@ -86,6 +99,22 @@ function clipingWithData(shape, animateCfg) {
     animateCfg.callback,
     delay
   );
+  if (title) {
+    title.animate(
+      {
+        onFrame: (ratio) => {
+          const position = getPositionByRatio(ratio, shapeData, coord, i);
+          if (!position) return;
+          title.attr('x', position[0]);
+          title.attr('y', position[1]);
+        },
+      },
+      animateCfg.duration,
+      easing,
+      animateCfg.callback,
+      delay
+    );
+  }
 }
 
 function getClip(coord) {

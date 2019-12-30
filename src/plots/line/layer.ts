@@ -210,6 +210,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
             easing: 'easeLinear',
             duration: 10000,
             yField: props.yField,
+            seriesField: props.seriesField,
           },
         };
         // 如果有数据点的话要追加数据点的动画
@@ -243,7 +244,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as IObject;
-      console.log(responsive);
       responsive.method(this);
     });
   }

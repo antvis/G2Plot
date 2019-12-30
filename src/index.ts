@@ -10,10 +10,10 @@ export * from './plots/index';
 // MINI 图形
 export { TinyLayerConfig } from './sparkline/tiny-layer';
 export { default as Progress, ProgressConfig } from './sparkline/progress';
-export { default as RingProgress } from './sparkline/ring-progress';
-export { default as TinyColumn } from './sparkline/tiny-column';
-export { default as TinyArea } from './sparkline/tiny-area';
-export { default as TinyLine } from './sparkline/tiny-line';
+export { default as RingProgress, RingProgressConfig } from './sparkline/ring-progress';
+export { default as TinyColumn, TinyColumnConfig } from './sparkline/tiny-column';
+export { default as TinyArea, TinyAreaConfig } from './sparkline/tiny-area';
+export { default as TinyLine, TinyLineConfig } from './sparkline/tiny-line';
 
 // 主题
 export { registerTheme, registerGlobalTheme } from './theme';

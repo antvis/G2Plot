@@ -146,6 +146,16 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
 
   protected coord() {}
 
+  protected legend() {
+    super.legend();
+    /** 取消气泡大小图例 */
+    this.setConfig('legends', {
+      fields: {
+        [this.options.sizeField]: false,
+      },
+    });
+  }
+
   protected addGeometry() {
     const props = this.options;
 
@@ -156,13 +166,6 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     if (props.label && props.label.visible) {
       bubbles.label = this.extractLabel();
     }
-
-    /** 取消气泡大小图例 */
-    this.setConfig('legends', {
-      fields: {
-        [props.sizeField]: false,
-      },
-    });
 
     this.bubbles = bubbles;
     this.setConfig('element', bubbles);

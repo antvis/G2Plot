@@ -12,28 +12,36 @@ function clipingWithData(shape, animateCfg) {
   const clip = getClip(coord);
   shape.attr('clip', clip);
   shape.setSilent('animating', true);
+  const label = getLineLabel(animateCfg.plot.view, shapeData[0]._origin[animateCfg.seriesField]);
+  if (label) {
+    label.set('visible', false);
+  }
   const parent = shape.get('parent');
+  const offsetX = 12;
   let title;
   if (animateCfg.seriesField) {
     title = parent.addShape('text', {
       attrs: {
-        x: coord.start.x,
+        x: coord.start.x + offsetX,
         y: 0,
-        text: shapeData[animateCfg.seriesField],
+        text: shapeData[0]._origin[animateCfg.seriesField],
         fill: shape.attr('stroke'),
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'start',
+        textBaseline: 'middle',
       },
     });
   }
+  const offsetY = title ? 16 : 0;
   const marker = parent.addShape('text', {
     attrs: {
-      x: coord.start.x,
-      y: 20,
+      x: coord.start.x + offsetX,
+      y: offsetY,
       text: `test${index}`,
       fill: shape.attr('stroke'),
-      fontSize: 14,
+      fontSize: 12,
       textAlign: 'start',
+      textBaseline: 'middle',
     },
   });
   /** 动画执行之后 */
@@ -50,8 +58,23 @@ function clipingWithData(shape, animateCfg) {
         300,
         () => {
           marker.remove();
+          if (label) {
+            label.set('visible', true);
+            animateCfg.plot.canvas.draw();
+          }
         }
       );
+      if (title) {
+        marker.animate(
+          {
+            opacity: 0,
+          },
+          300,
+          () => {
+            marker.remove();
+          }
+        );
+      }
     }
   };
   /** 执行动画 */
@@ -82,8 +105,8 @@ function clipingWithData(shape, animateCfg) {
 
         if (!position) return;
 
-        marker.attr('x', position[0]);
-        marker.attr('y', position[1]);
+        marker.attr('x', position[0] + offsetX);
+        marker.attr('y', position[1] + offsetY);
         let yText = getDataByPosition(yScale, position[1], coord);
 
         // use formatter
@@ -105,7 +128,7 @@ function clipingWithData(shape, animateCfg) {
         onFrame: (ratio) => {
           const position = getPositionByRatio(ratio, shapeData, coord, i);
           if (!position) return;
-          title.attr('x', position[0]);
+          title.attr('x', position[0] + offsetX);
           title.attr('y', position[1]);
         },
       },
@@ -138,10 +161,6 @@ function getPositionByRatio(ratio, dataPoints, coord, index) {
     const next = dataPoints[i + 1];
     if (currentX >= current.x && currentX <= next.x) {
       const m = (next.y - current.y) / (next.x - current.x); // 斜率
-      /*if(i !== index){
-          dataPoints = dataPoints.splice(i,1);
-          index = i;
-      }*/
       const y = current.y + m * (currentX - current.x);
       return [currentX, y];
     }
@@ -151,6 +170,27 @@ function getPositionByRatio(ratio, dataPoints, coord, index) {
 function getDataByPosition(scale, y, coord) {
   const yRatio = (y - coord.start.y) / (coord.end.y - coord.start.y);
   return scale.invert(yRatio).toFixed(2);
+}
+
+function getLineLabel(view, name) {
+  let label;
+  const elements = view.get('elements');
+  _.each(elements, (e) => {
+    if (e.get('type') === 'line') {
+      if (e.get('labelController')) {
+        const labelContainer = e.get('labelController').labelsContainer;
+        if (labelContainer) {
+          const labels = labelContainer.get('labelsRenderer').getLabels();
+          _.each(labels, (l) => {
+            if (l.attr('text') === name) {
+              label = l;
+            }
+          });
+        }
+      }
+    }
+  });
+  return label;
 }
 
 Animate.registerAnimation('appear', 'clipingWithData', clipingWithData);

@@ -21,6 +21,7 @@ $.get('../examples/data/revenue.json', function(data) {
       nice: false,
     },
     trendline: {
+      visible: true,
       type: 'log',
     },
   });

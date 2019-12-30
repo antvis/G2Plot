@@ -22,6 +22,7 @@ $.get('../examples/data/smoking-rate.json', function(data) {
       min: -25,
     },
     quadrant: {
+      visible: true,
       xBaseline: 0,
       yBaseline: 0,
       regionStyle: [

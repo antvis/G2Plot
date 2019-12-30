@@ -212,15 +212,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   protected extractTooltip() {
     const props = this.options;
-    if (_.isString(props.colorField)) {
-      return {
-        fields: [props.xField, props.yField, props.colorField],
-      };
-    } else if (_.isArray(props.colorField) && props.colorField.length) {
-      return {
-        fields: [props.xField, props.yField, ...props.colorField],
-      };
-    }
     return {
       fields: [props.xField, props.yField],
     };

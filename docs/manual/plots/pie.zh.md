@@ -117,12 +117,14 @@ const data = [
 
 `formatter: function` 对 label 的显示文本进行格式化
 
-> 注意：当配置了 colorField，即扇形切片接受分类类型的颜色映射，此时 spider label 的文本为上下显示，此时 formatter 方法入参为 angleField 及 colorField 两个字段对应的值，返回值应为数组。
+> 注意：当配置了 colorField，即扇形切片接受分类类型的颜色映射。
+> 
+> 此外 spider label 的文本默认为上下显示，返回值可以是 string 类型也可以是 string 数组（[bottom, top]）。
 
 ```js
 label: {
   type: 'spider',
-  formatter: (angleField, colorField) => {
+  formatter: (text, item, index) => {
     return [ 'value1','value2' ];
   },
 }

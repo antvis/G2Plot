@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
@@ -11,7 +11,9 @@ import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './components/label/scatter-label';
 
-interface PointStyle {
+export interface PointStyle {
+  /** 圆边颜色 */
+  stroke: string;
   /** 圆边大小 */
   lineWidth?: number;
   /** 圆边透明度 */
@@ -27,22 +29,25 @@ const G2_GEOM_MAP = {
 };
 
 const PLOT_GEOM_MAP = {
-  point: 'scatter',
+  point: 'point',
 };
 
-export interface ScatterViewConfig extends ViewConfig {
-  /** 散点大小 */
-  pointSize?: number;
+export interface PointViewConfig extends ViewConfig {
   /** 散点样式 */
   pointStyle?: PointStyle | ((...args: any) => PointStyle);
   /** 颜色字段 */
-  colorFields?: string | string[];
+  colorField?: string | string[];
   /** x 轴配置 */
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   /** y 轴配置 */
   yAxis?: IValueAxis;
   quadrant?: QuadrantConfig;
   trendline?: TrendlineConfig;
+}
+
+export interface ScatterViewConfig extends PointViewConfig {
+  /** 散点大小 */
+  pointSize?: number | any;
 }
 
 export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
@@ -74,7 +79,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       },
       tooltip: {
         visible: true,
-        shared: false,
+        // false 会造成 tooltip 只能显示一条数据，true 会造成 tooltip 在空白区域也会显示
+        shared: null,
         crosshairs: {
           type: 'rect',
         },
@@ -94,7 +100,10 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   public afterRender() {
     super.afterRender();
-    if (this.options.quadrant && !this.quadrant) {
+    if (this.options.quadrant && this.options.quadrant.visible && !this.quadrant) {
+      if (this.quadrant) {
+        this.quadrant.destroy();
+      }
       this.quadrant = new Quadrant({
         view: this.view,
         plotOptions: this.options,
@@ -102,7 +111,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       });
       this.quadrant.render();
     }
-    if (this.options.trendline) {
+    if (this.options.trendline && this.options.trendline.visible) {
       this.trendline = new Trendline({
         view: this.view,
         plotOptions: this.options,
@@ -150,6 +159,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   protected coord() {}
 
+  protected annotation() {}
+
   protected addGeometry() {
     const points = getGeom('point', 'circle', {
       plot: this,
@@ -157,6 +168,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     this.points = points;
     if (this.options.label && this.options.label.visible) {
       this.points.label = this.extractLabel();
+    }
+    if (this.options.tooltip && this.options.tooltip.visible) {
+      this.points.tooltip = this.extractTooltip();
+      this.setConfig('tooltip', {
+        showTitle: false,
+        ...this.options.tooltip,
+      } as any);
     }
     this.setConfig('element', points);
   }
@@ -171,12 +189,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   }
 
   protected parseEvents(eventParser) {
-    super.parseEvents(EventParser);
+    // 气泡图继承散点图时，会存在 eventParser
+    super.parseEvents(eventParser || EventParser);
   }
 
   protected extractLabel() {
     const props = this.options;
-    const label = props.label;
+    const label = props.label as Label;
     if (label && label.visible === false) {
       return false;
     }
@@ -189,6 +208,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       ...label,
     });
     return labelConfig;
+  }
+
+  protected extractTooltip() {
+    const props = this.options;
+    return {
+      fields: [props.xField, props.yField],
+    };
   }
 }
 

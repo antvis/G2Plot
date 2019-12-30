@@ -21,3 +21,4 @@ export { default as StackArea, StackAreaConfig } from './stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
 export { default as Funnel, FunnelConfig } from './funnel';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
+export { default as Waterfall, WaterfallConfig } from './waterfall';

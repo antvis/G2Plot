@@ -53,6 +53,7 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
     lineWidth: 1,
   },
   trendline: {
+    visible: true,
     type: 'quad', // linear, exp, loess, log, poly, pow, quad
     showConfidence: true,
   },

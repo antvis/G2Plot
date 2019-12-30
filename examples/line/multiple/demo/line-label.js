@@ -1,6 +1,6 @@
 import { Line } from '@antv/g2plot';
 
-fetch('../../data/GDP.json')
+fetch('../data/GDP.json')
   .then((res) => res.json())
   .then((data) => {
     const linePlot = new Line(document.getElementById('container'), {

@@ -199,7 +199,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       if (this.point) this.point.animate = false;
     } else if (_.has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
-      if (props.animation.type === 'clipingWithData') {
+      if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
@@ -207,6 +207,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
             duration: 10000,
             yField: props.yField,
             seriesField: props.seriesField,
+            plot: this,
           },
         };
         // 如果有数据点的话要追加数据点的动画

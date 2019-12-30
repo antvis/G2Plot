@@ -10,6 +10,7 @@ interface ILabel {
 }
 
 export interface QuadrantConfig {
+  visible?: boolean;
   xBaseline?: number;
   yBaseline?: number;
   regionStyle: any[] | any;

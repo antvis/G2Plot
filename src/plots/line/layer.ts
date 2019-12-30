@@ -5,7 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
-import { extractScale } from '../../util/scale';
+import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
@@ -129,6 +129,10 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
+    trySetScaleMinToZero(
+      scales[props.yField],
+      _.map(props.data, (item) => item[props.yField])
+    );
     super.scale();
   }
 
@@ -199,13 +203,15 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       if (this.point) this.point.animate = false;
     } else if (_.has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
-      if (props.animation.type === 'clipingWithData') {
+      if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
             yField: props.yField,
+            seriesField: props.seriesField,
+            plot: this,
           },
         };
         // 如果有数据点的话要追加数据点的动画
@@ -239,7 +245,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as IObject;
-      console.log(responsive);
       responsive.method(this);
     });
   }

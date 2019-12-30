@@ -14,6 +14,7 @@ export interface MatrixLegendConfig {
     formatter?: () => string;
   };
   ticklineStyle?: any;
+  anchorStyle?: any;
   triggerOn?: string;
 }
 
@@ -129,14 +130,14 @@ export default class MatrixLegend {
         },
       });
     });
-    //scroll bar
+    //anchor
     const tri_width = 10;
     const tri_height = 14;
     const tri_path = [['M', -tri_width, -tri_height / 2], ['L', 0, 0], ['L', -tri_width, tri_height / 2], ['Z']];
     this.anchor = this.container.addShape('path', {
       attrs: {
         path: tri_path,
-        fill: 'rgba(0,0,0,0.5)',
+        ...this.options.anchorStyle,
       },
     });
     this.anchor.set('visible', false);
@@ -189,14 +190,14 @@ export default class MatrixLegend {
         },
       });
     });
-    //scroll bar
+    //anchor
     const tri_width = 14;
     const tri_height = 10;
     const tri_path = [['M', 0, 0], ['L', -tri_width / 2, -tri_height], ['L', tri_width / 2, -tri_height], ['Z']];
     this.anchor = this.container.addShape('path', {
       attrs: {
         path: tri_path,
-        fill: 'rgba(0,0,0,0.5)',
+        ...this.options.anchorStyle,
       },
     });
     this.anchor.set('visible', false);
@@ -296,6 +297,9 @@ export default class MatrixLegend {
       ticklineStyle: {
         lineWidth: 1,
         stroke: 'rgba(0, 0, 0, 0.8)',
+      },
+      anchorStyle: {
+        fill: 'rgba(0,0,0,0.5)',
       },
       triggerOn: 'mousemove',
     };

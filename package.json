@@ -71,7 +71,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "0.10.31",
+    "@antv/gatsby-theme-antv": "0.10.33",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^24.0.23",

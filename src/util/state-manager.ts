@@ -4,10 +4,9 @@
 // todo: 后续还需要加入交互互斥的维护机制
 import EventEmitter from '@antv/event-emitter';
 import * as _ from '@antv/util';
+import { LooseMap } from '../interface/types';
 
-interface States {
-  [key: string]: any;
-}
+type States = LooseMap;
 
 interface StateControllerCfg {
   states?: States;

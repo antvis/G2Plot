@@ -8,6 +8,7 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
+import { LooseMap } from './types';
 
 export interface ITitle {
   visible: boolean;
@@ -23,9 +24,7 @@ export interface IDescription {
   alignWithAxis?: boolean;
 }
 
-interface IEvents {
-  [k: string]: string;
-}
+type IEvents = LooseMap<string>;
 
 // TODO: g 提供详细style的类型定义
 export interface IStyleConfig {
@@ -160,7 +159,6 @@ interface Animation {
 export interface Theme {}
 
 export interface ElementOption {
-  [x: string]: {};
   type: string;
   position: {
     fields: string[];

@@ -13,7 +13,7 @@ function clipingWithData(shape, animateCfg) {
   shape.attr('clip', clip);
   shape.setSilent('animating', true);
   const label = getLineLabel(animateCfg.plot.view, shapeData[0]._origin[animateCfg.seriesField]);
-  if (label) {
+  if (label && !label.get('destroyed')) {
     label.set('visible', false);
   }
   const parent = shape.get('parent');
@@ -58,7 +58,7 @@ function clipingWithData(shape, animateCfg) {
         300,
         () => {
           marker.remove();
-          if (label) {
+          if (label && !label.get('destroyed')) {
             label.set('visible', true);
             animateCfg.plot.canvas.draw();
           }

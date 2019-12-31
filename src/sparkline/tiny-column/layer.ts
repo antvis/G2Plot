@@ -35,6 +35,14 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
     return PLOT_GEOM_MAP[type];
   }
 
+  protected scale() {
+    const { options } = this;
+    const scales = {};
+    /** 配置x-scale */
+    scales[options.xField] = { type: 'cat' };
+    this.setConfig('scales', scales);
+  }
+
   protected addGeometry() {
     const props = this.options;
     const column = getGeom('interval', 'main', {

@@ -92,8 +92,8 @@ export default class OverlappedComboPlot<
     this.options = props;
   }
 
-  protected _createLayers() {
-    super._createLayers();
+  protected createComboLayers() {
+    super.createComboLayers();
     this.legendInfo = [];
     this.axisInfo = [];
     this.paddingComponents = [];
@@ -180,8 +180,8 @@ export default class OverlappedComboPlot<
   }
 
   public render() {
-    this.destroy();
-    this._createLayers();
+    this.doDestroy();
+    this.createComboLayers();
     const { bleeding } = getGlobalTheme();
     if (this.globalOptions.legend.visible) {
       const legend = this.overlappingLegend();
@@ -240,7 +240,7 @@ export default class OverlappedComboPlot<
     }
   }
 
-  public destroy() {
+  protected doDestroy() {
     this.clearComponents();
     this.eachLayer((layer) => {
       layer.destroy();

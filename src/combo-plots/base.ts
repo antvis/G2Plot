@@ -21,11 +21,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     };
   }
 
-  /*protected _createLayers(props: T & { layers?: any }) {
-    this.globalOptions = deepMix({}, this.getDefaultOptions(), this.getGlobalOptions(props));
-  } */
-
-  protected _createLayers() {
+  protected createComboLayers() {
     this.globalOptions = deepMix({}, this.getDefaultOptions(), this.getGlobalOptions(this.options));
   }
 }

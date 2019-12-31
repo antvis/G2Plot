@@ -20,14 +20,14 @@ const comboPlot = new OverlappedComboPlot(document.getElementById('container'), 
   width: 600,
   height: 400,
   xAxis:{
-      visible: true,
+    visible: true,
   },
   yAxis:{
-      visible: true,
-       // highlight-start
-      colorMapping: true,
-      synchroTick: true,
-      // highlight-end
+    visible: true,
+    // highlight-start
+    colorMapping: true,
+    synchroTick: true,
+    // highlight-end
   },
    // highlight-start
   layers: [
@@ -60,7 +60,11 @@ comboPlot.render();
 
 ```
 
-上面的例子中，`layers[]`配置项中声明了两个统计图形图层，分别是 `groupColumn` (分组柱状图) 和 `line` (折线图)，图层的类型通过 `type` 配置项声明，除上文提到过的顶层组件（ axis | legend | tooltip ），统计图形图层的使用方式与使用单个图表()完全相同。图层的声明顺序决定了图层渲染的先后顺序，因此折线显示在柱形的上方。
+* `layers[]`配置项中声明了两个统计图形图层，分别是 `groupColumn` (分组柱状图) 和 `line` (折线图)，图层的类型通过 `type` 配置项声明，除上文提到过的顶层组件（ `axis` | `legend` | `tooltip` ），统计图形图层的使用方式与使用单个图表()完全相同。
+
+* 图层的声明顺序决定了图层渲染的先后顺序，因此折线显示在柱形的上方。
+
+* `axis`在双轴图中属于顶层组件，在`yAxis`配置项中可以看到在混合图表中顶层配置的一些特点。`colorMapping`决定当出现多个 Y 轴是否采用颜色映射，`synchroTick`决定多 Y 轴的情况下是否使轴刻度线一致。
 
 
 ## API

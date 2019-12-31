@@ -24,8 +24,8 @@ export interface RadarViewConfig extends ViewConfig {
   /** 折线图形样式 */
   line?: {
     visible?: boolean;
-    size: number;
-    color: string;
+    size?: number;
+    color?: string;
     style?: LineStyle;
   };
   /** 数据点图形样式 */
@@ -42,9 +42,9 @@ export interface RadarViewConfig extends ViewConfig {
     style?: FillStyle;
   };
   // fixme: any --> IValueAxis  | ICatAxis | ITimeAxis
-  angleAxis: any;
+  angleAxis?: any;
   // fixme: any --> IValueAxis
-  radiusAxis: any;
+  radiusAxis?: any;
   radius?: number;
   // fixme: any
   [attr: string]: any;

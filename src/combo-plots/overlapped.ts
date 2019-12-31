@@ -3,7 +3,6 @@ import { Group } from '@antv/g';
 import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
-
 import '../plots/index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
@@ -88,8 +87,13 @@ export default class OverlappedComboPlot<
     };
   }
 
-  protected createLayers(props: T & { layers?: any }) {
-    super.createLayers(props);
+  constructor(container: HTMLElement, props: T) {
+    super(container, props);
+    this.options = props;
+  }
+
+  protected _createLayers() {
+    super._createLayers();
     this.legendInfo = [];
     this.axisInfo = [];
     this.paddingComponents = [];
@@ -102,20 +106,20 @@ export default class OverlappedComboPlot<
       height: this.height,
     });
 
-    if (props.layers.length > 0) {
+    if (this.options.layers.length > 0) {
       /** create layers */
-      _.each(props.layers, (layerCfg) => {
+      _.each(this.options.layers, (layerCfg) => {
         const overlapConfig = this.getOverlappedConfig(layerCfg);
         const viewLayerCtr = getPlotType(layerCfg.type);
         const viewLayerProps: T = _.deepMix(
           {},
           layerCfg,
           {
-            canvas: this.getCanvas(),
-            x: layerCfg.x ? layerCfg.x : 0,
-            y: layerCfg.y ? layerCfg.y : 0,
-            width: layerCfg.width ? layerCfg.width : this.width,
-            height: layerCfg.height ? layerCfg.height : this.height,
+            canvas: this.canvas,
+            x: 0,
+            y: 0,
+            width: this.width,
+            height: this.height,
           },
           overlapConfig
         );
@@ -176,8 +180,8 @@ export default class OverlappedComboPlot<
   }
 
   public render() {
-    console.log('re render');
-    this.clearComponents();
+    this.destroy();
+    this._createLayers();
     const { bleeding } = getGlobalTheme();
     if (this.globalOptions.legend.visible) {
       const legend = this.overlappingLegend();
@@ -238,7 +242,10 @@ export default class OverlappedComboPlot<
 
   public destroy() {
     this.clearComponents();
-    super.destroy();
+    this.eachLayer((layer) => {
+      layer.destroy();
+    });
+    this.layers = [];
   }
 
   protected clearComponents() {

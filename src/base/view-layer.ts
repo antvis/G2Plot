@@ -27,6 +27,7 @@ import { LooseMap } from '../interface/types';
 export interface ViewConfig {
   data: DataItem[];
   meta?: LooseMap;
+  forceFit: boolean;
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
@@ -80,6 +81,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
         text: '',
       },
+      forceFit: true,
       padding: 'auto',
       legend: {
         visible: true,

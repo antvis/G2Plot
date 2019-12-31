@@ -60,7 +60,7 @@ comboPlot.render();
 
 ```
 
-* `layers[]`配置项中声明了两个统计图形图层，分别是 `groupColumn` (分组柱状图) 和 `line` (折线图)，图层的类型通过 `type` 配置项声明，除上文提到过的顶层组件（ `axis` | `legend` | `tooltip` ），统计图形图层的使用方式与使用单个图表()完全相同。
+* `layers[]`配置项中声明了两个统计图形图层，分别是 `groupColumn` (分组柱状图) 和 `line` (折线图)，图层的类型通过 `type` 配置项声明，除上文提到过的顶层组件（ `axis` | `legend` | `tooltip` ），统计图形图层的使用方式与使用[单个图表](../plots/line)完全相同。
 
 * 图层的声明顺序决定了图层渲染的先后顺序，因此折线显示在柱形的上方。
 
@@ -70,3 +70,64 @@ comboPlot.render();
 ## API
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
+
+### width
+
+**optional**, number 类型
+
+图表宽度。
+
+如不进行配置，则默认采用 theme 中的宽度。
+
+### height
+
+**optional**, number 类型
+
+图表高度。
+
+如不进行配置，则默认采用 theme 中的高度。
+
+### forceFit
+
+**optional**, boolean 类型
+
+图表是否自适应容器宽高。
+
+
+### layers
+
+**required**
+
+
+
+
+
+### xAxis
+
+**optional** 见[通用图表配置](../general-config#axis)。
+
+### yAxis
+
+**optional** 
+
+`colorMapping: boolean` 当出现多个 Y 轴时，坐标轴颜色是否采用对应的统计图形颜色，默认为`true`。
+
+** 注意： 该配置项只有在统计图形为单色才生效(例如单折线、基础柱状图等) <br />
+
+`synchroTick` 当出现多个 Y 轴时，是否对齐左侧 Y 轴刻度线。 默认为`true` <br />
+
+其余配置见[通用图表配置](../general-config#axis)。
+
+### legend
+
+**optional** 
+
+见[通用图表配置](../general-config#legend)。
+
+### tooltip
+
+**optional**
+
+`sort: boolean` tooltip items是否进行动态排序，默认为`true` <br />
+
+其余配置见[通用图表配置](../general-config#tooltip)。

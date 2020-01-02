@@ -22,6 +22,15 @@ export function showTooltip(canvas, layers, tooltipCfg) {
           if (contains(['area', 'line', 'path', 'interval'], type)) {
             const items = getTooltipItems(point, geom, type, dataArray, coord);
             tooltipItems.push(...items);
+          } else {
+            const shapeContainer = geom.get('shapeContainer');
+            const shapes = getShapeByX(shapeContainer, point.x);
+            each(shapes, (shape) => {
+              if (shape.get('visible') && shape.get('origin')) {
+                const items = geom.getTooltipItems(shape.get('origin'), null);
+                tooltipItems.push(...items);
+              }
+            });
           }
         });
       }
@@ -35,6 +44,8 @@ export function showTooltip(canvas, layers, tooltipCfg) {
       tooltip.hide();
     }
   });
+
+  return tooltip;
 }
 
 function getTooltipItems(point, geom, type, dataArray, coord) {
@@ -154,4 +165,16 @@ function getDataByTitle(title, data) {
       }
     }
   }
+}
+
+function getShapeByX(container, x) {
+  const shapes = [];
+  const children = container.get('children');
+  each(children, (c) => {
+    const bbox = c.getBBox();
+    if (bbox.minX < x && bbox.maxX > x) {
+      shapes.push(c);
+    }
+  });
+  return shapes;
 }

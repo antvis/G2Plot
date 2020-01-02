@@ -131,6 +131,14 @@ module.exports = {
         },
       },
       {
+        slug: 'combo',
+        icon: 'other',
+        title: {
+          zh: '双轴图',
+          en: 'Combo Charts',
+        },
+      },
+      {
         slug: 'sparkline',
         icon: 'other',
         title: {

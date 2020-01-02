@@ -46,10 +46,10 @@ describe('Combo plot', () => {
     { time: '2019-07', value: 220 },
   ];
 
-  it('column + bubble + line', () => {
+  it.only('column + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
-      width: 500,
-      height: 300,
+      width: 600,
+      height: 400,
       layers: [
         {
           type: 'column',
@@ -59,7 +59,7 @@ describe('Combo plot', () => {
           yField: 'value',
         },
         {
-          type: 'bubble',
+          type: 'scatter',
           name: '下单',
           data: billData,
           xField: 'time',
@@ -75,12 +75,13 @@ describe('Combo plot', () => {
           data: transformData,
           xField: 'time',
           yField: 'value',
+          color: '#f8ca45',
         },
       ],
     });
-    // combo.render();
+    combo.render();
   });
-  it.only('groupColumn + bubble + line', () => {
+  it('groupColumn + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
       width: 600,
       height: 400,

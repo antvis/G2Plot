@@ -7,6 +7,7 @@ export interface ComboPlotConfig extends PlotConfig {
 }
 
 export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> extends Plot<T> {
+  public options: any;
   protected globalOptions: any;
 
   public getDefaultOptions() {
@@ -20,7 +21,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     };
   }
 
-  protected createLayers(props: T & { layers?: any }) {
-    this.globalOptions = deepMix({}, this.getDefaultOptions(), this.getGlobalOptions(props));
+  protected createComboLayers() {
+    this.globalOptions = deepMix({}, this.getDefaultOptions(), this.getGlobalOptions(this.options));
   }
 }

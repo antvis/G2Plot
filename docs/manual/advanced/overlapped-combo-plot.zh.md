@@ -96,15 +96,36 @@ comboPlot.render();
 
 ### layers
 
-**required**
+**required**, array 类型
+
+在layer中配置多个统计图形图层，一般来说图层数量建议**不超过3个**。统计图形图层的类型通过`type`指定，其他配置项与使用[单个图表](../plots/line)完全相同。
+
+* 每个图层需要自行指定数据`data`
+
+* 顶层配置: `width` | `height` | `forceFit` 及 顶层组件: `legend` | `tooltip` | `axis` 无需在layer里进行配置
 
 
+用法示例：
 
+```js
+layers:[
+  {
+    type:'line',
+    // 其他图表配置项
+  },
+  {
+    type:'area',
+    //其他图表配置项
+  }
+]
 
+```
 
 ### xAxis
 
-**optional** 见[通用图表配置](../general-config#axis)。
+**optional** 
+
+见[通用图表配置](../general-config#axis)。
 
 ### yAxis
 

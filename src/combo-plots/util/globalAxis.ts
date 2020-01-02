@@ -268,13 +268,10 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
       if (index === 0) {
         axis.get('group').translate(padding[3], 0);
       }
-      if (index === yAxisScale.length - 1) {
-        axis.get('group').translate(-padding[1], 0);
-      }
       axes.push(axis);
     });
 
-    axisLayout(axes, paddingComponents, width);
+    axisLayout(axes, paddingComponents, width, padding);
   }
 
   if (globalOptions.xAxis.visible) {
@@ -294,6 +291,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
     );
     paddingComponents.push({
       position: 'bottom',
+      component: xAxis,
       getBBox: () => {
         const container = xAxis.get('group');
         const bbox = container.getBBox();
@@ -305,8 +303,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
   return paddingComponents;
 }
 
-function axisLayout(axes, paddingComponents, width) {
-  const { bleeding } = getGlobalTheme();
+function axisLayout(axes, paddingComponents, width, padding) {
   // 先处理最左边的
   const leftAxis = axes[0];
   const leftContainer = leftAxis.get('group');
@@ -314,12 +311,13 @@ function axisLayout(axes, paddingComponents, width) {
   leftContainer.translate(leftBbox.width, 0);
   paddingComponents.push({
     position: 'left',
+    component: leftAxis,
     getBBox: () => {
       const matrix = leftContainer.attr('matrix');
       return new BBox(leftBbox.minX + matrix[6], leftBbox.minY, leftBbox.width, leftBbox.height);
     },
   });
-  let temp_width = 0;
+  let temp_width = padding[1];
   // 处理右边的
   for (let i = axes.length - 1; i > 0; i--) {
     const axis = axes[i];
@@ -329,6 +327,7 @@ function axisLayout(axes, paddingComponents, width) {
     temp_width += bbox.width + AXIS_GAP;
     const component = {
       position: 'right',
+      component: axis,
       getBBox: () => {
         const matrix = container.attr('matrix');
         return new BBox(bbox.minX + matrix[6], bbox.minX, bbox.width, bbox.height);
@@ -361,4 +360,24 @@ function adjustColorStyle(color, options) {
         }
       : null,
   };
+}
+
+export function drawYGrid(axis, coord, container, cfg) {
+  const defaultStyle = getGlobalTheme().axis.y.grid.style;
+  const style = _.deepMix({}, defaultStyle, cfg.style);
+  const gridGroup = container.addGroup();
+  const labelItems = axis.get('labelItems');
+  _.each(labelItems, (item, index) => {
+    if (index > 0) {
+      gridGroup.addShape('path', {
+        attrs: {
+          path: [
+            ['M', coord.start.x, item.point.y],
+            ['L', coord.end.x, item.point.y],
+          ],
+          ...style,
+        },
+      });
+    }
+  });
 }

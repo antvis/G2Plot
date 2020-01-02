@@ -1,7 +1,7 @@
 import { heatmapData } from '../data/heatmap';
 import { Heatmap } from '../../src';
 
-describe.skip('heatmap layer', () => {
+describe('heatmap layer', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -10,6 +10,7 @@ describe.skip('heatmap layer', () => {
 
   it('contour heatmap', () => {
     const heatmap = new Heatmap(canvasDiv, {
+      // theme:'dark',
       width: 600,
       height: 600,
       data: heatmapData,

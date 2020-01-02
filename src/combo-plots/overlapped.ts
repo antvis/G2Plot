@@ -3,11 +3,11 @@ import { Group } from '@antv/g';
 import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
-
 import '../plots/index';
 import * as ComboUtil from './util';
 import { getOverlappingPadding } from './util/padding';
 import { getGlobalTheme } from '../theme/global';
+import { ViewLayer } from '..';
 
 export type OverlappedComboPlotConfig = ComboPlotConfig;
 
@@ -22,6 +22,8 @@ export default class OverlappedComboPlot<
   protected legendContainer: Group;
   protected paddingComponents: any[];
   protected globalOptions: any;
+  protected globalComponents: any[];
+  protected singleGeomCount: number;
 
   public getDefaultOptions() {
     return {
@@ -85,31 +87,39 @@ export default class OverlappedComboPlot<
     };
   }
 
-  protected createLayers(props: T & { layers?: any }) {
-    super.createLayers(props);
+  constructor(container: HTMLElement, props: T) {
+    super(container, props);
+    this.options = props;
+  }
+
+  protected createComboLayers() {
+    super.createComboLayers();
     this.legendInfo = [];
     this.axisInfo = [];
     this.paddingComponents = [];
-    /** add top layer for legend & tooltip */
-    this.topLayer = new Layer({
+    this.globalComponents = [];
+    this.singleGeomCount = 0;
+
+    this.backLayer = new Layer({
       canvas: this.getCanvas(),
       width: this.width,
       height: this.height,
     });
-    if (props.layers.length > 0) {
+
+    if (this.options.layers.length > 0) {
       /** create layers */
-      _.each(props.layers, (layerCfg) => {
+      _.each(this.options.layers, (layerCfg) => {
         const overlapConfig = this.getOverlappedConfig(layerCfg);
         const viewLayerCtr = getPlotType(layerCfg.type);
         const viewLayerProps: T = _.deepMix(
           {},
           layerCfg,
           {
-            canvas: this.getCanvas(),
-            x: layerCfg.x ? layerCfg.x : 0,
-            y: layerCfg.y ? layerCfg.y : 0,
-            width: layerCfg.width ? layerCfg.width : this.width,
-            height: layerCfg.height ? layerCfg.height : this.height,
+            canvas: this.canvas,
+            x: 0,
+            y: 0,
+            width: this.width,
+            height: this.height,
           },
           overlapConfig
         );
@@ -122,22 +132,20 @@ export default class OverlappedComboPlot<
       });
     }
 
-    this.backLayer = new Layer({
+    /** add top layer for legend & tooltip */
+    this.topLayer = new Layer({
       canvas: this.getCanvas(),
       width: this.width,
       height: this.height,
     });
-
-    if (this.globalOptions.legend.visible) {
-      const legend = this.overlappingLegend();
-      this.paddingComponents.push(legend);
-    }
-
-    // this.overlappingLayout();
   }
 
   /** 图层叠加时的layer config */
   protected getOverlappedConfig(layerCfg) {
+    const colorCfg = ComboUtil.getColorConfig(layerCfg.type, layerCfg, this.singleGeomCount);
+    if (colorCfg && colorCfg.single) {
+      this.singleGeomCount++;
+    }
     return _.deepMix(
       {},
       {
@@ -154,7 +162,7 @@ export default class OverlappedComboPlot<
           visible: false,
         },
         padding: [0, 0, 0, 0],
-        color: ComboUtil.getColorConfig(layerCfg.type, layerCfg),
+        color: colorCfg ? colorCfg.color : null,
       }
     );
   }
@@ -172,7 +180,14 @@ export default class OverlappedComboPlot<
   }
 
   public render() {
+    this.doDestroy();
+    this.createComboLayers();
     const { bleeding } = getGlobalTheme();
+    if (this.globalOptions.legend.visible) {
+      const legend = this.overlappingLegend();
+      this.globalComponents.push({ type: 'legend', component: legend.component });
+      this.paddingComponents.push(legend);
+    }
     // 先获取legend的padding
     const legendPadding = getOverlappingPadding(this.layers[0], this.paddingComponents);
     const axisComponents = ComboUtil.axesLayout(
@@ -185,6 +200,9 @@ export default class OverlappedComboPlot<
       this.getCanvas()
     );
     this.paddingComponents.push(...axisComponents);
+    _.each(axisComponents, (axis) => {
+      this.globalComponents.push({ type: 'axis', component: axis.component });
+    });
     // 计算padding
     const padding = getOverlappingPadding(this.layers[0], this.paddingComponents);
     if (!this.globalOptions.xAxis.visible) {
@@ -207,8 +225,39 @@ export default class OverlappedComboPlot<
         .remove();
     });
 
-    if (this.globalOptions.tooltip.visible) {
-      ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+    //补画坐标轴grid
+    if (this.globalOptions.yAxis.grid.visible) {
+      const leftAxis = axisComponents[0].component;
+      const containerLayer = this.layers[0] as ViewLayer;
+      const coord = containerLayer.view.get('coord');
+      const container = containerLayer.view.get('backgroundGroup');
+      ComboUtil.drawYGrid(leftAxis, coord, container, this.globalOptions.yAxis.grid);
     }
+
+    if (this.globalOptions.tooltip.visible) {
+      const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+      this.globalComponents.push({ type: 'tooltip', component: tooltip });
+    }
+  }
+
+  protected doDestroy() {
+    this.clearComponents();
+    this.eachLayer((layer) => {
+      layer.destroy();
+    });
+    this.layers = [];
+  }
+
+  protected clearComponents() {
+    _.each(this.globalComponents, (c) => {
+      if (c.type === 'legend' || c.type === 'tooltip') {
+        c.component.destroy();
+      }
+      if (c.type === 'axis') {
+        c.component.clear();
+      }
+    });
+    this.paddingComponents = [];
+    this.globalComponents = [];
   }
 }

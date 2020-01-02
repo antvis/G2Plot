@@ -285,7 +285,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   public changeData(data: DataItem[]): void {
-    this.view.changeData(this.processData(data));
+    this.options.data = this.processData(data);
+    this.view.changeData(this.options.data);
   }
 
   // plot 不断销毁重建，需要一个api获取最新的plot

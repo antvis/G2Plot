@@ -9,7 +9,7 @@ redirect_from:
 
 Moreover, combining with AntV design principles, G2Plot provides standard and elegant visual styles as well as better user experience.
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VI0XRYCtTBMAAAAAAAAAAABkARQnAQ" width="800">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
 
 ## Features
 

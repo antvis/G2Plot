@@ -196,19 +196,23 @@ export default class HeatmapLegend {
       });
     });
     // 绘制两边的label
-    const textMin = this.container.addShape('text', {
+    this.container.addShape('text', {
       attrs: {
         text: min,
-        x: 0,
-        y: gridHeight + LABEL_MARGIN,
+        x: -LABEL_MARGIN,
+        y: gridHeight / 2,
         ...this.options.text.style,
+        textAlign: 'right',
+        textBaseline: 'middle',
       },
     });
     this.container.addShape('text', {
       attrs: {
         text: max,
-        x: this.width,
-        y: gridHeight + LABEL_MARGIN,
+        x: this.width + LABEL_MARGIN,
+        y: gridHeight / 2,
+        textAlign: 'left',
+        textBaseline: 'middle',
         ...this.options.text.style,
       },
     });

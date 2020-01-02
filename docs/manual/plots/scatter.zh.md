@@ -65,7 +65,7 @@ order: 0
 
 **optional**, string | string[] | function 类型
 
-指定条形颜色。如不进行配置则采用 theme 中的配色。
+指定点的颜色。如不进行配置则采用 theme 中的配色。
 
 用法：
 

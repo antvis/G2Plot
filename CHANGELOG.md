@@ -1,3 +1,7 @@
+## <small>0.11.21 (2019-01-02)</small>
+- 🐞 fix top padding error ([53de76f](https://github.com/antvis/G2Plot/commit/53de76f))
+- 🌟 add overlapped combo chart ([c893594](https://github.com/antvis/G2Plot/commit/c893594))
+
 ## <small>0.11.20 (2019-12-31)</small>
 - 🐞 修复miniChart-column time scale绘制错误 ([b00163b](https://github.com/antvis/G2Plot/commit/b00163b))
 

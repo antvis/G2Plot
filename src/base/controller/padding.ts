@@ -134,7 +134,7 @@ export default class PaddingController {
     const panelPadding = this._getPanel(view, box);
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
-    // padding[2] += panelPadding[2];
+    padding[2] += panelPadding[2];
     padding[3] += panelPadding[3];
     return padding;
   }

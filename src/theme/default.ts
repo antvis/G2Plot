@@ -50,7 +50,7 @@ export const TOP_BLEEDING = (props: ViewConfig) => {
   const descriptionVisible = props.description && props.description.visible;
   if (titleVisible || descriptionVisible) {
     // 由 title/description 的 bottom-padding 负责
-    return 0;
+    return 12;
   }
   return 24;
 };

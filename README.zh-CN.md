@@ -21,7 +21,7 @@
 3. 探索统计图表的更多可能性，使统计图表变得更好玩、更酷。
 
 <div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pivcSq450scAAAAAAAAAAABkARQnAQ" width="1000">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VI0XRYCtTBMAAAAAAAAAAABkARQnAQ" width="800">
 </div>
 
 ## 特性

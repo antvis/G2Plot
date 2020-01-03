@@ -10,9 +10,19 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*bN0GSbwL3z0AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "heatmap-background.js",
-      "title": "热力图加背景",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eFZySpX8E2gAAAAAAAAAAABkARQnAQ"
+      "filename": "shape-type.js",
+      "title": "色块热力图形状",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WhlyRK-I7iEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "size.js",
+      "title": "色块热力图形状大小映射",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uTjGQLEuTCAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "mode-transfer.js",
+      "title": "色块热力图模式切换",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cJIpS4PlAyMAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

@@ -27,6 +27,17 @@ module.exports = {
         },
       },
       {
+        test: /\.js$/,
+        /** bable 只需要处理 node_modules 中的 es6 模块，src 中的交给 ts-loader 即可 */
+        include: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+      {
         test: /\.less$/,
         use: [
           {

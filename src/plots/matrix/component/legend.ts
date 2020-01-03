@@ -171,9 +171,7 @@ export default class MatrixLegend {
             ['M', step, 0],
             ['L', step, this.height],
           ],
-          stroke: 'black',
-          lineWidth: 1,
-          opacity: 0.5,
+          ...this.options.ticklineStyle,
         },
       });
       // value
@@ -181,12 +179,11 @@ export default class MatrixLegend {
       this.container.addShape('text', {
         attrs: {
           text: value,
-          fill: 'rgba(0,0,0,0.5)',
-          fontSize: 12,
           textAlign: 'center',
           textBaseline: 'top',
           x: step,
           y: this.height + LABEL_MARGIN,
+          ...this.options.text.style,
         },
       });
     });

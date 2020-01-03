@@ -149,7 +149,7 @@ legend:{
         }
     },
     gridStyle:{
-        lineDashL[2,2]
+        lineDash: [2,2]
     },
     triggerOn:'click'
 }

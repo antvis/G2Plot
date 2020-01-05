@@ -231,7 +231,7 @@ export default class OverlappedComboPlot<
       const containerLayer = this.layers[0] as ViewLayer;
       const coord = containerLayer.view.get('coord');
       const container = containerLayer.view.get('backgroundGroup');
-      ComboUtil.drawYGrid(leftAxis, coord, container, this.globalOptions.yAxis.grid);
+      ComboUtil.drawYGrid(leftAxis, coord, container, this.globalOptions);
     }
 
     if (this.globalOptions.tooltip.visible) {

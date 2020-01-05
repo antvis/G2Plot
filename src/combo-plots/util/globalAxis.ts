@@ -3,7 +3,7 @@ import { BBox } from '@antv/g';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
-import { getGlobalTheme } from '../../theme/global';
+import { convertToG2Theme, getGlobalTheme } from '../../theme';
 import { isSingleGraph } from './adjustColorConfig';
 import { getOverlappingPadding } from './padding';
 import { getComponent } from '../../components/factory';
@@ -147,6 +147,7 @@ function sameScaleTest(axisInfo) {
 }
 
 export function createAxis(scale, dim, canvas, cfg, globalOptions) {
+  const theme = getTheme(globalOptions);
   const isVertical = dim === 'x' ? false : true;
   let group;
   if (scale.layer) {
@@ -164,8 +165,7 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
       },
     } as any,
   });
-
-  let defaultStyle = {};
+  let defaultStyle = theme.axis && theme.axis[dim] ? toAxisStyle(theme.axis[dim]) : {};
   if (scale.color) {
     defaultStyle = adjustColorStyle(scale.color, parser);
   }
@@ -362,9 +362,11 @@ function adjustColorStyle(color, options) {
   };
 }
 
-export function drawYGrid(axis, coord, container, cfg) {
-  const defaultStyle = getGlobalTheme().axis.y.grid.style;
-  const style = _.deepMix({}, defaultStyle, cfg.style);
+export function drawYGrid(axis, coord, container, globalOptions) {
+  const theme = getTheme(globalOptions);
+  const gridCfg = globalOptions.yAxis.grid;
+  const defaultStyle = theme.axis.y.grid.style;
+  const style = _.deepMix({}, defaultStyle, gridCfg.style);
   const gridGroup = container.addGroup();
   const labelItems = axis.get('labelItems');
   _.each(labelItems, (item, index) => {
@@ -380,4 +382,26 @@ export function drawYGrid(axis, coord, container, cfg) {
       });
     }
   });
+}
+
+function toAxisStyle(theme) {
+  const style = {};
+  _.each(theme, (t, key) => {
+    if (_.hasKey(t, 'style')) {
+      style[key] = t.style;
+    }
+  });
+  return style;
+}
+
+function getTheme(options) {
+  let theme = getGlobalTheme();
+  if (options.theme) {
+    if (_.isString(options.theme)) {
+      theme = getGlobalTheme(options.theme);
+    } else if (_.isObject(options.theme)) {
+      theme = options.theme;
+    }
+  }
+  return theme;
 }

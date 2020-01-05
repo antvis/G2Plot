@@ -18,6 +18,7 @@ export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> exte
     return {
       xAxis: props.xAxis,
       yAxis: props.yAxis,
+      theme: props.theme,
     };
   }
 

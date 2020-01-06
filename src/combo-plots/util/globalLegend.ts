@@ -146,6 +146,7 @@ function addLegendInteraction(legend) {
 }
 
 function legendLayout(width, height, legend, position) {
+  console.log(position);
   const { bleeding } = getGlobalTheme();
   if (_.isArray(bleeding)) {
     _.each(bleeding, (it, index) => {

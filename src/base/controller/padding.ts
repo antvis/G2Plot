@@ -176,7 +176,7 @@ export default class PaddingController {
         }
         if (position[0] === 'bottom') {
           x = legendBBox.minX;
-          y = viewRange.maxY - height;
+          y = viewRange.maxY + height;
         }
         const bbox = new BBox(x, y, width, height);
         bboxes.push(bbox);

@@ -13,6 +13,11 @@
       "filename": "column-scatter-line.js",
       "title": "主线散点混合图",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MWo0TJujB9UAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "dual-line.js",
+      "title": "双折线混合图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NZi9TaGSW7IAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

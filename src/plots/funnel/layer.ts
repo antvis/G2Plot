@@ -182,11 +182,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   public afterRender() {
+    super.afterRender();
     this.paddingController.clear();
     this.view.get('elements').forEach((el) => {
       this.paddingController.registerPadding(el.get('container'), 'inner');
     });
-    super.afterRender();
     this.adjustLegends();
     this.adjustAnnotations();
   }

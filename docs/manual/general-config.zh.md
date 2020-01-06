@@ -72,8 +72,8 @@ order: 2
 
 **optional**, 全局化配置图表数据元信息。
 
-`alias: string`  配置字段的别名，在mata配置别名将会影响坐标轴、tooltip和legend上的字段名称显示<br/>
-`range: number[]`  字段数据的映射区间，默认为[0,1]<br/>
+`alias: string` 配置字段的别名，在 mata 配置别名将会影响坐标轴、tooltip 和 legend 上的字段名称显示<br/>
+`range: number[]` 字段数据的映射区间，默认为[0,1]<br/>
 
 ```js
 const data = [
@@ -184,9 +184,19 @@ htmlContent: (title, items) => {
 
 `formatter: function` 对 label 的显示文本进行格式化
 
+`precision: number` 对 label 显示的数据快捷定义精度，如配置为 2，则格式化为 2 位小数
+
+`suffix: string` 对 label 显示的文班添加后缀，如数据单位万等
+
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量
 
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量
+
+`position: string|function` 数据标签位置
+
+`adjustPosition: boolean`: 是否开启数据标签位置自动调整
+
+`adjustColor: boolean`: 是否开启数据标签颜色自动调整
 
 `style: object` 配置 label 文本样式
 
@@ -241,8 +251,7 @@ htmlContent: (title, items) => {
 
 ## categoryAxis
 
-分类型坐标轴，通常用于展示分类型数据的映射关系。常见于柱状图系列的X轴及条形图系列的y轴。
-
+分类型坐标轴，通常用于展示分类型数据的映射关系。常见于柱状图系列的 X 轴及条形图系列的 y 轴。
 
 ## guideLine
 
@@ -326,7 +335,7 @@ htmlContent: (title, items) => {
 **optional**
 
 - 图表区域事件:<br />
-<img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fKxnR6HZPtsAAAAAAAAAAABkARQnAQ" width="300"><br />
+  <img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fKxnR6HZPtsAAAAAAAAAAABkARQnAQ" width="300"><br />
   `onPlotClick: function`     图表区域点击事件<br />
   `onPlotDblClick: function`  图表区域双击事件<br />
   `onPlotMouseenter: function`    图表区域鼠标进入事件<br />
@@ -338,7 +347,7 @@ htmlContent: (title, items) => {
   <br/>
 
 - 图层事件：<br />
-  ** 一般图层事件用于组合型混合图表中<br />
+  \*\* 一般图层事件用于组合型混合图表中<br />
   `onLayerClick: function`     图层点击事件<br />
   `onLayerDblClick: function`  图层双击事件<br />
   `onLayerMouseenter: function`    图层鼠标进入事件<br />
@@ -347,10 +356,10 @@ htmlContent: (title, items) => {
   `onLayerMousedown: function`    图层鼠标按下事件<br />
   `onLayerMouseup: function`    图层鼠标松开事件<br />
   `onLayerContextmenu: function`    图层右键事件<br/>
-   <br/>
+  <br/>
 
 - 图形区域事件：<br />
-<img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PhmNS5z135wAAAAAAAAAAABkARQnAQ" width="300"><br />
+  <img src ="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PhmNS5z135wAAAAAAAAAAABkARQnAQ" width="300"><br />
   `onViewClick: function`     图形区域点击事件<br />
   `onViewDblClick: function`  图层双击事件<br />
   `onViewMouseenter: function`    图形区域鼠标进入事件<br />
@@ -359,10 +368,9 @@ htmlContent: (title, items) => {
   `onViewMousedown: function`    图形区域鼠标按下事件<br />
   `onViewMouseup: function`    图形区域鼠标松开事件<br />
   `onViewContextmenu: function`    图形区域右键事件<br/>
-   <br/>
+  <br/>
 
-
-- 图例事件:<br />
+* 图例事件:<br />
   `onLegendClick: function`     图例点击事件<br />
   `onLegendDblClick: function`  图例双击事件<br />
   `onLegendMouseenter: function`  图例鼠标进入事件<br />
@@ -373,7 +381,7 @@ htmlContent: (title, items) => {
   `onLegendContextmenu: function`    图例右键事件<br/>
   <br/>
 
-- 坐标轴事件:<br />
+* 坐标轴事件:<br />
   `onAxisClick: function`     坐标轴点击事件<br />
   `onAxisDblClick: function`  坐标轴双击事件<br />
   `onAxisMouseenter: function`  坐标轴鼠标进入事件<br />
@@ -384,7 +392,7 @@ htmlContent: (title, items) => {
   `onAxisContextmenu: function`    坐标轴右键事件<br/>
   <br/>
 
-- 图形标签事件:<br />
+* 图形标签事件:<br />
   `onLabelClick: function`     图形标签点击事件<br />
   `onLabelDblClick: function`  图形标签双击事件<br />
   `onLabelMouseenter: function`  图形标签鼠标进入事件<br />
@@ -395,7 +403,7 @@ htmlContent: (title, items) => {
   `onLabelContextmenu: function`    图形标签右键事件<br/>
   <br/>
 
-- 图表标题事件:<br />
+* 图表标题事件:<br />
   `onTitleClick: function`     图表标题点击事件<br />
   `onTitleDblClick: function`  图表标题双击事件<br />
   `onTitleMouseenter: function`  图表标题鼠标进入事件<br />
@@ -406,7 +414,7 @@ htmlContent: (title, items) => {
   `onTitleContextmenu: function`    图表标题右键事件<br/>
   <br/>
 
-- 图表描述事件:<br />
+* 图表描述事件:<br />
   `onDescriptionClick: function`     图表描述点击事件<br />
   `onDescriptionDblClick: function`  图表描述双击事件<br />
   `onDescriptionMouseenter: function`  图表描述鼠标进入事件<br />
@@ -420,13 +428,12 @@ htmlContent: (title, items) => {
 用法示例：
 
 ```js
-events:{
-  onPlotClick:(ev)=>{
+events: {
+  onPlotClick: (ev) => {
     console.log(ev);
-  }
+  };
 }
 ```
-
 
 ## 通用方法
 
@@ -460,7 +467,6 @@ plot.render();
 
 ```js
 plot.changeData(newData);
-
 ```
 
 ### repaint()
@@ -481,4 +487,4 @@ plot.changeData(newData);
 
 ### getPlotTheme()
 
-获取图表theme。
+获取图表 theme。

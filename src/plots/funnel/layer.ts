@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { getComponent } from '../../components/factory';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
+import FunnelLabelParser from './component/label/parser';
 import './theme';
 import './animation/funnel-scale-in-y';
 import './animation/funnel-fade-out';
@@ -64,9 +64,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           },
         },
       },
-      animation: {
-        duration: 800,
-      },
+      // animation: {
+      //   duration: 800,
+      // },
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
   }
@@ -205,20 +205,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       return false;
     }
 
-    const labelConfig = getComponent('label', {
+    const labelParser = new FunnelLabelParser({
       plot: this,
       fields: [props.xField, props.yField],
       ...label,
     });
-
-    const callback = labelConfig.callback.bind(labelConfig);
-    labelConfig.callback = (xValue, yValue) => {
-      const config = callback(xValue, yValue);
-      if (_.isFunction(label.formatter)) {
-        config.formatter = (text, item, idx) => label.formatter(xValue, yValue, item, idx);
-      }
-      return config;
-    };
+    const labelConfig = labelParser.getConfig();
 
     return labelConfig;
   }

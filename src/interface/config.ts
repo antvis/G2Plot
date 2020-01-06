@@ -26,6 +26,8 @@ export interface IDescription {
 
 type IEvents = LooseMap<string>;
 
+export type Formatter = (text: string, item: any, idx: number) => string;
+
 // TODO: g 提供详细style的类型定义
 export interface IStyleConfig {
   [key: string]: string | number | boolean;
@@ -108,6 +110,10 @@ export interface Label {
   formatter?:
     | ((text: string, item: any, idx: number) => string)
     | ((xValue: string, yValue: string, item: any, idx: number) => string);
+  /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
+  precision?: number;
+  /** 添加后缀 */
+  suffix?: string;
   style?: {};
   offset?: number;
   offsetX?: number;
@@ -116,8 +122,8 @@ export interface Label {
   position?: string;
   adjustColor?: boolean;
   adjustPosition?: boolean;
-  labelLine?: {};
-  /** 展示优化策略 */
+  autoRotate?: boolean;
+  labelLine?: any;
 }
 
 export interface Legend {

@@ -1,30 +1,36 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
+import { Label } from '../../interface/config';
+import { combineFormatter, getNoopFormatter, getPrecisionFormatter, getSuffixFormatter } from '../../util/formatter';
+import { LooseMap } from '../../interface/types';
 
 export default class LabelParser {
-  public config: DataPointType = {};
-  private plot: any;
-  private originConfig: any;
+  public config: LooseMap = {};
+  protected plot: any;
+  protected originConfig: Label;
 
   constructor(cfg) {
     const { plot, ...rest } = cfg;
     this.plot = plot;
     this.originConfig = rest;
-    this._init(cfg);
+    this.init(cfg);
   }
 
-  private _init(cfg) {
+  public getConfig() {
+    return this.config;
+  }
+
+  protected init(cfg) {
     _.assign(this.config, cfg);
-    this.config.callback = (val) => {
-      return this._parseCallBack(val);
+    this.config.callback = (val, ...restArgs: any[]) => {
+      return this.parseCallBack(val, ...restArgs);
     };
   }
 
-  private _parseCallBack(val) {
+  protected parseCallBack(val, ...restArgs: any[]) {
     const labelProps = this.originConfig;
     const theme = this.plot.getPlotTheme();
-    const config: DataPointType = { ...labelProps };
-    this._parseOffset(labelProps, config);
+    const config: LooseMap = { ...labelProps };
+    this.parseOffset(labelProps, config);
     if (labelProps.position) {
       if (_.isFunction(labelProps.position)) {
         config.position = labelProps.position(val);
@@ -32,9 +38,7 @@ export default class LabelParser {
         config.position = labelProps.position;
       }
     }
-    if (labelProps.formatter) {
-      config.formatter = labelProps.formatter;
-    }
+    this.parseFormatter(config, val, ...restArgs);
     if (labelProps.style) {
       if (_.isFunction(labelProps.style)) {
         config.textStyle = labelProps.style(val);
@@ -50,7 +54,7 @@ export default class LabelParser {
     return config;
   }
 
-  private _parseOffset(props, config) {
+  protected parseOffset(props, config) {
     const mapper = ['offset', 'offsetX', 'offsetY'];
     let count = 0;
     _.each(mapper, (m) => {
@@ -62,6 +66,21 @@ export default class LabelParser {
     // 如用户没有设置offset，而label position又为middle时，则默认设置offset为0
     if (count === 0 && _.get(props, 'position') === 'middle') {
       config.offset = 0;
+    }
+  }
+
+  protected parseFormatter(config: LooseMap, ...values: any[]) {
+    const labelProps = this.originConfig;
+    config.formatter = combineFormatter(
+      getNoopFormatter(),
+      getPrecisionFormatter(labelProps.precision),
+      getSuffixFormatter(labelProps.suffix)
+    );
+    if (labelProps.formatter) {
+      config.formatter = combineFormatter(
+        config.formatter,
+        labelProps.formatter as (text: string, item: any, idx: number) => string
+      );
     }
   }
 }

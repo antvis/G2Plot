@@ -21,7 +21,7 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
     if (_.isString(theme)) {
       return getGlobalTheme(theme);
     }
-    return _.deepMix(getGlobalTheme(), theme);
+    return _.deepMix({}, getGlobalTheme(), theme);
   }
 
   /**

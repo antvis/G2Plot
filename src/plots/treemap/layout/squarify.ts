@@ -28,7 +28,7 @@ export function squarify(root, x, y, width, height) {
     alpha = Math.max(height / width, width / height) / (value * ratio);
     beta = sumValue * sumValue * alpha;
     minRatio = Math.max(maxValue / beta, beta / minValue);
-    for (j = i; j < children.length; j++) {
+    for (j = i + 1; j < children.length; j++) {
       nodeValue = children[j].value;
       sumValue += nodeValue;
       if (nodeValue < minValue) minValue = nodeValue;
@@ -42,8 +42,11 @@ export function squarify(root, x, y, width, height) {
       minRatio = newRatio;
     }
     rows.push((row = { value: sumValue, dice: width < height, children: children.slice(i, j) }));
-    if (row.dice) dice(row, x, y, width, value ? (y += (height * sumValue) / value) : y1);
-    else slice(row, x, y, value ? (x += (width * sumValue) / value) : x1, y1);
+    if (row.dice) {
+      dice(row, x, y, width, value ? (height * sumValue) / value : height);
+    } else {
+      slice(row, x, y, value ? (width * sumValue) / value : width, height);
+    }
     value -= sumValue;
   }
   return rows;

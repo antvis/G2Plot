@@ -1,6 +1,7 @@
 import { mobile } from '../data/mobile';
 import { dice } from '../../src/plots/treemap/layout/dice';
 import { slice } from '../../src/plots/treemap/layout/slice';
+import { squarify } from '../../src/plots/treemap/layout/squarify';
 import * as G from '@antv/g';
 import { each } from '@antv/util';
 
@@ -45,7 +46,7 @@ describe('tree layout', () => {
     canvas.draw();
   });
 
-  it.only('slice layout', () => {
+  it('slice layout', () => {
     const data = mobile[1];
     slice(data, containerBBox.x, containerBBox.y, containerBBox.width, containerBBox.height);
     each(data.children, (d) => {
@@ -62,5 +63,10 @@ describe('tree layout', () => {
       });
     });
     canvas.draw();
+  });
+  it.only('squarify layout', () => {
+    const data = mobile[1];
+    const rows = squarify(data, containerBBox.x, containerBBox.y, containerBBox.width, containerBBox.height);
+    console.log(rows);
   });
 });

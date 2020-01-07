@@ -25,6 +25,7 @@ export { default as Gauge, GaugeConfig } from './plots/gauge';
 export { default as Area, AreaConfig } from './plots/area';
 export { default as StackArea, StackAreaConfig } from './plots/stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './plots/percentage-stack-area';
+export { default as WordCloud, WordCloudConfig } from './plots/word-cloud';
 
 // MINI 图形
 export { TinyLayerConfig } from './tiny-plots/tiny-layer';

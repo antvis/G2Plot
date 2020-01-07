@@ -6,7 +6,7 @@ import { slice } from './slice';
 // 黄金分割
 const ratio = (1 + Math.sqrt(5)) / 2;
 
-export function squarify(root, x, y, width, height) {
+export function squarify(root, x0, y0, x1, y1) {
   const { children } = root;
   let value = root.value;
   children.sort((a, b) => {
@@ -17,17 +17,20 @@ export function squarify(root, x, y, width, height) {
   let alpha, beta;
   let newRatio, minRatio;
   let nodeValue;
-  let i, j;
+  let i = 0,
+    j = 0;
 
   // todo: 剔除empty node
-  for (i = 0; i < children.length - 1; i++) {
-    sumValue = children[i + 1].value;
+  while (i < children.length) {
+    const width = x1 - x0;
+    const height = y1 - y0;
+    sumValue = children[j++].value;
     maxValue = sumValue;
     minValue = sumValue;
     alpha = Math.max(height / width, width / height) / (value * ratio);
     beta = sumValue * sumValue * alpha;
     minRatio = Math.max(maxValue / beta, beta / minValue);
-    for (j = i + 1; j < children.length; j++) {
+    for (; j < children.length; j++) {
       nodeValue = children[j].value;
       sumValue += nodeValue;
       if (nodeValue < minValue) minValue = nodeValue;
@@ -44,15 +47,15 @@ export function squarify(root, x, y, width, height) {
     rows.push(row);
     if (row.dice) {
       const h = value ? (height * sumValue) / value : height;
-      dice(row, x, y, width, h);
+      dice(row, x0, y0, x1, y0 + h);
       if (value) {
-        y += h;
+        y0 += h;
       }
     } else {
       const w = value ? (width * sumValue) / value : width;
-      slice(row, x, y, w, height);
+      slice(row, x0, y0, x0 + w, y1);
       if (value) {
-        x += w;
+        x0 += w;
       }
     }
     value -= sumValue;

@@ -70,7 +70,9 @@ describe('tree layout', () => {
     const rows = squarify(data, containerBBox.x, containerBBox.y, containerBBox.width, containerBBox.height);
     each(rows, (row) => {
       each(row.children, (c) => {
-        drawRect(c.x, c.y, c.width, c.height);
+        const width = c.x1 - c.x0;
+        const height = c.y1 - c.y0;
+        drawRect(c.x0, c.y0, width, height);
       });
     });
   });

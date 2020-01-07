@@ -8,7 +8,18 @@ import Layer from '../../base/layer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const WordCloud = require('./wordcloud2.js');
 
-type CloudShape = 'circle' | 'square' | 'cardioid' | 'diamond' | 'triangle-forward' | 'pentagon' | 'star' | 'antv';
+type CloudShape =
+  | 'circle'
+  | 'square'
+  | 'cardioid'
+  | 'diamond'
+  | 'triangle'
+  | 'triangle-forward'
+  | 'triangle-backward'
+  | 'triangle-up'
+  | 'triangle-down'
+  | 'pentagon'
+  | 'star';
 type Dimension = {
   x: number;
   y: number;

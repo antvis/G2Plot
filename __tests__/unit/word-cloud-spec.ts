@@ -1,4 +1,6 @@
 import { WordCloud, WordCloudConfig } from '../../src';
+import * as _ from '@antv/util';
+import { WordCloudData } from '../../src/plots/word-cloud/layer';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
@@ -465,14 +467,26 @@ describe('Pie plot', () => {
     '2 Higugma\n' +
     '2 ליבע';
 
+  let wordCloudPlot = undefined;
+  const dataList: WordCloudData[] = [];
+
   it('词云图配置项', () => {
-    const dataList = [];
     preData.split('\n').forEach((value) => {
       const v = value.split(' ');
-      dataList.push([v[1], v[0]]);
+      dataList.push({
+        word: v[1],
+        weight: parseInt(v[0]),
+        id: dataList.length,
+      });
     });
 
-    const wordCloudPlot = new WordCloud(canvasDiv, {
+    wordCloudPlot = new WordCloud(canvasDiv, getWordCloudConfig());
+
+    wordCloudPlot.render();
+  });
+
+  function getWordCloudConfig(): WordCloudConfig {
+    return {
       pixelRatio: 2,
       width: 600,
       height: 400,
@@ -481,17 +495,52 @@ describe('Pie plot', () => {
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
       weightFactor: 4,
       color: (word: string, weight: number) => {
-        return weight % 2 === 0 ? '#f02222' : '#c09292';
+        return getRandomColor();
       },
       shape: 'cardioid',
       ellipticity: 1,
       rotateRatio: 0.5,
       rotationSteps: 4,
       gridSize: 8,
-      shuffle: true,
+      shuffle: false,
+      // drawMask: true,
       backgroundColor: '#cceecc',
       wait: 0,
-    } as WordCloudConfig);
-    wordCloudPlot.render();
-  });
+      hoveredId: 0,
+      hover: hoverAction,
+    } as WordCloudConfig;
+  }
+
+  function getRandomColor() {
+    const arr = [
+      '#5B8FF9',
+      '#5AD8A6',
+      '#5D7092',
+      '#F6BD16',
+      '#E8684A',
+      '#6DC8EC',
+      '#9270CA',
+      '#FF9D4D',
+      '#269A99',
+      '#FF99C3',
+    ];
+    return arr[Math.floor(Math.random() * (arr.length - 1))];
+  }
+
+  function hoverAction(item, dimension, evt) {
+    // console.log(item, dimension, evt);
+    // const newCfg = _.deepMix({}, getWordCloudConfig(), { hoveredId: item.id });
+    // wordCloudPlot.updateConfig(newCfg);
+    // wordCloudPlot.render();
+    // const canvas = evt.currentTarget;
+    // const ctx = canvas.getContext('2d');
+    // ctx.save();
+    // ctx.clearRect(dimension.x, dimension.y, dimension.w, dimension.h);
+    // ctx.rect(dimension.x, dimension.y, dimension.w, dimension.h);
+    // ctx.clip();
+    // ctx.shadowColor = 'red';
+    // ctx.shadowBlur = 10;
+    // ctx.fillText(item.word, dimension.x, dimension.y);
+    // ctx.restore();
+  }
 });

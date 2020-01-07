@@ -32,8 +32,14 @@ type MaskImage = {
   maskImageContext: CanvasRenderingContext2D;
 };
 
+export type WordCloudData = {
+  word: string;
+  weight: number;
+  id: number; // index in data array. treat as unique id
+};
+
 export interface WordCloudViewConfig {
-  data: Array<Array<string | number>> | Function;
+  data: Array<WordCloudData> | Function;
   // mask image, black-white pixel image will be better
   maskImage?: string;
   fontFamily?: string;
@@ -55,10 +61,6 @@ export interface WordCloudViewConfig {
   // reset cloud's [x,y]
   origin?: [number, number];
 
-  drawMask?: boolean;
-  maskColor?: string;
-  maskGapWidth?: number;
-
   // wait milliseconds before next item show
   wait?: number;
   // If the call with in the loop takes more than x milliseconds (and blocks the browser), abort immediately.
@@ -74,24 +76,30 @@ export interface WordCloudViewConfig {
   shuffle?: boolean;
   // the ratio of rotate
   rotateRatio?: number;
+  hoveredId?: number;
 
   shape?: CloudShape | Function;
+  // shape's ellipticity [0,1]
   ellipticity?: number;
 
   classes?: (word: string, weight: number) => string;
 
-  hover?: (item: [string, number], dimension: Dimension, evt) => {};
-  click?: (item: [string, number], dimension: Dimension, evt) => {};
+  hover?: (item: WordCloudData, dimension: Dimension, evt) => {};
+  click?: (item: WordCloudData, dimension: Dimension, evt) => {};
+
+  // ONLY FOR DEBUG, DON'T USE US
+  drawMask?: boolean;
+  maskColor?: string;
+  maskGapWidth?: number;
 }
 
 interface WordCloudLayerConfig extends WordCloudViewConfig, LayerConfig {}
 
-export default class WordCloudLayer<T extends WordCloudLayerConfig> extends Layer {
-  public config: WordCloudLayerConfig;
+export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   private _targetCanvas: HTMLCanvasElement;
   constructor(props: WordCloudLayerConfig) {
     super(props);
-    this.config = _.deepMix(
+    this.options = _.deepMix(
       {},
       {
         width: 400,
@@ -104,7 +112,7 @@ export default class WordCloudLayer<T extends WordCloudLayerConfig> extends Laye
   public init() {
     super.init();
     this._targetCanvas = this.canvas.get('el');
-    if (this.config.maskImage) {
+    if (this.options.maskImage) {
       this._handleMaskImage();
     } else {
       // mask image not exist
@@ -114,7 +122,7 @@ export default class WordCloudLayer<T extends WordCloudLayerConfig> extends Laye
 
   private _handleMaskImage() {
     const image = new Image();
-    image.src = this.config.maskImage;
+    image.src = this.options.maskImage;
     image.onload = () => {
       if (image.naturalHeight + image.naturalWidth === 0 || image.width + image.height === 0) {
         this._start();
@@ -124,14 +132,14 @@ export default class WordCloudLayer<T extends WordCloudLayerConfig> extends Laye
       }
     };
     image.onerror = () => {
-      console.error('image %s load failed !!!', this.config.maskImage);
+      console.error('image %s load failed !!!', this.options.maskImage);
       // load image error, ignore this mask
       this._start();
     };
   }
 
   private _start() {
-    WordCloud(this._targetCanvas, this.config);
+    WordCloud(this._targetCanvas, this.options);
   }
 
   private _startWithMaskImage(image: HTMLImageElement) {
@@ -140,7 +148,7 @@ export default class WordCloudLayer<T extends WordCloudLayerConfig> extends Laye
      another canvas and fill the specified background color. */
     const bctx = document.createElement('canvas').getContext('2d');
 
-    bctx.fillStyle = this.config.backgroundColor || '#fff';
+    bctx.fillStyle = this.options.backgroundColor || '#fff';
     bctx.fillRect(0, 0, 1, 1);
     const bgPixel = bctx.getImageData(0, 0, 1, 1).data;
 
@@ -165,15 +173,15 @@ export default class WordCloudLayer<T extends WordCloudLayerConfig> extends Laye
 
     const targetCtx = this._targetCanvas.getContext('2d');
     targetCtx.drawImage(maskImageCanvas, 0, 0);
-    this.config = _.deepMix({}, this.config, { clearCanvas: false });
+    this.options = _.deepMix({}, this.options, { clearCanvas: false });
 
     this._start();
   }
 
   private _scaleMaskImageCanvas(maskImageCanvas: HTMLCanvasElement): MaskImage {
     const maskCanvasScaled = document.createElement('canvas');
-    maskCanvasScaled.width = this.config.width;
-    maskCanvasScaled.height = this.config.height;
+    maskCanvasScaled.width = this.options.width;
+    maskCanvasScaled.height = this.options.height;
     const ctx = maskCanvasScaled.getContext('2d');
     // keep scale smooth
     ctx.imageSmoothingEnabled = true;

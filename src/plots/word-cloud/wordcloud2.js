@@ -209,6 +209,7 @@ if (!window.clearImmediate) {
 
       shuffle: true,
       rotateRatio: 0.1,
+      hoveredId: -1,
 
       shape: 'circle',
       ellipticity: 1,
@@ -710,7 +711,7 @@ if (!window.clearImmediate) {
     };
 
     /* Actually draw the text on the grid */
-    var drawText = function drawText(gx, gy, info, word, weight, distance, theta, rotateDeg, attributes) {
+    var drawText = function drawText(gx, gy, info, word, weight, distance, theta, rotateDeg, attributes, id) {
       var fontSize = info.fontSize;
       var color;
       if (getTextColor) {
@@ -763,6 +764,10 @@ if (!window.clearImmediate) {
           // Here, we use textBaseline = 'middle' and draw the text at exactly
           // 0.5 * fontSize lower.
           ctx.textBaseline = 'middle';
+          if (settings.hoveredId === id) {
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 10;
+          }
           ctx.fillText(word, info.fillTextOffsetX * mu, (info.fillTextOffsetY + fontSize * 0.5) * mu);
 
           // The below box is always matches how <span>s are positioned
@@ -878,7 +883,7 @@ if (!window.clearImmediate) {
        calculate it's size and determine it's position, and actually
        put it on the canvas. */
     var putWord = function putWord(item) {
-      var word, weight, attributes;
+      var word, weight, attributes, id;
       if (Array.isArray(item)) {
         word = item[0];
         weight = item[1];
@@ -886,6 +891,7 @@ if (!window.clearImmediate) {
         word = item.word;
         weight = item.weight;
         attributes = item.attributes;
+        id = item.id;
       }
       var rotateDeg = getRotateDeg();
 
@@ -928,7 +934,7 @@ if (!window.clearImmediate) {
         }
 
         // Actually put the text on the canvas
-        drawText(gx, gy, info, word, weight, maxRadius - r, gxy[2], rotateDeg, attributes);
+        drawText(gx, gy, info, word, weight, maxRadius - r, gxy[2], rotateDeg, attributes, id);
 
         // Mark the spaces on the grid as filled
         updateGrid(gx, gy, gw, gh, info, item);

@@ -4,8 +4,6 @@ describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '400px';
-  canvasDiv.style.left = '30px';
-  canvasDiv.style.top = '30px';
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
@@ -479,18 +477,18 @@ describe('Pie plot', () => {
       width: 600,
       height: 400,
       data: dataList,
-      maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
+      // maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
       weightFactor: 4,
       color: (word: string, weight: number) => {
         return weight % 2 === 0 ? '#f02222' : '#c09292';
       },
-      shape: 'pentagon',
+      shape: 'cardioid',
       ellipticity: 1,
-      drawMask: false,
       rotateRatio: 0.5,
-      rotationSteps: 8,
+      rotationSteps: 4,
       gridSize: 8,
+      shuffle: true,
       backgroundColor: '#cceecc',
       wait: 0,
     } as WordCloudConfig);

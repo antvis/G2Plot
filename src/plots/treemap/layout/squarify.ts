@@ -1,19 +1,18 @@
 import { dice } from './dice';
 import { slice } from './slice';
 
+//reference: https://github.com/d3/d3-hierarchy/blob/master/src/treemap/squarify.js
+
 // 黄金分割
 const ratio = (1 + Math.sqrt(5)) / 2;
 
 export function squarify(root, x, y, width, height) {
-  const x1 = x + width;
-  const y1 = y + height;
   const { children } = root;
   let value = root.value;
   children.sort((a, b) => {
     return b.value - a.value;
   });
   const rows = [];
-  let row;
   let sumValue, maxValue, minValue;
   let alpha, beta;
   let newRatio, minRatio;
@@ -41,13 +40,23 @@ export function squarify(root, x, y, width, height) {
       }
       minRatio = newRatio;
     }
-    rows.push((row = { value: sumValue, dice: width < height, children: children.slice(i, j) }));
+    const row = { value: sumValue, dice: width < height, children: children.slice(i, j) };
+    rows.push(row);
     if (row.dice) {
-      dice(row, x, y, width, value ? (height * sumValue) / value : height);
+      const h = value ? (height * sumValue) / value : height;
+      dice(row, x, y, width, h);
+      if (value) {
+        y += h;
+      }
     } else {
-      slice(row, x, y, value ? (width * sumValue) / value : width, height);
+      const w = value ? (width * sumValue) / value : width;
+      slice(row, x, y, w, height);
+      if (value) {
+        x += w;
+      }
     }
     value -= sumValue;
+    i = j;
   }
   return rows;
 }

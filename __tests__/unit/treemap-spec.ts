@@ -26,6 +26,8 @@ const canvas = new G.Canvas({
   renderer: 'canvas',
 });
 
+const data = processData(mobile);
+
 describe('tree layout', () => {
   it('dice layout', () => {
     const data = mobile[1];
@@ -65,8 +67,35 @@ describe('tree layout', () => {
     canvas.draw();
   });
   it.only('squarify layout', () => {
-    const data = mobile[1];
     const rows = squarify(data, containerBBox.x, containerBBox.y, containerBBox.width, containerBBox.height);
-    console.log(rows);
+    each(rows, (row) => {
+      each(row.children, (c) => {
+        drawRect(c.x, c.y, c.width, c.height);
+      });
+    });
   });
 });
+
+function processData(data) {
+  let sumValue = 0;
+  each(data, (d) => {
+    sumValue += d.value;
+  });
+
+  return { name: 'root', value: sumValue, children: data };
+}
+
+function drawRect(x, y, width, height) {
+  canvas.addShape('rect', {
+    attrs: {
+      x: x,
+      y: y,
+      width: width,
+      height: height,
+      fill: '#ccc',
+      stroke: 'black',
+      lineWidth: 1,
+    },
+  });
+  canvas.draw();
+}

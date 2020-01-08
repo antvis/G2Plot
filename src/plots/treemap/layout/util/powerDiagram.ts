@@ -33,7 +33,7 @@ export function computePowerDiagramIntegrated(sites, boundingSites, clippingPoly
   convexHull.clear();
   convexHull.init(boundingSites, sites);
 
-  const facets = convexHull.compute(sites);
+  const facets = convexHull.compute();
   const polygons = [];
   const verticesVisited = [];
   const facetCount = facets.length;

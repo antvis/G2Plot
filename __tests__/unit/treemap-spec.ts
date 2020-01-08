@@ -7,6 +7,7 @@ import * as G from '@antv/g';
 import { each, clone } from '@antv/util';
 import { triangulation } from '../../src/plots/treemap/layout/util/polygon';
 import { randomPointsInPolygon } from '../../src/plots/treemap/layout/util/random-position';
+import { spiralLayout } from '../../src/plots/treemap/layout/util/spiral-layout';
 
 const canvasDiv = document.createElement('div');
 canvasDiv.style.width = '600px';
@@ -156,7 +157,23 @@ describe('tree layout', () => {
     canvas.draw();
   });
 
-  it.only('weighted voronoi', () => {
+  it.only('spiral layout', () => {
+    const size = 400;
+    const points = spiralLayout(size, 200);
+    each(points, (p) => {
+      canvas.addShape('circle', {
+        attrs: {
+          x: p[0],
+          y: p[1],
+          r: 2,
+          fill: 'black',
+        },
+      });
+      canvas.draw();
+    });
+  });
+
+  it('weighted voronoi', () => {
     const { x, y, width, height } = containerBBox;
     const { children } = data;
     const clipPolygon = [

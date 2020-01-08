@@ -1,15 +1,15 @@
-import {epsilon, dot} from './assist';
-import {Plane3D} from './plane3D';
-import {ConflictList} from './conflictList';
-import {Vector} from './vector';
-import {HEdge} from './hEdges';
+import { epsilon, dot } from './assist';
+import { Plane3D } from './plane3D';
+import { ConflictList } from './conflictList';
+import { Vector } from './vector';
+import { HEdge } from './hEdges';
 
 // IN: Vertices a, b, c
-export function Face (a, b, c, orient?) {
+export function Face(a, b, c, orient?) {
   this.conflicts = new ConflictList(true);
   this.verts = [a, b, c];
   this.marked = false;
-  var t = (a.subtract(b)).crossproduct(b.subtract(c));
+  const t = a.subtract(b).crossproduct(b.subtract(c));
 
   this.normal = new Vector(-t.x, -t.y, -t.z);
   this.normal.normalize();
@@ -24,15 +24,15 @@ export function Face (a, b, c, orient?) {
 // OUT: Point2D
 Face.prototype.getDualPoint = function() {
   if (this.dualPoint == null) {
-    var plane3d = new Plane3D(this);
+    const plane3d = new Plane3D(this);
     this.dualPoint = plane3d.getDualPointMappedToPlane();
   }
   return this.dualPoint;
-}
+};
 
 Face.prototype.isVisibleFromBelow = function() {
-  return (this.normal.z < -1.4259414393190911E-9);
-}
+  return this.normal.z < -1.4259414393190911e-9;
+};
 
 Face.prototype.createEdges = function() {
   this.edges = [];
@@ -45,64 +45,64 @@ Face.prototype.createEdges = function() {
   this.edges[1].prev = this.edges[0];
   this.edges[2].next = this.edges[0];
   this.edges[2].prev = this.edges[1];
-}
+};
 
 // IN: vertex orient
 Face.prototype.orient = function(orient) {
-  if (!(dot(this.normal,orient) < dot(this.normal, this.verts[0]))){
-    var temp = this.verts[1];
+  if (!(dot(this.normal, orient) < dot(this.normal, this.verts[0]))) {
+    const temp = this.verts[1];
     this.verts[1] = this.verts[2];
     this.verts[2] = temp;
     this.normal.negate();
     this.createEdges();
   }
-}
+};
 
 // IN: two vertices v0 and v1
 Face.prototype.getEdge = function(v0, v1) {
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     if (this.edges[i].isEqual(v0, v1)) {
       return this.edges[i];
     }
   }
   return null;
-}
+};
 
 // IN: Face face, vertices v0 and v1
 Face.prototype.link = function(face, v0, v1) {
   if (face instanceof Face) {
-    var twin = face.getEdge(v0, v1);
+    const twin = face.getEdge(v0, v1);
     if (twin === null) {
-      console.log("ERROR: when linking, twin is null");
+      console.log('ERROR: when linking, twin is null');
     }
-    var edge = this.getEdge(v0, v1);
+    const edge = this.getEdge(v0, v1);
     if (edge === null) {
-      console.log("ERROR: when linking, edge is null");
+      console.log('ERROR: when linking, edge is null');
     }
     twin.twin = edge;
     edge.twin = twin;
   } else {
-    var twin = face; // face is a hEdge
-    var edge = this.getEdge(twin.orig, twin.dest);
+    const twin = face; // face is a hEdge
+    const edge = this.getEdge(twin.orig, twin.dest);
     twin.twin = edge;
     edge.twin = twin;
   }
-}
+};
 
 // IN: vertex v
 Face.prototype.conflict = function(v) {
-  return (dot(this.normal, v) > dot(this.normal, this.verts[0]) + epsilon);
-}
+  return dot(this.normal, v) > dot(this.normal, this.verts[0]) + epsilon;
+};
 
 Face.prototype.getHorizon = function() {
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     if (this.edges[i].twin !== null && this.edges[i].twin.isHorizon()) {
       return this.edges[i];
     }
   }
   return null;
-}
+};
 
 Face.prototype.removeConflict = function() {
   this.conflicts.removeAll();
-}
+};

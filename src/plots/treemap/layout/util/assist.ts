@@ -1,4 +1,4 @@
-export var epsilon = 1e-10;
+export const epsilon = 1e-10;
 
 export function epsilonesque(n) {
   return n <= epsilon && n >= -epsilon;
@@ -25,7 +25,7 @@ export function linearDependent(v0, v1) {
 // OUT: true if the set defines a convex polygon (non-intersecting, hole-free, non-concave)
 // from https://gist.github.com/annatomka/82715127b74473859054, adapted to [x,y] syntax (instead of {x: ..., y: ...}) and optimizations
 export function polygonDirection(polygon) {
-  var direction, sign, crossproduct, p0, p1, p2, v0, v1, i;
+  let direction, crossproduct, p0, p1, p2, v0, v1, i;
 
   //begin: initialization
   p0 = polygon[polygon.length - 2];
@@ -35,7 +35,7 @@ export function polygonDirection(polygon) {
   v1 = vect(p1, p2);
   crossproduct = calculateCrossproduct(v0, v1);
   // console.log(`[[${p0}], [${p1}], [${p2}]] => (${v0}) x (${v1}) = ${crossproduct}`);
-  sign = Math.sign(crossproduct);
+  const sign = Math.sign(crossproduct);
   //end: initialization
 
   p0 = p1; // p0 = polygon[polygon.length - 1];
@@ -74,7 +74,7 @@ function calculateCrossproduct(v0, v1) {
   return v0[0] * v1[1] - v0[1] * v1[0];
 }
 
-export function extent (values, valueof?) {
+export function extent(values, valueof?) {
   let min;
   let max;
   if (valueof === undefined) {

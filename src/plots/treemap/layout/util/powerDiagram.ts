@@ -1,23 +1,22 @@
-import {polygonLength} from './polygon';
-import {epsilon} from './assist';
-import {Vertex} from './vertex';
-import {ConvexHull} from './convexHull';
-import {polygonClip} from './polygon-clip';
+import { polygonLength } from './polygon';
+import { epsilon } from './assist';
+import { ConvexHull } from './convexHull';
+import { polygonClip } from './polygon-clip';
 
 // IN: HEdge edge
 function getFacesOfDestVertex(edge) {
-  var faces = [];
-  var previous = edge;
-  var first = edge.dest;
-  var site = first.originalObject;
-  var neighbours = [];
+  const faces = [];
+  let previous = edge;
+  const first = edge.dest;
+  const site = first.originalObject;
+  const neighbours = [];
   do {
     previous = previous.twin.prev;
-    var siteOrigin = previous.orig.originalObject;
+    const siteOrigin = previous.orig.originalObject;
     if (!siteOrigin.isDummy) {
       neighbours.push(siteOrigin);
     }
-    var iFace = previous.iFace;
+    const iFace = previous.iFace;
     if (iFace.isVisibleFromBelow()) {
       faces.push(iFace);
     }
@@ -29,24 +28,24 @@ function getFacesOfDestVertex(edge) {
 // IN: Omega = convex bounding polygon
 // IN: S = unique set of sites with weights
 // OUT: Set of lines making up the voronoi power diagram
-export function computePowerDiagramIntegrated (sites, boundingSites, clippingPolygon) {
-  var convexHull = new ConvexHull();
+export function computePowerDiagramIntegrated(sites, boundingSites, clippingPolygon) {
+  const convexHull = new ConvexHull();
   convexHull.clear();
   convexHull.init(boundingSites, sites);
 
-  var facets = convexHull.compute(sites);
-  var polygons = []; 
-  var verticesVisited = [];
-  var facetCount = facets.length;
+  const facets = convexHull.compute(sites);
+  const polygons = [];
+  const verticesVisited = [];
+  const facetCount = facets.length;
 
-  for (var i = 0; i < facetCount; i++) {
-    var facet = facets[i];
+  for (let i = 0; i < facetCount; i++) {
+    const facet = facets[i];
     if (facet.isVisibleFromBelow()) {
-      for (var e = 0; e < 3; e++) {
+      for (let e = 0; e < 3; e++) {
         // go through the edges and start to build the polygon by going through the double connected edge list
-        var edge = facet.edges[e];
-        var destVertex = edge.dest;
-        var site = destVertex.originalObject; 
+        const edge = facet.edges[e];
+        const destVertex = edge.dest;
+        const site = destVertex.originalObject;
 
         if (!verticesVisited[destVertex.index]) {
           verticesVisited[destVertex.index] = true;
@@ -55,16 +54,16 @@ export function computePowerDiagramIntegrated (sites, boundingSites, clippingPol
             continue;
           }
           // faces around the vertices which correspond to the polygon corner points
-          var faces = getFacesOfDestVertex(edge);
-          var protopoly = [];
-          var lastX = null;
-          var lastY = null;
-          var dx = 1;
-          var dy = 1;
-          for (var j = 0; j < faces.length; j++) {
-            var point = faces[j].getDualPoint();
-            var x1 = point.x;
-            var y1 = point.y;
+          const faces = getFacesOfDestVertex(edge);
+          const protopoly = [];
+          let lastX = null;
+          let lastY = null;
+          let dx = 1;
+          let dy = 1;
+          for (let j = 0; j < faces.length; j++) {
+            const point = faces[j].getDualPoint();
+            const x1 = point.x;
+            const y1 = point.y;
             if (lastX !== null) {
               dx = lastX - x1;
               dy = lastY - y1;
@@ -81,10 +80,10 @@ export function computePowerDiagramIntegrated (sites, boundingSites, clippingPol
               lastY = y1;
             }
           }
-          
+
           site.nonClippedPolygon = protopoly.reverse();
           if (!site.isDummy && polygonLength(site.nonClippedPolygon) > 0) {
-            var clippedPoly = polygonClip(clippingPolygon, site.nonClippedPolygon);
+            const clippedPoly = polygonClip(clippingPolygon, site.nonClippedPolygon);
             site.polygon = clippedPoly;
             clippedPoly.site = site;
             if (clippedPoly.length > 0) {

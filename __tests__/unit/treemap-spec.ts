@@ -69,7 +69,7 @@ describe('tree layout', () => {
     });
     canvas.draw();
   });
-  it.only('squarify layout', () => {
+  it('squarify layout', () => {
     const rows = squarify(data, containerBBox.x, containerBBox.y, containerBBox.width, containerBBox.height);
     each(rows, (row) => {
       each(row.children, (c) => {
@@ -156,7 +156,7 @@ describe('tree layout', () => {
     canvas.draw();
   });
 
-  it('weighted voronoi', () => {
+  it.only('weighted voronoi', () => {
     const { x, y, width, height } = containerBBox;
     const { children } = data;
     const clipPolygon = [
@@ -171,12 +171,7 @@ describe('tree layout', () => {
       c.y = randomPoints[index][1];
       c.weight = c.value / data.value;
     });
-    const voronoi = weightedVoronoi(data);
-    // voronoi.x((d)=>{ return d.x;});
-    // voronoi.y((d)=>{ return d.y; });
-    // voronoi.weight((d)=>{ return d.weight});
-    voronoi.clip(clipPolygon);
-    const cells = voronoi.run(data.children);
+    const cells = weightedVoronoi(data.children, clipPolygon);
     each(cells, (c) => {
       const path = [];
       each(c, (p, index) => {

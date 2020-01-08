@@ -2,8 +2,48 @@ import { BBox } from '@antv/g';
 import * as matrixUtil from '@antv/matrix-util';
 import * as _ from '@antv/util';
 
+function magnitude(v){
+  let sum = 0;
+  _.each(v,(value)=>{
+    sum += (value * value);
+  })
+  return Math.sqrt(sum);
+
+}
+
 function dotProduct2D(va, vb) {
   return va.x * vb.y + va.y * vb.x;
+}
+
+function angleTo(va,vb){
+  const magA = magnitude(va);
+  const magB = magnitude(vb);
+  const dot = dotProduct2D(va,vb);
+  const angle = Math.acos(dot/magA/magB);
+  return angle;
+}
+
+function crossProduct2D(va,vb) {
+  const magA = magnitude(va);
+  const magB = magnitude(vb);
+  const dot = dotProduct2D(va,vb);
+  const angle = Math.acos(dot/magA/magB);
+  return magA * magB * Math.sin(angle);
+}
+
+function crossProduct3D(va,vb) {
+  const ax = va.x, ay = va.y, az = va.z;
+	const bx = vb.x, by = vb.y, bz = vb.z;
+
+  const x = ay * bz - az * by;
+  const y = az * bx - ax * bz;
+  const z = ax * by - ay * bx;
+  
+  return {x,y,z};
+}
+
+function sub2D(va,vb){
+  return { x: va.x - vb.x, y: va.y-vb.y};
 }
 
 function applyMatrix(point, matrix, tag = 1) {
@@ -274,7 +314,7 @@ function sturges(values) {
   return Math.ceil(Math.log(values.length) / Math.LN2) + 1;
 }
 
-function linearRegression() {}
+
 
 export {
   applyMatrix,
@@ -286,9 +326,13 @@ export {
   minDistBetweenConvexPolygon,
   bboxOnRotate,
   dotProduct2D,
+  crossProduct2D,
+  crossProduct3D,
+  sub2D,
+  angleTo,
   lineSimplification,
   getMedian,
   getMean,
   sturges,
-  linearRegression,
+  dist2
 };

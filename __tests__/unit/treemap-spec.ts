@@ -2,6 +2,7 @@ import { mobile } from '../data/mobile';
 import { dice } from '../../src/plots/treemap/layout/dice';
 import { slice } from '../../src/plots/treemap/layout/slice';
 import { squarify } from '../../src/plots/treemap/layout/squarify';
+import { weightedVoronoi } from '../../src/plots/treemap/layout/weighted-voronoi';
 import * as G from '@antv/g';
 import { each } from '@antv/util';
 
@@ -66,7 +67,7 @@ describe('tree layout', () => {
     });
     canvas.draw();
   });
-  it.only('squarify layout', () => {
+  it('squarify layout', () => {
     const rows = squarify(data, containerBBox.x, containerBBox.y, containerBBox.width, containerBBox.height);
     each(rows, (row) => {
       each(row.children, (c) => {
@@ -74,6 +75,38 @@ describe('tree layout', () => {
         const height = c.y1 - c.y0;
         drawRect(c.x0, c.y0, width, height);
       });
+    });
+  });
+
+  it.only('weighted voronoi',()=>{
+    const {x,y,width,height} = containerBBox;
+    const { children } = data;
+    each(children,(c)=>{
+      c.x = x + Math.random() * width;
+      c.y = y + Math.random() * height;
+      c.weight = c.value / data.value;
+    });
+    const voronoi = weightedVoronoi(data);
+    // voronoi.x((d)=>{ return d.x;});
+    // voronoi.y((d)=>{ return d.y; });
+    // voronoi.weight((d)=>{ return d.weight});
+    voronoi.clip([[x,y], [x,height], [width, height], [width,y]]);
+    const cells = voronoi.run(data.children);
+    each(cells,(c)=>{
+      const path = [];
+      each(c,(p,index)=>{
+        const flag = (index === 0) ? 'M' : 'L';
+        path.push([flag,p[0],p[1]]);
+      });
+      canvas.addShape('path',{
+        attrs:{
+          path,
+          fill:'#ccc',
+          stroke:'black',
+          lineWidth: 1
+        }
+      });
+      canvas.draw();
     });
   });
 });

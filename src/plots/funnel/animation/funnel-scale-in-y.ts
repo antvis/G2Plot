@@ -3,6 +3,8 @@ import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
 
 function funnelScaleInY(shape, animateCfg, coord) {
+  const { duration = 200, easing, callback } = animateCfg || {};
+
   const box = shape.getBBox();
   const originX = (box.minX + box.maxX) / 2;
   const originY = box.maxY;
@@ -25,24 +27,26 @@ function funnelScaleInY(shape, animateCfg, coord) {
     {
       matrix: clipTargetMatrix,
     },
-    animateCfg.duration,
-    animateCfg.easing,
+    duration,
+    easing,
     () => {
       clip.remove();
       shape.attr('clip', null);
     },
-    shapeIndex * animateCfg.duration
+    shapeIndex * duration
   );
 
   shape.animate(
     {
       fillOpacity: shapeTargetFillOpacity,
     },
-    animateCfg.duration,
-    animateCfg.easing,
-    () => animateCfg.callback && animateCfg.callback(shape),
-    shapeIndex * animateCfg.duration
+    duration,
+    easing,
+    null,
+    shapeIndex * duration
   );
+
+  callback && setTimeout(() => callback(shape), duration + shapeIndex * duration);
 }
 
 function getClip(coord) {

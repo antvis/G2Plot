@@ -280,7 +280,24 @@ export interface IScrollBarInteractionConfig {
   categorySize?: number;
 }
 
-export type IInteractionConfig = IScrollBarInteractionConfig | ISliderInteractionConfig;
+export interface IPlayLineInteractionConfig {
+  /** 绑定字段，必须传 */
+  field: string;
+  /** 是否循环播放，默认 false */
+  loop?: boolean;
+  /** 播放速度 */
+  speed?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: [number, number, number, number];
+  /** 当前仅支持 horizontal，只放置在图表底部 */
+  // type?: 'horizontal';
+  /** 宽度，在 vertical 下生效 */
+  // width?: number;
+}
+
+export type IInteractionConfig = IScrollBarInteractionConfig | ISliderInteractionConfig | IPlayLineInteractionConfig;
 
 export interface IInteractions {
   type: string;

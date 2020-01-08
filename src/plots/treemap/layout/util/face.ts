@@ -9,7 +9,7 @@ export class Face {
   public verts: any[];
   public edges: any[];
   public marked: boolean;
-  private normal: any;
+  public normal: any;
   private dualPoint: any;
 
   constructor(a, b, c, orient?) {
@@ -70,7 +70,7 @@ export class Face {
     return null;
   }
 
-  public link(face, v0, v1) {
+  public link(face, v0?, v1?) {
     if (face instanceof Face) {
       const twin = face.getEdge(v0, v1);
       if (twin === null) {

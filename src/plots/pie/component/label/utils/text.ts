@@ -30,8 +30,9 @@ export const measureTextWidth = _.memoize(
  * @param text 需要计算的文本, 由于历史原因 除了支持string，还支持空值,number和数组等
  * @param maxWidth
  * @param font
+ * TODO 后续更新省略算法
  */
-export const getEllipsisText = (text: any, maxWidth: number, font?: Font) => {
+export const getEllipsisText = (text: any, maxWidth: number, font: Font, priority?: string[]) => {
   const STEP = 16; // 每次 16，调参工程师
   const DOT_WIDTH = measureTextWidth('...', font);
 

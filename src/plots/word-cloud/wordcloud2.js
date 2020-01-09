@@ -913,6 +913,11 @@ if (!window.clearImmediate) {
           continue;
         }
 
+        // save item's color from info
+        const find = getInteractionItemById(info.item.id);
+        if (find) {
+          info.item.color = find.color;
+        }
         fillGridAt(px, py, drawMask, dimension, info.item);
       }
 

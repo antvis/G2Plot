@@ -10,6 +10,11 @@ import { registerPlotType } from '../../base/global';
 export interface WordCloudConfig extends WordCloudViewConfig, PlotConfig {}
 
 export default class WordCloud extends BasePlot<WordCloudConfig> {
+  constructor(container: HTMLElement, props: WordCloudConfig) {
+    // only canvas works for now
+    props.renderer = 'canvas';
+    super(container, props);
+  }
   public createLayers(props) {
     const layerProps = _.deepMix({}, props);
     layerProps.type = 'wordCloud';

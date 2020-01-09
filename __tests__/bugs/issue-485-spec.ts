@@ -69,12 +69,20 @@ describe('#485 饼图 outer-label 绘制错误', () => {
       return Math.sqrt(delta_x * delta_x + delta_y * delta_y);
     }
 
-    const center = piePlot.getLayer().view.get('coord').getCenter();
-    const radius = piePlot.getLayer().view.get('coord').getRadius();
-    expect(_.every(labels, (label: Shape) => {
-      const box = label.getBBox();
-      const labelCenter = { x: box.x + box.width / 2, y: box.y + box.height / 2};
-      return distanceOfPoints(center, labelCenter) > radius; 
-    })).toBe(true);
+    const center = piePlot
+      .getLayer()
+      .view.get('coord')
+      .getCenter();
+    const radius = piePlot
+      .getLayer()
+      .view.get('coord')
+      .getRadius();
+    expect(
+      _.every(labels, (label: Shape) => {
+        const box = label.getBBox();
+        const labelCenter = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+        return distanceOfPoints(center, labelCenter) > radius;
+      })
+    ).toBe(true);
   });
 });

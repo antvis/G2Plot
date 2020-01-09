@@ -12,6 +12,7 @@ import { ElementOption, DataItem } from '../../interface/config';
 import './theme';
 import './component/label/funnel-label';
 import './animation/funnel-scale-in-y';
+import FunnelLabelParser from './component/label/funnel-label-parser';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -251,8 +252,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       return false;
     }
 
-    const labelConfig = getComponent(
-      'label',
+    const labelConfig = new FunnelLabelParser(
       _.deepMix(
         {
           textStyle: {
@@ -270,16 +270,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           fields: [props.xField, props.yField],
         }
       )
-    );
-
-    const callback = labelConfig.callback.bind(labelConfig);
-    labelConfig.callback = (xValue, yValue) => {
-      const config = callback(xValue, yValue);
-      if (_.isFunction(label.formatter)) {
-        config.formatter = (text, item, idx) => label.formatter(xValue, yValue, item, idx);
-      }
-      return config;
-    };
+    ).getConfig();
 
     return labelConfig;
   }

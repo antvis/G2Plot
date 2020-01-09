@@ -14,6 +14,9 @@ const funnelPlot = new g2plot.Funnel(document.getElementById('canvas'), {
   data,
   xField: 'action',
   yField: 'pv',
+  label: {
+    visible: true,
+  },
 });
 funnelPlot.render();
 

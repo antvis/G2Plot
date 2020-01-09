@@ -491,7 +491,7 @@ describe('WordCloud plot', () => {
       width: 600,
       height: 400,
       data: dataList,
-      maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
+      // maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
       weightFactor: 4,
       color: (word: string, weight: number) => {
@@ -510,7 +510,8 @@ describe('WordCloud plot', () => {
       backgroundColor: '#fff',
       wait: 0,
 
-      enableHoverInteraction: true,
+      enableToolTips: true,
+      enableEmphasis: true,
       hoveredId: -1,
       shadowColor: '#333333',
       shadowBlur: 10,

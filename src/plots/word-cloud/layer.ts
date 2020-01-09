@@ -87,7 +87,8 @@ export interface WordCloudViewConfig {
   rotateRatio?: number;
 
   // hover interaction item id
-  enableHoverInteraction?: boolean;
+  enableEmphasis?: boolean;
+  enableToolTips?: boolean;
   hoveredId?: number;
   shadowColor?: string;
   shadowBlur?: number;
@@ -113,22 +114,23 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   private _targetCanvas: HTMLCanvasElement;
   private _toolTips: WordCloudTooltips;
   private readonly _configHoverAction: Function;
-  private readonly _enableHoverInteraction: boolean;
+  private readonly _enableToolTips: boolean;
 
   constructor(props: WordCloudLayerConfig) {
     super(props);
     this._configHoverAction = props.hover;
-    this._enableHoverInteraction = props.enableHoverInteraction;
+    this._enableToolTips = props.enableToolTips;
     this.options = _.deepMix(
       {},
       {
         width: 400,
         height: 400,
-      } as LayerConfig,
+        enableToolTips: true,
+      },
       props,
       // replace use config's hover action if needed, and trigger later
       {
-        hover: this._enableHoverInteraction ? this._hoverAction : this._configHoverAction,
+        hover: this._enableToolTips ? this._toolTipsAction : this._configHoverAction,
       }
     );
   }
@@ -139,7 +141,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     this._render();
   }
 
-  private _hoverAction = (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {
+  private _toolTipsAction = (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {
     if (dimension) {
       this._toolTips.setContent('', [
         // @ts-ignore

@@ -1,12 +1,12 @@
 import * as _ from '@antv/util';
 import { BBox, Group } from '@antv/g';
-import { PlayLine } from '@antv/gui';
+import { TimeLine } from '@antv/gui';
 import BaseInteraction from './base';
-import { IPlayLineInteractionConfig } from '../interface/config';
+import { ITimeLineInteractionConfig } from '../interface/config';
 
 const DEFAULT_HEIGHT = 40;
 
-function getValidPlayLineConfig(interaction: IPlayLineInteractionConfig): Required<IPlayLineInteractionConfig> {
+function getValidTimeLineConfig(interaction: ITimeLineInteractionConfig): Required<ITimeLineInteractionConfig> {
   return {
     loop: false,
     height: DEFAULT_HEIGHT,
@@ -16,19 +16,19 @@ function getValidPlayLineConfig(interaction: IPlayLineInteractionConfig): Requir
   };
 }
 
-export default class PlayLineInteraction extends BaseInteraction {
-  private playline: PlayLine;
+export default class TimeLineInteraction extends BaseInteraction {
+  private timeline: TimeLine;
   private container: Group;
   private onChangeFn: (tick: string) => void = _.throttle(this.onChange.bind(this), 20, { leading: true }) as (
     tick: string
   ) => void;
-  private config: IPlayLineInteractionConfig;
+  private config: ITimeLineInteractionConfig;
   private origAnimation: any;
-  private playLineConfig: any;
+  private timeLineConfig: any;
 
-  /** PlayLineInteraction new 时的范围参数 interactionRange */
-  public static getInteractionRange(layerRange: BBox, interaction: IPlayLineInteractionConfig): BBox {
-    const config: IPlayLineInteractionConfig = getValidPlayLineConfig(interaction);
+  /** TimeLineInteraction new 时的范围参数 interactionRange */
+  public static getInteractionRange(layerRange: BBox, interaction: ITimeLineInteractionConfig): BBox {
+    const config: ITimeLineInteractionConfig = getValidTimeLineConfig(interaction);
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = config.padding;
 
     return new BBox(
@@ -39,8 +39,8 @@ export default class PlayLineInteraction extends BaseInteraction {
     );
   }
 
-  private renderPlayLine() {
-    this.config = getValidPlayLineConfig(this.getInteractionConfig() as IPlayLineInteractionConfig);
+  private renderTimeLine() {
+    this.config = getValidTimeLineConfig(this.getInteractionConfig() as ITimeLineInteractionConfig);
 
     const viewRange: BBox = this.view.get('viewRange');
     const { loop, padding, speed } = this.config;
@@ -49,7 +49,7 @@ export default class PlayLineInteraction extends BaseInteraction {
 
     const ticks = this.getTicks();
     const width = viewRange.width - paddingLeft - paddingRight;
-    const playLineConfig = {
+    const timeLineConfig = {
       x: viewRange.minX + paddingLeft,
       y: range.tl.y + paddingTop,
       width,
@@ -60,26 +60,26 @@ export default class PlayLineInteraction extends BaseInteraction {
       defaultCurrentTick: ticks[0],
     };
 
-    if (this.playline) {
-      if (!_.isEqual(playLineConfig, this.playLineConfig)) {
-        this.playline.update(playLineConfig);
-        this.playLineConfig = playLineConfig;
+    if (this.timeline) {
+      if (!_.isEqual(timeLineConfig, this.timeLineConfig)) {
+        this.timeline.update(timeLineConfig);
+        this.timeLineConfig = timeLineConfig;
       }
     } else {
       this.container = this.canvas.addGroup();
 
-      this.playline = new PlayLine(playLineConfig);
-      this.playline.on('playlinestart', () => {
+      this.timeline = new TimeLine(timeLineConfig);
+      this.timeline.on('timelinestart', () => {
         this.origAnimation = this.view.get('animation');
         this.view.animate(false);
       });
-      this.playline.on('playlineend', () => {
+      this.timeline.on('timelineend', () => {
         this.view.animate(this.origAnimation);
       });
-      this.playline.on('playlinechange', this.onChangeFn);
-      this.container.add(this.playline);
+      this.timeline.on('timelinechange', this.onChangeFn);
+      this.container.add(this.timeline);
       this.view.set('data', this.getFilterData(ticks[0]));
-      this.playLineConfig = playLineConfig;
+      this.timeLineConfig = timeLineConfig;
     }
   }
 
@@ -100,17 +100,17 @@ export default class PlayLineInteraction extends BaseInteraction {
     return _.uniq(data.map((item) => item[field]));
   }
 
-  /** 渲染 playline */
+  /** 渲染 timeline */
   protected render(): void {
     this.view.on('beforerender', () => {
-      this.renderPlayLine();
+      this.renderTimeLine();
     });
   }
 
   protected clear(): void {
-    if (this.playline) {
-      this.playline.destroy();
-      this.playline = null;
+    if (this.timeline) {
+      this.timeline.destroy();
+      this.timeline = null;
     }
     if (this.container) {
       this.container.remove(true);

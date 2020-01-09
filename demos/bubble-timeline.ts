@@ -44,7 +44,7 @@ $.get('./data/life-expectancy.json', function(data) {
     },
     interactions: [
       {
-        type: 'playline',
+        type: 'timeline',
         cfg: {
           field: 'year',
         },

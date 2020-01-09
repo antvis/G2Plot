@@ -209,16 +209,22 @@ if (!window.clearImmediate) {
 
       shuffle: true,
       rotateRatio: 0.1,
-      hoveredId: -1,
 
       shape: 'circle',
       ellipticity: 1,
+
+      enableHoverInteraction: true,
+      hoveredId: -1,
+      shadowColor: '#333',
+      shadowBlur: 10,
 
       classes: null,
 
       hover: null,
       click: null,
     };
+
+    const interactionItems = [];
 
     if (options) {
       for (var key in options) {
@@ -421,6 +427,14 @@ if (!window.clearImmediate) {
       return infoGrid[x][y];
     };
 
+    var defaultHoverAction = function defaultHoverAction(item, dimension, evt, start) {
+      if (item) {
+        start(item.id);
+      } else {
+        start(-1);
+      }
+    };
+
     var wordcloudhover = function wordcloudhover(evt) {
       var info = getInfoGridFromMouseTouchEvent(evt);
 
@@ -428,14 +442,19 @@ if (!window.clearImmediate) {
         return;
       }
 
-      hovered = info;
       if (!info) {
-        settings.hover(undefined, undefined, evt);
-
+        settings.hover(undefined, undefined, evt, start);
+        if (settings.enableHoverInteraction) {
+          defaultHoverAction(undefined, undefined, evt, start);
+        }
         return;
       }
 
-      settings.hover(info.item, info.dimension, evt);
+      settings.hover(info.item, info.dimension, evt, start);
+      if (settings.enableHoverInteraction) {
+        defaultHoverAction(info.item, info.dimension, evt, start);
+      }
+      hovered = info;
     };
 
     var wordcloudclick = function wordcloudclick(evt) {
@@ -711,20 +730,25 @@ if (!window.clearImmediate) {
     };
 
     /* Actually draw the text on the grid */
-    var drawText = function drawText(gx, gy, info, word, weight, distance, theta, rotateDeg, attributes, id) {
+    var drawText = function drawText(gx, gy, info, word, weight, distance, theta, rotateDeg, attributes, id, refresh) {
       var fontSize = info.fontSize;
-      var color;
-      if (getTextColor) {
-        color = getTextColor(word, weight, fontSize, distance, theta);
-      } else {
-        color = settings.color;
-      }
+      var color = settings.color;
+      var classes = settings.classes;
+      if (!refresh) {
+        if (getTextColor) {
+          color = getTextColor(word, weight, fontSize, distance, theta);
+        } else {
+          color = settings.color;
+        }
 
-      var classes;
-      if (getTextClasses) {
-        classes = getTextClasses(word, weight, fontSize, distance, theta);
+        if (getTextClasses) {
+          classes = getTextClasses(word, weight, fontSize, distance, theta);
+        } else {
+          classes = settings.classes;
+        }
       } else {
-        classes = settings.classes;
+        const find = getInteractionItemById(id);
+        color = find ? find.color : settings.color;
       }
 
       var dimension;
@@ -743,14 +767,17 @@ if (!window.clearImmediate) {
 
           // Save the current state before messing it
           ctx.save();
+          const font = settings.fontWeight + ' ' + (fontSize * mu).toString(10) + 'px ' + settings.fontFamily;
           ctx.scale(1 / mu, 1 / mu);
 
-          ctx.font = settings.fontWeight + ' ' + (fontSize * mu).toString(10) + 'px ' + settings.fontFamily;
+          ctx.font = font;
           ctx.fillStyle = color;
 
           // Translate the canvas position to the origin coordinate of where
           // the text should be put.
-          ctx.translate((gx + info.gw / 2) * g * mu, (gy + info.gh / 2) * g * mu);
+          let transX = (gx + info.gw / 2) * g * mu;
+          let transY = (gy + info.gh / 2) * g * mu;
+          ctx.translate(transX, transY);
 
           if (rotateDeg !== 0) {
             ctx.rotate(-rotateDeg);
@@ -765,15 +792,30 @@ if (!window.clearImmediate) {
           // 0.5 * fontSize lower.
           ctx.textBaseline = 'middle';
           if (settings.hoveredId === id) {
-            ctx.shadowColor = color;
-            ctx.shadowBlur = 10;
+            ctx.shadowColor = settings.shadowColor;
+            ctx.shadowBlur = settings.shadowBlur;
           }
           ctx.fillText(word, info.fillTextOffsetX * mu, (info.fillTextOffsetY + fontSize * 0.5) * mu);
 
           // The below box is always matches how <span>s are positioned
-          /* ctx.strokeRect(info.fillTextOffsetX, info.fillTextOffsetY,
-            info.fillTextWidth, info.fillTextHeight); */
+          // ctx.strokeRect(info.fillTextOffsetX, info.fillTextOffsetY,
+          //   info.fillTextWidth, info.fillTextHeight);
 
+          if (!refresh) {
+            interactionItems.push({
+              gx: gx,
+              gy: gy,
+              info: info,
+              word: word,
+              weight: weight,
+              distance: distance,
+              theta: theta,
+              rotateDeg: rotateDeg,
+              attributes: attributes,
+              id: id,
+              color: color,
+            });
+          }
           // Restore the state.
           ctx.restore();
         } else {
@@ -841,7 +883,7 @@ if (!window.clearImmediate) {
 
     /* Update the filling information of the given space with occupied points.
        Draw the mask on the canvas if necessary. */
-    var updateGrid = function updateGrid(gx, gy, gw, gh, info, item) {
+    var updateGrid = function updateGrid(gx, gy, gw, gh, info) {
       var occupied = info.occupied;
       var drawMask = settings.drawMask;
       var ctx;
@@ -871,12 +913,47 @@ if (!window.clearImmediate) {
           continue;
         }
 
-        fillGridAt(px, py, drawMask, dimension, item);
+        fillGridAt(px, py, drawMask, dimension, info.item);
       }
 
       if (drawMask) {
         ctx.restore();
       }
+    };
+
+    var tryToPutWordAtPoint = function tryToPutWordAtPoint(
+      gxy,
+      info,
+      word,
+      weight,
+      distance,
+      rotateDeg,
+      attributes,
+      id
+    ) {
+      var gx = Math.floor(gxy[0] - info.gw / 2);
+      var gy = Math.floor(gxy[1] - info.gh / 2);
+      var gw = info.gw;
+      var gh = info.gh;
+
+      // If we cannot fit the text at this position, return false
+      // and go to the next position.
+      if (!canFitText(gx, gy, gw, gh, info.occupied)) {
+        return false;
+      }
+
+      // Actually put the text on the canvas
+      drawText(gx, gy, info, word, weight, distance, gxy[2], rotateDeg, attributes, id, false);
+
+      // Mark the spaces on the grid as filled
+      updateGrid(gx, gy, gw, gh, info);
+
+      return {
+        gx: gx,
+        gy: gy,
+        rot: rotateDeg,
+        info: info,
+      };
     };
 
     /* putWord() processes each item on the list,
@@ -897,6 +974,7 @@ if (!window.clearImmediate) {
 
       // get info needed to put the text onto the canvas
       var info = getTextInfo(word, weight, rotateDeg);
+      info['item'] = item;
 
       // not getting the info means we shouldn't be drawing this one.
       if (!info) {
@@ -921,32 +999,6 @@ if (!window.clearImmediate) {
       // start looking for the nearest points
       var r = maxRadius + 1;
 
-      var tryToPutWordAtPoint = function(gxy) {
-        var gx = Math.floor(gxy[0] - info.gw / 2);
-        var gy = Math.floor(gxy[1] - info.gh / 2);
-        var gw = info.gw;
-        var gh = info.gh;
-
-        // If we cannot fit the text at this position, return false
-        // and go to the next position.
-        if (!canFitText(gx, gy, gw, gh, info.occupied)) {
-          return false;
-        }
-
-        // Actually put the text on the canvas
-        drawText(gx, gy, info, word, weight, maxRadius - r, gxy[2], rotateDeg, attributes, id);
-
-        // Mark the spaces on the grid as filled
-        updateGrid(gx, gy, gw, gh, info, item);
-
-        return {
-          gx: gx,
-          gy: gy,
-          rot: rotateDeg,
-          info: info,
-        };
-      };
-
       while (r--) {
         var points = getPointsAtRadius(maxRadius - r);
 
@@ -959,7 +1011,7 @@ if (!window.clearImmediate) {
         // array.some() will stop and return true
         // when putWordAtPoint() returns true.
         for (var i = 0; i < points.length; i++) {
-          var res = tryToPutWordAtPoint(points[i]);
+          var res = tryToPutWordAtPoint(points[i], info, word, weight, maxRadius - r, rotateDeg, attributes, id);
           if (res) {
             return res;
           }
@@ -993,8 +1045,44 @@ if (!window.clearImmediate) {
       }
     };
 
+    var getInteractionItemById = function getInteractionItemById(id) {
+      for (let i = 0; i < interactionItems.length; i++) {
+        const find = interactionItems[i];
+        if (interactionItems[i].id === id) {
+          return find;
+        }
+      }
+      return undefined;
+    };
+
     /* Start drawing on a canvas */
-    var start = function start() {
+    var start = function start(hoveredId) {
+      if (hoveredId !== undefined) {
+        // re-refresh canvas with hoveredId
+        // work in canvas only for now
+        if (settings.hoveredId !== hoveredId && elements[0].getContext) {
+          settings.hoveredId = hoveredId;
+          const ctx = elements[0].getContext('2d');
+          ctx.clearRect(0, 0, elements[0].width, elements[0].height);
+          for (let i = 0; i < interactionItems.length; i++) {
+            const find = interactionItems[i];
+            drawText(
+              find.gx,
+              find.gy,
+              find.info,
+              find.word,
+              find.weight,
+              find.distance,
+              find.theta,
+              find.rotateDeg,
+              find.attributes,
+              find.id,
+              true
+            );
+          }
+        }
+        return;
+      }
       // For dimensions, clearCanvas etc.,
       // we only care about the first element.
       var canvas = elements[0];

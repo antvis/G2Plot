@@ -1,6 +1,6 @@
 import { WordCloud, WordCloudConfig } from '../../src';
 import * as _ from '@antv/util';
-import { WordCloudData } from '../../src/plots/word-cloud/layer';
+import { Dimension, InnerStartFunction, WordCloudData } from '../../src/plots/word-cloud/layer';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
@@ -499,14 +499,22 @@ describe('Pie plot', () => {
       },
       shape: 'cardioid',
       ellipticity: 1,
+
+      minRotation: -Math.PI / 2,
+      maxRotation: Math.PI / 2,
       rotateRatio: 0.5,
       rotationSteps: 4,
+
       gridSize: 8,
       shuffle: false,
-      // drawMask: true,
-      backgroundColor: '#cceecc',
+      backgroundColor: '#fff',
       wait: 0,
-      hoveredId: 0,
+
+      enableHoverInteraction: true,
+      hoveredId: -1,
+      shadowColor: '#333333',
+      shadowBlur: 10,
+
       hover: hoverAction,
     } as WordCloudConfig;
   }
@@ -527,20 +535,7 @@ describe('Pie plot', () => {
     return arr[Math.floor(Math.random() * (arr.length - 1))];
   }
 
-  function hoverAction(item, dimension, evt) {
-    // console.log(item, dimension, evt);
-    // const newCfg = _.deepMix({}, getWordCloudConfig(), { hoveredId: item.id });
-    // wordCloudPlot.updateConfig(newCfg);
-    // wordCloudPlot.render();
-    // const canvas = evt.currentTarget;
-    // const ctx = canvas.getContext('2d');
-    // ctx.save();
-    // ctx.clearRect(dimension.x, dimension.y, dimension.w, dimension.h);
-    // ctx.rect(dimension.x, dimension.y, dimension.w, dimension.h);
-    // ctx.clip();
-    // ctx.shadowColor = 'red';
-    // ctx.shadowBlur = 10;
-    // ctx.fillText(item.word, dimension.x, dimension.y);
-    // ctx.restore();
+  function hoverAction(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) {
+    console.log('hover action', item && item.word);
   }
 });

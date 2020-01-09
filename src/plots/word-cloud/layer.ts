@@ -20,7 +20,7 @@ type CloudShape =
   | 'triangle-down'
   | 'pentagon'
   | 'star';
-type Dimension = {
+export type Dimension = {
   x: number;
   y: number;
   w: number;
@@ -37,6 +37,12 @@ export type WordCloudData = {
   weight: number;
   id: number; // index in data array. treat as unique id
 };
+
+/**
+ * Inner start function, refresh canvas immediately(no any delay draw all 'cloud'
+ * nearly at same time) with specific id
+ */
+export type InnerStartFunction = (hoveredId: number) => void;
 
 export interface WordCloudViewConfig {
   data: Array<WordCloudData> | Function;
@@ -76,7 +82,12 @@ export interface WordCloudViewConfig {
   shuffle?: boolean;
   // the ratio of rotate
   rotateRatio?: number;
+
+  // hover interaction item id
+  enableHoverInteraction?: boolean;
   hoveredId?: number;
+  shadowColor?: string;
+  shadowBlur?: number;
 
   shape?: CloudShape | Function;
   // shape's ellipticity [0,1]
@@ -84,13 +95,13 @@ export interface WordCloudViewConfig {
 
   classes?: (word: string, weight: number) => string;
 
-  hover?: (item: WordCloudData, dimension: Dimension, evt) => {};
-  click?: (item: WordCloudData, dimension: Dimension, evt) => {};
+  hover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
+  click?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent) => {};
 
   // ONLY FOR DEBUG, DON'T USE US
-  drawMask?: boolean;
-  maskColor?: string;
-  maskGapWidth?: number;
+  // drawMask?: boolean;
+  // maskColor?: string;
+  // maskGapWidth?: number;
 }
 
 interface WordCloudLayerConfig extends WordCloudViewConfig, LayerConfig {}

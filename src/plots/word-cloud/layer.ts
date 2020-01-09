@@ -5,6 +5,8 @@
 import { LayerConfig } from '../..';
 import * as _ from '@antv/util';
 import Layer from '../../base/layer';
+import WordCloudTooltips from './word-cloud-tooltips';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const WordCloud = require('./wordcloud2.js');
 
@@ -36,6 +38,7 @@ export type WordCloudData = {
   word: string;
   weight: number;
   id: number; // index in data array. treat as unique id
+  color?: string; // cloud's color
 };
 
 /**
@@ -108,20 +111,65 @@ interface WordCloudLayerConfig extends WordCloudViewConfig, LayerConfig {}
 
 export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   private _targetCanvas: HTMLCanvasElement;
+  private _toolTips: WordCloudTooltips;
+  private readonly _configHoverAction: Function;
+  private readonly _enableHoverInteraction: boolean;
+
   constructor(props: WordCloudLayerConfig) {
     super(props);
+    this._configHoverAction = props.hover;
+    this._enableHoverInteraction = props.enableHoverInteraction;
     this.options = _.deepMix(
       {},
       {
         width: 400,
         height: 400,
       } as LayerConfig,
-      props
+      props,
+      // replace use config's hover action if needed, and trigger later
+      {
+        hover: this._enableHoverInteraction ? this._hoverAction : this._configHoverAction,
+      }
     );
   }
 
   public init() {
     super.init();
+    this._initToolTips();
+    this._render();
+  }
+
+  private _hoverAction = (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {
+    if (dimension) {
+      this._toolTips.setContent('', [
+        // @ts-ignore
+        {
+          color: item.color || 'red',
+          name: item.word,
+          value: item.weight,
+        },
+      ]);
+      // @ts-ignore
+      // NOTE evt.layerX is relative x in canvas, absolute x is dimension.x
+      this._toolTips.setPosition(evt.layerX, evt.layerY);
+      this._toolTips.show();
+    } else {
+      this._toolTips.hide();
+    }
+    this._configHoverAction(item, dimension, evt, start);
+  };
+
+  private _initToolTips() {
+    this._toolTips = new WordCloudTooltips({
+      showTitle: false,
+      visible: true,
+      canvas: this.canvas,
+      follow: true,
+      inPanel: false, // must be false
+    });
+  }
+
+  private _render() {
     this._targetCanvas = this.canvas.get('el');
     if (this.options.maskImage) {
       this._handleMaskImage();

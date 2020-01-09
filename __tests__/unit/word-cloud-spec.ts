@@ -2,7 +2,7 @@ import { WordCloud, WordCloudConfig } from '../../src';
 import * as _ from '@antv/util';
 import { Dimension, InnerStartFunction, WordCloudData } from '../../src/plots/word-cloud/layer';
 
-describe('Pie plot', () => {
+describe('WordCloud plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '400px';
@@ -491,7 +491,7 @@ describe('Pie plot', () => {
       width: 600,
       height: 400,
       data: dataList,
-      // maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
+      maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
       weightFactor: 4,
       color: (word: string, weight: number) => {
@@ -536,6 +536,6 @@ describe('Pie plot', () => {
   }
 
   function hoverAction(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) {
-    console.log('hover action', item && item.word);
+    // console.log('hover action', item && item.word);
   }
 });

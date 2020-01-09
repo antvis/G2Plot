@@ -5,6 +5,7 @@ export class HEdge {
   public orig: any;
   public dest: any;
   public iFace: any;
+  
   constructor(orig, dest, face) {
     this.next = null;
     this.prev = null;

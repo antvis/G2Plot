@@ -6,7 +6,6 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { Label, DataItem } from '../../interface/config';
-import { extractScale } from '../../util/scale';
 import SpiderLabel from './component/label/spider-label';
 import './component/label/outer-label';
 import * as EventParser from './event';
@@ -23,7 +22,18 @@ export interface PieViewConfig extends ViewConfig {
   colorField?: string;
   radius?: number;
   pieStyle?: PieStyle | ((...args: any[]) => PieStyle);
+  label?: PieLabel;
 }
+
+type PieLabel = ViewConfig['label'] & {
+  /** label leader-line */
+  line?: {
+    smooth?: boolean;
+  };
+  /** allow label overlap */
+  allowOverlap?: boolean;
+  readonly fields?: string[];
+};
 
 export interface PieLayerConfig extends PieViewConfig, LayerConfig {}
 
@@ -53,6 +63,10 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         visible: true,
         type: 'inner',
         autoRotate: false,
+        allowOverlap: false,
+        line: {
+          smooth: true,
+        },
       },
       legend: {
         visible: true,

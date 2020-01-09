@@ -213,7 +213,7 @@ if (!window.clearImmediate) {
       shape: 'circle',
       ellipticity: 1,
 
-      enableHoverInteraction: true,
+      enableEmphasis: true,
       hoveredId: -1,
       shadowColor: '#333',
       shadowBlur: 10,
@@ -444,14 +444,14 @@ if (!window.clearImmediate) {
 
       if (!info) {
         settings.hover(undefined, undefined, evt, start);
-        if (settings.enableHoverInteraction) {
+        if (settings.enableEmphasis) {
           defaultHoverAction(undefined, undefined, evt, start);
         }
         return;
       }
 
       settings.hover(info.item, info.dimension, evt, start);
-      if (settings.enableHoverInteraction) {
+      if (settings.enableEmphasis) {
         defaultHoverAction(info.item, info.dimension, evt, start);
       }
       hovered = info;

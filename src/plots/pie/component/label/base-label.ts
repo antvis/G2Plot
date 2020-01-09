@@ -2,15 +2,24 @@ import { LabelItem } from '@antv/component/lib/interface';
 import Polar from '@antv/coord/lib/coord/polar';
 import { BBox, Shape } from '@antv/g';
 import { getElementLabels } from '@antv/g2';
-import { getOverlapArea } from './utils';
+import { getOverlapArea, getEndPoint, near } from './utils';
 import { getEllipsisText } from './utils/text';
+import { PieViewConfig } from '../../layer';
 
 const PieElementLabels = getElementLabels('pie');
 
+interface LabelData {
+  name: string;
+  value: number;
+  percent: number;
+}
 /**
  * @desc eva-pie 所有自定义 pie-label 的基类
  */
 export default abstract class extends PieElementLabels {
+  // labels 的 起点锚点 anchorRadius: r + offset
+  protected anchors: Array<{ x: number; y: number; id: string } & LabelItem>;
+  protected anchorRadius: number;
   public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const view = this.get('element').get('view');
@@ -19,7 +28,27 @@ export default abstract class extends PieElementLabels {
     // 调整
     const renderer = this.get('labelsRenderer');
     const labels: Shape[] = renderer.get('group').get('children');
+    // 注入data数据
+    const data = view.get('data');
+    const { fields } = this.getLabelOptions();
+    const angleField = fields[0];
+    const colorField = fields[1];
+    const scale = view.get('scales')[angleField];
+    labels.forEach((label, idx) => {
+      const dataItem = data[idx];
+      const percentage = scale.scale(dataItem[angleField]);
+      label.attr('data', { value: dataItem[angleField], name: dataItem[colorField], percent: percentage });
+    });
     const items = renderer.get('items') || [];
+    // 处理 label anchors
+    this.anchors = [];
+    const anchorRadius = coord.getRadius() + this.getOffsetOfLabel();
+    this.anchorRadius = anchorRadius;
+    labels.forEach((label, idx) => {
+      const item = items[idx];
+      const point = getEndPoint(coord.getCenter(), item.angle, anchorRadius);
+      this.anchors.push({ ...item, ...point, id: label.id });
+    });
     const labelLines = renderer.get('lineGroup').get('children') || [];
     this.adjustPosition(labels, items, coord, panel);
     this.adjustTexts(labels, items, coord, panel);
@@ -62,14 +91,19 @@ export default abstract class extends PieElementLabels {
         fontStyle: label.attr('fontStyle'),
       };
       const originText = label.attr('text');
-      // fix: maxWidth - 2
-      const EllipsisTextArr = originText.split('\n').map((t) => getEllipsisText(t, maxWidth - 2, font));
+      const data: LabelData = label.attr('data');
+      /** label 优先级: 数值 - 百分比 - 分类名(先通过正则的方式处理) */
+      const priority = ['[\\d,.]*', '[\\d.]*%', data.name];
+      const EllipsisTextArr = originText.split('\n').map((t) => getEllipsisText(t, maxWidth - 2, font, priority));
       label.attr('text', EllipsisTextArr.join('\n'));
     }
   }
 
   /** 处理标签遮挡问题 */
   protected adjustOverlap(labels: Shape[], panel: BBox): void {
+    if (this.getLabelOptions().allowOverlap) {
+      return;
+    }
     // clearOverlap;
     for (let i = 1; i < labels.length; i++) {
       const label = labels[i];
@@ -82,7 +116,7 @@ export default abstract class extends PieElementLabels {
         // if the previous one is invisible, skip
         if (prev.get('visible')) {
           overlapArea = getOverlapArea(prevBox, currBox);
-          if (overlapArea > 0) {
+          if (!near(overlapArea, 0)) {
             label.set('visible', false);
             break;
           }
@@ -101,5 +135,12 @@ export default abstract class extends PieElementLabels {
     if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
       label.set('visible', false);
     }
+  }
+
+  /** 默认用户配置的offset,  */
+  protected abstract getOffsetOfLabel(): number;
+
+  protected getLabelOptions(): PieViewConfig['label'] {
+    return this.get('labelOptions');
   }
 }

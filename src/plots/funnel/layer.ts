@@ -4,7 +4,6 @@ import { Animate } from '@antv/g2';
 
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { getComponent } from '../../components/factory';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
@@ -40,6 +39,7 @@ export interface FunnelViewConfig extends ViewConfig {
     offsetY: number;
     formatter: (yValueUpper: any, yValueLower: any) => string;
   }>;
+  dynamicHeight?: boolean;
 }
 
 export interface FunnelLayerConfig extends FunnelViewConfig, LayerConfig {}
@@ -91,6 +91,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           duration: 800,
         },
       }),
+      dynamicHeight: false,
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
   }
@@ -107,8 +108,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private shouldResetPercentages: boolean = false;
 
   protected coord() {
+    const props = this.options;
     const coordConfig = {
-      actions: [['transpose'], ['scale', 1, -1]],
+      actions: props.dynamicHeight ? [] : [['transpose'], ['scale', 1, -1]],
     };
     this.setConfig('coord', coordConfig);
   }
@@ -121,7 +123,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { options: props } = this;
 
     funnel.shape = {
-      values: ['funnel'],
+      values: [props.dynamicHeight ? 'rect' : 'funnel'],
     };
 
     funnel.color = {
@@ -131,21 +133,27 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     funnel.adjust = [
       {
-        type: 'symmetric',
+        type: props.dynamicHeight ? 'stack' : 'symmetric',
       },
     ];
+  }
+
+  constructor(props: T) {
+    super(props);
+    props.meta = props.dynamicHeight ? { [props.yField]: { nice: false } } : {};
   }
 
   protected addGeometry() {
     const props = this.options;
     const funnel = getGeom('interval', 'main', {
-      positionFields: [props.xField, props.yField],
+      positionFields: [props.dynamicHeight ? '_' : props.xField, props.yField],
       plot: this,
     });
     if (props.label) {
       funnel.label = this.extractLabel();
     }
     this.adjustFunnel(funnel);
+
     this.funnel = funnel;
     this.setConfig('element', funnel);
   }
@@ -178,6 +186,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         appear: {
           animation: 'funnelScaleInY',
           duration: appearDurationEach,
+          reverse: props.dynamicHeight,
           callback: (shape) => {
             this.view.get('elements').forEach((element) => {
               const { labelsContainer } = element.get('labelController');
@@ -220,11 +229,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (!this.legendsListenerAttached) {
       this.legendsListenerAttached = true;
-      this.view.get('legendController').container.on('mousedown', () => this.refreshPercentages());
+      this.view.get('legendController').container.on('mousedown', this._onLegendContainerMouseDown);
     }
   }
 
   public updateConfig(cfg: Partial<T>): void {
+    const props = _.deepMix({}, this.options, cfg);
+    cfg.meta = props.dynamicHeight ? { [props.yField]: { nice: false } } : {};
+
     super.updateConfig(cfg);
     this.shouldAdjustLegends = true;
     this.shouldAdjustLabels = false;
@@ -320,8 +332,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     let datumUpper;
     this.view.eachShape((datumLower, shape) => {
       if (i++ > 0) {
-        const { maxX, maxY } = shape.getBBox();
-        const [x, y] = coord.applyMatrix(maxX, maxY, 1);
+        const { maxX, maxY, minY } = shape.getBBox();
+        const [x, y] = coord.applyMatrix(maxX, props.dynamicHeight ? minY : maxY, 1);
         const { line, text, main } = this._findPercentageMembersInContainerByShape(container, shape, true);
 
         if (line) {
@@ -493,6 +505,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     return members;
   }
+
+  private _onLegendContainerMouseDown = () => this.refreshPercentages();
 }
 
 registerPlotType('funnel', FunnelLayer);

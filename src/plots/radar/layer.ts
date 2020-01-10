@@ -114,10 +114,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         label: {
           visible: true,
           offset: 8,
-          textStyle: {
-            fill: '#000',
-            opacity: 0.65,
-          },
         },
         title: {
           visible: false,

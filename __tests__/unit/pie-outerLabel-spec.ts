@@ -70,23 +70,6 @@ describe('pie outer label', () => {
     /** 三角形，两边之和 大于 第三边 */
     expect(dist).toBeLessThan(radius + labelOffset + MARGIN);
 
-    // @ts-ignore
-    const renderer = pieElement.get('labelController').labelsContainer.get('labelsRenderer');
-    const labelLines = renderer.get('lineGroup').get('children') || [];
-    const lastLine: Shape = _.last(labelLines);
-    expect(lastLine.attr('path')).toEqual(
-      [
-        'M',
-        203.64745084375787,
-        157.34152255572698,
-        'Q',
-        201.79334887750818,
-        151.63518345795606,
-        197.79334887750818,
-        151.63518345795606,
-      ].join(',')
-    );
-
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -131,7 +114,8 @@ describe('pie outer label', () => {
     expect(center).toEqual({ x: 250, y: 300 });
     expect(radius).toBe((500 * Radius) / 2);
     const labelShapes: Shape[] = pieElement.get('labels');
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(true);
+    // 算法增强后 所有label可见
+    expect(_.every(labelShapes, (l) => l.get('visible'))).toBe(true);
     // label fontsize: 12px, label margin: 2px, buffer: 4
     expect(_.filter(labelShapes, (l) => l.get('visible')).length).toBeGreaterThanOrEqual(
       Math.floor(Height / 14) * 2 - 4

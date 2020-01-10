@@ -77,6 +77,10 @@ function dist2(a, b) {
   return sqr(a.x - b.x) + sqr(a.y - b.y);
 }
 
+function distBetweenPoints(a, b) {
+  return Math.sqrt(dist2(a, b));
+}
+
 function distBetweenPointLine(p, p1, p2) {
   const l2 = dist2(p1, p2);
   if (l2 === 0) {
@@ -281,6 +285,7 @@ export {
   isBetween,
   getLineIntersect,
   isPointInPolygon,
+  distBetweenPoints,
   distBetweenPointLine,
   isPolygonIntersection,
   minDistBetweenConvexPolygon,

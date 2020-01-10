@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
-import { LineConfig, PlotConfig } from '../..';
+import { PlotConfig } from '../..';
 import { StepViewConfig, StepLayer } from './layer';
 import BasePlot from '../../base/plot';
 
 export interface StepConfig extends StepViewConfig, PlotConfig {}
 
-export default class Step extends BasePlot<LineConfig> {
+export default class Step extends BasePlot<StepConfig> {
   public static getDefaultOptions: typeof StepLayer.getDefaultOptions = StepLayer.getDefaultOptions;
 
   /**

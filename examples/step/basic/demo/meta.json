@@ -1,0 +1,28 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "step.js",
+      "title": "基础阶梯图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "step-point-style.js",
+      "title": "带数据点的阶梯图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "step-slider.js",
+      "title": "带缩略轴的阶梯图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HVkeTIyZyMAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "step-style.js",
+      "title": "带缩略轴的阶梯图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HVkeTIyZyMAAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

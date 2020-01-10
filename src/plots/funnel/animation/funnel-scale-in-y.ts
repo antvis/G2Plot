@@ -3,11 +3,11 @@ import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
 
 function funnelScaleInY(shape, animateCfg, coord) {
-  const { duration = 200, easing, callback } = animateCfg || {};
+  const { duration = 200, easing, callback, reverse } = animateCfg || {};
 
   const box = shape.getBBox();
   const originX = (box.minX + box.maxX) / 2;
-  const originY = box.maxY;
+  const originY = reverse ? box.minY : box.maxY;
 
   const shapeIndex = shape.get('index');
 

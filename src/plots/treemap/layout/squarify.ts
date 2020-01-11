@@ -6,7 +6,7 @@ import { slice } from './slice';
 // 黄金分割
 const ratio = (1 + Math.sqrt(5)) / 2;
 
-export function squarify(root, x0, y0, x1, y1) {
+export default function squarify(root, x0, y0, x1, y1) {
   const { children } = root;
   let value = root.value;
   children.sort((a, b) => {

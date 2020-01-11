@@ -8,7 +8,7 @@ import { PieViewConfig } from '../../layer';
 
 const PieElementLabels = getElementLabels('pie');
 
-interface LabelData {
+export interface LabelData {
   name: string;
   value: number;
   percent: number;

@@ -1,424 +1,261 @@
-import { Group, Shape } from '@antv/g';
-import { Scale, View } from '@antv/g2';
+import Polar from '@antv/coord/lib/coord/polar';
+import { BBox, Shape } from '@antv/g';
+import { registerElementLabels } from '@antv/g2';
+import { LabelItem } from '@antv/component/lib/interface';
 import * as _ from '@antv/util';
-import { LooseMap } from '../../../../interface/types';
+import { getEndPoint } from './utils';
+import BaseLabel, { LabelData } from './base-label';
+import { getEllipsisText } from './utils/text';
+import { DEFAULT_OFFSET, CROOK_DISTANCE } from './outer-label';
 
-const ANCHOR_OFFSET = 0; // 锚点偏移量
-const INFLECTION_OFFSET = 15; // 拐点偏移量
-const DEFAULT_COLOR = '#CCC';
-const LABEL1_OFFSETY = 2;
-const LABEL2_OFFSETY = -2;
-const ADJUSTOFFSET = 15;
+const ADJUST_OFFSET = 15;
 
-type IAttrs = LooseMap;
-
-type Point = { x: number; y: number };
-interface LabelData {
-  _anchor: Point;
-  _inflection: Point;
-  _data: object;
-  x: number;
-  y: number;
-  r: number;
-  fill: string;
-  textGroup: Group;
-  _side?: 'left' | 'right';
-}
-
-function getEndPoint(center, angle, r) {
-  return {
-    x: center.x + r * Math.cos(angle),
-    y: center.y + r * Math.sin(angle),
-  };
-}
-
-function getDefaultCfg() {
-  return {
-    text: {
-      fill: 'rgba(0, 0, 0, 0.65)',
-      fontSize: 12,
-    },
-    lineWidth: 0.5,
-    lineStroke: 'rgba(0, 0, 0, 0.45)',
-    /** distance between label and edge */
-    sidePadding: 20,
-    lineHeight: 32,
-    // anchorSize: 2,
-  };
-}
-
-interface OriginLabelItem {
-  /** 原始数据值 */
-  _origin: object;
-  color?: string;
-}
-
-export default class SpiderLabel {
-  private view: View;
-  private fields: string[];
-  private halves: any[][];
-  private container: Group;
-  private config: IAttrs;
-  private formatter: (text: string, item: OriginLabelItem, index: number) => string | string[];
-  private offsetX: number;
-  private offsetY: number;
-  private width: number;
-  private height: number;
-
-  constructor(cfg) {
-    this.view = cfg.view;
-    this.fields = cfg.fields;
-    this.formatter = cfg.formatter;
-    this.offsetX = cfg.offsetX;
-    this.offsetY = cfg.offsetY;
-    this.config = _.assign(getDefaultCfg(), _.pick(cfg.style, ['lineStroke', 'lineWidth']));
-    if (cfg.style) {
-      this.config.text = _.mix(this.config.text, cfg.style);
-    }
-    this._adjustConfig(this.config);
-    this._init();
+/**
+ * @param reverse 默认false，自上而下 迭代boxes
+ */
+const iteratorBoxes = (boxes: any[], maxY: number, minY: number) => {
+  // adjust y position of labels to avoid overlapping
+  const boxesCount = boxes.length;
+  let j = 0;
+  while (j < boxesCount - 1) {
+    boxes[j].targets[0] = boxes[j + 1].pos;
+    j++;
   }
-
-  public draw() {
-    if (!this.view || this.view.destroyed) {
-      return;
-    }
-    /** 如果有formatter则事先处理数据 */
-    const data = _.clone(this.view.get('filteredData'));
-    this.halves = [[], []];
-    this.container = this.view.get('frontgroundGroup').addGroup();
-    const shapes = this.view.get('elements')[0].getShapes();
-    const coord = this.view.get('coord');
-
-    const angleField = this.fields[0];
-    const scale = this.view.get('scales')[angleField];
-    const { center, startAngle } = coord;
-    const radius = coord.getRadius();
-    const { width, height } = this.view.get('panelRange');
-    this.width = width;
-    this.height = height;
-    let angle = startAngle;
-    // tslint:disable-next-line: prefer-for-of
-    for (let idx = 0; idx < data.length; idx++) {
-      const d = data[idx];
-      // 计算每个切片的middle angle
-      const angleValue = scale.scale(d[angleField]);
-      const targetAngle = angle + Math.PI * 2 * angleValue;
-      const middleAngle = angle + (targetAngle - angle) / 2;
-      angle = targetAngle;
-      // 根据middle angle计算锚点和拐点距离
-      const anchorPoint = getEndPoint(center, middleAngle, radius + ANCHOR_OFFSET);
-      const inflectionPoint = getEndPoint(center, middleAngle, radius + INFLECTION_OFFSET);
-      // 获取对应shape的color
-      let color = DEFAULT_COLOR;
-      if (this.fields.length === 2) {
-        const colorField = this.fields[1];
-        const colorScale = this.view.get('scales')[colorField];
-        const colorIndex = colorScale.scale(d[colorField]);
-        const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
-        color = shapes[shapeIndex].attr('fill');
-      }
-      // 组装label数据
-      const label: LabelData = {
-        _anchor: anchorPoint,
-        _inflection: inflectionPoint,
-        _data: d,
-        x: inflectionPoint.x,
-        y: inflectionPoint.y,
-        r: radius + INFLECTION_OFFSET,
-        fill: color,
-        textGroup: null,
-        _side: null,
-      };
-      // 创建label文本
-      let texts = [];
-      _.each(this.fields, (f) => {
-        texts.push(d[f]);
-      });
-      if (this.formatter) {
-        let formatted: any = this.formatter(d[angleField], { _origin: d, color }, idx);
-        if (_.isString(formatted)) {
-          formatted = [formatted];
-        }
-        texts = formatted;
-      }
-      const textGroup = new Group();
-      const textAttrs: IAttrs = {
-        x: 0,
-        y: 0,
-        fontSize: this.config.text.fontSize,
-        lineHeight: this.config.text.fontSize,
-        fontWeight: this.config.text.fontWeight,
-        fill: this.config.text.fill,
-      };
-      // label1:下部label
-      let lowerText = d[angleField];
-      if (this.formatter) {
-        lowerText = texts[0];
-      }
-      const lowerTextAttrs = _.clone(textAttrs);
-      if (texts.length === 2) {
-        lowerTextAttrs.fontWeight = 700;
-      }
-      const lowerTextShape = textGroup.addShape('text', {
-        attrs: _.mix(
-          {
-            textBaseline: texts.length === 2 ? 'top' : 'middle',
-            text: lowerText,
-          },
-          lowerTextAttrs
-        ),
-        data: d,
-        offsetY: texts.length === 2 ? LABEL1_OFFSETY : 0,
-        name: 'label',
-      });
-      lowerTextShape.name = 'label'; // 用于事件标记 shapeName
-      /** label2:上部label */
-      if (texts.length === 2) {
-        const topTextShape = textGroup.addShape('text', {
-          attrs: _.mix(
-            {
-              textBaseline: 'bottom',
-              text: texts[1],
-            },
-            textAttrs
-          ),
-          data: d,
-          offsetY: LABEL2_OFFSETY,
-          name: 'label',
-        });
-        topTextShape.name = 'label'; // 用于事件标记 shapeName
-      }
-
-      label.textGroup = textGroup;
-
-      /** 将label分组 */
-      if (anchorPoint.x < center.x) {
-        label._side = 'left';
-        this.halves[0].push(label);
-      } else {
-        label._side = 'right';
-        this.halves[1].push(label);
-      }
-    }
-
-    /** 绘制label */
-    const _drawnLabels = [];
-    const maxCountForOneSide = Math.floor(height / this.config.lineHeight);
-
-    _.each(this.halves, (half) => {
-      if (half.length > maxCountForOneSide) {
-        half.splice(maxCountForOneSide, half.length - maxCountForOneSide);
-      }
-
-      half.sort((a, b) => {
-        return a.y - b.y;
-      });
-
-      this._antiCollision(half);
+  boxes[boxesCount - 1].targets[0] = maxY;
+  let overlapping = true;
+  while (overlapping) {
+    boxes.forEach((box) => {
+      const target = _.last(box.targets);
+      box.pos = Math.max(minY, Math.min(box.pos, target - box.size));
     });
-    this.view.get('canvas').draw();
-  }
-
-  public clear() {
-    if (this.container) {
-      this.container.clear();
-    }
-  }
-
-  private _init() {
-    this.view.on('beforerender', () => {
-      this.clear();
-    });
-
-    this.view.on('afterrender', () => {
-      this.draw();
-    });
-  }
-
-  private _antiCollision(half: LabelData[]) {
-    const coord = this.view.get('coord');
-    const canvasHeight = coord.getHeight();
-    const { center } = coord;
-    const radius = coord.getRadius();
-    const startY = center.y - radius - INFLECTION_OFFSET - this.config.lineHeight;
-    let overlapping = true;
-    let totalH = canvasHeight;
-    let i;
-
-    let maxY = 0;
-    let minY = Number.MIN_VALUE;
-    let maxLabelWidth = 0;
-    const boxes: any[] = half.map((label) => {
-      const labelY = label.y;
-      if (labelY > maxY) {
-        maxY = labelY;
-      }
-      if (labelY < minY) {
-        minY = labelY;
-      }
-
-      const textGroup = label.textGroup;
-      const labelWidth = textGroup.getBBox().width;
-      if (labelWidth >= maxLabelWidth) {
-        maxLabelWidth = labelWidth;
-      }
-
-      return {
-        size: this.config.lineHeight,
-        targets: [labelY - startY],
-      };
-    });
-    if (maxY - startY > totalH) {
-      totalH = maxY - startY;
-    }
-
-    const iteratorBoxed = function(items) {
-      items.forEach((box) => {
-        const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
-        box.pos = Math.min(Math.max(minY, target - box.size / 2), totalH - box.size);
-      });
-    };
-
-    while (overlapping) {
-      iteratorBoxed(boxes);
-      // detect overlapping and join boxes
-      overlapping = false;
-      i = boxes.length;
-      while (i--) {
-        if (i > 0) {
-          const previousBox = boxes[i - 1];
-          const box = boxes[i];
-          if (previousBox.pos + previousBox.size > box.pos) {
-            // overlapping
-            previousBox.size += box.size;
-            previousBox.targets = previousBox.targets.concat(box.targets);
-
-            // overflow, shift up
-            if (previousBox.pos + previousBox.size > totalH) {
-              previousBox.pos = totalH - previousBox.size;
-            }
-            boxes.splice(i, 1); // removing box
-            overlapping = true;
+    // detect overlapping and join boxes
+    overlapping = false;
+    let i = boxes.length;
+    while (i--) {
+      if (i > 0) {
+        const previousBox = boxes[i - 1];
+        const box = boxes[i];
+        const boxTarget = _.last(box.targets);
+        if (previousBox.pos + previousBox.size > box.pos) {
+          // overlapping
+          previousBox.size += box.size;
+          previousBox.targets = previousBox.targets.concat(box.targets);
+          // overflow, shift up
+          const target = _.last(previousBox.targets);
+          if (previousBox.pos + previousBox.size > target) {
+            previousBox.pos = target - previousBox.size;
           }
+          boxes.splice(i, 1); // removing box
+          overlapping = true;
+        } else {
+          // 换掉最后一个
+          previousBox.targets.splice(-1, 1, boxTarget - box.size);
         }
       }
     }
+  }
+};
 
-    i = 0;
+/**
+ * @desc 环绕型 躲避 label 布局(类椭圆 - 优先顺时针偏移)
+ */
+class SpiderPieLabel extends BaseLabel {
+  public adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
+    this._adjustLabelPosition(labels, coord, panel);
+    const leftHalf = _.filter(labels, (l) => _.find(this.anchors, (a) => a.id === l.id).textAlign === 'right');
+    const rightHalf = _.filter(labels, (l) => _.find(this.anchors, (a) => a.id === l.id).textAlign === 'left');
+    [rightHalf, leftHalf].forEach((half) => {
+      this._antiCollision(half, coord, panel);
+    });
+  }
+
+  /** @override */
+  public adjustLines(labels: Shape[], labelItems: LabelItem[], labelLines: any, coord: Polar, panel: BBox) {
+    const style: any = this.getLabelOptions().style;
+    _.each(labels, (label, idx: number) => {
+      const labelLine = labelLines[idx];
+      // 由于布局调整，修改的只是shape 所以取用使用shape(labelItem is read-only)
+      const path = this._getLinePath(label, coord, panel);
+      labelLine.attr('path', path);
+      labelLine.attr('lineWidth', style.lineWidth);
+      labelLine.attr('stroke', style.lineStroke);
+      labelLine.set('visible', label.get('visible'));
+    });
+  }
+
+  /** @override */
+  protected getOffsetOfLabel(): number {
+    const labelOptions = this.getLabelOptions();
+    const offset = labelOptions.offset;
+    return offset === undefined ? DEFAULT_OFFSET : offset < CROOK_DISTANCE * 2 ? offset / 2 : offset - CROOK_DISTANCE;
+  }
+
+  /** @override 调整 label text */
+  protected adjustLabelText(label: Shape, item: LabelItem, coord: Polar, panel: BBox) {
+    const box = label.getBBox();
+    let maxWidth;
+    const anchor = this.anchors.find((a) => a.id === label.id);
+    const isLeft = anchor.x < coord.getCenter().x;
+    const alignTo = this.getLabelAlignTo();
+    if (alignTo === 'edge') {
+      maxWidth = isLeft ? anchor.x - label.getBBox().minX : label.getBBox().maxX - anchor.x;
+    } else {
+      maxWidth = isLeft ? box.maxX - panel.minX : panel.maxX - box.minX;
+    }
+    if (maxWidth < box.width) {
+      const font = {
+        fontFamily: label.attr('fontFamily'),
+        fontSize: label.attr('fontSize'),
+        fontVariant: label.attr('fontVariant'),
+        fontWeight: label.attr('fontWeight'),
+        fontStyle: label.attr('fontStyle'),
+      };
+      const originText = label.attr('text');
+      const data: LabelData = label.attr('data');
+      /** label 优先级: 数值 - 百分比 - 分类名(先通过正则的方式处理) */
+      const priority = ['[\\d,.]*', '[\\d.]*%', data.name];
+      const EllipsisTextArr = originText.split('\n').map((t) => getEllipsisText(t, maxWidth - 2, font, priority));
+      label.attr('text', EllipsisTextArr.join('\n'));
+    }
+  }
+
+  /** spider-labels 碰撞处理（重点算法） */
+  private _antiCollision(labels: Shape[], coord: Polar, plotRange: BBox) {
+    const labelHeight = this.getLabelHeight();
+    const totalR = this.anchorRadius;
+    const center = coord.getCenter();
+    const totalHeight = Math.min(plotRange.height, Math.max(totalR * 2 + labelHeight * 2, labels.length * labelHeight));
+    const maxLabelsCount = Math.floor(totalHeight / labelHeight);
+
+    labels.splice(maxLabelsCount, labels.length - maxLabelsCount);
+    // sort by y DESC
+    labels.sort((a, b) => a.getBBox().y - b.getBBox().y);
+    let maxY = center.y + totalHeight / 2;
+    let minY = center.y - totalHeight / 2;
+    const boxes = labels.map((label) => {
+      const labelBox = label.getBBox();
+      const yPos = (labelBox.minY + labelBox.maxY) / 2 - labelHeight / 2;
+      if (yPos + labelHeight > maxY) {
+        maxY = Math.min(plotRange.maxY, yPos + labelHeight);
+      }
+      if (yPos < minY) {
+        minY = Math.max(plotRange.minY, yPos);
+      }
+      return {
+        text: label.attr('text'),
+        size: labelHeight,
+        pos: yPos,
+        targets: [],
+      };
+    });
+    iteratorBoxes(boxes, maxY, minY);
+    let i = 0;
+    // step 4: normalize y and adjust x
     boxes.forEach((b) => {
-      let posInCompositeBox = startY; // middle of the label
+      let posInCompositeBox = labelHeight / 2; // middle of the label
       b.targets.forEach(() => {
-        half[i].y = b.pos + posInCompositeBox + this.config.lineHeight / 2;
-        posInCompositeBox += this.config.lineHeight;
+        labels[i].attr('y', b.pos + posInCompositeBox);
+        posInCompositeBox += labelHeight;
         i++;
       });
     });
-
-    const drawnLabels = [];
-    half.forEach((label) => {
-      const textGroup = this._drawLabel(label);
-      this.container.add(textGroup);
-      this._drawLabelLine(label, maxLabelWidth);
-      drawnLabels.push(textGroup);
-    });
   }
 
-  private _drawLabel(label: LabelData) {
-    const coord = this.view.get('coord');
+  // label shape position
+  private _adjustLabelPosition(labels: Shape[], coord: Polar, panel: BBox) {
+    const distance = this.getCrookDistance();
+    const offset = this.getOffsetOfLabel();
+    const alignTo = this.getLabelAlignTo();
     const center = coord.getCenter();
     const radius = coord.getRadius();
-
-    const width = this.width;
-    const { y, textGroup } = label;
-    const children = textGroup.get('children');
-    const x_dir = label._side === 'left' ? 1 : -1;
-
-    const textAttrs = {
-      textAlign: label._side === 'left' ? 'right' : 'left',
-      x:
-        label._side === 'left'
-          ? center.x - radius - this.config.sidePadding
-          : center.x + radius + this.config.sidePadding,
-    };
-
-    if (this.offsetX) {
-      textAttrs.x += this.offsetX * x_dir;
-    }
-
-    children.forEach((child) => {
-      const offsetY = child.get('offsetY');
-      const yPosition = y + offsetY;
-      child.attr(textAttrs);
-      child.attr('y', yPosition);
-    });
-
-    return textGroup;
-  }
-
-  private _drawLabelLine(label: LabelData, maxLabelWidth): Shape {
-    const _anchor = [label._anchor.x, label._anchor.y];
-    const _inflection = [label._inflection.x, label._inflection.y];
-    const { fill, y, textGroup } = label;
-    if (!textGroup) return;
-    const lastPoint = [label._side === 'left' ? textGroup.getBBox().maxX + 4 : textGroup.getBBox().minX - 4, y];
-
-    let points = [_anchor, _inflection, lastPoint];
-    if (_inflection[1] !== y) {
-      // 展示全部文本文本位置做过调整
-      if (_inflection[1] < y) {
-        // 文本被调整下去了，则添加拐点连接线
-        const point1 = _inflection;
-        const leftPoint = lastPoint[0] + maxLabelWidth + ADJUSTOFFSET;
-        const rightPoint = lastPoint[0] - maxLabelWidth - ADJUSTOFFSET;
-        const point2 = [label._side === 'left' ? leftPoint : rightPoint, _inflection[1]];
-        const point3 = [
-          label._side === 'left' ? lastPoint[0] + maxLabelWidth : lastPoint[0] - maxLabelWidth,
-          lastPoint[1],
-        ];
-
-        points = [_anchor, point1, point2, point3, lastPoint];
-
-        if ((label._side === 'right' && point2[0] < point1[0]) || (label._side === 'left' && point2[0] > point1[0])) {
-          points = [_anchor, point3, lastPoint];
-        }
+    labels.forEach((l) => {
+      const anchor = this.anchors.find((a) => a.id === l.id);
+      const isRight = anchor.x >= center.x;
+      let xPos;
+      if (alignTo === 'edge') {
+        xPos = isRight ? panel.maxX - offset : panel.minX + offset;
+        l.attr('textAlign', isRight ? 'right' : 'left');
       } else {
-        points = [_anchor, [_inflection[0], y], lastPoint];
+        const offsetX = radius + offset + distance * 2;
+        xPos = isRight ? center.x + offsetX : center.x - offsetX;
+        l.attr('textAlign', isRight ? 'left' : 'right');
       }
-    }
-
-    const path = [];
-    for (let i = 0; i < points.length; i++) {
-      const p = points[i];
-      let starter = 'L';
-      if (i === 0) {
-        starter = 'M';
-      }
-      path.push([starter, p[0], p[1]]);
-    }
-
-    this.container.addShape('path', {
-      attrs: {
-        path,
-        lineWidth: this.config.lineWidth,
-        stroke: this.config.lineStroke,
-      },
+      l.attr('x', xPos);
+      l.attr('y', anchor.y);
     });
-
-    // 绘制锚点
-    // this.container.addShape('circle', {
-    //   attrs: {
-    //     x: _anchor[0],
-    //     y: _anchor[1],
-    //     r: this.config.anchorSize,
-    //     fill,
-    //   },
-    // });
   }
 
-  private _adjustConfig(config) {
-    if (config.text.fontSize) {
-      config.lineHeight = config.text.fontSize * 3;
+  /** 获取label leader-line */
+  private _getLinePath(label: Shape, coord: Polar, panel: BBox): string {
+    const anchor = this.anchors.find((a) => a.id === label.id);
+    const angle = anchor.angle;
+    const center = coord.getCenter();
+    const distance = this.getCrookDistance();
+    const alignTo = this.getLabelAlignTo();
+    const start = getEndPoint(center, angle, coord.getRadius());
+    const isRight = anchor.x >= center.x;
+    /** 拐点 */
+    const breakAt = { x: anchor.x, y: anchor.y };
+    const end = { x: null, y: label.attr('y') };
+    if (alignTo === 'edge') {
+      const labelBBox = label.getBBox();
+      end.x = isRight ? Math.max(breakAt.x, labelBBox.minX - distance) : Math.min(breakAt.x, labelBBox.maxX + distance);
+    } else {
+      end.x = label.attr('x') + (isRight ? -distance : distance);
     }
+    let straightPath = ['L', breakAt.x, breakAt.y];
+    // situation 1: 标签发生偏移时，拉线需要增加第二拐点（以下两种场景需要添加第二拐点，其他场景进行拐点偏移）
+    if ((center.y > start.y && end.y > breakAt.y) || (center.y < start.y && end.y < breakAt.y)) {
+      /** 标签起点在圆心上方，发生向下偏移 */
+      const dx = Math.abs(end.x - breakAt.x);
+      const dy = Math.abs(end.y - breakAt.y);
+      /** 降低拐点的偏移斜率 */
+      const adjust_offset = Math.min(dx / 3, Math.max(ADJUST_OFFSET, dy / Math.tan(Math.PI / 8)));
+      const breakAt1 = breakAt.x + (isRight ? adjust_offset : -adjust_offset);
+      const breakAt2 = breakAt1 + (isRight ? adjust_offset : -adjust_offset);
+      straightPath = ['L', breakAt.x, breakAt.y, 'L', breakAt1, breakAt.y, 'L', breakAt2, end.y];
+    } else if (end.y !== breakAt.y) {
+      straightPath = ['L', breakAt.x, end.y];
+    }
+    // situation 2: 拉线不可以与图形重叠 TODO
+    const path = ['M', start.x, start.y].concat(straightPath).concat(['L', end.x, end.y]);
+    return path.join(',');
+  }
+
+  private getCrookDistance(): number {
+    const labelOptions = this.get('labelOptions');
+    const offset = labelOptions.offset;
+    return offset < CROOK_DISTANCE * 2 ? offset / 2 : CROOK_DISTANCE;
+  }
+
+  /** 获取label height */
+  private getLabelHeight(): number {
+    const labelOptions = this.get('labelOptions');
+    if (!labelOptions.labelHeight) {
+      const renderer = this.get('labelsRenderer');
+      const labels: Shape[] = renderer.get('group').get('children');
+      // label 之间垂直间距默认 8px
+      return _.head(labels) ? _.head(labels).getBBox().height + 8 : 14;
+    }
+    return labelOptions.labelHeight;
+  }
+
+  private getLabelAlignTo(): string {
+    const labelOptions = this.get('labelOptions');
+    const panel = this.get('element')
+      .get('view')
+      .get('panelRange');
+    if (!labelOptions.alignTo) {
+      return panel.width > 375 ? 'label-line' : 'edge';
+    }
+    return labelOptions.alignTo;
+  }
+
+  // tslint:disable
+  public getDefaultOffset(point) {
+    const offset = super.getDefaultOffset(point);
+    return offset === undefined ? DEFAULT_OFFSET : offset <= CROOK_DISTANCE ? 1 : offset - CROOK_DISTANCE;
   }
 }
+
+registerElementLabels('spider', SpiderPieLabel);

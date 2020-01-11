@@ -3,7 +3,7 @@ import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 import { createDiv } from '../utils/dom';
 
-describe('pie spider label', () => {
+describe.skip('pie spider label', () => {
   const data = [
     {
       type: '分类一',
@@ -99,7 +99,7 @@ describe('pie spider label', () => {
   });
 });
 
-describe('spider-label 单行label', () => {
+describe.skip('spider-label 单行label', () => {
   const data = [
     {
       type: '分类一',

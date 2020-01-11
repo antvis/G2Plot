@@ -1,7 +1,7 @@
 import { Pie } from '../../src';
 import { simulate } from 'event-simulate';
 
-describe('#419', () => {
+describe.skip('#419', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

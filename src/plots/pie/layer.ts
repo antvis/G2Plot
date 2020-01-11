@@ -7,9 +7,9 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { Label, DataItem } from '../../interface/config';
 import { LooseMap } from '../../interface/types';
-import SpiderLabel from './component/label/spider-label';
 import './component/label/outer-label';
 import './component/label/inner-label';
+import './component/label/spider-label';
 import * as EventParser from './event';
 import './theme';
 import { LineStyle } from '../line/layer';
@@ -35,6 +35,8 @@ type PieLabel = ViewConfig['label'] & {
   };
   /** allow label overlap */
   allowOverlap?: boolean;
+  /** used in spider-label */
+  alignTo?: string;
   readonly fields?: string[];
 };
 
@@ -88,7 +90,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   public pie: any;
-  public spiderLabel: any;
   public type: string = 'pie';
 
   public getOptions(props: T) {
@@ -100,22 +101,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   public afterInit() {
     super.afterInit();
-    const props = this.options;
-    /** 蜘蛛布局label */
-    if (props.label && props.label.visible) {
-      const labelConfig = props.label as Label;
-      if (labelConfig.type === 'spider') {
-        const spiderLabel = new SpiderLabel({
-          view: this.view,
-          fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
-          style: labelConfig.style ? labelConfig.style : {},
-          formatter: props.label.formatter ? props.label.formatter : false,
-          offsetX: props.label.offsetX,
-          offsetY: props.label.offsetY,
-        });
-        this.spiderLabel = spiderLabel;
-      }
-    }
   }
 
   protected geometryParser(dim, type) {
@@ -200,12 +185,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       // @ts-ignore
       labelConfig.labelLine = true;
     }
-
-    // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
+    labelConfig.style = this.adjustLabelStyle();
     let labelType = labelConfig.type;
-    if (['spider'].indexOf(labelType) !== -1) {
-      labelType = null;
-    }
     this.pie.label = getComponent('label', {
       plot: this,
       labelType,
@@ -216,7 +197,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   private showLabel() {
     const props = this.options;
-    return props.label && props.label.visible === true && props.label.type !== 'spider';
+    return props.label && props.label.visible === true;
   }
 
   private getInnerLabelDefaultStyle() {
@@ -225,6 +206,20 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     if (!labelStyleConfig.textAlign) {
       labelStyleConfig.textAlign = 'center';
     }
+    return labelStyleConfig;
+  }
+
+  private adjustLabelStyle() {
+    const props = this.options;
+    const labelConfig = { ...props.label } as Label;
+    const labelStyleConfig: any = labelConfig.style || {};
+    const { lineWidth, lineStroke, lineHeight, fontSize } = labelStyleConfig;
+    if (labelConfig.type === 'spider') {
+      labelStyleConfig.lineWidth = lineWidth ? lineWidth : 0.5;
+      labelStyleConfig.lineStroke = lineStroke ? lineStroke : 'rgba(0, 0, 0, 0.45)';
+    }
+    labelStyleConfig.fontSize = fontSize ? fontSize : 12;
+    labelStyleConfig.lineHeight = lineHeight ? lineHeight : labelStyleConfig.fontSize * 1.2;
     return labelStyleConfig;
   }
 }

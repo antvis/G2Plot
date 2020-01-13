@@ -184,6 +184,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   private _handleMaskImage() {
     const image = new Image();
     image.src = this.options.maskImage;
+    image.crossOrigin = 'Anonymous';
     image.onload = () => {
       if (image.naturalHeight + image.naturalWidth === 0 || image.width + image.height === 0) {
         this._start();

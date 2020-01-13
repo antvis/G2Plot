@@ -26,6 +26,7 @@ const PLOT_GEOM_MAP = {
 };
 
 export interface BarViewConfig extends ViewConfig {
+  colorField?: string;
   // 图形
   type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度

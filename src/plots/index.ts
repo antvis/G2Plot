@@ -27,3 +27,4 @@ export { default as Treemap } from './treemap';
 export { default as StepLine, StepLineConfig } from './step-line';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
 export { default as Rose, RoseConfig } from './rose';
+export { default as Calendar, CalendarConfig } from './calendar';

@@ -134,7 +134,10 @@ export class ColumnLabels extends ElementLabels {
         label.attr('lineWidth', 2);
       }
     } else if (labelRange.maxY < shapeRange.minY) {
-      label.attr('fill', 'black');
+      // 非 shape 范围内的 label 需要考虑主题背景
+      const theme = this.get('theme');
+      const labelTextColor = _.get(theme, 'label.textStyle.fill', 'black');
+      label.attr('fill', labelTextColor);
     }
   }
 

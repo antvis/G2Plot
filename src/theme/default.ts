@@ -130,7 +130,7 @@ export const DEFAULT_GLOBAL_THEME = {
       label: {
         visible: true,
         offset: 8,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -176,7 +176,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       label: {
         visible: true,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -216,7 +216,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       label: {
         offset: 16,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -224,6 +224,14 @@ export const DEFAULT_GLOBAL_THEME = {
       title: {
         offset: 12,
         style: { fill: 'rgba(0, 0, 0, 0.65)', fontSize: 12 },
+      },
+    },
+    radius: {
+      label: {
+        textStyle: {
+          fill: 'rgba(0,0,0,0.45)',
+          fontSize: 12,
+        },
       },
     },
   },
@@ -236,6 +244,9 @@ export const DEFAULT_GLOBAL_THEME = {
   },
   label: {
     offset: 12,
+    textStyle: {
+      fill: 'rgba(0, 0, 0, 0.65)',
+    },
     style: {
       fill: 'rgba(0, 0, 0, 0.65)',
       stroke: '#ffffff',

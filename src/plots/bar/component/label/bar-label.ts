@@ -136,7 +136,9 @@ export class BarLabels extends ElementLabels {
         label.attr('lineWidth', 2);
       }
     } else if (labelRange.maxY < shapeRange.minY) {
-      label.attr('fill', 'black');
+      const theme = this.get('theme');
+      const labelTextColor = _.get(theme, 'label.textStyle.fill', 'black');
+      label.attr('fill', labelTextColor);
     }
   }
 

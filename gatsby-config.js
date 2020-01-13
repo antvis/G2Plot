@@ -131,6 +131,14 @@ module.exports = {
         },
       },
       {
+        slug: 'funnel',
+        icon: 'other',
+        title: {
+          zh: '漏斗图',
+          en: 'Funnel Charts',
+        },
+      },
+      {
         slug: 'liquid',
         icon: 'other',
         title: {

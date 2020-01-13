@@ -23,4 +23,4 @@ export { default as Funnel, FunnelConfig } from './funnel';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
 export { default as Matrix, MatrixConfig } from './matrix';
 export { default as Waterfall, WaterfallConfig } from './waterfall';
-export { default as Step, StepConfig } from './step';
+export { default as StepLine, StepLineConfig } from './step-line';

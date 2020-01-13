@@ -59,7 +59,7 @@ module.exports = {
         },
       },
       {
-        slug: 'step',
+        slug: 'step-line',
         icon: 'kagi',
         title: {
           zh: '阶梯折线图',

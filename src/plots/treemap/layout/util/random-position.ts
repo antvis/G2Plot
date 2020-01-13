@@ -79,15 +79,14 @@ function randomPointInTriangle(triangle) {
   return [r_x, r_y];
 }
 
-
-export function randomPointsInCircle(cx,cy,radius,num){
+export function randomPointsInCircle(cx, cy, radius, num) {
   const points = [];
-  for(let i =0; i<num; i++){
+  for (let i = 0; i < num; i++) {
     const r = Math.sqrt(Math.random()) * radius;
-    const angle = Math.random()*(Math.PI*2);
-    const x = cx + Math.cos(angle)*r;
-    const y = cy + Math.sin(angle)*r;
-    points.push([x,y]);
+    const angle = Math.random() * (Math.PI * 2);
+    const x = cx + Math.cos(angle) * r;
+    const y = cy + Math.sin(angle) * r;
+    points.push([x, y]);
   }
   return points;
 }

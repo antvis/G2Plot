@@ -62,4 +62,5 @@ function getClip(coord) {
   return clip;
 }
 
+funnelScaleInY.animationName = 'funnelScaleInY';
 Animate.registerAnimation('appear', 'funnelScaleInY', funnelScaleInY);

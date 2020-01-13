@@ -18,10 +18,5 @@ const funnelPlot = new g2plot.Funnel(document.getElementById('canvas'), {
 });
 funnelPlot.render();
 
-/**
- * TODO
- * 1，定制shape呈漏斗形
- */
-
 // 作为模块 避免变量冲突
 export {};

@@ -11,6 +11,7 @@ import { ElementOption, DataItem } from '../../interface/config';
 import './theme';
 import './component/label/funnel-label';
 import './animation/funnel-scale-in-y';
+import './geometry/shape/funnel-dynamic-rect';
 import FunnelLabelParser from './component/label/funnel-label-parser';
 
 const G2_GEOM_MAP = {
@@ -107,6 +108,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private shouldAdjustLabels: boolean = false;
   private shouldResetPercentages: boolean = false;
 
+  constructor(props: T) {
+    super(props);
+    this.adjustProps(this.options);
+  }
+
   protected coord() {
     const props = this.options;
     const coordConfig = {
@@ -123,7 +129,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { options: props } = this;
 
     funnel.shape = {
-      values: [props.dynamicHeight ? 'rect' : 'funnel'],
+      values: [props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel'],
     };
 
     funnel.color = {
@@ -136,11 +142,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         type: props.dynamicHeight ? 'stack' : 'symmetric',
       },
     ];
-  }
 
-  constructor(props: T) {
-    super(props);
-    props.meta = props.dynamicHeight ? { [props.yField]: { nice: false } } : {};
+    if (props.dynamicHeight) {
+      this._genCustomFieldForDynamicHeight(this.getData());
+    }
   }
 
   protected addGeometry() {
@@ -229,13 +234,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (!this.legendsListenerAttached) {
       this.legendsListenerAttached = true;
-      this.view.get('legendController').container.on('mousedown', this._onLegendContainerMouseDown);
+      const legendContainer = this.view.get('legendController').container;
+      legendContainer.on('mousedown', this._onLegendContainerMouseDown);
     }
   }
 
   public updateConfig(cfg: Partial<T>): void {
-    const props = _.deepMix({}, this.options, cfg);
-    cfg.meta = props.dynamicHeight ? { [props.yField]: { nice: false } } : {};
+    cfg = this.adjustProps(_.deepMix({}, this.options, cfg));
 
     super.updateConfig(cfg);
     this.shouldAdjustLegends = true;
@@ -250,6 +255,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       this.shouldResetPercentages = false;
     }
     this.shouldAdjustLegends = true;
+
+    if (props.dynamicHeight) {
+      this._genCustomFieldForDynamicHeight(data);
+    }
 
     super.changeData(data);
 
@@ -317,6 +326,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
   }
 
+  protected adjustProps(props: T) {
+    if (props.dynamicHeight) {
+      _.set(props, `meta.${props.yField}.nice`, false);
+      _.set(props, 'tooltip.shared', false);
+    }
+    return props;
+  }
+
   protected resetPercentages() {
     if (!this.shouldResetPercentages) return;
 
@@ -333,7 +350,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     this.view.eachShape((datumLower, shape) => {
       if (i++ > 0) {
         const { maxX, maxY, minY } = shape.getBBox();
-        const [x, y] = coord.applyMatrix(maxX, props.dynamicHeight ? minY : maxY, 1);
+        const [x, y] = coord.invertMatrix(maxX, props.dynamicHeight ? minY : maxY, 1);
         const { line, text, main } = this._findPercentageMembersInContainerByShape(container, shape, true);
 
         if (line) {
@@ -506,7 +523,65 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     return members;
   }
 
-  private _onLegendContainerMouseDown = () => this.refreshPercentages();
+  private _genCustomFieldForDynamicHeight(data: any[]) {
+    const props = this.options;
+
+    const total = data.reduce((total, datum) => total + datum[props.yField], 0);
+
+    let ratioUpper = 1;
+    data.forEach((datum, index) => {
+      const value = datum[props.yField];
+      const share = value / total;
+      const ratioLower = ratioUpper - share;
+
+      datum['__custom__'] = {
+        datumIndex: index,
+        dataLength: data.length,
+        ratioUpper,
+        ratioLower,
+      };
+
+      ratioUpper = ratioLower;
+    });
+  }
+
+  private _findCheckedDataByMouseDownLegendItem(legendItem) {
+    const props = this.options;
+
+    const legendItemOrigin = legendItem.get('origin');
+
+    const brotherValues = legendItem
+      .get('parent')
+      .get('parent')
+      .findAll((shape) => shape != legendItem && shape.name == 'legend-item' && shape.get('parent').get('checked'))
+      .map((shape) => shape.get('origin').value);
+
+    const data = [];
+    this.getData().forEach((datum) => {
+      const xValue = datum[props.xField];
+      if (
+        (legendItemOrigin.value == xValue && !legendItem.get('parent').get('checked')) ||
+        _.contains(brotherValues, xValue)
+      ) {
+        data.push(datum);
+      }
+    });
+
+    return data;
+  }
+
+  private _onLegendContainerMouseDown = (e) => {
+    const props = this.options;
+
+    if (e.target.name == 'legend-item') {
+      this.refreshPercentages();
+
+      if (props.dynamicHeight) {
+        const data = this._findCheckedDataByMouseDownLegendItem(e.target);
+        this._genCustomFieldForDynamicHeight(data);
+      }
+    }
+  };
 }
 
 registerPlotType('funnel', FunnelLayer);

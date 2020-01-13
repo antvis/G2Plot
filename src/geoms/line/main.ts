@@ -18,6 +18,9 @@ export default class LineParser extends ElementParser {
     if (props.smooth) {
       this.config.shape = { values: ['smooth'] };
     }
+    if (props.step) {
+      this.config.shape = { values: [props.step] };
+    }
     if (props.seriesField || props.color) {
       this.parseColor();
     }

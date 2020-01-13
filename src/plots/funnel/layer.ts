@@ -409,16 +409,39 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   protected fadeInPercentages(duration?, callback?) {
     const container = this._findPercentageContainer();
+
+    let lastMaxY = -Infinity;
     this.view.eachShape((datum, shape) => {
       const members = this._findPercentageMembersInContainerByShape(container, shape);
+
+      let currMinY = Infinity;
+      let currMaxY = -Infinity;
       _.each(members, (member) => {
         if (member) {
-          const lineAttrs = {
-            opacity: 1,
-          };
-          duration ? member.animate(lineAttrs, duration) : member.attr(lineAttrs);
+          const { minY, maxY } = member.getBBox();
+          if (minY < currMinY) {
+            currMinY = minY;
+          }
+          if (maxY > currMaxY) {
+            currMaxY = maxY;
+          }
         }
       });
+
+      if (currMinY >= lastMaxY) {
+        _.each(members, (member) => {
+          if (member) {
+            const lineAttrs = {
+              opacity: 1,
+            };
+            duration ? member.animate(lineAttrs, duration) : member.attr(lineAttrs);
+          }
+        });
+      }
+
+      if (currMaxY > lastMaxY) {
+        lastMaxY = currMaxY;
+      }
     });
 
     duration && callback && setTimeout(callback, duration);

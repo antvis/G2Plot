@@ -10,7 +10,8 @@ describe('WordCloud plot', () => {
   document.body.appendChild(canvasDiv);
 
   const preData =
-    '12 Love\n' +
+    '14 Love\n' +
+    '14 G2Plot\n' +
     '5 Liebe\n' +
     '5 ፍቅር\n' +
     '5 Lufu\n' +
@@ -488,8 +489,8 @@ describe('WordCloud plot', () => {
   function getWordCloudConfig(): WordCloudConfig {
     return {
       pixelRatio: 2,
-      width: 600,
-      height: 400,
+      width: 1200,
+      height: 800,
       data: dataList,
       // maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',

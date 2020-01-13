@@ -6,6 +6,13 @@ import { getComponent } from '../../components/factory';
 import { LooseMap } from '../../interface/types';
 import { DataItem } from '../../interface/config';
 import squarify from './layout/squarify';
+import './components/label';
+
+const PARENT_NODE_OFFSET = 4;
+
+function isLeaf(data) {
+  return !data.children;
+}
 
 export interface TreemapViewConfig extends ViewConfig {
   data: any;
@@ -31,6 +38,15 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       },
       yAxis: {
         visible: false,
+      },
+      label: {
+        visible: true,
+        adjustPosition: true,
+        style: {
+          stroke: 'rgba(0,0,0,0)',
+          lineWidth: 0,
+          fontSize: 12,
+        },
       },
       meta: {
         x: {
@@ -74,6 +90,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   // protected axis() {}
 
   protected addGeometry() {
+    const { maxLevel } = this.options;
     const rect: any = {
       type: 'polygon',
       position: {
@@ -83,13 +100,45 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         fields: [this.options.colorField],
       },
       style: {
-        cfg: {
+        fields: ['depth'],
+        callback: (d) => {
+          if (d === 1) {
+            return {
+              lineWidth: 1,
+              stroke: '#333',
+              opacity: d / maxLevel,
+            };
+          }
+          return {
+            lineWidth: 1,
+            stroke: '#333',
+            opacity: d / maxLevel,
+          };
+        },
+        /*cfg: {
           lineWidth: 1,
           stroke: 'black',
-        },
+        },*/
       },
+      label: this.extractLabel(),
     };
     this.setConfig('element', rect);
+  }
+
+  private extractLabel() {
+    const labelOptions = this.options.label;
+    // 不显示label的情况
+    if (!labelOptions.visible) {
+      return false;
+    }
+    const label = getComponent('label', {
+      labelType: 'treemapLabel',
+      plot: this,
+      top: true,
+      fields: ['name'],
+      ...labelOptions,
+    });
+    return label;
   }
 
   private recursive(rows, depth?) {
@@ -100,8 +149,13 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         if (!_.hasKey(c, colorField)) {
           c[colorField] = r[colorField];
         }
-        if (c.children && c.depth + 1 <= maxLevel) {
-          const c_rows = squarify(c, c.x0, c.y0, c.x1, c.y1);
+        const leaf = isLeaf(c);
+        if (!leaf && c.depth + 1 <= maxLevel) {
+          const cliperHeight = Math.abs(c.y1 - c.y0);
+          const labelHeight = this.getLabelHeight();
+          const parentLabelOffset = cliperHeight / 2 > labelHeight ? labelHeight : 0;
+          c.showLabel = parentLabelOffset === 0 ? false : true;
+          const c_rows = squarify(c, c.x0, c.y0 + parentLabelOffset, c.x1, c.y1);
           this.fillColorField(c_rows, colorField, c[colorField]);
           this.recursive(c_rows, c.depth + 1);
         }
@@ -131,6 +185,11 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         r[fieldName] = value;
       }
     });
+  }
+
+  private getLabelHeight() {
+    // tempo: 暂时先用绝对值
+    return 12 + PARENT_NODE_OFFSET * 2;
   }
 }
 

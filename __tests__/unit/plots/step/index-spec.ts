@@ -1,6 +1,6 @@
-import { Step } from '../../../../src';
+import { StepLine } from '../../../../src';
 import ViewLayer from '../../../../src/base/view-layer';
-import { StepLayer } from '../../../../src/plots/step/layer';
+import { StepLineLayer } from '../../../../src/plots/step-line/layer';
 
 const data = [
   {
@@ -51,7 +51,7 @@ describe('Step plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('step', () => {
-    const step = new Step(canvasDiv, {
+    const step = new StepLine(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -60,15 +60,15 @@ describe('Step plot', () => {
       step: 'vh',
     });
     step.render();
-    const layer = step.getLayer() as StepLayer;
+    const layer = step.getLayer() as StepLineLayer;
     const plot = layer.getPlot();
 
     const positionField = plot.get('elements')[0].get('position').fields;
-    expect(step).toBeInstanceOf(Step);
+    expect(step).toBeInstanceOf(StepLine);
     expect(positionField[0]).toBe('year');
     expect(positionField[1]).toBe('value');
 
-    expect(layer.type).toBe('step');
+    expect(layer.type).toBe('step-line');
     expect(layer.options.step).toBe('vh');
 
     step.destroy();

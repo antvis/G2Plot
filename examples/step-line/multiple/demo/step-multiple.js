@@ -1,4 +1,4 @@
-import { Step } from '@antv/g2plot';
+import { StepLine } from '@antv/g2plot';
 
 const data = [
   {
@@ -228,7 +228,7 @@ const data = [
   },
 ];
 
-const step = new Step(document.getElementById('container'), {
+const step = new StepLine(document.getElementById('container'), {
   title: {
     visible: true,
     text: '多阶梯折线图',

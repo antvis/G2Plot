@@ -107,13 +107,26 @@ export class FunnelLabel extends ElementLabels {
     const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
 
     const fill = gray < 156 ? '#f6f6f6' : '#303030';
-
-    const labelRange = label.getBBox();
-    const shapeRange = shape.getBBox();
-
     label.attr('fill', fill);
 
-    const shapeContainsLabel = labelRange.minX >= shapeRange.minX && labelRange.maxX <= shapeRange.maxX;
+    const coord = this.get('coord');
+    const labelBBox = label.getBBox();
+
+    const shapeBBox = shape.getBBox();
+    const [shapeStartX, shapeStartY] = coord.invertMatrix(shapeBBox.x, shapeBBox.y, 1);
+    const [shapeSizeX, shapeSizeY] = coord.invertMatrix(shapeBBox.width, shapeBBox.height, 0);
+    const [shapeEndX, shapeEndY] = [shapeStartX + shapeSizeX, shapeStartY + shapeSizeY];
+
+    const shapeMinX = Math.min(shapeStartX, shapeEndX);
+    const shapeMaxX = Math.max(shapeStartX, shapeEndX);
+    const shapeMinY = Math.min(shapeStartY, shapeEndY);
+    const shapeMaxY = Math.max(shapeStartY, shapeEndY);
+
+    const shapeContainsLabel =
+      labelBBox.minX >= shapeMinX &&
+      labelBBox.maxX <= shapeMaxX &&
+      labelBBox.minY >= shapeMinY &&
+      labelBBox.maxY <= shapeMaxY;
     label.set('visible', shapeContainsLabel);
   }
 

@@ -1,4 +1,4 @@
-import { Step } from '@antv/g2plot';
+import { StepLine } from '@antv/g2plot';
 
 const data = [
   { year: '1991', value: 3 },
@@ -12,7 +12,7 @@ const data = [
   { year: '1999', value: 13 },
 ];
 
-const step = new Step(document.getElementById('container'), {
+const step = new StepLine(document.getElementById('container'), {
   title: {
     visible: true,
     text: '配置折线数据点样式',

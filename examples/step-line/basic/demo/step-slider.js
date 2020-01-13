@@ -1,9 +1,9 @@
-import { Step } from '@antv/g2plot';
+import { StepLine } from '@antv/g2plot';
 
 fetch('../data/sales.json')
   .then((res) => res.json())
   .then((data) => {
-    const step = new Step(document.getElementById('container'), {
+    const step = new StepLine(document.getElementById('container'), {
       title: {
         visible: true,
         text: '为阶梯图添加缩略轴交互',

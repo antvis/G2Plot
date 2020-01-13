@@ -25,7 +25,6 @@ const PLOT_GEOM_MAP = {
 export interface FunnelViewConfig extends ViewConfig {
   percentage?: Partial<{
     visible: boolean;
-    style: {};
     line: Partial<{
       visible: boolean;
       style: {};
@@ -35,10 +34,14 @@ export interface FunnelViewConfig extends ViewConfig {
       content: string;
       style: {};
     }>;
+    value: Partial<{
+      visible: boolean;
+      style: {};
+      formatter: (yValueUpper: any, yValueLower: any) => string;
+    }>;
     offsetX: number;
-    spacing: number;
     offsetY: number;
-    formatter: (yValueUpper: any, yValueLower: any) => string;
+    spacing: number;
   }>;
   dynamicHeight?: boolean;
 }
@@ -58,9 +61,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         offsetX: 40,
         offsetY: 0,
         spacing: 4,
-        style: {
-          fill: 'black',
-        },
         line: {
           visible: true,
           style: {
@@ -74,7 +74,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             fill: 'rgba(0, 0, 0, 0.65)',
           },
         },
-        formatter: (yValueUpper, yValueLower) => `${((100 * yValueLower) / yValueUpper).toFixed(2)}%`,
+        value: {
+          visible: true,
+          style: {
+            fill: 'black',
+          },
+          formatter: (yValueUpper, yValueLower) => `${((100 * yValueLower) / yValueUpper).toFixed(2)}%`,
+        },
       },
       tooltip: {
         visible: true,
@@ -338,8 +344,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     if (!this.shouldResetPercentages) return;
 
     const props = this.options;
-    const { offsetX, offsetY, spacing, line: percentageLine = {}, text: percentageText = {}, style, formatter } =
-      props.percentage || {};
+    const {
+      offsetX,
+      offsetY,
+      spacing,
+      line: percentageLine = {},
+      text: percentageText = {},
+      value: percentageValue = {},
+    } = props.percentage || {};
 
     const adjustTimestamp = Date.now();
 
@@ -351,7 +363,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (i++ > 0) {
         const { maxX, maxY, minY } = shape.getBBox();
         const [x, y] = coord.invertMatrix(maxX, props.dynamicHeight ? minY : maxY, 1);
-        const { line, text, main } = this._findPercentageMembersInContainerByShape(container, shape, true);
+        const { line, text, value } = this._findPercentageMembersInContainerByShape(container, shape, true);
 
         if (line) {
           line.attr(
@@ -382,18 +394,20 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           textWidth = text.getBBox().width;
         }
 
-        if (main) {
-          main.attr(
-            _.deepMix({}, style, {
+        if (value) {
+          value.attr(
+            _.deepMix({}, percentageValue.style, {
               x: x + offsetX + spacing + textWidth + spacing,
               y: y + offsetY,
               opacity: 0,
-              text: _.isFunction(formatter) ? formatter(datumUpper[props.yField], datumLower[props.yField]) : '',
+              text: _.isFunction(percentageValue.formatter)
+                ? percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
+                : '',
               textAlign: 'left',
               textBaseline: 'middle',
             })
           );
-          main.set('adjustTimestamp', adjustTimestamp);
+          value.set('adjustTimestamp', adjustTimestamp);
         }
       }
       datumUpper = datumLower;
@@ -506,12 +520,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   private _findPercentageMembersInContainerByShape(container: Group, shape: Shape, createIfNotFound: boolean = false) {
     const props = this.options;
-    const { visible, line: percentageLine = {}, text: percentageText = {} } = props.percentage || {};
+    const { visible, line: percentageLine = {}, text: percentageText = {}, value: percentageValue = {} } =
+      props.percentage || {};
 
     const members = {
       line: undefined,
       text: undefined,
-      main: undefined,
+      value: undefined,
     };
 
     if (visible === false || !container) {
@@ -536,12 +551,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       members.text = text;
     }
 
-    const mainId = `_percentage-main-${shape.id}`;
-    let main = container.findById(mainId);
-    if (!main && createIfNotFound) {
-      main = container.addShape('text', { id: mainId });
+    if (percentageValue.visible !== false) {
+      const valueId = `_percentage-value-${shape.id}`;
+      let value = container.findById(valueId);
+      if (!value && createIfNotFound) {
+        value = container.addShape('text', { id: valueId });
+      }
+      members.value = value;
     }
-    members.main = main;
 
     return members;
   }

@@ -1,14 +1,18 @@
 import * as _ from '@antv/util';
+import { Shape, Group } from '@antv/g';
+import { Animate } from '@antv/g2';
+
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
-import { rgb2arr } from '../../util/color';
-import FunnelLabelParser from './component/label/parser';
+
 import './theme';
+import './component/label/funnel-label';
 import './animation/funnel-scale-in-y';
-import './animation/funnel-fade-out';
+import './geometry/shape/funnel-dynamic-rect';
+import FunnelLabelParser from './component/label/funnel-label-parser';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -19,12 +23,27 @@ const PLOT_GEOM_MAP = {
 };
 
 export interface FunnelViewConfig extends ViewConfig {
-  percentage?: {
-    visible?: boolean;
-    adjustColor?: boolean;
-    style?: {};
-    formatter?: (yValueTop: any, yValue: any) => string;
-  };
+  percentage?: Partial<{
+    visible: boolean;
+    line: Partial<{
+      visible: boolean;
+      style: {};
+    }>;
+    text: Partial<{
+      visible: boolean;
+      content: string;
+      style: {};
+    }>;
+    value: Partial<{
+      visible: boolean;
+      style: {};
+      formatter: (yValueUpper: any, yValueLower: any) => string;
+    }>;
+    offsetX: number;
+    offsetY: number;
+    spacing: number;
+  }>;
+  dynamicHeight?: boolean;
 }
 
 export interface FunnelLayerConfig extends FunnelViewConfig, LayerConfig {}
@@ -34,24 +53,34 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const cfg: Partial<FunnelViewConfig> = {
       label: {
         visible: true,
-        offsetX: 16,
-        labelLine: {
-          lineWidth: 1,
-          stroke: 'rgba(0, 0, 0, 0.25)',
-        },
+        adjustColor: true,
         formatter: (xValue, yValue) => `${xValue} ${yValue}`,
       },
       percentage: {
         visible: true,
-        style: {
-          fontSize: '12',
-          textAlign: 'center',
+        offsetX: 40,
+        offsetY: 0,
+        spacing: 4,
+        line: {
+          visible: true,
+          style: {
+            lineWidth: 1,
+            stroke: 'rgba(0, 0, 0, 0.15)',
+          },
         },
-        formatter: (yValueTop, yValue) => ((100 * yValue) / yValueTop).toFixed(1) + ' %',
-      },
-      padding: 'auto',
-      legend: {
-        position: 'bottom-center',
+        text: {
+          content: '转化率',
+          style: {
+            fill: 'rgba(0, 0, 0, 0.65)',
+          },
+        },
+        value: {
+          visible: true,
+          style: {
+            fill: 'black',
+          },
+          formatter: (yValueUpper, yValueLower) => `${((100 * yValueLower) / yValueUpper).toFixed(2)}%`,
+        },
       },
       tooltip: {
         visible: true,
@@ -60,36 +89,40 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         crosshairs: {
           type: 'cross',
           style: {
-            strokeOpacity: 0,
+            stroke: null,
           },
         },
       },
-      // animation: {
-      //   duration: 800,
-      // },
+      animation: _.deepMix({}, Animate.defaultCfg, {
+        appear: {
+          duration: 800,
+        },
+      }),
+      dynamicHeight: false,
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public funnel: any;
   public type: string = 'funnel';
-  private yValueTop?: any;
-  private shouldAdjustLegends: boolean = true;
-  private shouldAdjustAnnotations: boolean = false;
 
-  protected processData(data?: DataItem[]): DataItem[] | undefined {
-    const { options: props } = this;
-    if (data && data[0]) {
-      this.yValueTop = data[0][props.yField];
-    } else {
-      this.yValueTop = undefined;
-    }
-    return super.processData(data);
+  private animationAppearTimeoutHandler: any;
+
+  private shouldAdjustLegends: boolean = true;
+  private legendsListenerAttached: boolean = false;
+
+  private shouldAdjustLabels: boolean = false;
+  private shouldResetPercentages: boolean = false;
+
+  constructor(props: T) {
+    super(props);
+    this.adjustProps(this.options);
   }
 
   protected coord() {
+    const props = this.options;
     const coordConfig = {
-      actions: [['transpose'], ['scale', 1, -1]],
+      actions: props.dynamicHeight ? [] : [['transpose'], ['scale', 1, -1]],
     };
     this.setConfig('coord', coordConfig);
   }
@@ -102,7 +135,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { options: props } = this;
 
     funnel.shape = {
-      values: ['funnel'],
+      values: [props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel'],
     };
 
     funnel.color = {
@@ -112,65 +145,77 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     funnel.adjust = [
       {
-        type: 'symmetric',
+        type: props.dynamicHeight ? 'stack' : 'symmetric',
       },
     ];
+
+    if (props.dynamicHeight) {
+      this._genCustomFieldForDynamicHeight(this.getData());
+    }
   }
 
   protected addGeometry() {
     const props = this.options;
     const funnel = getGeom('interval', 'main', {
-      positionFields: [props.xField, props.yField],
+      positionFields: [props.dynamicHeight ? '_' : props.xField, props.yField],
       plot: this,
     });
     if (props.label) {
       funnel.label = this.extractLabel();
     }
     this.adjustFunnel(funnel);
+
     this.funnel = funnel;
     this.setConfig('element', funnel);
   }
 
-  protected annotation() {
-    const annotationConfigs = [];
-
-    this.getData().forEach((datum, i) => {
-      const percentageConfig = this.extractPercentage(datum);
-      annotationConfigs.push(percentageConfig);
-    });
-
-    this.setConfig('annotations', annotationConfigs);
-  }
-
   protected animation() {
     const props = this.options;
+
     if (props.animation === false) {
       /** 关闭动画 */
       this.funnel.animate = false;
+      this.shouldAdjustLabels = true;
+      this.shouldResetPercentages = true;
+      _.set(this.funnel, 'label.textStyle.opacity', 1);
     } else {
-      const duration = _.get(props, 'animation.duration');
-      setTimeout(() => {
-        this.shouldAdjustAnnotations = true;
-      }, duration);
-      this.funnel.animate = {
+      const appearDuration = _.get(props, 'animation.appear.duration');
+      const appearDurationEach = appearDuration / (this.getData().length || 1);
+
+      if (this.animationAppearTimeoutHandler) {
+        clearTimeout(this.animationAppearTimeoutHandler);
+        delete this.animationAppearTimeoutHandler;
+      }
+      this.animationAppearTimeoutHandler = setTimeout(() => {
+        this.shouldAdjustLabels = true;
+        this.shouldResetPercentages = true;
+        this.resetPercentages();
+        this.fadeInPercentages(appearDurationEach);
+      }, appearDuration);
+
+      this.funnel.animate = _.deepMix({}, props.animation, {
         appear: {
           animation: 'funnelScaleInY',
-          duration: duration / this.getData().length,
+          duration: appearDurationEach,
+          reverse: props.dynamicHeight,
           callback: (shape) => {
-            const annotation = this.view.annotation().annotations[shape.get('index')];
-            this.adjustAnnotationWithoutRepaint(shape, annotation);
-            this.view.annotation().repaint();
+            this.view.get('elements').forEach((element) => {
+              const { labelsContainer } = element.get('labelController');
+              if (labelsContainer) {
+                const label = labelsContainer
+                  .get('labelsRenderer')
+                  .get('group')
+                  .get('children')
+                  .find((label) => element.getShapeId(label.get('origin')) == shape.id);
+
+                if (label) {
+                  label.attr('opacity', 1);
+                }
+              }
+            });
           },
         },
-        leave: {
-          animation: 'funnelFadeOut',
-          prepare: (shape) => {
-            const annotation = this.view.annotation().annotations[shape.get('index')];
-            annotation.change({ style: { opacity: 0 } });
-            this.view.annotation().repaint();
-          },
-        },
-      };
+      });
     }
   }
 
@@ -182,19 +227,48 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   public afterRender() {
+    const props = this.options;
+
     super.afterRender();
-    this.paddingController.clear();
-    this.view.get('elements').forEach((el) => {
-      this.paddingController.registerPadding(el.get('container'), 'inner');
-    });
     this.adjustLegends();
-    this.adjustAnnotations();
+    this.adjustLabels();
+    this.resetPercentages();
+
+    if (props.animation === false) {
+      this.fadeInPercentages();
+    }
+
+    if (!this.legendsListenerAttached) {
+      this.legendsListenerAttached = true;
+      const legendContainer = this.view.get('legendController').container;
+      legendContainer.on('mousedown', this._onLegendContainerMouseDown);
+    }
   }
 
   public updateConfig(cfg: Partial<T>): void {
+    cfg = this.adjustProps(_.deepMix({}, this.options, cfg));
+
     super.updateConfig(cfg);
     this.shouldAdjustLegends = true;
-    this.shouldAdjustAnnotations = false;
+    this.shouldAdjustLabels = false;
+    this.shouldResetPercentages = false;
+  }
+
+  public changeData(data: DataItem[]): void {
+    const props = this.options;
+
+    if (props.animation !== false) {
+      this.shouldResetPercentages = false;
+    }
+    this.shouldAdjustLegends = true;
+
+    if (props.dynamicHeight) {
+      this._genCustomFieldForDynamicHeight(data);
+    }
+
+    super.changeData(data);
+
+    this.refreshPercentages();
   }
 
   protected extractLabel() {
@@ -205,90 +279,349 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       return false;
     }
 
-    const labelParser = new FunnelLabelParser({
-      plot: this,
-      fields: [props.xField, props.yField],
-      ...label,
-    });
-    const labelConfig = labelParser.getConfig();
+    const labelConfig = new FunnelLabelParser(
+      _.deepMix(
+        {
+          textStyle: {
+            stroke: null,
+          },
+        },
+        label,
+        {
+          plot: this,
+          labelType: 'funnelLabel',
+          position: 'middle',
+          textStyle: {
+            opacity: 0,
+          },
+          fields: [props.xField, props.yField],
+        }
+      )
+    ).getConfig();
 
     return labelConfig;
   }
 
-  protected extractPercentage(datum) {
-    const props = this.options;
-    const percentage = props.percentage || {};
-
-    const percentageConfig = _.deepMix({}, percentage, {
-      top: true,
-      type: 'text',
-      position: [datum[props.xField], 'median'],
-      style: {
-        fill: 'transparent',
-      },
-    });
-
-    if (percentage.visible === false) {
-      percentageConfig.style.opacity = 0;
-    }
-
-    if (_.isFunction(percentage.formatter)) {
-      percentageConfig.content = percentage.formatter(this.yValueTop, datum[props.yField]);
-    }
-
-    delete percentageConfig.visible;
-    delete percentageConfig.formatter;
-    delete percentageConfig.adjustColor;
-    return percentageConfig;
-  }
-
   protected adjustLegends() {
     if (!this.shouldAdjustLegends) return;
-
     this.shouldAdjustLegends = false;
+
     const { options: props } = this;
-    if (['top-center', 'bottom-center'].indexOf(props.legend.position) >= 0) {
+    if (_.contains(['top-center', 'bottom-center'], props.legend.position)) {
       const legendController = this.view.get('legendController');
       legendController.legends.forEach((legend) => {
         const legendGroup = legend.get('container');
-        const offsetX =
-          -(props.padding[1] - this.config.theme.bleeding[1] - (props.padding[3] - this.config.theme.bleeding[3])) / 2;
+        const offsetX = (props.padding[3] - props.padding[1]) / 2;
         legendGroup.translate(offsetX, 0);
       });
     }
   }
 
-  protected adjustAnnotations() {
-    if (!this.shouldAdjustAnnotations) return;
+  protected adjustLabels() {
+    if (!this.shouldAdjustLabels) return;
 
-    const { options: props } = this;
-    const { annotations } = this.view.annotation();
-    this.view.eachShape((datum, shape) => {
-      const annotation = annotations.find((annotation) => annotation.cfg.position[0] == datum[props.xField]);
-      this.adjustAnnotationWithoutRepaint(shape, annotation);
+    this.view.get('elements').forEach((element) => {
+      const { labelsContainer } = element.get('labelController');
+      if (labelsContainer) {
+        labelsContainer
+          .get('labelsRenderer')
+          .get('group')
+          .get('children')
+          .forEach((label) => label.attr('opacity', 1));
+      }
     });
-    this.view.annotation().repaint();
   }
 
-  protected adjustAnnotationWithoutRepaint(shape, annotation) {
-    const { options: props } = this;
+  protected adjustProps(props: T) {
+    if (props.dynamicHeight) {
+      _.set(props, `meta.${props.yField}.nice`, false);
+      _.set(props, 'tooltip.shared', false);
+    }
+    return props;
+  }
 
-    if (annotation) {
-      if (_.get(props, 'percentage.adjustColor') === false) {
-        annotation.change({ style: { fill: _.get(props, 'percentage.style.fill', '#f6f6f6') } });
-      } else {
-        const shapeColor = shape.attr('fill');
-        const shapeOpacity = _.isNumber(shape.attr('opacity')) ? Math.min(Math.max(0, shape.attr('opacity')), 1) : 1;
+  protected resetPercentages() {
+    if (!this.shouldResetPercentages) return;
 
-        const rgb = rgb2arr(shapeColor);
-        const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
+    const props = this.options;
+    const {
+      offsetX,
+      offsetY,
+      spacing,
+      line: percentageLine = {},
+      text: percentageText = {},
+      value: percentageValue = {},
+    } = props.percentage || {};
 
-        const fill = gray < 156 ? '#f6f6f6' : '#303030';
+    const adjustTimestamp = Date.now();
 
-        annotation.change({ style: { fill } });
+    const container = this._findPercentageContainer(true);
+    const coord = this.view.get('coord');
+    let i = 0;
+    let datumUpper;
+    this.view.eachShape((datumLower, shape) => {
+      if (i++ > 0) {
+        const { maxX, maxY, minY } = shape.getBBox();
+        const [x, y] = coord.invertMatrix(maxX, props.dynamicHeight ? minY : maxY, 1);
+        const { line, text, value } = this._findPercentageMembersInContainerByShape(container, shape, true);
+
+        if (line) {
+          line.attr(
+            _.deepMix({}, percentageLine.style, {
+              x1: x,
+              y1: y,
+              x2: x + offsetX,
+              y2: y + offsetY,
+              opacity: 0,
+            })
+          );
+          line.set('adjustTimestamp', adjustTimestamp);
+        }
+
+        let textWidth = 0;
+        if (text) {
+          text.attr(
+            _.deepMix({}, percentageText.style, {
+              x: x + offsetX + spacing,
+              y: y + offsetY,
+              opacity: 0,
+              text: percentageText.content,
+              textAlign: 'left',
+              textBaseline: 'middle',
+            })
+          );
+          text.set('adjustTimestamp', adjustTimestamp);
+          textWidth = text.getBBox().width;
+        }
+
+        if (value) {
+          value.attr(
+            _.deepMix({}, percentageValue.style, {
+              x: x + offsetX + spacing + textWidth + spacing,
+              y: y + offsetY,
+              opacity: 0,
+              text: _.isFunction(percentageValue.formatter)
+                ? percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
+                : '',
+              textAlign: 'left',
+              textBaseline: 'middle',
+            })
+          );
+          value.set('adjustTimestamp', adjustTimestamp);
+        }
       }
+      datumUpper = datumLower;
+    });
+
+    container.get('children').forEach((child) => {
+      if (child.get('adjustTimestamp') != adjustTimestamp) {
+        child.attr({ opacity: 0 });
+        setTimeout(() => child.remove());
+      }
+    });
+  }
+
+  protected fadeInPercentages(duration?, callback?) {
+    const container = this._findPercentageContainer();
+
+    let lastMaxY = -Infinity;
+    this.view.eachShape((datum, shape) => {
+      const members = this._findPercentageMembersInContainerByShape(container, shape);
+
+      let currMinY = Infinity;
+      let currMaxY = -Infinity;
+      _.each(members, (member) => {
+        if (member) {
+          const { minY, maxY } = member.getBBox();
+          if (minY < currMinY) {
+            currMinY = minY;
+          }
+          if (maxY > currMaxY) {
+            currMaxY = maxY;
+          }
+        }
+      });
+
+      if (currMinY >= lastMaxY) {
+        _.each(members, (member) => {
+          if (member) {
+            const lineAttrs = {
+              opacity: 1,
+            };
+            duration ? member.animate(lineAttrs, duration) : member.attr(lineAttrs);
+          }
+        });
+      }
+
+      if (currMaxY > lastMaxY) {
+        lastMaxY = currMaxY;
+      }
+    });
+
+    duration && callback && setTimeout(callback, duration);
+  }
+
+  protected fadeOutPercentages(duration?, callback?) {
+    const container = this._findPercentageContainer();
+    this.view.eachShape((datum, shape) => {
+      const members = this._findPercentageMembersInContainerByShape(container, shape);
+      _.each(members, (member) => {
+        if (member) {
+          const lineAttrs = {
+            opacity: 0,
+          };
+          duration ? member.animate(lineAttrs, duration) : member.attr(lineAttrs);
+        }
+      });
+    });
+
+    duration && callback && setTimeout(callback, duration);
+  }
+
+  protected refreshPercentages() {
+    const props = this.options;
+
+    if (props.animation !== false) {
+      const updateDuration = _.get(props, 'animation.update.duration');
+      const enterDuration = _.get(props, 'animation.enter.duration');
+      const fadeOutPercentagesDuration = Math.max(enterDuration, updateDuration);
+      const fadeInPercentagesDuration = Math.min(enterDuration, updateDuration) * 0.6;
+
+      this.shouldResetPercentages = false;
+      this.fadeOutPercentages(fadeOutPercentagesDuration, () => {
+        this.shouldResetPercentages = true;
+        this.resetPercentages();
+        this.fadeInPercentages(fadeInPercentagesDuration);
+      });
     }
   }
+
+  private _findPercentageContainer(createIfNotFound: boolean = false) {
+    let percentageContainer;
+
+    if (this.view) {
+      const elements = this.view.get('elements');
+
+      elements.find((element) => {
+        return (percentageContainer = element.get('percentageContainer'));
+      });
+
+      if (!percentageContainer && createIfNotFound) {
+        if (elements.length) {
+          const element = elements[0];
+          percentageContainer = element.get('container').addGroup();
+          element.set('percentageContainer', percentageContainer);
+        }
+      }
+    }
+
+    return percentageContainer;
+  }
+
+  private _findPercentageMembersInContainerByShape(container: Group, shape: Shape, createIfNotFound: boolean = false) {
+    const props = this.options;
+    const { visible, line: percentageLine = {}, text: percentageText = {}, value: percentageValue = {} } =
+      props.percentage || {};
+
+    const members = {
+      line: undefined,
+      text: undefined,
+      value: undefined,
+    };
+
+    if (visible === false || !container) {
+      return members;
+    }
+
+    if (percentageLine.visible !== false) {
+      const lineId = `_percentage-line-${shape.id}`;
+      let line = container.findById(lineId);
+      if (!line && createIfNotFound) {
+        line = container.addShape('line', { id: lineId });
+      }
+      members.line = line;
+    }
+
+    if (percentageText.visible !== false) {
+      const textId = `_percentage-text-${shape.id}`;
+      let text = container.findById(textId);
+      if (!text && createIfNotFound) {
+        text = container.addShape('text', { id: textId });
+      }
+      members.text = text;
+    }
+
+    if (percentageValue.visible !== false) {
+      const valueId = `_percentage-value-${shape.id}`;
+      let value = container.findById(valueId);
+      if (!value && createIfNotFound) {
+        value = container.addShape('text', { id: valueId });
+      }
+      members.value = value;
+    }
+
+    return members;
+  }
+
+  private _genCustomFieldForDynamicHeight(data: any[]) {
+    const props = this.options;
+
+    const total = data.reduce((total, datum) => total + datum[props.yField], 0);
+
+    let ratioUpper = 1;
+    data.forEach((datum, index) => {
+      const value = datum[props.yField];
+      const share = value / total;
+      const ratioLower = ratioUpper - share;
+
+      datum['__custom__'] = {
+        datumIndex: index,
+        dataLength: data.length,
+        ratioUpper,
+        ratioLower,
+      };
+
+      ratioUpper = ratioLower;
+    });
+  }
+
+  private _findCheckedDataByMouseDownLegendItem(legendItem) {
+    const props = this.options;
+
+    const legendItemOrigin = legendItem.get('origin');
+
+    const brotherValues = legendItem
+      .get('parent')
+      .get('parent')
+      .findAll((shape) => shape != legendItem && shape.name == 'legend-item' && shape.get('parent').get('checked'))
+      .map((shape) => shape.get('origin').value);
+
+    const data = [];
+    this.getData().forEach((datum) => {
+      const xValue = datum[props.xField];
+      if (
+        (legendItemOrigin.value == xValue && !legendItem.get('parent').get('checked')) ||
+        _.contains(brotherValues, xValue)
+      ) {
+        data.push(datum);
+      }
+    });
+
+    return data;
+  }
+
+  private _onLegendContainerMouseDown = (e) => {
+    const props = this.options;
+
+    if (e.target.name == 'legend-item') {
+      this.refreshPercentages();
+
+      if (props.dynamicHeight) {
+        const data = this._findCheckedDataByMouseDownLegendItem(e.target);
+        this._genCustomFieldForDynamicHeight(data);
+      }
+    }
+  };
 }
 
 registerPlotType('funnel', FunnelLayer);

@@ -1,0 +1,18 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": "漏斗图",
+      "screenshot": "https://gw.alicdn.com/tfs/TB13mVXt5_1gK0jSZFqXXcpaXXa-619-463.png"
+    },
+    {
+      "filename": "percent.js",
+      "title": "漏斗图 - 动态高度",
+      "screenshot": "https://gw.alicdn.com/tfs/TB1nqpXt1H2gK0jSZFEXXcqMpXa-572-470.png"
+    }
+  ]
+}

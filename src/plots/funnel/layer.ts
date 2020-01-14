@@ -187,10 +187,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         delete this.animationAppearTimeoutHandler;
       }
       this.animationAppearTimeoutHandler = setTimeout(() => {
+        this._teardownAnimationMask();
+
         this.shouldAdjustLabels = true;
         this.shouldResetPercentages = true;
         this.resetPercentages();
         this.fadeInPercentages(appearDurationEach);
+
+        delete this.animationAppearTimeoutHandler;
       }, appearDuration);
 
       this.funnel.animate = _.deepMix({}, props.animation, {
@@ -230,6 +234,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const props = this.options;
 
     super.afterRender();
+
+    if (this.animationAppearTimeoutHandler) {
+      this._setupAnimationMask();
+    }
+
     this.adjustLegends();
     this.adjustLabels();
     this.resetPercentages();
@@ -263,12 +272,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     this.shouldAdjustLegends = true;
 
     if (props.dynamicHeight) {
-      this._genCustomFieldForDynamicHeight(data);
+      const checkedData = this._findCheckedDataInNewData(data);
+      this._genCustomFieldForDynamicHeight(checkedData);
     }
 
     super.changeData(data);
 
     this.refreshPercentages();
+    this._refreshAnimationMaskForPercentageRefresh();
   }
 
   protected extractLabel() {
@@ -478,22 +489,30 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     duration && callback && setTimeout(callback, duration);
   }
 
-  protected refreshPercentages() {
+  protected refreshPercentages(callback?) {
     const props = this.options;
 
     if (props.animation !== false) {
-      const updateDuration = _.get(props, 'animation.update.duration');
-      const enterDuration = _.get(props, 'animation.enter.duration');
-      const fadeOutPercentagesDuration = Math.max(enterDuration, updateDuration);
-      const fadeInPercentagesDuration = Math.min(enterDuration, updateDuration) * 0.6;
+      const { fadeOutDuration, fadeInDuration } = this._calcPercentageRefreshFadeDurations();
 
       this.shouldResetPercentages = false;
-      this.fadeOutPercentages(fadeOutPercentagesDuration, () => {
+      this.fadeOutPercentages(fadeOutDuration, () => {
         this.shouldResetPercentages = true;
         this.resetPercentages();
-        this.fadeInPercentages(fadeInPercentagesDuration);
+        this.fadeInPercentages(fadeInDuration, callback);
       });
     }
+  }
+
+  private _calcPercentageRefreshFadeDurations() {
+    const props = this.options;
+
+    const updateDuration = _.get(props, 'animation.update.duration');
+    const enterDuration = _.get(props, 'animation.enter.duration');
+    const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.6;
+    const fadeOutDuration = Math.max(enterDuration, updateDuration);
+
+    return { fadeInDuration, fadeOutDuration };
   }
 
   private _findPercentageContainer(createIfNotFound: boolean = false) {
@@ -585,6 +604,23 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
   }
 
+  private _findCheckedDataInNewData(newData: any[]) {
+    const props = this.options;
+
+    const legendValues = this.view
+      .get('canvas')
+      .findAll((shape) => shape.name == 'legend-item' && shape.get('parent').get('checked'))
+      .map((shape) => shape.get('origin').value);
+
+    const oldData = this.getData();
+
+    const uncheckedValues = oldData
+      .map((oldDatum) => oldDatum[props.xField])
+      .filter((xValue) => !_.contains(legendValues, xValue));
+
+    return newData.filter((newDatum) => !_.contains(uncheckedValues, newDatum[props.xField]));
+  }
+
   private _findCheckedDataByMouseDownLegendItem(legendItem) {
     const props = this.options;
 
@@ -608,6 +644,39 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
 
     return data;
+  }
+
+  private _setupAnimationMask() {
+    const canvas = this.view.get('canvas');
+    let animationMask = canvas.get('animation-mask');
+    if (!animationMask) {
+      animationMask = canvas.addShape('rect');
+      canvas.set('animation-mask', animationMask);
+    }
+    animationMask.attr({
+      x: 0,
+      y: 0,
+      fill: 'transparent',
+      width: canvas.get('width'),
+      height: canvas.get('height'),
+    });
+  }
+
+  private _teardownAnimationMask() {
+    const canvas = this.view.get('canvas');
+    const animationMask = canvas.get('animation-mask');
+    if (animationMask) {
+      animationMask.attr({ x: -canvas.get('width') });
+    }
+  }
+
+  private _refreshAnimationMaskForPercentageRefresh() {
+    const props = this.options;
+    if (props.animation !== false) {
+      const { fadeOutDuration, fadeInDuration } = this._calcPercentageRefreshFadeDurations();
+      this._setupAnimationMask();
+      setTimeout(() => this._teardownAnimationMask(), fadeOutDuration + fadeInDuration);
+    }
   }
 
   private _onLegendContainerMouseDown = (e) => {

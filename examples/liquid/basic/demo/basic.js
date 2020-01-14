@@ -5,8 +5,6 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
     visible: true,
     text: '水波图',
   },
-  width: 400,
-  height: 400,
   min: 0,
   max: 10000,
   value: 5639,

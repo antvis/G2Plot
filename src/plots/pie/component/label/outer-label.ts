@@ -7,9 +7,9 @@ import { getEndPoint } from './utils';
 import BaseLabel from './base-label';
 
 // 默认label和element的偏移 16px
-const DEFAULT_OFFSET = 16;
+export const DEFAULT_OFFSET = 16;
 /** label text和line距离 4px */
-const CROOK_DISTANCE = 4;
+export const CROOK_DISTANCE = 4;
 
 /**
  * @desc 环绕型 躲避 label 布局(类椭圆 - 优先顺时针偏移)

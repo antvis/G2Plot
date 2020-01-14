@@ -4,13 +4,17 @@ title: API
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-### title
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#title)。
-
-### description
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#description)。
+### data
+**required** 
+类型：`Array<WordCloudData> | Function`
+```typescript
+type WordCloudData = {
+    word: string; // cloud's word text
+    weight: number; // cloud's text weight
+    id: number; // index in data array. treat as unique id
+    color?: string; // cloud's color
+  };
+```
 
 ### width
 
@@ -20,115 +24,130 @@ title: API
 
 **optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#height)。
 
-### forceFit
+### maskImage
+类型: `string`
+**optional** 遮罩图片(url或者base64地址)
 
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#forceFit)。
+### fontFamily 
+类型: `string`
+**optional**  [通用CSS配置](!https://www.w3schools.com/jsref/prop_style_fontfamily.asp)
 
-### padding
+### fontWeight 
+类型: `string | ((word: string, weight: number) => string)`
+**optional**  设置fontWeight
 
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#padding)。
+### color
+类型: `string | ((word: string, weight: number) => string)`
+**optional**  设置字体颜色
 
-### theme
+### minFontSize
+类型: `number`
+**optional**  设置最小字体size，默认为浏览器支持的最小字号
 
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#theme)。
+### maxFontSize
+类型: `number`
+**optional**  设置最大字体size，默认60
 
-### data: collection
+### wait
+类型: `number`
+**optional**  每个词云之间的动画间隔时间
 
-**required**
+### abortThreshold
+类型: `number`
+**optional**  每个词云之间执行最大的时间,操作直接abort回调
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+### abort
+类型: `Function`
+**optional**  每个词云之间操作执行最大的时间的回调函数
 
-### angleField: string
+### minRotation
+类型: `number`
+**optional**  旋转的最小角度 默认 -π/2
 
-**required**
+### maxRotation
+类型: `number`
+**optional**  旋转的最大角度 默认 π/2
 
-雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
+### rotationSteps
+类型: `number`
+**optional**  旋转实际的步数,越大可能旋转角度越小
 
-### radiusField: string
+### rotateRatio
+类型: `number` 
+**optional**  旋转的比率[0,1] 默认是0.5 也就是50%可能发生旋转
 
-**required**
+### enableEmphasis
+类型: `boolean` 
+**optional**  hover下词云图文字是否高亮效果, 默认true
 
-雷达图映射到半径所对应的字段，一般为一个连续字段。
+### shadowColor
+类型: `number` 
+**optional** `enableEmphasis` 为true时shadow颜色, 默认通过  `color` 获取
 
-### seriesField: string
+### shadowBlur
+类型: `number` 
+**optional** `enableEmphasis` 为true时shadow高斯系数, 默认10
 
-**required**
+### enableToolTips
+类型: `boolean` 
+**optional**  hover下词云图文字是否显示tooltips, 默认true
 
-多组雷达图必选。对雷达图进行分组的字段，一般对应一个分类字段。
+### shuffle
+类型: `boolean` 
+**optional**  变换传入数据的顺序，默认是true
 
-通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
+### hoveredId
+类型: `number` 
+**optional**  用于标记当前被hover的词云图文字，默认-1
 
-### Line
+### shape
+类型: `CloudShape | Function` 
+```typescript
+type CloudShape =
+  | 'circle'
+  | 'square'
+  | 'cardioid'
+  | 'diamond'
+  | 'triangle'
+  | 'triangle-forward'
+  | 'triangle-backward'
+  | 'triangle-up'
+  | 'triangle-down'
+  | 'pentagon'
+  | 'star';
+```
+**optional**  词云图形状，默认为 `circle`
 
-**optional**
+### ellipticity
+类型: `number` 
+**optional**  词云图形状的椭圆率 [0,1]，默认为1，表示标准图形，越小图形越扁平
 
-雷达图上的线
+### hover
+类型: `(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};` 
+- `item` 表示词云图对象
+- `dimension` 表示坐标信息[x,y,width,height]等
+- `evt` 表示触摸事件对象
+- `start` 表示内部的刷新回调函数 `(hoveredId: number) => void;` 当`hoveredId`不为-1 表示刷新立即刷新该ID的文本
 
-`visible: boolean`  是否绘制线<br />
-`style: object | function`  线的样式<br />
+**optional**  hover的action回调
 
-- `stroke: string`  线的颜色<br />
-- `lineWidth: number`  线的宽度<br />
-- `lineDash: number[]`  虚线<br />
-- `opacity: number`  透明度
+### click
+类型: `(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};` 
+- `item` 表示词云图对象
+- `dimension` 表示坐标信息[x,y,width,height]等
+- `evt` 表示触摸事件对象
+- `start` 表示内部的刷新回调函数 `(hoveredId: number) => void;` 当`hoveredId`不为-1 表示刷新立即刷新该ID的文本
+> 基本同 hover 
 
-另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+**optional**  click词云的action回调
 
-### Point
-
-**optional**
-
-雷达图上的数据点
-
-`visible: boolean`  是否显示数据点<br />
-`shape: string`  数据点形状<br />
-`size: number`  数据点大小<br />
-`style: object | function`  数据点样式
-
-### tooltip
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#tooltip)。
-
-### legend
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#legend)。
-
-### label
-
-**optional**
-
-`visible: boolean`    图形标签是否显示。<br />
-`formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number`  在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number`  在 label 位置的基础上再往 y 方向的偏移量。<br />
-`style: object` 配置 label 文本
-
-### events
-
-**optional**
-
-- 图形事件
-
-  `onAreaClick: function`  区域点击事件<br />
-  `onAreaDoubleClick: function`    区域双击事件<br />
-  `onAreaMousemove: function`  区域鼠标移动事件<br />
-  `onAreaContextmenu: function`    区域右键事件
-
-  如配置了线：
-
-  `onLineClick: function`  线点击事件<br />
-  `onLineDoubleClick: function`    线双击事件<br />
-  `onLineMousemove: function`  线鼠标移动事件<br />
-  `onLineContextmenu: function`    线右键事件
-
-  如配置了点：
-
-  `onPointClick: function`  数据点的鼠标点击事件<br />
-  `onPointDoubleClick: function`    数据点的鼠标双击事件<br />
-  `onPointMousemove: function`  数据点鼠标移动事件<br />
-  `onPointContextmenu: function`    数据点右键事件
-
-- 其他事件类型见[通用图表配置](../../../../zh/docs/manual/general-config#events)。
+##可能的问题
+- 图形shape不完整
+> 可以尝试调节 `maxFontSize`,`minFontSize`,`width`,`height`, 四个属性来控制画布或者字体的大小来调整shape的范围
+- 图片形状解析不完整
+> 可以尝试用白底黑色图形轮廓的图片
+- 有些文字未被渲染
+> 首先词云图会 **过滤掉大量的文本信息**，但是可以尝试提高文字对应的weight权重值
 
 * Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 * Server-side Rendering

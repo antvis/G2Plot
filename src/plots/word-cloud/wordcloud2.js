@@ -186,8 +186,10 @@ if (!window.clearImmediate) {
         '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
       fontWeight: 'normal',
       color: 'random-dark',
-      minSize: 0, // 0 to disable
-      weightFactor: 1,
+
+      minFontSize: minFontSize, // browser's min font size default
+      maxFontSize: 60, // max font size default is 60
+
       clearCanvas: true,
       backgroundColor: '#fff', // opaque white = rgba(255, 255, 255, 1)
 
@@ -205,10 +207,10 @@ if (!window.clearImmediate) {
 
       minRotation: -Math.PI / 2,
       maxRotation: Math.PI / 2,
+      rotateRatio: 0.5,
       rotationSteps: 1,
 
       shuffle: true,
-      rotateRatio: 0.1,
 
       shape: 'circle',
       ellipticity: 1,
@@ -234,13 +236,26 @@ if (!window.clearImmediate) {
       }
     }
 
-    /* Convert weightFactor into a function */
-    if (typeof settings.weightFactor !== 'function') {
-      var factor = settings.weightFactor;
-      settings.weightFactor = function weightFactor(pt) {
-        return pt * factor; //in px
-      };
+    if (settings.minFontSize < minFontSize) {
+      // can't less than browse's min font size
+      settings.minFontSize = minFontSize;
     }
+
+    if (settings.minFontSize > settings.maxFontSize) {
+      console.error('minSize cant bigger than maxSize');
+      return;
+    }
+
+    let maxWeight = 0;
+    for (let i = 0; i < settings.data.length; i++) {
+      if (maxWeight < settings.data[i].weight) {
+        maxWeight = settings.data[i].weight;
+      }
+    }
+
+    var getRealFontSize = function getRealFontSize(weight) {
+      return Math.min(Math.max(settings.minFontSize, settings.maxFontSize * weight / maxWeight), settings.maxFontSize)
+    };
 
     var isCardioid = false;
     /* Convert shape into a function */
@@ -535,11 +550,11 @@ if (!window.clearImmediate) {
 
     var getTextInfo = function getTextInfo(word, weight, rotateDeg) {
       // calculate the acutal font size
-      // fontSize === 0 means weightFactor function wants the text skipped,
-      // and size < minSize means we cannot draw the text.
+      // fontSize === 0 means wants the text skipped,
+      // and size < minSize means we cannot draw the text
       var debug = false;
-      var fontSize = settings.weightFactor(weight);
-      if (fontSize <= settings.minSize) {
+      var fontSize = getRealFontSize(weight);
+      if (fontSize <= 0) {
         return false;
       }
 

@@ -471,7 +471,6 @@ function getWordCloudConfig() {
     data: data,
     maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
     // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
-    weightFactor: 4,
     color: (word, weight) => {
       return getRandomColor();
     },

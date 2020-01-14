@@ -17,8 +17,6 @@ const funnelPlot = new Funnel(document.getElementById('container'), {
     visible: true,
     text: '漏斗图 - 动态高度',
   },
-  width: 650,
-  height: 500,
   data,
   xField: 'action',
   yField: 'pv',

@@ -13,8 +13,6 @@ const funnelPlot = new Funnel(document.getElementById('container'), {
     visible: true,
     text: '漏斗图',
   },
-  width: 650,
-  height: 450,
   data: data,
   xField: 'action',
   yField: 'pv',

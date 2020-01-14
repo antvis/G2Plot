@@ -10,7 +10,7 @@ import WordCloudTooltips from './word-cloud-tooltips';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const WordCloud = require('./wordcloud2.js');
 
-type CloudShape =
+export type CloudShape =
   | 'circle'
   | 'square'
   | 'cardioid'
@@ -55,10 +55,11 @@ export interface WordCloudViewConfig {
   // normal, lighter, bold, bolder, 100~900
   fontWeight?: string | ((word: string, weight: number) => string);
   color?: string | ((word: string, weight: number) => string);
-  // if fontSize less than minSize, ignore this word
-  minSize?: number;
-  // determine font weight
-  weightFactor?: number | ((size: number) => number);
+
+  // font's max and min size(determine by cloud's weight)
+  minFontSize?: number;
+  maxFontSize?: number;
+
   // clear before start
   clearCanvas?: boolean;
   backgroundColor?: string;

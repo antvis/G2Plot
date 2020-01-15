@@ -11,6 +11,7 @@ import { ElementOption, DataItem } from '../../interface/config';
 import './theme';
 import './component/label/funnel-label';
 import './animation/funnel-scale-in-y';
+import './geometry/shape/funnel-basic-rect';
 import './geometry/shape/funnel-dynamic-rect';
 import FunnelLabelParser from './component/label/funnel-label-parser';
 
@@ -43,6 +44,7 @@ export interface FunnelViewConfig extends ViewConfig {
     offsetY: number;
     spacing: number;
   }>;
+  compareField?: string;
   dynamicHeight?: boolean;
 }
 
@@ -117,6 +119,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   constructor(props: T) {
     super(props);
     this.adjustProps(this.options);
+
+    if (props.dynamicHeight) {
+      this._genCustomFieldForDynamicHeight(this.getData());
+    }
+
+    if (props.compareField) {
+      this.options.data = this._reduceDataForCompare(this.getData());
+    }
   }
 
   protected coord() {
@@ -135,7 +145,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { options: props } = this;
 
     funnel.shape = {
-      values: [props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel'],
+      values: [props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel-basic-rect'],
     };
 
     funnel.color = {
@@ -148,10 +158,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         type: props.dynamicHeight ? 'stack' : 'symmetric',
       },
     ];
-
-    if (props.dynamicHeight) {
-      this._genCustomFieldForDynamicHeight(this.getData());
-    }
   }
 
   protected addGeometry() {
@@ -274,6 +280,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     if (props.dynamicHeight) {
       const checkedData = this._findCheckedDataInNewData(data);
       this._genCustomFieldForDynamicHeight(checkedData);
+    }
+
+    if (props.compareField) {
+      data = this._reduceDataForCompare(data);
+      const checkedData = this._findCheckedDataInNewData(data);
+      this._updateDataForCompare(checkedData);
     }
 
     super.changeData(data);
@@ -604,6 +616,54 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
   }
 
+  private _reduceDataForCompare(data: any[]) {
+    const props = this.options;
+
+    let compareValueFirstVisited;
+    const yValuesMax = [-Infinity, -Infinity];
+    data = data.reduce((newData, datum) => {
+      const xValue = datum[props.xField];
+      const yValue = datum[props.yField];
+      const compareValue = datum[props.compareField];
+      if (!compareValueFirstVisited) compareValueFirstVisited = compareValue;
+
+      let newDatum = newData.find((newDatum) => newDatum[props.xField] == xValue);
+      if (!newDatum) {
+        newDatum = {
+          [props.xField]: xValue,
+          [props.yField]: 0,
+          ['__compare__']: {
+            yValues: [],
+            yValuesMax: [],
+            yValuesNext: undefined,
+          },
+        };
+        newData.push(newDatum);
+      }
+      const yValueIdx = compareValue == compareValueFirstVisited ? 0 : 1;
+      newDatum['__compare__'].yValues[yValueIdx] = yValue;
+      if (yValuesMax[yValueIdx] < yValue) {
+        yValuesMax[yValueIdx] = yValue as number;
+      }
+
+      return newData;
+    }, []);
+
+    data.forEach((datum, index) => {
+      datum[props.yField] = _.get(datum, '__compare__.yValues', []).reduce((yTotal, yValue) => (yTotal += yValue), 0);
+      _.set(datum, '__compare__.yValuesMax', yValuesMax);
+      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+    });
+
+    return data;
+  }
+
+  private _updateDataForCompare(data: any[]) {
+    data.forEach((datum, index) => {
+      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+    });
+  }
+
   private _findCheckedDataInNewData(newData: any[]) {
     const props = this.options;
 
@@ -688,6 +748,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (props.dynamicHeight) {
         const data = this._findCheckedDataByMouseDownLegendItem(e.target);
         this._genCustomFieldForDynamicHeight(data);
+      }
+
+      if (props.compareField) {
+        const data = this._findCheckedDataByMouseDownLegendItem(e.target);
+        this._updateDataForCompare(data);
       }
     }
   };

@@ -27,10 +27,7 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    moment: 'moment',
-    '../moment': 'moment',
-  },
+  externals: {},
   devServer: {
     disableHostCheck: true,
     host: '0.0.0.0',

@@ -16,10 +16,6 @@ interface FillStyle {
   opacity?: string;
 }
 
-interface Point {
-  [k: string]: any;
-}
-
 export interface RadarViewConfig extends ViewConfig {
   /** 分组字段 */
   seriesField?: string;
@@ -28,8 +24,8 @@ export interface RadarViewConfig extends ViewConfig {
   /** 折线图形样式 */
   line?: {
     visible?: boolean;
-    size: number;
-    color: string;
+    size?: number;
+    color?: string;
     style?: LineStyle;
   };
   /** 数据点图形样式 */
@@ -46,9 +42,9 @@ export interface RadarViewConfig extends ViewConfig {
     style?: FillStyle;
   };
   // fixme: any --> IValueAxis  | ICatAxis | ITimeAxis
-  angleAxis: any;
+  angleAxis?: any;
   // fixme: any --> IValueAxis
-  radiusAxis: any;
+  radiusAxis?: any;
   radius?: number;
   // fixme: any
   [attr: string]: any;
@@ -88,7 +84,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         visible: true,
         style: {
           opacity: 0.25,
-          fillOpacity: 1,
         },
       },
       point: {
@@ -119,10 +114,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         label: {
           visible: true,
           offset: 8,
-          textStyle: {
-            fill: '#000',
-            opacity: 0.65,
-          },
         },
         title: {
           visible: false,
@@ -274,6 +265,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
   protected annotation() {}
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       // 关闭动画

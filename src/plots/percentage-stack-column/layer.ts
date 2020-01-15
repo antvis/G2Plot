@@ -5,7 +5,7 @@ import StackColumn, { StackColumnViewConfig } from '../stack-column/layer';
 import { transformDataPercentage } from '../../util/data';
 import { DataItem } from '../../interface/config';
 
-export interface PercentageStackColumnViewConfig extends StackColumnViewConfig {}
+export type PercentageStackColumnViewConfig = StackColumnViewConfig;
 export interface PercentageStackColumnLayerConfig extends PercentageStackColumnViewConfig, LayerConfig {}
 
 export default class PercentageStackColumnLayer extends StackColumn<PercentageStackColumnLayerConfig> {

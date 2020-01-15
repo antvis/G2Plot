@@ -114,6 +114,11 @@ const areaPlot = new PercentageStackArea(document.getElementById('container'), {
     text: '百分比堆叠面积图',
   },
   data,
+  meta: {
+    year: {
+      range: [0, 1],
+    },
+  },
   xField: 'year',
   yField: 'value',
   stackField: 'country',

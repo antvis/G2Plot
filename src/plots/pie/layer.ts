@@ -6,8 +6,10 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { Label, DataItem } from '../../interface/config';
-import { extractScale } from '../../util/scale';
+import { LooseMap } from '../../interface/types';
 import SpiderLabel from './component/label/spider-label';
+import './component/label/outer-label';
+import './component/label/inner-label';
 import * as EventParser from './event';
 import './theme';
 import { LineStyle } from '../line/layer';
@@ -22,7 +24,19 @@ export interface PieViewConfig extends ViewConfig {
   colorField?: string;
   radius?: number;
   pieStyle?: PieStyle | ((...args: any[]) => PieStyle);
+  label?: PieLabel;
 }
+
+type PieLabel = ViewConfig['label'] & {
+  offset?: string | number;
+  /** label leader-line */
+  line?: {
+    smooth?: boolean;
+  };
+  /** allow label overlap */
+  allowOverlap?: boolean;
+  readonly fields?: string[];
+};
 
 export interface PieLayerConfig extends PieViewConfig, LayerConfig {}
 
@@ -47,11 +61,15 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       },
       forceFit: true,
       padding: 'auto',
-      radius: 1,
+      radius: 0.8,
       label: {
         visible: true,
         type: 'inner',
         autoRotate: false,
+        allowOverlap: false,
+        line: {
+          smooth: true,
+        },
       },
       legend: {
         visible: true,
@@ -110,12 +128,9 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   protected scale() {
     const props = this.options;
     const scales = {};
-    /** 配置x-scale */
     scales[props.angleField] = {};
-    if (_.has(props, 'xAxis')) {
-      extractScale(scales[props.angleField], props.xAxis);
-    }
-    super.scale();
+    scales[props.colorField] = { type: 'cat' };
+    this.setConfig('scales', scales);
   }
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
@@ -156,6 +171,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */
@@ -177,8 +193,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       return;
     }
     if (labelConfig.type === 'inner') {
-      const offsetBase = this.getDefaultLabelInnerOffset();
-      labelConfig.offset = labelConfig.offset ? labelConfig.offset : offsetBase;
+      labelConfig.style = this.getInnerLabelDefaultStyle();
       // @ts-ignore
       labelConfig.labelLine = false;
     } else {
@@ -188,7 +203,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
     // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
     let labelType = labelConfig.type;
-    if (['inner', 'outer', 'spider'].indexOf(labelType) !== -1) {
+    if (['spider'].indexOf(labelType) !== -1) {
       labelType = null;
     }
     this.pie.label = getComponent('label', {
@@ -204,20 +219,13 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     return props.label && props.label.visible === true && props.label.type !== 'spider';
   }
 
-  protected getDefaultLabelInnerOffset() {
-    let size = 0;
-    const { width, height } = this;
-    const { padding } = this.options;
-    if (width < height) {
-      size = width - padding[1] - padding[3];
-    } else {
-      size = height - padding[0] - padding[2];
+  private getInnerLabelDefaultStyle() {
+    const labelConfig = { ...this.options.label } as Label;
+    const labelStyleConfig = (labelConfig.style || {}) as LooseMap;
+    if (!labelStyleConfig.textAlign) {
+      labelStyleConfig.textAlign = 'center';
     }
-    const offset = Math.round((size / 8) * this.options.radius * -1);
-    if (isNaN(offset) || offset === Infinity) {
-      return 0;
-    }
-    return offset;
+    return labelStyleConfig;
   }
 }
 

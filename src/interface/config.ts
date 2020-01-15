@@ -8,6 +8,7 @@
 import { Option } from '@antv/g2';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
+import { LooseMap } from './types';
 
 export interface ITitle {
   visible: boolean;
@@ -23,9 +24,9 @@ export interface IDescription {
   alignWithAxis?: boolean;
 }
 
-interface IEvents {
-  [k: string]: string;
-}
+type IEvents = LooseMap<string>;
+
+export type Formatter = (text: string, item: any, idx: number) => string;
 
 // TODO: g 提供详细style的类型定义
 export interface IStyleConfig {
@@ -46,7 +47,7 @@ export interface IBaseAxis {
     visible?: boolean;
     style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
   };
-  autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
+  autoRotateLabel?: boolean | number[]; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   autoRotateTitle?: boolean;
   label?: {
@@ -106,7 +107,13 @@ export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 export interface Label {
   visible: boolean;
   type?: string;
-  formatter?: (text: string, item: any, idx: number) => string;
+  formatter?:
+    | ((text: string, item: any, idx: number) => string)
+    | ((xValue: string, yValue: string, item: any, idx: number) => string);
+  /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
+  precision?: number;
+  /** 添加后缀 */
+  suffix?: string;
   style?: {};
   offset?: number;
   offsetX?: number;
@@ -114,7 +121,9 @@ export interface Label {
   events?: IEvents;
   position?: string;
   adjustColor?: boolean;
-  /** 展示优化策略 */
+  adjustPosition?: boolean;
+  autoRotate?: boolean;
+  labelLine?: any;
 }
 
 export interface Legend {
@@ -133,6 +142,7 @@ export interface Tooltip {
   visible: boolean;
   shared: boolean;
   /** html */
+  showTitle?: boolean;
   html?: HTMLDivElement;
   formatter?: (...args: any) => string;
   htmlContent?: (title: string, items: any[]) => string;
@@ -140,7 +150,7 @@ export interface Tooltip {
   itemTpl?: string;
   /** 辅助线 */
   crosshair?: 'x' | 'y' | 'cross' | boolean;
-  crosshairs?: { type: string }; // FIXME:
+  crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
   style?: IStyleConfig;
 }
 
@@ -184,6 +194,7 @@ export interface G2Config {
   interactions: {};
   theme: any;
   panelRange: any;
+  animate: any;
 }
 
 export interface IColorConfig {

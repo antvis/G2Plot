@@ -145,7 +145,6 @@ const data = [
 
 **optional** 见[通用图表配置](../general-config#linearaxis)。
 
-
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。

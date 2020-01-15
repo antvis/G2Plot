@@ -1,0 +1,23 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": "基础气泡图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_lGkQrhj53gAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "quadrant.js",
+      "title": "气泡图加四象限",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "trendline.js",
+      "title": "气泡图加趋势线",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x7RdTZKUXpkAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

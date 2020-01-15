@@ -95,23 +95,14 @@ export default class AxisParser {
   }
 
   private _labelParser() {
-    const { formatter, style, ...restLabelProps } = this.localProps.label;
+    const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: DataPointType = { ...restLabelProps };
     /** label style */
     if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }
     labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
-    /** label formatter */
-    if (formatter) {
-      const textFormatter = this.localProps.label.formatter;
-      this.config.label = (text) => {
-        labelConfig.text = textFormatter(text);
-        return labelConfig;
-      };
-    } else {
-      this.config.label = labelConfig;
-    }
+    this.config.label = labelConfig;
   }
 
   private _titleParser() {

@@ -89,7 +89,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     this.items = config.items || [];
     this.itemPadding = config.itemPadding || [2, 8, 2, 8];
     this.backgroundStyle = { lineWidth: 1, stroke: '#ffffff', ...(config.backgroundStyle || {}) };
-    this.itemBackgroundStyle = config.itemBackgroundStyle || {};
+    this.itemBackgroundStyle = { fill: '#fff', ...(config.itemBackgroundStyle || {}) };
     this.itemActiveBackgroundStyle = { fill: '#ccc', opacity: 0.2, ...(config.itemActiveBackgroundStyle || {}) };
     this.separator = config.separator || '/';
     this.separatorStyle = { textBaseline: 'top', fill: '#000', opacity: 0.45, ...(config.separatorStyle || {}) };

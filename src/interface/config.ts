@@ -81,7 +81,7 @@ export interface IBaseAxis {
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
-  type?: 'linear';
+  type?: 'linear' | 'pow' | 'log';
   /** tick相关配置 */
   min?: number;
   max?: number;
@@ -89,6 +89,11 @@ export interface IValueAxis extends IBaseAxis {
   maxLimit?: number;
   tickCount?: number;
   tickInterval?: number;
+  /** pow 指数 */
+  exponent?: number;
+  /** log 基数 */
+  base?: number;
+  nice?: boolean;
 }
 /** 时间型 */
 export interface ITimeAxis extends IBaseAxis {
@@ -175,6 +180,8 @@ export interface ElementOption {
   position: {
     fields: string[];
   };
+  /** 生成 shape id 的 field */
+  keyFields?: string[];
   color?: AttributeCfg;
   size?: AttributeCfg;
   shape?: AttributeCfg;

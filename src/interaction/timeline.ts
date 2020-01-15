@@ -11,7 +11,7 @@ function getValidTimeLineConfig(interaction: ITimeLineInteractionConfig): Requir
     loop: false,
     height: DEFAULT_HEIGHT,
     padding: [0, 20, 0, 0],
-    speed: 0.5,
+    speed: 2,
     ...interaction,
   };
 }
@@ -23,7 +23,7 @@ export default class TimeLineInteraction extends BaseInteraction {
     tick: string
   ) => void;
   private config: ITimeLineInteractionConfig;
-  private origAnimation: any;
+  private originAnimation: any;
   private timeLineConfig: any;
 
   /** TimeLineInteraction new 时的范围参数 interactionRange */
@@ -70,11 +70,11 @@ export default class TimeLineInteraction extends BaseInteraction {
 
       this.timeline = new TimeLine(timeLineConfig);
       this.timeline.on('timelinestart', () => {
-        this.origAnimation = this.view.get('animation');
-        this.view.animate(false);
+        this.originAnimation = this.view.get('animation');
+        this.view.animate(true);
       });
       this.timeline.on('timelineend', () => {
-        this.view.animate(this.origAnimation);
+        this.view.animate(this.originAnimation);
       });
       this.timeline.on('timelinechange', this.onChangeFn);
       this.container.add(this.timeline);

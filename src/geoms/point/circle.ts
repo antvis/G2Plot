@@ -14,6 +14,7 @@ export default class CircleParser extends ElementParser {
       position: {
         fields: [props.xField, props.yField],
       },
+      keyFields: this.getKeyFields(),
     };
     this.parseColor();
     this.parseSize();
@@ -24,6 +25,15 @@ export default class CircleParser extends ElementParser {
     if (props.pointStyle) {
       this.parseStyle();
     }
+  }
+
+  /** keyfield 用来做 shape 的唯一 id */
+  private getKeyFields() {
+    const props = this.plot.options;
+    if (_.isString(props.colorField)) {
+      return [props.colorField];
+    }
+    return props.colorField;
   }
 
   public parseColor() {

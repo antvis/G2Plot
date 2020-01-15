@@ -25,8 +25,10 @@ $.get('./data/life-expectancy.json', function(data) {
         visible: true,
         text: '人均收入',
       },
-      max: 10000,
+      max: 100000,
       min: 300,
+      nice: false,
+      type: 'log',
     },
     yAxis: {
       visible: true,
@@ -41,6 +43,9 @@ $.get('./data/life-expectancy.json', function(data) {
       },
       min: 0,
       max: 100,
+    },
+    legend: {
+      position: 'top',
     },
     interactions: [
       {

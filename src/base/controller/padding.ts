@@ -51,7 +51,8 @@ export default class PaddingController {
     const props = this.plot.options;
     const padding = props.padding ? props.padding : this.plot.config.theme.padding;
     if (padding === 'auto') {
-      return [0, 0, 0, 0];
+      return this.processOuterPadding();
+      //return [0, 0, 0, 0];
     }
     return padding;
   }

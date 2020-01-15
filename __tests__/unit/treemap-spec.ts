@@ -17,6 +17,16 @@ describe('treemap', () => {
       height: 400,
       data,
       colorField: 'brand',
+      interactions: [
+        {
+          type: 'drilldown',
+          cfg: {
+            startNode: {
+              name: 'root',
+            },
+          } as any,
+        },
+      ],
     });
     treemapPlot.render();
   });

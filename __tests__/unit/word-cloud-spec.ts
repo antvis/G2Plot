@@ -488,11 +488,10 @@ describe('WordCloud plot', () => {
 
   function getWordCloudConfig(): WordCloudConfig {
     return {
-      pixelRatio: 2,
       width: 600,
       height: 400,
       data: dataList,
-      // maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
+      maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
       maxFontSize: 60,
       minFontSize: 10,
@@ -509,7 +508,7 @@ describe('WordCloud plot', () => {
 
       gridSize: 8,
       shuffle: false,
-      backgroundColor: '#fff',
+      backgroundColor: '#e3f3f3',
       wait: 0,
 
       enableToolTips: true,

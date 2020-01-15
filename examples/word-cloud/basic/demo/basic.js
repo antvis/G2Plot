@@ -465,12 +465,10 @@ wordCloudPlot.render();
 
 function getWordCloudConfig() {
   return {
-    pixelRatio: 2,
-    width: 1200,
-    height: 800,
+    width: 600,
+    height: 400,
     data: data,
     maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
-    // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
     color: (word, weight) => {
       return getRandomColor();
     },

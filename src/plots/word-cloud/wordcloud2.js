@@ -254,7 +254,10 @@ if (!window.clearImmediate) {
     }
 
     var getRealFontSize = function getRealFontSize(weight) {
-      return Math.min(Math.max(settings.minFontSize, settings.maxFontSize * weight / maxWeight), settings.maxFontSize)
+      return Math.min(
+        Math.max(settings.minFontSize, (settings.maxFontSize * weight) / maxWeight),
+        settings.maxFontSize
+      );
     };
 
     var isCardioid = false;
@@ -702,6 +705,7 @@ if (!window.clearImmediate) {
       }
 
       if (debug) {
+        // real bounds
         fctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
         fctx.fillRect(bounds[3] * g, bounds[0] * g, (bounds[1] - bounds[3] + 1) * g, (bounds[2] - bounds[0] + 1) * g);
       }
@@ -1083,7 +1087,12 @@ if (!window.clearImmediate) {
         if (settings.hoveredId !== hoveredId && elements[0].getContext) {
           settings.hoveredId = hoveredId;
           const ctx = elements[0].getContext('2d');
+          // draw background
+          ctx.fillStyle = settings.backgroundColor;
           ctx.clearRect(0, 0, elements[0].width, elements[0].height);
+          ctx.fillRect(0, 0, elements[0].width, elements[0].height);
+
+          // draw text
           for (let i = 0; i < interactionItems.length; i++) {
             const find = interactionItems[i];
             drawText(

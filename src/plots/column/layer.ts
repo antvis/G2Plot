@@ -119,7 +119,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const { options } = this;
     const scales = {};
     /** 配置x-scale */
-    scales[options.xField] = {};
+    scales[options.xField] = { type: 'cat' };
     if (_.has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
@@ -152,9 +152,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     this.setConfig('element', column);
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     if (this.options.animation === false) {
       /** 关闭动画 */
       this.column.animate = false;
@@ -200,6 +199,14 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     }
 
     if (position === 'top') {
+      return {
+        offset: 4,
+        style: {
+          textBaseline: 'bottom',
+        },
+      };
+    }
+    if (position === 'bottom') {
       return {
         offset: 4,
         style: {

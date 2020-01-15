@@ -158,42 +158,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it('inner label', () => {
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      label: {
-        visible: true,
-        type: 'inner',
-        formatter: () => {
-          return 'test';
-        },
-        style: {
-          fill: 'red',
-        },
-      },
-    });
-    piePlot.render();
-    const plot = piePlot.getLayer().view;
-    const labelGroup = plot
-      .get('elements')[0]
-      .get('container')
-      .get('children')[1]
-      .get('children')[0]
-      .get('children');
-    const coord = plot.get('coord');
-    expect(labelGroup[0].attr('text')).toBe('test');
-    expect(labelGroup[0].attr('fill')).toBe('red');
-    const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
-    const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
-    const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist < coord.getRadius()).toBe(true);
-    piePlot.destroy();
-  });
-
-  it('outer label', () => {
+  it.skip('outer label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -214,10 +179,11 @@ describe('Pie plot', () => {
     const plot = piePlot.getLayer().view;
     const labelGroup = plot
       .get('elements')[0]
-      .get('container')
-      .get('children')[1]
+      .get('frontgroundGroup')
+      .get('children')[0]
       .get('children')[0]
       .get('children');
+
     const coord = plot.get('coord');
     expect(labelGroup[0].attr('text')).toBe('test');
     expect(labelGroup[0].attr('fill')).toBe('red');
@@ -225,36 +191,6 @@ describe('Pie plot', () => {
     const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
     const dist = Math.sqrt(distX * distX + distY * distY);
     expect(dist > coord.getRadius()).toBe(true);
-    piePlot.destroy();
-  });
-
-  it.skip('spider label', () => {
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      colorField: 'type',
-      label: {
-        visible: true,
-        type: 'spider',
-        style: {
-          fontSize: 14,
-          fill: '#ccc',
-        },
-      },
-    });
-    piePlot.render();
-    const pieLayer = piePlot.getLayer();
-    const plot = pieLayer.plot;
-    const spiderLabel = pieLayer.spiderLabel;
-    const labelShapes = pieLayer.container.get('children');
-    const shapes = plot.get('elements')[0].getShapes();
-    expect(labelShapes.length / 3).toBe(shapes.length);
-    expect(labelShapes[0].get('children')[0].attr('text')).toBe(5);
-    expect(labelShapes[0].get('children')[1].attr('text')).toBe('Other');
-    expect(labelShapes[0].get('children')[1].attr('fill')).toBe('#ccc');
-    expect(labelShapes[1].attr('stroke')).toBe(shapes[shapes.length - 1].attr('fill'));
     piePlot.destroy();
   });
 

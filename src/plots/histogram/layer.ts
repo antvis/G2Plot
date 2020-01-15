@@ -65,6 +65,7 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     // fixme: 类型定义
     const range = this.config.scales.range as any;
     range.nice = false;
+    range.type = 'linear';
   }
 
   private getBin(value, binWidth) {

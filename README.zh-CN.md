@@ -6,9 +6,11 @@
 
 基于图形语法（the Grammar of Graphics）的图表库
 
-[![版本](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
+[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
-![最近提交](https://badgen.net/github/last-commit/antvis/g2plot)
+![Latest commit](https://badgen.net/github/last-commit/antvis/g2plot)
+[![CI Status](https://github.com/antvis/G2Plot/workflows/CI/badge.svg?branch=master)](https://github.com/antvis/G2Plot/actions?query=workflow%3ACI)
+[![coverage:?](https://img.shields.io/coveralls/antvis/g2plot/master.svg)](https://coveralls.io/github/antvis/g2plot)
 
 </div>
 
@@ -19,7 +21,7 @@
 3. 探索统计图表的更多可能性，使统计图表变得更好玩、更酷。
 
 <div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pivcSq450scAAAAAAAAAAABkARQnAQ" width="1000">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
 </div>
 
 ## 特性

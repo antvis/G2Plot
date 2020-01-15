@@ -1,5 +1,5 @@
 ---
-title: General Configeration
+title: General Configuration
 order: 2
 ---
 
@@ -62,7 +62,7 @@ Currently support the following two confogration methods:
 
 ## theme
 
-**optional**, `Object`
+**optional**, `string | object`
 
 The theme of chart, if not configured, G2Plot default theme will be used by default.
 

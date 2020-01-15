@@ -685,7 +685,7 @@ describe('Area plot', () => {
     const area = plot.get('elements')[0];
 
     expect(legend.get('position')).toBe('top-left');
-    expect(legend.get('wordSpacing')).toBe(4);
+    expect(legend.get('wordSpacing')).toBe(8);
     expect(area.get('styleOptions').cfg.opacity).toBe(0.25);
     areaPlot.destroy();
   });

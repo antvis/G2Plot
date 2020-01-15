@@ -5,7 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
-import { extractScale } from '../../util/scale';
+import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
@@ -14,6 +14,7 @@ import './component/label/point-label';
 import * as EventParser from './event';
 import { LineActive, LineSelect } from './interaction/index';
 import './theme';
+import { LooseMap } from '../../interface/types';
 
 export interface LineStyle {
   opacity?: number;
@@ -30,9 +31,7 @@ export interface PointStyle {
   strokeStyle?: string;
 }
 
-interface IObject {
-  [key: string]: any;
-}
+type IObject = LooseMap;
 
 const GEOM_MAP = {
   line: 'line',
@@ -130,22 +129,32 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
+    trySetScaleMinToZero(
+      scales[props.yField],
+      _.map(props.data, (item) => item[props.yField])
+    );
     super.scale();
   }
 
   protected coord() {}
 
   protected addGeometry() {
+    // 配置线
+    this.addLine();
+    // 配置数据点
+    this.addPoint();
+  }
+
+  private addLine() {
     const props = this.options;
     this.line = getGeom('line', 'main', {
       plot: this,
     });
+
     if (props.label) {
       this.label();
     }
     this.setConfig('element', this.line);
-    // 配置数据点
-    this.addPoint();
   }
 
   protected addPoint() {
@@ -155,11 +164,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       props.point = _.deepMix(defaultConfig, props.point);
     }
     if (props.point && props.point.visible) {
-      const point = getGeom('point', 'guide', {
+      this.point = getGeom('point', 'guide', {
         plot: this,
       });
-      this.setConfig('element', point);
-      this.point = point;
+      this.point.active = false;
+      this.setConfig('element', this.point);
     }
   }
 
@@ -178,15 +187,15 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
     this.line.label = getComponent('label', {
       plot: this,
+      top: true,
       labelType: label.type,
       fields: label.type === 'line' ? [props.seriesField] : [props.yField],
       ...label,
     });
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       // 关闭动画
@@ -194,13 +203,15 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       if (this.point) this.point.animate = false;
     } else if (_.has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
-      if (props.animation.type === 'clipingWithData') {
+      if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
             yField: props.yField,
+            seriesField: props.seriesField,
+            plot: this,
           },
         };
         // 如果有数据点的话要追加数据点的动画

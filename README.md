@@ -9,6 +9,8 @@ A charting library based on the Grammar of Graphics.
 [![Version](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
 ![Latest commit](https://badgen.net/github/last-commit/antvis/g2plot)
+[![CI Status](https://github.com/antvis/G2Plot/workflows/CI/badge.svg?branch=master)](https://github.com/antvis/G2Plot/actions?query=workflow%3ACI)
+[![coverage:?](https://img.shields.io/coveralls/antvis/g2plot/master.svg)](https://coveralls.io/github/antvis/g2plot)
 
 </div>
 
@@ -16,10 +18,7 @@ G2Plot is an interactive and responsive charting library.
 Based on [the grammar of graphics](https://github.com/antvis/g2), you can easily make superior statistical charts through a few lines of code.
 
 <div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MjhQQLsbWeQAAAAAAAAAAABkARQnAQ" width="200">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CkSoSpPfWQMAAAAAAAAAAABkARQnAQ" width="200">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZYmtSqcNDtkAAAAAAAAAAABkARQnAQ" width="200">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gV_JQZVbDWAAAAAAAAAAAABkARQnAQ" width="200">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
 </div>
 <br/>
 

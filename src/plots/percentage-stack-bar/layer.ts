@@ -5,7 +5,7 @@ import StackBar, { StackBarViewConfig } from '../stack-bar/layer';
 import { DataItem } from '../../interface/config';
 import { transformDataPercentage } from '../../util/data';
 
-export interface PercentageStackBarViewConfig extends StackBarViewConfig {}
+export type PercentageStackBarViewConfig = StackBarViewConfig;
 export interface PercentageStackBarLayerConfig extends PercentageStackBarViewConfig, LayerConfig {}
 
 export default class PercentageStackBarLayer extends StackBar<PercentageStackBarLayerConfig> {

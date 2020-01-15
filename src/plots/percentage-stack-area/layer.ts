@@ -5,7 +5,7 @@ import StackArea, { StackAreaViewConfig } from '../stack-area/layer';
 import { DataItem } from '../../interface/config';
 import { transformDataPercentage } from '../../util/data';
 
-export interface PercentageStackAreaViewConfig extends StackAreaViewConfig {}
+export type PercentageStackAreaViewConfig = StackAreaViewConfig;
 export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewConfig, LayerConfig {}
 
 export default class PercentageStackAreaLayer extends StackArea<PercentageStackAreaLayerConfig> {
@@ -44,7 +44,7 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
         return `${formattedValue}%`;
       },
     };
-    this.options.meta = metaConfig;
+    this.options.meta = _.deepMix({}, metaConfig, this.options.meta);
     super.scale();
   }
 }

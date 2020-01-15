@@ -26,6 +26,7 @@ const PLOT_GEOM_MAP = {
 };
 
 export interface BarViewConfig extends ViewConfig {
+  colorField?: string;
   // 图形
   type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
@@ -44,6 +45,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     const cfg: Partial<BarViewConfig> = {
       xAxis: {
         visible: true,
+        line: {
+          visible: false,
+        },
         title: {
           visible: true,
         },
@@ -73,9 +77,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
         label: {
           visible: true,
-          style: {
-            fill: 'rgba(0, 0, 0, 0.65)',
-          },
         },
         title: {
           visible: false,
@@ -178,9 +179,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('element', bar);
   }
 
-  protected annotation() {}
-
   protected animation() {
+    super.animation();
     const props = this.options;
     if (props.animation === false) {
       /** 关闭动画 */

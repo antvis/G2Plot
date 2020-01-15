@@ -59,6 +59,14 @@ module.exports = {
         },
       },
       {
+        slug: 'step-line',
+        icon: 'kagi',
+        title: {
+          zh: '阶梯折线图',
+          en: 'Step Charts',
+        },
+      },
+      {
         slug: 'area',
         icon: 'area',
         title: {
@@ -91,11 +99,43 @@ module.exports = {
         },
       },
       {
+        slug: 'scatter',
+        icon: 'point',
+        title: {
+          zh: '散点图',
+          en: 'Scatter Charts',
+        },
+      },
+      {
+        slug: 'bubble',
+        icon: 'point',
+        title: {
+          zh: '气泡图',
+          en: 'Bubble Charts',
+        },
+      },
+      {
         slug: 'radar',
         icon: 'radar',
         title: {
           zh: '雷达图',
           en: 'radar',
+        },
+      },
+      {
+        slug: 'heatmap',
+        icon: 'heatmap',
+        title: {
+          zh: '热力图',
+          en: 'heatmap',
+        },
+      },
+      {
+        slug: 'funnel',
+        icon: 'other',
+        title: {
+          zh: '漏斗图',
+          en: 'Funnel Charts',
         },
       },
       {
@@ -115,11 +155,19 @@ module.exports = {
         },
       },
       {
-        slug: 'mini',
+        slug: 'combo',
+        icon: 'other',
+        title: {
+          zh: '双轴图',
+          en: 'Combo Charts',
+        },
+      },
+      {
+        slug: 'sparkline',
         icon: 'other',
         title: {
           zh: '迷你图表',
-          en: 'Mini Chart',
+          en: 'Sparkline',
         },
       },
       {
@@ -147,5 +195,9 @@ module.exports = {
         },
       },
     ],
+    docsearchOptions: {
+      apiKey: '0d19588d7661a81faa8b75f6ade80321',
+      indexName: 'antv_g2plot',
+    },
   },
 };

@@ -26,13 +26,19 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm run site:build
-      - uses: JamesIves/github-pages-deploy-action@releases/v3
+      - run: |
+          cd public
+          git init
+          git config --local user.name antv
+          git config --local user.email antv@antfin.com
+          git add .
+          git commit -m "update by release action"
+      - uses: ad-m/github-push-action@master
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: public
-          CLEAN: true
+          github_token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+          directory: public
+          branch: gh-pages
+          force: true
 
   publish-npm:
     needs: build

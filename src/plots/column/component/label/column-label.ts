@@ -2,12 +2,11 @@ import { Shape } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
 import { rgb2arr } from '../../../../util/color';
+import { LooseMap } from '../../../../interface/types';
 
 const TOP_MARGIN = 20;
 
-interface Point {
-  [key: string]: any;
-}
+type Point = LooseMap;
 
 export class ColumnLabels extends ElementLabels {
   public setLabelPosition(point, originPoint, index, originPosition) {
@@ -18,6 +17,7 @@ export class ColumnLabels extends ElementLabels {
     const coord = this.get('coord');
     const point0 = coord.convertPoint(originPoint.points[0]);
     const point1 = coord.convertPoint(originPoint.points[2]);
+    const negative = point0.y < point1.y;
     const width = (point0.x - point1.x) / 2;
     const height = (point0.y - point1.y) / 2;
 
@@ -47,8 +47,28 @@ export class ColumnLabels extends ElementLabels {
         break;
     }
   }
-  public showLabels(points: any, shapes: Shape[]) {
+
+  private adjustOffset(points: LooseMap[], shapes: Shape[]) {
+    const renderer = this.get('labelsRenderer');
+    const items = renderer.get('items');
+    const labels = renderer.get('group').get('children');
+    const coord = this.get('coord');
+    _.each(items, (item, idx) => {
+      const label = labels[idx];
+      const point0 = coord.convertPoint(points[idx].points[0]);
+      const point1 = coord.convertPoint(points[idx].points[2]);
+      const negative = point0.y < point1.y;
+      if (negative) {
+        item.y += item.offset * 2;
+        label.attr('textBaseline', 'top');
+        label.attr('y', label.attr('y') + item.offset * 2);
+      }
+    });
+  }
+
+  public showLabels(points: LooseMap[], shapes: Shape[]) {
     super.showLabels(points, shapes);
+    this.adjustOffset(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
     const items = renderer.get('items');
@@ -59,8 +79,10 @@ export class ColumnLabels extends ElementLabels {
       const origin = l.get('origin');
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this._getShape(shapeId, shapes);
-      this.adjustPosition(l, shape, item);
-      const { adjustColor } = this.get('labelOptions');
+      const { adjustColor, adjustPosition } = this.get('labelOptions');
+      if (adjustPosition) {
+        this.adjustPosition(l, shape, item);
+      }
       if (adjustColor) {
         this.adjustColor(l, shape);
       }
@@ -112,7 +134,10 @@ export class ColumnLabels extends ElementLabels {
         label.attr('lineWidth', 2);
       }
     } else if (labelRange.maxY < shapeRange.minY) {
-      label.attr('fill', 'black');
+      // 非 shape 范围内的 label 需要考虑主题背景
+      const theme = this.get('theme');
+      const labelTextColor = _.get(theme, 'label.textStyle.fill', 'black');
+      label.attr('fill', labelTextColor);
     }
   }
 

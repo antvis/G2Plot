@@ -3,7 +3,6 @@ import * as G from '@antv/g';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
-import { eventNames } from 'cluster';
 
 export interface LayerConfig {
   id?: string;
@@ -17,7 +16,8 @@ export interface LayerConfig {
   height?: number;
   /** the parent node of layer */
   parent?: any;
-  canvas: G.Canvas;
+  canvas?: G.Canvas;
+  name?: string;
 }
 
 export interface Region {

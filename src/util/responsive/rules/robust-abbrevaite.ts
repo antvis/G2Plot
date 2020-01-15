@@ -1,5 +1,4 @@
 import { Shape } from '@antv/g';
-import moment from 'moment';
 
 import datetimeStringAbbrevaite, { isTime } from './datetime-string-abbrevaite';
 import digitsAbbreviate from './digits-abbreviate';
@@ -19,7 +18,7 @@ export default function robustAbbrevaite(shape: Shape, option: RobustAbbrevaiteC
   const isnum = /^\d+$/.test(text);
   if (isnum) {
     digitsAbbreviate(shape, option, index, nodes);
-  } else if (moment(text).isValid() || isTime(text)) {
+  } else if (isTime(text)) {
     datetimeStringAbbrevaite(shape, option, index, nodes);
   } else {
     textAbbreviate(shape, option);

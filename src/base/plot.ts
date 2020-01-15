@@ -1,7 +1,7 @@
 import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g';
 import * as _ from '@antv/util';
-import { RecursivePartial } from '../interface/types';
+import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
 import EventController from './controller/event';
@@ -16,7 +16,7 @@ export interface PlotConfig {
   renderer?: string;
   height?: number;
   pixelRatio?: number;
-  theme?: string | {};
+  theme?: LooseMap | string;
 }
 
 export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEmitter {
@@ -126,6 +126,16 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
     }
   }
 
+  public getPlotTheme() {
+    const layer: any = this.layers[0];
+    return layer.getPlotTheme();
+  }
+
+  public getData() {
+    const layer: any = this.layers[0];
+    return layer.getData();
+  }
+
   /**
    * 绑定一个外部的stateManager
    * 先直接传递给各个子 Layer
@@ -185,6 +195,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
    */
   public getLayer(idx: number = 0) {
     return this.layers[idx];
+  }
+
+  public getCanvas() {
+    return this.canvasController.canvas;
   }
 
   public getLayers() {

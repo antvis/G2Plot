@@ -1,3 +1,55 @@
+## <small>0.11.21 (2019-01-02)</small>
+- 🐞 fix top padding error ([53de76f](https://github.com/antvis/G2Plot/commit/53de76f))
+- 🌟 add overlapped combo chart ([c893594](https://github.com/antvis/G2Plot/commit/c893594))
+
+## <small>0.11.20 (2019-12-31)</small>
+- 🐞 修复miniChart-column time scale绘制错误 ([b00163b](https://github.com/antvis/G2Plot/commit/b00163b))
+
+## <small>0.11.19 (2019-12-30)</small>
+- 🐞 修复直方图绘制失效 ([d8097dc](https://github.com/antvis/G2Plot/commit/d8097dc))
+- 🌟 优化折线图动画效果 ([4a8a028](https://github.com/antvis/G2Plot/commit/4a8a028))
+
+## <small>0.11.18 (2019-12-30)</small>
+- 🐞 散点图tooltip & legend bug fix ([b452862](https://github.com/antvis/G2Plot/commit/b452862))
+- 🐞 移除util中的moment依赖 ([077a2c6](https://github.com/antvis/G2Plot/commit/077a2c6))
+- 🌟 新增瀑布图 ([4c6d703](https://github.com/antvis/G2Plot/commit/4c6d703))
+
+## <small>0.11.15 (2019-12-23)</small>
+- 🐞 label参与auto-padding计算 ([0c566c1](https://github.com/antvis/G2Plot/commit/0c566c1))
+
+## <small>0.11.13 (2019-12-23)</small>
+- 🐞 修改条形图legend和tooltip顺序颠倒问题 ([e4f8f68](https://github.com/antvis/G2Plot/commit/e4f8f68))
+
+## <small>0.11.9 (2019-12-16)</small>
+- 🐞 update dependency version: g2 scale component ([23ca0ec](https://github.com/antvis/G2Plot/commit/23ca0ec))
+
+## <small>0.11.7 (2019-12-16)</small>
+
+- 🌟 add quadrant and trendline components to Scatter Plot and Bubble Plot ([2f6c8a0](https://github.com/antvis/G2Plot/commit/2f6c8a0))
+
+- 🌟 update documents and demos ([f33071c](https://github.com/antvis/G2Plot/commit/f33071c))
+
+
+
+## <small>0.11.6 (2019-12-12)</small>
+- 🐞 fix dependency version ([1369b34](https://github.com/antvis/G2Plot/commit/1369b34))
+
+- 🌟 pie label enhancement ([52e77c0](https://github.com/antvis/G2Plot/commit/52e77c0))
+
+- 🌟 column & bar chart label add adjustPosition option ([e0bbc53](https://github.com/antvis/G2Plot/commit/e0bbc53))
+
+
+## <small>0.11.5 (2019-12-09)</small>
+
+- 🐞 miniChart-progress 使用代理shape解决mouseenter & mouseleave问题([63253c6](https://github.com/antvis/G2Plot/commit/63253c6))
+- 🐞 column chart无法正确绘制timecat数据([2950739](https://github.com/antvis/G2Plot/commit/2950739))
+- 🌟 miniChart-progress 更强大的update()方法 ([b77d489](https://github.com/antvis/G2Plot/commit/b77d489))
+- 🌟 export declaration file ([6f73e29](https://github.com/antvis/G2Plot/commit/6f73e29))
+
+## <small>0.11.4 (2019-12-06)</small>
+
+- 🐞 优化 tinyChart-progress 的 mouseleave 事件 ([52512d8](https://github.com/antvis/G2Plot/commit/52512d8))
+
 ## <small>0.11.3 (2019-12-05)</small>
 
 - 🌟tinyChart-progress update 方法支持第二个参数：更新时的样式配置,增加动画配置 ([b10719c](https://github.com/antvis/G2Plot/commit/b10719c))

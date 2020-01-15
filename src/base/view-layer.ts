@@ -22,10 +22,11 @@ import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
+import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
   data: DataItem[];
-  meta?: { [fieldId: string]: any & { type?: any } };
+  meta?: LooseMap;
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
@@ -38,12 +39,13 @@ export interface ViewConfig {
   tooltip?: Tooltip;
   legend?: Legend;
   animation?: any | boolean;
-  theme?: {} | string;
+  theme?: LooseMap | string;
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
   responsive?: boolean;
   title?: ITitle;
   description?: IDescription;
+  guideLine?: any;
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
@@ -53,6 +55,7 @@ export interface ViewConfig {
     selected?: StateConfig;
     disabled?: StateConfig;
   };
+  name?: string;
 }
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
@@ -98,7 +101,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
           visible: false,
         },
         line: {
-          visible: false,
+          visible: true,
         },
         tickLine: {
           visible: true,
@@ -193,6 +196,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       interactions: {},
       theme: this.theme,
       panelRange: {},
+      animate: true,
     };
 
     this.paddingController.clear();
@@ -280,7 +284,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   public changeData(data: DataItem[]): void {
-    this.view.changeData(this.processData(data));
+    this.options.data = this.processData(data);
+    this.view.changeData(this.options.data);
   }
 
   // plot 不断销毁重建，需要一个api获取最新的plot
@@ -386,15 +391,33 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       formatter: _.get(this.options, 'legend.formatter'),
       offsetX: _.get(this.options, 'legend.offsetX'),
       offsetY: _.get(this.options, 'legend.offsetY'),
-      wordSpacing: _.get(this.options, 'legend.wordSpacing'),
+      // wordSpacing: _.get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
     });
   }
 
-  protected abstract annotation(): void;
+  protected annotation() {
+    const config = [];
+    if (this.config.coord.type === 'cartesian' && this.options.guideLine) {
+      _.each(this.options.guideLine, (line) => {
+        const guideLine = getComponent('guideLine', {
+          plot: this,
+          cfg: line,
+        });
+        config.push(guideLine);
+      });
+    }
+    this.setConfig('annotations', config);
+  }
+
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
-  protected abstract animation(): void;
+
+  protected animation() {
+    if (this.options.animation === false || this.options.padding === 'auto') {
+      this.config.animate = false;
+    }
+  }
 
   protected applyInteractions(): void {
     const { interactions = [] } = this.options;
@@ -532,7 +555,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.interactions = [];
   }
 
-  private getViewRange() {
+  protected getViewRange() {
     // 有 Range 的 Interaction 参与 ViewMargin 计算
     const { interactions = [] } = this.options;
     const layerBBox = this.layerBBox;

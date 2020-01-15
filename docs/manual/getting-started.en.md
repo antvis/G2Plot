@@ -10,6 +10,12 @@ order: 1
 ```html
 <!-- import CDN source -->
 <script src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
+<script>
+  const plot = new G2Plot.Line(document.getElementById('app'), {
+    // ...
+  });
+  plot.render();
+</script>
 ```
 
 ```html

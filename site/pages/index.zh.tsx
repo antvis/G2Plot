@@ -10,36 +10,26 @@ const IndexPage = () => {
 
   const features = [
     {
-      icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/eae0ee4e-acbf-4486-88eb-ea17f441a0d5.svg',
+      icon: 'https://gw.alipayobjects.com/zos/basement_prod/eae0ee4e-acbf-4486-88eb-ea17f441a0d5.svg',
       title: t('开箱即用'),
-      description: t(
-        '配置项优化精简，仅需几行代码轻松生成图表',
-      ),
+      description: t('配置项优化精简，仅需几行代码轻松生成图表'),
     },
     {
-      icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/7269ccc5-fbe2-4e55-85d1-17c05917e8b0.svg',
+      icon: 'https://gw.alipayobjects.com/zos/basement_prod/7269ccc5-fbe2-4e55-85d1-17c05917e8b0.svg',
       title: t('默认好用'),
-      description: t(
-        '即使你是可视化或设计小白，也能制作优雅、标准的统计图表',
-      ),
+      description: t('即使你是可视化或设计小白，也能制作优雅、标准的统计图表'),
     },
     {
-      icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/d77e48ed-4e4c-43f5-bd83-329e12c28c16.svg',
+      icon: 'https://gw.alipayobjects.com/zos/basement_prod/d77e48ed-4e4c-43f5-bd83-329e12c28c16.svg',
       title: t('响应式图表'),
-      description: t(
-        '保证图表在任何显示尺寸、任何数据状态下的可读性',
-      ),
+      description: t('保证图表在任何显示尺寸、任何数据状态下的可读性'),
     },
   ];
-
 
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: `/${i18n.language}/examples/line/basic`,
+      link: `/${i18n.language}/examples/gallery`,
       type: 'primary',
     },
     {
@@ -50,15 +40,12 @@ const IndexPage = () => {
 
   const cases = [
     {
-      logo:
-        'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Uh1MSpdcj-kAAAAAAAAAAABkARQnAQ',
+      logo: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Uh1MSpdcj-kAAAAAAAAAAABkARQnAQ',
       title: t('图表实验室'),
-      description:
-        t('来这里尝试一下我们正在开发中的高级图表功能'),
+      description: t('来这里尝试一下我们正在开发中的高级图表功能'),
       link: `/${i18n.language}/examples/advanced/connection`,
-      image:
-        'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SXLtRaVPGvMAAAAAAAAAAABkARQnAQ',
-      isAppLogo: true
+      image: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SXLtRaVPGvMAAAAAAAAAAABkARQnAQ',
+      isAppLogo: true,
     },
   ];
 
@@ -67,21 +54,16 @@ const IndexPage = () => {
       <SEO title={t('G2Plot 开箱即用的图表库')} titleSuffix="AntV" lang={i18n.language} />
       <Banner
         coverImage = {
-          <img width="100%" class="Notification-module--number--31-3Z" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }
+          <img width="100%" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }
         title={t('G2Plot 开箱即用的图表库')}
-        description={t(
-          'G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',
-        )}
+        description={t('G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。')}
         buttonText={t('继续了解')}
         buttonHref={`/${i18n.language}/docs/manual/getting-started`}
-        className='banner'
+        className="banner"
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
         buttons={bannerButtons}
       />
-      <Features
-        features={features}
-        style={{ width: '100%' }}
-      />
+      <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />
     </>
   );

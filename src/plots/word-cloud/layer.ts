@@ -139,6 +139,10 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   public init() {
     super.init();
     this._initToolTips();
+  }
+
+  public render() {
+    super.render();
     this._render();
   }
 
@@ -219,16 +223,18 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     const newImageData = maskImageContext.createImageData(imageData);
     for (let i = 0; i < imageData.data.length; i += 4) {
       if (imageData.data[i + 3] > 128) {
+        // keep this area's data the same as pixel color
         newImageData.data[i] = bgPixel[0];
         newImageData.data[i + 1] = bgPixel[1];
         newImageData.data[i + 2] = bgPixel[2];
         newImageData.data[i + 3] = bgPixel[3];
       } else {
         // This color must not be the same as the bgPixel.
+        // check wordcloud2.js#1192 's condition
         newImageData.data[i] = bgPixel[0];
         newImageData.data[i + 1] = bgPixel[1];
         newImageData.data[i + 2] = bgPixel[2];
-        newImageData.data[i + 3] = bgPixel[3] ? bgPixel[3] - 1 : 0; // 254
+        newImageData.data[i + 3] = 254; // just for not same as the bg color
       }
     }
 
@@ -243,8 +249,9 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   private _scaleMaskImageCanvas(maskImageCanvas: HTMLCanvasElement): MaskImage {
     const maskCanvasScaled = document.createElement('canvas');
-    maskCanvasScaled.width = this.options.width;
-    maskCanvasScaled.height = this.options.height;
+    // get real canvas determined by pixelRatio
+    maskCanvasScaled.width = this.canvas.get('widthCanvas');
+    maskCanvasScaled.height = this.canvas.get('heightCanvas');
     const ctx = maskCanvasScaled.getContext('2d');
     // keep scale smooth
     ctx.imageSmoothingEnabled = true;

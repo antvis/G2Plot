@@ -1,0 +1,165 @@
+import * as _ from '@antv/util';
+import { Group } from '@antv/g';
+import { Global, registerShape } from '@antv/g2';
+import { setFillStyle } from '@antv/g2/lib/element/util/shape';
+import { ShapeDrawCFG, ShapeMarkerCfg, ShapePointInfo } from '@antv/g2/lib/interface';
+
+// 获取填充图形的图形属性
+function _getFillAttrs(cfg) {
+  const defaultAttrs = Global.theme.shape.interval.rect.default;
+  const attrs = _.mix({}, defaultAttrs, cfg.style);
+  setFillStyle(attrs, cfg);
+  return attrs;
+}
+
+// 根据数据点生成矩形的四个关键点
+function _getRectPoints(cfg: ShapePointInfo, isPyramid = false) {
+  const { x, y, y0, size } = cfg;
+  // 有 4 种情况，
+  // 1. x, y 都不是数组
+  // 2. y是数组，x不是
+  // 3. x是数组，y不是
+  // 4. x, y 都是数组
+  let yMin;
+  let yMax;
+  if (_.isArray(y)) {
+    yMin = y[0];
+    yMax = y[1];
+  } else {
+    yMin = y0;
+    yMax = y;
+  }
+
+  let xMin;
+  let xMax;
+  if (_.isArray(x)) {
+    xMin = x[0];
+    xMax = x[1];
+  } else {
+    xMin = x - size / 2;
+    xMax = x + size / 2;
+  }
+
+  const points = [
+    { x: xMin, y: yMin },
+    { x: xMin, y: yMax },
+  ];
+
+  if (isPyramid) {
+    // 绘制尖底漏斗图
+    // 金字塔漏斗图的关键点
+    // 1
+    // |   2
+    // 0
+    points.push({
+      x: xMax,
+      y: (yMax + yMin) / 2,
+    });
+  } else {
+    // 矩形的四个关键点，结构如下（左下角顺时针连接）
+    // 1 ---- 2
+    // |      |
+    // 0 ---- 3
+    points.push({ x: xMax, y: yMax }, { x: xMax, y: yMin });
+  }
+
+  return points;
+}
+
+// 根据关键点绘制漏斗图的 path
+function _getFunnelPath(cfg, compare) {
+  const path = [];
+  const { points, nextPoints } = cfg;
+
+  if (compare) {
+    // 对比漏斗
+    const { yValues, yValuesMax, yValuesNext } = compare;
+    const originY = (points[0].y + points[1].y) / 2;
+
+    const yValueTotal = yValues[0] + yValues[1];
+    const yRatios = yValues.map((yValue) => yValue / yValueTotal / 0.5);
+    const yOffset = (yValuesMax[0] / (yValuesMax[0] + yValuesMax[1]) - 0.5) * 0.9;
+
+    if (!_.isNil(nextPoints)) {
+      const yValueTotalNext = yValuesNext[0] + yValuesNext[1];
+      const yRatiosNext = yValuesNext.map((yValueNext) => yValueNext / yValueTotalNext / 0.5);
+      path.push(
+        ['M', points[0].x, yOffset + (points[0].y - originY) * yRatios[0] + originY],
+        ['L', points[1].x, yOffset + originY],
+        ['L', nextPoints[1].x, yOffset + originY],
+        ['L', nextPoints[0].x, yOffset + (nextPoints[3].y - originY) * yRatiosNext[0] + originY],
+        ['Z']
+      );
+      path.push(
+        ['M', points[0].x, yOffset + 0.002 + originY],
+        ['L', points[1].x, yOffset + 0.002 + (points[1].y - originY) * yRatios[1] + originY],
+        ['L', nextPoints[1].x, yOffset + 0.002 + (nextPoints[2].y - originY) * yRatiosNext[1] + originY],
+        ['L', nextPoints[0].x, yOffset + 0.002 + originY],
+        ['Z']
+      );
+    } else {
+      path.push(
+        ['M', points[0].x, yOffset + (points[0].y - originY) * yRatios[0] + originY],
+        ['L', points[1].x, yOffset + originY],
+        ['L', points[2].x, yOffset + originY],
+        ['L', points[3].x, yOffset + (points[3].y - originY) * yRatios[0] + originY],
+        ['Z']
+      );
+      path.push(
+        ['M', points[0].x, yOffset + 0.002 + originY],
+        ['L', points[1].x, yOffset + 0.002 + (points[1].y - originY) * yRatios[1] + originY],
+        ['L', points[2].x, yOffset + 0.002 + (points[2].y - originY) * yRatios[1] + originY],
+        ['L', points[3].x, yOffset + 0.002 + originY],
+        ['Z']
+      );
+    }
+  } else {
+    // 标准漏斗
+    if (!_.isNil(nextPoints)) {
+      path.push(
+        ['M', points[0].x, points[0].y],
+        ['L', points[1].x, points[1].y],
+        ['L', nextPoints[1].x, nextPoints[1].y],
+        ['L', nextPoints[0].x, nextPoints[0].y],
+        ['Z']
+      );
+    } else {
+      path.push(
+        ['M', points[0].x, points[0].y],
+        ['L', points[1].x, points[1].y],
+        ['L', points[2].x, points[2].y],
+        ['L', points[3].x, points[3].y],
+        ['Z']
+      );
+    }
+  }
+
+  return path;
+}
+
+registerShape('interval', 'funnel-basic-rect', {
+  getPoints(pointInfo: ShapePointInfo) {
+    pointInfo.size = pointInfo.size * 1.8; // 调整面积
+    return _getRectPoints(pointInfo);
+  },
+  draw(cfg: ShapeDrawCFG, container: Group) {
+    const attrs = _getFillAttrs(cfg);
+    let path = _getFunnelPath(cfg, _.get(cfg, 'origin._origin.__compare__'));
+    path = this.parsePath(path);
+
+    return container.addShape('path', {
+      attrs: {
+        ...attrs,
+        path,
+      },
+    });
+  },
+  getMarkerStyle(markerCfg: ShapeMarkerCfg) {
+    const markerStyle = {
+      symbol: 'square',
+      radius: 4,
+    };
+    setFillStyle(markerStyle, markerCfg);
+    return markerStyle;
+  },
+});

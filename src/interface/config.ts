@@ -136,6 +136,7 @@ export interface Legend {
   formatter?: (...args: any) => string;
   offsetX?: number;
   offsetY?: number;
+  clickable?: boolean;
 }
 
 export interface Tooltip {

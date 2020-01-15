@@ -8,6 +8,11 @@ interface Point {
 }
 
 const LEAF_LABEL_OFFSET = 4;
+const MIN_FONTSIZE = 8;
+
+function isLeaf(data, maxLevel) {
+  return !data.children || data.depth >= maxLevel;
+}
 
 function textWrapper(label, width) {
   const fontSize = label.attr('fontSize');
@@ -85,30 +90,30 @@ export class TreemapLabels extends ElementLabels {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
-    const items = renderer.get('items');
     const view = this.get('element').get('view');
+    const { maxLevel } = this.get('labelOptions');
     _.each(labels, (label, index) => {
       const l = label as Shape;
-      //const item = items[index];
       const data = label.get('origin');
       const origin = l.get('origin');
-      const isParentNode = _.hasKey(data, 'children');
+      const isLeafNode = isLeaf(data, maxLevel);
       const shapeId = this.get('element').getShapeId(origin);
       const shape = this.getShape(shapeId, shapes);
       const shapeBbox = shape.getBBox();
-      if (isParentNode && data.showLabel) {
-        const { depth } = data;
-        const adjustOpacity = 1 - 0.5 * depth;
+      if (!isLeafNode && data.showLabel) {
         const x = shapeBbox.x + shapeBbox.width / 2;
         const y = shapeBbox.y + 4;
         label.attr('x', x);
         label.attr('y', y);
         label.attr('textBaseline', 'top');
         label.attr('fontWeight', 600);
-        //shape.attr('opacity',adjustOpacity);
+        const wrapperWidth = shapeBbox.width - LEAF_LABEL_OFFSET * 2;
+        if (label.getBBox().width > wrapperWidth) {
+          const text = textAbbreviate(label.attr('text'), label.attr('fontSize'), wrapperWidth);
+          label.attr('text', text);
+        }
       } else {
         this.leafText(shapeBbox, label);
-        //label.attr('text','');
       }
     });
     view.get('canvas').draw();
@@ -129,7 +134,8 @@ export class TreemapLabels extends ElementLabels {
   private leafText(bbox, label) {
     const labelBBox = label.getBBox();
     const labelText = _.clone(label.attr('text'));
-    const fontSize = label.attr('fontSize');
+    const sizeOffset = label.get('origin').depth === 1 ? 0 : 2;
+    const fontSize = Math.max(label.attr('fontSize') - sizeOffset, MIN_FONTSIZE);
     const centerX = bbox.x + bbox.width / 2;
     const centerY = bbox.y + bbox.height / 2;
     label.attr({
@@ -138,13 +144,15 @@ export class TreemapLabels extends ElementLabels {
       textAlign: 'center',
       textBaseline: 'middle',
       lineHeight: fontSize,
+      fontSize,
     });
     const wrapperWidth = bbox.width - LEAF_LABEL_OFFSET * 2;
-    if (labelBBox.width < bbox.width && labelBBox.height < bbox.height) {
+    if (labelBBox.width > bbox.width && labelBBox.height > bbox.height) {
       label.attr('text', '');
       return;
     } else if (wrapperWidth < fontSize) {
       label.attr('text', '');
+      return;
     }
     if (labelBBox.width > bbox.width) {
       const wrappedText = textWrapper(label, wrapperWidth);

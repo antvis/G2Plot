@@ -111,9 +111,9 @@ const data = [
 **optional**
 
 `visible: boolean`    图形标签是否显示<br />
-`type: 'inner' | 'outer' | 'spider'`    图形标签的类型<br />
+`type: 'inner' | 'outer' | 'outer-center' | 'spider'`    图形标签的类型<br />
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GnO6SaWohv0AAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 600px; height: 248px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TeCBRbMLDKsAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px; height: 248px;">
 
 `formatter: function` 对 label 的显示文本进行格式化
 

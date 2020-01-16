@@ -280,7 +280,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }
-    console.log(this.options, cfg);
     this.options = _.deepMix({}, this.options, cfg);
     this.processOptions(this.options);
   }

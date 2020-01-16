@@ -116,7 +116,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private legendsListenerAttached: boolean = false;
 
   private shouldAdjustLabels: boolean = false;
-  private shouldResetPercentages: boolean = false;
+  private shouldResetPercentages: boolean = true;
 
   constructor(props: T) {
     super(props);
@@ -261,7 +261,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       /** 关闭动画 */
       this.funnel.animate = false;
       this.shouldAdjustLabels = true;
-      this.shouldResetPercentages = true;
       _.set(this.funnel, 'label.textStyle.opacity', 1);
     } else {
       const appearDuration = _.get(props, 'animation.appear.duration');
@@ -275,8 +274,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         this._teardownAnimationMask();
 
         this.shouldAdjustLabels = true;
-        this.shouldResetPercentages = true;
-        this.resetPercentages();
         this.fadeInPercentages(appearDurationEach);
 
         delete this.animationAppearTimeoutHandler;
@@ -318,6 +315,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   public afterRender() {
     const props = this.options;
 
+    this.resetPercentages();
+    if (props.padding == 'auto') {
+      const percentageContainer = this._findPercentageContainer();
+      if (percentageContainer) {
+        this.paddingController.registerPadding(percentageContainer, 'inner', true);
+      }
+    }
+
     super.afterRender();
 
     if (this.animationAppearTimeoutHandler) {
@@ -326,7 +331,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     this.adjustLegends();
     this.adjustLabels();
-    this.resetPercentages();
 
     if (props.animation === false) {
       this.fadeInPercentages();
@@ -340,12 +344,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   public updateConfig(cfg: Partial<T>): void {
-    cfg = this.adjustProps(_.deepMix({}, this.options, cfg));
+    cfg = this.adjustProps(cfg);
 
     super.updateConfig(cfg);
     this.shouldAdjustLegends = true;
+    this.legendsListenerAttached = false;
     this.shouldAdjustLabels = false;
-    this.shouldResetPercentages = false;
   }
 
   public changeData(data: DataItem[]): void {
@@ -434,7 +438,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
   }
 
-  protected adjustProps(props: T) {
+  protected adjustProps(props: Partial<T>) {
     if (props.dynamicHeight) {
       _.set(props, `meta.${props.yField}.nice`, false);
       _.set(props, 'tooltip.shared', false);

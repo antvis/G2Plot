@@ -89,7 +89,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     this.items = config.items || [];
     this.itemPadding = config.itemPadding || [2, 8, 2, 8];
     this.backgroundStyle = { lineWidth: 1, stroke: '#ffffff', ...(config.backgroundStyle || {}) };
-    this.itemBackgroundStyle = config.itemBackgroundStyle || {};
+    this.itemBackgroundStyle = { fill: '#fff', ...(config.itemBackgroundStyle || {}) };
     this.itemActiveBackgroundStyle = { fill: '#ccc', opacity: 0.2, ...(config.itemActiveBackgroundStyle || {}) };
     this.separator = config.separator || '/';
     this.separatorStyle = { textBaseline: 'top', fill: '#000', opacity: 0.45, ...(config.separatorStyle || {}) };
@@ -104,7 +104,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     const startY = 0;
     this.offEvents();
     this.renderItems(group, startX, startY);
-    this.bindEvents(group);
+    //this.bindEvents(group);
     this.group.move(this.x, this.y);
   }
 
@@ -128,7 +128,8 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       // item group
       const itemGroup: Group = group.addGroup({
         id: `item-group-${item.key}`,
-        data: item.key,
+        // data: item.key,
+        data: item,
         class: 'item-group',
         attrs: {
           cursor: 'pointer',

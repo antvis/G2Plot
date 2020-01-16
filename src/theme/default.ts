@@ -1,6 +1,6 @@
 const COLOR = '#5B8FF9';
 
-const COLOR_PLATE_10 = [
+export const COLOR_PLATE_10 = [
   '#5B8FF9',
   '#5AD8A6',
   '#5D7092',
@@ -13,7 +13,7 @@ const COLOR_PLATE_10 = [
   '#FF99C3',
 ];
 
-const COLOR_PLATE_20 = [
+export const COLOR_PLATE_20 = [
   '#5B8FF9',
   '#BDD2FD',
   '#5AD8A6',
@@ -130,7 +130,7 @@ export const DEFAULT_GLOBAL_THEME = {
       label: {
         visible: true,
         offset: 8,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -176,7 +176,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       label: {
         visible: true,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -216,7 +216,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       label: {
         offset: 16,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -224,6 +224,14 @@ export const DEFAULT_GLOBAL_THEME = {
       title: {
         offset: 12,
         style: { fill: 'rgba(0, 0, 0, 0.65)', fontSize: 12 },
+      },
+    },
+    radius: {
+      label: {
+        textStyle: {
+          fill: 'rgba(0,0,0,0.45)',
+          fontSize: 12,
+        },
       },
     },
   },
@@ -236,6 +244,9 @@ export const DEFAULT_GLOBAL_THEME = {
   },
   label: {
     offset: 12,
+    textStyle: {
+      fill: 'rgba(0, 0, 0, 0.65)',
+    },
     style: {
       fill: 'rgba(0, 0, 0, 0.65)',
       stroke: '#ffffff',

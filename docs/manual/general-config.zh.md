@@ -64,9 +64,9 @@ order: 2
 
 ## theme
 
-**optional**, object 类型
+**optional**, string | object 类型
 
-图表主题，如不进行配置则默认使用 G2Plot 默认主题。详见 theme 文档。
+图表主题，如不进行配置则默认使用 G2Plot 默认主题。详见 theme 文档（待补充）。
 
 ## meta
 

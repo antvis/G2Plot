@@ -107,6 +107,7 @@ const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
   angleField: 'item',
   radiusField: 'score',
   seriesField: 'user',
+  theme: 'dark',
 });
 radarPlot.render();
 

@@ -32,5 +32,5 @@ function liquidMoveIn(shape, animateCfg) {
     delay
   );
 }
-
+liquidMoveIn.animationName = 'liquidMoveIn';
 Animate.registerAnimation('appear', 'liquidMoveIn', liquidMoveIn);

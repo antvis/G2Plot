@@ -109,7 +109,9 @@ export class ScatterLabels extends ElementLabels {
       const reflect = this._mappingColor(colorBand, gray);
       label.attr('fill', reflect);
     } else if (labelRange.maxY < shapeRange.minY) {
-      label.attr('fill', 'black');
+      const theme = this.get('theme');
+      const labelTextColor = _.get(theme, 'label.textStyle.fill', 'black');
+      label.attr('fill', labelTextColor);
     }
   }
 

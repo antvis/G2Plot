@@ -38,41 +38,37 @@ export function getOverlapArea(a: Box, b: Box, margin = 0): number {
 }
 
 /**
- * Determine the index of quadrants which point placed by angle of point.
- * -------------
- * |  3  |  0  |
- * -------------
- * |  2  |  1  |
- * -------------
- *
- * @param {number} angle
- * @return {number} the index of quadrants, always in range `<0, 3>`
+ * 计算两个矩形之间的堆叠情况
+ * @return xOverlap x方向重叠大小
+ * @return yOverlap y方向重叠大小
  */
-export function getQuadrantByAngle(angle: number): number {
-  const left = angle > Math.PI / 2 || angle < -Math.PI / 2;
-  // fix angle > Math.PI
-  const top = angle < 0 || angle > Math.PI;
-  let index: number;
+export function getOverlapInfo(a: Box, b: Box, margin = 0): { xOverlap: number; yOverlap: number } {
+  let xOverlap = Math.max(
+    0,
+    Math.min(a.x + a.width + margin, b.x + b.width + margin) - Math.max(a.x - margin, b.x - margin)
+  );
+  let yOverlap = Math.max(
+    0,
+    Math.min(a.y + a.height + margin, b.y + b.height + margin) - Math.max(a.y - margin, b.y - margin)
+  );
 
-  if (left) {
-    if (top) {
-      // Top left
-      index = 3;
-    } else {
-      // Bottom left
-      index = 2;
-    }
-  } else {
-    if (top) {
-      // Top right
-      index = 0;
-    } else {
-      // Bottom right
-      index = 1;
-    }
+  // 添加 sign
+  if (xOverlap && a.x < b.x) {
+    xOverlap = -xOverlap;
+  }
+  if (yOverlap && a.y < b.y) {
+    yOverlap = -yOverlap;
   }
 
-  return index;
+  // 重叠
+  if (a.x === b.x && a.width === b.width) {
+    xOverlap = b.width;
+  }
+  if (a.y === b.y && a.height === b.height) {
+    yOverlap = b.height;
+  }
+
+  return { xOverlap, yOverlap };
 }
 
 /**
@@ -88,3 +84,10 @@ export function inPanel(panel: Box, shape: Box) {
     panel.y + panel.height > shape.y + shape.height
   );
 }
+
+/**
+ * 判断两个数值 是否接近
+ * - 解决精度问题（由于无法确定精度上限，根据具体场景可传入 精度 参数）
+ */
+export const near = (x: number, y: number, e: number = Number.EPSILON ** 0.5): boolean =>
+  [x, y].includes(Infinity) ? Math.abs(x) === Math.abs(y) : Math.abs(x - y) < e;

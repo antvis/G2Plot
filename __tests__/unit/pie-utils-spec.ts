@@ -1,4 +1,4 @@
-import { getEndPoint, getCenter, getOverlapArea, getQuadrantByAngle } from '../../src/plots/pie/component/label/utils';
+import { getEndPoint, getCenter, getOverlapArea } from '../../src/plots/pie/component/label/utils';
 
 describe('test utils of pie label', () => {
   it('getEndPoint', () => {
@@ -20,13 +20,5 @@ describe('test utils of pie label', () => {
     expect(getOverlapArea(box1, box3)).toBe(0);
     expect(getOverlapArea(box2, box3)).toBe(0);
     expect(getOverlapArea(box2, box4)).toBe(200);
-  });
-
-  it('getQuadrantByAngle', () => {
-    expect(getQuadrantByAngle(Math.PI / 4)).toBe(1);
-    expect(getQuadrantByAngle((Math.PI / 4) * 3)).toBe(2);
-    expect(getQuadrantByAngle(-Math.PI / 4)).toBe(0);
-    expect(getQuadrantByAngle((-Math.PI / 4) * 3)).toBe(3);
-    expect(getQuadrantByAngle(3.5)).toBe(3);
   });
 });

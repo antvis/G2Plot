@@ -46,6 +46,10 @@ const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
   data: [],
   angleField: 'item',
   radiusField: 'score',
+  radiusAxis: {
+    gridType: 'arc',
+    gridAlternateColor: '#ccc',
+  },
 });
 radarPlot.render();
 

@@ -27,9 +27,20 @@ export default class CircleParser extends ElementParser {
     }
   }
 
-  /** keyfield 用来做 shape 的唯一 id */
+  /**
+   * 当存在 timeline 时，keyfields 用来做 shape 的唯一 id
+   * @Todo 非 timeline 的 update 也会收到影响
+   */
   private getKeyFields() {
     const props = this.plot.options;
+    const interactions = props.interactions || [];
+    const timeLineInteraction = _.find(interactions, (interaction) => {
+      return interaction.type === 'timeline';
+    });
+    /** 在无 timeline 的场景下，不设置 keyfields */
+    if (!timeLineInteraction) {
+      return;
+    }
     if (_.isString(props.colorField)) {
       return [props.colorField];
     }

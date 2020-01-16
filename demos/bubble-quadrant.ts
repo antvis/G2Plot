@@ -21,6 +21,11 @@ $.get('../examples/data/smoking-rate.json', function(data) {
       max: 5,
       min: -25,
     },
+    tooltip: {
+      visible: true,
+      showTitle: true,
+      titleField: 'continent',
+    },
     quadrant: {
       visible: true,
       xBaseline: 0,

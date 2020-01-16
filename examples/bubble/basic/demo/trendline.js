@@ -26,6 +26,11 @@ fetch('../data/revenue.json')
         max: 230,
         nice: false,
       },
+      tooltip: {
+        visible: true,
+        showTitle: true,
+        titleField: 'revenueGroup',
+      },
       trendline: {
         visible: true,
         type: 'log',

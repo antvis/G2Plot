@@ -217,7 +217,7 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 
 **optional**
 
-趋势线组件，为图表田间回归曲线。
+趋势线组件，为图表区间回归曲线。
 
 `type: string` 趋势线类型，支持 `linear`  `exp`  `loess`  `log`  `poly`  `pow` `quad` 7种 <br />
 `style: Object` 配置趋势线样式<br />

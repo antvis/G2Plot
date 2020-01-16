@@ -25,7 +25,13 @@ fetch('../data/smoking-rate.json')
         max: 5,
         min: -25,
       },
+      tooltip: {
+        visible: true,
+        showTitle: true,
+        titleField: 'continent',
+      },
       quadrant: {
+        visible: true,
         xBaseline: 0,
         yBaseline: 0,
         regionStyle: [

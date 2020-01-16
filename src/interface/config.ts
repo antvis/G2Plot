@@ -134,6 +134,8 @@ export interface Label {
   adjustPosition?: boolean;
   autoRotate?: boolean;
   labelLine?: any;
+  /** 标签对应字段 */
+  field?: string;
 }
 
 export interface Legend {
@@ -151,7 +153,7 @@ export interface Legend {
 
 export interface Tooltip {
   visible: boolean;
-  shared: boolean;
+  shared?: boolean;
   /** html */
   showTitle?: boolean;
   html?: HTMLDivElement;
@@ -163,6 +165,10 @@ export interface Tooltip {
   crosshair?: 'x' | 'y' | 'cross' | boolean;
   crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
   style?: IStyleConfig;
+  /** 标题对应字段 */
+  titleField?: string;
+  /** 行对应字段 */
+  itemField?: string | string[];
 }
 
 interface Animation {

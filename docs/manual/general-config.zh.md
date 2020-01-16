@@ -113,6 +113,9 @@ areaPlot.render();
 **optional**, object 类型
 
 `visible: boolean`  tooltip 是否可见<br />
+`showTitle: boolean` tooltip 内 title 是否可见<br />
+`titleField: string` tooltip title 指定字段<br />
+`itemField: string | string[]` tooltip items 指定字段<br />
 `shared: boolean`    设置 tooltip 是否只展示单条数据<br />
 `crosshairs`: 配置 tooltip 辅助线<br />   `false`: 不显示辅助线<br />   `type: 'x' | 'y' | 'cross'`  配置辅助线的形态<br />   `style: object`  配置辅助线样式，详见图形属性<br />
 `htmlContent: function`<br />    自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。
@@ -181,6 +184,8 @@ htmlContent: (title, items) => {
 坐标轴标签
 
 `visible: boolean` 坐标轴网格是否可见
+
+`field: stirng` 标签指定数据字段
 
 `formatter: function` 对 label 的显示文本进行格式化
 

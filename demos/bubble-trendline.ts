@@ -20,6 +20,11 @@ $.get('../examples/data/revenue.json', function(data) {
       max: 230,
       nice: false,
     },
+    tooltip: {
+      visible: true,
+      showTitle: true,
+      titleField: 'revenueGroup',
+    },
     trendline: {
       visible: true,
       type: 'log',

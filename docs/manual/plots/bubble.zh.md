@@ -11,7 +11,7 @@ order: 1
 
 ### 特殊配置
 
-** 除特殊配置外, 气泡图API与[散点图(Scatter)](./scatter)相同。
+除特殊配置外, 气泡图API与[散点图(Scatter)](./scatter)相同。
 
 ### sizeField
 
@@ -44,3 +44,39 @@ const bubblePlot = new Bubble(document.getElementById('container'), {
 ```
 
 效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*yN9WSJ8X1wcAAAAAAAAAAABkARQnAQ" width="400">
+
+### timeline
+
+**optional**
+
+播放轴组件
+
+`field: string` 播放轴筛选字段，必选<br />
+`loop: boolean` 是否循环播放，可选<br />
+`speed: number` 播放轴播放速度，多少s一个间隔，可选<br />
+`height: number;` 播放轴高度，可选
+
+完整示例：
+
+```js
+const bubblePlot = new Bubble(document.getElementById('container'), {
+    data,
+    xField: 'income',
+    yField: 'lifeExpectancy',
+    colorField: 'country',
+    sizeField: 'population',
+    // highlight-start
+    interactions: [
+        {
+            type: 'timeline',
+            cfg: {
+                field: 'year',
+            },
+        },
+    ],
+    // highlight-end
+});
+bubblePlot.render();
+```
+
+效果：<img alt="播放轴组件效果" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rvY2SZEIYo4AAAAAAAAAAABkARQnAQ" width="400">

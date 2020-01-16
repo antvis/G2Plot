@@ -33,6 +33,11 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
 
   protected legend() {
     super.legend();
+
+    if (this.options.legend && this.options.legend.visible === false) {
+      return;
+    }
+
     /** 取消气泡大小图例 */
     this.setConfig('legends', {
       fields: {

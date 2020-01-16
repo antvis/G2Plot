@@ -81,6 +81,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         visible: true,
         // false 会造成 tooltip 只能显示一条数据，true 会造成 tooltip 在空白区域也会显示
         shared: null,
+        showTitle: false,
         crosshairs: {
           type: 'rect',
         },
@@ -170,9 +171,11 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       this.points.label = this.extractLabel();
     }
     if (this.options.tooltip && this.options.tooltip.visible) {
+      const { showTitle, titleField } = this.options.tooltip;
       this.points.tooltip = this.extractTooltip();
       this.setConfig('tooltip', {
-        showTitle: false,
+        showTitle,
+        title: showTitle ? titleField : undefined,
         ...this.options.tooltip,
       } as any);
     }
@@ -202,7 +205,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     const labelConfig = getComponent('label', {
       plot: this,
       labelType: 'scatterLabel',
-      fields: [props.yField],
+      fields: label.field ? [label.field] : [props.yField],
       position: 'right',
       offset: 0,
       ...label,
@@ -210,10 +213,20 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     return labelConfig;
   }
 
+  private getTooltipFields() {
+    const { xField, yField, tooltip } = this.options;
+    const { itemField } = tooltip;
+    if (_.isString(itemField)) {
+      return [itemField];
+    } else if (_.isArray(itemField)) {
+      return itemField;
+    }
+    return [xField, yField];
+  }
+
   protected extractTooltip() {
-    const props = this.options;
     return {
-      fields: [props.xField, props.yField],
+      fields: this.getTooltipFields(),
     };
   }
 }

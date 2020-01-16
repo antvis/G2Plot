@@ -47,22 +47,25 @@ export type WordCloudData = {
  */
 export type InnerStartFunction = (hoveredId: number) => void;
 
-export interface WordCloudViewConfig {
-  data: Array<WordCloudData> | Function;
-  // mask image, black-white pixel image will be better
-  maskImage?: string;
+export type WordStyle = {
   fontFamily?: string;
   // normal, lighter, bold, bolder, 100~900
   fontWeight?: string | ((word: string, weight: number) => string);
   color?: string | ((word: string, weight: number) => string);
 
+  shadowColor?: string;
+  shadowBlur?: number;
+
+  // [min, max] ->  random by steps(each step (max - min) / steps))
+  minRotation?: number;
+  maxRotation?: number;
+  rotationSteps?: number;
+  // the ratio of rotate
+  rotateRatio?: number;
+
   // font's max and min size(determine by cloud's weight)
   minFontSize?: number;
   maxFontSize?: number;
-
-  // clear before start
-  clearCanvas?: boolean;
-  backgroundColor?: string;
 
   gridSize?: number;
   drawOutOfBound?: boolean;
@@ -70,7 +73,17 @@ export interface WordCloudViewConfig {
   shrinkToFit?: boolean;
   // reset cloud's [x,y]
   origin?: [number, number];
+};
 
+export interface WordCloudViewConfig {
+  data: Array<WordCloudData> | Function;
+  // mask image, black-white pixel image will be better
+  maskImage?: string;
+  backgroundColor?: string;
+  style?: WordStyle;
+
+  // clear before start
+  clearCanvas?: boolean;
   // wait milliseconds before next item show
   wait?: number;
   // If the call with in the loop takes more than x milliseconds (and blocks the browser), abort immediately.
@@ -78,35 +91,27 @@ export interface WordCloudViewConfig {
   // abort callback
   abort?: () => {};
 
-  // [min, max] ->  random by steps(each step (max - min) / steps))
-  minRotation?: number;
-  maxRotation?: number;
-  rotationSteps?: number;
-
   shuffle?: boolean;
-  // the ratio of rotate
-  rotateRatio?: number;
 
   // hover interaction item id
   enableEmphasis?: boolean;
   enableToolTips?: boolean;
   hoveredId?: number;
-  shadowColor?: string;
-  shadowBlur?: number;
 
   shape?: CloudShape | Function;
   // shape's ellipticity [0,1]
   ellipticity?: number;
 
-  classes?: (word: string, weight: number) => string;
-
-  hover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
-  click?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent) => {};
+  onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
+  onWordCloudClick?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent) => {};
 
   // ONLY FOR DEBUG, DON'T USE US
   // drawMask?: boolean;
   // maskColor?: string;
   // maskGapWidth?: number;
+
+  // hide for now
+  // classes?: (word: string, weight: number) => string;
 }
 
 interface WordCloudLayerConfig extends WordCloudViewConfig, LayerConfig {}
@@ -119,7 +124,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   constructor(props: WordCloudLayerConfig) {
     super(props);
-    this._configHoverAction = props.hover;
+    this._configHoverAction = props.onWordCloudHover;
     this._enableToolTips = props.enableToolTips;
     this.options = _.deepMix(
       {},

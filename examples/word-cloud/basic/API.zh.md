@@ -31,41 +31,100 @@ type WordCloudData = {
 类型: `string`
 **optional** 遮罩图片(url 或者 base64 地址)
 
-### fontFamily
+### style
+
+类型: `WordStyle`
+```typescript
+type WordStyle = {
+  fontFamily?: string;
+  // normal, lighter, bold, bolder, 100~900
+  fontWeight?: string | ((word: string, weight: number) => string);
+  color?: string | ((word: string, weight: number) => string);
+
+  shadowColor?: string;
+  shadowBlur?: number;
+
+  // [min, max] ->  random by steps(each step (max - min) / steps))
+  minRotation?: number;
+  maxRotation?: number;
+  rotationSteps?: number;
+  // the ratio of rotate
+  rotateRatio?: number;
+
+  // font's max and min size(determine by cloud's weight)
+  minFontSize?: number;
+  maxFontSize?: number;
+
+  gridSize?: number;
+};
+```
+**optional** 文字相关的配置
+
+#### style.fontFamily
 
 类型: `string`
 **optional** [通用 CSS 配置](!https://www.w3schools.com/jsref/prop_style_fontfamily.asp)
 
-### fontWeight
+#### style.fontWeight
 
 类型: `string | ((word: string, weight: number) => string)`
 **optional** 设置 fontWeight
 
-### gridSize
+#### style.gridSize
 
 类型: `number`
 **optional** 单词的网格大小，默认为 8 越大单词之间的间隔越大
+
+
+#### style.color
+
+类型: `string | ((word: string, weight: number) => string)`
+**optional** 设置字体颜色
+
+#### style.minFontSize
+
+类型: `number`
+**optional** 设置最小字体 size，默认为浏览器支持的最小字号
+
+#### style.maxFontSize
+
+类型: `number`
+**optional** 设置最大字体 size，默认 60
+
+#### style.minRotation
+
+类型: `number`
+**optional** 旋转的最小角度 默认 -π/2
+
+#### style.maxRotation
+
+类型: `number`
+**optional** 旋转的最大角度 默认 π/2
+
+#### style.rotationSteps
+
+类型: `number`
+**optional** 旋转实际的步数,越大可能旋转角度越小
+
+#### style.rotateRatio
+
+类型: `number`
+**optional** 旋转的比率[0,1] 默认是 0.5 也就是 50%可能发生旋转
+
+#### style.shadowColor
+
+类型: `number`
+**optional** `enableEmphasis` 为 true 时 shadow 颜色, 默认通过 `color` 获取
+
+#### style.shadowBlur
+
+类型: `number`
+**optional** `enableEmphasis` 为 true 时 shadow 高斯系数, 默认 10
 
 ### backgroundColor
 
 类型: `string`
 **optional** 画布背景颜色，默认为 `#fff`
-
-### color
-
-类型: `string | ((word: string, weight: number) => string)`
-**optional** 设置字体颜色
-
-### minFontSize
-
-类型: `number`
-**optional** 设置最小字体 size，默认为浏览器支持的最小字号
-
-### maxFontSize
-
-类型: `number`
-**optional** 设置最大字体 size，默认 60
-
 ### wait
 
 类型: `number`
@@ -81,40 +140,10 @@ type WordCloudData = {
 类型: `Function`
 **optional** 每个词云之间操作执行最大的时间的回调函数
 
-### minRotation
-
-类型: `number`
-**optional** 旋转的最小角度 默认 -π/2
-
-### maxRotation
-
-类型: `number`
-**optional** 旋转的最大角度 默认 π/2
-
-### rotationSteps
-
-类型: `number`
-**optional** 旋转实际的步数,越大可能旋转角度越小
-
-### rotateRatio
-
-类型: `number`
-**optional** 旋转的比率[0,1] 默认是 0.5 也就是 50%可能发生旋转
-
 ### enableEmphasis
 
 类型: `boolean`
 **optional** hover 下词云图文字是否高亮效果, 默认 true
-
-### shadowColor
-
-类型: `number`
-**optional** `enableEmphasis` 为 true 时 shadow 颜色, 默认通过 `color` 获取
-
-### shadowBlur
-
-类型: `number`
-**optional** `enableEmphasis` 为 true 时 shadow 高斯系数, 默认 10
 
 ### enableToolTips
 
@@ -157,7 +186,7 @@ type CloudShape =
 类型: `number`
 **optional** 词云图形状的椭圆率 [0,1]，默认为 1，表示标准图形，越小图形越扁平
 
-### hover
+### onWordCloudHover
 
 类型: `(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};`
 
@@ -168,7 +197,7 @@ type CloudShape =
 
 **optional** hover 的 action 回调
 
-### click
+### onWordCloudClick
 
 类型: `(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};`
 
@@ -176,7 +205,7 @@ type CloudShape =
 - `dimension` 表示坐标信息[x,y,width,height]等
 - `evt` 表示触摸事件对象
 - `start` 表示内部的刷新回调函数 `(hoveredId: number) => void;` 当`hoveredId`不为-1 表示刷新立即刷新该 ID 的文本
-  > 基本同 hover
+  > 基本同 onWordCloudHover
 
 **optional** click 词云的 action 回调
 

@@ -222,16 +222,24 @@ if (!window.clearImmediate) {
 
       classes: null,
 
-      hover: null,
-      click: null,
+      onWordCloudHover: null,
+      onWordCloudClick: null,
     };
 
     const interactionItems = [];
 
     if (options) {
       for (var key in options) {
-        if (key in settings) {
-          settings[key] = options[key];
+        if (key === 'style') {
+          for (let fontKey in options[key]) {
+            if (fontKey in settings) {
+              settings[fontKey] = options[key][fontKey];
+            }
+          }
+        } else {
+          if (key in settings) {
+            settings[key] = options[key];
+          }
         }
       }
     }
@@ -461,14 +469,14 @@ if (!window.clearImmediate) {
       }
 
       if (!info) {
-        settings.hover(undefined, undefined, evt, start);
+        settings.onWordCloudHover(undefined, undefined, evt, start);
         if (settings.enableEmphasis) {
           defaultHoverAction(undefined, undefined, evt, start);
         }
         return;
       }
 
-      settings.hover(info.item, info.dimension, evt, start);
+      settings.onWordCloudHover(info.item, info.dimension, evt, start);
       if (settings.enableEmphasis) {
         defaultHoverAction(info.item, info.dimension, evt, start);
       }
@@ -481,7 +489,7 @@ if (!window.clearImmediate) {
         return;
       }
 
-      settings.click(info.item, info.dimension, evt);
+      settings.onWordCloudClick(info.item, info.dimension, evt);
       evt.preventDefault();
     };
 
@@ -1210,7 +1218,7 @@ if (!window.clearImmediate) {
       }
 
       // fill the infoGrid with empty state if we need it
-      if (settings.hover || settings.click) {
+      if (settings.onWordCloudHover || settings.onWordCloudClick) {
         interactive = true;
 
         /* fill the grid with empty state */
@@ -1219,11 +1227,11 @@ if (!window.clearImmediate) {
           infoGrid[gx] = [];
         }
 
-        if (settings.hover) {
+        if (settings.onWordCloudHover) {
           canvas.addEventListener('mousemove', wordcloudhover);
         }
 
-        if (settings.click) {
+        if (settings.onWordCloudClick) {
           canvas.addEventListener('click', wordcloudclick);
           canvas.addEventListener('touchstart', wordcloudclick);
           canvas.addEventListener('touchend', function(e) {

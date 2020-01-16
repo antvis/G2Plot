@@ -26,29 +26,30 @@ function getWordCloudConfig(data) {
     height: 400,
     data: getDataList(data),
     maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
-    color: (word, weight) => {
-      return getRandomColor();
+    style: {
+      minRotation: -Math.PI / 2,
+      maxRotation: Math.PI / 2,
+      rotateRatio: 0.5,
+      rotationSteps: 4,
+      maxFontSize: 60,
+      minFontSize: 10,
+      color: (word, weight) => {
+        return getRandomColor();
+      },
+      gridSize: 8,
+      shadowColor: '#333333',
+      shadowBlur: 10,
     },
     shape: 'cardioid',
     ellipticity: 1,
-
-    minRotation: -Math.PI / 2,
-    maxRotation: Math.PI / 2,
-    rotateRatio: 0.5,
-    rotationSteps: 4,
-
-    gridSize: 8,
     shuffle: false,
     backgroundColor: '#fff',
     wait: 0,
-
     enableToolTips: true,
     enableEmphasis: true,
     hoveredId: -1,
-    shadowColor: '#333333',
-    shadowBlur: 10,
 
-    hover: hoverAction,
+    onWordCloudHover: hoverAction,
   };
 }
 

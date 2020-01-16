@@ -136,7 +136,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
       props,
       // replace use config's hover action if needed, and trigger later
       {
-        hover: this._enableToolTips ? this._toolTipsAction : this._configHoverAction,
+        onWordCloudHover: this._enableToolTips ? this._toolTipsAction : this._configHoverAction,
       }
     );
   }

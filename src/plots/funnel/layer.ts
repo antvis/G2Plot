@@ -1,6 +1,8 @@
 import * as _ from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import { Shape, Group } from '@antv/g';
 import { Animate } from '@antv/g2';
+import TooltipTheme from '@antv/component/lib/tooltip/theme';
 
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -158,6 +160,83 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         type: props.dynamicHeight ? 'stack' : 'symmetric',
       },
     ];
+  }
+
+  protected tooltip() {
+    const props = this.options;
+
+    if (props.compareField) {
+      _.deepMix(props.tooltip, {
+        htmlContent: (title, items) => {
+          let clss, el, color, elMarker;
+
+          clss = 'g2-tooltip';
+          el = domUtil.createDom(`<div class="${clss}"></div>`);
+          domUtil.modifyCSS(el, TooltipTheme[clss]);
+          const elRoot = el;
+
+          if (title) {
+            clss = 'g2-tooltip-title';
+            el = domUtil.createDom(`<div class="${clss}"></div>`);
+            domUtil.modifyCSS(el, TooltipTheme[clss]);
+            elRoot.appendChild(el);
+            const elTitle = el;
+
+            clss = 'g2-tooltip-marker';
+            el = domUtil.createDom(`<span class="${clss}"></span>`);
+            domUtil.modifyCSS(el, TooltipTheme[clss]);
+            domUtil.modifyCSS(el, { width: '10px', height: '10px' });
+            elTitle.appendChild(el);
+            elMarker = el;
+
+            el = domUtil.createDom(`<span>${title}</span>`);
+            elTitle.appendChild(el);
+          }
+
+          if (items) {
+            clss = 'g2-tooltip-list';
+            el = domUtil.createDom(`<ul class="${clss}"></ul>`);
+            domUtil.modifyCSS(el, TooltipTheme[clss]);
+            elRoot.appendChild(el);
+            const elList = el;
+
+            items
+              .reduce((pairs, item) => {
+                if (!color) {
+                  color = item.color;
+                }
+                const compareValues = _.get(item, 'point._origin.__compare__.compareValues');
+                const yValues = _.get(item, 'point._origin.__compare__.yValues');
+                yValues.forEach((yValue, i) => pairs.push([compareValues[i], yValue]));
+                return pairs;
+              }, [])
+              .forEach(([compareValue, yValue], index) => {
+                clss = 'g2-tooltip-list-item';
+                el = domUtil.createDom(`<li class="${clss}" data-index=${index}></li>`);
+                domUtil.modifyCSS(el, TooltipTheme[clss]);
+                elList.appendChild(el);
+                const elListItem = el;
+
+                el = domUtil.createDom(`<span>${compareValue}</span>`);
+                elListItem.appendChild(el);
+
+                clss = 'g2-tooltip-value';
+                el = domUtil.createDom(`<span class="${clss}">${yValue}</span>`);
+                domUtil.modifyCSS(el, TooltipTheme[clss]);
+                elListItem.appendChild(el);
+              });
+          }
+
+          if (color && elMarker) {
+            domUtil.modifyCSS(elMarker, { backgroundColor: color });
+          }
+
+          return elRoot;
+        },
+      });
+    }
+
+    super.tooltip();
   }
 
   protected addGeometry() {
@@ -633,6 +712,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           [props.xField]: xValue,
           [props.yField]: 0,
           ['__compare__']: {
+            compareValues: [],
             yValues: [],
             yValuesMax: [],
             yValuesNext: undefined,
@@ -640,11 +720,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         };
         newData.push(newDatum);
       }
-      const yValueIdx = compareValue == compareValueFirstVisited ? 0 : 1;
-      newDatum['__compare__'].yValues[yValueIdx] = yValue;
-      if (yValuesMax[yValueIdx] < yValue) {
-        yValuesMax[yValueIdx] = yValue as number;
+      const idx = compareValue == compareValueFirstVisited ? 0 : 1;
+      newDatum['__compare__'].yValues[idx] = yValue;
+      if (yValuesMax[idx] < yValue) {
+        yValuesMax[idx] = yValue as number;
       }
+      newDatum['__compare__'].compareValues[idx] = compareValue;
 
       return newData;
     }, []);

@@ -10,6 +10,7 @@ import { LooseMap } from '../../interface/types';
 import SpiderLabel from './component/label/spider-label';
 import './component/label/outer-label';
 import './component/label/inner-label';
+import './component/label/outer-center-label';
 import * as EventParser from './event';
 import './theme';
 import { LineStyle } from '../line/layer';

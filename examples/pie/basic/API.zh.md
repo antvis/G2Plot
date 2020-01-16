@@ -77,9 +77,9 @@ optional
 
 `visible: boolean`    图形标签是否显示
 
-`type: 'inner' | 'outer' | 'spider'`    图形标签的类型
+`type: 'inner' | 'outer' | 'outer-center' | 'spider'`    图形标签的类型
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/nE%26kzHO1B%24/ca7bb353-6e8b-47ca-a1bf-557474ebc17c.png" alt="image.png" style="visibility: visible; width: 600px; height: 248px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TeCBRbMLDKsAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px; height: 248px;">
 
 `formatter: function` 对 label 的显示文本进行格式化
 

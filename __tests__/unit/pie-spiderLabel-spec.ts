@@ -77,7 +77,7 @@ describe('pie spider label', () => {
     expect(labelShapes.length / 2).toBe(shapes.length);
   });
 
-  it('label textGroup', () => {
+  it.skip('label textGroup', () => {
     expect(labelShapes[0].get('children')[1].attr('fill')).toBe('rgba(0, 0, 0, 0.65)');
     expect(labelShapes[0].get('children')[0].attr('text')).toBe(5);
     expect(labelShapes[0].get('children')[1].attr('text')).toBe('其它');
@@ -167,7 +167,7 @@ describe('spider-label 单行label', () => {
     expect(labelShapes.length).toBe(data.length * 2);
   });
 
-  it('单行label 居中显示', () => {
+  it.skip('单行label 居中显示', () => {
     const labelText = labelShapes[0].get('children')[0];
     const linePath = labelShapes[1].attr('path');
     expect(labelText.attr('text')).toBe('其它 (5)');

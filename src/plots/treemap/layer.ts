@@ -6,6 +6,7 @@ import { getComponent } from '../../components/factory';
 import squarify from './layout/squarify';
 import { INTERACTION_MAP } from './interaction';
 import './components/label';
+import { COLOR_PLATE_10, COLOR_PLATE_20 } from '../../theme/default';
 
 const PARENT_NODE_OFFSET = 4;
 const BLOCK_MARGIN = 4;
@@ -57,6 +58,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     });
   }
   public type: string = 'line';
+  public rootData: any;
 
   public beforeInit() {
     const { interactions } = this.options;
@@ -94,14 +96,24 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
 
   protected processData() {
-    const { data, colorField } = this.options;
+    return this.rootData;
+  }
+
+  public beforInit() {
+    super.beforeInit();
+    const { data } = this.options;
     const treemapData = this.getTreemapData(data);
-    return treemapData;
+    this.rootData = treemapData;
   }
 
   protected coord() {}
 
   protected addGeometry() {
+    const { data, colorField } = this.options;
+    const treemapData = this.getTreemapData(data);
+    this.rootData = treemapData;
+    const colorScale = this.getColorScale();
+    console.log(colorScale);
     const { maxLevel } = this.options;
     const rect: any = {
       type: 'polygon',
@@ -234,6 +246,38 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
 
   private isLeaf(data) {
     return !data.children /*|| data.depth >= this.options.maxLevel*/;
+  }
+
+  private getColorScale() {
+    //分类数据钻取的时候保持颜色一致性
+    //step1: 判断是否为颜色是否映射为分类字段
+    let ticks;
+    let values;
+    const { colorField } = this.options;
+    const { rootData } = this;
+    const sampleValue = rootData[0][colorField];
+    if (!_.isNumber(sampleValue)) {
+      // 取得所有unique值
+      const uniqueValues = [];
+      _.each(rootData, (d) => {
+        const v = d[colorField];
+        if (!_.contains(uniqueValues, v)) {
+          uniqueValues.push(v);
+        }
+      });
+      // 根据unique value的数量取得colorPalet
+      const colorPlate = uniqueValues.length <= 10 ? COLOR_PLATE_10 : COLOR_PLATE_20;
+      if (colorPlate.length < uniqueValues.length) {
+        const dist = uniqueValues.length - colorPlate.length;
+        colorPlate.push(..._.clone(colorPlate).splice(0, dist));
+      }
+      values = uniqueValues;
+      ticks = colorPlate;
+    }
+    if (ticks && values) {
+      const scaleConfig = this.config.scales;
+      scaleConfig[colorField] = { type: 'cat', ticks, values };
+    }
   }
 }
 

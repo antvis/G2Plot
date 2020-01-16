@@ -65,7 +65,7 @@ export const DEFAULT_DARK_THEME = {
       label: {
         visible: true,
         offset: 8,
-        style: {
+        textStyle: {
           fill: 'rgba(255, 255, 255, 0.45)',
           fontSize: 12,
         },
@@ -110,7 +110,7 @@ export const DEFAULT_DARK_THEME = {
       },
       label: {
         visible: true,
-        style: {
+        textStyle: {
           fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,
         },
@@ -153,7 +153,7 @@ export const DEFAULT_DARK_THEME = {
       },
       label: {
         offset: 16,
-        style: {
+        textStyle: {
           fill: '#a0a4aa',
           fontSize: 12,
         },
@@ -161,6 +161,15 @@ export const DEFAULT_DARK_THEME = {
       title: {
         offset: 12,
         style: { fill: '#767b84', fontSize: 12 },
+      },
+    },
+    radius: {
+      label: {
+        offset: 12,
+        textStyle: {
+          fill: '#a0a4aa',
+          fontSize: 12,
+        },
       },
     },
   },
@@ -172,6 +181,9 @@ export const DEFAULT_DARK_THEME = {
   },
   label: {
     offset: 12,
+    textStyle: {
+      fill: 'rgba(255, 255, 255, 0.65)',
+    },
     style: {
       fill: 'rgba(255, 255, 255, 0.65)',
       lineWidth: 1,

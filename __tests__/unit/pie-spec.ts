@@ -1,4 +1,6 @@
 import { Pie } from '../../src';
+import { getElementLabels } from '@antv/g2';
+import { Shape } from '@antv/g';
 
 describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
@@ -158,41 +160,6 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it.skip('inner label', () => {
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      label: {
-        visible: true,
-        type: 'inner',
-        formatter: () => {
-          return 'test';
-        },
-        style: {
-          fill: 'red',
-        },
-      },
-    });
-    piePlot.render();
-    const plot = piePlot.getLayer().view;
-    const labelGroup = plot
-      .get('elements')[0]
-      .get('frontgroundGroup')
-      .get('children')[0]
-      .get('children')[0]
-      .get('children');
-    const coord = plot.get('coord');
-    expect(labelGroup[0].attr('text')).toBe('test');
-    expect(labelGroup[0].attr('fill')).toBe('red');
-    const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
-    const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
-    const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist < coord.getRadius()).toBe(true);
-    piePlot.destroy();
-  });
-
   it.skip('outer label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
@@ -229,7 +196,39 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it('auto padding', () => {
+  it.skip('outer-center label', () => {
+    expect(getElementLabels('outer-center')).toBeDefined();
+    const piePlot = new Pie(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'value',
+      label: {
+        visible: true,
+        type: 'outer-center',
+        formatter: () => {
+          return 'test';
+        },
+        style: {
+          fill: 'red',
+        },
+      },
+    });
+    piePlot.render();
+    const plot = piePlot.getLayer().view;
+    const element = plot.get('elements')[0];
+    const labelShapes: Shape[] = element.get('labels');
+    const coord = plot.get('coord');
+    expect(labelShapes[0].attr('text')).toBe('test');
+    expect(labelShapes[0].attr('fill')).toBe('red');
+    const distX = Math.abs(coord.getCenter().x - labelShapes[0].attr('x'));
+    const distY = Math.abs(coord.getCenter().y - labelShapes[0].attr('y'));
+    const dist = Math.sqrt(distX * distX + distY * distY);
+    expect(dist > coord.getRadius()).toBe(true);
+    piePlot.destroy();
+  });
+
+  it.skip('auto padding', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,

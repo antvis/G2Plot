@@ -51,13 +51,21 @@ export default class DrillDownInteraction extends BaseInteraction {
   private breadcrumb: Breadcrumb;
   private plot: TreemapLayer;
   private startNode: IStartNode;
+  private currentNode: any;
+
   private y: number;
 
   public start(ev) {
     const data = ev.data._origin;
+    if (data.children) {
+      this.update(data);
+    }
+  }
+
+  protected update(data) {
     const tempoData = this.plot.getTreemapData(data, data.depth);
     this.view.changeData(tempoData);
-    this.startNode = data;
+    this.currentNode = data;
     this.render();
   }
 
@@ -70,9 +78,12 @@ export default class DrillDownInteraction extends BaseInteraction {
       this.layout();
     } else {
       this.container = this.container = this.canvas.addGroup();
-      this.startNode = {
-        name: 'root',
-      };
+      if (!this.startNode) {
+        this.startNode = {
+          name: 'root',
+        };
+      }
+      this.currentNode = this.startNode;
       const y = this.view.get('viewRange').maxY + 10;
       this.breadcrumb = new Breadcrumb({
         container: this.container,
@@ -98,17 +109,17 @@ export default class DrillDownInteraction extends BaseInteraction {
 
   private getItems() {
     let items = [];
-    if (this.startNode.name && this.startNode.name === 'root') {
-      items.push({ key: '1', text: 'root' });
+    if (this.currentNode.name && this.currentNode.name === 'root') {
+      items.push({ key: '1', text: 'root', data: this.plot.rootData });
     } else {
       items = [];
       const parents = [];
-      this.findParent(this.startNode, parents);
-      items.push({ key: '1', text: 'root' });
+      this.findParent(this.currentNode, parents);
+      items.push({ key: '1', text: 'root', data: this.plot.rootData });
       each(parents, (p, index) => {
         items.push({ key: String(index + 2), text: p.name, data: p });
       });
-      items.push({ key: String(parents.length + 1), text: this.startNode.name, data: this.startNode });
+      items.push({ key: String(parents.length + 2), text: this.currentNode.name, data: this.currentNode });
     }
     return items;
   }
@@ -124,7 +135,21 @@ export default class DrillDownInteraction extends BaseInteraction {
 
   private onInteraction() {
     this.container.on('click', (ev) => {
-      console.log(ev);
+      const targetParent = ev.target.get('parent');
+      if (targetParent && targetParent.get('class') === 'item-group') {
+        const data = targetParent.get('data');
+        if (data.data) {
+          if (data.text === 'root') {
+            this.view.changeData(data.data);
+            this.currentNode = this.plot.options.data;
+            this.render();
+          } else if (this.currentNode === data.data) {
+            return;
+          } else {
+            this.update(data.data);
+          }
+        }
+      }
     });
   }
 }

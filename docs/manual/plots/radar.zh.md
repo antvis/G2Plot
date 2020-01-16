@@ -88,13 +88,34 @@ const data = [
 
 雷达图映射到半径所对应的字段，一般为一个连续字段。
 
+### radius
+
+**optional**, number 类型
+
+雷达图半径
+
 ### seriesField
 
-**required**, string 类型
+**optional**, string 类型
 
 多组雷达图必选。对雷达图进行分组的字段，一般对应一个分类字段。
 
 通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
+
+### angleAxis
+
+**optional**
+
+雷达图角度轴配置，通用配置详见[通用图表配置](../general-config#categoryaxis)
+
+### radiusAxis
+
+**optional**
+
+雷达图径向轴配置，通用配置详见[通用图表配置](../general-config#linearaxis)
+
+- `gridType: 'line' | 'arc'`  网格线样式，直线/圆弧<br />
+- `gridAlternateColor: string`  网格设置交替的颜色，指定一个值则先渲染奇数层，两个值则交替渲染<br />
 
 ### Line
 
@@ -110,7 +131,21 @@ const data = [
 - `lineDash: number[]`  虚线<br />
 - `opacity: number`  透明度
 
-另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+
+### Area
+
+**optional**
+
+雷达图上的面
+
+`visible: boolean`  是否绘制面<br />
+`style: object | function`  面的样式<br />
+
+- `fill: string` 面的颜色<br />
+- `opacity: number` 面的透明度<br />
+
+支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
 ### Point
 
@@ -122,6 +157,8 @@ const data = [
 `shape: string`  数据点形状<br />
 `size: number`  数据点大小<br />
 `style: object | function`  数据点样式
+
+支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
 
 ### tooltip
 

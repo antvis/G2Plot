@@ -8,15 +8,18 @@ import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import { PointStyle, LineStyle } from '../line/layer';
+import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
 
 interface FillStyle {
-  shape?: string;
-  size?: number;
-  color?: string;
+  fill?: string;
   opacity?: string;
 }
 
 export interface RadarViewConfig extends ViewConfig {
+  /** 角度字段 */
+  angleField: string;
+  /** 径向字段 */
+  radiusField: string;
   /** 分组字段 */
   seriesField?: string;
   /** 是否平滑 */
@@ -26,7 +29,7 @@ export interface RadarViewConfig extends ViewConfig {
     visible?: boolean;
     size?: number;
     color?: string;
-    style?: LineStyle;
+    style?: LineStyle | ((...args: any[]) => LineStyle);
   };
   /** 数据点图形样式 */
   point?: {
@@ -34,20 +37,19 @@ export interface RadarViewConfig extends ViewConfig {
     shape?: string;
     size?: number;
     color?: string;
-    style?: PointStyle;
+    style?: PointStyle | ((...args: any[]) => PointStyle);
   };
   /** area图形样式 */
   area?: {
-    visible: boolean;
-    style?: FillStyle;
+    visible?: boolean;
+    style?: FillStyle | ((...args: any[]) => FillStyle);
   };
-  // fixme: any --> IValueAxis  | ICatAxis | ITimeAxis
-  angleAxis?: any;
-  // fixme: any --> IValueAxis
-  radiusAxis?: any;
+  /** 角度轴配置 */
+  angleAxis?: ICatAxis | ITimeAxis;
+  /** 径向轴配置 */
+  radiusAxis?: IValueAxis;
+  /** 雷达图半径 */
   radius?: number;
-  // fixme: any
-  [attr: string]: any;
 }
 
 export interface RadarLayerConfig extends RadarViewConfig, LayerConfig {}

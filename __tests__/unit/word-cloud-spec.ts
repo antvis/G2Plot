@@ -493,31 +493,31 @@ describe('WordCloud plot', () => {
       data: dataList,
       maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
-      maxFontSize: 60,
-      minFontSize: 10,
-      color: (word: string, weight: number) => {
-        return getRandomColor();
+      style: {
+        maxFontSize: 60,
+        minFontSize: 10,
+        color: (word: string, weight: number) => {
+          return getRandomColor();
+        },
+        minRotation: -Math.PI / 2,
+        maxRotation: Math.PI / 2,
+        rotateRatio: 0.5,
+        rotationSteps: 4,
+
+        shadowColor: '#333333',
+        shadowBlur: 10,
+
+        gridSize: 8,
       },
       shape: 'cardioid',
       ellipticity: 1,
-
-      minRotation: -Math.PI / 2,
-      maxRotation: Math.PI / 2,
-      rotateRatio: 0.5,
-      rotationSteps: 4,
-
-      gridSize: 8,
       shuffle: false,
-      backgroundColor: '#e3f3f3',
       wait: 0,
-
       enableToolTips: true,
       enableEmphasis: true,
       hoveredId: -1,
-      shadowColor: '#333333',
-      shadowBlur: 10,
-
-      hover: hoverAction,
+      backgroundColor: '#e3f3f3',
+      onWordCloudHover: hoverAction,
     } as WordCloudConfig;
   }
 

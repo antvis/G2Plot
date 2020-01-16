@@ -1,6 +1,6 @@
 import { WordCloud } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/basement_prod/89c36496-9fb0-4719-a592-984c2bde3b5e.json')
+fetch('../data/word-cloud.json')
   .then((res) => res.json())
   .then((data) => {
     const wordCloudPlot = new WordCloud(document.getElementById('container'), getWordCloudConfig(data));

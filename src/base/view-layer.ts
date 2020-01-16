@@ -386,11 +386,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
     const flipOption = _.get(this.options, 'legend.flipPage');
+    const clickable = _.get(this.options, 'legend.clickable');
     this.setConfig('legends', {
       position: _.get(this.options, 'legend.position'),
       formatter: _.get(this.options, 'legend.formatter'),
       offsetX: _.get(this.options, 'legend.offsetX'),
       offsetY: _.get(this.options, 'legend.offsetY'),
+      clickable: _.isUndefined(clickable) ? true : clickable,
       // wordSpacing: _.get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
     });

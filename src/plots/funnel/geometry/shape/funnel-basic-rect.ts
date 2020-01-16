@@ -79,22 +79,23 @@ function _getFunnelPath(cfg, compare) {
     const yValueTotal = yValues[0] + yValues[1];
     const yRatios = yValues.map((yValue) => yValue / yValueTotal / 0.5);
     const yOffset = (yValuesMax[0] / (yValuesMax[0] + yValuesMax[1]) - 0.5) * 0.9;
+    const spacing = 0.001;
 
     if (!_.isNil(nextPoints)) {
       const yValueTotalNext = yValuesNext[0] + yValuesNext[1];
       const yRatiosNext = yValuesNext.map((yValueNext) => yValueNext / yValueTotalNext / 0.5);
       path.push(
-        ['M', points[0].x, yOffset + (points[0].y - originY) * yRatios[0] + originY],
-        ['L', points[1].x, yOffset + originY],
-        ['L', nextPoints[1].x, yOffset + originY],
-        ['L', nextPoints[0].x, yOffset + (nextPoints[3].y - originY) * yRatiosNext[0] + originY],
+        ['M', points[0].x, yOffset + (points[0].y - originY) * yRatios[0] + originY - spacing],
+        ['L', points[1].x, yOffset + originY - spacing],
+        ['L', nextPoints[1].x, yOffset + originY - spacing],
+        ['L', nextPoints[0].x, yOffset + (nextPoints[3].y - originY) * yRatiosNext[0] + originY - spacing],
         ['Z']
       );
       path.push(
-        ['M', points[0].x, yOffset + 0.002 + originY],
-        ['L', points[1].x, yOffset + 0.002 + (points[1].y - originY) * yRatios[1] + originY],
-        ['L', nextPoints[1].x, yOffset + 0.002 + (nextPoints[2].y - originY) * yRatiosNext[1] + originY],
-        ['L', nextPoints[0].x, yOffset + 0.002 + originY],
+        ['M', points[0].x, yOffset + originY + spacing],
+        ['L', points[1].x, yOffset + (points[1].y - originY) * yRatios[1] + originY + spacing],
+        ['L', nextPoints[1].x, yOffset + (nextPoints[2].y - originY) * yRatiosNext[1] + originY + spacing],
+        ['L', nextPoints[0].x, yOffset + originY + spacing],
         ['Z']
       );
     } else {

@@ -96,6 +96,12 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     });
   }
 
+  public getOptions(props: WaterfallLayerConfig) {
+    const options = super.getOptions(props);
+    this.adjustLegendOptions(options);
+    return options;
+  }
+
   public afterInit() {
     super.afterInit();
     const options = this.options;
@@ -275,6 +281,14 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       };
     }
     return config as AttributeCfg;
+  }
+
+  /** 复写 legend 配置, 瀑布图默认无legend */
+  private adjustLegendOptions(options): void {
+    const legendOptions = options.legend;
+    if (legendOptions) {
+      legendOptions.visible = false;
+    }
   }
 }
 

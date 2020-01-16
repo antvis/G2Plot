@@ -99,6 +99,14 @@ module.exports = {
         },
       },
       {
+        slug: 'rose',
+        icon: 'rose',
+        title: {
+          zh: '玫瑰图',
+          en: 'Rose Charts',
+        },
+      },
+      {
         slug: 'scatter',
         icon: 'point',
         title: {

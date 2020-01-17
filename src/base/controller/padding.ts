@@ -38,13 +38,9 @@ export default class PaddingController {
    */
   public clear() {
     this.innerPaddingComponents = [];
-    _.each(this.outerPaddingComponents, (component, index) => {
-      // 一些组件是在view渲染完成之后渲染初始化的
-      if (component && !component.afterRender) {
-        this.outerPaddingComponents.splice(1, index);
-      }
-    });
-    // this.outerPaddingComponents = [];
+    // 一些组件是在view渲染完成之后渲染初始化的
+    // TODO: afterRender的什么时候清除
+    this.outerPaddingComponents = _.filter(this.outerPaddingComponents, (component) => component.afterRender);
   }
 
   public getPadding() {
@@ -73,16 +69,16 @@ export default class PaddingController {
     _.each(this.outerPaddingComponents, (component) => {
       const { position } = component;
       const { minX, maxX, minY, maxY } = component.getBBox();
-      if (maxY > viewMinY && maxY < viewMaxY && position === 'top') {
+      if (maxY >= viewMinY && maxY <= viewMaxY && position === 'top') {
         viewMinY = maxY;
       }
-      if (minY > viewMinY && minY < viewMaxY && position === 'bottom') {
+      if (minY >= viewMinY && minY <= viewMaxY && position === 'bottom') {
         viewMaxY = minY;
       }
-      if (maxX > viewMinX && maxX < viewMaxX && position === 'left') {
+      if (maxX > viewMinX && maxX <= viewMaxX && position === 'left') {
         viewMinX = maxX;
       }
-      if (minX > viewMinX && maxX < viewMaxX && position === 'right') {
+      if (minX >= viewMinX && maxX <= viewMaxX && position === 'right') {
         viewMaxX = minX;
       }
     });

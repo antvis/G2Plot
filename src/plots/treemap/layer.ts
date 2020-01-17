@@ -79,11 +79,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     const { colorField } = this.options;
     const viewRange = this.getViewRange();
     const root = squarify(data, viewRange.x, viewRange.y, viewRange.width, viewRange.height);
-    /*_.each(root, (r) => {
-      if (!_.hasKey(r, colorField) && r.children) {
-        r[colorField] = r.children[0][colorField];
-      }
-    });*/
     this.recursive(root, 1);
     const treemapData = [];
     this.getAllNodes(root, treemapData, level);
@@ -112,8 +107,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     const { data, colorField } = this.options;
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
-    const colorScale = this.getColorScale();
-    console.log(colorScale);
+    //this.getColorScale();
     const { maxLevel } = this.options;
     const rect: any = {
       type: 'polygon',
@@ -245,7 +239,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
 
   private isLeaf(data) {
-    return !data.children /*|| data.depth >= this.options.maxLevel*/;
+    return !data.children || data.children.length === 0;
   }
 
   private getColorScale() {

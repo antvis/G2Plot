@@ -178,7 +178,6 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       };
       rectShape.attr('width', backgroundRectAttr.width);
       rectShape.attr('height', backgroundRectAttr.height);
-
       // clip
       itemGroup.attr(
         'clip',

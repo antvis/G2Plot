@@ -14,7 +14,7 @@ const BLOCK_MARGIN = 4;
 export interface TreemapViewConfig extends ViewConfig {
   data: any;
   maxLevel?: number;
-  colorField: string;
+  colorField: any;
 }
 
 export interface TreemapLayerConfig extends TreemapViewConfig, LayerConfig {}

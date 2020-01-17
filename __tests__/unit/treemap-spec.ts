@@ -58,12 +58,23 @@ describe('treemap', () => {
             startNode: {
               name: 'root',
             },
+            mapping:{
+              1:{
+                field:'name'
+              },
+              2:{
+                field:'name'
+              },
+              3:{
+                field:'value',
+                values:['#d3ecc9','#78c6d0','#3e94c0','#295599','#18216c']
+              }
+            }
           } as any,
         },
       ],
     });
     treemapPlot.render();
-
   });
 
 });

@@ -145,7 +145,8 @@ registerShape('interval', 'funnel-basic-rect', {
   },
   draw(cfg: ShapeDrawCFG, container: Group) {
     const attrs = _getFillAttrs(cfg);
-    let path = _getFunnelPath(cfg, _.get(cfg, 'origin._origin.__compare__'));
+    const compare = _.get(cfg, 'origin._origin.__compare__');
+    let path = _getFunnelPath(cfg, compare);
     path = this.parsePath(path);
 
     return container.addShape('path', {
@@ -153,6 +154,7 @@ registerShape('interval', 'funnel-basic-rect', {
         ...attrs,
         path,
       },
+      ['__compare__']: compare,
     });
   },
   getMarkerStyle(markerCfg: ShapeMarkerCfg) {

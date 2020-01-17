@@ -2,7 +2,9 @@ import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
 import { BBox, Group } from '@antv/g';
 import TreemapLayer from '../layer';
-import { each, hasKey ,clone} from '@antv/util';
+import { each, hasKey, isNumber, minBy, maxBy } from '@antv/util';
+import { getScale } from '@antv/scale';
+import { getAttribute } from '@antv/attr';
 
 const DEFAULT_ITEM_WIDTH = 100;
 const DEFAULT_ITEM_HEIGHT = 30;
@@ -18,7 +20,9 @@ interface IDrillDownInteractionConfig {
   itemWidth?: number;
   itemHeight?: number;
   padding?: number[];
+  [key: string]:any;
 }
+
 
 const getValidBreadcrumbConfig = (cfg: IDrillDownInteractionConfig = {}): Required<IDrillDownInteractionConfig> => {
   const _cfg: Required<IDrillDownInteractionConfig> = {
@@ -50,15 +54,16 @@ export default class DrillDownInteraction extends BaseInteraction {
   private plot: TreemapLayer;
   private startNode: IStartNode;
   private currentNode: any;
+  private currentDepth: number;
   private startNodeName: string;
   private cache: any;
-
-
+  private mapping: any;
   private y: number;
 
   public start(ev) {
     const data = ev.data._origin;
     if (data.children) {
+      this.currentDepth ++;
       this.update(data);
     }
   }
@@ -69,6 +74,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     }
     const tempoData = this.plot.getTreemapData(data, data.depth);
     this.view.changeData(tempoData);
+    this.adjustScale(this.currentDepth);
     this.currentNode = data;
     this.render();
   }
@@ -91,6 +97,7 @@ export default class DrillDownInteraction extends BaseInteraction {
       if(this.startNode.name === 'root'){
           this.startNodeName = hasKey(this.plot.options.data,'name') ? this.plot.options.data.name : 'root';
           this.currentNode = this.plot.options.data;
+          this.currentDepth = 1;
       }else{
          this.startNodeName = this.startNode.name;
          this.currentNode = this.startNode; 
@@ -162,6 +169,7 @@ export default class DrillDownInteraction extends BaseInteraction {
           } else if (this.currentNode === data.data) {
             return;
           } else {
+            this.currentDepth = parseInt(data.key) - 1; 
             this.update(data.data);
           }
         }
@@ -173,6 +181,19 @@ export default class DrillDownInteraction extends BaseInteraction {
       const rootData  = this.plot.options.data;
       const rootName = hasKey(rootData,'name') ? rootData.name : 'root';
           return { key: '1', text: rootName, data: this.plot.rootData };
+  }
+
+  private adjustScale(index){
+      const { view } = this;
+      const geom = this.view.get('elements')[0];
+      // 根据当前层级确定mapping配置项
+      const mappingCfg = this.mapping[index];
+      // 如果mapping字段与当前不一致
+      const currentField = geom.get('attrs').color.scales[0].field;
+      if(mappingCfg.field !== currentField){
+          this.view.get('elements')[0].color(mappingCfg.field,mappingCfg.values);
+          view.render();
+      }
   }
 
 }

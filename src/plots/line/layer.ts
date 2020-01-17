@@ -27,8 +27,8 @@ export interface PointStyle {
   lineDash?: number[];
   lineWidth?: number;
   opacity?: string;
-  fillStyle?: string;
-  strokeStyle?: string;
+  fill?: string;
+  stroke?: string;
 }
 
 type IObject = LooseMap;

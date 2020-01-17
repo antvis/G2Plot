@@ -1,4 +1,4 @@
-// 多组雷达图
+import { Radar } from '@antv/g2plot';
 
 const data = [
   {
@@ -102,14 +102,27 @@ const data = [
     score: 60,
   },
 ];
-const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
+
+const radarPlot = new Radar(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '多组雷达图',
+  },
   data,
   angleField: 'item',
   radiusField: 'score',
   seriesField: 'user',
-  theme: 'dark',
+  line: {
+    visible: true,
+  },
+  point: {
+    visible: true,
+    shape: 'circle',
+  },
+  legend: {
+    visible: true,
+    position: 'bottom-center',
+  },
 });
-radarPlot.render();
 
-// 作为模块 避免变量冲突
-export {};
+radarPlot.render();

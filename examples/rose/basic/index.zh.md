@@ -1,6 +1,5 @@
 ---
-title: 基础玫瑰图
+title: 玫瑰图
 order: 0
 ---
 
-TODO @xinming

@@ -112,9 +112,7 @@ export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 export interface Label {
   visible: boolean;
   type?: string;
-  formatter?:
-    | ((text: string, item: any, idx: number) => string)
-    | ((xValue: string, yValue: string, item: any, idx: number) => string);
+  formatter?: (text: string, item: any, idx: number, ...extras: any[]) => string;
   /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
   precision?: number;
   /** 添加后缀 */

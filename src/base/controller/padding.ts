@@ -43,6 +43,13 @@ export default class PaddingController {
     this.outerPaddingComponents = _.filter(this.outerPaddingComponents, (component) => component.afterRender);
   }
 
+  public clearOuterComponents() {
+    _.each(this.outerPaddingComponents, (component) => {
+      component.destroy();
+    });
+    this.outerPaddingComponents = [];
+  }
+
   public getPadding() {
     const props = this.plot.options;
     const padding = props.padding ? props.padding : this.plot.config.theme.padding;

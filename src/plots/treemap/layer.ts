@@ -15,6 +15,7 @@ export interface TreemapViewConfig extends ViewConfig {
   data: any;
   maxLevel?: number;
   colorField: string;
+  colors?: string[];
 }
 
 export interface TreemapLayerConfig extends TreemapViewConfig, LayerConfig {}
@@ -59,6 +60,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
   public type: string = 'line';
   public rootData: any;
+  private labelHeight: number;
 
   public beforeInit() {
     const { interactions } = this.options;
@@ -95,6 +97,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
 
   public beforInit() {
     super.beforeInit();
+    this.labelHeight = this.getLabelHeight();
     const { data } = this.options;
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
@@ -233,8 +236,14 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
 
   private getLabelHeight() {
-    // tempo: 暂时先用绝对值
-    return 12 + PARENT_NODE_OFFSET * 2;
+    const { label } = this.options;
+    const { fontSize } = this.getTheme().label.textStyle;
+    let size = 0;
+    if (label && label.visible) {
+      const labelStyle: any = label.style;
+      size = labelStyle && labelStyle.fontSize ? labelStyle.fontSize : fontSize;
+    }
+    return size + PARENT_NODE_OFFSET * 2;
   }
 
   private isLeaf(data) {

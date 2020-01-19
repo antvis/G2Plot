@@ -12,13 +12,13 @@ describe('treemap', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
   const data = processData(mobile);
-  it('initilize', () => {
+  it.only('initilize', () => {
     const treemapPlot = new Treemap(canvasDiv, {
       width: 600,
       height: 400,
       data,
       colorField: 'brand',
-      interactions: [
+     /* interactions: [
         {
           type: 'drilldown',
           cfg: {
@@ -27,13 +27,13 @@ describe('treemap', () => {
             },
           } as any,
         },
-      ],
+      ],*/
     });
     treemapPlot.render();
   });
 
-  it.only('drilldown interaction',()=>{
-    const rootData = { name: 'company sales', value: 0, children:[]}
+  it('drilldown interaction',()=>{
+    const rootData = { name: '公司销售数据', value: 0, children:[]}
     each(sales,(s)=>{
       const children = clone(s.children);
       const childrenArray = [];
@@ -63,11 +63,15 @@ describe('treemap', () => {
                 field:'name'
               },
               2:{
-                field:'name'
+                field:'name',
+                values:['#f5bc32','#e66557','#71c8ea','#9362b7','#fd984f','#279493','#fd9bc3']
               },
               3:{
                 field:'value',
-                values:['#d3ecc9','#78c6d0','#3e94c0','#295599','#18216c']
+                //values:['#d3ecc9','#78c6d0','#3e94c0','#295599','#18216c']
+                values:(v)=>{
+                  return ['#ffffff',v];
+                }
               }
             }
           } as any,

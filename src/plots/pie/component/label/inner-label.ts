@@ -7,7 +7,7 @@ import { getEndPoint, getOverlapInfo } from './utils';
 import BaseLabel from './base-label';
 import { distBetweenPoints } from '../../../../util/math';
 
-function percent2Number(value: string): number {
+export function percent2Number(value: string): number {
   const percentage = Number(value.endsWith('%') ? value.slice(0, -1) : value);
   return percentage / 100;
 }
@@ -51,9 +51,6 @@ class InnerLabel extends BaseLabel {
     const radius = this.get('coord').getRadius();
     if (_.isString(offset)) {
       offset = radius * percent2Number(offset);
-    } else if (offset === undefined || offset === null) {
-      // 默认取 2/3 处（即 -1/3）
-      offset = radius * (-1 / 3);
     }
     return offset > 0 ? 0 : offset;
   }

@@ -60,6 +60,7 @@ export default class DrillDownInteraction extends BaseInteraction {
   private breadcrumb: Breadcrumb;
   private plot: TreemapLayer;
   private startNode: IStartNode;
+  private parentNode: any;
   private currentNode: any;
   private currentDepth: number;
   private startNodeName: string;
@@ -67,12 +68,18 @@ export default class DrillDownInteraction extends BaseInteraction {
   private mapping: IMapping;
   private originMapping: IMappingConfig;
   private y: number;
-  private parentColor: string;
 
   public start(ev) {
     const data = ev.data._origin;
     if (data.children) {
-      this.parentColor = ev.target.attr('fill');
+      this.parentNode = {
+        shape: ev.target,
+        data: {
+          name: clone(this.currentNode.name),
+          value: clone(this.currentNode.value),
+        },
+        depth: clone(this.currentDepth),
+      };
       this.currentDepth++;
       this.update(data);
     }
@@ -209,7 +216,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     if (hasKey(this.mapping, String(index))) {
       const mappingCfg = clone(this.mapping[index]);
       if (mappingCfg.values && isFunction(mappingCfg.values)) {
-        const values = mappingCfg.values(this.parentColor);
+        const values = mappingCfg.values(this.parentNode, this.currentNode);
         mappingCfg.values = values;
       }
       this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);

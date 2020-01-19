@@ -16,6 +16,7 @@ export interface TreemapViewConfig extends ViewConfig {
   maxLevel?: number;
   colorField: string;
   colors?: string[];
+  rectStyle?: any;
 }
 
 export interface TreemapLayerConfig extends TreemapViewConfig, LayerConfig {}
@@ -60,7 +61,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
   public type: string = 'line';
   public rootData: any;
-  private labelHeight: number;
 
   public beforeInit() {
     const { interactions } = this.options;
@@ -97,7 +97,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
 
   public beforInit() {
     super.beforeInit();
-    this.labelHeight = this.getLabelHeight();
     const { data } = this.options;
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
@@ -109,7 +108,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     const { data, colorField } = this.options;
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
-    //this.getColorScale();
     const { maxLevel } = this.options;
     const rect: any = {
       type: 'polygon',
@@ -122,18 +120,19 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       style: {
         fields: ['depth'],
         callback: (d) => {
+          let defaultStyle = {
+            lineWidth: 1,
+            stroke: 'rgba(0,0,0,0.3)',
+            opacity: d / maxLevel,
+          };
           if (d === 1) {
-            return {
+            defaultStyle = {
               lineWidth: 1,
               stroke: 'black',
               opacity: d / maxLevel,
             };
           }
-          return {
-            lineWidth: 1,
-            stroke: 'rgba(0,0,0,0.3)',
-            opacity: d / maxLevel,
-          };
+          return _.deepMix({}, defaultStyle, this.options.rectStyle);
         },
       },
       label: this.extractLabel(),
@@ -248,38 +247,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
 
   private isLeaf(data) {
     return !data.children || data.children.length === 0;
-  }
-
-  private getColorScale() {
-    //分类数据钻取的时候保持颜色一致性
-    //step1: 判断是否为颜色是否映射为分类字段
-    let ticks;
-    let values;
-    const { colorField } = this.options;
-    const { rootData } = this;
-    const sampleValue = rootData[0][colorField];
-    if (!_.isNumber(sampleValue)) {
-      // 取得所有unique值
-      const uniqueValues = [];
-      _.each(rootData, (d) => {
-        const v = d[colorField];
-        if (!_.contains(uniqueValues, v)) {
-          uniqueValues.push(v);
-        }
-      });
-      // 根据unique value的数量取得colorPalet
-      const colorPlate = uniqueValues.length <= 10 ? COLOR_PLATE_10 : COLOR_PLATE_20;
-      if (colorPlate.length < uniqueValues.length) {
-        const dist = uniqueValues.length - colorPlate.length;
-        colorPlate.push(..._.clone(colorPlate).splice(0, dist));
-      }
-      values = uniqueValues;
-      ticks = colorPlate;
-    }
-    if (ticks && values) {
-      const scaleConfig = this.config.scales;
-      scaleConfig[colorField] = { type: 'cat', ticks, values };
-    }
   }
 }
 

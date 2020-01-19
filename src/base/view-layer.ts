@@ -25,7 +25,7 @@ import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
-  data: DataItem[];
+  data?: DataItem[];
   meta?: LooseMap;
   padding?: number | number[] | string;
   xField?: string;

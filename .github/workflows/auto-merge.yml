@@ -22,6 +22,6 @@ jobs:
         uses: 'pascalgn/automerge-action@a4b03eff945989d41c623c2784d6602560b91e5b'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          MERGE_LABELS: 'automerge,!wip,!work in progress'
+          MERGE_LABELS: 'automerge,!wip,!WIP,!work in progress'
           MERGE_RETRIES: '6'
           MERGE_RETRY_SLEEP: '60000'

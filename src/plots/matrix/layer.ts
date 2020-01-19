@@ -96,10 +96,10 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   public afterRender() {
-    if (this.options.legend && this.options.legend.visible) {
-      if (this.matrixLegend) {
+    if (this.options.legend && this.options.legend.visible && !this.matrixLegend) {
+      /* if (this.matrixLegend) {
         this.matrixLegend.destroy();
-      }
+      } */
       this.matrixLegend = new MatrixLegend({
         view: this.view,
         plot: this,
@@ -167,6 +167,11 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   protected legend() {
     this.setConfig('legends', false);
+    if (this.options.legend && !this.options.legend.visible) {
+      if (this.matrixLegend) {
+        this.matrixLegend.hide();
+      }
+    }
   }
 
   protected addGeometry() {

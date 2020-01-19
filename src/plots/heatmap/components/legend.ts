@@ -72,6 +72,16 @@ export default class HeatmapLegend {
     this.addInteraction();
   }
 
+  public hide() {
+    this.container.set('visible', false);
+    this.options.plot.canvas.draw();
+  }
+
+  public show() {
+    this.container.set('visible', true);
+    this.options.plot.canvas.draw();
+  }
+
   public clear() {
     if (this.container) {
       this.container.clear();

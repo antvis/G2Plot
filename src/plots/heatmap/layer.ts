@@ -229,9 +229,11 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
   protected legend() {
     this.setConfig('legends', false);
-    if (this.options.legend && !this.options.legend.visible) {
-      if (this.heatmapLegend) {
+    if (this.options.legend && this.heatmapLegend) {
+      if (!this.options.legend.visible) {
         this.heatmapLegend.hide();
+      } else if (this.options.legend.visible) {
+        this.heatmapLegend.show();
       }
     }
   }

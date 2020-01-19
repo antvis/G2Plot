@@ -167,9 +167,11 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   protected legend() {
     this.setConfig('legends', false);
-    if (this.options.legend && !this.options.legend.visible) {
-      if (this.matrixLegend) {
+    if (this.options.legend && this.matrixLegend) {
+      if (!this.options.legend.visible) {
         this.matrixLegend.hide();
+      } else if (this.options.legend.visible) {
+        this.matrixLegend.show();
       }
     }
   }

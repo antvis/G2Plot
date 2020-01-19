@@ -31,7 +31,7 @@ interface Annotation {
   classId: string;
 }
 
-const textStyle = 'text-overflow: ellipsis;text-overflow: ellipsis;overflow: hidden;';
+const textStyle = 'text-overflow:ellipsis;overflow:hidden;';
 /*tslint:disable*/
 const containerStyle = `color:#8c8c8c;font-size:14px;text-align:center;line-height:2;font-family:'-apple-system',BlinkMacSystemFont,'SegoeUI',Roboto,'HelveticaNeue',Helvetica,'PingFangSC','HiraginoSansGB','MicrosoftYaHei',SimSun,'sans-serif';pointer-events:none;white-space:pre-wrap;${textStyle}`;
 const nameStyle = `font-weight:300;${textStyle}`;

@@ -12,6 +12,7 @@ import { ElementOption, DataItem } from '../../interface/config';
 
 import './theme';
 import './component/label/funnel-label';
+import './animation/funnel-scale-in-x';
 import './animation/funnel-scale-in-y';
 import './geometry/shape/funnel-basic-rect';
 import './geometry/shape/funnel-dynamic-rect';
@@ -55,6 +56,7 @@ export interface FunnelViewConfig extends ViewConfig {
     offsetY: number;
     spacing: number;
   }>;
+  transpose?: boolean;
   dynamicHeight?: boolean;
   compareField?: string;
   compareTextStyle?: Partial<{
@@ -72,14 +74,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         visible: true,
         adjustColor: true,
         formatter:
-          props && props.compareField
+          props && (props.compareField || props.transpose)
             ? (xValue, item, idx, yValue, yValueTop) => `${yValue}`
             : (xValue, item, idx, yValue, yValueTop) => `${xValue} ${yValue}`,
       },
       percentage: {
         visible: true,
-        offsetX: 40,
-        offsetY: 0,
+        offsetX: props.transpose ? 0 : 40,
+        offsetY: props.transpose ? 40 : 0,
         spacing: 4,
         line: {
           visible: true,
@@ -154,7 +156,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   protected coord() {
     const props = this.options;
     const coordConfig = {
-      actions: props.dynamicHeight ? [] : [['transpose'], ['scale', 1, -1]],
+      actions: props.transpose
+        ? props.dynamicHeight
+          ? [['transpose']]
+          : []
+        : props.dynamicHeight
+        ? []
+        : [['transpose'], ['scale', 1, -1]],
     };
     this.setConfig('coord', coordConfig);
   }
@@ -309,7 +317,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
       this.funnel.animate = _.deepMix({}, props.animation, {
         appear: {
-          animation: 'funnelScaleInY',
+          animation: props.transpose ? 'funnelScaleInX' : 'funnelScaleInY',
           duration: appearDurationEach,
           reverse: props.dynamicHeight,
           callback: (shape) => {
@@ -492,7 +500,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     this.view.eachShape((datumLower, shape) => {
       if (i++ > 0) {
         const { minX, maxX, maxY, minY } = shape.getBBox();
-        const [x1, y] = coord.invertMatrix(maxX, props.dynamicHeight ? minY : maxY, 1);
+        const [x1, y] = coord.invertMatrix(props.transpose ? minX : maxX, props.dynamicHeight ? minY : maxY, 1);
         const { line, text, value } = this._findPercentageMembersInContainerByShape(container, shape, true);
 
         const eachProcs = [
@@ -565,12 +573,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             if (text) {
               text.attr(
                 _.deepMix({}, percentageText.style, {
-                  x: x + offsetX + spacing,
-                  y: y + offsetY,
+                  x: props.transpose ? x + offsetX : x + offsetX + spacing,
+                  y: props.transpose ? y + offsetY + spacing : y + offsetY,
                   opacity: 0,
                   text: percentageText.content,
                   textAlign: 'left',
-                  textBaseline: 'middle',
+                  textBaseline: props.transpose ? 'top' : 'middle',
                 })
               );
               text.set('adjustTimestamp', adjustTimestamp);
@@ -580,8 +588,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             if (value) {
               value.attr(
                 _.deepMix({}, percentageValue.style, {
-                  x: x + offsetX + spacing + textWidth + spacing,
-                  y: y + offsetY,
+                  x: props.transpose ? x + offsetX + spacing + textWidth : x + offsetX + spacing + textWidth + spacing,
+                  y: props.transpose ? y + offsetY + spacing : y + offsetY,
                   opacity: 0,
                   text: _.isFunction(percentageValue.formatter)
                     ? props.compareField
@@ -592,7 +600,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                       : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
                     : '',
                   textAlign: 'left',
-                  textBaseline: 'middle',
+                  textBaseline: props.transpose ? 'top' : 'middle',
                 })
               );
               value.set('adjustTimestamp', adjustTimestamp);
@@ -624,26 +632,29 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   protected fadeInPercentages(duration?, callback?) {
     const container = this._findPercentageContainer();
 
-    let lastMaxY = -Infinity;
+    const lastBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
     this.view.eachShape((datum, shape) => {
       const members = this._findPercentageMembersInContainerByShape(container, shape);
 
-      let currMinY = Infinity;
-      let currMaxY = -Infinity;
+      const currBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
       const calcEach = (member) => {
-        if (member) {
-          const { minY, maxY } = member.getBBox();
-          if (minY < currMinY) {
-            currMinY = minY;
-          }
-          if (maxY > currMaxY) {
-            currMaxY = maxY;
-          }
+        if (member && member.get('type') == 'text') {
+          const { minX, maxX, minY, maxY } = member.getBBox();
+          if (minX < currBBox.minX) currBBox.minX = minX;
+          if (maxX > currBBox.maxX) currBBox.maxX = maxX;
+          if (minY < currBBox.minY) currBBox.minY = minY;
+          if (maxY > currBBox.maxY) currBBox.maxY = maxY;
         }
       };
       _.each(members, (member) => (_.isArray(member) ? member.forEach(calcEach) : calcEach(member)));
 
-      if (currMinY >= lastMaxY) {
+      // if (currMinY >= lastMaxY) {
+      if (
+        currBBox.minX > lastBBox.maxX ||
+        currBBox.maxX < lastBBox.minX ||
+        currBBox.minY > lastBBox.maxY ||
+        currBBox.maxY < lastBBox.minY
+      ) {
         const eachProc = (member) => {
           if (member) {
             const attrs = {
@@ -653,11 +664,16 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           }
         };
         _.each(members, (member) => (_.isArray(member) ? member.forEach(eachProc) : eachProc(member)));
+        _.assign(lastBBox, currBBox);
       }
 
-      if (currMaxY > lastMaxY) {
-        lastMaxY = currMaxY;
-      }
+      // }
+
+      // if (currMaxY > lastMaxY) {
+      //   lastMaxY = currMaxY;
+      // }
+      // lastMinX = currMinX;
+      // lastMaxX = curr
     });
 
     duration && callback && setTimeout(callback, duration);

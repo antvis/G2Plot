@@ -113,7 +113,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public afterRender() {
-    if (this.options.legend && this.options.legend.visible && !this.heatmapLegend) {
+    if (this.options.legend && this.options.legend.visible) {
       this.heatmapLegend = new HeatmapLegend({
         view: this.view,
         plot: this,
@@ -229,13 +229,6 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
   protected legend() {
     this.setConfig('legends', false);
-    if (this.options.legend && this.heatmapLegend) {
-      if (!this.options.legend.visible) {
-        this.heatmapLegend.hide();
-      } else if (this.options.legend.visible) {
-        this.heatmapLegend.show();
-      }
-    }
   }
 
   protected animation() {}

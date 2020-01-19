@@ -14,7 +14,7 @@ const BLOCK_MARGIN = 4;
 export interface TreemapViewConfig extends ViewConfig {
   data: any;
   maxLevel?: number;
-  colorField: any;
+  colorField: string;
 }
 
 export interface TreemapLayerConfig extends TreemapViewConfig, LayerConfig {}
@@ -76,7 +76,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
 
   public getTreemapData(data, level?) {
-    const { colorField } = this.options;
     const viewRange = this.getViewRange();
     const root = squarify(data, viewRange.x, viewRange.y, viewRange.width, viewRange.height);
     this.recursive(root, 1);

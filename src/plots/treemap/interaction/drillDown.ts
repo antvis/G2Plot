@@ -2,9 +2,7 @@ import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
 import { BBox, Group } from '@antv/g';
 import TreemapLayer from '../layer';
-import { each, hasKey, isNumber, minBy, maxBy } from '@antv/util';
-import { getScale } from '@antv/scale';
-import { getAttribute } from '@antv/attr';
+import { each, hasKey, isFunction,clone } from '@antv/util';
 
 const DEFAULT_ITEM_WIDTH = 100;
 const DEFAULT_ITEM_HEIGHT = 30;
@@ -59,11 +57,13 @@ export default class DrillDownInteraction extends BaseInteraction {
   private cache: any;
   private mapping: any;
   private y: number;
+  private parentColor: string;
 
   public start(ev) {
     const data = ev.data._origin;
     if (data.children) {
-      this.currentDepth ++;
+      this.parentColor = ev.target.attr('fill');
+      this.currentDepth ++;  
       this.update(data);
     }
   }
@@ -129,7 +129,8 @@ export default class DrillDownInteraction extends BaseInteraction {
   private getItems() {
     let items = [];
     if (this.currentNode.name && this.currentNode.name === this.startNodeName) {
-      items.push(this.getRootItem());
+      const rootItem = this.getRootItem();
+      items.push(rootItem);
     } else {
       items = [];
       const parents = [];
@@ -163,13 +164,15 @@ export default class DrillDownInteraction extends BaseInteraction {
         const data = targetParent.get('data');
         if (data.data) {
           if (data.text === this.startNodeName) {
+            this.currentDepth = 1; 
             this.view.changeData(data.data);
+            this.adjustScale(1);
             this.currentNode = this.plot.options.data;
             this.render();
           } else if (this.currentNode === data.data) {
             return;
           } else {
-            this.currentDepth = parseInt(data.key) - 1; 
+            this.currentDepth = parseInt(data.key); 
             this.update(data.data);
           }
         }
@@ -180,20 +183,20 @@ export default class DrillDownInteraction extends BaseInteraction {
   private getRootItem(){
       const rootData  = this.plot.options.data;
       const rootName = hasKey(rootData,'name') ? rootData.name : 'root';
-          return { key: '1', text: rootName, data: this.plot.rootData };
+      return { key: '1', text: rootName, data: this.plot.rootData };
   }
 
   private adjustScale(index){
       const { view } = this;
       const geom = this.view.get('elements')[0];
       // 根据当前层级确定mapping配置项
-      const mappingCfg = this.mapping[index];
-      // 如果mapping字段与当前不一致
-      const currentField = geom.get('attrs').color.scales[0].field;
-      if(mappingCfg.field !== currentField){
-          this.view.get('elements')[0].color(mappingCfg.field,mappingCfg.values);
-          view.render();
+      const mappingCfg = clone(this.mapping[index]);
+      if(mappingCfg.values && isFunction(mappingCfg.values)){
+        const values = mappingCfg.values(this.parentColor);
+        mappingCfg.values = values;
       }
+      this.view.get('elements')[0].color(mappingCfg.field,mappingCfg.values);
+      view.render();
   }
 
 }

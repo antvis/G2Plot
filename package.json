@@ -72,7 +72,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.10.39",
+    "@antv/gatsby-theme-antv": "^0.10.42",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@commitlint/cli": "^8.2.0",

@@ -2,13 +2,23 @@ import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
 import { BBox, Group } from '@antv/g';
 import TreemapLayer from '../layer';
-import { each, hasKey, isFunction,clone } from '@antv/util';
+import { each, hasKey, isFunction, clone } from '@antv/util';
 
 const DEFAULT_ITEM_WIDTH = 100;
 const DEFAULT_ITEM_HEIGHT = 30;
+const PADDING_TOP = 10;
 
 interface IStartNode {
   name?: string;
+}
+
+interface IMapping {
+  [key: string]: IMappingConfig;
+}
+
+interface IMappingConfig {
+  field: string;
+  values?: string[];
 }
 
 interface IDrillDownInteractionConfig {
@@ -18,9 +28,8 @@ interface IDrillDownInteractionConfig {
   itemWidth?: number;
   itemHeight?: number;
   padding?: number[];
-  [key: string]:any;
+  [key: string]: any;
 }
-
 
 const getValidBreadcrumbConfig = (cfg: IDrillDownInteractionConfig = {}): Required<IDrillDownInteractionConfig> => {
   const _cfg: Required<IDrillDownInteractionConfig> = {
@@ -38,7 +47,7 @@ const getValidBreadcrumbConfig = (cfg: IDrillDownInteractionConfig = {}): Requir
 export default class DrillDownInteraction extends BaseInteraction {
   public static getInteractionRange(layerRange: BBox, interaction: IDrillDownInteractionConfig) {
     const config: Required<IDrillDownInteractionConfig> = getValidBreadcrumbConfig(interaction);
-    const [paddingTop, paddingRight, paddingBottom, paddingLeft] = config.padding;
+    const [paddingTop, paddingBottom] = config.padding;
     return new BBox(
       layerRange.minX,
       layerRange.maxY - config.itemHeight - paddingTop - paddingBottom,
@@ -55,7 +64,8 @@ export default class DrillDownInteraction extends BaseInteraction {
   private currentDepth: number;
   private startNodeName: string;
   private cache: any;
-  private mapping: any;
+  private mapping: IMapping;
+  private originMapping: IMappingConfig;
   private y: number;
   private parentColor: string;
 
@@ -63,14 +73,14 @@ export default class DrillDownInteraction extends BaseInteraction {
     const data = ev.data._origin;
     if (data.children) {
       this.parentColor = ev.target.attr('fill');
-      this.currentDepth ++;  
+      this.currentDepth++;
       this.update(data);
     }
   }
 
   protected update(data) {
-    if(!hasKey(this.cache,data.name)){
-       this.cache[data.name] = data; 
+    if (!hasKey(this.cache, data.name)) {
+      this.cache[data.name] = data;
     }
     const tempoData = this.plot.getTreemapData(data, data.depth);
     this.view.changeData(tempoData);
@@ -88,25 +98,26 @@ export default class DrillDownInteraction extends BaseInteraction {
       this.layout();
     } else {
       this.cache = {};
+      this.saveOriginMapping();
       this.container = this.container = this.canvas.addGroup();
       if (!this.startNode) {
         this.startNode = {
           name: 'root',
         };
       }
-      if(this.startNode.name === 'root'){
-          this.startNodeName = hasKey(this.plot.options.data,'name') ? this.plot.options.data.name : 'root';
-          this.currentNode = this.plot.options.data;
-          this.currentDepth = 1;
-      }else{
-         this.startNodeName = this.startNode.name;
-         this.currentNode = this.startNode; 
+      if (this.startNode.name === 'root') {
+        this.startNodeName = hasKey(this.plot.options.data, 'name') ? this.plot.options.data.name : 'root';
+        this.currentNode = this.plot.options.data;
+        this.currentDepth = 1;
+      } else {
+        this.startNodeName = this.startNode.name;
+        this.currentNode = this.startNode;
       }
-      this.y = this.view.get('viewRange').maxY + 10;
+      this.y = this.view.get('viewRange').maxY + PADDING_TOP;
       this.breadcrumb = new Breadcrumb({
         container: this.container,
         x: 0,
-        y:this.y,
+        y: this.y,
         items: this.getItems(),
       });
       this.breadcrumb.render();
@@ -119,10 +130,10 @@ export default class DrillDownInteraction extends BaseInteraction {
 
   private layout() {
     const currentWidth = this.container.getBBox().width;
-    const x = (600 - currentWidth) / 2;
+    const x = (this.plot.width - currentWidth) / 2;
     this.breadcrumb.update({
-        x,
-        y: this.y
+      x,
+      y: this.y,
     });
   }
 
@@ -146,9 +157,9 @@ export default class DrillDownInteraction extends BaseInteraction {
 
   private findParent(data, parents) {
     if (data.parent) {
-      if(hasKey(this.cache,data.parent.name)){
+      if (hasKey(this.cache, data.parent.name)) {
         parents.push(this.cache[data.parent.name]);
-      }else{
+      } else {
         parents.push(data.parent);
       }
       this.findParent(data.parent, parents);
@@ -164,7 +175,7 @@ export default class DrillDownInteraction extends BaseInteraction {
         const data = targetParent.get('data');
         if (data.data) {
           if (data.text === this.startNodeName) {
-            this.currentDepth = 1; 
+            this.currentDepth = 1;
             this.view.changeData(data.data);
             this.adjustScale(1);
             this.currentNode = this.plot.options.data;
@@ -172,7 +183,7 @@ export default class DrillDownInteraction extends BaseInteraction {
           } else if (this.currentNode === data.data) {
             return;
           } else {
-            this.currentDepth = parseInt(data.key); 
+            this.currentDepth = parseInt(data.key);
             this.update(data.data);
           }
         }
@@ -180,25 +191,34 @@ export default class DrillDownInteraction extends BaseInteraction {
     });
   }
 
-  private getRootItem(){
-      const rootData  = this.plot.options.data;
-      const rootName = hasKey(rootData,'name') ? rootData.name : 'root';
-      return { key: '1', text: rootName, data: this.plot.rootData };
+  private getRootItem() {
+    const rootData = this.plot.options.data;
+    const rootName = hasKey(rootData, 'name') ? rootData.name : 'root';
+    return { key: '1', text: rootName, data: this.plot.rootData };
   }
 
-  private adjustScale(index){
-      const { view } = this;
-      const geom = this.view.get('elements')[0];
-      // 根据当前层级确定mapping配置项
+  private saveOriginMapping() {
+    const { colorField, colors } = this.plot.options;
+    const mappingInfo = { field: colorField, values: colors };
+    this.originMapping = mappingInfo;
+  }
+
+  private adjustScale(index) {
+    const { view } = this;
+    // 根据当前层级确定mapping配置项
+    if (hasKey(this.mapping, String(index))) {
       const mappingCfg = clone(this.mapping[index]);
-      if(mappingCfg.values && isFunction(mappingCfg.values)){
+      if (mappingCfg.values && isFunction(mappingCfg.values)) {
         const values = mappingCfg.values(this.parentColor);
         mappingCfg.values = values;
       }
-      this.view.get('elements')[0].color(mappingCfg.field,mappingCfg.values);
-      view.render();
+      this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
+    } else {
+      const mappingCfg = clone(this.originMapping);
+      this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
+    }
+    view.render();
   }
-
 }
 
 BaseInteraction.registerInteraction('drilldown', DrillDownInteraction);

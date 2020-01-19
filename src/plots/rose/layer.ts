@@ -9,6 +9,7 @@ import { Label } from '../../interface/config';
 import * as EventParser from '../column/event';
 import { LineStyle } from '../line/layer';
 import './component/label/rose-label';
+import { getCentralAnnotation, Size, StatisticConfig } from './component/annotation/central-annotation';
 
 interface RoseStyle extends LineStyle {
   stroke?: string;
@@ -26,6 +27,8 @@ export interface RoseViewConfig extends ViewConfig {
   /** 每个扇形切片的样式 */
   sectorStyle?: RoseStyle | ((...args: any[]) => RoseStyle);
   label?: RoseLabel;
+  /** 中心文本 统计量 */
+  statistic?: StatisticConfig;
 }
 
 type RoseLabel = ViewConfig['label'] & {
@@ -47,6 +50,9 @@ const PLOT_GEOM_MAP = {
 };
 
 export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> extends ViewLayer<T> {
+  public static centralId = 0;
+  private statistic: any; // 保存 statistic 实例用于响应交互
+
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       width: 400,
@@ -79,6 +85,11 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       columnStyle: {
         stroke: 'white',
         lineWidth: 1,
+      },
+      statistic: {
+        visible: false,
+        position: 'center',
+        triggerOn: 'hover',
       },
       xAxis: {
         autoRotateLabel: true,
@@ -114,7 +125,42 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     const columnStyle = props.sectorStyle;
     const xField = props.categoryField;
     const yField = props.radiusField;
+    this.adjustStatisticOptions(options);
     return _.deepMix({}, options, defaultOptions, { columnStyle, xField, yField }, props);
+  }
+
+  public beforeInit() {
+    super.beforeInit();
+    RoseLayer.centralId++;
+  }
+
+  public afterInit() {
+    super.afterInit();
+    this.handleStatisticActive();
+  }
+
+  public afterRender() {
+    super.afterRender();
+    this.adjustStatisticPosition();
+  }
+
+  /** 调整指标卡位置 */
+  private adjustStatisticPosition() {
+    if (this.statistic) {
+      const panelRange = this.view.get('panelRange');
+      const coord = this.view.get('coord');
+      const center = coord.getCenter();
+      const dom: HTMLDivElement = document.querySelector(`.${this.statistic.classId}`);
+      if (dom && dom.parentElement) {
+        const size = this.getCentralSize(panelRange);
+        dom.style.width = `${size.width}px`;
+        dom.style.maxHeight = `${size.height}px`;
+        const domRect = dom.getBoundingClientRect();
+        dom.parentElement.style.top = `${center.y - domRect.height / 2}px`;
+        dom.parentElement.style.left = `${center.x - domRect.width / 2}px`;
+        this.statistic.html = dom.parentElement.innerHTML;
+      }
+    }
   }
 
   protected geometryParser(dim, type) {
@@ -203,7 +249,28 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     }
   }
 
-  protected annotation() {}
+  protected annotation() {
+    const options = this.options;
+    const annotations = [];
+    if (options.statistic && options.statistic.visible) {
+      const statisticConfig = options.statistic;
+      if (statisticConfig.position === 'center') {
+        // 目前不支持其他位置的 annotation
+        const size = this.getCentralSize({ width: this.width, height: this.height });
+        const centralAnnotation = getCentralAnnotation(
+          statisticConfig,
+          `central-annotation-${RoseLayer.centralId}`,
+          size
+        );
+        annotations.push(centralAnnotation);
+        if (statisticConfig.triggerOn) {
+          this.setConfig('tooltip', false);
+        }
+        this.statistic = _.deepMix({}, statisticConfig, centralAnnotation);
+      }
+    }
+    this.setConfig('annotations', annotations);
+  }
 
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
@@ -227,6 +294,50 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       ...label,
     });
     return labelConfig;
+  }
+
+  /** 处理 指标卡激活事件 */
+  protected handleStatisticActive() {
+    if (this.statistic) {
+      /** 处理环图中心文本响应交互的问题 */
+      if (this.statistic && this.statistic.triggerOn) {
+        let triggerOnEvent = 'mouseenter';
+        let triggerOffEvent = 'mouseleave';
+        if (this.statistic.triggerOn === 'click') {
+          triggerOnEvent = 'click';
+          triggerOffEvent = 'dblclick';
+        }
+        const { radiusField, categoryField } = this.options;
+        this.view.on(
+          `interval:${triggerOnEvent}`,
+          _.debounce((e) => {
+            const statisticConfig = { ...this.options.statistic };
+            /** 响应交互内容的优先级 高于 配置的优先级 */
+            statisticConfig.content = this.parseStatisticContent(e.data._origin, categoryField, radiusField);
+            const panelRange = this.view.get('panelRange');
+            const centralAnnotation = getCentralAnnotation(
+              statisticConfig,
+              this.statistic.classId,
+              this.getCentralSize(panelRange)
+            );
+            const dom: HTMLDivElement = document.querySelector(`.${centralAnnotation.classId}`);
+            if (dom && dom.parentElement) {
+              dom.parentElement.innerHTML = centralAnnotation.html;
+            }
+          }, 100)
+        );
+        this.view.on(
+          `interval:${triggerOffEvent}`,
+          _.debounce((e) => {
+            // 还原
+            const dom: HTMLDivElement = document.querySelector(`.${this.statistic.classId}`);
+            if (dom && dom.parentElement) {
+              dom.parentElement.innerHTML = this.statistic.html;
+            }
+          }, 100)
+        );
+      }
+    }
   }
 
   private adjustLabelOptions(labelOptions: RoseLabel) {
@@ -253,6 +364,47 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         legendOptions.clickable = false;
       }
     }
+  }
+
+  /** mutable */
+  private adjustStatisticOptions(options: RoseLayerConfig) {
+    const { radiusField, categoryField, statistic: statisticOptions } = options;
+    const totalValue = this.getTotalValue(options);
+    if (statisticOptions && !statisticOptions.content) {
+      statisticOptions.content = this.parseStatisticContent(totalValue, categoryField, radiusField);
+    }
+  }
+
+  /** 获取总计数据 */
+  private getTotalValue(options: RoseLayerConfig): object {
+    let total = 0;
+    _.each(options.data, (item) => {
+      if (typeof item[options.radiusField] === 'number') {
+        total += item[options.radiusField];
+      }
+    });
+    const data = {
+      [options.radiusField]: total,
+      [options.categoryField]: '总计',
+    };
+    return data;
+  }
+
+  private getCentralSize(box: Size): Size {
+    const width = box.width * this.options.innerRadius;
+    const height = box.height * this.options.innerRadius;
+    const innerRadius = Math.min(width, height) / 2;
+    return {
+      width: 2 * Math.sqrt((innerRadius * innerRadius) / 2),
+      height: 2 * Math.sqrt((innerRadius * innerRadius) / 2),
+    };
+  }
+
+  private parseStatisticContent(data: any, xField: string, yField: string): StatisticConfig['content'] {
+    return {
+      name: data[xField],
+      value: data[yField],
+    };
   }
 }
 

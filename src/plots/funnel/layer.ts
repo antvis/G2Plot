@@ -158,7 +158,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const coordConfig = {
       actions: props.transpose
         ? props.dynamicHeight
-          ? [['transpose']]
+          ? [['transpose'], ['scale', 1, -1]]
           : []
         : props.dynamicHeight
         ? []
@@ -319,7 +319,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         appear: {
           animation: props.transpose ? 'funnelScaleInX' : 'funnelScaleInY',
           duration: appearDurationEach,
-          reverse: props.dynamicHeight,
+          reverse: props.dynamicHeight && !props.transpose,
           callback: (shape) => {
             this.shouldShowLabels = true;
             this.showLabels(shape);
@@ -648,7 +648,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       };
       _.each(members, (member) => (_.isArray(member) ? member.forEach(calcEach) : calcEach(member)));
 
-      // if (currMinY >= lastMaxY) {
       if (
         currBBox.minX > lastBBox.maxX ||
         currBBox.maxX < lastBBox.minX ||
@@ -666,14 +665,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         _.each(members, (member) => (_.isArray(member) ? member.forEach(eachProc) : eachProc(member)));
         _.assign(lastBBox, currBBox);
       }
-
-      // }
-
-      // if (currMaxY > lastMaxY) {
-      //   lastMaxY = currMaxY;
-      // }
-      // lastMinX = currMinX;
-      // lastMaxX = curr
     });
 
     duration && callback && setTimeout(callback, duration);
@@ -719,7 +710,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const updateDuration = _.get(props, 'animation.update.duration');
     const enterDuration = _.get(props, 'animation.enter.duration');
     const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.6;
-    const fadeOutDuration = Math.max(enterDuration, updateDuration);
+    const fadeOutDuration = Math.max(enterDuration, updateDuration) * 1.2;
 
     return { fadeInDuration, fadeOutDuration };
   }
@@ -822,6 +813,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         dataLength: data.length,
         ratioUpper,
         ratioLower,
+        reverse: props.transpose,
       };
 
       ratioUpper = ratioLower;

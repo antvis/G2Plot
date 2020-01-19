@@ -9,8 +9,8 @@ const data = [
 ];
 
 const funnelPlot = new g2plot.Funnel(document.getElementById('canvas'), {
-  width: 700,
-  height: 450,
+  width: 500,
+  height: 500,
   data,
   xField: 'action',
   yField: 'pv',

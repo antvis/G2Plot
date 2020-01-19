@@ -40,8 +40,9 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
               3: {
                 field: 'value',
                 //values:['#d3ecc9','#78c6d0','#3e94c0','#295599','#18216c']
-                values: (v) => {
-                  return ['#ffffff', v];
+                values: (parent) => {
+                  const parentColor = parent.shape.attr('fill');
+                  return ['#ffffff', parentColor];
                 },
               },
             },

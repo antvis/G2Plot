@@ -6,7 +6,6 @@ import { getComponent } from '../../components/factory';
 import squarify from './layout/squarify';
 import { INTERACTION_MAP } from './interaction';
 import './components/label';
-import { COLOR_PLATE_10, COLOR_PLATE_20 } from '../../theme/default';
 
 const PARENT_NODE_OFFSET = 4;
 const BLOCK_MARGIN = 4;

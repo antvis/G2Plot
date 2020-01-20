@@ -23,25 +23,25 @@ title: 设计规范
 
 ## 漏斗图分类
 
-| 类型       | 描述                                         | 示意图                                                                 |
-| ---------- | -------------------------------------------- | ---------------------------------------------------------------------- |
-| 普通漏斗图 | 数值映射至高度，当前数值与第一个值的占比情况 | ![](https://gw.alicdn.com/tfs/TB1D7tuupP7gK0jSZFjXXc5aXXa-315-218.png) |
-|            | 数值映射至长度，不映射至高度                 | ![](https://gw.alicdn.com/tfs/TB12CdyurY1gK0jSZTEXXXDQVXa-315-219.png) |
+| 类型       | 描述                                         | 示意图                                                                               |
+| ---------- | -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| 普通漏斗图 | 数值映射至高度，当前数值与第一个值的占比情况 | ![动态高度漏斗图](https://gw.alicdn.com/tfs/TB1D7tuupP7gK0jSZFjXXc5aXXa-315-218.png) |
+|            | 数值映射至长度，不映射至高度                 | ![固定高度漏斗图](https://gw.alicdn.com/tfs/TB12CdyurY1gK0jSZTEXXXDQVXa-315-219.png) |
 
 ## do 和 dont
 
 #### 数量在 3 个以上
 
-![](https://gw.alicdn.com/tfs/TB1V24uuAL0gK0jSZFtXXXQCXXa-316-150.png)
+![数量对比](https://gw.alicdn.com/tfs/TB1V24uuAL0gK0jSZFtXXXQCXXa-316-150.png)
 
 #### 干净，清晰的标签
 
-![](https://gw.alicdn.com/tfs/TB1OClvuET1gK0jSZFhXXaAtVXa-316-152.png)
+![标签对比](https://gw.alicdn.com/tfs/TB1OClvuET1gK0jSZFhXXaAtVXa-316-152.png)
 
 #### 使用易区分的配色
 
-![](https://gw.alicdn.com/tfs/TB1VCVuuxz1gK0jSZSgXXavwpXa-316-150.png)
+![配色对比](https://gw.alicdn.com/tfs/TB1VCVuuxz1gK0jSZSgXXavwpXa-316-150.png)
 
 ## 漏斗图相似
 
-![](https://gw.alicdn.com/tfs/TB1jCRyuEY1gK0jSZFCXXcwqXXa-300-150.png)
+![漏斗图相似图表枚举](https://gw.alicdn.com/tfs/TB1jCRyuEY1gK0jSZFCXXcwqXXa-300-150.png)

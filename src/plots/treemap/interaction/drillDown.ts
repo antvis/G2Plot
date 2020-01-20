@@ -3,7 +3,7 @@ import BaseInteraction from '../../../interaction/base';
 import { BBox, Group, Rect } from '@antv/g';
 import TreemapLayer from '../layer';
 import { each, hasKey, isFunction, clone } from '@antv/util';
-import { scale } from './animation';
+import { scale, shrink } from './animation';
 
 const DEFAULT_ITEM_WIDTH = 100;
 const DEFAULT_ITEM_HEIGHT = 30;
@@ -190,15 +190,19 @@ export default class DrillDownInteraction extends BaseInteraction {
         if (data.data) {
           if (data.text === this.startNodeName) {
             this.currentDepth = 1;
-            this.view.changeData(data.data);
-            this.adjustScale(1);
-            this.currentNode = this.plot.options.data;
-            this.render();
+            shrink(this.currentNode.name, this.view, () => {
+              this.view.changeData(data.data);
+              this.adjustScale(1);
+              this.currentNode = this.plot.options.data;
+              this.render();
+            });
           } else if (this.currentNode === data.data) {
             return;
           } else {
             this.currentDepth = parseInt(data.key);
-            this.update(data.data);
+            shrink(this.currentNode.name, this.view, () => {
+              this.update(data.data);
+            });
           }
         }
       }

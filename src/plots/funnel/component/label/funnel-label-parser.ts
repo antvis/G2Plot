@@ -32,13 +32,18 @@ export default class FunnelLabelParser extends LabelParser {
       if (plotProps.compareField) {
         const yValues = _.get(item, `_origin.__compare__.yValues`);
         const yValuesTop = _.get(this.plot.getData(), `0.__compare__.yValues`);
+
+        if (plotProps.transpose) {
+          _.set(config, 'textStyle.lineHeight', _.get(config, 'textStyle.fontSize', 12));
+        }
+
         return [0, 1]
           .map((i) => {
             const yValue = yValues[i];
             const yValueTop = yValuesTop[i];
             return proc(yValue, yValueTop);
           })
-          .join('    ');
+          .join(plotProps.transpose ? '\n\n' : '    ');
       } else {
         const yValue = _.get(item, `_origin.${plotProps.yField}`);
         const yValueTop = _.get(this.plot.getData(), `0.${plotProps.yField}`);

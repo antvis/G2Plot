@@ -97,9 +97,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   public afterRender() {
     if (this.options.legend && this.options.legend.visible) {
-      if (this.matrixLegend) {
-        this.matrixLegend.destroy();
-      }
       this.matrixLegend = new MatrixLegend({
         view: this.view,
         plot: this,

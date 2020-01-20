@@ -9,17 +9,9 @@ const data = [
 ];
 
 const funnelPlot = new Funnel(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '漏斗图',
-  },
-  description: {
-    visible: true,
-    text: '漏斗图 - 动态高度',
-  },
-  data,
+  data: data,
   xField: 'action',
   yField: 'pv',
-  dynamicHeight: true,
+  transpose: true,
 });
 funnelPlot.render();

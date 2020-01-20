@@ -473,6 +473,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   protected adjustProps(props: Partial<T>) {
+    if (props.compareField) {
+      props.dynamicHeight = false;
+    }
+
     if (props.dynamicHeight) {
       _.set(props, `meta.${props.yField}.nice`, false);
       _.set(props, 'tooltip.shared', false);

@@ -56,10 +56,10 @@ title: API
 
 默认为 `false`。
 
-|                                                                        |                                                                        |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| ![](https://gw.alicdn.com/tfs/TB1XLBxuxn1gK0jSZKPXXXvUXXa-590-386.png) | ![](https://gw.alicdn.com/tfs/TB1Ju4wuEH1gK0jSZSyXXXtlpXa-516-389.png) |
-| `dynamicHeight: false`                                                 | `dynamicHeight: true`                                                  |
+|                                                                                |                                                                                |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| ![固定高度](https://gw.alicdn.com/tfs/TB1XLBxuxn1gK0jSZKPXXXvUXXa-590-386.png) | ![动态高度](https://gw.alicdn.com/tfs/TB1Ju4wuEH1gK0jSZSyXXXtlpXa-516-389.png) |
+| `dynamicHeight: false`                                                         | `dynamicHeight: true`                                                          |
 
 ### transpose: boolean
 
@@ -67,10 +67,10 @@ title: API
 
 设置布局方式，`false` 为垂直布局，`true` 为水平布局，默认为 `false`。
 
-|                                                                        |                                                                        |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| ![](https://gw.alicdn.com/tfs/TB1XLBxuxn1gK0jSZKPXXXvUXXa-590-386.png) | ![](https://gw.alicdn.com/tfs/TB1ghUYuX67gK0jSZPfXXahhFXa-499-452.png) |
-| `transpose: false`                                                     | `transpose: true`                                                      |
+|                                                                            |                                                                            |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| ![垂直](https://gw.alicdn.com/tfs/TB1XLBxuxn1gK0jSZKPXXXvUXXa-590-386.png) | ![水平](https://gw.alicdn.com/tfs/TB1ghUYuX67gK0jSZPfXXahhFXa-499-452.png) |
+| `transpose: false`                                                         | `transpose: true`                                                          |
 
 ### compareField: string
 
@@ -92,7 +92,7 @@ title: API
 
 配置转化率样式及内容。在漏斗图中，转化率展示由 _固定线段_、_固定文案_、_数值文案_ 3 个部分组成，样式及内容可以分别通过 `percentage.line`、`percentage.text`、`percentage.value` 配置。
 
-![](https://gw.alicdn.com/tfs/TB1pLtAuuL2gK0jSZPhXXahvXXa-258-104.png)
+![转化率组成图](https://gw.alicdn.com/tfs/TB1pLtAuuL2gK0jSZPhXXahvXXa-258-104.png)
 
 `visible: boolean` 是否显示转化率<br />
 `line.visible: boolean` 是否显示固定线段<br />

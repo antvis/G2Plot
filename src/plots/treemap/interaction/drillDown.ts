@@ -1,8 +1,9 @@
 import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
-import { BBox, Group } from '@antv/g';
+import { BBox, Group, Rect } from '@antv/g';
 import TreemapLayer from '../layer';
 import { each, hasKey, isFunction, clone } from '@antv/util';
+import { scale } from './animation';
 
 const DEFAULT_ITEM_WIDTH = 100;
 const DEFAULT_ITEM_HEIGHT = 30;
@@ -68,6 +69,7 @@ export default class DrillDownInteraction extends BaseInteraction {
   private mapping: IMapping;
   private originMapping: IMappingConfig;
   private y: number;
+  private geometry: any;
 
   public start(ev) {
     const data = ev.data._origin;
@@ -81,7 +83,11 @@ export default class DrillDownInteraction extends BaseInteraction {
         depth: clone(this.currentDepth),
       };
       this.currentDepth++;
-      this.update(data);
+
+      const shapeContainer = this.view.get('elements')[0].get('container');
+      scale(ev.target, shapeContainer, this.view, () => {
+        this.update(data);
+      });
     }
   }
 
@@ -104,6 +110,7 @@ export default class DrillDownInteraction extends BaseInteraction {
       });
       this.layout();
     } else {
+      this.initGeometry();
       this.cache = {};
       this.saveOriginMapping();
       this.container = this.container = this.canvas.addGroup();
@@ -225,6 +232,21 @@ export default class DrillDownInteraction extends BaseInteraction {
       this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
     }
     view.render();
+  }
+
+  private initGeometry() {
+    this.geometry = this.view.get('elements')[0];
+    const viewRange = this.view.get('viewRange');
+    const container = this.geometry.get('container');
+    const cliper = new Rect({
+      attrs: {
+        x: viewRange.minX,
+        y: viewRange.minY,
+        width: viewRange.width,
+        height: viewRange.height,
+      },
+    });
+    container.attr('clip', cliper);
   }
 }
 

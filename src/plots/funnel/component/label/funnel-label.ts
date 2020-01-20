@@ -35,6 +35,7 @@ export class FunnelLabel extends ElementLabels {
       point.y += height;
     }
     point.textAlign = 'center';
+    point.textBaseline = 'middle';
   }
 
   protected getLabelPoint(labelOptions: DataPointType, point, index): DataPointType {
@@ -129,8 +130,12 @@ export class FunnelLabel extends ElementLabels {
     if (compare) {
       const yValues = compare.yValues;
       label.attr({
-        x: lerp(shapeMinX, shapeMaxX, yValues[0] / (yValues[0] + yValues[1])),
-        y: (shapeMinY + shapeMaxY) / 2,
+        x: compare.transpose
+          ? (shapeMinX + shapeMaxX) / 2
+          : lerp(shapeMinX, shapeMaxX, yValues[0] / (yValues[0] + yValues[1])),
+        y: compare.transpose
+          ? lerp(shapeMinY, shapeMaxY, yValues[0] / (yValues[0] + yValues[1]))
+          : (shapeMinY + shapeMaxY) / 2,
       });
     }
     const labelBBox = label.getBBox();

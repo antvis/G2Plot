@@ -60,6 +60,7 @@ export interface FunnelViewConfig extends ViewConfig {
   dynamicHeight?: boolean;
   compareField?: string;
   compareTextStyle?: Partial<{
+    offsetX: number;
     offsetY: number;
     [k: string]: any;
   }>;
@@ -123,6 +124,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       dynamicHeight: false,
       compareTextStyle: {
         fill: 'black',
+        offsetX: -16,
         offsetY: -16,
       },
     };
@@ -159,7 +161,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       actions: props.transpose
         ? props.dynamicHeight
           ? [['transpose'], ['scale', 1, -1]]
-          : []
+          : [['scale', 1, -1]]
         : props.dynamicHeight
         ? []
         : [['transpose'], ['scale', 1, -1]],
@@ -500,7 +502,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     this.view.eachShape((datumLower, shape) => {
       if (i++ > 0) {
         const { minX, maxX, maxY, minY } = shape.getBBox();
-        const [x1, y] = coord.invertMatrix(props.transpose ? minX : maxX, props.dynamicHeight ? minY : maxY, 1);
+        const [x1, y1] = coord.invertMatrix(
+          props.transpose ? minX : maxX,
+          props.transpose ? (props.compareField ? minY : maxY) : props.dynamicHeight ? minY : maxY,
+          1
+        );
         const { line, text, value } = this._findPercentageMembersInContainerByShape(container, shape, true);
 
         const eachProcs = [
@@ -510,7 +516,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                 _.deepMix({}, percentageLine.style, {
                   x1: x,
                   y1: y,
-                  x2: x - offsetX,
+                  x2: props.transpose ? x + offsetX : x - offsetX,
                   y2: y - offsetY,
                   opacity: 0,
                 })
@@ -518,41 +524,56 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
               line.set('adjustTimestamp', adjustTimestamp);
             }
 
+            let textWidth = 0;
             let valueWidth = 0;
-            if (value) {
-              value.attr(
-                _.deepMix({}, percentageValue.style, {
-                  x: x - offsetX - spacing,
-                  y: y - offsetY,
-                  opacity: 0,
-                  text: _.isFunction(percentageValue.formatter)
-                    ? props.compareField
-                      ? percentageValue.formatter(
-                          _.get(datumUpper, `__compare__.yValues.0`),
-                          _.get(datumLower, `__compare__.yValues.0`)
-                        )
-                      : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
-                    : '',
-                  textAlign: 'right',
-                  textBaseline: 'middle',
-                })
-              );
-              value.set('adjustTimestamp', adjustTimestamp);
-              valueWidth = value.getBBox().width;
-            }
 
-            if (text) {
-              text.attr(
-                _.deepMix({}, percentageText.style, {
-                  x: x - offsetX - spacing - valueWidth - spacing,
-                  y: y - offsetY,
-                  opacity: 0,
-                  text: percentageText.content,
-                  textAlign: 'right',
-                  textBaseline: 'middle',
-                })
-              );
-              text.set('adjustTimestamp', adjustTimestamp);
+            const textProc = () => {
+              if (text) {
+                text.attr(
+                  _.deepMix({}, percentageText.style, {
+                    x: props.transpose ? x + offsetX : x - offsetX - spacing - valueWidth - spacing,
+                    y: props.transpose ? y - offsetY - spacing : y - offsetY,
+                    opacity: 0,
+                    text: percentageText.content,
+                    textAlign: props.transpose ? 'left' : 'right',
+                    textBaseline: props.transpose ? 'bottom' : 'middle',
+                  })
+                );
+                text.set('adjustTimestamp', adjustTimestamp);
+                textWidth = text.getBBox().width;
+              }
+            };
+
+            const valueProc = () => {
+              if (value) {
+                value.attr(
+                  _.deepMix({}, percentageValue.style, {
+                    x: props.transpose ? x + offsetX + textWidth + spacing : x - offsetX - spacing,
+                    y: props.transpose ? y - offsetY - spacing : y - offsetY,
+                    opacity: 0,
+                    text: _.isFunction(percentageValue.formatter)
+                      ? props.compareField
+                        ? percentageValue.formatter(
+                            _.get(datumUpper, '__compare__.yValues.0'),
+                            _.get(datumLower, '__compare__.yValues.0')
+                          )
+                        : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
+                      : '',
+                    textAlign: props.transpose ? 'left' : 'right',
+                    textBaseline: props.transpose ? 'bottom' : 'middle',
+                  })
+                );
+                value.set('adjustTimestamp', adjustTimestamp);
+                valueWidth = value.getBBox().width;
+              }
+            };
+
+            if (props.transpose) {
+              textProc();
+              valueProc();
+            } else {
+              valueProc();
+              textProc();
             }
           },
           (x, y, line, text, value) => {
@@ -562,7 +583,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                   x1: x,
                   y1: y,
                   x2: x + offsetX,
-                  y2: y + offsetY,
+                  y2: props.transpose ? (props.compareField ? y + offsetY : y - offsetY) : y + offsetY,
                   opacity: 0,
                 })
               );
@@ -574,11 +595,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
               text.attr(
                 _.deepMix({}, percentageText.style, {
                   x: props.transpose ? x + offsetX : x + offsetX + spacing,
-                  y: props.transpose ? y + offsetY + spacing : y + offsetY,
+                  y: props.transpose
+                    ? props.compareField
+                      ? y + offsetY + spacing
+                      : y - offsetY - spacing
+                    : y + offsetY,
                   opacity: 0,
                   text: percentageText.content,
                   textAlign: 'left',
-                  textBaseline: props.transpose ? 'top' : 'middle',
+                  textBaseline: props.transpose ? (props.compareField ? 'top' : 'bottom') : 'middle',
                 })
               );
               text.set('adjustTimestamp', adjustTimestamp);
@@ -588,8 +613,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             if (value) {
               value.attr(
                 _.deepMix({}, percentageValue.style, {
-                  x: props.transpose ? x + offsetX + spacing + textWidth : x + offsetX + spacing + textWidth + spacing,
-                  y: props.transpose ? y + offsetY + spacing : y + offsetY,
+                  x: props.transpose ? x + offsetX + textWidth + spacing : x + offsetX + spacing + textWidth + spacing,
+                  y: props.transpose
+                    ? props.compareField
+                      ? y + offsetY + spacing
+                      : y - offsetY - spacing
+                    : y + offsetY,
                   opacity: 0,
                   text: _.isFunction(percentageValue.formatter)
                     ? props.compareField
@@ -600,7 +629,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                       : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
                     : '',
                   textAlign: 'left',
-                  textBaseline: props.transpose ? 'top' : 'middle',
+                  textBaseline: props.transpose ? (props.compareField ? 'top' : 'bottom') : 'middle',
                 })
               );
               value.set('adjustTimestamp', adjustTimestamp);
@@ -609,12 +638,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         ];
 
         if (props.compareField) {
-          const [x0] = coord.invertMatrix(minX, 0, 1);
-          [x0, x1].forEach((x, i) => {
-            eachProcs[i](x, y, line && line[i], text && text[i], value && value[i]);
-          });
+          const [x0, y0] = coord.invertMatrix(minX, maxY, 1);
+          [
+            [x0, y0],
+            [x1, y1],
+          ].forEach(([x, y], i) => eachProcs[i](x, y, line && line[i], text && text[i], value && value[i]));
         } else {
-          eachProcs[1](x1, y, line, text, value);
+          eachProcs[1](x1, y1, line, text, value);
         }
       }
       datumUpper = datumLower;
@@ -630,42 +660,47 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   protected fadeInPercentages(duration?, callback?) {
+    const props = this.options;
     const container = this._findPercentageContainer();
 
-    const lastBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
-    this.view.eachShape((datum, shape) => {
-      const members = this._findPercentageMembersInContainerByShape(container, shape);
+    const eachProc = (i?) => {
+      const lastBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
+      this.view.eachShape((datum, shape) => {
+        const members = this._findPercentageMembersInContainerByShape(container, shape);
 
-      const currBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
-      const calcEach = (member) => {
-        if (member && member.get('type') == 'text') {
-          const { minX, maxX, minY, maxY } = member.getBBox();
-          if (minX < currBBox.minX) currBBox.minX = minX;
-          if (maxX > currBBox.maxX) currBBox.maxX = maxX;
-          if (minY < currBBox.minY) currBBox.minY = minY;
-          if (maxY > currBBox.maxY) currBBox.maxY = maxY;
-        }
-      };
-      _.each(members, (member) => (_.isArray(member) ? member.forEach(calcEach) : calcEach(member)));
-
-      if (
-        currBBox.minX > lastBBox.maxX ||
-        currBBox.maxX < lastBBox.minX ||
-        currBBox.minY > lastBBox.maxY ||
-        currBBox.maxY < lastBBox.minY
-      ) {
-        const eachProc = (member) => {
-          if (member) {
-            const attrs = {
-              opacity: 1,
-            };
-            duration ? member.animate(attrs, duration) : member.attr(attrs);
+        const currBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
+        const eachCalc = (member) => {
+          if (member && member.get('type') == 'text') {
+            const { minX, maxX, minY, maxY } = member.getBBox();
+            if (minX < currBBox.minX) currBBox.minX = minX;
+            if (maxX > currBBox.maxX) currBBox.maxX = maxX;
+            if (minY < currBBox.minY) currBBox.minY = minY;
+            if (maxY > currBBox.maxY) currBBox.maxY = maxY;
           }
         };
-        _.each(members, (member) => (_.isArray(member) ? member.forEach(eachProc) : eachProc(member)));
-        _.assign(lastBBox, currBBox);
-      }
-    });
+        _.each(members, (member) => (_.isArray(member) ? eachCalc(member[i]) : eachCalc(member)));
+
+        if (
+          currBBox.minX > lastBBox.maxX ||
+          currBBox.maxX < lastBBox.minX ||
+          currBBox.minY > lastBBox.maxY ||
+          currBBox.maxY < lastBBox.minY
+        ) {
+          const eachShow = (member) => {
+            if (member) {
+              const attrs = {
+                opacity: 1,
+              };
+              duration ? member.animate(attrs, duration) : member.attr(attrs);
+            }
+          };
+          _.each(members, (member) => (_.isArray(member) ? eachShow(member[i]) : eachShow(member)));
+          _.assign(lastBBox, currBBox);
+        }
+      });
+    };
+
+    props.compareField ? [0, 1].forEach(eachProc) : eachProc();
 
     duration && callback && setTimeout(callback, duration);
   }
@@ -845,6 +880,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       const minX = Math.min(pStart[0], pEnd[0]);
       const maxX = Math.max(pStart[0], pEnd[0]);
       const minY = Math.min(pStart[1], pEnd[1]);
+      const maxY = Math.max(pStart[1], pEnd[1]);
 
       const compareTexts = container.get('children');
       [0, 1].forEach((i) => {
@@ -854,12 +890,16 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         }
         compareText.attr(
           _.deepMix({}, props.compareTextStyle, {
-            text: i ? `  ${compareValues[i]}` : `${compareValues[i]}  `,
-            x: lerp(minX, maxX, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])),
-            y: minY + _.get(props, 'compareTextStyle.offsetY'),
+            text: props.transpose ? compareValues[i] : i ? `  ${compareValues[i]}` : `${compareValues[i]}  `,
+            x: props.transpose
+              ? minX + _.get(props, 'compareTextStyle.offsetX')
+              : lerp(minX, maxX, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])),
+            y: props.transpose
+              ? lerp(minY, maxY, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])) + (i ? 8 : -8)
+              : minY + _.get(props, 'compareTextStyle.offsetY'),
             opacity: 0,
-            textAlign: i ? 'left' : 'right',
-            textBaseline: 'bottom',
+            textAlign: props.transpose ? 'right' : i ? 'left' : 'right',
+            textBaseline: props.transpose ? (i ? 'top' : 'bottom') : 'bottom',
           })
         );
       });
@@ -962,6 +1002,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             yValues: [],
             yValuesMax: [],
             yValuesNext: undefined,
+            transpose: props.transpose,
           },
         };
         newData.push(newDatum);

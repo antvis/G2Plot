@@ -9,8 +9,9 @@ const data = [
 ];
 
 const funnelPlot = new Funnel(document.getElementById('container'), {
-  data: data,
+  data,
   xField: 'action',
   yField: 'pv',
+  dynamicHeight: true,
 });
 funnelPlot.render();

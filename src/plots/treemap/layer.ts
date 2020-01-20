@@ -60,12 +60,15 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   }
   public type: string = 'line';
   public rootData: any;
+  public rect: any;
+  private isDrilldown: boolean;
 
   public beforeInit() {
     const { interactions } = this.options;
     if (interactions) {
       _.each(interactions, (interaction) => {
         if (interaction.type === 'drilldown') {
+          this.isDrilldown = true;
           this.options.maxLevel = 1;
         }
       });
@@ -108,7 +111,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
     const { maxLevel } = this.options;
-    const rect: any = {
+    this.rect = {
       type: 'polygon',
       position: {
         fields: ['x', 'y'],
@@ -136,7 +139,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       },
       label: this.extractLabel(),
     };
-    this.setConfig('element', rect);
+    this.setConfig('element', this.rect);
   }
 
   protected applyInteractions() {
@@ -159,6 +162,20 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         interactions[inter.type] = interaction;
       }
     });
+  }
+
+  protected animation() {
+    super.animation();
+    if (this.isDrilldown) {
+      this.rect.animate = {
+        appear: {
+          animation: 'fadeIn',
+          duration: 800,
+        },
+        enter: false,
+        leave: false,
+      };
+    }
   }
 
   private extractLabel() {

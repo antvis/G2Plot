@@ -1,9 +1,13 @@
 import Plot, { PlotConfig } from '../base/plot';
 import { deepMix } from '@antv/util';
-import ViewLayer from '../base/view-layer';
+import { ViewLayerConfig } from '../base/view-layer';
+
+interface ComboPlotLayerConfig extends ViewLayerConfig {
+  type: string;
+}
 
 export interface ComboPlotConfig extends PlotConfig {
-  layers: ViewLayer[];
+  layers: ComboPlotLayerConfig[];
 }
 
 export default class ComboPlot<T extends ComboPlotConfig = ComboPlotConfig> extends Plot<T> {

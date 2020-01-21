@@ -25,7 +25,7 @@ import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
-  data: DataItem[];
+  data?: DataItem[];
   meta?: LooseMap;
   padding?: number | number[] | string;
   xField?: string;
@@ -148,6 +148,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public options: T;
   public title: TextDescription;
   public description: TextDescription;
+  public viewRange: BBox;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
@@ -214,7 +215,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.annotation();
     this.animation();
 
-    const viewRange = this.getViewRange();
+    this.viewRange = this.getViewRange();
+    this.paddingController.clearOuterComponents();
+
     this.view = new G2.View({
       width: this.width,
       height: this.height,
@@ -224,8 +227,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       data: this.processData(this.options.data),
       theme: this.theme,
       options: this.config,
-      start: { x: viewRange.minX, y: viewRange.minY },
-      end: { x: viewRange.maxX, y: viewRange.maxY },
+      start: { x: this.viewRange.minX, y: this.viewRange.minY },
+      end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -387,11 +390,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
     const flipOption = _.get(this.options, 'legend.flipPage');
+    const clickable = _.get(this.options, 'legend.clickable');
     this.setConfig('legends', {
       position: _.get(this.options, 'legend.position'),
       formatter: _.get(this.options, 'legend.formatter'),
       offsetX: _.get(this.options, 'legend.offsetX'),
       offsetY: _.get(this.options, 'legend.offsetY'),
+      clickable: _.isUndefined(clickable) ? true : clickable,
       // wordSpacing: _.get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
     });

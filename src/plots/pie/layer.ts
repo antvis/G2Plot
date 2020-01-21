@@ -28,7 +28,7 @@ export interface PieViewConfig extends ViewConfig {
   label?: PieLabel;
 }
 
-type PieLabel = ViewConfig['label'] & {
+type PieLabel = Omit<ViewConfig['label'], 'offset'> & {
   offset?: string | number;
   /** label leader-line */
   line?: {
@@ -93,10 +93,11 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   public type: string = 'pie';
 
   public getOptions(props: T) {
-    const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
+    const options = _.deepMix({}, super.getOptions(props), defaultOptions, props);
+    options.label = this.adjustLabelDefaultOptions(options);
+    return options;
   }
 
   public afterInit() {
@@ -194,7 +195,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       return;
     }
     if (labelConfig.type === 'inner') {
-      labelConfig.style = this.getInnerLabelDefaultStyle();
       // @ts-ignore
       labelConfig.labelLine = false;
     } else {
@@ -220,13 +220,20 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     return props.label && props.label.visible === true && props.label.type !== 'spider';
   }
 
-  private getInnerLabelDefaultStyle() {
-    const labelConfig = { ...this.options.label } as Label;
-    const labelStyleConfig = (labelConfig.style || {}) as LooseMap;
-    if (!labelStyleConfig.textAlign) {
-      labelStyleConfig.textAlign = 'center';
+  /** 调整 label 默认 options */
+  protected adjustLabelDefaultOptions(options: PieLayerConfig) {
+    const labelConfig = { ...options.label } as PieLabel;
+    if (labelConfig && labelConfig.type === 'inner') {
+      const labelStyleConfig = (labelConfig.style || {}) as LooseMap;
+      if (!labelStyleConfig.textAlign) {
+        labelStyleConfig.textAlign = 'center';
+      }
+      labelConfig.style = labelStyleConfig;
+      if (!labelConfig.offset) {
+        labelConfig.offset = `${(-1 / 3) * 100}%`;
+      }
     }
-    return labelStyleConfig;
+    return labelConfig;
   }
 }
 

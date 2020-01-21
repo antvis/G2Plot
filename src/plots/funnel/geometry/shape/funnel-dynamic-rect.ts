@@ -17,13 +17,19 @@ function _getFillAttrs(cfg) {
 }
 
 // 根据矩形关键点绘制 path
-function _getRectPath(points, { ratioUpper, ratioLower }) {
+function _getRectPath(points, { reverse, ratioUpper, ratioLower }) {
   const path = [];
   const firstPoint = points[0];
 
   const originX = (points[1].x + points[2].x) / 2;
   const factorTop = 1.2;
   const factorBottom = 0.6;
+
+  if (reverse) {
+    const tmp = ratioLower;
+    ratioLower = ratioUpper;
+    ratioUpper = tmp;
+  }
 
   const firstPointX = (firstPoint.x - originX) * lerp(factorBottom, factorTop, ratioLower) + originX;
   path.push(['M', firstPointX, firstPoint.y]);

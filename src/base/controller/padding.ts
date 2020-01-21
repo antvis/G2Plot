@@ -25,11 +25,23 @@ export default class PaddingController {
     this.plot = cfg.plot;
   }
 
-  public registerPadding(component: any, type: 'outer' | 'inner' = 'outer') {
+  public registerPadding(component: any, type: 'outer' | 'inner' = 'outer', checkIfExist: boolean = false) {
     if (type === 'inner') {
-      this.innerPaddingComponents.push(component);
+      if (checkIfExist) {
+        if (!this.innerPaddingComponents.find((c) => c == component)) {
+          this.innerPaddingComponents.push(component);
+        }
+      } else {
+        this.innerPaddingComponents.push(component);
+      }
     } else {
-      this.outerPaddingComponents.push(component);
+      if (checkIfExist) {
+        if (!this.outerPaddingComponents.find((c) => c == component)) {
+          this.outerPaddingComponents.push(component);
+        }
+      } else {
+        this.outerPaddingComponents.push(component);
+      }
     }
   }
 

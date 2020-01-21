@@ -9,7 +9,7 @@ import {
 } from '../../../../util/formatter';
 
 export default class FunnelLabelParser extends LabelParser {
-  protected parseFormatter(config: LooseMap, xValue: string, yValue: string) {
+  protected parseFormatter(config: LooseMap, ...values: any[]) {
     const labelProps = this.originConfig;
     const preformatter = combineFormatter(
       getNoopFormatter(),
@@ -17,12 +17,38 @@ export default class FunnelLabelParser extends LabelParser {
       getSuffixFormatter(labelProps.suffix)
     );
 
-    config.formatter = (text, item, idx) => {
-      const yValueFormatted = preformatter(yValue, item, idx);
-      if (_.isFunction(labelProps.formatter)) {
-        return labelProps.formatter(xValue, yValueFormatted, item, idx);
+    const plotProps = this.plot.options;
+
+    config.formatter = (xValue, item, idx) => {
+      const proc = (yValue, yValueTop) => {
+        const yValueFormatted = preformatter(yValue, item, idx);
+        if (_.isFunction(labelProps.formatter)) {
+          return labelProps.formatter(xValue, item, idx, yValue, yValueTop);
+        } else {
+          return `${xValue} ${yValueFormatted}`;
+        }
+      };
+
+      if (plotProps.compareField) {
+        const yValues = _.get(item, `_origin.__compare__.yValues`);
+        const yValuesTop = _.get(this.plot.getData(), `0.__compare__.yValues`);
+
+        if (plotProps.transpose) {
+          _.set(config, 'textStyle.lineHeight', _.get(config, 'textStyle.fontSize', 12));
+        }
+
+        return [0, 1]
+          .map((i) => {
+            const yValue = yValues[i];
+            const yValueTop = yValuesTop[i];
+            return proc(yValue, yValueTop);
+          })
+          .join(plotProps.transpose ? '\n\n' : '    ');
       } else {
-        return `${xValue} ${yValueFormatted}`;
+        const yValue = _.get(item, `_origin.${plotProps.yField}`);
+        const yValueTop = _.get(this.plot.getData(), `0.${plotProps.yField}`);
+
+        return proc(yValue, yValueTop);
       }
     };
   }

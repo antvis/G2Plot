@@ -15,6 +15,10 @@ function avg(arr) {
   return sum / arr.length;
 }
 
+function lerp(a, b, factor) {
+  return (1 - factor) * a + factor * b;
+}
+
 export class FunnelLabel extends ElementLabels {
   public setLabelPosition(point, originPoint, index) {
     const coord = this.get('coord');
@@ -31,6 +35,7 @@ export class FunnelLabel extends ElementLabels {
       point.y += height;
     }
     point.textAlign = 'center';
+    point.textBaseline = 'middle';
   }
 
   protected getLabelPoint(labelOptions: DataPointType, point, index): DataPointType {
@@ -110,7 +115,6 @@ export class FunnelLabel extends ElementLabels {
     label.attr('fill', fill);
 
     const coord = this.get('coord');
-    const labelBBox = label.getBBox();
 
     const shapeBBox = shape.getBBox();
     const [shapeStartX, shapeStartY] = coord.invertMatrix(shapeBBox.x, shapeBBox.y, 1);
@@ -122,11 +126,25 @@ export class FunnelLabel extends ElementLabels {
     const shapeMinY = Math.min(shapeStartY, shapeEndY);
     const shapeMaxY = Math.max(shapeStartY, shapeEndY);
 
+    const compare = shape.get('__compare__');
+    if (compare) {
+      const yValues = compare.yValues;
+      label.attr({
+        x: compare.transpose
+          ? (shapeMinX + shapeMaxX) / 2
+          : lerp(shapeMinX, shapeMaxX, yValues[0] / (yValues[0] + yValues[1])),
+        y: compare.transpose
+          ? lerp(shapeMinY, shapeMaxY, yValues[0] / (yValues[0] + yValues[1]))
+          : (shapeMinY + shapeMaxY) / 2,
+      });
+    }
+    const labelBBox = label.getBBox();
     const shapeContainsLabel =
       labelBBox.minX >= shapeMinX &&
       labelBBox.maxX <= shapeMaxX &&
       labelBBox.minY >= shapeMinY &&
       labelBBox.maxY <= shapeMaxY;
+
     label.set('visible', shapeContainsLabel);
   }
 

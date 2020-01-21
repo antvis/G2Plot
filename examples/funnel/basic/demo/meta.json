@@ -7,12 +7,32 @@
     {
       "filename": "basic.js",
       "title": "漏斗图",
-      "screenshot": "https://gw.alicdn.com/tfs/TB13mVXt5_1gK0jSZFqXXcpaXXa-619-463.png"
+      "screenshot": "https://gw.alicdn.com/tfs/TB158FxuAT2gK0jSZPcXXcKkpXa-646-500.png"
     },
     {
-      "filename": "percent.js",
+      "filename": "dynamicHeight.js",
       "title": "漏斗图 - 动态高度",
-      "screenshot": "https://gw.alicdn.com/tfs/TB1nqpXt1H2gK0jSZFEXXcqMpXa-572-470.png"
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Tgtyurj1gK0jSZFOXXc7GpXa-786-503.png"
+    },
+    {
+      "filename": "compare.js",
+      "title": "对比漏斗图",
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Y7dtuAL0gK0jSZFtXXXQCXXa-709-495.png"
+    },
+    {
+      "filename": "basic-transpose.js",
+      "title": "漏斗图 - 水平布局",
+      "screenshot": "https://gw.alicdn.com/tfs/TB1EgtsuuT2gK0jSZFvXXXnFXXa-958-591.png"
+    },
+    {
+      "filename": "dynamicHeight-transpose.js",
+      "title": "漏斗图 - 动态高度 - 水平布局",
+      "screenshot": "https://gw.alicdn.com/tfs/TB1OzRyuq61gK0jSZFlXXXDKFXa-1108-556.png"
+    },
+    {
+      "filename": "compare-transpose.js",
+      "title": "对比漏斗图 - 水平布局",
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Hkluurr1gK0jSZR0XXbP8XXa-1095-565.png"
     }
   ]
 }

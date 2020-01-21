@@ -3,7 +3,7 @@ import BaseInteraction from '../../../interaction/base';
 import { BBox, Group, Rect } from '@antv/g';
 import TreemapLayer from '../layer';
 import { each, hasKey, isFunction, clone } from '@antv/util';
-import { scale, shrink } from './animation';
+import { drillingDown, rollingUp } from './animation';
 
 const DEFAULT_ITEM_WIDTH = 100;
 const DEFAULT_ITEM_HEIGHT = 30;
@@ -83,9 +83,7 @@ export default class DrillDownInteraction extends BaseInteraction {
         depth: clone(this.currentDepth),
       };
       this.currentDepth++;
-
-      const shapeContainer = this.view.get('elements')[0].get('container');
-      scale(ev.target, shapeContainer, this.view, () => {
+      drillingDown(ev.target, this.view, () => {
         this.update(data);
       });
     }
@@ -189,20 +187,28 @@ export default class DrillDownInteraction extends BaseInteraction {
         const data = targetParent.get('data');
         if (data.data) {
           if (data.text === this.startNodeName) {
+            const targetDepth = 1;
+            //只有前后depth相邻才执行上卷动画，否则直接更新
+            if (this.currentDepth - 1 === targetDepth) {
+              rollingUp(this.currentNode.name, this.view, () => {
+                this.updateRoot(data);
+              });
+            } else {
+              this.updateRoot(data);
+            }
             this.currentDepth = 1;
-            shrink(this.currentNode.name, this.view, () => {
-              this.view.changeData(data.data);
-              this.adjustScale(1);
-              this.currentNode = this.plot.options.data;
-              this.render();
-            });
           } else if (this.currentNode === data.data) {
             return;
           } else {
+            const previousDepth = clone(this.currentDepth);
             this.currentDepth = parseInt(data.key);
-            shrink(this.currentNode.name, this.view, () => {
+            if (previousDepth - 1 === this.currentDepth) {
+              rollingUp(this.currentNode.name, this.view, () => {
+                this.update(data.data);
+              });
+            } else {
               this.update(data.data);
-            });
+            }
           }
         }
       }
@@ -251,6 +257,13 @@ export default class DrillDownInteraction extends BaseInteraction {
       },
     });
     container.attr('clip', cliper);
+  }
+
+  private updateRoot(data) {
+    this.view.changeData(data.data);
+    this.adjustScale(1);
+    this.currentNode = this.plot.options.data;
+    this.render();
   }
 }
 

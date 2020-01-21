@@ -3,9 +3,9 @@ import { Rect } from '@antv/g';
 
 const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 const duration = 400;
-const easing = 'easeQuadOut';
+const easing = 'easeQuadInOut';
 
-export function scale(target, container, view, callback) {
+export function drillingDown(target, view, callback) {
   const rect = getRect(target);
   const range = getRange(view);
 
@@ -21,6 +21,7 @@ export function scale(target, container, view, callback) {
     ],
   };
   let geometry = view.get('elements')[0];
+  hideLabel(geometry);
   const tem_cliper = new Rect({
     attrs: {
       x: range.minX,
@@ -48,6 +49,7 @@ export function scale(target, container, view, callback) {
       }
     });
     geometry = view.get('elements')[0];
+    hideLabel(geometry);
     const shapes = geometry.getShapes();
     each(shapes, (shape) => {
       shape.attr('opacity', 0);
@@ -73,7 +75,10 @@ export function scale(target, container, view, callback) {
         matrix,
       },
       duration,
-      easing
+      easing,
+      () => {
+        showLabel(geometry);
+      }
     );
     view.get('canvas').draw();
   }, 16);
@@ -91,9 +96,10 @@ function getTemShapes(geometry, container) {
   return tem_shapes;
 }
 
-export function shrink(name, view, callback) {
+export function rollingUp(name, view, callback) {
   let geometry = view.get('elements')[0];
-  const container = geometry.get('container');
+  hideLabel(geometry);
+  let container = geometry.get('container');
   container.attr('matrix', clone(ulMatrix));
   const tem_container = view.get('container').addGroup();
   tem_container.set('zIndex', -100);
@@ -102,9 +108,20 @@ export function shrink(name, view, callback) {
   view.get('canvas').draw();
   callback();
   geometry = view.get('elements')[0];
+  hideLabel(geometry);
+  container = geometry.get('container');
   const shape = findShapeByName(geometry.getShapes(), name); //根据name获得上一级shape
   const rect = getRect(shape);
   const range = getRange(view);
+  const cliper = new Rect({
+    attrs: {
+      x: range.minX,
+      y: range.minY,
+      width: range.width,
+      height: range.height,
+    },
+  });
+  container.attr('clip', cliper);
   shrinkTemp(tem_container, tem_shapes, rect, range);
   const xRatio = range.width / rect.width;
   const yRatio = range.height / rect.height;
@@ -120,7 +137,10 @@ export function shrink(name, view, callback) {
       matrix: ulMatrix,
     },
     duration,
-    easing
+    easing,
+    () => {
+      showLabel(geometry);
+    }
   );
 }
 
@@ -186,4 +206,14 @@ function shrinkTemp(container, shapes, rect, range) {
       easing
     );
   });
+}
+
+function hideLabel(geometry) {
+  const labelContainer = geometry.get('labelController').labelsContainer;
+  labelContainer.set('visible', false);
+}
+
+function showLabel(geometry) {
+  const labelContainer = geometry.get('labelController').labelsContainer;
+  labelContainer.set('visible', true);
 }

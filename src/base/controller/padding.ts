@@ -25,11 +25,23 @@ export default class PaddingController {
     this.plot = cfg.plot;
   }
 
-  public registerPadding(component: any, type: 'outer' | 'inner' = 'outer') {
+  public registerPadding(component: any, type: 'outer' | 'inner' = 'outer', checkIfExist: boolean = false) {
     if (type === 'inner') {
-      this.innerPaddingComponents.push(component);
+      if (checkIfExist) {
+        if (!this.innerPaddingComponents.find((c) => c == component)) {
+          this.innerPaddingComponents.push(component);
+        }
+      } else {
+        this.innerPaddingComponents.push(component);
+      }
     } else {
-      this.outerPaddingComponents.push(component);
+      if (checkIfExist) {
+        if (!this.outerPaddingComponents.find((c) => c == component)) {
+          this.outerPaddingComponents.push(component);
+        }
+      } else {
+        this.outerPaddingComponents.push(component);
+      }
     }
   }
 
@@ -45,8 +57,8 @@ export default class PaddingController {
 
   public clearOuterComponents() {
     _.each(this.outerPaddingComponents, (component) => {
-      if (component) {
-        //component.destroy();
+      if (component.afterRender) {
+        component.destroy();
       }
     });
     this.outerPaddingComponents = [];
@@ -56,8 +68,7 @@ export default class PaddingController {
     const props = this.plot.options;
     const padding = props.padding ? props.padding : this.plot.config.theme.padding;
     if (padding === 'auto') {
-      return this.processOuterPadding();
-      //return [0, 0, 0, 0];
+      return [0, 0, 0, 0];
     }
     return padding;
   }

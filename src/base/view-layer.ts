@@ -60,17 +60,8 @@ export interface ViewConfig {
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
-/**
- * 获取Region
- *
- * @param viewRange - box
- */
-function getRegion(viewRange: BBox): Region {
-  return { start: { x: viewRange.minX, y: viewRange.minY }, end: { x: viewRange.maxX, y: viewRange.maxY } };
-}
-
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
-  public static getDefaultOptions(): Partial<ViewConfig> {
+  public static getDefaultOptions(props?: Partial<ViewConfig>): Partial<ViewConfig> {
     return {
       title: {
         visible: false,
@@ -171,7 +162,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public getOptions(props: T): T {
     const options = super.getOptions(props);
     // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
+    const defaultOptions = this.constructor.getDefaultOptions(props);
     return _.deepMix({}, options, defaultOptions, props);
   }
 

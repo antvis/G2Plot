@@ -54,7 +54,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it('inner radius, label 默认居中', () => {
+  it.skip('inner radius, label 默认居中', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',

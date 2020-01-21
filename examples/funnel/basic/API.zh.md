@@ -76,7 +76,7 @@ title: API
 
 **optional**
 
-对比漏斗必选。
+对比漏斗图必选。
 
 数据集中的对比字段名，一般对应一个分类字段。
 
@@ -85,6 +85,19 @@ title: API
 注意，由于对比漏斗图左右图形对称布局，数值大小只能映射在漏斗形状宽度，所以启动 `compareField` 时 `dynamicHeight` 设置 `true` 将无效。
 
 例如 [代码演示](../basic/#compare) 中以 `quarter` 作为对比字段进行两个季度数据的比较。
+
+### compareText
+
+**optional**
+
+配置对比漏斗图位于侧方的分类文案样式及显示。
+
+![](https://gw.alicdn.com/tfs/TB137asuAT2gK0jSZFkXXcIQFXa-394-117.png)
+
+`visible: boolean`: 是否显示分类文案<br/>
+`offsetX: number`: 分类文案相对漏斗图形左侧沿 x 方向的偏移量，仅在水平布局有效<br/>
+`offsetY: number`: 分类文案相对漏斗图形上侧沿 y 方向的偏移量，仅在垂直布局有效<br/>
+`style: object`: 分类文案样式<br/>
 
 ### percentage
 

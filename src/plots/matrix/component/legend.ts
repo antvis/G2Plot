@@ -28,6 +28,7 @@ export default class MatrixLegend {
   public container: Group;
   public anchor: Shape;
   public afterRender: boolean;
+  public destroyed: boolean = false;
   protected view: View;
   protected layout: string;
   protected width: number;
@@ -89,6 +90,7 @@ export default class MatrixLegend {
     if (this.container) {
       this.container.remove();
     }
+    this.destroyed = true;
   }
 
   public getBBox() {

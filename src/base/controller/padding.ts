@@ -57,7 +57,9 @@ export default class PaddingController {
 
   public clearOuterComponents() {
     _.each(this.outerPaddingComponents, (component) => {
-      component.destroy();
+      if (component.afterRender) {
+        component.destroy();
+      }
     });
     this.outerPaddingComponents = [];
   }

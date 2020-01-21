@@ -167,14 +167,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   protected animation() {
     super.animation();
     if (this.isDrilldown) {
-      this.rect.animate = {
-        appear: {
-          animation: 'fadeIn',
-          duration: 800,
-        },
-        enter: false,
-        leave: false,
-      };
+      this.rect.animate = false;
     }
   }
 

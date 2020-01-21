@@ -59,10 +59,11 @@ export interface FunnelViewConfig extends ViewConfig {
   transpose?: boolean;
   dynamicHeight?: boolean;
   compareField?: string;
-  compareTextStyle?: Partial<{
+  compareText: Partial<{
+    visible: boolean;
     offsetX: number;
     offsetY: number;
-    [k: string]: any;
+    style: {};
   }>;
 }
 
@@ -122,10 +123,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         },
       }),
       dynamicHeight: false,
-      compareTextStyle: {
-        fill: 'black',
+      compareText: {
+        visible: true,
         offsetX: -16,
         offsetY: -16,
+        style: {
+          fill: 'black',
+        },
       },
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
@@ -874,7 +878,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       }
     });
 
-    if (shapeParentBBox && compare) {
+    if (shapeParentBBox && compare && _.get(props, 'compareText.visible') !== false) {
       const coord = this.view.get('coord');
       const container = this._findCompareTextContainer(true);
       const { yValuesMax, compareValues } = compare;
@@ -893,14 +897,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           compareText = container.addShape('text');
         }
         compareText.attr(
-          _.deepMix({}, props.compareTextStyle, {
+          _.deepMix({}, _.get(props, 'compareText.style'), {
             text: props.transpose ? compareValues[i] : i ? `  ${compareValues[i]}` : `${compareValues[i]}  `,
             x: props.transpose
-              ? minX + _.get(props, 'compareTextStyle.offsetX')
+              ? minX + _.get(props, 'compareText.offsetX')
               : lerp(minX, maxX, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])),
             y: props.transpose
               ? lerp(minY, maxY, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])) + (i ? 8 : -8)
-              : minY + _.get(props, 'compareTextStyle.offsetY'),
+              : minY + _.get(props, 'compareText.offsetY'),
             opacity: 0,
             textAlign: props.transpose ? 'right' : i ? 'left' : 'right',
             textBaseline: props.transpose ? (i ? 'top' : 'bottom') : 'bottom',

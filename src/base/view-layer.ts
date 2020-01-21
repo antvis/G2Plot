@@ -60,15 +60,6 @@ export interface ViewConfig {
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
-/**
- * 获取Region
- *
- * @param viewRange - box
- */
-function getRegion(viewRange: BBox): Region {
-  return { start: { x: viewRange.minX, y: viewRange.minY }, end: { x: viewRange.maxX, y: viewRange.maxY } };
-}
-
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(props?: Partial<ViewConfig>): Partial<ViewConfig> {
     return {

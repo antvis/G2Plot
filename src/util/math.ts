@@ -121,7 +121,7 @@ function dist2(a, b) {
 }
 
 function distBetweenPoints(a, b) {
-  return Math.sqrt(dist2(a, b));
+  return Math.sqrt(sqr(a.x - b.x) + sqr(a.y - b.y));
 }
 
 function distBetweenPointLine(p, p1, p2) {

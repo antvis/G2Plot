@@ -350,7 +350,7 @@ describe('pie outer label', () => {
     document.body.removeChild(div);
   });
 
-  it.skip('bug-1', () => {
+  it('bug-1', () => {
     const data = [
       {
         name: 'Chrome',

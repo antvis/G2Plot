@@ -160,7 +160,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it.skip('outer label', () => {
+  it('outer label', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -196,7 +196,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it.skip('outer-center label', () => {
+  it('outer-center label', () => {
     expect(getElementLabels('outer-center')).toBeDefined();
     const piePlot = new Pie(canvasDiv, {
       width: 600,
@@ -228,7 +228,7 @@ describe('Pie plot', () => {
     piePlot.destroy();
   });
 
-  it.skip('auto padding', () => {
+  it('auto padding', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,

@@ -52,7 +52,7 @@ describe('Pie plot with innerLabel', () => {
   const center = coord.getCenter();
   const radius = coord.getRadius();
 
-  it.skip('默认配置为 inner label', () => {
+  it('默认配置为 inner label', () => {
     // @ts-ignore
     const pieElement = piePlot.getLayer().view.get('elements')[0];
     const labelShapes: Shape[] = pieElement.get('labels');
@@ -80,7 +80,7 @@ describe('Pie plot with innerLabel', () => {
     expect(shapes[0].attr('lineWidth')).toBe(2);
   });
 
-  it.skip('inner-label offset 小于等于 0', () => {
+  it('inner-label offset 小于等于 0', () => {
     piePlot.updateConfig({
       label: {
         offset: 20,
@@ -98,7 +98,7 @@ describe('Pie plot with innerLabel', () => {
     });
   });
 
-  it.skip('offset 配置百分比字符串：设置为 1/2 半径', () => {
+  it('offset 配置百分比字符串：设置为 1/2 半径', () => {
     const data = [];
     for (let i = 0; i < 6; i += 1) {
       data.push({ type: `分类 ${i + 1}`, value: 10 + i });

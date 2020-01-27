@@ -2,7 +2,6 @@ import { Ring } from '../../src';
 import { simulate } from 'event-simulate';
 import { Shape } from '@antv/g';
 import { distBetweenPoints } from '../../src/util/math';
-import { near } from '../../src/plots/pie/component/label/utils';
 
 describe('Ring plot', () => {
   const canvasDiv = document.createElement('div');
@@ -54,7 +53,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it.skip('inner radius, label 默认居中', () => {
+  it.only('inner radius, label 默认居中', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',
@@ -73,7 +72,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it.skip('inner radius, label offset is 0', () => {
+  it('inner radius, label offset is 0', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',
@@ -95,7 +94,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it.skip('inner radius, label offset is innerRadius', () => {
+  it('inner radius, label offset is innerRadius', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',

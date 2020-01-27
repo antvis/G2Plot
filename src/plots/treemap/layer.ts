@@ -107,7 +107,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   protected coord() {}
 
   protected addGeometry() {
-    const { data, colorField } = this.options;
+    const { data, colorField, color } = this.options;
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
     const { maxLevel } = this.options;
@@ -117,7 +117,8 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         fields: ['x', 'y'],
       },
       color: {
-        fields: [this.options.colorField],
+        fields: [colorField],
+        values: color,
       },
       style: {
         fields: ['depth'],

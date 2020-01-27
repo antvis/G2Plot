@@ -1,6 +1,11 @@
 ---
-title: API
+title: Treemap - 矩形树图
+order: 6
 ---
+
+<img src ='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pUqpTpFTHRkAAAAAAAAAAABkARQnAQ' width='400'>
+
+## API
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 

@@ -73,7 +73,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it('inner radius, label offset is 0', () => {
+  it.skip('inner radius, label offset is 0', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',
@@ -95,7 +95,7 @@ describe('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it('inner radius, label offset is innerRadius', () => {
+  it.skip('inner radius, label offset is innerRadius', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',

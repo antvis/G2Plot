@@ -27,9 +27,6 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
         {
           type: 'drilldown',
           cfg: {
-            startNode: {
-              name: 'root',
-            },
             mapping: {
               1: {
                 field: 'name',

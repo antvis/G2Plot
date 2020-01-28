@@ -5,6 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import squarify from './layout/squarify';
 import { INTERACTION_MAP } from './interaction';
+import * as EventParser from './event';
 import './components/label';
 
 const PARENT_NODE_OFFSET = 4;
@@ -170,6 +171,10 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     if (this.isDrilldown) {
       this.rect.animate = false;
     }
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   private extractLabel() {

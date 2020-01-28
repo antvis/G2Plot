@@ -150,6 +150,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
           cursor: 'pointer',
         },
       });
+      rectShape.name = 'breadcrumb';
 
       // text shape
       const textShape: Shape = itemGroup.addShape('text', {
@@ -163,6 +164,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
           cursor: 'pointer',
         },
       });
+      textShape.name = 'breadcrumb';
       const textShapeBBox: BBox = textShape.getBBox();
       itemHeight = this.itemHeight || textShapeBBox.height;
       let itemWidth = this.itemWidth || textShapeBBox.width;

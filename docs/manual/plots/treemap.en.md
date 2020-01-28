@@ -180,3 +180,32 @@ interactions: [
     },
 ],
 ```
+
+### events
+
+**optional**
+
+- 图形事件
+
+`onRectClick: function`  图形点击事件<br />
+`onRectDoubleClick: function`    图形双击事件<br />
+`onRectMousemove: function`  图形鼠标移动事件<br />
+`onRectMouseenter: function` 图形鼠标进入事件<br />
+`onRectMouseleave: function` 图形鼠标移出事件<br />
+`onRectMousedown: function` 图形鼠标点击事件<br />
+`onRectMouseup: function` 图形鼠标抬起事件<br />
+`onRectContextmenu: function`    图形右键事件<br />
+
+- 面包屑组件事件
+
+`onBreadcrumbClick: function`  面包屑组件点击事件<br />
+`onBreadcrumbDoubleClick: function`    面包屑组件双击事件<br />
+`onBreadcrumbMousemove: function`  面包屑组件鼠标移动事件<br />
+`onBreadcrumbMouseenter: function` 面包屑组件鼠标进入事件<br />
+`onBreadcrumbMouseleave: function` 面包屑组件鼠标移出事件<br />
+`onBreadcrumbMousedown: function` 面包屑组件鼠标点击事件<br />
+`onBreadcrumbMouseup: function` 面包屑组件鼠标抬起事件<br />
+`onBreadcrumbContextmenu: function`    面包屑组件右键事件<br />
+
+
+- 其他事件类型见[通用图表配置](../general-config#events)。

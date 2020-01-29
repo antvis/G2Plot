@@ -40,7 +40,8 @@ export default class GuideLine {
           props.meta
         )
       );
-      const percent = `${((stateValue - scale.min) / (scale.max - scale.min)) * 100}%`;
+      const percent = `${(1.0 - (stateValue - scale.min) / (scale.max - scale.min)) * 100}%`;
+      console.log(percent);
       const start = ['0%', percent];
       const end = ['100%', percent];
       this.config = _.mix(

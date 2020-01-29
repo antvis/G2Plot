@@ -65,6 +65,13 @@ title: API
 }
 ```
 
+### maxLevel
+
+**optional**, number 类型
+
+矩阵树图的最大嵌套层级，默认为2.
+
+
 ### colorField
 
 **required**, string 类型

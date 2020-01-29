@@ -121,7 +121,10 @@ export function rollingUp(name, view, callback) {
       height: range.height,
     },
   });
-  container.attr('clip', cliper);
+  const containerParent = container.get('parent');
+  if (!containerParent.attr('clip')) {
+    containerParent.attr('clip', cliper);
+  }
   shrinkTemp(tem_container, tem_shapes, rect, range);
   const xRatio = range.width / rect.width;
   const yRatio = range.height / rect.height;

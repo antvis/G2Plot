@@ -15,7 +15,7 @@ export default class GuideLine {
 
   private _init() {
     const props = this.plot.options;
-    const defaultStyle = this._getDefaultStyle();
+    const defaultStyle = this.getDefaultStyle();
     const baseConfig: any = {
       type: 'line',
       top: true,
@@ -83,7 +83,8 @@ export default class GuideLine {
     return values;
   }
 
-  private _getDefaultStyle() {
+  private getDefaultStyle() {
+    this.getDefaultTextAlign();
     return {
       line: {
         style: {
@@ -99,8 +100,24 @@ export default class GuideLine {
           fontSize: 14,
           stroke: 'white',
           lineWidth: 2,
+          textAlign: this.getDefaultTextAlign(),
         },
       },
     };
+  }
+
+  private getDefaultTextAlign() {
+    const textConfig = this.cfg.text;
+    if (textConfig) {
+      if (!textConfig.position || textConfig.position === 'start') {
+        return 'left';
+      }
+      if (textConfig.position === 'center') {
+        return 'center';
+      }
+      if (textConfig.position === 'end') {
+        return 'right';
+      }
+    }
   }
 }

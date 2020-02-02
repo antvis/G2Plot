@@ -24,6 +24,7 @@ export default class TextDescription {
   public shape: Text;
   public position: string = 'top';
   public name: string;
+  public destroyed: boolean = false;
   private container: Canvas | Group;
   private topMargin: number;
   private leftMargin: number;
@@ -67,6 +68,7 @@ export default class TextDescription {
     if (this.shape) {
       this.shape.remove();
     }
+    this.destroyed = true;
   }
 
   private _init() {

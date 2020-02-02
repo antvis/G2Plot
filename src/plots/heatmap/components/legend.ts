@@ -28,6 +28,7 @@ export default class HeatmapLegend {
   public options: IHeatmapLegend;
   public container: Group;
   public afterRender: boolean;
+  public destroyed: boolean = false;
   protected view: View;
   protected layout: string;
   protected width: number;
@@ -92,6 +93,7 @@ export default class HeatmapLegend {
     if (this.container) {
       this.container.remove();
     }
+    this.destroyed = true;
   }
 
   public getBBox() {

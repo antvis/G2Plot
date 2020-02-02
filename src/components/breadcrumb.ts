@@ -104,7 +104,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     const startY = 0;
     this.offEvents();
     this.renderItems(group, startX, startY);
-    this.bindEvents(group);
+    //this.bindEvents(group);
     this.group.move(this.x, this.y);
   }
 
@@ -128,7 +128,8 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       // item group
       const itemGroup: Group = group.addGroup({
         id: `item-group-${item.key}`,
-        data: item.key,
+        // data: item.key,
+        data: item,
         class: 'item-group',
         attrs: {
           cursor: 'pointer',
@@ -149,6 +150,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
           cursor: 'pointer',
         },
       });
+      rectShape.name = 'breadcrumb';
 
       // text shape
       const textShape: Shape = itemGroup.addShape('text', {
@@ -162,6 +164,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
           cursor: 'pointer',
         },
       });
+      textShape.name = 'breadcrumb';
       const textShapeBBox: BBox = textShape.getBBox();
       itemHeight = this.itemHeight || textShapeBBox.height;
       let itemWidth = this.itemWidth || textShapeBBox.width;
@@ -177,7 +180,6 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       };
       rectShape.attr('width', backgroundRectAttr.width);
       rectShape.attr('height', backgroundRectAttr.height);
-
       // clip
       itemGroup.attr(
         'clip',

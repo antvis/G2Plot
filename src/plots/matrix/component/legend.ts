@@ -28,6 +28,7 @@ export default class MatrixLegend {
   public container: Group;
   public anchor: Shape;
   public afterRender: boolean;
+  public destroyed: boolean = false;
   protected view: View;
   protected layout: string;
   protected width: number;
@@ -69,6 +70,16 @@ export default class MatrixLegend {
     this.addInteraction();
   }
 
+  public hide() {
+    this.container.set('visible', false);
+    this.options.plot.canvas.draw();
+  }
+
+  public show() {
+    this.container.set('visible', true);
+    this.options.plot.canvas.draw();
+  }
+
   public clear() {
     if (this.container) {
       this.container.clear();
@@ -79,6 +90,7 @@ export default class MatrixLegend {
     if (this.container) {
       this.container.remove();
     }
+    this.destroyed = true;
   }
 
   public getBBox() {

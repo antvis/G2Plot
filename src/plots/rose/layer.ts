@@ -81,6 +81,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         lineWidth: 1,
       },
       xAxis: {
+        autoRotateLabel: true,
         line: {
           visible: false,
         },

@@ -6,6 +6,7 @@ export default class GuideLine {
   public config: any;
   private plot: any;
   private cfg: any;
+  private values: number[];
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -14,7 +15,7 @@ export default class GuideLine {
 
   private _init() {
     const props = this.plot.options;
-    const defaultStyle = this._getDefaultStyle();
+    const defaultStyle = this.getDefaultStyle();
     const baseConfig: any = {
       type: 'line',
       top: true,
@@ -33,14 +34,15 @@ export default class GuideLine {
         _.mix(
           {},
           {
-            min: minValue,
+            min: this.plot.type === 'column' ? 0 : minValue,
             max: maxValue,
             nice: true,
+            values: this.values,
           },
-          props.meta
+          this.plot.config.scales[props.yField]
         )
       );
-      const percent = `${((stateValue - scale.min) / (scale.max - scale.min)) * 100}%`;
+      const percent = `${(1.0 - scale.scale(stateValue)) * 100}%`;
       const start = ['0%', percent];
       const end = ['100%', percent];
       this.config = _.mix(
@@ -56,18 +58,18 @@ export default class GuideLine {
   }
 
   private _getState(type) {
-    const values = this._extractValues();
+    this.values = this._extractValues();
     if (type === 'median') {
-      return getMedian(values);
+      return getMedian(this.values);
     }
     if (type === 'mean') {
-      return getMean(values);
+      return getMean(this.values);
     }
     if (type === 'max') {
-      return Math.max(...values);
+      return Math.max(...this.values);
     }
     if (type === 'min') {
-      return Math.min(...values);
+      return Math.min(...this.values);
     }
   }
 
@@ -81,7 +83,8 @@ export default class GuideLine {
     return values;
   }
 
-  private _getDefaultStyle() {
+  private getDefaultStyle() {
+    this.getDefaultTextAlign();
     return {
       line: {
         style: {
@@ -97,8 +100,24 @@ export default class GuideLine {
           fontSize: 14,
           stroke: 'white',
           lineWidth: 2,
+          textAlign: this.getDefaultTextAlign(),
         },
       },
     };
+  }
+
+  private getDefaultTextAlign() {
+    const textConfig = this.cfg.text;
+    if (textConfig) {
+      if (!textConfig.position || textConfig.position === 'start') {
+        return 'left';
+      }
+      if (textConfig.position === 'center') {
+        return 'center';
+      }
+      if (textConfig.position === 'end') {
+        return 'right';
+      }
+    }
   }
 }

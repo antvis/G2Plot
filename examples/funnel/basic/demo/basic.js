@@ -9,10 +9,6 @@ const data = [
 ];
 
 const funnelPlot = new Funnel(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '漏斗图',
-  },
   data: data,
   xField: 'action',
   yField: 'pv',

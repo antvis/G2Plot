@@ -25,7 +25,7 @@ import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
-  data: DataItem[];
+  data?: DataItem[];
   meta?: LooseMap;
   padding?: number | number[] | string;
   xField?: string;
@@ -60,17 +60,8 @@ export interface ViewConfig {
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
-/**
- * 获取Region
- *
- * @param viewRange - box
- */
-function getRegion(viewRange: BBox): Region {
-  return { start: { x: viewRange.minX, y: viewRange.minY }, end: { x: viewRange.maxX, y: viewRange.maxY } };
-}
-
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
-  public static getDefaultOptions(): Partial<ViewConfig> {
+  public static getDefaultOptions(props?: Partial<ViewConfig>): Partial<ViewConfig> {
     return {
       title: {
         visible: false,
@@ -147,6 +138,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public initialOptions: T;
   public title: TextDescription;
   public description: TextDescription;
+  public viewRange: BBox;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
@@ -169,7 +161,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public getOptions(props: T): T {
     const options = super.getOptions(props);
     // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
+    const defaultOptions = this.constructor.getDefaultOptions(props);
     return _.deepMix({}, options, defaultOptions, props);
   }
 
@@ -213,7 +205,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.annotation();
     this.animation();
 
-    const viewRange = this.getViewRange();
+    this.viewRange = this.getViewRange();
+    this.paddingController.clearOuterComponents();
+
     this.view = new G2.View({
       width: this.width,
       height: this.height,
@@ -223,8 +217,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       data: this.processData(this.options.data),
       theme: this.theme,
       options: this.config,
-      start: { x: viewRange.minX, y: viewRange.minY },
-      end: { x: viewRange.maxX, y: viewRange.maxY },
+      start: { x: this.viewRange.minX, y: this.viewRange.minY },
+      end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {

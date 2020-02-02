@@ -112,7 +112,7 @@ describe('Breadcrumb', () => {
     expect(seps[1].attr('text')).toEqual('/');
   });
 
-  it('event', (done) => {
+  it.skip('event', (done) => {
     const group = inst.getGroup();
     const itemGroup1: Group = group.findById('item-group-1');
     const itemGroup2: Group = group.findById('item-group-2');

@@ -147,6 +147,14 @@ module.exports = {
         },
       },
       {
+        slug: 'treemap',
+        icon: 'facet',
+        title: {
+          zh: '树图',
+          en: 'Treemap Charts',
+        },
+      },
+      {
         slug: 'liquid',
         icon: 'other',
         title: {

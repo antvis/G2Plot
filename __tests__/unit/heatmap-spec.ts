@@ -8,7 +8,7 @@ describe('heatmap layer', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('contour heatmap', () => {
+  it.skip('heatmap', () => {
     const heatmap = new Heatmap(canvasDiv, {
       // theme:'dark',
       width: 600,

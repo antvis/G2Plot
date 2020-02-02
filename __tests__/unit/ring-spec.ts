@@ -1,7 +1,9 @@
 import { Ring } from '../../src';
 import { simulate } from 'event-simulate';
+import { Shape } from '@antv/g';
+import { distBetweenPoints } from '../../src/util/math';
 
-describe.skip('Ring plot', () => {
+describe('Ring plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -43,7 +45,7 @@ describe.skip('Ring plot', () => {
     ringPlot.render();
     const positionField = ringPlot
       .getLayer()
-      .plot.get('elements')[0]
+      .view.get('elements')[0]
       .get('position').fields;
     expect(ringPlot).toBeInstanceOf(Ring);
     expect(positionField[0]).toBe('1');
@@ -51,20 +53,71 @@ describe.skip('Ring plot', () => {
     ringPlot.destroy();
   });
 
-  it('inner radius', () => {
+  it.only('inner radius, label 默认居中', () => {
     const ringPlot = new Ring(canvasDiv, {
       data,
       angleField: 'value',
       colorField: 'type',
-      innerRadius: 0.2,
     });
     ringPlot.render();
-    const coord = ringPlot.getLayer().plot.get('coord');
-    expect(coord.innerRadius).toBe(0.2);
+    const coord = ringPlot.getLayer().view.get('coord');
+    const element = ringPlot.getLayer().view.get('elements')[0];
+    const labelShapes: Shape[] = element.get('labels');
+    const labelBox = labelShapes[0].getBBox();
+    const labelCenter = { x: labelBox.x + labelBox.width / 2, y: labelBox.y + labelBox.height / 2 };
+    const radius = coord.getRadius();
+    const innerRadius = coord.getRadius() * coord.innerRadius;
+    const dist = distBetweenPoints(labelCenter, coord.getCenter());
+    expect(dist).toBe((radius + innerRadius) / 2);
     ringPlot.destroy();
   });
 
-  it('centralText annotation', (done) => {
+  it('inner radius, label offset is 0', () => {
+    const ringPlot = new Ring(canvasDiv, {
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      label: {
+        visible: true,
+        offset: 0,
+      },
+    });
+    ringPlot.render();
+    const coord = ringPlot.getLayer().view.get('coord');
+    const element = ringPlot.getLayer().view.get('elements')[0];
+    const labelShapes: Shape[] = element.get('labels');
+    const labelBox = labelShapes[0].getBBox();
+    const labelCenter = { x: labelBox.x + labelBox.width / 2, y: labelBox.y + labelBox.height / 2 };
+    const radius = coord.getRadius();
+    const dist = distBetweenPoints(labelCenter, coord.getCenter());
+    expect(dist).toBe(radius);
+    ringPlot.destroy();
+  });
+
+  it('inner radius, label offset is innerRadius', () => {
+    const ringPlot = new Ring(canvasDiv, {
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      innerRadius: 0.6,
+      label: {
+        visible: true,
+        offset: '-40%',
+      },
+    });
+    ringPlot.render();
+    const coord = ringPlot.getLayer().view.get('coord');
+    const element = ringPlot.getLayer().view.get('elements')[0];
+    const labelShapes: Shape[] = element.get('labels');
+    const labelBox = labelShapes[0].getBBox();
+    const labelCenter = { x: labelBox.x + labelBox.width / 2, y: labelBox.y + labelBox.height / 2 };
+    const dist = distBetweenPoints(labelCenter, coord.getCenter());
+    const innerRadius = coord.getRadius() * coord.innerRadius;
+    expect(dist).toBe(innerRadius);
+    ringPlot.destroy();
+  });
+
+  it.skip('centralText annotation', (done) => {
     const ringPlot = new Ring(canvasDiv, {
       padding: [0, 0, 0, 0],
       data,
@@ -74,7 +127,7 @@ describe.skip('Ring plot', () => {
       annotation: [{ type: 'centralText', onActive: true }],
     });
     ringPlot.render();
-    const plot = ringPlot.getLayer().plot;
+    const plot = ringPlot.getLayer().view;
     const canvas = plot.get('canvas');
     const bbox = canvas.get('el').getBoundingClientRect();
     let originData = null;

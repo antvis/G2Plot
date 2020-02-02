@@ -50,7 +50,7 @@ describe('Step plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('step', () => {
+  it.skip('step', () => {
     const step = new StepLine(canvasDiv, {
       width: 600,
       height: 600,

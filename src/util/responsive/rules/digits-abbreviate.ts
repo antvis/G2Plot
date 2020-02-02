@@ -19,6 +19,9 @@ const unitMapper = {
 /*tslint:disable*/
 
 export default function digitsAbbreviate(shape: Shape, option: DigitsAbbreviateCfg, index, cfg) {
+  if (!_.has(cfg, 'node') || !_.has(cfg.node, 'node')) {
+    return;
+  }
   const nodes = cfg.nodes.nodes;
   const number = parseFloat(shape.get('origin').text);
   if (number === 0) {

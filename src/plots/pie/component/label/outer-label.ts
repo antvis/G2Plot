@@ -5,6 +5,7 @@ import { LabelItem } from '@antv/component/lib/interface';
 import * as _ from '@antv/util';
 import { getEndPoint } from './utils';
 import BaseLabel from './base-label';
+import { percent2Number } from './inner-label';
 
 // 默认label和element的偏移 16px
 export const DEFAULT_OFFSET = 16;
@@ -38,7 +39,10 @@ class OuterPieLabel extends BaseLabel {
   /** override */
   protected getOffsetOfLabel(): number {
     const labelOptions = this.getLabelOptions();
-    const offset = labelOptions.offset;
+    let offset = labelOptions.offset;
+    if (_.isString(offset)) {
+      offset = percent2Number(offset);
+    }
     return offset === undefined ? DEFAULT_OFFSET : offset < CROOK_DISTANCE * 2 ? offset / 2 : offset - CROOK_DISTANCE;
   }
 

@@ -27,8 +27,8 @@ export interface PointStyle {
   lineDash?: number[];
   lineWidth?: number;
   opacity?: string;
-  fillStyle?: string;
-  strokeStyle?: string;
+  fill?: string;
+  stroke?: string;
 }
 
 type IObject = LooseMap;
@@ -216,12 +216,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         };
         // 如果有数据点的话要追加数据点的动画
         if (props.point && props.point.visible) {
-          this.point.animate = {
-            appear: {
-              animation: 'zoomIn',
-              delay: 10000,
-            },
-          };
+          this.point.animate = false;
         }
       }
     }

@@ -1,6 +1,6 @@
 const COLOR = '#5B8FF9';
 
-const COLOR_PLATE_10 = [
+export const COLOR_PLATE_10 = [
   '#5B8FF9',
   '#5AD8A6',
   '#5D7092',
@@ -13,7 +13,7 @@ const COLOR_PLATE_10 = [
   '#FF99C3',
 ];
 
-const COLOR_PLATE_20 = [
+export const COLOR_PLATE_20 = [
   '#5B8FF9',
   '#BDD2FD',
   '#5AD8A6',

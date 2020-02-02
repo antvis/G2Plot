@@ -66,6 +66,15 @@ const CANVAS_EVENT_MAP = {
   onDescriptionMouseenter: 'description:mouseenter',
   onDescriptionMouseleave: 'description:mouseleave',
   onDescriptionContextmenu: 'description:contextmenu',
+
+  onBreadcrumbClick: 'breadcrumb:click',
+  onBreadcrumbDblClick: 'breadcrumb:dblclick',
+  onBreadcrumbMousemove: 'breadcrumb:mousemove',
+  onBreadcrumbMousedown: 'breadcrumb:mousedown',
+  onBreadcrumbMouseup: 'breadcrumb:mouseup',
+  onBreadcrumbMouseenter: 'breadcrumb:mouseenter',
+  onBreadcrumbMouseleave: 'breadcrumb:mouseleave',
+  onBreadcrumbContextmenu: 'breadcrumb:contextmenu',
 };
 
 const LAYER_EVENT_MAP = {

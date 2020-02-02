@@ -4,7 +4,7 @@ import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
 import { getOverlapArea } from '../../src/plots/pie/component/label/utils';
 
-describe('#485 饼图 outer-label 绘制错误', () => {
+describe.skip('#485 饼图 outer-label 绘制错误', () => {
   const data = [
     {
       type: '分类一',

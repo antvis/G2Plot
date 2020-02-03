@@ -45,7 +45,12 @@ export type WordCloudData = {
  * Inner start function, refresh canvas immediately(no any delay draw all 'cloud'
  * nearly at same time) with specific id
  */
-export type InnerStartFunction = (hoveredId: number) => void;
+export type InnerStartFunction = (selected: number) => void;
+
+export type Active = {
+  shadowColor?: string;
+  shadowBlur?: number;
+};
 
 export type WordStyle = {
   fontFamily?: string;
@@ -53,9 +58,7 @@ export type WordStyle = {
   fontWeight?: string | ((word: string, weight: number) => string);
   color?: string | ((word: string, weight: number) => string);
 
-  emphasis?: boolean;
-  shadowColor?: string;
-  shadowBlur?: number;
+  active?: Active;
 
   // [min, max] ->  random by steps(each step (max - min) / steps))
   rotation?: [number, number];
@@ -68,6 +71,7 @@ export type WordStyle = {
 
   gridSize?: number;
   drawOutOfBound?: boolean;
+
   // scale 1/4 font weight each time till fit in
   // shrinkToFit?: boolean;
   // reset cloud's [x,y]
@@ -79,9 +83,9 @@ export interface WordCloudViewConfig {
   // mask image, black-white pixel image will be better
   maskImage?: string;
   backgroundColor?: string;
-  style?: WordStyle;
+  wordStyle?: WordStyle;
   shuffle?: boolean;
-  hoveredId?: number;
+  selected?: number;
   tooltip: {
     visible: boolean;
   };
@@ -205,18 +209,29 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   }
 
   private _start() {
-    this._handleFontSizeAndRotate();
+    this._handleG2PlotConfig();
     WordCloud(this._targetCanvas, this.options);
   }
 
-  private _handleFontSizeAndRotate() {
-    const fontSize = this.options.style.fontSize || [10, 60];
-    const rotation = this.options.style.rotation || [-Math.PI / 2, Math.PI / 2];
+  private _handleG2PlotConfig() {
+    const fontSize = this.options.wordStyle.fontSize || [10, 60];
+    const rotation = this.options.wordStyle.rotation || [-Math.PI / 2, Math.PI / 2];
+    let active, shadowColor, shadowBlur;
+    if (this.options.wordStyle.active) {
+      active = true;
+      shadowColor = this.options.wordStyle.active.shadowColor || '#333';
+      shadowBlur = this.options.wordStyle.active.shadowBlur || 10;
+    } else {
+      active = false;
+    }
     this.options = _.deepMix({}, this.options, {
       minFontSize: fontSize[0],
       maxFontSize: fontSize[1],
       minRotation: rotation[0],
       maxRotation: rotation[1],
+      active,
+      shadowColor,
+      shadowBlur,
     });
   }
 

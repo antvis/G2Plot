@@ -215,8 +215,8 @@ if (!window.clearImmediate) {
       shape: 'circle',
       ellipticity: 1,
 
-      emphasis: true,
-      hoveredId: -1,
+      active: true,
+      selected: -1,
       shadowColor: '#333',
       shadowBlur: 10,
 
@@ -230,7 +230,7 @@ if (!window.clearImmediate) {
 
     if (options) {
       for (var key in options) {
-        if (key === 'style') {
+        if (key === 'wordStyle') {
           for (let fontKey in options[key]) {
             if (fontKey in settings) {
               settings[fontKey] = options[key][fontKey];
@@ -470,14 +470,14 @@ if (!window.clearImmediate) {
 
       if (!info) {
         settings.onWordCloudHover(undefined, undefined, evt, start);
-        if (settings.emphasis) {
+        if (settings.active) {
           defaultHoverAction(undefined, undefined, evt, start);
         }
         return;
       }
 
       settings.onWordCloudHover(info.item, info.dimension, evt, start);
-      if (settings.emphasis) {
+      if (settings.active) {
         defaultHoverAction(info.item, info.dimension, evt, start);
       }
       hovered = info;
@@ -553,7 +553,7 @@ if (!window.clearImmediate) {
 
       if (rotationSteps > 0) {
         // Min rotation + zero or more steps * span of one step
-        return minRotation + (Math.floor(Math.random() * rotationSteps) * rotationRange) / (rotationSteps - 1);
+        return minRotation + (Math.floor(Math.random() * rotationSteps) * rotationRange) / (rotationSteps);
       } else {
         return minRotation + Math.random() * rotationRange;
       }
@@ -818,7 +818,7 @@ if (!window.clearImmediate) {
           // Here, we use textBaseline = 'middle' and draw the text at exactly
           // 0.5 * fontSize lower.
           ctx.textBaseline = 'middle';
-          if (settings.hoveredId === id) {
+          if (settings.selected === id) {
             ctx.shadowColor = settings.shadowColor;
             ctx.shadowBlur = settings.shadowBlur;
           }
@@ -1088,12 +1088,12 @@ if (!window.clearImmediate) {
     };
 
     /* Start drawing on a canvas */
-    var start = function start(hoveredId) {
-      if (hoveredId !== undefined) {
-        // re-refresh canvas with hoveredId
+    var start = function start(selected) {
+      if (selected !== undefined) {
+        // re-refresh canvas with selected
         // work in canvas only for now
-        if (settings.hoveredId !== hoveredId && elements[0].getContext) {
-          settings.hoveredId = hoveredId;
+        if (settings.selected !== selected && elements[0].getContext) {
+          settings.selected = selected;
           const ctx = elements[0].getContext('2d');
           // draw background
           ctx.fillStyle = settings.backgroundColor;

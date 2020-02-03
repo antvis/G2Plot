@@ -26,7 +26,7 @@ function getWordCloudConfig(data) {
     height: 400,
     data: getDataList(data),
     maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
-    style: {
+    wordStyle: {
       rotation: [-Math.PI / 2, Math.PI / 2],
       rotateRatio: 0.5,
       rotationSteps: 4,
@@ -34,10 +34,11 @@ function getWordCloudConfig(data) {
       color: (word, weight) => {
         return getRandomColor();
       },
+      active: {
+        shadowColor: '#333333',
+        shadowBlur: 10,
+      },
       gridSize: 8,
-      emphasis: true,
-      shadowColor: '#333333',
-      shadowBlur: 10,
     },
     shape: 'cardioid',
     shuffle: false,
@@ -45,7 +46,7 @@ function getWordCloudConfig(data) {
     tooltip: {
       visible: true,
     },
-    hoveredId: -1,
+    selected: -1,
 
     onWordCloudHover: hoverAction,
   };

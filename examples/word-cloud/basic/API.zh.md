@@ -41,19 +41,18 @@ type WordStyle = {
   fontWeight?: string | ((word: string, weight: number) => string);
   color?: string | ((word: string, weight: number) => string);
 
+  emphasis?: boolean;
   shadowColor?: string;
   shadowBlur?: number;
 
   // [min, max] ->  random by steps(each step (max - min) / steps))
-  minRotation?: number;
-  maxRotation?: number;
+  rotation?: [number, number];
   rotationSteps?: number;
   // the ratio of rotate
   rotateRatio?: number;
 
   // font's max and min size(determine by cloud's weight)
-  minFontSize?: number;
-  maxFontSize?: number;
+  fontSize?: [number, number];
 
   gridSize?: number;
 };
@@ -81,25 +80,16 @@ type WordStyle = {
 类型: `string | ((word: string, weight: number) => string)`
 **optional** 设置字体颜色
 
-#### style.minFontSize
+#### style.fontSize
 
-类型: `number`
-**optional** 设置最小字体 size，默认为浏览器支持的最小字号
+类型: `[number,number]`
+**optional** 设置最小字体和最大字体 size，默认[浏览器支持的最小字号,60]
 
-#### style.maxFontSize
 
-类型: `number`
-**optional** 设置最大字体 size，默认 60
+#### style.rotation
 
-#### style.minRotation
-
-类型: `number`
-**optional** 旋转的最小角度 默认 -π/2
-
-#### style.maxRotation
-
-类型: `number`
-**optional** 旋转的最大角度 默认 π/2
+类型: `[number,number]`
+**optional** 旋转的最小角度和最大角度 默认 [-π/2,π/2]
 
 #### style.rotationSteps
 
@@ -111,15 +101,20 @@ type WordStyle = {
 类型: `number`
 **optional** 旋转的比率[0,1] 默认是 0.5 也就是 50%可能发生旋转
 
+#### style.emphasis
+
+类型: `boolean`
+**optional**  hover 下词云图文字是否高亮效果, 默认 true
+
 #### style.shadowColor
 
 类型: `number`
-**optional** `enableEmphasis` 为 true 时 shadow 颜色, 默认通过 `color` 获取
+**optional** `emphasis` 为 true 时 shadow 颜色, 默认通过 `color` 获取
 
 #### style.shadowBlur
 
 类型: `number`
-**optional** `enableEmphasis` 为 true 时 shadow 高斯系数, 默认 10
+**optional** `emphasis` 为 true 时 shadow 高斯系数, 默认 10
 
 ### backgroundColor
 
@@ -140,12 +135,7 @@ type WordStyle = {
 类型: `Function`
 **optional** 每个词云之间操作执行最大的时间的回调函数
 
-### enableEmphasis
-
-类型: `boolean`
-**optional** hover 下词云图文字是否高亮效果, 默认 true
-
-### enableToolTips
+### toolTips.visible
 
 类型: `boolean`
 **optional** hover 下词云图文字是否显示 tooltips, 默认 true

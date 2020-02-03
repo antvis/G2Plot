@@ -27,26 +27,24 @@ function getWordCloudConfig(data) {
     data: getDataList(data),
     maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
     style: {
-      minRotation: -Math.PI / 2,
-      maxRotation: Math.PI / 2,
+      rotation: [-Math.PI / 2, Math.PI / 2],
       rotateRatio: 0.5,
       rotationSteps: 4,
-      maxFontSize: 60,
-      minFontSize: 10,
+      fontSize: [10, 60],
       color: (word, weight) => {
         return getRandomColor();
       },
       gridSize: 8,
+      emphasis: true,
       shadowColor: '#333333',
       shadowBlur: 10,
     },
     shape: 'cardioid',
-    ellipticity: 1,
     shuffle: false,
     backgroundColor: '#fff',
-    wait: 0,
-    enableToolTips: true,
-    enableEmphasis: true,
+    tooltip: {
+      visible: true,
+    },
     hoveredId: -1,
 
     onWordCloudHover: hoverAction,

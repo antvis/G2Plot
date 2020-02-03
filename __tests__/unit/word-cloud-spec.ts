@@ -493,7 +493,7 @@ describe('WordCloud plot', () => {
       data: dataList,
       maskImage: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
-      style: {
+      wordStyle: {
         fontSize: [10, 60],
         color: (word: string, weight: number) => {
           return getRandomColor();
@@ -502,9 +502,10 @@ describe('WordCloud plot', () => {
         rotateRatio: 0.5,
         rotationSteps: 4,
 
-        emphasis: true,
-        shadowColor: '#333333',
-        shadowBlur: 10,
+        active: {
+          shadowColor: '#333333',
+          shadowBlur: 10,
+        },
 
         gridSize: 8,
       },
@@ -513,7 +514,7 @@ describe('WordCloud plot', () => {
       tooltip: {
         visible: true,
       },
-      hoveredId: -1,
+      selected: -1,
       backgroundColor: '#e3f3f3',
       onWordCloudHover: hoverAction,
     } as WordCloudConfig;

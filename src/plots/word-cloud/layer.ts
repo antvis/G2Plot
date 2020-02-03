@@ -81,8 +81,6 @@ export interface WordCloudViewConfig {
   backgroundColor?: string;
   style?: WordStyle;
   shuffle?: boolean;
-  // hover interaction item id
-  enableEmphasis?: boolean;
   hoveredId?: number;
   tooltip: {
     visible: boolean;

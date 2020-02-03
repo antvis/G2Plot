@@ -215,7 +215,7 @@ if (!window.clearImmediate) {
       shape: 'circle',
       ellipticity: 1,
 
-      enableEmphasis: true,
+      emphasis: true,
       hoveredId: -1,
       shadowColor: '#333',
       shadowBlur: 10,
@@ -470,14 +470,14 @@ if (!window.clearImmediate) {
 
       if (!info) {
         settings.onWordCloudHover(undefined, undefined, evt, start);
-        if (settings.enableEmphasis) {
+        if (settings.emphasis) {
           defaultHoverAction(undefined, undefined, evt, start);
         }
         return;
       }
 
       settings.onWordCloudHover(info.item, info.dimension, evt, start);
-      if (settings.enableEmphasis) {
+      if (settings.emphasis) {
         defaultHoverAction(info.item, info.dimension, evt, start);
       }
       hovered = info;

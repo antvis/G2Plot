@@ -53,26 +53,25 @@ export type WordStyle = {
   fontWeight?: string | ((word: string, weight: number) => string);
   color?: string | ((word: string, weight: number) => string);
 
+  emphasis?: boolean;
   shadowColor?: string;
   shadowBlur?: number;
 
   // [min, max] ->  random by steps(each step (max - min) / steps))
-  minRotation?: number;
-  maxRotation?: number;
+  rotation?: [number, number];
   rotationSteps?: number;
   // the ratio of rotate
   rotateRatio?: number;
 
   // font's max and min size(determine by cloud's weight)
-  minFontSize?: number;
-  maxFontSize?: number;
+  fontSize?: [number, number];
 
   gridSize?: number;
   drawOutOfBound?: boolean;
   // scale 1/4 font weight each time till fit in
-  shrinkToFit?: boolean;
+  // shrinkToFit?: boolean;
   // reset cloud's [x,y]
-  origin?: [number, number];
+  // origin?: [number, number];
 };
 
 export interface WordCloudViewConfig {
@@ -81,35 +80,32 @@ export interface WordCloudViewConfig {
   maskImage?: string;
   backgroundColor?: string;
   style?: WordStyle;
-
-  // clear before start
-  clearCanvas?: boolean;
-  // wait milliseconds before next item show
-  wait?: number;
-  // If the call with in the loop takes more than x milliseconds (and blocks the browser), abort immediately.
-  abortThreshold?: number;
-  // abort callback
-  abort?: () => {};
-
   shuffle?: boolean;
-
   // hover interaction item id
   enableEmphasis?: boolean;
-  enableToolTips?: boolean;
   hoveredId?: number;
-
+  tooltip: {
+    visible: boolean;
+  };
   shape?: CloudShape | Function;
-  // shape's ellipticity [0,1]
-  ellipticity?: number;
 
   onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
   onWordCloudClick?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent) => {};
 
+  // clear before start
+  // clearCanvas?: boolean;
+  // wait milliseconds before next item show
+  // wait?: number;
+  // If the call with in the loop takes more than x milliseconds (and blocks the browser), abort immediately.
+  // abortThreshold?: number;
+  // abort callback
+  // abort?: () => {};
+  // shape's ellipticity [0,1]
+  // ellipticity?: number;
   // ONLY FOR DEBUG, DON'T USE US
   // drawMask?: boolean;
   // maskColor?: string;
   // maskGapWidth?: number;
-
   // hide for now
   // classes?: (word: string, weight: number) => string;
 }
@@ -125,7 +121,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   constructor(props: WordCloudLayerConfig) {
     super(props);
     this._configHoverAction = props.onWordCloudHover;
-    this._enableToolTips = props.enableToolTips;
+    this._enableToolTips = _.get(props, 'tooltip.visible', true);
     this.options = _.deepMix(
       {},
       {
@@ -211,7 +207,19 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   }
 
   private _start() {
+    this._handleFontSizeAndRotate();
     WordCloud(this._targetCanvas, this.options);
+  }
+
+  private _handleFontSizeAndRotate() {
+    const fontSize = this.options.style.fontSize || [10, 60];
+    const rotation = this.options.style.rotation || [-Math.PI / 2, Math.PI / 2];
+    this.options = _.deepMix({}, this.options, {
+      minFontSize: fontSize[0],
+      maxFontSize: fontSize[1],
+      minRotation: rotation[0],
+      maxRotation: rotation[1],
+    });
   }
 
   private _startWithMaskImage(image: HTMLImageElement) {

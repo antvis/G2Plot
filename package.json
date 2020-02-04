@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.22",
+  "version": "0.11.23",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -87,7 +87,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "event-simulate": "^1.0.0",
-    "gatsby": "^2.16.0",
+    "gatsby": "2.19.5",
     "gh-pages": "^2.1.1",
     "husky": "^4.2.1",
     "jest": "^24.9.0",

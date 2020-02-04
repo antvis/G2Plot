@@ -34,6 +34,7 @@ type WordCloudData = {
 ### wordStyle
 
 类型: `WordStyle`
+
 ```typescript
 type WordStyle = {
   fontFamily?: string;
@@ -55,6 +56,7 @@ type WordStyle = {
   gridSize?: number;
 };
 ```
+
 **optional** 文字相关的配置
 
 #### wordStyle.fontFamily
@@ -72,7 +74,6 @@ type WordStyle = {
 类型: `number`
 **optional** 单词的网格大小，默认为 8 越大单词之间的间隔越大
 
-
 #### wordStyle.color
 
 类型: `string | ((word: string, weight: number) => string)`
@@ -82,7 +83,6 @@ type WordStyle = {
 
 类型: `[number,number]`
 **optional** 设置最小字体和最大字体 size，默认[浏览器支持的最小字号,60]
-
 
 #### wordStyle.rotation
 
@@ -102,13 +102,15 @@ type WordStyle = {
 #### wordStyle.active
 
 类型
+
 ```typescript
 type Active = {
   shadowColor?: string;
   shadowBlur?: number;
 };
 ```
-**optional**  hover 下词云图文字是否高亮效果, 默认开启; 
+
+**optional** hover 下词云图文字是否高亮效果, 默认开启;
 
 ##### wordStyle.active.shadowColor
 
@@ -138,7 +140,7 @@ type Active = {
 ### selected
 
 类型: `number`
-**optional** 用于标记被选中hover的词云图文字，默认-1，表示未选中任意文字
+**optional** 用于标记被选中 hover 的词云图文字，默认-1，表示未选中任意文字
 
 ### shape
 

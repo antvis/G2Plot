@@ -1,4 +1,4 @@
-## <small>0.11.23 (2019-02-04)</small>
+## <small>0.11.24 (2019-02-04)</small>
 - 🌟 add word-cloud chart ([2f1baa9](https://github.com/antvis/G2Plot/pull/513/commits))
 
 

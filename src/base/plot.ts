@@ -92,7 +92,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
       });
     } else {
       const layer: any = this.layers[0];
-      if (layer instanceof ViewLayer) {
+      if (layer instanceof Layer) {
         layer.updateConfig(config);
       }
     }

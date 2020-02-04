@@ -187,6 +187,14 @@ module.exports = {
         },
       },
       {
+        slug: 'word-cloud',
+        icon: 'other',
+        title: {
+          zh: '词云图',
+          en: 'WordCloud',
+        },
+      },
+      {
         slug: 'general',
         icon: 'other',
         title: {

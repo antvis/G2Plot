@@ -60,7 +60,12 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     if (!this.responsiveTheme.axis) {
       return false;
     }
-    if (this.responsiveTheme.axis[this.dim] && this.type && this.axisInstance && this.axisInstance.get('labelRenderer')) {
+    if (
+      this.responsiveTheme.axis[this.dim] &&
+      this.type &&
+      this.axisInstance &&
+      this.axisInstance.get('labelRenderer')
+    ) {
       return true;
     }
     return false;

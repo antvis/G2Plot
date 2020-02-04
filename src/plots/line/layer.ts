@@ -172,7 +172,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
-  protected label() {  
+  protected label() {
     const props = this.options;
     const label = props.label as Label;
 
@@ -180,7 +180,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       this.line.label = false;
       return;
     }
-    
+
     /** label类型为line，即跟随在折线尾部时，设置offset为0 */
     if (label.type === 'line') {
       label.offset = 0;
@@ -245,9 +245,9 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     });
   }
 
-  private singleLineLabelCheck(){
+  private singleLineLabelCheck() {
     // 不允许单折线设置尾部跟随label
-    return !this.options.seriesField && ( this.options.label.type && this.options.label.type === 'line');
+    return !this.options.seriesField && this.options.label.type && this.options.label.type === 'line';
   }
 }
 

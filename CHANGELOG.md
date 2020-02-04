@@ -1,3 +1,10 @@
+## <small>0.11.23 (2019-02-03)</small>
+- 🌟 add rose chart ([f99aaf8](https://github.com/antvis/G2Plot/commit/f99aaf8))
+- 🌟 add treemap chart ([703fba7](https://github.com/antvis/G2Plot/commit/703fba7))
+- 🌟 对比漏斗图 ([fa411f2](https://github.com/antvis/G2Plot/commit/fa411f2))
+- 🌟 transposed funnel chart ([f9cbf5b](https://github.com/antvis/G2Plot/commit/f9cbf5b))
+- 🐞 fix guideLine error ([d310520](https://github.com/antvis/G2Plot/commit/d310520))
+
 ## <small>0.11.21 (2019-01-02)</small>
 - 🐞 fix top padding error ([53de76f](https://github.com/antvis/G2Plot/commit/53de76f))
 - 🌟 add overlapped combo chart ([c893594](https://github.com/antvis/G2Plot/commit/c893594))

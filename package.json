@@ -54,7 +54,7 @@
   "dependencies": {
     "@antv/event-emitter": "~0.1.1",
     "@antv/g-gesture": "~0.1.0",
-    "@antv/g2": "3.6.0-beta.14",
+    "@antv/g2": "3.6.0-beta.17",
     "@antv/gui": "~0.1.0",
     "d3-regression": "^1.2.8",
     "fecha": "~4.0.0",

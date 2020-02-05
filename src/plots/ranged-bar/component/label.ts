@@ -81,7 +81,7 @@ export default class RangedBarLabel {
         labels.push(label);
         this.doAnimation(label);
       });
-      shape.set('labelShapes',labels);
+      shape.set('labelShapes', labels);
     });
 
     this.plot.canvas.draw();
@@ -160,13 +160,18 @@ export default class RangedBarLabel {
     return defaultColor;
   }
 
-  private doAnimation(label){
-    if(this.plot.animation && this.plot.animation === false){
+  private doAnimation(label) {
+    if (this.plot.animation && this.plot.animation === false) {
       return;
     }
-    label.attr('fillOpacity',0);
-    label.animate({
-      fillOpacity:1
-    },800,'easeLinear',500);
+    label.attr('fillOpacity', 0);
+    label.animate(
+      {
+        fillOpacity: 1,
+      },
+      800,
+      'easeLinear',
+      500
+    );
   }
 }

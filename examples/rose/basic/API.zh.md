@@ -18,7 +18,7 @@ title: API
 **required**
 数据集中的分组字段名，通过该字段的值，玫瑰图中的扇形切片将会被分为多个组，通过颜色进行区分
 
-> 注意：当配置了 groupField 时，colorField 配置无效。如果同时配置 stackField 和 groupField时，优先取stackField
+> 注意：当配置了 groupField 时，colorField 配置无效。如果同时配置 stackField 和 groupField 时，优先取 stackField
 
 ## 通用配置
 
@@ -78,7 +78,7 @@ title: API
 
 **optional**
 
-玫瑰图的最大半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。默认值为 0.8, 即 width / 2 * 0.8。
+玫瑰图的最大半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。默认值为 0.8, 即 width / 2 \* 0.8。
 
 ### color: string[] | function
 
@@ -96,16 +96,16 @@ title: API
 
 ### label
 
-**optional** 
+**optional**
 
-`visible: boolean`    图形标签是否显示
-`type: 'inner' | 'outer'`    图形标签的类型
-`autoRotate: boolean`  图形标签是否自动旋转
-`adjustColor: boolean`  图形标签是否自动调整颜色
+`visible: boolean` 图形标签是否显示
+`type: 'inner' | 'outer'` 图形标签的类型
+`autoRotate: boolean` 图形标签是否自动旋转
+`adjustColor: boolean` 图形标签是否自动调整颜色
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*v47dTIPtnysAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 607px; height: 240px;">
 
-> 注意，当 type 为 inner 时，可以设置adjustColor 来自动调整标签颜色
+> 注意，当 type 为 inner 时，可以设置 adjustColor 来自动调整标签颜色
 
 其他见[通用图表配置](../../../../zh/docs/manual/general-config#label)。
 
@@ -126,7 +126,7 @@ title: API
 
 **optional**
 
-- 详见：[基础柱形图events配置](https://g2plot.antv.vision/en/docs/manual/plots/column/#events)
+- 详见：[基础柱形图 events 配置](https://g2plot.antv.vision/en/docs/manual/plots/column/#events)
 
 - 其他事件类型见[通用图表配置](../../../../zh/docs/manual/general-config#events)。
 

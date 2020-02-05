@@ -36,11 +36,11 @@ title: API
 
 **required**
 
-矩形树图的数据源为json格式的层级嵌套数据，除叶子节点之外，每一层级的数据都需要具备三个属性：
+矩形树图的数据源为 json 格式的层级嵌套数据，除叶子节点之外，每一层级的数据都需要具备三个属性：
 
 - `name`: string 该层级数据的名称
 - `value`: number 该层级数据的数值
-- `children`: array  该层级数据的子级
+- `children`: array 该层级数据的子级
 
 当某一层级的数据没有子级(children)时，该层级即为叶子节点。
 
@@ -69,8 +69,7 @@ title: API
 
 **optional**, number 类型
 
-矩阵树图的最大嵌套层级，默认为2.
-
+矩阵树图的最大嵌套层级，默认为 2.
 
 ### colorField
 
@@ -85,7 +84,7 @@ title: API
 指定矩形颜色。如不进行配置则采用 theme 中的配色。
 
 ```js
-color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
+color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c'];
 ```
 
 ### rectStyle
@@ -111,15 +110,13 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br/>
 `style: object` 配置 label 文本
 
-
 ### tooltip
 
 **optional** 见[通用图表配置](../general-config#tooltip)。
 
-
 ### interaction
 
-**optional** array类型
+**optional** array 类型
 
 图表的交互行为。
 
@@ -127,17 +124,15 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 `cfg: object` 交互的配置信息
 
 配置方式：
+
 ```js
 interactions: [
-    {
-        type: 'drilldown',
-        cfg:{
-
-        }
-    }
-]
+  {
+    type: 'drilldown',
+    cfg: {},
+  },
+];
 ```
-
 
 #### drilldown
 
@@ -147,11 +142,10 @@ interactions: [
 
 - `mapping` 配置数据钻取时各层级的颜色映射信息<br/>
 
-`[key:number]`: 层级的深度(depth)，从1开始<br/>
+`[key:number]`: 层级的深度(depth)，从 1 开始<br/>
 `field: string`: 必选，映射字段<br/>
-`values: string[] | function`: 可选，映射颜色，如不配置则默认采用theme中的色板。<br/>
-当使用回调函数`function`的方式配置映射颜色时，入参为上一层级的数据及当期等级的数据，出参为一个色值。下图中第三层级的连续映射就是通过callback，根据上一层级的分类颜色产生渐变色指定的，保证了在钻取过程中映射变更时的认知连续性。
-
+`values: string[] | function`: 可选，映射颜色，如不配置则默认采用 theme 中的色板。<br/>
+当使用回调函数`function`的方式配置映射颜色时，入参为上一层级的数据及当期等级的数据，出参为一个色值。下图中第三层级的连续映射就是通过 callback，根据上一层级的分类颜色产生渐变色指定的，保证了在钻取过程中映射变更时的认知连续性。
 
 <img src ='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*t1HzSYgYvycAAAAAAAAAAABkARQnAQ' width='400'>
 
@@ -208,6 +202,5 @@ interactions: [
 `onBreadcrumbMousedown: function` 面包屑组件鼠标点击事件<br />
 `onBreadcrumbMouseup: function` 面包屑组件鼠标抬起事件<br />
 `onBreadcrumbContextmenu: function`    面包屑组件右键事件<br />
-
 
 - 其他事件类型见[通用图表配置](../general-config#events)。

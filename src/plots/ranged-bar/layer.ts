@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 import RangedBarLabel, { RangedBarLabelConfig } from './component/label';
-import './animation';
+import { setShapeCache } from './animation';
 
 export interface RangedBarViewConfig extends BarViewConfig {
   data: any; // todo: 补上data类型定义
@@ -79,8 +79,18 @@ export default class RangedBarLayer extends BaseBarLayer<RangedBarLayerConfig> {
         plot: this,
         ...this.options.label,
       });
-      label.render();
+      //label.render();
     }
+    // 为更新动画缓存shape
+    const shapeCaches = [];
+    const geoms = this.view.get('elements');
+    _.each(geoms, (geom) => {
+      const shapes = geom.getShapes();
+      _.each(shapes, (shape) => {
+        shapeCaches.push(shape);
+      });
+    });
+    setShapeCache(shapeCaches);
     super.afterRender();
   }
 
@@ -91,6 +101,10 @@ export default class RangedBarLayer extends BaseBarLayer<RangedBarLayerConfig> {
     this.bar.animate = {
       appear: {
         animation: 'clipInFromCenter',
+        duration: 600,
+      },
+      update: {
+        animation: 'updateFromCenter',
         duration: 600,
       },
     };

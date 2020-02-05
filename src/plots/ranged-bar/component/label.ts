@@ -1,5 +1,5 @@
 import { each, isArray, deepMix, clone } from '@antv/util';
-import { Group, BBox, Shape } from '@antv/g';
+import { Group } from '@antv/g';
 import { View } from '@antv/g2';
 import { rgb2arr } from '../../../util/color';
 
@@ -50,6 +50,10 @@ export default class RangedBarLabel {
   public init() {
     const geomContainer = this.view.get('elements')[0].get('container');
     this.container = geomContainer.addGroup();
+    this.render();
+    this.view.on('beforerender', () => {
+      this.clear();
+    });
   }
 
   public render() {
@@ -91,7 +95,11 @@ export default class RangedBarLabel {
 
   public show() {}
 
-  public clear() {}
+  public clear() {
+    if (this.container) {
+      this.container.clear();
+    }
+  }
 
   public destory() {}
 

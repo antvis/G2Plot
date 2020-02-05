@@ -13,8 +13,8 @@ describe('rangedBar plot',()=>{
     ];
 
     const canvasDiv = document.createElement('div');
-    canvasDiv.style.width = '400px';
-    canvasDiv.style.height = '300px';
+    canvasDiv.style.width = '500px';
+    canvasDiv.style.height = '400px';
     canvasDiv.style.left = '30px';
     canvasDiv.style.top = '30px';
     canvasDiv.id = 'canvas1';
@@ -22,8 +22,8 @@ describe('rangedBar plot',()=>{
 
     it('初始化',()=>{
         const barPlot = new RangedBar(canvasDiv, {
-            width: 400,
-            height: 300,
+            width: 500,
+            height: 400,
             padding: 'auto',
             data,
             xField: 'y',
@@ -35,7 +35,8 @@ describe('rangedBar plot',()=>{
               visible: true,
             },
             label:{
-                visible: true
+                visible: true,
+                position: 'inner'
             }
           });
           barPlot.render();

@@ -48,7 +48,7 @@ function updateFromCenter(shape, animateCfg) {
     animateCfg.duration,
     animateCfg.easing,
     animateCfg.callback,
-    animateCfg.delay
+    100
   );
 }
 

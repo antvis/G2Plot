@@ -36,7 +36,6 @@ describe('rangedBar plot', () => {
       },
       label: {
         visible: true,
-        position: 'inner',
       },
     });
     barPlot.render();

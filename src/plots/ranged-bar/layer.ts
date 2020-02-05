@@ -12,10 +12,62 @@ export interface RangedBarViewConfig extends BarViewConfig {
 export interface RangedBarLayerConfig extends RangedBarViewConfig, LayerConfig {}
 
 export default class RangedBarLayer extends BaseBarLayer<RangedBarLayerConfig> {
-  /*public static getDefaultOptions(): Partial<RangedBarViewConfig> {
-    return _.deepMix({
-    }, super.getDefaultOptions(), {});
-  }*/
+  public static getDefaultOptions(): Partial<RangedBarViewConfig> {
+    return _.deepMix(
+      super.getDefaultOptions(),
+      {
+        label: {
+          visible: true,
+          position: 'outer',
+        },
+        xAxis: {
+          visible: true,
+          autoHideLabel: false,
+          autoRotateLabel: false,
+          autoRotateTitle: false,
+          grid: {
+            visible: true,
+          },
+          line: {
+            visible: false,
+          },
+          tickLine: {
+            visible: false,
+          },
+          label: {
+            visible: true,
+          },
+          title: {
+            visible: true,
+            offset: 12,
+          },
+        },
+        yAxis: {
+          visible: true,
+          autoHideLabel: false,
+          autoRotateLabel: false,
+          autoRotateTitle: true,
+          grid: {
+            visible: false,
+          },
+          line: {
+            visible: true,
+          },
+          tickLine: {
+            visible: true,
+          },
+          label: {
+            visible: true,
+          },
+          title: {
+            visible: false,
+            offset: 12,
+          },
+        },
+      },
+      {}
+    );
+  }
 
   public type: string = 'rangedBar';
 

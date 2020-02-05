@@ -165,7 +165,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     } else {
       this._toolTips.hide();
     }
-    this._configHoverAction(item, dimension, evt, start);
+    this._configHoverAction && this._configHoverAction(item, dimension, evt, start);
   };
 
   private _initToolTips() {

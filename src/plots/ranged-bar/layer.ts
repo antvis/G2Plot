@@ -79,7 +79,7 @@ export default class RangedBarLayer extends BaseBarLayer<RangedBarLayerConfig> {
         plot: this,
         ...this.options.label,
       });
-      //label.render();
+      label.render();
     }
     // 为更新动画缓存shape
     const shapeCaches = [];

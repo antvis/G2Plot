@@ -50,7 +50,6 @@ export default class RangedBarLabel {
   public init() {
     const geomContainer = this.view.get('elements')[0].get('container');
     this.container = geomContainer.addGroup();
-    this.render();
     this.view.on('beforerender', () => {
       this.clear();
     });
@@ -120,16 +119,18 @@ export default class RangedBarLabel {
   }
 
   private getPosition(shape) {
-    const bbox = shape.getBBox();
+    const origin = shape.get('origin');
+    const minX = origin.x[0];
+    const maxX = origin.x[1];
     const { offsetX, offsetY } = this.options;
-    const y = bbox.minY + bbox.height / 2 + offsetY;
+    const y = origin.y[0];
     let x1, x2;
     if (this.options.position === 'outer') {
-      x1 = bbox.minX - offsetX;
-      x2 = bbox.maxX + offsetX;
+      x1 = minX - offsetX;
+      x2 = maxX + offsetX;
     } else {
-      x1 = bbox.minX + offsetX;
-      x2 = bbox.maxX - offsetX;
+      x1 = minX + offsetX;
+      x2 = maxX - offsetX;
     }
     return [
       { x: x1, y },

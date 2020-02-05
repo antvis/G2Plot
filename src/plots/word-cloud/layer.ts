@@ -7,8 +7,7 @@ import * as _ from '@antv/util';
 import Layer from '../../base/layer';
 import WordCloudTooltips from './word-cloud-tooltips';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const WordCloud = require('./wordcloud2.js');
+import WordCloud from './wordcloud2';
 
 export type CloudShape =
   | 'circle'

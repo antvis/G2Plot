@@ -58,12 +58,13 @@ export default class RangedBarLabel {
       const positions = this.getPosition(shape);
       const values = this.getValue(shape);
       const textAlign = this.getTextAlign();
+      const labels = [];
       each(positions, (pos, i) => {
         const style = i === 0 ? this.options.leftStyle : this.options.rightStyle;
         const color = this.getTextColor(shape, i);
         const formatter = this.options.formatter;
         const content = formatter ? formatter(values[i]) : values[i];
-        this.container.addShape('text', {
+        const label = this.container.addShape('text', {
           attrs: deepMix(
             style,
             {
@@ -77,7 +78,10 @@ export default class RangedBarLabel {
             {}
           ),
         });
+        labels.push(label);
+        this.doAnimation(label);
       });
+      shape.set('labelShapes',labels);
     });
 
     this.plot.canvas.draw();
@@ -152,7 +156,17 @@ export default class RangedBarLabel {
       const reflect = mappingColor(colorBand, gray);
       return reflect;
     }
-    const defaultColor = index === 0 ? this.options.leftStyle : this.options.rightStyle;
+    const defaultColor = index === 0 ? this.options.leftStyle.fill : this.options.rightStyle.fill;
     return defaultColor;
+  }
+
+  private doAnimation(label){
+    if(this.plot.animation && this.plot.animation === false){
+      return;
+    }
+    label.attr('fillOpacity',0);
+    label.animate({
+      fillOpacity:1
+    },800,'easeLinear',500);
   }
 }

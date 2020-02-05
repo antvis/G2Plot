@@ -3,6 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 import RangedBarLabel, { RangedBarLabelConfig } from './component/label';
+import './animation';
 
 export interface RangedBarViewConfig extends BarViewConfig {
   data: any; // todo: 补上data类型定义
@@ -84,6 +85,16 @@ export default class RangedBarLayer extends BaseBarLayer<RangedBarLayerConfig> {
   }
 
   protected extractLabel() {}
+
+  protected animation() {
+    super.animation();
+    this.bar.animate = {
+      appear: {
+        animation: 'clipInFromCenter',
+        duration: 600,
+      },
+    };
+  }
 }
 
 registerPlotType('rangedBar', RangedBarLayer);

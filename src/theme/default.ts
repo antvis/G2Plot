@@ -245,10 +245,10 @@ export const DEFAULT_GLOBAL_THEME = {
   label: {
     offset: 12,
     textStyle: {
-      fill: 'rgba(0, 0, 0, 0.65)',
+      fill: '#595959',
     },
     style: {
-      fill: 'rgba(0, 0, 0, 0.65)',
+      fill: '#595959',
       stroke: '#ffffff',
       lineWidth: 2,
     },

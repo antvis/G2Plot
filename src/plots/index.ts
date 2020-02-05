@@ -26,3 +26,4 @@ export { default as Waterfall, WaterfallConfig } from './waterfall';
 export { default as Treemap } from './treemap';
 export { default as StepLine, StepLineConfig } from './step-line';
 export { default as Rose, RoseConfig } from './rose';
+export { default as Bullet, BulletConfig } from './bullet';

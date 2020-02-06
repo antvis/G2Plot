@@ -50,14 +50,15 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   protected layerRegion: Region;
   private rendered: boolean = false;
   private eventHandlers: any[] = [];
+  public options: T;
 
   /**
    * layer base for g2plot
    */
   constructor(props: T) {
     super();
-    const options = this.getOptions(props);
-    this.processOptions(options);
+    this.options = this.getOptions(props);
+    this.processOptions(this.options);
     this.container = new G.Group();
   }
 
@@ -69,6 +70,11 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.height = options.height;
     this.canvas = options.canvas;
     this.parent = options.parent;
+  }
+
+  public updateConfig(cfg: Partial<T>): void {
+    this.options = _.deepMix({}, this.options, cfg);
+    this.processOptions(this.options);
   }
 
   public beforeInit() {}

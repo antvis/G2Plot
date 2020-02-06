@@ -6,10 +6,9 @@ title: API
 
 ## 特殊配置
 
-
 ### leaderLine ✨
 
-**optional**,  object 类型
+**optional**, object 类型
 
 是否显示柱子间的辅助线以及辅助线的样式
 
@@ -19,7 +18,7 @@ title: API
 
 ### showTotal ✨
 
-**optional**,  object 类型
+**optional**, object 类型
 
 是否显示总计值以及总计值的标签设置
 
@@ -29,9 +28,9 @@ title: API
 
 ### diffLabel ✨
 
-**optional**,  object 类型
+**optional**, object 类型
 
-是否显示差值label（柱子的实际高度）以及自定义label样式
+是否显示差值 label（柱子的实际高度）以及自定义 label 样式
 
 `visible: boolean` 是否显示差值标签，默认 true
 
@@ -93,12 +92,11 @@ title: API
 
 设置瀑布图柱子的填充颜色，该值的定义优先级高于 waterfallStyle.fill 。该值的类型如下：
 
-- string：  指定值为单值时，配置瀑布图柱子的颜色
+- string： 指定值为单值时，配置瀑布图柱子的颜色
 - object： 指定值为一个对象数组时，可配置涨跌和总计值颜色，可选值如下：
-   - `rising`  正值柱形填充颜色
-   - `falling` 负值柱形填充颜色
-   -  `total`  总计值柱形填充颜色，可选
-
+  - `rising` 正值柱形填充颜色
+  - `falling` 负值柱形填充颜色
+  - `total` 总计值柱形填充颜色，可选
 
 ### waterfallStyle
 
@@ -145,7 +143,7 @@ title: API
 
 **optional**
 
-- 见基础柱形图[events配置](./column.zh/#events)
+- 见基础柱形图[events 配置](./column.zh/#events)
 
 - Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 - Server-side Rendering

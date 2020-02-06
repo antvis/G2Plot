@@ -136,7 +136,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public view: G2.View;
   public theme: any;
   public initialOptions: T;
-  public options: T;
   public title: TextDescription;
   public description: TextDescription;
   public viewRange: BBox;

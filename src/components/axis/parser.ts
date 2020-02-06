@@ -1,8 +1,9 @@
 import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { ViewLayer } from '../..';
-import { ViewConfig } from '../../base/view-layer';
 import { IBaseAxis } from '../../interface/config';
+import { combineFormatter, getNoopFormatter, getPrecisionFormatter, getSuffixFormatter } from '../../util/formatter';
+import { LooseMap } from '../../interface/types';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
@@ -17,6 +18,7 @@ interface AxisConfig {
 
 export default class AxisParser {
   public config: any = false;
+  protected originConfig: any;
   private plot: any;
   private dim: string;
   private localProps: IBaseAxis;
@@ -25,10 +27,10 @@ export default class AxisParser {
   constructor(cfg: AxisConfig) {
     this.plot = cfg.plot;
     this.dim = cfg.dim;
-    this._init();
+    this.init();
   }
 
-  private _init() {
+  private init() {
     this.config = false;
     const theme = this.plot.getPlotTheme();
     this.themeConfig = theme && theme.axis && theme.axis[this.dim];
@@ -97,11 +99,12 @@ export default class AxisParser {
   private _labelParser() {
     const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: DataPointType = { ...restLabelProps };
-    /** label style */
     if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }
     labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
+    const formatter = this.parseFormatter(labelConfig);
+    labelConfig.formatter = formatter;
     this.config.label = labelConfig;
   }
 
@@ -133,5 +136,20 @@ export default class AxisParser {
 
   private applyThemeConfig(type: 'line' | 'grid' | 'tickLine') {
     this.config[type] = _.deepMix({}, _.get(this.themeConfig, `${type}.style`), this.config[type]);
+  }
+
+  protected parseFormatter(labelConfig) {
+    let formatter = combineFormatter(
+      getNoopFormatter(),
+      getPrecisionFormatter(labelConfig.precision),
+      getSuffixFormatter(labelConfig.suffix)
+    );
+    if (labelConfig.formatter) {
+      formatter = combineFormatter(
+        labelConfig.formatter,
+        labelConfig.formatter as (text: string, item: any, idx: number) => string
+      );
+    }
+    return formatter;
   }
 }

@@ -188,6 +188,15 @@ htmlContent: (title, items) => {
 
 `suffix: string` 对 label 显示的文本添加后缀，如数据单位万等
 
+`mask: string` 为日期文本添加格式化遮罩，当坐标轴`type`为`time`时生效<br/>
+用法示例:
+```
+xAxis:{
+  type:'time',
+  mask:'YYYY' //只显示年份
+}
+```
+
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量
 
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量

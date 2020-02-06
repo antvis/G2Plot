@@ -246,7 +246,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-    this.addViewCliper();
+    this.addGeomCliper();
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
@@ -591,13 +591,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   // 临时解决scale min & max的图形截取
-  private addViewCliper() {
+  private addGeomCliper() {
     const panelRange = this.view.get('panelRange');
-    const cliperContainer = this.view.get('panelGroup');
-    const preCliper = cliperContainer.attr('clip');
-    if (preCliper) {
-      preCliper.remove();
-    }
     const cliper = new Rect({
       attrs: {
         x: panelRange.minX,
@@ -606,6 +601,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         height: panelRange.height,
       },
     });
-    cliperContainer.attr('clip', cliper);
+    const geoms = this.view.get('elements');
+    _.each(geoms, (geom) => {
+      const cliperContainer = geom.get('shapeContainer');
+      const preCliper = cliperContainer.attr('clip');
+      if (preCliper) {
+        preCliper.remove();
+      }
+      cliperContainer.attr('clip', cliper);
+    });
   }
 }

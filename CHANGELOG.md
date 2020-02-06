@@ -1,3 +1,6 @@
+## <small>0.11.27 (2019-02-06)</small>
+- 🐞 panelCliper => geomCliper ([52cc285](https://github.com/antvis/G2Plot/commit/52cc285c1f9427699e8a9b41fd4a749eefd40397))
+
 ## <small>0.11.26 (2019-02-06)</small>
 - 🌟 update scale to 3.0 ([6538cfd](https://github.com/antvis/G2Plot/commit/6538cfd6d900ad886ac34ad8013b8d9a902184f3))
 

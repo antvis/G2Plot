@@ -176,10 +176,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const props = this.options;
     const label = props.label as Label;
 
-    if (label.visible === false) {
+    if (label.visible === false || this.singleLineLabelCheck()) {
       this.line.label = false;
       return;
     }
+
     /** label类型为line，即跟随在折线尾部时，设置offset为0 */
     if (label.type === 'line') {
       label.offset = 0;
@@ -242,6 +243,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       const responsive = r as IObject;
       responsive.method(this);
     });
+  }
+
+  private singleLineLabelCheck() {
+    // 不允许单折线设置尾部跟随label
+    return !this.options.seriesField && this.options.label.type && this.options.label.type === 'line';
   }
 }
 

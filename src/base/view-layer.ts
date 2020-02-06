@@ -1,4 +1,4 @@
-import { BBox } from '@antv/g';
+import { BBox, Rect } from '@antv/g';
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';
@@ -246,6 +246,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
+    this.addViewCliper();
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
@@ -587,5 +588,24 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
     const viewRange = this.paddingController.processOuterPadding();
     return viewRange;
+  }
+
+  // 临时解决scale min & max的图形截取
+  private addViewCliper() {
+    const panelRange = this.view.get('panelRange');
+    const cliperContainer = this.view.get('panelGroup');
+    const preCliper = cliperContainer.attr('clip');
+    if (preCliper) {
+      preCliper.remove();
+    }
+    const cliper = new Rect({
+      attrs: {
+        x: panelRange.minX,
+        y: panelRange.minY,
+        width: panelRange.width,
+        height: panelRange.height,
+      },
+    });
+    cliperContainer.attr('clip', cliper);
   }
 }

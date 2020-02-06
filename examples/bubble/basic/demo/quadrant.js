@@ -26,6 +26,7 @@ fetch('../data/smoking-rate.json')
         min: -25,
       },
       quadrant: {
+        visible: true,
         xBaseline: 0,
         yBaseline: 0,
         regionStyle: [

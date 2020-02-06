@@ -31,17 +31,16 @@ export function extractScale(desScale, axisConfig) {
       desScale.tickInterval = axisConfig.tickInterval;
     }
   }
+
+  if (axisConfig.type === 'time' && axisConfig.mask) {
+    desScale.mask = axisConfig.mask;
+  }
+
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'min')) {
     desScale.min = axisConfig.min;
   }
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'max')) {
     desScale.max = axisConfig.max;
-  }
-  if (Object.prototype.hasOwnProperty.call(axisConfig, 'minLimit')) {
-    desScale.minLimit = axisConfig.minLimit;
-  }
-  if (Object.prototype.hasOwnProperty.call(axisConfig, 'maxLimit')) {
-    desScale.maxLimit = axisConfig.maxLimit;
   }
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'nice')) {
     desScale.nice = axisConfig.nice;
@@ -57,11 +56,11 @@ export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | stri
   const max = Math.max(...validData);
 
   if (min > 0) {
-    if (isNil(desScale.min) && isNil(desScale.minLimit)) {
+    if (isNil(desScale.min)) {
       desScale.min = 0;
     }
   } else if (max <= 0) {
-    if (isNil(desScale.max) && isNil(desScale.maxLimit)) {
+    if (isNil(desScale.max)) {
       desScale.max = 0;
     }
   }

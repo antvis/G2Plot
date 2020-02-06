@@ -20,6 +20,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/fertility.json')
       xAxis: {
         visible: true,
         type: 'time',
+        mask: 'YYYY',
         grid: {
           visible: true,
           style: {

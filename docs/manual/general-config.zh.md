@@ -180,13 +180,13 @@ htmlContent: (title, items) => {
 
 坐标轴标签
 
-`visible: boolean` 坐标轴网格是否可见
+`visible: boolean` 坐标轴标签是否可见
 
 `formatter: function` 对 label 的显示文本进行格式化
 
-`precision: number` 对 label 显示的数据快捷定义精度，如配置为 2，则格式化为 2 位小数
+`precision: number` 对 label 显示的数据快捷定义精度，如配置为 2，则格式化为 2 位小数，不适用于分类坐标轴
 
-`suffix: string` 对 label 显示的文班添加后缀，如数据单位万等
+`suffix: string` 对 label 显示的文本添加后缀，如数据单位万等
 
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量
 

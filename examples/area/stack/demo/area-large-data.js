@@ -15,6 +15,7 @@ fetch('../data/emissions.json')
       seriesField: 'category',
       xAxis: {
         type: 'time',
+        mask: 'YYYY',
       },
       yAxis: {
         label: {

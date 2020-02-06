@@ -2,6 +2,7 @@ import { each, isArray, deepMix, clone } from '@antv/util';
 import { Group } from '@antv/g';
 import { View } from '@antv/g2';
 import { rgb2arr } from '../../../util/color';
+import { crossProduct2D } from '../../../util/math';
 
 const DEFAULT_OFFSET = 8;
 
@@ -70,23 +71,20 @@ export default class RangedBarLabel {
         const formatter = this.options.formatter;
         const content = formatter ? formatter(values[i]) : values[i];
         const label = this.container.addShape('text', {
-          attrs: deepMix(
-            style,
-            {
-              x: pos.x,
-              y: pos.y,
-              text: content,
-              fill: color,
-              textAlign: textAlign[i],
-              textBaseline: 'middle',
-            },
-            {}
-          ),
+          attrs: deepMix({}, style, {
+            x: pos.x,
+            y: pos.y,
+            text: content,
+            fill: color,
+            textAlign: textAlign[i],
+            textBaseline: 'middle',
+          }),
         });
         labels.push(label);
         this.doAnimation(label);
       });
       shape.set('labelShapes', labels);
+      this.adjustPosition(labels[0], labels[1], shape);
     });
 
     this.plot.canvas.draw();
@@ -127,7 +125,7 @@ export default class RangedBarLabel {
       leftStyle: clone(labelStyle),
       rightStyle: clone(labelStyle),
       adjustColor: true,
-      adjustPosition: false,
+      adjustPosition: true,
     };
   }
 
@@ -195,5 +193,38 @@ export default class RangedBarLabel {
       'easeLinear',
       500
     );
+  }
+
+  private adjustPosition(la, lb, shape) {
+    const origin = shape.get('origin');
+    const shapeMinX = origin.x[0];
+    const shapeMaxX = origin.x[1];
+    const shapeWidth = Math.abs(shapeMaxX - shapeMinX);
+    const panelRange = this.view.get('panelRange');
+    const boxes = [la.getBBox(), lb.getBBox()];
+    let ax = la.attr('x');
+    let bx = lb.attr('x');
+    if (this.options.adjustPosition && this.options.position === 'inner') {
+      const totalLength = boxes[0].width + boxes[1].width;
+      const isOverlap = boxes[0].maxX - boxes[1].minX > 2;
+      const isTooShort = totalLength > shapeWidth;
+      if (isOverlap || isTooShort) {
+        ax = shapeMinX - this.options.offsetX;
+        la.attr('fill', this.options.leftStyle.fill);
+        la.attr('textAlign', 'right');
+        boxes[0] = la.getBBox();
+        bx = shapeMaxX + this.options.offsetX;
+        lb.attr('fill', this.options.rightStyle.fill);
+        lb.attr('textAlign', 'left');
+        boxes[1] = lb.getBBox();
+      }
+    }
+    if (boxes[0].minX < panelRange.minX) {
+      ax = panelRange.minX + DEFAULT_OFFSET;
+      la.attr('textAlign', 'left');
+    }
+    la.attr('x', ax);
+    lb.attr('x', bx);
+    this.plot.canvas.draw();
   }
 }

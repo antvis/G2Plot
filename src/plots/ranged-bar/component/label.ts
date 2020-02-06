@@ -35,6 +35,7 @@ export interface IRangedBarLabel extends RangedBarLabelConfig {
 
 export default class RangedBarLabel {
   public options: RangedBarLabelConfig;
+  public destroyed: boolean = false;
   private plot: any;
   private view: View;
   private container: Group;
@@ -52,6 +53,7 @@ export default class RangedBarLabel {
     this.container = geomContainer.addGroup();
     this.view.on('beforerender', () => {
       this.clear();
+      this.plot.canvas.draw();
     });
   }
 
@@ -90,9 +92,15 @@ export default class RangedBarLabel {
     this.plot.canvas.draw();
   }
 
-  public hide() {}
+  public hide() {
+    this.container.set('visible', false);
+    this.plot.canvas.draw();
+  }
 
-  public show() {}
+  public show() {
+    this.container.set('visible', true);
+    this.plot.canvas.draw();
+  }
 
   public clear() {
     if (this.container) {
@@ -100,7 +108,12 @@ export default class RangedBarLabel {
     }
   }
 
-  public destory() {}
+  public destory() {
+    if (this.container) {
+      this.container.remove();
+    }
+    this.destroyed = true;
+  }
 
   public getBBox() {}
 

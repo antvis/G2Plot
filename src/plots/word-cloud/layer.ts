@@ -85,7 +85,7 @@ export interface WordCloudViewConfig {
   wordStyle?: WordStyle;
   shuffle?: boolean;
   selected?: number;
-  tooltip: {
+  tooltip?: {
     visible: boolean;
   };
   shape?: CloudShape | Function;

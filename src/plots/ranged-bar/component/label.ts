@@ -46,10 +46,10 @@ export default class RangedBarLabel {
     this.plot = cfg.plot;
     const defaultOptions = this.getDefaultOptions();
     this.options = deepMix(defaultOptions, cfg, {});
-    if(!this.options.leftStyle){
+    if (!this.options.leftStyle) {
       this.options.leftStyle = this.options.style;
     }
-    if(!this.options.rightStyle){
+    if (!this.options.rightStyle) {
       this.options.rightStyle = this.options.style;
     }
     this.init();
@@ -75,7 +75,7 @@ export default class RangedBarLabel {
       each(positions, (pos, i) => {
         const style = i === 0 ? this.options.leftStyle : this.options.rightStyle;
         const color = this.getTextColor(shape, i);
-        if(this.options.position === 'inner' && this.options.adjustColor && color!=='black'){
+        if (this.options.position === 'inner' && this.options.adjustColor && color !== 'black') {
           style.stroke = null;
         }
         const formatter = this.options.formatter;
@@ -195,9 +195,12 @@ export default class RangedBarLabel {
       return;
     }
     label.attr('fillOpacity', 0);
+    label.attr('strokeOpacity', 0);
+    label.stopAnimate();
     label.animate(
       {
         fillOpacity: 1,
+        strokeOpacity: 1,
       },
       800,
       'easeLinear',

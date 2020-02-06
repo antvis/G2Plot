@@ -99,7 +99,6 @@ export default class AxisParser {
   private _labelParser() {
     const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: DataPointType = { ...restLabelProps };
-    /** label style */
     if (style) {
       labelConfig.textStyle = this.localProps.label.style;
     }

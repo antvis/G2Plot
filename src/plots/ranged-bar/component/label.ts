@@ -1,8 +1,7 @@
-import { each, isArray, deepMix, clone } from '@antv/util';
+import { each, deepMix, clone } from '@antv/util';
 import { Group } from '@antv/g';
 import { View } from '@antv/g2';
 import { rgb2arr } from '../../../util/color';
-import { crossProduct2D } from '../../../util/math';
 
 const DEFAULT_OFFSET = 8;
 
@@ -59,7 +58,8 @@ export default class RangedBarLabel {
   }
 
   public render() {
-    const shapes = this.view.get('elements')[0].getShapes();
+    const geometry = this.view.get('elements')[0];
+    const shapes = geometry.getShapes();
     each(shapes, (shape) => {
       const positions = this.getPosition(shape);
       const values = this.getValue(shape);
@@ -86,7 +86,8 @@ export default class RangedBarLabel {
       shape.set('labelShapes', labels);
       this.adjustPosition(labels[0], labels[1], shape);
     });
-
+    const labelCtr = geometry.get('labelController');
+    labelCtr.labelsContainer = this.container;
     this.plot.canvas.draw();
   }
 

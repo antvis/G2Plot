@@ -22,6 +22,7 @@ export interface RangedBarLabelConfig {
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;
+  style?: any;
   leftStyle?: any;
   rightStyle?: any;
   adjustColor?: boolean;
@@ -45,6 +46,12 @@ export default class RangedBarLabel {
     this.plot = cfg.plot;
     const defaultOptions = this.getDefaultOptions();
     this.options = deepMix(defaultOptions, cfg, {});
+    if(!this.options.leftStyle){
+      this.options.leftStyle = this.options.style;
+    }
+    if(!this.options.rightStyle){
+      this.options.rightStyle = this.options.style;
+    }
     this.init();
   }
 
@@ -68,6 +75,9 @@ export default class RangedBarLabel {
       each(positions, (pos, i) => {
         const style = i === 0 ? this.options.leftStyle : this.options.rightStyle;
         const color = this.getTextColor(shape, i);
+        if(this.options.position === 'inner' && this.options.adjustColor && color!=='black'){
+          style.stroke = null;
+        }
         const formatter = this.options.formatter;
         const content = formatter ? formatter(values[i]) : values[i];
         const label = this.container.addShape('text', {
@@ -123,8 +133,7 @@ export default class RangedBarLabel {
       position: 'outer',
       offsetX: DEFAULT_OFFSET,
       offsetY: 0,
-      leftStyle: clone(labelStyle),
-      rightStyle: clone(labelStyle),
+      style: clone(labelStyle),
       adjustColor: true,
       adjustPosition: true,
     };

@@ -14,7 +14,7 @@ describe('rangedBar plot', () => {
 
   const data2 = [
     { x: '分类一', y: [46, 150] },
-    { x: '分类二', y: [30, 10] },
+    { x: '分类二', y: [10, 30] },
     { x: '分类三', y: [38, 129] },
     { x: '分类四', y: [20, 100] },
     { x: '分类五', y: [45, 120] },
@@ -51,7 +51,7 @@ describe('rangedBar plot', () => {
     });
     barPlot.render();
     window.setTimeout(() => {
-      //barPlot.changeData(data2);
+      barPlot.changeData(data2);
     }, 2000);
   });
 });

@@ -57,11 +57,11 @@ export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | stri
   const max = Math.max(...validData);
 
   if (min > 0) {
-    if (isNil(desScale.min) && isNil(desScale.minLimit)) {
+    if (isNil(desScale.min)) {
       desScale.min = 0;
     }
   } else if (max <= 0) {
-    if (isNil(desScale.max) && isNil(desScale.maxLimit)) {
+    if (isNil(desScale.max)) {
       desScale.max = 0;
     }
   }

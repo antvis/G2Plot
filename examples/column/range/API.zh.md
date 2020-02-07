@@ -1,11 +1,10 @@
 ---
-title: Ranged-Column 区间柱状图
-order: 5
+title: API
 ---
 
 # 数据类型
 
-区间柱状图的数据结构为一个分类字段及一个由数值Array构成的连续字段。
+区间柱状图的数据结构为一个分类字段及一个由数值 Array 构成的连续字段。
 
 示例数据：
 
@@ -16,8 +15,7 @@ order: 5
 }
 ```
 
-以示例数据举例，在区间柱状图中，分类字段 level 映射到 X 轴，而连续字段 values 映射到 Y 轴，values的两个值分别决定了柱形在 Y 方向上的伸展区域。
-
+以示例数据举例，在区间柱状图中，分类字段 level 映射到 X 轴，而连续字段 values 映射到 Y 轴，values 的两个值分别决定了柱形在 Y 方向上的伸展区域。
 
 ## API
 
@@ -35,16 +33,16 @@ order: 5
 
 **optional**
 
-`visible: boolean`    图形标签是否显示 <br />
-`position: 'outer' | 'inner'`     图形标签位于柱形的内部还是两端 <br />
-`formatter: function`  对 label 的显示文本进行格式化 <br />
+`visible: boolean` 图形标签是否显示 <br />
+`position: 'outer' | 'inner'` 图形标签位于柱形的内部还是两端 <br />
+`formatter: function` 对 label 的显示文本进行格式化 <br />
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量 <br />
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量 <br />
-`style: object` 配置label样式 <br />
+`style: object` 配置 label 样式 <br />
 `topStyle: object` 配置上部 label 样式，优先级高于`style` <br />
 `bottomStyle: object` 配置下部 label 样式, 优先级高于`style` <br />
-`adjustColor: boolean` 是否根据图形颜色自动调整label颜色，仅在position为inner时有效  <br />
-`adjustPosition: boolean` 当图形无法容纳label时是否自动调整位置，仅在position为inner时有效 
+`adjustColor: boolean` 是否根据图形颜色自动调整 label 颜色，仅在 position 为 inner 时有效 <br />
+`adjustPosition: boolean` 当图形无法容纳 label 时是否自动调整位置，仅在 position 为 inner 时有效
 
 ---
 

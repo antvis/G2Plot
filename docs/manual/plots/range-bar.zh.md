@@ -1,7 +1,9 @@
 ---
-title: Ranged-Bar 区间条形图
+title: Range-Bar 区间条形图
 order: 8
 ---
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HtyxTaMKQ0UAAAAAAAAAAABkARQnAQ" width="400">
 
 # 数据类型
 

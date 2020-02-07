@@ -1,6 +1,6 @@
-import { RangedColumn } from '../../src';
+import { RangeColumn } from '../../src';
 
-describe('rangedColumn plot', () => {
+describe('rangeColumn plot', () => {
   const data = [
     { x: '分类一', y: [76, 100] },
     { x: '分类二', y: [56, 108] },
@@ -32,7 +32,7 @@ describe('rangedColumn plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('初始化', () => {
-    const columnPlot = new RangedColumn(canvasDiv, {
+    const columnPlot = new RangeColumn(canvasDiv, {
       width: 500,
       height: 400,
       padding: 'auto',

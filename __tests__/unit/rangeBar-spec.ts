@@ -1,6 +1,6 @@
-import { RangedBar } from '../../src';
+import { RangeBar } from '../../src';
 
-describe('rangedBar plot', () => {
+describe('rangeBar plot', () => {
   const data = [
     { x: '分类一', y: [76, 100] },
     { x: '分类二', y: [56, 108] },
@@ -32,7 +32,7 @@ describe('rangedBar plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('初始化', () => {
-    const barPlot = new RangedBar(canvasDiv, {
+    const barPlot = new RangeBar(canvasDiv, {
       width: 500,
       height: 400,
       padding: 'auto',

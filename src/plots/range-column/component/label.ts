@@ -16,7 +16,7 @@ function mappingColor(band, gray) {
   return reflect;
 }
 
-export interface RangedColumnLabelConfig {
+export interface RangeColumnLabelConfig {
   visible: boolean;
   position?: 'outer' | 'inner';
   formatter?: (...args: any[]) => string;
@@ -29,19 +29,19 @@ export interface RangedColumnLabelConfig {
   adjustPosition?: boolean;
 }
 
-export interface IRangedColumnLabel extends RangedColumnLabelConfig {
+export interface IRangeColumnLabel extends RangeColumnLabelConfig {
   view: View;
   plot: any;
 }
 
-export default class RangedColumnLabel {
-  public options: RangedColumnLabelConfig;
+export default class RangeColumnLabel {
+  public options: RangeColumnLabelConfig;
   public destroyed: boolean = false;
   private plot: any;
   private view: View;
   private container: Group;
 
-  constructor(cfg: IRangedColumnLabel) {
+  constructor(cfg: IRangeColumnLabel) {
     this.view = cfg.view;
     this.plot = cfg.plot;
     const defaultOptions = this.getDefaultOptions();
@@ -73,7 +73,7 @@ export default class RangedColumnLabel {
       const textBaeline = this.getTextBaseline();
       const labels = [];
       each(positions, (pos, i) => {
-        const style = i === 0 ? this.options.topStyle : this.options.bottomStyle;
+        const style = i === 1 ? this.options.topStyle : this.options.bottomStyle;
         const color = this.getTextColor(shape, i);
         if (this.options.position === 'inner' && this.options.adjustColor && color !== 'black') {
           style.stroke = null;
@@ -186,7 +186,7 @@ export default class RangedColumnLabel {
       const reflect = mappingColor(colorBand, gray);
       return reflect;
     }
-    const defaultColor = index === 0 ? this.options.topStyle.fill : this.options.bottomStyle.fill;
+    const defaultColor = index === 1 ? this.options.topStyle.fill : this.options.bottomStyle.fill;
     return defaultColor;
   }
 

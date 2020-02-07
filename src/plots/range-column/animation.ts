@@ -1,7 +1,6 @@
 import * as G from '@antv/g';
 import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
-import '../ranged-bar/animation';
 
 // 记录之前的状态
 let shapeCache: G.Shape[];

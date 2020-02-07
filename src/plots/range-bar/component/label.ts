@@ -16,7 +16,7 @@ function mappingColor(band, gray) {
   return reflect;
 }
 
-export interface RangedBarLabelConfig {
+export interface RangeBarLabelConfig {
   visible: boolean;
   position?: 'outer' | 'inner';
   formatter?: (...args: any[]) => string;
@@ -29,19 +29,19 @@ export interface RangedBarLabelConfig {
   adjustPosition?: boolean;
 }
 
-export interface IRangedBarLabel extends RangedBarLabelConfig {
+export interface IRangeBarLabel extends RangeBarLabelConfig {
   view: View;
   plot: any;
 }
 
-export default class RangedBarLabel {
-  public options: RangedBarLabelConfig;
+export default class RangeBarLabel {
+  public options: RangeBarLabelConfig;
   public destroyed: boolean = false;
   private plot: any;
   private view: View;
   private container: Group;
 
-  constructor(cfg: IRangedBarLabel) {
+  constructor(cfg: IRangeBarLabel) {
     this.view = cfg.view;
     this.plot = cfg.plot;
     const defaultOptions = this.getDefaultOptions();

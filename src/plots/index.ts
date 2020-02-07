@@ -12,6 +12,7 @@ export { default as StackBar, StackBarConfig } from './stack-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './percentage-stack-bar';
 export { default as GroupBar, GroupBarConfig } from './group-bar';
 export { default as RangedBar, RangedBarConfig } from './ranged-bar';
+export { default as RangedColumn, RangedColumnConfig } from './ranged-column';
 export { default as Pie, PieConfig } from './pie';
 export { default as Ring, RingConfig } from './ring';
 export { default as Radar, RadarConfig } from './radar';

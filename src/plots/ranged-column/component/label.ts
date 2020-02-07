@@ -70,7 +70,7 @@ export default class RangedColumnLabel {
     each(shapes, (shape) => {
       const positions = this.getPosition(shape);
       const values = this.getValue(shape);
-      const textAlign = this.getTextAlign();
+      const textBaeline = this.getTextBaseline();
       const labels = [];
       each(positions, (pos, i) => {
         const style = i === 0 ? this.options.topStyle : this.options.bottomStyle;
@@ -86,8 +86,8 @@ export default class RangedColumnLabel {
             y: pos.y,
             text: content,
             fill: color,
-            textAlign: textAlign[i],
-            textBaseline: 'middle',
+            textAlign: 'center',
+            textBaseline: textBaeline[i],
           }),
         });
         labels.push(label);
@@ -131,8 +131,8 @@ export default class RangedColumnLabel {
     const labelStyle = theme.label.style;
     return {
       position: 'outer',
-      offsetX: DEFAULT_OFFSET,
-      offsetY: 0,
+      offsetX: 0,
+      offsetY: DEFAULT_OFFSET,
       style: clone(labelStyle),
       adjustColor: true,
       adjustPosition: true,
@@ -141,34 +141,34 @@ export default class RangedColumnLabel {
 
   private getPosition(shape) {
     const origin = shape.get('origin');
-    const minX = origin.x[0];
-    const maxX = origin.x[1];
+    const minY = origin.y[1];
+    const maxY = origin.y[0];
     const { offsetX, offsetY } = this.options;
-    const y = origin.y[0];
-    let x1, x2;
+    const x = origin.x;
+    let y1, y2;
     if (this.options.position === 'outer') {
-      x1 = minX - offsetX;
-      x2 = maxX + offsetX;
+      y1 = minY - offsetY;
+      y2 = maxY + offsetY;
     } else {
-      x1 = minX + offsetX;
-      x2 = maxX - offsetX;
+      y1 = minY + offsetY;
+      y2 = maxY - offsetY;
     }
     return [
-      { x: x1, y },
-      { x: x2, y },
+      { x: x, y: y2 },
+      { x: x, y: y1 },
     ];
   }
 
   private getValue(shape) {
-    const { xField } = this.plot.options;
-    return shape.get('origin')._origin[xField];
+    const { yField } = this.plot.options;
+    return shape.get('origin')._origin[yField];
   }
 
-  private getTextAlign() {
+  private getTextBaseline() {
     if (this.options.position === 'outer') {
-      return ['right', 'left'];
+      return ['top', 'bottom'];
     } else {
-      return ['left', 'right'];
+      return ['bottom', 'top'];
     }
   }
 
@@ -210,34 +210,35 @@ export default class RangedColumnLabel {
 
   private adjustPosition(la, lb, shape) {
     const origin = shape.get('origin');
-    const shapeMinX = origin.x[0];
-    const shapeMaxX = origin.x[1];
-    const shapeWidth = Math.abs(shapeMaxX - shapeMinX);
+    const shapeMinY = origin.y[1];
+    const shapeMaxY = origin.y[0];
+    const shapeHeight = Math.abs(shapeMaxY - shapeMinY);
     const panelRange = this.view.get('panelRange');
     const boxes = [la.getBBox(), lb.getBBox()];
-    let ax = la.attr('x');
-    let bx = lb.attr('x');
+    let ay = la.attr('y');
+    let by = lb.attr('y');
     if (this.options.adjustPosition && this.options.position === 'inner') {
-      const totalLength = boxes[0].width + boxes[1].width;
-      const isOverlap = boxes[0].maxX - boxes[1].minX > 2;
-      const isTooShort = totalLength > shapeWidth;
+      const totalLength = boxes[0].height + boxes[1].height;
+      const isOverlap = boxes[1].maxY - boxes[0].minY > 2;
+      const isTooShort = totalLength > shapeHeight;
       if (isOverlap || isTooShort) {
-        ax = shapeMinX - this.options.offsetX;
-        la.attr('fill', this.options.topStyle.fill);
-        la.attr('textAlign', 'right');
+        by = shapeMinY - this.options.offsetY;
+        lb.attr('fill', this.options.topStyle.fill);
+        lb.attr('textBaseline', 'bottom');
+        ay = shapeMaxY + this.options.offsetY;
+        la.attr('fill', this.options.bottomStyle.fill);
+        la.attr('textBaseline', 'top');
         boxes[0] = la.getBBox();
-        bx = shapeMaxX + this.options.offsetX;
-        lb.attr('fill', this.options.bottomStyle.fill);
-        lb.attr('textAlign', 'left');
         boxes[1] = lb.getBBox();
       }
     }
-    if (boxes[0].minX < panelRange.minX) {
-      ax = panelRange.minX + DEFAULT_OFFSET;
-      la.attr('textAlign', 'left');
+    // fixme: textBaseline 取不准bbox
+    if (boxes[0].maxY > panelRange.maxY - DEFAULT_OFFSET) {
+      ay = panelRange.maxY - DEFAULT_OFFSET / 2;
+      la.attr('textBaseline', 'bottom');
     }
-    la.attr('x', ax);
-    lb.attr('x', bx);
+    la.attr('y', ay);
+    lb.attr('y', by);
     this.plot.canvas.draw();
   }
 }

@@ -50,8 +50,8 @@ describe('rangedColumn plot', () => {
       },
     });
     columnPlot.render();
-    /*window.setTimeout(() => {
-      barPlot.changeData(data2);
-    }, 2000);*/
+    window.setTimeout(() => {
+      columnPlot.changeData(data2);
+    }, 2000);
   });
 });

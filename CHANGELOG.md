@@ -1,3 +1,15 @@
+## <small>0.11.27 (2019-02-06)</small>
+- 🐞 panelCliper => geomCliper ([52cc285](https://github.com/antvis/G2Plot/commit/52cc285c1f9427699e8a9b41fd4a749eefd40397))
+
+## <small>0.11.26 (2019-02-06)</small>
+- 🌟 update scale to 3.0 ([6538cfd](https://github.com/antvis/G2Plot/commit/6538cfd6d900ad886ac34ad8013b8d9a902184f3))
+
+## <small>0.11.25 (2019-02-05)</small>
+- 🐞 fix word-cloud not found error([1ad5d4c](https://github.com/antvis/G2Plot/commit/1ad5d4cc1f5a773e600b5c8905c29530c574ec96))
+
+## <small>0.11.24 (2019-02-04)</small>
+- 🌟 add word-cloud chart ([2f1baa9](https://github.com/antvis/G2Plot/pull/513/commits))
+
 ## <small>0.11.23 (2019-02-03)</small>
 - 🌟 add rose chart ([f99aaf8](https://github.com/antvis/G2Plot/commit/f99aaf8))
 - 🌟 add treemap chart ([703fba7](https://github.com/antvis/G2Plot/commit/703fba7))

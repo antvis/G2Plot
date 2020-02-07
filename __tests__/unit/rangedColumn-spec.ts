@@ -1,6 +1,6 @@
-import { RangedBar } from '../../src';
+import { RangedColumn } from '../../src';
 
-describe('rangedBar plot', () => {
+describe('rangedColumn plot', () => {
   const data = [
     { x: '分类一', y: [76, 100] },
     { x: '分类二', y: [56, 108] },
@@ -14,7 +14,7 @@ describe('rangedBar plot', () => {
 
   const data2 = [
     { x: '分类一', y: [46, 150] },
-    { x: '分类二', y: [10, 30] },
+    { x: '分类二', y: [0, 10] },
     { x: '分类三', y: [38, 129] },
     { x: '分类四', y: [20, 100] },
     { x: '分类五', y: [45, 120] },
@@ -32,13 +32,13 @@ describe('rangedBar plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('初始化', () => {
-    const barPlot = new RangedBar(canvasDiv, {
+    const columnPlot = new RangedColumn(canvasDiv, {
       width: 500,
       height: 400,
       padding: 'auto',
       data,
-      xField: 'y',
-      yField: 'x',
+      xField: 'x',
+      yField: 'y',
       xAxis: {
         visible: true,
       },
@@ -49,9 +49,9 @@ describe('rangedBar plot', () => {
         visible: true,
       },
     });
-    barPlot.render();
-    window.setTimeout(() => {
+    columnPlot.render();
+    /*window.setTimeout(() => {
       barPlot.changeData(data2);
-    }, 2000);
+    }, 2000);*/
   });
 });

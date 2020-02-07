@@ -140,7 +140,7 @@ const data = [
 `formatter: function`  对 label 的显示文本进行格式化。<br/>
 `offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br/>
 `offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object` 配置 label 文本
+`style: object` 配置 label 文本样式
 
 ### events
 

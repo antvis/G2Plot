@@ -6,7 +6,6 @@ import RangedBarLabel, { RangedBarLabelConfig } from './component/label';
 import { setShapeCache } from './animation';
 
 export interface RangedBarViewConfig extends BarViewConfig {
-  data: any; // todo: 补上data类型定义
   label: RangedBarLabelConfig;
 }
 

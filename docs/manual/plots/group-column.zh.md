@@ -44,7 +44,7 @@ const data = [
 
 ### 特殊配置
 
-### groupField
+#### groupField
 
 **reqiured**, string 类型
 

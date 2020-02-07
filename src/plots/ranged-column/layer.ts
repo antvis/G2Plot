@@ -53,16 +53,16 @@ export default class RangedColumnLayer extends BaseColumnLayer<RangedColumnLayer
 
   protected animation() {
     super.animation();
-    /*this.column.animate = {
+    this.column.animate = {
       appear: {
-        animation: 'clipInFromCenter',
+        animation: 'clipInFromCenterVertical',
         duration: 600,
       },
       update: {
-        animation: 'updateFromCenter',
+        animation: 'updateFromCenterVertical',
         duration: 600,
       },
-    };*/
+    };
   }
 }
 

@@ -1,26 +1,27 @@
 import * as G from '@antv/g';
 import { Animate } from '@antv/g2';
 import * as _ from '@antv/util';
+import '../ranged-bar/animation';
 
 // 记录之前的状态
 let shapeCache: G.Shape[];
 
-function clipInFromCenter(shape, animateCfg) {
+function clipInFromCenterVertical(shape, animateCfg) {
   const bbox = shape.getBBox();
-  const centerX = bbox.minX + bbox.width / 2;
+  const centerY = bbox.minY + bbox.height / 2;
   const cliper = new G.Rect({
     attrs: {
-      x: centerX,
-      y: bbox.minY,
-      width: 0,
-      height: bbox.height,
+      x: bbox.minX,
+      y: centerY,
+      width: bbox.width,
+      height: 0,
     },
   });
   shape.attr('clip', cliper);
   cliper.animate(
     {
-      width: bbox.width,
-      x: bbox.minX,
+      height: bbox.height,
+      y: bbox.minY,
     },
     animateCfg.duration,
     animateCfg.easing,
@@ -31,13 +32,13 @@ function clipInFromCenter(shape, animateCfg) {
   );
 }
 
-clipInFromCenter.animationName = 'clipInFromCenter';
+clipInFromCenterVertical.animationName = 'clipInFromCenterVertical';
 
 export function setShapeCache(shapes) {
   shapeCache = shapes;
 }
 
-function updateFromCenter(shape, animateCfg) {
+function updateFromCenterVertical(shape, animateCfg) {
   const fromPath = getShapeFromCache(shape).attr('path');
   const toPath = _.clone(shape.attr('path'));
   shape.attr('path', fromPath);
@@ -63,7 +64,7 @@ function getShapeFromCache(shape) {
   return target;
 }
 
-updateFromCenter.animationName = 'updateFromCenter';
+updateFromCenterVertical.animationName = 'updateFromCenterVertical';
 
-Animate.registerAnimation('appear', 'clipInFromCenter', clipInFromCenter);
-Animate.registerAnimation('update', 'updateFromCenter', updateFromCenter);
+Animate.registerAnimation('appear', 'clipInFromCenterVertical', clipInFromCenterVertical);
+Animate.registerAnimation('update', 'updateFromCenterVertical', updateFromCenterVertical);

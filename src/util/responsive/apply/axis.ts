@@ -60,16 +60,19 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     if (!this.responsiveTheme.axis) {
       return false;
     }
-
-    if (this.responsiveTheme.axis[this.dim] && this.type && this.axisInstance) {
+    if (
+      this.responsiveTheme.axis[this.dim] &&
+      this.type &&
+      this.axisInstance &&
+      this.axisInstance.get('labelRenderer')
+    ) {
       return true;
     }
     return false;
   }
 
   protected apply() {
-    const axisIndex = this.dim === 'x' ? 0 : 1;
-    const axis = this.plot.view.get('axisController').axes[axisIndex];
+    const axis = this.axisInstance;
     const rawLabels = axis
       .get('labelRenderer')
       .get('group')

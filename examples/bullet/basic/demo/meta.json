@@ -1,0 +1,43 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": "基础子弹图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vk43S5pvUJcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color-range.js",
+      "title": "基础子弹图-带多颜色范围区间",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dL-9TKrcJcEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "overflow.js",
+      "title": "基础子弹图-超出目标",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZDtmQobNID8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "multi-targets.js",
+      "title": "基础子弹图-多目标值",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vNl5TpVsFPcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stack.js",
+      "title": "堆叠子弹图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qdtlRpVAwlMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "group.js",
+      "title": "分组子弹图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N-DoQbx-WMwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "group-color-range.js",
+      "title": "分组子弹图-带颜色范围区间",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CojyRprMccsAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

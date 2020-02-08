@@ -179,6 +179,14 @@ module.exports = {
         },
       },
       {
+        slug: 'bullet',
+        icon: 'other',
+        title: {
+          zh: '子弹图',
+          en: 'Bullet Charts',
+        },
+      },
+      {
         slug: 'sparkline',
         icon: 'other',
         title: {

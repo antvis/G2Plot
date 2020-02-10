@@ -177,16 +177,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       scales: {},
       legends: {},
       tooltip: {
+        follow: true,
         showTitle: true,
-        triggerOn: 'mousemove',
-        inPanel: true,
-        useHtml: true,
       },
       axes: { fields: {} },
       coord: { type: 'cartesian' },
       geometries: [],
       annotations: [],
-      interactions: [],
+      interactions: [
+        {
+          type:'tooltip'
+        }
+      ],
       theme: this.theme,
       panelRange: {},
       animate: true,
@@ -223,7 +225,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       start: { x: this.viewRange.minX, y: this.viewRange.minY },
       end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
     });
-    this.applyInteractions();
+    //this.applyInteractions();
     this.view.on('afterrender', () => {
       this.afterRender();
     });

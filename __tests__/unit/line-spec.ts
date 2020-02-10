@@ -290,6 +290,7 @@ describe('Line plot', () => {
       },*/
     });
     linePlot.render();
+    console.log(linePlot);
     /* const plot = linePlot.getLayer().plot;
     const positionField = plot.get('elements')[0].get('position').fields;
     expect(linePlot).toBeInstanceOf(Line);

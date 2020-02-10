@@ -1,7 +1,37 @@
+import * as _ from '@antv/util';
+import fecha from 'fecha';
+import { FORMATTER } from '../plots/calendar/constant';
+
 /**
  * 一天多少 ms
  */
 export const DAY_MS = 86400000;
+
+/**
+ * 获取最大最小日期范围
+ * @param dates
+ */
+export function getDateRange(dates: Date[]): string[] {
+  const ds = [...dates].sort((a: Date, b: Date) => a.getTime() - b.getTime());
+
+  return [
+    fecha.format(_.head(ds), FORMATTER),
+    fecha.format(_.last(ds), FORMATTER),
+  ]
+}
+
+/**
+ * 日期对应年的范围
+ * @param date
+ */
+export function getYearRange(date?: Date): string[] {
+  const curr = date ? date : new Date();
+
+  return [
+    fecha.format(new Date(curr.getFullYear(), 0, 1), FORMATTER),
+    fecha.format(new Date(curr.getFullYear(), 11, 30), FORMATTER),
+  ]
+}
 
 /**
  * 是否当前月的最后一周

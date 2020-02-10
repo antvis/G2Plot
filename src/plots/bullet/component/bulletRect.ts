@@ -127,6 +127,12 @@ export default class BulletRect {
     }
   }
 
+  public destory() {
+    if (this.container) {
+      this.container.remove();
+    }
+  }
+
   private _init() {
     this.view.on('beforerender', () => {
       this.clear();

@@ -70,6 +70,12 @@ export default class BulletTarget {
       this.container.clear();
     }
   }
+  
+  public destory() {
+    if (this.container) {
+      this.container.remove();
+    }
+  }
 
   private _init() {
     this.view.on('beforerender', () => {

@@ -6,7 +6,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
-import './animation/clipIn-with-data';
+//import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import './component/label/line-label';
@@ -197,7 +197,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected animation() {
     super.animation();
-    const props = this.options;
+    /*const props = this.options;
     if (props.animation === false) {
       // 关闭动画
       this.line.animate = false;
@@ -220,13 +220,13 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
           this.point.animate = false;
         }
       }
-    }
+    }*/
   }
 
   protected applyInteractions() {
     super.applyInteractions();
     // 加入默认交互
-    const interactions = this.view.get('interactions');
+    const interactions = this.view.interactions;
     const lineActive = new LineActive({ view: this.view });
     interactions.lineActive = lineActive;
     const lineSelect = new LineSelect({ view: this.view });

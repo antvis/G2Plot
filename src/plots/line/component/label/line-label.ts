@@ -1,12 +1,12 @@
 import { Shape } from '@antv/g';
-import { ElementLabels, registerElementLabels } from '@antv/g2';
+import { GeometryLabel, registerGeometryLabel } from '@antv/g2';
 import _cloneDeep from '@antv/util/lib/clone';
 import _each from '@antv/util/lib/each';
 // import verticalShatter from '../../../../util/layout/verticalShatter';
 
 const MARGIN = 10;
 
-class LineElementLabels extends ElementLabels {
+class LineElementLabels extends GeometryLabel {
   public showLabels(points: any, shapes: Shape[]) {
     const labelPoints = [];
     _each(shapes, (shape) => {
@@ -44,4 +44,4 @@ class LineElementLabels extends ElementLabels {
   }
 }
 
-registerElementLabels('line', LineElementLabels);
+registerGeometryLabel('line', LineElementLabels);

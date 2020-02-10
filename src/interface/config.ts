@@ -192,8 +192,8 @@ export interface G2Config {
   tooltip: Option.TooltipOption | boolean;
   axes: Option.AxesOption | boolean;
   coord: Option.CoordinateOption;
-  element?: ElementOption;
-  elements: ElementOption[];
+  geometry?: ElementOption;
+  geometries: ElementOption[];
   annotations: any[];
   interactions: {};
   theme: any;

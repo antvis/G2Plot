@@ -10,7 +10,7 @@ import { ViewConfig } from '../view-layer';
  * 负责图表theme的管理
  */
 
-const G2DefaultTheme = G2.Global.theme;
+const G2DefaultTheme = G2.getTheme();
 
 export default class ThemeController<T extends ViewConfig = ViewConfig> {
   /**

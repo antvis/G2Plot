@@ -1,5 +1,5 @@
 import { Shape } from '@antv/g';
-import { ElementLabels, registerElementLabels } from '@antv/g2';
+import { GeometryLabel, registerGeometryLabel } from '@antv/g2';
 
 // import layout from '../../../../util/layout/annealing';
 
@@ -13,7 +13,7 @@ interface Item {
   text: string;
 }
 
-class LinePointLabels extends ElementLabels {
+class LinePointLabels extends GeometryLabel {
   public showLabels(points: any, shapes: Shape[]) {
     super.showLabels(points, shapes);
     const renderer = this.get('labelsRenderer');
@@ -34,4 +34,4 @@ class LinePointLabels extends ElementLabels {
   }
 }
 
-registerElementLabels('point', LinePointLabels);
+registerGeometryLabel('point', LinePointLabels);

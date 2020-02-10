@@ -183,12 +183,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       axes: { fields: {} },
       coord: { type: 'cartesian' },
-      elements: [],
+      geometries: [],
       annotations: [],
-      interactions: {},
+      interactions: [],
       theme: this.theme,
       panelRange: {},
       animate: true,
+      views: [],
     };
 
     this.paddingController.clear();
@@ -212,7 +213,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       width: this.width,
       height: this.height,
       canvas: this.canvas,
-      container: this.container,
+      foregroundGroup: this.container.addGroup(),
+      middleGroup: this.container.addGroup(),
+      backgroundGroup: this.container.addGroup(),
       padding: this.paddingController.getPadding(),
       data: this.processData(this.options.data),
       theme: this.theme,
@@ -441,7 +444,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   /** 设置G2 config，带有类型推导 */
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
     if (key === 'element') {
-      this.config.elements.push(config as G2Config['element']);
+      this.config.geometries.push(config as G2Config['element']);
       return;
     }
     if (config === false) {

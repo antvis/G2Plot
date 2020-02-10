@@ -1,5 +1,5 @@
 export { default as Line, LineConfig } from './line';
-export { default as Density, DensityConfig } from './density';
+/*export { default as Density, DensityConfig } from './density';
 export { default as Column, ColumnConfig } from './column';
 export { default as Bubble, BubbleConfig } from './bubble';
 export { default as Scatter, ScatterConfig } from './scatter';
@@ -26,4 +26,4 @@ export { default as Waterfall, WaterfallConfig } from './waterfall';
 export { default as Treemap } from './treemap';
 export { default as StepLine, StepLineConfig } from './step-line';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
-export { default as Rose, RoseConfig } from './rose';
+export { default as Rose, RoseConfig } from './rose';*/

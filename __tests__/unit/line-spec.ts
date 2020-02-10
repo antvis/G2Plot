@@ -267,7 +267,7 @@ const data2 = [
   },
 ];
 
-describe.skip('Line plot', () => {
+describe('Line plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -276,23 +276,27 @@ describe.skip('Line plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('初始化及销毁图表', () => {
+  it.only('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
       width: 600,
       height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
+      label: {
+        visible: true,
+        type: 'line',
+      },
     });
     linePlot.render();
-    const plot = linePlot.getLayer().plot;
+    /* const plot = linePlot.getLayer().plot;
     const positionField = plot.get('elements')[0].get('position').fields;
     expect(linePlot).toBeInstanceOf(Line);
     expect(positionField[0]).toBe('year');
     expect(positionField[1]).toBe('value');
     linePlot.destroy();
     expect(plot.destroyed).toBe(true);
-    expect(canvasDiv.childNodes.length).equal(0);
+    expect(canvasDiv.childNodes.length).equal(0);*/
   });
 
   it.skip('smooth line', () => {

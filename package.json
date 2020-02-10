@@ -38,7 +38,7 @@
     "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/line-spec.ts",
     "coverage": "jest --coverage",
     "ci": "run-s lint-check build test coverage",
     "compare-live": "node scripts/compare.js",
@@ -54,7 +54,7 @@
   "dependencies": {
     "@antv/event-emitter": "~0.1.1",
     "@antv/g-gesture": "~0.1.0",
-    "@antv/g2": "~3.6.0-beta.17",
+    "@antv/g2": "~4.0.0-beta.11",
     "@antv/gui": "~0.1.0",
     "d3-regression": "^1.2.8",
     "fecha": "~4.0.0",
@@ -62,12 +62,14 @@
     "tslib": "^1.10.0"
   },
   "peerDependencies": {
-    "@antv/g": "3.5.0-beta.1",
+    "@antv/g-base": "^0.3.1",
+    "@antv/g-canvas": "^0.3.1",
+    "@antv/g-svg": "^0.3.1",
     "@antv/component": "~0.4.0-beta.12",
     "@antv/dom-util": "~2.0.1",
     "@antv/event-emitter": "^0.1.1",
     "@antv/matrix-util": "~2.0.2",
-    "@antv/scale": "^0.3.0-beta.5",
+    "@antv/scale": "^0.3.0",
     "@antv/util": "~2.0.4",
     "@antv/coord": "~0.2.2"
   },

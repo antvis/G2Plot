@@ -5,7 +5,7 @@ import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import LineParser from './main';
 
-const G2DefaultTheme = G2.Global.theme;
+const G2DefaultTheme = G2.getTheme();
 
 G2.registerShape('line', 'miniLine', {
   draw(cfg, container) {

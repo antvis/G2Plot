@@ -70,7 +70,7 @@ export default class BulletTarget {
       this.container.clear();
     }
   }
-  
+
   public destory() {
     if (this.container) {
       this.container.remove();

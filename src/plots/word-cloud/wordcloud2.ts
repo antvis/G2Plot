@@ -185,8 +185,7 @@ var WordCloud = function WordCloud(elements, options) {
   /* Default values to be overwritten by options object */
   var settings = {
     data: [],
-    fontFamily:
-      '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
+    fontFamily: '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
     fontWeight: 'normal',
     color: 'random-dark',
 
@@ -265,10 +264,7 @@ var WordCloud = function WordCloud(elements, options) {
   }
 
   var getRealFontSize = function getRealFontSize(weight) {
-    return Math.min(
-      Math.max(settings.minFontSize, (settings.maxFontSize * weight) / maxWeight),
-      settings.maxFontSize
-    );
+    return Math.min(Math.max(settings.minFontSize, (settings.maxFontSize * weight) / maxWeight), settings.maxFontSize);
   };
 
   var isCardioid = false;
@@ -556,7 +552,7 @@ var WordCloud = function WordCloud(elements, options) {
 
     if (rotationSteps > 0) {
       // Min rotation + zero or more steps * span of one step
-      return minRotation + (Math.floor(Math.random() * rotationSteps) * rotationRange) / (rotationSteps);
+      return minRotation + (Math.floor(Math.random() * rotationSteps) * rotationRange) / rotationSteps;
     } else {
       return minRotation + Math.random() * rotationRange;
     }
@@ -956,16 +952,7 @@ var WordCloud = function WordCloud(elements, options) {
     }
   };
 
-  var tryToPutWordAtPoint = function tryToPutWordAtPoint(
-    gxy,
-    info,
-    word,
-    weight,
-    distance,
-    rotateDeg,
-    attributes,
-    id
-  ) {
+  var tryToPutWordAtPoint = function tryToPutWordAtPoint(gxy, info, word, weight, distance, rotateDeg, attributes, id) {
     var gx = Math.floor(gxy[0] - info.gw / 2);
     var gy = Math.floor(gxy[1] - info.gh / 2);
     var gw = info.gw;
@@ -1143,9 +1130,7 @@ var WordCloud = function WordCloud(elements, options) {
     }
 
     // Determine the center of the word cloud
-    center = settings.origin
-      ? [settings.origin[0] / g, settings.origin[1] / g]
-      : [ngx / 2, ngy / (isCardioid ? 4 : 2)];
+    center = settings.origin ? [settings.origin[0] / g, settings.origin[1] / g] : [ngx / 2, ngy / (isCardioid ? 4 : 2)];
 
     // Maxium radius to look for space
     maxRadius = Math.floor(Math.sqrt(ngx * ngx + ngy * ngy));

@@ -1,5 +1,4 @@
 import { StepLine } from '../../../../src';
-import ViewLayer from '../../../../src/base/view-layer';
 import { StepLineLayer } from '../../../../src/plots/step-line/layer';
 
 const data = [

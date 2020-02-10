@@ -28,11 +28,13 @@ export interface PieViewConfig extends ViewConfig {
   label?: PieLabel;
 }
 
-type PieLabel = Omit<ViewConfig['label'], 'offset'> & {
+type PieLabel = Omit<Label, 'offset'> & {
   offset?: string | number;
   /** label leader-line */
   line?: {
     smooth?: boolean;
+    stroke?: string;
+    lineWidth?: number;
   };
   /** allow label overlap */
   allowOverlap?: boolean;

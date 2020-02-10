@@ -27,11 +27,17 @@ class OuterPieLabel extends BaseLabel {
 
   /** @override */
   public adjustLines(labels: Shape[], labelItems: LabelItem[], labelLines: any, coord: Polar, panel: BBox) {
+    const labelOptions = this.getLabelOptions();
     _.each(labels, (label, idx: number) => {
       const labelLine = labelLines[idx];
       // 由于布局调整，修改的只是shape 所以取用使用shape(labelItem is read-only)
       const path = this._getLinePath(label, coord, panel);
       labelLine.attr('path', path);
+      if (labelOptions.line) {
+        for (const attr in labelOptions.line) {
+          labelLine.attr(attr, labelOptions.line[attr]);
+        }
+      }
       labelLine.set('visible', label.get('visible'));
     });
   }
@@ -220,22 +226,24 @@ class OuterPieLabel extends BaseLabel {
     const center = coord.getCenter();
     const distance = this.getCrookDistance();
     const start = getEndPoint(center, angle, coord.getRadius());
-    const isRight = anchor.textAlign === 'left';
-    let breakAt = anchor;
-    const end = { x: label.attr('x') + (isRight ? -distance : distance), y: label.attr('y') };
-    let smoothPath = [];
-    if (end.y < anchor.y) {
-      breakAt = {
-        ...breakAt,
-        id: breakAt.id,
-        y: end.y,
-        x: end.x + (start.x - breakAt.x),
-      };
-    }
-    smoothPath = smoothPath.concat(['Q', breakAt.x, breakAt.y]).concat([end.x, end.y]);
-    const straightPath = ['L', /** pointy break */ breakAt.x, breakAt.y].concat(['L', end.x, end.y]);
+    const breakAt = getEndPoint(center, angle, coord.getRadius() + 4);
+    const left2right = start.x - anchor.x <= 0;
+    const labelPosition = { x: label.attr('x') + (left2right ? -distance : distance), y: label.attr('y') };
+    const smoothPath = [
+      'C', // soft break
+      // 1st control point (of the curve)
+      labelPosition.x +
+        // 4 gives the connector a little horizontal bend
+        (left2right ? -4 : 4),
+      labelPosition.y, //
+      2 * breakAt.x - start.x, // 2nd control point
+      2 * breakAt.y - start.y, //
+      breakAt.x, // end of the curve
+      breakAt.y, //
+    ];
+    const straightPath = ['L', /** pointy break */ breakAt.x, breakAt.y];
     const linePath = smooth ? smoothPath : straightPath;
-    const path = ['M', start.x, start.y].concat(linePath);
+    const path = ['M', labelPosition.x, labelPosition.y].concat(linePath).concat('L', start.x, start.y);
 
     return path.join(',');
   }

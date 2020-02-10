@@ -596,22 +596,22 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   // 临时解决scale min & max的图形截取
   private addGeomCliper() {
     const panelRange = this.view.coordinateBBox;
-    const cliper = new G.Shape.Rect({
-      attrs: {
-        x: panelRange.minX,
-        y: panelRange.minY,
-        width: panelRange.width,
-        height: panelRange.height,
-      },
-    });
     const geoms = this.view.geometries;
     _.each(geoms, (geom) => {
       const cliperContainer = geom.container;
-      const preCliper = cliperContainer.attr('clip');
+      const preCliper = cliperContainer.get('clipShape');
       if (preCliper) {
         preCliper.remove();
       }
-      cliperContainer.attr('clip', cliper);
+      cliperContainer.setClip({
+        type:'rect',
+        attrs: {
+          x: panelRange.minX,
+          y: panelRange.minY,
+          width: panelRange.width,
+          height: panelRange.height,
+        },
+      });
     });
   }
 }

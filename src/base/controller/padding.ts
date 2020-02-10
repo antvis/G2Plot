@@ -126,7 +126,7 @@ export default class PaddingController {
     const components_bbox = [view.coordinateBBox];
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
-    this._getLegend(view, components_bbox, box);
+    // this._getLegend(view, components_bbox, box);
     box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
@@ -147,23 +147,21 @@ export default class PaddingController {
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
-    this.adjustAxisPadding(view, padding);
+    //this.adjustAxisPadding(view, padding);
     // label、annotation等
-    const panelPadding = this._getPanel(view, box);
+    /*const panelPadding = this._getPanel(view, box);
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
-    padding[3] += panelPadding[3];
+    padding[3] += panelPadding[3];*/
     return padding;
   }
 
   private _getAxis(view, bboxes) {
-    console.log(view);
-    const axes = view.controllers.axisController.axes;
-    if (axes.length > 0) {
-      _.each(axes, (a) => {
-        const axis = a as DataPointType;
-        const bbox = axis.get('group').getBBox();
+    const axesContainer = view.getController('axis').axisContainer.get('children');
+    if (axesContainer.length > 0) {
+      _.each(axesContainer, (a) => {
+        const bbox = a.getBBox();
         bboxes.push(bbox);
       });
     }

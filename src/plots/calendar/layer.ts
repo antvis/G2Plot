@@ -24,8 +24,7 @@ export interface CalendarViewConfig extends ViewConfig {
   readonly weeks?: string[];
 }
 
-interface CalendarLayerConfig extends CalendarViewConfig, LayerConfig {
-}
+interface CalendarLayerConfig extends CalendarViewConfig, LayerConfig {}
 
 /**
  * 日历图
@@ -90,7 +89,7 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
     const coordinateConfig = {
       type: 'rect' as CoordinateType,
       cfg: {},
-      actions: [['reflect', 'y']]
+      actions: [['reflect', 'y']],
     };
     this.setConfig('coord', coordinateConfig);
   }

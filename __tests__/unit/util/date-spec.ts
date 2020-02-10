@@ -5,28 +5,16 @@ import {
   isLastDayOfMonth,
   getWeek,
   getDay,
-  advanceBy, DAY_MS,
+  advanceBy,
+  DAY_MS,
 } from '../../../src/util/date';
 
 describe('date util', () => {
   it('getDateRange', () => {
-    expect(getDateRange([ new Date('2020-01-01') ])).toEqual([ '2020-01-01', '2020-01-01' ]);
-    expect(getDateRange([
-      new Date('2020-01-01'),
-      new Date('2020-01-10')
-    ])).toEqual([
-      '2020-01-01',
-      '2020-01-10'
-    ]);
+    expect(getDateRange([new Date('2020-01-01')])).toEqual(['2020-01-01', '2020-01-01']);
+    expect(getDateRange([new Date('2020-01-01'), new Date('2020-01-10')])).toEqual(['2020-01-01', '2020-01-10']);
 
-    expect(getDateRange([
-      new Date('2020-01-10'),
-      new Date('2020-01-01')
-
-    ])).toEqual([
-      '2020-01-01',
-      '2020-01-10'
-    ]);
+    expect(getDateRange([new Date('2020-01-10'), new Date('2020-01-01')])).toEqual(['2020-01-01', '2020-01-10']);
   });
 
   it('getYearRange', () => {

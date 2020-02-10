@@ -1,6 +1,6 @@
 import * as _ from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import CalenderLayer  from './layer';
+import CalenderLayer from './layer';
 
 // 注册日历图的自定义 shape
 import './shape';
@@ -11,7 +11,6 @@ export type CalendarConfig = PlotConfig;
  * 日历图
  */
 export default class Calendar extends BasePlot<any> {
-
   public static getDefaultOptions: typeof CalenderLayer.getDefaultOptions = CalenderLayer.getDefaultOptions;
 
   /**

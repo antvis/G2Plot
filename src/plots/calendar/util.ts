@@ -44,4 +44,3 @@ export function generateCalendarData(data: DataItem[], dateRange: string[], date
 
   return all;
 }
-

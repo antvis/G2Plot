@@ -14,10 +14,7 @@ export const DAY_MS = 86400000;
 export function getDateRange(dates: Date[]): string[] {
   const ds = [...dates].sort((a: Date, b: Date) => a.getTime() - b.getTime());
 
-  return [
-    fecha.format(_.head(ds), FORMATTER),
-    fecha.format(_.last(ds), FORMATTER),
-  ]
+  return [fecha.format(_.head(ds), FORMATTER), fecha.format(_.last(ds), FORMATTER)];
 }
 
 /**
@@ -30,7 +27,7 @@ export function getYearRange(date?: Date): string[] {
   return [
     fecha.format(new Date(curr.getFullYear(), 0, 1), FORMATTER),
     fecha.format(new Date(curr.getFullYear(), 11, 30), FORMATTER),
-  ]
+  ];
 }
 
 /**
@@ -57,7 +54,7 @@ export function getWeek(date: Date): number {
   // 当年的第一天
   const oneJan = new Date(date.getFullYear(), 0, 1);
 
-  return Math.ceil((((date.getTime() - oneJan.getTime()) / DAY_MS) + oneJan.getDay() + 1) / 7);
+  return Math.ceil(((date.getTime() - oneJan.getTime()) / DAY_MS + oneJan.getDay() + 1) / 7);
 }
 
 /**

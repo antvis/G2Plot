@@ -1,4 +1,4 @@
-import { BBox, Rect } from '@antv/g';
+import { BBox, Rect } from '@antv/g-canvas';
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';

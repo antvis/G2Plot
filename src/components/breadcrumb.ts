@@ -1,5 +1,5 @@
 import BaseComponent, { BaseComponentConfig } from './base';
-import { Group, BBox, Shape, Rect } from '@antv/g';
+import { Group, BBox, Shape, Rect } from '@antv/g-canvas';
 
 export interface BreadcrumbItem {
   key: string;

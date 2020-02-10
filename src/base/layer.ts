@@ -1,8 +1,11 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g';
+import * as G from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
+import BBox from '../util/bbox';
+import { groupTransform } from '../util/g-util';
+
 
 export interface LayerConfig {
   id?: string;
@@ -42,7 +45,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public height: number;
   public parent: Layer;
   public canvas: G.Canvas;
-  public layerBBox: G.BBox;
+  public layerBBox: BBox;
   public layers: Layer[] = [];
   public container: G.Group;
   public destroyed: boolean = false;
@@ -59,7 +62,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     super();
     this.options = this.getOptions(props);
     this.processOptions(this.options);
-    this.container = new G.Group();
+    this.container = new G.Group({});
   }
 
   public processOptions(options) {
@@ -108,8 +111,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.beforeInit();
     this.init();
     this.afterInit();
-    this.container.transform([['t', this.x, this.y]]);
-
+    groupTransform(this.container,[['t', this.x, this.y]]);
     this.eachLayer((layer) => {
       layer.render();
     });
@@ -241,7 +243,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
 
   public getGlobalBBox() {
     const globalPosition = this.getGlobalPosition();
-    return new G.BBox(globalPosition.x, globalPosition.y, this.width, this.height);
+    return new BBox(globalPosition.x, globalPosition.y, this.width, this.height);
   }
 
   public getOptions(props: T): T {
@@ -277,7 +279,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   }
 
   private getLayerBBox() {
-    return new G.BBox(this.x, this.y, this.width, this.height);
+    return new BBox(this.x, this.y, this.width, this.height);
   }
 
   private getLayerRegion() {

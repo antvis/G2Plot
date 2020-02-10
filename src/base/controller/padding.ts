@@ -1,9 +1,10 @@
-import { BBox, Element } from '@antv/g';
+import { Element } from '@antv/g-canvas';
 import { DataPointType } from '@antv/g2/lib/interface';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
+import BBox from '../../util/bbox';
 
 interface ControllerConfig {
   plot: ViewLayer;

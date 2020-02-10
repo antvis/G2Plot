@@ -53,9 +53,7 @@
   },
   "dependencies": {
     "@antv/event-emitter": "~0.1.1",
-    "@antv/g-gesture": "~0.1.0",
     "@antv/g2": "~4.0.0-beta.11",
-    "@antv/gui": "~0.1.0",
     "d3-regression": "^1.2.8",
     "fecha": "~4.0.0",
     "resize-observer-polyfill": "^1.5.1",
@@ -65,7 +63,7 @@
     "@antv/g-base": "^0.3.1",
     "@antv/g-canvas": "^0.3.1",
     "@antv/g-svg": "^0.3.1",
-    "@antv/component": "~0.4.0-beta.12",
+    "@antv/component": "^0.5.0-beta.25",
     "@antv/dom-util": "~2.0.1",
     "@antv/event-emitter": "^0.1.1",
     "@antv/matrix-util": "~2.0.2",

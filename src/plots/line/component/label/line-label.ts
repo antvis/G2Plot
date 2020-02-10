@@ -1,4 +1,4 @@
-import { Shape } from '@antv/g';
+import { Shape } from '@antv/g-canvas';
 import { GeometryLabel, registerGeometryLabel } from '@antv/g2';
 import _cloneDeep from '@antv/util/lib/clone';
 import _each from '@antv/util/lib/each';

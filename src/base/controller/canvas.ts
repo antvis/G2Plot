@@ -1,5 +1,5 @@
 import { modifyCSS } from '@antv/dom-util';
-import { Canvas } from '@antv/g';
+import { Canvas } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
@@ -157,7 +157,7 @@ export default class CanvasController {
     const { renderer = 'canvas', pixelRatio } = this.plot;
     const { width, height } = this.getCanvasSize();
     this.canvas = new Canvas({
-      containerDOM: this.containerDOM,
+      container: this.containerDOM,
       width,
       height,
       renderer,

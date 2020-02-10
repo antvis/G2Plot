@@ -1,7 +1,7 @@
 /**
  * 区域连接组件，用于堆叠柱状图和堆叠条形图
  */
-import { Group, Shape, Shapes } from '@antv/g';
+import { Group, Shape, Shapes } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { compare } from '../base/controller/state';

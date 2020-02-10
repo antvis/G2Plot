@@ -1,4 +1,4 @@
-import { BBox, Canvas, Group, Text } from '@antv/g';
+import { BBox, Canvas, Group, Text } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';

@@ -67,7 +67,7 @@ export default class AxisParser {
   private _lineParser() {
     this.config.line = this.localProps.line;
     if (this.localProps.line.style) {
-      this.config.line = this.localProps.line.style;
+      this.config.line = {style:this.localProps.line.style};
     }
     this.applyThemeConfig('line');
   }
@@ -91,7 +91,7 @@ export default class AxisParser {
   private _tickLineParser() {
     this.config.tickLine = this.localProps.tickLine;
     if (this.localProps.tickLine.style) {
-      this.config.tickLine = this.localProps.tickLine.style;
+      this.config.tickLine = { style: this.localProps.tickLine.style};
     }
     this.applyThemeConfig('tickLine');
   }
@@ -100,10 +100,10 @@ export default class AxisParser {
     const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: DataPointType = { ...restLabelProps };
     if (style) {
-      labelConfig.textStyle = this.localProps.label.style;
+      labelConfig.textStyle = { style: this.localProps.label.style};
     }
-    labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
-    const formatter = this.parseFormatter(labelConfig);
+    labelConfig.textStyle = { style:  _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle)};
+    const formatter = this.parseFormatter(labelConfig); 
     labelConfig.formatter = formatter;
     this.config.label = labelConfig;
   }

@@ -525,7 +525,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
-        container: this.container.addGroup(),
+        container: this.container.addGroup() as Group,
         theme,
         index: 1,
         plot: this,

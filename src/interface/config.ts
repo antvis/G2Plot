@@ -187,6 +187,7 @@ export interface ElementOption {
 }
 
 export interface G2Config {
+  data: DataItem[];
   scales: Option.ScalesOption;
   legends: Option.LegendOption | Option.LegendsOption | boolean;
   tooltip: Option.TooltipOption | boolean;
@@ -195,10 +196,11 @@ export interface G2Config {
   geometry?: ElementOption;
   geometries: ElementOption[];
   annotations: any[];
-  interactions: {};
+  interactions: any[];
   theme: any;
   panelRange: any;
   animate: any;
+  views: any[];
 }
 
 export interface IColorConfig {

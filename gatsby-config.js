@@ -171,6 +171,14 @@ module.exports = {
         },
       },
       {
+        slug: 'calendar',
+        icon: 'calendar',
+        title: {
+          zh: '日历图',
+          en: 'calendar',
+        },
+      },
+      {
         slug: 'combo',
         icon: 'other',
         title: {

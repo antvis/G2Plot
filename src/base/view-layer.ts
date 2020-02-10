@@ -1,4 +1,4 @@
-import { BBox, Rect } from '@antv/g-canvas';
+import * as G from '@antv/g-canvas';
 import * as G2 from '@antv/g2';
 import * as _ from '@antv/util';
 import TextDescription from '../components/description';
@@ -138,7 +138,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public initialOptions: T;
   public title: TextDescription;
   public description: TextDescription;
-  public viewRange: BBox;
+  public viewRange: G.BBox;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
@@ -173,6 +173,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
     this.config = {
+      data: this.processData(this.options.data),
       scales: {},
       legends: {},
       tooltip: {
@@ -217,7 +218,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       middleGroup: this.container.addGroup(),
       backgroundGroup: this.container.addGroup(),
       padding: this.paddingController.getPadding(),
-      data: this.processData(this.options.data),
       theme: this.theme,
       options: this.config,
       start: { x: this.viewRange.minX, y: this.viewRange.minY },
@@ -249,7 +249,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-    this.addGeomCliper();
+    //this.addGeomCliper();
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
@@ -595,8 +595,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   // 临时解决scale min & max的图形截取
   private addGeomCliper() {
-    const panelRange = this.view.get('panelRange');
-    const cliper = new Rect({
+    const panelRange = this.view.coordinateBBox;
+    const cliper = new G.Shape.Rect({
       attrs: {
         x: panelRange.minX,
         y: panelRange.minY,
@@ -604,9 +604,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         height: panelRange.height,
       },
     });
-    const geoms = this.view.get('elements');
+    const geoms = this.view.geometries;
     _.each(geoms, (geom) => {
-      const cliperContainer = geom.get('shapeContainer');
+      const cliperContainer = geom.container;
       const preCliper = cliperContainer.attr('clip');
       if (preCliper) {
         preCliper.remove();

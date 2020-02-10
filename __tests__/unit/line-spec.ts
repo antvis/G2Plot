@@ -278,15 +278,16 @@ describe('Line plot', () => {
 
   it.only('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
+      padding:[0,0,0,0,0,0],
       width: 600,
       height: 600,
       data: data1,
       xField: 'year',
       yField: 'value',
-      label: {
+      /*label: {
         visible: true,
         type: 'line',
-      },
+      },*/
     });
     linePlot.render();
     /* const plot = linePlot.getLayer().plot;

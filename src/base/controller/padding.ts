@@ -110,7 +110,7 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange: BBox = view.get('viewRange');
+    const viewRange:any= view.viewBBox;
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (_.isArray(bleeding)) {
@@ -123,7 +123,7 @@ export default class PaddingController {
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = _.clone(bleeding);
     // 参与auto padding的components: axis legend
-    const components_bbox = [view.get('panelRange')];
+    const components_bbox = [view.coordinateBBox];
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
     this._getLegend(view, components_bbox, box);
@@ -158,7 +158,8 @@ export default class PaddingController {
   }
 
   private _getAxis(view, bboxes) {
-    const axes = view.get('axisController').axes;
+    console.log(view);
+    const axes = view.controllers.axisController.axes;
     if (axes.length > 0) {
       _.each(axes, (a) => {
         const axis = a as DataPointType;
@@ -169,7 +170,7 @@ export default class PaddingController {
   }
 
   private _getLegend(view, bboxes, box) {
-    const viewRange = view.get('viewRange');
+    const viewRange = view.viewBBox;
     const legends = view.get('legendController').legends;
     if (legends.length > 0) {
       _.each(legends, (l) => {
@@ -240,7 +241,7 @@ export default class PaddingController {
         }
       });
     });
-    const panelRange = view.get('panelRange');
+    const panelRange = view.coordinateBBox;
     //right
     let rightDist = Math.max(maxX - parseFloat(panelRange.maxX), 0);
     if (rightDist > 0) {
@@ -291,7 +292,7 @@ export default class PaddingController {
     const position = legend.get('position').split('-');
     const container = legend.get('container');
     const bbox = container.getBBox();
-    const { width, height, maxX, minX, maxY, minY } = view.get('viewRange');
+    const { width, height, maxX, minX, maxY, minY } = view.viewBBox;
     if (position[0] === 'right') {
       container.move(width, minY);
     }

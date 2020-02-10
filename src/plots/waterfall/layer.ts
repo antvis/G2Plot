@@ -99,6 +99,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   public getOptions(props: WaterfallLayerConfig) {
     const options = super.getOptions(props);
     this.adjustLegendOptions(options);
+    this.adjustMeta(options);
     return options;
   }
 
@@ -208,12 +209,29 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       extractScale(scales[options.xField], options.xAxis);
     }
     /** 配置y-scale */
-    scales[options.yField] = {};
+    scales[VALUE_FIELD] = {};
     if (_.has(options, 'yAxis')) {
-      extractScale(scales[options.yField], options.yAxis);
+      extractScale(scales[VALUE_FIELD], options.yAxis);
     }
     this.setConfig('scales', scales);
     super.scale();
+  }
+
+  /** @override */
+  protected axis(): void {
+    const xAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'x',
+    });
+    const yAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'y',
+    });
+    const axesConfig = { fields: {} };
+    axesConfig.fields[this.options.xField] = xAxis_parser;
+    axesConfig.fields[VALUE_FIELD] = yAxis_parser;
+    /** 存储坐标轴配置项到config */
+    this.setConfig('axes', axesConfig);
   }
 
   protected coord() {}
@@ -289,6 +307,14 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     if (legendOptions) {
       legendOptions.visible = false;
     }
+  }
+
+  /** 复写 meta 配置 */
+  private adjustMeta(options): void {
+    const metaOptions = options.meta;
+    const valueFieldMeta = metaOptions ? metaOptions[options.yField] : {};
+    valueFieldMeta.alias = valueFieldMeta.alias || options.yField;
+    options.meta[VALUE_FIELD] = valueFieldMeta;
   }
 }
 

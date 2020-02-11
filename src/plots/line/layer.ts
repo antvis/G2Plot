@@ -131,7 +131,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     this.setConfig('scales', scales);
     trySetScaleMinToZero(
       scales[props.yField],
-      _.map(props.data, (item) => item[props.yField])
+      _.map(props.data as any, (item) => item[props.yField])
     );
     super.scale();
   }

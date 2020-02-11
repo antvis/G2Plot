@@ -1,0 +1,86 @@
+.valueLabel {
+  text-align: center;
+  margin-top: 10px;
+
+  .valueLabelContainer {
+    font-size: 12px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .valueLabelMainName {
+    opacity: 0.6;
+    width: auto;
+    max-width: 110px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .value-label-desc {
+    top: 2px;
+    left: 2px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .valueLabelDesc {
+      color: #999;
+      cursor: pointer;
+    }
+
+    &:hover {
+      .value-label-content {
+        display: block;
+      }
+    }
+
+    .value-label-content {
+      display: none;
+      top: 14px;
+      white-space: nowrap;
+      position: absolute;
+      padding: 6px 8px;
+      min-width: 30px;
+      max-width: 500px;
+      max-height: 300px;
+      overflow: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;
+      color: #fff;
+      text-align: left;
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 2px;
+      box-shadow: 0 2px 8px 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .valueLabelMainValue {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #333;
+  }
+
+  .valueLabelSubName {
+    font-size: 12px;
+    line-height: 12px;
+    margin-top: 6px;
+    opacity: 0.6;
+  }
+
+  .valueLabelSubValue {
+    font-weight: bold;
+  }
+}
+
+.theme-black .valueLabel .valueLabelMainValue {
+  color: rgba(255, 255, 255, .8);
+}

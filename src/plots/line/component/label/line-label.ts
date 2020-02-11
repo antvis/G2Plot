@@ -1,4 +1,3 @@
-  
 import { each, deepMix, clone } from '@antv/util';
 import { Group, IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
@@ -6,115 +5,113 @@ import { View } from '@antv/g2';
 const DEFAULT_OFFSET = 8;
 
 export interface LineLabelConfig {
-    visible: boolean;
-    formatter?: (...args: any[]) => string;
-    offsetX?: number;
-    offsetY?: number;
-    style?: any;
+  visible: boolean;
+  formatter?: (...args: any[]) => string;
+  offsetX?: number;
+  offsetY?: number;
+  style?: any;
 }
 
 export interface ILineLabel extends LineLabelConfig {
-    view: View;
-    plot: any;
+  view: View;
+  plot: any;
 }
 
 export default class LineLabel {
-    public options: LineLabelConfig;
-    public destroyed: boolean = false;
-    private plot: any;
-    private view: View;
-    private container: Group;
+  public options: LineLabelConfig;
+  public destroyed: boolean = false;
+  private plot: any;
+  private view: View;
+  private container: Group;
 
-    constructor(cfg: ILineLabel) {
-        this.view = cfg.view;
-        this.plot = cfg.plot;
-        const defaultOptions = this.getDefaultOptions();
-        this.options = deepMix(defaultOptions, cfg, {});
-        this.init();
-    }
+  constructor(cfg: ILineLabel) {
+    this.view = cfg.view;
+    this.plot = cfg.plot;
+    const defaultOptions = this.getDefaultOptions();
+    this.options = deepMix(defaultOptions, cfg, {});
+    this.init();
+  }
 
-    protected init(){
-        this.container = this.getGeometry().labelsContainer;
-        this.view.on('beforerender', () => {
-            this.clear();
-            this.plot.canvas.draw();
-        });
-    }
+  protected init() {
+    this.container = this.getGeometry().labelsContainer;
+    this.view.on('beforerender', () => {
+      this.clear();
+      this.plot.canvas.draw();
+    });
+  }
 
-    public render(){
-        const elements = this.getGeometry().elements;
-        each(elements,(ele)=>{
-            const shapeInfo = this.getShapeInfo(ele.shape);
-            const { style, offsetX, offsetY } = this.options;
-            const formatter = this.options.formatter;
-            const content = formatter ? formatter(shapeInfo.name) : shapeInfo.name;
-            this.container.addShape('text',{
-                attrs: deepMix({}, style, {
-                    x: shapeInfo.x + offsetX,
-                    y: shapeInfo.y + offsetY,
-                    text: content,
-                    fill: shapeInfo.color,
-                    textAlign: 'left',
-                    textBaseline: 'middle',
-                  }),
-            });
-        });  
-    }
+  public render() {
+    const elements = this.getGeometry().elements;
+    each(elements, (ele) => {
+      const shapeInfo = this.getShapeInfo(ele.shape);
+      const { style, offsetX, offsetY } = this.options;
+      const formatter = this.options.formatter;
+      const content = formatter ? formatter(shapeInfo.name) : shapeInfo.name;
+      this.container.addShape('text', {
+        attrs: deepMix({}, style, {
+          x: shapeInfo.x + offsetX,
+          y: shapeInfo.y + offsetY,
+          text: content,
+          fill: shapeInfo.color,
+          textAlign: 'left',
+          textBaseline: 'middle',
+        }),
+      });
+    });
+  }
 
-    public clear() {
-        if (this.container) {
-          this.container.clear();
-        }
+  public clear() {
+    if (this.container) {
+      this.container.clear();
     }
+  }
 
-    public hide() {
-        this.container.set('visible', false);
-        this.plot.canvas.draw();
-    }
-    
-    public show() {
-        this.container.set('visible', true);
-        this.plot.canvas.draw();
-    }
+  public hide() {
+    this.container.set('visible', false);
+    this.plot.canvas.draw();
+  }
 
-    public destory() {
-        if (this.container) {
-          this.container.remove();
-        }
-        this.destroyed = true;
-    }
+  public show() {
+    this.container.set('visible', true);
+    this.plot.canvas.draw();
+  }
 
-    public getBBox() {}
-
-    private getDefaultOptions(){
-        const { theme } = this.plot;
-        const labelStyle = theme.label.style;
-        return {
-            offsetX: DEFAULT_OFFSET,
-            offsetY: 0,
-            style: clone(labelStyle),
-        };
+  public destory() {
+    if (this.container) {
+      this.container.remove();
     }
+    this.destroyed = true;
+  }
 
-    private getGeometry(){
-        const { geometries } = this.view;
-        let lineGeom;
-        each(geometries,(geom)=>{
-            if(geom.type === 'line'){
-                lineGeom = geom;
-            }
-        });
-        return lineGeom;
-    }
+  public getBBox() {}
 
-    private getShapeInfo(shape){
-        const originPoints =  shape.get('origin').points;
-        const lastPoint = originPoints[originPoints.length -1];
-        const color  = shape.attr('stroke');
-        const { seriesField  } = this.plot.options;
-        const name = shape.get('origin').data[0][seriesField]; 
-        return { x: lastPoint.x, y: lastPoint.y, color, name };
-    }
-    
+  private getDefaultOptions() {
+    const { theme } = this.plot;
+    const labelStyle = theme.label.style;
+    return {
+      offsetX: DEFAULT_OFFSET,
+      offsetY: 0,
+      style: clone(labelStyle),
+    };
+  }
+
+  private getGeometry() {
+    const { geometries } = this.view;
+    let lineGeom;
+    each(geometries, (geom) => {
+      if (geom.type === 'line') {
+        lineGeom = geom;
+      }
+    });
+    return lineGeom;
+  }
+
+  private getShapeInfo(shape) {
+    const originPoints = shape.get('origin').points;
+    const lastPoint = originPoints[originPoints.length - 1];
+    const color = shape.attr('stroke');
+    const { seriesField } = this.plot.options;
+    const name = shape.get('origin').data[0][seriesField];
+    return { x: lastPoint.x, y: lastPoint.y, color, name };
+  }
 }
-

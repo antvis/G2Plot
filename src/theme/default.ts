@@ -106,13 +106,13 @@ export const DEFAULT_GLOBAL_THEME = {
       autoRotateTitle: true,
       grid: {
         visible: true,
-        line:{
+        line: {
           style: {
             stroke: 'rgba(0, 0, 0, 0.15)',
             lineWidth: 1,
             lineDash: [0, 0],
           },
-        }
+        },
       },
       line: {
         visible: false,
@@ -155,13 +155,13 @@ export const DEFAULT_GLOBAL_THEME = {
       autoRotateTitle: false,
       grid: {
         visible: false,
-        line:{
+        line: {
           style: {
             stroke: 'rgba(0, 0, 0, 0.15)',
             lineWidth: 1,
             lineDash: [0, 0],
           },
-        }
+        },
       },
       line: {
         visible: false,
@@ -198,13 +198,13 @@ export const DEFAULT_GLOBAL_THEME = {
       autoRotateTitle: true,
       // gridType: 'line',
       grid: {
-        line:{
+        line: {
           style: {
             lineDash: null,
             lineWidth: 1,
             stroke: 'rgba(0, 0, 0, 0.15)',
           },
-        }
+        },
       },
       line: {
         style: {
@@ -263,6 +263,6 @@ export const DEFAULT_GLOBAL_THEME = {
     'g2-tooltip': {
       boxShadow: '0px 0px 8px rgba(0,0,0,0.15)',
     },
-    offset: 10
+    offset: 10,
   },
 };

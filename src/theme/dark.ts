@@ -42,13 +42,13 @@ export const DEFAULT_DARK_THEME = {
       autoRotateTitle: true,
       grid: {
         visible: true,
-        line:{
+        line: {
           style: {
             stroke: 'rgba(255, 255, 255, 0.15)',
             lineWidth: 1,
             lineDash: null,
           },
-        }
+        },
       },
       line: {
         visible: false,
@@ -91,14 +91,13 @@ export const DEFAULT_DARK_THEME = {
       autoRotateTitle: false,
       grid: {
         visible: false,
-        line:{
-        style: {
-          stroke: 'rgba(255, 255, 255, 0.15)',
-          lineWidth: 1,
-          lineDash: null,
+        line: {
+          style: {
+            stroke: 'rgba(255, 255, 255, 0.15)',
+            lineWidth: 1,
+            lineDash: null,
+          },
         },
-        }
-    
       },
       line: {
         visible: false,

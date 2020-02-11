@@ -4,7 +4,7 @@ import * as _ from '@antv/util';
 
 let plotInfo;
 
-function clipingWithData(shape, animateCfg,cfg) {
+function clipingWithData(shape, animateCfg, cfg) {
   const geometry = shape.get('element').geometry;
   /** 动画初始状态 */
   const index = shape.get('index');
@@ -12,7 +12,7 @@ function clipingWithData(shape, animateCfg,cfg) {
   const scales = geometry.scales;
   const yScale = scales[plotInfo.options.yField];
   const shapeData = _.clone(shape.get('origin'));
-  setClip(shape,coord);
+  setClip(shape, coord);
   const clip = shape.get('clipShape');
   const parent = shape.get('parent');
   const offsetX = 12;
@@ -90,7 +90,7 @@ function clipingWithData(shape, animateCfg,cfg) {
     animateCfg.callback,
     delay
   );
-  animateCfg.onFrame = (ratio) => {
+  (animateCfg.onFrame = (ratio) => {
     const position = getPositionByRatio(ratio, shapeData, coord, i);
     if (!position) return;
 
@@ -104,17 +104,13 @@ function clipingWithData(shape, animateCfg,cfg) {
     }
 
     marker.attr('text', yText);
-  },
-  marker.animate(
-    animateCfg.onFrame,
-    {
+  }),
+    marker.animate(animateCfg.onFrame, {
       duration: animateCfg.duration,
       easing,
       callback: animateCfg.callback,
-      delay
-    }
-
-  );
+      delay,
+    });
   if (title) {
     title.animate(
       {
@@ -133,10 +129,10 @@ function clipingWithData(shape, animateCfg,cfg) {
   }
 }
 
-function setClip(shape,coord) {
+function setClip(shape, coord) {
   const { start, end, width, height } = coord;
   shape.setClip({
-    type:'rect',
+    type: 'rect',
     attrs: {
       x: start.x,
       y: end.y,
@@ -186,7 +182,7 @@ function getLineLabel(view, name) {
   return label;
 }
 
-export function getPlotOption(option){
+export function getPlotOption(option) {
   plotInfo = option;
 }
 

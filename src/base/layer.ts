@@ -6,7 +6,6 @@ import { LAYER_EVENT_MAP } from '../util/event';
 import BBox from '../util/bbox';
 import { groupTransform } from '../util/g-util';
 
-
 export interface LayerConfig {
   id?: string;
   /** the top-left-x of layer, local position relative to the parent layer */
@@ -111,7 +110,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.beforeInit();
     this.init();
     this.afterInit();
-    groupTransform(this.container,[['t', this.x, this.y]]);
+    groupTransform(this.container, [['t', this.x, this.y]]);
     this.eachLayer((layer) => {
       layer.render();
     });

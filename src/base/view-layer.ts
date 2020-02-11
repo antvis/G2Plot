@@ -187,8 +187,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       annotations: [],
       interactions: [
         {
-          type:'tooltip'
-        }
+          type: 'tooltip',
+        },
       ],
       theme: this.theme,
       panelRange: {},
@@ -343,7 +343,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     /** scale meta配置 */
     // 1. this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
     // 2. 同时xAxis/yAxis中的type优先级更高，覆盖meta中的type配置
-    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig:any) => {
+    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig: any) => {
       const type = scaleConfig.type;
       return type ? { type } : {};
     });
@@ -361,7 +361,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       plot: this,
       dim: 'y',
     });
-    const axesConfig = { };
+    const axesConfig = {};
     axesConfig[this.options.xField] = xAxis_parser;
     axesConfig[this.options.yField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
@@ -605,7 +605,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         preCliper.remove();
       }
       cliperContainer.setClip({
-        type:'rect',
+        type: 'rect',
         attrs: {
           x: panelRange.minX,
           y: panelRange.minY,

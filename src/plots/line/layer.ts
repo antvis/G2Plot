@@ -171,7 +171,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       props.point = _.deepMix(defaultConfig, props.point);
     }
     if (props.point && props.point.visible) {
-     this.point = getGeom('point', 'guide', {
+      this.point = getGeom('point', 'guide', {
         plot: this,
       });
       this.setConfig('geometry', this.point);
@@ -211,15 +211,15 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
         getPlotOption({
           options: this.options,
-          view: this.view
+          view: this.view,
         });
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
-            options:{
-              test: true
+            options: {
+              test: true,
             },
             yField: props.yField,
             seriesField: props.seriesField,

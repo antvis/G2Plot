@@ -6,7 +6,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
-// import './animation/clipIn-with-data';
+import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
@@ -201,7 +201,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected animation() {
     super.animation();
-    /*const props = this.options;
+    const props = this.options;
     if (props.animation === false) {
       // 关闭动画
       this.line.animate = false;
@@ -209,11 +209,18 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     } else if (_.has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
       if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
+        getPlotOption({
+          options: this.options,
+          view: this.view
+        });
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
+            options:{
+              test: true
+            },
             yField: props.yField,
             seriesField: props.seriesField,
             plot: this,
@@ -224,7 +231,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
           this.point.animate = false;
         }
       }
-    }*/
+    }
   }
 
   protected applyInteractions() {

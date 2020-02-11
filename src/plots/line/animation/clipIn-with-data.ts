@@ -193,4 +193,6 @@ function getLineLabel(view, name) {
   return label;
 }
 
+clipingWithData.animationName = 'clipingWithData';
+
 Animate.registerAnimation('appear', 'clipingWithData', clipingWithData);

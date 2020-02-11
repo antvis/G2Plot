@@ -1,8 +1,9 @@
-import * as G from '@antv/g';
-import { Animate } from '@antv/g2';
+import * as G from '@antv/g-canvas';
+import { registerAnimation } from '@antv/g2';
 import * as _ from '@antv/util';
 
 function clipingWithData(shape, animateCfg) {
+  console.log(shape,animateCfg);
   /** 动画初始状态 */
   const index = shape.get('index');
   const coord = shape.get('coord');
@@ -142,7 +143,7 @@ function clipingWithData(shape, animateCfg) {
 
 function getClip(coord) {
   const { start, end, width, height } = coord;
-  const clip = new G.Shapes.Rect({
+  const clip = new G.Shape.Rect({
     attrs: {
       x: start.x,
       y: end.y,
@@ -193,4 +194,4 @@ function getLineLabel(view, name) {
   return label;
 }
 
-Animate.registerAnimation('appear', 'clipingWithData', clipingWithData);
+registerAnimation('appear', 'clipingWithData', clipingWithData);

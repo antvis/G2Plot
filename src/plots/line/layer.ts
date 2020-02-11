@@ -6,7 +6,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
-//import './animation/clipIn-with-data';
+// import './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
@@ -171,10 +171,9 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       props.point = _.deepMix(defaultConfig, props.point);
     }
     if (props.point && props.point.visible) {
-      this.point = getGeom('point', 'guide', {
+     this.point = getGeom('point', 'guide', {
         plot: this,
       });
-      this.point.active = false;
       this.setConfig('geometry', this.point);
     }
   }

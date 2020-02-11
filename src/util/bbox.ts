@@ -1,6 +1,6 @@
 interface PointType {
-    readonly x: number;
-    readonly y: number;
+  readonly x: number;
+  readonly y: number;
 }
 
 export default class BBox {

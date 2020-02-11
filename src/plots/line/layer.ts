@@ -6,14 +6,13 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
-//import './animation/clipIn-with-data';
+import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
-import './apply-responsive/theme';
-import './component/label/line-label';
-import './component/label/point-label';
+import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
 import { LineActive, LineSelect } from './interaction/index';
 import './theme';
+import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
 
 export interface LineStyle {
@@ -104,9 +103,17 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   public afterRender() {
     const props = this.options;
+    if (this.options.label && this.options.label.visible && this.options.label.type === 'line') {
+      const label = new LineLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
     // 响应式
     if (props.responsive && props.padding !== 'auto') {
-      this.applyResponsive('afterRender');
+      //this.applyResponsive('afterRender');
     }
     super.afterRender();
   }
@@ -154,7 +161,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     if (props.label) {
       this.label();
     }
-    this.setConfig('element', this.line);
+    this.setConfig('geometry', this.line);
   }
 
   protected addPoint() {
@@ -167,8 +174,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       this.point = getGeom('point', 'guide', {
         plot: this,
       });
-      this.point.active = false;
-      this.setConfig('element', this.point);
+      this.setConfig('geometry', this.point);
     }
   }
 
@@ -181,23 +187,21 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       return;
     }
 
-    /** label类型为line，即跟随在折线尾部时，设置offset为0 */
-    if (label.type === 'line') {
-      label.offset = 0;
+    /** label类型为point时，使用g2默认label */
+    if (label.type === 'point') {
+      this.line.label = getComponent('label', {
+        plot: this,
+        top: true,
+        labelType: label.type,
+        fields: [props.yField],
+        ...label,
+      });
     }
-
-    this.line.label = getComponent('label', {
-      plot: this,
-      top: true,
-      labelType: label.type,
-      fields: label.type === 'line' ? [props.seriesField] : [props.yField],
-      ...label,
-    });
   }
 
   protected animation() {
     super.animation();
-    /*const props = this.options;
+    const props = this.options;
     if (props.animation === false) {
       // 关闭动画
       this.line.animate = false;
@@ -205,11 +209,18 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     } else if (_.has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
       if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
+        getPlotOption({
+          options: this.options,
+          view: this.view,
+        });
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
+            options: {
+              test: true,
+            },
             yField: props.yField,
             seriesField: props.seriesField,
             plot: this,
@@ -220,7 +231,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
           this.point.animate = false;
         }
       }
-    }*/
+    }
   }
 
   protected applyInteractions() {

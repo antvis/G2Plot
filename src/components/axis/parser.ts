@@ -75,15 +75,15 @@ export default class AxisParser {
   private _gridParser() {
     const { grid: gridCfg } = this.localProps;
     const { style } = gridCfg;
+    console.log(gridCfg);
 
     if (_.isFunction(style)) {
-      // @see g2/component/src/axis/base:_renderGrid
       this.config.grid = (text: string, index: number, count: number) => {
         const cfg = style(text, index, count);
-        return _.deepMix({}, _.get(this.themeConfig, `grid.style`), cfg);
+        return {line: { style: _.deepMix({}, _.get(this.themeConfig, `grid.style`), cfg)}};
       };
     } else if (style) {
-      this.config.grid = style;
+      this.config.grid = { line: {style} };
       this.applyThemeConfig('grid');
     }
   }

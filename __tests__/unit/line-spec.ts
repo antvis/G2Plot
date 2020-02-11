@@ -270,17 +270,19 @@ const data2 = [
 
 describe('Line plot', () => {
   const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '600px';
-  canvasDiv.style.height = '600px';
+  canvasDiv.style.width = '400px';
+  canvasDiv.style.height = '400px';
+  //canvasDiv.style.position = 'absolute';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
-  canvasDiv.id = 'canvas1';
+  canvasDiv.style.top = '30px';
+  canvasDiv.style.display = 'block';
   document.body.appendChild(canvasDiv);
 
   it.only('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
-      width: 600,
-      height: 600,
+      width: 400,
+      height: 400,
       data: data1,
       xField: 'year',
       yField: 'value',
@@ -310,7 +312,7 @@ describe('Line plot', () => {
       yField: 'value',
       smooth: true,
     });
-    const plot = linePlot.getLayer().plot;
+    const plot = linePlot.getLayer().view;
     const elementShape = plot.config.elements[0].shape.values[0];
     expect(elementShape).toBe('smooth');
     linePlot.destroy();

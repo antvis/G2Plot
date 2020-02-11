@@ -154,7 +154,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     if (props.label) {
       this.label();
     }
-    this.setConfig('element', this.line);
+    this.setConfig('geometry', this.line);
   }
 
   protected addPoint() {

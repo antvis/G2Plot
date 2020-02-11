@@ -1,4 +1,5 @@
 import { DESCRIPTION_BOTTOM_MARGIN, TOP_BLEEDING, BOTTOM_BLEEDING } from './default';
+import line from '../geoms/line';
 
 export const DEFAULT_DARK_THEME = {
   backgroundStyle: {
@@ -41,11 +42,13 @@ export const DEFAULT_DARK_THEME = {
       autoRotateTitle: true,
       grid: {
         visible: true,
-        style: {
-          stroke: 'rgba(255, 255, 255, 0.15)',
-          lineWidth: 1,
-          lineDash: [0, 0],
-        },
+        line:{
+          style: {
+            stroke: 'rgba(255, 255, 255, 0.15)',
+            lineWidth: 1,
+            lineDash: null,
+          },
+        }
       },
       line: {
         visible: false,
@@ -88,11 +91,14 @@ export const DEFAULT_DARK_THEME = {
       autoRotateTitle: false,
       grid: {
         visible: false,
+        line:{
         style: {
           stroke: 'rgba(255, 255, 255, 0.15)',
           lineWidth: 1,
-          lineDash: [0, 0],
+          lineDash: null,
         },
+        }
+    
       },
       line: {
         visible: false,

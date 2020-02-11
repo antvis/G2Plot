@@ -79,9 +79,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: {
-          type: 'y',
-        },
+        showCrosshairs: true,
+        crosshairs: 'y',
+        offset: 20,
       },
       xAxis: {
         visible: true,
@@ -112,6 +112,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         autoRotateTitle: true,
         grid: {
           visible: true,
+          style:{
+            lineDash:[0,0]
+          }
         },
         line: {
           visible: false,
@@ -213,8 +216,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.paddingController.clearOuterComponents();
 
     this.view = new G2.View({
-      width: this.width,
-      height: this.height,
       canvas: this.canvas,
       foregroundGroup: this.container.addGroup(),
       middleGroup: this.container.addGroup(),
@@ -225,7 +226,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       start: { x: this.viewRange.minX, y: this.viewRange.minY },
       end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
     });
-    //this.applyInteractions();
+    console.log(this.config);
+    this.applyInteractions();
     this.view.on('afterrender', () => {
       this.afterRender();
     });
@@ -344,7 +346,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     /** scale meta配置 */
     // 1. this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
     // 2. 同时xAxis/yAxis中的type优先级更高，覆盖meta中的type配置
-    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig) => {
+    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig:any) => {
       const type = scaleConfig.type;
       return type ? { type } : {};
     });
@@ -362,9 +364,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       plot: this,
       dim: 'y',
     });
-    const axesConfig = { fields: {} };
-    axesConfig.fields[this.options.xField] = xAxis_parser;
-    axesConfig.fields[this.options.yField] = yAxis_parser;
+    const axesConfig = { };
+    axesConfig[this.options.xField] = xAxis_parser;
+    axesConfig[this.options.yField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);
   }
@@ -445,7 +447,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   /** 设置G2 config，带有类型推导 */
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
-    if (key === 'element') {
+    if (key === 'geometry') {
       this.config.geometries.push(config as G2Config['geometry']);
       return;
     }
@@ -488,7 +490,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         text: props.title.text,
         style: _.mix(theme.title, props.title.style),
         wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
-        container: this.container.addGroup(),
+        container: this.container.addGroup() as any,
         theme,
         index: isTextUsable(props.description) ? 0 : 1,
         plot: this,
@@ -527,7 +529,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         text: props.description.text,
         style: _.mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
-        container: this.container.addGroup() as Group,
+        container: this.container.addGroup() as any,
         theme,
         index: 1,
         plot: this,

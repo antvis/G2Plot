@@ -1,42 +1,21 @@
 ---
-title: Grouped-Column 分组柱状图
-order: 5
+title: API
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8nw0SqtQJ6AAAAAAAAAAAABkARQnAQ" width="400">
+# 数据类型
 
-## 图表故事
+区间柱状图的数据结构为一个分类字段及一个由数值 Array 构成的连续字段。
 
-分组柱状图是柱状图的扩展形式，适合于在同一个轴上展示不同维度下相同分类的数据。相比于堆叠柱状图，分组柱状图更适合进行不同维度下同一分类的横向数值的比较，但缺点是无法直观的看到各维度总和的对比。
-
-分组柱状图和堆叠柱状图是一对“矛盾”，一方的缺点恰恰是另一方的优点，可以根据具体场景选择使用。
-
-## 数据类型
-
-分组柱状图适合的数据类型为两个**分类字段**（分类字段、分组字段）和一个**连续字段**（数值）。在下面这个例子中，`type`为分类数据字段，`quarter`为分组数据字段，`value`为离散数据字段。
+示例数据：
 
 ```js
-const data = [
-  { type: 'a', quarter: 'Q1', value: 100 },
-  { type: 'a', quarter: 'Q2', value: 70 },
-  { type: 'a', quarter: 'Q3', value: 20 },
-  { type: 'b', quarter: 'Q1', value: 10 },
-  { type: 'b', quarter: 'Q2', value: 50 },
-  { type: 'b', quarter: 'Q3', value: 40 },
-  { type: 'c', quarter: 'Q1', value: 30 },
-  { type: 'c', quarter: 'Q2', value: 50 },
-  { type: 'c', quarter: 'Q3', value: 20 },
-];
+{
+  level:'E',
+  values: [10,50]
+}
 ```
 
-图表绘制时，每一个分类对应一组柱子，映射到 x 轴，而分组字段决定一组柱子的分布情况，而连续字段决定柱子的高度，映射到 y 轴。
-
-## 图表用法
-
-- **Dont's**
-
-  - 分类数目过多，这将使数据变得难以比较
-  - y 轴不以 0 值为起点，将有可能导致柱状图显示错误的比例关系
+以示例数据举例，在区间柱状图中，分类字段 level 映射到 X 轴，而连续字段 values 映射到 Y 轴，values 的两个值分别决定了柱形在 Y 方向上的伸展区域。
 
 ## API
 
@@ -44,11 +23,26 @@ const data = [
 
 ### 特殊配置
 
-#### groupField
+#### data
 
-**reqiured**, string 类型
+**required**
 
-数据集中的分组字段名，通过该字段的值，柱子将会被分为多个组，通过颜色进行区分。
+数据源为对象集合，例如：`[{ segment: 分类一，values: [ 20, 50 ] }, { segment: 分类二，value: [10, 40] }]`。
+
+#### label
+
+**optional**
+
+`visible: boolean` 图形标签是否显示 <br />
+`position: 'outer' | 'inner'` 图形标签位于柱形的内部还是两端 <br />
+`formatter: function` 对 label 的显示文本进行格式化 <br />
+`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量 <br />
+`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量 <br />
+`style: object` 配置 label 样式 <br />
+`topStyle: object` 配置上部 label 样式，优先级高于`style` <br />
+`bottomStyle: object` 配置下部 label 样式, 优先级高于`style` <br />
+`adjustColor: boolean` 是否根据图形颜色自动调整 label 颜色，仅在 position 为 inner 时有效 <br />
+`adjustPosition: boolean` 当图形无法容纳 label 时是否自动调整位置，仅在 position 为 inner 时有效
 
 ---
 

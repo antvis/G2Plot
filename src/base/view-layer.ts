@@ -78,6 +78,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       tooltip: {
         visible: true,
+        follow: false,
         shared: true,
         showCrosshairs: true,
         crosshairs: 'y',
@@ -112,9 +113,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         autoRotateTitle: true,
         grid: {
           visible: true,
-          style:{
-            lineDash:[0,0]
-          }
         },
         line: {
           visible: false,
@@ -226,7 +224,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       start: { x: this.viewRange.minX, y: this.viewRange.minY },
       end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
     });
-    console.log(this.config);
     this.applyInteractions();
     this.view.on('afterrender', () => {
       this.afterRender();

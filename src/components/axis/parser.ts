@@ -75,7 +75,6 @@ export default class AxisParser {
   private _gridParser() {
     const { grid: gridCfg } = this.localProps;
     const { style } = gridCfg;
-    console.log(gridCfg);
 
     if (_.isFunction(style)) {
       this.config.grid = (text: string, index: number, count: number) => {

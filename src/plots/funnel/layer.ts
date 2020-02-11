@@ -59,7 +59,7 @@ export interface FunnelViewConfig extends ViewConfig {
   transpose?: boolean;
   dynamicHeight?: boolean;
   compareField?: string;
-  compareText: Partial<{
+  compareText?: Partial<{
     visible: boolean;
     offsetX: number;
     offsetY: number;

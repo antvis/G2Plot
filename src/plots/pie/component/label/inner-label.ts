@@ -1,10 +1,7 @@
-import { LabelItem } from '@antv/component/lib/interface';
-import Polar from '@antv/coord/lib/coord/polar';
-import { Shape } from '@antv/g';
-import { registerGeometryLabel } from '@antv/g2';
-import * as _ from 'lodash';
-import { getEndPoint, getOverlapInfo } from './utils';
-import BaseLabel from './base-label';
+import { IShape } from '@antv/g-canvas';
+import * as _ from '@antv/util';
+import PieBaseLabel, { ShapeInfo } from './base-label';
+import { getOverlapInfo } from './utils';
 import { distBetweenPoints } from '../../../../util/math';
 
 export function percent2Number(value: string): number {
@@ -12,54 +9,45 @@ export function percent2Number(value: string): number {
   return percentage / 100;
 }
 
-/**
- * @desc 饼图 inner-label 布局
- * @done
- */
-class InnerLabel extends BaseLabel {
-  public adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar) {
-    const center = coord.getCenter();
-    const radius = coord.getRadius();
-    const offset = this.getOffsetOfLabel();
-    const r = radius + offset;
-    labels.forEach((label, idx) => {
-      const anchor = items.find((i) => i.id === label.id);
-      const { x: newX, y: newY } = getEndPoint(center, anchor.angle, r);
-      label.attr('x', newX);
-      label.attr('y', newY);
-      label.attr('textBaseline', 'middle');
+export default class PieInnerLabel extends PieBaseLabel {
 
+  /** @override 不能大于0 */
+  protected getOffsetOption(): number {
+    let offset = super.getOffsetOption();
+    return offset > 0 ? 0 : offset;
+  }
+
+  protected layout(labels: IShape[], shapeInfos: ShapeInfo[]) {
+    labels.forEach((label, idx) => {
       if (idx > 0) {
-        const prevLabel = labels[idx - 1];
-        this.resolveCollision(label, prevLabel, anchor, coord);
+        _.each(labels.slice(0, idx), (prevLabel) => {
+          this.resolveCollision(label, prevLabel, shapeInfos[idx]);
+        });
       }
     });
   }
 
-  /** @override inner布局不需要拉线 */
-  public adjustLines(labels: Shape[], items: LabelItem[], labelLines: any[], coord: Polar) {
-    labelLines.forEach((l) => l.set('visible', false));
-  }
-
-  /** @override */
-  protected adjustLabelText() {}
-
-  /** @override 不能大于0 */
-  protected getOffsetOfLabel(): number {
-    const labelOptions = this.get('labelOptions');
-    let offset = labelOptions.offset;
-    const radius = this.get('coord').getRadius();
-    if (_.isString(offset)) {
-      offset = radius * percent2Number(offset);
-    }
-    return offset > 0 ? 0 : offset;
+  protected getDefaultOptions() {
+    const { theme } = this.plot;
+    const labelStyle = theme.label.style;
+    return {
+      offsetX: 0,
+      offsetY: 0,
+      offset: '-30%',
+      style: {
+        ...labelStyle,
+        textAlign: 'center',
+        textBaseline: 'middle',
+      },
+    };
   }
 
   /** label 碰撞调整 */
-  private resolveCollision(label: Shape, prev: Shape, anchor: LabelItem, coord: Polar): void {
-    const angle = anchor.angle;
+  protected resolveCollision(label: IShape, prev: IShape, shapeInfo: ShapeInfo): void {
+    const { center } = this.getCoord();
+    const angle = shapeInfo.angle;
     const box = label.getBBox();
-    const prevBBox = prev.getBBox();
+    const prevBBox = prev.getBBox();    
     const pos = { x: (box.minX + box.maxX) / 2, y: (box.minY + box.maxY) / 2 };
     // 两种调整方案
     /** 先偏移 x 方向 -> 再计算 y 位置 */
@@ -67,7 +55,7 @@ class InnerLabel extends BaseLabel {
     /** 先偏移 y 方向 -> 再计算 x 位置 */
     const pos2 = _.clone(pos);
     // check overlap
-    if (prev.id !== label.id) {
+    if (prev.get('id') !== label.get('id')) {
       const { xOverlap, yOverlap } = getOverlapInfo(box, prevBBox);
       if (xOverlap) {
         pos1.x = pos.x + xOverlap;
@@ -76,7 +64,6 @@ class InnerLabel extends BaseLabel {
       if (yOverlap) {
         // fix issue-460
         let yMover = yOverlap;
-        const center = coord.getCenter();
         if (pos.y < center.y) {
           // 上方label优先往上偏移
           yMover = yMover < 0 ? yMover : prevBBox.minY - box.maxY;
@@ -97,5 +84,3 @@ class InnerLabel extends BaseLabel {
     }
   }
 }
-
-registerGeometryLabel('inner', InnerLabel);

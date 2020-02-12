@@ -26,8 +26,6 @@ const PLOT_GEOM_MAP = {
 
 export interface BarViewConfig extends ViewConfig {
   colorField?: string;
-  // 图形
-  type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
   barSize?: number;
   maxWidth?: number;
@@ -178,9 +176,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('axes', axesConfig);
   }
 
-  protected adjustBar(bar: ElementOption) {
-    return;
-  }
+  protected adjustBar(bar: ElementOption) {}
 
   protected addGeometry() {
     const props = this.options;
@@ -188,6 +184,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       positionFields: [props.yField, props.xField],
       plot: this,
     });
+    if(bar.color && !_.hasKey(bar.color,'fields')){
+      bar.color.fields = [props.yField];
+    }
     if (props.label) {
       // bar.label = this.extractLabel();
     }

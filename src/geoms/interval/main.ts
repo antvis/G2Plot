@@ -28,7 +28,7 @@ export default class IntervalParser extends ElementParser {
   public parseColor() {
     const props = this.plot.options;
     const colorField = this._getColorMappingField(props);
-    const config: DataPointType = {};
+    const config: DataPointType = {fields:[props.xField]};
     if (colorField) {
       config.fields = colorField;
     }

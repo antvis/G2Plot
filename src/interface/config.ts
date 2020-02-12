@@ -5,7 +5,7 @@
  * 2. 如果是枚举值，不使用enum，全部列出
  * 3. 减少嵌套，尽量平铺配置
  */
-import { Option } from '@antv/g2';
+import { Options } from '@antv/g2/lib/chart/interface';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
 import { LooseMap } from './types';
@@ -186,20 +186,7 @@ export interface ElementOption {
   };
 }
 
-export interface G2Config {
-  scales: Option.ScalesOption;
-  legends: Option.LegendOption | Option.LegendsOption | boolean;
-  tooltip: Option.TooltipOption | boolean;
-  axes: Option.AxesOption | boolean;
-  coord: Option.CoordinateOption;
-  geometry?: ElementOption;
-  geometries: ElementOption[];
-  annotations: any[];
-  interactions: {};
-  theme: any;
-  panelRange: any;
-  animate: any;
-}
+export interface G2Config extends Options {}
 
 export interface IColorConfig {
   fields?: string[];
@@ -294,5 +281,5 @@ export interface Point {
 }
 
 export interface DataItem {
-  [field: string]: string | number | null | undefined;
+  [field: string]: string | number | number[] | null | undefined;
 }

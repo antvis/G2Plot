@@ -1,4 +1,3 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import ElementParser from '../base';
 
@@ -28,7 +27,7 @@ export default class IntervalParser extends ElementParser {
   public parseColor() {
     const props = this.plot.options;
     const colorField = this._getColorMappingField(props);
-    const config: DataPointType = {fields:[props.xField]};
+    const config:any = {};
     if (colorField) {
       config.fields = colorField;
     }
@@ -51,7 +50,7 @@ export default class IntervalParser extends ElementParser {
 
   public parseSize(sizeProps) {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config:any = {};
     if (_.isFunction(props[sizeProps])) {
       config.fields = [this.config.position.fields];
       config.callback = props[sizeProps];
@@ -63,7 +62,7 @@ export default class IntervalParser extends ElementParser {
 
   public parseStyle(styleProps) {
     const style = this.plot.options[styleProps];
-    const config: DataPointType = {};
+    const config: any = {};
     if (_.isFunction(style)) {
       config.fields = [this.config.position.fields];
       config.callback = style;

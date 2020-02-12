@@ -59,6 +59,11 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
           offset: 12,
         },
       },
+      legend: {
+        visible: true,
+        position: 'top-left',
+        offsetY: 0
+      },
     });
   }
 

@@ -10,6 +10,7 @@ import responsiveMethods from './apply-responsive';
 // import './component/label/bar-label';
 import * as EventParser from './event';
 import './theme';
+import ringThickness from '../../util/responsive/constraints/ring-thickness';
 
 interface BarStyle {
   opacity?: number;
@@ -92,7 +93,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         adjustColor: true,
       },
       legend: {
-        visible: true,
+        visible: false,
         position: 'top-left',
       },
     };
@@ -101,6 +102,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   public bar: any;
   public type: string = 'bar';
+  private renderTime = 0;
 
   public beforeInit() {
     super.beforeInit();
@@ -112,6 +114,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   public afterRender() {
+    this.renderTime +=1;
     const props = this.options;
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
@@ -185,7 +188,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       plot: this,
     });
     if(bar.color && !_.hasKey(bar.color,'fields')){
-      bar.color.fields = [props.yField];
+      bar.color.fields = [props.xField];
     }
     if (props.label) {
       // bar.label = this.extractLabel();

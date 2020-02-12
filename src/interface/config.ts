@@ -6,8 +6,7 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { Options } from '@antv/g2/lib/chart/interface';
-import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
-import { AdjustCfg } from '@antv/g2/lib/interface';
+import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/geometry/interface';
 import { LooseMap } from './types';
 
 export interface ITitle {
@@ -173,13 +172,13 @@ export interface ElementOption {
   position: {
     fields: string[];
   };
-  color?: AttributeCfg;
-  size?: AttributeCfg;
-  shape?: AttributeCfg;
+  color?: AttributeOption;
+  size?: AttributeOption;
+  shape?: AttributeOption;
   style?: IStyleConfig;
-  label?: LabelOptions | false;
+  label?: LabelOption | false;
   animate?: {};
-  adjust?: AdjustCfg[];
+  adjust?: AdjustOption[];
   connectNulls?: boolean;
   widthRatio?: {
     [type: string]: number;

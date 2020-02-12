@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
 import { registerShape } from '@antv/g2';
 import { GaugeViewConfig } from '../../options';
-import { CONST_SIZE } from './options';
 
 interface PointerStyle {
   /** 指针颜色 */
@@ -159,7 +158,6 @@ export class GaugeShape {
         const { starAngle, endAngle } = this.getAngleRange();
         const { background } = this.gauge.ringStyle;
         const path = this.getPath(starAngle, endAngle);
-        console.log('drawBottomRing', starAngle, endAngle, path, background);
         this.drawRing(path, background);
       },
 

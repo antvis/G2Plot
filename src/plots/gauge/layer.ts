@@ -197,6 +197,67 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.setConfig('element', pointer);
   }
 
+  protected annotation() {
+    const { statistic } = this.options;
+    const annotationConfigs = [];
+
+    // @ts-ignore
+    if (statistic !== false) {
+      const statistics = this.renderStatistic();
+      console.log(statistics, 'statistics');
+      annotationConfigs.push(statistics);
+    }
+
+    this.setConfig('annotations', annotationConfigs);
+  }
+
+  private statisticHtml() {
+    const { value, format } = this.options;
+    const statistic: any = this.options.statistic;
+    const formatted: string = format(value);
+
+    if (typeof statistic === 'boolean' && statistic === true) {
+      return value !== null ? formatted : '--';
+    }
+    if (typeof statistic === 'string') {
+      return statistic;
+    }
+    if (typeof statistic === 'function') {
+      return statistic(value, formatted);
+    }
+    return null;
+  }
+
+  private renderStatistic() {
+    const { statistic, styleMix } = this.options;
+    const statisticHtml: string | HTMLElement | null = this.statisticHtml();
+
+    if (typeof statistic !== 'function') {
+      const text = {
+        type: 'text',
+        content: statisticHtml,
+        top: true,
+        position: styleMix.statisticPos,
+        style: {
+          fill: styleMix.statisticColor,
+          fontSize: styleMix.statisticSize,
+          textAlign: 'center',
+        },
+      };
+      return text;
+    }
+
+    if (typeof statistic === 'function') {
+      const html = {
+        type: 'html',
+        zIndex: 10,
+        position: styleMix.statisticPos,
+        html: statisticHtml,
+      };
+      return html;
+    }
+  }
+
 }
 
 registerPlotType('gauge', GaugeLayer);

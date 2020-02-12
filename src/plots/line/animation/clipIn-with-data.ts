@@ -1,5 +1,4 @@
-import * as G from '@antv/g';
-import { Animate } from '@antv/g2';
+import * as G from '@antv/g-canvas';
 import * as _ from '@antv/util';
 
 function clipingWithData(shape, animateCfg) {

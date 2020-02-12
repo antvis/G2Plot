@@ -1,6 +1,7 @@
 import { isNil, some, isNumber, filter } from '@antv/util';
 import { timeIntervals } from '../interface/config';
 import { ScaleConfig } from '@antv/scale';
+import { DataItem } from '../interface/config';
 
 function adjustTimeTickInterval(interval: string) {
   const intervals = timeIntervals;
@@ -50,7 +51,7 @@ export function extractScale(desScale, axisConfig) {
   }
 }
 
-export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | string | undefined | null)[]) {
+export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | number[] | string | undefined | null)[]) {
   const validData: number[] = filter(data, (v) => isNumber(v)) as number[];
   const min = Math.min(...validData);
   const max = Math.max(...validData);

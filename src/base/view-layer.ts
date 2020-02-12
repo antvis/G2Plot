@@ -23,6 +23,7 @@ import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
+import BBox from '../util/bbox';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -78,7 +79,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       tooltip: {
         visible: true,
-        follow: false,
         shared: true,
         showCrosshairs: true,
         crosshairs: 'y',
@@ -178,11 +178,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       scales: {},
       legends: {},
       tooltip: {
-        follow: true,
         showTitle: true,
       },
       axes: { fields: {} },
-      coord: { type: 'cartesian' },
+      coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
       interactions: [
@@ -212,8 +211,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.viewRange = this.getViewRange();
     this.paddingController.clearOuterComponents();
+    const region = this.viewRangeToRegion(this.viewRange);
 
     this.view = new G2.View({
+      parent: null,
       canvas: this.canvas,
       foregroundGroup: this.container.addGroup(),
       middleGroup: this.container.addGroup(),
@@ -221,8 +222,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
-      start: { x: this.viewRange.minX, y: this.viewRange.minY },
-      end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
+      region,
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -399,7 +399,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected annotation() {
     const config = [];
-    if (this.config.coord.type === 'cartesian' && this.options.guideLine) {
+    if (this.config.coordinate.type === 'cartesian' && this.options.guideLine) {
       _.each(this.options.guideLine, (line) => {
         const guideLine = getComponent('guideLine', {
           plot: this,
@@ -416,7 +416,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
-      this.config.animate = false;
+      this.setConfig('animate', false);
     }
   }
 
@@ -592,6 +592,21 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
     const viewRange = this.paddingController.processOuterPadding();
     return viewRange;
+  }
+
+  private viewRangeToRegion(viewRange) {
+    const { width, height } = this;
+    const start = { x: 0, y: 0 },
+      end = { x: 1, y: 1 };
+    start.x = viewRange.minX / width;
+    start.y = viewRange.minY / height;
+    end.x = viewRange.maxX / width;
+    end.y = viewRange.maxY / height;
+
+    return {
+      start,
+      end,
+    };
   }
 
   // 临时解决scale min & max的图形截取

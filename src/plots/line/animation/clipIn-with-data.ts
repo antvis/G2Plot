@@ -1,4 +1,3 @@
-import * as G from '@antv/g-canvas';
 import { registerAnimation } from '@antv/g2';
 import * as _ from '@antv/util';
 
@@ -159,27 +158,6 @@ function getPositionByRatio(ratio, dataPoints, coord, index) {
 function getDataByPosition(scale, y, coord) {
   const yRatio = (y - coord.start.y) / (coord.end.y - coord.start.y);
   return scale.invert(yRatio).toFixed(2);
-}
-
-function getLineLabel(view, name) {
-  let label;
-  const geometries = view.geometries;
-  _.each(geometries, (geom) => {
-    if (geom.get('type') === 'line') {
-      if (e.get('labelController')) {
-        const labelContainer = e.get('labelController').labelsContainer;
-        if (labelContainer) {
-          const labels = labelContainer.get('labelsRenderer').getLabels();
-          _.each(labels, (l) => {
-            if (l.attr('text') === name) {
-              label = l;
-            }
-          });
-        }
-      }
-    }
-  });
-  return label;
 }
 
 export function getPlotOption(option) {

@@ -5,9 +5,8 @@
  * 2. 如果是枚举值，不使用enum，全部列出
  * 3. 减少嵌套，尽量平铺配置
  */
-import { Option } from '@antv/g2';
-import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
-import { AdjustCfg } from '@antv/g2/lib/interface';
+import { Options } from '@antv/g2/lib/chart/interface';
+import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/geometry/interface';
 import { LooseMap } from './types';
 
 export interface ITitle {
@@ -153,9 +152,12 @@ export interface Tooltip {
   containerTpl?: string;
   itemTpl?: string;
   /** 辅助线 */
-  crosshair?: 'x' | 'y' | 'cross' | boolean;
-  crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
+  //crosshair?: 'x' | 'y' | 'cross' | boolean;
+  //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
+  showCrosshairs?: boolean;
+  crosshairs?: 'x' | 'y' | 'cross';
   style?: IStyleConfig;
+  offset?: number;
 }
 
 interface Animation {
@@ -173,35 +175,20 @@ export interface ElementOption {
   position: {
     fields: string[];
   };
-  color?: AttributeCfg;
-  size?: AttributeCfg;
-  shape?: AttributeCfg;
+  color?: AttributeOption;
+  size?: AttributeOption;
+  shape?: AttributeOption;
   style?: IStyleConfig;
-  label?: LabelOptions | false;
+  label?: LabelOption | false;
   animate?: {};
-  adjust?: AdjustCfg[];
+  adjust?: AdjustOption[];
   connectNulls?: boolean;
   widthRatio?: {
     [type: string]: number;
   };
 }
 
-export interface G2Config {
-  data: DataItem[];
-  scales: Option.ScalesOption;
-  legends: Option.LegendOption | Option.LegendsOption | boolean;
-  tooltip: Option.TooltipOption | boolean;
-  axes: Option.AxesOption | boolean;
-  coord: Option.CoordinateOption;
-  geometry?: ElementOption;
-  geometries: ElementOption[];
-  annotations: any[];
-  interactions: any[];
-  theme: any;
-  panelRange: any;
-  animate: any;
-  views: any[];
-}
+export interface G2Config extends Options {}
 
 export interface IColorConfig {
   fields?: string[];
@@ -296,5 +283,5 @@ export interface Point {
 }
 
 export interface DataItem {
-  [field: string]: string | number | null | undefined;
+  [field: string]: string | number | number[] | null | undefined;
 }

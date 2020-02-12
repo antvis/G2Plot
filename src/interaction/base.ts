@@ -1,4 +1,4 @@
-import { BBox } from '@antv/g-canvas';
+import BBox from '../util/bbox';
 import { Interaction, View } from '@antv/g2';
 import ViewLayer from '../base/view-layer';
 import { IInteractionConfig } from '../interface/config';

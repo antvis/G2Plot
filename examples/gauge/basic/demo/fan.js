@@ -36,10 +36,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   max: 100,
   range: [0, 70],
   format: (v) => {
-    if (v === 0 || v === 100) {
-      return v + '%';
-    }
-    return '';
+    return v + '%';
   },
   statistic: () => {
     return '<div class="g2plot-gauge-label"><p class="title">70%</p><p class="value">系统进度</p></div>';

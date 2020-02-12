@@ -124,7 +124,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     const coordConfig = {
       type: 'polar' as CoordinateType,
       cfg: {
-        radius: 0.9,
+        radius: 1,
         startAngle: this.options.startAngle * Math.PI,
         endAngle: this.options.endAngle * Math.PI,
       },
@@ -150,34 +150,44 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       },
     };
 
-    axesConfig.fields.value = {
-      line: null,
-      grid: null,
-      label: {
-        offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 1.5),
-        textStyle: {
-          fontSize: styleMix.tickLabelSize,
-          fill: styleMix.tickLabelColor,
-          textAlign: 'center',
-          textBaseline: 'middle',
+    if (style === 'fan') {
+      /** 扇形仪表盘不渲染 axes 值 */
+      axesConfig.fields.value = {
+        grid: null,
+        line: null,
+        label: null,
+        tickLine: null,
+      };
+    } else {
+      axesConfig.fields.value = {
+        line: null,
+        grid: null,
+        label: {
+          offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 1.5),
+          textStyle: {
+            fontSize: styleMix.tickLabelSize,
+            fill: styleMix.tickLabelColor,
+            textAlign: 'center',
+            textBaseline: 'middle',
+          },
         },
-      },
-      tickLine: {
-        length: offset * (styleMix.stripWidth + 4),
-        stroke: styleMix.tickLineColor,
-        lineWidth: 2,
-        // 由于tickline的zindex在annotation之上，所以使用lineDash实现offset
-        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 4))],
-      },
-      subTickCount: styleMix.subTickCount,
-      subTickLine: {
-        length: offset * (styleMix.stripWidth + 1),
-        stroke: styleMix.tickLineColor,
-        lineWidth: 1,
-        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
-      },
-      labelAutoRotate: true,
-    };
+        tickLine: {
+          length: offset * (styleMix.stripWidth + 4),
+          stroke: styleMix.tickLineColor,
+          lineWidth: 2,
+          // 由于tickline的zindex在annotation之上，所以使用lineDash实现offset
+          lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 4))],
+        },
+        subTickCount: styleMix.subTickCount,
+        subTickLine: {
+          length: offset * (styleMix.stripWidth + 1),
+          stroke: styleMix.tickLineColor,
+          lineWidth: 1,
+          lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
+        },
+        labelAutoRotate: true,
+      };
+    }
     axesConfig.fields['1'] = false;
     this.setConfig('axes', axesConfig);
   }
@@ -204,17 +214,43 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   }
 
   protected annotation() {
-    const { statistic } = this.options;
+    const { statistic, style } = this.options;
     const annotationConfigs = [];
-
+    let siderTexts = [];
     // @ts-ignore
     if (statistic !== false) {
       const statistics = this.renderStatistic();
-      console.log(statistics, 'statistics');
       annotationConfigs.push(statistics);
     }
 
-    this.setConfig('annotations', annotationConfigs);
+    if (style === 'fan') {
+      siderTexts = this.renderSideText();
+    }
+
+    const allAnnotations = annotationConfigs.concat(siderTexts)
+    this.setConfig('annotations', allAnnotations);
+  }
+
+  protected renderSideText() {
+    const { max, min, styleMix, format, style } = this.options;
+    const ringStyle = this.getCustomStyle(style).ringStyle;
+    const OFFSET_Y = 12;
+    console.log(styleMix, 'styleMix');
+    return [min, max].map((value, index) => {
+      return {
+        type: 'text',
+        top: true,
+        position: ['50%', '50%'],
+        content: format(value),
+        style: {
+          fill: styleMix.labelColor, // 文本颜色
+          fontSize: styleMix.tickLabelSize, // 文本大小
+          textAlign: 'center',
+        },
+        offsetX: !index ? -ringStyle.thickness : ringStyle.thickness,
+        offsetY: OFFSET_Y,
+      };
+    });
   }
 
   private statisticHtml() {

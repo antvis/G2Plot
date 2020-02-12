@@ -190,7 +190,6 @@ export class GaugeShape {
         }
       },
 
-
       drawAxis() {
         const { axis } = this.gauge.ringStyle;
         const { amount, length, thickness } = axis;

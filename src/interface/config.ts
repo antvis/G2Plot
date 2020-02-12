@@ -192,7 +192,7 @@ export interface G2Config {
   legends: Option.LegendOption | Option.LegendsOption | boolean;
   tooltip: Option.TooltipOption | boolean;
   axes: Option.AxesOption | boolean;
-  coord: Option.CoordinateOption;
+  coordinate: Option.CoordinateOption;
   geometry?: ElementOption;
   geometries: ElementOption[];
   annotations: any[];

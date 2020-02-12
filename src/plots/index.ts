@@ -1,4 +1,5 @@
 export { default as Line, LineConfig } from './line';
+export { default as Pie, PieConfig } from './pie';
 /*export { default as Density, DensityConfig } from './density';
 export { default as Column, ColumnConfig } from './column';
 export { default as Bubble, BubbleConfig } from './bubble';
@@ -11,7 +12,6 @@ export { default as Bar, BarConfig } from './bar';
 export { default as StackBar, StackBarConfig } from './stack-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './percentage-stack-bar';
 export { default as GroupBar, GroupBarConfig } from './group-bar';
-export { default as Pie, PieConfig } from './pie';
 export { default as Ring, RingConfig } from './ring';
 export { default as Radar, RadarConfig } from './radar';
 export { default as Liquid, LiquidConfig } from './liquid';

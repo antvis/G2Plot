@@ -1,4 +1,5 @@
 export { default as Line, LineConfig } from './line';
+export { default as Bar, BarConfig } from './bar';
 /*export { default as Density, DensityConfig } from './density';
 export { default as Column, ColumnConfig } from './column';
 export { default as Bubble, BubbleConfig } from './bubble';
@@ -7,7 +8,6 @@ export { default as GroupColumn, GroupColumnConfig } from './group-column';
 export { default as StackColumn, StackColumnConfig } from './stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
 export { default as Histogram, HistogramConfig } from './histogram';
-export { default as Bar, BarConfig } from './bar';
 export { default as StackBar, StackBarConfig } from './stack-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './percentage-stack-bar';
 export { default as GroupBar, GroupBarConfig } from './group-bar';

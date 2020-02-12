@@ -207,6 +207,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.legend();
     this.addGeometry();
     this.annotation();
+    this.interaction();
     this.animation();
 
     this.viewRange = this.getViewRange();
@@ -414,6 +415,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
+  protected interaction(){}
+
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
       this.setConfig('animate', false);
@@ -446,6 +449,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
     if (key === 'geometry') {
       this.config.geometries.push(config as G2Config['geometry']);
+      return;
+    }
+    if (key === 'interaction') {
+      this.config.interactions.push(config as any);
       return;
     }
     if (config === false) {

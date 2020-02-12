@@ -23,6 +23,7 @@ import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
+import BBox from '../util/bbox';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -178,9 +179,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       legends: {},
       tooltip: {
         showTitle: true,
-        triggerOn: 'mousemove',
-        inPanel: true,
-        useHtml: true,
       },
       axes: { fields: {} },
       coordinate: { type: 'cartesian' },
@@ -211,8 +209,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.paddingController.clearOuterComponents();
 
     this.view = new G2.View({
-      width: this.width,
-      height: this.height,
+      parent: null,
       canvas: this.canvas,
       foregroundGroup: this.container.addGroup(),
       middleGroup: this.container.addGroup(),
@@ -220,8 +217,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
-      start: { x: this.viewRange.minX, y: this.viewRange.minY },
-      end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
+      region:{
+        start: { x: this.viewRange.minX, y: this.viewRange.minY },
+        end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
+      }
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -415,7 +414,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
-      this.config.animate = false;
+      this.setConfig('animate',false);
     }
   }
 

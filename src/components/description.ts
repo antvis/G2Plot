@@ -1,4 +1,4 @@
-import { BBox, Canvas, Group, Text } from '@antv/g-canvas';
+import { BBox, Canvas, IGroup, Text } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
@@ -9,7 +9,7 @@ interface TextConfig {
   text: string;
   style: any;
   wrapperWidth: number;
-  container: Canvas | Group;
+  container: IGroup;
   theme: any;
   index: number;
   plot: ViewLayer;
@@ -25,7 +25,7 @@ export default class TextDescription {
   public position: string = 'top';
   public name: string;
   public destroyed: boolean = false;
-  private container: Canvas | Group;
+  private container: IGroup;
   private topMargin: number;
   private leftMargin: number;
   private wrapperWidth: number;

@@ -183,7 +183,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         useHtml: true,
       },
       axes: { fields: {} },
-      coord: { type: 'cartesian' },
+      coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
       interactions: [],
@@ -398,7 +398,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected annotation() {
     const config = [];
-    if (this.config.coord.type === 'cartesian' && this.options.guideLine) {
+    if (this.config.coordinate.type === 'cartesian' && this.options.guideLine) {
       _.each(this.options.guideLine, (line) => {
         const guideLine = getComponent('guideLine', {
           plot: this,

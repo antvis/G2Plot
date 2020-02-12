@@ -42,7 +42,7 @@ export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
 export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<BarViewConfig> {
     const cfg: Partial<BarViewConfig> = {
-     xAxis: {
+      xAxis: {
         visible: true,
         line: {
           visible: false,
@@ -133,12 +133,49 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return data ? data.slice().reverse() : data;
   }
 
+  protected scale() {
+    const props = this.options;
+    const scales = {};
+    /** 配置x-scale */
+    scales[props.yField] = {
+      type: 'cat',
+    };
+    if (_.has(props, 'yAxis')) {
+      extractScale(scales[props.yField], props.yAxis);
+    }
+    /** 配置y-scale */
+    scales[props.xField] = {};
+    if (_.has(props, 'xAxis')) {
+      extractScale(scales[props.xField], props.xAxis);
+    }
+    this.setConfig('scales', scales);
+    super.scale();
+  }
+
   protected coord() {
     const coordConfig = {
-      type:'cartesian',
       actions: [['transpose']],
-    } as any;
+    };
     this.setConfig('coordinate', coordConfig);
+  }
+
+  protected axis(): void {
+    const xAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'x',
+    });
+    const yAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'y',
+    });
+    /** 转置坐标系特殊配置 */
+    xAxis_parser.position = 'left';
+    yAxis_parser.position = 'bottom';
+    const axesConfig = {};
+    axesConfig[this.options.xField] = xAxis_parser;
+    axesConfig[this.options.yField] = yAxis_parser;
+    /** 存储坐标轴配置项到config */
+    this.setConfig('axes', axesConfig);
   }
 
   protected adjustBar(bar: ElementOption) {

@@ -109,7 +109,7 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange:any= view.viewBBox;
+    const viewRange: any = view.viewBBox;
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (_.isArray(bleeding)) {

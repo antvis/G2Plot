@@ -1,20 +1,18 @@
-import * as G from '@antv/g-canvas';
+import { registerAnimation } from '@antv/g2';
 import * as _ from '@antv/util';
 
-function clipingWithData(shape, animateCfg) {
+let plotInfo;
+
+function clipingWithData(shape, animateCfg, cfg) {
+  const geometry = shape.get('element').geometry;
   /** 动画初始状态 */
   const index = shape.get('index');
-  const coord = shape.get('coord');
-  const scales = shape.get('scales');
-  const yScale = scales[animateCfg.yField];
+  const coord = geometry.coordinate;
+  const scales = geometry.scales;
+  const yScale = scales[plotInfo.options.yField];
   const shapeData = _.clone(shape.get('origin'));
-  const clip = getClip(coord);
-  shape.attr('clip', clip);
-  shape.setSilent('animating', true);
-  const label = getLineLabel(animateCfg.plot.view, shapeData[0]._origin[animateCfg.seriesField]);
-  if (label && !label.get('destroyed')) {
-    label.set('visible', false);
-  }
+  setClip(shape, coord);
+  const clip = shape.get('clipShape');
   const parent = shape.get('parent');
   const offsetX = 12;
   let title;
@@ -46,9 +44,7 @@ function clipingWithData(shape, animateCfg) {
   /** 动画执行之后 */
   animateCfg.callback = () => {
     if (shape && !shape.get('destroyed')) {
-      shape.attr('clip', null);
-      shape.setSilent('cacheShape', null);
-      shape.setSilent('animating', false);
+      shape.setClip(null);
       clip.remove();
       marker.animate(
         {
@@ -57,10 +53,6 @@ function clipingWithData(shape, animateCfg) {
         300,
         () => {
           marker.remove();
-          if (label && !label.get('destroyed')) {
-            label.set('visible', true);
-            animateCfg.plot.canvas.draw();
-          }
         }
       );
       if (title) {
@@ -97,30 +89,27 @@ function clipingWithData(shape, animateCfg) {
     animateCfg.callback,
     delay
   );
-  marker.animate(
-    {
-      onFrame: (ratio) => {
-        const position = getPositionByRatio(ratio, shapeData, coord, i);
+  (animateCfg.onFrame = (ratio) => {
+    const position = getPositionByRatio(ratio, shapeData, coord, i);
+    if (!position) return;
 
-        if (!position) return;
+    marker.attr('x', position[0] + offsetX);
+    marker.attr('y', position[1] + offsetY);
+    let yText = getDataByPosition(yScale, position[1], coord);
 
-        marker.attr('x', position[0] + offsetX);
-        marker.attr('y', position[1] + offsetY);
-        let yText = getDataByPosition(yScale, position[1], coord);
+    // use formatter
+    if (yScale.formatter) {
+      yText = yScale.formatter(yText);
+    }
 
-        // use formatter
-        if (yScale.formatter) {
-          yText = yScale.formatter(yText);
-        }
-
-        marker.attr('text', yText);
-      },
-    },
-    animateCfg.duration,
-    easing,
-    animateCfg.callback,
-    delay
-  );
+    marker.attr('text', yText);
+  }),
+    marker.animate(animateCfg.onFrame, {
+      duration: animateCfg.duration,
+      easing,
+      callback: animateCfg.callback,
+      delay,
+    });
   if (title) {
     title.animate(
       {
@@ -139,9 +128,10 @@ function clipingWithData(shape, animateCfg) {
   }
 }
 
-function getClip(coord) {
+function setClip(shape, coord) {
   const { start, end, width, height } = coord;
-  const clip = new G.Shapes.Rect({
+  shape.setClip({
+    type: 'rect',
     attrs: {
       x: start.x,
       y: end.y,
@@ -149,15 +139,14 @@ function getClip(coord) {
       height,
     },
   });
-  clip.set('isClip', true);
-  return clip;
 }
 
 function getPositionByRatio(ratio, dataPoints, coord, index) {
+  const { data, points } = dataPoints;
   const currentX = coord.start.x + coord.getWidth() * ratio;
-  for (let i = 0; i < dataPoints.length - 1; i++) {
-    const current = dataPoints[i];
-    const next = dataPoints[i + 1];
+  for (let i = 0; i < points.length - 1; i++) {
+    const current = points[i];
+    const next = points[i + 1];
     if (currentX >= current.x && currentX <= next.x) {
       const m = (next.y - current.y) / (next.x - current.x); // 斜率
       const y = current.y + m * (currentX - current.x);
@@ -171,25 +160,8 @@ function getDataByPosition(scale, y, coord) {
   return scale.invert(yRatio).toFixed(2);
 }
 
-function getLineLabel(view, name) {
-  let label;
-  const elements = view.get('elements');
-  _.each(elements, (e) => {
-    if (e.get('type') === 'line') {
-      if (e.get('labelController')) {
-        const labelContainer = e.get('labelController').labelsContainer;
-        if (labelContainer) {
-          const labels = labelContainer.get('labelsRenderer').getLabels();
-          _.each(labels, (l) => {
-            if (l.attr('text') === name) {
-              label = l;
-            }
-          });
-        }
-      }
-    }
-  });
-  return label;
+export function getPlotOption(option) {
+  plotInfo = option;
 }
 
-Animate.registerAnimation('appear', 'clipingWithData', clipingWithData);
+registerAnimation('clipingWithData', clipingWithData);

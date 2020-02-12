@@ -152,9 +152,12 @@ export interface Tooltip {
   containerTpl?: string;
   itemTpl?: string;
   /** 辅助线 */
-  crosshair?: 'x' | 'y' | 'cross' | boolean;
-  crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
+  //crosshair?: 'x' | 'y' | 'cross' | boolean;
+  //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
+  showCrosshairs?: boolean;
+  crosshairs?:  'x' | 'y' | 'cross';
   style?: IStyleConfig;
+  offset?: number;
 }
 
 interface Animation {

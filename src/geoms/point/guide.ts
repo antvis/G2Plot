@@ -53,7 +53,9 @@ export default class GuidePointParser extends ElementParser {
         this._parseColor(props, config);
       }
     }
-    this.config.color = config;
+    if (_.keys(config).length > 0) {
+      this.config.color = config;
+    }
   }
 
   public parseSize() {

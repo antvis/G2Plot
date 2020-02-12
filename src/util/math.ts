@@ -1,4 +1,4 @@
-import { BBox } from '@antv/g';
+import BBox  from './bbox';
 import * as matrixUtil from '@antv/matrix-util';
 import * as _ from '@antv/util';
 

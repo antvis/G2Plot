@@ -1,5 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g';
+import * as G from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';

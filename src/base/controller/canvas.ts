@@ -160,7 +160,6 @@ export default class CanvasController {
       container: this.containerDOM,
       width,
       height,
-      renderer,
       pixelRatio,
     });
     this.width = width;

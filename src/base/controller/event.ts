@@ -1,16 +1,17 @@
 import * as _ from '@antv/util';
-import { Element, Canvas, Shape, BBox } from '@antv/g';
+import { IElement, ICanvas, IShape } from '@antv/g-canvas';
+import BBox from '../../util/bbox';
 import BasePlot from '../plot';
 import Layer from '../layer';
 import { Point } from '../../interface/config';
 
 interface ControllerConfig {
-  canvas: Canvas;
+  canvas: ICanvas;
   plot: BasePlot;
 }
 
 interface IEventHandler {
-  target: Element;
+  target: ICanvas;
   type: string;
   handler: Function;
 }
@@ -22,7 +23,7 @@ interface EventObj {
   event: object;
 }
 
-function isSameShape(shape1: Shape, shape2: Shape) {
+function isSameShape(shape1: IShape, shape2: IShape) {
   if (shape1 && shape2 && shape1 === shape2) {
     return true;
   }
@@ -38,10 +39,10 @@ function isPointInBBox(point: Point, bbox: BBox) {
 
 export default class EventController {
   private plot: BasePlot;
-  private canvas: Canvas;
+  private canvas: ICanvas;
   private pixelRatio: number;
   private eventHandlers: IEventHandler[];
-  private lastShape: Shape;
+  private lastShape: any;
 
   constructor(cfg: ControllerConfig) {
     this.plot = cfg.plot;
@@ -67,14 +68,14 @@ export default class EventController {
     });
   }
 
-  private addEvent(target: Element, eventType: string, handler: Function) {
+  private addEvent(target: ICanvas, eventType: string, handler: Function) {
     target.on(eventType, handler);
     this.eventHandlers.push({ target, type: eventType, handler });
   }
 
   private onEvents(ev) {
     const eventObj = this.getEventObj(ev);
-    const { target } = ev;
+    const target: any = ev.target;
     // 判断是否拾取到view以外的shape
     if (target.isShape && !this.isShapeInView(target) && target.name) {
       this.plot.emit(`${target.name}:${ev.type}`, ev);
@@ -88,7 +89,7 @@ export default class EventController {
   }
 
   private onMove(ev) {
-    const { target } = ev;
+    const target:any = ev.target;
     const eventObj = this.getEventObj(ev);
     // shape的mouseenter, mouseleave和mousemove事件
     if (target.isShape && !this.isShapeInView(target) && target.name) {
@@ -110,7 +111,7 @@ export default class EventController {
     }
   }
 
-  private isShapeInView(shape: Shape) {
+  private isShapeInView(shape: IShape) {
     const groupName = ['frontgroundGroup', 'backgroundGroup', 'panelGroup'];
     let parent = shape.get('parent');
     while (parent) {

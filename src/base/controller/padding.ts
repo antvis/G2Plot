@@ -1,5 +1,4 @@
-import { Element } from '@antv/g-canvas';
-import { DataPointType } from '@antv/g2/lib/interface';
+import { IElement } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import ViewLayer from '../view-layer';
@@ -131,7 +130,7 @@ export default class PaddingController {
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
     _.each(components, (obj) => {
-      const component = obj as Element;
+      const component = obj;
       const bbox = component.getBBox();
       components_bbox.push(bbox);
     });
@@ -172,7 +171,7 @@ export default class PaddingController {
     const legends = view.get('legendController').legends;
     if (legends.length > 0) {
       _.each(legends, (l) => {
-        const legend = l as DataPointType;
+        const legend = l;
         this._adjustLegend(legend, view, box);
         const legendBBox = legend.getBBox();
         const { width, height } = legendBBox;
@@ -275,7 +274,7 @@ export default class PaddingController {
     let maxY = -Infinity;
 
     _.each(bboxes, (bbox) => {
-      const box = bbox as DataPointType;
+      const box = bbox;
       minX = Math.min(box.minX, minX);
       maxX = Math.max(box.maxX, maxX);
       minY = Math.min(box.minY, minY);
@@ -332,7 +331,7 @@ export default class PaddingController {
     }
   }
 
-  private adjustAxisPadding(view: View, padding: MarginPadding) {
+  /* private adjustAxisPadding(view: View, padding: MarginPadding) {
     // 3.6.x Axis组件的 autoRotate padding 修正
     const xAxis = view.get('axisController').axes[0];
     if (!xAxis || !xAxis.get('autoRotateLabel') || !xAxis.getOffsetByRotateAngle) {
@@ -355,5 +354,5 @@ export default class PaddingController {
     if (newOffset > curOffset) {
       padding[2] += newOffset - curOffset;
     }
-  }
+  }*/
 }

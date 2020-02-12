@@ -42,7 +42,7 @@ export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
 export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<BarViewConfig> {
     const cfg: Partial<BarViewConfig> = {
-      xAxis: {
+     xAxis: {
         visible: true,
         line: {
           visible: false,
@@ -85,7 +85,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       tooltip: {
         visible: true,
         shared: true,
-        showCrosshairs:false
+        showCrosshairs:false,
+        showMarkers: false 
       },
       label: {
         visible: true,
@@ -132,29 +133,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return data ? data.slice().reverse() : data;
   }
 
-  protected scale() {
-    const props = this.options;
-    const scales = {};
-    /** 配置x-scale */
-    scales[props.yField] = {
-      type: 'cat',
-    };
-    if (_.has(props, 'yAxis')) {
-      extractScale(scales[props.yField], props.yAxis);
-    }
-    /** 配置y-scale */
-    scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
-      extractScale(scales[props.xField], props.xAxis);
-    }
-    this.setConfig('scales', scales);
-    super.scale();
-  }
-
   protected coord() {
     const coordConfig = {
+      type:'cartesian',
       actions: [['transpose']],
-    };
+    } as any;
     this.setConfig('coordinate', coordConfig);
   }
 

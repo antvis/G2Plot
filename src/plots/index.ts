@@ -1,5 +1,6 @@
 export { default as Line, LineConfig } from './line';
 export { default as Bar, BarConfig } from './bar';
+export { default as StackBar, StackBarConfig } from './stack-bar';
 /*export { default as Density, DensityConfig } from './density';
 export { default as Column, ColumnConfig } from './column';
 export { default as Bubble, BubbleConfig } from './bubble';

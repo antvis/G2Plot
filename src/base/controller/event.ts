@@ -89,7 +89,7 @@ export default class EventController {
   }
 
   private onMove(ev) {
-    const target:any = ev.target;
+    const target: any = ev.target;
     const eventObj = this.getEventObj(ev);
     // shape的mouseenter, mouseleave和mousemove事件
     if (target.isShape && !this.isShapeInView(target) && target.name) {

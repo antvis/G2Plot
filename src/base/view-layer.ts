@@ -178,7 +178,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       scales: {},
       legends: {},
       tooltip: {
-        follow: true,
         showTitle: true,
       },
       axes: { fields: {} },
@@ -212,6 +211,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.viewRange = this.getViewRange();
     this.paddingController.clearOuterComponents();
+    const region = this.viewRangeToRegion(this.viewRange);
 
     this.view = new G2.View({
       parent: null,
@@ -222,10 +222,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
-      region:{
-        start: { x: this.viewRange.minX, y: this.viewRange.minY },
-        end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
-      }
+      region,
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -419,7 +416,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
-      this.setConfig('animate',false);
+      this.setConfig('animate', false);
     }
   }
 
@@ -595,6 +592,21 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
     const viewRange = this.paddingController.processOuterPadding();
     return viewRange;
+  }
+
+  private viewRangeToRegion(viewRange) {
+    const { width, height } = this;
+    const start = { x: 0, y: 0 },
+      end = { x: 1, y: 1 };
+    start.x = viewRange.minX / width;
+    start.y = viewRange.minY / height;
+    end.x = viewRange.maxX / width;
+    end.y = viewRange.maxY / height;
+
+    return {
+      start,
+      end,
+    };
   }
 
   // 临时解决scale min & max的图形截取

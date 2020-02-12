@@ -33,12 +33,13 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   value: 40,
   min: 0,
   max: 100,
+  range: [0, 25, 50, 75, 100],
   style: 'meter',
   statistic: () => {
     return '<div class="g2plot-gauge-label"><p class="title">良</p><p class="value">系统表现</p></div>';
   },
   gaugeStyle: {
-    colors: ['#f4664a', '#faad14', '#f0f0f0', '#f0f0f0'],
+    colors: ['#f4664a', '#faad14', '#a0d911', '#30bf78'],
     tickLabelSize: 20,
     // stripWidth: 30,
     // stripBackColor: '#ddd',

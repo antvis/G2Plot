@@ -35,7 +35,6 @@ export const DEFAULT_GAUGE_CONFIG = {
   style: 'standard',
   startAngle: -7 / 6,
   endAngle: 1 / 6,
-  range: [0, 25, 50, 75, 100],
   gaugeStyle: {
     tickLineColor: 'rgba(0,0,0,0)',
     pointerColor: '#bfbfbf',

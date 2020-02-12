@@ -83,7 +83,6 @@ export class GaugeShape {
       draw(cfg: any, group: any) {
         const gauge = (this as any).gauge;
         const style = _.get(gauge, 'options.style');
-        const showInsideAxis = _.get(gauge, 'options.showInsideAxis');
         const point = cfg.points[0];
         const center = this.parsePoint({
           x: 0,
@@ -107,7 +106,6 @@ export class GaugeShape {
         switch (style) {
           case 'meter':
             this.drawBarGauge(currentAngle);
-            this.drawInSideAxis();
             break;
           case 'fan':
             this.drawGauge(currentAngle);
@@ -116,9 +114,6 @@ export class GaugeShape {
           case 'standard':
           default:
             this.drawGauge(currentAngle);
-            if (showInsideAxis) {
-              this.drawAxis();
-            }
             break;
         }
 
@@ -172,29 +167,6 @@ export class GaugeShape {
         this.drawRing(path3, color);
       },
 
-      drawAxis() {
-        const { axis } = this.gauge.ringStyle;
-        const { amount, length, thickness } = axis;
-        const { min, max } = this.gauge.options;
-        const { starAngle, endAngle } = this.getAngleRange();
-        const config = {
-          min,
-          max,
-          starAngle,
-          endAngle,
-        };
-        const interval = (max - min) / (amount - 1);
-        for (let i = 0; i < amount; i++) {
-          const startValue = min + i * interval;
-          const angle = this.valueToAngle(startValue, config);
-
-          this.drawRect(angle, {
-            length: i % 5 === 0 ? length : length / 2,
-            thickness: i % 5 === 0 ? thickness : thickness / 2,
-          });
-        }
-      },
-
       drawOutSideAxis() {
         const { axis } = this.gauge.ringStyle;
         const { amount } = axis;
@@ -215,29 +187,9 @@ export class GaugeShape {
         }
       },
 
-      drawInSideAxis() {
-        const { axis } = this.gauge.ringStyle;
-        const { amount } = axis;
-
-        const { min, max } = this.gauge.options;
-        const { starAngle, endAngle } = this.getAngleRange();
-        const config = {
-          min,
-          max,
-          starAngle,
-          endAngle,
-        };
-        const interval = (max - min) / amount;
-        for (let i = 0; i < amount; i++) {
-          const startValue = min + i * interval;
-          const angle = this.valueToAngle(startValue + interval / 2, config);
-
-          this.drawRect(angle);
-        }
-      },
-
       drawBarGauge(current: number) {
-        const { min, max, showRange, range, colors } = this.gauge.options;
+        const { min, max, range, styleMix } = this.gauge.options;
+        const colors = styleMix.colors || this.config.theme.colors;
         const { color, background } = this.gauge.ringStyle;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
@@ -255,13 +207,15 @@ export class GaugeShape {
           const path2 = this.getPath(start - offset / 2, start + offset - offset / 2);
 
           let fillColor = background;
-          if (showRange) {
+          if (range && range.length) {
             const result1 = range.map((item: any) => {
-              return this.valueToAngle(item.rangeValues[0], config);
+              return this.valueToAngle(item, config);
             });
 
             const index = _.sortedLastIndex(result1, start);
-            fillColor = colors[index - 1] || background;
+            /** 最后一个值也在最后一个区间内 */
+            const colorIndex = Math.min(index, range.length - 1);
+            fillColor = colors[colorIndex - 1] || background;
           } else {
             fillColor = current >= start ? color : background;
           }

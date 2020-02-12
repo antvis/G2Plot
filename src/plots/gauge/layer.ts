@@ -35,7 +35,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
 
   public init() {
     const { value, range } = this.options;
-    const rangeSorted = range.map((d: number) => +d).sort((a: number, b: number) => a - b);
+    const rangeSorted = (range || []).map((d: number) => +d).sort((a: number, b: number) => a - b);
 
     const { min = rangeSorted[0], max = rangeSorted[rangeSorted.length - 1], format = (d) => `${d}` } = this.options;
 

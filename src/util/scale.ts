@@ -48,6 +48,9 @@ export function extractScale(desScale, axisConfig) {
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'formatter')) {
     desScale.formatter = axisConfig.formatter;
   }
+  if (axisConfig.tickMethod) {
+    desScale.tickMethod = axisConfig.tickMethod;
+  }
 }
 
 export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | string | undefined | null)[]) {

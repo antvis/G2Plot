@@ -48,8 +48,8 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
     metaConfig[xField] = {
       tickCount: 6,
       alias: `${xField} (%)`,
-      minLimit: 0,
-      maxLimit: 1,
+      min: 0,
+      max: 1,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

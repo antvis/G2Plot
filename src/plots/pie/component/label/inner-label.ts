@@ -1,6 +1,6 @@
 import { IShape } from '@antv/g-canvas';
 import * as _ from '@antv/util';
-import PieBaseLabel, { ShapeInfo } from './base-label';
+import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getOverlapInfo } from './utils';
 import { distBetweenPoints } from '../../../../util/math';
 
@@ -10,14 +10,24 @@ export function percent2Number(value: string): number {
 }
 
 export default class PieInnerLabel extends PieBaseLabel {
-
   /** @override 不能大于0 */
-  protected getOffsetOption(): number {
-    let offset = super.getOffsetOption();
-    return offset > 0 ? 0 : offset;
+  protected adjustOption(options: PieLabelConfig) {
+    super.adjustOption(options);
+    if (options.offset > 0) {
+      options.offset = 0;
+    }
   }
 
-  protected layout(labels: IShape[], shapeInfos: ShapeInfo[]) {
+  protected adjustItem(item: LabelItem) {
+    item.textAlign = 'middle';
+  }
+
+  /** @override 不绘制拉线 */
+  protected drawLines() {
+    return;
+  }
+
+  protected layout(labels: IShape[], shapeInfos: LabelItem[]) {
     labels.forEach((label, idx) => {
       if (idx > 0) {
         _.each(labels.slice(0, idx), (prevLabel) => {
@@ -43,11 +53,11 @@ export default class PieInnerLabel extends PieBaseLabel {
   }
 
   /** label 碰撞调整 */
-  protected resolveCollision(label: IShape, prev: IShape, shapeInfo: ShapeInfo): void {
-    const { center } = this.getCoord();
+  protected resolveCollision(label: IShape, prev: IShape, shapeInfo: LabelItem): void {
+    const { center } = this.getCoordinate();
     const angle = shapeInfo.angle;
     const box = label.getBBox();
-    const prevBBox = prev.getBBox();    
+    const prevBBox = prev.getBBox();
     const pos = { x: (box.minX + box.maxX) / 2, y: (box.minY + box.maxY) / 2 };
     // 两种调整方案
     /** 先偏移 x 方向 -> 再计算 y 位置 */

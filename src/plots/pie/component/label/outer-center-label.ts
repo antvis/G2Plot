@@ -1,85 +1,75 @@
-import Polar from '@antv/coord/lib/coord/polar';
-import { BBox, Shape } from '@antv/g';
-import { registerGeometryLabel } from '@antv/g2';
-import { LabelItem } from '@antv/component/lib/interface';
+import { IShape, BBox } from '@antv/g-canvas';
 import * as _ from '@antv/util';
-import { getEndPoint } from './utils';
-import BasePieLabel from './base-label';
-import { DEFAULT_OFFSET, CROOK_DISTANCE } from './outer-label';
+import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
+import { getOverlapArea, near } from './utils';
 
-class OuterCenterPieLabel extends BasePieLabel {
-  public adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
-    this._adjustLabelPosition(labels, items, coord, panel);
-  }
+// 默认label和element的偏移 16px
+export const DEFAULT_OFFSET = 16;
 
-  /** @override */
-  public adjustLines(labels: Shape[], labelItems: LabelItem[], labelLines: any, coord: Polar, panel: BBox) {
-    _.each(labels, (label, idx: number) => {
-      const labelLine = labelLines[idx];
-      const path = this._getLinePath(label, coord, panel);
-      labelLine.attr('path', path);
-      labelLine.set('visible', label.get('visible'));
-    });
-  }
-
-  /** @override */
-  protected getOffsetOfLabel(): number {
-    const labelOptions = this.get('labelOptions');
-    const offset = labelOptions.offset;
-    return offset === undefined ? DEFAULT_OFFSET : offset <= CROOK_DISTANCE ? 1 : offset - CROOK_DISTANCE;
-  }
-
-  // label shape position
-  private _adjustLabelPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
-    const center = coord.getCenter();
-    const r = coord.getRadius();
-    const distance = this.getCrookDistance();
-    labels.forEach((l, idx) => {
-      const item = items[idx];
-      const offset = this.getOffsetOfLabel();
-      const pos = getEndPoint(center, item.angle, r + offset);
-      const isRight = item.textAlign === 'left';
-      l.attr('x', pos.x + (isRight ? distance * 2 : -distance * 2));
-      l.attr('y', pos.y);
-    });
-  }
-
-  // 获取label leader-line
-  private _getLinePath(label: Shape, coord: Polar, panel: BBox): string {
-    const labelOptions = this.getLabelOptions();
-    const smooth = labelOptions.line ? labelOptions.line.smooth : false;
-    const anchor = this.anchors.find((a) => a.id === label.id);
-    const angle = anchor.angle;
-    const center = coord.getCenter();
-    const r = coord.getRadius();
-    const start = getEndPoint(center, angle, r);
-    // because shape is adjusted, so we should getAttrbutes by shape
-    const offset = this.getOffsetOfLabel();
-    const isRight = anchor.textAlign === 'left';
-    const breakAt = getEndPoint(center, angle, r + offset);
-    const distance = this.getCrookDistance() * (isRight ? 1 : -1);
-    const end = { x: label.attr('x') - distance, y: label.attr('y') };
-    let path = '';
-    path = [`M ${start.x}`, `${start.y} Q${breakAt.x}`, `${breakAt.y} ${end.x}`, end.y].join(',');
-    if (smooth === false) {
-      // normal path rule, draw path is "M -> L -> H"
-      path = [`M ${start.x}`, `${start.y} L${breakAt.x - distance}`, `${end.y} H${end.x}`].join(',');
+export default class PieOuterLabel extends PieBaseLabel {
+    /** @override 不能大于0 */
+    protected adjustOption(options: PieLabelConfig) {
+      super.adjustOption(options);
+      if (options.offset < 0) {
+        options.offset = 0;
+      }
     }
-    return path;
+
+  protected getDefaultOptions() {
+    const { theme } = this.plot;
+    const labelStyle = theme.label.style;
+    return {
+      offsetX: 0,
+      offsetY: 0,
+      offset: 12,
+      style: {
+        ...labelStyle,
+        textBaseline: 'middle',
+      },
+    };
   }
 
-  /** @override */
-  // tslint:disable
-  public getDefaultOffset(point) {
-    const offset = super.getDefaultOffset(point);
-    return offset === undefined ? DEFAULT_OFFSET : offset <= CROOK_DISTANCE ? 1 : offset - CROOK_DISTANCE;
+  /** label 碰撞调整 */
+  protected layout(labels: IShape[]) {
+    this.adjustOverlap(labels);
   }
 
-  private getCrookDistance(): number {
-    const labelOptions = this.get('labelOptions');
-    const offset = labelOptions.offset;
-    return offset < CROOK_DISTANCE * 2 ? offset / 2 : CROOK_DISTANCE;
+  /** 处理标签遮挡问题 */
+  protected adjustOverlap(labels: IShape[]): void {
+    if (this.options.allowOverlap) {
+      return;
+    }
+    const panel = this.plot.view.coordinateBBox;
+    // clearOverlap;
+    for (let i = 1; i < labels.length; i++) {
+      const label = labels[i];
+      let overlapArea = 0;
+      for (let j = i - 1; j >= 0; j--) {
+        const prev = labels[j];
+        // fix: start draw point.x is error when textAlign is right
+        const prevBox = prev.getBBox();
+        const currBox = label.getBBox();
+        // if the previous one is invisible, skip
+        if (prev.get('visible')) {
+          overlapArea = getOverlapArea(prevBox, currBox);
+          if (!near(overlapArea, 0)) {
+            label.set('visible', false);
+            break;
+          }
+        }
+      }
+    }
+    labels.forEach((label) => this.checkInPanel(label, panel));
+  }
+
+  /**
+   * 超出panel边界的标签默认隐藏
+   */
+  protected checkInPanel(label: IShape, panel: BBox): void {
+    const box = label.getBBox();
+    //  横向溢出 暂不隐藏
+    if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
+      label.set('visible', false);
+    }
   }
 }
-
-registerGeometryLabel('outer-center', OuterCenterPieLabel);

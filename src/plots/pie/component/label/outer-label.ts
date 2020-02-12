@@ -1,66 +1,55 @@
-import Polar from '@antv/coord/lib/coord/polar';
-import { BBox, Shape } from '@antv/g';
-import { registerGeometryLabel } from '@antv/g2';
-import { LabelItem } from '@antv/component/lib/interface';
+import { IShape } from '@antv/g-canvas';
 import * as _ from '@antv/util';
+import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getEndPoint } from './utils';
-import BaseLabel from './base-label';
-import { percent2Number } from './inner-label';
 
 // 默认label和element的偏移 16px
 export const DEFAULT_OFFSET = 16;
-/** label text和line距离 4px */
-export const CROOK_DISTANCE = 4;
 
-/**
- * @desc 环绕型 躲避 label 布局(类椭圆 - 优先顺时针偏移)
- */
-class OuterPieLabel extends BaseLabel {
-  public adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox) {
-    this._adjustLabelPosition(labels, coord, panel);
-    const leftHalf = _.filter(labels, (l) => _.find(this.anchors, (a) => a.id === l.id).textAlign === 'right');
-    const rightHalf = _.filter(labels, (l) => _.find(this.anchors, (a) => a.id === l.id).textAlign === 'left');
-    [rightHalf, leftHalf].forEach((half, isLeft) => {
-      this._antiCollision(half, coord, panel, !isLeft);
-    });
-  }
-
-  /** @override */
-  public adjustLines(labels: Shape[], labelItems: LabelItem[], labelLines: any, coord: Polar, panel: BBox) {
-    const labelOptions = this.getLabelOptions();
-    _.each(labels, (label, idx: number) => {
-      const labelLine = labelLines[idx];
-      // 由于布局调整，修改的只是shape 所以取用使用shape(labelItem is read-only)
-      const path = this._getLinePath(label, coord, panel);
-      labelLine.attr('path', path);
-      if (labelOptions.line) {
-        for (const attr in labelOptions.line) {
-          labelLine.attr(attr, labelOptions.line[attr]);
-        }
-      }
-      labelLine.set('visible', label.get('visible'));
-    });
-  }
-
-  /** override */
-  protected getOffsetOfLabel(): number {
-    const labelOptions = this.getLabelOptions();
-    let offset = labelOptions.offset;
-    if (_.isString(offset)) {
-      offset = percent2Number(offset);
+export default class PieOuterLabel extends PieBaseLabel {
+  /** @override 不能大于0 */
+  protected adjustOption(options: PieLabelConfig) {
+    super.adjustOption(options);
+    if (options.offset < 0) {
+      options.offset = 0;
     }
-    return offset === undefined ? DEFAULT_OFFSET : offset < CROOK_DISTANCE * 2 ? offset / 2 : offset - CROOK_DISTANCE;
+  }
+
+  protected getDefaultOptions() {
+    const { theme } = this.plot;
+    const labelStyle = theme.label.style;
+    return {
+      offsetX: 0,
+      offsetY: 0,
+      offset: 12,
+      style: {
+        ...labelStyle,
+        textBaseline: 'middle',
+      },
+    };
+  }
+
+  /** label 碰撞调整 */
+  protected layout(labels: IShape[]) {
+    const { center } = this.getCoordinate();
+    const leftHalf = _.filter(labels, (l) => l.attr('x') <= center.x);
+    const rightHalf = _.filter(labels, (l) => l.attr('x') > center.x);
+    [rightHalf, leftHalf].forEach((half, isLeft) => {
+      this._antiCollision(half, !isLeft);
+    });
   }
 
   /** labels 碰撞处理（重点算法） */
-  private _antiCollision(labels: Shape[], coord: Polar, plotRange: BBox, isRight: boolean) {
-    const labelHeight = this.getLabelHeight();
-    const totalR = this.anchorRadius;
-    const center = coord.getCenter();
+  private _antiCollision(labels: IShape[], isRight: boolean) {
+    const plotRange = this.plot.view.coordinateBBox;
+    const labelHeight = this.getLabelHeight(labels);
+    const { center, radius } = this.getCoordinate();
+    const offset = this.options.offset;
+    const totalR = radius + offset;
     const totalHeight = Math.min(plotRange.height, Math.max(totalR * 2 + labelHeight * 2, labels.length * labelHeight));
     const maxLabelsCount = Math.floor(totalHeight / labelHeight);
     // fix-bug, maxLabelsCount 之后的labels 在非 allowOverlap 不显示（避免出现尾部label展示，而前置label不展示）
-    if (!this.get('labelOptions').allowOverlap) {
+    if (!this.options.allowOverlap) {
       labels.slice(maxLabelsCount).forEach((label) => {
         label.set('visible', false);
       });
@@ -143,8 +132,8 @@ class OuterPieLabel extends BaseLabel {
     // 调整 x 位置在椭圆轨道上
     const topLabels = [];
     const bottomLabels = [];
-    labels.forEach((label) => {
-      const anchor = this.anchors.find((a) => a.id === label.id);
+    labels.forEach((label, idx) => {
+      const anchor = this.anchors[idx];
       if (anchor.angle >= 0 && anchor.angle <= Math.PI) {
         bottomLabels.push(label);
       } else {
@@ -159,8 +148,7 @@ class OuterPieLabel extends BaseLabel {
         ? _.last(adjustLabels).getBBox().maxY - center.y
         : center.y - _.head(adjustLabels).getBBox().minY;
       ry = Math.max(totalR, ry);
-      const offset = this.getOffsetOfLabel();
-      const distance = this.getCrookDistance();
+      const distance = offset > 4 ? 4 : 0;
       const maxLabelWidth =
         Math.max.apply(
           0,
@@ -171,12 +159,12 @@ class OuterPieLabel extends BaseLabel {
       const rx = Math.max(totalR, Math.min((ry + totalR) / 2, center.x - (plotRange.minX + maxLabelWidth)));
       const rxPow2 = rx * rx;
       const ryPow2 = ry * ry;
-      adjustLabels.forEach((label) => {
+      adjustLabels.forEach((label, idx) => {
+        const anchor = this.anchors[idx];
         const box = label.getBBox();
         const boxCenter = { x: box.minX + box.width / 2, y: box.minY + box.height / 2 };
         const dyPow2 = Math.pow(boxCenter.y - center.y, 2);
-        const anchor = this.anchors.find((a) => a.id === label.id);
-        const endPoint = getEndPoint(center, anchor.angle, coord.getRadius());
+        const endPoint = getEndPoint(center, anchor.angle, radius);
         const distance_offset = (isRight ? 1 : -1) * distance * 2;
         if (dyPow2 > ryPow2) {
           console.warn('异常(一般不会出现)', label.attr('text'));
@@ -204,72 +192,11 @@ class OuterPieLabel extends BaseLabel {
     });
   }
 
-  // label shape position
-  private _adjustLabelPosition(labels: Shape[], coord: Polar, panel: BBox) {
-    const distance = this.getCrookDistance();
-    labels.forEach((l) => {
-      const anchor = this.anchors.find((a) => a.id === l.id);
-      const isRight = anchor.textAlign === 'left';
-      l.attr('x', anchor.x + (isRight ? distance * 2 : -distance * 2));
-      l.attr('y', anchor.y);
-      // 统一垂直居中
-      l.attr('textBaseline', 'middle');
-    });
-  }
-
-  /** 获取label leader-line, 默认 not smooth */
-  private _getLinePath(label: Shape, coord: Polar, panel: BBox): string {
-    const labelOptions = this.getLabelOptions();
-    const smooth = labelOptions.line ? labelOptions.line.smooth : false;
-    const anchor = this.anchors.find((a) => a.id === label.id);
-    const angle = anchor.angle;
-    const center = coord.getCenter();
-    const distance = this.getCrookDistance();
-    const start = getEndPoint(center, angle, coord.getRadius());
-    const breakAt = getEndPoint(center, angle, coord.getRadius() + 4);
-    const left2right = start.x - anchor.x <= 0;
-    const labelPosition = { x: label.attr('x') + (left2right ? -distance : distance), y: label.attr('y') };
-    const smoothPath = [
-      'C', // soft break
-      // 1st control point (of the curve)
-      labelPosition.x +
-        // 4 gives the connector a little horizontal bend
-        (left2right ? -4 : 4),
-      labelPosition.y, //
-      2 * breakAt.x - start.x, // 2nd control point
-      2 * breakAt.y - start.y, //
-      breakAt.x, // end of the curve
-      breakAt.y, //
-    ];
-    const straightPath = ['L', /** pointy break */ breakAt.x, breakAt.y];
-    const linePath = smooth ? smoothPath : straightPath;
-    const path = ['M', labelPosition.x, labelPosition.y].concat(linePath).concat('L', start.x, start.y);
-
-    return path.join(',');
-  }
-
-  private getCrookDistance(): number {
-    const labelOptions = this.get('labelOptions');
-    const offset = labelOptions.offset;
-    return offset < CROOK_DISTANCE * 2 ? offset / 2 : CROOK_DISTANCE;
-  }
-
   /** 获取label height */
-  private getLabelHeight(): number {
-    const labelOptions = this.get('labelOptions');
-    if (!labelOptions.labelHeight) {
-      const renderer = this.get('labelsRenderer');
-      const labels: Shape[] = renderer.get('group').get('children');
+  private getLabelHeight(labels: IShape[]): number {
+    if (!this.options.labelHeight) {
       return _.head(labels) ? _.head(labels).getBBox().height : 14;
     }
-    return labelOptions.labelHeight;
-  }
-
-  // tslint:disable
-  public getDefaultOffset(point) {
-    const offset = super.getDefaultOffset(point);
-    return offset === undefined ? DEFAULT_OFFSET : offset <= CROOK_DISTANCE ? 1 : offset - CROOK_DISTANCE;
+    return this.options.labelHeight;
   }
 }
-
-registerGeometryLabel('outer', OuterPieLabel);

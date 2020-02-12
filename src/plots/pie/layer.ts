@@ -1,45 +1,28 @@
 import { Coordinate } from '@antv/g2/lib/dependents';
 import * as _ from '@antv/util';
-import { registerPlotType } from '../../base/global';
-import { LayerConfig } from '../../base/layer';
-import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
-import { getGeom } from '../../geoms/factory';
-import { Label, DataItem } from '../../interface/config';
-import { LooseMap } from '../../interface/types';
-import SpiderLabel from './component/label/spider-label';
-import './component/label/outer-label';
-import './component/label/inner-label';
-import './component/label/outer-center-label';
 import * as EventParser from './event';
-import './theme';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import { DataItem, Label } from '../../interface/config';
+import { getGeom } from '../../geoms/factory';
+import { LayerConfig } from '../../base/layer';
 import { LineStyle } from '../line/layer';
+import { getPieLabel, PieLabelConfig } from './component/label';
+import SpiderLabel from './component/label/spider-label';
+import { registerPlotType } from '../../base/global';
+import './theme';
 
 interface PieStyle extends LineStyle {
   stroke?: string;
   lineWidth?: number;
 }
 
-export interface PieViewConfig extends ViewConfig {
+export interface PieViewConfig extends Omit<ViewConfig, 'label'> {
   angleField: string;
   colorField?: string;
   radius?: number;
   pieStyle?: PieStyle | ((...args: any[]) => PieStyle);
-  label?: PieLabel;
+  label?: PieLabelConfig;
 }
-
-type PieLabel = Omit<Label, 'offset'> & {
-  offset?: string | number;
-  /** label leader-line */
-  line?: {
-    smooth?: boolean;
-    stroke?: string;
-    lineWidth?: number;
-  };
-  /** allow label overlap */
-  allowOverlap?: boolean;
-  readonly fields?: string[];
-};
 
 export interface PieLayerConfig extends PieViewConfig, LayerConfig {}
 
@@ -81,7 +64,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       tooltip: {
         visible: true,
         shared: false,
-        crosshairs: null,
+        showCrosshairs: false,
+        showMarkers: false
       },
       pieStyle: {
         stroke: 'white',
@@ -98,26 +82,29 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
     const options = _.deepMix({}, super.getOptions(props), defaultOptions, props);
-    options.label = this.adjustLabelDefaultOptions(options);
     return options;
   }
 
-  public afterInit() {
-    super.afterInit();
-    const props = this.options;
+  public afterRender() {
+    super.afterRender();
+    const options = this.options;
     /** 蜘蛛布局label */
-    if (props.label && props.label.visible) {
-      const labelConfig = props.label as Label;
+    if (options.label && options.label.visible) {
+      const labelConfig = options.label as Label;
       if (labelConfig.type === 'spider') {
         const spiderLabel = new SpiderLabel({
           view: this.view,
-          fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
+          fields: options.colorField ? [options.angleField, options.colorField] : [options.angleField],
           style: labelConfig.style ? labelConfig.style : {},
-          formatter: props.label.formatter ? props.label.formatter : false,
-          offsetX: props.label.offsetX,
-          offsetY: props.label.offsetY,
+          formatter: options.label.formatter ? options.label.formatter : false,
+          offsetX: options.label.offsetX,
+          offsetY: options.label.offsetY,
         });
         this.spiderLabel = spiderLabel;
+      } else {
+        const LabelCtor = getPieLabel(labelConfig.type);
+        const label = new LabelCtor(this, options.label);
+        label.render();
       }
     }
   }
@@ -169,7 +156,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     pie.adjust = [{ type: 'stack' }];
     this.pie = pie;
     if (props.label) {
-      // this.label();
+      this.label();
     }
     this.setConfig('geometry', pie);
   }
@@ -190,52 +177,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   private label() {
-    const props = this.options;
-    const labelConfig = { ...props.label } as Label;
-    if (!this.showLabel()) {
-      this.pie.label = false;
-      return;
-    }
-    if (labelConfig.type === 'inner') {
-      // @ts-ignore
-      labelConfig.labelLine = false;
-    } else {
-      // @ts-ignore
-      labelConfig.labelLine = true;
-    }
-
-    // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
-    let labelType = labelConfig.type;
-    if (['spider'].indexOf(labelType) !== -1) {
-      labelType = null;
-    }
-    this.pie.label = getComponent('label', {
-      plot: this,
-      labelType,
-      fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
-      ...labelConfig,
-    });
-  }
-
-  private showLabel() {
-    const props = this.options;
-    return props.label && props.label.visible === true && props.label.type !== 'spider';
-  }
-
-  /** 调整 label 默认 options */
-  protected adjustLabelDefaultOptions(options: PieLayerConfig) {
-    const labelConfig = { ...options.label } as PieLabel;
-    if (labelConfig && labelConfig.type === 'inner') {
-      const labelStyleConfig = (labelConfig.style || {}) as LooseMap;
-      if (!labelStyleConfig.textAlign) {
-        labelStyleConfig.textAlign = 'center';
-      }
-      labelConfig.style = labelStyleConfig;
-      if (!labelConfig.offset) {
-        labelConfig.offset = `${(-1 / 3) * 100}%`;
-      }
-    }
-    return labelConfig;
+    // 不使用 g2 内置label
+    this.pie.label = false;
   }
 }
 

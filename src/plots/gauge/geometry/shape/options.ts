@@ -7,7 +7,7 @@ import * as _ from '@antv/util';
 const basicPointerStyleDark = {
   color: '#CFCFCF',
   circleColorTop: '#2E364B',
-  circleColorBottom: 'rgba(235,237,242,0.1)',
+  circleColorBottom: '#EEEEEE',
   thickness: 4.5,
 };
 
@@ -34,7 +34,7 @@ export const getOptions = function(name: string, theme: string, colors: string[]
             offset: -35,
             length: 5,
             thickness: 2,
-            color: 'rgba(255,255,255,0.4)',
+            color: '#999',
           },
         },
         pointerStyle: {
@@ -52,7 +52,7 @@ export const getOptions = function(name: string, theme: string, colors: string[]
             offset: -35,
             length: 2,
             thickness: 1,
-            color: 'rgba(255,255,255,0.4)',
+            color: '#999',
           },
         },
         pointerStyle: {
@@ -75,7 +75,7 @@ export const getOptions = function(name: string, theme: string, colors: string[]
             offset: 5,
             length: 3,
             thickness: 3,
-            color: 'rgba(255,255,255,0.6)',
+            color: '#999',
           },
         },
         pointerStyle: {

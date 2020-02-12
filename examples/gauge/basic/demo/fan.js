@@ -31,7 +31,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   style: 'fan',
   width: 400,
   height: 400,
-  value: 64,
+  value: 34,
   min: 0,
   max: 100,
   range: [0, 70],

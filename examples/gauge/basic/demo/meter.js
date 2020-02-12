@@ -39,7 +39,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
     return '<div class="g2plot-gauge-label"><p class="title">良</p><p class="value">系统表现</p></div>';
   },
   gaugeStyle: {
-    colors: ['#f4664a', '#faad14', '#a0d911', '#30bf78'],
+    colors: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
     tickLabelSize: 20,
     // stripWidth: 30,
     // stripBackColor: '#ddd',

@@ -106,6 +106,7 @@ export class GaugeShape {
         switch (style) {
           case 'meter':
             this.drawBarGauge(currentAngle);
+            this.drawInSideAxis();
             break;
           case 'fan':
             this.drawGauge(currentAngle);
@@ -114,6 +115,7 @@ export class GaugeShape {
           case 'standard':
           default:
             this.drawGauge(currentAngle);
+            this.drawAxis();
             break;
         }
 
@@ -165,6 +167,51 @@ export class GaugeShape {
         const { color } = this.gauge.ringStyle;
         const path3 = this.getPath(starAngle, current);
         this.drawRing(path3, color);
+      },
+
+      drawInSideAxis() {
+        const { axis } = this.gauge.ringStyle;
+        const { amount } = axis;
+
+        const { min, max } = this.gauge.options;
+        const { starAngle, endAngle } = this.getAngleRange();
+        const config = {
+          min,
+          max,
+          starAngle,
+          endAngle,
+        };
+        const interval = (max - min) / amount;
+        for (let i = 0; i < amount; i++) {
+          const startValue = min + i * interval;
+          const angle = this.valueToAngle(startValue + interval / 2, config);
+
+          this.drawRect(angle);
+        }
+      },
+
+
+      drawAxis() {
+        const { axis } = this.gauge.ringStyle;
+        const { amount, length, thickness } = axis;
+        const { min, max } = this.gauge.options;
+        const { starAngle, endAngle } = this.getAngleRange();
+        const config = {
+          min,
+          max,
+          starAngle,
+          endAngle,
+        };
+        const interval = (max - min) / (amount - 1);
+        for (let i = 0; i < amount; i++) {
+          const startValue = min + i * interval;
+          const angle = this.valueToAngle(startValue, config);
+
+          this.drawRect(angle, {
+            length: i % 5 === 0 ? length : length / 2,
+            thickness: i % 5 === 0 ? thickness : thickness / 2,
+          });
+        }
       },
 
       drawOutSideAxis() {

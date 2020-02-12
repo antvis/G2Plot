@@ -35,7 +35,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   max: 100,
   range: [0, 25, 50, 75, 100],
   gaugeStyle: {
-    colors: ['#f4664a', '#faad14', '#a0d911', '#30bf78'],
+    colors: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
     tickLabelSize: 20,
   },
   statistic: () => {

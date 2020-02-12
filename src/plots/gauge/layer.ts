@@ -154,7 +154,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       line: null,
       grid: null,
       label: {
-        offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 2),
+        offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 1.5),
         textStyle: {
           fontSize: styleMix.tickLabelSize,
           fill: styleMix.tickLabelColor,

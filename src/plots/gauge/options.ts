@@ -6,11 +6,14 @@ interface GaugeStyle {
   fontSize?: number;
   borderOpacity?: number;
   borderWidth?: number;
+  colors?: string[];
   size?: number;
   tickLabelOffset?: number[];
+  pointerColor?: string;
 }
 
 export interface GaugeViewConfig extends ViewConfig {
+  style?: 'standard' | 'fan' | 'meter';
   startAngle?: number;
   endAngle?: number;
   min?: number;
@@ -19,10 +22,10 @@ export interface GaugeViewConfig extends ViewConfig {
   showValue?: boolean;
   format?: (...args: any[]) => string;
   gaugeStyle?: GaugeStyle;
-  range: number[];
+  range?: number[];
   styleMix?: any;
   valueText?: string;
-  statistic: any; // todo: 指标卡类型定义
+  statistic?: any; // todo: 指标卡类型定义
 }
 
 /**

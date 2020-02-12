@@ -11,14 +11,14 @@ insertCss(`
 }
 
 .g2plot-gauge-label .value {
-  font-size: 16px;
+  font-size: 20px;
   color: #8c8c8c;
   font-weight: 300;
 }
 
 .g2plot-gauge-label .title {
   font-size: 30px;
-  color: #000000;
+  color: #faad14;
   font-weight: bold;
 }
 `);
@@ -26,32 +26,29 @@ insertCss(`
 const gaugePlot = new Gauge(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '半圆仪表盘',
+    text: '刻度仪表盘',
   },
   width: 400,
   height: 400,
-  value: 64,
+  value: 40,
   min: 0,
   max: 100,
-  range: [0, 70],
-  startAngle: -1,
-  endAngle: 0,
-  format: (v) => {
-    if (v === 0 || v === 100) {
-      return v + '%';
-    }
-    return '';
-  },
+  style: 'meter',
   statistic: () => {
-    return '<div class="g2plot-gauge-label"><p class="title">70%</p><p class="value">加载进度</p></div>';
+    return '<div class="g2plot-gauge-label"><p class="title">良</p><p class="value">系统表现</p></div>';
   },
   gaugeStyle: {
-    colors: ['l(0) 0:#b0d0ff 1:#5f92f9'],
-    tickLabelSize: 16,
-    stripWidth: 20,
-    pointerColor: 'rgba(0,0,0,0)',
-    statisticPos: ['50%', '80%'],
-    tickLabelPos: 'outer',
+    colors: ['#f4664a', '#faad14', '#f0f0f0', '#f0f0f0'],
+    tickLabelSize: 20,
+    // stripWidth: 30,
+    // stripBackColor: '#ddd',
+    // tickInterval: 20,
+    // tickLabelPos: 'inner',
+    // tickLabelSize: 16,
+    // tickLabelColor: '#aaa',
+    // tickLineColor: '#aaa',
+    // subTickCount: 4,
+    // pointerColor: '#1890FF',
   },
 });
 gaugePlot.render();

@@ -100,7 +100,7 @@ export interface ITimeAxis extends IBaseAxis {
 }
 /** 离散类目型 */
 export interface ICatAxis extends IBaseAxis {
-  type?: 'category';
+  type?: 'cat';
   /** tick相关配置 */
   tickInterval?: number;
   tickCount?: number;

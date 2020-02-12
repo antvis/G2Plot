@@ -2,6 +2,8 @@
  * @author linhuiw
  * @description 存放仪表盘的配置项，比如指针的颜色、粗细等
  */
+import * as _ from '@antv/util';
+
 const basicPointerStyleDark = {
   color: '#CFCFCF',
   circleColorTop: '#2E364B',
@@ -13,7 +15,7 @@ export const getOptions = function(name: string, theme: string, colors: string[]
   const basicPointerStyle = basicPointerStyleDark;
   const ringBackground = '#f0f0f0';
   const common = {
-    color: '#F6445A',
+    color: _.get(colors, [0], '#F6445A'),
     thickness: 24,
     radius: 1,
     angle: 240,
@@ -61,7 +63,7 @@ export const getOptions = function(name: string, theme: string, colors: string[]
     case 'fan':
       return {
         ringStyle: {
-          color: '#F6445A',
+          color: _.get(colors, [0], '#F6445A'),
           background: ringBackground,
           thickness: 70,
           radius: 1,

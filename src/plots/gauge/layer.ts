@@ -1,7 +1,11 @@
+/**
+ * @author linhuiw
+ * @description 仪表盘 layer
+ */
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import ViewLayer from '../../base/view-layer';
 import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './theme';
@@ -21,7 +25,6 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
 
   constructor(props) {
     super(props);
-    this.initG2Shape();
   }
 
   public static getDefaultOptions(): any {
@@ -44,6 +47,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.options.min = min;
     this.options.max = max;
     this.options.format = format;
+    this.initG2Shape();
     super.init();
   }
 
@@ -75,8 +79,10 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
   }
 
   private getCustomStyle(style: string) {
-    const { theme, colors } = this.options;
+    const { theme, styleMix } = this.options;
+    const colors = styleMix.colors || this.config.theme.colors;
     let options;
+
     switch (style) {
       case 'meter':
         options = getOptions(style, theme, colors);

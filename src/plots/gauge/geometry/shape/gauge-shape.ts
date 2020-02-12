@@ -1,3 +1,7 @@
+/**
+ * @author linhuiw
+ * @description 仪表盘形状
+ */
 import * as _ from 'lodash';
 import { registerShape } from '@antv/g2';
 import { GaugeViewConfig } from '../../options';
@@ -123,9 +127,10 @@ export class GaugeShape {
       },
 
       drawGauge(currentAngle: number) {
-        const { showRange } = this.gauge.options;
+        const { range } = this.gauge.options;
         this.drawBottomRing(); // 绘制灰底色
-        if (showRange) {
+
+        if (range && range.length) {
           this.drawRangeColor();
         } else {
           this.drawCurrentRing(currentAngle);
@@ -133,19 +138,18 @@ export class GaugeShape {
       },
 
       drawRangeColor() {
-        const { minValue, maxValue, range, colors } = this.gauge.options;
+        const { min, max, range, styleMix } = this.gauge.options;
+        const colors = styleMix.colors || this.config.theme.colors;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
-          minValue,
-          maxValue,
+          min,
+          max,
           starAngle,
           endAngle,
         };
         for (let i = 0; i < range.length; i++) {
-          const val = range[i].rangeValues;
-
-          const start = this.valueToAngle(val[0], config);
-          const end = this.valueToAngle(val[1], config);
+          const start = this.valueToAngle(range[i], config);
+          const end = this.valueToAngle(range[i + 1], config);
 
           if (end >= start) {
             const path2 = this.getPath(start, end);
@@ -171,17 +175,17 @@ export class GaugeShape {
       drawAxis() {
         const { axis } = this.gauge.ringStyle;
         const { amount, length, thickness } = axis;
-        const { minValue, maxValue } = this.gauge.options;
+        const { min, max } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
-          minValue,
-          maxValue,
+          min,
+          max,
           starAngle,
           endAngle,
         };
-        const interval = (maxValue - minValue) / (amount - 1);
+        const interval = (max - min) / (amount - 1);
         for (let i = 0; i < amount; i++) {
-          const startValue = minValue + i * interval;
+          const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue, config);
 
           this.drawRect(angle, {
@@ -194,17 +198,17 @@ export class GaugeShape {
       drawOutSideAxis() {
         const { axis } = this.gauge.ringStyle;
         const { amount } = axis;
-        const { minValue, maxValue } = this.gauge.options;
+        const { min, max } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
-          minValue,
-          maxValue,
+          min,
+          max,
           starAngle,
           endAngle,
         };
-        const interval = (maxValue - minValue) / (amount - 1);
+        const interval = (max - min) / (amount - 1);
         for (let i = 0; i < amount; i++) {
-          const startValue = minValue + i * interval;
+          const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue, config);
 
           this.drawRect(angle);
@@ -215,17 +219,17 @@ export class GaugeShape {
         const { axis } = this.gauge.ringStyle;
         const { amount } = axis;
 
-        const { minValue, maxValue } = this.gauge.options;
+        const { min, max } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
-          minValue,
-          maxValue,
+          min,
+          max,
           starAngle,
           endAngle,
         };
-        const interval = (maxValue - minValue) / amount;
+        const interval = (max - min) / amount;
         for (let i = 0; i < amount; i++) {
-          const startValue = minValue + i * interval;
+          const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue + interval / 2, config);
 
           this.drawRect(angle);
@@ -233,12 +237,12 @@ export class GaugeShape {
       },
 
       drawBarGauge(current: number) {
-        const { minValue, maxValue, showRange, range, colors } = this.gauge.options;
+        const { min, max, showRange, range, colors } = this.gauge.options;
         const { color, background } = this.gauge.ringStyle;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
-          minValue,
-          maxValue,
+          min,
+          max,
           starAngle,
           endAngle,
         };
@@ -276,15 +280,15 @@ export class GaugeShape {
       },
 
       valueToAngle(value: number, config: any) {
-        const { minValue, maxValue, starAngle, endAngle } = config;
-        if (value === maxValue) {
+        const { min, max, starAngle, endAngle } = config;
+        if (value === max) {
           return endAngle;
         }
-        if (value === minValue) {
+        if (value === min) {
           return starAngle;
         }
-        let ratio = (value - minValue) / (maxValue - minValue);
-        if (maxValue === minValue) {
+        let ratio = (value - min) / (max - min);
+        if (max === min) {
           ratio = 1;
         }
         let angle = ratio * (endAngle - starAngle) + starAngle;

@@ -76,7 +76,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.10.42",
+    "@antv/gatsby-theme-antv": "^0.10.43",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@commitlint/cli": "^8.2.0",
@@ -91,7 +91,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "event-simulate": "^1.0.0",
-    "gatsby": "2.19.15",
+    "gatsby": "^2.19.15",
     "gh-pages": "^2.1.1",
     "husky": "^4.2.1",
     "jest": "^24.9.0",

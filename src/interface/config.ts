@@ -6,6 +6,7 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { Option } from '@antv/g2';
+import { ScaleConfig } from '@antv/scale';
 import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
 import { AdjustCfg } from '@antv/g2/lib/interface';
 import { LooseMap } from './types';
@@ -38,6 +39,10 @@ export interface IBaseAxis {
   visible?: boolean;
   /** 轴类型，对应scale类型 */
   type?: 'linear' | 'time' | 'cat' | 'dateTime' | 'category' | 'log' | 'pow' | 'timeCat';
+  /** scale 是否设置 nice */
+  nice?: boolean;
+  /** scale 自定义 tickMethod */
+  tickMethod?: string | ((cfg: ScaleConfig) => number[]);
   /** 轴位置，默认下和左 */
   line?: {
     visible?: boolean;

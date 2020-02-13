@@ -29,7 +29,7 @@ export interface GaugeViewConfig extends ViewConfig {
   range?: number[];
   styleMix?: any;
   valueText?: string;
-  statistic?: any; // todo: 指标卡类型定义
+  statistic?: any;
 }
 
 /**

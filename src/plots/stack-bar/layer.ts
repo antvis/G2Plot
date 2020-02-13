@@ -76,17 +76,20 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
     ];
   }
 
-  protected renderLabel(){
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { yField } = this.options;
+    const scale = scales[yField];
     if (this.options.label && this.options.label.visible) {
       const label = new StackBarLabel({
         view: this.view,
         plot: this,
+        formatter: scale.formatter,
         ...this.options.label,
       });
       label.render();
     }
   }
-
 }
 
 registerPlotType('stackBar', StackBarLayer);

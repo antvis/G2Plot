@@ -19,7 +19,7 @@ export const getOptions = function(name: string, theme: string, colors: string[]
     thickness: 24,
     radius: 1,
     angle: 240,
-    textPosition: '100%'
+    textPosition: '100%',
   };
 
   switch (name) {

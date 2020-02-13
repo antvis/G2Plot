@@ -73,7 +73,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.gaugeShape.setOption(
       this.options,
       this.getCustomStyle(style).pointerStyle,
-      this.getCustomStyle(style).ringStyle,
+      this.getCustomStyle(style).ringStyle
     );
     this.gaugeShape.render();
   }
@@ -86,8 +86,10 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     switch (style) {
       case 'meter':
         options = getOptions(style, theme, colors);
+        break;
       case 'fan':
         options = getOptions(style, theme, colors);
+        break;
       case 'standard':
       default:
         options = getOptions(style, theme, colors);
@@ -227,7 +229,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       siderTexts = this.renderSideText();
     }
 
-    const allAnnotations = annotationConfigs.concat(siderTexts)
+    const allAnnotations = annotationConfigs.concat(siderTexts);
     this.setConfig('annotations', allAnnotations);
   }
 
@@ -299,7 +301,6 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
       return html;
     }
   }
-
 }
 
 registerPlotType('gauge', GaugeLayer);

@@ -60,7 +60,7 @@ export default class BarLabel {
     const elements = this.getGeometry().elements;
     each(elements, (ele) => {
       const { shape } = ele;
-      let style = this.options.style;
+      let style = clone(this.options.style);
       const position = this.getPosition(shape);
       const textAlign = this.getTextAlign();
       const value = this.getValue(shape);
@@ -80,6 +80,7 @@ export default class BarLabel {
           textBaseline: 'middle',
         }),
       });
+      this.adjustLabel(label,shape);
     });
   }
 
@@ -159,13 +160,26 @@ export default class BarLabel {
     return data[this.plot.options.xField];
   }
 
-  private getDefaultOptions() {
+  protected adjustLabel(label,shape){
+    if(this.options.adjustPosition && this.options.position !=='right'){
+      const labelRange = label.getBBox();
+      const shapeRange = shape.getBBox();
+      if (shapeRange.width <= labelRange.width) {
+        const xPosition = shapeRange.maxX + this.options.offsetX;
+        label.attr('x', xPosition);
+        label.attr('fill',this.options.style.fill);
+      }
+    }
+  }
+
+  protected getDefaultOptions() {
     const { theme } = this.plot;
     const labelStyle = theme.label.style;
     return {
       offsetX: DEFAULT_OFFSET,
       offsetY: 0,
       style: clone(labelStyle),
+      adjustPosition: true
     };
   }
 

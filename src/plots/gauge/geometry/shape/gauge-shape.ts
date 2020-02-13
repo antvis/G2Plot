@@ -39,7 +39,6 @@ interface RingStyle {
   radius: number;
   /** 角度  */
   angle: number;
-
   /** 刻度线样式 */
   axis: AxisStyle;
 }

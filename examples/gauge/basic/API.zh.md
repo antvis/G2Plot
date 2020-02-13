@@ -32,6 +32,13 @@ title: API
 
 **optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#theme)。
 
+### style:string
+
+**optional**
+
+'standard' | 'meter' | 'fan'
+仪表盘不同类型集合，'standard' 为标准仪表盘，'meter' 为刻度仪表盘，'fan' 为扇形仪表盘
+
 ### data:number
 
 **required**

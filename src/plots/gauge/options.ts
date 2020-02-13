@@ -1,3 +1,7 @@
+/**
+ * @author linhuiw
+ * @description 仪表盘定义文件
+ */
 import { ViewConfig } from '../../base/view-layer';
 
 interface GaugeStyle {

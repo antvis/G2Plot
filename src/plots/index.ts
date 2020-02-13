@@ -6,7 +6,6 @@ export { default as PercentageStackBar, PercentageStackBarConfig } from './perce
 export { default as Area, AreaConfig } from './area';
 export { default as StackArea, StackAreaConfig } from './stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
-export { default as Density, DensityConfig } from './density';
 export { default as Column, ColumnConfig } from './column';
 export { default as GroupColumn, GroupColumnConfig } from './group-column';
 export { default as StackColumn, StackColumnConfig } from './stack-column';

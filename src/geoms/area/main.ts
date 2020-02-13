@@ -1,4 +1,4 @@
-import { DataPointType } from '@antv/g2/lib/interface';
+import { Datum } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import ElementParser from '../base';
 
@@ -26,7 +26,7 @@ export default class AreaParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: Datum = {};
     const colorMappingField = this._getColorMappingField();
     if (colorMappingField) {
       config.fields = colorMappingField;
@@ -47,7 +47,7 @@ export default class AreaParser extends ElementParser {
   public parseStyle() {
     const props = this.plot.options;
     const styleProps = props.areaStyle ? props.areaStyle : props.area.style;
-    const config: DataPointType = {};
+    const config: Datum = {};
     if (_.isFunction(styleProps) && props.seriesField) {
       config.fields = [props.seriesField];
       config.callback = styleProps;

@@ -238,6 +238,7 @@ export default class MatrixLegend {
   }
 
   protected legendLayout() {
+    console.log(this.options.plot);
     const panelRange = this.view.get('panelRange');
     const { bleeding } = this.options.plot.getPlotTheme();
     if (isArray(bleeding)) {
@@ -274,7 +275,7 @@ export default class MatrixLegend {
     if (positions[0] === 'bottom') {
       y = plotHeight - bleeding[2] - bbox.height;
     } else if (positions[0] === 'top') {
-      y = bleeding[0];
+      y = this.options.plot.viewRange.minY - bbox.height;
     } else if (positions[1] === 'center') {
       // default
       if (this.height === panelRange.height) {

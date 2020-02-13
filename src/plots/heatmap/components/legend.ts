@@ -409,16 +409,14 @@ export default class HeatmapLegend {
     return slide;
   }
 
-  private getTopPosition(bleeding){
-    if(this.options.plot.description){
+  private getTopPosition(bleeding) {
+    if (this.options.plot.description) {
       const bbox = this.options.plot.description.getBBox();
-      return bbox.maxY+10;
-    }else if(this.options.plot.title){
+      return bbox.maxY + 10;
+    } else if (this.options.plot.title) {
       const bbox = this.options.plot.title.getBBox();
-      return bbox.maxY+10;
+      return bbox.maxY + 10;
     }
     return bleeding[0];
   }
-
-
 }

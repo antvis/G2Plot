@@ -1,7 +1,19 @@
 import { each, deepMix, clone } from '@antv/util';
 import { Group, IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
-import LabelParser from '../../../components/label/parser';
+import { rgb2arr } from '../../../util/color';
+
+function mappingColor(band, gray) {
+  let reflect;
+  each(band, (b) => {
+    const map = b;
+    if (gray >= map.from && gray < map.to) {
+      reflect = map.color;
+    }
+  });
+  return reflect;
+}
+
 
 const DEFAULT_OFFSET = 8;
 
@@ -48,17 +60,22 @@ export default class BarLabel {
     const elements = this.getGeometry().elements;
     each(elements, (ele) => {
       const { shape } = ele;
+      let style = this.options.style;
       const position = this.getPosition(shape);
       const textAlign = this.getTextAlign();
       const value = this.getValue(shape);
+      const color = this.getTextColor(shape);
+      if (this.options.position !== 'right' && this.options.adjustColor && color !== 'black') {
+        style.stroke = null;
+      }
       const formatter = this.options.formatter;
       const content = formatter ? formatter(value) : value;
       const label = this.container.addShape('text', {
-        attrs: deepMix({}, this.options.style, {
+        attrs: deepMix({}, style, {
           x: position.x,
           y: position.y,
           text: content,
-          //fill: color,
+          fill: color,
           textAlign,
           textBaseline: 'middle',
         }),
@@ -106,6 +123,24 @@ export default class BarLabel {
     }
 
     return { x,y };
+  }
+
+  protected getTextColor(shape){
+    if (this.options.adjustColor && this.options.position !== 'right') {
+      const shapeColor = shape.attr('fill');
+      const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
+      const rgb = rgb2arr(shapeColor);
+      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
+      const colorBand = [
+        { from: 0, to: 85, color: 'white' },
+        { from: 85, to: 170, color: '#F6F6F6' },
+        { from: 170, to: 255, color: 'black' },
+      ];
+      const reflect = mappingColor(colorBand, gray);
+      return reflect;
+    }
+    const defaultColor = this.options.style.fill;
+    return defaultColor;
   }
 
   protected getTextAlign(){

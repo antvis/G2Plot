@@ -63,7 +63,7 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
         visible: true,
         position: 'top-left',
         offsetY: 0
-      },
+      }
     });
   }
 

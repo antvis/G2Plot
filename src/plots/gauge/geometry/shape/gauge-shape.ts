@@ -4,7 +4,9 @@
  */
 import * as _ from 'lodash';
 import { registerShape } from '@antv/g2';
+import { Group, Shape } from '@antv/g';
 import { GaugeViewConfig } from '../../options';
+import { ShapeDrawCFG } from '@antv/g2/lib/interface';
 
 interface PointerStyle {
   /** 指针颜色 */
@@ -77,7 +79,7 @@ export class GaugeShape {
     registerShape('point', 'gauge', {
       gauge: this,
 
-      draw(cfg: any, group: any) {
+      draw(cfg: ShapeDrawCFG, group: Group) {
         const gauge = (this as any).gauge;
         const style = _.get(gauge, 'options.style');
         const point = cfg.points[0];
@@ -452,6 +454,6 @@ export class GaugeShape {
           },
         });
       },
-    });
+    } as any);
   }
 }

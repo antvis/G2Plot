@@ -7,7 +7,7 @@ import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-import BarLabel from './component/label/bar-label';
+import BarLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
 

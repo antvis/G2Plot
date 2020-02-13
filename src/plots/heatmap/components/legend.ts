@@ -300,7 +300,7 @@ export default class HeatmapLegend {
     if (positions[0] === 'bottom') {
       y = plotHeight - bleeding[2] - bbox.height;
     } else if (positions[0] === 'top') {
-      y = bleeding[0];
+      y = this.getTopPosition(bleeding);
     } else if (positions[1] === 'center') {
       y = (plotHeight - bbox.height) / 2;
     } else if (positions[1] === 'top') {
@@ -407,5 +407,16 @@ export default class HeatmapLegend {
       }
     });
     return slide;
+  }
+
+  private getTopPosition(bleeding) {
+    if (this.options.plot.description) {
+      const bbox = this.options.plot.description.getBBox();
+      return bbox.maxY + 10;
+    } else if (this.options.plot.title) {
+      const bbox = this.options.plot.title.getBBox();
+      return bbox.maxY + 10;
+    }
+    return bleeding[0];
   }
 }

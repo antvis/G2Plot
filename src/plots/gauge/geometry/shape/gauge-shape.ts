@@ -74,6 +74,7 @@ export class GaugeShape {
   }
 
   render() {
+    // @ts-ignore
     const that = this;
 
     registerShape('point', 'gauge', {
@@ -311,7 +312,7 @@ export class GaugeShape {
         const config = { ...axis, ...param };
         const { offset, length, thickness, color } = config;
         const center = this.gauge.center;
-        let radius = this.gauge.ringRadius + offset;
+        const radius = this.gauge.ringRadius + offset;
 
         const xA1 = radius * Math.cos(angle) + center.x;
         const yA1 = radius * Math.sin(angle) + center.y;

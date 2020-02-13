@@ -46,8 +46,8 @@ export default class PercentageStackColumnLayer extends StackColumn<PercentageSt
     metaConfig[yField] = {
       tickCount: 6,
       alias: `${yField} (%)`,
-      minLimit: 0,
-      maxLimit: 1,
+      min: 0,
+      max: 1,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

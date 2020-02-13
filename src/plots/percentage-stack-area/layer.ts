@@ -37,8 +37,8 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
     metaConfig[this.options.yField] = {
       tickCount: 6,
       alias: `${yField} (%)`,
-      minLimit: 0,
-      maxLimit: 1,
+      min: 0,
+      max: 1,
       formatter: (v) => {
         const formattedValue = (v * 100).toFixed(1);
         return `${formattedValue}%`;

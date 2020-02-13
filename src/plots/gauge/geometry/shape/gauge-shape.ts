@@ -74,11 +74,8 @@ export class GaugeShape {
   }
 
   render() {
-    // @ts-ignore
-    const that = this;
-
     registerShape('point', 'gauge', {
-      gauge: that,
+      gauge: this,
 
       draw(cfg: any, group: any) {
         const gauge = (this as any).gauge;

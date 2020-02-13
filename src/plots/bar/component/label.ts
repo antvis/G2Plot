@@ -14,7 +14,6 @@ function mappingColor(band, gray) {
   return reflect;
 }
 
-
 const DEFAULT_OFFSET = 8;
 
 export interface BarLabelConfig {
@@ -60,10 +59,10 @@ export default class BarLabel {
     const elements = this.getGeometry().elements;
     each(elements, (ele) => {
       const { shape } = ele;
-      let style = clone(this.options.style);
-      const position = this.getPosition(shape);
-      const textAlign = this.getTextAlign();
+      const style = clone(this.options.style);
       const value = this.getValue(shape);
+      const position = this.getPosition(shape, value);
+      const textAlign = this.getTextAlign(value);
       const color = this.getTextColor(shape);
       if (this.options.position !== 'right' && this.options.adjustColor && color !== 'black') {
         style.stroke = null;
@@ -80,7 +79,7 @@ export default class BarLabel {
           textBaseline: 'middle',
         }),
       });
-      this.adjustLabel(label,shape);
+      this.adjustLabel(label, shape);
     });
   }
 
@@ -109,24 +108,26 @@ export default class BarLabel {
 
   public getBBox() {}
 
-  protected getPosition(shape){
-    const bbox = shape.getBBox();  
-    const { minX,maxX,minY,height,width } = bbox;
+  protected getPosition(shape, value) {
+    const bbox = shape.getBBox();
+    const { minX, maxX, minY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const y = minY + height / 2 + offsetY;
+    const dir = value < 0 ? -1 : 1;
     let x;
-    if(position === 'left'){
-      x = minX + offsetX;
-    }else if(position === 'right'){
-      x = maxX + offsetX;
-    }else{
-      x = minX + width / 2 + offsetX
+    if (position === 'left') {
+      const root = value > 0 ? minX : maxX;
+      x = root + offsetX * dir;
+    } else if (position === 'right') {
+      x = maxX + offsetX * dir;
+    } else {
+      x = minX + width / 2 + offsetX;
     }
 
-    return { x,y };
+    return { x, y };
   }
 
-  protected getTextColor(shape){
+  protected getTextColor(shape) {
     if (this.options.adjustColor && this.options.position !== 'right') {
       const shapeColor = shape.attr('fill');
       const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
@@ -144,30 +145,37 @@ export default class BarLabel {
     return defaultColor;
   }
 
-  protected getTextAlign(){
+  protected getTextAlign(value) {
     const { position } = this.options;
     const alignOptions = {
       right: 'left',
       left: 'left',
-      middle: 'center'
+      middle: 'center',
     };
-
+    const alignOptionsReverse = {
+      right: 'right',
+      left: 'right',
+      middle: 'center',
+    };
+    if (value < 0) {
+      return alignOptionsReverse[position];
+    }
     return alignOptions[position];
   }
 
-  protected getValue(shape){
+  protected getValue(shape) {
     const data = shape.get('origin').data;
     return data[this.plot.options.xField];
   }
 
-  protected adjustLabel(label,shape){
-    if(this.options.adjustPosition && this.options.position !=='right'){
+  protected adjustLabel(label, shape) {
+    if (this.options.adjustPosition && this.options.position !== 'right') {
       const labelRange = label.getBBox();
       const shapeRange = shape.getBBox();
       if (shapeRange.width <= labelRange.width) {
         const xPosition = shapeRange.maxX + this.options.offsetX;
         label.attr('x', xPosition);
-        label.attr('fill',this.options.style.fill);
+        label.attr('fill', this.options.style.fill);
       }
     }
   }
@@ -179,7 +187,7 @@ export default class BarLabel {
       offsetX: DEFAULT_OFFSET,
       offsetY: 0,
       style: clone(labelStyle),
-      adjustPosition: true
+      adjustPosition: true,
     };
   }
 
@@ -193,5 +201,4 @@ export default class BarLabel {
     });
     return lineGeom;
   }
-
 }

@@ -34,7 +34,7 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
       legend: {
         visible: true,
         position: 'right-top',
-        offsetY: 0
+        offsetY: 0,
       },
     });
   }

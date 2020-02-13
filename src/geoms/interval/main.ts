@@ -27,7 +27,7 @@ export default class IntervalParser extends ElementParser {
   public parseColor() {
     const props = this.plot.options;
     const colorField = this._getColorMappingField(props);
-    const config:any = {};
+    const config: any = {};
     if (colorField) {
       config.fields = colorField;
     }
@@ -50,7 +50,7 @@ export default class IntervalParser extends ElementParser {
 
   public parseSize(sizeProps) {
     const props = this.plot.options;
-    const config:any = {};
+    const config: any = {};
     if (_.isFunction(props[sizeProps])) {
       config.fields = [this.config.position.fields];
       config.callback = props[sizeProps];

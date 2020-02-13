@@ -180,7 +180,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       tooltip: {
         showTitle: true,
       },
-      axes: {  },
+      axes: {},
       coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
@@ -216,7 +216,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.view = new G2.View({
       parent: null,
       canvas: this.canvas,
-      backgroundGroup: this.container.addGroup(), 
+      backgroundGroup: this.container.addGroup(),
       middleGroup: this.container.addGroup(),
       foregroundGroup: this.container.addGroup(),
       padding: this.paddingController.getPadding(),
@@ -413,7 +413,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
-  protected interaction(){}
+  protected interaction() {}
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {

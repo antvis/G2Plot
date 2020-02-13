@@ -83,8 +83,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       tooltip: {
         visible: true,
         shared: true,
-        showCrosshairs:false,
-        showMarkers: false 
+        showCrosshairs: false,
+        showMarkers: false,
       },
       label: {
         visible: true,
@@ -113,7 +113,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   public afterRender() {
-    this.renderTime +=1;
+    this.renderTime += 1;
     const props = this.options;
     if (this.options.label && this.options.label.visible) {
       const label = new BarLabel({
@@ -208,8 +208,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     }
   }
 
-  protected interaction(){
-    this.setConfig('interaction',{type:'active-region'});
+  protected interaction() {
+    this.setConfig('interaction', { type: 'active-region' });
   }
 
   protected parseEvents(eventParser) {

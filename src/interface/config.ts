@@ -158,7 +158,7 @@ export interface Tooltip {
   crosshairs?: 'x' | 'y' | 'cross';
   style?: IStyleConfig;
   offset?: number;
-  showMarkers: boolean;
+  showMarkers?: boolean;
 }
 
 interface Animation {

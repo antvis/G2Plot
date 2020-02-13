@@ -7,10 +7,9 @@ import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-// import './component/label/bar-label';
+import BarLabel from './component/label/bar-label';
 import * as EventParser from './event';
 import './theme';
-import ringThickness from '../../util/responsive/constraints/ring-thickness';
 
 interface BarStyle {
   opacity?: number;
@@ -116,6 +115,14 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   public afterRender() {
     this.renderTime +=1;
     const props = this.options;
+    if (this.options.label && this.options.label.visible) {
+      const label = new BarLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -187,12 +194,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       positionFields: [props.yField, props.xField],
       plot: this,
     });
-    if(bar.color && !_.hasKey(bar.color,'fields')){
-      bar.color.fields = [props.xField];
-    }
-    if (props.label) {
-      // bar.label = this.extractLabel();
-    }
     this.adjustBar(bar);
     this.bar = bar;
     this.setConfig('geometry', bar);
@@ -205,25 +206,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       /** 关闭动画 */
       this.bar.animate = false;
     }
-  }
-
-  protected extractLabel() {
-    const props = this.options;
-    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
-    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
-
-    if (label && label.visible === false) {
-      return false;
-    }
-
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'barLabel',
-      fields: [props.xField],
-      ...label,
-    });
-
-    return labelConfig;
   }
 
   protected interaction(){

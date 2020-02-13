@@ -26,25 +26,24 @@ interface LabelData {
   _side?: 'left' | 'right';
 }
 
+interface SpiderLabelConfig {
+  line?: any;
+  text?: any;
+  formatter?: (text: string, item: OriginLabelItem, index: number) => string | string[];
+  offsetX?: number;
+  offsetY?: number;
+  [field: string]: any;
+}
+
+interface ISpiderLabel extends SpiderLabelConfig {
+  view: View;
+  fields: string[];
+}
+
 function getEndPoint(center, angle, r) {
   return {
     x: center.x + r * Math.cos(angle),
     y: center.y + r * Math.sin(angle),
-  };
-}
-
-function getDefaultCfg() {
-  return {
-    text: {
-      fill: 'rgba(0, 0, 0, 0.65)',
-      fontSize: 12,
-    },
-    lineWidth: 0.5,
-    lineStroke: 'rgba(0, 0, 0, 0.45)',
-    /** distance between label and edge */
-    sidePadding: 20,
-    lineHeight: 32,
-    // anchorSize: 2,
   };
 }
 
@@ -55,30 +54,27 @@ interface OriginLabelItem {
 }
 
 export default class SpiderLabel {
+  public destroyed: boolean = false;
   private view: View;
-  private fields: string[];
+  private options: ISpiderLabel;
   private halves: any[][];
   private container: IGroup;
-  private config: IAttrs;
-  private formatter: (text: string, item: OriginLabelItem, index: number) => string | string[];
-  private offsetX: number;
-  private offsetY: number;
   private width: number;
   private height: number;
   private coord: any;
 
-  constructor(cfg) {
+  constructor(cfg: ISpiderLabel) {
     this.view = cfg.view;
-    this.fields = cfg.fields;
-    this.formatter = cfg.formatter;
-    this.offsetX = cfg.offsetX;
-    this.offsetY = cfg.offsetY;
-    this.config = _.assign(getDefaultCfg(), _.pick(cfg.style, ['lineStroke', 'lineWidth']));
-    if (cfg.style) {
-      this.config.text = _.mix(this.config.text, cfg.style);
-    }
-    this._adjustConfig(this.config);
-    this._init();
+    this.options = _.deepMix({}, this.getDefaultOptions(), cfg);
+    this._adjustOptions(this.options);
+    this.init();
+  }
+
+  private init() {
+    this.container = this.view.geometries[0].labelsContainer;
+    this.view.on('beforerender', () => {
+      this.clear();
+    });
   }
 
   public render() {
@@ -88,14 +84,13 @@ export default class SpiderLabel {
     /** 如果有formatter则事先处理数据 */
     const data = _.clone(this.view.getData());
     this.halves = [[], []];
-    this.container = this.view.geometries[0].labelsContainer;
     const shapes = [];
     const elements = this.view.geometries[0].elements;
     _.each(elements, (ele) => {
       shapes.push(ele.shape);
     });
     this.coord = this.view.geometries[0].coordinate;
-    const angleField = this.fields[0];
+    const angleField = this.options.fields[0];
     const scale = this.view.getScalesByDim('y')[angleField];
     const center = this.coord.getCenter();
     const { startAngle } = this.coord;
@@ -117,8 +112,8 @@ export default class SpiderLabel {
       const inflectionPoint = getEndPoint(center, middleAngle, radius + INFLECTION_OFFSET);
       // 获取对应shape的color
       let color = DEFAULT_COLOR;
-      if (this.fields.length === 2) {
-        const colorField = this.fields[1];
+      if (this.options.fields.length === 2) {
+        const colorField = this.options.fields[1];
         const colorScale = this.view.geometries[0].scales[colorField];
         const colorIndex = colorScale.scale(d[colorField]);
         const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
@@ -138,11 +133,11 @@ export default class SpiderLabel {
       };
       // 创建label文本
       let texts = [];
-      _.each(this.fields, (f) => {
+      _.each(this.options.fields, (f) => {
         texts.push(d[f]);
       });
-      if (this.formatter) {
-        let formatted: any = this.formatter(d[angleField], { _origin: d, color }, idx);
+      if (this.options.formatter) {
+        let formatted: any = this.options.formatter(d[angleField], { _origin: d, color }, idx);
         if (_.isString(formatted)) {
           formatted = [formatted];
         }
@@ -152,14 +147,14 @@ export default class SpiderLabel {
       const textAttrs: IAttrs = {
         x: 0,
         y: 0,
-        fontSize: this.config.text.fontSize,
-        lineHeight: this.config.text.fontSize,
-        fontWeight: this.config.text.fontWeight,
-        fill: this.config.text.fill,
+        fontSize: this.options.text.fontSize,
+        lineHeight: this.options.text.fontSize,
+        fontWeight: this.options.text.fontWeight,
+        fill: this.options.text.fill,
       };
       // label1:下部label
       let lowerText = d[angleField];
-      if (this.formatter) {
+      if (this.options.formatter) {
         lowerText = texts[0];
       }
       const lowerTextAttrs = _.clone(textAttrs);
@@ -209,8 +204,7 @@ export default class SpiderLabel {
     }
 
     /** 绘制label */
-    const _drawnLabels = [];
-    const maxCountForOneSide = Math.floor(height / this.config.lineHeight);
+    const maxCountForOneSide = Math.floor(height / this.options.lineHeight);
 
     _.each(this.halves, (half) => {
       if (half.length > maxCountForOneSide) {
@@ -232,10 +226,38 @@ export default class SpiderLabel {
     }
   }
 
-  private _init() {
-    this.view.on('beforerender', () => {
-      this.clear();
-    });
+  public hide() {
+    this.container.set('visible', false);
+    this.view.canvas.draw();
+  }
+
+  public show() {
+    this.container.set('visible', true);
+    this.view.canvas.draw();
+  }
+
+  public destory() {
+    if (this.container) {
+      this.container.remove();
+    }
+    this.destroyed = true;
+  }
+
+  protected getDefaultOptions() {
+    return {
+      text: {
+        fill: 'rgba(0, 0, 0, 0.65)',
+        fontSize: 12,
+      },
+      line: {
+        lineWidth: 0.5,
+        stroke: 'rgba(0, 0, 0, 0.45)',
+      },
+      lineHeight: 32,
+      /** distance between label and edge */
+      sidePadding: 20,
+      // anchorSize: 2,
+    };
   }
 
   private _antiCollision(half: LabelData[]) {
@@ -243,7 +265,7 @@ export default class SpiderLabel {
     const canvasHeight = coord.getHeight();
     const { center } = coord;
     const radius = coord.getRadius();
-    const startY = center.y - radius - INFLECTION_OFFSET - this.config.lineHeight;
+    const startY = center.y - radius - INFLECTION_OFFSET - this.options.lineHeight;
     let overlapping = true;
     let totalH = canvasHeight;
     let i;
@@ -267,7 +289,7 @@ export default class SpiderLabel {
       }
 
       return {
-        size: this.config.lineHeight,
+        size: this.options.lineHeight,
         targets: [labelY - startY],
       };
     });
@@ -311,8 +333,8 @@ export default class SpiderLabel {
     boxes.forEach((b) => {
       let posInCompositeBox = startY; // middle of the label
       b.targets.forEach(() => {
-        half[i].y = b.pos + posInCompositeBox + this.config.lineHeight / 2;
-        posInCompositeBox += this.config.lineHeight;
+        half[i].y = b.pos + posInCompositeBox + this.options.lineHeight / 2;
+        posInCompositeBox += this.options.lineHeight;
         i++;
       });
     });
@@ -340,12 +362,12 @@ export default class SpiderLabel {
       textAlign: label._side === 'left' ? 'right' : 'left',
       x:
         label._side === 'left'
-          ? center.x - radius - this.config.sidePadding
-          : center.x + radius + this.config.sidePadding,
+          ? center.x - radius - this.options.sidePadding
+          : center.x + radius + this.options.sidePadding,
     };
 
-    if (this.offsetX) {
-      textAttrs.x += this.offsetX * x_dir;
+    if (this.options.offsetX) {
+      textAttrs.x += this.options.offsetX * x_dir;
     }
 
     children.forEach((child) => {
@@ -398,12 +420,11 @@ export default class SpiderLabel {
       }
       path.push([starter, p[0], p[1]]);
     }
-
     this.container.addShape('path', {
       attrs: {
         path,
-        lineWidth: this.config.lineWidth,
-        stroke: this.config.lineStroke,
+        lineWidth: this.options.line.lineWidth,
+        stroke: this.options.line.stroke,
       },
     });
 
@@ -418,7 +439,7 @@ export default class SpiderLabel {
     // });
   }
 
-  private _adjustConfig(config) {
+  private _adjustOptions(config) {
     if (config.text.fontSize) {
       config.lineHeight = config.text.fontSize * 3;
     }

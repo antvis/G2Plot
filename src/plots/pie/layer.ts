@@ -75,7 +75,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   public pie: any;
-  public spiderLabel: any;
   public type: string = 'pie';
 
   public getOptions(props: T) {
@@ -95,12 +94,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         const spiderLabel = new SpiderLabel({
           view: this.view,
           fields: options.colorField ? [options.angleField, options.colorField] : [options.angleField],
-          style: labelConfig.style ? labelConfig.style : {},
-          formatter: options.label.formatter ? options.label.formatter : false,
-          offsetX: options.label.offsetX,
-          offsetY: options.label.offsetY,
+          ...this.options.label,
         });
-        this.spiderLabel = spiderLabel;
         spiderLabel.render();
       } else {
         const LabelCtor = getPieLabel(labelConfig.type);
@@ -137,8 +132,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected coord() {
     const props = this.options;
-    const coordConfig = {
-      type: 'theta' as Coordinate['type'],
+    const coordConfig: any = {
+      type: 'theta',
       cfg: {
         radius: props.radius,
         // @ts-ignore 业务定制,不开放配置

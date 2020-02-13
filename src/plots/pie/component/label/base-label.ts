@@ -241,7 +241,9 @@ export default abstract class PieBaseLabel {
   private initAnchors(): void {
     const { angleField } = this.plot.options;
     const elements = this.getGeometry().elements;
-    let { center, radius, startAngle } = this.getCoordinate();
+    const coord = this.getCoordinate();
+    const { center, radius } = coord;
+    let { startAngle } = this.getCoordinate();
     const scale = this.getGeometry().scales[angleField];
     const anchors = elements.map((ele) => {
       const origin = ele.shape.get('origin');

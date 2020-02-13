@@ -115,14 +115,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   public afterRender() {
     this.renderTime += 1;
     const props = this.options;
-    if (this.options.label && this.options.label.visible) {
-      const label = new BarLabel({
-        view: this.view,
-        plot: this,
-        ...this.options.label,
-      });
-      label.render();
-    }
+    this.renderLabel();
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -214,6 +207,17 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
+  }
+
+  protected renderLabel(){
+    if (this.options.label && this.options.label.visible) {
+      const label = new BarLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
   }
 
   private applyResponsive(stage) {

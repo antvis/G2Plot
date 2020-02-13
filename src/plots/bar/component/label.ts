@@ -18,7 +18,7 @@ const DEFAULT_OFFSET = 8;
 
 export interface BarLabelConfig {
   visible: boolean;
-  position?: 'left' | 'right' | 'middle';
+  position?: string;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;
@@ -35,9 +35,9 @@ export interface IBarLabel extends BarLabelConfig {
 export default class BarLabel {
   public options: BarLabelConfig;
   public destroyed: boolean = false;
-  private plot: any;
-  private view: View;
-  private container: Group;
+  protected plot: any;
+  protected view: View;
+  protected container: Group;
 
   constructor(cfg: IBarLabel) {
     this.view = cfg.view;

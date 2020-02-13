@@ -1,10 +1,9 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
-// import './component/label/stack-bar-label';
+import StackBarLabel from './component/label';
 
 export interface StackBarViewConfig extends BarViewConfig {
   stackField: string;
@@ -77,23 +76,17 @@ export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayer
     ];
   }
 
-  protected extractLabel() {
-    const props = this.options;
-    const label = props.label as Label;
-
-    if (label.visible === false) {
-      return false;
+  protected renderLabel(){
+    if (this.options.label && this.options.label.visible) {
+      const label = new StackBarLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
     }
-
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'stackBarLabel',
-      fields: [props.xField],
-      ...label,
-    });
-
-    return labelConfig as any;
   }
+
 }
 
 registerPlotType('stackBar', StackBarLayer);

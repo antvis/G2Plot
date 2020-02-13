@@ -110,7 +110,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.beforeInit();
     this.init();
     this.afterInit();
-    groupTransform(this.container, [['t', this.x, this.y]]);
+    //(this.container, [['t', this.x, this.y]]);
     this.eachLayer((layer) => {
       layer.render();
     });

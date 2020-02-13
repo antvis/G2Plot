@@ -7,13 +7,13 @@ import { getOverlapArea, near } from './utils';
 export const DEFAULT_OFFSET = 16;
 
 export default class PieOuterLabel extends PieBaseLabel {
-    /** @override 不能大于0 */
-    protected adjustOption(options: PieLabelConfig) {
-      super.adjustOption(options);
-      if (options.offset < 0) {
-        options.offset = 0;
-      }
+  /** @override 不能大于0 */
+  protected adjustOption(options: PieLabelConfig) {
+    super.adjustOption(options);
+    if (options.offset < 0) {
+      options.offset = 0;
     }
+  }
 
   protected getDefaultOptions() {
     const { theme } = this.plot;

@@ -23,6 +23,7 @@ import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
+import BBox from '../util/bbox';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -78,7 +79,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       tooltip: {
         visible: true,
-        follow: false,
         shared: true,
         showCrosshairs: true,
         crosshairs: 'y',
@@ -178,10 +178,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       scales: {},
       legends: {},
       tooltip: {
-        follow: true,
         showTitle: true,
       },
-      axes: { fields: {} },
+      axes: {},
       coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
@@ -208,21 +207,22 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.legend();
     this.addGeometry();
     this.annotation();
+    this.interaction();
     this.animation();
 
     this.viewRange = this.getViewRange();
     this.paddingController.clearOuterComponents();
-
+    const region = this.viewRangeToRegion(this.viewRange);
     this.view = new G2.View({
+      parent: null,
       canvas: this.canvas,
-      foregroundGroup: this.container.addGroup(),
-      middleGroup: this.container.addGroup(),
       backgroundGroup: this.container.addGroup(),
+      middleGroup: this.container.addGroup(),
+      foregroundGroup: this.container.addGroup(),
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
-      start: { x: this.viewRange.minX, y: this.viewRange.minY },
-      end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
+      region,
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -250,7 +250,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-    //this.addGeomCliper();
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
@@ -414,9 +413,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
+  protected interaction() {}
+
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
-      this.config.animate = false;
+      this.setConfig('animate', false);
     }
   }
 
@@ -446,6 +447,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
     if (key === 'geometry') {
       this.config.geometries.push(config as G2Config['geometry']);
+      return;
+    }
+    if (key === 'interaction') {
+      this.config.interactions.push(config as any);
       return;
     }
     if (config === false) {
@@ -594,25 +599,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return viewRange;
   }
 
-  // 临时解决scale min & max的图形截取
-  private addGeomCliper() {
-    const panelRange = this.view.coordinateBBox;
-    const geoms = this.view.geometries;
-    _.each(geoms, (geom) => {
-      const cliperContainer = geom.container;
-      const preCliper = cliperContainer.get('clipShape');
-      if (preCliper) {
-        preCliper.remove();
-      }
-      cliperContainer.setClip({
-        type: 'rect',
-        attrs: {
-          x: panelRange.minX,
-          y: panelRange.minY,
-          width: panelRange.width,
-          height: panelRange.height,
-        },
-      });
-    });
+  private viewRangeToRegion(viewRange) {
+    const { width, height } = this;
+    const start = { x: 0, y: 0 },
+      end = { x: 1, y: 1 };
+    start.x = viewRange.minX / width;
+    start.y = viewRange.minY / height;
+    end.x = viewRange.maxX / width;
+    end.y = viewRange.maxY / height;
+
+    return {
+      start,
+      end,
+    };
   }
 }

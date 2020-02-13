@@ -1,7 +1,7 @@
 /**
  * stateManager负责stateManager的创建/绑定，对状态量更新的响应
  */
-import { Group, Shape } from '@antv/g';
+import { IGroup, IShape } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
@@ -21,9 +21,9 @@ export function compare(origin, condition) {
 export default class StateController {
   private plot: any;
   private stateManager: StateManager;
-  private shapes: Shape[];
+  private shapes: IShape[];
   private originAttrs: any[]; // 缓存图形的原始属性
-  private shapeContainers: Group[] = [];
+  private shapeContainers: IGroup[] = [];
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -168,7 +168,7 @@ export default class StateController {
   }
 
   // private set
-  private setZIndex(stateType: string, shape: Shape) {
+  private setZIndex(stateType: string, shape: IShape | any) {
     if (stateType === 'active' || stateType === 'selected') {
       // shape.setZIndex(1);
       const children = shape.get('parent').get('children');

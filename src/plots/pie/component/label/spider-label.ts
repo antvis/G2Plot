@@ -1,7 +1,8 @@
-import { Group, Shape } from '@antv/g';
-import { Scale, View } from '@antv/g2';
+import { IGroup, Group, IShape, Shape } from '@antv/g-canvas';
+import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
+import { getCenter } from './utils';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
@@ -21,7 +22,7 @@ interface LabelData {
   y: number;
   r: number;
   fill: string;
-  textGroup: Group;
+  textGroup: IGroup;
   _side?: 'left' | 'right';
 }
 
@@ -57,13 +58,14 @@ export default class SpiderLabel {
   private view: View;
   private fields: string[];
   private halves: any[][];
-  private container: Group;
+  private container: IGroup;
   private config: IAttrs;
   private formatter: (text: string, item: OriginLabelItem, index: number) => string | string[];
   private offsetX: number;
   private offsetY: number;
   private width: number;
   private height: number;
+  private coord: any;
 
   constructor(cfg) {
     this.view = cfg.view;
@@ -79,22 +81,26 @@ export default class SpiderLabel {
     this._init();
   }
 
-  public draw() {
+  public render() {
     if (!this.view || this.view.destroyed) {
       return;
     }
     /** 如果有formatter则事先处理数据 */
-    const data = _.clone(this.view.get('filteredData'));
+    const data = _.clone(this.view.getData());
     this.halves = [[], []];
-    this.container = this.view.get('frontgroundGroup').addGroup();
-    const shapes = this.view.get('elements')[0].getShapes();
-    const coord = this.view.get('coord');
-
+    this.container = this.view.geometries[0].labelsContainer;
+    const shapes = [];
+    const elements = this.view.geometries[0].elements;
+    _.each(elements, (ele) => {
+      shapes.push(ele.shape);
+    });
+    this.coord = this.view.geometries[0].coordinate;
     const angleField = this.fields[0];
-    const scale = this.view.get('scales')[angleField];
-    const { center, startAngle } = coord;
-    const radius = coord.getRadius();
-    const { width, height } = this.view.get('panelRange');
+    const scale = this.view.getScalesByDim('y')[angleField];
+    const center = this.coord.getCenter();
+    const { startAngle } = this.coord;
+    const radius = this.coord.polarRadius;
+    const { width, height } = this.view.coordinateBBox;
     this.width = width;
     this.height = height;
     let angle = startAngle;
@@ -113,7 +119,7 @@ export default class SpiderLabel {
       let color = DEFAULT_COLOR;
       if (this.fields.length === 2) {
         const colorField = this.fields[1];
-        const colorScale = this.view.get('scales')[colorField];
+        const colorScale = this.view.geometries[0].scales[colorField];
         const colorIndex = colorScale.scale(d[colorField]);
         const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
         color = shapes[shapeIndex].attr('fill');
@@ -142,7 +148,7 @@ export default class SpiderLabel {
         }
         texts = formatted;
       }
-      const textGroup = new Group();
+      const textGroup = new Group({});
       const textAttrs: IAttrs = {
         x: 0,
         y: 0,
@@ -160,7 +166,7 @@ export default class SpiderLabel {
       if (texts.length === 2) {
         lowerTextAttrs.fontWeight = 700;
       }
-      const lowerTextShape = textGroup.addShape('text', {
+      const lowerTextShape: any = textGroup.addShape('text', {
         attrs: _.mix(
           {
             textBaseline: texts.length === 2 ? 'top' : 'middle',
@@ -175,7 +181,7 @@ export default class SpiderLabel {
       lowerTextShape.name = 'label'; // 用于事件标记 shapeName
       /** label2:上部label */
       if (texts.length === 2) {
-        const topTextShape = textGroup.addShape('text', {
+        const topTextShape: any = textGroup.addShape('text', {
           attrs: _.mix(
             {
               textBaseline: 'bottom',
@@ -217,7 +223,7 @@ export default class SpiderLabel {
 
       this._antiCollision(half);
     });
-    this.view.get('canvas').draw();
+    this.view.canvas.draw();
   }
 
   public clear() {
@@ -230,14 +236,10 @@ export default class SpiderLabel {
     this.view.on('beforerender', () => {
       this.clear();
     });
-
-    this.view.on('afterrender', () => {
-      this.draw();
-    });
   }
 
   private _antiCollision(half: LabelData[]) {
-    const coord = this.view.get('coord');
+    const { coord } = this;
     const canvasHeight = coord.getHeight();
     const { center } = coord;
     const radius = coord.getRadius();
@@ -325,7 +327,7 @@ export default class SpiderLabel {
   }
 
   private _drawLabel(label: LabelData) {
-    const coord = this.view.get('coord');
+    const { coord } = this;
     const center = coord.getCenter();
     const radius = coord.getRadius();
 
@@ -356,7 +358,7 @@ export default class SpiderLabel {
     return textGroup;
   }
 
-  private _drawLabelLine(label: LabelData, maxLabelWidth): Shape {
+  private _drawLabelLine(label: LabelData, maxLabelWidth): IShape {
     const _anchor = [label._anchor.x, label._anchor.y];
     const _inflection = [label._inflection.x, label._inflection.y];
     const { fill, y, textGroup } = label;

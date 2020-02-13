@@ -62,7 +62,7 @@ export default abstract class PieBaseLabel {
 
   protected abstract getDefaultOptions();
   protected abstract layout(labels: IShape[], shapeInfos: LabelItem[]);
-  protected adjustItem(item: LabelItem): void {};
+  protected adjustItem(item: LabelItem): void {}
 
   protected init() {
     this.container = this.getGeometry().labelsContainer;
@@ -113,12 +113,16 @@ export default abstract class PieBaseLabel {
       const content = formatter ? formatter(shapeInfo.name, { _origin: shapeInfo.origin }, idx) : shapeInfo.name;
       const itemGroup = this.container.addGroup({ name: 'itemGroup', index: idx });
       const textShape = itemGroup.addShape('text', {
-        attrs: _.deepMix({}, {
-          ...shapeInfo,
-          x: shapeInfo.x + offsetX,
-          y: shapeInfo.y + offsetY,
-          text: content,
-        }, style),
+        attrs: _.deepMix(
+          {},
+          {
+            ...shapeInfo,
+            x: shapeInfo.x + offsetX,
+            y: shapeInfo.y + offsetY,
+            text: content,
+          },
+          style
+        ),
       });
       textShape.set('id', `text-${shapeInfo.name}-${idx}`);
       this.adjustPosition(textShape);
@@ -224,7 +228,7 @@ export default abstract class PieBaseLabel {
 
   private getItems(): LabelItem[] {
     const { offset } = this.options;
-    let { center, radius } = this.getCoordinate();
+    const { center, radius } = this.getCoordinate();
     const items = this.anchors.map((anchor) => {
       const point = getEndPoint(center, anchor.angle, radius + offset);
       const item = { ...anchor, ...point };

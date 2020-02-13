@@ -1,4 +1,3 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import { ViewLayer } from '../..';
 import { IBaseAxis } from '../../interface/config';
@@ -97,27 +96,27 @@ export default class AxisParser {
 
   private _labelParser() {
     const { style, ...restLabelProps } = this.localProps.label;
-    const labelConfig: DataPointType = { ...restLabelProps };
+    const labelConfig: any = { ...restLabelProps };
     if (style) {
-      labelConfig.textStyle = { style: this.localProps.label.style };
+      labelConfig.style = { style: this.localProps.label.style };
     }
-    labelConfig.textStyle = { style: _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle) };
+    labelConfig.style = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.style);
     const formatter = this.parseFormatter(labelConfig);
     labelConfig.formatter = formatter;
     this.config.label = labelConfig;
   }
 
   private _titleParser() {
-    const titleConfig: DataPointType = { ...this.localProps.title };
+    const titleConfig: any = { ...this.localProps.title };
     const { visible, style, text } = this.localProps.title;
     if (!visible) {
       this.config.showTitle = false;
     } else {
       this.config.showTitle = true;
       if (style) {
-        titleConfig.textStyle = style;
+        titleConfig.style = style;
       }
-      titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
+      titleConfig.style = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
 
       if (text) {
         titleConfig.text = text;

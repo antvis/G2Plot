@@ -65,7 +65,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         visible: true,
         shared: false,
         showCrosshairs: false,
-        showMarkers: false
+        showMarkers: false,
       },
       pieStyle: {
         stroke: 'white',
@@ -101,6 +101,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
           offsetY: options.label.offsetY,
         });
         this.spiderLabel = spiderLabel;
+        spiderLabel.render();
       } else {
         const LabelCtor = getPieLabel(labelConfig.type);
         const label = new LabelCtor(this, options.label);

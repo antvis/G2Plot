@@ -10,6 +10,7 @@ export { default as Column, ColumnConfig } from './column';
 export { default as GroupColumn, GroupColumnConfig } from './group-column';
 export { default as StackColumn, StackColumnConfig } from './stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
+export { default as Heatmap, HeatmapConfig } from './heatmap';
 
 // export { default as Density, DensityConfig } from './density';
 // export { default as Bubble, BubbleConfig } from './bubble';
@@ -25,7 +26,6 @@ export { default as PercentageStackColumn, PercentageStackColumnConfig } from '.
 // export { default as StackArea, StackAreaConfig } from './stack-area';
 // export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
 // export { default as Funnel, FunnelConfig } from './funnel';
-// export { default as Heatmap, HeatmapConfig } from './heatmap';
 // export { default as Matrix, MatrixConfig } from './matrix';
 // export { default as Waterfall, WaterfallConfig } from './waterfall';
 // export { default as Treemap } from './treemap';

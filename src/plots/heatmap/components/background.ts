@@ -1,5 +1,5 @@
 import { each, isArray, isFunction, deepMix } from '@antv/util';
-import { Group, BBox } from '@antv/g-canvas';
+import { IGroup, Group, BBox } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import EventEmitter from '@antv/event-emitter';
 
@@ -17,7 +17,7 @@ export interface IHeatmapBackground extends HeatmapBackgroundConfig {
 
 export default class HeatmapBackground extends EventEmitter {
   public options: IHeatmapBackground;
-  public container: Group;
+  public container: IGroup;
   protected view: View;
   protected x: number;
   protected y: number;
@@ -37,9 +37,7 @@ export default class HeatmapBackground extends EventEmitter {
     this.height = coord.getHeight();
     this.x = coord.start.x;
     this.y = coord.end.y;
-    const plotContainer = this.options.plot.container;
-    this.container = plotContainer.addGroup();
-    this.container.setZIndex(-100);
+    this.container = this.view.backgroundGroup.addGroup({});
   }
 
   public render() {
@@ -98,10 +96,10 @@ export default class HeatmapBackground extends EventEmitter {
     }
   }
 
-  private getCoordinate(){
+  private getCoordinate() {
     let coordinate;
-    each(this.view.geometries,(geom) =>{
-      if(geom.type === 'heatmap'){
+    each(this.view.geometries, (geom) => {
+      if (geom.type === 'heatmap') {
         coordinate = geom.coordinate;
       }
     });

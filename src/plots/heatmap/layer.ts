@@ -6,9 +6,9 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
-// import HeatmapLegend, { HeatmapLegendConfig } from './components/legend';
+import HeatmapLegend, { HeatmapLegendConfig } from './components/legend';
 import HeatmapBackground, { HeatmapBackgroundConfig } from './components/background';
-// import '../scatter/components/label/scatter-label';
+//import '../scatter/components/label/scatter-label';
 
 interface PointStyle {
   lineDash?: number[];
@@ -29,15 +29,15 @@ export interface HeatmapViewConfig extends ViewConfig {
     color?: string;
     style?: PointStyle;
   };
-  // legend?: HeatmapLegendConfig;
-  background?: {};
+  legend?: HeatmapLegendConfig;
+  background?: HeatmapBackgroundConfig;
 }
 
 export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
 
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
   public type: string = 'heatmap';
-  // protected heatmapLegend: HeatmapLegend;
+  protected heatmapLegend: HeatmapLegend;
   protected background: HeatmapBackground;
   protected count: number = 0;
 
@@ -112,7 +112,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public afterRender() {
-    /*if (this.options.legend && this.options.legend.visible) {
+    if (this.options.legend && this.options.legend.visible) {
       this.heatmapLegend = new HeatmapLegend({
         view: this.view,
         plot: this,
@@ -120,7 +120,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
       });
       this.heatmapLegend.render();
       this.paddingController.registerPadding(this.heatmapLegend, 'outer');
-    }*/
+    }
     if (this.options.background && this.options.padding !== 'auto') {
       this.background = new HeatmapBackground({
         view: this.view,
@@ -134,14 +134,14 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public destroy() {
-    /*if (this.heatmapLegend) {
+    if (this.heatmapLegend) {
       this.heatmapLegend.destroy();
       this.heatmapLegend = null;
     }
     if (this.background) {
       this.background.destroy();
       this.background = null;
-    }*/
+    }
     super.destroy();
   }
 

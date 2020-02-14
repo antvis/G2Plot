@@ -1,6 +1,7 @@
 import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
-import { Group, BBox } from '@antv/g';
-import { View, Scale } from '@antv/g2';
+import { Group } from '@antv/g-canvas';
+import { View } from '@antv/g2';
+import BBox from '../../../util/bbox';
 
 const LABEL_MARGIN = 4;
 const ACTIVE_OPACITY = 1;
@@ -59,7 +60,7 @@ export default class HeatmapLegend {
   }
 
   public render() {
-    const scales = this.view.get('scales');
+    const scales = this.getScales();
     const colorField = this.options.plot.options.colorField;
     this.colorScale = scales[colorField];
     const { min, max } = this.colorScale;
@@ -71,6 +72,7 @@ export default class HeatmapLegend {
     }
     this.legendLayout();
     this.addInteraction();
+    this.options.plot.canvas.draw();
   }
 
   public hide() {
@@ -104,7 +106,7 @@ export default class HeatmapLegend {
   protected renderVertical(min, max, colors) {
     const gridWidth = this.width;
     const gridHeight = this.height / colors.length;
-    const gridLineContainer = new Group();
+    const gridLineContainer = new Group({});
     const gridColors = clone(colors).reverse();
     const valueStep = (max - min) / colors.length;
     // 绘制色彩格子
@@ -177,7 +179,7 @@ export default class HeatmapLegend {
   protected renderHorizontal(min, max, colors) {
     const gridWidth = this.width / colors.length;
     const gridHeight = this.height;
-    const gridLineContainer = new Group();
+    const gridLineContainer = new Group({});
     const valueStep = (max - min) / colors.length;
     // 绘制色彩格子
     each(colors, (c, i) => {
@@ -374,7 +376,8 @@ export default class HeatmapLegend {
         }
         const filteredData = this.getFilteredData();
         if (filteredData.length > 0) {
-          this.view.set('data', filteredData);
+          this.view.changeData(filteredData);
+          //this.view.set('data', filteredData);
           this.view.scale(colorField, {
             min: this.colorScale.min,
             max: this.colorScale.max,
@@ -418,5 +421,15 @@ export default class HeatmapLegend {
       return bbox.maxY + 10;
     }
     return bleeding[0];
+  }
+
+  private getScales() {
+    let scales;
+    each(this.view.geometries, (geom) => {
+      if (geom.type === 'heatmap') {
+        scales = geom.scales;
+      }
+    });
+    return scales;
   }
 }

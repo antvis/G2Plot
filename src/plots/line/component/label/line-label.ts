@@ -1,4 +1,4 @@
-import { each, deepMix, clone } from '@antv/util';
+import { each, deepMix, clone, find } from '@antv/util';
 import { Group, IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 
@@ -20,8 +20,8 @@ export interface ILineLabel extends LineLabelConfig {
 export default class LineLabel {
   public options: LineLabelConfig;
   public destroyed: boolean = false;
-  private plot: any;
-  private view: View;
+  protected plot: any;
+  protected view: View;
   private container: Group;
 
   constructor(cfg: ILineLabel) {
@@ -96,14 +96,7 @@ export default class LineLabel {
   }
 
   private getGeometry() {
-    const { geometries } = this.view;
-    let lineGeom;
-    each(geometries, (geom) => {
-      if (geom.type === 'line') {
-        lineGeom = geom;
-      }
-    });
-    return lineGeom;
+    return find(this.view.geometries, (geom) => geom.type === 'line');
   }
 
   private getShapeInfo(shape) {

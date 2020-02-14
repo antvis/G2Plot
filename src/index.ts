@@ -5,7 +5,7 @@ export { default as ViewLayer, ViewConfig } from './base/view-layer';
 export { default as Base, PlotConfig } from './base/plot';
 
 // 图形
-export * from './plots/index';
+export * from './plots';
 
 // MINI 图形
 /*export { TinyLayerConfig } from './sparkline/tiny-layer';

@@ -1,11 +1,9 @@
-import { each, deepMix, clone } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
+import { Group } from '@antv/g';
 import { View } from '@antv/g2';
-import { rgb2arr, mappingColor } from '../../../util/color';
+import { clone, deepMix, each } from '@antv/util';
+import { mappingColor, rgb2arr } from '../../../util/color';
 
-const DEFAULT_OFFSET = 8;
-
-export interface BarLabelConfig {
+export interface ColumnLabelConfig {
   visible: boolean;
   position?: string;
   formatter?: (...args: any[]) => string;
@@ -16,22 +14,22 @@ export interface BarLabelConfig {
   adjustPosition?: boolean;
 }
 
-export interface IBarLabel extends BarLabelConfig {
+export interface IColumnLabel extends ColumnLabelConfig {
   view: View;
   plot: any;
 }
 
-export default class BarLabel {
-  public options: BarLabelConfig;
+export default class ColumnLabel {
+  public options: ColumnLabelConfig;
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
   protected container: Group;
 
-  constructor(cfg: IBarLabel) {
+  constructor(cfg: IColumnLabel) {
     this.view = cfg.view;
     this.plot = cfg.plot;
-    const defaultOptions = this.getDefaultOptions();
+    const defaultOptions = this.getDefaultOptions(cfg);
     this.options = deepMix(defaultOptions, cfg, {});
     this.init();
   }
@@ -52,8 +50,9 @@ export default class BarLabel {
       const value = this.getValue(shape);
       const position = this.getPosition(shape, value);
       const textAlign = this.getTextAlign(value);
+      const textBaseline = this.getTextBaseLine(value);
       const color = this.getTextColor(shape);
-      if (this.options.position !== 'right' && this.options.adjustColor && color !== 'black') {
+      if (this.options.position !== 'top' && this.options.adjustColor && color !== 'black') {
         style.stroke = null;
       }
       const formatter = this.options.formatter;
@@ -65,7 +64,7 @@ export default class BarLabel {
           text: content,
           fill: color,
           textAlign,
-          textBaseline: 'middle',
+          textBaseline,
         }),
       });
       this.adjustLabel(label, shape);
@@ -99,25 +98,25 @@ export default class BarLabel {
 
   protected getPosition(shape, value) {
     const bbox = shape.getBBox();
-    const { minX, maxX, minY, height, width } = bbox;
+    const { minX, maxX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
-    const y = minY + height / 2 + offsetY;
-    const dir = value < 0 ? -1 : 1;
-    let x;
-    if (position === 'left') {
-      const root = value > 0 ? minX : maxX;
-      x = root + offsetX * dir;
-    } else if (position === 'right') {
-      x = maxX + offsetX * dir;
+    const x = minX + width / 2 + offsetX;
+    const dir = value > 0 ? -1 : 1;
+    let y;
+    if (position === 'top') {
+      const root = value > 0 ? minY : maxY;
+      y = root + (offsetY + 8) * dir;
+    } else if (position === 'bottom') {
+      y = maxY + (offsetY + 8) * dir;
     } else {
-      x = minX + width / 2 + offsetX;
+      y = minY + height / 2 + offsetY;
     }
 
     return { x, y };
   }
 
   protected getTextColor(shape) {
-    if (this.options.adjustColor && this.options.position !== 'right') {
+    if (this.options.adjustColor && this.options.position !== 'top') {
       const shapeColor = shape.attr('fill');
       const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
       const rgb = rgb2arr(shapeColor);
@@ -135,35 +134,27 @@ export default class BarLabel {
   }
 
   protected getTextAlign(value) {
+    return 'center';
+  }
+
+  protected getTextBaseLine(value) {
     const { position } = this.options;
-    const alignOptions = {
-      right: 'left',
-      left: 'left',
-      middle: 'center',
-    };
-    const alignOptionsReverse = {
-      right: 'right',
-      left: 'right',
-      middle: 'center',
-    };
-    if (value < 0) {
-      return alignOptionsReverse[position];
-    }
-    return alignOptions[position];
+    return position === 'middle' ? 'middle' : 'bottom';
   }
 
   protected getValue(shape) {
     const data = shape.get('origin').data;
-    return data[this.plot.options.xField];
+    return data[this.plot.options.yField];
   }
 
   protected adjustLabel(label, shape) {
-    if (this.options.adjustPosition && this.options.position !== 'right') {
+    if (this.options.adjustPosition && this.options.position !== 'top') {
       const labelRange = label.getBBox();
       const shapeRange = shape.getBBox();
-      if (shapeRange.width <= labelRange.width) {
-        const xPosition = shapeRange.maxX + this.options.offsetX;
-        label.attr('x', xPosition);
+      if (shapeRange.height <= labelRange.height) {
+        const yPosition = shapeRange.minY + this.options.offsetY - 8;
+        label.attr('y', yPosition);
+        label.attr('textBaseline', 'bottom');
         label.attr('fill', this.options.style.fill);
       }
     }
@@ -173,7 +164,7 @@ export default class BarLabel {
     const { theme } = this.plot;
     const labelStyle = theme.label.style;
     return {
-      offsetX: DEFAULT_OFFSET,
+      offsetX: 0,
       offsetY: 0,
       style: clone(labelStyle),
       adjustPosition: true,

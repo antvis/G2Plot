@@ -4,6 +4,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
+import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
@@ -36,6 +37,7 @@ export interface BarViewConfig extends ViewConfig {
   barStyle?: BarStyle | ((...args: any[]) => BarStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
+  conversionTag?: ConversionTagOptions;
 }
 
 export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
@@ -99,12 +101,16 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         visible: true,
         position: 'top-left',
       },
+      conversionTag: {
+        visible: false,
+      },
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public bar: any;
   public type: string = 'bar';
+  public conversionTag?: ConversionTag;
 
   public beforeInit() {
     super.beforeInit();
@@ -120,6 +126,14 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.applyResponsive('afterRender');
+    }
+    if (props.conversionTag.visible) {
+      this.conversionTag = new ConversionTag({
+        view: this.view,
+        field: props.xField,
+        animation: props.animation === false ? false : true,
+        ...props.conversionTag,
+      });
     }
     super.afterRender();
   }
@@ -171,6 +185,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       positionFields: [props.yField, props.xField],
       plot: this,
     });
+    if (props.conversionTag.visible) {
+      bar.widthRatio.column = 1 / 3;
+    }
     if (props.label) {
       bar.label = this.extractLabel();
     }

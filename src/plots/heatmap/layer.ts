@@ -7,7 +7,7 @@ import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
 // import HeatmapLegend, { HeatmapLegendConfig } from './components/legend';
-// import HeatmapBackground, { HeatmapBackgroundConfig } from './components/background';
+import HeatmapBackground, { HeatmapBackgroundConfig } from './components/background';
 // import '../scatter/components/label/scatter-label';
 
 interface PointStyle {
@@ -29,8 +29,8 @@ export interface HeatmapViewConfig extends ViewConfig {
     color?: string;
     style?: PointStyle;
   };
-  // legend: HeatmapLegendConfig;
-  // background?: {};
+  // legend?: HeatmapLegendConfig;
+  background?: {};
 }
 
 export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
@@ -38,7 +38,7 @@ export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
   public type: string = 'heatmap';
   // protected heatmapLegend: HeatmapLegend;
-  // protected background: HeatmapBackground;
+  protected background: HeatmapBackground;
   protected count: number = 0;
 
   public static getDefaultOptions(): any {
@@ -120,7 +120,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
       });
       this.heatmapLegend.render();
       this.paddingController.registerPadding(this.heatmapLegend, 'outer');
-    }
+    }*/
     if (this.options.background && this.options.padding !== 'auto') {
       this.background = new HeatmapBackground({
         view: this.view,
@@ -128,7 +128,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         ...this.options.background,
       });
       this.background.render();
-    }*/
+    }
     super.afterRender();
     this.count += 1;
   }

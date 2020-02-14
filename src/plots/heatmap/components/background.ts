@@ -32,9 +32,9 @@ export default class HeatmapBackground extends EventEmitter {
   }
 
   public init() {
-    const coord = this.view.get('coord');
-    this.width = coord.width;
-    this.height = coord.height;
+    const coord = this.getCoordinate();
+    this.width = coord.getWidth();
+    this.height = coord.getHeight();
     this.x = coord.start.x;
     this.y = coord.end.y;
     const plotContainer = this.options.plot.container;
@@ -96,5 +96,15 @@ export default class HeatmapBackground extends EventEmitter {
       // 使用callback定制的html background需要自己监听销毁事件自行销毁
       this.emit('background:destroy');
     }
+  }
+
+  private getCoordinate(){
+    let coordinate;
+    each(this.view.geometries,(geom) =>{
+      if(geom.type === 'heatmap'){
+        coordinate = geom.coordinate;
+      }
+    });
+    return coordinate;
   }
 }

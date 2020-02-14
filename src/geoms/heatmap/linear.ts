@@ -13,8 +13,8 @@ class LinearHeatmap extends Geometry {
   private intensity: number;
   private radius: number;
   private blur: number;
-  private grayScaleCanvas: Canvas;
-  private shadowCanvas: Canvas;
+  private grayScaleCanvas: any;
+  private shadowCanvas: any;
   private paletteCache: any = {};
   private imageShape: any;
 
@@ -34,7 +34,7 @@ class LinearHeatmap extends Geometry {
   }
 
   public clear() {
-    this._clearShadowCanvasCtx();
+    this.clearShadowCanvasCtx();
     super.clear();
   }
 
@@ -153,7 +153,7 @@ class LinearHeatmap extends Geometry {
   }
 
   private clearShadowCanvasCtx() {
-    const ctx = this._getShadowCanvasCtx();
+    const ctx = this.getShadowCanvasCtx();
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 

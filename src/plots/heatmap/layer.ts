@@ -6,8 +6,9 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import '../../geoms/heatmap/linear';
-import HeatmapLegend, { HeatmapLegendConfig } from './components/legend';
-import HeatmapBackground, { HeatmapBackgroundConfig } from './components/background';
+import { HeatmapLegendConfig } from './components/legend';
+import { HeatmapBackgroundConfig } from './components/background';
+import { getPlotComponents } from './components';
 //import '../scatter/components/label/scatter-label';
 
 interface PointStyle {
@@ -37,9 +38,7 @@ export interface HeatmapLayerConfig extends HeatmapViewConfig, LayerConfig {}
 
 export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerConfig> extends ViewLayer<T> {
   public type: string = 'heatmap';
-  protected heatmapLegend: HeatmapLegend;
-  protected background: HeatmapBackground;
-  protected count: number = 0;
+  protected plotComponents: any[] = [];
 
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
@@ -112,36 +111,14 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public afterRender() {
-    if (this.options.legend && this.options.legend.visible) {
-      this.heatmapLegend = new HeatmapLegend({
-        view: this.view,
-        plot: this,
-        ...this.options.legend,
-      });
-      this.heatmapLegend.render();
-      this.paddingController.registerPadding(this.heatmapLegend, 'outer');
-    }
-    if (this.options.background && this.options.padding !== 'auto') {
-      this.background = new HeatmapBackground({
-        view: this.view,
-        plot: this,
-        ...this.options.background,
-      });
-      this.background.render();
-    }
+    this.renderPlotComponents();
     super.afterRender();
-    this.count += 1;
   }
 
   public destroy() {
-    if (this.heatmapLegend) {
-      this.heatmapLegend.destroy();
-      this.heatmapLegend = null;
-    }
-    if (this.background) {
-      this.background.destroy();
-      this.background = null;
-    }
+    _.each(this.plotComponents,(component)=>{
+      component.destroy();
+    });
     super.destroy();
   }
 
@@ -234,7 +211,23 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     this.setConfig('legends', false);
   }
 
-  protected animation() {}
+  protected renderPlotComponents(){
+    const componentsType = ['legend','background'];
+    _.each(componentsType,(t)=>{
+      const cfg = {
+        view: this.view,
+        plot: this,
+        ...this.options[t]
+      };
+      const component = getPlotComponents(this,t,cfg);
+      if(component){
+        component.render();
+        this.plotComponents.push(component);
+      }
+    });
+  }
+
+
 }
 
 registerPlotType('heatmap', HeatmapLayer);

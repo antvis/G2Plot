@@ -1,9 +1,10 @@
-import { each, isArray, isFunction, deepMix } from '@antv/util';
-import { IGroup, Group, BBox } from '@antv/g-canvas';
+import { each } from '@antv/util';
+import { IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import EventEmitter from '@antv/event-emitter';
 
 export interface HeatmapBackgroundConfig {
+  visible?: boolean;
   type?: string;
   value?: any;
   src?: string;

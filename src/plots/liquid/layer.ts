@@ -292,7 +292,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   protected getViewRange() {
     const viewRange = super.getViewRange();
     const liquidStyle: any = this.options.liquidStyle;
-    const strokeWidth = liquidStyle.lineWidth ? liquidStyle.lineWidth :2;
+    const strokeWidth = liquidStyle.lineWidth ? liquidStyle.lineWidth : 2;
     const { minX, minY, width, height } = viewRange;
     const size = Math.min(width, height) - strokeWidth * 2;
     const cx = minX + width / 2;

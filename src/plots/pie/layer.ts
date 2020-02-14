@@ -191,7 +191,9 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   private label() {
     const props = this.options;
-    const labelConfig = { ...props.label } as Label;
+    let labelConfig = { ...props.label } as Label;
+    labelConfig = this.adjustLabelDefaultOptions(this.options);
+    console.log(labelConfig);
     if (!this.showLabel()) {
       this.pie.label = false;
       return;
@@ -235,8 +237,16 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         labelConfig.offset = `${(-1 / 3) * 100}%`;
       }
     }
+    if(labelConfig && labelConfig.type === 'outer' && labelConfig.offset){
+      if(_.isString(labelConfig.offset)){
+        labelConfig.offset = 20;
+      }else{
+         labelConfig.offset = Math.abs(labelConfig.offset as number);
+      }
+    }
     return labelConfig;
   }
+
 }
 
 registerPlotType('pie', PieLayer);

@@ -237,16 +237,15 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         labelConfig.offset = `${(-1 / 3) * 100}%`;
       }
     }
-    if(labelConfig && labelConfig.type === 'outer' && labelConfig.offset){
-      if(_.isString(labelConfig.offset)){
+    if (labelConfig && labelConfig.type === 'outer' && labelConfig.offset) {
+      if (_.isString(labelConfig.offset)) {
         labelConfig.offset = 20;
-      }else{
-         labelConfig.offset = Math.abs(labelConfig.offset as number);
+      } else {
+        labelConfig.offset = Math.abs(labelConfig.offset as number);
       }
     }
     return labelConfig;
   }
-
 }
 
 registerPlotType('pie', PieLayer);

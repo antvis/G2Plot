@@ -1,3 +1,9 @@
+## <small>0.11.28 (2019-02-06)</small>
+- 🐞 修复水波图图形剪裁 ([b93f605](https://github.com/antvis/G2Plot/commit/b93f605))
+- 🐞 热力图legend位置错误 ([c989c87](https://github.com/antvis/G2Plot/commit/c989c87))
+- 🐞 升级Scale 3.0之后的bug fix ([1f698b1](https://github.com/antvis/G2Plot/commit/1f698b1))
+
+
 ## <small>0.11.27 (2019-02-06)</small>
 - 🐞 panelCliper => geomCliper ([52cc285](https://github.com/antvis/G2Plot/commit/52cc285c1f9427699e8a9b41fd4a749eefd40397))
 

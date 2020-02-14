@@ -27,5 +27,5 @@ export { default as PercentageStackColumn, PercentageStackColumnConfig } from '.
 // export { default as Waterfall, WaterfallConfig } from './waterfall';
 // export { default as Treemap } from './treemap';
 // export { default as StepLine, StepLineConfig } from './step-line';
-// export { default as WordCloud, WordCloudConfig } from './word-cloud';
+export { default as WordCloud, WordCloudConfig } from './word-cloud';
 // export { default as Rose, RoseConfig } from './rose';

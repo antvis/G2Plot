@@ -202,8 +202,17 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   public afterRender() {
-    super.afterRender();
     this.fadeInAnnotation();
+    const { options } = this;
+    const padding = options.padding ? options.padding : this.config.theme.padding;
+    /** defaultState */
+    if (options.defaultState && padding !== 'auto') {
+      this.stateController.defaultStates(options.defaultState);
+    }
+    /** autopadding */
+    if (padding === 'auto') {
+      this.paddingController.processAutoPadding();
+    }
   }
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
@@ -283,17 +292,14 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   protected getViewRange() {
     const viewRange = super.getViewRange();
     const liquidStyle: any = this.options.liquidStyle;
-    if (liquidStyle && liquidStyle.lineWidth) {
-      const strokeWidth = liquidStyle.lineWidth;
-      const { minX, minY, width, height } = viewRange;
-      const size = Math.min(width, height) - strokeWidth * 2;
-      const cx = minX + width / 2;
-      const cy = minY + height / 2;
-      const x = cx - size / 2;
-      const y = cy - size / 2;
-      return new BBox(x, y, size, size);
-    }
-    return viewRange;
+    const strokeWidth = liquidStyle.lineWidth ? liquidStyle.lineWidth : 2;
+    const { minX, minY, width, height } = viewRange;
+    const size = Math.min(width, height) - strokeWidth * 2;
+    const cx = minX + width / 2;
+    const cy = minY + height / 2;
+    const x = cx - size / 2;
+    const y = cy - size / 2;
+    return new BBox(x, y, size, size);
   }
 }
 

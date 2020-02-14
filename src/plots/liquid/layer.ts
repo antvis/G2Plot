@@ -1,4 +1,5 @@
 import * as _ from '@antv/util';
+import { BBox } from '@antv/g';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -60,7 +61,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     super.init();
   }
 
-  protected coord(): void {}
+  protected coord() {}
 
   protected scale() {
     const props = this.options;
@@ -277,6 +278,22 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   public updateConfig(cfg: Partial<T>): void {
     super.updateConfig(cfg);
     this.shouldFadeInAnnotation = true;
+  }
+
+  protected getViewRange() {
+    const viewRange = super.getViewRange();
+    const liquidStyle: any = this.options.liquidStyle;
+    if (liquidStyle && liquidStyle.lineWidth) {
+      const strokeWidth = liquidStyle.lineWidth;
+      const { minX, minY, width, height } = viewRange;
+      const size = Math.min(width, height) - strokeWidth * 2;
+      const cx = minX + width / 2;
+      const cy = minY + height / 2;
+      const x = cx - size / 2;
+      const y = cy - size / 2;
+      return new BBox(x, y, size, size);
+    }
+    return viewRange;
   }
 }
 

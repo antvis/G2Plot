@@ -270,6 +270,10 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
     const targetCtx = this._targetCanvas.getContext('2d');
     targetCtx.drawImage(maskImageCanvas, 0, 0);
+    // it's a trick, because 「g」 use context to scale canvas by pixelRatio,
+    // but here i need scale it back
+    const pixelRatio = this.canvas.get('width') / this.canvas.get('el').width;
+    targetCtx.scale(pixelRatio, pixelRatio);
     this.options = _.deepMix({}, this.options, { clearCanvas: false });
 
     this._start();
@@ -278,9 +282,8 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   private _scaleMaskImageCanvas(maskImageCanvas: HTMLCanvasElement): MaskImage {
     const maskCanvasScaled = document.createElement('canvas');
     // get real canvas determined by pixelRatio
-    console.log(this.canvas, this.canvas.get('el').height);
-    maskCanvasScaled.width = this.canvas.get('el').width;
-    maskCanvasScaled.height = this.canvas.get('el').height;
+    maskCanvasScaled.width = this.canvas.get('width');
+    maskCanvasScaled.height = this.canvas.get('height');
     const ctx = maskCanvasScaled.getContext('2d');
     // keep scale smooth
     ctx.imageSmoothingEnabled = true;

@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { Label, DataItem } from '../../interface/config';
+import { Label, DataItem, Tooltip } from '../../interface/config';
 import { LooseMap } from '../../interface/types';
 import SpiderLabel from './component/label/spider-label';
 import './component/label/outer-label';
@@ -171,6 +171,9 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     if (props.label) {
       this.label();
     }
+    if (props.tooltip && props.tooltip.visible) {
+      this.tooltip();
+    }
     this.setConfig('element', pie);
   }
 
@@ -189,6 +192,42 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     super.parseEvents(EventParser);
   }
 
+  protected tooltip() {
+    const props = this.options;
+    if (props.tooltip.htmlContent) {
+      const customHtmlContent = props.tooltip.htmlContent;
+      this.setConfig('tooltip', {
+        ...this.options.tooltip,
+        htmlContent: (title, items: any[]) => {
+          if (items && items.length) {
+            const { angleField } = this.options;
+            const filteredSum = this.getFilteredSum();
+            return customHtmlContent(
+              title,
+              items.map((item) => {
+                const value = _.get(item, `point._origin.${angleField}`);
+                const percent = value / filteredSum;
+                return {
+                  ...item,
+                  percent,
+                };
+              })
+            );
+          }
+          return '<div></div>';
+        },
+      } as any);
+    }
+  }
+
+  private getFilteredSum() {
+    const { angleField } = this.options;
+    const filteredData = this.view.get('filteredData') || [];
+    return filteredData.reduce((pre, filteredDataItem) => {
+      return pre + filteredDataItem[angleField];
+    }, 0);
+  }
+
   private label() {
     const props = this.options;
     const labelConfig = { ...props.label } as Label;
@@ -202,6 +241,22 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     } else {
       // @ts-ignore
       labelConfig.labelLine = true;
+    }
+    if (labelConfig.formatter) {
+      const customFormatter = labelConfig.formatter;
+      labelConfig.formatter = (text, item, index) => {
+        const { angleField } = this.options;
+        const filteredSum = this.getFilteredSum();
+        const percent = item._origin[angleField] / filteredSum;
+        return customFormatter(
+          text,
+          {
+            ...item,
+            percent,
+          },
+          index
+        );
+      };
     }
 
     // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label

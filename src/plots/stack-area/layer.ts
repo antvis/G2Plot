@@ -4,8 +4,8 @@ import { LayerConfig } from '../../base/layer';
 import { getComponent } from '../../components/factory';
 import { ElementOption, Label } from '../../interface/config';
 import BaseArea, { AreaViewConfig } from '../area/layer';
-// import './component/label/area-label';
-// import './component/label/line-label';
+import './component/label/area-label';
+import LineLabel from './component/label/line-label';
 
 export interface StackAreaViewConfig extends AreaViewConfig {
   stackField: string;
@@ -34,6 +34,7 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
       return;
     }
     const labelType = this.getLabelType(label);
+
     /** label类型为line，即跟随在折线尾部时，设置offset为0 */
     if (labelType === 'areaLine' || labelType === 'area') {
       label.offset = 0;
@@ -45,13 +46,6 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
         stroke: 'rgba(0,0,0,0)',
       });
     }
-
-    this.area.label = getComponent('label', {
-      fields: [this.getLabelField(labelType, props)],
-      labelType,
-      plot: this,
-      ...label,
-    });
   }
 
   protected adjustArea(ele: ElementOption) {
@@ -76,6 +70,27 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
         type: 'stack',
       },
     ];
+  }
+
+  public afterRender() {
+    const props = this.options;
+    const visible = _.get(this.options, ['label', 'visible']);
+    const type = _.get(this.options, ['label', 'type']);
+
+    if (visible && type === 'line') {
+
+      const label = new LineLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+
+      label.render();
+    }
+
+    // TODO 运行补起来，先关闭
+    props.responsive = false;
+    super.afterRender();
   }
 
   private getLabelField(type, props) {

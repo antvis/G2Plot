@@ -116,7 +116,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public destroy() {
-    _.each(this.plotComponents,(component)=>{
+    _.each(this.plotComponents, (component) => {
       component.destroy();
     });
     super.destroy();
@@ -211,23 +211,21 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     this.setConfig('legends', false);
   }
 
-  protected renderPlotComponents(){
-    const componentsType = ['legend','background'];
-    _.each(componentsType,(t)=>{
+  protected renderPlotComponents() {
+    const componentsType = ['legend', 'background'];
+    _.each(componentsType, (t) => {
       const cfg = {
         view: this.view,
         plot: this,
-        ...this.options[t]
+        ...this.options[t],
       };
-      const component = getPlotComponents(this,t,cfg);
-      if(component){
+      const component = getPlotComponents(this, t, cfg);
+      if (component) {
         component.render();
         this.plotComponents.push(component);
       }
     });
   }
-
-
 }
 
 registerPlotType('heatmap', HeatmapLayer);

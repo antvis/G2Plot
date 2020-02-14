@@ -1,6 +1,6 @@
 import { StackArea } from '@antv/g2plot';
 
-fetch('../../data/oil.json')
+fetch('../data/oil.json')
   .then((res) => res.json())
   .then((data) => {
     const areaPlot = new StackArea(document.getElementById('container'), {

@@ -1,4 +1,5 @@
 import { registerGeometry, Geometry } from '@antv/g2';
+import { Canvas } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import * as colorUtil from '../../util/color';
 
@@ -12,8 +13,8 @@ class LinearHeatmap extends Geometry {
   private intensity: number;
   private radius: number;
   private blur: number;
-  private grayScaleCanvas: any;
-  private shadowCanvas: any;
+  private grayScaleCanvas: Canvas;
+  private shadowCanvas: Canvas;
   private paletteCache: any = {};
   private imageShape: any;
 
@@ -23,7 +24,21 @@ class LinearHeatmap extends Geometry {
     this.radius = cfg.radius;
   }
 
-  prepareRange(data) {
+  protected createElements(mappingData, isUpdate: boolean = false) {
+    const range = this.prepareRange(mappingData);
+    this.prepareSize();
+    this.prepareBlur();
+    this.prepareGreyScaleBlurredCircle(this.radius);
+    this.drawWithRange(mappingData, range);
+    return null;
+  }
+
+  public clear() {
+    this._clearShadowCanvasCtx();
+    super.clear();
+  }
+
+  private prepareRange(data) {
     const colorAttr = this.getAttribute('color');
     const colorField = colorAttr.getFields()[0];
     let min = Infinity;
@@ -43,7 +58,7 @@ class LinearHeatmap extends Geometry {
     return [min, max];
   }
 
-  prepareSize() {
+  private prepareSize() {
     let radius = this.radius;
     if (!this.radius) {
       radius = this.getDefaultValue('size');
@@ -54,7 +69,7 @@ class LinearHeatmap extends Geometry {
     }
   }
 
-  prepareBlur() {
+  private prepareBlur() {
     let blur = _.get(this.styleOption, ['style', 'shadowBlur']);
     if (!_.isNumber(blur)) {
       blur = this.radius / 2;
@@ -62,7 +77,7 @@ class LinearHeatmap extends Geometry {
     this.blur = blur;
   }
 
-  getDefaultSize() {
+  private getDefaultSize() {
     const position = this.getAttribute('position');
     const coord = this.coordinate;
     const radius = Math.min(
@@ -72,7 +87,7 @@ class LinearHeatmap extends Geometry {
     return radius;
   }
 
-  _colorize(img) {
+  private colorize(img) {
     const colorAttr = this.getAttribute('color') as any;
     const pixels = img.data;
     const paletteCache = this.paletteCache;
@@ -95,7 +110,7 @@ class LinearHeatmap extends Geometry {
     }
   }
 
-  prepareGreyScaleBlurredCircle(r) {
+  private prepareGreyScaleBlurredCircle(r) {
     let circleCanvas = this.grayScaleCanvas;
     if (!circleCanvas) {
       circleCanvas = document.createElement('canvas');
@@ -118,13 +133,13 @@ class LinearHeatmap extends Geometry {
     ctx.fill();
   }
 
-  _drawGrayScaleBlurredCircle(x, y, r, alpha, ctx) {
+  private drawGrayScaleBlurredCircle(x, y, r, alpha, ctx) {
     const circleCanvas = this.grayScaleCanvas;
     ctx.globalAlpha = alpha;
     ctx.drawImage(circleCanvas, x - r, y - r);
   }
 
-  _getShadowCanvasCtx() {
+  private getShadowCanvasCtx() {
     let canvas = this.shadowCanvas;
     if (!canvas) {
       canvas = document.createElement('canvas');
@@ -137,12 +152,12 @@ class LinearHeatmap extends Geometry {
     return context;
   }
 
-  _clearShadowCanvasCtx() {
+  private clearShadowCanvasCtx() {
     const ctx = this._getShadowCanvasCtx();
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 
-  _getImageShape() {
+  private getImageShape() {
     let imageShape = this.imageShape;
     if (imageShape) {
       return imageShape;
@@ -155,12 +170,7 @@ class LinearHeatmap extends Geometry {
     this.imageShape = imageShape;
   }
 
-  clear() {
-    this._clearShadowCanvasCtx();
-    super.clear();
-  }
-
-  drawWithRange(data, range) {
+  private drawWithRange(data, range) {
     // canvas size
     const { start, end } = this.coordinate;
     const width = this.coordinate.getWidth();
@@ -171,8 +181,8 @@ class LinearHeatmap extends Geometry {
     const valueField = colorAttr.getFields()[0];
 
     // prepare shadow canvas context
-    this._clearShadowCanvasCtx();
-    const ctx = this._getShadowCanvasCtx();
+    this.clearShadowCanvasCtx();
+    const ctx = this.getShadowCanvasCtx();
     // filter data
     if (range) {
       data = data.filter((row) => {
@@ -187,17 +197,17 @@ class LinearHeatmap extends Geometry {
       const cfg = this.getDrawCfg(obj);
       const alpha = scale.scale(obj[ORIGIN_FIELD][valueField]);
       // @ts-ignore
-      this._drawGrayScaleBlurredCircle(cfg.x - start.x, cfg.y - end.y, this.radius + this.blur, alpha, ctx);
+      this.drawGrayScaleBlurredCircle(cfg.x - start.x, cfg.y - end.y, this.radius + this.blur, alpha, ctx);
     }
 
     // step2. convert pixels
     const colored = ctx.getImageData(0, 0, width, height);
-    this._clearShadowCanvasCtx();
-    this._colorize(colored);
+    this.clearShadowCanvasCtx();
+    this.colorize(colored);
     ctx.putImageData(colored, 0, 0);
     const image = new Image();
     image.src = ctx.canvas.toDataURL('image/png');
-    this._getImageShape();
+    this.getImageShape();
     this.imageShape.attr('x', start.x);
     this.imageShape.attr('y', end.y);
     this.imageShape.attr('width', width);
@@ -206,16 +216,7 @@ class LinearHeatmap extends Geometry {
     this.imageShape.set('origin', this.getShapeInfo(data)); // 存储绘图信息数据
   }
 
-  createElements(mappingData, isUpdate: boolean = false) {
-    const range = this.prepareRange(mappingData);
-    this.prepareSize();
-    this.prepareBlur();
-    this.prepareGreyScaleBlurredCircle(this.radius);
-    this.drawWithRange(mappingData, range);
-    return null;
-  }
-
-  getShapeInfo(mappingData) {
+  private getShapeInfo(mappingData) {
     const shapeCfg = this.getDrawCfg(mappingData[0]);
 
     return {

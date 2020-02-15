@@ -1,8 +1,8 @@
-import { each, deepMix, clone, find, has } from '@antv/util';
-import { Group, IGroup, Shape } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { Shape, Text } from '@antv/g';
+import { GeometryLabel, registerGeometryLabel } from '@antv/g2';
+import * as _ from '@antv/util';
+import ViewLayer from '../../../../base/view-layer';
 
-const DEFAULT_OFFSET = 8;
 const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;
 const MAX_ITERATION = 100;
@@ -12,7 +12,7 @@ function getRange(points) {
   let maxHeight = -Infinity;
   let min = Infinity;
   let max = -Infinity;
-  each(points, (p) => {
+  _.each(points, (p) => {
     min = Math.min(p.x, min);
     max = Math.max(p.x, max);
     const height = Math.abs(p.y[0] - p.y[1]);
@@ -27,7 +27,7 @@ function getRange(points) {
 function interpolateY(x, points, index) {
   let leftPoint = points[0];
   let rightPoint = points[points.length - 1];
-  each(points, (p) => {
+  _.each(points, (p) => {
     if (p.x === x) {
       return p.y[index];
     }
@@ -54,107 +54,42 @@ function getXIndex(data, x) {
   return i;
 }
 
-export interface LineLabelConfig {
-  visible: boolean;
-  formatter?: (...args: any[]) => string;
-  offsetX?: number;
-  offsetY?: number;
-  style?: any;
-  autoScale?: boolean;
-}
-
-export interface ILineLabel extends LineLabelConfig {
-  view: View;
-  plot: any;
-}
-
-export default class LineLabel {
-  public options: LineLabelConfig;
-  public destroyed: boolean = false;
-  protected plot: any;
-  protected view: View;
-  private container: IGroup;
+class AreaLabel extends GeometryLabel {
   private scaleFactor: number[] = [];
 
-  constructor(cfg: ILineLabel) {
-    this.view = cfg.view;
-    this.plot = cfg.plot;
-    const defaultOptions = this.getDefaultOptions();
-    this.options = deepMix(defaultOptions, cfg, {});
-    this.init();
-  }
-
-  protected init() {
-    this.container = this.getGeometry().labelsContainer;
-    this.view.on('beforerender', () => {
-      this.clear();
-      this.plot.canvas.draw();
-    });
-  }
-
-  public render() {
-    const stackField = this.plot.options.stackField;
-    const groupedPoints = this.getGeometry().dataArray;
+  public showLabels(points: any, shapes: Shape[]) {
+    // 获取堆叠字段
+    const stackField = this.get('element').get('attrs').color.scales[0].field;
+    // 根据stackField将point分组
+    const groupedPoints = this._groupPoints(points, stackField);
     const labelPoints = [];
-    each(groupedPoints, (pointArray, name) => {
-      const labelPoint = this.drawLabel(pointArray, name);
+    _.each(groupedPoints, (pointArray, name) => {
+      const labelPoint = this._drawLabel(pointArray, name);
       if (labelPoint) {
-        labelPoints.push(deepMix({}, pointArray[0], labelPoint));
+        labelPoints.push(_.mix({}, pointArray[0], labelPoint));
         this.scaleFactor.push(labelPoint.scaleFactor);
       }
     });
-    each(labelPoints, (p) => {
-      console.log(p);
-      this.container.addShape('text', {
-        attrs: {
-          x: p.x,
-          y: p.y,
-          text: p._origin[stackField],
-          fill: 'black',
-          fontSize: 12,
-        },
-      });
+    super.showLabels(labelPoints, shapes);
+    const labelOptions = this.get('labelOptions');
+    if (labelOptions.autoScale) {
+      this._adjuestLabelSize();
+    }
+  }
+
+  private _groupPoints(points, field) {
+    const groupedPoints = {};
+    _.each(points, (p) => {
+      const value = p._origin[field];
+      if (!_.has(groupedPoints, value)) {
+        groupedPoints[value] = [];
+      }
+      groupedPoints[value].push(p);
     });
-    this.plot.canvas.draw();
+    return groupedPoints;
   }
 
-  public clear() {
-    if (this.container) {
-      this.container.clear();
-    }
-  }
-
-  public hide() {
-    this.container.set('visible', false);
-    this.plot.canvas.draw();
-  }
-
-  public show() {
-    this.container.set('visible', true);
-    this.plot.canvas.draw();
-  }
-
-  public destory() {
-    if (this.container) {
-      this.container.remove();
-    }
-    this.destroyed = true;
-  }
-
-  public getBBox() {}
-
-  protected getDefaultOptions() {
-    const { theme } = this.plot;
-    const labelStyle = theme.label.style;
-    return {
-      offsetX: DEFAULT_OFFSET,
-      offsetY: 0,
-      style: clone(labelStyle),
-      autoScale: true,
-    };
-  }
-
-  protected drawLabel(points, name) {
+  private _drawLabel(points, name) {
     const { xRange, maxHeight } = getRange(points);
     // 根据area宽度在x方向各点间做插值
     const resolution = xRange[1] - xRange[0];
@@ -257,9 +192,10 @@ export default class LineLabel {
   }
 
   private _getLabelBbox(text) {
-    const labelStyle = clone(this.plot.theme.label.textStyle);
+    const plot: ViewLayer = this.get('labelOptions').plot;
+    const labelStyle = _.clone(plot.theme.label.textStyle);
     labelStyle.fontSize = DEFAULT_SIZE;
-    const tShape = this.container.addShape('text', {
+    const tShape = new Text({
       attrs: {
         text,
         x: 0,
@@ -267,12 +203,24 @@ export default class LineLabel {
         ...labelStyle,
       },
     });
-    const bbox = tShape.getBBox();
-    tShape.remove();
-    return bbox;
+    return tShape.getBBox();
   }
 
-  private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'area');
+  private _adjuestLabelSize() {
+    const renderer = this.get('labelsRenderer');
+    const labels = renderer.get('group').get('children');
+    const view = this.get('element').get('view');
+    _.each(labels, (label, index) => {
+      const scaleFactor = this.scaleFactor[index];
+      label.attr('fontSize', DEFAULT_SIZE);
+      label.transform([
+        ['t', -label.attr('x'), -label.attr('y')],
+        ['s', scaleFactor, scaleFactor],
+        ['t', label.attr('x'), label.attr('y')],
+      ]);
+    });
+    view.get('canvas').draw();
   }
 }
+
+registerGeometryLabel('area', AreaLabel);

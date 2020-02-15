@@ -46,7 +46,7 @@ export default class BBox {
   }
 
   public get tl() {
-    return { x:  this.x, y: this.y };
+    return { x: this.x, y: this.y };
   }
 
   public get tr() {

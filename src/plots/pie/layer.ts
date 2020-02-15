@@ -98,7 +98,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
     const options = _.deepMix({}, super.getOptions(props), defaultOptions, props);
-    options.label = this.adjustLabelDefaultOptions(options);
     return options;
   }
 
@@ -193,7 +192,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     const props = this.options;
     let labelConfig = { ...props.label } as Label;
     labelConfig = this.adjustLabelDefaultOptions(this.options);
-    console.log(labelConfig);
     if (!this.showLabel()) {
       this.pie.label = false;
       return;
@@ -226,23 +224,19 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   /** 调整 label 默认 options */
   protected adjustLabelDefaultOptions(options: PieLayerConfig) {
-    const labelConfig = { ...options.label } as PieLabel;
+    let labelConfig = { ...options.label } as PieLabel;
     if (labelConfig && labelConfig.type === 'inner') {
-      const labelStyleConfig = (labelConfig.style || {}) as LooseMap;
-      if (!labelStyleConfig.textAlign) {
-        labelStyleConfig.textAlign = 'center';
-      }
-      labelConfig.style = labelStyleConfig;
-      if (!labelConfig.offset) {
-        labelConfig.offset = `${(-1 / 3) * 100}%`;
-      }
+      labelConfig = _.deepMix({}, {
+        offset: `${(-1 / 3) * 100}%`,
+        style: {
+          textAlign: 'center',
+        }
+      }, labelConfig);
     }
-    if (labelConfig && labelConfig.type === 'outer' && labelConfig.offset) {
-      if (_.isString(labelConfig.offset)) {
-        labelConfig.offset = 20;
-      } else {
-        labelConfig.offset = Math.abs(labelConfig.offset as number);
-      }
+    if (labelConfig && labelConfig.type === 'outer') {
+      labelConfig = _.deepMix({}, {
+        offset: 20,
+      }, labelConfig);
     }
     return labelConfig;
   }

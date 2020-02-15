@@ -1,8 +1,7 @@
-import { each, deepMix, clone, find, has } from '@antv/util';
-import { Group, IGroup, Shape } from '@antv/g-canvas';
+import { each, deepMix, clone, find } from '@antv/util';
+import { IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 
-const DEFAULT_OFFSET = 8;
 const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;
 const MAX_ITERATION = 100;
@@ -103,17 +102,24 @@ export default class LineLabel {
         this.scaleFactor.push(labelPoint.scaleFactor);
       }
     });
-    each(labelPoints, (p) => {
-      console.log(p);
-      this.container.addShape('text', {
-        attrs: {
-          x: p.x,
-          y: p.y,
-          text: p._origin[stackField],
-          fill: 'black',
-          fontSize: 12,
-        },
+    const labelShapes = [];
+    each(labelPoints, (p, index) => {
+      const { style, offsetX, offsetY } = this.options;
+      const labelSize = this.getFontSize(index);
+      const formatter = this.options.formatter;
+      const content = formatter ? formatter(p._origin[stackField]) : p._origin[stackField];
+      const text = this.container.addShape('text', {
+        attrs: deepMix({}, style, {
+          x: p.x + offsetX,
+          y: p.y + offsetY,
+          text: content,
+          fill: p.color,
+          fontSize: labelSize,
+          textAlign: 'center',
+          textBaseline: 'top',
+        }),
       });
+      labelShapes.push(text);
     });
     this.plot.canvas.draw();
   }
@@ -145,11 +151,12 @@ export default class LineLabel {
 
   protected getDefaultOptions() {
     const { theme } = this.plot;
-    const labelStyle = theme.label.style;
+    const labelStyle = clone(theme.label.style);
+    labelStyle.stroke = null;
     return {
-      offsetX: DEFAULT_OFFSET,
+      offsetX: 0,
       offsetY: 0,
-      style: clone(labelStyle),
+      style: labelStyle,
       autoScale: true,
     };
   }
@@ -158,28 +165,28 @@ export default class LineLabel {
     const { xRange, maxHeight } = getRange(points);
     // 根据area宽度在x方向各点间做插值
     const resolution = xRange[1] - xRange[0];
-    const interpolatedPoints = this._getInterpolatedPoints(xRange[0], resolution, points);
+    const interpolatedPoints = this.getInterpolatedPoints(xRange[0], resolution, points);
     // 获取label的bbox
-    const bbox = this._getLabelBbox(name);
+    const bbox = this.getLabelBbox(name);
     const fitOption = {
       xRange,
       aspect: bbox.width / bbox.height,
       data: interpolatedPoints,
       justTest: true,
     };
-    const height = this._bisection(MIN_HEIGHT, maxHeight, this._testFit, fitOption, TOLERANCE, MAX_ITERATION);
+    const height = this.bisection(MIN_HEIGHT, maxHeight, this.testFit, fitOption, TOLERANCE, MAX_ITERATION);
     if (height === null) {
       return;
     }
     fitOption.justTest = false;
-    const fit: any = this._testFit(fitOption);
+    const fit: any = this.testFit(fitOption);
     fit.x = fit.x;
     fit.y = fit.y0 + (fit.y1 - fit.y0) / 2;
-    fit.scaleFactor = (height / bbox.height) * 0.4;
+    fit.scaleFactor = (height / bbox.height) * 0.2;
     return fit;
   }
 
-  private _getInterpolatedPoints(minX, resolution, points) {
+  private getInterpolatedPoints(minX, resolution, points) {
     const interpolatedPoints = [];
     const step = 2;
     for (let i = minX; i < resolution; i += step) {
@@ -193,7 +200,7 @@ export default class LineLabel {
     return interpolatedPoints;
   }
 
-  private _bisection(min, max, test, testOption, tolerance, maxIteration) {
+  private bisection(min, max, test, testOption, tolerance, maxIteration) {
     for (let i = 0; i < maxIteration; i++) {
       const middle = (min + max) / 2;
       const options = testOption;
@@ -213,7 +220,7 @@ export default class LineLabel {
     return null;
   }
 
-  private _testFit(option) {
+  private testFit(option) {
     const { xRange, width, height, data, justTest } = option;
     for (let i = 0; i < data.length; i++) {
       const d = data[i];
@@ -256,7 +263,7 @@ export default class LineLabel {
     return false;
   }
 
-  private _getLabelBbox(text) {
+  private getLabelBbox(text) {
     const labelStyle = clone(this.plot.theme.label.textStyle);
     labelStyle.fontSize = DEFAULT_SIZE;
     const tShape = this.container.addShape('text', {
@@ -274,5 +281,13 @@ export default class LineLabel {
 
   private getGeometry() {
     return find(this.view.geometries, (geom) => geom.type === 'area');
+  }
+
+  protected getFontSize(index) {
+    if (this.options.autoScale) {
+      const scaleFactor = this.scaleFactor[index];
+      return DEFAULT_SIZE * scaleFactor;
+    }
+    return DEFAULT_SIZE;
   }
 }

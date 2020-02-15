@@ -226,17 +226,25 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   protected adjustLabelDefaultOptions(options: PieLayerConfig) {
     let labelConfig = { ...options.label } as PieLabel;
     if (labelConfig && labelConfig.type === 'inner') {
-      labelConfig = _.deepMix({}, {
-        offset: `${(-1 / 3) * 100}%`,
-        style: {
-          textAlign: 'center',
-        }
-      }, labelConfig);
+      labelConfig = _.deepMix(
+        {},
+        {
+          offset: `${(-1 / 3) * 100}%`,
+          style: {
+            textAlign: 'center',
+          },
+        },
+        labelConfig
+      );
     }
     if (labelConfig && labelConfig.type === 'outer') {
-      labelConfig = _.deepMix({}, {
-        offset: 20,
-      }, labelConfig);
+      labelConfig = _.deepMix(
+        {},
+        {
+          offset: 20,
+        },
+        labelConfig
+      );
     }
     return labelConfig;
   }

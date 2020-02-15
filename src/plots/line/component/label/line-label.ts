@@ -22,7 +22,7 @@ export default class LineLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
-  private container: Group;
+  private container: IGroup;
 
   constructor(cfg: ILineLabel) {
     this.view = cfg.view;
@@ -99,7 +99,7 @@ export default class LineLabel {
     return find(this.view.geometries, (geom) => geom.type === 'line');
   }
 
-  private getShapeInfo(shape) {
+  protected getShapeInfo(shape) {
     const originPoints = shape.get('origin').points;
     const lastPoint = originPoints[originPoints.length - 1];
     const color = shape.attr('stroke');

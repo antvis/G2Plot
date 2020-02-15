@@ -27,15 +27,15 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
 
   public type: string = 'stackArea';
 
-  public beforeInit(){
+  public beforeInit() {
     const visible = _.get(this.options, ['label', 'visible']);
     const type = _.get(this.options, ['label', 'type']);
     const options: any = this.options;
-    if(visible){
-      if(type === 'line'){
+    if (visible) {
+      if (type === 'line') {
         options.lineLabel = this.options.label;
       }
-      if(type === 'area'){
+      if (type === 'area') {
         options.areaLabel = this.options.label;
       }
     }

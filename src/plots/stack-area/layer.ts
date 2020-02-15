@@ -5,6 +5,7 @@ import { ElementOption, Label } from '../../interface/config';
 import BaseArea, { AreaViewConfig } from '../area/layer';
 import LineLabel from './component/label/line-label';
 import AreaLabel from './component/label/area-label';
+import { getPlotComponents } from './component';
 
 export interface StackAreaViewConfig extends AreaViewConfig {
   stackField: string;
@@ -13,6 +14,8 @@ export interface StackAreaViewConfig extends AreaViewConfig {
 export interface StackAreaLayerConfig extends StackAreaViewConfig, LayerConfig {}
 
 export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLayerConfig> extends BaseArea<T> {
+  protected plotComponents: any[] = [];
+
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
       label: {
@@ -23,6 +26,21 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
   }
 
   public type: string = 'stackArea';
+
+  public beforeInit(){
+    const visible = _.get(this.options, ['label', 'visible']);
+    const type = _.get(this.options, ['label', 'type']);
+    const options: any = this.options;
+    if(visible){
+      if(type === 'line'){
+        options.lineLabel = this.options.label;
+      }
+      if(type === 'area'){
+        options.areaLabel = this.options.label;
+      }
+    }
+    super.beforeInit();
+  }
 
   protected label() {}
 
@@ -51,32 +69,25 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
   }
 
   public afterRender() {
-    const props = this.options;
-    const visible = _.get(this.options, ['label', 'visible']);
-    const type = _.get(this.options, ['label', 'type']);
-
-    if (visible && type === 'line') {
-      const label = new LineLabel({
-        view: this.view,
-        plot: this,
-        ...this.options.label,
-      });
-
-      label.render();
-    }
-
-    if (visible && type === 'area') {
-      const label = new AreaLabel({
-        view: this.view,
-        plot: this,
-        ...this.options.label,
-      });
-
-      label.render();
-    }
-
-    props.responsive = false;
+    this.renderPlotComponents();
+    this.options.responsive = false;
     super.afterRender();
+  }
+
+  protected renderPlotComponents() {
+    const componentsType = ['areaLabel', 'lineLabel'];
+    _.each(componentsType, (t) => {
+      const cfg = {
+        view: this.view,
+        plot: this,
+        ...this.options[t],
+      };
+      const component = getPlotComponents(this, t, cfg);
+      if (component) {
+        component.render();
+        this.plotComponents.push(component);
+      }
+    });
   }
 }
 

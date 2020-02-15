@@ -53,7 +53,7 @@ function getXIndex(data, x) {
   return i;
 }
 
-export interface LineLabelConfig {
+export interface AreaLabelConfig {
   visible: boolean;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
@@ -62,20 +62,20 @@ export interface LineLabelConfig {
   autoScale?: boolean;
 }
 
-export interface ILineLabel extends LineLabelConfig {
+export interface IAreaLabel extends AreaLabelConfig {
   view: View;
   plot: any;
 }
 
-export default class LineLabel {
-  public options: LineLabelConfig;
+export default class AreaLabel {
+  public options: AreaLabelConfig;
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
   private container: IGroup;
   private scaleFactor: number[] = [];
 
-  constructor(cfg: ILineLabel) {
+  constructor(cfg: IAreaLabel) {
     this.view = cfg.view;
     this.plot = cfg.plot;
     const defaultOptions = this.getDefaultOptions();

@@ -17,10 +17,10 @@ export interface ProgressViewConfig extends TinyViewConfig {
 }
 
 interface UpdateConfig {
-  percent?: number;
+  percent: number;
   color?: string | string[];
   style?: {} | {}[];
-  marker: MarkerConfig[];
+  marker?: MarkerConfig[];
 }
 
 export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}

@@ -24,7 +24,7 @@ export default class TinyLineLayer extends TinyLayer<TinyLineLayerConfig> {
     this.line = getGeom('line', 'mini', {
       plot: this,
     });
-    this.setConfig('element', this.line);
+    this.setConfig('geometry', this.line);
   }
 
   protected parseEvents(eventParser) {

@@ -11,7 +11,8 @@ const GEOM_MAP = {
 };
 
 export type TinyAreaViewConfig = TinyViewConfig;
-export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {}
+export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {
+}
 
 export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
   public line: any;
@@ -26,12 +27,12 @@ export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
     this.area = getGeom('area', 'mini', {
       plot: this,
     });
-    this.setConfig('element', this.area);
+    this.setConfig('geometry', this.area);
 
     this.line = getGeom('line', 'mini', {
       plot: this,
     });
-    this.setConfig('element', this.line);
+    this.setConfig('geometry', this.line);
   }
 
   protected parseEvents(eventParser) {

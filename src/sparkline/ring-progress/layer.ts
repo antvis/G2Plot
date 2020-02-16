@@ -3,7 +3,6 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import ProgressLayer, { ProgressViewConfig } from '../progress/layer';
-//import { getAngle, setShapeInfo } from './animation/index';
 import * as EventParser from './event';
 
 const DEFAULT_COLOR = ['#55A6F3', '#E8EDF3'];
@@ -27,21 +26,6 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
       color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
     props = _.mix(props, cfg);
-  }
-
-  public afterRender() {
-    super.afterRender();
-    const coord = this.view.geometries[0].coordinate;
-    // 缓存图形
-    const geoms = this.view.geometries;
-    _.each(geoms, (geom) => {
-      const elements = geom.elements;
-      _.each(elements,(ele)=>{
-        const shape = ele.shape;
-        // const { startAngle, endAngle } = getAngle(shape, coord);
-        // setShapeInfo(shape, startAngle, endAngle);
-      })
-    });
   }
 
   protected coord() {
@@ -75,12 +59,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     this.ring.animate = {
       appear: {
         duration: 1000,
-      },
-      update: {
-        easing: 'easeLinear',
-        animation: 'groupProgress',
-        duration: 1000,
-      },
+      }
     };
   }
 

@@ -16,6 +16,10 @@ describe('progress', () => {
       percent: 0.3,
     });
     progress.render();
+    window.setTimeout(()=>{
+     progress.update({percent:0.1}); 
+    },5000);
+    
     /*expect(progress).toBeInstanceOf(RingProgress);
     const canvas = progress.plot.get('canvas');
     expect(canvas.get('width')).toBe(200);

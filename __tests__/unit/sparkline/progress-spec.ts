@@ -14,6 +14,12 @@ describe('progress', () => {
       width: 200,
       height: 100,
       percent: 0.3,
+      marker:[
+        {value:0.2,
+        style:{
+          stroke:'red'
+        }}
+      ]
     });
     progress.render();
     //progress.update({ percent: 0 });

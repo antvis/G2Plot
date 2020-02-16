@@ -1,11 +1,11 @@
 import * as _ from '@antv/util';
 import { View } from '@antv/g2';
-import { Group, Shape, Canvas } from '@antv/g';
+import { IGroup, IShape, Canvas } from '@antv/g-canvas';
 
 export interface MarkerConfig {
-  view: View;
-  canvas: Canvas;
-  progressSize: number;
+  view?: View;
+  canvas?: Canvas;
+  progressSize?: number;
   value: number;
   style?: any;
 }
@@ -17,8 +17,8 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
   public value: number;
   public style: any;
   protected coord: any; //fixme: 类型定义
-  protected container: Group;
-  protected shape: Shape;
+  protected container: IGroup;
+  protected shape: IShape;
 
   constructor(cfg) {
     _.assign(this, cfg);
@@ -34,14 +34,15 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
   public update(cfg: MarkerConfig, duration: number, easing: string) {
     let updateCfg: any = {};
     _.assign(this, cfg);
-    this.coord = this.view.get('coord');
+    this.coord = this.view.geometries[0].coordinate;
     if (cfg.value) {
       const x = this.coord.convert({ x: 0, y: this.value }).x;
       const matrix = [1, 0, 0, 0, 1, 0, x, 0, 1];
       updateCfg.matrix = matrix;
     }
     if (cfg.style) {
-      const origin_attr = this.shape.attrs;
+      const shape: any = this.shape;
+      const origin_attr = shape.attrs;
       const attrs = _.deepMix({}, origin_attr, cfg.style);
       updateCfg = _.deepMix({}, attrs, updateCfg);
     }
@@ -50,8 +51,8 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
   }
 
   protected init() {
-    this.coord = this.view.get('coord');
-    this.container = this.view.get('container');
+    this.coord = this.view.geometries[0].coordinate;
+    this.container = this.view.foregroundGroup.addGroup();
     const x = this.coord.convert({ x: 0, y: this.value }).x; // progress坐标系是转置坐标系
     const y0 = this.coord.center.y - this.progressSize / 2 - 2;
     const y1 = this.coord.center.y + this.progressSize / 2 + 2;

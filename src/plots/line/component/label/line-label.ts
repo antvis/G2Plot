@@ -22,7 +22,7 @@ export default class LineLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
-  private container: Group;
+  private container: IGroup;
 
   constructor(cfg: ILineLabel) {
     this.view = cfg.view;

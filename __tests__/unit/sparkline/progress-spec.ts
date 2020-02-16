@@ -1,6 +1,6 @@
 import Progress from '../../../src/sparkline/progress';
 
-describe.skip('progress', () => {
+describe('progress', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '200px';
   canvasDiv.style.height = '100px';
@@ -10,13 +10,13 @@ describe.skip('progress', () => {
   document.body.appendChild(canvasDiv);
 
   it.only('initialize & destory', () => {
-    const progress = new Progress('canvas', {
+    const progress = new Progress(canvasDiv, {
       width: 200,
       height: 100,
       percent: 0.3,
     });
     progress.render();
-    progress.update({ percent: 0 });
+    //progress.update({ percent: 0 });
     /*expect(progress).toBeInstanceOf(Progress);
     const canvas = progress.plot.get('canvas');
     expect(canvas.get('width')).toBe(200);

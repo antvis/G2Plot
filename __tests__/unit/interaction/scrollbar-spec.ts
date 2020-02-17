@@ -1,6 +1,7 @@
-import { Column } from '../../../src';
+import { Column, ViewLayer } from '../../../src';
 import { fireWorks } from '../../data/fireworks-sales';
 import { createDiv } from '../../utils/dom';
+import ScrollbarInteraction from '../../../src/interaction/scrollbar';
 
 describe('Scrollbar', () => {
   const div = createDiv('root-slider');
@@ -27,7 +28,10 @@ describe('Scrollbar', () => {
   window.__plot = plot;
 
   it('scrollbar rendered', () => {
-    // TODO:
+    const layer = plot.getLayer() as ViewLayer;
+    const interaction = layer.getInteractions()[0];
+
+    expect(interaction).toBeInstanceOf(ScrollbarInteraction);
   });
 
   afterAll(() => {

@@ -44,7 +44,6 @@ export default abstract class BaseInteraction extends Interaction {
   private static GLOBAL_INTERACTION_MAP: InteractionMap = {};
   private static PLOT_INTERACTION_MAP: { [plot: string]: InteractionMap } = {};
 
-  public type: string;
   public cfg: any;
   protected canvas: ICanvas;
   private interactionConfig: IInteractionConfig;

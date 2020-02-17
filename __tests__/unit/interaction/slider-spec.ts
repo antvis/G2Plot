@@ -1,6 +1,7 @@
-import { Line } from '../../../src';
+import { Line, ViewLayer } from '../../../src';
 import { fireWorks } from '../../data/fireworks-sales';
 import { createDiv } from '../../utils/dom';
+import SliderInteraction from '../../../src/interaction/slider';
 
 describe('Slider', () => {
   const div = createDiv('root-slider');
@@ -27,7 +28,10 @@ describe('Slider', () => {
   window.__plot = plot;
 
   it('slider rendered', () => {
-    // TODO:
+    const layer = plot.getLayer() as ViewLayer;
+    const interaction = layer.getInteractions()[0];
+
+    expect(interaction).toBeInstanceOf(SliderInteraction);
   });
 
   afterAll(() => {

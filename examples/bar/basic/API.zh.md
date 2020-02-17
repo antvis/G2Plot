@@ -103,6 +103,23 @@ title: API
 `adjustColor: boolean` 自动调整 label 的文本颜色
 `adjustPosition: boolean` 自动调整 label 相对柱形的位置
 
+### conversionTag
+
+**optional**
+
+<img src="https://gw.alicdn.com/tfs/TB1ac.gvNv1gK0jSZFFXXb0sXXa-1194-1108.png" width="400">
+
+`visible: boolean` 转化率组件是否显示，默认 `false`。<br/>
+`size: number` 转化率组件宽度，默认 `80`。<br/>
+`spacing: number` 与条图形的间距，默认 `12`。<br/>
+`offset: number` 相对 x 轴的偏移距离，默认 `0`。<br/>
+`arrow.visible: boolean` 箭头图形是否显示，默认 `true`。<br/>
+`arrow.headSize: number` 箭头图形尖的高度，默认 `12`。<br/>
+`arrow.style: object` 箭头图形绘图属性。<br/>
+`value.visible: boolean` 转化率值是否显示，默认 `true`。<br/>
+`value.style: object` 转化率值绘图属性。<br/>
+`value.formatter: (v1, v2) => string` 转化率值 formatter，用于自定义内容，v1 为上侧条的数值，v2 位下侧条的数值。<br/>
+
 ### events
 
 **optional**

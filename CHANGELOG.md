@@ -1,3 +1,6 @@
+## <small>0.11.31 (2019-02-17)</small>
+- 🐞 修复瀑布图必需设置meta的问题 ([3669511](https://github.com/antvis/G2Plot/commit/3669511))
+
 ## <small>0.11.30 (2019-02-17)</small>
 - 🐞 temporary remove geomCliper for svg rendering ([be69918](https://github.com/antvis/G2Plot/commit/be69918))
 

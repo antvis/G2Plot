@@ -211,7 +211,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.animation();
 
     this.viewRange = this.getViewRange();
-    this.paddingController.clearOuterComponents();
     const region = this.viewRangeToRegion(this.viewRange);
     this.view = new G2.View({
       parent: null,
@@ -303,6 +302,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   // 获取对应的Plot Theme
   public getPlotTheme() {
     return this.themeController.getPlotTheme(this.options, this.type);
+  }
+
+  public getInteractions() {
+    return this.interactions;
   }
 
   // 绑定一个外部的stateManager
@@ -571,16 +574,16 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       let position = '';
       if (range) {
         // 先只考虑 Range 靠边的情况
-        if (range.bottom === layerBBox.bottom && range.top > layerBBox.top) {
+        if (range.maxY === layerBBox.maxY && range.minY > layerBBox.minY) {
           // margin[2] += range.height;
           position = 'bottom';
-        } else if (range.right === layerBBox.right && range.left > layerBBox.left) {
+        } else if (range.maxX === layerBBox.maxX && range.minX > layerBBox.minX) {
           // margin[1] += range.width;
           position = 'right';
-        } else if (range.left === layerBBox.left && range.right > layerBBox.right) {
+        } else if (range.minX === layerBBox.minX && range.maxX > layerBBox.maxX) {
           // margin[3] += range.width;
           position = 'left';
-        } else if (range.top === layerBBox.top && range.bottom > layerBBox.bottom) {
+        } else if (range.minY === layerBBox.minY && range.maxY > layerBBox.maxY) {
           // margin[0] += range.height;
           position = 'top';
         }

@@ -63,6 +63,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         autoHideLabel: false,
         autoRotateLabel: false,
         autoRotateTitle: true,
+        nice: true,
         grid: {
           visible: false,
         },

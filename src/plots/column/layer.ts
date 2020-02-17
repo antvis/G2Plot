@@ -53,6 +53,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         },
       },
       yAxis: {
+        nice: true,
         title: {
           visible: true,
         },

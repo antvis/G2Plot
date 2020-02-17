@@ -78,7 +78,6 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
     const type = _.get(this.options, ['label', 'type']);
 
     if (visible && type === 'line') {
-
       const label = new LineLabel({
         view: this.view,
         plot: this,

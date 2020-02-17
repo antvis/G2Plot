@@ -11,8 +11,7 @@ const GEOM_MAP = {
 };
 
 export type TinyAreaViewConfig = TinyViewConfig;
-export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {
-}
+export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {}
 
 export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
   public line: any;

@@ -49,7 +49,7 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
       positionFields: [props.xField, props.yField],
       plot: this,
     });
-    this.setConfig('element', column);
+    this.setConfig('geometry', column);
   }
 
   protected parseEvents(eventParser) {

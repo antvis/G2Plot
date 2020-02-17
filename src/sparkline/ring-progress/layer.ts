@@ -29,7 +29,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
   }
 
   protected coord() {
-    const coordConfig:any = {
+    const coordConfig: any = {
       type: 'theta',
       cfg: {
         radius: 1.0,
@@ -59,7 +59,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     this.ring.animate = {
       appear: {
         duration: 1000,
-      }
+      },
     };
   }
 

@@ -8,7 +8,7 @@ import { getGlobalTheme } from '../../theme';
 
 G2.registerShape('area', 'miniArea', {
   draw(cfg, container) {
-    const opacity = cfg.style ?  cfg.style.opacity : null;
+    const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, false);
     const style = _.deepMix(
       {},
@@ -32,7 +32,7 @@ G2.registerShape('area', 'miniArea', {
 
 G2.registerShape('area', 'miniAreaSmooth', {
   draw(cfg, container) {
-    const opacity = cfg.style ?  cfg.style.opacity : null;
+    const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, true);
     const shape = container.addShape('path', {
       attrs: {

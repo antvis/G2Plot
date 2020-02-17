@@ -4,13 +4,19 @@ import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
+import { IStyle } from '../../interface/config';
 
 const GEOM_MAP = {
   area: 'area',
   line: 'line',
 };
 
-export type TinyAreaViewConfig = TinyViewConfig;
+export interface TinyAreaViewConfig extends TinyViewConfig {
+  areaStyle?: IStyle;
+  lineStyle?: IStyle;
+  smooth?: boolean;
+}
+
 export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {}
 
 export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {

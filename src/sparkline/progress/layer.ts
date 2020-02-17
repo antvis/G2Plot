@@ -5,6 +5,7 @@ import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import Marker, { MarkerConfig } from './component/marker';
 import * as EventParser from './event';
+import { IStyle } from '../../interface/config';
 
 export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
@@ -13,7 +14,7 @@ export interface ProgressViewConfig extends TinyViewConfig {
   size?: number;
   marker?: MarkerConfig[];
   barSize?: number;
-  barStyle?: any;
+  barStyle?: IStyle;
 }
 
 interface UpdateConfig {

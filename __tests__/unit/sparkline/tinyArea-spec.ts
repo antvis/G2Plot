@@ -19,6 +19,7 @@ describe('tiny area', () => {
       data: fireWorks,
       xField: 'Data',
       yField: 'scales',
+      areaStyle: {},
     });
     tinyArea.render();
     /*expect(tinyArea).toBeInstanceOf(TinyArea);

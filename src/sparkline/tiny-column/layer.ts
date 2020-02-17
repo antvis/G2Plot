@@ -4,6 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyLayerConfig, TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
+import { IStyle } from '../../interface/config';
 
 const WIDTH_RATIO = 0.6;
 
@@ -15,7 +16,9 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export type TinyColumnViewConfig = TinyViewConfig;
+export interface TinyColumnViewConfig extends TinyViewConfig {
+  columnStyle?: IStyle;
+}
 export interface TinyColumnLayerConfig extends TinyColumnViewConfig, LayerConfig {}
 
 export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {

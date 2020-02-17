@@ -1,3 +1,4 @@
+import { ICanvas } from '@antv/g-base';
 import BBox from '../util/bbox';
 import { Interaction, View } from '@antv/g2';
 import ViewLayer from '../base/view-layer';
@@ -45,6 +46,7 @@ export default abstract class BaseInteraction extends Interaction {
 
   public type: string;
   public cfg: any;
+  protected canvas: ICanvas;
   private interactionConfig: IInteractionConfig;
   private interactionRange: BBox;
   private viewLayer: ViewLayer<any>;
@@ -55,7 +57,8 @@ export default abstract class BaseInteraction extends Interaction {
     interactionRange?: BBox,
     interaction?: IInteractionConfig
   ) {
-    super(cfg);
+    super(cfg.view, cfg);
+    this.canvas = cfg.view.canvas;
     this.viewLayer = viewLayer;
     this.interactionRange = interactionRange;
     this.interactionConfig = interaction;

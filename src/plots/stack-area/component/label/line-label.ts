@@ -5,7 +5,7 @@ import LineLabel from '../../../line/component/label/line-label';
  * 复用扎线图的 label，并修改取值方式
  */
 export default class AreaLineLabel extends LineLabel {
-  private getShapeInfo(shape) {
+  protected getShapeInfo(shape) {
     const originPoints = shape.get('origin').points;
     const lastPoint = originPoints[originPoints.length - 1];
     const color = shape.attr('stroke');

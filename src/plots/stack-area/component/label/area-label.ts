@@ -1,7 +1,6 @@
-import { Shape, Text } from '@antv/g';
-import { GeometryLabel, registerGeometryLabel } from '@antv/g2';
-import * as _ from '@antv/util';
-import ViewLayer from '../../../../base/view-layer';
+import { each, deepMix, clone, find } from '@antv/util';
+import { IGroup } from '@antv/g-canvas';
+import { View } from '@antv/g2';
 
 const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;
@@ -12,7 +11,7 @@ function getRange(points) {
   let maxHeight = -Infinity;
   let min = Infinity;
   let max = -Infinity;
-  _.each(points, (p) => {
+  each(points, (p) => {
     min = Math.min(p.x, min);
     max = Math.max(p.x, max);
     const height = Math.abs(p.y[0] - p.y[1]);
@@ -27,7 +26,7 @@ function getRange(points) {
 function interpolateY(x, points, index) {
   let leftPoint = points[0];
   let rightPoint = points[points.length - 1];
-  _.each(points, (p) => {
+  each(points, (p) => {
     if (p.x === x) {
       return p.y[index];
     }
@@ -54,67 +53,140 @@ function getXIndex(data, x) {
   return i;
 }
 
-class AreaLabel extends GeometryLabel {
+export interface AreaLabelConfig {
+  visible: boolean;
+  formatter?: (...args: any[]) => string;
+  offsetX?: number;
+  offsetY?: number;
+  style?: any;
+  autoScale?: boolean;
+}
+
+export interface IAreaLabel extends AreaLabelConfig {
+  view: View;
+  plot: any;
+}
+
+export default class AreaLabel {
+  public options: AreaLabelConfig;
+  public destroyed: boolean = false;
+  protected plot: any;
+  protected view: View;
+  private container: IGroup;
   private scaleFactor: number[] = [];
 
-  public showLabels(points: any, shapes: Shape[]) {
-    // 获取堆叠字段
-    const stackField = this.get('element').get('attrs').color.scales[0].field;
-    // 根据stackField将point分组
-    const groupedPoints = this._groupPoints(points, stackField);
+  constructor(cfg: IAreaLabel) {
+    this.view = cfg.view;
+    this.plot = cfg.plot;
+    const defaultOptions = this.getDefaultOptions();
+    this.options = deepMix(defaultOptions, cfg, {});
+    this.init();
+  }
+
+  protected init() {
+    this.container = this.getGeometry().labelsContainer;
+    this.view.on('beforerender', () => {
+      this.clear();
+      this.plot.canvas.draw();
+    });
+  }
+
+  public render() {
+    const stackField = this.plot.options.stackField;
+    const groupedPoints = this.getGeometry().dataArray;
     const labelPoints = [];
-    _.each(groupedPoints, (pointArray, name) => {
-      const labelPoint = this._drawLabel(pointArray, name);
+    each(groupedPoints, (pointArray, name) => {
+      const labelPoint = this.drawLabel(pointArray, name);
       if (labelPoint) {
-        labelPoints.push(_.mix({}, pointArray[0], labelPoint));
+        labelPoints.push(deepMix({}, pointArray[0], labelPoint));
         this.scaleFactor.push(labelPoint.scaleFactor);
       }
     });
-    super.showLabels(labelPoints, shapes);
-    const labelOptions = this.get('labelOptions');
-    if (labelOptions.autoScale) {
-      this._adjuestLabelSize();
+    const labelShapes = [];
+    each(labelPoints, (p, index) => {
+      const { style, offsetX, offsetY } = this.options;
+      const labelSize = this.getFontSize(index);
+      const formatter = this.options.formatter;
+      const content = formatter ? formatter(p._origin[stackField]) : p._origin[stackField];
+      const text = this.container.addShape('text', {
+        attrs: deepMix({}, style, {
+          x: p.x + offsetX,
+          y: p.y + offsetY,
+          text: content,
+          fill: p.color,
+          fontSize: labelSize,
+          textAlign: 'center',
+          textBaseline: 'top',
+        }),
+      });
+      labelShapes.push(text);
+    });
+    this.plot.canvas.draw();
+  }
+
+  public clear() {
+    if (this.container) {
+      this.container.clear();
     }
   }
 
-  private _groupPoints(points, field) {
-    const groupedPoints = {};
-    _.each(points, (p) => {
-      const value = p._origin[field];
-      if (!_.has(groupedPoints, value)) {
-        groupedPoints[value] = [];
-      }
-      groupedPoints[value].push(p);
-    });
-    return groupedPoints;
+  public hide() {
+    this.container.set('visible', false);
+    this.plot.canvas.draw();
   }
 
-  private _drawLabel(points, name) {
+  public show() {
+    this.container.set('visible', true);
+    this.plot.canvas.draw();
+  }
+
+  public destory() {
+    if (this.container) {
+      this.container.remove();
+    }
+    this.destroyed = true;
+  }
+
+  public getBBox() {}
+
+  protected getDefaultOptions() {
+    const { theme } = this.plot;
+    const labelStyle = clone(theme.label.style);
+    labelStyle.stroke = null;
+    return {
+      offsetX: 0,
+      offsetY: 0,
+      style: labelStyle,
+      autoScale: true,
+    };
+  }
+
+  protected drawLabel(points, name) {
     const { xRange, maxHeight } = getRange(points);
     // 根据area宽度在x方向各点间做插值
     const resolution = xRange[1] - xRange[0];
-    const interpolatedPoints = this._getInterpolatedPoints(xRange[0], resolution, points);
+    const interpolatedPoints = this.getInterpolatedPoints(xRange[0], resolution, points);
     // 获取label的bbox
-    const bbox = this._getLabelBbox(name);
+    const bbox = this.getLabelBbox(name);
     const fitOption = {
       xRange,
       aspect: bbox.width / bbox.height,
       data: interpolatedPoints,
       justTest: true,
     };
-    const height = this._bisection(MIN_HEIGHT, maxHeight, this._testFit, fitOption, TOLERANCE, MAX_ITERATION);
+    const height = this.bisection(MIN_HEIGHT, maxHeight, this.testFit, fitOption, TOLERANCE, MAX_ITERATION);
     if (height === null) {
       return;
     }
     fitOption.justTest = false;
-    const fit: any = this._testFit(fitOption);
+    const fit: any = this.testFit(fitOption);
     fit.x = fit.x;
     fit.y = fit.y0 + (fit.y1 - fit.y0) / 2;
-    fit.scaleFactor = (height / bbox.height) * 0.4;
+    fit.scaleFactor = (height / bbox.height) * 0.2;
     return fit;
   }
 
-  private _getInterpolatedPoints(minX, resolution, points) {
+  private getInterpolatedPoints(minX, resolution, points) {
     const interpolatedPoints = [];
     const step = 2;
     for (let i = minX; i < resolution; i += step) {
@@ -128,7 +200,7 @@ class AreaLabel extends GeometryLabel {
     return interpolatedPoints;
   }
 
-  private _bisection(min, max, test, testOption, tolerance, maxIteration) {
+  private bisection(min, max, test, testOption, tolerance, maxIteration) {
     for (let i = 0; i < maxIteration; i++) {
       const middle = (min + max) / 2;
       const options = testOption;
@@ -148,7 +220,7 @@ class AreaLabel extends GeometryLabel {
     return null;
   }
 
-  private _testFit(option) {
+  private testFit(option) {
     const { xRange, width, height, data, justTest } = option;
     for (let i = 0; i < data.length; i++) {
       const d = data[i];
@@ -191,11 +263,10 @@ class AreaLabel extends GeometryLabel {
     return false;
   }
 
-  private _getLabelBbox(text) {
-    const plot: ViewLayer = this.get('labelOptions').plot;
-    const labelStyle = _.clone(plot.theme.label.textStyle);
+  private getLabelBbox(text) {
+    const labelStyle = clone(this.plot.theme.label.textStyle);
     labelStyle.fontSize = DEFAULT_SIZE;
-    const tShape = new Text({
+    const tShape = this.container.addShape('text', {
       attrs: {
         text,
         x: 0,
@@ -203,24 +274,20 @@ class AreaLabel extends GeometryLabel {
         ...labelStyle,
       },
     });
-    return tShape.getBBox();
+    const bbox = tShape.getBBox();
+    tShape.remove();
+    return bbox;
   }
 
-  private _adjuestLabelSize() {
-    const renderer = this.get('labelsRenderer');
-    const labels = renderer.get('group').get('children');
-    const view = this.get('element').get('view');
-    _.each(labels, (label, index) => {
+  private getGeometry() {
+    return find(this.view.geometries, (geom) => geom.type === 'area');
+  }
+
+  protected getFontSize(index) {
+    if (this.options.autoScale) {
       const scaleFactor = this.scaleFactor[index];
-      label.attr('fontSize', DEFAULT_SIZE);
-      label.transform([
-        ['t', -label.attr('x'), -label.attr('y')],
-        ['s', scaleFactor, scaleFactor],
-        ['t', label.attr('x'), label.attr('y')],
-      ]);
-    });
-    view.get('canvas').draw();
+      return DEFAULT_SIZE * scaleFactor;
+    }
+    return DEFAULT_SIZE;
   }
 }
-
-registerGeometryLabel('area', AreaLabel);

@@ -66,9 +66,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: {
-          type: 'rect',
-        },
+        showCrosshairs: false,
+        showMarkers: false,
       },
       label: {
         visible: false,
@@ -174,6 +173,10 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       });
       label.render();
     }
+  }
+
+  protected interaction() {
+    this.setConfig('interaction', { type: 'active-region' });
   }
 
   private applyResponsive(stage) {

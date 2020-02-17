@@ -16,41 +16,41 @@ function mappingColor(band, gray) {
   return reflect;
 }
 
-export interface RangeBarLabelConfig {
+export interface RangeColumnLabelConfig {
   visible: boolean;
   position?: 'outer' | 'inner';
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;
   style?: any;
-  leftStyle?: any;
-  rightStyle?: any;
+  topStyle?: any;
+  bottomStyle?: any;
   adjustColor?: boolean;
   adjustPosition?: boolean;
 }
 
-export interface IRangeBarLabel extends RangeBarLabelConfig {
+export interface IRangeColumnLabel extends RangeColumnLabelConfig {
   view: View;
   plot: any;
 }
 
-export default class RangeBarLabel {
-  public options: RangeBarLabelConfig;
+export default class RangeColumnLabel {
+  public options: RangeColumnLabelConfig;
   public destroyed: boolean = false;
   private plot: any;
   private view: View;
   private container: IGroup;
 
-  constructor(cfg: IRangeBarLabel) {
+  constructor(cfg: IRangeColumnLabel) {
     this.view = cfg.view;
     this.plot = cfg.plot;
     const defaultOptions = this.getDefaultOptions();
     this.options = deepMix(defaultOptions, cfg, {});
-    if (!this.options.leftStyle) {
-      this.options.leftStyle = this.options.style;
+    if (!this.options.topStyle) {
+      this.options.topStyle = this.options.style;
     }
-    if (!this.options.rightStyle) {
-      this.options.rightStyle = this.options.style;
+    if (!this.options.bottomStyle) {
+      this.options.bottomStyle = this.options.style;
     }
     this.init();
   }
@@ -67,13 +67,13 @@ export default class RangeBarLabel {
     const geometry = this.getGeometry();
     const elements = geometry.elements;
     each(elements, (ele) => {
-      const { shape } = ele;
+      const shape = ele.shape;
       const positions = this.getPosition(shape);
       const values = this.getValue(shape);
-      const textAlign = this.getTextAlign();
+      const textBaeline = this.getTextBaseline();
       const labels = [];
       each(positions, (pos, i) => {
-        const style = i === 0 ? this.options.leftStyle : this.options.rightStyle;
+        const style = i === 1 ? this.options.topStyle : this.options.bottomStyle;
         const color = this.getTextColor(shape, i);
         if (this.options.position === 'inner' && this.options.adjustColor && color !== 'black') {
           style.stroke = null;
@@ -86,8 +86,8 @@ export default class RangeBarLabel {
             y: pos.y,
             text: content,
             fill: color,
-            textAlign: textAlign[i],
-            textBaseline: 'middle',
+            textAlign: 'center',
+            textBaseline: textBaeline[i],
           }),
         });
         labels.push(label);
@@ -129,8 +129,8 @@ export default class RangeBarLabel {
     const labelStyle = theme.label.style;
     return {
       position: 'outer',
-      offsetX: DEFAULT_OFFSET,
-      offsetY: 0,
+      offsetX: 0,
+      offsetY: DEFAULT_OFFSET,
       style: clone(labelStyle),
       adjustColor: true,
       adjustPosition: true,
@@ -139,33 +139,33 @@ export default class RangeBarLabel {
 
   private getPosition(shape) {
     const bbox = shape.getBBox();
-    const { minX, maxX, minY, height, width } = bbox;
+    const { minX, maxX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY } = this.options;
-    const y = minY + height / 2 + offsetY;
-    let x1, x2;
+    const x = minX + width / 2;
+    let y1, y2;
     if (this.options.position === 'outer') {
-      x1 = minX - offsetX;
-      x2 = maxX + offsetX;
+      y1 = minY - offsetY;
+      y2 = maxY + offsetY;
     } else {
-      x1 = minX + offsetX;
-      x2 = maxX - offsetX;
+      y1 = minY + offsetY;
+      y2 = maxY - offsetY;
     }
     return [
-      { x: x1, y },
-      { x: x2, y },
+      { x: x, y: y2 },
+      { x: x, y: y1 },
     ];
   }
 
   private getValue(shape) {
-    const { xField } = this.plot.options;
-    return shape.get('origin').data[xField];
+    const { yField } = this.plot.options;
+    return shape.get('origin').data[yField];
   }
 
-  private getTextAlign() {
+  private getTextBaseline() {
     if (this.options.position === 'outer') {
-      return ['right', 'left'];
+      return ['top', 'bottom'];
     } else {
-      return ['left', 'right'];
+      return ['bottom', 'top'];
     }
   }
 
@@ -183,7 +183,7 @@ export default class RangeBarLabel {
       const reflect = mappingColor(colorBand, gray);
       return reflect;
     }
-    const defaultColor = index === 0 ? this.options.leftStyle.fill : this.options.rightStyle.fill;
+    const defaultColor = index === 1 ? this.options.topStyle.fill : this.options.bottomStyle.fill;
     return defaultColor;
   }
 
@@ -207,34 +207,37 @@ export default class RangeBarLabel {
 
   private adjustPosition(la, lb, shape) {
     const origin = shape.get('origin');
-    const shapeMinX = origin.x[0];
-    const shapeMaxX = origin.x[1];
-    const shapeWidth = Math.abs(shapeMaxX - shapeMinX);
+    const shapeMinY = origin.y[1];
+    const shapeMaxY = origin.y[0];
+    const bbox = shape.getBBox();
+    const { minX, maxX, minY, height, width } = bbox;
+    const shapeHeight = height;
     const panelRange = this.view.coordinateBBox;
     const boxes = [la.getBBox(), lb.getBBox()];
-    let ax = la.attr('x');
-    let bx = lb.attr('x');
+    let ay = la.attr('y');
+    let by = lb.attr('y');
     if (this.options.adjustPosition && this.options.position === 'inner') {
-      const totalLength = boxes[0].width + boxes[1].width;
-      const isOverlap = boxes[0].maxX - boxes[1].minX > 2;
-      const isTooShort = totalLength > shapeWidth;
+      const totalLength = boxes[0].height + boxes[1].height;
+      const isOverlap = boxes[1].maxY - boxes[0].minY > 2;
+      const isTooShort = totalLength > shapeHeight;
       if (isOverlap || isTooShort) {
-        ax = shapeMinX - this.options.offsetX;
-        la.attr('fill', this.options.leftStyle.fill);
-        la.attr('textAlign', 'right');
+        by = shapeMinY - this.options.offsetY;
+        lb.attr('fill', this.options.topStyle.fill);
+        lb.attr('textBaseline', 'bottom');
+        ay = shapeMaxY + this.options.offsetY;
+        la.attr('fill', this.options.bottomStyle.fill);
+        la.attr('textBaseline', 'top');
         boxes[0] = la.getBBox();
-        bx = shapeMaxX + this.options.offsetX;
-        lb.attr('fill', this.options.rightStyle.fill);
-        lb.attr('textAlign', 'left');
         boxes[1] = lb.getBBox();
       }
     }
-    if (boxes[0].minX < panelRange.minX) {
-      ax = panelRange.minX + DEFAULT_OFFSET;
-      la.attr('textAlign', 'left');
+    // fixme: textBaseline 取不准bbox
+    if (boxes[0].maxY > panelRange.maxY - DEFAULT_OFFSET) {
+      ay = panelRange.maxY - DEFAULT_OFFSET / 2;
+      la.attr('textBaseline', 'bottom');
     }
-    la.attr('x', ax);
-    lb.attr('x', bx);
+    la.attr('y', ay);
+    lb.attr('y', by);
     this.plot.canvas.draw();
   }
 

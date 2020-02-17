@@ -101,7 +101,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   public bar: any;
   public type: string = 'bar';
-  private renderTime = 0;
 
   public beforeInit() {
     super.beforeInit();
@@ -113,7 +112,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   public afterRender() {
-    this.renderTime += 1;
     const props = this.options;
     this.renderLabel();
     /** 响应式 */

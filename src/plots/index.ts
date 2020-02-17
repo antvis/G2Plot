@@ -11,7 +11,7 @@ export { default as Column, ColumnConfig } from './column';
 export { default as GroupColumn, GroupColumnConfig } from './group-column';
 export { default as StackColumn, StackColumnConfig } from './stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
-//export { default as RangeColumn, RangeColumnConfig } from './range-column';
+export { default as RangeColumn, RangeColumnConfig } from './range-column';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
 export { default as Matrix, MatrixConfig } from './matrix';
 

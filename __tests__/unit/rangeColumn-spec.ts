@@ -1,6 +1,6 @@
-import { RangeBar } from '../../src';
+import { RangeColumn } from '../../src';
 
-describe.skip('Radar plot', () => {
+describe('rangeColumn plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -21,24 +21,24 @@ describe.skip('Radar plot', () => {
   ];
 
   it.only('initialize', () => {
-    const barPlot = new RangeBar(canvasDiv, {
+    const columnPlot = new RangeColumn(canvasDiv, {
       title: {
         visible: true,
         text: '区间条形图',
       },
       data,
-      xField: 'values',
-      yField: 'type',
+      xField: 'type',
+      yField: 'values',
       label: {
         visible: true,
-        leftStyle: {
+        topStyle: {
           fill: '#3e5bdb',
         },
-        rightStyle: {
+        bottomStyle: {
           fill: '#dd3121',
         },
       },
     });
-    barPlot.render();
+    columnPlot.render();
   });
 });

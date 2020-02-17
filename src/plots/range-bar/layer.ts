@@ -86,7 +86,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
     super.afterRender();
   }
 
-  protected renderLabel(){
+  protected renderLabel() {
     if (this.options.label && this.options.label.visible) {
       const label = new RangeBarLabel({
         view: this.view,

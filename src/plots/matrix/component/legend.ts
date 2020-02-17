@@ -1,5 +1,6 @@
 import { each, isArray, deepMix } from '@antv/util';
-import { Group, BBox, Shape } from '@antv/g';
+import { IGroup, IShape } from '@antv/g-canvas';
+import BBox from '../../../util/bbox';
 import { View } from '@antv/g2';
 
 const LABEL_MARGIN = 4;
@@ -25,8 +26,8 @@ export interface IMatrixLegend extends MatrixLegendConfig {
 
 export default class MatrixLegend {
   public options: IMatrixLegend;
-  public container: Group;
-  public anchor: Shape;
+  public container: IGroup;
+  public anchor: IShape;
   public afterRender: boolean;
   public destroyed: boolean = false;
   protected view: View;
@@ -56,7 +57,7 @@ export default class MatrixLegend {
   }
 
   public render() {
-    const scales = this.view.get('scales');
+    const scales = this.view.geometries[0].scales;
     const colorField = this.options.plot.options.colorField;
     this.colorScale = scales[colorField];
     const { min, max } = this.colorScale;
@@ -223,7 +224,7 @@ export default class MatrixLegend {
 
   protected getDefaultWidth() {
     if (this.layout === 'horizontal') {
-      const width = this.view.get('panelRange').width;
+      const width = this.view.coordinateBBox.width;
       return width;
     }
     return 10;
@@ -231,14 +232,14 @@ export default class MatrixLegend {
 
   protected getDefaultHeight() {
     if (this.layout === 'vertical') {
-      const height = this.view.get('panelRange').height;
+      const height = this.view.coordinateBBox.height;
       return height;
     }
     return 10;
   }
 
   protected legendLayout() {
-    const panelRange = this.view.get('panelRange');
+    const panelRange = this.view.coordinateBBox;
     const { bleeding } = this.options.plot.getPlotTheme();
     if (isArray(bleeding)) {
       each(bleeding, (it, index) => {
@@ -328,16 +329,16 @@ export default class MatrixLegend {
     const { min, max } = this.colorScale;
 
     this.view.on(eventName, (ev) => {
-      const value = ev.data._origin[field];
+      const value = ev.data.data[field];
       const ratio = (value - min) / (max - min);
       this.moveAnchor(ratio);
     });
 
-    this.view.on(labelEventName, (ev) => {
+    /*this.view.on(labelEventName, (ev) => {
       const value = ev.data[field];
       const ratio = (value - min) / (max - min);
       this.moveAnchor(ratio);
-    });
+    });*/
 
     this.options.plot.canvas.on('mouseleave', (ev) => {
       this.anchor.set('visible', false);

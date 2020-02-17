@@ -8,7 +8,7 @@ import { getComponent } from '../../components/factory';
 import MatrixLegend, { MatrixLegendConfig } from './component/legend';
 import { getRectPath, getCirclePath, getCircleCurve } from './shape';
 // import './component/label';
-// import './component/legend';
+import './component/legend';
 
 export interface MatrixViewConfig extends ViewConfig {
   forceSquare?: boolean;
@@ -33,7 +33,8 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       },
       tooltip: {
         shared: false,
-        crosshairs: false,
+        showCrosshairs: false,
+        showMarkers: false
       },
       xAxis: {
         visible: true,
@@ -91,12 +92,12 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       const gridSize = rangeSize / count;
       const width = gridSize * xCount;
       const height = gridSize * yCount;
-      //this.view.coordinateBBox = new BBox(panelRange.x, panelRange.y, width, height) as any;
+      this.view.coordinateBBox = new BBox(panelRange.x, panelRange.y, width, height) as any;
     }
   }
 
   public afterRender() {
-    /*if (this.options.legend && this.options.legend.visible) {
+    if (this.options.legend && this.options.legend.visible) {
       this.matrixLegend = new MatrixLegend({
         view: this.view,
         plot: this,
@@ -104,7 +105,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       });
       this.matrixLegend.render();
       this.paddingController.registerPadding(this.matrixLegend, 'outer');
-    }*/
+    }
     super.afterRender();
   }
 

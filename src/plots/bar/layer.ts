@@ -210,10 +210,14 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   protected renderLabel() {
+    const { scales } = this.config;
+    const { yField } = this.options;
+    const scale = scales[yField];
     if (this.options.label && this.options.label.visible) {
       const label = new BarLabel({
         view: this.view,
         plot: this,
+        formatter: scale.formatter,
         ...this.options.label,
       });
       label.render();

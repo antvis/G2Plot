@@ -1,18 +1,7 @@
 import { each, deepMix, clone } from '@antv/util';
 import { Group, IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
-import { rgb2arr } from '../../../util/color';
-
-function mappingColor(band, gray) {
-  let reflect;
-  each(band, (b) => {
-    const map = b;
-    if (gray >= map.from && gray < map.to) {
-      reflect = map.color;
-    }
-  });
-  return reflect;
-}
+import { rgb2arr, mappingColor } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;
 
@@ -99,7 +88,7 @@ export default class BarLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

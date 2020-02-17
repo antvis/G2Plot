@@ -1,7 +1,10 @@
-import { BBox, Canvas, IGroup, Text } from '@antv/g-canvas';
+import { Canvas, IGroup, Shape } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
+import BBox from '../util/bbox';
+
+const Text = Shape.Text;
 
 interface TextConfig {
   leftMargin: number;
@@ -41,9 +44,10 @@ export default class TextDescription {
 
   public getBBox(): BBox | null {
     if (this.shape) {
+      // @ts-ignore
       const bbox = this.shape.getBBox();
       if (this.index === 0) {
-        return bbox;
+        return BBox.fromBBoxObject(bbox);
       }
       const padding = this.plot.theme.description.padding;
       if (_.isArray(padding)) {
@@ -60,6 +64,7 @@ export default class TextDescription {
 
   public clear() {
     if (this.shape) {
+      // @ts-ignore
       this.shape.attr('text', '');
     }
   }
@@ -73,7 +78,7 @@ export default class TextDescription {
 
   private _init() {
     const content = this._textWrapper();
-    this.shape = this.container.addShape('text', {
+    this.shape = (this.container.addShape('text', {
       attrs: _.mix(
         {
           x: this.leftMargin,
@@ -82,7 +87,8 @@ export default class TextDescription {
         },
         this.style
       ),
-    });
+    }) as any) as Text;
+    // @ts-ignore
     this.shape.name = this.name;
   }
 

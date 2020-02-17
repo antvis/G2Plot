@@ -38,7 +38,7 @@
     "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/bar-spec.ts",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/sparkline/tinyColumn-spec.ts",
     "coverage": "jest --coverage",
     "ci": "run-s lint-check build test coverage",
     "compare-live": "node scripts/compare.js",
@@ -72,7 +72,7 @@
     "@antv/coord": "~0.2.2"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.10.42",
+    "@antv/gatsby-theme-antv": "^0.10.43",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@commitlint/cli": "^8.2.0",
@@ -87,7 +87,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "event-simulate": "^1.0.0",
-    "gatsby": "2.19.5",
+    "gatsby": "^2.19.15",
     "gh-pages": "^2.1.1",
     "husky": "^4.2.1",
     "jest": "^24.9.0",

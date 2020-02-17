@@ -1,3 +1,4 @@
+import { View } from '@antv/g2';
 import { Column } from '../../src';
 
 describe('Column plot', () => {
@@ -48,7 +49,7 @@ describe('Column plot', () => {
     },
   ];
 
-  it.skip('初始化以及销毁', () => {
+  it.only('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: 'auto',
       data,
@@ -66,11 +67,15 @@ describe('Column plot', () => {
       description: {
         text: '描述描述，柱状图，柱状图',
       },
+      label: {
+        visible: true,
+        position: 'center',
+      },
       animation: true,
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const positionField = plot.get('elements')[0].get('position').fields;
+    const plot: View = columnPlot.getLayer().view;
+    const positionField = plot.geometries[0].get('position').fields;
     const isTransposed = plot.get('coord').isTransposed;
     const axes = plot.get('axisController').axes;
 

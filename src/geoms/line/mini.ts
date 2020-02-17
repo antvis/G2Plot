@@ -4,8 +4,7 @@ import * as _ from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import LineParser from './main';
-
-const G2DefaultTheme = G2.getTheme();
+import { getGlobalTheme } from '../../theme';
 
 G2.registerShape('line', 'miniLine', {
   draw(cfg, container) {
@@ -28,7 +27,7 @@ G2.registerShape('line', 'miniLine', {
       attrs: _.mix(
         {
           path,
-          stroke: cfg.color || G2DefaultTheme.defaultColor,
+          stroke: cfg.color || getGlobalTheme().defaultColor,
           lineWidth: cfg.size || 2,
         },
         style
@@ -50,7 +49,7 @@ G2.registerShape('line', 'miniLineSmooth', {
       attrs: _.mix(
         {
           path,
-          stroke: cfg.color || G2DefaultTheme.defaultColor,
+          stroke: cfg.color || getGlobalTheme().defaultColor,
           lineWidth: cfg.size || 2,
         },
         cfg.style

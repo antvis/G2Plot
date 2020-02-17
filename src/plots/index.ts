@@ -22,8 +22,6 @@ export { default as Heatmap, HeatmapConfig } from './heatmap';
 // export { default as Radar, RadarConfig } from './radar';
 // export { default as Liquid, LiquidConfig } from './liquid';
 // export { default as Gauge, GaugeConfig } from './gauge';
-// export { default as Area, AreaConfig } from './area';
-// export { default as StackArea, StackAreaConfig } from './stack-area';
 // export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
 // export { default as Funnel, FunnelConfig } from './funnel';
 // export { default as Matrix, MatrixConfig } from './matrix';

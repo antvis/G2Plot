@@ -286,3 +286,7 @@ export interface Point {
 export interface DataItem {
   [field: string]: string | number | number[] | null | undefined;
 }
+
+export interface IStyle {
+  [field: string]: any;
+}

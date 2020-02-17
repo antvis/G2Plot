@@ -4,11 +4,11 @@ import * as _ from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import AreaParser from './main';
-
-const G2DefaultTheme = G2.getTheme();
+import { getGlobalTheme } from '../../theme';
 
 G2.registerShape('area', 'miniArea', {
   draw(cfg, container) {
+    const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, false);
     const style = _.deepMix(
       {},
@@ -21,8 +21,8 @@ G2.registerShape('area', 'miniArea', {
     const shape = container.addShape('path', {
       attrs: {
         path,
-        fill: parseGradient(cfg.color || G2DefaultTheme.defaultColor),
-        opacity: cfg.opacity || 0.4,
+        fill: parseGradient(cfg.color || getGlobalTheme().defaultColor),
+        opacity: opacity || 0.4,
       },
       style,
     });
@@ -32,12 +32,13 @@ G2.registerShape('area', 'miniArea', {
 
 G2.registerShape('area', 'miniAreaSmooth', {
   draw(cfg, container) {
+    const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, true);
     const shape = container.addShape('path', {
       attrs: {
         path,
-        fill: parseGradient(cfg.color || G2DefaultTheme.defaultColor),
-        opacity: cfg.opacity || 0.5,
+        fill: parseGradient(cfg.color || getGlobalTheme().defaultColor),
+        opacity: opacity || 0.5,
       },
     });
     return shape;

@@ -3,8 +3,6 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, Label } from '../../interface/config';
 import BaseArea, { AreaViewConfig } from '../area/layer';
-import LineLabel from './component/label/line-label';
-import AreaLabel from './component/label/area-label';
 import { getPlotComponents } from './component';
 
 export interface StackAreaViewConfig extends AreaViewConfig {

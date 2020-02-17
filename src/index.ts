@@ -8,12 +8,12 @@ export { default as Base, PlotConfig } from './base/plot';
 export * from './plots';
 
 // MINI 图形
-/*export { TinyLayerConfig } from './sparkline/tiny-layer';
+export { TinyLayerConfig } from './sparkline/tiny-layer';
 export { default as Progress, ProgressConfig } from './sparkline/progress';
 export { default as RingProgress, RingProgressConfig } from './sparkline/ring-progress';
 export { default as TinyColumn, TinyColumnConfig } from './sparkline/tiny-column';
 export { default as TinyArea, TinyAreaConfig } from './sparkline/tiny-area';
-export { default as TinyLine, TinyLineConfig } from './sparkline/tiny-line';*/
+export { default as TinyLine, TinyLineConfig } from './sparkline/tiny-line';
 
 // 混合图形
 //export { default as OverlappedComboPlot, OverlappedComboPlotConfig } from './combo-plots/overlapped';

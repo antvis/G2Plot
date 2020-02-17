@@ -312,9 +312,11 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   /** 复写 meta 配置 */
   private adjustMeta(options): void {
     const metaOptions = options.meta;
-    const valueFieldMeta = metaOptions ? metaOptions[options.yField] : {};
-    valueFieldMeta.alias = valueFieldMeta.alias || options.yField;
-    options.meta[VALUE_FIELD] = valueFieldMeta;
+    if (metaOptions) {
+      const valueFieldMeta = metaOptions ? metaOptions[options.yField] : {};
+      valueFieldMeta.alias = valueFieldMeta.alias || options.yField;
+      options.meta[VALUE_FIELD] = valueFieldMeta;
+    }
   }
 }
 

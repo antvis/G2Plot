@@ -124,7 +124,7 @@ describe('matrix plot', () => {
       data,
     });
     matrixPlot.render();
-    window.setTimeout(() => {
+    /*window.setTimeout(() => {
       matrixPlot.mappingSize('value');
     }, 2000);
     window.setTimeout(() => {
@@ -135,6 +135,6 @@ describe('matrix plot', () => {
     }, 6000);
     window.setTimeout(() => {
       matrixPlot.mappingSize('value');
-    }, 8000);
+    }, 8000);*/
   });
 });

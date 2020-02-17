@@ -31,7 +31,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   protected layers: Array<Layer<any>>;
   private canvasController: CanvasController;
   private eventController: EventController;
-  private containerDOM: HTMLElement;
+  protected containerDOM: HTMLElement;
 
   constructor(container: HTMLElement, props: T) {
     super();

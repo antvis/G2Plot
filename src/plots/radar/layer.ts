@@ -232,7 +232,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       dim: 'radius',
     });
     const axesConfig = { fields: {} };
-    console.log('xAxis_parser', xAxis_parser, yAxis_parser)
     axesConfig.fields[props.angleField] = xAxis_parser;
     axesConfig.fields[props.radiusField] = yAxis_parser;
     /** 存储坐标轴配置项到config */

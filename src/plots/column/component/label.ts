@@ -1,4 +1,4 @@
-import { Group } from '@antv/g';
+import { IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import { clone, deepMix, each } from '@antv/util';
 import { mappingColor, rgb2arr } from '../../../util/color';
@@ -24,12 +24,12 @@ export default class ColumnLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
-  protected container: Group;
+  protected container: IGroup;
 
   constructor(cfg: IColumnLabel) {
     this.view = cfg.view;
     this.plot = cfg.plot;
-    const defaultOptions = this.getDefaultOptions(cfg);
+    const defaultOptions = this.getDefaultOptions();
     this.options = deepMix(defaultOptions, cfg, {});
     this.init();
   }

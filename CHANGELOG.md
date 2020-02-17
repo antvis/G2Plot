@@ -1,3 +1,6 @@
+## <small>0.11.29 (2019-02-06)</small>
+- 🐞 fix g version ([03a33d7](https://github.com/antvis/G2Plot/commit/03a33d7))
+
 ## <small>0.11.28 (2019-02-06)</small>
 - 🐞 修复水波图图形剪裁 ([b93f605](https://github.com/antvis/G2Plot/commit/b93f605))
 - 🐞 热力图legend位置错误 ([c989c87](https://github.com/antvis/G2Plot/commit/c989c87))

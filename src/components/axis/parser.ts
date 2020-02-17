@@ -146,7 +146,7 @@ export default class AxisParser {
     );
     if (labelConfig.formatter) {
       formatter = combineFormatter(
-        labelConfig.formatter,
+        formatter,
         labelConfig.formatter as (text: string, item: any, idx: number) => string
       );
     }

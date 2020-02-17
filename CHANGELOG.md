@@ -1,4 +1,7 @@
-## <small>0.11.29 (2019-02-06)</small>
+## <small>0.11.30 (2019-02-17)</small>
+- 🐞 temporary remove geomCliper for svg rendering ([be69918](https://github.com/antvis/G2Plot/commit/be69918))
+
+## <small>0.11.29 (2019-02-17)</small>
 - 🐞 fix g version ([03a33d7](https://github.com/antvis/G2Plot/commit/03a33d7))
 
 ## <small>0.11.28 (2019-02-06)</small>

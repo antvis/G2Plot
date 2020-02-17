@@ -6,9 +6,10 @@ import * as _ from '@antv/util';
 let shapeCache: IShape[];
 
 function clipInFromCenter(shape, animateCfg) {
-  /*const bbox = shape.getBBox();
+
+  const bbox = shape.getBBox();
   const centerX = bbox.minX + bbox.width / 2;
-  const cliper = new Shape({
+  shape.setClip({
     type:'rect',
     attrs: {
       x: centerX,
@@ -17,7 +18,7 @@ function clipInFromCenter(shape, animateCfg) {
       height: bbox.height,
     },
   });
-  shape.attr('clip', cliper);
+  const cliper = shape.get('clipShape');
   cliper.animate(
     {
       width: bbox.width,
@@ -26,10 +27,10 @@ function clipInFromCenter(shape, animateCfg) {
     animateCfg.duration,
     animateCfg.easing,
     () => {
-      shape.attr('clip', null);
+      shape.setClip(null);
     },
     animateCfg.delay
-  );*/
+  );
 }
 
 clipInFromCenter.animationName = 'clipInFromCenter';

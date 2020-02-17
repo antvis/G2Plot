@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 import RangeBarLabel, { RangeBarLabelConfig } from './component/label';
-// import { setShapeCache } from './animation';
+import { setShapeCache } from './animation';
 
 export interface RangeBarViewConfig extends BarViewConfig {
   label?: RangeBarLabelConfig;
@@ -82,7 +82,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
         shapeCaches.push(ele.shape);
       });
     });
-    //setShapeCache(shapeCaches);
+    setShapeCache(shapeCaches);
     super.afterRender();
   }
 
@@ -97,7 +97,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
     }
   }
 
-  /*protected animation() {
+  protected animation() {
     super.animation();
     this.bar.animate = {
       appear: {
@@ -109,7 +109,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
         duration: 600,
       },
     };
-  }*/
+  }
 }
 
 registerPlotType('rangeBar', RangeBarLayer);

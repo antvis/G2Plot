@@ -32,6 +32,10 @@ const piePlot = new g2plot.Pie(document.getElementById('canvas'), {
   data,
   angleField: 'value',
   colorField: 'type',
+  legend: {
+    visible: true,
+    marker: 'square',
+  },
 });
 piePlot.render();
 

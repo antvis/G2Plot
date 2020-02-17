@@ -390,6 +390,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       clickable: _.isUndefined(clickable) ? true : clickable,
       // wordSpacing: _.get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
+      marker: _.get(this.options, 'legend.marker'),
     });
   }
 

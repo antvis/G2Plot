@@ -26,7 +26,7 @@ export { default as Rose, RoseConfig } from './rose';
 // export { default as StackBar, StackBarConfig } from './stack-bar';
 // export { default as Pie, PieConfig } from './pie';
 // export { default as Ring, RingConfig } from './ring';
-// export { default as Radar, RadarConfig } from './radar';
+export { default as Radar, RadarConfig } from './radar';
 // export { default as Liquid, LiquidConfig } from './liquid';
 // export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';

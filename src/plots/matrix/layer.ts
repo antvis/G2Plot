@@ -4,11 +4,11 @@ import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import MatrixLegend, { MatrixLegendConfig } from './component/legend';
 import { getRectPath, getCirclePath, getCircleCurve } from './shape';
+import MatrixLabel from './component/label';
+import { getPlotComponents } from './component';
 // import './component/label';
-import './component/legend';
 
 export interface MatrixViewConfig extends ViewConfig {
   forceSquare?: boolean;
@@ -34,7 +34,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       tooltip: {
         shared: false,
         showCrosshairs: false,
-        showMarkers: false
+        showMarkers: false,
       },
       xAxis: {
         visible: true,
@@ -78,7 +78,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   public type: string = 'matrix';
   protected gridSize: number[] = [];
-  protected matrixLegend: MatrixLegend;
+  protected plotComponents: any[] = [];
 
   public afterInit() {
     super.afterInit();
@@ -97,15 +97,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   public afterRender() {
-    if (this.options.legend && this.options.legend.visible) {
-      this.matrixLegend = new MatrixLegend({
-        view: this.view,
-        plot: this,
-        ...this.options.legend,
-      });
-      this.matrixLegend.render();
-      this.paddingController.registerPadding(this.matrixLegend, 'outer');
-    }
+    this.renderPlotComponents();
     super.afterRender();
   }
 
@@ -194,7 +186,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       shape: {
         values: ['rect'],
       },
-      label: this.extractLabel(),
+      label: false,
     };
     if (this.options.sizeField) {
       rect.size = {
@@ -229,7 +221,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       shape: {
         values: ['curvePoint'],
       },
-      label: this.extractLabel(),
+      label: false,
     };
     if (this.options.sizeField) {
       circle.size = {
@@ -242,26 +234,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       };
     }
     return circle;
-  }
-
-  protected extractLabel() {
-    const labelOptions = this.options.label;
-    // 不显示label的情况
-    if (!labelOptions.visible) {
-      return false;
-    }
-    if (!this.options.sizeField && !this.options.colorField) {
-      return false;
-    }
-
-    const label = getComponent('label', {
-      plot: this,
-      top: true,
-      labelType: 'matrixLabel',
-      fields: this.options.colorField ? [this.options.colorField] : [this.options.sizeField],
-      ...labelOptions,
-    });
-    return label;
   }
 
   private getGridSize() {
@@ -409,15 +381,30 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     });
   }
 
-  private getShapes(){
+  private getShapes() {
     const elements = this.view.geometries[0].elements;
     const shapes = [];
-    _.each(elements,(ele)=>{
+    _.each(elements, (ele) => {
       shapes.push(ele.shape);
     });
     return shapes;
   }
 
+  protected renderPlotComponents() {
+    const componentsType = ['label', 'legend'];
+    _.each(componentsType, (t) => {
+      const cfg = {
+        view: this.view,
+        plot: this,
+        ...this.options[t],
+      };
+      const component = getPlotComponents(this, t, cfg);
+      if (component) {
+        component.render();
+        this.plotComponents.push(component);
+      }
+    });
+  }
 }
 
 registerPlotType('matrix', MatrixLayer);

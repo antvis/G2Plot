@@ -126,6 +126,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     if (this.options.sizeField && this.options.sizeField === field) {
       return;
     }
+    this.options.sizeField = field;
     // 创建scale
     const values = _.valuesOfKey(this.options.data, field);
     const min = Math.min(...values);
@@ -226,7 +227,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       },
       shape: {
         values: ['curvePoint'],
-        //values:['circle']
       },
       label: this.extractLabel(),
     };
@@ -280,7 +280,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   private circleToRect(shapes) {
     const gridSize = this.gridSize;
     _.each(shapes, (shape) => {
-      const { x, y, size } = shape.origin;
+      const { x, y, size } = shape.get('origin');
       let sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
       if (!this.options.sizeField) {
         sizeRatio = 1;
@@ -331,7 +331,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   private rectSizeMapping(shapes, scale, field) {
     _.each(shapes, (shape) => {
-      const data = shape.get('origin')._origin;
+      const data = shape.get('origin').data;
       const ratio = 0.3 + scale.scale(data[field]) * 0.6;
       shape.get('origin').size = ratio;
       const bbox = shape.getBBox();
@@ -370,6 +370,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   private circleDisableSizeMapping(shapes) {
+    this.options.sizeField = null;
     _.each(shapes, (shape) => {
       const { x, y } = shape.get('origin');
       const size = Math.min(this.gridSize[0], this.gridSize[1]) * 0.9;
@@ -387,6 +388,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   private rectDisableSizeMapping(shapes) {
+    this.options.sizeField = null;
     _.each(shapes, (shape) => {
       const bbox = shape.getBBox();
       const width = bbox.width;

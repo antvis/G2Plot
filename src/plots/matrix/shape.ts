@@ -54,7 +54,7 @@ registerShape('polygon', 'rect', {
           ['Z'],
         ];
         */
-    const path = getRectPath(centerX, centerY, width, height, cfg.origin.size);
+    const path = getRectPath(centerX, centerY, width, height, cfg.size);
     return container.addShape('path', {
       attrs: {
         path,

@@ -3,6 +3,7 @@ export { default as Bar, BarConfig } from './bar';
 export { default as StackBar, StackBarConfig } from './stack-bar';
 export { default as GroupBar, GroupBarConfig } from './group-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './percentage-stack-bar';
+export { default as RangeBar, RangeBarConfig } from './range-bar';
 export { default as Area, AreaConfig } from './area';
 export { default as StackArea, StackAreaConfig } from './stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
@@ -10,6 +11,7 @@ export { default as Column, ColumnConfig } from './column';
 export { default as GroupColumn, GroupColumnConfig } from './group-column';
 export { default as StackColumn, StackColumnConfig } from './stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
+export { default as RangeColumn, RangeColumnConfig } from './range-column';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
 export { default as Matrix, MatrixConfig } from './matrix';
 

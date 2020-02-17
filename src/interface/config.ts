@@ -145,6 +145,7 @@ export interface Legend {
   offsetX?: number;
   offsetY?: number;
   clickable?: boolean;
+  marker?: string;
 }
 
 export interface Tooltip {

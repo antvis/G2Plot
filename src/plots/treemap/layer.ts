@@ -28,6 +28,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       padding: [0, 0, 0, 0],
       tooltip: {
         visible: false,
+        showTitle: false,
+        showCrosshairs: false,
+        showMarkers: false
       },
       legend: {
         visible: false,
@@ -56,7 +59,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         y: {
           nice: false,
         },
-      },
+      }
     });
   }
   public type: string = 'line';
@@ -148,6 +151,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
           return _.deepMix({}, defaultStyle, this.options.rectStyle);
         },
       },
+      tooltip:{
+        fields:['name','value']
+      }
     };
     this.setConfig('geometry', this.rect);
   }

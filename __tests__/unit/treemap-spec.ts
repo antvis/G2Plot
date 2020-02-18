@@ -18,7 +18,10 @@ describe('treemap', () => {
       height: 400,
       data,
       colorField: 'brand',
-      // maxLevel: 1
+      // maxLevel: 1,
+      tooltip:{
+        visible: true,
+      }
     });
     treemapPlot.render();
   });

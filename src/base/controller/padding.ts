@@ -146,6 +146,10 @@ export default class PaddingController {
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
+    /** title/description可见时padding计算错误问题 */
+    if (_.get(props, 'title.visible') || _.get(props, 'description.visible')) {
+      padding[0] = Math.max(this.bleeding[0], padding[0]);
+    }
     this.adjustAxisPadding(view, padding);
     // label、annotation等
     const panelPadding = this._getPanel(view, box);

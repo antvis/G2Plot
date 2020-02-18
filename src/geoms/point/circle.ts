@@ -1,5 +1,5 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { LooseObject } from '@antv/g2/lib/interface';
+import { isArray, isFunction, isString } from '@antv/util';
 import ElementParser from '../base';
 
 export default class CircleParser extends ElementParser {
@@ -28,10 +28,10 @@ export default class CircleParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     const colorField = props.colorField;
     if (colorField) {
-      config.fields = _.isArray(colorField) ? colorField : [colorField];
+      config.fields = isArray(colorField) ? colorField : [colorField];
     }
     if (props.color) {
       this._parseColor(props, config);
@@ -41,7 +41,7 @@ export default class CircleParser extends ElementParser {
 
   public parseSize() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     if (props.sizeField) {
       config.fields = [props.sizeField];
     }
@@ -52,7 +52,7 @@ export default class CircleParser extends ElementParser {
   }
 
   public parseShape(shapeName) {
-    const config: DataPointType = {
+    const config: LooseObject = {
       values: [shapeName],
     };
     this.config.shape = config;
@@ -67,9 +67,9 @@ export default class CircleParser extends ElementParser {
       cfg: null,
     };
     const { xField, yField, colorField } = props;
-    if (_.isFunction(styleProps)) {
+    if (isFunction(styleProps)) {
       if (colorField) {
-        config.fields = _.isArray(colorField)
+        config.fields = isArray(colorField)
           ? [xField, yField, colorField].concat(colorField)
           : [xField, yField, colorField];
       } else {
@@ -83,11 +83,11 @@ export default class CircleParser extends ElementParser {
   }
 
   private _parseColor(props, config) {
-    if (_.isString(props.color)) {
+    if (isString(props.color)) {
       config.values = [props.color];
-    } else if (_.isFunction(props.color)) {
+    } else if (isFunction(props.color)) {
       config.callback = props.color;
-    } else if (_.isArray(props.color)) {
+    } else if (isArray(props.color)) {
       config.values = props.color;
     }
   }

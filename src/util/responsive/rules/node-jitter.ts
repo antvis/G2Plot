@@ -1,8 +1,8 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 import { dotProduct2D } from '../../math';
 
 /** 图形在水平或垂直方向抖开 */
-export default function nodeJitter(shape: Shape, option, index, cfg) {
+export default function nodeJitter(shape: IShape, option, index, cfg) {
   const nodes = cfg.nodes.nodes;
   if (index === nodes.length - 1) {
     return;

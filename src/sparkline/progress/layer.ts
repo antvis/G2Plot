@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
@@ -57,7 +57,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       barStyle: props.progressStyle,
       color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
-    props = _.mix(props, cfg);
+    props = mix(props, cfg);
   }
 
   public init() {
@@ -67,7 +67,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public update(cfg: UpdateConfig) {
     const props = this.options;
-    if (_.hasKey(cfg, 'percent')) {
+    if (hasKey(cfg, 'percent')) {
       props.percent = cfg.percent;
       this.changeData(this.processData());
     }
@@ -79,7 +79,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
     if (cfg.color) {
       let style;
-      if (_.isArray(cfg.color)) {
+      if (isArray(cfg.color)) {
         this.options.color = cfg.color;
         style = [{ fill: cfg.color[0] }, { fill: cfg.color[1] }];
       } else {
@@ -97,7 +97,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public destroy() {
     if (this.markers && this.markers.length > 0) {
-      _.each(this.markers, (marker) => {
+      each(this.markers, (marker) => {
         marker.destroy();
       });
       this.markers = [];
@@ -108,8 +108,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   public afterRender() {
     if (this.options.marker && !this.markers) {
       this.markers = [];
-      _.each(this.options.marker, (cfg) => {
-        const markerCfg = _.mix(
+      each(this.options.marker, (cfg) => {
+        const markerCfg = mix(
           {
             canvas: this.canvas,
             view: this.view,
@@ -177,7 +177,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
         type: 'stack',
       },
     ];
-    if (_.has(props, 'animation')) {
+    if (has(props, 'animation')) {
       bar.animate = props.animation;
     }
     this.setConfig('geometry', bar);
@@ -190,13 +190,13 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   protected parseColorProps(props) {
     let colorOption;
     if (props.color) {
-      if (_.isFunction(props.color)) {
+      if (isFunction(props.color)) {
         colorOption = props.color(props.percent);
       } else {
         colorOption = props.color;
       }
-      if (_.isString(colorOption)) {
-        const color = _.clone(DEFAULT_COLOR);
+      if (isString(colorOption)) {
+        const color = clone(DEFAULT_COLOR);
         color[0] = colorOption;
         return color;
       } else {
@@ -219,7 +219,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     const markerLength = markerCfg.length;
     const animationOptions = this.getUpdateAnimationOptions();
     // marker diff
-    _.each(this.markers, (marker, index) => {
+    each(this.markers, (marker, index) => {
       if (index > markerLength - 1) {
         marker.destroy();
       } else {
@@ -230,7 +230,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     if (this.markers.length < markerLength) {
       const startIndex = this.markers.length;
       for (let i = startIndex; i < markerLength; i++) {
-        const cfg = _.deepMix(
+        const cfg = deepMix(
           {},
           {
             canvas: this.canvas,
@@ -260,16 +260,16 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     const progressShapes = [];
     const { view } = this;
     const geometry = view.geometries;
-    _.each(geometry, (geom) => {
+    each(geometry, (geom) => {
       if (geom.type === 'interval') {
         const elements = geom.elements;
-        _.each(elements, (ele) => {
+        each(elements, (ele) => {
           progressShapes.push(...ele.shape);
         });
       }
     });
-    if (_.isArray(style)) {
-      _.each(style, (s, index) => {
+    if (isArray(style)) {
+      each(style, (s, index) => {
         progressShapes[index].animate(s, duration, easing);
       });
     } else {
@@ -293,8 +293,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   }
 
   private updateColorConfigByStyle(style) {
-    if (_.isArray(style)) {
-      _.each(style, (s, index) => {
+    if (isArray(style)) {
+      each(style, (s, index) => {
         if (s.fill) {
           this.options.color[index] = s.fill;
         }

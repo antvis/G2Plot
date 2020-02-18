@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { mix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
@@ -65,7 +65,7 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
       padding: [0, 0, 0, 0],
       columnSize: this.getSize(),
     } as any;
-    props = _.mix(props, cfg);
+    props = mix(props, cfg);
   }
 
   private getSize() {
@@ -77,7 +77,7 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
 
   private getColumnNum(data, field) {
     const values = [];
-    _.each(data, (d) => {
+    each(data, (d) => {
       const v = d[field];
       if (values.indexOf(v) < 0) {
         values.push(v);

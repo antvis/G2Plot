@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { reduce, size } from '@antv/util';
 import LineLabel from '../../../line/component/label/line-label';
 
 /**
@@ -13,13 +13,13 @@ export default class AreaLineLabel extends LineLabel {
     const name = shape.get('origin').data[0][stackField];
 
     const y =
-      _.reduce(
+      reduce(
         lastPoint.y,
         (r: number, a: number): number => {
           return r + a;
         },
         0
-      ) / _.size(lastPoint.y);
+      ) / size(lastPoint.y);
 
     return { x: lastPoint.x, y, color, name };
   }

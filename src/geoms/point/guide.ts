@@ -1,14 +1,14 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { LooseObject } from '@antv/g2/lib/interface';
+import { each, uniq, keys, isFunction, isString, isArray, has, get } from '@antv/util';
 import ElementParser from '../base';
 
 function getValuesByField(field, data) {
   const values = [];
-  _.each(data, (d) => {
+  each(data, (d) => {
     const v = d[field];
     values.push(v);
   });
-  return _.uniq(values);
+  return uniq(values);
 }
 
 const COLOR_MAPPER = ['seriesField', 'stackField'];
@@ -42,7 +42,7 @@ export default class GuidePointParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     const mappingField = this._getColorMappingField(props);
     if (mappingField) {
       this._parseColorByField(props, config, mappingField);
@@ -53,20 +53,20 @@ export default class GuidePointParser extends ElementParser {
         this._parseColor(props, config);
       }
     }
-    if (_.keys(config).length > 0) {
+    if (keys(config).length > 0) {
       this.config.color = config;
     }
   }
 
   public parseSize() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     config.values = [props.point.size];
     this.config.size = config;
   }
 
   public parseShape(shapeName) {
-    const config: DataPointType = {
+    const config: LooseObject = {
       values: [shapeName],
     };
     this.config.shape = config;
@@ -81,7 +81,7 @@ export default class GuidePointParser extends ElementParser {
       cfg: null,
     };
     const field = this._getColorMappingField(props);
-    if (_.isFunction(styleProps) && field) {
+    if (isFunction(styleProps) && field) {
       config.fields = [field];
       config.callback = styleProps;
     } else {
@@ -105,18 +105,18 @@ export default class GuidePointParser extends ElementParser {
   }
 
   private _parseColor(props, config) {
-    if (_.isString(props.color)) {
+    if (isString(props.color)) {
       config.values = [props.color];
-    } else if (_.isFunction(props.color)) {
+    } else if (isFunction(props.color)) {
       config.callback = props.color;
-    } else if (_.isArray(props.color)) {
+    } else if (isArray(props.color)) {
       config.values = props.color;
     }
   }
 
   private _needParseAttribute(attr) {
     const props = this.plot.options;
-    const condition = props.point && _.has(props.point, attr);
+    const condition = props.point && has(props.point, attr);
     return condition;
     // const condition = !this.style || this.style[attr];
     // return condition;
@@ -124,7 +124,7 @@ export default class GuidePointParser extends ElementParser {
 
   private _getColorMappingField(props) {
     for (const m of COLOR_MAPPER) {
-      if (_.get(props, m)) {
+      if (get(props, m)) {
         return [props[m]];
       }
     }

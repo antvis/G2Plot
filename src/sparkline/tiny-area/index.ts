@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import TinyAreaLayer, { TinyAreaViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class TinyArea extends BasePlot<TinyAreaConfig> {
   public static getDefaultOptions: typeof TinyAreaLayer.getDefaultOptions = TinyAreaLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'tinyArea';
     super.createLayers(layerProps);
   }

@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import ViewLayer from '../base/view-layer';
 import { LooseMap } from '../interface/types';
 

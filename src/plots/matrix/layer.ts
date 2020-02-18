@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, valuesOfKey, each } from '@antv/util';
 import BBox from '../../util/bbox';
 import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
@@ -24,7 +24,7 @@ export interface MatrixLayerConfig extends MatrixViewConfig, LayerConfig {}
 
 export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       forceSquare: false,
       shapeType: 'rect',
       legend: {
@@ -85,8 +85,8 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     if (this.options.forceSquare) {
       const panelRange = this.view.coordinateBBox;
       const { xField, yField, data } = this.options;
-      const xCount = _.valuesOfKey(data, xField).length;
-      const yCount = _.valuesOfKey(data, yField).length;
+      const xCount = valuesOfKey(data, xField).length;
+      const yCount = valuesOfKey(data, yField).length;
       const rangeSize = Math.min(panelRange.width, panelRange.height);
       const count = Math.max(xCount, yCount);
       const gridSize = rangeSize / count;
@@ -121,7 +121,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     }
     this.options.sizeField = field;
     // 创建scale
-    const values = _.valuesOfKey(this.options.data, field);
+    const values = valuesOfKey(this.options.data, field);
     const min = Math.min(...values);
     const max = Math.max(...values);
     const LinearScale = getScale('linear');
@@ -244,15 +244,15 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
       const { padding, xField, yField, data } = this.options;
       const width = viewRange.width - padding[1] - padding[3];
       const height = viewRange.height - padding[0] - padding[2];
-      const xCount = _.valuesOfKey(data, xField).length;
-      const yCount = _.valuesOfKey(data, yField).length;
+      const xCount = valuesOfKey(data, xField).length;
+      const yCount = valuesOfKey(data, yField).length;
       return [width / xCount, height / yCount];
     }
   }
 
   private circleToRect(shapes) {
     const gridSize = this.gridSize;
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const { x, y, size } = shape.get('origin');
       let sizeRatio = (size * 2) / Math.min(gridSize[0], gridSize[1]);
       if (!this.options.sizeField) {
@@ -273,11 +273,11 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   private rectToCircle(shapes) {
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const coord = shape.get('coord');
       const { points } = shape.get('origin');
       const ps = [];
-      _.each(points, (p) => {
+      each(points, (p) => {
         ps.push(coord.convertPoint(p));
       });
       const bbox = shape.getBBox();
@@ -303,7 +303,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   private rectSizeMapping(shapes, scale, field) {
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const data = shape.get('origin').data;
       const ratio = 0.3 + scale.scale(data[field]) * 0.6;
       shape.get('origin').size = ratio;
@@ -325,7 +325,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   private circleSizeMapping(shapes, scale, field) {
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const data = shape.get('origin').data;
       const ratio = 0.3 + scale.scale(data[field]) * 0.6;
       const { x, y, size } = shape.get('origin');
@@ -344,7 +344,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   private circleDisableSizeMapping(shapes) {
     this.options.sizeField = null;
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const { x, y } = shape.get('origin');
       const size = Math.min(this.gridSize[0], this.gridSize[1]) * 0.9;
       shape.get('origin').size = size / 2;
@@ -362,7 +362,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   private rectDisableSizeMapping(shapes) {
     this.options.sizeField = null;
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const bbox = shape.getBBox();
       const width = bbox.width;
       const height = bbox.height;
@@ -384,7 +384,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   private getShapes() {
     const elements = this.view.geometries[0].elements;
     const shapes = [];
-    _.each(elements, (ele) => {
+    each(elements, (ele) => {
       shapes.push(ele.shape);
     });
     return shapes;
@@ -392,7 +392,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
 
   protected renderPlotComponents() {
     const componentsType = ['label', 'legend'];
-    _.each(componentsType, (t) => {
+    each(componentsType, (t) => {
       const cfg = {
         view: this.view,
         plot: this,

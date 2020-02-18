@@ -1,5 +1,5 @@
 import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
+import { isString, deepMix } from '@antv/util';
 // import Theme from '../../theme';
 import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
 import { processAxisVisible } from '../../util/axis';
@@ -18,10 +18,10 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    * @param theme
    */
   public static getGlobalTheme(theme: string | object) {
-    if (_.isString(theme)) {
+    if (isString(theme)) {
       return getGlobalTheme(theme);
     }
-    return _.deepMix({}, getGlobalTheme(), theme);
+    return deepMix({}, getGlobalTheme(), theme);
   }
 
   /**
@@ -31,10 +31,10 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    */
   public getPlotTheme(props: T, type: string) {
     const { theme } = props;
-    if (_.isString(theme)) {
-      return _.deepMix({}, getGlobalTheme(theme), getTheme(type));
+    if (isString(theme)) {
+      return deepMix({}, getGlobalTheme(theme), getTheme(type));
     }
-    return _.deepMix({}, getGlobalTheme(), getTheme(type), theme);
+    return deepMix({}, getGlobalTheme(), getTheme(type), theme);
   }
 
   /**
@@ -44,7 +44,7 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    */
   public getTheme(props: T, type: string): any {
     const plotG2Theme = convertToG2Theme(this.getPlotTheme(props, type));
-    const g2Theme = _.deepMix({}, G2DefaultTheme, plotG2Theme);
+    const g2Theme = deepMix({}, G2DefaultTheme, plotG2Theme);
     // this._processVisible(g2Theme);
     return g2Theme;
   }

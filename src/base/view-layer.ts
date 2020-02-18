@@ -570,7 +570,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const layerBBox = this.layerBBox;
     interactions.forEach((interaction) => {
       const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
-      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
+      const range: G.BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
       let position = '';
       if (range) {
         // 先只考虑 Range 靠边的情况

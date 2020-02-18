@@ -142,7 +142,10 @@ htmlContent: (title, items) => {
 
 `formatter: function`  对图例的显示信息进行格式化<br />
 `offsetX: number`    图例在 position 的基础上再往 x 方向偏移量，单位 px<br />
-`offsetY: number`     图例在 position 的基础上再往 y 方向偏移量，单位 px
+`offsetY: number`     图例在 position 的基础上再往 y 方向偏移量，单位 px<br />
+`marker: string`  图例 marker，默认为 'circle'
+
+> 图例 marker 内置有：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond`,`hollowTriangle`,`hollowTriangleDown`,`hollowHexagon`,`hollowBowtie`
 
 ## axis
 

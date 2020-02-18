@@ -37,6 +37,8 @@ type RoseLabel = ViewConfig['label'] & {
   adjustColor?: boolean;
   /** 自动旋转 */
   autoRotate?: boolean;
+  // label的内容，如果不配置，读取scale中的第一个field对应的值  G2 4.0 就这样实现的
+  content?: string | ((...args: any[]) => string);
 };
 
 export interface RoseLayerConfig extends RoseViewConfig, LayerConfig {}
@@ -226,7 +228,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     }
     const labelConfig = getComponent('label', {
       plot: this,
-      // TODO change me to roseLabel
       labelType: 'polar',
       fields,
       ...label,
@@ -237,15 +238,15 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   private adjustLabelOptions(labelOptions: RoseLabel) {
     const { radiusField } = this.options;
     if (labelOptions) {
-      const { offset, type, formatter } = labelOptions;
+      const { offset, type, content } = labelOptions;
       if (type === 'inner') {
         labelOptions.offset = offset < 0 ? offset : -10;
       } else if (type === 'outer') {
         labelOptions.offset = offset >= 0 ? offset : 10;
       }
-      if (!formatter) {
+      if (!content) {
         // 默认显示 数值
-        labelOptions.formatter = (text, item) => `${item._origin[radiusField]}`;
+        labelOptions.content = (text, item) => `${item._origin[radiusField]}`;
       }
     }
   }

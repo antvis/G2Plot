@@ -88,6 +88,22 @@ const rosePlot = new Rose(document.getElementById('container'), {
       margin: [0, 0, 80, 0],
     },
   },
+  events: {
+    onRoseMouseenter: (ev) => {
+      const target = ev.target;
+      if (target.cfg.name === 'interval') {
+        target.attr('fillOpacity', 0.8);
+      }
+      ev.view.getCanvas().draw();
+    },
+    onRoseMouseleave: (ev) => {
+      const target = ev.target;
+      if (target.cfg.name === 'interval') {
+        target.attr('fillOpacity', 1);
+      }
+      ev.view.getCanvas().draw();
+    },
+  },
 });
 
 rosePlot.render();

@@ -188,6 +188,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         {
           type: 'tooltip',
         },
+        {
+          type: 'element-active',
+        },
       ],
       theme: this.theme,
       panelRange: {},

@@ -57,22 +57,6 @@ describe('Rose Plot', () => {
         visible: true,
         type: 'inner',
       },
-      events: {
-        onRoseMouseenter: (ev) => {
-          const target = ev.target;
-          if (target.cfg.name === 'interval') {
-            target.attr('fillOpacity', 0.8);
-          }
-          ev.view.getCanvas().draw();
-        },
-        onRoseMouseleave: (ev) => {
-          const target = ev.target;
-          if (target.cfg.name === 'interval') {
-            target.attr('fillOpacity', 1);
-          }
-          ev.view.getCanvas().draw();
-        },
-      },
     });
     rosePlot.render();
   });

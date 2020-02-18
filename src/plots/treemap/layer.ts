@@ -68,10 +68,8 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   public rect: any;
   private isDrilldown: boolean;
 
-  public beforeInit() {
-    const { data } = this.options;
-    const treemapData = this.getTreemapData(data);
-    this.rootData = treemapData;
+  public beforeInit() { 
+    super.beforeInit();
     const { interactions } = this.options;
     if (interactions) {
       _.each(interactions, (interaction) => {
@@ -81,7 +79,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         }
       });
     }
-    super.beforeInit();
+    const { data } = this.options;
+    const treemapData = this.getTreemapData(data);
+    this.rootData = treemapData;
   }
 
   public afterRender(){

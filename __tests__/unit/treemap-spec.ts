@@ -12,13 +12,13 @@ describe('treemap', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
   const data = processData(mobile);
-  it.only('initilize', () => {
+  it('initilize', () => {
     const treemapPlot = new Treemap(canvasDiv, {
       width: 600,
       height: 400,
       data,
       colorField: 'brand',
-      // maxLevel: 1,
+      maxLevel: 1,
       tooltip:{
         visible: true,
       }
@@ -26,7 +26,7 @@ describe('treemap', () => {
     treemapPlot.render();
   });
 
-  it('interaction',()=>{
+  it.only('interaction',()=>{
     const data = test;
     const rootData = { name: '公司销售数据', value: 0, children: [] };
     each(data, (s) => {
@@ -45,7 +45,9 @@ describe('treemap', () => {
     const treemapPlot = new Treemap(canvasDiv, {
       data: rootData,
       colorField: 'name',
-      maxLevel: 1,
+      tooltip:{
+        visible: true,
+      },
       interactions: [
         {
           type: 'drilldown',

@@ -27,6 +27,6 @@ export { default as StepLine, StepLineConfig } from './step-line';
 // export { default as Liquid, LiquidConfig } from './liquid';
 // export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as Funnel, FunnelConfig } from './funnel';
-// export { default as Waterfall, WaterfallConfig } from './waterfall';
+export { default as Waterfall, WaterfallConfig } from './waterfall';
 // export { default as Treemap } from './treemap';
 // export { default as Rose, RoseConfig } from './rose';

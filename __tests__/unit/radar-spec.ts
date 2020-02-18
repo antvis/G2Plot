@@ -232,7 +232,47 @@ describe('Radar plot', () => {
     radarPlot.destroy();
   });
 
-  it('label', () => {});
+  it('legend', () => {
+    let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      legend: {
+        visible: true,
+        position: 'bottom-center',
+      },
+    });
+    radarPlot.render();
+    let layer = radarPlot.getLayer() as ViewLayer;
+    let view = layer.view;
+    let legend = view.getController('legend') as any;
+    expect(legend.option.position).toBe('bottom');
+    radarPlot.destroy();
+
+    radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      legend: {
+        visible: true,
+        position: 'left',
+      },
+    });
+    radarPlot.render();
+    layer = radarPlot.getLayer() as ViewLayer;
+    view = layer.view;
+    legend = view.getController('legend') as any;
+    expect(legend.option.position).toBe('left');
+    radarPlot.destroy();
+  });
+
+  // it('label', () => { });
 
   // it('ploygon 显示及样式', () => {
   //   /** area不显示 */

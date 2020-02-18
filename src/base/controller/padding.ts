@@ -82,7 +82,10 @@ export default class PaddingController {
     this.plot.render();
   }
 
-  public processOuterPadding(): BBox {
+  public processOuterPadding() {
+    if(!this.plot.layerBBox){
+      this.plot.layerBBox = new BBox(this.plot.x, this.plot.y, this.plot.width, this.plot.height);
+    }
     let viewMinX = this.plot.layerBBox.minX;
     let viewMaxX = this.plot.layerBBox.maxX;
     let viewMinY = this.plot.layerBBox.minY;

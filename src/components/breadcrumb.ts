@@ -1,5 +1,6 @@
 import BaseComponent, { BaseComponentConfig } from './base';
-import { Group, BBox, Shape, Rect } from '@antv/g-canvas';
+import { IGroup, BBox, IShape } from '@antv/g-canvas';
+import { move } from '../util/g-util';
 
 export interface BreadcrumbItem {
   key: string;
@@ -76,7 +77,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     opacity?: number;
   };
 
-  private listeners: { target: Shape | Group; event: string; callback: () => void }[] = [];
+  private listeners: { target: IShape | IGroup; event: string; callback: () => void }[] = [];
 
   public destroy() {
     this.offEvents();
@@ -92,23 +93,23 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     this.itemBackgroundStyle = { fill: '#fff', ...(config.itemBackgroundStyle || {}) };
     this.itemActiveBackgroundStyle = { fill: '#ccc', opacity: 0.2, ...(config.itemActiveBackgroundStyle || {}) };
     this.separator = config.separator || '/';
-    this.separatorStyle = { textBaseline: 'top', fill: '#000', opacity: 0.45, ...(config.separatorStyle || {}) };
+    this.separatorStyle = { textBaseline: 'top', fill: '#000000', opacity: 0.45, ...(config.separatorStyle || {}) };
     this.itemWidth = config.itemWidth;
     this.itemHeight = config.itemHeight;
     this.maxItemWidth = config.maxItemWidth;
-    this.textStyle = { textBaseline: 'top', fill: '#000', opacity: 0.45, ...(config.textStyle || {}) };
+    this.textStyle = { textBaseline: 'top', fill: '#000000', opacity: 0.45, ...(config.textStyle || {}) };
   }
 
-  protected renderInner(group: Group) {
+  protected renderInner(group: IGroup) {
     const startX = 0;
     const startY = 0;
     this.offEvents();
     this.renderItems(group, startX, startY);
     //this.bindEvents(group);
-    this.group.move(this.x, this.y);
+    move(this.group,this.x, this.y);
   }
 
-  private renderItems(group: Group, startX: number, startY: number) {
+  private renderItems(group: IGroup, startX: number, startY: number) {
     const [topPadding, rightPadding, bottomPadding, leftPadding] = this.itemPadding;
     let itemHeight;
 
@@ -126,7 +127,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
 
     this.items.forEach((item: BreadcrumbItem, idx: number) => {
       // item group
-      const itemGroup: Group = group.addGroup({
+      const itemGroup: IGroup = group.addGroup({
         id: `item-group-${item.key}`,
         // data: item.key,
         data: item,
@@ -138,7 +139,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
 
       // background rect
 
-      const rectShape: Shape = itemGroup.addShape('rect', {
+      const rectShape:any = itemGroup.addShape('rect', {
         id: `item-background-${item.key}`,
         class: 'item-background',
         attrs: {
@@ -153,7 +154,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       rectShape.name = 'breadcrumb';
 
       // text shape
-      const textShape: Shape = itemGroup.addShape('text', {
+      const textShape: any = itemGroup.addShape('text', {
         id: `item-text-${item.key}`,
         class: 'item-text',
         attrs: {
@@ -181,18 +182,15 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       rectShape.attr('width', backgroundRectAttr.width);
       rectShape.attr('height', backgroundRectAttr.height);
       // clip
-      itemGroup.attr(
-        'clip',
-        new Rect({
-          attrs: backgroundRectAttr,
-        })
-      );
-
+      itemGroup.setClip({
+        type:'rect',
+        attrs: backgroundRectAttr,
+      });
       startX += backgroundRectAttr.width;
 
       // separator
       if (idx !== this.items.length - 1) {
-        const sepShape: Shape = group.addShape('text', {
+        const sepShape: any = group.addShape('text', {
           attrs: {
             x: startX,
             y: startY + topPadding,
@@ -212,10 +210,10 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     });
   }
 
-  private bindEvents(group: Group) {
+  private bindEvents(group: IGroup) {
     const items = this.items;
     const itemGroups = group.get('children').filter((item) => item.get('class') === 'item-group');
-    const callback = (event: string, itemGroup: Group, emitEventName: string) => () => {
+    const callback = (event: string, itemGroup: IGroup, emitEventName: string) => () => {
       const key: string = itemGroup.get('data');
       const item = items.find((val) => val.key === key);
       this.emit(emitEventName, {
@@ -239,7 +237,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     });
   }
 
-  private onItemGroupToggleActive = (itemGroup: Group, active: boolean) => () => {
+  private onItemGroupToggleActive = (itemGroup: IGroup, active: boolean) => () => {
     const rectShape = itemGroup.get('children').find((item) => item.get('class') === 'item-background');
     if (rectShape) {
       rectShape.attr(active ? this.itemActiveBackgroundStyle : this.itemBackgroundStyle);

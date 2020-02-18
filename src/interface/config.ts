@@ -5,8 +5,8 @@
  * 2. 如果是枚举值，不使用enum，全部列出
  * 3. 减少嵌套，尽量平铺配置
  */
-import { Options } from '@antv/g2/lib/chart/interface';
-import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/geometry/interface';
+import { Options } from '@antv/g2/lib/interface';
+import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/interface';
 import { LooseMap } from './types';
 
 export interface ITitle {

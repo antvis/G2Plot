@@ -1,10 +1,10 @@
 /** 负责将shape数据转为node，使shape根据node数据进行update */
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 import { deepMix, each } from '@antv/util';
 import * as MathUtil from '../../math';
 
 interface NodesCfg {
-  shapes: Shape[];
+  shapes: IShape[];
 }
 export interface IShapeNode {
   width: number;
@@ -19,11 +19,11 @@ export interface IShapeNode {
   topRight?: {};
   bottomLeft?: {};
   bottomRight?: {};
-  shape?: Shape;
+  shape?: IShape;
 }
 
 export default class ShapeNodes {
-  public shapes: Shape[];
+  public shapes: IShape[];
   public nodes: IShapeNode[];
   public origion_nodes: IShapeNode[];
   public type: string = 'shape';

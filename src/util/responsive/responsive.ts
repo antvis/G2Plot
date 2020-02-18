@@ -1,5 +1,6 @@
 /** 可插拔的responsive模块 */
-import { BBox, Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
+import { BBox } from '@antv/g-base/lib/types';
 import { assign } from '@antv/util';
 import { constraintsLib } from './constraints/index';
 import ShapeNodes, { IShapeNode } from './node/shape-nodes';
@@ -209,7 +210,7 @@ export default class Responsive {
     // }
   }
 
-  private _applyRule(shape: Shape, rule, option, index) {
+  private _applyRule(shape: IShape, rule, option, index) {
     const cfg = {
       nodes: this.nodes,
       region: this.region,

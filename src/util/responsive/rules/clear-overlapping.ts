@@ -1,8 +1,8 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 import { each } from '@antv/util';
 import textHide from './text-hide';
 
-export default function clearOverlapping(shape: Shape, option, index, cfg) {
+export default function clearOverlapping(shape: IShape, option, index, cfg) {
   const nodes = cfg.nodes.nodes;
   const current = nodes[index];
   const overlapped = [];

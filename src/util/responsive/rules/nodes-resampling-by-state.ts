@@ -1,8 +1,8 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 import { each, clone } from '@antv/util';
 import textHide from './text-hide';
 
-export default function nodesResamplingByState(shape: Shape, option, index, cfg) {
+export default function nodesResamplingByState(shape: IShape, option, index, cfg) {
   const nodes = cfg.nodes.nodes;
   const current = nodes[index];
   if (current.line) {

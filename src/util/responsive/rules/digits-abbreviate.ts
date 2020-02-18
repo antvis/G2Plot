@@ -1,4 +1,4 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 import { has, each } from '@antv/util';
 import { getMedian } from '../../math';
 
@@ -18,7 +18,7 @@ const unitMapper = {
 // https://jburrows.wordpress.com/2014/11/18/abbreviating-numbers/
 /*tslint:disable*/
 
-export default function digitsAbbreviate(shape: Shape, option: DigitsAbbreviateCfg, index, cfg) {
+export default function digitsAbbreviate(shape: IShape, option: DigitsAbbreviateCfg, index, cfg) {
   if (!has(cfg, 'node') || !has(cfg.node, 'node')) {
     return;
   }

@@ -2,7 +2,6 @@
  * Create By Bruce Too
  * On 2020-02-14
  */
-import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -113,8 +112,10 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
         grid: {
           visible: true,
-          style: {
-            lineDash: [0, 0],
+          line: {
+            style: {
+              lineDash: [0, 0],
+            },
           },
         },
         label: {
@@ -128,6 +129,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       radiusAxis: {
         min: 0,
         visible: true,
+        /** G2 4.0 默认 nice 不生效，需要手动添加 */
+        nice: true,
         autoHideLabel: false,
         autoRotateLabel: true,
         autoRotateTitle: true,
@@ -140,8 +143,10 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         gridType: 'line',
         grid: {
           visible: true,
-          style: {
-            lineDash: [0, 0],
+          line: {
+            style: {
+              lineDash: [0, 0],
+            },
           },
         },
         label: {
@@ -162,7 +167,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: null,
+        showCrosshairs: false,
       },
     });
   }
@@ -212,8 +217,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
 
   protected coord() {
     const props = this.options;
-    const coordConfig = {
-      type: 'polar' as CoordinateType,
+    const coordConfig: any = {
+      type: 'polar',
       cfg: {
         radius: props.radius,
       },
@@ -231,9 +236,9 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       plot: this,
       dim: 'radius',
     });
-    const axesConfig = { fields: {} };
-    axesConfig.fields[props.angleField] = xAxis_parser;
-    axesConfig.fields[props.radiusField] = yAxis_parser;
+    const axesConfig = {};
+    axesConfig[props.angleField] = xAxis_parser;
+    axesConfig[props.radiusField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);
   }

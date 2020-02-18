@@ -112,27 +112,27 @@ describe('Radar plot', () => {
     },
   ];
 
-  // it('创建 & 销毁图表', () => {
-  //   const radarPlot = new Radar(canvasDiv, {
-  //     width: 600,
-  //     height: 600,
-  //     data,
-  //     angleField: 'item',
-  //     radiusField: 'score',
-  //     seriesField: 'user',
-  //   });
-  //   radarPlot.render();
-  //   const plot = radarPlot.getLayer() as ViewLayer;
-  //   const positionField = plot.config.geometries[0].position.fields;
-  //   const colorField = plot.config.geometries[0].color.fields;
-  //   expect(radarPlot).toBeInstanceOf(Radar);
-  //   expect(positionField[0]).toBe('item');
-  //   expect(positionField[1]).toBe('score');
-  //   expect(colorField[0]).toBe('user');
-  //   // radarPlot.destroy();
-  // });
+  it('创建 & 销毁图表', () => {
+    const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+    });
+    radarPlot.render();
+    const plot = radarPlot.getLayer() as ViewLayer;
+    const positionField = plot.config.geometries[0].position.fields;
+    const colorField = plot.config.geometries[0].color.fields;
+    expect(radarPlot).toBeInstanceOf(Radar);
+    expect(positionField[0]).toBe('item');
+    expect(positionField[1]).toBe('score');
+    expect(colorField[0]).toBe('user');
+    radarPlot.destroy();
+  });
 
-  it('x 坐标轴', () => {
+  it('angleAxis', () => {
     const radarPlot = new Radar(canvasDiv, {
       width: 600,
       height: 600,
@@ -142,6 +142,7 @@ describe('Radar plot', () => {
       seriesField: 'user',
       angleAxis: {
         label: {
+          visible: true,
           formatter: () => {
             return 'a';
           },
@@ -150,11 +151,13 @@ describe('Radar plot', () => {
           },
         },
         line: {
+          visible: true,
           style: {
             stroke: 'red',
           },
         },
         tickLine: {
+          visible: true,
           style: {
             stroke: 'red',
             length: 5,
@@ -165,53 +168,72 @@ describe('Radar plot', () => {
     });
     radarPlot.render();
     const layer = radarPlot.getLayer() as ViewLayer;
-    const angleAxis = layer.config.axes['item'];
-    console.log('axis', layer.config)
-    // style
+    const view = layer.view;
+    const axis = view.getController('axis') as any;
+    const angleAxis = axis.option['item'];
     const line = angleAxis.line;
     const tickLine = angleAxis.tickLine;
-    expect(line.stroke).toBe('red');
-    expect(tickLine.stroke).toBe('red');
-    expect(labels[0].textStyle.fill).toBe('red');
+    const label = angleAxis.label;
+    // const labels = axis.get('labelItems');
+    // expect(labels[0].text).toBe('a');
+    expect(line.style.stroke).toBe('red');
+    expect(tickLine.style.stroke).toBe('red');
+    expect(label.style.fill).toBe('red');
     radarPlot.destroy();
   });
 
-  // it('y 坐标轴', () => {
-  //   const radarPlot = new Radar(canvasDiv, {
-  //     width: 600,
-  //     height: 600,
-  //     data,
-  //     angleField: 'item',
-  //     radiusField: 'score',
-  //     seriesField: 'user',
-  //     radiusAxis: {
-  //       formatter: () => {
-  //         return 'a';
-  //       },
-  //       style: {
-  //         line: { stroke: 'red' },
-  //         tickLine: { stroke: 'red', length: 5, lineWidth: 1 },
-  //         label: { fill: 'red' },
-  //       },
-  //     },
-  //   });
-  //   radarPlot.render();
-  //   const plot = radarPlot.getLayer().plot;
-  //   const axis = plot.get('axisController').axes[1];
-  //   // formatter
-  //   const labels = axis.get('labelItems');
-  //   expect(labels[0].text).toBe('a');
-  //   // style
-  //   const line = axis.get('line');
-  //   const tickLine = axis.get('tickLine');
-  //   expect(line.stroke).toBe('red');
-  //   expect(tickLine.stroke).toBe('red');
-  //   expect(labels[0].textStyle.fill).toBe('red');
-  //   radarPlot.destroy();
-  // });
-  //
-  // it('label', () => {});
-  //
+  it('radiusAxis', () => {
+    const radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      radiusAxis: {
+        label: {
+          visible: true,
+          formatter: () => {
+            return 'a';
+          },
+          style: {
+            fill: 'red',
+          },
+        },
+        line: {
+          visible: true,
+          style: {
+            stroke: 'red',
+          },
+        },
+        tickLine: {
+          visible: true,
+          style: {
+            stroke: 'red',
+            length: 5,
+            lineWidth: 1,
+          },
+        },
+      },
+    });
+    radarPlot.render();
+    const layer = radarPlot.getLayer() as ViewLayer;
+    const view = layer.view;
+    const axis = view.getController('axis') as any;
+    const radiusAxis = axis.option['score'];
+    const line = radiusAxis.line;
+    const tickLine = radiusAxis.tickLine;
+    const label = radiusAxis.label;
+    // const labels = axis.get('labelItems');
+    // expect(labels[0].text).toBe('a');
+    expect(line.style.stroke).toBe('red');
+    expect(tickLine.style.stroke).toBe('red');
+    expect(label.style.fill).toBe('red');
+    radarPlot.destroy();
+  });
+
+  it('label', () => {});
+
   // it('ploygon 显示及样式', () => {
   //   /** area不显示 */
   //   let radarPlot = new Radar(canvasDiv, {

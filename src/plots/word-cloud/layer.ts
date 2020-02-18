@@ -3,7 +3,7 @@
  * On 2020-02-14
  */
 import { LayerConfig } from '../..';
-import * as _ from '@antv/util';
+import { get, deepMix } from '@antv/util';
 import Layer from '../../base/layer';
 import WordCloudTooltips from './word-cloud-tooltips';
 
@@ -123,8 +123,8 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   constructor(props: WordCloudLayerConfig) {
     super(props);
     this._configHoverAction = props.onWordCloudHover;
-    this._enableToolTips = _.get(props, 'tooltip.visible', true);
-    this.options = _.deepMix(
+    this._enableToolTips = get(props, 'tooltip.visible', true);
+    this.options = deepMix(
       {},
       {
         width: 400,
@@ -226,7 +226,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     } else {
       active = false;
     }
-    this.options = _.deepMix({}, this.options, {
+    this.options = deepMix({}, this.options, {
       minFontSize: fontSize[0],
       maxFontSize: fontSize[1],
       minRotation: rotation[0],
@@ -274,7 +274,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     // but here i need scale it back
     const pixelRatio = this.canvas.get('width') / this.canvas.get('el').width;
     targetCtx.scale(pixelRatio, pixelRatio);
-    this.options = _.deepMix({}, this.options, { clearCanvas: false });
+    this.options = deepMix({}, this.options, { clearCanvas: false });
 
     this._start();
   }

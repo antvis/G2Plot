@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each, has } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -41,7 +41,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   protected plotComponents: any[] = [];
 
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
         autoHideLabel: true,
@@ -116,7 +116,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public destroy() {
-    _.each(this.plotComponents, (component) => {
+    each(this.plotComponents, (component) => {
       component.destroy();
     });
     super.destroy();
@@ -127,12 +127,12 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
@@ -178,7 +178,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     const props = this.options;
     const defaultConfig = { visible: false, size: 0 };
     if (props.point && props.point.visible) {
-      props.point = _.deepMix(defaultConfig, props.point);
+      props.point = deepMix(defaultConfig, props.point);
     } else {
       props.point = defaultConfig;
     }
@@ -213,7 +213,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
   protected renderPlotComponents() {
     const componentsType = ['legend', 'background'];
-    _.each(componentsType, (t) => {
+    each(componentsType, (t) => {
       const cfg = {
         view: this.view,
         plot: this,

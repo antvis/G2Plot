@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import RangeColumnLayer, { RangeColumnViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class RangeColumn extends BasePlot<RangeColumnConfig> {
   public static getDefaultOptions: typeof RangeColumnLayer.getDefaultOptions = RangeColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'rangeColumn';
     super.createLayers(layerProps);
   }

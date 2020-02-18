@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { DEFAULT_GLOBAL_THEME } from './default';
 import { DEFAULT_DARK_THEME } from './dark';
 
@@ -15,7 +15,7 @@ const GLOBAL_THEME_MAP: Record<string, any> = {
  */
 export function registerGlobalTheme(name: string, theme: any): void {
   const defaultTheme = getGlobalTheme();
-  GLOBAL_THEME_MAP[name.toLowerCase()] = _.deepMix({}, defaultTheme, theme);
+  GLOBAL_THEME_MAP[name.toLowerCase()] = deepMix({}, defaultTheme, theme);
 }
 
 /**

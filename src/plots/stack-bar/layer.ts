@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, Label } from '../../interface/config';
@@ -13,7 +13,7 @@ export interface StackBarLayerConfig extends StackBarViewConfig, LayerConfig {}
 
 export default class StackBarLayer<T extends StackBarLayerConfig = StackBarLayerConfig> extends BaseBarLayer<T> {
   public static getDefaultOptions() {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
         autoHideLabel: false,

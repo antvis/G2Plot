@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { wrapBehavior, each, contains } from '@antv/util';
 import { IElement, ICanvas, IShape } from '@antv/g-canvas';
 import BBox from '../../util/bbox';
 import BasePlot from '../plot';
@@ -52,18 +52,18 @@ export default class EventController {
   }
 
   public bindEvents() {
-    this.addEvent(this.canvas, 'mousedown', _.wrapBehavior(this, 'onEvents'));
-    this.addEvent(this.canvas, 'mousemove', _.wrapBehavior(this, 'onMove'));
-    this.addEvent(this.canvas, 'mouseup', _.wrapBehavior(this, 'onEvents'));
-    this.addEvent(this.canvas, 'click', _.wrapBehavior(this, 'onEvents'));
-    this.addEvent(this.canvas, 'dblclick', _.wrapBehavior(this, 'onEvents'));
-    this.addEvent(this.canvas, 'contextmenu', _.wrapBehavior(this, 'onEvents'));
-    this.addEvent(this.canvas, 'wheel', _.wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'mousedown', wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'mousemove', wrapBehavior(this, 'onMove'));
+    this.addEvent(this.canvas, 'mouseup', wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'click', wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'dblclick', wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'contextmenu', wrapBehavior(this, 'onEvents'));
+    this.addEvent(this.canvas, 'wheel', wrapBehavior(this, 'onEvents'));
   }
 
   public clearEvents() {
     const eventHandlers = this.eventHandlers;
-    _.each(eventHandlers, (eh) => {
+    each(eventHandlers, (eh) => {
       eh.target.off(eh.type, eh.handler);
     });
   }
@@ -116,7 +116,7 @@ export default class EventController {
     let parent = shape.get('parent');
     while (parent) {
       const parentName = parent.get('name');
-      if (parentName && _.contains(groupName, parentName)) {
+      if (parentName && contains(groupName, parentName)) {
         return true;
       }
       parent = parent.get('parent');
@@ -135,7 +135,7 @@ export default class EventController {
   }
 
   private onLayerEvent(layers: Layer[], eventObj: EventObj, eventName: string) {
-    _.each(layers, (layer) => {
+    each(layers, (layer) => {
       const bbox = layer.getGlobalBBox();
       if (isPointInBBox({ x: eventObj.x, y: eventObj.y }, bbox)) {
         layer.emit(`${eventName}`, eventObj);

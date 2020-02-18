@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import StackArea, { StackAreaViewConfig } from '../stack-area/layer';
@@ -10,7 +10,7 @@ export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewC
 
 export default class PercentageStackAreaLayer extends StackArea<PercentageStackAreaLayerConfig> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       yAxis: {
         visible: true,
         label: {
@@ -44,7 +44,7 @@ export default class PercentageStackAreaLayer extends StackArea<PercentageStackA
         return `${formattedValue}%`;
       },
     };
-    this.options.meta = _.deepMix({}, metaConfig, this.options.meta);
+    this.options.meta = deepMix({}, metaConfig, this.options.meta);
     super.scale();
   }
 }

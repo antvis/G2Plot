@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import GroupBarLayer, { GroupBarViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class GroupBar extends BasePlot<GroupBarConfig> {
   public static getDefaultOptions: typeof GroupBarLayer.getDefaultOptions = GroupBarLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'groupBar';
     super.createLayers(layerProps);
   }

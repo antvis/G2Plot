@@ -1,6 +1,6 @@
 import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { deepMix, each, findIndex, keys, contains, isFunction } from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
 import BBox from '../util/bbox';
@@ -75,7 +75,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   }
 
   public updateConfig(cfg: Partial<T>): void {
-    this.options = _.deepMix({}, this.options, cfg);
+    this.options = deepMix({}, this.options, cfg);
     this.processOptions(this.options);
   }
 
@@ -135,7 +135,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.eachLayer((layer) => {
       layer.destroy();
     });
-    _.each(this.eventHandlers, (h) => {
+    each(this.eventHandlers, (h) => {
       this.off(h.eventName, h.handler);
     });
     this.container.remove(true);
@@ -163,7 +163,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
    * @param layer
    */
   public addLayer(layer: Layer<any>) {
-    const idx = _.findIndex(this.layers, (item) => item === layer);
+    const idx = findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       if (layer.parent !== this) {
         layer.parent = this;
@@ -178,7 +178,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
    * @param layer
    */
   public removeLayer(layer: Layer<any>) {
-    const idx = _.findIndex(this.layers, (item) => item === layer);
+    const idx = findIndex(this.layers, (item) => item === layer);
     if (idx >= 0) {
       this.layers.splice(idx, 1);
     }
@@ -196,7 +196,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       width: this.width,
       height: this.height,
     };
-    const newRange = _.deepMix({}, originRange, props);
+    const newRange = deepMix({}, originRange, props);
     this.x = newRange.x;
     this.y = newRange.y;
     this.width = newRange.width;
@@ -258,17 +258,17 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       width: parentWidth,
       height: parentHeight,
     };
-    return _.deepMix({}, defaultOptions, props);
+    return deepMix({}, defaultOptions, props);
   }
 
   public eachLayer(cb: (layer: Layer<any>) => void) {
-    _.each(this.layers, cb);
+    each(this.layers, cb);
   }
 
   protected parseEvents(eventParser?) {
-    const eventsName = _.keys(LAYER_EVENT_MAP);
-    _.each(eventParser, (e, k) => {
-      if (_.contains(eventsName, k) && _.isFunction(e)) {
+    const eventsName = keys(LAYER_EVENT_MAP);
+    each(eventParser, (e, k) => {
+      if (contains(eventsName, k) && isFunction(e)) {
         const eventName = LAYER_EVENT_MAP[k] || k;
         const handler = e;
         this.on(eventName, handler);

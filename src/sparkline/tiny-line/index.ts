@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import TinyLineLayer, { TinyLineViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class TinyLine extends BasePlot<TinyLineConfig> {
   public static getDefaultOptions: typeof TinyLineLayer.getDefaultOptions = TinyLineLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'tinyLine';
     super.createLayers(layerProps);
   }

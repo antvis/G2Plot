@@ -1,5 +1,5 @@
 import { Shape } from '@antv/g';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import textHide from './text-hide';
 
 export default function clearOverlapping(shape: Shape, option, index, cfg) {
@@ -26,7 +26,7 @@ export default function clearOverlapping(shape: Shape, option, index, cfg) {
       return b.top - a.top;
     });
     /** 隐藏除最高点以外的node */
-    _.each(overlapped, (node: any, idx: number) => {
+    each(overlapped, (node: any, idx: number) => {
       if (idx > 0) {
         const _shape = node.shape;
         textHide(_shape);

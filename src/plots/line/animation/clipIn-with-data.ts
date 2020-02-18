@@ -1,5 +1,5 @@
 import { registerAnimation } from '@antv/g2';
-import * as _ from '@antv/util';
+import { clone, isFunction } from '@antv/util';
 
 let plotInfo;
 
@@ -10,7 +10,7 @@ function clipingWithData(shape, animateCfg, cfg) {
   const coord = geometry.coordinate;
   const scales = geometry.scales;
   const yScale = scales[plotInfo.options.yField];
-  const shapeData = _.clone(shape.get('origin'));
+  const shapeData = clone(shape.get('origin'));
   setClip(shape, coord);
   const clip = shape.get('clipShape');
   const parent = shape.get('parent');
@@ -71,11 +71,11 @@ function clipingWithData(shape, animateCfg, cfg) {
   /** 执行动画 */
   /** 准备动画参数 */
   let delay = animateCfg.delay;
-  if (_.isFunction(delay)) {
+  if (isFunction(delay)) {
     delay = animateCfg.delay(index);
   }
   let easing = animateCfg.easing;
-  if (_.isFunction(easing)) {
+  if (isFunction(easing)) {
     easing = animateCfg.easing(index);
   }
   /** 动起来 */

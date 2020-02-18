@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { memoize, isString, values } from '@antv/util';
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -13,13 +13,13 @@ interface Font {
 /**
  * 计算文本在画布中的宽度
  */
-export const measureTextWidth = _.memoize(
+export const measureTextWidth = memoize(
   (text: any, font: Font = {}): number => {
     const { fontSize, fontFamily, fontWeight, fontStyle, fontVariant } = font;
     ctx.font = [fontStyle, fontVariant, fontWeight, `${fontSize}px`, fontFamily].join(' ');
-    return ctx.measureText(_.isString(text) ? text : '').width;
+    return ctx.measureText(isString(text) ? text : '').width;
   },
-  (text: any, font: Font) => (font ? [text, ..._.values(font)].join('') : text)
+  (text: any, font: Font) => (font ? [text, ...values(font)].join('') : text)
 );
 
 /**
@@ -38,8 +38,8 @@ export const getEllipsisText = (text: any, maxWidth: number, font: Font, priorit
 
   let leftText;
 
-  if (!_.isString(text)) {
-    leftText = _.toString(text);
+  if (!isString(text)) {
+    leftText = toString(text);
   } else {
     leftText = text;
   }

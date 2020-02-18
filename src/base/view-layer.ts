@@ -1,6 +1,6 @@
 import * as G from '@antv/g-canvas';
 import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
+import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction, mix } from '@antv/util';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
@@ -149,7 +149,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   constructor(props: T) {
     super(props);
     this.options = this.getOptions(props);
-    this.initialOptions = _.deepMix({}, this.options);
+    this.initialOptions = deepMix({}, this.options);
     this.paddingController = new PaddingController({
       plot: this,
     });
@@ -163,7 +163,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
-    return _.deepMix({}, options, defaultOptions, props);
+    return deepMix({}, options, defaultOptions, props);
   }
 
   public beforeInit() {
@@ -259,7 +259,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public render(): void {
     super.render();
     const { data } = this.options;
-    if (!_.isEmpty(data)) {
+    if (!isEmpty(data)) {
       this.view.render();
     }
   }
@@ -276,7 +276,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }
-    this.options = _.deepMix({}, this.options, cfg);
+    this.options = deepMix({}, this.options, cfg);
     this.processOptions(this.options);
   }
 
@@ -345,11 +345,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     /** scale meta配置 */
     // 1. this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
     // 2. 同时xAxis/yAxis中的type优先级更高，覆盖meta中的type配置
-    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig: any) => {
+    const scaleTypes = mapValues(this.config.scales, (scaleConfig: any) => {
       const type = scaleConfig.type;
       return type ? { type } : {};
     });
-    const scales = _.deepMix({}, this.config.scales, this.options.meta || {}, scaleTypes);
+    const scales = deepMix({}, this.config.scales, this.options.meta || {}, scaleTypes);
 
     this.setConfig('scales', scales);
   }
@@ -376,9 +376,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
 
-    this.setConfig('tooltip', _.deepMix({}, _.get(this.options, 'tooltip')));
+    this.setConfig('tooltip', deepMix({}, get(this.options, 'tooltip')));
 
-    _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
+    deepMix(this.config.theme.tooltip, this.options.tooltip.style);
   }
 
   protected legend(): void {
@@ -386,15 +386,15 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.setConfig('legends', false);
       return;
     }
-    const flipOption = _.get(this.options, 'legend.flipPage');
-    const clickable = _.get(this.options, 'legend.clickable');
+    const flipOption = get(this.options, 'legend.flipPage');
+    const clickable = get(this.options, 'legend.clickable');
     this.setConfig('legends', {
-      position: _.get(this.options, 'legend.position'),
-      formatter: _.get(this.options, 'legend.formatter'),
-      offsetX: _.get(this.options, 'legend.offsetX'),
-      offsetY: _.get(this.options, 'legend.offsetY'),
-      clickable: _.isUndefined(clickable) ? true : clickable,
-      // wordSpacing: _.get(this.options, 'legend.wordSpacing'),
+      position: get(this.options, 'legend.position'),
+      formatter: get(this.options, 'legend.formatter'),
+      offsetX: get(this.options, 'legend.offsetX'),
+      offsetY: get(this.options, 'legend.offsetY'),
+      clickable: isUndefined(clickable) ? true : clickable,
+      // wordSpacing: get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
     });
   }
@@ -402,7 +402,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected annotation() {
     const config = [];
     if (this.config.coordinate.type === 'cartesian' && this.options.guideLine) {
-      _.each(this.options.guideLine, (line) => {
+      each(this.options.guideLine, (line) => {
         const guideLine = getComponent('guideLine', {
           plot: this,
           cfg: line,
@@ -460,7 +460,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.config[key] = false;
       return;
     }
-    _.assign(this.config[key], config);
+    assign(this.config[key], config);
   }
 
   protected parseEvents(eventParser?): void {
@@ -468,8 +468,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.events) {
       super.parseEvents(options.events);
       const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
-      _.each(options.events, (e, k) => {
-        if (_.isFunction(e)) {
+      each(options.events, (e, k) => {
+        if (isFunction(e)) {
           const eventName = eventmap[k] || k;
           const handler = e;
           onEvent(this, eventName, handler);
@@ -493,7 +493,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         leftMargin: range.minX + theme.title.padding[3],
         topMargin: range.minY + theme.title.padding[0],
         text: props.title.text,
-        style: _.mix(theme.title, props.title.style),
+        style: mix(theme.title, props.title.style),
         wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
         container: this.container.addGroup() as any,
         theme,
@@ -532,7 +532,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         leftMargin: range.minX + theme.description.padding[3],
         topMargin,
         text: props.description.text,
-        style: _.mix(theme.description, props.description.style),
+        style: mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
         container: this.container.addGroup() as any,
         theme,

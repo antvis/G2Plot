@@ -1,6 +1,6 @@
 import { IShape, Shape } from '@antv/g-canvas';
 import { registerAnimation } from '@antv/g2';
-import * as _ from '@antv/util';
+import { clone, each } from '@antv/util';
 
 // 记录之前的状态
 let shapeCache: IShape[];
@@ -40,7 +40,7 @@ export function setShapeCache(shapes) {
 
 function updateFromCenter(shape, animateCfg) {
   const fromPath = getShapeFromCache(shape).attr('path');
-  const toPath = _.clone(shape.attr('path'));
+  const toPath = clone(shape.attr('path'));
   shape.attr('path', fromPath);
   shape.animate(
     {
@@ -56,7 +56,7 @@ function updateFromCenter(shape, animateCfg) {
 function getShapeFromCache(shape) {
   const { id } = shape;
   let target;
-  _.each(shapeCache, (s) => {
+  each(shapeCache, (s) => {
     if (s.id === id) {
       target = s;
     }

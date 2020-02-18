@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, isNumber } from '@antv/util';
 import textHide from './text-hide';
 
 export interface NodesResamplingCfg {
@@ -23,12 +23,12 @@ export default function nodesResampling(shape, option: NodesResamplingCfg, index
 export function isKeep(keepCfg, index, nodes) {
   /** 允许设置start end 或任意index */
   const conditions = [];
-  _.each(keepCfg, (cfg) => {
+  each(keepCfg, (cfg) => {
     if (cfg === 'start') {
       conditions.push(index === 0);
     } else if (cfg === 'end') {
       conditions.push(index === nodes.length - 1);
-    } else if (_.isNumber(cfg)) {
+    } else if (isNumber(cfg)) {
       conditions.push(index === cfg);
     }
   });

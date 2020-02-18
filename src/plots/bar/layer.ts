@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -97,7 +97,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         position: 'top-left',
       },
     };
-    return _.deepMix({}, super.getDefaultOptions(), cfg);
+    return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public bar: any;
@@ -140,12 +140,12 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     scales[props.yField] = {
       type: 'cat',
     };
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     /** 配置y-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     this.setConfig('scales', scales);
@@ -225,7 +225,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
+    each(methods, (r) => {
       const responsive = r;
       responsive.method(this);
     });

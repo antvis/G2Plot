@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { mix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
@@ -25,7 +25,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
       barStyle: props.progressStyle,
       color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
-    props = _.mix(props, cfg);
+    props = mix(props, cfg);
   }
 
   protected coord() {

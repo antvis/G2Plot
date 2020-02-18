@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { DEFAULT_RESPONSIVE_THEME } from './default';
 
 /**
@@ -14,7 +14,7 @@ const RESPONSIVE_THEME_MAP = {
  * @param theme
  */
 export function registerResponsiveTheme(name: string, theme) {
-  RESPONSIVE_THEME_MAP[name.toLowerCase()] = _.deepMix({}, DEFAULT_RESPONSIVE_THEME, theme);
+  RESPONSIVE_THEME_MAP[name.toLowerCase()] = deepMix({}, DEFAULT_RESPONSIVE_THEME, theme);
 }
 
 /**

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, has, map, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -62,7 +62,7 @@ export interface LineLayerConfig extends LineViewConfig, LayerConfig {}
 
 export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<LineLayerConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       connectNulls: false,
       smooth: false,
       lineSize: 2,
@@ -98,7 +98,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
+    return deepMix({}, options, defaultOptions, props);
   }
 
   public afterRender() {
@@ -127,18 +127,18 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
     trySetScaleMinToZero(
       scales[props.yField],
-      _.map(props.data as any, (item) => item[props.yField])
+      map(props.data as any, (item) => item[props.yField])
     );
     super.scale();
   }
@@ -168,7 +168,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const props = this.options;
     const defaultConfig = { visible: false };
     if (props.point) {
-      props.point = _.deepMix(defaultConfig, props.point);
+      props.point = deepMix(defaultConfig, props.point);
     }
     if (props.point && props.point.visible) {
       this.point = getGeom('point', 'guide', {
@@ -206,7 +206,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       // 关闭动画
       this.line.animate = false;
       if (this.point) this.point.animate = false;
-    } else if (_.has(props, 'animation')) {
+    } else if (has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
       if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
         getPlotOption({
@@ -250,7 +250,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
+    each(methods, (r) => {
       const responsive = r as IObject;
       responsive.method(this);
     });

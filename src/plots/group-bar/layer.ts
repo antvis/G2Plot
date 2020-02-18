@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, valuesOfKey, clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, timeIntervals } from '../../interface/config';
@@ -12,7 +12,7 @@ export interface GroupBarLayerConfig extends GroupBarViewConfig, LayerConfig {}
 
 export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
   public static getDefaultOptions(): Partial<GroupBarViewConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
         grid: {
@@ -43,10 +43,10 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
 
   public afterRender() {
     super.afterRender();
-    const names = _.valuesOfKey(this.options.data, this.options.groupField);
+    const names = valuesOfKey(this.options.data, this.options.groupField);
     this.view.on('tooltip:change', (e) => {
       const { items } = e;
-      const origin_items = _.clone(items);
+      const origin_items = clone(items);
       for (let i = 0; i < names.length; i++) {
         const name = names[i];
         for (let j = 0; j < origin_items.length; j++) {
@@ -62,12 +62,12 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
   protected scale() {
     const defaultMeta = {};
     defaultMeta[this.options.groupField] = {
-      values: _.valuesOfKey(this.options.data, this.options.groupField),
+      values: valuesOfKey(this.options.data, this.options.groupField),
     };
     if (!this.options.meta) {
       this.options.meta = defaultMeta;
     } else {
-      this.options.meta = _.deepMix({}, this.options.meta, defaultMeta);
+      this.options.meta = deepMix({}, this.options.meta, defaultMeta);
     }
     super.scale();
   }

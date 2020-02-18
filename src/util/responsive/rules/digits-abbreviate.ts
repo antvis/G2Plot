@@ -1,5 +1,5 @@
 import { Shape } from '@antv/g';
-import * as _ from '@antv/util';
+import { has, each } from '@antv/util';
 import { getMedian } from '../../math';
 
 interface DigitsAbbreviateCfg {
@@ -19,7 +19,7 @@ const unitMapper = {
 /*tslint:disable*/
 
 export default function digitsAbbreviate(shape: Shape, option: DigitsAbbreviateCfg, index, cfg) {
-  if (!_.has(cfg, 'node') || !_.has(cfg.node, 'node')) {
+  if (!has(cfg, 'node') || !has(cfg.node, 'node')) {
     return;
   }
   const nodes = cfg.nodes.nodes;
@@ -74,7 +74,7 @@ function getUnitByNumber(number) {
 
 function extractNumbers(nodes) {
   const numbers = [];
-  _.each(nodes, (node) => {
+  each(nodes, (node) => {
     const n = node as any;
     const number = parseFloat(n.shape.get('origin').text);
     numbers.push(number);

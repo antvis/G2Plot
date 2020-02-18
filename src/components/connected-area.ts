@@ -3,14 +3,14 @@
  */
 import { Group, Shape, Shapes } from '@antv/g-canvas';
 import { View } from '@antv/g2';
-import * as _ from '@antv/util';
+import { each, assign, mix } from '@antv/util';
 import { compare } from '../base/controller/state';
 
 function parsePoints(shape) {
   const parsedPoints = [];
   const coord = shape.get('coord');
   const points = shape.get('origin').points;
-  _.each(points, (p) => {
+  each(points, (p) => {
     parsedPoints.push(coord.convertPoint(p));
   });
   return parsedPoints;
@@ -42,13 +42,13 @@ export default class ConnectedArea {
   private animation: boolean;
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this._init();
   }
 
   public draw() {
     const groupedShapes = this._getGroupedShapes();
-    _.each(groupedShapes, (shapes, name) => {
+    each(groupedShapes, (shapes, name) => {
       if (shapes.length > 0) {
         this._drawConnection(shapes, name);
       }
@@ -102,11 +102,11 @@ export default class ConnectedArea {
     const shapes = geometry.getShapes();
     // 创建分组
     const groups = {};
-    _.each(values, (v) => {
+    each(values, (v) => {
       groups[v] = [];
     });
     // 执行分组
-    _.each(shapes, (shape) => {
+    each(shapes, (shape) => {
       const origin = shape.get('origin')._origin;
       const key = origin[this.field];
       groups[key].push(shape);
@@ -122,14 +122,14 @@ export default class ConnectedArea {
     for (let i = 0; i < shapes.length - 1; i++) {
       const current = parsePoints(shapes[i]);
       const next = parsePoints(shapes[i + 1]);
-      const areaStyle = _.mix({}, this._areaStyle[name]);
-      const lineStyle = _.mix({}, this._lineStyle[name]);
+      const areaStyle = mix({}, this._areaStyle[name]);
+      const lineStyle = mix({}, this._lineStyle[name]);
       if (this.triggerOn) {
         areaStyle.opacity = 0;
         lineStyle.opacity = 0;
       }
       const area = this.container.addShape('path', {
-        attrs: _.mix({} as any, areaStyle, {
+        attrs: mix({} as any, areaStyle, {
           path: [
             ['M', current[2].x, current[2].y],
             ['L', next[1].x, next[1].y],
@@ -140,7 +140,7 @@ export default class ConnectedArea {
         name: 'connectedArea',
       });
       const line = this.container.addShape('path', {
-        attrs: _.mix({} as any, lineStyle, {
+        attrs: mix({} as any, lineStyle, {
           path: [
             ['M', current[2].x, current[2].y],
             ['L', next[1].x, next[1].y],
@@ -170,7 +170,7 @@ export default class ConnectedArea {
       mappedStyle = { stroke: originColor };
     }
 
-    return _.mix(defaultStyle, mappedStyle);
+    return mix(defaultStyle, mappedStyle);
   }
 
   private _addInteraction() {
@@ -227,7 +227,7 @@ export default class ConnectedArea {
   }
 
   private _onActive(condition) {
-    _.each(this.areas, (area) => {
+    each(this.areas, (area) => {
       const shapeData = area.get('data');
       const styleField = shapeData[this.field];
       if (compare(shapeData, condition)) {
@@ -237,7 +237,7 @@ export default class ConnectedArea {
         area.animate({ opacity }, 400, 'easeQuadOut');
       }
     });
-    _.each(this.lines, (line) => {
+    each(this.lines, (line) => {
       const shapeData = line.get('data');
       const styleField = shapeData[this.field];
       if (compare(shapeData, condition)) {
@@ -250,7 +250,7 @@ export default class ConnectedArea {
   }
 
   private _onDisabled(condition) {
-    _.each(this.areas, (area) => {
+    each(this.areas, (area) => {
       const shapeData = area.get('data');
       if (compare(shapeData, condition)) {
         // area.attr('opacity',0);
@@ -264,7 +264,7 @@ export default class ConnectedArea {
         );
       }
     });
-    _.each(this.lines, (line) => {
+    each(this.lines, (line) => {
       const shapeData = line.get('data');
       if (compare(shapeData, condition)) {
         // line.attr('opacity',0);

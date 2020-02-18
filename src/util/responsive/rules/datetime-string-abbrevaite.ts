@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import fecha from 'fecha';
 
 const SECOND = 1000;
@@ -69,7 +69,7 @@ function getDateTimeMode(a, b) {
     month: [MONTH, YEAR],
     year: [YEAR, Infinity],
   };
-  _.each(mapper, (range, key) => {
+  each(mapper, (range, key) => {
     if (dist >= range[0] && dist < range[1]) {
       mode = key;
     }

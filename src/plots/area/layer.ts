@@ -1,5 +1,5 @@
 import { Data } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -50,7 +50,7 @@ export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}
 
 export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       smooth: false,
       areaStyle: {
         opacity: 0.25,
@@ -114,12 +114,12 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     scales[props.xField] = {
       type: 'cat',
     };
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
@@ -160,7 +160,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   protected addLine() {
     const props = this.options;
-    const lineConfig = _.deepMix({}, props.line);
+    const lineConfig = deepMix({}, props.line);
     if (lineConfig.visible) {
       const line = getGeom('line', 'guide', {
         type: 'line',
@@ -175,7 +175,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   protected addPoint() {
     const props = this.options;
-    const pointConfig = _.deepMix({}, props.point);
+    const pointConfig = deepMix({}, props.point);
     if (pointConfig.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
@@ -220,7 +220,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
+    each(methods, (r) => {
       const responsive = r as any;
       responsive.method(this);
     });

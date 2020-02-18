@@ -1,6 +1,6 @@
 import { registerGeometry, Geometry } from '@antv/g2';
 import { Canvas } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { isNumber, get } from '@antv/util';
 import * as colorUtil from '../../util/color';
 
 const GAUSS_COEF = 0.3989422804014327;
@@ -62,7 +62,7 @@ class LinearHeatmap extends Geometry {
     let radius = this.radius;
     if (!this.radius) {
       radius = this.getDefaultValue('size');
-      if (!_.isNumber(radius)) {
+      if (!isNumber(radius)) {
         radius = this.getDefaultSize();
       }
       this.radius = radius;
@@ -70,8 +70,8 @@ class LinearHeatmap extends Geometry {
   }
 
   private prepareBlur() {
-    let blur = _.get(this.styleOption, ['style', 'shadowBlur']);
-    if (!_.isNumber(blur)) {
+    let blur = get(this.styleOption, ['style', 'shadowBlur']);
+    if (!isNumber(blur)) {
       blur = this.radius / 2;
     }
     this.blur = blur;

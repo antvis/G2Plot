@@ -2,15 +2,15 @@
  * stateManager负责stateManager的创建/绑定，对状态量更新的响应
  */
 import { IGroup, IShape } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { isFunction, assign, each, isArray, mix, clone } from '@antv/util';
 import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';
 import StateManager from '../../util/state-manager';
 
 export function compare(origin, condition) {
-  if (!_.isFunction(condition)) {
+  if (!isFunction(condition)) {
     const { name, exp } = condition;
-    if (_.isFunction(exp)) {
+    if (isFunction(exp)) {
       return exp(origin[name]);
     }
     return origin[name] === exp;
@@ -26,7 +26,7 @@ export default class StateController {
   private shapeContainers: IGroup[] = [];
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
   }
 
   public createStateManager(cfg) {
@@ -44,7 +44,7 @@ export default class StateController {
   }
 
   public defaultStates(states) {
-    _.each(states, (state, type) => {
+    each(states, (state, type) => {
       const { condition, style, related } = state;
       this.setState({ type, condition, related });
     });
@@ -57,18 +57,18 @@ export default class StateController {
       this.originAttrs = this._getOriginAttrs();
     }
     // this.resetZIndex();
-    _.each(this.shapes, (shape, index) => {
+    each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin');
-      const origin = _.isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
+      const origin = isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
 
       if (compare(origin, condition)) {
         const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];
         let attrs;
-        if (_.isFunction(stateStyle)) {
+        if (isFunction(stateStyle)) {
           attrs = stateStyle(originAttr);
         } else {
-          attrs = _.mix({}, originAttr, stateStyle);
+          attrs = mix({}, originAttr, stateStyle);
         }
         shape.attr(attrs);
         this.setZIndex(type, shape);
@@ -84,10 +84,10 @@ export default class StateController {
   }
 
   private _updateStateProcess(setStateCfg) {
-    _.each(setStateCfg, (cfg: any) => {
+    each(setStateCfg, (cfg: any) => {
       const state = cfg.state;
       let handler;
-      if (_.isFunction(state)) {
+      if (isFunction(state)) {
         handler = (e) => {
           const s = state(e);
           this.stateManager.setState(s.name, s.exp);
@@ -106,7 +106,7 @@ export default class StateController {
   }
 
   private _stateChangeProcess(onChangeCfg) {
-    _.each(onChangeCfg, (cfg: any) => {
+    each(onChangeCfg, (cfg: any) => {
       this.stateManager.on(`${cfg.name}:change`, (props) => {
         cfg.callback(props, this.plot);
       });
@@ -116,7 +116,7 @@ export default class StateController {
   private _getShapes() {
     const shapes = [];
     const geoms = this.plot.view.get('elements');
-    _.each(geoms, (geom: any) => {
+    each(geoms, (geom: any) => {
       const shapeContainer = geom.get('shapeContainer');
       this.shapeContainers.push(shapeContainer);
       if (!geom.destroyed) {
@@ -128,8 +128,8 @@ export default class StateController {
 
   private _getOriginAttrs() {
     const attrs = [];
-    _.each(this.shapes, (shape) => {
-      attrs.push(_.clone(shape.attr()));
+    each(this.shapes, (shape) => {
+      attrs.push(clone(shape.attr()));
     });
     return attrs;
   }
@@ -148,7 +148,7 @@ export default class StateController {
     const styleField = `${plotGeomType}Style`;
     if (theme[styleField]) {
       let style = theme[styleField][type];
-      if (_.isFunction(style)) {
+      if (isFunction(style)) {
         style = style(shape.attr());
       }
       return style;
@@ -157,7 +157,7 @@ export default class StateController {
   }
 
   private _parserRelated(type, related, condition) {
-    _.each(related, (r) => {
+    each(related, (r) => {
       if (this.plot[r]) {
         // fixme: 自定义组件
         // this.plot[r].setState(type, condition);
@@ -178,7 +178,7 @@ export default class StateController {
   }
 
   private resetZIndex() {
-    _.each(this.shapeContainers, (container) => {
+    each(this.shapeContainers, (container) => {
       const children = container.get('children');
       children.sort((obj1, obj2) => {
         return obj1._INDEX - obj2._INDEX;

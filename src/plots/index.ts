@@ -16,6 +16,7 @@ export { default as RangeColumn, RangeColumnConfig } from './range-column';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
 export { default as Matrix, MatrixConfig } from './matrix';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
+export { default as StepLine, StepLineConfig } from './step-line';
 
 // export { default as Density, DensityConfig } from './density';
 // export { default as Bubble, BubbleConfig } from './bubble';
@@ -28,5 +29,4 @@ export { default as WordCloud, WordCloudConfig } from './word-cloud';
 // export { default as Funnel, FunnelConfig } from './funnel';
 // export { default as Waterfall, WaterfallConfig } from './waterfall';
 // export { default as Treemap } from './treemap';
-// export { default as StepLine, StepLineConfig } from './step-line';
 // export { default as Rose, RoseConfig } from './rose';

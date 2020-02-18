@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { assign } from '@antv/util';
 import { ElementOption } from '../interface/config';
 
 export default class ElementParser {
@@ -10,7 +10,7 @@ export default class ElementParser {
   private widthRatio: number;
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this.init();
   }
 

@@ -1,5 +1,5 @@
 import { IShape } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { each, clone } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getOverlapInfo } from './utils';
 import { distBetweenPoints } from '../../../../util/math';
@@ -30,7 +30,7 @@ export default class PieInnerLabel extends PieBaseLabel {
   protected layout(labels: IShape[], shapeInfos: LabelItem[]) {
     labels.forEach((label, idx) => {
       if (idx > 0) {
-        _.each(labels.slice(0, idx), (prevLabel) => {
+        each(labels.slice(0, idx), (prevLabel) => {
           this.resolveCollision(label, prevLabel, shapeInfos[idx]);
         });
       }
@@ -61,9 +61,9 @@ export default class PieInnerLabel extends PieBaseLabel {
     const pos = { x: (box.minX + box.maxX) / 2, y: (box.minY + box.maxY) / 2 };
     // 两种调整方案
     /** 先偏移 x 方向 -> 再计算 y 位置 */
-    const pos1 = _.clone(pos);
+    const pos1 = clone(pos);
     /** 先偏移 y 方向 -> 再计算 x 位置 */
-    const pos2 = _.clone(pos);
+    const pos2 = clone(pos);
     // check overlap
     if (prev.get('id') !== label.get('id')) {
       const { xOverlap, yOverlap } = getOverlapInfo(box, prevBBox);

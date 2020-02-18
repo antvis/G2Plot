@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import StackColumnLayer, { StackColumnViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class StackColumn extends BasePlot<StackColumnConfig> {
   public static getDefaultOptions: typeof StackColumnLayer.getDefaultOptions = StackColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'stackColumn';
     super.createLayers(layerProps);
   }

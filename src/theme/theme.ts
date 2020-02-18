@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import { getGlobalTheme } from './global';
 
 /**

@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import Area from './area/index';
 import Interval from './interval/index';
 import Line from './line/index';

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import PercentageStackAreaLayer, { PercentageStackAreaLayerConfig } from './layer';
 
@@ -11,7 +11,7 @@ export default class PercentageStackArea<
     PercentageStackAreaLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'percentageStackArea';
     super.createLayers(layerProps);
   }

@@ -3,7 +3,7 @@
  */
 // todo: 后续还需要加入交互互斥的维护机制
 import EventEmitter from '@antv/event-emitter';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import { LooseMap } from '../interface/types';
 
 type States = LooseMap;
@@ -55,7 +55,7 @@ export default class StateManager extends EventEmitter {
 
     this._changeTimer = setTimeout(() => {
       // for (const name in stateStack) {
-      _.each(stateStack, (exp, name) => {
+      each(stateStack, (exp, name) => {
         const state = stateStack[name];
         if (!this._states[name] || this._states[name] !== exp) {
           // update states

@@ -1,5 +1,5 @@
 import { Axis } from '@antv/component';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import ShapeNodes from '../node/shape-nodes';
 import Responsive from '../responsive';
 import ApplyResponsive from './base';
@@ -25,12 +25,12 @@ function updateTicks(nodes, axis) {
   const ticks = axis.get('ticks');
   const tickItems = axis.get('tickItems');
   const tickTexts = [];
-  _.each(ticks, (tick) => {
+  each(ticks, (tick) => {
     const t = tick as any;
     tickTexts.push(t.text);
   });
   let pathes = [];
-  _.each(nodes.nodes, (node) => {
+  each(nodes.nodes, (node) => {
     const n = node as any;
     if (n.width > 0 && n.height > 0) {
       const text = n.shape.get('origin').text;

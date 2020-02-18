@@ -1,5 +1,5 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { LooseObject } from '@antv/g2/lib/interface';
+import { isFunction, has, isString } from '@antv/util';
 import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
@@ -31,8 +31,8 @@ export default class LineParser extends ElementParser {
 
   public parseSize() {
     const sizeProps = this.plot.options.lineSize;
-    const config: DataPointType = {};
-    if (_.isFunction(sizeProps)) {
+    const config: LooseObject = {};
+    if (isFunction(sizeProps)) {
       config.callback = sizeProps;
     } else {
       config.values = [sizeProps];
@@ -42,15 +42,15 @@ export default class LineParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     if (props.seriesField) {
       config.fields = [props.seriesField];
     }
-    if (_.has(props, 'color')) {
+    if (has(props, 'color')) {
       const color = props.color;
-      if (_.isString(color)) {
+      if (isString(color)) {
         config.values = [color];
-      } else if (_.isFunction(color)) {
+      } else if (isFunction(color)) {
         config.callback = color;
       } else {
         config.values = color as [];
@@ -68,7 +68,7 @@ export default class LineParser extends ElementParser {
       callback: null,
       cfg: null,
     };
-    if (_.isFunction(styleProps) && props.seriesField) {
+    if (isFunction(styleProps) && props.seriesField) {
       config.fields = [props.seriesField];
       config.callback = styleProps;
     } else {

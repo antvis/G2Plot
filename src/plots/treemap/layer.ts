@@ -140,9 +140,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         },
       },
       label: this.extractLabel(),
-      tooltip:{
-        fields:['name','value']
-      }
+      tooltip: {
+        fields: ['name', 'value'],
+      },
     };
     this.setConfig('element', this.rect);
   }

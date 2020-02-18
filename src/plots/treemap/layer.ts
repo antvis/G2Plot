@@ -6,7 +6,7 @@ import { getComponent } from '../../components/factory';
 import squarify from './layout/squarify';
 import { INTERACTION_MAP } from './interaction';
 import * as EventParser from './event';
-//import './components/label';
+import TreemapLabel from './components/label';
 
 const PARENT_NODE_OFFSET = 4;
 const BLOCK_MARGIN = 4;
@@ -80,6 +80,18 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     super.beforeInit();
   }
 
+  public afterRender(){
+    super.afterRender();
+    if(this.options.label && this.options.label.visible){
+      const label = new TreemapLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
+  }
+
   protected geometryParser(dim, type) {
     return 'polygon';
   }
@@ -136,7 +148,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
           return _.deepMix({}, defaultStyle, this.options.rectStyle);
         },
       },
-      //label: this.extractLabel(),
     };
     this.setConfig('geometry', this.rect);
   }

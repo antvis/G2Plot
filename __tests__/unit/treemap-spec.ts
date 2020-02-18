@@ -12,29 +12,18 @@ describe('treemap', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
   const data = processData(mobile);
-  it('initilize', () => {
+  it.only('initilize', () => {
     const treemapPlot = new Treemap(canvasDiv, {
       width: 600,
       height: 400,
       data,
       colorField: 'brand',
-      maxLevel:1,
-      padding:[0,0,200,0],
-      interactions: [
-        {
-          type: 'drilldown',
-          cfg: {
-            startNode: {
-              name: 'root',
-            },
-          } as any,
-        },
-      ],
+      // maxLevel: 1
     });
     treemapPlot.render();
   });
 
-  it.only('interaction',()=>{
+  it('interaction',()=>{
     const data = test;
     const rootData = { name: '公司销售数据', value: 0, children: [] };
     each(data, (s) => {

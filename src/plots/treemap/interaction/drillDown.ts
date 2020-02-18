@@ -117,7 +117,7 @@ export default class DrillDownInteraction extends BaseInteraction {
       this.initGeometry();
       this.cache = {};
       this.saveOriginMapping();
-      this.container = this.canvas.addGroup();
+      this.container = this.plot.canvas.addGroup();
       if (!this.startNode) {
         this.startNode = {
           name: 'root',

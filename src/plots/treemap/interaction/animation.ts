@@ -211,12 +211,12 @@ function shrinkTemp(container, shapes, rect, range) {
 }
 
 function hideLabel(geometry) {
-  //const labelContainer = geometry.get('labelController').labelsContainer;
-  //labelContainer.set('visible', false);
+  const labelContainer = geometry.labelsContainer;
+  labelContainer.set('visible', false);
 }
 
 function showLabel(geometry) {
-  //const labelContainer = geometry.get('labelController').labelsContainer;
-  //labelContainer.set('visible', true);
+  const labelContainer = geometry.labelsContainer;
+  labelContainer.set('visible', true);
 }
 

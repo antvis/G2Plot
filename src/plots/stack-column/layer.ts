@@ -53,7 +53,7 @@ export default class StackColumnLayer<
       this.connectedArea = new ConnectedArea({
         view: this.view,
         field: props.stackField,
-        animation: props.animation,
+        animation: props.animation === false ? false : true,
         ...props.connectedArea,
       });
     }

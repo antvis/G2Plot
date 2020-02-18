@@ -143,8 +143,8 @@ export interface Legend {
 }
 
 export interface Tooltip {
-  visible: boolean;
-  shared: boolean;
+  visible?: boolean;
+  shared?: boolean;
   /** html */
   showTitle?: boolean;
   html?: HTMLDivElement;
@@ -269,7 +269,11 @@ export interface IScrollbarInteractionConfig {
   categorySize?: number;
 }
 
-export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
+//export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
+
+export type IInteractionConfig = {
+  [field: string]: any;
+}
 
 export interface IInteractions {
   type: string;

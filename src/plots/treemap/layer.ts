@@ -30,7 +30,8 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         visible: false,
         showTitle: false,
         showCrosshairs: false,
-        showMarkers: false
+        showMarkers: false,
+        shared: false
       },
       legend: {
         visible: false,

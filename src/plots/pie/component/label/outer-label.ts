@@ -144,9 +144,7 @@ export default class PieOuterLabel extends PieBaseLabel {
       if (!adjustLabels.length) {
         return;
       }
-      let ry = isBottom
-        ? last(adjustLabels).getBBox().maxY - center.y
-        : center.y - head(adjustLabels).getBBox().minY;
+      let ry = isBottom ? last(adjustLabels).getBBox().maxY - center.y : center.y - head(adjustLabels).getBBox().minY;
       ry = Math.max(totalR, ry);
       const distance = offset > 4 ? 4 : 0;
       const maxLabelWidth =

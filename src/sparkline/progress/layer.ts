@@ -1,4 +1,4 @@
-import { } from '@antv/util';
+import {} from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';

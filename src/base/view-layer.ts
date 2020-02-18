@@ -384,6 +384,15 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     deepMix(this.config.theme.tooltip, this.options.tooltip.style);
   }
 
+  protected getLegendPosition(position: string): any {
+    const positionList = position.split('-');
+    // G2 4.0 兼容 XXX-center 到 XXX 的场景
+    if (positionList && positionList.length > 1 && positionList[1] === 'center') {
+      return positionList[0];
+    }
+    return position;
+  }
+
   protected legend(): void {
     if (this.options.legend.visible === false) {
       this.setConfig('legends', false);
@@ -392,7 +401,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const flipOption = get(this.options, 'legend.flipPage');
     const clickable = get(this.options, 'legend.clickable');
     this.setConfig('legends', {
-      position: get(this.options, 'legend.position'),
+      position: this.getLegendPosition(get(this.options, 'legend.position')),
       formatter: get(this.options, 'legend.formatter'),
       offsetX: get(this.options, 'legend.offsetX'),
       offsetY: get(this.options, 'legend.offsetY'),

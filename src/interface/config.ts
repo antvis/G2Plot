@@ -82,6 +82,7 @@ export interface IBaseAxis {
 export interface IValueAxis extends IBaseAxis {
   type?: 'linear';
   /** tick相关配置 */
+  nice?: boolean;
   min?: number;
   max?: number;
   minLimit?: number;
@@ -255,7 +256,7 @@ export interface ISliderInteractionConfig {
   end?: number;
 }
 
-export interface IScrollBarInteractionConfig {
+export interface IScrollbarInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
   type?: 'horizontal' | 'vertical';
   /** 宽度，在 vertical 下生效 */
@@ -268,7 +269,7 @@ export interface IScrollBarInteractionConfig {
   categorySize?: number;
 }
 
-export type IInteractionConfig = IScrollBarInteractionConfig | ISliderInteractionConfig;
+export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
 
 export interface IInteractions {
   type: string;

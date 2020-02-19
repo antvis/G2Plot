@@ -1,6 +1,6 @@
 import { IGroup, Group, IShape, Shape } from '@antv/g-canvas';
 import { View } from '@antv/g2';
-import * as _ from '@antv/util';
+import { deepMix, clone, each, isString, mix } from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
 import { getCenter } from './utils';
 
@@ -65,7 +65,7 @@ export default class SpiderLabel {
 
   constructor(cfg: ISpiderLabel) {
     this.view = cfg.view;
-    this.options = _.deepMix({}, this.getDefaultOptions(), cfg);
+    this.options = deepMix({}, this.getDefaultOptions(), cfg);
     this._adjustOptions(this.options);
     this.init();
   }
@@ -82,11 +82,11 @@ export default class SpiderLabel {
       return;
     }
     /** 如果有formatter则事先处理数据 */
-    const data = _.clone(this.view.getData());
+    const data = clone(this.view.getData());
     this.halves = [[], []];
     const shapes = [];
     const elements = this.view.geometries[0].elements;
-    _.each(elements, (ele) => {
+    each(elements, (ele) => {
       shapes.push(ele.shape);
     });
     this.coord = this.view.geometries[0].coordinate;
@@ -133,12 +133,12 @@ export default class SpiderLabel {
       };
       // 创建label文本
       let texts = [];
-      _.each(this.options.fields, (f) => {
+      each(this.options.fields, (f) => {
         texts.push(d[f]);
       });
       if (this.options.formatter) {
         let formatted: any = this.options.formatter(d[angleField], { _origin: d, color }, idx);
-        if (_.isString(formatted)) {
+        if (isString(formatted)) {
           formatted = [formatted];
         }
         texts = formatted;
@@ -157,12 +157,12 @@ export default class SpiderLabel {
       if (this.options.formatter) {
         lowerText = texts[0];
       }
-      const lowerTextAttrs = _.clone(textAttrs);
+      const lowerTextAttrs = clone(textAttrs);
       if (texts.length === 2) {
         lowerTextAttrs.fontWeight = 700;
       }
       const lowerTextShape: any = textGroup.addShape('text', {
-        attrs: _.mix(
+        attrs: mix(
           {
             textBaseline: texts.length === 2 ? 'top' : 'middle',
             text: lowerText,
@@ -177,7 +177,7 @@ export default class SpiderLabel {
       /** label2:上部label */
       if (texts.length === 2) {
         const topTextShape: any = textGroup.addShape('text', {
-          attrs: _.mix(
+          attrs: mix(
             {
               textBaseline: 'bottom',
               text: texts[1],
@@ -206,7 +206,7 @@ export default class SpiderLabel {
     /** 绘制label */
     const maxCountForOneSide = Math.floor(height / this.options.lineHeight);
 
-    _.each(this.halves, (half) => {
+    each(this.halves, (half) => {
       if (half.length > maxCountForOneSide) {
         half.splice(maxCountForOneSide, half.length - maxCountForOneSide);
       }

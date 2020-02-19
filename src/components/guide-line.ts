@@ -1,5 +1,5 @@
 import { getScale } from '@antv/scale';
-import * as _ from '@antv/util';
+import { assign, deepMix, mix, each } from '@antv/util';
 import { getMean, getMedian } from '../util/math';
 
 export default class GuideLine {
@@ -9,7 +9,7 @@ export default class GuideLine {
   private values: number[];
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this._init();
   }
 
@@ -22,8 +22,8 @@ export default class GuideLine {
       start: this.cfg.start,
       end: this.cfg.end,
     };
-    baseConfig.line = _.deepMix({}, defaultStyle.line, { style: this.cfg.lineStyle });
-    baseConfig.text = _.deepMix({}, defaultStyle.text, this.cfg.text);
+    baseConfig.line = deepMix({}, defaultStyle.line, { style: this.cfg.lineStyle });
+    baseConfig.text = deepMix({}, defaultStyle.text, this.cfg.text);
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);
       const minValue = this._getState('min');
@@ -31,7 +31,7 @@ export default class GuideLine {
       const Scale = getScale('linear');
       // 重新组织scale并使用scale的min和max来计算guide point的百分比位置，以避免受nice的影响
       const scale = new Scale(
-        _.mix(
+        mix(
           {},
           {
             min: this.plot.type === 'column' ? 0 : minValue,
@@ -45,7 +45,7 @@ export default class GuideLine {
       const percent = `${(1.0 - scale.scale(stateValue)) * 100}%`;
       const start = ['0%', percent];
       const end = ['100%', percent];
-      this.config = _.mix(
+      this.config = mix(
         {
           start,
           end,
@@ -77,7 +77,7 @@ export default class GuideLine {
     const props = this.plot.options;
     const field = props.yField;
     const values = [];
-    _.each(props.data, (d) => {
+    each(props.data, (d) => {
       values.push(d[field]);
     });
     return values;

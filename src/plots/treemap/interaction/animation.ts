@@ -9,7 +9,6 @@ const easing = 'easeQuadInOut';
 export function drillingDown(target, view, callback) {
   const rect = getRect(target);
   const range = getRange(view);
-
   const xRatio = range.width / rect.width;
   const yRatio = range.height / rect.height;
   const offsetX = (range.minX - rect.minX) * xRatio;
@@ -77,7 +76,7 @@ export function drillingDown(target, view, callback) {
       duration,
       easing,
       () => {
-        showLabel(geometry);
+        showLabel(geometry); 
       }
     );
     view.canvas.draw();

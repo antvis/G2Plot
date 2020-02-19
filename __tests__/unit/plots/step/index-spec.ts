@@ -1,44 +1,16 @@
 import { StepLine } from '../../../../src';
-import ViewLayer from '../../../../src/base/view-layer';
 import { StepLineLayer } from '../../../../src/plots/step-line/layer';
 
 const data = [
-  {
-    year: '1991',
-    value: 3,
-  },
-  {
-    year: '1992',
-    value: 4,
-  },
-  {
-    year: '1993',
-    value: 3.5,
-  },
-  {
-    year: '1994',
-    value: 5,
-  },
-  {
-    year: '1995',
-    value: 4.9,
-  },
-  {
-    year: '1996',
-    value: 6,
-  },
-  {
-    year: '1997',
-    value: 7,
-  },
-  {
-    year: '1998',
-    value: 9,
-  },
-  {
-    year: '1999',
-    value: 13,
-  },
+  { year: '1991', value: 3 },
+  { year: '1992', value: 4 },
+  { year: '1993', value: 3.5 },
+  { year: '1994', value: 5 },
+  { year: '1995', value: 4.9 },
+  { year: '1996', value: 6 },
+  { year: '1997', value: 7 },
+  { year: '1998', value: 9 },
+  { year: '1999', value: 13 },
 ];
 
 describe('Step plot', () => {
@@ -50,7 +22,7 @@ describe('Step plot', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it.skip('step', () => {
+  it('step', () => {
     const step = new StepLine(canvasDiv, {
       width: 600,
       height: 600,
@@ -63,7 +35,7 @@ describe('Step plot', () => {
     const layer = step.getLayer() as StepLineLayer;
     const plot = layer.getPlot();
 
-    const positionField = plot.get('elements')[0].get('position').fields;
+    const positionField = plot.geometries[0].getAttribute('position').getFields();
     expect(step).toBeInstanceOf(StepLine);
     expect(positionField[0]).toBe('year');
     expect(positionField[1]).toBe('value');

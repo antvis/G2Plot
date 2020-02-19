@@ -1,7 +1,7 @@
 import { IGroup, IShape } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import * as matrixUtil from '@antv/matrix-util';
-import * as _ from '@antv/util';
+import { deepMix, isString } from '@antv/util';
 import { getEndPoint } from './utils';
 import { Label } from '../../../../interface/config';
 import PieLayer from '../../layer';
@@ -54,7 +54,7 @@ export default abstract class PieBaseLabel {
 
   constructor(plot: PieLayer, cfg: PieLabelConfig) {
     this.plot = plot;
-    const options = _.deepMix(this.getDefaultOptions(), cfg, {});
+    const options = deepMix(this.getDefaultOptions(), cfg, {});
     this.adjustOption(options);
     this.options = options;
     this.init();
@@ -113,7 +113,7 @@ export default abstract class PieBaseLabel {
       const content = formatter ? formatter(shapeInfo.name, { _origin: shapeInfo.origin }, idx) : shapeInfo.name;
       const itemGroup = this.container.addGroup({ name: 'itemGroup', index: idx });
       const textShape = itemGroup.addShape('text', {
-        attrs: _.deepMix(
+        attrs: deepMix(
           {},
           {
             ...shapeInfo,
@@ -200,7 +200,7 @@ export default abstract class PieBaseLabel {
   protected adjustOption(options: PieLabelConfig): void {
     let offset = options.offset;
     const { radius } = this.getCoordinate();
-    if (_.isString(offset)) {
+    if (isString(offset)) {
       offset = radius * percent2Number(offset);
     }
     options.offset = offset;

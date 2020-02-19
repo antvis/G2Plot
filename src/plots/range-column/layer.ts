@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
@@ -13,7 +13,7 @@ export interface RangeColumnLayerConfig extends RangeColumnViewConfig, LayerConf
 
 export default class RangeColumnLayer extends BaseColumnLayer<RangeColumnLayerConfig> {
   public static getDefaultOptions(): Partial<RangeColumnViewConfig> {
-    return _.deepMix(
+    return deepMix(
       super.getDefaultOptions(),
       {
         label: {
@@ -32,9 +32,9 @@ export default class RangeColumnLayer extends BaseColumnLayer<RangeColumnLayerCo
     // 为更新动画缓存shape
     const shapeCaches = [];
     const geoms = this.view.geometries;
-    _.each(geoms, (geom) => {
+    each(geoms, (geom) => {
       const elements = geom.elements;
-      _.each(elements, (ele) => {
+      each(elements, (ele) => {
         shapeCaches.push(ele.shape);
       });
     });

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isString, isFunction, isArray, isObject, get } from '@antv/util';
 import ElementParser from '../base';
 
 const COLOR_MAPPER = ['colorField', 'stackField', 'groupField'];
@@ -32,13 +32,13 @@ export default class IntervalParser extends ElementParser {
       config.fields = colorField;
     }
     if (props.color) {
-      if (_.isString(props.color)) {
+      if (isString(props.color)) {
         config.values = [props.color];
-      } else if (_.isFunction(props.color)) {
+      } else if (isFunction(props.color)) {
         config.callback = props.color;
-      } else if (_.isArray(props.color)) {
+      } else if (isArray(props.color)) {
         config.values = props.color;
-      } else if (_.isObject(props.color)) {
+      } else if (isObject(props.color)) {
         config.fields = colorField;
         config.callback = (d) => {
           return props.color[d];
@@ -51,7 +51,7 @@ export default class IntervalParser extends ElementParser {
   public parseSize(sizeProps) {
     const props = this.plot.options;
     const config: any = {};
-    if (_.isFunction(props[sizeProps])) {
+    if (isFunction(props[sizeProps])) {
       config.fields = [this.config.position.fields];
       config.callback = props[sizeProps];
     } else {
@@ -63,7 +63,7 @@ export default class IntervalParser extends ElementParser {
   public parseStyle(styleProps) {
     const style = this.plot.options[styleProps];
     const config: any = {};
-    if (_.isFunction(style)) {
+    if (isFunction(style)) {
       config.fields = [this.config.position.fields];
       config.callback = style;
     } else {
@@ -76,7 +76,7 @@ export default class IntervalParser extends ElementParser {
   private _getSizeProps(props) {
     const sizeMapper = ['columnSize', 'barSize'];
     for (const m of sizeMapper) {
-      if (_.get(props, m)) {
+      if (get(props, m)) {
         return m;
       }
     }
@@ -85,7 +85,7 @@ export default class IntervalParser extends ElementParser {
   private _getStyleProps(props) {
     const sizeMapper = ['columnStyle', 'barStyle', 'pieStyle', 'ringStyle'];
     for (const m of sizeMapper) {
-      if (_.get(props, m)) {
+      if (get(props, m)) {
         return m;
       }
     }
@@ -96,7 +96,7 @@ export default class IntervalParser extends ElementParser {
      * 如没有特别设定，则一般是callback中的传参，传入位置映射的字段
      */
     for (const m of COLOR_MAPPER) {
-      if (_.get(props, m)) {
+      if (get(props, m)) {
         return [props[m]];
       }
     }

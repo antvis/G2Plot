@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -42,7 +42,7 @@ export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}
 
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
         tickLine: {
@@ -88,7 +88,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
+    return deepMix({}, options, defaultOptions, props);
   }
 
   public beforeInit() {
@@ -120,12 +120,12 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const scales = {};
     /** 配置x-scale */
     scales[options.xField] = { type: 'cat' };
-    if (_.has(options, 'xAxis')) {
+    if (has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
     /** 配置y-scale */
     scales[options.yField] = {};
-    if (_.has(options, 'yAxis')) {
+    if (has(options, 'yAxis')) {
       extractScale(scales[options.yField], options.yAxis);
     }
     this.setConfig('scales', scales);
@@ -182,7 +182,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
+    each(methods, (r) => {
       const responsive = r;
       responsive.method(this);
     });

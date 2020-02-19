@@ -1,6 +1,6 @@
 /** 简化折线点 */
 import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
+import { deepMix, mix } from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import LineParser from './main';
@@ -15,7 +15,7 @@ G2.registerShape('line', 'miniLine', {
       const flag = i === 0 ? 'M' : 'L';
       path.push([flag, p.x, p.y]);
     }
-    const style = _.deepMix(
+    const style = deepMix(
       {},
       {
         lineJoin: 'round',
@@ -24,7 +24,7 @@ G2.registerShape('line', 'miniLine', {
       cfg.style
     );
     const shape = container.addShape('path', {
-      attrs: _.mix(
+      attrs: mix(
         {
           path,
           stroke: cfg.color || getGlobalTheme().defaultColor,
@@ -46,7 +46,7 @@ G2.registerShape('line', 'miniLineSmooth', {
     ];
     const path = getSplinePath(points, false, constraint);
     const shape = container.addShape('path', {
-      attrs: _.mix(
+      attrs: mix(
         {
           path,
           stroke: cfg.color || getGlobalTheme().defaultColor,

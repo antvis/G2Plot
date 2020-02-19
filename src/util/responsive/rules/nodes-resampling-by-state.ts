@@ -1,8 +1,8 @@
-import { Shape } from '@antv/g';
-import * as _ from '@antv/util';
+import { IShape } from '@antv/g-base/lib/interfaces';
+import { each, clone } from '@antv/util';
 import textHide from './text-hide';
 
-export default function nodesResamplingByState(shape: Shape, option, index, cfg) {
+export default function nodesResamplingByState(shape: IShape, option, index, cfg) {
   const nodes = cfg.nodes.nodes;
   const current = nodes[index];
   if (current.line) {
@@ -14,7 +14,7 @@ export default function nodesResamplingByState(shape: Shape, option, index, cfg)
   const stateNodes = getStateNodes(data, field, nodes);
 
   let isState = false;
-  _.each(stateNodes, (node) => {
+  each(stateNodes, (node) => {
     // @ts-ignore
     if (node.shape.get('origin') === current.shape.get('origin')) {
       isState = true;
@@ -33,7 +33,7 @@ export default function nodesResamplingByState(shape: Shape, option, index, cfg)
 
 function getStateNodes(data, field, nodes) {
   const extract_data = [];
-  _.each(data, (d) => {
+  each(data, (d) => {
     extract_data.push(d[field]);
   });
   extract_data.sort((a, b) => {
@@ -50,7 +50,7 @@ function getStateNodes(data, field, nodes) {
 }
 
 function getMedian(array) {
-  const list = _.clone(array);
+  const list = clone(array);
   list.sort((a, b) => {
     return a - b;
   });

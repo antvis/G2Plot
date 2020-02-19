@@ -1,5 +1,5 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { LooseObject } from '@antv/g2/lib/interface';
+import { isString, isFunction, isArray, get } from '@antv/util';
 import LineParser from './main';
 
 export default class GuideLineParser extends LineParser {
@@ -32,7 +32,7 @@ export default class GuideLineParser extends LineParser {
 
   public parseSize() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     if (props.line.size) {
       config.values = [props.line.size];
     } else {
@@ -44,7 +44,7 @@ export default class GuideLineParser extends LineParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     let colorField = this._getColorMappingField();
     if (colorField) {
       config.fields = colorField;
@@ -56,12 +56,12 @@ export default class GuideLineParser extends LineParser {
         colorField = this.config.position.fields;
       }
       // line作为辅助图形没有在style里指定color属性的情况下，默认接受主体图形的透传
-      if (_.isString(props.color)) {
+      if (isString(props.color)) {
         config.values = [props.color];
-      } else if (_.isFunction(props.color)) {
+      } else if (isFunction(props.color)) {
         config.fields = colorField;
         config.callback = props.color;
-      } else if (_.isArray(props.color)) {
+      } else if (isArray(props.color)) {
         config.fields = colorField;
         config.values = props.color;
       }
@@ -73,8 +73,8 @@ export default class GuideLineParser extends LineParser {
   public parseStyle() {
     const props = this.plot.options;
     const styleProps = props.line.style;
-    const config: DataPointType = {};
-    if (_.isFunction(styleProps)) {
+    const config: LooseObject = {};
+    if (isFunction(styleProps)) {
       config.fields = this.config.position.fields;
       config.callback = styleProps;
     } else {
@@ -93,7 +93,7 @@ export default class GuideLineParser extends LineParser {
     const props = this.plot.options;
     const colorMapper = ['stackField', 'seriesField'];
     for (const m of colorMapper) {
-      if (_.get(props, m)) {
+      if (get(props, m)) {
         return [props[m]];
       }
     }

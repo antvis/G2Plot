@@ -43,16 +43,13 @@ const data = [
   },
 ];
 const radarPlot = new Radar(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '基础雷达图',
-  },
   data,
   angleField: 'item',
   radiusField: 'score',
   radiusAxis: {
-    gridType: 'arc',
-    gridAlternateColor: 'rgba(0, 0, 0, 0.04)',
+    grid: {
+      alternateColor: ['rgba(0, 0, 0, 0.04)', null],
+    },
   },
   area: {
     visible: false,

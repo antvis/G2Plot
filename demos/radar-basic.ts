@@ -43,17 +43,19 @@ const data = [
   },
 ];
 const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
-  data: [],
+  data,
   angleField: 'item',
   radiusField: 'score',
   radiusAxis: {
-    gridType: 'arc',
-    gridAlternateColor: '#ccc',
+    grid: {
+      line: {
+        type: 'circle',
+      },
+      alternateColor: ['#ccc', null],
+    },
   },
 });
 radarPlot.render();
-
-radarPlot.changeData(data);
 
 // 作为模块 避免变量冲突
 export {};

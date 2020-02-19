@@ -1,6 +1,6 @@
 import EventEmitter from '@antv/event-emitter';
 import * as G from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { isNil, each, findIndex, deepMix, keys, contains, isFunction } from '@antv/util';
 import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
@@ -36,7 +36,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   constructor(container: HTMLElement, props: T) {
     super();
     this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
-    this.forceFit = !_.isNil(props.forceFit) ? props.forceFit : _.isNil(props.width) && _.isNil(props.height);
+    this.forceFit = !isNil(props.forceFit) ? props.forceFit : isNil(props.width) && isNil(props.height);
     this.renderer = props.renderer || 'canvas';
     this.pixelRatio = props.pixelRatio || null;
     this.width = props.width;
@@ -210,7 +210,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   protected eachLayer(cb: (layer: Layer<any>) => void) {
-    _.each(this.layers, cb);
+    each(this.layers, cb);
   }
 
   /**
@@ -218,7 +218,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
    * @param layer
    */
   public addLayer(layer: Layer<any>) {
-    const idx = _.findIndex(this.layers, (item) => item === layer);
+    const idx = findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       this.layers.push(layer);
     }
@@ -229,7 +229,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
       // TODO: combo plot
     } else if (props.type) {
       const viewLayerCtr = getPlotType(props.type);
-      const viewLayerProps: T = _.deepMix({}, props, {
+      const viewLayerProps: T = deepMix({}, props, {
         canvas: this.canvasController.canvas,
         x: 0,
         y: 0,
@@ -242,10 +242,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   protected parseEvents(props) {
-    const eventsName = _.keys(CANVAS_EVENT_MAP);
+    const eventsName = keys(CANVAS_EVENT_MAP);
     if (props.events) {
-      _.each(props.events, (e, k) => {
-        if (_.contains(eventsName, k) && _.isFunction(e)) {
+      each(props.events, (e, k) => {
+        if (contains(eventsName, k) && isFunction(e)) {
           const eventName = CANVAS_EVENT_MAP[k] || k;
           const handler = e;
           this.on(eventName, handler);

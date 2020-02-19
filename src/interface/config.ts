@@ -45,12 +45,13 @@ export interface IBaseAxis {
   grid?: {
     /** 网格线是否显示 */
     visible?: boolean;
-    style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
+    line?: {
+      style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
+      type?: 'line' | 'circle';
+    };
+    /** 网格设置交替的颜色，指定一个值则先渲染偶数层，两个值则交替渲染 */
+    alternateColor?: string | string[];
   };
-  /** 网格线样式 */
-  gridType?: 'line' | 'arc';
-  /** 网格设置交替的颜色，指定一个值则先渲染奇数层，两个值则交替渲染 */
-  gridAlternateColor?: string | string[];
   autoRotateLabel?: boolean | number[]; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   autoRotateTitle?: boolean;
@@ -190,7 +191,7 @@ export interface ElementOption {
   };
 }
 
-export interface G2Config extends Options {}
+export type G2Config = Options;
 
 export interface IColorConfig {
   fields?: string[];

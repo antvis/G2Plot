@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import StackBar, { StackBarViewConfig } from '../stack-bar/layer';
@@ -10,7 +10,7 @@ export interface PercentageStackBarLayerConfig extends PercentageStackBarViewCon
 
 export default class PercentageStackBarLayer extends StackBar<PercentageStackBarLayerConfig> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
         tickLine: {

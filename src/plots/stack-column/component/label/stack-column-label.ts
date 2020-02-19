@@ -1,5 +1,4 @@
-import { registerElementLabels } from '@antv/g2';
-import * as _ from '@antv/util';
+import { registerGeometryLabel } from '@antv/g2';
 import { ColumnLabels } from '../../../column/component/label/column-label';
 
 class StackColumnLabels extends ColumnLabels {
@@ -15,4 +14,4 @@ class StackColumnLabels extends ColumnLabels {
   }
 }
 
-registerElementLabels('stackColumnLabel', StackColumnLabels);
+registerGeometryLabel('stackColumnLabel', StackColumnLabels);

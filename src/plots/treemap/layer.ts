@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import {deepMix,each,hasKey} from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -23,7 +23,7 @@ export interface TreemapLayerConfig extends TreemapViewConfig, LayerConfig {}
 
 export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<TreemapLayerConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       maxLevel: 2,
       padding: [0, 0, 0, 0],
       tooltip: {
@@ -72,7 +72,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     super.beforeInit();
     const { interactions } = this.options;
     if (interactions) {
-      _.each(interactions, (interaction) => {
+      each(interactions, (interaction) => {
         if (interaction.type === 'drilldown') {
           this.isDrilldown = true;
           this.options.maxLevel = 1;
@@ -149,7 +149,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
               opacity: d / maxLevel,
             };
           }
-          return _.deepMix({}, defaultStyle, this.options.rectStyle);
+          return deepMix({}, defaultStyle, this.options.rectStyle);
         },
       },
       tooltip:{
@@ -162,11 +162,11 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   protected applyInteractions() {
     const interactionCfg = this.options.interactions;
     const interactions = this.view.interactions;
-    _.each(interactionCfg, (inter) => {
+    each(interactionCfg, (inter) => {
       const Ctr = INTERACTION_MAP[inter.type];
       if (Ctr) {
         const interaction = new Ctr(
-          _.deepMix(
+          deepMix(
             {},
             {
               view: this.view,
@@ -193,30 +193,13 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     super.parseEvents(EventParser);
   }
 
-  private extractLabel() {
-    const labelOptions = this.options.label;
-    // 不显示label的情况
-    if (!labelOptions.visible) {
-      return false;
-    }
-    const label = getComponent('label', {
-      labelType: 'treemapLabel',
-      plot: this,
-      top: true,
-      fields: ['name'],
-      maxLevel: this.options.maxLevel,
-      ...labelOptions,
-    });
-    return label;
-  }
-
   private recursive(rows, depth?) {
     const { colorField } = this.options;
-    _.each(rows, (r) => {
-      _.each(r.children, (c) => {
+    each(rows, (r) => {
+      each(r.children, (c) => {
         c.depth = depth;
         if (depth > 1) c.parent = r;
-        if (!_.hasKey(c, colorField)) {
+        if (!hasKey(c, colorField)) {
           c[colorField] = r[colorField];
         }
         c.showLabel = true;
@@ -243,23 +226,23 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   private getAllNodes(data, nodes, level?) {
     const max = level ? level : this.options.maxLevel;
     const viewRange = this.getViewRange();
-    _.each(data, (d) => {
-      if (_.hasKey(d, 'x0') && d.depth <= max) {
+    each(data, (d) => {
+      if (hasKey(d, 'x0') && d.depth <= max) {
         nodes.push({
           ...d,
           x: [d.x0, d.x1, d.x1, d.x0],
           y: [viewRange.height - d.y1, viewRange.height - d.y1, viewRange.height - d.y0, viewRange.height - d.y0],
         });
       }
-      if (_.hasKey(d, 'children')) {
+      if (hasKey(d, 'children')) {
         this.getAllNodes(d.children, nodes);
       }
     });
   }
 
   private fillColorField(rows, fieldName, value) {
-    _.each(rows, (r) => {
-      if (!_.hasKey(r, fieldName)) {
+    each(rows, (r) => {
+      if (!hasKey(r, fieldName)) {
         r[fieldName] = value;
       }
     });

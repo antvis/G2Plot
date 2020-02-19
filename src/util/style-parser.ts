@@ -1,11 +1,11 @@
-import * as _ from '@antv/util';
+import { clone } from '@antv/util';
 
 function AxisStyleParser(axisCfg, axis) {
   if (axis.line) {
     if (axis.line.visible === false) {
       axisCfg.line = null;
     } else if (axis.line.style) {
-      axisCfg.line = _.clone(axis.line.style);
+      axisCfg.line = clone(axis.line.style);
     }
   }
   if (axis.title) {
@@ -18,7 +18,7 @@ function AxisStyleParser(axisCfg, axis) {
       if (axisCfg.autoRotate) {
         axisCfg.autoRotateTitle = axisCfg.autoRotate;
       }
-      axisCfg.title = _.clone(axis.title);
+      axisCfg.title = clone(axis.title);
       if (axisCfg.title.style) {
         axisCfg.title.textStyle = axisCfg.title.style;
         delete axisCfg.title.style;
@@ -29,7 +29,7 @@ function AxisStyleParser(axisCfg, axis) {
     if (axis.tickLine.visible === false) {
       axisCfg.tickLine = null;
     } else if (axis.tickLine.style) {
-      axisCfg.tickLine = _.clone(axis.tickLine.style);
+      axisCfg.tickLine = clone(axis.tickLine.style);
     }
   }
   if (Object.prototype.hasOwnProperty.call(axis, 'autoHideLabel')) {
@@ -42,7 +42,7 @@ function AxisStyleParser(axisCfg, axis) {
     if (axis.label.visible === false) {
       axisCfg.label = null;
     } else {
-      const newLabel = _.clone(axis.label);
+      const newLabel = clone(axis.label);
       if (newLabel.style) {
         newLabel.textStyle = newLabel.style;
         delete newLabel.style;
@@ -62,9 +62,9 @@ function AxisStyleParser(axisCfg, axis) {
     if (axis.grid.visible === false) {
       axisCfg.grid = null;
     } else {
-      axisCfg.grid = _.clone(axis.grid);
+      axisCfg.grid = clone(axis.grid);
       if (axis.grid.style) {
-        axisCfg.grid = _.clone(axis.grid.style);
+        axisCfg.grid = clone(axis.grid.style);
       }
     }
   }

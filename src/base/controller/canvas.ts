@@ -1,6 +1,6 @@
 import { modifyCSS } from '@antv/dom-util';
 import { Canvas } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { debounce, get } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
 import BasePlot from '../plot';
@@ -30,7 +30,7 @@ export default class CanvasController {
   /**
    * when the container size changed, trigger it after 300ms.
    */
-  private onResize = _.debounce(() => {
+  private onResize = debounce(() => {
     if (this.plot.destroyed) {
       return;
     }
@@ -97,7 +97,7 @@ export default class CanvasController {
   public updateCanvasTheme() {
     const { theme } = this.plot;
     const globalTheme = ThemeController.getGlobalTheme(theme);
-    const fill: string = _.get(globalTheme, 'backgroundStyle.fill');
+    const fill: string = get(globalTheme, 'backgroundStyle.fill');
     if (fill) {
       this.updateCanvasStyle({
         backgroundColor: fill,

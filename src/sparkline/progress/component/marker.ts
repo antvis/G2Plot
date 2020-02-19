@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { assign, deepMix } from '@antv/util';
 import { View } from '@antv/g2';
 import { IGroup, IShape, Canvas } from '@antv/g-canvas';
 
@@ -21,7 +21,7 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
   protected shape: IShape;
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this.init();
   }
 
@@ -33,7 +33,7 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
 
   public update(cfg: MarkerConfig, duration: number, easing: string) {
     let updateCfg: any = {};
-    _.assign(this, cfg);
+    assign(this, cfg);
     this.coord = this.view.geometries[0].coordinate;
     if (cfg.value) {
       const x = this.coord.convert({ x: 0, y: this.value }).x;
@@ -43,8 +43,8 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
     if (cfg.style) {
       const shape: any = this.shape;
       const origin_attr = shape.attrs;
-      const attrs = _.deepMix({}, origin_attr, cfg.style);
-      updateCfg = _.deepMix({}, attrs, updateCfg);
+      const attrs = deepMix({}, origin_attr, cfg.style);
+      updateCfg = deepMix({}, attrs, updateCfg);
     }
     this.shape.stopAnimate();
     this.shape.animate(updateCfg, duration, easing);
@@ -56,7 +56,7 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
     const x = this.coord.convert({ x: 0, y: this.value }).x; // progress坐标系是转置坐标系
     const y0 = this.coord.center.y - this.progressSize / 2 - 2;
     const y1 = this.coord.center.y + this.progressSize / 2 + 2;
-    const style = _.deepMix({}, { stroke: 'grey', lineWidth: 1 }, this.style);
+    const style = deepMix({}, { stroke: 'grey', lineWidth: 1 }, this.style);
     this.shape = this.container.addShape('path', {
       attrs: {
         path: [

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import TinyPlot from '../tiny-plot';
 import RingProgressLayer, { RingProgressViewConfig } from './layer';
@@ -9,7 +9,7 @@ export default class RingProgress extends BasePlot<RingProgressConfig> {
   public static getDefaultOptions: typeof RingProgressLayer.getDefaultOptions = RingProgressLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'ringProgress';
     super.createLayers(layerProps);
   }

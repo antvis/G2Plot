@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import AreaLayer, { AreaViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class Area extends BasePlot<AreaConfig> {
   public static getDefaultOptions: typeof AreaLayer.getDefaultOptions = AreaLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'area';
     super.createLayers(layerProps);
   }

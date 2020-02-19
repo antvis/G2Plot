@@ -1,10 +1,10 @@
-import { Shape } from '@antv/g';
-import * as _ from '@antv/util';
+import { IShape } from '@antv/g-base/lib/interfaces';
+import { each } from '@antv/util';
 import { isNodeOverlap } from './clear-overlapping';
 
 /** 图形向上抖开并拉线 */
 // todo 允许设置offset和拉线样式
-export default function nodeJitterUpward(shape: Shape, option, index, cfg) {
+export default function nodeJitterUpward(shape: IShape, option, index, cfg) {
   const nodes = cfg.nodes.nodes;
   if (index === 0) {
     return;
@@ -48,9 +48,9 @@ export default function nodeJitterUpward(shape: Shape, option, index, cfg) {
 
 function getShapeById(shapeId, shapes) {
   let target;
-  _.each(shapes, (shape) => {
-    const s = shape as Shape;
-    const id = s.id;
+  each(shapes, (shape) => {
+    const s = shape as IShape;
+    const id = s.get('id');
     if (id === shapeId) {
       target = s;
     }

@@ -1,4 +1,4 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 
 import datetimeStringAbbrevaite, { isTime } from './datetime-string-abbrevaite';
 import digitsAbbreviate from './digits-abbreviate';
@@ -11,7 +11,7 @@ interface RobustAbbrevaiteCfg {
   decimal?: number;
 }
 
-export default function robustAbbrevaite(shape: Shape, option: RobustAbbrevaiteCfg, index, cfg) {
+export default function robustAbbrevaite(shape: IShape, option: RobustAbbrevaiteCfg, index, cfg) {
   const nodes = cfg.nodes.nodes;
   const text = shape.attr('text');
   /** 判断text类型： 数字、时间、文本 */

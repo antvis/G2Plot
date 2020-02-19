@@ -1,6 +1,6 @@
 import { IElement } from '@antv/g-canvas';
 import { View } from '@antv/g2';
-import * as _ from '@antv/util';
+import { filter, each, isArray, clone } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
 import BBox from '../../util/bbox';
@@ -52,11 +52,11 @@ export default class PaddingController {
     this.innerPaddingComponents = [];
     // 一些组件是在view渲染完成之后渲染初始化的
     // TODO: afterRender的什么时候清除
-    this.outerPaddingComponents = _.filter(this.outerPaddingComponents, (component) => component.afterRender);
+    this.outerPaddingComponents = filter(this.outerPaddingComponents, (component) => component.afterRender);
   }
 
   public clearOuterComponents() {
-    _.each(this.outerPaddingComponents, (component) => {
+    each(this.outerPaddingComponents, (component) => {
       if (component.afterRender) {
         component.destroy();
       }
@@ -90,7 +90,7 @@ export default class PaddingController {
     let viewMaxX = this.plot.layerBBox.maxX;
     let viewMinY = this.plot.layerBBox.minY;
     let viewMaxY = this.plot.layerBBox.maxY;
-    _.each(this.outerPaddingComponents, (component) => {
+    each(this.outerPaddingComponents, (component) => {
       const { position } = component;
       const { minX, maxX, minY, maxY } = component.getBBox();
       if (maxY >= viewMinY && maxY <= viewMaxY && position === 'top') {
@@ -115,15 +115,15 @@ export default class PaddingController {
     const viewRange: any = view.viewBBox;
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
-    if (_.isArray(bleeding)) {
-      _.each(bleeding, (it, index) => {
+    if (isArray(bleeding)) {
+      each(bleeding, (it, index) => {
         if (typeof bleeding[index] === 'function') {
           bleeding[index] = bleeding[index](props);
         }
       });
     }
     this.plot.config.theme.legend.margin = bleeding;
-    this.bleeding = _.clone(bleeding);
+    this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend
     const components_bbox = [view.coordinateBBox];
     this._getAxis(view, components_bbox);
@@ -132,7 +132,7 @@ export default class PaddingController {
     box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
-    _.each(components, (obj) => {
+    each(components, (obj) => {
       const component = obj;
       const bbox = component.getBBox();
       components_bbox.push(bbox);
@@ -162,7 +162,7 @@ export default class PaddingController {
   private _getAxis(view, bboxes) {
     const axesContainer = view.getController('axis').axisContainer.get('children');
     if (axesContainer.length > 0) {
-      _.each(axesContainer, (a) => {
+      each(axesContainer, (a) => {
         const bbox = a.getBBox();
         bboxes.push(bbox);
       });
@@ -173,7 +173,7 @@ export default class PaddingController {
     const viewRange = view.viewBBox;
     const legends = view.get('legendController').legends;
     if (legends.length > 0) {
-      _.each(legends, (l) => {
+      each(legends, (l) => {
         const legend = l;
         this._adjustLegend(legend, view, box);
         const legendBBox = legend.getBBox();
@@ -208,7 +208,7 @@ export default class PaddingController {
   private _getPanel(view, box) {
     const groups = [];
     const geoms = view.get('elements');
-    _.each(geoms, (geom) => {
+    each(geoms, (geom) => {
       if (geom.get('labelController')) {
         const labelContainer = geom.get('labelController').labelsContainer;
         if (labelContainer) {
@@ -220,7 +220,7 @@ export default class PaddingController {
     let maxX = -Infinity;
     let minY = Infinity;
     let maxY = -Infinity;
-    _.each(groups, (group) => {
+    each(groups, (group) => {
       const children = group.get('children');
       children.forEach((child) => {
         if (child.type === 'group' && child.get('children').length === 0) {
@@ -276,7 +276,7 @@ export default class PaddingController {
     let minY = Infinity;
     let maxY = -Infinity;
 
-    _.each(bboxes, (bbox) => {
+    each(bboxes, (bbox) => {
       const box = bbox;
       minX = Math.min(box.minX, minX);
       maxX = Math.max(box.maxX, maxX);

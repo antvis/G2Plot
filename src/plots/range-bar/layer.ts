@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
@@ -13,7 +13,7 @@ export interface RangeBarLayerConfig extends RangeBarViewConfig, LayerConfig {}
 
 export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
   public static getDefaultOptions(): Partial<RangeBarViewConfig> {
-    return _.deepMix(
+    return deepMix(
       super.getDefaultOptions(),
       {
         label: {
@@ -76,9 +76,9 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
     // 为更新动画缓存shape
     const shapeCaches = [];
     const geoms = this.view.geometries;
-    _.each(geoms, (geom) => {
+    each(geoms, (geom) => {
       const elements = geom.elements;
-      _.each(elements, (ele) => {
+      each(elements, (ele) => {
         shapeCaches.push(ele.shape);
       });
     });

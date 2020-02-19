@@ -1,6 +1,7 @@
 /** 可插拔的responsive模块 */
-import { BBox, Shape } from '@antv/g';
-import * as _ from '@antv/util';
+import { IShape } from '@antv/g-base/lib/interfaces';
+import { BBox } from '@antv/g-base/lib/types';
+import { assign } from '@antv/util';
 import { constraintsLib } from './constraints/index';
 import ShapeNodes, { IShapeNode } from './node/shape-nodes';
 import VariableNodes from './node/variable-node';
@@ -47,7 +48,7 @@ export default class Responsive {
   public onEnd: (nodes: ShapeNodes | VariableNodes) => void;
 
   constructor(cfg: ResponsiveCfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this.currentConstraint = this.constraints[0];
     if (this.rules) {
       this.iterationTime = this.rules[this.currentConstraint.name].length;
@@ -209,7 +210,7 @@ export default class Responsive {
     // }
   }
 
-  private _applyRule(shape: Shape, rule, option, index) {
+  private _applyRule(shape: IShape, rule, option, index) {
     const cfg = {
       nodes: this.nodes,
       region: this.region,

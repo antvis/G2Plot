@@ -1,5 +1,5 @@
 import { Canvas, IGroup, Shape } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
 import BBox from '../util/bbox';
@@ -38,7 +38,7 @@ export default class TextDescription {
   private plot: ViewLayer;
 
   constructor(cfg: TextConfig) {
-    _.assign(this as any, cfg);
+    assign(this as any, cfg);
     this._init();
   }
 
@@ -50,8 +50,8 @@ export default class TextDescription {
         return BBox.fromBBoxObject(bbox);
       }
       const padding = this.plot.theme.description.padding;
-      if (_.isArray(padding)) {
-        _.each(padding, (it, index) => {
+      if (isArray(padding)) {
+        each(padding, (it, index) => {
           if (typeof padding[index] === 'function') {
             padding[index] = padding[index](this.plot.options.legend.position);
           }
@@ -79,7 +79,7 @@ export default class TextDescription {
   private _init() {
     const content = this._textWrapper();
     this.shape = (this.container.addShape('text', {
-      attrs: _.mix(
+      attrs: mix(
         {
           x: this.leftMargin,
           y: this.topMargin,

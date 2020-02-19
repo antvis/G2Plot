@@ -99,7 +99,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     if (!hasKey(this.cache, data.name)) {
       this.cache[data.name] = data;
     }
-    const tempoData = this.plot.getTreemapData(data, data.depth);;
+    const tempoData = this.plot.getTreemapData(data, data.depth);
     this.view.changeData(tempoData);
     this.adjustScale(this.currentDepth);
     this.currentNode = data;

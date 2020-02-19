@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, isFunction, get } from '@antv/util';
 import { ViewLayer } from '../..';
 import { IBaseAxis } from '../../interface/config';
 import { combineFormatter, getNoopFormatter, getPrecisionFormatter, getSuffixFormatter } from '../../util/formatter';
@@ -55,7 +55,7 @@ export default class AxisParser {
     /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
     const propos = this.plot.options;
     const propsConfig = propos[`${this.dim}Axis`] ? propos[`${this.dim}Axis`] : {};
-    const config = _.deepMix({}, this.themeConfig, propsConfig);
+    const config = deepMix({}, this.themeConfig, propsConfig);
     this.localProps = config;
     if (config.visible) {
       return true;
@@ -75,10 +75,10 @@ export default class AxisParser {
     const { grid: gridCfg } = this.localProps;
     const { style } = gridCfg;
 
-    if (_.isFunction(style)) {
+    if (isFunction(style)) {
       this.config.grid = (text: string, index: number, count: number) => {
         const cfg = style(text, index, count);
-        return { line: { style: _.deepMix({}, _.get(this.themeConfig, `grid.style`), cfg) } };
+        return { line: { style: deepMix({}, get(this.themeConfig, `grid.style`), cfg) } };
       };
     } else if (style) {
       this.config.grid = { line: { style } };
@@ -98,9 +98,9 @@ export default class AxisParser {
     const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: any = { ...restLabelProps };
     if (style) {
-      labelConfig.style = { style: this.localProps.label.style };
+      labelConfig.style = { ...this.localProps.label.style };
     }
-    labelConfig.style = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.style);
+    labelConfig.style = deepMix({}, get(this.themeConfig, 'label.style'), labelConfig.style);
     const formatter = this.parseFormatter(labelConfig);
     labelConfig.formatter = formatter;
     this.config.label = labelConfig;
@@ -116,7 +116,7 @@ export default class AxisParser {
       if (style) {
         titleConfig.style = style;
       }
-      titleConfig.style = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
+      titleConfig.style = deepMix({}, get(this.config, 'title.style'), titleConfig.textStyle);
 
       if (text) {
         titleConfig.text = text;
@@ -133,7 +133,7 @@ export default class AxisParser {
   }
 
   private applyThemeConfig(type: 'line' | 'grid' | 'tickLine') {
-    this.config[type] = _.deepMix({}, _.get(this.themeConfig, `${type}.style`), this.config[type]);
+    this.config[type] = deepMix({}, get(this.themeConfig, `${type}.style`), this.config[type]);
   }
 
   protected parseFormatter(labelConfig) {

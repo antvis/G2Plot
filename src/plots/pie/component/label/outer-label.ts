@@ -1,5 +1,5 @@
 import { IShape } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { filter, last, head, map } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getEndPoint } from './utils';
 
@@ -32,8 +32,8 @@ export default class PieOuterLabel extends PieBaseLabel {
   /** label 碰撞调整 */
   protected layout(labels: IShape[]) {
     const { center } = this.getCoordinate();
-    const leftHalf = _.filter(labels, (l) => l.attr('x') <= center.x);
-    const rightHalf = _.filter(labels, (l) => l.attr('x') > center.x);
+    const leftHalf = filter(labels, (l) => l.attr('x') <= center.x);
+    const rightHalf = filter(labels, (l) => l.attr('x') > center.x);
     [rightHalf, leftHalf].forEach((half, isLeft) => {
       this._antiCollision(half, !isLeft);
     });
@@ -89,7 +89,7 @@ export default class PieOuterLabel extends PieBaseLabel {
     }
     while (overlapping) {
       boxes.forEach((box) => {
-        const target = _.last(box.targets);
+        const target = last(box.targets);
         box.pos = Math.max(minY, Math.min(box.pos, target - box.size));
       });
       // detect overlapping and join boxes
@@ -104,7 +104,7 @@ export default class PieOuterLabel extends PieBaseLabel {
             previousBox.size += box.size;
             previousBox.targets = previousBox.targets.concat(box.targets);
             // overflow, shift up
-            const target = _.last(previousBox.targets);
+            const target = last(previousBox.targets);
             if (previousBox.pos + previousBox.size > target) {
               previousBox.pos = target - previousBox.size;
             }
@@ -144,15 +144,13 @@ export default class PieOuterLabel extends PieBaseLabel {
       if (!adjustLabels.length) {
         return;
       }
-      let ry = isBottom
-        ? _.last(adjustLabels).getBBox().maxY - center.y
-        : center.y - _.head(adjustLabels).getBBox().minY;
+      let ry = isBottom ? last(adjustLabels).getBBox().maxY - center.y : center.y - head(adjustLabels).getBBox().minY;
       ry = Math.max(totalR, ry);
       const distance = offset > 4 ? 4 : 0;
       const maxLabelWidth =
         Math.max.apply(
           0,
-          _.map(labels, (label) => label.getBBox().width)
+          map(labels, (label) => label.getBBox().width)
         ) +
         offset +
         distance;
@@ -195,7 +193,7 @@ export default class PieOuterLabel extends PieBaseLabel {
   /** 获取label height */
   private getLabelHeight(labels: IShape[]): number {
     if (!this.options.labelHeight) {
-      return _.head(labels) ? _.head(labels).getBBox().height : 14;
+      return head(labels) ? head(labels).getBBox().height : 14;
     }
     return this.options.labelHeight;
   }

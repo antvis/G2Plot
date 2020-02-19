@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, get, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, Label } from '../../interface/config';
@@ -15,7 +15,7 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
   protected plotComponents: any[] = [];
 
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       label: {
         visible: false,
         type: 'area',
@@ -26,8 +26,8 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
   public type: string = 'stackArea';
 
   public beforeInit() {
-    const visible = _.get(this.options, ['label', 'visible']);
-    const type = _.get(this.options, ['label', 'type']);
+    const visible = get(this.options, ['label', 'visible']);
+    const type = get(this.options, ['label', 'type']);
     const options: any = this.options;
     if (visible) {
       if (type === 'line') {
@@ -74,7 +74,7 @@ export default class StackAreaLayer<T extends StackAreaLayerConfig = StackAreaLa
 
   protected renderPlotComponents() {
     const componentsType = ['areaLabel', 'lineLabel'];
-    _.each(componentsType, (t) => {
+    each(componentsType, (t) => {
       const cfg = {
         view: this.view,
         plot: this,

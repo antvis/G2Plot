@@ -5,8 +5,8 @@
  * 2. 如果是枚举值，不使用enum，全部列出
  * 3. 减少嵌套，尽量平铺配置
  */
-import { Options } from '@antv/g2/lib/chart/interface';
-import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/geometry/interface';
+import { Options } from '@antv/g2/lib/interface';
+import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/interface';
 import { LooseMap } from './types';
 
 export interface ITitle {
@@ -144,8 +144,8 @@ export interface Legend {
 }
 
 export interface Tooltip {
-  visible: boolean;
-  shared: boolean;
+  visible?: boolean;
+  shared?: boolean;
   /** html */
   showTitle?: boolean;
   html?: HTMLDivElement;
@@ -189,6 +189,7 @@ export interface ElementOption {
   widthRatio?: {
     [type: string]: number;
   };
+  tooltip?: any;
 }
 
 export type G2Config = Options;
@@ -270,7 +271,11 @@ export interface IScrollbarInteractionConfig {
   categorySize?: number;
 }
 
-export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
+//export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
+
+export type IInteractionConfig = {
+  [field: string]: any;
+};
 
 export interface IInteractions {
   type: string;

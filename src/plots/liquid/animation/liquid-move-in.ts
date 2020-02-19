@@ -22,7 +22,8 @@ function liquidMoveIn(shape, animateCfg) {
   const transformMatrix = transform(wavesTargetMatrix, [
     ['t', -originX, -originY],
     ['s', 1, 0],
-    ['t', originX, originY]]);
+    ['t', originX, originY]
+  ]);
   waves.setMatrix(transformMatrix);
   waves.animate(
     { matrix: wavesTargetMatrix },

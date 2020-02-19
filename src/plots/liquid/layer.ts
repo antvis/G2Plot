@@ -186,9 +186,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         top: true,
         content,
         type: 'text',
-        position: ['_', 'median'],
+        position: ['50%', '50%'],
         style: {
-          opacity,
+          opacity:1,
           fill: 'transparent',
           shadowColor: 'transparent',
           textAlign: 'center',
@@ -203,7 +203,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   public afterRender() {
-    //this.fadeInAnnotation();
+    this.fadeInAnnotation();
     const { options } = this;
     const padding = options.padding ? options.padding : this.config.theme.padding;
     /** defaultState */
@@ -228,18 +228,19 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   protected fadeInAnnotation() {
-   /* const props = this.options;
+   const props = this.options;
+   const textShape = this.view.foregroundGroup.findAll((el) => {
+    return el.get('name') === 'annotation-text';
+  })[0];
     const animation = props.animation || {};
-    const { annotations } = this.view.annotation();
-    const annotationEl = annotations[0].get('el');
     const colorStyle = this.calcAnnotationColorStyle();
     if (this.shouldFadeInAnnotation) {
-      annotationEl.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {
+      textShape.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {
         this.shouldFadeInAnnotation = false;
       });
     } else {
-      _.forIn(colorStyle, (v, k) => annotationEl.attr(k, v));
-    }*/
+      _.forIn(colorStyle, (v, k) => textShape.attr(k, v));
+    }
   }
 
   protected calcAnnotationColorStyle() {

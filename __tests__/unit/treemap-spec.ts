@@ -26,7 +26,7 @@ describe('treemap', () => {
     treemapPlot.render();
   });
 
-  it.only('interaction',()=>{
+  it('interaction',()=>{
     const data = test;
     const rootData = { name: '公司销售数据', value: 0, children: [] };
     each(data, (s) => {
@@ -73,7 +73,6 @@ describe('treemap', () => {
     });
     treemapPlot.render();
   });
-
 });
 
 function processData(data) {

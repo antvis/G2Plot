@@ -124,7 +124,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     const { data, colorField, color } = this.options;
     const treemapData = this.getTreemapData(data);
     this.rootData = treemapData;
-    const { maxLevel } = this.options;
+    const isNested = this.isNested(treemapData);
     this.rect = {
       type: 'polygon',
       position: {
@@ -137,18 +137,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       style: {
         fields: ['depth'],
         callback: (d) => {
-          let defaultStyle = {
-            lineWidth: 1,
-            stroke: 'rgba(0,0,0,0.3)',
-            opacity: d / maxLevel,
-          };
-          if (d === 1) {
-            defaultStyle = {
-              lineWidth: 1,
-              stroke: 'black',
-              opacity: d / maxLevel,
-            };
-          }
+          const defaultStyle = this.adjustStyleByDepth(d,isNested)
           return deepMix({}, defaultStyle, this.options.rectStyle);
         },
       },
@@ -261,6 +250,44 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
 
   private isLeaf(data) {
     return !data.children || data.children.length === 0;
+  }
+
+  private isNested(data){
+    const { maxLevel } = this.options;
+    if(maxLevel === 1){
+      return false;
+    }
+    let nested = false;
+    for(let i =0; i<data.length; i++){
+      if(data[i].children){
+        nested = true;
+        break;
+      }
+    }
+    return nested;
+  }
+
+  private adjustStyleByDepth(depth,isNested){
+    const { maxLevel } = this.options;
+    if(!isNested){
+      return {
+        lineWidth: 1,
+        stroke: 'rgba(0,0,0,0.9)',
+        opacity: 0.9,
+      };
+    }else if(depth === 1){
+      return {
+        lineWidth: 1,
+        stroke: 'black',
+        opacity: depth / maxLevel,
+      };
+    }else{
+      return {
+        lineWidth: 1,
+        stroke: 'rgba(0,0,0,0.3)',
+        opacity: depth / maxLevel,
+      };
+    }
   }
 
 }

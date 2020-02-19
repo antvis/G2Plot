@@ -48,6 +48,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       liquidStyle: {
         lineWidth: 2,
       },
+      interactions:[]
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
   }

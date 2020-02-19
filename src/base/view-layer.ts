@@ -25,6 +25,7 @@ import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
+  renderer?: string;
   data?: DataItem[];
   meta?: LooseMap;
   padding?: number | number[] | string;
@@ -63,6 +64,7 @@ export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(props?: Partial<ViewConfig>): Partial<ViewConfig> {
     return {
+      renderer: 'canvas',
       title: {
         visible: false,
         text: '',
@@ -246,7 +248,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-    //this.addGeomCliper();
+    if (this.options.renderer === 'canvas') {
+      this.addGeomCliper();
+    }
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();

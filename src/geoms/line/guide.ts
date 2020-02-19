@@ -13,6 +13,7 @@ export default class GuideLineParser extends LineParser {
       position: {
         fields: [props.xField, props.yField],
       },
+      tooltip: false
     };
 
     if (this._getColorMappingField() || this._needParseAttribute('color')) {

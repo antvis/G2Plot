@@ -1,5 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base/lib/interfaces';
 import { View } from '@antv/g2';
 import { breakText } from '../../../util/common';
 

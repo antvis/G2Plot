@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { assign } from '@antv/util';
 import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const SHAPE_EVENT_MAP: IEventmap = {
@@ -13,6 +13,6 @@ const SHAPE_EVENT_MAP: IEventmap = {
   test: 'breadcrumb:click',
 };
 
-_.assign(EVENT_MAP, SHAPE_EVENT_MAP);
+assign(EVENT_MAP, SHAPE_EVENT_MAP);
 
 export { EVENT_MAP, onEvent };

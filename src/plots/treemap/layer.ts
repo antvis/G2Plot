@@ -2,7 +2,6 @@ import { deepMix, each, hasKey } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import squarify from './layout/squarify';
 import { INTERACTION_MAP } from './interaction';
 import * as EventParser from './event';

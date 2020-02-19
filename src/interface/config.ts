@@ -190,7 +190,7 @@ export interface ElementOption {
   widthRatio?: {
     [type: string]: number;
   };
-  tooltip: any;
+  tooltip?: any;
 }
 
 export interface G2Config {

@@ -1,5 +1,4 @@
 import { Liquid } from '../../src';
-import Theme from '../../src/theme/theme';
 
 describe.skip('Liquid plot', () => {
   const canvasDiv = document.createElement('div');
@@ -14,7 +13,6 @@ describe.skip('Liquid plot', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
-
       type: 'normal',
       min: 0,
       max: 10000,
@@ -38,9 +36,11 @@ describe.skip('Liquid plot', () => {
   it('title & description', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       title: {
+        visible: true,
         text: titleText,
       },
       description: {
+        visible: true,
         text: descriptionText,
       },
       width: 400,
@@ -60,7 +60,6 @@ describe.skip('Liquid plot', () => {
   });
 
   it('liquid-normal', () => {
-    Theme.setTheme('ali-light');
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
@@ -88,13 +87,14 @@ describe.skip('Liquid plot', () => {
     const liquidPlot = new Liquid(canvasDiv, {
       width: 400,
       height: 450,
-
       type: 'percent',
       min: 0,
       max: 10000,
       value: 6640,
       showValue: true,
-      format: (d) => `[${d}]`,
+      statistic: {
+        formatter: (d) => `[${d}]`,
+      },
     });
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;
@@ -113,7 +113,10 @@ describe.skip('Liquid plot', () => {
       max: 10000,
       value: 6640,
       showValue: true,
-      format: (d) => `[${d}]`,
+      statistic: {
+        visible: true,
+        formatter: (d) => `[${d}]`,
+      },
     });
     liquidPlot.render();
     const plot = liquidPlot.getLayer().plot;

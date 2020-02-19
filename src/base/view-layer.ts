@@ -24,6 +24,7 @@ import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 import BBox from '../util/bbox';
+import { Interaction } from '@antv/g2';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -131,6 +132,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
+      interactions: [
+        {
+          type: 'tooltip',
+        },
+        {
+          type: 'element-active',
+        },
+      ],
     };
   }
   public type: string;
@@ -184,14 +193,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
-      interactions: [
-        {
-          type: 'tooltip',
-        },
-        {
-          type: 'element-active',
-        },
-      ],
+      interactions: [],
       theme: this.theme,
       panelRange: {},
       animate: true,
@@ -431,7 +433,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
-  protected interaction() {}
+  protected interaction() {
+    const { interactions = [] } = this.options;
+    each(interactions, (interaction) => {
+      this.setConfig('interaction', interaction);
+    });
+  }
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {

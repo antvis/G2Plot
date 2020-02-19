@@ -20,13 +20,13 @@ export { default as Treemap, TreemapConfig } from './treemap';
 export { default as StepLine, StepLineConfig } from './step-line';
 export { default as Rose, RoseConfig } from './rose';
 export { default as Radar, RadarConfig } from './radar';
+export { default as Liquid, LiquidConfig } from './liquid';
 
 // export { default as Density, DensityConfig } from './density';
 // export { default as Bubble, BubbleConfig } from './bubble';
 // export { default as Scatter, ScatterConfig } from './scatter';
 // export { default as Histogram, HistogramConfig } from './histogram';
 // export { default as Ring, RingConfig } from './ring';
-// export { default as Liquid, LiquidConfig } from './liquid';
 // export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as Funnel, FunnelConfig } from './funnel';
 // export { default as Waterfall, WaterfallConfig } from './waterfall';

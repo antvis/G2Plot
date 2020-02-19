@@ -5,8 +5,7 @@
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import './geometry/shape/waterfall';
-import { LayerConfig } from '../../base/layer';
-import { ElementOption, IStyleConfig, DataItem, Label } from '../..';
+import { ElementOption, IStyleConfig, DataItem, LayerConfig } from '../..';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { extractScale } from '../../util/scale';
 import { AttributeCfg } from '@antv/attr';
@@ -14,6 +13,7 @@ import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
+import WaterfallLabels from './component/label/waterfall-label';
 
 interface WaterfallStyle {}
 
@@ -92,15 +92,21 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: {
-          type: 'rect',
-        },
+        showCrosshairs: false,
+        showMarkers: false,
+        // TODO 交叉轴的问题
+        // crosshairs: {
+        //   type: 'rect',
+        // },
       },
     });
   }
 
   public getOptions(props: WaterfallLayerConfig) {
-    const options = super.getOptions(props);
+    // @ts-ignore
+    const defaultOptions = this.constructor.getDefaultOptions(props);
+    const options = _.deepMix({}, super.getOptions(props), defaultOptions, props);
+
     this.adjustLegendOptions(options);
     this.adjustMeta(options);
     return options;
@@ -126,20 +132,35 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     super.afterRender();
     const options = this.options;
     this.view.on('tooltip:change', (e) => {
-      const { items } = e;
+      const { tooltip, items } = e;
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        const _origin = _.get(item.point, '_origin', {});
+        const data = _.get(item, 'data', {});
         // 改变 tooltip 显示的name和value
-        item.name = _origin[options.xField];
-        item.value = _origin[options.yField];
-        if (!item.value && _origin[IS_TOTAL]) {
-          const values = _origin[VALUE_FIELD];
+        item.name = data[options.xField];
+        item.value = data[options.yField];
+        if (!item.value && data[IS_TOTAL]) {
+          const values = data[VALUE_FIELD];
           item.value = values[0] - values[1];
         }
-        e.items[i] = item;
+        items[i] = item;
       }
+      tooltip.update({
+        items,
+      });
     });
+    this.renderLabel();
+  }
+
+  protected renderLabel() {
+    if (this.options.label && this.options.label.visible) {
+      const label = new WaterfallLabels({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
   }
 
   protected geometryParser(dim, type) {
@@ -147,6 +168,10 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       return G2_GEOM_MAP[type];
     }
     return PLOT_GEOM_MAP[type];
+  }
+
+  protected interaction() {
+    this.setConfig('interactions', [{ type: 'tooltip' }, { type: 'active-region' }]);
   }
 
   protected addGeometry() {
@@ -160,13 +185,10 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
         values: ['waterfall'],
       },
     };
-    if (options.label) {
-      waterfall.label = this.extractLabel();
-    }
     waterfall.style = this._parseStyle();
     waterfall.color = this._parseColor();
     this.waterfall = waterfall;
-    this.setConfig('element', waterfall);
+    this.setConfig('geometry', waterfall);
   }
 
   protected processData(originData?: DataItem[]) {
@@ -217,7 +239,6 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       extractScale(scales[VALUE_FIELD], options.yAxis);
     }
     this.setConfig('scales', scales);
-    super.scale();
   }
 
   /** @override */
@@ -241,21 +262,6 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
 
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
-  }
-
-  protected extractLabel() {
-    const options = this.options;
-    const label = _.deepMix({}, options.label as Label);
-    if (label.visible === false) {
-      return false;
-    }
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'waterfall',
-      fields: [options.yField],
-      ...label,
-    });
-    return labelConfig;
   }
 
   /** 牵引线的样式注入到style中 */

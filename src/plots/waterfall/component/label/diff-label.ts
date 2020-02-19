@@ -2,10 +2,11 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { VALUE_FIELD, IS_TOTAL } from '../../layer';
+import { VIEW_LIFE_CIRCLE } from 'antv-g2/lib/constant';
+import { IGroup } from '@antv/g/packages/g-base/lib';
 
 export interface DiffLabelcfg {
   view: View;
@@ -31,7 +32,7 @@ function getDefaultCfg() {
 export default class DiffLabel {
   private view: View;
   private fields: string[];
-  private container: Group;
+  private container: IGroup;
   private formatter: (text: string, item: object, idx: number) => string;
   private textAttrs: object = {};
 
@@ -49,18 +50,13 @@ export default class DiffLabel {
     if (!this.view || this.view.destroyed) {
       return;
     }
-    const data = _.clone(this.view.get('data'));
-    this.container = this.view.get('frontgroundGroup').addGroup();
-    const shapes = this.view
-      .get('elements')[0]
-      .getShapes()
-      .filter((s) => s.name === 'interval');
-    const labelsGroup = new Group();
-
+    const data = _.clone(this.view.getData());
+    this.container = this.view.foregroundGroup.addGroup();
+    const shapes = this.view.geometries[0].elements.map((value) => value.shape);
     _.each(shapes, (shape, idx) => {
-      if (!shape.get('origin')) return;
-      const _origin = shape.get('origin')._origin;
-      const shapeBox: BBox = shape.getBBox();
+      if (!shape.cfg.origin) return;
+      const _origin = shape.cfg.origin.data;
+      const shapeBox = shape.getBBox();
       const values = _origin[VALUE_FIELD];
       let diff = values;
       if (_.isArray(values)) {
@@ -76,7 +72,7 @@ export default class DiffLabel {
         const color = shapes[idx].attr('fill');
         formattedText = this.formatter(`${diff}`, { _origin: data[idx], color }, idx);
       }
-      const text = labelsGroup.addShape('text', {
+      const text = this.container.addShape('text', {
         attrs: {
           text: formattedText,
           textBaseline: 'middle',
@@ -90,8 +86,7 @@ export default class DiffLabel {
         text.set('visible', false);
       }
     });
-    this.container.add(labelsGroup);
-    this.view.get('canvas').draw();
+    this.view.getCanvas().draw();
   }
 
   public clear() {
@@ -101,11 +96,11 @@ export default class DiffLabel {
   }
 
   private _init() {
-    this.view.on('beforerender', () => {
+    this.view.on(VIEW_LIFE_CIRCLE.BEFORE_RENDER, () => {
       this.clear();
     });
 
-    this.view.on('afterrender', () => {
+    this.view.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
       this.draw();
     });
   }

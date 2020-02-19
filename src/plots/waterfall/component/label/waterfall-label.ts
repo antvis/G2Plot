@@ -2,19 +2,20 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import { registerElementLabels, ElementLabels } from '@antv/g2';
 import * as _ from '@antv/util';
-import ColumnLabel from '../../../column/component/label';
+import ColumnLabel, { IColumnLabel } from '../../../column/component/label';
 import { VALUE_FIELD } from '../../layer';
 
-class WaterfallLabels extends ColumnLabel {
-  public adjustPosition(label, shape, item) {
+export default class WaterfallLabels extends ColumnLabel {
+  constructor(cfg: IColumnLabel) {
+    super(cfg);
+  }
+  public adjustLabel(label, shape) {
     const MARGIN = 2;
     const shapeBox = shape.getBBox();
-    const origin = label.get('origin');
-    const yField = item.fields[0];
+    const origin = shape.cfg.origin.data;
     const values = origin[VALUE_FIELD];
-    const diff = origin[yField];
+    const diff = origin[this.plot.options.yField];
     const value = _.isArray(values) ? values[1] : values;
     let yPos = (shapeBox.minY + shapeBox.maxY) / 2;
     let textBaseline = 'bottom';
@@ -31,5 +32,3 @@ class WaterfallLabels extends ColumnLabel {
     label.attr('textBaseline', textBaseline);
   }
 }
-
-registerElementLabels('waterfall', WaterfallLabels);

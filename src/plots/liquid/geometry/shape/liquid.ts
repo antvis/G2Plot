@@ -1,5 +1,5 @@
 import { registerShape } from '@antv/g2';
-import * as _ from '@antv/util';
+import {isArray,each,isNumber,mix} from '@antv/util';
 import { getGlobalTheme } from '../../../../theme';
 import { transform } from '../../../../util/g-util';
 
@@ -10,10 +10,10 @@ const ShapeUtil = {
     const points = [];
     const x = obj.x;
     let y = obj.y;
-    y = _.isArray(y) ? y : [y];
-    _.each(y, (yItem, index) => {
+    y = isArray(y) ? y : [y];
+    each(y, (yItem, index) => {
       const point = {
-        x: _.isArray(x) ? x[index] : x,
+        x: isArray(x) ? x[index] : x,
         y: yItem,
       };
       points.push(point);
@@ -24,7 +24,7 @@ const ShapeUtil = {
     if (cfg.color && !attrs.fill) {
       attrs.fill = cfg.color;
     }
-    if (_.isNumber(cfg.opacity)) {
+    if (isNumber(cfg.opacity)) {
       attrs.opacity = attrs.fillOpacity = cfg.opacity;
     }
   },
@@ -32,7 +32,7 @@ const ShapeUtil = {
     if (cfg.color && !attrs.stroke) {
       attrs.stroke = cfg.color;
     }
-    if (_.isNumber(cfg.opacity)) {
+    if (isNumber(cfg.opacity)) {
       attrs.opacity = attrs.strokeOpacity = cfg.opacity;
     }
   },
@@ -50,7 +50,7 @@ const getFillAttrs = (cfg) => {
     fill: globalTheme.color,
     fillOpacity: 0.85,
   };
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
+  const attrs = mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(attrs, cfg);
   if (cfg.color && !attrs.stroke) {
     attrs.stroke = attrs.stroke || cfg.color;
@@ -65,7 +65,7 @@ const getLineAttrs = (cfg) => {
       fillOpacity: 0,
       lineWidth: 2,
   };
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
+  const attrs = mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addStrokeAttrs(attrs, cfg);
   return attrs;
 };
@@ -252,7 +252,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
     let sumX = 0;
     let minX = Infinity;
-    _.each(cfg.points, (p: any) => {
+    each(cfg.points, (p: any) => {
       if (p.x < minX) {
         minX = p.x;
       }
@@ -292,7 +292,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     );
     const warpRing = container.addShape('circle', {
       name: 'wrap',
-      attrs: _.mix(getLineAttrs(cfg), {
+      attrs: mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,
         r: radius,

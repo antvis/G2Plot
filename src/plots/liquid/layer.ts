@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import {deepMix,isFunction, get, forIn} from '@antv/util';
 import BBox from '../../util/bbox';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -31,6 +31,7 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
   max: number;
   value: number;
   liquidStyle?: LiquidStyle | ((...args: any[]) => LiquidStyle);
+  type?: string;
 }
 
 export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
@@ -51,7 +52,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       color:'#6a99f9',
       interactions:[]
     };
-    return _.deepMix({}, super.getDefaultOptions(), cfg);
+    return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public liquid: any;
@@ -94,7 +95,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     liquid.tooltip = false;
 
     let liquidStyle = props.liquidStyle;
-    if (_.isFunction(liquidStyle)) liquidStyle = liquidStyle();
+    if (isFunction(liquidStyle)) liquidStyle = liquidStyle();
     if (liquidStyle) {
       liquid.style = liquidStyle;
     }
@@ -116,9 +117,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       /** 关闭动画 */
       this.liquid.animate = false;
     } else {
-      const factor = _.get(props, 'animation.factor');
-      const easing = _.get(props, 'animation.easing');
-      const duration = _.get(props, 'animation.duration');
+      const factor = get(props, 'animation.factor');
+      const easing = get(props, 'animation.easing');
+      const duration = get(props, 'animation.duration');
       this.liquid.animate = {
         appear: {
           animation: 'liquidMoveIn',
@@ -151,7 +152,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     const statistic = props.statistic || {};
 
     let content;
-    if (_.isFunction(statistic.formatter)) {
+    if (isFunction(statistic.formatter)) {
       content = statistic.formatter(props.value);
     } else {
       content = `${props.value}`;
@@ -175,7 +176,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       opacity = 0;
     }
 
-    const statisticConfig = _.deepMix(
+    const statisticConfig = deepMix(
       {
         style: {
           fontSize,
@@ -240,7 +241,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         this.shouldFadeInAnnotation = false;
       });
     } else {
-      _.forIn(colorStyle, (v, k) => textShape.attr(k, v));
+      forIn(colorStyle, (v, k) => textShape.attr(k, v));
     }
   }
 
@@ -250,10 +251,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     const lightColorStyle = { fill: '#f6f6f6', shadowColor: 'black' };
     const darkColorStyle = { fill: '#303030', shadowColor: 'white' };
 
-    if (_.get(props, 'statistic.adjustColor') === false) {
+    if (get(props, 'statistic.adjustColor') === false) {
       return {
-        fill: _.get(props, 'statistic.style.fill', darkColorStyle.fill),
-        shadowColor: _.get(props, 'statistic.style.shadowColor', darkColorStyle.shadowColor),
+        fill: get(props, 'statistic.style.fill', darkColorStyle.fill),
+        shadowColor: get(props, 'statistic.style.shadowColor', darkColorStyle.shadowColor),
       };
     }
 

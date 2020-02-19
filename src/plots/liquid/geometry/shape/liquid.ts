@@ -1,6 +1,7 @@
 import { registerShape } from '@antv/g2';
 import * as _ from '@antv/util';
 import { getGlobalTheme } from '../../../../theme';
+import { transform } from '../../../../util/g-util';
 
 const globalTheme = getGlobalTheme();
 
@@ -237,13 +238,11 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
     })
     // FIXME wave animation error in svg
     // if (Global.renderer === 'canvas') {
-      wave.animate(
-        {
-          transform: [['t', width / 2, 0]],
-          repeat: true,
-        },
-        ValueUtil.lerp(duration, 0.7 * duration, factor)
-      );
+      const matrix = transform([['t', width / 2, 0]]);
+      wave.animate({matrix},{
+        duration: ValueUtil.lerp(duration, 0.7 * duration, factor),
+        repeat: true
+      });
     //}
   }
 }

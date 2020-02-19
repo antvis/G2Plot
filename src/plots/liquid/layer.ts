@@ -202,7 +202,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   public afterRender() {
-    this.fadeInAnnotation();
+    //this.fadeInAnnotation();
     const { options } = this;
     const padding = options.padding ? options.padding : this.config.theme.padding;
     /** defaultState */
@@ -227,9 +227,8 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   protected fadeInAnnotation() {
-    const props = this.options;
+   /* const props = this.options;
     const animation = props.animation || {};
-
     const { annotations } = this.view.annotation();
     const annotationEl = annotations[0].get('el');
     const colorStyle = this.calcAnnotationColorStyle();
@@ -239,7 +238,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       });
     } else {
       _.forIn(colorStyle, (v, k) => annotationEl.attr(k, v));
-    }
+    }*/
   }
 
   protected calcAnnotationColorStyle() {
@@ -267,12 +266,12 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     }
 
     if (percent > 0.55) {
-      const waves = this.view
-        .get('elements')[0]
-        .get('container')
-        .find((shape) => shape.get('name') == 'waves');
-      const wave = waves.getChildByIndex(0);
-
+      const waves = [];
+      const elements = this.view.geometries[0].elements;
+      _.each(elements,(ele)=>{
+        waves.push(ele.shape);
+      });
+      const wave = waves[0];
       const waveColor = wave.attr('fill');
       const waveOpacity = 0.8;
       const rgb = rgb2arr(waveColor);

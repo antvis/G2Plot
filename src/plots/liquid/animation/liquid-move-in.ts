@@ -1,5 +1,6 @@
 import { registerAnimation } from '@antv/g2';
 import * as _ from '@antv/util';
+import { transform } from '../../../util/g-util';
 
 function liquidMoveIn(shape, animateCfg) {
   const container = shape.get('parent');
@@ -16,14 +17,13 @@ function liquidMoveIn(shape, animateCfg) {
   const wrapTargetOpacity = wrap.attr('opacity');
   wrap.attr('opacity', 0);
   wrap.animate({ opacity: wrapTargetOpacity }, duration * factor, 'easeLinear', null, delay);
-
   const waves = container.find((shape) => shape.get('name') == 'waves');
-  const wavesTargetMatrix = _.clone(waves.attr('matrix'));
-  waves.attr('transform', [
+  const wavesTargetMatrix = _.clone(waves.attr('matrix')) || [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  const transformMatrix = transform(wavesTargetMatrix, [
     ['t', -originX, -originY],
     ['s', 1, 0],
-    ['t', originX, originY],
-  ]);
+    ['t', originX, originY]]);
+  waves.setMatrix(transformMatrix);
   waves.animate(
     { matrix: wavesTargetMatrix },
     duration,
@@ -31,6 +31,7 @@ function liquidMoveIn(shape, animateCfg) {
     () => callback && callback(container, wrap, waves),
     delay
   );
+
 }
 liquidMoveIn.animationName = 'liquidMoveIn';
 registerAnimation('liquidMoveIn', liquidMoveIn);

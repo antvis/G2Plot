@@ -232,10 +232,10 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
         opacity: ValueUtil.lerp(0.6, 0.3, factor),
       },
     });
-    wave.setClip({
+    /*wave.setClip({
       type:'circle',
       attrs: clip.attrs
-    })
+    })*/
     // FIXME wave animation error in svg
     // if (Global.renderer === 'canvas') {
       const matrix = transform([['t', width / 2, 0]]);
@@ -290,7 +290,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       clipCircle,
       radius * 4
     );
-    return container.addShape('circle', {
+    const warpRing = container.addShape('circle', {
       name: 'wrap',
       attrs: _.mix(getLineAttrs(cfg), {
         x: cp.x,
@@ -299,5 +299,6 @@ registerShape('interval', 'liquid-fill-gauge', {
         fill: 'transparent',
       }),
     });
+    return waves[0];
   },
 });

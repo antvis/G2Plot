@@ -48,6 +48,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       liquidStyle: {
         lineWidth: 2,
       },
+      color:'#6a99f9',
       interactions:[]
     };
     return _.deepMix({}, super.getDefaultOptions(), cfg);
@@ -101,7 +102,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   protected addGeometry(): void {
     const liquid = getGeom('interval', 'main', {
-      positionFields: ['_', 'value'],
+      positionFields: [1, 'value'],
       plot: this,
     });
     this.adjustLiquid(liquid);
@@ -268,17 +269,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     }
 
     if (percent > 0.55) {
-      const waves = [];
-      const elements = this.view.geometries[0].elements;
-      _.each(elements,(ele)=>{
-        waves.push(ele.shape);
-      });
-      const wave = waves[0];
-      const waveColor = wave.attr('fill');
+      const waveColor = this.options.color;
       const waveOpacity = 0.8;
       const rgb = rgb2arr(waveColor);
       const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / waveOpacity;
-
       return gray < 156 ? lightColorStyle : darkColorStyle;
     }
 

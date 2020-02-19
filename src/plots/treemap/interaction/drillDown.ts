@@ -59,7 +59,6 @@ export default class DrillDownInteraction extends BaseInteraction {
         config.itemHeight + paddingTop + paddingBottom
       );
     }
-
   }
 
   private container: IGroup;
@@ -145,7 +144,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     this.onInteraction();
   }
 
-  protected clear() { }
+  protected clear() {}
 
   private layout() {
     const currentWidth = this.container.getBBox().width;
@@ -262,8 +261,8 @@ export default class DrillDownInteraction extends BaseInteraction {
         y: viewRange.minY,
         width: viewRange.width,
         height: viewRange.height,
-      }
-    })
+      },
+    });
   }
 
   private updateRoot(data) {

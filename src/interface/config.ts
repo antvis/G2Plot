@@ -274,7 +274,7 @@ export interface IScrollbarInteractionConfig {
 
 export type IInteractionConfig = {
   [field: string]: any;
-}
+};
 
 export interface IInteractions {
   type: string;

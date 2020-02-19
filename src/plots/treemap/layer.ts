@@ -1,4 +1,4 @@
-import {deepMix,each,hasKey} from '@antv/util';
+import { deepMix, each, hasKey } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -31,7 +31,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         showTitle: false,
         showCrosshairs: false,
         showMarkers: false,
-        shared: false
+        shared: false,
       },
       legend: {
         visible: false,
@@ -60,7 +60,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         y: {
           nice: false,
         },
-      }
+      },
     });
   }
   public type: string = 'line';
@@ -68,7 +68,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
   public rect: any;
   private isDrilldown: boolean;
 
-  public beforeInit() { 
+  public beforeInit() {
     super.beforeInit();
     const { interactions } = this.options;
     if (interactions) {
@@ -84,9 +84,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     this.rootData = treemapData;
   }
 
-  public afterRender(){
+  public afterRender() {
     super.afterRender();
-    if(this.options.label && this.options.label.visible){
+    if (this.options.label && this.options.label.visible) {
       const label = new TreemapLabel({
         view: this.view,
         plot: this,
@@ -137,13 +137,13 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       style: {
         fields: ['depth'],
         callback: (d) => {
-          const defaultStyle = this.adjustStyleByDepth(d,isNested)
+          const defaultStyle = this.adjustStyleByDepth(d, isNested);
           return deepMix({}, defaultStyle, this.options.rectStyle);
         },
       },
-      tooltip:{
-        fields:['name','value']
-      }
+      tooltip: {
+        fields: ['name', 'value'],
+      },
     };
     this.setConfig('geometry', this.rect);
   }
@@ -163,7 +163,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
               startEvent: 'polygon:click',
             },
             inter.cfg,
-            Ctr.getInteractionRange(this.layerBBox, inter.cfg),
+            Ctr.getInteractionRange(this.layerBBox, inter.cfg)
           )
         );
         interactions[inter.type] = interaction;
@@ -252,14 +252,14 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     return !data.children || data.children.length === 0;
   }
 
-  private isNested(data){
+  private isNested(data) {
     const { maxLevel } = this.options;
-    if(maxLevel === 1){
+    if (maxLevel === 1) {
       return false;
     }
     let nested = false;
-    for(let i =0; i<data.length; i++){
-      if(data[i].children){
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].children) {
         nested = true;
         break;
       }
@@ -267,21 +267,21 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     return nested;
   }
 
-  private adjustStyleByDepth(depth,isNested){
+  private adjustStyleByDepth(depth, isNested) {
     const { maxLevel } = this.options;
-    if(!isNested){
+    if (!isNested) {
       return {
         lineWidth: 1,
         stroke: 'rgba(0,0,0,0.9)',
         opacity: 0.9,
       };
-    }else if(depth === 1){
+    } else if (depth === 1) {
       return {
         lineWidth: 1,
         stroke: 'black',
         opacity: depth / maxLevel,
       };
-    }else{
+    } else {
       return {
         lineWidth: 1,
         stroke: 'rgba(0,0,0,0.3)',
@@ -289,7 +289,6 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
       };
     }
   }
-
 }
 
 registerPlotType('treemap', TreemapLayer);

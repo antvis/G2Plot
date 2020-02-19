@@ -295,7 +295,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   // 获取对应的G2 Theme
   public getTheme() {
-    if(!this.theme){
+    if (!this.theme) {
       return this.themeController.getTheme(this.options, this.type);
     }
     return this.theme;

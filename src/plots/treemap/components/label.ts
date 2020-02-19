@@ -13,7 +13,7 @@ function isLeaf(data, maxLevel) {
 function textWrapper(label, width, container) {
   const fontSize = label.attr('fontSize');
   const textContent: string = label.attr('text');
-  const tShape = container.addShape('text',{
+  const tShape = container.addShape('text', {
     attrs: {
       text: '',
       x: 0,
@@ -47,8 +47,8 @@ function textWrapper(label, width, container) {
   return wrappedTextArr.join('\n');
 }
 
-function textAbbreviate(text, fontSize, width,container) {
-  const tailShape = container.addShape('text',{
+function textAbbreviate(text, fontSize, width, container) {
+  const tailShape = container.addShape('text', {
     attrs: {
       text: '...',
       x: 0,
@@ -57,7 +57,7 @@ function textAbbreviate(text, fontSize, width,container) {
     },
   });
   const tailWidth = tailShape.getBBox().width;
-  const tShape = container.addShape('text',{
+  const tShape = container.addShape('text', {
     attrs: {
       text: '',
       x: 0,
@@ -127,7 +127,7 @@ export default class TreemapLabel {
       const isLeafNode = isLeaf(data, this.plot.options.maxLevel);
       if (data.showLabel) {
         const style = clone(this.options.style);
-        const position = this.getPosition(shape,isLeafNode);
+        const position = this.getPosition(shape, isLeafNode);
         const formatter = this.options.formatter;
         const content = formatter ? formatter(data.name) : data.name;
         const textBaseline = this.getTextBaseLine(isLeafNode);
@@ -137,12 +137,12 @@ export default class TreemapLabel {
             y: position.y,
             text: content,
             fill: 'black',
-            textAlign:'center',
+            textAlign: 'center',
             textBaseline,
-            fontWeight: isLeafNode ? 300 : 600
+            fontWeight: isLeafNode ? 300 : 600,
           }),
         });
-        this.adjustLabel(label,shape,isLeafNode);
+        this.adjustLabel(label, shape, isLeafNode);
       }
     });
   }
@@ -172,33 +172,33 @@ export default class TreemapLabel {
 
   public getBBox() {}
 
-  protected getPosition(shape,isLeafNode){
+  protected getPosition(shape, isLeafNode) {
     const shapeBbox = shape.getBBox();
     let x = 0;
     let y = 0;
-    if(!isLeafNode){
+    if (!isLeafNode) {
       x = shapeBbox.x + shapeBbox.width / 2;
       y = shapeBbox.y + 4;
-    }else{
+    } else {
       x = shapeBbox.minX + shapeBbox.width / 2;
       y = shapeBbox.minY + shapeBbox.height / 2;
     }
-    return {x,y};
+    return { x, y };
   }
 
-  protected getTextBaseLine(isLeafNode){
-    return isLeafNode ? 'middle' :'top';
+  protected getTextBaseLine(isLeafNode) {
+    return isLeafNode ? 'middle' : 'top';
   }
 
-  protected adjustLabel(label,shape,isLeafNode){
-    if(isLeafNode){
-      this.adjustLeafLabel(label,shape);
-    }else{
-      this.adjustParentLabel(label,shape);
+  protected adjustLabel(label, shape, isLeafNode) {
+    if (isLeafNode) {
+      this.adjustLeafLabel(label, shape);
+    } else {
+      this.adjustParentLabel(label, shape);
     }
   }
 
-  private adjustLeafLabel(label,shape){
+  private adjustLeafLabel(label, shape) {
     const bbox = shape.getBBox();
     const labelBBox = label.getBBox();
     const labelText = clone(label.attr('text'));
@@ -223,24 +223,24 @@ export default class TreemapLabel {
       return;
     }
     if (labelBBox.width > bbox.width) {
-      const wrappedText = textWrapper(label, wrapperWidth,this.container);
+      const wrappedText = textWrapper(label, wrapperWidth, this.container);
       label.attr({
         lineHeight: label.attr('fontSize'),
         text: wrappedText,
       });
       const tem_bbox = label.getBBox();
       if (tem_bbox.height > bbox.height) {
-        const text = textAbbreviate(labelText, fontSize, wrapperWidth,this.container);
+        const text = textAbbreviate(labelText, fontSize, wrapperWidth, this.container);
         label.attr('text', text);
       }
     }
   }
 
-  private adjustParentLabel(label,shape){
+  private adjustParentLabel(label, shape) {
     const shapeBbox = shape.getBBox();
     const wrapperWidth = shapeBbox.width - LEAF_LABEL_OFFSET * 2;
     if (label.getBBox().width > wrapperWidth) {
-      const text = textAbbreviate(label.attr('text'), label.attr('fontSize'), wrapperWidth,this.container);
+      const text = textAbbreviate(label.attr('text'), label.attr('fontSize'), wrapperWidth, this.container);
       label.attr('text', text);
     }
   }
@@ -258,5 +258,4 @@ export default class TreemapLabel {
   private getGeometry() {
     return find(this.view.geometries, (geom) => geom.type === 'polygon');
   }
-
 }

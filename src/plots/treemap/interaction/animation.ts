@@ -1,6 +1,5 @@
 import { each, clone, deepMix } from '@antv/util';
-import { groupTransform,transform } from '../../../util/g-util';
-
+import { groupTransform, transform } from '../../../util/g-util';
 
 const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 const duration = 400;
@@ -17,14 +16,14 @@ export function drillingDown(target, view, callback) {
   const transformMatrix = transform([
     ['s', xRatio, yRatio],
     ['t', offsetX, offsetY],
-  ])
+  ]);
 
   let geometry = view.geometries[0];
   hideLabel(geometry);
   const tem_container = view.backgroundGroup.addGroup();
   tem_container.set('zIndex', -100);
   tem_container.setClip({
-    type:'rect',
+    type: 'rect',
     attrs: {
       x: range.minX,
       y: range.minY,
@@ -39,7 +38,7 @@ export function drillingDown(target, view, callback) {
   window.setTimeout(() => {
     each(tem_shapes, (shape, index) => {
       if (index === 0) {
-        shape.animate({matrix:transformMatrix}, duration, easing, () => {
+        shape.animate({ matrix: transformMatrix }, duration, easing, () => {
           tem_container.remove();
           view.canvas.draw();
         });
@@ -64,7 +63,7 @@ export function drillingDown(target, view, callback) {
     container.stopAnimate();
     container.set('visible', true);
     container.attr('matrix', clone(ulMatrix));
-    groupTransform(container,[
+    groupTransform(container, [
       ['s', rect.width / range.width, rect.height / range.height],
       ['t', rect.minX, rect.minY],
     ]);
@@ -76,7 +75,7 @@ export function drillingDown(target, view, callback) {
       duration,
       easing,
       () => {
-        showLabel(geometry); 
+        showLabel(geometry);
       }
     );
     view.canvas.draw();
@@ -115,7 +114,7 @@ export function rollingUp(name, view, callback) {
   const containerParent = container.get('parent');
   if (!containerParent.get('clipShape')) {
     container.setClip({
-      type:'rect',
+      type: 'rect',
       attrs: {
         x: range.minX,
         y: range.minY,
@@ -195,7 +194,7 @@ function shrinkTemp(container, shapes, rect, range) {
     ['s', xRatio, yRatio],
     ['t', rect.minX, rect.minY],
   ]);
-  container.animate({matrix:transformMatrix}, duration, easing, () => {
+  container.animate({ matrix: transformMatrix }, duration, easing, () => {
     container.remove();
   });
   each(shapes, (shape) => {
@@ -218,4 +217,3 @@ function showLabel(geometry) {
   const labelContainer = geometry.labelsContainer;
   labelContainer.set('visible', true);
 }
-

@@ -106,7 +106,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     this.offEvents();
     this.renderItems(group, startX, startY);
     //this.bindEvents(group);
-    move(this.group,this.x, this.y);
+    move(this.group, this.x, this.y);
   }
 
   private renderItems(group: IGroup, startX: number, startY: number) {
@@ -139,7 +139,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
 
       // background rect
 
-      const rectShape:any = itemGroup.addShape('rect', {
+      const rectShape: any = itemGroup.addShape('rect', {
         id: `item-background-${item.key}`,
         class: 'item-background',
         attrs: {
@@ -183,7 +183,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
       rectShape.attr('height', backgroundRectAttr.height);
       // clip
       itemGroup.setClip({
-        type:'rect',
+        type: 'rect',
         attrs: backgroundRectAttr,
       });
       startX += backgroundRectAttr.width;

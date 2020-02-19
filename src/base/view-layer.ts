@@ -132,14 +132,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
-      interactions:[
+      interactions: [
         {
           type: 'tooltip',
         },
         {
           type: 'element-active',
         },
-      ]
+      ],
     };
   }
   public type: string;
@@ -432,10 +432,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected interaction() {
     const { interactions = [] } = this.options;
-    each(interactions,(interaction)=>{
-      this.setConfig('interaction',interaction);
+    each(interactions, (interaction) => {
+      this.setConfig('interaction', interaction);
     });
-
   }
 
   protected animation() {

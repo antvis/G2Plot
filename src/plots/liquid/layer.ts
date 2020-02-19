@@ -1,4 +1,4 @@
-import {deepMix,isFunction, get, forIn} from '@antv/util';
+import { deepMix, isFunction, get, forIn } from '@antv/util';
 import BBox from '../../util/bbox';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -32,6 +32,7 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
   value: number;
   liquidStyle?: LiquidStyle | ((...args: any[]) => LiquidStyle);
   type?: string;
+  showValue?: boolean;
 }
 
 export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
@@ -49,8 +50,8 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       liquidStyle: {
         lineWidth: 2,
       },
-      color:'#6a99f9',
-      interactions:[]
+      color: '#6a99f9',
+      interactions: [],
     };
     return deepMix({}, super.getDefaultOptions(), cfg);
   }
@@ -190,7 +191,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         type: 'text',
         position: ['50%', '50%'],
         style: {
-          opacity:1,
+          opacity: 1,
           fill: 'transparent',
           shadowColor: 'transparent',
           textAlign: 'center',
@@ -230,10 +231,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   protected fadeInAnnotation() {
-   const props = this.options;
-   const textShape = this.view.foregroundGroup.findAll((el) => {
-    return el.get('name') === 'annotation-text';
-  })[0];
+    const props = this.options;
+    const textShape = this.view.foregroundGroup.findAll((el) => {
+      return el.get('name') === 'annotation-text';
+    })[0];
     const animation = props.animation || {};
     const colorStyle = this.calcAnnotationColorStyle();
     if (this.shouldFadeInAnnotation) {

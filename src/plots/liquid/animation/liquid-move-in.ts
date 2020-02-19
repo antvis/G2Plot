@@ -1,5 +1,5 @@
 import { registerAnimation } from '@antv/g2';
-import {get,clone} from '@antv/util';
+import { get, clone } from '@antv/util';
 import { transform } from '../../../util/g-util';
 
 function liquidMoveIn(shape, animateCfg) {
@@ -22,7 +22,7 @@ function liquidMoveIn(shape, animateCfg) {
   const transformMatrix = transform(wavesTargetMatrix, [
     ['t', -originX, -originY],
     ['s', 1, 0],
-    ['t', originX, originY]
+    ['t', originX, originY],
   ]);
   waves.setMatrix(transformMatrix);
   waves.animate(
@@ -32,7 +32,6 @@ function liquidMoveIn(shape, animateCfg) {
     () => callback && callback(container, wrap, waves),
     delay
   );
-
 }
 liquidMoveIn.animationName = 'liquidMoveIn';
 registerAnimation('liquidMoveIn', liquidMoveIn);

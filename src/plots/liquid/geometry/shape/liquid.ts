@@ -1,5 +1,5 @@
 import { registerShape } from '@antv/g2';
-import {isArray,each,isNumber,mix} from '@antv/util';
+import { isArray, each, isNumber, mix } from '@antv/util';
 import { getGlobalTheme } from '../../../../theme';
 import { transform } from '../../../../util/g-util';
 
@@ -60,10 +60,10 @@ const getFillAttrs = (cfg) => {
 
 const getLineAttrs = (cfg) => {
   const defaultAttrs = {
-      fill: '#fff',
-      stroke: globalTheme.color,
-      fillOpacity: 0,
-      lineWidth: 2,
+    fill: '#fff',
+    stroke: globalTheme.color,
+    fillOpacity: 0,
+    lineWidth: 2,
   };
   const attrs = mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addStrokeAttrs(attrs, cfg);
@@ -238,11 +238,14 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
     })*/
     // FIXME wave animation error in svg
     // if (Global.renderer === 'canvas') {
-      const matrix = transform([['t', width / 2, 0]]);
-      wave.animate({matrix},{
+    const matrix = transform([['t', width / 2, 0]]);
+    wave.animate(
+      { matrix },
+      {
         duration: ValueUtil.lerp(duration, 0.7 * duration, factor),
-        repeat: true
-      });
+        repeat: true,
+      }
+    );
     //}
   }
 }
@@ -272,7 +275,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       },
     });
     waves.setClip({
-      type:'circle',
+      type: 'circle',
       attrs: {
         x: cp.x,
         y: cp.y,

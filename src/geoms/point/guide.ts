@@ -25,7 +25,7 @@ export default class GuidePointParser extends ElementParser {
       position: {
         fields: [props.xField, props.yField],
       },
-      tooltip: false
+      tooltip: false,
     };
     // if (this._needParseAttribute('color')) {
     this.parseColor();

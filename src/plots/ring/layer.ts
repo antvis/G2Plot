@@ -32,7 +32,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
 
   public static getDefaultOptions(): any {
     return _.deepMix({}, super.getDefaultOptions(), {
-      radius: 0.8,
+      radius: 0.6,
       innerRadius: 0.64,
       statistic: {
         visible: true,
@@ -54,14 +54,13 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     RingLayer.centralId++;
     this.statisticClass = `statisticClassId${RingLayer.centralId}`;
     this.adjustLabelDefaultOptions();
+    if (this.options.statistic && this.options.statistic.triggerOn) {
+      this.options.tooltip.visible = false;
+    }
     /** 响应式图形 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('preRender');
     }
-  }
-
-  public afterInit() {
-    super.afterInit();
   }
 
   public afterRender() {
@@ -70,29 +69,17 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       this.drawStatistic(this.options.statistic);
       /**响应交互 */
       if (this.options.statistic.triggerOn) {
-        const triggerOnEvent = this.options.statistic.triggerOn;
-        this.view.on(
-          `interval:${triggerOnEvent}`,
-          _.debounce((e) => {
-            const displayData = this.parseStatisticData(e.data.data);
-            const htmlString = this.getStatisticHtmlString(displayData);
-            this.statistic.updateHtml(htmlString);
-          }, 150)
-        );
-        const triggerOffEvent = this.statistic.triggerOff ? this.statistic.triggerOff : 'mouseleave';
-        this.view.on(
-          `interval:${triggerOffEvent}`,
-          _.debounce((e) => {
-            const totalValue = this.getTotalValue();
-            const displayData = this.parseStatisticData(totalValue);
-            const htmlString = this.getStatisticHtmlString(displayData);
-            this.statistic.updateHtml(htmlString);
-          }, 150)
-        );
+        this.triggerOnStatistic();
       }
     }
+  }
 
 
+  public destroy() {
+    if (this.statistic) {
+      this.statistic.destroy();
+    }
+    super.destroy();
   }
 
   protected geometryParser(dim, type) {
@@ -144,10 +131,6 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       alignX: 'middle',
       alignY: 'middle'
     });
-    /** 是否响应交互 */
-    if (this.options.statistic.triggerOn) {
-      this.setConfig('tooltip', false);
-    }
   }
 
   /** 获取总计数据 */
@@ -200,16 +183,38 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     return htmlString;
   }
 
+  private getStatisticSize() {
+    return this.width * this.options.radius;
+  }
+
+  private triggerOnStatistic() {
+    const triggerOnEvent = this.options.statistic.triggerOn;
+    this.view.on(
+      `interval:${triggerOnEvent}`,
+      _.debounce((e) => {
+        const displayData = this.parseStatisticData(e.data.data);
+        const htmlString = this.getStatisticHtmlString(displayData);
+        this.statistic.updateHtml(htmlString);
+      }, 150)
+    );
+    const triggerOffEvent = this.statistic.triggerOff ? this.statistic.triggerOff : 'mouseleave';
+    this.view.on(
+      `interval:${triggerOffEvent}`,
+      _.debounce((e) => {
+        const totalValue = this.getTotalValue();
+        const displayData = this.parseStatisticData(totalValue);
+        const htmlString = this.getStatisticHtmlString(displayData);
+        this.statistic.updateHtml(htmlString);
+      }, 150)
+    );
+  }
+
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r as LooseMap;
       responsive.method(this);
     });
-  }
-
-  private getStatisticSize() {
-    return this.width * this.options.radius;
   }
 
   /** @override 调整 label 默认 options */
@@ -226,6 +231,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       }
     }
   }
+
+
 }
 
 registerPlotType('ring', RingLayer);

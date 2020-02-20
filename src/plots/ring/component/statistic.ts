@@ -32,7 +32,7 @@ export default class StatisticHtml {
     }
 
     protected init(){
-        this.wrapperNode = createDom('<div class="guide-annotation"></div>');
+        this.wrapperNode = createDom('<div class="g2plot-htmlStatistic"></div>');
         this.container.appendChild(this.wrapperNode);
         modifyCSS(this.wrapperNode, {
             position: 'absolute', 
@@ -46,12 +46,22 @@ export default class StatisticHtml {
         this.wrapperNode.innerHTML = content;
     }
 
+    public updatePosition(x,y){
+        this.setDomPosition(x,y);
+    }
+
+    public destory(){
+        this.container.removeChild(this.wrapperNode);
+    }
+
     protected getDefaultOptions() {
         return {
           x: 0,
           y: 0,
           html: '',
-          container: null
+          container: null,
+          alignX: 'middle',
+          alignY: 'middle'
         };
     }
 

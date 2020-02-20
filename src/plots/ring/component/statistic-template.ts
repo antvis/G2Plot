@@ -1,5 +1,3 @@
-import * as _ from '@antv/util';
-
 /*tslint:disable*/
 const containerStyle =
   "color:#8c8c8c;font-size:14px;text-align:center;line-height:2;font-family:'-apple-system',BlinkMacSystemFont,'SegoeUI',Roboto,'HelveticaNeue',Helvetica,'PingFangSC','HiraginoSansGB','MicrosoftYaHei',SimSun,'sans-serif';pointer-events:none;";

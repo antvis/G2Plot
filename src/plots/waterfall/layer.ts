@@ -94,10 +94,6 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
         shared: true,
         showCrosshairs: false,
         showMarkers: false,
-        // TODO 交叉轴的问题
-        // crosshairs: {
-        //   type: 'rect',
-        // },
       },
     });
   }

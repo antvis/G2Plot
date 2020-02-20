@@ -7,14 +7,14 @@ import './apply-responsive/theme';
 import * as statisticTemplate from './component/statistic-template';
 import * as EventParser from './event';
 import { LooseMap } from '../../interface/types';
-import { crossProduct2D } from '../../util/math';
+import StatisticHtml from './component/statistic';
 
 export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
   statistic?: any; //FIXME: 指标卡
 }
 
-export interface RingLayerConfig extends RingViewConfig, LayerConfig {}
+export interface RingLayerConfig extends RingViewConfig, LayerConfig { }
 
 const G2_GEOM_MAP = {
   ring: 'interval',
@@ -62,28 +62,37 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
 
   public afterInit() {
     super.afterInit();
-    /** 处理环图中心文本响应交互的问题 */
-    if (this.statistic && this.statistic.visible && this.statistic.triggerOn) {
-      const triggerOnEvent = this.statistic.triggerOn;
-      this.view.on(
-        `interval:${triggerOnEvent}`,
-        _.debounce((e) => {
-          const displayData = this.parseStatisticData(e.data.data);
-          const htmlString = this.getStatisticHtmlString(displayData);
-          document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
-        }, 150)
-      );
-      const triggerOffEvent = this.statistic.triggerOff ? this.statistic.triggerOff : 'mouseleave';
-      this.view.on(
-        `interval:${triggerOffEvent}`,
-        _.debounce((e) => {
-          const totalValue = this.getTotalValue();
-          const displayData = this.parseStatisticData(totalValue);
-          const htmlString = this.getStatisticHtmlString(displayData);
-          document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
-        }, 150)
-      );
+  }
+
+  public afterRender() {
+    /**环图中心文本 */
+    if (this.options.statistic && this.options.statistic.visible) {
+      this.drawStatistic(this.options.statistic);
+      /**响应交互 */
+      if (this.options.statistic.triggerOn) {
+        const triggerOnEvent = this.options.statistic.triggerOn;
+        this.view.on(
+          `interval:${triggerOnEvent}`,
+          _.debounce((e) => {
+            const displayData = this.parseStatisticData(e.data.data);
+            const htmlString = this.getStatisticHtmlString(displayData);
+            this.statistic.updateHtml(htmlString);
+          }, 150)
+        );
+        const triggerOffEvent = this.statistic.triggerOff ? this.statistic.triggerOff : 'mouseleave';
+        this.view.on(
+          `interval:${triggerOffEvent}`,
+          _.debounce((e) => {
+            const totalValue = this.getTotalValue();
+            const displayData = this.parseStatisticData(totalValue);
+            const htmlString = this.getStatisticHtmlString(displayData);
+            this.statistic.updateHtml(htmlString);
+          }, 150)
+        );
+      }
     }
+
+
   }
 
   protected geometryParser(dim, type) {
@@ -95,7 +104,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
 
   protected coord() {
     const props = this.options;
-    const coordConfig:any = {
+    const coordConfig: any = {
       type: 'theta',
       cfg: {
         radius: props.radius,
@@ -105,32 +114,11 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     this.setConfig('coordinate', coordConfig);
   }
 
-  protected annotation() {
-    const annotationConfigs = [];
-    const props = this.options;
-    if (props.statistic && props.statistic.visible) {
-      const statistic = this.drawStatistic(props.statistic);
-      annotationConfigs.push(statistic);
-      this.statistic = statistic;
-    }
-    this.setConfig('annotations', annotationConfigs);
-  }
-
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
   }
 
   private drawStatistic(config) {
-    const statistic: LooseMap = _.deepMix(
-      {},
-      {
-        type: 'html',
-        top: true,
-        position: ['50%', '50%'],
-        triggerOn: 'mouseenter',
-      },
-      config
-    );
     /** 中心文本内容 */
     let displayData;
     if (config.content) {
@@ -147,12 +135,19 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     } else {
       htmlString = this.getStatisticTemplate(displayData);
     }
-    statistic.html = htmlString;
-    /** 是否响应状态量 */
-    if (statistic.triggerOn) {
+    const { minX, minY, width, height } = this.view.coordinateBBox;
+    this.statistic = new StatisticHtml({
+      x: minX + width / 2,
+      y: minY + height / 2,
+      container: this.canvas.get('container'),
+      html: htmlString,
+      alignX: 'middle',
+      alignY: 'middle'
+    });
+    /** 是否响应交互 */
+    if (this.options.statistic.triggerOn) {
       this.setConfig('tooltip', false);
     }
-    return statistic;
   }
 
   /** 获取总计数据 */
@@ -193,7 +188,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
 
   /** 获取中心文本的htmlString */
   private getStatisticHtmlString(_displayData): string {
-    const triggerOnConfig = this.statistic.triggerOn;
+    const triggerOnConfig = this.options.statistic.triggerOn;
     let htmlString: string;
     if (_.isString(triggerOnConfig)) {
       htmlString = this.getStatisticTemplate(_displayData);

@@ -5,6 +5,7 @@ import { distBetweenPoints } from '../../src/util/math';
 
 describe('Ring plot', () => {
   const canvasDiv = document.createElement('div');
+  canvasDiv.style.position = 'absolute';
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
   canvasDiv.id = 'canvas1';

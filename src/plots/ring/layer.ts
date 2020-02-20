@@ -7,6 +7,7 @@ import './apply-responsive/theme';
 import * as statisticTemplate from './component/statistic-template';
 import * as EventParser from './event';
 import { LooseMap } from '../../interface/types';
+import { crossProduct2D } from '../../util/math';
 
 export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
@@ -52,9 +53,9 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     super.beforeInit();
     RingLayer.centralId++;
     this.statisticClass = `statisticClassId${RingLayer.centralId}`;
-    const props = this.options;
+    this.adjustLabelDefaultOptions();
     /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
+    if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('preRender');
     }
   }
@@ -67,7 +68,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       this.view.on(
         `interval:${triggerOnEvent}`,
         _.debounce((e) => {
-          const displayData = this.parseStatisticData(e.data._origin);
+          const displayData = this.parseStatisticData(e.data.data);
           const htmlString = this.getStatisticHtmlString(displayData);
           document.getElementsByClassName(this.statisticClass)[0].innerHTML = htmlString;
         }, 150)
@@ -171,9 +172,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   private parseStatisticData(data) {
-    const props = this.options;
-    const angleField = props.angleField;
-    return props.colorField ? { name: data[props.colorField], value: data[angleField] } : data[angleField];
+    const { angleField, colorField } = this.options;
+    return colorField ? { name: data[colorField], value: data[angleField] } : data[angleField];
   }
 
   private getStatisticTemplate(displayData) {
@@ -218,8 +218,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   /** @override 调整 label 默认 options */
-  protected adjustLabelDefaultOptions(options: RingLayerConfig) {
-    const labelConfig = { ...options.label };
+  protected adjustLabelDefaultOptions() {
+    const labelConfig = this.options.label;
     if (labelConfig && labelConfig.type === 'inner') {
       const labelStyleConfig = (labelConfig.style || {}) as LooseMap;
       if (!labelStyleConfig.textAlign) {
@@ -227,10 +227,9 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
       }
       labelConfig.style = labelStyleConfig;
       if (!labelConfig.offset) {
-        labelConfig.offset = `${((options.innerRadius - 1) / 2) * 100}%`;
+        labelConfig.offset = `${((this.options.innerRadius - 1) / 2) * 100}%`;
       }
     }
-    return labelConfig;
   }
 }
 

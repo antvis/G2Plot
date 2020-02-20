@@ -1,10 +1,10 @@
-import { Waterfall } from '../../src';
+import { ViewLayer, Waterfall } from '../../src';
 import { Shape } from '@antv/g';
 import * as _ from '@antv/util';
 
 describe('waterfall plot', () => {
   const data = [
-    { type: '日用品', money: 300 },
+    { type: '日用品', money: 120 },
     { type: '伙食费', money: 900 },
     { type: '交通费', money: 200 },
     { type: '水电费', money: 300 },
@@ -43,14 +43,12 @@ describe('waterfall plot', () => {
   document.body.appendChild(canvasDiv);
 
   const waterfallPlot = new Waterfall(canvasDiv, plotOptions);
-  const waterfallLayer = waterfallPlot.getLayer();
+  const waterfallLayer = waterfallPlot.getLayer() as ViewLayer;
 
   it('normal', () => {
     waterfallPlot.render();
-    const shapes = waterfallLayer.view.get('elements')[0].getShapes();
-    expect(shapes.length).toBe(data.length * 2 + 1);
-    const lines = shapes.filter((s) => s.name === 'leader-line');
-    expect(lines.length).toBe(data.length);
+    const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
+    expect(shapes.length).toBe(data.length + 1);
   });
 
   it('custom color, string', () => {
@@ -58,11 +56,8 @@ describe('waterfall plot', () => {
       color: 'rgba(0, 255, 255, 0.2)',
     });
     waterfallPlot.render();
-    const shapes = waterfallLayer.view
-      .get('elements')[0]
-      .getShapes()
-      .filter((s) => s.name === 'interval');
-    expect(_.every(shapes, (s: Shape) => s.attr('fill') === 'rgba(0, 255, 255, 0.2)')).toBe(true);
+    const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
+    expect(_.every(shapes, (s) => s.attr('fill') === 'rgba(0, 255, 255, 0.2)')).toBe(true);
   });
 
   it('custom color, object', () => {
@@ -74,10 +69,7 @@ describe('waterfall plot', () => {
       },
     });
     waterfallPlot.render();
-    const shapes = waterfallLayer.view
-      .get('elements')[0]
-      .getShapes()
-      .filter((s) => s.name === 'interval');
+    const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
     expect(shapes[0].attr('fill')).toBe('red');
     expect(shapes[6].attr('fill')).toBe('green');
     expect(_.last(shapes).attr('fill')).toBe('#ddd');
@@ -95,10 +87,7 @@ describe('waterfall plot', () => {
       },
     });
     waterfallPlot.render();
-    const shapes = waterfallLayer.view
-      .get('elements')[0]
-      .getShapes()
-      .filter((s) => s.name === 'interval');
+    const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
     expect(shapes[0].attr('fill')).toBe('rgba(255, 0, 0, 0.45)');
     expect(shapes[6].attr('fill')).toBe('rgba(255, 255, 0, 0.45)');
     expect(_.last(shapes).attr('fill')).toBe('#ddd');
@@ -111,10 +100,8 @@ describe('waterfall plot', () => {
       },
     });
     waterfallPlot.render();
-    const shapes = waterfallLayer.view.get('elements')[0].getShapes();
-    expect(shapes.length).toBe(data.length * 2 - 1);
-    const lines = shapes.filter((s) => s.name === 'leader-line');
-    expect(lines.length).toBe(data.length - 1);
+    const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
+    expect(shapes.length).toBe(data.length);
   });
 
   it('diff-label', () => {
@@ -135,21 +122,11 @@ describe('waterfall plot', () => {
       },
     });
     waterfallPlot.render();
-    const shapes = waterfallLayer.view.get('elements')[0].getShapes();
     // @ts-ignore
     const diffLabel = waterfallLayer.diffLabel;
-    const labelShapes = diffLabel.container.get('children')[0].get('children');
-    const intervals = shapes.filter((s) => s.name === 'interval');
-    /** auto hide label that is overflowed */
-    expect(labelShapes.length).toBe(intervals.length);
-    expect(
-      _.every(
-        intervals,
-        (shape: Shape, idx) => labelShapes[idx].attr('y') === (shape.getBBox().minY + shape.getBBox().maxY) / 2
-      )
-    ).toBe(true);
-    expect(labelShapes[0].attr('text')).toBe('涨 300');
-    expect(labelShapes[0].attr('fill')).toBe('red');
+    const labelShapes = diffLabel.container.get('children')[0];
+    expect(labelShapes.attr('text')).toBe('涨 120');
+    expect(labelShapes.attr('fill')).toBe('red');
   });
 
   it('hidden diff-label', () => {

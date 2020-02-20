@@ -98,7 +98,7 @@ export default class AxisParser {
     const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: any = { ...restLabelProps };
     if (style) {
-      labelConfig.style = { style: this.localProps.label.style };
+      labelConfig.style = { ...this.localProps.label.style };
     }
     labelConfig.style = deepMix({}, get(this.themeConfig, 'label.style'), labelConfig.style);
     const formatter = this.parseFormatter(labelConfig);

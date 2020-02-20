@@ -38,7 +38,7 @@
     "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/rangeColumn-spec.ts",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/density-spec.ts",
     "coverage": "jest --coverage",
     "ci": "run-s lint-check build test coverage",
     "compare-live": "node scripts/compare.js",
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@antv/event-emitter": "~0.1.1",
-    "@antv/g2": "4.0.0-beta.12",
+    "@antv/g2": "4.0.0-beta.14",
     "d3-regression": "^1.2.8",
     "fecha": "~4.0.0",
     "resize-observer-polyfill": "^1.5.1",

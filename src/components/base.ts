@@ -1,13 +1,13 @@
 import EventEmitter from '@antv/event-emitter';
-import { Canvas, Group, BBox } from '@antv/g-canvas';
+import { Canvas, IGroup, BBox } from '@antv/g-canvas';
 
 export interface BaseComponentConfig {
-  container: Group;
+  container: IGroup;
 }
 
 export default class BaseComponent<T extends BaseComponentConfig = BaseComponentConfig> extends EventEmitter {
-  protected container: Group;
-  protected group: Group;
+  protected container: IGroup;
+  protected group: IGroup;
   protected destroyed: boolean;
   private config: T;
 
@@ -20,7 +20,7 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
     this.init(config);
   }
 
-  public getGroup(): Group {
+  public getGroup(): IGroup {
     return this.group;
   }
 
@@ -52,5 +52,5 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
 
   protected init(config: T): void {}
 
-  protected renderInner(group: Group): void {}
+  protected renderInner(group: IGroup): void {}
 }

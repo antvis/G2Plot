@@ -24,6 +24,7 @@ import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 import BBox from '../util/bbox';
+import { Interaction } from '@antv/g2';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -131,6 +132,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
+      interactions: [
+        {
+          type: 'tooltip',
+        },
+        {
+          type: 'element-active',
+        },
+      ],
     };
   }
   public type: string;
@@ -184,11 +193,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
-      interactions: [
-        {
-          type: 'tooltip',
-        },
-      ],
+      interactions: [],
       theme: this.theme,
       panelRange: {},
       animate: true,
@@ -292,6 +297,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   // 获取对应的G2 Theme
   public getTheme() {
+    if (!this.theme) {
+      return this.themeController.getTheme(this.options, this.type);
+    }
     return this.theme;
   }
 
@@ -381,6 +389,15 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     deepMix(this.config.theme.tooltip, this.options.tooltip.style);
   }
 
+  protected getLegendPosition(position: string): any {
+    const positionList = position.split('-');
+    // G2 4.0 兼容 XXX-center 到 XXX 的场景
+    if (positionList && positionList.length > 1 && positionList[1] === 'center') {
+      return positionList[0];
+    }
+    return position;
+  }
+
   protected legend(): void {
     if (this.options.legend.visible === false) {
       this.setConfig('legends', false);
@@ -389,7 +406,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const flipOption = get(this.options, 'legend.flipPage');
     const clickable = get(this.options, 'legend.clickable');
     this.setConfig('legends', {
-      position: get(this.options, 'legend.position'),
+      position: this.getLegendPosition(get(this.options, 'legend.position')),
       formatter: get(this.options, 'legend.formatter'),
       offsetX: get(this.options, 'legend.offsetX'),
       offsetY: get(this.options, 'legend.offsetY'),
@@ -416,7 +433,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
-  protected interaction() {}
+  protected interaction() {
+    const { interactions = [] } = this.options;
+    each(interactions, (interaction) => {
+      this.setConfig('interaction', interaction);
+    });
+  }
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {

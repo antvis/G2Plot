@@ -108,6 +108,17 @@ const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
   radiusField: 'score',
   seriesField: 'user',
   theme: 'dark',
+  radiusAxis: {
+    grid: {
+      line: {
+        type: 'line',
+      },
+    },
+  },
+  legend: {
+    visible: true,
+    position: 'bottom-center',
+  },
 });
 radarPlot.render();
 

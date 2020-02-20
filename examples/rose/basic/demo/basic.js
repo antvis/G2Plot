@@ -46,7 +46,7 @@ const rosePlot = new Rose(document.getElementById('container'), {
   label: {
     visible: true,
     type: 'outer',
-    formatter: (text) => text,
+    content: (text) => text.value,
   },
 });
 

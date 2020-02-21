@@ -223,7 +223,7 @@ const MONTH = DAY * 30;
 const YEAR = DAY * 365;
 export const timeIntervals = {
   second: { value: SECOND, format: 'HH:mm:ss' },
-  miniute: { value: MINUTE, format: 'HH:mm' },
+  minute: { value: MINUTE, format: 'HH:mm' },
   hour: { value: HOUR, format: 'HH' },
   day: { value: DAY, format: 'YYYY-MM-DD' },
   week: { value: WEEK, format: 'YYYY-MM-DD' },

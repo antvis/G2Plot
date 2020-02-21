@@ -301,5 +301,5 @@ export interface Point {
 }
 
 export interface DataItem {
-  [field: string]: string | number | number[] | null | undefined;
+  [field: string]: string | number | number[] | null | undefined | any;
 }

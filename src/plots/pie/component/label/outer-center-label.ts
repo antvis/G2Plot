@@ -49,10 +49,10 @@ export default class PieOuterLabel extends PieBaseLabel {
         const prevBox = prev.getBBox();
         const currBox = label.getBBox();
         // if the previous one is invisible, skip
-        if (prev.get('visible')) {
+        if (prev.get('parent').get('visible')) {
           overlapArea = getOverlapArea(prevBox, currBox);
           if (!near(overlapArea, 0)) {
-            label.set('visible', false);
+            label.get('parent').set('visible', false);
             break;
           }
         }
@@ -68,7 +68,7 @@ export default class PieOuterLabel extends PieBaseLabel {
     const box = label.getBBox();
     //  横向溢出 暂不隐藏
     if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
-      label.set('visible', false);
+      label.get('parent').set('visible', false);
     }
   }
 }

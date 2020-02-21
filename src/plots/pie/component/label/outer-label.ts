@@ -51,7 +51,7 @@ export default class PieOuterLabel extends PieBaseLabel {
     // fix-bug, maxLabelsCount 之后的labels 在非 allowOverlap 不显示（避免出现尾部label展示，而前置label不展示）
     if (!this.options.allowOverlap) {
       labels.slice(maxLabelsCount).forEach((label) => {
-        label.set('visible', false);
+        label.get('parent').set('visible', false);
       });
     }
     labels.splice(maxLabelsCount, labels.length - maxLabelsCount);

@@ -1,4 +1,3 @@
-import { Coordinate } from '@antv/g2/lib/dependents';
 import { deepMix } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -54,6 +53,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         autoRotate: false,
         allowOverlap: false,
         line: {
+          visible: true,
           smooth: true,
         },
       },

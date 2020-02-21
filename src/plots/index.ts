@@ -25,8 +25,8 @@ export { default as Histogram, HistogramConfig } from './histogram';
 export { default as Density, DensityConfig } from './density';
 export { default as Ring, RingConfig } from './ring';
 export { default as Waterfall, WaterfallConfig } from './waterfall';
+export { default as Scatter, ScatterConfig } from './scatter';
+export { default as Bubble, BubbleConfig } from './bubble';
 
-// export { default as Bubble, BubbleConfig } from './bubble';
-// export { default as Scatter, ScatterConfig } from './scatter';
 // export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as Funnel, FunnelConfig } from './funnel';

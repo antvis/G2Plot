@@ -3,12 +3,11 @@ import { Scatter } from '@antv/g2plot';
 fetch('../data/IMDB.json')
   .then((res) => res.json())
   .then((data) => {
+    const filterData = data.filter((item) => {
+      return item['Revenue (Millions)'] !== null;
+    });
     const scatterPlot = new Scatter(document.getElementById('container'), {
-      title: {
-        visible: true,
-        text: '基础散点图',
-      },
-      data,
+      data: filterData,
       xField: 'Revenue (Millions)',
       yField: 'Rating',
       xAxis: {

@@ -3,16 +3,11 @@ import { Scatter } from '@antv/g2plot';
 fetch('https://gw.alipayobjects.com/os/basement_prod/7a78a36d-c97c-459d-9090-9e664cd17167.json')
   .then((res) => res.json())
   .then((data) => {
+    const filterData = data.filter((item) => {
+      return item['Revenue (Millions)'] !== null;
+    });
     const scatterPlot = new Scatter(document.getElementById('container'), {
-      title: {
-        visible: true,
-        text: '散点图颜色映射',
-      },
-      description: {
-        visible: true,
-        text: '通过colorField配置项定义颜色映射字段，通过color配置项传入色值',
-      },
-      data,
+      data: filterData,
       xField: 'Revenue (Millions)',
       yField: 'Rating',
       colorField: 'Genre',

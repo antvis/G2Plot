@@ -5,8 +5,8 @@
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { VALUE_FIELD, IS_TOTAL } from '../../layer';
-import { VIEW_LIFE_CIRCLE } from 'antv-g2/lib/constant';
-import { IGroup } from '@antv/g/packages/g-base/lib';
+import { IGroup } from '@antv/g-canvas';
+import { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
 
 export interface DiffLabelcfg {
   view: View;
@@ -53,7 +53,7 @@ export default class DiffLabel {
     const data = _.clone(this.view.getData());
     this.container = this.view.foregroundGroup.addGroup();
     const shapes = this.view.geometries[0].elements.map((value) => value.shape);
-    console.log(this.view.geometries)
+    console.log(this.view.geometries);
     _.each(shapes, (shape, idx) => {
       if (!shape.cfg.origin) return;
       const _origin = shape.cfg.origin.data;

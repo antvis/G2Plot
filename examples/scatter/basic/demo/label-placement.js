@@ -4,14 +4,6 @@ fetch('../data/roma.json')
   .then((res) => res.json())
   .then((data) => {
     const scatterPlot = new Scatter(document.getElementById('container'), {
-      title: {
-        visible: true,
-        text: '散点图图形标签',
-      },
-      description: {
-        visible: true,
-        text: '散点图label支持5种方位布局',
-      },
       data,
       xField: 'xG conceded',
       yField: 'Shot conceded',

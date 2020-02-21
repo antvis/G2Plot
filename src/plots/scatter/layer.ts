@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
@@ -82,9 +82,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         visible: true,
         // false 会造成 tooltip 只能显示一条数据，true 会造成 tooltip 在空白区域也会显示
         shared: null,
-        crosshairs: {
-          type: 'rect',
-        },
+        showMarkers: false,
+        showCrosshairs: false,
       },
       label: {
         visible: false,
@@ -146,6 +145,40 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       this.trendline = null;
     }
     super.destroy();
+  }
+
+  private isValidLinearValue(value) {
+    if (_.isNil(value)) {
+      return false;
+    } else if (!_.isNumber(Number(value))) {
+      return false;
+    } else if (Number.isNaN(Number(value))) {
+      return false;
+    }
+    return true;
+  }
+
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
+    const { xField, yField } = this.options;
+    const xAxisType = _.get(this.options, ['xAxis', 'type'], 'linear');
+    const yAxisType = _.get(this.options, ['yAxis', 'type'], 'linear');
+    return data
+      .filter((item) => {
+        if (xAxisType === 'linear' && !this.isValidLinearValue(item[xField])) {
+          return false;
+        }
+        if (yAxisType === 'linear' && !this.isValidLinearValue(item[yField])) {
+          return false;
+        }
+        return true;
+      })
+      .map((item) => {
+        return {
+          ...item,
+          [xField]: xAxisType === 'linear' ? Number(item[xField]) : String(item[xField]),
+          [yField]: yAxisType === 'linear' ? Number(item[yField]) : String(item[yField]),
+        };
+      });
   }
 
   protected geometryParser(dim, type) {

@@ -1,11 +1,8 @@
 // 基础气泡图
 
 $.get('../examples/data/smoking-rate.json', function(data) {
-  const filterData = data.filter((item) => {
-    return item['change in male rate'] !== 'NA';
-  });
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
-    data: filterData,
+    data,
     xField: 'change in female rate',
     yField: 'change in male rate',
     sizeField: 'pop',

@@ -3,11 +3,8 @@ import { Bubble } from '@antv/g2plot';
 fetch('../data/smoking-rate.json')
   .then((res) => res.json())
   .then((data) => {
-    const filterData = data.filter((item) => {
-      return item['change in male rate'] !== 'NA';
-    });
     const bubblePlot = new Bubble(document.getElementById('container'), {
-      data: filterData,
+      data,
       xField: 'change in female rate',
       yField: 'change in male rate',
       sizeField: 'pop',

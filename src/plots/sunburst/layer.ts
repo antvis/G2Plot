@@ -21,10 +21,12 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     return _.deepMix({}, super.getDefaultOptions(), {
       radius: 0.8,
       innerRadius: 0.2,
-      maxLevel: 2,
+      maxLevel: 10,
       padding: [0, 0, 0, 0],
       tooltip: {
-        visible: false,
+        visible: true,
+        shared: false,
+        crosshairs: false
       },
       legend: {
         visible: false,
@@ -118,7 +120,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         values: color,
       },
       tooltip: {
-        fields: ['name', 'value'],
+        fields: ['name'],
       },
       label: {
         fields: ['name'],

@@ -42,7 +42,7 @@
     "lint-fix:prettier": "prettier --write 'src/**/*.{ts,js}' '__tests__/**/*.{ts,js}'",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/rangedColumn-spec",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/sunburst-spec",
     "coverage": "jest --coverage",
     "ci": "run-s lint-check build test coverage",
     "compare-live": "node scripts/compare.js",

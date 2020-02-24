@@ -29,7 +29,7 @@ export default abstract class extends PieElementLabels {
     const renderer = this.get('labelsRenderer');
     const labels: Shape[] = renderer.get('group').get('children');
     // 注入data数据
-    const data = view.get('data');
+    const data = view.get('filteredData');
     const { fields } = this.getLabelOptions();
     const angleField = fields[0];
     const colorField = fields[1];
@@ -101,15 +101,25 @@ export default abstract class extends PieElementLabels {
 
   /** 处理标签遮挡问题 */
   protected adjustOverlap(labels: Shape[], panel: BBox): void {
+    // 由于 sort 会改变 labels 顺序，因此这里需要浅拷贝
+    const adjustLabels = labels.slice();
     if (this.getLabelOptions().allowOverlap) {
       return;
     }
+    adjustLabels.sort((labelA, labelB) => {
+      const labelAValue = labelA.attr('data').value;
+      const labelBValue = labelB.attr('data').value;
+      if (labelAValue > labelBValue) {
+        return -1;
+      }
+      return 1;
+    });
     // clearOverlap;
-    for (let i = 1; i < labels.length; i++) {
-      const label = labels[i];
+    for (let i = 1; i < adjustLabels.length; i++) {
+      const label = adjustLabels[i];
       let overlapArea = 0;
       for (let j = i - 1; j >= 0; j--) {
-        const prev = labels[j];
+        const prev = adjustLabels[j];
         // fix: start draw point.x is error when textAlign is right
         const prevBox = prev.getBBox();
         const currBox = label.getBBox();
@@ -123,7 +133,7 @@ export default abstract class extends PieElementLabels {
         }
       }
     }
-    labels.forEach((label) => this.checkInPanel(label, panel));
+    adjustLabels.forEach((label) => this.checkInPanel(label, panel));
   }
 
   /**

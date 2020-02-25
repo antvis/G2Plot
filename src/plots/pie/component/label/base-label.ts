@@ -1,6 +1,6 @@
 import { IGroup, IShape, BBox } from '@antv/g-canvas';
-import * as matrixUtil from '@antv/matrix-util';
-import * as _ from '@antv/util';
+import { transform } from '@antv/matrix-util';
+import { deepMix, isString }  from '@antv/util';
 import { getEndPoint } from './utils';
 import { Label } from '../../../../interface/config';
 import PieLayer from '../../layer';
@@ -57,7 +57,7 @@ export default abstract class PieBaseLabel {
   constructor(plot: PieLayer, cfg: PieLabelConfig) {
     this.plot = plot;
     this.coordinateBBox = this.plot.view.coordinateBBox;
-    const options = _.deepMix(this.getDefaultOptions(), cfg, {});
+    const options = deepMix(this.getDefaultOptions(), cfg, {});
     this.adjustOption(options);
     this.options = options;
     this.init();
@@ -112,11 +112,11 @@ export default abstract class PieBaseLabel {
     const shapeInfos = this.getItems();
     const shapes: IShape[] = [];
     shapeInfos.map((shapeInfo, idx) => {
-      const attrs = _.deepMix({}, shapeInfo, style);
+      const attrs = deepMix({}, shapeInfo, style);
       const content = formatter ? formatter(shapeInfo.name, { _origin: shapeInfo.origin }, idx) : shapeInfo.name;
       const itemGroup = this.container.addGroup({ name: 'itemGroup', index: idx });
       const textShape = itemGroup.addShape('text', {
-        attrs: _.deepMix({}, attrs, {
+        attrs: deepMix({}, attrs, {
           x: shapeInfo.x + offsetX,
           y: shapeInfo.y + offsetY,
           text: content,
@@ -238,7 +238,7 @@ export default abstract class PieBaseLabel {
   protected adjustOption(options: PieLabelConfig): void {
     let offset = options.offset;
     const { radius } = this.getCoordinate();
-    if (_.isString(offset)) {
+    if (isString(offset)) {
       offset = radius * percent2Number(offset);
     }
     options.offset = offset;
@@ -247,7 +247,7 @@ export default abstract class PieBaseLabel {
   private rotateLabel(label: IShape, angle): void {
     const x = label.attr('x');
     const y = label.attr('y');
-    const matrix = matrixUtil.transform(label.getMatrix(), [
+    const matrix = transform(label.getMatrix(), [
       ['t', -x, -y],
       ['r', getRotateAngle(angle)],
       ['t', x, y],

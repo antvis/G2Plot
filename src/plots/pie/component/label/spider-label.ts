@@ -1,8 +1,7 @@
-import { IGroup, Group, IShape, Shape } from '@antv/g-canvas';
+import { IGroup, Group, IShape } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import { deepMix, clone, each, isString, mix } from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
-import { getCenter } from './utils';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量

@@ -76,7 +76,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: 'auto',
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'bottom',
       },
       tooltip: {
         visible: true,

@@ -180,7 +180,7 @@ export const DEFAULT_DARK_THEME = {
   },
   legend: {
     flipPage: false,
-    position: 'bottom-center',
+    position: 'bottom',
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
   },

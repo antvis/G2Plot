@@ -243,7 +243,7 @@ export const DEFAULT_GLOBAL_THEME = {
   },
   legend: {
     flipPage: false,
-    position: 'bottom-center',
+    position: 'bottom',
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
     margin: [0, 24, 24, 24],

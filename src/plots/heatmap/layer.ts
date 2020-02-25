@@ -97,7 +97,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
       },
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'bottom',
       },
       color: [
         'rgba(33,102,172,0)',

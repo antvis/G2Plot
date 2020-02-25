@@ -5,8 +5,8 @@
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { VALUE_FIELD, IS_TOTAL } from '../../layer';
-import { IGroup } from '@antv/g-canvas';
 import { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
+import { IGroup } from '@antv/g-base';
 
 export interface DiffLabelcfg {
   view: View;

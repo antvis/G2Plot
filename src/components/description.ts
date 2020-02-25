@@ -1,4 +1,4 @@
-import { Canvas, IGroup, Shape } from '@antv/g-canvas';
+import { IGroup, Shape } from '@antv/g-canvas';
 import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
@@ -100,14 +100,6 @@ export default class TextDescription {
     const width = this.wrapperWidth;
     const style = this.style;
     const textContent: string = this.text;
-    /*const tShape = new Text({
-      attrs: {
-        text: '',
-        x: 0,
-        y: 0,
-        ...style,
-      },
-    });*/
     const tShape = this.container.addShape('text',{
       attrs: {
         text: '',

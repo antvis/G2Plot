@@ -28,3 +28,13 @@ export function breakText(source: string[], breaks: number[]): string {
   });
   return result.join('');
 }
+
+export function getAxisShapes(view){
+  const axisShape = view.backgroundGroup.findAll((el) => {
+    if(el.get('name')){
+      const name = el.get('name').split('-');
+      return name[0] === 'axis'
+    }
+  });
+  return axisShape;
+}

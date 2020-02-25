@@ -4,6 +4,7 @@ import { filter, each, isArray, clone } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
 import BBox from '../../util/bbox';
+import { getAxisShapes } from '../../util/common';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -112,8 +113,9 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange: any = view.viewBBox;
-    const { maxX, maxY } = viewRange;
+    const viewRange: any = clone(view.viewBBox);
+    console.log(viewRange);
+    const { minX, maxX, minY, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
       each(bleeding, (it, index) => {
@@ -125,28 +127,27 @@ export default class PaddingController {
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend
-    const components_bbox = [view.coordinateBBox];
+    const components_bbox = [clone(view.coordinateBBox)];
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
     // this._getLegend(view, components_bbox, box);
-    box = this._mergeBBox(components_bbox);
+    // box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
-    const components = this.innerPaddingComponents;
-    each(components, (obj) => {
+    // const components = this.innerPaddingComponents;
+    /*each(components, (obj) => {
       const component = obj;
       const bbox = component.getBBox();
       components_bbox.push(bbox);
     });
-    box = this._mergeBBox(components_bbox);
-    let minY = box.minY;
+    box = this._mergeBBox(components_bbox);*/
     /** 极坐标下padding计算错误问题 */
     if (minY === viewRange.minY) {
-      minY = 0;
+      box.minY = 0;
     }
     const padding: MarginPadding = [
-      0 - minY + this.bleeding[0], // 上面超出的部分
+      box.minX + minY, // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
-      box.maxY - maxY + this.bleeding[2], // 下边超出的部分
+      box.maxY - maxY, // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
     //this.adjustAxisPadding(view, padding);
@@ -156,13 +157,14 @@ export default class PaddingController {
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
     padding[3] += panelPadding[3];*/
+    console.log(padding);
     return padding;
   }
 
   private _getAxis(view, bboxes) {
-    const axesContainer = view.getController('axis').axisContainer.get('children');
-    if (axesContainer.length > 0) {
-      each(axesContainer, (a) => {
+    const axisShapes = getAxisShapes(view);
+    if (axisShapes.length > 0) {
+      each(axisShapes, (a) => {
         const bbox = a.getBBox();
         bboxes.push(bbox);
       });

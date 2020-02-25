@@ -22,6 +22,7 @@ import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
+import { getOverlapArea } from '../util/bbox';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
@@ -615,5 +616,27 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       }
       cliperContainer.attr('clip', cliper);
     });
+
+    // 临时解决scale min/max 之外的label
+    const clipBBox = new BBox(panelRange.x, panelRange.y, panelRange.width, panelRange.height);
+    _.each(this.getDataLabShapes(), (label) => {
+      const labelBBox = label.getBBox();
+      if (getOverlapArea(clipBBox, labelBBox) <= 0) {
+        label.set('visible', false);
+      }
+    });
+  }
+
+  private getDataLabShapes() {
+    const shapes = [];
+    this.view.get('elements').map((element) => {
+      const labelController = element.get('labelController');
+      const label = labelController.labelsContainer && labelController.labelsContainer.get('labelsRenderer');
+      if (label) {
+        shapes.push(...(label.getLabels() || []));
+      }
+    });
+
+    return shapes;
   }
 }

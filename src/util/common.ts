@@ -38,3 +38,12 @@ export function getAxisShapes(view){
   });
   return axisShape;
 }
+
+export function getLegendShapes(view){
+  const axisShape = view.foregroundGroup.findAll((el) => {
+    if(el.get('name')){
+      return el.get('name') === 'legend-item-group';
+    }
+  });
+  return axisShape;
+}

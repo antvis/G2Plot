@@ -143,7 +143,7 @@ export default class PaddingController {
     const padding: MarginPadding = [
       0 - box.minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
-      box.maxY - maxY, // 下边超出的部分
+      box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
     //this.adjustAxisPadding(view, padding);

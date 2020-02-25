@@ -29,19 +29,19 @@ export function breakText(source: string[], breaks: number[]): string {
   return result.join('');
 }
 
-export function getAxisShapes(view){
+export function getAxisShapes(view) {
   const axisShape = view.backgroundGroup.findAll((el) => {
-    if(el.get('name')){
+    if (el.get('name')) {
       const name = el.get('name').split('-');
-      return name[0] === 'axis'
+      return name[0] === 'axis';
     }
   });
   return axisShape;
 }
 
-export function getLegendShapes(view){
+export function getLegendShapes(view) {
   const axisShape = view.foregroundGroup.findAll((el) => {
-    if(el.get('name')){
+    if (el.get('name')) {
       return el.get('name') === 'legend-item-group';
     }
   });

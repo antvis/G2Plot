@@ -100,7 +100,7 @@ export default class TextDescription {
     const width = this.wrapperWidth;
     const style = this.style;
     const textContent: string = this.text;
-    const tShape = this.container.addShape('text',{
+    const tShape = this.container.addShape('text', {
       attrs: {
         text: '',
         x: 0,

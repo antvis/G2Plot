@@ -204,7 +204,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.drawTitle();
     this.drawDescription();
-
+    // 有些interaction要调整配置项，所以顺序提前
+    this.interaction();
     this.coord();
     this.scale();
     this.axis();
@@ -212,7 +213,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.legend();
     this.addGeometry();
     this.annotation();
-    this.interaction();
     this.animation();
 
     this.viewRange = this.getViewRange();
@@ -436,6 +436,16 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected interaction() {
     const { interactions = [] } = this.options;
     each(interactions, (interaction) => {
+      const { type } = interaction;
+      if (type === 'slider' || type === 'scrollbar') {
+        const axisConfig = {
+          label: {
+            autoHide: true,
+            autoRotate: false,
+          },
+        };
+        this.options.xAxis = deepMix({}, this.options.xAxis, axisConfig);
+      }
       this.setConfig('interaction', interaction);
     });
   }

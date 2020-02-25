@@ -126,10 +126,10 @@ export default class PaddingController {
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend
-    const components_bbox = [new BBox(0,0,viewRange.width,viewRange.height)];
+    const components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
-    this._getLegend(view, components_bbox, viewRange,this.plot.options);
+    this._getLegend(view, components_bbox, viewRange, this.plot.options);
     box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
@@ -152,7 +152,8 @@ export default class PaddingController {
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
-    padding[3] += panelPadding[3];*/ 
+    padding[3] += panelPadding[3];*/
+
     return padding;
   }
 
@@ -168,21 +169,20 @@ export default class PaddingController {
 
   private _getLegend(view, bboxes, viewRange, options) {
     const legendContainer = getLegendShapes(view)[0];
-    if(legendContainer){ 
+    if (legendContainer) {
       const bbox = legendContainer.getBBox();
-      if(options.legend){
+      if (options.legend) {
         const position = options.legend.position.split('-')[0];
-        if(position === 'top'){
-          bboxes.push(new BBox(bbox.minX, - bbox.height,bbox.width,bbox.height));
-        }else if(position === 'bottom'){
-          bboxes.push(new BBox(bbox.minX, bbox.maxX + viewRange.height, bbox.width,bbox.height));
-        }else if(position === 'left'){
-          bboxes.push(new BBox(bbox.minX-bbox.width, bbox.minY, bbox.width,bbox.height));
-        }else{
-          bboxes.push(new BBox(viewRange.maxX + bbox.maxX, bbox.minY, bbox.width,bbox.height));
+        if (position === 'top') {
+          bboxes.push(new BBox(bbox.minX, -bbox.height, bbox.width, bbox.height));
+        } else if (position === 'bottom') {
+          bboxes.push(new BBox(bbox.minX, bbox.maxX + viewRange.height, bbox.width, bbox.height));
+        } else if (position === 'left') {
+          bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
+        } else {
+          bboxes.push(new BBox(viewRange.maxX + bbox.maxX, bbox.minY, bbox.width, bbox.height));
         }
       }
-      
     }
   }
 

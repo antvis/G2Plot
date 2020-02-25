@@ -44,7 +44,7 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
         },
         [WEEK_FIELD]: {
           type: 'cat',
-          alias: 'Week',
+          alias: 'Month',
         }
       },
       tooltip: {
@@ -134,13 +134,18 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
 
     const x = scales[WEEK_FIELD];
     const y = scales[DAY_FIELD];
-
+    // 1. 设置 formatter
     x.formatter = (v) => {
       const m = monthWeek[v];
       return m !== undefined ? months[m] : '';
     };
 
     y.formatter = (v) => weeks[v] || '';
+
+    // 2. 设置 alias
+    const { xAxis, yAxis } = this.options;
+    x.alias = _.get(xAxis, ['title', 'text'], x.alias);
+    y.alias = _.get(yAxis, ['title', 'text'], y.alias);
 
 
     this.setConfig('scales', scales);

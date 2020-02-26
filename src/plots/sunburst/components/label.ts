@@ -135,12 +135,8 @@ export default class RangeBarLabel {
       const { center}  = coord;
       const xPoints = shape.get('origin').x;
       const yPoints = shape.get('origin').y;
-      const midX_0 = xPoints[0] + (xPoints[1]-xPoints[1]) / 2;
-      const midX_1 = xPoints[3] + (xPoints[2]-xPoints[3]) / 2;
-      const midY_0 = yPoints[1] + (yPoints[0]-yPoints[1]) / 2;
-      const midY_1 = yPoints[2] + (yPoints[3]-yPoints[2]) / 2;
-      const x = midX_0 + (midX_1 - midX_0) / 2;
-      const y = midY_0 + (midY_1 - midY_0) / 2;
+      const x = (xPoints[0]+xPoints[1]+xPoints[2]+xPoints[3]) / 4;
+      const y = (yPoints[0]+yPoints[1]+yPoints[2]+yPoints[3]) / 4;
       const radius = getPointRadius(coord,{x,y});
       const angle = getPointAngle(coord,{x,y});
       
@@ -158,7 +154,7 @@ export default class RangeBarLabel {
 
   private getRotate(angle){
     let rotate = angle * 180 / Math.PI;
-    rotate += 90;
+    //rotate += 90;
     if (rotate) {
         if (rotate > 90) {
           rotate = rotate - 180;

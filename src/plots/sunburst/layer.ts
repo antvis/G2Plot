@@ -4,6 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import patition from './layout/partition';
 import { INTERACTION_MAP } from './interaction';
+import SunburstLabel from './components/label';
 
 export interface SunburstViewConfig extends ViewConfig {
   data: any;
@@ -37,6 +38,9 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       },
       yAxis: {
         visible: false,
+      },
+      label:{
+        visible: true
       },
       xField: 'x',
       yField: 'y',
@@ -83,8 +87,8 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     this.getAllNodes(root.children, sunBurstData,level);
     sunBurstData.push({
       ...root,
-      y: [root.x0, root.x1, root.x1, root.x0, root.x1],
-      x: [root.y1, root.y1, root.y0, root.y0, root.y0],
+      x: [root.x0, root.x1, root.x1, root.x0, root.x1],
+      y: [root.y1, root.y1, root.y0, root.y0, root.y0],
     });
     sunBurstData.sort((a, b) => {
       return a.depth - b.depth;
@@ -167,6 +171,18 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         interactions[inter.type] = interaction;
       }
     });
+  }
+
+  public afterRender(){
+    if (this.options.label && this.options.label.visible) {
+      const label = new SunburstLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
+    super.afterRender();
   }
 
   private getAllNodes(data, nodes,level?) {

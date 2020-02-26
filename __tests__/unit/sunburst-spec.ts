@@ -124,7 +124,7 @@ describe('sunburst', () => {
       height: 600,
       data,
       colorField: 'name',
-      /* interactions: [
+      interactions: [
         {
           type: 'drilldown',
           cfg: {
@@ -133,7 +133,7 @@ describe('sunburst', () => {
             },
           } as any,
         },
-      ],*/
+      ],
     });
     sunBurstPlot.render();
   });

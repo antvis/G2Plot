@@ -3,7 +3,7 @@ import { each, clone } from '@antv/util';
 
 describe('sunburst', () => {
   const data = {
-    name: 'root',
+    name: 'Family Tree',
     value: 39,
     children: [
       {

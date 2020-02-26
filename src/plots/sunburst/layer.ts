@@ -24,6 +24,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       maxLevel: Infinity,
       padding: [0, 0, 0, 0],
       tooltip: {
+        showTitle: false,
         visible: true,
         shared: false,
         crosshairs: false
@@ -114,21 +115,17 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     const { data, colorField, color } = this.options;
     const sunburstData = this.getSunburstData(data);
     this.rootData = sunburstData;
+    
     this.rect = {
       type: 'polygon',
       position: {
         fields: ['x', 'y'],
       },
-      color: {
-        fields: [colorField],
-        values: color,
-      },
+      color: this.getColorConfig(sunburstData),
       tooltip: {
         fields: ['name'],
       },
-      label: {
-        fields: ['name'],
-      },
+      label: false
     };
     this.setConfig('element', this.rect);
   }
@@ -176,6 +173,44 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         this.getAllNodes(d.children, nodes);
       }
     });
+  }
+
+  private getColorConfig(data){
+    const { colorField,colors } = this.options;
+    if(_.isString(data[0][colorField])){
+      const uniqueValues = [];
+      let uniqueColors;
+      _.each(data,(d)=>{
+        const value = d[colorField];
+        if(!_.has(value,uniqueValues)){
+          uniqueValues.push(value);
+        }
+      });
+      if(colors){
+        uniqueColors = colors;
+      }else{
+        const theme = this.getTheme();
+        uniqueColors = uniqueValues.length >= 8 ? theme.colors_20 : theme.colors;
+      }
+      // zip
+      const mappingData = {};
+      _.each(uniqueValues,(v,i)=>{
+        const index = i<=uniqueValues.length-1? i : i - uniqueValues.length;
+        const color = uniqueColors[index];
+        mappingData[v] = color;
+      });
+      return {
+        fields:[colorField],
+        callback:(v)=>{
+          return mappingData[v];
+        }
+      }
+    }else{
+      return {
+        fields:[colorField],
+        values: colors
+      };
+    }
   }
 }
 

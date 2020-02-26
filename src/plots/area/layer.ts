@@ -17,6 +17,7 @@ interface AreaStyle {
   lineDash?: number[];
   strokeStyle?: string;
   lineWidth?: number;
+  stroke?: string;
 }
 
 const GEOM_MAP = {

@@ -4,8 +4,8 @@
  */
 import { registerShape } from '@antv/g2';
 import * as _ from '@antv/util';
-import { Point, ShapeInfo } from 'antv-g2/lib/interface';
-import { IGroup } from '@antv/g/packages/g-base/lib';
+import { Point, ShapeInfo } from '@antv/g2/lib/interface';
+import { IGroup } from '@antv/g-base';
 
 function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean) {
   const { style, defaultStyle, color } = cfg;

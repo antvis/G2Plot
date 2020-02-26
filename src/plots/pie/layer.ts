@@ -1,4 +1,3 @@
-import { Coordinate } from '@antv/g2/lib/dependents';
 import { deepMix } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -34,6 +33,7 @@ const PLOT_GEOM_MAP = {
   pie: 'column',
 };
 
+// @ts-ignore
 export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {

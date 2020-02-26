@@ -1,7 +1,7 @@
 /**
  * 区域连接组件，用于堆叠柱状图和堆叠条形图
  */
-import { Group, Shape, Shapes } from '@antv/g-canvas';
+import { IGroup, IShape } from '@antv/g-base';
 import { View } from '@antv/g2';
 import { each, assign, mix } from '@antv/util';
 import { compare } from '../base/controller/state';
@@ -30,10 +30,10 @@ function getDefaultStyle() {
 
 export default class ConnectedArea {
   private view: View;
-  private container: Group;
+  private container: IGroup;
   private field: string; // 堆叠字段
-  private areas: Shape[] = [];
-  private lines: Shape[] = [];
+  private areas: IShape[] = [];
+  private lines: IShape[] = [];
   private areaStyle: any;
   private _areaStyle: any = {};
   private lineStyle: any;
@@ -87,7 +87,7 @@ export default class ConnectedArea {
   }
 
   private _init() {
-    const layer = this.view.get('backgroundGroup');
+    const layer = this.view.backgroundGroup;
     this.container = layer.addGroup();
     this.draw();
     this.view.on('beforerender', () => {
@@ -97,8 +97,8 @@ export default class ConnectedArea {
 
   private _getGroupedShapes() {
     // 根据堆叠字段对shape进行分组
-    const { values } = this.view.get('scales')[this.field];
-    const geometry = this.view.get('elements')[0];
+    const { values } = this.view.getScaleByField(this.field);
+    const geometry = this.view.geometries[0];
     const shapes = geometry.getShapes();
     // 创建分组
     const groups = {};
@@ -187,7 +187,7 @@ export default class ConnectedArea {
           return d !== origin;
         },
       });
-      this.view.get('canvas').draw();
+      this.view.canvas.draw();
     });
     // 当鼠标移动到其他区域时取消显示
     this.view.on('mousemove', (e) => {
@@ -204,18 +204,18 @@ export default class ConnectedArea {
 
   private _initialAnimation() {
     // clipIn动画
-    const { start, end, width, height } = this.view.get('coord');
-    const clipRect = new Shapes.Rect({
+    const { x, y, width, height } = this.view.coordinateBBox;
+    this.container.setClip({
+      type: 'rect',
       attrs: {
-        x: start.x,
-        y: end.y,
+        x,
+        y,
         width: 0,
         height,
       },
     });
-    this.container.attr('clip', clipRect);
-    this.container.setSilent('animating', true);
-    clipRect.animate(
+    this.container.set('animating', true);
+    this.container.getClip().animate(
       {
         width,
       },

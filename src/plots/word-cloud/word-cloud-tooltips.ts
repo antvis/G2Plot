@@ -4,7 +4,7 @@
  */
 import { deepMix } from '@antv/util';
 import HtmlTooltip from '@antv/component/lib/tooltip/html';
-import { TooltipCfg } from '@antv/component/lib/tooltip/interface';
+import { TooltipCfg } from '@antv/component/lib/types';
 
 export default class WordCloudTooltips extends HtmlTooltip {
   constructor(cfg: TooltipCfg) {

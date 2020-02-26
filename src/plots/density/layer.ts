@@ -1,4 +1,3 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
@@ -6,6 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
 import Area, { AreaViewConfig } from '../area/layer';
 import { DataItem } from '../../interface/config';
+import { LooseMap } from '../../interface/types';
 
 export interface DensityViewConfig extends AreaViewConfig {
   binField: string;
@@ -100,7 +100,7 @@ export default class DensityLayer<T extends DensityLayerConfig = DensityLayerCon
   private kernelDensityEstimator(
     binWidth: number,
     kernelFunc: (dist: number) => number,
-    x: DataPointType,
+    x: LooseMap,
     values: number[]
   ) {
     let sum = 0;

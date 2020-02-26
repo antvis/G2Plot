@@ -1,4 +1,4 @@
-import { memoize, isString, values } from '@antv/util';
+import { memoize, isString, values, toString } from '@antv/util';
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 

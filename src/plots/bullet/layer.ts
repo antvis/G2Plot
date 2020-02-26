@@ -205,10 +205,9 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
   }
 
   protected coord() {
-    const coordConfig = {
+    this.setConfig('coordinate', {
       actions: [['transpose']],
-    };
-    this.setConfig('coordinate', coordConfig);
+    });
   }
 
   /** 自定义子弹图图例 */
@@ -219,6 +218,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     const items = [
       {
         name: '实际进度', // 图例项的文本内容
+        value: '实际进度',
         marker: {
           symbol: 'square', // 该图例项 marker 的形状，参见 marker 参数的说明
           style: {
@@ -228,6 +228,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       },
       {
         name: '目标值', // 图例项的文本内容
+        value: '目标值',
         marker: {
           symbol: 'line', // 该图例项 marker 的形状，参见 marker 参数的说明
           style: {
@@ -244,6 +245,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       ...options.legend,
       clickable: false,
     };
+    // @ts-ignore
     this.setConfig('legends', legendOptions as LegendOption);
   }
 

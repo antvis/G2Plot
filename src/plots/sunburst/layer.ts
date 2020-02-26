@@ -56,6 +56,12 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
   private isDrilldown: boolean;
 
   public beforeInit() {
+    super.beforeInit();
+    const { data } = this.options;
+    const sunburstData = this.getSunburstData(data);
+    this.rootData = sunburstData;
+    this.adjustLinearScale(sunburstData);
+
     const { interactions } = this.options;
     if (interactions) {
       _.each(interactions, (interaction) => {
@@ -77,8 +83,8 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     this.getAllNodes(root.children, sunBurstData,level);
     sunBurstData.push({
       ...root,
-      y: [root.x0, root.x1, root.x1, root.x0],
-      x: [root.y1, root.y1, root.y0, root.y0],
+      y: [root.x0, root.x1, root.x1, root.x0, root.x1],
+      x: [root.y1, root.y1, root.y0, root.y0, root.y0],
     });
     sunBurstData.sort((a, b) => {
       return a.depth - b.depth;
@@ -90,13 +96,6 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
 
   protected processData() {
     return this.rootData;
-  }
-
-  public beforInit() {
-    super.beforeInit();
-    const { data } = this.options;
-    const sunburstData = this.getSunburstData(data);
-    this.rootData = sunburstData;
   }
 
   protected coord() {
@@ -125,7 +124,18 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       tooltip: {
         fields: ['name'],
       },
-      label: false
+      label: false,
+      style:{
+        fields:['depth'],
+        callback:(depth)=>{
+          if(depth > 0){
+            return {
+              stroke:'#ffffff',
+              lineWidth: 1
+            }
+          }
+        }
+      }
     };
     this.setConfig('element', this.rect);
   }
@@ -212,6 +222,25 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       };
     }
   }
+
+  private adjustLinearScale(data){
+    const { colorField, meta } = this.options;
+    if(_.isNumber(data[0][colorField])){
+      let min = Infinity;
+      let max = -Infinity;
+      _.each(data,(d)=>{
+        const value = d[colorField];
+        min = Math.min(value,min);
+        max = Math.max(value,max);
+      });
+      const origin_meta = meta[colorField];
+      meta[colorField] = _.deepMix({},origin_meta,{
+        min,
+        max
+      });
+    }
+  }
+
 }
 
 registerPlotType('sunburst', SunburstLayer);

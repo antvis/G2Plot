@@ -124,6 +124,7 @@ describe('sunburst', () => {
       height: 600,
       data,
       colorField: 'name',
+      //colors:'#BAE7FF-#1890FF-#0050B3',
       interactions: [
         {
           type: 'drilldown',

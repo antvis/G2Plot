@@ -32,6 +32,7 @@ export default class StackColumnLayer<
         visible: false,
         triggerOn: 'mouseenter',
       },
+      interactions:[]
     });
   }
 

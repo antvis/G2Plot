@@ -192,7 +192,7 @@ export default class ConnectedArea {
     });
     // 当鼠标移动到其他区域时取消显示
     this.view.on('mousemove', (e) => {
-      if (e.target.name !== 'interval') {
+      if (e.gEvent.target.get('name') !== 'interval') {
         this.setState('disabled', {
           name: this.field,
           exp: () => {

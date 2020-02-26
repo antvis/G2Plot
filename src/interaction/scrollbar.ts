@@ -112,13 +112,13 @@ export default class ScrollbarInteraction extends BaseInteraction {
 
   private renderScrollbar(): void {
     const config: Required<IScrollbarInteractionConfig> = getValidScrollbarConfig(this.getInteractionConfig());
-    const range: BBox = this.getRange();
+    const range = this.getRange();
     const isHorizontal = config.type !== 'vertical';
     const panelRange = this.view.coordinateBBox;
     const [paddingTop, , , paddingLeft] = config.padding;
     const position = isHorizontal
-      ? { x: panelRange.minX + paddingLeft, y: range.tl.y + paddingTop }
-      : { x: range.tl.x + paddingLeft, y: panelRange.minY + paddingTop };
+      ? { x: panelRange.minX + paddingLeft, y: range.minY + paddingTop }
+      : { x: range.minX + paddingLeft, y: panelRange.minY + paddingTop };
 
     if (!this.scrollBar) {
       this.container = this.canvas.addGroup();

@@ -2,7 +2,7 @@ import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
 import { BBox, Group, Rect } from '@antv/g';
 import Sunburst from '../layer';
-import { each, hasKey, isFunction, clone } from '@antv/util';
+import { each, hasKey, isFunction, clone, isString } from '@antv/util';
 import { View } from '@antv/g2';
 
 const DEFAULT_ITEM_WIDTH = 100;
@@ -96,7 +96,6 @@ export default class DrillDownInteraction extends BaseInteraction {
     }
     const tempoData = this.plot.getSunburstData(data,this.plot.options.maxLevel);
     this.view.changeData(tempoData);
-    this.adjustScale(this.currentDepth);
     this.currentNode = data;
     this.render();
   }
@@ -229,23 +228,6 @@ export default class DrillDownInteraction extends BaseInteraction {
     this.originMapping = mappingInfo;
   }
 
-  private adjustScale(index) {
-    const { view } = this;
-    // 根据当前层级确定mapping配置项
-    if (this.mapping && hasKey(this.mapping, String(index))) {
-      const mappingCfg = clone(this.mapping[index]);
-      if (mappingCfg.values && isFunction(mappingCfg.values)) {
-        const values = mappingCfg.values(this.parentNode, this.currentNode);
-        mappingCfg.values = values;
-      }
-      this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
-    } else {
-      const mappingCfg = clone(this.originMapping);
-      this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
-    }
-    view.render();
-  }
-
   private initGeometry() {
     this.geometry = this.view.get('elements')[0];
     const viewRange = this.view.get('viewRange');
@@ -264,7 +246,6 @@ export default class DrillDownInteraction extends BaseInteraction {
   private updateRoot(data) {
     const tempoData = this.plot.getSunburstData(data.data,this.plot.options.maxLevel);
     this.view.changeData(tempoData);
-    this.adjustScale(1);
     this.currentNode = this.plot.options.data;
     this.render();
   }

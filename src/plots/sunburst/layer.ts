@@ -2,8 +2,8 @@ import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import patition from './layout/partition';
+import { INTERACTION_MAP } from './interaction';
 
 export interface SunburstViewConfig extends ViewConfig {
   data: any;
@@ -60,7 +60,6 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       _.each(interactions, (interaction) => {
         if (interaction.type === 'drilldown') {
           this.isDrilldown = true;
-          this.options.maxLevel = 1;
         }
       });
     }
@@ -134,6 +133,28 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     if (this.isDrilldown) {
       this.rect.animate = false;
     }
+  }
+
+  protected applyInteractions() {
+    const interactionCfg = this.options.interactions;
+    const interactions = this.view.get('interactions');
+    _.each(interactionCfg, (inter) => {
+      const Ctr = INTERACTION_MAP[inter.type];
+      if (Ctr) {
+        const interaction = new Ctr(
+          _.deepMix(
+            {},
+            {
+              view: this.view,
+              plot: this,
+              startEvent: 'polygon:click',
+            },
+            inter.cfg
+          )
+        );
+        interactions[inter.type] = interaction;
+      }
+    });
   }
 
   private getAllNodes(data, nodes, level?) {

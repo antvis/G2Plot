@@ -32,7 +32,11 @@ export default class StackColumnLayer<
         visible: false,
         triggerOn: 'mouseenter',
       },
-      interactions:[]
+      interaction: [
+        {
+          type: 'tooltip',
+        },
+      ],
     });
   }
 
@@ -66,6 +70,13 @@ export default class StackColumnLayer<
         type: 'stack',
       },
     ];
+  }
+
+  protected interaction() {
+    if (this.options.connectedArea && this.options.connectedArea.visible) {
+      this.options.interactions = [{ type: 'tooltip' }];
+    }
+    super.interaction();
   }
 
   protected renderLabel() {

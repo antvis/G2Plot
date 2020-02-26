@@ -6,7 +6,7 @@ import { View } from '@antv/g2';
 import { each, assign, mix, find } from '@antv/util';
 import { compare } from '../base/controller/state';
 
-function parsePoints(shape,coord) {
+function parsePoints(shape, coord) {
   const parsedPoints = [];
   const points = shape.get('origin').points;
   each(points, (p) => {
@@ -120,8 +120,8 @@ export default class ConnectedArea {
     this._lineStyle[name] = this._getShapeStyle(originColor, 'line');
     const coord = this.getGeometry().coordinate;
     for (let i = 0; i < shapes.length - 1; i++) {
-      const current = parsePoints(shapes[i],coord);
-      const next = parsePoints(shapes[i + 1],coord);
+      const current = parsePoints(shapes[i], coord);
+      const next = parsePoints(shapes[i + 1], coord);
       const areaStyle = mix({}, this._areaStyle[name]);
       const lineStyle = mix({}, this._lineStyle[name]);
       if (this.triggerOn) {
@@ -206,17 +206,17 @@ export default class ConnectedArea {
   private _initialAnimation() {
     // clipIn动画
     const coord = this.getGeometry().coordinate;
-    const { start, end, } = coord;
+    const { start, end } = coord;
     const width = coord.getWidth();
     const height = coord.getHeight();
     this.container.setClip({
-      type:'rect',
+      type: 'rect',
       attrs: {
         x: start.x,
         y: end.y,
         width: 0,
         height,
-      }
+      },
     });
     const clipRect = this.container.get('clipShape');
     clipRect.animate(
@@ -288,8 +288,7 @@ export default class ConnectedArea {
     this._onActive(condition);
   }
 
-  private getGeometry(){
+  private getGeometry() {
     return find(this.view.geometries, (geom) => geom.type === 'interval');
   }
-  
 }

@@ -79,6 +79,13 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         visible: true,
         position: 'top-left',
       },
+      interactions: [
+        { type: 'tooltip' }, 
+        { type: 'element-active' }, 
+        { type: 'active-region' },
+        { type: 'legend-active' },
+        { type: 'legend-filter'}
+      ],
     });
   }
   public column: any;
@@ -174,10 +181,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       });
       label.render();
     }
-  }
-
-  protected interaction() {
-    this.setConfig('interaction', { type: 'active-region' });
   }
 
   private applyResponsive(stage) {

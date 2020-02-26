@@ -23,8 +23,6 @@ import ThemeController from './controller/theme';
 import Layer, { LayerConfig, Region } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
-import BBox from '../util/bbox';
-import { Interaction } from '@antv/g2';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -133,12 +131,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
       },
       interactions: [
-        {
-          type: 'tooltip',
-        },
-        {
-          type: 'element-active',
-        },
+        { type: 'tooltip' },
+        { type: 'element-active' },
+        { type: 'legend-active' },
+        { type: 'legend-filter'}
       ],
     };
   }

@@ -20,8 +20,8 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
   public static getDefaultOptions(): Partial<SunburstLayerConfig> {
     return _.deepMix({}, super.getDefaultOptions(), {
       radius: 0.8,
-      innerRadius: 0.2,
-      maxLevel: 10,
+      innerRadius: 0,
+      maxLevel: Infinity,
       padding: [0, 0, 0, 0],
       tooltip: {
         visible: true,
@@ -71,9 +71,14 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
 
   public getSunburstData(data, level?) {
     data.depth = 0;
-    const root = patition(data).children;
+    const root = patition(data);
     const sunBurstData = [];
-    this.getAllNodes(root, sunBurstData, level);
+    this.getAllNodes(root.children, sunBurstData,level);
+    sunBurstData.push({
+      ...root,
+      y: [root.x0, root.x1, root.x1, root.x0],
+      x: [root.y1, root.y1, root.y0, root.y0],
+    });
     sunBurstData.sort((a, b) => {
       return a.depth - b.depth;
     });
@@ -157,7 +162,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     });
   }
 
-  private getAllNodes(data, nodes, level?) {
+  private getAllNodes(data, nodes,level?) {
     const max = level ? level : this.options.maxLevel;
     _.each(data, (d) => {
       if (_.hasKey(d, 'x0') && d.depth <= max) {

@@ -7,6 +7,7 @@ import './apply-responsive/theme';
 import * as EventParser from './event';
 import { LooseMap } from '../../interface/types';
 import RingStatistic from './component/ring-statistic';
+import { getPieLabel } from '../pie/component/label';
 
 export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
@@ -63,6 +64,7 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 
   public afterRender() {
+    const options = this.options;
     /**环图中心文本 */
     if (this.options.statistic && this.options.statistic.visible) {
       this.statistic = new RingStatistic({
@@ -78,6 +80,11 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
         //this.triggerOnStatistic();
         this.statistic.triggerOn();
       }
+    }
+    if (options.label && options.label.visible) {
+      const LabelCtor = getPieLabel(options.label.type);
+      const label = new LabelCtor(this, options.label);
+      label.render();
     }
   }
 

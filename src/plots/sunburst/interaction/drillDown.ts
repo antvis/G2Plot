@@ -94,7 +94,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     if (!hasKey(this.cache, data.name)) {
       this.cache[data.name] = data;
     }
-    const tempoData = this.plot.getSunburstData(data, data.depth);
+    const tempoData = this.plot.getSunburstData(data,this.plot.options.maxLevel);
     this.view.changeData(tempoData);
     this.adjustScale(this.currentDepth);
     this.currentNode = data;
@@ -159,9 +159,10 @@ export default class DrillDownInteraction extends BaseInteraction {
       items = [];
       const parents = [];
       this.findParent(this.currentNode, parents);
-      items.push(this.getRootItem());
+      parents.reverse();
+      //items.push(this.getRootItem());
       each(parents, (p, index) => {
-        items.push({ key: String(index + 2), text: p.name, data: p });
+        items.push({ key: String(index + 1), text: p.name, data: p });
       });
       items.push({ key: String(parents.length + 2), text: this.currentNode.name, data: this.currentNode });
     }
@@ -261,7 +262,8 @@ export default class DrillDownInteraction extends BaseInteraction {
   }
 
   private updateRoot(data) {
-    this.view.changeData(data.data);
+    const tempoData = this.plot.getSunburstData(data.data,this.plot.options.maxLevel);
+    this.view.changeData(tempoData);
     this.adjustScale(1);
     this.currentNode = this.plot.options.data;
     this.render();

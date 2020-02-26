@@ -60,6 +60,7 @@ function calculateDepth(root) {
   const { children } = root;
   if (children) {
     each(children, (n) => {
+      n.parent = root;
       n.depth = root.depth + 1;
       calculateDepth(n);
     });

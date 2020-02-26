@@ -32,11 +32,6 @@ export default class StackColumnLayer<
         visible: false,
         triggerOn: 'mouseenter',
       },
-      interaction: [
-        {
-          type: 'tooltip',
-        },
-      ],
     });
   }
 

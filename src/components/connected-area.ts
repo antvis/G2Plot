@@ -216,7 +216,7 @@ export default class ConnectedArea {
         y: end.y,
         width: 0,
         height,
-      },
+      }
     });
     const clipRect = this.container.get('clipShape');
     clipRect.animate(

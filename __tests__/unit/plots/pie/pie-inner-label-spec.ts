@@ -1,4 +1,4 @@
-import { Shape } from '@antv/g';
+import { Shape } from '@antv/g-canvas';
 import { Pie } from '../../../../src';
 import { distBetweenPoints } from '../../../../src/util/math';
 
@@ -48,14 +48,15 @@ describe('Pie plot with innerLabel', () => {
   piePlot.render();
   // @ts-ignore
   const plot = piePlot.getLayer().view;
-  const coord = plot.get('coord');
+  const coord = plot.getCoordinate();
   const center = coord.getCenter();
   const radius = coord.getRadius();
 
   it('默认配置为 inner label', () => {
     // @ts-ignore
-    const pieElement = piePlot.getLayer().view.get('elements')[0];
-    const labelShapes: Shape[] = pieElement.get('labels');
+    const pieElement = piePlot.getLayer().view.geometries[0];
+    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+
 
     const box = labelShapes[0].getBBox();
     const anchor = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
@@ -88,13 +89,13 @@ describe('Pie plot with innerLabel', () => {
     });
     piePlot.render();
     // @ts-ignore
-    const pieElement = piePlot.getLayer().view.get('elements')[0];
-    const labelShapes: Shape[] = pieElement.get('labels');
+    const pieElement = piePlot.getLayer().view.geometries[0];
+    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
     labelShapes.forEach((label) => {
       const box = label.getBBox();
       const anchor = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
       const dist = distBetweenPoints(center, anchor);
-      expect(dist).toBe(radius);
+      expect(dist).toBeCloseTo(radius);
     });
   });
 
@@ -119,8 +120,8 @@ describe('Pie plot with innerLabel', () => {
     });
     piePlot.render();
     // @ts-ignore
-    const pieElement = piePlot.getLayer().view.get('elements')[0];
-    const labelShapes: Shape[] = pieElement.get('labels');
+    const pieElement = piePlot.getLayer().view.geometries[0];
+    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
     const near = (a, b) => Math.abs(a - b) < 2;
     labelShapes.forEach((label) => {
       const box = label.getBBox();

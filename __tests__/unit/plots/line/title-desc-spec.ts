@@ -69,14 +69,14 @@ describe('title description', () => {
     const view = plot.getLayer() as LineLayer;
     expect(view.title).not.toBe(null);
     expect(view.description).not.toBe(null);
-    const region1 = { start: view.view.get('start'), end: view.view.get('end') };
+    const region1 = view.view.region;
     plot.updateConfig({
       title: {
         visible: false,
       },
     });
     plot.render();
-    const region2 = { start: view.view.get('start'), end: view.view.get('end') };
+    const region2 = view.view.region;
     expect(region1).not.toEqual(region2);
     expect(view.title).toBe(null);
     expect(view.description).not.toBe(null);
@@ -86,12 +86,12 @@ describe('title description', () => {
       },
     });
     plot.render();
-    const region3 = { start: view.view.get('start'), end: view.view.get('end') };
+    const region3 = view.view.region;
     expect(view.title).toBe(null);
     expect(view.description).toBe(null);
     expect(region2).not.toEqual(region3);
   });
-  it('title desription wrap', () => {
+  it('title description wrap', () => {
     const plot = new Line(canvasDiv, {
       width: 600,
       height: 600,

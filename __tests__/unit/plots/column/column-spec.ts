@@ -74,10 +74,11 @@ describe('Column plot', () => {
       animation: true,
     });
     columnPlot.render();
-    const plot: View = columnPlot.getLayer().view;
-    const positionField = plot.geometries[0].get('position').fields;
-    const isTransposed = plot.get('coord').isTransposed;
-    const axes = plot.getController('axis').getComponents();
+    const plot: View = columnPlot.getLayer().view as View;
+    // @ts-ignore
+    const positionField = plot.geometries[0].attributeOption.position.fields;
+    const isTransposed = plot.getCoordinate().isTransposed;
+    const axes = plot.getController('axis').getComponents().filter(co => co.type === 'axis');
 
     expect(columnPlot).toBeInstanceOf(Column);
     expect(positionField[0]).toBe('year');

@@ -96,6 +96,13 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         visible: false,
         position: 'top-left',
       },
+      interactions: [
+        { type: 'tooltip' }, 
+        { type: 'element-active' }, 
+        { type: 'active-region' },
+        { type: 'legend-active' },
+        { type: 'legend-filter'}
+      ],
     };
     return deepMix({}, super.getDefaultOptions(), cfg);
   }
@@ -197,10 +204,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       /** 关闭动画 */
       this.bar.animate = false;
     }
-  }
-
-  protected interaction() {
-    this.setConfig('interaction', { type: 'active-region' });
   }
 
   protected parseEvents(eventParser) {

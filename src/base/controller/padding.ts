@@ -4,6 +4,7 @@ import { filter, each, isArray, clone } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
 import BBox from '../../util/bbox';
+import { getAxisShapes, getLegendShapes } from '../../util/common';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -112,8 +113,8 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange: any = view.viewBBox;
-    const { maxX, maxY } = viewRange;
+    const viewRange: any = clone(view.viewBBox);
+    const { minX, maxX, minY, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
       each(bleeding, (it, index) => {
@@ -125,10 +126,10 @@ export default class PaddingController {
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend
-    const components_bbox = [view.coordinateBBox];
+    const components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
-    // this._getLegend(view, components_bbox, box);
+    this._getLegend(view, components_bbox, viewRange, this.plot.options);
     box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
@@ -138,13 +139,9 @@ export default class PaddingController {
       components_bbox.push(bbox);
     });
     box = this._mergeBBox(components_bbox);
-    let minY = box.minY;
     /** 极坐标下padding计算错误问题 */
-    if (minY === viewRange.minY) {
-      minY = 0;
-    }
     const padding: MarginPadding = [
-      0 - minY + this.bleeding[0], // 上面超出的部分
+      0 - box.minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
@@ -156,52 +153,36 @@ export default class PaddingController {
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
     padding[3] += panelPadding[3];*/
+
     return padding;
   }
 
   private _getAxis(view, bboxes) {
-    const axesContainer = view.getController('axis').axisContainer.get('children');
-    if (axesContainer.length > 0) {
-      each(axesContainer, (a) => {
+    const axisShapes = getAxisShapes(view);
+    if (axisShapes.length > 0) {
+      each(axisShapes, (a) => {
         const bbox = a.getBBox();
         bboxes.push(bbox);
       });
     }
   }
 
-  private _getLegend(view, bboxes, box) {
-    const viewRange = view.viewBBox;
-    const legends = view.get('legendController').legends;
-    if (legends.length > 0) {
-      each(legends, (l) => {
-        const legend = l;
-        this._adjustLegend(legend, view, box);
-        const legendBBox = legend.getBBox();
-        const { width, height } = legendBBox;
-        let x = 0;
-        let y = 0;
-        const position = legend.get('position').split('-');
-        if (position[0] === 'right') {
-          x = viewRange.maxX;
-          y = legendBBox.minY;
+  private _getLegend(view, bboxes, viewRange, options) {
+    const legendContainer = getLegendShapes(view)[0];
+    if (legendContainer) {
+      const bbox = legendContainer.getBBox();
+      if (options.legend) {
+        const position = options.legend.position.split('-')[0];
+        if (position === 'top') {
+          bboxes.push(new BBox(bbox.minX, -bbox.height, bbox.width, bbox.height));
+        } else if (position === 'bottom') {
+          bboxes.push(new BBox(bbox.minX, bbox.maxX + viewRange.height, bbox.width, bbox.height));
+        } else if (position === 'left') {
+          bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
+        } else {
+          bboxes.push(new BBox(viewRange.maxX + bbox.maxX, bbox.minY, bbox.width, bbox.height));
         }
-        if (position[0] === 'left') {
-          x = box.minX - width;
-          y = legendBBox.minY;
-        }
-        if (position[0] === 'top') {
-          x = legendBBox.minX;
-          y = -height;
-        }
-        if (position[0] === 'bottom') {
-          x = legendBBox.minX;
-          y = viewRange.maxY + height;
-        }
-        const bbox = new BBox(x, y, width, height);
-        bboxes.push(bbox);
-        const innerPadding = this._getLegendInnerPadding(legend);
-        this._mergeBleeding(innerPadding);
-      });
+      }
     }
   }
 

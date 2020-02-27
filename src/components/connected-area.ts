@@ -3,12 +3,11 @@
  */
 import { IGroup, IShape } from '@antv/g-base';
 import { View } from '@antv/g2';
-import { each, assign, mix } from '@antv/util';
+import { each, assign, mix, find } from '@antv/util';
 import { compare } from '../base/controller/state';
 
-function parsePoints(shape) {
+function parsePoints(shape, coord) {
   const parsedPoints = [];
-  const coord = shape.get('coord');
   const points = shape.get('origin').points;
   each(points, (p) => {
     parsedPoints.push(coord.convertPoint(p));
@@ -107,7 +106,7 @@ export default class ConnectedArea {
     });
     // 执行分组
     each(shapes, (shape) => {
-      const origin = shape.get('origin')._origin;
+      const origin = shape.get('origin').data;
       const key = origin[this.field];
       groups[key].push(shape);
     });
@@ -119,9 +118,10 @@ export default class ConnectedArea {
     const originColor = shapes[0].attr('fill');
     this._areaStyle[name] = this._getShapeStyle(originColor, 'area');
     this._lineStyle[name] = this._getShapeStyle(originColor, 'line');
+    const coord = this.view.geometries[0].coordinate;
     for (let i = 0; i < shapes.length - 1; i++) {
-      const current = parsePoints(shapes[i]);
-      const next = parsePoints(shapes[i + 1]);
+      const current = parsePoints(shapes[i], coord);
+      const next = parsePoints(shapes[i + 1], coord);
       const areaStyle = mix({}, this._areaStyle[name]);
       const lineStyle = mix({}, this._lineStyle[name]);
       if (this.triggerOn) {
@@ -150,7 +150,7 @@ export default class ConnectedArea {
         name: 'connectedArea',
       });
       // 在辅助图形上记录数据，用以交互和响应状态量
-      const originData = shapes[i].get('origin')._origin;
+      const originData = shapes[i].get('origin').data;
       area.set('data', originData);
       line.set('data', originData);
       this.areas.push(area);
@@ -176,7 +176,7 @@ export default class ConnectedArea {
   private _addInteraction() {
     const eventName = this.triggerOn;
     this.view.on(`interval:${eventName}`, (e) => {
-      const origin = e.target.get('origin')._origin[this.field];
+      const origin = e.target.get('origin').data[this.field];
       this.setState('active', {
         name: this.field,
         exp: origin,
@@ -191,7 +191,7 @@ export default class ConnectedArea {
     });
     // 当鼠标移动到其他区域时取消显示
     this.view.on('mousemove', (e) => {
-      if (e.target.name !== 'interval') {
+      if (e.gEvent.target.get('name') !== 'interval') {
         this.setState('disabled', {
           name: this.field,
           exp: () => {
@@ -212,7 +212,7 @@ export default class ConnectedArea {
         y,
         width: 0,
         height,
-      },
+      }
     });
     this.container.set('animating', true);
     this.container.getClip().animate(
@@ -282,5 +282,9 @@ export default class ConnectedArea {
 
   private _onSelected(condition) {
     this._onActive(condition);
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geom) => geom.type === 'interval');
   }
 }

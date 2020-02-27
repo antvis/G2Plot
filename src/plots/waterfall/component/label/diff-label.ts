@@ -53,7 +53,6 @@ export default class DiffLabel {
     const data = _.clone(this.view.getData());
     this.container = this.view.foregroundGroup.addGroup();
     const shapes = this.view.geometries[0].elements.map((value) => value.shape);
-    console.log(this.view.geometries);
     _.each(shapes, (shape, idx) => {
       if (!shape.cfg.origin) return;
       const _origin = shape.cfg.origin.data;

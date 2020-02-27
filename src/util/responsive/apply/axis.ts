@@ -106,13 +106,13 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     if (props[axis] && props[axis].type && props[axis].type === 'dateTime') {
       return 'dateTime';
     }
-    const scaleType = this.plot.view.get('scales')[props[field]].type;
+    const scaleType = this.plot.view.getScaleByField([props[field]]).type;
     return SCALE_MAPPER[scaleType];
   }
 
   private getAxisInstance() {
     const axisIndex = this.dim === 'x' ? 0 : 1;
-    const axis = this.plot.view.get('axisController').axes[axisIndex];
+    const axis = this.plot.view.getController('axis').getComponents()[axisIndex].component;
     return axis;
   }
 }

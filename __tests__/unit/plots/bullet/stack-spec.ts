@@ -45,7 +45,10 @@ describe('stack', () => {
     },
   });
 
-  window.__plot = bulletPlot;
-
   bulletPlot.render();
+
+  test('bullet', () => {
+    // TODO @xinming
+    expect(bulletPlot).toBeDefined();
+  });
 });

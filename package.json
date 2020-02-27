@@ -40,7 +40,7 @@
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/ring-spec.ts",
     "coverage": "jest --coverage",
-    "ci": "run-s lint-check build test coverage",
+    "ci": "run-s lint-check build coverage",
     "compare-live": "node scripts/compare.js",
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
     "changelog": "conventional-changelog -i CHANGELOG.md -a -s"

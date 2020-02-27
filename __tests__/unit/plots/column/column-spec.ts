@@ -78,7 +78,10 @@ describe('Column plot', () => {
     // @ts-ignore
     const positionField = plot.geometries[0].attributeOption.position.fields;
     const isTransposed = plot.getCoordinate().isTransposed;
-    const axes = plot.getController('axis').getComponents().filter(co => co.type === 'axis');
+    const axes = plot
+      .getController('axis')
+      .getComponents()
+      .filter((co) => co.type === 'axis');
 
     expect(columnPlot).toBeInstanceOf(Column);
     expect(positionField[0]).toBe('year');
@@ -260,7 +263,7 @@ describe('Column plot', () => {
     columnPlot.render();
     const plot = columnPlot.getLayer().view;
     const axes = plot.getController('axis').getComponents();
-    const axis = axes[0].component;;
+    const axis = axes[0].component;
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
@@ -320,7 +323,7 @@ describe('Column plot', () => {
     const plot = columnPlot.getLayer().view;
     const axes = plot.getController('axis').getComponents();
     expect(axes.length).toBe(1);
-    const axis = axes[0].component;;
+    const axis = axes[0].component;
     const labels = axis.get('labelItems');
     expect(axis.get('title').text).toInclude('xxxx');
     expect(axis.get('title').textStyle.fill).toBe('red');
@@ -365,7 +368,7 @@ describe('Column plot', () => {
     const plot = columnPlot.getLayer().view;
     const axes = plot.getController('axis').getComponents();
     expect(axes.length).toBe(1);
-    const axis = axes[0].component;;
+    const axis = axes[0].component;
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');

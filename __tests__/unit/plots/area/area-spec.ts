@@ -311,7 +311,10 @@ describe('Area plot', () => {
     areaPlot.render();
     const view = areaPlot.getLayer().view;
     const positionField = view.geometries[0].attributeOption.position.fields;
-    const axes = view.getController('axis').getComponents().filter(co => co.type === 'axis');
+    const axes = view
+      .getController('axis')
+      .getComponents()
+      .filter((co) => co.type === 'axis');
 
     expect(areaPlot).toBeInstanceOf(Area);
     expect(positionField[0]).toBe('year');

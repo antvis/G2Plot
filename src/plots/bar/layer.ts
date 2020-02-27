@@ -101,7 +101,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         { type: 'element-active' },
         { type: 'active-region' },
         { type: 'legend-active' },
-        { type: 'legend-filter'}
+        { type: 'legend-filter' },
       ],
     };
     return deepMix({}, super.getDefaultOptions(), cfg);

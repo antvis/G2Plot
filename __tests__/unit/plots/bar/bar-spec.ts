@@ -204,7 +204,7 @@ describe.skip('Bar plot', () => {
     const plot = barPlot.getLayer().view;
     const axes = plot.getController('axis').getComponents();
     expect(axes.length).toBe(1);
-    const axis = axes[0].component;;
+    const axis = axes[0].component;
     expect(axis.get('title').text).toInclude('xxxx');
     expect(axis.get('title').textStyle.fill).toBe('red');
     const labels = axis.get('labelItems');
@@ -250,7 +250,7 @@ describe.skip('Bar plot', () => {
     const plot = barPlot.getLayer().view;
     const axes = plot.getController('axis').getComponents();
     expect(axes.length).toBe(1);
-    const axis = axes[0].component;;
+    const axis = axes[0].component;
     // style
     const line = axis.get('line');
     const tickLine = axis.get('tickLine');
@@ -310,7 +310,7 @@ describe.skip('Bar plot', () => {
     const plot = barPlot.getLayer().view;
     const axes = plot.getController('axis').getComponents();
     expect(axes.length).toBe(1);
-    const axis = axes[0].component;;
+    const axis = axes[0].component;
     const labels = axis.get('labelItems');
     expect(axis.get('title').text).toInclude('year');
     expect(axis.get('title').textStyle.fill).toBe('red');

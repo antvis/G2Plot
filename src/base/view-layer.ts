@@ -134,7 +134,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         { type: 'tooltip' },
         { type: 'element-active' },
         { type: 'legend-active' },
-        { type: 'legend-filter'}
+        { type: 'legend-filter' },
       ],
     };
   }

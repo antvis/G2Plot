@@ -180,9 +180,7 @@ describe.skip('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const labelGroup = plot
-      .geometries[0]
-      .foregroundGroup
+    const labelGroup = plot.geometries[0].foregroundGroup
       .get('children')[0]
       .get('children')[0]
       .get('children');

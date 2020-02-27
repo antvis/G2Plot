@@ -57,7 +57,6 @@ describe('Pie plot with innerLabel', () => {
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
 
-
     const box = labelShapes[0].getBBox();
     const anchor = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
     const dist = distBetweenPoints(center, anchor);

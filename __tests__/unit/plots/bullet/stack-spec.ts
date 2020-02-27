@@ -50,5 +50,5 @@ describe('stack', () => {
   test('bullet', () => {
     // TODO @xinming
     expect(bulletPlot).toBeDefined();
-  })
+  });
 });

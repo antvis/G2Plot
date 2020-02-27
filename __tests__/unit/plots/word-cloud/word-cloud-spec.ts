@@ -536,6 +536,5 @@ describe('WordCloud plot', () => {
     return arr[Math.floor(Math.random() * (arr.length - 1))];
   }
 
-  function hoverAction(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) {
-  }
+  function hoverAction(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) {}
 });

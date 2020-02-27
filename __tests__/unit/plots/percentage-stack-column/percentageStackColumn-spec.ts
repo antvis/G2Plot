@@ -119,12 +119,12 @@ describe.skip('PercentageStackColumn plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const plot = columnPlot.getLayer().view;
     const intervalShape = plot.geometries[0];
-    const shapes = intervalShape.get('shapeContainer').get('children');
+    const shapes = intervalShape.getShapes();
     expect(shapes.length).toBe(18);
-    expect(intervalShape.get('groupScales')[0].field).toBe('type');
-    expect(intervalShape.get('adjustOptions')[0].type).toBe('stack');
+    expect(intervalShape.getGroupScales()[0].field).toBe('type');
+    expect(intervalShape.adjustOption[0].type).toBe('stack');
     columnPlot.destroy();
     expect(plot.destroyed).toBe(true);
   });

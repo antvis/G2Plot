@@ -119,10 +119,10 @@ describe('GroupColomn plot', () => {
     columnPlot.render();
     const plot = columnPlot.getLayer().view;
     const intervalShape = plot.geometries[0];
-    const shapes = intervalShape.get('shapeContainer').get('children');
+    const shapes = intervalShape.getShapes();
     expect(shapes.length).toBe(18);
-    expect(intervalShape.get('groupScales')[0].field).toBe('type');
-    expect(intervalShape.get('adjustOptions')[0].type).toBe('dodge');
+    expect(intervalShape.getGroupScales()[0].field).toBe('type');
+    expect(intervalShape.adjustOption[0].type).toBe('dodge');
     columnPlot.destroy();
     expect(plot.destroyed).toBe(true);
   });
@@ -144,9 +144,9 @@ describe('GroupColomn plot', () => {
     columnPlot.render();
     const plot = columnPlot.getLayer().view;
     const intervalEle = plot.geometries[0];
-    expect(intervalEle.get('color').values[0]).toBe('red');
-    expect(intervalEle.get('color').values[1]).toBe('yellow');
-    expect(intervalEle.get('size').values[0]).toBe(7);
+    expect(intervalEle.attributeOption.color.values[0]).toBe('red');
+    expect(intervalEle.attributeOption.color.values[1]).toBe('yellow');
+    expect(intervalEle.attributeOption.size.values[0]).toBe(7);
     columnPlot.destroy();
     expect(plot.destroyed).toBe(true);
   });
@@ -172,7 +172,7 @@ describe('GroupColomn plot', () => {
     const plot = columnPlot.getLayer().view;
     const intervalEle = plot.geometries[0];
 
-    expect(isFunction(intervalEle.get('color').callback)).toBe(true);
+    expect(isFunction(intervalEle.attributeOption.color.callback)).toBe(true);
     columnPlot.destroy();
     expect(plot.destroyed).toBe(true);
   });

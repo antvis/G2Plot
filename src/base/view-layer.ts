@@ -477,7 +477,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   /** 设置G2 config，带有类型推导 */
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
     if (key === 'geometry') {
-      console.log(1, config);
       this.config.geometries.push(config as G2Config['geometry']);
       return;
     }

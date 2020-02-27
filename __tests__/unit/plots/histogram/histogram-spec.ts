@@ -76,8 +76,8 @@ describe('Histogram plot', () => {
     });
     histogram.render();
     const layer = histogram.getLayer();
-    const geom = layer.view.get('elements')[0];
-    const shapeOrigin = geom.getShapes()[0].get('origin')._origin;
+    const geom = layer.view.geometries[0];
+    const shapeOrigin = geom.getShapes()[0].get('origin').data;
     expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(2);
     histogram.destroy();
   });
@@ -92,7 +92,7 @@ describe('Histogram plot', () => {
     });
     histogram.render();
     const layer = histogram.getLayer();
-    const geom = layer.view.get('elements')[0];
+    const geom = layer.view.geometries[0];
     const shapes = geom.getShapes();
     expect(shapes.length).toBe(5);
     histogram.destroy();
@@ -107,7 +107,7 @@ describe('Histogram plot', () => {
     });
     histogram.render();
     const layer = histogram.getLayer();
-    const geom = layer.view.get('elements')[0];
+    const geom = layer.view.geometries[0];
     const shapes = geom.getShapes();
     expect(shapes.length).toBe(8);
     histogram.destroy();

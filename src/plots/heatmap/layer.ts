@@ -216,6 +216,9 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   protected renderPlotComponents() {
+    each(this.plotComponents,(component)=>{
+      component.destroy();
+    });
     const componentsType = ['legend', 'background'];
     each(componentsType, (t) => {
       const cfg = {

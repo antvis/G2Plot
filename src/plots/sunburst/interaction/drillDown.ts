@@ -85,7 +85,7 @@ export default class DrillDownInteraction extends BaseInteraction {
       };
       this.currentDepth++;
       //drillingDown(ev.target, this.view, () => {
-        this.update(data);
+      this.update(data);
       //});
     }
   }
@@ -94,7 +94,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     if (!hasKey(this.cache, data.name)) {
       this.cache[data.name] = data;
     }
-    const tempoData = this.plot.getSunburstData(data,this.plot.options.maxLevel);
+    const tempoData = this.plot.getSunburstData(data, this.plot.options.maxLevel);
     this.view.changeData(tempoData);
     this.currentNode = data;
     this.render();
@@ -192,7 +192,7 @@ export default class DrillDownInteraction extends BaseInteraction {
             //只有前后depth相邻才执行上卷动画，否则直接更新
             if (this.currentDepth - 1 === targetDepth) {
               //rollingUp(this.currentNode.name, this.view, () => {
-                this.updateRoot(data);
+              this.updateRoot(data);
               //});
             } else {
               this.updateRoot(data);
@@ -205,7 +205,7 @@ export default class DrillDownInteraction extends BaseInteraction {
             this.currentDepth = parseInt(data.key);
             if (previousDepth - 1 === this.currentDepth) {
               //rollingUp(this.currentNode.name, this.view, () => {
-                this.update(data.data);
+              this.update(data.data);
               //});
             } else {
               this.update(data.data);
@@ -244,7 +244,7 @@ export default class DrillDownInteraction extends BaseInteraction {
   }
 
   private updateRoot(data) {
-    const tempoData = this.plot.getSunburstData(data.data,this.plot.options.maxLevel);
+    const tempoData = this.plot.getSunburstData(data.data, this.plot.options.maxLevel);
     this.view.changeData(tempoData);
     this.currentNode = this.plot.options.data;
     this.render();

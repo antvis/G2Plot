@@ -28,7 +28,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         showTitle: false,
         visible: true,
         shared: false,
-        crosshairs: false
+        crosshairs: false,
       },
       legend: {
         visible: false,
@@ -39,8 +39,8 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       yAxis: {
         visible: false,
       },
-      label:{
-        visible: true
+      label: {
+        visible: true,
       },
       xField: 'x',
       yField: 'y',
@@ -84,7 +84,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     data.depth = 0;
     const root = patition(data);
     const sunBurstData = [];
-    this.getAllNodes(root.children, sunBurstData,level);
+    this.getAllNodes(root.children, sunBurstData, level);
     sunBurstData.push({
       ...root,
       x: [root.x0, root.x1, root.x1, root.x0, root.x1],
@@ -118,7 +118,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     const { data, colorField, color } = this.options;
     const sunburstData = this.getSunburstData(data);
     this.rootData = sunburstData;
-    
+
     this.rect = {
       type: 'polygon',
       position: {
@@ -129,17 +129,17 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         fields: ['name'],
       },
       label: false,
-      style:{
-        fields:['depth'],
-        callback:(depth)=>{
-          if(depth > 0){
+      style: {
+        fields: ['depth'],
+        callback: (depth) => {
+          if (depth > 0) {
             return {
-              stroke:'#ffffff',
-              lineWidth: 1
-            }
+              stroke: '#ffffff',
+              lineWidth: 1,
+            };
           }
-        }
-      }
+        },
+      },
     };
     this.setConfig('element', this.rect);
   }
@@ -173,7 +173,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     });
   }
 
-  public afterRender(){
+  public afterRender() {
     if (this.options.label && this.options.label.visible) {
       const label = new SunburstLabel({
         view: this.view,
@@ -185,7 +185,7 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     super.afterRender();
   }
 
-  private getAllNodes(data, nodes,level?) {
+  private getAllNodes(data, nodes, level?) {
     const max = level ? level : this.options.maxLevel;
     _.each(data, (d) => {
       if (_.hasKey(d, 'x0') && d.depth <= max) {
@@ -201,62 +201,61 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
     });
   }
 
-  private getColorConfig(data){
-    const { colorField,colors } = this.options;
-    if(_.isString(data[0][colorField])){
+  private getColorConfig(data) {
+    const { colorField, colors } = this.options;
+    if (_.isString(data[0][colorField])) {
       const uniqueValues = [];
       let uniqueColors;
-      _.each(data,(d)=>{
+      _.each(data, (d) => {
         const value = d[colorField];
-        if(!_.has(value,uniqueValues)){
+        if (!_.has(value, uniqueValues)) {
           uniqueValues.push(value);
         }
       });
-      if(colors){
+      if (colors) {
         uniqueColors = colors;
-      }else{
+      } else {
         const theme = this.getTheme();
         uniqueColors = uniqueValues.length >= 8 ? theme.colors_20 : theme.colors;
       }
       // zip
       const mappingData = {};
-      _.each(uniqueValues,(v,i)=>{
-        const index = i<=uniqueValues.length-1? i : i - uniqueValues.length;
+      _.each(uniqueValues, (v, i) => {
+        const index = i <= uniqueValues.length - 1 ? i : i - uniqueValues.length;
         const color = uniqueColors[index];
         mappingData[v] = color;
       });
       return {
-        fields:[colorField],
-        callback:(v)=>{
+        fields: [colorField],
+        callback: (v) => {
           return mappingData[v];
-        }
-      }
-    }else{
+        },
+      };
+    } else {
       return {
-        fields:[colorField],
-        values: colors
+        fields: [colorField],
+        values: colors,
       };
     }
   }
 
-  private adjustLinearScale(data){
+  private adjustLinearScale(data) {
     const { colorField, meta } = this.options;
-    if(_.isNumber(data[0][colorField])){
+    if (_.isNumber(data[0][colorField])) {
       let min = Infinity;
       let max = -Infinity;
-      _.each(data,(d)=>{
+      _.each(data, (d) => {
         const value = d[colorField];
-        min = Math.min(value,min);
-        max = Math.max(value,max);
+        min = Math.min(value, min);
+        max = Math.max(value, max);
       });
       const origin_meta = meta[colorField];
-      meta[colorField] = _.deepMix({},origin_meta,{
+      meta[colorField] = _.deepMix({}, origin_meta, {
         min,
-        max
+        max,
       });
     }
   }
-
 }
 
 registerPlotType('sunburst', SunburstLayer);

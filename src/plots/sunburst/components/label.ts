@@ -3,28 +3,9 @@ import { Group } from '@antv/g';
 import { View } from '@antv/g2';
 import { rgb2arr } from '../../../util/color';
 
-const DEFAULT_OFFSET = 8;
-
-function mappingColor(band, gray) {
-  let reflect;
-  each(band, (b) => {
-    const map = b;
-    if (gray >= map.from && gray < map.to) {
-      reflect = map.color;
-    }
-  });
-  return reflect;
-}
-
-function getPointRadius(coord, point): number {
-    const center = coord.getCenter();
-    const r = Math.sqrt(Math.pow(point.x - center.x, 2) + Math.pow(point.y - center.y, 2));
-    return r;
-}
-
 function getPointAngle(coord, point): number {
-    const center = coord.getCenter();
-    return Math.atan2(point.y - center.y, point.x - center.x);
+  const center = coord.getCenter();
+  return Math.atan2(point.y - center.y, point.x - center.x);
 }
 
 export interface SunburstLabelConfig {
@@ -33,8 +14,6 @@ export interface SunburstLabelConfig {
   offsetX?: number;
   offsetY?: number;
   style?: any;
-  adjustColor?: boolean;
-  adjustPosition?: boolean;
 }
 
 export interface ISunburstLabel extends SunburstLabelConfig {
@@ -70,22 +49,22 @@ export default class RangeBarLabel {
     const geometry = this.view.get('elements')[0];
     const shapes = geometry.getShapes();
     each(shapes, (shape) => {
-      const positions = this.getPosition(shape);
-      const values = this.getValue(shape);
-      const rotate = this.getRotate(positions.angle);
-      this.container.addShape('text',{
-          attrs:{
-              x: positions.x,
-              y:positions.y,
-              text: values,
-              fontSize: 11,
-              fill:'#000000',
-              textAlign:'center',
-              textBaseline:'middle',
-              rotate
-          }
+      const { style } = this.options;
+      const position = this.getPosition(shape);
+      const value = this.getValue(shape);
+      const formatter = this.options.formatter;
+      const content = formatter ? formatter(value) : value;
+      const rotate = this.getRotate(position.angle);
+      this.container.addShape('text', {
+        attrs: deepMix({}, style, {
+          x: position.x,
+          y: position.y,
+          text: content,
+          textAlign: 'center',
+          textBaseline: 'middle',
+          rotate,
+        }),
       });
-      //shape.set('labelShapes', labels);
     });
     const labelCtr = geometry.get('labelController');
     labelCtr.labelsContainer = this.container;
@@ -119,119 +98,66 @@ export default class RangeBarLabel {
 
   private getDefaultOptions() {
     const { theme } = this.plot;
-    const labelStyle = theme.label.style;
+    const labelStyle = clone(theme.label.style);
+    if (!labelStyle.fontSize) {
+      labelStyle.fontSize = 11;
+    }
+    labelStyle.lineHeight = labelStyle.fontSize;
+    labelStyle.stroke = null;
     return {
       position: 'outer',
-      offsetX: DEFAULT_OFFSET,
+      offsetX: 0,
       offsetY: 0,
-      style: clone(labelStyle),
+      style: labelStyle,
       adjustColor: true,
       adjustPosition: true,
     };
   }
 
   private getPosition(shape) {
-      const coord = shape.get('coord');
-      const { center}  = coord;
-      const xPoints = shape.get('origin').x;
-      const yPoints = shape.get('origin').y;
-      const x = (xPoints[0]+xPoints[1]+xPoints[2]+xPoints[3]) / 4;
-      const y = (yPoints[0]+yPoints[1]+yPoints[2]+yPoints[3]) / 4;
-      const radius = getPointRadius(coord,{x,y});
-      const angle = getPointAngle(coord,{x,y});
-      
-      return {
-          x: center.x + Math.cos(angle)*radius,
-          y: center.y + Math.sin(angle)*radius,
-          angle
-      };
+    const coord = shape.get('coord');
+    const data = shape.get('origin')._origin;
+    let point;
+    let angle;
+    if (data.depth >= 1) {
+      const points = shape.get('origin').points;
+      const x = (points[0].x + points[1].x + points[2].x + points[3].x) / 4;
+      const y = (points[0].y + points[1].y + points[2].y + points[3].y) / 4;
+      point = coord.convertPoint({ x, y });
+      angle = getPointAngle(coord, { x: point.x, y: point.y });
+    } else {
+      const bbox = shape.getBBox();
+      const x = bbox.minX + bbox.width / 2;
+      const y = bbox.minY + bbox.height / 2;
+      point = { x, y };
+      angle = 0;
+    }
+
+    return {
+      x: point.x,
+      y: point.y,
+      angle,
+    };
   }
 
   private getValue(shape) {
     const { colorField } = this.plot.options;
-    return shape.get('origin')._origin[colorField];
+    const values = shape.get('origin')._origin[colorField].split(' ');
+    if (values.length > 1) {
+      return values.join('\n');
+    }
+    return values[0];
   }
 
-  private getRotate(angle){
-    let rotate = angle * 180 / Math.PI;
-    //rotate += 90;
+  private getRotate(angle) {
+    let rotate = (angle * 180) / Math.PI;
     if (rotate) {
-        if (rotate > 90) {
-          rotate = rotate - 180;
-        } else if (rotate < -90) {
-          rotate = rotate + 180;
-        }
-      }
-      return rotate / 180 * Math.PI;
-  }
-
-
-  private getTextColor(shape, index) {
-    if (this.options.adjustColor) {
-      const shapeColor = shape.attr('fill');
-      const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
-      const rgb = rgb2arr(shapeColor);
-      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
-      const colorBand = [
-        { from: 0, to: 85, color: 'white' },
-        { from: 85, to: 170, color: '#F6F6F6' },
-        { from: 170, to: 255, color: 'black' },
-      ];
-      const reflect = mappingColor(colorBand, gray);
-      return reflect;
-    }
-    const defaultColor = this.options.style.fill;
-    return defaultColor;
-  }
-
-  private doAnimation(label) {
-    if (this.plot.animation && this.plot.animation === false) {
-      return;
-    }
-    label.attr('fillOpacity', 0);
-    label.attr('strokeOpacity', 0);
-    label.stopAnimate();
-    label.animate(
-      {
-        fillOpacity: 1,
-        strokeOpacity: 1,
-      },
-      800,
-      'easeLinear',
-      500
-    );
-  }
-
-  private adjustPosition(la, lb, shape) {
-    const origin = shape.get('origin');
-    const shapeMinX = origin.x[0];
-    const shapeMaxX = origin.x[1];
-    const shapeWidth = Math.abs(shapeMaxX - shapeMinX);
-    const panelRange = this.view.get('panelRange');
-    const boxes = [la.getBBox(), lb.getBBox()];
-    let ax = la.attr('x');
-    let bx = lb.attr('x');
-    if (this.options.adjustPosition) {
-      const totalLength = boxes[0].width + boxes[1].width;
-      const isOverlap = boxes[0].maxX - boxes[1].minX > 2;
-      const isTooShort = totalLength > shapeWidth;
-      if (isOverlap || isTooShort) {
-        ax = shapeMinX - this.options.offsetX;
-        la.attr('fill', this.options.style.fill);
-        la.attr('textAlign', 'right');
-        boxes[0] = la.getBBox();
-        bx = shapeMaxX + this.options.offsetX;
-        lb.attr('fill', this.options.style.fill);
-        lb.attr('textAlign', 'left');
-        boxes[1] = lb.getBBox();
+      if (rotate > 90) {
+        rotate = rotate - 180;
+      } else if (rotate < -90) {
+        rotate = rotate + 180;
       }
     }
-    if (boxes[0].minX < panelRange.minX) {
-      ax = panelRange.minX + DEFAULT_OFFSET;
-      la.attr('textAlign', 'left');
-    }
-    la.attr('x', ax);
-    lb.attr('x', bx);
-    this.plot.canvas.draw();
+    return (rotate / 180) * Math.PI;
   }
 }

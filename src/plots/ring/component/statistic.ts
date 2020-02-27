@@ -13,11 +13,11 @@ export interface IStaticticHtml {
 }
 
 export default class StatisticHtml {
+  public wrapperNode: HTMLElement;
   protected x: number;
   protected y: number;
   protected html: string;
   protected container: any;
-  protected wrapperNode: HTMLElement;
   protected options: any;
 
   constructor(cfg: IStaticticHtml) {

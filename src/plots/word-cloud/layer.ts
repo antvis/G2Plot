@@ -177,6 +177,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
       parent: this.options.container,
       follow: true,
       inPanel: false, // must be false
+      items: [],
     });
     this._toolTips.init();
   }

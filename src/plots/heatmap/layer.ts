@@ -9,7 +9,7 @@ import '../../geoms/heatmap/linear';
 import { HeatmapLegendConfig } from './components/legend';
 import { HeatmapBackgroundConfig } from './components/background';
 import { getPlotComponents } from './components';
-//import '../scatter/components/label/scatter-label';
+import * as EventParser from './event';
 
 interface PointStyle {
   lineDash?: number[];
@@ -209,6 +209,10 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
   protected legend() {
     this.setConfig('legends', false);
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   protected renderPlotComponents() {

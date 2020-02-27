@@ -2,7 +2,6 @@ import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale } from '../../util/scale';

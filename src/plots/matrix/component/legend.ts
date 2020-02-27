@@ -116,6 +116,7 @@ export default class MatrixLegend {
         height: this.height,
         fill: gradientColor,
       },
+      name:'legend'
     });
     // draw tick and label
     each(colors, (c, index) => {
@@ -141,6 +142,7 @@ export default class MatrixLegend {
           y: step,
           ...this.options.text.style,
         },
+        name:'legend-label'
       });
     });
     //anchor
@@ -173,6 +175,7 @@ export default class MatrixLegend {
         height: this.height,
         fill: gradientColor,
       },
+      name:'legend'
     });
     // draw tick and label
     each(colors, (c, index) => {
@@ -186,6 +189,7 @@ export default class MatrixLegend {
           ],
           ...this.options.ticklineStyle,
         },
+        name:'legend-label'
       });
       // value
       const value = Math.round(valueStep * index);

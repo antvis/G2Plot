@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import {deepMix} from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import MatrixLayer, { MatrixLayerConfig } from './layer';
 

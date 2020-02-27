@@ -67,6 +67,7 @@ export default class HeatmapBackground extends EventEmitter {
         height: this.height,
         fill: this.options.value,
       },
+      name:'heatmap-background'
     });
   }
 
@@ -79,6 +80,7 @@ export default class HeatmapBackground extends EventEmitter {
         height: this.height,
         img: this.options.src,
       },
+      name:'heatmap-background'
     });
   }
 

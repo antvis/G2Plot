@@ -265,4 +265,5 @@ export const DEFAULT_GLOBAL_THEME = {
     },
     offset: 10,
   },
+  columnWidthRatio: 3 / 5
 };

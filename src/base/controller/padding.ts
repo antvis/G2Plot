@@ -180,7 +180,7 @@ export default class PaddingController {
         } else if (position === 'left') {
           bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
         } else {
-          bboxes.push(new BBox(viewRange.maxX + bbox.maxX, bbox.minY, bbox.width, bbox.height));
+          bboxes.push(new BBox(viewRange.maxX, bbox.minY, bbox.width, bbox.height));
         }
       }
     }

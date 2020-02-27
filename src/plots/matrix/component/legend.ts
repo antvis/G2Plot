@@ -53,7 +53,14 @@ export default class MatrixLegend {
     this.width = this.options.width ? this.options.width : this.getDefaultWidth();
     this.height = this.options.height ? this.options.height : this.getDefaultHeight();
     const plotContainer = this.options.plot.container;
+    if(this.container){
+      this.container.remove();
+    }
     this.container = plotContainer.addGroup();
+    this.view.on('beforerender', () => {
+      this.clear();
+      this.options.plot.canvas.draw();
+    });
   }
 
   public render() {
@@ -82,8 +89,13 @@ export default class MatrixLegend {
   }
 
   public clear() {
-    if (this.container) {
+    if (this.container) { 
+      const children = this.container.get('children');
+      each(children,(c)=>{
+        c.remove();
+      });
       this.container.clear();
+      console.log(this.container);
     }
   }
 

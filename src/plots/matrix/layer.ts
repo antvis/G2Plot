@@ -144,6 +144,13 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     }
   }
 
+  public destroy() {
+    each(this.plotComponents, (component) => {
+      component.destroy();
+    });
+    super.destroy();
+  }
+
   protected geometryParser() {
     return '';
   }

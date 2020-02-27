@@ -1,6 +1,6 @@
 import PaddingController from '../../../../src/base/controller/padding';
 import { ViewLayer } from '../../../../src';
-import { BBox } from '@antv/g';
+import BBox from '../../../../src/util/bbox';
 
 describe('PaddingController', () => {
   // @ts-ignore

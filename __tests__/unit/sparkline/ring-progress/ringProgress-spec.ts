@@ -1,4 +1,4 @@
-import Progress from '../../../src/sparkline/progress';
+import RingProgress from '../../../../src/sparkline/ring-progress';
 
 describe('progress', () => {
   const canvasDiv = document.createElement('div');
@@ -10,38 +10,32 @@ describe('progress', () => {
   document.body.appendChild(canvasDiv);
 
   it.only('initialize & destory', () => {
-    const progress = new Progress(canvasDiv, {
+    const progress = new RingProgress(canvasDiv, {
       width: 200,
       height: 100,
       percent: 0.3,
-      marker: [
-        {
-          value: 0.2,
-          style: {
-            stroke: 'red',
-          },
-        },
-      ],
     });
     progress.render();
-    //progress.update({ percent: 0 });
-    /*expect(progress).toBeInstanceOf(Progress);
+    window.setTimeout(() => {
+      progress.update({ percent: 0.1 });
+    }, 5000);
+
+    /*expect(progress).toBeInstanceOf(RingProgress);
     const canvas = progress.plot.get('canvas');
     expect(canvas.get('width')).toBe(200);
     expect(canvas.get('height')).toBe(100);
     const geometry = progress.plot.geometries[0];
     expect(geometry.get('type')).toBe('interval');
-    const totalLength = geometry.get('container').getBBox().width;
     const shapes = geometry.getShapes();
-    const currentLength = shapes[0].getBBox().width;
-    expect(currentLength / totalLength).toBe(0.3);
+    expect(shapes[0].get('origin')._origin.value).toBe(0.3);
+    expect(shapes[1].get('origin')._origin.value).toBe(0.7);
     progress.destroy();
     expect(progress.plot.destroyed).toBe(true);
     expect(canvasDiv.childNodes.length).equal(0);*/
   });
 
   it('progress color - number', () => {
-    const progress = new Progress('canvas', {
+    const progress = new RingProgress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,
@@ -55,7 +49,7 @@ describe('progress', () => {
   });
 
   it('progress color - array', () => {
-    const progress = new Progress('canvas', {
+    const progress = new RingProgress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,
@@ -71,7 +65,7 @@ describe('progress', () => {
 
   it('progress color - callback', () => {
     let currentPrecent;
-    const progress = new Progress('canvas', {
+    const progress = new RingProgress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,
@@ -90,7 +84,7 @@ describe('progress', () => {
   });
 
   it('progressStyle', () => {
-    const progress = new Progress('canvas', {
+    const progress = new RingProgress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,
@@ -108,7 +102,7 @@ describe('progress', () => {
   });
 
   it('update', (done) => {
-    const progress = new Progress('canvas', {
+    const progress = new RingProgress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,
@@ -117,17 +111,16 @@ describe('progress', () => {
     progress.update(0.5);
     setTimeout(() => {
       const geometry = progress.plot.geometries[0];
-      const totalLength = geometry.get('container').getBBox().width;
       const shapes = geometry.getShapes();
-      const currentLength = shapes[0].getBBox().width;
-      expect(currentLength / totalLength).toBe(0.5);
+      expect(shapes[0].get('origin')._origin.value).toBe(0.5);
+      expect(shapes[1].get('origin')._origin.value).toBe(0.5);
       progress.destroy();
       done();
     }, 500);
   });
 
   it('updateConfig', () => {
-    const progress = new Progress('canvas', {
+    const progress = new RingProgress('canvas', {
       width: 200,
       height: 100,
       percent: 0.3,

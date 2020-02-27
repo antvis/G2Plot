@@ -97,11 +97,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         position: 'top-left',
       },
       interactions: [
-        { type: 'tooltip' }, 
-        { type: 'element-active' }, 
+        { type: 'tooltip' },
+        { type: 'element-active' },
         { type: 'active-region' },
         { type: 'legend-active' },
-        { type: 'legend-filter'}
+        { type: 'legend-filter' },
       ],
     };
     return deepMix({}, super.getDefaultOptions(), cfg);

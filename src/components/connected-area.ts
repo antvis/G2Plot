@@ -212,7 +212,7 @@ export default class ConnectedArea {
         y,
         width: 0,
         height,
-      }
+      },
     });
     this.container.set('animating', true);
     this.container.getClip().animate(

@@ -41,7 +41,7 @@ export default class PieOuterCenterLabel extends PieBaseLabel {
   protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {
     this.adjustOverlap(labels, panel);
   }
-  
+
   /** 处理标签遮挡问题 */
   protected adjustOverlap(labels: IShape[], panel: BBox): void {
     if (this.options.allowOverlap) {

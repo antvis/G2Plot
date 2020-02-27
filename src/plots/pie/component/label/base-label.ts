@@ -1,6 +1,6 @@
 import { IGroup, IShape, BBox } from '@antv/g-canvas';
 import { transform } from '@antv/matrix-util';
-import { deepMix, isString }  from '@antv/util';
+import { deepMix, isString } from '@antv/util';
 import { getEndPoint } from './utils';
 import { Label } from '../../../../interface/config';
 import PieLayer from '../../layer';
@@ -135,13 +135,12 @@ export default abstract class PieBaseLabel {
         this.rotateLabel(label, shapeInfos[idx].angle);
       }
     });
-    
   }
 
   private adjustText(label: IShape, panelBox: BBox) {
     const box = label.getBBox();
     let width = box.width;
-    let deltaWidth = 0;
+    const deltaWidth = 0;
     if (box.maxX > panelBox.maxX) {
       width = panelBox.maxX - box.minX;
     } else if (box.minX < panelBox.minX) {
@@ -208,7 +207,7 @@ export default abstract class PieBaseLabel {
       // 1st control point (of the curve)
       labelPosition.x +
         // 4 gives the connector a little horizontal bend
-        (inLeft ? 1 : -1 ) * (distance < 4 ? distance / 2 : 4),
+        (inLeft ? 1 : -1) * (distance < 4 ? distance / 2 : 4),
       labelPosition.y, //
       2 * breakAt.x - anchor.x, // 2nd control point
       2 * breakAt.y - anchor.y, //

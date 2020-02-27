@@ -56,6 +56,7 @@ export default class LineLabel {
           textAlign: 'left',
           textBaseline: 'middle',
         }),
+        name:'label'
       });
     });
   }

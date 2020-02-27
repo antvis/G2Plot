@@ -55,6 +55,7 @@ export default class ScatterLabel {
           textAlign,
           textBaseline,
         }),
+        name:'label'
       });
     });
   }

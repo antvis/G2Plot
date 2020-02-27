@@ -118,6 +118,7 @@ export default class AreaLabel {
           textAlign: 'center',
           textBaseline: 'top',
         }),
+        name:'label'
       });
       labelShapes.push(text);
     });

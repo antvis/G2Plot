@@ -89,6 +89,7 @@ export default class RangeBarLabel {
             textAlign: textAlign[i],
             textBaseline: 'middle',
           }),
+          name: 'label'
         });
         labels.push(label);
         this.doAnimation(label);

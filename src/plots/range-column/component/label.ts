@@ -89,6 +89,7 @@ export default class RangeColumnLabel {
             textAlign: 'center',
             textBaseline: textBaeline[i],
           }),
+          name:'label'
         });
         labels.push(label);
         this.doAnimation(label);

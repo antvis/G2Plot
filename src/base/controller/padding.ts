@@ -1,6 +1,6 @@
 import { IElement } from '@antv/g-canvas';
 import { View } from '@antv/g2';
-import { filter, each, isArray, clone } from '@antv/util';
+import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
 import BBox from '../../util/bbox';
@@ -126,7 +126,12 @@ export default class PaddingController {
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend
-    const components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
+    let components_bbox;
+    if(has(this.plot.options,'radius')){
+      components_bbox = [new BBox(0, viewRange.minY, viewRange.width, viewRange.height)];
+    }else{
+      components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
+    }
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
     this._getLegend(view, components_bbox, viewRange, this.plot.options);
@@ -146,6 +151,7 @@ export default class PaddingController {
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
+    console.log(box.maxY,maxY)
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
     /*const panelPadding = this._getPanel(view, box);
@@ -176,7 +182,7 @@ export default class PaddingController {
         if (position === 'top') {
           bboxes.push(new BBox(bbox.minX, -bbox.height, bbox.width, bbox.height));
         } else if (position === 'bottom') {
-          bboxes.push(new BBox(bbox.minX, bbox.maxX + viewRange.height, bbox.width, bbox.height));
+          bboxes.push(new BBox(bbox.minX, bbox.maxY + viewRange.height, bbox.width, bbox.height));
         } else if (position === 'left') {
           bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
         } else {

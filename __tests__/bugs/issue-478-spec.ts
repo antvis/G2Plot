@@ -86,12 +86,10 @@ describe('$478', () => {
   });
 
   plot.render();
-  // @ts-ignore
-  window.__plot = plot;
 
   it('yAxis color', () => {
     const view = (plot.getLayer() as ViewLayer).view;
-    const axis = view.get('axisController').axes[0];
+    const axis = view.getController('axis').getComponents()[0].component;
     const labelCfg = axis.get('label');
 
     expect(labelCfg?.textStyle?.fill).toEqual('rgba(255, 255, 255, 0.45)');

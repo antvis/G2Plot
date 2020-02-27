@@ -83,7 +83,7 @@ export default class MatrixLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

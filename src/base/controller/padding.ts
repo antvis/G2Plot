@@ -151,7 +151,6 @@ export default class PaddingController {
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
       0 - box.minX + this.bleeding[3],
     ];
-    console.log(box.maxY,maxY)
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
     /*const panelPadding = this._getPanel(view, box);

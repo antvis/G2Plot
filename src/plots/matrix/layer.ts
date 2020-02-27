@@ -396,6 +396,9 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   protected renderPlotComponents() {
+    each(this.plotComponents,(component)=>{
+      component.destroy();
+    });
     const componentsType = ['label', 'legend'];
     each(componentsType, (t) => {
       const cfg = {

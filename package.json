@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@antv/g-gesture": "~0.1.0",
-    "@antv/g2": "~3.6.0-beta.18",
+    "@antv/g2": "~3.6.0-beta.19",
     "@antv/gui": "~0.1.0",
     "d3-regression": "^1.2.8",
     "fecha": "~4.1.0",

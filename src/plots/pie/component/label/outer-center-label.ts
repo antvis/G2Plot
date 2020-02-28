@@ -63,7 +63,7 @@ class OuterCenterPieLabel extends BasePieLabel {
     path = [`M ${start.x}`, `${start.y} Q${breakAt.x}`, `${breakAt.y} ${end.x}`, end.y].join(',');
     if (smooth === false) {
       // normal path rule, draw path is "M -> L -> H"
-      path = [`M ${start.x}`, `${start.y} L${breakAt.x - distance}`, `${end.y} H${end.x}`].join(',');
+      path = [`M ${start.x}`, `${start.y} L${breakAt.x}`, `${breakAt.y} H${end.x}`].join(',');
     }
     return path;
   }

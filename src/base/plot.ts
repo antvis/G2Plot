@@ -19,7 +19,9 @@ export interface PlotConfig {
   theme?: LooseMap | string;
 }
 
-export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEmitter {
+interface LayerCtor<C> extends ViewLayer<C> {};
+
+export default class BasePlot<T extends PlotConfig = PlotConfig, L extends LayerCtor<T> = LayerCtor<T>> extends EventEmitter {
   public width: number;
   public height: number;
   public forceFit: boolean;
@@ -28,7 +30,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   public theme: string | object;
   public canvas: G.Canvas;
   public destroyed: boolean;
-  protected layers: Array<Layer<any>>;
+  protected layers: Array<L>;
   private canvasController: CanvasController;
   private eventController: EventController;
   protected containerDOM: HTMLElement;
@@ -225,7 +227,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
    * add children layer
    * @param layer
    */
-  public addLayer(layer: Layer<any>) {
+  public addLayer(layer: L) {
     const idx = findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       this.layers.push(layer);

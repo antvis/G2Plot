@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-17
  */
-import { CoordinateOption } from '@antv/g2/lib/interface';
+import { CoordinateOption } from '@antv/g2/lib/chart/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../..';

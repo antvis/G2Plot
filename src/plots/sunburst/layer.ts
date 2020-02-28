@@ -5,12 +5,13 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import patition from './layout/partition';
 import { INTERACTION_MAP } from './interaction';
 import SunburstLabel from './components/label';
+import * as EventParser from './event';
 
 export interface SunburstViewConfig extends ViewConfig {
   data: any;
   maxLevel?: number;
   colorField: string;
-  colors?: string[];
+  colors?: string | string[];
   radius?: number;
   innerRadius?: number;
 }
@@ -171,6 +172,10 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         interactions[inter.type] = interaction;
       }
     });
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   public afterRender() {

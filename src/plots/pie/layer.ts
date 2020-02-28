@@ -240,7 +240,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       labelConfig.labelLine = false;
     } else {
       // @ts-ignore
-      labelConfig.labelLine = true;
+      labelConfig.labelLine = labelConfig && labelConfig.line ? labelConfig.line : true;
     }
     if (labelConfig.formatter) {
       const customFormatter = labelConfig.formatter;

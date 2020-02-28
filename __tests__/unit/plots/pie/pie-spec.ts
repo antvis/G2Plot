@@ -1,9 +1,6 @@
 import { Pie } from '../../../../src';
-import { getGeometryLabel } from '@antv/g2';
-import { Shape } from '@antv/g-canvas';
 
-// TODO xinming
-describe.skip('Pie plot', () => {
+describe('Pie plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -39,54 +36,19 @@ describe.skip('Pie plot', () => {
     },
   ];
 
-  it('饼图 默认配置项', () => {
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      colorField: 'type',
-    });
-    piePlot.render();
-  });
-
-  it('饼图 回调方式修改pieStyle', () => {
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      colorField: 'type',
-      pieStyle: (...args) => {
-        return {
-          stroke: 'red',
-          lineWidth: 2,
-        };
-      },
-    });
-    piePlot.render();
-  });
-
   it('初始化及销毁图表', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
       data,
       angleField: 'value',
-      legend: {
-        visible: true,
-        position: 'top-left',
-      },
-      title: {
-        text: 'title title',
-      },
-      colorField: 'type',
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
+    // @ts-ignore
     const positionField = plot.geometries[0].attributeOption.position.fields;
     expect(piePlot).toBeInstanceOf(Pie);
-    expect(positionField[0]).toBe('1');
+    expect(positionField[0]).toBe(1);
     expect(positionField[1]).toBe('value');
     piePlot.destroy();
     expect(plot.destroyed).toBe(true);
@@ -104,11 +66,12 @@ describe.skip('Pie plot', () => {
     piePlot.render();
     const plot = piePlot.getLayer().view;
     const coord = plot.getCoordinate();
+    // @ts-ignore
     expect(coord.getRadius() * 2).toBe(coord.getWidth() / 2);
     piePlot.destroy();
   });
 
-  it('单色饼图', () => {
+  it('单色饼图, 无 colorField', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -117,13 +80,13 @@ describe.skip('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].getShapes();
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('stroke')).toBe('white');
     expect(shapes[0].attr('lineWidth')).toBe(1);
     piePlot.destroy();
   });
 
-  it('饼图颜色', () => {
+  it('饼图颜色, set color', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -134,14 +97,14 @@ describe.skip('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].getShapes();
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('fill')).toBe('yellow');
     expect(shapes[1].attr('fill')).toBe('green');
     expect(shapes[2].attr('fill')).toBe('blue');
     piePlot.destroy();
   });
 
-  it('图形style', () => {
+  it('饼图样式, pieStyle', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
@@ -155,88 +118,47 @@ describe.skip('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].getShapes();
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('stroke')).toBe('red');
     expect(shapes[0].attr('lineWidth')).toBe(2);
     piePlot.destroy();
   });
 
-  it('outer label', () => {
+
+  it('饼图样式, pieStyle callback', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
       data,
       angleField: 'value',
-      label: {
-        visible: true,
-        type: 'outer',
-        formatter: () => {
-          return 'test';
-        },
-        style: {
-          fill: 'red',
-        },
+      colorField: 'type',
+      pieStyle: (...args) => {
+        return {
+          stroke: 'red',
+          lineWidth: 2,
+        };
       },
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const labelGroup = plot.geometries[0].foregroundGroup
-      .get('children')[0]
-      .get('children')[0]
-      .get('children');
-
-    const coord = plot.getCoordinate();
-    expect(labelGroup[0].attr('text')).toBe('test');
-    expect(labelGroup[0].attr('fill')).toBe('red');
-    const distX = Math.abs(coord.getCenter().x - labelGroup[0].attr('x'));
-    const distY = Math.abs(coord.getCenter().y - labelGroup[0].attr('y'));
-    const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist > coord.getRadius()).toBe(true);
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
+    expect(shapes[0].attr('stroke')).toBe('red');
+    expect(shapes[0].attr('lineWidth')).toBe(2);
     piePlot.destroy();
   });
 
-  it('outer-center label', () => {
-    expect(getGeometryLabel('outer-center')).not.toBeDefined();
-    const piePlot = new Pie(canvasDiv, {
-      width: 600,
-      height: 600,
-      data,
-      angleField: 'value',
-      label: {
-        visible: true,
-        type: 'outer-center',
-        formatter: () => {
-          return 'test';
-        },
-        style: {
-          fill: 'red',
-        },
-      },
-    });
-    piePlot.render();
-    const plot = piePlot.getLayer().view;
-    const element = plot.geometries[0];
-    const labelShapes: Shape[] = element.labelsContainer.getChildren();
-    const coord = plot.getCoordinate();
-    console.log(labelShapes[0]);
-    // expect(labelShapes[0].attr('text')).toBe('test');
-    // expect(labelShapes[0].attr('fill')).toBe('red');
-    const distX = Math.abs(coord.getCenter().x - labelShapes[0].attr('x'));
-    const distY = Math.abs(coord.getCenter().y - labelShapes[0].attr('y'));
-    const dist = Math.sqrt(distX * distX + distY * distY);
-    expect(dist > coord.getRadius()).toBe(true);
-    piePlot.destroy();
-  });
-
-  it('auto padding', () => {
+  // TODO mifa
+  it.skip('auto padding', () => {
     const piePlot = new Pie(canvasDiv, {
       width: 600,
       height: 600,
       title: {
+        visible: true,
         text: 'title',
       },
       description: {
-        text: 'descriptiondescriptiondescriptiondescription',
+        visible: true,
+        text: 'description & description & description & description',
       },
       padding: 'auto',
       data,
@@ -278,7 +200,9 @@ describe.skip('Pie plot', () => {
     const pieLayer = piePlot.getLayer();
     const title = pieLayer.title;
     const description = pieLayer.description;
+    // @ts-ignore
     expect(title.text).toBe('title');
+    // @ts-ignore
     expect(title.style.fill).toBe('red');
     expect(description.shape.attr('text')).toBe('description');
     expect(description.shape.attr('fill')).toBe('red');

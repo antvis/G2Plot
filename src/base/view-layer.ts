@@ -1,4 +1,4 @@
-import * as G from '@antv/g-canvas';
+import * as G from '@antv/g-base';
 import * as G2 from '@antv/g2';
 import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction, mix } from '@antv/util';
 import TextDescription from '../components/description';
@@ -20,7 +20,7 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerConfig, Region } from './layer';
+import Layer, { LayerConfig } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 
@@ -178,6 +178,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public init() {
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
+    console.log(this.theme);
     this.config = {
       data: this.processData(this.options.data),
       scales: {},

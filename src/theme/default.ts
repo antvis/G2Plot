@@ -222,7 +222,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       label: {
         offset: 16,
-        textStyle: {
+        style: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },

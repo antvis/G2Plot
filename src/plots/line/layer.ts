@@ -238,9 +238,9 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     super.applyInteractions();
     // 加入默认交互
     const interactions = this.view.interactions;
-    const lineActive = new LineActive(this.view, {});
+    const lineActive = new LineActive(this.view);
     interactions.lineActive = lineActive;
-    const lineSelect = new LineSelect(this.view, {});
+    const lineSelect = new LineSelect(this.view);
     interactions.lineSelect = lineSelect;
   }
 

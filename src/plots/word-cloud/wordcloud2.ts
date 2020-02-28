@@ -218,6 +218,7 @@ var WordCloud = function WordCloud(elements, options) {
     ellipticity: 1,
 
     active: true,
+    animatable: true,
     selected: -1,
     shadowColor: '#333',
     shadowBlur: 10,
@@ -1237,60 +1238,66 @@ var WordCloud = function WordCloud(elements, options) {
       });
     }
 
-    i = 0;
-    var loopingFunction, stoppingFunction;
-    if (settings.wait !== 0) {
-      loopingFunction = window.setTimeout;
-      stoppingFunction = window.clearTimeout;
+    if (!settings.animatable) {
+      for (let i = 0; i < settings.data.length; i++) {
+        putWord(settings.data[i]);
+      }
     } else {
-      loopingFunction = window.setImmediate;
-      stoppingFunction = window.clearImmediate;
+      i = 0;
+      var loopingFunction, stoppingFunction;
+      if (settings.wait !== 0) {
+        loopingFunction = window.setTimeout;
+        stoppingFunction = window.clearTimeout;
+      } else {
+        loopingFunction = window.setImmediate;
+        stoppingFunction = window.clearImmediate;
+      }
+
+      var addEventListener = function addEventListener(type, listener) {
+        elements.forEach(function(el) {
+          el.addEventListener(type, listener);
+        }, this);
+      };
+
+      var removeEventListener = function removeEventListener(type, listener) {
+        elements.forEach(function(el) {
+          el.removeEventListener(type, listener);
+        }, this);
+      };
+
+      var anotherWordCloudStart = function anotherWordCloudStart() {
+        removeEventListener('wordcloudstart', anotherWordCloudStart);
+        stoppingFunction(timer);
+      };
+
+      addEventListener('wordcloudstart', anotherWordCloudStart);
+
+      var timer = loopingFunction(function loop() {
+        if (i >= settings.data.length) {
+          stoppingFunction(timer);
+          sendEvent('wordcloudstop', false);
+          removeEventListener('wordcloudstart', anotherWordCloudStart);
+
+          return;
+        }
+        escapeTime = new Date().getTime();
+        var drawn = putWord(settings.data[i]);
+        var canceled = !sendEvent('wordclouddrawn', true, {
+          item: settings.data[i],
+          drawn: drawn,
+        });
+        if (exceedTime() || canceled) {
+          stoppingFunction(timer);
+          settings.abort();
+          sendEvent('wordcloudabort', false);
+          sendEvent('wordcloudstop', false);
+          removeEventListener('wordcloudstart', anotherWordCloudStart);
+          return;
+        }
+        i++;
+        timer = loopingFunction(loop, settings.wait);
+      }, settings.wait);
     }
-
-    var addEventListener = function addEventListener(type, listener) {
-      elements.forEach(function(el) {
-        el.addEventListener(type, listener);
-      }, this);
-    };
-
-    var removeEventListener = function removeEventListener(type, listener) {
-      elements.forEach(function(el) {
-        el.removeEventListener(type, listener);
-      }, this);
-    };
-
-    var anotherWordCloudStart = function anotherWordCloudStart() {
-      removeEventListener('wordcloudstart', anotherWordCloudStart);
-      stoppingFunction(timer);
-    };
-
-    addEventListener('wordcloudstart', anotherWordCloudStart);
-
-    var timer = loopingFunction(function loop() {
-      if (i >= settings.data.length) {
-        stoppingFunction(timer);
-        sendEvent('wordcloudstop', false);
-        removeEventListener('wordcloudstart', anotherWordCloudStart);
-
-        return;
-      }
-      escapeTime = new Date().getTime();
-      var drawn = putWord(settings.data[i]);
-      var canceled = !sendEvent('wordclouddrawn', true, {
-        item: settings.data[i],
-        drawn: drawn,
-      });
-      if (exceedTime() || canceled) {
-        stoppingFunction(timer);
-        settings.abort();
-        sendEvent('wordcloudabort', false);
-        sendEvent('wordcloudstop', false);
-        removeEventListener('wordcloudstart', anotherWordCloudStart);
-        return;
-      }
-      i++;
-      timer = loopingFunction(loop, settings.wait);
-    }, settings.wait);
   };
 
   // All set, start the drawing

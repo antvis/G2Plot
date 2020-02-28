@@ -1,3 +1,6 @@
+## <small>0.11.33 (2019-02-28)</small>
+- 🌟Sunburst ([5692ca6](https://github.com/antvis/G2Plot/commit/5692ca6))
+
 ## <small>0.11.32 (2019-02-21)</small>
 - 🐞 饼图 tooltip 与 label 对外透出 percent ([365fd0f](https://github.com/antvis/G2Plot/commit/365fd0f))
 

@@ -142,7 +142,11 @@ export default class RangeBarLabel {
 
   private getValue(shape) {
     const { colorField } = this.plot.options;
-    const values = shape.get('origin')._origin[colorField].split(' ');
+    let text = shape.get('origin')._origin[colorField];
+    if (this.plot.options.label && this.plot.options.label.field) {
+      text = shape.get('origin')._origin[this.plot.options.label.field];
+    }
+    const values = String(text).split(' ');
     if (values.length > 1) {
       return values.join('\n');
     }

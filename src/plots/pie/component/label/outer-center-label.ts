@@ -5,7 +5,7 @@ import { getOverlapArea, near } from './utils';
 // 默认label和element的偏移 16px
 export const DEFAULT_OFFSET = 16;
 
-export default class PieOuterLabel extends PieBaseLabel {
+export default class PieOuterCenterLabel extends PieBaseLabel {
   /** @override 不能大于0 */
   protected adjustOption(options: PieLabelConfig) {
     super.adjustOption(options);
@@ -28,17 +28,25 @@ export default class PieOuterLabel extends PieBaseLabel {
     };
   }
 
+  protected adjustItem(item: LabelItem): void {
+    const offset = this.options.offset;
+    if (item.textAlign === 'left') {
+      item.x += offset > 4 ? 4 : offset / 2;
+    } else if (item.textAlign === 'right') {
+      item.x -= offset > 4 ? 4 : offset / 2;
+    }
+  }
+
   /** label 碰撞调整 */
-  protected layout(labels: IShape[]) {
-    this.adjustOverlap(labels);
+  protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {
+    this.adjustOverlap(labels, panel);
   }
 
   /** 处理标签遮挡问题 */
-  protected adjustOverlap(labels: IShape[]): void {
+  protected adjustOverlap(labels: IShape[], panel: BBox): void {
     if (this.options.allowOverlap) {
       return;
     }
-    const panel = this.plot.view.coordinateBBox;
     // clearOverlap;
     for (let i = 1; i < labels.length; i++) {
       const label = labels[i];

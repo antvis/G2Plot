@@ -8,7 +8,6 @@ import { LayerConfig } from '../../base/layer';
 import { registerPlotType } from '../../base/global';
 import BulletRect from './component/bulletRect';
 import BulletTarget from './component/bulletTarget';
-import BarLabel from '../bar/component/label';
 
 const G2_GEOM_MAP = {
   bullet: 'interval',
@@ -244,7 +243,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       ...options.legend,
       clickable: false,
     };
-    this.setConfig('legends', legendOptions);
+    this.setConfig('legends', legendOptions as any);
   }
 
   protected addGeometry() {

@@ -19,7 +19,7 @@ interface IMapping {
 
 interface IMappingConfig {
   field: string;
-  values?: string[];
+  values?: string[] | string;
 }
 
 interface IDrillDownInteractionConfig {

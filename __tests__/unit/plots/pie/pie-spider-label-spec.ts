@@ -68,7 +68,7 @@ describe('pie spider label', () => {
 
   it('get labelShapes', () => {
     labelGroups = plot.geometries[0].labelsContainer.getChildren();
-    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
+    const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
     // labelGroup = textGroup + path
     expect(labelGroups.length).toBe(shapes.length * 2);
     expect(labelGroups.length).toBe(data.length * 2);

@@ -78,7 +78,7 @@ export default class TextDescription {
 
   private _init() {
     const content = this._textWrapper();
-    this.shape = (this.container.addShape('text', {
+    this.shape = this.container.addShape('text', {
       attrs: mix(
         {
           x: this.leftMargin,
@@ -87,7 +87,7 @@ export default class TextDescription {
         },
         this.style
       ),
-    }) as Shape.Text);
+    }) as Shape.Text;
     // @ts-ignore
     this.shape.name = this.name;
   }

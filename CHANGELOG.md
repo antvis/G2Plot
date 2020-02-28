@@ -1,3 +1,7 @@
+## <small>0.11.34 (2019-02-28)</small>
+- 🌟wordcloud animation ([d94d3dd](https://github.com/antvis/G2Plot/commit/d94d3dd))
+- 🌟sunburst event ([1456a81](https://github.com/antvis/G2Plot/commit/1456a81))
+
 ## <small>0.11.33 (2019-02-28)</small>
 - 🌟Sunburst ([5692ca6](https://github.com/antvis/G2Plot/commit/5692ca6))
 

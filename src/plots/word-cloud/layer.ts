@@ -59,6 +59,7 @@ export type WordStyle = {
   color?: string | ((word: string, weight: number) => string);
 
   active?: Active;
+  animatable?: boolean;
 
   // [min, max] ->  random by steps(each step (max - min) / steps))
   rotation?: [number, number];

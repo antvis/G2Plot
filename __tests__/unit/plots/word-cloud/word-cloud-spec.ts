@@ -506,6 +506,7 @@ describe('WordCloud plot', () => {
           shadowColor: '#333333',
           shadowBlur: 10,
         },
+        animatable: true,
 
         gridSize: 8,
       },

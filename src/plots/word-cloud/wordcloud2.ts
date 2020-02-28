@@ -1240,7 +1240,7 @@ var WordCloud = function WordCloud(elements, options) {
 
     if (!settings.animatable) {
       for (let i = 0; i < settings.data.length; i++) {
-        putWord(settings.data[i])
+        putWord(settings.data[i]);
       }
     } else {
       i = 0;

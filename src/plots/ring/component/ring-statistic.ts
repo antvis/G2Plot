@@ -1,4 +1,4 @@
-import { View } from '@antv/g2';
+import { View } from '../../../dependents';
 import StatisticHtml, { IStaticticHtml } from './statistic';
 import * as statisticTemplate from './statistic-template';
 import { debounce, each, isString, isObject, isFunction, keys } from '@antv/util';

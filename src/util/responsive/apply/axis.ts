@@ -1,4 +1,4 @@
-import { Axis } from '@antv/component';
+import { Axis } from '../../../dependents';
 import { each } from '@antv/util';
 import ShapeNodes from '../node/shape-nodes';
 import Responsive from '../responsive';

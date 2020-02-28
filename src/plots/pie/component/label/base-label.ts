@@ -1,4 +1,4 @@
-import { IGroup, IShape, BBox } from '@antv/g-canvas';
+import { IGroup, IShape, BBox } from '../../../../dependents';
 import { transform } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
 import { getEndPoint } from './utils';

@@ -1,5 +1,5 @@
 import BaseComponent, { BaseComponentConfig } from './base';
-import { IGroup, BBox, IShape } from '@antv/g-canvas';
+import { IGroup, BBox, IShape } from '../dependents';
 import { move } from '../util/g-util';
 
 export interface BreadcrumbItem {

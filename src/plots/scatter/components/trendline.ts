@@ -1,6 +1,5 @@
 import { each, deepMix, minBy, maxBy } from '@antv/util';
-import { IGroup, IShape } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup, IShape } from '../../../dependents';
 import { getScale } from '@antv/scale';
 import {
   regressionLinear,

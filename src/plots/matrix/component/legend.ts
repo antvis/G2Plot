@@ -1,7 +1,6 @@
 import { each, isArray, deepMix } from '@antv/util';
-import { IGroup, IShape } from '@antv/g-canvas';
 import BBox from '../../../util/bbox';
-import { View } from '@antv/g2';
+import { View, IGroup, IShape } from '../../../dependents';
 
 const LABEL_MARGIN = 4;
 

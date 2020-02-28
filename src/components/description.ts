@@ -87,7 +87,7 @@ export default class TextDescription {
         },
         this.style
       ),
-    }) as Shape.Text;
+    }) as Shape.Text);
     // @ts-ignore
     this.shape.name = this.name;
   }

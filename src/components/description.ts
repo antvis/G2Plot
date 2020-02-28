@@ -24,7 +24,7 @@ interface TextConfig {
  */
 
 export default class TextDescription {
-  public shape: Text;
+  public shape: Shape.Text;
   public position: string = 'top';
   public name: string;
   public destroyed: boolean = false;
@@ -87,7 +87,7 @@ export default class TextDescription {
         },
         this.style
       ),
-    }) as any) as Text;
+    }) as Shape.Text);
     // @ts-ignore
     this.shape.name = this.name;
   }

@@ -4,7 +4,7 @@ import PieLayer, { PieViewConfig } from './layer';
 
 export interface PieConfig extends PieViewConfig, PlotConfig {}
 
-export default class Pie extends BasePlot<PieConfig> {
+export default class Pie extends BasePlot<PieConfig, PieLayer> {
   public static getDefaultOptions: typeof PieLayer.getDefaultOptions = PieLayer.getDefaultOptions;
 
   public createLayers(props) {

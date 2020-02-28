@@ -1,7 +1,8 @@
+import { IGroup, IElement } from '@antv/g-base';
+import { get, group } from '@antv/util';
 import { Bar } from '../../../../src';
 
-// TODO lingdao
-describe.skip('Bar plot', () => {
+describe('Bar plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -66,21 +67,21 @@ describe.skip('Bar plot', () => {
       animation: false,
     });
     barPlot.render();
-    const plot = barPlot.getLayer().view;
-    const positionField = plot.geometries[0].attributeOption.position.fields;
-    const isTransposed = plot.getCoordinate().isTransposed;
-    const axes = plot.getController('axis').getComponents();
+    const view = barPlot.getView();
+    const positionFields = view.geometries[0].getAttribute('position').getFields();
+    const isTransposed = view.getCoordinate().isTransposed;
+    const axes = view.getController('axis').getComponents();
 
     expect(barPlot).toBeInstanceOf(Bar);
-    expect(positionField[0]).toBe('year');
-    expect(positionField[1]).toBe('value');
+    expect(positionFields[0]).toBe('year');
+    expect(positionFields[1]).toBe('value');
     expect(isTransposed).toBe(true);
     expect(axes.length).toBe(2);
     barPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
-  it.skip('柱子样式配置', () => {
+  it('柱子样式配置', () => {
     const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,
@@ -102,12 +103,13 @@ describe.skip('Bar plot', () => {
       },
     });
     barPlot.render();
-    const barEle = barPlot.plot.geometries[0];
-    expect(barEle.get('color').values[0]).toBe('red');
-    expect(barEle.get('style').cfg.stroke).toBe('black');
-    expect(barEle.get('size').values[0]).toBe(20);
+    const view = barPlot.getView();
+    const barEle = view.geometries[0];
+    expect(barEle.getAttribute('color').values[0]).toBe('red');
+    expect(get(barEle, 'styleOption.cfg.stroke')).toBe('black');
+    expect(barEle.getAttribute('size').values[0]).toBe(20);
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it.skip('每个柱子颜色不一样', () => {
@@ -127,11 +129,12 @@ describe.skip('Bar plot', () => {
       },
     });
     barPlot.render();
-    const barEle = barPlot.plot.geometries[0];
-    expect(barEle.attributeOption.color.values[0]).toBe('red');
-    expect(barEle.attributeOption.color.values[1]).toBe('blue');
+    const view = barPlot.getView();
+    const barEle = view.geometries[0];
+    expect(barEle.getAttribute('color').values[0]).toBe('red');
+    expect(barEle.getAttribute('color').values[1]).toBe('blue');
     barPlot.destroy();
-    expect(barPlot.plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('隐藏两个坐标轴', () => {
@@ -150,11 +153,11 @@ describe.skip('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().view;
-    const axes = plot.getController('axis').getComponents();
+    const view = barPlot.getView();
+    const axes = view.getController('axis').getComponents();
     expect(axes.length).toBe(0);
     barPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('x轴 样式', () => {
@@ -166,8 +169,6 @@ describe.skip('Bar plot', () => {
       xField: 'value',
       yField: 'year',
       xAxis: {
-        min: 5,
-        nice: false,
         visible: true,
         tickCount: 5,
         line: {
@@ -201,22 +202,25 @@ describe.skip('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().view;
-    const axes = plot.getController('axis').getComponents();
+    const view = barPlot.getView();
+    const axes = view.getController('axis').getComponents();
     expect(axes.length).toBe(1);
     const axis = axes[0].component;
-    expect(axis.get('title').text).toInclude('xxxx');
-    expect(axis.get('title').textStyle.fill).toBe('red');
-    const labels = axis.get('labelItems');
-    expect(labels[0].text).toInclude('abc');
+    const axisGroup: IGroup = axis.get('group');
+    const title = axisGroup.find((item) => item.get('name') === 'axis-title');
+    expect(title.attr('text')).toInclude('xxxx');
+    expect(title.attr('fill')).toBe('red');
+    const labels = axisGroup.findAllByName('axis-label');
+    expect(labels[0].attr('text')).toInclude('abc');
+    expect(labels[0].attr('fill')).toBe('red');
     // style
-    const line = axis.get('line');
-    const tickLine = axis.get('tickLine');
-    expect(line.stroke).toBe('red');
-    expect(tickLine.stroke).toBe('red');
-    expect(labels[0].textStyle.fill).toBe('red');
+    const line = axisGroup.find((item) => item.get('name') === 'axis-line');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    expect(line.attr('stroke')).toBe('red');
+    expect(tickLine.attr('stroke')).toBe('red');
+
     barPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('x轴 隐藏 grid line tick label', () => {
@@ -228,36 +232,37 @@ describe.skip('Bar plot', () => {
       xField: 'value',
       yField: 'year',
       xAxis: {
-        min: 5,
-        nice: false,
         visible: true,
         tickCount: 5,
         line: {
           visible: false,
-          stroke: 'red',
+          style: {
+            stroke: 'red',
+          },
         },
         grid: {
           visible: false,
         },
-        tickLine: { visible: false, stroke: 'red' },
-        label: { visible: false, fill: 'red', fontSize: 24 },
+        tickLine: { visible: false, style: { stroke: 'red' } },
+        label: { visible: false, style: { fill: 'red', fontSize: 24 } },
       },
       yAxis: {
         visible: false,
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().view;
-    const axes = plot.getController('axis').getComponents();
+    const view = barPlot.getView();
+    const axes = view.getController('axis').getComponents();
     expect(axes.length).toBe(1);
     const axis = axes[0].component;
+    const axisGroup: IGroup = axis.get('group');
     // style
-    const line = axis.get('line');
-    const tickLine = axis.get('tickLine');
-    expect(line).toBe(null);
-    expect(tickLine).toBe(null);
+    const line = axisGroup.findAllByName('axis-line')[0];
+    const tickLine = axisGroup.findAllByName('axis-tickline')[0];
+    expect(line).toBeNil();
+    expect(tickLine).toBeNil();
     barPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('y轴 样式', () => {
@@ -307,22 +312,24 @@ describe.skip('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().view;
-    const axes = plot.getController('axis').getComponents();
+    const view = barPlot.getView();
+    const axes = view.getController('axis').getComponents();
     expect(axes.length).toBe(1);
     const axis = axes[0].component;
-    const labels = axis.get('labelItems');
-    expect(axis.get('title').text).toInclude('year');
-    expect(axis.get('title').textStyle.fill).toBe('red');
-    expect(labels[0].text).toInclude('abc');
+    const axisGroup: IGroup = axis.get('group');
+    const labels = axisGroup.findAllByName('axis-label');
+    const title = axisGroup.findAllByName('axis-title')[0];
+    expect(title.attr('text')).toInclude('year');
+    expect(title.attr('fill')).toBe('red');
+    expect(labels[0].attr('text')).toInclude('abc');
     // style
-    const line = axis.get('line');
-    const tickLine = axis.get('tickLine');
-    expect(line.stroke).toBe('red');
-    expect(tickLine.stroke).toBe('red');
-    expect(labels[0].textStyle.fill).toBe('red');
+    const line = axisGroup.findAllByName('axis-line')[0];
+    const tickLine = axisGroup.findAllByName('axis-tickline')[0];
+    expect(line.attr('stroke')).toBe('red');
+    expect(tickLine.attr('stroke')).toBe('red');
+    expect(labels[0].attr('fill')).toBe('red');
     barPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('y轴 隐藏 grid line tick label', () => {
@@ -352,16 +359,17 @@ describe.skip('Bar plot', () => {
       },
     });
     barPlot.render();
-    const plot = barPlot.getLayer().view;
-    const axes = plot.getController('axis').getComponents();
+    const view = barPlot.getView();
+    const axes = view.getController('axis').getComponents();
     expect(axes.length).toBe(1);
     const axis = axes[0].component;
+    const axisGroup: IGroup = axis.get('group');
     // style
-    const line = axis.get('line');
-    const tickLine = axis.get('tickLine');
-    expect(line).toBe(null);
-    expect(tickLine).toBe(null);
+    const line = axisGroup.findAllByName('axis-line')[0];
+    const tickLine = axisGroup.findAllByName('axis-tickline')[0];
+    expect(line).toBeNil();
+    expect(tickLine).toBeNil();
     barPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 });

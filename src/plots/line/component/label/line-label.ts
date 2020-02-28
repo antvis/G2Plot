@@ -5,7 +5,7 @@ import { View } from '@antv/g2';
 const DEFAULT_OFFSET = 8;
 
 export interface LineLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;
@@ -76,7 +76,7 @@ export default class LineLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

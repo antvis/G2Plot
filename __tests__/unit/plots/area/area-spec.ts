@@ -267,7 +267,8 @@ const data2 = [
   },
 ];
 
-describe('Area plot', () => {
+// TODO: area-spec
+describe.skip('Area plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

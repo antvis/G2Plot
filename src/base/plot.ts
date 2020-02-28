@@ -190,6 +190,14 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   /**
+   * 获取 Plot 的 View
+   */
+  public getView() {
+    // 临时：避免 getLayer 的类型转换问题
+    return (this.layers[0] as ViewLayer<T>).view;
+  }
+
+  /**
    * 获取图形下的图层 Layer，默认第一个 Layer
    * @param idx
    */

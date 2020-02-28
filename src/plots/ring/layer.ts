@@ -1,3 +1,4 @@
+import { modifyCSS } from '@antv/dom-util';
 import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -71,6 +72,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
     }
     /**环图中心文本 */
     if (this.options.statistic && this.options.statistic.visible) {
+      const container = this.canvas.get('container');
+      modifyCSS(container, { position: 'relative' });
       this.statistic = new RingStatistic({
         container,
         view: this.view,

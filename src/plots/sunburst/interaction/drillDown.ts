@@ -57,6 +57,7 @@ export default class DrillDownInteraction extends BaseInteraction {
     );
   }
 
+  public view: View;
   private container: Group;
   private breadcrumb: Breadcrumb;
   private plot: Sunburst;
@@ -70,7 +71,6 @@ export default class DrillDownInteraction extends BaseInteraction {
   private originMapping: IMappingConfig;
   private y: number;
   private geometry: any;
-  private view: View;
 
   public start(ev) {
     const data = ev.data._origin;

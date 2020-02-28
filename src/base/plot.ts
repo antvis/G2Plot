@@ -19,12 +19,9 @@ export interface PlotConfig {
   theme?: LooseMap | string;
 }
 
-interface LayerCtor<C> extends ViewLayer<C> {}
+interface LayerCtor<C> extends ViewLayer<C> {};
 
-export default class BasePlot<
-  T extends PlotConfig = PlotConfig,
-  L extends LayerCtor<T> = LayerCtor<T>
-> extends EventEmitter {
+export default class BasePlot<T extends PlotConfig = PlotConfig, L extends LayerCtor<T> = LayerCtor<T>> extends EventEmitter {
   public width: number;
   public height: number;
   public forceFit: boolean;

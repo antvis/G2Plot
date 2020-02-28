@@ -84,7 +84,7 @@ function textAbbreviate(text, fontSize, width, container) {
 }
 
 export interface TreemapLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;

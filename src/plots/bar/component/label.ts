@@ -6,7 +6,7 @@ import { rgb2arr, mappingColor } from '../../../util/color';
 const DEFAULT_OFFSET = 8;
 
 export interface BarLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   position?: string;
   formatter?: (...args: any[]) => string;
   offsetX?: number;

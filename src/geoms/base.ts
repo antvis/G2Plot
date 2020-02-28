@@ -19,7 +19,7 @@ export default class ElementParser {
       type: this.type,
       position: {
         fields: this.positionFields,
-      }
+      },
     };
   }
 }

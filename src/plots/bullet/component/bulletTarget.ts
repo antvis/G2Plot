@@ -1,6 +1,6 @@
 import { IGroup } from '@antv/g-base';
 import BBox from '../../../util/bbox';
-import { View, Geometry } from '@antv/g2';
+import { View } from '@antv/g2';
 import { find, map } from '@antv/util';
 
 export interface BulletTargetCfg {

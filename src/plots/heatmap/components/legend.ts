@@ -149,7 +149,7 @@ export default class HeatmapLegend {
         textBaseline: 'bottom',
         ...this.options.text.style,
       },
-      name:'legend-label'
+      name: 'legend-label',
     });
     const textMin = this.container.addShape('text', {
       attrs: {
@@ -159,7 +159,7 @@ export default class HeatmapLegend {
         textAlign: 'center',
         textBaseline: 'top',
         ...this.options.text.style,
-        name:'legend-label'
+        name: 'legend-label',
       },
     });
     // 绘制包围线
@@ -221,7 +221,7 @@ export default class HeatmapLegend {
         textAlign: 'right',
         textBaseline: 'middle',
       },
-      name:'legend-label'
+      name: 'legend-label',
     });
     this.container.addShape('text', {
       attrs: {
@@ -232,7 +232,7 @@ export default class HeatmapLegend {
         textBaseline: 'middle',
         ...this.options.text.style,
       },
-      name:'legend-label'
+      name: 'legend-label',
     });
     // 绘制包围线
     gridLineContainer.addShape('path', {

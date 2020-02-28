@@ -1,6 +1,5 @@
 import * as G2 from '@antv/g2';
 import { isString, deepMix } from '@antv/util';
-// import Theme from '../../theme';
 import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
 import { getResponsiveTheme } from '../../util/responsive/theme';
 import { ViewConfig } from '../view-layer';

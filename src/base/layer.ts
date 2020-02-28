@@ -4,7 +4,6 @@ import { deepMix, each, findIndex, keys, contains, isFunction } from '@antv/util
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
 import BBox from '../util/bbox';
-import { groupTransform } from '../util/g-util';
 
 export interface LayerConfig {
   id?: string;

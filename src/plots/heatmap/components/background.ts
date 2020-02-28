@@ -1,5 +1,5 @@
 import { each } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base';
 import { View } from '@antv/g2';
 import EventEmitter from '@antv/event-emitter';
 
@@ -67,7 +67,7 @@ export default class HeatmapBackground extends EventEmitter {
         height: this.height,
         fill: this.options.value,
       },
-      name:'heatmap-background'
+      name: 'heatmap-background',
     });
   }
 
@@ -80,7 +80,7 @@ export default class HeatmapBackground extends EventEmitter {
         height: this.height,
         img: this.options.src,
       },
-      name:'heatmap-background'
+      name: 'heatmap-background',
     });
   }
 

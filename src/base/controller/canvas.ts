@@ -1,5 +1,5 @@
 import { modifyCSS } from '@antv/dom-util';
-import { Canvas } from '@antv/g-canvas';
+import { ICanvas, Canvas } from '@antv/g-canvas';
 import { debounce, get } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
@@ -21,7 +21,7 @@ export interface CanvasControllerCfg {
 export default class CanvasController {
   public width: number;
   public height: number;
-  public canvas: Canvas;
+  public canvas: ICanvas;
 
   private containerDOM: HTMLElement;
   private plot: BasePlot; // temp

@@ -1,5 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base';
 import { View } from '@antv/g2';
 import { rgb2arr } from '../../../util/color';
 
@@ -89,7 +89,7 @@ export default class RangeBarLabel {
             textAlign: textAlign[i],
             textBaseline: 'middle',
           }),
-          name: 'label'
+          name: 'label',
         });
         labels.push(label);
         this.doAnimation(label);

@@ -1,5 +1,5 @@
 import { each, deepMix, minBy, maxBy } from '@antv/util';
-import { IGroup, IShape } from '@antv/g-canvas';
+import { IGroup, IShape } from '@antv/g-base';
 import { View } from '@antv/g2';
 import { getScale } from '@antv/scale';
 import {
@@ -107,7 +107,7 @@ export default class TrendLine {
           path: confidencePath,
           ...this.options.confidenceStyle,
         },
-        name:'confidence'
+        name: 'confidence',
       });
     }
     // 绘制trendline
@@ -122,7 +122,7 @@ export default class TrendLine {
         path,
         ...this.options.style,
       },
-      name:'trendline'
+      name: 'trendline',
     });
   }
 

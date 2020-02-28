@@ -1,5 +1,5 @@
 import { each, isArray, deepMix } from '@antv/util';
-import { IGroup, IShape } from '@antv/g-canvas';
+import { IGroup, IShape } from '@antv/g-base';
 import BBox from '../../../util/bbox';
 import { View } from '@antv/g2';
 
@@ -39,7 +39,7 @@ export default class MatrixLegend {
   protected y: number;
   protected dataSlides: any = {};
   protected colorScale: any;
-  private interactiveEvents:any = {};
+  private interactiveEvents: any = {};
 
   constructor(cfg: IMatrixLegend) {
     const defaultOptions = this.getDefaultOptions();
@@ -54,7 +54,7 @@ export default class MatrixLegend {
     this.width = this.options.width ? this.options.width : this.getDefaultWidth();
     this.height = this.options.height ? this.options.height : this.getDefaultHeight();
     const plotContainer = this.options.plot.container;
-    if(this.container){
+    if (this.container) {
       this.container.remove();
     }
     this.container = plotContainer.addGroup();
@@ -90,7 +90,7 @@ export default class MatrixLegend {
   }
 
   public clear() {
-    if (this.container) { 
+    if (this.container) {
       const children = this.container.get('children');
       this.container.clear();
     }
@@ -126,7 +126,7 @@ export default class MatrixLegend {
         height: this.height,
         fill: gradientColor,
       },
-      name:'legend'
+      name: 'legend',
     });
     // draw tick and label
     each(colors, (c, index) => {
@@ -152,7 +152,7 @@ export default class MatrixLegend {
           y: step,
           ...this.options.text.style,
         },
-        name:'legend-label'
+        name: 'legend-label',
       });
     });
     //anchor
@@ -185,7 +185,7 @@ export default class MatrixLegend {
         height: this.height,
         fill: gradientColor,
       },
-      name:'legend'
+      name: 'legend',
     });
     // draw tick and label
     each(colors, (c, index) => {
@@ -199,7 +199,7 @@ export default class MatrixLegend {
           ],
           ...this.options.ticklineStyle,
         },
-        name:'legend-label'
+        name: 'legend-label',
       });
       // value
       const value = Math.round(valueStep * index);
@@ -342,7 +342,7 @@ export default class MatrixLegend {
     const field = this.options.plot.options.colorField;
     const { min, max } = this.colorScale;
 
-    const geomEventHandler = (ev)=>{
+    const geomEventHandler = (ev) => {
       const value = ev.data.data[field];
       const ratio = (value - min) / (max - min);
       this.moveAnchor(ratio);
@@ -350,7 +350,7 @@ export default class MatrixLegend {
     this.view.on(eventName, geomEventHandler);
     this.interactiveEvents[eventName] = {
       target: this.view,
-      handler:geomEventHandler
+      handler: geomEventHandler,
     };
 
     /*this.view.on(labelEventName, (ev) => {
@@ -359,13 +359,13 @@ export default class MatrixLegend {
       this.moveAnchor(ratio);
     });*/
 
-    const mouseleaveHandler = (ev)=>{
+    const mouseleaveHandler = (ev) => {
       this.anchor.set('visible', false);
-    }
-    this.options.plot.canvas.on('mouseleave',mouseleaveHandler);
+    };
+    this.options.plot.canvas.on('mouseleave', mouseleaveHandler);
     this.interactiveEvents.mouseleave = {
       target: this.options.plot.canvas,
-      handler: mouseleaveHandler
+      handler: mouseleaveHandler,
     };
   }
 
@@ -409,10 +409,10 @@ export default class MatrixLegend {
     return bleeding[0];
   }
 
-  private offEvent(){
-    each(this.interactiveEvents,(event,key)=>{
+  private offEvent() {
+    each(this.interactiveEvents, (event, key) => {
       const { target, handler } = event;
-      target.off(key,handler);
-    })
+      target.off(key, handler);
+    });
   }
 }

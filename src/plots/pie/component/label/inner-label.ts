@@ -1,4 +1,4 @@
-import { IShape } from '@antv/g-canvas';
+import { IShape } from '@antv/g-base';
 import { each, clone } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getOverlapInfo } from './utils';

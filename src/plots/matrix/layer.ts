@@ -396,7 +396,7 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   protected renderPlotComponents() {
-    each(this.plotComponents,(component)=>{
+    each(this.plotComponents, (component) => {
       component.destroy();
     });
     this.plotComponents = [];

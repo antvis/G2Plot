@@ -81,7 +81,7 @@ export default class DiffLabel {
           y: (shapeBox.minY + shapeBox.maxY) / 2,
           ...this.textAttrs,
         },
-        name:'dill-label'
+        name: 'dill-label',
       });
       if (text.getBBox().height > shapeBox.height) {
         text.set('visible', false);

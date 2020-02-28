@@ -65,11 +65,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return {
       title: {
         visible: false,
+        alignTo: 'left',
         text: '',
       },
       description: {
         visible: false,
         text: '',
+        alignTo: 'left',
       },
       padding: 'auto',
       legend: {
@@ -178,7 +180,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public init() {
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
-    console.log(this.theme);
     this.config = {
       data: this.processData(this.options.data),
       scales: {},
@@ -520,6 +521,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const theme = this.config.theme;
       const title = new TextDescription({
         leftMargin: range.minX + theme.title.padding[3],
+        rightMargin: range.maxX - theme.title.padding[1],
         topMargin: range.minY + theme.title.padding[0],
         text: props.title.text,
         style: mix(theme.title, props.title.style),
@@ -528,6 +530,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: isTextUsable(props.description) ? 0 : 1,
         plot: this,
+        alignTo: props.title.alignTo,
         name: 'title',
       });
       this.title = title;
@@ -560,6 +563,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const description = new TextDescription({
         leftMargin: range.minX + theme.description.padding[3],
         topMargin,
+        rightMargin: range.maxX - theme.title.padding[1],
         text: props.description.text,
         style: mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
@@ -567,6 +571,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: 1,
         plot: this,
+        alignTo: props.description.alignTo,
         name: 'description',
       });
       this.description = description;

@@ -1,4 +1,4 @@
-import { IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base';
 import { View } from '@antv/g2';
 import { clone, deepMix, each } from '@antv/util';
 import { mappingColor, rgb2arr } from '../../../util/color';
@@ -66,7 +66,7 @@ export default class ColumnLabel {
           textAlign,
           textBaseline,
         }),
-        name:'label'
+        name: 'label',
       });
       this.adjustLabel(label, shape);
     });

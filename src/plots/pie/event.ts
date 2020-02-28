@@ -2,7 +2,7 @@ import { assign } from '@antv/util';
 import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const componentMap = {
-  Pie:'interval',
+  Pie: 'interval',
 };
 
 const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);

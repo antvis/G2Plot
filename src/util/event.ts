@@ -94,7 +94,16 @@ function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
   layer.view.on(eventName, handler);
 }
 
-const eventNames = ['Click', 'Dblclick', 'Mousemove', 'Mouseenter', 'Mouseleave', 'Mousedown', 'Mouseup', 'Contextmenu'];
+const eventNames = [
+  'Click',
+  'Dblclick',
+  'Mousemove',
+  'Mouseenter',
+  'Mouseleave',
+  'Mousedown',
+  'Mouseup',
+  'Contextmenu',
+];
 
 export function getEventMap(map) {
   const eventMap: IEventmap = {};

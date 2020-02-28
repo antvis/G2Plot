@@ -1,5 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base';
 import { View } from '@antv/g2';
 
 const DEFAULT_SIZE = 12;
@@ -118,7 +118,7 @@ export default class AreaLabel {
           textAlign: 'center',
           textBaseline: 'top',
         }),
-        name:'label'
+        name: 'label',
       });
       labelShapes.push(text);
     });

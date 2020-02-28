@@ -1,5 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base';
 import { View } from '@antv/g2';
 
 const DEFAULT_OFFSET = 8;
@@ -56,7 +56,7 @@ export default class LineLabel {
           textAlign: 'left',
           textBaseline: 'middle',
         }),
-        name:'label'
+        name: 'label',
       });
     });
   }

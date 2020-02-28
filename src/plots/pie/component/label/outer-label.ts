@@ -1,4 +1,4 @@
-import { IShape } from '@antv/g-canvas';
+import { IShape } from '@antv/g-base';
 import { filter, last, head, map } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getEndPoint } from './utils';

@@ -1,5 +1,3 @@
-import { IElement } from '@antv/g-canvas';
-import { View } from '@antv/g2';
 import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
@@ -127,9 +125,9 @@ export default class PaddingController {
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend
     let components_bbox;
-    if(has(this.plot.options,'radius')){
+    if (has(this.plot.options, 'radius')) {
       components_bbox = [new BBox(0, viewRange.minY, viewRange.width, viewRange.height)];
-    }else{
+    } else {
       components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
     }
     this._getAxis(view, components_bbox);

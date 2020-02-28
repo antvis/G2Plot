@@ -14,6 +14,7 @@ export interface ITitle {
   text: string;
   style?: {};
   alignWithAxis?: boolean;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 export interface IDescription {
@@ -21,6 +22,7 @@ export interface IDescription {
   text: string;
   style?: {};
   alignWithAxis?: boolean;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 type IEvents = LooseMap<string>;

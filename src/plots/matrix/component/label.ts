@@ -1,5 +1,5 @@
-import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
+import { each, deepMix, clone } from '@antv/util';
+import { IGroup } from '@antv/g-base';
 import { View } from '@antv/g2';
 import { rgb2arr, mappingColor } from '../../../util/color';
 
@@ -59,7 +59,7 @@ export default class MatrixLabel {
           textAlign: 'center',
           textBaseline: 'middle',
         }),
-        name:'label'
+        name: 'label',
       });
       if (this.options.adjustPosition) {
         this.adjustLabel(label, shape);

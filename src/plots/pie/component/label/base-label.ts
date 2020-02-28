@@ -1,5 +1,4 @@
-import { IGroup, IShape } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { IGroup, IShape } from '@antv/g-base';
 import * as matrixUtil from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
 import { getEndPoint } from './utils';

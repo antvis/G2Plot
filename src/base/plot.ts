@@ -26,7 +26,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   public renderer: string;
   public pixelRatio: number;
   public theme: string | object;
-  public canvas: G.Canvas;
+  public canvas: G.ICanvas;
   public destroyed: boolean;
   protected layers: Array<Layer<any>>;
   private canvasController: CanvasController;

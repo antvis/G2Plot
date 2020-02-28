@@ -1,5 +1,5 @@
 import { each, deepMix, clone } from '@antv/util';
-import { IGroup, IShape } from '@antv/g-canvas';
+import { IGroup, IShape } from '@antv/g-base';
 import { View } from '@antv/g2';
 import { Label } from '../../../interface/config';
 
@@ -55,7 +55,7 @@ export default class ScatterLabel {
           textAlign,
           textBaseline,
         }),
-        name:'label'
+        name: 'label',
       });
     });
   }

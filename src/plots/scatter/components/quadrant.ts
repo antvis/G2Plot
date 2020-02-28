@@ -1,5 +1,5 @@
 import { each, isArray, isFunction, deepMix } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
+import { IGroup } from '@antv/g-base';
 import BBox from '../../../util/bbox';
 import { View } from '@antv/g2';
 
@@ -128,7 +128,7 @@ export default class Quadrant {
             attrs: {
               ...labelCfg,
             },
-            name:'quadrant-label'
+            name: 'quadrant-label',
           });
         }
         // rect.setSilent('data', d);
@@ -147,7 +147,7 @@ export default class Quadrant {
             ],
             ...lineStyle,
           },
-          name:'quadrant-line'
+          name: 'quadrant-line',
         });
       });
       this.view.canvas.draw();

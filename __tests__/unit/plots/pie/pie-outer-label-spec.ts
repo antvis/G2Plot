@@ -43,7 +43,7 @@ describe('pie outer label', () => {
       },
       pieStyle: {
         lineWidth: 0,
-      },
+      }
     });
     piePlot.render();
 
@@ -54,7 +54,7 @@ describe('pie outer label', () => {
     expect(center).toEqual({ x: 250, y: 300 });
     expect(radius).toBe((500 * Radius) / 2);
     // @ts-ignore
-    const labelShapes: IShape[] = pieElement.labelsContainer.getChildren().map((g) => g.getChildren()[0]);
+    const labelShapes: IShape[] = pieElement.labelsContainer.getChildren().map(g => g.getChildren()[0]);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     const labelBox: BBox = labelShapes[2].getBBox();
     expect((labelBox.minY + labelBox.maxY) / 2).toEqual(center.y);

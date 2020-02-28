@@ -80,7 +80,7 @@ describe('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('stroke')).toBe('white');
     expect(shapes[0].attr('lineWidth')).toBe(1);
     piePlot.destroy();
@@ -97,7 +97,7 @@ describe('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('fill')).toBe('yellow');
     expect(shapes[1].attr('fill')).toBe('green');
     expect(shapes[2].attr('fill')).toBe('blue');
@@ -118,7 +118,7 @@ describe('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('stroke')).toBe('red');
     expect(shapes[0].attr('lineWidth')).toBe(2);
     piePlot.destroy();
@@ -140,7 +140,7 @@ describe('Pie plot', () => {
     });
     piePlot.render();
     const plot = piePlot.getLayer().view;
-    const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
+    const shapes = plot.geometries[0].elements.map(ele => ele.shape);
     expect(shapes[0].attr('stroke')).toBe('red');
     expect(shapes[0].attr('lineWidth')).toBe(2);
     piePlot.destroy();

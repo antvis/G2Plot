@@ -5,7 +5,7 @@ import { getGeometryLabel } from '@antv/g2';
 import { createDiv } from '../../../utils/dom';
 import Polar from '@antv/coord/lib/coord/polar';
 
-describe('pie outer label', () => {
+describe.skip('pie outer label', () => {
   it('outer label is defined', () => {
     expect(getGeometryLabel('outer')).not.toBeDefined();
   });

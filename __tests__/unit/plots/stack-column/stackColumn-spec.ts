@@ -187,6 +187,7 @@ describe('StackColumn plot', () => {
       stackField: 'type',
       label: {
         visible: true,
+        adjustColor: false,
         formatter: (txt) => {
           return txt + 'dddd';
         },

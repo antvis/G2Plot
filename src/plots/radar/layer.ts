@@ -120,7 +120,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
         label: {
           visible: true,
-          offset: 8,
+          offset: 16,
         },
         title: {
           visible: false,
@@ -269,9 +269,40 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       this.setConfig('geometry', point);
       this.point = point;
     }
+    if (props.label) {
+      this.label();
+    }
   }
 
-  protected label() {}
+  protected label() {
+    const props = this.options;
+
+    if (props.label.visible === false) {
+      if (this.point) {
+        this.point.label = false;
+      } else if (this.line) {
+        this.line.label = false;
+      }
+      this.area.label = false;
+      return;
+    }
+
+    // @Todo 雷达图标签布局算法后续补充
+    const label = getComponent('label', {
+      fields: [props.radiusField],
+      cfg: {
+        type: 'polar',
+      },
+      plot: this,
+    });
+    
+    if (this.point) {
+      this.point.label = label;
+    } else if (this.line) {
+      this.line.label = label;
+    }
+    this.area.label = label;
+  }
 
   protected annotation() {}
 

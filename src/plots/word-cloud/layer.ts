@@ -86,9 +86,7 @@ export interface WordCloudViewConfig {
   wordStyle?: WordStyle;
   shuffle?: boolean;
   selected?: number;
-  tooltip?: {
-    visible: boolean;
-  };
+  tooltip?: TooltipCfg;
   shape?: CloudShape | Function;
 
   onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
@@ -171,6 +169,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   private _initToolTips() {
     this._toolTips = new WordCloudTooltips({
+      ...this.options.tooltip,
       showTitle: false,
       visible: true,
       canvas: this.canvas,

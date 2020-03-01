@@ -1,5 +1,4 @@
-import { IElement } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { IElement, View } from '../../dependents';
 import { filter, each, isArray, clone } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';

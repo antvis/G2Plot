@@ -1,6 +1,5 @@
-import { IShape } from '@antv/g-base';
+import { IShape, registerAnimation } from '../../dependents';
 import { clone, each } from '@antv/util';
-import { registerAnimation } from '@antv/g2';
 
 // 记录之前的状态
 let shapeCache: IShape[];

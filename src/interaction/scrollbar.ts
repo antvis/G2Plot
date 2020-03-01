@@ -1,6 +1,5 @@
-import { IGroup } from '@antv/g-base';
+import { IGroup, Scrollbar } from '../dependents';
 import BBox from '../util/bbox';
-import { Scrollbar } from '@antv/component/lib/scrollbar/scrollbar';
 import { Scale } from '@antv/scale';
 import { clamp, get, isEqual, map, throttle } from '@antv/util';
 import ViewLayer from '../base/view-layer';

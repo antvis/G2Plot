@@ -1,6 +1,5 @@
-import * as G from '@antv/g-canvas';
-import * as G2 from '@antv/g2';
 import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction, mix } from '@antv/util';
+import { View, BBox } from '../dependents';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
@@ -139,12 +138,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     };
   }
   public type: string;
-  public view: G2.View;
+  public view: View;
   public theme: any;
   public initialOptions: T;
   public title: TextDescription;
   public description: TextDescription;
-  public viewRange: G.BBox;
+  public viewRange: BBox;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
@@ -213,7 +212,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.viewRange = this.getViewRange();
     const region = this.viewRangeToRegion(this.viewRange);
-    this.view = new G2.View({
+    this.view = new View({
       parent: null,
       canvas: this.canvas,
       backgroundGroup: this.container.addGroup(),
@@ -598,7 +597,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const layerBBox = this.layerBBox;
     interactions.forEach((interaction) => {
       const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
-      const range: G.BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
       let position = '';
       if (range) {
         // 先只考虑 Range 靠边的情况

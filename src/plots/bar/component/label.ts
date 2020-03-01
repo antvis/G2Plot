@@ -1,6 +1,5 @@
 import { each, deepMix, clone } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, Group, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;

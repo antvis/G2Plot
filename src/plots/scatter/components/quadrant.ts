@@ -1,7 +1,6 @@
 import { each, isArray, isFunction, deepMix } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
 import BBox from '../../../util/bbox';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 
 interface ILabel {
   position?: string;

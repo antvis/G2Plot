@@ -1,4 +1,4 @@
-import { View } from '@antv/g2';
+import { View } from '../dependents';
 import BBox from '../util/bbox';
 import Interaction from './core';
 import ViewLayer from '../base/view-layer';

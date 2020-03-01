@@ -1,4 +1,4 @@
-import * as G2 from '@antv/g2';
+import { getTheme as g2GetTheme } from '../../dependents';
 import { isString, deepMix } from '@antv/util';
 // import Theme from '../../theme';
 import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
@@ -10,7 +10,7 @@ import { ViewConfig } from '../view-layer';
  * 负责图表theme的管理
  */
 
-const G2DefaultTheme = G2.getTheme();
+const G2DefaultTheme = g2GetTheme();
 
 export default class ThemeController<T extends ViewConfig = ViewConfig> {
   /**

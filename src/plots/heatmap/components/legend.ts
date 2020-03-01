@@ -1,6 +1,5 @@
 import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
-import { Group } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, Group } from '../../../dependents';
 import BBox from '../../../util/bbox';
 
 const LABEL_MARGIN = 4;

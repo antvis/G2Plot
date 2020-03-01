@@ -1,6 +1,5 @@
-import { IGroup } from '@antv/g-base';
+import { IGroup, Slider } from '../dependents';
 import BBox from '../util/bbox';
-import { Slider } from '@antv/component';
 import { Scale } from '@antv/scale';
 import { clamp, head, last, map, size, throttle } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';

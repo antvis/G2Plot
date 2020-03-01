@@ -1,5 +1,4 @@
-import { IGroup, Group, IShape } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup, Group, IShape } from '../../../../dependents';
 import { deepMix, clone, each, isString, mix } from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
 

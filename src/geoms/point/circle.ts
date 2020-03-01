@@ -1,4 +1,4 @@
-import { LooseObject } from '@antv/g2/lib/interface';
+import { LooseObject } from '../../dependents';
 import { isArray, isFunction, isString, isEmpty } from '@antv/util';
 import ElementParser from '../base';
 

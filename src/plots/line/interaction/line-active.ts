@@ -1,4 +1,4 @@
-import { Interaction } from '@antv/g2';
+import { Interaction } from '../../../dependents';
 
 export default class LineActive extends Interaction {
   // TODO:

@@ -1,4 +1,4 @@
-import { IGroup, Shape } from '@antv/g-canvas';
+import { IGroup, Shape } from '../dependents';
 import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';

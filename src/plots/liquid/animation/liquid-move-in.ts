@@ -1,4 +1,4 @@
-import { registerAnimation } from '@antv/g2';
+import { registerAnimation } from '../../../dependents';
 import { get, clone } from '@antv/util';
 import { transform } from '../../../util/g-util';
 

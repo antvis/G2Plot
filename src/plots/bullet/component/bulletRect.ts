@@ -1,5 +1,4 @@
-import { IGroup } from '@antv/g-base';
-import { View, Geometry } from '@antv/g2';
+import { IGroup, View, Geometry } from '../../../dependents';
 import { find, map, get } from '@antv/util';
 import { BulletAxis } from '../layer';
 import BBox from '../../../util/bbox';

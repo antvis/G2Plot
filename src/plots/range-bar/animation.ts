@@ -1,5 +1,4 @@
-import { IShape, Shape } from '@antv/g-canvas';
-import { registerAnimation } from '@antv/g2';
+import { registerAnimation, IShape } from '../../dependents';
 import { clone, each } from '@antv/util';
 
 // 记录之前的状态

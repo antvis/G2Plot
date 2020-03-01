@@ -1,5 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g-canvas';
+import { ICanvas } from '../dependents';
 import { isNil, each, findIndex, deepMix, keys, contains, isFunction } from '@antv/util';
 import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';
@@ -31,7 +31,7 @@ export default class BasePlot<
   public renderer: string;
   public pixelRatio: number;
   public theme: string | object;
-  public canvas: G.Canvas;
+  public canvas: ICanvas;
   public destroyed: boolean;
   protected layers: Array<L>;
   private canvasController: CanvasController;

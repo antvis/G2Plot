@@ -1,5 +1,4 @@
-import { IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 import { clone, deepMix, each } from '@antv/util';
 import { mappingColor, rgb2arr } from '../../../util/color';
 

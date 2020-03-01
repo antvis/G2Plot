@@ -1,6 +1,5 @@
 import { each } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 import EventEmitter from '@antv/event-emitter';
 
 export interface HeatmapBackgroundConfig {

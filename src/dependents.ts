@@ -14,6 +14,17 @@ export {
   Util,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
+export {
+  Datum,
+  Data,
+  LooseObject,
+  Options,
+  Point,
+  ShapeInfo,
+  AttributeOption,
+  AdjustOption,
+  LabelOption,
+} from '@antv/g2/lib/interface';
 
 // Component
 import HtmlTooltip from '@antv/component/lib/tooltip/html';

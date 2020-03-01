@@ -3,8 +3,7 @@
  * On 2020-02-18
  */
 import * as _ from '@antv/util';
-import { Point, ShapeInfo } from '@antv/g2/lib/interface';
-import { IGroup, registerShape } from '../../../../dependents';
+import { IGroup, registerShape, Point, ShapeInfo } from '../../../../dependents';
 
 function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean) {
   const { style, defaultStyle, color } = cfg;

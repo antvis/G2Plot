@@ -6,8 +6,7 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { ShapeAttrs } from '@antv/g-base';
-import { Options } from '@antv/g2/lib/interface';
-import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/interface';
+import { Options, AttributeOption, AdjustOption, LabelOption } from '../dependents';
 import { LooseMap } from './types';
 
 export interface ITitle {

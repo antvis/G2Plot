@@ -6,6 +6,7 @@ import { LayerConfig } from '../..';
 import * as _ from '@antv/util';
 import Layer from '../../base/layer';
 import WordCloudTooltips from './word-cloud-tooltips';
+import { TooltipCfg } from '@antv/component/lib/tooltip/interface';
 
 import WordCloud from './wordcloud2';
 
@@ -86,7 +87,9 @@ export interface WordCloudViewConfig {
   wordStyle?: WordStyle;
   shuffle?: boolean;
   selected?: number;
-  tooltip?: TooltipCfg;
+  tooltip?: {
+    visible: boolean;
+   } & TooltipCfg;
   shape?: CloudShape | Function;
 
   onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};

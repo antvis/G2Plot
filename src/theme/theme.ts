@@ -16,7 +16,7 @@ export function registerTheme(type: string, theme: object) {
 
 /**
  * 根据类型获取主题
- * @param type
+ * @param type plotType, such as line, column, bar, pie, bullet, radar and so on
  */
 export function getTheme(type: string): any {
   return PLOT_THEME_MAP[type.toLowerCase()] || {};

@@ -8,6 +8,7 @@ import { LayerConfig } from '../../base/layer';
 import { registerPlotType } from '../../base/global';
 import BulletRect from './component/bulletRect';
 import BulletTarget from './component/bulletTarget';
+import './theme';
 
 const G2_GEOM_MAP = {
   bullet: 'interval',

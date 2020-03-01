@@ -1239,6 +1239,17 @@ var WordCloud = function WordCloud(elements, options) {
     }
 
     if (!settings.animatable) {
+      if (options.maskImage) {
+        /** 修复颜色透明，还留有 maskImage 的情况 */
+        elements.forEach(function(el) {
+          if (el.getContext) {
+            var ctx = el.getContext('2d');
+            ctx.fillStyle = settings.backgroundColor;
+            ctx.clearRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+            ctx.fillRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+          }
+        });
+      }
       for (let i = 0; i < settings.data.length; i++) {
         putWord(settings.data[i]);
       }

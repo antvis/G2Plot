@@ -68,6 +68,10 @@ title: API
   - `lineWidth: number` 刻度线宽度
   - `lineDash: number[]` 刻度线样式
 
+### 特殊说明
+
+- 子弹图图例，可以通过`custom`的方式定制，目前图例不支持“点击交互”
+
 - Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
 - Server-side Rendering
 - [Electron](http:// electron.atom.io/)

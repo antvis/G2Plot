@@ -148,6 +148,11 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     });
   }
 
+  public afterRender() {
+    super.afterRender();
+    this.view.removeInteraction('legend-filter');
+  }
+
   protected scale() {
     const options = this.options;
     const scales = {};
@@ -241,9 +246,9 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       position: 'bottom',
       items,
       ...options.legend,
-      clickable: false,
     };
-    this.setConfig('legends', legendOptions as any);
+    // @ts-ignore
+    this.setConfig('legends', legendOptions);
   }
 
   protected addGeometry() {

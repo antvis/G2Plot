@@ -109,7 +109,7 @@ describe('matrix plot', () => {
     { name: 'udon', value: 56, country: 'AQ' },
   ];
 
-  it('mateix init', () => {
+  it('matrix init', () => {
     const matrixPlot = new Matrix(canvasDiv, {
       // forceSquare: true,
       width: 600,
@@ -137,4 +137,34 @@ describe('matrix plot', () => {
       matrixPlot.mappingSize('value');
     }, 8000);*/
   });
+
+  it('shapeType circle', () => {});
+
+  it('sizeField', () => {});
+
+  it('size config', () => {});
+
+  it('mapping size method', () => {});
+
+  it('disable mapping size method', () => {});
+
+  it('change shape method', () => {});
+
+  it('label 显示隐藏', () => {});
+
+  it('label 样式', () => {});
+
+  it('axis 显示隐藏', () => {});
+
+  it('axis label样式', () => {});
+
+  it('axis label formatter', () => {});
+
+  it('axis tickLine', () => {});
+
+  it('axis grid', () => {});
+
+  it('legend', () => {});
+
+  it('legend style', () => {});
 });

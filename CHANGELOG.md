@@ -1,3 +1,6 @@
+## <small>0.11.35 (2019-03-02)</small>
+- 🌟修复词云图透明背景问题 ([51b3df](https://github.com/antvis/G2Plot/commit/51b3df))
+
 ## <small>0.11.34 (2019-02-28)</small>
 - 🌟wordcloud animation ([d94d3dd](https://github.com/antvis/G2Plot/commit/d94d3dd))
 - 🌟sunburst event ([1456a81](https://github.com/antvis/G2Plot/commit/1456a81))

@@ -92,6 +92,8 @@ export interface WordCloudViewConfig {
   } & TooltipCfg;
   shape?: CloudShape | Function;
 
+  animatable?: boolean;
+
   onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
   onWordCloudClick?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent) => {};
 

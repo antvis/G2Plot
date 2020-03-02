@@ -33,7 +33,7 @@ export default class BulletTarget {
     }
     this.container = this.view.foregroundGroup.addGroup();
     this.container.set('name', 'targetGroups');
-    const shapes = map(this.getGeometry().elements, (element: IElement) => element.shape);
+    const shapes = map(this.getGeometry().elements, (element: any) => element.shape);
     for (let i = 0; i < this.cfg.targets.length; i += 1) {
       const shapeBox = shapes[i].getBBox();
       const widthRatio = shapeBox.width / shapes[i].get('origin').data[this.cfg.yField];

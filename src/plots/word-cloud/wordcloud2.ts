@@ -450,7 +450,7 @@ var WordCloud = function WordCloud(elements, options) {
     var x = Math.floor((eventX * (canvas.width / rect.width || 1)) / g);
     var y = Math.floor((eventY * (canvas.height / rect.height || 1)) / g);
 
-    return infoGrid[x][y];
+    return infoGrid && infoGrid[x] && infoGrid[x][y];
   };
 
   var defaultHoverAction = function defaultHoverAction(item, dimension, evt, start) {
@@ -997,7 +997,9 @@ var WordCloud = function WordCloud(elements, options) {
 
     // get info needed to put the text onto the canvas
     var info = getTextInfo(word, weight, rotateDeg);
-    info['item'] = item;
+    if (info) {
+      info['item'] = item;
+    }
 
     // not getting the info means we shouldn't be drawing this one.
     if (!info) {
@@ -1239,6 +1241,17 @@ var WordCloud = function WordCloud(elements, options) {
     }
 
     if (!settings.animatable) {
+      if (options.maskImage) {
+        /** 修复颜色透明，还留有 maskImage 的情况 */
+        elements.forEach(function(el) {
+          if (el.getContext) {
+            var ctx = el.getContext('2d');
+            ctx.fillStyle = settings.backgroundColor;
+            ctx.clearRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+            ctx.fillRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+          }
+        });
+      }
       for (let i = 0; i < settings.data.length; i++) {
         putWord(settings.data[i]);
       }

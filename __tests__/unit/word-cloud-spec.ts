@@ -515,6 +515,7 @@ describe('WordCloud plot', () => {
       tooltip: {
         visible: true,
       },
+      animatable: false,
       selected: -1,
       backgroundColor: '#e3f3f3',
       onWordCloudHover: hoverAction,

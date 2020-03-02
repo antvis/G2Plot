@@ -6,7 +6,7 @@ import RangeBarLabel, { RangeBarLabelConfig } from './component/label';
 import { setShapeCache } from './animation';
 
 export interface RangeBarViewConfig extends BarViewConfig {
-  label: RangeBarLabelConfig;
+  label?: RangeBarLabelConfig;
 }
 
 export interface RangeBarLayerConfig extends RangeBarViewConfig, LayerConfig {}

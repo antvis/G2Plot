@@ -127,6 +127,7 @@ export default class Quadrant {
             attrs: {
               ...labelCfg,
             },
+            name: 'quadrant-label',
           });
         }
         // rect.setSilent('data', d);
@@ -145,6 +146,7 @@ export default class Quadrant {
             ],
             ...lineStyle,
           },
+          name: 'quadrant-line',
         });
       });
       this.view.canvas.draw();

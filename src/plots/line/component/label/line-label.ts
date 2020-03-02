@@ -1,5 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { View, Group, IGroup } from '../../../../dependents';
+import { View, Group, IGroup, Geometry } from '../../../../dependents';
 
 const DEFAULT_OFFSET = 8;
 
@@ -55,6 +55,7 @@ export default class LineLabel {
           textAlign: 'left',
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
     });
   }
@@ -95,7 +96,7 @@ export default class LineLabel {
   }
 
   private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'line');
+    return find(this.view.geometries, (geom) => geom.type === 'line') as Geometry;
   }
 
   protected getShapeInfo(shape) {

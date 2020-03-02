@@ -106,6 +106,7 @@ export default class TrendLine {
           path: confidencePath,
           ...this.options.confidenceStyle,
         },
+        name: 'confidence',
       });
     }
     // 绘制trendline
@@ -120,6 +121,7 @@ export default class TrendLine {
         path,
         ...this.options.style,
       },
+      name: 'trendline',
     });
   }
 

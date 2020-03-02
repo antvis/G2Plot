@@ -33,7 +33,7 @@ export default class MatrixLabel {
   }
 
   protected init() {
-    this.container = this.getGeometry().labelsContainer;
+    this.container = this.view.geometries[0].labelsContainer;
     this.view.on('beforerender', () => {
       this.clear();
       this.plot.canvas.draw();
@@ -41,7 +41,7 @@ export default class MatrixLabel {
   }
 
   public render() {
-    const elements = this.getGeometry().elements;
+    const elements = this.view.geometries[0].elements;
     each(elements, (ele) => {
       const { shape } = ele;
       const { style, offsetX, offsetY } = this.options;
@@ -58,6 +58,7 @@ export default class MatrixLabel {
           textAlign: 'center',
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
       if (this.options.adjustPosition) {
         this.adjustLabel(label, shape);
@@ -81,7 +82,7 @@ export default class MatrixLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }
@@ -98,10 +99,6 @@ export default class MatrixLabel {
       offsetY: 0,
       style: clone(labelStyle),
     };
-  }
-
-  private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'point');
   }
 
   protected getContent(shape) {

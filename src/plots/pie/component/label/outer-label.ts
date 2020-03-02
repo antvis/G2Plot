@@ -17,6 +17,7 @@ export default class PieOuterLabel extends PieBaseLabel {
 
   protected getDefaultOptions() {
     const { theme } = this.plot;
+    console.log(theme);
     const labelStyle = theme.label.style;
     return {
       offsetX: 0,

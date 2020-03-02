@@ -66,6 +66,7 @@ export default class BarLabel {
           textAlign,
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
       this.adjustLabel(label, shape);
     });

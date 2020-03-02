@@ -123,7 +123,7 @@ export default class HeatmapLegend {
           opacity: ACTIVE_OPACITY,
           cursor: 'pointer',
         },
-        name: 'grid',
+        name: 'legend',
       });
       rect.set('info', appendInfo);
       const dataSlide = this.getDataSlide(appendInfo);
@@ -148,6 +148,7 @@ export default class HeatmapLegend {
         textBaseline: 'bottom',
         ...this.options.text.style,
       },
+      name: 'legend-label',
     });
     const textMin = this.container.addShape('text', {
       attrs: {
@@ -157,6 +158,7 @@ export default class HeatmapLegend {
         textAlign: 'center',
         textBaseline: 'top',
         ...this.options.text.style,
+        name: 'legend-label',
       },
     });
     // 绘制包围线
@@ -195,7 +197,7 @@ export default class HeatmapLegend {
           opacity: 0.8,
           cursor: 'pointer',
         },
-        name: 'grid',
+        name: 'legend',
       });
       rect.set('info', appendInfo);
       const line = gridLineContainer.addShape('path', {
@@ -218,6 +220,7 @@ export default class HeatmapLegend {
         textAlign: 'right',
         textBaseline: 'middle',
       },
+      name: 'legend-label',
     });
     this.container.addShape('text', {
       attrs: {
@@ -228,6 +231,7 @@ export default class HeatmapLegend {
         textBaseline: 'middle',
         ...this.options.text.style,
       },
+      name: 'legend-label',
     });
     // 绘制包围线
     gridLineContainer.addShape('path', {

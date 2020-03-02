@@ -140,6 +140,7 @@ export default class TreemapLabel {
             textBaseline,
             fontWeight: isLeafNode ? 300 : 600,
           }),
+          name: 'label',
         });
         this.adjustLabel(label, shape, isLeafNode);
       }

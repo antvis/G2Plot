@@ -65,6 +65,7 @@ export default class StackColumnLayer<
         type: 'stack',
       },
     ];
+    console.log(column);
   }
 
   protected interaction() {

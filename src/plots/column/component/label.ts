@@ -65,6 +65,7 @@ export default class ColumnLabel {
           textAlign,
           textBaseline,
         }),
+        name: 'label',
       });
       this.adjustLabel(label, shape);
     });

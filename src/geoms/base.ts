@@ -20,12 +20,6 @@ export default class ElementParser {
       position: {
         fields: this.positionFields,
       },
-      /*widthRatio: {
-        // 宽度所占的分类的比例
-        column: this.widthRatio || 3 / 5, // g2plot定制
-        rose: 0.9999999, // 玫瑰图柱状占比 1
-        multiplePie: 1 / 1.3, // 多层的饼图、环图
-      },*/
     };
   }
 }

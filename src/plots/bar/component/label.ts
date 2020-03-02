@@ -1,5 +1,5 @@
 import { each, deepMix, clone } from '@antv/util';
-import { View, Group, IGroup } from '../../../dependents';
+import { View, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;
@@ -25,7 +25,7 @@ export default class BarLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
-  protected container: Group;
+  protected container: IGroup;
 
   constructor(cfg: IBarLabel) {
     this.view = cfg.view;

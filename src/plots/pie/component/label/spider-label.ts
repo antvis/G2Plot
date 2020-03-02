@@ -1,4 +1,4 @@
-import { View, IGroup, Group, IShape } from '../../../../dependents';
+import { View, IGroup, IShape } from '../../../../dependents';
 import { deepMix, clone, each, isString, mix } from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
 
@@ -141,7 +141,7 @@ export default class SpiderLabel {
         }
         texts = formatted;
       }
-      const textGroup = new Group({});
+      const textGroup = this.container.addGroup();
       const textAttrs: IAttrs = {
         x: 0,
         y: 0,
@@ -340,7 +340,6 @@ export default class SpiderLabel {
     const drawnLabels = [];
     half.forEach((label) => {
       const textGroup = this._drawLabel(label);
-      this.container.add(textGroup);
       this._drawLabelLine(label, maxLabelWidth);
       drawnLabels.push(textGroup);
     });

@@ -1,6 +1,7 @@
 // G
 export { IElement, ICanvas, IGroup, IShape, BBox } from '@antv/g-base';
-export { Canvas, Group, Shape } from '@antv/g-canvas';
+export { Canvas } from '@antv/g-canvas';
+export { Canvas as SVG } from '@antv/g-svg';
 
 // G2
 export {

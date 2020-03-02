@@ -11,14 +11,10 @@ const PIE_DISABLE_STYLE = (style) => {
 };
 
 registerTheme('pie', {
-  geometries: {
-    interval: {
-      rect: {
-        default: {},
-        active: { style: PIE_ACTIVE_STYLE },
-        disable: { style: PIE_DISABLE_STYLE },
-        selected: { style: { lineWidth: 1, stroke: 'black' } },
-      },
-    },
+  columnStyle: {
+    normal: {},
+    active: PIE_ACTIVE_STYLE,
+    disable: PIE_DISABLE_STYLE,
+    selected: { lineWidth: 1, stroke: 'black' },
   },
 });

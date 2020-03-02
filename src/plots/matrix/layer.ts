@@ -11,7 +11,6 @@ import { getPlotComponents } from './component';
 // import './component/label';
 
 export interface MatrixViewConfig extends ViewConfig {
-  forceSquare?: boolean;
   sizeField?: string;
   colorField?: string;
   shapeSize?: number[];
@@ -25,7 +24,6 @@ export interface MatrixLayerConfig extends MatrixViewConfig, LayerConfig {}
 export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
-      forceSquare: false,
       shapeType: 'rect',
       legend: {
         visible: true,
@@ -79,22 +77,6 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   public type: string = 'matrix';
   protected gridSize: number[] = [];
   protected plotComponents: any[] = [];
-
-  public afterInit() {
-    super.afterInit();
-    if (this.options.forceSquare) {
-      const panelRange = this.view.coordinateBBox;
-      const { xField, yField, data } = this.options;
-      const xCount = valuesOfKey(data, xField).length;
-      const yCount = valuesOfKey(data, yField).length;
-      const rangeSize = Math.min(panelRange.width, panelRange.height);
-      const count = Math.max(xCount, yCount);
-      const gridSize = rangeSize / count;
-      const width = gridSize * xCount;
-      const height = gridSize * yCount;
-      this.view.coordinateBBox = new BBox(panelRange.x, panelRange.y, width, height) as any;
-    }
-  }
 
   public afterRender() {
     this.renderPlotComponents();
@@ -391,6 +373,10 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
   }
 
   protected renderPlotComponents() {
+    each(this.plotComponents, (component) => {
+      component.destroy();
+    });
+    this.plotComponents = [];
     const componentsType = ['label', 'legend'];
     each(componentsType, (t) => {
       const cfg = {

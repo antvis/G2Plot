@@ -1,4 +1,6 @@
 import { Matrix } from '../../../../src';
+import { clone } from '@antv/util';
+import { platform } from 'os';
 
 describe('matrix plot', () => {
   const canvasDiv = document.createElement('div');
@@ -124,47 +126,328 @@ describe('matrix plot', () => {
       data,
     });
     matrixPlot.render();
-    /*window.setTimeout(() => {
-      matrixPlot.mappingSize('value');
-    }, 2000);
-    window.setTimeout(() => {
-      matrixPlot.changeShape('rect');
-    }, 4000);
-    window.setTimeout(() => {
-      matrixPlot.disableMappingSize();
-    }, 6000);
-    window.setTimeout(() => {
-      matrixPlot.mappingSize('value');
-    }, 8000);*/
+    const view = matrixPlot.getView();
+    const positionFields = view.geometries[0].getAttribute('position').getFields();
+    const colorField = view.geometries[0].getAttribute('color').getFields();
+    const colorValues = view.geometries[0].getAttribute('color').values;
+    expect(positionFields[0]).toBe('name');
+    expect(positionFields[1]).toBe('country');
+    expect(colorField[0]).toBe('value');
+    expect(colorValues[0]).toBe('#0d5fbb');
+    expect(matrixPlot).toBeInstanceOf(Matrix);
+    matrixPlot.destroy();
+    expect(matrixPlot.destroyed).toBe(true);
   });
 
-  it('shapeType circle', () => {});
+  it('shapeType rect', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      shapeType: 'rect',
+      data,
+    });
+    matrixPlot.render();
+    const view = matrixPlot.getView();
+    const shapeType = view.geometries[0].shapeType;
+    expect(shapeType).toBe('polygon');
+    matrixPlot.destroy();
+  });
 
-  it('sizeField', () => {});
+  it('sizeField', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      sizeField: 'value',
+      data,
+    });
+    matrixPlot.render();
+    const view = matrixPlot.getView();
+    const sizeField = view.geometries[0].getAttribute('size').getFields();
+    expect(sizeField[0]).toBe('value');
+    matrixPlot.destroy();
+  });
 
-  it('size config', () => {});
+  it('size config', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      sizeField: 'value',
+      shapeSize: [15, 50],
+      data,
+    });
+    matrixPlot.render();
+    const view = matrixPlot.getView();
+    const sizeValues = view.geometries[0].getAttribute('size').values;
+    expect(sizeValues[0]).toBe(0.3525188866867905);
+    expect(sizeValues[1]).toBe(1.0465116279069768);
+    matrixPlot.destroy();
+  });
 
-  it('mapping size method', () => {});
+  it('mapping size method', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+    });
+    matrixPlot.render();
+    matrixPlot.mappingSize('value');
+    window.setTimeout(() => {
+      const view = matrixPlot.getView();
+      const shapes = view.geometries[0].getShapes();
+      const bbox_1 = shapes[0].getBBox();
+      const bbox_2 = shapes[1].getBBox();
+      expect(Math.round(bbox_1.width)).not.toBe(Math.round(bbox_2.width));
+      expect(Math.round(bbox_1.height)).not.toBe(Math.round(bbox_2.height));
+      matrixPlot.destroy();
+    }, 600);
+  });
 
-  it('disable mapping size method', () => {});
+  it('disable mapping size method', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      sizeField: 'value',
+      data,
+    });
+    matrixPlot.render();
+    matrixPlot.disableMappingSize();
+    window.setTimeout(() => {
+      const view = matrixPlot.getView();
+      const shapes = view.geometries[0].getShapes();
+      const bbox_1 = shapes[0].getBBox();
+      const bbox_2 = shapes[2].getBBox();
+      expect(Math.round(bbox_1.width)).toEqual(Math.round(bbox_2.width));
+      expect(Math.round(bbox_1.height)).toEqual(Math.round(bbox_2.height));
+      matrixPlot.destroy();
+    }, 600);
+  });
 
-  it('change shape method', () => {});
+  it('change shape method', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      sizeField: 'value',
+      shapeType: 'circle',
+      data,
+    });
+    matrixPlot.render();
+    const samplePath_1 = clone(
+      matrixPlot
+        .getView()
+        .geometries[0].getShapes()[0]
+        .attr('path')
+    );
+    matrixPlot.changeShape('rect');
+    window.setTimeout(() => {
+      const samplePath_2 = matrixPlot
+        .getView()
+        .geometries[0].getShapes()[0]
+        .attr('path');
+      expect(samplePath_1[1][0]).toBe('L');
+      expect(samplePath_2[1][0]).toBe('Q');
+      matrixPlot.destroy();
+    }, 600);
+  });
 
-  it('label 显示隐藏', () => {});
+  it('label 隐藏', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+      label: {
+        visible: false,
+      },
+    });
+    matrixPlot.render();
+    const geometry = matrixPlot.getView().geometries[0];
+    const labelShapes = geometry.labelsContainer.get('children');
+    expect(labelShapes.length).toBe(0);
+    matrixPlot.destroy();
+  });
 
-  it('label 样式', () => {});
+  it('label 样式', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+      label: {
+        visible: true,
+        style: {
+          fontSize: 14,
+        },
+      },
+    });
+    matrixPlot.render();
+    const geometry = matrixPlot.getView().geometries[0];
+    const labelShape = geometry.labelsContainer.get('children')[0];
+    expect(labelShape.attr('fontSize')).toBe(14);
+    matrixPlot.destroy();
+  });
 
-  it('axis 显示隐藏', () => {});
+  it('axis 隐藏', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+      xAxis: {
+        visible: false,
+      },
+      yAxis: {
+        visible: false,
+      },
+    });
+    matrixPlot.render();
+    const plot = matrixPlot.getView();
+    const axes = plot.getController('axis').getComponents();
+    expect(axes.length).toBe(0);
+    matrixPlot.destroy();
+  });
 
-  it('axis label样式', () => {});
+  it('axis 样式', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+      xAxis: {
+        visible: true,
+        tickCount: 5,
+        line: {
+          visible: true,
+          style: {
+            stroke: 'red',
+          },
+        },
+        tickLine: {
+          visible: true,
+          style: { stroke: 'red' },
+        },
+        label: {
+          visible: true,
+          formatter: (v) => {
+            return v + 'abc';
+          },
+          style: { fill: 'red', fontSize: 24 },
+        },
+        title: {
+          visible: true,
+          text: 'xxxx',
+          style: {
+            fill: 'red',
+            fontSize: 20,
+          },
+        },
+      },
+      yAxis: {
+        visible: false,
+      },
+    });
+    matrixPlot.render();
+    const view = matrixPlot.getView();
+    const axes = view.getController('axis').getComponents();
+    const axis = axes[0].component;
+    const axisGroup = axis.get('group') as any;
+    const title = axisGroup.find((item) => item.get('name') === 'axis-title');
 
-  it('axis label formatter', () => {});
+    expect(title.attr('text')).toInclude('xxxx');
+    expect(title.attr('fill')).toBe('red');
 
-  it('axis tickLine', () => {});
+    const labels = (axis.get('group') as any).findAllByName('axis-label');
+    expect(labels[0].attr('text')).toInclude('abc');
+    // style
+    const line = axisGroup.find((item) => item.get('name') === 'axis-line');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    expect(line.attr('stroke')).toBe('red');
+    expect(tickLine.attr('stroke')).toBe('red');
+    expect(labels[0].attr('fill')).toBe('red');
+    matrixPlot.destroy();
+  });
 
-  it('axis grid', () => {});
+  it('legend 位置', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+      legend: {
+        visible: true,
+        position: 'bottom-center',
+      },
+    });
+    matrixPlot.render();
+    const plot = matrixPlot.getLayer() as any;
+    const legend = plot.plotComponents[1];
+    const y = legend.y;
+    const { coordinateBBox } = matrixPlot.getView();
+    expect(coordinateBBox.minY + coordinateBBox.height).toBeLessThan(y);
+    matrixPlot.destroy();
+  });
 
-  it('legend', () => {});
-
-  it('legend style', () => {});
+  it('legend style', () => {
+    const matrixPlot = new Matrix(canvasDiv, {
+      width: 600,
+      height: 500,
+      xField: 'name',
+      yField: 'country',
+      colorField: 'value',
+      data,
+      legend: {
+        visible: true,
+        ticklineStyle: {
+          stroke: 'red',
+          lineWidth: 2,
+        },
+        anchorStyle: {
+          fill: 'red',
+        },
+        text: {
+          style: {
+            fill: 'red',
+          },
+        },
+      },
+    });
+    matrixPlot.render();
+    const plot = matrixPlot.getLayer() as any;
+    const legendElements = plot.plotComponents[1].container.get('children');
+    const anchor = legendElements[legendElements.length - 1];
+    const tickLine = legendElements[1];
+    const text = legendElements[2];
+    expect(anchor.attr('fill')).toBe('red');
+    expect(tickLine.attr('stroke')).toBe('red');
+    expect(tickLine.attr('lineWidth')).toBe(2);
+    expect(text.attr('fill')).toBe('red');
+    matrixPlot.destroy();
+  });
 });

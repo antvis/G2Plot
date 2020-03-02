@@ -192,6 +192,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   protected tooltip() {
+    super.tooltip();
     const props = this.options;
     if (props.tooltip.htmlContent) {
       const customHtmlContent = props.tooltip.htmlContent;

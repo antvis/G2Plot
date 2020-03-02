@@ -14,8 +14,8 @@ describe('CanvasController', () => {
     });
     line.render();
 
-    expect(div.getElementsByTagName('canvas')).toBeDefined();
-    expect(div.getElementsByTagName('svg')).not.toBeDefined();
+    expect(div.querySelector('canvas')).toBeDefined();
+    expect(div.querySelector('svg')).toBeNull();
   });
 
   test('svg', () => {
@@ -31,7 +31,7 @@ describe('CanvasController', () => {
     });
     line.render();
 
-    expect(div.getElementsByTagName('svg')).toBeDefined();
-    expect(div.getElementsByTagName('canvas')).not.toBeDefined();
+    expect(div.querySelector('svg')).toBeDefined();
+    expect(div.querySelector('canvas')).toBeNull();
   });
 });

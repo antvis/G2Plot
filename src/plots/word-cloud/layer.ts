@@ -89,7 +89,7 @@ export interface WordCloudViewConfig {
   selected?: number;
   tooltip?: {
     visible: boolean;
-   } & TooltipCfg;
+  } & TooltipCfg;
   shape?: CloudShape | Function;
 
   onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};

@@ -222,7 +222,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       label: {
         offset: 16,
-        style: {
+        textStyle: {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
@@ -257,7 +257,6 @@ export const DEFAULT_GLOBAL_THEME = {
       fill: 'rgba(0, 0, 0, 0.65)',
       stroke: '#ffffff',
       lineWidth: 2,
-      fontSize: 12
     },
   },
   tooltip: {
@@ -266,5 +265,4 @@ export const DEFAULT_GLOBAL_THEME = {
     },
     offset: 10,
   },
-  columnWidthRatio: 3 / 5,
 };

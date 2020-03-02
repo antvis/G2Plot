@@ -44,10 +44,5 @@ export function convertToG2Theme(plotTheme: any): any {
   if (!g2Theme.legend) {
     g2Theme.legend = {};
   }
-  // label
-  g2Theme.labels = g2Theme.label;
-  // axis
-  // legend
-  delete g2Theme.label;
   return g2Theme;
 }

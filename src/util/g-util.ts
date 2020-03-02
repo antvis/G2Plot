@@ -1,6 +1,6 @@
 import * as MatrixUtil from '@antv/matrix-util';
 import { clone } from '@antv/util';
-import { Util } from '@antv/g2';
+import { Util } from '../dependents';
 
 export function groupTransform(group, actions) {
   const ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];

@@ -1,12 +1,12 @@
 /** 简化折线点 */
-import * as G2 from '@antv/g2';
+import { registerShape } from '../../dependents';
 import { deepMix, mix } from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import LineParser from './main';
 import { getGlobalTheme } from '../../theme';
 
-G2.registerShape('line', 'miniLine', {
+registerShape('line', 'miniLine', {
   draw(cfg, container) {
     const points = lineSimplification(cfg.points);
     const path = [];
@@ -37,7 +37,7 @@ G2.registerShape('line', 'miniLine', {
   },
 });
 
-G2.registerShape('line', 'miniLineSmooth', {
+registerShape('line', 'miniLineSmooth', {
   draw(cfg, container) {
     const points = lineSimplification(cfg.points);
     const constraint = [

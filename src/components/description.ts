@@ -1,5 +1,5 @@
-import { IGroup } from '@antv/g-base';
-import { assign, isArray, each, deepMix } from '@antv/util';
+import { IGroup, Shape } from '../dependents';
+import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
 import BBox from '../util/bbox';
@@ -24,7 +24,7 @@ interface TextConfig {
  */
 
 export default class TextDescription {
-  public shape: Text;
+  public shape: Shape.Text;
   public position: string = 'top';
   public name: string;
   public destroyed: boolean = false;
@@ -80,15 +80,16 @@ export default class TextDescription {
 
   private init() {
     const content = this.textWrapper();
-    const { x, y } = this.getPosition();
-    this.shape = (this.container.addShape('text', {
-      attrs: deepMix({}, this.style, {
-        x,
-        y,
-        text: content,
-        textAlign: this.getTextAlign(),
-      }),
-    }) as any) as Text;
+    this.shape = this.container.addShape('text', {
+      attrs: mix(
+        {
+          x: this.leftMargin,
+          y: this.topMargin,
+          text: content,
+        },
+        this.style
+      ),
+    }) as Shape.Text;
     // @ts-ignore
     this.shape.name = this.name;
   }

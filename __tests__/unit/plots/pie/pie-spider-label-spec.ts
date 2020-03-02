@@ -1,11 +1,8 @@
 import { Pie } from '../../../../src';
-import { Shape } from '@antv/g-canvas';
 import * as _ from '@antv/util';
 import { createDiv } from '../../../utils/dom';
 
-// TODO xinming
-
-describe.skip('pie spider label', () => {
+describe('pie spider label', () => {
   const data = [
     {
       type: '分类一',
@@ -66,34 +63,27 @@ describe.skip('pie spider label', () => {
   piePlot.render();
 
   const pieLayer = piePlot.getLayer();
-  // @ts-ignore
   const plot = pieLayer.view;
-  let labelShapes: Shape[];
+  let labelGroups;
 
   it('get labelShapes', () => {
-    // @ts-ignore
-    const spiderLabel = pieLayer.spiderLabel;
-    labelShapes = spiderLabel.container.get('children');
-    expect(labelShapes.length).toBe(data.length * 2);
-    const shapes = plot.geometries[0].getShapes();
-    expect(labelShapes.length / 2).toBe(shapes.length);
+    labelGroups = plot.geometries[0].labelsContainer.getChildren();
+    const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
+    // labelGroup = textGroup + path
+    expect(labelGroups.length).toBe(shapes.length * 2);
+    expect(labelGroups.length).toBe(data.length * 2);
+    // textGroup
+    expect(labelGroups[0].getChildren().length).toBe(2);
   });
 
   it('label textGroup', () => {
-    expect(labelShapes[0].get('children')[1].attr('fill')).toBe('rgba(0, 0, 0, 0.65)');
-    expect(labelShapes[0].get('children')[0].attr('text')).toBe(5);
-    expect(labelShapes[0].get('children')[1].attr('text')).toBe('其它');
-  });
-
-  it('label bottom-label"s fontWeight is larger than top-label', () => {
-    expect(labelShapes[0].get('children')[0].attr('fontWeight')).toBeGreaterThan(
-      labelShapes[0].get('children')[1].attr('fontWeight')
-    );
+    expect(labelGroups[0].get('children')[1].attr('fill')).toBe('rgba(0, 0, 0, 0.65)');
+    expect(labelGroups[0].get('children')[0].attr('text')).toBe(5);
+    expect(labelGroups[0].get('children')[1].attr('text')).toBe('其它');
   });
 
   it('label line', () => {
-    // labelShapes[1] is label-line
-    expect(labelShapes[1].attr('stroke')).toBe('rgba(0, 0, 0, 0.25)');
+    expect(labelGroups[1].attr('stroke')).toBe('rgba(0, 0, 0, 0.45)');
   });
 
   afterAll(() => {
@@ -101,7 +91,7 @@ describe.skip('pie spider label', () => {
   });
 });
 
-describe.skip('spider-label 单行label', () => {
+describe('spider-label 单行label', () => {
   const data = [
     {
       type: '分类一',
@@ -160,20 +150,18 @@ describe.skip('spider-label 单行label', () => {
   const pieLayer = piePlot.getLayer();
   // @ts-ignore
   const plot = pieLayer.view;
-  let labelShapes: Shape[];
+  let labelGroups;
 
   it('get labelShapes', () => {
-    // @ts-ignore
-    const spiderLabel = pieLayer.spiderLabel;
-    labelShapes = spiderLabel.container.get('children');
-    expect(labelShapes.length).toBe(data.length * 2);
+    labelGroups = plot.geometries[0].labelsContainer.getChildren();
+    expect(labelGroups.length).toBe(data.length * 2);
   });
 
   it('单行label 居中显示', () => {
-    const labelText = labelShapes[0].get('children')[0];
-    const linePath = labelShapes[1].attr('path');
+    const labelText = labelGroups[0].get('children')[0];
+    const linePath = labelGroups[1].attr('path');
     expect(labelText.attr('text')).toBe('其它 (5)');
-    expect(labelShapes[0].getBBox().y).toBe(labelText.getBBox().y);
+    expect(labelGroups[0].getBBox().y).toBe(labelText.getBBox().y);
 
     const labelCenter = {
       y: (labelText.getBBox().minY + labelText.getBBox().maxY) / 2,
@@ -183,6 +171,6 @@ describe.skip('spider-label 单行label', () => {
   });
 
   afterAll(() => {
-    // piePlot.destroy();
+    piePlot.destroy();
   });
 });

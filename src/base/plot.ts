@@ -1,5 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g-canvas';
+import { ICanvas } from '../dependents';
 import { isNil, each, findIndex, deepMix, keys, contains, isFunction } from '@antv/util';
 import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';
@@ -19,16 +19,21 @@ export interface PlotConfig {
   theme?: LooseMap | string;
 }
 
-export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEmitter {
+interface LayerCtor<C> extends ViewLayer<C> {}
+
+export default class BasePlot<
+  T extends PlotConfig = PlotConfig,
+  L extends LayerCtor<T> = LayerCtor<T>
+> extends EventEmitter {
   public width: number;
   public height: number;
   public forceFit: boolean;
   public renderer: string;
   public pixelRatio: number;
   public theme: string | object;
-  public canvas: G.ICanvas;
+  public canvas: ICanvas;
   public destroyed: boolean;
-  protected layers: Array<Layer<any>>;
+  protected layers: Array<L>;
   private canvasController: CanvasController;
   private eventController: EventController;
   protected containerDOM: HTMLElement;
@@ -190,6 +195,14 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   /**
+   * 获取 Plot 的 View
+   */
+  public getView() {
+    // 临时：避免 getLayer 的类型转换问题
+    return (this.layers[0] as ViewLayer<T>).view;
+  }
+
+  /**
    * 获取图形下的图层 Layer，默认第一个 Layer
    * @param idx
    */
@@ -217,7 +230,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
    * add children layer
    * @param layer
    */
-  public addLayer(layer: Layer<any>) {
+  public addLayer(layer: L) {
     const idx = findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       this.layers.push(layer);

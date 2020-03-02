@@ -1,7 +1,7 @@
 import { StackColumn } from '../../../../src';
 import { isFunction } from 'util';
 
-describe.skip('StackColumn plot', () => {
+describe('StackColumn plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -119,14 +119,15 @@ describe.skip('StackColumn plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
-    const intervalShape = plot.geometries[0];
-    const shapes = intervalShape.get('shapeContainer').get('children');
+    const view = columnPlot.getView();
+    const interval = view.geometries[0];
+    const shapes = interval.getShapes();
     expect(shapes.length).toBe(18);
-    expect(intervalShape.get('groupScales')[0].field).toBe('type');
-    expect(intervalShape.get('adjustOptions')[0].type).toBe('stack');
+    expect(interval.getGroupScales()[0].field).toBe('type');
+    // @ts-ignore
+    expect(interval.adjustOption[0].type).toBe('stack');
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('color size and interval style', () => {
@@ -144,13 +145,13 @@ describe.skip('StackColumn plot', () => {
       color: ['red', 'yellow'],
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
-    const intervalEle = plot.geometries[0];
-    expect(intervalEle.get('color').values[0]).toBe('red');
-    expect(intervalEle.get('color').values[1]).toBe('yellow');
-    expect(intervalEle.get('size').values[0]).toBe(7);
+    const view = columnPlot.getView();
+    const interval = view.geometries[0];
+    expect(interval.getAttribute('color').values[0]).toBe('red');
+    expect(interval.getAttribute('color').values[1]).toBe('yellow');
+    expect(interval.getAttribute('size').values[0]).toBe(7);
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('color map', () => {
@@ -168,9 +169,9 @@ describe.skip('StackColumn plot', () => {
       color: ['red', 'yellow'],
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().plot;
+    const view = columnPlot.getView();
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('label', () => {
@@ -185,6 +186,8 @@ describe.skip('StackColumn plot', () => {
       },
       stackField: 'type',
       label: {
+        visible: true,
+        adjustColor: false,
         formatter: (txt) => {
           return txt + 'dddd';
         },
@@ -197,18 +200,12 @@ describe.skip('StackColumn plot', () => {
     });
     columnPlot.render();
 
-    const plot = columnPlot.getLayer().plot;
-    const labelGroup = plot
-      .get('elements')[0]
-      .get('container')
-      .get('children')[1]
-      .get('children')[0]
-      .get('children');
-    // const panelGroup = columnPlot.plot.get('panelRange');
-    expect(labelGroup.length).toBe(18);
-    expect(labelGroup[0].attrs.fill).toBe('red');
-    expect(labelGroup[0].attrs.text).toInclude('dddd');
+    const view = columnPlot.getView();
+    const labels = view.geometries[0].labelsContainer.getChildren();
+    expect(labels.length).toBe(18);
+    expect(labels[0].attr('fill')).toBe('red');
+    expect(labels[0].attr('text')).toInclude('dddd');
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 });

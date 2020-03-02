@@ -1,7 +1,8 @@
+import { IGroup, IElement } from '@antv/g-base';
 import { GroupColumn } from '../../../../src';
 import { isFunction } from 'util';
 
-describe('GroupColomn plot', () => {
+describe('GroupColumn plot', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';
@@ -117,14 +118,15 @@ describe('GroupColomn plot', () => {
       animation: false,
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const intervalShape = plot.geometries[0];
+    const view = columnPlot.getView();
+    const intervalShape = view.geometries[0];
     const shapes = intervalShape.getShapes();
     expect(shapes.length).toBe(18);
     expect(intervalShape.getGroupScales()[0].field).toBe('type');
+    // @ts-ignore
     expect(intervalShape.adjustOption[0].type).toBe('dodge');
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('color size and interval style', () => {
@@ -142,13 +144,13 @@ describe('GroupColomn plot', () => {
       color: ['red', 'yellow'],
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const intervalEle = plot.geometries[0];
-    expect(intervalEle.attributeOption.color.values[0]).toBe('red');
-    expect(intervalEle.attributeOption.color.values[1]).toBe('yellow');
-    expect(intervalEle.attributeOption.size.values[0]).toBe(7);
+    const view = columnPlot.getView();
+    const intervalEle = view.geometries[0];
+    expect(intervalEle.getAttribute('color').values[0]).toBe('red');
+    expect(intervalEle.getAttribute('color').values[1]).toBe('yellow');
+    expect(intervalEle.getAttribute('size').values[0]).toBe(7);
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
   it('color map', () => {
@@ -169,15 +171,15 @@ describe('GroupColomn plot', () => {
       },
     });
     columnPlot.render();
-    const plot = columnPlot.getLayer().view;
-    const intervalEle = plot.geometries[0];
+    const view = columnPlot.getView();
+    const intervalEle = view.geometries[0];
 
-    expect(isFunction(intervalEle.attributeOption.color.callback)).toBe(true);
+    expect(isFunction(intervalEle.getAttribute('color').callback)).toBe(true);
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 
-  it.skip('label', () => {
+  it('label', () => {
     const columnPlot = new GroupColumn(canvasDiv, {
       width: 600,
       height: 600,
@@ -203,19 +205,14 @@ describe('GroupColomn plot', () => {
     });
     columnPlot.render();
 
-    const plot = columnPlot.getLayer().view;
-    const labelGroup = plot
-      .get('elements')[0]
-      .get('frontgroundGroup')
-      .get('children')[0]
-      .get('children')[0]
-      .get('children');
+    const view = columnPlot.getView();
+    const labels = view.geometries[0].labelsContainer.getChildren();
 
-    // const panelGroup = columnPlot.plot.get('panelRange');
-    expect(labelGroup.length).toBe(18);
-    expect(labelGroup[0].attrs.fill).toBe('red');
-    expect(labelGroup[0].attrs.text).toInclude('dddd');
+    expect(labels.length).toBe(18);
+    const text = labels[0];
+    expect(text.attr('fill')).toBe('red');
+    expect(text.attr('text')).toInclude('dddd');
     columnPlot.destroy();
-    expect(plot.destroyed).toBe(true);
+    expect(view.destroyed).toBe(true);
   });
 });

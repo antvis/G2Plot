@@ -2,11 +2,9 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { VALUE_FIELD, IS_TOTAL } from '../../layer';
-import { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
-import { IGroup } from '@antv/g-base';
+import { IGroup, View, VIEW_LIFE_CIRCLE } from '../../../../dependents';
 
 export interface DiffLabelcfg {
   view: View;

@@ -1,63 +1,32 @@
 import { clone } from '@antv/util';
 
 function AxisStyleParser(axisCfg, axis) {
-  if (axis.line) {
-    if (axis.line.visible === false) {
-      axisCfg.line = null;
-    } else if (axis.line.style) {
-      axisCfg.line = clone(axis.line.style);
-    }
-  }
-  if (axis.title) {
-    if (axis.title.visible === false) {
-      axisCfg.showTitle = false;
-    } else {
-      if (axis.title.visible === true) {
-        axisCfg.showTitle = true;
+  axisCfg.line = axis.line?.visible ? { ...axis.line } : null;
+  axisCfg.title = axis.title?.visible
+    ? {
+        ...axis.title,
+        autoRotate: axisCfg.autoRotateTitle,
       }
-      if (axisCfg.autoRotate) {
-        axisCfg.autoRotateTitle = axisCfg.autoRotate;
+    : null;
+  axisCfg.tickLine = axis.tickLine?.visible ? { ...axis.tickLine } : null;
+  axisCfg.overlapOrder = [];
+  axisCfg.label = axis.label?.visible
+    ? {
+        ...axis.label,
       }
-      axisCfg.title = clone(axis.title);
-      if (axisCfg.title.style) {
-        axisCfg.title.textStyle = axisCfg.title.style;
-        delete axisCfg.title.style;
-      }
-    }
+    : null;
+
+  if (axis.autoRotateLabel) {
+    axisCfg.overlapOrder.push('autoRotate');
   }
-  if (axis.tickLine) {
-    if (axis.tickLine.visible === false) {
-      axisCfg.tickLine = null;
-    } else if (axis.tickLine.style) {
-      axisCfg.tickLine = clone(axis.tickLine.style);
-    }
+  if (axisCfg.autoEllipsisLabel) {
+    axisCfg.overlapOrder.push('autoEllipsis');
   }
-  if (Object.prototype.hasOwnProperty.call(axis, 'autoHideLabel')) {
-    axisCfg.autoHideLabel = axis.autoHideLabel;
+  if (axis.autoHideLabel) {
+    axisCfg.overlapOrder.push('autoHide');
   }
-  if (Object.prototype.hasOwnProperty.call(axis, 'autoRotateLabel')) {
-    axisCfg.autoRotateLabel = axis.autoRotateLabel;
-  }
-  if (axis.label) {
-    if (axis.label.visible === false) {
-      axisCfg.label = null;
-    } else {
-      const newLabel = clone(axis.label);
-      if (newLabel.style) {
-        newLabel.textStyle = newLabel.style;
-        delete newLabel.style;
-      }
-      if (axis.label.formatter) {
-        const textFormatter = axis.label.formatter;
-        axisCfg.label = (text) => {
-          newLabel.text = textFormatter(text);
-          return newLabel;
-        };
-      } else {
-        axisCfg.label = newLabel;
-      }
-    }
-  }
+
+  // TODO: grid
   if (axis.grid) {
     if (axis.grid.visible === false) {
       axisCfg.grid = null;

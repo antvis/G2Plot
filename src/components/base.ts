@@ -1,5 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
-import { Canvas, IGroup, BBox } from '@antv/g-canvas';
+import { Canvas, IGroup, BBox } from '../dependents';
 
 export interface BaseComponentConfig {
   container: IGroup;

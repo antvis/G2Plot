@@ -1,4 +1,4 @@
-import { IShape, BBox } from '@antv/g-base';
+import { IShape, BBox } from '../../../../dependents';
 import { filter, head, last, map } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getEndPoint, getOverlapArea, near } from './utils';

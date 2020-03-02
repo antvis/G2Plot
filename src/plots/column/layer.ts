@@ -3,18 +3,13 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, IStyleConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import ColumnLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
-
-interface ColumnStyle {
-  opacity?: number;
-  lineDash?: number[];
-}
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -32,7 +27,7 @@ export interface ColumnViewConfig extends ViewConfig {
   columnSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  columnStyle?: ColumnStyle | ((...args: any[]) => ColumnStyle);
+  columnStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }

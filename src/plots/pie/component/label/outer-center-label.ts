@@ -1,4 +1,4 @@
-import { IShape, BBox } from '@antv/g-base';
+import { IShape, BBox } from '../../../../dependents';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getOverlapArea, near } from './utils';
 

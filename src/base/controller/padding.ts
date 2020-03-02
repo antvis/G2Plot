@@ -1,3 +1,4 @@
+import { IElement, View } from '../../dependents';
 import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';

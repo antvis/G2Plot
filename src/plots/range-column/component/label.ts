@@ -1,6 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-base';
-import { View } from '@antv/g2';
+import { View, IGroup, Geometry } from '../../../dependents';
 import { rgb2arr } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;
@@ -243,6 +242,6 @@ export default class RangeColumnLabel {
   }
 
   private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'interval');
+    return find(this.view.geometries, (geom) => geom.type === 'interval') as Geometry;
   }
 }

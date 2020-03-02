@@ -1,5 +1,5 @@
 import { modifyCSS } from '@antv/dom-util';
-import { ICanvas, Canvas } from '@antv/g-canvas';
+import { Canvas, ICanvas } from '../../dependents';
 import { debounce, get } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';

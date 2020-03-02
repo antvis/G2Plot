@@ -1,6 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-base/lib/interfaces';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 import { breakText } from '../../../util/common';
 
 const LEAF_LABEL_OFFSET = 4;
@@ -84,7 +83,7 @@ function textAbbreviate(text, fontSize, width, container) {
 }
 
 export interface TreemapLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;

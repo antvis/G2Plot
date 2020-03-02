@@ -1,6 +1,5 @@
 import { assign, deepMix } from '@antv/util';
-import { View } from '@antv/g2';
-import { IGroup, IShape, Canvas } from '@antv/g-canvas';
+import { View, IGroup, IShape, Canvas } from '../../../dependents';
 
 export interface MarkerConfig {
   view?: View;

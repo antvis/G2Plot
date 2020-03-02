@@ -1,12 +1,11 @@
 import { each, deepMix, clone } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, Group, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;
 
 export interface BarLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   position?: string;
   formatter?: (...args: any[]) => string;
   offsetX?: number;

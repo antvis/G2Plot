@@ -1,9 +1,8 @@
 /**
  * 区域连接组件，用于堆叠柱状图和堆叠条形图
  */
-import { IGroup, IShape } from '@antv/g-base';
-import { View } from '@antv/g2';
 import { each, assign, mix, find } from '@antv/util';
+import { IGroup, IShape, View } from '../dependents';
 import { compare } from '../base/controller/state';
 
 function parsePoints(shape, coord) {

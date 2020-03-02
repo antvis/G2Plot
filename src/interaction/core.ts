@@ -1,6 +1,5 @@
 import * as _ from '@antv/util';
-import { View } from '@antv/g2';
-import { ICanvas } from '@antv/g-canvas';
+import { View, ICanvas } from '../dependents';
 
 interface InteractionCfg {
   view: View;

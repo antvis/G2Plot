@@ -1,4 +1,4 @@
-import { Data } from '@antv/g2/lib/interface';
+import { Data } from '../../dependents';
 import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';

@@ -257,6 +257,7 @@ export const DEFAULT_GLOBAL_THEME = {
       fill: 'rgba(0, 0, 0, 0.65)',
       stroke: '#ffffff',
       lineWidth: 2,
+      fontSize: 12
     },
   },
   tooltip: {

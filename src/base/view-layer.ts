@@ -178,7 +178,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   public init() {
     super.init();
-    this.theme = this.themeController.getTheme(this.options, this.type);
+    this.theme = this.getPlotTheme();
     this.config = {
       data: this.processData(this.options.data),
       scales: {},
@@ -191,7 +191,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       geometries: [],
       annotations: [],
       interactions: [],
-      theme: this.theme,
+      theme: this.themeController.getTheme(this.options, this.type),
       panelRange: {},
       animate: true,
       views: [],

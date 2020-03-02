@@ -450,7 +450,7 @@ var WordCloud = function WordCloud(elements, options) {
     var x = Math.floor((eventX * (canvas.width / rect.width || 1)) / g);
     var y = Math.floor((eventY * (canvas.height / rect.height || 1)) / g);
 
-    return infoGrid[x][y];
+    return infoGrid && infoGrid[x] && infoGrid[x][y];
   };
 
   var defaultHoverAction = function defaultHoverAction(item, dimension, evt, start) {
@@ -997,7 +997,9 @@ var WordCloud = function WordCloud(elements, options) {
 
     // get info needed to put the text onto the canvas
     var info = getTextInfo(word, weight, rotateDeg);
-    info['item'] = item;
+    if (info) {
+      info['item'] = item;
+    }
 
     // not getting the info means we shouldn't be drawing this one.
     if (!info) {

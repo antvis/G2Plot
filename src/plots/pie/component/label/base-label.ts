@@ -1,4 +1,4 @@
-import { IGroup, IShape, BBox } from '@antv/g-canvas';
+import { IGroup, IShape, BBox } from '../../../../dependents';
 import { transform } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
 import { getEndPoint } from './utils';
@@ -27,7 +27,7 @@ export interface LabelItem {
 
 export interface PieLabelConfig extends Omit<Label, 'offset'> {
   visible: boolean;
-  formatter?: (text: string, item: object, idx: number) => string;
+  formatter?: (text: string, item: any, idx: number) => string;
   /** allow label overlap */
   allowOverlap?: boolean;
   autoRotate?: boolean;
@@ -68,7 +68,7 @@ export default abstract class PieBaseLabel {
   protected adjustItem(item: LabelItem): void {}
 
   protected init() {
-    this.container = this.plot.view.foregroundGroup.addGroup();
+    this.container = this.getGeometry().labelsContainer;
     this.plot.view.on('beforerender', () => {
       this.clear();
       this.plot.canvas.draw();

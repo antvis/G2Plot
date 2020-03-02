@@ -8,6 +8,7 @@ import { LineStyle } from '../line/layer';
 import { getPieLabel, PieLabelConfig } from './component/label';
 import SpiderLabel from './component/label/spider-label';
 import { registerPlotType } from '../../base/global';
+import PieBaseLabel from './component/label/base-label';
 import './theme';
 
 interface PieStyle extends LineStyle {
@@ -77,6 +78,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   public pie: any;
   public type: string = 'pie';
+  public labelComponent: SpiderLabel | PieBaseLabel;
 
   public getOptions(props: T) {
     // @ts-ignore
@@ -90,18 +92,22 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     const options = this.options;
     /** 蜘蛛布局label */
     if (options.label && options.label.visible) {
+      // 清除，避免二次渲染
+      if (this.labelComponent) {
+        this.labelComponent.clear();
+      }
       const labelConfig = options.label as Label;
       if (labelConfig.type === 'spider') {
-        const spiderLabel = new SpiderLabel({
+        this.labelComponent = new SpiderLabel({
           view: this.view,
           fields: options.colorField ? [options.angleField, options.colorField] : [options.angleField],
           ...this.options.label,
         });
-        spiderLabel.render();
+        this.labelComponent.render();
       } else {
         const LabelCtor = getPieLabel(labelConfig.type);
-        const label = new LabelCtor(this, options.label);
-        label.render();
+        this.labelComponent = new LabelCtor(this, options.label);
+        this.labelComponent.render();
       }
     }
   }

@@ -128,7 +128,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     super.afterRender();
     const options = this.options;
     this.view.on('tooltip:change', (e) => {
-      const { tooltip, items } = e;
+      const { items } = e;
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
         const data = _.get(item, 'data', {});
@@ -139,11 +139,8 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
           const values = data[VALUE_FIELD];
           item.value = values[0] - values[1];
         }
-        items[i] = item;
+        e.items[i] = item;
       }
-      tooltip.update({
-        items,
-      });
     });
     this.renderLabel();
   }

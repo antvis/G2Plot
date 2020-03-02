@@ -1,14 +1,13 @@
-import { IGroup, Shape } from '@antv/g-canvas';
+import { IGroup, Shape } from '../dependents';
 import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
 import BBox from '../util/bbox';
 
-const Text = Shape.Text;
-
 interface TextConfig {
   leftMargin: number;
   topMargin: number;
+  rightMargin: number;
   text: string;
   style: any;
   wrapperWidth: number;
@@ -17,6 +16,7 @@ interface TextConfig {
   index: number;
   plot: ViewLayer;
   name: string;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 /**
@@ -24,14 +24,16 @@ interface TextConfig {
  */
 
 export default class TextDescription {
-  public shape: Text;
+  public shape: Shape.Text;
   public position: string = 'top';
   public name: string;
   public destroyed: boolean = false;
   private container: IGroup;
   private topMargin: number;
   private leftMargin: number;
+  private rightMargin: number;
   private wrapperWidth: number;
+  private alignTo: string;
   private text: string;
   private style: any;
   private index: number;
@@ -39,7 +41,7 @@ export default class TextDescription {
 
   constructor(cfg: TextConfig) {
     assign(this as any, cfg);
-    this._init();
+    this.init();
   }
 
   public getBBox(): BBox | null {
@@ -76,9 +78,9 @@ export default class TextDescription {
     this.destroyed = true;
   }
 
-  private _init() {
-    const content = this._textWrapper();
-    this.shape = (this.container.addShape('text', {
+  private init() {
+    const content = this.textWrapper();
+    this.shape = this.container.addShape('text', {
       attrs: mix(
         {
           x: this.leftMargin,
@@ -87,16 +89,36 @@ export default class TextDescription {
         },
         this.style
       ),
-    }) as any) as Text;
+    }) as Shape.Text;
     // @ts-ignore
     this.shape.name = this.name;
+  }
+
+  protected getPosition() {
+    if (this.alignTo === 'left') {
+      return { x: this.leftMargin, y: this.topMargin };
+    } else if (this.alignTo === 'middle') {
+      return { x: this.leftMargin + this.wrapperWidth / 2, y: this.topMargin };
+    } else {
+      return { x: this.rightMargin, y: this.topMargin };
+    }
+  }
+
+  protected getTextAlign() {
+    if (this.alignTo === 'left') {
+      return 'left';
+    } else if (this.alignTo === 'middle') {
+      return 'center';
+    } else {
+      return 'right';
+    }
   }
 
   /**
    * 当text过长时，默认换行
    * 1. 注意初始text带换行符的场景
    */
-  private _textWrapper() {
+  private textWrapper() {
     const width = this.wrapperWidth;
     const style = this.style;
     const textContent: string = this.text;

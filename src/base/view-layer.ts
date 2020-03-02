@@ -1,6 +1,5 @@
-import * as G from '@antv/g-canvas';
-import * as G2 from '@antv/g2';
 import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction, mix } from '@antv/util';
+import { View, BBox } from '../dependents';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
@@ -20,7 +19,7 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerConfig, Region } from './layer';
+import Layer, { LayerConfig } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 
@@ -65,11 +64,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return {
       title: {
         visible: false,
+        alignTo: 'left',
         text: '',
       },
       description: {
         visible: false,
         text: '',
+        alignTo: 'left',
       },
       padding: 'auto',
       legend: {
@@ -139,12 +140,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     };
   }
   public type: string;
-  public view: G2.View;
+  public view: View;
   public theme: any;
   public initialOptions: T;
   public title: TextDescription;
   public description: TextDescription;
-  public viewRange: G.BBox;
+  public viewRange: BBox;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
@@ -213,7 +214,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.viewRange = this.getViewRange();
     const region = this.viewRangeToRegion(this.viewRange);
-    this.view = new G2.View({
+    this.view = new View({
       parent: null,
       canvas: this.canvas,
       backgroundGroup: this.container.addGroup(),
@@ -519,6 +520,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const theme = this.config.theme;
       const title = new TextDescription({
         leftMargin: range.minX + theme.title.padding[3],
+        rightMargin: range.maxX - theme.title.padding[1],
         topMargin: range.minY + theme.title.padding[0],
         text: props.title.text,
         style: mix(theme.title, props.title.style),
@@ -527,6 +529,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: isTextUsable(props.description) ? 0 : 1,
         plot: this,
+        alignTo: props.title.alignTo,
         name: 'title',
       });
       this.title = title;
@@ -559,6 +562,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const description = new TextDescription({
         leftMargin: range.minX + theme.description.padding[3],
         topMargin,
+        rightMargin: range.maxX - theme.title.padding[1],
         text: props.description.text,
         style: mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
@@ -566,6 +570,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: 1,
         plot: this,
+        alignTo: props.description.alignTo,
         name: 'description',
       });
       this.description = description;
@@ -598,7 +603,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const layerBBox = this.layerBBox;
     interactions.forEach((interaction) => {
       const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
-      const range: G.BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
       let position = '';
       if (range) {
         // 先只考虑 Range 靠边的情况

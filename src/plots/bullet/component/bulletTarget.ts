@@ -1,6 +1,5 @@
-import { IGroup } from '@antv/g-base';
 import BBox from '../../../util/bbox';
-import { View, Geometry } from '@antv/g2';
+import { View, Geometry, IGroup, IElement } from '../../../dependents';
 import { find, map } from '@antv/util';
 
 export interface BulletTargetCfg {
@@ -34,7 +33,7 @@ export default class BulletTarget {
     }
     this.container = this.view.foregroundGroup.addGroup();
     this.container.set('name', 'targetGroups');
-    const shapes = map(this.getGeometry().elements, (element) => element.shape);
+    const shapes = map(this.getGeometry().elements, (element: any) => element.shape);
     for (let i = 0; i < this.cfg.targets.length; i += 1) {
       const shapeBox = shapes[i].getBBox();
       const widthRatio = shapeBox.width / shapes[i].get('origin').data[this.cfg.yField];
@@ -86,6 +85,6 @@ export default class BulletTarget {
   }
 
   private getGeometry() {
-    return find(this.view.geometries, (geometry) => geometry.type === 'interval');
+    return find(this.view.geometries, (geometry) => geometry.type === 'interval') as Geometry;
   }
 }

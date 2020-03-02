@@ -1,5 +1,4 @@
-import { registerGeometry, Geometry } from '@antv/g2';
-import { Canvas } from '@antv/g-canvas';
+import { registerGeometry, Geometry, Canvas } from '../../dependents';
 import { isNumber, get } from '@antv/util';
 import * as colorUtil from '../../util/color';
 

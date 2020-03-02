@@ -1,16 +1,11 @@
 import { Pie } from '../../../../src';
-import { Shape, BBox } from '@antv/g-canvas';
+import { BBox, IGroup, IShape } from '@antv/g-canvas';
 import * as _ from '@antv/util';
-import { getGeometryLabel } from '@antv/g2';
 import { createDiv } from '../../../utils/dom';
 import Polar from '@antv/coord/lib/coord/polar';
 
 describe('pie outer label', () => {
-  it('outer label is defined', () => {
-    expect(getGeometryLabel('outer')).not.toBeDefined();
-  });
-
-  it.skip('normal label', () => {
+  it('normal label', () => {
     const div = createDiv('pie1');
     const labelOffset = 10;
     const Radius = 0.6;
@@ -46,30 +41,32 @@ describe('pie outer label', () => {
       legend: {
         visible: false,
       },
+      pieStyle: {
+        lineWidth: 0,
+      },
     });
     piePlot.render();
 
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const center = (pieElement.coordinate as Polar).getCenter();
-    const radius = (pieElement.coordinate as Polar).getRadius();
+    const center = pieElement.coordinate.getCenter();
+    // @ts-ignore
+    const radius = pieElement.coordinate.getRadius();
     expect(center).toEqual({ x: 250, y: 300 });
     expect(radius).toBe((500 * Radius) / 2);
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    // @ts-ignore
+    const labelShapes: IShape[] = pieElement.labelsContainer.getChildren().map((g) => g.getChildren()[0]);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     const labelBox: BBox = labelShapes[2].getBBox();
     expect((labelBox.minY + labelBox.maxY) / 2).toEqual(center.y);
-    // 4px for text-line distance
-    const MARGIN = 4;
-    expect(labelBox.x).toEqual(center.x + radius + labelOffset + MARGIN);
+    // expect(labelBox.x).toEqual(center.x + radius + labelOffset);
     /** dx^2 + dy^2 = dist^2 */
-    const box: BBox = _.head(labelShapes).getBBox();
-    const dist = Math.sqrt(
-      Math.pow(Math.abs(box.x - center.x), 2) + Math.pow(Math.abs(center.y - (box.y + box.height / 2)), 2)
-    );
+    // const box: BBox = _.head(labelShapes).getBBox();
+    // console.log('');
+    // const dist = Math.sqrt(
+    //   Math.pow(Math.abs(box.x - center.x), 2) + Math.pow(Math.abs(center.y - (box.y + box.height / 2)), 2)
+    // );
     /** 三角形，两边之和 大于 第三边 */
-    expect(dist).toBeLessThan(radius + labelOffset + MARGIN);
-
+    // expect(dist).toBeLessThan(radius + labelOffset + MARGIN);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -107,21 +104,21 @@ describe('pie outer label', () => {
     });
     piePlot.render();
 
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const center = (pieElement.coordinate as Polar).getCenter();
-    const radius = (pieElement.coordinate as Polar).getRadius();
+    const center = pieElement.coordinate.getCenter();
+    // @ts-ignore
+    const radius = pieElement.coordinate.getRadius();
     expect(center).toEqual({ x: 250, y: 300 });
     expect(radius).toBe((500 * Radius) / 2);
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     // 算法增强后 所有label可见
     expect(_.every(labelShapes, (l) => l.get('visible'))).toBe(true);
     // label fontsize: 12px, label margin: 2px, buffer: 4
     expect(_.filter(labelShapes, (l) => l.get('visible')).length).toBeGreaterThanOrEqual(
       Math.floor(Height / 14) * 2 - 4
     );
-    // piePlot.destroy();
-    // document.body.removeChild(div);
+    piePlot.destroy();
+    document.body.removeChild(div);
   });
 
   it('case: full in quartant4', () => {
@@ -163,7 +160,7 @@ describe('pie outer label', () => {
 
     // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     piePlot.destroy();
@@ -207,9 +204,8 @@ describe('pie outer label', () => {
     });
     piePlot.render();
 
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
@@ -251,10 +247,8 @@ describe('pie outer label', () => {
       },
     });
     piePlot.render();
-
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
@@ -296,13 +290,12 @@ describe('pie outer label', () => {
     });
     piePlot.render();
 
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
-    // piePlot.destroy();
-    // document.body.removeChild(div);
+    piePlot.destroy();
+    document.body.removeChild(div);
   });
 
   it('case: full in quartant1', () => {
@@ -341,9 +334,8 @@ describe('pie outer label', () => {
     });
     piePlot.render();
 
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
@@ -425,9 +417,8 @@ describe('pie outer label', () => {
     });
 
     piePlot.render();
-    // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
-    const labelShapes: Shape[] = pieElement.labelsContainer.getChildren();
+    const labelShapes = pieElement.labelsContainer.getChildren();
     expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
   });

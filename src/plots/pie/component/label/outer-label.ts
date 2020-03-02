@@ -1,4 +1,4 @@
-import { IShape, BBox } from '@antv/g-canvas';
+import { IShape, BBox } from '../../../../dependents';
 import { filter, head, last, map } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getEndPoint, getOverlapArea, near } from './utils';
@@ -17,6 +17,7 @@ export default class PieOuterLabel extends PieBaseLabel {
 
   protected getDefaultOptions() {
     const { theme } = this.plot;
+    console.log(theme);
     const labelStyle = theme.label.style;
     return {
       offsetX: 0,

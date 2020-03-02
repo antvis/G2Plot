@@ -1,12 +1,12 @@
 /** 简化折线点 */
-import * as G2 from '@antv/g2';
+import { registerShape } from '../../dependents';
 import { deepMix, each } from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import AreaParser from './main';
 import { getGlobalTheme } from '../../theme';
 
-G2.registerShape('area', 'miniArea', {
+registerShape('area', 'miniArea', {
   draw(cfg, container) {
     const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, false);
@@ -30,7 +30,7 @@ G2.registerShape('area', 'miniArea', {
   },
 });
 
-G2.registerShape('area', 'miniAreaSmooth', {
+registerShape('area', 'miniAreaSmooth', {
   draw(cfg, container) {
     const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, true);

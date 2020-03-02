@@ -1,7 +1,6 @@
 import { each, isArray, isFunction, deepMix } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
 import BBox from '../../../util/bbox';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 
 interface ILabel {
   position?: string;
@@ -128,6 +127,7 @@ export default class Quadrant {
             attrs: {
               ...labelCfg,
             },
+            name: 'quadrant-label',
           });
         }
         // rect.setSilent('data', d);
@@ -146,6 +146,7 @@ export default class Quadrant {
             ],
             ...lineStyle,
           },
+          name: 'quadrant-line',
         });
       });
       this.view.canvas.draw();

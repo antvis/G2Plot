@@ -1,4 +1,4 @@
-import { registerShape } from '@antv/g2';
+import { registerShape } from '../../../../dependents';
 import { isArray, each, isNumber, mix } from '@antv/util';
 import { getGlobalTheme } from '../../../../theme';
 import { transform } from '../../../../util/g-util';

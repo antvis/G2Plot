@@ -1,10 +1,9 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g-canvas';
+import { ICanvas, IGroup, Group } from '../dependents';
 import { deepMix, each, findIndex, keys, contains, isFunction } from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
 import BBox from '../util/bbox';
-import { groupTransform } from '../util/g-util';
 
 export interface LayerConfig {
   id?: string;
@@ -18,7 +17,7 @@ export interface LayerConfig {
   height?: number;
   /** the parent node of layer */
   parent?: any;
-  canvas?: G.Canvas;
+  canvas?: ICanvas;
   name?: string;
 }
 
@@ -43,10 +42,10 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public width: number;
   public height: number;
   public parent: Layer;
-  public canvas: G.Canvas;
+  public canvas: ICanvas;
   public layerBBox: BBox;
   public layers: Layer[] = [];
-  public container: G.Group;
+  public container: IGroup;
   public destroyed: boolean = false;
   protected visibility: boolean = true;
   protected layerRegion: Region;
@@ -61,7 +60,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     super();
     this.options = this.getOptions(props);
     this.processOptions(this.options);
-    this.container = new G.Group({});
+    this.container = new Group({});
   }
 
   public processOptions(options) {

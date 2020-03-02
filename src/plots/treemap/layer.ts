@@ -238,7 +238,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
 
   private getLabelHeight() {
     const { label } = this.options;
-    const { fontSize } = this.getTheme().label.textStyle;
+    const { fontSize } = this.getPlotTheme().label.style;
     let size = 0;
     if (label && label.visible) {
       const labelStyle: any = label.style;

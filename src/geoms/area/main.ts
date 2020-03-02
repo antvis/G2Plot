@@ -1,4 +1,4 @@
-import { Datum } from '@antv/g2/lib/interface';
+import { Datum } from '../../dependents';
 import { has, isString, isFunction, get } from '@antv/util';
 import ElementParser from '../base';
 

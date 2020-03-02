@@ -1,4 +1,3 @@
-import { LegendOption } from '@antv/g2/lib/interface';
 import * as _ from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -9,7 +8,7 @@ import { LayerConfig } from '../../base/layer';
 import { registerPlotType } from '../../base/global';
 import BulletRect from './component/bulletRect';
 import BulletTarget from './component/bulletTarget';
-import BarLabel from '../bar/component/label';
+import './theme';
 
 const G2_GEOM_MAP = {
   bullet: 'interval',
@@ -150,6 +149,11 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     });
   }
 
+  public afterRender() {
+    super.afterRender();
+    this.view.removeInteraction('legend-filter');
+  }
+
   protected scale() {
     const options = this.options;
     const scales = {};
@@ -243,10 +247,9 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       position: 'bottom',
       items,
       ...options.legend,
-      clickable: false,
     };
     // @ts-ignore
-    this.setConfig('legends', legendOptions as LegendOption);
+    this.setConfig('legends', legendOptions);
   }
 
   protected addGeometry() {

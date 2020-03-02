@@ -1,11 +1,10 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, Group, IGroup, Geometry } from '../../../../dependents';
 
 const DEFAULT_OFFSET = 8;
 
 export interface LineLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
   offsetY?: number;
@@ -56,6 +55,7 @@ export default class LineLabel {
           textAlign: 'left',
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
     });
   }
@@ -76,7 +76,7 @@ export default class LineLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }
@@ -96,7 +96,7 @@ export default class LineLabel {
   }
 
   private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'line');
+    return find(this.view.geometries, (geom) => geom.type === 'line') as Geometry;
   }
 
   protected getShapeInfo(shape) {

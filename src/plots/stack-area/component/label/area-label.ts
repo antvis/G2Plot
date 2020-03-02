@@ -1,6 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup, Geometry } from '../../../../dependents';
 
 const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;
@@ -118,6 +117,7 @@ export default class AreaLabel {
           textAlign: 'center',
           textBaseline: 'top',
         }),
+        name: 'label',
       });
       labelShapes.push(text);
     });
@@ -280,7 +280,7 @@ export default class AreaLabel {
   }
 
   private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'area');
+    return find(this.view.geometries, (geom) => geom.type === 'area') as Geometry;
   }
 
   protected getFontSize(index) {

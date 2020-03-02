@@ -1,7 +1,6 @@
 import { each, isArray, deepMix } from '@antv/util';
-import { IGroup, IShape } from '@antv/g-canvas';
 import BBox from '../../../util/bbox';
-import { View } from '@antv/g2';
+import { View, IGroup, IShape } from '../../../dependents';
 
 const LABEL_MARGIN = 4;
 
@@ -39,6 +38,7 @@ export default class MatrixLegend {
   protected y: number;
   protected dataSlides: any = {};
   protected colorScale: any;
+  private interactiveEvents: any = {};
 
   constructor(cfg: IMatrixLegend) {
     const defaultOptions = this.getDefaultOptions();
@@ -53,7 +53,14 @@ export default class MatrixLegend {
     this.width = this.options.width ? this.options.width : this.getDefaultWidth();
     this.height = this.options.height ? this.options.height : this.getDefaultHeight();
     const plotContainer = this.options.plot.container;
+    if (this.container) {
+      this.container.remove();
+    }
     this.container = plotContainer.addGroup();
+    this.view.on('beforerender', () => {
+      this.clear();
+      this.options.plot.canvas.draw();
+    });
   }
 
   public render() {
@@ -83,6 +90,7 @@ export default class MatrixLegend {
 
   public clear() {
     if (this.container) {
+      const children = this.container.get('children');
       this.container.clear();
     }
   }
@@ -91,6 +99,7 @@ export default class MatrixLegend {
     if (this.container) {
       this.container.remove();
     }
+    this.offEvent();
     this.destroyed = true;
   }
 
@@ -116,6 +125,7 @@ export default class MatrixLegend {
         height: this.height,
         fill: gradientColor,
       },
+      name: 'legend',
     });
     // draw tick and label
     each(colors, (c, index) => {
@@ -141,6 +151,7 @@ export default class MatrixLegend {
           y: step,
           ...this.options.text.style,
         },
+        name: 'legend-label',
       });
     });
     //anchor
@@ -173,6 +184,7 @@ export default class MatrixLegend {
         height: this.height,
         fill: gradientColor,
       },
+      name: 'legend',
     });
     // draw tick and label
     each(colors, (c, index) => {
@@ -186,6 +198,7 @@ export default class MatrixLegend {
           ],
           ...this.options.ticklineStyle,
         },
+        name: 'legend-label',
       });
       // value
       const value = Math.round(valueStep * index);
@@ -328,11 +341,16 @@ export default class MatrixLegend {
     const field = this.options.plot.options.colorField;
     const { min, max } = this.colorScale;
 
-    this.view.on(eventName, (ev) => {
+    const geomEventHandler = (ev) => {
       const value = ev.data.data[field];
       const ratio = (value - min) / (max - min);
       this.moveAnchor(ratio);
-    });
+    };
+    this.view.on(eventName, geomEventHandler);
+    this.interactiveEvents[eventName] = {
+      target: this.view,
+      handler: geomEventHandler,
+    };
 
     /*this.view.on(labelEventName, (ev) => {
       const value = ev.data[field];
@@ -340,9 +358,14 @@ export default class MatrixLegend {
       this.moveAnchor(ratio);
     });*/
 
-    this.options.plot.canvas.on('mouseleave', (ev) => {
+    const mouseleaveHandler = (ev) => {
       this.anchor.set('visible', false);
-    });
+    };
+    this.options.plot.canvas.on('mouseleave', mouseleaveHandler);
+    this.interactiveEvents.mouseleave = {
+      target: this.options.plot.canvas,
+      handler: mouseleaveHandler,
+    };
   }
 
   private moveAnchor(ratio: number) {
@@ -383,5 +406,12 @@ export default class MatrixLegend {
       return bbox.maxY + 10;
     }
     return bleeding[0];
+  }
+
+  private offEvent() {
+    each(this.interactiveEvents, (event, key) => {
+      const { target, handler } = event;
+      target.off(key, handler);
+    });
   }
 }

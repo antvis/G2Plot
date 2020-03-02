@@ -5,8 +5,8 @@
  * 2. 如果是枚举值，不使用enum，全部列出
  * 3. 减少嵌套，尽量平铺配置
  */
-import { Options } from '@antv/g2/lib/interface';
-import { AttributeOption, AdjustOption, LabelOption } from '@antv/g2/lib/interface';
+import { ShapeAttrs } from '@antv/g-base';
+import { Options, AttributeOption, AdjustOption, LabelOption } from '../dependents';
 import { LooseMap } from './types';
 
 export interface ITitle {
@@ -14,6 +14,7 @@ export interface ITitle {
   text: string;
   style?: {};
   alignWithAxis?: boolean;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 export interface IDescription {
@@ -21,16 +22,17 @@ export interface IDescription {
   text: string;
   style?: {};
   alignWithAxis?: boolean;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 type IEvents = LooseMap<string>;
 
 export type Formatter = (text: string, item: any, idx: number) => string;
 
-// TODO: g 提供详细style的类型定义
-export interface IStyleConfig {
-  [key: string]: string | number | boolean;
-}
+/**
+ * 通用 Shape 属性样式定义
+ */
+export interface IStyleConfig extends ShapeAttrs {}
 
 export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
@@ -52,12 +54,13 @@ export interface IBaseAxis {
     /** 网格设置交替的颜色，指定一个值则先渲染偶数层，两个值则交替渲染 */
     alternateColor?: string | string[];
   };
-  autoRotateLabel?: boolean | number[]; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
+  autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
   autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
+  autoEllipsisLabel?: boolean;
   autoRotateTitle?: boolean;
   label?: {
     visible?: boolean;
-    formatter?: (...args: any[]) => string;
+    formatter?: (name: string, tick: any, index: number) => string;
     offset?: number; // 坐标轴文本距离坐标轴线的距离
     offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
     offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
@@ -111,7 +114,7 @@ export interface ICatAxis extends IBaseAxis {
 export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 
 export interface Label {
-  visible: boolean;
+  visible?: boolean;
   type?: string;
   formatter?: (text: string, item: any, idx: number, ...extras: any[]) => string;
   /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
@@ -141,6 +144,11 @@ export interface Legend {
   offsetX?: number;
   offsetY?: number;
   clickable?: boolean;
+  title?: {
+    visible?: boolean;
+    spacing?: number;
+    style?: IStyleConfig;
+  };
 }
 
 export interface Tooltip {

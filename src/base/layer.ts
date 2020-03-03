@@ -35,12 +35,17 @@ export interface Range {
 }
 
 export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmitter {
+  /** @ignore */
   public id: string;
+  /** @ignore */
   public x: number;
+  /** @ignore */
   public y: number;
   public width: number;
   public height: number;
+  /** @ignore */
   public parent: Layer;
+  /** @ignore */
   public canvas: G.Canvas;
   public layerBBox: G.BBox;
   public layers: Layer[] = [];

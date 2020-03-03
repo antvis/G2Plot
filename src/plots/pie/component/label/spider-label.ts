@@ -340,7 +340,6 @@ export default class SpiderLabel {
     const drawnLabels = [];
     half.forEach((label) => {
       const textGroup = this._drawLabel(label);
-
       this._drawLabelLine(label, maxLabelWidth, textGroup);
       drawnLabels.push(textGroup);
     });

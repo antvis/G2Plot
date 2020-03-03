@@ -1,6 +1,7 @@
 import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
 import { Group, BBox } from '@antv/g';
 import { View, Scale } from '@antv/g2';
+import { LegendPosition } from '../../../interface/config';
 
 const LABEL_MARGIN = 4;
 const ACTIVE_OPACITY = 1;
@@ -8,7 +9,7 @@ const DEACTIVE_OPACITY = 0.4;
 
 export interface HeatmapLegendConfig {
   visible?: boolean;
-  position?: string;
+  position?: LegendPosition;
   width?: number;
   height?: number;
   text?: {
@@ -33,7 +34,7 @@ export default class HeatmapLegend {
   protected layout: string;
   protected width: number;
   protected height: number;
-  protected position: string;
+  protected position: LegendPosition;
   protected x: number;
   protected y: number;
   protected dataSlides: any = {};

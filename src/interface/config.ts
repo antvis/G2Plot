@@ -25,6 +25,21 @@ export interface IDescription {
   alignWithAxis?: boolean;
 }
 
+export type LabelPosition = 'left' | 'middle' | 'right';
+export type LegendPosition =
+  | 'left-top'
+  | 'left-center'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-top'
+  | 'right-bottom'
+  | 'top-left'
+  | 'top-center'
+  | 'top-bottom'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
+
 type IEvents = LooseMap<string>;
 
 export type Formatter = (text: string, item: any, idx: number) => string;
@@ -127,7 +142,7 @@ export interface Label {
   offsetX?: number;
   offsetY?: number;
   events?: IEvents;
-  position?: string;
+  position?: LabelPosition;
   adjustColor?: boolean;
   adjustPosition?: boolean;
   autoRotate?: boolean;
@@ -137,7 +152,7 @@ export interface Label {
 export interface Legend {
   visible?: boolean;
   /** 位置 */
-  position?: string;
+  position?: LegendPosition;
   /** 翻页 */
   flipPage?: boolean;
   events?: IEvents;

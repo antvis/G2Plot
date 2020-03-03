@@ -1,9 +1,10 @@
 import { each, isArray, isFunction, deepMix } from '@antv/util';
 import { Group, BBox } from '@antv/g';
 import { View } from '@antv/g2';
+import { LabelPosition } from '../../../interface/config';
 
 interface ILabel {
-  position?: string;
+  position?: LabelPosition;
   text: string[] | Function;
   offset?: number | Function;
   style?: any;

@@ -1,12 +1,13 @@
 import { each, isArray, deepMix } from '@antv/util';
 import { Group, BBox, Shape } from '@antv/g';
 import { View } from '@antv/g2';
+import { LegendPosition } from '../../../interface/config';
 
 const LABEL_MARGIN = 4;
 
 export interface MatrixLegendConfig {
   visible?: boolean;
-  position?: string;
+  position?: LegendPosition;
   width?: number;
   height?: number;
   text?: {
@@ -33,7 +34,7 @@ export default class MatrixLegend {
   protected layout: string;
   protected width: number;
   protected height: number;
-  protected position: string;
+  protected position: LegendPosition;
   protected x: number;
   protected y: number;
   protected dataSlides: any = {};

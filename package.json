@@ -60,7 +60,7 @@
     "@antv/g2": "~3.6.0-beta.19",
     "@antv/gui": "~0.1.0",
     "d3-regression": "^1.2.8",
-    "fecha": "~4.1.0",
+    "fecha": "~4.2.0",
     "resize-observer-polyfill": "^1.5.1",
     "tslib": "^1.10.0"
   },

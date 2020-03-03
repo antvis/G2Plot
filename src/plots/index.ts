@@ -18,6 +18,7 @@ export { default as Matrix, MatrixConfig } from './matrix';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
 export { default as StepLine, StepLineConfig } from './step-line';
 export { default as Rose, RoseConfig } from './rose';
+export { default as Funnel, FunnelConfig } from './funnel';
 
 // export { default as Density, DensityConfig } from './density';
 // export { default as Bubble, BubbleConfig } from './bubble';
@@ -30,6 +31,5 @@ export { default as Rose, RoseConfig } from './rose';
 // export { default as Liquid, LiquidConfig } from './liquid';
 // export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
-// export { default as Funnel, FunnelConfig } from './funnel';
 // export { default as Waterfall, WaterfallConfig } from './waterfall';
 // export { default as Treemap } from './treemap';

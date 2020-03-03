@@ -69,21 +69,21 @@ describe('pie spider label', () => {
   it('get labelShapes', () => {
     labelGroups = plot.geometries[0].labelsContainer.getChildren();
     const shapes = plot.geometries[0].elements.map((ele) => ele.shape);
-    // labelGroup = textGroup + path
-    expect(labelGroups.length).toBe(shapes.length * 2);
-    expect(labelGroups.length).toBe(data.length * 2);
-    // textGroup
-    expect(labelGroups[0].getChildren().length).toBe(2);
+    expect(labelGroups.length).toBe(shapes.length);
+    expect(labelGroups.length).toBe(data.length);
+    // textGroup, actually is itemGroup = text + text + path
+    expect(labelGroups[0].getChildren().length).toBe(3);
   });
 
   it('label textGroup', () => {
     expect(labelGroups[0].get('children')[1].attr('fill')).toBe('rgba(0, 0, 0, 0.65)');
-    expect(labelGroups[0].get('children')[0].attr('text')).toBe(5);
-    expect(labelGroups[0].get('children')[1].attr('text')).toBe('其它');
+    /** surprise, first data is "分类一" */
+    expect(labelGroups[0].get('children')[0].attr('text')).toBe(27);
+    expect(labelGroups[0].get('children')[1].attr('text')).toBe('分类一');
   });
 
   it('label line', () => {
-    expect(labelGroups[1].attr('stroke')).toBe('rgba(0, 0, 0, 0.45)');
+    expect(_.last(labelGroups[0].get('children')).attr('stroke')).toBe('rgba(0, 0, 0, 0.45)');
   });
 
   afterAll(() => {
@@ -154,13 +154,13 @@ describe('spider-label 单行label', () => {
 
   it('get labelShapes', () => {
     labelGroups = plot.geometries[0].labelsContainer.getChildren();
-    expect(labelGroups.length).toBe(data.length * 2);
+    expect(labelGroups.length).toBe(data.length);
   });
 
   it('单行label 居中显示', () => {
     const labelText = labelGroups[0].get('children')[0];
-    const linePath = labelGroups[1].attr('path');
-    expect(labelText.attr('text')).toBe('其它 (5)');
+    const linePath = _.last(labelGroups[0].get('children')).attr('path');
+    expect(labelText.attr('text')).toBe('分类一 (27)');
     expect(labelGroups[0].getBBox().y).toBe(labelText.getBBox().y);
 
     const labelCenter = {

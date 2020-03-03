@@ -1,155 +1,659 @@
 ---
-title: Column - 基础柱状图
+title: Column - 柱状图
 order: 3
 ---
 
-<img src = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j4gkSL9OhCIAAAAAAAAAAABkARQnAQ' width = '400'>
+ <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+    <table class="lake-table" style="width: 735px; outline: none; border-collapse: collapse;">
+      <colgroup>
+        <col width="395" span="1">
+        <col width="340" span="1">
+      </colgroup>
+      <tbody>
+        <tr style="height: 33px;">
+          <td rowspan="5" colspan="1" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JtE1QYcof-cAAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JtE1QYcof-cAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-02 下午2.51.04.png" title="屏幕快照 2020-03-02 下午2.51.04.png" style="border: none; box-shadow: none; width: 372px; height: 418px; visibility: visible;"></span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
+          </td>
+          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">别名</span></span></strong>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">柱形图</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">使用柱形显示维度的数值。横轴显示分类维度，纵轴显示相应的值</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">位置、方向</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">比较、趋势</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「时间」或「有序名词」字段</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">0 ~ 1 个「无序名词」字段</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「数值」字段</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-## 图表故事
-
-柱状图用于描述分类数据之间的对比，如果我们把时间周期，如周、月、年，也理解为一种分类数据 (time category)，那么柱状图也可以用于描述时间周期之间的数值比较。
-
-## 数据类型
-
-基础柱状图适合的数据类型为一个**分类字段**（类型）和一个**离散字段**（数值）。在下面这个例子中，`type`为分类数据字段，`value`为离散数据字段。
+# 快速上手
 
 ```js
+import { Column } from '@antv/g2plot';
+
 const data = [
-  { type: 'a', value: 100 },
-  { type: 'b', value: 60 },
-  { type: 'c', value: 30 },
+  {
+    type: '家具家电',
+    sales: 38,
+  },
+  {
+    type: '粮油副食',
+    sales: 52,
+  },
+  {
+    type: '生鲜水果',
+    sales: 61,
+  },
+  {
+    type: '美容洗护',
+    sales: 145,
+  },
+  {
+    type: '母婴用品',
+    sales: 48,
+  },
+  {
+    type: '进口食品',
+    sales: 38,
+  },
+  {
+    type: '食品饮料',
+    sales: 38,
+  },
+  {
+    type: '家庭清洁',
+    sales: 38,
+  },
 ];
+
+const columnPlot = new Column(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '基础柱状图',
+  },
+  forceFit: true,
+  data,
+  padding: 'auto',
+  data,
+  xField: 'type',
+  yField: 'sales',
+  meta: {
+    type: {
+      alias: '类别',
+    },
+    sales: {
+      alias: '销售额(万)',
+    },
+  },
+});
+
+columnPlot.render();
 ```
 
-图表绘制时，每一个分类对应一根柱子，映射到 x 轴，而分类数值对应柱子的高度，映射到 y 轴。
+# 配置属性
 
-## 图表用法
-
-- **Dont's**
-  - 尽量避免在基础柱状图中使用颜色映射。
-  - y 轴不以 0 值为起点，将有可能导致柱状图显示错误的比例关系。
-
-* **Do**
-  - 如果分类之间的序列关系 (ranking) 有意义且不是时间周期，可以考虑将数据进行排序。
-  - 如果需要关注具体数据，可以考虑移除坐标轴，显示图形标签，使用户的注意力更加聚焦。
-
-## API
-
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
-
-### title
-
-**optional** 见[通用图表配置](../general-config#title)。
-
-### description
-
-**optional** 见[通用图表配置](../general-config#description)。
+## 图表容器
 
 ### width
 
-**optional** 见[通用图表配置](../general-config#width)。
+**可选**, *number*
+
+功能描述： 设置图表宽度。
+
+默认配置： `400`
 
 ### height
 
-**optional** 见[通用图表配置](../general-config#height)。
+**可选**, *number*
+
+功能描述： 设置图表高度。
+
+默认配置： `400`
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config#forceFit)。
+**可选**, *boolean*
 
-### padding
+功能描述： 图表是否自适应容器宽高。当 `forceFit` 设置为true时，`width` 和 `height` 的设置将失效。
 
-**optional** 见[通用图表配置](../general-config#padding)。
+默认配置： `true`
 
-### theme
+### pixelRatio
 
-**optional** 见[通用图表配置](../general-config#theme)。
+**可选**, *number*
+
+功能描述： 设置图表渲染的像素比
+
+默认配置： `2`
+
+### renderer
+
+**可选**, *string*
+
+功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
+
+默认配置： `canvas`
+
+## 数据映射
 
 ### data
 
-**required**
+**必选**, *array object*
 
-数据源为对象集合，例如：[{ segment: 分类一，value: 20 }, { segment: 分类二，value: 20 }]。
+功能描述： 设置图表数据源
+
+默认配置： 无
+
+数据源为对象集合，例如：`[{ type: 'a'，value: 20 }, { type: 'b'，value: 20 }]`。
+
+### meta
+**可选**, *object*
+
+功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
+
+默认配置： 无
+
+| 细分配置项名称 | 类型 | 功能描述 |
+| --- | --- | --- |
+| alias | *string* | 字段的别名 |
+| formatter | *function* | callback方法，对该字段所有值进行格式化处理 |
+| values | *string[]* | 枚举该字段下所有值 |
+| range | *number[]* | 字段的数据映射区间，默认为[0,1] |
+
+
+```js
+const data = [
+  { country: 'Asia', year: '1750', value: 502,},
+  { country: 'Asia', year: '1800', value: 635,},
+  { country: 'Europe', year: '1750', value: 163,},
+  { country: 'Europe', year: '1800', value: 203,},
+];
+
+const areaPlot = new PercentageStackArea(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '百分比堆叠面积图',
+  },
+  data,
+  // highlight-start
+  meta: {
+    year: {
+      alias:'年份'
+      range: [0, 1],
+    },
+    value: {
+      alias: '数量',
+      formatter:(v)=>{return `${v}个`}
+    }
+  },
+  // highlight-end
+  xField: 'year',
+  yField: 'value',
+  stackField: 'country',
+});
+areaPlot.render();
+
+```
 
 ### xField
+**必选**, *string*
 
-**required**, string 类型
+功能描述： 柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
 
-柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
+默认配置： 无
 
 ### yField
+**必选**, *string*
 
-**required**, string 类型
+功能描述： 柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
 
-柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
+默认配置： 无
 
 ### colorField
+**可选**, *string*
 
-**optional**, string 类型
+功能描述：柱形颜色映射对应的数据字段名。从基础柱状图的使用场景来说，我们不推荐对柱形进行额外的颜色映射。
 
-柱形颜色映射对应的数据字段名。
+默认配置： 无
+
+## 图形样式
 
 ### color
+**可选**, *string | string[] | Function*
 
-**optional**, string | string[] | function 类型
+功能描述： 指定柱形颜色，如没有配置colorField,指定一个单值即可。对colorFiled进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
-指定柱形颜色。如不进行配置则采用 theme 中的配色。
+默认配置：采用 theme 中的色板。
+
+用法示例：
+
+```js
+// 指定单值
+color: '#000000'
+// 配合颜色映射，指定多值
+colorField:'type',
+color:['blue','yellow','green']
+//配合颜色映射，使用回调函数指定色值
+colorField:'type',
+color:(d)=>{
+    if(d==='a') return 'red';
+    return 'blue';
+}
+```
 
 ### columnSize
+**可选**, *number*
 
-**optional**, number 类型
+功能描述： 设置柱形宽度。对于一般场景来说，柱形宽度会根据数据自行计算，不需特别指定。
 
-设置柱形的宽度为一个固定值。
+默认配置： 无
 
 ### columnStyle
+**可选**, *object*
 
-**optional**, object | function 类型
+功能描述： 设置柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。columnStyle可以直接指定，也可以通过callback的方式，根据数据为每一根柱子指定单独的样式。
 
-配置柱形样式。
+默认配置： 无
 
-`fill: string`  填充颜色<br />
-`stroke: string`  描边颜色<br />
-`lineWidth: number`  描边宽度<br />
-`lineDash: number[]`  描边虚线显示<br />
-`opacity: number`  透明度
 
-另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| fill | string | 填充颜色 |
+| stroke | string | 描边颜色 |
+| lineWidth | number | 描边宽度 |
+| lineDash | number | 虚线描边 |
+| opacity | number | 整体透明度 |
+| fillOpacity | number | 填充透明度 |
+| strokeOpacity | number | 描边透明度 |
+
+## 图表组件
+
+### title
+**可选**, *optional*
+
+功能描述： 配置图表的标题，默认显示在图表左上角。
+
+默认配置：
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 18,
+    fill: 'black',
+}
+```
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
+### description
+**可选**, *optional*
+
+功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
+
+默认配置：
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 12,
+    fill: 'grey',
+}
+```
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 ### xAxis
+**可选**, *object*
 
-**optional** 见[通用图表配置](../general-config#categoryaxis)。
+功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
+
+默认配置：
+
+```js
+visible: true,
+autoHideLabel: false,
+autoRotateLabel: false,
+autoRotateTitle: false,
+grid: {
+    visible: false,
+},
+line: {
+    visible: true
+},
+tickLine: {
+     visible: true,
+},
+label: {
+    visible: true,
+},
+title: {
+    visible: false,
+    offset: 12,
+},
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| autoRotateLabel | boolean | 是否自动旋转标签 |
+| autoHideLabel | boolean | 是否自动隐藏标签 |
+| line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
+| grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
+| title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
 ### yAxis
+**可选**, *object*
 
-**optional** 见[通用图表配置](../general-config#linearaxis)。
+功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
-### tooltip
+默认配置： 
+```js
+visible: true,
+autoHideLabel: false,
+autoRotateLabel: false,
+autoRotateTitle: true,
+grid: {
+    visible: true,
+},
+line: {
+    visible: false,
+},
+tickLine: {
+    visible: false,
+},
+label: {
+    visible: true,
+},
+title: {
+    visible: true,
+    offset: 12,
+},
+```
 
-**optional** 见[通用图表配置](../general-config#tooltip)。
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| autoRotateLabel | boolean | 是否自动旋转标签 |
+| autoHideLabel | boolean | 是否自动隐藏标签 |
+| tickCount | number | 坐标轴刻度数量 |
+| tickInterval | number | 坐标轴刻度间隔 |
+| min | number | 设置坐标轴最小值 |
+| max | number | 设置坐标轴最大值 |
+| line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
+| grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
+| title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
 ### legend
+**可选**, *object*
 
-**optional** 见[通用图表配置](../general-config#legend)。
+功能描述：图例，配置colorField时显示，用于展示颜色分类信息
+
+默认配置：
+```js
+visible: true,
+position: 'top',
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| formatter | function | 对图例显示信息进行格式化 |
+| offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
+| offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
+| marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
+
+### tooltip
+**可选**, *object*
+
+功能描述：信息提示框
+
+默认配置：
+```js
+visible: true,
+shared: false,
+showCrosshairs: false,
+offset: 20,
+```
+
+| 细分属性 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
+
+htmlContent 用法示例：
+```js
+htmlContent: (title, items) => {
+  return '<div><ul><li>.....</li></ul></div>';
+};
+```
+此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
+```js
+htmlContent: (title, items) => {
+  return dom | dom.id;
+};
+```
 
 ### label
 
-**optional**
+功能描述： 标签文本
 
-`visible: boolean`    图形标签是否显示<br />
-`position: 'top' | 'middle' | 'bottom'`    图形标签相对于柱形的位置<br />
-`formatter: function`  对 label 的显示文本进行格式化。<br />
-`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量。<br />
-`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量。<br/>
-`style: object` 配置 label 文本
+默认配置：
+```js
+visible: false
+type:'point'
+offsetX: 6
+offsetY: 6
+style:{
+  fill: 'rgba(0, 0, 0, 0.65)',
+  stroke: '#ffffff',
+  lineWidth: 2,
+},
+adjustColor: true,
+adjustPosition: false
+```
 
-### events
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | label的位置<br />- top 位于柱子顶部<br />- middle 位于柱子垂直中心<br />- bottom 位于柱子底部<br /> |
+| formatter | function | 对文本标签内容进行格式化 |
+| offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
+| offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
+| style | object | 配置文本标签样式。 |
+| adjustColor | boolean | 文本标签颜色是否自动适应图形颜色，position为middle时有效。 |
+| adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置，position为middle时有效。如图形区域容纳不下label，则label位置自动调整至图形上方。 |
 
-**optional**
 
-- 图形事件
-  `onColumnClick: function`  柱形点击事件<br />
-  `onColumnDblClick: function`  柱形双击事件<br />
-  `onColumnMousemove: function`  柱形鼠标移动事件<br />
-  `onColumnContextmenu: function`    柱形右键事件
+### guideLine
 
-- 其他事件类型见[通用图表配置](../general-config#events)。
+**可选**, *object[]*
+
+功能描述： 配置图表辅助线，支持同时配置多条。
+
+默认配置： 无
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| type | string | 含有统计意义的辅助线类型，可选类型为 max | min | median | mean<br />*注意：如指定了辅助线类型，则不需要配置辅助线的start和end。 |
+| start | array | 指定辅助线起始位置，如不配置`type`，则该辅助线为自定义辅助线，`start`是必选项。<br/>支持两种配置形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br /> |
+| end | array | 指定辅助线终止位置，如不配置`type`，则该辅助线为自定义辅助线，end 是必选项。<br/>支持两种数据形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br /> |
+| lineStyle | object | 配置辅助线样式。 |
+| text | object | 设置辅助线文本。<br />- position: string 辅助线文本位置，可选项：start、center、end<br />- content: string 辅助线文本内容<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY: number 位置在y方向上的偏移量<br />- style: object 文本样式<br /> |
+|  |  |  |
+
+
+配置统计辅助线示例代码：
+
+```js
+{
+  guideLine: [
+    {
+      type: 'mean',
+      lineStyle: {},
+      text: {},
+    },
+  ],
+}
+```
+
+配置自定义辅助线示例代码：
+
+```js
+{
+  guideLine: [
+    {
+      start: ['2010-01-01', 100] || ['0%', '50%'],
+      end: ['2010-01-10', 50] || ['100%', '80%'],
+      lineStyle: {},
+      text: {},
+    },
+  ],
+}
+```
+
+
+## 事件
+
+### 柱形图形事件
+
+| onColumnClick<br />柱形点击事件 | onColumnDblClick<br />柱形双击事件 | onColumnDblClick<br />柱形双击事件 | onColumnMouseleave<br />柱形鼠标离开事件 |
+| --- | --- | --- | --- |
+| onColumnMousemove<br />柱形鼠标移动事件 | onColumnMousedown<br />柱形鼠标按下事件 | onColumnMouseup<br />柱形鼠标松开事件 | onColumnMouseenter<br />柱形鼠标进入事件 |
+
+
+### 图表区域事件
+
+| onPlotClick<br />图表区域点击事件 | onPlotDblClick<br />图表区域双击事件 | onPlotDblClick<br />图表区域双击事件 | onPlotMouseleave<br />图表区域鼠标离开事件 |
+| --- | --- | --- | --- |
+| onPlotMousemove<br />图表区域鼠标移动事件 | onPlotMousedown<br />图表区域鼠标按下事件 | onPlotMouseup<br />图表区域鼠标松开事件 | onPlotMouseenter<br />图表区域鼠标进入事件 |
+
+
+### 图例事件
+
+| onLegendClick<br />图例点击事件 | onLegendDblClick<br />图例双击事件 | onLegendMouseenter<br />图例鼠标进入事件 | onLegendMouseleave<br />图例鼠标离开事件 |
+| --- | --- | --- | --- |
+| onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件 | onLegendMouseenter<br />图例鼠标进入事件 |
+
+
+### 坐标轴事件
+
+| onAxisClick<br />坐标轴点击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisMouseleave<br />坐标轴鼠标离开事件 |
+| --- | --- | --- | --- |
+| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件 |
+
+
+### 图形标签事件
+
+| onLabelClick<br />图形标签点击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelMouseleave<br />图形标签鼠标离开事件 |
+| --- | --- | --- | --- |
+| onLabelMousemove<br />图形标签鼠标移动事件 | onLabelMousedown<br />图形标签鼠标按下事件 | onLabelMouseup<br />图形标签鼠标松开事件 | onLabelMouseenter<br />图形标签鼠标进入事件 |
+
+
+### 标题事件
+
+| onTitleClick<br />标题点击事件 | onTitleDblClick<br />标题双击事件 | onTitleDblClick<br />标题双击事件 | onTitleMouseleave<br />标题鼠标离开事件 |
+| --- | --- | --- | --- |
+| onTitleMousemove<br />标题鼠标移动事件 | onTitleMousedown<br />标题鼠标按下事件 | onTitleMouseup<br />标题鼠标松开事件 | onTitleMouseenter<br />标题鼠标进入事件 |
+
+
+### 描述事件
+
+| onDescriptionClick<br />标题点击事件 | onDescriptionDblClick<br />标题双击事件 | onDescriptionDblClick<br />标题双击事件 | onDescriptionMouseleave<br />标题鼠标离开事件 |
+| --- | --- | --- | --- |
+| onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
+
+
+
+## theme
+
+
+# 图表方法
+
+## render()
+
+**必选**
+
+渲染图表。
+
+## updateConfig()
+
+**可选**
+
+更新图表配置项。
+
+```js
+plot.updateConfig({
+  width: 500,
+  height: 600,
+  legend: {
+    visible: false,
+  },
+});
+
+plot.render();
+```
+
+## changeData()
+
+**可选**
+
+更新图表数据。`updateConfig()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
+
+```js
+plot.changeData(newData);
+```
+
+## repaint()
+
+**可选**
+
+图表画布重绘。
+
+## destory()
+
+**可选**
+
+销毁图表。
+
+## getData()
+
+获取图表数据。
+
+## getPlotTheme()
+
+获取图表 theme。

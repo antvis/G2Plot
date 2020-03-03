@@ -333,13 +333,13 @@ line: {
     visible: true
 },
 tickLine: {
-     visible: true,
+     visible: false,
 },
 label: {
     visible: true,
 },
 title: {
-    visible: false,
+    visible: true,
     offset: 12,
 },
 ```
@@ -348,6 +348,8 @@ title: {
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
 | type | string | 坐标轴类型<br />- 'time'：时间轴，<br />- 'linear': 连续轴<br /> |
+| autoRotateLabel | boolean | 是否自动旋转标签 |
+| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
@@ -388,6 +390,8 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
+| autoRotateLabel | boolean | 是否自动旋转标签 |
+| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
@@ -436,7 +440,9 @@ offset: 20,
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | shared | boolean | 是否同时显示多条数据 |
-| crosshairs | object | 配置tooltip辅助线<br />- false 不显示辅助线<br />- type: x | y | cross 辅助线形态<br />- style：object 辅助线样式<br />- htmlContent: function 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。<br /> |
+| crosshairs | object | 配置tooltip辅助线<br />- false 不显示辅助线<br />- type: x | y | cross 辅助线形态<br />- style：object 辅助线样式<br /> |
+| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
+
 
 htmlContent 用法示例：
 ```js

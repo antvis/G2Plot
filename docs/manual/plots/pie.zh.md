@@ -259,8 +259,12 @@ color:(d)=>{
 
 ## 图表组件
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" width="600">
+
 ### title
 **可选**, *optional*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -283,6 +287,8 @@ style:{
 ### description
 **可选**, *optional*
 
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
 默认配置：
@@ -304,12 +310,15 @@ style:{
 ### legend
 **可选**, *object*
 
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+
 功能描述：图例，配置colorField时显示，用于展示颜色分类信息
 
 默认配置：
 ```js
 visible: true,
 position: 'top',
+flipPage: true
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -317,6 +326,7 @@ position: 'top',
 | visible | boolean | 是否可见 |
 | position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | formatter | function | 对图例显示信息进行格式化 |
+| flipPage | boolean | 图例过多时是否翻页显示 |
 | offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
 | offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
 | marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
@@ -329,14 +339,13 @@ position: 'top',
 默认配置：
 ```js
 visible: true,
-shared: false,
-showCrosshairs: false,
 offset: 20,
 ```
 
 | 细分属性 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
+| offset | number | 距离鼠标位置偏移值 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 htmlContent 用法示例：
@@ -356,25 +365,23 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本
 
+[DEMO1](https://g2plot.antv.vision/zh/examples/pie/basic#basic)
+[DEMO2](https://g2plot.antv.vision/zh/examples/pie/basic#outer-label)
+[DEMO3](https://g2plot.antv.vision/zh/examples/pie/basic#outer-center-label)
+[DEMO4](https://g2plot.antv.vision/zh/examples/pie/basic#spider-label)
+
 默认配置：
 ```js
 visible: false
-type:'point'
-offsetX: 6
-offsetY: 6
-style:{
-  fill: 'rgba(0, 0, 0, 0.65)',
-  stroke: '#ffffff',
-  lineWidth: 2,
-},
-adjustColor: true,
-adjustPosition: false
+type:'inner'
+autoRotate: false
 ```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | type | string | label的类型<br />- inner label显示于扇形切片内<br />- outer label显示于饼外<br />- outer-center label呈圆形排布于饼外<br />- spider 蜘蛛布局label|
+| autoRotate | boolean | 是否自动旋转 |
 | formatter | function | 对文本标签内容进行格式化 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |

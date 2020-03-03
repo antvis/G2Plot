@@ -290,8 +290,12 @@ color:(d)=>{
 
 ## 图表组件
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*C554SqAGfuMAAAAAAAAAAABkARQnAQ" width="600">
+
 ### title
 **可选**, *optional*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -314,6 +318,8 @@ style:{
 ### description
 **可选**, *optional*
 
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
 默认配置：
@@ -334,6 +340,8 @@ style:{
 
 ### xAxis
 **可选**, *object*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -375,6 +383,8 @@ title: {
 
 ### yAxis
 **可选**, *object*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -420,12 +430,15 @@ title: {
 ### legend
 **可选**, *object*
 
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+
 功能描述：图例，配置colorField时显示，用于展示颜色分类信息
 
 默认配置：
 ```js
 visible: true,
 position: 'top',
+flipPage: true
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -433,6 +446,7 @@ position: 'top',
 | visible | boolean | 是否可见 |
 | position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | formatter | function | 对图例显示信息进行格式化 |
+| flipPage | boolean | 图例过多时是否翻页显示 |
 | offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
 | offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
 | marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
@@ -445,14 +459,13 @@ position: 'top',
 默认配置：
 ```js
 visible: true,
-shared: false,
-showCrosshairs: false,
 offset: 20,
 ```
 
 | 细分属性 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
+| offset | number | 距离鼠标位置偏移值 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 htmlContent 用法示例：
@@ -472,10 +485,14 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本
 
+[DEMO1](https://g2plot.antv.vision/zh/examples/column/basic#column-label)
+[DEMO2](https://g2plot.antv.vision/zh/examples/column/basic#column-label-position)
+[DEMO3](https://g2plot.antv.vision/zh/examples/column/basic#column-label-color-adjust)
+
 默认配置：
 ```js
 visible: false
-type:'point'
+position: 'top'
 offsetX: 6
 offsetY: 6
 style:{
@@ -498,10 +515,16 @@ adjustPosition: false
 | adjustColor | boolean | 文本标签颜色是否自动适应图形颜色，position为middle时有效。 |
 | adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置，position为middle时有效。如图形区域容纳不下label，则label位置自动调整至图形上方。 |
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fUdpQo5_Ci8AAAAAAAAAAABkARQnAQ" width="600">
+
 
 ### guideLine
 
 **可选**, *object[]*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LIhaRqo-6M4AAAAAAAAAAABkARQnAQ" width="400">
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 

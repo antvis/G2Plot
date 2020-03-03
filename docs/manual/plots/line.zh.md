@@ -244,12 +244,17 @@ areaPlot.render();
 ### smooth
 **可选**, *boolean*
 
+[DEMO](https://g2plot.antv.vision/zh/examples/line/basic#line-smooth)
+
 功能描述： 是否将折线绘制为曲线 (spline)。
 
 默认配置: `false`
 
 ### point
 **可选**, *object*
+
+[DEMO1](https://g2plot.antv.vision/zh/examples/line/basic#line-with-point)
+[DEMO2](https://g2plot.antv.vision/zh/examples/line/basic#line-point-style)
 
 功能描述： 配置折线上的点
 
@@ -272,8 +277,12 @@ style: {
 
 ## 图表组件
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Z3C7QJToIH8AAAAAAAAAAABkARQnAQ" width="600">
+
 ### title
 **可选**, *optional*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -295,6 +304,8 @@ style:{
 
 ### description
 **可选**, *optional*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -318,6 +329,8 @@ style:{
 **可选**, *object*
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
 默认配置：
 
@@ -360,6 +373,8 @@ title: {
 
 ### yAxis
 **可选**, *object*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -405,12 +420,15 @@ title: {
 ### legend
 **可选**, *object*
 
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
 默认配置：
 ```js
 visible: true,
 position: 'bottom',
+flipPage: true
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -418,6 +436,7 @@ position: 'bottom',
 | visible | boolean | 是否可见 |
 | position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | formatter | function | 对图例显示信息进行格式化 |
+| flipPage | boolean | 图例过多时是否翻页显示 |
 | offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
 | offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
 | marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
@@ -439,6 +458,7 @@ offset: 20,
 | 细分属性 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
+| offset | number | 距离鼠标位置偏移值 |
 | shared | boolean | 是否同时显示多条数据 |
 | crosshairs | object | 配置tooltip辅助线<br />- false 不显示辅助线<br />- type: x | y | cross 辅助线形态<br />- style：object 辅助线样式<br /> |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
@@ -491,6 +511,10 @@ style:{
 ### guideLine
 
 **可选**, *object[]*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y64CRIP7g1QAAAAAAAAAAABkARQnAQ" width="400">
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 

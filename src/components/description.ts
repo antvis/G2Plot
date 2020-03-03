@@ -1,4 +1,4 @@
-import { IGroup, Shape } from '../dependents';
+import { IGroup, IShape } from '../dependents';
 import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
@@ -24,7 +24,7 @@ interface TextConfig {
  */
 
 export default class TextDescription {
-  public shape: Shape.Text;
+  public shape: IShape;
   public position: string = 'top';
   public name: string;
   public destroyed: boolean = false;
@@ -89,7 +89,7 @@ export default class TextDescription {
         },
         this.style
       ),
-    }) as Shape.Text;
+    }) as IShape;
     // @ts-ignore
     this.shape.name = this.name;
   }

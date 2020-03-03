@@ -1,5 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { View, Group, IGroup, Geometry } from '../../../../dependents';
+import { View, IGroup, Geometry } from '../../../../dependents';
 
 const DEFAULT_OFFSET = 8;
 

@@ -1,5 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
-import { ICanvas, IGroup, Group } from '../dependents';
+import { ICanvas, IGroup } from '../dependents';
 import { deepMix, each, findIndex, keys, contains, isFunction } from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
@@ -60,7 +60,6 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     super();
     this.options = this.getOptions(props);
     this.processOptions(this.options);
-    this.container = new Group({});
   }
 
   public processOptions(options) {
@@ -99,11 +98,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public render() {
     // fixme: 等plot不再继承layer，这个就可以挪到构造函数里去，不需要再加是否render过的判断了
     if (!this.rendered) {
-      if (this.parent) {
-        this.parent.container.add(this.container);
-      } else {
-        this.canvas.add(this.container);
-      }
+      this.container = this.parent ? this.parent.container.addGroup() : this.canvas.addGroup();
     }
     this.rendered = true;
     this.beforeInit();

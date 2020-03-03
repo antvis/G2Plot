@@ -33,7 +33,7 @@ export default class LabelParser {
     this.parseOffset(labelProps, config);
     if (labelProps.position) {
       if (_.isFunction(labelProps.position)) {
-        config.position = labelProps.position(val);
+        config.position = (labelProps.position as Function)(val);
       } else {
         config.position = labelProps.position;
       }

@@ -207,7 +207,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected extractLabel() {
     const props = this.options;
-    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
+    const defaultOptions = this.getLabelOptionsByPosition(props.label.position as string);
     const label = _.deepMix({}, defaultOptions, this.options.label as Label);
 
     if (label && label.visible === false) {

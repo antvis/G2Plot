@@ -34,7 +34,7 @@ export default class HeatmapLegend {
   protected layout: string;
   protected width: number;
   protected height: number;
-  protected position: LegendPosition;
+  protected position: string;
   protected x: number;
   protected y: number;
   protected dataSlides: any = {};

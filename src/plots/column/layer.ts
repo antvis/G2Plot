@@ -185,7 +185,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
 
   protected extractLabel() {
     const props = this.options;
-    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
+    const defaultOptions = this.getLabelOptionsByPosition(props.label.position as string);
     const label = _.deepMix({}, defaultOptions, this.options.label as Label);
     if (label.visible === false) {
       return false;

@@ -1,6 +1,5 @@
-import { IGroup } from '@antv/g-base';
+import { IGroup, Slider } from '../dependents';
 import BBox from '../util/bbox';
-import { Slider } from '@antv/component';
 import { Scale } from '@antv/scale';
 import { clamp, head, last, map, size, throttle } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';
@@ -52,12 +51,13 @@ export default class SliderInteraction extends BaseInteraction {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = config.padding || [0, 0, 0, 0];
 
     if (config.type === 'horizontal') {
-      return new BBox(
+      const bbox = new BBox(
         layerRange.minX,
         layerRange.maxY - config.height - paddingTop - paddingBottom,
         layerRange.width,
         config.height + paddingTop + paddingBottom
       );
+      return bbox;
     } else {
       return new BBox(
         layerRange.maxX - config.width - paddingLeft - paddingRight,
@@ -140,7 +140,7 @@ export default class SliderInteraction extends BaseInteraction {
     const { minText, maxText } = this.getSliderMinMaxText(this.curStart, this.curEnd);
     const cfg: any = {
       x: panelRange.minX + paddingLeft,
-      y: range.tl.y + paddingTop,
+      y: range.minY + paddingTop,
       width: panelRange.width - paddingLeft - paddingRight,
       height: range.height - paddingTop - paddingBottom,
       start: this.curStart,
@@ -152,15 +152,12 @@ export default class SliderInteraction extends BaseInteraction {
         isArea: false,
         smooth: false,
       },
-      foregroundStyle: {},
-      backgroundStyle: {},
     };
-
     if (foregroundColor) {
-      cfg.foregroundStyle.fill = foregroundColor;
+      cfg.foregroundStyle = { fill: foregroundColor };
     }
     if (backgroundColor) {
-      cfg.backgroundStyle.fill = backgroundColor;
+      cfg.backgroundStyle = { fill: backgroundColor };
     }
 
     return cfg;

@@ -1,4 +1,4 @@
-import { } from '@antv/util';
+import { isArray, mix, hasKey, each, has, isFunction, clone, deepMix, isString } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
@@ -160,10 +160,9 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   }
 
   protected coord() {
-    const coordConfig = {
+    this.setConfig('coordinate', {
       actions: [['transpose']],
-    };
-    this.setConfig('coordinate', coordConfig);
+    });
   }
 
   protected addGeometry() {

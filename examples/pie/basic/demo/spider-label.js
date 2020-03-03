@@ -29,15 +29,15 @@ const data = [
 
 const piePlot = new Pie(document.getElementById('container'), {
   forceFit: true,
-  // title: {
-  //   visible: true,
-  //   text: '饼图-图形标签蜘蛛布局',
-  // },
-  // description: {
-  //   visible: true,
-  //   text:
-  //     '当把饼图label的类型设置为spider时，标签分为两组，在图表两侧拉线对齐显示。一般来说，蜘蛛布局的label更不容易相互遮挡。',
-  // },
+  title: {
+    visible: true,
+    text: '饼图-图形标签蜘蛛布局',
+  },
+  description: {
+    visible: true,
+    text:
+      '当把饼图label的类型设置为spider时，标签分为两组，在图表两侧拉线对齐显示。一般来说，蜘蛛布局的label更不容易相互遮挡。',
+  },
   radius: 0.8,
   data,
   angleField: 'value',

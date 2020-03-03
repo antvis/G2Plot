@@ -1,4 +1,4 @@
-import { registerShape } from '@antv/g2';
+import { registerShape } from '../../dependents';
 
 export function getRectPath(cx, cy, width, height, size) {
   const w = width * size;

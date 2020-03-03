@@ -29,14 +29,14 @@ const data = [
 
 const piePlot = new Pie(document.getElementById('container'), {
   forceFit: true,
-  // title: {
-  //   visible: true,
-  //   text: '饼图-外部图形标签(outer label)',
-  // },
-  // description: {
-  //   visible: true,
-  //   text: '当把饼图label的类型设置为outer时，标签在切片外部拉线显示。设置offset控制标签的偏移值。',
-  // },
+  title: {
+    visible: true,
+    text: '饼图-外部图形标签(outer label)',
+  },
+  description: {
+    visible: true,
+    text: '当把饼图label的类型设置为outer时，标签在切片外部拉线显示。设置offset控制标签的偏移值。',
+  },
   radius: 0.8,
   data,
   angleField: 'value',

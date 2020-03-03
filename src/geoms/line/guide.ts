@@ -1,4 +1,4 @@
-import { LooseObject } from '@antv/g2/lib/interface';
+import { LooseObject } from '../../dependents';
 import { isString, isFunction, isArray, get } from '@antv/util';
 import LineParser from './main';
 
@@ -13,6 +13,7 @@ export default class GuideLineParser extends LineParser {
       position: {
         fields: [props.xField, props.yField],
       },
+      tooltip: false,
     };
 
     if (this._getColorMappingField() || this._needParseAttribute('color')) {

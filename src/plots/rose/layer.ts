@@ -2,7 +2,6 @@
  * Create By Bruce Too
  * On 2020-02-17
  */
-import { CoordinateType } from '@antv/g2/lib/plot/interface';
 import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../..';
@@ -151,13 +150,13 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   protected coord() {
     const props = this.options;
     const coordConfig = {
-      type: 'polar' as CoordinateType,
+      type: 'polar',
       cfg: {
         radius: props.radius,
         innerRadius: props.innerRadius || 0,
       },
     };
-    this.setConfig('coordinate', coordConfig);
+    this.setConfig('coordinate', coordConfig as any);
   }
 
   protected addGeometry() {
@@ -193,7 +192,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       return [
         {
           type: 'dodge',
-          marginRatio: 0,
+          marginRatio: 0.7,
         },
       ];
     }

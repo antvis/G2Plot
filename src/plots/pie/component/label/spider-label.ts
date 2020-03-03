@@ -1,8 +1,6 @@
-import { IGroup, Group, IShape, Shape } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup, IShape } from '../../../../dependents';
 import { deepMix, clone, each, isString, mix } from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
-import { getCenter } from './utils';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
@@ -143,7 +141,7 @@ export default class SpiderLabel {
         }
         texts = formatted;
       }
-      const textGroup = new Group({});
+      const textGroup = this.container.addGroup();
       const textAttrs: IAttrs = {
         x: 0,
         y: 0,
@@ -342,8 +340,7 @@ export default class SpiderLabel {
     const drawnLabels = [];
     half.forEach((label) => {
       const textGroup = this._drawLabel(label);
-      this.container.add(textGroup);
-      this._drawLabelLine(label, maxLabelWidth);
+      this._drawLabelLine(label, maxLabelWidth, textGroup);
       drawnLabels.push(textGroup);
     });
   }
@@ -380,7 +377,7 @@ export default class SpiderLabel {
     return textGroup;
   }
 
-  private _drawLabelLine(label: LabelData, maxLabelWidth): IShape {
+  private _drawLabelLine(label: LabelData, maxLabelWidth, container: IGroup): IShape {
     const _anchor = [label._anchor.x, label._anchor.y];
     const _inflection = [label._inflection.x, label._inflection.y];
     const { fill, y, textGroup } = label;
@@ -420,7 +417,7 @@ export default class SpiderLabel {
       }
       path.push([starter, p[0], p[1]]);
     }
-    this.container.addShape('path', {
+    container.addShape('path', {
       attrs: {
         path,
         lineWidth: this.options.line.lineWidth,
@@ -429,7 +426,7 @@ export default class SpiderLabel {
     });
 
     // 绘制锚点
-    // this.container.addShape('circle', {
+    // container.addShape('circle', {
     //   attrs: {
     //     x: _anchor[0],
     //     y: _anchor[1],

@@ -1,5 +1,5 @@
 import { modifyCSS } from '@antv/dom-util';
-import { Canvas } from '@antv/g-canvas';
+import { Canvas, SVG, ICanvas } from '../../dependents';
 import { debounce, get } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
@@ -11,6 +11,8 @@ export interface CanvasControllerCfg {
   readonly plot: BasePlot;
 }
 
+type ICanvasCtor = new (...cfg: any) => ICanvas;
+
 /**
  * Canvas controller
  * 1. create G.Canvas, destroy G.Canvas
@@ -21,7 +23,7 @@ export interface CanvasControllerCfg {
 export default class CanvasController {
   public width: number;
   public height: number;
-  public canvas: Canvas;
+  public canvas: ICanvas;
 
   private containerDOM: HTMLElement;
   private plot: BasePlot; // temp
@@ -156,7 +158,10 @@ export default class CanvasController {
     /** 创建canvas */
     const { renderer = 'canvas', pixelRatio } = this.plot;
     const { width, height } = this.getCanvasSize();
-    this.canvas = new Canvas({
+
+    const G: ICanvasCtor = renderer === 'canvas' ? Canvas : SVG;
+
+    this.canvas = new G({
       container: this.containerDOM,
       width,
       height,

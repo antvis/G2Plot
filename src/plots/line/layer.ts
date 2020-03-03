@@ -234,16 +234,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
-  protected applyInteractions() {
-    super.applyInteractions();
-    // 加入默认交互
-    const interactions = this.view.interactions;
-    const lineActive = new LineActive({ view: this.view });
-    interactions.lineActive = lineActive;
-    const lineSelect = new LineSelect({ view: this.view });
-    interactions.lineSelect = lineSelect;
-  }
-
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
   }

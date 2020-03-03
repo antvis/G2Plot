@@ -72,13 +72,12 @@ export default class AxisParser {
   }
 
   private _gridParser() {
-    const { grid: gridCfg } = this.localProps;
-    const { style } = gridCfg;
+    const style = this.localProps.grid?.line?.style;
 
     if (isFunction(style)) {
       this.config.grid = (text: string, index: number, count: number) => {
         const cfg = style(text, index, count);
-        return { line: { style: deepMix({}, get(this.themeConfig, `grid.style`), cfg) } };
+        return { line: { style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg) } };
       };
     } else if (style) {
       this.config.grid = { line: { style } };
@@ -98,7 +97,7 @@ export default class AxisParser {
     const { style, ...restLabelProps } = this.localProps.label;
     const labelConfig: any = { ...restLabelProps };
     if (style) {
-      labelConfig.style = { style: this.localProps.label.style };
+      labelConfig.style = { ...this.localProps.label.style };
     }
     labelConfig.style = deepMix({}, get(this.themeConfig, 'label.style'), labelConfig.style);
     const formatter = this.parseFormatter(labelConfig);

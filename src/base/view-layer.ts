@@ -1,6 +1,5 @@
-import * as G from '@antv/g-canvas';
-import * as G2 from '@antv/g2';
 import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction, mix } from '@antv/util';
+import { View, BBox } from '../dependents';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
@@ -20,10 +19,9 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerConfig, Region } from './layer';
+import Layer, { LayerConfig } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
-import BBox from '../util/bbox';
 
 export interface ViewConfig {
   data?: DataItem[];
@@ -66,16 +64,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return {
       title: {
         visible: false,
+        alignTo: 'left',
         text: '',
       },
       description: {
         visible: false,
         text: '',
+        alignTo: 'left',
       },
       padding: 'auto',
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'bottom',
       },
       tooltip: {
         visible: true,
@@ -131,15 +131,21 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
+      interactions: [
+        { type: 'tooltip' },
+        { type: 'element-active' },
+        { type: 'legend-active' },
+        { type: 'legend-filter' },
+      ],
     };
   }
   public type: string;
-  public view: G2.View;
+  public view: View;
   public theme: any;
   public initialOptions: T;
   public title: TextDescription;
   public description: TextDescription;
-  public viewRange: G.BBox;
+  public viewRange: BBox;
   protected paddingController: PaddingController;
   protected stateController: StateController;
   protected themeController: ThemeController;
@@ -184,14 +190,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       coordinate: { type: 'cartesian' },
       geometries: [],
       annotations: [],
-      interactions: [
-        {
-          type: 'tooltip',
-        },
-        {
-          type: 'element-active',
-        },
-      ],
+      interactions: [],
       theme: this.theme,
       panelRange: {},
       animate: true,
@@ -202,7 +201,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.drawTitle();
     this.drawDescription();
-
+    // 有些interaction要调整配置项，所以顺序提前
+    this.interaction();
     this.coord();
     this.scale();
     this.axis();
@@ -210,12 +210,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.legend();
     this.addGeometry();
     this.annotation();
-    this.interaction();
     this.animation();
 
     this.viewRange = this.getViewRange();
     const region = this.viewRangeToRegion(this.viewRange);
-    this.view = new G2.View({
+    this.view = new View({
       parent: null,
       canvas: this.canvas,
       backgroundGroup: this.container.addGroup(),
@@ -295,6 +294,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   // 获取对应的G2 Theme
   public getTheme() {
+    if (!this.theme) {
+      return this.themeController.getTheme(this.options, this.type);
+    }
     return this.theme;
   }
 
@@ -384,6 +386,15 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     deepMix(this.config.theme.tooltip, this.options.tooltip.style);
   }
 
+  protected getLegendPosition(position: string): any {
+    const positionList = position.split('-');
+    // G2 4.0 兼容 XXX-center 到 XXX 的场景
+    if (positionList && positionList.length > 1 && positionList[1] === 'center') {
+      return positionList[0];
+    }
+    return position;
+  }
+
   protected legend(): void {
     if (this.options.legend.visible === false) {
       this.setConfig('legends', false);
@@ -392,7 +403,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const flipOption = get(this.options, 'legend.flipPage');
     const clickable = get(this.options, 'legend.clickable');
     this.setConfig('legends', {
-      position: get(this.options, 'legend.position'),
+      position: this.getLegendPosition(get(this.options, 'legend.position')),
       formatter: get(this.options, 'legend.formatter'),
       offsetX: get(this.options, 'legend.offsetX'),
       offsetY: get(this.options, 'legend.offsetY'),
@@ -419,7 +430,22 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
-  protected interaction() {}
+  protected interaction() {
+    const { interactions = [] } = this.options;
+    each(interactions, (interaction) => {
+      const { type } = interaction;
+      if (type === 'slider' || type === 'scrollbar') {
+        const axisConfig = {
+          label: {
+            autoHide: true,
+            autoRotate: false,
+          },
+        };
+        this.options.xAxis = deepMix({}, this.options.xAxis, axisConfig);
+      }
+      this.setConfig('interaction', interaction);
+    });
+  }
 
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
@@ -494,6 +520,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const theme = this.config.theme;
       const title = new TextDescription({
         leftMargin: range.minX + theme.title.padding[3],
+        rightMargin: range.maxX - theme.title.padding[1],
         topMargin: range.minY + theme.title.padding[0],
         text: props.title.text,
         style: mix(theme.title, props.title.style),
@@ -502,6 +529,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: isTextUsable(props.description) ? 0 : 1,
         plot: this,
+        alignTo: props.title.alignTo,
         name: 'title',
       });
       this.title = title;
@@ -534,6 +562,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const description = new TextDescription({
         leftMargin: range.minX + theme.description.padding[3],
         topMargin,
+        rightMargin: range.maxX - theme.title.padding[1],
         text: props.description.text,
         style: mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
@@ -541,6 +570,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         theme,
         index: 1,
         plot: this,
+        alignTo: props.description.alignTo,
         name: 'description',
       });
       this.description = description;
@@ -573,7 +603,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const layerBBox = this.layerBBox;
     interactions.forEach((interaction) => {
       const Ctor: InteractionCtor | undefined = BaseInteraction.getInteraction(interaction.type, this.type);
-      const range: G.BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
+      const range: BBox | undefined = Ctor && Ctor.getInteractionRange(layerBBox, interaction.cfg);
       let position = '';
       if (range) {
         // 先只考虑 Range 靠边的情况

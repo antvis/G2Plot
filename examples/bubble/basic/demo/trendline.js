@@ -4,10 +4,6 @@ fetch('../data/revenue.json')
   .then((res) => res.json())
   .then((data) => {
     const bubblePlot = new Bubble(document.getElementById('container'), {
-      title: {
-        visible: true,
-        text: '气泡图添加趋势线',
-      },
       data,
       xField: 'Revenue per club[€ m]',
       yField: 'UEFA points*',

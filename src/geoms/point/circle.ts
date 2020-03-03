@@ -1,5 +1,5 @@
-import { LooseObject } from '@antv/g2/lib/interface';
-import { isArray, isFunction, isString } from '@antv/util';
+import { LooseObject } from '../../dependents';
+import { isArray, isFunction, isString, isEmpty } from '@antv/util';
 import ElementParser from '../base';
 
 export default class CircleParser extends ElementParser {
@@ -36,7 +36,9 @@ export default class CircleParser extends ElementParser {
     if (props.color) {
       this._parseColor(props, config);
     }
-    this.config.color = config;
+    if (!isEmpty(config)) {
+      this.config.color = config;
+    }
   }
 
   public parseSize() {
@@ -52,10 +54,7 @@ export default class CircleParser extends ElementParser {
   }
 
   public parseShape(shapeName) {
-    const config: LooseObject = {
-      values: [shapeName],
-    };
-    this.config.shape = config;
+    this.config.shape = shapeName;
   }
 
   public parseStyle() {

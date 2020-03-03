@@ -59,6 +59,7 @@ export type WordStyle = {
   color?: string | ((word: string, weight: number) => string);
 
   active?: Active;
+  animatable?: boolean;
 
   // [min, max] ->  random by steps(each step (max - min) / steps))
   rotation?: [number, number];
@@ -159,8 +160,8 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
             value: item.weight,
           },
         ],
-        x: evt.clientX,
-        y: evt.clientY,
+        x: evt.offsetX,
+        y: evt.offsetY,
       });
       this._toolTips.show();
     } else {
@@ -177,6 +178,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
       parent: this.options.container,
       follow: true,
       inPanel: false, // must be false
+      items: [],
     });
     this._toolTips.init();
   }
@@ -193,7 +195,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   private _handleMaskImage() {
     const image = new Image();
-    image.src = this.options.maskImage;
+    image.src = this.options.maskImage + '?' + new Date().getTime();
     image.crossOrigin = 'Anonymous';
     image.onload = () => {
       if (image.naturalHeight + image.naturalWidth === 0 || image.width + image.height === 0) {
@@ -212,6 +214,11 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   private _start() {
     this._handleG2PlotConfig();
+    const targetCtx = this._targetCanvas.getContext('2d');
+    // it's a trick, because 「g」 use context to scale canvas by pixelRatio,
+    // but here i need scale it back
+    const pixelRatio = this.canvas.get('width') / this.canvas.get('el').width;
+    targetCtx.scale(pixelRatio, pixelRatio);
     WordCloud(this._targetCanvas, this.options);
   }
 
@@ -270,10 +277,6 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
     const targetCtx = this._targetCanvas.getContext('2d');
     targetCtx.drawImage(maskImageCanvas, 0, 0);
-    // it's a trick, because 「g」 use context to scale canvas by pixelRatio,
-    // but here i need scale it back
-    const pixelRatio = this.canvas.get('width') / this.canvas.get('el').width;
-    targetCtx.scale(pixelRatio, pixelRatio);
     this.options = deepMix({}, this.options, { clearCanvas: false });
 
     this._start();

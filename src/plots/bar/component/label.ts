@@ -1,12 +1,11 @@
 import { each, deepMix, clone } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;
 
 export interface BarLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   position?: string;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
@@ -26,7 +25,7 @@ export default class BarLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
-  protected container: Group;
+  protected container: IGroup;
 
   constructor(cfg: IBarLabel) {
     this.view = cfg.view;
@@ -67,6 +66,7 @@ export default class BarLabel {
           textAlign,
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
       this.adjustLabel(label, shape);
     });

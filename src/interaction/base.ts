@@ -1,6 +1,6 @@
-import { ICanvas } from '@antv/g-base';
+import { View } from '../dependents';
 import BBox from '../util/bbox';
-import { Interaction, View } from '@antv/g2';
+import Interaction from './core';
 import ViewLayer from '../base/view-layer';
 import { IInteractionConfig } from '../interface/config';
 
@@ -44,8 +44,8 @@ export default abstract class BaseInteraction extends Interaction {
   private static GLOBAL_INTERACTION_MAP: InteractionMap = {};
   private static PLOT_INTERACTION_MAP: { [plot: string]: InteractionMap } = {};
 
+  public type: string;
   public cfg: any;
-  protected canvas: ICanvas;
   private interactionConfig: IInteractionConfig;
   private interactionRange: BBox;
   private viewLayer: ViewLayer<any>;
@@ -56,8 +56,7 @@ export default abstract class BaseInteraction extends Interaction {
     interactionRange?: BBox,
     interaction?: IInteractionConfig
   ) {
-    super(cfg.view, cfg);
-    this.canvas = cfg.view.canvas;
+    super(cfg);
     this.viewLayer = viewLayer;
     this.interactionRange = interactionRange;
     this.interactionConfig = interaction;

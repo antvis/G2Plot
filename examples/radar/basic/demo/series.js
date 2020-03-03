@@ -104,14 +104,17 @@ const data = [
 ];
 
 const radarPlot = new Radar(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '多组雷达图',
-  },
   data,
   angleField: 'item',
   radiusField: 'score',
   seriesField: 'user',
+  radiusAxis: {
+    grid: {
+      line: {
+        type: 'line',
+      },
+    },
+  },
   line: {
     visible: true,
   },

@@ -1,6 +1,5 @@
 import { each, deepMix, clone, find } from '@antv/util';
-import { IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup, Geometry } from '../../../dependents';
 import { rgb2arr } from '../../../util/color';
 
 const DEFAULT_OFFSET = 8;
@@ -89,6 +88,7 @@ export default class RangeBarLabel {
             textAlign: textAlign[i],
             textBaseline: 'middle',
           }),
+          name: 'label',
         });
         labels.push(label);
         this.doAnimation(label);
@@ -239,6 +239,6 @@ export default class RangeBarLabel {
   }
 
   private getGeometry() {
-    return find(this.view.geometries, (geom) => geom.type === 'interval');
+    return find(this.view.geometries, (geom) => geom.type === 'interval') as Geometry;
   }
 }

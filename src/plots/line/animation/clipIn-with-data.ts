@@ -1,4 +1,4 @@
-import { registerAnimation } from '@antv/g2';
+import { registerAnimation } from '../../../dependents';
 import { clone, isFunction } from '@antv/util';
 
 let plotInfo;

@@ -1,10 +1,9 @@
-import { IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import { View, IGroup } from '../../../dependents';
 import { clone, deepMix, each } from '@antv/util';
 import { mappingColor, rgb2arr } from '../../../util/color';
 
 export interface ColumnLabelConfig {
-  visible: boolean;
+  visible?: boolean;
   position?: string;
   formatter?: (...args: any[]) => string;
   offsetX?: number;
@@ -66,6 +65,7 @@ export default class ColumnLabel {
           textAlign,
           textBaseline,
         }),
+        name: 'label',
       });
       this.adjustLabel(label, shape);
     });

@@ -4,17 +4,12 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IStyleConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import BarLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
-
-interface BarStyle {
-  opacity?: number;
-  lineDash?: number[];
-}
 
 const G2_GEOM_MAP = {
   bar: 'interval',
@@ -30,7 +25,7 @@ export interface BarViewConfig extends ViewConfig {
   barSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  barStyle?: BarStyle | ((...args: any[]) => BarStyle);
+  barStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
@@ -96,6 +91,13 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         visible: false,
         position: 'top-left',
       },
+      interactions: [
+        { type: 'tooltip' },
+        { type: 'element-active' },
+        { type: 'active-region' },
+        { type: 'legend-active' },
+        { type: 'legend-filter' },
+      ],
     };
     return deepMix({}, super.getDefaultOptions(), cfg);
   }
@@ -153,10 +155,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   protected coord() {
-    const coordConfig = {
+    this.setConfig('coordinate', {
       actions: [['transpose']],
-    };
-    this.setConfig('coordinate', coordConfig);
+    });
   }
 
   protected axis(): void {
@@ -169,8 +170,12 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       dim: 'y',
     });
     /** 转置坐标系特殊配置 */
-    xAxis_parser.position = 'left';
-    yAxis_parser.position = 'bottom';
+    if (xAxis_parser) {
+      xAxis_parser.position = 'left';
+    }
+    if (yAxis_parser) {
+      yAxis_parser.position = 'bottom';
+    }
     const axesConfig = {};
     axesConfig[this.options.xField] = xAxis_parser;
     axesConfig[this.options.yField] = yAxis_parser;
@@ -198,10 +203,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       /** 关闭动画 */
       this.bar.animate = false;
     }
-  }
-
-  protected interaction() {
-    this.setConfig('interaction', { type: 'active-region' });
   }
 
   protected parseEvents(eventParser) {

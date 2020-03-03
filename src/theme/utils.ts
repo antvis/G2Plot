@@ -44,24 +44,5 @@ export function convertToG2Theme(plotTheme: any): any {
   if (!g2Theme.legend) {
     g2Theme.legend = {};
   }
-  // g2Theme.legend.margin = [0, 0, 0, 0];
-  // if (g2Theme.axis) {
-  //   if (g2Theme.axis.x) {
-  //     convertToG2Axis(g2Theme.axis.x);
-  //     g2Theme.axis.bottom = {};
-  //     deepMix(g2Theme.axis.bottom, g2Theme.axis.x, { position: 'bottom' });
-  //     g2Theme.axis.top = {};
-  //     deepMix(g2Theme.axis.top, g2Theme.axis.x, { position: 'top' });
-  //     delete g2Theme.axis.x;
-  //   }
-  //   if (g2Theme.axis.y) {
-  //     convertToG2Axis(g2Theme.axis.y);
-  //     g2Theme.axis.left = {};
-  //     deepMix(g2Theme.axis.left, g2Theme.axis.y, { position: 'left' });
-  //     g2Theme.axis.right = {};
-  //     deepMix(g2Theme.axis.right, g2Theme.axis.y, { position: 'right' });
-  //     delete g2Theme.axis.y;
-  //   }
-  // }
   return g2Theme;
 }

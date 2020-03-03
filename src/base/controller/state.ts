@@ -1,7 +1,7 @@
 /**
  * stateManager负责stateManager的创建/绑定，对状态量更新的响应
  */
-import { IGroup, IShape } from '@antv/g-canvas';
+import { IGroup, IShape } from '../../dependents';
 import { isFunction, assign, each, isArray, mix, clone } from '@antv/util';
 import { getComponentStateMethod } from '../../components/factory';
 import { onEvent } from '../../util/event';

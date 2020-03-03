@@ -41,9 +41,11 @@ const data = [
 
 const columnPlot = new g2plot.Column(document.getElementById('canvas'), {
   title: {
+    visible: true,
     text: '图表标题及描述',
   },
   description: {
+    visible: true,
     text: '这是一个关于配置图表标题和描述文本内容的demo',
   },
   padding: 'auto',

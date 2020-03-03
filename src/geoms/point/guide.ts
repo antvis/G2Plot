@@ -1,4 +1,4 @@
-import { LooseObject } from '@antv/g2/lib/interface';
+import { LooseObject } from '../../dependents';
 import { each, uniq, keys, isFunction, isString, isArray, has, get } from '@antv/util';
 import ElementParser from '../base';
 
@@ -25,6 +25,7 @@ export default class GuidePointParser extends ElementParser {
       position: {
         fields: [props.xField, props.yField],
       },
+      tooltip: false,
     };
     // if (this._needParseAttribute('color')) {
     this.parseColor();

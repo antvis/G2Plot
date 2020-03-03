@@ -1,11 +1,11 @@
-import { IShape, BBox } from '@antv/g-canvas';
+import { IShape, BBox } from '../../../../dependents';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getOverlapArea, near } from './utils';
 
 // 默认label和element的偏移 16px
 export const DEFAULT_OFFSET = 16;
 
-export default class PieOuterLabel extends PieBaseLabel {
+export default class PieOuterCenterLabel extends PieBaseLabel {
   /** @override 不能大于0 */
   protected adjustOption(options: PieLabelConfig) {
     super.adjustOption(options);
@@ -28,17 +28,25 @@ export default class PieOuterLabel extends PieBaseLabel {
     };
   }
 
+  protected adjustItem(item: LabelItem): void {
+    const offset = this.options.offset;
+    if (item.textAlign === 'left') {
+      item.x += offset > 4 ? 4 : offset / 2;
+    } else if (item.textAlign === 'right') {
+      item.x -= offset > 4 ? 4 : offset / 2;
+    }
+  }
+
   /** label 碰撞调整 */
-  protected layout(labels: IShape[]) {
-    this.adjustOverlap(labels);
+  protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {
+    this.adjustOverlap(labels, panel);
   }
 
   /** 处理标签遮挡问题 */
-  protected adjustOverlap(labels: IShape[]): void {
+  protected adjustOverlap(labels: IShape[], panel: BBox): void {
     if (this.options.allowOverlap) {
       return;
     }
-    const panel = this.plot.view.coordinateBBox;
     // clearOverlap;
     for (let i = 1; i < labels.length; i++) {
       const label = labels[i];
@@ -49,10 +57,10 @@ export default class PieOuterLabel extends PieBaseLabel {
         const prevBox = prev.getBBox();
         const currBox = label.getBBox();
         // if the previous one is invisible, skip
-        if (prev.get('visible')) {
+        if (prev.get('parent').get('visible')) {
           overlapArea = getOverlapArea(prevBox, currBox);
           if (!near(overlapArea, 0)) {
-            label.set('visible', false);
+            label.get('parent').set('visible', false);
             break;
           }
         }
@@ -68,7 +76,7 @@ export default class PieOuterLabel extends PieBaseLabel {
     const box = label.getBBox();
     //  横向溢出 暂不隐藏
     if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
-      label.set('visible', false);
+      label.get('parent').set('visible', false);
     }
   }
 }

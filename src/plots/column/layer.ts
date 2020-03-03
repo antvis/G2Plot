@@ -2,20 +2,14 @@ import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, IStyleConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import ColumnLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
-
-interface ColumnStyle {
-  opacity?: number;
-  lineDash?: number[];
-}
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -33,7 +27,7 @@ export interface ColumnViewConfig extends ViewConfig {
   columnSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  columnStyle?: ColumnStyle | ((...args: any[]) => ColumnStyle);
+  columnStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
@@ -79,6 +73,13 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         visible: true,
         position: 'top-left',
       },
+      interactions: [
+        { type: 'tooltip' },
+        { type: 'element-active' },
+        { type: 'active-region' },
+        { type: 'legend-active' },
+        { type: 'legend-filter' },
+      ],
     });
   }
   public column: any;
@@ -174,10 +175,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       });
       label.render();
     }
-  }
-
-  protected interaction() {
-    this.setConfig('interaction', { type: 'active-region' });
   }
 
   private applyResponsive(stage) {

@@ -1,6 +1,5 @@
-import { IGroup } from '@antv/g-base';
+import { IGroup, Scrollbar } from '../dependents';
 import BBox from '../util/bbox';
-import { Scrollbar } from '@antv/component';
 import { Scale } from '@antv/scale';
 import { clamp, get, isEqual, map, throttle } from '@antv/util';
 import ViewLayer from '../base/view-layer';
@@ -112,13 +111,13 @@ export default class ScrollbarInteraction extends BaseInteraction {
 
   private renderScrollbar(): void {
     const config: Required<IScrollbarInteractionConfig> = getValidScrollbarConfig(this.getInteractionConfig());
-    const range: BBox = this.getRange();
+    const range = this.getRange();
     const isHorizontal = config.type !== 'vertical';
     const panelRange = this.view.coordinateBBox;
     const [paddingTop, , , paddingLeft] = config.padding;
     const position = isHorizontal
-      ? { x: panelRange.minX + paddingLeft, y: range.tl.y + paddingTop }
-      : { x: range.tl.x + paddingLeft, y: panelRange.minY + paddingTop };
+      ? { x: panelRange.minX + paddingLeft, y: range.minY + paddingTop }
+      : { x: range.minX + paddingLeft, y: panelRange.minY + paddingTop };
 
     if (!this.scrollBar) {
       this.container = this.canvas.addGroup();

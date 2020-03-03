@@ -340,7 +340,7 @@ export default class SpiderLabel {
     const drawnLabels = [];
     half.forEach((label) => {
       const textGroup = this._drawLabel(label);
-      this._drawLabelLine(label, maxLabelWidth);
+      this._drawLabelLine(label, maxLabelWidth, textGroup);
       drawnLabels.push(textGroup);
     });
   }
@@ -377,7 +377,7 @@ export default class SpiderLabel {
     return textGroup;
   }
 
-  private _drawLabelLine(label: LabelData, maxLabelWidth): IShape {
+  private _drawLabelLine(label: LabelData, maxLabelWidth, container: IGroup): IShape {
     const _anchor = [label._anchor.x, label._anchor.y];
     const _inflection = [label._inflection.x, label._inflection.y];
     const { fill, y, textGroup } = label;
@@ -417,7 +417,7 @@ export default class SpiderLabel {
       }
       path.push([starter, p[0], p[1]]);
     }
-    this.container.addShape('path', {
+    container.addShape('path', {
       attrs: {
         path,
         lineWidth: this.options.line.lineWidth,
@@ -426,7 +426,7 @@ export default class SpiderLabel {
     });
 
     // 绘制锚点
-    // this.container.addShape('circle', {
+    // container.addShape('circle', {
     //   attrs: {
     //     x: _anchor[0],
     //     y: _anchor[1],

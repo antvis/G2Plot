@@ -77,7 +77,7 @@ export default class EventController {
     const eventObj = this.getEventObj(ev);
     const target: any = ev.target;
     // 判断是否拾取到view以外的shape
-    if (target.isShape && !this.isShapeInView(target) && target.name) {
+    if (!this.isShapeInView(target) && target.name) {
       this.plot.emit(`${target.name}:${ev.type}`, ev);
     }
     this.plot.emit(`${ev.type}`, eventObj);
@@ -92,7 +92,7 @@ export default class EventController {
     const target: any = ev.target;
     const eventObj = this.getEventObj(ev);
     // shape的mouseenter, mouseleave和mousemove事件
-    if (target.isShape && !this.isShapeInView(target) && target.name) {
+    if (!this.isShapeInView(target) && target.name) {
       this.plot.emit(`${target.name}:${ev.type}`, eventObj);
       // mouseleave & mouseenter
       if (this.lastShape && !isSameShape(target, this.lastShape)) {

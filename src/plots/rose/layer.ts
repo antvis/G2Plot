@@ -192,7 +192,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       return [
         {
           type: 'dodge',
-          marginRatio: 0,
+          marginRatio: 0.7,
         },
       ];
     }

@@ -5,10 +5,10 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
-import './geometry/shape/liquid';
-import './animation/liquid-move-in';
 import { DataItem } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
+import './geometry/shape/liquid';
+import './animation/liquid-move-in';
 
 const G2_GEOM_MAP = {
   column: 'interval',

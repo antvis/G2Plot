@@ -58,6 +58,7 @@ export default class MatrixLabel {
           textAlign: 'center',
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
       if (this.options.adjustPosition) {
         this.adjustLabel(label, shape);

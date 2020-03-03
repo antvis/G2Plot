@@ -2,12 +2,12 @@ import { registerTheme } from '../../theme';
 
 const PIE_ACTIVE_STYLE = (style) => {
   const opacity = style.opacity || 1;
-  return { opacity: opacity * 0.5 };
+  return { fillOpacity: opacity * 0.8 };
 };
 
 const PIE_DISABLE_STYLE = (style) => {
   const opacity = style.opacity || 1;
-  return { opacity: opacity * 0.5 };
+  return { fillOpacity: opacity * 0.5 };
 };
 
 registerTheme('pie', {

@@ -4,11 +4,9 @@ import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import MatrixLegend, { MatrixLegendConfig } from './component/legend';
+import { MatrixLegendConfig } from './component/legend';
 import { getRectPath, getCirclePath, getCircleCurve } from './shape';
-import MatrixLabel from './component/label';
 import { getPlotComponents } from './component';
-// import './component/label';
 
 export interface MatrixViewConfig extends ViewConfig {
   sizeField?: string;
@@ -126,6 +124,13 @@ export default class MatrixLayer<T extends MatrixLayerConfig = MatrixLayerConfig
     } else if (this.options.shapeType === 'circle') {
       this.circleDisableSizeMapping(shapes);
     }
+  }
+
+  public destroy() {
+    each(this.plotComponents, (component) => {
+      component.destroy();
+    });
+    super.destroy();
   }
 
   protected geometryParser() {

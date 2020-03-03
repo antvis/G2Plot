@@ -11,14 +11,10 @@ const BULLET_DISABLE_STYLE = (style) => {
 };
 
 registerTheme('bullet', {
-  geometries: {
-    interval: {
-      rect: {
-        default: {},
-        active: { style: BULLET_ACTIVE_STYLE },
-        disable: { style: BULLET_DISABLE_STYLE },
-        selected: {},
-      },
-    },
+  columnStyle: {
+    normal: {},
+    active: BULLET_ACTIVE_STYLE,
+    disable: BULLET_DISABLE_STYLE,
+    selected: {},
   },
 });

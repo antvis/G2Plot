@@ -1,5 +1,5 @@
 import { modifyCSS } from '@antv/dom-util';
-import { Canvas, ICanvas } from '../../dependents';
+import { Canvas, SVG, ICanvas } from '../../dependents';
 import { debounce, get } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
@@ -10,6 +10,8 @@ export interface CanvasControllerCfg {
   readonly containerDOM: HTMLElement;
   readonly plot: BasePlot;
 }
+
+type ICanvasCtor = new (...cfg: any) => ICanvas;
 
 /**
  * Canvas controller
@@ -156,7 +158,10 @@ export default class CanvasController {
     /** 创建canvas */
     const { renderer = 'canvas', pixelRatio } = this.plot;
     const { width, height } = this.getCanvasSize();
-    this.canvas = new Canvas({
+
+    const G: ICanvasCtor = renderer === 'canvas' ? Canvas : SVG;
+
+    this.canvas = new G({
       container: this.containerDOM,
       width,
       height,

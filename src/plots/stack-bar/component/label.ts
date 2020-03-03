@@ -1,4 +1,4 @@
-import { each, deepMix, clone } from '@antv/util';
+import { clone } from '@antv/util';
 import BarLabel from '../../bar/component/label';
 
 const DEFAULT_OFFSET = 8;

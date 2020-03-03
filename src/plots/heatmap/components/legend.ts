@@ -1,5 +1,5 @@
 import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
-import { View, Group } from '../../../dependents';
+import { View, IGroup } from '../../../dependents';
 import BBox from '../../../util/bbox';
 
 const LABEL_MARGIN = 4;
@@ -26,7 +26,7 @@ export interface IHeatmapLegend extends HeatmapLegendConfig {
 
 export default class HeatmapLegend {
   public options: IHeatmapLegend;
-  public container: Group;
+  public container: IGroup;
   public afterRender: boolean;
   public destroyed: boolean = false;
   protected view: View;
@@ -105,7 +105,7 @@ export default class HeatmapLegend {
   protected renderVertical(min, max, colors) {
     const gridWidth = this.width;
     const gridHeight = this.height / colors.length;
-    const gridLineContainer = new Group({});
+    const gridLineContainer = this.container.addGroup();
     const gridColors = clone(colors).reverse();
     const valueStep = (max - min) / colors.length;
     // 绘制色彩格子
@@ -123,7 +123,7 @@ export default class HeatmapLegend {
           opacity: ACTIVE_OPACITY,
           cursor: 'pointer',
         },
-        name: 'grid',
+        name: 'legend',
       });
       rect.set('info', appendInfo);
       const dataSlide = this.getDataSlide(appendInfo);
@@ -148,6 +148,7 @@ export default class HeatmapLegend {
         textBaseline: 'bottom',
         ...this.options.text.style,
       },
+      name: 'legend-label',
     });
     const textMin = this.container.addShape('text', {
       attrs: {
@@ -157,6 +158,7 @@ export default class HeatmapLegend {
         textAlign: 'center',
         textBaseline: 'top',
         ...this.options.text.style,
+        name: 'legend-label',
       },
     });
     // 绘制包围线
@@ -172,13 +174,12 @@ export default class HeatmapLegend {
         ...this.options.gridlineStyle,
       },
     });
-    this.container.add(gridLineContainer);
   }
 
   protected renderHorizontal(min, max, colors) {
     const gridWidth = this.width / colors.length;
     const gridHeight = this.height;
-    const gridLineContainer = new Group({});
+    const gridLineContainer = this.container.addGroup();
     const valueStep = (max - min) / colors.length;
     // 绘制色彩格子
     each(colors, (c, i) => {
@@ -195,7 +196,7 @@ export default class HeatmapLegend {
           opacity: 0.8,
           cursor: 'pointer',
         },
-        name: 'grid',
+        name: 'legend',
       });
       rect.set('info', appendInfo);
       const line = gridLineContainer.addShape('path', {
@@ -218,6 +219,7 @@ export default class HeatmapLegend {
         textAlign: 'right',
         textBaseline: 'middle',
       },
+      name: 'legend-label',
     });
     this.container.addShape('text', {
       attrs: {
@@ -228,6 +230,7 @@ export default class HeatmapLegend {
         textBaseline: 'middle',
         ...this.options.text.style,
       },
+      name: 'legend-label',
     });
     // 绘制包围线
     gridLineContainer.addShape('path', {
@@ -242,7 +245,6 @@ export default class HeatmapLegend {
         ...this.options.gridlineStyle,
       },
     });
-    this.container.add(gridLineContainer);
   }
 
   protected getLayout() {

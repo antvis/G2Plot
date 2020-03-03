@@ -187,8 +187,8 @@ describe('matrix plot', () => {
     matrixPlot.render();
     const view = matrixPlot.getView();
     const sizeValues = view.geometries[0].getAttribute('size').values;
-    expect(sizeValues[0]).toBe(0.3525188866867905);
-    expect(sizeValues[1]).toBe(1.0465116279069768);
+    expect(sizeValues[0].toFixed(2)).toBe((0.3525188866867905).toFixed(2));
+    expect(sizeValues[1].toFixed(2)).toBe((1.0465116279069768).toFixed(2));
     matrixPlot.destroy();
   });
 

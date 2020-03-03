@@ -117,7 +117,7 @@ const columnPlot = new PercentageStackColumn(document.getElementById('container'
   data,
   xField: 'year',
   yField: 'value',
-  groupField: 'country',
+  stackField: 'country',
 });
 
 columnPlot.render();

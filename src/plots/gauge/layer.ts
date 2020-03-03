@@ -16,6 +16,9 @@ interface GaugeStyle {
   borderWidth?: number;
   size?: number;
   tickLabelOffset?: number[];
+  colors?: string[];
+  tickLabelSize?: number;
+  pointerColor?: string;
 }
 
 const GAP = 1;
@@ -30,10 +33,10 @@ export interface GaugeViewConfig extends ViewConfig {
   showValue?: boolean;
   format?: (...args: any[]) => string;
   gaugeStyle?: GaugeStyle;
-  range: number[];
+  range?: number[];
   styleMix?: any;
   valueText?: string;
-  statistic: any; // todo: 指标卡类型定义
+  statistic?: any; // todo: 指标卡类型定义
 }
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}

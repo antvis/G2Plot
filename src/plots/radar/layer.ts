@@ -12,6 +12,7 @@ import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import { PointStyle, LineStyle } from '../line/layer';
 import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+import './theme';
 
 interface FillStyle {
   fill?: string;
@@ -280,10 +281,13 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     if (props.label.visible === false) {
       if (this.point) {
         this.point.label = false;
-      } else if (this.line) {
+      }
+      if (this.line) {
         this.line.label = false;
       }
-      this.area.label = false;
+      if (this.area) {
+        this.area.label = false;
+      }
       return;
     }
 
@@ -292,6 +296,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       fields: [props.radiusField],
       cfg: {
         type: 'polar',
+        autoRotate: false,
       },
       plot: this,
     });
@@ -300,8 +305,9 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       this.point.label = label;
     } else if (this.line) {
       this.line.label = label;
+    } else if (this.area) {
+      this.area.label = label;
     }
-    this.area.label = label;
   }
 
   protected annotation() {}

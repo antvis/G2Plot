@@ -233,6 +233,7 @@ areaPlot.render();
 
 默认配置： 
 
+
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | stroke | string | 折线颜色 |
@@ -318,6 +319,31 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
+默认配置：
+
+```js
+visible: true,
+autoHideLabel: false,
+autoRotateLabel: false,
+autoRotateTitle: false,
+grid: {
+    visible: false,
+},
+line: {
+    visible: true
+},
+tickLine: {
+     visible: true,
+},
+label: {
+    visible: true,
+},
+title: {
+    visible: false,
+    offset: 12,
+},
+```
+
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
@@ -334,6 +360,30 @@ style:{
 **可选**, *object*
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
+
+默认配置： 
+```js
+visible: true,
+autoHideLabel: false,
+autoRotateLabel: false,
+autoRotateTitle: true,
+grid: {
+    visible: true,
+},
+line: {
+    visible: false,
+},
+tickLine: {
+    visible: false,
+},
+label: {
+    visible: true,
+},
+title: {
+    visible: false,
+    offset: 12,
+},
+```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
@@ -353,6 +403,12 @@ style:{
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
+默认配置：
+```js
+visible: true,
+position: 'bottom',
+```
+
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
@@ -366,6 +422,15 @@ style:{
 **可选**, *object*
 
 功能描述：信息提示框
+
+默认配置：
+```js
+visible: true,
+shared: true,
+showCrosshairs: true,
+crosshairs: 'y',
+offset: 20,
+```
 
 | 细分属性 | 类型 | 功能描述 |
 | --- | --- | --- |
@@ -389,6 +454,19 @@ htmlContent: (title, items) => {
 ### label
 
 功能描述： 标签文本
+
+默认配置：
+```js
+visible: false
+type:'point'
+offsetX: 6
+offsetY: 6
+style:{
+  fill: 'rgba(0, 0, 0, 0.65)',
+  stroke: '#ffffff',
+  lineWidth: 2,
+}
+```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |

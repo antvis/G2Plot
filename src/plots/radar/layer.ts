@@ -300,7 +300,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       plot: this,
     });
-    
+
     if (this.point) {
       this.point.label = label;
     } else if (this.line) {

@@ -82,7 +82,7 @@ export default class AxisParser {
         return {
           line: {
             type,
-            style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg)
+            style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg),
           },
           alternateColor,
         };
@@ -91,9 +91,9 @@ export default class AxisParser {
       this.config.grid = {
         line: {
           type,
-          style
+          style,
         },
-        alternateColor
+        alternateColor,
       };
       this.applyThemeConfig('grid');
     }

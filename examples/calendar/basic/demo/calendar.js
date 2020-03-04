@@ -4,14 +4,14 @@ fetch('../data/contributions.json')
   .then((res) => res.json())
   .then((data) => {
     const calendar = new Calendar(document.getElementById('container'), {
-      // title: {
-      //   visible: true,
-      //   text: 'GitHub contribution',
-      // },
-      // description: {
-      //   visible: true,
-      //   text: '853 contributions in the last year.',
-      // },
+      title: {
+        visible: true,
+        text: 'GitHub contribution',
+      },
+      description: {
+        visible: true,
+        text: '853 contributions in the last year.',
+      },
       width: 650,
       height: 250,
       data,
@@ -27,6 +27,9 @@ fetch('../data/contributions.json')
       },
       yAxis: {
         title: null,
+      },
+      label: {
+        visible: true,
       },
     });
 

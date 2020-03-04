@@ -1,11 +1,12 @@
 import * as _ from '@antv/util';
 import fecha from 'fecha';
-import { DataItem, LayerConfig, ViewConfig } from '../..';
+import { DataItem, Label, LayerConfig, ViewConfig } from '../..';
 import ViewLayer from '../../base/view-layer';
 import { DAY_FIELD, FORMATTER, MONTHS, WEEK_FIELD, WEEKS } from './constant';
 import { generateCalendarData, getMonthCenterWeek } from './util';
 import { registerPlotType } from '../../base/global';
 import { getDateRange } from '../../util/date';
+import { getComponent } from '../../components/factory';
 
 /** 日历图配置定义 */
 export interface CalendarViewConfig extends ViewConfig {
@@ -88,9 +89,27 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
         fields: [valueField],
         values: colors,
       },
+      label: this.extractLabel()
     };
 
     this.setConfig('geometry', polygonConfig);
+  }
+
+  private extractLabel() {
+    const props = this.options;
+    const label = props.label;
+    if (label && label.visible === false) {
+      return false;
+    }
+    const { valueField } = this.options;
+
+    return getComponent('label', {
+      plot: this,
+      fields: [valueField],
+      position: 'top',
+      offset: 0,
+      ...label,
+    });
   }
 
   /**

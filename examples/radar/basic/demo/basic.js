@@ -43,6 +43,10 @@ const data = [
   },
 ];
 const radarPlot = new Radar(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '基础雷达图',
+  },
   data,
   angleField: 'item',
   radiusField: 'score',

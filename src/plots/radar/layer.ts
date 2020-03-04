@@ -12,6 +12,7 @@ import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import { PointStyle, LineStyle } from '../line/layer';
 import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+import './theme';
 
 interface FillStyle {
   fill?: string;
@@ -120,7 +121,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
         label: {
           visible: true,
-          offset: 8,
+          offset: 16,
         },
         title: {
           visible: false,
@@ -269,9 +270,45 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       this.setConfig('geometry', point);
       this.point = point;
     }
+    if (props.label) {
+      this.label();
+    }
   }
 
-  protected label() {}
+  protected label() {
+    const props = this.options;
+
+    if (props.label.visible === false) {
+      if (this.point) {
+        this.point.label = false;
+      }
+      if (this.line) {
+        this.line.label = false;
+      }
+      if (this.area) {
+        this.area.label = false;
+      }
+      return;
+    }
+
+    // @Todo 雷达图标签布局算法后续补充
+    const label = getComponent('label', {
+      fields: [props.radiusField],
+      cfg: {
+        type: 'polar',
+        autoRotate: false,
+      },
+      plot: this,
+    });
+
+    if (this.point) {
+      this.point.label = label;
+    } else if (this.line) {
+      this.line.label = label;
+    } else if (this.area) {
+      this.area.label = label;
+    }
+  }
 
   protected annotation() {}
 

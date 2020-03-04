@@ -54,6 +54,9 @@ const radarPlot = new g2plot.Radar(document.getElementById('canvas'), {
       alternateColor: ['#ccc', null],
     },
   },
+  label: {
+    visible: true,
+  },
 });
 radarPlot.render();
 

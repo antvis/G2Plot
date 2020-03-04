@@ -124,7 +124,7 @@ describe('Column plot', () => {
     expect(view.destroyed).toBe(true);
   });
 
-  // 需要支持吗？
+  // 需要支持吗？  还是支持吧！
   it.skip('柱子颜色不一样', () => {
     const columnPlot = new Column(canvasDiv, {
       width: 600,

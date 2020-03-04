@@ -23,11 +23,11 @@ fetch('../data/contributions.json')
       xAxis: {
         title: {
           text: '月份',
-        }
+        },
       },
       yAxis: {
-        title: null
-      }
+        title: null,
+      },
     });
 
     calendar.render();

@@ -40,12 +40,12 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
         [DAY_FIELD]: {
           type: 'cat',
           alias: 'Day',
-          values: [ 0, 1, 2, 3, 4, 5, 6 ]
+          values: [0, 1, 2, 3, 4, 5, 6],
         },
         [WEEK_FIELD]: {
           type: 'cat',
           alias: 'Month',
-        }
+        },
       },
       tooltip: {
         visible: true,
@@ -146,7 +146,6 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
     const { xAxis, yAxis } = this.options;
     x.alias = _.get(xAxis, ['title', 'text'], x.alias);
     y.alias = _.get(yAxis, ['title', 'text'], y.alias);
-
 
     this.setConfig('scales', scales);
   }

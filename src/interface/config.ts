@@ -236,17 +236,6 @@ export interface StateConfig {
   related?: string[];
 }
 
-export interface SliderConfig {
-  visible?: boolean;
-  start?: number;
-  end?: number;
-  foregroundColor?: string;
-  backgroundColor?: string;
-  height?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
-}
-
 export interface ISliderInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
   type?: 'horizontal' | 'vertical';
@@ -256,14 +245,31 @@ export interface ISliderInteractionConfig {
   height?: number;
   /** 可选 padding */
   padding?: [number, number, number, number];
-  /** 前景框颜色  */
-  foregroundColor?: string;
-  /** 背景框颜色 */
-  backgroundColor?: string;
   /** 默认开始位置, 0~1 */
   start?: number;
   /** 默认结束位置, 0~1 */
   end?: number;
+  /** 背景框样式配置 */
+  backgroundStyle?: ShapeAttrs;
+  /** 前景框样式配置 */
+  foregroundStyle?: ShapeAttrs;
+  /** 滑块样式配置 */
+  handlerStyle?: ShapeAttrs;
+  /** 文本样式配置 */
+  textStyle?: ShapeAttrs;
+  /** slider 趋势图配置  */
+  trendCfg?: {
+    /** 是否使用 smooth 折线 */
+    smooth?: boolean;
+    /** 是否使用面积图 */
+    isArea?: boolean;
+    /** 背景样式配置 */
+    backgroundStyle?: ShapeAttrs;
+    /** 折线样式配置 */
+    lineStyle?: ShapeAttrs;
+    /** 面积图样式配置 */
+    areaStyle?: ShapeAttrs;
+  };
 }
 
 export interface IScrollbarInteractionConfig {

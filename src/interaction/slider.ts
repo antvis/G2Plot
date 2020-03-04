@@ -17,8 +17,11 @@ const getValidSliderConfig = (cfg: ISliderInteractionConfig = {}): Required<ISli
     width: undefined,
     height: undefined,
     padding: [0, 0, 0, 0],
-    backgroundColor: undefined,
-    foregroundColor: undefined,
+    backgroundStyle: undefined,
+    foregroundStyle: undefined,
+    handlerStyle: undefined,
+    textStyle: undefined,
+    trendCfg: undefined,
     ...cfg,
   };
 
@@ -135,7 +138,8 @@ export default class SliderInteraction extends BaseInteraction {
     const panelRange = view.coordinateBBox;
     const range = this.getRange();
     const config: ISliderInteractionConfig | null = getValidSliderConfig(this.getInteractionConfig());
-    const { padding = [0, 0, 0, 0], foregroundColor, backgroundColor } = config || {};
+    const { padding = [0, 0, 0, 0], backgroundStyle, foregroundStyle, handlerStyle, textStyle, trendCfg = {} } =
+      config || {};
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const { minText, maxText } = this.getSliderMinMaxText(this.curStart, this.curEnd);
     const cfg: any = {
@@ -147,18 +151,17 @@ export default class SliderInteraction extends BaseInteraction {
       end: this.curEnd,
       minText,
       maxText,
+      backgroundStyle,
+      foregroundStyle,
+      handlerStyle,
+      textStyle,
       trendCfg: {
-        data: this.getSliderTrendData(),
         isArea: false,
         smooth: false,
+        ...trendCfg,
+        data: this.getSliderTrendData(),
       },
     };
-    if (foregroundColor) {
-      cfg.foregroundStyle = { fill: foregroundColor };
-    }
-    if (backgroundColor) {
-      cfg.backgroundStyle = { fill: backgroundColor };
-    }
 
     return cfg;
   }

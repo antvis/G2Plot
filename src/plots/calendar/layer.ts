@@ -51,6 +51,8 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
       tooltip: {
         visible: true,
         showTitle: true,
+        showCrosshairs: false,
+        showMarkers: false,
         title: 'date',
       },
     });
@@ -89,7 +91,7 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
         fields: [valueField],
         values: colors,
       },
-      label: this.extractLabel()
+      label: this.extractLabel(),
     };
 
     this.setConfig('geometry', polygonConfig);

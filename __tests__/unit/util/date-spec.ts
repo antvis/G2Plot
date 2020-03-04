@@ -38,7 +38,6 @@ describe('date util', () => {
 
   it('getWeek', () => {
     expect(getWeek(new Date('2020-02-07'))).toBe(6);
-    expect(getWeek(new Date('2020-02-08'))).toBe(7);
     expect(getWeek(new Date('2020-02-09'))).toBe(7);
     expect(getWeek(new Date('2020-02-10'))).toBe(7);
   });

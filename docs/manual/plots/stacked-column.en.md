@@ -1,40 +1,34 @@
 ---
-title: Grouped-Column 分组柱状图
-order: 5
+title: Stacked-Column 堆叠柱状图
+order: 4
 ---
 
- <div data-card-type="block" data-lake-card="table" id="pLwYV" class="lake-card-embed-toolbar-active lake-activated">
+ <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 735px; outline: none; border-collapse: collapse;">
       <colgroup>
         <col width="395" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
-        <tr>
-          <td colspan="1" style="text-align: start; vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); font-weight: 400; min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;" rowspan="5">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7uUVSInHYScAAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7uUVSInHYScAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-02 下午2.51.04.png" title="屏幕快照 2020-03-02 下午2.51.04.png" style="border: none; box-shadow: none; width: 372px; height: 418px; visibility: visible;"></span></p>
-          </td>
-          <td colspan="1" style="text-align: start; vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); font-weight: 400; min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">别名</span></strong><br></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">簇状柱状图</span></p>
-          </td>
-        </tr>
         <tr style="height: 33px;">
+          <td rowspan="4" colspan="1" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j9waT6P2r9AAAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j9waT6P2r9AAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-02 下午2.51.04.png" title="屏幕快照 2020-03-02 下午2.51.04.png" style="border: none; box-shadow: none; width: 372px; height: 418px; visibility: visible;"></span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
+          </td>
           <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">使用颜色不同的柱形并排组成小组来显示各维度的数值。横轴标示出分组，颜色标示出分类，纵轴显示相应的值。</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">使用颜色不同的堆叠的柱形来显示各维度的数值。横轴标示出第一个分类维度，颜色标示出第二个分类维度，纵轴显示相应的值。</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
           <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
             <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">颜色、位置</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">颜色、长度、位置</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
           <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
             <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">比较、分布、排名</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">比较、组成、分布、排名</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
@@ -50,107 +44,119 @@ order: 5
 # 快速上手
 
 ```js
-import { GroupColumn } from '@antv/g2plot';
+import { StackColumn } from '@antv/g2plot';
 
 const data = [
   {
-    name: 'London',
-    月份: 'Jan.',
-    月均降雨量: 18.9,
+    year: '1991',
+    value: 3,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'Feb.',
-    月均降雨量: 28.8,
+    year: '1992',
+    value: 4,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'Mar.',
-    月均降雨量: 39.3,
+    year: '1993',
+    value: 3.5,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'Apr.',
-    月均降雨量: 81.4,
+    year: '1994',
+    value: 5,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'May',
-    月均降雨量: 47,
+    year: '1995',
+    value: 4.9,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'Jun.',
-    月均降雨量: 20.3,
+    year: '1996',
+    value: 6,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'Jul.',
-    月均降雨量: 24,
+    year: '1997',
+    value: 7,
+    type: 'Lon',
   },
   {
-    name: 'London',
-    月份: 'Aug.',
-    月均降雨量: 35.6,
+    year: '1998',
+    value: 9,
+    type: 'Lon',
   },
   {
-    name: 'Berlin',
-    月份: 'Jan.',
-    月均降雨量: 12.4,
+    year: '1999',
+    value: 13,
+    type: 'Lon',
   },
   {
-    name: 'Berlin',
-    月份: 'Feb.',
-    月均降雨量: 23.2,
+    year: '1991',
+    value: 3,
+    type: 'Bor',
   },
   {
-    name: 'Berlin',
-    月份: 'Mar.',
-    月均降雨量: 34.5,
+    year: '1992',
+    value: 4,
+    type: 'Bor',
   },
   {
-    name: 'Berlin',
-    月份: 'Apr.',
-    月均降雨量: 99.7,
+    year: '1993',
+    value: 3.5,
+    type: 'Bor',
   },
   {
-    name: 'Berlin',
-    月份: 'May',
-    月均降雨量: 52.6,
+    year: '1994',
+    value: 5,
+    type: 'Bor',
   },
   {
-    name: 'Berlin',
-    月份: 'Jun.',
-    月均降雨量: 35.5,
+    year: '1995',
+    value: 4.9,
+    type: 'Bor',
   },
   {
-    name: 'Berlin',
-    月份: 'Jul.',
-    月均降雨量: 37.4,
+    year: '1996',
+    value: 6,
+    type: 'Bor',
   },
   {
-    name: 'Berlin',
-    月份: 'Aug.',
-    月均降雨量: 42.4,
+    year: '1997',
+    value: 7,
+    type: 'Bor',
+  },
+  {
+    year: '1998',
+    value: 9,
+    type: 'Bor',
+  },
+  {
+    year: '1999',
+    value: 13,
+    type: 'Bor',
   },
 ];
 
-const columnPlot = new GroupColumn(document.getElementById('container'), {
+const columnPlot = new StackColumn(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '分组柱状图',
+    text: '堆叠柱状图',
   },
   forceFit: true,
   data,
-  xField: '月份',
-  yField: '月均降雨量',
+  padding: 'auto',
+  data,
+  xField: 'year',
+  yField: 'sales',
+  data,
+  xField: 'year',
+  yField: 'value',
   yAxis: {
     min: 0,
   },
-  label: {
-    visible: true,
-  },
-  groupField: 'name',
+  stackField: 'type',
 });
 
 columnPlot.render();
@@ -276,10 +282,10 @@ areaPlot.render();
 
 默认配置： 无
 
-### groupField
+### stackField
 **必选**, *string*
 
-数据集中的分组字段名，通过该字段的值，柱子将会被分为多个组，通过颜色进行区分。
+功能描述：数据集中的分组字段名，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
 
 默认配置： 无
 
@@ -288,7 +294,7 @@ areaPlot.render();
 ### color
 **可选**, *string | string[] | Function*
 
-功能描述： 指定柱子颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+功能描述： 指定柱子各区块颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
 默认配置：采用 theme 中的色板。
 
@@ -331,7 +337,7 @@ color:(d)=>{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qri7TJMJa5kAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CTc7R7S_EaIAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -473,12 +479,12 @@ title: {
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
 
-功能描述：图例，配置groupField时显示，用于展示颜色分类信息
+功能描述：图例，配置stackField时显示，用于展示颜色分类信息
 
 默认配置：
 ```js
 visible: true,
-position: 'top-left',
+position: 'right-top',
 flipPage: true
 ```
 
@@ -531,7 +537,7 @@ htmlContent: (title, items) => {
 默认配置：
 ```js
 visible: false
-position: 'top'
+position: 'middle'
 offsetX: 0
 offsetY: 0
 style:{
@@ -546,15 +552,40 @@ adjustPosition: true
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| position | string | label的位置<br />- top 位于柱形顶部<br />- middle 位于柱形垂直中心<br />- bottom 位于柱形底部<br /> |
+| position | string | label的位置<br />- top 位于分区顶部<br />- middle 位于分区垂直中心<br />- bottom 位于分区底部<br /> |
 | formatter | function | 对文本标签内容进行格式化 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
 | style | object | 配置文本标签样式。 |
 | adjustColor | boolean | 文本标签颜色是否自动适应图形颜色，position为middle时有效。 |
-| adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置。如图形区域容纳不下label，则label自动调整至柱形上方。 |
+| adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置。如图形区域容纳不下label，则label自动隐藏。 |
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ey-YQqmT7DsAAAAAAAAAAABkARQnAQ" width="800">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IyvbT63Pe9UAAAAAAAAAAABkARQnAQ" width="800">
+
+
+### connectedArea
+
+**可选**, *object[]*
+
+功能描述： 联通区域组件通过绘制同一字段的联通区域提供视觉上的辅助识别,方便进行数据对比。
+
+[Demo1](http://localhost:8000/zh/examples/column/stack#connected-area)
+[Demo2](http://localhost:8000/zh/examples/column/stack#connected-area-interaction)
+[Demo3](http://localhost:8000/zh/examples/column/stack#connected-area-interaction)
+
+默认配置：
+
+```js
+ visible: false
+ triggerOn: 'mouseenter'
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| triggerOn | string | 触发显示的事件，默认为mouseenter。如不配置则全部显示。 |
+| lineStyle | object | 配置组件上线的样式 |
+| areaStyle | object | 配置组件上区域的样式 |
 
 
 ### guideLine
@@ -563,7 +594,7 @@ adjustPosition: true
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZBkyRKBpuSUAAAAAAAAAAABkARQnAQ" width="400">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dq9RSpy90jYAAAAAAAAAAABkARQnAQ" width="400">
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 

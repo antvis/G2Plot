@@ -2,7 +2,11 @@ import * as _ from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import BarLayer, { BarViewConfig } from './layer';
 
-export interface BarConfig extends BarViewConfig, PlotConfig {}
+export interface BarConfig extends BarViewConfig, PlotConfig {
+  label?: BarViewConfig['label'] & {
+    position?: 'left' | 'middle' | 'right';
+  };
+}
 
 export default class Bar extends BasePlot<BarConfig> {
   public static getDefaultOptions: typeof BarLayer.getDefaultOptions = BarLayer.getDefaultOptions;

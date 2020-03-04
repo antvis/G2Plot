@@ -2,7 +2,11 @@ import * as _ from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import WaterfallLayer, { WaterfallViewConfig } from './layer';
 
-export interface WaterfallConfig extends WaterfallViewConfig, PlotConfig {}
+export interface WaterfallConfig extends WaterfallViewConfig, PlotConfig {
+  label?: WaterfallViewConfig['label'] & {
+    position?: 'top' | 'middle' | 'bottom';
+  };
+}
 
 export default class Waterfall extends BasePlot<WaterfallConfig> {
   public static getDefaultOptions: typeof WaterfallLayer.getDefaultOptions = WaterfallLayer.getDefaultOptions;

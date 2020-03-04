@@ -25,7 +25,6 @@ export interface IDescription {
   alignWithAxis?: boolean;
 }
 
-export type LabelPosition = 'left' | 'middle' | 'right' | 'outer' | 'inner';
 export type LegendPosition =
   | 'left-top'
   | 'left-center'
@@ -142,7 +141,7 @@ export interface Label {
   offsetX?: number;
   offsetY?: number;
   events?: IEvents;
-  position?: LabelPosition | Function;
+  position?: string | Function;
   adjustColor?: boolean;
   adjustPosition?: boolean;
   autoRotate?: boolean;

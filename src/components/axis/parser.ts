@@ -72,15 +72,16 @@ export default class AxisParser {
   }
 
   private _gridParser() {
+    const gridCfg = this.localProps.grid;
     const style = this.localProps.grid?.line?.style;
 
     if (isFunction(style)) {
       this.config.grid = (text: string, index: number, count: number) => {
         const cfg = style(text, index, count);
-        return { line: { style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg) } };
+        return deepMix({}, gridCfg, { line: { style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg) } });
       };
     } else if (style) {
-      this.config.grid = { line: { style } };
+      this.config.grid = deepMix({}, gridCfg, { line: { style } });
       this.applyThemeConfig('grid');
     }
   }

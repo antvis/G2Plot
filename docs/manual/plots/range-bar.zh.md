@@ -1,14 +1,14 @@
 ---
-title: RangeColumn - 区间柱状图
-order: 4
+title: RangeBar - 区间条形图
+order: 8
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8KlzSogpRiQAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ntOoRbDgmhAAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
 ```js
-import { RangeColumn } from '@antv/g2plot';
+import { RangeBar } from '@antv/g2plot';
 
 const data = [
   { type: '分类一', values: [76, 100] },
@@ -21,16 +21,17 @@ const data = [
   { type: '分类八', values: [18, 34] },
 ];
 
-const columnPlot = new RangeColumn(document.getElementById('container'), {
+const barPlot = new RangeBar(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '区间柱状图',
+    text: '区间条形图',
   },
   data,
-  xField: 'type',
-  yField: 'values',
+  xField: 'values',
+  yField: 'type',
 });
-columnPlot.render();
+barPlot.render();
+
 ```
 
 # 配置属性
@@ -141,21 +142,21 @@ areaPlot.render();
 ### xField
 **必选**, *string*
 
-功能描述： 柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
+功能描述： 条形在 x 方向长度映射对应的数据字段名，一般对应一个离散字段。
 
 默认配置： 无
 
 ### yField
 **必选**, *string*
 
-功能描述： 柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
+功能描述： 条形在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
 
 默认配置： 无
 
 ### colorField
 **可选**, *string*
 
-功能描述：柱形颜色映射对应的数据字段名。从基础柱状图的使用场景来说，我们不推荐对柱形进行额外的颜色映射。
+功能描述：条形颜色映射对应的数据字段名。从基础条形图的使用场景来说，我们不推荐进行额外的颜色映射。
 
 默认配置： 无
 
@@ -164,7 +165,7 @@ areaPlot.render();
 ### color
 **可选**, *string | string[] | Function*
 
-功能描述： 指定柱形颜色，如没有配置colorField,指定一个单值即可。对colorFiled进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+功能描述： 指定条形颜色，如没有配置colorField,指定一个单值即可。对colorFiled进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
 默认配置：采用 theme 中的色板。
 
@@ -184,17 +185,17 @@ color:(d)=>{
 }
 ```
 
-### columnSize
+### barSize
 **可选**, *number*
 
-功能描述： 设置柱形宽度。对于一般场景来说，柱形宽度会根据数据自行计算，不需特别指定。
+功能描述： 设置条形高度。对于一般场景来说，条形高度会根据数据自行计算，不需特别指定。
 
 默认配置： 无
 
-### columnStyle
+### barStyle
 **可选**, *object*
 
-功能描述： 设置柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。columnStyle可以直接指定，也可以通过callback的方式，根据数据为每一根柱子指定单独的样式。
+功能描述： 设置条形样式。barStyle中的`fill`会覆盖 `color` 的配置。barStyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
 
 默认配置： 无
 
@@ -211,7 +212,7 @@ color:(d)=>{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*l7klQoZozsoAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EeWEQasa8UEAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -259,12 +260,12 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### xAxis
+### yAxis
 **可选**, *object*
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
-功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
+功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
 默认配置：
 
@@ -272,15 +273,16 @@ style:{
 visible: true,
 autoHideLabel: false,
 autoRotateLabel: false,
-autoRotateTitle: false,
+autoRotateTitle: true,
+nice: true,
 grid: {
     visible: false,
 },
 line: {
-    visible: true
+    visible: false,
 },
 tickLine: {
-     visible: true,
+    visible: false,
 },
 label: {
     visible: true,
@@ -288,7 +290,7 @@ label: {
 title: {
     visible: false,
     offset: 12,
-},
+}
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -302,34 +304,30 @@ title: {
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
-### yAxis
+### xAxis
 **可选**, *object*
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
-功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
+功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: true,
-grid: {
+line: {
+    visible: false,
+},
+title: {
     visible: true,
 },
-line: {
+label: {
     visible: false,
 },
 tickLine: {
     visible: false,
 },
-label: {
-    visible: true,
-},
-title: {
-    visible: true,
-    offset: 12,
+grid: {
+    visible: false,
 },
 ```
 
@@ -404,9 +402,9 @@ htmlContent: (title, items) => {
 
 ### label
 
-功能描述： 标签文本，与其他柱形图家族图表不同，区间柱状图的label为一对。
+功能描述： 标签文本，与其他条形图家族图表不同，区间条形图的label为一对。
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/range#range-column-label)
+[DEMO](https://g2plot.antv.vision/zh/examples/bar/range#range-bar-label)
 
 默认配置：
 ```js
@@ -426,77 +424,26 @@ adjustPosition: true
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| position  | string | label的位置<br />- outter  位于柱子外侧，即上部和下部<br />- inner  位于柱子内侧，即顶部和底部<br /> |
+| position  | string | label的位置<br />- outter  位于柱子外侧，即左侧和右侧<br />- inner  位于柱子内侧，即左部和右部<br /> |
 | formatter | function | 对文本标签内容进行格式化 |
-| style | object | 配置 label 的样式 
-| topStyle | object | 配置上侧 label 样式<br />如果同时配置了style和topStyle，上侧 label 的样式将以topStyle 为准。 |
-| bottomStyle | object | 配置下侧 label 样式<br />如果同时配置了style和bottomStyle，下侧 label 样式将以bottomStyle为准。 |
+| style | object | 配置 label 的样式 |
+| leftStyle | object | 配置左侧 label 样式<br />如果同时配置了style和leftStyle，左侧 label 的样式将以leftStyle 为准。 |
+| rightStyle | object | 配置右侧 label 样式<br />如果同时配置了style和rightStyle，右侧 label 样式将以rightStyle为准。 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
 | adjustColor | boolean | 文本标签是否自动适应图形颜色，position 为 inner 时生效 |
 | adjustPosition | boolean | 当文本标签显示区域不够时，是否自动调整位置。 |
 
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TZIiT5EUl1AAAAAAAAAAAABkARQnAQ" width="600">
-
-
-### guideLine
-
-**可选**, *object[]*
-
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
-
-功能描述： 配置图表辅助线，支持同时配置多条。
-
-默认配置： 无
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| type | string | 含有统计意义的辅助线类型，可选类型为 max | min | median | mean<br />*注意：如指定了辅助线类型，则不需要配置辅助线的start和end。 |
-| start | array | 指定辅助线起始位置，如不配置`type`，则该辅助线为自定义辅助线，`start`是必选项。<br/>支持两种配置形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br /> |
-| end | array | 指定辅助线终止位置，如不配置`type`，则该辅助线为自定义辅助线，end 是必选项。<br/>支持两种数据形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br /> |
-| lineStyle | object | 配置辅助线样式。 |
-| text | object | 设置辅助线文本。<br />- position: string 辅助线文本位置，可选项：start、center、end<br />- content: string 辅助线文本内容<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY: number 位置在y方向上的偏移量<br />- style: object 文本样式<br /> |
-|  |  |  |
-
-
-配置统计辅助线示例代码：
-
-```js
-{
-  guideLine: [
-    {
-      type: 'mean',
-      lineStyle: {},
-      text: {},
-    },
-  ],
-}
-```
-
-配置自定义辅助线示例代码：
-
-```js
-{
-  guideLine: [
-    {
-      start: ['2010-01-01', 100] || ['0%', '50%'],
-      end: ['2010-01-10', 50] || ['100%', '80%'],
-      lineStyle: {},
-      text: {},
-    },
-  ],
-}
-```
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*jxrCSrRlHdYAAAAAAAAAAABkARQnAQ" width="800">
 
 
 ## 事件
 
-### 柱形图形事件
+### 图形事件
 
-| onColumnClick<br />柱形点击事件 | onColumnDblClick<br />柱形双击事件 | onColumnDblClick<br />柱形双击事件 | onColumnMouseleave<br />柱形鼠标离开事件 |
+| onBarClick<br />条形点击事件 | onBarDblClick<br />条形双击事件 | onBarDblClick<br />条形双击事件 | onBarMouseleave<br />条形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onColumnMousemove<br />柱形鼠标移动事件 | onColumnMousedown<br />柱形鼠标按下事件 | onColumnMouseup<br />柱形鼠标松开事件 | onColumnMouseenter<br />柱形鼠标进入事件 |
+| onBarMousemove<br />条形鼠标移动事件 | onBarMousedown<br />条形鼠标按下事件 | onBarMouseup<br />条形鼠标松开事件 | onBarMouseenter<br />条形鼠标进入事件 |
 
 
 ### 图表区域事件
@@ -548,32 +495,12 @@ adjustPosition: true
 ## interaction
 ## 交互
 
-### slider
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-slider)
-
-功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| height | number | slider高度 |
-| start | number<br /> | 滑块初始开始位置，值域为[0,1] |
-| end | number | 滑块初始结束位置，值域为[0,1] |
-| trendCfg | object | 配置slider内的趋势组件<br />- smooth: boolean 趋势组件是否平滑<br />- isArea: boolean 趋势组件是都绘制为面积图，如设置false则绘制折线，默认false<br />- lineStyle: object 配置折线形态趋势组件的样式<br />- areaStyle: object 配置面积形态趋势组件的样式<br /> |
-| backgroundStyle | object | 配置背景样式 |
-| forgroundStyle | object | 配置前景样式 |
-| handlerStyle | object | 配置滑块样式 |
-| textStyle | object | 配置跟随滑块的文字样式 |
-| minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
-| maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
-
 ### scrollBar
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-scrollbar)
+[DEMO](https://g2plot.antv.vision/zh/examples/bar/basic#scroll-bar)
 
-功能描述： 配置横向滚动条，适用于数据较多的场景。
+功能描述： 配置竖向滚动条，适用于数据较多的场景。
 
 示例代码：
 

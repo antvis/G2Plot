@@ -1,43 +1,31 @@
-import { each, deepMix, clone } from '@antv/util';
-import { Group, IGroup } from '@antv/g-canvas';
-import { View } from '@antv/g2';
+import * as _ from '@antv/util';
+import { View, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
+import * as Config from '../../../interface/config';
 
-const DEFAULT_OFFSET = 8;
+export interface IFunnelLabelOptions extends Config.Label {}
 
-export interface BarLabelConfig {
-  visible: boolean;
-  position?: string;
-  formatter?: (...args: any[]) => string;
-  offsetX?: number;
-  offsetY?: number;
-  style?: any;
-  adjustColor?: boolean;
-  adjustPosition?: boolean;
-}
-
-export interface IBarLabel extends BarLabelConfig {
+export interface IFunnelLabelConfig extends IFunnelLabelOptions {
   view: View;
   plot: any;
 }
 
-export default class BarLabel {
-  public options: BarLabelConfig;
+export default class FunnelLabel {
+  public options: IFunnelLabelOptions;
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
-  protected container: Group;
+  protected container: IGroup;
 
-  constructor(cfg: IBarLabel) {
+  constructor(cfg: IFunnelLabelConfig) {
     this.view = cfg.view;
     this.plot = cfg.plot;
-    const defaultOptions = this.getDefaultOptions();
-    this.options = deepMix(defaultOptions, cfg, {});
+    this.options = cfg;
     this.init();
   }
 
   protected init() {
-    this.container = this.getGeometry().labelsContainer;
+    this.container = this.view.geometries[0]?.labelsContainer;
     this.view.on('beforerender', () => {
       this.clear();
       this.plot.canvas.draw();
@@ -45,21 +33,28 @@ export default class BarLabel {
   }
 
   public render() {
-    const elements = this.getGeometry().elements;
-    each(elements, (ele) => {
-      const { shape } = ele;
-      const style = clone(this.options.style);
-      const value = this.getValue(shape);
-      const position = this.getPosition(shape, value);
-      const textAlign = this.getTextAlign(value);
+    const { formatter } = this.options;
+
+    let index = 0;
+    let yValueTop;
+    this.view.geometries[0]?.elements.forEach((element) => {
+      const { shape } = element;
+
+      const style = _.deepMix({}, this.options.style);
+
+      const [xValue, yValue] = this.getValues(shape);
+      if (index == 0) yValueTop = yValue;
+
+      const position = this.getPosition(shape);
+      const textAlign = this.getTextAlign();
       const color = this.getTextColor(shape);
       if (this.options.position !== 'right' && this.options.adjustColor && color !== 'black') {
         style.stroke = null;
       }
-      const formatter = this.options.formatter;
-      const content = formatter ? formatter(value) : value;
+
+      const content = formatter ? formatter(xValue, shape, index, yValue, yValueTop) : `${xValue} ${yValue}`;
       const label = this.container.addShape('text', {
-        attrs: deepMix({}, style, {
+        attrs: _.deepMix({}, style, {
           x: position.x,
           y: position.y,
           text: content,
@@ -67,8 +62,10 @@ export default class BarLabel {
           textAlign,
           textBaseline: 'middle',
         }),
+        name: 'label',
       });
       this.adjustLabel(label, shape);
+      index++;
     });
   }
 
@@ -97,22 +94,12 @@ export default class BarLabel {
 
   public getBBox() {}
 
-  protected getPosition(shape, value) {
+  protected getPosition(shape) {
     const bbox = shape.getBBox();
-    const { minX, maxX, minY, height, width } = bbox;
-    const { offsetX, offsetY, position } = this.options;
-    const y = minY + height / 2 + offsetY;
-    const dir = value < 0 ? -1 : 1;
-    let x;
-    if (position === 'left') {
-      const root = value > 0 ? minX : maxX;
-      x = root + offsetX * dir;
-    } else if (position === 'right') {
-      x = maxX + offsetX * dir;
-    } else {
-      x = minX + width / 2 + offsetX;
-    }
-
+    const { minX, maxX, minY, maxY } = bbox;
+    const { offsetX, offsetY } = this.options;
+    const x = (minX + maxX) / 2 + offsetX;
+    const y = (minY + maxY) / 2 + offsetY;
     return { x, y };
   }
 
@@ -134,27 +121,15 @@ export default class BarLabel {
     return defaultColor;
   }
 
-  protected getTextAlign(value) {
+  protected getTextAlign() {
     const { position } = this.options;
-    const alignOptions = {
-      right: 'left',
-      left: 'left',
-      middle: 'center',
-    };
-    const alignOptionsReverse = {
-      right: 'right',
-      left: 'right',
-      middle: 'center',
-    };
-    if (value < 0) {
-      return alignOptionsReverse[position];
-    }
-    return alignOptions[position];
+    return position;
   }
 
-  protected getValue(shape) {
+  protected getValues(shape) {
+    const { xField, yField } = this.plot.options;
     const data = shape.get('origin').data;
-    return data[this.plot.options.xField];
+    return [data[xField], data[yField]];
   }
 
   protected adjustLabel(label, shape) {
@@ -169,25 +144,7 @@ export default class BarLabel {
     }
   }
 
-  protected getDefaultOptions() {
-    const { theme } = this.plot;
-    const labelStyle = theme.label.style;
-    return {
-      offsetX: DEFAULT_OFFSET,
-      offsetY: 0,
-      style: clone(labelStyle),
-      adjustPosition: true,
-    };
-  }
-
   private getGeometry() {
-    const { geometries } = this.view;
-    let lineGeom;
-    each(geometries, (geom) => {
-      if (geom.type === 'interval') {
-        lineGeom = geom;
-      }
-    });
-    return lineGeom;
+    return this.view.geometries[0];
   }
 }

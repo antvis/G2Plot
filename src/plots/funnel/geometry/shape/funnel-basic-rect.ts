@@ -4,24 +4,6 @@ import { registerShape } from '@antv/g2';
 import { ShapeMarkerCfg, ShapePoint, ShapeInfo } from '@antv/g2/lib/interface';
 import { getStyle } from '@antv/g2/lib/geometry/shape/util/get-style';
 
-function _setFillStyle(attrs, cfg) {
-  const { color, opacity } = cfg;
-  if (color) {
-    attrs.fill = color;
-  }
-  if (_.isNumber(opacity)) {
-    attrs.opacity = attrs.fillOpacity = opacity;
-  }
-}
-
-// 获取填充图形的图形属性
-function _getFillAttrs(cfg) {
-  const defaultAttrs = {};
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
-  _setFillStyle(attrs, cfg);
-  return attrs;
-}
-
 // 根据数据点生成矩形的四个关键点
 function _getRectPoints(cfg, isPyramid = false) {
   const { x, y, y0, size } = cfg;

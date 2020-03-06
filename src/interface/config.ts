@@ -121,7 +121,7 @@ export interface Label {
   precision?: number;
   /** 添加后缀 */
   suffix?: string;
-  style?: {};
+  style?: any;
   offset?: number;
   offsetX?: number;
   offsetY?: number;

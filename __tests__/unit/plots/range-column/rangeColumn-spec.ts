@@ -38,6 +38,15 @@ describe('rangeColumn plot', () => {
           fill: '#dd3121',
         },
       },
+      guideLine: [
+        {
+          type: 'mean', // 'max' | 'min' | 'median' |  'mean'
+          text: {
+            position: 'start',
+            content: '中位数',
+          },
+        },
+      ],
     });
     columnPlot.render();
   });

@@ -22,7 +22,8 @@ export default class GuideLine {
       start: this.cfg.start,
       end: this.cfg.end,
     };
-    baseConfig.line = deepMix({}, defaultStyle.line, { style: this.cfg.lineStyle });
+    
+    baseConfig.style = deepMix({}, defaultStyle.line.style, this.cfg.lineStyle );
     baseConfig.text = deepMix({}, defaultStyle.text, this.cfg.text);
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);

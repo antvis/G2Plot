@@ -1,51 +1,87 @@
 ---
-title: Rose - 玫瑰图
+title: StackedRose - 堆叠玫瑰图
 order: 3
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qM6xQImNmj4AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*whV7TaNCO_MAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
 ```js
+
 import { Rose } from '@antv/g2plot';
 
 const data = [
   {
     type: '分类一',
     value: 27,
+    user: '用户一',
   },
   {
     type: '分类二',
     value: 25,
+    user: '用户一',
   },
   {
     type: '分类三',
     value: 18,
+    user: '用户一',
   },
   {
     type: '分类四',
     value: 15,
+    user: '用户一',
   },
   {
     type: '分类五',
     value: 10,
+    user: '用户一',
   },
   {
     type: '其它',
     value: 5,
+    user: '用户一',
+  },
+  {
+    type: '分类一',
+    value: 7,
+    user: '用户二',
+  },
+  {
+    type: '分类二',
+    value: 5,
+    user: '用户二',
+  },
+  {
+    type: '分类三',
+    value: 38,
+    user: '用户二',
+  },
+  {
+    type: '分类四',
+    value: 5,
+    user: '用户二',
+  },
+  {
+    type: '分类五',
+    value: 20,
+    user: '用户二',
+  },
+  {
+    type: '其它',
+    value: 15,
+    user: '用户二',
   },
 ];
 
-const rosePlot = new Rose(document.getElementById('container'), {
+const rosePlot = new StacedRose(document.getElementById('container'), {
   data,
   radiusField: 'value',
   categoryField: 'type',
-  colorField: 'type',
+  stackField: 'user',
   label: {
     visible: true,
-    type: 'outer',
-    formatter: (text) => text,
+    type: 'inner',
   },
 });
 
@@ -170,11 +206,11 @@ areaPlot.render();
 
 功能描述：扇形切片分类所对应的数据字段名（每个扇形的弧度相等）。
 
-### colorField: string
+### stackedField: string
 
 **必选**, *string*
 
-功能描述： 扇形切片颜色所对应的数据字段名。
+功能描述： 数据集中的分组字段名，通过该字段的值，玫瑰图中的扇形切片将会被分为多个组，通过颜色进行区分
 
 
 ## 图形样式
@@ -227,7 +263,7 @@ color:(d)=>{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x9I-R6gkDBcAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OWn-TL02AaYAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -350,7 +386,7 @@ autoRotate: true
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
 | style | object | 配置文本标签样式。 |
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*v47dTIPtnysAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*D7YKTYbNmEcAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
 
 ## 事件
 

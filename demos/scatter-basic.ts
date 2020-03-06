@@ -31,7 +31,6 @@ $.get('data/country-economy.json', function(data) {
     },
     label: {
       visible: true,
-      position: 'right', // left right top bottom middle
     },
   });
   scatterPlot.render();

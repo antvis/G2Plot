@@ -1,9 +1,9 @@
 ---
-title: StackedRose - 堆叠玫瑰图
+title: GroupedRose - 分组玫瑰图
 order: 3
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*whV7TaNCO_MAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Nit5RrS4AbQAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
@@ -74,11 +74,11 @@ const data = [
   },
 ];
 
-const rosePlot = new StacedRose(document.getElementById('container'), {
+const rosePlot = new GroupedRose(document.getElementById('container'), {
   data,
   radiusField: 'value',
   categoryField: 'type',
-  stackField: 'user',
+  groupField: 'user',
   label: {
     visible: true,
     type: 'inner',
@@ -206,7 +206,7 @@ areaPlot.render();
 
 功能描述：扇形切片分类所对应的数据字段名（每个扇形的弧度相等）。
 
-### stackField: string
+### groupField: string
 
 **必选**, *string*
 
@@ -263,7 +263,7 @@ color:(d)=>{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OWn-TL02AaYAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sPJ2TJ5RGAIAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -386,7 +386,7 @@ autoRotate: true
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
 | style | object | 配置文本标签样式。 |
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*D7YKTYbNmEcAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gMNsQZt3dNQAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
 
 ## 事件
 

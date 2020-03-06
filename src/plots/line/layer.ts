@@ -16,6 +16,7 @@ import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
 
 export interface LineStyle {
+  stroke?: string;
   opacity?: number;
   lineDash?: number[];
   lineJoin?: 'bevel' | 'round' | 'miter';

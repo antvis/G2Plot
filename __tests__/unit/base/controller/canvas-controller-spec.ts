@@ -1,4 +1,4 @@
-import { Line } from '../../../../src';
+import { Line, Column } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 
 describe('CanvasController', () => {
@@ -33,5 +33,20 @@ describe('CanvasController', () => {
 
     expect(div.querySelector('svg')).toBeDefined();
     expect(div.querySelector('canvas')).toBeNull();
+  });
+
+  test('theme', () => {
+    const div = createDiv();
+    const column = new Column(div, {
+      width: 400,
+      height: 400,
+      theme: 'dark',
+      data: [{ year: '2020', value: 100 }],
+      xField: 'year',
+      yField: 'value',
+    });
+    column.render();
+
+    expect(div.style.backgroundColor).toBe('rgb(38, 38, 38)');
   });
 });

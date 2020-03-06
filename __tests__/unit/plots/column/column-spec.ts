@@ -53,7 +53,7 @@ describe('Column plot', () => {
 
   it.only('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
-      padding: [40,40,40,40],
+      padding: [40, 40, 40, 40],
       data,
       xField: 'year',
       yField: 'value',

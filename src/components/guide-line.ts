@@ -1,5 +1,5 @@
 import { getScale } from '@antv/scale';
-import { assign, deepMix, mix, each, isArray, isString,isNumber, contains, toArray, clone } from '@antv/util';
+import { assign, deepMix, mix, each, isArray, isString, isNumber, contains, toArray, clone } from '@antv/util';
 import { getMean, getMedian } from '../util/math';
 
 export default class GuideLine {
@@ -22,8 +22,8 @@ export default class GuideLine {
       start: this.cfg.start,
       end: this.cfg.end,
     };
-    
-    baseConfig.style = deepMix({}, defaultStyle.line.style, this.cfg.lineStyle );
+
+    baseConfig.style = deepMix({}, defaultStyle.line.style, this.cfg.lineStyle);
     baseConfig.text = deepMix({}, defaultStyle.text, this.cfg.text);
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);
@@ -39,27 +39,27 @@ export default class GuideLine {
         baseConfig
       );
     } else {
-      const {start,end} = this.cfg;
+      const { start, end } = this.cfg;
       this.config = clone(baseConfig);
       const xScale = this.getXScale();
       const yScale = this.getYScale();
-      let startData = clone(start);
-      let endData = clone(end);
-      each(start,(value,index)=>{
-        if(!contains(toArray(start[index]),'%') || isNumber(start[index])){
-          if(index === 0){
-            startData[index] = `${xScale.scale(start[0])*100}%`;
-          }else{
-            startData[index] = `${(1.0-yScale.scale(start[1]))*100}%`;
+      const startData = clone(start);
+      const endData = clone(end);
+      each(start, (value, index) => {
+        if (!contains(toArray(start[index]), '%') || isNumber(start[index])) {
+          if (index === 0) {
+            startData[index] = `${xScale.scale(start[0]) * 100}%`;
+          } else {
+            startData[index] = `${(1.0 - yScale.scale(start[1])) * 100}%`;
           }
         }
       });
-      each(end,(value,index)=>{
-        if(!contains(toArray(end[index]),'%') || isNumber(end[index])){
-          if(index === 0){
-            endData[index] = `${xScale.scale(end[0])*100}%`;
-          }else{
-            endData[index] = `${(1.0-yScale.scale(end[1]))*100}%`;
+      each(end, (value, index) => {
+        if (!contains(toArray(end[index]), '%') || isNumber(end[index])) {
+          if (index === 0) {
+            endData[index] = `${xScale.scale(end[0]) * 100}%`;
+          } else {
+            endData[index] = `${(1.0 - yScale.scale(end[1])) * 100}%`;
           }
         }
       });
@@ -68,7 +68,7 @@ export default class GuideLine {
     }
   }
 
-  private getYScale(){
+  private getYScale() {
     const minValue = this._getState('min');
     const maxValue = this._getState('max');
     const Scale = getScale('linear');
@@ -88,9 +88,9 @@ export default class GuideLine {
     return scale;
   }
 
-  private getXScale(){
+  private getXScale() {
     const values = this.extractXValue();
-    if(isString(values[0])){
+    if (isString(values[0])) {
       const Scale = getScale('cat');
       const scale = new Scale(
         mix(
@@ -102,7 +102,7 @@ export default class GuideLine {
         )
       );
       return scale;
-    }else{
+    } else {
       const min = Math.min(...values);
       const max = Math.max(...values);
       const Scale = getScale('linear');
@@ -144,24 +144,24 @@ export default class GuideLine {
     const values = [];
     const data = this.plot.processData(props.data);
     each(data, (d) => {
-      if(isArray(d[field])){
+      if (isArray(d[field])) {
         values.push(...d[field]);
-      }else{
+      } else {
         values.push(d[field]);
       }
     });
     return values;
   }
 
-  private extractXValue(){
+  private extractXValue() {
     const props = this.plot.options;
     const field = props.xField;
     const values = [];
     const data = this.plot.processData(props.data);
     each(data, (d) => {
-      if(isArray(d[field])){
+      if (isArray(d[field])) {
         values.push(...d[field]);
-      }else{
+      } else {
         values.push(d[field]);
       }
     });

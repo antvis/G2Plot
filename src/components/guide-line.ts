@@ -1,5 +1,5 @@
 import { getScale } from '@antv/scale';
-import { assign, deepMix, mix, each } from '@antv/util';
+import { assign, deepMix, mix, each, isArray } from '@antv/util';
 import { getMean, getMedian } from '../util/math';
 
 export default class GuideLine {
@@ -78,8 +78,13 @@ export default class GuideLine {
     const props = this.plot.options;
     const field = props.yField;
     const values = [];
-    each(props.data, (d) => {
-      values.push(d[field]);
+    const data = this.plot.processData(props.data);
+    each(data, (d) => {
+      if(isArray(d[field])){
+        values.push(...d[field]);
+      }else{
+        values.push(d[field]);
+      }
     });
     return values;
   }

@@ -184,18 +184,18 @@ describe('Radar plot', () => {
     const angleAxisLabelShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-label';
     });
-    expect(angleAxisLabelShapes[0].attr('text') === 'angleAxis');
-    expect(angleAxisLabelShapes[0].attr('fill') === 'red');
+    expect(angleAxisLabelShapes[0].attr('text')).toBe('angleAxis');
+    expect(angleAxisLabelShapes[0].attr('fill')).toBe('red');
     const angleAxisLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-line';
     });
-    expect(angleAxisLineShapes[0].attr('stroke') === 'red');
+    expect(angleAxisLineShapes[0].attr('stroke')).toBe('red');
     const angleAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-tickline';
     });
-    expect(angleAxisTickLineShapes[0].attr('stroke') === 'red');
-    expect(angleAxisTickLineShapes[0].attr('length') === 5);
-    expect(angleAxisTickLineShapes[0].attr('lineWidth') === 1);
+    expect(angleAxisTickLineShapes[0].attr('stroke')).toBe('red');
+    expect(angleAxisTickLineShapes[0].attr('length')).toBe(5);
+    expect(angleAxisTickLineShapes[0].attr('lineWidth')).toBe(1);
     radarPlot.destroy();
   });
 
@@ -249,18 +249,18 @@ describe('Radar plot', () => {
     const angleAxisLabelShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-label';
     });
-    expect(angleAxisLabelShapes[0].attr('text') === 'radiusAxis');
-    expect(angleAxisLabelShapes[0].attr('fill') === 'red');
+    expect(angleAxisLabelShapes[0].attr('text')).toBe('radiusAxis');
+    expect(angleAxisLabelShapes[0].attr('fill')).toBe('red');
     const angleAxisLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-line';
     });
-    expect(angleAxisLineShapes[0].attr('stroke') === 'red');
+    expect(angleAxisLineShapes[0].attr('stroke')).toBe('red');
     const angleAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-tickline';
     });
-    expect(angleAxisTickLineShapes[0].attr('stroke') === 'red');
-    expect(angleAxisTickLineShapes[0].attr('length') === 5);
-    expect(angleAxisTickLineShapes[0].attr('lineWidth') === 1);
+    expect(angleAxisTickLineShapes[0].attr('stroke')).toBe('red');
+    expect(angleAxisTickLineShapes[0].attr('length')).toBe(5);
+    expect(angleAxisTickLineShapes[0].attr('lineWidth')).toBe(1);
     radarPlot.destroy();
   });
 

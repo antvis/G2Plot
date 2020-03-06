@@ -78,7 +78,7 @@ export default class CanvasController {
    * @returns Canvas DOM
    */
   public getCanvasDOM() {
-    return this.canvas.get('canvasDOM');
+    return this.canvas.get('container');
   }
 
   /**

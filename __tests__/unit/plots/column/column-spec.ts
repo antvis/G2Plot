@@ -51,9 +51,9 @@ describe('Column plot', () => {
     },
   ];
 
-  it('初始化以及销毁', () => {
+  it.only('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
-      padding: 'auto',
+      padding: [40, 40, 40, 40],
       data,
       xField: 'year',
       yField: 'value',
@@ -75,6 +75,16 @@ describe('Column plot', () => {
         visible: true,
         position: 'center',
       },
+      guideLine: [
+        {
+          start: ['1991', 30], // ['1991', 30],
+          end: ['1999', 30], // ['1999', 30],
+          text: {
+            position: 'start',
+            content: '自定义位置辅助线',
+          },
+        },
+      ],
       animation: true,
     });
     columnPlot.render();
@@ -124,7 +134,7 @@ describe('Column plot', () => {
     expect(view.destroyed).toBe(true);
   });
 
-  // 需要支持吗？
+  // 需要支持吗？  还是支持吧！
   it.skip('柱子颜色不一样', () => {
     const columnPlot = new Column(canvasDiv, {
       width: 600,

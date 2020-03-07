@@ -3,49 +3,79 @@ title: Treemap - 矩形树图
 order: 6
 ---
 
-<img src ='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pUqpTpFTHRkAAAAAAAAAAABkARQnAQ' width='400'>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600>
 
-## API
+# 快速上手
 
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
+```js
+const mobileData = [...];
+const treemapPlot = new Treemap(document.getElementById('container'), {
+    data: mobileData,
+    colorField: 'brand',
+});
+treemapPlot.render();
 
-### title
+```
 
-**optional** 见[通用图表配置](../general-config#title)。
+# 配置属性
 
-### description
-
-**optional** 见[通用图表配置](../general-config#description)。
+## 图表容器
 
 ### width
 
-**optional** 见[通用图表配置](../general-config#width)。
+**可选**, *number*
+
+功能描述： 设置图表宽度。
+
+默认配置： `400`
 
 ### height
 
-**optional** 见[通用图表配置](../general-config#height)。
+**可选**, *number*
+
+功能描述： 设置图表高度。
+
+默认配置： `400`
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config#forceFit)。
+**可选**, *boolean*
 
-### padding
+功能描述： 图表是否自适应容器宽高。当 `forceFit` 设置为true时，`width` 和 `height` 的设置将失效。
 
-**optional** 见[通用图表配置](../general-config#padding)。
+默认配置： `true`
 
-### theme
+### pixelRatio
 
-**optional** 见[通用图表配置](../general-config#theme)。
+**可选**, *number*
+
+功能描述： 设置图表渲染的像素比
+
+默认配置： `2`
+
+### renderer
+
+**可选**, *string*
+
+功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
+
+默认配置： `canvas`
+
+## 数据映射
 
 ### data
 
-**required**
+**必选**, *object*
+
+功能描述： 设置图表数据源
 
 矩形树图的数据源为json格式的层级嵌套数据，除叶子节点之外，每一层级的数据都需要具备三个属性：
 
-- `name`: string 该层级数据的名称
-- `value`: number 该层级数据的数值
-- `children`: array  该层级数据的子级
+| 细分配置 | 类型 | 定义 |
+| --- | --- | --- |
+| name | string | 该层级数据的名称 |
+| value | number | 该层级数据的数值 |
+| children | object [] | 该层级数据的子级 |
 
 当某一层级的数据没有子级(children)时，该层级即为叶子节点。
 
@@ -70,96 +100,304 @@ order: 6
 }
 ```
 
+### meta
+**可选**, *object*
+
+功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
+
+默认配置： 无
+
+| 细分配置项名称 | 类型 | 功能描述 |
+| --- | --- | --- |
+| alias | *string* | 字段的别名 |
+| formatter | *function* | callback方法，对该字段所有值进行格式化处理 |
+| values | *string[]* | 枚举该字段下所有值 |
+| range | *number[]* | 字段的数据映射区间，默认为[0,1] |
+
+
+```js
+const data = [
+  { country: 'Asia', year: '1750', value: 502,},
+  { country: 'Asia', year: '1800', value: 635,},
+  { country: 'Europe', year: '1750', value: 163,},
+  { country: 'Europe', year: '1800', value: 203,},
+];
+
+const areaPlot = new PercentageStackArea(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '百分比堆叠面积图',
+  },
+  data,
+  // highlight-start
+  meta: {
+    year: {
+      alias:'年份'
+      range: [0, 1],
+    },
+    value: {
+      alias: '数量',
+      formatter:(v)=>{return `${v}个`}
+    }
+  },
+  // highlight-end
+  xField: 'year',
+  yField: 'value',
+  stackField: 'country',
+});
+areaPlot.render();
+
+```
+
 ### maxLevel
+**可选**, *number*
 
-**optional**, number 类型
+功能描述： 矩阵树图的最大嵌套层级
 
-矩阵树图的最大嵌套层级，默认为2.
+默认配置： 2
+
 
 ### colorField
+**必选**, *string*
 
-**required**, string 类型
+功能描述:  矩形颜色映射对应的数据字段名，一般对应一个连续字段或一个分类字段。
 
-矩形颜色映射对应的数据字段名，一般对应一个连续字段或一个分类字段。
+
+## 图形样式
 
 ### color
+**可选**, *string[]*
 
-**optional**, string[] | function 类型
+功能描述： 指定矩形颜色。如不进行配置则采用 theme 中的配色。
 
-指定矩形颜色。如不进行配置则采用 theme 中的配色。
+默认配置：采用 theme 中的色板。
 
 ```js
 color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
 ```
 
 ### rectStyle
+**可选**, *object*
 
-**optional**, object | function 类型
+功能描述： 设置treemap中的矩形样式。rectStyle中的`fill`会覆盖 `color` 的配置。pointtyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
 
-配置矩形样式
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| fill | string | 填充颜色 |
+| stroke | string | 描边颜色 |
+| lineWidth | number | 线宽 |
+| lineDash | number | 虚线显示 |
+| opacity | number | 透明度 |
+| fillOpacity | number | 填充透明度 |
+| strokeOpacity | number | 描边透明度 |
 
-`stroke: string`  矩形的边框颜色<br />
-`opacity: number`  透明度<br />
-`lineWidth: number`  矩形边框线的线宽<br />
-`lineDash: number[]`  矩形边框线的虚线配置
 
-另外还支持回调函数的配置方式，入参为当前图形的对应数据，出参为一个样式配置对象。
+## 图表组件
 
-### label
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JwhARLXcoo0AAAAAAAAAAABkARQnAQ" width="600">
 
-**optional** 图形标签
+### title
+**可选**, *optional*
 
-`visible: boolean`  图形标签是否显示<br />
-`formatter: function`  对 label 的显示文本进行格式化<br/>
-`offsetX: number` 在 label 位置的基础上再往 x 方向的偏移量<br/>
-`offsetY: number` 在 label 位置的基础上再往 y 方向的偏移量<br/>
-`style: object` 配置 label 文本
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+
+功能描述： 配置图表的标题，默认显示在图表左上角。
+
+默认配置：
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 18,
+    fill: 'black',
+}
+```
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
+### description
+**可选**, *optional*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+
+功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
+
+默认配置：
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 12,
+    fill: 'grey',
+}
+```
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 
 ### tooltip
+**可选**, *object*
 
-**optional** 见[通用图表配置](../general-config#tooltip)。
+功能描述：信息提示框
+
+默认配置：
+```js
+visible: true,
+offset: 20,
+```
+
+| 细分属性 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| offset | number | 距离鼠标位置偏移值 |
+| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 
-### interaction
+htmlContent 用法示例：
+```js
+htmlContent: (title, items) => {
+  return '<div><ul><li>.....</li></ul></div>';
+};
+```
+此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
+```js
+htmlContent: (title, items) => {
+  return dom | dom.id;
+};
+```
 
-**optional** array类型
+### label
+**可选**, *object*
 
-图表的交互行为。
+[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#label)
 
-`type: string` 交互的类型
-`cfg: object` 交互的配置信息
+功能描述： 标签文本
 
-配置方式：
+默认配置：
+```js
+visible: false
+offsetX: 6
+offsetY: 6
+style:{
+  fill: 'rgba(0, 0, 0, 0.65)',
+  stroke: '#ffffff',
+  lineWidth: 2,
+}
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| formatter | function | 对文本标签内容进行格式化 |
+| offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
+| offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
+| style | object | 配置文本标签样式。 |
+
+
+## 事件
+
+### 矩形事件
+
+| onRectClick<br />矩形点击事件 | onRectDblClick<br />矩形双击事件 | onRectDblClick<br />矩形双击事件 | onRectMouseleave<br />矩形鼠标离开事件 |
+| --- | --- | --- | --- |
+| onRectMousemove<br />矩形标移动事件 | onRectMousedown<br />矩形鼠标按下事件 | onRectMouseup<br />矩形鼠标松开事件 | onRectMouseenter<br />矩形鼠标进入事件 |
+
+
+### 面包屑事件 
+
+(如配置了drilldown交互)
+
+| onBreadcrumbClick<br />面包屑点击事件 | onBreadcrumbDblClick<br />面包屑双击事件 | onBreadcrumbDblClick<br />面包屑双击事件 | onBreadcrumbMouseleave<br />面包屑鼠标离开事件 |
+| --- | --- | --- | --- |
+| onBreadcrumbMousemove<br />面包屑标移动事件 | onBreadcrumbMousedown<br />面包屑鼠标按下事件 | onBreadcrumbMouseup<br />面包屑鼠标松开事件 | onBreadcrumbMouseenter<br />面包屑鼠标进入事件 |
+
+
+### 图表区域事件
+
+| onPlotClick<br />图表区域点击事件 | onPlotDblClick<br />图表区域双击事件 | onPlotDblClick<br />图表区域双击事件 | onPlotMouseleave<br />图表区域鼠标离开事件 |
+| --- | --- | --- | --- |
+| onPlotMousemove<br />图表区域鼠标移动事件 | onPlotMousedown<br />图表区域鼠标按下事件 | onPlotMouseup<br />图表区域鼠标松开事件 | onPlotMouseenter<br />图表区域鼠标进入事件 |
+
+
+### 图例事件
+
+| onLegendClick<br />图例点击事件 | onLegendDblClick<br />图例双击事件 | onLegendMouseenter<br />图例鼠标进入事件 | onLegendMouseleave<br />图例鼠标离开事件 |
+| --- | --- | --- | --- |
+| onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件 | onLegendMouseenter<br />图例鼠标进入事件 |
+
+
+## 图例标签事件
+
+| onLegendLabelClick<br />图例标签点击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelMouseleave<br />象限标签鼠标离开事件 |
+| --- | --- | --- | --- |
+| onLegendLabelMousemove<br />图例标签鼠标移动事件 | onLegendLabelMousedown<br />图例标签鼠标按下事件 | onLegendLabelMouseup<br />图例标签鼠标松开事件 | onLegendLabelMouseenter<br />图例标签鼠标进入事件 |
+
+
+### 坐标轴事件
+
+| onAxisClick<br />坐标轴点击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisMouseleave<br />坐标轴鼠标离开事件 |
+| --- | --- | --- | --- |
+| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件 |
+
+
+### 图形标签事件
+
+| onLabelClick<br />图形标签点击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelMouseleave<br />图形标签鼠标离开事件 |
+| --- | --- | --- | --- |
+| onLabelMousemove<br />图形标签鼠标移动事件 | onLabelMousedown<br />图形标签鼠标按下事件 | onLabelMouseup<br />图形标签鼠标松开事件 | onLabelMouseenter<br />图形标签鼠标进入事件 |
+
+
+### 标题事件
+
+| onTitleClick<br />标题点击事件 | onTitleDblClick<br />标题双击事件 | onTitleDblClick<br />标题双击事件 | onTitleMouseleave<br />标题鼠标离开事件 |
+| --- | --- | --- | --- |
+| onTitleMousemove<br />标题鼠标移动事件 | onTitleMousedown<br />标题鼠标按下事件 | onTitleMouseup<br />标题鼠标松开事件 | onTitleMouseenter<br />标题鼠标进入事件 |
+
+
+### 描述事件
+
+| onDescriptionClick<br />标题点击事件 | onDescriptionDblClick<br />标题双击事件 | onDescriptionDblClick<br />标题双击事件 | onDescriptionMouseleave<br />标题鼠标离开事件 |
+| --- | --- | --- | --- |
+| onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
+
+
+
+## theme
+
+## 交互
+
+### drilldown
+**可选**, *object*
+
+[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#drilldown)
+
+数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
+
+简单使用：
+
 ```js
 interactions: [
     {
         type: 'drilldown',
-        cfg:{
-
-        }
-    }
-]
+    },
+],
 ```
 
+在钻取过程中，支持配置不同层级的映射。例如在上文的DEMO中，当钻取到第三个层级（某品类所有商品名录）时，数据量非常大，此时再采用分类颜色映射已经失去了认知信息有效性。因此例子中第一层及第二层使用了不同值域的分类映射，而第三层则根据数值大小采用了连续映射。
 
-#### drilldown
-
-数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
-
-在钻取过程中，支持配置不同层级的映射。例如在下面的例子中，当钻取到第三个层级（某品类所有商品名录）时，数据量非常大，此时再采用分类颜色映射已经失去了认知信息有效性。因此例子中第一层及第二层使用了不同值域的分类映射，而第三层则根据数值大小采用了连续映射。
-
-- `mapping` 配置数据钻取时各层级的颜色映射信息<br/>
-
-`[key:number]`: 层级的深度(depth)，从1开始<br/>
-`field: string`: 必选，映射字段<br/>
-`values: string[] | function`: 可选，映射颜色，如不配置则默认采用theme中的色板。<br/>
-当使用回调函数`function`的方式配置映射颜色时，入参为上一层级的数据及当期等级的数据，出参为一个色值。下图中第三层级的连续映射就是通过callback，根据上一层级的分类颜色产生渐变色指定的，保证了在钻取过程中映射变更时的认知连续性。
-
-
-<img src ='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*t1HzSYgYvycAAAAAAAAAAABkARQnAQ' width='400'>
-
-示例代码：
+| 细分配置 | 类型 | 定义 |
+| --- | --- | --- |
+| key | number | 层级的深度(depth)，从1开始 |
+| field | string | 必选，映射字段 |
+| values | string [] | function | 可选，映射颜色，如不配置则默认采用theme中的色板。<br/><br />当使用回调函数`function`的方式配置映射颜色时，入参为上一层级的数据及当期等级的数据，出参为一个色值。下图中第三层级的连续映射就是通过callback，根据上一层级的分类颜色产生渐变色指定的，保证了在钻取过程中映射变更时的认知连续性。 |
 
 ```js
 interactions: [
@@ -187,31 +425,59 @@ interactions: [
 ],
 ```
 
-### events
 
-**optional**
+# 图表方法
 
-- 图形事件
+## render()
 
-`onRectClick: function`  图形点击事件<br />
-`onRectDoubleClick: function`    图形双击事件<br />
-`onRectMousemove: function`  图形鼠标移动事件<br />
-`onRectMouseenter: function` 图形鼠标进入事件<br />
-`onRectMouseleave: function` 图形鼠标移出事件<br />
-`onRectMousedown: function` 图形鼠标点击事件<br />
-`onRectMouseup: function` 图形鼠标抬起事件<br />
-`onRectContextmenu: function`    图形右键事件<br />
+**必选**
 
-- 面包屑组件事件
+渲染图表。
 
-`onBreadcrumbClick: function`  面包屑组件点击事件<br />
-`onBreadcrumbDoubleClick: function`    面包屑组件双击事件<br />
-`onBreadcrumbMousemove: function`  面包屑组件鼠标移动事件<br />
-`onBreadcrumbMouseenter: function` 面包屑组件鼠标进入事件<br />
-`onBreadcrumbMouseleave: function` 面包屑组件鼠标移出事件<br />
-`onBreadcrumbMousedown: function` 面包屑组件鼠标点击事件<br />
-`onBreadcrumbMouseup: function` 面包屑组件鼠标抬起事件<br />
-`onBreadcrumbContextmenu: function`    面包屑组件右键事件<br />
+## updateConfig()
 
+**可选**
 
-- 其他事件类型见[通用图表配置](../general-config#events)。
+更新图表配置项。
+
+```js
+plot.updateConfig({
+  width: 500,
+  height: 600,
+  legend: {
+    visible: false,
+  },
+});
+
+plot.render();
+```
+
+## changeData()
+
+**可选**
+
+更新图表数据。`updateConfig()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
+
+```js
+plot.changeData(newData);
+```
+
+## repaint()
+
+**可选**
+
+图表画布重绘。
+
+## destory()
+
+**可选**
+
+销毁图表。
+
+## getData()
+
+获取图表数据。
+
+## getPlotTheme()
+
+获取图表 theme。

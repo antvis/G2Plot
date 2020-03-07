@@ -536,7 +536,6 @@ adjustPosition: false
 ## theme
 
 
-## interaction
 ## 交互
 
 ### scrollBar

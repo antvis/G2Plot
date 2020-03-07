@@ -492,7 +492,6 @@ adjustPosition: true
 ## theme
 
 
-## interaction
 ## 交互
 
 ### scrollBar

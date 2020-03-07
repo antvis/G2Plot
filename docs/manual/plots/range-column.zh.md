@@ -548,26 +548,6 @@ adjustPosition: true
 ## interaction
 ## 交互
 
-### slider
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-slider)
-
-功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| height | number | slider高度 |
-| start | number<br /> | 滑块初始开始位置，值域为[0,1] |
-| end | number | 滑块初始结束位置，值域为[0,1] |
-| trendCfg | object | 配置slider内的趋势组件<br />- smooth: boolean 趋势组件是否平滑<br />- isArea: boolean 趋势组件是都绘制为面积图，如设置false则绘制折线，默认false<br />- lineStyle: object 配置折线形态趋势组件的样式<br />- areaStyle: object 配置面积形态趋势组件的样式<br /> |
-| backgroundStyle | object | 配置背景样式 |
-| forgroundStyle | object | 配置前景样式 |
-| handlerStyle | object | 配置滑块样式 |
-| textStyle | object | 配置跟随滑块的文字样式 |
-| minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
-| maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
-
 ### scrollBar
 **可选**, *object*
 

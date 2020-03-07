@@ -34,7 +34,7 @@ export default class StatisticHtml {
       this.wrapperNode = createDom('<div class="g2plot-htmlStatistic"></div>');
       this.container.appendChild(this.wrapperNode);
       modifyCSS(this.wrapperNode, {
-        position: 'relative',
+        position: 'absolute',
       });
       const htmlNode = createDom(this.html);
       this.wrapperNode.appendChild(htmlNode);

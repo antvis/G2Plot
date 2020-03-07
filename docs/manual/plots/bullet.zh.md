@@ -1,55 +1,28 @@
 ---
-title: Rose - 玫瑰图
-order: 3
+title: Bullet - 子弹图
+order: 10
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qM6xQImNmj4AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u4fZSYLw-jMAAAAAAAAAAABkARQnAQ" width="600>
+
 
 # 快速上手
 
 ```js
-import { Rose } from '@antv/g2plot';
+import { Bullet } from '@antv/g2plot';
 
-const data = [
-  {
-    type: '分类一',
-    value: 27,
-  },
-  {
-    type: '分类二',
-    value: 25,
-  },
-  {
-    type: '分类三',
-    value: 18,
-  },
-  {
-    type: '分类四',
-    value: 15,
-  },
-  {
-    type: '分类五',
-    value: 10,
-  },
-  {
-    type: '其它',
-    value: 5,
-  },
-];
-
-const rosePlot = new Rose(document.getElementById('container'), {
-  data,
-  radiusField: 'value',
-  categoryField: 'type',
-  colorField: 'type',
-  label: {
-    visible: true,
-    type: 'outer',
-    formatter: (text) => text,
-  },
+const bulletPlot = new Bullet(document.getElementById('container'), {
+  data: [
+    {
+      title: '满意度',
+      measures: [83],
+      targets: [90],
+    },
+  ],
+  rangeMax: 100,
 });
 
-rosePlot.render();
+bulletPlot.render();
 
 ```
 
@@ -107,7 +80,15 @@ rosePlot.render();
 
 默认配置： 无
 
-数据源为对象集合，例如：`[{ type: 'a'，value: 20 }, { type: 'b'，value: 20 }]`。
+数据源为对象集合，每条数据包括:
+
+| title | string | 标题 |
+| --- | --- | --- |
+| measures | number[] | 进度值，支持阶段性的进度值 |
+| targets | number | 目标值 |
+| ranges | number[] | 进度条的色条范围区间，取值范围为[0, 1] |
+ 
+ 每条数据代表一个进度条，如 `[{ title: '满意度', measures: [91], target: 90, ranges: [0, 1] }]`
 
 ### meta
 **可选**, *object*
@@ -158,76 +139,79 @@ areaPlot.render();
 
 ```
 
-### radiusField
-
-**必选**, *string*
-
-功能描述：扇形切片半径长度所对应的数据字段名。
-
-### categoryField: string
-
-**必选**, *string*
-
-功能描述：扇形切片分类所对应的数据字段名（每个扇形的弧度相等）。
-
-### colorField: string
-
-**必选**, *string*
-
-功能描述： 扇形切片颜色所对应的数据字段名。
-
-
-## 图形样式
-
-### radius
+### rangeMax
 **可选**, *number*
 
-功能描述： 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。
+[DEMO](https://g2plot.antv.vision/zh/examples/bullet/basic#overflow)
 
-默认配置： 0.8, 即 width / 2 * 0.8。
-
-### color
-**可选**, *string | string[] | Function*
-
-功能描述： 指定扇形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
-
-默认配置：采用 theme 中的色板。
-
-用法示例：
-
-```js
-// 配合颜色映射，指定多值
-colorField:'type',
-color:['blue','yellow','green']
-//配合颜色映射，使用回调函数指定色值
-colorField:'type',
-color:(d)=>{
-    if(d==='a') return 'red';
-    return 'blue';
-}
-```
-
-### sectorStyle
-**可选**, *object*
-
-功能描述： 设置扇形样式。sectorStyle中的`fill`会覆盖 `color` 的配置。sectorStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
+功能描述： 进度条的色条范围区间最大值
 
 默认配置： 无
 
 
+### measureSize
+**可选**, *number*
+
+功能描述： 实际进度条大小设置（即实际进度条的高度）。
+
+默认配置：20
+
+
+## 图形样式
+
+### measureColors
+**可选**, *string[]*
+
+功能描述： 设置进度条颜色，进度条的色条区间颜色依次取数组中的颜色色值
+
+默认配置： theme默认色板
+
+
+### rangeSize
+**可选**, *number*
+
+功能描述：区间背景条大小设置，相对数值（相对于 measureSize）。
+
+默认配置：1.2
+
+
+### rangeColors
+**可选**, *string[]*
+
+[DEMO](https://g2plot.antv.vision/zh/examples/bullet/basic#color-range)
+
+功能描述：设置进度条背景颜色，进度条的色条区间颜色依次取数组中的颜色色值
+
+默认配置： theme默认色板
+
+### markerSize
+**可选**, *number*
+
+功能描述：目标值 marker 大小设置（即目标值 marker 的高度），相对数值（相对于 measureSize）。
+
+默认配置：1.2
+
+
+### markerColors
+**可选**, *string[]*
+
+功能描述：设置进度条目标值颜色
+
+
+### markerStyle
+**可选**, *object*
+
+功能描述：目标值 marker 的样式设置。
+
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
-| fill | string | 填充颜色 |
-| stroke | string | 描边颜色 |
-| lineWidth | number | 描边宽度 |
-| lineDash | number | 虚线描边 |
-| opacity | number | 整体透明度 |
-| fillOpacity | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| width | number | marker 的 宽度，默认为 1。 |
+| fill | string | marker 的填充色 |
+
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x9I-R6gkDBcAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*M0UBQaOh5XgAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -275,17 +259,57 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
+### axis
+**可选**, *object*
+
+功能描述： 坐标轴，用于展示横方向上对应的映射信息
+
+默认配置：
+
+```js
+visible: false,
+position: 'before',
+tickCount: 6,
+formatter: (text, idx) => `${idx}`,
+style: {
+    fill: 'rgba(0, 0, 0, 0.25)',
+    textBaseline: 'middle',
+    textAlign: 'center',
+    fontSize: 12,
+    lineHeight: 16,
+},
+tickLine: {
+    visible: true,
+    lineWidth: 1,
+    stroke: '#FFF',
+    lineDash: [4, 2],
+},
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| position | string | 坐标轴位置。可选值： `before | after`。默认为 `before` ，代表坐标轴在上方 |
+| autoRotateLabel | boolean | 是否自动旋转标签 |
+| autoHideLabel | boolean | 是否自动隐藏标签 |
+| tickCount | number | 坐标轴刻度数量 |
+| tickInterval | number | 坐标轴刻度间隔 |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
+
+
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS1](https://g2plot.antv.vision/zh/examples/bullet/basic#color-range)
+[DEMOS2](https://g2plot.antv.vision/zh/examples/bullet/basic#group-color-range)
 
-功能描述：图例，配置colorField时显示，用于展示颜色分类信息
+功能描述：图例，用于展示颜色分类信息
 
 默认配置：
 ```js
 visible: true,
-position: 'top',
+position: 'bottom',
 flipPage: true
 ```
 
@@ -299,6 +323,8 @@ flipPage: true
 | offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
 | marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
 
+**子弹图图例可以通过`custom`的方式定制，目前图例不支持“点击交互”**
+
 ### tooltip
 **可选**, *object*
 
@@ -307,6 +333,9 @@ flipPage: true
 默认配置：
 ```js
 visible: true,
+shared: true,
+showCrosshairs: true,
+crosshairs: 'y',
 offset: 20,
 ```
 
@@ -314,7 +343,11 @@ offset: 20,
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
+| shared | boolean | 是否同时显示多条数据 |
+| showCrosshairs | boolean | 是否tooltip辅助线 |
+| crosshairs | object | 配置tooltip辅助线，可选项： x | y | cross 辅助线形态 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
+
 
 htmlContent 用法示例：
 ```js
@@ -329,36 +362,19 @@ htmlContent: (title, items) => {
 };
 ```
 
-### label
-
-功能描述： 标签文本
-
-默认配置：
-```js
-visible: false
-type:'inner'
-autoRotate: true
-```
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| visible | boolean | 是否显示 |
-| type | string | label的类型<br />- inner label显示于扇形切片内<br />- outer label显示于外侧|
-| autoRotate | boolean | 是否自动旋转 |
-| formatter | function | 对文本标签内容进行格式化 |
-| offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
-| offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
-| style | object | 配置文本标签样式。 |
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*v47dTIPtnysAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
-
 ## 事件
 
-### 图形事件
+### 实际值图形事件
 
-| onRoseClick<br />图形点击事件 | onRoseDblClick<br />图形双击事件 | onRoseDblClick<br />图形双击事件 | onRoseMouseleave<br />图形鼠标离开事件 |
+| onBulletClick<br />实际值图形点击事件 | onBulletDblClick<br />实际值图形双击事件 | onBulletDblClick<br />实际值图形双击事件 | onLineMouseleave<br />实际值图形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onRoseMousemove<br />图形鼠标移动事件 | onRoseMousedown<br />图形鼠标按下事件 | onRoseMouseup<br />图形鼠标松开事件 | onRoseMouseenter<br />图形鼠标进入事件 |
+| onBulletMousemove<br />实际值图形鼠标移动事件 | onBulletMousedown<br />实际值图形鼠标按下事件 | onBulletMouseup<br />实际值图形鼠标松开事件 | onBulletMouseenter<br />实际值图形鼠标进入事件 |
+
+### 目标值图形事件
+
+| onBulletTargetClick<br />目标值图形点击事件 | onBulletTargetDblClick<br />目标值图形双击事件 | onBulletTargetDblClick<br />目标值图形双击事件 | onBulletTargetMouseleave<br />目标值图形鼠标离开事件 |
+| --- | --- | --- | --- |
+| onBulletTargetMousemove<br />目标值图形鼠标移动事件 | onBulletTargetMousedown<br />目标值图形鼠标按下事件 | onBulletTargetMouseup<br />目标值图形鼠标松开事件 | onBulletTargetMouseenter<br />目标值图形鼠标进入事件 |
 
 
 ### 图表区域事件
@@ -375,12 +391,11 @@ autoRotate: true
 | onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件 | onLegendMouseenter<br />图例鼠标进入事件 |
 
 
+### 坐标轴事件
 
-### 图形标签事件
-
-| onLabelClick<br />图形标签点击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelMouseleave<br />图形标签鼠标离开事件 |
+| onAxisClick<br />坐标轴点击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisMouseleave<br />坐标轴鼠标离开事件 |
 | --- | --- | --- | --- |
-| onLabelMousemove<br />图形标签鼠标移动事件 | onLabelMousedown<br />图形标签鼠标按下事件 | onLabelMouseup<br />图形标签鼠标松开事件 | onLabelMouseenter<br />图形标签鼠标进入事件 |
+| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件 |
 
 
 ### 标题事件

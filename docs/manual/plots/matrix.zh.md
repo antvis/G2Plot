@@ -82,9 +82,9 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 指定色块形状大小映射的字段，要求必须为一个**连续字段**。
 
 
-### shapeSize
+### size
 
-**optional**, number[ ]
+**可选**, number[ ]
 
 指定色块形状大小的值域，顺序为[`min`,`max`]。
 

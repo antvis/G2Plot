@@ -48,7 +48,9 @@ order: 5
 # 快速上手
 
 ```js
-const heatMapPlot = new Heatmap(document.getElementById('container'), {
+import { DensityHeatmap } from '@antv/g2plot';
+
+const heatMapPlot = new DensityHeatmap(document.getElementById('container'), {
     data,
     xField: 'prob',
     yField: 'Average annual wage',

@@ -1,3 +1,6 @@
+## <small>0.11.36 (2019-03-07)</small>
+- 🌟更新 g2 依赖版本 ([51b3df](https://github.com/antvis/G2Plot/commit/2f8104a))
+
 ## <small>0.11.35 (2019-03-02)</small>
 - 🌟修复词云图透明背景问题 ([51b3df](https://github.com/antvis/G2Plot/commit/51b3df))
 

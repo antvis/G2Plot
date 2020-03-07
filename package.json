@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.35",
+  "version": "0.11.36",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@antv/g-gesture": "~0.1.0",
-    "@antv/g2": "~3.6.0-beta.19",
+    "@antv/g2": "~3.6.0-beta.20",
     "@antv/gui": "~0.1.0",
     "d3-regression": "^1.2.8",
     "fecha": "~4.1.0",

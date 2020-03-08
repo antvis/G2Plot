@@ -544,4 +544,87 @@ describe('Radar plot', () => {
     expect(description.shape.attr('fill')).toBe('red');
     radarPlot.destroy();
   });
+
+  it('radar grid type', () => {
+    let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      angleAxis: {
+        visible: false,
+      },
+      radiusAxis: {
+        grid: {
+          line: {
+            type: 'line',
+          },
+          alternateColor: ['#ccc', null],
+        },
+      },
+    });
+    radarPlot.render();
+    let view = radarPlot.getLayer().view;
+    let gridLineShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-line';
+    });
+    expect(gridLineShape[0].cfg.hasArc).toBe(false);
+
+    radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      angleAxis: {
+        visible: false,
+      },
+    });
+    radarPlot.render();
+    view = radarPlot.getLayer().view;
+    gridLineShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-line';
+    });
+    expect(gridLineShape[0].cfg.hasArc).toBe(true);
+  });
+
+  it('radar grid type alternateColor', () => {
+    let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+    });
+    radarPlot.render();
+    let view = radarPlot.getLayer().view;
+    let gridRegionShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-region';
+    });
+    expect(gridRegionShape.length).toBe(0);
+
+    radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      radiusAxis: {
+        grid: {
+          alternateColor: ['#ccc', null],
+        },
+      },
+    });
+    radarPlot.render();
+    view = radarPlot.getLayer().view;
+    gridRegionShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-region';
+    });
+    expect(gridRegionShape[0].attr('fill')).toBe('#ccc');
+  });
 });

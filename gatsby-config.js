@@ -41,6 +41,14 @@ module.exports = {
         order: 3,
       },
       {
+        slug: 'manual/mini-charts',
+        title: {
+          zh: '迷你图表',
+          en: 'sparkline',
+        },
+        order: 3,
+      },
+      {
         slug: 'manual/advanced',
         title: {
           zh: '进阶',

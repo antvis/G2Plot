@@ -6,7 +6,6 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
-import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './theme';
 import './geometry/shape/funnel-basic-rect';
@@ -137,6 +136,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private _animationAppearTimeoutHandler: any;
   private _shouldResetPercentages: boolean = true;
   private _shouldResetLabels: boolean = true;
+  private _shouldResetCompareTexts: boolean = true;
   private _legendsListenerAttached: boolean = false;
 
   constructor(props: T) {
@@ -145,6 +145,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (props.dynamicHeight) {
       this._genCustomFieldForDynamicHeight(this.getData());
+    }
+
+    if (props.compareField) {
+      this.options.data = this._reduceDataForCompare(this.getData());
     }
   }
 
@@ -230,6 +234,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       }
       this._animationAppearTimeoutHandler = setTimeout(() => {
         this.fadeInPercentages(appearDurationEach);
+        if (props.compareField) {
+          this.fadeInCompareTexts(appearDurationEach);
+        }
         delete this._animationAppearTimeoutHandler;
       }, appearDuration);
 
@@ -258,6 +265,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     this.resetLabels();
     this.resetPercentages();
+    if (props.compareField) {
+      this.resetCompareTexts();
+    }
 
     if (props.padding == 'auto') {
       const percentageContainer = this._findPercentageContainer();
@@ -269,7 +279,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     super.afterRender();
 
     if (props.animation === false) {
+      this.fadeInLabels();
       this.fadeInPercentages();
+      if (props.compareField) {
+        this.fadeInCompareTexts();
+      }
     }
 
     if (!this._legendsListenerAttached) {
@@ -281,6 +295,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   public updateConfig(cfg: Partial<T>): void {
+    cfg = this.adjustProps(cfg);
     super.updateConfig(cfg);
     this._legendsListenerAttached = false;
   }
@@ -298,10 +313,19 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       this._genCustomFieldForDynamicHeight(checkedData);
     }
 
+    if (props.compareField) {
+      data = this._reduceDataForCompare(data);
+      const checkedData = this._findCheckedDataInNewData(data);
+      this._updateDataForCompare(checkedData);
+    }
+
     super.changeData(data);
 
     this.refreshPercentages();
     this.refreshLabels();
+    if (props.compareField) {
+      this.fadeInCompareTexts();
+    }
   }
 
   protected geometryParser(dim, type) {
@@ -346,7 +370,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     const adjustTimestamp = Date.now();
     const container = this._findPercentageContainer(true);
-    const coord = this.view.getCoordinate();
 
     this._eachShape((shape, index, datumLower, datumUpper) => {
       if (index > 0) {
@@ -485,7 +508,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         ];
 
         if (props.compareField) {
-          const [x0, y0] = coord.invertMatrix(minX, maxY, 1);
+          const [x0, y0] = [minX, minY];
           [
             [x0, y0],
             [x1, y1],
@@ -502,7 +525,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (child.get('adjustTimestamp') != adjustTimestamp) {
         child.attr({ opacity: 0 });
         container.set(child.get('id'), null);
-        child.remove();
+        setTimeout(() => child.remove(), 0);
       }
     });
   }
@@ -669,8 +692,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     const updateDuration = _.get(props, 'animation.update.duration');
     const enterDuration = _.get(props, 'animation.enter.duration');
-    const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.7;
-    const fadeOutDuration = Math.max(enterDuration, updateDuration) * 1.1;
+    const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.6;
+    const fadeOutDuration = Math.max(enterDuration, updateDuration) * 1.2;
 
     return { fadeInDuration, fadeOutDuration };
   }
@@ -699,8 +722,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { formatter } = labelProps;
 
     let datumTop;
+    let compareTop;
     this._eachShape((shape, index, datum) => {
-      if (index == 0) datumTop = datum;
+      if (index == 0) {
+        datumTop = datum;
+        compareTop = datumTop.__compare__;
+      }
 
       const { minX, maxX, minY, maxY } = shape.getBBox();
       const xValue = datum[xField];
@@ -710,12 +737,22 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         labelStyle.fill = this._getAdjustedTextFillByShape(shape);
       }
 
+      const compare = datum.__compare__;
+      let content;
+      if (compare) {
+        content = [0, 1]
+          .map((i) => formatter(xValue, shape, index, compare.yValues[i], compareTop.yValues[i]))
+          .join('    ');
+      } else {
+        content = formatter(xValue, shape, index, yValue, datumTop[yField]);
+      }
+
       const label = this._findLabelInContainerByIndex(labelsContainer, index, true);
       label.attr({
         ...labelStyle,
-        x: (minX + maxX) / 2,
-        y: (minY + maxY) / 2,
-        text: formatter ? formatter(xValue, shape, index, yValue, datumTop[yField]) : `${xValue} ${yValue}`,
+        x: lerp(minX, maxX, compare ? compare.yValues[0] / (compare.yValues[0] + compare.yValues[1]) : 0.5),
+        y: lerp(minY, maxY, 0.5),
+        text: content,
       });
 
       label.set('adjustTimestamp', adjustTimestamp);
@@ -725,7 +762,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (label.get('adjustTimestamp') != adjustTimestamp) {
         label.attr({ opacity: 0 });
         labelsContainer.set(label.get('id'), null);
-        label.remove();
+        setTimeout(() => label.remove());
       }
     });
   }
@@ -811,8 +848,116 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     return label;
   }
 
+  protected resetCompareTexts() {
+    if (!this._shouldResetCompareTexts) return;
+
+    const props = this.options;
+
+    let shapeParentBBox;
+    let compare;
+    this._eachShape((shape, index, datum) => {
+      if (index == 0) {
+        shapeParentBBox = shape.get('parent').getBBox();
+        compare = _.get(datum, '__compare__');
+      }
+    });
+
+    if (shapeParentBBox && compare && _.get(props, 'compareText.visible') !== false) {
+      const container = this._findCompareTextContainer(true);
+      const { yValuesMax, compareValues } = compare;
+      const { minX, maxX, minY, maxY } = shapeParentBBox;
+
+      const compareTexts = container.get('children');
+      [0, 1].forEach((i) => {
+        let compareText = compareTexts[i];
+        if (!compareText) {
+          compareText = container.addShape({ type: 'text' });
+        }
+        compareText.attr(
+          _.deepMix({}, _.get(props, 'compareText.style'), {
+            text: props.transpose ? compareValues[i] : i ? `  ${compareValues[i]}` : `${compareValues[i]}  `,
+            x: props.transpose
+              ? minX + _.get(props, 'compareText.offsetX')
+              : lerp(minX, maxX, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])),
+            y: props.transpose
+              ? lerp(minY, maxY, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])) + (i ? 8 : -8)
+              : minY + _.get(props, 'compareText.offsetY'),
+            opacity: 0,
+            textAlign: props.transpose ? 'right' : i ? 'left' : 'right',
+            textBaseline: props.transpose ? (i ? 'top' : 'bottom') : 'bottom',
+          })
+        );
+      });
+    }
+  }
+
+  protected fadeInCompareTexts(duration?, callback?) {
+    const container = this._findCompareTextContainer();
+    if (container) {
+      const compareTexts = container.get('children');
+      [0, 1].forEach((i) => {
+        const compareText = compareTexts[i];
+
+        if (compareText) {
+          const attrs = {
+            opacity: 1,
+          };
+          duration ? compareText.animate(attrs, duration) : compareText.attr(attrs);
+        }
+      });
+    }
+
+    duration && callback && setTimeout(callback, duration);
+  }
+
+  protected fadeOutCompareTexts(duration?, callback?) {
+    const container = this._findCompareTextContainer();
+    if (container) {
+      const compareTexts = container.get('children');
+      [0, 1].forEach((i) => {
+        const compareText = compareTexts[i];
+
+        if (compareText) {
+          const attrs = {
+            opacity: 0,
+          };
+          duration ? compareText.animate(attrs, duration) : compareText.attr(attrs);
+        }
+      });
+    }
+
+    duration && callback && setTimeout(callback, duration);
+  }
+
+  protected refreshCompareTexts(callback?) {
+    const props = this.options;
+
+    if (props.animation !== false) {
+      const { fadeInDuration, fadeOutDuration } = this._calcRefreshFadeDurations();
+
+      this._shouldResetCompareTexts = false;
+      this.fadeOutCompareTexts(fadeOutDuration, () => {
+        this._shouldResetCompareTexts = true;
+        this.resetCompareTexts();
+        this.fadeInCompareTexts(fadeInDuration, callback);
+      });
+    }
+  }
+
+  private _findCompareTextContainer(createIfNotFound: boolean = false) {
+    const { middleGroup } = this.view;
+
+    let compareTextContainer = middleGroup.get('compareTextContainer');
+    if (!compareTextContainer && createIfNotFound) {
+      compareTextContainer = middleGroup.addGroup();
+      middleGroup.set('compareTextContainer', compareTextContainer);
+    }
+
+    return compareTextContainer;
+  }
+
   private _eachShape(fn: (shape: IShape | IGroup, index: number, datumLower: any, datumUpper: any) => void) {
-    const data = this.getData();
+    const data = this._findCheckedData(this.getData());
     const dataLen = data.length;
     let index = 0;
     let datumUpper;
@@ -897,6 +1042,84 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     return checkedData;
   }
 
+  private _findCheckedData(data: any[]) {
+    const props = this.options;
+
+    // @ts-ignore
+    const legendContainer = this.view.getController('legend').container;
+
+    const checkedXValues = legendContainer
+      .findAll((shape) => shape.get('name') == 'legend-item')
+      .filter((legendItem) => !legendItem.get('unchecked'))
+      .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
+
+    const checkedData = data.filter((datum) => _.contains(checkedXValues, datum[props.xField]));
+
+    return checkedData;
+  }
+
+  private _reduceDataForCompare(data: any[]) {
+    const props = this.options;
+
+    let compareValueFirstVisited;
+    const yValuesMax = [-Infinity, -Infinity];
+    data = data.reduce((newData, datum) => {
+      const xValue = datum[props.xField];
+      const yValue = datum[props.yField];
+      const compareValue = datum[props.compareField];
+      if (!compareValueFirstVisited) compareValueFirstVisited = compareValue;
+
+      let newDatum = newData.find((newDatum) => newDatum[props.xField] == xValue);
+      if (!newDatum) {
+        newDatum = {
+          [props.xField]: xValue,
+          [props.yField]: 0,
+          ['__compare__']: {
+            compareValues: [],
+            yValues: [],
+            yValuesMax: [],
+            yValuesNext: undefined,
+            transpose: props.transpose,
+          },
+        };
+        newData.push(newDatum);
+      }
+      const idx = compareValue == compareValueFirstVisited ? 0 : 1;
+      newDatum['__compare__'].yValues[idx] = yValue;
+      if (yValuesMax[idx] < yValue) {
+        yValuesMax[idx] = yValue as number;
+      }
+      newDatum['__compare__'].compareValues[idx] = compareValue;
+
+      return newData;
+    }, []);
+
+    data.forEach((datum, index) => {
+      datum[props.yField] = _.get(datum, '__compare__.yValues', []).reduce((yTotal, yValue) => (yTotal += yValue), 0);
+      _.set(datum, '__compare__.yValuesMax', yValuesMax);
+      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+    });
+
+    return data;
+  }
+
+  private _updateDataForCompare(data: any[]) {
+    const yValuesMax = [-Infinity, -Infinity];
+    data.forEach((datum) => {
+      const yValues = _.get(datum, '__compare__.yValues');
+      [0, 1].forEach((i) => {
+        if (yValues[i] > yValuesMax[i]) {
+          yValuesMax[i] = yValues[i];
+        }
+      });
+    });
+
+    data.forEach((datum, index) => {
+      _.set(datum, '__compare__.yValuesMax', yValuesMax);
+      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+    });
+  }
+
   private _onLegendContainerMouseDown = (e) => {
     const props = this.options;
 
@@ -911,6 +1134,12 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (props.dynamicHeight) {
         const data = this._findCheckedDataByMouseDownLegendItem(legendItem);
         this._genCustomFieldForDynamicHeight(data);
+      }
+
+      if (props.compareField) {
+        const data = this._findCheckedDataByMouseDownLegendItem(legendItem);
+        this._updateDataForCompare(data);
+        this.refreshCompareTexts();
       }
     }
   };

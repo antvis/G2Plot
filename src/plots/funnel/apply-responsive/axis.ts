@@ -1,7 +1,7 @@
 import ApplyResponsiveAxis from '../../../util/responsive/apply/axis';
-import BarLayer from '../layer';
+import FunnelLayer from '../layer';
 
-export default function responsiveAxis(layer: BarLayer) {
+export default function responsiveAxis(layer: FunnelLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
   const canvas = layer.canvas;
   // x-axis

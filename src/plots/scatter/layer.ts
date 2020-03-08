@@ -8,7 +8,7 @@ import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
 import * as EventParser from './event';
-import ScatterLabel from './components/label';
+import { getComponent } from '../../components/factory';
 
 export interface PointStyle {
   /** 圆边颜色 */
@@ -39,7 +39,7 @@ export interface PointViewConfig extends ViewConfig {
   /** x 轴配置 */
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   /** y 轴配置 */
-  yAxis?: IValueAxis;
+  yAxis?: ICatAxis | ITimeAxis | IValueAxis;
   quadrant?: QuadrantConfig;
   trendline?: TrendlineConfig;
 }
@@ -97,19 +97,9 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   public points: any;
   protected quadrant: Quadrant;
   protected trendline: Trendline;
-  protected label: ScatterLabel;
 
   public afterRender() {
     super.afterRender();
-    if (this.options.label && this.options.label.visible) {
-      this.label = new ScatterLabel({
-        view: this.view,
-        plot: this,
-        field: this.options.yField,
-        ...this.options.label,
-      });
-      this.label.render();
-    }
     if (this.options.quadrant && this.options.quadrant.visible && !this.quadrant) {
       if (this.quadrant) {
         this.quadrant.destroy();
@@ -122,6 +112,9 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       this.quadrant.render();
     }
     if (this.options.trendline && this.options.trendline.visible) {
+      if (this.trendline) {
+        this.trendline.destroy();
+      }
       this.trendline = new Trendline({
         view: this.view,
         plotOptions: this.options,
@@ -132,10 +125,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   }
 
   public destroy() {
-    if (this.label) {
-      this.label.destroy();
-      this.label = null;
-    }
     if (this.quadrant) {
       this.quadrant.destroy();
       this.quadrant = null;
@@ -149,8 +138,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   private isValidLinearValue(value) {
     if (_.isNil(value)) {
-      return false;
-    } else if (!_.isNumber(Number(value))) {
       return false;
     } else if (Number.isNaN(Number(value))) {
       return false;
@@ -221,7 +208,30 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         ...this.options.tooltip,
       } as any);
     }
+    if (this.options.label) {
+      this.label();
+    }
     this.setConfig('geometry', points);
+  }
+
+  protected label() {
+    const props = this.options;
+
+    if (props.label.visible === false) {
+      if (this.points) {
+        this.points.label = false;
+      }
+      return;
+    }
+
+    const label = getComponent('label', {
+      fields: [props.yField],
+      plot: this,
+    });
+
+    if (this.points) {
+      this.points.label = label;
+    }
   }
 
   protected animation() {

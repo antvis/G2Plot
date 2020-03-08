@@ -48,7 +48,7 @@ export default class CircleParser extends ElementParser {
       config.fields = [props.sizeField];
     }
     if (props.pointSize) {
-      config.values = props.pointSize;
+      config.values = isArray(props.pointSize) ? props.pointSize : [props.pointSize];
     }
     this.config.size = config;
   }

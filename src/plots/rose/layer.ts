@@ -73,7 +73,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       },
       legend: {
         visible: true,
-        position: 'bottom',
+        position: 'right',
       },
       tooltip: {
         visible: true,

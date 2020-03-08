@@ -184,18 +184,18 @@ describe('Radar plot', () => {
     const angleAxisLabelShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-label';
     });
-    expect(angleAxisLabelShapes[0].attr('text') === 'angleAxis');
-    expect(angleAxisLabelShapes[0].attr('fill') === 'red');
+    expect(angleAxisLabelShapes[0].attr('text')).toBe('angleAxis');
+    expect(angleAxisLabelShapes[0].attr('fill')).toBe('red');
     const angleAxisLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-line';
     });
-    expect(angleAxisLineShapes[0].attr('stroke') === 'red');
+    expect(angleAxisLineShapes[0].attr('stroke')).toBe('red');
     const angleAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-tickline';
     });
-    expect(angleAxisTickLineShapes[0].attr('stroke') === 'red');
-    expect(angleAxisTickLineShapes[0].attr('length') === 5);
-    expect(angleAxisTickLineShapes[0].attr('lineWidth') === 1);
+    expect(angleAxisTickLineShapes[0].attr('stroke')).toBe('red');
+    expect(angleAxisTickLineShapes[0].attr('length')).toBe(5);
+    expect(angleAxisTickLineShapes[0].attr('lineWidth')).toBe(1);
     radarPlot.destroy();
   });
 
@@ -249,18 +249,18 @@ describe('Radar plot', () => {
     const angleAxisLabelShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-label';
     });
-    expect(angleAxisLabelShapes[0].attr('text') === 'radiusAxis');
-    expect(angleAxisLabelShapes[0].attr('fill') === 'red');
+    expect(angleAxisLabelShapes[0].attr('text')).toBe('radiusAxis');
+    expect(angleAxisLabelShapes[0].attr('fill')).toBe('red');
     const angleAxisLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-line';
     });
-    expect(angleAxisLineShapes[0].attr('stroke') === 'red');
+    expect(angleAxisLineShapes[0].attr('stroke')).toBe('red');
     const angleAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
       return el.get('name') === 'axis-tickline';
     });
-    expect(angleAxisTickLineShapes[0].attr('stroke') === 'red');
-    expect(angleAxisTickLineShapes[0].attr('length') === 5);
-    expect(angleAxisTickLineShapes[0].attr('lineWidth') === 1);
+    expect(angleAxisTickLineShapes[0].attr('stroke')).toBe('red');
+    expect(angleAxisTickLineShapes[0].attr('length')).toBe(5);
+    expect(angleAxisTickLineShapes[0].attr('lineWidth')).toBe(1);
     radarPlot.destroy();
   });
 
@@ -543,5 +543,88 @@ describe('Radar plot', () => {
     expect(description.shape.attr('text')).toBe('description');
     expect(description.shape.attr('fill')).toBe('red');
     radarPlot.destroy();
+  });
+
+  it('radar grid type', () => {
+    let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      angleAxis: {
+        visible: false,
+      },
+      radiusAxis: {
+        grid: {
+          line: {
+            type: 'line',
+          },
+          alternateColor: ['#ccc', null],
+        },
+      },
+    });
+    radarPlot.render();
+    let view = radarPlot.getLayer().view;
+    let gridLineShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-line';
+    });
+    expect(gridLineShape[0].cfg.hasArc).toBe(false);
+
+    radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      angleAxis: {
+        visible: false,
+      },
+    });
+    radarPlot.render();
+    view = radarPlot.getLayer().view;
+    gridLineShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-line';
+    });
+    expect(gridLineShape[0].cfg.hasArc).toBe(true);
+  });
+
+  it('radar grid type alternateColor', () => {
+    let radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+    });
+    radarPlot.render();
+    let view = radarPlot.getLayer().view;
+    let gridRegionShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-region';
+    });
+    expect(gridRegionShape.length).toBe(0);
+
+    radarPlot = new Radar(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      angleField: 'item',
+      radiusField: 'score',
+      seriesField: 'user',
+      radiusAxis: {
+        grid: {
+          alternateColor: ['#ccc', null],
+        },
+      },
+    });
+    radarPlot.render();
+    view = radarPlot.getLayer().view;
+    gridRegionShape = view.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'grid-region';
+    });
+    expect(gridRegionShape[0].attr('fill')).toBe('#ccc');
   });
 });

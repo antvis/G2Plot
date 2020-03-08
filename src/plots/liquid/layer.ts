@@ -7,6 +7,7 @@ import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import { DataItem } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
+import * as EventParser from './event';
 import './geometry/shape/liquid';
 import './animation/liquid-move-in';
 
@@ -203,6 +204,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     delete statisticConfig.formatter;
     delete statisticConfig.adjustColor;
     return statisticConfig;
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   public afterRender() {

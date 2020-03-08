@@ -7,6 +7,7 @@ import { generateCalendarData, getMonthCenterWeek } from './util';
 import { registerPlotType } from '../../base/global';
 import { getDateRange } from '../../util/date';
 import { getComponent } from '../../components/factory';
+import * as EventParser from './event';
 
 /** 日历图配置定义 */
 export interface CalendarViewConfig extends ViewConfig {
@@ -169,6 +170,10 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
     y.alias = _.get(yAxis, ['title', 'text'], y.alias);
 
     this.setConfig('scales', scales);
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

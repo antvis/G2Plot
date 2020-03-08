@@ -1,9 +1,9 @@
 ---
-title: Line - 折线图
-order: 0
+title: StepLine - 阶梯折图
+order: 1
 ---
 
-  <div data-card-type="block" data-lake-card="table" id="pLwYV">
+<div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 735px; outline: none; border-collapse: collapse;">
       <colgroup>
         <col width="395" span="1">
@@ -11,32 +11,35 @@ order: 0
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
-          <td rowspan="5" colspan="1" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*I83vRKcL82sAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-02 下午2.51.04.png" title="屏幕快照 2020-03-02 下午2.51.04.png" style="border: none; box-shadow: none; width: 372px; height: 418px; visibility: visible;"></span></p>
+          <td colspan="1" rowspan="5" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
             <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AsBJQqD0lfYAAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AsBJQqD0lfYAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-06 下午11.10.44.png" title="屏幕快照 2020-03-06 下午11.10.44.png" style="border: none; box-shadow: none; visibility: visible; width: 372px; height: 448px;"></span></p>
           </td>
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">别名</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">折线图、线图、基础折线图</span></p>
-          </td>
-        </tr>
-        <tr style="height: 33px;">
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">使用一条折线的线段显示数据在一个具有顺序性的维度上的变化。</span></p>
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">别名</span></strong></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">阶梯线</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">位置、方向</span></p>
+          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">折线根据分类字段分为多根在 x 方向（时间）的信息是完全一致、颜色及 y 方向（变量）信息不一致的折线，通常用作同一时间区间内多个变量发展趋势的对比。</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
-          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">趋势</span></p>
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">位置、方向</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
-          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「时间」或「有序名词」字段</span></p>
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">比较、趋势</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;"><br></span><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「时间」或「有序名词」字段</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">0 ~ 1 个「无序名词」字段</span></p>
             <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「数值」字段</span></p>
           </td>
         </tr>
@@ -44,6 +47,7 @@ order: 0
     </table>
   </div>
 
+ 
 # 快速上手
 
 ```js
@@ -59,21 +63,13 @@ const data = [
   { year: '1999', value: 13 },
 ];
 
-const linePlot = new Line(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '折线图',
-  },
-  description: {
-    visible: true,
-    text: '用平滑的曲线代替折线。',
-  },
-  data,
-  xField: 'year',
-  yField: 'value',
-});
+const step = new StepLine(document.getElementById('container'), {
+      data,
+      xField: 'year',
+      yField: 'value',
+    });
+step.render();
 
-linePlot.render();
 ```
 
 # 配置属性
@@ -204,6 +200,14 @@ areaPlot.render();
 
 默认配置： 无
 
+### step
+**可选**, *string*
+
+功能描述： 阶梯折线的阶梯转折形态，可选配置为 'hv' | 'vh' | 'vhv' | 'hvh'。
+
+默认配置： hv
+
+
 ## 图形样式
 
 ### color
@@ -213,7 +217,7 @@ areaPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-[**DEMO1**](../../../../../examples/line/multiple#line-color)
+[**DEMO1**](https://g2plot.antv.vision/zh/examples/step-line/multiple)
 
 [**DEMO2**](https://g2plot.antv.vision/zh/examples/line/multiple#color-callback)
 
@@ -277,7 +281,7 @@ style: {
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Z3C7QJToIH8AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3EGiQa_qpUEAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -627,7 +631,7 @@ style:{
 ### slider
 **可选**, *object*
 
-[DEMO](http://localhost:8000/zh/examples/line/basic#line-slider)
+[DEMO](https://g2plot.antv.vision/zh/examples/step-line/basic#step-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于折线数据较多，用户希望关注数据集中某个特殊区间的场景。
 

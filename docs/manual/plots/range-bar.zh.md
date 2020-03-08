@@ -1,115 +1,37 @@
 ---
-title: Column - 柱状图
-order: 3
+title: RangeBar - 区间条形图
+order: 8
 ---
 
- <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
-    <table class="lake-table" style="width: 735px; outline: none; border-collapse: collapse;">
-      <colgroup>
-        <col width="395" span="1">
-        <col width="340" span="1">
-      </colgroup>
-      <tbody>
-        <tr style="height: 33px;">
-          <td rowspan="5" colspan="1" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JtE1QYcof-cAAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JtE1QYcof-cAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-02 下午2.51.04.png" title="屏幕快照 2020-03-02 下午2.51.04.png" style="border: none; box-shadow: none; width: 372px; height: 418px; visibility: visible;"></span></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
-          </td>
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">别名</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">柱形图</span></p>
-          </td>
-        </tr>
-        <tr style="height: 33px;">
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">使用柱形显示维度的数值。横轴显示分类维度，纵轴显示相应的值</span></p>
-          </td>
-        </tr>
-        <tr style="height: 33px;">
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">位置、方向</span></p>
-          </td>
-        </tr>
-        <tr style="height: 33px;">
-          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">比较、趋势</span></p>
-          </td>
-        </tr>
-        <tr style="height: 33px;">
-          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「时间」或「有序名词」字段</span></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">0 ~ 1 个「无序名词」字段</span></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「数值」字段</span></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"></p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ntOoRbDgmhAAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
 ```js
-import { Column } from '@antv/g2plot';
+import { RangeBar } from '@antv/g2plot';
 
 const data = [
-  {
-    type: '家具家电',
-    sales: 38,
-  },
-  {
-    type: '粮油副食',
-    sales: 52,
-  },
-  {
-    type: '生鲜水果',
-    sales: 61,
-  },
-  {
-    type: '美容洗护',
-    sales: 145,
-  },
-  {
-    type: '母婴用品',
-    sales: 48,
-  },
-  {
-    type: '进口食品',
-    sales: 38,
-  },
-  {
-    type: '食品饮料',
-    sales: 38,
-  },
-  {
-    type: '家庭清洁',
-    sales: 38,
-  },
+  { type: '分类一', values: [76, 100] },
+  { type: '分类二', values: [56, 108] },
+  { type: '分类三', values: [38, 129] },
+  { type: '分类四', values: [58, 155] },
+  { type: '分类五', values: [45, 120] },
+  { type: '分类六', values: [23, 99] },
+  { type: '分类七', values: [18, 56] },
+  { type: '分类八', values: [18, 34] },
 ];
 
-const columnPlot = new Column(document.getElementById('container'), {
+const barPlot = new RangeBar(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '基础柱状图',
+    text: '区间条形图',
   },
-  forceFit: true,
   data,
-  padding: 'auto',
-  data,
-  xField: 'type',
-  yField: 'sales',
-  meta: {
-    type: {
-      alias: '类别',
-    },
-    sales: {
-      alias: '销售额(万)',
-    },
-  },
+  xField: 'values',
+  yField: 'type',
 });
+barPlot.render();
 
-columnPlot.render();
 ```
 
 # 配置属性
@@ -220,21 +142,21 @@ areaPlot.render();
 ### xField
 **必选**, *string*
 
-功能描述： 柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
+功能描述： 条形在 x 方向长度映射对应的数据字段名，一般对应一个离散字段。
 
 默认配置： 无
 
 ### yField
 **必选**, *string*
 
-功能描述： 柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
+功能描述： 条形在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
 
 默认配置： 无
 
 ### colorField
 **可选**, *string*
 
-功能描述：柱形颜色映射对应的数据字段名。从基础柱状图的使用场景来说，我们不推荐对柱形进行额外的颜色映射。
+功能描述：条形颜色映射对应的数据字段名。从基础条形图的使用场景来说，我们不推荐进行额外的颜色映射。
 
 默认配置： 无
 
@@ -243,7 +165,7 @@ areaPlot.render();
 ### color
 **可选**, *string | string[] | Function*
 
-功能描述： 指定柱形颜色，如没有配置colorField,指定一个单值即可。对colorFiled进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+功能描述： 指定条形颜色，如没有配置colorField,指定一个单值即可。对colorFiled进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
 默认配置：采用 theme 中的色板。
 
@@ -263,17 +185,17 @@ color:(d)=>{
 }
 ```
 
-### columnSize
+### barSize
 **可选**, *number*
 
-功能描述： 设置柱形宽度。对于一般场景来说，柱形宽度会根据数据自行计算，不需特别指定。
+功能描述： 设置条形高度。对于一般场景来说，条形高度会根据数据自行计算，不需特别指定。
 
 默认配置： 无
 
-### columnStyle
+### barStyle
 **可选**, *object*
 
-功能描述： 设置柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。columnStyle可以直接指定，也可以通过callback的方式，根据数据为每一根柱子指定单独的样式。
+功能描述： 设置条形样式。barStyle中的`fill`会覆盖 `color` 的配置。barStyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
 
 默认配置： 无
 
@@ -290,7 +212,7 @@ color:(d)=>{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*C554SqAGfuMAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EeWEQasa8UEAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -338,12 +260,12 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### xAxis
+### yAxis
 **可选**, *object*
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
-功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
+功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
 默认配置：
 
@@ -351,15 +273,16 @@ style:{
 visible: true,
 autoHideLabel: false,
 autoRotateLabel: false,
-autoRotateTitle: false,
+autoRotateTitle: true,
+nice: true,
 grid: {
     visible: false,
 },
 line: {
-    visible: true
+    visible: false,
 },
 tickLine: {
-     visible: true,
+    visible: false,
 },
 label: {
     visible: true,
@@ -367,7 +290,7 @@ label: {
 title: {
     visible: false,
     offset: 12,
-},
+}
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -381,34 +304,30 @@ title: {
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
-### yAxis
+### xAxis
 **可选**, *object*
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
-功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
+功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: true,
-grid: {
+line: {
+    visible: false,
+},
+title: {
     visible: true,
 },
-line: {
+label: {
     visible: false,
 },
 tickLine: {
     visible: false,
 },
-label: {
-    visible: true,
-},
-title: {
-    visible: true,
-    offset: 12,
+grid: {
+    visible: false,
 },
 ```
 
@@ -483,16 +402,14 @@ htmlContent: (title, items) => {
 
 ### label
 
-功能描述： 标签文本
+功能描述： 标签文本，与其他条形图家族图表不同，区间条形图的label为一对。
 
-[DEMO1](https://g2plot.antv.vision/zh/examples/column/basic#column-label)
-[DEMO2](https://g2plot.antv.vision/zh/examples/column/basic#column-label-position)
-[DEMO3](https://g2plot.antv.vision/zh/examples/column/basic#column-label-color-adjust)
+[DEMO](https://g2plot.antv.vision/zh/examples/bar/range#range-bar-label)
 
 默认配置：
 ```js
 visible: false
-position: 'top'
+position: 'outer'
 offsetX: 6
 offsetY: 6
 style:{
@@ -501,82 +418,32 @@ style:{
   lineWidth: 2,
 },
 adjustColor: true,
-adjustPosition: false
+adjustPosition: true
 ```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| position | string | label的位置<br />- top 位于柱子顶部<br />- middle 位于柱子垂直中心<br />- bottom 位于柱子底部<br /> |
+| position  | string | label的位置<br />- outter  位于柱子外侧，即左侧和右侧<br />- inner  位于柱子内侧，即左部和右部<br /> |
 | formatter | function | 对文本标签内容进行格式化 |
+| style | object | 配置 label 的样式 |
+| leftStyle | object | 配置左侧 label 样式<br />如果同时配置了style和leftStyle，左侧 label 的样式将以leftStyle 为准。 |
+| rightStyle | object | 配置右侧 label 样式<br />如果同时配置了style和rightStyle，右侧 label 样式将以rightStyle为准。 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
-| style | object | 配置文本标签样式。 |
-| adjustColor | boolean | 文本标签颜色是否自动适应图形颜色，position为middle时有效。 |
-| adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置，position为middle时有效。如图形区域容纳不下label，则label位置自动调整至图形上方。 |
+| adjustColor | boolean | 文本标签是否自动适应图形颜色，position 为 inner 时生效 |
+| adjustPosition | boolean | 当文本标签显示区域不够时，是否自动调整位置。 |
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fUdpQo5_Ci8AAAAAAAAAAABkARQnAQ" width="600">
-
-
-### guideLine
-
-**可选**, *object[]*
-
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LIhaRqo-6M4AAAAAAAAAAABkARQnAQ" width="400">
-
-功能描述： 配置图表辅助线，支持同时配置多条。
-
-默认配置： 无
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| type | string | 含有统计意义的辅助线类型，可选类型为 max | min | median | mean<br />*注意：如指定了辅助线类型，则不需要配置辅助线的start和end。 |
-| start | array | 指定辅助线起始位置，如不配置`type`，则该辅助线为自定义辅助线，`start`是必选项。<br/>支持两种配置形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br /> |
-| end | array | 指定辅助线终止位置，如不配置`type`，则该辅助线为自定义辅助线，end 是必选项。<br/>支持两种数据形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br /> |
-| lineStyle | object | 配置辅助线样式。 |
-| text | object | 设置辅助线文本。<br />- position: string 辅助线文本位置，可选项：start、center、end<br />- content: string 辅助线文本内容<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY: number 位置在y方向上的偏移量<br />- style: object 文本样式<br /> |
-|  |  |  |
-
-
-配置统计辅助线示例代码：
-
-```js
-{
-  guideLine: [
-    {
-      type: 'mean',
-      lineStyle: {},
-      text: {},
-    },
-  ],
-}
-```
-
-配置自定义辅助线示例代码：
-
-```js
-{
-  guideLine: [
-    {
-      start: ['2010-01-01', 100] || ['0%', '50%'],
-      end: ['2010-01-10', 50] || ['100%', '80%'],
-      lineStyle: {},
-      text: {},
-    },
-  ],
-}
-```
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*jxrCSrRlHdYAAAAAAAAAAABkARQnAQ" width="800">
 
 
 ## 事件
 
-### 柱形图形事件
+### 图形事件
 
-| onColumnClick<br />柱形点击事件 | onColumnDblClick<br />柱形双击事件 | onColumnDblClick<br />柱形双击事件 | onColumnMouseleave<br />柱形鼠标离开事件 |
+| onBarClick<br />条形点击事件 | onBarDblClick<br />条形双击事件 | onBarDblClick<br />条形双击事件 | onBarMouseleave<br />条形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onColumnMousemove<br />柱形鼠标移动事件 | onColumnMousedown<br />柱形鼠标按下事件 | onColumnMouseup<br />柱形鼠标松开事件 | onColumnMouseenter<br />柱形鼠标进入事件 |
+| onBarMousemove<br />条形鼠标移动事件 | onBarMousedown<br />条形鼠标按下事件 | onBarMouseup<br />条形鼠标松开事件 | onBarMouseenter<br />条形鼠标进入事件 |
 
 
 ### 图表区域事件
@@ -627,32 +494,12 @@ adjustPosition: false
 
 ## 交互
 
-### slider
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-slider)
-
-功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| height | number | slider高度 |
-| start | number<br /> | 滑块初始开始位置，值域为[0,1] |
-| end | number | 滑块初始结束位置，值域为[0,1] |
-| trendCfg | object | 配置slider内的趋势组件<br />- smooth: boolean 趋势组件是否平滑<br />- isArea: boolean 趋势组件是都绘制为面积图，如设置false则绘制折线，默认false<br />- lineStyle: object 配置折线形态趋势组件的样式<br />- areaStyle: object 配置面积形态趋势组件的样式<br /> |
-| backgroundStyle | object | 配置背景样式 |
-| forgroundStyle | object | 配置前景样式 |
-| handlerStyle | object | 配置滑块样式 |
-| textStyle | object | 配置跟随滑块的文字样式 |
-| minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
-| maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
-
 ### scrollBar
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-scrollbar)
+[DEMO](https://g2plot.antv.vision/zh/examples/bar/basic#scroll-bar)
 
-功能描述： 配置横向滚动条，适用于数据较多的场景。
+功能描述： 配置竖向滚动条，适用于数据较多的场景。
 
 示例代码：
 

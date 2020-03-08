@@ -1,9 +1,9 @@
 ---
-title: Group-Bar 分组条形图
-order: 8
+title: DensityHeatmap - 密度热力图
+order: 5
 ---
 
-<div data-card-type="block" data-lake-card="table" id="pLwYV" class="lake-card-embed-toolbar-active lake-activated">
+<div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 735px; outline: none; border-collapse: collapse;">
       <colgroup>
         <col width="395" span="1">
@@ -11,28 +11,34 @@ order: 8
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
-          <td colspan="1" rowspan="4" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*s945SYsVBMQAAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*s945SYsVBMQAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-04 下午5.47.51.png" title="屏幕快照 2020-03-04 下午5.47.51.png" style="border: none; box-shadow: none; width: 372px; height: 400px; visibility: visible;"></span></p>
+          <td colspan="1" rowspan="5" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*hHyfQKUYeU0AAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*hHyfQKUYeU0AAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-06 下午11.10.44.png" title="屏幕快照 2020-03-06 下午11.10.44.png" style="width: 372px; height: 448px; border: none; box-shadow: none; visibility: visible;"></span></p>
           </td>
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">使用颜色不同的条形并排组成小组来显示维度的数值。纵轴标示出分组，颜色标示出分类，横轴显示相应的值。</span></p>
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">别名</span></strong></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">热力图、连续热力图、热力地图</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
           <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">颜色、长度、位置</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span style="color: rgba(0, 0, 0, 0.65);">密度热力图是一种绘制在地图之上散点区域型热力图。</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">位置、颜色</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
           <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
             <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">比较、分布、排名</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">分布</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
           <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;"><br></span><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">2 个「无序名词」字段</span></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「数值」字段</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">3 个「数值」字段</span></p>
           </td>
         </tr>
       </tbody>
@@ -42,77 +48,19 @@ order: 8
 # 快速上手
 
 ```js
-import { GroupBar } from '@antv/g2plot';
+import { DensityHeatmap } from '@antv/g2plot';
 
-const data = [
-  {
-    label: 'Mon.',
-    type: 'series1',
-    value: 2800,
-  },
-  {
-    label: 'Mon.',
-    type: 'series2',
-    value: 2260,
-  },
-  {
-    label: 'Tues.',
-    type: 'series1',
-    value: 1800,
-  },
-  {
-    label: 'Tues.',
-    type: 'series2',
-    value: 1300,
-  },
-  {
-    label: 'Wed.',
-    type: 'series1',
-    value: 950,
-  },
-  {
-    label: 'Wed.',
-    type: 'series2',
-    value: 900,
-  },
-  {
-    label: 'Thur.',
-    type: 'series1',
-    value: 500,
-  },
-  {
-    label: 'Thur.',
-    type: 'series2',
-    value: 390,
-  },
-  {
-    label: 'Fri.',
-    type: 'series1',
-    value: 170,
-  },
-  {
-    label: 'Fri.',
-    type: 'series2',
-    value: 100,
-  },
-];
-
-const barPlot = new GroupBar(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '分组条形图',
-  },
-  data,
-  xField: 'value',
-  yField: 'label',
-  groupField: 'type',
-  label: {
-    formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
-  },
+const heatMapPlot = new DensityHeatmap(document.getElementById('container'), {
+    data,
+    xField: 'prob',
+    yField: 'Average annual wage',
+    colorField: 'numbEmployed',
+    color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c'],
+    radius: 15,
+    intensity: 2,
 });
 
-barPlot.render();
-
+heatMapPlot.render();
 ```
 
 # 配置属性
@@ -169,7 +117,7 @@ barPlot.render();
 
 默认配置： 无
 
-数据源为对象集合，例如：`[{ type: 'a'，value: 20 }, { type: 'b'，value: 20 }]`。
+数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 ### meta
 **可选**, *object*
@@ -223,74 +171,78 @@ areaPlot.render();
 ### xField
 **必选**, *string*
 
-功能描述： 条形在 x 方向长度映射对应的数据字段名，一般对应一个离散字段。
+功能描述： heatmap数据点在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
 ### yField
 **必选**, *string*
 
-功能描述： 条形在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
+功能描述： heatmap数据点在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
-### groupField
-**必选**, *string*
 
-功能描述：数据集中的分组字段名，通过该字段的值，条形将会被分为多个组，通过颜色进行区分。
+### colorField
 
-默认配置： 无
+**可选**, *string*
+
+功能描述:  heatmap数据点颜色映射对应的数据字段名。
+
 
 ## 图形样式
 
 ### color
-**可选**, *string | string[] | Function*
+**可选**, *string[]*
 
-功能描述： 指定条形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+[**DEMO1**](https://g2plot.antv.vision/zh/examples/scatter/basic#color-mapping)
+
+功能描述： 指定heatmap渲染的色带颜色，数值中的值为色带节点的色值。。
 
 默认配置：采用 theme 中的色板。
 
-用法示例：
+例如，下图的连续渐变色带是这样通过`color`配置项生成：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*s4l-TZbuhmMAAAAAAAAAAABkARQnAQ" width="300">
 
 ```js
-// 直接指定颜色
-color:['blue','yellow','green']
-// 通过callback指定颜色
-colorField:'type',
-color:(d)=>{
-    if(d==='a') return ['blue','yellow','green'];
-    return ['blue','green','yellow'];
-}
+color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
 ```
 
-### barSize
+### radius
 **可选**, *number*
 
-功能描述： 设置条形高度。对于一般场景来说，条形高度会根据数据自行计算，不需特别指定。
+功能描述： 热力半径，决定一个原始数据点的大小，radius设置的越大，在最终的渲染效果中，靠近的数据点就更容易”融化“在一起，形成区块。
 
-默认配置： 无
+默认配置： 自动计算
 
-### barStyle
+
+### intensity
+**可选**, *number*
+
+功能描述： 热力权重，决定一个原始数据点的对周边数据点的影响力
+
+默认配置： 2
+
+### point
+
 **可选**, *object*
 
-功能描述： 设置条形样式。barStyle中的`fill`会覆盖 `color` 的配置。barStyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
-
-默认配置： 无
-
+功能描述： 显示数据点。
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
-| fill | string | 填充颜色 |
-| stroke | string | 描边颜色 |
-| lineWidth | number | 描边宽度 |
-| lineDash | number | 虚线描边 |
-| opacity | number | 整体透明度 |
-| fillOpacity | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| visible | boolean | 是否显示数据点 |
+| shape | string | 数据点形状 |
+| size | number | 数据点大小 |
+| style | object | 数据点样式 |
+
+**注意：相对于具体的数值，热力图更加关注的是趋势和分布。因此不推荐在热力图上显示数据点，尤其当点密集时很难得到理想的视觉效果。**
+
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*n9kyT59WDlIAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EMa-QbCul9YAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -338,36 +290,36 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### yAxis
+### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
 默认配置：
 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: true,
+autoHideLabel: true,
+autoRotateLabel: true,
+autoRotateTitle: false,
 grid: {
     visible: false,
 },
 line: {
-    visible: false,
+    visible: true,
 },
 tickLine: {
-    visible: false,
+    visible: true,
 },
 label: {
     visible: true,
 },
 title: {
-    visible: false,
+    visible: true,
     offset: 12,
-}
+},
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -375,30 +327,32 @@ title: {
 | visible | boolean | 是否可见 |
 | autoRotateLabel | boolean | 是否自动旋转标签 |
 | autoHideLabel | boolean | 是否自动隐藏标签 |
+| tickCount | number | 坐标轴刻度数量 |
+| tickInterval | number | 坐标轴刻度间隔 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
-### xAxis
+### yAxis
 **可选**, *object*
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
 
-功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
+功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: false,
+autoHideLabel: true,
 autoRotateLabel: false,
-autoRotateTitle: false,
+autoRotateTitle: true,
 grid: {
-    visible: true,
+    visible: false,
 },
 line: {
-    visible: false,
+    visible: true,
 },
 tickLine: {
     visible: true,
@@ -409,7 +363,7 @@ label: {
 title: {
     visible: true,
     offset: 12,
-}
+},
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -430,14 +384,12 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
-
 功能描述：图例，用于展示颜色分类信息
 
 默认配置：
 ```js
 visible: true,
-position: 'left-top',
+position: 'bottom',
 flipPage: true
 ```
 
@@ -445,11 +397,33 @@ flipPage: true
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
 | position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
-| formatter | function | 对图例显示信息进行格式化 |
-| flipPage | boolean | 图例过多时是否翻页显示 |
-| offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
-| offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
-| marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
+| width | number | 图例宽度 |
+| height | number | 图例高度 |
+| text | object | 图例两端刻度值<br />- style: object 刻度值样式<br />- formatter: function 对刻度值进行格式化<br /> |
+| gridStyle | object | 图例网格线样式 |
+| triggerOn | string | 图例响应交互的事件，默认为click |
+
+```js
+legend:{
+    visible: true,
+    position:'right-center',
+    width: 10,
+    height: 50,
+    text:{
+        formatter:(v)=>{
+            return parseFloat(v) / 100;
+        },
+        style:{
+            fill:'grey',
+            fontSize: 12
+        }
+    },
+    gridStyle:{
+        lineDash: [2,2]
+    },
+    triggerOn:'click'
+}
+```
 
 ### tooltip
 **可选**, *object*
@@ -460,13 +434,18 @@ flipPage: true
 ```js
 visible: true,
 offset: 20,
+showCrosshairs: true,
+crosshairs: 'cross'
 ```
 
 | 细分属性 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
+| showCrosshairs | boolean | 是否显示辅助线 |
+| crosshairs | string | 辅助线类型，可选项：x、y、cross，默认为cross |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
+
 
 htmlContent 用法示例：
 ```js
@@ -488,39 +467,81 @@ htmlContent: (title, items) => {
 默认配置：
 ```js
 visible: false
-position: 'middle'
 offsetX: 6
 offsetY: 6
 style:{
   fill: 'rgba(0, 0, 0, 0.65)',
   stroke: '#ffffff',
   lineWidth: 2,
-},
-adjustColor: true,
-adjustPosition: false
+}
 ```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| position | string | label的位置<br />- left 位于条形左边<br />- middle 位于条形水平中心<br />- right 位于条形右侧<br /> |
 | formatter | function | 对文本标签内容进行格式化 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
 | style | object | 配置文本标签样式。 |
-| adjustColor | boolean | 文本标签颜色是否自动适应图形颜色，position为middle时有效。 |
-| adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置，position为middle时有效。如图形区域容纳不下label，则label自动调整至图形右侧。|
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vl78Qq6PDyUAAAAAAAAAAABkARQnAQ" width="800">
+**注意：相对于具体的数值，热力图更加关注的是趋势和分布。因此不推荐在热力图上显示标签，尤其当数据点密集时很难得到理想的视觉效果。**
+
+
+### background
+**可选**，*object*
+
+[DEMO](https://g2plot.antv.vision/zh/examples/heatmap/basic#heatmap-background)
+
+功能描述：配置热力图显示背景，支持颜色填充、图片及 callback 三种方式。
+
+* 颜色填充背景
+
+指定 background `type` 为'color', 通过`value`配置项指定色值。
+
+为热力图配置黑色填充背景：
+```js
+background:{
+    type:'color',
+    value:'#000000'
+}
+```
+效果：
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aYLQQIlazB8AAAAAAAAAAABkARQnAQ" width="300">
+
+* 图片背景
+
+指定 background `type` 为'image', 通过`src`配置项指定图片资源链接。
+
+为热力图配置图片背景：
+```js
+background:{
+     type: 'image',
+     src: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TU_aSrMV6KYAAAAAAAAAAABkARQnAQ',
+}
+```
+效果：
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eFZySpX8E2gAAAAAAAAAAABkARQnAQ" width="300">
+
+* callback
+
+通过回调函数进行更加灵活的背景配置，例如在热力图下方叠加地图。
+
+入参为：
+
+`x: number` 热力图填充区域的 x 位置<br/>
+`y: number` 热力图填充区域的 y 位置<br/>
+`width: number` 热力图填充区域的宽度<br/>
+`height: number` 热力图填充区域的高度<br/>
+`container: G.Group` 热力图填充区域的绘图容器
 
 
 ## 事件
 
 ### 图形事件
 
-| onBarClick<br />条形点击事件 | onBarDblClick<br />条形双击事件 | onBarDblClick<br />条形双击事件 | onBarMouseleave<br />条形鼠标离开事件 |
+| onHeatmapClick<br />图形点击事件 | onHeatmapDblClick<br />图形双击事件 | onHeatmapDblClick<br />图形双击事件 | onHeatmapMouseleave<br />图形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onBarMousemove<br />条形鼠标移动事件 | onBarMousedown<br />条形鼠标按下事件 | onBarMouseup<br />条形鼠标松开事件 | onBarMouseenter<br />条形鼠标进入事件 |
+| onHeatmapMousemove<br />图形标移动事件 | onHeatmapMousedown<br />图形鼠标按下事件 | onHeatmapMouseup<br />图形鼠标松开事件 | onHeatmapMouseenter<br />图形鼠标进入事件 |
 
 
 ### 图表区域事件
@@ -535,6 +556,13 @@ adjustPosition: false
 | onLegendClick<br />图例点击事件 | onLegendDblClick<br />图例双击事件 | onLegendMouseenter<br />图例鼠标进入事件 | onLegendMouseleave<br />图例鼠标离开事件 |
 | --- | --- | --- | --- |
 | onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件 | onLegendMouseenter<br />图例鼠标进入事件 |
+
+
+## 图例标签事件
+
+| onLegendLabelClick<br />图例标签点击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelMouseleave<br />象限标签鼠标离开事件 |
+| --- | --- | --- | --- |
+| onLegendLabelMousemove<br />图例标签鼠标移动事件 | onLegendLabelMousedown<br />图例标签鼠标按下事件 | onLegendLabelMouseup<br />图例标签鼠标松开事件 | onLegendLabelMouseenter<br />图例标签鼠标进入事件 |
 
 
 ### 坐标轴事件
@@ -567,25 +595,6 @@ adjustPosition: false
 
 
 ## theme
-
-## 交互
-
-### scrollBar
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/bar/basic#scroll-bar)
-
-功能描述： 配置竖向滚动条，适用于数据较多的场景。
-
-示例代码：
-
-```js
-interactions: [
-  {
-    type: 'scrollbar',
-    },
-],
-```
 
 
 # 图表方法

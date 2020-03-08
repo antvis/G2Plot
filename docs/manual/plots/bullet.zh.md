@@ -1,19 +1,28 @@
 ---
-title: Treemap - 矩形树图
-order: 6
+title: Bullet - 子弹图
+order: 10
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u4fZSYLw-jMAAAAAAAAAAABkARQnAQ" width="600>
+
 
 # 快速上手
 
 ```js
-const mobileData = [...];
-const treemapPlot = new Treemap(document.getElementById('container'), {
-    data: mobileData,
-    colorField: 'brand',
+import { Bullet } from '@antv/g2plot';
+
+const bulletPlot = new Bullet(document.getElementById('container'), {
+  data: [
+    {
+      title: '满意度',
+      measures: [83],
+      targets: [90],
+    },
+  ],
+  rangeMax: 100,
 });
-treemapPlot.render();
+
+bulletPlot.render();
 
 ```
 
@@ -65,40 +74,21 @@ treemapPlot.render();
 
 ### data
 
-**必选**, *object*
+**必选**, *array object*
 
 功能描述： 设置图表数据源
 
-矩形树图的数据源为json格式的层级嵌套数据，除叶子节点之外，每一层级的数据都需要具备三个属性：
+默认配置： 无
 
-| 细分配置 | 类型 | 定义 |
+数据源为对象集合，每条数据包括:
+
+| title | string | 标题 |
 | --- | --- | --- |
-| name | string | 该层级数据的名称 |
-| value | number | 该层级数据的数值 |
-| children | object [] | 该层级数据的子级 |
-
-当某一层级的数据没有子级(children)时，该层级即为叶子节点。
-
-示例：
-
-```js
-{
-    name:'root',
-    value:100,
-    children:[
-        {
-            name:'a',
-            value:10,
-            children:[]
-        },
-        {
-            name:'b',
-            value:5,
-            children:[]
-        }
-    ]
-}
-```
+| measures | number[] | 进度值，支持阶段性的进度值 |
+| targets | number | 目标值 |
+| ranges | number[] | 进度条的色条范围区间，取值范围为[0, 1] |
+ 
+ 每条数据代表一个进度条，如 `[{ title: '满意度', measures: [91], target: 90, ranges: [0, 1] }]`
 
 ### meta
 **可选**, *object*
@@ -149,52 +139,79 @@ areaPlot.render();
 
 ```
 
-### maxLevel
+### rangeMax
 **可选**, *number*
 
-功能描述： 矩阵树图的最大嵌套层级
+[DEMO](https://g2plot.antv.vision/zh/examples/bullet/basic#overflow)
 
-默认配置： 2
+功能描述： 进度条的色条范围区间最大值
+
+默认配置： 无
 
 
-### colorField
-**必选**, *string*
+### measureSize
+**可选**, *number*
 
-功能描述:  矩形颜色映射对应的数据字段名，一般对应一个连续字段或一个分类字段。
+功能描述： 实际进度条大小设置（即实际进度条的高度）。
+
+默认配置：20
 
 
 ## 图形样式
 
-### color
+### measureColors
 **可选**, *string[]*
 
-功能描述： 指定矩形颜色。如不进行配置则采用 theme 中的配色。
+功能描述： 设置进度条颜色，进度条的色条区间颜色依次取数组中的颜色色值
 
-默认配置：采用 theme 中的色板。
+默认配置： theme默认色板
 
-```js
-color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
-```
 
-### rectStyle
+### rangeSize
+**可选**, *number*
+
+功能描述：区间背景条大小设置，相对数值（相对于 measureSize）。
+
+默认配置：1.2
+
+
+### rangeColors
+**可选**, *string[]*
+
+[DEMO](https://g2plot.antv.vision/zh/examples/bullet/basic#color-range)
+
+功能描述：设置进度条背景颜色，进度条的色条区间颜色依次取数组中的颜色色值
+
+默认配置： theme默认色板
+
+### markerSize
+**可选**, *number*
+
+功能描述：目标值 marker 大小设置（即目标值 marker 的高度），相对数值（相对于 measureSize）。
+
+默认配置：1.2
+
+
+### markerColors
+**可选**, *string[]*
+
+功能描述：设置进度条目标值颜色
+
+
+### markerStyle
 **可选**, *object*
 
-功能描述： 设置treemap中的矩形样式。rectStyle中的`fill`会覆盖 `color` 的配置。pointtyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
+功能描述：目标值 marker 的样式设置。
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
-| fill | string | 填充颜色 |
-| stroke | string | 描边颜色 |
-| lineWidth | number | 线宽 |
-| lineDash | number | 虚线显示 |
-| opacity | number | 透明度 |
-| fillOpacity | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| width | number | marker 的 宽度，默认为 1。 |
+| fill | string | marker 的填充色 |
 
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JwhARLXcoo0AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*M0UBQaOh5XgAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -242,6 +259,71 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
+### axis
+**可选**, *object*
+
+功能描述： 坐标轴，用于展示横方向上对应的映射信息
+
+默认配置：
+
+```js
+visible: false,
+position: 'before',
+tickCount: 6,
+formatter: (text, idx) => `${idx}`,
+style: {
+    fill: 'rgba(0, 0, 0, 0.25)',
+    textBaseline: 'middle',
+    textAlign: 'center',
+    fontSize: 12,
+    lineHeight: 16,
+},
+tickLine: {
+    visible: true,
+    lineWidth: 1,
+    stroke: '#FFF',
+    lineDash: [4, 2],
+},
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| position | string | 坐标轴位置。可选值： `before | after`。默认为 `before` ，代表坐标轴在上方 |
+| autoRotateLabel | boolean | 是否自动旋转标签 |
+| autoHideLabel | boolean | 是否自动隐藏标签 |
+| tickCount | number | 坐标轴刻度数量 |
+| tickInterval | number | 坐标轴刻度间隔 |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
+
+
+### legend
+**可选**, *object*
+
+[DEMOS1](https://g2plot.antv.vision/zh/examples/bullet/basic#color-range)
+[DEMOS2](https://g2plot.antv.vision/zh/examples/bullet/basic#group-color-range)
+
+功能描述：图例，用于展示颜色分类信息
+
+默认配置：
+```js
+visible: true,
+position: 'bottom',
+flipPage: true
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| formatter | function | 对图例显示信息进行格式化 |
+| flipPage | boolean | 图例过多时是否翻页显示 |
+| offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
+| offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
+| marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
+
+**子弹图图例可以通过`custom`的方式定制，目前图例不支持“点击交互”**
 
 ### tooltip
 **可选**, *object*
@@ -251,6 +333,9 @@ style:{
 默认配置：
 ```js
 visible: true,
+shared: true,
+showCrosshairs: true,
+crosshairs: 'y',
 offset: 20,
 ```
 
@@ -258,6 +343,9 @@ offset: 20,
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
+| shared | boolean | 是否同时显示多条数据 |
+| showCrosshairs | boolean | 是否tooltip辅助线 |
+| crosshairs | object | 配置tooltip辅助线，可选项： x | y | cross 辅助线形态 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 
@@ -274,50 +362,19 @@ htmlContent: (title, items) => {
 };
 ```
 
-### label
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#label)
-
-功能描述： 标签文本
-
-默认配置：
-```js
-visible: false
-offsetX: 6
-offsetY: 6
-style:{
-  fill: 'rgba(0, 0, 0, 0.65)',
-  stroke: '#ffffff',
-  lineWidth: 2,
-}
-```
-
-| 细分配置 | 类型 | 功能描述 |
-| --- | --- | --- |
-| visible | boolean | 是否显示 |
-| formatter | function | 对文本标签内容进行格式化 |
-| offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
-| offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
-| style | object | 配置文本标签样式。 |
-
-
 ## 事件
 
-### 矩形事件
+### 实际值图形事件
 
-| onRectClick<br />矩形点击事件 | onRectDblClick<br />矩形双击事件 | onRectDblClick<br />矩形双击事件 | onRectMouseleave<br />矩形鼠标离开事件 |
+| onBulletClick<br />实际值图形点击事件 | onBulletDblClick<br />实际值图形双击事件 | onBulletDblClick<br />实际值图形双击事件 | onLineMouseleave<br />实际值图形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onRectMousemove<br />矩形标移动事件 | onRectMousedown<br />矩形鼠标按下事件 | onRectMouseup<br />矩形鼠标松开事件 | onRectMouseenter<br />矩形鼠标进入事件 |
+| onBulletMousemove<br />实际值图形鼠标移动事件 | onBulletMousedown<br />实际值图形鼠标按下事件 | onBulletMouseup<br />实际值图形鼠标松开事件 | onBulletMouseenter<br />实际值图形鼠标进入事件 |
 
+### 目标值图形事件
 
-### 面包屑事件 
-
-(如配置了drilldown交互)
-
-| onBreadcrumbClick<br />面包屑点击事件 | onBreadcrumbDblClick<br />面包屑双击事件 | onBreadcrumbDblClick<br />面包屑双击事件 | onBreadcrumbMouseleave<br />面包屑鼠标离开事件 |
+| onBulletTargetClick<br />目标值图形点击事件 | onBulletTargetDblClick<br />目标值图形双击事件 | onBulletTargetDblClick<br />目标值图形双击事件 | onBulletTargetMouseleave<br />目标值图形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onBreadcrumbMousemove<br />面包屑标移动事件 | onBreadcrumbMousedown<br />面包屑鼠标按下事件 | onBreadcrumbMouseup<br />面包屑鼠标松开事件 | onBreadcrumbMouseenter<br />面包屑鼠标进入事件 |
+| onBulletTargetMousemove<br />目标值图形鼠标移动事件 | onBulletTargetMousedown<br />目标值图形鼠标按下事件 | onBulletTargetMouseup<br />目标值图形鼠标松开事件 | onBulletTargetMouseenter<br />目标值图形鼠标进入事件 |
 
 
 ### 图表区域事件
@@ -334,18 +391,11 @@ style:{
 | onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件 | onLegendMouseenter<br />图例鼠标进入事件 |
 
 
-## 图例标签事件
+### 坐标轴事件
 
-| onLegendLabelClick<br />图例标签点击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelMouseleave<br />象限标签鼠标离开事件 |
+| onAxisClick<br />坐标轴点击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisMouseleave<br />坐标轴鼠标离开事件 |
 | --- | --- | --- | --- |
-| onLegendLabelMousemove<br />图例标签鼠标移动事件 | onLegendLabelMousedown<br />图例标签鼠标按下事件 | onLegendLabelMouseup<br />图例标签鼠标松开事件 | onLegendLabelMouseenter<br />图例标签鼠标进入事件 |
-
-
-### 图形标签事件
-
-| onLabelClick<br />图形标签点击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelDblClick<br />图形标签双击事件 | onLabelMouseleave<br />图形标签鼠标离开事件 |
-| --- | --- | --- | --- |
-| onLabelMousemove<br />图形标签鼠标移动事件 | onLabelMousedown<br />图形标签鼠标按下事件 | onLabelMouseup<br />图形标签鼠标松开事件 | onLabelMouseenter<br />图形标签鼠标进入事件 |
+| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件 |
 
 
 ### 标题事件
@@ -364,59 +414,6 @@ style:{
 
 
 ## theme
-
-## 交互
-
-### drilldown
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#drilldown)
-
-数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
-
-简单使用：
-
-```js
-interactions: [
-    {
-        type: 'drilldown',
-    },
-],
-```
-
-在钻取过程中，支持配置不同层级的映射。例如在上文的DEMO中，当钻取到第三个层级（某品类所有商品名录）时，数据量非常大，此时再采用分类颜色映射已经失去了认知信息有效性。因此例子中第一层及第二层使用了不同值域的分类映射，而第三层则根据数值大小采用了连续映射。
-
-| 细分配置 | 类型 | 定义 |
-| --- | --- | --- |
-| key | number | 层级的深度(depth)，从1开始 |
-| field | string | 必选，映射字段 |
-| values | string [] | function | 可选，映射颜色，如不配置则默认采用theme中的色板。<br/><br />当使用回调函数`function`的方式配置映射颜色时，入参为上一层级的数据及当期等级的数据，出参为一个色值。下图中第三层级的连续映射就是通过callback，根据上一层级的分类颜色产生渐变色指定的，保证了在钻取过程中映射变更时的认知连续性。 |
-
-```js
-interactions: [
-    {
-        type: 'drilldown',
-        cfg: {
-            mapping: {
-              1: {
-                field: 'name',
-              },
-              2: {
-                field: 'name',
-                values: ['#f5bc32', '#e66557', '#71c8ea', '#9362b7', '#fd984f', '#279493', '#fd9bc3'],
-              },
-              3: {
-                field: 'value',
-                values: (parent) => {
-                  const parentColor = parent.shape.attr('fill');
-                  return ['#ffffff', parentColor];
-                },
-              },
-            },
-        },
-    },
-],
-```
 
 
 # 图表方法

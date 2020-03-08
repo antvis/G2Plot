@@ -1,19 +1,91 @@
 ---
-title: Treemap - 矩形树图
-order: 6
+title: GroupedRose - 分组玫瑰图
+order: 3
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Nit5RrS4AbQAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
 ```js
-const mobileData = [...];
-const treemapPlot = new Treemap(document.getElementById('container'), {
-    data: mobileData,
-    colorField: 'brand',
+
+import { Rose } from '@antv/g2plot';
+
+const data = [
+  {
+    type: '分类一',
+    value: 27,
+    user: '用户一',
+  },
+  {
+    type: '分类二',
+    value: 25,
+    user: '用户一',
+  },
+  {
+    type: '分类三',
+    value: 18,
+    user: '用户一',
+  },
+  {
+    type: '分类四',
+    value: 15,
+    user: '用户一',
+  },
+  {
+    type: '分类五',
+    value: 10,
+    user: '用户一',
+  },
+  {
+    type: '其它',
+    value: 5,
+    user: '用户一',
+  },
+  {
+    type: '分类一',
+    value: 7,
+    user: '用户二',
+  },
+  {
+    type: '分类二',
+    value: 5,
+    user: '用户二',
+  },
+  {
+    type: '分类三',
+    value: 38,
+    user: '用户二',
+  },
+  {
+    type: '分类四',
+    value: 5,
+    user: '用户二',
+  },
+  {
+    type: '分类五',
+    value: 20,
+    user: '用户二',
+  },
+  {
+    type: '其它',
+    value: 15,
+    user: '用户二',
+  },
+];
+
+const rosePlot = new GroupedRose(document.getElementById('container'), {
+  data,
+  radiusField: 'value',
+  categoryField: 'type',
+  groupField: 'user',
+  label: {
+    visible: true,
+    type: 'inner',
+  },
 });
-treemapPlot.render();
+
+rosePlot.render();
 
 ```
 
@@ -65,40 +137,13 @@ treemapPlot.render();
 
 ### data
 
-**必选**, *object*
+**必选**, *array object*
 
 功能描述： 设置图表数据源
 
-矩形树图的数据源为json格式的层级嵌套数据，除叶子节点之外，每一层级的数据都需要具备三个属性：
+默认配置： 无
 
-| 细分配置 | 类型 | 定义 |
-| --- | --- | --- |
-| name | string | 该层级数据的名称 |
-| value | number | 该层级数据的数值 |
-| children | object [] | 该层级数据的子级 |
-
-当某一层级的数据没有子级(children)时，该层级即为叶子节点。
-
-示例：
-
-```js
-{
-    name:'root',
-    value:100,
-    children:[
-        {
-            name:'a',
-            value:10,
-            children:[]
-        },
-        {
-            name:'b',
-            value:5,
-            children:[]
-        }
-    ]
-}
-```
+数据源为对象集合，例如：`[{ type: 'a'，value: 20 }, { type: 'b'，value: 20 }]`。
 
 ### meta
 **可选**, *object*
@@ -149,52 +194,76 @@ areaPlot.render();
 
 ```
 
-### maxLevel
-**可选**, *number*
+### radiusField
 
-功能描述： 矩阵树图的最大嵌套层级
-
-默认配置： 2
-
-
-### colorField
 **必选**, *string*
 
-功能描述:  矩形颜色映射对应的数据字段名，一般对应一个连续字段或一个分类字段。
+功能描述：扇形切片半径长度所对应的数据字段名。
+
+### categoryField: string
+
+**必选**, *string*
+
+功能描述：扇形切片分类所对应的数据字段名（每个扇形的弧度相等）。
+
+### groupField: string
+
+**必选**, *string*
+
+功能描述： 数据集中的分组字段名，通过该字段的值，玫瑰图中的扇形切片将会被分为多个组，通过颜色进行区分
 
 
 ## 图形样式
 
-### color
-**可选**, *string[]*
+### radius
+**可选**, *number*
 
-功能描述： 指定矩形颜色。如不进行配置则采用 theme 中的配色。
+功能描述： 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。
+
+默认配置： 0.8, 即 width / 2 * 0.8。
+
+### color
+**可选**, *string | string[] | Function*
+
+功能描述： 指定扇形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
 默认配置：采用 theme 中的色板。
 
+用法示例：
+
 ```js
-color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
+// 配合颜色映射，指定多值
+colorField:'type',
+color:['blue','yellow','green']
+//配合颜色映射，使用回调函数指定色值
+colorField:'type',
+color:(d)=>{
+    if(d==='a') return 'red';
+    return 'blue';
+}
 ```
 
-### rectStyle
+### sectorStyle
 **可选**, *object*
 
-功能描述： 设置treemap中的矩形样式。rectStyle中的`fill`会覆盖 `color` 的配置。pointtyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
+功能描述： 设置扇形样式。sectorStyle中的`fill`会覆盖 `color` 的配置。sectorStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
+
+默认配置： 无
+
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | fill | string | 填充颜色 |
 | stroke | string | 描边颜色 |
-| lineWidth | number | 线宽 |
-| lineDash | number | 虚线显示 |
-| opacity | number | 透明度 |
+| lineWidth | number | 描边宽度 |
+| lineDash | number | 虚线描边 |
+| opacity | number | 整体透明度 |
 | fillOpacity | number | 填充透明度 |
 | strokeOpacity | number | 描边透明度 |
 
-
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JwhARLXcoo0AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sPJ2TJ5RGAIAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -242,6 +311,29 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
+### legend
+**可选**, *object*
+
+[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+
+功能描述：图例，配置colorField时显示，用于展示颜色分类信息
+
+默认配置：
+```js
+visible: true,
+position: 'top',
+flipPage: true
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否可见 |
+| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| formatter | function | 对图例显示信息进行格式化 |
+| flipPage | boolean | 图例过多时是否翻页显示 |
+| offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
+| offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
+| marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |
 
 ### tooltip
 **可选**, *object*
@@ -260,7 +352,6 @@ offset: 20,
 | offset | number | 距离鼠标位置偏移值 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
-
 htmlContent 用法示例：
 ```js
 htmlContent: (title, items) => {
@@ -275,49 +366,35 @@ htmlContent: (title, items) => {
 ```
 
 ### label
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#label)
 
 功能描述： 标签文本
 
 默认配置：
 ```js
 visible: false
-offsetX: 6
-offsetY: 6
-style:{
-  fill: 'rgba(0, 0, 0, 0.65)',
-  stroke: '#ffffff',
-  lineWidth: 2,
-}
+type:'inner'
+autoRotate: true
 ```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
+| type | string | label的类型<br />- inner label显示于扇形切片内<br />- outer label显示于外侧|
+| autoRotate | boolean | 是否自动旋转 |
 | formatter | function | 对文本标签内容进行格式化 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
 | style | object | 配置文本标签样式。 |
 
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gMNsQZt3dNQAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
 
 ## 事件
 
-### 矩形事件
+### 图形事件
 
-| onRectClick<br />矩形点击事件 | onRectDblClick<br />矩形双击事件 | onRectDblClick<br />矩形双击事件 | onRectMouseleave<br />矩形鼠标离开事件 |
+| onRoseClick<br />图形点击事件 | onRoseDblClick<br />图形双击事件 | onRoseDblClick<br />图形双击事件 | onRoseMouseleave<br />图形鼠标离开事件 |
 | --- | --- | --- | --- |
-| onRectMousemove<br />矩形标移动事件 | onRectMousedown<br />矩形鼠标按下事件 | onRectMouseup<br />矩形鼠标松开事件 | onRectMouseenter<br />矩形鼠标进入事件 |
-
-
-### 面包屑事件 
-
-(如配置了drilldown交互)
-
-| onBreadcrumbClick<br />面包屑点击事件 | onBreadcrumbDblClick<br />面包屑双击事件 | onBreadcrumbDblClick<br />面包屑双击事件 | onBreadcrumbMouseleave<br />面包屑鼠标离开事件 |
-| --- | --- | --- | --- |
-| onBreadcrumbMousemove<br />面包屑标移动事件 | onBreadcrumbMousedown<br />面包屑鼠标按下事件 | onBreadcrumbMouseup<br />面包屑鼠标松开事件 | onBreadcrumbMouseenter<br />面包屑鼠标进入事件 |
+| onRoseMousemove<br />图形鼠标移动事件 | onRoseMousedown<br />图形鼠标按下事件 | onRoseMouseup<br />图形鼠标松开事件 | onRoseMouseenter<br />图形鼠标进入事件 |
 
 
 ### 图表区域事件
@@ -334,11 +411,11 @@ style:{
 | onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件 | onLegendMouseenter<br />图例鼠标进入事件 |
 
 
-## 图例标签事件
+### 坐标轴事件
 
-| onLegendLabelClick<br />图例标签点击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelDblClick<br />图例标签双击事件 | onLegendLabelMouseleave<br />象限标签鼠标离开事件 |
+| onAxisClick<br />坐标轴点击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisDblClick<br />坐标轴双击事件 | onAxisMouseleave<br />坐标轴鼠标离开事件 |
 | --- | --- | --- | --- |
-| onLegendLabelMousemove<br />图例标签鼠标移动事件 | onLegendLabelMousedown<br />图例标签鼠标按下事件 | onLegendLabelMouseup<br />图例标签鼠标松开事件 | onLegendLabelMouseenter<br />图例标签鼠标进入事件 |
+| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件 |
 
 
 ### 图形标签事件
@@ -364,59 +441,6 @@ style:{
 
 
 ## theme
-
-## 交互
-
-### drilldown
-**可选**, *object*
-
-[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#drilldown)
-
-数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
-
-简单使用：
-
-```js
-interactions: [
-    {
-        type: 'drilldown',
-    },
-],
-```
-
-在钻取过程中，支持配置不同层级的映射。例如在上文的DEMO中，当钻取到第三个层级（某品类所有商品名录）时，数据量非常大，此时再采用分类颜色映射已经失去了认知信息有效性。因此例子中第一层及第二层使用了不同值域的分类映射，而第三层则根据数值大小采用了连续映射。
-
-| 细分配置 | 类型 | 定义 |
-| --- | --- | --- |
-| key | number | 层级的深度(depth)，从1开始 |
-| field | string | 必选，映射字段 |
-| values | string [] | function | 可选，映射颜色，如不配置则默认采用theme中的色板。<br/><br />当使用回调函数`function`的方式配置映射颜色时，入参为上一层级的数据及当期等级的数据，出参为一个色值。下图中第三层级的连续映射就是通过callback，根据上一层级的分类颜色产生渐变色指定的，保证了在钻取过程中映射变更时的认知连续性。 |
-
-```js
-interactions: [
-    {
-        type: 'drilldown',
-        cfg: {
-            mapping: {
-              1: {
-                field: 'name',
-              },
-              2: {
-                field: 'name',
-                values: ['#f5bc32', '#e66557', '#71c8ea', '#9362b7', '#fd984f', '#279493', '#fd9bc3'],
-              },
-              3: {
-                field: 'value',
-                values: (parent) => {
-                  const parentColor = parent.shape.attr('fill');
-                  return ['#ffffff', parentColor];
-                },
-              },
-            },
-        },
-    },
-],
-```
 
 
 # 图表方法

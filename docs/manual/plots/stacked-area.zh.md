@@ -1,9 +1,9 @@
 ---
-title: Line - 折线图
-order: 0
+title: StackedArea - 堆叠面积图
+order: 2
 ---
 
-  <div data-card-type="block" data-lake-card="table" id="pLwYV">
+<div data-card-type="block" data-lake-card="table" id="pLwYV" class="lake-card-embed-toolbar-active lake-activated">
     <table class="lake-table" style="width: 735px; outline: none; border-collapse: collapse;">
       <colgroup>
         <col width="395" span="1">
@@ -11,33 +11,28 @@ order: 0
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
-          <td rowspan="5" colspan="1" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*I83vRKcL82sAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-02 下午2.51.04.png" title="屏幕快照 2020-03-02 下午2.51.04.png" style="border: none; box-shadow: none; width: 372px; height: 418px; visibility: visible;"></span></p>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><br></p>
+          <td colspan="1" rowspan="4" style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span data-card-type="inline" data-lake-card="image" contenteditable="false"><img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2tCTSq2_Oc8AAAAAAAAAAABkARQnAQ" data-raw-src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2tCTSq2_Oc8AAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-06 下午3.53.39.png" title="屏幕快照 2020-03-06 下午3.53.39.png" style="border: none; box-shadow: none; width: 372px; height: 417px; visibility: visible;"></span></p>
           </td>
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">别名</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">折线图、线图、基础折线图</span></p>
-          </td>
-        </tr>
-        <tr style="height: 33px;">
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">使用一条折线的线段显示数据在一个具有顺序性的维度上的变化。</span></p>
+          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">定义</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">使用带不同样式的填充区域的层叠线段来显示多组数据在同一个具有顺序性的维度上的变化，线段在同一维度值上的端点高度按照数值累加。</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
-          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">位置、方向</span></p>
+          <td style="min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">视觉通道</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">颜色、面积</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
-          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">趋势</span></p>
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">分析目的</span></span></strong><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px"><br></span><span class="lake-fontsize-9" style="color: rgba(0, 0, 0, 0.65); font-size: 12px;" data-mce-style="font-size: 9px">比较、组成、趋势</span></p>
           </td>
         </tr>
         <tr style="height: 33px;">
-          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong>
-            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「时间」或「有序名词」字段</span></p>
+          <td colspan="1" style="vertical-align: top; background-color: rgb(255, 255, 255); color: rgb(38, 38, 38); min-width: 90px; font-size: 14px; white-space: normal; overflow-wrap: break-word; border: 1px solid rgb(217, 217, 217); padding: 4px 8px; cursor: default;">
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><strong><span class="lake-fontsize-14" data-mce-style="font-size: 14px" style="font-size: 19px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">数据准备</span></span></strong><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;"><br></span><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「时间」或「有序名词」字段</span></p>
             <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「数值」字段</span></p>
+            <p style="font-size: 14px; color: rgb(38, 38, 38); line-height: 1.74; letter-spacing: 0.05em; outline-style: none; overflow-wrap: break-word; margin: 0px;"><span class="lake-fontsize-9" data-mce-style="font-size: 9px" style="font-size: 12px;">1 个「无序名词」字段</span></p>
           </td>
         </tr>
       </tbody>
@@ -47,33 +42,27 @@ order: 0
 # 快速上手
 
 ```js
-const data = [
-  { year: '1991', value: 3 },
-  { year: '1992', value: 4 },
-  { year: '1993', value: 3.5 },
-  { year: '1994', value: 5 },
-  { year: '1995', value: 4.9 },
-  { year: '1996', value: 6 },
-  { year: '1997', value: 7 },
-  { year: '1998', value: 9 },
-  { year: '1999', value: 13 },
-];
-
-const linePlot = new Line(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '折线图',
-  },
-  description: {
-    visible: true,
-    text: '用平滑的曲线代替折线。',
-  },
-  data,
-  xField: 'year',
-  yField: 'value',
+const areaPlot = new StackArea(document.getElementById('container'), {
+    title: {
+        visible: true,
+        text: '堆叠面积图',
+    },
+    data,
+    xField: 'date',
+    yField: 'value',
+    stackField: 'country',
+    xAxis: {
+        type: 'dateTime',
+        tickCount: 5,
+    },
+    legend: {
+        visible: true,
+        position: 'right-top',
+    },
+    responsive: true,
 });
 
-linePlot.render();
+areaPlot.render();
 ```
 
 # 配置属性
@@ -184,23 +173,21 @@ areaPlot.render();
 ### xField
 **必选**, *string*
 
-功能描述： 折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
+功能描述： 图形在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
 ### yField
 **必选**, *string*
 
-功能描述： 折线形状在 y 方向对应的数据字段名，一般对应一个离散字段。
+功能描述： 图形在 y 方向对应的数据字段名，一般对应一个离散字段。
 
 默认配置： 无
 
-### seriesField
+### stackField
 **必选**, *string*
 
-[**DEMO**](https://g2plot.antv.vision/zh/examples/line/multiple#line-multiple)
-
-功能描述： 多折线必选。 数据集中的分组字段名，一般对应一个分类字段。通过该字段的值，折线图将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
+功能描述： 面积堆叠的字段名，通过该字段的值，面积图将会被分割为堆积的多个部分，通过颜色进行区分。
 
 默认配置： 无
 
@@ -209,54 +196,60 @@ areaPlot.render();
 ### color
 **可选**, *string[] | Function*
 
-功能描述： 指定折线颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+功能描述： 指定图形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
 默认配置：采用 theme 中的色板。
 
-[**DEMO1**](../../../../../examples/line/multiple#line-color)
 
-[**DEMO2**](https://g2plot.antv.vision/zh/examples/line/multiple#color-callback)
-
-### lineSize
-**可选**, *number*
-
-功能描述： 设置折线宽度
-
-默认配置： `2`
-
-### lineStyle
+### areaStyle
 **可选**, *object*
 
-[**DEMO**](../../../../../examples/line/multiple#line-style)
-
-功能描述： 设置折线样式。linsStyle中的`lineWidth`会覆盖 `lineSize` 的配置，`stroke`会覆盖`color`的设置。lineStyle可以直接指定，也可以通过callback的方式，根据数据为每一条折线指定单独的样式。
-
-默认配置： 
-
+功能描述： 设置area图形的样式。areaStyle中的`fill`会覆盖`color`的设置。sreaStyle可以直接指定，也可以通过callback的方式，根据数据为每个形状指定单独的样式。
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
-| stroke | string | 折线颜色 |
+| fill | string | 填充颜色 |
+| stroke | string | 填充颜色 |
 | lineWidth | number | 线宽 |
 | lineDash | number | 虚线显示 |
 | opacity | number | 透明度 |
+| fillOpacity | number | 填充透明度 |
+| strokeOpacity | number | 描边透明度 |
 
 ### smooth
 **可选**, *boolean*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/line/basic#line-smooth)
-
-功能描述： 是否将折线绘制为曲线 (spline)。
+功能描述： 是否使用曲线形态描绘。
 
 默认配置: `false`
+
+### line
+**可选**, *object*
+
+功能描述：配置辅助折线，分组及颜色映射方式与面积图形保持一致。
+
+默认配置：
+```js
+visible: true
+size: 2
+style:{
+    opacity: 1,
+    lineJoin: 'round',
+    lineCap: 'round',
+}
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| size | number | 折线的宽度 |
+| style | object | 折线样式<br />- stroke: string 折线颜色<br />- lineDash: number[] 虚线显示<br />- opacity: number 透明度<br /> |
+
 
 ### point
 **可选**, *object*
 
-[DEMO1](https://g2plot.antv.vision/zh/examples/line/basic#line-with-point)
-[DEMO2](https://g2plot.antv.vision/zh/examples/line/basic#line-point-style)
-
-功能描述： 配置折线上的点
+功能描述： 配置数据点，分组及颜色映射方式与面积图形保持一致。
 
 默认配置： 
 ```js
@@ -265,7 +258,7 @@ shape: 'circle',
 size: 3,
 style: {
     stroke: '#fff',
-},
+}
 ```
 
 | 细分配置 | 类型 | 功能描述 |
@@ -277,7 +270,7 @@ style: {
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Z3C7QJToIH8AAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*agWZSIRdzPkAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*
@@ -422,7 +415,7 @@ title: {
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
 
-功能描述：图例，多折线时显示，用于展示颜色分类信息
+功能描述：图例，配置了seriesField时显示，用于展示颜色分类信息
 
 默认配置：
 ```js
@@ -480,42 +473,35 @@ htmlContent: (title, items) => {
 
 ### label
 
+**可选**, *object*
+
+[DEMO1](https://g2plot.antv.vision/zh/examples/area/stack#area-label)
+[DEMO2](https://g2plot.antv.vision/zh/examples/area/stack#line-label)
+
 功能描述： 标签文本
 
 默认配置：
 ```js
 visible: false
-type:'point'
-offsetX: 6
-offsetY: 6
-style:{
-  fill: 'rgba(0, 0, 0, 0.65)',
-  stroke: '#ffffff',
-  lineWidth: 2,
-}
+type: 'area'
 ```
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| type | string | 文本标签类型<br />- line: 跟随在折线尾部<br />- point: 显示在数据点上<br /> |
+| type | string | 文本标签类型<br />- point: 显示在对应数据点上<br />- area: 显示在面积区域内部<br /> - line: 显示在辅助折线尾部<br /> |
 | formatter | function | 对文本标签内容进行格式化 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
+| autoScale | boolean | label是否随area面积放缩。label type为 area 时生效，默认为 true |
 | style | object | 配置文本标签样式。 |
 
-| `type` 类型     | 表现                                                                                                          |
-| --------------- | ------------------------------------------------------------------------------------------------------------- |
-| `type: 'point'` | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ" width="350"> |
-| `type: 'line'`  | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YMGnQoh_jSAAAAAAAAAAAABkARQnAQ" width="350"> |
 
 ### guideLine
 
 **可选**, *object[]*
 
 [DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y64CRIP7g1QAAAAAAAAAAABkARQnAQ" width="400">
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 
@@ -563,7 +549,13 @@ style:{
 
 ## 事件
 
-### 折线图形事件
+### 面积事件
+
+| onAreaClick<br />面积点击事件 | onAreaDblClick<br />面积双击事件 | onAreaDblClick<br />面积双击事件 | onAreaMouseleave<br />面积鼠标离开事件 |
+| --- | --- | --- | --- |
+| onAreaMousemove<br />面积鼠标移动事件 | onAreamousedown<br />面积鼠标按下事件 | onAreaMouseup<br />面积鼠标松开事件 | onAreaMouseenter<br />面积鼠标进入事件 |
+
+### 折线事件
 
 | onLineClick<br />折线点击事件 | onLineDblClick<br />折线双击事件 | onLineDblClick<br />折线双击事件 | onLineMouseleave<br />折线鼠标离开事件 |
 | --- | --- | --- | --- |

@@ -4,16 +4,19 @@ import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-import * as EventParser from './event';
 import './theme';
 import './geometry/shape/funnel-basic-rect';
+import './geometry/shape/funnel-dynamic-rect';
 import './animation/funnel-scale-in-y';
 import { mappingColor, rgb2arr } from '../../util/color';
+
+function lerp(a, b, factor) {
+  return (1 - factor) * a + factor * b;
+}
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -136,76 +139,34 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private _shouldResetLabels: boolean = true;
   private _legendsListenerAttached: boolean = false;
 
+  constructor(props: T) {
+    super(props);
+    this.adjustProps(this.options);
+
+    if (props.dynamicHeight) {
+      this._genCustomFieldForDynamicHeight(this.getData());
+    }
+  }
+
   public beforeInit() {
     super.beforeInit();
     const props = this.options;
     /** 响应式图形 */
     if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('preRender');
+      this.applyResponsive('preRender');
     }
-  }
-
-  public afterRender() {
-    const props = this.options;
-    /** 响应式 */
-    if (props.responsive && props.padding !== 'auto') {
-      this._applyResponsive('afterRender');
-    }
-
-    this.resetLabels();
-    this.resetPercentages();
-
-    if (props.padding == 'auto') {
-      const percentageContainer = this._findPercentageContainer();
-      if (percentageContainer) {
-        this.paddingController.registerPadding(percentageContainer, 'inner', true);
-      }
-    }
-
-    super.afterRender();
-
-    if (props.animation === false) {
-      this.fadeInPercentages();
-    }
-
-    if (!this._legendsListenerAttached) {
-      this._legendsListenerAttached = true;
-      // @ts-ignore
-      const legendContainer = this.view.getController('legend').container;
-      legendContainer.on('mousedown', this._onLegendContainerMouseDown);
-    }
-  }
-
-  public updateConfig(cfg: Partial<T>): void {
-    super.updateConfig(cfg);
-    this._legendsListenerAttached = false;
-  }
-
-  public changeData(data: DataItem[]): void {
-    const props = this.options;
-
-    if (props.animation !== false) {
-      this._shouldResetPercentages = false;
-      this._shouldResetLabels = false;
-    }
-
-    super.changeData(data);
-
-    this.refreshPercentages();
-    this.refreshLabels();
-  }
-
-  protected geometryParser(dim, type) {
-    if (dim === 'g2') {
-      return G2_GEOM_MAP[type];
-    }
-    return PLOT_GEOM_MAP[type];
   }
 
   protected coord() {
     const props = this.options;
     const coordConfig = {
-      actions: [['transpose'], ['scale', 1, -1]],
+      actions: props.transpose
+        ? props.dynamicHeight
+          ? [['transpose'], ['scale', 1, -1]]
+          : [['scale', 1, -1]]
+        : props.dynamicHeight
+        ? []
+        : [['transpose'], ['scale', 1, -1]],
     };
     // @ts-ignore
     this.setConfig('coordinate', coordConfig);
@@ -219,7 +180,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const props = this.options;
 
     // @ts-ignore
-    funnel.shape = 'funnel-basic-rect';
+    funnel.shape = props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel-basic-rect';
 
     funnel.color = {
       fields: [props.xField],
@@ -282,18 +243,92 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           },
         },
         enter: {
-          animation: 'fade-in'
-        }
+          animation: 'fade-in',
+        },
       });
     }
   }
 
-  private _applyResponsive(stage) {
+  public afterRender() {
+    const props = this.options;
+    /** 响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('afterRender');
+    }
+
+    this.resetLabels();
+    this.resetPercentages();
+
+    if (props.padding == 'auto') {
+      const percentageContainer = this._findPercentageContainer();
+      if (percentageContainer) {
+        this.paddingController.registerPadding(percentageContainer, 'inner', true);
+      }
+    }
+
+    super.afterRender();
+
+    if (props.animation === false) {
+      this.fadeInPercentages();
+    }
+
+    if (!this._legendsListenerAttached) {
+      this._legendsListenerAttached = true;
+      // @ts-ignore
+      const legendContainer = this.view.getController('legend').container;
+      legendContainer.on('mousedown', this._onLegendContainerMouseDown);
+    }
+  }
+
+  public updateConfig(cfg: Partial<T>): void {
+    super.updateConfig(cfg);
+    this._legendsListenerAttached = false;
+  }
+
+  public changeData(data: DataItem[]): void {
+    const props = this.options;
+
+    if (props.animation !== false) {
+      this._shouldResetPercentages = false;
+      this._shouldResetLabels = false;
+    }
+
+    if (props.dynamicHeight) {
+      const checkedData = this._findCheckedDataInNewData(data);
+      this._genCustomFieldForDynamicHeight(checkedData);
+    }
+
+    super.changeData(data);
+
+    this.refreshPercentages();
+    this.refreshLabels();
+  }
+
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
+    }
+    return PLOT_GEOM_MAP[type];
+  }
+
+  protected applyResponsive(stage) {
     const methods = responsiveMethods[stage];
     _.each(methods, (r) => {
       const responsive = r;
       responsive.method(this);
     });
+  }
+
+  protected adjustProps(props: Partial<T>) {
+    if (props.compareField) {
+      props.dynamicHeight = false;
+    }
+
+    if (props.dynamicHeight) {
+      _.set(props, `meta.${props.yField}.nice`, false);
+      _.set(props, 'tooltip.shared', false);
+    }
+    return props;
   }
 
   protected resetPercentages() {
@@ -317,7 +352,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (index > 0) {
         const { minX, maxX, maxY, minY } = shape.getBBox();
         const x1 = props.transpose ? minX : maxX;
-        const y1 = props.transpose ? (props.compareField ? maxY : minY) : props.dynamicHeight ? maxY : minY;
+        const y1 = props.transpose ? (props.compareField ? maxY : minY) : minY;
 
         const { line, text, value } = this._findPercentageMembersInContainerByIndex(container, index, true);
 
@@ -462,6 +497,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       datumUpper = datumLower;
       index++;
     });
+
+    container.get('children').forEach((child) => {
+      if (child.get('adjustTimestamp') != adjustTimestamp) {
+        child.attr({ opacity: 0 });
+        container.set(child.get('id'), null);
+        child.remove();
+      }
+    });
   }
 
   protected fadeInPercentages(duration?, callback?) {
@@ -502,8 +545,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           _.each(members, (member) => (_.isArray(member) ? eachShow(member[i]) : eachShow(member)));
           _.assign(lastBBox, currBBox);
         }
-
-        index++;
       });
     };
 
@@ -639,6 +680,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     const props = this.options;
     const { xField, yField } = props;
+
+    const adjustTimestamp = Date.now();
     const { labelsContainer } = this._getGeometry();
 
     const labelProps = props.label || {};
@@ -658,6 +701,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     let datumTop;
     this._eachShape((shape, index, datum) => {
       if (index == 0) datumTop = datum;
+
       const { minX, maxX, minY, maxY } = shape.getBBox();
       const xValue = datum[xField];
       const yValue = datum[yField];
@@ -673,6 +717,16 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         y: (minY + maxY) / 2,
         text: formatter ? formatter(xValue, shape, index, yValue, datumTop[yField]) : `${xValue} ${yValue}`,
       });
+
+      label.set('adjustTimestamp', adjustTimestamp);
+    });
+
+    labelsContainer.get('children').forEach((label) => {
+      if (label.get('adjustTimestamp') != adjustTimestamp) {
+        label.attr({ opacity: 0 });
+        labelsContainer.set(label.get('id'), null);
+        label.remove();
+      }
     });
   }
 
@@ -791,12 +845,73 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     return reflect;
   }
 
+  private _genCustomFieldForDynamicHeight(data: any[]) {
+    const props = this.options;
+
+    const total = data.reduce((total, datum) => total + datum[props.yField], 0);
+
+    let ratioUpper = 1;
+    data.forEach((datum, index) => {
+      const value = datum[props.yField];
+      const share = value / total;
+      const ratioLower = ratioUpper - share;
+
+      datum['__custom__'] = {
+        datumIndex: index,
+        dataLength: data.length,
+        ratioUpper,
+        ratioLower,
+        reverse: props.transpose,
+      };
+
+      ratioUpper = ratioLower;
+    });
+  }
+
+  private _findCheckedDataByMouseDownLegendItem(legendItem: IGroup) {
+    const props = this.options;
+
+    const flags = legendItem
+      .get('parent')
+      .get('children')
+      .map((legendItem) => !legendItem.get('unchecked'));
+
+    const data = this.getData().filter((datum, index) => flags[index]);
+
+    return data;
+  }
+
+  private _findCheckedDataInNewData(newData: any[]) {
+    const props = this.options;
+
+    // @ts-ignore
+    const legendContainer = this.view.getController('legend').container;
+
+    const uncheckedXValues = legendContainer
+      .findAll((shape) => shape.get('name') == 'legend-item')
+      .filter((legendItem) => legendItem.get('unchecked'))
+      .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
+
+    const checkedData = newData.filter((datum) => !_.contains(uncheckedXValues, datum[props.xField]));
+
+    return checkedData;
+  }
+
   private _onLegendContainerMouseDown = (e) => {
     const props = this.options;
 
-    if (e.target.get('name') == 'legend-item-name') {
+    const targetName = e.target.get('name');
+    if (targetName.startsWith('legend-item')) {
+      const legendItem = e.target.get('parent');
+      legendItem.set('unchecked', !legendItem.get('unchecked'));
+
       this.refreshPercentages();
       this.refreshLabels();
+
+      if (props.dynamicHeight) {
+        const data = this._findCheckedDataByMouseDownLegendItem(legendItem);
+        this._genCustomFieldForDynamicHeight(data);
+      }
     }
   };
 }

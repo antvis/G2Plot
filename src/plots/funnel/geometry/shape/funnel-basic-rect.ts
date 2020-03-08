@@ -137,7 +137,7 @@ registerShape('interval', 'funnel-basic-rect', {
   },
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
-    const compare = _.get(cfg, 'origin._origin.__compare__');
+    const compare = _.get(cfg, 'data.__compare__');
     const path = this.parsePath(_getFunnelPath(cfg, compare));
 
     return container.addShape('path', {

@@ -86,6 +86,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         lineWidth: 1,
       },
       xAxis: {
+        visible: false,
         autoRotateLabel: true,
         line: {
           visible: false,
@@ -140,13 +141,13 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   }
 
   /** 不显示坐标轴 */
-  protected axis() {
+  /*protected axis() {
     super.axis();
     const options = this.options;
     if (!options.stackField && !options.groupField) {
       this.setConfig('axes', false);
     }
-  }
+  }*/
 
   protected coord() {
     const props = this.options;
@@ -183,7 +184,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   }
 
   protected adjustRoseAdjust() {
-    if (this.options.stackField) {
+    /*if (this.options.stackField) {
       return [
         {
           type: 'stack',
@@ -197,7 +198,8 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         },
       ];
     }
-    return null;
+    return null;*/
+    return;
   }
 
   protected animation() {

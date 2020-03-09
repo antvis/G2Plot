@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-17
  */
-import { Rose } from '../../../../src';
+import { Rose, StackedRose, GroupedRose } from '../../../../src';
 
 describe('Rose Plot', () => {
   const canvasDiv = document.createElement('div');
@@ -125,7 +125,7 @@ describe('Rose Plot', () => {
       },
     ];
 
-    const rosePlot = new Rose(canvasDiv, {
+    const rosePlot = new GroupedRose(canvasDiv, {
       forceFit: true,
       title: {
         visible: true,
@@ -219,7 +219,7 @@ describe('Rose Plot', () => {
       },
     ];
 
-    const rosePlot = new Rose(canvasDiv, {
+    const rosePlot = new StackedRose(canvasDiv, {
       forceFit: true,
       title: {
         visible: true,

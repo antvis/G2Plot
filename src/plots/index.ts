@@ -19,6 +19,8 @@ export { default as WordCloud, WordCloudConfig } from './word-cloud';
 export { default as Treemap, TreemapConfig } from './treemap';
 export { default as StepLine, StepLineConfig } from './step-line';
 export { default as Rose, RoseConfig } from './rose';
+export { default as StackedRose, StackedRoseConfig } from './stacked-rose';
+export { default as GroupedRose, GroupedRoseConfig } from './grouped-rose';
 export { default as Radar, RadarConfig } from './radar';
 export { default as Liquid, LiquidConfig } from './liquid';
 export { default as Histogram, HistogramConfig } from './histogram';

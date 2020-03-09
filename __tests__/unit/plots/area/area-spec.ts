@@ -1,4 +1,4 @@
-import { Area, StackArea } from '../../../../src';
+import { Area, StackedArea } from '../../../../src';
 
 const data = [
   {
@@ -673,7 +673,7 @@ describe('Area plot', () => {
   document.body.appendChild(canvasDiv);
 
   it('area defaultCfg', () => {
-    const areaPlot = new StackArea(canvasDiv, {
+    const areaPlot = new StackedArea(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',

@@ -9,7 +9,7 @@ export default class Heatmap extends BasePlot<HeatmapConfig> {
 
   public createLayers(props) {
     const layerProps = deepMix({}, props);
-    layerProps.type = 'matrix';
+    layerProps.type = 'heatmap';
     super.createLayers(layerProps);
   }
 

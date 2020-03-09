@@ -1,4 +1,4 @@
-import { StackColumn } from '@antv/g2plot';
+import { StackedColumn } from '@antv/g2plot';
 
 const data = [
   {
@@ -93,7 +93,7 @@ const data = [
   },
 ];
 
-const columnPlot = new StackColumn(document.getElementById('container'), {
+const columnPlot = new StackedColumn(document.getElementById('container'), {
   title: {
     visible: true,
     text: '堆叠柱状图',

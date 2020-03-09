@@ -9,7 +9,7 @@ export default class StackedColumn extends BasePlot<StackedColumnConfig> {
 
   public createLayers(props) {
     const layerProps = deepMix({}, props);
-    layerProps.type = 'stackColumn';
+    layerProps.type = 'stackedColumn';
     super.createLayers(layerProps);
   }
 }

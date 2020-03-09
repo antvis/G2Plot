@@ -22,9 +22,6 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
         fillOpacity: 1,
         opacity: 0.5,
       },
-      label: {
-        position: 'middle',
-      },
     });
   }
 

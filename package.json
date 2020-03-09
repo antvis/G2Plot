@@ -1,7 +1,12 @@
 {
   "name": "@antv/g2plot",
   "version": "0.11.37",
-  "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
+  "description": "An interactive and responsive charting library",
+  "keywords": [
+    "chart",
+    "plot",
+    "antv"
+  ],
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
   "unpkg": "dist/g2plot.js",
@@ -49,9 +54,17 @@
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
     "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
   },
+  "lint-staged": {
+    "*.{js,css,json}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "eslint --fix"
+    ]
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint test",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -100,7 +113,6 @@
     "npm-run-all": "^4.1.5",
     "nunjucks": "~3.2.0",
     "prettier": "^1.18.2",
-    "pretty-quick": "^2.0.0",
     "puppeteer": "^2.0.0",
     "react-i18next": "^11.0.1",
     "resemblejs": "^3.2.3",
@@ -135,19 +147,5 @@
     ],
     "testRegex": "/__tests__/.*-spec\\.ts?$"
   },
-  "lint-staged": {
-    "*.{js,css,json}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.ts": [
-      "eslint --ext .ts --fix ./src ./__tests__ ./demos",
-      "git add"
-    ]
-  },
-  "keywords": [
-    "chart",
-    "plot"
-  ],
   "license": "MIT"
 }

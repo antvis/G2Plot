@@ -31,6 +31,8 @@ export { default as Scatter, ScatterConfig } from './scatter';
 export { default as Bubble, BubbleConfig } from './bubble';
 export { default as Bullet, BulletConfig } from './bullet';
 export { default as Calendar, CalendarConfig } from './calendar';
+export { default as Gauge, GaugeConfig } from './gauge';
+export { default as FanGauge, FanGaugeConfig } from './fan-gauge';
+export { default as MeterGauge, MeterGaugeConfig } from './meter-gauge';
 
-// export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as Funnel, FunnelConfig } from './funnel';

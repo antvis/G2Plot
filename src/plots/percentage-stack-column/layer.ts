@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import StackColumn, { StackColumnViewConfig } from '../stack-column/layer';
+import StackColumn, { StackColumnViewConfig } from '../stacked-column/layer';
 import { transformDataPercentage } from '../../util/data';
 import { DataItem } from '../../interface/config';
 

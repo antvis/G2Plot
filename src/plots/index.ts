@@ -1,15 +1,15 @@
 export { default as Line, LineConfig } from './line';
 export { default as Bar, BarConfig } from './bar';
-export { default as StackBar, StackBarConfig } from './stack-bar';
+export { default as StackedBar, StackedBarConfig } from './stacked-bar';
 export { default as GroupedBar, GroupedBarConfig } from './grouped-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './percentage-stack-bar';
 export { default as RangeBar, RangeBarConfig } from './range-bar';
 export { default as Area, AreaConfig } from './area';
-export { default as StackArea, StackAreaConfig } from './stack-area';
+export { default as StackedArea, StackedAreaConfig } from './stacked-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
 export { default as Column, ColumnConfig } from './column';
 export { default as GroupedColumn, GroupedColumnConfig } from './grouped-column';
-export { default as StackColumn, StackColumnConfig } from './stack-column';
+export { default as StackedColumn, StackedColumnConfig } from './stacked-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
 export { default as Pie, PieConfig } from './pie';
 export { default as RangeColumn, RangeColumnConfig } from './range-column';
@@ -28,7 +28,8 @@ export { default as Waterfall, WaterfallConfig } from './waterfall';
 export { default as Scatter, ScatterConfig } from './scatter';
 export { default as Bubble, BubbleConfig } from './bubble';
 export { default as Bullet, BulletConfig } from './bullet';
+export { default as Calendar, CalendarConfig } from './calendar';
 
 // export { default as Gauge, GaugeConfig } from './gauge';
 // export { default as Funnel, FunnelConfig } from './funnel';
-export { default as Calendar, CalendarConfig } from './calendar';
+

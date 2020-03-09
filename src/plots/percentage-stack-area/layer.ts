@@ -1,14 +1,14 @@
 import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import StackArea, { StackAreaViewConfig } from '../stack-area/layer';
+import StackedArea, { StackedAreaViewConfig } from '../stacked-area/layer';
 import { DataItem } from '../../interface/config';
 import { transformDataPercentage } from '../../util/data';
 
-export type PercentageStackAreaViewConfig = StackAreaViewConfig;
+export type PercentageStackAreaViewConfig = StackedAreaViewConfig;
 export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewConfig, LayerConfig {}
 
-export default class PercentageStackAreaLayer extends StackArea<PercentageStackAreaLayerConfig> {
+export default class PercentageStackAreaLayer extends StackedArea<PercentageStackAreaLayerConfig> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
       yAxis: {

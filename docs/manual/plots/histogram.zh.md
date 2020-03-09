@@ -1,6 +1,6 @@
 ---
 title: Histogram - 直方图
-order: 6
+order: 8
 ---
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

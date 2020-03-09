@@ -1,6 +1,6 @@
 ---
 title: Area - 面积图
-order: 1
+order: 2
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

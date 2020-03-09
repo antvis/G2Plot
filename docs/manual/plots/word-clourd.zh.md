@@ -1,6 +1,6 @@
 ---
-title: WordClord 词云
-order: 12
+title: WordClord - 词云
+order: 29
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vM7uTpItaZoAAAAAAAAAAABkARQnAQ" width="400">

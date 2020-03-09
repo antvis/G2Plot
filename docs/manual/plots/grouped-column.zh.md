@@ -1,6 +1,6 @@
 ---
-title: Grouped-Column 分组柱状图
-order: 5
+title: GroupedColumn - 分组柱状图
+order: 6
 ---
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="lake-card-embed-toolbar-active lake-activated">

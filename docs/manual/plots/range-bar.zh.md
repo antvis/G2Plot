@@ -1,6 +1,6 @@
 ---
 title: RangeBar - 区间条形图
-order: 8
+order: 13
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ntOoRbDgmhAAAAAAAAAAAABkARQnAQ" width="600">

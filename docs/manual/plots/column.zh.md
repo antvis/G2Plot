@@ -1,6 +1,6 @@
 ---
 title: Column - 柱状图
-order: 3
+order: 4
 ---
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

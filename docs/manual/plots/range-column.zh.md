@@ -1,6 +1,6 @@
 ---
 title: RangeColumn - 区间柱状图
-order: 4
+order: 7
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8KlzSogpRiQAAAAAAAAAAABkARQnAQ" width="600">

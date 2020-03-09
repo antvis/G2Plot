@@ -1,6 +1,6 @@
 ---
 title: Bullet - 子弹图
-order: 10
+order: 26
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u4fZSYLw-jMAAAAAAAAAAABkARQnAQ" width="600>

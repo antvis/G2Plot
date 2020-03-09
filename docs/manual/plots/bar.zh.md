@@ -1,6 +1,6 @@
 ---
 title: Bar - 基础条形图
-order: 6
+order: 10
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

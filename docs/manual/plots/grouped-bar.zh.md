@@ -1,6 +1,6 @@
 ---
-title: Group-Bar 分组条形图
-order: 8
+title: GroupedBar - 分组条形图
+order: 12
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="lake-card-embed-toolbar-active lake-activated">

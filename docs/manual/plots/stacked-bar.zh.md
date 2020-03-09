@@ -1,6 +1,6 @@
 ---
-title: Stacked-Bar 堆叠条形图
-order: 7
+title: StackedBar - 堆叠条形图
+order: 11
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

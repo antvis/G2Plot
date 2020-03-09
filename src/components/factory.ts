@@ -8,7 +8,7 @@ import axisState from './axis/state';
 import labelState from './label/state';
 import tooltipState from './tooltip/state';
 
-type FirstArgs<T> = T extends new (first: infer U)=>any ? U : never;
+type FirstArgs<T> = T extends new (first: infer U) => any ? U : never; // eslint-disable-line
 
 const COMPONENT_MAPPER = {
   axis: AxisParser,

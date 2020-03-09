@@ -1,6 +1,6 @@
 ---
 title: Scatter - 散点图
-order: 0
+order: 20
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

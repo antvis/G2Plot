@@ -1,6 +1,6 @@
 ---
 title: Waterfall - 瀑布图
-order: 6
+order: 9
 ---
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

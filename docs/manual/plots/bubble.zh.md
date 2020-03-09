@@ -1,6 +1,6 @@
 ---
-title: Bubble 气泡图
-order: 1
+title: Bubble  - 气泡图
+order: 21
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

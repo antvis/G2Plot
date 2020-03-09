@@ -1,6 +1,6 @@
 ---
 title: StackedArea - 堆叠面积图
-order: 2
+order: 3
 ---
 
 <div data-card-type="block" data-lake-card="table" id="pLwYV" class="lake-card-embed-toolbar-active lake-activated">

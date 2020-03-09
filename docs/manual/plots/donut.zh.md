@@ -1,6 +1,6 @@
 ---
 title: Donut - 环图
-order: 10
+order: 15
 ---
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

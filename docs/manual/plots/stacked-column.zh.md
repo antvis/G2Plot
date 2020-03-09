@@ -1,6 +1,6 @@
 ---
-title: Stacked-Column 堆叠柱状图
-order: 4
+title: StackedColumn - 堆叠柱状图
+order: 5
 ---
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

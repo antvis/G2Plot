@@ -9,7 +9,7 @@ export default class GroupedBar extends BasePlot<GroupedBarConfig> {
 
   public createLayers(props) {
     const layerProps = deepMix({}, props);
-    layerProps.type = 'groupBar';
+    layerProps.type = 'groupedBar';
     super.createLayers(layerProps);
   }
 }

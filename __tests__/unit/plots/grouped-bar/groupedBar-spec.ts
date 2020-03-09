@@ -1,4 +1,4 @@
-import { GroupBar } from '../../../../src';
+import { GroupedBar } from '../../../../src';
 import { isFunction } from '@antv/util';
 
 describe('GroupBar plot', () => {
@@ -104,7 +104,7 @@ describe('GroupBar plot', () => {
   ];
 
   it('初始化以及销毁', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new GroupedBar(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -129,7 +129,7 @@ describe('GroupBar plot', () => {
   });
 
   it('color size and interval style', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new GroupedBar(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -153,7 +153,7 @@ describe('GroupBar plot', () => {
   });
 
   it('color map', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new GroupedBar(canvasDiv, {
       data,
       xField: 'value',
       yField: 'year',
@@ -177,7 +177,7 @@ describe('GroupBar plot', () => {
   });
 
   it('label', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new GroupedBar(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -210,7 +210,7 @@ describe('GroupBar plot', () => {
   });
 
   it('legend style', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new GroupedBar(canvasDiv, {
       width: 600,
       height: 600,
       padding: 'auto',
@@ -241,7 +241,7 @@ describe('GroupBar plot', () => {
   });
 
   it('legend visible false', () => {
-    const barPlot = new GroupBar(canvasDiv, {
+    const barPlot = new GroupedBar(canvasDiv, {
       width: 600,
       height: 600,
       data,

@@ -1,4 +1,4 @@
-import { GroupBar } from '@antv/g2plot';
+import { GroupedBar } from '@antv/g2plot';
 
 const data = [
   {
@@ -53,7 +53,7 @@ const data = [
   },
 ];
 
-const barPlot = new GroupBar(document.getElementById('container'), {
+const barPlot = new GroupedBar(document.getElementById('container'), {
   title: {
     visible: true,
     text: '分组条形图',

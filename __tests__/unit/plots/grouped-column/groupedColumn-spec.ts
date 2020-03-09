@@ -1,5 +1,5 @@
 import { IGroup, IElement } from '@antv/g-base';
-import { GroupColumn } from '../../../../src';
+import { GroupedColumn } from '../../../../src';
 import { isFunction } from 'util';
 
 describe('GroupColumn plot', () => {
@@ -105,7 +105,7 @@ describe('GroupColumn plot', () => {
   ];
 
   it('初始化以及销毁', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new GroupedColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -130,7 +130,7 @@ describe('GroupColumn plot', () => {
   });
 
   it('color size and interval style', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new GroupedColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -154,7 +154,7 @@ describe('GroupColumn plot', () => {
   });
 
   it('color map', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new GroupedColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,
@@ -180,7 +180,7 @@ describe('GroupColumn plot', () => {
   });
 
   it('label', () => {
-    const columnPlot = new GroupColumn(canvasDiv, {
+    const columnPlot = new GroupedColumn(canvasDiv, {
       width: 600,
       height: 600,
       data,

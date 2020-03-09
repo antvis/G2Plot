@@ -1,4 +1,4 @@
-import { GroupColumn } from '@antv/g2plot';
+import { GroupedColumn } from '@antv/g2plot';
 
 const data = [
   {
@@ -83,7 +83,7 @@ const data = [
   },
 ];
 
-const columnPlot = new GroupColumn(document.getElementById('container'), {
+const columnPlot = new GroupedColumn(document.getElementById('container'), {
   title: {
     visible: true,
     text: '分组柱状图',

@@ -8,7 +8,7 @@ export { default as Area, AreaConfig } from './area';
 export { default as StackArea, StackAreaConfig } from './stack-area';
 export { default as PercentageStackArea, PercentageStackAreaConfig } from './percentage-stack-area';
 export { default as Column, ColumnConfig } from './column';
-export { default as GroupColumn, GroupColumnConfig } from './group-column';
+export { default as GroupedColumn, GroupedColumnConfig } from './grouped-column';
 export { default as StackColumn, StackColumnConfig } from './stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
 export { default as Pie, PieConfig } from './pie';

@@ -4,14 +4,14 @@ import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 
-export interface GroupColumnViewConfig extends ColumnViewConfig {
+export interface GroupedColumnViewConfig extends ColumnViewConfig {
   groupField: string;
 }
 
-export interface GroupColumnLayerConfig extends GroupColumnViewConfig, LayerConfig {}
+export interface GroupedColumnLayerConfig extends GroupedColumnViewConfig, LayerConfig {}
 
-export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerConfig> {
-  public static getDefaultOptions(): Partial<GroupColumnViewConfig> {
+export default class GroupedColumnLayer extends BaseColumnLayer<GroupedColumnLayerConfig> {
+  public static getDefaultOptions(): Partial<GroupedColumnViewConfig> {
     return deepMix({}, super.getDefaultOptions(), {
       yAxis: {
         title: {
@@ -39,4 +39,4 @@ export default class GroupColumnLayer extends BaseColumnLayer<GroupColumnLayerCo
   }
 }
 
-registerPlotType('groupColumn', GroupColumnLayer);
+registerPlotType('groupedColumn', GroupedColumnLayer);

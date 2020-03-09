@@ -1,8 +1,8 @@
-import { GroupColumn } from '@antv/g2plot';
+import { GroupedColumn } from '@antv/g2plot';
 fetch('../data/subsales.json')
   .then((res) => res.json())
   .then((data) => {
-    const columnPlot = new GroupColumn(document.getElementById('container'), {
+    const columnPlot = new GroupedColumn(document.getElementById('container'), {
       title: {
         visible: true,
         text: '分组柱状图-缩略轴',

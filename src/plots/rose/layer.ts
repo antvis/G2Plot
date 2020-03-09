@@ -73,7 +73,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       },
       legend: {
         visible: true,
-        position: 'bottom',
+        position: 'right',
       },
       tooltip: {
         visible: true,
@@ -95,6 +95,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         },
         grid: {
           visible: true,
+          alignTick: false,
           style: {
             lineWidth: 0.5,
           },
@@ -192,7 +193,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       return [
         {
           type: 'dodge',
-          marginRatio: 0.7,
+          marginRatio: 1,
         },
       ];
     }

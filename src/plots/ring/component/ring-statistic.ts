@@ -3,6 +3,7 @@ import StatisticHtml, { IStaticticHtml } from './statistic';
 import * as statisticTemplate from './statistic-template';
 import { debounce, each, isString, isObject, isFunction, keys } from '@antv/util';
 import { LooseMap } from '../../../interface/types';
+import Ring from '../layer';
 
 interface IRingStatictic extends IStaticticHtml {
   view: View;
@@ -11,7 +12,7 @@ interface IRingStatictic extends IStaticticHtml {
 
 export default class RingStatistic extends StatisticHtml {
   protected view: View;
-  protected plot: any;
+  protected plot: Ring;
   protected statisticClass: string;
 
   constructor(cfg: IRingStatictic) {
@@ -104,7 +105,9 @@ export default class RingStatistic extends StatisticHtml {
   }
 
   private getStatisticSize() {
-    return this.plot.width * this.plot.options.radius;
+    const radius = (this.view.getCoordinate() as any).getRadius();
+    const { radius: radiusCfg, innerRadius: innerRadiusCfg } = this.plot.options;
+    return (radius / radiusCfg) * innerRadiusCfg * 2;
   }
 
   private getStatisticHtmlString(data): string {

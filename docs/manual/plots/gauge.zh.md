@@ -1,6 +1,6 @@
 ---
-title: Gauge 仪表盘
-order: 12
+title: Gauge - 仪表盘
+order: 27
 ---
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Kq3TQ4-I710AAAAAAAAAAABkARQnAQ" width="400">

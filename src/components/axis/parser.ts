@@ -72,15 +72,30 @@ export default class AxisParser {
   }
 
   private _gridParser() {
+    const gridCfg = this.localProps.grid;
     const style = this.localProps.grid?.line?.style;
+    const type = this.localProps.grid?.line?.type;
+    const alternateColor = this.localProps.grid?.alternateColor;
 
     if (isFunction(style)) {
       this.config.grid = (text: string, index: number, count: number) => {
         const cfg = style(text, index, count);
-        return { line: { style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg) } };
+        return {
+          line: {
+            type,
+            style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg),
+          },
+          alternateColor,
+        };
       };
     } else if (style) {
-      this.config.grid = { line: { style } };
+      this.config.grid = {
+        line: {
+          type,
+          style,
+        },
+        alternateColor,
+      };
       this.applyThemeConfig('grid');
     }
   }
@@ -143,7 +158,7 @@ export default class AxisParser {
     );
     if (labelConfig.formatter) {
       formatter = combineFormatter(
-        labelConfig.formatter,
+        formatter,
         labelConfig.formatter as (text: string, item: any, idx: number) => string
       );
     }

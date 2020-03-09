@@ -1,4 +1,4 @@
-import { StackBar, StackColumn, ViewLayer } from '../../src';
+import { StackedBar, StackedColumn, ViewLayer } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('$478', () => {
@@ -55,7 +55,7 @@ describe('$478', () => {
       serie: 'London',
     },
   ];
-  const plot = new StackBar(document.getElementById('container'), {
+  const plot = new StackedBar(document.getElementById('container'), {
     data,
     title: {
       visible: true,

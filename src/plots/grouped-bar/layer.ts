@@ -39,7 +39,7 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
     });
   }
 
-  public type: string = 'groupBar';
+  public type: string = 'groupedBar';
 
   public afterRender() {
     super.afterRender();

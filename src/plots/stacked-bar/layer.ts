@@ -66,7 +66,7 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
     });
   }
 
-  public type: string = 'stackBar';
+  public type: string = 'stackedBar';
 
   protected adjustBar(bar: ElementOption) {
     bar.adjust = [

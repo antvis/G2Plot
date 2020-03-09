@@ -1,4 +1,4 @@
-import { Ring } from '@antv/g2plot';
+import { Donut } from '@antv/g2plot';
 
 const data = [
   {
@@ -27,7 +27,7 @@ const data = [
   },
 ];
 
-const ringPlot = new Ring(document.getElementById('container'), {
+const donutPlot = new Donut(document.getElementById('container'), {
   forceFit: true,
   title: {
     visible: true,
@@ -44,4 +44,4 @@ const ringPlot = new Ring(document.getElementById('container'), {
   colorField: 'type',
 });
 
-ringPlot.render();
+donutPlot.render();

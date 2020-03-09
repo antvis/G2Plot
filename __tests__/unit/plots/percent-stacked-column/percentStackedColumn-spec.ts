@@ -1,4 +1,4 @@
-import { PercentageStackColumn } from '../../../../src';
+import { PercentStackedColumn } from '../../../../src';
 import { isFunction } from 'util';
 
 describe.skip('PercentageStackColumn plot', () => {
@@ -104,7 +104,7 @@ describe.skip('PercentageStackColumn plot', () => {
   ];
 
   it.only('初始化以及销毁', () => {
-    const columnPlot = new PercentageStackColumn(canvasDiv, {
+    const columnPlot = new PercentStackedColumn(canvasDiv, {
       data,
       width: 600,
       height: 600,

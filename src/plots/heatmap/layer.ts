@@ -72,7 +72,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     });
   }
 
-  public type: string = 'matrix';
+  public type: string = 'heatmap';
   protected gridSize: number[] = [];
   protected plotComponents: any[] = [];
 

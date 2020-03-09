@@ -1,5 +1,5 @@
 ---
-title: Ring Chart
+title: Donut Chart
 order: 1
 ---
 

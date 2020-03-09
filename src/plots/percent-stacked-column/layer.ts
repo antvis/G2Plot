@@ -33,7 +33,7 @@ export default class PercentStackedColumnLayer extends StackedColumn<PercentStac
       },
     });
   }
-  public type: string = 'percentageStackColumn';
+  public type: string = 'percentStackedColumn';
 
   protected processData(originData?: DataItem[]) {
     const { xField, yField } = this.options;

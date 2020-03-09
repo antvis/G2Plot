@@ -10,12 +10,12 @@ import { LooseMap } from '../../interface/types';
 import RingStatistic from './component/ring-statistic';
 import { getPieLabel } from '../pie/component/label';
 
-export interface RingViewConfig extends PieViewConfig {
+export interface DonutViewConfig extends PieViewConfig {
   innerRadius?: number;
   statistic?: any; //FIXME: 指标卡
 }
 
-export interface RingLayerConfig extends RingViewConfig, LayerConfig {}
+export interface DonutLayerConfig extends DonutViewConfig, LayerConfig {}
 
 const G2_GEOM_MAP = {
   ring: 'interval',
@@ -25,9 +25,9 @@ const PLOT_GEOM_MAP = {
   interval: 'ring',
 };
 
-export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> extends PieLayer<T> {
+export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> extends PieLayer<T> {
   public static centralId = 0;
-  public type: string = 'ring';
+  public type: string = 'donut';
   private statistic: any; // 保存指标卡实例用于响应交互
   private statisticClass: string; // 指标卡的class,用于重点文本容器的唯一标识，一个页面多个环图时，共用 class 交互会有问题。
 
@@ -52,8 +52,8 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
 
   public beforeInit() {
     super.beforeInit();
-    RingLayer.centralId++;
-    this.statisticClass = `statisticClassId${RingLayer.centralId}`;
+    DonutLayer.centralId++;
+    this.statisticClass = `statisticClassId${DonutLayer.centralId}`;
     this.adjustLabelDefaultOptions();
     if (this.options.statistic && this.options.statistic.triggerOn) {
       this.options.tooltip.visible = false;
@@ -149,4 +149,4 @@ export default class RingLayer<T extends RingLayerConfig = RingLayerConfig> exte
   }
 }
 
-registerPlotType('ring', RingLayer);
+registerPlotType('donut', DonutLayer);

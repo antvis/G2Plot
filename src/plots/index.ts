@@ -23,7 +23,7 @@ export { default as Radar, RadarConfig } from './radar';
 export { default as Liquid, LiquidConfig } from './liquid';
 export { default as Histogram, HistogramConfig } from './histogram';
 export { default as Density, DensityConfig } from './density';
-export { default as Ring, RingConfig } from './ring';
+export { default as Donut, DonutConfig } from './donut';
 export { default as Waterfall, WaterfallConfig } from './waterfall';
 export { default as Scatter, ScatterConfig } from './scatter';
 export { default as Bubble, BubbleConfig } from './bubble';

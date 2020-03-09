@@ -37,7 +37,7 @@ export interface DensityHeatmapViewConfig extends ViewConfig {
 export interface DensityHeatmapLayerConfig extends DensityHeatmapViewConfig, LayerConfig {}
 
 export default class DensityHeatmapLayer<T extends DensityHeatmapLayerConfig = DensityHeatmapLayerConfig> extends ViewLayer<T> {
-  public type: string = 'heatmap';
+  public type: string = 'densityHeatmap';
   protected plotComponents: any[] = [];
 
   public static getDefaultOptions(): any {

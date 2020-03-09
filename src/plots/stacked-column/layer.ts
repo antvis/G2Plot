@@ -35,7 +35,7 @@ export default class StackedColumnLayer<
     });
   }
 
-  public type: string = 'stackColum';
+  public type: string = 'stackedColum';
   public connectedArea: any;
 
   public init() {

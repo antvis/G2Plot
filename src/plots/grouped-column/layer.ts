@@ -20,7 +20,7 @@ export default class GroupedColumnLayer extends BaseColumnLayer<GroupedColumnLay
       },
     });
   }
-  public type: string = 'groupColumn';
+  public type: string = 'groupedColumn';
   public getResponsiveTheme() {
     return this.themeController.getResponsiveTheme('column');
   }

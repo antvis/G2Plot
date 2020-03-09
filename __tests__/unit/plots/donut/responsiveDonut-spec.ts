@@ -1,4 +1,4 @@
-import { Ring } from '../../../../src';
+import { Donut } from '../../../../src';
 
 describe('responsive ring plot', () => {
   const data = [
@@ -50,7 +50,7 @@ describe('responsive ring plot', () => {
     canvasDiv.style.height = `${height}px`;
     canvasDiv.id = 'canvas1';
     document.body.appendChild(canvasDiv);
-    const ringPlot = new Ring(canvasDiv, {
+    const ringPlot = new Donut(canvasDiv, {
       width,
       height,
       padding: 'auto',

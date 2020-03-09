@@ -5,10 +5,10 @@ import StackedArea, { StackedAreaViewConfig } from '../stacked-area/layer';
 import { DataItem } from '../../interface/config';
 import { transformDataPercentage } from '../../util/data';
 
-export type PercentageStackAreaViewConfig = StackedAreaViewConfig;
-export interface PercentageStackAreaLayerConfig extends PercentageStackAreaViewConfig, LayerConfig {}
+export type PercentStackedAreaViewConfig = StackedAreaViewConfig;
+export interface PercentStackedAreaLayerConfig extends PercentStackedAreaViewConfig, LayerConfig {}
 
-export default class PercentageStackAreaLayer extends StackedArea<PercentageStackAreaLayerConfig> {
+export default class PercentStackedAreaLayer extends StackedArea<PercentStackedAreaLayerConfig> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
       yAxis: {
@@ -49,4 +49,4 @@ export default class PercentageStackAreaLayer extends StackedArea<PercentageStac
   }
 }
 
-registerPlotType('percentageStackArea', PercentageStackAreaLayer);
+registerPlotType('percentStackedArea', PercentStackedAreaLayer);

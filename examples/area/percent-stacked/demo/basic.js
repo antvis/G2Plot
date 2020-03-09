@@ -1,4 +1,4 @@
-import { PercentageStackColumn } from '@antv/g2plot';
+import { PercentStackedArea } from '@antv/g2plot';
 
 const data = [
   {
@@ -108,16 +108,19 @@ const data = [
   },
 ];
 
-const columnPlot = new PercentageStackColumn(document.getElementById('container'), {
+const areaPlot = new PercentStackedArea(document.getElementById('container'), {
   title: {
     visible: true,
-    text: '百分比堆叠柱状图',
+    text: '百分比堆叠面积图',
   },
-  forceFit: true,
   data,
+  meta: {
+    year: {
+      range: [0, 1],
+    },
+  },
   xField: 'year',
   yField: 'value',
-  groupField: 'country',
+  stackField: 'country',
 });
-
-columnPlot.render();
+areaPlot.render();

@@ -1,5 +1,5 @@
 ---
-title: Percentage Stack Area Chart
+title: Percent Stacked Area Chart
 order: 0
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Percentage Stack Column Chart
+title: Percent Stacked Bar Chart
 order: 2
 ---
 

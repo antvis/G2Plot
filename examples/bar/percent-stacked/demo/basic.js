@@ -1,4 +1,4 @@
-import { PercentageStackBar } from '@antv/g2plot';
+import { PercentStackedBar } from '@antv/g2plot';
 
 const data = [
   {
@@ -108,7 +108,7 @@ const data = [
   },
 ];
 
-const barPlot = new PercentageStackBar(document.getElementById('container'), {
+const barPlot = new PercentStackedBar(document.getElementById('container'), {
   title: {
     visible: true,
     text: '百分比堆叠条形图',

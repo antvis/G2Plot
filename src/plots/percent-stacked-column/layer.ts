@@ -1,14 +1,14 @@
 import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import StackColumn, { StackColumnViewConfig } from '../stacked-column/layer';
+import StackedColumn, { StackedColumnViewConfig } from '../stacked-column/layer';
 import { transformDataPercentage } from '../../util/data';
 import { DataItem } from '../../interface/config';
 
-export type PercentageStackColumnViewConfig = StackColumnViewConfig;
-export interface PercentageStackColumnLayerConfig extends PercentageStackColumnViewConfig, LayerConfig {}
+export type PercentStackedColumnViewConfig = StackedColumnViewConfig;
+export interface PercentStackedColumnLayerConfig extends PercentStackedColumnViewConfig, LayerConfig {}
 
-export default class PercentageStackColumnLayer extends StackColumn<PercentageStackColumnLayerConfig> {
+export default class PercentStackedColumnLayer extends StackedColumn<PercentStackedColumnLayerConfig> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
       label: {
@@ -58,4 +58,4 @@ export default class PercentageStackColumnLayer extends StackColumn<PercentageSt
   }
 }
 
-registerPlotType('percentageStackColumn', PercentageStackColumnLayer);
+registerPlotType('percentStackedColumn', PercentStackedColumnLayer);

@@ -1,14 +1,14 @@
 import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import StackBar, { StackBarViewConfig } from '../stacked-bar/layer';
+import StackedBar, { StackedBarViewConfig } from '../stacked-bar/layer';
 import { DataItem } from '../../interface/config';
 import { transformDataPercentage } from '../../util/data';
 
-export type PercentageStackBarViewConfig = StackBarViewConfig;
-export interface PercentageStackBarLayerConfig extends PercentageStackBarViewConfig, LayerConfig {}
+export type PercentStackedBarViewConfig = StackedBarViewConfig;
+export interface PercentStackedBarLayerConfig extends PercentStackedBarViewConfig, LayerConfig {}
 
-export default class PercentageStackBarLayer extends StackBar<PercentageStackBarLayerConfig> {
+export default class PercentStackedBarLayer extends StackedBar<PercentStackedBarLayerConfig> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
@@ -60,4 +60,4 @@ export default class PercentageStackBarLayer extends StackBar<PercentageStackBar
   }
 }
 
-registerPlotType('percentageStackBar', PercentageStackBarLayer);
+registerPlotType('percentStackedBar', PercentStackedBarLayer);

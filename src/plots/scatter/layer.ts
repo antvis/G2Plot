@@ -100,10 +100,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   public afterRender() {
     super.afterRender();
-    if (this.options.quadrant && this.options.quadrant.visible && !this.quadrant) {
-      if (this.quadrant) {
-        this.quadrant.destroy();
-      }
+    if (this.quadrant) {
+      this.quadrant.destroy();
+    }
+    if (this.trendline) {
+      this.trendline.destroy();
+    }
+    if (this.options.quadrant && this.options.quadrant.visible) {
       this.quadrant = new Quadrant({
         view: this.view,
         plotOptions: this.options,
@@ -112,9 +115,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       this.quadrant.render();
     }
     if (this.options.trendline && this.options.trendline.visible) {
-      if (this.trendline) {
-        this.trendline.destroy();
-      }
       this.trendline = new Trendline({
         view: this.view,
         plotOptions: this.options,

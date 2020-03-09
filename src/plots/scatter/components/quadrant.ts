@@ -13,9 +13,9 @@ export interface QuadrantConfig {
   visible?: boolean;
   xBaseline?: number;
   yBaseline?: number;
-  regionStyle: any[] | any;
+  regionStyle?: any[] | any;
   lineStyle?: any;
-  label: ILabel;
+  label?: ILabel;
 }
 
 export interface IQuadrant extends QuadrantConfig {
@@ -26,8 +26,6 @@ export interface IQuadrant extends QuadrantConfig {
 export default class Quadrant {
   public options: IQuadrant;
   protected view: View;
-  protected xBaseline: number = 0;
-  protected yBaseline: number = 0;
   protected quadrantGroups: IGroup[] = [];
   protected container: IGroup;
   protected regionData: any[] = [];
@@ -43,10 +41,10 @@ export default class Quadrant {
     const { xBaseline, yBaseline } = this.options;
     const coord = this.view.getCoordinate();
     // TODO: xBaseline和yBaseline支持百分比
-    // 根据xBaseline和yBaseline分割象限
+    // 根据 xBaseline 和 yBaseline 分割象限
     const xScale = this.view.getScaleByField(this.options.plotOptions.xField);
     const yScale = this.view.getScaleByField(this.options.plotOptions.yField);
-    // 先进行x方向的分割
+    // 先进行 x 方向的分割
     let xRegion;
     if (xBaseline > xScale.min && xBaseline < xScale.max) {
       const ratio = (xBaseline - xScale.min) / (xScale.max - xScale.min);
@@ -65,40 +63,116 @@ export default class Quadrant {
       };
       this.lineData.push(verticalLineData);
     } else {
-      xRegion = new BBox(coord.start.x, coord.start.y, coord.getWidth(), coord.getHeight());
+      xRegion = [new BBox(coord.start.x, coord.end.y, coord.getWidth(), coord.getHeight())];
     }
-    // 再进行y方向的分割
+    // 再进行 y 方向的分割
     if (yBaseline > yScale.min && yBaseline < yScale.max) {
       const ratio = (yBaseline - yScale.min) / (yScale.max - yScale.min);
       const horizontalLineData = {
-        start: { x: coord.start.x, y: coord.end.y + coord.getHeight() * ratio },
-        end: { x: coord.end.x, y: coord.end.y + coord.getHeight() * ratio },
+        start: { x: coord.start.x, y: coord.start.y - coord.getHeight() * ratio },
+        end: { x: coord.end.x, y: coord.start.y - coord.getHeight() * ratio },
       };
       this.lineData.push(horizontalLineData);
-      each(xRegion, (region, index) => {
-        const lastName = ['left', 'right'];
-        const upper = {
-          name: xRegion.length > 1 ? `top-${lastName[index]}` : 'top',
-          bbox: new BBox(region.minX, region.minY, region.width, region.height * ratio),
+      const topQuadrant = {
+        name: xBaseline <= xScale.min ? 'top-right' : 'top-left',
+        bbox: new BBox(xRegion[0].minX, xRegion[0].minY, xRegion[0].width, xRegion[0].height * (1 - ratio)),
+        index: xBaseline <= xScale.min ? 2 : 0,
+      };
+      this.regionData.push(topQuadrant);
+      const bottomQuadrant = {
+        name: xBaseline <= xScale.min ? 'bottom-right' : 'bottom-left',
+        bbox: new BBox(
+          xRegion[0].minX,
+          xRegion[0].minY + xRegion[0].height * (1 - ratio),
+          xRegion[0].width,
+          xRegion[0].height * ratio
+        ),
+        index: xBaseline <= xScale.min ? 3 : 1,
+      };
+      this.regionData.push(bottomQuadrant);
+      // 四象限齐全
+      if (xRegion.length > 1) {
+        const rightTopQuadrant = {
+          name: 'top-right',
+          bbox: new BBox(xRegion[1].minX, xRegion[1].minY, xRegion[1].width, xRegion[1].height * (1 - ratio)),
+          index: 2,
         };
-        this.regionData.push(upper);
-        const lower = {
-          name: xRegion.length > 1 ? `bottom-${lastName[index]}` : 'bottom',
-          bbox: new BBox(region.minX, region.minY + region.height * ratio, region.width, region.height * (1 - ratio)),
+        this.regionData.push(rightTopQuadrant);
+        const rightBottomQuadrant = {
+          name: 'bottom-right',
+          bbox: new BBox(
+            xRegion[1].minX,
+            xRegion[1].minY + xRegion[1].height * (1 - ratio),
+            xRegion[1].width,
+            xRegion[1].height * ratio
+          ),
+          index: 3,
         };
-        this.regionData.push(lower);
-      });
+        this.regionData.push(rightBottomQuadrant);
+      }
     } else if (xRegion.length === 2) {
-      const left = {
-        name: 'left',
-        bbox: xRegion[0],
-      };
-      this.regionData.push(left);
-      const right = {
-        name: 'right',
-        bbox: xRegion[1],
-      };
-      this.regionData.push(right);
+      if (yBaseline <= yScale.min) {
+        const leftTopQuadrant = {
+          name: 'top-left',
+          bbox: xRegion[0],
+          index: 0,
+        };
+        this.regionData.push(leftTopQuadrant);
+        const rightTopQuadrant = {
+          name: 'top-right',
+          bbox: xRegion[1],
+          index: 2,
+        };
+        this.regionData.push(rightTopQuadrant);
+      } else {
+        const leftBottomQuadrant = {
+          name: 'bottom-left',
+          bbox: xRegion[0],
+          index: 1,
+        };
+        this.regionData.push(leftBottomQuadrant);
+        const rightBottomQuadrant = {
+          name: 'bottom-right',
+          bbox: xRegion[1],
+          index: 3,
+        };
+        this.regionData.push(rightBottomQuadrant);
+      }
+    } else {
+      // 当前绘制区域全部在一个象限中
+      if (xBaseline <= xScale.min) {
+        if (yBaseline <= yScale.min) {
+          const rightTopQuadrant = {
+            name: 'top-right',
+            bbox: xRegion[0],
+            index: 2,
+          };
+          this.regionData.push(rightTopQuadrant);
+        } else {
+          const rightBottomQuadrant = {
+            name: 'bottom-right',
+            bbox: xRegion[0],
+            index: 3,
+          };
+          this.regionData.push(rightBottomQuadrant);
+        }
+      } else {
+        if (yBaseline <= yScale.min) {
+          const leftTopQuadrant = {
+            name: 'top-left',
+            bbox: xRegion[0],
+            index: 0,
+          };
+          this.regionData.push(leftTopQuadrant);
+        } else {
+          const leftBottomQuadrant = {
+            name: 'bottom-left',
+            bbox: xRegion[0],
+            index: 1,
+          };
+          this.regionData.push(leftBottomQuadrant);
+        }
+      }
     }
     // 创建container
     this.container = this.view.backgroundGroup.addGroup();
@@ -108,7 +182,8 @@ export default class Quadrant {
     if (this.regionData.length > 0) {
       const defaultStyle = this.getDefaultStyle();
       const regionStyle = this.getRegionStyle(this.regionData);
-      each(this.regionData, (d, index) => {
+      each(this.regionData, (d) => {
+        const { index } = d;
         const group = this.container.addGroup();
         const rect = group.addShape('rect', {
           attrs: {
@@ -122,7 +197,7 @@ export default class Quadrant {
         });
         if (this.options.label && this.options.label.text) {
           const labelOptions = deepMix({}, defaultStyle.label, this.options.label);
-          const labelCfg = this.getLabelConfig(d, labelOptions, index);
+          const labelCfg = this.getLabelConfig(d, labelOptions);
           const label = group.addShape('text', {
             attrs: {
               ...labelCfg,
@@ -135,7 +210,7 @@ export default class Quadrant {
         this.quadrantGroups.push(group);
       });
 
-      //绘制象限辅助线
+      // 绘制象限辅助线
       const lineStyle = deepMix({}, defaultStyle.line, this.options.lineStyle);
       each(this.lineData, (d) => {
         this.container.addShape('path', {
@@ -171,11 +246,7 @@ export default class Quadrant {
         stroke: '#9ba29a',
         lineWidth: 1,
       },
-      region_2: [
-        { fill: '#000000', opacity: 0.05 },
-        { fill: '#ffffff', opacity: 0 },
-      ],
-      region_4: [
+      regionStyle: [
         { fill: '#000000', opacity: 0.05 },
         { fill: '#ffffff', opacity: 0 },
         { fill: '#ffffff', opacity: 0 },
@@ -194,19 +265,13 @@ export default class Quadrant {
   }
 
   private getRegionStyle(regionData) {
-    const regionNum = regionData.length;
     const defaultStyle = this.getDefaultStyle();
-    let style;
-    if (regionNum === 2) {
-      style = defaultStyle.region_2;
-    } else {
-      style = defaultStyle.region_4;
-    }
+    let style = defaultStyle.regionStyle;
     if (this.options.regionStyle) {
       const { regionStyle } = this.options;
       if (isArray(regionStyle)) {
         style = style.map((s, index) => {
-          if (regionStyle.length >= index) {
+          if (regionStyle.length > index && regionStyle[index]) {
             return regionStyle[index];
           }
           return s;
@@ -221,7 +286,8 @@ export default class Quadrant {
     return style;
   }
 
-  private getLabelConfig(region, labelOptions, index) {
+  private getLabelConfig(region, labelOptions) {
+    const { index } = region;
     let x = 0;
     let y = 0;
     let style: any = {};

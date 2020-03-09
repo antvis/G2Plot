@@ -1,4 +1,4 @@
-import { Gauge } from '@antv/g2plot';
+import { MeterGauge } from '@antv/g2plot';
 import insertCss from 'insert-css';
 
 insertCss(`
@@ -21,7 +21,7 @@ insertCss(`
 }
 `);
 
-const gaugePlot = new Gauge(document.getElementById('container'), {
+const gaugePlot = new MeterGauge(document.getElementById('container'), {
   title: {
     visible: true,
     text: '刻度仪表盘',
@@ -32,7 +32,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   min: 0,
   max: 100,
   range: [0, 25, 50, 75, 100],
-  style: 'meter',
+  //style: 'meter',
   statistic: () => {
     return '<div class="g2plot-gauge-label"><p class="title">良</p><p class="value">系统表现</p></div>';
   },

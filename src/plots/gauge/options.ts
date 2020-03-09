@@ -17,7 +17,6 @@ interface GaugeStyle {
 }
 
 export interface GaugeViewConfig extends ViewConfig {
-  style?: 'standard' | 'fan' | 'meter';
   startAngle?: number;
   endAngle?: number;
   min?: number;

@@ -4,7 +4,7 @@ import FanGaugeLayer, { FanGaugeLayerConfig } from './layer';
 
 export interface FanGaugeConfig extends FanGaugeLayerConfig, PlotConfig {}
 
-export default class Gauge extends BasePlot<FanGaugeConfig> {
+export default class FanGauge extends BasePlot<FanGaugeConfig> {
   public static getDefaultOptions: typeof FanGaugeLayer.getDefaultOptions = FanGaugeLayer.getDefaultOptions;
 
   public createLayers(props) {

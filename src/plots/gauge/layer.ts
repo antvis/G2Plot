@@ -14,7 +14,7 @@ import { GaugeShape } from './geometry/shape/gauge-shape';
 import { getOptions } from './geometry/shape/options';
 
 
-export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
+export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig { }
 
 export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> extends ViewLayer<T> {
   data: [];
@@ -66,36 +66,23 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   /**
    * 绘制指针
    */
-  initG2Shape() {
+  protected initG2Shape() {
     this.gaugeShape = new GaugeShape(_.uniqueId());
 
     const { style } = this.options;
     this.gaugeShape.setOption(
       this.options,
-      this.getCustomStyle(style).pointerStyle,
-      this.getCustomStyle(style).ringStyle
+      this.getCustomStyle().pointerStyle,
+      this.getCustomStyle().ringStyle
     );
     this.gaugeShape.render();
   }
 
-  protected getCustomStyle(style: string) {
+  protected getCustomStyle() {
     const { theme, styleMix } = this.options;
     const colors = styleMix.colors || this.config.theme.colors;
-    let options;
 
-    switch (style) {
-      case 'meter':
-        options = getOptions(style, theme, colors);
-        break;
-      case 'fan':
-        options = getOptions(style, theme, colors);
-        break;
-      case 'standard':
-      default:
-        options = getOptions(style, theme, colors);
-    }
-
-    return options;
+    return getOptions('standard', theme, colors);;
   }
 
   protected geometryParser(dim: string, type: string): string {
@@ -123,7 +110,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected coord() {
-    const coordConfig:any = {
+    const coordConfig: any = {
       type: 'polar',
       cfg: {
         radius: 1,
@@ -136,60 +123,50 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
 
   protected axis() {
     const { styleMix, style } = this.options;
-    const { thickness } = this.getCustomStyle(style).ringStyle;
+    const { thickness } = this.getCustomStyle().ringStyle;
 
     const offset =
       typeof styleMix.tickLabelPos === 'number'
         ? -styleMix.tickLabelPos
         : styleMix.tickLabelPos === 'outer'
-        ? 0.8
-        : -0.8;
+          ? 0.8
+          : -0.8;
 
-    const axesConfig:any = {
+    const axesConfig: any = {
       fields: {
         value: {},
         1: {},
       },
     };
 
-    if (style === 'fan') {
-      /** 扇形仪表盘不渲染 axes 值 */
-      axesConfig.fields.value = {
-        grid: null,
-        line: null,
-        label: null,
-        tickLine: null,
-      };
-    } else {
-      axesConfig.fields.value = {
-        line: null,
-        grid: null,
-        label: {
-          offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 1.5),
-          textStyle: {
-            fontSize: styleMix.tickLabelSize,
-            fill: styleMix.tickLabelColor,
-            textAlign: 'center',
-            textBaseline: 'middle',
-          },
+    axesConfig.fields.value = {
+      line: null,
+      grid: null,
+      label: {
+        offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 1.5),
+        textStyle: {
+          fontSize: styleMix.tickLabelSize,
+          fill: styleMix.tickLabelColor,
+          textAlign: 'center',
+          textBaseline: 'middle',
         },
-        tickLine: {
-          length: offset * (styleMix.stripWidth + 4),
-          stroke: styleMix.tickLineColor,
-          lineWidth: 2,
-          // 由于tickline的zindex在annotation之上，所以使用lineDash实现offset
-          lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 4))],
-        },
-        subTickCount: styleMix.subTickCount,
-        subTickLine: {
-          length: offset * (styleMix.stripWidth + 1),
-          stroke: styleMix.tickLineColor,
-          lineWidth: 1,
-          lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
-        },
-        labelAutoRotate: true,
-      };
-    }
+      },
+      tickLine: {
+        length: offset * (styleMix.stripWidth + 4),
+        stroke: styleMix.tickLineColor,
+        lineWidth: 2,
+        // 由于tickline的zindex在annotation之上，所以使用lineDash实现offset
+        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 4))],
+      },
+      subTickCount: styleMix.subTickCount,
+      subTickLine: {
+        length: offset * (styleMix.stripWidth + 1),
+        stroke: styleMix.tickLineColor,
+        lineWidth: 1,
+        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
+      },
+      labelAutoRotate: true,
+    };
     axesConfig.fields['1'] = false;
     this.setConfig('axes', axesConfig);
   }
@@ -225,17 +202,13 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       annotationConfigs.push(statistics);
     }
 
-    if (style === 'fan') {
-      siderTexts = this.renderSideText();
-    }
-
     const allAnnotations = annotationConfigs.concat(siderTexts);
     this.setConfig('annotations', allAnnotations);
   }
 
   protected renderSideText() {
     const { max, min, styleMix, format, style } = this.options;
-    const ringStyle = this.getCustomStyle(style).ringStyle;
+    const ringStyle = this.getCustomStyle().ringStyle;
     const OFFSET_Y = 12;
     return [min, max].map((value, index) => {
       return {

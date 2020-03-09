@@ -6,15 +6,12 @@ import { GaugeViewConfig } from '../gauge/options';
 import { getOptions } from '../gauge/geometry/shape/options';
 import { GaugeShape } from '../gauge/geometry/shape/gauge-shape';
 
-export interface FanGaugeViewConfig extends GaugeViewConfig {
-    stackField: string;
-    connectedArea?: any;
-}
+export interface MeterGaugeViewConfig extends GaugeViewConfig {}
 
-export interface FanGaugeLayerConfig extends FanGaugeViewConfig, LayerConfig { }
+export interface MeterGaugeLayerConfig extends MeterGaugeViewConfig, LayerConfig { }
 
-export default class FanGaugeLayer<
-    T extends FanGaugeLayerConfig = FanGaugeLayerConfig
+export default class MeterGaugeLayer<
+    T extends MeterGaugeLayerConfig = MeterGaugeLayerConfig
     > extends GaugeLayer<T> {
     public static getDefaultOptions() {
         return deepMix({}, super.getDefaultOptions(), {
@@ -35,13 +32,12 @@ export default class FanGaugeLayer<
         });
     }
 
-    public type: string = 'fanGauge';
+    public type: string = 'meterGauge';
 
     protected getCustomStyle() {
         const { theme, styleMix } = this.options;
         const colors = styleMix.colors || this.config.theme.colors;
-
-        return getOptions('fan', theme, colors);
+        return getOptions('meter', theme, colors);
     }
 
     protected annotation() {
@@ -49,9 +45,9 @@ export default class FanGaugeLayer<
         const siderTexts = this.renderSideText();
         const allAnnotations = annotationConfigs.concat(siderTexts);
         this.setConfig('annotations', allAnnotations);
-      } 
+    }
 
-      protected initG2Shape() {
+    protected initG2Shape() {
         this.gaugeShape = new GaugeShape(uniqueId());
         this.gaugeShape.setOption(
           this.options,
@@ -60,6 +56,7 @@ export default class FanGaugeLayer<
         );
         this.gaugeShape.render();
     }
+    
 }
 
-registerPlotType('fanGauge', FanGaugeLayer);
+registerPlotType('meterGauge', MeterGaugeLayer);

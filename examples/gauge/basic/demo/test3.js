@@ -26,7 +26,7 @@ const gaugePlot = new FanGauge(document.getElementById('container'), {
     visible: true,
     text: '扇形仪表盘',
   },
-  style: 'fan',
+  // style: 'fan',
   width: 400,
   height: 400,
   value: 34,

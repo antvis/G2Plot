@@ -1,6 +1,9 @@
 import * as _ from '@antv/util';
+import * as domUtil from '@antv/dom-util';
 import { IGroup, IShape } from '@antv/g-base';
 import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
+import TooltipHtmlTheme from '@antv/component/lib/tooltip/html-theme';
+import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -10,6 +13,7 @@ import responsiveMethods from './apply-responsive';
 import './theme';
 import './geometry/shape/funnel-basic-rect';
 import './geometry/shape/funnel-dynamic-rect';
+import './animation/funnel-scale-in-x';
 import './animation/funnel-scale-in-y';
 import { mappingColor, rgb2arr } from '../../util/color';
 
@@ -206,6 +210,86 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     ];
   }
 
+  protected tooltip() {
+    const props = this.options;
+
+    if (props.compareField) {
+      _.deepMix(props.tooltip, {
+        htmlContent: (title, items) => {
+          debugger;
+          let clss, el, color, elMarker;
+
+          clss = TooltipCssConst.CONTAINER_CLASS;
+          el = domUtil.createDom(`<div class="${clss}"></div>`);
+          domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+          const elRoot = el;
+
+          if (title) {
+            clss = TooltipCssConst.TITLE_CLASS;
+            el = domUtil.createDom(`<div class="${clss}"></div>`);
+            domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+            elRoot.appendChild(el);
+            const elTitle = el;
+
+            clss = TooltipCssConst.MARKER_CLASS;
+            el = domUtil.createDom(`<span class="${clss}"></span>`);
+            domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+            domUtil.modifyCSS(el, { width: '10px', height: '10px' });
+            elTitle.appendChild(el);
+            elMarker = el;
+
+            el = domUtil.createDom(`<span>${title}</span>`);
+            elTitle.appendChild(el);
+          }
+
+          if (items) {
+            clss = TooltipCssConst.LIST_CLASS;
+            el = domUtil.createDom(`<ul class="${clss}"></ul>`);
+            domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+            elRoot.appendChild(el);
+            const elList = el;
+
+            items
+              .reduce((pairs, item) => {
+                if (!color) {
+                  color = item.color;
+                }
+                const compareValues = _.get(item, 'point._origin.__compare__.compareValues');
+                const yValues = _.get(item, 'point._origin.__compare__.yValues');
+                yValues.forEach((yValue, i) => pairs.push([compareValues[i], yValue]));
+                return pairs;
+              }, [])
+              .forEach(([compareValue, yValue], index) => {
+                clss = TooltipCssConst.LIST_ITEM_CLASS;
+                el = domUtil.createDom(`<li class="${clss}" data-index=${index}></li>`);
+                domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+                elList.appendChild(el);
+                const elListItem = el;
+
+                clss = TooltipCssConst.NAME_CLASS;
+                el = domUtil.createDom(`<span class="${clss}">${compareValue}</span>`);
+                domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+                elListItem.appendChild(el);
+
+                clss = TooltipCssConst.VALUE_CLASS;
+                el = domUtil.createDom(`<span class="${clss}">${yValue}</span>`);
+                domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+                elListItem.appendChild(el);
+              });
+          }
+
+          if (color && elMarker) {
+            domUtil.modifyCSS(elMarker, { backgroundColor: color });
+          }
+
+          return elRoot;
+        },
+      });
+    }
+
+    super.tooltip();
+  }
+
   protected addGeometry() {
     const props = this.options;
     const funnel = getGeom('interval', 'main', {
@@ -242,7 +326,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
       this.funnel.animate = _.deepMix({}, props.animation, {
         appear: {
-          animation: 'funnelScaleInY',
+          animation: props.transpose ? 'funnelScaleInX' : 'funnelScaleInY',
           duration: appearDurationEach,
           delay: (datum) => _.findIndex(data, (o) => _.isEqual(o, datum)) * appearDurationEach,
           callback: (shape) => {
@@ -273,6 +357,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       const percentageContainer = this._findPercentageContainer();
       if (percentageContainer) {
         this.paddingController.registerPadding(percentageContainer, 'inner', true);
+      }
+      const compareTextContainer = this._findCompareTextContainer();
+      if (compareTextContainer) {
+        this.paddingController.registerPadding(compareTextContainer, 'inner', true);
       }
     }
 
@@ -742,16 +830,17 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       if (compare) {
         content = [0, 1]
           .map((i) => formatter(xValue, shape, index, compare.yValues[i], compareTop.yValues[i]))
-          .join('    ');
+          .join(props.transpose ? '\n\n' : '    ');
       } else {
         content = formatter(xValue, shape, index, yValue, datumTop[yField]);
       }
 
       const label = this._findLabelInContainerByIndex(labelsContainer, index, true);
+      const ratio = compare ? compare.yValues[0] / (compare.yValues[0] + compare.yValues[1]) : 0.5;
       label.attr({
         ...labelStyle,
-        x: lerp(minX, maxX, compare ? compare.yValues[0] / (compare.yValues[0] + compare.yValues[1]) : 0.5),
-        y: lerp(minY, maxY, 0.5),
+        x: lerp(minX, maxX, !props.transpose ? ratio : 0.5),
+        y: lerp(minY, maxY, props.transpose ? ratio : 0.5),
         text: content,
       });
 

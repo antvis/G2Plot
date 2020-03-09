@@ -1,7 +1,7 @@
 export { default as Line, LineConfig } from './line';
 export { default as Bar, BarConfig } from './bar';
 export { default as StackBar, StackBarConfig } from './stack-bar';
-export { default as GroupBar, GroupBarConfig } from './group-bar';
+export { default as GroupedBar, GroupedBarConfig } from './grouped-bar';
 export { default as PercentageStackBar, PercentageStackBarConfig } from './percentage-stack-bar';
 export { default as RangeBar, RangeBarConfig } from './range-bar';
 export { default as Area, AreaConfig } from './area';
@@ -13,8 +13,8 @@ export { default as StackColumn, StackColumnConfig } from './stack-column';
 export { default as PercentageStackColumn, PercentageStackColumnConfig } from './percentage-stack-column';
 export { default as Pie, PieConfig } from './pie';
 export { default as RangeColumn, RangeColumnConfig } from './range-column';
+export { default as DensityHeatmap, DensityHeatmapConfig } from './density-heatmap';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
-export { default as Matrix, MatrixConfig } from './matrix';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
 export { default as Treemap, TreemapConfig } from './treemap';
 export { default as StepLine, StepLineConfig } from './step-line';

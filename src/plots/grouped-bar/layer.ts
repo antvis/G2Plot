@@ -4,14 +4,14 @@ import { LayerConfig } from '../../base/layer';
 import { ElementOption, timeIntervals } from '../../interface/config';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 
-export interface GroupBarViewConfig extends BarViewConfig {
+export interface GroupedBarViewConfig extends BarViewConfig {
   groupField: string;
 }
 
-export interface GroupBarLayerConfig extends GroupBarViewConfig, LayerConfig {}
+export interface GroupedBarLayerConfig extends GroupedBarViewConfig, LayerConfig {}
 
-export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
-  public static getDefaultOptions(): Partial<GroupBarViewConfig> {
+export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig> {
+  public static getDefaultOptions(): Partial<GroupedBarViewConfig> {
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
@@ -82,4 +82,4 @@ export default class GroupBarLayer extends BaseBarLayer<GroupBarLayerConfig> {
   }
 }
 
-registerPlotType('groupBar', GroupBarLayer);
+registerPlotType('groupedBar', GroupedBarLayer);

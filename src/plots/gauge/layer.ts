@@ -13,8 +13,7 @@ import { GaugeViewConfig, DEFAULT_GAUGE_CONFIG } from './options';
 import { GaugeShape } from './geometry/shape/gauge-shape';
 import { getOptions } from './geometry/shape/options';
 
-
-export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig { }
+export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
 
 export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> extends ViewLayer<T> {
   data: [];
@@ -52,15 +51,18 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected getStyleMix() {
-    const { gaugeStyle = {} } = this.options;
+    const { gaugeStyle = {}, statistic = {} } = this.options;
     const { width, height } = this;
     const size = Math.max(width, height) / 20;
     const defaultStyle = Object.assign({}, this.theme, {
       stripWidth: size,
       tickLabelSize: size / 2,
-      statisticSize: size * 1.5,
     });
-    return Object.assign(defaultStyle, gaugeStyle);
+    if (!statistic.size) {
+      statistic.size = size * 1.2;
+    }
+    const style = _.deepMix({}, defaultStyle, gaugeStyle, { statistic });
+    return style;
   }
 
   /**
@@ -83,7 +85,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     const { theme, styleMix } = this.options;
     const colors = styleMix.colors || this.config.theme.colors;
 
-    return getOptions('standard', theme, colors);;
+    return getOptions('standard', theme, colors);
   }
 
   protected geometryParser(dim: string, type: string): string {
@@ -130,21 +132,16 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       typeof styleMix.tickLabelPos === 'number'
         ? -styleMix.tickLabelPos
         : styleMix.tickLabelPos === 'outer'
-          ? 0.8
-          : -0.8;
+        ? 0.8
+        : -0.8;
 
-    const axesConfig: any = {
-      fields: {
-        value: {},
-        1: {},
-      },
-    };
+    const axesConfig: any = {};
 
-    axesConfig.fields.value = {
+    axesConfig.value = {
       line: null,
       grid: null,
       label: {
-        offset: offset * (styleMix.stripWidth / 1.8 + styleMix.tickLabelSize / 1.5 + thickness / 1.5),
+        offset: offset * (styleMix.stripWidth + styleMix.tickLabelSize + thickness),
         textStyle: {
           fontSize: styleMix.tickLabelSize,
           fill: styleMix.tickLabelColor,
@@ -152,13 +149,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
           textBaseline: 'middle',
         },
       },
-      tickLine: {
-        length: offset * (styleMix.stripWidth + 4),
-        stroke: styleMix.tickLineColor,
-        lineWidth: 2,
-        // 由于tickline的zindex在annotation之上，所以使用lineDash实现offset
-        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 4))],
-      },
+      tickLine: null,
       subTickCount: styleMix.subTickCount,
       subTickLine: {
         length: offset * (styleMix.stripWidth + 1),
@@ -168,7 +159,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       },
       labelAutoRotate: true,
     };
-    axesConfig.fields['1'] = false;
+    axesConfig['1'] = false;
     this.setConfig('axes', axesConfig);
   }
 
@@ -190,42 +181,17 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     };
 
     this.setConfig('geometry', pointer);
-
   }
 
   protected annotation() {
     const { statistic, style } = this.options;
     const annotationConfigs = [];
-    let siderTexts = [];
     // @ts-ignore
-    if (statistic !== false) {
+    if (statistic && statistic.visible) {
       const statistics = this.renderStatistic();
       annotationConfigs.push(statistics);
     }
-
-    const allAnnotations = annotationConfigs.concat(siderTexts);
-    this.setConfig('annotations', allAnnotations);
-  }
-
-  protected renderSideText() {
-    const { max, min, styleMix, format, style } = this.options;
-    const ringStyle = this.getCustomStyle().ringStyle;
-    const OFFSET_Y = 12;
-    return [min, max].map((value, index) => {
-      return {
-        type: 'text',
-        top: true,
-        position: ['50%', '50%'],
-        content: format(value),
-        style: {
-          fill: styleMix.labelColor, // 文本颜色
-          fontSize: styleMix.tickLabelSize, // 文本大小
-          textAlign: 'center',
-        },
-        offsetX: !index ? -ringStyle.thickness : ringStyle.thickness,
-        offsetY: OFFSET_Y,
-      };
-    });
+    this.setConfig('annotations', annotationConfigs);
   }
 
   private statisticHtml() {
@@ -245,34 +211,22 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     return null;
   }
 
-  private renderStatistic() {
+  protected renderStatistic() {
     const { statistic, styleMix } = this.options;
-    const statisticHtml: string | HTMLElement | null = this.statisticHtml();
-
-    if (typeof statistic !== 'function') {
-      const text = {
-        type: 'text',
-        content: statisticHtml,
-        top: true,
-        position: styleMix.statisticPos,
-        style: {
-          fill: styleMix.statisticColor,
-          fontSize: styleMix.statisticSize,
-          textAlign: 'center',
-        },
-      };
-      return text;
-    }
-
-    if (typeof statistic === 'function') {
-      const html = {
-        type: 'html',
-        zIndex: 10,
-        position: styleMix.statisticPos,
-        html: statisticHtml,
-      };
-      return html;
-    }
+    // const statisticHtml: string | HTMLElement | null = this.statisticHtml();
+    const text = {
+      type: 'text',
+      content: statistic.text,
+      top: true,
+      position: styleMix.statistic.position,
+      style: {
+        fill: styleMix.statistic.color,
+        fontSize: styleMix.statistic.size,
+        textAlign: 'center',
+        textBaseline: 'middle',
+      },
+    };
+    return text;
   }
 }
 

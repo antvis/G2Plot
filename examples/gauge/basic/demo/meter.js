@@ -1,25 +1,4 @@
 import { MeterGauge } from '@antv/g2plot';
-import insertCss from 'insert-css';
-
-insertCss(`
-.g2plot-gauge-label {
-  width: 100px;
-  height: 100px;
-  vertical-align: middle;
-  text-align: center;
-  line-height: 0.2;
-}
-.g2plot-gauge-label .value {
-  font-size: 20px;
-  color: #8c8c8c;
-  font-weight: 300;
-}
-.g2plot-gauge-label .title {
-  font-size: 30px;
-  color: #faad14;
-  font-weight: bold;
-}
-`);
 
 const gaugePlot = new MeterGauge(document.getElementById('container'), {
   title: {
@@ -32,9 +11,10 @@ const gaugePlot = new MeterGauge(document.getElementById('container'), {
   min: 0,
   max: 100,
   range: [0, 25, 50, 75, 100],
-  //style: 'meter',
-  statistic: () => {
-    return '<div class="g2plot-gauge-label"><p class="title">良</p><p class="value">系统表现</p></div>';
+  statistic: {
+    visible: true,
+    text: '良',
+    color: '#faad14',
   },
   gaugeStyle: {
     colors: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],

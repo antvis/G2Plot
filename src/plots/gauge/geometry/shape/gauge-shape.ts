@@ -70,7 +70,7 @@ export class GaugeShape {
     this.uid = uid;
   }
 
-  setOption(type,options: GaugeViewConfig, pointerStyle: PointerStyle, ringStyle: RingStyle) {
+  setOption(type, options: GaugeViewConfig, pointerStyle: PointerStyle, ringStyle: RingStyle) {
     this.type = type;
     this.options = options;
     this.pointerStyle = pointerStyle;
@@ -78,10 +78,8 @@ export class GaugeShape {
   }
 
   render() {
-    const Gauge = this;
+    const Gauge = this; // eslint-disable-line
     registerShape('point', 'gauge', {
-      //gauge: this,
-
       draw(cfg: any, group: IGroup) {
         this.gauge = {} as any;
         this.gauge.options = Gauge.options;

@@ -41,6 +41,8 @@ export const DEFAULT_GAUGE_CONFIG = {
   gaugeStyle: {
     tickLineColor: 'rgba(0,0,0,0)',
     pointerColor: '#bfbfbf',
-    statisticPos: ['50%', '100%'],
+  },
+  statistic: {
+    position: ['50%', '80%'],
   },
 };

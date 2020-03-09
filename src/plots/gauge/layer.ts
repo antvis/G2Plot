@@ -71,6 +71,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
 
     const { style } = this.options;
     this.gaugeShape.setOption(
+      this.type,
       this.options,
       this.getCustomStyle().pointerStyle,
       this.getCustomStyle().ringStyle

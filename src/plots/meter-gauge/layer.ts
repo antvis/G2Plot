@@ -15,20 +15,7 @@ export default class MeterGaugeLayer<
     > extends GaugeLayer<T> {
     public static getDefaultOptions() {
         return deepMix({}, super.getDefaultOptions(), {
-            legend: {
-                visible: true,
-                position: 'right-top',
-            },
-            label: {
-                visible: false,
-                position: 'middle',
-                offset: 0,
-                adjustColor: true,
-            },
-            connectedArea: {
-                visible: false,
-                triggerOn: 'mouseenter',
-            },
+
         });
     }
 
@@ -45,16 +32,6 @@ export default class MeterGaugeLayer<
         const siderTexts = this.renderSideText();
         const allAnnotations = annotationConfigs.concat(siderTexts);
         this.setConfig('annotations', allAnnotations);
-    }
-
-    protected initG2Shape() {
-        this.gaugeShape = new GaugeShape(uniqueId());
-        this.gaugeShape.setOption(
-          this.options,
-          this.getCustomStyle().pointerStyle,
-          this.getCustomStyle().ringStyle
-        );
-        this.gaugeShape.render();
     }
     
 }

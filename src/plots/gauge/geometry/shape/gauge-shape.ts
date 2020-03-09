@@ -64,11 +64,14 @@ export class GaugeShape {
 
   pointerStyle: PointerStyle;
 
+  type: string;
+
   constructor(uid: any) {
     this.uid = uid;
   }
 
-  setOption(options: GaugeViewConfig, pointerStyle: PointerStyle, ringStyle: RingStyle) {
+  setOption(type,options: GaugeViewConfig, pointerStyle: PointerStyle, ringStyle: RingStyle) {
+    this.type = type;
     this.options = options;
     this.pointerStyle = pointerStyle;
     this.ringStyle = ringStyle;
@@ -84,8 +87,9 @@ export class GaugeShape {
         this.gauge.options = Gauge.options;
         this.gauge.pointerStyle = Gauge.pointerStyle;
         this.gauge.ringStyle = Gauge.ringStyle;
+        this.gauge.type = Gauge.type;
         const gauge = this.gauge;
-        const style = _.get(gauge, 'options.style');
+        const type = this.gauge.type;
         const point = cfg.points[0];
         const center = this.parsePoint({
           x: 0,
@@ -106,16 +110,16 @@ export class GaugeShape {
         const { starAngle, endAngle } = this.getAngleRange();
         const currentAngle = point.x * (endAngle - starAngle) + starAngle;
 
-        switch (style) {
-          case 'meter':
+        switch (type) {
+          case 'meterGauge':
             this.drawBarGauge(currentAngle);
             this.drawInSideAxis();
             break;
-          case 'fan':
+          case 'fanGauge':
             this.drawGauge(currentAngle);
             this.drawOutSideAxis();
             break;
-          case 'standard':
+          case 'standardGauge':
           default:
             this.drawGauge(currentAngle);
             this.drawAxis();
@@ -337,7 +341,7 @@ export class GaugeShape {
 
       getPath(starAngle: number, endAngle: number) {
         const gauge = (this as any).gauge;
-        const style = _.get(gauge, 'options.style');
+        const type = this.gauge.type;
         const height = _.get(gauge, 'options.height');
         const width = _.get(gauge, 'options.width');
         const center = this.gauge.center;
@@ -345,7 +349,7 @@ export class GaugeShape {
         const { thickness, minThickness, minThickCanvsSize, miniThickness, bigThickness } = this.gauge.ringStyle;
         let thick;
         const size = Math.min(width, height);
-        if (style === 'fan' && size < minThickCanvsSize) {
+        if (type === 'fan' && size < minThickCanvsSize) {
           thick = length - minThickness;
         } else {
           thick = thickness;

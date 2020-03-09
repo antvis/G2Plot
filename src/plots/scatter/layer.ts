@@ -87,7 +87,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       },
       label: {
         visible: false,
-        position: 'top',
       },
       shape: 'circle',
     });

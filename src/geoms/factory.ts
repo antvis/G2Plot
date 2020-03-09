@@ -15,7 +15,7 @@ const GEOMETRY_MAP = {
   interval: Interval,
 };
 
-type FirstCtrParam<T> = T extends new (first: infer R)=>any ? R : never;
+type FirstCtrParam<T> = T extends new (first: infer R) => any ? R : never;
 
 type MapType = typeof GEOMETRY_MAP;
 

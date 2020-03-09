@@ -1,4 +1,4 @@
-import { Matrix } from '@antv/g2plot';
+import { Heatmap } from '@antv/g2plot';
 
 const data = [
   { name: 'hot dog', value: 70, country: 'AD' },
@@ -102,7 +102,7 @@ const data = [
   { name: 'udon', value: 56, country: 'AQ' },
 ];
 
-const matrixPlot = new Matrix(document.getElementById('container'), {
+const heatmapPlot = new Heatmap(document.getElementById('container'), {
   title: {
     visible: true,
     text: '热力图模式切换',
@@ -114,17 +114,17 @@ const matrixPlot = new Matrix(document.getElementById('container'), {
   shapeType: 'circle',
   color: ['#0d5fbb', '#7eadfc', '#fd8b6f', '#aa3523'],
 });
-matrixPlot.render();
+heatmapPlot.render();
 
 window.setTimeout(() => {
-  matrixPlot.mappingSize('value');
+  heatmapPlot.mappingSize('value');
 }, 2000);
 window.setTimeout(() => {
-  matrixPlot.changeShape('rect');
+  heatmapPlot.changeShape('rect');
 }, 3000);
 window.setTimeout(() => {
-  matrixPlot.disableMappingSize();
+  heatmapPlot.disableMappingSize();
 }, 4000);
 window.setTimeout(() => {
-  matrixPlot.mappingSize('value');
+  heatmapPlot.mappingSize('value');
 }, 5000);

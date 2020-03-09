@@ -1,27 +1,23 @@
 import { Heatmap } from '@antv/g2plot';
 
-fetch('../data/jobpaying.json')
+fetch('https://gw.alipayobjects.com/os/basement_prod/a719cd4e-bd40-4878-a4b4-df8a6b531dfe.json')
   .then((res) => res.json())
   .then((data) => {
-    const heatMapPlot = new Heatmap(document.getElementById('container'), {
+    const heatmapPlot = new Heatmap(document.getElementById('container'), {
+      forceFit: false,
+      width: 650,
+      height: 500,
       data,
-      xField: 'prob',
-      yField: 'Average annual wage',
-      colorField: 'numbEmployed',
-      color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c'],
-      radius: 15,
-      intensity: 2,
-      xAxis: {
-        visible: true,
-        min: -0.05,
-        max: 1.05,
-        nice: false,
-      },
-      yAxis: {
-        visible: true,
-        min: -1000,
+      xField: 'Month of Year',
+      yField: 'District',
+      colorField: 'AQHI',
+      shapeType: 'rect',
+      color: ['#174c83', '#7eb6d4', '#efefeb', '#efa759', '#9b4d16'],
+      meta: {
+        'Month of Year': {
+          type: 'cat',
+        },
       },
     });
-
-    heatMapPlot.render();
+    heatmapPlot.render();
   });

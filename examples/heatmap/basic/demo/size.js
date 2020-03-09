@@ -1,4 +1,4 @@
-import { Matrix } from '@antv/g2plot';
+import { Heatmap } from '@antv/g2plot';
 
 const data = [
   { name: 'hot dog', value: 70, country: 'AD' },
@@ -102,7 +102,7 @@ const data = [
   { name: 'udon', value: 56, country: 'AQ' },
 ];
 
-const matrixPlot = new Matrix(document.getElementById('container'), {
+const heatmapPlot = new Heatmap(document.getElementById('container'), {
   title: {
     visible: true,
     text: '热力图形状大小映射',
@@ -115,4 +115,4 @@ const matrixPlot = new Matrix(document.getElementById('container'), {
   //size: [10,40],
   color: ['#dddddd', '#9ec8e0', '#5fa4cd', '#2e7ab6', '#114d90'],
 });
-matrixPlot.render();
+heatmapPlot.render();

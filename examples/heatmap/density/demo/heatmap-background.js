@@ -1,8 +1,8 @@
-import { Heatmap } from '@antv/g2plot';
+import { DensityHeatmap } from '@antv/g2plot';
 fetch('../data/heatmap.json')
   .then((res) => res.json())
   .then((data) => {
-    const heatMapPlot = new Heatmap(document.getElementById('container'), {
+    const heatMapPlot = new DensityHeatmap(document.getElementById('container'), {
       data,
       xField: 'g',
       yField: 'l',

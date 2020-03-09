@@ -225,6 +225,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
     const label = getComponent('label', {
       fields: [props.yField],
+      ...props.label,
       plot: this,
     });
 

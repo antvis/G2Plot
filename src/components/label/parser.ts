@@ -71,16 +71,17 @@ export default class LabelParser {
 
   protected parseFormatter(config: LooseMap, ...values: any[]) {
     const labelProps = this.originConfig;
-    config.formatter = combineFormatter(
-      getNoopFormatter(),
-      getPrecisionFormatter(labelProps.precision),
-      getSuffixFormatter(labelProps.suffix)
-    );
-    if (labelProps.formatter) {
-      config.formatter = combineFormatter(
-        config.formatter,
-        labelProps.formatter as (text: string, item: any, idx: number) => string
-      );
-    }
+    config.content = (data, mappingData, index) => {
+      // @ts-ignore
+      const text = data[labelProps.fields[0]];
+      return combineFormatter(
+        getNoopFormatter(),
+        getPrecisionFormatter(labelProps.precision),
+        getSuffixFormatter(labelProps.suffix),
+        (labelProps.formatter as (text: string, item: any, idx: number) => string)
+          ? labelProps.formatter
+          : getNoopFormatter()
+      )(text, data, index);
+    };
   }
 }

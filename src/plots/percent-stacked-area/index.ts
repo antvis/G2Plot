@@ -4,11 +4,11 @@ import PercentStackedAreaLayer, { PercentStackedAreaLayerConfig } from './layer'
 
 export interface PercentStackedAreaConfig extends PercentStackedAreaLayerConfig, PlotConfig {}
 
-export default class PercentStackedArea<
-  T extends PercentStackedAreaConfig = PercentStackedAreaConfig
-> extends BasePlot<T> {
+export default class PercentStackedArea<T extends PercentStackedAreaConfig = PercentStackedAreaConfig> extends BasePlot<
+  T
+> {
   public static getDefaultOptions: typeof PercentStackedAreaLayer.getDefaultOptions =
-  PercentStackedAreaLayer.getDefaultOptions;
+    PercentStackedAreaLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = deepMix({}, props);

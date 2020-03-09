@@ -5,8 +5,8 @@ import { ElementOption, Label } from '../../interface/config';
 import BaseArea, { AreaViewConfig } from '../area/layer';
 import { getPlotComponents } from './component';
 
-interface IAreaLabel  extends Label {
-  autoScale?:boolean;
+interface IAreaLabel extends Label {
+  autoScale?: boolean;
 }
 
 export interface StackedAreaViewConfig extends AreaViewConfig {

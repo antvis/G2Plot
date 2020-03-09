@@ -9,34 +9,32 @@ export interface StackedRoseViewConfig extends RoseViewConfig {
 
 export interface StackedRoseLayerConfig extends StackedRoseViewConfig, LayerConfig {}
 
-export default class StackedRoseLayer<
-  T extends StackedRoseLayerConfig = StackedRoseLayerConfig
-> extends RoseLayer<T> {
+export default class StackedRoseLayer<T extends StackedRoseLayerConfig = StackedRoseLayerConfig> extends RoseLayer<T> {
   public static getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
-        xAxis: {
-            visible: true,
-            autoRotateLabel: true,
-            line: {
-              visible: false,
-            },
-            tickLine: {
-              visible: false,
-            },
-            grid: {
-              visible: true,
-              alignTick: false,
-              style: {
-                lineWidth: 0.5,
-              },
-            },
-            label: {
-              offset: 5,
-            },
+      xAxis: {
+        visible: true,
+        autoRotateLabel: true,
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        grid: {
+          visible: true,
+          alignTick: false,
+          style: {
+            lineWidth: 0.5,
           },
-          yAxis: {
-            visible: false,
-          },
+        },
+        label: {
+          offset: 5,
+        },
+      },
+      yAxis: {
+        visible: false,
+      },
     });
   }
 
@@ -44,11 +42,11 @@ export default class StackedRoseLayer<
 
   protected adjustRoseAdjust() {
     return [
-        {
-          type: 'stack',
-        },
+      {
+        type: 'stack',
+      },
     ];
-  }  
+  }
 }
 
 registerPlotType('stackedRose', StackedRoseLayer);

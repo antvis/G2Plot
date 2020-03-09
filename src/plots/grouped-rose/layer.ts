@@ -9,34 +9,32 @@ export interface GroupedRoseViewConfig extends RoseViewConfig {
 
 export interface GroupedRoseLayerConfig extends GroupedRoseViewConfig, LayerConfig {}
 
-export default class GroupedRoseLayer<
-  T extends GroupedRoseLayerConfig = GroupedRoseLayerConfig
-> extends RoseLayer<T> {
+export default class GroupedRoseLayer<T extends GroupedRoseLayerConfig = GroupedRoseLayerConfig> extends RoseLayer<T> {
   public static getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
-        xAxis: {
-            visible: true,
-            autoRotateLabel: true,
-            line: {
-              visible: false,
-            },
-            tickLine: {
-              visible: false,
-            },
-            grid: {
-              visible: true,
-              alignTick: false,
-              style: {
-                lineWidth: 0.5,
-              },
-            },
-            label: {
-              offset: 5,
-            },
+      xAxis: {
+        visible: true,
+        autoRotateLabel: true,
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        grid: {
+          visible: true,
+          alignTick: false,
+          style: {
+            lineWidth: 0.5,
           },
-          yAxis: {
-            visible: false,
-          },
+        },
+        label: {
+          offset: 5,
+        },
+      },
+      yAxis: {
+        visible: false,
+      },
     });
   }
 
@@ -44,12 +42,12 @@ export default class GroupedRoseLayer<
 
   protected adjustRoseAdjust() {
     return [
-        {
-          type: 'dodge',
-          marginRatio: 1,
-        },
-      ];
-  }  
+      {
+        type: 'dodge',
+        marginRatio: 1,
+      },
+    ];
+  }
 }
 
 registerPlotType('groupedRose', GroupedRoseLayer);

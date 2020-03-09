@@ -8,7 +8,7 @@ export default class PercentStackedBar<T extends PercentStackedBarConfig = Perce
   T
 > {
   public static getDefaultOptions: typeof PercentStackedBarLayer.getDefaultOptions =
-  PercentStackedBarLayer.getDefaultOptions;
+    PercentStackedBarLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = deepMix({}, props);

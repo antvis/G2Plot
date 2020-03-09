@@ -8,7 +8,7 @@ export default class PercentStackedColumn<
   T extends PercentStackedColumnConfig = PercentStackedColumnConfig
 > extends BasePlot<T> {
   public static getDefaultOptions: typeof PercentStackedColumnLayer.getDefaultOptions =
-  PercentStackedColumnLayer.getDefaultOptions;
+    PercentStackedColumnLayer.getDefaultOptions;
 
   public createLayers(props) {
     const layerProps = deepMix({}, props);

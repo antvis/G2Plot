@@ -1,4 +1,4 @@
-import { Gauge } from '@antv/g2plot';
+import { FanGauge } from '@antv/g2plot';
 import insertCss from 'insert-css';
 
 insertCss(`
@@ -21,7 +21,7 @@ insertCss(`
 }
 `);
 
-const gaugePlot = new Gauge(document.getElementById('container'), {
+const gaugePlot = new FanGauge(document.getElementById('container'), {
   title: {
     visible: true,
     text: '扇形仪表盘',

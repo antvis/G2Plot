@@ -80,7 +80,6 @@ export class GaugeShape {
       //gauge: this,
 
       draw(cfg: any, group: IGroup) {
-        console.log(Gauge);
         this.gauge = {} as any;
         this.gauge.options = Gauge.options;
         this.gauge.pointerStyle = Gauge.pointerStyle;

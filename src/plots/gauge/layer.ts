@@ -16,7 +16,7 @@ import { getOptions } from './geometry/shape/options';
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
 
-export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
+export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> extends ViewLayer<T> {
   data: [];
 
   gaugeShape: any;
@@ -78,7 +78,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     this.gaugeShape.render();
   }
 
-  private getCustomStyle(style: string) {
+  protected getCustomStyle(style: string) {
     const { theme, styleMix } = this.options;
     const colors = styleMix.colors || this.config.theme.colors;
     let options;
@@ -212,6 +212,7 @@ export default class GaugeLayer extends ViewLayer<GaugeLayerConfig> {
     };
 
     this.setConfig('geometry', pointer);
+
   }
 
   protected annotation() {

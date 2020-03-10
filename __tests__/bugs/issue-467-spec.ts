@@ -1,4 +1,4 @@
-import { GroupColumn, Pie } from '../../src';
+import { GroupedColumn, Pie } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('theme 在不同plot的设置互相影响', () => {
@@ -23,7 +23,7 @@ describe('theme 在不同plot的设置互相影响', () => {
 
   it('bar render', () => {
     const div = createDiv('column-container');
-    const column = new GroupColumn(div, {
+    const column = new GroupedColumn(div, {
       theme: {
         legend: {
           margin: [0, 0, 0, 0],

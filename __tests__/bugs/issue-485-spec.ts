@@ -1,5 +1,5 @@
 import * as _ from '@antv/util';
-import { Shape } from '@antv/g';
+import { Shape } from '@antv/g-base';
 import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
 import { getOverlapArea } from '../../src/plots/pie/component/label/utils';

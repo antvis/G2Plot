@@ -305,6 +305,51 @@ describe('Scatter plot', () => {
     expect(labelShapes.length).toBe(0);
   });
 
+  it('scatter label formatter', () => {
+    const scatterPlot = new Scatter(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      xField: 'GDP',
+      yField: 'LifeExpectancy',
+      colorField: 'continent',
+      label: {
+        visible: true,
+        formatter: (text, data, index) => {
+          return `${data['continent']} ${index}`;
+        },
+      },
+    });
+    scatterPlot.render();
+
+    let view = scatterPlot.getLayer().view;
+    let labelShapes = view.foregroundGroup.findAll((el) => {
+      return el.get('name') === 'label';
+    });
+    labelShapes.forEach((label, index) => {
+      // @ts-ignore
+      expect(label.cfg.children[0].attr('text')).toBe(`${data[index]['continent']} ${index}`);
+    });
+
+    scatterPlot.updateConfig({
+      label: {
+        formatter: (text) => {
+          return text;
+        },
+      },
+    });
+    scatterPlot.render();
+
+    view = scatterPlot.getLayer().view;
+    labelShapes = view.foregroundGroup.findAll((el) => {
+      return el.get('name') === 'label';
+    });
+    labelShapes.forEach((label, index) => {
+      // @ts-ignore
+      expect(label.cfg.children[0].attr('text')).toBe(data[index]['LifeExpectancy']);
+    });
+  });
+
   it('scatter animate', () => {
     const scatterPlot = new Scatter(canvasDiv, {
       width: 600,

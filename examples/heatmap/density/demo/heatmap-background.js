@@ -23,6 +23,7 @@ fetch('../data/heatmap.json')
       radius: 10,
       intensity: 4,
       background: {
+        visible: true,
         type: 'image',
         src: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TU_aSrMV6KYAAAAAAAAAAABkARQnAQ',
         // value: '#262626'

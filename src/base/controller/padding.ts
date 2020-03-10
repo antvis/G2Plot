@@ -143,7 +143,6 @@ export default class PaddingController {
       components_bbox.push(bbox);
     });
     box = this._mergeBBox(components_bbox);
-    /** 极坐标下padding计算错误问题 */
     const padding: MarginPadding = [
       0 - box.minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分

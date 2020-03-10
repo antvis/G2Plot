@@ -427,7 +427,9 @@ legend:{
 visible: true,
 offset: 20,
 showCrosshairs: true,
-crosshairs: 'cross'
+crosshairs: {
+  type: 'xy'
+}
 ```
 
 | 细分属性 | 类型 | 功能描述 |
@@ -435,7 +437,7 @@ crosshairs: 'cross'
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
 | showCrosshairs | boolean | 是否显示辅助线 |
-| crosshairs | string | 辅助线类型，可选项：x、y、cross，默认为cross |
+| crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 

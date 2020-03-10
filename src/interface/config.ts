@@ -165,7 +165,7 @@ export interface Tooltip {
   //crosshair?: 'x' | 'y' | 'cross' | boolean;
   //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
   showCrosshairs?: boolean;
-  crosshairs?: 'x' | 'y' | 'cross';
+  crosshairs?: object;
   style?: IStyleConfig;
   offset?: number;
   showMarkers?: boolean;

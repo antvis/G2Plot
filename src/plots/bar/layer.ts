@@ -95,7 +95,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       },
       interactions: [
         { type: 'tooltip' },
-        { type: 'element-active' },
         { type: 'active-region' },
         { type: 'legend-active' },
         { type: 'legend-filter' },

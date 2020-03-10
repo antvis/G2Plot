@@ -77,7 +77,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       },
       interactions: [
         { type: 'tooltip' },
-        { type: 'element-active' },
         { type: 'active-region' },
         { type: 'legend-active' },
         { type: 'legend-filter' },

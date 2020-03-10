@@ -59,8 +59,7 @@ export default class StateController {
     // this.resetZIndex();
     each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin');
-      const origin = isArray(shapeOrigin) ? shapeOrigin[0]._origin : shapeOrigin._origin;
-
+      const origin = isArray(shapeOrigin) ? shapeOrigin[0].data : shapeOrigin.data;
       if (compare(origin, condition)) {
         const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];
@@ -115,9 +114,9 @@ export default class StateController {
 
   private _getShapes() {
     const shapes = [];
-    const geoms = this.plot.view.get('elements');
+    const geoms = this.plot.view.geometries;
     each(geoms, (geom: any) => {
-      const shapeContainer = geom.get('shapeContainer');
+      const shapeContainer = geom.container;
       this.shapeContainers.push(shapeContainer);
       if (!geom.destroyed) {
         shapes.push(...geom.getShapes());

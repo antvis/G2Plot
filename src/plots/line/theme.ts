@@ -1,17 +1,18 @@
+import { IShape } from '../../dependents';
 import { registerTheme } from '../../theme';
 
-const LINE_ACTIVE_STYLE = (style) => {
-  const lineWidth = style.lineWidth || 1;
+const LINE_ACTIVE_STYLE = ({ shape }: { shape: IShape }) => {
+  const lineWidth = shape.attr('lineWidth') || 1;
   return { lineWidth: lineWidth + 1 };
 };
 
-const LINE_DISABLE_STYLE = (style) => {
-  const opacity = style.opacity || 1;
+const LINE_DISABLE_STYLE = ({ shape }: { shape: IShape }) => {
+  const opacity = shape.attr('opacity') || 1;
   return { opacity: opacity * 0.2 };
 };
 
-const LINE_SELECTED_STYLE = (style) => {
-  const lineWidth = style.lineWidth || 1;
+const LINE_SELECTED_STYLE = ({ shape }: { shape: IShape }) => {
+  const lineWidth = shape.attr('lineWidth') || 1;
   return { lineWidth: lineWidth + 2 };
 };
 

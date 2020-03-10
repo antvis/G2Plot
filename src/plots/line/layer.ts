@@ -235,6 +235,20 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
+  protected applyInteractions() {
+    super.applyInteractions();
+    this.interactions.push(
+      new LineActive({
+        view: this.view,
+      })
+    );
+    this.interactions.push(
+      new LineSelect({
+        view: this.view,
+      })
+    );
+  }
+
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
   }

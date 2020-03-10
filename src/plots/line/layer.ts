@@ -10,7 +10,6 @@ import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
-import { LineActive, LineSelect } from './interaction/index';
 import './theme';
 import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
@@ -114,7 +113,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
     // 响应式
     if (props.responsive && props.padding !== 'auto') {
-      //this.applyResponsive('afterRender');
+      this.applyResponsive('afterRender');
     }
     super.afterRender();
   }

@@ -201,11 +201,16 @@ function bboxOnRotate(shape) {
    * 将包围盒对齐到原点，apply旋转矩阵
    * 移回原来的位置
    */
-  const bboxWidth = bbox.tr.x - bbox.tl.x;
-  const bboxHeight = bbox.bl.y - bbox.tl.y;
+  const bboxWidth = bbox.maxX - bbox.minX;
+  const bboxHeight = bbox.maxY - bbox.minY;
   // const matrix = shape.getTotalMatrix();
   const matrix = shape.attr('matrix');
-  const ulMatrix = [matrix[0], matrix[1], 0, matrix[3], matrix[4], 0, 0, 0, 1];
+  let ulMatrix;
+  if (matrix) {
+    ulMatrix = [matrix[0], matrix[1], 0, matrix[3], matrix[4], 0, 0, 0, 1];
+  } else {
+    ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  }
   const top_left = applyMatrix({ x: 0, y: 0 }, ulMatrix);
   top_left.x += x;
   top_left.y += y;

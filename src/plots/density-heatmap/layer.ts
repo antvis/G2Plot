@@ -34,11 +34,11 @@ export interface DensityHeatmapViewConfig extends ViewConfig {
   background?: HeatmapBackgroundConfig;
 }
 
-export interface DensityHeatmapLayerConfig extends DensityHeatmapViewConfig, LayerConfig { }
+export interface DensityHeatmapLayerConfig extends DensityHeatmapViewConfig, LayerConfig {}
 
 export default class DensityHeatmapLayer<
   T extends DensityHeatmapLayerConfig = DensityHeatmapLayerConfig
-  > extends ViewLayer<T> {
+> extends ViewLayer<T> {
   public type: string = 'densityHeatmap';
   protected plotComponents: any[] = [];
 
@@ -97,11 +97,11 @@ export default class DensityHeatmapLayer<
             style: {
               stroke: '#000000',
               lineWidth: 1,
-              opacity: 0.5
-            }
-          }
+              opacity: 0.5,
+            },
+          },
         },
-        showMarkers: false
+        showMarkers: false,
       },
       legend: {
         visible: true,
@@ -115,9 +115,7 @@ export default class DensityHeatmapLayer<
         'rgb(239,138,98)',
         'rgb(178,24,43)',
       ],
-      interactions: [
-        { type: 'tooltip' },
-      ],
+      interactions: [{ type: 'tooltip' }],
     });
   }
 
@@ -150,7 +148,7 @@ export default class DensityHeatmapLayer<
     super.scale();
   }
 
-  protected coord() { }
+  protected coord() {}
 
   protected geometryParser(dim, type) {
     return 'heatmap';

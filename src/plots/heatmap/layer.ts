@@ -69,9 +69,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
           lineWidth: 0,
         },
       },
-      interactions: [
-        { type: 'tooltip' },
-      ],
+      interactions: [{ type: 'tooltip' }],
     });
   }
 

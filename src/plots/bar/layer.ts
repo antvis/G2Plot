@@ -4,6 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
+import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IStyleConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -28,6 +29,7 @@ export interface BarViewConfig extends ViewConfig {
   barStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
+  conversionTag?: ConversionTagOptions;
 }
 
 export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
@@ -98,12 +100,16 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         { type: 'legend-active' },
         { type: 'legend-filter' },
       ],
+      conversionTag: {
+        visible: false,
+      },
     };
     return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public bar: any;
   public type: string = 'bar';
+  public conversionTag?: ConversionTag;
 
   public beforeInit() {
     super.beforeInit();
@@ -120,6 +126,14 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.applyResponsive('afterRender');
+    }
+    if (props.conversionTag.visible) {
+      this.conversionTag = new ConversionTag({
+        view: this.view,
+        field: props.xField,
+        animation: props.animation === false ? false : true,
+        ...props.conversionTag,
+      });
     }
     super.afterRender();
   }
@@ -191,6 +205,14 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       positionFields: [props.yField, props.xField],
       plot: this,
     });
+    if (props.conversionTag.visible) {
+      this.setConfig(
+        'theme',
+        deepMix({}, this.getTheme(), {
+          columnWidthRatio: 1 / 3,
+        })
+      );
+    }
     this.adjustBar(bar);
     this.bar = bar;
     this.setConfig('geometry', bar);

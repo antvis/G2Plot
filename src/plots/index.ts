@@ -19,6 +19,7 @@ export { default as DensityHeatmap, DensityHeatmapConfig } from './density-heatm
 export { default as Heatmap, HeatmapConfig } from './heatmap';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
 export { default as Rose, RoseConfig } from './rose';
+export { default as Funnel, FunnelConfig } from './funnel';
 export { default as StackedRose, StackedRoseConfig } from './stacked-rose';
 export { default as GroupedRose, GroupedRoseConfig } from './grouped-rose';
 export { default as Radar, RadarConfig } from './radar';
@@ -34,5 +35,3 @@ export { default as Calendar, CalendarConfig } from './calendar';
 export { default as Gauge, GaugeConfig } from './gauge';
 export { default as FanGauge, FanGaugeConfig } from './fan-gauge';
 export { default as MeterGauge, MeterGaugeConfig } from './meter-gauge';
-
-// export { default as Funnel, FunnelConfig } from './funnel';

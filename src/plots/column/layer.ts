@@ -4,6 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, IStyleConfig } from '../../interface/config';
+import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
@@ -30,6 +31,7 @@ export interface ColumnViewConfig extends ViewConfig {
   columnStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
+  conversionTag?: ConversionTagOptions;
 }
 
 export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}
@@ -80,10 +82,14 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         { type: 'legend-active' },
         { type: 'legend-filter' },
       ],
+      conversionTag: {
+        visible: false,
+      },
     });
   }
   public column: any;
   public type: string = 'column';
+  public conversionTag?: ConversionTag;
 
   public getOptions(props: T) {
     const options = super.getOptions(props);
@@ -101,10 +107,20 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   }
 
   public afterRender() {
+    const props = this.options;
     this.renderLabel();
     /** 响应式 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('afterRender');
+    }
+    if (props.conversionTag.visible) {
+      this.conversionTag = new ConversionTag({
+        view: this.view,
+        field: props.yField,
+        transpose: true,
+        animation: props.animation === false ? false : true,
+        ...props.conversionTag,
+      });
     }
     super.afterRender();
   }
@@ -145,6 +161,14 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       positionFields: [options.xField, options.yField],
       plot: this,
     });
+    if (options.conversionTag.visible) {
+      this.setConfig(
+        'theme',
+        deepMix({}, this.getTheme(), {
+          columnWidthRatio: 1 / 3,
+        })
+      );
+    }
     this.adjustColumn(column);
     this.column = column;
     this.setConfig('geometry', column);

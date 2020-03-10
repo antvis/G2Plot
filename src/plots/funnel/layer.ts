@@ -475,7 +475,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                   x1: x,
                   y1: y,
                   x2: props.transpose ? x + offsetX : x - offsetX,
-                  y2: y - offsetY,
+                  y2: props.transpose ? y - offsetY : y + offsetY,
                   opacity: 0,
                 })
               );
@@ -490,7 +490,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                 text.attr(
                   _.deepMix({}, percentageText.style, {
                     x: props.transpose ? x + offsetX : x - offsetX - spacing - valueWidth - spacing,
-                    y: props.transpose ? y - offsetY - spacing : y - offsetY,
+                    y: props.transpose ? y - offsetY - spacing : y + offsetY,
                     opacity: 0,
                     text: percentageText.content,
                     textAlign: props.transpose ? 'left' : 'right',
@@ -507,7 +507,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                 value.attr(
                   _.deepMix({}, percentageValue.style, {
                     x: props.transpose ? x + offsetX + textWidth + spacing : x - offsetX - spacing,
-                    y: props.transpose ? y - offsetY - spacing : y - offsetY,
+                    y: props.transpose ? y - offsetY - spacing : y + offsetY,
                     opacity: 0,
                     text: _.isFunction(percentageValue.formatter)
                       ? props.compareField

@@ -16,8 +16,6 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
         autoRotateTitle: false,
         grid: {
           visible: true,
@@ -30,6 +28,8 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
         },
         label: {
           visible: true,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: true,
@@ -38,8 +38,6 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
       },
       yAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
         autoRotateTitle: true,
         grid: {
           visible: false,
@@ -52,6 +50,8 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
         },
         label: {
           visible: true,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: false,

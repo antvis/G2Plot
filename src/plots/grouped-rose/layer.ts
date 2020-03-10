@@ -14,7 +14,6 @@ export default class GroupedRoseLayer<T extends GroupedRoseLayerConfig = Grouped
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        autoRotateLabel: true,
         line: {
           visible: false,
         },
@@ -30,6 +29,7 @@ export default class GroupedRoseLayer<T extends GroupedRoseLayerConfig = Grouped
         },
         label: {
           offset: 5,
+          autoRotate: true,
         },
       },
       yAxis: {

@@ -290,8 +290,6 @@ tickLine: {
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
 | position | string | 坐标轴位置。可选值： `before | after`。默认为 `before` ，代表坐标轴在上方 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |

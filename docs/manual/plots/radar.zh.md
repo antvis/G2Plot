@@ -368,9 +368,6 @@ style:{
 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: true,
-autoRotateTitle: true,
 line: {
     visible: false,
 },
@@ -388,6 +385,8 @@ grid: {
 label: {
     visible: true,
     offset: 8,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -397,11 +396,9 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br />-autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
@@ -415,9 +412,6 @@ title: {
 min: 0,
 visible: true,
 nice: true,
-autoHideLabel: false,
-autoRotateLabel: true,
-autoRotateTitle: true,
 line: {
     visible: true,
 },
@@ -435,6 +429,8 @@ grid: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -444,15 +440,13 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
 | max | number | 设置坐标轴最大值 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 | gridType | string | 网格线类型。* line: 使用直线绘制网格线  * arc: 使用曲线绘制网格线 |

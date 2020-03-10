@@ -101,8 +101,6 @@ export const DEFAULT_GLOBAL_THEME = {
     y: {
       visible: true,
       position: 'left',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: true,
       grid: {
         visible: true,
@@ -136,6 +134,8 @@ export const DEFAULT_GLOBAL_THEME = {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
+        autoRotate: false,
+        autoHide: true,
       },
       title: {
         visible: false,
@@ -150,8 +150,6 @@ export const DEFAULT_GLOBAL_THEME = {
     x: {
       visible: true,
       position: 'bottom',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: false,
       grid: {
         visible: false,
@@ -185,6 +183,8 @@ export const DEFAULT_GLOBAL_THEME = {
           fontSize: 12,
         },
         offset: 16,
+        autoRotate: true,
+        autoHide: true,
       },
       title: {
         visible: false,
@@ -194,8 +194,6 @@ export const DEFAULT_GLOBAL_THEME = {
     },
     circle: {
       autoHideLabel: false,
-      autoRotateLabel: true,
-      autoRotateTitle: true,
       // gridType: 'line',
       grid: {
         line: {
@@ -226,6 +224,8 @@ export const DEFAULT_GLOBAL_THEME = {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
+        autoRotate: true,
+        autoHide: true,
       },
       title: {
         offset: 12,

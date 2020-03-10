@@ -102,8 +102,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       angleAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: true,
         autoRotateTitle: true,
         line: {
           visible: false,
@@ -122,6 +120,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         label: {
           visible: true,
           offset: 16,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: false,
@@ -132,8 +132,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         visible: true,
         /** G2 4.0 默认 nice 不生效，需要手动添加 */
         nice: true,
-        autoHideLabel: false,
-        autoRotateLabel: true,
         autoRotateTitle: true,
         line: {
           visible: true,
@@ -152,6 +150,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: true,
         },
         title: {
           visible: false,

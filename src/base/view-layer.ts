@@ -86,9 +86,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       xAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: false,
         grid: {
           visible: false,
         },
@@ -100,6 +97,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         label: {
           visible: true,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: false,
@@ -108,8 +107,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       yAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
         autoRotateTitle: true,
         grid: {
           visible: true,
@@ -122,6 +119,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: false,
         },
         title: {
           visible: false,

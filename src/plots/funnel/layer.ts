@@ -216,7 +216,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     if (props.compareField) {
       _.deepMix(props.tooltip, {
         htmlContent: (title, items) => {
-          debugger;
           let clss, el, color, elMarker;
 
           clss = TooltipCssConst.CONTAINER_CLASS;

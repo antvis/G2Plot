@@ -295,7 +295,7 @@ color:(d)=>{
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -318,7 +318,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -341,7 +341,7 @@ style:{
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -381,7 +381,7 @@ title: {
 ### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -424,7 +424,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，用于展示颜色分类信息
 
@@ -567,7 +567,7 @@ adjustPosition: false
 ### scrollBar
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/bar/basic#scroll-bar)
+[DEMO](../../../../examples/bar/basic#scroll-bar)
 
 功能描述： 配置竖向滚动条，适用于数据较多的场景。
 

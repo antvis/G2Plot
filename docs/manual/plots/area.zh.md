@@ -187,7 +187,7 @@ areaPlot.render();
 ### seriesField
 **可选**, *string*
 
-[**DEMO**](https://g2plot.antv.vision/zh/examples/line/multiple#line-multiple)
+[**DEMO**](../../../../examples/line/multiple#line-multiple)
 
 功能描述： 多色面积图必选。 数据集中的分组字段名，一般对应一个分类字段。通过该字段的值，数据将会被分为多个组，通过颜色进行区分，视觉上呈现为多个area形状。
 
@@ -277,7 +277,7 @@ style: {
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -300,7 +300,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -325,7 +325,7 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 默认配置：
 
@@ -366,7 +366,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -409,7 +409,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置了seriesField时显示，用于展示颜色分类信息
 
@@ -498,7 +498,7 @@ style:{
 
 **可选**, *object[]*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+[DEMOS](../../../../examples/general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N7naSJY4MtcAAAAAAAAAAABkARQnAQ" width="400">
 
@@ -618,7 +618,7 @@ style:{
 ### slider
 **可选**, *object*
 
-[DEMO](http://localhost:8000/zh/examples/line/basic#line-slider)
+[DEMO](../../../../examples/line/basic#line-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于折线数据较多，用户希望关注数据集中某个特殊区间的场景。
 

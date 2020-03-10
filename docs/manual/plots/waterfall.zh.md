@@ -271,7 +271,7 @@ color:{
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -294,7 +294,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -317,7 +317,7 @@ style:{
 ### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -357,7 +357,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -515,7 +515,7 @@ visible: true
 
 **可选**, *object[]*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+[DEMOS](../../../../examples/general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KiYPQbpzi3EAAAAAAAAAAABkARQnAQ" width="400">
 

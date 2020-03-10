@@ -264,7 +264,7 @@ color:(d)=>{
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -287,7 +287,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -310,7 +310,7 @@ style:{
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置colorField时显示，用于展示颜色分类信息
 
@@ -365,10 +365,10 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本
 
-[DEMO1](https://g2plot.antv.vision/zh/examples/pie/basic#basic)
-[DEMO2](https://g2plot.antv.vision/zh/examples/pie/basic#outer-label)
-[DEMO3](https://g2plot.antv.vision/zh/examples/pie/basic#outer-center-label)
-[DEMO4](https://g2plot.antv.vision/zh/examples/pie/basic#spider-label)
+[DEMO1](../../../../examples/pie/basic#basic)
+[DEMO2](../../../../examples/pie/basic#outer-label)
+[DEMO3](../../../../examples/pie/basic#outer-center-label)
+[DEMO4](../../../../examples/pie/basic#spider-label)
 
 默认配置：
 ```js

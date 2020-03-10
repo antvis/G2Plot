@@ -203,7 +203,7 @@ areaPlot.render();
 ### color
 **可选**, *string | string[] | Function*
 
-[**DEMO1**](https://g2plot.antv.vision/zh/examples/scatter/basic#color-mapping)
+[**DEMO1**](../../../../examples/scatter/basic#color-mapping)
 
 功能描述： 指定点的颜色。如没有配置colorField,指定一个单值即可。对colorFiled进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -247,7 +247,7 @@ const bubblePlot = new Bubble(document.getElementById('container'), {
 ### pointStyle
 **可选**, *object*
 
-[**DEMO**](https://g2plot.antv.vision/zh/examples/scatter/basic#color-mapping)
+[**DEMO**](../../../../examples/scatter/basic#color-mapping)
 
 功能描述： 设置折线样式。pointStyle中的`fill`会覆盖 `color` 的配置。pointtyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
 
@@ -272,7 +272,7 @@ const bubblePlot = new Bubble(document.getElementById('container'), {
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -295,7 +295,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -320,7 +320,7 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 默认配置：
 
@@ -359,7 +359,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -401,7 +401,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置了 `colorField` 时显示，用于展示颜色分类信息
 
@@ -481,7 +481,7 @@ style:{
 ### quadrant
 **可选**， *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/bubble/basic#quadrant)
+[DEMO](../../../../examples/bubble/basic#quadrant)
 
 功能描述： 四象限组件。将图表区域进行象限划分，用以展示线性数据的分类趋势。
 
@@ -498,7 +498,7 @@ style:{
 ### trendLine
 **可选**，*object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/bubble/basic#trendline)
+[DEMO](../../../../examples/bubble/basic#trendline)
 
 功能描述： 趋势线组件，为图表田间回归曲线。
 

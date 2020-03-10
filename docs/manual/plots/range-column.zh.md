@@ -216,7 +216,7 @@ color:(d)=>{
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -239,7 +239,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -262,7 +262,7 @@ style:{
 ### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -302,7 +302,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -345,7 +345,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置colorField时显示，用于展示颜色分类信息
 
@@ -400,7 +400,7 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本，与其他柱形图家族图表不同，区间柱状图的label为一对。
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/range#range-column-label)
+[DEMO](../../../../examples/column/range#range-column-label)
 
 默认配置：
 ```js
@@ -438,7 +438,7 @@ adjustPosition: true
 
 **可选**, *object[]*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+[DEMOS](../../../../examples/general/guideLine)
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 
@@ -545,7 +545,7 @@ adjustPosition: true
 ### scrollBar
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-scrollbar)
+[DEMO](../../../../examples/column/basic#column-scrollbar)
 
 功能描述： 配置横向滚动条，适用于数据较多的场景。
 

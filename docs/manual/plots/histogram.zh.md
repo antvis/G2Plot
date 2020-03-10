@@ -227,7 +227,7 @@ areaPlot.render();
 ### binWidth
 **可选**, *number*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/histogram#histogram-binWidth)
+[DEMO](../../../../examples/column/histogram#histogram-binWidth)
 
 功能描述： 设置直方图的分箱宽度，binWidth影响直方图分成多少箱。
 
@@ -239,7 +239,7 @@ areaPlot.render();
 ### binNumber
 **可选**, *number*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/histogram#histogram-binNumber)
+[DEMO](../../../../examples/column/histogram#histogram-binNumber)
 
 功能描述： 设置直方图的分箱数量，binNumber影响直方图分箱后每个柱子的宽度。
 
@@ -282,7 +282,7 @@ areaPlot.render();
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -305,7 +305,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -328,7 +328,7 @@ style:{
 ### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -475,7 +475,7 @@ adjustPosition: false
 
 **可选**, *object[]*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+[DEMOS](../../../../examples/general/guideLine)
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 
@@ -580,7 +580,7 @@ adjustPosition: false
 ### slider
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-slider)
+[DEMO](../../../../examples/column/basic#column-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
 
@@ -600,7 +600,7 @@ adjustPosition: false
 ### scrollBar
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-scrollbar)
+[DEMO](../../../../examples/column/basic#column-scrollbar)
 
 功能描述： 配置横向滚动条，适用于数据较多的场景。
 

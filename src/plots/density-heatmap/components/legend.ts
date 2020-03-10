@@ -4,7 +4,7 @@ import BBox from '../../../util/bbox';
 
 const LABEL_MARGIN = 4;
 const ACTIVE_OPACITY = 1;
-const DEACTIVE_OPACITY = 0.4;
+const DEACTIVE_OPACITY = 0.1;
 
 export interface HeatmapLegendConfig {
   visible?: boolean;
@@ -352,7 +352,7 @@ export default class HeatmapLegend {
     const { colorField, data } = this.options.plot.options;
     this.container.on('click', (ev) => {
       const { target } = ev;
-      if (target.get('name') === 'grid') {
+      if (target.get('name') === 'legend') {
         const appendInfo = target.get('info');
         const targetInfo = `${appendInfo.from}-${appendInfo.to}`;
         const relativeData = this.dataSlides[targetInfo];

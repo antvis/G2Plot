@@ -34,11 +34,11 @@ export interface DensityHeatmapViewConfig extends ViewConfig {
   background?: HeatmapBackgroundConfig;
 }
 
-export interface DensityHeatmapLayerConfig extends DensityHeatmapViewConfig, LayerConfig {}
+export interface DensityHeatmapLayerConfig extends DensityHeatmapViewConfig, LayerConfig { }
 
 export default class DensityHeatmapLayer<
   T extends DensityHeatmapLayerConfig = DensityHeatmapLayerConfig
-> extends ViewLayer<T> {
+  > extends ViewLayer<T> {
   public type: string = 'densityHeatmap';
   protected plotComponents: any[] = [];
 
@@ -62,7 +62,7 @@ export default class DensityHeatmapLayer<
           visible: true,
         },
         title: {
-          visible: true,
+          visible: false,
           offset: 12,
         },
       },
@@ -84,22 +84,28 @@ export default class DensityHeatmapLayer<
           visible: true,
         },
         title: {
-          visible: true,
+          visible: false,
           offset: 12,
         },
       },
       tooltip: {
         visible: true,
+        showCrosshairs: true,
         crosshairs: {
-          type: 'cross',
-          style: {
-            lineWidth: 2,
-          },
+          type: 'xy',
+          line: {
+            style: {
+              stroke: '#000000',
+              lineWidth: 1,
+              opacity: 0.5
+            }
+          }
         },
+        showMarkers: false
       },
       legend: {
         visible: true,
-        position: 'bottom',
+        position: 'bottom-center',
       },
       color: [
         'rgba(33,102,172,0)',
@@ -108,6 +114,9 @@ export default class DensityHeatmapLayer<
         'rgb(253,219,199)',
         'rgb(239,138,98)',
         'rgb(178,24,43)',
+      ],
+      interactions: [
+        { type: 'tooltip' },
       ],
     });
   }
@@ -141,7 +150,7 @@ export default class DensityHeatmapLayer<
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() { }
 
   protected geometryParser(dim, type) {
     return 'heatmap';

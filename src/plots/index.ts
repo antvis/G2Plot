@@ -1,4 +1,6 @@
 export { default as Line, LineConfig } from './line';
+export { default as Treemap, TreemapConfig } from './treemap';
+export { default as StepLine, StepLineConfig } from './step-line';
 export { default as Bar, BarConfig } from './bar';
 export { default as StackedBar, StackedBarConfig } from './stacked-bar';
 export { default as GroupedBar, GroupedBarConfig } from './grouped-bar';
@@ -10,14 +12,12 @@ export { default as PercentStackedArea, PercentStackedAreaConfig } from './perce
 export { default as Column, ColumnConfig } from './column';
 export { default as GroupedColumn, GroupedColumnConfig } from './grouped-column';
 export { default as StackedColumn, StackedColumnConfig } from './stacked-column';
+export { default as RangeColumn, RangeColumnConfig } from './range-column';
 export { default as PercentStackedColumn, PercentStackedColumnConfig } from './percent-stacked-column';
 export { default as Pie, PieConfig } from './pie';
-export { default as RangeColumn, RangeColumnConfig } from './range-column';
 export { default as DensityHeatmap, DensityHeatmapConfig } from './density-heatmap';
 export { default as Heatmap, HeatmapConfig } from './heatmap';
 export { default as WordCloud, WordCloudConfig } from './word-cloud';
-export { default as Treemap, TreemapConfig } from './treemap';
-export { default as StepLine, StepLineConfig } from './step-line';
 export { default as Rose, RoseConfig } from './rose';
 export { default as StackedRose, StackedRoseConfig } from './stacked-rose';
 export { default as GroupedRose, GroupedRoseConfig } from './grouped-rose';

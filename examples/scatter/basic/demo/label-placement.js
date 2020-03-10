@@ -19,7 +19,6 @@ fetch('../data/roma.json')
       },
       label: {
         visible: true,
-        position: 'right', // left right top bottom middle
       },
     });
     scatterPlot.render();

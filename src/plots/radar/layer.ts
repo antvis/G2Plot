@@ -299,6 +299,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         autoRotate: false,
       },
       plot: this,
+      ...props.label,
     });
 
     if (this.point) {

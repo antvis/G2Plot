@@ -13,6 +13,7 @@ import * as EventParser from './event';
 import './theme';
 import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
+import { LineActive, LineSelect } from './interaction/index';
 
 export interface LineStyle {
   stroke?: string;

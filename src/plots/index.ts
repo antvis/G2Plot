@@ -35,3 +35,5 @@ export { default as Calendar, CalendarConfig } from './calendar';
 export { default as Gauge, GaugeConfig } from './gauge';
 export { default as FanGauge, FanGaugeConfig } from './fan-gauge';
 export { default as MeterGauge, MeterGaugeConfig } from './meter-gauge';
+
+export * from './compatiblePlots';

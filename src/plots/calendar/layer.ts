@@ -35,8 +35,38 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
 
   public static getDefaultOptions(): Partial<CalendarLayerConfig> {
     return deepMix({}, super.getDefaultOptions(), {
-      xAxis: { line: null, grid: null, tickLine: null },
-      yAxis: { line: null, grid: null, tickLine: null },
+      xAxis: {
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+          autoRotate: false,
+          autoHide: false,
+        },
+      },
+      yAxis: {
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+          autoRotate: false,
+          autoHide: false,
+        },
+      },
       legend: { visible: false },
       meta: {
         [DAY_FIELD]: {
@@ -136,13 +166,19 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
   }
 
   protected axis(): void {
-    const { xAxis, yAxis } = this.options;
-
-    /** 存储坐标轴配置项到config */
-    this.setConfig('axes', {
-      [WEEK_FIELD]: xAxis,
-      [DAY_FIELD]: yAxis,
+    const xAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'x',
     });
+    const yAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'y',
+    });
+    const axesConfig = {};
+    axesConfig[WEEK_FIELD] = xAxis_parser;
+    axesConfig[DAY_FIELD] = yAxis_parser;
+    /** 存储坐标轴配置项到config */
+    this.setConfig('axes', axesConfig);
   }
 
   protected scale(): void {

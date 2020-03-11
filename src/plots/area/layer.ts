@@ -55,7 +55,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       smooth: false,
       areaStyle: {
         opacity: 0.25,
-        fillOpacity: 1,
       },
       line: {
         visible: true,
@@ -79,6 +78,15 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
         visible: true,
         position: 'top-left',
         wordSpacing: 4,
+      },
+      tooltip: {
+        visible: true,
+        shared: true,
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'x',
+        },
+        offset: 20,
       },
     });
   }

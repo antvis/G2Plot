@@ -1,4 +1,4 @@
-import { StackBar, Ring, StackArea, StateManager } from '@antv/g2plot';
+import { StackedBar, Donut, StackedArea, StateManager } from '@antv/g2plot';
 
 const container = document.getElementById('container');
 const chartsWraper = document.createElement('div');
@@ -144,7 +144,7 @@ const trend = [
 // 初始化state manager
 const stateManager = new StateManager();
 //渲染图表
-const bar = new StackBar(canvasDiv1, {
+const bar = new StackedBar(canvasDiv1, {
   title: {
     visible: true,
     text: '地区销量',
@@ -164,7 +164,7 @@ bar.bindStateManager(stateManager, {
     {
       event: 'bar:click',
       state: (e) => {
-        const origin = e.target.get('origin')._origin;
+        const origin = e.target.get('origin').data;
         const state = { name: 'area', exp: origin.area };
         return state;
       },
@@ -178,15 +178,20 @@ bar.bindStateManager(stateManager, {
           stroke: 'black',
           lineWidth: 1,
         });
-        plot.setNormal((origin) => {
-          return origin[d.name] !== d.exp;
-        });
+        plot.setDefault(
+          (origin) => {
+            return origin[d.name] !== d.exp;
+          },
+          {
+            stroke: null,
+          }
+        );
       },
     },
   ],
 });
 
-const ring = new Ring(canvasDiv2, {
+const donut = new Donut(canvasDiv2, {
   title: {
     visible: true,
     text: '地区经理业绩',
@@ -200,13 +205,13 @@ const ring = new Ring(canvasDiv2, {
   radius: 0.9,
   annotation: [{ type: 'centralText', onActive: true }],
 });
-ring.render();
-ring.bindStateManager(stateManager, {
+donut.render();
+donut.bindStateManager(stateManager, {
   setState: [
     {
       event: 'ring:click',
       state: (e) => {
-        const origin = e.target.get('origin')._origin;
+        const origin = e.target.get('origin').data;
         const state = { name: 'area', exp: origin.area };
         return state;
       },
@@ -220,15 +225,20 @@ ring.bindStateManager(stateManager, {
           strokeStyle: '#000000',
           lineWidth: 1,
         });
-        plot.setNormal((origin) => {
-          return origin[d.name] !== d.exp;
-        });
+        plot.setDefault(
+          (origin) => {
+            return origin[d.name] !== d.exp;
+          },
+          {
+            stroke: null,
+          }
+        );
       },
     },
   ],
 });
 
-const area = new StackArea(canvasDiv3, {
+const area = new StackedArea(canvasDiv3, {
   title: {
     visible: true,
     text: '地区销售趋势',
@@ -259,7 +269,7 @@ area.bindStateManager(stateManager, {
     {
       event: 'area:click',
       state: (e) => {
-        const origin = e.target.get('origin')[0]._origin;
+        const origin = e.target.get('origin').data[0];
         const state = { name: 'area', exp: origin.area };
         return state;
       },
@@ -270,7 +280,9 @@ area.bindStateManager(stateManager, {
       name: 'area',
       callback: (d, plot) => {
         plot.setSelected(d, {
-          opacity: 0,
+          fillOpacity: 1,
+          strokeOpacity: 1,
+          opacity: 1,
         });
         plot.setDisable(
           (origin) => {
@@ -279,6 +291,7 @@ area.bindStateManager(stateManager, {
           {
             fillOpacity: 0.2,
             strokeOpacity: 0,
+            opacity: 1,
           }
         );
       },

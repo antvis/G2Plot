@@ -60,9 +60,10 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
           nice: false,
         },
       },
+      interactions: [{ type: 'tooltip' }],
     });
   }
-  public type: string = 'line';
+  public type: string = 'treemap';
   public rootData: any;
   public rect: any;
   private isDrilldown: boolean;

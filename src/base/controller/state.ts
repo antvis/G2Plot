@@ -58,8 +58,8 @@ export default class StateController {
     }
     // this.resetZIndex();
     each(this.shapes, (shape, index) => {
-      const shapeOrigin = shape.get('origin');
-      const origin = isArray(shapeOrigin) ? shapeOrigin[0].data : shapeOrigin.data;
+      const shapeOrigin = shape.get('origin').data;
+      const origin = isArray(shapeOrigin) ? shapeOrigin[0] : shapeOrigin;
       if (compare(origin, condition)) {
         const stateStyle = cfg.style ? cfg.style : this._getDefaultStateStyle(type, shape);
         const originAttr = this.originAttrs[index];

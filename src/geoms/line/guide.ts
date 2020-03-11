@@ -86,8 +86,12 @@ export default class GuideLineParser extends LineParser {
 
   private _needParseAttribute(attr) {
     const props = this.plot.options;
-    const condition = !props.line || props.line[attr];
-    return condition;
+    if (props[attr]) {
+      return true;
+    } else if (props.line[attr]) {
+      return true;
+    }
+    return false;
   }
 
   private _getColorMappingField() {

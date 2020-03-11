@@ -307,16 +307,6 @@ plot.updateConfig({
 plot.render();
 ```
 
-## changeData()
-
-**可选**
-
-更新图表数据。`updateConfig()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
-
-```js
-plot.changeData(newData);
-```
-
 ## repaint()
 
 **可选**

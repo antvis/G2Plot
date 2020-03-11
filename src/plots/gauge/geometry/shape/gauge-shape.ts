@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
+import { getGlobalTheme } from '../../../../theme';
 
 interface PointerStyle {
   /** 指针颜色 */
@@ -140,8 +141,8 @@ export class GaugeShape {
       },
 
       drawRangeColor() {
-        const { min, max, range, styleMix } = this.gauge.options;
-        const colors = styleMix.colors || this.config.theme.colors;
+        const { min, max, range, styleMix, color } = this.gauge.options;
+        const colors = color || getGlobalTheme().colors;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
           min,
@@ -240,7 +241,7 @@ export class GaugeShape {
 
       drawBarGauge(current: number) {
         const { min, max, range, styleMix } = this.gauge.options;
-        const colors = styleMix.colors || this.config.theme.colors;
+        const colors = styleMix.colors || getGlobalTheme().colors;
         const { color, background } = this.gauge.ringStyle;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {

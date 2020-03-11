@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import * as _ from '@antv/util';
+import { deepMix, get, map, isArray, reduce, has, isFunction, isString, isObject } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import './geometry/shape/waterfall';
 import { ElementOption, IStyleConfig, DataItem, LayerConfig } from '../..';
@@ -63,7 +63,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   public diffLabel;
 
   public static getDefaultOptions(): Partial<WaterfallLayerConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       legend: {
         visible: false,
         position: 'bottom',
@@ -101,7 +101,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   public getOptions(props: WaterfallLayerConfig) {
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
-    const options = _.deepMix({}, super.getOptions(props), defaultOptions, props);
+    const options = deepMix({}, super.getOptions(props), defaultOptions, props);
 
     this.adjustLegendOptions(options);
     this.adjustMeta(options);
@@ -131,7 +131,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       const { items } = e;
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        const data = _.get(item, 'data', {});
+        const data = get(item, 'data', {});
         // 改变 tooltip 显示的name和value
         item.name = data[options.xField];
         item.value = data[options.yField];
@@ -188,11 +188,11 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     const plotData = [];
     const xField = this.options.xField;
     const yField = this.options.yField;
-    _.map(originData, (dataItem, idx: number) => {
+    map(originData, (dataItem, idx: number) => {
       let value: any = dataItem[yField];
       if (idx > 0) {
         const prevValue = plotData[idx - 1][VALUE_FIELD];
-        if (_.isArray(prevValue)) {
+        if (isArray(prevValue)) {
           value = [prevValue[1], dataItem[yField] + prevValue[1]];
         } else {
           value = [prevValue, dataItem[yField] + prevValue];
@@ -205,8 +205,8 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       });
     });
     if (this.options.showTotal && this.options.showTotal.visible) {
-      const values = _.map(originData, (o) => o[yField]);
-      const totalValue = _.reduce(values, (p: number, n: number) => p + n, 0);
+      const values = map(originData, (o) => o[yField]);
+      const totalValue = reduce(values, (p: number, n: number) => p + n, 0);
       plotData.push({
         [xField]: this.options.showTotal.label,
         [yField]: null,
@@ -223,12 +223,12 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     const scales = {};
     /** 配置x-scale */
     scales[options.xField] = { type: 'cat' };
-    if (_.has(options, 'xAxis')) {
+    if (has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
     /** 配置y-scale */
     scales[VALUE_FIELD] = {};
-    if (_.has(options, 'yAxis')) {
+    if (has(options, 'yAxis')) {
       extractScale(scales[VALUE_FIELD], options.yAxis);
     }
     this.setConfig('scales', scales);
@@ -262,7 +262,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     const style = this.options.waterfallStyle;
     const leaderLine = this.options.leaderLine;
     const config: Record<string, any> = {};
-    if (_.isFunction(style)) {
+    if (isFunction(style)) {
       config.callback = (...args) => {
         return Object.assign({}, style(...args), { leaderLine });
       };
@@ -279,15 +279,15 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     const config: any = {
       fields: [xField, yField, VALUE_FIELD, INDEX_FIELD],
     };
-    if (_.isFunction(options.color)) {
+    if (isFunction(options.color)) {
       config.callback = options.color;
     } else {
       let risingColor = '#f4664a';
       let fallingColor = '#30bf78';
       let totalColor = 'rgba(0, 0, 0, 0.25)';
-      if (_.isString(options.color)) {
+      if (isString(options.color)) {
         risingColor = fallingColor = totalColor = options.color;
-      } else if (_.isObject(options.color)) {
+      } else if (isObject(options.color)) {
         const { rising, falling, total } = options.color;
         risingColor = rising;
         fallingColor = falling;
@@ -297,7 +297,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
         if (index === this.options.data.length) {
           return totalColor || (values[0] >= 0 ? risingColor : fallingColor);
         }
-        return (_.isArray(values) ? values[1] - values[0] : values) >= 0 ? risingColor : fallingColor;
+        return (isArray(values) ? values[1] - values[0] : values) >= 0 ? risingColor : fallingColor;
       };
     }
     return config as AttributeCfg;

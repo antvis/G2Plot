@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get, isNil, isArray } from '@antv/util';
 import { IGroup } from '@antv/g-base';
 import { registerShape } from '@antv/g2';
 import { ShapeMarkerCfg, ShapePoint, ShapeInfo } from '@antv/g2/lib/interface';
@@ -14,7 +14,7 @@ function _getRectPoints(cfg, isPyramid = false) {
   // 4. x, y 都是数组
   let yMin;
   let yMax;
-  if (_.isArray(y)) {
+  if (isArray(y)) {
     yMin = y[0];
     yMax = y[1];
   } else {
@@ -24,7 +24,7 @@ function _getRectPoints(cfg, isPyramid = false) {
 
   let xMin;
   let xMax;
-  if (_.isArray(x)) {
+  if (isArray(x)) {
     xMin = x[0];
     xMax = x[1];
   } else {
@@ -73,7 +73,7 @@ function _getFunnelPath(cfg, compare) {
     const yOffset = (yValuesMax[0] / (yValuesMax[0] + yValuesMax[1]) - 0.5) * 0.9;
     const spacing = 0.001;
 
-    if (!_.isNil(nextPoints)) {
+    if (!isNil(nextPoints)) {
       const yValueTotalNext = yValuesNext[0] + yValuesNext[1];
       const yRatiosNext = yValuesNext.map((yValueNext) => yValueNext / yValueTotalNext / 0.5);
       path.push(
@@ -108,7 +108,7 @@ function _getFunnelPath(cfg, compare) {
     }
   } else {
     // 标准漏斗
-    if (!_.isNil(nextPoints)) {
+    if (!isNil(nextPoints)) {
       path.push(
         ['M', points[0].x, points[0].y],
         ['L', points[1].x, points[1].y],
@@ -137,7 +137,7 @@ registerShape('interval', 'funnel-basic-rect', {
   },
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
-    const compare = _.get(cfg, 'data.__compare__');
+    const compare = get(cfg, 'data.__compare__');
     const path = this.parsePath(_getFunnelPath(cfg, compare));
 
     return container.addShape('path', {

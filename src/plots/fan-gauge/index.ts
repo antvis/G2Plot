@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import FanGaugeLayer, { FanGaugeLayerConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class FanGauge extends BasePlot<FanGaugeConfig> {
   public static getDefaultOptions: typeof FanGaugeLayer.getDefaultOptions = FanGaugeLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'fanGauge';
     super.createLayers(layerProps);
   }

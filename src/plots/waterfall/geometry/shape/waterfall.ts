@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import * as _ from '@antv/util';
+import { get } from '@antv/util';
 import { IGroup, registerShape, Point, ShapeInfo } from '../../../../dependents';
 
 function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean) {
@@ -47,7 +47,7 @@ registerShape('interval', 'waterfall', {
       },
       name: 'interval',
     });
-    const leaderLine = _.get(cfg.style, 'leaderLine');
+    const leaderLine = get(cfg.style, 'leaderLine');
     if (leaderLine && leaderLine.visible) {
       const lineStyle = leaderLine.style || {};
       // 2. 虚线连线

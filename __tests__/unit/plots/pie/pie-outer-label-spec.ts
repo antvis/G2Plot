@@ -1,6 +1,6 @@
 import { Pie } from '../../../../src';
 import { BBox, IGroup, IShape } from '@antv/g-canvas';
-import * as _ from '@antv/util';
+import { some, every, filter } from '@antv/util';
 import { createDiv } from '../../../utils/dom';
 import Polar from '@antv/coord/lib/coord/polar';
 
@@ -55,7 +55,7 @@ describe('pie outer label', () => {
     expect(radius).toBe((500 * Radius) / 2);
     // @ts-ignore
     const labelShapes: IShape[] = pieElement.labelsContainer.getChildren().map((g) => g.getChildren()[0]);
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     const labelBox: BBox = labelShapes[2].getBBox();
     expect((labelBox.minY + labelBox.maxY) / 2).toEqual(center.y);
     // expect(labelBox.x).toEqual(center.x + radius + labelOffset);
@@ -112,11 +112,9 @@ describe('pie outer label', () => {
     expect(radius).toBe((500 * Radius) / 2);
     const labelShapes = pieElement.labelsContainer.getChildren();
     // 算法增强后 所有label可见
-    expect(_.every(labelShapes, (l) => l.get('visible'))).toBe(true);
+    expect(every(labelShapes, (l) => l.get('visible'))).toBe(true);
     // label fontsize: 12px, label margin: 2px, buffer: 4
-    expect(_.filter(labelShapes, (l) => l.get('visible')).length).toBeGreaterThanOrEqual(
-      Math.floor(Height / 14) * 2 - 4
-    );
+    expect(filter(labelShapes, (l) => l.get('visible')).length).toBeGreaterThanOrEqual(Math.floor(Height / 14) * 2 - 4);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -161,8 +159,8 @@ describe('pie outer label', () => {
     // @ts-ignore
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes = pieElement.labelsContainer.getChildren();
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
-    expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -206,8 +204,8 @@ describe('pie outer label', () => {
 
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes = pieElement.labelsContainer.getChildren();
-    expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -249,8 +247,8 @@ describe('pie outer label', () => {
     piePlot.render();
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes = pieElement.labelsContainer.getChildren();
-    expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -292,8 +290,8 @@ describe('pie outer label', () => {
 
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes = pieElement.labelsContainer.getChildren();
-    expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -336,8 +334,8 @@ describe('pie outer label', () => {
 
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes = pieElement.labelsContainer.getChildren();
-    expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
     piePlot.destroy();
     document.body.removeChild(div);
   });
@@ -419,7 +417,7 @@ describe('pie outer label', () => {
     piePlot.render();
     const pieElement = piePlot.getLayer().view.geometries[0];
     const labelShapes = pieElement.labelsContainer.getChildren();
-    expect(_.some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
-    expect(_.some(labelShapes, (l) => !l.get('visible'))).toBe(false);
+    expect(some(labelShapes, (l) => Number.isNaN(l.getBBox().x) || Number.isNaN(l.getBBox().y))).toBe(false);
+    expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
   });
 });

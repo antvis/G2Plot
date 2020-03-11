@@ -1,7 +1,7 @@
 import TinyLine from '../../../../src/sparkline/tiny-line';
 import { income } from '../../../data/income';
 import { getMean, getMedian } from '../../../../src/util/math';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 
 describe('tiny line', () => {
   const canvasDiv = document.createElement('div');
@@ -242,7 +242,7 @@ describe('tiny line', () => {
 
   function extractValues(data, field) {
     const values = [];
-    _.each(data, (d) => {
+    each(data, (d) => {
       values.push(d[field]);
     });
     return values;

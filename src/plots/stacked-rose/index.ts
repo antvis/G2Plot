@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import StackedRoseLayer, { StackedRoseViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class StackedRose extends BasePlot<StackedRoseConfig> {
   public static getDefaultOptions: typeof StackedRoseLayer.getDefaultOptions = StackedRoseLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'stackedRose';
     super.createLayers(layerProps);
   }

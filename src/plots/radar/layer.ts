@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-14
  */
-import * as _ from '@antv/util';
+import { deepMix, has } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -66,7 +66,7 @@ const GEOM_MAP = {
 
 export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -192,7 +192,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
+    return deepMix({}, options, defaultOptions, props);
   }
 
   protected geometryParser(dim, type) {
@@ -204,12 +204,12 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     const scales = {};
     /** 配置x-scale */
     scales[props.angleField] = {};
-    if (_.has(props, 'angleAxis')) {
+    if (has(props, 'angleAxis')) {
       extractScale(scales[props.angleField], props.angleAxis);
     }
     /** 配置y-scale */
     scales[props.radiusField] = {};
-    if (_.has(props, 'radiusAxis')) {
+    if (has(props, 'radiusAxis')) {
       extractScale(scales[props.radiusField], props.radiusAxis);
     }
     this.setConfig('scales', scales);

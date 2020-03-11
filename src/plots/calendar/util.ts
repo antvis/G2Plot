@@ -1,5 +1,5 @@
 import fecha from 'fecha';
-import * as _ from '@antv/util';
+import { head, last, find } from '@antv/util';
 import { DataItem } from '../..';
 import { DATE_FIELD, DAY_FIELD, FORMATTER, WEEK_FIELD } from './constant';
 import { advanceBy, DAY_MS, getDay, getWeek } from '../../util/date';
@@ -37,7 +37,7 @@ export function generateCalendarData(data: DataItem[], dateRange: string[], date
   while (curr <= toDate) {
     const dateString = fecha.format(curr, FORMATTER);
     // 找到对应的数据
-    const datum = _.find(data, (datum: DataItem) => datum[dateField] === dateString);
+    const datum = find(data, (datum: DataItem) => datum[dateField] === dateString);
 
     all.push({
       [DAY_FIELD]: getDay(curr),
@@ -92,7 +92,7 @@ export function getMonthCenterWeek(dateRange: string[]): Record<number, number> 
   const result: Record<number, number> = {}; // week -> month
 
   monthWeekMap.forEach((v: number[], k: number) => {
-    const w = Math.ceil((_.head(v) + _.last(v)) / 2); // 取平均值
+    const w = Math.ceil((head(v) + last(v)) / 2); // 取平均值
     result[w] = k;
   });
 

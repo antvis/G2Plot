@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import DonutLayer, { DonutViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class Donut extends BasePlot<DonutConfig> {
   public static getDefaultOptions: typeof DonutLayer.getDefaultOptions = DonutLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'donut';
     super.createLayers(layerProps);
   }

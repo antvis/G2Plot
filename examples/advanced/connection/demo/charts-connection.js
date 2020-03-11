@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import { StackBar, Ring, StackArea, StateManager } from '@antv/g2plot';
 
 const container = document.getElementById('container');

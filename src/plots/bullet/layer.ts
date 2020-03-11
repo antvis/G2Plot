@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, has } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { extractScale } from '../../util/scale';
@@ -82,7 +82,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
   protected bulletTarget;
   public type: string = 'bullet';
   public static getDefaultOptions(): Partial<BulletViewConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       data: [],
       stackField: STACK_FIELD,
       xField: X_FIELD,
@@ -159,14 +159,14 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     const scales = {};
     /** 配置y-scale */
     scales[options.yField] = {};
-    if (_.has(options, 'yAxis')) {
+    if (has(options, 'yAxis')) {
       extractScale(scales[options.yField], options.yAxis);
     }
     /** 配置x-scale */
     scales[options.xField] = {
       type: 'cat',
     };
-    if (_.has(options, 'xAxis')) {
+    if (has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
     this.setConfig('scales', scales);
@@ -276,7 +276,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
 
   protected extractLabel() {
     const options = this.options;
-    const label = _.deepMix({}, options.label);
+    const label = deepMix({}, options.label);
     if (label.visible === false) {
       return false;
     }

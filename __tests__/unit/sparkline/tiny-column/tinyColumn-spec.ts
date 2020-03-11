@@ -1,6 +1,4 @@
 import TinyColumn from '../../../../src/sparkline/tiny-column';
-import { getMean, getMedian } from '../../../../src/util/math';
-import * as _ from '@antv/util';
 
 describe('tiny column', () => {
   const canvasDiv = document.createElement('div');

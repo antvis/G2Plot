@@ -4,12 +4,12 @@
 import { IGroup } from '@antv/g-canvas';
 import { View } from '@antv/g2';
 import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
-import * as _ from '@antv/util';
+import { each, deepMix, get } from '@antv/util';
 
 function parsePoints(shape, coord) {
   const parsedPoints = [];
   const points = shape.get('origin').points;
-  _.each(points, (p) => {
+  each(points, (p) => {
     parsedPoints.push(coord.convertPoint(p));
   });
   return parsedPoints;
@@ -64,7 +64,7 @@ export default class ConversionTag {
         },
         formatter: (valueUpper: any, valueLower: any) => `${((100 * valueLower) / valueUpper).toFixed(2)}%`,
       },
-      animation: _.deepMix({}, DEFAULT_ANIMATE_CFG),
+      animation: deepMix({}, DEFAULT_ANIMATE_CFG),
     };
   }
 
@@ -81,7 +81,7 @@ export default class ConversionTag {
 
   constructor(cfg: ConversionTagConfig) {
     // @ts-ignore
-    _.deepMix(this, this.constructor.getDefaultOptions(cfg), cfg);
+    deepMix(this, this.constructor.getDefaultOptions(cfg), cfg);
     this._init();
   }
 
@@ -244,7 +244,7 @@ export default class ConversionTag {
 
     const opacity = shape.attr('opacity');
     shape.attr('opacity', 0);
-    const { duration } = _.get(animation, 'appear', DEFAULT_ANIMATE_CFG.appear);
+    const { duration } = get(animation, 'appear', DEFAULT_ANIMATE_CFG.appear);
     shape.animate({ opacity }, duration);
   }
 }

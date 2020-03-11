@@ -1,5 +1,5 @@
-import * as _ from '@antv/util';
-import * as domUtil from '@antv/dom-util';
+import { deepMix, contains, isFunction, get, findIndex, isEqual, each, set, isArray, assign } from '@antv/util';
+import { createDom, modifyCSS } from '@antv/dom-util';
 import { IGroup, IShape } from '@antv/g-base';
 import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
 import TooltipHtmlTheme from '@antv/component/lib/tooltip/html-theme';
@@ -112,7 +112,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         showCrosshairs: false,
         showMarkers: false,
       },
-      animation: _.deepMix({}, DEFAULT_ANIMATE_CFG, {
+      animation: deepMix({}, DEFAULT_ANIMATE_CFG, {
         appear: {
           duration: 800,
         },
@@ -131,7 +131,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-filter' }],
     };
-    return _.deepMix({}, super.getDefaultOptions(), cfg);
+    return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public readonly type: string = 'funnel';
@@ -195,7 +195,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       values: props.color && (Array.isArray(props.color) ? props.color : [props.color]),
     };
 
-    if (_.isFunction(props.funnelStyle)) {
+    if (isFunction(props.funnelStyle)) {
       // @ts-ignore
       funnel.style = { callback: props.funnelStyle };
     } else {
@@ -214,37 +214,37 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const props = this.options;
 
     if (props.compareField) {
-      _.deepMix(props.tooltip, {
+      deepMix(props.tooltip, {
         htmlContent: (title, items) => {
           let clss, el, color, elMarker;
 
           clss = TooltipCssConst.CONTAINER_CLASS;
-          el = domUtil.createDom(`<div class="${clss}"></div>`);
-          domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+          el = createDom(`<div class="${clss}"></div>`);
+          modifyCSS(el, TooltipHtmlTheme[clss]);
           const elRoot = el;
 
           if (title) {
             clss = TooltipCssConst.TITLE_CLASS;
-            el = domUtil.createDom(`<div class="${clss}"></div>`);
-            domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+            el = createDom(`<div class="${clss}"></div>`);
+            modifyCSS(el, TooltipHtmlTheme[clss]);
             elRoot.appendChild(el);
             const elTitle = el;
 
             clss = TooltipCssConst.MARKER_CLASS;
-            el = domUtil.createDom(`<span class="${clss}"></span>`);
-            domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
-            domUtil.modifyCSS(el, { width: '10px', height: '10px' });
+            el = createDom(`<span class="${clss}"></span>`);
+            modifyCSS(el, TooltipHtmlTheme[clss]);
+            modifyCSS(el, { width: '10px', height: '10px' });
             elTitle.appendChild(el);
             elMarker = el;
 
-            el = domUtil.createDom(`<span>${title}</span>`);
+            el = createDom(`<span>${title}</span>`);
             elTitle.appendChild(el);
           }
 
           if (items) {
             clss = TooltipCssConst.LIST_CLASS;
-            el = domUtil.createDom(`<ul class="${clss}"></ul>`);
-            domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+            el = createDom(`<ul class="${clss}"></ul>`);
+            modifyCSS(el, TooltipHtmlTheme[clss]);
             elRoot.appendChild(el);
             const elList = el;
 
@@ -253,32 +253,32 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                 if (!color) {
                   color = item.color;
                 }
-                const compareValues = _.get(item, 'point._origin.__compare__.compareValues');
-                const yValues = _.get(item, 'point._origin.__compare__.yValues');
+                const compareValues = get(item, 'point._origin.__compare__.compareValues');
+                const yValues = get(item, 'point._origin.__compare__.yValues');
                 yValues.forEach((yValue, i) => pairs.push([compareValues[i], yValue]));
                 return pairs;
               }, [])
               .forEach(([compareValue, yValue], index) => {
                 clss = TooltipCssConst.LIST_ITEM_CLASS;
-                el = domUtil.createDom(`<li class="${clss}" data-index=${index}></li>`);
-                domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+                el = createDom(`<li class="${clss}" data-index=${index}></li>`);
+                modifyCSS(el, TooltipHtmlTheme[clss]);
                 elList.appendChild(el);
                 const elListItem = el;
 
                 clss = TooltipCssConst.NAME_CLASS;
-                el = domUtil.createDom(`<span class="${clss}">${compareValue}</span>`);
-                domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+                el = createDom(`<span class="${clss}">${compareValue}</span>`);
+                modifyCSS(el, TooltipHtmlTheme[clss]);
                 elListItem.appendChild(el);
 
                 clss = TooltipCssConst.VALUE_CLASS;
-                el = domUtil.createDom(`<span class="${clss}">${yValue}</span>`);
-                domUtil.modifyCSS(el, TooltipHtmlTheme[clss]);
+                el = createDom(`<span class="${clss}">${yValue}</span>`);
+                modifyCSS(el, TooltipHtmlTheme[clss]);
                 elListItem.appendChild(el);
               });
           }
 
           if (color && elMarker) {
-            domUtil.modifyCSS(elMarker, { backgroundColor: color });
+            modifyCSS(elMarker, { backgroundColor: color });
           }
 
           return elRoot;
@@ -308,7 +308,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       this.funnel.animate = false;
     } else {
       const data = this.getData();
-      const appearDuration = _.get(props, 'animation.appear.duration');
+      const appearDuration = get(props, 'animation.appear.duration');
       const appearDurationEach = appearDuration / (data.length || 1);
 
       if (this._animationAppearTimeoutHandler) {
@@ -323,11 +323,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         delete this._animationAppearTimeoutHandler;
       }, appearDuration);
 
-      this.funnel.animate = _.deepMix({}, props.animation, {
+      this.funnel.animate = deepMix({}, props.animation, {
         appear: {
           animation: props.transpose ? 'funnelScaleInX' : 'funnelScaleInY',
           duration: appearDurationEach,
-          delay: (datum) => _.findIndex(data, (o) => _.isEqual(o, datum)) * appearDurationEach,
+          delay: (datum) => findIndex(data, (o) => isEqual(o, datum)) * appearDurationEach,
           callback: (shape) => {
             this.fadeInLabels(shape, 0.5 * appearDurationEach);
           },
@@ -424,7 +424,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   protected applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
+    each(methods, (r) => {
       const responsive = r;
       responsive.method(this);
     });
@@ -436,8 +436,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     }
 
     if (props.dynamicHeight) {
-      _.set(props, `meta.${props.yField}.nice`, false);
-      _.set(props, 'tooltip.shared', false);
+      set(props, `meta.${props.yField}.nice`, false);
+      set(props, 'tooltip.shared', false);
     }
     return props;
   }
@@ -470,7 +470,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           (x, y, line, text, value) => {
             if (line) {
               line.attr(
-                _.deepMix({}, percentageLine.style, {
+                deepMix({}, percentageLine.style, {
                   x1: x,
                   y1: y,
                   x2: props.transpose ? x + offsetX : x - offsetX,
@@ -487,7 +487,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             const textProc = () => {
               if (text) {
                 text.attr(
-                  _.deepMix({}, percentageText.style, {
+                  deepMix({}, percentageText.style, {
                     x: props.transpose ? x + offsetX : x - offsetX - spacing - valueWidth - spacing,
                     y: props.transpose ? y - offsetY - spacing : y + offsetY,
                     opacity: 0,
@@ -504,15 +504,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             const valueProc = () => {
               if (value) {
                 value.attr(
-                  _.deepMix({}, percentageValue.style, {
+                  deepMix({}, percentageValue.style, {
                     x: props.transpose ? x + offsetX + textWidth + spacing : x - offsetX - spacing,
                     y: props.transpose ? y - offsetY - spacing : y + offsetY,
                     opacity: 0,
-                    text: _.isFunction(percentageValue.formatter)
+                    text: isFunction(percentageValue.formatter)
                       ? props.compareField
                         ? percentageValue.formatter(
-                            _.get(datumUpper, '__compare__.yValues.0'),
-                            _.get(datumLower, '__compare__.yValues.0')
+                            get(datumUpper, '__compare__.yValues.0'),
+                            get(datumLower, '__compare__.yValues.0')
                           )
                         : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
                       : '',
@@ -536,7 +536,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           (x, y, line, text, value) => {
             if (line) {
               line.attr(
-                _.deepMix({}, percentageLine.style, {
+                deepMix({}, percentageLine.style, {
                   x1: x,
                   y1: y,
                   x2: x + offsetX,
@@ -550,7 +550,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             let textWidth = 0;
             if (text) {
               text.attr(
-                _.deepMix({}, percentageText.style, {
+                deepMix({}, percentageText.style, {
                   x: props.transpose ? x + offsetX : x + offsetX + spacing,
                   y: props.transpose
                     ? props.compareField
@@ -569,7 +569,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
             if (value) {
               value.attr(
-                _.deepMix({}, percentageValue.style, {
+                deepMix({}, percentageValue.style, {
                   x: props.transpose ? x + offsetX + textWidth + spacing : x + offsetX + spacing + textWidth + spacing,
                   y: props.transpose
                     ? props.compareField
@@ -577,11 +577,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                       : y - offsetY - spacing
                     : y + offsetY,
                   opacity: 0,
-                  text: _.isFunction(percentageValue.formatter)
+                  text: isFunction(percentageValue.formatter)
                     ? props.compareField
                       ? percentageValue.formatter(
-                          _.get(datumUpper, `__compare__.yValues.1`),
-                          _.get(datumLower, `__compare__.yValues.1`)
+                          get(datumUpper, `__compare__.yValues.1`),
+                          get(datumLower, `__compare__.yValues.1`)
                         )
                       : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
                     : '',
@@ -636,7 +636,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             if (maxY > currBBox.maxY) currBBox.maxY = maxY;
           }
         };
-        _.each(members, (member) => (_.isArray(member) ? eachCalc(member[i]) : eachCalc(member)));
+        each(members, (member) => (isArray(member) ? eachCalc(member[i]) : eachCalc(member)));
 
         if (
           currBBox.minX > lastBBox.maxX ||
@@ -652,8 +652,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
               duration ? member.animate(attrs, duration) : member.attr(attrs);
             }
           };
-          _.each(members, (member) => (_.isArray(member) ? eachShow(member[i]) : eachShow(member)));
-          _.assign(lastBBox, currBBox);
+          each(members, (member) => (isArray(member) ? eachShow(member[i]) : eachShow(member)));
+          assign(lastBBox, currBBox);
         }
       });
     };
@@ -677,7 +677,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           duration ? member.animate(attrs, duration) : member.attr(attrs);
         }
       };
-      _.each(members, (member) => (_.isArray(member) ? member.forEach(eachProc) : eachProc(member)));
+      each(members, (member) => (isArray(member) ? member.forEach(eachProc) : eachProc(member)));
     });
 
     duration && callback && setTimeout(callback, duration);
@@ -777,8 +777,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private _calcRefreshFadeDurations() {
     const props = this.options;
 
-    const updateDuration = _.get(props, 'animation.update.duration');
-    const enterDuration = _.get(props, 'animation.enter.duration');
+    const updateDuration = get(props, 'animation.update.duration');
+    const enterDuration = get(props, 'animation.enter.duration');
     const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.6;
     const fadeOutDuration = Math.max(enterDuration, updateDuration) * 1.2;
 
@@ -795,7 +795,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const { labelsContainer } = this._getGeometry();
 
     const labelProps = props.label || {};
-    const labelStyle = _.deepMix(
+    const labelStyle = deepMix(
       {
         ...this.theme.label,
       },
@@ -946,11 +946,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     this._eachShape((shape, index, datum) => {
       if (index == 0) {
         shapeParentBBox = shape.get('parent').getBBox();
-        compare = _.get(datum, '__compare__');
+        compare = get(datum, '__compare__');
       }
     });
 
-    if (shapeParentBBox && compare && _.get(props, 'compareText.visible') !== false) {
+    if (shapeParentBBox && compare && get(props, 'compareText.visible') !== false) {
       const container = this._findCompareTextContainer(true);
       const { yValuesMax, compareValues } = compare;
       const { minX, maxX, minY, maxY } = shapeParentBBox;
@@ -962,14 +962,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           compareText = container.addShape({ type: 'text' });
         }
         compareText.attr(
-          _.deepMix({}, _.get(props, 'compareText.style'), {
+          deepMix({}, get(props, 'compareText.style'), {
             text: props.transpose ? compareValues[i] : i ? `  ${compareValues[i]}` : `${compareValues[i]}  `,
             x: props.transpose
-              ? minX + _.get(props, 'compareText.offsetX')
+              ? minX + get(props, 'compareText.offsetX')
               : lerp(minX, maxX, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])),
             y: props.transpose
               ? lerp(minY, maxY, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])) + (i ? 8 : -8)
-              : minY + _.get(props, 'compareText.offsetY'),
+              : minY + get(props, 'compareText.offsetY'),
             opacity: 0,
             textAlign: props.transpose ? 'right' : i ? 'left' : 'right',
             textBaseline: props.transpose ? (i ? 'top' : 'bottom') : 'bottom',
@@ -1125,7 +1125,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       .filter((legendItem) => legendItem.get('unchecked'))
       .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
 
-    const checkedData = newData.filter((datum) => !_.contains(uncheckedXValues, datum[props.xField]));
+    const checkedData = newData.filter((datum) => !contains(uncheckedXValues, datum[props.xField]));
 
     return checkedData;
   }
@@ -1141,7 +1141,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       .filter((legendItem) => !legendItem.get('unchecked'))
       .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
 
-    const checkedData = data.filter((datum) => _.contains(checkedXValues, datum[props.xField]));
+    const checkedData = data.filter((datum) => contains(checkedXValues, datum[props.xField]));
 
     return checkedData;
   }
@@ -1183,9 +1183,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     }, []);
 
     data.forEach((datum, index) => {
-      datum[props.yField] = _.get(datum, '__compare__.yValues', []).reduce((yTotal, yValue) => (yTotal += yValue), 0);
-      _.set(datum, '__compare__.yValuesMax', yValuesMax);
-      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+      datum[props.yField] = get(datum, '__compare__.yValues', []).reduce((yTotal, yValue) => (yTotal += yValue), 0);
+      set(datum, '__compare__.yValuesMax', yValuesMax);
+      set(datum, '__compare__.yValuesNext', get(data, `${index + 1}.__compare__.yValues`));
     });
 
     return data;
@@ -1194,7 +1194,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private _updateDataForCompare(data: any[]) {
     const yValuesMax = [-Infinity, -Infinity];
     data.forEach((datum) => {
-      const yValues = _.get(datum, '__compare__.yValues');
+      const yValues = get(datum, '__compare__.yValues');
       [0, 1].forEach((i) => {
         if (yValues[i] > yValuesMax[i]) {
           yValuesMax[i] = yValues[i];
@@ -1203,8 +1203,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
 
     data.forEach((datum, index) => {
-      _.set(datum, '__compare__.yValuesMax', yValuesMax);
-      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+      set(datum, '__compare__.yValuesMax', yValuesMax);
+      set(datum, '__compare__.yValuesNext', get(data, `${index + 1}.__compare__.yValues`));
     });
   }
 

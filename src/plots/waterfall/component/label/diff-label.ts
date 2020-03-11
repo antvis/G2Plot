@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import * as _ from '@antv/util';
+import { mix, clone, each, isArray } from '@antv/util';
 import { VALUE_FIELD, IS_TOTAL } from '../../layer';
 import { IGroup, View, VIEW_LIFE_CIRCLE } from '../../../../dependents';
 
@@ -38,7 +38,7 @@ export default class DiffLabel {
     this.view = cfg.view;
     this.fields = cfg.fields;
     this.formatter = cfg.formatter;
-    this.textAttrs = _.mix(getDefaultCfg(), cfg.style);
+    this.textAttrs = mix(getDefaultCfg(), cfg.style);
 
     this._init();
   }
@@ -48,16 +48,16 @@ export default class DiffLabel {
     if (!this.view || this.view.destroyed) {
       return;
     }
-    const data = _.clone(this.view.getData());
+    const data = clone(this.view.getData());
     this.container = this.view.foregroundGroup.addGroup();
     const shapes = this.view.geometries[0].elements.map((value) => value.shape);
-    _.each(shapes, (shape, idx) => {
+    each(shapes, (shape, idx) => {
       if (!shape.cfg.origin) return;
       const _origin = shape.cfg.origin.data;
       const shapeBox = shape.getBBox();
       const values = _origin[VALUE_FIELD];
       let diff = values;
-      if (_.isArray(values)) {
+      if (isArray(values)) {
         diff = values[1] - values[0];
       }
       diff = diff > 0 ? `+${diff}` : diff;

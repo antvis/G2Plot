@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import MeterGaugeLayer, { MeterGaugeLayerConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class MeterGauge extends BasePlot<MeterGaugeConfig> {
   public static getDefaultOptions: typeof MeterGaugeLayer.getDefaultOptions = MeterGaugeLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'meterGauge';
     super.createLayers(layerProps);
   }

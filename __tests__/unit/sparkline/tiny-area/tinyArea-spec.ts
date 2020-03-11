@@ -1,7 +1,7 @@
 import TinyArea from '../../../../src/sparkline/tiny-area';
 import { fireWorks } from '../../../data/fireworks-sales';
 import { getMean, getMedian } from '../../../../src/util/math';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 
 describe('tiny area', () => {
   const canvasDiv = document.createElement('div');
@@ -46,7 +46,7 @@ describe('tiny area', () => {
     tinyArea.render();
     const geoms = tinyArea.plot.geometries;
     const shapes = [];
-    _.each(geoms, (geom) => {
+    each(geoms, (geom) => {
       shapes.push(...geom.getShapes());
     });
     expect(shapes[0].attr('fill')).toBe('l(90) 0:#039919 1:#ffffff');
@@ -66,7 +66,7 @@ describe('tiny area', () => {
     tinyArea.render();
     const geoms = tinyArea.plot.geometries;
     const shapes = [];
-    _.each(geoms, (geom) => {
+    each(geoms, (geom) => {
       shapes.push(...geom.getShapes());
     });
     expect(shapes[0].attr('path')[2][0]).toBe('C');
@@ -89,7 +89,7 @@ describe('tiny area', () => {
     tinyArea.render();
     const geoms = tinyArea.plot.geometries;
     const shapes = [];
-    _.each(geoms, (geom) => {
+    each(geoms, (geom) => {
       shapes.push(...geom.getShapes());
     });
     expect(shapes[1].attr('stroke')).toBe('red');
@@ -211,7 +211,7 @@ describe('tiny area', () => {
 
   function extractValues(data, field) {
     const values = [];
-    _.each(data, (d) => {
+    each(data, (d) => {
       values.push(d[field]);
     });
     return values;

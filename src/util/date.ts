@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { head, last } from '@antv/util';
 import fecha from 'fecha';
 import { FORMATTER } from '../plots/calendar/constant';
 
@@ -14,7 +14,7 @@ export const DAY_MS = 86400000;
 export function getDateRange(dates: Date[]): string[] {
   const ds = [...dates].sort((a: Date, b: Date) => a.getTime() - b.getTime());
 
-  return [fecha.format(_.head(ds), FORMATTER), fecha.format(_.last(ds), FORMATTER)];
+  return [fecha.format(head(ds), FORMATTER), fecha.format(last(ds), FORMATTER)];
 }
 
 /**

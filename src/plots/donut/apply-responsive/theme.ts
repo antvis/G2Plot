@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import { registerResponsiveTheme } from '../../../util/responsive/theme';
 
 /** 组装theme

@@ -1,7 +1,7 @@
 import { Column } from '../../../../src';
 import StateManager from '../../../../src/util/state-manager';
 import { simulate } from 'event-simulate';
-import * as _ from '@antv/util';
+import { keys } from '@antv/util';
 
 describe.skip('state', () => {
   const canvasDiv = document.createElement('div');
@@ -76,7 +76,7 @@ describe.skip('state', () => {
     });
     setTimeout(() => {
       const states = stateManager.getAllStates();
-      expect(_.keys(states).length).toBe(2);
+      expect(keys(states).length).toBe(2);
       expect(states.test).toBe('a');
       done();
     }, 20);

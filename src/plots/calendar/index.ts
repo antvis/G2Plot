@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import CalenderLayer from './layer';
 
@@ -18,7 +18,7 @@ export default class Calendar extends BasePlot<any> {
    * @param props
    */
   protected createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'calendar';
     super.createLayers(layerProps);
   }

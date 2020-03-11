@@ -122,7 +122,7 @@ linePlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -181,21 +181,21 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： 折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： 折线形状在 y 方向对应的数据字段名，一般对应一个离散字段。
 
 默认配置： 无
 
-### seriesField
+### seriesField 📌
 **必选**, *string*
 
 [**DEMO**](../../../../examples/line/multiple#line-multiple)
@@ -217,14 +217,14 @@ areaPlot.render();
 
 [**DEMO2**](../../../../examples/line/multiple#color-callback)
 
-### lineSize
+### lineSize ✨
 **可选**, *number*
 
 功能描述： 设置折线宽度
 
 默认配置： `2`
 
-### lineStyle
+### lineStyle ✨
 **可选**, *object*
 
 [**DEMO**](../../../../examples/line/multiple#line-style)
@@ -241,7 +241,7 @@ areaPlot.render();
 | lineDash | number | 虚线显示 |
 | opacity | number | 透明度 |
 
-### smooth
+### smooth ✨
 **可选**, *boolean*
 
 [DEMO](../../../../examples/line/basic#line-smooth)
@@ -250,7 +250,7 @@ areaPlot.render();
 
 默认配置: `false`
 
-### point
+### point ✨
 **可选**, *object*
 
 [DEMO1](../../../../examples/line/basic#line-with-point)
@@ -620,7 +620,7 @@ style:{
 
 ## 交互
 
-### slider
+### slider ✨
 **可选**, *object*
 
 [DEMO](../../../../examples/line/basic#line-slider)
@@ -640,7 +640,7 @@ style:{
 | minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
 | maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
 
-### scrollBar
+### scrollBar ✨
 **可选**, *object*
 
 功能描述： 配置横向滚动条，适用于数据较多的场景。
@@ -657,7 +657,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

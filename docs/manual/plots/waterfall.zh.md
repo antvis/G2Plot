@@ -133,7 +133,7 @@ waterfallPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -192,14 +192,14 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： 柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： 柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
@@ -246,7 +246,7 @@ color:{
 }
 ```
 
-### waterfallStyle
+### waterfallStyle ✨
 **可选**, *object*
 
 功能描述： 设置柱子样式。waterfallStyle中的`fill`会覆盖 `color` 的配置。waterfallStyle可以直接指定，也可以通过callback的方式，根据数据为每一根柱子指定单独的样式。
@@ -614,12 +614,9 @@ visible: true
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

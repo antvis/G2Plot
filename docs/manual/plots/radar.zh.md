@@ -149,7 +149,7 @@ radarPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -208,21 +208,21 @@ areaPlot.render();
 
 ```
 
-### angleField
+### angleField 📌
 **必选**, *string*
 
 功能描述： 雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
 
 默认配置： 无
 
-### radiusField
+### radiusField 📌
 **必选**, *string*
 
 功能描述： 雷达图映射到半径所对应的字段，一般为一个连续字段。
 
 默认配置： 无
 
-### seriesField
+### seriesField 📌
 **必选**, *string*
 
 [DEMO](../../../../examples/radar/basic#series)
@@ -240,7 +240,7 @@ areaPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-### smooth
+### smooth ✨
 **可选**, *boolean*
 
 功能描述： 是否以曲线的形态绘制 (spline)。
@@ -248,7 +248,7 @@ areaPlot.render();
 默认配置: `false`
 
 
-### area
+### area ✨
 **可选**, *object*
 
 功能描述： 配置雷达图上的颜色填充
@@ -267,7 +267,7 @@ style: {
 | style | object | 颜色填充样式<br />- fill: string  填充色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 
-### point
+### point ✨
 **可选**, *object*
 
 功能描述： 配置雷达图上的点
@@ -286,7 +286,7 @@ size: 4
 | size | number | 数据点大小 |
 | style | object | 数据点样式<br />- fill: string  填充色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### line
+### line ✨
 **可选**, *object*
 
 功能描述：配置雷达图上的折线。
@@ -359,7 +359,7 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### angleAxis
+### angleAxis ✨
 **可选**, *object*
 
 功能描述： 雷达图角度轴配置
@@ -402,7 +402,7 @@ title: {
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
-### radiusAxis
+### radiusAxis ✨
 **可选**, *object*
 
 功能描述： 雷达图径向轴配置
@@ -607,13 +607,9 @@ style:{
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

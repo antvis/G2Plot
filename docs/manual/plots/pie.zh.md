@@ -136,7 +136,7 @@ piePlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -195,7 +195,7 @@ areaPlot.render();
 
 ```
 
-### angleField
+### angleField 📌
 **必选**, *string*
 
 功能描述： 扇形切片大小（弧度）所对应的数据字段名。。
@@ -211,7 +211,7 @@ areaPlot.render();
 
 ## 图形样式
 
-### radius
+### radius ✨
 **可选**, *number*
 
 功能描述： 饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
@@ -239,7 +239,7 @@ color:(d)=>{
 }
 ```
 
-### pieStyle
+### pieStyle ✨
 **可选**, *object*
 
 功能描述： 设置扇形样式。pieStyle中的`fill`会覆盖 `color` 的配置。pieStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
@@ -446,13 +446,9 @@ label: {
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

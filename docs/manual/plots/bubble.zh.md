@@ -111,7 +111,7 @@ bubblePlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -170,14 +170,14 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： 点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： 点形状在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。
@@ -218,7 +218,7 @@ color:['#d62728', '#2ca02c', '#000000']
 ```
 
 
-### pointSize
+### pointSize ✨
 
 **可选**, number[ ]
 
@@ -244,7 +244,7 @@ const bubblePlot = new Bubble(document.getElementById('container'), {
 效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*yN9WSJ8X1wcAAAAAAAAAAABkARQnAQ" width="400">
 
 
-### pointStyle
+### pointStyle ✨
 **可选**, *object*
 
 [**DEMO**](../../../../examples/scatter/basic#color-mapping)
@@ -292,6 +292,7 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
+
 ### description
 **可选**, *optional*
 
@@ -314,6 +315,7 @@ style:{
 | visible | boolean | 是否显示 |
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
 
 ### xAxis
 **可选**, *object*
@@ -478,7 +480,7 @@ style:{
 | style | object | 配置文本标签样式。 |
 
 
-### quadrant
+### quadrant ✨
 **可选**， *object*
 
 [DEMO](../../../../examples/bubble/basic#quadrant)
@@ -495,7 +497,7 @@ style:{
 | label | object | 为象限配置说明文本<br />- text: string[] | function 配置象限文本内容，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以callback的方式进行配置<br />- style: object 配置象限文本内容，按照象限区域依次配置，顺序为左上-左下-右上-右下。也支持以callback的方式进行配置<br /> |
 
 
-### trendLine
+### trendLine ✨
 **可选**，*object*
 
 [DEMO](../../../../examples/bubble/basic#trendline)
@@ -587,12 +589,9 @@ style:{
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

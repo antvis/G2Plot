@@ -70,7 +70,7 @@ calendar.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -81,7 +81,7 @@ calendar.render();
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 
-### dateField
+### dateField 📌
 
 **必选**，*string*
 
@@ -90,7 +90,7 @@ calendar.render();
 默认配置： 无
 
 
-### valueField
+### valueField 📌
 
 **必选**, *string*
 
@@ -99,7 +99,7 @@ calendar.render();
 默认配置： 无
 
 
-### months: string[]
+### months: string[] ✨
 
 **可选**, *string[]*
 
@@ -108,7 +108,7 @@ calendar.render();
 默认配置：['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
-### weeks: boolean
+### weeks: boolean ✨
 
 **可选**，*string[]*
 
@@ -359,7 +359,7 @@ style:{
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

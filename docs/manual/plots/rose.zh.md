@@ -99,7 +99,7 @@ rosePlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -158,19 +158,19 @@ areaPlot.render();
 
 ```
 
-### radiusField
+### radiusField 📌
 
 **必选**, *string*
 
 功能描述：扇形切片半径长度所对应的数据字段名。
 
-### categoryField: string
+### categoryField 📌
 
 **必选**, *string*
 
 功能描述：扇形切片分类所对应的数据字段名（每个扇形的弧度相等）。
 
-### colorField: string
+### colorField 📌
 
 **必选**, *string*
 
@@ -179,7 +179,7 @@ areaPlot.render();
 
 ## 图形样式
 
-### radius
+### radius ✨
 **可选**, *number*
 
 功能描述： 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。
@@ -207,7 +207,7 @@ color:(d)=>{
 }
 ```
 
-### sectorStyle
+### sectorStyle ✨
 **可选**, *object*
 
 功能描述： 设置扇形样式。sectorStyle中的`fill`会覆盖 `color` 的配置。sectorStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
@@ -403,7 +403,7 @@ autoRotate: true
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

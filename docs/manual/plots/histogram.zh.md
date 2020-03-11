@@ -157,7 +157,7 @@ histogramPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -216,7 +216,7 @@ areaPlot.render();
 
 ```
 
-### binField
+### binField 📌
 **必选**, *string*
 
 功能描述： 设置直方图绘制 (进行分箱) 的字段
@@ -224,7 +224,7 @@ areaPlot.render();
 默认配置： 无
 
 
-### binWidth
+### binWidth 📌
 **可选**, *number*
 
 [DEMO](../../../../examples/column/histogram#histogram-binWidth)
@@ -236,7 +236,7 @@ areaPlot.render();
 默认配置： 自动计算
 
 
-### binNumber
+### binNumber ✨
 **可选**, *number*
 
 [DEMO](../../../../examples/column/histogram#histogram-binNumber)
@@ -258,7 +258,7 @@ areaPlot.render();
 默认配置：采用 theme 中的色板。
 
 
-### columnStyle
+### columnStyle ✨
 **可选**, *object*
 
 功能描述： 设置直方图柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。
@@ -443,7 +443,6 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本
 
-
 默认配置：
 ```js
 visible: false
@@ -572,12 +571,9 @@ adjustPosition: false
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
 ## 交互
 
-### slider
+### slider ✨
 **可选**, *object*
 
 [DEMO](../../../../examples/column/basic#column-slider)
@@ -597,7 +593,7 @@ adjustPosition: false
 | minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
 | maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
 
-### scrollBar
+### scrollBar ✨
 **可选**, *object*
 
 [DEMO](../../../../examples/column/basic#column-scrollbar)
@@ -617,7 +613,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

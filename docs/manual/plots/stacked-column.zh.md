@@ -209,7 +209,7 @@ columnPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -268,21 +268,21 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： 柱形在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： 柱形在 y 方向高度映射所对应的数据字段名，一般对应一个离散字段。
 
 默认配置： 无
 
-### stackField
+### stackField 📌
 **必选**, *string*
 
 功能描述：数据集中的分组字段名，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
@@ -310,14 +310,14 @@ color:(d)=>{
 }
 ```
 
-### columnSize
+### columnSize ✨
 **可选**, *number*
 
 功能描述： 设置柱形宽度。对于一般场景来说，柱形宽度会根据数据自行计算，不需特别指定。
 
 默认配置： 无
 
-### columnStyle
+### columnStyle ✨
 **可选**, *object*
 
 功能描述： 设置柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。columnStyle可以直接指定，也可以通过callback的方式，根据数据为每一根柱子指定单独的样式。
@@ -557,7 +557,7 @@ adjustPosition: true
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IyvbT63Pe9UAAAAAAAAAAABkARQnAQ" width="800">
 
 
-### connectedArea
+### connectedArea ✨
 
 **可选**, *object[]*
 
@@ -686,12 +686,9 @@ adjustPosition: true
 
 
 
-## theme
-
-
 ## 交互
 
-### slider
+### slider ✨
 **可选**, *object*
 
 [DEMO](../../../../examples/column/basic#column-slider)
@@ -711,7 +708,7 @@ adjustPosition: true
 | minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
 | maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
 
-### scrollBar
+### scrollBar ✨
 **可选**, *object*
 
 [DEMO](../../../../examples/column/basic#column-scrollbar)
@@ -731,7 +728,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

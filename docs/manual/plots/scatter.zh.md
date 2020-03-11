@@ -110,7 +110,7 @@ scatterPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -169,14 +169,14 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： 点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： 点形状在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。
@@ -210,7 +210,7 @@ colorField:'type',
 color:['#d62728', '#2ca02c', '#000000']
 ```
 
-### pointSize
+### pointSize ✨
 **可选**, *number*
 
 功能描述： 设置点的大小
@@ -218,7 +218,7 @@ color:['#d62728', '#2ca02c', '#000000']
 默认配置： `2`
 
 
-### pointStyle
+### pointStyle ✨
 **可选**, *object*
 
 [**DEMO**](../../../../examples/scatter/basic#color-mapping)
@@ -452,7 +452,7 @@ style:{
 | style | object | 配置文本标签样式。 |
 
 
-### quadrant
+### quadrant ✨
 **可选**， *object*
 
 [DEMO](../../../../examples/bubble/basic#quadrant)
@@ -502,7 +502,7 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 ```
 效果： <img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ptIxSpu2vxAAAAAAAAAAAABkARQnAQ' width='400'>
 
-### trendLine
+### trendLine ✨
 **可选**，*object*
 
 [DEMO](../../../../examples/scatter/basic#trendline)
@@ -625,7 +625,7 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

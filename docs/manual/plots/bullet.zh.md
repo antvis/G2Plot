@@ -72,7 +72,7 @@ bulletPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -139,8 +139,8 @@ areaPlot.render();
 
 ```
 
-### rangeMax
-**可选**, *number*
+### rangeMax 📌
+**必选**, *number*
 
 [DEMO](../../../../examples/bullet/basic#overflow)
 
@@ -149,7 +149,7 @@ areaPlot.render();
 默认配置： 无
 
 
-### measureSize
+### measureSize ✨
 **可选**, *number*
 
 功能描述： 实际进度条大小设置（即实际进度条的高度）。
@@ -159,7 +159,7 @@ areaPlot.render();
 
 ## 图形样式
 
-### measureColors
+### measureColors ✨
 **可选**, *string[]*
 
 功能描述： 设置进度条颜色，进度条的色条区间颜色依次取数组中的颜色色值
@@ -167,7 +167,7 @@ areaPlot.render();
 默认配置： theme默认色板
 
 
-### rangeSize
+### rangeSize ✨
 **可选**, *number*
 
 功能描述：区间背景条大小设置，相对数值（相对于 measureSize）。
@@ -175,7 +175,7 @@ areaPlot.render();
 默认配置：1.2
 
 
-### rangeColors
+### rangeColors ✨
 **可选**, *string[]*
 
 [DEMO](../../../../examples/bullet/basic#color-range)
@@ -184,7 +184,7 @@ areaPlot.render();
 
 默认配置： theme默认色板
 
-### markerSize
+### markerSize ✨
 **可选**, *number*
 
 功能描述：目标值 marker 大小设置（即目标值 marker 的高度），相对数值（相对于 measureSize）。
@@ -192,13 +192,13 @@ areaPlot.render();
 默认配置：1.2
 
 
-### markerColors
+### markerColors ✨
 **可选**, *string[]*
 
 功能描述：设置进度条目标值颜色
 
 
-### markerStyle
+### markerStyle ✨
 **可选**, *object*
 
 功能描述：目标值 marker 的样式设置。
@@ -406,12 +406,9 @@ htmlContent: (title, items) => {
 
 
 
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

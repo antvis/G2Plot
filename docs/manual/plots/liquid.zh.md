@@ -109,14 +109,14 @@ liquidPlot.render();
 
 ## 数据映射
 
-### value
+### value 📌
 **必选**, *number*
 
 功能描述： 设置水波图的当前值
 
 默认配置： 无
 
-### max
+### max 📌
 **必选**, *number*
 
 功能描述： 设置水波图的最大值
@@ -124,7 +124,7 @@ liquidPlot.render();
 默认配置： 无
 
 
-### min
+### min 📌
 **必选**, *number*
 
 功能描述： 设置水波图的最小值
@@ -141,7 +141,7 @@ liquidPlot.render();
 
 默认配置： 使用默认色板的颜色
 
-### liqiudStyle
+### liqiudStyle ✨
 **可选**, *object*
 
 功能描述： 配置水波图的样式
@@ -226,7 +226,7 @@ style:{
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 
-### statictic
+### statictic ✨
 **可选**, *object*
 
 功能描述： 指标卡组件，用于显示位于位于水波图中心的文本
@@ -283,7 +283,7 @@ adjustColor: true
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

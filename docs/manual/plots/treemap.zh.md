@@ -63,7 +63,7 @@ treemapPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *object*
 
@@ -149,7 +149,7 @@ areaPlot.render();
 
 ```
 
-### maxLevel
+### maxLevel ✨
 **可选**, *number*
 
 功能描述： 矩阵树图的最大嵌套层级
@@ -157,7 +157,7 @@ areaPlot.render();
 默认配置： 2
 
 
-### colorField
+### colorField 📌
 **必选**, *string*
 
 功能描述:  矩形颜色映射对应的数据字段名，一般对应一个连续字段或一个分类字段。
@@ -176,7 +176,7 @@ areaPlot.render();
 color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
 ```
 
-### rectStyle
+### rectStyle ✨
 **可选**, *object*
 
 功能描述： 设置treemap中的矩形样式。rectStyle中的`fill`会覆盖 `color` 的配置。pointtyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
@@ -362,12 +362,9 @@ style:{
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
 ## 交互
 
-### drilldown
+### drilldown ✨
 **可选**, *object*
 
 [DEMO](../../../../examples/treemap/rect#drilldown)
@@ -421,7 +418,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

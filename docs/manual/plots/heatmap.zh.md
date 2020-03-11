@@ -606,8 +606,6 @@ adjustPosition: true
 
 
 
-## theme
-
 # 图表方法
 
 ## render()

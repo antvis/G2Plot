@@ -6,7 +6,7 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "多色玫瑰图",
+      "title": "基础玫瑰图",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
     },
     {
@@ -18,11 +18,6 @@
       "filename": "group-rose.js",
       "title": "分组玫瑰图",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XO3-SLQUO74AAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "single-color.js",
-      "title": "单色玫瑰图",
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2V_gSI3JfYEAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

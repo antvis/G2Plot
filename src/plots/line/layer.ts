@@ -10,10 +10,10 @@ import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
-import { LineActive, LineSelect } from './interaction/index';
 import './theme';
 import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
+import { LineActive, LineSelect } from './interaction/index';
 
 export interface LineStyle {
   stroke?: string;
@@ -114,7 +114,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
     // 响应式
     if (props.responsive && props.padding !== 'auto') {
-      //this.applyResponsive('afterRender');
+      this.applyResponsive('afterRender');
     }
     super.afterRender();
   }
@@ -233,6 +233,20 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         }
       }
     }
+  }
+
+  protected applyInteractions() {
+    super.applyInteractions();
+    this.interactions.push(
+      new LineActive({
+        view: this.view,
+      })
+    );
+    this.interactions.push(
+      new LineSelect({
+        view: this.view,
+      })
+    );
   }
 
   protected parseEvents(eventParser) {

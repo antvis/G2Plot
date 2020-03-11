@@ -2,6 +2,7 @@ import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction
 import { View, BBox } from '../dependents';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
+import Interaction from '../interaction/core';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
 import {
   Axis,
@@ -151,7 +152,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected stateController: StateController;
   protected themeController: ThemeController;
   public config: G2Config;
-  private interactions: BaseInteraction[] = [];
+  protected interactions: Interaction[] = [];
 
   constructor(props: T) {
     super(props);

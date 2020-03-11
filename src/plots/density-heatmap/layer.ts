@@ -62,7 +62,7 @@ export default class DensityHeatmapLayer<
           autoRotate: true,
         },
         title: {
-          visible: true,
+          visible: false,
           offset: 12,
         },
       },
@@ -84,22 +84,28 @@ export default class DensityHeatmapLayer<
           autoRotate: false,
         },
         title: {
-          visible: true,
+          visible: false,
           offset: 12,
         },
       },
       tooltip: {
         visible: true,
+        showCrosshairs: true,
         crosshairs: {
-          type: 'cross',
-          style: {
-            lineWidth: 2,
+          type: 'xy',
+          line: {
+            style: {
+              stroke: '#000000',
+              lineWidth: 1,
+              opacity: 0.5,
+            },
           },
         },
+        showMarkers: false,
       },
       legend: {
         visible: true,
-        position: 'bottom',
+        position: 'bottom-center',
       },
       color: [
         'rgba(33,102,172,0)',
@@ -109,6 +115,7 @@ export default class DensityHeatmapLayer<
         'rgb(239,138,98)',
         'rgb(178,24,43)',
       ],
+      interactions: [{ type: 'tooltip' }],
     });
   }
 

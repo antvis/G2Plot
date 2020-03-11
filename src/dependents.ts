@@ -10,6 +10,7 @@ export {
   registerGeometry,
   Geometry,
   Interaction,
+  registerInteraction,
   registerShape,
   getTheme,
   Util,

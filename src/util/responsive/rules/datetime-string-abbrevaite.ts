@@ -16,17 +16,17 @@ export default function datetimeStringAbbrevaite(shape, option: TimeStringAbbrev
   const nodes = cfg.nodes.nodes;
   let campareText;
   if (index === nodes.length - 1) {
-    campareText = nodes[index - 1].shape.get('origin').text;
+    campareText = nodes[index - 1].shape.get('delegateObject').item.name;
   } else {
-    campareText = nodes[index + 1].shape.get('origin').text;
+    campareText = nodes[index + 1].shape.get('delegateObject').item.name;
   }
   const compare = new Date(campareText);
   /** 获取时间周期和时间间隔 */
-  const text = shape.get('origin').text;
+  const text = shape.get('delegateObject').item.name;
   const current = new Date(text);
-  const startText = nodes[0].shape.get('origin').text;
+  const startText = nodes[0].shape.get('delegateObject').item.name;
   const start = new Date(startText);
-  const endText = nodes[nodes.length - 1].shape.get('origin').text;
+  const endText = nodes[nodes.length - 1].shape.get('delegateObject').item.name;
   const end = new Date(endText);
   const timeDuration = getDateTimeMode(start, end);
   const timeCycle = getDateTimeMode(current, compare); // time frequency
@@ -39,7 +39,7 @@ export default function datetimeStringAbbrevaite(shape, option: TimeStringAbbrev
     return;
   }
   if (index !== 0) {
-    const previousText = nodes[index - 1].shape.get('origin').text;
+    const previousText = nodes[index - 1].shape.get('delegateObject').item.name;
     const previous = new Date(previousText);
     const isAbbreviate = needAbbrevaite(timeDuration, current, previous);
     if (isAbbreviate) {

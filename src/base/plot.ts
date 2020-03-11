@@ -189,7 +189,7 @@ export default class BasePlot<
   public setDefault(condition: any, style: any) {
     this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
-        layer.setDefault(condition,style);
+        layer.setDefault(condition, style);
       }
     });
   }

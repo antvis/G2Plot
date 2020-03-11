@@ -70,7 +70,7 @@ calendar.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -81,7 +81,7 @@ calendar.render();
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 
-### dateField
+### dateField 📌
 
 **必选**，*string*
 
@@ -90,7 +90,7 @@ calendar.render();
 默认配置： 无
 
 
-### valueField
+### valueField 📌
 
 **必选**, *string*
 
@@ -99,7 +99,7 @@ calendar.render();
 默认配置： 无
 
 
-### months: string[]
+### months: string[] ✨
 
 **可选**, *string[]*
 
@@ -108,7 +108,7 @@ calendar.render();
 默认配置：['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
-### weeks: boolean
+### weeks: boolean ✨
 
 **可选**，*string[]*
 
@@ -133,7 +133,7 @@ calendar.render();
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -156,7 +156,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -180,7 +180,7 @@ style:{
 ### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -188,9 +188,6 @@ style:{
 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: false,
 grid: {
     visible: false,
 },
@@ -202,6 +199,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -212,27 +211,22 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: true,
 grid: {
     visible: true,
 },
@@ -244,6 +238,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: true,
@@ -254,15 +250,13 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
 | max | number | 设置坐标轴最大值 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br />  -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转|
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
@@ -365,7 +359,7 @@ style:{
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

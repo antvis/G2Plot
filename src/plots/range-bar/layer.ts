@@ -22,8 +22,6 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
         },
         xAxis: {
           visible: true,
-          autoHideLabel: false,
-          autoRotateLabel: false,
           autoRotateTitle: false,
           grid: {
             visible: true,
@@ -36,6 +34,8 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
           },
           label: {
             visible: true,
+            autoRotate: true,
+            autoHide: true,
           },
           title: {
             visible: true,
@@ -44,8 +44,6 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
         },
         yAxis: {
           visible: true,
-          autoHideLabel: false,
-          autoRotateLabel: false,
           autoRotateTitle: true,
           grid: {
             visible: false,
@@ -58,6 +56,8 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
           },
           label: {
             visible: true,
+            autoHide: true,
+            autoRotate: false,
           },
           title: {
             visible: false,

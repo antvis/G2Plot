@@ -157,7 +157,7 @@ histogramPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -216,7 +216,7 @@ areaPlot.render();
 
 ```
 
-### binField
+### binField 📌
 **必选**, *string*
 
 功能描述： 设置直方图绘制 (进行分箱) 的字段
@@ -224,10 +224,10 @@ areaPlot.render();
 默认配置： 无
 
 
-### binWidth
+### binWidth 📌
 **可选**, *number*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/histogram#histogram-binWidth)
+[DEMO](../../../../examples/column/histogram#histogram-binWidth)
 
 功能描述： 设置直方图的分箱宽度，binWidth影响直方图分成多少箱。
 
@@ -236,10 +236,10 @@ areaPlot.render();
 默认配置： 自动计算
 
 
-### binNumber
+### binNumber ✨
 **可选**, *number*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/histogram#histogram-binNumber)
+[DEMO](../../../../examples/column/histogram#histogram-binNumber)
 
 功能描述： 设置直方图的分箱数量，binNumber影响直方图分箱后每个柱子的宽度。
 
@@ -258,7 +258,7 @@ areaPlot.render();
 默认配置：采用 theme 中的色板。
 
 
-### columnStyle
+### columnStyle ✨
 **可选**, *object*
 
 功能描述： 设置直方图柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。
@@ -282,7 +282,7 @@ areaPlot.render();
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -305,7 +305,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -328,7 +328,7 @@ style:{
 ### xAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -336,9 +336,6 @@ style:{
 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: false,
 grid: {
     visible: false,
 },
@@ -350,6 +347,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -360,11 +359,9 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
@@ -378,9 +375,6 @@ title: {
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: true,
 grid: {
     visible: true,
 },
@@ -392,6 +386,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: true,
@@ -402,15 +398,13 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
 | max | number | 设置坐标轴最大值 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
@@ -449,7 +443,6 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本
 
-
 默认配置：
 ```js
 visible: false
@@ -481,7 +474,7 @@ adjustPosition: false
 
 **可选**, *object[]*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+[DEMOS](../../../../examples/general/guideLine)
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 
@@ -578,15 +571,12 @@ adjustPosition: false
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
 ## 交互
 
-### slider
+### slider ✨
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-slider)
+[DEMO](../../../../examples/column/basic#column-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
 
@@ -603,10 +593,10 @@ adjustPosition: false
 | minLimit | number | 允许滑动的最小位置，值域范围为[0,1] |
 | maxLimit | number | 允许滑动的最大位置，值域范围为[0,1] |
 
-### scrollBar
+### scrollBar ✨
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/column/basic#column-scrollbar)
+[DEMO](../../../../examples/column/basic#column-scrollbar)
 
 功能描述： 配置横向滚动条，适用于数据较多的场景。
 
@@ -623,7 +613,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

@@ -4,7 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import GaugeLayer from '../gauge/layer';
 import { GaugeViewConfig } from '../gauge/options';
 import { getOptions } from '../gauge/geometry/shape/options';
-import { GaugeShape } from '../gauge/geometry/shape/gauge-shape';
+import { getGlobalTheme } from '../../theme';
 
 export interface MeterGaugeViewConfig extends GaugeViewConfig {}
 
@@ -19,7 +19,7 @@ export default class MeterGaugeLayer<T extends MeterGaugeLayerConfig = MeterGaug
 
   protected getCustomStyle() {
     const { theme, styleMix } = this.options;
-    const colors = styleMix.colors || this.config.theme.colors;
+    const colors = styleMix.colors || getGlobalTheme().colors;
     return getOptions('meter', theme, colors);
   }
 }

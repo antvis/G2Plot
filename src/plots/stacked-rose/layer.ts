@@ -14,7 +14,6 @@ export default class StackedRoseLayer<T extends StackedRoseLayerConfig = Stacked
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        autoRotateLabel: true,
         line: {
           visible: false,
         },
@@ -30,6 +29,7 @@ export default class StackedRoseLayer<T extends StackedRoseLayerConfig = Stacked
         },
         label: {
           offset: 5,
+          autoRotate: true,
         },
       },
       yAxis: {

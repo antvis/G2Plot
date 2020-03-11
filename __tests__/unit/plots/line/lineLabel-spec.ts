@@ -22,7 +22,9 @@ describe('responsive line label', () => {
       },
       xAxis: {
         type: 'dateTime',
-        autoRotateLabel: false,
+        label: {
+          autoRotate: false,
+        },
       },
       tooltip: {
         visible: false,

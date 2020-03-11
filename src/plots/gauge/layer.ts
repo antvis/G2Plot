@@ -12,6 +12,8 @@ import './theme';
 import { GaugeViewConfig, DEFAULT_GAUGE_CONFIG } from './options';
 import { GaugeShape } from './geometry/shape/gauge-shape';
 import { getOptions } from './geometry/shape/options';
+import { getGlobalTheme } from '../../theme';
+import * as EventParser from './event';
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
 
@@ -70,8 +72,6 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
    */
   protected initG2Shape() {
     this.gaugeShape = new GaugeShape(_.uniqueId());
-
-    const { style } = this.options;
     this.gaugeShape.setOption(
       this.type,
       this.options,
@@ -82,9 +82,9 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected getCustomStyle() {
-    const { theme, styleMix } = this.options;
-    const colors = styleMix.colors || this.config.theme.colors;
-
+    const { color, theme } = this.options;
+    const globalTheme = getGlobalTheme();
+    const colors = color || globalTheme.colors;
     return getOptions('standard', theme, colors);
   }
 
@@ -165,7 +165,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
 
   protected addGeometry() {
     const { styleMix } = this.options;
-    const pointerColor = styleMix.pointerColor || this.config.theme.defaultColor;
+    const pointerColor = styleMix.pointerColor || this.theme.defaultColor;
 
     const pointer: ElementOption = {
       type: 'point',
@@ -194,26 +194,8 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.setConfig('annotations', annotationConfigs);
   }
 
-  private statisticHtml() {
-    const { value, format } = this.options;
-    const statistic: any = this.options.statistic;
-    const formatted: string = format(value);
-
-    if (typeof statistic === 'boolean' && statistic === true) {
-      return value !== null ? formatted : '--';
-    }
-    if (typeof statistic === 'string') {
-      return statistic;
-    }
-    if (typeof statistic === 'function') {
-      return statistic(value, formatted);
-    }
-    return null;
-  }
-
   protected renderStatistic() {
     const { statistic, styleMix } = this.options;
-    // const statisticHtml: string | HTMLElement | null = this.statisticHtml();
     const text = {
       type: 'text',
       content: statistic.text,
@@ -227,6 +209,10 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       },
     };
     return text;
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 }
 

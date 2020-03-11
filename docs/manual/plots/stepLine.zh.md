@@ -118,7 +118,7 @@ step.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -177,30 +177,30 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： 折线形状在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： 折线形状在 y 方向对应的数据字段名，一般对应一个离散字段。
 
 默认配置： 无
 
-### seriesField
+### seriesField 📌
 **必选**, *string*
 
-[**DEMO**](https://g2plot.antv.vision/zh/examples/line/multiple#line-multiple)
+[**DEMO**](../../../../examples/line/multiple#line-multiple)
 
 功能描述： 多折线必选。 数据集中的分组字段名，一般对应一个分类字段。通过该字段的值，折线图将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
 
 默认配置： 无
 
-### step
+### step ✨
 **可选**, *string*
 
 功能描述： 阶梯折线的阶梯转折形态，可选配置为 'hv' | 'vh' | 'vhv' | 'hvh'。
@@ -217,9 +217,9 @@ areaPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-[**DEMO1**](https://g2plot.antv.vision/zh/examples/step-line/multiple)
+[**DEMO1**](../../../../examples/step-line/multiple)
 
-[**DEMO2**](https://g2plot.antv.vision/zh/examples/line/multiple#color-callback)
+[**DEMO2**](../../../../examples/line/multiple#color-callback)
 
 ### lineSize
 **可选**, *number*
@@ -248,7 +248,7 @@ areaPlot.render();
 ### smooth
 **可选**, *boolean*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/line/basic#line-smooth)
+[DEMO](../../../../examples/line/basic#line-smooth)
 
 功能描述： 是否将折线绘制为曲线 (spline)。
 
@@ -257,8 +257,8 @@ areaPlot.render();
 ### point
 **可选**, *object*
 
-[DEMO1](https://g2plot.antv.vision/zh/examples/line/basic#line-with-point)
-[DEMO2](https://g2plot.antv.vision/zh/examples/line/basic#line-point-style)
+[DEMO1](../../../../examples/line/basic#line-with-point)
+[DEMO2](../../../../examples/line/basic#line-point-style)
 
 功能描述： 配置折线上的点
 
@@ -286,7 +286,7 @@ style: {
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -309,7 +309,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -334,15 +334,12 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 默认配置：
 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: false,
 grid: {
     visible: false,
 },
@@ -354,6 +351,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoHide: true,
+    autoRotate: true
 },
 title: {
     visible: true,
@@ -365,29 +364,24 @@ title: {
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
 | type | string | 坐标轴类型<br />- 'time'：时间轴，<br />- 'linear': 连续轴<br /> |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: false,
-autoRotateTitle: true,
 grid: {
     visible: true,
 },
@@ -399,6 +393,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -409,22 +405,20 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
 | max | number | 设置坐标轴最大值 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
@@ -455,7 +449,9 @@ flipPage: true
 visible: true,
 shared: true,
 showCrosshairs: true,
-crosshairs: 'y',
+crosshairs: {
+  type: 'y'
+},
 offset: 20,
 ```
 
@@ -465,7 +461,7 @@ offset: 20,
 | offset | number | 距离鼠标位置偏移值 |
 | shared | boolean | 是否同时显示多条数据 |
 | showCrosshairs | boolean | 是否tooltip辅助线 |
-| crosshairs | object | 配置tooltip辅助线，可选项： x | y | cross 辅助线形态 |
+| crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 
@@ -517,7 +513,7 @@ style:{
 
 **可选**, *object[]*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/guideLine)
+[DEMOS](../../../../examples/general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y64CRIP7g1QAAAAAAAAAAABkARQnAQ" width="400">
 
@@ -631,7 +627,7 @@ style:{
 ### slider
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/step-line/basic#step-slider)
+[DEMO](../../../../examples/step-line/basic#step-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于折线数据较多，用户希望关注数据集中某个特殊区间的场景。
 
@@ -665,7 +661,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

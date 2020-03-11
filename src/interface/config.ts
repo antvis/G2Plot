@@ -54,8 +54,6 @@ export interface IBaseAxis {
     /** 网格设置交替的颜色，指定一个值则先渲染偶数层，两个值则交替渲染 */
     alternateColor?: string | string[];
   };
-  autoRotateLabel?: boolean; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
-  autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
   autoEllipsisLabel?: boolean;
   autoRotateTitle?: boolean;
   label?: {
@@ -68,6 +66,8 @@ export interface IBaseAxis {
     useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
     htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
     style?: IStyleConfig;
+    autoRotate?: boolean;
+    autoHide?: boolean;
   };
   title?: {
     visible?: boolean;
@@ -165,7 +165,7 @@ export interface Tooltip {
   //crosshair?: 'x' | 'y' | 'cross' | boolean;
   //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
   showCrosshairs?: boolean;
-  crosshairs?: 'x' | 'y' | 'cross';
+  crosshairs?: object;
   style?: IStyleConfig;
   offset?: number;
   showMarkers?: boolean;

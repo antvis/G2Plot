@@ -16,18 +16,6 @@ const gaugePlot = new MeterGauge(document.getElementById('container'), {
     text: '良',
     color: '#faad14',
   },
-  gaugeStyle: {
-    colors: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
-    tickLabelSize: 20,
-    // stripWidth: 30,
-    // stripBackColor: '#ddd',
-    // tickInterval: 20,
-    // tickLabelPos: 'inner',
-    // tickLabelSize: 16,
-    // tickLabelColor: '#aaa',
-    // tickLineColor: '#aaa',
-    // subTickCount: 4,
-    // pointerColor: '#1890FF',
-  },
+  color: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
 });
 gaugePlot.render();

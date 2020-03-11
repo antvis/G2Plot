@@ -15,13 +15,6 @@ const gaugePlot = new FanGauge(document.getElementById('container'), {
   format: (v) => {
     return v + '%';
   },
-  gaugeStyle: {
-    colors: ['l(0) 0:#b0d0ff 1:#5f92f9'],
-    tickLabelSize: 16,
-    stripWidth: 20,
-    pointerColor: 'rgba(0,0,0,0)',
-    statisticPos: ['50%', '80%'],
-    tickLabelPos: 'outer',
-  },
+  color: ['l(0) 0:#b0d0ff 1:#5f92f9'],
 });
 gaugePlot.render();

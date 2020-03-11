@@ -11,10 +11,7 @@ const gaugePlot = new Gauge(document.getElementById('container'), {
   min: 0,
   max: 100,
   range: [0, 25, 50, 75, 100],
-  gaugeStyle: {
-    colors: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
-    tickLabelSize: 20,
-  },
+  color: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
   statistic: {
     visible: true,
     text: '优',

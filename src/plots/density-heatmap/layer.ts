@@ -46,8 +46,6 @@ export default class DensityHeatmapLayer<
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
-        autoHideLabel: true,
-        autoRotateLabel: true,
         autoRotateTitle: false,
         grid: {
           visible: false,
@@ -60,6 +58,8 @@ export default class DensityHeatmapLayer<
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: true,
         },
         title: {
           visible: false,
@@ -68,8 +68,6 @@ export default class DensityHeatmapLayer<
       },
       yAxis: {
         visible: true,
-        autoHideLabel: true,
-        autoRotateLabel: false,
         autoRotateTitle: true,
         grid: {
           visible: false,
@@ -82,6 +80,8 @@ export default class DensityHeatmapLayer<
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: false,
         },
         title: {
           visible: false,

@@ -63,7 +63,7 @@ treemapPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *object*
 
@@ -149,7 +149,7 @@ areaPlot.render();
 
 ```
 
-### maxLevel
+### maxLevel ✨
 **可选**, *number*
 
 功能描述： 矩阵树图的最大嵌套层级
@@ -157,7 +157,7 @@ areaPlot.render();
 默认配置： 2
 
 
-### colorField
+### colorField 📌
 **必选**, *string*
 
 功能描述:  矩形颜色映射对应的数据字段名，一般对应一个连续字段或一个分类字段。
@@ -176,7 +176,7 @@ areaPlot.render();
 color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
 ```
 
-### rectStyle
+### rectStyle ✨
 **可选**, *object*
 
 功能描述： 设置treemap中的矩形样式。rectStyle中的`fill`会覆盖 `color` 的配置。pointtyle可以直接指定，也可以通过callback的方式，根据数据指定单独的样式。
@@ -199,7 +199,7 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -222,7 +222,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -277,7 +277,7 @@ htmlContent: (title, items) => {
 ### label
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#label)
+[DEMO](../../../../examples/treemap/rect#label)
 
 功能描述： 标签文本
 
@@ -362,15 +362,12 @@ style:{
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
 ## 交互
 
-### drilldown
+### drilldown ✨
 **可选**, *object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/treemap/rect#drilldown)
+[DEMO](../../../../examples/treemap/rect#drilldown)
 
 数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
 
@@ -421,7 +418,7 @@ interactions: [
 
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

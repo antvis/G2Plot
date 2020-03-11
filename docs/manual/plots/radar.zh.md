@@ -149,7 +149,7 @@ radarPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -208,24 +208,24 @@ areaPlot.render();
 
 ```
 
-### angleField
+### angleField 📌
 **必选**, *string*
 
 功能描述： 雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
 
 默认配置： 无
 
-### radiusField
+### radiusField 📌
 **必选**, *string*
 
 功能描述： 雷达图映射到半径所对应的字段，一般为一个连续字段。
 
 默认配置： 无
 
-### seriesField
+### seriesField 📌
 **必选**, *string*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/radar/basic#series)
+[DEMO](../../../../examples/radar/basic#series)
 
 功能描述： 对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
 
@@ -240,7 +240,7 @@ areaPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-### smooth
+### smooth ✨
 **可选**, *boolean*
 
 功能描述： 是否以曲线的形态绘制 (spline)。
@@ -248,7 +248,7 @@ areaPlot.render();
 默认配置: `false`
 
 
-### area
+### area ✨
 **可选**, *object*
 
 功能描述： 配置雷达图上的颜色填充
@@ -267,7 +267,7 @@ style: {
 | style | object | 颜色填充样式<br />- fill: string  填充色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 
-### point
+### point ✨
 **可选**, *object*
 
 功能描述： 配置雷达图上的点
@@ -286,7 +286,7 @@ size: 4
 | size | number | 数据点大小 |
 | style | object | 数据点样式<br />- fill: string  填充色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### line
+### line ✨
 **可选**, *object*
 
 功能描述：配置雷达图上的折线。
@@ -316,7 +316,7 @@ style:{
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -339,7 +339,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -359,7 +359,7 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### angleAxis
+### angleAxis ✨
 **可选**, *object*
 
 功能描述： 雷达图角度轴配置
@@ -368,9 +368,6 @@ style:{
 
 ```js
 visible: true,
-autoHideLabel: false,
-autoRotateLabel: true,
-autoRotateTitle: true,
 line: {
     visible: false,
 },
@@ -388,6 +385,8 @@ grid: {
 label: {
     visible: true,
     offset: 8,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -397,15 +396,13 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br />-autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
-### radiusAxis
+### radiusAxis ✨
 **可选**, *object*
 
 功能描述： 雷达图径向轴配置
@@ -415,9 +412,6 @@ title: {
 min: 0,
 visible: true,
 nice: true,
-autoHideLabel: false,
-autoRotateLabel: true,
-autoRotateTitle: true,
 line: {
     visible: true,
 },
@@ -435,6 +429,8 @@ grid: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: false,
@@ -444,15 +440,13 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
 | max | number | 设置坐标轴最大值 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 | gridType | string | 网格线类型。* line: 使用直线绘制网格线  * arc: 使用曲线绘制网格线 |
@@ -461,7 +455,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
@@ -492,7 +486,9 @@ flipPage: true
 visible: true,
 shared: true,
 showCrosshairs: false,
-crosshairs: 'y',
+crosshairs: {
+  type: 'y'
+},
 offset: 20,
 ```
 
@@ -502,7 +498,7 @@ offset: 20,
 | offset | number | 距离鼠标位置偏移值 |
 | shared | boolean | 是否同时显示多条数据 |
 | showCrosshairs | boolean | 是否tooltip辅助线 |
-| crosshairs | object | 配置tooltip辅助线，可选项： x | y | cross 辅助线形态 |
+| crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 
@@ -611,13 +607,9 @@ style:{
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

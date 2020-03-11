@@ -87,7 +87,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       },
       xAxis: {
         visible: false,
-        autoRotateLabel: true,
         line: {
           visible: false,
         },
@@ -103,6 +102,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         },
         label: {
           offset: 5,
+          autoRotate: true,
         },
       },
       yAxis: {

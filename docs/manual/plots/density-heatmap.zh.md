@@ -109,7 +109,7 @@ heatMapPlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -168,14 +168,14 @@ areaPlot.render();
 
 ```
 
-### xField
+### xField 📌
 **必选**, *string*
 
 功能描述： heatmap数据点在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
 
 默认配置： 无
 
-### yField
+### yField 📌
 **必选**, *string*
 
 功能描述： heatmap数据点在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。
@@ -195,8 +195,6 @@ areaPlot.render();
 ### color
 **可选**, *string[]*
 
-[**DEMO1**](https://g2plot.antv.vision/zh/examples/scatter/basic#color-mapping)
-
 功能描述： 指定heatmap渲染的色带颜色，数值中的值为色带节点的色值。。
 
 默认配置：采用 theme 中的色板。
@@ -209,7 +207,7 @@ areaPlot.render();
 color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c']
 ```
 
-### radius
+### radius ✨
 **可选**, *number*
 
 功能描述： 热力半径，决定一个原始数据点的大小，radius设置的越大，在最终的渲染效果中，靠近的数据点就更容易”融化“在一起，形成区块。
@@ -217,7 +215,7 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 默认配置： 自动计算
 
 
-### intensity
+### intensity ✨
 **可选**, *number*
 
 功能描述： 热力权重，决定一个原始数据点的对周边数据点的影响力
@@ -247,7 +245,7 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -270,7 +268,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -295,15 +293,12 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 默认配置：
 
 ```js
 visible: true,
-autoHideLabel: true,
-autoRotateLabel: true,
-autoRotateTitle: false,
 grid: {
     visible: false,
 },
@@ -315,6 +310,8 @@ tickLine: {
 },
 label: {
     visible: true,
+    autoRotate: true,
+    autoHide: true
 },
 title: {
     visible: true,
@@ -325,29 +322,24 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴type为time时生效<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br />  -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
 ### yAxis
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/axis)
+[DEMOS](../../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
 默认配置： 
 ```js
 visible: true,
-autoHideLabel: true,
-autoRotateLabel: false,
-autoRotateTitle: true,
 grid: {
     visible: false,
 },
@@ -369,15 +361,13 @@ title: {
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| autoRotateLabel | boolean | 是否自动旋转标签 |
-| autoHideLabel | boolean | 是否自动隐藏标签 |
 | tickCount | number | 坐标轴刻度数量 |
 | tickInterval | number | 坐标轴刻度间隔 |
 | min | number | 设置坐标轴最小值 |
 | max | number | 设置坐标轴最大值 |
 | line | object | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br /> |
 | grid | object | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br /> |
-| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> |
+| label | object | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在x方向上的偏移量<br />- offsetY：number 位置在y方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
 | tickLine | object | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br /> |
 | title | object | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br /> |
 
@@ -435,7 +425,9 @@ legend:{
 visible: true,
 offset: 20,
 showCrosshairs: true,
-crosshairs: 'cross'
+crosshairs: {
+  type: 'xy'
+}
 ```
 
 | 细分属性 | 类型 | 功能描述 |
@@ -443,7 +435,7 @@ crosshairs: 'cross'
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
 | showCrosshairs | boolean | 是否显示辅助线 |
-| crosshairs | string | 辅助线类型，可选项：x、y、cross，默认为cross |
+| crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
 | htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
 
 
@@ -487,10 +479,10 @@ style:{
 **注意：相对于具体的数值，热力图更加关注的是趋势和分布。因此不推荐在热力图上显示标签，尤其当数据点密集时很难得到理想的视觉效果。**
 
 
-### background
+### background ✨
 **可选**，*object*
 
-[DEMO](https://g2plot.antv.vision/zh/examples/heatmap/basic#heatmap-background)
+[DEMO](h../../../../examples/heatmap/density#heatmap-background)
 
 功能描述：配置热力图显示背景，支持颜色填充、图片及 callback 三种方式。
 
@@ -594,12 +586,9 @@ background:{
 
 
 
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

@@ -136,7 +136,7 @@ piePlot.render();
 
 ## 数据映射
 
-### data
+### data 📌
 
 **必选**, *array object*
 
@@ -195,7 +195,7 @@ areaPlot.render();
 
 ```
 
-### angleField
+### angleField 📌
 **必选**, *string*
 
 功能描述： 扇形切片大小（弧度）所对应的数据字段名。。
@@ -211,7 +211,7 @@ areaPlot.render();
 
 ## 图形样式
 
-### radius
+### radius ✨
 **可选**, *number*
 
 功能描述： 饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
@@ -239,7 +239,7 @@ color:(d)=>{
 }
 ```
 
-### pieStyle
+### pieStyle ✨
 **可选**, *object*
 
 功能描述： 设置扇形样式。pieStyle中的`fill`会覆盖 `color` 的配置。pieStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
@@ -264,7 +264,7 @@ color:(d)=>{
 ### title
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -287,7 +287,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/title-description)
+[DEMOS](../../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -310,7 +310,7 @@ style:{
 ### legend
 **可选**, *object*
 
-[DEMOS](https://g2plot.antv.vision/zh/examples/general/legend#legend-position)
+[DEMOS](../../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置colorField时显示，用于展示颜色分类信息
 
@@ -365,10 +365,10 @@ htmlContent: (title, items) => {
 
 功能描述： 标签文本
 
-[DEMO1](https://g2plot.antv.vision/zh/examples/pie/basic#basic)
-[DEMO2](https://g2plot.antv.vision/zh/examples/pie/basic#outer-label)
-[DEMO3](https://g2plot.antv.vision/zh/examples/pie/basic#outer-center-label)
-[DEMO4](https://g2plot.antv.vision/zh/examples/pie/basic#spider-label)
+[DEMO1](../../../../examples/pie/basic#basic)
+[DEMO2](../../../../examples/pie/basic#outer-label)
+[DEMO3](../../../../examples/pie/basic#outer-center-label)
+[DEMO4](../../../../examples/pie/basic#spider-label)
 
 默认配置：
 ```js
@@ -446,13 +446,9 @@ label: {
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
 
-
-## theme
-
-
 # 图表方法
 
-## render()
+## render() 📌
 
 **必选**
 

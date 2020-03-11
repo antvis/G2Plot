@@ -82,14 +82,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: true,
         shared: true,
         showCrosshairs: true,
-        crosshairs: 'y',
+        crosshairs: {
+          type: 'y',
+        },
         offset: 20,
       },
       xAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: false,
         grid: {
           visible: false,
         },
@@ -101,6 +100,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         label: {
           visible: true,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: false,
@@ -109,8 +110,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       yAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
         autoRotateTitle: true,
         grid: {
           visible: true,
@@ -123,6 +122,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: false,
         },
         title: {
           visible: false,

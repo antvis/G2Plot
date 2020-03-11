@@ -37,8 +37,6 @@ export const DEFAULT_DARK_THEME = {
     y: {
       visible: true,
       position: 'left',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: true,
       grid: {
         visible: true,
@@ -68,6 +66,8 @@ export const DEFAULT_DARK_THEME = {
       label: {
         visible: true,
         offset: 8,
+        autoRotate: false,
+        autoHide: true,
         textStyle: {
           fill: 'rgba(255, 255, 255, 0.45)',
           fontSize: 12,
@@ -86,8 +86,6 @@ export const DEFAULT_DARK_THEME = {
     x: {
       visible: true,
       position: 'bottom',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: false,
       grid: {
         visible: false,
@@ -120,6 +118,8 @@ export const DEFAULT_DARK_THEME = {
           fontSize: 12,
         },
         offset: 16,
+        autoHide: true,
+        autoRotate: true,
       },
       title: {
         visible: false,
@@ -131,8 +131,6 @@ export const DEFAULT_DARK_THEME = {
       },
     },
     circle: {
-      autoHideLabel: false,
-      autoRotateLabel: true,
       autoRotateTitle: true,
       // gridType: 'line',
       grid: {
@@ -162,6 +160,8 @@ export const DEFAULT_DARK_THEME = {
           fill: '#a0a4aa',
           fontSize: 12,
         },
+        autoRotate: true,
+        autoHide: true,
       },
       title: {
         offset: 12,

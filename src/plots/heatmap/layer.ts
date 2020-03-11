@@ -44,7 +44,11 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         line: {
           visible: false,
         },
-        autoRotateLabel: true,
+        label: {
+          visible: true,
+          autoHide: true,
+          autoRotate: true,
+        },
       },
       yAxis: {
         visible: true,
@@ -56,7 +60,10 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         tickLine: {
           visible: true,
         },
-        autoRotateLabel: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
+        },
       },
       color: ['#9ae3d5', '#66cdbb', '#e7a744', '#f1e066', '#f27664', '#e7c1a2'],
       label: {

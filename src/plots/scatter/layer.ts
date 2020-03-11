@@ -9,10 +9,11 @@ import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
 import * as EventParser from './event';
 import { getComponent } from '../../components/factory';
+import './theme.ts';
 
 export interface PointStyle {
   /** 圆边颜色 */
-  stroke: string;
+  stroke?: string;
   /** 圆边大小 */
   lineWidth?: number;
   /** 圆边透明度 */
@@ -56,9 +57,10 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     return deepMix({}, super.getDefaultOptions(), {
       pointSize: 4,
       pointStyle: {
+        lineWidth: 1,
         strokeOpacity: 1,
-        fillOpacity: 0.4,
-        opacity: 0.65,
+        fillOpacity: 0.95,
+        stroke: '#fff',
       },
       xAxis: {
         nice: true,

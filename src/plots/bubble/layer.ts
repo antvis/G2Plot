@@ -3,6 +3,8 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import * as EventParser from '../scatter/event';
 import ScatterLayer, { ScatterViewConfig } from '../scatter/layer';
+import './shape';
+import './theme';
 
 export interface BubbleViewConfig extends ScatterViewConfig {
   /** 气泡大小 */
@@ -16,12 +18,20 @@ export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
 export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ScatterLayer<T> {
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
-      pointSize: [8, 58],
+      // 直径 min 4px；max 64px
+      pointSize: [2, 32],
       pointStyle: {
-        strokeOpacity: 1,
-        fillOpacity: 1,
-        opacity: 0.5,
+        stroke: null,
+        fillOpacity: 0.25,
       },
+      label: {
+        position: 'middle',
+        style: {
+          stroke: '#fff',
+          lineWidth: 1,
+        },
+      },
+      shape: 'bubble-point',
     });
   }
 

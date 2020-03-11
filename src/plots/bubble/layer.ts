@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import * as EventParser from '../scatter/event';
@@ -15,7 +15,7 @@ export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
 
 export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ScatterLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       pointSize: [8, 58],
       pointStyle: {
         strokeOpacity: 1,

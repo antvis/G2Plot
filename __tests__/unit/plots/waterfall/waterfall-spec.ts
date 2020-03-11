@@ -1,6 +1,6 @@
 import { ViewLayer, Waterfall } from '../../../../src';
-import { Shape } from '@antv/g';
-import * as _ from '@antv/util';
+import { IShape } from '@antv/g-base';
+import { every, last } from '@antv/util';
 
 describe('waterfall plot', () => {
   const data = [
@@ -57,7 +57,7 @@ describe('waterfall plot', () => {
     });
     waterfallPlot.render();
     const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
-    expect(_.every(shapes, (s) => s.attr('fill') === 'rgba(0, 255, 255, 0.2)')).toBe(true);
+    expect(every(shapes, (s) => s.attr('fill') === 'rgba(0, 255, 255, 0.2)')).toBe(true);
   });
 
   it('custom color, object', () => {
@@ -72,7 +72,7 @@ describe('waterfall plot', () => {
     const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
     expect(shapes[0].attr('fill')).toBe('red');
     expect(shapes[6].attr('fill')).toBe('green');
-    expect(_.last(shapes).attr('fill')).toBe('#ddd');
+    expect(last(shapes).attr('fill')).toBe('#ddd');
   });
 
   it('use callback to custom color', () => {
@@ -90,7 +90,7 @@ describe('waterfall plot', () => {
     const shapes = waterfallLayer.view.geometries[0].elements.map((value) => value.shape);
     expect(shapes[0].attr('fill')).toBe('rgba(255, 0, 0, 0.45)');
     expect(shapes[6].attr('fill')).toBe('rgba(255, 255, 0, 0.45)');
-    expect(_.last(shapes).attr('fill')).toBe('#ddd');
+    expect(last(shapes).attr('fill')).toBe('#ddd');
   });
 
   it('not show total', () => {

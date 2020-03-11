@@ -2,7 +2,7 @@
  * @author linhuiw
  * @description 仪表盘 layer
  */
-import * as _ from '@antv/util';
+import { deepMix, uniqueId } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer from '../../base/view-layer';
@@ -29,7 +29,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), DEFAULT_GAUGE_CONFIG);
+    return deepMix({}, super.getDefaultOptions(), DEFAULT_GAUGE_CONFIG);
   }
 
   public type: string = 'gauge';
@@ -63,7 +63,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     if (!statistic.size) {
       statistic.size = size * 1.2;
     }
-    const style = _.deepMix({}, defaultStyle, gaugeStyle, { statistic });
+    const style = deepMix({}, defaultStyle, gaugeStyle, { statistic });
     return style;
   }
 
@@ -71,7 +71,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
    * 绘制指针
    */
   protected initG2Shape() {
-    this.gaugeShape = new GaugeShape(_.uniqueId());
+    this.gaugeShape = new GaugeShape(uniqueId());
     this.gaugeShape.setOption(
       this.type,
       this.options,

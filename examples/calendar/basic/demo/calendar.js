@@ -13,7 +13,7 @@ fetch('../data/contributions.json')
         text: '853 contributions in the last year.',
       },
       width: 650,
-      height: 250,
+      height: 300,
       data,
       dateField: 'date',
       valueField: 'commits',

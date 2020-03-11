@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { isEmpty } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { DATE_FIELD } from './constant';
 import { isLastDayOfMonth, isLastWeekOfMonth } from '../../util/date';
@@ -10,7 +10,7 @@ import { Point } from '../..';
  */
 registerShape('polygon', 'calendar-polygon', {
   draw(cfg, container) {
-    if (!_.isEmpty(cfg.points)) {
+    if (!isEmpty(cfg.points)) {
       const points = cfg.points as Point[];
       // rect path
       let path = [

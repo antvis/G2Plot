@@ -1,5 +1,5 @@
 import { Pie } from '../../../../src';
-import * as _ from '@antv/util';
+import { last } from '@antv/util';
 import { createDiv } from '../../../utils/dom';
 
 describe('pie spider label', () => {
@@ -83,7 +83,7 @@ describe('pie spider label', () => {
   });
 
   it('label line', () => {
-    expect(_.last(labelGroups[0].get('children')).attr('stroke')).toBe('rgba(0, 0, 0, 0.45)');
+    expect(last(labelGroups[0].get('children')).attr('stroke')).toBe('rgba(0, 0, 0, 0.45)');
   });
 
   afterAll(() => {
@@ -159,7 +159,7 @@ describe('spider-label 单行label', () => {
 
   it('单行label 居中显示', () => {
     const labelText = labelGroups[0].get('children')[0];
-    const linePath = _.last(labelGroups[0].get('children')).attr('path');
+    const linePath = last(labelGroups[0].get('children')).attr('path');
     expect(labelText.attr('text')).toBe('分类一 (27)');
     expect(labelGroups[0].getBBox().y).toBe(labelText.getBBox().y);
 
@@ -167,7 +167,7 @@ describe('spider-label 单行label', () => {
       y: (labelText.getBBox().minY + labelText.getBBox().maxY) / 2,
       x: (labelText.getBBox().minX + labelText.getBBox().maxX) / 2,
     };
-    expect(labelCenter.y).toBe(_.last(linePath)[2]);
+    expect(labelCenter.y).toBe(last(linePath)[2]);
   });
 
   afterAll(() => {

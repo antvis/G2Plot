@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.27",
+  "version": "1.0.0",
   "description": "G2 Plot, a market of plots built with the Grammar of Graphics'",
   "author": "https://github.com/orgs/antvis/people",
   "main": "lib/index.js",
@@ -56,7 +56,8 @@
     "@antv/g2": "^4.0.0-beta.17",
     "d3-regression": "^1.2.8",
     "fecha": "~4.0.0",
-    "resize-observer-polyfill": "^1.5.1"
+    "resize-observer-polyfill": "^1.5.1",
+    "warning": "~4.0.3"
   },
   "peerDependencies": {
     "@antv/g-base": "^0.3.1",

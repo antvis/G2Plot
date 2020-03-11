@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-17
  */
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../..';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -52,7 +52,7 @@ const PLOT_GEOM_MAP = {
 
 export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -121,7 +121,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     const columnStyle = props.sectorStyle;
     const xField = props.categoryField;
     const yField = props.radiusField;
-    return _.deepMix({}, options, defaultOptions, { columnStyle, xField, yField }, props);
+    return deepMix({}, options, defaultOptions, { columnStyle, xField, yField }, props);
   }
 
   protected geometryParser(dim, type) {
@@ -222,7 +222,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     if (!options.label || !options.label.visible) {
       return false;
     }
-    const label = _.deepMix({}, options.label as Label);
+    const label = deepMix({}, options.label as Label);
     this.adjustLabelOptions(label);
     const fields = [options.categoryField, options.radiusField];
     if (options.stackField || options.groupField) {

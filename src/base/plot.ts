@@ -186,10 +186,10 @@ export default class BasePlot<
     });
   }
 
-  public setNormal(condition: any) {
+  public setDefault(condition: any, style: any) {
     this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
-        layer.setNormal(condition);
+        layer.setDefault(condition, style);
       }
     });
   }

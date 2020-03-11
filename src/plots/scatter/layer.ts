@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, isNil, get, has } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -53,7 +53,7 @@ export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
 
 export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       pointSize: 4,
       pointStyle: {
         strokeOpacity: 1,
@@ -136,7 +136,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   }
 
   private isValidLinearValue(value) {
-    if (_.isNil(value)) {
+    if (isNil(value)) {
       return false;
     } else if (Number.isNaN(Number(value))) {
       return false;
@@ -146,8 +146,8 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
     const { xField, yField } = this.options;
-    const xAxisType = _.get(this.options, ['xAxis', 'type'], 'linear');
-    const yAxisType = _.get(this.options, ['yAxis', 'type'], 'linear');
+    const xAxisType = get(this.options, ['xAxis', 'type'], 'linear');
+    const yAxisType = get(this.options, ['yAxis', 'type'], 'linear');
     return data
       .filter((item) => {
         if (xAxisType === 'linear' && !this.isValidLinearValue(item[xField])) {
@@ -179,12 +179,12 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);

@@ -2,7 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-18
  */
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import WaterfallLayer, { WaterfallViewConfig } from './layer';
 
@@ -12,7 +12,7 @@ export default class Waterfall extends BasePlot<WaterfallConfig> {
   public static getDefaultOptions: typeof WaterfallLayer.getDefaultOptions = WaterfallLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'waterfall';
     super.createLayers(layerProps);
   }

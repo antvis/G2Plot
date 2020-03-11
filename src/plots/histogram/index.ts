@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import HistogramLayer, { HistogramViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class Histogram extends BasePlot<HistogramConfig> {
   public static getDefaultOptions: typeof HistogramLayer.getDefaultOptions = HistogramLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'histogram';
     super.createLayers(layerProps);
   }

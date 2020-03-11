@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, isNil, map, get } from '@antv/util';
 import fecha from 'fecha';
 import { DataItem, Label, LayerConfig, ViewConfig } from '../..';
 import ViewLayer from '../../base/view-layer';
@@ -34,9 +34,39 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
   public type: string = 'calendar';
 
   public static getDefaultOptions(): Partial<CalendarLayerConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
-      xAxis: { line: null, grid: null, tickLine: null },
-      yAxis: { line: null, grid: null, tickLine: null },
+    return deepMix({}, super.getDefaultOptions(), {
+      xAxis: {
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+          autoRotate: false,
+          autoHide: false,
+        },
+      },
+      yAxis: {
+        line: {
+          visible: false,
+        },
+        grid: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+          autoRotate: false,
+          autoHide: false,
+        },
+      },
       legend: { visible: false },
       meta: {
         [DAY_FIELD]: {
@@ -70,8 +100,8 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
     let { dateRange } = this.options;
 
     // 给与默认值是当前这一年
-    if (_.isNil(dateRange)) {
-      const dates = _.map(data, (datum: DataItem) => fecha.parse(`${datum[dateField]}`, FORMATTER));
+    if (isNil(dateRange)) {
+      const dates = map(data, (datum: DataItem) => fecha.parse(`${datum[dateField]}`, FORMATTER));
       dateRange = getDateRange(dates);
     }
 
@@ -136,13 +166,19 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
   }
 
   protected axis(): void {
-    const { xAxis, yAxis } = this.options;
-
-    /** 存储坐标轴配置项到config */
-    this.setConfig('axes', {
-      [WEEK_FIELD]: xAxis,
-      [DAY_FIELD]: yAxis,
+    const xAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'x',
     });
+    const yAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'y',
+    });
+    const axesConfig = {};
+    axesConfig[WEEK_FIELD] = xAxis_parser;
+    axesConfig[DAY_FIELD] = yAxis_parser;
+    /** 存储坐标轴配置项到config */
+    this.setConfig('axes', axesConfig);
   }
 
   protected scale(): void {
@@ -166,8 +202,8 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
 
     // 2. 设置 alias
     const { xAxis, yAxis } = this.options;
-    x.alias = _.get(xAxis, ['title', 'text'], x.alias);
-    y.alias = _.get(yAxis, ['title', 'text'], y.alias);
+    x.alias = get(xAxis, ['title', 'text'], x.alias);
+    y.alias = get(yAxis, ['title', 'text'], y.alias);
 
     this.setConfig('scales', scales);
   }

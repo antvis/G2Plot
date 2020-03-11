@@ -1,6 +1,6 @@
 import { Line } from '../../../../src';
 import { Column } from '../../../../src';
-import * as _ from '@antv/util';
+import { each } from '@antv/util';
 import StateManager from '../../../../src/util/state-manager';
 
 describe.skip('stateManager', () => {
@@ -276,7 +276,7 @@ describe.skip('stateManager', () => {
       { type: 'register', value: 0 },
       { type: 'download', value: 0 },
     ];
-    _.each(data1, (d) => {
+    each(data1, (d) => {
       const type = d.type;
       const value = d.value;
       const row = getTargetRow('type', type, data2);

@@ -133,12 +133,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
-      interactions: [
-        { type: 'tooltip' },
-        { type: 'element-active' },
-        { type: 'legend-active' },
-        { type: 'legend-filter' },
-      ],
+      interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
     };
   }
   public type: string;
@@ -333,8 +328,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.stateController.setState({ type: 'disable', condition, style });
   }
 
-  public setNormal(condition) {
-    this.stateController.setState({ type: 'normal', condition, style: {} });
+  public setDefault(condition, style) {
+    this.stateController.setState({ type: 'default', condition, style });
   }
 
   // 获取 ViewLayer 的数据项

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { get } from '@antv/util';
 import { IGroup } from '@antv/g-canvas';
 import { registerShape } from '@antv/g2';
 import { ShapeMarkerCfg, ShapeInfo } from '@antv/g2/lib/interface';
@@ -48,7 +48,7 @@ function _getRectPath(points, { reverse, ratioUpper, ratioLower }) {
 registerShape('interval', 'funnel-dynamic-rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
-    const custom = _.get(cfg, 'data.__custom__');
+    const custom = get(cfg, 'data.__custom__');
     const path = this.parsePath(_getRectPath(cfg.points, custom));
 
     return container.addShape('path', {

@@ -1,5 +1,4 @@
 import { WordCloud, WordCloudConfig } from '../../../../src';
-import * as _ from '@antv/util';
 import { Dimension, InnerStartFunction, WordCloudData } from '../../../../src/plots/word-cloud/layer';
 
 describe('WordCloud plot', () => {

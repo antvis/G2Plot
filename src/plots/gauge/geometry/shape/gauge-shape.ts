@@ -2,7 +2,7 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import * as _ from 'lodash';
+import { get, sortedLastIndex } from 'lodash';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
@@ -264,7 +264,7 @@ export class GaugeShape {
               return this.valueToAngle(item, config);
             });
 
-            const index = _.sortedLastIndex(result1, start);
+            const index = sortedLastIndex(result1, start);
             /** 最后一个值也在最后一个区间内 */
             const colorIndex = Math.min(index, range.length - 1);
             fillColor = colors[colorIndex - 1] || background;
@@ -341,8 +341,8 @@ export class GaugeShape {
       getPath(starAngle: number, endAngle: number) {
         const gauge = (this as any).gauge;
         const type = this.gauge.type;
-        const height = _.get(gauge, 'options.height');
-        const width = _.get(gauge, 'options.width');
+        const height = get(gauge, 'options.height');
+        const width = get(gauge, 'options.width');
         const center = this.gauge.center;
         const length = this.gauge.ringRadius;
         const { thickness, minThickness, minThickCanvsSize, miniThickness, bigThickness } = this.gauge.ringStyle;

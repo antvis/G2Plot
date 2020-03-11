@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { assign, each, wrapBehavior } from '@antv/util';
 import { View, ICanvas } from '../dependents';
 
 interface InteractionCfg {
@@ -25,7 +25,7 @@ export default class Interaction {
   private _eventHandlers: any[];
   constructor(cfg: InteractionCfg) {
     const defaultCfg = this._getDefaultCfg();
-    _.assign(this, defaultCfg, cfg);
+    assign(this, defaultCfg, cfg);
     this.canvas = this.view.canvas;
     this._eventHandlers = [];
     this._bindEvents();
@@ -89,9 +89,9 @@ export default class Interaction {
   afterReset(ev?: any) {}
 
   private _bindEvents() {
-    _.each(EVENT_TYPES, (type) => {
+    each(EVENT_TYPES, (type) => {
       const eventName = this[`${type}Event`];
-      const handler = _.wrapBehavior(this, `_${type}`);
+      const handler = wrapBehavior(this, `_${type}`);
       this.view.on(eventName, handler);
       this._eventHandlers.push({ type: eventName, handler });
     });
@@ -99,7 +99,7 @@ export default class Interaction {
 
   private _unbindEvents() {
     const eventHandlers = this._eventHandlers;
-    _.each(eventHandlers, (eh) => {
+    each(eventHandlers, (eh) => {
       this.view.off(eh.type, eh.handler);
     });
   }

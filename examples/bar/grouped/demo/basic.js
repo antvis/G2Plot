@@ -62,6 +62,7 @@ const barPlot = new GroupedBar(document.getElementById('container'), {
   xField: 'value',
   yField: 'label',
   groupField: 'type',
+  color: ['#1383ab', '#c52125'],
   label: {
     formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
   },

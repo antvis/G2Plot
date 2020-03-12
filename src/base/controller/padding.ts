@@ -151,11 +151,11 @@ export default class PaddingController {
     ];
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
-    /*const panelPadding = this._getPanel(view, box);
+    const panelPadding = this._getPanel(view, box);
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
-    padding[3] += panelPadding[3];*/
+    padding[3] += panelPadding[3];
 
     return padding;
   }
@@ -191,13 +191,10 @@ export default class PaddingController {
 
   private _getPanel(view, box) {
     const groups = [];
-    const geoms = view.get('elements');
+    const geoms = view.geometries;
     each(geoms, (geom) => {
-      if (geom.get('labelController')) {
-        const labelContainer = geom.get('labelController').labelsContainer;
-        if (labelContainer) {
-          groups.push(labelContainer);
-        }
+      if (geom.labelsContainer) {
+        groups.push(geom.labelsContainer);
       }
     });
     let minX = Infinity;

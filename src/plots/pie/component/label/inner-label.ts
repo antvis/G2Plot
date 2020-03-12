@@ -2,7 +2,7 @@ import { LabelItem } from '@antv/component/lib/interface';
 import Polar from '@antv/coord/lib/coord/polar';
 import { Shape } from '@antv/g';
 import { registerElementLabels } from '@antv/g2';
-import * as _ from 'lodash';
+import { clone, isString } from '@antv/util';
 import { getEndPoint, getOverlapInfo } from './utils';
 import BaseLabel from './base-label';
 import { distBetweenPoints } from '../../../../util/math';
@@ -49,7 +49,7 @@ class InnerLabel extends BaseLabel {
     const labelOptions = this.get('labelOptions');
     let offset = labelOptions.offset;
     const radius = this.get('coord').getRadius();
-    if (_.isString(offset)) {
+    if (isString(offset)) {
       offset = radius * percent2Number(offset);
     }
     return offset > 0 ? 0 : offset;
@@ -63,9 +63,9 @@ class InnerLabel extends BaseLabel {
     const pos = { x: (box.minX + box.maxX) / 2, y: (box.minY + box.maxY) / 2 };
     // 两种调整方案
     /** 先偏移 x 方向 -> 再计算 y 位置 */
-    const pos1 = _.clone(pos);
+    const pos1 = clone(pos);
     /** 先偏移 y 方向 -> 再计算 x 位置 */
-    const pos2 = _.clone(pos);
+    const pos2 = clone(pos);
     // check overlap
     if (prev.id !== label.id) {
       const { xOverlap, yOverlap } = getOverlapInfo(box, prevBBox);

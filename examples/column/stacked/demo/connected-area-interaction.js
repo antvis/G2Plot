@@ -61,6 +61,7 @@ const columnPlot = new StackedColumn(document.getElementById('container'), {
     visible: false,
   },
   stackField: 'type',
+  color: ['#ae331b', '#f27957', '#dadada', '#609db7', '#1a6179'],
   connectedArea: {
     visible: true,
     triggerOn: 'mouseenter',

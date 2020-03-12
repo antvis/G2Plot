@@ -12,11 +12,12 @@ fetch('../data/oil.json')
         visible: true,
         text: '当label类型设置为line时，label与面积区域尾端顶部对齐。',
       },
-      padding: [20, 100, 100, 50],
+      padding: [20, 80, 30, 50],
       data,
       xField: 'date',
       yField: 'value',
       stackField: 'country',
+      color: ['#6897a7', '#8bc0d6', '#60d7a7', '#dedede', '#fedca9', '#fab36f', '#d96d6f'],
       xAxis: {
         type: 'dateTime',
         tickCount: 5,

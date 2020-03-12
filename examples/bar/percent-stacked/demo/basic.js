@@ -117,6 +117,12 @@ const barPlot = new PercentStackedBar(document.getElementById('container'), {
   xField: 'value',
   yField: 'year',
   stackField: 'country',
+  label: {
+    visible: true,
+    formatter: (v) => {
+      return v.toFixed(2);
+    },
+  },
 });
 
 barPlot.render();

@@ -99,6 +99,7 @@ const columnPlot = new GroupedColumn(document.getElementById('container'), {
     visible: true,
   },
   groupField: 'name',
+  color: ['#1ca9e6', '#f88c24'],
 });
 
 columnPlot.render();

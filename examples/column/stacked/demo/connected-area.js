@@ -53,13 +53,14 @@ const columnPlot = new StackedColumn(document.getElementById('container'), {
   data,
   xField: 'year',
   yField: 'value',
+  stackField: 'type',
+  color: ['#ae331b', '#f27957', '#dadada', '#609db7', '#1a6179'],
   yAxis: {
     min: 0,
   },
   label: {
     visible: false,
   },
-  stackField: 'type',
   connectedArea: {
     visible: true,
     triggerOn: false,

@@ -103,13 +103,11 @@ const columnPlot = new StackedColumn(document.getElementById('container'), {
   padding: 'auto',
   data,
   xField: 'year',
-  yField: 'sales',
-  data,
-  xField: 'year',
   yField: 'value',
   yAxis: {
     min: 0,
   },
+  color: ['#ae331b', '#1a6179'],
   stackField: 'type',
 });
 

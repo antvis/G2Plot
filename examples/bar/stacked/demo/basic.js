@@ -72,7 +72,8 @@ const stackBarPlot = new StackedBar(document.getElementById('container'), {
   data,
   yField: '地区',
   xField: '销售额',
-  xAxis: {
+  label: {
+    visible: true,
     formatter: (v) => Math.round(v / 10000) + '万',
   },
   stackField: '细分',

@@ -1,5 +1,5 @@
 import { LooseObject } from '../../dependents';
-import { isArray, isFunction, isString, isEmpty } from '@antv/util';
+import { isArray, isFunction, isString, isEmpty, isNil } from '@antv/util';
 import ElementParser from '../base';
 
 export default class CircleParser extends ElementParser {
@@ -77,6 +77,10 @@ export default class CircleParser extends ElementParser {
       config.callback = styleProps;
     } else {
       config.cfg = styleProps;
+      // opacity 与 fillOpacity 兼容
+      if (!isNil(styleProps.opacity)) {
+        config.cfg.fillOpacity = styleProps.opacity;
+      }
     }
     this.config.style = config;
   }

@@ -42,6 +42,13 @@ export function extractScale(desScale, axisConfig) {
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'max')) {
     desScale.max = axisConfig.max;
   }
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'minLimit')) {
+    desScale.minLimit = axisConfig.minLimit;
+  }
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'maxLimit')) {
+    desScale.maxLimit = axisConfig.maxLimit;
+  }
+
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'nice')) {
     desScale.nice = axisConfig.nice;
   }

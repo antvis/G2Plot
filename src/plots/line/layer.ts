@@ -95,13 +95,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   public point: any;
   public type: string = 'line';
 
-  public getOptions(props: T) {
-    const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    return deepMix({}, options, defaultOptions, props);
-  }
-
   public afterRender() {
     const props = this.options;
     if (this.options.label && this.options.label.visible && this.options.label.type === 'line') {

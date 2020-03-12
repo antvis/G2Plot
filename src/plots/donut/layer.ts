@@ -43,13 +43,6 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     });
   }
 
-  public getOptions(props: T) {
-    const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    return deepMix({}, options, defaultOptions, props);
-  }
-
   public beforeInit() {
     super.beforeInit();
     DonutLayer.centralId++;

@@ -1,4 +1,18 @@
-import { deepMix, isEmpty, mapValues, get, isUndefined, each, assign, isFunction, mix } from '@antv/util';
+import {
+  deepMix,
+  isEmpty,
+  mapValues,
+  get,
+  isUndefined,
+  each,
+  assign,
+  isFunction,
+  mix,
+  map,
+  flatten,
+  reduce,
+  findIndex,
+} from '@antv/util';
 import { View, BBox } from '../dependents';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
@@ -166,7 +180,19 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
-    return deepMix({}, options, defaultOptions, props);
+    // interactions 需要合并去重下
+    const interactions = reduce(
+      flatten(map([options, defaultOptions, props], (src) => get(src, 'interactions', []))),
+      (result, cur) => {
+        const idx = findIndex(result, (item) => item.type === cur.type);
+        if (idx >= 0) {
+          result.splice(idx, 1);
+        }
+        return [...result, cur];
+      },
+      []
+    );
+    return deepMix({}, options, defaultOptions, props, { interactions });
   }
 
   public beforeInit() {

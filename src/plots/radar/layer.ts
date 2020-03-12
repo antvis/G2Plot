@@ -188,13 +188,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     super.init();
   }
 
-  public getOptions(props: RadarLayerConfig) {
-    const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    return deepMix({}, options, defaultOptions, props);
-  }
-
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }

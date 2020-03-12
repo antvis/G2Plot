@@ -64,7 +64,43 @@ describe('Bubble plot', () => {
     });
   });
 
-  it('bubble pointStyle', () => {
+  it('bubble point opacity', () => {
+    const bubblePlot = new Bubble(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      xField: 'GDP',
+      yField: 'LifeExpectancy',
+      colorField: 'continent',
+      sizeField: 'Population',
+    });
+    bubblePlot.render();
+
+    let view = bubblePlot.getLayer().view;
+    let pointShapes = view.middleGroup.findAll((el) => {
+      return el.get('name') === 'point';
+    });
+    expect(pointShapes.length).toBe(60);
+    expect(pointShapes[0].attr('strokeOpacity')).toBe(1);
+    expect(pointShapes[1].attr('fillOpacity')).toBe(0.25);
+
+    bubblePlot.updateConfig({
+      pointStyle: {
+        opacity: 0.8,
+      },
+    });
+    bubblePlot.render();
+
+    view = bubblePlot.getLayer().view;
+    pointShapes = view.middleGroup.findAll((el) => {
+      return el.get('name') === 'point';
+    });
+    expect(pointShapes[0].attr('strokeOpacity')).toBe(1);
+    expect(pointShapes[1].attr('fillOpacity')).toBe(0.8);
+    expect(pointShapes[2].attr('opacity')).toBe(0.8);
+  });
+
+  it('bubble point fill === stroke', () => {
     const bubblePlot = new Bubble(canvasDiv, {
       width: 600,
       height: 600,
@@ -82,8 +118,37 @@ describe('Bubble plot', () => {
       return el.get('name') === 'point';
     });
     expect(pointShapes.length).toBe(60);
-    expect(pointShapes[0].attr('strokeOpacity')).toBe(1);
-    expect(pointShapes[1].attr('fillOpacity')).toBe(1);
-    expect(pointShapes[2].attr('opacity')).toBe(0.5);
+
+    for (let i = 0; i < pointShapes.length; i++) {
+      expect(pointShapes[i].attr('fill')).toBe(pointShapes[i].attr('stroke'));
+    }
+  });
+
+  it('bubble point opacity', () => {
+    const bubblePlot = new Bubble(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      xField: 'GDP',
+      yField: 'LifeExpectancy',
+      colorField: 'continent',
+      sizeField: 'Population',
+      pointStyle: {
+        stroke: '#777777',
+      },
+    });
+    bubblePlot.render();
+
+    const view = bubblePlot.getLayer().view;
+
+    const pointShapes = view.middleGroup.findAll((el) => {
+      return el.get('name') === 'point';
+    });
+    expect(pointShapes.length).toBe(60);
+
+    for (let i = 0; i < pointShapes.length; i++) {
+      expect(pointShapes[i].attr('fill') === pointShapes[i].attr('stroke')).toBe(false);
+      expect(pointShapes[i].attr('stroke')).toBe('#777777');
+    }
   });
 });

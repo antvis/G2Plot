@@ -57,6 +57,9 @@ export interface ViewConfig {
     selected?: StateConfig;
     disabled?: StateConfig;
   };
+  widthRatio?: {
+    [k: string]: number;
+  };
   name?: string;
 }
 

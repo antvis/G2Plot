@@ -161,7 +161,9 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     const rose = getGeom('interval', 'main', {
       plot: this,
       positionFields: [options.categoryField, options.radiusField],
-      widthRatio: 1,
+      widthRatio: {
+        rose: 1,
+      },
     });
     rose.label = this.extractLabel();
     rose.adjust = this.adjustRoseAdjust();

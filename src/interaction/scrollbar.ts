@@ -10,7 +10,7 @@ import { getDataByScaleRange } from './helper/data-range';
 const DEFAULT_PADDING: number = 4;
 const DEFAULT_SIZE: number = 8;
 const DEFAULT_CATEGORY_SIZE: number = 32;
-const MIN_THUMB_LENGTH: number = 8;
+const MIN_THUMB_LENGTH: number = 20;
 const SCROLL_BAR_Z_INDEX: number = 999;
 
 const getValidScrollbarConfig = (cfg: IScrollbarInteractionConfig = {}): Required<IScrollbarInteractionConfig> => {
@@ -55,7 +55,7 @@ export default class ScrollbarInteraction extends BaseInteraction {
   }
 
   private container: IGroup;
-  private scrollBar: Scrollbar;
+  private scrollbar: Scrollbar;
   private cnt: number;
   private step: number;
   private xScaleCfg: {
@@ -97,9 +97,9 @@ export default class ScrollbarInteraction extends BaseInteraction {
   }
 
   protected clear(): void {
-    if (this.scrollBar) {
-      this.scrollBar.destroy();
-      this.scrollBar = null;
+    if (this.scrollbar) {
+      this.scrollbar.destroy();
+      this.scrollbar = null;
     }
     if (this.container) {
       this.container.remove(true);
@@ -119,9 +119,9 @@ export default class ScrollbarInteraction extends BaseInteraction {
       ? { x: panelRange.minX + paddingLeft, y: range.minY + paddingTop }
       : { x: range.minX + paddingLeft, y: panelRange.minY + paddingTop };
 
-    if (!this.scrollBar) {
+    if (!this.scrollbar) {
       this.container = this.canvas.addGroup();
-      this.scrollBar = new Scrollbar({
+      this.scrollbar = new Scrollbar({
         container: this.container,
         x: position.x,
         y: position.y,
@@ -130,19 +130,19 @@ export default class ScrollbarInteraction extends BaseInteraction {
         thumbLen: this.thumbLen,
         thumbOffset: this.ratio * this.trackLen,
       });
-      this.scrollBar.init();
-      this.scrollBar.render();
-      this.scrollBar.get('group').set('zIndex', SCROLL_BAR_Z_INDEX);
-      this.scrollBar.on('scrollchange', this.onChangeFn);
+      this.scrollbar.init();
+      this.scrollbar.render();
+      this.scrollbar.get('group').set('zIndex', SCROLL_BAR_Z_INDEX);
+      this.scrollbar.on('scrollchange', this.onChangeFn);
     } else {
-      this.scrollBar.update({
+      this.scrollbar.update({
         trackLen: this.trackLen,
         thumbLen: this.thumbLen,
         thumbOffset: this.thumbOffset,
         x: position.x,
         y: position.y,
       });
-      this.scrollBar.render();
+      this.scrollbar.render();
     }
   }
 

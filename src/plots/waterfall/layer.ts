@@ -99,10 +99,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   }
 
   public getOptions(props: WaterfallLayerConfig) {
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions(props);
-    const options = deepMix({}, super.getOptions(props), defaultOptions, props);
-
+    const options = super.getOptions(props);
     this.adjustLegendOptions(options);
     this.adjustMeta(options);
     return options;

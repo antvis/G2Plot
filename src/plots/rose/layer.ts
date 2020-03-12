@@ -116,12 +116,10 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
 
   public getOptions(props: T) {
     const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
     const columnStyle = props.sectorStyle;
     const xField = props.categoryField;
     const yField = props.radiusField;
-    return deepMix({}, options, defaultOptions, { columnStyle, xField, yField }, props);
+    return deepMix({}, options, { columnStyle, xField, yField });
   }
 
   protected geometryParser(dim, type) {

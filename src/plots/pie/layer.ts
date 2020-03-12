@@ -80,13 +80,6 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   public type: string = 'pie';
   public labelComponent: SpiderLabel | PieBaseLabel;
 
-  public getOptions(props: T) {
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    const options = deepMix({}, super.getOptions(props), defaultOptions, props);
-    return options;
-  }
-
   public afterRender() {
     super.afterRender();
     const options = this.options;

@@ -34,6 +34,7 @@
     "@typescript-eslint/no-empty-interface": 1,
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/no-inferrable-types": 0,
-    "@typescript-eslint/explicit-function-return-type": 0
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/type-annotation-spacing": 1
   }
 }

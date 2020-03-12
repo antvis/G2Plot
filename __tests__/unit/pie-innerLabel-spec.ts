@@ -1,6 +1,7 @@
 import { Shape } from '@antv/g';
 import { Pie } from '../../src';
 import { distBetweenPoints } from '../../src/util/math';
+import { near } from '../utils/number';
 
 describe('Pie plot with innerLabel', () => {
   const canvasDiv = document.createElement('div');
@@ -94,7 +95,7 @@ describe('Pie plot with innerLabel', () => {
       const box = label.getBBox();
       const anchor = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
       const dist = distBetweenPoints(center, anchor);
-      expect(dist).toBe(radius);
+      expect(near(dist, radius)).toBe(true);
     });
   });
 

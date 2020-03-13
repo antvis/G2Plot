@@ -37,7 +37,7 @@ export interface ColumnViewConfig extends ViewConfig {
   maxWidth?: number;
   minWidth?: number;
   columnStyle?: ColumnStyle | ((...args: any[]) => ColumnStyle);
-  xAxis?: ICatAxis | ITimeAxis;
+  xAxis?: ICatAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
 }

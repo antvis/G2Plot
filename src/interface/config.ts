@@ -102,6 +102,7 @@ export interface ITimeAxis extends IBaseAxis {
   tickInterval?: string;
   tickCount?: number;
   groupBy?: string;
+  mask?: string;
 }
 /** 离散类目型 */
 export interface ICatAxis extends IBaseAxis {

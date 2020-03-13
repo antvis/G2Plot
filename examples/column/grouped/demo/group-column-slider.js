@@ -19,7 +19,10 @@ fetch('../data/subsales.json')
       color: ['#1ca9e6', '#f88c24'],
       xAxis: {
         visible: true,
-        autoHideLabel: true,
+        label: {
+          visible: true,
+          autoHide: true,
+        },
       },
       interactions: [
         {

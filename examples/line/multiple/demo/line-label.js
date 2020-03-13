@@ -20,7 +20,10 @@ fetch('../data/GDP.json')
       seriesField: 'name',
       xAxis: {
         type: 'dateTime',
-        autoHideLabel: true,
+        label: {
+          visible: true,
+          autoHide: true,
+        },
       },
       yAxis: {
         formatter: (v) => `${(v / 10e8).toFixed(1)} B`,

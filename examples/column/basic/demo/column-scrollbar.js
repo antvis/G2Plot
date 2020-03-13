@@ -15,15 +15,19 @@ fetch('../data/sales.json')
       forceFit: true,
       data,
       padding: 'auto',
-      data,
       xField: '城市',
       xAxis: {
         visible: true,
-        autoHideLabel: true,
+        label: {
+          autoHide: true,
+        },
       },
       yAxis: {
         visible: true,
-        formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+        label: {
+          visible: true,
+          formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+        },
       },
       yField: '销售额',
       interactions: [

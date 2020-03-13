@@ -1,6 +1,7 @@
 import { each, deepMix, clone, find } from '@antv/util';
 import { View, IGroup, Geometry } from '../../../dependents';
 import { rgb2arr } from '../../../util/color';
+import BBox from '../../../util/bbox';
 
 const DEFAULT_OFFSET = 8;
 
@@ -38,6 +39,7 @@ export default class RangeBarLabel {
   public destroyed: boolean = false;
   private plot: any;
   private view: View;
+  private coord: any;
   private container: IGroup;
 
   constructor(cfg: IRangeBarLabel) {
@@ -63,8 +65,8 @@ export default class RangeBarLabel {
   }
 
   public render() {
-    const geometry = this.getGeometry();
-    const elements = geometry.elements;
+    const { elements, coordinate } = this.getGeometry();
+    this.coord = coordinate;
     each(elements, (ele) => {
       const { shape } = ele;
       const positions = this.getPosition(shape);
@@ -124,6 +126,20 @@ export default class RangeBarLabel {
 
   public getBBox() {}
 
+  protected getShapeBbox(shape) {
+    const points = [];
+    each(shape.get('origin').points, (p) => {
+      points.push(this.coord.convertPoint(p));
+    });
+    const bbox = new BBox(
+      points[0].x,
+      points[1].y,
+      Math.abs(points[2].x - points[0].x),
+      Math.abs(points[0].y - points[1].y)
+    );
+    return bbox;
+  }
+
   private getDefaultOptions() {
     const { theme } = this.plot;
     const labelStyle = theme.label.style;
@@ -138,7 +154,7 @@ export default class RangeBarLabel {
   }
 
   private getPosition(shape) {
-    const bbox = shape.getBBox();
+    const bbox = this.getShapeBbox(shape);
     const { minX, maxX, minY, height, width } = bbox;
     const { offsetX, offsetY } = this.options;
     const y = minY + height / 2 + offsetY;

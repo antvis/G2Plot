@@ -1,6 +1,6 @@
 ---
-title: Waterfall Chart
-order: 6
+title: Range Bar Chart
+order: 5
 ---
 
 Description about this component.

@@ -46,7 +46,7 @@ export default class BarLabel {
   }
 
   public render() {
-    const { elements, coordinate }  = this.getGeometry();
+    const { elements, coordinate } = this.getGeometry();
     this.coord = coordinate;
     each(elements, (ele) => {
       const { shape } = ele;
@@ -101,11 +101,7 @@ export default class BarLabel {
   public getBBox() {}
 
   protected getPosition(shape, value) {
-    const points = [];
-    each(shape.get('origin').points,(p)=>{
-      points.push(this.coord.convertPoint(p));
-    });
-    const bbox = new BBox(points[0].x,points[2].y,Math.abs(points[1].x- points[0].x),Math.abs(points[0].y-points[2].y));
+    const bbox = this.getShapeBbox(shape);
     const { minX, maxX, minY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const y = minY + height / 2 + offsetY;
@@ -185,6 +181,20 @@ export default class BarLabel {
       style: clone(labelStyle),
       adjustPosition: true,
     };
+  }
+
+  protected getShapeBbox(shape) {
+    const points = [];
+    each(shape.get('origin').points, (p) => {
+      points.push(this.coord.convertPoint(p));
+    });
+    const bbox = new BBox(
+      points[0].x,
+      points[2].y,
+      Math.abs(points[1].x - points[0].x),
+      Math.abs(points[0].y - points[2].y)
+    );
+    return bbox;
   }
 
   private getGeometry() {

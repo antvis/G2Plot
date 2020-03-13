@@ -18,9 +18,9 @@ export default class StackBarLabel extends BarLabel {
   protected adjustLabel(label, shape) {
     if (this.options.adjustPosition) {
       const labelRange = label.getBBox();
-      const shapeRange = shape.getBBox();
+      const shapeRange = this.getShapeBbox(shape);
       if (shapeRange.width <= labelRange.width) {
-        const xPosition = shapeRange.maxX + this.options.offsetX;
+        // const xPosition = shapeRange.maxX + this.options.offsetX;
         label.attr('text', '');
       }
     }

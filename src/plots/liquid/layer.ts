@@ -58,13 +58,13 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   public beforeInit(){
     const { min, max, value } = this.options;
-    if(!min){
+    if(_.isNull(min)){
       throw new Error('The min value of Liquid is required.');
     }
-    if(!max){
+    if(_.isNull(max)){
       throw new Error('The max value of Liquid is required.');
     }
-    if(!value){
+    if(_.isNull(value)){
       throw new Error('The value of Liquid is required.');
     }
   }

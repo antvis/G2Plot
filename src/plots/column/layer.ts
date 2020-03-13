@@ -13,6 +13,7 @@ import './apply-responsive/theme';
 import './component/label/column-label';
 import * as EventParser from './event';
 import './theme';
+import { DataItem } from '../../interface/config';
 
 interface ColumnStyle {
   opacity?: number;
@@ -36,7 +37,7 @@ export interface ColumnViewConfig extends ViewConfig {
   maxWidth?: number;
   minWidth?: number;
   columnStyle?: ColumnStyle | ((...args: any[]) => ColumnStyle);
-  xAxis?: ICatAxis | ITimeAxis;
+  xAxis?: ICatAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
 }
@@ -129,6 +130,17 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       return G2_GEOM_MAP[type];
     }
     return PLOT_GEOM_MAP[type];
+  }
+
+  protected processData(originData?: DataItem[]) {
+    const { xField } = this.options;
+    const processedData = [];
+    _.each(originData, (data) => {
+      const d = _.clone(data);
+      d[xField] = d[xField].toString();
+      processedData.push(d);
+    });
+    return processedData;
   }
 
   protected scale() {

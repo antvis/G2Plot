@@ -56,6 +56,19 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   public type: string = 'liquid';
   private shouldFadeInAnnotation: boolean = true;
 
+  public beforeInit() {
+    const { min, max, value } = this.options;
+    if (_.isNull(min)) {
+      throw new Error('The min value of Liquid is required.');
+    }
+    if (_.isNull(max)) {
+      throw new Error('The max value of Liquid is required.');
+    }
+    if (_.isNull(value)) {
+      throw new Error('The value of Liquid is required.');
+    }
+  }
+
   public init() {
     this.options.data = [{}];
     super.init();

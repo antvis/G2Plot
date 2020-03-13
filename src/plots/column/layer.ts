@@ -133,9 +133,9 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   }
 
   protected processData(originData?: DataItem[]) {
-    const { xField }  = this.options;
+    const { xField } = this.options;
     const processedData = [];
-    _.each(originData,(data)=>{
+    _.each(originData, (data) => {
       const d = _.clone(data);
       d[xField] = d[xField].toString();
       processedData.push(d);

@@ -16,6 +16,7 @@ fetch('../data/subsales.json')
       xField: '城市',
       yField: '销售额',
       groupField: '细分',
+      color: ['#1ca9e6', '#f88c24'],
       xAxis: {
         visible: true,
         autoHideLabel: true,

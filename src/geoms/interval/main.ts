@@ -64,7 +64,7 @@ export default class IntervalParser extends ElementParser {
     const style = this.plot.options[styleProps];
     const config: any = {};
     if (isFunction(style)) {
-      config.fields = [this.config.position.fields];
+      config.fields = [this.config.color.fields[0]];
       config.callback = style;
     } else {
       config.cfg = style;

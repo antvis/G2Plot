@@ -22,7 +22,8 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
       pointSize: [2, 32],
       pointStyle: {
         stroke: null,
-        fillOpacity: 0.25,
+        strokeOpacity: 1,
+        fillOpacity: 0.5,
       },
       label: {
         position: 'middle',

@@ -18,7 +18,8 @@ const barPlot = new Bar(document.getElementById('container'), {
   data,
   xField: '销售额',
   yField: '地区',
-  xAxis: {
+  label: {
+    visible: true,
     formatter: (v) => Math.round(v / 10000) + '万',
   },
 });

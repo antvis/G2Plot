@@ -200,14 +200,12 @@ const stackBarPlot = new StackedBar(document.getElementById('container'), {
   data,
   yField: '地区',
   xField: '销售额',
-  xAxis: {
-    formatter: (v) => Math.round(v / 10000) + '万',
-  },
   stackField: '细分',
   label: {
     offset: 0,
     visible: true,
     position: 'middle',
+    formatter: (v) => Math.round(v / 10000) + '万',
   },
 });
 stackBarPlot.render();

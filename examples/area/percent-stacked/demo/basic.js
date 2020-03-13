@@ -122,5 +122,9 @@ const areaPlot = new PercentStackedArea(document.getElementById('container'), {
   xField: 'year',
   yField: 'value',
   stackField: 'country',
+  color: ['#82d1de', '#cb302d', '#e3ca8c'],
+  areaStyle: {
+    fillOpacity: 0.7,
+  },
 });
 areaPlot.render();

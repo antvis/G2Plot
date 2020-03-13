@@ -71,6 +71,7 @@ const histogramPlot = new Histogram(document.getElementById('container'), {
   padding: 'auto',
   data,
   binField: 'value',
-  binNumber: 6,
+  binNumber: 10,
+  color: '#1079a0',
 });
 histogramPlot.render();

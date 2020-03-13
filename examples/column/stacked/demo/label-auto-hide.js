@@ -156,6 +156,7 @@ const columnPlot = new StackedColumn(document.getElementById('container'), {
     min: 0,
   },
   stackField: 'type',
+  color: ['#ae331b', '#dadada', '#609db7', '#1a6179'],
   label: {
     visible: true,
     position: 'middle',

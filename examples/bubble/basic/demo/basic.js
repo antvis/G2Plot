@@ -11,11 +11,6 @@ fetch('../data/smoking-rate.json')
       pointSize: [4, 30],
       colorField: 'continent',
       color: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
-      pointStyle: {
-        stroke: '#777777',
-        lineWidth: 1,
-        opacity: 0.8,
-      },
       xAxis: {
         visible: true,
         max: 5,

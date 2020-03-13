@@ -33,6 +33,11 @@ const data = [
 ];
 
 const donutPlot = new Donut(document.getElementById('container'), {
+  theme: {
+    backgroundStyle: {
+      fill: '#2d74f7',
+    },
+  },
   forceFit: true,
   radius: 0.8,
   padding: 'auto',

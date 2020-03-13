@@ -1,6 +1,7 @@
 import { each, deepMix, clone } from '@antv/util';
 import { View, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
+import BBox from '../../../util/bbox';
 
 const DEFAULT_OFFSET = 8;
 
@@ -25,6 +26,7 @@ export default class BarLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
+  protected coord: any;
   protected container: IGroup;
 
   constructor(cfg: IBarLabel) {
@@ -44,7 +46,8 @@ export default class BarLabel {
   }
 
   public render() {
-    const elements = this.getGeometry().elements;
+    const { elements, coordinate }  = this.getGeometry();
+    this.coord = coordinate;
     each(elements, (ele) => {
       const { shape } = ele;
       const style = clone(this.options.style);
@@ -98,7 +101,11 @@ export default class BarLabel {
   public getBBox() {}
 
   protected getPosition(shape, value) {
-    const bbox = shape.getBBox();
+    const points = [];
+    each(shape.get('origin').points,(p)=>{
+      points.push(this.coord.convertPoint(p));
+    });
+    const bbox = new BBox(points[0].x,points[2].y,Math.abs(points[1].x- points[0].x),Math.abs(points[0].y-points[2].y));
     const { minX, maxX, minY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const y = minY + height / 2 + offsetY;

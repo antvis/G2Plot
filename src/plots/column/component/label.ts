@@ -104,7 +104,7 @@ export default class ColumnLabel {
     each(shape.get('origin').points,(p)=>{
       points.push(this.coord.convertPoint(p));
     });
-    const bbox = new BBox(points[0].x,points[1].y,Math.abs(points[2].x- points[0].x),Math.abs(points[0].x-points[1].x));
+    const bbox = new BBox(points[0].x,points[1].y,Math.abs(points[2].x- points[0].x),Math.abs(points[0].y-points[1].y));
     const { minX, maxX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const x = minX + width / 2 + offsetX;

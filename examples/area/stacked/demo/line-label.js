@@ -12,7 +12,6 @@ fetch('../data/oil.json')
         visible: true,
         text: '当label类型设置为line时，label与面积区域尾端顶部对齐。',
       },
-      padding: [20, 80, 30, 50],
       data,
       xField: 'date',
       yField: 'value',

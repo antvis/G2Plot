@@ -66,8 +66,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public beforeInit() {
     const { percent } = this.options;
-    if (_.isNull(percent)) {
-      throw new Error('Percent value is required.');
+    if (!_.isNumber(percent)) {
+      throw new Error('Percent value is required, and the type of percent must be Number.');
     }
   }
 

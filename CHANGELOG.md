@@ -1,3 +1,6 @@
+## <small>0.11.40 (2019-03-13)</small>
+- 🐞Liquid & process 必选数据类型判断
+
 ## <small>0.11.39 (2019-03-13)</small>
 - 🐞修复一些类型定义问题 ([e6d2a37](https://github.com/antvis/G2Plot/commit/e6d2a37))
 

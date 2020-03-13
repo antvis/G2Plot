@@ -82,7 +82,7 @@ describe('Bubble plot', () => {
     });
     expect(pointShapes.length).toBe(60);
     expect(pointShapes[0].attr('strokeOpacity')).toBe(1);
-    expect(pointShapes[1].attr('fillOpacity')).toBe(0.25);
+    expect(pointShapes[1].attr('fillOpacity')).toBe(0.5);
 
     bubblePlot.updateConfig({
       pointStyle: {

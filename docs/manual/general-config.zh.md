@@ -72,7 +72,7 @@ order: 2
 
 **optional**, 全局化配置图表数据元信息。
 
-`alias: string` 配置字段的别名，在 mata 配置别名将会影响坐标轴、tooltip 和 legend 上的字段名称显示<br/>
+`alias: string` 配置字段的别名，在 meta 配置别名将会影响坐标轴、tooltip 和 legend 上的字段名称显示<br/>
 `range: number[]` 字段数据的映射区间，默认为[0,1]<br/>
 
 ```js

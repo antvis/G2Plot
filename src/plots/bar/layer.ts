@@ -35,7 +35,7 @@ export interface BarViewConfig extends ViewConfig {
   maxWidth?: number;
   minWidth?: number;
   barStyle?: BarStyle | ((...args: any[]) => BarStyle);
-  xAxis?: ICatAxis | ITimeAxis;
+  xAxis?: ICatAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
 }
@@ -145,8 +145,16 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     return PLOT_GEOM_MAP[type];
   }
 
-  protected processData(data?: DataItem[]): DataItem[] {
-    return data ? data.slice().reverse() : data;
+  protected processData(originData?: DataItem[]) {
+    const inputData = originData ? originData.slice().reverse() : originData;
+    const { yField } = this.options;
+    const processedData = [];
+    _.each(inputData, (data) => {
+      const d = _.clone(data);
+      d[yField] = d[yField].toString();
+      processedData.push(d);
+    });
+    return processedData;
   }
 
   protected scale() {

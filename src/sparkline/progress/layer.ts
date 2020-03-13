@@ -64,6 +64,13 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     super.init();
   }
 
+  public beforeInit() {
+    const { percent } = this.options;
+    if (_.isNull(percent)) {
+      throw new Error('Percent value is required.');
+    }
+  }
+
   public update(cfg: UpdateConfig) {
     const props = this.options;
     if (_.hasKey(cfg, 'percent')) {

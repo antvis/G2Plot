@@ -1,6 +1,6 @@
 ---
-title: Waterfall Chart
-order: 6
+title: Ranged Column Chart
+order: 4
 ---
 
 Description about this component.

@@ -1,6 +1,7 @@
 import { View, IGroup } from '../../../dependents';
 import { clone, deepMix, each } from '@antv/util';
 import { mappingColor, rgb2arr } from '../../../util/color';
+import BBox from '../../../util/bbox';
 
 export interface ColumnLabelConfig {
   visible?: boolean;
@@ -23,6 +24,7 @@ export default class ColumnLabel {
   public destroyed: boolean = false;
   protected plot: any;
   protected view: View;
+  protected coord: any;
   protected container: IGroup;
 
   constructor(cfg: IColumnLabel) {
@@ -42,7 +44,8 @@ export default class ColumnLabel {
   }
 
   public render() {
-    const elements = this.getGeometry().elements;
+    const { elements, coordinate } = this.getGeometry();
+    this.coord = coordinate;
     each(elements, (ele) => {
       const { shape } = ele;
       const style = clone(this.options.style);
@@ -97,7 +100,7 @@ export default class ColumnLabel {
   public getBBox() {}
 
   protected getPosition(shape, value) {
-    const bbox = shape.getBBox();
+    const bbox = this.getShapeBbox(shape);
     const { minX, maxX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const x = minX + width / 2 + offsetX;
@@ -169,6 +172,20 @@ export default class ColumnLabel {
       style: clone(labelStyle),
       adjustPosition: true,
     };
+  }
+
+  protected getShapeBbox(shape) {
+    const points = [];
+    each(shape.get('origin').points, (p) => {
+      points.push(this.coord.convertPoint(p));
+    });
+    const bbox = new BBox(
+      points[0].x,
+      points[1].y,
+      Math.abs(points[2].x - points[0].x),
+      Math.abs(points[0].y - points[1].y)
+    );
+    return bbox;
   }
 
   private getGeometry() {

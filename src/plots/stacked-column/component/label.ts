@@ -16,7 +16,7 @@ export default class StackColumnLabel extends ColumnLabel {
   protected adjustLabel(label, shape) {
     if (this.options.adjustPosition) {
       const labelRange = label.getBBox();
-      const shapeRange = shape.getBBox();
+      const shapeRange = this.getShapeBbox(shape);
       if (shapeRange.height <= labelRange.height) {
         label.attr('text', '');
       }

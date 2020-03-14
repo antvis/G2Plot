@@ -351,20 +351,6 @@ offset: 20,
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ### label
 **可选**, *object*
@@ -429,8 +415,6 @@ triggerOff: 'mouseleave'
 | triggerOn | string | 触发显示的事件。默认为mousenter。如不配置则直接显示。 |
 | triggerOff | string | 触发隐藏的事件，默认为mouseleave。需要同triggerOn搭配使用。 |
 | content | string | 显示文本，默认不配置。 |
-| htmlContent | function | 配置指标卡的html内容，入参为显示数据，出参为html string。<br />通过此配置项，用户可以改变指标卡的显示结构。 |
-
 
 
 ## 事件

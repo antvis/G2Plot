@@ -272,27 +272,10 @@ visible: true,
 offset: 20,
 ```
 
-| 细分属性    | 类型     | 功能描述                                                                                                           |
-| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| visible     | boolean  | 是否显示                                                                                                           |
-| offset      | number   | 距离鼠标位置偏移值                                                                                                 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-htmlContent 用法示例：
-
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
+| 细分属性 | 类型    | 功能描述           |
+| -------- | ------- | ------------------ |
+| visible  | boolean | 是否显示           |
+| offset   | number  | 距离鼠标位置偏移值 |
 
 ### label
 
@@ -354,13 +337,12 @@ triggerOn: 'mouseenter';
 triggerOff: 'mouseleave';
 ```
 
-| 细分配置    | 类型     | 功能描述                                                                                                       |
-| ----------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| visible     | boolean  | 是否显示                                                                                                       |
-| triggerOn   | string   | 触发显示的事件。默认为 mousenter。如不配置则直接显示。                                                         |
-| triggerOff  | string   | 触发隐藏的事件，默认为 mouseleave。需要同 triggerOn 搭配使用。                                                 |
-| content     | string   | 显示文本，默认不配置。                                                                                         |
-| htmlContent | function | 配置指标卡的 html 内容，入参为显示数据，出参为 html string。<br />通过此配置项，用户可以改变指标卡的显示结构。 |
+| 细分配置   | 类型    | 功能描述                                                       |
+| ---------- | ------- | -------------------------------------------------------------- |
+| visible    | boolean | 是否显示                                                       |
+| triggerOn  | string  | 触发显示的事件。默认为 mousenter。如不配置则直接显示。         |
+| triggerOff | string  | 触发隐藏的事件，默认为 mouseleave。需要同 triggerOn 搭配使用。 |
+| content    | string  | 显示文本，默认不配置。                                         |
 
 ## 事件
 

@@ -275,7 +275,7 @@ style: {
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -298,7 +298,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -323,7 +323,7 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 默认配置：
 
@@ -364,7 +364,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -408,7 +408,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置了seriesField时显示，用于展示颜色分类信息
 
@@ -457,8 +457,8 @@ offset: 20,
 
 **可选**, *object*
 
-[DEMO1](../../../../examples/area/stacked#area-label)
-[DEMO2](../../../../examples/area/stacked#line-label)
+[DEMO1](../../../examples/area/stacked#area-label)
+[DEMO2](../../../examples/area/stacked#line-label)
 
 功能描述： 标签文本
 
@@ -483,7 +483,7 @@ type: 'area'
 
 **可选**, *object[]*
 
-[DEMOS](../../../../examples/general/guideLine)
+[DEMOS](../../../examples/general/guideLine)
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 
@@ -599,7 +599,7 @@ type: 'area'
 ### slider ✨
 **可选**, *object*
 
-[DEMO](../../../../examples/line/basic#line-slider)
+[DEMO](../../../examples/line/basic#line-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于折线数据较多，用户希望关注数据集中某个特殊区间的场景。
 

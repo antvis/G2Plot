@@ -119,7 +119,7 @@ areaPlot.render();
 
 **必选**, _number_
 
-[DEMO](../../../../examples/bullet/basic#overflow)
+[DEMO](../../bullet/basic#overflow)
 
 功能描述： 进度条的色条范围区间最大值
 
@@ -155,7 +155,7 @@ areaPlot.render();
 
 **可选**, _string[]_
 
-[DEMO](../../../../examples/bullet/basic#color-range)
+[DEMO](../../bullet/basic#color-range)
 
 功能描述：设置进度条背景颜色，进度条的色条区间颜色依次取数组中的颜色色值
 
@@ -194,7 +194,7 @@ areaPlot.render();
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -220,7 +220,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -283,8 +283,8 @@ tickLine: {
 
 **可选**, _object_
 
-[DEMOS1](../../../../examples/bullet/basic#color-range)
-[DEMOS2](../../../../examples/bullet/basic#group-color-range)
+[DEMOS1](../../bullet/basic#color-range)
+[DEMOS2](../../bullet/basic#group-color-range)
 
 功能描述：图例，用于展示颜色分类信息
 

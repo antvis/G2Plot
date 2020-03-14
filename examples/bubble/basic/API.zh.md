@@ -141,7 +141,7 @@ areaPlot.render();
 
 **可选**, _string | string[] | Function_
 
-[**DEMO1**](../../../../examples/scatter/basic#color-mapping)
+[**DEMO1**](../../scatter/basic#color-mapping)
 
 功能描述： 指定点的颜色。如没有配置 colorField,指定一个单值即可。对 colorFiled 进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -184,7 +184,7 @@ bubblePlot.render();
 
 **可选**, _object_
 
-[**DEMO**](../../../../examples/scatter/basic#color-mapping)
+[**DEMO**](../../scatter/basic#color-mapping)
 
 功能描述： 设置折线样式。pointStyle 中的`fill`会覆盖 `color` 的配置。pointtyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
 
@@ -208,7 +208,7 @@ bubblePlot.render();
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -234,7 +234,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -262,7 +262,7 @@ style:{
 
 功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 默认配置：
 
@@ -302,7 +302,7 @@ title: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
 
@@ -346,7 +346,7 @@ title: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../general/legend#legend-position)
 
 功能描述：图例，配置了 `colorField` 时显示，用于展示颜色分类信息
 
@@ -415,7 +415,7 @@ style:{
 
 **可选**， _object_
 
-[DEMO](../../../../examples/bubble/basic#quadrant)
+[DEMO](../../bubble/basic#quadrant)
 
 功能描述： 四象限组件。将图表区域进行象限划分，用以展示线性数据的分类趋势。
 
@@ -432,7 +432,7 @@ style:{
 
 **可选**，_object_
 
-[DEMO](../../../../examples/bubble/basic#trendline)
+[DEMO](../../bubble/basic#trendline)
 
 功能描述： 趋势线组件，为图表田间回归曲线。
 

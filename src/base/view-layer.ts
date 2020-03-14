@@ -97,7 +97,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         shared: true,
         showCrosshairs: true,
         crosshairs: {
-          type: 'y',
+          type: 'x',
         },
         offset: 20,
       },

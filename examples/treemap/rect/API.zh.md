@@ -186,7 +186,7 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -212,7 +212,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -256,7 +256,7 @@ offset: 20,
 
 **可选**, _object_
 
-[DEMO](../../../../examples/treemap/rect#label)
+[DEMO](../../treemap/rect#label)
 
 功能描述： 标签文本
 
@@ -339,7 +339,7 @@ style:{
 
 **可选**, _object_
 
-[DEMO](../../../../examples/treemap/rect#drilldown)
+[DEMO](../../treemap/rect#drilldown)
 
 数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
 

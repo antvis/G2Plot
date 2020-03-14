@@ -185,7 +185,7 @@ color:(d)=>{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -211,7 +211,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -237,7 +237,7 @@ style:{
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../general/legend#legend-position)
 
 功能描述：图例，配置 colorField 时显示，用于展示颜色分类信息
 
@@ -283,10 +283,10 @@ offset: 20,
 
 功能描述： 标签文本
 
-[DEMO1](../../../../examples/pie/basic#basic)
-[DEMO2](../../../../examples/pie/basic#outer-label)
-[DEMO3](../../../../examples/pie/basic#outer-center-label)
-[DEMO4](../../../../examples/pie/basic#spider-label)
+[DEMO1](../../pie/basic#basic)
+[DEMO2](../../pie/basic#outer-label)
+[DEMO3](../../pie/basic#outer-center-label)
+[DEMO4](../../pie/basic#spider-label)
 
 默认配置：
 
@@ -325,7 +325,7 @@ label: {
 
 **可选**, _object_
 
-[DEMO](../../../../examples/pie/donut#ring-statistic)
+[DEMO](../../pie/donut#ring-statistic)
 
 功能描述： 指标卡组件，显示在环图中心，可以代替 tooltip，显示环图数据的总计值和各项数据。启用 statistic 组件的同时将自动关闭 tooltip。
 

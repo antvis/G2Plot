@@ -191,7 +191,7 @@ color:(d)=>{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -217,7 +217,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -243,7 +243,7 @@ style:{
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
 
@@ -285,7 +285,7 @@ title: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
 
@@ -329,7 +329,7 @@ grid: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../general/legend#legend-position)
 
 功能描述：图例，配置 colorField 时显示，用于展示颜色分类信息
 
@@ -373,7 +373,7 @@ offset: 20,
 
 功能描述： 标签文本，与其他条形图家族图表不同，区间条形图的 label 为一对。
 
-[DEMO](../../../../examples/bar/range#range-bar-label)
+[DEMO](../../bar/range#range-bar-label)
 
 默认配置：
 
@@ -458,7 +458,7 @@ adjustPosition: true
 
 **可选**, _object_
 
-[DEMO](../../../../examples/bar/basic#scroll-bar)
+[DEMO](../../bar/basic#scroll-bar)
 
 功能描述： 配置竖向滚动条，适用于数据较多的场景。
 

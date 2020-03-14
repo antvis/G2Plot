@@ -127,7 +127,7 @@ areaPlot.render();
 
 **必选**, _string_
 
-[**DEMO**](../../../../examples/line/multiple#line-multiple)
+[**DEMO**](../../line/multiple#line-multiple)
 
 功能描述： 多折线必选。 数据集中的分组字段名，一般对应一个分类字段。通过该字段的值，折线图将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
 
@@ -143,9 +143,9 @@ areaPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-[**DEMO1**](../../../../examples/line/multiple#line-color)
+[**DEMO1**](../../line/multiple#line-color)
 
-[**DEMO2**](../../../../examples/line/multiple#color-callback)
+[**DEMO2**](../../line/multiple#color-callback)
 
 ### lineSize ✨
 
@@ -159,7 +159,7 @@ areaPlot.render();
 
 **可选**, _object_
 
-[**DEMO**](../../../../examples/line/multiple#line-style)
+[**DEMO**](../../line/multiple#line-style)
 
 功能描述： 设置折线样式。linsStyle 中的`lineWidth`会覆盖 `lineSize` 的配置，`stroke`会覆盖`color`的设置。lineStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每一条折线指定单独的样式。
 
@@ -176,7 +176,7 @@ areaPlot.render();
 
 **可选**, _boolean_
 
-[DEMO](../../../../examples/line/basic#line-smooth)
+[DEMO](../../line/basic#line-smooth)
 
 功能描述： 是否将折线绘制为曲线 (spline)。
 
@@ -186,8 +186,8 @@ areaPlot.render();
 
 **可选**, _object_
 
-[DEMO1](../../../../examples/line/basic#line-with-point)
-[DEMO2](../../../../examples/line/basic#line-point-style)
+[DEMO1](../../line/basic#line-with-point)
+[DEMO2](../../line/basic#line-point-style)
 
 功能描述： 配置折线上的点
 
@@ -217,7 +217,7 @@ style: {
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -243,7 +243,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -271,7 +271,7 @@ style:{
 
 功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 默认配置：
 
@@ -313,7 +313,7 @@ title: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
 
@@ -358,7 +358,7 @@ title: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../general/legend#legend-position)
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
@@ -442,7 +442,7 @@ style:{
 
 **可选**, _object[]_
 
-[DEMOS](../../../../examples/general/guideLine)
+[DEMOS](../../general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y64CRIP7g1QAAAAAAAAAAABkARQnAQ" width="400">
 
@@ -546,7 +546,7 @@ style:{
 
 **可选**, _object_
 
-[DEMO](../../../../examples/line/basic#line-slider)
+[DEMO](../../line/basic#line-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于折线数据较多，用户希望关注数据集中某个特殊区间的场景。
 

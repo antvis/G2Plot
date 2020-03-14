@@ -127,7 +127,7 @@ areaPlot.render();
 
 **必选**, _string_
 
-[DEMO](../../../../examples/radar/basic#series)
+[DEMO](../../radar/basic#series)
 
 功能描述： 对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
 
@@ -224,7 +224,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -250,7 +250,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -372,7 +372,7 @@ title: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../general/legend#legend-position)
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 

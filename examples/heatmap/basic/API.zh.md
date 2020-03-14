@@ -202,7 +202,7 @@ matrixPlot.render();
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -228,7 +228,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -256,7 +256,7 @@ style:{
 
 功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 默认配置：
 
@@ -287,7 +287,7 @@ line: {
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
 

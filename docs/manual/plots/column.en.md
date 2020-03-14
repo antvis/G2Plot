@@ -295,7 +295,7 @@ color:(d)=>{
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -318,7 +318,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -341,7 +341,7 @@ style:{
 ### xAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -381,7 +381,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -422,7 +422,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../../examples/general/legend#legend-position)
 
 功能描述：图例，配置colorField时显示，用于展示颜色分类信息
 
@@ -463,9 +463,9 @@ offset: 20,
 
 功能描述： 标签文本
 
-[DEMO1](../../../../examples/column/basic#column-label)
-[DEMO2](../../../../examples/column/basic#column-label-position)
-[DEMO3](../../../../examples/column/basic#column-label-color-adjust)
+[DEMO1](../../../examples/column/basic#column-label)
+[DEMO2](../../../examples/column/basic#column-label-position)
+[DEMO3](../../../examples/column/basic#column-label-color-adjust)
 
 默认配置：
 ```js
@@ -500,7 +500,7 @@ adjustPosition: false
 
 **可选**, *object[]*
 
-[DEMO](../../../../examples/general/guideLine)
+[DEMO](../../../examples/general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LIhaRqo-6M4AAAAAAAAAAABkARQnAQ" width="400">
 
@@ -551,7 +551,7 @@ adjustPosition: false
 
 **可选**, *object*
 
-[DEMO](../../../../examples/column/basic#column-conversion)
+[DEMO](../../../examples/column/basic#column-conversion)
 
 <img src="https://gw.alicdn.com/tfs/TB1kHAevO_1gK0jSZFqXXcpaXXa-1568-1130.png" width="400">
 
@@ -636,7 +636,7 @@ arrow:{
 ### slider ✨
 **可选**, *object*
 
-[DEMO](../../../../examples/column/basic#column-slider)
+[DEMO](../../../examples/column/basic#column-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
 
@@ -656,7 +656,7 @@ arrow:{
 ### scrollBar ✨
 **可选**, *object*
 
-[DEMO](../../../../column/basic#column-scrollbar)
+[DEMO](../../../column/basic#column-scrollbar)
 
 功能描述： 配置横向滚动条，适用于数据较多的场景。
 

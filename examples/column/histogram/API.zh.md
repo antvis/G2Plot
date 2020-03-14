@@ -119,7 +119,7 @@ areaPlot.render();
 
 **可选**, _number_
 
-[DEMO](../../../../examples/column/histogram#histogram-binWidth)
+[DEMO](../../column/histogram#histogram-binWidth)
 
 功能描述： 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱。
 
@@ -131,7 +131,7 @@ areaPlot.render();
 
 **可选**, _number_
 
-[DEMO](../../../../examples/column/histogram#histogram-binNumber)
+[DEMO](../../column/histogram#histogram-binNumber)
 
 功能描述： 设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度。
 
@@ -174,7 +174,7 @@ areaPlot.render();
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -200,7 +200,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -226,7 +226,7 @@ style:{
 
 **可选**, _object_
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../general/axis)
 
 功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
 
@@ -361,7 +361,7 @@ adjustPosition: false
 
 **可选**, _object[]_
 
-[DEMOS](../../../../examples/general/guideLine)
+[DEMOS](../../general/guideLine)
 
 功能描述： 配置图表辅助线，支持同时配置多条。
 
@@ -455,7 +455,7 @@ adjustPosition: false
 
 **可选**, _object_
 
-[DEMO](../../../../examples/column/basic#column-slider)
+[DEMO](../../column/basic#column-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于数据较多，用户希望关注数据集中某个特殊区间的场景。
 
@@ -476,7 +476,7 @@ adjustPosition: false
 
 **可选**, _object_
 
-[DEMO](../../../../examples/column/basic#column-scrollbar)
+[DEMO](../../column/basic#column-scrollbar)
 
 功能描述： 配置横向滚动条，适用于数据较多的场景。
 

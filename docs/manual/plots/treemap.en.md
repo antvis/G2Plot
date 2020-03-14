@@ -3,7 +3,7 @@ title: Treemap - 矩形树图
 order: 24
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
@@ -193,8 +193,6 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 
 
 ## 图表组件
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JwhARLXcoo0AAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 **可选**, *optional*

@@ -3,7 +3,7 @@ title: Treemap - 矩形树图
 order: 24
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 

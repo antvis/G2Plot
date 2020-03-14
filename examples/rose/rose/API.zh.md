@@ -2,6 +2,53 @@
 title: API
 ---
 
+# 快速上手
+
+```js
+import { Rose } from '@antv/g2plot';
+
+const data = [
+  {
+    type: '分类一',
+    value: 27,
+  },
+  {
+    type: '分类二',
+    value: 25,
+  },
+  {
+    type: '分类三',
+    value: 18,
+  },
+  {
+    type: '分类四',
+    value: 15,
+  },
+  {
+    type: '分类五',
+    value: 10,
+  },
+  {
+    type: '其它',
+    value: 5,
+  },
+];
+
+const rosePlot = new Rose(document.getElementById('container'), {
+  data,
+  radiusField: 'value',
+  categoryField: 'type',
+  colorField: 'type',
+  label: {
+    visible: true,
+    type: 'outer',
+    formatter: (text) => text,
+  },
+});
+
+rosePlot.render();
+```
+
 # 配置属性
 
 ## 图表容器
@@ -107,66 +154,61 @@ areaPlot.render();
 
 ```
 
-### xField 📌
+### radiusField 📌
 
 **必选**, _string_
 
-功能描述： 条形在 x 方向长度映射对应的数据字段名，一般对应一个离散字段。
+功能描述：扇形切片半径长度所对应的数据字段名。
 
-默认配置： 无
-
-### yField 📌
+### categoryField 📌
 
 **必选**, _string_
 
-功能描述： 条形在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
+功能描述：扇形切片分类所对应的数据字段名（每个扇形的弧度相等）。
 
-默认配置： 无
-
-### groupField 📌
+### colorField 📌
 
 **必选**, _string_
 
-功能描述：数据集中的分组字段名，通过该字段的值，条形将会被分为多个组，通过颜色进行区分。
-
-默认配置： 无
+功能描述： 扇形切片颜色所对应的数据字段名。
 
 ## 图形样式
+
+### radius ✨
+
+**可选**, _number_
+
+功能描述： 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。
+
+默认配置： 0.8, 即 width / 2 \* 0.8。
 
 ### color
 
 **可选**, _string | string[] | Function_
 
-功能描述： 指定条形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+功能描述： 指定扇形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
 
 默认配置：采用 theme 中的色板。
 
 用法示例：
 
 ```js
-// 直接指定颜色
+// 配合颜色映射，指定多值
+colorField:'type',
 color:['blue','yellow','green']
-// 通过callback指定颜色
+//配合颜色映射，使用回调函数指定色值
 colorField:'type',
 color:(d)=>{
-    if(d==='a') return ['blue','yellow','green'];
-    return ['blue','green','yellow'];
+    if(d==='a') return 'red';
+    return 'blue';
 }
 ```
 
-### barSize ✨
-
-**可选**, _number_
-
-功能描述： 设置条形高度。对于一般场景来说，条形高度会根据数据自行计算，不需特别指定。
-
-默认配置： 无
-
-### barStyle ✨
+### sectorStyle ✨
 
 **可选**, _object_
 
-功能描述： 设置条形样式。barStyle 中的`fill`会覆盖 `color` 的配置。barStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+功能描述： 设置扇形样式。sectorStyle 中的`fill`会覆盖 `color` 的配置。sectorStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
 
 默认配置： 无
 
@@ -182,7 +224,7 @@ color:(d)=>{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*n9kyT59WDlIAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x9I-R6gkDBcAAAAAAAAAAABkARQnAQ" width="600">
 
 ### title
 
@@ -236,105 +278,19 @@ style:{
 | position | string  | 位置，支持三种配置：<br />'left'                                                                                                                                                                                                                                                          | 'middle' | 'right' |
 | style    | object  | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### yAxis
-
-**可选**, _object_
-
-[DEMOS](../../../../examples/general/axis)
-
-功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
-
-默认配置：
-
-```js
-visible: true,
-grid: {
-    visible: false,
-},
-line: {
-    visible: false,
-},
-tickLine: {
-    visible: false,
-},
-label: {
-    visible: true,
-    autoRotate: true,
-    autoHide: true
-},
-title: {
-    visible: false,
-    offset: 12,
-}
-```
-
-| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                                              |
-| -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| visible  | boolean | 是否可见                                                                                                                                                                                                                                                                                                              |
-| line     | object  | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br />                                                                                                                                                                                                                                       |
-| grid     | object  | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br />                                                                                                                                                                                                                                         |
-| label    | object  | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function  坐标轴标签格式化<br />- suffix: string 后缀<br />- offsetX: number 位置在 x 方向上的偏移量<br />- offsetY：number 位置在 y 方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
-| tickLine | object  | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br />                                                                                                                                                                                                                                           |
-| title    | object  | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br />                                                                                                                                                                            |
-
-### xAxis
-
-**可选**, _object_
-
-[DEMOS](../../../../examples/general/axis)
-
-功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
-
-默认配置：
-
-```js
-visible: true,
-grid: {
-    visible: true,
-},
-line: {
-    visible: false,
-},
-tickLine: {
-    visible: true,
-},
-label: {
-    visible: true,
-    autoHide: true,
-    autoRotate: true
-},
-title: {
-    visible: true,
-    offset: 12,
-}
-```
-
-| 细分配置     | 类型    | 功能描述                                                                                                                                                                                                                                                                                                                                                                                      |
-| ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| visible      | boolean | 是否可见                                                                                                                                                                                                                                                                                                                                                                                      |
-| tickCount    | number  | 坐标轴刻度数量                                                                                                                                                                                                                                                                                                                                                                                |
-| tickInterval | number  | 坐标轴刻度间隔                                                                                                                                                                                                                                                                                                                                                                                |
-| min          | number  | 设置坐标轴最小值                                                                                                                                                                                                                                                                                                                                                                              |
-| max          | number  | 设置坐标轴最大值                                                                                                                                                                                                                                                                                                                                                                              |
-| line         | object  | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br />                                                                                                                                                                                                                                                                                                               |
-| grid         | object  | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br />                                                                                                                                                                                                                                                                                                                 |
-| label        | object  | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在 x 方向上的偏移量<br />- offsetY：number 位置在 y 方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
-| tickLine     | object  | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br />                                                                                                                                                                                                                                                                                                                   |
-| title        | object  | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br />                                                                                                                                                                                                                                                    |
-
 ### legend
 
 **可选**, _object_
 
 [DEMOS](../../../../examples/general/legend#legend-position)
 
-功能描述：图例，用于展示颜色分类信息
+功能描述：图例，配置 colorField 时显示，用于展示颜色分类信息
 
 默认配置：
 
 ```js
 visible: true,
-position: 'left-top',
+position: 'top',
 flipPage: true
 ```
 
@@ -390,39 +346,30 @@ htmlContent: (title, items) => {
 默认配置：
 
 ```js
-visible: false
-position: 'middle'
-offsetX: 6
-offsetY: 6
-style:{
-  fill: 'rgba(0, 0, 0, 0.65)',
-  stroke: '#ffffff',
-  lineWidth: 2,
-},
-adjustColor: true,
-adjustPosition: false
+visible: false;
+type: 'inner';
+autoRotate: true;
 ```
 
-| 细分配置       | 类型     | 功能描述                                                                                                                 |
-| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| visible        | boolean  | 是否显示                                                                                                                 |
-| position       | string   | label 的位置<br />- left 位于条形左边<br />- middle 位于条形水平中心<br />- right 位于条形右侧<br />                     |
-| formatter      | function | 对文本标签内容进行格式化                                                                                                 |
-| offsetX        | number   | 在 label 位置的基础上再往 x 方向的偏移量                                                                                 |
-| offsetY        | number   | 在 label 位置的基础上再往 y 方向的偏移量                                                                                 |
-| style          | object   | 配置文本标签样式。                                                                                                       |
-| adjustColor    | boolean  | 文本标签颜色是否自动适应图形颜色，position 为 middle 时有效。                                                            |
-| adjustPosition | boolean  | 是否根据显示区域自动调整文本标签位置，position 为 middle 时有效。如图形区域容纳不下 label，则 label 自动调整至图形右侧。 |
+| 细分配置   | 类型     | 功能描述                                                                       |
+| ---------- | -------- | ------------------------------------------------------------------------------ |
+| visible    | boolean  | 是否显示                                                                       |
+| type       | string   | label 的类型<br />- inner label 显示于扇形切片内<br />- outer label 显示于外侧 |
+| autoRotate | boolean  | 是否自动旋转                                                                   |
+| formatter  | function | 对文本标签内容进行格式化                                                       |
+| offsetX    | number   | 在 label 位置的基础上再往 x 方向的偏移量                                       |
+| offsetY    | number   | 在 label 位置的基础上再往 y 方向的偏移量                                       |
+| style      | object   | 配置文本标签样式。                                                             |
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vl78Qq6PDyUAAAAAAAAAAABkARQnAQ" width="800">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*v47dTIPtnysAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px;">
 
 ## 事件
 
 ### 图形事件
 
-| onBarClick<br />条形点击事件         | onBarDblClick<br />条形双击事件      | onBarDblClick<br />条形双击事件    | onBarMouseleave<br />条形鼠标离开事件 |
-| ------------------------------------ | ------------------------------------ | ---------------------------------- | ------------------------------------- |
-| onBarMousemove<br />条形鼠标移动事件 | onBarMousedown<br />条形鼠标按下事件 | onBarMouseup<br />条形鼠标松开事件 | onBarMouseenter<br />条形鼠标进入事件 |
+| onRoseClick<br />图形点击事件         | onRoseDblClick<br />图形双击事件      | onRoseDblClick<br />图形双击事件    | onRoseMouseleave<br />图形鼠标离开事件 |
+| ------------------------------------- | ------------------------------------- | ----------------------------------- | -------------------------------------- |
+| onRoseMousemove<br />图形鼠标移动事件 | onRoseMousedown<br />图形鼠标按下事件 | onRoseMouseup<br />图形鼠标松开事件 | onRoseMouseenter<br />图形鼠标进入事件 |
 
 ### 图表区域事件
 
@@ -435,12 +382,6 @@ adjustPosition: false
 | onLegendClick<br />图例点击事件         | onLegendDblClick<br />图例双击事件      | onLegendMouseenter<br />图例鼠标进入事件 | onLegendMouseleave<br />图例鼠标离开事件 |
 | --------------------------------------- | --------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件    | onLegendMouseenter<br />图例鼠标进入事件 |
-
-### 坐标轴事件
-
-| onAxisClick<br />坐标轴点击事件         | onAxisDblClick<br />坐标轴双击事件      | onAxisDblClick<br />坐标轴双击事件    | onAxisMouseleave<br />坐标轴鼠标离开事件 |
-| --------------------------------------- | --------------------------------------- | ------------------------------------- | ---------------------------------------- |
-| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件  |
 
 ### 图形标签事件
 
@@ -460,25 +401,7 @@ adjustPosition: false
 | -------------------------------------------- | -------------------------------------------- | ------------------------------------------ | --------------------------------------------- |
 | onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
 
-## 交互
-
-### scrollBar ✨
-
-**可选**, _object_
-
-[DEMO](../../../../examples/bar/basic#scroll-bar)
-
-功能描述： 配置竖向滚动条，适用于数据较多的场景。
-
-示例代码：
-
-```js
-interactions: [
-  {
-    type: 'scrollbar',
-    },
-],
-```
+## theme
 
 # 图表方法
 

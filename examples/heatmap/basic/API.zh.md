@@ -2,10 +2,571 @@
 title: API
 ---
 
-- Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
-- Server-side Rendering
-- [Electron](http:// electron.atom.io/)
+# 配置属性
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http:// godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IE9, IE10, IE11, Edge                                                                                                                                                                                            | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |
+## 图表容器
+
+### width
+
+**可选**, _number_
+
+功能描述： 设置图表宽度。
+
+默认配置： `400`
+
+### height
+
+**可选**, _number_
+
+功能描述： 设置图表高度。
+
+默认配置： `400`
+
+### forceFit
+
+**可选**, _boolean_
+
+功能描述： 图表是否自适应容器宽高。当 `forceFit` 设置为 true 时，`width` 和 `height` 的设置将失效。
+
+默认配置： `true`
+
+### pixelRatio
+
+**可选**, _number_
+
+功能描述： 设置图表渲染的像素比
+
+默认配置： `2`
+
+### renderer
+
+**可选**, _string_
+
+功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
+
+默认配置： `canvas`
+
+## 数据映射
+
+### data
+
+**必选**, _array object_
+
+功能描述： 设置图表数据源
+
+默认配置： 无
+
+数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+
+### meta
+
+**可选**, _object_
+
+功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
+
+默认配置： 无
+
+| 细分配置项名称 | 类型       | 功能描述                                    |
+| -------------- | ---------- | ------------------------------------------- |
+| alias          | _string_   | 字段的别名                                  |
+| formatter      | _function_ | callback 方法，对该字段所有值进行格式化处理 |
+| values         | _string[]_ | 枚举该字段下所有值                          |
+| range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
+
+```js
+const data = [
+  { country: 'Asia', year: '1750', value: 502,},
+  { country: 'Asia', year: '1800', value: 635,},
+  { country: 'Europe', year: '1750', value: 163,},
+  { country: 'Europe', year: '1800', value: 203,},
+];
+
+const areaPlot = new PercentageStackArea(document.getElementById('container'), {
+  title: {
+    visible: true,
+    text: '百分比堆叠面积图',
+  },
+  data,
+  // highlight-start
+  meta: {
+    year: {
+      alias:'年份'
+      range: [0, 1],
+    },
+    value: {
+      alias: '数量',
+      formatter:(v)=>{return `${v}个`}
+    }
+  },
+  // highlight-end
+  xField: 'year',
+  yField: 'value',
+  stackField: 'country',
+});
+areaPlot.render();
+
+```
+
+### xField
+
+**必选**, _string_
+
+功能描述： 色块形状在 x 方向位置映射对应的数据字段名，一般对应一个分类字段。
+
+默认配置： 无
+
+### yField
+
+**必选**, _string_
+
+功能描述： 色块形状在 y 方向位置映射所对应的数据字段名，一般对应一个分类字段。
+
+默认配置： 无
+
+### colorField
+
+**必选**, _string_
+
+功能描述: 色块颜色映射对应的数据字段名，一般对应一个连续字段。
+
+默认配置： 无
+
+### sizeField
+
+**optional**, string 类型
+
+功能描述： 指定色块形状大小映射的字段，要求必须为一个**连续字段**。
+
+默认配置： 无
+
+## 图形样式
+
+### color
+
+**可选**, string[]
+
+功能描述： 指定色块图颜色映射的色带颜色，数值中的值为色带节点的色值。
+默认配置： 采用 theme 中的配色。
+
+例如，下图的连续渐变色带是这样通过`color`配置项生成：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*s4l-TZbuhmMAAAAAAAAAAABkARQnAQ" width="300">
+
+```js
+color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d92', '#bc448c'];
+```
+
+### shapeSize
+
+**可选**, _number[]_
+
+功能描述：指定色块形状大小的值域，顺序为[`min`,`max`]。
+
+默认配置：[5,50]
+
+用法示例：
+
+```js
+const matrixPlot = new Matrix(document.getElementById('container'), {
+  data,
+  xField: 'name',
+  yField: 'country',
+  colorField: 'value',
+  sizeField: 'value',
+  shapeSize: [2, 20],
+});
+matrixPlot.render();
+```
+
+### shapeType
+
+**可选**, _string_
+
+功能描述： 指定色块形状的类型，支持设置`rect`和`circle`两种类型。
+
+默认配置： 默认为`rect`。
+
+### forceSquare
+
+**可选**, _boolean_
+
+功能描述：是否强制色块形状的 width 和 height 相等。
+
+默认配置： false
+
+## 图表组件
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Ne3KQI23QJ0AAAAAAAAAAABkARQnAQ" width="600">
+
+### title
+
+**可选**, _optional_
+
+[DEMOS](../../../../examples/general/title-description)
+
+功能描述： 配置图表的标题，默认显示在图表左上角。
+
+默认配置：
+
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 18,
+    fill: 'black',
+}
+```
+
+| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                  |
+| -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| visible  | boolean | 是否显示                                                                                                                                                                                                                                                                                  |
+| position | string  | 位置，支持三种配置：<br />'left'                                                                                                                                                                                                                                                          | 'middle' | 'right' |
+| style    | object  | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
+### description
+
+**可选**, _optional_
+
+[DEMOS](../../../../examples/general/title-description)
+
+功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
+
+默认配置：
+
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 12,
+    fill: 'grey',
+}
+```
+
+| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                  |
+| -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| visible  | boolean | 是否显示                                                                                                                                                                                                                                                                                  |
+| position | string  | 位置，支持三种配置：<br />'left'                                                                                                                                                                                                                                                          | 'middle' | 'right' |
+| style    | object  | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
+### xAxis
+
+**可选**, _object_
+
+功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
+
+[DEMOS](../../../../examples/general/axis)
+
+默认配置：
+
+```js
+visible: true,
+gridAlign: 'center',
+grid: {
+    visible: true,
+},
+tickLine: {
+    visible: true,
+},
+line: {
+    visible: false,
+},
+```
+
+| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| visible  | boolean | 是否可见                                                                                                                                                                                                                                                                                                                                                                                         |
+| line     | object  | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br />                                                                                                                                                                                                                                                                                                                  |
+| grid     | object  | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br />                                                                                                                                                                                                                                                                                                                    |
+| label    | object  | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function  坐标轴标签格式化<br />- suffix: string 后缀<br />- mask: string 为日期文本添加格式化遮罩，当坐标轴 type 为 time 时生效<br />- offsetX: number 位置在 x 方向上的偏移量<br />- offsetY：number 位置在 y 方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
+| tickLine | object  | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br />                                                                                                                                                                                                                                                                                                                      |
+| title    | object  | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br />                                                                                                                                                                                                                                                       |
+
+### yAxis
+
+**可选**, _object_
+
+[DEMOS](../../../../examples/general/axis)
+
+功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
+
+默认配置：
+
+```js
+visible: true,
+grid: {
+    visible: true,
+},
+line: {
+    visible: true,
+},
+tickLine: {
+    visible: true,
+},
+label: {
+    visible: true,
+    autoRotate: true,
+    autoHide: true
+},
+title: {
+    visible: false,
+},
+```
+
+| 细分配置     | 类型    | 功能描述                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| visible      | boolean | 是否可见                                                                                                                                                                                                                                                                                                                                                                                      |
+| tickCount    | number  | 坐标轴刻度数量                                                                                                                                                                                                                                                                                                                                                                                |
+| tickInterval | number  | 坐标轴刻度间隔                                                                                                                                                                                                                                                                                                                                                                                |
+| min          | number  | 设置坐标轴最小值                                                                                                                                                                                                                                                                                                                                                                              |
+| max          | number  | 设置坐标轴最大值                                                                                                                                                                                                                                                                                                                                                                              |
+| line         | object  | 坐标轴轴线<br />- visible: boolean 是否可见<br />- style：object 轴线样式<br />                                                                                                                                                                                                                                                                                                               |
+| grid         | object  | 网格线<br />- visible: boolean 是否可见<br />- style：object 网格线样式<br />                                                                                                                                                                                                                                                                                                                 |
+| label        | object  | 坐标轴标签<br />- visible: boolean 是否可见<br />- formatter: function 坐标轴标签格式化 DEMO<br />- suffix: string 后缀<br />- precision：number  标签精度，如配置为 2，则格式化为 2 位小数<br />- offsetX: number 位置在 x 方向上的偏移量<br />- offsetY：number 位置在 y 方向上的偏移量<br />- style：object 样<br /> -autoHide: boolean 是否自动隐藏<br/>-autoRotate: boolean 是否自动旋转 |
+| tickLine     | object  | 坐标轴刻度<br />- visible：boolean 是否可见<br />- style: object 样式<br />                                                                                                                                                                                                                                                                                                                   |
+| title        | object  | 坐标轴标题<br />- visible： boolean 是否可见<br />- text: string 标题文字<br />- offset: number 位置偏移量<br />- style：object 样式<br />                                                                                                                                                                                                                                                    |
+
+### legend
+
+**可选**, _object_
+
+功能描述：图例，用于展示颜色分类信息
+
+默认配置：
+
+```js
+visible: true,
+position: 'right-center',
+```
+
+| 细分配置      | 类型    | 功能描述                                                                                                                                                                              |
+| ------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| visible       | boolean | 是否可见                                                                                                                                                                              |
+| position      | string  | 位置，支持 12 方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| width         | number  | 图例宽度                                                                                                                                                                              |
+| height        | number  | 图例高度                                                                                                                                                                              |
+| text          | object  | 图例两端刻度值<br />- style: object 刻度值样式<br />- formatter: function 对刻度值进行格式化<br />                                                                                    |
+| ticklineStyle | object  | 图例刻度线样式                                                                                                                                                                        |
+| anchorStyle   | object  | 图例锚点滑块样式                                                                                                                                                                      |
+| triggerOn     | string  | 图例响应交互的事件，默认为 click                                                                                                                                                      |
+
+完整配置示例：
+
+```js
+legend:{
+    visible: true,
+    position:'bottom-center',
+    width: 300,
+    height: 10,
+    text:{
+        formatter:(v)=>{
+            return parseFloat(v) / 100;
+        },
+        style:{
+            fill:'black',
+            fontSize: 12
+        }
+    },
+    anchorStyle:{
+        fill:'black',
+    },
+    ticklineStyle:{
+        lineDash:[2,2],
+        stroke:'black'
+    }
+    triggerOn:'click'
+}
+```
+
+效果： <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PYRhRrc4kSoAAAAAAAAAAABkARQnAQ" width="400">
+
+### tooltip
+
+**可选**, _object_
+
+功能描述：信息提示框
+
+默认配置：
+
+```js
+visible: true,
+offset: 20,
+```
+
+| 细分属性    | 类型     | 功能描述                                                                                                           |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| visible     | boolean  | 是否显示                                                                                                           |
+| offset      | number   | 距离鼠标位置偏移值                                                                                                 |
+| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
+
+htmlContent 用法示例：
+
+```js
+htmlContent: (title, items) => {
+  return '<div><ul><li>.....</li></ul></div>';
+};
+```
+
+此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
+
+```js
+htmlContent: (title, items) => {
+  return dom | dom.id;
+};
+```
+
+### label
+
+功能描述： 标签文本
+
+默认配置：
+
+```js
+visible: false
+offsetX: 6
+offsetY: 6
+style:{
+  fill: 'rgba(0, 0, 0, 0.65)',
+  stroke: '#ffffff',
+  lineWidth: 2,
+},
+adjustColor: true,
+adjustPosition: true
+```
+
+| 细分配置       | 类型     | 功能描述                                 |
+| -------------- | -------- | ---------------------------------------- |
+| visible        | boolean  | 是否显示                                 |
+| formatter      | function | 对文本标签内容进行格式化                 |
+| offsetX        | number   | 在 label 位置的基础上再往 x 方向的偏移量 |
+| offsetY        | number   | 在 label 位置的基础上再往 y 方向的偏移量 |
+| adjustColor    | boolean  | 是否根据对应图形的颜色自动调整颜色       |
+| adjustPosition | boolean  | 显示空间不够时是否自动隐藏               |
+| style          | object   | 配置文本标签样式。                       |
+
+## 事件
+
+### 矩形事件
+
+| onRectClick<br />矩形点击事件       | onRectDblClick<br />矩形双击事件      | onRectDblClick<br />矩形双击事件    | onRectMouseleave<br />矩形鼠标离开事件 |
+| ----------------------------------- | ------------------------------------- | ----------------------------------- | -------------------------------------- |
+| onRectMousemove<br />矩形标移动事件 | onRectMousedown<br />矩形鼠标按下事件 | onRectMouseup<br />矩形鼠标松开事件 | onRectMouseenter<br />矩形鼠标进入事件 |
+
+### 图表区域事件
+
+| onPlotClick<br />图表区域点击事件         | onPlotDblClick<br />图表区域双击事件      | onPlotDblClick<br />图表区域双击事件    | onPlotMouseleave<br />图表区域鼠标离开事件 |
+| ----------------------------------------- | ----------------------------------------- | --------------------------------------- | ------------------------------------------ |
+| onPlotMousemove<br />图表区域鼠标移动事件 | onPlotMousedown<br />图表区域鼠标按下事件 | onPlotMouseup<br />图表区域鼠标松开事件 | onPlotMouseenter<br />图表区域鼠标进入事件 |
+
+### 图例事件
+
+| onLegendClick<br />图例点击事件         | onLegendDblClick<br />图例双击事件      | onLegendMouseenter<br />图例鼠标进入事件 | onLegendMouseleave<br />图例鼠标离开事件 |
+| --------------------------------------- | --------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| onLegendMousemove<br />图例鼠标移动事件 | onLegendMousedown<br />图例鼠标按下事件 | onLegendMouseup<br />图例鼠标松开事件    | onLegendMouseenter<br />图例鼠标进入事件 |
+
+## 图例标签事件
+
+| onLegendLabelClick<br />图例标签点击事件         | onLegendLabelDblClick<br />图例标签双击事件      | onLegendLabelDblClick<br />图例标签双击事件    | onLegendLabelMouseleave<br />象限标签鼠标离开事件 |
+| ------------------------------------------------ | ------------------------------------------------ | ---------------------------------------------- | ------------------------------------------------- |
+| onLegendLabelMousemove<br />图例标签鼠标移动事件 | onLegendLabelMousedown<br />图例标签鼠标按下事件 | onLegendLabelMouseup<br />图例标签鼠标松开事件 | onLegendLabelMouseenter<br />图例标签鼠标进入事件 |
+
+### 坐标轴事件
+
+| onAxisClick<br />坐标轴点击事件         | onAxisDblClick<br />坐标轴双击事件      | onAxisDblClick<br />坐标轴双击事件    | onAxisMouseleave<br />坐标轴鼠标离开事件 |
+| --------------------------------------- | --------------------------------------- | ------------------------------------- | ---------------------------------------- |
+| onAxisMousemove<br />坐标轴鼠标移动事件 | onAxisMousedown<br />坐标轴鼠标按下事件 | onAxisMouseup<br />坐标轴鼠标松开事件 | onAxiMouseenter<br />坐标轴鼠标进入事件  |
+
+### 图形标签事件
+
+| onLabelClick<br />图形标签点击事件         | onLabelDblClick<br />图形标签双击事件      | onLabelDblClick<br />图形标签双击事件    | onLabelMouseleave<br />图形标签鼠标离开事件 |
+| ------------------------------------------ | ------------------------------------------ | ---------------------------------------- | ------------------------------------------- |
+| onLabelMousemove<br />图形标签鼠标移动事件 | onLabelMousedown<br />图形标签鼠标按下事件 | onLabelMouseup<br />图形标签鼠标松开事件 | onLabelMouseenter<br />图形标签鼠标进入事件 |
+
+### 标题事件
+
+| onTitleClick<br />标题点击事件         | onTitleDblClick<br />标题双击事件      | onTitleDblClick<br />标题双击事件    | onTitleMouseleave<br />标题鼠标离开事件 |
+| -------------------------------------- | -------------------------------------- | ------------------------------------ | --------------------------------------- |
+| onTitleMousemove<br />标题鼠标移动事件 | onTitleMousedown<br />标题鼠标按下事件 | onTitleMouseup<br />标题鼠标松开事件 | onTitleMouseenter<br />标题鼠标进入事件 |
+
+### 描述事件
+
+| onDescriptionClick<br />标题点击事件         | onDescriptionDblClick<br />标题双击事件      | onDescriptionDblClick<br />标题双击事件    | onDescriptionMouseleave<br />标题鼠标离开事件 |
+| -------------------------------------------- | -------------------------------------------- | ------------------------------------------ | --------------------------------------------- |
+| onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
+
+# 图表方法
+
+## render()
+
+**必选**
+
+渲染图表。
+
+## updateConfig()
+
+**可选**
+
+更新图表配置项。
+
+```js
+plot.updateConfig({
+  width: 500,
+  height: 600,
+  legend: {
+    visible: false,
+  },
+});
+
+plot.render();
+```
+
+## changeData()
+
+**可选**
+
+更新图表数据。`updateConfig()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
+
+```js
+plot.changeData(newData);
+```
+
+## repaint()
+
+**可选**
+
+图表画布重绘。
+
+## destory()
+
+**可选**
+
+销毁图表。
+
+## getData()
+
+获取图表数据。
+
+## getPlotTheme()
+
+获取图表 theme。
+
+## 形状变换
+
+色块热力图通过色块形状 `shapeType` 和 是否进行大小映射 `sizeField`的配置，可以组合成四种模式：
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cJIpS4PlAyMAAAAAAAAAAABkARQnAQ" width="400">
+
+针对四种模式的切换，提供了快捷方法：
+
+### mappingSize( fieldName:string )
+
+切换为大小映射模式。
+
+### disableMappingSize ()
+
+取消色块的大小映射。
+
+### changeShape( shapeType:string )
+
+切换色块形状类型。

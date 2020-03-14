@@ -514,7 +514,7 @@ adjustPosition: false
 
 **可选**, *object[]*
 
-[DEMOS](../../../../examples/general/guideLine)
+[DEMO](../../../../examples/general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LIhaRqo-6M4AAAAAAAAAAABkARQnAQ" width="400">
 
@@ -560,6 +560,37 @@ adjustPosition: false
   ],
 }
 ```
+
+### conversionTag ✨
+
+**可选**, *object*
+
+[DEMO](../../../../examples/column/basic#column-conversion)
+
+<img src="https://gw.alicdn.com/tfs/TB1kHAevO_1gK0jSZFqXXcpaXXa-1568-1130.png" width="400">
+
+功能描述： 转化率组件
+
+默认配置：
+```js
+visible: false,
+size: 32,
+spacing: 8,
+offset: 32,
+arrow:{
+  headSize: 12
+}
+```
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| size | number | 转化率组件高度，默认为32 |
+| spacing | number | 与柱图形的间距，默认 `8` |
+| offset | number | 相对 x 轴的偏移距离，默认 `32` |
+| arrow | object | 箭头图形<br />- headSize: number 尖的宽度，默认12<br />- style: object 箭头样式<br /> |
+| value | object | 转化率值<br />- formatter: (v1, v2) => string <br/>转化率值 formatter，用于自定义内容，v1 为左侧柱的数值，v2 位右侧柱的数值。<br />- style: object 转化率值样式<br /> |
+
 
 
 ## 事件

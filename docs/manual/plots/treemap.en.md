@@ -3,7 +3,7 @@ title: Treemap - 矩形树图
 order: 24
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rytoT72r45EAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
@@ -194,12 +194,10 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JwhARLXcoo0AAAAAAAAAAABkARQnAQ" width="600">
-
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -222,7 +220,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -258,26 +256,11 @@ offset: 20,
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ### label
 **可选**, *object*
 
-[DEMO](../../../../examples/treemap/rect#label)
+[DEMO](../../../examples/treemap/rect#label)
 
 功能描述： 标签文本
 
@@ -367,7 +350,7 @@ style:{
 ### drilldown ✨
 **可选**, *object*
 
-[DEMO](../../../../examples/treemap/rect#drilldown)
+[DEMO](../../../examples/treemap/rect#drilldown)
 
 数据钻取交互，通过矩形的点击事件及面包屑组件完成数据的上卷下钻。点击矩形下钻至该分类的子级数据，而点击面包屑各节点则可以跳转至当前层级的任一上级节点。
 

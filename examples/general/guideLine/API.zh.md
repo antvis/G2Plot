@@ -2,15 +2,18 @@
 title: API
 ---
 
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
+功能描述： 配置图表辅助线，支持同时配置多条。
 
-- `style: object`    辅助线文本样式。<br />
+默认配置： 无
 
-  - `fontSize: number`    字号<br />
-  - `fill: string`    文字颜色<br />
-  - `opacity: number`  文字透明度<br />
-  - `textAlign: 'start' | 'end' | 'center'`    对齐方式<br />
-  - `textBaselin: 'top' | 'bottom' | 'middle'`  文字基线
+| 细分配置  | 类型   | 功能描述                                                                                                                                                                                                                                                    |
+| --------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type      | string | 含有统计意义的辅助线类型，可选类型为 max                                                                                                                                                                                                                    | min | median | mean<br />\*注意：如指定了辅助线类型，则不需要配置辅助线的 start 和 end。 |
+| start     | array  | 指定辅助线起始位置，如不配置`type`，则该辅助线为自定义辅助线，`start`是必选项。<br/>支持两种配置形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br />                                           |
+| end       | array  | 指定辅助线终止位置，如不配置`type`，则该辅助线为自定义辅助线，end  是必选项。<br/>支持两种数据形式，两者不能混用：<br />- 原始数据值，如 ['2010-01-01', 100]<br />- 绘图区域百分比位置，如 ['50%', '50%']<br />                                             |
+| lineStyle | object | 配置辅助线样式。                                                                                                                                                                                                                                            |
+| text      | object | 设置辅助线文本。<br />- position: string 辅助线文本位置，可选项：start、center、end<br />- content: string 辅助线文本内容<br />- offsetX: number 位置在 x 方向上的偏移量<br />- offsetY: number 位置在 y 方向上的偏移量<br />- style: object 文本样式<br /> |
+|           |        |                                                                                                                                                                                                                                                             |
 
 配置统计辅助线示例代码：
 
@@ -40,11 +43,3 @@ title: API
   ],
 }
 ```
-
-- Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
-- Server-side Rendering
-- [Electron](http:// electron.atom.io/)
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http:// godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IE9, IE10, IE11, Edge                                                                                                                                                                                            | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |

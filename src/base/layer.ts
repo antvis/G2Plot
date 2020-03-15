@@ -140,16 +140,20 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
    * display layer
    */
   public show() {
+    this.container.attr('visible', true);
     this.container.set('visible', true);
     this.visibility = true;
+    this.canvas.draw();
   }
 
   /**
    * hide layer
    */
   public hide() {
+    this.container.attr('visible', false);
     this.container.set('visible', false);
     this.visibility = false;
+    this.canvas.draw();
   }
 
   /**

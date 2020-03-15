@@ -158,7 +158,7 @@ export interface Tooltip {
   showTitle?: boolean;
   html?: HTMLDivElement;
   formatter?: (...args: any) => string;
-  htmlContent?: (title: string, items: any[]) => string;
+  // htmlContent?: (title: string, items: any[]) => string;
   containerTpl?: string;
   itemTpl?: string;
   /** 辅助线 */

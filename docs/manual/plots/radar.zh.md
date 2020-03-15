@@ -225,7 +225,7 @@ areaPlot.render();
 ### seriesField 📌
 **必选**, *string*
 
-[DEMO](../../../../examples/radar/basic#series)
+[DEMO](../../../examples/radar/basic#series)
 
 功能描述： 对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
 
@@ -316,7 +316,7 @@ style:{
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -339,7 +339,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -455,7 +455,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../../examples/general/legend#legend-position)
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
@@ -499,21 +499,6 @@ offset: 20,
 | shared | boolean | 是否同时显示多条数据 |
 | showCrosshairs | boolean | 是否tooltip辅助线 |
 | crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ### label
 

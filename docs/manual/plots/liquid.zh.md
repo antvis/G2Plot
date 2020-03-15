@@ -177,7 +177,7 @@ liquidStyle:{
 
 ## 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Sni0SqiOz1wAAAAAAAAAAABkARQnAQ" width="400>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Sni0SqiOz1wAAAAAAAAAAABkARQnAQ" width="400">
 
 ### title
 **可选**, *optional*

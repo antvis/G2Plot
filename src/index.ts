@@ -16,7 +16,7 @@ export { default as TinyArea, TinyAreaConfig } from './sparkline/tiny-area';
 export { default as TinyLine, TinyLineConfig } from './sparkline/tiny-line';
 
 // 混合图形
-//export { default as OverlappedComboPlot, OverlappedComboPlotConfig } from './combo-plots/overlapped';
+export { default as OverlappedComboPlot, OverlappedComboPlotConfig } from './combo-plots/overlapped';
 
 // 主题
 export { registerTheme, registerGlobalTheme } from './theme';

@@ -194,7 +194,7 @@ areaPlot.render();
 ### seriesField 📌
 **必选**, *string*
 
-[**DEMO**](../../../../examples/line/multiple#line-multiple)
+[**DEMO**](../../../examples/line/multiple#line-multiple)
 
 功能描述： 多折线必选。 数据集中的分组字段名，一般对应一个分类字段。通过该字段的值，折线图将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
 
@@ -217,9 +217,9 @@ areaPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-[**DEMO1**](../../../../examples/step-line/multiple)
+[**DEMO1**](../../../examples/step-line/multiple)
 
-[**DEMO2**](../../../../examples/line/multiple#color-callback)
+[**DEMO2**](../../../examples/line/multiple#color-callback)
 
 ### lineSize
 **可选**, *number*
@@ -231,7 +231,7 @@ areaPlot.render();
 ### lineStyle
 **可选**, *object*
 
-[**DEMO**](../../../../../examples/line/multiple#line-style)
+[**DEMO**](../../../../examples/line/multiple#line-style)
 
 功能描述： 设置折线样式。linsStyle中的`lineWidth`会覆盖 `lineSize` 的配置，`stroke`会覆盖`color`的设置。lineStyle可以直接指定，也可以通过callback的方式，根据数据为每一条折线指定单独的样式。
 
@@ -248,7 +248,7 @@ areaPlot.render();
 ### smooth
 **可选**, *boolean*
 
-[DEMO](../../../../examples/line/basic#line-smooth)
+[DEMO](../../../examples/line/basic#line-smooth)
 
 功能描述： 是否将折线绘制为曲线 (spline)。
 
@@ -257,8 +257,8 @@ areaPlot.render();
 ### point
 **可选**, *object*
 
-[DEMO1](../../../../examples/line/basic#line-with-point)
-[DEMO2](../../../../examples/line/basic#line-point-style)
+[DEMO1](../../../examples/line/basic#line-with-point)
+[DEMO2](../../../examples/line/basic#line-point-style)
 
 功能描述： 配置折线上的点
 
@@ -286,7 +286,7 @@ style: {
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -309,7 +309,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -334,7 +334,7 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 默认配置：
 
@@ -375,7 +375,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -418,7 +418,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../../examples/general/legend#legend-position)
 
 功能描述：图例，多折线时显示，用于展示颜色分类信息
 
@@ -462,21 +462,6 @@ offset: 20,
 | shared | boolean | 是否同时显示多条数据 |
 | showCrosshairs | boolean | 是否tooltip辅助线 |
 | crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ### label
 
@@ -513,7 +498,7 @@ style:{
 
 **可选**, *object[]*
 
-[DEMOS](../../../../examples/general/guideLine)
+[DEMOS](../../../examples/general/guideLine)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y64CRIP7g1QAAAAAAAAAAABkARQnAQ" width="400">
 
@@ -627,7 +612,7 @@ style:{
 ### slider
 **可选**, *object*
 
-[DEMO](../../../../examples/step-line/basic#step-slider)
+[DEMO](../../../examples/step-line/basic#step-slider)
 
 功能描述： 缩略轴 (slider) 交互适用于折线数据较多，用户希望关注数据集中某个特殊区间的场景。
 

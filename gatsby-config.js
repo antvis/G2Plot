@@ -226,6 +226,14 @@ module.exports = {
           en: 'advanced',
         },
       },
+      {
+        slug: 'combo',
+        icon: 'other',
+        title: {
+          zh: '混合图表（beta)',
+          en: 'Combo Chart',
+        },
+      },
     ],
     docsearchOptions: {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',

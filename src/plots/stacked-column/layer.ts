@@ -67,13 +67,6 @@ export default class StackedColumnLayer<
     ];
   }
 
-  protected interaction() {
-    if (this.options.connectedArea && this.options.connectedArea.visible) {
-      this.options.interactions = [{ type: 'tooltip' }];
-    }
-    super.interaction();
-  }
-
   protected renderLabel() {
     const { scales } = this.config;
     const { yField } = this.options;

@@ -3,7 +3,7 @@ title: Bullet - 子弹图
 order: 26
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u4fZSYLw-jMAAAAAAAAAAABkARQnAQ" width="600>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u4fZSYLw-jMAAAAAAAAAAABkARQnAQ" width="600">
 
 
 # 快速上手
@@ -142,7 +142,7 @@ areaPlot.render();
 ### rangeMax 📌
 **必选**, *number*
 
-[DEMO](../../../../examples/bullet/basic#overflow)
+[DEMO](../../../examples/bullet/basic#overflow)
 
 功能描述： 进度条的色条范围区间最大值
 
@@ -178,7 +178,7 @@ areaPlot.render();
 ### rangeColors ✨
 **可选**, *string[]*
 
-[DEMO](../../../../examples/bullet/basic#color-range)
+[DEMO](../../../examples/bullet/basic#color-range)
 
 功能描述：设置进度条背景颜色，进度条的色条区间颜色依次取数组中的颜色色值
 
@@ -216,7 +216,7 @@ areaPlot.render();
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -239,7 +239,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -299,8 +299,8 @@ tickLine: {
 ### legend
 **可选**, *object*
 
-[DEMOS1](../../../../examples/bullet/basic#color-range)
-[DEMOS2](../../../../examples/bullet/basic#group-color-range)
+[DEMOS1](../../../examples/bullet/basic#color-range)
+[DEMOS2](../../../examples/bullet/basic#group-color-range)
 
 功能描述：图例，用于展示颜色分类信息
 
@@ -339,21 +339,6 @@ offset: 20,
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
 | shared | boolean | 是否同时显示多条数据 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ## 事件
 

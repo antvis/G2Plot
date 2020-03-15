@@ -245,7 +245,7 @@ color: ['#295599', '#3e94c0', '#78c6d0', '#b4d9e4', '#fffef0', '#f9cdac', '#ec7d
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -268,7 +268,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -293,7 +293,7 @@ style:{
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 默认配置：
 
@@ -333,7 +333,7 @@ title: {
 ### yAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -436,21 +436,6 @@ crosshairs: {
 | offset | number | 距离鼠标位置偏移值 |
 | showCrosshairs | boolean | 是否显示辅助线 |
 | crosshairs | object | 配置tooltip辅助线。<br/> -type: string crosshairs类型,可选项： x | y | xy <br/>-line: object 通过lineStyle配置辅助线样式 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ### label
 
@@ -482,7 +467,7 @@ style:{
 ### background ✨
 **可选**，*object*
 
-[DEMO](h../../../../examples/heatmap/density#heatmap-background)
+[DEMO](h../../../examples/heatmap/density#heatmap-background)
 
 功能描述：配置热力图显示背景，支持颜色填充、图片及 callback 三种方式。
 

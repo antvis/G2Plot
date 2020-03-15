@@ -306,7 +306,7 @@ color:(d)=>{
 ### title
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -329,7 +329,7 @@ style:{
 ### description
 **可选**, *optional*
 
-[DEMOS](../../../../examples/general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -352,7 +352,7 @@ style:{
 ### yAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
@@ -392,7 +392,7 @@ title: {
 ### xAxis
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： x方向上的坐标轴，用于展示xField对应的映射信息
 
@@ -435,7 +435,7 @@ title: {
 ### legend
 **可选**, *object*
 
-[DEMOS](../../../../examples/general/legend#legend-position)
+[DEMOS](../../../examples/general/legend#legend-position)
 
 功能描述：图例，用于展示颜色分类信息
 
@@ -471,26 +471,12 @@ offset: 20,
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
-| htmlContent | function | 自定义 tooltip，用户可以根据 htmlContent 方法返回的 title 和 items 两个参数定义 tooltip dom 节点的构成和显示方式。 |
-
-htmlContent 用法示例：
-```js
-htmlContent: (title, items) => {
-  return '<div><ul><li>.....</li></ul></div>';
-};
-```
-此方法允许用户传入一个外部 dom 或 dom id 作为 tooltip 的容器：
-```js
-htmlContent: (title, items) => {
-  return dom | dom.id;
-};
-```
 
 ### label
 
 功能描述： 标签文本
 
-[DEMO1](../../../../examples/bar/stacked#adjust-label-display)
+[DEMO1](../../../examples/bar/stacked#adjust-label-display)
 
 默认配置：
 ```js
@@ -578,7 +564,7 @@ adjustPosition: false
 ### scrollBar ✨
 **可选**, *object*
 
-[DEMO](../../../../examples/bar/basic#scroll-bar)
+[DEMO](../../../examples/bar/basic#scroll-bar)
 
 功能描述： 配置竖向滚动条，适用于数据较多的场景。
 

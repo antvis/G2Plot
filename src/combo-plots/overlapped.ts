@@ -221,16 +221,9 @@ export default class OverlappedComboPlot<
       layer.updateConfig({
         padding,
       });
-      layer.show();
+
       layer.render();
-      /*layer.view
-        .get('backgroundGroup')
-        .get('backShape')
-        .remove();
-      layer.view
-        .get('panelGroup')
-        .get('backShape')
-        .remove();*/
+      layer.show();
     });
 
     //补画坐标轴grid
@@ -244,10 +237,10 @@ export default class OverlappedComboPlot<
 
     this.canvas.draw();
 
-    //if (this.globalOptions.tooltip.visible) {
-    const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
-    this.globalComponents.push({ type: 'tooltip', component: tooltip });
-    //}
+    if (this.globalOptions.tooltip.visible) {
+      const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+      this.globalComponents.push({ type: 'tooltip', component: tooltip });
+    }
   }
 
   protected doDestroy() {

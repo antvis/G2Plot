@@ -41,6 +41,11 @@ export function showTooltip(canvas, layers, tooltipCfg) {
       tooltip.setLocation(point);
       tooltip.update({
         items: getUniqueItems(tooltipItems),
+        domStyles: {
+          'g2-tooltip': {
+            opacity: 1,
+          },
+        },
       });
       tooltip.show();
     } else if (tooltip.get('visible')) {
@@ -90,6 +95,11 @@ function renderTooltip(layer, canvas) {
     theme: tooltipTheme,
     backgroundGroup: layer.view.backgroundGroup,
     items: [{ name: 0, value: 0 }],
+    domStyles: {
+      'g2-tooltip': {
+        opacity: 0,
+      },
+    },
   };
 
   return new Tooltip.Html(options);

@@ -59,17 +59,6 @@ describe('Combo plot', () => {
           yField: 'value',
         },
         {
-          type: 'scatter',
-          name: '下单',
-          data: billData,
-          xField: 'time',
-          yField: 'value',
-          pointSize: 10,
-          yAxis: {
-            min: 0,
-          },
-        },
-        {
           type: 'line',
           name: '转化',
           data: transformData,

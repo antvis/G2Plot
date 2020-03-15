@@ -34,17 +34,6 @@ const comboPlot = new OverlappedComboPlot(document.getElementById('container'), 
       yField: 'value',
     },
     {
-      type: 'scatter',
-      name: '下单',
-      data: billData,
-      xField: 'time',
-      yField: 'value',
-      pointSize: 20,
-      yAxis: {
-        min: 0,
-      },
-    },
-    {
       type: 'line',
       name: '转化',
       data: transformData,

@@ -146,32 +146,34 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     return true;
   }
 
-  /*protected processData(data?: DataItem[]): DataItem[] | undefined {
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
     const { xField, yField } = this.options;
     const xAxisType = get(this.options, ['xAxis', 'type'], 'linear');
     const yAxisType = get(this.options, ['yAxis', 'type'], 'linear');
-    if(xAxisType && yAxisType){
-      return data
-      .filter((item) => {
-        if (xAxisType === 'linear' && !this.isValidLinearValue(item[xField])) {
-          return false;
-        }
-        if (yAxisType === 'linear' && !this.isValidLinearValue(item[yField])) {
-          return false;
-        }
-        return true;
-      })
-      .map((item) => {
-        return {
-          ...item,
-          [xField]: xAxisType === 'linear' ? Number(item[xField]) : String(item[xField]),
-          [yField]: yAxisType === 'linear' ? Number(item[yField]) : String(item[yField]),
-        };
-      });
+    if (xAxisType && yAxisType) {
+      const fiteredData = data
+        .filter((item) => {
+          if (xAxisType === 'linear' && !this.isValidLinearValue(item[xField])) {
+            return false;
+          }
+          if (yAxisType === 'linear' && !this.isValidLinearValue(item[yField])) {
+            return false;
+          }
+          return true;
+        })
+        .map((item) => {
+          return {
+            ...item,
+            [xField]: xAxisType === 'linear' ? Number(item[xField]) : String(item[xField]),
+            [yField]: yAxisType === 'linear' ? Number(item[yField]) : String(item[yField]),
+          };
+        });
+      console.log(fiteredData);
+      return fiteredData;
     }
 
     return data;
-  }*/
+  }
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

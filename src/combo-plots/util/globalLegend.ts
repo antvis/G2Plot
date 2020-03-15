@@ -3,7 +3,6 @@ import BBox from '../../util/bbox';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme/global';
-import ShapeNodes from '../../util/responsive/node/shape-nodes';
 
 export function getLegendData(viewLayer: ViewLayer, props) {
   const legendItems = [];
@@ -51,13 +50,13 @@ export function getLegendData(viewLayer: ViewLayer, props) {
         symbol: 'circle',
         style: {
           r: 4,
-          fill: markerCfg.fill,
+          fill: markerCfg.color,
         },
       };
       // @ts-ignore
       if (geometry.shapeFactory) {
         // @ts-ignore
-        marker = geometry.shapeFactory.getMarker(geometry.type, markerCfg);
+        marker = geometry.shapeFactory.getMarker(geometry.type, cfg);
       }
       legendItems.push({
         field: colorAttr.scales[0].field,
@@ -135,39 +134,47 @@ export function createLegend(items, width, height, canvas, position) {
 
 function addLegendInteraction(legend) {
   const filteredValue = [];
-  legend.on('itemclick', (ev) => {
-    const { item, checked } = ev;
+  legend.get('group').on('click',(ev)=>{
+    const item = ev.target.get('delegateObject').item;
     // 如果是单图例模式
     if (item.isSingle) {
-      if (!checked) {
+      if (item.checked) {
+        ev.target.get('parent').attr('opacity',0.3);
         item.layer.hide();
+        item.checked = false;
       } else {
+        ev.target.get('parent').attr('opacity',1);
         item.layer.show();
+        item.checked = true;
       }
     } else {
       // 正常的图例筛选数据逻辑
       const view = item.layer.view;
-      if (!checked) {
+      if (item.checked) {
+        ev.target.get('parent').attr('opacity',0.3);
         filteredValue.push(item.value);
         view.filter(item.field, (f) => {
           return !_.contains(filteredValue, f);
         });
-        view.repaint();
-        const filteredData = view.get('filteredData');
+        view.render();
+        const filteredData = view.filteredData;
         if (filteredData.length === 0) {
           item.layer.hide();
         } else if (!item.layer.visibility) {
           item.layer.show();
         }
+        item.checked = false;
       } else {
+        ev.target.get('parent').attr('opacity',1);
         _.pull(filteredValue, item.value);
         view.filter(item.value, (f) => {
           return !_.contains(filteredValue, f);
         });
-        view.repaint();
+        view.render();
         if (!item.layer.visibility) {
           item.layer.show();
         }
+        item.checked = true;
       }
     }
   });

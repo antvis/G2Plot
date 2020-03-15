@@ -46,7 +46,7 @@ describe('Combo plot', () => {
     { time: '2019-07', value: 220 },
   ];
 
-  it.only('column + bubble + line', () => {
+  it('column + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
       width: 600,
       height: 400,
@@ -81,13 +81,13 @@ describe('Combo plot', () => {
     });
     combo.render();
   });
-  it('groupColumn + bubble + line', () => {
+  it.only('groupColumn + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
       width: 600,
       height: 400,
       layers: [
         {
-          type: 'groupColumn',
+          type: 'groupedColumn',
           name: '订单量',
           data: uvBillData,
           xField: 'time',

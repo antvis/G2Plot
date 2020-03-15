@@ -77,7 +77,7 @@ export default class OverlappedComboPlot<
         visible: false,
       },
       tooltip: {
-        visible: false,
+        visible: true,
         sort: true,
       },
       legend: {
@@ -120,6 +120,13 @@ export default class OverlappedComboPlot<
             y: 0,
             width: this.width,
             height: this.height,
+            tooltip: {
+              domStyles: {
+                'g2-tooltip': {
+                  display: 'none',
+                },
+              },
+            },
           },
           overlapConfig
         );
@@ -159,9 +166,9 @@ export default class OverlappedComboPlot<
         legend: {
           visible: false,
         },
-        tooltip: {
+        /* tooltip: {
           visible: false,
-        },
+        },*/
         padding: [0, 0, 0, 0],
         color: colorCfg ? colorCfg.color : null,
       }
@@ -237,10 +244,10 @@ export default class OverlappedComboPlot<
 
     this.canvas.draw();
 
-    /*if (this.globalOptions.tooltip.visible) {
-      const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
-      this.globalComponents.push({ type: 'tooltip', component: tooltip });
-    }*/
+    //if (this.globalOptions.tooltip.visible) {
+    const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+    this.globalComponents.push({ type: 'tooltip', component: tooltip });
+    //}
   }
 
   protected doDestroy() {

@@ -81,7 +81,7 @@ describe('Combo plot', () => {
     });
     combo.render();
   });
-  it.only('groupColumn + bubble + line', () => {
+  it('groupColumn + bubble + line', () => {
     const combo = new OverlappedComboPlot(canvasDiv, {
       width: 600,
       height: 400,

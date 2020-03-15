@@ -134,16 +134,16 @@ export function createLegend(items, width, height, canvas, position) {
 
 function addLegendInteraction(legend) {
   const filteredValue = [];
-  legend.get('group').on('click',(ev)=>{
+  legend.get('group').on('click', (ev) => {
     const item = ev.target.get('delegateObject').item;
     // 如果是单图例模式
     if (item.isSingle) {
       if (item.checked) {
-        ev.target.get('parent').attr('opacity',0.3);
+        ev.target.get('parent').attr('opacity', 0.3);
         item.layer.hide();
         item.checked = false;
       } else {
-        ev.target.get('parent').attr('opacity',1);
+        ev.target.get('parent').attr('opacity', 1);
         item.layer.show();
         item.checked = true;
       }
@@ -151,7 +151,7 @@ function addLegendInteraction(legend) {
       // 正常的图例筛选数据逻辑
       const view = item.layer.view;
       if (item.checked) {
-        ev.target.get('parent').attr('opacity',0.3);
+        ev.target.get('parent').attr('opacity', 0.3);
         filteredValue.push(item.value);
         view.filter(item.field, (f) => {
           return !_.contains(filteredValue, f);
@@ -165,7 +165,7 @@ function addLegendInteraction(legend) {
         }
         item.checked = false;
       } else {
-        ev.target.get('parent').attr('opacity',1);
+        ev.target.get('parent').attr('opacity', 1);
         _.pull(filteredValue, item.value);
         view.filter(item.value, (f) => {
           return !_.contains(filteredValue, f);

@@ -146,11 +146,12 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     return true;
   }
 
-  protected processData(data?: DataItem[]): DataItem[] | undefined {
+  /*protected processData(data?: DataItem[]): DataItem[] | undefined {
     const { xField, yField } = this.options;
     const xAxisType = get(this.options, ['xAxis', 'type'], 'linear');
     const yAxisType = get(this.options, ['yAxis', 'type'], 'linear');
-    return data
+    if(xAxisType && yAxisType){
+      return data
       .filter((item) => {
         if (xAxisType === 'linear' && !this.isValidLinearValue(item[xField])) {
           return false;
@@ -167,7 +168,10 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
           [yField]: yAxisType === 'linear' ? Number(item[yField]) : String(item[yField]),
         };
       });
-  }
+    }
+
+    return data;
+  }*/
 
   protected geometryParser(dim, type) {
     if (dim === 'g2') {

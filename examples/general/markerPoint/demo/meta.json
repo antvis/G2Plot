@@ -1,0 +1,18 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": "带标注点的折线图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*b9T_Q5xpZgYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "multi-markerpoint.js",
+      "title": "多种类型标注点",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-WEbS6l8Xk0AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

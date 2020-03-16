@@ -1,4 +1,4 @@
-import { deepMix, has, map, each } from '@antv/util';
+import { deepMix, has, map, each, get, some } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -10,6 +10,7 @@ import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
+import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';
 import './theme';
 import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
@@ -55,6 +56,9 @@ export interface LineViewConfig extends ViewConfig {
     color?: string;
     style?: PointStyle;
   };
+  markerPoints?: (Omit<MarkerPointCfg, 'view'> & {
+    visible?: boolean;
+  })[];
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
 }
@@ -88,16 +92,27 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         position: 'top-left',
         wordSpacing: 4,
       },
+      tooltip: {
+        crosshairs: {
+          line: {
+            style: {
+              stroke: 'rgba(0,0,0,0.45)',
+            },
+          },
+        },
+      },
+      markerPoints: [],
     });
   }
 
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
   public type: string = 'line';
+  protected markerPoints: MarkerPoint[] = [];
 
   public afterRender() {
-    const props = this.options;
-    if (this.options.label && this.options.label.visible && this.options.label.type === 'line') {
+    const options = this.options;
+    if (options.label && options.label.visible && options.label.type === 'line') {
       const label = new LineLabel({
         view: this.view,
         plot: this,
@@ -105,8 +120,22 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       });
       label.render();
     }
+    if (options.markerPoints) {
+      // 清空
+      each(this.markerPoints, (markerPoint: MarkerPoint) => markerPoint.destroy());
+      this.markerPoints = [];
+      options.markerPoints.forEach((markerPointOpt) => {
+        if (markerPointOpt.visible) {
+          const markerPoint = new MarkerPoint({
+            ...markerPointOpt,
+            view: this.view,
+          });
+          this.markerPoints.push(markerPoint);
+        }
+      });
+    }
     // 响应式
-    if (props.responsive && props.padding !== 'auto') {
+    if (options.responsive && options.padding !== 'auto') {
       this.applyResponsive('afterRender');
     }
     super.afterRender();

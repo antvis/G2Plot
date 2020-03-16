@@ -1,66 +1,69 @@
-## <small>0.11.40 (2019-03-13)</small>
+## <small>1.0.0 (2020-03-16)</small>
+- 🌟release 1.0.0 
+
+## <small>0.11.40 (2020-03-13)</small>
 - 🐞Liquid & process 必选数据类型判断
 
-## <small>0.11.39 (2019-03-13)</small>
+## <small>0.11.39 (2020-03-13)</small>
 - 🐞修复一些类型定义问题 ([e6d2a37](https://github.com/antvis/G2Plot/commit/e6d2a37))
 
-## <small>0.11.38 (2019-03-12)</small>
+## <small>0.11.38 (2020-03-12)</small>
 - 🐞移除饼图label中的lodash依赖
 
-## <small>0.11.37 (2019-03-09)</small>
+## <small>0.11.37 (2020-03-09)</small>
 - 🌟重新发布版本
 
-## <small>0.11.36 (2019-03-07)</small>
+## <small>0.11.36 (2020-03-07)</small>
 - 🌟更新 g2 依赖版本 ([51b3df](https://github.com/antvis/G2Plot/commit/2f8104a))
 
-## <small>0.11.35 (2019-03-02)</small>
+## <small>0.11.35 (2020-03-02)</small>
 - 🌟修复词云图透明背景问题 ([51b3df](https://github.com/antvis/G2Plot/commit/51b3df))
 
-## <small>0.11.34 (2019-02-28)</small>
+## <small>0.11.34 (2020-02-28)</small>
 - 🌟wordcloud animation ([d94d3dd](https://github.com/antvis/G2Plot/commit/d94d3dd))
 - 🌟sunburst event ([1456a81](https://github.com/antvis/G2Plot/commit/1456a81))
 
-## <small>0.11.33 (2019-02-28)</small>
+## <small>0.11.33 (2020-02-28)</small>
 - 🌟Sunburst ([5692ca6](https://github.com/antvis/G2Plot/commit/5692ca6))
 
-## <small>0.11.32 (2019-02-21)</small>
+## <small>0.11.32 (2020-02-21)</small>
 - 🐞 饼图 tooltip 与 label 对外透出 percent ([365fd0f](https://github.com/antvis/G2Plot/commit/365fd0f))
 
-## <small>0.11.31 (2019-02-17)</small>
+## <small>0.11.31 (2020-02-17)</small>
 - 🐞 修复瀑布图必需设置meta的问题 ([3669511](https://github.com/antvis/G2Plot/commit/3669511))
 
-## <small>0.11.30 (2019-02-17)</small>
+## <small>0.11.30 (2020-02-17)</small>
 - 🐞 temporary remove geomCliper for svg rendering ([be69918](https://github.com/antvis/G2Plot/commit/be69918))
 
-## <small>0.11.29 (2019-02-17)</small>
+## <small>0.11.29 (2020-02-17)</small>
 - 🐞 fix g version ([03a33d7](https://github.com/antvis/G2Plot/commit/03a33d7))
 
-## <small>0.11.28 (2019-02-06)</small>
+## <small>0.11.28 (2020-02-06)</small>
 - 🐞 修复水波图图形剪裁 ([b93f605](https://github.com/antvis/G2Plot/commit/b93f605))
 - 🐞 热力图legend位置错误 ([c989c87](https://github.com/antvis/G2Plot/commit/c989c87))
 - 🐞 升级Scale 3.0之后的bug fix ([1f698b1](https://github.com/antvis/G2Plot/commit/1f698b1))
 
 
-## <small>0.11.27 (2019-02-06)</small>
+## <small>0.11.27 (2020-02-06)</small>
 - 🐞 panelCliper => geomCliper ([52cc285](https://github.com/antvis/G2Plot/commit/52cc285c1f9427699e8a9b41fd4a749eefd40397))
 
-## <small>0.11.26 (2019-02-06)</small>
+## <small>0.11.26 (2020-02-06)</small>
 - 🌟 update scale to 3.0 ([6538cfd](https://github.com/antvis/G2Plot/commit/6538cfd6d900ad886ac34ad8013b8d9a902184f3))
 
-## <small>0.11.25 (2019-02-05)</small>
+## <small>0.11.25 (2020-02-05)</small>
 - 🐞 fix word-cloud not found error([1ad5d4c](https://github.com/antvis/G2Plot/commit/1ad5d4cc1f5a773e600b5c8905c29530c574ec96))
 
-## <small>0.11.24 (2019-02-04)</small>
+## <small>0.11.24 (2020-02-04)</small>
 - 🌟 add word-cloud chart ([2f1baa9](https://github.com/antvis/G2Plot/pull/513/commits))
 
-## <small>0.11.23 (2019-02-03)</small>
+## <small>0.11.23 (2020-02-03)</small>
 - 🌟 add rose chart ([f99aaf8](https://github.com/antvis/G2Plot/commit/f99aaf8))
 - 🌟 add treemap chart ([703fba7](https://github.com/antvis/G2Plot/commit/703fba7))
 - 🌟 对比漏斗图 ([fa411f2](https://github.com/antvis/G2Plot/commit/fa411f2))
 - 🌟 transposed funnel chart ([f9cbf5b](https://github.com/antvis/G2Plot/commit/f9cbf5b))
 - 🐞 fix guideLine error ([d310520](https://github.com/antvis/G2Plot/commit/d310520))
 
-## <small>0.11.21 (2019-01-02)</small>
+## <small>0.11.21 (2020-01-02)</small>
 - 🐞 fix top padding error ([53de76f](https://github.com/antvis/G2Plot/commit/53de76f))
 - 🌟 add overlapped combo chart ([c893594](https://github.com/antvis/G2Plot/commit/c893594))
 

@@ -1,7 +1,7 @@
-import * as _ from '@antv/util';
 import ShapeNodes from '../node/shape-nodes';
 import Responsive from '../responsive';
 import ApplyResponsive from './base';
+import { each } from '@antv/util';
 
 export default class ApplyResponsiveLabel extends ApplyResponsive {
   protected shouldApply() {
@@ -12,7 +12,11 @@ export default class ApplyResponsiveLabel extends ApplyResponsive {
   }
 
   protected apply() {
-    const labelShapes = this.plot.view.get('elements')[0].get('labels');
+    const labelShapesContainer = this.plot.view.geometries[0].labelsContainer.get('children');
+    const labelShapes = [];
+    each(labelShapesContainer, (c) => {
+      labelShapes.push(c.get('children')[0]);
+    });
     const nodes = new ShapeNodes({
       shapes: labelShapes,
     });
@@ -22,7 +26,7 @@ export default class ApplyResponsiveLabel extends ApplyResponsive {
       constraints,
       rules,
       plot: this.plot,
-      region: this.plot.view.get('viewRange'),
+      region: this.plot.view.coordinateBBox,
     });
   }
 

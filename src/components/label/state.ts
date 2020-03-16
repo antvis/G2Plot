@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { each, mix } from '@antv/util';
 import { compare } from '../../base/controller/state';
 
 // 对label和label样式进行缓存
@@ -9,11 +9,11 @@ function onActive(plot, condition) {
   if (!labels) {
     getAllLabels(plot);
   }
-  _.each(labels, (label, index) => {
+  each(labels, (label, index) => {
     const origin = label.get('origin');
     if (compare(origin, condition)) {
       const originAttr = originAttrs[index];
-      const style = _.mix({}, originAttr, { opacity: 1 });
+      const style = mix({}, originAttr, { opacity: 1 });
       label.attr(style);
     }
   });
@@ -23,7 +23,7 @@ function onDisable(plot, condition) {
   if (!labels) {
     getAllLabels(plot);
   }
-  _.each(labels, (label, index) => {
+  each(labels, (label, index) => {
     const origin = label.get('origin');
     if (compare(origin, condition)) {
       const originAttr = originAttrs[index];
@@ -37,10 +37,10 @@ function getAllLabels(plot) {
   labels = [];
   originAttrs = [];
   const geoms = plot.view.get('elements');
-  _.each(geoms, (geom) => {
+  each(geoms, (geom) => {
     const geomLabels = geom.get('labels');
     if (geomLabels) {
-      _.each(geomLabels, (label) => {
+      each(geomLabels, (label) => {
         labels.push(label);
         originAttrs.push(label.attr());
       });

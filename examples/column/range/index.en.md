@@ -1,6 +1,6 @@
 ---
 title: Ranged Column Chart
-order: 5
+order: 4
 ---
 
 Description about this component.

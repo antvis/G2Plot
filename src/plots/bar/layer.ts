@@ -1,22 +1,16 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { deepMix, has, each,clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IStyleConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-import './component/label/bar-label';
+import BarLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
-
-interface BarStyle {
-  opacity?: number;
-  lineDash?: number[];
-}
 
 const G2_GEOM_MAP = {
   bar: 'interval',
@@ -28,14 +22,12 @@ const PLOT_GEOM_MAP = {
 
 export interface BarViewConfig extends ViewConfig {
   colorField?: string;
-  // 图形
-  type?: 'rect'; // todo | 'triangle' | 'round';
   // 百分比, 数值, 最小最大宽度
   barSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  barStyle?: BarStyle | ((...args: any[]) => BarStyle);
-  xAxis?: ICatAxis;
+  barStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
+  xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
 }
@@ -65,9 +57,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       },
       yAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
         autoRotateTitle: true,
+        nice: true,
         grid: {
           visible: false,
         },
@@ -79,6 +70,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
         label: {
           visible: true,
+          autoRotate: false,
+          autoHide: true,
         },
         title: {
           visible: false,
@@ -88,9 +81,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: {
-          type: 'rect',
-        },
+        showCrosshairs: false,
+        showMarkers: false,
       },
       label: {
         visible: true,
@@ -98,14 +90,20 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         adjustColor: true,
       },
       legend: {
-        visible: true,
+        visible: false,
         position: 'top-left',
       },
+      interactions: [
+        { type: 'tooltip' },
+        { type: 'active-region' },
+        { type: 'legend-active' },
+        { type: 'legend-filter' },
+      ],
       conversionTag: {
         visible: false,
       },
     };
-    return _.deepMix({}, super.getDefaultOptions(), cfg);
+    return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public bar: any;
@@ -123,6 +121,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   public afterRender() {
     const props = this.options;
+    this.renderLabel();
     /** 响应式 */
     if (props.responsive && props.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -149,8 +148,8 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     const inputData = originData ? originData.slice().reverse() : originData;
     const { yField } = this.options;
     const processedData = [];
-    _.each(inputData, (data) => {
-      const d = _.clone(data);
+    each(inputData, (data) => {
+      const d = clone(data);
       d[yField] = d[yField].toString();
       processedData.push(d);
     });
@@ -164,12 +163,12 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     scales[props.yField] = {
       type: 'cat',
     };
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     /** 配置y-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     this.setConfig('scales', scales);
@@ -177,15 +176,35 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   }
 
   protected coord() {
-    const coordConfig = {
+    this.setConfig('coordinate', {
       actions: [['transpose']],
-    };
-    this.setConfig('coord', coordConfig);
+    });
   }
 
-  protected adjustBar(bar: ElementOption) {
-    return;
+  protected axis(): void {
+    const xAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'x',
+    });
+    const yAxis_parser = getComponent('axis', {
+      plot: this,
+      dim: 'y',
+    });
+    /** 转置坐标系特殊配置 */
+    if (xAxis_parser) {
+      xAxis_parser.position = 'left';
+    }
+    if (yAxis_parser) {
+      yAxis_parser.position = 'bottom';
+    }
+    const axesConfig = {};
+    axesConfig[this.options.xField] = xAxis_parser;
+    axesConfig[this.options.yField] = yAxis_parser;
+    /** 存储坐标轴配置项到config */
+    this.setConfig('axes', axesConfig);
   }
+
+  protected adjustBar(bar: ElementOption) {}
 
   protected addGeometry() {
     const props = this.options;
@@ -194,14 +213,16 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       plot: this,
     });
     if (props.conversionTag.visible) {
-      bar.widthRatio.column = 1 / 3;
-    }
-    if (props.label) {
-      bar.label = this.extractLabel();
+      this.setConfig(
+        'theme',
+        deepMix({}, this.getTheme(), {
+          columnWidthRatio: 1 / 3,
+        })
+      );
     }
     this.adjustBar(bar);
     this.bar = bar;
-    this.setConfig('element', bar);
+    this.setConfig('geometry', bar);
   }
 
   protected animation() {
@@ -213,33 +234,29 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     }
   }
 
-  protected extractLabel() {
-    const props = this.options;
-    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
-    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
-
-    if (label && label.visible === false) {
-      return false;
-    }
-
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'barLabel',
-      fields: [props.xField],
-      ...label,
-    });
-
-    return labelConfig;
-  }
-
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
   }
 
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { yField } = this.options;
+    const scale = scales[yField];
+    if (this.options.label && this.options.label.visible) {
+      const label = new BarLabel({
+        view: this.view,
+        plot: this,
+        formatter: scale.formatter,
+        ...this.options.label,
+      });
+      label.render();
+    }
+  }
+
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
-      const responsive = r as DataPointType;
+    each(methods, (r) => {
+      const responsive = r;
       responsive.method(this);
     });
   }

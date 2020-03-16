@@ -1,16 +1,19 @@
-import { Circle } from '@antv/g';
-import { Global, registerShape } from '@antv/g2';
-import * as _ from '@antv/util';
+import { registerShape } from '../../../../dependents';
+import { isArray, each, isNumber, mix } from '@antv/util';
+import { getGlobalTheme } from '../../../../theme';
+import { transform } from '../../../../util/g-util';
+
+const globalTheme = getGlobalTheme();
 
 const ShapeUtil = {
   splitPoints(obj) {
     const points = [];
     const x = obj.x;
     let y = obj.y;
-    y = _.isArray(y) ? y : [y];
-    _.each(y, (yItem, index) => {
+    y = isArray(y) ? y : [y];
+    each(y, (yItem, index) => {
       const point = {
-        x: _.isArray(x) ? x[index] : x,
+        x: isArray(x) ? x[index] : x,
         y: yItem,
       };
       points.push(point);
@@ -21,7 +24,7 @@ const ShapeUtil = {
     if (cfg.color && !attrs.fill) {
       attrs.fill = cfg.color;
     }
-    if (_.isNumber(cfg.opacity)) {
+    if (isNumber(cfg.opacity)) {
       attrs.opacity = attrs.fillOpacity = cfg.opacity;
     }
   },
@@ -29,7 +32,7 @@ const ShapeUtil = {
     if (cfg.color && !attrs.stroke) {
       attrs.stroke = cfg.color;
     }
-    if (_.isNumber(cfg.opacity)) {
+    if (isNumber(cfg.opacity)) {
       attrs.opacity = attrs.strokeOpacity = cfg.opacity;
     }
   },
@@ -42,8 +45,12 @@ const ValueUtil = {
 };
 
 const getFillAttrs = (cfg) => {
-  const defaultAttrs = Global.theme.shape.interval;
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
+  const defaultAttrs = {
+    lineWidth: 0,
+    fill: globalTheme.color,
+    fillOpacity: 0.85,
+  };
+  const attrs = mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addFillAttrs(attrs, cfg);
   if (cfg.color && !attrs.stroke) {
     attrs.stroke = attrs.stroke || cfg.color;
@@ -52,8 +59,13 @@ const getFillAttrs = (cfg) => {
 };
 
 const getLineAttrs = (cfg) => {
-  const defaultAttrs = Global.theme.shape.hollowInterval;
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
+  const defaultAttrs = {
+    fill: '#fff',
+    stroke: globalTheme.color,
+    fillOpacity: 0,
+    lineWidth: 2,
+  };
+  const attrs = mix({}, defaultAttrs, cfg.style);
   ShapeUtil.addStrokeAttrs(attrs, cfg);
   return attrs;
 };
@@ -217,20 +229,24 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
           y
         ),
         fill: color,
-        clip,
         opacity: ValueUtil.lerp(0.6, 0.3, factor),
       },
     });
+    /*wave.setClip({
+      type:'circle',
+      attrs: clip.attrs
+    })*/
     // FIXME wave animation error in svg
-    if (Global.renderer === 'canvas') {
-      wave.animate(
-        {
-          transform: [['t', width / 2, 0]],
-          repeat: true,
-        },
-        ValueUtil.lerp(duration, 0.7 * duration, factor)
-      );
-    }
+    // if (Global.renderer === 'canvas') {
+    const matrix = transform([['t', width / 2, 0]]);
+    wave.animate(
+      { matrix },
+      {
+        duration: ValueUtil.lerp(duration, 0.7 * duration, factor),
+        repeat: true,
+      }
+    );
+    //}
   }
 }
 
@@ -239,7 +255,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
     let sumX = 0;
     let minX = Infinity;
-    _.each(cfg.points, (p: any) => {
+    each(cfg.points, (p: any) => {
       if (p.x < minX) {
         minX = p.x;
       }
@@ -251,21 +267,22 @@ registerShape('interval', 'liquid-fill-gauge', {
     const xWidth = cp.x - minP.x;
     const radius = Math.min(xWidth, minP.y);
     const { fill } = getFillAttrs(cfg);
-    const clipCircle = new Circle({
+    const waves = container.addGroup({
+      name: 'waves',
+      attrs: {
+        x: cp.x,
+        y: cp.y,
+      },
+    });
+    waves.setClip({
+      type: 'circle',
       attrs: {
         x: cp.x,
         y: cp.y,
         r: radius,
       },
     });
-    const waves = container.addGroup({
-      name: 'waves',
-      attrs: {
-        x: cp.x,
-        y: cp.y,
-        clip: clipCircle,
-      },
-    });
+    const clipCircle = waves.get('clipShape');
     addWaterWave(
       cp.x,
       cp.y,
@@ -276,14 +293,15 @@ registerShape('interval', 'liquid-fill-gauge', {
       clipCircle,
       radius * 4
     );
-    return container.addShape('circle', {
+    const warpRing = container.addShape('circle', {
       name: 'wrap',
-      attrs: _.mix(getLineAttrs(cfg), {
+      attrs: mix(getLineAttrs(cfg), {
         x: cp.x,
         y: cp.y,
         r: radius,
         fill: 'transparent',
       }),
     });
+    return waves[0];
   },
 });

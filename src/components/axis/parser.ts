@@ -1,5 +1,4 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { deepMix, isFunction, get } from '@antv/util';
 import { ViewLayer } from '../..';
 import { IBaseAxis } from '../../interface/config';
 import { combineFormatter, getNoopFormatter, getPrecisionFormatter, getSuffixFormatter } from '../../util/formatter';
@@ -56,7 +55,7 @@ export default class AxisParser {
     /** 如果在图表配置项里没有设置坐标轴整体的visibility则去对应的theme取 */
     const propos = this.plot.options;
     const propsConfig = propos[`${this.dim}Axis`] ? propos[`${this.dim}Axis`] : {};
-    const config = _.deepMix({}, this.themeConfig, propsConfig);
+    const config = deepMix({}, this.themeConfig, propsConfig);
     this.localProps = config;
     if (config.visible) {
       return true;
@@ -67,23 +66,36 @@ export default class AxisParser {
   private _lineParser() {
     this.config.line = this.localProps.line;
     if (this.localProps.line.style) {
-      this.config.line = this.localProps.line.style;
+      this.config.line = { style: this.localProps.line.style };
     }
     this.applyThemeConfig('line');
   }
 
   private _gridParser() {
-    const { grid: gridCfg } = this.localProps;
-    const { style } = gridCfg;
+    const gridCfg = this.localProps.grid;
+    const style = this.localProps.grid?.line?.style;
+    const type = this.localProps.grid?.line?.type;
+    const alternateColor = this.localProps.grid?.alternateColor;
 
-    if (_.isFunction(style)) {
-      // @see g2/component/src/axis/base:_renderGrid
+    if (isFunction(style)) {
       this.config.grid = (text: string, index: number, count: number) => {
         const cfg = style(text, index, count);
-        return _.deepMix({}, _.get(this.themeConfig, `grid.style`), cfg);
+        return {
+          line: {
+            type,
+            style: deepMix({}, get(this.themeConfig, `grid.line.style`), cfg),
+          },
+          alternateColor,
+        };
       };
     } else if (style) {
-      this.config.grid = style;
+      this.config.grid = {
+        line: {
+          type,
+          style,
+        },
+        alternateColor,
+      };
       this.applyThemeConfig('grid');
     }
   }
@@ -91,34 +103,34 @@ export default class AxisParser {
   private _tickLineParser() {
     this.config.tickLine = this.localProps.tickLine;
     if (this.localProps.tickLine.style) {
-      this.config.tickLine = this.localProps.tickLine.style;
+      this.config.tickLine = { style: this.localProps.tickLine.style };
     }
     this.applyThemeConfig('tickLine');
   }
 
   private _labelParser() {
     const { style, ...restLabelProps } = this.localProps.label;
-    const labelConfig: DataPointType = { ...restLabelProps };
+    const labelConfig: any = { ...restLabelProps };
     if (style) {
-      labelConfig.textStyle = this.localProps.label.style;
+      labelConfig.style = { ...this.localProps.label.style };
     }
-    labelConfig.textStyle = _.deepMix({}, _.get(this.themeConfig, 'label.style'), labelConfig.textStyle);
+    labelConfig.style = deepMix({}, get(this.themeConfig, 'label.style'), labelConfig.style);
     const formatter = this.parseFormatter(labelConfig);
     labelConfig.formatter = formatter;
     this.config.label = labelConfig;
   }
 
   private _titleParser() {
-    const titleConfig: DataPointType = { ...this.localProps.title };
+    const titleConfig: any = { ...this.localProps.title };
     const { visible, style, text } = this.localProps.title;
     if (!visible) {
       this.config.showTitle = false;
     } else {
       this.config.showTitle = true;
       if (style) {
-        titleConfig.textStyle = style;
+        titleConfig.style = style;
       }
-      titleConfig.textStyle = _.deepMix({}, _.get(this.config, 'title.style'), titleConfig.textStyle);
+      titleConfig.style = deepMix({}, get(this.config, 'title.style'), titleConfig.textStyle);
 
       if (text) {
         titleConfig.text = text;
@@ -135,7 +147,7 @@ export default class AxisParser {
   }
 
   private applyThemeConfig(type: 'line' | 'grid' | 'tickLine') {
-    this.config[type] = _.deepMix({}, _.get(this.themeConfig, `${type}.style`), this.config[type]);
+    this.config[type] = deepMix({}, get(this.themeConfig, `${type}.style`), this.config[type]);
   }
 
   protected parseFormatter(labelConfig) {

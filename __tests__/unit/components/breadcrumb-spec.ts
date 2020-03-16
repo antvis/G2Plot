@@ -1,11 +1,11 @@
-import { Canvas, Group, Shape } from '@antv/g';
+import { Canvas, Group, Shape } from '@antv/g-canvas';
 import { createDiv } from '../../utils/dom';
 import Breadcrumb from '../../../src/components/breadcrumb';
 
 describe('Breadcrumb', () => {
-  createDiv('canvas');
+  const div = createDiv('canvas');
   const canvas = new Canvas({
-    containerId: 'canvas',
+    container: div,
     renderer: 'canvas',
     width: 400,
     height: 400,

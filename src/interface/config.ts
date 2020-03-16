@@ -5,10 +5,8 @@
  * 2. 如果是枚举值，不使用enum，全部列出
  * 3. 减少嵌套，尽量平铺配置
  */
-import { Option } from '@antv/g2';
-import { ScaleConfig } from '@antv/scale';
-import { AttributeCfg, LabelOptions } from '@antv/g2/lib/element/base';
-import { AdjustCfg } from '@antv/g2/lib/interface';
+import { ShapeAttrs } from '@antv/g-base';
+import { Options, AttributeOption, AdjustOption, LabelOption } from '../dependents';
 import { LooseMap } from './types';
 
 export interface ITitle {
@@ -16,6 +14,7 @@ export interface ITitle {
   text: string;
   style?: {};
   alignWithAxis?: boolean;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 export interface IDescription {
@@ -23,16 +22,17 @@ export interface IDescription {
   text: string;
   style?: {};
   alignWithAxis?: boolean;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 type IEvents = LooseMap<string>;
 
 export type Formatter = (text: string, item: any, idx: number) => string;
 
-// TODO: g 提供详细style的类型定义
-export interface IStyleConfig {
-  [key: string]: string | number | boolean;
-}
+/**
+ * 通用 Shape 属性样式定义
+ */
+export interface IStyleConfig extends ShapeAttrs {}
 
 export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
@@ -42,7 +42,7 @@ export interface IBaseAxis {
   /** scale 是否设置 nice */
   nice?: boolean;
   /** scale 自定义 tickMethod */
-  tickMethod?: string | ((cfg: ScaleConfig) => number[]);
+  tickMethod?: string | ((cfg: any) => number[]);
   /** 轴位置，默认下和左 */
   line?: {
     visible?: boolean;
@@ -51,18 +51,18 @@ export interface IBaseAxis {
   grid?: {
     /** 网格线是否显示 */
     visible?: boolean;
-    style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
+    line?: {
+      style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
+      type?: 'line' | 'circle';
+    };
+    /** 网格设置交替的颜色，指定一个值则先渲染偶数层，两个值则交替渲染 */
+    alternateColor?: string | string[];
   };
-  /** 网格线样式 */
-  gridType?: 'line' | 'arc';
-  /** 网格设置交替的颜色，指定一个值则先渲染奇数层，两个值则交替渲染 */
-  gridAlternateColor?: string | string[];
-  autoRotateLabel?: boolean | number[]; // 当 label 过长发生遮挡时是否自动旋转坐标轴文本，默认为 true
-  autoHideLabel?: boolean; // 当 label 存在遮挡时，是否自动隐藏被遮挡的坐标轴文本，默认为 false
+  autoEllipsisLabel?: boolean;
   autoRotateTitle?: boolean;
   label?: {
     visible?: boolean;
-    formatter?: (...args: any[]) => string;
+    formatter?: (name: string, tick: any, index: number) => string;
     offset?: number; // 坐标轴文本距离坐标轴线的距离
     offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
     offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
@@ -70,6 +70,8 @@ export interface IBaseAxis {
     useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
     htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
     style?: IStyleConfig;
+    autoRotate?: boolean;
+    autoHide?: boolean;
   };
   title?: {
     visible?: boolean;
@@ -88,6 +90,7 @@ export interface IBaseAxis {
 export interface IValueAxis extends IBaseAxis {
   type?: 'linear';
   /** tick相关配置 */
+  nice?: boolean;
   min?: number;
   max?: number;
   minLimit?: number;
@@ -116,14 +119,14 @@ export interface ICatAxis extends IBaseAxis {
 export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 
 export interface Label {
-  visible: boolean;
+  visible?: boolean;
   type?: string;
   formatter?: (text: string, item: any, idx: number, ...extras: any[]) => string;
   /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
   precision?: number;
   /** 添加后缀 */
   suffix?: string;
-  style?: {};
+  style?: any;
   offset?: number;
   offsetX?: number;
   offsetY?: number;
@@ -146,23 +149,31 @@ export interface Legend {
   offsetX?: number;
   offsetY?: number;
   clickable?: boolean;
-  marker?: string;
+  title?: {
+    visible?: boolean;
+    spacing?: number;
+    style?: IStyleConfig;
+  };
 }
 
 export interface Tooltip {
-  visible: boolean;
-  shared: boolean;
+  visible?: boolean;
+  shared?: boolean;
   /** html */
   showTitle?: boolean;
   html?: HTMLDivElement;
   formatter?: (...args: any) => string;
-  htmlContent?: (title: string, items: any[]) => string;
+  // htmlContent?: (title: string, items: any[]) => string;
   containerTpl?: string;
   itemTpl?: string;
   /** 辅助线 */
-  crosshair?: 'x' | 'y' | 'cross' | boolean;
-  crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
+  //crosshair?: 'x' | 'y' | 'cross' | boolean;
+  //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
+  showCrosshairs?: boolean;
+  crosshairs?: object;
   style?: IStyleConfig;
+  offset?: number;
+  showMarkers?: boolean;
 }
 
 interface Animation {
@@ -180,13 +191,13 @@ export interface ElementOption {
   position: {
     fields: string[];
   };
-  color?: AttributeCfg;
-  size?: AttributeCfg;
-  shape?: AttributeCfg;
+  color?: AttributeOption;
+  size?: AttributeOption;
+  shape?: AttributeOption;
   style?: IStyleConfig;
-  label?: LabelOptions | false;
+  label?: LabelOption | false;
   animate?: {};
-  adjust?: AdjustCfg[];
+  adjust?: AdjustOption[];
   connectNulls?: boolean;
   widthRatio?: {
     [type: string]: number;
@@ -194,20 +205,7 @@ export interface ElementOption {
   tooltip?: any;
 }
 
-export interface G2Config {
-  scales: Option.ScalesOption;
-  legends: Option.LegendOption | Option.LegendsOption | boolean;
-  tooltip: Option.TooltipOption | boolean;
-  axes: Option.AxesOption | boolean;
-  coord: Option.CoordinateOption;
-  element?: ElementOption;
-  elements: ElementOption[];
-  annotations: any[];
-  interactions: {};
-  theme: any;
-  panelRange: any;
-  animate: any;
-}
+export type G2Config = Options;
 
 export interface IColorConfig {
   fields?: string[];
@@ -243,17 +241,6 @@ export interface StateConfig {
   related?: string[];
 }
 
-export interface SliderConfig {
-  visible?: boolean;
-  start?: number;
-  end?: number;
-  foregroundColor?: string;
-  backgroundColor?: string;
-  height?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
-}
-
 export interface ISliderInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
   type?: 'horizontal' | 'vertical';
@@ -263,17 +250,34 @@ export interface ISliderInteractionConfig {
   height?: number;
   /** 可选 padding */
   padding?: [number, number, number, number];
-  /** 前景框颜色  */
-  foregroundColor?: string;
-  /** 背景框颜色 */
-  backgroundColor?: string;
   /** 默认开始位置, 0~1 */
   start?: number;
   /** 默认结束位置, 0~1 */
   end?: number;
+  /** 背景框样式配置 */
+  backgroundStyle?: ShapeAttrs;
+  /** 前景框样式配置 */
+  foregroundStyle?: ShapeAttrs;
+  /** 滑块样式配置 */
+  handlerStyle?: ShapeAttrs;
+  /** 文本样式配置 */
+  textStyle?: ShapeAttrs;
+  /** slider 趋势图配置  */
+  trendCfg?: {
+    /** 是否使用 smooth 折线 */
+    smooth?: boolean;
+    /** 是否使用面积图 */
+    isArea?: boolean;
+    /** 背景样式配置 */
+    backgroundStyle?: ShapeAttrs;
+    /** 折线样式配置 */
+    lineStyle?: ShapeAttrs;
+    /** 面积图样式配置 */
+    areaStyle?: ShapeAttrs;
+  };
 }
 
-export interface IScrollBarInteractionConfig {
+export interface IScrollbarInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
   type?: 'horizontal' | 'vertical';
   /** 宽度，在 vertical 下生效 */
@@ -286,7 +290,11 @@ export interface IScrollBarInteractionConfig {
   categorySize?: number;
 }
 
-export type IInteractionConfig = IScrollBarInteractionConfig | ISliderInteractionConfig;
+//export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
+
+export type IInteractionConfig = {
+  [field: string]: any;
+};
 
 export interface IInteractions {
   type: string;
@@ -302,5 +310,9 @@ export interface Point {
 }
 
 export interface DataItem {
-  [field: string]: string | number | number[] | null | undefined | any;
+  [field: string]: string | number | number[] | null | undefined;
+}
+
+export interface IStyle {
+  [field: string]: any;
 }

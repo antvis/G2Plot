@@ -1,20 +1,19 @@
 /**
  * 转化率组件，用于柱状图和条形图，展示从一个值到另一个值的转化率。
  */
-import { Group, Shape } from '@antv/g';
-import { View, Animate } from '@antv/g2';
-import * as _ from '@antv/util';
+import { IGroup } from '@antv/g-base';
+import { View } from '@antv/g2';
+import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
+import { each, deepMix, get } from '@antv/util';
 
-function parsePoints(shape) {
+function parsePoints(shape, coord) {
   const parsedPoints = [];
-  const coord = shape.get('coord');
   const points = shape.get('origin').points;
-  _.each(points, (p) => {
+  each(points, (p) => {
     parsedPoints.push(coord.convertPoint(p));
   });
   return parsedPoints;
 }
-
 export interface ConversionTagOptions {
   visible: boolean;
   size?: number;
@@ -65,12 +64,12 @@ export default class ConversionTag {
         },
         formatter: (valueUpper: any, valueLower: any) => `${((100 * valueLower) / valueUpper).toFixed(2)}%`,
       },
-      animation: _.deepMix({}, Animate.defaultCfg),
+      animation: deepMix({}, DEFAULT_ANIMATE_CFG),
     };
   }
 
   private view: View;
-  private container: Group;
+  private container: IGroup;
   private transpose?: boolean;
   private field: string;
   private size: number;
@@ -82,12 +81,12 @@ export default class ConversionTag {
 
   constructor(cfg: ConversionTagConfig) {
     // @ts-ignore
-    _.deepMix(this, this.constructor.getDefaultOptions(cfg), cfg);
+    deepMix(this, this.constructor.getDefaultOptions(cfg), cfg);
     this._init();
   }
 
   private _init() {
-    const layer = this.view.get('backgroundGroup');
+    const layer = this.view.backgroundGroup;
     this.container = layer.addGroup();
     this.draw();
     this.view.on('beforerender', () => {
@@ -97,9 +96,9 @@ export default class ConversionTag {
 
   public draw() {
     const { transpose } = this;
-    const { values } = this.view.get('scales')[this.field];
-    const geometry = this.view.get('elements')[0];
-    const shapes: Shape[] = geometry.getShapes();
+    const { values } = this.view.getScaleByField(this.field);
+    const geometry = this.view.geometries[0];
+    const shapes = geometry.getShapes();
 
     let shapeLower, valueLower, shapeUpper, valueUpper;
 
@@ -138,8 +137,9 @@ export default class ConversionTag {
 
   private _drawTag(shapeUpper, valueUpper, shapeLower, valueLower) {
     const { transpose } = this;
-    const pointUpper = parsePoints(shapeUpper)[transpose ? 3 : 0];
-    const pointLower = parsePoints(shapeLower)[transpose ? 0 : 3];
+    const coord = this.view.geometries[0].coordinate;
+    const pointUpper = parsePoints(shapeUpper, coord)[transpose ? 3 : 0];
+    const pointLower = parsePoints(shapeLower, coord)[transpose ? 0 : 3];
     this._drawTagArrow(pointUpper, pointLower);
     this._drawTagValue(pointUpper, valueUpper, pointLower, valueLower);
   }
@@ -244,7 +244,7 @@ export default class ConversionTag {
 
     const opacity = shape.attr('opacity');
     shape.attr('opacity', 0);
-    const { duration } = _.get(animation, 'appear', Animate.defaultCfg.appear);
+    const { duration } = get(animation, 'appear', DEFAULT_ANIMATE_CFG.appear);
     shape.animate({ opacity }, duration);
   }
 }

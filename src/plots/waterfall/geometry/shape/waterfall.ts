@@ -1,65 +1,65 @@
-import { Global, registerShape } from '@antv/g2';
-import * as _ from '@antv/util';
+/**
+ * Create By Bruce Too
+ * On 2020-02-18
+ */
+import { get } from '@antv/util';
+import { IGroup, registerShape, Point, ShapeInfo } from '../../../../dependents';
 
-function getRectPath(points) {
-  const path = [];
-  for (let i = 0; i < points.length; i++) {
-    const point = points[i];
-    if (point) {
-      const action = i === 0 ? 'M' : 'L';
-      path.push([action, point.x, point.y]);
+function getStyle(cfg: ShapeInfo, isStroke: boolean, isFill: boolean) {
+  const { style, defaultStyle, color } = cfg;
+  const attrs = {
+    ...defaultStyle,
+    ...style,
+  };
+  if (color) {
+    if (isStroke) {
+      attrs.stroke = color;
     }
-  }
-  const first = points[0];
-  path.push(['L', first.x, first.y]);
-  path.push(['Z']);
-  return path;
-}
-
-const ShapeUtil = {
-  addFillAttrs(attrs, cfg) {
-    if (cfg.color) {
-      attrs.fill = cfg.color;
+    if (isFill) {
+      attrs.fill = color;
     }
-    if (_.isNumber(cfg.opacity)) {
-      attrs.opacity = attrs.fillOpacity = cfg.opacity;
-    }
-  },
-};
-
-function getFillAttrs(cfg) {
-  const defaultAttrs = Global.theme.shape.interval;
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
-  ShapeUtil.addFillAttrs(attrs, cfg);
-  if (cfg.color) {
-    attrs.stroke = attrs.stroke || cfg.color;
   }
   return attrs;
 }
 
+function getRectPath(points: Point[]) {
+  const path = [];
+  const firstPoint = points[0];
+  path.push(['M', firstPoint.x, firstPoint.y]);
+  for (let i = 1, len = points.length; i < len; i++) {
+    path.push(['L', points[i].x, points[i].y]);
+  }
+  path.push(['L', firstPoint.x, firstPoint.y]); // 需要闭合
+  path.push(['z']);
+  return path;
+}
+
 // @ts-ignore
 registerShape('interval', 'waterfall', {
-  draw(cfg, container: any) {
-    const fillAttrs = getFillAttrs(cfg);
-    let rectPath = getRectPath(cfg.points);
-    rectPath = this.parsePath(rectPath);
-    // 1. 区域
-    const interval = container.addShape('path', {
-      attrs: _.mix(fillAttrs, {
-        path: rectPath,
-      }),
+  // @ts-ignore
+  draw(cfg: ShapeInfo, container: IGroup) {
+    const style = getStyle(cfg, false, true);
+    const path = this.parsePath(getRectPath(cfg.points as Point[]));
+    const shape = container.addShape('path', {
+      attrs: {
+        ...style,
+        path,
+      },
+      name: 'interval',
     });
-    const leaderLine = _.get(cfg.style, 'leaderLine');
+    const leaderLine = get(cfg.style, 'leaderLine');
     if (leaderLine && leaderLine.visible) {
       const lineStyle = leaderLine.style || {};
       // 2. 虚线连线
       if (cfg.nextPoints) {
         let linkPath = [
+          // @ts-ignore
           ['M', cfg.points[2].x, cfg.points[2].y],
+          // @ts-ignore
           ['L', cfg.nextPoints[0].x, cfg.nextPoints[0].y],
         ];
         linkPath = this.parsePath(linkPath);
-        const path = container.addShape('path', {
+        container.addShape('path', {
           attrs: {
             path: linkPath,
             stroke: '#d3d3d3',
@@ -67,10 +67,10 @@ registerShape('interval', 'waterfall', {
             lineWidth: 1,
             ...lineStyle,
           },
+          name: 'leader-line',
         });
-        path.name = 'leader-line';
       }
     }
-    return interval;
+    return shape;
   },
 });

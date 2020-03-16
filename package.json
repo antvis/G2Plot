@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "0.11.40",
+  "version": "1.0.0",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -38,52 +38,41 @@
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "dist": "webpack --config webpack.config.js --mode production",
     "lint": "lint-staged",
-    "lint-check": "run-p lint-check:*",
-    "lint-check:eslint": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
-    "lint-check:prettier": "prettier --list-different 'src/**/*.{ts,js}' '__tests__/**/*.{ts,js}'",
-    "lint-check:changelog": "node ./scripts/check-changelog.js",
+    "lint-check": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
     "lint-fix": "run-s lint-fix:*",
     "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
-    "lint-fix:prettier": "prettier --write 'src/**/*.{ts,js}' '__tests__/**/*.{ts,js}'",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/sunburst-spec",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
-    "ci": "run-s lint-check build test coverage",
+    "ci": "run-s lint-check build coverage",
     "compare-live": "node scripts/compare.js",
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
     "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
   },
-  "lint-staged": {
-    "*.{js,css,json}": [
-      "prettier --write"
-    ],
-    "*.ts": [
-      "eslint --fix"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "run-s lint test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
-    "@antv/g-gesture": "~0.1.0",
-    "@antv/g2": "~3.6.0-beta.21",
-    "@antv/gui": "~0.1.0",
+    "@antv/event-emitter": "~0.1.1",
+    "@antv/g2": "^4.0.0-beta.17",
     "d3-regression": "^1.2.8",
-    "fecha": "~4.1.0",
+    "fecha": "~4.0.0",
     "resize-observer-polyfill": "^1.5.1",
-    "tslib": "^1.10.0"
+    "warning": "~4.0.3"
   },
   "peerDependencies": {
-    "@antv/g": "~3.5.0-beta.1",
-    "@antv/component": "~0.4.0-beta.14",
+    "@antv/g-base": "^0.3.1",
+    "@antv/g-canvas": "^0.3.1",
+    "@antv/g-svg": "^0.3.1",
+    "@antv/component": "^0.5.0-beta.32",
     "@antv/dom-util": "~2.0.1",
     "@antv/event-emitter": "^0.1.1",
     "@antv/matrix-util": "~2.0.2",
-    "@antv/scale": "~0.3.0",
+    "@antv/scale": "^0.3.0",
     "@antv/util": "~2.0.4",
     "@antv/coord": "~0.2.2"
   },
@@ -93,7 +82,7 @@
     "@babel/preset-env": "^7.7.7",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
-    "@types/jest": "^25.1.3",
+    "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "babel-loader": "^8.0.6",
@@ -105,14 +94,15 @@
     "event-simulate": "^1.0.0",
     "gatsby": "^2.19.15",
     "gh-pages": "^2.1.1",
-    "husky": "^4.2.1",
-    "jest": "^25.1.0",
+    "husky": "^4.2.3",
+    "jest": "^24.9.0",
     "jest-electron": "^0.1.7",
     "jest-extended": "^0.11.2",
     "lint-staged": "^10.0.7",
     "npm-run-all": "^4.1.5",
     "nunjucks": "~3.2.0",
     "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "puppeteer": "^2.0.0",
     "react-i18next": "^11.0.1",
     "resemblejs": "^3.2.3",
@@ -146,6 +136,16 @@
       "!**/vendor/**"
     ],
     "testRegex": "/__tests__/.*-spec\\.ts?$"
+  },
+  "lint-staged": {
+    "*.{ts,js,css,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts": [
+      "eslint --ext .ts --fix ./src ./__tests__ ./demos",
+      "git add"
+    ]
   },
   "license": "MIT"
 }

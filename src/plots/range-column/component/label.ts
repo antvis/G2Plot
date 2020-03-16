@@ -1,7 +1,7 @@
-import { each, deepMix, clone } from '@antv/util';
-import { Group } from '@antv/g';
-import { View } from '@antv/g2';
+import { each, deepMix, clone, find } from '@antv/util';
+import { View, IGroup, Geometry } from '../../../dependents';
 import { rgb2arr } from '../../../util/color';
+import BBox from '../../../util/bbox';
 
 const DEFAULT_OFFSET = 8;
 
@@ -39,7 +39,8 @@ export default class RangeColumnLabel {
   public destroyed: boolean = false;
   private plot: any;
   private view: View;
-  private container: Group;
+  private coord: any;
+  private container: IGroup;
 
   constructor(cfg: IRangeColumnLabel) {
     this.view = cfg.view;
@@ -56,8 +57,7 @@ export default class RangeColumnLabel {
   }
 
   public init() {
-    const geomContainer = this.view.get('elements')[0].get('container');
-    this.container = geomContainer.addGroup();
+    this.container = this.getGeometry().labelsContainer;
     this.view.on('beforerender', () => {
       this.clear();
       this.plot.canvas.draw();
@@ -65,9 +65,10 @@ export default class RangeColumnLabel {
   }
 
   public render() {
-    const geometry = this.view.get('elements')[0];
-    const shapes = geometry.getShapes();
-    each(shapes, (shape) => {
+    const { coordinate, elements } = this.getGeometry();
+    this.coord = coordinate;
+    each(elements, (ele) => {
+      const shape = ele.shape;
       const positions = this.getPosition(shape);
       const values = this.getValue(shape);
       const textBaeline = this.getTextBaseline();
@@ -89,6 +90,7 @@ export default class RangeColumnLabel {
             textAlign: 'center',
             textBaseline: textBaeline[i],
           }),
+          name: 'label',
         });
         labels.push(label);
         this.doAnimation(label);
@@ -96,8 +98,6 @@ export default class RangeColumnLabel {
       shape.set('labelShapes', labels);
       this.adjustPosition(labels[0], labels[1], shape);
     });
-    const labelCtr = geometry.get('labelController');
-    labelCtr.labelsContainer = this.container;
     this.plot.canvas.draw();
   }
 
@@ -126,6 +126,20 @@ export default class RangeColumnLabel {
 
   public getBBox() {}
 
+  protected getShapeBbox(shape) {
+    const points = [];
+    each(shape.get('origin').points, (p) => {
+      points.push(this.coord.convertPoint(p));
+    });
+    const bbox = new BBox(
+      points[0].x,
+      points[1].y,
+      Math.abs(points[2].x - points[0].x),
+      Math.abs(points[0].y - points[1].y)
+    );
+    return bbox;
+  }
+
   private getDefaultOptions() {
     const { theme } = this.plot;
     const labelStyle = theme.label.style;
@@ -140,11 +154,10 @@ export default class RangeColumnLabel {
   }
 
   private getPosition(shape) {
-    const origin = shape.get('origin');
-    const minY = origin.y[1];
-    const maxY = origin.y[0];
+    const bbox = this.getShapeBbox(shape);
+    const { minX, maxX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY } = this.options;
-    const x = origin.x;
+    const x = minX + width / 2;
     let y1, y2;
     if (this.options.position === 'outer') {
       y1 = minY - offsetY;
@@ -161,7 +174,7 @@ export default class RangeColumnLabel {
 
   private getValue(shape) {
     const { yField } = this.plot.options;
-    return shape.get('origin')._origin[yField];
+    return shape.get('origin').data[yField];
   }
 
   private getTextBaseline() {
@@ -212,8 +225,10 @@ export default class RangeColumnLabel {
     const origin = shape.get('origin');
     const shapeMinY = origin.y[1];
     const shapeMaxY = origin.y[0];
-    const shapeHeight = Math.abs(shapeMaxY - shapeMinY);
-    const panelRange = this.view.get('panelRange');
+    const bbox = shape.getBBox();
+    const { minX, maxX, minY, height, width } = bbox;
+    const shapeHeight = height;
+    const panelRange = this.view.coordinateBBox;
     const boxes = [la.getBBox(), lb.getBBox()];
     let ay = la.attr('y');
     let by = lb.attr('y');
@@ -240,5 +255,9 @@ export default class RangeColumnLabel {
     la.attr('y', ay);
     lb.attr('y', by);
     this.plot.canvas.draw();
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geom) => geom.type === 'interval') as Geometry;
   }
 }

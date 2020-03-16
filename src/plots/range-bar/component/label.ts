@@ -1,7 +1,7 @@
-import { each, deepMix, clone } from '@antv/util';
-import { Group } from '@antv/g';
-import { View } from '@antv/g2';
+import { each, deepMix, clone, find } from '@antv/util';
+import { View, IGroup, Geometry } from '../../../dependents';
 import { rgb2arr } from '../../../util/color';
+import BBox from '../../../util/bbox';
 
 const DEFAULT_OFFSET = 8;
 
@@ -39,7 +39,8 @@ export default class RangeBarLabel {
   public destroyed: boolean = false;
   private plot: any;
   private view: View;
-  private container: Group;
+  private coord: any;
+  private container: IGroup;
 
   constructor(cfg: IRangeBarLabel) {
     this.view = cfg.view;
@@ -56,8 +57,7 @@ export default class RangeBarLabel {
   }
 
   public init() {
-    const geomContainer = this.view.get('elements')[0].get('container');
-    this.container = geomContainer.addGroup();
+    this.container = this.getGeometry().labelsContainer;
     this.view.on('beforerender', () => {
       this.clear();
       this.plot.canvas.draw();
@@ -65,9 +65,10 @@ export default class RangeBarLabel {
   }
 
   public render() {
-    const geometry = this.view.get('elements')[0];
-    const shapes = geometry.getShapes();
-    each(shapes, (shape) => {
+    const { elements, coordinate } = this.getGeometry();
+    this.coord = coordinate;
+    each(elements, (ele) => {
+      const { shape } = ele;
       const positions = this.getPosition(shape);
       const values = this.getValue(shape);
       const textAlign = this.getTextAlign();
@@ -89,6 +90,7 @@ export default class RangeBarLabel {
             textAlign: textAlign[i],
             textBaseline: 'middle',
           }),
+          name: 'label',
         });
         labels.push(label);
         this.doAnimation(label);
@@ -96,8 +98,6 @@ export default class RangeBarLabel {
       shape.set('labelShapes', labels);
       this.adjustPosition(labels[0], labels[1], shape);
     });
-    const labelCtr = geometry.get('labelController');
-    labelCtr.labelsContainer = this.container;
     this.plot.canvas.draw();
   }
 
@@ -126,6 +126,20 @@ export default class RangeBarLabel {
 
   public getBBox() {}
 
+  protected getShapeBbox(shape) {
+    const points = [];
+    each(shape.get('origin').points, (p) => {
+      points.push(this.coord.convertPoint(p));
+    });
+    const bbox = new BBox(
+      points[0].x,
+      points[1].y,
+      Math.abs(points[2].x - points[0].x),
+      Math.abs(points[0].y - points[1].y)
+    );
+    return bbox;
+  }
+
   private getDefaultOptions() {
     const { theme } = this.plot;
     const labelStyle = theme.label.style;
@@ -140,11 +154,10 @@ export default class RangeBarLabel {
   }
 
   private getPosition(shape) {
-    const origin = shape.get('origin');
-    const minX = origin.x[0];
-    const maxX = origin.x[1];
+    const bbox = this.getShapeBbox(shape);
+    const { minX, maxX, minY, height, width } = bbox;
     const { offsetX, offsetY } = this.options;
-    const y = origin.y[0];
+    const y = minY + height / 2 + offsetY;
     let x1, x2;
     if (this.options.position === 'outer') {
       x1 = minX - offsetX;
@@ -161,7 +174,7 @@ export default class RangeBarLabel {
 
   private getValue(shape) {
     const { xField } = this.plot.options;
-    return shape.get('origin')._origin[xField];
+    return shape.get('origin').data[xField];
   }
 
   private getTextAlign() {
@@ -213,7 +226,7 @@ export default class RangeBarLabel {
     const shapeMinX = origin.x[0];
     const shapeMaxX = origin.x[1];
     const shapeWidth = Math.abs(shapeMaxX - shapeMinX);
-    const panelRange = this.view.get('panelRange');
+    const panelRange = this.view.coordinateBBox;
     const boxes = [la.getBBox(), lb.getBBox()];
     let ax = la.attr('x');
     let bx = lb.attr('x');
@@ -239,5 +252,9 @@ export default class RangeBarLabel {
     la.attr('x', ax);
     lb.attr('x', bx);
     this.plot.canvas.draw();
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geom) => geom.type === 'interval') as Geometry;
   }
 }

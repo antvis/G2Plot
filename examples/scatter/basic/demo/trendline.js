@@ -35,14 +35,6 @@ const data = [
 ];
 
 const scatterPlot = new Scatter(document.getElementById('container'), {
-  title: {
-    visible: true,
-    text: '为散点图加入趋势线',
-  },
-  description: {
-    visible: true,
-    text: '通过type配置项选择趋势线类型，showConfidence配置项决定是否同时绘制置信区间曲线',
-  },
   padding: 'auto',
   data: data,
   xField: 'x',

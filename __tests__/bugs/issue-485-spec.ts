@@ -1,7 +1,7 @@
-import * as _ from '@antv/util';
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base';
 import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
+import { every } from '@antv/util';
 import { getOverlapArea } from '../../src/plots/pie/component/label/utils';
 
 describe.skip('#485 饼图 outer-label 绘制错误', () => {
@@ -78,7 +78,7 @@ describe.skip('#485 饼图 outer-label 绘制错误', () => {
       .view.get('coord')
       .getRadius();
     expect(
-      _.every(labels, (label: Shape) => {
+      every(labels, (label: IShape) => {
         const box = label.getBBox();
         const labelCenter = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
         return distanceOfPoints(center, labelCenter) > radius;

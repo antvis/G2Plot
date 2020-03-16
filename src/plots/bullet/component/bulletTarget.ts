@@ -1,6 +1,6 @@
-import { Group, BBox } from '@antv/g';
-import { View } from '@antv/g2';
-import * as _ from '@antv/util';
+import BBox from '../../../util/bbox';
+import { View, Geometry, IGroup, IElement } from '../../../dependents';
+import { find, map } from '@antv/util';
 
 export interface BulletTargetCfg {
   targets: number[][];
@@ -17,7 +17,7 @@ export interface BulletTargetCfg {
 
 export default class BulletTarget {
   private view: View;
-  private container: Group;
+  private container: IGroup;
   private cfg: BulletTargetCfg;
 
   constructor(view: View, cfg: BulletTargetCfg) {
@@ -31,18 +31,15 @@ export default class BulletTarget {
     if (!this.view || this.view.destroyed) {
       return;
     }
-    this.container = this.view.get('frontgroundGroup').addGroup();
+    this.container = this.view.foregroundGroup.addGroup();
     this.container.set('name', 'targetGroups');
-    const shapes = this.view
-      .get('elements')[0]
-      .get('shapeContainer')
-      .get('children');
+    const shapes = map(this.getGeometry().elements, (element: any) => element.shape);
     for (let i = 0; i < this.cfg.targets.length; i += 1) {
       const shapeBox = shapes[i].getBBox();
-      const widthRatio = shapeBox.width / shapes[i].get('origin')._origin[this.cfg.yField];
+      const widthRatio = shapeBox.width / shapes[i].get('origin').data[this.cfg.yField];
       this.drawTarget(shapeBox, this.cfg.targets[i], widthRatio);
     }
-    this.view.get('canvas').draw();
+    this.view.canvas.draw();
   }
 
   protected drawTarget(box: BBox, targets: number[], widthRatio: number) {
@@ -52,6 +49,7 @@ export default class BulletTarget {
     targets.forEach((target: number, i) => {
       const markerStyle = options.markerStyle;
       const targetRect = this.container.addShape('rect', {
+        name: 'bullet-target',
         attrs: {
           width: markerStyle.width,
           height: box.height * options.markerSize - markerStyle.width / 2,
@@ -61,7 +59,6 @@ export default class BulletTarget {
           fill: colors[i % colors.length] || markerStyle.fill,
         },
       });
-      targetRect.name = 'bullet-target';
     });
   }
 
@@ -71,7 +68,7 @@ export default class BulletTarget {
     }
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }
@@ -85,5 +82,9 @@ export default class BulletTarget {
     this.view.on('afterrender', () => {
       this.draw();
     });
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geometry) => geometry.type === 'interval') as Geometry;
   }
 }

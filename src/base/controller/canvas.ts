@@ -1,6 +1,6 @@
 import { modifyCSS } from '@antv/dom-util';
-import { Canvas } from '@antv/g';
-import * as _ from '@antv/util';
+import { Canvas, SVG, ICanvas } from '../../dependents';
+import { debounce, get } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
 import BasePlot from '../plot';
@@ -10,6 +10,8 @@ export interface CanvasControllerCfg {
   readonly containerDOM: HTMLElement;
   readonly plot: BasePlot;
 }
+
+type ICanvasCtor = new (...cfg: any) => ICanvas;
 
 /**
  * Canvas controller
@@ -21,7 +23,7 @@ export interface CanvasControllerCfg {
 export default class CanvasController {
   public width: number;
   public height: number;
-  public canvas: Canvas;
+  public canvas: ICanvas;
 
   private containerDOM: HTMLElement;
   private plot: BasePlot; // temp
@@ -30,7 +32,7 @@ export default class CanvasController {
   /**
    * when the container size changed, trigger it after 300ms.
    */
-  private onResize = _.debounce(() => {
+  private onResize = debounce(() => {
     if (this.plot.destroyed) {
       return;
     }
@@ -76,7 +78,7 @@ export default class CanvasController {
    * @returns Canvas DOM
    */
   public getCanvasDOM() {
-    return this.canvas.get('canvasDOM');
+    return this.canvas.get('container');
   }
 
   /**
@@ -97,7 +99,7 @@ export default class CanvasController {
   public updateCanvasTheme() {
     const { theme } = this.plot;
     const globalTheme = ThemeController.getGlobalTheme(theme);
-    const fill: string = _.get(globalTheme, 'backgroundStyle.fill');
+    const fill: string = get(globalTheme, 'backgroundStyle.fill');
     if (fill) {
       this.updateCanvasStyle({
         backgroundColor: fill,
@@ -156,11 +158,13 @@ export default class CanvasController {
     /** 创建canvas */
     const { renderer = 'canvas', pixelRatio } = this.plot;
     const { width, height } = this.getCanvasSize();
-    this.canvas = new Canvas({
-      containerDOM: this.containerDOM,
+
+    const G: ICanvasCtor = renderer === 'canvas' ? Canvas : SVG;
+
+    this.canvas = new G({
+      container: this.containerDOM,
       width,
       height,
-      renderer,
       pixelRatio,
     });
     this.width = width;

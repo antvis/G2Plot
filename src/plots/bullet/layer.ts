@@ -1,5 +1,4 @@
-import { LegendOption } from '@antv/g2/lib/plot/interface';
-import * as _ from '@antv/util';
+import { deepMix, has } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { extractScale } from '../../util/scale';
@@ -9,7 +8,7 @@ import { LayerConfig } from '../../base/layer';
 import { registerPlotType } from '../../base/global';
 import BulletRect from './component/bulletRect';
 import BulletTarget from './component/bulletTarget';
-import '../bar/component/label/bar-label';
+import './theme';
 
 const G2_GEOM_MAP = {
   bullet: 'interval',
@@ -83,7 +82,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
   protected bulletTarget;
   public type: string = 'bullet';
   public static getDefaultOptions(): Partial<BulletViewConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       data: [],
       stackField: STACK_FIELD,
       xField: X_FIELD,
@@ -131,6 +130,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       },
       yAxis: {
         visible: false,
+        nice: false,
       },
       tooltip: {
         visible: false,
@@ -149,19 +149,24 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     });
   }
 
+  public afterRender() {
+    super.afterRender();
+    this.view.removeInteraction('legend-filter');
+  }
+
   protected scale() {
     const options = this.options;
     const scales = {};
     /** 配置y-scale */
     scales[options.yField] = {};
-    if (_.has(options, 'yAxis')) {
+    if (has(options, 'yAxis')) {
       extractScale(scales[options.yField], options.yAxis);
     }
     /** 配置x-scale */
     scales[options.xField] = {
       type: 'cat',
     };
-    if (_.has(options, 'xAxis')) {
+    if (has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
     this.setConfig('scales', scales);
@@ -204,10 +209,9 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
   }
 
   protected coord() {
-    const coordConfig = {
+    this.setConfig('coordinate', {
       actions: [['transpose']],
-    };
-    this.setConfig('coord', coordConfig);
+    });
   }
 
   /** 自定义子弹图图例 */
@@ -217,28 +221,35 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     const measureColors = options.measureColors || this.theme.colors;
     const items = [
       {
-        value: '实际进度', // 图例项的文本内容
+        name: '实际进度', // 图例项的文本内容
+        value: '实际进度',
         marker: {
           symbol: 'square', // 该图例项 marker 的形状，参见 marker 参数的说明
-          fill: measureColors[0], // 该图例项 marker 的填充颜色
+          style: {
+            fill: measureColors[0], // 该图例项 marker 的填充颜色
+          },
         },
       },
       {
-        value: '目标值', // 图例项的文本内容
+        name: '目标值', // 图例项的文本内容
+        value: '目标值',
         marker: {
           symbol: 'line', // 该图例项 marker 的形状，参见 marker 参数的说明
-          stroke: markerColor, // 该图例项 marker 的填充颜色
-          lineWidth: 2, // 该图例项 marker 的填充颜色
+          style: {
+            stroke: markerColor, // 该图例项 marker 的填充颜色
+            lineWidth: 2, // 该图例项 marker 的填充颜色
+          },
         },
       },
     ];
     const legendOptions = {
       custom: true,
+      position: 'bottom',
       items,
       ...options.legend,
-      clickable: false,
     };
-    this.setConfig('legends', legendOptions as LegendOption);
+    // @ts-ignore
+    this.setConfig('legends', legendOptions);
   }
 
   protected addGeometry() {
@@ -256,7 +267,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
       bullet.label = this.extractLabel();
     }
     this.bullet = bullet;
-    this.setConfig('element', bullet);
+    this.setConfig('geometry', bullet);
   }
 
   protected parseEvents(eventParser) {
@@ -265,7 +276,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
 
   protected extractLabel() {
     const options = this.options;
-    const label = _.deepMix({}, options.label);
+    const label = deepMix({}, options.label);
     if (label.visible === false) {
       return false;
     }
@@ -287,7 +298,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     const values = [];
     options.data.forEach((d) => values.push(d.measures.reduce((a, b) => a + b, 0)));
     values.push(options.rangeMax);
-    options.yAxis.maxLimit = Math.max.apply([], values);
+    options.yAxis.max = Math.max.apply([], values);
   }
 
   protected processData(dataOptions: BulletViewConfig['data']) {

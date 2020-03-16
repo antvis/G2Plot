@@ -1,4 +1,5 @@
 import { DESCRIPTION_BOTTOM_MARGIN, TOP_BLEEDING, BOTTOM_BLEEDING } from './default';
+import line from '../geoms/line';
 
 export const DEFAULT_DARK_THEME = {
   backgroundStyle: {
@@ -36,15 +37,15 @@ export const DEFAULT_DARK_THEME = {
     y: {
       visible: true,
       position: 'left',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: true,
       grid: {
         visible: true,
-        style: {
-          stroke: 'rgba(255, 255, 255, 0.15)',
-          lineWidth: 1,
-          lineDash: [0, 0],
+        line: {
+          style: {
+            stroke: 'rgba(255, 255, 255, 0.15)',
+            lineWidth: 1,
+            lineDash: null,
+          },
         },
       },
       line: {
@@ -65,6 +66,8 @@ export const DEFAULT_DARK_THEME = {
       label: {
         visible: true,
         offset: 8,
+        autoRotate: false,
+        autoHide: true,
         textStyle: {
           fill: 'rgba(255, 255, 255, 0.45)',
           fontSize: 12,
@@ -83,15 +86,15 @@ export const DEFAULT_DARK_THEME = {
     x: {
       visible: true,
       position: 'bottom',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: false,
       grid: {
         visible: false,
-        style: {
-          stroke: 'rgba(255, 255, 255, 0.15)',
-          lineWidth: 1,
-          lineDash: [0, 0],
+        line: {
+          style: {
+            stroke: 'rgba(255, 255, 255, 0.15)',
+            lineWidth: 1,
+            lineDash: null,
+          },
         },
       },
       line: {
@@ -115,6 +118,8 @@ export const DEFAULT_DARK_THEME = {
           fontSize: 12,
         },
         offset: 16,
+        autoHide: true,
+        autoRotate: true,
       },
       title: {
         visible: false,
@@ -126,8 +131,6 @@ export const DEFAULT_DARK_THEME = {
       },
     },
     circle: {
-      autoHideLabel: false,
-      autoRotateLabel: true,
       autoRotateTitle: true,
       // gridType: 'line',
       grid: {
@@ -157,6 +160,8 @@ export const DEFAULT_DARK_THEME = {
           fill: '#a0a4aa',
           fontSize: 12,
         },
+        autoRotate: true,
+        autoHide: true,
       },
       title: {
         offset: 12,
@@ -175,7 +180,7 @@ export const DEFAULT_DARK_THEME = {
   },
   legend: {
     flipPage: false,
-    position: 'bottom-center',
+    position: 'bottom',
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
   },
@@ -189,11 +194,15 @@ export const DEFAULT_DARK_THEME = {
       lineWidth: 1,
     },
   },
-  tooltip: {
-    'g2-tooltip': {
-      backgroundColor: 'rgba(33,33,33, 0.95)',
-      boxShadow: '0px 0px 8px rgba(0,0,0,0.65)',
-      color: 'rgba(255, 255, 255, 0.65)',
+  components: {
+    tooltip: {
+      domStyles: {
+        'g2-tooltip': {
+          backgroundColor: 'rgba(33,33,33, 0.95)',
+          boxShadow: '0px 0px 8px rgba(0,0,0,0.65)',
+          color: 'rgba(255, 255, 255, 0.65)',
+        },
+      },
     },
   },
 };

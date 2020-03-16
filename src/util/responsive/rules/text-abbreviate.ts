@@ -1,9 +1,9 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 
 interface TextAbbreviateCfg {
   abbreviateBy?: 'start' | 'middle' | 'end';
 }
-export default function textAbbreviate(shape: Shape, option: TextAbbreviateCfg) {
+export default function textAbbreviate(shape: IShape, option: TextAbbreviateCfg) {
   const abbreviateBy = option.abbreviateBy ? option.abbreviateBy : 'end';
   const text = shape.attr('text');
   let abbravateText;

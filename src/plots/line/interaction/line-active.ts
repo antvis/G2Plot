@@ -1,4 +1,6 @@
-import { Interaction } from '@antv/g2';
+import { each, filter, get } from '@antv/util';
+import Interaction from '../../../interaction/core';
+import { Geometry } from '../../../dependents';
 
 export default class LineActive extends Interaction {
   constructor(cfg) {
@@ -10,15 +12,20 @@ export default class LineActive extends Interaction {
   }
 
   public process(ev) {
+    const lines: Geometry[] = filter(this.view.geometries, (geom) => geom.type == 'line');
     const target = ev.target;
-    if (target.name === 'line') {
-      const data = ev.data[0]._origin;
-      this.view.setActive((obj) => {
-        return obj === data;
+    if (target.get('name') === 'line') {
+      const data = get(ev, 'data.data');
+      each(lines, (line: Geometry) => {
+        each(line.elements, (element) => {
+          element.setState('active', element.data === data);
+        });
       });
     } else {
-      this.view.setActive(() => {
-        return false;
+      each(lines, (line: Geometry) => {
+        each(line.elements, (element) => {
+          element.setState('active', false);
+        });
       });
     }
   }

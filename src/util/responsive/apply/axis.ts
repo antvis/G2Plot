@@ -1,5 +1,5 @@
-import { Axis } from '@antv/component';
-import * as _ from '@antv/util';
+import { Axis } from '../../../dependents';
+import { each, clone } from '@antv/util';
 import ShapeNodes from '../node/shape-nodes';
 import Responsive from '../responsive';
 import ApplyResponsive from './base';
@@ -11,8 +11,12 @@ const SCALE_MAPPER = {
   linear: 'linear',
 };
 
-function updateTicks(nodes, axis) {
-  let tickShape = null;
+function updateTicks(nodes) {
+  const rawLabels = this.plot.view.backgroundGroup.findAll((el) => {
+    const name = el.get('name');
+    console.log(name);
+  });
+  /*let tickShape = null;
   axis
     .get('group')
     .get('children')
@@ -25,12 +29,12 @@ function updateTicks(nodes, axis) {
   const ticks = axis.get('ticks');
   const tickItems = axis.get('tickItems');
   const tickTexts = [];
-  _.each(ticks, (tick) => {
+  each(ticks, (tick) => {
     const t = tick as any;
     tickTexts.push(t.text);
   });
   let pathes = [];
-  _.each(nodes.nodes, (node) => {
+  each(nodes.nodes, (node) => {
     const n = node as any;
     if (n.width > 0 && n.height > 0) {
       const text = n.shape.get('origin').text;
@@ -44,7 +48,7 @@ function updateTicks(nodes, axis) {
     pathes = [['M', 0, 0]];
   }
 
-  tickShape.attr('path', pathes);
+  tickShape.attr('path', pathes);*/
 }
 
 export default class ApplyResponsiveAxis extends ApplyResponsive {
@@ -57,14 +61,15 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
   }
 
   protected shouldApply() {
+    const { options } = this.plot;
     if (!this.responsiveTheme.axis) {
       return false;
     }
     if (
       this.responsiveTheme.axis[this.dim] &&
-      this.type &&
-      this.axisInstance &&
-      this.axisInstance.get('labelRenderer')
+      options[`${this.dim}Axis`].visible &&
+      options[`${this.dim}Axis`].label &&
+      options[`${this.dim}Axis`].label.visible
     ) {
       return true;
     }
@@ -72,13 +77,17 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
   }
 
   protected apply() {
-    const axis = this.axisInstance;
-    const rawLabels = axis
-      .get('labelRenderer')
-      .get('group')
-      .get('children');
+    const rawLabels = this.plot.view.backgroundGroup.findAll((el) => {
+      const name = el.get('name');
+      if (name === 'axis-label') {
+        const field = el.get('delegateObject').axis.get('field');
+        if (field === this.plot.options[`${this.dim}Field`]) {
+          return el;
+        }
+      }
+    });
     const shapes = [];
-    for (let i = 0; i < rawLabels.length - 1; i++) {
+    for (let i = 0; i < rawLabels.length; i++) {
       shapes.push(rawLabels[i]);
     }
     const shapeNodes = new ShapeNodes({
@@ -88,13 +97,11 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     new Responsive({
       nodes: shapeNodes,
       constraints,
-      region: this.plot.view.get('viewRange'),
+      region: this.plot.getViewRange(),
       rules,
       plot: this.plot,
       onEnd: (nodes) => {
-        if (axis.get('tickLine')) {
-          updateTicks(nodes, axis);
-        }
+        this.updateTicks(nodes.origion_nodes);
       },
     });
   }
@@ -106,13 +113,34 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
     if (props[axis] && props[axis].type && props[axis].type === 'dateTime') {
       return 'dateTime';
     }
-    const scaleType = this.plot.view.get('scales')[props[field]].type;
+    const scaleType = this.plot.view.getScaleByField([props[field]]).type;
     return SCALE_MAPPER[scaleType];
   }
 
   private getAxisInstance() {
     const axisIndex = this.dim === 'x' ? 0 : 1;
-    const axis = this.plot.view.get('axisController').axes[axisIndex];
+    const axis = this.plot.view.getController('axis').getComponents()[axisIndex].component;
     return axis;
+  }
+
+  private updateTicks(nodes) {
+    const tickLineContainer = this.plot.view.backgroundGroup.findAll((el) => {
+      const name = el.get('name');
+      if (name === 'axis-tickline-group') {
+        const field = el.get('delegateObject').axis.get('field');
+        if (field === this.plot.options[`${this.dim}Field`]) {
+          return el;
+        }
+      }
+    })[0];
+    if (tickLineContainer) {
+      const tickShapes = tickLineContainer.get('children');
+      each(nodes, (n, index) => {
+        if (n.shape.attr('text') === '') {
+          tickShapes[index].attr('opacity', 0);
+        }
+      });
+    }
+    this.plot.canvas.draw();
   }
 }

@@ -41,6 +41,14 @@ module.exports = {
         order: 3,
       },
       {
+        slug: 'manual/mini-charts',
+        title: {
+          zh: '迷你图表',
+          en: 'sparkline',
+        },
+        order: 3,
+      },
+      {
         slug: 'manual/advanced',
         title: {
           zh: '进阶',
@@ -52,7 +60,7 @@ module.exports = {
     examples: [
       {
         slug: 'line',
-        icon: 'line', // 图标名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
+        icon: 'line', // 图表名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {
           zh: '折线图',
           en: 'Line Charts',
@@ -171,11 +179,19 @@ module.exports = {
         },
       },
       {
-        slug: 'combo',
+        slug: 'bullet',
         icon: 'other',
         title: {
-          zh: '双轴图',
-          en: 'Combo Charts',
+          zh: '子弹图',
+          en: 'Bullet Chart',
+        },
+      },
+      {
+        slug: 'calendar',
+        icon: 'other',
+        title: {
+          zh: '日历图',
+          en: 'Calendar Chart',
         },
       },
       {
@@ -216,6 +232,14 @@ module.exports = {
         title: {
           zh: '高级功能尝鲜',
           en: 'advanced',
+        },
+      },
+      {
+        slug: 'combo',
+        icon: 'other',
+        title: {
+          zh: '混合图表（beta)',
+          en: 'Combo Chart',
         },
       },
     ],

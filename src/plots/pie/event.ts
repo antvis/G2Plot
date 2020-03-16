@@ -1,17 +1,12 @@
-import * as _ from '@antv/util';
-import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
+import { assign } from '@antv/util';
+import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
-const SHAPE_EVENT_MAP: IEventmap = {
-  onPieClick: 'interval:click',
-  onPieDblclick: 'interval:dblclick',
-  onPieMousemove: 'interval:mousemove',
-  onPieMouseenter: 'interval:mouseenter',
-  onPieMouseleave: 'interval:mouseleave',
-  onPieMousedown: 'interval:mousedown',
-  onPieMouseup: 'interval:mouseup',
-  onPieContextmenu: 'interval:contextmenu',
+const componentMap = {
+  Pie: 'interval',
 };
 
-_.assign(EVENT_MAP, SHAPE_EVENT_MAP);
+const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);
+
+assign(EVENT_MAP, SHAPE_EVENT_MAP);
 
 export { EVENT_MAP, onEvent };

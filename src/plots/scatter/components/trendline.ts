@@ -1,6 +1,5 @@
-import { each, deepMix, minBy, maxBy, isNull } from '@antv/util';
-import { Group, BBox, Shape } from '@antv/g';
-import { View } from '@antv/g2';
+import { each, deepMix, minBy, maxBy } from '@antv/util';
+import { View, IGroup, IShape } from '../../../dependents';
 import { getScale } from '@antv/scale';
 import {
   regressionLinear,
@@ -41,12 +40,12 @@ function se95(p, n) {
   return Math.sqrt((p * (1 - p)) / n) * 1.96;
 }
 
-export default class Quadrant {
+export default class TrendLine {
   public data: { trendlineData: any[]; confidenceData: any[] };
   protected options: any;
   protected view: View;
-  protected container: Group;
-  protected shape: Shape;
+  protected container: IGroup;
+  protected shape: IShape;
 
   constructor(cfg: ITrendline) {
     const defaultOptions = {
@@ -77,14 +76,13 @@ export default class Quadrant {
       .y((d) => d[yField]);
     this.data = this.processData(reg(data));
     // 创建container
-    this.container = this.view.get('backgroundGroup').addGroup();
+    this.container = this.view.backgroundGroup.addGroup();
   }
 
   public render() {
-    const scales = this.view.get('scales');
-    const xscale_view = scales[this.options.plotOptions.xField];
-    const yscale_view = scales[this.options.plotOptions.yField];
-    const coord = this.view.get('coord');
+    const xscale_view = this.view.getScaleByField(this.options.plotOptions.xField);
+    const yscale_view = this.view.getScaleByField(this.options.plotOptions.yField);
+    const coord = this.view.getCoordinate();
     const { trendlineData } = this.data;
     // 创建图形绘制的scale
     const LinearScale = getScale('linear');
@@ -92,13 +90,13 @@ export default class Quadrant {
     const xScale = new LinearScale({
       min: xRange.min,
       max: xRange.max,
-      nice: xscale_view.nice,
+      // nice: xscale_view.nice,
     });
     const yRange = this.adjustScale(yscale_view, trendlineData, 'y');
     const yScale = new LinearScale({
       min: yRange.min,
       max: yRange.max,
-      nice: yscale_view.nice,
+      // nice: yscale_view.nice,
     });
     // 绘制置信区间曲线
     if (this.options.showConfidence) {
@@ -108,6 +106,7 @@ export default class Quadrant {
           path: confidencePath,
           ...this.options.confidenceStyle,
         },
+        name: 'confidence',
       });
     }
     // 绘制trendline
@@ -122,6 +121,7 @@ export default class Quadrant {
         path,
         ...this.options.style,
       },
+      name: 'trendline',
     });
   }
 

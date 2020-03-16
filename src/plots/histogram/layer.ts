@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { clone, sortBy, valuesOfKey, getRange, each, hasKey } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
@@ -24,12 +24,12 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
 
   protected processData(originData?: DataItem[]) {
     const { binField, binWidth, binNumber } = this.options;
-    const originData_copy = _.clone(originData);
+    const originData_copy = clone(originData);
     // 根据binField value对源数据进行排序
-    _.sortBy(originData_copy, binField);
+    sortBy(originData_copy, binField);
     // 获取源数据binField values的range
-    const values = _.valuesOfKey(originData_copy, binField);
-    const range = _.getRange(values);
+    const values = valuesOfKey(originData_copy, binField);
+    const range = getRange(values);
     const rangeWidth = range.max - range.min;
     // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
     let _binWidth = binWidth;
@@ -42,11 +42,11 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
       _binWidth = rangeWidth / _defaultBinNumber;
     }
     const bins = {};
-    _.each(originData_copy, (data) => {
+    each(originData_copy, (data) => {
       const value = data[binField];
       const bin = this.getBin(value, _binWidth);
       const binName = `${bin[0]}-${bin[1]}`;
-      if (!_.hasKey(bins, binName)) {
+      if (!hasKey(bins, binName)) {
         bins[binName] = { name: binName, range: bin, count: 0, data: [] };
       }
       bins[binName].data.push(data);
@@ -54,7 +54,7 @@ export default class HistogramLayer extends Column<HistogramLayerConfig> {
     });
     // 将分箱数据转换为plotData
     const plotData = [];
-    _.each(bins, (bin) => {
+    each(bins, (bin) => {
       plotData.push(bin);
     });
     return plotData;

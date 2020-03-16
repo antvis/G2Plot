@@ -1,11 +1,6 @@
-import { Shape, Text } from '@antv/g';
-import { ElementLabels, registerElementLabels } from '@antv/g2';
-import * as _ from '@antv/util';
+import { each, deepMix, clone, find } from '@antv/util';
+import { View, IGroup } from '../../../dependents';
 import { breakText } from '../../../util/common';
-
-interface Point {
-  [key: string]: any;
-}
 
 const LEAF_LABEL_OFFSET = 4;
 const MIN_FONTSIZE = 8;
@@ -14,10 +9,10 @@ function isLeaf(data, maxLevel) {
   return !data.children || data.depth >= maxLevel;
 }
 
-function textWrapper(label, width) {
+function textWrapper(label, width, container) {
   const fontSize = label.attr('fontSize');
   const textContent: string = label.attr('text');
-  const tShape = new Text({
+  const tShape = container.addShape('text', {
     attrs: {
       text: '',
       x: 0,
@@ -51,8 +46,8 @@ function textWrapper(label, width) {
   return wrappedTextArr.join('\n');
 }
 
-function textAbbreviate(text, fontSize, width) {
-  const tailShape = new Text({
+function textAbbreviate(text, fontSize, width, container) {
+  const tailShape = container.addShape('text', {
     attrs: {
       text: '...',
       x: 0,
@@ -61,7 +56,7 @@ function textAbbreviate(text, fontSize, width) {
     },
   });
   const tailWidth = tailShape.getBBox().width;
-  const tShape = new Text({
+  const tShape = container.addShape('text', {
     attrs: {
       text: '',
       x: 0,
@@ -82,59 +77,132 @@ function textAbbreviate(text, fontSize, width) {
       }
     }
   }
+  tShape.remove();
+  tailShape.remove();
   return t;
 }
 
-export class TreemapLabels extends ElementLabels {
-  public showLabels(points: any, shapes: Shape[]) {
-    super.showLabels(points, shapes);
-    const renderer = this.get('labelsRenderer');
-    const labels = renderer.get('group').get('children');
-    const view = this.get('element').get('view');
-    const { maxLevel } = this.get('labelOptions');
-    _.each(labels, (label, index) => {
-      const l = label as Shape;
-      const data = label.get('origin');
-      const origin = l.get('origin');
-      const isLeafNode = isLeaf(data, maxLevel);
-      const shapeId = this.get('element').getShapeId(origin);
-      const shape = this.getShape(shapeId, shapes);
-      const shapeBbox = shape.getBBox();
-      if (!isLeafNode && data.showLabel) {
-        const x = shapeBbox.x + shapeBbox.width / 2;
-        const y = shapeBbox.y + 4;
-        label.attr('x', x);
-        label.attr('y', y);
-        label.attr('textBaseline', 'top');
-        label.attr('fontWeight', 600);
-        const wrapperWidth = shapeBbox.width - LEAF_LABEL_OFFSET * 2;
-        if (label.getBBox().width > wrapperWidth) {
-          const text = textAbbreviate(label.attr('text'), label.attr('fontSize'), wrapperWidth);
-          label.attr('text', text);
-        }
-      } else {
-        this.leafText(shapeBbox, label);
-      }
-    });
-    view.get('canvas').draw();
+export interface TreemapLabelConfig {
+  visible?: boolean;
+  formatter?: (...args: any[]) => string;
+  offsetX?: number;
+  offsetY?: number;
+  style?: any;
+}
+
+export interface ILineLabel extends TreemapLabelConfig {
+  view: View;
+  plot: any;
+}
+
+export default class TreemapLabel {
+  public options: TreemapLabelConfig;
+  public destroyed: boolean = false;
+  protected plot: any;
+  protected view: View;
+  private container: IGroup;
+
+  constructor(cfg: ILineLabel) {
+    this.view = cfg.view;
+    this.plot = cfg.plot;
+    const defaultOptions = this.getDefaultOptions();
+    this.options = deepMix(defaultOptions, cfg, {});
+    this.init();
   }
 
-  public getShape(shapeId, shapes) {
-    let target;
-    _.each(shapes, (shape) => {
-      const s = shape as Point;
-      const id = s.id;
-      if (id === shapeId) {
-        target = s;
-      }
+  protected init() {
+    this.container = this.getGeometry().labelsContainer;
+    this.view.on('beforerender', () => {
+      this.clear();
+      this.plot.canvas.draw();
     });
-    return target;
   }
 
-  private leafText(bbox, label) {
+  public render() {
+    const elements = this.getGeometry().elements;
+    each(elements, (ele) => {
+      const shape = ele.shape;
+      const data = shape.get('origin').data;
+      const isLeafNode = isLeaf(data, this.plot.options.maxLevel);
+      if (data.showLabel) {
+        const style = clone(this.options.style);
+        const position = this.getPosition(shape, isLeafNode);
+        const formatter = this.options.formatter;
+        const content = formatter ? formatter(data.name) : data.name;
+        const textBaseline = this.getTextBaseLine(isLeafNode);
+        const label = this.container.addShape('text', {
+          attrs: deepMix({}, style, {
+            x: position.x,
+            y: position.y,
+            text: content,
+            fill: 'black',
+            textAlign: 'center',
+            textBaseline,
+            fontWeight: isLeafNode ? 300 : 600,
+          }),
+          name: 'label',
+        });
+        this.adjustLabel(label, shape, isLeafNode);
+      }
+    });
+  }
+
+  public clear() {
+    if (this.container) {
+      this.container.clear();
+    }
+  }
+
+  public hide() {
+    this.container.set('visible', false);
+    this.plot.canvas.draw();
+  }
+
+  public show() {
+    this.container.set('visible', true);
+    this.plot.canvas.draw();
+  }
+
+  public destory() {
+    if (this.container) {
+      this.container.remove();
+    }
+    this.destroyed = true;
+  }
+
+  public getBBox() {}
+
+  protected getPosition(shape, isLeafNode) {
+    const shapeBbox = shape.getBBox();
+    let x = 0;
+    let y = 0;
+    if (!isLeafNode) {
+      x = shapeBbox.x + shapeBbox.width / 2;
+      y = shapeBbox.y + 4;
+    } else {
+      x = shapeBbox.minX + shapeBbox.width / 2;
+      y = shapeBbox.minY + shapeBbox.height / 2;
+    }
+    return { x, y };
+  }
+
+  protected getTextBaseLine(isLeafNode) {
+    return isLeafNode ? 'middle' : 'top';
+  }
+
+  protected adjustLabel(label, shape, isLeafNode) {
+    if (isLeafNode) {
+      this.adjustLeafLabel(label, shape);
+    } else {
+      this.adjustParentLabel(label, shape);
+    }
+  }
+
+  private adjustLeafLabel(label, shape) {
+    const bbox = shape.getBBox();
     const labelBBox = label.getBBox();
-    const labelText = _.clone(label.attr('text'));
-    const sizeOffset = label.get('origin').depth === 1 ? 0 : 2;
+    const labelText = clone(label.attr('text'));
+    const sizeOffset = 2;
     const fontSize = Math.max(label.attr('fontSize') - sizeOffset, MIN_FONTSIZE);
     const centerX = bbox.x + bbox.width / 2;
     const centerY = bbox.y + bbox.height / 2;
@@ -155,18 +223,39 @@ export class TreemapLabels extends ElementLabels {
       return;
     }
     if (labelBBox.width > bbox.width) {
-      const wrappedText = textWrapper(label, wrapperWidth);
+      const wrappedText = textWrapper(label, wrapperWidth, this.container);
       label.attr({
         lineHeight: label.attr('fontSize'),
         text: wrappedText,
       });
       const tem_bbox = label.getBBox();
       if (tem_bbox.height > bbox.height) {
-        const text = textAbbreviate(labelText, fontSize, wrapperWidth);
+        const text = textAbbreviate(labelText, fontSize, wrapperWidth, this.container);
         label.attr('text', text);
       }
     }
   }
-}
 
-registerElementLabels('treemapLabel', TreemapLabels);
+  private adjustParentLabel(label, shape) {
+    const shapeBbox = shape.getBBox();
+    const wrapperWidth = shapeBbox.width - LEAF_LABEL_OFFSET * 2;
+    if (label.getBBox().width > wrapperWidth) {
+      const text = textAbbreviate(label.attr('text'), label.attr('fontSize'), wrapperWidth, this.container);
+      label.attr('text', text);
+    }
+  }
+
+  private getDefaultOptions() {
+    const { theme } = this.plot;
+    const labelStyle = theme.label.style;
+    return {
+      offsetX: 0,
+      offsetY: 0,
+      style: clone(labelStyle),
+    };
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geom) => geom.type === 'polygon');
+  }
+}

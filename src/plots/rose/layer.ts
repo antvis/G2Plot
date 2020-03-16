@@ -1,14 +1,16 @@
-import { CoordinateType } from '@antv/g2/lib/plot/interface';
-import * as _ from '@antv/util';
+/**
+ * Create By Bruce Too
+ * On 2020-02-17
+ */
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import { LayerConfig } from '../../base/layer';
+import { LayerConfig } from '../..';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { Label } from '../../interface/config';
-import * as EventParser from '../column/event';
+import { Label } from '../..';
+import * as EventParser from './event';
 import { LineStyle } from '../line/layer';
-import './component/label/rose-label';
 
 interface RoseStyle extends LineStyle {
   stroke?: string;
@@ -34,6 +36,8 @@ type RoseLabel = ViewConfig['label'] & {
   adjustColor?: boolean;
   /** 自动旋转 */
   autoRotate?: boolean;
+  // label的内容，如果不配置，读取scale中的第一个field对应的值  G2 4.0 就这样实现的
+  content?: string | ((...args: any[]) => string);
 };
 
 export interface RoseLayerConfig extends RoseViewConfig, LayerConfig {}
@@ -48,7 +52,7 @@ const PLOT_GEOM_MAP = {
 
 export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -69,19 +73,20 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       },
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'right',
       },
       tooltip: {
         visible: true,
         shared: false,
-        crosshairs: null,
+        showCrosshairs: false,
+        showMarkers: false,
       },
       columnStyle: {
         stroke: 'white',
         lineWidth: 1,
       },
       xAxis: {
-        autoRotateLabel: true,
+        visible: false,
         line: {
           visible: false,
         },
@@ -90,12 +95,14 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
         },
         grid: {
           visible: true,
+          alignTick: false,
           style: {
             lineWidth: 0.5,
           },
         },
         label: {
           offset: 5,
+          autoRotate: true,
         },
       },
       yAxis: {
@@ -109,12 +116,10 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
 
   public getOptions(props: T) {
     const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
     const columnStyle = props.sectorStyle;
     const xField = props.categoryField;
     const yField = props.radiusField;
-    return _.deepMix({}, options, defaultOptions, { columnStyle, xField, yField }, props);
+    return deepMix({}, options, { columnStyle, xField, yField });
   }
 
   protected geometryParser(dim, type) {
@@ -134,24 +139,24 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   }
 
   /** 不显示坐标轴 */
-  protected axis() {
+  /*protected axis() {
     super.axis();
     const options = this.options;
     if (!options.stackField && !options.groupField) {
       this.setConfig('axes', false);
     }
-  }
+  }*/
 
   protected coord() {
     const props = this.options;
     const coordConfig = {
-      type: 'polar' as CoordinateType,
+      type: 'polar',
       cfg: {
         radius: props.radius,
         innerRadius: props.innerRadius || 0,
       },
     };
-    this.setConfig('coord', coordConfig);
+    this.setConfig('coordinate', coordConfig as any);
   }
 
   protected addGeometry() {
@@ -168,7 +173,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     rose.label = this.extractLabel();
     rose.adjust = this.adjustRoseAdjust();
     this.rose = rose;
-    this.setConfig('element', rose);
+    this.setConfig('geometry', rose);
   }
 
   protected adjustColorFieldMapping() {
@@ -179,7 +184,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   }
 
   protected adjustRoseAdjust() {
-    if (this.options.stackField) {
+    /*if (this.options.stackField) {
       return [
         {
           type: 'stack',
@@ -189,11 +194,12 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       return [
         {
           type: 'dodge',
-          marginRatio: 0,
+          marginRatio: 1,
         },
       ];
     }
-    return null;
+    return null;*/
+    return;
   }
 
   protected animation() {
@@ -216,7 +222,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     if (!options.label || !options.label.visible) {
       return false;
     }
-    const label = _.deepMix({}, options.label as Label);
+    const label = deepMix({}, options.label as Label);
     this.adjustLabelOptions(label);
     const fields = [options.categoryField, options.radiusField];
     if (options.stackField || options.groupField) {
@@ -224,7 +230,7 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     }
     const labelConfig = getComponent('label', {
       plot: this,
-      labelType: 'roseLabel',
+      labelType: 'polar',
       fields,
       ...label,
     });
@@ -234,15 +240,15 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
   private adjustLabelOptions(labelOptions: RoseLabel) {
     const { radiusField } = this.options;
     if (labelOptions) {
-      const { offset, type, formatter } = labelOptions;
+      const { offset, type, content } = labelOptions;
       if (type === 'inner') {
         labelOptions.offset = offset < 0 ? offset : -10;
       } else if (type === 'outer') {
         labelOptions.offset = offset >= 0 ? offset : 10;
       }
-      if (!formatter) {
+      if (!content) {
         // 默认显示 数值
-        labelOptions.formatter = (text, item) => `${item._origin[radiusField]}`;
+        labelOptions.content = (text, item) => `${item._origin[radiusField]}`;
       }
     }
   }

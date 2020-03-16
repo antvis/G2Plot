@@ -1,10 +1,11 @@
-import * as _ from '@antv/util';
+import { isArray, mix, hasKey, each, has, isFunction, clone, deepMix, isString } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import Marker, { MarkerConfig } from './component/marker';
 import * as EventParser from './event';
+import { IStyle } from '../../interface/config';
 
 export interface ProgressViewConfig extends TinyViewConfig {
   stackField?: number;
@@ -13,14 +14,14 @@ export interface ProgressViewConfig extends TinyViewConfig {
   size?: number;
   marker?: MarkerConfig[];
   barSize?: number;
-  barStyle?: any;
+  barStyle?: IStyle;
 }
 
 interface UpdateConfig {
-  percent?: number;
+  percent: number;
   color?: string | string[];
   style?: {} | {}[];
-  marker: MarkerConfig[];
+  marker?: MarkerConfig[];
 }
 
 export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}
@@ -56,7 +57,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       barStyle: props.progressStyle,
       color: this.parseColorProps(props) || DEFAULT_COLOR,
     } as any;
-    props = _.mix(props, cfg);
+    props = mix(props, cfg);
   }
 
   public init() {
@@ -73,7 +74,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public update(cfg: UpdateConfig) {
     const props = this.options;
-    if (_.hasKey(cfg, 'percent')) {
+    if (hasKey(cfg, 'percent')) {
       props.percent = cfg.percent;
       this.changeData(this.processData());
     }
@@ -85,7 +86,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
     if (cfg.color) {
       let style;
-      if (_.isArray(cfg.color)) {
+      if (isArray(cfg.color)) {
         this.options.color = cfg.color;
         style = [{ fill: cfg.color[0] }, { fill: cfg.color[1] }];
       } else {
@@ -103,7 +104,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public destroy() {
     if (this.markers && this.markers.length > 0) {
-      _.each(this.markers, (marker) => {
+      each(this.markers, (marker) => {
         marker.destroy();
       });
       this.markers = [];
@@ -114,8 +115,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   public afterRender() {
     if (this.options.marker && !this.markers) {
       this.markers = [];
-      _.each(this.options.marker, (cfg) => {
-        const markerCfg = _.mix(
+      each(this.options.marker, (cfg) => {
+        const markerCfg = mix(
           {
             canvas: this.canvas,
             view: this.view,
@@ -127,8 +128,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
         this.markers.push(marker);
       });
     }
-
-    const progressContainer = this.view.get('elements')[0].get('container');
+    const progressContainer = this.view.geometries[0].container;
     const bbox = progressContainer.getBBox();
     const rect = progressContainer.addShape('rect', {
       attrs: {
@@ -150,8 +150,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
       this.isEntered = false;
       this.view.emit('progress:mouseleave', ev);
     });
-
-    const canvasDom = this.canvas.get('canvasDOM');
+    const canvasDom = this.canvas.get('container');
     canvasDom.addEventListener('mouseleave', (ev) => {
       if (this.isEntered) {
         this.view.emit('progress:mouseleave', ev);
@@ -168,10 +167,9 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   }
 
   protected coord() {
-    const coordConfig = {
+    this.setConfig('coordinate', {
       actions: [['transpose']],
-    };
-    this.setConfig('coord', coordConfig);
+    });
   }
 
   protected addGeometry() {
@@ -185,10 +183,10 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
         type: 'stack',
       },
     ];
-    if (_.has(props, 'animation')) {
+    if (has(props, 'animation')) {
       bar.animate = props.animation;
     }
-    this.setConfig('element', bar);
+    this.setConfig('geometry', bar);
   }
 
   protected parseEvents(eventParser) {
@@ -198,13 +196,13 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   protected parseColorProps(props) {
     let colorOption;
     if (props.color) {
-      if (_.isFunction(props.color)) {
+      if (isFunction(props.color)) {
         colorOption = props.color(props.percent);
       } else {
         colorOption = props.color;
       }
-      if (_.isString(colorOption)) {
-        const color = _.clone(DEFAULT_COLOR);
+      if (isString(colorOption)) {
+        const color = clone(DEFAULT_COLOR);
         color[0] = colorOption;
         return color;
       } else {
@@ -227,7 +225,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     const markerLength = markerCfg.length;
     const animationOptions = this.getUpdateAnimationOptions();
     // marker diff
-    _.each(this.markers, (marker, index) => {
+    each(this.markers, (marker, index) => {
       if (index > markerLength - 1) {
         marker.destroy();
       } else {
@@ -238,7 +236,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     if (this.markers.length < markerLength) {
       const startIndex = this.markers.length;
       for (let i = startIndex; i < markerLength; i++) {
-        const cfg = _.deepMix(
+        const cfg = deepMix(
           {},
           {
             canvas: this.canvas,
@@ -267,15 +265,17 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     // get geometry shapes
     const progressShapes = [];
     const { view } = this;
-    const geometry = view.get('elements');
-    _.each(geometry, (geom) => {
-      if (geom.get('shapeType') === 'interval') {
-        const shapes = geom.getShapes();
-        progressShapes.push(...shapes);
+    const geometry = view.geometries;
+    each(geometry, (geom) => {
+      if (geom.type === 'interval') {
+        const elements = geom.elements;
+        each(elements, (ele) => {
+          progressShapes.push(...ele.shape);
+        });
       }
     });
-    if (_.isArray(style)) {
-      _.each(style, (s, index) => {
+    if (isArray(style)) {
+      each(style, (s, index) => {
         progressShapes[index].animate(s, duration, easing);
       });
     } else {
@@ -299,8 +299,8 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   }
 
   private updateColorConfigByStyle(style) {
-    if (_.isArray(style)) {
-      _.each(style, (s, index) => {
+    if (isArray(style)) {
+      each(style, (s, index) => {
         if (s.fill) {
           this.options.color[index] = s.fill;
         }

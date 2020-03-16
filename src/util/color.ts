@@ -1,3 +1,5 @@
+import { each } from '@antv/util';
+
 export function rgb2arr(str) {
   const arr = [];
   arr.push(parseInt(str.substr(1, 2), 16));
@@ -18,4 +20,15 @@ export function toHex(value) {
 
 export function arr2rgb(arr) {
   return `#${toHex(arr[0]) + toHex(arr[1]) + toHex(arr[2])}`;
+}
+
+export function mappingColor(band, gray) {
+  let reflect;
+  each(band, (b) => {
+    const map = b;
+    if (gray >= map.from && gray < map.to) {
+      reflect = map.color;
+    }
+  });
+  return reflect;
 }

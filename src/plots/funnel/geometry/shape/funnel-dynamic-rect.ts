@@ -1,19 +1,11 @@
-import * as _ from '@antv/util';
-import { Group } from '@antv/g';
-import { Global, registerShape } from '@antv/g2';
-import { setFillStyle } from '@antv/g2/lib/element/util/shape';
-import { ShapeDrawCFG, ShapeMarkerCfg } from '@antv/g2/lib/interface';
+import { get } from '@antv/util';
+import { IGroup } from '@antv/g-canvas';
+import { registerShape } from '@antv/g2';
+import { ShapeMarkerCfg, ShapeInfo } from '@antv/g2/lib/interface';
+import { getStyle } from '@antv/g2/lib/geometry/shape/util/get-style';
 
 function lerp(a, b, factor) {
   return (1 - factor) * a + factor * b;
-}
-
-// 获取填充图形的图形属性
-function _getFillAttrs(cfg) {
-  const defaultAttrs = Global.theme.shape.interval.rect.default;
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
-  setFillStyle(attrs, cfg);
-  return attrs;
 }
 
 // 根据矩形关键点绘制 path
@@ -54,27 +46,27 @@ function _getRectPath(points, { reverse, ratioUpper, ratioLower }) {
 }
 
 registerShape('interval', 'funnel-dynamic-rect', {
-  draw(cfg: ShapeDrawCFG, container: Group) {
-    const attrs = _getFillAttrs(cfg);
-    let path = _getRectPath(cfg.points, _.get(cfg, 'origin._origin.__custom__'));
-    path = this.parsePath(path);
+  draw(cfg: ShapeInfo, container: IGroup) {
+    const style = getStyle(cfg, false, true);
+    const custom = get(cfg, 'data.__custom__');
+    const path = this.parsePath(_getRectPath(cfg.points, custom));
 
     return container.addShape('path', {
       attrs: {
-        ...attrs,
+        ...style,
         path,
       },
     });
   },
 
-  getMarkerStyle(markerCfg: ShapeMarkerCfg) {
-    const isInCircle = markerCfg.isInCircle;
-    const markerStyle = {
-      symbol: isInCircle ? 'circle' : 'square',
-      radius: isInCircle ? 4.5 : 4,
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color, isInPolar } = markerCfg;
+    return {
+      symbol: isInPolar ? 'circle' : 'square',
+      style: {
+        r: isInPolar ? 4.5 : 4,
+        fill: color,
+      },
     };
-    setFillStyle(markerStyle, markerCfg);
-
-    return markerStyle;
   },
 });

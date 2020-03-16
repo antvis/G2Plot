@@ -8,7 +8,7 @@ export default function nodesResamplingByAbbrevate(shape, option: NodesResamplin
   }
   {
     const currentText = shape.attr('text');
-    const originText = shape.get('origin').text;
+    const originText = shape.get('delegateObject').item.name;
     if (currentText !== originText) {
       textHide(shape);
     }

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import TreemapLayer, { TreemapViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class Treemap extends BasePlot<TreemapConfig> {
   public static getDefaultOptions: typeof TreemapLayer.getDefaultOptions = TreemapLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'treemap';
     super.createLayers(layerProps);
   }

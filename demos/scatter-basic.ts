@@ -11,6 +11,7 @@ $.get('data/country-economy.json', function(data) {
     pointSize: 5,
     colorField: 'continent',
     quadrant: {
+      visible: true,
       xBaseline: 20000,
       yBaseline: 70,
       regionStyle: [
@@ -24,8 +25,12 @@ $.get('data/country-economy.json', function(data) {
       },
     },
     trendline: {
+      visible: true,
       type: 'quad',
       showConfidence: true,
+    },
+    label: {
+      visible: true,
     },
   });
   scatterPlot.render();

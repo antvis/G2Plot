@@ -1,10 +1,10 @@
-import { Shape } from '@antv/g';
+import { IShape } from '@antv/g-base/lib/interfaces';
 
 interface TextWrapperCfg {
   lineNumber: number;
 }
 
-export default function textWrapper(shape: Shape, option: TextWrapperCfg) {
+export default function textWrapper(shape: IShape, option: TextWrapperCfg) {
   const text = shape.attr('text');
   const step = Math.ceil(text.length / option.lineNumber);
   let wrapperText = '';

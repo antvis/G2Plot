@@ -14,11 +14,15 @@ fetch('../data/sales.json')
       yField: '城市',
       xAxis: {
         visible: true,
-        autoHideLabel: true,
+        label: {
+          autoHide: true,
+        },
       },
       yAxis: {
         visible: true,
-        autoHideLabel: true,
+        label: {
+          autoHide: true,
+        },
       },
       label: {
         visible: false,

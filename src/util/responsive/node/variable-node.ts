@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { assign } from '@antv/util';
 
 interface NodesCfg {
   nodes: IVariableNode[];
@@ -13,7 +13,7 @@ export default class VariableNodes {
   public nodes: IVariableNode[];
   public type: string = 'variable';
   constructor(cfg: NodesCfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
   }
   public normalize() {}
 }

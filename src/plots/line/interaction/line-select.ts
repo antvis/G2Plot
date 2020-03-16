@@ -1,4 +1,6 @@
-import { Interaction } from '@antv/g2';
+import { get, each, filter } from '@antv/util';
+import Interaction from '../../../interaction/core';
+import { Geometry } from '../../../dependents';
 
 export default class LineSelect extends Interaction {
   constructor(cfg) {
@@ -7,18 +9,22 @@ export default class LineSelect extends Interaction {
       ...cfg,
     });
   }
-
   public end(ev) {
     const target = ev.target;
-    if (target.name === 'line') {
-      const data = ev.data[0]._origin;
-      this.view.setInactive((obj) => {
-        return obj !== data;
+    const lines: Geometry[] = filter(this.view.geometries, (geom) => geom.type == 'line');
+    if (target.get('name') === 'line') {
+      const data = get(ev, 'data.data');
+      each(lines, (line: Geometry) => {
+        each(line.elements, (element) => {
+          element.setState('inactive', element.data !== data);
+        });
       });
       // TODO： 设置z-index
     } else {
-      this.view.setInactive(() => {
-        return false;
+      each(lines, (line: Geometry) => {
+        each(line.elements, (element) => {
+          element.setState('inactive', false);
+        });
       });
       // TODO: 重置z-index
     }

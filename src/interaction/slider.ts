@@ -1,5 +1,5 @@
-import { BBox, Group } from '@antv/g';
-import { Slider } from '@antv/gui';
+import { IGroup, Slider } from '../dependents';
+import BBox from '../util/bbox';
 import { Scale } from '@antv/scale';
 import { clamp, head, last, map, size, throttle } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';
@@ -17,8 +17,11 @@ const getValidSliderConfig = (cfg: ISliderInteractionConfig = {}): Required<ISli
     width: undefined,
     height: undefined,
     padding: [0, 0, 0, 0],
-    backgroundColor: undefined,
-    foregroundColor: undefined,
+    backgroundStyle: undefined,
+    foregroundStyle: undefined,
+    handlerStyle: undefined,
+    textStyle: undefined,
+    trendCfg: undefined,
     ...cfg,
   };
 
@@ -51,12 +54,13 @@ export default class SliderInteraction extends BaseInteraction {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = config.padding || [0, 0, 0, 0];
 
     if (config.type === 'horizontal') {
-      return new BBox(
+      const bbox = new BBox(
         layerRange.minX,
         layerRange.maxY - config.height - paddingTop - paddingBottom,
         layerRange.width,
         config.height + paddingTop + paddingBottom
       );
+      return bbox;
     } else {
       return new BBox(
         layerRange.maxX - config.width - paddingLeft - paddingRight,
@@ -67,7 +71,7 @@ export default class SliderInteraction extends BaseInteraction {
     }
   }
 
-  private container: Group;
+  private container: IGroup;
   private slider: Slider;
   private curStart: number;
   private curEnd: number;
@@ -97,8 +101,8 @@ export default class SliderInteraction extends BaseInteraction {
           values: xScale.values || [],
         };
         // 初始化 data
-        this.view.set('data', this.getSliderData(this.curStart, this.curEnd));
-        this.view.repaint();
+        this.view.data(this.getSliderData(this.curStart, this.curEnd));
+        this.view.render();
       } else {
         this.renderSlider();
       }
@@ -119,46 +123,45 @@ export default class SliderInteraction extends BaseInteraction {
   private renderSlider(): void {
     if (!this.slider) {
       this.container = this.canvas.addGroup();
-      this.slider = new Slider(this.getSliderConfig());
+      this.slider = new Slider({ ...this.getSliderConfig(), container: this.container });
+      this.slider.init();
+      this.slider.render();
       this.slider.on('sliderchange', this.onChangeFn);
-      this.container.add(this.slider);
     } else {
       this.slider.update(this.getSliderConfig());
+      this.slider.render();
     }
   }
 
   private getSliderConfig() {
     const view = this.view;
-    const panelRange: BBox = view.get('panelRange');
+    const panelRange = view.coordinateBBox;
     const range = this.getRange();
     const config: ISliderInteractionConfig | null = getValidSliderConfig(this.getInteractionConfig());
-    const { padding = [0, 0, 0, 0], foregroundColor, backgroundColor } = config || {};
+    const { padding = [0, 0, 0, 0], backgroundStyle, foregroundStyle, handlerStyle, textStyle, trendCfg = {} } =
+      config || {};
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const { minText, maxText } = this.getSliderMinMaxText(this.curStart, this.curEnd);
     const cfg: any = {
       x: panelRange.minX + paddingLeft,
-      y: range.tl.y + paddingTop,
+      y: range.minY + paddingTop,
       width: panelRange.width - paddingLeft - paddingRight,
       height: range.height - paddingTop - paddingBottom,
       start: this.curStart,
       end: this.curEnd,
       minText,
       maxText,
+      backgroundStyle,
+      foregroundStyle,
+      handlerStyle,
+      textStyle,
       trendCfg: {
-        data: this.getSliderTrendData(),
         isArea: false,
         smooth: false,
+        ...trendCfg,
+        data: this.getSliderTrendData(),
       },
-      foregroundStyle: {},
-      backgroundStyle: {},
     };
-
-    if (foregroundColor) {
-      cfg.foregroundStyle.fill = foregroundColor;
-    }
-    if (backgroundColor) {
-      cfg.backgroundStyle.fill = backgroundColor;
-    }
 
     return cfg;
   }
@@ -205,9 +208,10 @@ export default class SliderInteraction extends BaseInteraction {
       minText,
       maxText,
     });
-    const origAnimation = view.get('animation');
+    this.slider.render();
+    const origAnimate = view.getOptions().animate;
     view.animate(false);
     view.changeData(data);
-    view.animate(origAnimation);
+    view.animate(origAnimate);
   }
 }

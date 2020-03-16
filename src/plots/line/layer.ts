@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, has, map, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -6,17 +6,17 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
-import './animation/clipIn-with-data';
+import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
-import './apply-responsive/theme';
-import './component/label/line-label';
-import './component/label/point-label';
+import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
-import { LineActive, LineSelect } from './interaction/index';
 import './theme';
+import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
+import { LineActive, LineSelect } from './interaction/index';
 
 export interface LineStyle {
+  stroke?: string;
   opacity?: number;
   lineDash?: number[];
   lineJoin?: 'bevel' | 'round' | 'miter';
@@ -63,7 +63,7 @@ export interface LineLayerConfig extends LineViewConfig, LayerConfig {}
 
 export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<LineLayerConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       connectNulls: false,
       smooth: false,
       lineSize: 2,
@@ -95,15 +95,16 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   public point: any;
   public type: string = 'line';
 
-  public getOptions(props: T) {
-    const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
-  }
-
   public afterRender() {
     const props = this.options;
+    if (this.options.label && this.options.label.visible && this.options.label.type === 'line') {
+      const label = new LineLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
     // 响应式
     if (props.responsive && props.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -120,18 +121,18 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
     trySetScaleMinToZero(
       scales[props.yField],
-      _.map(props.data as any, (item) => item[props.yField])
+      map(props.data as any, (item) => item[props.yField])
     );
     super.scale();
   }
@@ -154,21 +155,20 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     if (props.label) {
       this.label();
     }
-    this.setConfig('element', this.line);
+    this.setConfig('geometry', this.line);
   }
 
   protected addPoint() {
     const props = this.options;
     const defaultConfig = { visible: false };
     if (props.point) {
-      props.point = _.deepMix(defaultConfig, props.point);
+      props.point = deepMix(defaultConfig, props.point);
     }
     if (props.point && props.point.visible) {
       this.point = getGeom('point', 'guide', {
         plot: this,
       });
-      this.point.active = false;
-      this.setConfig('element', this.point);
+      this.setConfig('geometry', this.point);
     }
   }
 
@@ -181,18 +181,16 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       return;
     }
 
-    /** label类型为line，即跟随在折线尾部时，设置offset为0 */
-    if (label.type === 'line') {
-      label.offset = 0;
+    /** label类型为point时，使用g2默认label */
+    if (label.type === 'point') {
+      this.line.label = getComponent('label', {
+        plot: this,
+        top: true,
+        labelType: label.type,
+        fields: [props.yField],
+        ...label,
+      });
     }
-
-    this.line.label = getComponent('label', {
-      plot: this,
-      top: true,
-      labelType: label.type,
-      fields: label.type === 'line' ? [props.seriesField] : [props.yField],
-      ...label,
-    });
   }
 
   protected animation() {
@@ -202,14 +200,21 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       // 关闭动画
       this.line.animate = false;
       if (this.point) this.point.animate = false;
-    } else if (_.has(props, 'animation')) {
+    } else if (has(props, 'animation')) {
       // 根据动画类型区分图形动画和群组动画
       if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
+        getPlotOption({
+          options: this.options,
+          view: this.view,
+        });
         this.line.animate = {
           appear: {
             animation: 'clipingWithData',
             easing: 'easeLinear',
             duration: 10000,
+            options: {
+              test: true,
+            },
             yField: props.yField,
             seriesField: props.seriesField,
             plot: this,
@@ -225,12 +230,16 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected applyInteractions() {
     super.applyInteractions();
-    // 加入默认交互
-    const interactions = this.view.get('interactions');
-    const lineActive = new LineActive({ view: this.view });
-    interactions.lineActive = lineActive;
-    const lineSelect = new LineSelect({ view: this.view });
-    interactions.lineSelect = lineSelect;
+    this.interactions.push(
+      new LineActive({
+        view: this.view,
+      })
+    );
+    this.interactions.push(
+      new LineSelect({
+        view: this.view,
+      })
+    );
   }
 
   protected parseEvents(eventParser) {
@@ -239,7 +248,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
+    each(methods, (r) => {
       const responsive = r as IObject;
       responsive.method(this);
     });

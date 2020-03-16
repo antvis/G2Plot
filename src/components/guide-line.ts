@@ -1,5 +1,5 @@
 import { getScale } from '@antv/scale';
-import * as _ from '@antv/util';
+import { assign, deepMix, mix, each, isArray, isString, isNumber, contains, toArray, clone } from '@antv/util';
 import { getMean, getMedian } from '../util/math';
 
 export default class GuideLine {
@@ -9,7 +9,7 @@ export default class GuideLine {
   private values: number[];
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this._init();
   }
 
@@ -22,30 +22,16 @@ export default class GuideLine {
       start: this.cfg.start,
       end: this.cfg.end,
     };
-    baseConfig.line = _.deepMix({}, defaultStyle.line, { style: this.cfg.lineStyle });
-    baseConfig.text = _.deepMix({}, defaultStyle.text, this.cfg.text);
+
+    baseConfig.style = deepMix({}, defaultStyle.line.style, this.cfg.lineStyle);
+    baseConfig.text = deepMix({}, defaultStyle.text, this.cfg.text);
     if (this.cfg.type) {
       const stateValue = this._getState(this.cfg.type);
-      const minValue = this._getState('min');
-      const maxValue = this._getState('max');
-      const Scale = getScale('linear');
-      // 重新组织scale并使用scale的min和max来计算guide point的百分比位置，以避免受nice的影响
-      const scale = new Scale(
-        _.mix(
-          {},
-          {
-            min: this.plot.type === 'column' ? 0 : minValue,
-            max: maxValue,
-            nice: true,
-            values: this.values,
-          },
-          this.plot.config.scales[props.yField]
-        )
-      );
+      const scale = this.getYScale();
       const percent = `${(1.0 - scale.scale(stateValue)) * 100}%`;
       const start = ['0%', percent];
       const end = ['100%', percent];
-      this.config = _.mix(
+      this.config = mix(
         {
           start,
           end,
@@ -53,7 +39,86 @@ export default class GuideLine {
         baseConfig
       );
     } else {
-      this.config = baseConfig;
+      const { start, end } = this.cfg;
+      this.config = clone(baseConfig);
+      const xScale = this.getXScale();
+      const yScale = this.getYScale();
+      const startData = clone(start);
+      const endData = clone(end);
+      each(start, (value, index) => {
+        if (!contains(toArray(start[index]), '%') || isNumber(start[index])) {
+          if (index === 0) {
+            startData[index] = `${xScale.scale(start[0]) * 100}%`;
+          } else {
+            startData[index] = `${(1.0 - yScale.scale(start[1])) * 100}%`;
+          }
+        }
+      });
+      each(end, (value, index) => {
+        if (!contains(toArray(end[index]), '%') || isNumber(end[index])) {
+          if (index === 0) {
+            endData[index] = `${xScale.scale(end[0]) * 100}%`;
+          } else {
+            endData[index] = `${(1.0 - yScale.scale(end[1])) * 100}%`;
+          }
+        }
+      });
+      this.config.start = startData;
+      this.config.end = endData;
+    }
+  }
+
+  private getYScale() {
+    const minValue = this._getState('min');
+    const maxValue = this._getState('max');
+    const Scale = getScale('linear');
+    // 重新组织scale并使用scale的min和max来计算guide point的百分比位置，以避免受nice的影响
+    const scale = new Scale(
+      mix(
+        {},
+        {
+          min: this.plot.type === 'column' ? 0 : minValue,
+          max: maxValue,
+          nice: true,
+          values: this.values,
+        },
+        this.plot.config.scales[this.plot.options.yField]
+      )
+    );
+    return scale;
+  }
+
+  private getXScale() {
+    const values = this.extractXValue();
+    if (isString(values[0])) {
+      const Scale = getScale('cat');
+      const scale = new Scale(
+        mix(
+          {},
+          {
+            values: values,
+          },
+          this.plot.config.scales[this.plot.options.xField]
+        )
+      );
+      return scale;
+    } else {
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const Scale = getScale('linear');
+      const scale = new Scale(
+        mix(
+          {},
+          {
+            min: min,
+            max: max,
+            nice: true,
+            values: values,
+          },
+          this.plot.config.scales[this.plot.options.xField]
+        )
+      );
+      return scale;
     }
   }
 
@@ -77,8 +142,28 @@ export default class GuideLine {
     const props = this.plot.options;
     const field = props.yField;
     const values = [];
-    _.each(props.data, (d) => {
-      values.push(d[field]);
+    const data = this.plot.processData(props.data);
+    each(data, (d) => {
+      if (isArray(d[field])) {
+        values.push(...d[field]);
+      } else {
+        values.push(d[field]);
+      }
+    });
+    return values;
+  }
+
+  private extractXValue() {
+    const props = this.plot.options;
+    const field = props.xField;
+    const values = [];
+    const data = this.plot.processData(props.data);
+    each(data, (d) => {
+      if (isArray(d[field])) {
+        values.push(...d[field]);
+      } else {
+        values.push(d[field]);
+      }
     });
     return values;
   }

@@ -1,19 +1,19 @@
-import * as _ from '@antv/util';
+import { deepMix, isNil, get, has } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
-import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
-import './components/label/scatter-label';
+import { getComponent } from '../../components/factory';
+import './theme.ts';
 
 export interface PointStyle {
   /** 圆边颜色 */
-  stroke: string;
+  stroke?: string;
   /** 圆边大小 */
   lineWidth?: number;
   /** 圆边透明度 */
@@ -40,7 +40,7 @@ export interface PointViewConfig extends ViewConfig {
   /** x 轴配置 */
   xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   /** y 轴配置 */
-  yAxis?: IValueAxis;
+  yAxis?: ICatAxis | ITimeAxis | IValueAxis;
   quadrant?: QuadrantConfig;
   trendline?: TrendlineConfig;
 }
@@ -54,14 +54,16 @@ export interface ScatterLayerConfig extends ScatterViewConfig, LayerConfig {}
 
 export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       pointSize: 4,
       pointStyle: {
+        lineWidth: 1,
         strokeOpacity: 1,
-        fillOpacity: 0.4,
-        opacity: 0.65,
+        fillOpacity: 0.95,
+        stroke: '#fff',
       },
       xAxis: {
+        nice: true,
         grid: {
           visible: true,
         },
@@ -70,6 +72,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         },
       },
       yAxis: {
+        nice: true,
         grid: {
           visible: true,
         },
@@ -81,13 +84,11 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         visible: true,
         // false 会造成 tooltip 只能显示一条数据，true 会造成 tooltip 在空白区域也会显示
         shared: null,
-        crosshairs: {
-          type: 'rect',
-        },
+        showMarkers: false,
+        showCrosshairs: false,
       },
       label: {
         visible: false,
-        position: 'top',
       },
       shape: 'circle',
     });
@@ -100,10 +101,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
 
   public afterRender() {
     super.afterRender();
-    if (this.options.quadrant && this.options.quadrant.visible && !this.quadrant) {
-      if (this.quadrant) {
-        this.quadrant.destroy();
-      }
+    if (this.quadrant) {
+      this.quadrant.destroy();
+    }
+    if (this.trendline) {
+      this.trendline.destroy();
+    }
+    if (this.options.quadrant && this.options.quadrant.visible) {
       this.quadrant = new Quadrant({
         view: this.view,
         plotOptions: this.options,
@@ -133,6 +137,44 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     super.destroy();
   }
 
+  private isValidLinearValue(value) {
+    if (isNil(value)) {
+      return false;
+    } else if (Number.isNaN(Number(value))) {
+      return false;
+    }
+    return true;
+  }
+
+  protected processData(data?: DataItem[]): DataItem[] | undefined {
+    const { xField, yField } = this.options;
+    const xAxisType = get(this.options, ['xAxis', 'type'], 'linear');
+    const yAxisType = get(this.options, ['yAxis', 'type'], 'linear');
+    if (xAxisType && yAxisType) {
+      const fiteredData = data
+        .filter((item) => {
+          if (xAxisType === 'linear' && !this.isValidLinearValue(item[xField])) {
+            return false;
+          }
+          if (yAxisType === 'linear' && !this.isValidLinearValue(item[yField])) {
+            return false;
+          }
+          return true;
+        })
+        .map((item) => {
+          return {
+            ...item,
+            [xField]: xAxisType === 'linear' ? Number(item[xField]) : String(item[xField]),
+            [yField]: yAxisType === 'linear' ? Number(item[yField]) : String(item[yField]),
+          };
+        });
+      console.log(fiteredData);
+      return fiteredData;
+    }
+
+    return data;
+  }
+
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
       return G2_GEOM_MAP[type];
@@ -145,12 +187,12 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     const scales = {};
     /** 配置x-scale */
     scales[props.xField] = {};
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
@@ -166,9 +208,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
       plot: this,
     });
     this.points = points;
-    if (this.options.label && this.options.label.visible) {
-      this.points.label = this.extractLabel();
-    }
     if (this.options.tooltip && this.options.tooltip.visible) {
       this.points.tooltip = this.extractTooltip();
       this.setConfig('tooltip', {
@@ -176,7 +215,31 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         ...this.options.tooltip,
       } as any);
     }
-    this.setConfig('element', points);
+    if (this.options.label) {
+      this.label();
+    }
+    this.setConfig('geometry', points);
+  }
+
+  protected label() {
+    const props = this.options;
+
+    if (props.label.visible === false) {
+      if (this.points) {
+        this.points.label = false;
+      }
+      return;
+    }
+
+    const label = getComponent('label', {
+      fields: [props.yField],
+      ...props.label,
+      plot: this,
+    });
+
+    if (this.points) {
+      this.points.label = label;
+    }
   }
 
   protected animation() {
@@ -191,23 +254,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   protected parseEvents(eventParser) {
     // 气泡图继承散点图时，会存在 eventParser
     super.parseEvents(eventParser || EventParser);
-  }
-
-  protected extractLabel() {
-    const props = this.options;
-    const label = props.label as Label;
-    if (label && label.visible === false) {
-      return false;
-    }
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'scatterLabel',
-      fields: [props.yField],
-      position: 'right',
-      offset: 0,
-      ...label,
-    });
-    return labelConfig;
   }
 
   protected extractTooltip() {

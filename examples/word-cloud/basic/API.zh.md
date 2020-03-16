@@ -2,168 +2,153 @@
 title: API
 ---
 
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
+# 配置属性
 
-### data
-
-**required**
-类型：`Array<WordCloudData> | Function`
-
-```typescript
-type WordCloudData = {
-  word: string; // cloud's word text
-  weight: number; // cloud's text weight
-  id: number; // index in data array. treat as unique id
-  color?: string; // cloud's color
-};
-```
+## 图表容器
 
 ### width
 
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#width)。
+**可选**, _number_
+
+功能描述： 设置图表宽度。
+
+默认配置： `400`
 
 ### height
 
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#height)。
+**可选**, _number_
+
+功能描述： 设置图表高度。
+
+默认配置： `400`
+
+### forceFit
+
+**可选**, _boolean_
+
+功能描述： 图表是否自适应容器宽高。当 `forceFit` 设置为 true 时，`width` 和 `height` 的设置将失效。
+
+默认配置： `true`
+
+### pixelRatio
+
+**可选**, _number_
+
+功能描述： 设置图表渲染的像素比
+
+默认配置： `2`
+
+### renderer
+
+**可选**, _string_
+
+功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
+
+默认配置： `canvas`
+
+## 数据映射
+
+### data 📌
+
+**必选**, _object[]_
+
+功能描述： 设置图表数据源
+
+默认配置： 无
+
+词云图的每一条数据都需要具备一下属性：
+
+| 细分配置 | 类型   | 功能描述                                     |
+| -------- | ------ | -------------------------------------------- |
+| word     | string | 词条内容                                     |
+| weight   | number | 该词条权重                                   |
+| id       | number | 该词条的 unique id                           |
+| color    | string | 可选，该词条的颜色。如不配置则使用默认色板。 |
 
 ### maskImage
 
-类型: `string`
-**optional** 遮罩图片(url 或者 base64 地址)
+**可选**，_string_
 
-### wordStyle
+功能描述： 遮罩图片(url 或者 base64 地址)
+默认配置： 无
 
-类型: `WordStyle`
-
-```typescript
-type WordStyle = {
-  fontFamily?: string;
-  // normal, lighter, bold, bolder, 100~900
-  fontWeight?: string | ((word: string, weight: number) => string);
-  color?: string | ((word: string, weight: number) => string);
-
-  active?: Active;
-
-  // [min, max] ->  random by steps(each step (max - min) / steps))
-  rotation?: [number, number];
-  rotationSteps?: number;
-  // the ratio of rotate
-  rotateRatio?: number;
-
-  // font's max and min size(determine by cloud's weight)
-  fontSize?: [number, number];
-
-  gridSize?: number;
-};
-```
-
-**optional** 文字相关的配置
-
-#### wordStyle.fontFamily
-
-类型: `string`
-**optional** [通用 CSS 配置](!https://www.w3schools.com/jsref/prop_style_fontfamily.asp)
-
-#### wordStyle.fontWeight
-
-类型: `string | ((word: string, weight: number) => string)`
-**optional** 设置 fontWeight
-
-#### wordStyle.gridSize
-
-类型: `number`
-**optional** 单词的网格大小，默认为 8 越大单词之间的间隔越大
-
-#### wordStyle.color
-
-类型: `string | ((word: string, weight: number) => string)`
-**optional** 设置字体颜色
-
-#### wordStyle.fontSize
-
-类型: `[number,number]`
-**optional** 设置最小字体和最大字体 size，默认[浏览器支持的最小字号,60]
-
-#### wordStyle.rotation
-
-类型: `[number,number]`
-**optional** 旋转的最小角度和最大角度 默认 [-π/2,π/2]
-
-#### wordStyle.rotationSteps
-
-类型: `number`
-**optional** 旋转实际的步数,越大可能旋转角度越小
-
-#### wordStyle.rotateRatio
-
-类型: `number`
-**optional** 旋转的比率[0,1] 默认是 0.5 也就是 50%可能发生旋转
-
-#### wordStyle.active
-
-类型
-
-```typescript
-type Active = {
-  shadowColor?: string;
-  shadowBlur?: number;
-};
-```
-
-**optional** hover 下词云图文字是否高亮效果, 默认开启;
-
-##### wordStyle.active.shadowColor
-
-类型: `number`
-**optional** 配置在 `wordStyle.active` 的 shadow 颜色, 默认通过 `color` 获取
-
-##### wordStyle.active.shadowBlur
-
-类型: `number`
-**optional** 配置在 `wordStyle.active` 的 shadow 高斯系数, 默认 10
-
-### backgroundColor
-
-类型: `string`
-**optional** 画布背景颜色，默认为 `#fff`
-
-### tooltip.visible
-
-类型: `boolean`
-**optional** hover 下词云图文字是否显示 tooltips, 默认 true
-
-### shuffle
-
-类型: `boolean`
-**optional** 变换传入数据的顺序，默认是 true
-
-### selected
-
-类型: `number`
-**optional** 用于标记被选中 hover 的词云图文字，默认-1，表示未选中任意文字
+## 图形样式
 
 ### shape
 
-类型: `CloudShape | Function`
+**可选**， _string_
 
-```typescript
-type CloudShape =
-  | 'circle'
-  | 'square'
-  | 'cardioid'
-  | 'diamond'
-  | 'triangle'
-  | 'triangle-forward'
-  | 'triangle-backward'
-  | 'triangle-up'
-  | 'triangle-down'
-  | 'pentagon'
-  | 'star';
+功能描述： 词云图形状, 可选项为 | 'circle' | 'square' | 'cardioid' | 'diamond' | 'triangle' | 'triangle-forward' | 'triangle-backward' | 'triangle-up' | 'triangle-down' | 'pentagon' | 'star'
+
+默认配置： 'circle'
+
+### backgroundColor
+
+**可选**, _string_
+
+功能描述： 设置背景颜色
+
+默认配置： `#ffffff`
+
+### shuffle
+
+**可选**, _boolean_
+
+功能描述： 变换传入数据的顺序
+
+默认配置： true
+
+### selected
+
+**可选**, _number_
+
+功能描述：用于标记被选中 hover 的词云图文字
+
+默认配置： -1，表示未选中任意文字
+
+### wordStyle
+
+**可选**, _object_
+
+功能描述： 文字样式配置
+
+| 细分配置      | 类型            | 功能描述                                                                                                                                                                    |
+| ------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fontFamily    | string          | 配置词云的字体。<br />参照：[通用 CSS 配置](!https://www.w3schools.com/jsref/prop_style_fontfamily.asp)                                                                     |
+| fontWeight    | number          | 设置字体粗细                                                                                                                                                                |
+| gridSize      | number          | 单词的网格大小，默认为 8。 越大单词之间的间隔越大                                                                                                                           |
+| color         | string          | ((word: string, weight: number) => string)                                                                                                                                  | 设置字体颜色 |
+| fontSize      | [number,number] | 设置字体字号的最大值和最小值。，默认浏览器支持的最小字号：60                                                                                                                |
+| rotation      | [number,number] | 旋转的最小角度和最大角度 默认 [-π/2,π/2]                                                                                                                                    |
+| rotationSteps | number          | 旋转实际的步数,越大可能旋转角度越小                                                                                                                                         |
+| rotateRatio   | number          | 旋转的比率[0,1] 默认是 0.5 也就是 50%可能发生旋转                                                                                                                           |
+| active        | object          | hover 下词云图文字是否高亮效果, 默认开启.<br />- shadowColor: string 字体高亮时的阴影颜色，默认从字体颜色获取<br />- shadowBlur: number 字体阴影的高斯系数，默认为 10<br /> |
+
+## 图表组件
+
+### tooltip
+
+**可选**, _object_
+
+功能描述：信息提示框
+
+默认配置：
+
+```js
+visible: true,
+offset: 20,
 ```
 
-**optional** 词云图形状，默认为 `circle`
+| 细分属性 | 类型    | 功能描述           |
+| -------- | ------- | ------------------ |
+| visible  | boolean | 是否显示           |
+| offset   | number  | 距离鼠标位置偏移值 |
+
+## 事件
 
 ### onWordCloudHover
+
+功能描述：hover 的 action 回调
 
 类型: `(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};`
 
@@ -172,9 +157,9 @@ type CloudShape =
 - `evt` 表示触摸事件对象
 - `start` 表示内部的刷新回调函数 `(hoveredId: number) => void;` 当`hoveredId`不为-1 表示刷新立即刷新该 ID 的文本
 
-**optional** hover 的 action 回调
-
 ### onWordCloudClick
+
+功能描述： click 词云的 action 回调
 
 类型: `(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};`
 
@@ -184,21 +169,8 @@ type CloudShape =
 - `start` 表示内部的刷新回调函数 `(hoveredId: number) => void;` 当`hoveredId`不为-1 表示刷新立即刷新该 ID 的文本
   > 基本同 onWordCloudHover
 
-**optional** click 词云的 action 回调
+### 图表区域事件
 
-##可能的问题
-
-- 图形 shape 不完整
-  > 可以尝试调节 `maxFontSize`,`minFontSize`,`width`,`height`, 四个属性来控制画布或者字体的大小来调整 shape 的范围
-- 图片形状解析不完整
-  > 可以尝试用白底黑色图形轮廓的图片
-- 有些文字未被渲染
-  > 首先词云图会 **过滤掉大量的文本信息**，但是可以尝试提高文字对应的 weight 权重值
-
-* Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
-* Server-side Rendering
-* [Electron](http:// electron.atom.io/)
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http:// godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IE9, IE10, IE11, Edge                                                                                                                                                                                            | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |
+| onPlotClick<br />图表区域点击事件         | onPlotDblClick<br />图表区域双击事件      | onPlotDblClick<br />图表区域双击事件    | onPlotMouseleave<br />图表区域鼠标离开事件 |
+| ----------------------------------------- | ----------------------------------------- | --------------------------------------- | ------------------------------------------ |
+| onPlotMousemove<br />图表区域鼠标移动事件 | onPlotMousedown<br />图表区域鼠标按下事件 | onPlotMouseup<br />图表区域鼠标松开事件 | onPlotMouseenter<br />图表区域鼠标进入事件 |

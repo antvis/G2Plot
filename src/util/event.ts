@@ -1,6 +1,6 @@
-import * as _ from '@antv/util';
 import ViewLayer from '../base/view-layer';
 import { LooseMap } from '../interface/types';
+import { each } from '@antv/util';
 
 type IEventmap = LooseMap<string>;
 
@@ -92,6 +92,32 @@ type Handler = (...__: any[]) => {};
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
   layer.view.on(eventName, handler);
+}
+
+const eventNames = [
+  'Click',
+  'Dblclick',
+  'Mousemove',
+  'Mouseenter',
+  'Mouseleave',
+  'Mousedown',
+  'Mouseup',
+  'Contextmenu',
+];
+
+export function getEventMap(map) {
+  const eventMap: IEventmap = {};
+  each(map, (item, key) => {
+    const namePrefix = `on${key}`;
+    const eventPrefix = `${item}:`;
+    each(eventNames, (name) => {
+      const eventKey = `${namePrefix}${name}`;
+      const eventName = name.toLowerCase();
+      const event = `${eventPrefix}${eventName}`;
+      eventMap[eventKey] = event;
+    });
+  });
+  return eventMap;
 }
 
 export { IEventmap, EVENT_MAP, CANVAS_EVENT_MAP, LAYER_EVENT_MAP, onEvent };

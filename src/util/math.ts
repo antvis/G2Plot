@@ -1,10 +1,10 @@
-import { BBox } from '@antv/g';
+import BBox from './bbox';
 import * as matrixUtil from '@antv/matrix-util';
-import * as _ from '@antv/util';
+import { each, clone } from '@antv/util';
 
 function magnitude(v) {
   let sum = 0;
-  _.each(v, (value) => {
+  each(v, (value) => {
     sum += value * value;
   });
   return Math.sqrt(sum);
@@ -139,7 +139,7 @@ function distBetweenPointLine(p, p1, p2) {
 function minDistBetweenPointPolygon(p, polygon) {
   let min = Infinity;
   /** vertice to vertice */
-  _.each(polygon, (v) => {
+  each(polygon, (v) => {
     const dist = Math.sqrt(dist2(v, p));
     if (min > dist) {
       min = dist;
@@ -176,13 +176,13 @@ function minDistBetweenConvexPolygon(polyA, polyB) {
   }
   let minA = Infinity;
   let minB = Infinity;
-  _.each(polyA, (v) => {
+  each(polyA, (v) => {
     const localMin = minDistBetweenPointPolygon(v, polyB);
     if (minA > localMin) {
       minA = localMin;
     }
   });
-  _.each(polyB, (v) => {
+  each(polyB, (v) => {
     const localMin = minDistBetweenPointPolygon(v, polyA);
     if (minB > localMin) {
       minB = localMin;
@@ -201,11 +201,16 @@ function bboxOnRotate(shape) {
    * 将包围盒对齐到原点，apply旋转矩阵
    * 移回原来的位置
    */
-  const bboxWidth = bbox.tr.x - bbox.tl.x;
-  const bboxHeight = bbox.bl.y - bbox.tl.y;
+  const bboxWidth = bbox.maxX - bbox.minX;
+  const bboxHeight = bbox.maxY - bbox.minY;
   // const matrix = shape.getTotalMatrix();
   const matrix = shape.attr('matrix');
-  const ulMatrix = [matrix[0], matrix[1], 0, matrix[3], matrix[4], 0, 0, 0, 1];
+  let ulMatrix;
+  if (matrix) {
+    ulMatrix = [matrix[0], matrix[1], 0, matrix[3], matrix[4], 0, 0, 0, 1];
+  } else {
+    ulMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  }
   const top_left = applyMatrix({ x: 0, y: 0 }, ulMatrix);
   top_left.x += x;
   top_left.y += y;
@@ -295,7 +300,7 @@ function DouglasPeucker(points, threshold) {
 
 /** 统计的以后迁出去，暂时先放这里 */
 function getMedian(array) {
-  const list = _.clone(array);
+  const list = clone(array);
   list.sort((a, b) => {
     return a - b;
   });
@@ -311,7 +316,7 @@ function getMedian(array) {
 
 function getMean(array) {
   let sum: number = 0;
-  _.each(array, (num: number) => {
+  each(array, (num: number) => {
     sum += num;
   });
   return sum / array.length;

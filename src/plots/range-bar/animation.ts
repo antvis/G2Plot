@@ -1,14 +1,14 @@
-import * as G from '@antv/g';
-import { Animate } from '@antv/g2';
-import * as _ from '@antv/util';
+import { registerAnimation, IShape } from '../../dependents';
+import { clone, each } from '@antv/util';
 
 // 记录之前的状态
-let shapeCache: G.Shape[];
+let shapeCache: IShape[];
 
 function clipInFromCenter(shape, animateCfg) {
   const bbox = shape.getBBox();
   const centerX = bbox.minX + bbox.width / 2;
-  const cliper = new G.Rect({
+  shape.setClip({
+    type: 'rect',
     attrs: {
       x: centerX,
       y: bbox.minY,
@@ -16,7 +16,7 @@ function clipInFromCenter(shape, animateCfg) {
       height: bbox.height,
     },
   });
-  shape.attr('clip', cliper);
+  const cliper = shape.get('clipShape');
   cliper.animate(
     {
       width: bbox.width,
@@ -25,7 +25,7 @@ function clipInFromCenter(shape, animateCfg) {
     animateCfg.duration,
     animateCfg.easing,
     () => {
-      shape.attr('clip', null);
+      shape.setClip(null);
     },
     animateCfg.delay
   );
@@ -39,7 +39,7 @@ export function setShapeCache(shapes) {
 
 function updateFromCenter(shape, animateCfg) {
   const fromPath = getShapeFromCache(shape).attr('path');
-  const toPath = _.clone(shape.attr('path'));
+  const toPath = clone(shape.attr('path'));
   shape.attr('path', fromPath);
   shape.animate(
     {
@@ -55,7 +55,7 @@ function updateFromCenter(shape, animateCfg) {
 function getShapeFromCache(shape) {
   const { id } = shape;
   let target;
-  _.each(shapeCache, (s) => {
+  each(shapeCache, (s) => {
     if (s.id === id) {
       target = s;
     }
@@ -65,5 +65,5 @@ function getShapeFromCache(shape) {
 
 updateFromCenter.animationName = 'updateFromCenter';
 
-Animate.registerAnimation('appear', 'clipInFromCenter', clipInFromCenter);
-Animate.registerAnimation('update', 'updateFromCenter', updateFromCenter);
+registerAnimation('clipInFromCenter', clipInFromCenter);
+registerAnimation('updateFromCenter', updateFromCenter);

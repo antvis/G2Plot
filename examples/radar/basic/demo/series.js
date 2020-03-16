@@ -112,6 +112,13 @@ const radarPlot = new Radar(document.getElementById('container'), {
   angleField: 'item',
   radiusField: 'score',
   seriesField: 'user',
+  radiusAxis: {
+    grid: {
+      line: {
+        type: 'line',
+      },
+    },
+  },
   line: {
     visible: true,
   },

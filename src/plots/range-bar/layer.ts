@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
@@ -13,7 +13,7 @@ export interface RangeBarLayerConfig extends RangeBarViewConfig, LayerConfig {}
 
 export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
   public static getDefaultOptions(): Partial<RangeBarViewConfig> {
-    return _.deepMix(
+    return deepMix(
       super.getDefaultOptions(),
       {
         label: {
@@ -22,8 +22,6 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
         },
         xAxis: {
           visible: true,
-          autoHideLabel: false,
-          autoRotateLabel: false,
           autoRotateTitle: false,
           grid: {
             visible: true,
@@ -36,6 +34,8 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
           },
           label: {
             visible: true,
+            autoRotate: true,
+            autoHide: true,
           },
           title: {
             visible: true,
@@ -44,8 +44,6 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
         },
         yAxis: {
           visible: true,
-          autoHideLabel: false,
-          autoRotateLabel: false,
           autoRotateTitle: true,
           grid: {
             visible: false,
@@ -58,6 +56,8 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
           },
           label: {
             visible: true,
+            autoHide: true,
+            autoRotate: false,
           },
           title: {
             visible: false,
@@ -72,6 +72,21 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
   public type: string = 'rangeBar';
 
   public afterRender() {
+    this.renderLabel();
+    // 为更新动画缓存shape
+    const shapeCaches = [];
+    const geoms = this.view.geometries;
+    each(geoms, (geom) => {
+      const elements = geom.elements;
+      each(elements, (ele) => {
+        shapeCaches.push(ele.shape);
+      });
+    });
+    setShapeCache(shapeCaches);
+    super.afterRender();
+  }
+
+  protected renderLabel() {
     if (this.options.label && this.options.label.visible) {
       const label = new RangeBarLabel({
         view: this.view,
@@ -80,20 +95,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
       });
       label.render();
     }
-    // 为更新动画缓存shape
-    const shapeCaches = [];
-    const geoms = this.view.get('elements');
-    _.each(geoms, (geom) => {
-      const shapes = geom.getShapes();
-      _.each(shapes, (shape) => {
-        shapeCaches.push(shape);
-      });
-    });
-    setShapeCache(shapeCaches);
-    super.afterRender();
   }
-
-  protected extractLabel() {}
 
   protected animation() {
     super.animation();

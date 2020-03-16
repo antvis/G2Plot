@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { PlotConfig } from '../..';
 import { StepLineViewConfig, StepLineLayer } from './layer';
 import BasePlot from '../../base/plot';
@@ -13,7 +13,7 @@ export default class StepLine extends BasePlot<StepLineConfig> {
    * @param props
    */
   protected createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'step-line';
     super.createLayers(layerProps);
   }

@@ -1,22 +1,21 @@
-import * as _ from '@antv/util';
-import * as domUtil from '@antv/dom-util';
-import { Shape, Group } from '@antv/g';
-import { Animate } from '@antv/g2';
-import TooltipTheme from '@antv/component/lib/tooltip/theme';
-
+import { deepMix, contains, isFunction, get, findIndex, isEqual, each, set, isArray, assign } from '@antv/util';
+import { createDom, modifyCSS } from '@antv/dom-util';
+import { IGroup, IShape } from '@antv/g-base';
+import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
+import TooltipHtmlTheme from '@antv/component/lib/tooltip/html-theme';
+import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
-
+import responsiveMethods from './apply-responsive';
 import './theme';
-import './component/label/funnel-label';
-import './animation/funnel-scale-in-x';
-import './animation/funnel-scale-in-y';
 import './geometry/shape/funnel-basic-rect';
 import './geometry/shape/funnel-dynamic-rect';
-import FunnelLabelParser from './component/label/funnel-label-parser';
+import './animation/funnel-scale-in-x';
+import './animation/funnel-scale-in-y';
+import { mappingColor, rgb2arr } from '../../util/color';
 
 function lerp(a, b, factor) {
   return (1 - factor) * a + factor * b;
@@ -110,14 +109,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         visible: true,
         shared: true,
         showTitle: false,
-        crosshairs: {
-          type: 'cross',
-          style: {
-            stroke: null,
-          },
-        },
+        showCrosshairs: false,
+        showMarkers: false,
       },
-      animation: _.deepMix({}, Animate.defaultCfg, {
+      animation: deepMix({}, DEFAULT_ANIMATE_CFG, {
         appear: {
           duration: 800,
         },
@@ -131,20 +126,22 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           fill: 'black',
         },
       },
+      legend: {
+        position: 'bottom',
+      },
+      interactions: [{ type: 'tooltip' }, { type: 'legend-filter' }],
     };
-    return _.deepMix({}, super.getDefaultOptions(), cfg);
+    return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
+  public readonly type: string = 'funnel';
   public funnel: any;
-  public type: string = 'funnel';
 
-  private animationAppearTimeoutHandler: any;
-
-  private legendsListenerAttached: boolean = false;
-
-  private shouldShowLabels: boolean = false;
-  private shouldResetPercentages: boolean = true;
-  private shouldResetCompareTexts: boolean = true;
+  private _animationAppearTimeoutHandler: any;
+  private _shouldResetPercentages: boolean = true;
+  private _shouldResetLabels: boolean = true;
+  private _shouldResetCompareTexts: boolean = true;
+  private _legendsListenerAttached: boolean = false;
 
   constructor(props: T) {
     super(props);
@@ -159,6 +156,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     }
   }
 
+  public beforeInit() {
+    super.beforeInit();
+    const props = this.options;
+    /** 响应式图形 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('preRender');
+    }
+  }
+
   protected coord() {
     const props = this.options;
     const coordConfig = {
@@ -170,7 +176,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         ? []
         : [['transpose'], ['scale', 1, -1]],
     };
-    this.setConfig('coord', coordConfig);
+    // @ts-ignore
+    this.setConfig('coordinate', coordConfig);
   }
 
   protected axis(): void {
@@ -180,16 +187,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   protected adjustFunnel(funnel: ElementOption) {
     const props = this.options;
 
-    funnel.shape = {
-      values: [props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel-basic-rect'],
-    };
+    // @ts-ignore
+    funnel.shape = props.dynamicHeight ? 'funnel-dynamic-rect' : 'funnel-basic-rect';
 
     funnel.color = {
       fields: [props.xField],
       values: props.color && (Array.isArray(props.color) ? props.color : [props.color]),
     };
 
-    if (_.isFunction(props.funnelStyle)) {
+    if (isFunction(props.funnelStyle)) {
       // @ts-ignore
       funnel.style = { callback: props.funnelStyle };
     } else {
@@ -208,37 +214,37 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     const props = this.options;
 
     if (props.compareField) {
-      _.deepMix(props.tooltip, {
+      deepMix(props.tooltip, {
         htmlContent: (title, items) => {
           let clss, el, color, elMarker;
 
-          clss = 'g2-tooltip';
-          el = domUtil.createDom(`<div class="${clss}"></div>`);
-          domUtil.modifyCSS(el, TooltipTheme[clss]);
+          clss = TooltipCssConst.CONTAINER_CLASS;
+          el = createDom(`<div class="${clss}"></div>`);
+          modifyCSS(el, TooltipHtmlTheme[clss]);
           const elRoot = el;
 
           if (title) {
-            clss = 'g2-tooltip-title';
-            el = domUtil.createDom(`<div class="${clss}"></div>`);
-            domUtil.modifyCSS(el, TooltipTheme[clss]);
+            clss = TooltipCssConst.TITLE_CLASS;
+            el = createDom(`<div class="${clss}"></div>`);
+            modifyCSS(el, TooltipHtmlTheme[clss]);
             elRoot.appendChild(el);
             const elTitle = el;
 
-            clss = 'g2-tooltip-marker';
-            el = domUtil.createDom(`<span class="${clss}"></span>`);
-            domUtil.modifyCSS(el, TooltipTheme[clss]);
-            domUtil.modifyCSS(el, { width: '10px', height: '10px' });
+            clss = TooltipCssConst.MARKER_CLASS;
+            el = createDom(`<span class="${clss}"></span>`);
+            modifyCSS(el, TooltipHtmlTheme[clss]);
+            modifyCSS(el, { width: '10px', height: '10px' });
             elTitle.appendChild(el);
             elMarker = el;
 
-            el = domUtil.createDom(`<span>${title}</span>`);
+            el = createDom(`<span>${title}</span>`);
             elTitle.appendChild(el);
           }
 
           if (items) {
-            clss = 'g2-tooltip-list';
-            el = domUtil.createDom(`<ul class="${clss}"></ul>`);
-            domUtil.modifyCSS(el, TooltipTheme[clss]);
+            clss = TooltipCssConst.LIST_CLASS;
+            el = createDom(`<ul class="${clss}"></ul>`);
+            modifyCSS(el, TooltipHtmlTheme[clss]);
             elRoot.appendChild(el);
             const elList = el;
 
@@ -247,30 +253,32 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                 if (!color) {
                   color = item.color;
                 }
-                const compareValues = _.get(item, 'point._origin.__compare__.compareValues');
-                const yValues = _.get(item, 'point._origin.__compare__.yValues');
+                const compareValues = get(item, 'point._origin.__compare__.compareValues');
+                const yValues = get(item, 'point._origin.__compare__.yValues');
                 yValues.forEach((yValue, i) => pairs.push([compareValues[i], yValue]));
                 return pairs;
               }, [])
               .forEach(([compareValue, yValue], index) => {
-                clss = 'g2-tooltip-list-item';
-                el = domUtil.createDom(`<li class="${clss}" data-index=${index}></li>`);
-                domUtil.modifyCSS(el, TooltipTheme[clss]);
+                clss = TooltipCssConst.LIST_ITEM_CLASS;
+                el = createDom(`<li class="${clss}" data-index=${index}></li>`);
+                modifyCSS(el, TooltipHtmlTheme[clss]);
                 elList.appendChild(el);
                 const elListItem = el;
 
-                el = domUtil.createDom(`<span>${compareValue}</span>`);
+                clss = TooltipCssConst.NAME_CLASS;
+                el = createDom(`<span class="${clss}">${compareValue}</span>`);
+                modifyCSS(el, TooltipHtmlTheme[clss]);
                 elListItem.appendChild(el);
 
-                clss = 'g2-tooltip-value';
-                el = domUtil.createDom(`<span class="${clss}">${yValue}</span>`);
-                domUtil.modifyCSS(el, TooltipTheme[clss]);
+                clss = TooltipCssConst.VALUE_CLASS;
+                el = createDom(`<span class="${clss}">${yValue}</span>`);
+                modifyCSS(el, TooltipHtmlTheme[clss]);
                 elListItem.appendChild(el);
               });
           }
 
           if (color && elMarker) {
-            domUtil.modifyCSS(elMarker, { backgroundColor: color });
+            modifyCSS(elMarker, { backgroundColor: color });
           }
 
           return elRoot;
@@ -287,64 +295,58 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       positionFields: [props.dynamicHeight ? '_' : props.xField, props.yField],
       plot: this,
     });
-    if (props.label) {
-      funnel.label = this.extractLabel();
-    }
     this.adjustFunnel(funnel);
-
     this.funnel = funnel;
-    this.setConfig('element', funnel);
+    this.setConfig('geometry', funnel);
   }
 
   protected animation() {
+    super.animation();
     const props = this.options;
-
     if (props.animation === false) {
       /** 关闭动画 */
       this.funnel.animate = false;
-      this.shouldShowLabels = true;
     } else {
-      const appearDuration = _.get(props, 'animation.appear.duration');
-      const appearDurationEach = appearDuration / (this.getData().length || 1);
+      const data = this.getData();
+      const appearDuration = get(props, 'animation.appear.duration');
+      const appearDurationEach = appearDuration / (data.length || 1);
 
-      if (this.animationAppearTimeoutHandler) {
-        clearTimeout(this.animationAppearTimeoutHandler);
-        delete this.animationAppearTimeoutHandler;
+      if (this._animationAppearTimeoutHandler) {
+        clearTimeout(this._animationAppearTimeoutHandler);
+        delete this._animationAppearTimeoutHandler;
       }
-      this.animationAppearTimeoutHandler = setTimeout(() => {
-        this._teardownAnimationMask();
-        this.shouldShowLabels = true;
+      this._animationAppearTimeoutHandler = setTimeout(() => {
         this.fadeInPercentages(appearDurationEach);
         if (props.compareField) {
           this.fadeInCompareTexts(appearDurationEach);
         }
-        delete this.animationAppearTimeoutHandler;
+        delete this._animationAppearTimeoutHandler;
       }, appearDuration);
 
-      this.funnel.animate = _.deepMix({}, props.animation, {
+      this.funnel.animate = deepMix({}, props.animation, {
         appear: {
           animation: props.transpose ? 'funnelScaleInX' : 'funnelScaleInY',
           duration: appearDurationEach,
-          reverse: props.dynamicHeight && !props.transpose,
+          delay: (datum) => findIndex(data, (o) => isEqual(o, datum)) * appearDurationEach,
           callback: (shape) => {
-            this.shouldShowLabels = true;
-            this.showLabels(shape);
+            this.fadeInLabels(shape, 0.5 * appearDurationEach);
           },
+        },
+        enter: {
+          animation: 'fade-in',
         },
       });
     }
   }
 
-  protected geometryParser(dim, type) {
-    if (dim === 'g2') {
-      return G2_GEOM_MAP[type];
-    }
-    return PLOT_GEOM_MAP[type];
-  }
-
   public afterRender() {
     const props = this.options;
+    /** 响应式 */
+    if (props.responsive && props.padding !== 'auto') {
+      this.applyResponsive('afterRender');
+    }
 
+    this.resetLabels();
     this.resetPercentages();
     if (props.compareField) {
       this.resetCompareTexts();
@@ -363,43 +365,34 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     super.afterRender();
 
-    if (this.animationAppearTimeoutHandler) {
-      this._setupAnimationMask();
-      if (props.compareField) {
-        this.fadeInCompareTexts();
-      }
-    }
-
-    this.showLabels();
-
     if (props.animation === false) {
+      this.fadeInLabels();
       this.fadeInPercentages();
       if (props.compareField) {
         this.fadeInCompareTexts();
       }
     }
 
-    if (!this.legendsListenerAttached) {
-      this.legendsListenerAttached = true;
-      const legendContainer = this.view.get('legendController').container;
+    if (!this._legendsListenerAttached) {
+      this._legendsListenerAttached = true;
+      // @ts-ignore
+      const legendContainer = this.view.getController('legend').container;
       legendContainer.on('mousedown', this._onLegendContainerMouseDown);
     }
   }
 
   public updateConfig(cfg: Partial<T>): void {
     cfg = this.adjustProps(cfg);
-
     super.updateConfig(cfg);
-    this.legendsListenerAttached = false;
-    this.shouldShowLabels = false;
+    this._legendsListenerAttached = false;
   }
 
   public changeData(data: DataItem[]): void {
     const props = this.options;
 
     if (props.animation !== false) {
-      this.shouldResetPercentages = false;
-      this.shouldResetCompareTexts = false;
+      this._shouldResetPercentages = false;
+      this._shouldResetLabels = false;
     }
 
     if (props.dynamicHeight) {
@@ -416,63 +409,24 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     super.changeData(data);
 
     this.refreshPercentages();
+    this.refreshLabels();
     if (props.compareField) {
-      this.refreshCompareTexts();
+      this.fadeInCompareTexts();
     }
-    this._refreshAnimationMaskForPercentageRefresh();
   }
 
-  protected extractLabel() {
-    const props = this.options;
-    const label = props.label;
-
-    if (label && label.visible === false) {
-      return false;
+  protected geometryParser(dim, type) {
+    if (dim === 'g2') {
+      return G2_GEOM_MAP[type];
     }
-
-    const labelConfig = new FunnelLabelParser(
-      _.deepMix(
-        {
-          textStyle: {
-            stroke: null,
-          },
-        },
-        label,
-        {
-          plot: this,
-          labelType: 'funnelLabel',
-          position: 'middle',
-          textStyle: {
-            opacity: 0,
-          },
-          fields: [props.xField, props.yField],
-        }
-      )
-    ).getConfig();
-
-    return labelConfig;
+    return PLOT_GEOM_MAP[type];
   }
 
-  protected showLabels(shape?) {
-    if (!this.shouldShowLabels) return;
-
-    this.view.get('elements').forEach((element) => {
-      const { labelsContainer } = element.get('labelController');
-      if (labelsContainer) {
-        labelsContainer
-          .get('labelsRenderer')
-          .get('group')
-          .get('children')
-          .forEach((label) => {
-            if (shape) {
-              if (element.getShapeId(label.get('origin')) == shape.id) {
-                label.attr('opacity', 1);
-              }
-            } else {
-              label.attr('opacity', 1);
-            }
-          });
-      }
+  protected applyResponsive(stage) {
+    const methods = responsiveMethods[stage];
+    each(methods, (r) => {
+      const responsive = r;
+      responsive.method(this);
     });
   }
 
@@ -482,14 +436,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     }
 
     if (props.dynamicHeight) {
-      _.set(props, `meta.${props.yField}.nice`, false);
-      _.set(props, 'tooltip.shared', false);
+      set(props, `meta.${props.yField}.nice`, false);
+      set(props, 'tooltip.shared', false);
     }
     return props;
   }
 
   protected resetPercentages() {
-    if (!this.shouldResetPercentages) return;
+    if (!this._shouldResetPercentages) return;
 
     const props = this.options;
     const {
@@ -502,30 +456,25 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     } = props.percentage || {};
 
     const adjustTimestamp = Date.now();
-
     const container = this._findPercentageContainer(true);
-    const coord = this.view.get('coord');
-    let i = 0;
-    let datumUpper;
-    this.view.eachShape((datumLower, shape) => {
-      if (i++ > 0) {
+
+    this._eachShape((shape, index, datumLower, datumUpper) => {
+      if (index > 0) {
         const { minX, maxX, maxY, minY } = shape.getBBox();
-        const [x1, y1] = coord.invertMatrix(
-          props.transpose ? minX : maxX,
-          props.transpose ? (props.compareField ? minY : maxY) : props.dynamicHeight ? minY : maxY,
-          1
-        );
-        const { line, text, value } = this._findPercentageMembersInContainerByShape(container, shape, true);
+        const x1 = props.transpose ? minX : maxX;
+        const y1 = props.transpose ? (props.compareField ? maxY : minY) : minY;
+
+        const { line, text, value } = this._findPercentageMembersInContainerByIndex(container, index, true);
 
         const eachProcs = [
           (x, y, line, text, value) => {
             if (line) {
               line.attr(
-                _.deepMix({}, percentageLine.style, {
+                deepMix({}, percentageLine.style, {
                   x1: x,
                   y1: y,
                   x2: props.transpose ? x + offsetX : x - offsetX,
-                  y2: y - offsetY,
+                  y2: props.transpose ? y - offsetY : y + offsetY,
                   opacity: 0,
                 })
               );
@@ -538,9 +487,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             const textProc = () => {
               if (text) {
                 text.attr(
-                  _.deepMix({}, percentageText.style, {
+                  deepMix({}, percentageText.style, {
                     x: props.transpose ? x + offsetX : x - offsetX - spacing - valueWidth - spacing,
-                    y: props.transpose ? y - offsetY - spacing : y - offsetY,
+                    y: props.transpose ? y - offsetY - spacing : y + offsetY,
                     opacity: 0,
                     text: percentageText.content,
                     textAlign: props.transpose ? 'left' : 'right',
@@ -555,15 +504,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             const valueProc = () => {
               if (value) {
                 value.attr(
-                  _.deepMix({}, percentageValue.style, {
+                  deepMix({}, percentageValue.style, {
                     x: props.transpose ? x + offsetX + textWidth + spacing : x - offsetX - spacing,
-                    y: props.transpose ? y - offsetY - spacing : y - offsetY,
+                    y: props.transpose ? y - offsetY - spacing : y + offsetY,
                     opacity: 0,
-                    text: _.isFunction(percentageValue.formatter)
+                    text: isFunction(percentageValue.formatter)
                       ? props.compareField
                         ? percentageValue.formatter(
-                            _.get(datumUpper, '__compare__.yValues.0'),
-                            _.get(datumLower, '__compare__.yValues.0')
+                            get(datumUpper, '__compare__.yValues.0'),
+                            get(datumLower, '__compare__.yValues.0')
                           )
                         : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
                       : '',
@@ -587,7 +536,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           (x, y, line, text, value) => {
             if (line) {
               line.attr(
-                _.deepMix({}, percentageLine.style, {
+                deepMix({}, percentageLine.style, {
                   x1: x,
                   y1: y,
                   x2: x + offsetX,
@@ -601,7 +550,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             let textWidth = 0;
             if (text) {
               text.attr(
-                _.deepMix({}, percentageText.style, {
+                deepMix({}, percentageText.style, {
                   x: props.transpose ? x + offsetX : x + offsetX + spacing,
                   y: props.transpose
                     ? props.compareField
@@ -620,7 +569,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
             if (value) {
               value.attr(
-                _.deepMix({}, percentageValue.style, {
+                deepMix({}, percentageValue.style, {
                   x: props.transpose ? x + offsetX + textWidth + spacing : x + offsetX + spacing + textWidth + spacing,
                   y: props.transpose
                     ? props.compareField
@@ -628,11 +577,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
                       : y - offsetY - spacing
                     : y + offsetY,
                   opacity: 0,
-                  text: _.isFunction(percentageValue.formatter)
+                  text: isFunction(percentageValue.formatter)
                     ? props.compareField
                       ? percentageValue.formatter(
-                          _.get(datumUpper, `__compare__.yValues.1`),
-                          _.get(datumLower, `__compare__.yValues.1`)
+                          get(datumUpper, `__compare__.yValues.1`),
+                          get(datumLower, `__compare__.yValues.1`)
                         )
                       : percentageValue.formatter(datumUpper[props.yField], datumLower[props.yField])
                     : '',
@@ -646,7 +595,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         ];
 
         if (props.compareField) {
-          const [x0, y0] = coord.invertMatrix(minX, maxY, 1);
+          const [x0, y0] = [minX, minY];
           [
             [x0, y0],
             [x1, y1],
@@ -656,13 +605,14 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         }
       }
       datumUpper = datumLower;
+      index++;
     });
 
     container.get('children').forEach((child) => {
       if (child.get('adjustTimestamp') != adjustTimestamp) {
         child.attr({ opacity: 0 });
         container.set(child.get('id'), null);
-        setTimeout(() => child.remove());
+        setTimeout(() => child.remove(), 0);
       }
     });
   }
@@ -673,8 +623,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     const eachProc = (i?) => {
       const lastBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
-      this.view.eachShape((datum, shape) => {
-        const members = this._findPercentageMembersInContainerByShape(container, shape);
+      this._eachShape((shape, index) => {
+        const members = this._findPercentageMembersInContainerByIndex(container, index);
 
         const currBBox = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
         const eachCalc = (member) => {
@@ -686,7 +636,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
             if (maxY > currBBox.maxY) currBBox.maxY = maxY;
           }
         };
-        _.each(members, (member) => (_.isArray(member) ? eachCalc(member[i]) : eachCalc(member)));
+        each(members, (member) => (isArray(member) ? eachCalc(member[i]) : eachCalc(member)));
 
         if (
           currBBox.minX > lastBBox.maxX ||
@@ -702,8 +652,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
               duration ? member.animate(attrs, duration) : member.attr(attrs);
             }
           };
-          _.each(members, (member) => (_.isArray(member) ? eachShow(member[i]) : eachShow(member)));
-          _.assign(lastBBox, currBBox);
+          each(members, (member) => (isArray(member) ? eachShow(member[i]) : eachShow(member)));
+          assign(lastBBox, currBBox);
         }
       });
     };
@@ -715,8 +665,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   protected fadeOutPercentages(duration?, callback?) {
     const container = this._findPercentageContainer();
-    this.view.eachShape((datum, shape) => {
-      const members = this._findPercentageMembersInContainerByShape(container, shape);
+
+    this._eachShape((shape, index) => {
+      const members = this._findPercentageMembersInContainerByIndex(container, index);
 
       const eachProc = (member) => {
         if (member) {
@@ -726,7 +677,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           duration ? member.animate(attrs, duration) : member.attr(attrs);
         }
       };
-      _.each(members, (member) => (_.isArray(member) ? member.forEach(eachProc) : eachProc(member)));
+      each(members, (member) => (isArray(member) ? member.forEach(eachProc) : eachProc(member)));
     });
 
     duration && callback && setTimeout(callback, duration);
@@ -738,49 +689,32 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     if (props.animation !== false) {
       const { fadeOutDuration, fadeInDuration } = this._calcRefreshFadeDurations();
 
-      this.shouldResetPercentages = false;
+      this._shouldResetPercentages = false;
       this.fadeOutPercentages(fadeOutDuration, () => {
-        this.shouldResetPercentages = true;
+        this._shouldResetPercentages = true;
         this.resetPercentages();
         this.fadeInPercentages(fadeInDuration, callback);
       });
     }
   }
 
-  private _calcRefreshFadeDurations() {
-    const props = this.options;
+  private _findPercentageContainer(createIfNotFound: boolean = false): IGroup | undefined {
+    const { middleGroup } = this.view;
 
-    const updateDuration = _.get(props, 'animation.update.duration');
-    const enterDuration = _.get(props, 'animation.enter.duration');
-    const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.6;
-    const fadeOutDuration = Math.max(enterDuration, updateDuration) * 1.2;
-
-    return { fadeInDuration, fadeOutDuration };
-  }
-
-  private _findPercentageContainer(createIfNotFound: boolean = false) {
-    let percentageContainer;
-
-    if (this.view) {
-      const elements = this.view.get('elements');
-
-      elements.find((element) => {
-        return (percentageContainer = element.get('percentageContainer'));
-      });
-
-      if (!percentageContainer && createIfNotFound) {
-        if (elements.length) {
-          const element = elements[0];
-          percentageContainer = element.get('container').addGroup();
-          element.set('percentageContainer', percentageContainer);
-        }
-      }
+    let percentageContainer = middleGroup.get('percentageContainer');
+    if (!percentageContainer && createIfNotFound) {
+      percentageContainer = middleGroup.addGroup();
+      middleGroup.set('percentageContainer', percentageContainer);
     }
 
     return percentageContainer;
   }
 
-  private _findPercentageMembersInContainerByShape(container: Group, shape: Shape, createIfNotFound: boolean = false) {
+  private _findPercentageMembersInContainerByIndex(
+    container: IGroup,
+    index: number,
+    createIfNotFound: boolean = false
+  ) {
     const props = this.options;
     const { visible, line: percentageLine = {}, text: percentageText = {}, value: percentageValue = {} } =
       props.percentage || {};
@@ -797,10 +731,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (percentageLine.visible !== false) {
       const find = (i) => {
-        const lineId = `_percentage-line-${shape.id}-${i}`;
+        const lineId = `_percentage-line-${index}-${i}`;
         let line = container.get(lineId);
         if (!line && createIfNotFound) {
-          line = container.addShape('line', { id: lineId });
+          line = container.addShape({ id: lineId, type: 'line', attrs: {} });
           container.set(lineId, line);
         }
         return line;
@@ -811,10 +745,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (percentageText.visible !== false) {
       const find = (i) => {
-        const textId = `_percentage-text-${shape.id}-${i}`;
+        const textId = `_percentage-text-${index}-${i}`;
         let text = container.get(textId);
         if (!text && createIfNotFound) {
-          text = container.addShape('text', { id: textId });
+          text = container.addShape({ id: textId, type: 'text', attrs: {} });
           container.set(textId, text);
         }
         return text;
@@ -825,10 +759,10 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (percentageValue.visible !== false) {
       const find = (i) => {
-        const valueId = `_percentage-value-${shape.id}-${i}`;
+        const valueId = `_percentage-value-${index}-${i}`;
         let value = container.get(valueId);
         if (!value && createIfNotFound) {
-          value = container.addShape('text', { id: valueId });
+          value = container.addShape({ id: valueId, type: 'text', attrs: {} });
           container.set(valueId, value);
         }
         return value;
@@ -840,71 +774,202 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     return members;
   }
 
-  private _genCustomFieldForDynamicHeight(data: any[]) {
+  private _calcRefreshFadeDurations() {
     const props = this.options;
 
-    const total = data.reduce((total, datum) => total + datum[props.yField], 0);
+    const updateDuration = get(props, 'animation.update.duration');
+    const enterDuration = get(props, 'animation.enter.duration');
+    const fadeInDuration = Math.min(enterDuration, updateDuration) * 0.6;
+    const fadeOutDuration = Math.max(enterDuration, updateDuration) * 1.2;
 
-    let ratioUpper = 1;
-    data.forEach((datum, index) => {
-      const value = datum[props.yField];
-      const share = value / total;
-      const ratioLower = ratioUpper - share;
+    return { fadeInDuration, fadeOutDuration };
+  }
 
-      datum['__custom__'] = {
-        datumIndex: index,
-        dataLength: data.length,
-        ratioUpper,
-        ratioLower,
-        reverse: props.transpose,
-      };
+  protected resetLabels() {
+    if (!this._shouldResetLabels) return;
 
-      ratioUpper = ratioLower;
+    const props = this.options;
+    const { xField, yField } = props;
+
+    const adjustTimestamp = Date.now();
+    const { labelsContainer } = this._getGeometry();
+
+    const labelProps = props.label || {};
+    const labelStyle = deepMix(
+      {
+        ...this.theme.label,
+      },
+      props.label.style,
+      {
+        opacity: 0,
+        textAlign: 'center',
+        textBaseline: 'middle',
+      }
+    );
+    const { formatter } = labelProps;
+
+    let datumTop;
+    let compareTop;
+    this._eachShape((shape, index, datum) => {
+      if (index == 0) {
+        datumTop = datum;
+        compareTop = datumTop.__compare__;
+      }
+
+      const { minX, maxX, minY, maxY } = shape.getBBox();
+      const xValue = datum[xField];
+      const yValue = datum[yField];
+
+      if (labelProps.adjustColor) {
+        labelStyle.fill = this._getAdjustedTextFillByShape(shape);
+      }
+
+      const compare = datum.__compare__;
+      let content;
+      if (compare) {
+        content = [0, 1]
+          .map((i) => formatter(xValue, shape, index, compare.yValues[i], compareTop.yValues[i]))
+          .join(props.transpose ? '\n\n' : '    ');
+      } else {
+        content = formatter(xValue, shape, index, yValue, datumTop[yField]);
+      }
+
+      const label = this._findLabelInContainerByIndex(labelsContainer, index, true);
+      const ratio = compare ? compare.yValues[0] / (compare.yValues[0] + compare.yValues[1]) : 0.5;
+      label.attr({
+        ...labelStyle,
+        x: lerp(minX, maxX, !props.transpose ? ratio : 0.5),
+        y: lerp(minY, maxY, props.transpose ? ratio : 0.5),
+        text: content,
+      });
+
+      label.set('adjustTimestamp', adjustTimestamp);
+    });
+
+    labelsContainer.get('children').forEach((label) => {
+      if (label.get('adjustTimestamp') != adjustTimestamp) {
+        label.attr({ opacity: 0 });
+        labelsContainer.set(label.get('id'), null);
+        setTimeout(() => label.remove());
+      }
     });
   }
 
+  protected fadeInLabels(targetShape?, duration?, callback?) {
+    const { labelsContainer } = this._getGeometry();
+    this._eachShape((shape, index) => {
+      if (!targetShape || targetShape == shape) {
+        const label = this._findLabelInContainerByIndex(labelsContainer, index);
+        if (label) {
+          const shapeBBox = shape.getBBox();
+          const labelBBox = label.getBBox();
+          if (
+            labelBBox.minX >= shapeBBox.minX &&
+            labelBBox.maxX <= shapeBBox.maxX &&
+            labelBBox.minY >= shapeBBox.minY &&
+            labelBBox.maxY <= shapeBBox.maxY
+          ) {
+            const attrs = {
+              opacity: 1,
+            };
+            duration ? label.animate(attrs, duration) : label.attr(attrs);
+          }
+        }
+      }
+    });
+
+    duration && callback && setTimeout(callback, duration);
+  }
+
+  protected fadeOutLabels(targetShape?, duration?, callback?) {
+    const { labelsContainer } = this._getGeometry();
+    this._eachShape((shape, index) => {
+      if (!targetShape || targetShape == shape) {
+        const label = this._findLabelInContainerByIndex(labelsContainer, index);
+        if (label) {
+          const attrs = {
+            opacity: 0,
+          };
+          duration ? label.animate(attrs, duration) : label.attr(attrs);
+        }
+      }
+    });
+
+    duration && callback && setTimeout(callback, duration);
+  }
+
+  protected refreshLabels(callback?) {
+    const props = this.options;
+
+    if (props.animation !== false) {
+      const { fadeOutDuration, fadeInDuration } = this._calcRefreshFadeDurations();
+
+      this._shouldResetLabels = false;
+      this.fadeOutLabels(null, fadeOutDuration, () => {
+        this._shouldResetLabels = true;
+        this.resetLabels();
+        this.fadeInLabels(null, fadeInDuration, callback);
+      });
+    }
+  }
+
+  private _findLabelInContainerByIndex(container: IGroup, index: number, createIfNotFound: boolean = false) {
+    const props = this.options;
+
+    let label;
+
+    if (props.label?.visible === false) {
+      return label;
+    }
+
+    const labelId = `_label-${index}`;
+    label = container.get(labelId);
+    if (!label && createIfNotFound) {
+      label = container.addShape({
+        id: labelId,
+        type: 'text',
+        attrs: {},
+      });
+      container.set(labelId, label);
+    }
+
+    return label;
+  }
+
   protected resetCompareTexts() {
-    if (!this.shouldResetCompareTexts) return;
+    if (!this._shouldResetCompareTexts) return;
 
     const props = this.options;
 
     let shapeParentBBox;
     let compare;
-    const targetDatum = this._findCheckedData(this.getData())[0];
-    this.view.eachShape((datum, shape) => {
-      if (datum == targetDatum) {
+    this._eachShape((shape, index, datum) => {
+      if (index == 0) {
         shapeParentBBox = shape.get('parent').getBBox();
-        compare = _.get(datum, '__compare__');
+        compare = get(datum, '__compare__');
       }
     });
 
-    if (shapeParentBBox && compare && _.get(props, 'compareText.visible') !== false) {
-      const coord = this.view.get('coord');
+    if (shapeParentBBox && compare && get(props, 'compareText.visible') !== false) {
       const container = this._findCompareTextContainer(true);
       const { yValuesMax, compareValues } = compare;
-      const pStart = coord.invertMatrix(shapeParentBBox.minX, shapeParentBBox.minY, 1);
-      const pEnd = coord.invertMatrix(shapeParentBBox.maxX, shapeParentBBox.maxY, 1);
-
-      const minX = Math.min(pStart[0], pEnd[0]);
-      const maxX = Math.max(pStart[0], pEnd[0]);
-      const minY = Math.min(pStart[1], pEnd[1]);
-      const maxY = Math.max(pStart[1], pEnd[1]);
+      const { minX, maxX, minY, maxY } = shapeParentBBox;
 
       const compareTexts = container.get('children');
       [0, 1].forEach((i) => {
         let compareText = compareTexts[i];
         if (!compareText) {
-          compareText = container.addShape('text');
+          compareText = container.addShape({ type: 'text' });
         }
         compareText.attr(
-          _.deepMix({}, _.get(props, 'compareText.style'), {
+          deepMix({}, get(props, 'compareText.style'), {
             text: props.transpose ? compareValues[i] : i ? `  ${compareValues[i]}` : `${compareValues[i]}  `,
             x: props.transpose
-              ? minX + _.get(props, 'compareText.offsetX')
+              ? minX + get(props, 'compareText.offsetX')
               : lerp(minX, maxX, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])),
             y: props.transpose
               ? lerp(minY, maxY, yValuesMax[0] / (yValuesMax[0] + yValuesMax[1])) + (i ? 8 : -8)
-              : minY + _.get(props, 'compareText.offsetY'),
+              : minY + get(props, 'compareText.offsetY'),
             opacity: 0,
             textAlign: props.transpose ? 'right' : i ? 'left' : 'right',
             textBaseline: props.transpose ? (i ? 'top' : 'bottom') : 'bottom',
@@ -958,9 +1023,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     if (props.animation !== false) {
       const { fadeInDuration, fadeOutDuration } = this._calcRefreshFadeDurations();
 
-      this.shouldResetCompareTexts = false;
+      this._shouldResetCompareTexts = false;
       this.fadeOutCompareTexts(fadeOutDuration, () => {
-        this.shouldResetCompareTexts = true;
+        this._shouldResetCompareTexts = true;
         this.resetCompareTexts();
         this.fadeInCompareTexts(fadeInDuration, callback);
       });
@@ -968,25 +1033,117 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   private _findCompareTextContainer(createIfNotFound: boolean = false) {
-    let compareTextContainer;
+    const { middleGroup } = this.view;
 
-    if (this.view) {
-      const elements = this.view.get('elements');
-
-      elements.find((element) => {
-        return (compareTextContainer = element.get('compareTextContainer'));
-      });
-
-      if (!compareTextContainer && createIfNotFound) {
-        if (elements.length) {
-          const element = elements[0];
-          compareTextContainer = element.get('container').addGroup();
-          element.set('compareTextContainer', compareTextContainer);
-        }
-      }
+    let compareTextContainer = middleGroup.get('compareTextContainer');
+    if (!compareTextContainer && createIfNotFound) {
+      compareTextContainer = middleGroup.addGroup();
+      middleGroup.set('compareTextContainer', compareTextContainer);
     }
 
     return compareTextContainer;
+  }
+
+  private _eachShape(fn: (shape: IShape | IGroup, index: number, datumLower: any, datumUpper: any) => void) {
+    const data = this._findCheckedData(this.getData());
+    const dataLen = data.length;
+    let index = 0;
+    let datumUpper;
+    this._getGeometry()?.elements.forEach((element) => {
+      const { shape } = element;
+      const datumLower = data[index];
+      if (index < dataLen) {
+        fn(shape, index, datumLower, datumUpper);
+      }
+      datumUpper = datumLower;
+      index++;
+    });
+  }
+
+  private _getGeometry() {
+    return this.view.geometries[0];
+  }
+
+  private _getAdjustedTextFillByShape(shape: IShape | IGroup) {
+    const shapeColor = shape.attr('fill');
+    const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
+    const rgb = rgb2arr(shapeColor);
+    const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / shapeOpacity;
+    const colorBand = [
+      { from: 0, to: 85, color: 'white' },
+      { from: 85, to: 170, color: '#F6F6F6' },
+      { from: 170, to: 255, color: 'black' },
+    ];
+    const reflect = mappingColor(colorBand, gray);
+    return reflect;
+  }
+
+  private _genCustomFieldForDynamicHeight(data: any[]) {
+    const props = this.options;
+
+    const total = data.reduce((total, datum) => total + datum[props.yField], 0);
+
+    let ratioUpper = 1;
+    data.forEach((datum, index) => {
+      const value = datum[props.yField];
+      const share = value / total;
+      const ratioLower = ratioUpper - share;
+
+      datum['__custom__'] = {
+        datumIndex: index,
+        dataLength: data.length,
+        ratioUpper,
+        ratioLower,
+        reverse: props.transpose,
+      };
+
+      ratioUpper = ratioLower;
+    });
+  }
+
+  private _findCheckedDataByMouseDownLegendItem(legendItem: IGroup) {
+    const props = this.options;
+
+    const flags = legendItem
+      .get('parent')
+      .get('children')
+      .map((legendItem) => !legendItem.get('unchecked'));
+
+    const data = this.getData().filter((datum, index) => flags[index]);
+
+    return data;
+  }
+
+  private _findCheckedDataInNewData(newData: any[]) {
+    const props = this.options;
+
+    // @ts-ignore
+    const legendContainer = this.view.getController('legend').container;
+
+    const uncheckedXValues = legendContainer
+      .findAll((shape) => shape.get('name') == 'legend-item')
+      .filter((legendItem) => legendItem.get('unchecked'))
+      .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
+
+    const checkedData = newData.filter((datum) => !contains(uncheckedXValues, datum[props.xField]));
+
+    return checkedData;
+  }
+
+  private _findCheckedData(data: any[]) {
+    const props = this.options;
+
+    // @ts-ignore
+    const legendContainer = this.view.getController('legend').container;
+
+    const checkedXValues = legendContainer
+      .findAll((shape) => shape.get('name') == 'legend-item')
+      .filter((legendItem) => !legendItem.get('unchecked'))
+      .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
+
+    const checkedData = data.filter((datum) => contains(checkedXValues, datum[props.xField]));
+
+    return checkedData;
   }
 
   private _reduceDataForCompare(data: any[]) {
@@ -1026,9 +1183,9 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     }, []);
 
     data.forEach((datum, index) => {
-      datum[props.yField] = _.get(datum, '__compare__.yValues', []).reduce((yTotal, yValue) => (yTotal += yValue), 0);
-      _.set(datum, '__compare__.yValuesMax', yValuesMax);
-      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+      datum[props.yField] = get(datum, '__compare__.yValues', []).reduce((yTotal, yValue) => (yTotal += yValue), 0);
+      set(datum, '__compare__.yValuesMax', yValuesMax);
+      set(datum, '__compare__.yValuesNext', get(data, `${index + 1}.__compare__.yValues`));
     });
 
     return data;
@@ -1037,7 +1194,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private _updateDataForCompare(data: any[]) {
     const yValuesMax = [-Infinity, -Infinity];
     data.forEach((datum) => {
-      const yValues = _.get(datum, '__compare__.yValues');
+      const yValues = get(datum, '__compare__.yValues');
       [0, 1].forEach((i) => {
         if (yValues[i] > yValuesMax[i]) {
           yValuesMax[i] = yValues[i];
@@ -1046,110 +1203,29 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     });
 
     data.forEach((datum, index) => {
-      _.set(datum, '__compare__.yValuesMax', yValuesMax);
-      _.set(datum, '__compare__.yValuesNext', _.get(data, `${index + 1}.__compare__.yValues`));
+      set(datum, '__compare__.yValuesMax', yValuesMax);
+      set(datum, '__compare__.yValuesNext', get(data, `${index + 1}.__compare__.yValues`));
     });
-  }
-
-  private _findCheckedData(data: any[]) {
-    const props = this.options;
-
-    const legendValues = this.view
-      .get('canvas')
-      .findAll((shape) => shape.name == 'legend-item' && shape.get('parent').get('checked'))
-      .map((shape) => shape.get('origin').value);
-
-    return data.filter((datum) => _.contains(legendValues, datum[props.xField]));
-  }
-
-  private _findCheckedDataInNewData(newData: any[]) {
-    const props = this.options;
-
-    const legendValues = this.view
-      .get('canvas')
-      .findAll((shape) => shape.name == 'legend-item' && shape.get('parent').get('checked'))
-      .map((shape) => shape.get('origin').value);
-
-    const oldData = this.getData();
-
-    const uncheckedValues = oldData
-      .map((oldDatum) => oldDatum[props.xField])
-      .filter((xValue) => !_.contains(legendValues, xValue));
-
-    return newData.filter((newDatum) => !_.contains(uncheckedValues, newDatum[props.xField]));
-  }
-
-  private _findCheckedDataByMouseDownLegendItem(legendItem) {
-    const props = this.options;
-
-    const legendItemOrigin = legendItem.get('origin');
-
-    const brotherValues = legendItem
-      .get('parent')
-      .get('parent')
-      .findAll((shape) => shape != legendItem && shape.name == 'legend-item' && shape.get('parent').get('checked'))
-      .map((shape) => shape.get('origin').value);
-
-    const data = [];
-    this.getData().forEach((datum) => {
-      const xValue = datum[props.xField];
-      if (
-        (legendItemOrigin.value == xValue && !legendItem.get('parent').get('checked')) ||
-        _.contains(brotherValues, xValue)
-      ) {
-        data.push(datum);
-      }
-    });
-
-    return data;
-  }
-
-  private _setupAnimationMask() {
-    const canvas = this.view.get('canvas');
-    let animationMask = canvas.get('animation-mask');
-    if (!animationMask) {
-      animationMask = canvas.addShape('rect');
-      canvas.set('animation-mask', animationMask);
-    }
-    animationMask.attr({
-      x: 0,
-      y: 0,
-      fill: 'transparent',
-      width: canvas.get('width'),
-      height: canvas.get('height'),
-    });
-  }
-
-  private _teardownAnimationMask() {
-    const canvas = this.view.get('canvas');
-    const animationMask = canvas.get('animation-mask');
-    if (animationMask) {
-      animationMask.attr({ x: -canvas.get('width') });
-    }
-  }
-
-  private _refreshAnimationMaskForPercentageRefresh() {
-    const props = this.options;
-    if (props.animation !== false) {
-      const { fadeOutDuration, fadeInDuration } = this._calcRefreshFadeDurations();
-      this._setupAnimationMask();
-      setTimeout(() => this._teardownAnimationMask(), fadeOutDuration + fadeInDuration);
-    }
   }
 
   private _onLegendContainerMouseDown = (e) => {
     const props = this.options;
 
-    if (e.target.name == 'legend-item') {
+    const targetName = e.target.get('name');
+    if (targetName.startsWith('legend-item')) {
+      const legendItem = e.target.get('parent');
+      legendItem.set('unchecked', !legendItem.get('unchecked'));
+
       this.refreshPercentages();
+      this.refreshLabels();
 
       if (props.dynamicHeight) {
-        const data = this._findCheckedDataByMouseDownLegendItem(e.target);
+        const data = this._findCheckedDataByMouseDownLegendItem(legendItem);
         this._genCustomFieldForDynamicHeight(data);
       }
 
       if (props.compareField) {
-        const data = this._findCheckedDataByMouseDownLegendItem(e.target);
+        const data = this._findCheckedDataByMouseDownLegendItem(legendItem);
         this._updateDataForCompare(data);
         this.refreshCompareTexts();
       }

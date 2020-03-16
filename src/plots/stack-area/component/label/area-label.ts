@@ -1,7 +1,8 @@
 import { BBox, Shape, Text } from '@antv/g';
 import { ElementLabels, registerElementLabels } from '@antv/g2';
-import * as _ from '@antv/util';
+import { isNil, each, mix, has, clone } from '@antv/util';
 import ViewLayer from '../../../../base/view-layer';
+import StackBarLayer from '../../../stack-bar/layer';
 
 const DEFAULT_SIZE = 12;
 const TOLERANCE = 0.01;
@@ -12,7 +13,7 @@ function getRange(points) {
   let maxHeight = -Infinity;
   let min = Infinity;
   let max = -Infinity;
-  _.each(points, (p) => {
+  each(points, (p) => {
     min = Math.min(p.x, min);
     max = Math.max(p.x, max);
     const height = Math.abs(p.y[0] - p.y[1]);
@@ -27,7 +28,7 @@ function getRange(points) {
 function interpolateY(x, points, index) {
   let leftPoint = points[0];
   let rightPoint = points[points.length - 1];
-  _.each(points, (p) => {
+  each(points, (p) => {
     if (p.x === x) {
       return p.y[index];
     }
@@ -59,29 +60,34 @@ class AreaLabel extends ElementLabels {
 
   public showLabels(points: any, shapes: Shape[]) {
     // 获取堆叠字段
-    const stackField = this.get('element').get('attrs').color.scales[0].field;
-    // 根据stackField将point分组
-    const groupedPoints = this._groupPoints(points, stackField);
-    const labelPoints = [];
-    _.each(groupedPoints, (pointArray, name) => {
-      const labelPoint = this._drawLabel(pointArray, name);
-      if (labelPoint) {
-        labelPoints.push(_.mix({}, pointArray[0], labelPoint));
-        this.scaleFactor.push(labelPoint.scaleFactor);
+    const plot: StackBarLayer = this.get('labelOptions').plot;
+    const stackField = plot.options.stackField;
+    if (stackField) {
+      // 根据stackField将point分组
+      const groupedPoints = this._groupPoints(points, stackField);
+      const labelPoints = [];
+      each(groupedPoints, (pointArray, name) => {
+        const labelPoint = this._drawLabel(pointArray, name);
+        if (labelPoint) {
+          labelPoints.push(mix({}, pointArray[0], labelPoint));
+          this.scaleFactor.push(labelPoint.scaleFactor);
+        }
+      });
+      super.showLabels(labelPoints, shapes);
+      const labelOptions = this.get('labelOptions');
+      if (labelOptions.autoScale) {
+        this._adjuestLabelSize();
       }
-    });
-    super.showLabels(labelPoints, shapes);
-    const labelOptions = this.get('labelOptions');
-    if (labelOptions.autoScale) {
-      this._adjuestLabelSize();
+    } else {
+      super.showLabels(points, shapes);
     }
   }
 
   private _groupPoints(points, field) {
     const groupedPoints = {};
-    _.each(points, (p) => {
+    each(points, (p) => {
       const value = p._origin[field];
-      if (!_.has(groupedPoints, value)) {
+      if (!has(groupedPoints, value)) {
         groupedPoints[value] = [];
       }
       groupedPoints[value].push(p);
@@ -193,7 +199,7 @@ class AreaLabel extends ElementLabels {
 
   private _getLabelBbox(text) {
     const plot: ViewLayer = this.get('labelOptions').plot;
-    const labelStyle = _.clone(plot.theme.label.textStyle);
+    const labelStyle = clone(plot.theme.label.textStyle);
     labelStyle.fontSize = DEFAULT_SIZE;
     const tShape = new Text({
       attrs: {
@@ -210,7 +216,7 @@ class AreaLabel extends ElementLabels {
     const renderer = this.get('labelsRenderer');
     const labels = renderer.get('group').get('children');
     const view = this.get('element').get('view');
-    _.each(labels, (label, index) => {
+    each(labels, (label, index) => {
       const scaleFactor = this.scaleFactor[index];
       label.attr('fontSize', DEFAULT_SIZE);
       label.transform([

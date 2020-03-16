@@ -183,6 +183,9 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
       isVertical,
       verticalFactor: cfg.factor,
       ticks,
+      title: {
+        text: '',
+      },
       label(text) {
         return {
           text,

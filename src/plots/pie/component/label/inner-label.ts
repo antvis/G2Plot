@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-import { LabelItem } from '@antv/component/lib/interface';
-import Polar from '@antv/coord/lib/coord/polar';
-import { Shape } from '@antv/g';
-import { registerElementLabels } from '@antv/g2';
-import { clone, isString } from '@antv/util';
-import { getEndPoint, getOverlapInfo } from './utils';
-import BaseLabel from './base-label';
-=======
 import { IShape } from '../../../../dependents';
 import { each, clone } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
 import { getOverlapInfo } from './utils';
->>>>>>> 1.x
 import { distBetweenPoints } from '../../../../util/math';
 
 export function percent2Number(value: string): number {
@@ -47,17 +37,6 @@ export default class PieInnerLabel extends PieBaseLabel {
     });
   }
 
-<<<<<<< HEAD
-  /** @override 不能大于0 */
-  protected getOffsetOfLabel(): number {
-    const labelOptions = this.get('labelOptions');
-    let offset = labelOptions.offset;
-    const radius = this.get('coord').getRadius();
-    if (isString(offset)) {
-      offset = radius * percent2Number(offset);
-    }
-    return offset > 0 ? 0 : offset;
-=======
   protected getDefaultOptions() {
     const { theme } = this.plot;
     const labelStyle = theme.label.style;
@@ -71,7 +50,6 @@ export default class PieInnerLabel extends PieBaseLabel {
         textBaseline: 'middle',
       },
     };
->>>>>>> 1.x
   }
 
   /** label 碰撞调整 */

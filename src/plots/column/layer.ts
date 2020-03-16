@@ -1,4 +1,4 @@
-import { deepMix, has, each,clone } from '@antv/util';
+import { deepMix, has, each, clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';

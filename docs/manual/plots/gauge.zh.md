@@ -1,98 +1,292 @@
 ---
-title: Gauge 仪表盘
-order: 12
+title: Gauge - 仪表盘
+order: 27
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Kq3TQ4-I710AAAAAAAAAAABkARQnAQ" width="400">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*hjbDT6LlQf4AAAAAAAAAAABkARQnAQ" width="600">
 
-## 图表故事
+G2Plot 仪表盘分为Gauge (基础仪表盘)、MeterGauge（指针仪表盘）、FanGauge（扇形仪表盘）三种类型。
 
-仪表盘 (Gauge) 是一种拟物化的图表，刻度表示度量，指针表示维度，指针角度表示数值。仪表盘图表就像汽车的速度表一样，有一个圆形的表盘及相应的刻度，有一个指针指向当前数值。目前很多的管理报表或报告上都是用这种图表，以直观的表现出某个指标的进度或实际情况。
 
-仪表盘的好处在于它能跟人们的常识结合，使大家马上能理解看什么、怎么看。拟物化的方式使图标变得更友好更`人性化`，正确使用可以提升用户体验。仪表盘的圆形结构，可以更有效的`利用空间`。
+# 快速上手
 
-为了视觉上的不拥挤且符合常识，我们建议指针的数量不超过 **3** 根。
+## 基础仪表盘
 
-## 数据类型
+```js
+import { Gauge } from '@antv/g2plot';
+const gaugePlot = new Gauge(document.getElementById('container'), {
+  value: 64,
+  min: 0,
+  max: 100,
+  range: [0, 25, 50, 75, 100],
+  color: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
+});
+gaugePlot.render();
+```
 
-仪表盘适合的数据类型为一个 `numder` 类型
+## 指针仪表盘
 
-## 图表用法
+```js
+import { MeterGauge } from '@antv/g2plot';
+const gaugePlot = new MeterGauge(document.getElementById('container'), {
+  value: 64,
+  min: 0,
+  max: 100,
+  range: [0, 25, 50, 75, 100],
+  color: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
+});
+gaugePlot.render();
+```
 
-- Dont's
-  - 如果有多个数据要展示，建议拆成多个仪表盘展示
-  - 数据之间差异极小或者非一个量级数据对比
+## 扇形仪表盘
 
-## API
+```js
+import { FanGauge } from '@antv/g2plot';
 
-说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
+const gaugePlot = new FanGauge(document.getElementById('container'), {
+  value: 34,
+  min: 0,
+  max: 100,
+  range: [0, 70],
+  format: (v) => {
+    return v + '%';
+  },
+  color: ['l(0) 0:#b0d0ff 1:#5f92f9'],
+});
+gaugePlot.render();
+```
 
-### title
+# 配置属性
 
-**optional** 见[通用图表配置](../general-config#title)。
-
-### description
-
-**optional** 见[通用图表配置](../general-config#description)。
+## 图表容器
 
 ### width
 
-**optional** 见[通用图表配置](../general-config#width)。
+**可选**, *number*
+
+功能描述： 设置图表宽度。
+
+默认配置： `400`
 
 ### height
 
-**optional** 见[通用图表配置](../general-config#height)。
+**可选**, *number*
+
+功能描述： 设置图表高度。
+
+默认配置： `400`
 
 ### forceFit
 
-**optional** 见[通用图表配置](../general-config#forceFit)。
+**可选**, *boolean*
 
-### padding
+功能描述： 图表是否自适应容器宽高。当 `forceFit` 设置为true时，`width` 和 `height` 的设置将失效。
 
-**optional** 见[通用图表配置](../general-config#padding)。
+默认配置： `true`
 
-### theme
+### pixelRatio
 
-**optional** 见[通用图表配置](../general-config#theme)。
+**可选**, *number*
 
-### data
+功能描述： 设置图表渲染的像素比
 
-**required**, number 类型
+默认配置： `2`
 
-数据源为对象集合，数据类型为 number。
+### renderer
+
+**可选**, *string*
+
+功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
+
+默认配置： `canvas`
+
+## 数据映射
+
+### value 📌
+
+**必选**, *number*
+
+功能描述： 配置仪表盘当前数值。
+
+默认配置： 无
 
 ### min
 
-**optional**, number 类型
+**可选**, *number*
 
-仪表盘刻度最小值。默认为 0。
+功能描述： 仪表盘刻度最小值
+
+默认配置： 0
 
 ### max
 
-**optional**, number 类型
+**可选**, *number*
 
-仪表盘刻度最大值。默认为 1。
+功能描述： 仪表盘刻度最大值。
 
-### range
+默认配置： 1
 
-**optional**, number[] 类型
+### range 📌
 
-仪表的色条范围区间，数组的前后两项组成的元组将对应一个颜色区间，例如：[0, 40, 60, 100]。
+**必选**, *number[]*
 
-### statistic:function
+功能描述： 仪表的色条范围区间，数组的前后两项组成的元组将对应一个颜色区间，例如：[0, 40, 60, 100]。
 
-**optional**, number 类型
+默认配置： 无
 
-配置指标卡。该函数的两个入参分别是将要显示的数值 value，以及经过了格式化函数后的 formatted，该函数返回 html 字符串。
 
-### formatter
+## 图形样式
 
-**optional**, number 类型
+### color
 
-显示文字标签时对数值文本进行格式化的函数。该函数的入参为原本显示的数值。
+**可选**, *string[]*
 
-示例如下：
+功能描述：配置仪表盘色条颜色
+
+默认配置： 采用 theme 中的默认色板
+
+
+## 组件
+
+### title
+**可选**, *optional*
+
+[DEMOS](../../../examples/general/title-description)
+
+功能描述： 配置图表的标题，默认显示在图表左上角。
+
+默认配置：
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 18,
+    fill: 'black',
+}
+```
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
+### description
+**可选**, *optional*
+
+[DEMOS](../../../examples/general/title-description)
+
+功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
+
+默认配置：
+```js
+visible: false,
+position: 'left',
+text:'',
+style:{
+    fontSize: 12,
+    fill: 'grey',
+}
+```
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
+
+### statistic
+
+**可选**, *object*
+
+功能描述： 配置仪表盘指标卡
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | [string, string] | 指标卡的位置。以百分比的形式进行配置，分别对应[x-position, y-position] |
+| text | string | 指标卡文字内容 |
+| color | string | 指标卡文字颜色 |
+
+## 事件
+
+## 事件
+
+### 仪表盘色带事件
+
+| onRangeClick<br />色带点击事件 | onRangeDblClick<br />色带双击事件 | onRangeDblClick<br />色带双击事件 | onRangeMouseleave<br />色带鼠标离开事件 |
+| --- | --- | --- | --- |
+| onRangeMousemove<br />色带鼠标移动事件 | onRangeMousedown<br />色带鼠标按下事件 | onRangeMouseup<br />色带鼠标松开事件 | onRangeMouseenter<br />色带鼠标进入事件 |
+
+### 指标卡事件
+
+| onStatisticClick<br />指标卡点击事件 | onStatisticDblClick<br />指标卡双击事件 | onStatisticDblClick<br />指标卡双击事件 | onStatisticMouseleave<br />指标卡鼠标离开事件 |
+| --- | --- | --- | --- |
+| onStatisticMousemove<br />指标卡鼠标移动事件 | onStatisticMousedown<br />指标卡鼠标按下事件 | onStatisticMouseup<br />指标卡鼠标松开事件 | onStatisticMouseenter<br />指标卡鼠标进入事件 |
+
+
+### 图表区域事件
+
+| onPlotClick<br />图表区域点击事件 | onPlotDblClick<br />图表区域双击事件 | onPlotDblClick<br />图表区域双击事件 | onPlotMouseleave<br />图表区域鼠标离开事件 |
+| --- | --- | --- | --- |
+| onPlotMousemove<br />图表区域鼠标移动事件 | onPlotMousedown<br />图表区域鼠标按下事件 | onPlotMouseup<br />图表区域鼠标松开事件 | onPlotMouseenter<br />图表区域鼠标进入事件 |
+
+
+### 标题事件
+
+| onTitleClick<br />标题点击事件 | onTitleDblClick<br />标题双击事件 | onTitleDblClick<br />标题双击事件 | onTitleMouseleave<br />标题鼠标离开事件 |
+| --- | --- | --- | --- |
+| onTitleMousemove<br />标题鼠标移动事件 | onTitleMousedown<br />标题鼠标按下事件 | onTitleMouseup<br />标题鼠标松开事件 | onTitleMouseenter<br />标题鼠标进入事件 |
+
+
+### 描述事件
+
+| onDescriptionClick<br />标题点击事件 | onDescriptionDblClick<br />标题双击事件 | onDescriptionDblClick<br />标题双击事件 | onDescriptionMouseleave<br />标题鼠标离开事件 |
+| --- | --- | --- | --- |
+| onDescriptionMousemove<br />标题鼠标移动事件 | onDescriptionMousedown<br />标题鼠标按下事件 | onDescriptionMouseup<br />标题鼠标松开事件 | onDescriptionMouseenter<br />标题鼠标进入事件 |
+
+
+# 图表方法
+
+## render() 📌
+
+**必选**
+
+渲染图表。
+
+## updateConfig()
+
+**可选**
+
+更新图表配置项。
 
 ```js
-format = (value) => `${value}%`;
+plot.updateConfig({
+  width: 500,
+  height: 600,
+  legend: {
+    visible: false,
+  },
+});
+
+plot.render();
 ```
+
+## repaint()
+
+**可选**
+
+图表画布重绘。
+
+## destory()
+
+**可选**
+
+销毁图表。
+
+## getData()
+
+获取图表数据。
+
+## getPlotTheme()
+
+获取图表 theme。

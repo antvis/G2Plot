@@ -1,17 +1,17 @@
-import * as _ from '@antv/util';
-import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
+import { assign } from '@antv/util';
+import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
-const SHAPE_EVENT_MAP: IEventmap = {
-  onPointClick: 'point:click',
-  onPointDblclick: 'point:dblclick',
-  onPointMousemove: 'point:mousemove',
-  onPointMouseenter: 'point:mouseenter',
-  onPointMouseleave: 'point:mouseleave',
-  onPointMousedown: 'point:mousedown',
-  onPointMouseup: 'point:mouseup',
-  onPointContextmenu: 'point:contextmenu',
+const componentMap = {
+  Point: 'point',
+  Trendline: 'trendline',
+  Confidence: 'confidence',
+  Quadrant: 'quadrant',
+  QuadrantLabel: 'quadrant-label',
+  QuadrantLine: 'quadrant-line',
 };
 
-_.assign(EVENT_MAP, SHAPE_EVENT_MAP);
+const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);
+
+assign(EVENT_MAP, SHAPE_EVENT_MAP);
 
 export { EVENT_MAP, onEvent };

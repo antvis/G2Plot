@@ -1,8 +1,22 @@
-import { BBox, Rect } from '@antv/g';
-import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
+import {
+  deepMix,
+  isEmpty,
+  mapValues,
+  get,
+  isUndefined,
+  each,
+  assign,
+  isFunction,
+  mix,
+  map,
+  flatten,
+  reduce,
+  findIndex,
+} from '@antv/util';
+import { View, BBox } from '../dependents';
 import TextDescription from '../components/description';
 import { getComponent } from '../components/factory';
+import Interaction from '../interaction/core';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
 import {
   Axis,
@@ -20,9 +34,8 @@ import { EVENT_MAP, onEvent } from '../util/event';
 import PaddingController from './controller/padding';
 import StateController from './controller/state';
 import ThemeController from './controller/theme';
-import Layer, { LayerConfig, Region } from './layer';
+import Layer, { LayerConfig } from './layer';
 import { isTextUsable } from '../util/common';
-import { getOverlapArea } from '../util/bbox';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
@@ -71,29 +84,30 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       renderer: 'canvas',
       title: {
         visible: false,
+        alignTo: 'left',
         text: '',
       },
       description: {
         visible: false,
         text: '',
+        alignTo: 'left',
       },
       padding: 'auto',
       legend: {
         visible: true,
-        position: 'bottom-center',
+        position: 'bottom',
       },
       tooltip: {
         visible: true,
         shared: true,
+        showCrosshairs: true,
         crosshairs: {
-          type: 'y',
+          type: 'x',
         },
+        offset: 20,
       },
       xAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
-        autoRotateTitle: false,
         grid: {
           visible: false,
         },
@@ -105,6 +119,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         label: {
           visible: true,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: false,
@@ -113,8 +129,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       yAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: false,
         autoRotateTitle: true,
         grid: {
           visible: true,
@@ -127,6 +141,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: false,
         },
         title: {
           visible: false,
@@ -136,10 +152,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
+      interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
     };
   }
   public type: string;
-  public view: G2.View;
+  public view: View;
   public theme: any;
   public initialOptions: T;
   public title: TextDescription;
@@ -149,12 +166,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected stateController: StateController;
   protected themeController: ThemeController;
   public config: G2Config;
-  private interactions: BaseInteraction[] = [];
+  protected interactions: Interaction[] = [];
 
   constructor(props: T) {
     super(props);
     this.options = this.getOptions(props);
-    this.initialOptions = _.deepMix({}, this.options);
+    this.initialOptions = deepMix({}, this.options);
     this.paddingController = new PaddingController({
       plot: this,
     });
@@ -168,7 +185,19 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
-    return _.deepMix({}, options, defaultOptions, props);
+    // interactions 需要合并去重下
+    const interactions = reduce(
+      flatten(map([options, defaultOptions, props], (src) => get(src, 'interactions', []))),
+      (result, cur) => {
+        const idx = findIndex(result, (item) => item.type === cur.type);
+        if (idx >= 0) {
+          result.splice(idx, 1);
+        }
+        return [...result, cur];
+      },
+      []
+    );
+    return deepMix({}, options, defaultOptions, props, { interactions });
   }
 
   public beforeInit() {
@@ -179,29 +208,29 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
     this.config = {
+      data: this.processData(this.options.data),
       scales: {},
       legends: {},
       tooltip: {
         showTitle: true,
-        triggerOn: 'mousemove',
-        inPanel: true,
-        useHtml: true,
       },
-      axes: { fields: {} },
-      coord: { type: 'cartesian' },
-      elements: [],
+      axes: {},
+      coordinate: { type: 'cartesian' },
+      geometries: [],
       annotations: [],
-      interactions: {},
+      interactions: [],
       theme: this.theme,
       panelRange: {},
       animate: true,
+      views: [],
     };
 
     this.paddingController.clear();
 
     this.drawTitle();
     this.drawDescription();
-
+    // 有些interaction要调整配置项，所以顺序提前
+    this.interaction();
     this.coord();
     this.scale();
     this.axis();
@@ -212,19 +241,17 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.animation();
 
     this.viewRange = this.getViewRange();
-    this.paddingController.clearOuterComponents();
-
-    this.view = new G2.View({
-      width: this.width,
-      height: this.height,
+    const region = this.viewRangeToRegion(this.viewRange);
+    this.view = new View({
+      parent: null,
       canvas: this.canvas,
-      container: this.container,
+      backgroundGroup: this.container.addGroup(),
+      middleGroup: this.container.addGroup(),
+      foregroundGroup: this.container.addGroup(),
       padding: this.paddingController.getPadding(),
-      data: this.processData(this.options.data),
       theme: this.theme,
       options: this.config,
-      start: { x: this.viewRange.minX, y: this.viewRange.minY },
-      end: { x: this.viewRange.maxX, y: this.viewRange.maxY },
+      region,
     });
     this.applyInteractions();
     this.view.on('afterrender', () => {
@@ -252,9 +279,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-    if (this.options.renderer === 'canvas') {
-      this.addGeomCliper();
-    }
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
@@ -265,7 +289,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public render(): void {
     super.render();
     const { data } = this.options;
-    if (!_.isEmpty(data)) {
+    if (!isEmpty(data)) {
       this.view.render();
     }
   }
@@ -282,7 +306,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }
-    this.options = _.deepMix({}, this.options, cfg);
+    this.options = deepMix({}, this.options, cfg);
     this.processOptions(this.options);
   }
 
@@ -298,6 +322,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   // 获取对应的G2 Theme
   public getTheme() {
+    if (!this.theme) {
+      return this.themeController.getTheme(this.options, this.type);
+    }
     return this.theme;
   }
 
@@ -308,6 +335,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   // 获取对应的Plot Theme
   public getPlotTheme() {
     return this.themeController.getPlotTheme(this.options, this.type);
+  }
+
+  public getInteractions() {
+    return this.interactions;
   }
 
   // 绑定一个外部的stateManager
@@ -328,8 +359,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.stateController.setState({ type: 'disable', condition, style });
   }
 
-  public setNormal(condition) {
-    this.stateController.setState({ type: 'normal', condition, style: {} });
+  public setDefault(condition, style) {
+    this.stateController.setState({ type: 'default', condition, style });
   }
 
   // 获取 ViewLayer 的数据项
@@ -347,11 +378,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     /** scale meta配置 */
     // 1. this.config.scales中已有子图形在处理xAxis/yAxis是写入的xField/yField对应的scale信息，这里再检查用户设置的meta，将meta信息合并到默认的scale中
     // 2. 同时xAxis/yAxis中的type优先级更高，覆盖meta中的type配置
-    const scaleTypes = _.mapValues(this.config.scales, (scaleConfig) => {
+    const scaleTypes = mapValues(this.config.scales, (scaleConfig: any) => {
       const type = scaleConfig.type;
       return type ? { type } : {};
     });
-    const scales = _.deepMix({}, this.config.scales, this.options.meta || {}, scaleTypes);
+    const scales = deepMix({}, this.config.scales, this.options.meta || {}, scaleTypes);
 
     this.setConfig('scales', scales);
   }
@@ -365,9 +396,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       plot: this,
       dim: 'y',
     });
-    const axesConfig = { fields: {} };
-    axesConfig.fields[this.options.xField] = xAxis_parser;
-    axesConfig.fields[this.options.yField] = yAxis_parser;
+    const axesConfig = {};
+    axesConfig[this.options.xField] = xAxis_parser;
+    axesConfig[this.options.yField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);
   }
@@ -378,9 +409,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
 
-    this.setConfig('tooltip', _.deepMix({}, _.get(this.options, 'tooltip')));
+    this.setConfig('tooltip', deepMix({}, get(this.options, 'tooltip')));
 
-    _.deepMix(this.config.theme.tooltip, this.options.tooltip.style);
+    deepMix(this.config.theme.tooltip, this.options.tooltip.style);
+  }
+
+  protected getLegendPosition(position: string): any {
+    const positionList = position.split('-');
+    // G2 4.0 兼容 XXX-center 到 XXX 的场景
+    if (positionList && positionList.length > 1 && positionList[1] === 'center') {
+      return positionList[0];
+    }
+    return position;
   }
 
   protected legend(): void {
@@ -388,24 +428,24 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.setConfig('legends', false);
       return;
     }
-    const flipOption = _.get(this.options, 'legend.flipPage');
-    const clickable = _.get(this.options, 'legend.clickable');
+    const flipOption = get(this.options, 'legend.flipPage');
+    const clickable = get(this.options, 'legend.clickable');
     this.setConfig('legends', {
-      position: _.get(this.options, 'legend.position'),
-      formatter: _.get(this.options, 'legend.formatter'),
-      offsetX: _.get(this.options, 'legend.offsetX'),
-      offsetY: _.get(this.options, 'legend.offsetY'),
-      clickable: _.isUndefined(clickable) ? true : clickable,
-      // wordSpacing: _.get(this.options, 'legend.wordSpacing'),
+      position: this.getLegendPosition(get(this.options, 'legend.position')),
+      formatter: get(this.options, 'legend.formatter'),
+      offsetX: get(this.options, 'legend.offsetX'),
+      offsetY: get(this.options, 'legend.offsetY'),
+      clickable: isUndefined(clickable) ? true : clickable,
+      // wordSpacing: get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
-      marker: _.get(this.options, 'legend.marker'),
+      marker: get(this.options, 'legend.marker'),
     });
   }
 
   protected annotation() {
     const config = [];
-    if (this.config.coord.type === 'cartesian' && this.options.guideLine) {
-      _.each(this.options.guideLine, (line) => {
+    if (this.config.coordinate.type === 'cartesian' && this.options.guideLine) {
+      each(this.options.guideLine, (line) => {
         const guideLine = getComponent('guideLine', {
           plot: this,
           cfg: line,
@@ -419,9 +459,26 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected abstract addGeometry(): void;
   protected abstract geometryParser(dim: string, type: string): string;
 
+  protected interaction() {
+    const { interactions = [] } = this.options;
+    each(interactions, (interaction) => {
+      const { type } = interaction;
+      if (type === 'slider' || type === 'scrollbar') {
+        const axisConfig = {
+          label: {
+            autoHide: true,
+            autoRotate: false,
+          },
+        };
+        this.options.xAxis = deepMix({}, this.options.xAxis, axisConfig);
+      }
+      this.setConfig('interaction', interaction);
+    });
+  }
+
   protected animation() {
     if (this.options.animation === false || this.options.padding === 'auto') {
-      this.config.animate = false;
+      this.setConfig('animate', false);
     }
   }
 
@@ -449,15 +506,19 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   /** 设置G2 config，带有类型推导 */
   protected setConfig<K extends keyof G2Config>(key: K, config: G2Config[K] | boolean): void {
-    if (key === 'element') {
-      this.config.elements.push(config as G2Config['element']);
+    if (key === 'geometry') {
+      this.config.geometries.push(config as G2Config['geometry']);
+      return;
+    }
+    if (key === 'interaction') {
+      this.config.interactions.push(config as any);
       return;
     }
     if (config === false) {
       this.config[key] = false;
       return;
     }
-    _.assign(this.config[key], config);
+    assign(this.config[key], config);
   }
 
   protected parseEvents(eventParser?): void {
@@ -465,8 +526,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.events) {
       super.parseEvents(options.events);
       const eventmap = eventParser ? eventParser.EVENT_MAP : EVENT_MAP;
-      _.each(options.events, (e, k) => {
-        if (_.isFunction(e)) {
+      each(options.events, (e, k) => {
+        if (isFunction(e)) {
           const eventName = eventmap[k] || k;
           const handler = e;
           onEvent(this, eventName, handler);
@@ -488,14 +549,16 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const theme = this.config.theme;
       const title = new TextDescription({
         leftMargin: range.minX + theme.title.padding[3],
+        rightMargin: range.maxX - theme.title.padding[1],
         topMargin: range.minY + theme.title.padding[0],
         text: props.title.text,
-        style: _.mix(theme.title, props.title.style),
+        style: mix(theme.title, props.title.style),
         wrapperWidth: width - theme.title.padding[3] - theme.title.padding[1],
-        container: this.container.addGroup(),
+        container: this.container.addGroup() as any,
         theme,
         index: isTextUsable(props.description) ? 0 : 1,
         plot: this,
+        alignTo: props.title.alignTo,
         name: 'title',
       });
       this.title = title;
@@ -528,13 +591,15 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       const description = new TextDescription({
         leftMargin: range.minX + theme.description.padding[3],
         topMargin,
+        rightMargin: range.maxX - theme.title.padding[1],
         text: props.description.text,
-        style: _.mix(theme.description, props.description.style),
+        style: mix(theme.description, props.description.style),
         wrapperWidth: width - theme.description.padding[3] - theme.description.padding[1],
-        container: this.container.addGroup(),
+        container: this.container.addGroup() as any,
         theme,
         index: 1,
         plot: this,
+        alignTo: props.description.alignTo,
         name: 'description',
       });
       this.description = description;
@@ -571,16 +636,16 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       let position = '';
       if (range) {
         // 先只考虑 Range 靠边的情况
-        if (range.bottom === layerBBox.bottom && range.top > layerBBox.top) {
+        if (range.maxY === layerBBox.maxY && range.minY > layerBBox.minY) {
           // margin[2] += range.height;
           position = 'bottom';
-        } else if (range.right === layerBBox.right && range.left > layerBBox.left) {
+        } else if (range.maxX === layerBBox.maxX && range.minX > layerBBox.minX) {
           // margin[1] += range.width;
           position = 'right';
-        } else if (range.left === layerBBox.left && range.right > layerBBox.right) {
+        } else if (range.minX === layerBBox.minX && range.maxX > layerBBox.maxX) {
           // margin[3] += range.width;
           position = 'left';
-        } else if (range.top === layerBBox.top && range.bottom > layerBBox.bottom) {
+        } else if (range.minY === layerBBox.minY && range.maxY > layerBBox.maxY) {
           // margin[0] += range.height;
           position = 'top';
         }
@@ -599,47 +664,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     return viewRange;
   }
 
-  // 临时解决scale min & max的图形截取
-  private addGeomCliper() {
-    const panelRange = this.view.get('panelRange');
-    const cliper = new Rect({
-      attrs: {
-        x: panelRange.minX,
-        y: panelRange.minY,
-        width: panelRange.width,
-        height: panelRange.height,
-      },
-    });
-    const geoms = this.view.get('elements');
-    _.each(geoms, (geom) => {
-      const cliperContainer = geom.get('shapeContainer');
-      const preCliper = cliperContainer.attr('clip');
-      if (preCliper) {
-        preCliper.remove();
-      }
-      cliperContainer.attr('clip', cliper);
-    });
+  private viewRangeToRegion(viewRange) {
+    const { width, height } = this;
+    const start = { x: 0, y: 0 },
+      end = { x: 1, y: 1 };
+    start.x = viewRange.minX / width;
+    start.y = viewRange.minY / height;
+    end.x = viewRange.maxX / width;
+    end.y = viewRange.maxY / height;
 
-    // 临时解决scale min/max 之外的label
-    const clipBBox = new BBox(panelRange.x, panelRange.y, panelRange.width, panelRange.height);
-    _.each(this.getDataLabShapes(), (label) => {
-      const labelBBox = label.getBBox();
-      if (getOverlapArea(clipBBox, labelBBox) <= 0) {
-        label.set('visible', false);
-      }
-    });
-  }
-
-  private getDataLabShapes() {
-    const shapes = [];
-    this.view.get('elements').map((element) => {
-      const labelController = element.get('labelController');
-      const label = labelController.labelsContainer && labelController.labelsContainer.get('labelsRenderer');
-      if (label) {
-        shapes.push(...(label.getLabels() || []));
-      }
-    });
-
-    return shapes;
+    return {
+      start,
+      end,
+    };
   }
 }

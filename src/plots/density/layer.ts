@@ -1,11 +1,11 @@
-import { DataPointType } from '@antv/g2/lib/interface';
 import { getScale } from '@antv/scale';
-import * as _ from '@antv/util';
+import { clone, deepMix, sortBy, valuesOfKey, getRange, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
 import Area, { AreaViewConfig } from '../area/layer';
 import { DataItem } from '../../interface/config';
+import { LooseMap } from '../../interface/types';
 
 export interface DensityViewConfig extends AreaViewConfig {
   binField: string;
@@ -47,10 +47,10 @@ export default class DensityLayer<T extends DensityLayerConfig = DensityLayerCon
   public type: string = 'density';
 
   public init() {
-    const originXAxisConfig = this.options.xAxis ? _.clone(this.options.xAxis) : {};
+    const originXAxisConfig = this.options.xAxis ? clone(this.options.xAxis) : {};
     this.options.xField = 'value';
     this.options.yField = 'density';
-    this.options.xAxis = _.deepMix({}, originXAxisConfig, { type: 'linear' });
+    this.options.xAxis = deepMix({}, originXAxisConfig, { type: 'linear' });
     this.options.smooth = true;
     super.init();
   }
@@ -59,11 +59,11 @@ export default class DensityLayer<T extends DensityLayerConfig = DensityLayerCon
     const { binField, binWidth, binNumber, kernel } = this.options;
     const _kernel = kernel ? kernel : 'epanechnikov';
     const kernelFunc = kernels[_kernel];
-    const originDataCopy = _.clone(originData);
-    _.sortBy(originDataCopy, binField);
+    const originDataCopy = clone(originData);
+    sortBy(originDataCopy, binField);
     // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
-    const values = _.valuesOfKey(originDataCopy, binField);
-    const range = _.getRange(values);
+    const values = valuesOfKey(originDataCopy, binField);
+    const range = getRange(values);
     const rangeWidth = range.max - range.min;
     let _binNumber = binNumber;
     let _binWidth = binWidth;
@@ -89,7 +89,7 @@ export default class DensityLayer<T extends DensityLayerConfig = DensityLayerCon
     const samples = scale.getTicks();
     // 计算KDE
     const densities = [];
-    _.each(samples, (s) => {
+    each(samples, (s) => {
       const density = this.kernelDensityEstimator(_binWidth, kernelFunc, s, values);
       densities.push({ value: s.text, density });
     });
@@ -100,11 +100,11 @@ export default class DensityLayer<T extends DensityLayerConfig = DensityLayerCon
   private kernelDensityEstimator(
     binWidth: number,
     kernelFunc: (dist: number) => number,
-    x: DataPointType,
+    x: LooseMap,
     values: number[]
   ) {
     let sum = 0;
-    _.each(values, (v) => {
+    each(values, (v) => {
       const dist = (x.tickValue - v) / binWidth;
       sum += kernelFunc(dist);
     });

@@ -48,7 +48,6 @@ const columnPlot = new Column(document.getElementById('container'), {
   forceFit: true,
   data,
   padding: 'auto',
-  data,
   xField: 'type',
   yField: 'sales',
   meta: {

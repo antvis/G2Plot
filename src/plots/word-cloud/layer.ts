@@ -1,14 +1,15 @@
 /**
  * Create By Bruce Too
- * On 2019-12-25
+ * On 2020-02-14
  */
 import { LayerConfig } from '../..';
-import * as _ from '@antv/util';
+import { get, deepMix } from '@antv/util';
 import Layer from '../../base/layer';
 import WordCloudTooltips from './word-cloud-tooltips';
 import { TooltipCfg } from '@antv/component/lib/tooltip/interface';
 
 import WordCloud from './wordcloud2';
+import { WordCloudPlotConfig } from './index';
 
 export type CloudShape =
   | 'circle'
@@ -79,7 +80,7 @@ export type WordStyle = {
   // origin?: [number, number];
 };
 
-export interface WordCloudViewConfig {
+export interface WordCloudViewConfig extends WordCloudPlotConfig {
   data: Array<WordCloudData> | Function;
   // mask image, black-white pixel image will be better
   maskImage?: string;
@@ -126,8 +127,8 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   constructor(props: WordCloudLayerConfig) {
     super(props);
     this._configHoverAction = props.onWordCloudHover;
-    this._enableToolTips = _.get(props, 'tooltip.visible', true);
-    this.options = _.deepMix(
+    this._enableToolTips = get(props, 'tooltip.visible', true);
+    this.options = deepMix(
       {},
       {
         width: 400,
@@ -154,21 +155,22 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   private _toolTipsAction = (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {
     if (dimension) {
-      this._toolTips.setContent('', [
-        // @ts-ignore
-        {
-          color: item.color || 'red',
-          name: item.word,
-          value: item.weight,
-        },
-      ]);
-      // @ts-ignore
-      // NOTE evt.layerX is relative x in canvas, absolute x is dimension.x
-      this._toolTips.setPosition(evt.layerX, evt.layerY);
+      this._toolTips.update({
+        items: [
+          {
+            color: item.color || 'red',
+            name: item.word,
+            value: item.weight,
+          },
+        ],
+        x: evt.offsetX,
+        y: evt.offsetY,
+      });
       this._toolTips.show();
     } else {
       this._toolTips.hide();
     }
+    this._toolTips.render();
     this._configHoverAction && this._configHoverAction(item, dimension, evt, start);
   };
 
@@ -176,11 +178,13 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     this._toolTips = new WordCloudTooltips({
       ...this.options.tooltip,
       showTitle: false,
-      visible: true,
-      canvas: this.canvas,
+      visible: false,
+      parent: this.options.container,
       follow: true,
       inPanel: false, // must be false
+      items: [],
     });
+    this._toolTips.init();
   }
 
   private _render() {
@@ -214,6 +218,11 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
   private _start() {
     this._handleG2PlotConfig();
+    const targetCtx = this._targetCanvas.getContext('2d');
+    // it's a trick, because 「g」 use context to scale canvas by pixelRatio,
+    // but here i need scale it back
+    const pixelRatio = this.canvas.get('width') / this.canvas.get('el').width;
+    targetCtx.scale(pixelRatio, pixelRatio);
     WordCloud(this._targetCanvas, this.options);
   }
 
@@ -228,7 +237,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
     } else {
       active = false;
     }
-    this.options = _.deepMix({}, this.options, {
+    this.options = deepMix({}, this.options, {
       minFontSize: fontSize[0],
       maxFontSize: fontSize[1],
       minRotation: rotation[0],
@@ -272,7 +281,7 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
 
     const targetCtx = this._targetCanvas.getContext('2d');
     targetCtx.drawImage(maskImageCanvas, 0, 0);
-    this.options = _.deepMix({}, this.options, { clearCanvas: false });
+    this.options = deepMix({}, this.options, { clearCanvas: false });
 
     this._start();
   }
@@ -280,8 +289,8 @@ export default class WordCloudLayer extends Layer<WordCloudLayerConfig> {
   private _scaleMaskImageCanvas(maskImageCanvas: HTMLCanvasElement): MaskImage {
     const maskCanvasScaled = document.createElement('canvas');
     // get real canvas determined by pixelRatio
-    maskCanvasScaled.width = this.canvas.get('widthCanvas');
-    maskCanvasScaled.height = this.canvas.get('heightCanvas');
+    maskCanvasScaled.width = this.canvas.get('width');
+    maskCanvasScaled.height = this.canvas.get('height');
     const ctx = maskCanvasScaled.getContext('2d');
     // keep scale smooth
     ctx.imageSmoothingEnabled = true;

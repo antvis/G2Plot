@@ -4,10 +4,8 @@ fetch('../data/weather.json')
   .then((res) => res.json())
   .then((data) => {
     const comboPlot = new OverlappedComboPlot(document.getElementById('container'), {
-      theme: 'dark',
       legend: {
         visible: true,
-        position: 'top-center',
       },
       xAxis: {
         visible: true,

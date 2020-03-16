@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { assign } from '@antv/util';
 
 export default abstract class ApplyResponsive {
   public plot: any;
@@ -6,7 +6,7 @@ export default abstract class ApplyResponsive {
   public responsiveTheme: any;
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this.init();
   }
 

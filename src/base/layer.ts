@@ -1,8 +1,9 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g';
-import * as _ from '@antv/util';
+import { ICanvas, IGroup } from '../dependents';
+import { deepMix, each, findIndex, keys, contains, isFunction } from '@antv/util';
 import { Point } from '../interface/config';
 import { LAYER_EVENT_MAP } from '../util/event';
+import BBox from '../util/bbox';
 
 export interface LayerConfig {
   id?: string;
@@ -16,7 +17,7 @@ export interface LayerConfig {
   height?: number;
   /** the parent node of layer */
   parent?: any;
-  canvas?: G.Canvas;
+  canvas?: ICanvas;
   name?: string;
 }
 
@@ -41,10 +42,10 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public width: number;
   public height: number;
   public parent: Layer;
-  public canvas: G.Canvas;
-  public layerBBox: G.BBox;
+  public canvas: ICanvas;
+  public layerBBox: BBox;
   public layers: Layer[] = [];
-  public container: G.Group;
+  public container: IGroup;
   public destroyed: boolean = false;
   protected visibility: boolean = true;
   protected layerRegion: Region;
@@ -59,7 +60,6 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     super();
     this.options = this.getOptions(props);
     this.processOptions(this.options);
-    this.container = new G.Group();
   }
 
   public processOptions(options) {
@@ -73,7 +73,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   }
 
   public updateConfig(cfg: Partial<T>): void {
-    this.options = _.deepMix({}, this.options, cfg);
+    this.options = deepMix({}, this.options, cfg);
     this.processOptions(this.options);
   }
 
@@ -98,18 +98,13 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   public render() {
     // fixme: 等plot不再继承layer，这个就可以挪到构造函数里去，不需要再加是否render过的判断了
     if (!this.rendered) {
-      if (this.parent) {
-        this.parent.container.add(this.container);
-      } else {
-        this.canvas.add(this.container);
-      }
+      this.container = this.parent ? this.parent.container.addGroup() : this.canvas.addGroup();
     }
     this.rendered = true;
     this.beforeInit();
     this.init();
     this.afterInit();
-    this.container.transform([['t', this.x, this.y]]);
-
+    //(this.container, [['t', this.x, this.y]]);
     this.eachLayer((layer) => {
       layer.render();
     });
@@ -134,7 +129,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.eachLayer((layer) => {
       layer.destroy();
     });
-    _.each(this.eventHandlers, (h) => {
+    each(this.eventHandlers, (h) => {
       this.off(h.eventName, h.handler);
     });
     this.container.remove(true);
@@ -145,16 +140,20 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
    * display layer
    */
   public show() {
+    this.container.attr('visible', true);
     this.container.set('visible', true);
     this.visibility = true;
+    this.canvas.draw();
   }
 
   /**
    * hide layer
    */
   public hide() {
+    this.container.attr('visible', false);
     this.container.set('visible', false);
     this.visibility = false;
+    this.canvas.draw();
   }
 
   /**
@@ -162,7 +161,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
    * @param layer
    */
   public addLayer(layer: Layer<any>) {
-    const idx = _.findIndex(this.layers, (item) => item === layer);
+    const idx = findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       if (layer.parent !== this) {
         layer.parent = this;
@@ -177,7 +176,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
    * @param layer
    */
   public removeLayer(layer: Layer<any>) {
-    const idx = _.findIndex(this.layers, (item) => item === layer);
+    const idx = findIndex(this.layers, (item) => item === layer);
     if (idx >= 0) {
       this.layers.splice(idx, 1);
     }
@@ -195,7 +194,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       width: this.width,
       height: this.height,
     };
-    const newRange = _.deepMix({}, originRange, props);
+    const newRange = deepMix({}, originRange, props);
     this.x = newRange.x;
     this.y = newRange.y;
     this.width = newRange.width;
@@ -241,7 +240,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
 
   public getGlobalBBox() {
     const globalPosition = this.getGlobalPosition();
-    return new G.BBox(globalPosition.x, globalPosition.y, this.width, this.height);
+    return new BBox(globalPosition.x, globalPosition.y, this.width, this.height);
   }
 
   public getOptions(props: T): T {
@@ -257,17 +256,17 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
       width: parentWidth,
       height: parentHeight,
     };
-    return _.deepMix({}, defaultOptions, props);
+    return deepMix({}, defaultOptions, props);
   }
 
   public eachLayer(cb: (layer: Layer<any>) => void) {
-    _.each(this.layers, cb);
+    each(this.layers, cb);
   }
 
   protected parseEvents(eventParser?) {
-    const eventsName = _.keys(LAYER_EVENT_MAP);
-    _.each(eventParser, (e, k) => {
-      if (_.contains(eventsName, k) && _.isFunction(e)) {
+    const eventsName = keys(LAYER_EVENT_MAP);
+    each(eventParser, (e, k) => {
+      if (contains(eventsName, k) && isFunction(e)) {
         const eventName = LAYER_EVENT_MAP[k] || k;
         const handler = e;
         this.on(eventName, handler);
@@ -277,7 +276,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
   }
 
   private getLayerBBox() {
-    return new G.BBox(this.x, this.y, this.width, this.height);
+    return new BBox(this.x, this.y, this.width, this.height);
   }
 
   private getLayerRegion() {

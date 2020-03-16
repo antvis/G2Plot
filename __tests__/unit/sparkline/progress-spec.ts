@@ -1,6 +1,6 @@
 import Progress from '../../../src/sparkline/progress';
 
-describe.skip('progress', () => {
+describe('progress', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '200px';
   canvasDiv.style.height = '100px';
@@ -10,18 +10,26 @@ describe.skip('progress', () => {
   document.body.appendChild(canvasDiv);
 
   it.only('initialize & destory', () => {
-    const progress = new Progress('canvas', {
+    const progress = new Progress(canvasDiv, {
       width: 200,
       height: 100,
       percent: 0.3,
+      marker: [
+        {
+          value: 0.2,
+          style: {
+            stroke: 'red',
+          },
+        },
+      ],
     });
     progress.render();
-    progress.update({ percent: 0 });
+    //progress.update({ percent: 0 });
     /*expect(progress).toBeInstanceOf(Progress);
     const canvas = progress.plot.get('canvas');
     expect(canvas.get('width')).toBe(200);
     expect(canvas.get('height')).toBe(100);
-    const geometry = progress.plot.get('elements')[0];
+    const geometry = progress.plot.geometries[0];
     expect(geometry.get('type')).toBe('interval');
     const totalLength = geometry.get('container').getBBox().width;
     const shapes = geometry.getShapes();
@@ -40,7 +48,7 @@ describe.skip('progress', () => {
       color: 'red',
     });
     progress.render();
-    const geometry = progress.plot.get('elements')[0];
+    const geometry = progress.plot.geometries[0];
     const shapes = geometry.getShapes();
     expect(shapes[0].attr('fill')).toBe('red');
     progress.destroy();
@@ -54,7 +62,7 @@ describe.skip('progress', () => {
       color: ['red', 'blue'],
     });
     progress.render();
-    const geometry = progress.plot.get('elements')[0];
+    const geometry = progress.plot.geometries[0];
     const shapes = geometry.getShapes();
     expect(shapes[0].attr('fill')).toBe('red');
     expect(shapes[1].attr('fill')).toBe('blue');
@@ -73,7 +81,7 @@ describe.skip('progress', () => {
       },
     });
     progress.render();
-    const geometry = progress.plot.get('elements')[0];
+    const geometry = progress.plot.geometries[0];
     const shapes = geometry.getShapes();
     expect(shapes[0].attr('fill')).toBe('red');
     expect(shapes[1].attr('fill')).toBe('blue');
@@ -92,7 +100,7 @@ describe.skip('progress', () => {
       },
     });
     progress.render();
-    const geometry = progress.plot.get('elements')[0];
+    const geometry = progress.plot.geometries[0];
     const shapes = geometry.getShapes();
     expect(shapes[0].attr('stroke')).toBe('black');
     expect(shapes[0].attr('lineWidth')).toBe(1);
@@ -108,7 +116,7 @@ describe.skip('progress', () => {
     progress.render();
     progress.update(0.5);
     setTimeout(() => {
-      const geometry = progress.plot.get('elements')[0];
+      const geometry = progress.plot.geometries[0];
       const totalLength = geometry.get('container').getBBox().width;
       const shapes = geometry.getShapes();
       const currentLength = shapes[0].getBBox().width;
@@ -130,7 +138,7 @@ describe.skip('progress', () => {
       color: 'green',
     });
     progress.render();
-    const geometry = progress.plot.get('elements')[0];
+    const geometry = progress.plot.geometries[0];
     const shapes = geometry.getShapes();
     expect(shapes[0].attr('fill')).toBe('green');
     progress.destroy();

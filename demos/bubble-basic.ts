@@ -2,10 +2,6 @@
 
 $.get('../examples/data/smoking-rate.json', function(data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
-    title: {
-      visible: true,
-      text: '基础气泡图',
-    },
     data,
     xField: 'change in female rate',
     yField: 'change in male rate',

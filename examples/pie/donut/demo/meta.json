@@ -1,0 +1,23 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "ring-basic.js",
+      "title": "环图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0JDQQYXgxekAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "ring-statistic.js",
+      "title": "环图-指标卡",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U9D_Sr55LEMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom.js",
+      "title": "个性化环图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*q52BQZzr91gAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

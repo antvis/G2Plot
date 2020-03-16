@@ -1,3 +1,7 @@
+/**
+ * Create By Bruce Too
+ * On 2020-02-14
+ */
 /* eslint-disable */
 // @ts-nocheck
 
@@ -188,6 +192,7 @@ var WordCloud = function WordCloud(elements, options) {
     fontFamily: '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
     fontWeight: 'normal',
     color: 'random-dark',
+    animatable: true,
 
     minFontSize: minFontSize, // browser's min font size default
     maxFontSize: 60, // max font size default is 60
@@ -1241,17 +1246,6 @@ var WordCloud = function WordCloud(elements, options) {
     }
 
     if (!settings.animatable) {
-      if (options.maskImage) {
-        /** 修复颜色透明，还留有 maskImage 的情况 */
-        elements.forEach(function(el) {
-          if (el.getContext) {
-            var ctx = el.getContext('2d');
-            ctx.fillStyle = settings.backgroundColor;
-            ctx.clearRect(0, 0, ngx * (g + 1), ngy * (g + 1));
-            ctx.fillRect(0, 0, ngx * (g + 1), ngy * (g + 1));
-          }
-        });
-      }
       for (let i = 0; i < settings.data.length; i++) {
         putWord(settings.data[i]);
       }
@@ -1267,13 +1261,13 @@ var WordCloud = function WordCloud(elements, options) {
       }
 
       var addEventListener = function addEventListener(type, listener) {
-        elements.forEach(function(el) {
+        elements.forEach(function (el) {
           el.addEventListener(type, listener);
         }, this);
       };
 
       var removeEventListener = function removeEventListener(type, listener) {
-        elements.forEach(function(el) {
+        elements.forEach(function (el) {
           el.removeEventListener(type, listener);
         }, this);
       };

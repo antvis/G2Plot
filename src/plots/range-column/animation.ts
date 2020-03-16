@@ -1,14 +1,14 @@
-import * as G from '@antv/g';
-import { Animate } from '@antv/g2';
-import * as _ from '@antv/util';
+import { IShape, registerAnimation } from '../../dependents';
+import { clone, each } from '@antv/util';
 
 // 记录之前的状态
-let shapeCache: G.Shape[];
+let shapeCache: IShape[];
 
 function clipInFromCenterVertical(shape, animateCfg) {
   const bbox = shape.getBBox();
   const centerY = bbox.minY + bbox.height / 2;
-  const cliper = new G.Rect({
+  shape.setClip({
+    type: 'rect',
     attrs: {
       x: bbox.minX,
       y: centerY,
@@ -16,7 +16,7 @@ function clipInFromCenterVertical(shape, animateCfg) {
       height: 0,
     },
   });
-  shape.attr('clip', cliper);
+  const cliper = shape.get('clipShape');
   cliper.animate(
     {
       height: bbox.height,
@@ -25,7 +25,7 @@ function clipInFromCenterVertical(shape, animateCfg) {
     animateCfg.duration,
     animateCfg.easing,
     () => {
-      shape.attr('clip', null);
+      shape.setClip(null);
     },
     animateCfg.delay
   );
@@ -39,7 +39,7 @@ export function setShapeCache(shapes) {
 
 function updateFromCenterVertical(shape, animateCfg) {
   const fromPath = getShapeFromCache(shape).attr('path');
-  const toPath = _.clone(shape.attr('path'));
+  const toPath = clone(shape.attr('path'));
   shape.attr('path', fromPath);
   shape.animate(
     {
@@ -55,7 +55,7 @@ function updateFromCenterVertical(shape, animateCfg) {
 function getShapeFromCache(shape) {
   const { id } = shape;
   let target;
-  _.each(shapeCache, (s) => {
+  each(shapeCache, (s) => {
     if (s.id === id) {
       target = s;
     }
@@ -65,5 +65,5 @@ function getShapeFromCache(shape) {
 
 updateFromCenterVertical.animationName = 'updateFromCenterVertical';
 
-Animate.registerAnimation('appear', 'clipInFromCenterVertical', clipInFromCenterVertical);
-Animate.registerAnimation('update', 'updateFromCenterVertical', updateFromCenterVertical);
+registerAnimation('clipInFromCenterVertical', clipInFromCenterVertical);
+registerAnimation('updateFromCenterVertical', updateFromCenterVertical);

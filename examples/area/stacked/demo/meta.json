@@ -1,0 +1,28 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": "堆叠面积图",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YYfSRoiOS_EAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "area-label.js",
+      "title": "堆叠面积图 - 图形标签",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gZQnR6Maex0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-label.js",
+      "title": "堆叠面积图 - 尾部跟随标签",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VcOMQaeIjngAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "area-large-data.js",
+      "title": "The causes of CO2 emissions",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u6u1RqMG9coAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

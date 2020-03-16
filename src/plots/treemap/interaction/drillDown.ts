@@ -1,6 +1,7 @@
 import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
-import { BBox, Group, Rect } from '@antv/g';
+import { IGroup } from '@antv/g-base/lib/interfaces';
+import BBox from '../../../util/bbox';
 import TreemapLayer from '../layer';
 import { each, hasKey, isFunction, clone } from '@antv/util';
 import { drillingDown, rollingUp } from './animation';
@@ -49,15 +50,17 @@ export default class DrillDownInteraction extends BaseInteraction {
   public static getInteractionRange(layerRange: BBox, interaction: IDrillDownInteractionConfig) {
     const config: Required<IDrillDownInteractionConfig> = getValidBreadcrumbConfig(interaction);
     const [paddingTop, paddingBottom] = config.padding;
-    return new BBox(
-      layerRange.minX,
-      layerRange.maxY - config.itemHeight - paddingTop - paddingBottom,
-      layerRange.width,
-      config.itemHeight + paddingTop + paddingBottom
-    );
+    if (layerRange) {
+      return new BBox(
+        layerRange.minX,
+        layerRange.maxY - config.itemHeight - paddingTop - paddingBottom,
+        layerRange.width,
+        config.itemHeight + paddingTop + paddingBottom
+      );
+    }
   }
 
-  private container: Group;
+  private container: IGroup;
   private breadcrumb: Breadcrumb;
   private plot: TreemapLayer;
   private startNode: IStartNode;
@@ -72,9 +75,10 @@ export default class DrillDownInteraction extends BaseInteraction {
   private geometry: any;
 
   public start(ev) {
-    const data = ev.data._origin;
+    const data = ev.data.data;
     if (data.children) {
       this.parentNode = {
+        color: ev.target.attr('fill'),
         shape: ev.target,
         data: {
           name: clone(this.currentNode.name),
@@ -111,7 +115,7 @@ export default class DrillDownInteraction extends BaseInteraction {
       this.initGeometry();
       this.cache = {};
       this.saveOriginMapping();
-      this.container = this.container = this.canvas.addGroup();
+      this.container = this.plot.canvas.addGroup();
       if (!this.startNode) {
         this.startNode = {
           name: 'root',
@@ -125,7 +129,7 @@ export default class DrillDownInteraction extends BaseInteraction {
         this.startNodeName = this.startNode.name;
         this.currentNode = this.startNode;
       }
-      this.y = this.view.get('viewRange').maxY + PADDING_TOP;
+      this.y = this.view.coordinateBBox.maxY + PADDING_TOP;
       this.breadcrumb = new Breadcrumb({
         container: this.container,
         x: 0,
@@ -133,6 +137,7 @@ export default class DrillDownInteraction extends BaseInteraction {
         items: this.getItems(),
       });
       this.breadcrumb.render();
+      this.plot.canvas.draw();
       this.layout();
     }
     this.onInteraction();
@@ -230,25 +235,26 @@ export default class DrillDownInteraction extends BaseInteraction {
   private adjustScale(index) {
     const { view } = this;
     // 根据当前层级确定mapping配置项
-    if (hasKey(this.mapping, String(index))) {
+    if (this.mapping && hasKey(this.mapping, String(index))) {
       const mappingCfg = clone(this.mapping[index]);
       if (mappingCfg.values && isFunction(mappingCfg.values)) {
         const values = mappingCfg.values(this.parentNode, this.currentNode);
         mappingCfg.values = values;
       }
-      this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
+      this.view.geometries[0].color(mappingCfg.field, mappingCfg.values);
     } else {
       const mappingCfg = clone(this.originMapping);
-      this.view.get('elements')[0].color(mappingCfg.field, mappingCfg.values);
+      this.view.geometries[0].color(mappingCfg.field, mappingCfg.values);
     }
     view.render();
   }
 
   private initGeometry() {
-    this.geometry = this.view.get('elements')[0];
-    const viewRange = this.view.get('viewRange');
-    const container = this.geometry.get('container');
-    const cliper = new Rect({
+    this.geometry = this.view.geometries[0];
+    const viewRange = this.view.viewBBox;
+    const container = this.geometry.container;
+    container.setClip({
+      type: 'rect',
       attrs: {
         x: viewRange.minX,
         y: viewRange.minY,
@@ -256,7 +262,6 @@ export default class DrillDownInteraction extends BaseInteraction {
         height: viewRange.height,
       },
     });
-    container.attr('clip', cliper);
   }
 
   private updateRoot(data) {

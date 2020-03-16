@@ -15,11 +15,13 @@ fetch('../data/sales.json')
       forceFit: true,
       data,
       padding: 'auto',
-      data,
       xField: '城市',
       xAxis: {
         visible: true,
-        autoHideLabel: true,
+        label: {
+          visible: true,
+          autoHide: true,
+        },
       },
       yAxis: {
         visible: true,

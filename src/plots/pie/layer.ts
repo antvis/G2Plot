@@ -1,45 +1,28 @@
-import { CoordinateType } from '@antv/g2/lib/plot/interface';
-import * as _ from '@antv/util';
-import { registerPlotType } from '../../base/global';
-import { LayerConfig } from '../../base/layer';
-import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
-import { getGeom } from '../../geoms/factory';
-import { Label, DataItem, Tooltip } from '../../interface/config';
-import { LooseMap } from '../../interface/types';
-import SpiderLabel from './component/label/spider-label';
-import './component/label/outer-label';
-import './component/label/inner-label';
-import './component/label/outer-center-label';
+import { deepMix } from '@antv/util';
 import * as EventParser from './event';
-import './theme';
+import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import { DataItem, Label } from '../../interface/config';
+import { getGeom } from '../../geoms/factory';
+import { LayerConfig } from '../../base/layer';
 import { LineStyle } from '../line/layer';
+import { getPieLabel, PieLabelConfig } from './component/label';
+import SpiderLabel from './component/label/spider-label';
+import { registerPlotType } from '../../base/global';
+import PieBaseLabel from './component/label/base-label';
+import './theme';
 
 interface PieStyle extends LineStyle {
   stroke?: string;
   lineWidth?: number;
 }
 
-export interface PieViewConfig extends ViewConfig {
+export interface PieViewConfig extends Omit<ViewConfig, 'label'> {
   angleField: string;
   colorField?: string;
   radius?: number;
   pieStyle?: PieStyle | ((...args: any[]) => PieStyle);
-  label?: PieLabel;
+  label?: PieLabelConfig;
 }
-
-type PieLabel = Omit<Label, 'offset'> & {
-  offset?: string | number;
-  /** label leader-line */
-  line?: {
-    smooth?: boolean;
-    stroke?: string;
-    lineWidth?: number;
-  };
-  /** allow label overlap */
-  allowOverlap?: boolean;
-  readonly fields?: string[];
-};
 
 export interface PieLayerConfig extends PieViewConfig, LayerConfig {}
 
@@ -51,9 +34,10 @@ const PLOT_GEOM_MAP = {
   pie: 'column',
 };
 
+// @ts-ignore
 export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -71,6 +55,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         autoRotate: false,
         allowOverlap: false,
         line: {
+          visible: true,
           smooth: true,
         },
       },
@@ -81,7 +66,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       tooltip: {
         visible: true,
         shared: false,
-        crosshairs: null,
+        showCrosshairs: false,
+        showMarkers: false,
       },
       pieStyle: {
         stroke: 'white',
@@ -91,32 +77,30 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   public pie: any;
-  public spiderLabel: any;
   public type: string = 'pie';
+  public labelComponent: SpiderLabel | PieBaseLabel;
 
-  public getOptions(props: T) {
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    const options = _.deepMix({}, super.getOptions(props), defaultOptions, props);
-    return options;
-  }
-
-  public afterInit() {
-    super.afterInit();
-    const props = this.options;
+  public afterRender() {
+    super.afterRender();
+    const options = this.options;
     /** 蜘蛛布局label */
-    if (props.label && props.label.visible) {
-      const labelConfig = props.label as Label;
+    if (options.label && options.label.visible) {
+      // 清除，避免二次渲染
+      if (this.labelComponent) {
+        this.labelComponent.clear();
+      }
+      const labelConfig = options.label as Label;
       if (labelConfig.type === 'spider') {
-        const spiderLabel = new SpiderLabel({
+        this.labelComponent = new SpiderLabel({
           view: this.view,
-          fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
-          style: labelConfig.style ? labelConfig.style : {},
-          formatter: props.label.formatter ? props.label.formatter : false,
-          offsetX: props.label.offsetX,
-          offsetY: props.label.offsetY,
+          fields: options.colorField ? [options.angleField, options.colorField] : [options.angleField],
+          ...this.options.label,
         });
-        this.spiderLabel = spiderLabel;
+        this.labelComponent.render();
+      } else {
+        const LabelCtor = getPieLabel(labelConfig.type);
+        this.labelComponent = new LabelCtor(this, options.label);
+        this.labelComponent.render();
       }
     }
   }
@@ -148,32 +132,29 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected coord() {
     const props = this.options;
-    const coordConfig = {
-      type: 'theta' as CoordinateType,
+    const coordConfig: any = {
+      type: 'theta',
       cfg: {
         radius: props.radius,
         // @ts-ignore 业务定制,不开放配置
         innerRadius: props.innerRadius || 0,
       },
     };
-    this.setConfig('coord', coordConfig);
+    this.setConfig('coordinate', coordConfig);
   }
 
   protected addGeometry() {
     const props = this.options;
     const pie = getGeom('interval', 'main', {
       plot: this,
-      positionFields: [props.angleField],
+      positionFields: [1, props.angleField],
     });
     pie.adjust = [{ type: 'stack' }];
     this.pie = pie;
     if (props.label) {
       this.label();
     }
-    if (props.tooltip && props.tooltip.visible) {
-      this.tooltip();
-    }
-    this.setConfig('element', pie);
+    this.setConfig('geometry', pie);
   }
 
   protected animation() {
@@ -191,118 +172,9 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     super.parseEvents(EventParser);
   }
 
-  protected tooltip() {
-    super.tooltip();
-    const props = this.options;
-    if (props.tooltip.htmlContent) {
-      const customHtmlContent = props.tooltip.htmlContent;
-      this.setConfig('tooltip', {
-        ...this.options.tooltip,
-        htmlContent: (title, items: any[]) => {
-          if (items && items.length) {
-            const { angleField } = this.options;
-            const filteredSum = this.getFilteredSum();
-            return customHtmlContent(
-              title,
-              items.map((item) => {
-                const value = _.get(item, `point._origin.${angleField}`);
-                const percent = value / filteredSum;
-                return {
-                  ...item,
-                  percent,
-                };
-              })
-            );
-          }
-          return '<div></div>';
-        },
-      } as any);
-    }
-  }
-
-  private getFilteredSum() {
-    const { angleField } = this.options;
-    const filteredData = this.view.get('filteredData') || [];
-    return filteredData.reduce((pre, filteredDataItem) => {
-      return pre + filteredDataItem[angleField];
-    }, 0);
-  }
-
   private label() {
-    const props = this.options;
-    let labelConfig = { ...props.label } as Label;
-    labelConfig = this.adjustLabelDefaultOptions(this.options);
-    if (!this.showLabel()) {
-      this.pie.label = false;
-      return;
-    }
-    if (labelConfig.type === 'inner') {
-      // @ts-ignore
-      labelConfig.labelLine = false;
-    } else {
-      // @ts-ignore
-      labelConfig.labelLine = labelConfig && labelConfig.line ? labelConfig.line : true;
-    }
-    if (labelConfig.formatter) {
-      const customFormatter = labelConfig.formatter;
-      labelConfig.formatter = (text, item, index) => {
-        const { angleField } = this.options;
-        const filteredSum = this.getFilteredSum();
-        const percent = item._origin[angleField] / filteredSum;
-        return customFormatter(
-          text,
-          {
-            ...item,
-            percent,
-          },
-          index
-        );
-      };
-    }
-
-    // 此处做个 hack 操作, 防止g2 controller层找不到未注册的inner,outter,和spider Label
-    let labelType = labelConfig.type;
-    if (['spider'].indexOf(labelType) !== -1) {
-      labelType = null;
-    }
-    this.pie.label = getComponent('label', {
-      plot: this,
-      labelType,
-      fields: props.colorField ? [props.angleField, props.colorField] : [props.angleField],
-      ...labelConfig,
-    });
-  }
-
-  private showLabel() {
-    const props = this.options;
-    return props.label && props.label.visible === true && props.label.type !== 'spider';
-  }
-
-  /** 调整 label 默认 options */
-  protected adjustLabelDefaultOptions(options: PieLayerConfig) {
-    let labelConfig = { ...options.label } as PieLabel;
-    if (labelConfig && labelConfig.type === 'inner') {
-      labelConfig = _.deepMix(
-        {},
-        {
-          offset: `${(-1 / 3) * 100}%`,
-          style: {
-            textAlign: 'center',
-          },
-        },
-        labelConfig
-      );
-    }
-    if (labelConfig && labelConfig.type === 'outer') {
-      labelConfig = _.deepMix(
-        {},
-        {
-          offset: 20,
-        },
-        labelConfig
-      );
-    }
-    return labelConfig;
+    // 不使用 g2 内置label
+    this.pie.label = false;
   }
 }
 

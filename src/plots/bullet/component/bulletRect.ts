@@ -1,7 +1,7 @@
-import { Group, BBox } from '@antv/g';
-import { View } from '@antv/g2';
-import * as _ from '@antv/util';
+import { IGroup, View, Geometry } from '../../../dependents';
+import { find, map, get } from '@antv/util';
 import { BulletAxis } from '../layer';
+import BBox from '../../../util/bbox';
 
 export interface BulletRectCfg {
   /** 背景区间的区间范围 */
@@ -21,7 +21,7 @@ export interface BulletRectCfg {
 
 export default class BulletRect {
   private view: View;
-  private container: Group;
+  private container: IGroup;
   private cfg: BulletRectCfg;
 
   constructor(view: View, cfg: BulletRectCfg) {
@@ -35,19 +35,17 @@ export default class BulletRect {
     if (!this.view || this.view.destroyed) {
       return;
     }
-    this.container = this.view.get('panelGroup').addGroup();
+    this.container = this.view.middleGroup.addGroup();
     this.container.set('name', 'rectGroups');
     this.container.setZIndex(-100);
-    const shapes = this.view
-      .get('elements')[0]
-      .get('shapeContainer')
-      .get('children');
+    const geometry = this.getGeometry();
+    const shapes = map(geometry?.elements, (element) => element.shape);
     for (let i = 0; i < this.cfg.ranges.length; i += 1) {
       const shapeBox = shapes[i].getBBox();
-      const widthRatio = shapeBox.width / shapes[i].get('origin')._origin[this.cfg.yField];
+      const widthRatio = shapeBox.width / shapes[i].get('origin').data[this.cfg.yField];
       this.drawRect(shapeBox, this.cfg.ranges[i] || [0, 1], widthRatio);
     }
-    this.view.get('canvas').draw();
+    this.view.canvas.draw();
   }
 
   protected drawRect(box: BBox, ranges: number[], widthRatio: number) {
@@ -60,6 +58,7 @@ export default class BulletRect {
       const width = (ranges[i] - ranges[i - 1]) * options.rangeMax * widthRatio;
       rect = this.container
         .addShape('rect', {
+          name: 'bullet-rect',
           attrs: {
             width,
             height: box.height * options.rangeSize,
@@ -71,7 +70,6 @@ export default class BulletRect {
         })
         .set('zIndex', -1);
       xPos += width;
-      rect.name = 'bullet-rect';
     }
     if (options.axis && options.axis.visible) {
       const tickInterval = options.rangeMax / (options.axis.tickCount - 1);
@@ -86,7 +84,7 @@ export default class BulletRect {
     const ticksStyle = options.axis.style;
     const tickCount = options.axis.tickCount;
     const tickPosition = options.axis.position;
-    const tickOffset = _.get(ticksStyle, 'lineHeight', 0) - ticksStyle.fontSize / 2;
+    const tickOffset = get(ticksStyle, 'lineHeight', 0) - ticksStyle.fontSize / 2;
     for (let tickIdx = 0; tickIdx < tickCount; tickIdx += 1) {
       const x = box.minX + tickInterval * tickIdx * widthRatio;
       let tickText = `${tickInterval * tickIdx}`;
@@ -94,6 +92,7 @@ export default class BulletRect {
         tickText = options.axis.formatter(tickText, tickIdx);
       }
       const tickShape = this.container.addShape('text', {
+        name: 'tick',
         attrs: {
           x,
           y: tickPosition === 'before' ? box.minY - tickOffset : box.maxY + tickOffset,
@@ -101,7 +100,6 @@ export default class BulletRect {
           ...ticksStyle,
         },
       });
-      tickShape.name = 'tick';
       if (options.axis.tickLine && options.axis.tickLine.visible) {
         const tickLineCfg = options.axis.tickLine;
         if (tickIdx > 0 && tickIdx !== tickCount - 1) {
@@ -127,7 +125,7 @@ export default class BulletRect {
     }
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }
@@ -141,5 +139,9 @@ export default class BulletRect {
     this.view.on('afterrender', () => {
       this.draw();
     });
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geometry) => geometry.type === 'interval');
   }
 }

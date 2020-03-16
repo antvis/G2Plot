@@ -1,5 +1,5 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { Data } from '../../dependents';
+import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -17,6 +17,7 @@ interface AreaStyle {
   lineDash?: number[];
   strokeStyle?: string;
   lineWidth?: number;
+  stroke?: string;
 }
 
 const GEOM_MAP = {
@@ -50,11 +51,10 @@ export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}
 
 export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       smooth: false,
       areaStyle: {
         opacity: 0.25,
-        fillOpacity: 1,
       },
       line: {
         visible: true,
@@ -78,6 +78,15 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
         visible: true,
         position: 'top-left',
         wordSpacing: 4,
+      },
+      tooltip: {
+        visible: true,
+        shared: true,
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'x',
+        },
+        offset: 20,
       },
     });
   }
@@ -114,12 +123,12 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     scales[props.xField] = {
       type: 'cat',
     };
-    if (_.has(props, 'xAxis')) {
+    if (has(props, 'xAxis')) {
       extractScale(scales[props.xField], props.xAxis);
     }
     /** 配置y-scale */
     scales[props.yField] = {};
-    if (_.has(props, 'yAxis')) {
+    if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
@@ -139,7 +148,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       this.label();
     }
     this.adjustArea(area);
-    this.setConfig('element', area);
+    this.setConfig('geometry', area);
 
     this.addLine();
 
@@ -160,7 +169,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   protected addLine() {
     const props = this.options;
-    const lineConfig = _.deepMix({}, props.line);
+    const lineConfig = deepMix({}, props.line);
     if (lineConfig.visible) {
       const line = getGeom('line', 'guide', {
         type: 'line',
@@ -168,20 +177,20 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
         line: lineConfig,
       });
       this.adjustLine(line);
-      this.setConfig('element', line);
+      this.setConfig('geometry', line);
       this.line = line;
     }
   }
 
   protected addPoint() {
     const props = this.options;
-    const pointConfig = _.deepMix({}, props.point);
+    const pointConfig = deepMix({}, props.point);
     if (pointConfig.visible) {
       const point = getGeom('point', 'guide', {
         plot: this,
       });
       this.adjustPoint(point);
-      this.setConfig('element', point);
+      this.setConfig('geometry', point);
       this.point = point;
     }
   }
@@ -220,8 +229,8 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
-      const responsive = r as DataPointType;
+    each(methods, (r) => {
+      const responsive = r as any;
       responsive.method(this);
     });
   }

@@ -1,5 +1,5 @@
 import ComboPlot, { ComboPlotConfig } from './base';
-import { Group } from '@antv/g';
+import { IGroup } from '@antv/g-base';
 import * as _ from '@antv/util';
 import { getPlotType } from '../base/global';
 import Layer from '../base/layer';
@@ -19,7 +19,7 @@ export default class OverlappedComboPlot<
   protected backLayer: Layer;
   protected legendInfo: any[];
   protected axisInfo: any[];
-  protected legendContainer: Group;
+  protected legendContainer: IGroup;
   protected paddingComponents: any[];
   protected globalOptions: any;
   protected globalComponents: any[];
@@ -120,12 +120,19 @@ export default class OverlappedComboPlot<
             y: 0,
             width: this.width,
             height: this.height,
+            tooltip: {
+              domStyles: {
+                'g2-tooltip': {
+                  display: 'none',
+                },
+              },
+            },
           },
           overlapConfig
         );
         const viewLayer = new viewLayerCtr(viewLayerProps);
-        viewLayer.hide();
         viewLayer.render();
+        viewLayer.hide();
         this.axisInfo.push(...ComboUtil.getAxisData(viewLayer, viewLayerProps, this.globalOptions));
         this.legendInfo.push(...ComboUtil.getLegendData(viewLayer, viewLayerProps));
         this.addLayer(viewLayer);
@@ -138,6 +145,7 @@ export default class OverlappedComboPlot<
       width: this.width,
       height: this.height,
     });
+    this.topLayer.render();
   }
 
   /** 图层叠加时的layer config */
@@ -158,9 +166,9 @@ export default class OverlappedComboPlot<
         legend: {
           visible: false,
         },
-        tooltip: {
+        /* tooltip: {
           visible: false,
-        },
+        },*/
         padding: [0, 0, 0, 0],
         color: colorCfg ? colorCfg.color : null,
       }
@@ -213,26 +221,21 @@ export default class OverlappedComboPlot<
       layer.updateConfig({
         padding,
       });
-      layer.show();
+
       layer.render();
-      layer.view
-        .get('backgroundGroup')
-        .get('backShape')
-        .remove();
-      layer.view
-        .get('panelGroup')
-        .get('backShape')
-        .remove();
+      layer.show();
     });
 
     //补画坐标轴grid
     if (this.globalOptions.yAxis.grid.visible) {
       const leftAxis = axisComponents[0].component;
       const containerLayer = this.layers[0] as ViewLayer;
-      const coord = containerLayer.view.get('coord');
-      const container = containerLayer.view.get('backgroundGroup');
+      const coord = containerLayer.view.geometries[0].coordinate;
+      const container = containerLayer.view.backgroundGroup;
       ComboUtil.drawYGrid(leftAxis, coord, container, this.globalOptions);
     }
+
+    this.canvas.draw();
 
     if (this.globalOptions.tooltip.visible) {
       const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);

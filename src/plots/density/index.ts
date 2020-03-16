@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import DensityLayer, { DensityViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class Density extends BasePlot<DensityConfig> {
   public static getDefaultOptions: typeof DensityLayer.getDefaultOptions = DensityLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'density';
     super.createLayers(layerProps);
   }

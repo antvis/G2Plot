@@ -1,6 +1,6 @@
 import EventEmitter from '@antv/event-emitter';
-import * as G from '@antv/g';
-import * as _ from '@antv/util';
+import { ICanvas } from '../dependents';
+import { isNil, each, findIndex, deepMix, keys, contains, isFunction } from '@antv/util';
 import { RecursivePartial, LooseMap } from '../interface/types';
 import StateManager from '../util/state-manager';
 import CanvasController from './controller/canvas';
@@ -19,24 +19,29 @@ export interface PlotConfig {
   theme?: LooseMap | string;
 }
 
-export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEmitter {
+interface LayerCtor<C> extends ViewLayer<C> {}
+
+export default class BasePlot<
+  T extends PlotConfig = PlotConfig,
+  L extends LayerCtor<T> = LayerCtor<T>
+> extends EventEmitter {
   public width: number;
   public height: number;
   public forceFit: boolean;
   public renderer: string;
   public pixelRatio: number;
   public theme: string | object;
-  public canvas: G.Canvas;
+  public canvas: ICanvas;
   public destroyed: boolean;
-  protected layers: Array<Layer<any>>;
+  protected layers: Array<L>;
   private canvasController: CanvasController;
   private eventController: EventController;
-  private containerDOM: HTMLElement;
+  protected containerDOM: HTMLElement;
 
   constructor(container: HTMLElement, props: T) {
     super();
     this.containerDOM = typeof container === 'string' ? document.getElementById(container) : container;
-    this.forceFit = !_.isNil(props.forceFit) ? props.forceFit : _.isNil(props.width) && _.isNil(props.height);
+    this.forceFit = !isNil(props.forceFit) ? props.forceFit : isNil(props.width) && isNil(props.height);
     this.renderer = props.renderer || 'canvas';
     this.pixelRatio = props.pixelRatio || null;
     this.width = props.width;
@@ -181,12 +186,20 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
     });
   }
 
-  public setNormal(condition: any) {
+  public setDefault(condition: any, style: any) {
     this.eachLayer((layer) => {
       if (layer instanceof ViewLayer) {
-        layer.setNormal(condition);
+        layer.setDefault(condition, style);
       }
     });
+  }
+
+  /**
+   * 获取 Plot 的 View
+   */
+  public getView() {
+    // 临时：避免 getLayer 的类型转换问题
+    return (this.layers[0] as ViewLayer<T>).view;
   }
 
   /**
@@ -210,15 +223,15 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   protected eachLayer(cb: (layer: Layer<any>) => void) {
-    _.each(this.layers, cb);
+    each(this.layers, cb);
   }
 
   /**
    * add children layer
    * @param layer
    */
-  public addLayer(layer: Layer<any>) {
-    const idx = _.findIndex(this.layers, (item) => item === layer);
+  public addLayer(layer: L) {
+    const idx = findIndex(this.layers, (item) => item === layer);
     if (idx < 0) {
       this.layers.push(layer);
     }
@@ -229,7 +242,7 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
       // TODO: combo plot
     } else if (props.type) {
       const viewLayerCtr = getPlotType(props.type);
-      const viewLayerProps: T = _.deepMix({}, props, {
+      const viewLayerProps: T = deepMix({}, props, {
         canvas: this.canvasController.canvas,
         x: 0,
         y: 0,
@@ -242,10 +255,10 @@ export default class BasePlot<T extends PlotConfig = PlotConfig> extends EventEm
   }
 
   protected parseEvents(props) {
-    const eventsName = _.keys(CANVAS_EVENT_MAP);
+    const eventsName = keys(CANVAS_EVENT_MAP);
     if (props.events) {
-      _.each(props.events, (e, k) => {
-        if (_.contains(eventsName, k) && _.isFunction(e)) {
+      each(props.events, (e, k) => {
+        if (contains(eventsName, k) && isFunction(e)) {
           const eventName = CANVAS_EVENT_MAP[k] || k;
           const handler = e;
           this.on(eventName, handler);

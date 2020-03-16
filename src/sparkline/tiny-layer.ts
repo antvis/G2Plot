@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import { LayerConfig } from '../base/layer';
 import ViewLayer, { ViewConfig } from '../base/view-layer';
 import { getComponent } from '../components/factory';
@@ -13,7 +13,7 @@ export interface TinyLayerConfig extends TinyViewConfig, LayerConfig {}
 
 export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       title: {
         visible: false,
       },
@@ -51,10 +51,10 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
         },
       },
     };
-    _.each(props.guideLine, (line) => {
+    each(props.guideLine, (line) => {
       const guideLine = getComponent('guideLine', {
         plot: this,
-        cfg: _.deepMix({}, defaultGuidelineCfg, line),
+        cfg: deepMix({}, defaultGuidelineCfg, line),
       });
       config.push(guideLine);
     });

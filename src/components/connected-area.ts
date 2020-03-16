@@ -1,16 +1,14 @@
 /**
  * 区域连接组件，用于堆叠柱状图和堆叠条形图
  */
-import { Group, Shape, Shapes } from '@antv/g';
-import { View } from '@antv/g2';
-import * as _ from '@antv/util';
+import { each, assign, mix, find } from '@antv/util';
+import { IGroup, IShape, View } from '../dependents';
 import { compare } from '../base/controller/state';
 
-function parsePoints(shape) {
+function parsePoints(shape, coord) {
   const parsedPoints = [];
-  const coord = shape.get('coord');
   const points = shape.get('origin').points;
-  _.each(points, (p) => {
+  each(points, (p) => {
     parsedPoints.push(coord.convertPoint(p));
   });
   return parsedPoints;
@@ -30,10 +28,10 @@ function getDefaultStyle() {
 
 export default class ConnectedArea {
   private view: View;
-  private container: Group;
+  private container: IGroup;
   private field: string; // 堆叠字段
-  private areas: Shape[] = [];
-  private lines: Shape[] = [];
+  private areas: IShape[] = [];
+  private lines: IShape[] = [];
   private areaStyle: any;
   private _areaStyle: any = {};
   private lineStyle: any;
@@ -42,13 +40,13 @@ export default class ConnectedArea {
   private animation: boolean;
 
   constructor(cfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this._init();
   }
 
   public draw() {
     const groupedShapes = this._getGroupedShapes();
-    _.each(groupedShapes, (shapes, name) => {
+    each(groupedShapes, (shapes, name) => {
       if (shapes.length > 0) {
         this._drawConnection(shapes, name);
       }
@@ -87,7 +85,7 @@ export default class ConnectedArea {
   }
 
   private _init() {
-    const layer = this.view.get('backgroundGroup');
+    const layer = this.view.backgroundGroup;
     this.container = layer.addGroup();
     this.draw();
     this.view.on('beforerender', () => {
@@ -97,17 +95,17 @@ export default class ConnectedArea {
 
   private _getGroupedShapes() {
     // 根据堆叠字段对shape进行分组
-    const { values } = this.view.get('scales')[this.field];
-    const geometry = this.view.get('elements')[0];
+    const { values } = this.view.getScaleByField(this.field);
+    const geometry = this.view.geometries[0];
     const shapes = geometry.getShapes();
     // 创建分组
     const groups = {};
-    _.each(values, (v) => {
+    each(values, (v) => {
       groups[v] = [];
     });
     // 执行分组
-    _.each(shapes, (shape) => {
-      const origin = shape.get('origin')._origin;
+    each(shapes, (shape) => {
+      const origin = shape.get('origin').data;
       const key = origin[this.field];
       groups[key].push(shape);
     });
@@ -119,17 +117,18 @@ export default class ConnectedArea {
     const originColor = shapes[0].attr('fill');
     this._areaStyle[name] = this._getShapeStyle(originColor, 'area');
     this._lineStyle[name] = this._getShapeStyle(originColor, 'line');
+    const coord = this.view.geometries[0].coordinate;
     for (let i = 0; i < shapes.length - 1; i++) {
-      const current = parsePoints(shapes[i]);
-      const next = parsePoints(shapes[i + 1]);
-      const areaStyle = _.mix({}, this._areaStyle[name]);
-      const lineStyle = _.mix({}, this._lineStyle[name]);
+      const current = parsePoints(shapes[i], coord);
+      const next = parsePoints(shapes[i + 1], coord);
+      const areaStyle = mix({}, this._areaStyle[name]);
+      const lineStyle = mix({}, this._lineStyle[name]);
       if (this.triggerOn) {
         areaStyle.opacity = 0;
         lineStyle.opacity = 0;
       }
       const area = this.container.addShape('path', {
-        attrs: _.mix({} as any, areaStyle, {
+        attrs: mix({} as any, areaStyle, {
           path: [
             ['M', current[2].x, current[2].y],
             ['L', next[1].x, next[1].y],
@@ -140,7 +139,7 @@ export default class ConnectedArea {
         name: 'connectedArea',
       });
       const line = this.container.addShape('path', {
-        attrs: _.mix({} as any, lineStyle, {
+        attrs: mix({} as any, lineStyle, {
           path: [
             ['M', current[2].x, current[2].y],
             ['L', next[1].x, next[1].y],
@@ -150,7 +149,7 @@ export default class ConnectedArea {
         name: 'connectedArea',
       });
       // 在辅助图形上记录数据，用以交互和响应状态量
-      const originData = shapes[i].get('origin')._origin;
+      const originData = shapes[i].get('origin').data;
       area.set('data', originData);
       line.set('data', originData);
       this.areas.push(area);
@@ -170,13 +169,13 @@ export default class ConnectedArea {
       mappedStyle = { stroke: originColor };
     }
 
-    return _.mix(defaultStyle, mappedStyle);
+    return mix(defaultStyle, mappedStyle);
   }
 
   private _addInteraction() {
     const eventName = this.triggerOn;
     this.view.on(`interval:${eventName}`, (e) => {
-      const origin = e.target.get('origin')._origin[this.field];
+      const origin = e.target.get('origin').data[this.field];
       this.setState('active', {
         name: this.field,
         exp: origin,
@@ -187,11 +186,11 @@ export default class ConnectedArea {
           return d !== origin;
         },
       });
-      this.view.get('canvas').draw();
+      this.view.canvas.draw();
     });
     // 当鼠标移动到其他区域时取消显示
     this.view.on('mousemove', (e) => {
-      if (e.target.name !== 'interval') {
+      if (e.gEvent.target.get('name') !== 'interval') {
         this.setState('disabled', {
           name: this.field,
           exp: () => {
@@ -204,18 +203,18 @@ export default class ConnectedArea {
 
   private _initialAnimation() {
     // clipIn动画
-    const { start, end, width, height } = this.view.get('coord');
-    const clipRect = new Shapes.Rect({
+    const { x, y, width, height } = this.view.coordinateBBox;
+    this.container.setClip({
+      type: 'rect',
       attrs: {
-        x: start.x,
-        y: end.y,
+        x,
+        y,
         width: 0,
         height,
       },
     });
-    this.container.attr('clip', clipRect);
-    this.container.setSilent('animating', true);
-    clipRect.animate(
+    this.container.set('animating', true);
+    this.container.getClip().animate(
       {
         width,
       },
@@ -227,7 +226,7 @@ export default class ConnectedArea {
   }
 
   private _onActive(condition) {
-    _.each(this.areas, (area) => {
+    each(this.areas, (area) => {
       const shapeData = area.get('data');
       const styleField = shapeData[this.field];
       if (compare(shapeData, condition)) {
@@ -237,7 +236,7 @@ export default class ConnectedArea {
         area.animate({ opacity }, 400, 'easeQuadOut');
       }
     });
-    _.each(this.lines, (line) => {
+    each(this.lines, (line) => {
       const shapeData = line.get('data');
       const styleField = shapeData[this.field];
       if (compare(shapeData, condition)) {
@@ -250,7 +249,7 @@ export default class ConnectedArea {
   }
 
   private _onDisabled(condition) {
-    _.each(this.areas, (area) => {
+    each(this.areas, (area) => {
       const shapeData = area.get('data');
       if (compare(shapeData, condition)) {
         // area.attr('opacity',0);
@@ -264,7 +263,7 @@ export default class ConnectedArea {
         );
       }
     });
-    _.each(this.lines, (line) => {
+    each(this.lines, (line) => {
       const shapeData = line.get('data');
       if (compare(shapeData, condition)) {
         // line.attr('opacity',0);
@@ -282,5 +281,9 @@ export default class ConnectedArea {
 
   private _onSelected(condition) {
     this._onActive(condition);
+  }
+
+  private getGeometry() {
+    return find(this.view.geometries, (geom) => geom.type === 'interval');
   }
 }

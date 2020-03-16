@@ -1,8 +1,6 @@
-import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
-// import Theme from '../../theme';
+import { getTheme as g2GetTheme } from '../../dependents';
+import { isString, deepMix } from '@antv/util';
 import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
-import { processAxisVisible } from '../../util/axis';
 import { getResponsiveTheme } from '../../util/responsive/theme';
 import { ViewConfig } from '../view-layer';
 
@@ -10,7 +8,7 @@ import { ViewConfig } from '../view-layer';
  * 负责图表theme的管理
  */
 
-const G2DefaultTheme = G2.Global.theme;
+const G2DefaultTheme = g2GetTheme();
 
 export default class ThemeController<T extends ViewConfig = ViewConfig> {
   /**
@@ -18,10 +16,10 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    * @param theme
    */
   public static getGlobalTheme(theme: string | object) {
-    if (_.isString(theme)) {
+    if (isString(theme)) {
       return getGlobalTheme(theme);
     }
-    return _.deepMix({}, getGlobalTheme(), theme);
+    return deepMix({}, getGlobalTheme(), theme);
   }
 
   /**
@@ -31,10 +29,10 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    */
   public getPlotTheme(props: T, type: string) {
     const { theme } = props;
-    if (_.isString(theme)) {
-      return _.deepMix({}, getGlobalTheme(theme), getTheme(type));
+    if (isString(theme)) {
+      return deepMix({}, getGlobalTheme(theme), getTheme(type));
     }
-    return _.deepMix({}, getGlobalTheme(), getTheme(type), theme);
+    return deepMix({}, getGlobalTheme(), getTheme(type), theme);
   }
 
   /**
@@ -44,20 +42,11 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    */
   public getTheme(props: T, type: string): any {
     const plotG2Theme = convertToG2Theme(this.getPlotTheme(props, type));
-    const g2Theme = _.deepMix({}, G2DefaultTheme, plotG2Theme);
-    // this._processVisible(g2Theme);
+    const g2Theme = deepMix({}, G2DefaultTheme, plotG2Theme);
     return g2Theme;
   }
 
   public getResponsiveTheme(type: string) {
     return getResponsiveTheme(type) || getResponsiveTheme('default');
-  }
-
-  private _processVisible(theme: any) {
-    processAxisVisible(theme.axis.left);
-    processAxisVisible(theme.axis.right);
-    processAxisVisible(theme.axis.top);
-    processAxisVisible(theme.axis.bottom);
-    return theme;
   }
 }

@@ -1,19 +1,22 @@
-import { BBox, Canvas, Group, Text } from '@antv/g';
-import * as _ from '@antv/util';
+import { IGroup, IShape } from '../dependents';
+import { assign, isArray, each, mix } from '@antv/util';
 import { breakText } from '../util/common';
 import ViewLayer from '../base/view-layer';
+import BBox from '../util/bbox';
 
 interface TextConfig {
   leftMargin: number;
   topMargin: number;
+  rightMargin: number;
   text: string;
   style: any;
   wrapperWidth: number;
-  container: Canvas | Group;
+  container: IGroup;
   theme: any;
   index: number;
   plot: ViewLayer;
   name: string;
+  alignTo?: 'left' | 'right' | 'middle';
 }
 
 /**
@@ -21,33 +24,36 @@ interface TextConfig {
  */
 
 export default class TextDescription {
-  public shape: Text;
+  public shape: IShape;
   public position: string = 'top';
   public name: string;
   public destroyed: boolean = false;
-  private container: Canvas | Group;
+  private container: IGroup;
   private topMargin: number;
   private leftMargin: number;
+  private rightMargin: number;
   private wrapperWidth: number;
+  private alignTo: string;
   private text: string;
   private style: any;
   private index: number;
   private plot: ViewLayer;
 
   constructor(cfg: TextConfig) {
-    _.assign(this as any, cfg);
-    this._init();
+    assign(this as any, cfg);
+    this.init();
   }
 
   public getBBox(): BBox | null {
     if (this.shape) {
+      // @ts-ignore
       const bbox = this.shape.getBBox();
       if (this.index === 0) {
-        return bbox;
+        return BBox.fromBBoxObject(bbox);
       }
       const padding = this.plot.theme.description.padding;
-      if (_.isArray(padding)) {
-        _.each(padding, (it, index) => {
+      if (isArray(padding)) {
+        each(padding, (it, index) => {
           if (typeof padding[index] === 'function') {
             padding[index] = padding[index](this.plot.options.legend.position);
           }
@@ -60,6 +66,7 @@ export default class TextDescription {
 
   public clear() {
     if (this.shape) {
+      // @ts-ignore
       this.shape.attr('text', '');
     }
   }
@@ -71,10 +78,10 @@ export default class TextDescription {
     this.destroyed = true;
   }
 
-  private _init() {
-    const content = this._textWrapper();
+  private init() {
+    const content = this.textWrapper();
     this.shape = this.container.addShape('text', {
-      attrs: _.mix(
+      attrs: mix(
         {
           x: this.leftMargin,
           y: this.topMargin,
@@ -82,19 +89,40 @@ export default class TextDescription {
         },
         this.style
       ),
-    });
+    }) as IShape;
+    // @ts-ignore
     this.shape.name = this.name;
+  }
+
+  protected getPosition() {
+    if (this.alignTo === 'left') {
+      return { x: this.leftMargin, y: this.topMargin };
+    } else if (this.alignTo === 'middle') {
+      return { x: this.leftMargin + this.wrapperWidth / 2, y: this.topMargin };
+    } else {
+      return { x: this.rightMargin, y: this.topMargin };
+    }
+  }
+
+  protected getTextAlign() {
+    if (this.alignTo === 'left') {
+      return 'left';
+    } else if (this.alignTo === 'middle') {
+      return 'center';
+    } else {
+      return 'right';
+    }
   }
 
   /**
    * 当text过长时，默认换行
    * 1. 注意初始text带换行符的场景
    */
-  private _textWrapper() {
+  private textWrapper() {
     const width = this.wrapperWidth;
     const style = this.style;
     const textContent: string = this.text;
-    const tShape = new Text({
+    const tShape = this.container.addShape('text', {
       attrs: {
         text: '',
         x: 0,

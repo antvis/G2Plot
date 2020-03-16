@@ -1,4 +1,3 @@
-import * as _ from '@antv/util';
 import ApplyResponsiveAxis from '../../../util/responsive/apply/axis';
 import AreaLayer from '../layer';
 

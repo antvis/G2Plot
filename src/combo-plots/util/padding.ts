@@ -1,4 +1,4 @@
-import { BBox } from '@antv/g';
+import BBox from '../../util/bbox';
 import * as _ from '@antv/util';
 import { getGlobalTheme } from '../../theme/global';
 
@@ -21,7 +21,10 @@ export function getOverlappingPadding(layer, components) {
     if (maxY > viewMinY && maxY < viewMaxY && position === 'top') {
       viewMinY = maxY;
     }
-    if (minY > viewMinY && minY < viewMaxY && position === 'bottom') {
+    if (minY > viewMinY && maxY > viewMaxY && position === 'bottom') {
+      viewMaxY = minY;
+    }
+    if (minY > viewMinY && minY <= viewMaxY && position === 'bottom') {
       viewMaxY = minY;
     }
     if (maxX > viewMinX && maxX < viewMaxX && position === 'left') {

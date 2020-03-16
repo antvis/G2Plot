@@ -1,16 +1,16 @@
 /** 简化折线点 */
-import * as G2 from '@antv/g2';
-import * as _ from '@antv/util';
+import { registerShape } from '../../dependents';
+import { deepMix, each } from '@antv/util';
 import { lineSimplification } from '../../util/math';
 import { getSplinePath } from '../../util/path';
 import AreaParser from './main';
+import { getGlobalTheme } from '../../theme';
 
-const G2DefaultTheme = G2.Global.theme;
-
-G2.registerShape('area', 'miniArea', {
+registerShape('area', 'miniArea', {
   draw(cfg, container) {
+    const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, false);
-    const style = _.deepMix(
+    const style = deepMix(
       {},
       {
         lineJoin: 'round',
@@ -21,8 +21,8 @@ G2.registerShape('area', 'miniArea', {
     const shape = container.addShape('path', {
       attrs: {
         path,
-        fill: parseGradient(cfg.color || G2DefaultTheme.defaultColor),
-        opacity: cfg.opacity || 0.4,
+        fill: parseGradient(cfg.color || getGlobalTheme().defaultColor),
+        opacity: opacity || 0.4,
       },
       style,
     });
@@ -30,14 +30,15 @@ G2.registerShape('area', 'miniArea', {
   },
 });
 
-G2.registerShape('area', 'miniAreaSmooth', {
+registerShape('area', 'miniAreaSmooth', {
   draw(cfg, container) {
+    const opacity = cfg.style ? cfg.style.opacity : null;
     const path = getPath(cfg, this, true);
     const shape = container.addShape('path', {
       attrs: {
         path,
-        fill: parseGradient(cfg.color || G2DefaultTheme.defaultColor),
-        opacity: cfg.opacity || 0.5,
+        fill: parseGradient(cfg.color || getGlobalTheme().defaultColor),
+        opacity: opacity || 0.5,
       },
     });
     return shape;
@@ -51,7 +52,7 @@ function getPath(cfg, shape, isSmooth) {
   ];
   let topLinePoints = [];
   let bottomLinePoints = [];
-  _.each(cfg.points, (point) => {
+  each(cfg.points, (point) => {
     topLinePoints.push(point[1]);
     bottomLinePoints.push(point[0]);
   });

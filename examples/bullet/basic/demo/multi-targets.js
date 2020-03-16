@@ -23,24 +23,30 @@ const bulletPlot = new Bullet(document.getElementById('container'), {
     custom: true,
     items: [
       {
-        value: '实际进度', // 图例项的文本内容
+        name: '实际进度', // 图例项的文本内容
         marker: {
           symbol: 'square', // 该图例项 marker 的形状，参见 marker 参数的说明
-          fill: '#5B8FF9', // 该图例项 marker 的填充颜色
+          style: {
+            fill: '#5B8FF9', // 该图例项 marker 的填充颜色
+          },
         },
       },
       {
-        value: '目标值 1', // 图例项的文本内容
+        name: '目标值 1', // 图例项的文本内容
         marker: {
           symbol: 'line', // 该图例项 marker 的形状，参见 marker 参数的说明
-          stroke: '#5B8FF9', // 该图例项 marker 的填充颜色
+          style: {
+            stroke: '#5B8FF9', // 该图例项 marker 的填充颜色
+          },
         },
       },
       {
-        value: '目标值 2', // 图例项的文本内容
+        name: '目标值 2', // 图例项的文本内容
         marker: {
           symbol: 'line', // 该图例项 marker 的形状，参见 marker 参数的说明
-          stroke: '#5AD8A6', // 该图例项 marker 的填充颜色
+          style: {
+            stroke: '#5AD8A6', // 该图例项 marker 的填充颜色
+          },
         },
       },
     ],

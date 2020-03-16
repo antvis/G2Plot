@@ -1,5 +1,8 @@
-import { CoordinateType } from '@antv/g2/lib/plot/interface';
-import * as _ from '@antv/util';
+/**
+ * Create By Bruce Too
+ * On 2020-02-14
+ */
+import { deepMix, has } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -9,6 +12,7 @@ import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
 import { PointStyle, LineStyle } from '../line/layer';
 import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+import './theme';
 
 interface FillStyle {
   fill?: string;
@@ -62,7 +66,7 @@ const GEOM_MAP = {
 
 export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       width: 400,
       height: 400,
       title: {
@@ -98,8 +102,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       },
       angleAxis: {
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: true,
         autoRotateTitle: true,
         line: {
           visible: false,
@@ -109,13 +111,17 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         },
         grid: {
           visible: true,
-          style: {
-            lineDash: [0, 0],
+          line: {
+            style: {
+              lineDash: [0, 0],
+            },
           },
         },
         label: {
           visible: true,
-          offset: 8,
+          offset: 16,
+          autoRotate: true,
+          autoHide: true,
         },
         title: {
           visible: false,
@@ -124,8 +130,8 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       radiusAxis: {
         min: 0,
         visible: true,
-        autoHideLabel: false,
-        autoRotateLabel: true,
+        /** G2 4.0 默认 nice 不生效，需要手动添加 */
+        nice: true,
         autoRotateTitle: true,
         line: {
           visible: true,
@@ -136,12 +142,16 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
         gridType: 'line',
         grid: {
           visible: true,
-          style: {
-            lineDash: [0, 0],
+          line: {
+            style: {
+              lineDash: [0, 0],
+            },
           },
         },
         label: {
           visible: true,
+          autoHide: true,
+          autoRotate: true,
         },
         title: {
           visible: false,
@@ -158,7 +168,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: null,
+        showCrosshairs: false,
       },
     });
   }
@@ -178,13 +188,6 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     super.init();
   }
 
-  public getOptions(props: RadarLayerConfig) {
-    const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
-  }
-
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }
@@ -194,12 +197,12 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     const scales = {};
     /** 配置x-scale */
     scales[props.angleField] = {};
-    if (_.has(props, 'angleAxis')) {
+    if (has(props, 'angleAxis')) {
       extractScale(scales[props.angleField], props.angleAxis);
     }
     /** 配置y-scale */
     scales[props.radiusField] = {};
-    if (_.has(props, 'radiusAxis')) {
+    if (has(props, 'radiusAxis')) {
       extractScale(scales[props.radiusField], props.radiusAxis);
     }
     this.setConfig('scales', scales);
@@ -208,13 +211,13 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
 
   protected coord() {
     const props = this.options;
-    const coordConfig = {
-      type: 'polar' as CoordinateType,
+    const coordConfig: any = {
+      type: 'polar',
       cfg: {
         radius: props.radius,
       },
     };
-    this.setConfig('coord', coordConfig);
+    this.setConfig('coordinate', coordConfig);
   }
 
   protected axis(): void {
@@ -227,9 +230,9 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       plot: this,
       dim: 'radius',
     });
-    const axesConfig = { fields: {} };
-    axesConfig.fields[props.angleField] = xAxis_parser;
-    axesConfig.fields[props.radiusField] = yAxis_parser;
+    const axesConfig = {};
+    axesConfig[props.angleField] = xAxis_parser;
+    axesConfig[props.radiusField] = yAxis_parser;
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);
   }
@@ -241,7 +244,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       const area = getGeom('area', 'main', {
         plot: this,
       });
-      this.setConfig('element', area);
+      this.setConfig('geometry', area);
       this.area = area;
     }
     /** 配置线 */
@@ -249,7 +252,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       const line = getGeom('line', 'guide', {
         plot: this,
       });
-      this.setConfig('element', line);
+      this.setConfig('geometry', line);
       this.line = line;
     }
     /** 配置点 */
@@ -257,12 +260,49 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
       const point = getGeom('point', 'guide', {
         plot: this,
       });
-      this.setConfig('element', point);
+      this.setConfig('geometry', point);
       this.point = point;
+    }
+    if (props.label) {
+      this.label();
     }
   }
 
-  protected label() {}
+  protected label() {
+    const props = this.options;
+
+    if (props.label.visible === false) {
+      if (this.point) {
+        this.point.label = false;
+      }
+      if (this.line) {
+        this.line.label = false;
+      }
+      if (this.area) {
+        this.area.label = false;
+      }
+      return;
+    }
+
+    // @Todo 雷达图标签布局算法后续补充
+    const label = getComponent('label', {
+      fields: [props.radiusField],
+      cfg: {
+        type: 'polar',
+        autoRotate: false,
+      },
+      plot: this,
+      ...props.label,
+    });
+
+    if (this.point) {
+      this.point.label = label;
+    } else if (this.line) {
+      this.line.label = label;
+    } else if (this.area) {
+      this.area.label = label;
+    }
+  }
 
   protected annotation() {}
 

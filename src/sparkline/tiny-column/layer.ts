@@ -1,9 +1,10 @@
-import * as _ from '@antv/util';
+import { mix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyLayerConfig, TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
+import { IStyle } from '../../interface/config';
 
 const WIDTH_RATIO = 0.6;
 
@@ -15,7 +16,9 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
-export type TinyColumnViewConfig = TinyViewConfig;
+export interface TinyColumnViewConfig extends TinyViewConfig {
+  columnStyle?: IStyle;
+}
 export interface TinyColumnLayerConfig extends TinyColumnViewConfig, LayerConfig {}
 
 export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
@@ -49,7 +52,7 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
       positionFields: [props.xField, props.yField],
       plot: this,
     });
-    this.setConfig('element', column);
+    this.setConfig('geometry', column);
   }
 
   protected parseEvents(eventParser) {
@@ -62,7 +65,7 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
       padding: [0, 0, 0, 0],
       columnSize: this.getSize(),
     } as any;
-    props = _.mix(props, cfg);
+    props = mix(props, cfg);
   }
 
   private getSize() {
@@ -74,7 +77,7 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
 
   private getColumnNum(data, field) {
     const values = [];
-    _.each(data, (d) => {
+    each(data, (d) => {
       const v = d[field];
       if (values.indexOf(v) < 0) {
         values.push(v);

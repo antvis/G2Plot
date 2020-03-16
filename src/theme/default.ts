@@ -101,15 +101,15 @@ export const DEFAULT_GLOBAL_THEME = {
     y: {
       visible: true,
       position: 'left',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: true,
       grid: {
         visible: true,
-        style: {
-          stroke: 'rgba(0, 0, 0, 0.15)',
-          lineWidth: 1,
-          lineDash: [0, 0],
+        line: {
+          style: {
+            stroke: 'rgba(0, 0, 0, 0.15)',
+            lineWidth: 1,
+            lineDash: [0, 0],
+          },
         },
       },
       line: {
@@ -134,6 +134,8 @@ export const DEFAULT_GLOBAL_THEME = {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
+        autoRotate: false,
+        autoHide: true,
       },
       title: {
         visible: false,
@@ -148,15 +150,15 @@ export const DEFAULT_GLOBAL_THEME = {
     x: {
       visible: true,
       position: 'bottom',
-      autoHideLabel: false,
-      autoRotateLabel: false,
       autoRotateTitle: false,
       grid: {
         visible: false,
-        style: {
-          stroke: 'rgba(0, 0, 0, 0.15)',
-          lineWidth: 1,
-          lineDash: [0, 0],
+        line: {
+          style: {
+            stroke: 'rgba(0, 0, 0, 0.15)',
+            lineWidth: 1,
+            lineDash: [0, 0],
+          },
         },
       },
       line: {
@@ -181,6 +183,8 @@ export const DEFAULT_GLOBAL_THEME = {
           fontSize: 12,
         },
         offset: 16,
+        autoRotate: true,
+        autoHide: true,
       },
       title: {
         visible: false,
@@ -190,14 +194,14 @@ export const DEFAULT_GLOBAL_THEME = {
     },
     circle: {
       autoHideLabel: false,
-      autoRotateLabel: true,
-      autoRotateTitle: true,
       // gridType: 'line',
       grid: {
-        style: {
-          lineDash: null,
-          lineWidth: 1,
-          stroke: 'rgba(0, 0, 0, 0.15)',
+        line: {
+          style: {
+            lineDash: null,
+            lineWidth: 1,
+            stroke: 'rgba(0, 0, 0, 0.15)',
+          },
         },
       },
       line: {
@@ -220,6 +224,8 @@ export const DEFAULT_GLOBAL_THEME = {
           fill: 'rgba(0,0,0,0.45)',
           fontSize: 12,
         },
+        autoRotate: true,
+        autoHide: true,
       },
       title: {
         offset: 12,
@@ -237,7 +243,7 @@ export const DEFAULT_GLOBAL_THEME = {
   },
   legend: {
     flipPage: false,
-    position: 'bottom-center',
+    position: 'bottom',
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
     margin: [0, 24, 24, 24],
@@ -257,5 +263,6 @@ export const DEFAULT_GLOBAL_THEME = {
     'g2-tooltip': {
       boxShadow: '0px 0px 8px rgba(0,0,0,0.15)',
     },
+    offset: 10,
   },
 };

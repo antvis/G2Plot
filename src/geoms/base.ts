@@ -1,4 +1,4 @@
-import { assign, deepMix, get } from '@antv/util';
+import { assign } from '@antv/util';
 import { ElementOption } from '../interface/config';
 
 export default class ElementParser {
@@ -20,16 +20,6 @@ export default class ElementParser {
       position: {
         fields: this.positionFields,
       },
-      widthRatio: deepMix(
-        {},
-        {
-          column: 3 / 5,
-          rose: 0.9999999, // 玫瑰图柱状占比 1
-          multiplePie: 1 / 1.3, // 多层的饼图、环图
-        },
-        this.plot.options?.widthRatio || {},
-        this.widthRatio || {}
-      ),
     };
   }
 }

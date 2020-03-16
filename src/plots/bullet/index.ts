@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import BulletLayer, { BulletViewConfig } from './layer';
 
@@ -8,7 +8,7 @@ export default class Bullet extends BasePlot<BulletConfig> {
   public static getDefaultOptions: typeof BulletLayer.getDefaultOptions = BulletLayer.getDefaultOptions;
 
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'bullet';
     super.createLayers(layerProps);
   }

@@ -1,3 +1,7 @@
+/**
+ * Create By Bruce Too
+ * On 2020-02-14
+ */
 import { registerTheme } from '../../theme';
 
 const AREA_ACTIVE_STYLE = (style) => {

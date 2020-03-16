@@ -1,19 +1,11 @@
-import * as _ from '@antv/util';
-import { Group } from '@antv/g';
-import { Global, registerShape } from '@antv/g2';
-import { setFillStyle } from '@antv/g2/lib/element/util/shape';
-import { ShapeDrawCFG, ShapeMarkerCfg, ShapePointInfo } from '@antv/g2/lib/interface';
-
-// 获取填充图形的图形属性
-function _getFillAttrs(cfg) {
-  const defaultAttrs = Global.theme.shape.interval.rect.default;
-  const attrs = _.mix({}, defaultAttrs, cfg.style);
-  setFillStyle(attrs, cfg);
-  return attrs;
-}
+import { get, isNil, isArray } from '@antv/util';
+import { IGroup } from '@antv/g-base';
+import { registerShape } from '@antv/g2';
+import { ShapeMarkerCfg, ShapePoint, ShapeInfo } from '@antv/g2/lib/interface';
+import { getStyle } from '@antv/g2/lib/geometry/shape/util/get-style';
 
 // 根据数据点生成矩形的四个关键点
-function _getRectPoints(cfg: ShapePointInfo, isPyramid = false) {
+function _getRectPoints(cfg, isPyramid = false) {
   const { x, y, y0, size } = cfg;
   // 有 4 种情况，
   // 1. x, y 都不是数组
@@ -22,7 +14,7 @@ function _getRectPoints(cfg: ShapePointInfo, isPyramid = false) {
   // 4. x, y 都是数组
   let yMin;
   let yMax;
-  if (_.isArray(y)) {
+  if (isArray(y)) {
     yMin = y[0];
     yMax = y[1];
   } else {
@@ -32,7 +24,7 @@ function _getRectPoints(cfg: ShapePointInfo, isPyramid = false) {
 
   let xMin;
   let xMax;
-  if (_.isArray(x)) {
+  if (isArray(x)) {
     xMin = x[0];
     xMax = x[1];
   } else {
@@ -81,7 +73,7 @@ function _getFunnelPath(cfg, compare) {
     const yOffset = (yValuesMax[0] / (yValuesMax[0] + yValuesMax[1]) - 0.5) * 0.9;
     const spacing = 0.001;
 
-    if (!_.isNil(nextPoints)) {
+    if (!isNil(nextPoints)) {
       const yValueTotalNext = yValuesNext[0] + yValuesNext[1];
       const yRatiosNext = yValuesNext.map((yValueNext) => yValueNext / yValueTotalNext / 0.5);
       path.push(
@@ -116,7 +108,7 @@ function _getFunnelPath(cfg, compare) {
     }
   } else {
     // 标准漏斗
-    if (!_.isNil(nextPoints)) {
+    if (!isNil(nextPoints)) {
       path.push(
         ['M', points[0].x, points[0].y],
         ['L', points[1].x, points[1].y],
@@ -139,30 +131,32 @@ function _getFunnelPath(cfg, compare) {
 }
 
 registerShape('interval', 'funnel-basic-rect', {
-  getPoints(pointInfo: ShapePointInfo) {
+  getPoints(pointInfo: ShapePoint) {
     pointInfo.size = pointInfo.size * 1.8; // 调整面积
     return _getRectPoints(pointInfo);
   },
-  draw(cfg: ShapeDrawCFG, container: Group) {
-    const attrs = _getFillAttrs(cfg);
-    const compare = _.get(cfg, 'origin._origin.__compare__');
-    let path = _getFunnelPath(cfg, compare);
-    path = this.parsePath(path);
+  draw(cfg: ShapeInfo, container: IGroup) {
+    const style = getStyle(cfg, false, true);
+    const compare = get(cfg, 'data.__compare__');
+    const path = this.parsePath(_getFunnelPath(cfg, compare));
 
     return container.addShape('path', {
+      name: 'interval',
       attrs: {
-        ...attrs,
+        ...style,
         path,
       },
       ['__compare__']: compare,
     });
   },
-  getMarkerStyle(markerCfg: ShapeMarkerCfg) {
-    const markerStyle = {
+  getMarker(markerCfg: ShapeMarkerCfg) {
+    const { color } = markerCfg;
+    return {
       symbol: 'square',
-      radius: 4,
+      style: {
+        r: 4,
+        fill: color,
+      },
     };
-    setFillStyle(markerStyle, markerCfg);
-    return markerStyle;
   },
 });

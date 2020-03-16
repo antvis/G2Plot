@@ -20,7 +20,6 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
     });
     // 绘制图表
     const treemapPlot = new Treemap(document.getElementById('container'), {
-      renderer: 'svg',
       data: rootData,
       colorField: 'name',
       interactions: [
@@ -38,8 +37,7 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
               3: {
                 field: 'value',
                 values: (parent) => {
-                  const parentColor = parent.shape.attr('fill');
-                  return ['#ffffff', parentColor];
+                  return ['#ffffff', parent.color];
                 },
               },
             },

@@ -1,4 +1,4 @@
-import * as _ from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
@@ -6,14 +6,14 @@ import RangeColumnLabel, { RangeColumnLabelConfig } from './component/label';
 import { setShapeCache } from './animation';
 
 export interface RangeColumnViewConfig extends ColumnViewConfig {
-  label?: RangeColumnLabelConfig;
+  label: RangeColumnLabelConfig;
 }
 
 export interface RangeColumnLayerConfig extends RangeColumnViewConfig, LayerConfig {}
 
 export default class RangeColumnLayer extends BaseColumnLayer<RangeColumnLayerConfig> {
   public static getDefaultOptions(): Partial<RangeColumnViewConfig> {
-    return _.deepMix(
+    return deepMix(
       super.getDefaultOptions(),
       {
         label: {
@@ -28,21 +28,14 @@ export default class RangeColumnLayer extends BaseColumnLayer<RangeColumnLayerCo
   public type: string = 'rangeColumn';
 
   public afterRender() {
-    if (this.options.label && this.options.label.visible) {
-      const label = new RangeColumnLabel({
-        view: this.view,
-        plot: this,
-        ...this.options.label,
-      });
-      label.render();
-    }
+    this.renderLabel();
     // 为更新动画缓存shape
     const shapeCaches = [];
-    const geoms = this.view.get('elements');
-    _.each(geoms, (geom) => {
-      const shapes = geom.getShapes();
-      _.each(shapes, (shape) => {
-        shapeCaches.push(shape);
+    const geoms = this.view.geometries;
+    each(geoms, (geom) => {
+      const elements = geom.elements;
+      each(elements, (ele) => {
+        shapeCaches.push(ele.shape);
       });
     });
     setShapeCache(shapeCaches);
@@ -63,6 +56,17 @@ export default class RangeColumnLayer extends BaseColumnLayer<RangeColumnLayerCo
         duration: 600,
       },
     };
+  }
+
+  protected renderLabel() {
+    if (this.options.label && this.options.label.visible) {
+      const label = new RangeColumnLabel({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
   }
 }
 

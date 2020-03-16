@@ -1,13 +1,16 @@
 /**
  * Create By Bruce Too
- * On 2019-12-25
+ * On 2020-02-14
  */
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
 import WordCloudLayer, { WordCloudViewConfig } from './layer';
 import { registerPlotType } from '../../base/global';
 
-export interface WordCloudConfig extends WordCloudViewConfig, PlotConfig {}
+export interface WordCloudPlotConfig extends PlotConfig {
+  container?: HTMLDivElement;
+}
+export interface WordCloudConfig extends WordCloudViewConfig, WordCloudPlotConfig {}
 
 export default class WordCloud extends BasePlot<WordCloudConfig> {
   constructor(container: HTMLElement, props: WordCloudConfig) {
@@ -16,8 +19,9 @@ export default class WordCloud extends BasePlot<WordCloudConfig> {
     super(container, props);
   }
   public createLayers(props) {
-    const layerProps = _.deepMix({}, props);
+    const layerProps = deepMix({}, props);
     layerProps.type = 'wordCloud';
+    layerProps.container = this.containerDOM;
     super.createLayers(layerProps);
   }
 }

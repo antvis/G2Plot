@@ -1,5 +1,5 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { LooseObject } from '../../dependents';
+import { isArray, isFunction, isString, isEmpty, isNil } from '@antv/util';
 import ElementParser from '../base';
 
 export default class CircleParser extends ElementParser {
@@ -28,34 +28,33 @@ export default class CircleParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     const colorField = props.colorField;
     if (colorField) {
-      config.fields = _.isArray(colorField) ? colorField : [colorField];
+      config.fields = isArray(colorField) ? colorField : [colorField];
     }
     if (props.color) {
       this._parseColor(props, config);
     }
-    this.config.color = config;
+    if (!isEmpty(config)) {
+      this.config.color = config;
+    }
   }
 
   public parseSize() {
     const props = this.plot.options;
-    const config: DataPointType = {};
+    const config: LooseObject = {};
     if (props.sizeField) {
       config.fields = [props.sizeField];
     }
     if (props.pointSize) {
-      config.values = props.pointSize;
+      config.values = isArray(props.pointSize) ? props.pointSize : [props.pointSize];
     }
     this.config.size = config;
   }
 
   public parseShape(shapeName) {
-    const config: DataPointType = {
-      values: [shapeName],
-    };
-    this.config.shape = config;
+    this.config.shape = shapeName;
   }
 
   public parseStyle() {
@@ -67,9 +66,9 @@ export default class CircleParser extends ElementParser {
       cfg: null,
     };
     const { xField, yField, colorField } = props;
-    if (_.isFunction(styleProps)) {
+    if (isFunction(styleProps)) {
       if (colorField) {
-        config.fields = _.isArray(colorField)
+        config.fields = isArray(colorField)
           ? [xField, yField, colorField].concat(colorField)
           : [xField, yField, colorField];
       } else {
@@ -78,16 +77,20 @@ export default class CircleParser extends ElementParser {
       config.callback = styleProps;
     } else {
       config.cfg = styleProps;
+      // opacity 与 fillOpacity 兼容
+      if (!isNil(styleProps.opacity)) {
+        config.cfg.fillOpacity = styleProps.opacity;
+      }
     }
     this.config.style = config;
   }
 
   private _parseColor(props, config) {
-    if (_.isString(props.color)) {
+    if (isString(props.color)) {
       config.values = [props.color];
-    } else if (_.isFunction(props.color)) {
+    } else if (isFunction(props.color)) {
       config.callback = props.color;
-    } else if (_.isArray(props.color)) {
+    } else if (isArray(props.color)) {
       config.values = props.color;
     }
   }

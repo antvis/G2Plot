@@ -1,9 +1,10 @@
-import * as _ from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import '../scatter/components/label/scatter-label';
 import * as EventParser from '../scatter/event';
 import ScatterLayer, { ScatterViewConfig } from '../scatter/layer';
+import './shape';
+import './theme';
 
 export interface BubbleViewConfig extends ScatterViewConfig {
   /** 气泡大小 */
@@ -16,16 +17,22 @@ export interface BubbleLayerConfig extends BubbleViewConfig, LayerConfig {}
 
 export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig> extends ScatterLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
-      pointSize: [8, 58],
+    return deepMix({}, super.getDefaultOptions(), {
+      // 直径 min 4px；max 64px
+      pointSize: [2, 32],
       pointStyle: {
+        stroke: null,
         strokeOpacity: 1,
-        fillOpacity: 1,
-        opacity: 0.5,
+        fillOpacity: 0.5,
       },
       label: {
         position: 'middle',
+        style: {
+          stroke: '#fff',
+          lineWidth: 1,
+        },
       },
+      shape: 'bubble-point',
     });
   }
 
@@ -33,11 +40,8 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
 
   protected legend() {
     super.legend();
-    /** 取消气泡大小图例 */
     this.setConfig('legends', {
-      fields: {
-        [this.options.sizeField]: false,
-      },
+      [this.options.sizeField]: false,
     });
   }
 

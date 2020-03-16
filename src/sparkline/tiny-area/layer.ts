@@ -1,16 +1,21 @@
-import * as _ from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
+import { IStyle } from '../../interface/config';
 
 const GEOM_MAP = {
   area: 'area',
   line: 'line',
 };
 
-export type TinyAreaViewConfig = TinyViewConfig;
+export interface TinyAreaViewConfig extends TinyViewConfig {
+  areaStyle?: IStyle;
+  lineStyle?: IStyle;
+  smooth?: boolean;
+}
+
 export interface TinyAreaLayerConfig extends TinyAreaViewConfig, LayerConfig {}
 
 export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
@@ -26,12 +31,12 @@ export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
     this.area = getGeom('area', 'mini', {
       plot: this,
     });
-    this.setConfig('element', this.area);
+    this.setConfig('geometry', this.area);
 
     this.line = getGeom('line', 'mini', {
       plot: this,
     });
-    this.setConfig('element', this.line);
+    this.setConfig('geometry', this.line);
   }
 
   protected parseEvents(eventParser) {

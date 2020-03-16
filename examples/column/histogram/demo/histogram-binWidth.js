@@ -72,5 +72,6 @@ const histogramPlot = new Histogram(document.getElementById('container'), {
   data,
   binField: 'value',
   binWidth: 2,
+  color: '#1079a0',
 });
 histogramPlot.render();

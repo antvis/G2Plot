@@ -1,6 +1,6 @@
 ---
 title: Waterfall Chart
-order: 5
+order: 6
 ---
 
 Description about this component.

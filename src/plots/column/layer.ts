@@ -1,24 +1,17 @@
-import { DataPointType } from '@antv/g2/lib/interface';
-import * as _ from '@antv/util';
+import { deepMix, has, each,clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, IStyleConfig } from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
-import './component/label/column-label';
+import ColumnLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
-
-interface ColumnStyle {
-  opacity?: number;
-  lineDash?: number[];
-}
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -36,8 +29,8 @@ export interface ColumnViewConfig extends ViewConfig {
   columnSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  columnStyle?: ColumnStyle | ((...args: any[]) => ColumnStyle);
-  xAxis?: ICatAxis;
+  columnStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
+  xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
 }
@@ -46,7 +39,7 @@ export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}
 
 export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): any {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         visible: true,
         tickLine: {
@@ -57,6 +50,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         },
       },
       yAxis: {
+        nice: true,
         title: {
           visible: true,
         },
@@ -70,9 +64,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: {
-          type: 'rect',
-        },
+        showCrosshairs: false,
+        showMarkers: false,
       },
       label: {
         visible: false,
@@ -83,6 +76,12 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         visible: true,
         position: 'top-left',
       },
+      interactions: [
+        { type: 'tooltip' },
+        { type: 'active-region' },
+        { type: 'legend-active' },
+        { type: 'legend-filter' },
+      ],
       conversionTag: {
         visible: false,
       },
@@ -91,13 +90,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   public column: any;
   public type: string = 'column';
   public conversionTag?: ConversionTag;
-
-  public getOptions(props: T) {
-    const options = super.getOptions(props);
-    // @ts-ignore
-    const defaultOptions = this.constructor.getDefaultOptions();
-    return _.deepMix({}, options, defaultOptions, props);
-  }
 
   public beforeInit() {
     super.beforeInit();
@@ -109,6 +101,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
 
   public afterRender() {
     const props = this.options;
+    this.renderLabel();
     /** 响应式 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -135,8 +128,8 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   protected processData(originData?: DataItem[]) {
     const { xField } = this.options;
     const processedData = [];
-    _.each(originData, (data) => {
-      const d = _.clone(data);
+    each(originData, (data) => {
+      const d = clone(data);
       d[xField] = d[xField].toString();
       processedData.push(d);
     });
@@ -148,12 +141,12 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const scales = {};
     /** 配置x-scale */
     scales[options.xField] = { type: 'cat' };
-    if (_.has(options, 'xAxis')) {
+    if (has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
     /** 配置y-scale */
     scales[options.yField] = {};
-    if (_.has(options, 'yAxis')) {
+    if (has(options, 'yAxis')) {
       extractScale(scales[options.yField], options.yAxis);
     }
     this.setConfig('scales', scales);
@@ -173,14 +166,16 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       plot: this,
     });
     if (options.conversionTag.visible) {
-      column.widthRatio.column = 2 / 5;
-    }
-    if (options.label) {
-      column.label = this.extractLabel();
+      this.setConfig(
+        'theme',
+        deepMix({}, this.getTheme(), {
+          columnWidthRatio: 1 / 3,
+        })
+      );
     }
     this.adjustColumn(column);
     this.column = column;
-    this.setConfig('element', column);
+    this.setConfig('geometry', column);
   }
 
   protected animation() {
@@ -195,57 +190,27 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     super.parseEvents(EventParser);
   }
 
-  protected extractLabel() {
-    const props = this.options;
-    const defaultOptions = this.getLabelOptionsByPosition(props.label.position);
-    const label = _.deepMix({}, defaultOptions, this.options.label as Label);
-    if (label.visible === false) {
-      return false;
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { yField } = this.options;
+    const scale = scales[yField];
+    if (this.options.label && this.options.label.visible) {
+      const label = new ColumnLabel({
+        view: this.view,
+        plot: this,
+        formatter: scale.formatter,
+        ...this.options.label,
+      });
+      label.render();
     }
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'columnLabel',
-      fields: [this.options.yField],
-      ...label,
-    });
-    return labelConfig;
   }
 
   private applyResponsive(stage) {
     const methods = responsiveMethods[stage];
-    _.each(methods, (r) => {
-      const responsive = r as DataPointType;
+    each(methods, (r) => {
+      const responsive = r;
       responsive.method(this);
     });
-  }
-
-  public getLabelOptionsByPosition(position: string) {
-    if (position === 'middle') {
-      return {
-        offset: 0,
-        style: {
-          textBaseline: 'middle',
-        },
-      };
-    }
-
-    if (position === 'top') {
-      return {
-        offset: 4,
-        style: {
-          textBaseline: 'bottom',
-        },
-      };
-    }
-    if (position === 'bottom') {
-      return {
-        offset: 4,
-        style: {
-          textBaseline: 'bottom',
-        },
-      };
-    }
-    return { offset: 0 };
   }
 }
 

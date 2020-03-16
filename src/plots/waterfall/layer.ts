@@ -1,16 +1,19 @@
-import * as _ from '@antv/util';
+/**
+ * Create By Bruce Too
+ * On 2020-02-18
+ */
+import { deepMix, get, map, isArray, reduce, has, isFunction, isString, isObject } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import './geometry/shape/waterfall';
-import { LayerConfig } from '../../base/layer';
-import { ElementOption, IStyleConfig, DataItem, Label } from '../../interface/config';
+import { ElementOption, IStyleConfig, DataItem, LayerConfig } from '../..';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { extractScale } from '../../util/scale';
-import { DataPointType } from '@antv/g2/lib/interface';
 import { AttributeCfg } from '@antv/attr';
 import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
+import WaterfallLabels from './component/label/waterfall-label';
 
 interface WaterfallStyle {}
 
@@ -60,7 +63,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   public diffLabel;
 
   public static getDefaultOptions(): Partial<WaterfallLayerConfig> {
-    return _.deepMix({}, super.getDefaultOptions(), {
+    return deepMix({}, super.getDefaultOptions(), {
       legend: {
         visible: false,
         position: 'bottom',
@@ -89,9 +92,8 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       tooltip: {
         visible: true,
         shared: true,
-        crosshairs: {
-          type: 'rect',
-        },
+        showCrosshairs: false,
+        showMarkers: false,
       },
     });
   }
@@ -126,17 +128,29 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       const { items } = e;
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        const _origin = _.get(item.point, '_origin', {});
+        const data = get(item, 'data', {});
         // 改变 tooltip 显示的name和value
-        item.name = _origin[options.xField];
-        item.value = _origin[options.yField];
-        if (!item.value && _origin[IS_TOTAL]) {
-          const values = _origin[VALUE_FIELD];
+        item.name = data[options.xField];
+        item.value = data[options.yField];
+        if (!item.value && data[IS_TOTAL]) {
+          const values = data[VALUE_FIELD];
           item.value = values[0] - values[1];
         }
         e.items[i] = item;
       }
     });
+    this.renderLabel();
+  }
+
+  protected renderLabel() {
+    if (this.options.label && this.options.label.visible) {
+      const label = new WaterfallLabels({
+        view: this.view,
+        plot: this,
+        ...this.options.label,
+      });
+      label.render();
+    }
   }
 
   protected geometryParser(dim, type) {
@@ -144,6 +158,10 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       return G2_GEOM_MAP[type];
     }
     return PLOT_GEOM_MAP[type];
+  }
+
+  protected interaction() {
+    this.setConfig('interactions', [{ type: 'tooltip' }, { type: 'active-region' }]);
   }
 
   protected addGeometry() {
@@ -157,24 +175,21 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
         values: ['waterfall'],
       },
     };
-    if (options.label) {
-      waterfall.label = this.extractLabel();
-    }
     waterfall.style = this._parseStyle();
     waterfall.color = this._parseColor();
     this.waterfall = waterfall;
-    this.setConfig('element', waterfall);
+    this.setConfig('geometry', waterfall);
   }
 
   protected processData(originData?: DataItem[]) {
     const plotData = [];
     const xField = this.options.xField;
     const yField = this.options.yField;
-    _.map(originData, (dataItem, idx: number) => {
+    map(originData, (dataItem, idx: number) => {
       let value: any = dataItem[yField];
       if (idx > 0) {
         const prevValue = plotData[idx - 1][VALUE_FIELD];
-        if (_.isArray(prevValue)) {
+        if (isArray(prevValue)) {
           value = [prevValue[1], dataItem[yField] + prevValue[1]];
         } else {
           value = [prevValue, dataItem[yField] + prevValue];
@@ -187,8 +202,8 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       });
     });
     if (this.options.showTotal && this.options.showTotal.visible) {
-      const values = _.map(originData, (o) => o[yField]);
-      const totalValue = _.reduce(values, (p: number, n: number) => p + n, 0);
+      const values = map(originData, (o) => o[yField]);
+      const totalValue = reduce(values, (p: number, n: number) => p + n, 0);
       plotData.push({
         [xField]: this.options.showTotal.label,
         [yField]: null,
@@ -205,16 +220,15 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     const scales = {};
     /** 配置x-scale */
     scales[options.xField] = { type: 'cat' };
-    if (_.has(options, 'xAxis')) {
+    if (has(options, 'xAxis')) {
       extractScale(scales[options.xField], options.xAxis);
     }
     /** 配置y-scale */
     scales[VALUE_FIELD] = {};
-    if (_.has(options, 'yAxis')) {
+    if (has(options, 'yAxis')) {
       extractScale(scales[VALUE_FIELD], options.yAxis);
     }
     this.setConfig('scales', scales);
-    super.scale();
   }
 
   /** @override */
@@ -240,27 +254,12 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     super.parseEvents(EventParser);
   }
 
-  protected extractLabel() {
-    const options = this.options;
-    const label = _.deepMix({}, options.label as Label);
-    if (label.visible === false) {
-      return false;
-    }
-    const labelConfig = getComponent('label', {
-      plot: this,
-      labelType: 'waterfall',
-      fields: [options.yField],
-      ...label,
-    });
-    return labelConfig;
-  }
-
   /** 牵引线的样式注入到style中 */
   private _parseStyle(): IStyleConfig {
     const style = this.options.waterfallStyle;
     const leaderLine = this.options.leaderLine;
-    const config: DataPointType = {};
-    if (_.isFunction(style)) {
+    const config: Record<string, any> = {};
+    if (isFunction(style)) {
       config.callback = (...args) => {
         return Object.assign({}, style(...args), { leaderLine });
       };
@@ -277,15 +276,15 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     const config: any = {
       fields: [xField, yField, VALUE_FIELD, INDEX_FIELD],
     };
-    if (_.isFunction(options.color)) {
+    if (isFunction(options.color)) {
       config.callback = options.color;
     } else {
       let risingColor = '#f4664a';
       let fallingColor = '#30bf78';
       let totalColor = 'rgba(0, 0, 0, 0.25)';
-      if (_.isString(options.color)) {
+      if (isString(options.color)) {
         risingColor = fallingColor = totalColor = options.color;
-      } else if (_.isObject(options.color)) {
+      } else if (isObject(options.color)) {
         const { rising, falling, total } = options.color;
         risingColor = rising;
         fallingColor = falling;
@@ -295,7 +294,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
         if (index === this.options.data.length) {
           return totalColor || (values[0] >= 0 ? risingColor : fallingColor);
         }
-        return (_.isArray(values) ? values[1] - values[0] : values) >= 0 ? risingColor : fallingColor;
+        return (isArray(values) ? values[1] - values[0] : values) >= 0 ? risingColor : fallingColor;
       };
     }
     return config as AttributeCfg;

@@ -1,14 +1,15 @@
-import * as _ from '@antv/util';
-import { BBox } from '@antv/g';
+import { deepMix, isFunction, get, forIn, isNumber } from '@antv/util';
+import BBox from '../../util/bbox';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
-import './geometry/shape/liquid';
-import './animation/liquid-move-in';
 import { DataItem } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
+import * as EventParser from './event';
+import './geometry/shape/liquid';
+import './animation/liquid-move-in';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -31,6 +32,8 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
   max: number;
   value: number;
   liquidStyle?: LiquidStyle | ((...args: any[]) => LiquidStyle);
+  type?: string;
+  showValue?: boolean;
 }
 
 export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
@@ -48,8 +51,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       liquidStyle: {
         lineWidth: 2,
       },
+      color: '#6a99f9',
+      interactions: [],
     };
-    return _.deepMix({}, super.getDefaultOptions(), cfg);
+    return deepMix({}, super.getDefaultOptions(), cfg);
   }
 
   public liquid: any;
@@ -58,13 +63,13 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   public beforeInit() {
     const { min, max, value } = this.options;
-    if (!_.isNumber(min)) {
+    if (!isNumber(min)) {
       throw new Error('The min value of Liquid is required, and the type of min must be Number.');
     }
-    if (!_.isNumber(max)) {
+    if (!isNumber(max)) {
       throw new Error('The max value of Liquid is required, and the type of max must be Number.');
     }
-    if (!_.isNumber(value)) {
+    if (!isNumber(value)) {
       throw new Error('The value of Liquid is required, and the type of value must be Number.');
     }
   }
@@ -105,7 +110,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     liquid.tooltip = false;
 
     let liquidStyle = props.liquidStyle;
-    if (_.isFunction(liquidStyle)) liquidStyle = liquidStyle();
+    if (isFunction(liquidStyle)) liquidStyle = liquidStyle();
     if (liquidStyle) {
       liquid.style = liquidStyle;
     }
@@ -113,12 +118,12 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   protected addGeometry(): void {
     const liquid = getGeom('interval', 'main', {
-      positionFields: ['_', 'value'],
+      positionFields: [1, 'value'],
       plot: this,
     });
     this.adjustLiquid(liquid);
     this.liquid = liquid;
-    this.setConfig('element', liquid);
+    this.setConfig('geometry', liquid);
   }
 
   protected animation() {
@@ -127,9 +132,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       /** 关闭动画 */
       this.liquid.animate = false;
     } else {
-      const factor = _.get(props, 'animation.factor');
-      const easing = _.get(props, 'animation.easing');
-      const duration = _.get(props, 'animation.duration');
+      const factor = get(props, 'animation.factor');
+      const easing = get(props, 'animation.easing');
+      const duration = get(props, 'animation.duration');
       this.liquid.animate = {
         appear: {
           animation: 'liquidMoveIn',
@@ -162,7 +167,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     const statistic = props.statistic || {};
 
     let content;
-    if (_.isFunction(statistic.formatter)) {
+    if (isFunction(statistic.formatter)) {
       content = statistic.formatter(props.value);
     } else {
       content = `${props.value}`;
@@ -186,7 +191,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       opacity = 0;
     }
 
-    const statisticConfig = _.deepMix(
+    const statisticConfig = deepMix(
       {
         style: {
           fontSize,
@@ -198,9 +203,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         top: true,
         content,
         type: 'text',
-        position: ['_', 'median'],
+        position: ['50%', '50%'],
         style: {
-          opacity,
+          opacity: 1,
           fill: 'transparent',
           shadowColor: 'transparent',
           textAlign: 'center',
@@ -212,6 +217,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     delete statisticConfig.formatter;
     delete statisticConfig.adjustColor;
     return statisticConfig;
+  }
+
+  protected parseEvents(eventParser) {
+    super.parseEvents(EventParser);
   }
 
   public afterRender() {
@@ -241,17 +250,17 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   protected fadeInAnnotation() {
     const props = this.options;
+    const textShape = this.view.foregroundGroup.findAll((el) => {
+      return el.get('name') === 'annotation-text';
+    })[0];
     const animation = props.animation || {};
-
-    const { annotations } = this.view.annotation();
-    const annotationEl = annotations[0].get('el');
     const colorStyle = this.calcAnnotationColorStyle();
     if (this.shouldFadeInAnnotation) {
-      annotationEl.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {
+      textShape.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {
         this.shouldFadeInAnnotation = false;
       });
     } else {
-      _.forIn(colorStyle, (v, k) => annotationEl.attr(k, v));
+      forIn(colorStyle, (v, k) => textShape.attr(k, v));
     }
   }
 
@@ -261,10 +270,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     const lightColorStyle = { fill: '#f6f6f6', shadowColor: 'black' };
     const darkColorStyle = { fill: '#303030', shadowColor: 'white' };
 
-    if (_.get(props, 'statistic.adjustColor') === false) {
+    if (get(props, 'statistic.adjustColor') === false) {
       return {
-        fill: _.get(props, 'statistic.style.fill', darkColorStyle.fill),
-        shadowColor: _.get(props, 'statistic.style.shadowColor', darkColorStyle.shadowColor),
+        fill: get(props, 'statistic.style.fill', darkColorStyle.fill),
+        shadowColor: get(props, 'statistic.style.shadowColor', darkColorStyle.shadowColor),
       };
     }
 
@@ -280,17 +289,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     }
 
     if (percent > 0.55) {
-      const waves = this.view
-        .get('elements')[0]
-        .get('container')
-        .find((shape) => shape.get('name') == 'waves');
-      const wave = waves.getChildByIndex(0);
-
-      const waveColor = wave.attr('fill');
+      const waveColor = this.options.color;
       const waveOpacity = 0.8;
       const rgb = rgb2arr(waveColor);
       const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / waveOpacity;
-
       return gray < 156 ? lightColorStyle : darkColorStyle;
     }
 

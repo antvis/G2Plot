@@ -1,67 +1,58 @@
-import * as G from '@antv/g';
-import { Animate } from '@antv/g2';
-import * as _ from '@antv/util';
+import { transform } from '@antv/matrix-util';
+import { registerAnimation } from '@antv/g2';
 
-function funnelScaleInY(shape, animateCfg, coord) {
-  const { duration = 200, easing, callback, reverse } = animateCfg || {};
+function funnelScaleInX(shape, animateCfg) {
+  const { duration = 200, delay, easing, callback, reverse } = animateCfg || {};
 
-  const box = shape.getBBox();
+  const bbox = shape.getBBox();
+  const originX = reverse ? bbox.maxX : bbox.minX;
+  const originY = (bbox.minY + bbox.maxY) / 2;
 
-  const originX = reverse ? box.maxX : box.minX;
-  const originY = (box.minY + box.maxY) / 2;
-
-  const shapeIndex = shape.get('index');
-
-  const clip = getClip(coord);
-  const clipTargetMatrix = _.clone(clip.attr('matrix'));
-  clip.attr('transform', [
-    ['t', -originX, -originY],
-    ['s', 0, 1],
-    ['t', originX, originY],
-  ]);
-  const shapeTargetFillOpacity = shape.attr('fillOpacity');
-  shape.attr('fillOpacity', 0);
-
-  shape.attr('clip', clip);
-
-  clip.animate(
-    {
-      matrix: clipTargetMatrix,
-    },
-    duration,
-    easing,
-    () => {
-      clip.remove();
-      shape.attr('clip', null);
-    },
-    shapeIndex * duration
-  );
-
-  shape.animate(
-    {
-      fillOpacity: shapeTargetFillOpacity,
-    },
-    duration,
-    easing,
-    null,
-    shapeIndex * duration
-  );
-
-  callback && setTimeout(() => callback(shape), duration + shapeIndex * duration);
-}
-
-function getClip(coord) {
-  const { start, end, width, height } = coord;
-  const clip = new G.Shapes.Rect({
+  const clip = shape.setClip({
+    type: 'rect',
     attrs: {
-      x: start.x,
-      y: end.y,
-      width,
-      height,
+      x: bbox.x,
+      y: bbox.y,
+      width: bbox.width,
+      height: bbox.height,
     },
   });
-  return clip;
+  const clipTargetAttrs = {
+    matrix: [1, 0, 0, 0, 1, 0, 0, 0, 1],
+  };
+  clip.setMatrix(
+    transform(clip.getMatrix(), [
+      ['t', -originX, -originY],
+      ['s', 0, 1],
+      ['t', originX, originY],
+    ])
+  );
+
+  const shapeTargetAttrs = {
+    fillOpacity: shape.attr('fillOpacity'),
+    strokeOpacity: shape.attr('strokeOpacity'),
+    opacity: shape.attr('opacity'),
+  };
+  shape.attr({
+    fillOpacity: 0,
+    strokeOpacity: 0,
+    opacity: 0,
+  });
+
+  clip.animate(clipTargetAttrs, {
+    duration: 200,
+    easing,
+    callback() {
+      shape.setClip(null);
+      clip.remove();
+    },
+    delay,
+  });
+
+  shape.animate(shapeTargetAttrs, { duration, easing, delay });
+
+  callback && setTimeout(() => callback(shape), duration + delay);
 }
 
-funnelScaleInY.animationName = 'funnelScaleInX';
-Animate.registerAnimation('appear', 'funnelScaleInX', funnelScaleInY);
+funnelScaleInX.animationName = 'funnelScaleInX';
+registerAnimation('funnelScaleInX', funnelScaleInX);

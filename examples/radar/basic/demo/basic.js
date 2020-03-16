@@ -51,8 +51,9 @@ const radarPlot = new Radar(document.getElementById('container'), {
   angleField: 'item',
   radiusField: 'score',
   radiusAxis: {
-    gridType: 'arc',
-    gridAlternateColor: 'rgba(0, 0, 0, 0.04)',
+    grid: {
+      alternateColor: ['rgba(0, 0, 0, 0.04)', null],
+    },
   },
   area: {
     visible: false,

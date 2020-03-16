@@ -4,10 +4,6 @@ fetch('../data/smoking-rate.json')
   .then((res) => res.json())
   .then((data) => {
     const bubblePlot = new Bubble(document.getElementById('container'), {
-      title: {
-        visible: true,
-        text: '为气泡图配置四象限',
-      },
       data,
       xField: 'change in female rate',
       yField: 'change in male rate',

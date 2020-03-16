@@ -1,5 +1,5 @@
 import { Axis } from '@antv/component';
-import { BBox } from '@antv/g';
+import BBox from '../../util/bbox';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
@@ -7,12 +7,13 @@ import { convertToG2Theme, getGlobalTheme } from '../../theme';
 import { isSingleGraph } from './adjustColorConfig';
 import { getOverlappingPadding } from './padding';
 import { getComponent } from '../../components/factory';
+import { translate } from '../../util/g-util';
 
 const AXIS_GAP = 4;
 
 export function getAxisData(viewLayer: ViewLayer, props, globalOptions) {
   const { view } = viewLayer;
-  const scales = view.get('scales');
+  const scales = view.geometries[0].scales;
   const scalesInfo = [];
   const singleGraph = isSingleGraph(viewLayer.type, props);
   // get xscale info
@@ -180,7 +181,7 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
       start: cfg.start,
       end: cfg.end,
       isVertical,
-      factor: cfg.factor,
+      verticalFactor: cfg.factor,
       ticks,
       label(text) {
         return {
@@ -203,7 +204,7 @@ function getAxisTicks(scale, dim) {
   const step = (range[1] - range[0]) / (ticks.length - 1);
   _.each(ticks, (tick, index) => {
     const value = dim === 'y' ? 1.0 - (range[0] + step * index) : range[0] + step * index;
-    tickValues.push({ text: tick, value });
+    tickValues.push({ name: tick, value });
   });
 
   return tickValues;
@@ -243,7 +244,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
       {
         start: { x: 0, y: 0 },
         end: { x: width, y: 0 },
-        factor: 1,
+        factor: -1,
       },
       globalOptions
     );
@@ -266,7 +267,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
         globalOptions
       );
       if (index === 0) {
-        axis.get('group').translate(padding[3], 0);
+        translate(axis.get('group'), padding[3], 0);
       }
       axes.push(axis);
     });
@@ -285,7 +286,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
       {
         start: { x: axisPadding[3], y: ypos },
         end: { x: width - axisPadding[1], y: ypos },
-        factor: 1,
+        factor: -1,
       },
       globalOptions
     );
@@ -295,7 +296,7 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
       getBBox: () => {
         const container = xAxis.get('group');
         const bbox = container.getBBox();
-        return new BBox(bbox.minX, bbox.minY + ypos, bbox.width, bbox.height);
+        return new BBox(bbox.minX, bbox.minY, bbox.width, bbox.height);
       },
     });
   }
@@ -308,7 +309,7 @@ function axisLayout(axes, paddingComponents, width, padding) {
   const leftAxis = axes[0];
   const leftContainer = leftAxis.get('group');
   const leftBbox = leftContainer.getBBox();
-  leftContainer.translate(leftBbox.width, 0);
+  translate(leftContainer, leftBbox.width, 0);
   paddingComponents.push({
     position: 'left',
     component: leftAxis,
@@ -323,14 +324,14 @@ function axisLayout(axes, paddingComponents, width, padding) {
     const axis = axes[i];
     const container = axis.get('group');
     const bbox = container.getBBox();
-    container.translate(width - temp_width - bbox.width, 0);
+    translate(container, width - temp_width - bbox.width, 0);
     temp_width += bbox.width + AXIS_GAP;
     const component = {
       position: 'right',
       component: axis,
       getBBox: () => {
         const matrix = container.attr('matrix');
-        return new BBox(bbox.minX + matrix[6], bbox.minX, bbox.width, bbox.height);
+        return new BBox(bbox.minX + matrix[6], bbox.minY, bbox.width, bbox.height);
       },
     };
     paddingComponents.push(component);

@@ -1,4 +1,4 @@
-import { StackBar, StackColumn, ViewLayer } from '../../src';
+import { StackedBar, StackedColumn, ViewLayer } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('$478', () => {
@@ -55,7 +55,7 @@ describe('$478', () => {
       serie: 'London',
     },
   ];
-  const plot = new StackBar(document.getElementById('container'), {
+  const plot = new StackedBar(document.getElementById('container'), {
     data,
     title: {
       visible: true,
@@ -86,12 +86,10 @@ describe('$478', () => {
   });
 
   plot.render();
-  // @ts-ignore
-  window.__plot = plot;
 
   it('yAxis color', () => {
     const view = (plot.getLayer() as ViewLayer).view;
-    const axis = view.get('axisController').axes[0];
+    const axis = view.getController('axis').getComponents()[0].component;
     const labelCfg = axis.get('label');
 
     expect(labelCfg?.textStyle?.fill).toEqual('rgba(255, 255, 255, 0.45)');

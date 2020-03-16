@@ -1,4 +1,7 @@
-## <small>1.0.0 (2020-03-16)</small>
+## <small>1.0.1 (2020-03-16)
+- 🌟add tooltip style doc ([f8879c9](https://github.com/antvis/G2Plot/commit/f8879c9))
+
+## <small>1.0.0 (2020-03-16)
 - 🌟release 1.0.0 ([e6d2a37](https://github.com/antvis/G2Plot/commit/d55b370))
 
 ## <small>0.11.40 (2020-03-13)</small>

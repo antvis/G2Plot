@@ -168,7 +168,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
             [yField]: yAxisType === 'linear' ? Number(item[yField]) : String(item[yField]),
           };
         });
-      console.log(fiteredData);
       return fiteredData;
     }
 

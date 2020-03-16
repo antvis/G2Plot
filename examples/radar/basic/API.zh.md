@@ -412,13 +412,14 @@ crosshairs: {
 offset: 20,
 ```
 
-| 细分属性       | 类型    | 功能描述                                                            |
-| -------------- | ------- | ------------------------------------------------------------------- |
-| visible        | boolean | 是否显示                                                            |
-| offset         | number  | 距离鼠标位置偏移值                                                  |
-| shared         | boolean | 是否同时显示多条数据                                                |
-| showCrosshairs | boolean | 是否 tooltip 辅助线                                                 |
-| crosshairs     | object  | 配置 tooltip 辅助线。<br/> -type: string crosshairs 类型,可选项： x | y | xy <br/>-line: object 通过 lineStyle 配置辅助线样式 |
+| 细分属性       | 类型    | 功能描述                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| visible        | boolean | 是否显示                                                                                                                                                                                                                                                                                                                                                                       |
+| offset         | number  | 距离鼠标位置偏移值                                                                                                                                                                                                                                                                                                                                                             |
+| shared         | boolean | 是否同时显示多条数据                                                                                                                                                                                                                                                                                                                                                           |
+| showCrosshairs | boolean | 是否 tooltip 辅助线                                                                                                                                                                                                                                                                                                                                                            |
+| crosshairs     | object  | 配置 tooltip 辅助线。<br/> -type: string crosshairs 类型,可选项： x                                                                                                                                                                                                                                                                                                            | y | xy <br/>-line: object 通过 lineStyle 配置辅助线样式 |
+| domStyles      | object  | 配置 tooltip 样式<br />- g2-tooltop: object 设置 tooltip 容器的 CSS 样式<br />- g2-tooltip-title: object 设置 tooltip 标题的 CSS 样式<br />- g2-tooltip-list: object 设置 tooltip 列表容器的 CSS 样式<br />- g2-tooltip-marker: object 设置 tooltip 列表容器中每一项 marker 的 CSS 样式<br />- g2-tooltip-value: object  设置 tooltip 列表容器中每一项 value 的 CSS 样式<br /> |
 
 ### label
 

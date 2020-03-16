@@ -1,5 +1,5 @@
 ## <small>1.0.0 (2020-03-16)</small>
-- 🌟release 1.0.0 
+- 🌟release 1.0.0 ([e6d2a37](https://github.com/antvis/G2Plot/commit/d55b370))
 
 ## <small>0.11.40 (2020-03-13)</small>
 - 🐞Liquid & process 必选数据类型判断

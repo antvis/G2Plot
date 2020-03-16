@@ -9,7 +9,7 @@ import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
 import * as EventParser from './event';
 import { getComponent } from '../../components/factory';
-import './theme.ts';
+import './theme';
 
 export interface PointStyle {
   /** 圆边颜色 */

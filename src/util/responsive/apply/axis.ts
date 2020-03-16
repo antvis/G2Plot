@@ -11,46 +11,6 @@ const SCALE_MAPPER = {
   linear: 'linear',
 };
 
-function updateTicks(nodes) {
-  const rawLabels = this.plot.view.backgroundGroup.findAll((el) => {
-    const name = el.get('name');
-    console.log(name);
-  });
-  /*let tickShape = null;
-  axis
-    .get('group')
-    .get('children')
-    .forEach((shape) => {
-      if (shape.name === 'axis-ticks') {
-        tickShape = shape;
-        return false;
-      }
-    });
-  const ticks = axis.get('ticks');
-  const tickItems = axis.get('tickItems');
-  const tickTexts = [];
-  each(ticks, (tick) => {
-    const t = tick as any;
-    tickTexts.push(t.text);
-  });
-  let pathes = [];
-  each(nodes.nodes, (node) => {
-    const n = node as any;
-    if (n.width > 0 && n.height > 0) {
-      const text = n.shape.get('origin').text;
-      const index = tickTexts.indexOf(text);
-      const tickItem = tickItems[index];
-      pathes.push(['M', tickItem.x1, tickItem.y1], ['L', tickItem.x2, tickItem.y2]);
-    }
-  });
-
-  if (pathes.length === 0) {
-    pathes = [['M', 0, 0]];
-  }
-
-  tickShape.attr('path', pathes);*/
-}
-
 export default class ApplyResponsiveAxis extends ApplyResponsive {
   private dim: string;
   private axisInstance: Axis.Base;

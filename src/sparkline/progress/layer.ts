@@ -1,4 +1,4 @@
-import { isArray, mix, hasKey, each, has, isFunction, clone, deepMix, isString } from '@antv/util';
+import { isArray, mix, hasKey, each, has, isFunction, clone, deepMix, isString, isNumber } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
@@ -67,7 +67,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
 
   public beforeInit() {
     const { percent } = this.options;
-    if (!_.isNumber(percent)) {
+    if (!isNumber(percent)) {
       throw new Error('Percent value is required, and the type of percent must be Number.');
     }
   }

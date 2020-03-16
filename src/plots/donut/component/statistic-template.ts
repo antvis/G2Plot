@@ -1,6 +1,6 @@
 /*tslint:disable*/
 const containerStyle =
-  "color:#8c8c8c;font-size:14px;text-align:center;line-height:2;font-family:'-apple-system',BlinkMacSystemFont,'SegoeUI',Roboto,'HelveticaNeue',Helvetica,'PingFangSC','HiraginoSansGB','MicrosoftYaHei',SimSun,'sans-serif';pointer-events:none;";
+  "color:#4d4d4d;font-size:14px;text-align:center;line-height:2;font-family:'-apple-system',BlinkMacSystemFont,'SegoeUI',Roboto,'HelveticaNeue',Helvetica,'PingFangSC','HiraginoSansGB','MicrosoftYaHei',SimSun,'sans-serif';pointer-events:none;";
 
 const nameStyle = 'font-weight:300;';
 

@@ -12,7 +12,19 @@ import { getPieLabel } from '../pie/component/label';
 
 export interface DonutViewConfig extends PieViewConfig {
   innerRadius?: number;
-  statistic?: any; //FIXME: 指标卡
+  /** 指标卡用于显示总计值和各项数据 */
+
+  statistic?: {
+    visible: boolean;
+    /** 指标卡 总计值 标签 */
+    totalLabel: string;
+    /** 触发显示的事件 */
+    triggerOn: 'mouseenter';
+    /** 触发隐藏的事件 */
+    triggerOff: 'mouseleave';
+    content?: string;
+    htmlContent?: (...args: any) => any;
+  };
 }
 
 export interface DonutLayerConfig extends DonutViewConfig, LayerConfig {}
@@ -37,6 +49,7 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
       innerRadius: 0.64,
       statistic: {
         visible: true,
+        totalLabel: '总计',
         triggerOn: 'mouseenter',
         triggerOff: 'mouseleave',
       },

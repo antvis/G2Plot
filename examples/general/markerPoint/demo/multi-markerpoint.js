@@ -39,18 +39,18 @@ const linePlot = new Line(document.getElementById('container'), {
     {
       visible: true,
       data: [{ date: '2019-05-01', value: 4.9 }, { date: '2019-10-01' }],
-      field: 'festival',
       label: {
         visible: true,
+        field: 'festival',
       },
     },
     {
       visible: true,
       data: [{ date: '2019-09-01' }],
-      field: 'error',
       symbol: 'cross',
       label: {
         visible: true,
+        field: 'error',
         position: 'bottom',
         offsetY: 8,
       },

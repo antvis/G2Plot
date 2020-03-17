@@ -334,6 +334,7 @@ label: {
 
 ```js
 visible: true;
+totalLabel: '总计',
 triggerOn: 'mouseenter';
 triggerOff: 'mouseleave';
 ```
@@ -341,6 +342,7 @@ triggerOff: 'mouseleave';
 | 细分配置   | 类型    | 功能描述                                                       |
 | ---------- | ------- | -------------------------------------------------------------- |
 | visible    | boolean | 是否显示                                                       |
+| totalLabel    | string | 总计值标签                                                       |
 | triggerOn  | string  | 触发显示的事件。默认为 mousenter。如不配置则直接显示。         |
 | triggerOff | string  | 触发隐藏的事件，默认为 mouseleave。需要同 triggerOn 搭配使用。 |
 | content    | string  | 显示文本，默认不配置。                                         |

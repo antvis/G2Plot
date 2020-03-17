@@ -3,7 +3,7 @@ import StatisticHtml, { IStaticticHtml } from './statistic';
 import * as statisticTemplate from './statistic-template';
 import { debounce, each, isString, isObject, isFunction, keys } from '@antv/util';
 import { LooseMap } from '../../../interface/types';
-import Ring from '../layer';
+import Ring, { DonutViewConfig } from '../layer';
 
 interface IRingStatictic extends IStaticticHtml {
   view: View;
@@ -14,6 +14,7 @@ export default class RingStatistic extends StatisticHtml {
   protected view: View;
   protected plot: Ring;
   protected statisticClass: string;
+  protected options: DonutViewConfig['statistic'];
 
   constructor(cfg: IRingStatictic) {
     super(cfg);
@@ -72,6 +73,7 @@ export default class RingStatistic extends StatisticHtml {
   private getTotalValue() {
     let total = 0;
     const { angleField, colorField } = this.plot.options;
+    const { totalLabel } = this.options;
     each(this.plot.options.data, (item) => {
       if (typeof item[angleField] === 'number') {
         total += item[angleField];
@@ -79,7 +81,7 @@ export default class RingStatistic extends StatisticHtml {
     });
     const data = {
       [angleField]: total,
-      [colorField]: '总计',
+      [colorField]: totalLabel,
     };
     return data;
   }

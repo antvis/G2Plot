@@ -49,6 +49,15 @@ const IndexPage = () => {
     },
   ];
 
+  const notifications = [
+    {
+      type: 'News',
+      title: 'G2Plot 1.0 正式发布！',
+      date: '2020.03.17',
+      link: 'https://www.yuque.com/antv/blog/igfe4h',
+    },
+  ];
+
   return (
     <>
       <SEO title={t('G2Plot 开箱即用的图表库')} titleSuffix="AntV" lang={i18n.language} />
@@ -62,6 +71,7 @@ const IndexPage = () => {
         className="banner"
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2plot&type=star&count=true&size=large"
         buttons={bannerButtons}
+        notifications={notifications}
       />
       <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />

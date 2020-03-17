@@ -88,24 +88,18 @@ data: [
   // 匹配 日期为 2019-10-01，且数值为 3 的数据点
   { date: '2019-10-01', value: 3 },
 ];
-```
-
-## field
-
-**optional** string
-
-标注点映射的数据字段，用于标注点标签
 
 ## label
 
 **optional** object
 
-- `visible` 标注点标签是否可见
-- `formatter` 标签格式化
-- `position` 标注点标签位置，`top` | `bottom`
-- `offsetX` x 方向偏移
-- `offsetY` y 方向偏移
-- `style` 样式
+- `visible: boolean` 标注点标签是否可见
+- `formatter: function` 标签格式化
+- `field: string` 标注点映射的数据字段，用于标注点标签
+- `position: string` 标注点标签位置，`top` | `bottom`
+- `offsetX: number` x 方向偏移
+- `offsetY: number` y 方向偏移
+- `style: object` 样式
 
 ## style
 
@@ -124,11 +118,3 @@ data: [
 - `mouseenter` 鼠标移入事件
 - `mouseleave` 鼠标移出事件
 - `click` 鼠标 click 事件
-
-- Modern browsers and Internet Explorer 9+ (with [polyfills](https:// ant.design/docs/react/getting-started#Compatibility))
-- Server-side Rendering
-- [Electron](http:// electron.atom.io/)
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http:// godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IE9, IE10, IE11, Edge                                                                                                                                                                                            | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |

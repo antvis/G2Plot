@@ -17,12 +17,12 @@ interface MarkerItem {
 interface Cfg {
   view: View;
   data: any[];
-  /** marker point 映射的字段 */
-  field?: string;
   symbol?: string | ((x: number, y: number, r: number) => any[][]);
   size?: number;
   label?: {
     visible: boolean;
+    /** marker point 映射的字段 */
+    field?: string;
     /** _origin: 原始数据 */
     formatter?: (text: string, item: MarkerItem, index: number) => string;
     position?: 'top' | 'bottom';
@@ -175,9 +175,9 @@ export default class MarkerPoint {
   }
 
   private _renderLabel(container: IGroup, origin: MappingDatum, index) {
-    const { label: labelCfg, field } = this.config;
+    const { label: labelCfg } = this.config;
     if (labelCfg && labelCfg.visible) {
-      const { offsetX = 0, offsetY = 0, formatter, position } = labelCfg;
+      const { offsetX = 0, offsetY = 0, formatter, position, field } = labelCfg;
       let text = origin._origin[field];
       if (formatter) {
         text = formatter(text, { _origin: origin._origin }, index);

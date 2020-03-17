@@ -63,9 +63,9 @@ describe('Marker Point', () => {
     const markerPoint = new MarkerPoint({
       view: line.getLayer().view,
       data: [data[0], data[1]],
-      field: 'description',
       label: {
         visible: true,
+        field: 'description',
         style: {
           fill: 'red',
         },
@@ -86,9 +86,9 @@ describe('Marker Point', () => {
     const markerPoint = new MarkerPoint({
       view: line.getLayer().view,
       data: [data[0], data[1]],
-      field: 'description',
       label: {
         visible: true,
+        field: 'description',
         position: 'bottom',
         offsetX: 10,
         offsetY: 5,
@@ -109,7 +109,10 @@ describe('Marker Point', () => {
     const markerPoint = new MarkerPoint({
       view: line.getLayer().view,
       data: [data[0], data[1]],
-      field: 'description',
+      label: {
+        visible: true,
+        field: 'description',
+      },
       events: {
         click: () => (clicked = true),
       },

@@ -2,11 +2,12 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import { get, each, clone } from '@antv/util';
+import { get } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
 import { getGlobalTheme } from '../../../../theme';
+import { sortedLastIndex } from '../../../../util/common';
 
 interface PointerStyle {
   /** 指针颜色 */
@@ -43,20 +44,6 @@ interface RingStyle {
   angle: number;
   /** 刻度线样式 */
   axis: AxisStyle;
-}
-
-function sortedLastIndex(arr: number[], value: number) {
-  const array = clone(arr);
-  array.sort((a, b) => {
-    return a - b;
-  });
-  let last = 0;
-  each(array, (v, index) => {
-    if (v < value) {
-      last = index;
-    }
-  });
-  return last + 1;
 }
 
 /**

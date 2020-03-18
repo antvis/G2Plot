@@ -1,4 +1,4 @@
-import { IShape } from '@antv/g-base/lib/interfaces';
+import { IShape } from '@antv/g-base';
 import { has, each } from '@antv/util';
 import { getMedian } from '../../math';
 

@@ -76,3 +76,6 @@ demos/assets/screenshots
 
 *.sw*
 *.un~
+
+.vscode
+/stats.json

@@ -1,4 +1,4 @@
-import { IShape } from '@antv/g-base/lib/interfaces';
+import { IShape } from '@antv/g-base';
 
 import datetimeStringAbbrevaite, { isTime } from './datetime-string-abbrevaite';
 import digitsAbbreviate from './digits-abbreviate';

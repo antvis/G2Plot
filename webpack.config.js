@@ -13,6 +13,7 @@ module.exports = {
     path: resolve(__dirname, 'dist/'),
   },
   resolve: {
+    mainFields: ['module', 'main'],
     extensions: ['.ts', '.js', '.less'],
   },
   module: {

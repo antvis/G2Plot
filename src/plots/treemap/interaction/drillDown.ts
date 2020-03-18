@@ -1,6 +1,6 @@
 import Breadcrumb from '../../../components/breadcrumb';
 import BaseInteraction from '../../../interaction/base';
-import { IGroup } from '@antv/g-base/lib/interfaces';
+import { IGroup } from '@antv/g-base';
 import BBox from '../../../util/bbox';
 import TreemapLayer from '../layer';
 import { each, hasKey, isFunction, clone } from '@antv/util';

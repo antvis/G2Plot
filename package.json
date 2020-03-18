@@ -48,7 +48,8 @@
     "ci": "run-s lint-check build coverage",
     "compare-live": "node scripts/compare.js",
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
-    "changelog": "conventional-changelog -i CHANGELOG.md -a -s"
+    "changelog": "conventional-changelog -i CHANGELOG.md -a -s",
+    "analyze": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
   "husky": {
     "hooks": {
@@ -57,24 +58,20 @@
     }
   },
   "dependencies": {
+    "@antv/component": "~0.5.0",
+    "@antv/coord": "~0.2.4",
+    "@antv/dom-util": "~2.0.2",
     "@antv/event-emitter": "~0.1.1",
-    "@antv/g2": "^4.0.0-beta.17",
-    "d3-regression": "^1.2.8",
-    "fecha": "~4.0.0",
+    "@antv/g-base": "~0.4.0",
+    "@antv/g-canvas": "~0.4.0",
+    "@antv/g-svg": "~0.4.0",
+    "@antv/g2": "~4.0.2",
+    "@antv/matrix-util": "~2.0.5",
+    "@antv/scale": "~0.3.1",
+    "@antv/util": "~2.0.7",
+    "d3-regression": "~1.2.8",
     "resize-observer-polyfill": "^1.5.1",
-    "warning": "~4.0.3"
-  },
-  "peerDependencies": {
-    "@antv/g-base": "^0.3.1",
-    "@antv/g-canvas": "^0.3.1",
-    "@antv/g-svg": "^0.3.1",
-    "@antv/component": "^0.5.0-beta.32",
-    "@antv/dom-util": "~2.0.1",
-    "@antv/event-emitter": "^0.1.1",
-    "@antv/matrix-util": "~2.0.2",
-    "@antv/scale": "^0.3.0",
-    "@antv/util": "~2.0.4",
-    "@antv/coord": "~0.2.2"
+    "warning": "^4.0.3"
   },
   "devDependencies": {
     "@antv/gatsby-theme-antv": "^0.10.43",

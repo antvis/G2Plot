@@ -1,5 +1,5 @@
 /** 负责将shape数据转为node，使shape根据node数据进行update */
-import { IShape } from '@antv/g-base/lib/interfaces';
+import { IShape } from '@antv/g-base';
 import { deepMix, each } from '@antv/util';
 import * as MathUtil from '../../math';
 

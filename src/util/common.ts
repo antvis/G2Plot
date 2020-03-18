@@ -47,3 +47,14 @@ export function getLegendShapes(view) {
   });
   return axisShape;
 }
+
+export function sortedLastIndex<T>(arr: T[], val: T): number {
+  let i = arr.length;
+  while (i > 0) {
+    if (val >= arr[i - 1]) {
+      break;
+    }
+    i -= 1;
+  }
+  return i;
+}

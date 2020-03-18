@@ -1,9 +1,6 @@
 import { deepMix, contains, isFunction, get, findIndex, isEqual, each, set, isArray, assign } from '@antv/util';
 import { createDom, modifyCSS } from '@antv/dom-util';
-import { IGroup, IShape } from '@antv/g-base';
-import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
-import TooltipHtmlTheme from '@antv/component/lib/tooltip/html-theme';
-import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
+import { IGroup, IShape, HtmlTooltipTheme, TooltipCssConst, DEFAULT_ANIMATE_CFG } from '../../dependents';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -220,19 +217,19 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
           clss = TooltipCssConst.CONTAINER_CLASS;
           el = createDom(`<div class="${clss}"></div>`);
-          modifyCSS(el, TooltipHtmlTheme[clss]);
+          modifyCSS(el, HtmlTooltipTheme[clss]);
           const elRoot = el;
 
           if (title) {
             clss = TooltipCssConst.TITLE_CLASS;
             el = createDom(`<div class="${clss}"></div>`);
-            modifyCSS(el, TooltipHtmlTheme[clss]);
+            modifyCSS(el, HtmlTooltipTheme[clss]);
             elRoot.appendChild(el);
             const elTitle = el;
 
             clss = TooltipCssConst.MARKER_CLASS;
             el = createDom(`<span class="${clss}"></span>`);
-            modifyCSS(el, TooltipHtmlTheme[clss]);
+            modifyCSS(el, HtmlTooltipTheme[clss]);
             modifyCSS(el, { width: '10px', height: '10px' });
             elTitle.appendChild(el);
             elMarker = el;
@@ -244,7 +241,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
           if (items) {
             clss = TooltipCssConst.LIST_CLASS;
             el = createDom(`<ul class="${clss}"></ul>`);
-            modifyCSS(el, TooltipHtmlTheme[clss]);
+            modifyCSS(el, HtmlTooltipTheme[clss]);
             elRoot.appendChild(el);
             const elList = el;
 
@@ -261,18 +258,18 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
               .forEach(([compareValue, yValue], index) => {
                 clss = TooltipCssConst.LIST_ITEM_CLASS;
                 el = createDom(`<li class="${clss}" data-index=${index}></li>`);
-                modifyCSS(el, TooltipHtmlTheme[clss]);
+                modifyCSS(el, HtmlTooltipTheme[clss]);
                 elList.appendChild(el);
                 const elListItem = el;
 
                 clss = TooltipCssConst.NAME_CLASS;
                 el = createDom(`<span class="${clss}">${compareValue}</span>`);
-                modifyCSS(el, TooltipHtmlTheme[clss]);
+                modifyCSS(el, HtmlTooltipTheme[clss]);
                 elListItem.appendChild(el);
 
                 clss = TooltipCssConst.VALUE_CLASS;
                 el = createDom(`<span class="${clss}">${yValue}</span>`);
-                modifyCSS(el, TooltipHtmlTheme[clss]);
+                modifyCSS(el, HtmlTooltipTheme[clss]);
                 elListItem.appendChild(el);
               });
           }

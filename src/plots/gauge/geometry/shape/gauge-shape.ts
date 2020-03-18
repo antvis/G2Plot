@@ -2,11 +2,12 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import { get, sortedLastIndex } from 'lodash';
+import { get } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
 import { getGlobalTheme } from '../../../../theme';
+import { sortedLastIndex } from '../../../../util/common';
 
 interface PointerStyle {
   /** 指针颜色 */

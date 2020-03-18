@@ -1,6 +1,5 @@
 import { isArray, mix, hasKey, each, has, isFunction, clone, deepMix, isString, isNumber } from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import Marker, { MarkerConfig } from './component/marker';
@@ -24,7 +23,7 @@ interface UpdateConfig {
   marker?: MarkerConfig[];
 }
 
-export interface ProgressLayerConfig extends ProgressViewConfig, LayerConfig {}
+export interface ProgressLayerConfig extends ProgressViewConfig {}
 
 const G2_GEOM_MAP = {
   progress: 'interval',

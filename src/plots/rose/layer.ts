@@ -159,7 +159,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
 
   protected addGeometry() {
     const options = this.options;
-    this.adjustLegendOptions();
     const rose = getGeom('interval', 'main', {
       plot: this,
       positionFields: [options.categoryField, options.radiusField],
@@ -217,9 +216,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     const label = deepMix({}, options.label as Label);
     this.adjustLabelOptions(label);
     const fields = [options.categoryField, options.radiusField];
-    if (options.stackField || options.groupField) {
-      fields.push(options.stackField || options.groupField);
-    }
     const labelConfig = getComponent('label', {
       plot: this,
       labelType: 'polar',
@@ -241,16 +237,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       if (!content) {
         // 默认显示 数值
         labelOptions.content = (text, item) => `${item._origin[radiusField]}`;
-      }
-    }
-  }
-
-  private adjustLegendOptions() {
-    const options = this.options;
-    const legendOptions = options.legend;
-    if (legendOptions) {
-      if (!options.stackField && !options.groupField) {
-        legendOptions.clickable = false;
       }
     }
   }

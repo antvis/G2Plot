@@ -48,6 +48,22 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
   protected parseEvents() {
     super.parseEvents(EventParser);
   }
+
+  protected extractTooltip() {
+    this.points.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.points.tooltip.fields = tooltipOptions.fields;
+    } else {
+      this.points.tooltip.fields = [this.options.xField, this.options.yField, this.options.sizeField];
+    }
+    if (tooltipOptions.formatter) {
+      this.points.tooltip.callback = tooltipOptions.formatter;
+      if (this.options.colorField) {
+        this.points.tooltip.fields.push(this.options.colorField);
+      }
+    }
+  }
 }
 
 registerPlotType('bubble', BubbleLayer);

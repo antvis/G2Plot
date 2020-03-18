@@ -158,6 +158,7 @@ export interface Legend {
 
 export interface Tooltip {
   visible?: boolean;
+  fields?: string[];
   shared?: boolean;
   /** html */
   showTitle?: boolean;

@@ -207,7 +207,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   protected adjustBar(bar: ElementOption) {}
 
   protected addGeometry() {
-    const props = this.options;
+    const props: any = this.options;
     const bar = getGeom('interval', 'main', {
       positionFields: [props.yField, props.xField],
       plot: this,
@@ -222,6 +222,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     }
     this.adjustBar(bar);
     this.bar = bar;
+
+    if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
+
     this.setConfig('geometry', bar);
   }
 
@@ -250,6 +255,23 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         ...this.options.label,
       });
       label.render();
+    }
+  }
+
+  protected geometryTooltip() {
+    this.bar.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.bar.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.bar.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.bar.tooltip.fields = [this.options.xField, this.options.yField];
+        if (this.options.colorField) {
+          this.bar.tooltip.fields.push(this.options.colorField);
+        }
+      }
     }
   }
 

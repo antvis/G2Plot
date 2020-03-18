@@ -77,6 +77,20 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
     super.afterRender();
   }
 
+  protected geometryTooltip() {
+    this.area.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.area.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.area.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.area.tooltip.fields = [this.options.xField, this.options.yField, this.options.stackField];
+      }
+    }
+  }
+
   protected renderPlotComponents() {
     const componentsType = ['areaLabel', 'lineLabel'];
     each(componentsType, (t) => {

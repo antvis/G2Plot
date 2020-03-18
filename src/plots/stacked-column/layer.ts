@@ -81,6 +81,20 @@ export default class StackedColumnLayer<
       label.render();
     }
   }
+
+  protected geometryTooltip() {
+    this.column.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.column.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.column.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.column.tooltip.fields = [this.options.xField, this.options.yField, this.options.stackField];
+      }
+    }
+  }
 }
 
 registerPlotType('stackedColumn', StackedColumnLayer);

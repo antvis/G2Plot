@@ -1,6 +1,7 @@
 import BaseComponent, { BaseComponentConfig } from './base';
 import { IGroup, BBox, IShape } from '../dependents';
 import { move } from '../util/g-util';
+import { IStyleConfig, IStyle } from '../interface/config';
 
 export interface BreadcrumbItem {
   key: string;
@@ -61,21 +62,11 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     opacity?: number;
   };
   private separator: string;
-  private separatorStyle: {
-    textBaseline: string;
-    fontSize?: number;
-    fill?: string;
-    opacity?: number;
-  };
+  private separatorStyle: IStyleConfig;
   private itemWidth: number | undefined;
   private itemHeight: number | undefined;
   private maxItemWidth: number | undefined;
-  private textStyle: {
-    textBaseline: string;
-    fontSize?: number;
-    fill?: string;
-    opacity?: number;
-  };
+  private textStyle: IStyleConfig;
 
   private listeners: { target: IShape | IGroup; event: string; callback: () => void }[] = [];
 

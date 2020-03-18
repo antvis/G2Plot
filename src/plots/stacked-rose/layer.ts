@@ -47,6 +47,20 @@ export default class StackedRoseLayer<T extends StackedRoseLayerConfig = Stacked
       },
     ];
   }
+
+  protected geometryTooltip() {
+    this.rose.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.rose.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.rose.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.rose.tooltip.fields = [this.options.radiusField, this.options.categoryField, this.options.stackField];
+      }
+    }
+  }
 }
 
 registerPlotType('stackedRose', StackedRoseLayer);

@@ -90,6 +90,20 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
       label.render();
     }
   }
+
+  protected geometryTooltip() {
+    this.bar.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.bar.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.bar.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.bar.tooltip.fields = [this.options.xField, this.options.yField, this.options.stackField];
+      }
+    }
+  }
 }
 
 registerPlotType('stackedBar', StackedBarLayer);

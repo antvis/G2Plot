@@ -178,6 +178,10 @@ export default class DensityHeatmapLayer<
       config.intensity = this.options.intensity;
     }
 
+    if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
+      this.geometryTooltip(config);
+    }
+
     this.setConfig('geometry', config);
 
     this.addPoint();
@@ -218,6 +222,23 @@ export default class DensityHeatmapLayer<
 
   protected legend() {
     this.setConfig('legends', false);
+  }
+
+  protected geometryTooltip(config) {
+    config.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      config.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      config.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        config.tooltip.fields = [this.options.xField, this.options.yField];
+        if (this.options.colorField) {
+          config.tooltip.fields.push(this.options.colorField);
+        }
+      }
+    }
   }
 
   protected parseEvents(eventParser) {

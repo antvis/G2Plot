@@ -9,7 +9,7 @@ export interface MarkerConfig {
   style?: any;
 }
 
-export default class Marker<T extends MarkerConfig = MarkerConfig> {
+export default class Marker {
   public canvas: Canvas;
   public view: View;
   public progressSize: number;
@@ -19,7 +19,7 @@ export default class Marker<T extends MarkerConfig = MarkerConfig> {
   protected container: IGroup;
   protected shape: IShape;
 
-  constructor(cfg) {
+  constructor(cfg: MarkerConfig) {
     assign(this, cfg);
     this.init();
   }

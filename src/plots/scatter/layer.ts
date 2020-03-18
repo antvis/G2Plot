@@ -217,9 +217,6 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     if (this.options.label) {
       this.label();
     }
-    if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
-      this.geometryTooltip();
-    }
     this.setConfig('geometry', points);
   }
 

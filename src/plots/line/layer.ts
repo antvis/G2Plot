@@ -130,10 +130,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
-    trySetScaleMinToZero(
+    /** 暂时注销，需要考虑数据更新 */
+    /*trySetScaleMinToZero(
       scales[props.yField],
       map(props.data as any, (item) => item[props.yField])
-    );
+    );*/
     super.scale();
   }
 

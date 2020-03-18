@@ -178,6 +178,9 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     waterfall.style = this._parseStyle();
     waterfall.color = this._parseColor();
     this.waterfall = waterfall;
+    if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
     this.setConfig('geometry', waterfall);
   }
 
@@ -252,6 +255,20 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
 
   protected parseEvents(eventParser) {
     super.parseEvents(EventParser);
+  }
+
+  protected geometryTooltip() {
+    this.waterfall.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.waterfall.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.waterfall.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.waterfall.tooltip.fields = [this.options.xField, VALUE_FIELD];
+      }
+    }
   }
 
   /** 牵引线的样式注入到style中 */

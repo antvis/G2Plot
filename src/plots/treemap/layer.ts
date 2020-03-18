@@ -145,6 +145,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
         fields: ['name', 'value'],
       },
     };
+    if (this.options.tooltip && this.options.tooltip.formatter) {
+      this.rect.tooltip.callback = this.options.tooltip.formatter;
+    }
     this.setConfig('geometry', this.rect);
   }
 

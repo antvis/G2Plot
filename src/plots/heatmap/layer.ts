@@ -153,13 +153,18 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
 
   protected addGeometry() {
     this.gridSize = this.getGridSize();
+    let geomConfig;
     if (this.options.shapeType === 'rect') {
-      const rect = this.addRect();
-      this.setConfig('geometry', rect);
+      geomConfig = this.addRect();
     } else {
       const circle = this.addCircle();
-      this.setConfig('geometry', circle);
+      geomConfig = circle;
     }
+    if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
+      this.geometryTooltip(geomConfig);
+    }
+
+    this.setConfig('geometry', geomConfig);
   }
 
   protected addRect() {
@@ -229,6 +234,23 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
       };
     }
     return circle;
+  }
+
+  protected geometryTooltip(config) {
+    config.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      config.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      config.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        config.tooltip.fields = [this.options.xField, this.options.yField];
+        if (this.options.colorField) {
+          config.tooltip.fields.push(this.options.colorField);
+        }
+      }
+    }
   }
 
   private getGridSize() {

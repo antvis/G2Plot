@@ -175,7 +175,27 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     }
     this.adjustColumn(column);
     this.column = column;
+    if (options.tooltip && (options.tooltip.fields || options.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
     this.setConfig('geometry', column);
+  }
+
+  protected geometryTooltip() {
+    this.column.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.column.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.column.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.column.tooltip.fields = [this.options.xField, this.options.yField];
+        if (this.options.colorField) {
+          this.column.tooltip.fields.push(this.options.colorField);
+        }
+      }
+    }
   }
 
   protected animation() {

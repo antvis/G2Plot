@@ -21,8 +21,6 @@ export interface RoseViewConfig extends ViewConfig {
   radiusField: string;
   categoryField: string;
   colorField?: string;
-  stackField?: string;
-  groupField?: string;
   radius?: number;
   innerRadius?: number;
   /** 每个扇形切片的样式 */
@@ -161,8 +159,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
 
   protected addGeometry() {
     const options = this.options;
-    this.adjustColorFieldMapping();
-    this.adjustLegendOptions();
     const rose = getGeom('interval', 'main', {
       plot: this,
       positionFields: [options.categoryField, options.radiusField],
@@ -173,33 +169,28 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     rose.label = this.extractLabel();
     rose.adjust = this.adjustRoseAdjust();
     this.rose = rose;
+    if (options.tooltip && (options.tooltip.fields || options.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
     this.setConfig('geometry', rose);
   }
 
-  protected adjustColorFieldMapping() {
-    const options = this.options;
-    if (options.stackField || options.groupField) {
-      this.options.colorField = null;
-    }
+  protected adjustRoseAdjust() {
+    return;
   }
 
-  protected adjustRoseAdjust() {
-    /*if (this.options.stackField) {
-      return [
-        {
-          type: 'stack',
-        },
-      ];
-    } else if (this.options.groupField) {
-      return [
-        {
-          type: 'dodge',
-          marginRatio: 1,
-        },
-      ];
+  protected geometryTooltip() {
+    this.rose.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.rose.tooltip.fields = tooltipOptions.fields;
     }
-    return null;*/
-    return;
+    if (tooltipOptions.formatter) {
+      this.rose.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.rose.tooltip.fields = [this.options.radiusField, this.options.categoryField, this.options.colorField];
+      }
+    }
   }
 
   protected animation() {
@@ -225,9 +216,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     const label = deepMix({}, options.label as Label);
     this.adjustLabelOptions(label);
     const fields = [options.categoryField, options.radiusField];
-    if (options.stackField || options.groupField) {
-      fields.push(options.stackField || options.groupField);
-    }
     const labelConfig = getComponent('label', {
       plot: this,
       labelType: 'polar',
@@ -249,16 +237,6 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
       if (!content) {
         // 默认显示 数值
         labelOptions.content = (text, item) => `${item._origin[radiusField]}`;
-      }
-    }
-  }
-
-  private adjustLegendOptions() {
-    const options = this.options;
-    const legendOptions = options.legend;
-    if (legendOptions) {
-      if (!options.stackField && !options.groupField) {
-        legendOptions.clickable = false;
       }
     }
   }

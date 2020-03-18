@@ -2,7 +2,7 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import { get, sortedLastIndex } from 'lodash';
+import { get, each, clone } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
@@ -43,6 +43,20 @@ interface RingStyle {
   angle: number;
   /** 刻度线样式 */
   axis: AxisStyle;
+}
+
+function sortedLastIndex(arr: number[], value: number) {
+  const array = clone(arr);
+  array.sort((a, b) => {
+    return a - b;
+  });
+  let last = 0;
+  each(array, (v, index) => {
+    if (v < value) {
+      last = index;
+    }
+  });
+  return last + 1;
 }
 
 /**
@@ -265,6 +279,7 @@ export class GaugeShape {
             });
 
             const index = sortedLastIndex(result1, start);
+            console.log(index);
             /** 最后一个值也在最后一个区间内 */
             const colorIndex = Math.min(index, range.length - 1);
             fillColor = colors[colorIndex - 1] || background;

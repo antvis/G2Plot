@@ -109,7 +109,7 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
   }
 
   protected addGeometry(): void {
-    const { valueField, colors } = this.options;
+    const { valueField, colors, tooltip } = this.options;
     const polygonConfig: any = {
       type: 'polygon',
       position: {
@@ -125,7 +125,25 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
       label: this.extractLabel(),
     };
 
+    if (tooltip && (tooltip.fields || tooltip.formatter)) {
+      this.geometryTooltip(polygonConfig);
+    }
+
     this.setConfig('geometry', polygonConfig);
+  }
+
+  protected geometryTooltip(geomConfig) {
+    geomConfig.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      geomConfig.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      geomConfig.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        geomConfig.tooltip.fields = [WEEK_FIELD, DAY_FIELD];
+      }
+    }
   }
 
   private extractLabel() {

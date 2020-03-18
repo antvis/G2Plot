@@ -256,10 +256,19 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
   }
 
   protected extractTooltip() {
-    const props = this.options;
-    return {
-      fields: [props.xField, props.yField],
-    };
+    this.points.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.points.tooltip.fields = tooltipOptions.fields;
+    } else {
+      this.points.tooltip.fields = [this.options.xField, this.options.yField];
+    }
+    if (tooltipOptions.formatter) {
+      this.points.tooltip.callback = tooltipOptions.formatter;
+      if (this.options.colorField) {
+        this.points.tooltip.fields.push(this.options.colorField);
+      }
+    }
   }
 }
 

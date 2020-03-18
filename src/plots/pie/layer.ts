@@ -154,7 +154,24 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     if (props.label) {
       this.label();
     }
+    if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
     this.setConfig('geometry', pie);
+  }
+
+  protected geometryTooltip() {
+    this.pie.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.pie.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.pie.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.pie.tooltip.fields = [this.options.angleField, this.options.colorField];
+      }
+    }
   }
 
   protected animation() {

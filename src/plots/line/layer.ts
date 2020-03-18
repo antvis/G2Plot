@@ -147,7 +147,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   }
 
   private addLine() {
-    const props = this.options;
+    const props: any = this.options;
     this.line = getGeom('line', 'main', {
       plot: this,
     });
@@ -155,6 +155,11 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     if (props.label) {
       this.label();
     }
+
+    if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
+
     this.setConfig('geometry', this.line);
   }
 
@@ -190,6 +195,23 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         fields: [props.yField],
         ...label,
       });
+    }
+  }
+
+  protected geometryTooltip() {
+    this.line.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.line.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.line.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.line.tooltip.fields = [this.options.xField, this.options.yField];
+        if (this.options.seriesField) {
+          this.line.tooltip.fields.push(this.options.seriesField);
+        }
+      }
     }
   }
 

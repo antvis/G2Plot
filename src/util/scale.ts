@@ -70,7 +70,7 @@ export function trySetScaleMinToZero(desScale: ScaleConfig, data: (number | numb
     if (isNil(desScale.min)) {
       desScale.min = 0;
     }
-  } else if (max <= 0) {
+  } else if (max < 0) {
     if (isNil(desScale.max)) {
       desScale.max = 0;
     }

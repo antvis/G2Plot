@@ -80,6 +80,20 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
       },
     ];
   }
+
+  protected geometryTooltip() {
+    this.bar.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.bar.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.bar.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.bar.tooltip.fields = [this.options.xField, this.options.yField, this.options.groupField];
+      }
+    }
+  }
 }
 
 registerPlotType('groupedBar', GroupedBarLayer);

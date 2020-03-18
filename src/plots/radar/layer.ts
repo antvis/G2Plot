@@ -266,6 +266,27 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     if (props.label) {
       this.label();
     }
+    if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
+  }
+
+  protected geometryTooltip() {
+    const geomConfig = this.line ? this.line : this.area;
+    geomConfig.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      geomConfig.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      geomConfig.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        geomConfig.tooltip.fields = [this.options.angleField, this.options.radiusField];
+      }
+      if (this.options.seriesField) {
+        geomConfig.tooltip.fields.push(this.options.seriesField);
+      }
+    }
   }
 
   protected label() {

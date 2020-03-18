@@ -138,7 +138,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   protected coord() {}
 
   protected addGeometry() {
-    const props = this.options;
+    const props: any = this.options;
     const area = getGeom('area', 'main', {
       plot: this,
     });
@@ -147,6 +147,11 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     if (props.label) {
       this.label();
     }
+
+    if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
+      this.geometryTooltip();
+    }
+
     this.adjustArea(area);
     this.setConfig('geometry', area);
 
@@ -168,7 +173,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   }
 
   protected addLine() {
-    const props = this.options;
+    const props: any = this.options;
     const lineConfig = deepMix({}, props.line);
     if (lineConfig.visible) {
       const line = getGeom('line', 'guide', {
@@ -221,6 +226,23 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       fields: [props.yField],
       plot: this,
     });
+  }
+
+  protected geometryTooltip() {
+    this.area.tooltip = {};
+    const tooltipOptions: any = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.area.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.area.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.area.tooltip.fields = [this.options.xField, this.options.yField];
+        if (this.options.seriesField) {
+          this.area.tooltip.fields.push(this.options.seriesField);
+        }
+      }
+    }
   }
 
   protected parseEvents(eventParser) {

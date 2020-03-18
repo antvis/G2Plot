@@ -279,7 +279,6 @@ export class GaugeShape {
             });
 
             const index = sortedLastIndex(result1, start);
-            console.log(index);
             /** 最后一个值也在最后一个区间内 */
             const colorIndex = Math.min(index, range.length - 1);
             fillColor = colors[colorIndex - 1] || background;

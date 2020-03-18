@@ -1,13 +1,13 @@
-import { Axis } from '@antv/component';
 import BBox from '../../util/bbox';
 import { getScale } from '@antv/scale';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';
-import { convertToG2Theme, getGlobalTheme } from '../../theme';
+import { getGlobalTheme } from '../../theme';
 import { isSingleGraph } from './adjustColorConfig';
 import { getOverlappingPadding } from './padding';
 import { getComponent } from '../../components/factory';
 import { translate } from '../../util/g-util';
+import { Axis } from '../../dependents';
 
 const AXIS_GAP = 4;
 

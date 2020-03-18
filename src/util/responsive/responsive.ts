@@ -1,6 +1,5 @@
 /** 可插拔的responsive模块 */
-import { IShape } from '@antv/g-base/lib/interfaces';
-import { BBox } from '@antv/g-base/lib/types';
+import { IShape, BBox } from '@antv/g-base';
 import { assign } from '@antv/util';
 import { constraintsLib } from './constraints/index';
 import ShapeNodes, { IShapeNode } from './node/shape-nodes';

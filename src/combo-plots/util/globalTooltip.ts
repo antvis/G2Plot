@@ -1,6 +1,5 @@
 import { each, contains, isArray, isObject, indexOf, isNil, has, keys } from '@antv/util';
-import { Tooltip } from '@antv/component';
-import { getShapeFactory } from '@antv/g2';
+import { Tooltip, getShapeFactory } from '../../dependents';
 import { getGlobalTheme } from '../../theme/global';
 
 const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack'];

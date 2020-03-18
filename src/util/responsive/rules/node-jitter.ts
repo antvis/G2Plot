@@ -1,4 +1,4 @@
-import { IShape } from '@antv/g-base/lib/interfaces';
+import { IShape } from '@antv/g-base';
 import { dotProduct2D } from '../../math';
 
 /** 图形在水平或垂直方向抖开 */

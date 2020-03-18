@@ -1,8 +1,7 @@
 import { Pie } from '../../../../src';
-import { BBox, IGroup, IShape } from '@antv/g-canvas';
+import { BBox, IShape } from '@antv/g-canvas';
 import { some, every, filter } from '@antv/util';
 import { createDiv } from '../../../utils/dom';
-import Polar from '@antv/coord/lib/coord/polar';
 
 describe('pie outer label', () => {
   it('normal label', () => {

@@ -1,4 +1,4 @@
-import { IShape } from '@antv/g-base/lib/interfaces';
+import { IShape } from '@antv/g-base';
 import { each } from '@antv/util';
 import textHide from './text-hide';
 

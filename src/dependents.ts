@@ -14,6 +14,7 @@ export {
   registerShape,
   getTheme,
   Util,
+  getShapeFactory,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
 export {
@@ -27,10 +28,12 @@ export {
   AdjustOption,
   LabelOption,
 } from '@antv/g2/lib/interface';
+export { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
 
 // Component
 import HtmlTooltip from '@antv/component/lib/tooltip/html';
-export { HtmlTooltip };
-export { Axis, Slider } from '@antv/component';
-export { Scrollbar } from '@antv/component/lib/scrollbar/scrollbar';
+import HtmlTooltipTheme from '@antv/component/lib/tooltip/html-theme';
+import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
+export { HtmlTooltip, HtmlTooltipTheme, TooltipCssConst };
+export { Axis, Legend, Tooltip, Slider, Scrollbar } from '@antv/component';
 export { TooltipCfg } from '@antv/component/lib/types';

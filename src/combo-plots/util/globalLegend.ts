@@ -1,4 +1,4 @@
-import { Legend } from '@antv/component';
+import { Legend } from '../../dependents';
 import BBox from '../../util/bbox';
 import * as _ from '@antv/util';
 import ViewLayer from '../../base/view-layer';

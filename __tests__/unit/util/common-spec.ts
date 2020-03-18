@@ -1,4 +1,4 @@
-import { isTextUsable, breakText } from '../../../src/util/common';
+import { isTextUsable, breakText, sortedLastIndex } from '../../../src/util/common';
 
 test('check title description usable', () => {
   expect(isTextUsable(null)).toBe(false);
@@ -17,4 +17,13 @@ bc`);
   expect(breakText(['a', 'b', 'c', 'd'], [1, 2])).toBe(`a
 b
 cd`);
+});
+
+test('sortedLastIndex', () => {
+  expect(sortedLastIndex([4, 5, 5, 5, 6], 5)).toBe(4);
+  expect(sortedLastIndex([2, 3, 4], 1)).toBe(0);
+  expect(sortedLastIndex([2, 3, 4], 2)).toBe(1);
+  expect(sortedLastIndex([2, 3, 4], 3)).toBe(2);
+  expect(sortedLastIndex([2, 3, 4], 4)).toBe(3);
+  expect(sortedLastIndex([2, 3, 4], 5)).toBe(3);
 });

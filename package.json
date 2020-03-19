@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint test",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -140,7 +140,7 @@
       "git add"
     ],
     "*.ts": [
-      "eslint --ext .ts --fix ./src ./__tests__ ./demos",
+      "eslint --fix",
       "git add"
     ]
   },

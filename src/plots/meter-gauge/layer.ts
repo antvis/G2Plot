@@ -6,7 +6,7 @@ import { GaugeViewConfig } from '../gauge/options';
 import { getOptions } from '../gauge/geometry/shape/options';
 import { getGlobalTheme } from '../../theme';
 
-export interface MeterGaugeViewConfig extends GaugeViewConfig {}
+export type MeterGaugeViewConfig = GaugeViewConfig;
 
 export interface MeterGaugeLayerConfig extends MeterGaugeViewConfig, LayerConfig {}
 

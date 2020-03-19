@@ -32,7 +32,7 @@ export type Formatter = (text: string, item: any, idx: number) => string;
 /**
  * 通用 Shape 属性样式定义
  */
-export interface IStyleConfig extends ShapeAttrs {}
+export type IStyleConfig = ShapeAttrs;
 
 export interface IBaseAxis {
   /** 轴是否需要显示，默认true */

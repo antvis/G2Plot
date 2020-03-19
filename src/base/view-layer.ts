@@ -440,6 +440,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       // wordSpacing: get(this.options, 'legend.wordSpacing'),
       flipPage: flipOption,
       marker: get(this.options, 'legend.marker'),
+      title: get(this.options, 'legend.title'),
     });
   }
 

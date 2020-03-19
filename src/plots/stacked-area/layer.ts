@@ -2,6 +2,7 @@ import { deepMix, get, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, Label } from '../../interface/config';
+import { getComponent } from '../../components/factory';
 import BaseArea, { AreaViewConfig } from '../area/layer';
 import { getPlotComponents } from './component';
 
@@ -45,7 +46,26 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
     super.beforeInit();
   }
 
-  protected label() {}
+  protected label() {
+    const props = this.options;
+    const label = props.label as Label;
+
+    if (label.visible === false) {
+      if (this.line) {
+        this.line.label = false;
+      }
+      if (this.point) {
+        this.point.label = false;
+      }
+      this.area.label = false;
+      return;
+    } else if (label.type === 'point') {
+      this.area.label = getComponent('label', {
+        fields: [props.yField],
+        plot: this,
+      });
+    }
+  }
 
   protected adjustArea(ele: ElementOption) {
     ele.adjust = [

@@ -47,14 +47,18 @@ export default class LineLabel {
       const formatter = this.options.formatter;
       const content = formatter ? formatter(shapeInfo.name) : shapeInfo.name;
       this.container.addShape('text', {
-        attrs: deepMix({}, {
-          x: shapeInfo.x + offsetX,
-          y: shapeInfo.y + offsetY,
-          text: content,
-          fill: shapeInfo.color,
-          textAlign: 'left',
-          textBaseline: 'middle',
-        },style),
+        attrs: deepMix(
+          {},
+          {
+            x: shapeInfo.x + offsetX,
+            y: shapeInfo.y + offsetY,
+            text: content,
+            fill: shapeInfo.color,
+            textAlign: 'left',
+            textBaseline: 'middle',
+          },
+          style
+        ),
         name: 'label',
       });
     });

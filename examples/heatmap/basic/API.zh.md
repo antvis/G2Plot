@@ -521,7 +521,7 @@ plot.changeData(newData);
 
 图表画布重绘。
 
-## destory()
+## destroy()
 
 **可选**
 

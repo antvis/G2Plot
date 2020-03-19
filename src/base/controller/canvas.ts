@@ -1,6 +1,7 @@
 import { modifyCSS } from '@antv/dom-util';
 import { Canvas, SVG, ICanvas } from '../../dependents';
 import { debounce, get } from '@antv/util';
+import { createDom } from '@antv/dom-util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
 import BasePlot from '../plot';
@@ -26,6 +27,7 @@ export default class CanvasController {
   public canvas: ICanvas;
 
   private containerDOM: HTMLElement;
+  private wrapperNode: HTMLElement;
   private plot: BasePlot; // temp
   private resizeObserver: any;
 
@@ -146,8 +148,9 @@ export default class CanvasController {
    * init life circle
    */
   private init() {
+    this.wrapperNode = createDom('<div style="position:relative;"></div>');
+    this.containerDOM.append(this.wrapperNode);
     this.initGCanvas();
-
     this.bindForceFit();
   }
 
@@ -162,7 +165,7 @@ export default class CanvasController {
     const G: ICanvasCtor = renderer === 'canvas' ? Canvas : SVG;
 
     this.canvas = new G({
-      container: this.containerDOM,
+      container: this.wrapperNode,
       width,
       height,
       pixelRatio,

@@ -23,7 +23,7 @@ interface UpdateConfig {
   marker?: MarkerConfig[];
 }
 
-export interface ProgressLayerConfig extends ProgressViewConfig {}
+export type ProgressLayerConfig = ProgressViewConfig;
 
 const G2_GEOM_MAP = {
   progress: 'interval',

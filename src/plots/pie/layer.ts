@@ -114,9 +114,11 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected scale() {
     const props = this.options;
-    const scales = {};
+    super.scale();
+    let scales = {};
     scales[props.angleField] = {};
     scales[props.colorField] = { type: 'cat' };
+    scales = deepMix({}, this.config.scales, scales);
     this.setConfig('scales', scales);
   }
 

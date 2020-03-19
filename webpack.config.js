@@ -59,10 +59,6 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin(),
     ...(process.env.MODE === 'ANALYZER' ? [new BundleAnalyzerPlugin({ analyzerMode: 'static' })] : []),
   ],
-  externals: {
-    moment: 'moment',
-    '../moment': 'moment',
-  },
   performance: {
     hints: false,
   },

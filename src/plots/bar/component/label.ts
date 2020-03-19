@@ -98,6 +98,7 @@ export default class BarLabel {
     this.destroyed = true;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public getBBox() {}
 
   protected getPosition(shape, value) {

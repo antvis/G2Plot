@@ -108,7 +108,7 @@ export default class AreaLabel {
       const formatter = this.options.formatter;
       const content = formatter ? formatter(p._origin[stackField]) : p._origin[stackField];
       const text = this.container.addShape('text', {
-        attrs: deepMix({}, style, {
+        attrs: deepMix({}, {
           x: p.x + offsetX,
           y: p.y + offsetY,
           text: content,
@@ -116,7 +116,7 @@ export default class AreaLabel {
           fontSize: labelSize,
           textAlign: 'center',
           textBaseline: 'top',
-        }),
+        }, style),
         name: 'label',
       });
       labelShapes.push(text);
@@ -153,6 +153,7 @@ export default class AreaLabel {
     const { theme } = this.plot;
     const labelStyle = clone(theme.label.style);
     labelStyle.stroke = null;
+    delete labelStyle.fill;
     return {
       offsetX: 0,
       offsetY: 0,

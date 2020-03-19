@@ -47,14 +47,14 @@ export default class LineLabel {
       const formatter = this.options.formatter;
       const content = formatter ? formatter(shapeInfo.name) : shapeInfo.name;
       this.container.addShape('text', {
-        attrs: deepMix({}, style, {
+        attrs: deepMix({}, {
           x: shapeInfo.x + offsetX,
           y: shapeInfo.y + offsetY,
           text: content,
           fill: shapeInfo.color,
           textAlign: 'left',
           textBaseline: 'middle',
-        }),
+        },style),
         name: 'label',
       });
     });
@@ -87,11 +87,12 @@ export default class LineLabel {
 
   private getDefaultOptions() {
     const { theme } = this.plot;
-    const labelStyle = theme.label.style;
+    const labelStyle = clone(theme.label.style);
+    delete labelStyle.fill;
     return {
       offsetX: DEFAULT_OFFSET,
       offsetY: 0,
-      style: clone(labelStyle),
+      style: labelStyle,
     };
   }
 

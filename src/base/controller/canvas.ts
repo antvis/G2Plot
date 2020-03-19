@@ -152,6 +152,9 @@ export default class CanvasController {
     this.containerDOM.append(this.wrapperNode);
     this.initGCanvas();
     this.bindForceFit();
+
+    // 追加容器的 css 样式，防止 tooltip 的位置参考点不正确
+    this.updateCanvasStyle({ position: 'relative' });
   }
 
   /**

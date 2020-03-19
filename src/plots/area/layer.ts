@@ -222,6 +222,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       this.area.label = false;
       return;
     }
+
     this.area.label = getComponent('label', {
       fields: [props.yField],
       plot: this,

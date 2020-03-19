@@ -277,7 +277,7 @@ plot.render();
 
 图表画布重绘。
 
-## destory()
+## destroy()
 
 **可选**
 

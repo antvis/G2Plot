@@ -136,12 +136,11 @@
   },
   "lint-staged": {
     "*.{ts,js,css,json}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.ts": [
       "eslint --fix",
-      "git add"
+      "prettier --write"
     ]
   },
   "license": "MIT"

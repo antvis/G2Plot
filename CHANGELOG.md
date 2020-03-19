@@ -1,4 +1,4 @@
-## <small>1.0.2 (2020-03-16)
+## <small>1.0.2 (2020-03-19)
 - 更新readme ([c2dbdd0](https://github.com/antvis/G2Plot/commit/c2dbdd0))
 - 🐞 gauge去除lodash依赖 ([8bf22bc](https://github.com/antvis/G2Plot/commit/8bf22bc))
 - 🐞 修复changeData不重新渲染 ([c7bd150](https://github.com/antvis/G2Plot/commit/c7bd150))

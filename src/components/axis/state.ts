@@ -12,7 +12,6 @@ function onActive(plot, condition) {
   each(labels, (label, index) => {
     const { labelData, con } = beforeCompare(label, condition);
     if (compare(labelData, con)) {
-      const originAttr = originAttrs[index];
       const disableStyle = labelActiveStyle();
       label.shape.attr(disableStyle);
     }

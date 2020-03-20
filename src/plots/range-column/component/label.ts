@@ -157,7 +157,7 @@ export default class RangeColumnLabel {
 
   private getPosition(shape) {
     const bbox = this.getShapeBbox(shape);
-    const { minX, minY, maxY,  width } = bbox;
+    const { minX, minY, maxY, width } = bbox;
     const { offsetY } = this.options;
     const x = minX + width / 2;
     let y1, y2;

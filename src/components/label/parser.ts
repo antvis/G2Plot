@@ -21,12 +21,12 @@ export default class LabelParser {
 
   protected init(cfg) {
     assign(this.config, cfg);
-    this.config.callback = (val, ...restArgs: any[]) => {
-      return this.parseCallBack(val, ...restArgs);
+    this.config.callback = (val) => {
+      return this.parseCallBack(val);
     };
   }
 
-  protected parseCallBack(val, ...restArgs: any[]) {
+  protected parseCallBack(val) {
     const labelProps = this.originConfig;
     const theme = this.plot.getPlotTheme();
     const config: LooseMap = { ...labelProps };

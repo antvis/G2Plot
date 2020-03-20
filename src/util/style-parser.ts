@@ -52,5 +52,4 @@ function AnnotationStyleParser() {
   return;
 }
 
-
 export { AxisStyleParser, TooltipStyleParser, LabelStyleParser, AnnotationStyleParser };

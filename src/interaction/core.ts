@@ -46,15 +46,19 @@ export default abstract class Interaction {
     this.afterStart(ev);
   }
 
-  protected preStart(ev):void{
+  /* eslint-disable */
+  protected preStart(ev): void {
     return;
   }
+  /* eslint-disable */
 
-  protected abstract start(ev):void
-
-  protected afterStart(ev):void {
+  protected abstract start(ev): void;
+  
+  /* eslint-disable */
+  protected afterStart(ev): void {
     return;
   }
+  /* eslint-disable */
 
   private _process(ev) {
     this.preProcess(ev);
@@ -62,6 +66,7 @@ export default abstract class Interaction {
     this.afterProcess(ev);
   }
 
+  /* eslint-disable */
   protected preProcess(ev): void {
     return;
   }
@@ -73,6 +78,7 @@ export default abstract class Interaction {
   protected afterProcess(ev): void {
     return;
   }
+  /* eslint-disable */
 
   private _end(ev) {
     this.preEnd(ev);
@@ -80,6 +86,7 @@ export default abstract class Interaction {
     this.afterEnd(ev);
   }
 
+  /* eslint-disable */
   protected preEnd(ev): void {
     return;
   }
@@ -91,6 +98,7 @@ export default abstract class Interaction {
   protected afterEnd(ev): void {
     return;
   }
+  /* eslint-disable */
 
   private _reset(ev?: any) {
     this.preReset(ev);
@@ -98,17 +106,19 @@ export default abstract class Interaction {
     this.afterReset(ev);
   }
 
+  /* eslint-disable */
   protected preReset(ev?: any): void {
     return;
   }
 
   protected reset(ev?: any): void {
-    return
+    return;
   }
 
   protected afterReset(ev?: any): void {
     return;
   }
+  /* eslint-disable */
 
   private _bindEvents() {
     each(EVENT_TYPES, (type) => {

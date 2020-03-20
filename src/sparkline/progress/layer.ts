@@ -189,9 +189,9 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   }
 
   protected parseEvents(eventParser?) {
-    if(eventParser){
+    if (eventParser) {
       super.parseEvents(eventParser);
-    }else{
+    } else {
       super.parseEvents(EventParser);
     }
   }

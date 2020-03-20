@@ -238,7 +238,7 @@ export default class OverlappedComboPlot<
     this.canvas.draw();
 
     if (this.globalOptions.tooltip.visible) {
-      const tooltip = ComboUtil.showTooltip(this.canvas, this.layers, this.globalOptions.tooltip);
+      const tooltip = ComboUtil.showTooltip(this.canvas, this.layers);
       this.globalComponents.push({ type: 'tooltip', component: tooltip });
     }
   }

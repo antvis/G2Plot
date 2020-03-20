@@ -9,7 +9,7 @@ function onActive(plot, condition) {
   if (!labels) {
     getAllAxisLabels(plot);
   }
-  each(labels, (label, index) => {
+  each(labels, (label) => {
     const { labelData, con } = beforeCompare(label, condition);
     if (compare(labelData, con)) {
       const disableStyle = labelActiveStyle();

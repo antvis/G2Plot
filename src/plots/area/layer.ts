@@ -161,7 +161,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     this.addPoint();
   }
 
-
   /* eslint-disable */
   protected adjustArea(area: ElementOption) {
     return;

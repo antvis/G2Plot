@@ -157,9 +157,11 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     return;
   }
 
-  protected adjustColumn(column?: ElementOption) {
+  /* eslint-disable */
+  protected adjustColumn(column: ElementOption) {
     return;
   }
+  /* eslint-disable */
 
   protected addGeometry() {
     const { options } = this;

@@ -19,7 +19,7 @@ export interface PlotConfig {
   theme?: LooseMap | string;
 }
 
-interface LayerCtor<C> extends ViewLayer<C> {}
+type LayerCtor = ViewLayer<C>;
 
 export default class BasePlot<
   T extends PlotConfig = PlotConfig,

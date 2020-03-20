@@ -1,5 +1,5 @@
 import { wrapBehavior, each, contains } from '@antv/util';
-import { IElement, ICanvas, IShape } from '../../dependents';
+import { ICanvas, IShape } from '../../dependents';
 import BBox from '../../util/bbox';
 import BasePlot from '../plot';
 import Layer from '../layer';

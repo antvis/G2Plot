@@ -34,7 +34,7 @@ const piePlot = new g2plot.Pie(document.getElementById('canvas'), {
   colorField: 'type',
   label: {
     visible: true,
-    formatter: (text, item, index) => {
+    formatter: (text, item) => {
       return `${(item.percent * 100).toFixed(2)}%`;
     },
   },

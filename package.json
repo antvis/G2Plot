@@ -40,7 +40,7 @@
     "lint": "lint-staged",
     "lint-check": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
     "lint-fix": "run-s lint-fix:*",
-    "lint-fix:eslint": "eslint --quiet --ext .ts --fix ./src ./__tests__ ./demos",
+    "lint-fix:eslint": "eslint --ext .ts --fix ./src ./__tests__ ./demos",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint test",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -136,12 +136,11 @@
   },
   "lint-staged": {
     "*.{ts,js,css,json}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.ts": [
-      "eslint --ext .ts --fix ./src ./__tests__ ./demos",
-      "git add"
+      "eslint --fix",
+      "prettier --write"
     ]
   },
   "license": "MIT"

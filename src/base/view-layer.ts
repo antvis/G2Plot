@@ -40,7 +40,11 @@ export interface ViewConfig {
   label?: Label;
   tooltip?: Tooltip;
   legend?: Legend;
-  animation?: any | boolean;
+  animation?:
+    | false
+    | {
+        type: string;
+      };
   theme?: LooseMap | string;
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];

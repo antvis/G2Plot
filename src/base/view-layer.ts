@@ -25,10 +25,17 @@ import { isTextUsable } from '../util/common';
 import { getOverlapArea } from '../util/bbox';
 import { LooseMap } from '../interface/types';
 
+interface MetaConfig {
+  alias?: string;
+  formatter?: (v: any) => string;
+  values?: string[];
+  range?: number[];
+}
+
 export interface ViewConfig {
   renderer?: string;
   data?: DataItem[];
-  meta?: LooseMap;
+  meta?: LooseMap<MetaConfig>;
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;

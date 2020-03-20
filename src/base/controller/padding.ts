@@ -150,7 +150,7 @@ export default class PaddingController {
     ];
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
-    const panelPadding = this._getPanel(view, box);
+    const panelPadding = this._getPanel(view);
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];

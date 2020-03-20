@@ -30,7 +30,7 @@ export default class StateController {
   }
 
   public createStateManager(cfg) {
-    this.stateManager = new StateManager(cfg);
+    this.stateManager = new StateManager();
   }
 
   public bindStateManager(manager: StateManager, cfg) {

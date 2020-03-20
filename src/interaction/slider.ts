@@ -109,6 +109,10 @@ export default class SliderInteraction extends BaseInteraction {
     });
   }
 
+  protected start(){
+    return;
+  }
+
   protected clear(): void {
     if (this.slider) {
       this.slider.destroy();

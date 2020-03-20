@@ -96,6 +96,10 @@ export default class ScrollbarInteraction extends BaseInteraction {
     });
   }
 
+  protected start(){
+    return;
+  }
+
   protected clear(): void {
     if (this.scrollbar) {
       this.scrollbar.destroy();
@@ -108,6 +112,8 @@ export default class ScrollbarInteraction extends BaseInteraction {
     this.trackLen = null;
     this.thumbLen = null;
   }
+
+
 
   private renderScrollbar(): void {
     const config: Required<IScrollbarInteractionConfig> = getValidScrollbarConfig(this.getInteractionConfig());

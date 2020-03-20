@@ -137,7 +137,9 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
   protected addGeometry() {
     // 配置线
@@ -264,7 +266,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     );
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

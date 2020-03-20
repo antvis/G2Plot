@@ -1,6 +1,5 @@
 import { Heatmap } from '../../../../src';
 import { clone } from '@antv/util';
-import { platform } from 'os';
 
 describe('matrix plot', () => {
   const canvasDiv = document.createElement('div');

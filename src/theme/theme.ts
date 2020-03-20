@@ -1,4 +1,3 @@
-import { getGlobalTheme } from './global';
 import { each, set, has, isEmpty } from '@antv/util';
 
 /**

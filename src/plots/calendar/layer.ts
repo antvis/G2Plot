@@ -1,6 +1,6 @@
 import { deepMix, isNil, map, get } from '@antv/util';
 import fecha from 'fecha';
-import { DataItem, Label, LayerConfig, ViewConfig } from '../..';
+import { DataItem, LayerConfig, ViewConfig } from '../..';
 import ViewLayer from '../../base/view-layer';
 import { DAY_FIELD, FORMATTER, MONTHS, WEEK_FIELD, WEEKS } from './constant';
 import { generateCalendarData, getMonthCenterWeek } from './util';
@@ -179,7 +179,7 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
   /**
    * 无需 geometry parser，直接使用 polygon 即可
    */
-  protected geometryParser(dim: string, type: string): string {
+  protected geometryParser(): string {
     return '';
   }
 
@@ -226,7 +226,7 @@ export default class CalendarLayer extends ViewLayer<CalendarLayerConfig> {
     this.setConfig('scales', scales);
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 }

@@ -65,7 +65,9 @@ export default abstract class PieBaseLabel {
 
   protected abstract getDefaultOptions();
   protected abstract layout(labels: IShape[], shapeInfos: LabelItem[], panelBox: BBox);
-  protected adjustItem(item: LabelItem): void {}
+  protected adjustItem(item?: LabelItem): void {
+    return;
+  }
 
   protected init() {
     this.container = this.getGeometry().labelsContainer;

@@ -1,5 +1,4 @@
 import { Pie } from '../../src';
-import { simulate } from 'event-simulate';
 
 describe('#419', () => {
   const canvasDiv = document.createElement('div');

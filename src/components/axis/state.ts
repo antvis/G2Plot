@@ -13,7 +13,7 @@ function onActive(plot, condition) {
     const { labelData, con } = beforeCompare(label, condition);
     if (compare(labelData, con)) {
       const originAttr = originAttrs[index];
-      const disableStyle = labelActiveStyle(originAttr);
+      const disableStyle = labelActiveStyle();
       label.shape.attr(disableStyle);
     }
   });
@@ -90,7 +90,7 @@ function labelDisableStyle(style) {
   return { opacity: opacity * 0.2 };
 }
 
-function labelActiveStyle(style) {
+function labelActiveStyle() {
   return { opacity: 1, fontWeight: 600, fill: 'red' };
 }
 

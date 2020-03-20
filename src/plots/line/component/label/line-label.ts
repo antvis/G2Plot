@@ -87,7 +87,9 @@ export default class LineLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   private getDefaultOptions() {
     const { theme } = this.plot;

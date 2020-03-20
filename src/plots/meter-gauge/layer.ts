@@ -1,4 +1,4 @@
-import { deepMix, uniqueId } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import GaugeLayer from '../gauge/layer';

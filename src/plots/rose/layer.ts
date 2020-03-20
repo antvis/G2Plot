@@ -202,9 +202,11 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     }
   }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

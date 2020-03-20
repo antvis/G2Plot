@@ -5,13 +5,13 @@ export default function responsiveAxis(layer: LineLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
   const canvas = layer.canvas;
   // x-axis
-  const x_responsiveAxis = new ApplyResponsiveAxis({
+  new ApplyResponsiveAxis({
     plot: layer,
     responsiveTheme,
     dim: 'x',
   });
   // y-axis
-  const y_responsiveAxis = new ApplyResponsiveAxis({
+  new ApplyResponsiveAxis({
     plot: layer,
     responsiveTheme,
     dim: 'y',

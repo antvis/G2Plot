@@ -37,9 +37,11 @@ export default abstract class BaseInteraction extends Interaction {
     return BaseInteraction.GLOBAL_INTERACTION_MAP[type];
   }
 
+  /* eslint-disable */
   public static getInteractionRange(layerRange: BBox, interaction?: IInteractionConfig): BBox | undefined {
     return undefined;
   }
+  /* eslint-disable */
 
   private static GLOBAL_INTERACTION_MAP: InteractionMap = {};
   private static PLOT_INTERACTION_MAP: { [plot: string]: InteractionMap } = {};
@@ -80,7 +82,7 @@ export default abstract class BaseInteraction extends Interaction {
     return this.interactionConfig;
   }
 
-  protected render(): void {}
+  protected abstract render(): void
 
-  protected clear(): void {}
+  protected abstract clear(): void
 }

@@ -2,7 +2,6 @@ import { deepMix, isFunction, get } from '@antv/util';
 import { ViewLayer } from '../..';
 import { IBaseAxis } from '../../interface/config';
 import { combineFormatter, getNoopFormatter, getPrecisionFormatter, getSuffixFormatter } from '../../util/formatter';
-import { LooseMap } from '../../interface/types';
 
 function propertyMapping(source, target, field) {
   if (source[field]) {
@@ -72,7 +71,6 @@ export default class AxisParser {
   }
 
   private _gridParser() {
-    const gridCfg = this.localProps.grid;
     const style = this.localProps.grid?.line?.style;
     const type = this.localProps.grid?.line?.type;
     const alternateColor = this.localProps.grid?.alternateColor;

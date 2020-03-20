@@ -231,7 +231,7 @@ describe.skip('stack-area plot', () => {
   });
 
   it('point style func', () => {
-    const styleFunc = (d) => {
+    const styleFunc = () => {
       return {
         strokeStyle: 'black',
       };
@@ -325,7 +325,7 @@ describe.skip('stack-area plot', () => {
   });
 
   it('line style func', () => {
-    const styleFunc = (d) => {
+    const styleFunc = () => {
       return {
         strokeStyle: 'black',
       };

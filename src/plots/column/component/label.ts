@@ -51,8 +51,8 @@ export default class ColumnLabel {
       const style = clone(this.options.style);
       const value = this.getValue(shape);
       const position = this.getPosition(shape, value);
-      const textAlign = this.getTextAlign(value);
-      const textBaseline = this.getTextBaseLine(value);
+      const textAlign = this.getTextAlign();
+      const textBaseline = this.getTextBaseLine();
       const color = this.getTextColor(shape);
       if (this.options.position !== 'top' && this.options.adjustColor && color !== 'black') {
         style.stroke = null;
@@ -97,11 +97,13 @@ export default class ColumnLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   protected getPosition(shape, value) {
     const bbox = this.getShapeBbox(shape);
-    const { minX, maxX, minY, maxY, height, width } = bbox;
+    const { minX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const x = minX + width / 2 + offsetX;
     const dir = value > 0 ? -1 : 1;
@@ -136,11 +138,11 @@ export default class ColumnLabel {
     return defaultColor;
   }
 
-  protected getTextAlign(value) {
+  protected getTextAlign() {
     return 'center';
   }
 
-  protected getTextBaseLine(value) {
+  protected getTextBaseLine() {
     const { position } = this.options;
     return position === 'middle' ? 'middle' : 'bottom';
   }

@@ -29,19 +29,19 @@ describe('responsive ring plot', () => {
   ];
 
   it('canvas size 500x500', () => {
-    const plot = createPlot(500, 500);
+    createPlot(500, 500);
   });
 
   it('canvas size 400x400', () => {
-    const plot = createPlot(250, 400);
+    createPlot(250, 400);
   });
 
   it('canvas size 300x300', () => {
-    const plot = createPlot(300, 300);
+    createPlot(300, 300);
   });
 
   it('canvas size 200x200', () => {
-    const plot = createPlot(100, 100);
+    createPlot(100, 100);
   });
 
   function createPlot(width, height) {

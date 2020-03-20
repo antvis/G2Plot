@@ -1,4 +1,4 @@
-import { each, deepMix, clone, find } from '@antv/util';
+import { each, deepMix, clone } from '@antv/util';
 import { View, IGroup } from '../../../dependents';
 import { rgb2arr, mappingColor } from '../../../util/color';
 
@@ -89,7 +89,9 @@ export default class MatrixLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   private getDefaultOptions() {
     const { theme } = this.plot;

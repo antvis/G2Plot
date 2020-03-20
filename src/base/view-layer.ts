@@ -79,7 +79,7 @@ export interface ViewConfig {
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
-  public static getDefaultOptions(props?: Partial<ViewConfig>): Partial<ViewConfig> {
+  public static getDefaultOptions(): Partial<ViewConfig> {
     return {
       renderer: 'canvas',
       title: {

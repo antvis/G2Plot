@@ -1,5 +1,5 @@
 import BBox from '../../../util/bbox';
-import { View, Geometry, IGroup, IElement } from '../../../dependents';
+import { View, Geometry, IGroup } from '../../../dependents';
 import { find, map } from '@antv/util';
 
 export interface BulletTargetCfg {
@@ -48,7 +48,7 @@ export default class BulletTarget {
     /** 添加目标值 */
     targets.forEach((target: number, i) => {
       const markerStyle = options.markerStyle;
-      const targetRect = this.container.addShape('rect', {
+      this.container.addShape('rect', {
         name: 'bullet-target',
         attrs: {
           width: markerStyle.width,

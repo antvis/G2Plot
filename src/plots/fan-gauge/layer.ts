@@ -51,7 +51,7 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
   }
 
   protected annotation() {
-    const { statistic, style } = this.options;
+    const { statistic } = this.options;
     const annotationConfigs = [];
     // @ts-ignore
     if (statistic && statistic.visible) {
@@ -64,7 +64,7 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
   }
 
   protected renderSideText() {
-    const { max, min, styleMix, format, style } = this.options;
+    const { max, min, styleMix, format } = this.options;
     const ringStyle = this.getCustomStyle().ringStyle;
     const OFFSET_Y = 12;
     return [min, max].map((value, index) => {

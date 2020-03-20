@@ -293,7 +293,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       clipCircle,
       radius * 4
     );
-    const warpRing = container.addShape('circle', {
+    container.addShape('circle', {
       name: 'wrap',
       attrs: mix(getLineAttrs(cfg), {
         x: cp.x,

@@ -42,8 +42,6 @@ export default class RangeColumnLayer extends BaseColumnLayer<RangeColumnLayerCo
     super.afterRender();
   }
 
-  protected extractLabel() {}
-
   protected animation() {
     super.animation();
     this.column.animate = {

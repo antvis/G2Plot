@@ -2,7 +2,7 @@ import { mix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { getGeom } from '../../geoms/factory';
-import TinyLayer, { TinyLayerConfig, TinyViewConfig } from '../tiny-layer';
+import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import * as EventParser from './event';
 import { IStyle } from '../../interface/config';
 
@@ -55,17 +55,16 @@ export default class TinyColumnLayer extends TinyLayer<TinyColumnLayerConfig> {
     this.setConfig('geometry', column);
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 
   private processProps() {
-    let props = this.options;
     const cfg = {
       padding: [0, 0, 0, 0],
       columnSize: this.getSize(),
     } as any;
-    props = mix(props, cfg);
+    this.options = mix(this.options, cfg);
   }
 
   private getSize() {

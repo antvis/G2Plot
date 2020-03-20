@@ -88,8 +88,8 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     return getOptions('standard', theme, colors);
   }
 
-  protected geometryParser(dim: string, type: string): string {
-    throw new Error('Method not implemented.');
+  protected geometryParser(): string {
+    return '';
   }
 
   protected scale() {
@@ -125,7 +125,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected axis() {
-    const { styleMix, style } = this.options;
+    const { styleMix } = this.options;
     const { thickness } = this.getCustomStyle().ringStyle;
 
     const offset =
@@ -184,7 +184,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected annotation() {
-    const { statistic, style } = this.options;
+    const { statistic } = this.options;
     const annotationConfigs = [];
     // @ts-ignore
     if (statistic && statistic.visible) {
@@ -211,7 +211,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     return text;
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 }

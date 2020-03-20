@@ -1,5 +1,4 @@
 import { StackedColumn } from '../../../../src';
-import { isFunction } from 'util';
 
 describe('StackColumn plot', () => {
   const canvasDiv = document.createElement('div');

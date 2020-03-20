@@ -54,8 +54,6 @@ export default class ShapeNodes {
     this.shapes = shapes;
   }
 
-  public updateShapes() {}
-
   private _parserNodes() {
     each(this.shapes, (shape) => {
       const node = this.measure(shape);

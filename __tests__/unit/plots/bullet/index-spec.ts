@@ -1,4 +1,4 @@
-import { IShape, IGroup } from '@antv/g-base';
+import { IShape } from '@antv/g-base';
 import { Bullet } from '../../../../src';
 import BulletLayer from '../../../../src/plots/bullet/layer';
 

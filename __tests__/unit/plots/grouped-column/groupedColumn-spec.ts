@@ -1,4 +1,3 @@
-import { IGroup, IElement } from '@antv/g-base';
 import { GroupedColumn } from '../../../../src';
 import { isFunction } from 'util';
 

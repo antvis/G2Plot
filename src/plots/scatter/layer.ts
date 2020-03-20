@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
+import { ICatAxis, ITimeAxis, IValueAxis, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
@@ -198,9 +198,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
   protected addGeometry() {
     const points = getGeom('point', 'circle', {

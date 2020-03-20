@@ -36,9 +36,13 @@ export default abstract class TinyLayer<T extends TinyLayerConfig = TinyLayerCon
     });
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
-  protected addGeometry() {}
+  protected addGeometry() {
+    return;
+  }
 
   protected annotation() {
     const props = this.options;

@@ -4,7 +4,7 @@ import { createDiv } from '../../utils/dom';
 import ScrollbarInteraction from '../../../src/interaction/scrollbar';
 
 describe('Scrollbar', () => {
-  const div = createDiv('root-slider');
+  createDiv('root-slider');
   const plot = new Column(document.getElementById('root-slider'), {
     data: fireWorks,
     height: 400,

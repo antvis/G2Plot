@@ -359,7 +359,7 @@ describe.skip('stateManager', () => {
     selector.style.fontSize = '14px';
     document.body.appendChild(selector);
 
-    selector.onchange = (e) => {
+    selector.onchange = () => {
       const index = selector.selectedIndex;
       const value = selector.options[index].value;
       stateManager.setState('type', value);

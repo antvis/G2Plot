@@ -15,7 +15,7 @@ export interface InteractionConstructor {
 
 const EVENT_TYPES = ['start', 'process', 'end', 'reset'];
 
-export default class Interaction {
+export default abstract class Interaction {
   view: View;
   protected canvas: ICanvas;
   startEvent: string;
@@ -46,11 +46,15 @@ export default class Interaction {
     this.afterStart(ev);
   }
 
-  preStart(ev) {}
+  protected preStart(ev):void{
+    return;
+  }
 
-  start(ev) {}
+  protected abstract start(ev):void
 
-  afterStart(ev) {}
+  protected afterStart(ev):void {
+    return;
+  }
 
   private _process(ev) {
     this.preProcess(ev);
@@ -58,11 +62,17 @@ export default class Interaction {
     this.afterProcess(ev);
   }
 
-  preProcess(ev) {}
+  protected preProcess(ev): void {
+    return;
+  }
 
-  process(ev) {}
+  protected process(ev): void {
+    return;
+  }
 
-  afterProcess(ev) {}
+  protected afterProcess(ev): void {
+    return;
+  }
 
   private _end(ev) {
     this.preEnd(ev);
@@ -70,11 +80,17 @@ export default class Interaction {
     this.afterEnd(ev);
   }
 
-  preEnd(ev) {}
+  protected preEnd(ev): void {
+    return;
+  }
 
-  end(ev) {}
+  protected end(ev): void {
+    return;
+  }
 
-  afterEnd(ev) {}
+  protected afterEnd(ev): void {
+    return;
+  }
 
   private _reset(ev?: any) {
     this.preReset(ev);
@@ -82,11 +98,17 @@ export default class Interaction {
     this.afterReset(ev);
   }
 
-  preReset(ev?: any) {}
+  protected preReset(ev?: any): void {
+    return;
+  }
 
-  reset(ev?: any) {}
+  protected reset(ev?: any): void {
+    return
+  }
 
-  afterReset(ev?: any) {}
+  protected afterReset(ev?: any): void {
+    return;
+  }
 
   private _bindEvents() {
     each(EVENT_TYPES, (type) => {
@@ -104,7 +126,7 @@ export default class Interaction {
     });
   }
 
-  destroy() {
+  public destroy() {
     this._unbindEvents();
     this._reset();
   }

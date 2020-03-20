@@ -1076,7 +1076,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   private _findCheckedDataByMouseDownLegendItem(legendItem: IGroup) {
-    
     const flags = legendItem
       .get('parent')
       .get('children')

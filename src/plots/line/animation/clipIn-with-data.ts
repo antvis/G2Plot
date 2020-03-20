@@ -79,7 +79,6 @@ function clipingWithData(shape, animateCfg) {
     easing = animateCfg.easing(index);
   }
   /** 动起来 */
-  const i = 0;
   clip.animate(
     {
       width: coord.getWidth(),

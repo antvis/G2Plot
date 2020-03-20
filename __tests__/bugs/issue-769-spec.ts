@@ -1,5 +1,5 @@
 import { each, sortBy } from '@antv/util';
-import { Column, GroupedColumn, Bar, StackedBar, IStyleConfig } from '../../src';
+import { Column, GroupedColumn, Bar, StackedBar } from '../../src';
 import { COLOR_PLATE_20 } from '../../src/theme/default';
 import { createDiv } from '../utils/dom';
 import sales from '../data/sales.json';

@@ -161,7 +161,9 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     this.addPoint();
   }
 
-  protected adjustArea(area?: ElementOption) {
+
+  /* eslint-disable */
+  protected adjustArea(area: ElementOption) {
     return;
   }
 
@@ -172,6 +174,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   protected adjustPoint(point?: ElementOption) {
     return;
   }
+  /* eslint-disable */
 
   protected addLine() {
     const props: any = this.options;

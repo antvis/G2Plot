@@ -90,7 +90,7 @@ export default class BulletRect {
       if (options.axis.formatter) {
         tickText = options.axis.formatter(tickText, tickIdx);
       }
-      const tickShape = this.container.addShape('text', {
+      this.container.addShape('text', {
         name: 'tick',
         attrs: {
           x,

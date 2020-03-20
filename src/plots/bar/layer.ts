@@ -204,9 +204,11 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('axes', axesConfig);
   }
 
-  protected adjustBar(bar?: ElementOption) {
+  /* eslint-disable */
+  protected adjustBar(bar: ElementOption) {
     return null;
   }
+  /* eslint-disable */
 
   protected addGeometry() {
     const props: any = this.options;

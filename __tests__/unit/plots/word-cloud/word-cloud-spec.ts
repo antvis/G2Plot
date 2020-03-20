@@ -1,5 +1,5 @@
 import { WordCloud, WordCloudConfig } from '../../../../src';
-import { Dimension, InnerStartFunction, WordCloudData } from '../../../../src/plots/word-cloud/layer';
+import { WordCloudData } from '../../../../src/plots/word-cloud/layer';
 
 describe('WordCloud plot', () => {
   const canvasDiv = document.createElement('div');

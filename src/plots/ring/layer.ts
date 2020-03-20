@@ -11,7 +11,11 @@ import { LooseMap } from '../../interface/types';
 
 export interface RingViewConfig extends PieViewConfig {
   innerRadius?: number;
-  statistic?: any; //FIXME: 指标卡
+  statistic?: {
+    visible: boolean;
+    content?: string;
+    triggerOn?: false | string;
+  }; //FIXME: 指标卡
 }
 
 export interface RingLayerConfig extends RingViewConfig, LayerConfig {}

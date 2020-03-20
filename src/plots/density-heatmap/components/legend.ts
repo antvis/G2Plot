@@ -1,4 +1,4 @@
-import { each, isArray, isFunction, deepMix, clone } from '@antv/util';
+import { each, isArray, deepMix, clone } from '@antv/util';
 import { View, IGroup } from '../../../dependents';
 import BBox from '../../../util/bbox';
 
@@ -128,7 +128,7 @@ export default class HeatmapLegend {
       rect.set('info', appendInfo);
       const dataSlide = this.getDataSlide(appendInfo);
       this.dataSlides[`${appendInfo.from}-${appendInfo.to}`] = { mode: 'active', data: dataSlide };
-      const line = gridLineContainer.addShape('path', {
+      gridLineContainer.addShape('path', {
         attrs: {
           path: [
             ['M', 0, y + gridHeight],
@@ -139,7 +139,7 @@ export default class HeatmapLegend {
       });
     });
     // 绘制两边的label
-    const textMax = this.container.addShape('text', {
+    this.container.addShape('text', {
       attrs: {
         text: max,
         x: gridWidth / 2,
@@ -150,7 +150,7 @@ export default class HeatmapLegend {
       },
       name: 'legend-label',
     });
-    const textMin = this.container.addShape('text', {
+    this.container.addShape('text', {
       attrs: {
         text: min,
         x: gridWidth / 2,
@@ -162,7 +162,7 @@ export default class HeatmapLegend {
       },
     });
     // 绘制包围线
-    const path = gridLineContainer.addShape('path', {
+    gridLineContainer.addShape('path', {
       attrs: {
         path: [
           ['M', 0, 0],
@@ -199,7 +199,7 @@ export default class HeatmapLegend {
         name: 'legend',
       });
       rect.set('info', appendInfo);
-      const line = gridLineContainer.addShape('path', {
+      gridLineContainer.addShape('path', {
         attrs: {
           path: [
             ['M', x + gridWidth, 0],
@@ -349,7 +349,7 @@ export default class HeatmapLegend {
   }
 
   protected addInteraction() {
-    const { colorField, data } = this.options.plot.options;
+    const { colorField } = this.options.plot.options;
     this.container.on('click', (ev) => {
       const { target } = ev;
       if (target.get('name') === 'legend') {

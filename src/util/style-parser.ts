@@ -39,20 +39,18 @@ function AxisStyleParser(axisCfg, axis) {
   }
 }
 
-function TooltipStyleParser() {}
+function TooltipStyleParser() {
+  return;
+}
 
 function LabelStyleParser(theme, style) {
   const labelCfg = theme.label;
   labelCfg.textStyle = style;
 }
 
-function AnnotationStyleParser() {}
-
-function checkNull(cfg) {
-  if (cfg === null) {
-    return {};
-  }
-  return cfg;
+function AnnotationStyleParser() {
+  return;
 }
+
 
 export { AxisStyleParser, TooltipStyleParser, LabelStyleParser, AnnotationStyleParser };

@@ -124,7 +124,9 @@ export default class RangeColumnLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   protected getShapeBbox(shape) {
     const points = [];
@@ -155,8 +157,8 @@ export default class RangeColumnLabel {
 
   private getPosition(shape) {
     const bbox = this.getShapeBbox(shape);
-    const { minX, maxX, minY, maxY, height, width } = bbox;
-    const { offsetX, offsetY } = this.options;
+    const { minX, minY, maxY,  width } = bbox;
+    const { offsetY } = this.options;
     const x = minX + width / 2;
     let y1, y2;
     if (this.options.position === 'outer') {
@@ -226,7 +228,7 @@ export default class RangeColumnLabel {
     const shapeMinY = origin.y[1];
     const shapeMaxY = origin.y[0];
     const bbox = shape.getBBox();
-    const { minX, maxX, minY, height, width } = bbox;
+    const { height } = bbox;
     const shapeHeight = height;
     const panelRange = this.view.coordinateBBox;
     const boxes = [la.getBBox(), lb.getBBox()];

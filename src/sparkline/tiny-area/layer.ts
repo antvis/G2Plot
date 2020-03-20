@@ -39,7 +39,7 @@ export default class TinyAreaLayer extends TinyLayer<TinyAreaLayerConfig> {
     this.setConfig('geometry', this.line);
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 }

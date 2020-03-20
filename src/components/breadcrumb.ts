@@ -1,7 +1,7 @@
 import BaseComponent, { BaseComponentConfig } from './base';
 import { IGroup, BBox, IShape } from '../dependents';
 import { move } from '../util/g-util';
-import { IStyleConfig, IStyle } from '../interface/config';
+import { IStyleConfig } from '../interface/config';
 
 export interface BreadcrumbItem {
   key: string;

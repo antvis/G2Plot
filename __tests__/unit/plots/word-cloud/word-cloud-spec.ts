@@ -494,7 +494,7 @@ describe('WordCloud plot', () => {
       // maskImage: 'https://github.com/ecomfe/echarts-wordcloud/blob/master/example/logo.png?raw=true',
       wordStyle: {
         fontSize: [10, 60],
-        color: (word: string, weight: number) => {
+        color: () => {
           return getRandomColor();
         },
         rotation: [-Math.PI / 2, Math.PI / 2],
@@ -537,5 +537,7 @@ describe('WordCloud plot', () => {
     return arr[Math.floor(Math.random() * (arr.length - 1))];
   }
 
-  function hoverAction(item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) {}
+  function hoverAction() {
+    return;
+  }
 });

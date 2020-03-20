@@ -30,7 +30,7 @@ export default class TinyLineLayer extends TinyLayer<TinyLineLayerConfig> {
     this.setConfig('geometry', this.line);
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 }

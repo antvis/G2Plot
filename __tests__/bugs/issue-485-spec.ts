@@ -2,7 +2,6 @@ import { IShape } from '@antv/g-base';
 import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
 import { every } from '@antv/util';
-import { getOverlapArea } from '../../src/plots/pie/component/label/utils';
 
 describe.skip('#485 饼图 outer-label 绘制错误', () => {
   const data = [

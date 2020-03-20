@@ -1,5 +1,4 @@
 import { Line } from '../../../../src';
-import line from '../../../../src/geoms/line';
 
 const data1 = [
   {

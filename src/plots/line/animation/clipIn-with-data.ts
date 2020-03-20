@@ -3,7 +3,7 @@ import { clone, isFunction } from '@antv/util';
 
 let plotInfo;
 
-function clipingWithData(shape, animateCfg, cfg) {
+function clipingWithData(shape, animateCfg) {
   const geometry = shape.get('element').geometry;
   /** 动画初始状态 */
   const index = shape.get('index');
@@ -90,7 +90,7 @@ function clipingWithData(shape, animateCfg, cfg) {
     delay
   );
   (animateCfg.onFrame = (ratio) => {
-    const position = getPositionByRatio(ratio, shapeData, coord, i);
+    const position = getPositionByRatio(ratio, shapeData, coord);
     if (!position) return;
 
     marker.attr('x', position[0] + offsetX);
@@ -114,7 +114,7 @@ function clipingWithData(shape, animateCfg, cfg) {
     title.animate(
       {
         onFrame: (ratio) => {
-          const position = getPositionByRatio(ratio, shapeData, coord, i);
+          const position = getPositionByRatio(ratio, shapeData, coord);
           if (!position) return;
           title.attr('x', position[0] + offsetX);
           title.attr('y', position[1]);
@@ -129,7 +129,7 @@ function clipingWithData(shape, animateCfg, cfg) {
 }
 
 function setClip(shape, coord) {
-  const { start, end, width, height } = coord;
+  const { start, end, height } = coord;
   shape.setClip({
     type: 'rect',
     attrs: {
@@ -141,8 +141,8 @@ function setClip(shape, coord) {
   });
 }
 
-function getPositionByRatio(ratio, dataPoints, coord, index) {
-  const { data, points } = dataPoints;
+function getPositionByRatio(ratio, dataPoints, coord) {
+  const { points } = dataPoints;
   const currentX = coord.start.x + coord.getWidth() * ratio;
   for (let i = 0; i < points.length - 1; i++) {
     const current = points[i];

@@ -1,4 +1,4 @@
-import { each, deepMix, clone, find, isElement } from '@antv/util';
+import { deepMix, isElement } from '@antv/util';
 import { createDom, modifyCSS, getOuterWidth, getOuterHeight } from '@antv/dom-util';
 
 export interface IStaticticHtml {

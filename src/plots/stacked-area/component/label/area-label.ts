@@ -151,7 +151,9 @@ export default class AreaLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   protected getDefaultOptions() {
     const { theme } = this.plot;

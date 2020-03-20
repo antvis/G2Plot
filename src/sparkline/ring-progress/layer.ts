@@ -39,7 +39,9 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     this.setConfig('coordinate', coordConfig);
   }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
   protected addGeometry() {
     const props = this.options;
@@ -63,7 +65,7 @@ export default class RingProgressLayer extends ProgressLayer<RingProgressLayerCo
     };
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

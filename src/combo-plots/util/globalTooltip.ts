@@ -1,10 +1,10 @@
-import { each, contains, isArray, isObject, indexOf, isNil, has, keys } from '@antv/util';
+import { each, isArray, isObject, indexOf, isNil, has, keys } from '@antv/util';
 import { Tooltip, getShapeFactory } from '../../dependents';
 import { getGlobalTheme } from '../../theme/global';
 
-const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack'];
+//const TYPE_SHOW_MARKERS = ['line', 'area', 'path', 'areaStack'];
 
-export function showTooltip(canvas, layers, tooltipCfg) {
+export function showTooltip(canvas, layers) {
   const tooltip = renderTooltip(layers[0], canvas);
   tooltip.init();
   canvas.on('mousemove', (ev) => {
@@ -55,7 +55,7 @@ export function showTooltip(canvas, layers, tooltipCfg) {
   return tooltip;
 }
 
-function getTooltipItems(point, geom, type, dataArray, coord) {
+/*function getTooltipItems(point, geom, type, dataArray, coord) {
   const items = [];
   each(dataArray, (data) => {
     const items = geom.findItemsFromView(geom.view, point);
@@ -80,7 +80,7 @@ function getTooltipItems(point, geom, type, dataArray, coord) {
     items.push(...subItems);
   });
   return items;
-}
+}*/
 
 function renderTooltip(layer, canvas) {
   const tooltipTheme = getGlobalTheme().tooltip;
@@ -104,14 +104,14 @@ function renderTooltip(layer, canvas) {
   return new Tooltip.Html(options);
 }
 
-function getItemMarker(geom, color) {
+/*function getItemMarker(geom, color) {
   const shapeType = geom.get('shapeType') || 'point';
   const shape = geom.getDefaultValue('shape') || 'circle';
   const shapeObject = getShapeFactory(shapeType);
   const cfg = { color, isInPolar: false };
   const marker = shapeObject.getMarker(shape, cfg);
   return marker;
-}
+}*/
 
 function getUniqueItems(items) {
   const tmp = [];
@@ -144,7 +144,7 @@ function indexOfArray(items, item) {
   return rst;
 }
 
-function adjustItems(items, target, cfg) {
+/*function adjustItems(items, target, cfg) {
   if (target.get('origin')) {
     let data;
     if (isArray(target.get('origin'))) {
@@ -188,4 +188,4 @@ function getShapeByX(container, x) {
     }
   });
   return shapes;
-}
+}*/

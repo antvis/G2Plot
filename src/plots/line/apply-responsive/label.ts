@@ -13,7 +13,7 @@ class ApplyResponsiveLineLabel extends ApplyResponsiveLabel {
 
 export default function responsivePointLabel(layer: LineLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
-  const applyResponsiveLineLabel = new ApplyResponsiveLineLabel({
+  new ApplyResponsiveLineLabel({
     plot: layer,
     responsiveTheme,
   });

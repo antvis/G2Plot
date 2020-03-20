@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { ElementOption, Label } from '../../interface/config';
+import { ElementOption } from '../../interface/config';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 import StackBarLabel from './component/label';
 

@@ -14,7 +14,6 @@ export default class GuideLine {
   }
 
   private _init() {
-    const props = this.plot.options;
     const defaultStyle = this.getDefaultStyle();
     const baseConfig: any = {
       type: 'line',

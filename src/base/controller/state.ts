@@ -45,7 +45,7 @@ export default class StateController {
 
   public defaultStates(states) {
     each(states, (state, type) => {
-      const { condition, style, related } = state;
+      const { condition, related } = state;
       this.setState({ type, condition, related });
     });
   }

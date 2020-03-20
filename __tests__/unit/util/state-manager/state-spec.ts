@@ -1,6 +1,5 @@
 import { Column } from '../../../../src';
 import StateManager from '../../../../src/util/state-manager';
-import { simulate } from 'event-simulate';
 import { keys } from '@antv/util';
 
 describe.skip('state', () => {

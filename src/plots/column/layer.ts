@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, IStyleConfig } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, IStyleConfig } from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -153,9 +153,11 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
-  protected adjustColumn(column: ElementOption) {
+  protected adjustColumn(column?: ElementOption) {
     return;
   }
 
@@ -206,7 +208,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     }
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

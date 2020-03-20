@@ -1,5 +1,4 @@
 import { deepMix, valuesOfKey, each } from '@antv/util';
-import BBox from '../../util/bbox';
 import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -145,7 +144,9 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     return '';
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
   protected legend() {
     this.setConfig('legends', false);

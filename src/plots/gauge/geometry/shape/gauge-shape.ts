@@ -4,7 +4,7 @@
  */
 import { get } from '@antv/util';
 import { registerShape } from '@antv/g2';
-import { IGroup, IShape } from '@antv/g-base';
+import { IGroup } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
 import { getGlobalTheme } from '../../../../theme';
 import { sortedLastIndex } from '../../../../util/common';
@@ -142,7 +142,7 @@ export class GaugeShape {
       },
 
       drawRangeColor() {
-        const { min, max, range, styleMix, color } = this.gauge.options;
+        const { min, max, range, color } = this.gauge.options;
         const colors = color || getGlobalTheme().colors;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
@@ -346,7 +346,7 @@ export class GaugeShape {
         const width = get(gauge, 'options.width');
         const center = this.gauge.center;
         const length = this.gauge.ringRadius;
-        const { thickness, minThickness, minThickCanvsSize, miniThickness, bigThickness } = this.gauge.ringStyle;
+        const { thickness, minThickness, minThickCanvsSize } = this.gauge.ringStyle;
         let thick;
         const size = Math.min(width, height);
         if (type === 'fan' && size < minThickCanvsSize) {

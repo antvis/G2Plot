@@ -130,7 +130,9 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }));
   }
 
-  protected axis() {}
+  protected axis() {
+    return;
+  }
 
   protected coord() {
     const props = this.options;
@@ -185,9 +187,11 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
   }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

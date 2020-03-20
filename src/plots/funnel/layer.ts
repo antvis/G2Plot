@@ -6,7 +6,6 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
-import responsiveMethods from './apply-responsive';
 import './theme';
 import './geometry/shape/funnel-basic-rect';
 import './geometry/shape/funnel-dynamic-rect';
@@ -73,8 +72,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         adjustColor: true,
         formatter:
           props && (props.compareField || props.transpose)
-            ? (xValue, item, idx, yValue, yValueTop) => `${yValue}`
-            : (xValue, item, idx, yValue, yValueTop) => `${xValue} ${yValue}`,
+            ? (yValue) => `${yValue}`
+            : (xValue, yValue) => `${xValue} ${yValue}`,
       },
       percentage: {
         visible: true,
@@ -150,15 +149,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
     if (props.compareField) {
       this.options.data = this._reduceDataForCompare(this.getData());
-    }
-  }
-
-  public beforeInit() {
-    super.beforeInit();
-    const props = this.options;
-    /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
-      this.applyResponsive('preRender');
     }
   }
 
@@ -338,11 +328,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   public afterRender() {
     const props = this.options;
-    /** 响应式 */
-    if (props.responsive && props.padding !== 'auto') {
-      this.applyResponsive('afterRender');
-    }
-
     this.resetLabels();
     this.resetPercentages();
     if (props.compareField) {
@@ -417,14 +402,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       return G2_GEOM_MAP[type];
     }
     return PLOT_GEOM_MAP[type];
-  }
-
-  protected applyResponsive(stage) {
-    const methods = responsiveMethods[stage];
-    each(methods, (r) => {
-      const responsive = r;
-      responsive.method(this);
-    });
   }
 
   protected adjustProps(props: Partial<T>) {
@@ -1099,8 +1076,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   private _findCheckedDataByMouseDownLegendItem(legendItem: IGroup) {
-    const props = this.options;
-
+    
     const flags = legendItem
       .get('parent')
       .get('children')

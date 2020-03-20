@@ -5,7 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IStyleConfig } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, DataItem, IStyleConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import BarLabel from './component/label';
@@ -204,7 +204,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('axes', axesConfig);
   }
 
-  protected adjustBar(bar: ElementOption) {}
+  protected adjustBar(bar?: ElementOption) {
+    return null;
+  }
 
   protected addGeometry() {
     const props: any = this.options;
@@ -239,7 +241,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     }
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

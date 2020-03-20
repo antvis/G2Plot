@@ -1,5 +1,4 @@
 import { PercentStackedColumn } from '../../../../src';
-import { isFunction } from 'util';
 
 describe.skip('PercentageStackColumn plot', () => {
   const canvasDiv = document.createElement('div');

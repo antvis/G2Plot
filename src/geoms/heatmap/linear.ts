@@ -1,4 +1,4 @@
-import { registerGeometry, Geometry, Canvas } from '../../dependents';
+import { registerGeometry, Geometry } from '../../dependents';
 import { isNumber, get } from '@antv/util';
 import * as colorUtil from '../../util/color';
 
@@ -23,7 +23,7 @@ class LinearHeatmap extends Geometry {
     this.radius = cfg.radius;
   }
 
-  protected createElements(mappingData, isUpdate: boolean = false) {
+  protected createElements(mappingData) {
     const range = this.prepareRange(mappingData);
     this.prepareSize();
     this.prepareBlur();

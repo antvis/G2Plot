@@ -90,7 +90,6 @@ export default class MatrixLegend {
 
   public clear() {
     if (this.container) {
-      const children = this.container.get('children');
       this.container.clear();
     }
   }
@@ -337,7 +336,7 @@ export default class MatrixLegend {
     }
 
     const eventName = `${geomType}:${this.options.triggerOn}`;
-    const labelEventName = `label:${this.options.triggerOn}`;
+    //const labelEventName = `label:${this.options.triggerOn}`;
     const field = this.options.plot.options.colorField;
     const { min, max } = this.colorScale;
 
@@ -358,7 +357,7 @@ export default class MatrixLegend {
       this.moveAnchor(ratio);
     });*/
 
-    const mouseleaveHandler = (ev) => {
+    const mouseleaveHandler = () => {
       this.anchor.set('visible', false);
     };
     this.options.plot.canvas.on('mouseleave', mouseleaveHandler);

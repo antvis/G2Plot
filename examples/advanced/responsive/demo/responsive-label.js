@@ -1,10 +1,11 @@
-import * as G from '@antv/g';
 import { Line } from '@antv/g2plot';
+
+const { gCanvas } = window;
 
 const container = document.getElementById('container');
 const chartsWraper = document.createElement('div');
-chartsWraper.style.width = '900px';
-chartsWraper.style.height = '900px';
+chartsWraper.style.width = '600px';
+chartsWraper.style.height = '600px';
 container.appendChild(chartsWraper);
 
 const canvasDiv = document.createElement('div');
@@ -23,9 +24,9 @@ canvasDiv2.style.top = '80px';
 canvasDiv2.id = 'bbb';
 chartsWraper.appendChild(canvasDiv2);
 
-const canvas = new G.Canvas({
-  containerId: 'aaa',
-  width: 600,
+const canvas = new gCanvas.Canvas({
+  container: 'aaa',
+  width: 500,
   height: 50,
 });
 
@@ -37,6 +38,16 @@ const maxSize = 600;
 const tickCount = 9;
 const slider = canvas.addGroup();
 slider.translate(0, 20);
+
+const sliderBackground = slider.addShape('rect', {
+  attrs: {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    fill: 'white',
+  },
+});
 
 const axisLinePath = [
   ['M', padding, sliderHeight],
@@ -83,6 +94,12 @@ const sliderBar = slider.addShape('circle', {
   },
 });
 
+const sliderBbox = slider.getBBox();
+sliderBackground.attr('x', sliderBbox.minX);
+sliderBackground.attr('y', sliderBbox.minY);
+sliderBackground.attr('width', sliderBbox.width);
+sliderBackground.attr('height', sliderBbox.height);
+
 canvas.draw();
 
 // create plot & add interaction
@@ -94,8 +111,8 @@ fetch('../data/income.json')
       plotData.push(data[i]);
     }
     const linePlot = new Line(canvasDiv2, {
-      width: 500,
-      height: 500,
+      width: 150,
+      height: 150,
       padding: [20, 20, 80, 40],
       data: plotData,
       xField: 'time',
@@ -123,10 +140,9 @@ fetch('../data/income.json')
     sliderBar.on('mouseUp', () => {
       onDrag = false;
     });
-
-    sliderBar.on('drag', (e) => {
+    slider.on('mousemove', (e) => {
       if (onDrag) {
-        const xPos = Math.max(padding, Math.min(e.x - padding, sliderWidth - padding));
+        const xPos = Math.max(padding, Math.min(e.x - 0, sliderWidth - 0));
         sliderBar.attr('x', xPos);
         canvas.draw();
         const currentValue = minSize + (maxSize - minSize) * ((xPos - padding) / (maxSize - minSize));

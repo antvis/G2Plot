@@ -1,10 +1,11 @@
 import { registerAnimation } from '../../../dependents';
-import { clone, isFunction } from '@antv/util';
+import { clone, isFunction, isNil } from '@antv/util';
 
 let plotInfo;
 
-function clipingWithData(shape, animateCfg, cfg) {
+function clipingWithData(shape, animateCfg) {
   const geometry = shape.get('element').geometry;
+  geometry.labelsContainer.set('visible', false);
   /** 动画初始状态 */
   const index = shape.get('index');
   const coord = geometry.coordinate;
@@ -15,13 +16,14 @@ function clipingWithData(shape, animateCfg, cfg) {
   const clip = shape.get('clipShape');
   const parent = shape.get('parent');
   const offsetX = 12;
-  let title;
-  if (animateCfg.seriesField) {
+  let title = null;
+  const { seriesField } = plotInfo.options;
+  if (seriesField) {
     title = parent.addShape('text', {
       attrs: {
         x: coord.start.x + offsetX,
         y: 0,
-        text: shapeData[0]._origin[animateCfg.seriesField],
+        text: shapeData.data[0][seriesField],
         fill: shape.attr('stroke'),
         fontSize: 12,
         textAlign: 'start',
@@ -53,19 +55,15 @@ function clipingWithData(shape, animateCfg, cfg) {
         300,
         () => {
           marker.remove();
+          if (!isNil(title)) {
+            title.remove();
+          }
+          const labelsContainer = geometry.labelsContainer;
+          if (!labelsContainer.get('visible')) {
+            labelsContainer.set('visible', true);
+          }
         }
       );
-      if (title) {
-        marker.animate(
-          {
-            opacity: 0,
-          },
-          300,
-          () => {
-            marker.remove();
-          }
-        );
-      }
     }
   };
   /** 执行动画 */
@@ -79,7 +77,6 @@ function clipingWithData(shape, animateCfg, cfg) {
     easing = animateCfg.easing(index);
   }
   /** 动起来 */
-  const i = 0;
   clip.animate(
     {
       width: coord.getWidth(),
@@ -90,7 +87,7 @@ function clipingWithData(shape, animateCfg, cfg) {
     delay
   );
   (animateCfg.onFrame = (ratio) => {
-    const position = getPositionByRatio(ratio, shapeData, coord, i);
+    const position = getPositionByRatio(ratio, shapeData, coord);
     if (!position) return;
 
     marker.attr('x', position[0] + offsetX);
@@ -114,7 +111,7 @@ function clipingWithData(shape, animateCfg, cfg) {
     title.animate(
       {
         onFrame: (ratio) => {
-          const position = getPositionByRatio(ratio, shapeData, coord, i);
+          const position = getPositionByRatio(ratio, shapeData, coord);
           if (!position) return;
           title.attr('x', position[0] + offsetX);
           title.attr('y', position[1]);
@@ -129,7 +126,7 @@ function clipingWithData(shape, animateCfg, cfg) {
 }
 
 function setClip(shape, coord) {
-  const { start, end, width, height } = coord;
+  const { start, end, height } = coord;
   shape.setClip({
     type: 'rect',
     attrs: {
@@ -141,8 +138,8 @@ function setClip(shape, coord) {
   });
 }
 
-function getPositionByRatio(ratio, dataPoints, coord, index) {
-  const { data, points } = dataPoints;
+function getPositionByRatio(ratio, dataPoints, coord) {
+  const { points } = dataPoints;
   const currentX = coord.start.x + coord.getWidth() * ratio;
   for (let i = 0; i < points.length - 1; i++) {
     const current = points[i];

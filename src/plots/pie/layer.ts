@@ -191,7 +191,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     return;
   }
 
-  protected parseEvents() {
+  protected parseEvents(EventParser) {
     super.parseEvents(EventParser);
   }
 

@@ -29,7 +29,7 @@ export default class StateController {
     assign(this, cfg);
   }
 
-  public createStateManager(cfg) {
+  public createStateManager() {
     this.stateManager = new StateManager();
   }
 

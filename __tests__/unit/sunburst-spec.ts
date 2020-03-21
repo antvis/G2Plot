@@ -125,6 +125,10 @@ describe('sunburst', () => {
       data,
       colorField: 'depth',
       colors: '#BAE7FF-#1890FF-#0050B3',
+      sunburstStyle: (name, value, depth) => {
+        //console.log(name,value,depth);
+        return {};
+      },
       interactions: [
         {
           type: 'drilldown',

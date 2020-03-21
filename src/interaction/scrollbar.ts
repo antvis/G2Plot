@@ -96,7 +96,7 @@ export default class ScrollbarInteraction extends BaseInteraction {
     });
   }
 
-  protected start(){
+  protected start() {
     return;
   }
 
@@ -112,8 +112,6 @@ export default class ScrollbarInteraction extends BaseInteraction {
     this.trackLen = null;
     this.thumbLen = null;
   }
-
-
 
   private renderScrollbar(): void {
     const config: Required<IScrollbarInteractionConfig> = getValidScrollbarConfig(this.getInteractionConfig());

@@ -109,7 +109,7 @@ export default class SliderInteraction extends BaseInteraction {
     });
   }
 
-  protected start(){
+  protected start() {
     return;
   }
 

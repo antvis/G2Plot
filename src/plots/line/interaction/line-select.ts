@@ -9,6 +9,11 @@ export default class LineSelect extends Interaction {
       ...cfg,
     });
   }
+
+  public start(){
+    return;
+  }
+  
   public end(ev) {
     const target = ev.target;
     const lines: Geometry[] = filter(this.view.geometries, (geom) => geom.type == 'line');

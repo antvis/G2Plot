@@ -14,6 +14,7 @@ export interface SunburstViewConfig extends ViewConfig {
   colors?: string | string[];
   radius?: number;
   innerRadius?: number;
+  sunburstStyle?: {} | Function;
 }
 
 export interface SunburstLayerConfig extends SunburstViewConfig, LayerConfig {}
@@ -131,14 +132,13 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
       },
       label: false,
       style: {
-        fields: ['depth'],
-        callback: (depth) => {
-          if (depth > 0) {
-            return {
-              stroke: '#ffffff',
-              lineWidth: 1,
-            };
+        fields: ['name', 'value', 'depth'],
+        callback: (name, value, depth) => {
+          const defaultStyle = this.adjustStyleByDepth(depth);
+          if (_.isFunction(this.options.sunburstStyle)) {
+            return this.options.sunburstStyle(name, value, depth);
           }
+          return _.deepMix({}, defaultStyle, this.options.sunburstStyle);
         },
       },
     };
@@ -208,6 +208,12 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
 
   private getColorConfig(data) {
     const { colorField, colors } = this.options;
+    if (_.isFunction(colors)) {
+      return {
+        fields: [colorField],
+        callback: colors,
+      };
+    }
     if (_.isString(data[0][colorField])) {
       const uniqueValues = [];
       let uniqueColors;
@@ -260,6 +266,16 @@ export default class SunburstLayer<T extends SunburstLayerConfig = SunburstLayer
         max,
       });
     }
+  }
+
+  private adjustStyleByDepth(depth: number) {
+    if (depth > 0) {
+      return {
+        stroke: '#ffffff',
+        lineWidth: 1,
+      };
+    }
+    return {};
   }
 }
 

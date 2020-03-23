@@ -1,3 +1,7 @@
+## <small>0.11.41 (2019-03-23)</small>
+- 🌟Sunburst color和style支持根据深度和数据自行指定 ([aea6bdf](https://github.com/antvis/G2Plot/commit/aea6bdf))
+- 🐞yAxis设置min max后connectedArea没有同步截断 ([0ec9731](https://github.com/antvis/G2Plot/commit/0ec9731))
+
 ## <small>0.11.40 (2019-03-13)</small>
 - 🐞Liquid & process 必选数据类型判断
 

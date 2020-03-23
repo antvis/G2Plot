@@ -1,7 +1,7 @@
 /**
  * 区域连接组件，用于堆叠柱状图和堆叠条形图
  */
-import { Group, Shape, Shapes } from '@antv/g';
+import { Group, Shape, Shapes, Rect } from '@antv/g';
 import { View } from '@antv/g2';
 import * as _ from '@antv/util';
 import { compare } from '../base/controller/state';
@@ -89,6 +89,16 @@ export default class ConnectedArea {
   private _init() {
     const layer = this.view.get('backgroundGroup');
     this.container = layer.addGroup();
+    const panelRange = this.view.get('panelRange');
+    const clipShape = new Rect({
+      attrs: {
+        width: panelRange.width,
+        height: panelRange.height,
+        x: panelRange.minX,
+        y: panelRange.minY,
+      },
+    });
+    this.container.attr('clip', clipShape);
     this.draw();
     this.view.on('beforerender', () => {
       this.clear();

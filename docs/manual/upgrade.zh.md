@@ -5,7 +5,7 @@ order: 6
 
 # 概述
 
-- **图表类型扩展**：在G2Plot 1.0版本中，图表类型扩展到了常用的 40 多个类型，能够满足大部分统计分析场景的需求。同时，根据业务需要，G2Plot 的图表类型仍然在不断增加中，请及时关注。
+- **图表类型扩展**：在 G2Plot 1.0 版本中，图表类型扩展到了常用的 40 多个类型，能够满足大部分统计分析场景的需求。同时，根据业务需要，G2Plot 的图表类型仍然在不断增加中，请及时关注。
 
 - **文档体系升级**：在 1.0 中，我们根据社区反馈对文档进行了整体的升级，用户查看图表的使用方法时只需查找对应图表类型的文档即可，文档中📌图标代表该图表的必选配置，而 ✨图标代表了该图表区别于其他图表的特殊配置，缩短了文档的使用链路。同时，为了满足用户的个性化样式需求，为 [绘图属性](https://g2plot.antv.vision/zh/docs/manual/graphic-style) 部分增加了独立的文档。
 
@@ -49,7 +49,7 @@ G2Plot 1.0 的用户仍然可以调用 0.x 版本的图表名称使用图表，�
 
 ### 图表类型拆分
 
-- Rose (玫瑰图）在 1.0 中拆分为三种图表：Rose（基础玫瑰图）[链接](https://g2plot.antv.vision/zh/docs/manual/plots/rose)、StackedRose（堆叠玫瑰图）[链接](https://g2plot.antv.vision/zh/docs/manual/plots/stacked-rose)、GroupedRose（分组玫瑰图）[链接](https://g2plot.antv.vision/zh/docs/manual/plots/grouped-rose)
+- Rose (玫瑰图）在 1.0 中拆分为三种图表：Rose（基础玫瑰图）[链接](https://g2plot.antv.vision/zh/docs/manual/plots/rose)、StackedRose（堆叠玫瑰图）[链接](https://g2plot.antv.vision/zh/docs/manual/plots/stacked-rose)、GroupedRose（分组玫瑰图）[链接](https://g2plot.antv.vision/zh/docs/manual/plots/grouped-rose)。
 
 
 - Gauge（仪表盘）在 1.0 中拆分为三种图表: Gauge（基础仪表盘）、 MeterGauge（标度仪表盘）、FanGauge（扇形仪表盘），详情见[文档](https://g2plot.antv.vision/zh/docs/manual/plots/gauge)。
@@ -59,21 +59,19 @@ G2Plot 1.0 的用户仍然可以调用 0.x 版本的图表名称使用图表，�
 G2Plot 1.0 兼容大部分的 0.x 版本图表功能和配置项，同时根据社区反馈新增了一些配置项，详情如下：
 
 ### 配置项缺失待补
-🔜 `tooltip.htmlContent` :底层技术栈 G2 不再支持tooltipContent，自定义tooltip相关配置项需要G2Plot在上层重新封装，将在后续小版本进行支持，请及时关注[CHANGELOG](https://github.com/antvis/G2Plot/blob/master/CHANGELOG.md)信息。
+🔜 `tooltip.htmlContent` :底层技术栈 G2 不再支持 tooltipContent，自定义 tooltip 相关配置项需要 G2Plot 在上层重新封装，将在后续小版本进行支持，请及时关注[CHANGELOG](https://github.com/antvis/G2Plot/blob/master/CHANGELOG.md)信息。
 
 ### 配置项非兼容性变更
 
-- `Gauge.statistic` 配置项全量更新，详情见： [https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#statistic](https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#statistic)
+- `Gauge.statistic` 配置项全量更新，详情见：[https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#statistic](https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#statistic)
 
-- `Gauge.color`: 配置仪表盘色带的颜色，不再放在GaugeStyle中，而是独立配置，与其他图表统一，详情见：[https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#color](https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#color)
+- `Gauge.color`: 配置仪表盘色带的颜色，不再放在 GaugeStyle 中，而是独立配置，与其他图表统一，详情见：[https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#color](https://g2plot.antv.vision/zh/docs/manual/plots/gauge/#color)
 
 
 ### 新增配置项
 
-- `title`: 图表标题 新增 `position` 配置，可选项为 `left`  |  `middle`  |   `right`
-
-- `description`: 图表标题 新增 `position` 配置，可选项为 `left`  |  `middle`  |  `right`
-
+- `title`: 图表标题 新增 `position` 配置，可选项为 `left` | `middle` | `right`
+- `description`: 图表标题 新增 `position` 配置，可选项为 `left` | `middle` | `right`
 - `guideline`: 辅助线，自定义辅助线的 `start` 和 `end` 支持数据与百分比混合配置
 ```javascript
   guideLine: [

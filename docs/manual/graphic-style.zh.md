@@ -23,23 +23,23 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
 | shadowBlur | number | 图形阴影的高斯模糊系数 |
 | shadowOffsetX | number | 设置阴影距图形的水平距离 |
 | shadowOffsetY | number | 设置阴影距图形的垂直距离 |
-| cursor | string | 鼠标样式。同 css 的鼠标样式,默认 'default'。 |
+| cursor | string | 鼠标样式。同 css 的鼠标样式，默认 'default'。 |
 
 示例代码，使用全量图形样式配置 Column (基础柱状图) 的柱形图形样式 `ColumnStyle`：
  
 ```js
   columnStyle:{
-    fill:'red',
-    fillOpacity:0.5,
-    stroke:'black',
+    fill: 'red',
+    fillOpacity: 0.5,
+    stroke: 'black',
     lineWidth: 1,
-    lineDash:[4,5],
-    strokeOpacity:0.7,
-    shadowColor:'black',
-    shadowBlur:10,
-    shadowOffsetX:5,
-    shadowOffsetY:5,
-    cursor:'pointer'
+    lineDash: [4,5],
+    strokeOpacity: 0.7,
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffsetX: 5,
+    shadowOffsetY: 5,
+    cursor: 'pointer'
   }
 ```
 
@@ -64,15 +64,15 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
  
 ```js
 lineStyle:{
-    stroke:'black',
-    lineWidth: 2,
-    lineDash:[4,5],
-    strokeOpacity:0.7,
-    shadowColor:'black',
-    shadowBlur:10,
-    shadowOffsetX:5,
-    shadowOffsetY:5,
-    cursor:'pointer'
+  stroke: 'black',
+  lineWidth: 2,
+  lineDash: [4,5],
+  strokeOpacity: 0.7,
+  shadowColor: 'black',
+  shadowBlur: 10,
+  shadowOffsetX: 5,
+  shadowOffsetY: 5,
+  cursor: 'pointer'
 }
 ```
 效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
@@ -105,14 +105,14 @@ lineStyle:{
 
 ```js
 statistic:{
-    style:{
-      fontSize:80,
-      fontWeight:300,
-      textAlign:'center',
-      textBaseline:'middle',
-      shadowColor:'white',
-      shadowBlur:10,
-    }
+  style:{
+    fontSize: 80,
+    fontWeight: 300,
+    textAlign: 'center',
+    textBaseline: 'middle',
+    shadowColor: 'white',
+    shadowBlur: 10,
+  }
 }
 ```
 
@@ -122,7 +122,7 @@ statistic:{
 
 # 配置渐变色
 
-G提供线性渐变，环形渐变两种形式。
+提供线性渐变，环形渐变两种形式。
 
 ## 线性渐变
 
@@ -135,21 +135,21 @@ G提供线性渐变，环形渐变两种形式。
 stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff'
 ```
 
-示例代码(1),通过 Area（面积图) 的 `areaStyle`, 配置带渐变色的面积图。
+示例代码(1)，通过 Area（面积图) 的 `areaStyle`, 配置带渐变色的面积图。
 
 ```js
 areaStyle:{
-    fill: 'l(90) 0:#5B8FF9 1:#ffffff',
+  fill: 'l(90) 0:#5B8FF9 1:#ffffff',
 }
 ```
 
 效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vXe9TIKLHSIAAAAAAAAAAABkARQnAQ" width="400">
 
-示例代码（2),通过 Bar (条形图) 的 `barStyle`, 配置带渐变色的条形图。
+示例代码（2)，通过 Bar (条形图) 的 `barStyle`, 配置带渐变色的条形图。
 
 ```js
 barStyle:{
-    fill:'l(0) 0:#3e5bdb 1:#dd3121',
+  fill: 'l(0) 0:#3e5bdb 1:#dd3121',
 }
 ```
 效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PLbxT69_RUwAAAAAAAAAAABkARQnAQ" width="400">
@@ -168,7 +168,7 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
 
 
 # 纹理
-用特定的纹理填充图形。G支持的纹理内容可以直接是图片或者 Data URLs。
+用特定的纹理填充图形。纹理内容可以直接是图片或者 Data URLs。
 
 <img src="https://gw.alipayobjects.com/zos/rmsportal/NjtjUimlJtmvXljsETAJ.png" width="600">
 
@@ -183,7 +183,7 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
 
 ```js
 columnStyle:{
-    fill:'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ'
+  fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ'
 }
 ```
 

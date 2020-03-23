@@ -3,7 +3,7 @@ title: 绘图属性
 order: 5
 ---
 
-G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形的样式配置，如折线图的`lineStyle`，柱状图的`columnStyle`等，还有部分组件的样式配置，如`label.style`, `axis.line.style`等，都是直接透传 G 的绘图属性。
+G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形的样式配置，如折线图的`lineStyle`，柱状图的`columnStyle`等，还有部分组件的样式配置，如`label.style`， `axis.line.style`等，都是直接透传 G 的绘图属性。
 
 为了方便用户使用，在这里对 G2Plot 常用的绘图属性进行简单的介绍：
 
@@ -28,7 +28,7 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
 示例代码，使用全量图形样式配置 Column (基础柱状图) 的柱形图形样式 `ColumnStyle`：
  
 ```js
-  columnStyle:{
+  columnStyle: {
     fill: 'red',
     fillOpacity: 0.5,
     stroke: 'black',
@@ -63,7 +63,7 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
 示例代码，使用全量图形样式配置 Line (基础折线图) 的折线图形样式 `LineStyle`：
  
 ```js
-lineStyle:{
+lineStyle: {
   stroke: 'black',
   lineWidth: 2,
   lineDash: [4,5],
@@ -104,7 +104,7 @@ lineStyle:{
 示例代码，以 Liquid （水波图) 的 statistic.style 配置为例：
 
 ```js
-statistic:{
+statistic: {
   style:{
     fontSize: 80,
     fontWeight: 300,
@@ -138,7 +138,7 @@ stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff'
 示例代码(1)，通过 Area（面积图) 的 `areaStyle`, 配置带渐变色的面积图。
 
 ```js
-areaStyle:{
+areaStyle: {
   fill: 'l(90) 0:#5B8FF9 1:#ffffff',
 }
 ```
@@ -148,7 +148,7 @@ areaStyle:{
 示例代码（2)，通过 Bar (条形图) 的 `barStyle`, 配置带渐变色的条形图。
 
 ```js
-barStyle:{
+barStyle: {
   fill: 'l(0) 0:#3e5bdb 1:#dd3121',
 }
 ```
@@ -182,7 +182,7 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
 示例代码，以 Column（柱状图) 的 `columnStyle` 为例：
 
 ```js
-columnStyle:{
+columnStyle: {
   fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ'
 }
 ```

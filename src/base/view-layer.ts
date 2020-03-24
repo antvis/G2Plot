@@ -252,7 +252,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-    if (this.options.renderer === 'canvas') {
+    if (this.options.renderer === 'canvas' && (this.options.yAxis.min || this.options.yAxis.max)) {
       this.addGeomCliper();
     }
     /** autopadding */

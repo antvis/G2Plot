@@ -99,7 +99,7 @@ export default abstract class PieBaseLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

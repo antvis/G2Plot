@@ -50,7 +50,7 @@ export default class StatisticHtml {
     this.setDomPosition(x, y);
   }
 
-  public destory() {
+  public destroy() {
     this.container.removeChild(this.wrapperNode);
   }
 

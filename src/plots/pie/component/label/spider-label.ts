@@ -234,7 +234,7 @@ export default class SpiderLabel {
     this.view.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

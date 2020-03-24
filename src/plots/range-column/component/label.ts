@@ -117,7 +117,7 @@ export default class RangeColumnLabel {
     }
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

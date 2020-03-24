@@ -48,7 +48,10 @@ title: API
 
 标注点图形类型
 
-1. string 类型。可参见 G2 支持的`symbol`类型，包括： `hexagon`, `bowtie`, `cross`, `tick`, `plus`, `hyphen`, `line`
+1. string 类型。
+
+- 内置类型，可参见 G2 支持的`symbol`类型，包括： `hexagon`, `bowtie`, `cross`, `tick`, `plus`, `hyphen`, `line`
+- image类型，通过`iamge://url`的方式，指定标注点为具体的图片，url为图片地址
 
 2. Function 类型，可以自定义 symbol 绘制，如下：
 
@@ -71,6 +74,18 @@ sumbol: (x: number, y: number, r: number) => {
 
 symbol 的大小
 
+## offsetX
+
+**optional** number, 默认: 0
+
+标注点坐标 x 方向偏移
+
+## offsetY
+
+**optional** number, 默认: 0
+
+标注点坐标 y 方向偏移
+
 ## data
 
 **required** array
@@ -88,6 +103,7 @@ data: [
   // 匹配 日期为 2019-10-01，且数值为 3 的数据点
   { date: '2019-10-01', value: 3 },
 ];
+```
 
 ## label
 

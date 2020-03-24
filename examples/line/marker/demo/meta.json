@@ -23,6 +23,11 @@
       "filename": "custom-symbol.js",
       "title": "自定义标注点",
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RekySYi5EmoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-iamge.js",
+      "title": "使用 image 定义标注点",
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y6rgTbxv8nsAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

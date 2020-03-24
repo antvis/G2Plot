@@ -50,7 +50,8 @@ export default abstract class extends PieElementLabels {
       this.anchors.push({ ...item, ...point, id: label.id });
     });
     const labelLines = renderer.get('lineGroup').get('children') || [];
-    this.adjustPosition(labels, items, coord, panel);
+    const shouldAdjustPosition = this.cfg.labelOptions.adjustPosition;
+    this.adjustPosition(labels, items, coord, panel, shouldAdjustPosition);
     this.adjustTexts(labels, items, coord, panel);
     // should adjust overlap before asjustLines
     this.adjustOverlap(labels, panel);
@@ -59,7 +60,7 @@ export default abstract class extends PieElementLabels {
   }
 
   /** 调整 labels */
-  public abstract adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox): void;
+  public abstract adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel: BBox, shouldAdjust?): void;
 
   /** 调整 label lines */
   public abstract adjustLines(labels: Shape[], items: LabelItem[], lines: Shape[], coord: Polar, panel: BBox): void;

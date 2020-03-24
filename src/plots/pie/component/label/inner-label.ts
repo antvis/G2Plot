@@ -17,7 +17,7 @@ export function percent2Number(value: string): number {
  * @done
  */
 class InnerLabel extends BaseLabel {
-  public adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar) {
+  public adjustPosition(labels: Shape[], items: LabelItem[], coord: Polar, panel, shouldAdjustPosition: Boolean) {
     const center = coord.getCenter();
     const radius = coord.getRadius();
     const offset = this.getOffsetOfLabel();
@@ -28,10 +28,11 @@ class InnerLabel extends BaseLabel {
       label.attr('x', newX);
       label.attr('y', newY);
       label.attr('textBaseline', 'middle');
-
       if (idx > 0) {
         const prevLabel = labels[idx - 1];
-        this.resolveCollision(label, prevLabel, anchor, coord);
+        if(shouldAdjustPosition){
+         this.resolveCollision(label, prevLabel, anchor, coord); 
+        }
       }
     });
   }

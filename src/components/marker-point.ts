@@ -23,6 +23,7 @@ type AnimationOption = {
 interface Cfg {
   view: View;
   data: any[];
+  // 'image://http://xxx.xxx.xxx/a/b.png'
   symbol?: string | ((x: number, y: number, r: number) => any[][]);
   size?: number;
   label?: {
@@ -161,24 +162,39 @@ export default class MarkerPoint {
         if (isArray(y)) {
           y = y[0];
         }
-        const symbol = this.config.symbol;
-        const point = group.addShape({
-          type: 'marker',
-          name: 'marker-point',
-          id: `point-${dataItemIdx}`,
-          attrs: {
-            x,
-            y,
-            r: this.size / 2,
-            ...pointAttrs,
-            symbol: isString(symbol) ? MarkerSymbols[symbol] : symbol,
-          },
-        });
+        let symbol = this.config.symbol;
+        let point;
+        if (isString(symbol) && symbol.startsWith('image://')) {
+          const imageUrl = symbol.substr(8);
+          point = group.addShape('image', {
+            attrs: {
+              x: x - this.size / 2,
+              y: y - this.size / 2,
+              img: imageUrl,
+              width: this.size,
+              height: this.size,
+            },
+          });
+        } else {
+          symbol = isString(symbol) ? MarkerSymbols[symbol] : symbol;
+          point = group.addShape({
+            type: 'marker',
+            name: 'marker-point',
+            id: `point-${dataItemIdx}`,
+            attrs: {
+              x,
+              y,
+              r: this.size / 2,
+              ...pointAttrs,
+              symbol,
+            },
+          });
+        }
         this.points.push(point);
+        this._animatePoint(point);
         this._renderLabel(group, origin, dataItemIdx);
         group.set('data', dataItem);
         group.set('origin', origin);
-        this._animatePoint(point);
       }
     });
   }

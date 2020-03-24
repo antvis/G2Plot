@@ -1,6 +1,6 @@
 import BBox from '../../util/bbox';
 import { getScale } from '@antv/scale';
-import * as _ from '@antv/util';
+import { isArray, uniq, deepMix, each, hasKey, isString, isObject, isNil } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme';
 import { isSingleGraph } from './adjustColorConfig';
@@ -127,7 +127,7 @@ function getCatScale(axisInfo) {
   // todo: time cat 重新排序
   const CatScale = getScale('cat');
   const scale = new CatScale({
-    values: _.uniq(scaleValues),
+    values: uniq(scaleValues),
   });
 
   return scale;
@@ -151,7 +151,7 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
   const theme = getTheme(globalOptions);
   const isVertical = dim === 'x' ? false : true;
   let group;
-  if (scale.layer) {
+  if (scale && scale.layer) {
     group = scale.layer.container.addGroup();
   } else {
     group = canvas.addGroup();
@@ -167,11 +167,11 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
     } as any,
   });
   let defaultStyle = theme.axis && theme.axis[dim] ? toAxisStyle(theme.axis[dim]) : {};
-  if (scale.color) {
+  if (scale && scale.color) {
     defaultStyle = adjustColorStyle(scale.color, parser);
   }
 
-  const axisConfig = _.deepMix(
+  const axisConfig = deepMix(
     {},
     parser,
     {
@@ -193,16 +193,24 @@ export function createAxis(scale, dim, canvas, cfg, globalOptions) {
     defaultStyle
   );
   const axis: any = new Axis.Line(axisConfig as any);
-  axis.layer = scale.layer;
+  if (scale) {
+    axis.layer = scale.layer;
+  }
   axis.render();
   return axis;
 }
 
 function getAxisTicks(scale, dim) {
   const tickValues = [];
+  if (!scale) {
+    return;
+  }
   const { ticks, range } = scale;
+  if (!ticks || !range) {
+    return;
+  }
   const step = (range[1] - range[0]) / (ticks.length - 1);
-  _.each(ticks, (tick, index) => {
+  each(ticks, (tick, index) => {
     const value = dim === 'y' ? 1.0 - (range[0] + step * index) : range[0] + step * index;
     tickValues.push({ name: tick, value });
   });
@@ -224,7 +232,7 @@ function calValues(scale, tickCount) {
 export function axesLayout(globalOptions, axisInfo, padding, layer, width, height, canvas) {
   const { bleeding } = getGlobalTheme();
   // merge padding and bleeding by zero value
-  _.each(padding, (p, index) => {
+  each(padding, (p, index) => {
     if (p === 0) {
       padding[index] = bleeding[index];
     }
@@ -237,8 +245,9 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
   let xAxisHeight = 0;
   if (globalOptions.xAxis.visible) {
     xAxisScale = mergeAxisScale(axisInfo, 'x');
+    const scale = isArray(xAxisScale) ? xAxisScale[0] : xAxisScale;
     xAxis = createAxis(
-      xAxisScale[0],
+      scale,
       'x',
       canvas,
       {
@@ -252,8 +261,11 @@ export function axesLayout(globalOptions, axisInfo, padding, layer, width, heigh
   }
 
   if (globalOptions.yAxis.visible) {
-    const yAxisScale = mergeAxisScale(axisInfo, 'y', globalOptions.yAxis);
-    _.each(yAxisScale, (scale, index) => {
+    let yAxisScale = mergeAxisScale(axisInfo, 'y', globalOptions.yAxis);
+    if (isObject(yAxisScale)) {
+      yAxisScale = [yAxisScale];
+    }
+    each(yAxisScale, (scale, index) => {
       const factor = index === 0 ? -1 : 1;
       const axis = createAxis(
         scale,
@@ -367,10 +379,10 @@ export function drawYGrid(axis, coord, container, globalOptions) {
   const theme = getTheme(globalOptions);
   const gridCfg = globalOptions.yAxis.grid;
   const defaultStyle = theme.axis.y.grid.style;
-  const style = _.deepMix({}, defaultStyle, gridCfg.style);
+  const style = deepMix({}, defaultStyle, gridCfg.style);
   const gridGroup = container.addGroup();
   const labelItems = axis.get('labelItems');
-  _.each(labelItems, (item, index) => {
+  each(labelItems, (item, index) => {
     if (index > 0) {
       gridGroup.addShape('path', {
         attrs: {
@@ -387,8 +399,8 @@ export function drawYGrid(axis, coord, container, globalOptions) {
 
 function toAxisStyle(theme) {
   const style = {};
-  _.each(theme, (t, key) => {
-    if (_.hasKey(t, 'style')) {
+  each(theme, (t, key) => {
+    if (hasKey(t, 'style')) {
       style[key] = t.style;
     }
   });
@@ -398,9 +410,9 @@ function toAxisStyle(theme) {
 function getTheme(options) {
   let theme = getGlobalTheme();
   if (options.theme) {
-    if (_.isString(options.theme)) {
+    if (isString(options.theme)) {
       theme = getGlobalTheme(options.theme);
-    } else if (_.isObject(options.theme)) {
+    } else if (isObject(options.theme)) {
       theme = options.theme;
     }
   }

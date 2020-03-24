@@ -155,36 +155,38 @@ export default class DensityHeatmapLayer<
   }
 
   protected addGeometry() {
-    const config = {
-      type: 'linearheatmap',
-      position: {
-        fields: [this.options.xField, this.options.yField],
-      },
-      color: {
-        fields: [this.options.colorField],
-        values: this.options.color,
-      },
-      cfg: {
-        intensity: this.options.intensity,
-        radius: this.options.radius,
-      },
-    } as any;
+    if (this.options.data.length > 1) {
+      const config = {
+        type: 'linearheatmap',
+        position: {
+          fields: [this.options.xField, this.options.yField],
+        },
+        color: {
+          fields: [this.options.colorField],
+          values: this.options.color,
+        },
+        cfg: {
+          intensity: this.options.intensity,
+          radius: this.options.radius,
+        },
+      } as any;
 
-    if (this.options.radius) {
-      config.radius = this.options.radius;
+      if (this.options.radius) {
+        config.radius = this.options.radius;
+      }
+
+      if (this.options.intensity) {
+        config.intensity = this.options.intensity;
+      }
+
+      if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
+        this.geometryTooltip(config);
+      }
+
+      this.setConfig('geometry', config);
+
+      this.addPoint();
     }
-
-    if (this.options.intensity) {
-      config.intensity = this.options.intensity;
-    }
-
-    if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
-      this.geometryTooltip(config);
-    }
-
-    this.setConfig('geometry', config);
-
-    this.addPoint();
   }
 
   protected addPoint() {

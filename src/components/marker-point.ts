@@ -26,6 +26,9 @@ interface Cfg {
   // 'image://http://xxx.xxx.xxx/a/b.png'
   symbol?: string | ((x: number, y: number, r: number) => any[][]);
   size?: number;
+  /** 标注点 point 坐标的 x 偏移 */
+  offsetX?: number;
+  offsetY?: number;
   label?: {
     visible: boolean;
     /** marker point 映射的字段 */
@@ -90,6 +93,8 @@ export default class MarkerPoint {
   private selectedPoint: IShape;
 
   protected defaultCfg = {
+    offsetX: 0,
+    offsetY: 0,
     style: { normal: DEFAULT_STYLE, selected: SELECTED_STYLE, active: ACTIVE_STYLE },
     events: {
       mouseenter: () => {},
@@ -163,13 +168,14 @@ export default class MarkerPoint {
           y = y[0];
         }
         let symbol = this.config.symbol;
+        const { offsetX, offsetY } = this.config;
         let point;
         if (isString(symbol) && symbol.startsWith('image://')) {
           const imageUrl = symbol.substr(8);
           point = group.addShape('image', {
             attrs: {
-              x: x - this.size / 2,
-              y: y - this.size / 2,
+              x: x - this.size / 2 + offsetX,
+              y: y - this.size / 2 + offsetY,
               img: imageUrl,
               width: this.size,
               height: this.size,
@@ -182,8 +188,8 @@ export default class MarkerPoint {
             name: 'marker-point',
             id: `point-${dataItemIdx}`,
             attrs: {
-              x,
-              y,
+              x: x + offsetX,
+              y: y + offsetY,
               r: this.size / 2,
               ...pointAttrs,
               symbol,

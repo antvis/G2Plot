@@ -27,8 +27,8 @@ export interface BarViewConfig extends ViewConfig {
   maxWidth?: number;
   minWidth?: number;
   barStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
-  xAxis?: ICatAxis | ITimeAxis;
-  yAxis?: IValueAxis;
+  yAxis?: ICatAxis;
+  xAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
 }
 

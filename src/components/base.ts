@@ -28,6 +28,10 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
     return this.getGroup().getBBox();
   }
 
+  public clear() {
+    this.group.clear();
+  }
+
   public render(): void {
     this.renderInner(this.group);
     this.getCanvas().draw();

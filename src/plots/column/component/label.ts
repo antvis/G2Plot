@@ -1,116 +1,70 @@
-import { View, IGroup } from '../../../dependents';
-import { clone, deepMix, each } from '@antv/util';
+import { clone, get, each, deepMix } from '@antv/util';
+import { IShape, Element } from '../../../dependents';
+import BaseLabel, { registerLabelComponent } from '../../../components/label/label';
+import { IStyleConfig } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
 import BBox from '../../../util/bbox';
 
-export interface ColumnLabelConfig {
-  visible?: boolean;
-  position?: string;
-  formatter?: (...args: any[]) => string;
-  offsetX?: number;
-  offsetY?: number;
-  style?: any;
-  adjustColor?: boolean;
-  adjustPosition?: boolean;
-}
+export const DEFAULT_OFFSET = 8;
 
-export interface IColumnLabel extends ColumnLabelConfig {
-  view: View;
-  plot: any;
-}
+export default class ColumnLabel extends BaseLabel {
+  protected getLabelItemConfig(element: Element, idx: number): IStyleConfig {
+    const { style, formatter } = this.options;
+    const { shape } = element;
+    const value = this.getValue(element);
 
-export default class ColumnLabel {
-  public options: ColumnLabelConfig;
-  public destroyed: boolean = false;
-  protected plot: any;
-  protected view: View;
-  protected coord: any;
-  protected container: IGroup;
-
-  constructor(cfg: IColumnLabel) {
-    this.view = cfg.view;
-    this.plot = cfg.plot;
-    const defaultOptions = this.getDefaultOptions();
-    this.options = deepMix(defaultOptions, cfg, {});
-    this.init();
-  }
-
-  protected init() {
-    this.container = this.getGeometry().labelsContainer;
-    this.view.on('beforerender', () => {
-      this.clear();
-      this.plot.canvas.draw();
+    return deepMix({}, style, {
+      ...this.getPosition(element),
+      text: formatter ? formatter(value, shape, idx) : value,
+      fill: this.getTextFill(element),
+      stroke: this.getTextStroke(element),
+      textAlign: this.getTextAlign(element),
+      textBaseline: this.getTextBaseLine(element),
     });
   }
 
-  public render() {
-    const { elements, coordinate } = this.getGeometry();
-    this.coord = coordinate;
-    each(elements, (ele) => {
-      const { shape } = ele;
-      const style = clone(this.options.style);
-      const value = this.getValue(shape);
-      const position = this.getPosition(shape, value);
-      const textAlign = this.getTextAlign(value);
-      const textBaseline = this.getTextBaseLine(value);
-      const color = this.getTextColor(shape);
-      if (this.options.position !== 'top' && this.options.adjustColor && color !== 'black') {
-        style.stroke = null;
+  protected getDefaultOptions() {
+    const { theme } = this.layer;
+    const labelStyle = theme.label.style;
+    return {
+      offsetX: 0,
+      offsetY: 0,
+      style: clone(labelStyle),
+      adjustPosition: true,
+    };
+  }
+
+  protected adjustLabel(label: IShape, element: Element): void {
+    const { adjustPosition } = this.options;
+    if (adjustPosition) {
+      const labelRange = label.getBBox();
+      const shapeRange = this.getElementShapeBBox(element);
+      if (shapeRange.height <= labelRange.height) {
+        const yPosition = shapeRange.minY + this.options.offsetY - DEFAULT_OFFSET;
+        label.attr('y', yPosition);
+        label.attr('textBaseline', 'bottom');
+        label.attr('fill', this.options.style.fill);
       }
-      const formatter = this.options.formatter;
-      const content = formatter ? formatter(value) : value;
-      const label = this.container.addShape('text', {
-        attrs: deepMix({}, style, {
-          x: position.x,
-          y: position.y,
-          text: content,
-          fill: color,
-          textAlign,
-          textBaseline,
-        }),
-        name: 'label',
-      });
-      this.adjustLabel(label, shape);
-    });
-  }
-
-  public clear() {
-    if (this.container) {
-      this.container.clear();
     }
   }
 
-  public hide() {
-    this.container.set('visible', false);
-    this.plot.canvas.draw();
+  protected getValue(element: Element): number {
+    return get(element.getData(), this.layer.options.yField);
   }
 
-  public show() {
-    this.container.set('visible', true);
-    this.plot.canvas.draw();
-  }
-
-  public destroy() {
-    if (this.container) {
-      this.container.remove();
-    }
-    this.destroyed = true;
-  }
-
-  public getBBox() {}
-
-  protected getPosition(shape, value) {
-    const bbox = this.getShapeBbox(shape);
-    const { minX, maxX, minY, maxY, height, width } = bbox;
+  protected getPosition(element: Element): { x: number; y: number } {
+    const value = this.getValue(element);
+    const bbox = this.getElementShapeBBox(element);
+    const { minX, minY, maxY, height, width } = bbox;
     const { offsetX, offsetY, position } = this.options;
     const x = minX + width / 2 + offsetX;
     const dir = value > 0 ? -1 : 1;
     let y;
     if (position === 'top') {
       const root = value > 0 ? minY : maxY;
-      y = root + (offsetY + 8) * dir;
+      y = root + (offsetY + DEFAULT_OFFSET) * dir;
     } else if (position === 'bottom') {
-      y = maxY + (offsetY + 8) * dir;
+      y = maxY + (offsetY + DEFAULT_OFFSET) * dir;
     } else {
       y = minY + height / 2 + offsetY;
     }
@@ -118,7 +72,8 @@ export default class ColumnLabel {
     return { x, y };
   }
 
-  protected getTextColor(shape) {
+  protected getTextFill(element: Element) {
+    const { shape } = element;
     if (this.options.adjustColor && this.options.position !== 'top') {
       const shapeColor = shape.attr('fill');
       const shapeOpacity = shape.attr('opacity') ? shape.attr('opacity') : 1;
@@ -136,45 +91,14 @@ export default class ColumnLabel {
     return defaultColor;
   }
 
-  protected getTextAlign(value) {
-    return 'center';
+  protected getTextStroke(element: Element) {
+    const fill = this.getTextFill(element);
+    const { position, adjustColor } = this.options;
+    return position !== 'top' && adjustColor && fill !== 'black' ? null : undefined;
   }
 
-  protected getTextBaseLine(value) {
-    const { position } = this.options;
-    return position === 'middle' ? 'middle' : 'bottom';
-  }
-
-  protected getValue(shape) {
-    const data = shape.get('origin').data;
-    return data[this.plot.options.yField];
-  }
-
-  protected adjustLabel(label, shape) {
-    if (this.options.adjustPosition && this.options.position !== 'top') {
-      const labelRange = label.getBBox();
-      const shapeRange = shape.getBBox();
-      if (shapeRange.height <= labelRange.height) {
-        const yPosition = shapeRange.minY + this.options.offsetY - 8;
-        label.attr('y', yPosition);
-        label.attr('textBaseline', 'bottom');
-        label.attr('fill', this.options.style.fill);
-      }
-    }
-  }
-
-  protected getDefaultOptions() {
-    const { theme } = this.plot;
-    const labelStyle = theme.label.style;
-    return {
-      offsetX: 0,
-      offsetY: 0,
-      style: clone(labelStyle),
-      adjustPosition: true,
-    };
-  }
-
-  protected getShapeBbox(shape) {
+  protected getElementShapeBBox(element: Element) {
+    const { shape } = element;
     const points = [];
     each(shape.get('origin').points, (p) => {
       points.push(this.coord.convertPoint(p));
@@ -188,14 +112,14 @@ export default class ColumnLabel {
     return bbox;
   }
 
-  private getGeometry() {
-    const { geometries } = this.view;
-    let lineGeom;
-    each(geometries, (geom) => {
-      if (geom.type === 'interval') {
-        lineGeom = geom;
-      }
-    });
-    return lineGeom;
+  protected getTextAlign(element: Element) {
+    return 'center';
+  }
+
+  protected getTextBaseLine(element: Element) {
+    const { position } = this.options;
+    return position === 'middle' ? 'middle' : 'bottom';
   }
 }
+
+registerLabelComponent('column', ColumnLabel);

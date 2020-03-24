@@ -135,7 +135,7 @@ statistic: {
 stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff'
 ```
 
-示例代码(1)，通过 Area（面积图) 的 `areaStyle`, 配置带渐变色的面积图。
+示例代码(1)，通过 Area（面积图) 的 `areaStyle`，配置带渐变色的面积图。
 
 ```js
 areaStyle: {

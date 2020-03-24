@@ -189,11 +189,11 @@ color:(d)=>{
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
-| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                  | 默认配置 ｜
-| -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| visible  | boolean | 是否显示                                                                                                                                                                                                                                                                                  | false |
-| text  | string | 标题文本                                                                                                                                                                                                                                                                                  | - |
-| position | string  | 位置，支持三种配置：<br />'left'                                                                                                                                                                                                                                                          | 'middle' | 'right' | left |
+| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                  | 默认配置 ｜                       |
+| -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| visible  | boolean | 是否显示                                                                                                                                                                                                                                                                                  | false                             |
+| text     | string  | 标题文本                                                                                                                                                                                                                                                                                  | -                                 |
+| position | string  | 位置，支持三种配置：<br />'left'                                                                                                                                                                                                                                                          | 'middle'                          | 'right' | left |
 | style    | object  | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> | `{ fontSize: 18, fill: 'black' }` |
 
 ### description
@@ -204,12 +204,12 @@ color:(d)=>{
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
-| 细分配置 | 类型    | 功能描述                                                                                                                                                                                                                                                                                  | 默认配置 ｜
+| 细分配置 | 类型 | 功能描述 | 默认配置 ｜
 | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ ｜
-| visible  | boolean | 是否显示                                                                                                                                                                                                                                                                                  | false |
-| text  | string | 描述文本                                                                                                                                                                                                                                                                                  | - |
-| position | string  | 位置，支持三种配置：<br />'left'                                                                                                                                                                                                                                                          | 'middle' | 'right' | left |
-| style    | object  | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> | `{ fontSize: 12, fill: 'grey' }` |
+| visible | boolean | 是否显示 | false |
+| text | string | 描述文本 | - |
+| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' | left |
+| style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> | `{ fontSize: 12, fill: 'grey' }` |
 
 ### legend
 
@@ -219,15 +219,15 @@ color:(d)=>{
 
 功能描述：图例，配置 colorField 时显示，用于展示颜色分类信息
 
-| 细分配置  | 类型     | 功能描述                                                                                                                                                                                                 | 默认配置 ｜
+| 细分配置 | 类型 | 功能描述 | 默认配置 ｜
 | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- ｜
-| visible   | boolean  | 是否可见                                                                                                                                                                                                 | true |
-| position  | string   | 位置，支持 12 方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom                    | top |
-| formatter | function | 对图例显示信息进行格式化                                                                                                                                                                                 | - |
-| flipPage  | boolean  | 图例过多时是否翻页显示                                                                                                                                                                                   | true |
-| offsetX   | number   | 图例在 position 的基础上再往 x 方向偏移量，单位 px                                                                                                                                                       | - |
-| offestY   | number   | 图例在 position 的基础上再往 y 方向偏移量，单位 px                                                                                                                                                       | - |
-| marker    | string   | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` | - |
+| visible | boolean | 是否可见 | true |
+| position | string | 位置，支持 12 方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom | top |
+| formatter | function | 对图例显示信息进行格式化 | - |
+| flipPage | boolean | 图例过多时是否翻页显示 | true |
+| offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px | - |
+| offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px | - |
+| marker | string | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` | - |
 
 ### tooltip
 
@@ -256,15 +256,15 @@ color:(d)=>{
 
 ```
 
-| 细分配置   | 类型     | 功能描述                                                                                                                                               | 默认配置 ｜
+| 细分配置 | 类型 | 功能描述 | 默认配置 ｜
 | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----- ｜
-| visible    | boolean  | 是否显示                                                                                                                                               | false |
-| type       | string   | label 的类型<br />- inner label 显示于扇形切片内<br />- outer label 显示于饼外<br />- outer-center label 呈圆形排布于饼外<br />- spider 蜘蛛布局 label | inner | false |
-| autoRotate | boolean  | 是否自动旋转                                                                                                                                           | - |
-| formatter  | function | 对文本标签内容进行格式化                                                                                                                               | - |
-| offsetX    | number   | 在 label 位置的基础上再往 x 方向的偏移量                                                                                                               | - |
-| offsetY    | number   | 在 label 位置的基础上再往 y 方向的偏移量                                                                                                               | - |
-| style      | object   | 配置文本标签样式。                                                                                                                                     | - |
+| visible | boolean | 是否显示 | false |
+| type | string | label 的类型<br />- inner label 显示于扇形切片内<br />- outer label 显示于饼外<br />- outer-center label 呈圆形排布于饼外<br />- spider 蜘蛛布局 label | inner | false |
+| autoRotate | boolean | 是否自动旋转 | - |
+| formatter | function | 对文本标签内容进行格式化 | - |
+| offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 | - |
+| offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 | - |
+| style | object | 配置文本标签样式。 | - |
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TeCBRbMLDKsAAAAAAAAAAABkARQnAQ" alt="image.png" style="visibility: visible; width: 800px; height: 248px;">
 
@@ -289,13 +289,13 @@ label: {
 
 功能描述： 指标卡组件，显示在环图中心，可以代替 tooltip，显示环图数据的总计值和各项数据。启用 statistic 组件的同时将自动关闭 tooltip。
 
-| 细分配置   | 类型    | 功能描述                                                       | 默认配置 |
-| ---------- | ------- | -------------------------------------------------------------- | -----|
-| visible    | boolean | 是否显示                                                       | true |
-| totalLabel | string  | 总计值标签                                                     | 总计 ｜
-| triggerOn  | string  | 触发显示的事件。默认为 mousenter。如不配置则直接显示。         | mouseener ｜
-| triggerOff | string  | 触发隐藏的事件，默认为 mouseleave。需要同 triggerOn 搭配使用。 | mouseleave ｜
-| content    | string  | 显示文本，默认不配置。                                         | 无 ｜
+| 细分配置   | 类型    | 功能描述                                                       | 默认配置      |
+| ---------- | ------- | -------------------------------------------------------------- | ------------- |
+| visible    | boolean | 是否显示                                                       | true          |
+| totalLabel | string  | 总计值标签                                                     | 总计 ｜       |
+| triggerOn  | string  | 触发显示的事件。默认为 mousenter。如不配置则直接显示。         | mouseener ｜  |
+| triggerOff | string  | 触发隐藏的事件，默认为 mouseleave。需要同 triggerOn 搭配使用。 | mouseleave ｜ |
+| content    | string  | 显示文本，默认不配置。                                         | 无 ｜         |
 
 ## 事件
 

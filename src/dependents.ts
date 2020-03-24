@@ -27,6 +27,7 @@ export {
   AttributeOption,
   AdjustOption,
   LabelOption,
+  MappingDatum,
 } from '@antv/g2/lib/interface';
 export { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
 

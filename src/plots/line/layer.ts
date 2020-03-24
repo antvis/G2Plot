@@ -168,6 +168,14 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected coord() {}
 
+  protected tooltip() {
+    // 如果有标注点，则不展示markers
+    if (some(this.options.markerPoints, (markerPointOpt) => markerPointOpt.visible)) {
+      this.options.tooltip.showMarkers = false;
+    }
+    super.tooltip();
+  }
+
   protected addGeometry() {
     // 配置线
     this.addLine();

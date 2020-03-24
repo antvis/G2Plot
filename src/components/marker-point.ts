@@ -1,6 +1,7 @@
 import { View, IGroup, IShape, MarkerSymbols } from '../dependents';
 import { deepMix, isMatch, isString, isArray, each, find } from '@antv/util';
-import { MappingDatum } from '@antv/g2/lib/interface';
+import { MappingDatum, GAnimateCfg } from '@antv/g2/lib/interface';
+import { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
 import { Event } from '@antv/g2/lib/dependents';
 
 interface PointStyle {
@@ -13,6 +14,11 @@ interface PointStyle {
 interface MarkerItem {
   _origin: object;
 }
+
+type AnimationOption = {
+  endState: PointStyle;
+  animateCfg: GAnimateCfg;
+};
 
 interface Cfg {
   view: View;
@@ -40,6 +46,7 @@ interface Cfg {
     mouseleave?: (e: Event) => void;
     click?: (e: Event) => void;
   };
+  animation?: boolean | AnimationOption;
 }
 
 const DEFAULT_STYLE = {
@@ -96,6 +103,7 @@ export default class MarkerPoint {
         fill: 'rgba(0, 0, 0, 0.85)',
       },
     },
+    animation: false,
   };
 
   constructor(cfg: Cfg) {
@@ -170,6 +178,7 @@ export default class MarkerPoint {
         this._renderLabel(group, origin, dataItemIdx);
         group.set('data', dataItem);
         group.set('origin', origin);
+        this._animatePoint(point);
       }
     });
   }
@@ -282,5 +291,20 @@ export default class MarkerPoint {
         this._onInactive(point);
       }
     });
+  }
+
+  /** point animation, not for label */
+  private _animatePoint(shape: IShape) {
+    const { animation, size } = this.config;
+    if (animation !== false) {
+      const { endState = {}, animateCfg = DEFAULT_ANIMATE_CFG.appear } = animation as AnimationOption;
+      shape.animate(
+        {
+          r: Number.isNaN(endState.size / 2) ? size / 2 : endState.size / 2,
+          ...endState,
+        },
+        animateCfg
+      );
+    }
   }
 }

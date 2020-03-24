@@ -35,7 +35,6 @@ export interface GaugeViewConfig extends ViewConfig {
  * 仪表盘默认配置
  */
 export const DEFAULT_GAUGE_CONFIG = {
-  style: 'standard',
   startAngle: -7 / 6,
   endAngle: 1 / 6,
   gaugeStyle: {

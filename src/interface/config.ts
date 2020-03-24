@@ -82,6 +82,8 @@ export interface IBaseAxis {
     visible?: boolean;
     style?: IStyleConfig;
   };
+  min?: number;
+  max?: number;
   events?: IEvents;
 }
 /** Linear型 */

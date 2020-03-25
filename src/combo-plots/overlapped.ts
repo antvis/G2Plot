@@ -84,6 +84,7 @@ export default class OverlappedComboPlot<
         visible: true,
         position: 'top-left',
       },
+      animation: false
     };
   }
 

@@ -218,35 +218,16 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   protected animation() {
     super.animation();
     const props = this.options;
-    if (props.animation === false) {
+    if (!props.animation) {
       // 关闭动画
       this.line.animate = false;
       if (this.point) this.point.animate = false;
-    } else if (has(props, 'animation')) {
-      // 根据动画类型区分图形动画和群组动画
-      if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
-        getPlotOption({
-          options: this.options,
-          view: this.view,
-        });
-        this.line.animate = {
-          appear: {
-            animation: 'clipingWithData',
-            easing: 'easeLinear',
-            duration: 10000,
-            options: {
-              test: true,
-            },
-            yField: props.yField,
-            seriesField: props.seriesField,
-            plot: this,
-          },
-        };
-        // 如果有数据点的话要追加数据点的动画
-        if (props.point && props.point.visible) {
-          this.point.animate = false;
-        }
-      }
+    } else {
+      getPlotOption({
+        options: this.options,
+        view: this.view,
+      });
+      this.line.animate = props.animation;
     }
   }
 

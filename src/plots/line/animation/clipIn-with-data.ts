@@ -1,9 +1,14 @@
 import { registerAnimation } from '../../../dependents';
-import { clone, isFunction, isNil } from '@antv/util';
+import { clone, isFunction, isNil, deepMix } from '@antv/util';
 
 let plotInfo;
 
 function clipingWithData(shape, animateCfg) {
+  const defaultCfg = {
+    easing: 'easeLinear',
+    duration: 10000,
+  };
+  const animationConfig = deepMix({},animateCfg,defaultCfg);
   const geometry = shape.get('element').geometry;
   geometry.labelsContainer.set('visible', false);
   /** 动画初始状态 */
@@ -44,7 +49,7 @@ function clipingWithData(shape, animateCfg) {
     },
   });
   /** 动画执行之后 */
-  animateCfg.callback = () => {
+  animationConfig.callback = () => {
     if (shape && !shape.get('destroyed')) {
       shape.setClip(null);
       clip.remove();
@@ -68,25 +73,25 @@ function clipingWithData(shape, animateCfg) {
   };
   /** 执行动画 */
   /** 准备动画参数 */
-  let delay = animateCfg.delay;
+  let delay = animationConfig.delay;
   if (isFunction(delay)) {
-    delay = animateCfg.delay(index);
+    delay = animationConfig.delay(index);
   }
-  let easing = animateCfg.easing;
+  let easing = animationConfig.easing;
   if (isFunction(easing)) {
-    easing = animateCfg.easing(index);
+    easing = animationConfig.easing(index);
   }
   /** 动起来 */
   clip.animate(
     {
       width: coord.getWidth(),
     },
-    animateCfg.duration,
+    animationConfig.duration,
     easing,
-    animateCfg.callback,
+    animationConfig.callback,
     delay
   );
-  (animateCfg.onFrame = (ratio) => {
+  (animationConfig.onFrame = (ratio) => {
     const position = getPositionByRatio(ratio, shapeData, coord);
     if (!position) return;
 
@@ -101,10 +106,10 @@ function clipingWithData(shape, animateCfg) {
 
     marker.attr('text', yText);
   }),
-    marker.animate(animateCfg.onFrame, {
-      duration: animateCfg.duration,
+    marker.animate(animationConfig.onFrame, {
+      duration: animationConfig.duration,
       easing,
-      callback: animateCfg.callback,
+      callback: animationConfig.callback,
       delay,
     });
   if (title) {
@@ -117,9 +122,9 @@ function clipingWithData(shape, animateCfg) {
           title.attr('y', position[1]);
         },
       },
-      animateCfg.duration,
+      animationConfig.duration,
       easing,
-      animateCfg.callback,
+      animationConfig.callback,
       delay
     );
   }

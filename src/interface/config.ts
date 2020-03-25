@@ -142,20 +142,12 @@ export interface Legend {
   };
 }
 
-
-
 export interface Tooltip {
   visible?: boolean;
   fields?: string[];
   shared?: boolean;
   showTitle?: boolean;
   formatter?: (...args: any) => {name:string,value:number};
-  // htmlContent?: (title: string, items: any[]) => string;
-  //containerTpl?: string;
-  //itemTpl?: string;
-  /** 辅助线 */
-  //crosshair?: 'x' | 'y' | 'cross' | boolean;
-  //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:
   showCrosshairs?: boolean;
   crosshairs?: object;
   style?: IStyleConfig;
@@ -163,11 +155,20 @@ export interface Tooltip {
   showMarkers?: boolean;
 }
 
-interface Animation {
+export interface Animation {
+  appear?: AnimationCfg,
+  enter?: AnimationCfg,
+  update?: AnimationCfg,
+  leave?: AnimationCfg
+}
+
+export interface AnimationCfg {
   /** 动画模式，延伸or缩放 */
   type?: string;
   duration?: number;
   easing?: string;
+  delay?: number;
+  callback?: (...args: any[]) => void;
 }
 
 // tslint:disable-next-line: no-empty-interface
@@ -183,7 +184,7 @@ export interface ElementOption {
   shape?: AttributeOption;
   style?: IStyleConfig;
   label?: LabelOption | false;
-  animate?: {};
+  animate?: Animation;
   adjust?: AdjustOption[];
   connectNulls?: boolean;
   widthRatio?: {

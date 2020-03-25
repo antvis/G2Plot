@@ -28,6 +28,7 @@ import {
   StateConfig,
   Tooltip,
   DataItem,
+  Animation
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -53,7 +54,7 @@ export interface ViewConfig {
   label?: Label;
   tooltip?: Tooltip;
   legend?: Legend;
-  animation?: any | boolean;
+  animation?: Animation | boolean;
   theme?: LooseMap | string;
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
@@ -153,6 +154,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
+      animation: false
     };
   }
   public type: string;
@@ -221,7 +223,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       interactions: [],
       theme: this.theme,
       panelRange: {},
-      animate: true,
+      animate: {} as any,
       views: [],
     };
 
@@ -479,7 +481,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   protected animation() {
-    if (this.options.animation === false || this.options.padding === 'auto') {
+    if (this.options.animation === false) {
       this.setConfig('animate', false);
     }
   }

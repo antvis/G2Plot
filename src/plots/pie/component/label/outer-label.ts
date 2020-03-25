@@ -37,45 +37,6 @@ export default class PieOuterLabel extends PieBaseLabel {
     [rightHalf, leftHalf].forEach((half, isLeft) => {
       this._antiCollision(half, !isLeft, panel);
     });
-    this.adjustOverlap(labels, panel);
-  }
-
-  /** 处理标签遮挡问题 */
-  protected adjustOverlap(labels: IShape[], panel: BBox): void {
-    if (this.options.allowOverlap) {
-      return;
-    }
-    // clearOverlap;
-    for (let i = 1; i < labels.length; i++) {
-      const label = labels[i];
-      let overlapArea = 0;
-      for (let j = i - 1; j >= 0; j--) {
-        const prev = labels[j];
-        // fix: start draw point.x is error when textAlign is right
-        const prevBox = prev.getBBox();
-        const currBox = label.getBBox();
-        // if the previous one is invisible, skip
-        if (prev.get('parent').get('visible')) {
-          overlapArea = getOverlapArea(prevBox, currBox);
-          if (!near(overlapArea, 0)) {
-            label.get('parent').set('visible', false);
-            break;
-          }
-        }
-      }
-    }
-    labels.forEach((label) => this.checkInPanel(label, panel));
-  }
-
-  /**
-   * 超出panel边界的标签默认隐藏
-   */
-  protected checkInPanel(label: IShape, panel: BBox): void {
-    const box = label.getBBox();
-    //  横向溢出 暂不隐藏
-    if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
-      label.get('parent').set('visible', false);
-    }
   }
 
   /** labels 碰撞处理（重点算法） */

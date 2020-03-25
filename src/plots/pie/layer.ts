@@ -53,6 +53,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         visible: true,
         type: 'inner',
         autoRotate: false,
+        adjustPosition: true,
         allowOverlap: false,
         line: {
           visible: true,

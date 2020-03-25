@@ -9,6 +9,13 @@ import { ShapeAttrs } from '@antv/g-base';
 import { Options, AttributeOption, AdjustOption, LabelOption } from '../dependents';
 import { LooseMap } from './types';
 
+export interface Meta {
+  alias?: string;
+  formatter?: (v: any) => string;
+  values?: string[];
+  range?: number[];
+}
+
 export interface ITitle {
   visible: boolean;
   text: string;
@@ -125,10 +132,24 @@ export interface Label {
   labelLine?: any;
 }
 
+type LegendPosition =
+  | 'left-top'
+  | 'left-center'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-top'
+  | 'right-bottom'
+  | 'top-left'
+  | 'top-center'
+  | 'top-bottom'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
+
 export interface Legend {
   visible?: boolean;
   /** 位置 */
-  position?: string;
+  position?: LegendPosition;
   /** 翻页 */
   flipPage?: boolean;
   formatter?: (...args: any) => string;
@@ -160,6 +181,7 @@ export interface Animation {
   enter?: AnimationCfg;
   update?: AnimationCfg;
   leave?: AnimationCfg;
+  [field: string]: any;
 }
 
 export interface AnimationCfg {
@@ -169,6 +191,7 @@ export interface AnimationCfg {
   easing?: string;
   delay?: number;
   callback?: (...args: any[]) => void;
+  [field: string]: any;
 }
 
 // tslint:disable-next-line: no-empty-interface

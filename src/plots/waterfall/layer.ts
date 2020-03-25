@@ -5,7 +5,7 @@
 import { deepMix, get, map, isArray, reduce, has, isFunction, isString, isObject } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import './geometry/shape/waterfall';
-import { ElementOption, IStyleConfig, DataItem, LayerConfig } from '../..';
+import { ElementOption, DataItem, LayerConfig } from '../..';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { extractScale } from '../../util/scale';
 import { AttributeCfg } from '@antv/attr';
@@ -14,6 +14,7 @@ import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
 import WaterfallLabels from './component/label/waterfall-label';
+import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
 
 interface WaterfallStyle {}
 
@@ -272,7 +273,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   }
 
   /** 牵引线的样式注入到style中 */
-  private _parseStyle(): IStyleConfig {
+  private _parseStyle(): LineStyle {
     const style = this.options.waterfallStyle;
     const leaderLine = this.options.leaderLine;
     const config: Record<string, any> = {};

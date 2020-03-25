@@ -1,7 +1,7 @@
 import BaseComponent, { BaseComponentConfig } from './base';
 import { IGroup, BBox, IShape } from '../dependents';
 import { move } from '../util/g-util';
-import { IStyleConfig, IStyle } from '../interface/config';
+import { LineStyle, TextStyle, GraphicStyle } from '../interface/config';
 
 export interface BreadcrumbItem {
   key: string;
@@ -13,34 +13,15 @@ export interface BreadcrumbConfig extends BaseComponentConfig {
   y: number;
   items: BreadcrumbItem[];
   itemPadding?: [number, number, number, number];
-  backgroundStyle?: {
-    fill?: string;
-    stroke?: string;
-    lineWidth?: number;
-    opacity?: number;
-  };
-  itemBackgroundStyle?: {
-    fill?: string;
-    opacity?: number;
-  };
-  itemActiveBackgroundStyle?: {
-    fill?: string;
-    opacity?: number;
-  };
+  backgroundStyle?: GraphicStyle;
+  itemBackgroundStyle?: GraphicStyle;
+  itemActiveBackgroundStyle?: GraphicStyle;
   separator?: string;
-  separatorStyle?: {
-    fontSize?: number;
-    fill?: string;
-    opacity?: number;
-  };
+  separatorStyle?: TextStyle;
   itemWidth?: number;
   itemHeight?: number;
   maxItemWidth?: number;
-  textStyle?: {
-    fontSize?: number;
-    fill?: string;
-    opacity?: number;
-  };
+  textStyle?: TextStyle;
 }
 
 export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
@@ -62,11 +43,11 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     opacity?: number;
   };
   private separator: string;
-  private separatorStyle: IStyleConfig;
+  private separatorStyle: TextStyle;
   private itemWidth: number | undefined;
   private itemHeight: number | undefined;
   private maxItemWidth: number | undefined;
-  private textStyle: IStyleConfig;
+  private textStyle: TextStyle;
 
   private listeners: { target: IShape | IGroup; event: string; callback: () => void }[] = [];
 

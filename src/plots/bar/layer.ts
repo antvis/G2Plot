@@ -5,10 +5,11 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IStyleConfig } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import BarLabel from './component/label';
+import { GraphicStyle } from '../../interface/config';
 import * as EventParser from './event';
 import './theme';
 
@@ -26,7 +27,7 @@ export interface BarViewConfig extends ViewConfig {
   barSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  barStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
+  barStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;

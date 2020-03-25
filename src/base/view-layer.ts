@@ -28,7 +28,7 @@ import {
   StateConfig,
   Tooltip,
   DataItem,
-  Animation
+  Animation,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -154,7 +154,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
-      animation: false
+      animation: false,
     };
   }
   public type: string;

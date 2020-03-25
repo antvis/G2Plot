@@ -289,7 +289,6 @@ color:(d)=>{
 | position | string | 位置，支持三种配置：<br />'left', 'middle', 'right' | left |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> | `{ fontSize: 12, fill: 'grey' }` |
 
-
 ### legend
 **可选**, *object*
 
@@ -332,6 +331,8 @@ color:(d)=>{
 | visible | boolean | 是否显示 | false |
 | type | string | label的类型<br />- inner label显示于扇形切片内<br />- outer label显示于饼外<br />- outer-center label呈圆形排布于饼外<br />- spider 蜘蛛布局label| inner |
 | autoRotate | boolean | 是否自动旋转 | false |
+| adjustPosition | boolean | 是否自动调整label位置(当label发生遮挡的时候，会自动进行调整) | true |
+| allowOverlap | boolean | 是否自动遮挡（当label发生遮挡的时候，会自动隐藏） | false |
 | formatter | function | 对文本标签内容进行格式化 | - |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 | - |
 | offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 | - |

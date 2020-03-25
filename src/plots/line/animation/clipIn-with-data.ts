@@ -8,7 +8,7 @@ function clipingWithData(shape, animateCfg) {
     easing: 'easeLinear',
     duration: 10000,
   };
-  const animationConfig = deepMix({},animateCfg,defaultCfg);
+  const animationConfig = deepMix({}, animateCfg, defaultCfg);
   const geometry = shape.get('element').geometry;
   geometry.labelsContainer.set('visible', false);
   /** 动画初始状态 */

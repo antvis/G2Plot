@@ -147,7 +147,7 @@ export interface Tooltip {
   fields?: string[];
   shared?: boolean;
   showTitle?: boolean;
-  formatter?: (...args: any) => {name:string,value:number};
+  formatter?: (...args: any) => { name: string; value: number };
   showCrosshairs?: boolean;
   crosshairs?: object;
   style?: IStyleConfig;
@@ -156,10 +156,10 @@ export interface Tooltip {
 }
 
 export interface Animation {
-  appear?: AnimationCfg,
-  enter?: AnimationCfg,
-  update?: AnimationCfg,
-  leave?: AnimationCfg
+  appear?: AnimationCfg;
+  enter?: AnimationCfg;
+  update?: AnimationCfg;
+  leave?: AnimationCfg;
 }
 
 export interface AnimationCfg {

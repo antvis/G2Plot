@@ -19,25 +19,20 @@ export interface Meta {
 export interface ITitle {
   visible: boolean;
   text: string;
-  style?: {};
+  style?: TextStyle;
   alignTo?: 'left' | 'right' | 'middle';
 }
 
 export interface IDescription {
   visible: boolean;
   text: string;
-  style?: {};
+  style?: TextStyle;
   alignTo?: 'left' | 'right' | 'middle';
 }
 
 type IEvents = LooseMap<string>;
 
 export type Formatter = (text: string, item: any, idx: number) => string;
-
-/**
- * 通用 Shape 属性样式定义
- */
-export interface IStyleConfig extends ShapeAttrs {}
 
 export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
@@ -49,13 +44,13 @@ export interface IBaseAxis {
   /** 轴位置，默认下和左 */
   line?: {
     visible?: boolean;
-    style?: IStyleConfig;
+    style?: LineStyle;
   };
   grid?: {
     /** 网格线是否显示 */
     visible?: boolean;
     line?: {
-      style?: IStyleConfig | ((text: string, idx: number, count: number) => IStyleConfig);
+      style?: LineStyle | ((text: string, idx: number, count: number) => LineStyle);
       type?: 'line' | 'circle';
     };
     /** 网格设置交替的颜色，指定一个值则先渲染偶数层，两个值则交替渲染 */
@@ -68,8 +63,7 @@ export interface IBaseAxis {
     offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
     offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
     rotate?: number; // label 文本旋转的角度，使用角度制
-    htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
-    style?: IStyleConfig;
+    style?: TextStyle;
     autoRotate?: boolean;
     autoHide?: boolean;
   };
@@ -78,11 +72,11 @@ export interface IBaseAxis {
     autoRotate?: boolean;
     text?: string;
     offset?: number;
-    style?: IStyleConfig;
+    style?: TextStyle;
   };
   tickLine?: {
     visible?: boolean;
-    style?: IStyleConfig;
+    style?: LineStyle;
   };
 }
 /** Linear型 */
@@ -120,7 +114,7 @@ export interface Label {
   precision?: number;
   /** 添加后缀 */
   suffix?: string;
-  style?: any;
+  style?: TextStyle;
   offset?: number;
   offsetX?: number;
   offsetY?: number;
@@ -129,7 +123,7 @@ export interface Label {
   adjustColor?: boolean;
   adjustPosition?: boolean;
   autoRotate?: boolean;
-  labelLine?: any;
+  // labelLine?: any;
 }
 
 export type LegendPosition =
@@ -211,7 +205,7 @@ export interface ElementOption {
   color?: AttributeOption;
   size?: AttributeOption;
   shape?: AttributeOption;
-  style?: IStyleConfig;
+  style?: GraphicStyle;
   label?: LabelOption | false;
   animate?: Animation;
   adjust?: AdjustOption[];
@@ -254,7 +248,7 @@ interface StateCondition {
 
 export interface StateConfig {
   condition: () => any | StateCondition;
-  style?: IStyleConfig;
+  style?: GraphicStyle;
   related?: string[];
 }
 

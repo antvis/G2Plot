@@ -29,6 +29,7 @@ import {
   Tooltip,
   DataItem,
   Animation,
+  Meta,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -42,7 +43,7 @@ import { LooseMap } from '../interface/types';
 export interface ViewConfig {
   renderer?: string;
   data?: DataItem[];
-  meta?: LooseMap;
+  meta?: LooseMap<Meta>;
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
@@ -96,7 +97,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: 'auto',
       legend: {
         visible: true,
-        position: 'bottom',
+        position: 'bottom-center',
       },
       tooltip: {
         visible: true,

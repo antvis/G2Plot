@@ -253,7 +253,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     const textShape = this.view.foregroundGroup.findAll((el) => {
       return el.get('name') === 'annotation-text';
     })[0];
-    const animation = props.animation || {};
+    const animation: any = props.animation || {};
     const colorStyle = this.calcAnnotationColorStyle();
     if (this.shouldFadeInAnnotation) {
       textShape.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {

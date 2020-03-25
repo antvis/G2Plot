@@ -57,7 +57,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       },
       yAxis: {
         visible: true,
-        autoRotateTitle: true,
         nice: true,
         grid: {
           visible: false,

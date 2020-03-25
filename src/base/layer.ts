@@ -6,17 +6,22 @@ import { LAYER_EVENT_MAP } from '../util/event';
 import BBox from '../util/bbox';
 
 export interface LayerConfig {
+  /** @ignore */
   id?: string;
   /** the top-left-x of layer, local position relative to the parent layer */
+  /** @ignore */
   x?: number;
   /** the top-left-y of layer, local position relative to the parent layer */
+  /** @ignore */
   y?: number;
   /** layer width */
   width?: number;
   /** layer height */
   height?: number;
   /** the parent node of layer */
+  /** @ignore */
   parent?: any;
+  /** @ignore */
   canvas?: ICanvas;
   name?: string;
 }

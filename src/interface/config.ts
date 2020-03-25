@@ -341,3 +341,39 @@ export interface DataItem {
 export interface IStyle {
   [field: string]: any;
 }
+
+export interface GraphicStyle {
+  fill?: string;
+  fillOpacity?: number;
+  stroke?: string;
+  lineWidth?: number;
+  lineDash?: number[];
+  lineOpacity?: number;
+  opacity?: number;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  cursor?: string;
+}
+
+export interface LineStyle {
+  stroke?: string;
+  lineWidth?: number;
+  lineDash?: number[];
+  lineOpacity?: number;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  cursor?: string;
+}
+
+export interface TextStyle extends GraphicStyle {
+  fontSize?: number;
+  fontFamily?: string;
+  fontWeight?: number;
+  lineHeight?: number;
+  textAlign?: 'center' | 'left' | 'right';
+  textBaseline?: 'middle' | 'top' | 'bottom';
+}

@@ -416,7 +416,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.setConfig('tooltip', deepMix({}, get(this.options, 'tooltip')));
 
-    deepMix(this.config.theme.tooltip, this.options.tooltip.style);
+    deepMix(this.config.theme.tooltip, this.options.tooltip.domStyles);
   }
 
   protected getLegendPosition(position: string): any {

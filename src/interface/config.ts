@@ -132,7 +132,7 @@ export interface Label {
   labelLine?: any;
 }
 
-type LegendPosition =
+export type LegendPosition =
   | 'left-top'
   | 'left-center'
   | 'left-bottom'
@@ -159,7 +159,7 @@ export interface Legend {
   title?: {
     visible?: boolean;
     spacing?: number;
-    style?: IStyleConfig;
+    style?: TextStyle;
   };
 }
 
@@ -171,9 +171,15 @@ export interface Tooltip {
   formatter?: (...args: any) => { name: string; value: number };
   showCrosshairs?: boolean;
   crosshairs?: object;
-  style?: IStyleConfig;
   offset?: number;
   showMarkers?: boolean;
+  domStyles?: {
+    'g2-tooltop'?: any;
+    'g2-tooltip-title'?: any;
+    'g2-tooltip-list'?: any;
+    'g2-tooltip-marker'?: any;
+    'g2-tooltip-value'?: any;
+  };
 }
 
 export interface Animation {
@@ -256,13 +262,13 @@ export interface GuideLineConfig {
   type?: string;
   start?: any[];
   end?: any[];
-  lineStyle?: any;
+  lineStyle?: LineStyle;
   text?: {
     position?: 'start' | 'center' | 'end';
     content: string;
     offsetX?: number;
     offsetY: number;
-    style?: any;
+    style?: TextStyle;
   };
 }
 
@@ -355,6 +361,7 @@ export interface GraphicStyle {
   shadowOffsetX?: number;
   shadowOffsetY?: number;
   cursor?: string;
+  [field: string]: any;
 }
 
 export interface LineStyle {
@@ -367,6 +374,7 @@ export interface LineStyle {
   shadowOffsetX?: number;
   shadowOffsetY?: number;
   cursor?: string;
+  [field: string]: any;
 }
 
 export interface TextStyle extends GraphicStyle {
@@ -376,4 +384,5 @@ export interface TextStyle extends GraphicStyle {
   lineHeight?: number;
   textAlign?: 'center' | 'left' | 'right';
   textBaseline?: 'middle' | 'top' | 'bottom';
+  [field: string]: any;
 }

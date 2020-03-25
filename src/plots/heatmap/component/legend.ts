@@ -1,12 +1,13 @@
 import { each, isArray, deepMix } from '@antv/util';
 import BBox from '../../../util/bbox';
 import { View, IGroup, IShape } from '../../../dependents';
+import { LegendPosition } from '../../../interface/config';
 
 const LABEL_MARGIN = 4;
 
 export interface MatrixLegendConfig {
   visible?: boolean;
-  position?: string;
+  position?: LegendPosition;
   width?: number;
   height?: number;
   text?: {

@@ -1,7 +1,7 @@
 import { IGroup, IShape, BBox } from '../../../../dependents';
 import { transform } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
-import { getEndPoint } from './utils';
+import { getEndPoint, getLabelRotate, getAngleByPoint } from './utils';
 import { Label } from '../../../../interface/config';
 import PieLayer from '../../layer';
 import { getEllipsisText } from './utils/text';
@@ -132,7 +132,7 @@ export default abstract class PieBaseLabel {
     this.layout(shapes, shapeInfos, this.coordinateBBox);
     shapes.forEach((label, idx) => {
       if (autoRotate) {
-        this.rotateLabel(label, shapeInfos[idx].angle);
+        this.rotateLabel(label, getLabelRotate(shapeInfos[idx].angle));
       }
     });
   }
@@ -248,7 +248,7 @@ export default abstract class PieBaseLabel {
     const y = label.attr('y');
     const matrix = transform(label.getMatrix(), [
       ['t', -x, -y],
-      ['r', getRotateAngle(angle)],
+      ['r', angle],
       ['t', x, y],
     ]);
     label.setMatrix(matrix);
@@ -284,26 +284,18 @@ export default abstract class PieBaseLabel {
       startAngle = endAngle;
       const name = `${originData[angleField]}`;
       const textAlign = point.x > center.x ? 'left' : 'right';
-      return { x: point.x, y: point.y, color, name, origin: originData, angle, textAlign };
+
+      return {
+        x: point.x,
+        y: point.y,
+        color,
+        name,
+        origin: originData,
+        // 实际的角度
+        angle: getAngleByPoint(this.getGeometry().coordinate, point),
+        textAlign,
+      };
     });
     this.arcPoints = anchors;
   }
-}
-
-/**
- * @protected
- * 获取文本旋转的方向
- * @param {Number} angle angle
- * @return {Number} angle
- */
-function getRotateAngle(angle: number) {
-  let rotate = (angle * 180) / Math.PI;
-  if (rotate < -90 || (rotate > 180 && rotate < 270)) {
-    // 第四象限
-    rotate += 180;
-  } else if (rotate < 180 && rotate > 90) {
-    // 第三象限
-    rotate = 90 - rotate;
-  }
-  return (rotate / 180) * Math.PI;
 }

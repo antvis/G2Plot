@@ -252,6 +252,20 @@ export interface StateConfig {
   related?: string[];
 }
 
+export interface GuideLineConfig {
+  type?: string;
+  start?: any[];
+  end?: any[];
+  lineStyle?: any;
+  text?: {
+    position?: 'start' | 'center' | 'end';
+    content: string;
+    offsetX?: number;
+    offsetY: number;
+    style?: any;
+  };
+}
+
 export interface ISliderInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
   type?: 'horizontal' | 'vertical';

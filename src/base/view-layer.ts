@@ -30,6 +30,7 @@ import {
   DataItem,
   Animation,
   Meta,
+  GuideLineConfig,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -62,7 +63,7 @@ export interface ViewConfig {
   responsive?: boolean;
   title?: ITitle;
   description?: IDescription;
-  guideLine?: any;
+  guideLine?: GuideLineConfig;
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };

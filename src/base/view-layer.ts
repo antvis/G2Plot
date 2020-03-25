@@ -129,7 +129,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       yAxis: {
         visible: true,
-        autoRotateTitle: true,
         grid: {
           visible: true,
         },
@@ -145,6 +144,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
           autoRotate: false,
         },
         title: {
+          autoRotate: true,
           visible: false,
           offset: 12,
         },

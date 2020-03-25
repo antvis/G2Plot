@@ -13,7 +13,6 @@ export interface ITitle {
   visible: boolean;
   text: string;
   style?: {};
-  alignWithAxis?: boolean;
   alignTo?: 'left' | 'right' | 'middle';
 }
 
@@ -21,7 +20,6 @@ export interface IDescription {
   visible: boolean;
   text: string;
   style?: {};
-  alignWithAxis?: boolean;
   alignTo?: 'left' | 'right' | 'middle';
 }
 
@@ -38,9 +36,7 @@ export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type?: 'linear' | 'time' | 'cat' | 'dateTime' | 'category' | 'log' | 'pow' | 'timeCat';
-  /** scale 是否设置 nice */
-  nice?: boolean;
+  type?: 'linear' | 'time' | 'cat';
   /** scale 自定义 tickMethod */
   tickMethod?: string | ((cfg: any) => number[]);
   /** 轴位置，默认下和左 */
@@ -58,8 +54,6 @@ export interface IBaseAxis {
     /** 网格设置交替的颜色，指定一个值则先渲染偶数层，两个值则交替渲染 */
     alternateColor?: string | string[];
   };
-  autoEllipsisLabel?: boolean;
-  autoRotateTitle?: boolean;
   label?: {
     visible?: boolean;
     formatter?: (name: string, tick: any, index: number) => string;
@@ -67,7 +61,6 @@ export interface IBaseAxis {
     offsetX?: number; // 在 offset 的基础上，设置坐标轴文本在 x 方向上的偏移量
     offsetY?: number; // 在 offset 的基础上，设置坐标轴文本在 y 方向上的偏移量
     rotate?: number; // label 文本旋转的角度，使用角度制
-    useHtml?: boolean; // 是否开启使用 HTML 渲染坐标轴文本
     htmlTemplate?: string; // 返回 label 的 html 字符串，只在 useHtml: true 的情况下生效
     style?: IStyleConfig;
     autoRotate?: boolean;
@@ -84,7 +77,6 @@ export interface IBaseAxis {
     visible?: boolean;
     style?: IStyleConfig;
   };
-  events?: IEvents;
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
@@ -104,16 +96,11 @@ export interface ITimeAxis extends IBaseAxis {
   /** tick相关配置 */
   tickInterval?: string;
   tickCount?: number;
-  groupBy?: string;
   mask?: string;
 }
 /** 离散类目型 */
 export interface ICatAxis extends IBaseAxis {
   type?: 'cat';
-  /** tick相关配置 */
-  tickInterval?: number;
-  tickCount?: number;
-  groupBy?: string;
 }
 
 export type Axis = ICatAxis | IValueAxis | ITimeAxis;
@@ -144,7 +131,6 @@ export interface Legend {
   position?: string;
   /** 翻页 */
   flipPage?: boolean;
-  events?: IEvents;
   formatter?: (...args: any) => string;
   offsetX?: number;
   offsetY?: number;
@@ -156,17 +142,17 @@ export interface Legend {
   };
 }
 
+
+
 export interface Tooltip {
   visible?: boolean;
   fields?: string[];
   shared?: boolean;
-  /** html */
   showTitle?: boolean;
-  html?: HTMLDivElement;
-  formatter?: (...args: any) => string;
+  formatter?: (...args: any) => {name:string,value:number};
   // htmlContent?: (title: string, items: any[]) => string;
-  containerTpl?: string;
-  itemTpl?: string;
+  //containerTpl?: string;
+  //itemTpl?: string;
   /** 辅助线 */
   //crosshair?: 'x' | 'y' | 'cross' | boolean;
   //crosshairs?: { type: string; style?: IStyleConfig }; // FIXME:

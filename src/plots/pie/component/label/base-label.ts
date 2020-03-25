@@ -1,7 +1,7 @@
 import { IGroup, IShape, BBox } from '../../../../dependents';
 import { transform } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
-import { getEndPoint, getLabelRotate, getAngleByPoint } from './utils';
+import { getEndPoint, getLabelRotate, getAngleByPoint, getOverlapArea, near } from './utils';
 import { Label } from '../../../../interface/config';
 import PieLayer from '../../layer';
 import { getEllipsisText } from './utils/text';
@@ -12,6 +12,17 @@ export const CROOK_DISTANCE = 4;
 export function percent2Number(value: string): number {
   const percentage = Number(value.endsWith('%') ? value.slice(0, -1) : value);
   return percentage / 100;
+}
+
+/**
+ * 超出panel边界的标签默认隐藏
+ */
+function checkInPanel(label: IShape, panel: BBox): void {
+  const box = label.getBBox();
+  //  横向溢出 暂不隐藏
+  if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
+    label.get('parent').set('visible', false);
+  }
 }
 
 export interface LabelItem {
@@ -28,6 +39,8 @@ export interface LabelItem {
 export interface PieLabelConfig extends Omit<Label, 'offset'> {
   visible: boolean;
   formatter?: (text: string, item: any, idx: number) => string;
+  /** whether */
+  adjustPosition?: boolean;
   /** allow label overlap */
   allowOverlap?: boolean;
   autoRotate?: boolean;
@@ -65,6 +78,29 @@ export default abstract class PieBaseLabel {
 
   protected abstract getDefaultOptions();
   protected abstract layout(labels: IShape[], shapeInfos: LabelItem[], panelBox: BBox);
+  /** 处理标签遮挡问题 */
+  protected adjustOverlap(labels: IShape[], panel: BBox): void {
+    // clearOverlap;
+    for (let i = 1; i < labels.length; i++) {
+      const label = labels[i];
+      let overlapArea = 0;
+      for (let j = i - 1; j >= 0; j--) {
+        const prev = labels[j];
+        // fix: start draw point.x is error when textAlign is right
+        const prevBox = prev.getBBox();
+        const currBox = label.getBBox();
+        // if the previous one is invisible, skip
+        if (prev.get('parent').get('visible')) {
+          overlapArea = getOverlapArea(prevBox, currBox);
+          if (!near(overlapArea, 0)) {
+            label.get('parent').set('visible', false);
+            break;
+          }
+        }
+      }
+    }
+    labels.forEach((label) => checkInPanel(label, panel));
+  }
   protected adjustItem(item: LabelItem): void {}
 
   protected init() {
@@ -108,7 +144,7 @@ export default abstract class PieBaseLabel {
 
   /** 绘制文本 */
   protected drawTexts() {
-    const { style, formatter, autoRotate, offsetX, offsetY } = this.options;
+    const { style, formatter, autoRotate, offsetX, offsetY, adjustPosition, allowOverlap } = this.options;
     const shapeInfos = this.getItems();
     const shapes: IShape[] = [];
     shapeInfos.map((shapeInfo, idx) => {
@@ -129,7 +165,12 @@ export default abstract class PieBaseLabel {
       const panelBox = this.coordinateBBox;
       this.adjustText(shape, panelBox);
     });
-    this.layout(shapes, shapeInfos, this.coordinateBBox);
+    if (adjustPosition) {
+      this.layout(shapes, shapeInfos, this.coordinateBBox);
+    }
+    if (!allowOverlap) {
+      this.adjustOverlap(shapes, this.coordinateBBox);
+    }
     shapes.forEach((label, idx) => {
       if (autoRotate) {
         this.rotateLabel(label, getLabelRotate(shapeInfos[idx].angle));

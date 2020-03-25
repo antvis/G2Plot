@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, IStyleConfig } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -12,6 +12,7 @@ import ColumnLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
+import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -29,7 +30,7 @@ export interface ColumnViewConfig extends ViewConfig {
   columnSize?: number;
   maxWidth?: number;
   minWidth?: number;
-  columnStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
+  columnStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;

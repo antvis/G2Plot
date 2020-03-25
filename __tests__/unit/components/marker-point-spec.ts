@@ -59,6 +59,50 @@ describe('Marker Point', () => {
     );
   });
 
+  it('marker: custom image symbol', () => {
+    const markerPoint = new MarkerPoint({
+      view: line.getLayer().view,
+      data: [data[0], data[1]],
+    });
+
+    // @ts-ignore
+    const points = markerPoint.points;
+    expect(points[0].get('type')).not.toBe('image');
+
+    const markerPoint1 = new MarkerPoint({
+      view: line.getLayer().view,
+      data: [data[0], data[1]],
+      symbol: 'image://imgaeUrl',
+    });
+    // @ts-ignore
+    expect(markerPoint1.points[0].get('type')).toBe('image');
+  });
+
+  it('marker, offsetX & offsetY', () => {
+    const markerPoint = new MarkerPoint({
+      view: line.getLayer().view,
+      data: [data[0], data[1]],
+      offsetX: 10,
+      offsetY: -5,
+    });
+
+    // @ts-ignore
+    const points = markerPoint.points;
+
+    const shapes = line.getLayer().view.geometries[1].getShapes();
+    const shapeCenterPos = {
+      x: shapes[0].getBBox().minX + shapes[0].getBBox().width / 2,
+      y: shapes[0].getBBox().minY + shapes[0].getBBox().height / 2,
+    };
+    const pointCenterPos = {
+      x: points[0].getBBox().minX + points[0].getBBox().width / 2,
+      y: points[0].getBBox().minY + points[0].getBBox().height / 2,
+    };
+    expect(shapeCenterPos.x).not.toBe(pointCenterPos.x);
+    expect(shapeCenterPos.x + 10 /** offsetX */).toBe(pointCenterPos.x);
+    expect(shapeCenterPos.y - 5 /** offsetX */).toBe(pointCenterPos.y);
+  });
+
   it('marker label & label style', () => {
     const markerPoint = new MarkerPoint({
       view: line.getLayer().view,

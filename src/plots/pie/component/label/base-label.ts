@@ -1,7 +1,7 @@
 import { IGroup, IShape, BBox } from '../../../../dependents';
 import { transform } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
-import { getEndPoint } from './utils';
+import { getEndPoint, getLabelRotate, getAngleByPoint, getOverlapArea, near } from './utils';
 import { Label } from '../../../../interface/config';
 import PieLayer from '../../layer';
 import { getEllipsisText } from './utils/text';
@@ -12,6 +12,17 @@ export const CROOK_DISTANCE = 4;
 export function percent2Number(value: string): number {
   const percentage = Number(value.endsWith('%') ? value.slice(0, -1) : value);
   return percentage / 100;
+}
+
+/**
+ * 超出panel边界的标签默认隐藏
+ */
+function checkInPanel(label: IShape, panel: BBox): void {
+  const box = label.getBBox();
+  //  横向溢出 暂不隐藏
+  if (!(panel.y <= box.y && panel.y + panel.height >= box.y + box.height)) {
+    label.get('parent').set('visible', false);
+  }
 }
 
 export interface LabelItem {
@@ -28,6 +39,8 @@ export interface LabelItem {
 export interface PieLabelConfig extends Omit<Label, 'offset'> {
   visible: boolean;
   formatter?: (text: string, item: any, idx: number) => string;
+  /** whether */
+  adjustPosition?: boolean;
   /** allow label overlap */
   allowOverlap?: boolean;
   autoRotate?: boolean;
@@ -65,6 +78,29 @@ export default abstract class PieBaseLabel {
 
   protected abstract getDefaultOptions();
   protected abstract layout(labels: IShape[], shapeInfos: LabelItem[], panelBox: BBox);
+  /** 处理标签遮挡问题 */
+  protected adjustOverlap(labels: IShape[], panel: BBox): void {
+    // clearOverlap;
+    for (let i = 1; i < labels.length; i++) {
+      const label = labels[i];
+      let overlapArea = 0;
+      for (let j = i - 1; j >= 0; j--) {
+        const prev = labels[j];
+        // fix: start draw point.x is error when textAlign is right
+        const prevBox = prev.getBBox();
+        const currBox = label.getBBox();
+        // if the previous one is invisible, skip
+        if (prev.get('parent').get('visible')) {
+          overlapArea = getOverlapArea(prevBox, currBox);
+          if (!near(overlapArea, 0)) {
+            label.get('parent').set('visible', false);
+            break;
+          }
+        }
+      }
+    }
+    labels.forEach((label) => checkInPanel(label, panel));
+  }
   protected adjustItem(item: LabelItem): void {}
 
   protected init() {
@@ -99,7 +135,7 @@ export default abstract class PieBaseLabel {
     this.plot.canvas.draw();
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }
@@ -108,7 +144,7 @@ export default abstract class PieBaseLabel {
 
   /** 绘制文本 */
   protected drawTexts() {
-    const { style, formatter, autoRotate, offsetX, offsetY } = this.options;
+    const { style, formatter, autoRotate, offsetX, offsetY, adjustPosition, allowOverlap } = this.options;
     const shapeInfos = this.getItems();
     const shapes: IShape[] = [];
     shapeInfos.map((shapeInfo, idx) => {
@@ -129,10 +165,15 @@ export default abstract class PieBaseLabel {
       const panelBox = this.coordinateBBox;
       this.adjustText(shape, panelBox);
     });
-    this.layout(shapes, shapeInfos, this.coordinateBBox);
+    if (adjustPosition) {
+      this.layout(shapes, shapeInfos, this.coordinateBBox);
+    }
+    if (!allowOverlap) {
+      this.adjustOverlap(shapes, this.coordinateBBox);
+    }
     shapes.forEach((label, idx) => {
       if (autoRotate) {
-        this.rotateLabel(label, shapeInfos[idx].angle);
+        this.rotateLabel(label, getLabelRotate(shapeInfos[idx].angle));
       }
     });
   }
@@ -248,7 +289,7 @@ export default abstract class PieBaseLabel {
     const y = label.attr('y');
     const matrix = transform(label.getMatrix(), [
       ['t', -x, -y],
-      ['r', getRotateAngle(angle)],
+      ['r', angle],
       ['t', x, y],
     ]);
     label.setMatrix(matrix);
@@ -284,26 +325,18 @@ export default abstract class PieBaseLabel {
       startAngle = endAngle;
       const name = `${originData[angleField]}`;
       const textAlign = point.x > center.x ? 'left' : 'right';
-      return { x: point.x, y: point.y, color, name, origin: originData, angle, textAlign };
+
+      return {
+        x: point.x,
+        y: point.y,
+        color,
+        name,
+        origin: originData,
+        // 实际的角度
+        angle: getAngleByPoint(this.getGeometry().coordinate, point),
+        textAlign,
+      };
     });
     this.arcPoints = anchors;
   }
-}
-
-/**
- * @protected
- * 获取文本旋转的方向
- * @param {Number} angle angle
- * @return {Number} angle
- */
-function getRotateAngle(angle: number) {
-  let rotate = (angle * 180) / Math.PI;
-  if (rotate < -90 || (rotate > 180 && rotate < 270)) {
-    // 第四象限
-    rotate += 180;
-  } else if (rotate < 180 && rotate > 90) {
-    // 第三象限
-    rotate = 90 - rotate;
-  }
-  return (rotate / 180) * Math.PI;
 }

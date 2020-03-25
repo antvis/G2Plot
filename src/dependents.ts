@@ -17,6 +17,7 @@ export {
   getShapeFactory,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
+export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,
   Data,

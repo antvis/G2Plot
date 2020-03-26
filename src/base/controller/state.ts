@@ -52,10 +52,8 @@ export default class StateController {
 
   public setState(cfg) {
     const { type, condition, related } = cfg;
-    if (!this.shapes) {
-      this.shapes = this._getShapes();
-      this.originAttrs = this._getOriginAttrs();
-    }
+    this.shapes = this._getShapes();
+    this.originAttrs = this._getOriginAttrs();
     // this.resetZIndex();
     each(this.shapes, (shape, index) => {
       const shapeOrigin = shape.get('origin').data;

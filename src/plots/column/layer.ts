@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, ISliderInteractionConfig,
+import { ElementOption, ICatAxis, IValueAxis, Label, ISliderInteractionConfig,
   IScrollbarInteractionConfig } from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
@@ -38,7 +38,7 @@ export interface ColumnViewConfig extends ViewConfig {
   // 百分比, 数值, 最小最大宽度
   columnSize?: number;
   columnStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
-  xAxis?: ICatAxis | ITimeAxis;
+  xAxis?: ICatAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
   label?: IColumnLabel;

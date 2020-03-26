@@ -5,7 +5,7 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IScrollbarInteractionConfig,  IInteractions  } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import BarLabel from './component/label';
@@ -21,16 +21,24 @@ const PLOT_GEOM_MAP = {
   interval: 'bar',
 };
 
+interface IBarLabel extends Label {
+  position?: string | 'left' | 'middle' | 'right';
+  adjustPosition?: boolean;
+  adjustColor?: boolean;
+}
+
+type BarInteraction =
+   { type: 'scrollBar'; cfg: IScrollbarInteractionConfig } | IInteractions;
+
 export interface BarViewConfig extends ViewConfig {
   colorField?: string;
-  // 百分比, 数值, 最小最大宽度
   barSize?: number;
-  maxWidth?: number;
-  minWidth?: number;
   barStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   xAxis?: IValueAxis;
-  yAxis?: ICatAxis | ITimeAxis;
+  yAxis?: ICatAxis;
+  label?: IBarLabel;
   conversionTag?: ConversionTagOptions;
+  interactions?: BarInteraction[]
 }
 
 export interface BarLayerConfig extends BarViewConfig, LayerConfig {}

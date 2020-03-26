@@ -51,7 +51,7 @@ title: API
 1. string 类型。
 
 - 内置类型，可参见 G2 支持的`symbol`类型，包括： `hexagon`, `bowtie`, `cross`, `tick`, `plus`, `hyphen`, `line`
-- image类型，通过`iamge://url`的方式，指定标注点为具体的图片，url为图片地址
+- image 类型，通过`iamge://url`的方式，指定标注点为具体的图片，url 为图片地址
 
 2. Function 类型，可以自定义 symbol 绘制，如下：
 

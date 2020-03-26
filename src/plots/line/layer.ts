@@ -4,7 +4,16 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label, GraphicStyle, LineStyle, ISliderInteractionConfig, IScrollbarInteractionConfig } from '../../interface/config';
+import {
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+  GraphicStyle,
+  LineStyle,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
@@ -22,6 +31,10 @@ const GEOM_MAP = {
   line: 'line',
   point: 'point',
 };
+
+type AreaInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
 export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */
@@ -45,10 +58,7 @@ export interface LineViewConfig extends ViewConfig {
   })[];
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
-  interactions?:[
-    { type:'slider', cfg:ISliderInteractionConfig } | 
-    { type:'scrollBar', cfg: IScrollbarInteractionConfig }
-  ]
+  interactions?: AreaInteraction[];
 }
 
 export interface LineLayerConfig extends LineViewConfig, LayerConfig {}

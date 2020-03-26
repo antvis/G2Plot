@@ -10,14 +10,8 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import * as EventParser from './event';
-import { PointStyle, LineStyle } from '../line/layer';
-import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+import { IValueAxis, ICatAxis, GraphicStyle, LineStyle } from '../../interface/config';
 import './theme';
-
-interface FillStyle {
-  fill?: string;
-  opacity?: string;
-}
 
 export interface RadarViewConfig extends ViewConfig {
   /** 角度字段 */
@@ -41,15 +35,15 @@ export interface RadarViewConfig extends ViewConfig {
     shape?: string;
     size?: number;
     color?: string;
-    style?: PointStyle | ((...args: any[]) => PointStyle);
+    style?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   };
   /** area图形样式 */
   area?: {
     visible?: boolean;
-    style?: FillStyle | ((...args: any[]) => FillStyle);
+    style?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   };
   /** 角度轴配置 */
-  angleAxis?: ICatAxis | ITimeAxis;
+  angleAxis?: ICatAxis;
   /** 径向轴配置 */
   radiusAxis?: IValueAxis;
   /** 雷达图半径 */

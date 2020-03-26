@@ -26,8 +26,8 @@ export interface GaugeViewConfig extends ViewConfig {
   format?: (...args: any[]) => string;
   gaugeStyle?: GaugeStyle;
   range?: number[];
+  /** @ignore */
   styleMix?: any;
-  valueText?: string;
   statistic?: any;
 }
 

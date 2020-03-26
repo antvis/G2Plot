@@ -285,7 +285,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   private getUpdateAnimationOptions() {
     let duration = 450;
     let easing = 'easeQuadInOut';
-    const animationOptions = this.options.animation;
+    const animationOptions: any = this.options.animation;
     if (animationOptions && animationOptions.update) {
       if (animationOptions.update.duration) {
         duration = animationOptions.update.duration;

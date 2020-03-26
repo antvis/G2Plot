@@ -28,6 +28,9 @@ import {
   StateConfig,
   Tooltip,
   DataItem,
+  Animation,
+  Meta,
+  GuideLineConfig,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -41,7 +44,7 @@ import { LooseMap } from '../interface/types';
 export interface ViewConfig {
   renderer?: string;
   data?: DataItem[];
-  meta?: LooseMap;
+  meta?: LooseMap<Meta>;
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
@@ -53,14 +56,14 @@ export interface ViewConfig {
   label?: Label;
   tooltip?: Tooltip;
   legend?: Legend;
-  animation?: any | boolean;
+  animation?: Animation | boolean;
   theme?: LooseMap | string;
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
   responsive?: boolean;
   title?: ITitle;
   description?: IDescription;
-  guideLine?: any;
+  guideLine?: GuideLineConfig;
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
@@ -95,7 +98,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: 'auto',
       legend: {
         visible: true,
-        position: 'bottom',
+        position: 'bottom-center',
       },
       tooltip: {
         visible: true,
@@ -129,7 +132,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       yAxis: {
         visible: true,
-        autoRotateTitle: true,
         grid: {
           visible: true,
         },
@@ -145,6 +147,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
           autoRotate: false,
         },
         title: {
+          autoRotate: true,
           visible: false,
           offset: 12,
         },
@@ -153,6 +156,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
+      animation: false,
     };
   }
   public type: string;
@@ -221,7 +225,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       interactions: [],
       theme: this.theme,
       panelRange: {},
-      animate: true,
+      animate: {} as any,
       views: [],
     };
 
@@ -412,7 +416,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
     this.setConfig('tooltip', deepMix({}, get(this.options, 'tooltip')));
 
-    deepMix(this.config.theme.tooltip, this.options.tooltip.style);
+    deepMix(this.config.theme.tooltip, this.options.tooltip.domStyles);
   }
 
   protected getLegendPosition(position: string): any {
@@ -479,7 +483,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   protected animation() {
-    if (this.options.animation === false || this.options.padding === 'auto') {
+    if (this.options.animation === false) {
       this.setConfig('animate', false);
     }
   }

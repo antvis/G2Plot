@@ -10,8 +10,6 @@ import { registerPlotType } from '../../base/global';
 import PieBaseLabel from './component/label/base-label';
 import './theme';
 
-
-
 export interface PieViewConfig extends Omit<ViewConfig, 'label'> {
   angleField: string;
   colorField?: string;

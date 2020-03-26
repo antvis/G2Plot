@@ -5,7 +5,16 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, DataItem, IScrollbarInteractionConfig,  IInteractions  } from '../../interface/config';
+import {
+  ElementOption,
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+  DataItem,
+  IScrollbarInteractionConfig,
+  IInteractions,
+} from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import BarLabel from './component/label';
@@ -27,8 +36,7 @@ interface IBarLabel extends Label {
   adjustColor?: boolean;
 }
 
-type BarInteraction =
-   { type: 'scrollBar'; cfg: IScrollbarInteractionConfig } | IInteractions;
+type BarInteraction = { type: 'scrollBar'; cfg: IScrollbarInteractionConfig } | IInteractions;
 
 export interface BarViewConfig extends ViewConfig {
   colorField?: string;
@@ -38,7 +46,7 @@ export interface BarViewConfig extends ViewConfig {
   yAxis?: ICatAxis;
   label?: IBarLabel;
   conversionTag?: ConversionTagOptions;
-  interactions?: BarInteraction[]
+  interactions?: BarInteraction[];
 }
 
 export interface BarLayerConfig extends BarViewConfig, LayerConfig {}

@@ -41,7 +41,7 @@ export interface WaterfallViewConfig extends ViewConfig {
   };
   leaderLine?: {
     visible: boolean;
-    style?: LineStyle
+    style?: LineStyle;
   };
   color?:
     | string

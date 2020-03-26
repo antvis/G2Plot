@@ -16,8 +16,6 @@ import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
 import WaterfallLabels from './component/label/waterfall-label';
 import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
 
-interface WaterfallStyle {}
-
 const G2_GEOM_MAP = {
   waterfall: 'interval',
 };
@@ -38,22 +36,18 @@ export interface WaterfallViewConfig extends ViewConfig {
   /** 差值label */
   diffLabel?: {
     visible: boolean;
-    style?: DiffLabelcfg['style'];
+    style?: TextStyle;
     formatter?: DiffLabelcfg['formatter'];
   };
   leaderLine?: {
     visible: boolean;
-    style?: {
-      stroke?: string;
-      lineWidth?: number;
-      lineDash?: number[];
-    };
+    style?: LineStyle;
   };
   color?:
     | string
     | { rising: string; falling: string; total?: string }
     | ((type: string, value: number | null, values: number | number[], index: number) => string);
-  waterfallStyle?: WaterfallStyle | ((...args: any[]) => WaterfallStyle);
+  waterfallStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
 }
 
 export interface WaterfallLayerConfig extends WaterfallViewConfig, LayerConfig {}

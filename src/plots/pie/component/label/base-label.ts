@@ -2,7 +2,7 @@ import { IGroup, IShape, BBox } from '../../../../dependents';
 import { transform } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
 import { getEndPoint, getLabelRotate, getAngleByPoint, getOverlapArea, near } from './utils';
-import { Label } from '../../../../interface/config';
+import { Label, TextStyle } from '../../../../interface/config';
 import PieLayer from '../../layer';
 import { getEllipsisText } from './utils/text';
 
@@ -55,7 +55,7 @@ export interface PieLabelConfig extends Omit<Label, 'offset'> {
     stroke?: string;
     lineWidth?: number;
   };
-  style?: any;
+  style?: TextStyle;
 }
 
 export default abstract class PieBaseLabel {

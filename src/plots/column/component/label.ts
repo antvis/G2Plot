@@ -1,14 +1,14 @@
 import { clone, get, each, deepMix } from '@antv/util';
 import { IShape, Element } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/label';
-import { IStyleConfig } from '../../../interface/config';
+import { TextStyle } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
 import BBox from '../../../util/bbox';
 
 export const DEFAULT_OFFSET = 8;
 
 export default class ColumnLabel extends BaseLabel {
-  protected getLabelItemConfig(element: Element, idx: number): IStyleConfig {
+  protected getLabelItemConfig(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
     const { shape } = element;
     const value = this.getValue(element);

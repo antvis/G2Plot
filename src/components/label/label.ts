@@ -2,7 +2,7 @@ import { deepMix, each } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import BaseComponent, { BaseComponentConfig } from '../base';
 import { IGroup, IShape, View, Geometry, Element, Coordinate, VIEW_LIFE_CIRCLE } from '../../dependents';
-import { Label, IStyleConfig } from '../../interface/config';
+import { Label, TextStyle } from '../../interface/config';
 
 export interface LabelComponentConfig extends BaseComponentConfig {
   layer: ViewLayer;
@@ -68,7 +68,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     });
   }
 
-  protected drawLabelText(group: IGroup, attrs: IStyleConfig): IShape {
+  protected drawLabelText(group: IGroup, attrs: TextStyle): IShape {
     return group.addShape('text', {
       attrs,
       name: 'label',
@@ -79,7 +79,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     return {};
   }
 
-  protected abstract getLabelItemConfig(element: Element, idx: number): IStyleConfig;
+  protected abstract getLabelItemConfig(element: Element, idx: number): TextStyle;
 
   protected drawLabelItem(group: IGroup, element: Element, idx: number): IShape {
     const config = this.getLabelItemConfig(element, idx);

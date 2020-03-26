@@ -17,12 +17,8 @@ import {
 } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-<<<<<<< HEAD
-import BarLabel from './component/label';
 import { GraphicStyle } from '../../interface/config';
-=======
 import './component/label';
->>>>>>> 36ed4e78... refactor: bar label refactor
 import * as EventParser from './event';
 import './theme';
 import { getGeometryByType } from '../../util/view';

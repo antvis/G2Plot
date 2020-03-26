@@ -3,8 +3,14 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, IValueAxis, Label, ISliderInteractionConfig,
-  IScrollbarInteractionConfig } from '../../interface/config';
+import {
+  ElementOption,
+  ICatAxis,
+  IValueAxis,
+  Label,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -42,7 +48,7 @@ export interface ColumnViewConfig extends ViewConfig {
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
   label?: IColumnLabel;
-  interactions?: ColumnInteraction[]
+  interactions?: ColumnInteraction[];
 }
 
 export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}

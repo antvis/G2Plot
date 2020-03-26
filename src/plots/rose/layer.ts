@@ -10,12 +10,7 @@ import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import { Label } from '../..';
 import * as EventParser from './event';
-import { LineStyle } from '../line/layer';
-
-interface RoseStyle extends LineStyle {
-  stroke?: string;
-  lineWidth?: number;
-}
+import { GraphicStyle } from '../../interface/config';
 
 export interface RoseViewConfig extends ViewConfig {
   radiusField: string;
@@ -24,7 +19,7 @@ export interface RoseViewConfig extends ViewConfig {
   radius?: number;
   innerRadius?: number;
   /** 每个扇形切片的样式 */
-  sectorStyle?: RoseStyle | ((...args: any[]) => RoseStyle);
+  sectorStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   label?: RoseLabel;
 }
 

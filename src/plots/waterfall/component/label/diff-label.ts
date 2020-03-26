@@ -11,7 +11,7 @@ export interface DiffLabelcfg {
   view: View;
   fields: string[];
   formatter: (text: string, item: object, idx: number) => string;
-  style?: TextStyle
+  style?: TextStyle;
 }
 
 function getDefaultCfg() {

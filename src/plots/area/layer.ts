@@ -1,24 +1,14 @@
-import { Data } from '../../dependents';
 import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, GraphicStyle, LineStyle, ISliderInteractionConfig, IScrollbarInteractionConfig } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
-import { PointStyle, LineStyle } from '../line/layer';
-
-interface AreaStyle {
-  opacity?: number;
-  lineDash?: number[];
-  strokeStyle?: string;
-  lineWidth?: number;
-  stroke?: string;
-}
 
 const GEOM_MAP = {
   area: 'area',
@@ -27,9 +17,9 @@ const GEOM_MAP = {
 };
 
 export interface AreaViewConfig extends ViewConfig {
-  areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
+  areaStyle?: GraphicStyle | ((...args: any) => GraphicStyle);
   seriesField?: string;
-  xAxis?: ICatAxis | ITimeAxis;
+  xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   yAxis?: IValueAxis;
   line?: {
     visible?: boolean;
@@ -42,9 +32,13 @@ export interface AreaViewConfig extends ViewConfig {
     color?: string;
     size?: number;
     shape?: string;
-    style?: PointStyle;
+    style?: GraphicStyle;
   };
   smooth?: boolean;
+  interactions?:[
+    { type:'slider', cfg:ISliderInteractionConfig } | 
+    { type:'scrollBar', cfg: IScrollbarInteractionConfig }
+  ]
 }
 
 export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}

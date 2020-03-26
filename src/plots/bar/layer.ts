@@ -28,8 +28,8 @@ export interface BarViewConfig extends ViewConfig {
   maxWidth?: number;
   minWidth?: number;
   barStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
-  xAxis?: ICatAxis | ITimeAxis;
-  yAxis?: IValueAxis;
+  xAxis?: IValueAxis;
+  yAxis?: ICatAxis | ITimeAxis;
   conversionTag?: ConversionTagOptions;
 }
 
@@ -55,10 +55,10 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         grid: {
           visible: false,
         },
+        nice: true
       },
       yAxis: {
         visible: true,
-        nice: true,
         grid: {
           visible: false,
         },

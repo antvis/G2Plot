@@ -49,8 +49,8 @@ export interface ViewConfig {
   xField?: string;
   yField?: string;
   color?: string | string[] | {};
-  size?: number | number[] | {};
-  shape?: string | string[] | {};
+  //size?: number | number[] | {};
+  //shape?: string | string[] | {};
   xAxis?: Axis;
   yAxis?: Axis;
   label?: Label;
@@ -72,9 +72,6 @@ export interface ViewConfig {
     inActive?: StateConfig;
     selected?: StateConfig;
     disabled?: StateConfig;
-  };
-  widthRatio?: {
-    [k: string]: number;
   };
   name?: string;
 }

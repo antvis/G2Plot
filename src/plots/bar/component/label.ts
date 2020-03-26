@@ -3,12 +3,12 @@ import { Element, IShape } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/label';
 import { rgb2arr, mappingColor } from '../../../util/color';
 import BBox from '../../../util/bbox';
-import { IStyleConfig } from '../../../interface/config';
+import { TextStyle } from '../../../interface/config';
 
 export const DEFAULT_OFFSET = 8;
 
 export default class BarLabel extends BaseLabel {
-  protected getLabelItemConfig(element: Element, idx: number): IStyleConfig {
+  protected getLabelItemConfig(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
     const { shape } = element;
     const value = this.getValue(element);

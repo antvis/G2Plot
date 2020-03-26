@@ -13,11 +13,8 @@ import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
-import './component/label/waterfall-label';
 import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
 import { getGeometryByType } from '../../util/view';
-
-interface WaterfallStyle {}
 
 const G2_GEOM_MAP = {
   waterfall: 'interval',

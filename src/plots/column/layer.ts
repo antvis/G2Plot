@@ -19,11 +19,7 @@ import './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
-<<<<<<< HEAD
 import { GraphicStyle } from '../../interface/config';
-import { Geometry } from '../../dependents';
-=======
->>>>>>> 36ed4e78... refactor: bar label refactor
 import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {

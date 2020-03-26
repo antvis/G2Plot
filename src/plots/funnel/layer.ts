@@ -124,7 +124,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         },
       },
       legend: {
-        position: 'bottom',
+        position: 'bottom-center',
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-filter' }],
     };

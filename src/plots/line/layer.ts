@@ -4,7 +4,16 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import {
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+  GraphicStyle,
+  LineStyle,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
@@ -16,28 +25,16 @@ import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
 import { LineActive, LineSelect } from './interaction/index';
 
-export interface LineStyle {
-  stroke?: string;
-  opacity?: number;
-  lineDash?: number[];
-  lineJoin?: 'bevel' | 'round' | 'miter';
-  lineCap?: 'butt' | 'round' | 'square';
-}
-
-export interface PointStyle {
-  lineDash?: number[];
-  lineWidth?: number;
-  opacity?: string;
-  fill?: string;
-  stroke?: string;
-}
-
 type IObject = LooseMap;
 
 const GEOM_MAP = {
   line: 'line',
   point: 'point',
 };
+
+type AreaInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
 export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */
@@ -54,13 +51,14 @@ export interface LineViewConfig extends ViewConfig {
     shape?: string;
     size?: number;
     color?: string;
-    style?: PointStyle;
+    style?: GraphicStyle;
   };
   markerPoints?: (Omit<MarkerPointCfg, 'view'> & {
     visible?: boolean;
   })[];
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
+  interactions?: AreaInteraction[];
 }
 
 export interface LineLayerConfig extends LineViewConfig, LayerConfig {}

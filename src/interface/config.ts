@@ -118,7 +118,6 @@ export interface Label {
   offset?: number;
   offsetX?: number;
   offsetY?: number;
-  events?: IEvents;
   position?: string;
   adjustColor?: boolean;
   adjustPosition?: boolean;

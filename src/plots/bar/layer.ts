@@ -55,7 +55,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         grid: {
           visible: false,
         },
-        nice: true
+        nice: true,
       },
       yAxis: {
         visible: true,

@@ -4,7 +4,17 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, GraphicStyle, LineStyle, ISliderInteractionConfig, IScrollbarInteractionConfig } from '../../interface/config';
+import {
+  ElementOption,
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+  GraphicStyle,
+  LineStyle,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
@@ -15,6 +25,10 @@ const GEOM_MAP = {
   line: 'line',
   point: 'point',
 };
+
+type AreaInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
 export interface AreaViewConfig extends ViewConfig {
   areaStyle?: GraphicStyle | ((...args: any) => GraphicStyle);
@@ -35,10 +49,7 @@ export interface AreaViewConfig extends ViewConfig {
     style?: GraphicStyle;
   };
   smooth?: boolean;
-  interactions?:[
-    { type:'slider', cfg:ISliderInteractionConfig } | 
-    { type:'scrollBar', cfg: IScrollbarInteractionConfig }
-  ]
+  interactions?: AreaInteraction[];
 }
 
 export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}

@@ -5,17 +5,13 @@
 import { mix, clone, each, isArray } from '@antv/util';
 import { VALUE_FIELD, IS_TOTAL } from '../../layer';
 import { IGroup, View, VIEW_LIFE_CIRCLE } from '../../../../dependents';
+import { TextStyle } from '../../../../interface/config';
 
 export interface DiffLabelcfg {
   view: View;
   fields: string[];
   formatter: (text: string, item: object, idx: number) => string;
-  style?: {
-    fill?: string;
-    stroke?: string;
-    strokeOpacity?: number;
-    [k: string]: any;
-  };
+  style?: TextStyle
 }
 
 function getDefaultCfg() {

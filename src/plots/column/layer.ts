@@ -3,7 +3,8 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis } from '../../interface/config';
+import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label, ISliderInteractionConfig,
+  IScrollbarInteractionConfig } from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
@@ -12,7 +13,7 @@ import ColumnLabel from './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
-import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
+import { GraphicStyle } from '../../interface/config';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -21,6 +22,16 @@ const G2_GEOM_MAP = {
 const PLOT_GEOM_MAP = {
   interval: 'column',
 };
+
+interface IColumnLabel extends Label {
+  position?: 'top' | 'middle' | 'bottom';
+  adjustPosition?: boolean;
+  adjustColor?: boolean;
+}
+
+type ColumnInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
 export interface ColumnViewConfig extends ViewConfig {
   // 图形
@@ -34,6 +45,8 @@ export interface ColumnViewConfig extends ViewConfig {
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
+  label: IColumnLabel;
+  interactions: ColumnInteraction[]
 }
 
 export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}

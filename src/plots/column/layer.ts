@@ -24,7 +24,7 @@ const PLOT_GEOM_MAP = {
 };
 
 interface IColumnLabel extends Label {
-  position?: 'top' | 'middle' | 'bottom';
+  position?: string | 'top' | 'middle' | 'bottom';
   adjustPosition?: boolean;
   adjustColor?: boolean;
 }
@@ -34,19 +34,15 @@ type ColumnInteraction =
   | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
 export interface ColumnViewConfig extends ViewConfig {
-  // 图形
-  type?: 'rect' | 'triangle' | 'round';
   colorField?: string;
   // 百分比, 数值, 最小最大宽度
   columnSize?: number;
-  maxWidth?: number;
-  minWidth?: number;
   columnStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   xAxis?: ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
-  label: IColumnLabel;
-  interactions: ColumnInteraction[]
+  label?: IColumnLabel;
+  interactions?: ColumnInteraction[]
 }
 
 export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}

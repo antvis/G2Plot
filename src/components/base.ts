@@ -1,5 +1,6 @@
 import EventEmitter from '@antv/event-emitter';
 import { Canvas, IGroup, BBox } from '../dependents';
+import { each } from '@antv/util';
 
 export interface BaseComponentConfig {
   container: IGroup;
@@ -10,6 +11,7 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
   protected group: IGroup;
   protected destroyed: boolean;
   private config: T;
+  private disposables: (() => void)[];
 
   public constructor(config: T) {
     super();
@@ -17,6 +19,7 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
     this.destroyed = false;
     this.group = this.container.addGroup();
     this.config = config;
+    this.disposables = [];
     this.init(config);
   }
 
@@ -46,12 +49,20 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
   }
 
   public destroy(): void {
+    each(this.disposables, (fn) => {
+      fn();
+    });
+    this.disposables = [];
     this.group.remove(true);
     this.destroyed = true;
   }
 
   protected getCanvas(): Canvas {
     return this.container.get('canvas');
+  }
+
+  protected addDisposable(fn: () => void) {
+    this.disposables.push(fn);
   }
 
   protected init(config: T): void {}

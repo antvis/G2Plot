@@ -42,14 +42,19 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
 
   protected init(config: LabelComponentConfig) {
     this.layer = config.layer;
-    this.view = this.layer.view;
+    const view = this.layer.view;
+    this.view = view;
     this.geometry = config.geometry;
-    this.coord = this.view.getCoordinate();
+    this.coord = view.getCoordinate();
     this.options = deepMix(this.getDefaultOptions(), config.label);
 
-    this.view.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, () => {
+    const callback = () => {
       this.clear();
       this.render();
+    };
+    view.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback);
+    this.addDisposable(() => {
+      view.off(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback);
     });
   }
 

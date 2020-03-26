@@ -201,7 +201,7 @@ describe('GroupBar plot', () => {
     });
     barPlot.render();
     const view = barPlot.getView();
-    const labels = view.geometries[0].labelsContainer.getChildren();
+    const labels = view.geometries[0].labelsContainer.getChildByIndex(0).getChildren();
     expect(labels.length).toBe(18);
     expect(labels[0].attr('fill')).toBe('red');
     expect(labels[0].attr('text')).toInclude('dddd');

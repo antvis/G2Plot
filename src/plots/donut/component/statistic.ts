@@ -1,15 +1,15 @@
-import { each, deepMix, clone, find, isElement } from '@antv/util';
+import { deepMix, isElement } from '@antv/util';
 import { createDom, modifyCSS, getOuterWidth, getOuterHeight } from '@antv/dom-util';
 
 export interface IStaticticHtml {
   x?: number;
   y?: number;
   html?: string;
-  [key: string]: any;
   alignX?: string;
   alignY?: string;
   container?: any;
   statisticClass?: string;
+  [key: string]: any;
 }
 
 export default class StatisticHtml {
@@ -47,6 +47,8 @@ export default class StatisticHtml {
   }
 
   public updatePosition(x, y) {
+    this.x = x;
+    this.y = y;
     this.setDomPosition(x, y);
   }
 
@@ -58,6 +60,8 @@ export default class StatisticHtml {
     return {
       x: 0,
       y: 0,
+      width: 0,
+      height: 0,
       html: '',
       container: null,
       alignX: 'middle',

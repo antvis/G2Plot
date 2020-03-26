@@ -107,9 +107,11 @@ export default class RingStatistic extends StatisticHtml {
   }
 
   private getStatisticSize() {
-    const radius = (this.view.getCoordinate() as any).getRadius();
-    const { radius: radiusCfg, innerRadius: innerRadiusCfg } = this.plot.options;
-    return (radius / radiusCfg) * innerRadiusCfg * 2;
+    const viewRange = this.plot.view.coordinateBBox;
+    const { radius, innerRadius } = this.plot.options;
+    const minContainerSize = Math.min(viewRange.width, viewRange.height);
+    const size = minContainerSize * radius * innerRadius;
+    return size;
   }
 
   private getStatisticHtmlString(data): string {

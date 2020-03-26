@@ -4,7 +4,8 @@ import { LayerConfig } from '../../base/layer';
 import ConnectedArea from '../../components/connected-area';
 import { ElementOption, Label } from '../../interface/config';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
-import StackColumnLabel from './component/label';
+import './component/label';
+import { getGeometryByType } from '../../util/view';
 
 export interface StackedColumnViewConfig extends ColumnViewConfig {
   stackField: string;
@@ -69,16 +70,15 @@ export default class StackedColumnLayer<
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
+    const { label, yField } = this.options;
     const scale = scales[yField];
-    if (this.options.label && this.options.label.visible) {
-      const label = new StackColumnLabel({
-        view: this.view,
-        plot: this,
+    if (label && label.visible) {
+      const geometry = getGeometryByType(this.view, 'interval');
+      this.doRenderLabel(geometry, {
+        type: 'stacked-column',
         formatter: scale.formatter,
         ...this.options.label,
       });
-      label.render();
     }
   }
 

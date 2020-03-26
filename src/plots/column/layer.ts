@@ -1,4 +1,4 @@
-import { deepMix, has, each, clone } from '@antv/util';
+import { deepMix, has, each, clone, head } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -15,11 +15,12 @@ import ConversionTag, { ConversionTagOptions } from '../../components/conversion
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
-import ColumnLabel from './component/label';
+import './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
 import { GraphicStyle } from '../../interface/config';
+import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -228,16 +229,15 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
+    const { label, yField } = this.options;
     const scale = scales[yField];
-    if (this.options.label && this.options.label.visible) {
-      const label = new ColumnLabel({
-        view: this.view,
-        plot: this,
+    if (label && label.visible) {
+      const geometry = getGeometryByType(this.view, 'interval');
+      this.doRenderLabel(geometry, {
+        type: 'column',
         formatter: scale.formatter,
         ...this.options.label,
       });
-      label.render();
     }
   }
 

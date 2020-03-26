@@ -13,8 +13,8 @@ import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
-import WaterfallLabels from './component/label/waterfall-label';
 import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
+import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
   waterfall: 'interval',
@@ -138,13 +138,12 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   }
 
   protected renderLabel() {
+    const geometry = getGeometryByType(this.view, 'interval');
     if (this.options.label && this.options.label.visible) {
-      const label = new WaterfallLabels({
-        view: this.view,
-        plot: this,
+      this.doRenderLabel(geometry, {
+        type: 'waterfall',
         ...this.options.label,
       });
-      label.render();
     }
   }
 

@@ -206,7 +206,7 @@ describe('GroupColumn plot', () => {
     columnPlot.render();
 
     const view = columnPlot.getView();
-    const labels = view.geometries[0].labelsContainer.getChildren();
+    const labels = view.geometries[0].labelsContainer.getChildByIndex(0).getChildren();
 
     expect(labels.length).toBe(18);
     const text = labels[0];

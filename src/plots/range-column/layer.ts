@@ -6,7 +6,7 @@ import RangeColumnLabel, { RangeColumnLabelConfig } from './component/label';
 import { setShapeCache } from './animation';
 
 export interface RangeColumnViewConfig extends ColumnViewConfig {
-  label: RangeColumnLabelConfig;
+  label?: RangeColumnLabelConfig;
 }
 
 export interface RangeColumnLayerConfig extends RangeColumnViewConfig, LayerConfig {}

@@ -163,14 +163,36 @@ describe('Column Label', () => {
         },
       ],
       meta: {
-        sales: {
+        销售额: {
           formatter: (v) => Number(v).toFixed(2),
         },
       },
     });
 
     plot.render();
+    const getData = (range: [number, number]): any[] => {
+      const len = citysaels.length;
+      return citysaels.slice(len * range[0], len * range[1]);
+    };
+    const getLabelShapes = () => {
+      const label = plot.getLayer().getLabels()[0];
+      return label ? label.getLabels() : [];
+    };
 
-    expect(plot).toBeDefined();
+    // initial state
+    expect(plot.getLayer().getLabels()).toHaveLength(1);
+    expect(getLabelShapes().length).toBe(getData([0, 0.02]).length);
+    each(getLabelShapes(), (label, idx) => {
+      const data = getData([0, 0.02]);
+      expect(`${label.attr('text')}`).toBe(data[idx]['销售额'].toFixed(2));
+    });
+
+    // simulate slider change
+    plot
+      .getLayer()
+      .getInteractions()[0]
+      // @ts-ignore
+      .slider.emit('sliderchange', [0.05, 0.1]);
+    expect(plot.getLayer().getLabels()).toHaveLength(1);
   });
 });

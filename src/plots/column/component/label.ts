@@ -48,7 +48,7 @@ export default class ColumnLabel extends BaseLabel {
     }
   }
 
-  protected getValue(element: Element): number {
+  protected getValue(element: Element): number | undefined | null {
     return get(element.getData(), this.layer.options.yField);
   }
 
@@ -66,7 +66,7 @@ export default class ColumnLabel extends BaseLabel {
     } else if (position === 'bottom') {
       y = maxY + (offsetY + DEFAULT_OFFSET) * dir;
     } else {
-      y = minY + height / 2 + offsetY;
+      y = minY + height / 2;
     }
 
     return { x, y };
@@ -97,7 +97,7 @@ export default class ColumnLabel extends BaseLabel {
     return position !== 'top' && adjustColor && fill !== 'black' ? null : undefined;
   }
 
-  protected getElementShapeBBox(element: Element) {
+  protected getElementShapeBBox(element: Element): BBox {
     const { shape } = element;
     const points = [];
     each(shape.get('origin').points, (p) => {

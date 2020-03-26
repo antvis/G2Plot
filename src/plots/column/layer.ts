@@ -19,8 +19,11 @@ import './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
+<<<<<<< HEAD
 import { GraphicStyle } from '../../interface/config';
 import { Geometry } from '../../dependents';
+=======
+>>>>>>> 36ed4e78... refactor: bar label refactor
 import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
@@ -233,7 +236,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const { label, yField } = this.options;
     const scale = scales[yField];
     if (label && label.visible) {
-      const geometry: Geometry = getGeometryByType(this.view, 'interval');
+      const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'column',
         formatter: scale.formatter,

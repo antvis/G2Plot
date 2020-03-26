@@ -230,7 +230,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       views: [],
     };
 
-    this.labels = [];
     this.paddingController.clear();
 
     this.drawTitle();
@@ -623,6 +622,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   protected doRenderLabel(geometry: Geometry, label: Label) {
+    each(this.labels, (item) => {
+      item.destroy();
+    });
+    this.labels = [];
     const config: LabelComponentConfig = {
       layer: this,
       container: geometry.labelsContainer,

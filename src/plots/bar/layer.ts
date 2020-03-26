@@ -17,10 +17,15 @@ import {
 } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
+<<<<<<< HEAD
 import BarLabel from './component/label';
 import { GraphicStyle } from '../../interface/config';
+=======
+import './component/label';
+>>>>>>> 36ed4e78... refactor: bar label refactor
 import * as EventParser from './event';
 import './theme';
+import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
   bar: 'interval',
@@ -261,16 +266,15 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
-    const scale = scales[yField];
+    const { xField } = this.options;
+    const scale = scales[xField];
     if (this.options.label && this.options.label.visible) {
-      const label = new BarLabel({
-        view: this.view,
-        plot: this,
+      const geometry = getGeometryByType(this.view, 'interval');
+      this.doRenderLabel(geometry, {
+        type: 'bar',
         formatter: scale.formatter,
         ...this.options.label,
       });
-      label.render();
     }
   }
 

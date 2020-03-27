@@ -38,7 +38,7 @@ export default class CanvasController {
     }
     const { width, height } = this.getCanvasSize();
     /** height measure不准导致重复 forceFit */
-    if (this.width === width /*&& this.height === height*/) {
+    if (this.width === width && this.height === height) {
       return;
     }
     // got new width, height, re-render the plot
@@ -111,8 +111,15 @@ export default class CanvasController {
    * update the canvas dom styles
    * @param styles
    */
-  public updateCanvasStyle(styles: Record<string, string | number>) {
+  private updateCanvasStyle(styles: Record<string, string | number>) {
+    // 修改容器的样式
     modifyCSS(this.getCanvasDOM(), styles);
+
+    // 修改 canvas 的样式
+    modifyCSS(this.canvas.get('el'), {
+      display: 'inline-block',
+      verticalAlign: 'middle',
+    });
   }
 
   /**

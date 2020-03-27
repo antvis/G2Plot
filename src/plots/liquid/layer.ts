@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
-import { DataItem } from '../../interface/config';
+import { DataItem, TextStyle } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
 import * as EventParser from './event';
 import './geometry/shape/liquid';
@@ -25,15 +25,12 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
   statistic?: {
     visible?: boolean;
     adjustColor?: boolean;
-    style?: {};
     formatter?: (value) => string;
   };
   min: number;
   max: number;
   value: number;
   liquidStyle?: LiquidStyle | ((...args: any[]) => LiquidStyle);
-  type?: string;
-  showValue?: boolean;
 }
 
 export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {

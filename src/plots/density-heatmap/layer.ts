@@ -10,14 +10,7 @@ import { HeatmapLegendConfig } from './components/legend';
 import { HeatmapBackgroundConfig } from './components/background';
 import { getPlotComponents } from './components';
 import * as EventParser from './event';
-
-interface PointStyle {
-  lineDash?: number[];
-  lineWidth?: number;
-  opacity?: string;
-  fillStyle?: string;
-  strokeStyle?: string;
-}
+import { GraphicStyle } from '../../interface/config';
 
 export interface DensityHeatmapViewConfig extends ViewConfig {
   colorField: string;
@@ -28,7 +21,7 @@ export interface DensityHeatmapViewConfig extends ViewConfig {
     shape?: string;
     size?: number;
     color?: string;
-    style?: PointStyle;
+    style?: GraphicStyle;
   };
   legend?: HeatmapLegendConfig;
   background?: HeatmapBackgroundConfig;

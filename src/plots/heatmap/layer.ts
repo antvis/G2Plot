@@ -174,7 +174,6 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
         ];
         styleConfig.callback = this.options.shapeType;
       }
-      console.log(styleConfig);
       geomConfig.style = styleConfig;
     }
     if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {

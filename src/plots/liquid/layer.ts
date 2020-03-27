@@ -43,6 +43,7 @@ export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
 export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<LiquidViewConfig> {
     const cfg: Partial<LiquidViewConfig> = {
+      padding: [0, 0, 0, 0],
       animation: {
         factor: 0.4,
         easing: 'easeExpOut',
@@ -176,16 +177,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     let fontSize;
     let shadowBlur;
     if (content) {
-      let contentWidth;
-      if (props.width < props.height) {
-        contentWidth = props.width * 0.8;
-      } else {
-        contentWidth = props.height;
-      }
-      fontSize = (0.8 * contentWidth) / content.length;
+      const contentWidth = Math.min(this.width, this.height);
+      fontSize = (contentWidth / content.length) * 0.5;
       shadowBlur = Math.max(1, Math.ceil(0.025 * fontSize));
     }
-
     let opacity;
     if (statistic.visible === false) {
       opacity = 0;
@@ -212,6 +207,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         },
       }
     );
+    console.log(statisticConfig);
 
     delete statisticConfig.visible;
     delete statisticConfig.formatter;

@@ -16,19 +16,28 @@ interface GaugeStyle {
   pointerColor?: string;
 }
 
+interface GaugeStatistic {
+  visible?: boolean;
+  position?: [string, string];
+  size?: number;
+  text?: string;
+  color?: string;
+}
+
 export interface GaugeViewConfig extends ViewConfig {
   startAngle?: number;
   endAngle?: number;
   min?: number;
   max?: number;
   value?: number;
-  showValue?: boolean;
+  /** @ignore */
   format?: (...args: any[]) => string;
+  /** @ignore */
   gaugeStyle?: GaugeStyle;
   range?: number[];
   /** @ignore */
   styleMix?: any;
-  statistic?: any;
+  statistic?: GaugeStatistic;
 }
 
 /**

@@ -5,7 +5,7 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, DataItem } from '../../interface/config';
+import { ElementOption, DataItem, LineStyle, TextStyle } from '../../interface/config';
 import responsiveMethods from './apply-responsive';
 import './theme';
 import './geometry/shape/funnel-basic-rect';
@@ -36,16 +36,16 @@ export interface FunnelViewConfig extends ViewConfig {
     visible: boolean;
     line: Partial<{
       visible: boolean;
-      style: {};
+      style: LineStyle;
     }>;
     text: Partial<{
       visible: boolean;
       content: string;
-      style: {};
+      style: TextStyle;
     }>;
     value: Partial<{
       visible: boolean;
-      style: {};
+      style: TextStyle;
       formatter: (yValueUpper: any, yValueLower: any) => string;
     }>;
     offsetX: number;
@@ -59,7 +59,7 @@ export interface FunnelViewConfig extends ViewConfig {
     visible: boolean;
     offsetX: number;
     offsetY: number;
-    style: {};
+    style: TextStyle;
   }>;
 }
 

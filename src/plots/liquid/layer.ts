@@ -26,6 +26,7 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
     visible?: boolean;
     adjustColor?: boolean;
     formatter?: (value) => string;
+    style: TextStyle;
   };
   min: number;
   max: number;
@@ -162,7 +163,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   protected extractStatistic() {
     const props = this.options;
-    const statistic = props.statistic || {};
+    const statistic: any = props.statistic || {};
 
     let content;
     if (isFunction(statistic.formatter)) {

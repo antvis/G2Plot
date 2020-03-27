@@ -299,6 +299,14 @@ matrixPlot.render();
 
 默认配置： 默认为`rect`。
 
+### shapeStyle
+
+**可选**, *object | function*
+
+功能描述： 设置色块形状的样式。shapeStyle中的`fill`会覆盖 `color` 的配置。shapeStyle可以直接指定，也可以通过callback的方式，根据数据为每一根色块指定单独的样式。
+
+默认配置： 无
+
 
 ### forceSquare
 

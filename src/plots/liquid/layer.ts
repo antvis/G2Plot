@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
-import { DataItem } from '../../interface/config';
+import { DataItem, TextStyle } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
 import * as EventParser from './event';
 import './geometry/shape/liquid';
@@ -25,15 +25,13 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
   statistic?: {
     visible?: boolean;
     adjustColor?: boolean;
-    style?: {};
     formatter?: (value) => string;
+    style: TextStyle;
   };
   min: number;
   max: number;
   value: number;
   liquidStyle?: LiquidStyle | ((...args: any[]) => LiquidStyle);
-  type?: string;
-  showValue?: boolean;
 }
 
 export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
@@ -43,6 +41,7 @@ export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
 export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig> extends ViewLayer<T> {
   public static getDefaultOptions(): Partial<LiquidViewConfig> {
     const cfg: Partial<LiquidViewConfig> = {
+      padding: [0, 0, 0, 0],
       animation: {
         factor: 0.4,
         easing: 'easeExpOut',
@@ -164,7 +163,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   protected extractStatistic() {
     const props = this.options;
-    const statistic = props.statistic || {};
+    const statistic: any = props.statistic || {};
 
     let content;
     if (isFunction(statistic.formatter)) {
@@ -176,16 +175,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     let fontSize;
     let shadowBlur;
     if (content) {
-      let contentWidth;
-      if (props.width < props.height) {
-        contentWidth = props.width * 0.8;
-      } else {
-        contentWidth = props.height;
-      }
-      fontSize = (0.8 * contentWidth) / content.length;
+      const contentWidth = Math.min(this.width, this.height);
+      fontSize = (contentWidth / content.length) * 0.5;
       shadowBlur = Math.max(1, Math.ceil(0.025 * fontSize));
     }
-
     let opacity;
     if (statistic.visible === false) {
       opacity = 0;
@@ -212,6 +205,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         },
       }
     );
+    console.log(statisticConfig);
 
     delete statisticConfig.visible;
     delete statisticConfig.formatter;

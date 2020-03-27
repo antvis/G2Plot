@@ -1,4 +1,5 @@
 import { registerShape } from '../../dependents';
+import { deepMix } from '@antv/util';
 
 export function getRectPath(cx, cy, width, height, size) {
   const w = width * size;
@@ -56,11 +57,15 @@ registerShape('polygon', 'rect', {
         */
     const path = getRectPath(centerX, centerY, width, height, cfg.size);
     return container.addShape('path', {
-      attrs: {
-        path,
-        fill: cfg.color,
-        opacity: 1,
-      },
+      attrs: deepMix(
+        {},
+        {
+          path,
+          fill: cfg.color,
+          opacity: 1,
+        },
+        cfg.style
+      ),
     });
   },
 });
@@ -69,11 +74,15 @@ registerShape('point', 'curvePoint', {
   draw(cfg, container) {
     const path = getCirclePath(cfg.x, cfg.y, cfg.size);
     return container.addShape('path', {
-      attrs: {
-        path,
-        fill: cfg.color,
-        opacity: 1,
-      },
+      attrs: deepMix(
+        {},
+        {
+          path,
+          fill: cfg.color,
+          opacity: 1,
+        },
+        cfg.style
+      ),
     });
   },
 });

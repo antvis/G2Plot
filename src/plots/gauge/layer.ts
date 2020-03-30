@@ -11,7 +11,7 @@ import { extractScale } from '../../util/scale';
 import './theme';
 import { GaugeViewConfig } from './options';
 import { GaugeShape } from './geometry/shape/gauge-shape';
-import { getOptions } from './geometry/shape/options';
+//import { getOptions } from './geometry/shape/options';
 import { getGlobalTheme } from '../../theme';
 import * as EventParser from './event';
 
@@ -97,8 +97,8 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     const { min = rangeSorted[0], max = rangeSorted[rangeSorted.length - 1], format = (d) => `${d}` } = this.options;
 
     const valueText = format(value);
-    const styleMix = this.getStyleMix();
-    this.options.styleMix = styleMix;
+    //const styleMix = this.getStyleMix();
+    //this.options.styleMix = styleMix;
     this.options.data = [{ value: value || 0 }];
     this.options.valueText = valueText;
     this.options.min = min;
@@ -108,7 +108,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     super.init();
   }
 
-  protected getStyleMix() {
+  /*protected getStyleMix() {
     const { gaugeStyle = {}, statistic = {} } = this.options;
     const { width, height } = this;
     const size = Math.max(width, height) / 20;
@@ -121,7 +121,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     }
     const style = deepMix({}, defaultStyle, gaugeStyle, { statistic });
     return style;
-  }
+  }*/
 
   /**
    * 绘制指针
@@ -139,12 +139,12 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape.render();
   }
 
-  protected getCustomStyle() {
+  /*protected getCustomStyle() {
     const { color, theme } = this.options;
     const globalTheme = getGlobalTheme();
     const colors = color || globalTheme.colors;
     return getOptions('standard', theme, colors);
-  }
+  }*/
 
   protected geometryParser(dim: string, type: string): string {
     throw new Error('Method not implemented.');
@@ -163,7 +163,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       nice: true,
       formatter: format,
       // 自定义 tick step
-      tickInterval: styleMix.tickInterval,
+      tickInterval: 20,
     });
     // @ts-ignore
     this.setConfig('scales', scales);
@@ -211,8 +211,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected addGeometry() {
-    const { styleMix } = this.options;
-    const pointerColor = styleMix.pointerColor || this.theme.defaultColor;
+    const pointerColor = this.options.pivot.pointer.style.fill || this.theme.defaultColor;
 
     const pointer: ElementOption = {
       type: 'point',
@@ -242,15 +241,16 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected renderStatistic() {
-    const { statistic, styleMix } = this.options;
+    const containerSize = Math.max(this.options.width, this.options.height) / 20;
+    const { statistic } = this.options;
     const text = {
       type: 'text',
       content: statistic.text,
       top: true,
-      position: styleMix.statistic.position,
+      position: statistic.position,
       style: {
-        fill: styleMix.statistic.color,
-        fontSize: styleMix.statistic.size,
+        fill: statistic.color,
+        fontSize: statistic.size ? statistic.size : containerSize * 1.2,
         textAlign: 'center',
         textBaseline: 'middle',
       },

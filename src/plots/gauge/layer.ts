@@ -29,7 +29,36 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   public static getDefaultOptions(): any {
-    return deepMix({}, super.getDefaultOptions(), DEFAULT_GAUGE_CONFIG);
+    return deepMix({}, super.getDefaultOptions(), {
+      startAngle: -7 / 6,
+      endAngle: 1 / 6,
+      statistic: {
+        position: ['50%', '80%'],
+      },
+      axis:{
+        visible: true,
+        offset: -35,
+        tickCount: 21,
+        subTickCount: 4,
+        tickLine:{
+          visible: true,
+          length: 5,
+          style:{
+            stroke:'#aaa',
+            lineWidth: 2
+          }
+        },
+        label:{
+          visible: true,
+          style:{
+            fill:'#aaa',
+            fontSize: 16,
+            textAlign:'center',
+            textBaseline:'middle'
+          }
+        }
+      }
+    });
   }
 
   public type: string = 'gauge';
@@ -124,39 +153,19 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected axis() {
-    const { styleMix, style } = this.options;
-    const { thickness } = this.getCustomStyle().ringStyle;
-
-    const offset =
-      typeof styleMix.tickLabelPos === 'number'
-        ? -styleMix.tickLabelPos
-        : styleMix.tickLabelPos === 'outer'
-        ? 0.8
-        : -0.8;
-
+    const { axis } = this.options;
+    
     const axesConfig: any = {};
 
     axesConfig.value = {
       line: null,
       grid: null,
       label: {
-        offset: offset * (styleMix.stripWidth + styleMix.tickLabelSize + thickness),
-        textStyle: {
-          fontSize: styleMix.tickLabelSize,
-          fill: styleMix.tickLabelColor,
-          textAlign: 'center',
-          textBaseline: 'middle',
-        },
+        offset: axis.offset - axis.label.style.fontSize,
+        textStyle: axis.label.style,
+        autoRotate: true
       },
       tickLine: null,
-      subTickCount: styleMix.subTickCount,
-      subTickLine: {
-        length: offset * (styleMix.stripWidth + 1),
-        stroke: styleMix.tickLineColor,
-        lineWidth: 1,
-        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
-      },
-      labelAutoRotate: true,
     };
     axesConfig['1'] = false;
     this.setConfig('axes', axesConfig);

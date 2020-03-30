@@ -32,9 +32,9 @@ export const getOptions = function(name: string, theme: string, colors: string[]
           tickLine:{
             visible: true,
             length: 5,
-            thickness: 2,
             style:{
-              fill: '#999'
+              stroke:'#999',
+              lineWidth: 2
             }
           },
           label:{

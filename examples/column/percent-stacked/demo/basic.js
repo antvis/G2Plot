@@ -117,7 +117,7 @@ const columnPlot = new PercentStackedColumn(document.getElementById('container')
   data,
   xField: 'year',
   yField: 'value',
-  groupField: 'country',
+  stackField: 'country',
   color: ['#0f759c', '#26a2cb', '#65d1fc'],
 });
 

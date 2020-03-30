@@ -12,7 +12,7 @@ import './theme';
 import { GaugeViewConfig } from './options';
 import { GaugeShape } from './geometry/shape/gauge-shape';
 //import { getOptions } from './geometry/shape/options';
-import { getGlobalTheme } from '../../theme';
+//import { getGlobalTheme } from '../../theme';
 import * as EventParser from './event';
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}

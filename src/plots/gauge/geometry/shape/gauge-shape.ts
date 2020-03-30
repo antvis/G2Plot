@@ -2,13 +2,13 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import { get } from '@antv/util';
+import { get,clone, deepMix } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
 import { getGlobalTheme } from '../../../../theme';
 import { sortedLastIndex } from '../../../../util/common';
-import { GraphicStyle, TextStyle } from '../../../../interface/config';
+import { GraphicStyle, TextStyle, LineStyle } from '../../../../interface/config';
 
 interface PointerStyle {
   /** 指针颜色 */
@@ -108,6 +108,7 @@ export class GaugeShape {
         this.gauge.options = Gauge.options;
         this.gauge.pointerStyle = Gauge.pointerStyle;
         this.gauge.ringStyle = Gauge.ringStyle;
+        this.gauge.axis = Gauge.axis;
         this.gauge.type = Gauge.type;
         const gauge = this.gauge;
         const type = this.gauge.type;
@@ -143,7 +144,9 @@ export class GaugeShape {
           case 'standardGauge':
           default:
             this.drawGauge(currentAngle);
-            this.drawAxis();
+            if(this.gauge.axis.visible){
+              this.drawAxis();
+            }
             break;
         }
 
@@ -198,9 +201,7 @@ export class GaugeShape {
       },
 
       drawInSideAxis() {
-        const { axis } = this.gauge.ringStyle;
-        const { amount } = axis;
-
+        const { axis } = this;
         const { min, max } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
@@ -209,8 +210,8 @@ export class GaugeShape {
           starAngle,
           endAngle,
         };
-        const interval = (max - min) / amount;
-        for (let i = 0; i < amount; i++) {
+        const interval = (max - min) / axis.tickCount;
+        for (let i = 0; i < axis.tickCount; i++) {
           const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue + interval / 2, config);
 
@@ -219,8 +220,7 @@ export class GaugeShape {
       },
 
       drawAxis() {
-        const { axis } = this.gauge.ringStyle;
-        const { amount, length, thickness } = axis;
+        const axis = this.gauge.axis;
         const { min, max } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
@@ -229,14 +229,17 @@ export class GaugeShape {
           starAngle,
           endAngle,
         };
-        const interval = (max - min) / (amount - 1);
-        for (let i = 0; i < amount; i++) {
+        const interval = (max - min) / (axis.tickCount - 1);
+        for (let i = 0; i < axis.tickCount; i++) {
           const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue, config);
-
+          const tickLineStyle = clone(axis.tickLine.style);
+          if(i%5 !== 0){
+            tickLineStyle.lineWidth = tickLineStyle.lineWidth / 2;
+          }
           this.drawRect(angle, {
-            length: i % 5 === 0 ? length : length / 2,
-            thickness: i % 5 === 0 ? thickness : thickness / 2,
+            length: i % 5 === 0 ? axis.tickLine.length : axis.tickLine.length / 2,
+            style: tickLineStyle
           });
         }
       },
@@ -336,9 +339,9 @@ export class GaugeShape {
       },
 
       drawRect(angle: number, param?: any) {
-        const { axis } = this.gauge.ringStyle;
+        const { axis } = this.gauge;
         const config = { ...axis, ...param };
-        const { offset, length, thickness, color } = config;
+        const { offset, length } = config;
         const center = this.gauge.center;
         const radius = this.gauge.ringRadius + offset;
 
@@ -349,14 +352,12 @@ export class GaugeShape {
         const yB1 = (radius + length) * Math.sin(angle) + center.y;
 
         this.gauge.group.addShape('line', {
-          attrs: {
+          attrs: deepMix({},{
             x1: xA1,
             y1: yA1,
             x2: xB1,
             y2: yB1,
-            stroke: color,
-            lineWidth: thickness,
-          },
+          },param.style)
         });
       },
 

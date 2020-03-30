@@ -75,8 +75,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape.setOption(
       this.type,
       this.options,
-      this.getCustomStyle().pointerStyle,
-      this.getCustomStyle().ringStyle
+      this.getCustomStyle()
     );
     this.gaugeShape.render();
   }
@@ -85,6 +84,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     const { color, theme } = this.options;
     const globalTheme = getGlobalTheme();
     const colors = color || globalTheme.colors;
+    console.log(getOptions('standard', theme, colors))
     return getOptions('standard', theme, colors);
   }
 

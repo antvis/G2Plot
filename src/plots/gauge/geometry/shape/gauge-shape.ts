@@ -8,6 +8,7 @@ import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
 import { getGlobalTheme } from '../../../../theme';
 import { sortedLastIndex } from '../../../../util/common';
+import { GraphicStyle, TextStyle } from '../../../../interface/config';
 
 interface PointerStyle {
   /** 指针颜色 */
@@ -29,6 +30,23 @@ interface AxisStyle {
   thickness: number;
   /** 刻度线颜色 */
   color: string;
+}
+
+interface GaugeAxis {
+  visible?:boolean;
+  offset?:number;
+  tickCount?: number;
+  tickLine?:{
+    visible?: boolean;
+    length?: number;
+    thickness?: number;
+    style?: GraphicStyle;
+  },
+  label?:{
+    visible?: boolean;
+    style?: TextStyle;
+    formatter?:()=>string;
+  }
 }
 
 interface RingStyle {
@@ -66,17 +84,20 @@ export class GaugeShape {
 
   pointerStyle: PointerStyle;
 
+  axis: GaugeAxis;
+
   type: string;
 
   constructor(uid: any) {
     this.uid = uid;
   }
 
-  setOption(type, options: GaugeViewConfig, pointerStyle: PointerStyle, ringStyle: RingStyle) {
+  setOption(type, options: GaugeViewConfig, cfg) {
     this.type = type;
     this.options = options;
-    this.pointerStyle = pointerStyle;
-    this.ringStyle = ringStyle;
+    this.pointerStyle = cfg.pointerStyle;
+    this.ringStyle = cfg.ringStyle;
+    this.axis = cfg.axis;
   }
 
   render() {

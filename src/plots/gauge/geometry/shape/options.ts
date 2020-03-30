@@ -25,11 +25,30 @@ export const getOptions = function(name: string, theme: string, colors: string[]
   switch (name) {
     case 'standard':
       return {
+        axis:{
+          visible: true,
+          offset: -35,
+          tickCount: 21,
+          tickLine:{
+            visible: true,
+            length: 5,
+            thickness: 2,
+            style:{
+              fill: '#999'
+            }
+          },
+          label:{
+            visible: true,
+            style:{
+              fill:'#999'
+            }
+          }
+        },
         ringStyle: {
           ...common,
           background: ringBackground,
           axis: {
-            amount: 21,
+            amount: 10,
             offset: -35,
             length: 5,
             thickness: 2,

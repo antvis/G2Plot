@@ -9,7 +9,7 @@ import ViewLayer from '../../base/view-layer';
 import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import './theme';
-import { GaugeViewConfig, DEFAULT_GAUGE_CONFIG } from './options';
+import { GaugeViewConfig } from './options';
 import { GaugeShape } from './geometry/shape/gauge-shape';
 import { getOptions } from './geometry/shape/options';
 import { getGlobalTheme } from '../../theme';
@@ -32,6 +32,10 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     return deepMix({}, super.getDefaultOptions(), {
       startAngle: -7 / 6,
       endAngle: 1 / 6,
+      rangeBackgroundStyle:{
+        fill:'#f0f0f0'
+      },
+      rangeSize: 24,
       statistic: {
         position: ['50%', '80%'],
       },
@@ -55,6 +59,30 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
             fontSize: 16,
             textAlign:'center',
             textBaseline:'middle'
+          }
+        }
+      },
+      pivot:{
+        visible: true,
+        tickness: 6,
+        pin:{
+          visible: true,
+          size: 2,
+          style:{
+            fill:'#2E364B'
+          },
+        },
+        base:{
+          visible: true,
+          size: 5,
+          style:{
+            fill:'#EEEEEE'
+          }
+        },
+        pointer:{
+          visible: true,
+          style:{
+            fill:'#CFCFCF'
           }
         }
       }
@@ -103,8 +131,11 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape = new GaugeShape(uniqueId());
     this.gaugeShape.setOption(
       this.type,
-      this.options,
-      this.getCustomStyle()
+      deepMix({},this.options,{
+        radius: 1,
+        angle: 240,
+        textPosition: '100%',
+      }),
     );
     this.gaugeShape.render();
   }
@@ -154,19 +185,23 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
 
   protected axis() {
     const { axis } = this.options;
-    
-    const axesConfig: any = {};
 
-    axesConfig.value = {
-      line: null,
-      grid: null,
-      label: {
+    const axesConfig:any = {
+      value :{
+        line: null,
+        grid: null,
+        tickLine: null,
+      }
+    };
+
+    if(axis.label.visible){
+      axesConfig.value.label = {
         offset: axis.offset - axis.label.style.fontSize,
         textStyle: axis.label.style,
         autoRotate: true
-      },
-      tickLine: null,
-    };
+      };
+    }
+
     axesConfig['1'] = false;
     this.setConfig('axes', axesConfig);
   }

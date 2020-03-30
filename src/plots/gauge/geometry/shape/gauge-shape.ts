@@ -2,7 +2,7 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import { get,clone, deepMix } from '@antv/util';
+import { get, clone, deepMix } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
 import { GaugeViewConfig } from '../../options';
@@ -33,19 +33,19 @@ interface AxisStyle {
 }
 
 interface GaugeAxis {
-  visible?:boolean;
-  offset?:number;
+  visible?: boolean;
+  offset?: number;
   tickCount?: number;
-  tickLine?:{
+  tickLine?: {
     visible?: boolean;
     length?: number;
     thickness?: number;
     style?: GraphicStyle;
   },
-  label?:{
+  label?: {
     visible?: boolean;
     style?: TextStyle;
-    formatter?:()=>string;
+    formatter?: () => string;
   }
 }
 
@@ -83,8 +83,9 @@ export class GaugeShape {
   ringStyle: RingStyle;
 
   pointerStyle: PointerStyle;
-
   axis: GaugeAxis;
+
+  pivot: any;
 
   type: string;
 
@@ -92,12 +93,13 @@ export class GaugeShape {
     this.uid = uid;
   }
 
-  setOption(type, options: GaugeViewConfig, cfg) {
+  setOption(type, options: any) {
     this.type = type;
     this.options = options;
-    this.pointerStyle = cfg.pointerStyle;
-    this.ringStyle = cfg.ringStyle;
-    this.axis = cfg.axis;
+    //this.pointerStyle = cfg.pointerStyle;
+    //this.ringStyle = cfg.ringStyle;
+    this.axis = options.axis;
+    this.pivot = options.pivot;
   }
 
   render() {
@@ -109,6 +111,7 @@ export class GaugeShape {
         this.gauge.pointerStyle = Gauge.pointerStyle;
         this.gauge.ringStyle = Gauge.ringStyle;
         this.gauge.axis = Gauge.axis;
+        this.gauge.pivot = Gauge.pivot;
         this.gauge.type = Gauge.type;
         const gauge = this.gauge;
         const type = this.gauge.type;
@@ -144,14 +147,14 @@ export class GaugeShape {
           case 'standardGauge':
           default:
             this.drawGauge(currentAngle);
-            if(this.gauge.axis.visible){
+            if (this.gauge.axis.visible) {
               this.drawAxis();
             }
             break;
         }
 
         // 绘制指针
-        this.drawPoniter(cfg, group);
+        //this.drawPivot(cfg, group);
       },
 
       drawGauge(currentAngle: number) {
@@ -166,7 +169,7 @@ export class GaugeShape {
       },
 
       drawRangeColor() {
-        const { min, max, range, styleMix, color } = this.gauge.options;
+        const { min, max, range, color, rangeStyle } = this.gauge.options;
         const colors = color || getGlobalTheme().colors;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
@@ -181,16 +184,17 @@ export class GaugeShape {
 
           if (end >= start) {
             const path2 = this.getPath(start, end);
-            this.drawRing(path2, colors[i]);
+            const style = deepMix({fill:colors[i]},rangeStyle)
+            this.drawRing(path2, style);
           }
         }
       },
 
       drawBottomRing() {
         const { starAngle, endAngle } = this.getAngleRange();
-        const { background } = this.gauge.ringStyle;
+        const backgroundStyle = this.gauge.options.rangeBackgroundStyle;
         const path = this.getPath(starAngle, endAngle);
-        this.drawRing(path, background);
+        this.drawRing(path, backgroundStyle);
       },
 
       drawCurrentRing(current: number) {
@@ -234,7 +238,7 @@ export class GaugeShape {
           const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue, config);
           const tickLineStyle = clone(axis.tickLine.style);
-          if(i%5 !== 0){
+          if (i % 5 !== 0) {
             tickLineStyle.lineWidth = tickLineStyle.lineWidth / 2;
           }
           this.drawRect(angle, {
@@ -302,7 +306,7 @@ export class GaugeShape {
       },
 
       getAngleRange() {
-        const { angle } = this.gauge.ringStyle;
+        const { angle } = this.gauge.options;
         const angleValue = 90 - (360 - angle) * 0.5;
         const starAngle = ((270 - 90 - angleValue) * Math.PI) / 180;
         const endAngle = ((270 + 90 + angleValue) * Math.PI) / 180;
@@ -329,12 +333,11 @@ export class GaugeShape {
         return angle;
       },
 
-      drawRing(path: string, color: string) {
+      drawRing(path: string, style: any) {
         this.gauge.group.addShape('path', {
-          attrs: {
+          attrs: deepMix({}, {
             path,
-            fill: color,
-          },
+          }, style),
         });
       },
 
@@ -352,12 +355,12 @@ export class GaugeShape {
         const yB1 = (radius + length) * Math.sin(angle) + center.y;
 
         this.gauge.group.addShape('line', {
-          attrs: deepMix({},{
+          attrs: deepMix({}, {
             x1: xA1,
             y1: yA1,
             x2: xB1,
             y2: yB1,
-          },param.style)
+          }, param.style)
         });
       },
 
@@ -368,14 +371,14 @@ export class GaugeShape {
         const width = get(gauge, 'options.width');
         const center = this.gauge.center;
         const length = this.gauge.ringRadius;
-        const { thickness, minThickness, minThickCanvsSize, miniThickness, bigThickness } = this.gauge.ringStyle;
         let thick;
+        /* const { minThickness, minThickCanvsSize } = this.gauge.ringStyle;
         const size = Math.min(width, height);
         if (type === 'fan' && size < minThickCanvsSize) {
           thick = length - minThickness;
-        } else {
-          thick = thickness;
-        }
+        } else {*/
+        thick = this.gauge.options.rangeSize;
+        //}
 
         const xA1 = length * Math.cos(starAngle) + center.x;
         const yA1 = length * Math.sin(starAngle) + center.y;
@@ -396,12 +399,12 @@ export class GaugeShape {
         ];
       },
 
-      drawPoniter(cfg: any) {
+      /*drawPivot(cfg: any) {
         const { starAngle, endAngle } = this.getAngleRange();
-
-        const { color, circleColorTop, circleColorBottom, radius, thickness } = this.gauge.pointerStyle;
-        const bigCircle = thickness;
-        const smCircle = thickness / 2.5;
+        const { radius } = this.gauge.options;
+        const pivotConfig = this.gauge.pivot;
+        const bigCircle = pivotConfig.thickness;
+        const smCircle = pivotConfig.thickness / 2.5;
         const group = this.gauge.group;
         const point = cfg.points[0];
         const center = this.parsePoint({
@@ -409,7 +412,7 @@ export class GaugeShape {
           y: 0,
         });
 
-        // *radius
+        // radius
         const current = point.x * (endAngle - starAngle) + starAngle;
         const x = this.gauge.ringRadius * radius * Math.cos(current) + this.gauge.center.x;
         const y = this.gauge.ringRadius * radius * Math.sin(current) + this.gauge.center.y;
@@ -420,70 +423,74 @@ export class GaugeShape {
         };
 
         // 外底色灰圆
-        group.addShape('circle', {
-          attrs: {
-            x: center.x,
-            y: center.y,
-            r: bigCircle * 2.2,
-            fill: circleColorBottom,
-          },
-        });
+        if (pivotConfig.base.visible) {
+          group.addShape('circle', {
+            attrs: deepMix({}, {
+              x: center.x,
+              y: center.y,
+              r: bigCircle * 2.2,
+            }, pivotConfig.base.style)
+          });
+        }
+        // 指针
+        if (pivotConfig.pointer.visible) {
+          const dirVec = { x: center.x - target.x, y: center.y - target.y };
 
-        const dirVec = { x: center.x - target.x, y: center.y - target.y };
+          const length = Math.sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
+          dirVec.x *= 1 / length;
+          dirVec.y *= 1 / length;
 
-        const length = Math.sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
-        dirVec.x *= 1 / length;
-        dirVec.y *= 1 / length;
+          const angle1 = -Math.PI / 2;
+          const x1 = Math.cos(angle1) * dirVec.x - Math.sin(angle1) * dirVec.y;
+          const y1 = Math.sin(angle1) * dirVec.x + Math.cos(angle1) * dirVec.y;
 
-        const angle1 = -Math.PI / 2;
-        const x1 = Math.cos(angle1) * dirVec.x - Math.sin(angle1) * dirVec.y;
-        const y1 = Math.sin(angle1) * dirVec.x + Math.cos(angle1) * dirVec.y;
+          const angle2 = Math.PI / 2;
+          const x2 = Math.cos(angle2) * dirVec.x - Math.sin(angle2) * dirVec.y;
+          const y2 = Math.sin(angle2) * dirVec.x + Math.cos(angle2) * dirVec.y;
+          const path = [
+            ['M', target.x + x1 * smCircle, target.y + y1 * smCircle],
+            ['L', center.x + x1 * bigCircle, center.y + y1 * bigCircle],
+            ['L', center.x + x2 * bigCircle, center.y + y2 * bigCircle],
+            ['L', target.x + x2 * smCircle, target.y + y2 * smCircle],
+            ['Z'],
+          ];
 
-        const angle2 = Math.PI / 2;
-        const x2 = Math.cos(angle2) * dirVec.x - Math.sin(angle2) * dirVec.y;
-        const y2 = Math.sin(angle2) * dirVec.x + Math.cos(angle2) * dirVec.y;
-        const path = [
-          ['M', target.x + x1 * smCircle, target.y + y1 * smCircle],
-          ['L', center.x + x1 * bigCircle, center.y + y1 * bigCircle],
-          ['L', center.x + x2 * bigCircle, center.y + y2 * bigCircle],
-          ['L', target.x + x2 * smCircle, target.y + y2 * smCircle],
-          ['Z'],
-        ];
+          group.addShape('path', {
+            attrs: deepMix({}, {
+              path,
+            }, pivotConfig.pointer.style),
+          });
 
-        group.addShape('path', {
-          attrs: {
-            path,
-            fill: color,
-            stroke: color,
-          },
-        });
-        group.addShape('circle', {
-          attrs: {
-            x: target.x,
-            y: target.y,
-            r: smCircle,
-            fill: color,
-          },
-        });
-        group.addShape('circle', {
-          attrs: {
-            x: center.x,
-            y: center.y,
-            r: bigCircle,
-            fill: color,
-          },
-        });
+          group.addShape('circle', {
+            attrs: {
+              x: target.x,
+              y: target.y,
+              r: smCircle,
+              fill: pivotConfig.pointer.style.fill,
+            },
+          });
+          group.addShape('circle', {
+            attrs: {
+              x: center.x,
+              y: center.y,
+              r: bigCircle,
+              fill: pivotConfig.pointer.style.fill,
+            },
+          });
+        }
 
-        // 内部白色小圆
-        group.addShape('circle', {
-          attrs: {
-            x: center.x,
-            y: center.y,
-            r: smCircle / 1.2,
-            fill: circleColorTop,
-          },
-        });
-      },
+        if (pivotConfig.pin.visible) {
+          // 内部白色小圆
+          group.addShape('circle', {
+            attrs: {
+              x: center.x,
+              y: center.y,
+              r: smCircle / 1.2,
+              fill: 'black',
+            },
+          });
+        }
+      }*/
     } as any);
   }
 }

@@ -208,8 +208,7 @@ export class GaugeShape {
       },
 
       drawInSideAxis() {
-        const { axis } = this;
-        const { min, max } = this.gauge.options;
+        const { min, max, axis } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
           min,
@@ -221,8 +220,10 @@ export class GaugeShape {
         for (let i = 0; i < axis.tickCount; i++) {
           const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue + interval / 2, config);
-
-          this.drawRect(angle);
+          this.drawRect(angle,{
+            length:axis.tickLine.length,
+            style:axis.tickLine.style
+          });
         }
       },
 
@@ -272,9 +273,8 @@ export class GaugeShape {
       },
 
       drawBarGauge(current: number) {
-        const { min, max, range, styleMix } = this.gauge.options;
-        const colors = styleMix.colors || getGlobalTheme().colors;
-        const { color, background } = this.gauge.ringStyle;
+        const { min, max, range, color, rangeStyle, rangeBackgroundStyle } = this.gauge.options;
+        const colors = color || getGlobalTheme().colors;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
           min,
@@ -290,7 +290,7 @@ export class GaugeShape {
           const start = starAngle + i * interval;
           const path2 = this.getPath(start - offset / 2, start + offset - offset / 2);
 
-          let fillColor = background;
+          let style = rangeBackgroundStyle;
           if (range && range.length) {
             const result1 = range.map((item: any) => {
               return this.valueToAngle(item, config);
@@ -299,12 +299,12 @@ export class GaugeShape {
             const index = sortedLastIndex(result1, start);
             /** 最后一个值也在最后一个区间内 */
             const colorIndex = Math.min(index, range.length - 1);
-            fillColor = colors[colorIndex - 1] || background;
+            style = deepMix({},{fill:colors[colorIndex - 1]},rangeStyle) || rangeBackgroundStyle;
           } else {
-            fillColor = current >= start ? color : background;
+            style = current >= start ? deepMix({},{fill:color},rangeStyle) : rangeBackgroundStyle;
           }
 
-          this.drawRing(path2, fillColor);
+          this.drawRing(path2, style);
         }
       },
 

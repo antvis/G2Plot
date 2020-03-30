@@ -267,8 +267,10 @@ export interface GuideLineConfig {
 
 export interface ISliderInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
+  /** @ignore */
   type?: 'horizontal' | 'vertical';
   /** 宽度，在 vertical 下生效 */
+  /** @ignore */
   width?: number;
   /** 高度，在 horizontal 下生效 */
   height?: number;
@@ -303,6 +305,7 @@ export interface ISliderInteractionConfig {
 
 export interface IScrollbarInteractionConfig {
   /** 在图表中的位置，默认 horizontal */
+  /** @ignore */
   type?: 'horizontal' | 'vertical';
   /** 宽度，在 vertical 下生效 */
   width?: number;

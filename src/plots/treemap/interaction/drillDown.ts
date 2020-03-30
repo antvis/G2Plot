@@ -20,7 +20,7 @@ interface IMapping {
 
 interface IMappingConfig {
   field: string;
-  values?: string[];
+  values?: string[] | Function;
 }
 
 interface IDrillDownInteractionConfig {
@@ -30,8 +30,13 @@ interface IDrillDownInteractionConfig {
   itemWidth?: number;
   itemHeight?: number;
   padding?: number[];
-  [key: string]: any;
 }
+
+export type IDrillDown = {
+  mapping?: {
+    [key: string]: IMappingConfig;
+  };
+};
 
 const getValidBreadcrumbConfig = (cfg: IDrillDownInteractionConfig = {}): Required<IDrillDownInteractionConfig> => {
   const _cfg: Required<IDrillDownInteractionConfig> = {

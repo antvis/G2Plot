@@ -131,7 +131,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape.setOption(
       this.type,
       deepMix({},this.options,{
-        radius: 0.8,
+        radius: 0.6,
         angle: 240,
         textPosition: '100%',
       }),

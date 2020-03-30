@@ -253,8 +253,7 @@ export class GaugeShape {
       },
 
       drawOutSideAxis() {
-        const { axis } = this.gauge.ringStyle;
-        const { amount } = axis;
+        const { axis } = this.gauge;
         const { min, max } = this.gauge.options;
         const { starAngle, endAngle } = this.getAngleRange();
         const config = {
@@ -263,12 +262,14 @@ export class GaugeShape {
           starAngle,
           endAngle,
         };
-        const interval = (max - min) / (amount - 1);
-        for (let i = 0; i < amount; i++) {
+        const interval = (max - min) / (axis.tickCount - 1);
+        for (let i = 0; i < axis.tickCount; i++) {
           const startValue = min + i * interval;
           const angle = this.valueToAngle(startValue, config);
-
-          this.drawRect(angle);
+          this.drawRect(angle,{
+            length: axis.tickLine.length,
+            style: axis.tickLine.style
+          });
         }
       },
 

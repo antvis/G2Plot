@@ -1,11 +1,9 @@
 import { deepMix, uniqueId } from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import { LayerConfig } from '../../base/layer';
 import GaugeLayer from '../gauge/layer';
-import { GaugeViewConfig } from '../gauge/options';
 import { GaugeShape } from '../gauge/geometry/shape/gauge-shape';
-//import { getOptions } from '../gauge/geometry/shape/options';
-//import { getGlobalTheme } from '../../theme';
+import { GaugeViewConfig } from '../gauge/interface';
+import { LayerConfig } from '../../base/layer';
 
 export interface FanGaugeViewConfig extends GaugeViewConfig {}
 
@@ -14,32 +12,31 @@ export interface FanGaugeLayerConfig extends FanGaugeViewConfig, LayerConfig {}
 export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayerConfig> extends GaugeLayer<T> {
   public static getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
-      rangeColor:'#F6445A',
+      rangeColor: '#F6445A',
       rangeSize: 70,
-      axis:{
+      axis: {
         visible: true,
         offset: 5,
         tickCount: 10,
         subTickCount: 4,
-        tickLine:{
+        tickLine: {
           visible: true,
           length: 3,
-          style:{
-            stroke:'#aaa',
-            lineWidth: 3
-          }
+          style: {
+            stroke: '#aaa',
+            lineWidth: 3,
+          },
         },
-        label:{
+        label: {
           visible: true,
-          style:{
-            fill:'#aaa',
+          style: {
+            fill: '#aaa',
             fontSize: 16,
-            textAlign:'center',
-            textBaseline:'middle'
-          }
-        }
+            textAlign: 'center',
+            textBaseline: 'middle',
+          },
+        },
       },
-
     });
   }
 
@@ -49,17 +46,16 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
     this.gaugeShape = new GaugeShape(uniqueId());
     this.gaugeShape.setOption(
       this.type,
-      deepMix({},this.options,{
+      deepMix({}, this.options, {
         radius: 1,
         angle: 120,
         textPosition: '125%',
         bottomRatio: 3.5,
-      }),
+      })
     );
     this.gaugeShape.render();
   }
 
-  
   protected axis() {
     const axesConfig: any = {
       value: false,
@@ -82,7 +78,7 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
   }
 
   protected renderSideText() {
-    const { max, min, format, rangeSize,axis } = this.options;
+    const { max, min, format, rangeSize, axis } = this.options;
     const OFFSET_Y = 12;
     return [min, max].map((value, index) => {
       return {
@@ -90,7 +86,7 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
         top: true,
         position: ['50%', '50%'],
         content: format(value),
-        style: deepMix({},axis.label.style,{
+        style: deepMix({}, axis.label.style, {
           textAlign: 'center',
         }),
         offsetX: !index ? -rangeSize : rangeSize,

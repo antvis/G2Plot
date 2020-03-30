@@ -8,11 +8,8 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer from '../../base/view-layer';
 import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import './theme';
-import { GaugeViewConfig } from './options';
+import { GaugeViewConfig } from './interface';
 import { GaugeShape } from './geometry/shape/gauge-shape';
-//import { getOptions } from './geometry/shape/options';
-//import { getGlobalTheme } from '../../theme';
 import * as EventParser from './event';
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
@@ -32,59 +29,59 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     return deepMix({}, super.getDefaultOptions(), {
       startAngle: -7 / 6,
       endAngle: 1 / 6,
-      rangeBackgroundStyle:{
-        fill:'#f0f0f0'
+      rangeBackgroundStyle: {
+        fill: '#f0f0f0',
       },
       rangeSize: 24,
       statistic: {
         position: ['50%', '80%'],
       },
-      axis:{
+      axis: {
         visible: true,
         offset: -10,
         tickCount: 21,
         subTickCount: 4,
-        tickLine:{
+        tickLine: {
           visible: true,
           length: 5,
-          style:{
-            stroke:'#aaa',
-            lineWidth: 2
-          }
-        },
-        label:{
-          visible: true,
-          style:{
-            fill:'#aaa',
-            fontSize: 16,
-            textAlign:'center',
-            textBaseline:'middle'
-          }
-        }
-      },
-      pivot:{
-        visible: true,
-        tickness: 6,
-        pin:{
-          visible: true,
-          size: 2,
-          style:{
-            fill:'#2E364B'
+          style: {
+            stroke: '#aaa',
+            lineWidth: 2,
           },
         },
-        base:{
+        label: {
           visible: true,
-          style:{
-            fill:'#EEEEEE'
-          }
+          style: {
+            fill: '#aaa',
+            fontSize: 16,
+            textAlign: 'center',
+            textBaseline: 'middle',
+          },
         },
-        pointer:{
+      },
+      pivot: {
+        visible: true,
+        tickness: 6,
+        pin: {
           visible: true,
-          style:{
-            fill:'#CFCFCF'
-          }
-        }
-      }
+          size: 2,
+          style: {
+            fill: '#2E364B',
+          },
+        },
+        base: {
+          visible: true,
+          style: {
+            fill: '#EEEEEE',
+          },
+        },
+        pointer: {
+          visible: true,
+          style: {
+            fill: '#CFCFCF',
+          },
+        },
+      },
     });
   }
 
@@ -130,11 +127,11 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape = new GaugeShape(uniqueId());
     this.gaugeShape.setOption(
       this.type,
-      deepMix({},this.options,{
+      deepMix({}, this.options, {
         radius: 0.6,
         angle: 240,
         textPosition: '100%',
-      }),
+      })
     );
     this.gaugeShape.render();
   }
@@ -185,24 +182,24 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   protected axis() {
     const { axis } = this.options;
 
-    const axesConfig:any = {
-      value :{
+    const axesConfig: any = {
+      value: {
         line: null,
         grid: null,
         tickLine: null,
-      }
+      },
     };
     let offsetValue;
-    if(axis.offset<0){
+    if (axis.offset < 0) {
       offsetValue = axis.offset - this.options.rangeSize - axis.tickLine.length;
-    }else{
+    } else {
       offsetValue = axis.offset + axis.tickLine.length;
     }
-    if(axis.label.visible){
+    if (axis.label.visible) {
       axesConfig.value.label = {
         offset: offsetValue,
         textStyle: axis.label.style,
-        autoRotate: true
+        autoRotate: true,
       };
     }
 

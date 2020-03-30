@@ -8,7 +8,6 @@ import { getGeom } from '../../geoms/factory';
 import {
   ElementOption,
   ICatAxis,
-  ITimeAxis,
   IValueAxis,
   Label,
   DataItem,

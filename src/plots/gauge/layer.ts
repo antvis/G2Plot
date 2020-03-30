@@ -41,7 +41,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       },
       axis:{
         visible: true,
-        offset: -35,
+        offset: -10,
         tickCount: 21,
         subTickCount: 4,
         tickLine:{
@@ -74,7 +74,6 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
         },
         base:{
           visible: true,
-          size: 5,
           style:{
             fill:'#EEEEEE'
           }
@@ -132,7 +131,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape.setOption(
       this.type,
       deepMix({},this.options,{
-        radius: 1,
+        radius: 0.8,
         angle: 240,
         textPosition: '100%',
       }),
@@ -193,10 +192,15 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
         tickLine: null,
       }
     };
-
+    let offsetValue;
+    if(axis.offset<0){
+      offsetValue = axis.offset - this.options.rangeSize - axis.tickLine.length;
+    }else{
+      offsetValue = axis.offset + axis.tickLine.length;
+    }
     if(axis.label.visible){
       axesConfig.value.label = {
-        offset: axis.offset - axis.label.style.fontSize,
+        offset: offsetValue,
         textStyle: axis.label.style,
         autoRotate: true
       };

@@ -130,7 +130,8 @@ export class GaugeShape {
         gauge.group = group;
 
         const r = { x: center.x - target.x, y: center.y - target.y };
-        this.gauge.ringRadius = Math.sqrt(r.x * r.x + r.y * r.y) - 10;
+
+        this.gauge.ringRadius = Math.sqrt(r.x * r.x + r.y * r.y);
 
         const { starAngle, endAngle } = this.getAngleRange();
         const currentAngle = point.x * (endAngle - starAngle) + starAngle;
@@ -154,7 +155,9 @@ export class GaugeShape {
         }
 
         // 绘制指针
-        //this.drawPivot(cfg, group);
+        if(this.gauge.pivot.visible){
+          this.drawPivot(cfg, group);
+        }
       },
 
       drawGauge(currentAngle: number) {
@@ -184,7 +187,7 @@ export class GaugeShape {
 
           if (end >= start) {
             const path2 = this.getPath(start, end);
-            const style = deepMix({fill:colors[i]},rangeStyle)
+            const style = deepMix({ fill: colors[i] }, rangeStyle)
             this.drawRing(path2, style);
           }
         }
@@ -346,7 +349,13 @@ export class GaugeShape {
         const config = { ...axis, ...param };
         const { offset, length } = config;
         const center = this.gauge.center;
-        const radius = this.gauge.ringRadius + offset;
+
+        let radius;
+        if(offset < 0){
+          radius = this.gauge.ringRadius - this.gauge.options.rangeSize + offset;
+        }else{ 
+          radius = this.gauge.ringRadius + offset;
+        }
 
         const xA1 = radius * Math.cos(angle) + center.x;
         const yA1 = radius * Math.sin(angle) + center.y;
@@ -399,12 +408,12 @@ export class GaugeShape {
         ];
       },
 
-      /*drawPivot(cfg: any) {
+      drawPivot(cfg: any) {
         const { starAngle, endAngle } = this.getAngleRange();
-        const { radius } = this.gauge.options;
+        const { radius, rangeSize } = this.gauge.options;
         const pivotConfig = this.gauge.pivot;
-        const bigCircle = pivotConfig.thickness;
-        const smCircle = pivotConfig.thickness / 2.5;
+        const bigCircle = pivotConfig.tickness;
+        const smCircle = pivotConfig.tickness / 2.5;
         const group = this.gauge.group;
         const point = cfg.points[0];
         const center = this.parsePoint({
@@ -414,8 +423,8 @@ export class GaugeShape {
 
         // radius
         const current = point.x * (endAngle - starAngle) + starAngle;
-        const x = this.gauge.ringRadius * radius * Math.cos(current) + this.gauge.center.x;
-        const y = this.gauge.ringRadius * radius * Math.sin(current) + this.gauge.center.y;
+        const x = (this.gauge.ringRadius - rangeSize) * radius * Math.cos(current) + this.gauge.center.x;
+        const y = (this.gauge.ringRadius - rangeSize) * radius * Math.sin(current) + this.gauge.center.y;
 
         const target = {
           x,
@@ -428,7 +437,7 @@ export class GaugeShape {
             attrs: deepMix({}, {
               x: center.x,
               y: center.y,
-              r: bigCircle * 2.2,
+              r: pivotConfig.base.size ? pivotConfig.base.size / 2 : bigCircle * 2.2,
             }, pivotConfig.base.style)
           });
         }
@@ -482,15 +491,14 @@ export class GaugeShape {
         if (pivotConfig.pin.visible) {
           // 内部白色小圆
           group.addShape('circle', {
-            attrs: {
+            attrs: deepMix({},{
               x: center.x,
               y: center.y,
               r: smCircle / 1.2,
-              fill: 'black',
-            },
+            },pivotConfig.pin.style),
           });
         }
-      }*/
+      }
     } as any);
   }
 }

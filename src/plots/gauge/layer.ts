@@ -8,11 +8,8 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer from '../../base/view-layer';
 import { ElementOption } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import './theme';
-import { GaugeViewConfig, DEFAULT_GAUGE_CONFIG } from './options';
+import { GaugeViewConfig } from './interface';
 import { GaugeShape } from './geometry/shape/gauge-shape';
-import { getOptions } from './geometry/shape/options';
-import { getGlobalTheme } from '../../theme';
 import * as EventParser from './event';
 
 export interface GaugeLayerConfig extends GaugeViewConfig, LayerConfig {}
@@ -29,7 +26,63 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   public static getDefaultOptions(): any {
-    return deepMix({}, super.getDefaultOptions(), DEFAULT_GAUGE_CONFIG);
+    return deepMix({}, super.getDefaultOptions(), {
+      startAngle: -7 / 6,
+      endAngle: 1 / 6,
+      rangeBackgroundStyle: {
+        fill: '#f0f0f0',
+      },
+      rangeSize: 24,
+      statistic: {
+        position: ['50%', '80%'],
+      },
+      axis: {
+        visible: true,
+        offset: -10,
+        tickCount: 21,
+        subTickCount: 4,
+        tickLine: {
+          visible: true,
+          length: 5,
+          style: {
+            stroke: '#aaa',
+            lineWidth: 2,
+          },
+        },
+        label: {
+          visible: true,
+          style: {
+            fill: '#aaa',
+            fontSize: 16,
+            textAlign: 'center',
+            textBaseline: 'middle',
+          },
+        },
+      },
+      pivot: {
+        visible: true,
+        tickness: 6,
+        pin: {
+          visible: true,
+          size: 2,
+          style: {
+            fill: '#2E364B',
+          },
+        },
+        base: {
+          visible: true,
+          style: {
+            fill: '#EEEEEE',
+          },
+        },
+        pointer: {
+          visible: true,
+          style: {
+            fill: '#CFCFCF',
+          },
+        },
+      },
+    });
   }
 
   public type: string = 'gauge';
@@ -41,8 +94,8 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     const { min = rangeSorted[0], max = rangeSorted[rangeSorted.length - 1], format = (d) => `${d}` } = this.options;
 
     const valueText = format(value);
-    const styleMix = this.getStyleMix();
-    this.options.styleMix = styleMix;
+    //const styleMix = this.getStyleMix();
+    //this.options.styleMix = styleMix;
     this.options.data = [{ value: value || 0 }];
     this.options.valueText = valueText;
     this.options.min = min;
@@ -52,21 +105,6 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     super.init();
   }
 
-  protected getStyleMix() {
-    const { gaugeStyle = {}, statistic = {} } = this.options;
-    const { width, height } = this;
-    const size = Math.max(width, height) / 20;
-    const defaultStyle = Object.assign({}, this.theme, {
-      stripWidth: size,
-      tickLabelSize: size / 2,
-    });
-    if (!statistic.size) {
-      statistic.size = size * 1.2;
-    }
-    const style = deepMix({}, defaultStyle, gaugeStyle, { statistic });
-    return style;
-  }
-
   /**
    * 绘制指针
    */
@@ -74,18 +112,13 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape = new GaugeShape(uniqueId());
     this.gaugeShape.setOption(
       this.type,
-      this.options,
-      this.getCustomStyle().pointerStyle,
-      this.getCustomStyle().ringStyle
+      deepMix({}, this.options, {
+        radius: 0.6,
+        angle: 240,
+        textPosition: '100%',
+      })
     );
     this.gaugeShape.render();
-  }
-
-  protected getCustomStyle() {
-    const { color, theme } = this.options;
-    const globalTheme = getGlobalTheme();
-    const colors = color || globalTheme.colors;
-    return getOptions('standard', theme, colors);
   }
 
   protected geometryParser(dim: string, type: string): string {
@@ -105,7 +138,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       nice: true,
       formatter: format,
       // 自定义 tick step
-      tickInterval: styleMix.tickInterval,
+      tickInterval: 20,
     });
     // @ts-ignore
     this.setConfig('scales', scales);
@@ -125,47 +158,35 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected axis() {
-    const { styleMix, style } = this.options;
-    const { thickness } = this.getCustomStyle().ringStyle;
+    const { axis } = this.options;
 
-    const offset =
-      typeof styleMix.tickLabelPos === 'number'
-        ? -styleMix.tickLabelPos
-        : styleMix.tickLabelPos === 'outer'
-        ? 0.8
-        : -0.8;
-
-    const axesConfig: any = {};
-
-    axesConfig.value = {
-      line: null,
-      grid: null,
-      label: {
-        offset: offset * (styleMix.stripWidth + styleMix.tickLabelSize + thickness),
-        textStyle: {
-          fontSize: styleMix.tickLabelSize,
-          fill: styleMix.tickLabelColor,
-          textAlign: 'center',
-          textBaseline: 'middle',
-        },
+    const axesConfig: any = {
+      value: {
+        line: null,
+        grid: null,
+        tickLine: null,
       },
-      tickLine: null,
-      subTickCount: styleMix.subTickCount,
-      subTickLine: {
-        length: offset * (styleMix.stripWidth + 1),
-        stroke: styleMix.tickLineColor,
-        lineWidth: 1,
-        lineDash: [0, styleMix.stripWidth / 2, Math.abs(offset * (styleMix.stripWidth + 1))],
-      },
-      labelAutoRotate: true,
     };
+    let offsetValue;
+    if (axis.offset < 0) {
+      offsetValue = axis.offset - this.options.rangeSize - axis.tickLine.length;
+    } else {
+      offsetValue = axis.offset + axis.tickLine.length;
+    }
+    if (axis.label.visible) {
+      axesConfig.value.label = {
+        offset: offsetValue,
+        textStyle: axis.label.style,
+        autoRotate: true,
+      };
+    }
+
     axesConfig['1'] = false;
     this.setConfig('axes', axesConfig);
   }
 
   protected addGeometry() {
-    const { styleMix } = this.options;
-    const pointerColor = styleMix.pointerColor || this.theme.defaultColor;
+    const pointerColor = this.options.pivot.pointer.style.fill || this.theme.defaultColor;
 
     const pointer: ElementOption = {
       type: 'point',
@@ -195,15 +216,16 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
   }
 
   protected renderStatistic() {
-    const { statistic, styleMix } = this.options;
+    const containerSize = Math.max(this.options.width, this.options.height) / 20;
+    const { statistic } = this.options;
     const text = {
       type: 'text',
       content: statistic.text,
       top: true,
-      position: styleMix.statistic.position,
+      position: statistic.position,
       style: {
-        fill: styleMix.statistic.color,
-        fontSize: styleMix.statistic.size,
+        fill: statistic.color,
+        fontSize: statistic.size ? statistic.size : containerSize * 1.2,
         textAlign: 'center',
         textBaseline: 'middle',
       },

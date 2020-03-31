@@ -205,8 +205,6 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         },
       }
     );
-    console.log(statisticConfig);
-
     delete statisticConfig.visible;
     delete statisticConfig.formatter;
     delete statisticConfig.adjustColor;

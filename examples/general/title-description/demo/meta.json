@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "title-description.js",
-      "title": "图表标题及描述",
+      "title": {
+        "zh":"图表标题及描述",
+        "en":"the title and sub-title of chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ybpvQo7IFWIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "title-description-style.js",
-      "title": "图表标题及描述样式",
+      "title": {
+        "zh":"图表标题及描述样式",
+        "en":"chart's title and sub-title style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xqb1QKW8ivgAAAAAAAAAAABkARQnAQ"
     }
   ]

@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "column.js",
-      "title": "基础柱状图",
+      "title": {
+        "zh":"基础柱状图",
+        "en":"Basic Column Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "column-label.js",
-      "title": "基础柱状图-图形标签",
+      "title": {
+        "zh":"基础柱状图-图形标签",
+        "en":"Column Chart label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*6xAoRa0kaxEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "column-label-position.js",
-      "title": "基础柱状图-图形标签位置",
+      "title": {
+        "zh":"基础柱状图-图形标签位置",
+        "en":"Column Chart label position"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "column-label-color-adjust.js",
-      "title": "基础柱状图-label颜色自动调整",
+      "title": {
+        "zh":"基础柱状图-label颜色自动调整",
+        "en":"Column Chart - auto adjust label color"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CR2bQql90DgAAAAAAAAAAABkARQnAQ"
     },
     {
@@ -31,12 +43,18 @@
     },
     {
       "filename": "column-scrollbar.js",
-      "title": "基础柱状图-滚动条",
+      "title": {
+        "zh":"基础柱状图-滚动条",
+        "en":"Column Chart with Slider"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "column-conversion.js",
-      "title": "基础柱状图-转化率组件",
+      "title": {
+        "zh":"基础柱状图-转化率组件",
+        "en":"Column Chart with Conversion tag"
+      },
       "screenshot": "https://gw.alicdn.com/tfs/TB1u3.cvUY1gK0jSZFMXXaWcVXa-1638-1228.png"
     }
   ]

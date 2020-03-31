@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "axis-tickCount.js",
-      "title": "配置坐标轴tick数量",
+      "title": {
+        "zh":"配置坐标轴tick数量",
+        "en": "axis tick count"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*UUVRRqtbUjIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "axis-minmax.js",
-      "title": "配置坐标轴最大值最小值",
+      "title": {
+        "zh":"配置坐标轴最大值最小值",
+        "en":"min max value of axis"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*shoeSZEOuJUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "axis-title.js",
-      "title": "配置坐标轴标题",
+      "title": {
+        "zh":"配置坐标轴标题",
+        "en":"axis title"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GdlOSafNGWwAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "axis-style.js",
-      "title": "配置坐标轴样式",
+      "title": {
+        "zh":"配置坐标轴样式",
+        "en":"axis style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XrBkRLeB4i0AAAAAAAAAAABkARQnAQ"
     }
   ]

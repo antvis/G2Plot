@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "饼图-多色",
+      "title": {
+        "zh":"饼图",
+        "en":"basic Pie Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wmldRZZj9lIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "outer-label.js",
-      "title": "饼图-外部图形标签",
+      "title": {
+        "zh":"饼图-外部图形标签",
+        "en":"Pie Chart - outter label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "outer-center-label.js",
-      "title": "饼图-外部圆形图形标签",
+      "title": {
+        "zh":"饼图-外部圆形图形标签",
+        "en":"Pie Chart - outter label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4swYTIoCUdQAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "spider-label.js",
-      "title": "饼图-图形标签蜘蛛布局",
+      "title": {
+        "zh":"饼图-图形标签蜘蛛布局",
+        "en":"Pie Chart - spider-layout label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ahB1Qp7T-C8AAAAAAAAAAABkARQnAQ"
     }
   ]

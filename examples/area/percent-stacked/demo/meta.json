@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "百分比堆叠面积图",
+      "title": {
+        "zh":"百分比堆叠面积图",
+        "en":"PercentStackedArea Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JnDeSZllp5gAAAAAAAAAAABkARQnAQ"
     }
   ]

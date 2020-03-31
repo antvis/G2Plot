@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "词云图",
+      "title": {
+        "zh":"词云图",
+        "en":"Wordcloud Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EfBHQbD3NugAAAAAAAAAAABkARQnAQ"
     }
   ]

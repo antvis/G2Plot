@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "step.js",
-      "title": "基础阶梯图",
+      "title": {
+        "zh":"基础阶梯图",
+        "en":"basic StepLine Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xgyNRqkhjGEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "step-point-style.js",
-      "title": "带数据点的阶梯图",
+      "title": {
+        "zh":"带数据点的阶梯图",
+        "en":"StepLine Chart with data points"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qY_cQJm3NQIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "step-slider.js",
-      "title": "带缩略轴的阶梯图",
+      "title": {
+        "zh":"带缩略轴的阶梯图",
+        "en":"StepLine Chart with Slider"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ax37TZH-s1gAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "step-style.js",
-      "title": "带缩略轴的阶梯图",
+      "title": {
+        "zh":"阶梯图样式",
+        "en":"StepLine Chart style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y85BQ4-zbXEAAAAAAAAAAABkARQnAQ"
     }
   ]

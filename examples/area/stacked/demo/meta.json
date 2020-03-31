@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "堆叠面积图",
+      "title": {
+        "zh":"堆叠面积图",
+        "en":"StackedArea Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YYfSRoiOS_EAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "area-label.js",
-      "title": "堆叠面积图 - 图形标签",
+      "title": {
+        "zh":"堆叠面积图 - 图形标签",
+        "en":"StackedArea Chart - label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gZQnR6Maex0AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-label.js",
-      "title": "堆叠面积图 - 尾部跟随标签",
+      "title": {
+        "zh":"堆叠面积图 - 尾部跟随标签",
+        "en":"StackedArea Chart - line label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VcOMQaeIjngAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "area-large-data.js",
-      "title": "The causes of CO2 emissions",
+      "title": {
+        "zh":"The causes of CO2 emissions",
+        "en":"The causes of CO2 emissions"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u6u1RqMG9coAAAAAAAAAAABkARQnAQ"
     }
   ]

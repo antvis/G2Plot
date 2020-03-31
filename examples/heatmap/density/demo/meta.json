@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "密度热力图",
+      "title": {
+        "zh":"密度热力图",
+        "en":"DensityHeatmap Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*1w6eSIFLQSkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "heatmap-background.js",
-      "title": "密度热力图加背景",
+      "title": {
+        "zh":"密度热力图加背景",
+        "en":"DensityHeatmap Chart with background"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eFZySpX8E2gAAAAAAAAAAABkARQnAQ"
     }
   ]

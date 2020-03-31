@@ -5,7 +5,7 @@ order: 27
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*hjbDT6LlQf4AAAAAAAAAAABkARQnAQ" width="600">
 
-G2Plot 仪表盘分为Gauge (基础仪表盘)、MeterGauge（指针仪表盘）、FanGauge（扇形仪表盘）三种类型。
+G2Plot 仪表盘分为Gauge (基础仪表盘)、MeterGauge（刻度仪表盘）、FanGauge（扇形仪表盘）三种类型。
 
 
 # 快速上手
@@ -110,7 +110,7 @@ gaugePlot.render();
 
 默认配置： 无
 
-### min
+### min ✨
 
 **可选**, *number*
 
@@ -118,7 +118,7 @@ gaugePlot.render();
 
 默认配置： 0
 
-### max
+### max ✨
 
 **可选**, *number*
 
@@ -145,15 +145,15 @@ gaugePlot.render();
 
 默认配置： 采用 theme 中的默认色板
 
-### rangeSize
+### rangeSize ✨
 
 **可选**, *number*
 
 功能描述： 配置仪表盘色条宽度。
 
-默认配置：Gauge（基础仪表盘）24，MeterGauge（标度仪表盘）24，FanGauge（扇形仪表盘）70
+默认配置：Gauge（基础仪表盘）24，MeterGauge（刻度仪表盘）24，FanGauge（扇形仪表盘）70
 
-### rangeStyle
+### rangeStyle ✨
 
 **可选**, *object*
 
@@ -161,7 +161,7 @@ gaugePlot.render();
 
 默认配置：无
 
-### rangeBackgroundStyle
+### rangeBackgroundStyle ✨
 
 **可选**, *object*
 
@@ -179,6 +179,8 @@ gaugePlot.render();
 
 
 ## 组件
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TsK5Rb6u9V8AAAAAAAAAAABkARQnAQ" width="400">
 
 ### title
 **可选**, *optional*
@@ -226,7 +228,39 @@ style:{
 | position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
-### statistic
+
+### axis ✨
+
+**可选**, *object*
+
+功能描述：配置仪表盘刻度轴
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| offset  | number | 刻度偏移值，可以设正负值。正直显示在色条外圈，负值显示在色条内圈。Gauge、MeterGauge默认-10，FanGauge默认5。 |
+| tickCount | number | 刻度数。Gauge默认21，MeterGauge默认25，FanGauge默认10。 |
+| subTickCount | number | 副刻度数。默认4。 |
+| tickLine | object | 配置刻度线<br />- visible:boolean 是否可见，默认true<br />- length:number 刻度线长度，默认2<br />- style:object 刻度线样式<br /> |
+| label | object | 配置刻度标签<br />- visible: boolean 是否可见，默认true<br />- style: object 配置标签样式<br /> |
+
+
+### pivot ✨
+
+功能描述： 配置仪表盘指针
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QaXnSLpAYbcAAAAAAAAAAABkARQnAQ" width="400">
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示，默认true |
+| thickness | number | 指针宽度，默认6 |
+| pointer | object | 配置指针针头<br />- visible:boolean 是否显示，默认true<br />- style: object 针头样式<br /> |
+| base | object | 配置指针基座<br />- visible:boolean 是否显示，默认true<br />- size:number 基座大小，默认不配置，自动计算<br />- style: objecy 基座样式<br /> |
+| pin | object | 配置指针旋钮<br />- visible:boolean 是否显示，默认true<br />- size:number 旋钮大小，默认不配置，自动计算<br />- style: objecy 旋钮样式<br /> |
+
+
+### statistic ✨
 
 **可选**, *object*
 

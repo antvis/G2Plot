@@ -6,27 +6,42 @@
   "demos": [
     {
       "filename": "line.js",
-      "title": "基础折线图",
+      "title": {
+        "zh":"基础折线图",
+        "en":"basic Line Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-smooth.js",
-      "title": "曲线折线图",
+      "title": {
+        "zh":"曲线折线图",
+        "en":"smooth Line Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-with-point.js",
-      "title": "带数据点的折线图",
+      "title": {
+        "zh":"带数据点的折线图",
+        "en":"Line Chart with data point"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lSOiS4lGCaIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-point-style.js",
-      "title": "配置折线数据点样式",
+      "title": {
+        "zh":"配置折线数据点样式",
+        "en":"Line Chart data point style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-slider.js",
-      "title": "带缩略轴的折线图",
+      "title": {
+        "zh":"带缩略轴的折线图",
+        "en":"Line Chart with Slider"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HVkeTIyZyMAAAAAAAAAAAABkARQnAQ"
     }
   ]

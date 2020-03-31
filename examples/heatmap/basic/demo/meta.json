@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "热力图",
+      "title": {
+        "zh":"热力图",
+        "en":"Heatmap Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*B9ImRILDn6QAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "shape-type.js",
-      "title": "热力图形状",
+      "title": {
+        "zh":"热力图形状",
+        "en":"Heatmap Chart shape type"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WhlyRK-I7iEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "size.js",
-      "title": "热力图形状大小映射",
+      "title": {
+        "zh":"热力图形状大小映射",
+        "en":"Heatmap Chart size mapping"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uTjGQLEuTCAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "mode-transfer.js",
-      "title": "热力图模式切换",
+      "title": {
+        "zh":"热力图模式切换",
+        "en":"Heatmap Chart mode transform"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cJIpS4PlAyMAAAAAAAAAAABkARQnAQ"
     }
   ]

@@ -6,17 +6,26 @@
   "demos": [
     {
       "filename": "label-formatter.js",
-      "title": "图形标签文本格式化",
+      "title": {
+        "zh":"图形标签文本格式化",
+        "en":"label text formatting"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*F8fvRoV1hlsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label-style.js",
-      "title": "图形标签文本样式",
+      "title": {
+        "zh":"图形标签文本样式",
+        "en":"label style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*z1PpQq068jAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label-offset.js",
-      "title": "图形标签文本偏移量",
+      "title": {
+        "zh":"图形标签文本偏移量",
+        "en":"label position offset"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3ArORamBr04AAAAAAAAAAABkARQnAQ"
     }
   ]

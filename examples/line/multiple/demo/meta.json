@@ -6,32 +6,50 @@
   "demos": [
     {
       "filename": "line-multiple.js",
-      "title": "多折线图",
+      "title": {
+        "zh":"多折线图",
+        "en":"multiple Line Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vlFFSqrmsUkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-label.js",
-      "title": "多折线动画",
+      "title": {
+        "zh":"多折线动画",
+        "en":"multiple Line Chart animation"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3HyPSaIxw0gAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-large-data.js",
-      "title": "The causes of CO2 emissions",
+      "title": {
+        "zh":"The causes of CO2 emissions",
+        "en":"The causes of CO2 emissions"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-color.js",
-      "title": "指定折线颜色",
+      "title": {
+        "zh":"指定折线颜色",
+        "en":"set line color"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "color-callback.js",
-      "title": "通过回调函数指定折线颜色",
+      "title": {
+        "zh":"通过回调函数指定折线颜色",
+        "en":"set line color through callback function"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-style.js",
-      "title": "指定折线样式",
+      "title": {
+        "zh":"指定折线样式",
+        "en":"setting line style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     }
   ]

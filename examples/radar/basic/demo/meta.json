@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础雷达图",
+      "title": {
+        "zh":"基础雷达图",
+        "en":"Rardar Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WOFpTJUAWssAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "series.js",
-      "title": "多组雷达图",
+      "title": {
+        "zh":"多组雷达图",
+        "en":"multiple Rardar Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NKROSYNo6IAAAAAAAAAAAABkARQnAQ"
     }
   ]

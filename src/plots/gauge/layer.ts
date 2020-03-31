@@ -61,7 +61,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
       },
       pivot: {
         visible: true,
-        tickness: 6,
+        thickness: 6,
         pin: {
           visible: true,
           size: 2,
@@ -178,6 +178,12 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
         offset: offsetValue,
         textStyle: axis.label.style,
         autoRotate: true,
+      };
+    } else {
+      axesConfig.value.label = {
+        style: {
+          opacity: 0,
+        },
       };
     }
 

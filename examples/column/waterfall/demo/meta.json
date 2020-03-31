@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础瀑布图",
+      "title": {
+        "zh":"基础瀑布图",
+        "en":"Waterfall Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gTX1T6UddcYAAAAAAAAAAABkARQnAQ"
     }
   ]

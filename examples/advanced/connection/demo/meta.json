@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "charts-connection.js",
-      "title": "图表联动",
+      "title": {
+        "zh":"图表联动",
+        "en":"muti-charts commication"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ"
     }
   ]

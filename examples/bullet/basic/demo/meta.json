@@ -6,37 +6,58 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础子弹图",
+      "title": {
+        "zh":"基础子弹图",
+        "en":"Bullet Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vk43S5pvUJcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "color-range.js",
-      "title": "基础子弹图-带多颜色范围区间",
+      "title": {
+        "zh":"基础子弹图-带多颜色范围区间",
+        "en":"Bullet Chart with multiple color range"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dL-9TKrcJcEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "overflow.js",
-      "title": "基础子弹图-超出目标",
+      "title": {
+        "zh":"基础子弹图-超出目标",
+        "en":"Bullet Chart - over the target"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZDtmQobNID8AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "multi-targets.js",
-      "title": "基础子弹图-多目标值",
+      "title": {
+        "zh":"基础子弹图-多目标值",
+        "en":"Bullet Chart - multiple targets"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vNl5TpVsFPcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "stack.js",
-      "title": "堆叠子弹图",
+      "title": {
+        "zh":"堆叠子弹图",
+        "en":"stacked Bullet Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qdtlRpVAwlMAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "group.js",
-      "title": "分组子弹图",
+      "title": {
+        "zh":"分组子弹图",
+        "en":"grouped Bullet Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N-DoQbx-WMwAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "group-color-range.js",
-      "title": "分组子弹图-带颜色范围区间",
+      "title": {
+        "zh":"分组子弹图-带颜色范围区间",
+        "en":"Bullet Chart with color range"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CojyRprMccsAAAAAAAAAAABkARQnAQ"
     }
   ]

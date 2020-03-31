@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础仪表盘",
+      "title": {
+        "zh":"基础仪表盘",
+        "en":"basic Gauge Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YctQTKCTx-wAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "basic-cutomize.js",
-      "title": "个性化仪表盘样式",
+      "title": {
+        "zh":"个性化仪表盘样式",
+        "en":"cutomized Gauge Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*428_QLm5R-4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "meter.js",
-      "title": "刻度仪表盘",
+      "title": {
+        "zh":"刻度仪表盘",
+        "en":"MeterGauge Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKpxS7Lztv8AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "fan.js",
-      "title": "扇形仪表盘",
+      "title": {
+        "zh":"扇形仪表盘",
+        "en":"FanGauge Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2sgGRrdU1aQAAAAAAAAAAABkARQnAQ"
     }
   ]

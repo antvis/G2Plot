@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "set-padding.js",
-      "title": "手动设置图表出血",
+      "title": {
+        "zh":"手动设置图表出血",
+        "en":"set inner padding"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*w4J0SZmlx8EAAAAAAAAAAABkARQnAQ"
     }
   ]

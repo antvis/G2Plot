@@ -130,7 +130,7 @@ gaugePlot.render();
 
 **必选**, *number[]*
 
-功能描述： 仪表的色条范围区间，数组的前后两项组成的元组将对应一个颜色区间，例如：[0, 40, 60, 100]。
+功能描述： 仪表盘的色条范围区间，数组的前后两项组成的元组将对应一个颜色区间，例如：[0, 40, 60, 100]。
 
 默认配置： 无
 
@@ -144,6 +144,38 @@ gaugePlot.render();
 功能描述：配置仪表盘色条颜色
 
 默认配置： 采用 theme 中的默认色板
+
+### rangeSize
+
+**可选**, *number*
+
+功能描述： 配置仪表盘色条宽度。
+
+默认配置：Gauge（基础仪表盘）24，MeterGauge（标度仪表盘）24，FanGauge（扇形仪表盘）70
+
+### rangeStyle
+
+**可选**, *object*
+
+功能描述： 配置仪表盘色条样式，详细配置请参考绘图属性文档。
+
+默认配置：无
+
+### rangeBackgroundStyle
+
+**可选**, *object*
+
+功能描述：配置仪表盘色条背景(空白区域)样式，详细配置请参考绘图属性文档。
+
+默认配置：
+
+```js
+{
+  fill: '#f0f0f0',
+}
+```
+
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*io3ZQbTuSmwAAAAAAAAAAABkARQnAQ" width="400">
 
 
 ## 组件

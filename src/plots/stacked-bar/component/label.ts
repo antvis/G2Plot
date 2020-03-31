@@ -1,5 +1,5 @@
 import { Element, IShape } from '../../../dependents';
-import { registerLabelComponent } from '../../../components/label/label';
+import { registerLabelComponent } from '../../../components/label/base';
 import BarLabel from '../../bar/component/label';
 
 export default class StackedBarLabel extends BarLabel {

@@ -17,6 +17,7 @@ import {
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
+import '../../components/label/point';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
 import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';
@@ -24,6 +25,7 @@ import './theme';
 import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
 import { LineActive, LineSelect } from './interaction/index';
+import { getGeometryByType } from '../../util/view';
 
 type IObject = LooseMap;
 
@@ -110,14 +112,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   public afterRender() {
     const options = this.options;
-    if (options.label && options.label.visible && options.label.type === 'line') {
-      const label = new LineLabel({
-        view: this.view,
-        plot: this,
-        ...this.options.label,
-      });
-      label.render();
-    }
+    this.renderLabel();
     if (options.markerPoints) {
       // 清空
       each(this.markerPoints, (markerPoint: MarkerPoint) => markerPoint.destroy());
@@ -187,10 +182,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       plot: this,
     });
 
-    if (props.label) {
-      this.label();
-    }
-
     if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
       this.geometryTooltip();
     }
@@ -212,24 +203,27 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
-  protected label() {
-    const props = this.options;
-    const label = props.label as Label;
-
-    if (label.visible === false || this.singleLineLabelCheck()) {
-      this.line.label = false;
-      return;
-    }
-
-    /** label类型为point时，使用g2默认label */
-    if (label.type === 'point') {
-      this.line.label = getComponent('label', {
-        plot: this,
-        top: true,
-        labelType: label.type,
-        fields: [props.yField],
-        ...label,
-      });
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { label, yField } = this.options;
+    const scale = scales[yField];
+    if (label.visible) {
+      const geometry = getGeometryByType(this.view, 'line');
+      if (label.type === 'line') {
+        // TODO: Line Label 迁移
+        const label = new LineLabel({
+          view: this.view,
+          plot: this,
+          ...this.options.label,
+        });
+        label.render();
+      } else {
+        this.doRenderLabel(geometry, {
+          type: 'point',
+          formatter: scale.formatter,
+          ...this.options.label,
+        });
+      }
     }
   }
 

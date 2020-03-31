@@ -151,4 +151,29 @@ describe('Bubble plot', () => {
       expect(pointShapes[i].attr('stroke')).toBe('#777777');
     }
   });
+
+  it('bubble point label', () => {
+    const bubblePlot = new Bubble(canvasDiv, {
+      width: 600,
+      height: 600,
+      data,
+      xField: 'GDP',
+      yField: 'LifeExpectancy',
+      colorField: 'continent',
+      sizeField: 'Population',
+    });
+    bubblePlot.render();
+
+    const view = bubblePlot.getLayer().view;
+
+    const labelShapes = view.foregroundGroup.findAll((el) => {
+      return el.get('name') === 'label';
+    });
+    labelShapes.forEach((label) => {
+      // @ts-ignore
+      expect(label.cfg.children[0].attr('lineWidth')).toBe(2);
+      // @ts-ignore
+      expect(label.cfg.children[0].attr('stroke')).toBe('#fff');
+    });
+  });
 });

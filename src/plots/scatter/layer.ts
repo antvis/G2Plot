@@ -1,4 +1,4 @@
-import { deepMix, isNil, get, has } from '@antv/util';
+import { deepMix, isNil, get, has, find } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -71,6 +71,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
         visible: true,
         // false 会造成 tooltip 只能显示一条数据，true 会造成 tooltip 在空白区域也会显示
         shared: null,
+        showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
       },
@@ -181,6 +182,17 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     if (has(props, 'yAxis')) {
       extractScale(scales[props.yField], props.yAxis);
     }
+    const timeLineInteraction = find(props.interactions, (interaction) => {
+      return interaction.type === 'timeline';
+    });
+    if (timeLineInteraction && get(timeLineInteraction, 'cfg.key')) {
+      const keyField = timeLineInteraction.cfg.key;
+      if (scales[keyField]) {
+        scales[keyField].key = true;
+      } else {
+        scales[keyField] = { key: true };
+      }
+    }
     this.setConfig('scales', scales);
     super.scale();
   }
@@ -199,9 +211,11 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     });
     this.points = points;
     if (this.options.tooltip && this.options.tooltip.visible) {
-      this.points.tooltip = this.extractTooltip();
+      const { showTitle, titleField } = this.options.tooltip;
+      this.extractTooltip();
       this.setConfig('tooltip', {
-        showTitle: false,
+        showTitle,
+        title: showTitle ? titleField : undefined,
         ...this.options.tooltip,
       } as any);
     }
@@ -222,7 +236,7 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     }
 
     const label = getComponent('label', {
-      fields: [props.yField],
+      fields: props.label.field ? [props.label.field] : [props.yField],
       ...props.label,
       plot: this,
     });

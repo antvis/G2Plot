@@ -105,21 +105,6 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     super.init();
   }
 
-  /*protected getStyleMix() {
-    const { gaugeStyle = {}, statistic = {} } = this.options;
-    const { width, height } = this;
-    const size = Math.max(width, height) / 20;
-    const defaultStyle = Object.assign({}, this.theme, {
-      stripWidth: size,
-      tickLabelSize: size / 2,
-    });
-    if (!statistic.size) {
-      statistic.size = size * 1.2;
-    }
-    const style = deepMix({}, defaultStyle, gaugeStyle, { statistic });
-    return style;
-  }*/
-
   /**
    * 绘制指针
    */
@@ -135,13 +120,6 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     );
     this.gaugeShape.render();
   }
-
-  /*protected getCustomStyle() {
-    const { color, theme } = this.options;
-    const globalTheme = getGlobalTheme();
-    const colors = color || globalTheme.colors;
-    return getOptions('standard', theme, colors);
-  }*/
 
   protected geometryParser(dim: string, type: string): string {
     throw new Error('Method not implemented.');

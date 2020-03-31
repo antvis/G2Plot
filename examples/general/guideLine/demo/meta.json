@@ -6,17 +6,26 @@
   "demos": [
     {
       "filename": "statistic-guideline.js",
-      "title": "统计值辅助线",
+      "title": {
+        "zh":"统计值辅助线",
+        "en":"statistic Guide Line"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LIhaRqo-6M4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "selfdefined-guideline.js",
-      "title": "自定义辅助线",
+      "title": {
+        "zh":"自定义辅助线",
+        "en":"cutomized Guide Line"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N-jHTqiwSD4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "guideline-line.js",
-      "title": "辅助线样式",
+      "title": {
+        "zh":"辅助线样式",
+        "en":"Guide Line style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-pobSIGwf_EAAAAAAAAAAABkARQnAQ"
     }
   ]

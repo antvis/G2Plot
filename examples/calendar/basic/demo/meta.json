@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础日历图",
+      "title": {
+        "zh":"基础日历图",
+        "en":"Calendar Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HcYHRYSr7HEAAAAAAAAAAABkARQnAQ"
     }
   ]

@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "step-multiple.js",
-      "title": "多阶梯折线图",
+      "title": {
+        "zh":"多阶梯折线图",
+        "en":"mutiple StepLine Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XJ6BRa2EQ8gAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "step-label.js",
-      "title": "多折线尾部跟随label",
+      "title": {
+        "zh":"多折线尾部跟随label",
+        "en":"mutiple StepLine Chart label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*UJREQbW0YdoAAAAAAAAAAABkARQnAQ"
     }
   ]

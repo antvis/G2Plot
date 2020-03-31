@@ -363,8 +363,8 @@ export class GaugeShape {
         const { starAngle, endAngle } = this.getAngleRange();
         const { radius, rangeSize } = this.gauge.options;
         const pivotConfig = this.gauge.pivot;
-        const bigCircle = pivotConfig.tickness;
-        const smCircle = pivotConfig.tickness / 2.5;
+        const bigCircle = pivotConfig.thickness;
+        const smCircle = pivotConfig.thickness / 2.5;
         const group = this.gauge.group;
         const point = cfg.points[0];
         const center = this.parsePoint({

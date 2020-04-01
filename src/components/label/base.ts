@@ -1,4 +1,4 @@
-import { deepMix, each } from '@antv/util';
+import { deepMix, each, isArray } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import BaseComponent, { BaseComponentConfig } from '../base';
 import { IGroup, IShape, View, Geometry, Element, Coordinate, VIEW_LIFE_CIRCLE } from '../../dependents';
@@ -61,10 +61,13 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
   protected renderInner(group: IGroup) {
     this.labels = [];
     each(this.geometry.elements, (element: Element, idx: number) => {
-      const label = this.drawLabelItem(group, element, idx);
-      label.set('origin', element.getData());
-      this.labels.push(label);
-      this.adjustLabel(label, element);
+      const data = element.getData();
+      const labels = [].concat(this.drawLabelItem(group, element, idx));
+      each(labels, (label, idx) => {
+        label.set('origin', isArray(data) ? data[idx] : data);
+        this.labels.push(label);
+        this.adjustLabel(label, element);
+      });
     });
   }
 
@@ -79,11 +82,15 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     return {};
   }
 
-  protected abstract getLabelItemConfig(element: Element, idx: number): TextStyle;
+  protected abstract getLabelItemConfig(element: Element, idx: number): TextStyle | TextStyle[];
 
-  protected drawLabelItem(group: IGroup, element: Element, idx: number): IShape {
+  protected drawLabelItem(group: IGroup, element: Element, idx: number): IShape | IShape[] {
     const config = this.getLabelItemConfig(element, idx);
-    return this.drawLabelText(group, config);
+    if (isArray(config)) {
+      return config.map((item) => this.drawLabelText(group, item));
+    } else {
+      return this.drawLabelText(group, config);
+    }
   }
 
   protected adjustLabel(label: IShape, element: Element): void {}

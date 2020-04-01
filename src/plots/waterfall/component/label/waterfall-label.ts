@@ -7,7 +7,7 @@ import { isArray } from '@antv/util';
 import ColumnLabel from '../../../column/component/label';
 import { IShape, Element } from '../../../../dependents';
 import { VALUE_FIELD } from '../../layer';
-import { registerLabelComponent } from '../../../../components/label/label';
+import { registerLabelComponent } from '../../../../components/label/base';
 
 const MARGIN = 2;
 

@@ -16,7 +16,7 @@ import {
 } from '@antv/util';
 import { View, BBox, Geometry } from '../dependents';
 import TextDescription from '../components/description';
-import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/label';
+import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/base';
 import { getComponent } from '../components/factory';
 import Interaction from '../interaction/core';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';

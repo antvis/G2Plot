@@ -6,7 +6,7 @@ export interface BaseComponentConfig {
   container: IGroup;
 }
 
-export default class BaseComponent<T extends BaseComponentConfig = BaseComponentConfig> extends EventEmitter {
+export default abstract class BaseComponent<T extends BaseComponentConfig = BaseComponentConfig> extends EventEmitter {
   protected container: IGroup;
   protected group: IGroup;
   protected destroyed: boolean;
@@ -65,7 +65,7 @@ export default class BaseComponent<T extends BaseComponentConfig = BaseComponent
     this.disposables.push(fn);
   }
 
-  protected init(config: T): void {}
+  protected abstract init(config: T): void;
 
-  protected renderInner(group: IGroup): void {}
+  protected abstract renderInner(group: IGroup): void;
 }

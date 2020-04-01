@@ -1,4 +1,4 @@
-import { registerLabelComponent } from '../../../components/label/label';
+import { registerLabelComponent } from '../../../components/label/base';
 import ColumnLabel from '../../column/component/label';
 import { IShape, Element } from '../../../dependents';
 

@@ -1,49 +1,40 @@
-import { StackArea } from '../../../../src';
-import { oil } from '../../../data/global-oil-new';
+import { each } from '@antv/util';
+import { Area, AreaConfig } from '../../../../src';
+import sales from '../../../data/sales.json';
+import { createDiv } from '../../../utils/dom';
 
-describe.skip('stackArea label', () => {
-  const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '600px';
-  canvasDiv.style.height = '600px';
-  canvasDiv.style.left = '30px';
-  canvasDiv.style.top = '30px';
-  canvasDiv.id = 'canvas1';
-  document.body.appendChild(canvasDiv);
+const SALES_DATA: { area: string; sales: number }[] = sales;
 
-  it('初始化以及销毁', () => {
-    const areaPlot = new StackArea(canvasDiv, {
-      width: 600,
-      height: 600,
-      padding: [20, 20, 100, 100],
-      data: oil,
-      xField: 'date',
-      yField: 'value',
-      stackField: 'country',
-      xAxis: {
-        visible: true,
-        type: 'dateTime',
+describe('Area Label', () => {
+  const config: AreaConfig = {
+    data: SALES_DATA,
+    xField: 'area',
+    yField: 'sales',
+    label: {
+      visible: true,
+    },
+    meta: {
+      sales: {
+        formatter: (v) => Number(v).toFixed(2),
       },
-      yAxis: {
-        visible: true,
-      },
-      label: {
-        visible: true,
-        type: 'area',
-        // autoScale: true
-      },
-      responsive: true,
+    },
+  };
+
+  it('point label', () => {
+    const plot = new Area(createDiv(), config);
+    plot.render();
+
+    const labels = plot.getLayer().getLabels();
+    const labelShapes = labels[0] && labels[0].getLabels();
+
+    // Label 组件渲染
+    expect(labels.length).toBe(1);
+
+    // Label shape
+    expect(labelShapes.length).toBe(SALES_DATA.length);
+    each(labelShapes, (label, idx) => {
+      expect(label.attr('text')).toBe(SALES_DATA[idx]['sales'].toFixed(2));
+      expect(label.attr('fill')).toBe(plot.getLayer().theme.label.style.fill);
     });
-    areaPlot.render();
-    // const positionField = areaPlot.plot.geometries[0].get('position').fields;
-    // const isTransposed = areaPlot.plot.get('coord').isTransposed;
-    // const axes = areaPlot.getController('axis').getComponents();
-
-    // expect(areaPlot). toBeInstanceOf(Area);
-    // expect(positionField[0]).toBe('value');
-    // expect(positionField[1]).toBe('year');
-    // expect(isTransposed).toBe(false);
-    // expect(axes.length).toBe(2);
-    // areaPlot.destroy();
-    // expect(areaPlot.plot.destroyed).toBe(true);
   });
 });

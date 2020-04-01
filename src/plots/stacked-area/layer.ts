@@ -16,7 +16,7 @@ interface ILineLabel extends Label {
 }
 
 interface IPointLabel extends Label {
-  type: 'area';
+  type: 'point';
 }
 
 type AreaLabel = IAreaLabel | ILineLabel | IPointLabel;
@@ -70,11 +70,6 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
       }
       this.area.label = false;
       return;
-    } else if (label.type === 'point') {
-      this.area.label = getComponent('label', {
-        fields: [props.yField],
-        plot: this,
-      });
     }
   }
 

@@ -15,10 +15,12 @@ import {
   ISliderInteractionConfig,
   IScrollbarInteractionConfig,
 } from '../../interface/config';
+import '../../components/label/point';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
+import { getGeometryByType } from '../../util/view';
 
 const GEOM_MAP = {
   area: 'area',
@@ -110,6 +112,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   }
 
   public afterRender() {
+    this.renderLabel();
     /** 响应式 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -205,6 +208,20 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { label, yField } = this.options;
+    const scale = scales[yField];
+    if (label.visible) {
+      const geometry = getGeometryByType(this.view, 'line');
+      this.doRenderLabel(geometry, {
+        type: 'point',
+        formatter: scale.formatter,
+        ...this.options.label,
+      });
+    }
+  }
+
   protected animation() {
     super.animation();
     const props = this.options;
@@ -216,23 +233,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected label() {
-    const props = this.options;
-    const label = props.label as Label;
-
-    if (label.visible === false) {
-      if (this.line) {
-        this.line.label = false;
-      }
-      this.area.label = false;
-      return;
-    }
-
-    this.area.label = getComponent('label', {
-      fields: [props.yField],
-      plot: this,
-    });
-  }
+  protected label() {}
 
   protected geometryTooltip() {
     this.area.tooltip = {};

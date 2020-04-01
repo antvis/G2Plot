@@ -1,6 +1,6 @@
 import { clone, get, each, deepMix } from '@antv/util';
 import { IShape, Element } from '../../../dependents';
-import BaseLabel, { registerLabelComponent } from '../../../components/label/label';
+import BaseLabel, { registerLabelComponent } from '../../../components/label/base';
 import { TextStyle } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
 import BBox from '../../../util/bbox';

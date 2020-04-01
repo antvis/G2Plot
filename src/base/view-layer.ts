@@ -14,7 +14,7 @@ import {
   findIndex,
   filter,
 } from '@antv/util';
-import { View, BBox, Geometry } from '../dependents';
+import { View, BBox, Geometry, VIEW_LIFE_CIRCLE } from '../dependents';
 import TextDescription from '../components/description';
 import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/base';
 import { getComponent } from '../components/factory';
@@ -186,13 +186,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.themeController = new ThemeController();
   }
 
-  public getOptions(props: T): T {
+  public getOptions(props: Partial<T>): T {
+    const curOptions = this.options || {};
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
     // interactions 需要合并去重下
     const interactions = reduce(
-      flatten(map([options, defaultOptions, props], (src) => get(src, 'interactions', []))),
+      flatten(map([options, defaultOptions, curOptions, props], (src) => get(src, 'interactions', []))),
       (result, cur) => {
         const idx = findIndex(result, (item) => item.type === cur.type);
         if (idx >= 0) {
@@ -202,7 +203,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       },
       []
     );
-    return deepMix({}, options, defaultOptions, props, { interactions });
+    return deepMix({}, options, defaultOptions, curOptions, props, { interactions });
   }
 
   public beforeInit() {
@@ -259,7 +260,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       region,
     });
     this.applyInteractions();
-    this.view.on('afterrender', () => {
+    this.view.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
       this.afterRender();
     });
   }
@@ -311,14 +312,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!cfg.padding && this.initialOptions.padding && this.initialOptions.padding === 'auto') {
       cfg.padding = 'auto';
     }
-    this.options = deepMix({}, this.options, cfg);
+    this.options = this.getOptions(cfg);
     this.processOptions(this.options);
   }
 
   public changeData(data: DataItem[]): void {
     this.options.data = this.processData(data);
     this.view.changeData(this.options.data);
-    this.view.render();
   }
 
   // plot 不断销毁重建，需要一个api获取最新的plot

@@ -10,8 +10,8 @@ export default class PointLabel extends BaseLabel {
     const { theme } = this.layer;
     const labelStyle = clone(theme.label.style);
     return {
-      offsetX: DEFAULT_OFFSET,
-      offsetY: 0,
+      offsetX: 0,
+      offsetY: -DEFAULT_OFFSET,
       style: labelStyle,
     };
   }
@@ -39,9 +39,10 @@ export default class PointLabel extends BaseLabel {
   }
 
   protected getPosition(datum: MappingDatum): { x: number; y: number } {
+    const { offsetX = 0, offsetY = 0 } = this.options;
     return {
-      x: isArray(datum.x) ? last(datum.x) : datum.x,
-      y: (isArray(datum.y) ? last(datum.y) : datum.y) - DEFAULT_OFFSET,
+      x: (isArray(datum.x) ? last(datum.x) : datum.x) + offsetX,
+      y: (isArray(datum.y) ? last(datum.y) : datum.y) + offsetY,
     };
   }
 }

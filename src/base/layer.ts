@@ -248,7 +248,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     return new BBox(globalPosition.x, globalPosition.y, this.width, this.height);
   }
 
-  public getOptions(props: T): T {
+  public getOptions(props: Partial<T>): T {
     let parentWidth = 0;
     let parentHeight = 0;
     if (props.parent) {

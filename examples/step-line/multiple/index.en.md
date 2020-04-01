@@ -1,5 +1,5 @@
 ---
-title: Multiple Line Chart
+title: Multiple StepLine Chart
 order: 1
 ---
 

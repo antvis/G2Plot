@@ -1,7 +1,7 @@
-import { IGroup, Slider } from '../dependents';
+import { IGroup, Slider, VIEW_LIFE_CIRCLE } from '../dependents';
 import BBox from '../util/bbox';
 import { Scale } from '@antv/scale';
-import { clamp, head, last, map, size, throttle } from '@antv/util';
+import { clamp, head, last, map, size, throttle, isEmpty } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
 import { getDataByScaleRange } from './helper/data-range';
@@ -17,11 +17,11 @@ const getValidSliderConfig = (cfg: ISliderInteractionConfig = {}): Required<ISli
     width: undefined,
     height: undefined,
     padding: [0, 0, 0, 0],
-    backgroundStyle: undefined,
-    foregroundStyle: undefined,
-    handlerStyle: undefined,
-    textStyle: undefined,
-    trendCfg: undefined,
+    backgroundStyle: {},
+    foregroundStyle: {},
+    handlerStyle: {},
+    textStyle: {},
+    trendCfg: {},
     ...cfg,
   };
 
@@ -86,27 +86,36 @@ export default class SliderInteraction extends BaseInteraction {
   ) => void;
 
   protected render(): void {
+    const layer = this.getViewLayer();
+    const view = this.view;
     // 设置初始化的 start/end
     const config = getValidSliderConfig(this.getInteractionConfig());
     this.curStart = config.start;
     this.curEnd = config.end;
     this.xScaleCfg = undefined;
     // 等待 view 每次 render 完成后更新 slider 组件
-    this.view.on('afterrender', () => {
+    const callback = () => {
+      if (isEmpty(layer.options.data)) {
+        return;
+      }
       if (!this.xScaleCfg) {
         // 初始化配置和数据
-        const xScale: Scale = this.view.getXScale();
+        const xScale: Scale = view.getXScale();
         this.xScaleCfg = {
           field: xScale.field,
           values: xScale.values || [],
         };
         // 初始化 data
-        this.view.data(this.getSliderData(this.curStart, this.curEnd));
-        this.view.render();
+        view.data(this.getSliderData(this.curStart, this.curEnd));
+        view.render();
       } else {
         this.renderSlider();
       }
-    });
+    };
+    view.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback);
+    this.addDisposable(() => view.off(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback));
+    view.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, callback);
+    this.addDisposable(() => view.off(VIEW_LIFE_CIRCLE.AFTER_RENDER, callback));
   }
 
   protected clear(): void {
@@ -189,8 +198,8 @@ export default class SliderInteraction extends BaseInteraction {
     const newData = data.slice(startIdx, endIdx);
 
     return {
-      minText: head(newData)[xField],
-      maxText: last(newData)[xField],
+      minText: newData.length > 0 ? head(newData)[xField] : '',
+      maxText: newData.length > 0 ? last(newData)[xField] : '',
     };
   }
 

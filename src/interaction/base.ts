@@ -1,3 +1,4 @@
+import { each } from '@antv/util';
 import { View } from '../dependents';
 import BBox from '../util/bbox';
 import Interaction from './core';
@@ -49,6 +50,7 @@ export default abstract class BaseInteraction extends Interaction {
   private interactionConfig: IInteractionConfig;
   private interactionRange: BBox;
   private viewLayer: ViewLayer<any>;
+  private disposables: (() => void)[];
 
   constructor(
     cfg: { view: View },
@@ -60,10 +62,15 @@ export default abstract class BaseInteraction extends Interaction {
     this.viewLayer = viewLayer;
     this.interactionRange = interactionRange;
     this.interactionConfig = interaction;
+    this.disposables = [];
     this.render();
   }
 
   public destroy(): void {
+    each(this.disposables, (fn) => {
+      fn();
+    });
+    this.disposables = [];
     this.clear();
     super.destroy();
   }
@@ -78,6 +85,10 @@ export default abstract class BaseInteraction extends Interaction {
 
   protected getInteractionConfig(): IInteractionConfig | undefined {
     return this.interactionConfig;
+  }
+
+  protected addDisposable(fn: () => void) {
+    this.disposables.push(fn);
   }
 
   protected render(): void {}

@@ -30,7 +30,7 @@ export {
   LabelOption,
   MappingDatum,
 } from '@antv/g2/lib/interface';
-export { DEFAULT_ANIMATE_CFG } from '@antv/g2/lib/animate';
+export { DEFAULT_ANIMATE_CFG, getDefaultAnimateCfg, doAnimate } from '@antv/g2/lib/animate';
 export { default as Element } from '@antv/g2/lib/geometry/element';
 
 // Component

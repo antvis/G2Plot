@@ -35,7 +35,7 @@ describe('StackArea Label', () => {
     // Label shape
     expect(labelShapes.length).toBe(SUB_SALES_DATA.length);
     each(labelShapes, (label) => {
-      const origin = label.get('origin');
+      const origin = label.get('origin')['_origin'];
       expect(label.attr('text')).toBe(origin['sales'].toFixed(2));
       expect(label.attr('fill')).toBe(plot.getLayer().theme.label.style.fill);
     });

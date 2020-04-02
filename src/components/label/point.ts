@@ -16,7 +16,7 @@ export default class PointLabel extends BaseLabel {
     };
   }
 
-  protected getLabelItemConfig(element: Element, idx: number): TextStyle[] {
+  protected getLabelItemAttrs(element: Element, idx: number): TextStyle[] {
     const { style, formatter } = this.options;
     const { shape } = element;
     const mappingData: MappingDatum[] = get(element, 'model.mappingData', []);

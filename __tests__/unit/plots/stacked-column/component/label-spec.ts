@@ -42,7 +42,7 @@ describe('StackedColumn Label', () => {
     // Label Shape
     expect(labelShapes).toHaveLength(data.length);
     each(intervals, (interval, idx) => {
-      expect(labelShapes[idx].attr('text')).toBe(labelShapes[idx].get('origin')['sales'].toFixed(2));
+      expect(labelShapes[idx].attr('text')).toBe(labelShapes[idx].get('origin')['_origin']['sales'].toFixed(2));
     });
 
     // adjust

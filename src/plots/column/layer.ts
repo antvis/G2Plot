@@ -1,4 +1,4 @@
-import { deepMix, has, each, clone, head } from '@antv/util';
+import { deepMix, has, each, clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -174,11 +174,10 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     return;
   }
 
-  /* eslint-disable */
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected adjustColumn(column: ElementOption) {
     return;
   }
-  /* eslint-disable */
 
   protected addGeometry() {
     const { options } = this;

@@ -130,7 +130,7 @@ export type LegendPosition =
   | 'left-center'
   | 'left-bottom'
   | 'right-top'
-  | 'right-top'
+  | 'right-center'
   | 'right-bottom'
   | 'top-left'
   | 'top-center'

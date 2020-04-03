@@ -121,12 +121,12 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     this.gaugeShape.render();
   }
 
-  protected geometryParser(dim: string, type: string): string {
-    throw new Error('Method not implemented.');
+  protected geometryParser(): string {
+    return 'gauge';
   }
 
   protected scale() {
-    const { min, max, format, styleMix } = this.options;
+    const { min, max, format } = this.options;
     const scales = {
       value: {},
     };

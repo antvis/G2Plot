@@ -1,6 +1,6 @@
 // 迷你图表—面积图
 
-$.get('data/fireworks-sales.json', function(data) {
+$.get('data/fireworks-sales.json', function (data) {
   const areaPlot = new g2plot.TinyArea(document.getElementById('canvas'), {
     width: 200,
     height: 100,

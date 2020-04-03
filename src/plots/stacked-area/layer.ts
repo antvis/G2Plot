@@ -2,7 +2,6 @@ import { deepMix, get, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, Label } from '../../interface/config';
-import { getComponent } from '../../components/factory';
 import BaseArea, { AreaViewConfig } from '../area/layer';
 import { getPlotComponents } from './component';
 

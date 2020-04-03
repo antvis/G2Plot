@@ -253,15 +253,12 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: any, container) {
     const cy = 0.5;
-    let sumX = 0;
     let minX = Infinity;
     each(cfg.points, (p: any) => {
       if (p.x < minX) {
         minX = p.x;
       }
-      sumX += p.x;
     });
-    //const cx = sumX / cfg.points.length;
     const cx = 0.5;
     const cp = this.parsePoint({ x: cx, y: cy });
     const minP = this.parsePoint({ x: minX, y: 0.5 });

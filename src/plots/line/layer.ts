@@ -1,14 +1,12 @@
-import { deepMix, has, map, each, get, some } from '@antv/util';
+import { deepMix, has, map, each, some } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import {
   ICatAxis,
   ITimeAxis,
   IValueAxis,
-  Label,
   GraphicStyle,
   LineStyle,
   ISliderInteractionConfig,

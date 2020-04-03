@@ -1,8 +1,20 @@
-import { deepMix, each, isArray } from '@antv/util';
+import { deepMix, each, map, isArray, get, clone } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import BaseComponent, { BaseComponentConfig } from '../base';
-import { IGroup, IShape, View, Geometry, Element, Coordinate, VIEW_LIFE_CIRCLE } from '../../dependents';
+import {
+  IGroup,
+  IShape,
+  View,
+  Geometry,
+  Element,
+  Coordinate,
+  MappingDatum,
+  VIEW_LIFE_CIRCLE,
+  getDefaultAnimateCfg,
+  doAnimate,
+} from '../../dependents';
 import { Label, TextStyle } from '../../interface/config';
+import { LooseMap } from '../../interface/types';
 
 export interface LabelComponentConfig extends BaseComponentConfig {
   layer: ViewLayer;
@@ -23,6 +35,8 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
   protected coord: Coordinate;
   protected options: LabelOptions;
   protected labels: IShape[];
+  private labelsCfgMap: Record<string, TextStyle> = {};
+  private lastLabelsCfgMap: Record<string, TextStyle> = {};
 
   public getGeometry() {
     return this.geometry;
@@ -60,21 +74,77 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
 
   protected renderInner(group: IGroup) {
     this.labels = [];
-    each(this.geometry.elements, (element: Element, idx: number) => {
-      const data = element.getData();
-      const labels = [].concat(this.drawLabelItem(group, element, idx));
+    this.labelsCfgMap = {};
+
+    // 绘制 Label 图形
+    each(this.geometry.elements, (element: Element, elementIdx: number) => {
+      const labels = [].concat(this.drawLabelItem(group, element, elementIdx));
       each(labels, (label, idx) => {
-        label.set('origin', isArray(data) ? data[idx] : data);
-        this.labels.push(label);
-        this.adjustLabel(label, element);
+        this.adjustLabel(label, element, idx);
+        if (!label.destroyed) {
+          this.labels.push(label);
+          this.labelsCfgMap[label.get('id')] = clone(label.attrs);
+        }
       });
     });
+
+    // 执行动画：参照 G2 Label 动画
+    const lastLabelsCfgMap = this.lastLabelsCfgMap;
+    const labelsCfgMap = this.labelsCfgMap;
+    const animateCfg = this.geometry.animateOption ? getDefaultAnimateCfg('label', this.coord) : false;
+    each(labelsCfgMap, (attrs: TextStyle, id: string) => {
+      const shape = group.findById(id) as IShape;
+      if (shape) {
+        if (lastLabelsCfgMap[id]) {
+          const oldAttrs = lastLabelsCfgMap[id];
+          // 图形发生更新
+          const updateAnimateCfg = get(animateCfg, 'update');
+          if (updateAnimateCfg) {
+            shape.attr(oldAttrs);
+            doAnimate(shape, updateAnimateCfg, {
+              toAttrs: {
+                ...attrs,
+              },
+              coordinate: this.coord,
+            });
+          }
+        } else {
+          // 新生成的 shape
+          const appearAnimateCfg = get(animateCfg, 'appear');
+          if (appearAnimateCfg) {
+            doAnimate(shape, appearAnimateCfg, {
+              toAttrs: {
+                ...shape.attr(),
+              },
+              coordinate: this.coord,
+            });
+          }
+        }
+      }
+      delete lastLabelsCfgMap[id];
+    });
+    each(lastLabelsCfgMap, (attrs: TextStyle, id) => {
+      // 移除
+      const leaveAnimateCfg = get(animateCfg, 'leave');
+      if (leaveAnimateCfg) {
+        const tempShape = group.addShape('text', {
+          attrs,
+          id,
+          name: 'label',
+        });
+        doAnimate(tempShape, leaveAnimateCfg, {
+          toAttrs: null,
+          coordinate: this.coord,
+        });
+      }
+    });
+    this.lastLabelsCfgMap = this.labelsCfgMap;
   }
 
-  protected drawLabelText(group: IGroup, attrs: TextStyle): IShape {
+  protected drawLabelText(group: IGroup, attrs: TextStyle, extraCfgs: LooseMap = {}): IShape {
     return group.addShape('text', {
       attrs,
-      name: 'label',
+      ...extraCfgs,
     });
   }
 
@@ -82,18 +152,40 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     return {};
   }
 
-  protected abstract getLabelItemConfig(element: Element, idx: number): TextStyle | TextStyle[];
+  protected abstract getLabelItemAttrs(element: Element, idx: number): TextStyle | TextStyle[];
 
-  protected drawLabelItem(group: IGroup, element: Element, idx: number): IShape | IShape[] {
-    const config = this.getLabelItemConfig(element, idx);
-    if (isArray(config)) {
-      return config.map((item) => this.drawLabelText(group, item));
-    } else {
-      return this.drawLabelText(group, config);
-    }
+  protected drawLabelItem(group: IGroup, element: Element, elementIdx: number): IShape | IShape[] {
+    const model = element.getModel();
+    const items = [].concat(this.getLabelItemAttrs(element, elementIdx));
+    return map(items, (attrs, idx) => {
+      const dataItem = isArray(model.mappingData) ? model.mappingData[idx] : model.mappingData;
+      const id = this.getLabelId(dataItem);
+      return this.drawLabelText(group, attrs, {
+        id,
+        name: 'label',
+        origin: dataItem,
+      });
+    });
   }
 
-  protected adjustLabel(label: IShape, element: Element): void {}
+  protected adjustLabel(label: IShape, element: Element, datumIdx: number): void {}
+
+  protected getLabelId(data: MappingDatum): string {
+    const origin = data._origin;
+    const type = this.geometry.type;
+    const xScale = this.geometry.getXScale();
+    const yScale = this.geometry.getYScale();
+    let labelId = this.geometry.getElementId(data);
+    if (type === 'line' || type === 'area') {
+      // 折线图以及区域图，一条线会对应一组数据，即多个 labels，为了区分这些 labels，需要在 line id 的前提下加上 x 字段值
+      labelId += ` ${origin[xScale.field]}`;
+    } else if (type === 'path') {
+      // path 路径图，无序，有可能存在相同 x 不同 y 的情况，需要通过 x y 来确定唯一 id
+      labelId += ` ${origin[xScale.field]}-${origin[yScale.field]}`;
+    }
+
+    return labelId;
+  }
 }
 
 // Label 组件注册

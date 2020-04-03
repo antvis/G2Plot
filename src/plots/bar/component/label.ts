@@ -8,7 +8,7 @@ import { TextStyle } from '../../../interface/config';
 export const DEFAULT_OFFSET = 8;
 
 export default class BarLabel extends BaseLabel {
-  protected getLabelItemConfig(element: Element, idx: number): TextStyle {
+  protected getLabelItemAttrs(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
     const { shape } = element;
     const value = this.getValue(element);

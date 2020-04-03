@@ -80,7 +80,6 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     each(this.geometry.elements, (element: Element, elementIdx: number) => {
       const labels = [].concat(this.drawLabelItem(group, element, elementIdx));
       each(labels, (label, idx) => {
-        this.labelsCfgMap[label.get('id')] = label;
         this.adjustLabel(label, element, idx);
         if (!label.destroyed) {
           this.labels.push(label);
@@ -171,7 +170,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
 
   protected adjustLabel(label: IShape, element: Element, datumIdx: number): void {}
 
-  private getLabelId(data: MappingDatum): string {
+  protected getLabelId(data: MappingDatum): string {
     const origin = data._origin;
     const type = this.geometry.type;
     const xScale = this.geometry.getXScale();

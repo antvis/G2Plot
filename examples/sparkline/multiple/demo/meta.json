@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "mini-multiple1.js",
-      "title": "迷你柱 x 迷你折线 x 环形进度条",
+      "title": {
+        "zh":"迷你柱 x 迷你折线 x 环形进度条",
+        "en":"TinyColumn x TinyLine x RingProgress"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*mUOPSoV8TGUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "mini-multiple2.js",
-      "title": "迷你面积图 x 进度条",
+      "title": {
+        "zh":"迷你面积图 x 进度条",
+        "en":"TinyArea x Progress"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nNIERqBGqfIAAAAAAAAAAABkARQnAQ"
     }
   ]

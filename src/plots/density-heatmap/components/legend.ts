@@ -1,6 +1,7 @@
 import { each, isArray, deepMix, clone } from '@antv/util';
 import { View, IGroup } from '../../../dependents';
 import BBox from '../../../util/bbox';
+import { LegendPosition } from '../../../interface/config';
 
 const LABEL_MARGIN = 4;
 const ACTIVE_OPACITY = 1;
@@ -8,7 +9,7 @@ const DEACTIVE_OPACITY = 0.1;
 
 export interface HeatmapLegendConfig {
   visible?: boolean;
-  position?: string;
+  position?: LegendPosition;
   width?: number;
   height?: number;
   text?: {

@@ -91,3 +91,24 @@ export function inPanel(panel: Box, shape: Box) {
  */
 export const near = (x: number, y: number, e: number = Number.EPSILON ** 0.5): boolean =>
   [x, y].includes(Infinity) ? Math.abs(x) === Math.abs(y) : Math.abs(x - y) < e;
+
+/**
+ * 获取点到圆心的连线与水平方向的夹角
+ */
+export function getAngleByPoint(coordinate, point): number {
+  const center = coordinate.getCenter();
+  return Math.atan2(point.y - center.y, point.x - center.x);
+}
+
+/**
+ * 获取 label 的旋转角度
+ * @param angle
+ */
+export function getLabelRotate(angle: number) {
+  const HALF_PI = Math.PI / 2;
+  let rotate = angle;
+  if (rotate > HALF_PI || rotate < -HALF_PI) {
+    rotate = rotate + Math.PI;
+  }
+  return rotate;
+}

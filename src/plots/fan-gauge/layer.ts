@@ -1,45 +1,59 @@
-import { deepMix } from '@antv/util';
+import { deepMix, uniqueId } from '@antv/util';
 import { registerPlotType } from '../../base/global';
-import { LayerConfig } from '../../base/layer';
 import GaugeLayer from '../gauge/layer';
-import { GaugeViewConfig } from '../gauge/options';
-import { getOptions } from '../gauge/geometry/shape/options';
-import { getGlobalTheme } from '../../theme';
+import { GaugeShape } from '../gauge/geometry/shape/gauge-shape';
+import { GaugeViewConfig } from '../gauge/interface';
+import { LayerConfig } from '../../base/layer';
 
-export interface FanGaugeViewConfig extends GaugeViewConfig {
-  stackField: string;
-  connectedArea?: any;
-}
+export interface FanGaugeViewConfig extends GaugeViewConfig {}
 
 export interface FanGaugeLayerConfig extends FanGaugeViewConfig, LayerConfig {}
 
 export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayerConfig> extends GaugeLayer<T> {
   public static getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
-      legend: {
+      rangeColor: '#F6445A',
+      rangeSize: 70,
+      axis: {
         visible: true,
-        position: 'right-top',
-      },
-      label: {
-        visible: false,
-        position: 'middle',
-        offset: 0,
-        adjustColor: true,
-      },
-      connectedArea: {
-        visible: false,
-        triggerOn: 'mouseenter',
+        offset: 5,
+        tickCount: 10,
+        subTickCount: 4,
+        tickLine: {
+          visible: true,
+          length: 3,
+          style: {
+            stroke: '#aaa',
+            lineWidth: 3,
+          },
+        },
+        label: {
+          visible: true,
+          style: {
+            fill: '#aaa',
+            fontSize: 16,
+            textAlign: 'center',
+            textBaseline: 'middle',
+          },
+        },
       },
     });
   }
 
   public type: string = 'fanGauge';
 
-  protected getCustomStyle() {
-    const { theme, styleMix } = this.options;
-    const colors = styleMix.colors || getGlobalTheme().colors;
-
-    return getOptions('fan', theme, colors);
+  protected initG2Shape() {
+    this.gaugeShape = new GaugeShape(uniqueId());
+    this.gaugeShape.setOption(
+      this.type,
+      deepMix({}, this.options, {
+        radius: 1,
+        angle: 120,
+        textPosition: '125%',
+        bottomRatio: 3.5,
+      })
+    );
+    this.gaugeShape.render();
   }
 
   protected axis() {
@@ -64,8 +78,7 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
   }
 
   protected renderSideText() {
-    const { max, min, styleMix, format } = this.options;
-    const ringStyle = this.getCustomStyle().ringStyle;
+    const { max, min, format, rangeSize, axis } = this.options;
     const OFFSET_Y = 12;
     return [min, max].map((value, index) => {
       return {
@@ -73,12 +86,10 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
         top: true,
         position: ['50%', '50%'],
         content: format(value),
-        style: {
-          fill: styleMix.labelColor, // 文本颜色
-          fontSize: styleMix.tickLabelSize, // 文本大小
+        style: deepMix({}, axis.label.style, {
           textAlign: 'center',
-        },
-        offsetX: !index ? -ringStyle.thickness : ringStyle.thickness,
+        }),
+        offsetX: !index ? -rangeSize : rangeSize,
         offsetY: OFFSET_Y,
       };
     });

@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh":"带标注点的折线图",
+        "en":"Line Chart with Marker Points"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*b9T_Q5xpZgYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "multi-markerpoint.js",
+      "title": {
+        "zh":"多种类型标注点",
+        "en":"multi-type Marker Points"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-WEbS6l8Xk0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "animate.js",
+      "title": {
+        "zh":"带动画的标注点",
+        "en":"Marker Points animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WKioSL5x4rgAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-symbol.js",
+      "title": {
+        "zh":"自定义标注点",
+        "en":"cutomized Marker Points"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RekySYi5EmoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-image.js",
+      "title": {
+        "zh":"使用 image 定义标注点",
+        "en":"Marker Points with image source"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y6rgTbxv8nsAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

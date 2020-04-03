@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "group-column.js",
-      "title": "分组柱状图",
+      "title": {
+        "zh":"分组柱状图",
+        "en":"Grouped Column Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "group-column-slider.js",
-      "title": "分组柱状图 - 缩略轴",
+      "title": {
+        "zh":"分组柱状图 - 缩略轴",
+        "en":"Grouped Column Chart with Slider"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EmCSSYa5dZMAAAAAAAAAAABkARQnAQ"
     }
   ]

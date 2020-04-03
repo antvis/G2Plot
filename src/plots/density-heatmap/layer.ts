@@ -10,14 +10,7 @@ import { HeatmapLegendConfig } from './components/legend';
 import { HeatmapBackgroundConfig } from './components/background';
 import { getPlotComponents } from './components';
 import * as EventParser from './event';
-
-interface PointStyle {
-  lineDash?: number[];
-  lineWidth?: number;
-  opacity?: string;
-  fillStyle?: string;
-  strokeStyle?: string;
-}
+import { GraphicStyle } from '../../interface/config';
 
 export interface DensityHeatmapViewConfig extends ViewConfig {
   colorField: string;
@@ -28,7 +21,7 @@ export interface DensityHeatmapViewConfig extends ViewConfig {
     shape?: string;
     size?: number;
     color?: string;
-    style?: PointStyle;
+    style?: GraphicStyle;
   };
   legend?: HeatmapLegendConfig;
   background?: HeatmapBackgroundConfig;
@@ -157,36 +150,38 @@ export default class DensityHeatmapLayer<
   }
 
   protected addGeometry() {
-    const config = {
-      type: 'linearheatmap',
-      position: {
-        fields: [this.options.xField, this.options.yField],
-      },
-      color: {
-        fields: [this.options.colorField],
-        values: this.options.color,
-      },
-      cfg: {
-        intensity: this.options.intensity,
-        radius: this.options.radius,
-      },
-    } as any;
+    if (this.options.data.length > 1) {
+      const config = {
+        type: 'linearheatmap',
+        position: {
+          fields: [this.options.xField, this.options.yField],
+        },
+        color: {
+          fields: [this.options.colorField],
+          values: this.options.color,
+        },
+        cfg: {
+          intensity: this.options.intensity,
+          radius: this.options.radius,
+        },
+      } as any;
 
-    if (this.options.radius) {
-      config.radius = this.options.radius;
+      if (this.options.radius) {
+        config.radius = this.options.radius;
+      }
+
+      if (this.options.intensity) {
+        config.intensity = this.options.intensity;
+      }
+
+      if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
+        this.geometryTooltip(config);
+      }
+
+      this.setConfig('geometry', config);
+
+      this.addPoint();
     }
-
-    if (this.options.intensity) {
-      config.intensity = this.options.intensity;
-    }
-
-    if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
-      this.geometryTooltip(config);
-    }
-
-    this.setConfig('geometry', config);
-
-    this.addPoint();
   }
 
   protected addPoint() {

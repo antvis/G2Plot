@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "range-column.js",
-      "title": "区间柱状图",
+      "title": {
+        "zh":"区间柱状图",
+        "en":"RangeColumn Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CoX7TK29_TsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "range-column-label.js",
-      "title": "区间柱状图label样式",
+      "title": {
+        "zh":"区间柱状图label样式",
+        "en":"RangeColumn Chart label style"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m_0ORYQ56-YAAAAAAAAAAABkARQnAQ"
     }
   ]

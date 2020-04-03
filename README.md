@@ -28,25 +28,19 @@ Based on [the grammar of graphics](https://github.com/antvis/g2), you can easily
 
 With [AntV](https://antv.vision/en) design principles of data visualization, G2Plot provides standard and elegant visual styles as well as neat config options.
 
-<div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rqI2Qqt0pTwAAAAAAAAAAABkARQnAQ" width="600" />
-</div>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rqI2Qqt0pTwAAAAAAAAAAABkARQnAQ" />
 
 ### Responsive
 
 G2Plot guarantees the readability of the charts in different sizes and data.
 
-<div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" width="600" />
-</div>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" />
 
 ### Storytelling
 
 With the feature of _layers_, charts can be grouped, nested or linked to do exploratory analysis and expressive storytelling.
 
-<div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" width="600" />
-</div>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" />
 
 ## Installation
 
@@ -56,9 +50,7 @@ $ npm install @antv/g2plot
 
 ## Usage
 
-<div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450">
-</div>
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" />
 
 ```html
 <div id="container"></div>

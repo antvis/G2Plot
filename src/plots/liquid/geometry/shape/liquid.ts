@@ -261,7 +261,8 @@ registerShape('interval', 'liquid-fill-gauge', {
       }
       sumX += p.x;
     });
-    const cx = sumX / cfg.points.length;
+    //const cx = sumX / cfg.points.length;
+    const cx = 0.5;
     const cp = this.parsePoint({ x: cx, y: cy });
     const minP = this.parsePoint({ x: minX, y: 0.5 });
     const xWidth = cp.x - minP.x;

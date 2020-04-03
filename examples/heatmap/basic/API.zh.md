@@ -186,6 +186,14 @@ matrixPlot.render();
 
 默认配置： 默认为`rect`。
 
+### shapeStyle
+
+**可选**, _object | function_
+
+功能描述： 设置色块形状的样式。shapeStyle 中的`fill`会覆盖 `color` 的配置。shapeStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每一根色块指定单独的样式。
+
+默认配置： 无
+
 ### forceSquare
 
 **可选**, _boolean_
@@ -202,7 +210,7 @@ matrixPlot.render();
 
 **可选**, _optional_
 
-[DEMOS](../../general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的标题，默认显示在图表左上角。
 
@@ -228,7 +236,7 @@ style:{
 
 **可选**, _optional_
 
-[DEMOS](../../general/title-description)
+[DEMOS](../../../examples/general/title-description)
 
 功能描述： 配置图表的描述，默认显示在图表左上角，标题下方。
 
@@ -256,7 +264,7 @@ style:{
 
 功能描述： x 方向上的坐标轴，用于展示 xField 对应的映射信息
 
-[DEMOS](../../general/axis)
+[DEMOS](../../../examples/general/axis)
 
 默认配置：
 
@@ -287,7 +295,7 @@ line: {
 
 **可选**, _object_
 
-[DEMOS](../../general/axis)
+[DEMOS](../../../examples/general/axis)
 
 功能描述： y 方向上的坐标轴，用于展示 yField 对应的映射信息
 
@@ -399,6 +407,8 @@ offset: 20,
 | visible   | boolean | 是否显示                                                                                                                                                                                                                                                                                                                                                                       |
 | offset    | number  | 距离鼠标位置偏移值                                                                                                                                                                                                                                                                                                                                                             |
 | domStyles | object  | 配置 tooltip 样式<br />- g2-tooltop: object 设置 tooltip 容器的 CSS 样式<br />- g2-tooltip-title: object 设置 tooltip 标题的 CSS 样式<br />- g2-tooltip-list: object 设置 tooltip 列表容器的 CSS 样式<br />- g2-tooltip-marker: object 设置 tooltip 列表容器中每一项 marker 的 CSS 样式<br />- g2-tooltip-value: object  设置 tooltip 列表容器中每一项 value 的 CSS 样式<br /> |
+| fields    | string  | 设置 tooltip 内容字段，默认为[ `xField`, `yField`, `colorField` ]                                                                                                                                                                                                                                                                                                              |
+| formatter | object  | 对 tooltip items 进行格式化，入参为 tooltip fields 对应数值，出参为格式为{name:'a',value:1}                                                                                                                                                                                                                                                                                    |
 
 ### label
 

@@ -1,26 +1,20 @@
 import { deepMix } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { DataItem, Label } from '../../interface/config';
+import { DataItem, Label, LineStyle, GraphicStyle } from '../../interface/config';
 import { getGeom } from '../../geoms/factory';
 import { LayerConfig } from '../../base/layer';
-import { LineStyle } from '../line/layer';
 import { getPieLabel, PieLabelConfig } from './component/label';
 import SpiderLabel from './component/label/spider-label';
 import { registerPlotType } from '../../base/global';
 import PieBaseLabel from './component/label/base-label';
 import './theme';
 
-interface PieStyle extends LineStyle {
-  stroke?: string;
-  lineWidth?: number;
-}
-
 export interface PieViewConfig extends Omit<ViewConfig, 'label'> {
   angleField: string;
   colorField?: string;
   radius?: number;
-  pieStyle?: PieStyle | ((...args: any[]) => PieStyle);
+  pieStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   label?: PieLabelConfig;
 }
 
@@ -53,6 +47,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         visible: true,
         type: 'inner',
         autoRotate: false,
+        adjustPosition: true,
         allowOverlap: false,
         line: {
           visible: true,

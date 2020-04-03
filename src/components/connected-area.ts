@@ -66,7 +66,7 @@ export default class ConnectedArea {
     this.lines = [];
   }
 
-  public destory() {
+  public destroy() {
     if (this.container) {
       this.container.remove();
     }

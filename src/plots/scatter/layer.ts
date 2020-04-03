@@ -3,26 +3,13 @@ import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, DataItem } from '../../interface/config';
+import { ITimeAxis, IValueAxis, DataItem, GraphicStyle } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import Quadrant, { QuadrantConfig } from './components/quadrant';
 import Trendline, { TrendlineConfig } from './components/trendline';
 import * as EventParser from './event';
 import { getComponent } from '../../components/factory';
 import './theme';
-
-export interface PointStyle {
-  /** 圆边颜色 */
-  stroke?: string;
-  /** 圆边大小 */
-  lineWidth?: number;
-  /** 圆边透明度 */
-  strokeOpacity?: number;
-  /** 填充透明度 */
-  fillOpacity?: number;
-  /** 整体透明度 */
-  opacity?: number;
-}
 
 const G2_GEOM_MAP = {
   scatter: 'point',
@@ -34,13 +21,13 @@ const PLOT_GEOM_MAP = {
 
 export interface PointViewConfig extends ViewConfig {
   /** 散点样式 */
-  pointStyle?: PointStyle | ((...args: any) => PointStyle);
+  pointStyle?: GraphicStyle | ((...args: any) => GraphicStyle);
   /** 颜色字段 */
   colorField?: string | string[];
   /** x 轴配置 */
-  xAxis?: ICatAxis | ITimeAxis | IValueAxis;
+  xAxis?: ITimeAxis | IValueAxis;
   /** y 轴配置 */
-  yAxis?: ICatAxis | ITimeAxis | IValueAxis;
+  yAxis?: ITimeAxis | IValueAxis;
   quadrant?: QuadrantConfig;
   trendline?: TrendlineConfig;
 }

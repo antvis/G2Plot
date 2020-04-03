@@ -6,27 +6,42 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础条形图",
+      "title": {
+        "zh":"基础条形图",
+        "en":"Bar Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label-position.js",
-      "title": "基础柱状图 - 图形标签位置",
+      "title":{
+        "zh":"基础柱状图 - 图形标签位置",
+        "en":"Bar Chart - label position"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GJnOQ4z9jHoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label-adjustColor.js",
-      "title": "基础柱状图 - 图形标签颜色自适应",
+      "title": {
+        "zh":"基础柱状图 - 图形标签颜色自适应",
+        "en":"Bar Chart - auto adjust label color"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xCvpSYgDxcUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "scroll-bar.js",
-      "title": "基础柱状图 - 滚动条",
+      "title": {
+        "zh":"基础柱状图 - 滚动条",
+        "en":"Bar Chart - Scroll Bar"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YAG4SJIcFXoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "bar-conversion.js",
-      "title": "基础柱状图 - 转化率组件",
+      "title": {
+        "zh":"基础柱状图 - 转化率组件",
+        "en":"Bar Chart -  Conversion tag"
+      },
       "screenshot": "https://gw.alicdn.com/tfs/TB107ZbvKT2gK0jSZFvXXXnFXXa-1344-828.png"
     }
   ]

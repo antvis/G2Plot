@@ -299,6 +299,14 @@ matrixPlot.render();
 
 默认配置： 默认为`rect`。
 
+### shapeStyle
+
+**可选**, *object | function*
+
+功能描述： 设置色块形状的样式。shapeStyle中的`fill`会覆盖 `color` 的配置。shapeStyle可以直接指定，也可以通过callback的方式，根据数据为每一根色块指定单独的样式。
+
+默认配置： 无
+
 
 ### forceSquare
 
@@ -500,6 +508,8 @@ offset: 20,
 | visible | boolean | 是否显示 |
 | offset | number | 距离鼠标位置偏移值 |
 | domStyles | object | 配置tooltip样式<br />- g2-tooltop: object 设置tooltip容器的CSS样式<br />- g2-tooltip-title: object 设置tooltip标题的CSS样式<br />- g2-tooltip-list: object 设置tooltip列表容器的CSS 样式<br />- g2-tooltip-marker: object 设置tooltip列表容器中每一项 marker的CSS样式<br />- g2-tooltip-value: object 设置tooltip 列表容器中每一项 value的CSS样式<br /> |
+| fields | string | 设置tooltip内容字段，默认为[ `xField`, `yField`, `colorField` ] |
+| formatter | object | 对tooltip items进行格式化，入参为tooltip fields对应数值，出参为格式为{name:'a',value:1} |
 
 ### label
 

@@ -5,12 +5,22 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, DataItem, IStyleConfig } from '../../interface/config';
+import {
+  ElementOption,
+  ICatAxis,
+  IValueAxis,
+  Label,
+  DataItem,
+  IScrollbarInteractionConfig,
+  IInteractions,
+} from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-import BarLabel from './component/label';
+import { GraphicStyle } from '../../interface/config';
+import './component/label';
 import * as EventParser from './event';
 import './theme';
+import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
   bar: 'interval',
@@ -20,16 +30,23 @@ const PLOT_GEOM_MAP = {
   interval: 'bar',
 };
 
+interface IBarLabel extends Label {
+  position?: string | 'left' | 'middle' | 'right';
+  adjustPosition?: boolean;
+  adjustColor?: boolean;
+}
+
+type BarInteraction = { type: 'scrollBar'; cfg: IScrollbarInteractionConfig } | IInteractions;
+
 export interface BarViewConfig extends ViewConfig {
   colorField?: string;
-  // 百分比, 数值, 最小最大宽度
   barSize?: number;
-  maxWidth?: number;
-  minWidth?: number;
-  barStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
-  xAxis?: ICatAxis | ITimeAxis;
-  yAxis?: IValueAxis;
+  barStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
+  xAxis?: IValueAxis;
+  yAxis?: ICatAxis;
+  label?: IBarLabel;
   conversionTag?: ConversionTagOptions;
+  interactions?: BarInteraction[];
 }
 
 export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
@@ -54,11 +71,10 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         grid: {
           visible: false,
         },
+        nice: true,
       },
       yAxis: {
         visible: true,
-        autoRotateTitle: true,
-        nice: true,
         grid: {
           visible: false,
         },
@@ -249,16 +265,15 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
-    const scale = scales[yField];
+    const { xField } = this.options;
+    const scale = scales[xField];
     if (this.options.label && this.options.label.visible) {
-      const label = new BarLabel({
-        view: this.view,
-        plot: this,
+      const geometry = getGeometryByType(this.view, 'interval');
+      this.doRenderLabel(geometry, {
+        type: 'bar',
         formatter: scale.formatter,
         ...this.options.label,
       });
-      label.render();
     }
   }
 

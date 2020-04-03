@@ -4,20 +4,23 @@ import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import {
+  ElementOption,
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+  GraphicStyle,
+  LineStyle,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
+import '../../components/label/point';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
-import { PointStyle, LineStyle } from '../line/layer';
-
-interface AreaStyle {
-  opacity?: number;
-  lineDash?: number[];
-  strokeStyle?: string;
-  lineWidth?: number;
-  stroke?: string;
-}
+import { getGeometryByType } from '../../util/view';
 
 const GEOM_MAP = {
   area: 'area',
@@ -25,10 +28,14 @@ const GEOM_MAP = {
   point: 'point',
 };
 
+type AreaInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
+
 export interface AreaViewConfig extends ViewConfig {
-  areaStyle?: AreaStyle | ((...args: any) => AreaStyle);
+  areaStyle?: GraphicStyle | ((...args: any) => GraphicStyle);
   seriesField?: string;
-  xAxis?: ICatAxis | ITimeAxis;
+  xAxis?: ICatAxis | ITimeAxis | IValueAxis;
   yAxis?: IValueAxis;
   line?: {
     visible?: boolean;
@@ -41,9 +48,10 @@ export interface AreaViewConfig extends ViewConfig {
     color?: string;
     size?: number;
     shape?: string;
-    style?: PointStyle;
+    style?: GraphicStyle;
   };
   smooth?: boolean;
+  interactions?: AreaInteraction[];
 }
 
 export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}
@@ -104,6 +112,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   }
 
   public afterRender() {
+    this.renderLabel();
     /** 响应式 */
     if (this.options.responsive && this.options.padding !== 'auto') {
       this.applyResponsive('afterRender');
@@ -203,6 +212,20 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { label, yField } = this.options;
+    const scale = scales[yField];
+    if (label.visible) {
+      const geometry = getGeometryByType(this.view, 'line');
+      this.doRenderLabel(geometry, {
+        type: 'point',
+        formatter: scale.formatter,
+        ...this.options.label,
+      });
+    }
+  }
+
   protected animation() {
     super.animation();
     const props = this.options;
@@ -214,23 +237,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected label() {
-    const props = this.options;
-    const label = props.label as Label;
-
-    if (label.visible === false) {
-      if (this.line) {
-        this.line.label = false;
-      }
-      this.area.label = false;
-      return;
-    }
-
-    this.area.label = getComponent('label', {
-      fields: [props.yField],
-      plot: this,
-    });
-  }
+  protected label() {}
 
   protected geometryTooltip() {
     this.area.tooltip = {};

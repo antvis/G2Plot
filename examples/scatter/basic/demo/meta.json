@@ -6,22 +6,34 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础散点图",
+      "title": {
+        "zh":"基础散点图",
+        "en":"basic Scatter Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Cu0wSYK_U6YAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "color-mapping.js",
-      "title": "散点图颜色映射",
+      "title": {
+        "zh":"散点图颜色映射",
+        "en":"the color mapping of Scatter Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Mds9Q7-zeHMAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "trendline.js",
-      "title": "散点图加趋势线",
+      "title": {
+        "zh":"散点图加趋势线",
+        "en":"Scatter Chart with Trend Line"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CpgMTYr3LTYAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label.js",
-      "title": "散点图图形标签",
+      "title": {
+        "zh":"散点图图形标签",
+        "en":"Scatter Chart label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XlOeS4YAHbYAAAAAAAAAAABkARQnAQ"
     }
   ]

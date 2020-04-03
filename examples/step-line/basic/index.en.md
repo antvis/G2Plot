@@ -1,5 +1,5 @@
 ---
-title: Line Chart
+title: Basic StepLine Chart
 order: 0
 ---
 

@@ -36,7 +36,9 @@ fetch('../data/GDP.json')
         type: 'line',
       },
       animation: {
-        type: 'clipingWithData',
+        appear: {
+          animation: 'clipingWithData',
+        },
       },
       smooth: true,
     });

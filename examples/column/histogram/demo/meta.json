@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "histogram-binNumber.js",
-      "title": "直方图",
+      "title": {
+        "zh":"直方图",
+        "en":"Histogram Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8rGET7N9C9kAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "histogram-binWidth.js",
-      "title": "直方图",
+      "title": {
+        "zh":"直方图",
+        "en":"Histogram Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*paDPSZI-Li8AAAAAAAAAAABkARQnAQ"
     }
   ]

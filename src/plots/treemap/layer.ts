@@ -5,17 +5,23 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import squarify from './layout/squarify';
 import { INTERACTION_MAP } from './interaction';
 import * as EventParser from './event';
-import TreemapLabel from './components/label';
+import TreemapLabel, { TreemapLabelConfig } from './components/label';
+import { GraphicStyle, IInteractions } from '../../interface/config';
+import { IDrillDown } from './interaction/drillDown';
 
 const PARENT_NODE_OFFSET = 4;
 const BLOCK_MARGIN = 4;
+
+type TreemapInteraction = { type: 'drilldown'; cfg: IDrillDown } | IInteractions;
 
 export interface TreemapViewConfig extends ViewConfig {
   data: any;
   maxLevel?: number;
   colorField: string;
   colors?: string[];
-  rectStyle?: any;
+  rectStyle?: GraphicStyle;
+  label: TreemapLabelConfig;
+  interactions?: TreemapInteraction[];
 }
 
 export interface TreemapLayerConfig extends TreemapViewConfig, LayerConfig {}

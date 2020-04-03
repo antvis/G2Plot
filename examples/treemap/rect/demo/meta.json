@@ -6,17 +6,26 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础矩形树图",
+      "title": {
+        "zh":"基础矩形树图",
+        "en":"Treemap Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U7KGRI_-lhMAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label.js",
-      "title": "嵌套树图label",
+      "title": {
+        "zh":"嵌套树图label",
+        "en":"Treemap Chart label"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pUqpTpFTHRkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "drilldown.js",
-      "title": "数据钻取",
+      "title": {
+        "zh":"数据钻取",
+        "en":"Treemap Chart drilldown interaction"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*t1HzSYgYvycAAAAAAAAAAABkARQnAQ"
     }
   ]

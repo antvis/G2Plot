@@ -6,17 +6,22 @@ import { LAYER_EVENT_MAP } from '../util/event';
 import BBox from '../util/bbox';
 
 export interface LayerConfig {
+  /** @ignore */
   id?: string;
   /** the top-left-x of layer, local position relative to the parent layer */
+  /** @ignore */
   x?: number;
   /** the top-left-y of layer, local position relative to the parent layer */
+  /** @ignore */
   y?: number;
   /** layer width */
   width?: number;
   /** layer height */
   height?: number;
   /** the parent node of layer */
+  /** @ignore */
   parent?: any;
+  /** @ignore */
   canvas?: ICanvas;
   name?: string;
 }
@@ -247,7 +252,7 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     return new BBox(globalPosition.x, globalPosition.y, this.width, this.height);
   }
 
-  public getOptions(props: T): T {
+  public getOptions(props: Partial<T>): T {
     let parentWidth = 0;
     let parentHeight = 0;
     if (props.parent) {

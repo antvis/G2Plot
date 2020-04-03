@@ -124,7 +124,9 @@ export default class RangeBarLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   protected getShapeBbox(shape) {
     const points = [];
@@ -155,7 +157,7 @@ export default class RangeBarLabel {
 
   private getPosition(shape) {
     const bbox = this.getShapeBbox(shape);
-    const { minX, maxX, minY, height, width } = bbox;
+    const { minX, maxX, minY, height } = bbox;
     const { offsetX, offsetY } = this.options;
     const y = minY + height / 2 + offsetY;
     let x1, x2;

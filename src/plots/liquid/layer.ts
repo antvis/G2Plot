@@ -78,7 +78,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     super.init();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
   protected scale() {
     const props = this.options;
@@ -198,7 +200,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
         type: 'text',
         position: ['50%', '50%'],
         style: {
-          opacity: 1,
+          opacity,
           fill: 'transparent',
           shadowColor: 'transparent',
           textAlign: 'center',
@@ -211,7 +213,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     return statisticConfig;
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 
@@ -229,7 +231,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     }
   }
 
-  protected processData(data?: DataItem[]): DataItem[] | undefined {
+  protected processData(): DataItem[] | undefined {
     const props = this.options;
     return [{ _: '_', value: props.value }];
   }

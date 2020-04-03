@@ -1,8 +1,8 @@
-import { StackedBar, StackedColumn, ViewLayer } from '../../src';
+import { StackedBar, ViewLayer } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('$478', () => {
-  const container = createDiv('container');
+  createDiv('container');
   const data = [
     {
       x: '2019-03',

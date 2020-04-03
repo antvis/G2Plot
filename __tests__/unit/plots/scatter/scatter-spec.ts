@@ -155,19 +155,13 @@ describe('Scatter plot', () => {
       width: 600,
       height: 600,
       data: [
-        { x: 'xxx0', y: 'yyy0' },
-        { x: 'xxx1', y: 'yyy1' },
-        { x: 'xxx2', y: 'yyy2' },
-        { x: 'xxx3', y: 'yyy3' },
+        { x: 1, y: 10 },
+        { x: 2, y: 20 },
+        { x: 3, y: 30 },
+        { x: 4, y: 40 },
       ],
       xField: 'x',
       yField: 'y',
-      xAxis: {
-        type: 'category',
-      },
-      yAxis: {
-        type: 'category',
-      },
     });
     scatterPlot.render();
 
@@ -180,14 +174,16 @@ describe('Scatter plot', () => {
     const yAxis = components.find((component) => {
       return component.direction === 'left';
     });
+    const yValues = ['10', '20', '30', '40'];
     yAxis.component.get('ticks').forEach((tick, index) => {
-      expect(tick.name).toBe(`yyy${index}`);
+      expect(tick.name).toBe(yValues[index]);
     });
     const xAxis = components.find((component) => {
       return component.direction === 'bottom';
     });
+    const xValues = ['1', '2', '3', '4'];
     xAxis.component.get('ticks').forEach((tick, index) => {
-      expect(tick.name).toBe(`xxx${index}`);
+      expect(tick.name).toBe(xValues[index]);
     });
   });
 
@@ -315,8 +311,9 @@ describe('Scatter plot', () => {
       colorField: 'continent',
       label: {
         visible: true,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         formatter: (text, data, index) => {
-          return `${data['continent']} ${index}`;
+          return data.continent;
         },
       },
     });
@@ -328,7 +325,7 @@ describe('Scatter plot', () => {
     });
     labelShapes.forEach((label, index) => {
       // @ts-ignore
-      expect(label.cfg.children[0].attr('text')).toBe(`${data[index]['continent']} ${index}`);
+      expect(label.cfg.children[0].attr('text')).toBe(data[index].continent);
     });
 
     scatterPlot.updateConfig({

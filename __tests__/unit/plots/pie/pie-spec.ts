@@ -131,7 +131,7 @@ describe('Pie plot', () => {
       data,
       angleField: 'value',
       colorField: 'type',
-      pieStyle: (...args) => {
+      pieStyle: () => {
         return {
           stroke: 'red',
           lineWidth: 2,

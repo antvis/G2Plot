@@ -168,7 +168,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     });
   }
 
-  protected adjustLabel(label: IShape, element: Element, datumIdx: number): void {}
+  protected abstract adjustLabel(label: IShape, element: Element, datumIdx: number): void;
 
   protected getLabelId(data: MappingDatum): string {
     const origin = data._origin;

@@ -319,7 +319,9 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     }
   }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
   protected animation() {
     super.animation();
@@ -332,7 +334,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     }
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 }

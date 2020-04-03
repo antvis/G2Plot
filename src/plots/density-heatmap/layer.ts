@@ -141,9 +141,11 @@ export default class DensityHeatmapLayer<
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
-  protected geometryParser(dim, type) {
+  protected geometryParser() {
     return 'heatmap';
   }
 
@@ -236,7 +238,7 @@ export default class DensityHeatmapLayer<
     }
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

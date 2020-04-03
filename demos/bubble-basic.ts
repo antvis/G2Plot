@@ -1,6 +1,6 @@
 // 基础气泡图
 
-$.get('../examples/data/smoking-rate.json', function(data) {
+$.get('../examples/data/smoking-rate.json', function (data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
     data,
     xField: 'change in female rate',

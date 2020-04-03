@@ -15,7 +15,7 @@ export interface InteractionConstructor {
 
 const EVENT_TYPES = ['start', 'process', 'end', 'reset'];
 
-export default class Interaction {
+export default abstract class Interaction {
   view: View;
   protected canvas: ICanvas;
   startEvent: string;
@@ -46,11 +46,17 @@ export default class Interaction {
     this.afterStart(ev);
   }
 
-  preStart(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected preStart(ev): void {
+    return;
+  }
 
-  start(ev) {}
+  protected abstract start(ev): void;
 
-  afterStart(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected afterStart(ev): void {
+    return;
+  }
 
   private _process(ev) {
     this.preProcess(ev);
@@ -58,11 +64,20 @@ export default class Interaction {
     this.afterProcess(ev);
   }
 
-  preProcess(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected preProcess(ev): void {
+    return;
+  }
 
-  process(ev) {}
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected process(ev): void {
+    return;
+  }
 
-  afterProcess(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected afterProcess(ev): void {
+    return;
+  }
 
   private _end(ev) {
     this.preEnd(ev);
@@ -70,11 +85,20 @@ export default class Interaction {
     this.afterEnd(ev);
   }
 
-  preEnd(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected preEnd(ev): void {
+    return;
+  }
 
-  end(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected end(ev): void {
+    return;
+  }
 
-  afterEnd(ev) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected afterEnd(ev): void {
+    return;
+  }
 
   private _reset(ev?: any) {
     this.preReset(ev);
@@ -82,11 +106,20 @@ export default class Interaction {
     this.afterReset(ev);
   }
 
-  preReset(ev?: any) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected preReset(ev?: any): void {
+    return;
+  }
 
-  reset(ev?: any) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected reset(ev?: any): void {
+    return;
+  }
 
-  afterReset(ev?: any) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected afterReset(ev?: any): void {
+    return;
+  }
 
   private _bindEvents() {
     each(EVENT_TYPES, (type) => {
@@ -104,7 +137,7 @@ export default class Interaction {
     });
   }
 
-  destroy() {
+  public destroy() {
     this._unbindEvents();
     this._reset();
   }

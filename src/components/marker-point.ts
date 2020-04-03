@@ -96,11 +96,6 @@ export default class MarkerPoint {
     offsetX: 0,
     offsetY: 0,
     style: { normal: DEFAULT_STYLE, selected: SELECTED_STYLE, active: ACTIVE_STYLE },
-    events: {
-      mouseenter: () => {},
-      mouseleave: () => {},
-      click: () => {},
-    },
     label: {
       visible: false,
       offsetY: -8,

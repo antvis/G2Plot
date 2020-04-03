@@ -26,7 +26,7 @@ interface UpdateConfig {
   marker?: MarkerConfig[];
 }
 
-export interface ProgressLayerConfig extends ProgressViewConfig {}
+export type ProgressLayerConfig = ProgressViewConfig;
 
 const G2_GEOM_MAP = {
   progress: 'interval',
@@ -191,8 +191,12 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
     this.setConfig('geometry', bar);
   }
 
-  protected parseEvents(eventParser) {
-    super.parseEvents(EventParser);
+  protected parseEvents(eventParser?) {
+    if (eventParser) {
+      super.parseEvents(eventParser);
+    } else {
+      super.parseEvents(EventParser);
+    }
   }
 
   protected parseColorProps(props) {

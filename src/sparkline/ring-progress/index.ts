@@ -1,6 +1,5 @@
 import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import TinyPlot from '../tiny-plot';
 import RingProgressLayer, { RingProgressViewConfig } from './layer';
 
 export interface RingProgressConfig extends RingProgressViewConfig, PlotConfig {}

@@ -1,5 +1,4 @@
 import { DESCRIPTION_BOTTOM_MARGIN, TOP_BLEEDING, BOTTOM_BLEEDING } from './default';
-import line from '../geoms/line';
 
 export const DEFAULT_DARK_THEME = {
   backgroundStyle: {

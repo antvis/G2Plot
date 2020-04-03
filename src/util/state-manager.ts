@@ -8,16 +8,12 @@ import { LooseMap } from '../interface/types';
 
 type States = LooseMap;
 
-interface StateControllerCfg {
-  states?: States;
-}
-
 export default class StateManager extends EventEmitter {
   private _states: States;
   private _stateStack: States;
   private _changeTimer: any;
 
-  constructor(cfg: StateControllerCfg) {
+  constructor() {
     super();
     this._states = {};
     this._stateStack = {};

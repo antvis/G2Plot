@@ -12,7 +12,6 @@ import {
   flatten,
   reduce,
   findIndex,
-  filter,
 } from '@antv/util';
 import { View, BBox, Geometry, VIEW_LIFE_CIRCLE } from '../dependents';
 import TextDescription from '../components/description';
@@ -41,7 +40,6 @@ import StateController from './controller/state';
 import ThemeController from './controller/theme';
 import Layer, { LayerConfig } from './layer';
 import { isTextUsable } from '../util/common';
-import { getAllGeometryByType } from '../util/view';
 import { LooseMap } from '../interface/types';
 
 export interface ViewConfig {
@@ -82,7 +80,7 @@ export interface ViewConfig {
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
-  public static getDefaultOptions(props?: Partial<ViewConfig>): Partial<ViewConfig> {
+  public static getDefaultOptions(): Partial<ViewConfig> {
     return {
       renderer: 'canvas',
       title: {

@@ -139,7 +139,7 @@ describe('spider-label 单行label', () => {
     label: {
       visible: true,
       type: 'spider',
-      formatter: (text, item, index) => `${item._origin['type']} (${item._origin['value']})`,
+      formatter: (text, item, index) => `${item._origin['type']} (${item._origin['value']})`, //eslint-disable-line
     },
     legend: {
       visible: false,

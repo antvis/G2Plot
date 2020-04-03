@@ -1,6 +1,5 @@
 import { IShape, BBox } from '../../../../dependents';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
-import { getOverlapArea, near } from './utils';
 
 // 默认label和element的偏移 16px
 export const DEFAULT_OFFSET = 16;
@@ -38,5 +37,5 @@ export default class PieOuterCenterLabel extends PieBaseLabel {
   }
 
   /** label 碰撞调整 */
-  protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {}
+  protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {} // eslint-disable-line
 }

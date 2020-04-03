@@ -1,4 +1,4 @@
-import { IGroup, View, Geometry } from '../../../dependents';
+import { IGroup, View } from '../../../dependents';
 import { find, map, get } from '@antv/util';
 import { BulletAxis } from '../layer';
 import BBox from '../../../util/bbox';
@@ -53,10 +53,9 @@ export default class BulletRect {
     const rangeColors = options.rangeColors;
     let xPos = box.minX;
     const yPos = box.minY - (box.height * (options.rangeSize - 1)) / 2;
-    let rect;
     for (let i = 1; i < ranges.length; i += 1) {
       const width = (ranges[i] - ranges[i - 1]) * options.rangeMax * widthRatio;
-      rect = this.container
+      this.container
         .addShape('rect', {
           name: 'bullet-rect',
           attrs: {
@@ -91,7 +90,7 @@ export default class BulletRect {
       if (options.axis.formatter) {
         tickText = options.axis.formatter(tickText, tickIdx);
       }
-      const tickShape = this.container.addShape('text', {
+      this.container.addShape('text', {
         name: 'tick',
         attrs: {
           x,

@@ -1,6 +1,6 @@
 // 基础面积图
 
-$.get('data/fireworks-sales.json', function(data) {
+$.get('data/fireworks-sales.json', function (data) {
   const areaPlot = new g2plot.Area(document.getElementById('canvas'), {
     width: 600,
     height: 600,

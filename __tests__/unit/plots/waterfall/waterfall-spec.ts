@@ -1,5 +1,4 @@
 import { ViewLayer, Waterfall } from '../../../../src';
-import { IShape } from '@antv/g-base';
 import { every, last } from '@antv/util';
 
 describe('waterfall plot', () => {
@@ -111,7 +110,7 @@ describe('waterfall plot', () => {
         style: {
           fill: 'red',
         },
-        formatter: (text, item, index) => {
+        formatter: (text) => {
           if (text.startsWith('+')) {
             return `涨 ${text.substr(1)}`;
           } else if (text.startsWith('-')) {

@@ -1,4 +1,3 @@
-import { IElement, View } from '../../dependents';
 import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
@@ -113,7 +112,7 @@ export default class PaddingController {
     const props = this.plot.options;
     const view = this.plot.view;
     const viewRange: any = clone(view.viewBBox);
-    const { minX, maxX, minY, maxY } = viewRange;
+    const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
       each(bleeding, (it, index) => {
@@ -151,7 +150,7 @@ export default class PaddingController {
     ];
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
-    const panelPadding = this._getPanel(view, box);
+    const panelPadding = this._getPanel(view);
     padding[0] += panelPadding[0];
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
@@ -189,7 +188,7 @@ export default class PaddingController {
     }
   }
 
-  private _getPanel(view, box) {
+  private _getPanel(view) {
     const groups = [];
     const geoms = view.geometries;
     each(geoms, (geom) => {
@@ -273,7 +272,7 @@ export default class PaddingController {
     const position = legend.get('position').split('-');
     const container = legend.get('container');
     const bbox = container.getBBox();
-    const { width, height, maxX, minX, maxY, minY } = view.viewBBox;
+    const { width, maxY, minY } = view.viewBBox;
     if (position[0] === 'right') {
       container.move(width, minY);
     }

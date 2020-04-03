@@ -170,7 +170,9 @@ export default class TreemapLabel {
     this.destroyed = true;
   }
 
-  public getBBox() {}
+  public getBBox() {
+    return this.container.getBBox();
+  }
 
   protected getPosition(shape, isLeafNode) {
     const shapeBbox = shape.getBBox();

@@ -37,7 +37,7 @@ export default class RingStatistic extends StatisticHtml {
     const triggerOffEvent = this.options.triggerOff ? this.options.triggerOff : 'mouseleave';
     this.view.on(
       `interval:${triggerOffEvent}`,
-      debounce((e) => {
+      debounce(() => {
         const totalValue = this.getTotalValue();
         const displayData = this.parseStatisticData(totalValue);
         const htmlString = this.getStatisticHtmlString(displayData);

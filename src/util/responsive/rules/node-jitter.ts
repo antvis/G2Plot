@@ -2,14 +2,14 @@ import { IShape } from '@antv/g-base';
 import { dotProduct2D } from '../../math';
 
 /** 图形在水平或垂直方向抖开 */
-export default function nodeJitter(shape: IShape, option, index, cfg) {
+export default function nodeJitter(shape: IShape, index, cfg) {
   const nodes = cfg.nodes.nodes;
   if (index === nodes.length - 1) {
     return;
   }
   const current = nodes[index];
   const next = nodes[index + 1];
-  const { dir, distX, distY } = alignDirection(current, next);
+  const { dir } = alignDirection(current, next);
   const startPoint = shape.get('startPoint');
   if (dir === 'x') {
     shape.attr('y', startPoint.y + 20);

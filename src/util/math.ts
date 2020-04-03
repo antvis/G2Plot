@@ -1,4 +1,3 @@
-import BBox from './bbox';
 import * as matrixUtil from '@antv/matrix-util';
 import { each, clone } from '@antv/util';
 

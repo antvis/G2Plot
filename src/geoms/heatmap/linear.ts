@@ -23,7 +23,7 @@ class LinearHeatmap extends Geometry {
     this.radius = cfg.radius;
   }
 
-  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false) {
+  protected createElements(mappingData: MappingDatum[] /*index: number, isUpdate: boolean = false*/) {
     const range = this.prepareRange(mappingData);
     this.prepareSize();
     this.prepareBlur();

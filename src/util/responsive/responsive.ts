@@ -173,14 +173,14 @@ export default class Responsive {
     const { type, expression } = constraint;
     const nodes = this.nodes.nodes;
     if (type === 'chain') {
-      return this._chainConstraintAssign(expression, nodes, option);
+      return this._chainConstraintAssign();
     }
     if (type === 'padding') {
       return this._paddingConstraintAssign(expression, this.region, nodes, option);
     }
   }
 
-  private _chainConstraintAssign(expression, nodes, option) {
+  private _chainConstraintAssign() {
     return true;
   }
 

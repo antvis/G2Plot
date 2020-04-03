@@ -14,7 +14,7 @@ class ApplyResponsiveColumnLabel extends ApplyResponsiveLabel {
 
 export default function responsivePointLabel(layer: ColumnLayer) {
   const responsiveTheme = layer.getResponsiveTheme();
-  const applyResponsiveColumnLabel = new ApplyResponsiveColumnLabel({
+  new ApplyResponsiveColumnLabel({
     plot: layer,
     responsiveTheme,
   });

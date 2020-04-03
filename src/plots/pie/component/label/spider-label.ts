@@ -295,7 +295,7 @@ export default class SpiderLabel {
       totalH = maxY - startY;
     }
 
-    const iteratorBoxed = function(items) {
+    const iteratorBoxed = function (items) {
       items.forEach((box) => {
         const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
         box.pos = Math.min(Math.max(minY, target - box.size / 2), totalH - box.size);
@@ -350,7 +350,6 @@ export default class SpiderLabel {
     const center = coord.getCenter();
     const radius = coord.getRadius();
 
-    const width = this.width;
     const { y, textGroup } = label;
     const children = textGroup.get('children');
     const x_dir = label._side === 'left' ? 1 : -1;
@@ -380,7 +379,7 @@ export default class SpiderLabel {
   private _drawLabelLine(label: LabelData, maxLabelWidth, container: IGroup): IShape {
     const _anchor = [label._anchor.x, label._anchor.y];
     const _inflection = [label._inflection.x, label._inflection.y];
-    const { fill, y, textGroup } = label;
+    const { y, textGroup } = label;
     if (!textGroup) return;
     const lastPoint = [label._side === 'left' ? textGroup.getBBox().maxX + 4 : textGroup.getBBox().minX - 4, y];
 

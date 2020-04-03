@@ -9,11 +9,10 @@ function onActive(plot, condition) {
   if (!labels) {
     getAllAxisLabels(plot);
   }
-  each(labels, (label, index) => {
+  each(labels, (label) => {
     const { labelData, con } = beforeCompare(label, condition);
     if (compare(labelData, con)) {
-      const originAttr = originAttrs[index];
-      const disableStyle = labelActiveStyle(originAttr);
+      const disableStyle = labelActiveStyle();
       label.shape.attr(disableStyle);
     }
   });
@@ -41,10 +40,7 @@ function getAllAxisLabels(plot) {
     const axis = axisComponentOption.component;
     const labelArr = [];
     const scale = getScale(plot, axis);
-    const labelShapes = axis
-      .get('labelRenderer')
-      .get('group')
-      .get('children');
+    const labelShapes = axis.get('labelRenderer').get('group').get('children');
     each(labelShapes, (shape) => {
       if (shape.type === 'text') {
         labelArr.push({ shape });
@@ -90,7 +86,7 @@ function labelDisableStyle(style) {
   return { opacity: opacity * 0.2 };
 }
 
-function labelActiveStyle(style) {
+function labelActiveStyle() {
   return { opacity: 1, fontWeight: 600, fill: 'red' };
 }
 

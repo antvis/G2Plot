@@ -96,6 +96,10 @@ export default class ScrollbarInteraction extends BaseInteraction {
     });
   }
 
+  protected start() {
+    return;
+  }
+
   protected clear(): void {
     if (this.scrollbar) {
       this.scrollbar.destroy();

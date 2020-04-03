@@ -245,9 +245,11 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
     this.setConfig('axes', axesConfig);
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

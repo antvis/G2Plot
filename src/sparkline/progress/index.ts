@@ -1,6 +1,5 @@
 import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import TinyPlot from '../tiny-plot';
 import ProgressLayer, { ProgressViewConfig } from './layer';
 
 export interface ProgressConfig extends ProgressViewConfig, PlotConfig {}

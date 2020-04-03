@@ -1,6 +1,6 @@
 import BBox from '../../util/bbox';
 import { getScale } from '@antv/scale';
-import { isArray, uniq, deepMix, each, hasKey, isString, isObject, isNil } from '@antv/util';
+import { isArray, uniq, deepMix, each, hasKey, isString, isObject } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import { getGlobalTheme } from '../../theme';
 import { isSingleGraph } from './adjustColorConfig';

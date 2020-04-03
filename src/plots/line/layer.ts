@@ -1,14 +1,12 @@
-import { deepMix, has, map, each, get, some } from '@antv/util';
+import { deepMix, has, map, each, some } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import {
   ICatAxis,
   ITimeAxis,
   IValueAxis,
-  Label,
   GraphicStyle,
   LineStyle,
   ISliderInteractionConfig,
@@ -159,7 +157,9 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
   protected tooltip() {
     // 如果有标注点，则不展示markers
@@ -274,7 +274,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     );
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

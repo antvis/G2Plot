@@ -36,7 +36,7 @@ type AreaInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
   | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
-type PointShape =  string | { fields?:[]; callback:()=>string; }
+type PointShape = string | { fields?: []; callback: () => string };
 
 export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */

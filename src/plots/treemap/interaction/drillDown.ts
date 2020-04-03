@@ -148,7 +148,9 @@ export default class DrillDownInteraction extends BaseInteraction {
     this.onInteraction();
   }
 
-  protected clear() {}
+  protected clear() {
+    return;
+  }
 
   private layout() {
     const currentWidth = this.container.getBBox().width;

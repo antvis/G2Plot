@@ -20,7 +20,7 @@ export interface PlotConfig {
   localRefresh?: boolean;
 }
 
-interface LayerCtor<C> extends ViewLayer<C> {}
+type LayerCtor<C> = ViewLayer<C>;
 
 export default class BasePlot<
   T extends PlotConfig = PlotConfig,

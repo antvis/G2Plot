@@ -1,7 +1,7 @@
 import { deepMix, valuesOfKey, clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import { ElementOption, timeIntervals } from '../../interface/config';
+import { ElementOption } from '../../interface/config';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 
 export interface GroupedBarViewConfig extends BarViewConfig {

@@ -29,8 +29,8 @@ export default class StateController {
     assign(this, cfg);
   }
 
-  public createStateManager(cfg) {
-    this.stateManager = new StateManager(cfg);
+  public createStateManager() {
+    this.stateManager = new StateManager();
   }
 
   public bindStateManager(manager: StateManager, cfg) {
@@ -45,7 +45,7 @@ export default class StateController {
 
   public defaultStates(states) {
     each(states, (state, type) => {
-      const { condition, style, related } = state;
+      const { condition, related } = state;
       this.setState({ type, condition, related });
     });
   }

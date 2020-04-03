@@ -268,7 +268,7 @@ export default abstract class BulletLayer extends ViewLayer<BulletViewConfig> {
     this.setConfig('geometry', bullet);
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

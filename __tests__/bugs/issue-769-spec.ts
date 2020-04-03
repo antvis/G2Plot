@@ -1,6 +1,6 @@
 import { each, sortBy } from '@antv/util';
-import { Column, GroupedColumn, Bar, StackedBar, IStyleConfig } from '../../src';
-import { COLOR_PLATE_10, COLOR_PLATE_20 } from '../../src/theme/default';
+import { Column, GroupedColumn, Bar, StackedBar } from '../../src';
+import { COLOR_PLATE_20 } from '../../src/theme/default';
 import { createDiv } from '../utils/dom';
 import sales from '../data/sales.json';
 import subsales from '../data/subsales.json';
@@ -16,7 +16,7 @@ describe('#769', () => {
   // 基础柱形图，barStyle 接受 xField/yField 对应的数据点
   it('Column', () => {
     let cnt = 0;
-    const callback = jest.fn((data: any) => {
+    const callback = jest.fn(() => {
       const color = COLORS[cnt];
       cnt += 1;
       return color;
@@ -38,7 +38,7 @@ describe('#769', () => {
   // Grouped/Stacked columnStyle 接受 groupField/stackField 对应的数据
   it('GroupedColumn', () => {
     let cnt = 0;
-    const callback = jest.fn((data: any) => {
+    const callback = jest.fn(() => {
       const color = COLORS[cnt];
       cnt += 1;
       return color;
@@ -60,7 +60,7 @@ describe('#769', () => {
   // 基础 Bar，接受 xField/yField 对应对应的数据点
   it('Bar', () => {
     let cnt = 0;
-    const callback = jest.fn((data: any) => {
+    const callback = jest.fn(() => {
       const color = COLORS[cnt];
       cnt += 1;
       return color;
@@ -82,7 +82,7 @@ describe('#769', () => {
   // Grouped/Stacked barStyle 接受 groupField/stackField 对应的数据
   it('StackedBar', () => {
     let cnt = 0;
-    const callback = jest.fn((data: any) => {
+    const callback = jest.fn(() => {
       const color = COLORS[cnt];
       cnt += 1;
       return color;

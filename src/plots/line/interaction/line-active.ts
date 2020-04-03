@@ -11,6 +11,10 @@ export default class LineActive extends Interaction {
     });
   }
 
+  public start() {
+    return;
+  }
+
   public process(ev) {
     const lines: Geometry[] = filter(this.view.geometries, (geom) => geom.type == 'line');
     const target = ev.target;

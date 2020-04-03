@@ -198,7 +198,7 @@ export default class Quadrant {
         if (this.options.label && this.options.label.text) {
           const labelOptions = deepMix({}, defaultStyle.label, this.options.label);
           const labelCfg = this.getLabelConfig(d, labelOptions);
-          const label = group.addShape('text', {
+          group.addShape('text', {
             attrs: {
               ...labelCfg,
             },

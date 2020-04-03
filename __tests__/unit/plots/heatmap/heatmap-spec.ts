@@ -1,6 +1,5 @@
 import { Heatmap } from '../../../../src';
 import { clone } from '@antv/util';
-import { platform } from 'os';
 
 describe('matrix plot', () => {
   const canvasDiv = document.createElement('div');
@@ -249,18 +248,10 @@ describe('matrix plot', () => {
       data,
     });
     heatmapPlot.render();
-    const samplePath_1 = clone(
-      heatmapPlot
-        .getView()
-        .geometries[0].getShapes()[0]
-        .attr('path')
-    );
+    const samplePath_1 = clone(heatmapPlot.getView().geometries[0].getShapes()[0].attr('path'));
     heatmapPlot.changeShape('rect');
     window.setTimeout(() => {
-      const samplePath_2 = heatmapPlot
-        .getView()
-        .geometries[0].getShapes()[0]
-        .attr('path');
+      const samplePath_2 = heatmapPlot.getView().geometries[0].getShapes()[0].attr('path');
       expect(samplePath_1[1][0]).toBe('L');
       expect(samplePath_2[1][0]).toBe('Q');
       heatmapPlot.destroy();

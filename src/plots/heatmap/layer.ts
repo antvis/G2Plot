@@ -146,7 +146,9 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     return '';
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
   protected legend() {
     this.setConfig('legends', false);

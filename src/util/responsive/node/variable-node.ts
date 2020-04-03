@@ -15,5 +15,4 @@ export default class VariableNodes {
   constructor(cfg: NodesCfg) {
     assign(this, cfg);
   }
-  public normalize() {}
 }

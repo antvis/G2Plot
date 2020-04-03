@@ -125,7 +125,7 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     this.setConfig('coordinate', coordConfig);
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

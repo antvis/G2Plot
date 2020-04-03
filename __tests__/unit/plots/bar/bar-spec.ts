@@ -1,5 +1,5 @@
-import { IGroup, IElement } from '@antv/g-base';
-import { get, group } from '@antv/util';
+import { IGroup } from '@antv/g-base';
+import { get } from '@antv/util';
 import { Bar } from '../../../../src';
 
 describe('Bar plot', () => {

@@ -1,6 +1,6 @@
 // 四象限气泡图
 
-$.get('../examples/data/smoking-rate.json', function(data) {
+$.get('../examples/data/smoking-rate.json', function (data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
     width: 800,
     height: 600,

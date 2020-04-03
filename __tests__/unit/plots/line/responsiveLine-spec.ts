@@ -5,19 +5,19 @@ describe('responsive line plot', () => {
   const data = income;
 
   it('canvas size 500x500', () => {
-    const plot = createPlot(500, 500);
+    createPlot(500, 500);
   });
 
   it('canvas size 400x400', () => {
-    const plot = createPlot(400, 400);
+    createPlot(400, 400);
   });
 
   it('canvas size 300x300', () => {
-    const plot = createPlot(300, 300);
+    createPlot(300, 300);
   });
 
   it('canvas size 200x200', () => {
-    const plot = createPlot(150, 150);
+    createPlot(150, 150);
   });
 
   function createPlot(width, height) {

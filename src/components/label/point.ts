@@ -1,4 +1,4 @@
-import { get, clone, map, isArray, head, last } from '@antv/util';
+import { get, clone, map, isArray, last } from '@antv/util';
 import { Element, MappingDatum } from '../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../components/label/base';
 import { TextStyle } from '../../interface/config';
@@ -21,7 +21,7 @@ export default class PointLabel extends BaseLabel {
     const { shape } = element;
     const mappingData: MappingDatum[] = get(element, 'model.mappingData', []);
 
-    return map(mappingData, (datum, datumIdx) => {
+    return map(mappingData, (datum) => {
       const value = this.getValue(datum);
       return {
         ...this.getPosition(datum),
@@ -44,6 +44,10 @@ export default class PointLabel extends BaseLabel {
       x: (isArray(datum.x) ? last(datum.x) : datum.x) + offsetX,
       y: (isArray(datum.y) ? last(datum.y) : datum.y) + offsetY,
     };
+  }
+
+  protected adjustLabel() {
+    return;
   }
 }
 

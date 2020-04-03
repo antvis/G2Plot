@@ -112,11 +112,11 @@ export default class ColumnLabel extends BaseLabel {
     return bbox;
   }
 
-  protected getTextAlign(element: Element) {
+  protected getTextAlign(element: Element) { // eslint-disable-line
     return 'center';
   }
 
-  protected getTextBaseLine(element: Element) {
+  protected getTextBaseLine(element: Element) { // eslint-disable-line
     const { position } = this.options;
     return position === 'middle' ? 'middle' : 'bottom';
   }

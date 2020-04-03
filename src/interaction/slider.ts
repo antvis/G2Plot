@@ -118,6 +118,10 @@ export default class SliderInteraction extends BaseInteraction {
     this.addDisposable(() => view.off(VIEW_LIFE_CIRCLE.AFTER_RENDER, callback));
   }
 
+  protected start() {
+    return;
+  }
+
   protected clear(): void {
     if (this.slider) {
       this.slider.destroy();

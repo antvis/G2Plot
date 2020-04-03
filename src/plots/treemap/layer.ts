@@ -102,7 +102,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     }
   }
 
-  protected geometryParser(dim, type) {
+  protected geometryParser() {
     return 'polygon';
   }
 
@@ -124,7 +124,9 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     return this.rootData;
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
   protected addGeometry() {
     const { data, colorField, color } = this.options;
@@ -187,7 +189,7 @@ export default class TreemapLayer<T extends TreemapLayerConfig = TreemapLayerCon
     }
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

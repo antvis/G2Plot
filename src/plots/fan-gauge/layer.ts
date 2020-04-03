@@ -65,7 +65,7 @@ export default class FanGaugeLayer<T extends FanGaugeLayerConfig = FanGaugeLayer
   }
 
   protected annotation() {
-    const { statistic, style } = this.options;
+    const { statistic } = this.options;
     const annotationConfigs = [];
     // @ts-ignore
     if (statistic && statistic.visible) {

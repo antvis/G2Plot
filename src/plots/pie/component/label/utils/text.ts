@@ -32,7 +32,7 @@ export const measureTextWidth = memoize(
  * @param font
  * TODO 后续更新省略算法
  */
-export const getEllipsisText = (text: any, maxWidth: number, font: Font, priority?: string[]) => {
+export const getEllipsisText = (text: any, maxWidth: number, font: Font) => {
   const STEP = 16; // 每次 16，调参工程师
   const DOT_WIDTH = measureTextWidth('...', font);
 
@@ -55,6 +55,8 @@ export const getEllipsisText = (text: any, maxWidth: number, font: Font, priorit
   }
 
   // 首先通过 step 计算，找出最大的未超出长度的
+  // eslint-disable-next-line
+  //eslint-disable-next-line no-constant-condition
   while (true) {
     // 更新字符串
     currentText = leftText.substr(0, STEP);
@@ -82,6 +84,7 @@ export const getEllipsisText = (text: any, maxWidth: number, font: Font, priorit
   }
 
   // 最下的最后一个 STEP，使用 1 递增（用二分效果更高）
+  //eslint-disable-next-line no-constant-condition
   while (true) {
     // 更新字符串
     currentText = leftText.substr(0, 1);

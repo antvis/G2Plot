@@ -2,7 +2,7 @@ import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ConnectedArea from '../../components/connected-area';
-import { ElementOption, Label } from '../../interface/config';
+import { ElementOption } from '../../interface/config';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 import './component/label';
 import { getGeometryByType } from '../../util/view';

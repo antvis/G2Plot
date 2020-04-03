@@ -1,7 +1,6 @@
-import { isNil, some, isNumber, filter } from '@antv/util';
+import { isNil, isNumber, filter } from '@antv/util';
 import { timeIntervals } from '../interface/config';
 import { ScaleConfig } from '@antv/scale';
-import { DataItem } from '../interface/config';
 
 function adjustTimeTickInterval(interval: string) {
   const intervals = timeIntervals;

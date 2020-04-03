@@ -17,14 +17,6 @@ describe('Combo plot', () => {
     { time: '2019-07', value: 470 },
   ];
 
-  const billData = [
-    { time: '2019-03', value: 220 },
-    { time: '2019-04', value: 300 },
-    { time: '2019-05', value: 250 },
-    { time: '2019-06', value: 220 },
-    { time: '2019-07', value: 362 },
-  ];
-
   const uvBillData = [
     { time: '2019-03', value: 350, type: 'uv' },
     { time: '2019-04', value: 900, type: 'uv' },

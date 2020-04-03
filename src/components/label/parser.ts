@@ -21,12 +21,12 @@ export default class LabelParser {
 
   protected init(cfg) {
     assign(this.config, cfg);
-    this.config.callback = (val, ...restArgs: any[]) => {
-      return this.parseCallBack(val, ...restArgs);
+    this.config.callback = (val) => {
+      return this.parseCallBack(val);
     };
   }
 
-  protected parseCallBack(val, ...restArgs: any[]) {
+  protected parseCallBack(val) {
     const labelProps = this.originConfig;
     const theme = this.plot.getPlotTheme();
     const config: LooseMap = { ...labelProps };
@@ -38,7 +38,7 @@ export default class LabelParser {
         config.position = labelProps.position;
       }
     }
-    this.parseFormatter(config, val, ...restArgs);
+    this.parseFormatter(config);
     if (labelProps.style) {
       if (isFunction(labelProps.style)) {
         config.textStyle = labelProps.style(val);
@@ -69,9 +69,9 @@ export default class LabelParser {
     }
   }
 
-  protected parseFormatter(config: LooseMap, ...values: any[]) {
+  protected parseFormatter(config: LooseMap) {
     const labelProps = this.originConfig;
-    config.content = (data, mappingData, index) => {
+    config.content = (data, index) => {
       // @ts-ignore
       const text = data[labelProps.fields[0]];
       return combineFormatter(

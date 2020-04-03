@@ -2,14 +2,12 @@ import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import {
   ElementOption,
   ICatAxis,
   ITimeAxis,
   IValueAxis,
-  Label,
   GraphicStyle,
   LineStyle,
   ISliderInteractionConfig,
@@ -143,7 +141,9 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return null;
+  }
 
   protected addGeometry() {
     const props: any = this.options;
@@ -168,15 +168,18 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     this.addPoint();
   }
 
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected adjustArea(area: ElementOption) {
     return;
   }
 
-  protected adjustLine(line: ElementOption) {
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected adjustLine(line?: ElementOption) {
     return;
   }
 
-  protected adjustPoint(point: ElementOption) {
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected adjustPoint(point?: ElementOption) {
     return;
   }
 
@@ -233,7 +236,9 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected label() {}
+  protected label() {
+    return;
+  }
 
   protected geometryTooltip() {
     this.area.tooltip = {};
@@ -252,7 +257,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected parseEvents(eventParser) {
+  protected parseEvents() {
     super.parseEvents(EventParser);
   }
 

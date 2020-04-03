@@ -38,10 +38,7 @@ describe('#830 饼图旋转角度不正确', () => {
     });
 
     piePlot.render();
-    const label3 = piePlot
-      .getLayer()
-      .view.geometries[0].labelsContainer.get('children')[2]
-      .get('children')[0];
+    const label3 = piePlot.getLayer().view.geometries[0].labelsContainer.get('children')[2].get('children')[0];
     const x = label3.attr('x');
     const y = label3.attr('y');
     const angle = label3.attr('angle');
@@ -56,10 +53,7 @@ describe('#830 饼图旋转角度不正确', () => {
       label: { autoRotate: true },
     });
     piePlot.render();
-    const rotatedLabel3 = piePlot
-      .getLayer()
-      .view.geometries[0].labelsContainer.get('children')[2]
-      .get('children')[0];
+    const rotatedLabel3 = piePlot.getLayer().view.geometries[0].labelsContainer.get('children')[2].get('children')[0];
     const rotatedMatrix = rotatedLabel3.attr('matrix');
 
     expect(matrix).toEqual(rotatedMatrix);

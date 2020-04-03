@@ -1,10 +1,10 @@
-import { deepMix, uniqueId } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import GaugeLayer from '../gauge/layer';
 import { GaugeViewConfig } from '../gauge/interface';
 
-export interface MeterGaugeViewConfig extends GaugeViewConfig {}
+export type MeterGaugeViewConfig = GaugeViewConfig;
 
 export interface MeterGaugeLayerConfig extends MeterGaugeViewConfig, LayerConfig {}
 

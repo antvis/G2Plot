@@ -185,9 +185,13 @@ export default class ScatterLayer<T extends ScatterLayerConfig = ScatterLayerCon
     super.scale();
   }
 
-  protected coord() {}
+  protected coord() {
+    return;
+  }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
   protected addGeometry() {
     const points = getGeom('point', 'circle', {

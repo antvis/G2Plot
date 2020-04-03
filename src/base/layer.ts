@@ -82,7 +82,9 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     this.processOptions(this.options);
   }
 
-  public beforeInit() {}
+  public beforeInit() {
+    return null;
+  }
 
   /**
    * init life cycle
@@ -95,7 +97,9 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
     });
   }
 
-  public afterInit() {}
+  public afterInit() {
+    return null;
+  }
 
   /**
    * render layer recursively

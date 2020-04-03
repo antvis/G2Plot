@@ -2,7 +2,7 @@ import { getTheme, registerTheme, getGlobalTheme, registerGlobalTheme, convertTo
 import { DEFAULT_GLOBAL_THEME } from '../../../src/theme/default';
 
 describe('theme', () => {
-  it('export', function() {
+  it('export', function () {
     expect(getTheme).not.toBeUndefined();
     expect(registerTheme).not.toBeUndefined();
     expect(getGlobalTheme).not.toBeUndefined();
@@ -10,19 +10,19 @@ describe('theme', () => {
     expect(convertToG2Theme).not.toBeUndefined();
   });
 
-  it('getGlobalTheme', function() {
+  it('getGlobalTheme', function () {
     expect(getGlobalTheme()).toEqual(DEFAULT_GLOBAL_THEME);
     expect(getGlobalTheme('not-defined')).toEqual(DEFAULT_GLOBAL_THEME);
   });
 
-  it('registerGlobalTheme', function() {
+  it('registerGlobalTheme', function () {
     registerGlobalTheme('xxx', { a: 1 });
 
     expect(getGlobalTheme()).toEqual(DEFAULT_GLOBAL_THEME);
     expect(getGlobalTheme('xxx')).toEqual({ ...getGlobalTheme(), a: 1 });
   });
 
-  it('registerTheme & getTheme', function() {
+  it('registerTheme & getTheme', function () {
     registerTheme('test-pie', { b: 2 });
 
     // not exist

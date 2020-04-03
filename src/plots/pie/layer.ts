@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { DataItem, Label, LineStyle, GraphicStyle } from '../../interface/config';
+import { DataItem, Label, GraphicStyle } from '../../interface/config';
 import { getGeom } from '../../geoms/factory';
 import { LayerConfig } from '../../base/layer';
 import { getPieLabel, PieLabelConfig } from './component/label';
@@ -125,7 +125,9 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }));
   }
 
-  protected axis() {}
+  protected axis() {
+    return;
+  }
 
   protected coord() {
     const props = this.options;
@@ -180,10 +182,16 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
   }
 
-  protected annotation() {}
+  protected annotation() {
+    return;
+  }
 
-  protected parseEvents(eventParser) {
-    super.parseEvents(EventParser);
+  protected parseEvents(eventParser?) {
+    if (eventParser) {
+      super.parseEvents(eventParser);
+    } else {
+      super.parseEvents(EventParser);
+    }
   }
 
   private label() {

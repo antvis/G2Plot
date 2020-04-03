@@ -13,7 +13,7 @@ function getValuesByField(field, data) {
 
 const COLOR_MAPPER = ['seriesField', 'stackField'];
 
-type PointShape =  string | { fields?:[]; callback:()=>string; }
+type PointShape = string | { fields?: []; callback: () => string };
 
 export default class GuidePointParser extends ElementParser {
   public init() {
@@ -68,11 +68,11 @@ export default class GuidePointParser extends ElementParser {
     this.config.size = config;
   }
 
-  public parseShape(shapeCfg:PointShape) {
+  public parseShape(shapeCfg: PointShape) {
     const config: LooseObject = {};
-    if(isString(shapeCfg)){
+    if (isString(shapeCfg)) {
       config.values = [shapeCfg];
-    }else if(isObject(shapeCfg)){
+    } else if (isObject(shapeCfg)) {
       config.fields = shapeCfg.fields;
       config.callback = shapeCfg.callback;
     }

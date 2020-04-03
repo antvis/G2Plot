@@ -2,14 +2,12 @@ import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
-import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
 import {
   ElementOption,
   ICatAxis,
   ITimeAxis,
   IValueAxis,
-  Label,
   GraphicStyle,
   LineStyle,
   ISliderInteractionConfig,
@@ -170,19 +168,20 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     this.addPoint();
   }
 
-  /* eslint-disable */
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected adjustArea(area: ElementOption) {
     return;
   }
 
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected adjustLine(line?: ElementOption) {
     return;
   }
 
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected adjustPoint(point?: ElementOption) {
     return;
   }
-  /* eslint-disable */
 
   protected addLine() {
     const props: any = this.options;
@@ -237,7 +236,9 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     }
   }
 
-  protected label() {}
+  protected label() {
+    return;
+  }
 
   protected geometryTooltip() {
     this.area.tooltip = {};

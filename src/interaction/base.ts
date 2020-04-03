@@ -38,11 +38,10 @@ export default abstract class BaseInteraction extends Interaction {
     return BaseInteraction.GLOBAL_INTERACTION_MAP[type];
   }
 
-  /* eslint-disable */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static getInteractionRange(layerRange: BBox, interaction?: IInteractionConfig): BBox | undefined {
     return undefined;
   }
-  /* eslint-disable */
 
   private static GLOBAL_INTERACTION_MAP: InteractionMap = {};
   private static PLOT_INTERACTION_MAP: { [plot: string]: InteractionMap } = {};
@@ -93,7 +92,9 @@ export default abstract class BaseInteraction extends Interaction {
     this.disposables.push(fn);
   }
 
-  protected render(): void {}
+  protected render(): void {
+    return;
+  }
 
-  protected abstract clear(): void
+  protected abstract clear(): void;
 }

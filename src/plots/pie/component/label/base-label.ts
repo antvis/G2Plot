@@ -101,7 +101,9 @@ export default abstract class PieBaseLabel {
     }
     labels.forEach((label) => checkInPanel(label, panel));
   }
-  protected adjustItem(item: LabelItem): void {}
+  protected adjustItem(item: LabelItem):void{ //eslint-disable-line
+    return;
+  }
 
   protected init() {
     this.container = this.getGeometry().labelsContainer;

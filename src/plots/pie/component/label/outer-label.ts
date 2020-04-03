@@ -1,7 +1,7 @@
 import { IShape, BBox } from '../../../../dependents';
 import { filter, head, last, map } from '@antv/util';
 import PieBaseLabel, { LabelItem, PieLabelConfig } from './base-label';
-import { getEndPoint, getOverlapArea, near } from './utils';
+import { getEndPoint } from './utils';
 
 // 默认label和element的偏移 16px
 export const DEFAULT_OFFSET = 16;

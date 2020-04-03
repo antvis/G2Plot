@@ -46,19 +46,17 @@ export default abstract class Interaction {
     this.afterStart(ev);
   }
 
-  /* eslint-disable */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected preStart(ev): void {
     return;
   }
-  /* eslint-disable */
 
   protected abstract start(ev): void;
-  
-  /* eslint-disable */
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected afterStart(ev): void {
     return;
   }
-  /* eslint-disable */
 
   private _process(ev) {
     this.preProcess(ev);
@@ -66,19 +64,20 @@ export default abstract class Interaction {
     this.afterProcess(ev);
   }
 
-  /* eslint-disable */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected preProcess(ev): void {
     return;
   }
 
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected process(ev): void {
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected afterProcess(ev): void {
     return;
   }
-  /* eslint-disable */
 
   private _end(ev) {
     this.preEnd(ev);
@@ -86,19 +85,20 @@ export default abstract class Interaction {
     this.afterEnd(ev);
   }
 
-  /* eslint-disable */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected preEnd(ev): void {
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected end(ev): void {
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected afterEnd(ev): void {
     return;
   }
-  /* eslint-disable */
 
   private _reset(ev?: any) {
     this.preReset(ev);
@@ -106,19 +106,20 @@ export default abstract class Interaction {
     this.afterReset(ev);
   }
 
-  /* eslint-disable */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected preReset(ev?: any): void {
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected reset(ev?: any): void {
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected afterReset(ev?: any): void {
     return;
   }
-  /* eslint-disable */
 
   private _bindEvents() {
     each(EVENT_TYPES, (type) => {

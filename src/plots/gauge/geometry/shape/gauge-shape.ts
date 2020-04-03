@@ -2,7 +2,7 @@
  * @author linhuiw
  * @description 仪表盘形状
  */
-import { get, clone, deepMix } from '@antv/util';
+import { clone, deepMix } from '@antv/util';
 import { registerShape } from '@antv/g2';
 import { IGroup } from '@antv/g-base';
 import { GaugeViewConfig, GaugeAxis, GaugePivot } from '../../interface';
@@ -325,10 +325,9 @@ export class GaugeShape {
       },
 
       getPath(starAngle: number, endAngle: number) {
-        const gauge = (this as any).gauge;
-        const type = this.gauge.type;
+        /* const type = this.gauge.type;
         const height = get(gauge, 'options.height');
-        const width = get(gauge, 'options.width');
+        const width = get(gauge, 'options.width');*/
         const center = this.gauge.center;
         const length = this.gauge.ringRadius;
         /*let thick;

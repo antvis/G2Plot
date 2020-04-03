@@ -168,7 +168,6 @@ describe('Bar Label', () => {
 
     plot.render();
 
-    const view = plot.getView();
     const labels = plot.getLayer().getLabels();
     const labelShapes = labels[0] && labels[0].getLabels();
 
@@ -218,7 +217,6 @@ describe('Bar Label', () => {
       return cityData.slice(len * offset, len * offset + cnt).reverse();
     };
     const getLabelShapes = () => {
-      const view = plot.getView();
       const labels = plot.getLayer().getLabels();
       return labels[0] && labels[0].getLabels();
     };

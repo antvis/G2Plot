@@ -220,11 +220,10 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
     this.setConfig('axes', axesConfig);
   }
 
-  /* eslint-disable */
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected adjustBar(bar: ElementOption) {
     return null;
   }
-  /* eslint-disable */
 
   protected addGeometry() {
     const props: any = this.options;

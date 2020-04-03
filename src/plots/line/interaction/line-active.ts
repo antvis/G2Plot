@@ -11,7 +11,7 @@ export default class LineActive extends Interaction {
     });
   }
 
-  public start(){
+  public start() {
     return;
   }
 

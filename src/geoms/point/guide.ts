@@ -1,5 +1,5 @@
 import { LooseObject } from '../../dependents';
-import { each, uniq, keys, isFunction, isString, isArray, has, get } from '@antv/util';
+import { each, uniq, keys, isFunction, isString, isArray, has, get, isObject } from '@antv/util';
 import ElementParser from '../base';
 
 function getValuesByField(field, data) {
@@ -12,6 +12,8 @@ function getValuesByField(field, data) {
 }
 
 const COLOR_MAPPER = ['seriesField', 'stackField'];
+
+type PointShape =  string | { fields?:[]; callback:()=>string; }
 
 export default class GuidePointParser extends ElementParser {
   public init() {
@@ -66,10 +68,14 @@ export default class GuidePointParser extends ElementParser {
     this.config.size = config;
   }
 
-  public parseShape(shapeName) {
-    const config: LooseObject = {
-      values: [shapeName],
-    };
+  public parseShape(shapeCfg:PointShape) {
+    const config: LooseObject = {};
+    if(isString(shapeCfg)){
+      config.values = [shapeCfg];
+    }else if(isObject(shapeCfg)){
+      config.fields = shapeCfg.fields;
+      config.callback = shapeCfg.callback;
+    }
     this.config.shape = config;
   }
 

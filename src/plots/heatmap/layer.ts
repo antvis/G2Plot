@@ -1,4 +1,4 @@
-import { deepMix, valuesOfKey, each } from '@antv/util';
+import { deepMix, valuesOfKey, each, isObject, isFunction } from '@antv/util';
 import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -6,12 +6,14 @@ import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { MatrixLegendConfig } from './component/legend';
 import { getRectPath, getCirclePath, getCircleCurve } from './shape';
 import { getPlotComponents } from './component';
+import { GraphicStyle } from '../../interface/config';
 
 export interface HeatmapViewConfig extends ViewConfig {
   sizeField?: string;
   colorField?: string;
   shapeSize?: number[];
   shapeType?: string;
+  shapeStyle?: GraphicStyle;
   color?: string[];
   legend?: MatrixLegendConfig;
 }
@@ -160,6 +162,21 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     } else {
       const circle = this.addCircle();
       geomConfig = circle;
+    }
+    if (this.options.shapeStyle) {
+      const styleConfig: any = {};
+      if (isObject(this.options.shapeStyle)) {
+        styleConfig.cfg = this.options.shapeStyle;
+      } else if (isFunction(this.options.shapeType)) {
+        styleConfig.fields = [
+          this.options.colorField,
+          this.options.xField,
+          this.options.yField,
+          this.options.sizeField,
+        ];
+        styleConfig.callback = this.options.shapeType;
+      }
+      geomConfig.style = styleConfig;
     }
     if (this.options.tooltip && (this.options.tooltip.fields || this.options.tooltip.formatter)) {
       this.geometryTooltip(geomConfig);

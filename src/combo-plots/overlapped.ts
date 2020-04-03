@@ -84,6 +84,7 @@ export default class OverlappedComboPlot<
         visible: true,
         position: 'top-left',
       },
+      animation: false,
     };
   }
 
@@ -93,6 +94,7 @@ export default class OverlappedComboPlot<
   }
 
   protected createComboLayers() {
+    this.options.layers = this.layerOptionsFilter(this.options.layers);
     super.createComboLayers();
     this.legendInfo = [];
     this.axisInfo = [];
@@ -190,6 +192,9 @@ export default class OverlappedComboPlot<
   public render() {
     this.doDestroy();
     this.createComboLayers();
+    if (this.layers.length < 1) {
+      return;
+    }
     const { bleeding } = getGlobalTheme();
     if (this.globalOptions.legend.visible) {
       const legend = this.overlappingLegend();
@@ -262,5 +267,15 @@ export default class OverlappedComboPlot<
     });
     this.paddingComponents = [];
     this.globalComponents = [];
+  }
+
+  private layerOptionsFilter(options) {
+    const filterOptions = [];
+    _.each(options, (option) => {
+      if (!_.isNil(option.data) && option.data.length > 0) {
+        filterOptions.push(option);
+      }
+    });
+    return filterOptions;
   }
 }

@@ -1,35 +1,31 @@
-import { deepMix, has, map, each } from '@antv/util';
+import { deepMix, has, map, each, get, some } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
 import { getGeom } from '../../geoms/factory';
-import { ICatAxis, ITimeAxis, IValueAxis, Label } from '../../interface/config';
+import {
+  ICatAxis,
+  ITimeAxis,
+  IValueAxis,
+  Label,
+  GraphicStyle,
+  LineStyle,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
+import '../../components/label/point';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
+import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';
 import './theme';
 import './apply-responsive/theme';
 import { LooseMap } from '../../interface/types';
 import { LineActive, LineSelect } from './interaction/index';
-
-export interface LineStyle {
-  stroke?: string;
-  opacity?: number;
-  lineDash?: number[];
-  lineJoin?: 'bevel' | 'round' | 'miter';
-  lineCap?: 'butt' | 'round' | 'square';
-}
-
-export interface PointStyle {
-  lineDash?: number[];
-  lineWidth?: number;
-  opacity?: string;
-  fill?: string;
-  stroke?: string;
-}
+import { getGeometryByType } from '../../util/view';
 
 type IObject = LooseMap;
 
@@ -37,6 +33,10 @@ const GEOM_MAP = {
   line: 'line',
   point: 'point',
 };
+
+type AreaInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
 export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */
@@ -53,10 +53,14 @@ export interface LineViewConfig extends ViewConfig {
     shape?: string;
     size?: number;
     color?: string;
-    style?: PointStyle;
+    style?: GraphicStyle;
   };
+  markerPoints?: (Omit<MarkerPointCfg, 'view'> & {
+    visible?: boolean;
+  })[];
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
+  interactions?: AreaInteraction[];
 }
 
 export interface LineLayerConfig extends LineViewConfig, LayerConfig {}
@@ -88,25 +92,43 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         position: 'top-left',
         wordSpacing: 4,
       },
+      tooltip: {
+        crosshairs: {
+          line: {
+            style: {
+              stroke: 'rgba(0,0,0,0.45)',
+            },
+          },
+        },
+      },
+      markerPoints: [],
     });
   }
 
   public line: any; // 保存line和point的配置项，用于后续的label、tooltip
   public point: any;
   public type: string = 'line';
+  protected markerPoints: MarkerPoint[] = [];
 
   public afterRender() {
-    const props = this.options;
-    if (this.options.label && this.options.label.visible && this.options.label.type === 'line') {
-      const label = new LineLabel({
-        view: this.view,
-        plot: this,
-        ...this.options.label,
+    const options = this.options;
+    this.renderLabel();
+    if (options.markerPoints) {
+      // 清空
+      each(this.markerPoints, (markerPoint: MarkerPoint) => markerPoint.destroy());
+      this.markerPoints = [];
+      options.markerPoints.forEach((markerPointOpt) => {
+        if (markerPointOpt.visible) {
+          const markerPoint = new MarkerPoint({
+            ...markerPointOpt,
+            view: this.view,
+          });
+          this.markerPoints.push(markerPoint);
+        }
       });
-      label.render();
     }
     // 响应式
-    if (props.responsive && props.padding !== 'auto') {
+    if (options.responsive && options.padding !== 'auto') {
       this.applyResponsive('afterRender');
     }
     super.afterRender();
@@ -141,6 +163,14 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     return;
   }
 
+  protected tooltip() {
+    // 如果有标注点，则不展示markers
+    if (some(this.options.markerPoints, (markerPointOpt) => markerPointOpt.visible)) {
+      this.options.tooltip.showMarkers = false;
+    }
+    super.tooltip();
+  }
+
   protected addGeometry() {
     // 配置线
     this.addLine();
@@ -153,10 +183,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     this.line = getGeom('line', 'main', {
       plot: this,
     });
-
-    if (props.label) {
-      this.label();
-    }
 
     if (props.tooltip && (props.tooltip.fields || props.tooltip.formatter)) {
       this.geometryTooltip();
@@ -179,24 +205,27 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     }
   }
 
-  protected label() {
-    const props = this.options;
-    const label = props.label as Label;
-
-    if (label.visible === false || this.singleLineLabelCheck()) {
-      this.line.label = false;
-      return;
-    }
-
-    /** label类型为point时，使用g2默认label */
-    if (label.type === 'point') {
-      this.line.label = getComponent('label', {
-        plot: this,
-        top: true,
-        labelType: label.type,
-        fields: [props.yField],
-        ...label,
-      });
+  protected renderLabel() {
+    const { scales } = this.config;
+    const { label, yField } = this.options;
+    const scale = scales[yField];
+    if (label.visible) {
+      const geometry = getGeometryByType(this.view, 'line');
+      if (label.type === 'line') {
+        // TODO: Line Label 迁移
+        const label = new LineLabel({
+          view: this.view,
+          plot: this,
+          ...this.options.label,
+        });
+        label.render();
+      } else {
+        this.doRenderLabel(geometry, {
+          type: 'point',
+          formatter: scale.formatter,
+          ...this.options.label,
+        });
+      }
     }
   }
 
@@ -220,35 +249,16 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
   protected animation() {
     super.animation();
     const props = this.options;
-    if (props.animation === false) {
+    if (!props.animation) {
       // 关闭动画
       this.line.animate = false;
       if (this.point) this.point.animate = false;
-    } else if (has(props, 'animation')) {
-      // 根据动画类型区分图形动画和群组动画
-      if (props.animation.type === 'clipingWithData' && props.padding !== 'auto') {
-        getPlotOption({
-          options: this.options,
-          view: this.view,
-        });
-        this.line.animate = {
-          appear: {
-            animation: 'clipingWithData',
-            easing: 'easeLinear',
-            duration: 10000,
-            options: {
-              test: true,
-            },
-            yField: props.yField,
-            seriesField: props.seriesField,
-            plot: this,
-          },
-        };
-        // 如果有数据点的话要追加数据点的动画
-        if (props.point && props.point.visible) {
-          this.point.animate = false;
-        }
-      }
+    } else {
+      getPlotOption({
+        options: this.options,
+        view: this.view,
+      });
+      this.line.animate = props.animation;
     }
   }
 

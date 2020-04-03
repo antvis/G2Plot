@@ -6,12 +6,18 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "基础面积图",
+      "title": {
+        "zh":"基础面积图",
+        "en": "Basic Area Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aARCQbtAl4AAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "slider.js",
-      "title": "基础面积图 - 缩略轴",
+      "title": {
+        "zh": "基础面积图 - 缩略轴",
+        "en": "Basic Area Chart with Slider"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7ii4SqySXNAAAAAAAAAAAABkARQnAQ"
     }
   ]

@@ -4,16 +4,19 @@ import { getGeom } from '../../geoms/factory';
 import TinyLayer, { TinyViewConfig } from '../tiny-layer';
 import Marker, { MarkerConfig } from './component/marker';
 import * as EventParser from './event';
-import { IStyle } from '../../interface/config';
+import { GraphicStyle } from '../../interface/config';
 
 export interface ProgressViewConfig extends TinyViewConfig {
-  stackField?: number;
-  progressStyle?: any; // FIXME:
+  progressStyle?: GraphicStyle;
   percent?: number;
   size?: number;
   marker?: MarkerConfig[];
+  /** @ignore */
   barSize?: number;
-  barStyle?: IStyle;
+  /** @ignore */
+  barStyle?: GraphicStyle;
+  /** @ignore */
+  stackField?: string;
 }
 
 interface UpdateConfig {
@@ -289,7 +292,7 @@ export default class ProgressLayer<T extends ProgressLayerConfig = ProgressLayer
   private getUpdateAnimationOptions() {
     let duration = 450;
     let easing = 'easeQuadInOut';
-    const animationOptions = this.options.animation;
+    const animationOptions: any = this.options.animation;
     if (animationOptions && animationOptions.update) {
       if (animationOptions.update.duration) {
         duration = animationOptions.update.duration;

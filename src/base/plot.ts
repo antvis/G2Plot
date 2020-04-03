@@ -17,6 +17,7 @@ export interface PlotConfig {
   height?: number;
   pixelRatio?: number;
   theme?: LooseMap | string;
+  localRefresh?: boolean;
 }
 
 type LayerCtor<C> = ViewLayer<C>;
@@ -31,6 +32,7 @@ export default class BasePlot<
   public renderer: string;
   public pixelRatio: number;
   public theme: string | object;
+  public localRefresh?: boolean;
   public canvas: ICanvas;
   public destroyed: boolean;
   protected layers: Array<L>;
@@ -47,6 +49,7 @@ export default class BasePlot<
     this.width = props.width;
     this.height = props.height;
     this.theme = props.theme;
+    this.localRefresh = props.localRefresh;
     this.canvasController = new CanvasController({
       containerDOM: this.containerDOM,
       plot: this,

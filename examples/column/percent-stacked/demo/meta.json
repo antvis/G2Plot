@@ -6,7 +6,10 @@
   "demos": [
     {
       "filename": "basic.js",
-      "title": "百分比堆叠柱状图",
+      "title": {
+        "zh":"百分比堆叠柱状图",
+        "en":"PercentStackedColumn Chart"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aPzuQ5D24U8AAAAAAAAAAABkARQnAQ"
     }
   ]

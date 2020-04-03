@@ -13,7 +13,6 @@ import { getPieLabel } from '../pie/component/label';
 export interface DonutViewConfig extends PieViewConfig {
   innerRadius?: number;
   /** 指标卡用于显示总计值和各项数据 */
-
   statistic?: {
     visible: boolean;
     /** 指标卡 总计值 标签 */
@@ -23,7 +22,7 @@ export interface DonutViewConfig extends PieViewConfig {
     /** 触发隐藏的事件 */
     triggerOff: 'mouseleave';
     content?: string;
-    htmlContent?: (...args: any) => any;
+    htmlContent?: (...args: any) => string;
   };
 }
 
@@ -90,7 +89,6 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
       this.statistic.render();
       /**响应交互 */
       if (this.options.statistic.triggerOn) {
-        //this.triggerOnStatistic();
         this.statistic.triggerOn();
       }
     }

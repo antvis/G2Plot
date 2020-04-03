@@ -5,7 +5,7 @@
 import { deepMix, get, map, isArray, reduce, has, isFunction, isString, isObject } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import './geometry/shape/waterfall';
-import { ElementOption, IStyleConfig, DataItem, LayerConfig } from '../..';
+import { ElementOption, DataItem, LayerConfig } from '../..';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { extractScale } from '../../util/scale';
 import { AttributeCfg } from '@antv/attr';
@@ -13,9 +13,8 @@ import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
-import WaterfallLabels from './component/label/waterfall-label';
-
-interface WaterfallStyle {}
+import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
+import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
   waterfall: 'interval',
@@ -37,22 +36,18 @@ export interface WaterfallViewConfig extends ViewConfig {
   /** 差值label */
   diffLabel?: {
     visible: boolean;
-    style?: DiffLabelcfg['style'];
+    style?: TextStyle;
     formatter?: DiffLabelcfg['formatter'];
   };
   leaderLine?: {
     visible: boolean;
-    style?: {
-      stroke?: string;
-      lineWidth?: number;
-      lineDash?: number[];
-    };
+    style?: LineStyle;
   };
   color?:
     | string
     | { rising: string; falling: string; total?: string }
     | ((type: string, value: number | null, values: number | number[], index: number) => string);
-  waterfallStyle?: WaterfallStyle | ((...args: any[]) => WaterfallStyle);
+  waterfallStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
 }
 
 export interface WaterfallLayerConfig extends WaterfallViewConfig, LayerConfig {}
@@ -143,13 +138,12 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   }
 
   protected renderLabel() {
+    const geometry = getGeometryByType(this.view, 'interval');
     if (this.options.label && this.options.label.visible) {
-      const label = new WaterfallLabels({
-        view: this.view,
-        plot: this,
+      this.doRenderLabel(geometry, {
+        type: 'waterfall',
         ...this.options.label,
       });
-      label.render();
     }
   }
 
@@ -274,7 +268,7 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
   }
 
   /** 牵引线的样式注入到style中 */
-  private _parseStyle(): IStyleConfig {
+  private _parseStyle(): LineStyle {
     const style = this.options.waterfallStyle;
     const leaderLine = this.options.leaderLine;
     const config: Record<string, any> = {};

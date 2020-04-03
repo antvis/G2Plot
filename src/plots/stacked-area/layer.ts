@@ -7,12 +7,23 @@ import BaseArea, { AreaViewConfig } from '../area/layer';
 import { getPlotComponents } from './component';
 
 interface IAreaLabel extends Label {
+  type: 'area';
   autoScale?: boolean;
 }
 
+interface ILineLabel extends Label {
+  type: 'line';
+}
+
+interface IPointLabel extends Label {
+  type: 'point';
+}
+
+type AreaLabel = IAreaLabel | ILineLabel | IPointLabel;
+
 export interface StackedAreaViewConfig extends AreaViewConfig {
   stackField: string;
-  label: IAreaLabel;
+  label: AreaLabel;
 }
 
 export interface StackedAreaLayerConfig extends StackedAreaViewConfig, LayerConfig {}
@@ -59,11 +70,6 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
       }
       this.area.label = false;
       return;
-    } else if (label.type === 'point') {
-      this.area.label = getComponent('label', {
-        fields: [props.yField],
-        plot: this,
-      });
     }
   }
 

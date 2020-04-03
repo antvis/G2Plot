@@ -1,17 +1,26 @@
-import { deepMix, has, each, clone } from '@antv/util';
+import { deepMix, has, each, clone, head } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import { ElementOption, ICatAxis, ITimeAxis, IValueAxis, IStyleConfig } from '../../interface/config';
+import {
+  ElementOption,
+  ICatAxis,
+  IValueAxis,
+  Label,
+  ISliderInteractionConfig,
+  IScrollbarInteractionConfig,
+} from '../../interface/config';
 import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
-import ColumnLabel from './component/label';
+import './component/label';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
+import { GraphicStyle } from '../../interface/config';
+import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -21,18 +30,26 @@ const PLOT_GEOM_MAP = {
   interval: 'column',
 };
 
+interface IColumnLabel extends Label {
+  position?: string | 'top' | 'middle' | 'bottom';
+  adjustPosition?: boolean;
+  adjustColor?: boolean;
+}
+
+type ColumnInteraction =
+  | { type: 'slider'; cfg: ISliderInteractionConfig }
+  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
+
 export interface ColumnViewConfig extends ViewConfig {
-  // 图形
-  type?: 'rect' | 'triangle' | 'round';
   colorField?: string;
   // 百分比, 数值, 最小最大宽度
   columnSize?: number;
-  maxWidth?: number;
-  minWidth?: number;
-  columnStyle?: IStyleConfig | ((...args: any[]) => IStyleConfig);
-  xAxis?: ICatAxis | ITimeAxis;
+  columnStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
+  xAxis?: ICatAxis;
   yAxis?: IValueAxis;
   conversionTag?: ConversionTagOptions;
+  label?: IColumnLabel;
+  interactions?: ColumnInteraction[];
 }
 
 export interface ColumnLayerConfig extends ColumnViewConfig, LayerConfig {}
@@ -216,16 +233,15 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
+    const { label, yField } = this.options;
     const scale = scales[yField];
-    if (this.options.label && this.options.label.visible) {
-      const label = new ColumnLabel({
-        view: this.view,
-        plot: this,
+    if (label && label.visible) {
+      const geometry = getGeometryByType(this.view, 'interval');
+      this.doRenderLabel(geometry, {
+        type: 'column',
         formatter: scale.formatter,
         ...this.options.label,
       });
-      label.render();
     }
   }
 

@@ -1,10 +1,16 @@
 import { registerAnimation } from '../../../dependents';
-import { clone, isFunction } from '@antv/util';
+import { clone, isFunction, isNil, deepMix } from '@antv/util';
 
 let plotInfo;
 
 function clipingWithData(shape, animateCfg) {
+  const defaultCfg = {
+    easing: 'easeLinear',
+    duration: 10000,
+  };
+  const animationConfig = deepMix({}, animateCfg, defaultCfg);
   const geometry = shape.get('element').geometry;
+  geometry.labelsContainer.set('visible', false);
   /** 动画初始状态 */
   const index = shape.get('index');
   const coord = geometry.coordinate;
@@ -15,13 +21,14 @@ function clipingWithData(shape, animateCfg) {
   const clip = shape.get('clipShape');
   const parent = shape.get('parent');
   const offsetX = 12;
-  let title;
-  if (animateCfg.seriesField) {
+  let title = null;
+  const { seriesField } = plotInfo.options;
+  if (seriesField) {
     title = parent.addShape('text', {
       attrs: {
         x: coord.start.x + offsetX,
         y: 0,
-        text: shapeData[0]._origin[animateCfg.seriesField],
+        text: shapeData.data[0][seriesField],
         fill: shape.attr('stroke'),
         fontSize: 12,
         textAlign: 'start',
@@ -42,7 +49,7 @@ function clipingWithData(shape, animateCfg) {
     },
   });
   /** 动画执行之后 */
-  animateCfg.callback = () => {
+  animationConfig.callback = () => {
     if (shape && !shape.get('destroyed')) {
       shape.setClip(null);
       clip.remove();
@@ -53,42 +60,38 @@ function clipingWithData(shape, animateCfg) {
         300,
         () => {
           marker.remove();
+          if (!isNil(title)) {
+            title.remove();
+          }
+          const labelsContainer = geometry.labelsContainer;
+          if (!labelsContainer.get('visible')) {
+            labelsContainer.set('visible', true);
+          }
         }
       );
-      if (title) {
-        marker.animate(
-          {
-            opacity: 0,
-          },
-          300,
-          () => {
-            marker.remove();
-          }
-        );
-      }
     }
   };
   /** 执行动画 */
   /** 准备动画参数 */
-  let delay = animateCfg.delay;
+  let delay = animationConfig.delay;
   if (isFunction(delay)) {
-    delay = animateCfg.delay(index);
+    delay = animationConfig.delay(index);
   }
-  let easing = animateCfg.easing;
+  let easing = animationConfig.easing;
   if (isFunction(easing)) {
-    easing = animateCfg.easing(index);
+    easing = animationConfig.easing(index);
   }
   /** 动起来 */
   clip.animate(
     {
       width: coord.getWidth(),
     },
-    animateCfg.duration,
+    animationConfig.duration,
     easing,
-    animateCfg.callback,
+    animationConfig.callback,
     delay
   );
-  (animateCfg.onFrame = (ratio) => {
+  (animationConfig.onFrame = (ratio) => {
     const position = getPositionByRatio(ratio, shapeData, coord);
     if (!position) return;
 
@@ -103,10 +106,10 @@ function clipingWithData(shape, animateCfg) {
 
     marker.attr('text', yText);
   }),
-    marker.animate(animateCfg.onFrame, {
-      duration: animateCfg.duration,
+    marker.animate(animationConfig.onFrame, {
+      duration: animationConfig.duration,
       easing,
-      callback: animateCfg.callback,
+      callback: animationConfig.callback,
       delay,
     });
   if (title) {
@@ -119,9 +122,9 @@ function clipingWithData(shape, animateCfg) {
           title.attr('y', position[1]);
         },
       },
-      animateCfg.duration,
+      animationConfig.duration,
       easing,
-      animateCfg.callback,
+      animationConfig.callback,
       delay
     );
   }

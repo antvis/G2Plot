@@ -8,6 +8,7 @@ import { LayerConfig } from '../../base/layer';
 import { registerPlotType } from '../../base/global';
 import BulletRect from './component/bulletRect';
 import BulletTarget from './component/bulletTarget';
+import { TextStyle, LineStyle } from '../../interface/config';
 import './theme';
 
 const G2_GEOM_MAP = {
@@ -22,19 +23,16 @@ export const STACK_FIELD = '$$stackField$$';
 export const X_FIELD = '$$xField$$';
 export const Y_FIELD = '$$yField$$';
 
+interface BulletAxisTickLine extends LineStyle {
+  visible?: boolean;
+}
+
 export interface BulletAxis {
   visible: boolean;
   position?: 'before' | 'after';
-  style?: {
-    fontSize?: number;
-    lineHeight?: number;
-  };
+  style?: TextStyle;
   tickCount?: number;
-  tickLine?: {
-    visible: boolean;
-    lineWidth?: number;
-    lineDash?: number[];
-  };
+  tickLine?: BulletAxisTickLine;
   formatter?: (text: string, idx: number) => string;
 }
 

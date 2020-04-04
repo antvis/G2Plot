@@ -36,6 +36,8 @@ type AreaInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
   | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
+type PointShape = string | { fields?: []; callback: () => string };
+
 export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */
   seriesField?: string;
@@ -48,7 +50,7 @@ export interface LineViewConfig extends ViewConfig {
   /** 折线数据点图形样式 */
   point?: {
     visible?: boolean;
-    shape?: string;
+    shape?: PointShape;
     size?: number;
     color?: string;
     style?: GraphicStyle;

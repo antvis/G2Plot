@@ -500,6 +500,22 @@ style:{
 | showConfidence | boolean | 是否绘制置信区间曲线 |
 | confidenceStyle | object | 配置置信区间样式 |
 
+### timeLine ✨
+
+**可选**，_object_
+
+[DEMO](../../../examples/bubble/basic#timeline)
+
+功能描述： 播放轴组件
+
+| 细分配置        | 类型    | 功能描述                                                               |
+| --------------- | ------- | ---------------------------------------------------------------------- |
+| field           | string  |  播放轴筛选字段，必选                                                          |
+| key | string | 播放轴播放动画标识字段，必选 |
+| loop | boolean | 是否循环播放 |
+| auto | boolean | 是否自动播放 |
+| speed | number | 播放轴播放速度，多少s一个间隔，可选 |
+| height | number | 播放轴高度，可选 |
 
 ## 事件
 

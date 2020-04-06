@@ -346,7 +346,10 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     }
   };
 
-  private onTimeSelectMouseDown = (event: Event) => {
+  private onTimeSelectMouseDown = (e: Event) => {
+    // 取出原生事件
+    const event = e.originalEvent as MouseEvent;
+
     event.stopPropagation();
     event.preventDefault();
 
@@ -359,7 +362,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
       this.changePlayStatus(false);
     }
 
-    this.prevX = get(event, 'touches.0.pageX', event.x);
+    this.prevX = get(event, 'touches.0.pageX', event.pageX);
 
     // 开始滑动的时候，绑定 move 和 up 事件
     const containerDOM = this.getCanvas().get('container');

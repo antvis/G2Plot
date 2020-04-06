@@ -10,7 +10,7 @@ export default abstract class BaseComponent<T extends BaseComponentConfig = Base
   protected container: IGroup;
   protected group: IGroup;
   protected destroyed: boolean;
-  private config: T;
+  protected config: T;
   private disposables: (() => void)[];
 
   public constructor(config: T) {

@@ -3,12 +3,12 @@
  * @author blackganglion
  */
 
-import { IShape } from '@antv/g-base';
-import { Group } from '@antv/g-canvas';
+import { IShape, IGroup } from '@antv/g-base';
 import { deepMix } from '@antv/util';
+import BaseComponent, { BaseComponentConfig } from '../base';
 
 /** 播放按钮配置 */
-interface ButtonCfg {
+interface ButtonCfg extends BaseComponentConfig {
   /** 按钮位置数据 */
   readonly x: number;
   readonly y: number;
@@ -16,27 +16,22 @@ interface ButtonCfg {
   readonly isPlay: boolean;
 }
 
-export default class Button extends Group {
-  /** button 配置 */
-  private config: ButtonCfg;
+export default class Button extends BaseComponent<ButtonCfg> {
   /** 圆点 */
   private circle: IShape;
   /** 开始 marker */
   private startMarker: IShape;
   /** 暂停 marker */
-  private pauseGroupMarker: Group;
+  private pauseGroupMarker: IGroup;
   private pauseLeftMarker: IShape;
   private pauseRightMarker: IShape;
 
   constructor(cfg: ButtonCfg) {
-    super({
-      name: 'timeline-button',
-      visible: true,
-    });
+    super(deepMix({}, cfg));
+  }
 
-    this.config = deepMix({}, cfg);
-
-    this.init();
+  protected renderInner() {
+    // 基类抽象方法，暂无实现
   }
 
   public update(cfg: Partial<ButtonCfg>) {
@@ -45,13 +40,22 @@ export default class Button extends Group {
     this.renderMarker();
   }
 
-  private init() {
+  protected init() {
     this.initElement();
     this.renderMarker();
+
+    this.group.on('click', () => {
+      this.emit('click');
+    });
+  }
+
+  public destroy() {
+    this.group.off();
+    super.destroy();
   }
 
   private initElement() {
-    this.circle = this.addShape('circle', {
+    this.circle = this.group.addShape('circle', {
       attrs: {
         x: this.config.x,
         y: this.config.y,
@@ -60,17 +64,14 @@ export default class Button extends Group {
       },
     });
 
-    this.startMarker = this.addShape('path', {
+    this.startMarker = this.group.addShape('path', {
       attrs: {
         path: this.getStartMarkerPath(),
         fill: '#ffffff',
       },
     });
 
-    this.pauseGroupMarker = new Group({
-      name: 'timeline-button-pause',
-      visible: true,
-    });
+    this.pauseGroupMarker = this.group.addGroup();
     const width = (1 / 4) * this.config.r;
     const height = 0.5 * this.config.r * Math.sqrt(3);
     this.pauseLeftMarker = this.pauseGroupMarker.addShape('rect', {
@@ -92,7 +93,7 @@ export default class Button extends Group {
       },
     });
 
-    this.add(this.pauseGroupMarker);
+    this.group.add(this.pauseGroupMarker);
   }
 
   private updateElement() {

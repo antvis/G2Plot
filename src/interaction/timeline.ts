@@ -1,5 +1,5 @@
-import { throttle, uniq, isEqual, set } from '@antv/util';
-import { IGroup } from '@antv/g-base';
+import { throttle, uniq, isEqual } from '@antv/util';
+import { IGroup, VIEW_LIFE_CIRCLE } from '../dependents';
 import BaseInteraction from './base';
 import { ITimeLineInteractionConfig } from '../interface/config';
 import BBox from '../util/bbox';
@@ -32,7 +32,8 @@ export default class TimeLineInteraction extends BaseInteraction {
   /** TimeLineInteraction new 时的范围参数 interactionRange */
   public static getInteractionRange(layerRange: BBox, interaction: ITimeLineInteractionConfig): BBox {
     const config: ITimeLineInteractionConfig = getValidTimeLineConfig(interaction);
-    const [paddingTop, paddingRight, paddingBottom, paddingLeft] = config.padding;
+    const paddingTop = config.padding[0];
+    const paddingBottom = config.padding[2];
 
     return new BBox(
       layerRange.minX,
@@ -48,6 +49,10 @@ export default class TimeLineInteraction extends BaseInteraction {
     geometries.forEach((geom) => {
       geom.animate(isAnimate);
     });
+  }
+
+  protected start() {
+    return;
   }
 
   private renderTimeLine() {
@@ -73,13 +78,16 @@ export default class TimeLineInteraction extends BaseInteraction {
 
     if (this.timeline) {
       if (!isEqual(timeLineConfig, this.timeLineConfig)) {
-        this.timeline.update(timeLineConfig);
         this.timeLineConfig = timeLineConfig;
+        this.timeline.update(timeLineConfig);
       }
     } else {
       this.container = this.canvas.addGroup();
 
-      this.timeline = new TimeLine(timeLineConfig);
+      this.timeline = new TimeLine({
+        container: this.container,
+        ...timeLineConfig,
+      });
       this.timeline.on('timelinestart', () => {
         this.originAnimation = this.view.getOptions().animate;
         this.setAnimate(true);
@@ -89,8 +97,7 @@ export default class TimeLineInteraction extends BaseInteraction {
       });
       this.timeline.on('timelinechange', this.onChangeFn);
       this.timeline.on('timelineupdate', this.onChange.bind(this));
-      this.container.add(this.timeline);
-      this.view.changeData(this.getFilterData(ticks[0]));
+      this.view.data(this.getFilterData(ticks[0]));
       this.timeLineConfig = timeLineConfig;
     }
   }
@@ -115,10 +122,20 @@ export default class TimeLineInteraction extends BaseInteraction {
   /** 渲染 timeline */
   protected render(): void {
     this.firstRender = true;
-    this.view.on('beforerender', () => {
+    this.view.on(VIEW_LIFE_CIRCLE.BEFORE_RENDER, () => {
       this.renderTimeLine();
     });
-    this.view.on('afterrender', () => {
+    this.view.on(VIEW_LIFE_CIRCLE.BEFORE_PAINT, () => {
+      this.renderTimeLine();
+    });
+    this.view.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, () => {
+      if (this.config.auto && this.firstRender) {
+        this.timeline.isPlay = true;
+        this.timeline.changePlayStatus();
+      }
+      this.firstRender = false;
+    });
+    this.view.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
       if (this.config.auto && this.firstRender) {
         this.timeline.isPlay = true;
         this.timeline.changePlayStatus();

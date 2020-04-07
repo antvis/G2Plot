@@ -8,7 +8,7 @@
       "filename": "basic.js",
       "title": {
         "zh":"基础面积图",
-        "en": "Basic Area Chart"
+        "en": "basic Area chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aARCQbtAl4AAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "slider.js",
       "title": {
         "zh": "基础面积图 - 缩略轴",
-        "en": "Basic Area Chart with Slider"
+        "en": "basic Area chart with Slider"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7ii4SqySXNAAAAAAAAAAAABkARQnAQ"
     }

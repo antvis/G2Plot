@@ -8,7 +8,7 @@
       "filename": "basic.js",
       "title": {
         "zh":"基础玫瑰图",
-        "en":"baisc Rose Chart"
+        "en":"baisc Rose chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "stacked-rose.js",
       "title": {
         "zh":"堆叠玫瑰图",
-        "en":"StackedRose Chart"
+        "en":"StackedRose chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8fJ4Q7PHkKQAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "grouped-rose.js",
       "title": {
         "zh":"分组玫瑰图",
-        "en":"GroupedRose Chart"
+        "en":"GroupedRose chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KDVrQZvVQzMAAAAAAAAAAABkARQnAQ"
     }

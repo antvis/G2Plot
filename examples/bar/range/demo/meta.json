@@ -8,7 +8,7 @@
       "filename": "range-bar.js",
       "title": {
         "zh":"区间柱条形图",
-        "en":"RangeColumn Chart"
+        "en":"RangeColumn chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lquWRLfl8hIAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "range-bar-label.js",
       "title": {
         "zh":"区间条形图label样式",
-        "en":"RangeColumn Chart - label style"
+        "en":"RangeColumn chart - label style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HtyxTaMKQ0UAAAAAAAAAAABkARQnAQ"
     }

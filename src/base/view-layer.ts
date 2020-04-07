@@ -12,6 +12,8 @@ import {
   flatten,
   reduce,
   findIndex,
+  clone,
+  isString,
 } from '@antv/util';
 import { View, BBox, Geometry, VIEW_LIFE_CIRCLE } from '../dependents';
 import TextDescription from '../components/description';
@@ -283,9 +285,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
+
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
+    }
+    if (this.options.tooltip && this.options.tooltip.customContent && this.options.padding !== 'auto') {
+      this.customTooltip();
     }
   }
 
@@ -419,10 +425,29 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.setConfig('tooltip', false);
       return;
     }
-
+    const tooltipOptions = clone(get(this.options, 'tooltip'));
+    if (tooltipOptions.customContent && tooltipOptions.customContent.container) {
+      tooltipOptions.container = tooltipOptions.customContent.container;
+      delete tooltipOptions.customContent;
+    }
     this.setConfig('tooltip', deepMix({}, get(this.options, 'tooltip')));
 
     deepMix(this.config.theme.tooltip, this.options.tooltip.domStyles);
+  }
+
+  protected customTooltip() {
+    let container;
+    const customContentCfg = this.options.tooltip.customContent;
+    if (customContentCfg.container) {
+      container = isString(customContentCfg.container)
+        ? document.getElementById(customContentCfg.container)
+        : container;
+    } else {
+      container = document.getElementsByClassName('g2-tooltip')[0];
+    }
+    this.view.on('tooltip:change', (ev) => {
+      customContentCfg.callback(container, ev);
+    });
   }
 
   protected getLegendPosition(position: string): any {

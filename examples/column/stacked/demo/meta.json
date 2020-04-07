@@ -8,7 +8,7 @@
       "filename": "stackColumn.js",
       "title": {
         "zh":"堆叠柱状图",
-        "en":"StackedColumn Chart"
+        "en":"StackedColumn chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*b7StTaZVdmAAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "connected-area.js",
       "title": {
         "zh":"区域联通组件",
-        "en":"StackedColumn Chart with Connected Area"
+        "en":"StackedColumn chart with Connected Area"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lGVLS79U-esAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "label-auto-hide.js",
       "title": {
         "zh":"图形标签自动隐藏",
-        "en":"StackedColumn Chart - auto hide label"
+        "en":"StackedColumn chart - auto hide label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0t8aT7n94A4AAAAAAAAAAABkARQnAQ"
     }

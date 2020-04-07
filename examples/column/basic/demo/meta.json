@@ -8,7 +8,7 @@
       "filename": "column.js",
       "title": {
         "zh":"基础柱状图",
-        "en":"Basic Column Chart"
+        "en":"Basic Column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "column-label.js",
       "title": {
         "zh":"基础柱状图-图形标签",
-        "en":"Column Chart label"
+        "en":"Column chart label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*6xAoRa0kaxEAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "column-label-position.js",
       "title": {
         "zh":"基础柱状图-图形标签位置",
-        "en":"Column Chart label position"
+        "en":"Column chart label position"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "column-label-color-adjust.js",
       "title": {
         "zh":"基础柱状图-label颜色自动调整",
-        "en":"Column Chart - auto adjust label color"
+        "en":"Column chart - auto adjust label color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CR2bQql90DgAAAAAAAAAAABkARQnAQ"
     },

@@ -8,7 +8,7 @@
       "filename": "line-multiple.js",
       "title": {
         "zh":"多折线图",
-        "en":"multiple Line Chart"
+        "en":"multiple Line chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vlFFSqrmsUkAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "line-label.js",
       "title": {
         "zh":"多折线动画",
-        "en":"multiple Line Chart animation"
+        "en":"multiple Line chart animation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3HyPSaIxw0gAAAAAAAAAAABkARQnAQ"
     },

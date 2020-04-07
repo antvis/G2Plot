@@ -8,7 +8,7 @@
       "filename": "basic.js",
       "title": {
         "zh":"基础气泡图",
-        "en":"Bubble Chart"
+        "en":"Bubble chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_lGkQrhj53gAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "quadrant.js",
       "title": {
         "zh":"气泡图加四象限",
-        "en":"Bubble Chart with Quadrant"
+        "en":"Bubble chart with Quadrant"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "trendline.js",
       "title": {
         "zh":"气泡图加趋势线",
-        "en":"Bubble Chart with Trend Line"
+        "en":"Bubble chart with Trend Line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x7RdTZKUXpkAAAAAAAAAAABkARQnAQ"
     }

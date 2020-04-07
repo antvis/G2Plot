@@ -356,7 +356,7 @@ line: {
     visible: true
 },
 tickLine: {
-     visible: true,
+     visible: false,
 },
 label: {
     visible: true,
@@ -364,7 +364,7 @@ label: {
     autoHide: true
 },
 title: {
-    visible: false,
+    visible: true,
     offset: 12,
 },
 ```

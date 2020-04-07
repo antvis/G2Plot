@@ -8,7 +8,7 @@
       "filename": "basic.js",
       "title": {
         "zh":"堆叠面积图",
-        "en":"StackedArea Chart"
+        "en":"StackedArea chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YYfSRoiOS_EAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "area-label.js",
       "title": {
         "zh":"堆叠面积图 - 图形标签",
-        "en":"StackedArea Chart - label"
+        "en":"StackedArea chart - label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gZQnR6Maex0AAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "line-label.js",
       "title": {
         "zh":"堆叠面积图 - 尾部跟随标签",
-        "en":"StackedArea Chart - line label"
+        "en":"StackedArea chart - line label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VcOMQaeIjngAAAAAAAAAAABkARQnAQ"
     },

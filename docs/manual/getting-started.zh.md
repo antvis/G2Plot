@@ -288,4 +288,4 @@ linePlot.render();
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XhqLTrn36ekAAAAAAAAAAABkARQnAQ" width="500">
 
-经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[图表通用配置](../manual/general-config)及[各图表配置项](../manual/plots/line)，一些尚在实验阶段的高级功能请移步[高级功能](../manual/advanced/responsive)。
+经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](../manual/plots/line)，一些尚在实验阶段的高级功能请移步[高级功能](../manual/advanced/responsive)。

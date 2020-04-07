@@ -8,7 +8,7 @@
       "filename": "basic.js",
       "title": {
         "zh":"基础条形图",
-        "en":"Bar Chart"
+        "en":"Bar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "label-position.js",
       "title":{
         "zh":"基础柱状图 - 图形标签位置",
-        "en":"Bar Chart - label position"
+        "en":"Bar chart - label position"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GJnOQ4z9jHoAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "label-adjustColor.js",
       "title": {
         "zh":"基础柱状图 - 图形标签颜色自适应",
-        "en":"Bar Chart - auto adjust label color"
+        "en":"Bar chart - auto adjust label color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xCvpSYgDxcUAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "scroll-bar.js",
       "title": {
         "zh":"基础柱状图 - 滚动条",
-        "en":"Bar Chart - Scroll Bar"
+        "en":"Bar chart - Scroll Bar"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YAG4SJIcFXoAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "bar-conversion.js",
       "title": {
         "zh":"基础柱状图 - 转化率组件",
-        "en":"Bar Chart -  Conversion tag"
+        "en":"Bar chart -  Conversion Tag"
       },
       "screenshot": "https://gw.alicdn.com/tfs/TB107ZbvKT2gK0jSZFvXXXnFXXa-1344-828.png"
     }

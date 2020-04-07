@@ -8,7 +8,7 @@
       "filename": "axis-tickCount.js",
       "title": {
         "zh":"配置坐标轴tick数量",
-        "en": "axis tick count"
+        "en": "Axis tick count"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*UUVRRqtbUjIAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "axis-minmax.js",
       "title": {
         "zh":"配置坐标轴最大值最小值",
-        "en":"min max value of axis"
+        "en":"min max value of Axis"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*shoeSZEOuJUAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "axis-title.js",
       "title": {
         "zh":"配置坐标轴标题",
-        "en":"axis title"
+        "en":"Axis title"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GdlOSafNGWwAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "axis-style.js",
       "title": {
         "zh":"配置坐标轴样式",
-        "en":"axis style"
+        "en":"Axis style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XrBkRLeB4i0AAAAAAAAAAABkARQnAQ"
     }

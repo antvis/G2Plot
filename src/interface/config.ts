@@ -172,7 +172,7 @@ export interface Tooltip {
   showCrosshairs?: boolean;
   crosshairs?: object;
   offset?: number;
-  //showMarkers?: boolean;
+  showMarkers?: boolean;
   domStyles?: {
     'g2-tooltop'?: any;
     'g2-tooltip-title'?: any;

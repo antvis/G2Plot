@@ -12,7 +12,6 @@ import {
   flatten,
   reduce,
   findIndex,
-  clone,
   isString,
 } from '@antv/util';
 import { View, BBox, Geometry, VIEW_LIFE_CIRCLE } from '../dependents';
@@ -425,28 +424,31 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.setConfig('tooltip', false);
       return;
     }
-    const tooltipOptions = clone(get(this.options, 'tooltip'));
+    const tooltipOptions = get(this.options, 'tooltip');
     if (tooltipOptions.customContent && tooltipOptions.customContent.container) {
       tooltipOptions.container = tooltipOptions.customContent.container;
-      delete tooltipOptions.customContent;
     }
-    this.setConfig('tooltip', deepMix({}, get(this.options, 'tooltip')));
+    this.setConfig('tooltip', deepMix({}, tooltipOptions));
 
     deepMix(this.config.theme.tooltip, this.options.tooltip.domStyles);
   }
 
   protected customTooltip() {
-    let container;
     const customContentCfg = this.options.tooltip.customContent;
-    if (customContentCfg.container) {
-      container = isString(customContentCfg.container)
-        ? document.getElementById(customContentCfg.container)
-        : container;
-    } else {
-      container = document.getElementsByClassName('g2-tooltip')[0];
-    }
+    let container;
+    this.view.on('tooltip:show', () => {
+      if (customContentCfg.container) {
+        container = isString(customContentCfg.container)
+          ? document.getElementById(customContentCfg.container)
+          : customContentCfg.container;
+      } else {
+        container = document.getElementsByClassName('g2-tooltip')[0];
+      }
+    });
     this.view.on('tooltip:change', (ev) => {
-      customContentCfg.callback(container, ev);
+      if (container) {
+        customContentCfg.callback(container, ev);
+      }
     });
   }
 

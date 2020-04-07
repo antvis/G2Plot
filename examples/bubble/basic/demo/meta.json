@@ -27,6 +27,14 @@
         "en":"Bubble Chart with Trend Line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x7RdTZKUXpkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "timeline.js",
+      "title": {
+        "zh":"带播放轴的气泡图",
+        "en":"Bubble Chart with Time Line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SD4qQYHdSKoAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

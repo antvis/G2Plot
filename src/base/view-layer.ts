@@ -33,6 +33,7 @@ import {
   Animation,
   Meta,
   GuideLineConfig,
+  CustomTooltipCfg,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -445,7 +446,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         container = document.getElementsByClassName('g2-tooltip')[0];
       }
     });
-    this.view.on('tooltip:change', (ev) => {
+    this.view.on('tooltip:change', (ev: CustomTooltipCfg) => {
       if (container) {
         customContentCfg.callback(container, ev);
       }

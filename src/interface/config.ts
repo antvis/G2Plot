@@ -6,7 +6,7 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { ShapeAttrs } from '@antv/g-base';
-import { Options, AttributeOption, AdjustOption, LabelOption } from '../dependents';
+import { Options, AttributeOption, AdjustOption, LabelOption, MappingDatum, Datum } from '../dependents';
 import { LooseMap } from './types';
 
 export interface Meta {
@@ -182,7 +182,7 @@ export interface Tooltip {
   };
   customContent?: {
     container?: string | HTMLElement;
-    callback: (tooltipDom: HTMLElement, cfg: any) => void;
+    callback: (tooltipDom: HTMLElement, cfg: CustomTooltipCfg) => void;
   };
 }
 
@@ -413,4 +413,23 @@ export interface TextStyle extends GraphicStyle {
   textAlign?: 'center' | 'left' | 'right';
   textBaseline?: 'middle' | 'top' | 'bottom';
   [field: string]: any;
+}
+
+interface TooltipDataItem {
+  title?: string;
+  data?: Datum;
+  mappingData?: MappingDatum;
+  name?: string;
+  value?: string;
+  color?: string;
+  marker?: boolean;
+  x?: number;
+  y?: number;
+}
+
+export interface CustomTooltipCfg {
+  title?: string;
+  x?: number;
+  y?: number;
+  items?: TooltipDataItem[];
 }

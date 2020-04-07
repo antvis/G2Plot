@@ -55,6 +55,12 @@ export function extractScale(desScale, axisConfig) {
   if (Object.prototype.hasOwnProperty.call(axisConfig, 'formatter')) {
     desScale.formatter = axisConfig.formatter;
   }
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'exponent')) {
+    desScale.exponent = axisConfig.exponent;
+  }
+  if (Object.prototype.hasOwnProperty.call(axisConfig, 'base')) {
+    desScale.base = axisConfig.base;
+  }
   if (axisConfig.tickMethod) {
     desScale.tickMethod = axisConfig.tickMethod;
   }

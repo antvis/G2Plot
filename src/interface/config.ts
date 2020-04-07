@@ -38,7 +38,7 @@ export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type?: 'linear' | 'time' | 'cat';
+  type?: 'linear' | 'time' | 'cat' | 'pow' | 'log';
   /** scale 自定义 tickMethod */
   tickMethod?: string | ((cfg: any) => number[]);
   /** 轴位置，默认下和左 */
@@ -81,7 +81,7 @@ export interface IBaseAxis {
 }
 /** Linear型 */
 export interface IValueAxis extends IBaseAxis {
-  type?: 'linear';
+  type?: 'linear' | 'pow' | 'log';
   /** tick相关配置 */
   nice?: boolean;
   min?: number;
@@ -90,6 +90,10 @@ export interface IValueAxis extends IBaseAxis {
   maxLimit?: number;
   tickCount?: number;
   tickInterval?: number;
+  /** pow 指数 */
+  exponent?: number;
+  /** log 基数 */
+  base?: number;
 }
 /** 时间型 */
 export interface ITimeAxis extends IBaseAxis {
@@ -123,6 +127,8 @@ export interface Label {
   adjustPosition?: boolean;
   autoRotate?: boolean;
   // labelLine?: any;
+  /** 标签对应字段 */
+  field?: string;
 }
 
 export type LegendPosition =
@@ -161,6 +167,7 @@ export interface Tooltip {
   fields?: string[];
   shared?: boolean;
   showTitle?: boolean;
+  titleField?: string;
   formatter?: (...args: any) => { name: string; value: number };
   showCrosshairs?: boolean;
   crosshairs?: object;
@@ -315,6 +322,27 @@ export interface IScrollbarInteractionConfig {
   padding?: [number, number, number, number];
   /** 对应水平滚动条，为X轴每个分类字段的宽度；对于垂直滚动条，为X轴每个分类字段的高度 */
   categorySize?: number;
+}
+
+export interface ITimeLineInteractionConfig {
+  /** 绑定过滤字段，必须传 */
+  field: string;
+  /** 判定动画 key */
+  key: string;
+  /** 是否循环播放，默认 false */
+  loop?: boolean;
+  /** 是否自动播放，默认 true */
+  auto?: boolean;
+  /** 播放速度 */
+  speed?: number;
+  /** 高度，在 horizontal 下生效 */
+  height?: number;
+  /** 可选 padding */
+  padding?: [number, number, number, number];
+  /** 当前仅支持 horizontal，只放置在图表底部 */
+  // type?: 'horizontal';
+  /** 宽度，在 vertical 下生效 */
+  // width?: number;
 }
 
 //export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;

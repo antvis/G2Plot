@@ -223,7 +223,6 @@ var WordCloud = function WordCloud(elements, options) {
     ellipticity: 1,
 
     active: true,
-    animatable: true,
     selected: -1,
     shadowColor: '#333',
     shadowBlur: 10,

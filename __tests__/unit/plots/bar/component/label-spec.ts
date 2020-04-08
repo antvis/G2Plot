@@ -1,11 +1,14 @@
 import { Bar, BarConfig } from '../../../../../src';
+// @ts-ignore
 import sales from '../../../../data/sales.json';
+// @ts-ignore
 import citysaels from '../../../../../examples/data/sales';
 import { createDiv } from '../../../../utils/dom';
 import { getGeometryShapes, getGeometryByType } from '../../../../../src/util/view';
 import { each } from '@antv/util';
 import { DEFAULT_OFFSET } from '../../../../../src/plots/bar/component/label';
 import { IShape } from '../../../../../src/dependents';
+import { POSITIVE_NEGATIVE_DATA } from '../../../../data/common';
 
 const data: { area: string; sales: number }[] = sales;
 const cityData: { 城市: string; 销售额: number }[] = citysaels;
@@ -146,6 +149,83 @@ describe('Bar Label', () => {
     each(data, (datum, idx) => {
       const bbox = intervals[idx].getBBox();
       expect(labelShapes[idx].attr('x')).toBe(bbox.minX + bbox.width / 2);
+    });
+  });
+
+  it('label position /w negative data: right', () => {
+    const plot = new Bar(createDiv(), {
+      ...config,
+      data: POSITIVE_NEGATIVE_DATA,
+      yField: 'type',
+      xField: 'value',
+      label: {
+        visible: true,
+        position: 'right',
+      },
+    });
+    plot.render();
+    const intervals = getGeometryShapes(getGeometryByType(plot.getView(), 'interval'));
+    const labels = plot.getLayer().getLabels();
+    const labelShapes: IShape[] = labels[0] && labels[0].getLabels();
+
+    each(labelShapes, (label, idx) => {
+      const bbox = intervals[idx].getBBox();
+      const value = intervals[idx].get('origin').data['value'];
+      expect(label.attr('x')).toBe(value > 0 ? bbox.maxX + DEFAULT_OFFSET : bbox.minX - DEFAULT_OFFSET);
+      expect(label.attr('y')).toBe(bbox.minY + bbox.height / 2);
+      expect(label.attr('textAlign')).toBe(value > 0 ? 'left' : 'right');
+      expect(label.attr('textBaseline')).toBe('middle');
+    });
+  });
+
+  it('label position /w negative data: middle', () => {
+    const plot = new Bar(createDiv(), {
+      ...config,
+      data: POSITIVE_NEGATIVE_DATA,
+      yField: 'type',
+      xField: 'value',
+      label: {
+        visible: true,
+        position: 'middle',
+      },
+    });
+    plot.render();
+    const intervals = getGeometryShapes(getGeometryByType(plot.getView(), 'interval'));
+    const labels = plot.getLayer().getLabels();
+    const labelShapes: IShape[] = labels[0] && labels[0].getLabels();
+
+    each(labelShapes, (label, idx) => {
+      const bbox = intervals[idx].getBBox();
+      expect(label.attr('x')).toBe(bbox.minX + bbox.width / 2);
+      expect(label.attr('y')).toBe(bbox.minY + bbox.height / 2);
+      expect(label.attr('textAlign')).toBe('center');
+      expect(label.attr('textBaseline')).toBe('middle');
+    });
+  });
+
+  it('label position /w negative data: left', () => {
+    const plot = new Bar(createDiv(), {
+      ...config,
+      data: POSITIVE_NEGATIVE_DATA,
+      yField: 'type',
+      xField: 'value',
+      label: {
+        visible: true,
+        position: 'left',
+      },
+    });
+    plot.render();
+    const intervals = getGeometryShapes(getGeometryByType(plot.getView(), 'interval'));
+    const labels = plot.getLayer().getLabels();
+    const labelShapes: IShape[] = labels[0] && labels[0].getLabels();
+
+    each(labelShapes, (label, idx) => {
+      const bbox = intervals[idx].getBBox();
+      const value = intervals[idx].get('origin').data['value'];
+      expect(label.attr('x')).toBe(value > 0 ? bbox.minX + DEFAULT_OFFSET : bbox.maxX - DEFAULT_OFFSET);
+      expect(label.attr('y')).toBe(bbox.minY + bbox.height / 2);
+      expect(label.attr('textAlign')).toBe(value > 0 ? 'left' : 'right');
+      expect(label.attr('textBaseline')).toBe('middle');
     });
   });
 

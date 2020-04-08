@@ -22,7 +22,7 @@ type AreaLabel = IAreaLabel | ILineLabel | IPointLabel;
 
 export interface StackedAreaViewConfig extends AreaViewConfig {
   stackField: string;
-  label: AreaLabel;
+  label?: AreaLabel;
 }
 
 export interface StackedAreaLayerConfig extends StackedAreaViewConfig, LayerConfig {}
@@ -60,7 +60,7 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
     const props = this.options;
     const label = props.label as Label;
 
-    if (label.visible === false) {
+    if (label && label.visible === false) {
       if (this.line) {
         this.line.label = false;
       }

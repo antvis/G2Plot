@@ -32,7 +32,7 @@ const GEOM_MAP = {
   point: 'point',
 };
 
-type AreaInteraction =
+type LineInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
   | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
 
@@ -60,7 +60,7 @@ export interface LineViewConfig extends ViewConfig {
   })[];
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   yAxis?: IValueAxis;
-  interactions?: AreaInteraction[];
+  interactions?: LineInteraction[];
 }
 
 export interface LineLayerConfig extends LineViewConfig, LayerConfig {}

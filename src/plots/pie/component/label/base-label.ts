@@ -36,7 +36,7 @@ export interface LabelItem {
   textBaseline?: string;
 }
 
-export interface PieLabelConfig extends Omit<Label, 'offset'> {
+export interface PieLabelConfig extends Label {
   visible: boolean;
   formatter?: (text: string, item: any, idx: number) => string;
   /** whether */
@@ -101,7 +101,9 @@ export default abstract class PieBaseLabel {
     }
     labels.forEach((label) => checkInPanel(label, panel));
   }
-  protected adjustItem(item: LabelItem):void{ //eslint-disable-line
+
+  // eslint-disable-next-line
+  protected adjustItem(item: LabelItem): void {
     return;
   }
 

@@ -49,7 +49,7 @@
     "compare-live": "node scripts/compare.js",
     "demos-web": "webpack-dev-server --config webpack-dev.config.js --port 2046 --openPage demos/index.html",
     "changelog": "conventional-changelog -i CHANGELOG.md -a -s",
-    "analyze": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
+    "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
   },
   "husky": {
     "hooks": {

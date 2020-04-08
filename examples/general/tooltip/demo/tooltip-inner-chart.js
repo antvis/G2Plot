@@ -8,7 +8,7 @@ fetch('../data/emissions.json')
     const linePlot = new Line(document.getElementById('container'), {
       title: {
         visible: true,
-        text: 'The causes of CO2 emissions',
+        text: 'Tooltip内展示图表',
       },
       padding: 'auto',
       forceFit: true,
@@ -26,11 +26,11 @@ fetch('../data/emissions.json')
         },
       },
       tooltip: {
-        follow: false,
         customContent: {
           callback: (containerDom, cfg) => {
             const pieData = getPieData(cfg);
             if (!pieChart) {
+              containerDom.innerHTML = '';
               createPieChart(containerDom, pieData);
             } else {
               pieChart.changeData(pieData);
@@ -48,10 +48,7 @@ function getPieData(tooltipCfg) {
   const data = [];
   const { items } = tooltipCfg;
   items.forEach((item) => {
-    data.push({
-      value: item.data.value,
-      category: item.data.category,
-    });
+    data.push(item.data);
   });
   return data;
 }
@@ -59,14 +56,16 @@ function getPieData(tooltipCfg) {
 function createPieChart(container, data) {
   pieChart = new Pie(container, {
     forceFit: false,
-    width: 150,
-    height: 150,
+    width: 250,
+    height: 200,
     data,
-    padding: [0, 0, 0, 0],
+    padding: [0, 0, 50, 0],
     angleField: 'value',
     colorField: 'category',
     legend: {
-      visible: false,
+      visible: true,
+      position: 'bottom-center',
+      flipPage: false,
     },
   });
   pieChart.render();

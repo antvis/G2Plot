@@ -115,8 +115,8 @@ export default class ColumnLabel extends BaseLabel {
     return bbox;
   }
 
+  // eslint-disable-next-line
   protected getTextAlign(element: Element) {
-    // eslint-disable-line
     return 'center';
   }
 

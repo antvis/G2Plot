@@ -14,6 +14,7 @@ export interface Meta {
   formatter?: (v: any) => string;
   values?: string[];
   range?: number[];
+  type?: 'linear' | 'time' | 'timeCat' | 'cat' | 'pow' | 'log';
 }
 
 export interface ITitle {
@@ -38,7 +39,7 @@ export interface IBaseAxis {
   /** 轴是否需要显示，默认true */
   visible?: boolean;
   /** 轴类型，对应scale类型 */
-  type?: 'linear' | 'time' | 'cat' | 'pow' | 'log';
+  type?: 'linear' | 'time' | 'timeCat' | 'cat' | 'pow' | 'log';
   /** scale 自定义 tickMethod */
   tickMethod?: string | ((cfg: any) => number[]);
   /** 轴位置，默认下和左 */
@@ -119,7 +120,7 @@ export interface Label {
   /** 添加后缀 */
   suffix?: string;
   style?: TextStyle;
-  offset?: number;
+  offset?: number | string;
   offsetX?: number;
   offsetY?: number;
   position?: string;

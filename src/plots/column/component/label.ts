@@ -60,11 +60,13 @@ export default class ColumnLabel extends BaseLabel {
     const x = minX + width / 2 + offsetX;
     const dir = value > 0 ? -1 : 1;
     let y;
+
     if (position === 'top') {
       const root = value > 0 ? minY : maxY;
       y = root + (offsetY + DEFAULT_OFFSET) * dir;
     } else if (position === 'bottom') {
-      y = maxY + (offsetY + DEFAULT_OFFSET) * dir;
+      const root = value > 0 ? maxY : minY;
+      y = root + (offsetY + DEFAULT_OFFSET) * dir;
     } else {
       y = minY + height / 2;
     }
@@ -103,22 +105,25 @@ export default class ColumnLabel extends BaseLabel {
     each(shape.get('origin').points, (p) => {
       points.push(this.coord.convertPoint(p));
     });
-    const bbox = new BBox(
-      points[0].x,
-      points[1].y,
-      Math.abs(points[2].x - points[0].x),
-      Math.abs(points[0].y - points[1].y)
-    );
+    const xValues = points.map((point) => point.x);
+    const xValuesMin = Math.min(...xValues);
+    const xValueMax = Math.max(...xValues);
+    const yValues = points.map((point) => point.y);
+    const yValuesMin = Math.min(...yValues);
+    const yValuesMax = Math.max(...yValues);
+    const bbox = new BBox(xValuesMin, yValuesMin, xValueMax - xValuesMin, yValuesMax - yValuesMin);
     return bbox;
   }
 
-  protected getTextAlign(element: Element) { // eslint-disable-line
+  protected getTextAlign(element: Element) {
+    // eslint-disable-line
     return 'center';
   }
 
-  protected getTextBaseLine(element: Element) { // eslint-disable-line
+  protected getTextBaseLine(element: Element) {
     const { position } = this.options;
-    return position === 'middle' ? 'middle' : 'bottom';
+    const value = this.getValue(element);
+    return position === 'middle' ? 'middle' : value > 0 ? 'bottom' : 'top';
   }
 }
 

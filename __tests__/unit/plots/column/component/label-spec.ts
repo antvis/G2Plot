@@ -163,7 +163,6 @@ describe('Column Label', () => {
 
     each(labelShapes, (label, idx) => {
       const bbox = intervals[idx].getBBox();
-      const value = POSITIVE_NEGATIVE_DATA[idx]['value'];
       expect(label.attr('x')).toBe(bbox.minX + bbox.width / 2);
       expect(label.attr('y')).toBe(bbox.minY + bbox.height / 2);
       expect(label.attr('textAlign')).toBe('center');

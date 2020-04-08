@@ -116,8 +116,8 @@ export default class BarLabel extends BaseLabel {
     return alignOptions[position];
   }
 
+  // eslint-disable-next-line
   protected getTextBaseline(element: Element) {
-    //eslint-disable-line
     return 'middle';
   }
 

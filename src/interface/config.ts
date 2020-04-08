@@ -182,7 +182,7 @@ export interface Tooltip {
   };
   customContent?: {
     container?: string | HTMLElement;
-    callback: (tooltipDom: HTMLElement, cfg: CustomTooltipCfg) => void;
+    callback: (tooltipDom: HTMLElement, cfg: CustomTooltipConfig) => void;
   };
 }
 
@@ -427,7 +427,7 @@ interface TooltipDataItem {
   y?: number;
 }
 
-export interface CustomTooltipCfg {
+export interface CustomTooltipConfig {
   title?: string;
   x?: number;
   y?: number;

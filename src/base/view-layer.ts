@@ -33,7 +33,7 @@ import {
   Animation,
   Meta,
   GuideLineConfig,
-  CustomTooltipCfg,
+  CustomTooltipConfig,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -290,7 +290,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
     }
-    if (this.options.tooltip && this.options.tooltip.customContent && this.options.padding !== 'auto') {
+    if (options.tooltip && options.tooltip.customContent && options.padding !== 'auto') {
       this.customTooltip();
     }
   }
@@ -446,7 +446,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         container = document.getElementsByClassName('g2-tooltip')[0];
       }
     });
-    this.view.on('tooltip:change', (ev: CustomTooltipCfg) => {
+    this.view.on('tooltip:change', (ev: CustomTooltipConfig) => {
       if (container) {
         customContentCfg.callback(container, ev);
       }

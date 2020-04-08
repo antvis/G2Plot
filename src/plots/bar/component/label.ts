@@ -63,7 +63,8 @@ export default class BarLabel extends BaseLabel {
       const root = value > 0 ? minX : maxX;
       x = root + offsetX * dir;
     } else if (position === 'right') {
-      x = maxX + offsetX * dir;
+      const root = value > 0 ? maxX : minX;
+      x = root + offsetX * dir;
     } else {
       x = minX + width / 2;
     }
@@ -115,7 +116,8 @@ export default class BarLabel extends BaseLabel {
     return alignOptions[position];
   }
 
-  protected getTextBaseline(element: Element) {//eslint-disable-line
+  protected getTextBaseline(element: Element) {
+    //eslint-disable-line
     return 'middle';
   }
 
@@ -125,12 +127,13 @@ export default class BarLabel extends BaseLabel {
     each(shape.get('origin').points, (p) => {
       points.push(this.coord.convertPoint(p));
     });
-    const bbox = new BBox(
-      points[0].x,
-      points[2].y,
-      Math.abs(points[1].x - points[0].x),
-      Math.abs(points[0].y - points[2].y)
-    );
+    const xValues = points.map((point) => point.x);
+    const xValuesMin = Math.min(...xValues);
+    const xValueMax = Math.max(...xValues);
+    const yValues = points.map((point) => point.y);
+    const yValuesMin = Math.min(...yValues);
+    const yValuesMax = Math.max(...yValues);
+    const bbox = new BBox(xValuesMin, yValuesMin, xValueMax - xValuesMin, yValuesMax - yValuesMin);
     return bbox;
   }
 }

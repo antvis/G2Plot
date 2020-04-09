@@ -35,12 +35,12 @@ fetch('../data/emissions.json')
             const { sum, average } = getStatisticValue(items);
             items.push(
               {
-                title: items[0].title,
+                ...items[0],
                 name: '总计值',
                 value: sum,
               },
               {
-                title: items[0].title,
+                ...items[0],
                 name: '平均值',
                 value: average,
               }

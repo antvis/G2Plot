@@ -66,7 +66,7 @@ export interface IBaseAxis {
     rotate?: number; // label 文本旋转的角度，使用角度制
     style?: TextStyle;
     autoRotate?: boolean;
-    autoHide?: boolean;
+    autoHide?: boolean | string; // 默认的 autoHide 策略，或指定自动隐藏策略
   };
   title?: {
     visible?: boolean;

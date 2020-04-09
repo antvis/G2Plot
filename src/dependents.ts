@@ -16,7 +16,7 @@ export {
   Util,
   getShapeFactory,
 } from '@antv/g2';
-export { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
+export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE } from '@antv/g2/lib/constant';
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,
@@ -38,8 +38,8 @@ import HtmlTooltip from '@antv/component/lib/tooltip/html';
 import HtmlTooltipTheme from '@antv/component/lib/tooltip/html-theme';
 import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
 export { HtmlTooltip, HtmlTooltipTheme, TooltipCssConst };
-export { Axis, Legend, Tooltip, Slider, Scrollbar } from '@antv/component';
-export { TooltipCfg } from '@antv/component/lib/types';
+export { GroupComponent, Axis, Legend, Tooltip, Slider, Scrollbar } from '@antv/component';
+export { GroupComponentCfg, TooltipCfg } from '@antv/component/lib/types';
 
 // Coordinate
 export { Coordinate } from '@antv/coord';

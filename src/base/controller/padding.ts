@@ -2,7 +2,8 @@ import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import { MarginPadding } from '../../interface/types';
 import BBox from '../../util/bbox';
-import { getAxisShapes, getLegendShapes } from '../../util/common';
+import { getLegendShapes, getAxisComponents } from '../../util/common';
+import { View, Axis } from '../../dependents';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -159,14 +160,12 @@ export default class PaddingController {
     return padding;
   }
 
-  private _getAxis(view, bboxes) {
-    const axisShapes = getAxisShapes(view);
-    if (axisShapes.length > 0) {
-      each(axisShapes, (a) => {
-        const bbox = a.getBBox();
-        bboxes.push(bbox);
-      });
-    }
+  private _getAxis(view: View, bboxes: BBox[]) {
+    const axes = getAxisComponents(view);
+    each(axes, (axis: Axis.Base) => {
+      const layoutBBox = axis.getLayoutBBox();
+      bboxes.push(BBox.fromBBoxObject(layoutBBox));
+    });
   }
 
   private _getLegend(view, bboxes, viewRange, options) {

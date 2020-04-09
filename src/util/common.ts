@@ -1,3 +1,5 @@
+import { View, Axis, COMPONENT_TYPE } from '../dependents';
+
 /**
  * 判断text是否可用, title description
  *
@@ -27,6 +29,16 @@ export function breakText(source: string[], breaks: number[]): string {
     result.splice(pos + index, 0, '\n');
   });
   return result.join('');
+}
+
+/**
+ * 获取 View 中所有的 Axis 组件
+ */
+export function getAxisComponents(view: View): Axis.Base[] {
+  return view
+    .getComponents()
+    .filter((co) => co.type === COMPONENT_TYPE.AXIS)
+    .map((co) => co.component) as Axis.Base[];
 }
 
 export function getAxisShapes(view) {

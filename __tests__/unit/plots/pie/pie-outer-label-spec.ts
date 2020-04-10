@@ -339,6 +339,62 @@ describe('pie outer label', () => {
     document.body.removeChild(div);
   });
 
+  it('case: label percent', () => {
+    const div = createDiv('pie8');
+    const data = [
+      {
+        type: '分类一',
+        value: 27,
+      },
+      {
+        type: '分类二',
+        value: 25,
+      },
+      {
+        type: '分类三',
+        value: 18,
+      },
+      {
+        type: '分类四',
+        value: 15,
+      },
+      {
+        type: '分类五',
+        value: 10,
+      },
+      {
+        type: 'Other',
+        value: 5,
+      },
+    ];
+
+    const piePlot = new Pie(div, {
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      label: {
+        visible: true,
+        formatter: (text, item, index) => {
+          return `${(item.percent * 100).toFixed(2)}%`;
+        },
+      },
+    });
+
+    piePlot.render();
+    const pieElement = piePlot.getLayer().view.geometries[0];
+    // @ts-ignore
+    const labelShapes: IGroup[] = pieElement.labelsContainer.getChildren();
+    const percentResult = ['27.00%', '25.00%', '18.00%', '15.00%', '10.00%', '5.00%'];
+    expect(labelShapes.length).toBe(data.length);
+    labelShapes.forEach((label, index) => {
+      const child = label.getChildren()[0];
+      expect(child.attr('text')).toBe(percentResult[index]);
+    });
+
+    piePlot.destroy();
+    document.body.removeChild(div);
+  });
+
   it('bug-1', () => {
     const data = [
       {

@@ -146,6 +146,14 @@ export default abstract class PieBaseLabel {
     this.destroyed = true;
   }
 
+  private getFilteredSum() {
+    const { angleField } = this.plot.options;
+    const filteredData = (this.plot.view as any).filteredData || [];
+    return filteredData.reduce((pre, filteredDataItem) => {
+      return pre + filteredDataItem[angleField];
+    }, 0);
+  }
+
   /** 绘制文本 */
   protected drawTexts() {
     const { style, formatter, autoRotate, offsetX, offsetY, adjustPosition, allowOverlap } = this.options;
@@ -153,7 +161,19 @@ export default abstract class PieBaseLabel {
     const shapes: IShape[] = [];
     shapeInfos.map((shapeInfo, idx) => {
       const attrs = deepMix({}, shapeInfo, style);
-      const content = formatter ? formatter(shapeInfo.name, { _origin: shapeInfo.origin }, idx) : shapeInfo.name;
+      const filteredSum = this.getFilteredSum();
+      const { angleField } = this.plot.options;
+      const percent = shapeInfo.origin[angleField] / filteredSum;
+      const content = formatter
+        ? formatter(
+            shapeInfo.name,
+            {
+              _origin: shapeInfo.origin,
+              percent,
+            },
+            idx
+          )
+        : shapeInfo.name;
       const itemGroup = this.container.addGroup({ name: 'itemGroup', index: idx });
       const textShape = itemGroup.addShape('text', {
         attrs: deepMix({}, attrs, {

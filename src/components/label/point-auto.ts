@@ -32,7 +32,7 @@ export default class PointAutoLabel extends PointLabel {
             dones,
             (datumLeft: MappingDatum, datumRight: MappingDatum) =>
               datumLeft._origin[xField] === datumRight._origin[xField] &&
-              datumRight._origin[yField] === datumRight._origin[yField]
+              datumLeft._origin[yField] === datumRight._origin[yField]
           )
         ) {
           label.set('visible', false);

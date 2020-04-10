@@ -16,7 +16,7 @@ export {
   Util,
   getShapeFactory,
 } from '@antv/g2';
-export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE } from '@antv/g2/lib/constant';
+export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,
@@ -43,3 +43,6 @@ export { GroupComponentCfg, TooltipCfg } from '@antv/component/lib/types';
 
 // Coordinate
 export { Coordinate } from '@antv/coord';
+
+// Common
+export const ORIGIN = 'origin';

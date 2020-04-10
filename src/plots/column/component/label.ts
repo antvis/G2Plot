@@ -5,8 +5,6 @@ import { TextStyle } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
 import BBox from '../../../util/bbox';
 
-export const DEFAULT_OFFSET = 8;
-
 export default class ColumnLabel extends BaseLabel {
   protected getLabelItemAttrs(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
@@ -29,6 +27,7 @@ export default class ColumnLabel extends BaseLabel {
     return {
       offsetX: 0,
       offsetY: 0,
+      offset: theme.label.offset || 0,
       style: clone(labelStyle),
       adjustPosition: true,
     };
@@ -37,10 +36,11 @@ export default class ColumnLabel extends BaseLabel {
   protected adjustLabel(label: IShape, element: Element): void {
     const { adjustPosition } = this.options;
     if (adjustPosition) {
+      const offset = this.getDefaultOffset();
       const labelRange = label.getBBox();
       const shapeRange = this.getElementShapeBBox(element);
       if (shapeRange.height <= labelRange.height) {
-        const yPosition = shapeRange.minY + this.options.offsetY - DEFAULT_OFFSET;
+        const yPosition = shapeRange.minY + this.options.offsetY - offset;
         label.attr('y', yPosition);
         label.attr('textBaseline', 'bottom');
         label.attr('fill', this.options.style.fill);
@@ -53,6 +53,7 @@ export default class ColumnLabel extends BaseLabel {
   }
 
   protected getPosition(element: Element): { x: number; y: number } {
+    const offset = this.getDefaultOffset();
     const value = this.getValue(element);
     const bbox = this.getElementShapeBBox(element);
     const { minX, minY, maxY, height, width } = bbox;
@@ -63,12 +64,12 @@ export default class ColumnLabel extends BaseLabel {
 
     if (position === 'top') {
       const root = value > 0 ? minY : maxY;
-      y = root + (offsetY + DEFAULT_OFFSET) * dir;
+      y = root + offset * dir + offsetY;
     } else if (position === 'bottom') {
       const root = value > 0 ? maxY : minY;
-      y = root + (offsetY + DEFAULT_OFFSET) * dir;
+      y = root + offset * dir + offsetY;
     } else {
-      y = minY + height / 2;
+      y = minY + height / 2 + offsetY;
     }
 
     return { x, y };
@@ -120,10 +121,17 @@ export default class ColumnLabel extends BaseLabel {
     return 'center';
   }
 
+  // eslint-disable-next-line
   protected getTextBaseLine(element: Element) {
-    const { position } = this.options;
-    const value = this.getValue(element);
-    return position === 'middle' ? 'middle' : value > 0 ? 'bottom' : 'top';
+    return 'middle';
+  }
+
+  protected getLabelOffset() {
+    // Column 的 offset 在 getPosition 中因 position 不同单独处理
+    return {
+      x: 0,
+      y: 0,
+    };
   }
 }
 

@@ -4,10 +4,11 @@ import { IShape } from '../../../../src/dependents';
 import { createDiv } from '../../../utils/dom';
 import { wait } from '../../../utils/common';
 import { getGeometryShapes, getGeometryByType } from '../../../../src/util/view';
-import { DEFAULT_OFFSET } from '../../../../src/plots/column/component/label';
 // @ts-ignore
 import sales from '../../../data/sales.json';
+import { DEFAULT_GLOBAL_THEME } from '../../../../src/theme/default';
 
+const DEFAULT_OFFSET = DEFAULT_GLOBAL_THEME.label.offset;
 const SALES_DATA: { area: string; sales: number }[] = sales;
 const SALES_DATA_1 = SALES_DATA.slice(0, 4);
 const SALES_DATA_2 = SALES_DATA.slice(2);

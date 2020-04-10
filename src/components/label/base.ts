@@ -215,6 +215,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
   protected abstract adjustLabel(label: IShape, element: Element, datumIdx: number): void;
 
   /** 整理对所有 Labels 的布局调整 */
+  // eslint-disable-next-line
   protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
     // empty
   }

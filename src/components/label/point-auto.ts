@@ -26,7 +26,15 @@ export default class PointAutoLabel extends PointLabel {
         if (next) {
           stack.push(next);
         }
-        if (checkOriginEqual(label, dones, (datumLeft: MappingDatum, datumRight: MappingDatum) => false)) {
+        if (
+          checkOriginEqual(
+            label,
+            dones,
+            (datumLeft: MappingDatum, datumRight: MappingDatum) =>
+              datumLeft._origin[xField] === datumRight._origin[xField] &&
+              datumRight._origin[yField] === datumRight._origin[yField]
+          )
+        ) {
           label.set('visible', false);
           continue;
         }

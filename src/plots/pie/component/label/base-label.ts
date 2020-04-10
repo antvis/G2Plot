@@ -38,14 +38,14 @@ export interface LabelItem {
 
 export interface PieLabelConfig extends Label {
   visible: boolean;
-  formatter?: (text: string, item: any, idx: number) => string;
+  formatter?: (text: string | number | undefined | null, item: any, idx: number, ...extras: any[]) => string;
   /** whether */
   adjustPosition?: boolean;
   /** allow label overlap */
   allowOverlap?: boolean;
   autoRotate?: boolean;
   labelHeight?: number;
-  offset?: string | number;
+  offset?: number | string;
   offsetX?: number;
   offsetY?: number;
   /** label leader-line */

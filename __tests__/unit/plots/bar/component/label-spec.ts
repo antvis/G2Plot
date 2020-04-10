@@ -6,9 +6,11 @@ import citysaels from '../../../../../examples/data/sales';
 import { createDiv } from '../../../../utils/dom';
 import { getGeometryShapes, getGeometryByType } from '../../../../../src/util/view';
 import { each } from '@antv/util';
-import { DEFAULT_OFFSET } from '../../../../../src/plots/bar/component/label';
 import { IShape } from '../../../../../src/dependents';
 import { POSITIVE_NEGATIVE_DATA } from '../../../../data/common';
+import { DEFAULT_GLOBAL_THEME } from '../../../../../src/theme/default';
+
+const DEFAULT_OFFSET = DEFAULT_GLOBAL_THEME.label.offset;
 
 const data: { area: string; sales: number }[] = sales;
 const cityData: { 城市: string; 销售额: number }[] = citysaels;

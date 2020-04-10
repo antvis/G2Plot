@@ -12,6 +12,7 @@ import {
   VIEW_LIFE_CIRCLE,
   getDefaultAnimateCfg,
   doAnimate,
+  ORIGIN,
 } from '../../dependents';
 import { Label, TextStyle } from '../../interface/config';
 import { LooseMap } from '../../interface/types';
@@ -88,6 +89,9 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
       });
     });
 
+    // 执行布局
+    this.layoutLabels(this.geometry, this.labels);
+
     // 执行动画：参照 G2 Label 动画
     const lastLabelsCfgMap = this.lastLabelsCfgMap;
     const labelsCfgMap = this.labelsCfgMap;
@@ -148,27 +152,72 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     });
   }
 
+  protected drawLabelItem(group: IGroup, element: Element, elementIndex: number): IShape | IShape[] {
+    const model = element.getModel();
+    const items = [].concat(this.getLabelItemAttrs(element, elementIndex));
+    const offset = this.getDefaultOffset();
+    const offsetPoint = this.getLabelOffset();
+    return map(items, (attrs, index) => {
+      const position = {
+        x: attrs.x + offsetPoint.x,
+        y: attrs.y + offsetPoint.y,
+      };
+      const dataItem = isArray(model.mappingData) ? model.mappingData[index] : model.mappingData;
+      const id = this.getLabelId(dataItem);
+      return this.drawLabelText(
+        group,
+        { ...attrs, ...position },
+        {
+          id,
+          name: 'label',
+          offset,
+          [ORIGIN]: dataItem,
+        }
+      );
+    });
+  }
+
+  /** 获取当前 Label 的 offset */
+  protected getDefaultOffset() {
+    const offset = Number(this.options.offset);
+    const vector = this.getOffsetVector(offset);
+    return this.coord.isTransposed ? vector[0] : vector[1];
+  }
+
+  /** 获取当前 Label 的 offset 点：包括 offset、offsetX、offsetY */
+  protected getLabelOffset() {
+    const { offsetX, offsetY } = this.options;
+    const transposed = this.coord.isTransposed;
+    const offset = this.getDefaultOffset();
+    const dim = transposed ? 'x' : 'y';
+    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
+    const offsetPoint = {
+      x: 0,
+      y: 0,
+    };
+    offsetPoint[dim] = offset * factor;
+    if (offsetX) {
+      offsetPoint.x += offsetX;
+      offsetPoint.y += offsetY;
+    }
+    return offsetPoint;
+  }
+
+  /** 初始化默认全局配置 */
   protected getDefaultOptions(): Partial<LabelOptions> {
     return {};
   }
 
+  /** 获取绘制当前 Label 的属性配置 */
   protected abstract getLabelItemAttrs(element: Element, idx: number): TextStyle | TextStyle[];
 
-  protected drawLabelItem(group: IGroup, element: Element, elementIdx: number): IShape | IShape[] {
-    const model = element.getModel();
-    const items = [].concat(this.getLabelItemAttrs(element, elementIdx));
-    return map(items, (attrs, idx) => {
-      const dataItem = isArray(model.mappingData) ? model.mappingData[idx] : model.mappingData;
-      const id = this.getLabelId(dataItem);
-      return this.drawLabelText(group, attrs, {
-        id,
-        name: 'label',
-        origin: dataItem,
-      });
-    });
-  }
-
+  /** 在当前 Label 绘制之后的调整 */
   protected abstract adjustLabel(label: IShape, element: Element, datumIdx: number): void;
+
+  /** 整理对所有 Labels 的布局调整 */
+  protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
+    // empty
+  }
 
   protected getLabelId(data: MappingDatum): string {
     const origin = data._origin;
@@ -185,6 +234,12 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     }
 
     return labelId;
+  }
+
+  private getOffsetVector(offset: number = 0) {
+    const coord = this.coord;
+    // 如果 x,y 翻转，则偏移 x，否则偏移 y
+    return coord.isTransposed ? coord.applyMatrix(offset, 0) : coord.applyMatrix(0, offset);
   }
 }
 

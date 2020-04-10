@@ -1,6 +1,5 @@
 import { each } from '@antv/util';
 import { Column, ColumnConfig } from '../../../../../src';
-import { DEFAULT_OFFSET } from '../../../../../src/plots/column/component/label';
 import { createDiv } from '../../../../utils/dom';
 // @ts-ignore
 import sales from '../../../../data/sales.json';
@@ -9,6 +8,9 @@ import { getGeometryShapes, getGeometryByType } from '../../../../../src/util/vi
 // @ts-ignore
 import citysaels from '../../../../../examples/data/sales';
 import { POSITIVE_NEGATIVE_DATA } from '../../../../data/common';
+import { DEFAULT_GLOBAL_THEME } from '../../../../../src/theme/default';
+
+const DEFAULT_OFFSET = DEFAULT_GLOBAL_THEME.label.offset;
 
 const data: { area: string; sales: number }[] = sales;
 
@@ -141,7 +143,7 @@ describe('Column Label', () => {
       expect(label.attr('x')).toBe(bbox.minX + bbox.width / 2);
       expect(label.attr('y')).toBe(value > 0 ? bbox.minY - DEFAULT_OFFSET : bbox.maxY + DEFAULT_OFFSET);
       expect(label.attr('textAlign')).toBe('center');
-      expect(label.attr('textBaseline')).toBe(value > 0 ? 'bottom' : 'top');
+      expect(label.attr('textBaseline')).toBe('middle');
     });
   });
 
@@ -192,7 +194,7 @@ describe('Column Label', () => {
       expect(label.attr('x')).toBe(bbox.minX + bbox.width / 2);
       expect(label.attr('y')).toBe(value > 0 ? bbox.maxY - DEFAULT_OFFSET : bbox.minY + DEFAULT_OFFSET);
       expect(label.attr('textAlign')).toBe('center');
-      expect(label.attr('textBaseline')).toBe(value > 0 ? 'bottom' : 'top');
+      expect(label.attr('textBaseline')).toBe('middle');
     });
   });
 

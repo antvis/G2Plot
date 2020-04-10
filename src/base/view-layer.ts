@@ -437,15 +437,17 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   protected customTooltip() {
     const customContentCfg = this.options.tooltip.customContent;
     let container;
+    if (customContentCfg.container) {
+      container = isString(customContentCfg.container)
+        ? document.getElementById(customContentCfg.container)
+        : customContentCfg.container;
+    }
     this.view.on('tooltip:show', () => {
-      if (customContentCfg.container) {
-        container = isString(customContentCfg.container)
-          ? document.getElementById(customContentCfg.container)
-          : customContentCfg.container;
-      } else {
+      if (!customContentCfg.container) {
         container = document.getElementsByClassName('g2-tooltip')[0];
       }
     });
+    this.view.hideTooltip();
     this.view.on('tooltip:change', (ev: CustomTooltipConfig) => {
       if (container) {
         customContentCfg.callback(container, ev);

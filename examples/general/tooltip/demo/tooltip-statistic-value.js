@@ -1,7 +1,5 @@
 import { Line } from '@antv/g2plot';
 
-let pieChart;
-
 fetch('../data/emissions.json')
   .then((res) => res.json())
   .then((data) => {
@@ -38,11 +36,15 @@ fetch('../data/emissions.json')
                 ...items[0],
                 name: '总计值',
                 value: sum,
+                marker: false,
+                color: null,
               },
               {
                 ...items[0],
                 name: '平均值',
                 value: average,
+                marker: false,
+                color: null,
               }
             );
           },

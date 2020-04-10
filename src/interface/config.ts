@@ -182,6 +182,7 @@ export interface Tooltip {
   };
   customContent?: {
     container?: string | HTMLElement;
+    follow?: boolean;
     callback: (tooltipDom: HTMLElement, cfg: CustomTooltipConfig) => void;
   };
 }

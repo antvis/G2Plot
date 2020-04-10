@@ -40,7 +40,10 @@ function getAllAxisLabels(plot) {
     const axis = axisComponentOption.component;
     const labelArr = [];
     const scale = getScale(plot, axis);
-    const labelShapes = axis.get('labelRenderer').get('group').get('children');
+    const labelShapes = axis
+      .get('labelRenderer')
+      .get('group')
+      .get('children');
     each(labelShapes, (shape) => {
       if (shape.type === 'text') {
         labelArr.push({ shape });

@@ -1,6 +1,6 @@
 // 堆叠面积图
 
-$.get('data/oil.json', function (data) {
+$.get('data/oil.json', function(data) {
   const areaPlot = new g2plot.StackArea(document.getElementById('canvas'), {
     padding: [20, 100, 100, 50],
     width: 500,

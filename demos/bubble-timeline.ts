@@ -1,6 +1,6 @@
 // 播放轴气泡图
 
-$.get('../examples/data/life-expectancy.json', function (data) {
+$.get('../examples/data/life-expectancy.json', function(data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
     title: {
       visible: true,

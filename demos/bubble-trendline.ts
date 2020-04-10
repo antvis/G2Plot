@@ -1,6 +1,6 @@
 // 气泡图带趋势线
 
-$.get('../examples/data/revenue.json', function (data) {
+$.get('../examples/data/revenue.json', function(data) {
   const bubblePlot = new g2plot.Bubble(document.getElementById('canvas'), {
     data,
     xField: 'Revenue per club[€ m]',

@@ -295,7 +295,7 @@ export default class SpiderLabel {
       totalH = maxY - startY;
     }
 
-    const iteratorBoxed = function (items) {
+    const iteratorBoxed = function(items) {
       items.forEach((box) => {
         const target = (Math.min.apply(minY, box.targets) + Math.max.apply(minY, box.targets)) / 2;
         box.pos = Math.min(Math.max(minY, target - box.size / 2), totalH - box.size);

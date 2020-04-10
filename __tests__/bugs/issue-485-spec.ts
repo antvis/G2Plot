@@ -57,7 +57,10 @@ describe.skip('#485 饼图 outer-label 绘制错误', () => {
   piePlot.render();
 
   it('分类一和分类二 的 label 和饼图区域不重叠', () => {
-    const labels = piePlot.getLayer().view.get('elements')[0].get('labels');
+    const labels = piePlot
+      .getLayer()
+      .view.get('elements')[0]
+      .get('labels');
     /** 求两点间距离 */
     function distanceOfPoints(point1, point2): number {
       const delta_x = point1.x - point2.x;
@@ -65,8 +68,14 @@ describe.skip('#485 饼图 outer-label 绘制错误', () => {
       return Math.sqrt(delta_x * delta_x + delta_y * delta_y);
     }
 
-    const center = piePlot.getLayer().view.get('coord').getCenter();
-    const radius = piePlot.getLayer().view.get('coord').getRadius();
+    const center = piePlot
+      .getLayer()
+      .view.get('coord')
+      .getCenter();
+    const radius = piePlot
+      .getLayer()
+      .view.get('coord')
+      .getRadius();
     expect(
       every(labels, (label: IShape) => {
         const box = label.getBBox();

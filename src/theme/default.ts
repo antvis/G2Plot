@@ -38,7 +38,7 @@ export const COLOR_PLATE_20 = [
 import { some } from '@antv/util';
 import { ViewConfig } from '../base/view-layer';
 
-export const DESCRIPTION_BOTTOM_MARGIN = function (legendPosition) {
+export const DESCRIPTION_BOTTOM_MARGIN = function(legendPosition) {
   if (legendPosition && legendPosition.split('-')[0] === 'top') {
     return 12;
   }

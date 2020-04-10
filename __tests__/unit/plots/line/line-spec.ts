@@ -462,7 +462,12 @@ describe('Line plot', () => {
     });
     linePlot.render();
     const plot = linePlot.getLayer().plot;
-    const labelGroup = plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     expect(labelGroup[0].attr('text')).toBe('test');
     expect(labelGroup[0].attr('fill')).toBe('red');
     linePlot.destroy();
@@ -545,7 +550,10 @@ describe('Line plot', () => {
     linePlot.render();
     const plot = linePlot.getLayer().plot;
     const elements = plot.geometries;
-    const shapes = plot.get('elements')[0].get('shapeContainer').get('children');
+    const shapes = plot
+      .get('elements')[0]
+      .get('shapeContainer')
+      .get('children');
     expect(shapes.length).toBe(3);
     expect(elements[1].get('type')).toBe('point');
     expect(elements[1].get('size').values[0]).toBe(5);
@@ -570,7 +578,12 @@ describe('Line plot', () => {
     });
     linePlot.render();
     const plot = linePlot.getLayer().plot;
-    const labelGroup = plot.get('elements')[0].get('container').get('children')[1].get('children')[0].get('children');
+    const labelGroup = plot
+      .get('elements')[0]
+      .get('container')
+      .get('children')[1]
+      .get('children')[0]
+      .get('children');
     const panelGroup = linePlot.plot.get('panelRange');
     expect(labelGroup[0].attr('x') > panelGroup.maxX).toBe(true);
     linePlot.destroy();

@@ -1,6 +1,6 @@
 // 迷你图表-折线
 
-$.get('data/income.json', function (data) {
+$.get('data/income.json', function(data) {
   const tinyLine = new g2plot.TinyLine(document.getElementById('canvas'), {
     width: 200,
     height: 100,

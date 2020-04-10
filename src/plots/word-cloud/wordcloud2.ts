@@ -2,6 +2,7 @@
  * Create By Bruce Too
  * On 2020-02-14
  */
+/* eslint-disable unicorn/no-abusive-eslint-disable */
 /* eslint-disable */
 // @ts-nocheck
 
@@ -1260,13 +1261,13 @@ var WordCloud = function WordCloud(elements, options) {
       }
 
       var addEventListener = function addEventListener(type, listener) {
-        elements.forEach(function (el) {
+        elements.forEach(function(el) {
           el.addEventListener(type, listener);
         }, this);
       };
 
       var removeEventListener = function removeEventListener(type, listener) {
-        elements.forEach(function (el) {
+        elements.forEach(function(el) {
           el.removeEventListener(type, listener);
         }, this);
       };

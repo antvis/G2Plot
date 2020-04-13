@@ -40,6 +40,7 @@
     "lint": "eslint --ext .ts --quiet ./src ./__tests__ ./demos",
     "lint-fix": "run-s lint-fix:*",
     "lint-fix:eslint": "eslint --ext .ts --fix ./src ./__tests__ ./demos",
+    "prettier": "prettier --write '**/*.{ts,js,css,json}'",
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-staged": "lint-staged",
     "test": "jest",

@@ -7,24 +7,24 @@
     {
       "filename": "ring-basic.js",
       "title": {
-        "zh":"环图",
-        "en":"Donut chart"
+        "zh": "环图",
+        "en": "Donut chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0JDQQYXgxekAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "ring-statistic.js",
       "title": {
-        "zh":"环图-指标卡",
-        "en":"Donut chart with statistic"
+        "zh": "环图-指标卡",
+        "en": "Donut chart with statistic"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U9D_Sr55LEMAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "custom.js",
       "title": {
-        "zh":"个性化环图",
-        "en":"cutomized Pie chart"
+        "zh": "个性化环图",
+        "en": "cutomized Pie chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*q52BQZzr91gAAAAAAAAAAABkARQnAQ"
     }

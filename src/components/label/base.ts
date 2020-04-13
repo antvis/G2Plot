@@ -179,9 +179,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
 
   /** 获取当前 Label 的 offset */
   protected getDefaultOffset() {
-    const offset = Number(this.options.offset);
-    const vector = this.getOffsetVector(offset);
-    return this.coord.isTransposed ? vector[0] : vector[1];
+    return Number(this.options.offset);
   }
 
   /** 获取当前 Label 的 offset 点：包括 offset、offsetX、offsetY */
@@ -235,12 +233,6 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     }
 
     return labelId;
-  }
-
-  private getOffsetVector(offset: number = 0) {
-    const coord = this.coord;
-    // 如果 x,y 翻转，则偏移 x，否则偏移 y
-    return coord.isTransposed ? coord.applyMatrix(offset, 0) : coord.applyMatrix(0, offset);
   }
 }
 

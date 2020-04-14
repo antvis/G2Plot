@@ -176,7 +176,7 @@ var WordCloud = function WordCloud(elements, options) {
     elements = [elements];
   }
 
-  elements.forEach(function(el, i) {
+  elements.forEach(function (el, i) {
     if (typeof el === 'string') {
       elements[i] = document.getElementById(el);
       if (!elements[i]) {
@@ -792,7 +792,7 @@ var WordCloud = function WordCloud(elements, options) {
       h: (bounds[2] - bounds[0] + 1) * g,
     };
 
-    elements.forEach(function(el) {
+    elements.forEach(function (el) {
       if (el.getContext) {
         var ctx = el.getContext('2d');
         var mu = info.mu;
@@ -1061,13 +1061,13 @@ var WordCloud = function WordCloud(elements, options) {
      if the previous one is canceled (for cancelable events). */
   var sendEvent = function sendEvent(type, cancelable, detail) {
     if (cancelable) {
-      return !elements.some(function(el) {
+      return !elements.some(function (el) {
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(type, true, cancelable, detail || {});
         return !el.dispatchEvent(evt);
       }, this);
     } else {
-      elements.forEach(function(el) {
+      elements.forEach(function (el) {
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(type, true, cancelable, detail || {});
         el.dispatchEvent(evt);
@@ -1149,7 +1149,7 @@ var WordCloud = function WordCloud(elements, options) {
 
     var gx, gy, i;
     if (!canvas.getContext || settings.clearCanvas) {
-      elements.forEach(function(el) {
+      elements.forEach(function (el) {
         if (el.getContext) {
           var ctx = el.getContext('2d');
           ctx.fillStyle = settings.backgroundColor;
@@ -1230,7 +1230,7 @@ var WordCloud = function WordCloud(elements, options) {
       if (settings.onWordCloudClick) {
         canvas.addEventListener('click', wordcloudclick);
         canvas.addEventListener('touchstart', wordcloudclick);
-        canvas.addEventListener('touchend', function(e) {
+        canvas.addEventListener('touchend', function (e) {
           e.preventDefault();
         });
         canvas.style.webkitTapHighlightColor = 'rgba(0, 0, 0, 0)';
@@ -1261,13 +1261,13 @@ var WordCloud = function WordCloud(elements, options) {
       }
 
       var addEventListener = function addEventListener(type, listener) {
-        elements.forEach(function(el) {
+        elements.forEach(function (el) {
           el.addEventListener(type, listener);
         }, this);
       };
 
       var removeEventListener = function removeEventListener(type, listener) {
-        elements.forEach(function(el) {
+        elements.forEach(function (el) {
           el.removeEventListener(type, listener);
         }, this);
       };

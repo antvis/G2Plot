@@ -374,7 +374,8 @@ describe('pie outer label', () => {
       colorField: 'type',
       label: {
         visible: true,
-        formatter: (text, item, index) => {
+
+        formatter: (text, item) => {
           return `${(item.percent * 100).toFixed(2)}%`;
         },
       },
@@ -463,6 +464,7 @@ describe('pie outer label', () => {
           fontSize: 12,
           lineHeight: 14,
         },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         formatter: (text, item) => {
           return `${item._origin.name}: ${item._origin.y}`;
         },

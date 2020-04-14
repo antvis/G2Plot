@@ -24,14 +24,14 @@ export default abstract class Interaction {
   resetEvent: string;
   private _eventHandlers: any[];
   constructor(cfg: InteractionCfg) {
-    const defaultCfg = this._getDefaultCfg();
+    const defaultCfg = this.getDefaultCfg();
     assign(this, defaultCfg, cfg);
     this.canvas = this.view.canvas;
     this._eventHandlers = [];
     this._bindEvents();
   }
 
-  private _getDefaultCfg() {
+  protected getDefaultCfg() {
     return {
       startEvent: 'mousedown',
       processEvent: 'mousemove',

@@ -374,8 +374,7 @@ describe('pie outer label', () => {
       colorField: 'type',
       label: {
         visible: true,
-
-        formatter: (text, item) => {
+        formatter: (_, item) => {
           return `${(item.percent * 100).toFixed(2)}%`;
         },
       },

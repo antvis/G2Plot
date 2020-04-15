@@ -104,7 +104,7 @@
     "resemblejs": "^3.2.3",
     "rimraf": "^3.0.0",
     "ts-jest": "^25.3.1",
-    "ts-loader": "^6.2.1",
+    "ts-loader": "^7.0.0",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
     "webpack-bundle-analyzer": "^3.4.1",

@@ -155,7 +155,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
-      interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' },{ type: 'interaction'},{ type: 'brush'}],
+      interactions: [
+        { type: 'tooltip' },
+        { type: 'legend-active' },
+        { type: 'legend-filter' },
+        { type: 'interaction' },
+      ],
       animation: false,
     };
   }

@@ -61,7 +61,20 @@ const LAYER_EVENT_MAP: IEventmap = getEventMap(layerComponentMap);
 const EVENT_MAP: IEventmap = deepMix({}, getEventMap(viewComponentMap), getMobileEventMap());
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
-  layer.view.on(eventName, handler);
+  layer.view.on(eventName, (ev) => {
+    const eventData = {
+      x: ev.x,
+      y: ev.y,
+      clientX: ev.clientX,
+      clientY: ev.clientY,
+      target: ev.target,
+      data: ev.data ? ev.data.data : null,
+      plot: layer,
+      canvas: layer.canvas,
+      gEvent: ev.gEvent,
+    };
+    handler(eventData);
+  });
 }
 
 export function getEventMap(map) {

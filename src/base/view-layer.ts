@@ -675,6 +675,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     /** 销毁g2.view实例 */
     if (!this.view.destroyed) {
       this.view.destroy();
+      console.log(this.view);
     }
   }
 

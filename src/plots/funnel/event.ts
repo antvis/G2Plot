@@ -2,14 +2,14 @@ import { assign } from '@antv/util';
 import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const SHAPE_EVENT_MAP: IEventmap = {
-  onBarClick: 'interval:click',
-  onBarDblclick: 'interval:dblclick',
-  onBarMousemove: 'interval:mousemove',
-  onBarMouseenter: 'interval:mouseenter',
-  onBarMouseleave: 'interval:mouseleave',
-  onBarMousedown: 'interval:mousedown',
-  onBarMouseup: 'interval:mouseup',
-  onBarContextmenu: 'interval:contextmenu',
+  onFunnelClick: 'interval:click',
+  onFunnelDblclick: 'interval:dblclick',
+  onFunnelMousemove: 'interval:mousemove',
+  onFunnelMouseenter: 'interval:mouseenter',
+  onFunnelMouseleave: 'interval:mouseleave',
+  onFunnelMousedown: 'interval:mousedown',
+  onFunnelMouseup: 'interval:mouseup',
+  onFunnelContextmenu: 'interval:contextmenu',
 };
 
 assign(EVENT_MAP, SHAPE_EVENT_MAP);

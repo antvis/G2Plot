@@ -1,38 +1,10 @@
 import ViewLayer from '../base/view-layer';
 import { LooseMap } from '../interface/types';
-import { each } from '@antv/util';
+import { each, deepMix } from '@antv/util';
 
 type IEventmap = LooseMap<string>;
 
 type Handler = (...__: any[]) => {};
-
-const viewComponentMap = {
-  View: 'view',
-  Axis: 'axis-label',
-  Label: 'label',
-  Legend: 'legend-item',
-};
-
-const canvasComponentMap = {
-  Plot: 'plot',
-  Title: 'title',
-  Description: 'description',
-  Breadcrumb: 'breadcrumb',
-};
-
-const layerComponentMap = {
-  Layer: 'layer',
-};
-
-const EVENT_MAP: IEventmap = getEventMap(viewComponentMap);
-
-const CANVAS_EVENT_MAP: IEventmap = getEventMap(canvasComponentMap);
-
-const LAYER_EVENT_MAP: IEventmap = getEventMap(layerComponentMap);
-
-function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
-  layer.view.on(eventName, handler);
-}
 
 const eventNames = [
   'Click',
@@ -63,6 +35,35 @@ const mobileEventNames = [
   'Panend',
 ];
 
+const viewComponentMap = {
+  View: 'view',
+  Axis: 'axis-label',
+  Label: 'label',
+  Legend: 'legend-item',
+};
+
+const canvasComponentMap = {
+  Plot: 'plot',
+  Title: 'title',
+  Description: 'description',
+  Breadcrumb: 'breadcrumb',
+};
+
+const layerComponentMap = {
+  Layer: 'layer',
+};
+
+const CANVAS_EVENT_MAP: IEventmap = getEventMap(canvasComponentMap);
+
+const LAYER_EVENT_MAP: IEventmap = getEventMap(layerComponentMap);
+
+//移动端事件暂时只支持view级
+const EVENT_MAP: IEventmap = deepMix({}, getEventMap(viewComponentMap), getMobileEventMap());
+
+function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
+  layer.view.on(eventName, handler);
+}
+
 export function getEventMap(map) {
   const eventMap: IEventmap = {};
   each(map, (item, key) => {
@@ -74,6 +75,17 @@ export function getEventMap(map) {
       const event = `${eventPrefix}${eventName}`;
       eventMap[eventKey] = event;
     });
+  });
+  return eventMap;
+}
+
+export function getMobileEventMap() {
+  const eventMap: IEventmap = {};
+  const namePrefix = `on`;
+  each(mobileEventNames, (name) => {
+    const eventKey = `${namePrefix}${name}`;
+    const eventName = name.toLowerCase();
+    eventMap[eventKey] = eventName;
   });
   return eventMap;
 }

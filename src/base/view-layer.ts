@@ -14,7 +14,7 @@ import {
   findIndex,
   isString,
 } from '@antv/util';
-import { View, BBox, Geometry, VIEW_LIFE_CIRCLE } from '../dependents';
+import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gestrue } from '../dependents';
 import TextDescription from '../components/description';
 import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/base';
 import { getComponent } from '../components/factory';
@@ -270,9 +270,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!this.view || this.view.destroyed) {
       return;
     }
-    if (this.options.padding !== 'auto') {
-      this.parseEvents();
-    }
   }
 
   public afterRender() {
@@ -285,7 +282,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
     }
-
+    if (this.options.padding !== 'auto') {
+      registerComponentController('gesture', Gestrue);
+      this.parseEvents();
+    }
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();

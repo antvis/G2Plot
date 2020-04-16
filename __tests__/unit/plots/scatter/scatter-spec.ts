@@ -311,8 +311,7 @@ describe('Scatter plot', () => {
       colorField: 'continent',
       label: {
         visible: true,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        formatter: (text, data, index) => {
+        formatter: (text, data) => {
           return data.continent;
         },
       },

@@ -463,7 +463,6 @@ describe('pie outer label', () => {
           fontSize: 12,
           lineHeight: 14,
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         formatter: (text, item) => {
           return `${item._origin.name}: ${item._origin.y}`;
         },

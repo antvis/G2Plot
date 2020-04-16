@@ -1,4 +1,4 @@
-import { each, get, deepMix, clone } from '@antv/util';
+import { each, get, deepMix } from '@antv/util';
 import { Element, IShape } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/base';
 import { rgb2arr, mappingColor } from '../../../util/color';
@@ -37,13 +37,12 @@ export default class BarLabel extends BaseLabel {
 
   protected getDefaultOptions() {
     const { theme } = this.layer;
-    const labelStyle = theme.label.style;
+    const { label = {} } = theme;
     return {
       offsetX: 0,
       offsetY: 0,
-      offset: theme.label.offset || 0,
-      style: clone(labelStyle),
       adjustPosition: true,
+      ...label,
     };
   }
 
@@ -117,7 +116,7 @@ export default class BarLabel extends BaseLabel {
     return alignOptions[position];
   }
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getTextBaseline(element: Element) {
     return 'middle';
   }

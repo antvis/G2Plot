@@ -16,6 +16,7 @@ import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import './component/label';
+import './component/label-auto';
 import * as EventParser from './event';
 import './theme';
 import { DataItem } from '../../interface/config';
@@ -234,7 +235,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
     const { scales } = this.config;
     const { label, yField } = this.options;
     const scale = scales[yField];
-    if (label && label.visible) {
+    if (label && label?.visible) {
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'column',

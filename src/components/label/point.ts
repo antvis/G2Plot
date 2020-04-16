@@ -15,6 +15,10 @@ export default class PointLabel extends BaseLabel {
     };
   }
 
+  protected getLabelOffset() {
+    return this.getLabelOffsetByDimAndFactor('y', -1);
+  }
+
   protected getLabelItemAttrs(element: Element, idx: number): TextStyle[] {
     const { style, formatter } = this.options;
     const { shape } = element;

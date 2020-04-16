@@ -1,4 +1,4 @@
-import { clone, get, each, deepMix } from '@antv/util';
+import { get, each, deepMix } from '@antv/util';
 import { IShape, Element } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/base';
 import { TextStyle } from '../../../interface/config';
@@ -23,13 +23,12 @@ export default class ColumnLabel extends BaseLabel {
 
   protected getDefaultOptions() {
     const { theme } = this.layer;
-    const labelStyle = theme.label.style;
+    const { label = {} } = theme;
     return {
       offsetX: 0,
       offsetY: 0,
-      offset: theme.label.offset || 0,
-      style: clone(labelStyle),
       adjustPosition: true,
+      ...label,
     };
   }
 

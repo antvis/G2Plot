@@ -18,6 +18,7 @@ import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import { GraphicStyle } from '../../interface/config';
 import './component/label';
+import './component/label-auto';
 import * as EventParser from './event';
 import './theme';
 import { getGeometryByType } from '../../util/view';
@@ -264,9 +265,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { xField } = this.options;
+    const { label, xField } = this.options;
     const scale = scales[xField];
-    if (this.options.label && this.options.label.visible) {
+    if (label && label?.visible) {
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'bar',

@@ -5,6 +5,7 @@ import ConnectedArea from '../../components/connected-area';
 import { ElementOption } from '../../interface/config';
 import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
 import './component/label';
+import './component/label-auto';
 import { getGeometryByType } from '../../util/view';
 
 export interface StackedColumnViewConfig extends ColumnViewConfig {

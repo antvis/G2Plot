@@ -28,7 +28,6 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
       label: {
         visible: true,
         position: 'right',
-        offset: 8,
         adjustColor: true,
       },
       legend: {

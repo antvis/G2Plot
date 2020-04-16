@@ -175,7 +175,7 @@ describe('Grouped Column Auto Label', () => {
   it('Enough space: top position', () => {
     const plot = new GroupedColumn(createDiv(), {
       ...config,
-      width: 800,
+      width: 600,
       height: 600,
       meta: {
         sales: {

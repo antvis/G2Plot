@@ -4,6 +4,7 @@ import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
 import BaseBarLayer, { BarViewConfig } from '../bar/layer';
 import './component/label';
+import './component/label-auto';
 import { getGeometryByType } from '../../util/view';
 
 export interface StackedBarViewConfig extends BarViewConfig {

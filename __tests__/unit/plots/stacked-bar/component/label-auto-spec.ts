@@ -66,8 +66,8 @@ describe('StackedBar Auto Label', () => {
         );
         expect(label.attr('stroke')).toBeUndefined();
         expect(label.attr('textAlign')).toBe('center');
+        expect(label.attr('x')).toBe(columnBBox.minX + columnBBox.width / 2);
       }
-      expect(label.attr('x')).toBe(columnBBox.minX + columnBBox.width / 2);
       expect(label.attr('y')).toBe(columnBBox.minY + columnBBox.height / 2);
       expect(label.attr('textBaseline')).toBe('middle');
     });
@@ -103,8 +103,8 @@ describe('StackedBar Auto Label', () => {
           expect(label.attr('stroke')).toBeUndefined();
           expect(label.attr('textAlign')).toBe('center');
         }
+        expect(label.attr('x')).toBe(columnBBox.minX + columnBBox.width / 2);
       }
-      expect(label.attr('x')).toBe(columnBBox.minX + columnBBox.width / 2);
       expect(label.attr('y')).toBe(columnBBox.minY + columnBBox.height / 2);
       expect(label.attr('textBaseline')).toBe('middle');
     });

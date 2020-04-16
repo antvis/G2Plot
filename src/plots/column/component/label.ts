@@ -4,8 +4,9 @@ import BaseLabel, { registerLabelComponent } from '../../../components/label/bas
 import { TextStyle } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
 import BBox from '../../../util/bbox';
+import { IColumnLabel } from '../interface';
 
-export default class ColumnLabel extends BaseLabel {
+export default class ColumnLabel<L extends IColumnLabel = IColumnLabel> extends BaseLabel<L> {
   protected getLabelItemAttrs(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
     const { shape } = element;

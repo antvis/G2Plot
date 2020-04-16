@@ -5,9 +5,10 @@ import ColumnLabel from './label';
 import { getOverlapArea, moveInPanel, checkShapeOverlap } from '../../../util/view';
 import BBox from '../../../util/bbox';
 import { isContrastColorWhite } from '../../../util/color';
+import { IColumnAutoLabel } from '../interface';
 
 /** 自动模式的 Column 数据标签，会根据图形和数据标签自动优化数据标签布局和样式等 */
-export default class ColumnAutoLabel extends ColumnLabel {
+export default class ColumnAutoLabel extends ColumnLabel<IColumnAutoLabel> {
   protected getPosition(element: Element): { x: number; y: number } {
     const offset = this.getDefaultOffset();
     const value = this.getValue(element);

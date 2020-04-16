@@ -2,7 +2,9 @@ import { deepMix, valuesOfKey, clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
-import BaseBarLayer, { BarViewConfig } from '../bar/layer';
+import BaseBarLayer from '../bar/layer';
+import { BarViewConfig } from '../bar/interface';
+import './theme';
 
 export interface GroupedBarViewConfig extends BarViewConfig {
   groupField: string;

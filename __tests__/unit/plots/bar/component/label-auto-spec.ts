@@ -5,10 +5,8 @@ import sales from '../../../../data/sales.json';
 import subsales from '../../../../data/subsales.json';
 import BarAutoLabel from '../../../../../src/plots/bar/component/label-auto';
 import { IShape, Element, ORIGIN, FIELD_ORIGIN } from '../../../../../src/dependents';
-import { DEFAULT_GLOBAL_THEME } from '../../../../../src/theme/default';
 import { isContrastColorWhite } from '../../../../../src/util/color';
 
-const LABEL_THEME = DEFAULT_GLOBAL_THEME.label;
 const LABEL_FILL = 'rgba(44, 53, 66, 0.65)';
 
 describe('Bar Auto Label', () => {
@@ -52,6 +50,7 @@ describe('Bar Auto Label', () => {
       },
     });
     plot.render();
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = columnLabel.getLabels();
@@ -89,6 +88,7 @@ describe('Bar Auto Label', () => {
       },
     });
     plot.render();
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = columnLabel.getLabels();
@@ -123,6 +123,7 @@ describe('Bar Auto Label', () => {
       },
     });
     plot.render();
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = columnLabel.getLabels();
@@ -184,7 +185,7 @@ describe('Grouped Bar Auto Label', () => {
       },
     });
     plot.render();
-
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = columnLabel.getLabels();
@@ -214,6 +215,7 @@ describe('Grouped Bar Auto Label', () => {
       },
     });
     plot.render();
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = columnLabel.getLabels();

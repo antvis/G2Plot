@@ -130,10 +130,6 @@ export interface Label {
   // labelLine?: any;
   /** 标签对应字段 */
   field?: string;
-  /** column-auto 下暗色配置 */
-  darkStyle?: TextStyle;
-  /** column-auto 下亮色配置 */
-  lightStyle?: TextStyle;
 }
 
 export type LegendPosition =

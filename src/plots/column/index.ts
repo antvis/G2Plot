@@ -1,6 +1,7 @@
 import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import ColumnLayer, { ColumnViewConfig } from './layer';
+import ColumnLayer from './layer';
+import { ColumnViewConfig } from './interface';
 
 export interface ColumnConfig extends ColumnViewConfig, PlotConfig {}
 

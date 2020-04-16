@@ -24,18 +24,16 @@ export interface LabelComponentConfig extends BaseComponentConfig {
   label: Label;
 }
 
-export interface LabelOptions extends Label {}
-
 export interface LabelComponentCtor<T extends LabelComponentConfig = LabelComponentConfig> {
   new (config: T): LabelComponent;
 }
 
-export default abstract class LabelComponent extends BaseComponent<LabelComponentConfig> {
+export default abstract class LabelComponent<L extends Label = Label> extends BaseComponent<LabelComponentConfig> {
   protected layer: ViewLayer;
   protected view: View;
   protected geometry: Geometry;
   protected coord: Coordinate;
-  protected options: LabelOptions;
+  protected options: L;
   protected labels: IShape[];
   private labelsCfgMap: Record<string, TextStyle> = {};
   private lastLabelsCfgMap: Record<string, TextStyle> = {};
@@ -212,7 +210,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
   }
 
   /** 初始化默认全局配置 */
-  protected getDefaultOptions(): Partial<LabelOptions> {
+  protected getDefaultOptions(): Partial<L> {
     return {};
   }
 

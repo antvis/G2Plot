@@ -31,7 +31,7 @@ export interface BarViewConfig extends ViewConfig {
   barStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   xAxis?: IValueAxis;
   yAxis?: ICatAxis;
-  label?: IBarLabel;
+  label?: IBarLabel | IBarAutoLabel;
   conversionTag?: ConversionTagOptions;
   interactions?: BarInteraction[];
 }

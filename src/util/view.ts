@@ -28,9 +28,26 @@ export function checkOriginEqual(
 /** 将label调整到panel内 */
 export function moveInPanel(shape: IElement, panel: BBox) {
   const box = shape.getBBox();
+  let deltaX = 0;
+  let deltaY = 0;
 
-  shape.attr('x', Math.min(Math.max(box.x, panel.x), panel.maxX - box.width) + box.width / 2);
-  shape.attr('y', Math.min(Math.max(box.y, panel.y), panel.maxY - box.height) + box.height / 2);
+  if (box.minX < panel.minX) {
+    deltaX = box.minX - panel.minX;
+  } else if (box.maxX > panel.maxX) {
+    deltaX = box.maxX - panel.maxX;
+  }
+  if (deltaX) {
+    shape.attr('x', shape.attr('x') - deltaX);
+  }
+
+  if (box.minY < panel.minY) {
+    deltaY = box.minY - panel.minY;
+  } else if (box.maxY > panel.maxY) {
+    deltaY = box.maxY - panel.maxY;
+  }
+  if (deltaY) {
+    shape.attr('y', shape.attr('y') - deltaY);
+  }
 }
 
 /**

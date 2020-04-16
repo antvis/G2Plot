@@ -1,4 +1,4 @@
-import { deepMix, each, map, isArray, get, clone } from '@antv/util';
+import { deepMix, each, map, isArray, get, clone, isNumber } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import BaseComponent, { BaseComponentConfig } from '../base';
 import {
@@ -16,6 +16,7 @@ import {
 } from '../../dependents';
 import { Label, TextStyle } from '../../interface/config';
 import { LooseMap } from '../../interface/types';
+import BBox from '../../util/bbox';
 
 export interface LabelComponentConfig extends BaseComponentConfig {
   layer: ViewLayer;
@@ -171,6 +172,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
           id,
           name: 'label',
           offset,
+          element,
           [ORIGIN]: dataItem,
         }
       );
@@ -182,20 +184,28 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     return Number(this.options.offset);
   }
 
-  /** 获取当前 Label 的 offset 点：包括 offset、offsetX、offsetY */
+  /** 默认实现：获取当前 Label 的 offset 点：包括 offset、offsetX、offsetY */
   protected getLabelOffset() {
     const { offsetX, offsetY } = this.options;
-    const transposed = this.coord.isTransposed;
+    return {
+      x: isNumber(offsetX) ? offsetX : 0,
+      y: isNumber(offsetY) ? offsetY : 0,
+    };
+  }
+
+  /** 通过指定方向和系数获取整体 offset 点 */
+  protected getLabelOffsetByDimAndFactor(dim: 'x' | 'y', factor: number) {
+    const { offsetX, offsetY } = this.options;
     const offset = this.getDefaultOffset();
-    const dim = transposed ? 'x' : 'y';
-    const factor = transposed ? 1 : -1; // y 方向上越大，像素的坐标越小，所以transposed时将系数变成
     const offsetPoint = {
       x: 0,
       y: 0,
     };
     offsetPoint[dim] = offset * factor;
-    if (offsetX) {
+    if (isNumber(offsetX)) {
       offsetPoint.x += offsetX;
+    }
+    if (isNumber(offsetY)) {
       offsetPoint.y += offsetY;
     }
     return offsetPoint;
@@ -213,7 +223,7 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
   protected abstract adjustLabel(label: IShape, element: Element, datumIdx: number): void;
 
   /** 整理对所有 Labels 的布局调整 */
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
     // empty
   }
@@ -233,6 +243,12 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     }
 
     return labelId;
+  }
+
+  protected getCoordinateBBox() {
+    const { coord } = this;
+    const { start, end } = coord;
+    return new BBox(Math.min(start.x, end.x), Math.min(start.y, end.y), coord.getWidth(), coord.getHeight());
   }
 }
 

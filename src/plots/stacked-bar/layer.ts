@@ -79,9 +79,9 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
-    const scale = scales[yField];
-    if (this.options.label && this.options.label.visible) {
+    const { label, xField } = this.options;
+    const scale = scales[xField];
+    if (label && label?.visible) {
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'stacked-bar',

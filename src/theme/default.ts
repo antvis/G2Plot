@@ -258,6 +258,16 @@ export const DEFAULT_GLOBAL_THEME = {
       stroke: '#ffffff',
       lineWidth: 2,
     },
+    darkStyle: {
+      fill: '#2c3542',
+      stroke: '#ffffff',
+      fillOpacity: 0.85,
+    },
+    lightStyle: {
+      fill: '#ffffff',
+      stroke: '#ffffff',
+      fillOpacity: 1,
+    },
   },
   tooltip: {
     'g2-tooltip': {

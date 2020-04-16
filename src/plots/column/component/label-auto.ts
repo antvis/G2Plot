@@ -37,6 +37,12 @@ export default class ColumnAutoLabel extends ColumnLabel {
     return undefined;
   }
 
+  /** 默认无处理：在 layout 阶段处理 */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected adjustLabel(label: IShape, element: Element): void {
+    // empty
+  }
+
   /** 自动布局所有的数据标签 */
   protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
     if (this.shouldInShapeLabels(labels)) {

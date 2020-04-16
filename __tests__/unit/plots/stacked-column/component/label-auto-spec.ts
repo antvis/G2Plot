@@ -64,12 +64,12 @@ describe('StackColumn Auto Label', () => {
         expect(label.attr('fillOpacity')).toBe(
           fillWhite ? LABEL_THEME.lightStyle.fillOpacity : LABEL_THEME.darkStyle.fillOpacity
         );
+        expect(label.attr('y')).toBe(columnBBox.minY + columnBBox.height / 2);
+        expect(label.attr('textBaseline')).toBe('middle');
         expect(label.attr('stroke')).toBeUndefined();
       }
       expect(label.attr('x')).toBe(columnBBox.minX + columnBBox.width / 2);
-      expect(label.attr('y')).toBe(columnBBox.minY + columnBBox.height / 2);
       expect(label.attr('textAlign')).toBe('center');
-      expect(label.attr('textBaseline')).toBe('middle');
     });
   });
 
@@ -102,11 +102,11 @@ describe('StackColumn Auto Label', () => {
           );
           expect(label.attr('stroke')).toBeUndefined();
         }
+        expect(label.attr('y')).toBe(columnBBox.minY + columnBBox.height / 2);
+        expect(label.attr('textBaseline')).toBe('middle');
       }
       expect(label.attr('x')).toBe(columnBBox.minX + columnBBox.width / 2);
-      expect(label.attr('y')).toBe(columnBBox.minY + columnBBox.height / 2);
       expect(label.attr('textAlign')).toBe('center');
-      expect(label.attr('textBaseline')).toBe('middle');
     });
   });
 });

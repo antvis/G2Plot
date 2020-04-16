@@ -288,7 +288,6 @@ describe('Bar Label', () => {
     });
 
     plot.render();
-    window.__plot__ = plot;
 
     let labels: IShape[];
     let curData: any[];

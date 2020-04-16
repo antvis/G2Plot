@@ -52,7 +52,6 @@ describe('Bar Auto Label', () => {
       },
     });
     plot.render();
-    window.__plot__ = plot;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = columnLabel.getLabels();

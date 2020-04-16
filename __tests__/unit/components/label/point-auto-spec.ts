@@ -64,7 +64,6 @@ describe('Line point-auto label', () => {
   it('basic', () => {
     const chart = new Line(createDiv(), config);
     chart.render();
-    window.__chart__ = chart;
     const label = chart.getLayer().getLabels();
     const labelShapes = label[0]?.getLabels();
 

@@ -33,7 +33,6 @@ describe('BaseLabel', () => {
   it('Label animation', async () => {
     const plot = new Column(createDiv(), config);
     plot.render();
-    window.__plot__ = plot;
 
     const getLabelShapes = () => {
       const label = plot.getLayer().getLabels();

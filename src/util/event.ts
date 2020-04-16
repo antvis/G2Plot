@@ -1,64 +1,63 @@
 import ViewLayer from '../base/view-layer';
 import { LooseMap } from '../interface/types';
-import { each, deepMix } from '@antv/util';
+import { each, deepMix, upperFirst } from '@antv/util';
 
 type IEventmap = LooseMap<string>;
 
 type Handler = (...__: any[]) => {};
 
 const eventNames = [
-  'Click',
-  'Dblclick',
-  'Mousemove',
-  'Mouseenter',
-  'Mouseleave',
-  'Mousedown',
-  'Mouseup',
-  'Contextmenu',
+  'click',
+  'dblclick',
+  'mousemove',
+  'mouseenter',
+  'mouseleave',
+  'mousedown',
+  'mouseup',
+  'contextmenu',
 ];
 
 const mobileEventNames = [
-  'Touchstart',
-  'Touch',
-  'Touchend',
-  'Pressstart',
-  'Press',
-  'Pressend',
-  'Swipestart',
-  'Swipe',
-  'Swipeend',
-  'Pinchstart',
-  'Pinch',
-  'Pinchend',
-  'Panstart',
-  'Pan',
-  'Panend',
+  'touchstart',
+  'touch',
+  'touchend',
+  'pressstart',
+  'press',
+  'pressend',
+  'swipestart',
+  'swipe',
+  'swipeend',
+  'pinchstart',
+  'pinch',
+  'pinchend',
+  'panstart',
+  'pan',
+  'panend',
 ];
 
 const viewComponentMap = {
-  View: 'view',
-  Axis: 'axis-label',
-  Label: 'label',
-  Legend: 'legend-item',
+  axis: 'axis-label',
+  label: 'label',
+  legend: 'legend-item',
 };
 
 const canvasComponentMap = {
-  Plot: 'plot',
-  Title: 'title',
-  Description: 'description',
-  Breadcrumb: 'breadcrumb',
+  title: 'title',
+  description: 'description',
+  breadcrumb: 'breadcrumb',
 };
 
-const layerComponentMap = {
-  Layer: 'layer',
-};
+const CANVAS_EVENT_MAP: IEventmap = deepMix(getEventMap(canvasComponentMap), getRegionEventMap('Plot', eventNames));
 
-const CANVAS_EVENT_MAP: IEventmap = getEventMap(canvasComponentMap);
-
-const LAYER_EVENT_MAP: IEventmap = getEventMap(layerComponentMap);
+const LAYER_EVENT_MAP: IEventmap = getRegionEventMap('Layer', eventNames);
 
 //移动端事件暂时只支持view级
-const EVENT_MAP: IEventmap = deepMix({}, getEventMap(viewComponentMap), getMobileEventMap());
+const EVENT_MAP: IEventmap = deepMix(
+  {},
+  getEventMap(viewComponentMap),
+  getRegionEventMap('View', eventNames),
+  getMobileEventMap()
+);
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
   layer.view.on(eventName, (ev) => {
@@ -80,14 +79,26 @@ function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
 export function getEventMap(map) {
   const eventMap: IEventmap = {};
   each(map, (item, key) => {
-    const namePrefix = `on${key}`;
+    const componentName = upperFirst(key);
+    const namePrefix = `on${componentName}`;
     const eventPrefix = `${item}:`;
     each(eventNames, (name) => {
-      const eventKey = `${namePrefix}${name}`;
-      const eventName = name.toLowerCase();
-      const event = `${eventPrefix}${eventName}`;
+      const eventName = upperFirst(name);
+      const eventKey = `${namePrefix}${eventName}`;
+      const event = `${eventPrefix}${name}`;
       eventMap[eventKey] = event;
     });
+  });
+  return eventMap;
+}
+
+export function getRegionEventMap(prefix, eventList) {
+  const eventMap: IEventmap = {};
+  const namePrefix = `on`;
+  each(eventList, (name) => {
+    const eventName = upperFirst(name);
+    const eventKey = `${namePrefix}${prefix}${eventName}`;
+    eventMap[eventKey] = name;
   });
   return eventMap;
 }
@@ -96,9 +107,9 @@ export function getMobileEventMap() {
   const eventMap: IEventmap = {};
   const namePrefix = `on`;
   each(mobileEventNames, (name) => {
-    const eventKey = `${namePrefix}${name}`;
-    const eventName = name.toLowerCase();
-    eventMap[eventKey] = eventName;
+    const eventName = upperFirst(name);
+    const eventKey = `${namePrefix}${eventName}`;
+    eventMap[eventKey] = name;
   });
   return eventMap;
 }

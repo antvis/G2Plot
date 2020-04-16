@@ -5,11 +5,9 @@ import subsales from '../../../../data/subsales.json';
 import { createDiv } from '../../../../utils/dom';
 import StackedBarAutoLabel from '../../../../../src/plots/stacked-bar/component/label-auto';
 import { isContrastColorWhite } from '../../../../../src/util/color';
-import { DEFAULT_GLOBAL_THEME } from '../../../../../src/theme/default';
 
-const LABEL_FILL = DEFAULT_GLOBAL_THEME.label.darkStyle.fill;
+const LABEL_FILL = '#2c3542';
 const FILL_OPACITY = 0.85;
-const LABEL_THEME = DEFAULT_GLOBAL_THEME.label;
 const DATA: { area: string; series: string; sales: number }[] = subsales;
 
 describe('StackedBar Auto Label', () => {
@@ -46,6 +44,7 @@ describe('StackedBar Auto Label', () => {
   it('InShape /wo stroke', () => {
     const plot = new StackedBar(createDiv(), { ...config, width: 800, height: 600 });
     plot.render();
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = labels[0] && labels[0].getLabels();
@@ -76,6 +75,7 @@ describe('StackedBar Auto Label', () => {
   it('InShape /w stroke', () => {
     const plot = new StackedBar(createDiv(), { ...config, width: 600, height: 280 });
     plot.render();
+    const LABEL_THEME = plot.getLayer().theme.label;
     const labels = plot.getLayer().getLabels();
     const columnLabel = labels[0];
     const labelShapes = labels[0] && labels[0].getLabels();

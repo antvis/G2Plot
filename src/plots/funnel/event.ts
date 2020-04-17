@@ -1,16 +1,11 @@
 import { assign } from '@antv/util';
-import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
+import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
-const SHAPE_EVENT_MAP: IEventmap = {
-  onFunnelClick: 'interval:click',
-  onFunnelDblclick: 'interval:dblclick',
-  onFunnelMousemove: 'interval:mousemove',
-  onFunnelMouseenter: 'interval:mouseenter',
-  onFunnelMouseleave: 'interval:mouseleave',
-  onFunnelMousedown: 'interval:mousedown',
-  onFunnelMouseup: 'interval:mouseup',
-  onFunnelContextmenu: 'interval:contextmenu',
+const componentMap = {
+  funnel: 'interval',
 };
+
+const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);
 
 assign(EVENT_MAP, SHAPE_EVENT_MAP);
 

@@ -1,7 +1,8 @@
 import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
+import BaseColumnLayer from '../column/layer';
+import { ColumnViewConfig } from '../column/interface';
 import RangeColumnLabel, { RangeColumnLabelConfig } from './component/label';
 import { setShapeCache } from './animation';
 

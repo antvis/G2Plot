@@ -1,13 +1,12 @@
-import { each, get, deepMix, clone } from '@antv/util';
+import { each, get, deepMix } from '@antv/util';
 import { Element, IShape } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/base';
 import { rgb2arr, mappingColor } from '../../../util/color';
 import BBox from '../../../util/bbox';
 import { TextStyle } from '../../../interface/config';
+import { IBarLabel } from '../interface';
 
-export const DEFAULT_OFFSET = 8;
-
-export default class BarLabel extends BaseLabel {
+export default class BarLabel<L extends IBarLabel = IBarLabel> extends BaseLabel<L> {
   protected getLabelItemAttrs(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
     const { shape } = element;
@@ -26,10 +25,11 @@ export default class BarLabel extends BaseLabel {
   protected adjustLabel(label: IShape, element: Element): void {
     const { adjustPosition, style } = this.options;
     if (adjustPosition) {
+      const offset = this.getDefaultOffset();
       const labelRange = label.getBBox();
       const shapeRange = this.getElementShapeBBox(element);
       if (shapeRange.width <= labelRange.width) {
-        const xPosition = shapeRange.maxX + this.options.offsetX;
+        const xPosition = shapeRange.maxX + this.options.offsetX + offset;
         label.attr('x', xPosition);
         label.attr('fill', style.fill);
       }
@@ -38,12 +38,12 @@ export default class BarLabel extends BaseLabel {
 
   protected getDefaultOptions() {
     const { theme } = this.layer;
-    const labelStyle = theme.label.style;
+    const { label = {} } = theme;
     return {
-      offsetX: DEFAULT_OFFSET,
+      offsetX: 0,
       offsetY: 0,
-      style: clone(labelStyle),
       adjustPosition: true,
+      ...label,
     };
   }
 
@@ -52,6 +52,7 @@ export default class BarLabel extends BaseLabel {
   }
 
   protected getPosition(element: Element): { x: number; y: number } {
+    const offset = this.getDefaultOffset();
     const value = this.getValue(element);
     const bbox = this.getElementShapeBBox(element);
     const { minX, maxX, minY, height, width } = bbox;
@@ -61,12 +62,12 @@ export default class BarLabel extends BaseLabel {
     let x;
     if (position === 'left') {
       const root = value > 0 ? minX : maxX;
-      x = root + offsetX * dir;
+      x = root + offset * dir + offsetX;
     } else if (position === 'right') {
       const root = value > 0 ? maxX : minX;
-      x = root + offsetX * dir;
+      x = root + offset * dir + offsetX;
     } else {
-      x = minX + width / 2;
+      x = minX + width / 2 + offsetX;
     }
 
     return { x, y };
@@ -116,7 +117,7 @@ export default class BarLabel extends BaseLabel {
     return alignOptions[position];
   }
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getTextBaseline(element: Element) {
     return 'middle';
   }
@@ -135,6 +136,14 @@ export default class BarLabel extends BaseLabel {
     const yValuesMax = Math.max(...yValues);
     const bbox = new BBox(xValuesMin, yValuesMin, xValueMax - xValuesMin, yValuesMax - yValuesMin);
     return bbox;
+  }
+
+  protected getLabelOffset() {
+    // Column 的 offset 在 getPosition 中因 position 不同单独处理
+    return {
+      x: 0,
+      y: 0,
+    };
   }
 }
 

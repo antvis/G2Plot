@@ -1,26 +1,19 @@
 import { deepMix, has, each, clone } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import ViewLayer from '../../base/view-layer';
 import { getComponent } from '../../components/factory';
-import ConversionTag, { ConversionTagOptions } from '../../components/conversion-tag';
+import ConversionTag from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
-import {
-  ElementOption,
-  ICatAxis,
-  IValueAxis,
-  Label,
-  DataItem,
-  IScrollbarInteractionConfig,
-  IInteractions,
-} from '../../interface/config';
+import { ElementOption, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
-import { GraphicStyle } from '../../interface/config';
-import './component/label';
-import * as EventParser from './event';
 import './theme';
+import './component/label';
+import './component/label-auto';
+import * as EventParser from './event';
 import { getGeometryByType } from '../../util/view';
+import { BarViewConfig } from './interface';
 
 const G2_GEOM_MAP = {
   bar: 'interval',
@@ -29,25 +22,6 @@ const G2_GEOM_MAP = {
 const PLOT_GEOM_MAP = {
   interval: 'bar',
 };
-
-interface IBarLabel extends Label {
-  position?: string | 'left' | 'middle' | 'right';
-  adjustPosition?: boolean;
-  adjustColor?: boolean;
-}
-
-type BarInteraction = { type: 'scrollBar'; cfg: IScrollbarInteractionConfig } | IInteractions;
-
-export interface BarViewConfig extends ViewConfig {
-  colorField?: string;
-  barSize?: number;
-  barStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
-  xAxis?: IValueAxis;
-  yAxis?: ICatAxis;
-  label?: IBarLabel;
-  conversionTag?: ConversionTagOptions;
-  interactions?: BarInteraction[];
-}
 
 export interface BarLayerConfig extends BarViewConfig, LayerConfig {}
 
@@ -264,9 +238,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { xField } = this.options;
+    const { label, xField } = this.options;
     const scale = scales[xField];
-    if (this.options.label && this.options.label.visible) {
+    if (label?.visible) {
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'bar',

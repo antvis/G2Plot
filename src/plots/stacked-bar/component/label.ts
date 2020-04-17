@@ -7,7 +7,8 @@ export default class StackedBarLabel extends BarLabel {
     if (this.options.adjustPosition) {
       const labelRange = label.getBBox();
       const shapeRange = this.getElementShapeBBox(element);
-      if (shapeRange.width <= labelRange.width) {
+      // label 有 offset
+      if (shapeRange.maxX <= labelRange.maxX) {
         label.set('visible', false);
       }
     }

@@ -22,6 +22,41 @@ jobs:
       - name: lint
         run: |
           npm run ci
+  build:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+        env:
+          CI: true
+      - name: npm install
+        run: |
+          npm install
+      - name: build
+        run: |
+          npm run build
+  test:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+        env:
+          CI: true
+      - name: test
+        run: |
+          npm test -- --coverage
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:

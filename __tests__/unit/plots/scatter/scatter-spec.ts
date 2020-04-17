@@ -1,5 +1,6 @@
 import { Scatter } from '../../../../src';
 import { CountryEconomy as data } from '../../../data/country-economy';
+import { getGeometryShapes, getGeometryByType } from '../../../../src/util/view';
 
 describe('Scatter plot', () => {
   const canvasDiv = document.createElement('div');
@@ -223,9 +224,7 @@ describe('Scatter plot', () => {
     scatterPlot.render();
     const view = scatterPlot.getLayer().view;
 
-    const pointShapes = view.middleGroup.findAll((el) => {
-      return el.get('name') === 'point';
-    });
+    const pointShapes = getGeometryShapes(getGeometryByType(view, 'point'));
     expect(pointShapes.length).toBe(60);
     expect(pointShapes[0].attr('r')).toBe(5);
   });

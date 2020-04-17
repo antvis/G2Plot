@@ -2,8 +2,11 @@ import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
-import BaseBarLayer, { BarViewConfig } from '../bar/layer';
+import BaseBarLayer from '../bar/layer';
+import { BarViewConfig } from '../bar/interface';
+import './theme';
 import './component/label';
+import './component/label-auto';
 import { getGeometryByType } from '../../util/view';
 
 export interface StackedBarViewConfig extends BarViewConfig {
@@ -79,9 +82,9 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
 
   protected renderLabel() {
     const { scales } = this.config;
-    const { yField } = this.options;
-    const scale = scales[yField];
-    if (this.options.label && this.options.label.visible) {
+    const { label, xField } = this.options;
+    const scale = scales[xField];
+    if (label?.visible) {
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'stacked-bar',

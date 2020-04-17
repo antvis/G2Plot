@@ -283,7 +283,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     }
 
     if (percent > 0.55) {
-      const waveColor = this.options.color;
+      const waveColor = this.options.color as string;
       const waveOpacity = 0.8;
       const rgb = rgb2arr(waveColor);
       const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / waveOpacity;

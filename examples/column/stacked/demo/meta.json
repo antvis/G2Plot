@@ -7,40 +7,40 @@
     {
       "filename": "stackColumn.js",
       "title": {
-        "zh":"堆叠柱状图",
-        "en":"StackedColumn chart"
+        "zh": "堆叠柱状图",
+        "en": "StackedColumn chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*b7StTaZVdmAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "connected-area.js",
       "title": {
-        "zh":"区域联通组件",
-        "en":"StackedColumn chart with Connected Area"
+        "zh": "区域联通组件",
+        "en": "StackedColumn chart with Connected Area"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lGVLS79U-esAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "connected-area-interaction.js",
       "title": {
-        "zh":"区域联通组件交互",
-        "en":"Connected Area triggered on by mouse event"
+        "zh": "区域联通组件交互",
+        "en": "Connected Area triggered on by mouse event"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CVRdTIQiLaUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "connected-area-style.js",
       "title": {
-        "zh":"区域联通组件样式",
-        "en":"Connected Area style"
+        "zh": "区域联通组件样式",
+        "en": "Connected Area style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*v0_5QqYQ8jcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "label-auto-hide.js",
       "title": {
-        "zh":"图形标签自动隐藏",
-        "en":"StackedColumn chart - auto hide label"
+        "zh": "图形标签自动隐藏",
+        "en": "StackedColumn chart - auto hide label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0t8aT7n94A4AAAAAAAAAAABkARQnAQ"
     }

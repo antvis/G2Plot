@@ -7,16 +7,16 @@
     {
       "filename": "range-column.js",
       "title": {
-        "zh":"区间柱状图",
-        "en":"RangeColumn chart"
+        "zh": "区间柱状图",
+        "en": "RangeColumn chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CoX7TK29_TsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "range-column-label.js",
       "title": {
-        "zh":"区间柱状图label样式",
-        "en":"RangeColumn chart label style"
+        "zh": "区间柱状图label样式",
+        "en": "RangeColumn chart label style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*m_0ORYQ56-YAAAAAAAAAAABkARQnAQ"
     }

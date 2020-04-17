@@ -6,7 +6,7 @@
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint", "unicorn"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -28,6 +28,8 @@
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/no-inferrable-types": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/type-annotation-spacing": 0
+    "@typescript-eslint/type-annotation-spacing": 0,
+    "unicorn/better-regex": 2,
+    "unicorn/no-abusive-eslint-disable": 2
   }
 }

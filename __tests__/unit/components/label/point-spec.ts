@@ -2,7 +2,7 @@ import { Line, LineConfig } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { each } from '@antv/util';
 import sales from '../../../data/sales.json';
-import citysaels from '../../../../examples/data/sales';
+import citysaels from '../../../../examples/data/sales.json';
 
 const SALES_DATA: { area: string; sales: number }[] = sales;
 

@@ -1,7 +1,8 @@
 import { deepMix, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import BaseBarLayer, { BarViewConfig } from '../bar/layer';
+import BaseBarLayer from '../bar/layer';
+import { BarViewConfig } from '../bar/interface';
 import RangeBarLabel, { RangeBarLabelConfig } from './component/label';
 import { setShapeCache } from './animation';
 

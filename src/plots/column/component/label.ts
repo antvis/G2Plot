@@ -1,13 +1,12 @@
-import { clone, get, each, deepMix } from '@antv/util';
+import { get, each, deepMix } from '@antv/util';
 import { IShape, Element } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/base';
 import { TextStyle } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
 import BBox from '../../../util/bbox';
+import { IColumnLabel } from '../interface';
 
-export const DEFAULT_OFFSET = 8;
-
-export default class ColumnLabel extends BaseLabel {
+export default class ColumnLabel<L extends IColumnLabel = IColumnLabel> extends BaseLabel<L> {
   protected getLabelItemAttrs(element: Element, idx: number): TextStyle {
     const { style, formatter } = this.options;
     const { shape } = element;
@@ -18,29 +17,30 @@ export default class ColumnLabel extends BaseLabel {
       text: formatter ? formatter(value, shape, idx) : value,
       fill: this.getTextFill(element),
       stroke: this.getTextStroke(element),
-      textAlign: this.getTextAlign(element),
-      textBaseline: this.getTextBaseLine(element),
+      textAlign: this.getTextAlign(),
+      textBaseline: this.getTextBaseLine(),
     });
   }
 
   protected getDefaultOptions() {
     const { theme } = this.layer;
-    const labelStyle = theme.label.style;
+    const { label = {} } = theme;
     return {
       offsetX: 0,
       offsetY: 0,
-      style: clone(labelStyle),
       adjustPosition: true,
+      ...label,
     };
   }
 
   protected adjustLabel(label: IShape, element: Element): void {
     const { adjustPosition } = this.options;
     if (adjustPosition) {
+      const offset = this.getDefaultOffset();
       const labelRange = label.getBBox();
       const shapeRange = this.getElementShapeBBox(element);
       if (shapeRange.height <= labelRange.height) {
-        const yPosition = shapeRange.minY + this.options.offsetY - DEFAULT_OFFSET;
+        const yPosition = shapeRange.minY + this.options.offsetY - offset;
         label.attr('y', yPosition);
         label.attr('textBaseline', 'bottom');
         label.attr('fill', this.options.style.fill);
@@ -53,6 +53,7 @@ export default class ColumnLabel extends BaseLabel {
   }
 
   protected getPosition(element: Element): { x: number; y: number } {
+    const offset = this.getDefaultOffset();
     const value = this.getValue(element);
     const bbox = this.getElementShapeBBox(element);
     const { minX, minY, maxY, height, width } = bbox;
@@ -63,12 +64,12 @@ export default class ColumnLabel extends BaseLabel {
 
     if (position === 'top') {
       const root = value > 0 ? minY : maxY;
-      y = root + (offsetY + DEFAULT_OFFSET) * dir;
+      y = root + offset * dir + offsetY;
     } else if (position === 'bottom') {
       const root = value > 0 ? maxY : minY;
-      y = root + (offsetY + DEFAULT_OFFSET) * dir;
+      y = root + offset * dir + offsetY;
     } else {
-      y = minY + height / 2;
+      y = minY + height / 2 + offsetY;
     }
 
     return { x, y };
@@ -115,15 +116,20 @@ export default class ColumnLabel extends BaseLabel {
     return bbox;
   }
 
-  // eslint-disable-next-line
-  protected getTextAlign(element: Element) {
+  protected getTextAlign() {
     return 'center';
   }
 
-  protected getTextBaseLine(element: Element) {
-    const { position } = this.options;
-    const value = this.getValue(element);
-    return position === 'middle' ? 'middle' : value > 0 ? 'bottom' : 'top';
+  protected getTextBaseLine() {
+    return 'middle';
+  }
+
+  protected getLabelOffset() {
+    // Column 的 offset 在 getPosition 中因 position 不同单独处理
+    return {
+      x: 0,
+      y: 0,
+    };
   }
 }
 

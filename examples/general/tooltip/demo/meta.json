@@ -7,7 +7,7 @@
     {
       "filename": "tooltip-inner-chart.js",
       "title": {
-        "zh":"tooltip内展示图表",
+        "zh": "tooltip内展示图表",
         "en": "Tooltip inner chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LHOTR7ffJO4AAAAAAAAAAABkARQnAQ"
@@ -15,7 +15,7 @@
     {
       "filename": "tooltip-statistic-value.js",
       "title": {
-        "zh":"tooltip显示统计数值+动态排序",
+        "zh": "tooltip显示统计数值+动态排序",
         "en": "sorting tooltip value dynamicly & add statistic value"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PUydS43sHYMAAAAAAAAAAABkARQnAQ"

@@ -37,5 +37,6 @@ export default class PieOuterCenterLabel extends PieBaseLabel {
   }
 
   /** label 碰撞调整 */
-  protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {} // eslint-disable-line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
+  protected layout(labels: IShape[], items: LabelItem[], panel: BBox) {}
 }

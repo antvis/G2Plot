@@ -25,8 +25,6 @@ describe('bullet plot', () => {
       rangeColors: ['red'],
     });
     bullet.render();
-    // @ts-ignore
-    window.__plot = bullet;
     const layer = bullet.getLayer() as BulletLayer;
     const plot = layer.getPlot();
     expect(bullet).toBeInstanceOf(Bullet);

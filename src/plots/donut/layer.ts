@@ -60,7 +60,7 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     DonutLayer.centralId++;
     this.statisticClass = `statisticClassId${DonutLayer.centralId}`;
     this.adjustLabelDefaultOptions();
-    if (this.options.statistic && this.options.statistic.triggerOn) {
+    if (this.options.statistic.visible && this.options.statistic.triggerOn) {
       this.options.tooltip.visible = false;
     }
     /** 响应式图形 */

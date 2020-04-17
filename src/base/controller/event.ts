@@ -125,9 +125,10 @@ export default class EventController {
   }
 
   private getEventObj(ev) {
+    const pixelRatio = window.devicePixelRatio;
     const obj = {
-      x: ev.x / this.pixelRatio,
-      y: ev.y / this.pixelRatio,
+      x: ev.x / pixelRatio,
+      y: ev.y / pixelRatio,
       target: ev.target,
       event: ev.event, // g事件的event
     };

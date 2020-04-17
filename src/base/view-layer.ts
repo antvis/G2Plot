@@ -52,8 +52,6 @@ export interface ViewConfig {
   xField?: string;
   yField?: string;
   color?: string | string[] | {};
-  //size?: number | number[] | {};
-  //shape?: string | string[] | {};
   xAxis?: Axis;
   yAxis?: Axis;
   label?: Label;
@@ -155,12 +153,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       label: {
         visible: false,
       },
-      interactions: [
-        { type: 'tooltip' },
-        { type: 'legend-active' },
-        { type: 'legend-filter' },
-        { type: 'interaction' },
-      ],
+      interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
       animation: false,
     };
   }

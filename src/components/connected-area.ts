@@ -220,7 +220,7 @@ export default class ConnectedArea {
       },
       600,
       'easeQuadOut',
-      () => {}, // eslint-disable-line
+      () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
       400
     );
   }

@@ -122,7 +122,7 @@ function getTime(date: Date, mode: string) {
 
 /*tslint:disable*/
 export function isTime(string) {
-  const hourminExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]$/;
-  const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/;
+  const hourminExp = /^(?:(?:[0-2][0-3])|(?:[01]\d)):[0-5]\d$/;
+  const hourminSecExp = /^(?:(?:[0-2][0-3])|(?:[01]\d))(?::[0-5]\d){2}$/;
   return hourminExp.test(string) || hourminSecExp.test(string);
 }

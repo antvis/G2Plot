@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  setup:
+  lint:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
@@ -16,21 +16,46 @@ jobs:
           npm install
         env:
           CI: true
-  lint:
-    runs-on: macOS-latest
-    steps:
+      - name: npm install
+        run: |
+          npm install
       - name: lint
         run: |
           npm run lint
+    needs: setup
   build:
     runs-on: macOS-latest
     steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+        env:
+          CI: true
+      - name: npm install
+        run: |
+          npm install
       - name: build
         run: |
           npm run build
+    needs: setup
   test:
     runs-on: macOS-latest
     steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+        env:
+          CI: true
       - name: test
         run: |
           npm test -- --coverage
@@ -38,3 +63,4 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+    needs: setup

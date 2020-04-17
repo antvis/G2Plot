@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   setup:
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12

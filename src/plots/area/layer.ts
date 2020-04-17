@@ -1,56 +1,23 @@
 import { deepMix, has, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import ViewLayer, { ViewConfig } from '../../base/view-layer';
+import ViewLayer from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
-import {
-  ElementOption,
-  ICatAxis,
-  ITimeAxis,
-  IValueAxis,
-  GraphicStyle,
-  LineStyle,
-  ISliderInteractionConfig,
-  IScrollbarInteractionConfig,
-} from '../../interface/config';
-import '../../components/label/point';
+import { ElementOption } from '../../interface/config';
+import './component/label/area-point';
+import './component/label/area-point-auto';
 import { extractScale } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
 import { getGeometryByType } from '../../util/view';
+import { AreaViewConfig } from './interface';
 
 const GEOM_MAP = {
   area: 'area',
   line: 'line',
   point: 'point',
 };
-
-type AreaInteraction =
-  | { type: 'slider'; cfg: ISliderInteractionConfig }
-  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
-
-export interface AreaViewConfig extends ViewConfig {
-  areaStyle?: GraphicStyle | ((...args: any) => GraphicStyle);
-  seriesField?: string;
-  xAxis?: ICatAxis | ITimeAxis | IValueAxis;
-  yAxis?: IValueAxis;
-  line?: {
-    visible?: boolean;
-    color?: string;
-    size?: number;
-    style?: LineStyle;
-  };
-  point?: {
-    visible?: boolean;
-    color?: string;
-    size?: number;
-    shape?: string;
-    style?: GraphicStyle;
-  };
-  smooth?: boolean;
-  interactions?: AreaInteraction[];
-}
 
 export interface AreaLayerConfig extends AreaViewConfig, LayerConfig {}
 
@@ -218,7 +185,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     if (label.visible) {
       const geometry = getGeometryByType(this.view, 'line');
       this.doRenderLabel(geometry, {
-        type: 'point',
+        type: 'area-point',
         formatter: scale.formatter,
         ...this.options.label,
       });

@@ -7,56 +7,56 @@
     {
       "filename": "basic.js",
       "title": {
-        "zh":"基础子弹图",
-        "en":"Bullet chart"
+        "zh": "基础子弹图",
+        "en": "Bullet chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vk43S5pvUJcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "color-range.js",
       "title": {
-        "zh":"基础子弹图-带多颜色范围区间",
-        "en":"Bullet chart with multiple color range"
+        "zh": "基础子弹图-带多颜色范围区间",
+        "en": "Bullet chart with multiple color range"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dL-9TKrcJcEAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "overflow.js",
       "title": {
-        "zh":"基础子弹图-超出目标",
-        "en":"Bullet chart - over the target"
+        "zh": "基础子弹图-超出目标",
+        "en": "Bullet chart - over the target"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZDtmQobNID8AAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "multi-targets.js",
       "title": {
-        "zh":"基础子弹图-多目标值",
-        "en":"Bullet chart - multiple targets"
+        "zh": "基础子弹图-多目标值",
+        "en": "Bullet chart - multiple targets"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vNl5TpVsFPcAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "stack.js",
       "title": {
-        "zh":"堆叠子弹图",
-        "en":"stacked Bullet chart"
+        "zh": "堆叠子弹图",
+        "en": "stacked Bullet chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qdtlRpVAwlMAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "group.js",
       "title": {
-        "zh":"分组子弹图",
-        "en":"grouped Bullet chart"
+        "zh": "分组子弹图",
+        "en": "grouped Bullet chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N-DoQbx-WMwAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "group-color-range.js",
       "title": {
-        "zh":"分组子弹图-带颜色范围区间",
-        "en":"Bullet chart with color range"
+        "zh": "分组子弹图-带颜色范围区间",
+        "en": "Bullet chart with color range"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CojyRprMccsAAAAAAAAAAABkARQnAQ"
     }

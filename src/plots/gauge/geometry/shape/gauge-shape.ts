@@ -43,7 +43,7 @@ export class GaugeShape {
   }
 
   render() {
-    const Gauge = this; // eslint-disable-line
+    const Gauge = this; // eslint-disable-line @typescript-eslint/no-this-alias
     registerShape('point', 'gauge', {
       draw(cfg: any, group: IGroup) {
         this.gauge = {} as any;

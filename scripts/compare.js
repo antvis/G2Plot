@@ -105,11 +105,8 @@ puppeteer
       await page.goto(`http://localhost:2046/demos/${name}.html`);
       await load;
       await sleep();
-      const pngSource = await page.evaluate(function() {
-        return document
-          .querySelector('#canvas canvas')
-          .toDataURL()
-          .split(',')[1];
+      const pngSource = await page.evaluate(function () {
+        return document.querySelector('#canvas canvas').toDataURL().split(',')[1];
       });
 
       const pngPath = path.join(snapshotDir, `${name}.png`);

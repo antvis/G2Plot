@@ -55,8 +55,7 @@ export const getEllipsisText = (text: any, maxWidth: number, font: Font) => {
   }
 
   // 首先通过 step 计算，找出最大的未超出长度的
-  // eslint-disable-next-line
-  //eslint-disable-next-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     // 更新字符串
     currentText = leftText.substr(0, STEP);

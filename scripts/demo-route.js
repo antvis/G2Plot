@@ -52,13 +52,13 @@ function composeHtml(filename) {
 function getFiles(source) {
   return fs
     .readdirSync(source)
-    .map(function(name) {
+    .map(function (name) {
       return path.join(source, name);
     })
     .filter(isFile);
 }
 
-exports.index = function(req, res) {
+exports.index = function (req, res) {
   const demoFiles = getFiles(path.join(__dirname, '../demos'))
     .filter((filename) => {
       return path.extname(filename) === '.ts';
@@ -77,7 +77,7 @@ exports.index = function(req, res) {
   res.end(renderString(template, { demoFiles }));
 };
 
-exports.page = function(req, res) {
+exports.page = function (req, res) {
   const demoFiles = getFiles(path.join(__dirname, '../demos'))
     .filter((filename) => {
       return path.extname(filename) === '.ts';

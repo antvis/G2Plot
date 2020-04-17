@@ -7,16 +7,16 @@
     {
       "filename": "legend-position.js",
       "title": {
-        "zh":"图例位置",
-        "en":"Legend position"
+        "zh": "图例位置",
+        "en": "Legend position"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ttolQp5j4rUAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "legend-flip-page.js",
       "title": {
-        "zh":"图例翻页",
-        "en":"Legend fliping pages"
+        "zh": "图例翻页",
+        "en": "Legend fliping pages"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f5B6R49Mq2wAAAAAAAAAAABkARQnAQ"
     }

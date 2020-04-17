@@ -17,8 +17,8 @@ export default class ColumnLabel<L extends IColumnLabel = IColumnLabel> extends 
       text: formatter ? formatter(value, shape, idx) : value,
       fill: this.getTextFill(element),
       stroke: this.getTextStroke(element),
-      textAlign: this.getTextAlign(element),
-      textBaseline: this.getTextBaseLine(element),
+      textAlign: this.getTextAlign(),
+      textBaseline: this.getTextBaseLine(),
     });
   }
 
@@ -116,13 +116,11 @@ export default class ColumnLabel<L extends IColumnLabel = IColumnLabel> extends 
     return bbox;
   }
 
-  // eslint-disable-next-line
-  protected getTextAlign(element: Element) {
+  protected getTextAlign() {
     return 'center';
   }
 
-  // eslint-disable-next-line
-  protected getTextBaseLine(element: Element) {
+  protected getTextBaseLine() {
     return 'middle';
   }
 

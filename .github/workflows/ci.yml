@@ -16,7 +16,7 @@ jobs:
           npm install
       - name: lint
         run: |
-          npm run ci
+          npm run lint
   build:
     runs-on: macOS-latest
     steps:

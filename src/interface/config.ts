@@ -120,7 +120,7 @@ export interface Label {
   /** 添加后缀 */
   suffix?: string;
   style?: TextStyle;
-  offset?: number | string;
+  offset?: number | any;
   offsetX?: number;
   offsetY?: number;
   position?: string;

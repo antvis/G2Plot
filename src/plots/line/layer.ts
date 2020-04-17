@@ -16,6 +16,7 @@ import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
 import responsiveMethods from './apply-responsive';
 import '../../components/label/point';
+import '../../components/label/point-auto';
 import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
 import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';

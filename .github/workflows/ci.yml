@@ -6,10 +6,10 @@ jobs:
   setup:
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12.x
       - name: npm install
         run: |
           npm install
@@ -20,22 +20,16 @@ jobs:
       - name: lint
         run: |
           npm run lint
-        env:
-          CI: true
   build:
     steps:
       - name: build
         run: |
           npm run build
-        env:
-          CI: true
   test:
     steps:
       - name: test
         run: |
           npm test -- --coverage
-        env:
-          CI: true
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:

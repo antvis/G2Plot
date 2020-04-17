@@ -7,16 +7,16 @@
     {
       "filename": "basic.js",
       "title": {
-        "zh":"密度热力图",
-        "en":"DensityHeatmap chart"
+        "zh": "密度热力图",
+        "en": "DensityHeatmap chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*1w6eSIFLQSkAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "heatmap-background.js",
       "title": {
-        "zh":"密度热力图加背景",
-        "en":"DensityHeatmap chart with background"
+        "zh": "密度热力图加背景",
+        "en": "DensityHeatmap chart with background"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eFZySpX8E2gAAAAAAAAAAABkARQnAQ"
     }

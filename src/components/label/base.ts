@@ -1,4 +1,4 @@
-import { deepMix, each, map, isArray, get, clone } from '@antv/util';
+import { deepMix, each, map, isArray, get, clone, isNumber } from '@antv/util';
 import ViewLayer from '../../base/view-layer';
 import BaseComponent, { BaseComponentConfig } from '../base';
 import {
@@ -12,9 +12,11 @@ import {
   VIEW_LIFE_CIRCLE,
   getDefaultAnimateCfg,
   doAnimate,
+  ORIGIN,
 } from '../../dependents';
 import { Label, TextStyle } from '../../interface/config';
 import { LooseMap } from '../../interface/types';
+import BBox from '../../util/bbox';
 
 export interface LabelComponentConfig extends BaseComponentConfig {
   layer: ViewLayer;
@@ -22,18 +24,16 @@ export interface LabelComponentConfig extends BaseComponentConfig {
   label: Label;
 }
 
-export interface LabelOptions extends Label {}
-
 export interface LabelComponentCtor<T extends LabelComponentConfig = LabelComponentConfig> {
   new (config: T): LabelComponent;
 }
 
-export default abstract class LabelComponent extends BaseComponent<LabelComponentConfig> {
+export default abstract class LabelComponent<L extends Label = Label> extends BaseComponent<LabelComponentConfig> {
   protected layer: ViewLayer;
   protected view: View;
   protected geometry: Geometry;
   protected coord: Coordinate;
-  protected options: LabelOptions;
+  protected options: L;
   protected labels: IShape[];
   private labelsCfgMap: Record<string, TextStyle> = {};
   private lastLabelsCfgMap: Record<string, TextStyle> = {};
@@ -87,6 +87,9 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
         }
       });
     });
+
+    // 执行布局
+    this.layoutLabels(this.geometry, this.labels);
 
     // 执行动画：参照 G2 Label 动画
     const lastLabelsCfgMap = this.lastLabelsCfgMap;
@@ -148,27 +151,80 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     });
   }
 
-  protected getDefaultOptions(): Partial<LabelOptions> {
-    return {};
-  }
-
-  protected abstract getLabelItemAttrs(element: Element, idx: number): TextStyle | TextStyle[];
-
-  protected drawLabelItem(group: IGroup, element: Element, elementIdx: number): IShape | IShape[] {
+  protected drawLabelItem(group: IGroup, element: Element, elementIndex: number): IShape | IShape[] {
     const model = element.getModel();
-    const items = [].concat(this.getLabelItemAttrs(element, elementIdx));
-    return map(items, (attrs, idx) => {
-      const dataItem = isArray(model.mappingData) ? model.mappingData[idx] : model.mappingData;
+    const items = [].concat(this.getLabelItemAttrs(element, elementIndex));
+    const offset = this.getDefaultOffset();
+    const offsetPoint = this.getLabelOffset();
+    return map(items, (attrs, index) => {
+      const position = {
+        x: attrs.x + offsetPoint.x,
+        y: attrs.y + offsetPoint.y,
+      };
+      const dataItem = isArray(model.mappingData) ? model.mappingData[index] : model.mappingData;
       const id = this.getLabelId(dataItem);
-      return this.drawLabelText(group, attrs, {
-        id,
-        name: 'label',
-        origin: dataItem,
-      });
+      return this.drawLabelText(
+        group,
+        { ...attrs, ...position },
+        {
+          id,
+          name: 'label',
+          offset,
+          element,
+          [ORIGIN]: dataItem,
+        }
+      );
     });
   }
 
+  /** 获取当前 Label 的 offset */
+  protected getDefaultOffset() {
+    return Number(this.options.offset);
+  }
+
+  /** 默认实现：获取当前 Label 的 offset 点：包括 offset、offsetX、offsetY */
+  protected getLabelOffset() {
+    const { offsetX, offsetY } = this.options;
+    return {
+      x: isNumber(offsetX) ? offsetX : 0,
+      y: isNumber(offsetY) ? offsetY : 0,
+    };
+  }
+
+  /** 通过指定方向和系数获取整体 offset 点 */
+  protected getLabelOffsetByDimAndFactor(dim: 'x' | 'y', factor: number) {
+    const { offsetX, offsetY } = this.options;
+    const offset = this.getDefaultOffset();
+    const offsetPoint = {
+      x: 0,
+      y: 0,
+    };
+    offsetPoint[dim] = offset * factor;
+    if (isNumber(offsetX)) {
+      offsetPoint.x += offsetX;
+    }
+    if (isNumber(offsetY)) {
+      offsetPoint.y += offsetY;
+    }
+    return offsetPoint;
+  }
+
+  /** 初始化默认全局配置 */
+  protected getDefaultOptions(): Partial<L> {
+    return {};
+  }
+
+  /** 获取绘制当前 Label 的属性配置 */
+  protected abstract getLabelItemAttrs(element: Element, idx: number): TextStyle | TextStyle[];
+
+  /** 在当前 Label 绘制之后的调整 */
   protected abstract adjustLabel(label: IShape, element: Element, datumIdx: number): void;
+
+  /** 整理对所有 Labels 的布局调整 */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
+    // empty
+  }
 
   protected getLabelId(data: MappingDatum): string {
     const origin = data._origin;
@@ -185,6 +241,12 @@ export default abstract class LabelComponent extends BaseComponent<LabelComponen
     }
 
     return labelId;
+  }
+
+  protected getCoordinateBBox() {
+    const { coord } = this;
+    const { start, end } = coord;
+    return new BBox(Math.min(start.x, end.x), Math.min(start.y, end.y), coord.getWidth(), coord.getHeight());
   }
 }
 

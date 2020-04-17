@@ -2,7 +2,8 @@ import { clone, sortBy, valuesOfKey, getRange, each, hasKey } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
-import Column, { ColumnViewConfig } from '../column/layer';
+import Column from '../column/layer';
+import { ColumnViewConfig } from '../column/interface';
 import { DataItem } from '../../interface/config';
 
 export interface HistogramViewConfig extends ColumnViewConfig {

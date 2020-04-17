@@ -24,8 +24,6 @@ describe('Scrollbar', () => {
   });
 
   plot.render();
-  // @ts-ignore
-  window.__plot = plot;
 
   it('scrollbar rendered', () => {
     const layer = plot.getLayer() as ViewLayer;

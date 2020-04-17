@@ -2,7 +2,9 @@ import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
-import BaseColumnLayer, { ColumnViewConfig } from '../column/layer';
+import BaseColumnLayer from '../column/layer';
+import { ColumnViewConfig } from '../column/interface';
+import './theme';
 
 export interface GroupedColumnViewConfig extends ColumnViewConfig {
   groupField: string;

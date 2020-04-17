@@ -7,32 +7,32 @@
     {
       "filename": "basic.js",
       "title": {
-        "zh":"饼图",
-        "en":"basic Pie chart"
+        "zh": "饼图",
+        "en": "basic Pie chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wmldRZZj9lIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "outer-label.js",
       "title": {
-        "zh":"饼图-外部图形标签",
-        "en":"Pie chart - outter label"
+        "zh": "饼图-外部图形标签",
+        "en": "Pie chart - outter label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "outer-center-label.js",
       "title": {
-        "zh":"饼图-外部圆形图形标签",
-        "en":"Pie chart - outter label"
+        "zh": "饼图-外部圆形图形标签",
+        "en": "Pie chart - outter label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4swYTIoCUdQAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "spider-label.js",
       "title": {
-        "zh":"饼图-图形标签蜘蛛布局",
-        "en":"Pie chart - spider-layout label"
+        "zh": "饼图-图形标签蜘蛛布局",
+        "en": "Pie chart - spider-layout label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ahB1Qp7T-C8AAAAAAAAAAABkARQnAQ"
     }

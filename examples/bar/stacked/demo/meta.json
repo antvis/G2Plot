@@ -7,16 +7,16 @@
     {
       "filename": "basic.js",
       "title": {
-        "zh":"堆叠条形图",
-        "en":"StackedBar chart"
+        "zh": "堆叠条形图",
+        "en": "StackedBar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N8smQYy45fAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "adjust-label-display.js",
       "title": {
-        "zh":"堆叠条形图-标签自动隐藏",
-        "en":"StackedBar chart - auto hide label"
+        "zh": "堆叠条形图-标签自动隐藏",
+        "en": "StackedBar chart - auto hide label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9SPmQ7Kqt-8AAAAAAAAAAABkARQnAQ"
     }

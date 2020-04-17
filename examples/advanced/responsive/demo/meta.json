@@ -7,16 +7,16 @@
     {
       "filename": "responsive-axis.js",
       "title": {
-        "zh":"响应式图表-坐标轴",
-        "en":"responsive chart - axis"
+        "zh": "响应式图表-坐标轴",
+        "en": "responsive chart - axis"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*6t9WQ7QgmjIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "responsive-label.js",
       "title": {
-        "zh":"响应式图表-图形标签",
-        "en":"responsive chart - label"
+        "zh": "响应式图表-图形标签",
+        "en": "responsive chart - label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nSJuTLRAPAUAAAAAAAAAAABkARQnAQ"
     }

@@ -17,16 +17,19 @@ jobs:
         env:
           CI: true
   lint:
+    runs-on: macOS-latest
     steps:
       - name: lint
         run: |
           npm run lint
   build:
+    runs-on: macOS-latest
     steps:
       - name: build
         run: |
           npm run build
   test:
+    runs-on: macOS-latest
     steps:
       - name: test
         run: |

@@ -18,7 +18,7 @@ export default class BarLabel<L extends IBarLabel = IBarLabel> extends BaseLabel
       fill: this.getTextFill(element),
       stroke: this.getTextStroke(element),
       textAlign: this.getTextAlign(element),
-      textBaseline: this.getTextBaseline(element),
+      textBaseline: this.getTextBaseline(),
     });
   }
 

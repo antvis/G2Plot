@@ -17,8 +17,8 @@ export default class ColumnLabel<L extends IColumnLabel = IColumnLabel> extends 
       text: formatter ? formatter(value, shape, idx) : value,
       fill: this.getTextFill(element),
       stroke: this.getTextStroke(element),
-      textAlign: this.getTextAlign(element),
-      textBaseline: this.getTextBaseLine(element),
+      textAlign: this.getTextAlign(),
+      textBaseline: this.getTextBaseLine(),
     });
   }
 

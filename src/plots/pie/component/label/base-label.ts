@@ -102,7 +102,8 @@ export default abstract class PieBaseLabel {
     labels.forEach((label) => checkInPanel(label, panel));
   }
 
-  protected adjustItem(): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected adjustItem(item: LabelItem): void {
     return;
   }
 

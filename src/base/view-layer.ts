@@ -52,8 +52,6 @@ export interface ViewConfig {
   xField?: string;
   yField?: string;
   color?: string | string[] | {};
-  //size?: number | number[] | {};
-  //shape?: string | string[] | {};
   xAxis?: Axis;
   yAxis?: Axis;
   label?: Label;

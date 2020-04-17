@@ -1,5 +1,6 @@
 import { Bubble } from '../../../../src';
 import { CountryEconomy as data } from '../../../data/country-economy';
+import { getGeometryShapes, getGeometryByType } from '../../../../src/util/view';
 
 describe('Bubble plot', () => {
   const canvasDiv = document.createElement('div');
@@ -52,9 +53,7 @@ describe('Bubble plot', () => {
 
     const view = bubblePlot.getLayer().view;
 
-    const pointShapes = view.middleGroup.findAll((el) => {
-      return el.get('name') === 'point';
-    });
+    const pointShapes = getGeometryShapes(getGeometryByType(view, 'point'));
     expect(pointShapes.length).toBe(60);
 
     pointShapes.forEach((pointShape) => {
@@ -77,9 +76,7 @@ describe('Bubble plot', () => {
     bubblePlot.render();
 
     let view = bubblePlot.getLayer().view;
-    let pointShapes = view.middleGroup.findAll((el) => {
-      return el.get('name') === 'point';
-    });
+    let pointShapes = getGeometryShapes(getGeometryByType(view, 'point'));
     expect(pointShapes.length).toBe(60);
     expect(pointShapes[0].attr('strokeOpacity')).toBe(1);
     expect(pointShapes[1].attr('fillOpacity')).toBe(0.5);
@@ -92,9 +89,7 @@ describe('Bubble plot', () => {
     bubblePlot.render();
 
     view = bubblePlot.getLayer().view;
-    pointShapes = view.middleGroup.findAll((el) => {
-      return el.get('name') === 'point';
-    });
+    pointShapes = getGeometryShapes(getGeometryByType(view, 'point'));
     expect(pointShapes[0].attr('strokeOpacity')).toBe(1);
     expect(pointShapes[1].attr('fillOpacity')).toBe(0.8);
     expect(pointShapes[2].attr('opacity')).toBe(0.8);
@@ -114,9 +109,7 @@ describe('Bubble plot', () => {
 
     const view = bubblePlot.getLayer().view;
 
-    const pointShapes = view.middleGroup.findAll((el) => {
-      return el.get('name') === 'point';
-    });
+    const pointShapes = getGeometryShapes(getGeometryByType(view, 'point'));
     expect(pointShapes.length).toBe(60);
 
     for (let i = 0; i < pointShapes.length; i++) {
@@ -141,9 +134,7 @@ describe('Bubble plot', () => {
 
     const view = bubblePlot.getLayer().view;
 
-    const pointShapes = view.middleGroup.findAll((el) => {
-      return el.get('name') === 'point';
-    });
+    const pointShapes = getGeometryShapes(getGeometryByType(view, 'point'));
     expect(pointShapes.length).toBe(60);
 
     for (let i = 0; i < pointShapes.length; i++) {

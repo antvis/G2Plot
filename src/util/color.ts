@@ -1,10 +1,11 @@
 import { each } from '@antv/util';
 
-export function rgb2arr(str) {
+export function rgb2arr(str: string) {
+  const colorStr: string = str.indexOf('#') === 0 ? str.substr(1) : str;
   const arr = [];
-  arr.push(parseInt(str.substr(1, 2), 16));
-  arr.push(parseInt(str.substr(3, 2), 16));
-  arr.push(parseInt(str.substr(5, 2), 16));
+  arr.push(parseInt(colorStr.substr(1, 2), 16));
+  arr.push(parseInt(colorStr.substr(3, 2), 16));
+  arr.push(parseInt(colorStr.substr(5, 2), 16));
   return arr;
 }
 
@@ -32,3 +33,12 @@ export function mappingColor(band, gray) {
   });
   return reflect;
 }
+
+// 根据YIQ亮度判断指定颜色取反色是不是白色
+// http://24ways.org/2010/calculating-color-contrast
+export const isContrastColorWhite = (rgb: string): boolean => {
+  const [r, g, b] = rgb2arr(rgb);
+  const isDark = (r * 299 + g * 587 + b * 114) / 1000 < 128;
+
+  return isDark;
+};

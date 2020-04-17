@@ -10,7 +10,7 @@ const BAR_DISABLE_STYLE = (style) => {
   return { opacity: opacity * 0.5 };
 };
 
-registerTheme('bar', {
+registerTheme('funnel', {
   columnStyle: {
     normal: {},
     active: BAR_ACTIVE_STYLE,

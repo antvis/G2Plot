@@ -24,8 +24,6 @@ describe('Slider', () => {
   });
 
   plot.render();
-  // @ts-ignore
-  window.__plot = plot;
 
   it('slider rendered', () => {
     const layer = plot.getLayer() as ViewLayer;

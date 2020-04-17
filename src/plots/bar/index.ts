@@ -1,6 +1,7 @@
 import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import BarLayer, { BarViewConfig } from './layer';
+import BarLayer from './layer';
+import { BarViewConfig } from './interface';
 
 export interface BarConfig extends BarViewConfig, PlotConfig {}
 

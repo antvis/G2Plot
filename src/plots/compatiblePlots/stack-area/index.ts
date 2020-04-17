@@ -1,7 +1,8 @@
 import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../../base/plot';
 import warning from 'warning';
-import StackedAreaLayer, { StackedAreaViewConfig } from '../../stacked-area/layer';
+import StackedAreaLayer from '../../stacked-area/layer';
+import { StackedAreaViewConfig } from '../../stacked-area/interface';
 
 export interface StackAreaConfig extends StackedAreaViewConfig, PlotConfig {}
 

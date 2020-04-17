@@ -58,7 +58,7 @@ const POINT_DISABLED_STYLE = (style) => {
   return { opacity: opacity * 0.5 };
 };
 
-registerTheme('area', {
+export const DEFAULT_AREA_THEME = {
   areaStyle: {
     normal: {},
     active: AREA_ACTIVE_STYLE,
@@ -77,4 +77,18 @@ registerTheme('area', {
     disable: POINT_DISABLED_STYLE,
     selected: POINT_SELECTED_STYLE,
   },
-});
+  label: {
+    darkStyle: {
+      fill: '#2c3542',
+      stroke: '#ffffff',
+      fillOpacity: 0.85,
+    },
+    lightStyle: {
+      fill: '#ffffff',
+      fillOpacity: 1,
+      stroke: '#2c3542',
+    },
+  },
+};
+
+registerTheme('area', DEFAULT_AREA_THEME);

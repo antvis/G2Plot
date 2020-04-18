@@ -3,10 +3,6 @@ import { Column } from '../../../src/index';
 
 describe('events', () => {
     const canvasDiv = document.createElement('div');
-    canvasDiv.style.width = '400px';
-    canvasDiv.style.height = '400px';
-    canvasDiv.style.left = '30px';
-    canvasDiv.style.top = '30px';
     canvasDiv.id = 'canvas1';
     document.body.appendChild(canvasDiv);
 
@@ -48,6 +44,71 @@ describe('events', () => {
             value: 33,
         },
     ];
+
+    it('view events', () => {
+        let onmousemove = false;
+        let onmouseup = false;
+        let onmousedown = false;
+        let onclick = false;
+        let ondblclick = false;
+        let oncontextmenu = false;
+        const columnPlot = new Column(canvasDiv, {
+            width: 800,
+            height: 600,
+            data,
+            xField: 'year',
+            yField: 'value',
+            title: {
+              visible: true,
+              text: '我是title',
+            },
+            description: {
+              visible: true,
+              text: '描述描述，柱状图，柱状图',
+            },
+            label: {
+              visible: true,
+            },
+            events:{
+                onViewMousemove:()=>{
+                    onmousemove = true;
+                },
+                onViewMouseup:()=>{
+                    onmouseup = true;
+                },
+                onViewMousedown:()=>{
+                    onmousedown = true;
+                },
+                onViewClick:()=>{
+                    onclick = true;
+                },
+                onViewDblclick:()=>{
+                    ondblclick = true;
+                },
+                onViewContextmenu:()=>{
+                    oncontextmenu = true;
+                }
+            }
+          });
+          columnPlot.render();
+          const canvas = columnPlot.canvas;
+          const el = canvas.get('el');
+          simulateMouseEvent(el, 'mousemove', {clientX:200,clientY:10});
+          simulateMouseEvent(el, 'mousemove', {clientX:200,clientY:300});
+          simulateMouseEvent(el, 'mousemove', getClientPoint(canvas, 110, 200));
+          expect(onmousemove).toBe(true);
+          simulateMouseEvent(el, 'mousedown', getClientPoint(canvas, 10, 100));
+          simulateMouseEvent(el, 'mouseup', getClientPoint(canvas, 100, 100));
+          simulateMouseEvent(el, 'click', getClientPoint(canvas, 100, 100));
+          simulateMouseEvent(el, 'dblclick', getClientPoint(canvas, 100, 100));
+          simulateMouseEvent(el, 'contextmenu', getClientPoint(canvas, 100, 100));
+          expect(onmousedown).toBe(true);
+          expect(onmouseup).toBe(true);
+          expect(onclick).toBe(true);
+          expect(ondblclick).toBe(true);
+          expect(oncontextmenu).toBe(true);
+          columnPlot.destroy();
+    });
 
     it('plot events', () => {
         let onmousemove = false;
@@ -111,19 +172,255 @@ describe('events', () => {
     });
 
     it('layer events', () => {
-
-    });
-
-    it('view events', () => {
-
+        let onmousemove = false;
+        let onmouseup = false;
+        let onmousedown = false;
+        let onclick = false;
+        let ondblclick = false;
+        let oncontextmenu = false;
+        const columnPlot = new Column(canvasDiv, {
+            data,
+            xField: 'year',
+            yField: 'value',
+            title: {
+              visible: true,
+              text: '我是title',
+            },
+            description: {
+              visible: true,
+              text: '描述描述，柱状图，柱状图',
+            },
+            label: {
+              visible: true,
+            },
+            events:{
+                onLayerMousemove:()=>{
+                    onmousemove = true;
+                },
+                onLayerMouseup:()=>{
+                    onmouseup = true;
+                },
+                onLayerMousedown:()=>{
+                    onmousedown = true;
+                },
+                onLayerClick:()=>{
+                    onclick = true;
+                },
+                onLayerDblclick:()=>{
+                    ondblclick = true;
+                },
+                onLayerContextmenu:()=>{
+                    oncontextmenu = true;
+                }
+            }
+          });
+          columnPlot.render();
+          const canvas = columnPlot.canvas;
+          const el = canvas.get('el');
+          simulateMouseEvent(el, 'mousemove', getClientPoint(canvas, 16, 16));
+          simulateMouseEvent(el, 'mousedown', getClientPoint(canvas, 16, 16));
+          simulateMouseEvent(el, 'mouseup', getClientPoint(canvas, 16, 16));
+          simulateMouseEvent(el, 'click', getClientPoint(canvas, 16, 16));
+          simulateMouseEvent(el, 'dblclick', getClientPoint(canvas, 16, 16));
+          simulateMouseEvent(el, 'contextmenu', getClientPoint(canvas, 16, 16));
+          expect(onmousemove).toBe(true);
+          expect(onmousedown).toBe(true);
+          expect(onmouseup).toBe(true);
+          expect(onclick).toBe(true);
+          expect(ondblclick).toBe(true);
+          expect(oncontextmenu).toBe(true);
+          columnPlot.destroy();
     });
 
     it('shape events', () => {
-
+        let onmousemove = false;
+        let onmouseup = false;
+        let onmousedown = false;
+        let onmouseenter = false;
+        let onmouseleave = false;
+        let onclick = false;
+        let ondblclick = false;
+        let oncontextmenu = false;
+        const columnPlot = new Column(canvasDiv, {
+            data,
+            xField: 'year',
+            yField: 'value',
+            title: {
+              visible: true,
+              text: '我是title',
+            },
+            description: {
+              visible: true,
+              text: '描述描述，柱状图，柱状图',
+            },
+            label: {
+              visible: true,
+            },
+            events:{
+                onColumnMousemove:()=>{
+                    onmousemove = true;
+                },
+                onColumnMouseup:()=>{
+                    onmouseup = true;
+                },
+                onColumnMousedown:()=>{
+                    onmousedown = true;
+                },
+                onColumnClick:()=>{
+                    onclick = true;
+                },
+                onColumnDblclick:()=>{
+                    ondblclick = true;
+                },
+                onColumnContextmenu:()=>{
+                    oncontextmenu = true;
+                },
+                onColumnMouseenter:()=>{
+                    onmouseenter = true;
+                },
+                onColumnMouseleave:()=>{
+                    onmouseleave = true;
+                }
+            }
+          });
+          columnPlot.render();
+          const canvas = columnPlot.canvas;
+          const el = canvas.get('el');
+          const shapes = columnPlot.getLayers()[0].view.geometries[0].getShapes();
+          const bbox = shapes[0].getBBox();
+          simulateMouseEvent(el, 'mousemove', getClientPoint(canvas, bbox.minX-5, bbox.minY-5));
+          simulateMouseEvent(el, 'mousemove', getClientPoint(canvas, bbox.minX+5, bbox.minY+5));
+          simulateMouseEvent(el, 'mousemove', getClientPoint(canvas, bbox.minX-5, bbox.minY-5));
+          simulateMouseEvent(el, 'mousedown', getClientPoint(canvas, bbox.minX+5, bbox.minY+5));
+          simulateMouseEvent(el, 'mouseup', getClientPoint(canvas, bbox.minX+5, bbox.minY+5));
+          simulateMouseEvent(el, 'click', getClientPoint(canvas, bbox.minX+5, bbox.minY+5));
+          simulateMouseEvent(el, 'dblclick', getClientPoint(canvas, bbox.minX+5, bbox.minY+5));
+          simulateMouseEvent(el, 'contextmenu', getClientPoint(canvas, bbox.minX+5, bbox.minY+5));
+          expect(onmouseenter).toBe(true);
+          expect(onmousemove).toBe(true);
+          expect(onmouseleave).toBe(true);
+          expect(onmousedown).toBe(true);
+          expect(onmouseup).toBe(true);
+          expect(onclick).toBe(true);
+          expect(ondblclick).toBe(true);
+          expect(oncontextmenu).toBe(true);
+          columnPlot.destroy();
     });
 
-    it('mobile events', () => {
+    it('mobile gesture: swipe', () => {
+        let onSwipe = false;
+        const columnPlot = new Column(canvasDiv, {
+            padding:[0,0,0,0],
+            width: 800,
+            height: 600,
+            data,
+            xField: 'year',
+            yField: 'value',
+            label: {
+              visible: true,
+            },
+            events:{
+                onSwipe:()=>{
+                    onSwipe = true;
+                },
+            }
+          });
+          columnPlot.render();
+          const canvas = columnPlot.canvas;
+          canvas.emit('touchstart', {
+            name: 'touchstart',
+            originalEvent: {
+              touches: [
+                { clientX: 10, clientY: 10 }
+              ]
+            }
+          });
+          canvas.emit('touchmove', {
+            name: 'touchmove',
+            originalEvent: {
+              touches: [
+                { clientX: 20, clientY: 10 },
+              ]
+            }
+          });
+          canvas.emit('touchmove', {
+            name: 'touchmove',
+            originalEvent: {
+              touches: [
+                { clientX: 22, clientY: 13 },
+              ]
+            }
+          });
+      
+          canvas.emit('touchend', {
+            name: 'touchend',
+            originalEvent: {
+              touches: [
+                { clientX: 150, clientY: 10 },
+              ]
+            }
+          });
+          expect(onSwipe).toBe(true);
+        columnPlot.destroy();
+    });
 
+    it('mobile gesture: pinch',()=>{
+        let onPinchstart = false;
+        let onPinch = false;
+        let onPinchend = false;
+        const columnPlot = new Column(canvasDiv, {
+            padding:[0,0,0,0],
+            width: 800,
+            height: 600,
+            data,
+            xField: 'year',
+            yField: 'value',
+            label: {
+              visible: true,
+            },
+            events:{
+                onPinchstart:()=>{
+                    onPinchstart = true;
+                },
+                onPinch:()=>{
+                    onPinch = true;
+                },
+                onPinchend:()=>{
+                    onPinchend = true;
+                }
+            }
+          });
+          columnPlot.render();
+          const canvas = columnPlot.canvas;
+          canvas.emit('touchstart', {
+            name: 'touchstart',
+            originalEvent: {
+              touches: [
+                { clientX: 10, clientY: 10 }
+              ]
+            }
+          });
+          canvas.emit('touchmove', {
+            name: 'touchmove',
+            originalEvent: {
+              touches: [
+                { clientX: 20, clientY: 20 },
+                { clientX: 25, clientY: 23 },
+              ]
+            }
+          });
+          canvas.emit('touchend', {
+            name: 'touchend',
+            originalEvent: {
+              touches: [
+                { clientX: 30, clientY: 30 },
+              ]
+            }
+          });
+          expect(onPinchstart).toBe(true);
+          expect(onPinch).toBe(true);
+          expect(onPinchend).toBe(true);
+          columnPlot.destroy();
     });
 
 });

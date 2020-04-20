@@ -1,17 +1,16 @@
-import { get, clone, map, isArray, last } from '@antv/util';
+import { get, map, isArray, last } from '@antv/util';
 import { Element, MappingDatum } from '../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../components/label/base';
-import { TextStyle } from '../../interface/config';
+import { TextStyle, Label } from '../../interface/config';
 
-export default class PointLabel extends BaseLabel {
+export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
   protected getDefaultOptions() {
     const { theme } = this.layer;
-    const labelStyle = clone(theme.label.style);
+    const { label = {} } = theme;
     return {
-      offset: theme.label?.offset,
       offsetX: 0,
       offsetY: 0,
-      style: labelStyle,
+      ...label,
     };
   }
 

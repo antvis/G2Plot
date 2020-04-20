@@ -1,7 +1,8 @@
 import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
-import StackedArea, { StackedAreaViewConfig } from '../stacked-area/layer';
+import StackedArea from '../stacked-area/layer';
+import { StackedAreaViewConfig } from '../stacked-area/interface';
 import { DataItem } from '../../interface/config';
 import { transformDataPercentage } from '../../util/data';
 

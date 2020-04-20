@@ -2,28 +2,12 @@ import { deepMix, get, each } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption, Label } from '../../interface/config';
-import BaseArea, { AreaViewConfig } from '../area/layer';
+import BaseArea from '../area/layer';
 import { getPlotComponents } from './component';
-
-interface IAreaLabel extends Label {
-  type: 'area';
-  autoScale?: boolean;
-}
-
-interface ILineLabel extends Label {
-  type: 'line';
-}
-
-interface IPointLabel extends Label {
-  type: 'point';
-}
-
-type AreaLabel = IAreaLabel | ILineLabel | IPointLabel;
-
-export interface StackedAreaViewConfig extends AreaViewConfig {
-  stackField: string;
-  label?: AreaLabel;
-}
+import './component/label/area-point';
+import './component/label/area-point-auto';
+import { StackedAreaViewConfig } from './interface';
+import './theme';
 
 export interface StackedAreaLayerConfig extends StackedAreaViewConfig, LayerConfig {}
 

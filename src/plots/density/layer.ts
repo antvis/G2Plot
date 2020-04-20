@@ -3,7 +3,8 @@ import { clone, deepMix, sortBy, valuesOfKey, getRange, each } from '@antv/util'
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { sturges } from '../../util/math';
-import Area, { AreaViewConfig } from '../area/layer';
+import Area from '../area/layer';
+import { AreaViewConfig } from '../area/interface';
 import { DataItem } from '../../interface/config';
 import { LooseMap } from '../../interface/types';
 

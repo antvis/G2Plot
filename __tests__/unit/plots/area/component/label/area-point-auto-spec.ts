@@ -81,7 +81,7 @@ describe('Area Point Label', () => {
     const label = plot.getLayer().getLabels()[0];
     const labelShapes = label.getLabels();
 
-    const flied = ['Jan', 'May', 'Jun', 'Aug'];
+    const flied = ['Jan', 'May', 'Jun'];
     expect(label).toBeInstanceOf(AreaPointAutoLabel);
     each(labelShapes, (labelShape: IShape) => {
       const areaGeometry = getGeometryByType(view, 'area');

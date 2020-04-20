@@ -9,7 +9,7 @@ import BBox from '../../util/bbox';
 export default class PointAutoLabel<L extends Label = Label> extends PointLabel<L> {
   protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
     const dones: IShape[] = [];
-    const panel = BBox.fromBBoxObject(geometry.canvasRegion);
+    const panel = BBox.fromBBoxObject(this.getCoordinateBBox());
     const [xField, yField] = geometry.getXYFields();
     const groupedMap: Record<string, IShape[]> = groupBy(labels, (label) => label.get(ORIGIN)[FIELD_ORIGIN][xField]);
     const offset = labels[0]?.get('offset');

@@ -19,8 +19,11 @@ interface IEventHandler {
 interface EventObj {
   x: number;
   y: number;
+  clientX: number;
+  clientY: number;
   target: any;
-  event: object;
+  data: any;
+  gEvent: object;
 }
 
 function isSameShape(shape1: IShape, shape2: IShape) {

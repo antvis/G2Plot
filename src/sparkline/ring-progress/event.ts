@@ -1,16 +1,11 @@
 import { assign } from '@antv/util';
-import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
+import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
-const SHAPE_EVENT_MAP: IEventmap = {
-  onRingProgressClick: 'interval:click',
-  onRingProgressDblclick: 'interval:dblclick',
-  onRingProgressMousemove: 'interval:mousemove',
-  onRingProgressMousedown: 'interval:mousedown',
-  onRingProgressMouseup: 'interval:mouseup',
-  onRingProgressMouseenter: 'interval:mouseenter',
-  onRingProgressMouseleave: 'interval:mouseleave',
-  onRingProgressContextmenu: 'interval:contextmenu',
+const componentMap = {
+  ringProgress: 'interval',
 };
+
+const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);
 
 assign(EVENT_MAP, SHAPE_EVENT_MAP);
 

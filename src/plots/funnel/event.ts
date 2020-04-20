@@ -1,16 +1,11 @@
 import { assign } from '@antv/util';
-import { EVENT_MAP, IEventmap, onEvent } from '../../util/event';
+import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
-const SHAPE_EVENT_MAP: IEventmap = {
-  onBarClick: 'interval:click',
-  onBarDblclick: 'interval:dblclick',
-  onBarMousemove: 'interval:mousemove',
-  onBarMouseenter: 'interval:mouseenter',
-  onBarMouseleave: 'interval:mouseleave',
-  onBarMousedown: 'interval:mousedown',
-  onBarMouseup: 'interval:mouseup',
-  onBarContextmenu: 'interval:contextmenu',
+const componentMap = {
+  funnel: 'interval',
 };
+
+const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);
 
 assign(EVENT_MAP, SHAPE_EVENT_MAP);
 

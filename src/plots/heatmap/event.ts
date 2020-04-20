@@ -2,8 +2,8 @@ import { assign } from '@antv/util';
 import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const componentMap = {
-  Rect: 'polygon',
-  LegendLabel: 'legend-label',
+  rect: 'polygon',
+  legendLabel: 'legend-label',
 };
 
 const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);

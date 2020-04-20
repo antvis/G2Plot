@@ -19,8 +19,11 @@ interface IEventHandler {
 interface EventObj {
   x: number;
   y: number;
+  clientX: number;
+  clientY: number;
   target: any;
-  event: object;
+  data: any;
+  gEvent: object;
 }
 
 function isSameShape(shape1: IShape, shape2: IShape) {
@@ -40,14 +43,12 @@ function isPointInBBox(point: Point, bbox: BBox) {
 export default class EventController {
   private plot: BasePlot;
   private canvas: ICanvas;
-  private pixelRatio: number;
   private eventHandlers: IEventHandler[];
   private lastShape: any;
 
   constructor(cfg: ControllerConfig) {
     this.plot = cfg.plot;
     this.canvas = cfg.canvas;
-    this.pixelRatio = this.canvas.get('pixelRatio');
     this.eventHandlers = [];
   }
 
@@ -126,10 +127,15 @@ export default class EventController {
 
   private getEventObj(ev) {
     const obj = {
-      x: ev.x / this.pixelRatio,
-      y: ev.y / this.pixelRatio,
+      clientX: ev.clientX,
+      clientY: ev.clientY,
+      x: ev.x,
+      y: ev.y,
+      plot: this.plot,
+      data: ev.data ? ev.data.data : null,
+      canvas: this.canvas,
       target: ev.target,
-      event: ev.event, // g事件的event
+      gEvent: ev, // g事件的event
     };
     return obj;
   }

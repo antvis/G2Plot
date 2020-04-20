@@ -44,7 +44,6 @@ export default class CanvasController {
     // got new width, height, re-render the plot
     this.width = width;
     this.height = height;
-
     this.plot.updateConfig({ width, height });
     this.plot.render();
   }, 300);

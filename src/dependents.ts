@@ -15,8 +15,11 @@ export {
   getTheme,
   Util,
   getShapeFactory,
+  registerComponentController,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';
+import Gestrue from '@antv/g2/lib/chart/controller/gesture';
+export { Gestrue };
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,

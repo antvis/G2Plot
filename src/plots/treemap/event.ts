@@ -2,8 +2,8 @@ import { assign } from '@antv/util';
 import { getEventMap, EVENT_MAP, IEventmap, onEvent } from '../../util/event';
 
 const componentMap = {
-  Rect: 'polygon',
-  Breadcrumb: 'breadcrumb',
+  rect: 'polygon',
+  breadcrumb: 'breadcrumb',
 };
 
 const SHAPE_EVENT_MAP: IEventmap = getEventMap(componentMap);

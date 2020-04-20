@@ -346,3 +346,32 @@ export {
   sturges,
   dist2,
 };
+
+/**
+ * 获取 x/y/width/height指定的BBox边界上的所有点，由step抽样
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @param step
+ */
+export function getStrokePoints(x: number, y: number, width: number, height: number, step = 2) {
+  const points: Array<[number, number]> = [];
+  // top
+  for (let curX = x; curX <= x + width; curX += step) {
+    points.push([curX, y]);
+  }
+  // right
+  for (let curY = y; curY <= y + height; curY += step) {
+    points.push([x + width, curY]);
+  }
+  // bottom
+  for (let curX = x + width; curX >= x; curX -= step) {
+    points.push([curX, y + height]);
+  }
+  // left
+  for (let curY = y + height; curY >= y; curY -= step) {
+    points.push([x, curY]);
+  }
+  return points;
+}

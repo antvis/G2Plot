@@ -1,6 +1,7 @@
 import { deepMix } from '@antv/util';
 import BasePlot, { PlotConfig } from '../../base/plot';
-import AreaLayer, { AreaViewConfig } from './layer';
+import AreaLayer from './layer';
+import { AreaViewConfig } from './interface';
 
 export interface AreaConfig extends AreaViewConfig, PlotConfig {}
 

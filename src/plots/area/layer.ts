@@ -183,7 +183,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
     const { label, yField } = this.options;
     const scale = scales[yField];
     if (label.visible) {
-      const geometry = getGeometryByType(this.view, 'line');
+      const geometry = getGeometryByType(this.view, 'area');
       this.doRenderLabel(geometry, {
         type: 'area-point',
         formatter: scale.formatter,

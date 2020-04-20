@@ -232,7 +232,7 @@ describe('events', () => {
     columnPlot.destroy();
   });
 
-  it('shape events', () => {
+  it('shape events & event info', () => {
     let onmousemove = false;
     let onmouseup = false;
     let onmousedown = false;
@@ -241,6 +241,7 @@ describe('events', () => {
     let onclick = false;
     let ondblclick = false;
     let oncontextmenu = false;
+    let eventObj;
     const columnPlot = new Column(canvasDiv, {
       data,
       xField: 'year',
@@ -266,7 +267,8 @@ describe('events', () => {
         onColumnMousedown: () => {
           onmousedown = true;
         },
-        onColumnClick: () => {
+        onColumnClick: (ev) => {
+          eventObj = ev;
           onclick = true;
         },
         onColumnDblclick: () => {
@@ -304,6 +306,16 @@ describe('events', () => {
     expect(onclick).toBe(true);
     expect(ondblclick).toBe(true);
     expect(oncontextmenu).toBe(true);
+    const clickPoint = { x: bbox.minX + 5, y: bbox.minY + 5 };
+    const clickClientPoint = getClientPoint(canvas, bbox.minX + 5, bbox.minY + 5);
+    expect(Math.round(eventObj.x)).toBe(Math.round(clickPoint.x));
+    expect(Math.round(eventObj.y)).toBe(Math.round(clickPoint.y));
+    expect(Math.round(eventObj.clientX)).toBe(Math.round(clickClientPoint.clientX));
+    expect(Math.round(eventObj.clientY)).toBe(Math.round(clickClientPoint.clientY));
+    expect(eventObj.data.year).toBe('1991');
+    expect(eventObj.data.value).toBe(31);
+    expect(eventObj.canvas).toBe(canvas);
+    expect(eventObj.plot).toBe(columnPlot.getLayers()[0]);
     columnPlot.destroy();
   });
 

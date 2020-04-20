@@ -308,10 +308,10 @@ describe('events', () => {
     expect(oncontextmenu).toBe(true);
     const clickPoint = { x: bbox.minX + 5, y: bbox.minY + 5 };
     const clickClientPoint = getClientPoint(canvas, bbox.minX + 5, bbox.minY + 5);
-    expect(Math.round(eventObj.x)).toBe(Math.round(clickPoint.x));
-    expect(Math.round(eventObj.y)).toBe(Math.round(clickPoint.y));
-    expect(Math.round(eventObj.clientX)).toBe(Math.round(clickClientPoint.clientX));
-    expect(Math.round(eventObj.clientY)).toBe(Math.round(clickClientPoint.clientY));
+    expect(Math.floor(eventObj.x)).toBe(Math.floor(clickPoint.x));
+    expect(Math.floor(eventObj.y)).toBe(Math.floor(clickPoint.y));
+    expect(Math.floor(eventObj.clientX)).toBe(Math.floor(clickClientPoint.clientX));
+    expect(Math.floor(eventObj.clientY)).toBe(Math.floor(clickClientPoint.clientY));
     expect(eventObj.data.year).toBe('1991');
     expect(eventObj.data.value).toBe(31);
     expect(eventObj.canvas).toBe(canvas);
@@ -371,7 +371,7 @@ describe('events', () => {
     columnPlot.destroy();
   });
 
-  it('mobile gesture: swipe', () => {
+  it.skip('mobile gesture: swipe', () => {
     let onSwipe = false;
     const columnPlot = new Column(canvasDiv, {
       padding: [0, 0, 0, 0],

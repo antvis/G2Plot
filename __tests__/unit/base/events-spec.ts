@@ -307,6 +307,58 @@ describe('events', () => {
     columnPlot.destroy();
   });
 
+  it('mobile events', () => {
+    let onTouchstart = false;
+    let onTouchmove = false;
+    let onTouchend = false;
+    const columnPlot = new Column(canvasDiv, {
+      padding: [0, 0, 0, 0],
+      width: 800,
+      height: 600,
+      data,
+      xField: 'year',
+      yField: 'value',
+      label: {
+        visible: true,
+      },
+      events: {
+        onTouchstart: () => {
+          onTouchstart = true;
+        },
+        onTouchmove: () => {
+          onTouchmove = true;
+        },
+        onTouchend: () => {
+          onTouchend = true;
+        },
+      },
+    });
+    columnPlot.render();
+    const canvas = columnPlot.canvas;
+    canvas.emit('touchstart', {
+      name: 'touchstart',
+      originalEvent: {
+        touches: [{ clientX: 10, clientY: 10 }],
+      },
+    });
+    canvas.emit('touchmove', {
+      name: 'touchmove',
+      originalEvent: {
+        touches: [{ clientX: 20, clientY: 10 }],
+      },
+    });
+    canvas.emit('touchend', {
+      name: 'touchend',
+      originalEvent: {
+        touches: [{ clientX: 30, clientY: 30 }],
+      },
+    });
+    expect(onTouchstart).toBe(true);
+    expect(onTouchmove).toBe(true);
+    expect(onTouchend).toBe(true);
+    columnPlot.destroy();
+  });
+
   it('mobile gesture: swipe', () => {
     let onSwipe = false;
     const columnPlot = new Column(canvasDiv, {

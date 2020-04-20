@@ -19,7 +19,7 @@ const eventNames = [
 
 const mobileEventNames = [
   'touchstart',
-  'touch',
+  'touchmove',
   'touchend',
   'pressstart',
   'press',

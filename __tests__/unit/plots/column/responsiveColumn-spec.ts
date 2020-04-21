@@ -66,9 +66,9 @@ describe.skip('responsive column plot', () => {
       xField: 'type',
       yField: 'value',
       xAxis: {
-        label:{
-           autoRotate: false,
-        }
+        label: {
+          autoRotate: false,
+        },
       },
       yAxis: {
         visible: true,

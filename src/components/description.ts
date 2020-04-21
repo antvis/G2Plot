@@ -80,7 +80,7 @@ export default class TextDescription {
 
   private init() {
     const content = this.textWrapper();
-    const {x,y} = this.getPosition();
+    const { x, y } = this.getPosition();
     this.shape = this.container.addShape('text', {
       attrs: mix(
         {
@@ -90,7 +90,7 @@ export default class TextDescription {
         },
         this.style,
         {
-          textAlign: this.getTextAlign()
+          textAlign: this.getTextAlign(),
         }
       ),
     }) as IShape;

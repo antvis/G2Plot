@@ -60,17 +60,17 @@ const EVENT_MAP: IEventmap = deepMix(
 );
 
 function onEvent(layer: ViewLayer, eventName: string, handler: Handler) {
-  layer.view.on(eventName, (ev) => {
+  layer.view.on(eventName, (ev?: any) => {
     const eventData = {
-      x: ev.x,
-      y: ev.y,
-      clientX: ev.clientX,
-      clientY: ev.clientY,
-      target: ev.target,
-      data: ev.data ? ev.data.data : null,
+      x: ev?.x,
+      y: ev?.y,
+      clientX: ev?.clientX,
+      clientY: ev?.clientY,
+      target: ev?.target,
+      data: ev?.data ? ev.data.data : null,
       plot: layer,
       canvas: layer.canvas,
-      gEvent: ev.gEvent,
+      gEvent: ev?.gEvent,
     };
     handler(eventData);
   });

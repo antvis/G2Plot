@@ -54,6 +54,9 @@ export default class GuidePointParser extends ElementParser {
         config.values = [props.point.color];
       } else if (props.color) {
         this._parseColor(props, config);
+      } else {
+        const theme = this.plot.getTheme();
+        config.values = [theme.defaultColor];
       }
     }
     if (keys(config).length > 0) {

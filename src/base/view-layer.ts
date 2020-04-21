@@ -79,6 +79,8 @@ export interface ViewConfig {
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
+registerComponentController('gesture', Gestrue);
+
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(): Partial<ViewConfig> {
     return {
@@ -268,6 +270,9 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!this.view || this.view.destroyed) {
       return;
     }
+    if (this.options.padding !== 'auto') {
+      this.parseEvents();
+    }
   }
 
   public afterRender() {
@@ -279,10 +284,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     /** defaultState */
     if (options.defaultState && padding !== 'auto') {
       this.stateController.defaultStates(options.defaultState);
-    }
-    if (this.options.padding !== 'auto') {
-      registerComponentController('gesture', Gestrue);
-      this.parseEvents();
     }
     /** autopadding */
     if (padding === 'auto') {

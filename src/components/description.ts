@@ -80,14 +80,18 @@ export default class TextDescription {
 
   private init() {
     const content = this.textWrapper();
+    const {x,y} = this.getPosition();
     this.shape = this.container.addShape('text', {
       attrs: mix(
         {
-          x: this.leftMargin,
-          y: this.topMargin,
+          x,
+          y,
           text: content,
         },
-        this.style
+        this.style,
+        {
+          textAlign: this.getTextAlign()
+        }
       ),
     }) as IShape;
     // @ts-ignore

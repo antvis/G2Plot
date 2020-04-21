@@ -45,6 +45,25 @@ describe('events', () => {
     },
   ];
 
+  it('beforerender & postrender', () => {
+    const onBeforeRender = jest.fn();
+    const onAfterRender = jest.fn();
+    const plot = new Column(canvasDiv, {
+      width: 800,
+      height: 600,
+      data,
+      xField: 'year',
+      yField: 'value',
+      events: {
+        beforerender: onBeforeRender,
+        afterrender: onAfterRender,
+      },
+    });
+    plot.render();
+    expect(onBeforeRender).toHaveBeenCalledTimes(1);
+    expect(onAfterRender).toHaveBeenCalledTimes(1);
+  });
+
   it('view events', () => {
     let onmousemove = false;
     let onmouseup = false;

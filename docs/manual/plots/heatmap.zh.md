@@ -406,7 +406,7 @@ line: {
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
-默认配置： 
+默认配置：
 ```js
 visible: true,
 grid: {
@@ -454,7 +454,7 @@ position: 'right-center',
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />bottom-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | width | number | 图例宽度 |
 | height | number | 图例高度 |
 | text | object | 图例两端刻度值<br />- style: object 刻度值样式<br />- formatter: function 对刻度值进行格式化<br /> |
@@ -666,7 +666,7 @@ plot.changeData(newData);
 
 针对四种模式的切换，提供了快捷方法：
 
-### mappingSize( fieldName:string )  
+### mappingSize( fieldName:string )
 
 切换为大小映射模式。
 
@@ -674,6 +674,6 @@ plot.changeData(newData);
 
 取消色块的大小映射。
 
-### changeShape( shapeType:string )  
+### changeShape( shapeType:string )
 
 切换色块形状类型。

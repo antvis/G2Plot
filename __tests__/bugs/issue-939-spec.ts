@@ -1,6 +1,6 @@
 import { Line } from '../../src';
 
-describe('#112', () => {
+describe('#939', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.style.width = '600px';
   canvasDiv.style.height = '600px';

@@ -26,7 +26,7 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
     visible?: boolean;
     adjustColor?: boolean;
     formatter?: (value) => string;
-    style: TextStyle;
+    style?: TextStyle;
   };
   min: number;
   max: number;
@@ -52,6 +52,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       },
       color: '#6a99f9',
       interactions: [],
+      statistic: {
+        visible: true,
+      },
     };
     return deepMix({}, super.getDefaultOptions(), cfg);
   }
@@ -183,7 +186,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     }
     let opacity;
     if (statistic.visible === false) {
-      opacity = 0;
+      return;
     }
 
     const statisticConfig = deepMix(
@@ -218,7 +221,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   public afterRender() {
-    this.fadeInAnnotation();
+    if (this.options.statistic?.visible) {
+      this.fadeInAnnotation();
+    }
     const { options } = this;
     const padding = options.padding ? options.padding : this.config.theme.padding;
     /** defaultState */

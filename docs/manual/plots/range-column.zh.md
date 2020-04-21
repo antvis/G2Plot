@@ -306,7 +306,7 @@ title: {
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
-默认配置： 
+默认配置：
 ```js
 visible: true,
 grid: {
@@ -359,7 +359,7 @@ flipPage: true
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />bottom-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | formatter | function | 对图例显示信息进行格式化 |
 | flipPage | boolean | 图例过多时是否翻页显示 |
 | offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
@@ -411,7 +411,7 @@ adjustPosition: true
 | visible | boolean | 是否显示 |
 | position  | string | label的位置<br />- outter  位于柱子外侧，即上部和下部<br />- inner  位于柱子内侧，即顶部和底部<br /> |
 | formatter | function | 对文本标签内容进行格式化 |
-| style | object | 配置 label 的样式 
+| style | object | 配置 label 的样式
 | topStyle | object | 配置上侧 label 样式<br />如果同时配置了style和topStyle，上侧 label 的样式将以topStyle 为准。 |
 | bottomStyle | object | 配置下侧 label 样式<br />如果同时配置了style和bottomStyle，下侧 label 样式将以bottomStyle为准。 |
 | offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |

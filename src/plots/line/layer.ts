@@ -22,7 +22,7 @@ import * as EventParser from './event';
 import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';
 import './theme';
 import './apply-responsive/theme';
-import { LooseMap } from '../../interface/types';
+import { LooseMap, Maybe } from '../../interface/types';
 import { LineActive, LineSelect } from './interaction/index';
 import { getGeometryByType } from '../../util/view';
 
@@ -223,7 +223,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       } else {
         this.doRenderLabel(geometry, {
           type: 'point',
-          formatter: scale.formatter,
+          formatter: (value: Maybe<string | number>) => scale.formatter(value),
           ...this.options.label,
         });
       }

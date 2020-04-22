@@ -1,5 +1,5 @@
 import { get, each, deepMix } from '@antv/util';
-import { IShape, Element } from '../../../dependents';
+import { IShape, Element, MappingDatum, _ORIGIN } from '../../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../../components/label/base';
 import { TextStyle } from '../../../interface/config';
 import { mappingColor, rgb2arr } from '../../../util/color';
@@ -7,14 +7,26 @@ import BBox from '../../../util/bbox';
 import { IColumnLabel } from '../interface';
 
 export default class ColumnLabel<L extends IColumnLabel = IColumnLabel> extends BaseLabel<L> {
-  protected getLabelItemAttrs(element: Element, idx: number): TextStyle {
+  protected getLabelItemAttrs(element: Element, index: number): TextStyle {
     const { style, formatter } = this.options;
-    const { shape } = element;
+    const mappingData: MappingDatum[] = [].concat(element.getModel().mappingData);
     const value = this.getValue(element);
 
     return deepMix({}, style, {
       ...this.getPosition(element),
-      text: formatter ? formatter(value, shape, idx) : value,
+      text: formatter
+        ? formatter(
+            value,
+            {
+              [_ORIGIN]: mappingData[0]?._origin,
+              mappingDatum: mappingData[0],
+              mappingDatumIndex: 0,
+              element,
+              elementIndex: index,
+            },
+            index
+          )
+        : value,
       fill: this.getTextFill(element),
       stroke: this.getTextStroke(element),
       textAlign: this.getTextAlign(),

@@ -253,7 +253,7 @@ color:['#d62728', '#2ca02c', '#000000']
 默认配置：
 ```js
 visible: false,
-position: 'left',
+alignTo: 'left',
 text:'',
 style:{
     fontSize: 18,
@@ -263,7 +263,7 @@ style:{
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| alignTo | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 ### description
@@ -276,7 +276,7 @@ style:{
 默认配置：
 ```js
 visible: false,
-position: 'left',
+alignTo: 'left',
 text:'',
 style:{
     fontSize: 12,
@@ -286,7 +286,7 @@ style:{
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否显示 |
-| position | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
+| alignTo | string | 位置，支持三种配置：<br />'left' | 'middle' | 'right' |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 ### xAxis

@@ -187,7 +187,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       const geometry = getGeometryByType(this.view, 'area');
       this.doRenderLabel(geometry, {
         type: 'area-point',
-        formatter: (value: Maybe<string | number>) => scale.formatter(value),
+        formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
         ...this.options.label,
       });
     }

@@ -80,7 +80,7 @@ export default class StackedColumnLayer<
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'stacked-column',
-        formatter: (value: Maybe<string | number>) => scale.formatter(value),
+        formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
         ...this.options.label,
       });
     }

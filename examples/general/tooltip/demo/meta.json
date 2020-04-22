@@ -19,6 +19,14 @@
         "en": "sorting tooltip value dynamicly & add statistic value"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PUydS43sHYMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "isolate-tooltip.js",
+      "title": {
+        "zh": "外部表格型tooltip",
+        "en": "tooltip as table"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O2yNSZJwEd4AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

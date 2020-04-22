@@ -49,3 +49,4 @@ export { Coordinate } from '@antv/coord';
 
 // Common
 export const ORIGIN = 'origin';
+export const _ORIGIN = '_origin';

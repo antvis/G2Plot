@@ -8,6 +8,7 @@ import './theme';
 import './component/label';
 import './component/label-auto';
 import { getGeometryByType } from '../../util/view';
+import { Maybe } from '../../interface/types';
 
 export interface StackedBarViewConfig extends BarViewConfig {
   stackField: string;
@@ -88,7 +89,7 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'stacked-bar',
-        formatter: scale.formatter,
+        formatter: (value: Maybe<string | number>) => scale.formatter(value),
         ...this.options.label,
       });
     }

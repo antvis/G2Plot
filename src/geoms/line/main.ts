@@ -1,5 +1,5 @@
 import { LooseObject } from '../../dependents';
-import { isFunction, has, isString } from '@antv/util';
+import { isFunction, has, isString, isArray } from '@antv/util';
 import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
@@ -52,8 +52,14 @@ export default class LineParser extends ElementParser {
         config.values = [color];
       } else if (isFunction(color)) {
         config.callback = color;
-      } else {
-        config.values = color as [];
+      } else if (isArray(color)) {
+        if (props.seriesField) {
+          config.values = color;
+        } else {
+          if (color.length > 0) {
+            config.values = [color[0]];
+          }
+        }
       }
     }
 

@@ -223,7 +223,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       } else {
         this.doRenderLabel(geometry, {
           type: 'point',
-          formatter: (value: Maybe<string | number>) => scale.formatter(value),
+          formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
           ...this.options.label,
         });
       }

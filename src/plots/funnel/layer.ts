@@ -785,7 +785,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
       const { minX, maxX, minY, maxY } = shape.getBBox();
       const xValue = datum[xField];
-      const yValue = String(datum[yField]);
+      const yValue = datum[yField];
 
       if (labelProps.adjustColor) {
         labelStyle.fill = this._getAdjustedTextFillByShape(shape);

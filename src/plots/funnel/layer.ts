@@ -70,10 +70,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       label: {
         visible: true,
         adjustColor: true,
-        /*formatter:
-          props && (props.compareField || props.transpose)
-            ? (yValue) => `${yValue}`
-            : (xValue, yValue) => `${xValue} ${yValue}`,*/
       },
       percentage: {
         visible: true,

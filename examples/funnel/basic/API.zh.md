@@ -4,34 +4,6 @@ title: API
 
 说明： **required** 标签代表生成图表的必选配置项，**optional** 标签代表生成图表的可选配置项。
 
-### title
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#title)。
-
-### description
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#description)。
-
-### width
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#width)。
-
-### height
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#height)。
-
-### forceFit
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#forceFit)。
-
-### padding
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#padding)。
-
-### theme
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#theme)。
-
 ### data: collection
 
 **required**

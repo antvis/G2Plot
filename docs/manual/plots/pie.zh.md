@@ -272,7 +272,7 @@ color:(d)=>{
 | --- | --- | --- | --- |
 | visible | boolean | 是否显示 | false |
 | text | string | 图表的标题 | - |
-| position | string | 位置，支持三种配置：<br />'left', 'middle', 'right' | left |
+| alignTo | string | 位置，支持三种配置：<br />'left', 'middle', 'right' | left |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> | `{ fontSize: 18, fill: 'black' }` |
 
 ### description
@@ -286,7 +286,7 @@ color:(d)=>{
 | --- | --- | --- | --- |
 | visible | boolean | 是否显示 | false |
 | text | string | 图表的描述 | - |
-| position | string | 位置，支持三种配置：<br />'left', 'middle', 'right' | left |
+| alignTo | string | 位置，支持三种配置：<br />'left', 'middle', 'right' | left |
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> | `{ fontSize: 12, fill: 'grey' }` |
 
 ### legend

@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 12
       - run: npm install
-      - run: npm run lint-check
+      - run: npm run lint
 
   publish-site:
     needs: build

@@ -70,10 +70,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       label: {
         visible: true,
         adjustColor: true,
-        formatter:
-          props && (props.compareField || props.transpose)
-            ? (yValue) => `${yValue}`
-            : (xValue, yValue) => `${xValue} ${yValue}`,
       },
       percentage: {
         visible: true,
@@ -780,14 +776,11 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
         textBaseline: 'middle',
       }
     );
-    const { formatter } = labelProps;
 
     let datumTop;
-    let compareTop;
     this._eachShape((shape, index, datum) => {
       if (index == 0) {
         datumTop = datum;
-        compareTop = datumTop.__compare__;
       }
 
       const { minX, maxX, minY, maxY } = shape.getBBox();
@@ -800,14 +793,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
       const compare = datum.__compare__;
       let content;
-      if (compare) {
-        content = [0, 1]
-          .map((i) => formatter(xValue, shape, index, compare.yValues[i], compareTop.yValues[i]))
-          .join(props.transpose ? '\n\n' : '    ');
+      if (labelProps.formatter) {
+        content = labelProps.formatter(xValue, shape, index, yValue, datumTop[yField]);
       } else {
-        content = formatter(xValue, shape, index, yValue, datumTop[yField]);
+        if (compare) {
+          content = [0, 1].map(() => `${yValue}`).join(props.transpose ? '\n\n' : '    ');
+        } else {
+          content = `${xValue} ${yValue}`;
+        }
       }
-
       const label = this._findLabelInContainerByIndex(labelsContainer, index, true);
       const ratio = compare ? compare.yValues[0] / (compare.yValues[0] + compare.yValues[1]) : 0.5;
       label.attr({

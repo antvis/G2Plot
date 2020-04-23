@@ -3,7 +3,6 @@ import {
   isEmpty,
   mapValues,
   get,
-  isUndefined,
   each,
   assign,
   isFunction,
@@ -213,6 +212,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   public init() {
     super.init();
     this.theme = this.themeController.getTheme(this.options, this.type);
+    console.log(this.theme);
     this.config = {
       data: this.processData(this.options.data),
       scales: {},
@@ -468,19 +468,17 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.setConfig('legends', false);
       return;
     }
-    const flipOption = get(this.options, 'legend.flipPage');
-    const clickable = get(this.options, 'legend.clickable');
-    this.setConfig('legends', {
-      position: this.getLegendPosition(get(this.options, 'legend.position')),
-      formatter: get(this.options, 'legend.formatter'),
-      offsetX: get(this.options, 'legend.offsetX'),
-      offsetY: get(this.options, 'legend.offsetY'),
-      clickable: isUndefined(clickable) ? true : clickable,
-      // wordSpacing: get(this.options, 'legend.wordSpacing'),
-      flipPage: flipOption,
-      marker: get(this.options, 'legend.marker'),
-      title: get(this.options, 'legend.title'),
-    });
+    const options = deepMix({}, this.theme.legend, this.options.legend);
+    const legendConfig = {
+      position: this.getLegendPosition(get(options, 'position')),
+      offsetX: get(options, 'offsetX'),
+      offsetY: get(options, 'offsetY'),
+      flipPage: get(options, 'flipPage'),
+      marker: get(options, 'marker'),
+      title: options.title?.visible ? get(options, 'legend.title') : null,
+      itemName: get(options, 'text'),
+    };
+    this.setConfig('legends', legendConfig);
   }
 
   protected annotation() {

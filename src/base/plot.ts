@@ -134,6 +134,10 @@ export default class BasePlot<
     }
   }
 
+  public getScaleByField(field: string) {
+    return this.layers[0].getScaleByField(field);
+  }
+
   public getPlotTheme() {
     const layer: any = this.layers[0];
     return layer.getPlotTheme();

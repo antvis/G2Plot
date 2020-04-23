@@ -6,8 +6,17 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { ShapeAttrs } from '@antv/g-base';
-import { Options, AttributeOption, AdjustOption, LabelOption, MappingDatum, Datum } from '../dependents';
-import { LooseMap } from './types';
+import {
+  Options,
+  AttributeOption,
+  AdjustOption,
+  LabelOption,
+  MappingDatum,
+  Element,
+  Datum,
+  _ORIGIN,
+} from '../dependents';
+import { LooseMap, Maybe } from './types';
 
 export interface Meta {
   alias?: string;
@@ -114,7 +123,18 @@ export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 export interface Label {
   visible?: boolean;
   type?: string;
-  formatter?: (text: string | number | undefined | null, item: any, idx: number, ...extras: any[]) => string;
+  formatter?: (
+    text: Maybe<string | number>,
+    item: {
+      [_ORIGIN]: Datum;
+      mappingDatum: MappingDatum;
+      mappingDatumIndex: number;
+      element: Element;
+      elementIndex: number;
+    },
+    idx: number,
+    ...extras: any[]
+  ) => string;
   /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
   precision?: number;
   /** 添加后缀 */

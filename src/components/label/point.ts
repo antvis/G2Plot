@@ -1,5 +1,5 @@
 import { get, map, isArray, last } from '@antv/util';
-import { Element, MappingDatum } from '../../dependents';
+import { Element, MappingDatum, _ORIGIN } from '../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../components/label/base';
 import { TextStyle, Label } from '../../interface/config';
 
@@ -18,16 +18,27 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     return this.getLabelOffsetByDimAndFactor('y', -1);
   }
 
-  protected getLabelItemAttrs(element: Element, idx: number): TextStyle[] {
+  protected getLabelItemAttrs(element: Element, index: number): TextStyle[] {
     const { style, formatter } = this.options;
-    const { shape } = element;
     const mappingData: MappingDatum[] = get(element, 'model.mappingData', []);
 
-    return map(mappingData, (datum) => {
+    return map(mappingData, (datum, datumIndex) => {
       const value = this.getValue(datum);
       return {
         ...this.getPosition(datum),
-        text: formatter ? formatter(value, shape, idx) : value,
+        text: formatter
+          ? formatter(
+              value,
+              {
+                [_ORIGIN]: datum._origin,
+                mappingDatum: datum,
+                mappingDatumIndex: datumIndex,
+                element,
+                elementIndex: index,
+              },
+              index
+            )
+          : value,
         textAlign: 'center',
         textBaseline: 'middle',
         ...style,

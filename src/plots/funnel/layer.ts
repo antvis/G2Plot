@@ -1,6 +1,14 @@
 import { deepMix, contains, isFunction, get, findIndex, isEqual, each, set, isArray, assign } from '@antv/util';
 import { createDom, modifyCSS } from '@antv/dom-util';
-import { IGroup, IShape, HtmlTooltipTheme, TooltipCssConst, DEFAULT_ANIMATE_CFG } from '../../dependents';
+import {
+  IGroup,
+  IShape,
+  Element,
+  HtmlTooltipTheme,
+  TooltipCssConst,
+  DEFAULT_ANIMATE_CFG,
+  _ORIGIN,
+} from '../../dependents';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
@@ -778,7 +786,8 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     );
 
     let datumTop;
-    this._eachShape((shape, index, datum) => {
+    this._eachShape((shape, index, datum, elementIndex) => {
+      const element: Element = shape.get('element');
       if (index == 0) {
         datumTop = datum;
       }
@@ -793,8 +802,15 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
       const compare = datum.__compare__;
       let content;
+      const formatArgs = {
+        [_ORIGIN]: datum,
+        element,
+        elementIndex,
+        mappingDatum: [].concat(element.getModel().mappingData)[0],
+        mappingDatumIndex: 0,
+      };
       if (labelProps.formatter) {
-        content = labelProps.formatter(xValue, shape, index, yValue, datumTop[yField]);
+        content = labelProps.formatter(xValue, formatArgs, index, yValue, datumTop[yField]);
       } else {
         if (compare) {
           content = [0, 1].map(() => `${yValue}`).join(props.transpose ? '\n\n' : '    ');
@@ -1012,16 +1028,18 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     return compareTextContainer;
   }
 
-  private _eachShape(fn: (shape: IShape | IGroup, index: number, datumLower: any, datumUpper: any) => void) {
+  private _eachShape(
+    fn: (shape: IShape | IGroup, index: number, datumLower: any, datumUpper: any, elementIndex: number) => void
+  ) {
     const data = this._findCheckedData(this.getData());
     const dataLen = data.length;
     let index = 0;
     let datumUpper;
-    this._getGeometry()?.elements.forEach((element) => {
+    this._getGeometry()?.elements.forEach((element, elementIndex) => {
       const { shape } = element;
       const datumLower = data[index];
       if (index < dataLen) {
-        fn(shape, index, datumLower, datumUpper);
+        fn(shape, index, datumLower, datumUpper, elementIndex);
       }
       datumUpper = datumLower;
       index++;

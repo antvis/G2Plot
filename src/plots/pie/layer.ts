@@ -100,6 +100,13 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     }
   }
 
+  public getAngleScale() {
+    const { angleField } = this.options;
+    if (angleField) {
+      return this.view.getScaleByField(angleField);
+    }
+  }
+
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
       return G2_GEOM_MAP[type];

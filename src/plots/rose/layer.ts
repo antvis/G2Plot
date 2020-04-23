@@ -115,6 +115,20 @@ export default class RoseLayer<T extends RoseLayerConfig = RoseLayerConfig> exte
     return deepMix({}, options, { columnStyle, xField, yField });
   }
 
+  public getRadiusScale() {
+    const { radiusField } = this.options;
+    if (radiusField) {
+      this.view.getScaleByField(radiusField);
+    }
+  }
+
+  public getAngleScale() {
+    const { categoryField } = this.options;
+    if (categoryField) {
+      this.view.getScaleByField(categoryField);
+    }
+  }
+
   protected geometryParser(dim, type) {
     if (dim === 'g2') {
       return G2_GEOM_MAP[type];

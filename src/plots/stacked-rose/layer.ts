@@ -40,6 +40,11 @@ export default class StackedRoseLayer<T extends StackedRoseLayerConfig = Stacked
 
   public type: string = 'stackedRose';
 
+  public getColorScale() {
+    const { stackField } = this.options;
+    return this.view.getScaleByField(stackField);
+  }
+
   protected adjustRoseAdjust() {
     return [
       {

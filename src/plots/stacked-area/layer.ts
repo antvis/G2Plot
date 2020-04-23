@@ -40,6 +40,11 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
     super.beforeInit();
   }
 
+  public getColorScale() {
+    const { stackField } = this.options;
+    return this.view.getScaleByField(stackField);
+  }
+
   protected label() {
     const props = this.options;
     const label = props.label as Label;

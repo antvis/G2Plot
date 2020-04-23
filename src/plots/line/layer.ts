@@ -135,6 +135,13 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     super.afterRender();
   }
 
+  public getColorScale() {
+    const { seriesField } = this.options;
+    if (seriesField) {
+      return this.view.getScaleByField(seriesField);
+    }
+  }
+
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }

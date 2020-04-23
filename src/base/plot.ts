@@ -138,6 +138,18 @@ export default class BasePlot<
     return this.layers[0].getScaleByField(field);
   }
 
+  public getXScale() {
+    return this.layers[0].getXScale();
+  }
+
+  public getYScale() {
+    return this.layers[0].getYScale();
+  }
+
+  public getColorScale() {
+    return this.layers[0].getColorScale();
+  }
+
   public getPlotTheme() {
     const layer: any = this.layers[0];
     return layer.getPlotTheme();

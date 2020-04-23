@@ -12,4 +12,9 @@ export default class Donut extends BasePlot<DonutConfig> {
     layerProps.type = 'donut';
     super.createLayers(layerProps);
   }
+
+  public getAngleScale() {
+    const layer: any = this.layers[0];
+    return layer.getAngleScale();
+  }
 }

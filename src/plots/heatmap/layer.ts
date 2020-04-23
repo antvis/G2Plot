@@ -142,6 +142,13 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     super.destroy();
   }
 
+  public getSizeScale() {
+    const { sizeField } = this.options;
+    if (sizeField) {
+      this.view.getScaleByField(sizeField);
+    }
+  }
+
   protected geometryParser() {
     return '';
   }

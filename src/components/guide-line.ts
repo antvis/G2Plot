@@ -14,6 +14,11 @@ export default class GuideLine {
   }
 
   private _init() {
+    const { yField, data } = this.plot.options;
+    const plotData = this.plot.processData(data);
+    if (!isNumber(plotData[yField])) {
+      return;
+    }
     const defaultStyle = this.getDefaultStyle();
     const baseConfig: any = {
       type: 'line',

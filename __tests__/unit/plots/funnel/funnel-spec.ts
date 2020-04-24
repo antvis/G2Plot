@@ -26,6 +26,7 @@ describe('funnel plot', () => {
       xField: 'action',
       yField: 'pv',
       legend: {
+        visible: false,
         position: 'top-left',
       },
     });

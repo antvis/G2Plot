@@ -8,7 +8,6 @@ import './apply-responsive/theme';
 import * as EventParser from './event';
 import { LooseMap } from '../../interface/types';
 import RingStatistic from './component/ring-statistic';
-import { getPieLabel } from '../pie/component/label';
 
 export interface DonutViewConfig extends PieViewConfig {
   innerRadius?: number;
@@ -70,7 +69,6 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
   }
 
   public afterRender() {
-    const options = this.options;
     const container = this.canvas.get('container');
     if (this.statistic) {
       container.removeChild(this.statistic.wrapperNode);
@@ -92,11 +90,7 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
         this.statistic.triggerOn();
       }
     }
-    if (options.label && options.label.visible) {
-      const LabelCtor = getPieLabel(options.label.type);
-      const label = new LabelCtor(this, options.label);
-      label.render();
-    }
+    super.afterRender();
   }
 
   public destroy() {

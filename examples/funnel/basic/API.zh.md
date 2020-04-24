@@ -97,15 +97,3 @@ title: API
 **optional**
 
 配置漏斗单个图形样式。
-
-### label
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#label)。
-
-### tooltip
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#tooltip)。
-
-### legend
-
-**optional** 见[通用图表配置](../../../../zh/docs/manual/general-config#legend)。

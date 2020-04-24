@@ -134,5 +134,3 @@ progress.update(0.5, {
   opacity: 0.3,
 });
 ```
-
-其他方法见[通用图表配置](../general-config.zh.md)。

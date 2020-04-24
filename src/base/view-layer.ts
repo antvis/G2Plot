@@ -474,9 +474,10 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       offsetY: get(options, 'offsetY'),
       flipPage: get(options, 'flipPage'),
       marker: get(options, 'marker'),
-      title: options.title?.visible ? get(options, 'legend.title') : null,
+      title: options.title?.visible ? get(options, 'title') : null,
       itemName: get(options, 'text'),
     };
+
     this.setConfig('legends', legendConfig);
   }
 

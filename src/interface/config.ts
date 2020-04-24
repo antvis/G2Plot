@@ -181,6 +181,7 @@ export interface Legend {
   clickable?: boolean;
   title?: {
     visible?: boolean;
+    text?: string;
     style?: TextStyle;
   };
   marker?: {

@@ -765,7 +765,6 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
 
   protected resetLabels() {
     if (!this._shouldResetLabels) return;
-
     const props = this.options;
     const { xField, yField } = props;
 
@@ -1117,17 +1116,21 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   private _findCheckedData(data: any[]) {
     const props = this.options;
 
-    // @ts-ignore
-    const legendContainer = this.view.getController('legend').container;
+    if (props.legend?.visible) {
+      // @ts-ignore
+      const legendContainer = this.view.getController('legend').container;
 
-    const checkedXValues = legendContainer
-      .findAll((shape) => shape.get('name') == 'legend-item')
-      .filter((legendItem) => !legendItem.get('unchecked'))
-      .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
+      const checkedXValues = legendContainer
+        .findAll((shape) => shape.get('name') == 'legend-item')
+        .filter((legendItem) => !legendItem.get('unchecked'))
+        .map((legendItem) => legendItem.get('id').replace('-legend-item-', ''));
 
-    const checkedData = data.filter((datum) => contains(checkedXValues, datum[props.xField]));
+      const checkedData = data.filter((datum) => contains(checkedXValues, datum[props.xField]));
 
-    return checkedData;
+      return checkedData;
+    } else {
+      return this.processData(props.data);
+    }
   }
 
   private _reduceDataForCompare(data: any[]) {

@@ -141,4 +141,36 @@ describe('legend', () => {
     expect(legendShapes[1].attr('fill')).toBe('#5B8FF9');
     columnPlot.destroy();
   });
+
+  it('legend title visible', () => {
+    const columnPlot = new GroupedColumn(div, {
+      data,
+      xField: '月份',
+      yField: '月均降雨量',
+      yAxis: {
+        min: 0,
+      },
+      label: {
+        visible: true,
+      },
+      groupField: 'name',
+      legend: {
+        position: 'right-center',
+        title: {
+          visible: true,
+          text: 'aa',
+        },
+      },
+    });
+    columnPlot.render();
+    const view = columnPlot.getLayers()[0].view;
+    const titleShape = view.foregroundGroup.findAll((el) => {
+      if (el.get('name')) {
+        console.log(el.get('name'));
+        return el.get('name') === 'legend-title';
+      }
+    });
+    expect(titleShape[0].attr('text')).toBe('aa');
+    columnPlot.destroy();
+  });
 });

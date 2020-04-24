@@ -133,7 +133,7 @@ export default class PaddingController {
     }
     this._getAxis(view, components_bbox);
     let box = this._mergeBBox(components_bbox);
-    this._getLegend(view, components_bbox, viewRange, this.plot.options);
+    this._getLegend(view, box, components_bbox, viewRange, this.plot.options);
     box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
@@ -168,7 +168,7 @@ export default class PaddingController {
     });
   }
 
-  private _getLegend(view, bboxes, viewRange, options) {
+  private _getLegend(view, globalBBox, bboxes, viewRange, options) {
     const legendContainer = getLegendShapes(view)[0];
     if (legendContainer) {
       const bbox = legendContainer.getBBox();
@@ -177,7 +177,7 @@ export default class PaddingController {
         if (position === 'top') {
           bboxes.push(new BBox(bbox.minX, -bbox.height, bbox.width, bbox.height));
         } else if (position === 'bottom') {
-          bboxes.push(new BBox(bbox.minX, bbox.height + viewRange.maxY, bbox.width, bbox.height));
+          bboxes.push(new BBox(bbox.minX, bbox.height + globalBBox.maxY, bbox.width, bbox.height));
         } else if (position === 'left') {
           bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
         } else {

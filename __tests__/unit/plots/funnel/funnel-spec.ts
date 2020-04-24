@@ -18,12 +18,13 @@ describe('funnel plot', () => {
       { action: '成交', pv: 8500 },
     ];
     const funnelPlot = new Funnel(canvasDiv, {
+      title: {
+        visible: true,
+        text: 'testtesttesttest',
+      },
       data: data,
       xField: 'action',
       yField: 'pv',
-      legend: {
-        visible: false,
-      },
     });
     funnelPlot.render();
   });

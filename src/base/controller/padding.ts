@@ -177,7 +177,7 @@ export default class PaddingController {
         if (position === 'top') {
           bboxes.push(new BBox(bbox.minX, -bbox.height, bbox.width, bbox.height));
         } else if (position === 'bottom') {
-          bboxes.push(new BBox(bbox.minX, bbox.height + viewRange.height, bbox.width, bbox.height));
+          bboxes.push(new BBox(bbox.minX, bbox.height + viewRange.maxY, bbox.width, bbox.height));
         } else if (position === 'left') {
           bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
         } else {

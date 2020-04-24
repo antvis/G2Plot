@@ -37,7 +37,13 @@ export default class IntervalParser extends ElementParser {
       } else if (isFunction(props.color)) {
         config.callback = props.color;
       } else if (isArray(props.color)) {
-        config.values = props.color;
+        if (colorField) {
+          config.values = props.color;
+        } else {
+          if (props.color.length > 0) {
+            config.values = [props.color[0]];
+          }
+        }
       } else if (isObject(props.color)) {
         config.fields = colorField;
         config.callback = (d) => {

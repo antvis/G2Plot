@@ -1,4 +1,4 @@
-import { Line } from '../../src';
+import { Line, Pie } from '../../src';
 
 describe('#883', () => {
   const canvasDiv = document.createElement('div');
@@ -34,5 +34,51 @@ describe('#883', () => {
     });
     linePlot.render();
     linePlot.destroy();
+  });
+
+  it.only('pie padding when legend hide', () => {
+    const pie = new Pie(canvasDiv, {
+      data: [
+        {
+          type: '前端',
+          value: 110,
+        },
+        {
+          type: '其他',
+          value: 31,
+        },
+        {
+          type: '外包',
+          value: 75,
+        },
+        {
+          type: '设计+PD',
+          value: 8,
+        },
+      ],
+      angleField: 'value',
+      colorField: 'type',
+      title: {
+        text: '有效用户分布',
+        visible: true,
+      },
+      description: {
+        text: '参与过复杂应用研发的用户总数：98',
+        visible: false,
+      },
+      radius: 0.8,
+      xAxis: {
+        type: 'cat',
+      },
+      legend: {
+        visible: false,
+        position: 'right-top',
+      },
+      label: {
+        visible: true,
+        type: 'spider',
+      },
+    });
+    pie.render();
   });
 });

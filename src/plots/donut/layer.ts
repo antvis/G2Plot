@@ -1,10 +1,8 @@
 import { modifyCSS } from '@antv/dom-util';
-import { deepMix, each } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import PieLayer, { PieViewConfig } from '../pie/layer';
-import responsiveMethods from './apply-responsive';
-import './apply-responsive/theme';
 import * as EventParser from './event';
 import { LooseMap } from '../../interface/types';
 import RingStatistic from './component/ring-statistic';
@@ -43,7 +41,7 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
 
   public static getDefaultOptions(): any {
     return deepMix({}, super.getDefaultOptions(), {
-      radius: 0.6,
+      radius: 0.8,
       innerRadius: 0.64,
       statistic: {
         visible: true,
@@ -61,10 +59,6 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     this.adjustLabelDefaultOptions();
     if (this.options.statistic.visible && this.options.statistic.triggerOn) {
       this.options.tooltip.visible = false;
-    }
-    /** 响应式图形 */
-    if (this.options.responsive && this.options.padding !== 'auto') {
-      this.applyResponsive('preRender');
     }
   }
 
@@ -121,14 +115,6 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
 
   protected parseEvents() {
     super.parseEvents(EventParser);
-  }
-
-  private applyResponsive(stage) {
-    const methods = responsiveMethods[stage];
-    each(methods, (r) => {
-      const responsive = r as LooseMap;
-      responsive.method(this);
-    });
   }
 
   /** @override 调整 label 默认 options */

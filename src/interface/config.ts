@@ -166,20 +166,30 @@ export type LegendPosition =
   | 'bottom-center'
   | 'bottom-right';
 
+interface LegendMarkerStyle extends GraphicStyle {
+  r?: number;
+}
+
 export interface Legend {
   visible?: boolean;
   /** 位置 */
   position?: LegendPosition;
   /** 翻页 */
   flipPage?: boolean;
-  formatter?: (...args: any) => string;
   offsetX?: number;
   offsetY?: number;
   clickable?: boolean;
   title?: {
     visible?: boolean;
-    spacing?: number;
     style?: TextStyle;
+  };
+  marker?: {
+    symbol?: string;
+    style: LegendMarkerStyle;
+  };
+  text?: {
+    style?: TextStyle;
+    formatter?: (text: string, cfg: any) => string;
   };
 }
 

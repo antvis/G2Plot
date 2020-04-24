@@ -115,12 +115,19 @@ export default class GuidePointParser extends ElementParser {
   }
 
   private _parseColor(props, config) {
+    const field = this._getColorMappingField(props);
     if (isString(props.color)) {
       config.values = [props.color];
     } else if (isFunction(props.color)) {
       config.callback = props.color;
     } else if (isArray(props.color)) {
-      config.values = props.color;
+      if (field) {
+        config.values = props.color;
+      } else {
+        if (props.color.length > 0) {
+          config.values = [props.color[0]];
+        }
+      }
     }
   }
 

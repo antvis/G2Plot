@@ -7,10 +7,6 @@ order: 7
 
 * 官方推荐 [GitHub issues](https://github.com/antvis/G2Plot/issues)
 
-* 钉钉群，欢迎扫码入群交流
-<br/>
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fn73S55JxtYAAAAAAAAAAABkARQnAQ" width="400">
-
 * 邮件：antv@antfin.com
 
 * 语雀专栏：https://www.yuque.com/antv

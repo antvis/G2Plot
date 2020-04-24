@@ -25,6 +25,9 @@ describe('funnel plot', () => {
       data: data,
       xField: 'action',
       yField: 'pv',
+      legend: {
+        position: 'top-left',
+      },
     });
     funnelPlot.render();
   });

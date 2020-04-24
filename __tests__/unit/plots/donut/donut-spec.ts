@@ -37,11 +37,15 @@ describe('Donut plot', () => {
     },
   ];
 
-  it('创建 & 销毁图表', () => {
+  it.only('创建 & 销毁图表', () => {
     const DonutPlot = new Donut(canvasDiv, {
       data,
       angleField: 'value',
       colorField: 'type',
+      label: {
+        visible: true,
+        type: 'spider',
+      },
     });
     DonutPlot.render();
     const plot = DonutPlot.getLayer().view;

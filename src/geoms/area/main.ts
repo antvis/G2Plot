@@ -1,5 +1,5 @@
 import { Datum } from '../../dependents';
-import { has, isString, isFunction, get } from '@antv/util';
+import { has, isString, isFunction, isArray, get } from '@antv/util';
 import ElementParser from '../base';
 
 export default class AreaParser extends ElementParser {
@@ -37,8 +37,14 @@ export default class AreaParser extends ElementParser {
         config.values = [color];
       } else if (isFunction(color)) {
         config.callback = color;
-      } else {
-        config.values = color as [];
+      } else if (isArray(color)) {
+        if (colorMappingField) {
+          config.values = color;
+        } else {
+          if (color.length > 0) {
+            config.values = [color[0]];
+          }
+        }
       }
     }
     this.config.color = config;

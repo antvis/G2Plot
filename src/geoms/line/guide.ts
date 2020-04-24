@@ -46,16 +46,13 @@ export default class GuideLineParser extends LineParser {
   public parseColor() {
     const props = this.plot.options;
     const config: LooseObject = {};
-    let colorField = this._getColorMappingField();
+    const colorField = this._getColorMappingField();
     if (colorField) {
       config.fields = colorField;
     }
     if (props.line.color) {
       config.values = [props.line.color];
     } else {
-      if (!colorField) {
-        colorField = this.config.position.fields;
-      }
       // line作为辅助图形没有在style里指定color属性的情况下，默认接受主体图形的透传
       if (isString(props.color)) {
         config.values = [props.color];
@@ -63,8 +60,13 @@ export default class GuideLineParser extends LineParser {
         config.fields = colorField;
         config.callback = props.color;
       } else if (isArray(props.color)) {
-        config.fields = colorField;
-        config.values = props.color;
+        if (colorField) {
+          config.values = props.color;
+        } else {
+          if (props.color.length > 0) {
+            config.values = [props.color[0]];
+          }
+        }
       }
     }
 

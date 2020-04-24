@@ -314,7 +314,7 @@ flipPage: true
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
 | visible | boolean | 是否可见 |
-| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />botton-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
+| position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />bottom-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | formatter | function | 对图例显示信息进行格式化 |
 | offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
 | offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |

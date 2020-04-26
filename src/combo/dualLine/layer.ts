@@ -1,10 +1,13 @@
 import { getScale } from '@antv/scale';
+import { Legend } from '@antv/component';
 import { registerPlotType } from '../../base/global';
 import ComboViewLayer, { ComboViewConfig } from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import { clone, deepMix, each, hasKey, isString } from '@antv/util';
 import { DataItem, IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+
+const LEGEND_MARGIN = 10;
 
 interface DualLineYAxis extends IValueAxis {
   colorMapping?: boolean;
@@ -54,8 +57,10 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
 
   public type: string = 'dualLine';
   protected lines: LineLayer[] = [];
+  protected legends: any[] = [];
 
   public init() {
+    this.canvas.set('localRefresh', false);
     super.init();
     const { data, xField, yField, colors } = this.options;
     this.getTicks();
@@ -69,6 +74,9 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       },
       yAxis: deepMix({}, this.yAxis(0), {
         visible: true,
+        grid: {
+          visible: false,
+        },
         nice: true,
       }),
       tooltip: {
@@ -85,11 +93,9 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       yField: yField[1],
       color: colors[1],
       meta: metaInfo,
+      serieField: yField[1],
       yAxis: deepMix({}, this.yAxis(1), {
         position: 'right',
-        grid: {
-          visible: false,
-        },
         nice: true,
       }),
       tooltip: {
@@ -103,8 +109,11 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       },
     });
     rightLine.render();
-
+    this.customLegend();
     this.adjustLayout();
+    each(this.lines, (line, index) => {
+      this.legendFilter(index);
+    });
   }
 
   protected createLineLayer(data, config) {
@@ -124,10 +133,15 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected adjustLayout() {
+    const viewRange = this.getViewRange();
     const leftPadding = this.lines[0].options.padding;
     const rightPadding = this.lines[1].options.padding;
+    // 获取legendHeight并加入上部padding
+    const legendA_BBox = this.legends[0].get('group').getBBox();
+    const legendB_BBox = this.legends[1].get('group').getBBox();
+    const legendHeight = legendA_BBox.height + LEGEND_MARGIN * 2;
     // 同步左右padding
-    const uniquePadding = [leftPadding[0], rightPadding[1], rightPadding[2], leftPadding[3]];
+    const uniquePadding = [leftPadding[0] + legendHeight, rightPadding[1], rightPadding[2], leftPadding[3]];
     this.lines[0].updateConfig({
       padding: uniquePadding,
     });
@@ -136,6 +150,15 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       padding: uniquePadding,
     });
     this.lines[1].render();
+    // 更新legend的位置
+    this.legends[0].setLocation({
+      x: leftPadding[3] - legendA_BBox.width / 2,
+      y: viewRange.minY + LEGEND_MARGIN,
+    });
+    this.legends[1].setLocation({
+      x: viewRange.maxX - rightPadding[1] - legendB_BBox.width / 2,
+      y: viewRange.minY + LEGEND_MARGIN,
+    });
   }
 
   protected getTicks() {
@@ -228,6 +251,94 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     return dataSource.filter((d) => {
       return d[xField] === value;
     });
+  }
+
+  protected customLegend() {
+    const { yField, colors } = this.options;
+    const container = this.container.addGroup();
+    each(this.lines, (line, index) => {
+      const items = [
+        {
+          name: yField[index],
+          unchecked: false,
+          marker: {
+            symbol: 'square',
+            style: {
+              r: 4,
+              fill: colors[index],
+            },
+          },
+        },
+      ];
+      const legend = new Legend.Category({
+        id: 'dualLine',
+        container,
+        x: 0,
+        y: 0,
+        items: items,
+        updateAutoRender: true,
+        itemBackground: null,
+      });
+      legend.init();
+      legend.render();
+      this.legends.push(legend);
+    });
+  }
+
+  protected legendFilter(index) {
+    const legend = this.legends[index];
+    const legend_group = legend.get('group');
+    legend_group.on('click', () => {
+      const item = legend.get('items')[0];
+      if (!item.unchecked) {
+        legend.setItemState(item, 'unchecked', true);
+        this.hideLayer(index);
+      } else {
+        legend.setItemState(item, 'unchecked', false);
+        this.showLayer(index);
+      }
+    });
+  }
+
+  protected hideLayer(index) {
+    const layer = this.lines[index];
+    const field = this.options.yField[index];
+    // 隐藏layer时只隐藏yAxis和geometry
+    const { view } = layer;
+    const axisContainer = this.getYAxisContainer(view, field);
+    axisContainer.set('visible', false);
+    const geomContainer = view.geometries[0].container;
+    geomContainer.set('visible', false);
+    this.canvas.draw();
+  }
+
+  protected showLayer(index) {
+    const layer = this.lines[index];
+    const field = this.options.yField[index];
+    const { view } = layer;
+    const axisContainer = this.getYAxisContainer(view, field);
+    axisContainer.set('visible', true);
+    const geomContainer = view.geometries[0].container;
+    geomContainer.set('visible', true);
+    this.canvas.draw();
+  }
+
+  protected getYAxisContainer(view, field) {
+    let container;
+    const axisCtr = view.controllers.filter((ctr) => {
+      return hasKey(ctr, 'axisContainer');
+    })[0];
+    if (axisCtr) {
+      const ctr = axisCtr as any;
+      const axisGroups = ctr.axisContainer.get('children');
+      each(axisGroups, (g) => {
+        const axisField = g.get('component').get('field');
+        if (axisField === field) {
+          container = g;
+        }
+      });
+    }
+    return container;
   }
 }
 

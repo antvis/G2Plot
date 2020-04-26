@@ -1,3 +1,4 @@
+import { getScale } from '@antv/scale';
 import { registerPlotType } from '../../base/global';
 import ComboViewLayer, { ComboViewConfig } from '../base';
 import { LayerConfig } from '../../base/layer';
@@ -57,6 +58,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   public init() {
     super.init();
     const { data, xField, yField, colors } = this.options;
+    this.getTicks();
 
     //draw first line
     const leftLine = this.createLineLayer(data[0], {
@@ -67,7 +69,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       },
       yAxis: deepMix({}, this.yAxis(0), {
         visible: true,
-        tickCount: 5,
         nice: true,
       }),
       tooltip: {
@@ -77,16 +78,18 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     });
     leftLine.render();
     //draw second line
+    const metaInfo = {};
+    metaInfo[yField[1]] = { ticks: this.getTicks() };
     const rightLine = this.createLineLayer(data[1], {
       xField,
       yField: yField[1],
       color: colors[1],
+      meta: metaInfo,
       yAxis: deepMix({}, this.yAxis(1), {
         position: 'right',
         grid: {
           visible: false,
         },
-        tickCount: 5,
         nice: true,
       }),
       tooltip: {
@@ -135,8 +138,38 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     this.lines[1].render();
   }
 
-  protected scale() {
-    return;
+  protected getTicks() {
+    const { yAxis } = this.options;
+    const leftScaleData = this.getScaleData(0);
+    // 取到左轴ticks数量
+    const Scale = getScale('linear');
+    const linearScale = new Scale(
+      deepMix(
+        {},
+        {
+          min: 0,
+          max: leftScaleData.max,
+          nice: true,
+          values: leftScaleData.values,
+        },
+        {
+          tickCount: yAxis.tickCount,
+        }
+      )
+    );
+    const tickCount = linearScale.ticks.length;
+    // 生成右轴ticks
+    const { max } = this.getScaleData(1);
+    const tickInterval = max / (tickCount - 1);
+    const ticks = [];
+    for (let i = 0; i < tickCount; i++) {
+      let tickValue = i * tickInterval;
+      if (!Number.isInteger(tickValue)) {
+        tickValue = parseFloat(tickValue.toFixed(1));
+      }
+      ticks.push(tickValue);
+    }
+    return ticks;
   }
 
   protected yAxis(index) {
@@ -175,6 +208,18 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       value: dataItemsA[yField[0]],
       color: '#5B8FF9',
     });
+  }
+
+  protected getScaleData(index) {
+    const { data, yField } = this.options;
+    const values = [];
+    each(data[index], (d) => {
+      values.push(d[yField[index]]);
+    });
+    values.sort((a, b) => a - b);
+    const min = values[0];
+    const max = values[values.length - 1];
+    return { min, max, values };
   }
 
   protected getDataByXField(value, index) {

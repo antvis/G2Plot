@@ -3,18 +3,37 @@ import ComboViewLayer, { ComboViewConfig } from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import { clone, deepMix } from '@antv/util';
+import { DataItem, IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
 
-export interface DualLineViewConfig extends ComboViewConfig {}
+interface DualLineYAxis extends IValueAxis {
+  colorMapping?: boolean;
+}
+
+export interface DualLineViewConfig extends ComboViewConfig {
+  xField: string;
+  yField: string[];
+  data: DataItem[][];
+  xAxis: IValueAxis | ICatAxis | ITimeAxis;
+  yAxis: DualLineYAxis;
+  colors: string[];
+}
 
 interface DualLineLayerConfig extends DualLineViewConfig, LayerConfig {}
 
 export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayerConfig> extends ComboViewLayer<T> {
+  public static getDefaultOptions(): Partial<DualLineLayerConfig> {
+    return deepMix({}, super.getDefaultOptions(), {
+      // 自古红蓝出cp....
+      colors: ['#5B8FF9', '#e76c5e'],
+    });
+  }
+
   public type: string = 'dualLine';
   protected lines: LineLayer[] = [];
 
   public init() {
     super.init();
-    const { data, xField, yField } = this.options;
+    const { data, xField, yField, colors } = this.options;
 
     //draw first line
     const leftLine = this.createLineLayer(data[0], {
@@ -26,12 +45,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       tooltip: {
         visible: false,
       },
+      color: colors[0],
     });
     leftLine.render();
     //draw second line
     const rightLine = this.createLineLayer(data[1], {
       xField,
       yField: yField[1],
+      color: colors[1],
       yAxis: {
         position: 'right',
         grid: {
@@ -87,7 +108,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const { yField } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 0)[0];
-    //ev.items = [];
     ev.items.push({
       ...originItem,
       mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),

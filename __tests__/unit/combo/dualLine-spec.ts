@@ -48,6 +48,9 @@ describe('dualLine', () => {
       data: [data1, data2],
       xField: 'year',
       yField: ['value', 'count'],
+      yAxis: {
+        colorMapping: true,
+      },
       legend: {
         position: 'top-left',
       },

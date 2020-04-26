@@ -2,7 +2,7 @@ import { registerPlotType } from '../../base/global';
 import ComboViewLayer, { ComboViewConfig } from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
-import { clone, deepMix } from '@antv/util';
+import { clone, deepMix, each, hasKey, isString } from '@antv/util';
 import { DataItem, IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
 
 interface DualLineYAxis extends IValueAxis {
@@ -25,6 +25,29 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     return deepMix({}, super.getDefaultOptions(), {
       // 自古红蓝出cp....
       colors: ['#5B8FF9', '#e76c5e'],
+      yAxis: {
+        visible: true,
+        colorMapping: true,
+        grid: {
+          visible: true,
+        },
+        line: {
+          visible: false,
+        },
+        tickLine: {
+          visible: false,
+        },
+        label: {
+          visible: true,
+          autoHide: true,
+          autoRotate: false,
+        },
+        title: {
+          autoRotate: true,
+          visible: false,
+          offset: 12,
+        },
+      },
     });
   }
 
@@ -42,6 +65,11 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       xAxis: {
         visible: false,
       },
+      yAxis: deepMix({}, this.yAxis(0), {
+        visible: true,
+        tickCount: 5,
+        nice: true,
+      }),
       tooltip: {
         visible: false,
       },
@@ -53,14 +81,17 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       xField,
       yField: yField[1],
       color: colors[1],
-      yAxis: {
+      yAxis: deepMix({}, this.yAxis(1), {
         position: 'right',
         grid: {
           visible: false,
         },
-      },
+        tickCount: 5,
+        nice: true,
+      }),
       tooltip: {
         visible: true,
+        showMarkers: false,
         customContent: {
           callback: (containerDom, ev) => {
             this.tooltip(ev);
@@ -102,6 +133,34 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       padding: uniquePadding,
     });
     this.lines[1].render();
+  }
+
+  protected scale() {
+    return;
+  }
+
+  protected yAxis(index) {
+    const { yAxis, colors } = this.options;
+    const colorValue = colors[index];
+    const yAxisConfig = clone(yAxis);
+    const styleMap = {
+      title: 'stroke',
+      line: 'stroke',
+      label: 'fill',
+      tickLine: 'stroke',
+    };
+    if (yAxis.visible && yAxis.colorMapping) {
+      each(yAxisConfig, (config, name) => {
+        if (!isString(config) && hasKey(styleMap, name)) {
+          const styleKey = styleMap[name];
+          if (!config.style) {
+            config.style = {};
+          }
+          config.style[styleKey] = colorValue;
+        }
+      });
+    }
+    return yAxisConfig;
   }
 
   protected tooltip(ev) {

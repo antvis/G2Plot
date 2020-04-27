@@ -3,9 +3,9 @@ import { each } from '@antv/util';
 export function rgb2arr(str: string) {
   const colorStr: string = str.indexOf('#') === 0 ? str.substr(1) : str;
   const arr = [];
-  arr.push(parseInt(colorStr.substr(1, 2), 16));
-  arr.push(parseInt(colorStr.substr(3, 2), 16));
-  arr.push(parseInt(colorStr.substr(5, 2), 16));
+  arr.push(parseInt(colorStr.substr(0, 2), 16));
+  arr.push(parseInt(colorStr.substr(2, 2), 16));
+  arr.push(parseInt(colorStr.substr(4, 2), 16));
   return arr;
 }
 

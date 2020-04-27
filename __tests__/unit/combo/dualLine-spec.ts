@@ -74,7 +74,15 @@ describe('dualLine', () => {
           },
         },
       ],
-      legend: {},
+      legend: {
+        visible: true,
+        text: {
+          style: {
+            fill: 'red',
+            formatter: () => 'a',
+          },
+        },
+      },
     });
     dualLine.render();
   });

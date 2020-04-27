@@ -5,7 +5,7 @@ import ComboViewLayer, { ComboViewConfig } from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import { clone, deepMix, each, hasKey, isString } from '@antv/util';
-import { DataItem, IValueAxis, ICatAxis, ITimeAxis, GraphicStyle, LineStyle } from '../../interface/config';
+import { DataItem, IValueAxis, ICatAxis, ITimeAxis, GraphicStyle, LineStyle, TextStyle } from '../../interface/config';
 import { PointShape } from '../../plots/line/layer';
 
 const LEGEND_MARGIN = 10;
@@ -20,6 +20,18 @@ interface DualLineYAxis {
   tickCount?: number;
   leftConfig?: DulLineYAxisConfig;
   rightConfig?: DulLineYAxisConfig;
+}
+
+interface DualLineLegendConfig {
+  visible?: boolean;
+  marker?: {
+    symbol?: string;
+    style?: any;
+  };
+  text?: {
+    style?: TextStyle;
+    formatter?: (value: string) => string;
+  };
 }
 
 interface LineConfig {
@@ -42,11 +54,11 @@ export interface DualLineViewConfig extends ComboViewConfig {
   xField: string;
   yField: string[];
   data: DataItem[][];
-  xAxis: IValueAxis | ICatAxis | ITimeAxis;
-  yAxis: DualLineYAxis;
-  //colors: string[];
-  tooltip: any;
-  lineConfigs: LineConfig[];
+  xAxis?: IValueAxis | ICatAxis | ITimeAxis;
+  yAxis?: DualLineYAxis;
+  tooltip?: any;
+  lineConfigs?: LineConfig[];
+  legend?: DualLineLegendConfig;
 }
 
 const defaultLineConfig = {
@@ -113,7 +125,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
 
   public init() {
     super.init();
-    const { data, xField, yField, xAxis, tooltip, lineConfigs } = this.options;
+    const { data, xField, yField, xAxis, tooltip, lineConfigs, legend } = this.options;
     this.colors = [lineConfigs[0].color, lineConfigs[1].color];
     this.getTicks();
     //draw first line
@@ -159,11 +171,10 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       ...lineConfigs[1],
     });
     rightLine.render();
-    this.customLegend();
+    if (legend.visible) {
+      this.customLegend();
+    }
     this.adjustLayout();
-    each(this.lines, (line, index) => {
-      this.legendFilter(index);
-    });
   }
 
   protected createLineLayer(data, config) {
@@ -187,9 +198,15 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const leftPadding = this.lines[0].options.padding;
     const rightPadding = this.lines[1].options.padding;
     // 获取legendHeight并加入上部padding
-    const legendA_BBox = this.legends[0].get('group').getBBox();
-    const legendB_BBox = this.legends[1].get('group').getBBox();
-    const legendHeight = legendA_BBox.height + LEGEND_MARGIN * 2;
+    let legendHeight = 0;
+    let legendA_BBox;
+    let legendB_BBox;
+    if (this.options.legend?.visible) {
+      legendA_BBox = this.legends[0].get('group').getBBox();
+      legendB_BBox = this.legends[1].get('group').getBBox();
+      legendHeight = legendA_BBox.height + LEGEND_MARGIN * 2;
+    }
+
     // 同步左右padding
     const uniquePadding = [leftPadding[0] + legendHeight, rightPadding[1], rightPadding[2], leftPadding[3]];
     this.lines[0].updateConfig({
@@ -201,14 +218,16 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     });
     this.lines[1].render();
     // 更新legend的位置
-    this.legends[0].setLocation({
-      x: leftPadding[3] - legendA_BBox.width / 2,
-      y: viewRange.minY + LEGEND_MARGIN,
-    });
-    this.legends[1].setLocation({
-      x: viewRange.maxX - rightPadding[1] - legendB_BBox.width / 2,
-      y: viewRange.minY + LEGEND_MARGIN,
-    });
+    if (this.options.legend?.visible) {
+      this.legends[0].setLocation({
+        x: leftPadding[3] - legendA_BBox.width / 2,
+        y: viewRange.minY + LEGEND_MARGIN,
+      });
+      this.legends[1].setLocation({
+        x: viewRange.maxX - rightPadding[1] - legendB_BBox.width / 2,
+        y: viewRange.minY + LEGEND_MARGIN,
+      });
+    }
   }
 
   protected getTicks() {
@@ -305,21 +324,27 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected customLegend() {
-    const { yField } = this.options;
+    const { yField, legend } = this.options;
     const { colors } = this;
     const container = this.container.addGroup();
+    const legendCfg = legend;
     each(this.lines, (line, index) => {
+      const markerCfg = deepMix(
+        {},
+        {
+          symbol: 'circle',
+          style: {
+            r: 4,
+            fill: colors[index],
+          },
+        },
+        legendCfg.marker
+      );
       const items = [
         {
           name: yField[index],
           unchecked: false,
-          marker: {
-            symbol: 'square',
-            style: {
-              r: 4,
-              fill: colors[index],
-            },
-          },
+          marker: markerCfg,
         },
       ];
       const legend = new Legend.Category({
@@ -330,10 +355,15 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
         items: items,
         updateAutoRender: true,
         itemBackground: null,
+        itemName: legendCfg.text,
       });
       legend.init();
       legend.render();
       this.legends.push(legend);
+    });
+    // 使用legend做图层筛选
+    each(this.lines, (line, index) => {
+      this.legendFilter(index);
     });
   }
 

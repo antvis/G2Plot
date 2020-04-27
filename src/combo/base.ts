@@ -1,17 +1,12 @@
-import { deepMix, each, mix, isArray } from '@antv/util';
+import { clone, deepMix, each, hasKey, isString, mix, isArray } from '@antv/util';
+import { getScale } from '@antv/scale';
 import TextDescription from '../components/description';
 import BBox from '../util/bbox';
 import Layer, { LayerConfig } from '../base/layer';
 import ViewLayer from '../base/view-layer';
 import { isTextUsable } from '../util/common';
 import ThemeController from '../base/controller/theme';
-
-export interface ComboViewConfig {
-  title?: ITitle;
-  description?: IDescription;
-}
-
-import { IDescription, ITitle } from '../interface/config';
+import { ComboViewConfig } from './util/interface';
 
 export interface IComboViewLayer extends ComboViewConfig, LayerConfig {}
 
@@ -28,6 +23,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
   public type: string;
   protected themeController: ThemeController;
   protected geomLayers: ViewLayer[] = [];
+  protected colors: string[];
 
   constructor(props: T) {
     super(props);
@@ -47,7 +43,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
   public init() {
     super.init();
     this.canvas.set('localRefresh', false);
-    this.theme = this.themeController.getTheme(this.options, this.type);
+    this.theme = this.themeController.getTheme(this.options as any, this.type);
     this.drawTitle();
     this.drawDescription();
   }
@@ -80,6 +76,93 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
       layer.doDestroy();
     });
     this.geomLayers = [];
+  }
+
+  protected createLayer(LayerCtr, data, config) {
+    const viewRange = this.getViewRange();
+    const layer = new LayerCtr({
+      canvas: this.canvas,
+      container: this.container,
+      x: viewRange.minX,
+      y: viewRange.minY,
+      width: viewRange.width,
+      height: viewRange.height,
+      data,
+      ...config,
+    });
+    this.geomLayers.push(layer);
+    return layer;
+  }
+
+  protected yAxis(index) {
+    const { yAxis } = this.options;
+    const config = index === 0 ? yAxis.leftConfig : yAxis.rightConfig;
+    const colorValue = this.colors[index];
+    const yAxisConfig = clone(config);
+    const styleMap = {
+      title: 'stroke',
+      line: 'stroke',
+      label: 'fill',
+      tickLine: 'stroke',
+    };
+    if (config.visible && config.colorMapping) {
+      each(yAxisConfig, (config, name) => {
+        if (!isString(config) && hasKey(styleMap, name)) {
+          const styleKey = styleMap[name];
+          if (!config.style) {
+            config.style = {};
+          }
+          config.style[styleKey] = colorValue;
+        }
+      });
+    }
+    return yAxisConfig;
+  }
+
+  protected getTicks() {
+    const { yAxis } = this.options;
+    const leftScaleData = this.getScaleData(0);
+    // 取到左轴ticks数量
+    const Scale = getScale('linear');
+    const linearScale = new Scale(
+      deepMix(
+        {},
+        {
+          min: 0,
+          max: leftScaleData.max,
+          nice: true,
+          values: leftScaleData.values,
+        },
+        {
+          tickCount: yAxis.tickCount,
+        }
+      )
+    );
+    const tickCount = linearScale.ticks.length;
+    // 生成右轴ticks
+    const max = yAxis.max ? linearScale.max : this.getScaleData(1).max;
+    const tickInterval = max / tickCount;
+    const ticks = [];
+    for (let i = 0; i < tickCount + 1; i++) {
+      let tickValue = i * tickInterval;
+      if (!Number.isInteger(tickValue)) {
+        tickValue = parseFloat(tickValue.toFixed(1));
+      }
+      ticks.push(tickValue);
+    }
+    return ticks;
+  }
+
+  protected getScaleData(index) {
+    const { data, yField, yAxis } = this.options;
+    const values = [];
+    each(data[index], (d) => {
+      values.push(d[yField[index]]);
+    });
+    values.sort((a, b) => a - b);
+    const min = values[0];
+    const max = yAxis.max ? yAxis.max : values[values.length - 1];
+    return { min, max, values };
   }
 
   protected drawTitle(): void {

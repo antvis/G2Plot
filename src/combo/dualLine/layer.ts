@@ -1,64 +1,20 @@
 import { getScale } from '@antv/scale';
 import { Legend } from '@antv/component';
 import { registerPlotType } from '../../base/global';
-import ComboViewLayer, { ComboViewConfig } from '../base';
+import ComboViewLayer from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
-import { clone, deepMix, each, hasKey, isString } from '@antv/util';
-import { DataItem, IValueAxis, ICatAxis, ITimeAxis, GraphicStyle, LineStyle, TextStyle } from '../../interface/config';
-import { PointShape } from '../../plots/line/layer';
+import { clone, deepMix, each, hasKey } from '@antv/util';
+import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+import { ComboViewConfig, ComboLegendConfig, LineConfig } from '../util/interface';
 
 const LEGEND_MARGIN = 10;
 
-interface DulLineYAxisConfig extends IValueAxis {
-  colorMapping?: boolean;
-}
-
-interface DualLineYAxis {
-  max?: number;
-  min?: number;
-  tickCount?: number;
-  leftConfig?: DulLineYAxisConfig;
-  rightConfig?: DulLineYAxisConfig;
-}
-
-interface DualLineLegendConfig {
-  visible?: boolean;
-  marker?: {
-    symbol?: string;
-    style?: any;
-  };
-  text?: {
-    style?: TextStyle;
-    formatter?: (value: string) => string;
-  };
-}
-
-interface LineConfig {
-  color?: string;
-  lineSize?: number;
-  smooth?: boolean;
-  connectNull?: boolean;
-  point?: {
-    visible?: boolean;
-    shape?: PointShape;
-    size?: number;
-    color?: string;
-    style?: GraphicStyle;
-  };
-  lineStyle?: LineStyle | ((...args: any[]) => LineStyle);
-  label?: any;
-}
-
 export interface DualLineViewConfig extends ComboViewConfig {
-  xField: string;
-  yField: string[];
-  data: DataItem[][];
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
-  yAxis?: DualLineYAxis;
   tooltip?: any;
   lineConfigs?: LineConfig[];
-  legend?: DualLineLegendConfig;
+  legend?: ComboLegendConfig;
 }
 
 const defaultLineConfig = {
@@ -119,16 +75,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   public type: string = 'dualLine';
-  protected colors: string[];
   protected legends: any[] = [];
 
   public init() {
     super.init();
     const { data, xField, yField, xAxis, tooltip, lineConfigs, legend } = this.options;
     this.colors = [lineConfigs[0].color, lineConfigs[1].color];
-    this.getTicks();
     //draw first line
-    const leftLine = this.createLineLayer(data[0], {
+    const leftLine = this.createLayer(LineLayer, data[0], {
       xField,
       yField: yField[0],
       xAxis: {
@@ -149,7 +103,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     //draw second line
     const metaInfo = {};
     metaInfo[yField[1]] = { ticks: this.getTicks() };
-    const rightLine = this.createLineLayer(data[1], {
+    const rightLine = this.createLayer(LineLayer, data[1], {
       xField,
       yField: yField[1],
       meta: metaInfo,
@@ -174,22 +128,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       this.customLegend();
     }
     this.adjustLayout();
-  }
-
-  protected createLineLayer(data, config) {
-    const viewRange = this.getViewRange();
-    const lineLayer = new LineLayer({
-      canvas: this.canvas,
-      container: this.container,
-      x: viewRange.minX,
-      y: viewRange.minY,
-      width: viewRange.width,
-      height: viewRange.height,
-      data,
-      ...config,
-    });
-    this.geomLayers.push(lineLayer);
-    return lineLayer;
   }
 
   protected adjustLayout() {
@@ -263,31 +201,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     return ticks;
   }
 
-  protected yAxis(index) {
-    const { yAxis } = this.options;
-    const config = index === 0 ? yAxis.leftConfig : yAxis.rightConfig;
-    const colorValue = this.colors[index];
-    const yAxisConfig = clone(config);
-    const styleMap = {
-      title: 'stroke',
-      line: 'stroke',
-      label: 'fill',
-      tickLine: 'stroke',
-    };
-    if (config.visible && config.colorMapping) {
-      each(yAxisConfig, (config, name) => {
-        if (!isString(config) && hasKey(styleMap, name)) {
-          const styleKey = styleMap[name];
-          if (!config.style) {
-            config.style = {};
-          }
-          config.style[styleKey] = colorValue;
-        }
-      });
-    }
-    return yAxisConfig;
-  }
-
   protected tooltip(ev) {
     const { yField } = this.options;
     const originItem = clone(ev.items[0]);
@@ -298,7 +211,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       data: dataItemsA,
       name: 'value',
       value: dataItemsA[yField[0]],
-      color: '#5B8FF9',
+      color: this.colors[0],
     });
   }
 

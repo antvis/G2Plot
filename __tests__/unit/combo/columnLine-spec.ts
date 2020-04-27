@@ -44,8 +44,29 @@ describe('columnLine', () => {
         visible: true,
       },
       legend: {
-        visible: false,
+        visible: true,
       },
+      /*columnConfig: {
+        columnStyle: {
+          stroke: 'black',
+        },
+        label: {
+          visible: true,
+          position: 'middle',
+        },
+      },
+      lineConfig: {
+        point: {
+          visible: true,
+        },
+        label: {
+          visible: true,
+        },
+        smooth: true,
+        lineStyle: {
+          lineDash: [2, 5],
+        },
+      },*/
     });
     columnLine.render();
   });

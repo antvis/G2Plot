@@ -1,15 +1,13 @@
-// import { Legend } from '@antv/component';
+import { Legend } from '@antv/component';
 import { registerPlotType } from '../../base/global';
 import ComboViewLayer from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import ColumnLayer from '../../plots/column/layer';
 import { IColumnLabel } from '../../plots/column/interface';
-import { deepMix } from '@antv/util';
+import { deepMix, clone, each } from '@antv/util';
 import { ICatAxis, GraphicStyle } from '../../interface/config';
-import { ComboViewConfig, ComboLegendConfig, LineConfig } from '../util/interface';
-
-const LEGEND_MARGIN = 10;
+import { ComboViewConfig, LineConfig } from '../util/interface';
 
 export interface ColumnConfig {
   color?: string;
@@ -23,7 +21,6 @@ export interface ColumnLineViewConfig extends ComboViewConfig {
   tooltip?: any;
   lineConfig?: LineConfig;
   columnConfig?: ColumnConfig;
-  legend?: ComboLegendConfig;
 }
 
 const defaultLineConfig = {
@@ -96,22 +93,28 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
 
   public init() {
     super.init();
-    const { data, xField, yField, xAxis, lineConfig, columnConfig } = this.options;
+    const { data, xField, yField, xAxis, legend, tooltip, lineConfig, columnConfig } = this.options;
     this.colors = [columnConfig.color, lineConfig.color];
+    const yAxisGlobalConfig = this.getYAxisGlobalConfig();
     // draw column
     const column = this.createLayer(ColumnLayer, data[0], {
       xField,
       yField: yField[0],
       xAxis,
-      yAxis: deepMix({}, this.yAxis(0), {
+      yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(0), {
         grid: {
           visible: true,
         },
         nice: true,
       }),
-      tooltip: {
-        visible: false,
-      },
+      tooltip: deepMix({}, tooltip, {
+        showMarkers: false,
+        customContent: {
+          callback: (containerDom, ev) => {
+            this.tooltip(ev);
+          },
+        },
+      }),
       ...columnConfig,
     });
     column.render();
@@ -125,7 +128,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       xAxis: {
         visible: false,
       },
-      yAxis: deepMix({}, this.yAxis(1), {
+      yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(1), {
         position: 'right',
         grid: {
           visible: false,
@@ -138,44 +141,69 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       ...lineConfig,
     });
     line.render();
+    if (legend.visible) {
+      this.customLegend();
+    }
     this.adjustLayout();
   }
 
-  protected adjustLayout() {
-    const viewRange = this.getViewRange();
-    const leftPadding = this.geomLayers[0].options.padding;
-    const rightPadding = this.geomLayers[1].options.padding;
-    // 获取legendHeight并加入上部padding
-    let legendHeight = 0;
-    let legendA_BBox;
-    let legendB_BBox;
-    if (this.options.legend?.visible) {
-      legendA_BBox = this.legends[0].get('group').getBBox();
-      legendB_BBox = this.legends[1].get('group').getBBox();
-      legendHeight = legendA_BBox.height + LEGEND_MARGIN * 2;
-    }
+  protected tooltip(ev) {
+    const { yField } = this.options;
+    const originItem = clone(ev.items[0]);
+    const dataItemsA = this.getDataByXField(ev.title, 1)[0];
+    ev.items.push({
+      ...originItem,
+      mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
+      data: dataItemsA,
+      name: 'value',
+      value: dataItemsA[yField[1]],
+      color: this.colors[1],
+    });
+  }
 
-    // 同步左右padding
-    const uniquePadding = [leftPadding[0] + legendHeight, rightPadding[1], rightPadding[2], leftPadding[3]];
-    this.geomLayers[0].updateConfig({
-      padding: uniquePadding,
-    });
-    this.geomLayers[0].render();
-    this.geomLayers[1].updateConfig({
-      padding: uniquePadding,
-    });
-    this.geomLayers[1].render();
-    // 更新legend的位置
-    if (this.options.legend?.visible) {
-      this.legends[0].setLocation({
-        x: leftPadding[3] - legendA_BBox.width / 2,
-        y: viewRange.minY + LEGEND_MARGIN,
+  protected customLegend() {
+    const { yField, legend } = this.options;
+    const { colors } = this;
+    const container = this.container.addGroup();
+    const legendCfg = legend;
+    const symbols = ['square', 'circle'];
+    each(this.geomLayers, (line, index) => {
+      const markerCfg = deepMix(
+        {},
+        {
+          symbol: symbols[index],
+          style: {
+            r: 4,
+            fill: colors[index],
+          },
+        },
+        legendCfg.marker
+      );
+      const items = [
+        {
+          name: yField[index],
+          unchecked: false,
+          marker: markerCfg,
+        },
+      ];
+      const legend = new Legend.Category({
+        id: this.type,
+        container,
+        x: 0,
+        y: 0,
+        items: items,
+        updateAutoRender: true,
+        itemBackground: null,
+        itemName: legendCfg.text,
       });
-      this.legends[1].setLocation({
-        x: viewRange.maxX - rightPadding[1] - legendB_BBox.width / 2,
-        y: viewRange.minY + LEGEND_MARGIN,
-      });
-    }
+      legend.init();
+      legend.render();
+      this.legends.push(legend);
+    });
+    // 使用legend做图层筛选
+    each(this.geomLayers, (line, index) => {
+      this.legendFilter(index);
+    });
   }
 }
 

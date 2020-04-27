@@ -83,7 +83,7 @@ describe('dualLine', () => {
       },
     });
     dualLine.render();
-    dualLine.updateConfig({
+    /*dualLine.updateConfig({
       title: {
         visible: false,
       },
@@ -98,6 +98,6 @@ describe('dualLine', () => {
         leftConfig: { visible: false },
       },
     });
-    dualLine.render();
+    dualLine.render();*/
   });
 });

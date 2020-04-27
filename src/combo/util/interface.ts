@@ -10,6 +10,7 @@ export interface ComboViewConfig {
   yField: string[];
   data: DataItem[][];
   yAxis?: ComboYAxis;
+  legend?: ComboLegendConfig;
 }
 
 export interface ComboYAxisConfig extends IValueAxis {

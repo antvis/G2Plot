@@ -1,4 +1,4 @@
-import { deepMix, each, mix } from '@antv/util';
+import { deepMix, each, mix, isArray } from '@antv/util';
 import TextDescription from '../components/description';
 import BBox from '../util/bbox';
 import Layer, { LayerConfig } from '../base/layer';
@@ -56,6 +56,23 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     this.doDestroy();
     this.options = this.getOptions(cfg);
     this.processOptions(this.options);
+  }
+
+  public changeData(data) {
+    if ((data && data.length < 2) || !isArray(data[0])) {
+      return;
+    }
+    each(this.geomLayers, (layer, index) => {
+      layer.changeData(data[index]);
+    });
+  }
+
+  public changeDataByIndex(data, index) {
+    if (isArray(data[0])) {
+      return;
+    }
+    const geomLayer = this.geomLayers[index];
+    geomLayer.changeData(data);
   }
 
   protected doDestroy() {

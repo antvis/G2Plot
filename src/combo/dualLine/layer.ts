@@ -440,6 +440,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     each(this.legends, (legend) => {
       legend.destroy();
     });
+    this.legends = [];
     super.doDestroy();
   }
 }

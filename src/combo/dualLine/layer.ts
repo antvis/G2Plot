@@ -127,7 +127,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected tooltip(ev) {
-    const { yField } = this.options;
+    const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 0)[0];
     ev.items.push({
@@ -138,6 +138,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       value: dataItemsA[yField[0]],
       color: this.colors[0],
     });
+    if (legend.visible) {
+      each(this.legends, (legend, index) => {
+        const item = legend.get('items')[0];
+        if (item.unchecked) {
+          ev.items.splice(index, 1);
+        }
+      });
+    }
   }
 
   protected customLegend() {

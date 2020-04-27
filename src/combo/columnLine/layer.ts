@@ -148,7 +148,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
   }
 
   protected tooltip(ev) {
-    const { yField } = this.options;
+    const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1)[0];
     ev.items.push({
@@ -159,6 +159,14 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       value: dataItemsA[yField[1]],
       color: this.colors[1],
     });
+    if (legend.visible) {
+      each(this.legends, (legend, index) => {
+        const item = legend.get('items')[0];
+        if (item.unchecked) {
+          ev.items.splice(index, 1);
+        }
+      });
+    }
   }
 
   protected customLegend() {

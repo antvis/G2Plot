@@ -60,7 +60,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   protected legends: any[] = [];
 
   public init() {
-    this.canvas.set('localRefresh', false);
     super.init();
     const { data, xField, yField, colors } = this.options;
     this.getTicks();
@@ -182,10 +181,10 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     );
     const tickCount = linearScale.ticks.length;
     // 生成右轴ticks
-    const { max } = this.getScaleData(1);
-    const tickInterval = max / (tickCount - 1);
+    const max = yAxis.max ? linearScale.max : this.getScaleData(1).max;
+    const tickInterval = max / tickCount;
     const ticks = [];
-    for (let i = 0; i < tickCount; i++) {
+    for (let i = 0; i < tickCount + 1; i++) {
       let tickValue = i * tickInterval;
       if (!Number.isInteger(tickValue)) {
         tickValue = parseFloat(tickValue.toFixed(1));
@@ -234,14 +233,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected getScaleData(index) {
-    const { data, yField } = this.options;
+    const { data, yField, yAxis } = this.options;
     const values = [];
     each(data[index], (d) => {
       values.push(d[yField[index]]);
     });
     values.sort((a, b) => a - b);
     const min = values[0];
-    const max = values[values.length - 1];
+    const max = yAxis.max ? yAxis.max : values[values.length - 1];
     return { min, max, values };
   }
 

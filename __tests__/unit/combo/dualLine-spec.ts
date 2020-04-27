@@ -49,11 +49,13 @@ describe('dualLine', () => {
       xField: 'year',
       yField: ['value', 'count'],
       yAxis: {
+        visible: true,
         colorMapping: true,
+        max: 35,
+        tickCount: 5,
+        nice: false,
       },
-      legend: {
-        position: 'top-left',
-      },
+      legend: {},
     });
     dualLine.render();
   });

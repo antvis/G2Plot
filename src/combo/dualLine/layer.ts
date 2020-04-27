@@ -120,7 +120,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
 
   public type: string = 'dualLine';
   protected colors: string[];
-  protected lines: LineLayer[] = [];
   protected legends: any[] = [];
 
   public init() {
@@ -189,14 +188,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       data,
       ...config,
     });
-    this.lines.push(lineLayer);
+    this.geomLayers.push(lineLayer);
     return lineLayer;
   }
 
   protected adjustLayout() {
     const viewRange = this.getViewRange();
-    const leftPadding = this.lines[0].options.padding;
-    const rightPadding = this.lines[1].options.padding;
+    const leftPadding = this.geomLayers[0].options.padding;
+    const rightPadding = this.geomLayers[1].options.padding;
     // 获取legendHeight并加入上部padding
     let legendHeight = 0;
     let legendA_BBox;
@@ -209,14 +208,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
 
     // 同步左右padding
     const uniquePadding = [leftPadding[0] + legendHeight, rightPadding[1], rightPadding[2], leftPadding[3]];
-    this.lines[0].updateConfig({
+    this.geomLayers[0].updateConfig({
       padding: uniquePadding,
     });
-    this.lines[0].render();
-    this.lines[1].updateConfig({
+    this.geomLayers[0].render();
+    this.geomLayers[1].updateConfig({
       padding: uniquePadding,
     });
-    this.lines[1].render();
+    this.geomLayers[1].render();
     // 更新legend的位置
     if (this.options.legend?.visible) {
       this.legends[0].setLocation({
@@ -328,7 +327,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const { colors } = this;
     const container = this.container.addGroup();
     const legendCfg = legend;
-    each(this.lines, (line, index) => {
+    each(this.geomLayers, (line, index) => {
       const markerCfg = deepMix(
         {},
         {
@@ -348,7 +347,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
         },
       ];
       const legend = new Legend.Category({
-        id: 'dualLine',
+        id: this.type,
         container,
         x: 0,
         y: 0,
@@ -362,7 +361,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       this.legends.push(legend);
     });
     // 使用legend做图层筛选
-    each(this.lines, (line, index) => {
+    each(this.geomLayers, (line, index) => {
       this.legendFilter(index);
     });
   }
@@ -383,22 +382,26 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected hideLayer(index) {
-    const layer = this.lines[index];
+    const layer = this.geomLayers[index];
     const field = this.options.yField[index];
     // 隐藏layer时只隐藏yAxis和geometry
     const { view } = layer;
     const axisContainer = this.getYAxisContainer(view, field);
-    axisContainer.set('visible', false);
+    if (axisContainer) {
+      axisContainer.set('visible', false);
+    }
     this.setGeometryVisibility(view, false);
     this.canvas.draw();
   }
 
   protected showLayer(index) {
-    const layer = this.lines[index];
+    const layer = this.geomLayers[index];
     const field = this.options.yField[index];
     const { view } = layer;
     const axisContainer = this.getYAxisContainer(view, field);
-    axisContainer.set('visible', true);
+    if (axisContainer) {
+      axisContainer.set('visible', true);
+    }
     this.setGeometryVisibility(view, true);
     this.canvas.draw();
   }
@@ -406,8 +409,12 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   protected setGeometryVisibility(view, show) {
     each(view.geometries, (geom) => {
       const { container, labelsContainer } = geom;
-      container.set('visible', show);
-      labelsContainer.set('visible', show);
+      if (container) {
+        container.set('visible', show);
+      }
+      if (labelsContainer) {
+        labelsContainer.set('visible', show);
+      }
     });
   }
 
@@ -427,6 +434,13 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       });
     }
     return container;
+  }
+
+  protected doDestroy() {
+    each(this.legends, (legend) => {
+      legend.destroy();
+    });
+    super.doDestroy();
   }
 }
 

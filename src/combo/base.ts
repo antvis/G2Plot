@@ -2,6 +2,7 @@ import { deepMix, each, mix } from '@antv/util';
 import TextDescription from '../components/description';
 import BBox from '../util/bbox';
 import Layer, { LayerConfig } from '../base/layer';
+import ViewLayer from '../base/view-layer';
 import { isTextUsable } from '../util/common';
 import ThemeController from '../base/controller/theme';
 
@@ -26,6 +27,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
   public theme: any;
   public type: string;
   protected themeController: ThemeController;
+  protected geomLayers: ViewLayer[] = [];
 
   constructor(props: T) {
     super(props);
@@ -48,6 +50,19 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     this.theme = this.themeController.getTheme(this.options, this.type);
     this.drawTitle();
     this.drawDescription();
+  }
+
+  public updateConfig(cfg: Partial<T>) {
+    this.doDestroy();
+    this.options = this.getOptions(cfg);
+    this.processOptions(this.options);
+  }
+
+  protected doDestroy() {
+    each(this.geomLayers, (layer) => {
+      layer.doDestroy();
+    });
+    this.geomLayers = [];
   }
 
   protected drawTitle(): void {
@@ -130,19 +145,21 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     const components = [this.title, this.description];
 
     each(components, (component) => {
-      const { position } = component;
-      const { minX, maxX, minY, maxY } = component.getBBox();
-      if (maxY >= viewMinY && maxY <= viewMaxY && position === 'top') {
-        viewMinY = maxY;
-      }
-      if (minY >= viewMinY && minY <= viewMaxY && position === 'bottom') {
-        viewMaxY = minY;
-      }
-      if (maxX > viewMinX && maxX <= viewMaxX && position === 'left') {
-        viewMinX = maxX;
-      }
-      if (minX >= viewMinX && maxX <= viewMaxX && position === 'right') {
-        viewMaxX = minX;
+      if (component) {
+        const { position } = component;
+        const { minX, maxX, minY, maxY } = component.getBBox();
+        if (maxY >= viewMinY && maxY <= viewMaxY && position === 'top') {
+          viewMinY = maxY;
+        }
+        if (minY >= viewMinY && minY <= viewMaxY && position === 'bottom') {
+          viewMaxY = minY;
+        }
+        if (maxX > viewMinX && maxX <= viewMaxX && position === 'left') {
+          viewMinX = maxX;
+        }
+        if (minX >= viewMinX && maxX <= viewMaxX && position === 'right') {
+          viewMaxX = minX;
+        }
       }
     });
     return new BBox(viewMinX, viewMinY, viewMaxX - viewMinX, viewMaxY - viewMinY);

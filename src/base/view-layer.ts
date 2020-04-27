@@ -666,7 +666,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   /** 抽取destroy和updateConfig共有代码为_destroy方法 */
-  private doDestroy() {
+  public doDestroy() {
     this.doDestroyInteractions();
     this.doDestroyLabels();
     /** 销毁g2.view实例 */

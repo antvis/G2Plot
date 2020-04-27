@@ -51,8 +51,6 @@ describe('dualLine', () => {
       yAxis: {
         max: 35,
         tickCount: 5,
-        leftConfig: { colorMapping: true },
-        rightConfig: { colorMapping: false },
       },
       tooltip: {
         visible: true,
@@ -82,6 +80,22 @@ describe('dualLine', () => {
             formatter: () => 'a',
           },
         },
+      },
+    });
+    dualLine.render();
+    dualLine.updateConfig({
+      title: {
+        visible: false,
+      },
+      legend: {
+        visible: false,
+      },
+      lineConfigs: [
+        { color: 'red', smooth: true },
+        { color: 'green', smooth: true },
+      ],
+      yAxis: {
+        leftConfig: { visible: false },
       },
     });
     dualLine.render();

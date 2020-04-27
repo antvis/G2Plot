@@ -49,12 +49,31 @@ describe('dualLine', () => {
       xField: 'year',
       yField: ['value', 'count'],
       yAxis: {
-        visible: true,
-        colorMapping: true,
         max: 35,
         tickCount: 5,
-        nice: false,
+        leftConfig: { colorMapping: true },
+        rightConfig: { colorMapping: false },
       },
+      tooltip: {
+        visible: true,
+      },
+      lineConfigs: [
+        { color: 'green', smooth: false },
+        {
+          color: 'red',
+          smooth: true,
+          point: {
+            visible: true,
+          },
+          label: {
+            visible: true,
+          },
+          lineSize: 4,
+          lineStyle: {
+            opacity: 0.5,
+          },
+        },
+      ],
       legend: {},
     });
     dualLine.render();

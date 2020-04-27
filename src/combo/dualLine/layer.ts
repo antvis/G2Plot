@@ -5,12 +5,37 @@ import ComboViewLayer, { ComboViewConfig } from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import { clone, deepMix, each, hasKey, isString } from '@antv/util';
-import { DataItem, IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
+import { DataItem, IValueAxis, ICatAxis, ITimeAxis, GraphicStyle, LineStyle } from '../../interface/config';
+import { PointShape } from '../../plots/line/layer';
 
 const LEGEND_MARGIN = 10;
 
-interface DualLineYAxis extends IValueAxis {
+interface DulLineYAxisConfig extends IValueAxis {
   colorMapping?: boolean;
+}
+
+interface DualLineYAxis {
+  max?: number;
+  min?: number;
+  tickCount?: number;
+  leftConfig?: DulLineYAxisConfig;
+  rightConfig?: DulLineYAxisConfig;
+}
+
+interface LineConfig {
+  color?: string;
+  lineSize?: number;
+  smooth?: boolean;
+  connectNull?: boolean;
+  point?: {
+    visible?: boolean;
+    shape?: PointShape;
+    size?: number;
+    color?: string;
+    style?: GraphicStyle;
+  };
+  lineStyle?: LineStyle | ((...args: any[]) => LineStyle);
+  label?: any;
 }
 
 export interface DualLineViewConfig extends ComboViewConfig {
@@ -19,51 +44,78 @@ export interface DualLineViewConfig extends ComboViewConfig {
   data: DataItem[][];
   xAxis: IValueAxis | ICatAxis | ITimeAxis;
   yAxis: DualLineYAxis;
-  colors: string[];
+  //colors: string[];
+  tooltip: any;
+  lineConfigs: LineConfig[];
 }
+
+const defaultLineConfig = {
+  lineSize: 2,
+  connectNull: true,
+  point: {
+    visible: false,
+    size: 3,
+    shape: 'circle',
+    style: {
+      stroke: '#fff',
+    },
+  },
+  label: {
+    visible: false,
+  },
+};
+
+const defaultYAxisConfig = {
+  visible: true,
+  colorMapping: true,
+  grid: {
+    visible: true,
+  },
+  line: {
+    visible: false,
+  },
+  tickLine: {
+    visible: false,
+  },
+  label: {
+    visible: true,
+    autoHide: true,
+    autoRotate: false,
+  },
+  title: {
+    autoRotate: true,
+    visible: false,
+    offset: 12,
+  },
+};
 
 interface DualLineLayerConfig extends DualLineViewConfig, LayerConfig {}
 
 export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayerConfig> extends ComboViewLayer<T> {
   public static getDefaultOptions(): Partial<DualLineLayerConfig> {
     return deepMix({}, super.getDefaultOptions(), {
-      // 自古红蓝出cp....
-      colors: ['#5B8FF9', '#e76c5e'],
       yAxis: {
-        visible: true,
-        colorMapping: true,
-        grid: {
-          visible: true,
-        },
-        line: {
-          visible: false,
-        },
-        tickLine: {
-          visible: false,
-        },
-        label: {
-          visible: true,
-          autoHide: true,
-          autoRotate: false,
-        },
-        title: {
-          autoRotate: true,
-          visible: false,
-          offset: 12,
-        },
+        leftConfig: defaultYAxisConfig,
+        rightConfig: defaultYAxisConfig,
       },
+      // 自古红蓝出cp....
+      lineConfigs: [
+        deepMix({}, defaultLineConfig, { color: '#5B8FF9' }),
+        deepMix({}, defaultLineConfig, { color: '#e76c5e' }),
+      ],
     });
   }
 
   public type: string = 'dualLine';
+  protected colors: string[];
   protected lines: LineLayer[] = [];
   protected legends: any[] = [];
 
   public init() {
     super.init();
-    const { data, xField, yField, colors } = this.options;
+    const { data, xField, yField, xAxis, tooltip, lineConfigs } = this.options;
+    this.colors = [lineConfigs[0].color, lineConfigs[1].color];
     this.getTicks();
-
     //draw first line
     const leftLine = this.createLineLayer(data[0], {
       xField,
@@ -72,7 +124,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
         visible: false,
       },
       yAxis: deepMix({}, this.yAxis(0), {
-        visible: true,
         grid: {
           visible: false,
         },
@@ -81,7 +132,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       tooltip: {
         visible: false,
       },
-      color: colors[0],
+      ...lineConfigs[0],
     });
     leftLine.render();
     //draw second line
@@ -90,22 +141,22 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const rightLine = this.createLineLayer(data[1], {
       xField,
       yField: yField[1],
-      color: colors[1],
       meta: metaInfo,
       serieField: yField[1],
+      xAxis,
       yAxis: deepMix({}, this.yAxis(1), {
         position: 'right',
         nice: true,
       }),
-      tooltip: {
-        visible: true,
+      tooltip: deepMix({}, tooltip, {
         showMarkers: false,
         customContent: {
           callback: (containerDom, ev) => {
             this.tooltip(ev);
           },
         },
-      },
+      }),
+      ...lineConfigs[1],
     });
     rightLine.render();
     this.customLegend();
@@ -195,16 +246,17 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected yAxis(index) {
-    const { yAxis, colors } = this.options;
-    const colorValue = colors[index];
-    const yAxisConfig = clone(yAxis);
+    const { yAxis } = this.options;
+    const config = index === 0 ? yAxis.leftConfig : yAxis.rightConfig;
+    const colorValue = this.colors[index];
+    const yAxisConfig = clone(config);
     const styleMap = {
       title: 'stroke',
       line: 'stroke',
       label: 'fill',
       tickLine: 'stroke',
     };
-    if (yAxis.visible && yAxis.colorMapping) {
+    if (config.visible && config.colorMapping) {
       each(yAxisConfig, (config, name) => {
         if (!isString(config) && hasKey(styleMap, name)) {
           const styleKey = styleMap[name];
@@ -253,7 +305,8 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected customLegend() {
-    const { yField, colors } = this.options;
+    const { yField } = this.options;
+    const { colors } = this;
     const container = this.container.addGroup();
     each(this.lines, (line, index) => {
       const items = [
@@ -306,8 +359,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const { view } = layer;
     const axisContainer = this.getYAxisContainer(view, field);
     axisContainer.set('visible', false);
-    const geomContainer = view.geometries[0].container;
-    geomContainer.set('visible', false);
+    this.setGeometryVisibility(view, false);
     this.canvas.draw();
   }
 
@@ -317,9 +369,16 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const { view } = layer;
     const axisContainer = this.getYAxisContainer(view, field);
     axisContainer.set('visible', true);
-    const geomContainer = view.geometries[0].container;
-    geomContainer.set('visible', true);
+    this.setGeometryVisibility(view, true);
     this.canvas.draw();
+  }
+
+  protected setGeometryVisibility(view, show) {
+    each(view.geometries, (geom) => {
+      const { container, labelsContainer } = geom;
+      container.set('visible', show);
+      labelsContainer.set('visible', show);
+    });
   }
 
   protected getYAxisContainer(view, field) {

@@ -1,4 +1,4 @@
-import ColumnLine from '../../../src/combo/columnLine';
+import ColumnLine from '../../../src/combo/column-line';
 
 describe('columnLine', () => {
   const canvasDiv = document.createElement('div');

@@ -115,9 +115,10 @@ export default class GroupedColumnLineLayer<
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1)[0];
     const unCheckedValue = this.getUnCheckedValue();
+    dom.style.display = 'block';
     // 如果legend全部是unchecked的状态，tooltip不显示
     if (unCheckedValue.length === this.colors[0].length + 1) {
-      dom.innerHTML = '';
+      dom.style.display = 'none';
       return;
     }
     if (!contains(unCheckedValue, yField[1])) {
@@ -134,7 +135,7 @@ export default class GroupedColumnLineLayer<
     const uniqItems = [];
     each(ev.items, (item) => {
       const { name } = item;
-      if (!contains(uniqKeys, name)) {
+      if (!contains(uniqKeys, name) && !contains(unCheckedValue, name)) {
         uniqKeys.push(name);
         uniqItems.push(item);
       }

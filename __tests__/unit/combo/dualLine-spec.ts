@@ -1,4 +1,4 @@
-import DualLine from '../../../src/combo/dualLine';
+import DualLine from '../../../src/combo/dual-line';
 
 describe('dualLine', () => {
   const canvasDiv = document.createElement('div');

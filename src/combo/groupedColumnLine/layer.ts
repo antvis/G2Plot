@@ -101,7 +101,7 @@ export default class GroupedColumnLineLayer<
         showMarkers: false,
         customContent: {
           callback: (containerDom, ev) => {
-            this.tooltip(ev);
+            this.tooltip(containerDom, ev);
           },
         },
       }),
@@ -110,19 +110,36 @@ export default class GroupedColumnLineLayer<
     column.render();
   }
 
-  protected tooltip(ev) {
+  protected tooltip(dom, ev) {
     const { yField } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1)[0];
-    ev.items.pop();
-    ev.items.push({
-      ...originItem,
-      mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
-      data: dataItemsA,
-      name: 'value',
-      value: dataItemsA[yField[1]],
-      color: this.colors[1],
+    const unCheckedValue = this.getUnCheckedValue();
+    // 如果legend全部是unchecked的状态，tooltip不显示
+    if (unCheckedValue.length === this.colors[0].length + 1) {
+      dom.innerHTML = '';
+      return;
+    }
+    if (!contains(unCheckedValue, yField[1])) {
+      ev.items.push({
+        ...originItem,
+        mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
+        data: dataItemsA,
+        name: yField[1],
+        value: dataItemsA[yField[1]],
+        color: this.colors[1],
+      });
+    }
+    const uniqKeys = [];
+    const uniqItems = [];
+    each(ev.items, (item) => {
+      const { name } = item;
+      if (!contains(uniqKeys, name)) {
+        uniqKeys.push(name);
+        uniqItems.push(item);
+      }
     });
+    ev.items = uniqItems;
   }
 
   protected customLegend() {
@@ -138,7 +155,7 @@ export default class GroupedColumnLineLayer<
         marker: {
           symbol: 'square',
           style: {
-            r: 4,
+            r: 5,
             fill: this.colors[0][index],
           },
         },
@@ -150,7 +167,7 @@ export default class GroupedColumnLineLayer<
       marker: {
         symbol: 'circle',
         style: {
-          r: 4,
+          r: 5,
           fill: this.colors[1],
         },
       },
@@ -224,6 +241,17 @@ export default class GroupedColumnLineLayer<
       }
     });
     return values;
+  }
+
+  protected getUnCheckedValue() {
+    const value = [];
+    each(this.legends, (legend) => {
+      const uncheckedItems = legend.getItemsByState('unchecked');
+      each(uncheckedItems, (item) => {
+        value.push(item.name);
+      });
+    });
+    return value;
   }
 }
 

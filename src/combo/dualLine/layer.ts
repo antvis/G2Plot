@@ -113,7 +113,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
         showMarkers: false,
         customContent: {
           callback: (containerDom, ev) => {
-            this.tooltip(ev);
+            this.tooltip(containerDom, ev);
           },
         },
       }),
@@ -126,7 +126,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     this.adjustLayout();
   }
 
-  protected tooltip(ev) {
+  protected tooltip(dom, ev) {
     const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 0)[0];
@@ -134,7 +134,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       ...originItem,
       mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
       data: dataItemsA,
-      name: 'value',
+      name: yField[0],
       value: dataItemsA[yField[0]],
       color: this.colors[0],
     });

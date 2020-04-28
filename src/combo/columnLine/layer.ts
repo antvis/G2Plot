@@ -142,7 +142,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
         showMarkers: false,
         customContent: {
           callback: (containerDom, ev) => {
-            this.tooltip(ev);
+            this.tooltip(containerDom, ev);
           },
         },
       }),
@@ -151,7 +151,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     column.render();
   }
 
-  protected tooltip(ev) {
+  protected tooltip(dom, ev) {
     const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1)[0];
@@ -159,7 +159,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       ...originItem,
       mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
       data: dataItemsA,
-      name: 'value',
+      name: yField[1],
       value: dataItemsA[yField[1]],
       color: this.colors[1],
     });

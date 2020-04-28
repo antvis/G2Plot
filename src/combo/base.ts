@@ -8,7 +8,7 @@ import { isTextUsable } from '../util/common';
 import ThemeController from '../base/controller/theme';
 import { ComboViewConfig } from './util/interface';
 
-const LEGEND_MARGIN = 10;
+const LEGEND_MARGIN = 5;
 
 export interface IComboViewLayer extends ComboViewConfig, LayerConfig {}
 

@@ -2,14 +2,14 @@ import { Legend } from '@antv/component';
 import { registerPlotType } from '../../base/global';
 import { clone, deepMix, each, contains, pull } from '@antv/util';
 import { LayerConfig } from '../../base/layer';
-import ColumnLineLayer, { ColumnLineViewConfig } from '../columnLine/layer';
-import GroupedColumnLayer from '../../plots/grouped-column/layer';
+import ColumnLineLayer, { ColumnLineViewConfig } from '../column-line/layer';
+import StackedColumnLayer from '../../plots/stacked-column/layer';
 
-export interface GroupedColumnLineViewConfig extends ColumnLineViewConfig {
-  groupField?: string;
+export interface StackedColumnLineViewConfig extends ColumnLineViewConfig {
+  stackField?: string;
 }
 
-interface GroupedColumnLineLayerConfig extends GroupedColumnLineViewConfig, LayerConfig {}
+interface StackedColumnLineLayerConfig extends StackedColumnLineViewConfig, LayerConfig {}
 
 const defaultLineConfig = {
   color: '#f5bc32',
@@ -56,10 +56,10 @@ const defaultYAxisConfig = {
   },
 };
 
-export default class GroupedColumnLineLayer<
-  T extends GroupedColumnLineLayerConfig = GroupedColumnLineLayerConfig
+export default class StackedColumnLineLayer<
+  T extends StackedColumnLineLayerConfig = StackedColumnLineLayerConfig
 > extends ColumnLineLayer<T> {
-  public static getDefaultOptions(): Partial<GroupedColumnLineLayerConfig> {
+  public static getDefaultOptions(): Partial<StackedColumnLineLayerConfig> {
     return deepMix({}, super.getDefaultOptions(), {
       yAxis: {
         leftConfig: deepMix({}, defaultYAxisConfig, { colorMapping: false }),
@@ -82,11 +82,11 @@ export default class GroupedColumnLineLayer<
   }
 
   protected drawColumn() {
-    const { data, xField, yField, groupField, xAxis, tooltip, columnConfig } = this.options;
-    const column = this.createLayer(GroupedColumnLayer, data[0], {
+    const { data, xField, yField, stackField, xAxis, tooltip, columnConfig } = this.options;
+    const column = this.createLayer(StackedColumnLayer, data[0], {
       xField,
       yField: yField[0],
-      groupField,
+      stackField,
       xAxis,
       yAxis: deepMix({}, this.yAxis(0), {
         grid: {
@@ -192,7 +192,7 @@ export default class GroupedColumnLineLayer<
   }
 
   protected seperateLegendFilter() {
-    const { groupField } = this.options;
+    const { stackField } = this.options;
     /* 分组柱状图legend筛选 */
     const filteredValue = [];
     const legend_group_a = this.legends[0].get('group');
@@ -219,7 +219,7 @@ export default class GroupedColumnLineLayer<
           this.hideLayer(0);
           layerHide = true;
         } else {
-          view.filter(groupField, (f) => {
+          view.filter(stackField, (f) => {
             return !contains(filteredValue, f);
           });
           view.render();
@@ -231,11 +231,11 @@ export default class GroupedColumnLineLayer<
   }
 
   protected getValueByGroupField() {
-    const { groupField, data } = this.options;
+    const { stackField, data } = this.options;
     const columnData = data[0];
     const values = [];
     each(columnData, (d) => {
-      const v = d[groupField];
+      const v = d[stackField];
       if (!contains(values, v)) {
         values.push(v);
       }
@@ -255,4 +255,4 @@ export default class GroupedColumnLineLayer<
   }
 }
 
-registerPlotType('groupedColumnLine', GroupedColumnLineLayer);
+registerPlotType('stackedColumnLine', StackedColumnLineLayer);

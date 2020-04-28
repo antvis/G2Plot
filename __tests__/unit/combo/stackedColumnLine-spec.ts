@@ -1,4 +1,4 @@
-import GroupedColumnLine from '../../../src/combo/groupedColumn-line';
+import StackedColumnLine from '../../../src/combo/stackedColumn-line';
 
 describe('columnLine', () => {
   const canvasDiv = document.createElement('div');
@@ -31,7 +31,7 @@ describe('columnLine', () => {
   ];
 
   it('init', () => {
-    const columnLine = new GroupedColumnLine(canvasDiv, {
+    const columnLine = new StackedColumnLine(canvasDiv, {
       title: {
         visible: true,
         text: '分组柱折线混合图',
@@ -45,7 +45,7 @@ describe('columnLine', () => {
       data: [uvBillData, transformData],
       xField: 'time',
       yField: ['value', 'count'],
-      groupField: 'type',
+      stackField: 'type',
       tooltip: {
         visible: true,
       },

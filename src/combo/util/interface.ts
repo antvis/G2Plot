@@ -1,14 +1,16 @@
 import { IValueAxis, TextStyle, GraphicStyle, LineStyle } from '../../interface/config';
 import { PointShape } from '../../plots/line/layer';
 import { DataItem } from '../../interface/config';
-import { IDescription, ITitle } from '../../interface/config';
+import { IDescription, ITitle, Meta } from '../../interface/config';
+import { LooseMap } from '../../interface/types';
 
 export interface ComboViewConfig {
   title?: ITitle;
   description?: IDescription;
+  data: DataItem[][];
+  meta?: LooseMap<Meta>;
   xField: string;
   yField: string[];
-  data: DataItem[][];
   yAxis?: ComboYAxis;
   legend?: ComboLegendConfig;
 }

@@ -77,11 +77,12 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     if (!this.checkData()) {
       return;
     }
-    const { data, xField, yField, xAxis, tooltip, lineConfigs, legend } = this.options;
+    const { data, meta, xField, yField, xAxis, tooltip, lineConfigs, legend } = this.options;
     this.colors = [lineConfigs[0].color, lineConfigs[1].color];
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
     //draw first line
     const leftLine = this.createLayer(LineLayer, data[0], {
+      meta,
       xField,
       yField: yField[0],
       xAxis: {
@@ -105,7 +106,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const rightLine = this.createLayer(LineLayer, data[1], {
       xField,
       yField: yField[1],
-      meta: metaInfo,
+      meta: deepMix({}, meta, metaInfo),
       serieField: yField[1],
       xAxis,
       yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(1), {

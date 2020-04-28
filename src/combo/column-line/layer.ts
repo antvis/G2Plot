@@ -96,7 +96,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     if (!this.checkData()) {
       return;
     }
-    const { data, xField, yField, legend, lineConfig, columnConfig } = this.options;
+    const { data, meta, xField, yField, legend, lineConfig, columnConfig } = this.options;
     this.colors = [columnConfig.color as string, lineConfig.color];
     // draw column
     this.drawColumn();
@@ -106,7 +106,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     const line = this.createLayer(LineLayer, data[1], {
       xField,
       yField: yField[1],
-      meta: metaInfo,
+      meta: deepMix({}, meta, metaInfo),
       xAxis: {
         visible: false,
       },
@@ -130,10 +130,11 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
   }
 
   protected drawColumn() {
-    const { data, xField, yField, xAxis, tooltip, columnConfig } = this.options;
+    const { data, xField, yField, xAxis, tooltip, columnConfig, meta } = this.options;
     const column = this.createLayer(ColumnLayer, data[0], {
       xField,
       yField: yField[0],
+      meta,
       xAxis,
       yAxis: deepMix({}, this.yAxis(0), {
         grid: {

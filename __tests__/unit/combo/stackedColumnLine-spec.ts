@@ -52,7 +52,7 @@ describe('columnLine', () => {
       legend: {
         visible: true,
       },
-      /*columnConfig: {
+      columnConfig: {
         columnStyle: {
           stroke: 'black',
         },
@@ -72,7 +72,7 @@ describe('columnLine', () => {
         lineStyle: {
           lineDash: [2, 5],
         },
-      },*/
+      },
     });
     columnLine.render();
   });

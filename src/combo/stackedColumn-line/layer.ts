@@ -83,7 +83,7 @@ export default class StackedColumnLineLayer<
   }
 
   protected drawColumn() {
-    const { data, xField, yField, stackField, xAxis, tooltip, columnConfig } = this.options;
+    const { data, xField, yField, stackField, xAxis, tooltip, columnConfig, events } = this.options;
     const column = this.createLayer(StackedColumnLayer, data[0], {
       xField,
       yField: yField[0],
@@ -106,22 +106,24 @@ export default class StackedColumnLineLayer<
           },
         },
       }),
+      events,
       ...columnConfig,
     });
     column.render();
   }
 
   protected tooltip(dom, ev) {
-    const { yField } = this.options;
-    const originItem = clone(ev.items[0]);
-    const dataItemsA = this.getDataByXField(ev.title, 1)[0];
     const unCheckedValue = this.getUnCheckedValue();
-    dom.style.display = 'block';
     // 如果legend全部是unchecked的状态，tooltip不显示
     if (unCheckedValue.length === this.colors[0].length + 1) {
       dom.style.display = 'none';
       return;
+    } else {
+      dom.style.display = 'block';
     }
+    const { yField } = this.options;
+    const originItem = clone(ev.items[0]);
+    const dataItemsA = this.getDataByXField(ev.title, 1)[0];
     if (!contains(unCheckedValue, yField[1]) && dataItemsA) {
       ev.items.push({
         ...originItem,

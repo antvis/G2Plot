@@ -77,7 +77,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     if (!this.checkData()) {
       return;
     }
-    const { data, meta, xField, yField, xAxis, tooltip, lineConfigs, legend } = this.options;
+    const { data, meta, xField, yField, xAxis, tooltip, lineConfigs, legend, events } = this.options;
     this.colors = [lineConfigs[0].color, lineConfigs[1].color];
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
     //draw first line
@@ -97,6 +97,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       tooltip: {
         visible: false,
       },
+      events,
       ...lineConfigs[0],
     });
     leftLine.render();
@@ -121,6 +122,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
           },
         },
       }),
+      events,
       ...lineConfigs[1],
     });
     rightLine.render();
@@ -131,6 +133,14 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
   }
 
   protected tooltip(dom, ev) {
+    const unCheckedValue = this.getUnCheckedValue();
+    // 如果legend全部是unchecked的状态，tooltip不显示
+    if (unCheckedValue.length === this.colors.length) {
+      dom.style.display = 'none';
+      return;
+    } else {
+      dom.style.display = 'block';
+    }
     const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 0)[0];

@@ -329,6 +329,17 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     return container;
   }
 
+  protected getUnCheckedValue() {
+    const value = [];
+    each(this.legends, (legend) => {
+      const uncheckedItems = legend.getItemsByState('unchecked');
+      each(uncheckedItems, (item) => {
+        value.push(item.name);
+      });
+    });
+    return value;
+  }
+
   protected drawTitle(): void {
     const props = this.options;
     const range = this.layerBBox;

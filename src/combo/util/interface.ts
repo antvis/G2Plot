@@ -13,6 +13,9 @@ export interface ComboViewConfig {
   yField: string[];
   yAxis?: ComboYAxis;
   legend?: ComboLegendConfig;
+  events?: {
+    [k: string]: ((...args: any[]) => any) | boolean;
+  };
 }
 
 export interface ComboYAxisConfig extends IValueAxis {

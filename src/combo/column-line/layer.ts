@@ -96,7 +96,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     if (!this.checkData()) {
       return;
     }
-    const { data, meta, xField, yField, legend, lineConfig, columnConfig } = this.options;
+    const { data, meta, xField, yField, legend, lineConfig, columnConfig, events } = this.options;
     this.colors = [columnConfig.color as string, lineConfig.color];
     // draw column
     this.drawColumn();
@@ -120,6 +120,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       tooltip: {
         visible: false,
       },
+      events,
       ...lineConfig,
     });
     line.render();
@@ -130,7 +131,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
   }
 
   protected drawColumn() {
-    const { data, xField, yField, xAxis, tooltip, columnConfig, meta } = this.options;
+    const { data, xField, yField, xAxis, tooltip, columnConfig, meta, events } = this.options;
     const column = this.createLayer(ColumnLayer, data[0], {
       xField,
       yField: yField[0],
@@ -150,12 +151,21 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
           },
         },
       }),
+      events,
       ...columnConfig,
     });
     column.render();
   }
 
   protected tooltip(dom, ev) {
+    const unCheckedValue = this.getUnCheckedValue();
+    // 如果legend全部是unchecked的状态，tooltip不显示
+    if (unCheckedValue.length === this.colors.length) {
+      dom.style.display = 'none';
+      return;
+    } else {
+      dom.style.display = 'block';
+    }
     const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1)[0];

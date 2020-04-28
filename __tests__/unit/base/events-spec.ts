@@ -1,7 +1,7 @@
 import { ICanvas } from '@antv/g-base';
 import { Column } from '../../../src/index';
 
-describe('events', () => {
+describe.skip('events', () => {
   const canvasDiv = document.createElement('div');
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);

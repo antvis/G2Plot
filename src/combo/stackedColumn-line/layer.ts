@@ -74,6 +74,7 @@ export default class StackedColumnLineLayer<
   }
 
   public type: string = 'groupedColumnLine';
+  protected requiredField: string[] = ['xField', 'yField', 'stackField'];
 
   public beforeInit() {
     const groupedValue = this.getValueByGroupField();
@@ -121,7 +122,7 @@ export default class StackedColumnLineLayer<
       dom.style.display = 'none';
       return;
     }
-    if (!contains(unCheckedValue, yField[1])) {
+    if (!contains(unCheckedValue, yField[1]) && dataItemsA) {
       ev.items.push({
         ...originItem,
         mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
@@ -253,6 +254,19 @@ export default class StackedColumnLineLayer<
       });
     });
     return value;
+  }
+
+  protected getMockData(index: number) {
+    const { xField, yField, stackField } = this.options as any;
+    const mockA = {};
+    mockA[xField] = 'null_1';
+    mockA[yField[index]] = 0;
+    mockA[stackField] = 'null_a';
+    const mockB = {};
+    mockB[xField] = 'null_1';
+    mockB[yField[index]] = 1;
+    mockB[stackField] = 'null_a';
+    return [mockA, mockB];
   }
 }
 

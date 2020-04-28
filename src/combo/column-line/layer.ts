@@ -93,6 +93,9 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
 
   public init() {
     super.init();
+    if (!this.checkData()) {
+      return;
+    }
     const { data, xField, yField, legend, lineConfig, columnConfig } = this.options;
     this.colors = [columnConfig.color as string, lineConfig.color];
     // draw column
@@ -155,14 +158,16 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1)[0];
-    ev.items.push({
-      ...originItem,
-      mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
-      data: dataItemsA,
-      name: yField[1],
-      value: dataItemsA[yField[1]],
-      color: this.colors[1],
-    });
+    if (dataItemsA) {
+      ev.items.push({
+        ...originItem,
+        mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
+        data: dataItemsA,
+        name: yField[1],
+        value: dataItemsA[yField[1]],
+        color: this.colors[1],
+      });
+    }
     if (legend.visible) {
       each(this.legends, (legend, index) => {
         const item = legend.get('items')[0];

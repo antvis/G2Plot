@@ -74,6 +74,9 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
 
   public init() {
     super.init();
+    if (!this.checkData()) {
+      return;
+    }
     const { data, xField, yField, xAxis, tooltip, lineConfigs, legend } = this.options;
     this.colors = [lineConfigs[0].color, lineConfigs[1].color];
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
@@ -130,14 +133,16 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const { yField, legend } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 0)[0];
-    ev.items.push({
-      ...originItem,
-      mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
-      data: dataItemsA,
-      name: yField[0],
-      value: dataItemsA[yField[0]],
-      color: this.colors[0],
-    });
+    if (dataItemsA) {
+      ev.items.push({
+        ...originItem,
+        mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
+        data: dataItemsA,
+        name: yField[0],
+        value: dataItemsA[yField[0]],
+        color: this.colors[0],
+      });
+    }
     if (legend.visible) {
       each(this.legends, (legend, index) => {
         const item = legend.get('items')[0];

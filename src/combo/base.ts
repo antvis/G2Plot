@@ -27,6 +27,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
   protected geomLayers: ViewLayer[] = [];
   protected colors: string[];
   protected legends: any[] = [];
+  protected requiredField: string[] = ['xField', 'yField'];
 
   constructor(props: T) {
     super(props);
@@ -41,6 +42,41 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
     return deepMix({}, options, defaultOptions, curOptions, props);
+  }
+
+  public checkData() {
+    const { data, xField, yField } = this.options;
+    // 判断1: 没有配置必选字段时不绘制
+    for (let i = 0; i < this.requiredField.length; i++) {
+      const field = this.requiredField[i];
+      if (!hasKey(this.options, field)) {
+        return false;
+      }
+    }
+    // 判断2: yField不是数组或只设置了一个字段时不绘制
+    if (!isArray(yField) || yField.length < 2) {
+      return false;
+    }
+    // 判断3:data为空时不绘制 data:[]
+    if (!isArray(data) || data.length === 0) {
+      return false;
+    }
+    // 判断4: 内嵌两层空数据时不绘制 data:[[],[]]
+    if (data[0]?.length === 0 && data[1]?.length === 0) {
+      return false;
+    }
+    // 判断5：一层数据为空时，利用相关映射字段补齐数据 data:[[],[{type:'a',value:10}]
+    each(data, (d, index) => {
+      if (!isArray(d) || d.length === 0) {
+        const mockData = this.getMockData(index);
+        data[index] = mockData;
+      }
+    });
+    // 判断6: 两份数据xField或值不一致时不绘制
+    if (!data[0][0][xField] || !data[1][0][xField]) {
+      return false;
+    }
+    return true;
   }
 
   public init() {
@@ -391,5 +427,13 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
       }
     });
     return new BBox(viewMinX, viewMinY, viewMaxX - viewMinX, viewMaxY - viewMinY);
+  }
+
+  protected getMockData(index: number) {
+    const { xField, yField } = this.options as any;
+    const mock = {};
+    mock[xField] = 'null';
+    mock[yField[index]] = 0;
+    return [mock];
   }
 }

@@ -10,7 +10,7 @@ import { ICatAxis, GraphicStyle } from '../../interface/config';
 import { ComboViewConfig, LineConfig } from '../util/interface';
 
 export interface ColumnConfig {
-  color?: string;
+  color?: string | string[]; //兼容groupedColumn和stackedColumn类型
   columnSize?: number;
   columnStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
   label?: IColumnLabel;
@@ -93,31 +93,10 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
 
   public init() {
     super.init();
-    const { data, xField, yField, xAxis, legend, tooltip, lineConfig, columnConfig } = this.options;
-    this.colors = [columnConfig.color, lineConfig.color];
-    const yAxisGlobalConfig = this.getYAxisGlobalConfig();
+    const { data, xField, yField, legend, lineConfig, columnConfig } = this.options;
+    this.colors = [columnConfig.color as string, lineConfig.color];
     // draw column
-    const column = this.createLayer(ColumnLayer, data[0], {
-      xField,
-      yField: yField[0],
-      xAxis,
-      yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(0), {
-        grid: {
-          visible: true,
-        },
-        nice: true,
-      }),
-      tooltip: deepMix({}, tooltip, {
-        showMarkers: false,
-        customContent: {
-          callback: (containerDom, ev) => {
-            this.tooltip(ev);
-          },
-        },
-      }),
-      ...columnConfig,
-    });
-    column.render();
+    this.drawColumn();
     //draw line
     const metaInfo = {};
     metaInfo[yField[1]] = { ticks: this.getTicks() };
@@ -128,7 +107,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       xAxis: {
         visible: false,
       },
-      yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(1), {
+      yAxis: deepMix({}, this.yAxis(1), {
         position: 'right',
         grid: {
           visible: false,
@@ -145,6 +124,31 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       this.customLegend();
     }
     this.adjustLayout();
+  }
+
+  protected drawColumn() {
+    const { data, xField, yField, xAxis, tooltip, columnConfig } = this.options;
+    const column = this.createLayer(ColumnLayer, data[0], {
+      xField,
+      yField: yField[0],
+      xAxis,
+      yAxis: deepMix({}, this.yAxis(0), {
+        grid: {
+          visible: true,
+        },
+        nice: true,
+      }),
+      tooltip: deepMix({}, tooltip, {
+        showMarkers: false,
+        customContent: {
+          callback: (containerDom, ev) => {
+            this.tooltip(ev);
+          },
+        },
+      }),
+      ...columnConfig,
+    });
+    column.render();
   }
 
   protected tooltip(ev) {

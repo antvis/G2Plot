@@ -123,7 +123,8 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
         }
       });
     }
-    return yAxisConfig;
+    const yAxisGlobalConfig = this.getYAxisGlobalConfig();
+    return deepMix({}, yAxisGlobalConfig, yAxisConfig);
   }
 
   protected getTicks() {

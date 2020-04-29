@@ -82,7 +82,6 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
 
   public init() {
     super.init();
-    this.canvas.set('localRefresh', false);
     this.theme = this.themeController.getTheme(this.options as any, this.type);
     this.drawTitle();
     this.drawDescription();

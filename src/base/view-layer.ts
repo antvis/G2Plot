@@ -737,8 +737,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       end = { x: 1, y: 1 };
     start.x = viewRange.minX / width;
     start.y = viewRange.minY / height;
-    end.x = viewRange.maxX / width;
-    end.y = viewRange.maxY / height;
+    end.x = viewRange.maxX / (viewRange.minX + width);
+    end.y = viewRange.maxY / (viewRange.minY + height);
 
     return {
       start,

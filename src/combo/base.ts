@@ -7,6 +7,7 @@ import ViewLayer from '../base/view-layer';
 import { isTextUsable } from '../util/common';
 import ThemeController from '../base/controller/theme';
 import { ComboViewConfig } from './util/interface';
+import { DataItem } from '../interface/config';
 
 const LEGEND_MARGIN = 5;
 
@@ -93,7 +94,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     this.processOptions(this.options);
   }
 
-  public changeData(data) {
+  public changeData(data: DataItem[][]) {
     if ((data && data.length < 2) || !isArray(data[0])) {
       return;
     }
@@ -137,7 +138,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     return layer;
   }
 
-  protected yAxis(index) {
+  protected yAxis(index: number) {
     const { yAxis } = this.options;
     const config = index === 0 ? yAxis.leftConfig : yAxis.rightConfig;
     const colorValue = this.colors[index];
@@ -197,7 +198,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     return ticks;
   }
 
-  protected getScaleData(index) {
+  protected getScaleData(index: number) {
     const { data, yField, yAxis } = this.options;
     const values = [];
     each(data[index], (d) => {
@@ -209,7 +210,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     return { min, max, values };
   }
 
-  protected getDataByXField(value, index) {
+  protected getDataByXField(value: number | string, index: number) {
     const { data, xField } = this.options;
     const dataSource = data[index];
     return dataSource.filter((d) => {

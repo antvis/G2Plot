@@ -1,6 +1,5 @@
 import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
-import { MarginPadding } from '../../interface/types';
 import BBox from '../../util/bbox';
 import { getLegendShapes, getAxisComponents } from '../../util/common';
 import { View, Axis } from '../../dependents';
@@ -143,12 +142,23 @@ export default class PaddingController {
       components_bbox.push(bbox);
     });
     box = this._mergeBBox(components_bbox);
-    const padding: MarginPadding = [
-      0 - box.minY + this.bleeding[0], // 上面超出的部分
-      box.maxX - maxX + this.bleeding[1], // 右边超出的部分
-      box.maxY - maxY + this.bleeding[2], // 下边超出的部分
-      0 - box.minX + this.bleeding[3],
-    ];
+    let padding;
+    // fixme: funnel图形超出viewRange
+    if (this.plot.type == 'funnel' && maxY < box.maxY) {
+      padding = [
+        0 - box.minY + this.bleeding[0], // 上面超出的部分
+        box.maxX - maxX + this.bleeding[1], // 右边超出的部分
+        box.maxY - maxY + this.bleeding[2], // 下边超出的部分
+        0 - box.minX + this.bleeding[3],
+      ];
+    } else {
+      padding = [
+        0 - box.minY + this.bleeding[0], // 上面超出的部分
+        box.maxX - maxX + this.bleeding[1], // 右边超出的部分
+        maxY - box.maxY + this.bleeding[2], // 下边超出的部分
+        0 - box.minX + this.bleeding[3],
+      ];
+    }
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
     const panelPadding = this._getPanel(view);

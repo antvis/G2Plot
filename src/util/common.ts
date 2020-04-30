@@ -1,4 +1,4 @@
-import { View, Axis, COMPONENT_TYPE } from '../dependents';
+import { View, Axis, Legend, COMPONENT_TYPE } from '../dependents';
 
 /**
  * 判断text是否可用, title description
@@ -39,6 +39,13 @@ export function getAxisComponents(view: View): Axis.Base[] {
     .getComponents()
     .filter((co) => co.type === COMPONENT_TYPE.AXIS)
     .map((co) => co.component) as Axis.Base[];
+}
+
+export function getLegendComponents(view: View): Legend.Base[] {
+  return view
+    .getComponents()
+    .filter((co) => co.type === COMPONENT_TYPE.LEGEND)
+    .map((co) => co.component) as Legend.Base[];
 }
 
 export function getAxisShapes(view) {

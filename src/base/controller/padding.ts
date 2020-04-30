@@ -1,7 +1,9 @@
 import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import BBox from '../../util/bbox';
-import { getLegendShapes, getAxisComponents } from '../../util/common';
+//import { getLegendComponents, getAxisComponents } from '../../util/common';
+import { getAxisComponents } from '../../util/common';
+//import { View, Axis, Legend } from '../../dependents';
 import { View, Axis } from '../../dependents';
 
 interface ControllerConfig {
@@ -111,7 +113,7 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange: any = clone(view.viewBBox);
+    const viewRange: any = clone(view.coordinateBBox);
     const { maxX, maxY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
@@ -130,10 +132,10 @@ export default class PaddingController {
     } else {
       components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
     }
-    this._getAxis(view, components_bbox);
+    this._getAxis(view, components_bbox[0], components_bbox);
     let box = this._mergeBBox(components_bbox);
-    this._getLegend(view, box, components_bbox, viewRange, this.plot.options);
-    box = this._mergeBBox(components_bbox);
+    //this._getLegend(view, box, components_bbox);
+    //box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
     each(components, (obj) => {
@@ -142,23 +144,12 @@ export default class PaddingController {
       components_bbox.push(bbox);
     });
     box = this._mergeBBox(components_bbox);
-    let padding;
-    // fixme: funnel图形超出viewRange
-    if (this.plot.type == 'funnel' && maxY < box.maxY) {
-      padding = [
-        0 - box.minY + this.bleeding[0], // 上面超出的部分
-        box.maxX - maxX + this.bleeding[1], // 右边超出的部分
-        box.maxY - maxY + this.bleeding[2], // 下边超出的部分
-        0 - box.minX + this.bleeding[3],
-      ];
-    } else {
-      padding = [
-        0 - box.minY + this.bleeding[0], // 上面超出的部分
-        box.maxX - maxX + this.bleeding[1], // 右边超出的部分
-        maxY - box.maxY + this.bleeding[2], // 下边超出的部分
-        0 - box.minX + this.bleeding[3],
-      ];
-    }
+    const padding = [
+      0 - box.minY + this.bleeding[0], // 上面超出的部分
+      box.maxX - maxX + this.bleeding[1], // 右边超出的部分
+      box.maxY - maxY + this.bleeding[2], // 下边超出的部分
+      0 - box.minX + this.bleeding[3],
+    ];
     //this.adjustAxisPadding(view, padding);
     // label、annotation等
     const panelPadding = this._getPanel(view);
@@ -166,36 +157,32 @@ export default class PaddingController {
     padding[1] += panelPadding[1];
     padding[2] += panelPadding[2];
     padding[3] += panelPadding[3];
-
     return padding;
   }
 
-  private _getAxis(view: View, bboxes: BBox[]) {
+  private _getAxis(view: View, globalBBox, bboxes: BBox[]) {
     const axes = getAxisComponents(view);
     each(axes, (axis: Axis.Base) => {
-      const layoutBBox = axis.getLayoutBBox();
-      bboxes.push(BBox.fromBBoxObject(layoutBBox));
+      const position = axis.get('position');
+      const { minX, minY, width, height } = axis.getLayoutBBox();
+      if (position === 'left') {
+        bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
+      } else if (position === 'bottom') {
+        bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
+      } else if (position === 'right') {
+        bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
+      }
     });
   }
 
-  private _getLegend(view, globalBBox, bboxes, viewRange, options) {
-    const legendContainer = getLegendShapes(view)[0];
-    if (legendContainer) {
-      const bbox = legendContainer.getBBox();
-      if (options.legend) {
-        const position = options.legend.position.split('-')[0];
-        if (position === 'top') {
-          bboxes.push(new BBox(bbox.minX, -bbox.height, bbox.width, bbox.height));
-        } else if (position === 'bottom') {
-          bboxes.push(new BBox(bbox.minX, bbox.height + globalBBox.maxY, bbox.width, bbox.height));
-        } else if (position === 'left') {
-          bboxes.push(new BBox(bbox.minX - bbox.width, bbox.minY, bbox.width, bbox.height));
-        } else {
-          bboxes.push(new BBox(viewRange.maxX, bbox.minY, bbox.width, bbox.height));
-        }
-      }
-    }
-  }
+  /*private _getLegend(view, globalBBox, bboxes) {
+    const legends = getLegendComponents(view);
+    each(legends, (legend: Legend.Base) => {
+      const position = legend.get('position').split('-')[0];
+      const { minX, minY, width, height } = legend.getLayoutBBox();
+      //bboxes.push(BBox.fromBBoxObject(layoutBBox));
+    });
+  }*/
 
   private _getPanel(view) {
     const groups = [];

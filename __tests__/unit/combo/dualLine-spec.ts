@@ -50,15 +50,18 @@ describe('dualLine', () => {
       yField: ['value', 'count'],
       yAxis: {
         max: 35,
-        tickCount: 5,
+        //tickCount: 5,
+        rightConfig: {
+          visible: false,
+        },
       },
       tooltip: {
         visible: true,
       },
       lineConfigs: [
-        { color: 'green', smooth: false },
+        { color: '#29cae4', smooth: false, lineSize: 3 },
         {
-          color: 'red',
+          color: '#586bce',
           smooth: true,
           point: {
             visible: true,
@@ -74,12 +77,12 @@ describe('dualLine', () => {
       ],
       legend: {
         visible: true,
-        text: {
+        /*text: {
           style: {
             fill: 'red',
             formatter: () => 'a',
           },
-        },
+        },*/
       },
     });
     dualLine.render();

@@ -159,6 +159,7 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   protected coord() {
     const props = this.options;
     const coordConfig = {
+      type: 'rect',
       actions: props.transpose
         ? props.dynamicHeight
           ? [['transpose'], ['scale', 1, -1]]

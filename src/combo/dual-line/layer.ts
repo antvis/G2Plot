@@ -126,7 +126,6 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       ...lineConfigs[1],
     });
     rightLine.render();
-    console.log(rightLine.getLayers()[0].options);
     if (legend.visible) {
       this.customLegend();
     }

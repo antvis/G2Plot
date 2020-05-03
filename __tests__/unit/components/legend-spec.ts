@@ -166,7 +166,6 @@ describe('legend', () => {
     const view = columnPlot.getLayers()[0].view;
     const titleShape = view.foregroundGroup.findAll((el) => {
       if (el.get('name')) {
-        console.log(el.get('name'));
         return el.get('name') === 'legend-title';
       }
     });

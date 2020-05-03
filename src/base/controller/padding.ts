@@ -1,4 +1,4 @@
-import { filter, each, isArray, clone, has } from '@antv/util';
+import { filter, each, isArray, clone } from '@antv/util';
 import ViewLayer from '../view-layer';
 import BBox from '../../util/bbox';
 import { getLegendComponents, getAxisComponents } from '../../util/common';
@@ -123,13 +123,8 @@ export default class PaddingController {
     }
     this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = clone(bleeding);
-    // 参与auto padding的components: axis legend
-    let components_bbox;
-    if (has(this.plot.options, 'radius')) {
-      components_bbox = [new BBox(0, viewRange.minY, viewRange.width, viewRange.height)];
-    } else {
-      components_bbox = [new BBox(0, viewRange.minY, viewRange.width, viewRange.height)];
-    }
+    // 参与auto padding的components: axis legend label annotation
+    const components_bbox = [new BBox(viewRange.minX, viewRange.minY, viewRange.width, viewRange.height)];
     this._getAxis(view, components_bbox[0], components_bbox);
     let box = this._mergeBBox(components_bbox);
     this._getLegend(view, box, components_bbox);
@@ -161,6 +156,9 @@ export default class PaddingController {
     const axes = getAxisComponents(view);
     const { isTransposed } = view.getCoordinate();
     each(axes, (axis: Axis.Base) => {
+      if (axis.get('group').get('children').length === 0) {
+        return;
+      }
       const position = axis.get('position');
       const { minX, minY, width, height } = axis.getLayoutBBox();
       if (!isTransposed) {

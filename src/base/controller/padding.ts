@@ -1,10 +1,8 @@
 import { filter, each, isArray, clone, has } from '@antv/util';
 import ViewLayer from '../view-layer';
 import BBox from '../../util/bbox';
-//import { getLegendComponents, getAxisComponents } from '../../util/common';
-import { getAxisComponents } from '../../util/common';
-//import { View, Axis, Legend } from '../../dependents';
-import { View, Axis } from '../../dependents';
+import { getLegendComponents, getAxisComponents } from '../../util/common';
+import { View, Axis, Legend } from '../../dependents';
 
 interface ControllerConfig {
   plot: ViewLayer;
@@ -114,7 +112,7 @@ export default class PaddingController {
     const props = this.plot.options;
     const view = this.plot.view;
     const viewRange: any = clone(view.coordinateBBox);
-    const { maxX, maxY } = viewRange;
+    const { maxX, maxY, minY } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
       each(bleeding, (it, index) => {
@@ -130,12 +128,12 @@ export default class PaddingController {
     if (has(this.plot.options, 'radius')) {
       components_bbox = [new BBox(0, viewRange.minY, viewRange.width, viewRange.height)];
     } else {
-      components_bbox = [new BBox(0, 0, viewRange.width, viewRange.height)];
+      components_bbox = [new BBox(0, viewRange.minY, viewRange.width, viewRange.height)];
     }
     this._getAxis(view, components_bbox[0], components_bbox);
     let box = this._mergeBBox(components_bbox);
-    //this._getLegend(view, box, components_bbox);
-    //box = this._mergeBBox(components_bbox);
+    this._getLegend(view, box, components_bbox);
+    box = this._mergeBBox(components_bbox);
     // 参与auto padding的自定义组件
     const components = this.innerPaddingComponents;
     each(components, (obj) => {
@@ -145,12 +143,11 @@ export default class PaddingController {
     });
     box = this._mergeBBox(components_bbox);
     const padding = [
-      0 - box.minY + this.bleeding[0], // 上面超出的部分
+      minY - box.minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
-      0 - box.minX + this.bleeding[3],
+      minY - box.minX + this.bleeding[3],
     ];
-    //this.adjustAxisPadding(view, padding);
     // label、annotation等
     const panelPadding = this._getPanel(view);
     padding[0] += panelPadding[0];
@@ -162,27 +159,46 @@ export default class PaddingController {
 
   private _getAxis(view: View, globalBBox, bboxes: BBox[]) {
     const axes = getAxisComponents(view);
+    const { isTransposed } = view.getCoordinate();
     each(axes, (axis: Axis.Base) => {
       const position = axis.get('position');
       const { minX, minY, width, height } = axis.getLayoutBBox();
-      if (position === 'left') {
-        bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
-      } else if (position === 'bottom') {
-        bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
-      } else if (position === 'right') {
-        bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
+      if (!isTransposed) {
+        if (position === 'left') {
+          bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
+        } else if (position === 'bottom') {
+          bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
+        } else if (position === 'right') {
+          bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
+        }
+      } else {
+        if (position === 'bottom') {
+          bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
+        } else if (position === 'left') {
+          bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
+        } else if (position === 'top') {
+          bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
+        }
       }
     });
   }
 
-  /*private _getLegend(view, globalBBox, bboxes) {
+  private _getLegend(view, globalBBox, bboxes) {
     const legends = getLegendComponents(view);
     each(legends, (legend: Legend.Base) => {
       const position = legend.get('position').split('-')[0];
       const { minX, minY, width, height } = legend.getLayoutBBox();
-      //bboxes.push(BBox.fromBBoxObject(layoutBBox));
+      if (position === 'top') {
+        bboxes.push(new BBox(minX, globalBBox.minY - height, width, height));
+      } else if (position === 'bottom') {
+        bboxes.push(new BBox(minX, globalBBox.maxY, width, height));
+      } else if (position === 'left') {
+        bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
+      } else {
+        bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
+      }
     });
-  }*/
+  }
 
   private _getPanel(view) {
     const groups = [];
@@ -261,53 +277,6 @@ export default class PaddingController {
     });
 
     return { minX, maxX, minY, maxY };
-    // return new BBox(minX, minY, maxX - minX, maxY - minY);
-  }
-
-  private _adjustLegend(legend, view, box) {
-    const position = legend.get('position').split('-');
-    const container = legend.get('container');
-    const bbox = container.getBBox();
-    const { width, maxY, minY } = view.viewBBox;
-    if (position[0] === 'right') {
-      container.move(width, minY);
-    }
-    if (position[0] === 'left') {
-      container.move(box.minX - bbox.width, minY);
-    }
-    if (position[0] === 'top') {
-      container.move(0, box.minY - bbox.height);
-    }
-    if (position[0] === 'bottom') {
-      container.move(0, Math.max(maxY, box.maxY));
-    }
-  }
-
-  private _getLegendInnerPadding(legend) {
-    const innerPadding = this.plot.theme.legend.innerPadding;
-    const position = legend.get('position').split('-');
-    if (position[0] === 'top') {
-      return [innerPadding[0], 0, 0, 0];
-    }
-    if (position[0] === 'bottom') {
-      return [0, 0, innerPadding[2], 0];
-    }
-    if (position[0] === 'left') {
-      return [0, 0, 0, innerPadding[3]];
-    }
-    if (position[0] === 'right') {
-      return [0, innerPadding[1], 0, 0];
-    }
-  }
-
-  private _mergeBleeding(source) {
-    const target = this.bleeding;
-    if (source.length !== target.length) {
-      return;
-    }
-    for (let i = 0; i < source.length; i++) {
-      target[i] += source[i];
-    }
   }
 
   /* private adjustAxisPadding(view: View, padding: MarginPadding) {

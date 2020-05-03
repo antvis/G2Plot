@@ -732,7 +732,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   private viewRangeToRegion(viewRange) {
-    const { width, height } = this;
+    const { width, height } = viewRange;
     const start = { x: 0, y: 0 },
       end = { x: 1, y: 1 };
     start.x = viewRange.minX / width;

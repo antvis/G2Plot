@@ -177,7 +177,6 @@ export default class CanvasController {
       height,
       pixelRatio,
     });
-    console.log(this.canvas);
     this.width = width;
     this.height = height;
     this.updateCanvasTheme();

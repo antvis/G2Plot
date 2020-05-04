@@ -112,7 +112,7 @@ export default class PaddingController {
     const props = this.plot.options;
     const view = this.plot.view;
     const viewRange: any = clone(view.coordinateBBox);
-    const { maxX, maxY, minY } = viewRange;
+    const { maxX, maxY, minY, minX } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
       each(bleeding, (it, index) => {
@@ -141,7 +141,7 @@ export default class PaddingController {
       minY - box.minY + this.bleeding[0], // 上面超出的部分
       box.maxX - maxX + this.bleeding[1], // 右边超出的部分
       box.maxY - maxY + this.bleeding[2], // 下边超出的部分
-      minY - box.minX + this.bleeding[3],
+      minX - box.minX + this.bleeding[3],
     ];
     // label、annotation等
     const panelPadding = this._getPanel(view);

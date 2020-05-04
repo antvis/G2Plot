@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "1.0.4",
+  "version": "1.1.0-beta",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -44,7 +44,7 @@
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
     "ci": "run-s lint build coverage",
     "compare-live": "node scripts/compare.js",

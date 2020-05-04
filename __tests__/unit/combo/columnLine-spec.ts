@@ -46,6 +46,14 @@ describe('columnLine', () => {
       legend: {
         visible: true,
       },
+      yAxis: {
+        leftConfig: {
+          visible: true,
+        },
+        rightConfig: {
+          visible: false,
+        },
+      },
       /*columnConfig: {
         columnStyle: {
           stroke: 'black',

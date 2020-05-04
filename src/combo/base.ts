@@ -159,7 +159,15 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
         }
       });
     }
+    if (!config.visible) {
+      yAxisConfig.title.visible = false;
+      yAxisConfig.tickLine.visible = false;
+      yAxisConfig.label.visible = false;
+      yAxisConfig.line.visible = false;
+      yAxisConfig.visible = true;
+    }
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
+
     return deepMix({}, yAxisGlobalConfig, yAxisConfig);
   }
 

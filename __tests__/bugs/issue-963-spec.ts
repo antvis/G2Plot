@@ -17,6 +17,9 @@ describe('#963', () => {
     ];
 
     const funnelPlot = new Funnel(div, {
+      width: 600,
+      height: 600,
+      forceFit: false,
       data: data,
       xField: 'action',
       yField: 'pv',

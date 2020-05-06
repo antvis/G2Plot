@@ -4,9 +4,7 @@ import PercentStackedBarLayer, { PercentStackedBarLayerConfig } from './layer';
 
 export interface PercentStackedBarConfig extends PercentStackedBarLayerConfig, PlotConfig {}
 
-export default class PercentStackedBar<T extends PercentStackedBarConfig = PercentStackedBarConfig> extends BasePlot<
-  T
-> {
+export default class PercentStackedBar extends BasePlot<PercentStackedBarConfig> {
   public static getDefaultOptions: typeof PercentStackedBarLayer.getDefaultOptions =
     PercentStackedBarLayer.getDefaultOptions;
 

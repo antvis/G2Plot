@@ -4,9 +4,7 @@ import PercentStackedAreaLayer, { PercentStackedAreaLayerConfig } from './layer'
 
 export interface PercentStackedAreaConfig extends PercentStackedAreaLayerConfig, PlotConfig {}
 
-export default class PercentStackedArea<T extends PercentStackedAreaConfig = PercentStackedAreaConfig> extends BasePlot<
-  T
-> {
+export default class PercentStackedArea extends BasePlot<PercentStackedAreaConfig> {
   public static getDefaultOptions: typeof PercentStackedAreaLayer.getDefaultOptions =
     PercentStackedAreaLayer.getDefaultOptions;
 

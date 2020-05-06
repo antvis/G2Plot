@@ -442,7 +442,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     }
     this.view.on('tooltip:show', () => {
       if (!customContentCfg.container) {
-        container = document.getElementsByClassName('g2-tooltip')[0];
+        container = this.canvas.cfg.container.getElementsByClassName('g2-tooltip')[0];
       }
     });
     this.view.hideTooltip();

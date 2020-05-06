@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "柱线混合图表",
+        "en": "Basic Column-line Combo Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OjMdQamxTvsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-style.js",
+      "title": {
+        "zh": "柱线混合图表 -  自定义图形样式",
+        "en": "Column-line Combo Chart - customize graphic style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e9DmR451GDwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "disable-axis-colorMapping.js",
+      "title": {
+        "zh": "柱线混合图表 - 关闭双Y轴颜色映射",
+        "en": "Column-line Combo Chart - disable y axis colorMapping"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L_26T6t2FXAAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

@@ -15,7 +15,18 @@ export interface IComboViewLayer extends ComboViewConfig, LayerConfig {}
 
 export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboViewLayer> extends Layer<T> {
   public static getDefaultOptions(): Partial<ComboViewConfig> {
-    return {};
+    return {
+      title: {
+        visible: false,
+        alignTo: 'left',
+        text: '',
+      },
+      description: {
+        visible: false,
+        text: '',
+        alignTo: 'left',
+      },
+    };
   }
 
   public initialOptions: T;

@@ -1,3 +1,7 @@
+## <small>1.1.1 (2020-05-06)
+- 🐞fix: chart name typo ([7b2a0b](https://github.com/antvis/G2Plot/commit/7b2a0b0))
+- 🐞fix: dual line render error without legend config ([4675421](https://github.com/antvis/G2Plot/commit/4675421))
+
 ## <small>1.1.0 (2020-05-06)
 - 🌟双轴图升级为正式版 ([8568318](https://github.com/antvis/G2Plot/commit/8568318))
 - 🐞fix: padding calculation ([db7d6b3](https://github.com/antvis/G2Plot/commit/db7d6b3))

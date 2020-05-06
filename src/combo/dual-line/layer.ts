@@ -58,6 +58,9 @@ interface DualLineLayerConfig extends DualLineViewConfig, LayerConfig {}
 export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayerConfig> extends ComboViewLayer<T> {
   public static getDefaultOptions(): Partial<DualLineLayerConfig> {
     return deepMix({}, super.getDefaultOptions(), {
+      legend: {
+        visible: true,
+      },
       yAxis: {
         leftConfig: defaultYAxisConfig,
         rightConfig: defaultYAxisConfig,

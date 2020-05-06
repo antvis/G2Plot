@@ -219,6 +219,22 @@ module.exports = {
         },
       },
       {
+        slug: 'combo',
+        icon: 'other',
+        title: {
+          zh: '混合图表',
+          en: 'Combo Charts',
+        },
+      },
+      {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '图表通用配置',
+          en: 'General Configration of Charts',
+        },
+      },
+      {
         slug: 'advanced',
         icon: 'other',
         title: {

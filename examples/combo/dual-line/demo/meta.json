@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "双折线混合图表",
+        "en": "Basic Dual-line Combo Chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Omr4SK6froAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-style.js",
+      "title": {
+        "zh": "双折线图 - 自定义折线样式",
+        "en": "Dual-line Combo Chart - customize line style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kAgfTZPPjAsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "same-scale.js",
+      "title": {
+        "zh": "双折线图 - 统一双折线度量",
+        "en": "Dual-line Combo Chart - use the same scale"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*BnX8SJQXLc0AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

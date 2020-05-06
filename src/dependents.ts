@@ -39,7 +39,7 @@ export { default as Element } from '@antv/g2/lib/geometry/element';
 // Component
 import HtmlTooltip from '@antv/component/lib/tooltip/html';
 import HtmlTooltipTheme from '@antv/component/lib/tooltip/html-theme';
-import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
+import * as TooltipCssConst from '@antv/component/lib/tooltip/css-const';
 export { HtmlTooltip, HtmlTooltipTheme, TooltipCssConst };
 export { GroupComponent, Axis, Legend, Tooltip, Slider, Scrollbar } from '@antv/component';
 export { GroupComponentCfg, TooltipCfg } from '@antv/component/lib/types';

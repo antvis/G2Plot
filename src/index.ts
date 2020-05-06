@@ -19,7 +19,7 @@ export { default as TinyLine, TinyLineConfig } from './sparkline/tiny-line';
 export { default as DualLine, DualLineConfig } from './combo/dual-line';
 export { default as ColumnLine, ColumnLineConfig } from './combo/column-line';
 export { default as GroupedColumnLine, GroupedColumnLineConfig } from './combo/groupedColumn-line';
-export { default as StackededColumnLine, StackedColumnLineConfig } from './combo/stackedColumn-line';
+export { default as StackedColumnLine, StackedColumnLineConfig } from './combo/stackedColumn-line';
 
 // 主题
 export { registerTheme, registerGlobalTheme } from './theme';

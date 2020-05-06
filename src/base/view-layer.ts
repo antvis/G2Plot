@@ -13,7 +13,7 @@ import {
   findIndex,
   isString,
 } from '@antv/util';
-import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gestrue } from '../dependents';
+import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gesture } from '../dependents';
 import TextDescription from '../components/description';
 import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/base';
 import { getComponent } from '../components/factory';
@@ -78,7 +78,7 @@ export interface ViewConfig {
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
-registerComponentController('gesture', Gestrue);
+registerComponentController('gesture', Gesture);
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(): Partial<ViewConfig> {
@@ -288,7 +288,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
     }
-    if (options.tooltip && options.tooltip.customContent && options.padding !== 'auto') {
+    if (options.tooltip?.customContent?.callback && options.padding !== 'auto') {
       this.customTooltip();
     }
   }

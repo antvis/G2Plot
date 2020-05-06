@@ -18,8 +18,8 @@ export {
   registerComponentController,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';
-import Gestrue from '@antv/g2/lib/chart/controller/gesture';
-export { Gestrue };
+import Gesture from '@antv/g2/lib/chart/controller/gesture';
+export { Gesture };
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,

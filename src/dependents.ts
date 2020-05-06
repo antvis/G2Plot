@@ -15,6 +15,7 @@ export {
   getTheme,
   Util,
   getShapeFactory,
+  ComponentController,
   registerComponentController,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';

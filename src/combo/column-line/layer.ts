@@ -176,15 +176,6 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
   }
 
   protected tooltip(dom, ev) {
-    const unCheckedValue = this.getUnCheckedValue();
-    const totalItems = this.legends[0].get('items').length + this.legends[1].get('items').length;
-    // 如果legend全部是unchecked的状态，tooltip不显示
-    if (unCheckedValue.length === totalItems) {
-      dom.style.display = 'none';
-      return;
-    } else {
-      dom.style.display = 'block';
-    }
     const { yField } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1);
@@ -202,22 +193,35 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
         });
       });
     }
-    const uniqKeys = [];
-    const uniqItems = [];
-    each(ev.items, (item) => {
-      const { name } = item;
-      if (!contains(uniqKeys, name) && !contains(unCheckedValue, name)) {
-        uniqKeys.push(name);
-        uniqItems.push(item);
-      }
-    });
-    each(ev.items, (item, index) => {
-      if (index < uniqItems.length) {
-        ev.items[index] = uniqItems[index];
+
+    if (this.options.legend.visible) {
+      const unCheckedValue = this.getUnCheckedValue();
+      const totalItems = this.legends[0].get('items').length + this.legends[1].get('items').length;
+      // 如果legend全部是unchecked的状态，tooltip不显示
+      if (unCheckedValue.length === totalItems) {
+        dom.style.display = 'none';
+        return;
       } else {
-        ev.items.pop();
+        dom.style.display = 'block';
       }
-    });
+      // legend部分checked的时候，根据checked状态filter items
+      const uniqKeys = [];
+      const uniqItems = [];
+      each(ev.items, (item) => {
+        const { name } = item;
+        if (!contains(uniqKeys, name) && !contains(unCheckedValue, name)) {
+          uniqKeys.push(name);
+          uniqItems.push(item);
+        }
+      });
+      each(ev.items, (item, index) => {
+        if (index < uniqItems.length) {
+          ev.items[index] = uniqItems[index];
+        } else {
+          ev.items.pop();
+        }
+      });
+    }
   }
 
   protected customLegend() {

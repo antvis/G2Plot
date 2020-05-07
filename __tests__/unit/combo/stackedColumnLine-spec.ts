@@ -115,7 +115,7 @@ describe('columnLine', () => {
         visible: true,
       },
       legend: {
-        visible: true,
+        visible: false,
       },
     });
     columnLine.render();

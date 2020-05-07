@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import ColumnLayer from '../../plots/column/layer';
 import { IColumnLabel } from '../../plots/column/interface';
-import { deepMix, clone, each, contains } from '@antv/util';
+import { deepMix, clone, each, contains, pull } from '@antv/util';
 import { ICatAxis, GraphicStyle } from '../../interface/config';
 import { ComboViewConfig, LineConfig } from '../util/interface';
 
@@ -218,15 +218,18 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       if (geom.options.seriesField) {
         const values = this.getValueBySeriesField();
         legend = this.createNormalLegend(values, symbols[index], colors[index], legendCfg, container);
-        //legend = this.createSingleLegend(yField[index], symbols[index], colors[index], legendCfg, container);
       } else {
         legend = this.createSingleLegend(yField[index], symbols[index], colors[index], legendCfg, container);
       }
       this.legends.push(legend);
     });
     // 使用legend做图层筛选
-    each(this.geomLayers, (line, index) => {
-      this.legendFilter(index);
+    each(this.geomLayers, (geom, index) => {
+      if (geom.options.seriesField) {
+        this.multipleLegendFilter(index, geom.options.seriesField);
+      } else {
+        this.legendFilter(index);
+      }
     });
   }
 
@@ -293,6 +296,43 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     legend.init();
     legend.render();
     return legend;
+  }
+
+  protected multipleLegendFilter(index, field) {
+    const legend = this.legends[index];
+    const filteredValue = [];
+    const legend_group = legend.get('group');
+    let layerHide = false;
+    legend_group.on('click', (ev) => {
+      const view = this.geomLayers[index].view;
+      const item = ev.target.get('delegateObject').item;
+      if (item.unchecked) {
+        if (layerHide === true) {
+          this.showLayer(index);
+          layerHide = false;
+        }
+        pull(filteredValue, item.name);
+        view.filter(item.value, (f) => {
+          return !contains(filteredValue, f);
+        });
+        view.render();
+        legend.setItemState(item, 'unchecked', false);
+      } else {
+        legend.setItemState(item, 'unchecked', true);
+        filteredValue.push(item.name);
+        if (filteredValue.length === this.legends[index].get('items').length) {
+          // 如果分组分类全部被uncheck了，直接隐藏图层，这样仍然可以trigger tooltip
+          this.hideLayer(index);
+          layerHide = true;
+        } else {
+          view.filter(field, (f) => {
+            return !contains(filteredValue, f);
+          });
+          view.render();
+        }
+      }
+      this.canvas.draw();
+    });
   }
 
   protected getValueBySeriesField() {

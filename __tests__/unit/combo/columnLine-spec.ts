@@ -9,7 +9,7 @@ describe('columnLine', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('init', () => {
+  it.only('init', () => {
     const uvData = [
       { time: '2019-03', value: 350 },
       { time: '2019-04', value: 900 },
@@ -58,7 +58,7 @@ describe('columnLine', () => {
     columnLine.render();
   });
 
-  it.only('multiple line', () => {
+  it('multiple line', () => {
     const uvData = [
       { time: '2019-03', value: 350 },
       { time: '2019-04', value: 900 },

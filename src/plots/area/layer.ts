@@ -1,4 +1,4 @@
-import { deepMix, has, each } from '@antv/util';
+import { deepMix, has, each, map } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer from '../../base/view-layer';
@@ -6,7 +6,7 @@ import { getGeom } from '../../geoms/factory';
 import { ElementOption } from '../../interface/config';
 import './component/label/area-point';
 import './component/label/area-point-auto';
-import { extractScale } from '../../util/scale';
+import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
@@ -106,6 +106,10 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       extractScale(scales[props.yField], props.yAxis);
     }
     this.setConfig('scales', scales);
+    trySetScaleMinToZero(
+      scales[props.yField],
+      map(props.data as any, (item) => item[props.yField])
+    );
     super.scale();
   }
 

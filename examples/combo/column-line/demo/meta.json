@@ -27,6 +27,14 @@
         "en": "Column-line Combo Chart - disable y axis colorMapping"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*L_26T6t2FXAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "multi-line.js",
+      "title": {
+        "zh": "柱线混合图表 - 显示多折线",
+        "en": "Column-line Combo Chart - multiple line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ldsOR4yQZnAAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

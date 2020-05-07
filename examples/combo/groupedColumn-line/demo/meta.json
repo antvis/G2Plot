@@ -11,6 +11,14 @@
         "en": "GroupedColumn-line Combo Chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*p8vjTLdBwVMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "multi-line.js",
+      "title": {
+        "zh": "分组柱+折线混合图表 - 多折线",
+        "en": "GroupedColumn-line Combo Chart - multiple line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RdF2Q6tngWYAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

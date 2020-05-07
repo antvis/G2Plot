@@ -8,6 +8,7 @@ import { isTextUsable } from '../util/common';
 import ThemeController from '../base/controller/theme';
 import { ComboViewConfig } from './util/interface';
 import { DataItem } from '../interface/config';
+import { getGlobalTheme } from '../theme';
 
 const LEGEND_MARGIN = 5;
 
@@ -44,7 +45,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
   constructor(props: T) {
     super(props);
     this.options = this.getOptions(props);
-    this.initialOptions = deepMix({}, this.options);
+    this.initialOptions = deepMix({}, props);
     this.themeController = new ThemeController();
   }
 
@@ -242,6 +243,14 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
   }
 
   protected adjustLayout() {
+    const { bleeding } = getGlobalTheme();
+    if (isArray(bleeding)) {
+      each(bleeding, (it, index) => {
+        if (typeof bleeding[index] === 'function') {
+          bleeding[index] = bleeding[index](this.options);
+        }
+      });
+    }
     const viewRange = this.getViewRange();
     const leftPadding = this.geomLayers[0].options.padding;
     const rightPadding = this.geomLayers[1].options.padding;
@@ -250,8 +259,8 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     let legendA_BBox;
     let legendB_BBox;
     if (this.options.legend?.visible) {
-      legendA_BBox = this.legends[0].get('group').getBBox();
-      legendB_BBox = this.legends[1].get('group').getBBox();
+      legendA_BBox = this.legends[0].getLayoutBBox();
+      legendB_BBox = this.legends[1].getLayoutBBox();
       legendHeight = legendA_BBox.height + LEGEND_MARGIN * 2;
     }
 
@@ -268,11 +277,11 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     // 更新legend的位置
     if (this.options.legend?.visible) {
       this.legends[0].setLocation({
-        x: leftPadding[3] - legendA_BBox.width / 2,
+        x: bleeding[3],
         y: viewRange.minY + LEGEND_MARGIN,
       });
       this.legends[1].setLocation({
-        x: viewRange.maxX - rightPadding[1] - legendB_BBox.width / 2,
+        x: viewRange.maxX - bleeding[1] - legendB_BBox.width,
         y: viewRange.minY + LEGEND_MARGIN,
       });
     }

@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import ColumnLayer from '../../plots/column/layer';
 import { IColumnLabel } from '../../plots/column/interface';
-import { deepMix, clone, each, contains, pull } from '@antv/util';
+import { deepMix, clone, each, contains, pull, isArray } from '@antv/util';
 import { ICatAxis, GraphicStyle } from '../../interface/config';
 import { ComboViewConfig, LineConfig } from '../util/interface';
 
@@ -177,34 +177,47 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
 
   protected tooltip(dom, ev) {
     const unCheckedValue = this.getUnCheckedValue();
+    const totalItems = this.legends[0].get('items').length + this.legends[1].get('items').length;
     // 如果legend全部是unchecked的状态，tooltip不显示
-    if (unCheckedValue.length === this.colors.length) {
+    if (unCheckedValue.length === totalItems) {
       dom.style.display = 'none';
       return;
     } else {
       dom.style.display = 'block';
     }
-    const { yField, legend } = this.options;
+    const { yField } = this.options;
     const originItem = clone(ev.items[0]);
-    const dataItemsA = this.getDataByXField(ev.title, 1)[0];
+    const dataItemsA = this.getDataByXField(ev.title, 1);
     if (dataItemsA) {
-      ev.items.push({
-        ...originItem,
-        mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
-        data: dataItemsA,
-        name: yField[1],
-        value: dataItemsA[yField[1]],
-        color: this.colors[1],
+      each(dataItemsA, (d, index) => {
+        const { seriesField } = this.geomLayers[1].options as any;
+        const name = seriesField ? d[seriesField] : yField[1];
+        ev.items.push({
+          ...originItem,
+          mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
+          data: d,
+          name,
+          value: d[yField[1]],
+          color: isArray(this.colors[1]) ? this.colors[1][index] : this.colors[1],
+        });
       });
     }
-    if (legend.visible) {
-      each(this.legends, (legend, index) => {
-        const item = legend.get('items')[0];
-        if (item.unchecked) {
-          ev.items.splice(index, 1);
-        }
-      });
-    }
+    const uniqKeys = [];
+    const uniqItems = [];
+    each(ev.items, (item) => {
+      const { name } = item;
+      if (!contains(uniqKeys, name) && !contains(unCheckedValue, name)) {
+        uniqKeys.push(name);
+        uniqItems.push(item);
+      }
+    });
+    each(ev.items, (item, index) => {
+      if (index < uniqItems.length) {
+        ev.items[index] = uniqItems[index];
+      } else {
+        ev.items.pop();
+      }
+    });
   }
 
   protected customLegend() {
@@ -276,7 +289,7 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
         marker: {
           symbol,
           style: {
-            r: 3,
+            r: 4,
             fill: color[index],
           },
         },

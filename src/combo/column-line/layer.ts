@@ -8,6 +8,7 @@ import { IColumnLabel } from '../../plots/column/interface';
 import { deepMix, clone, each, contains, pull, isArray } from '@antv/util';
 import { ICatAxis, GraphicStyle } from '../../interface/config';
 import { ComboViewConfig, LineConfig } from '../util/interface';
+import { getGlobalTheme } from '../../theme';
 
 export interface ColumnConfig {
   color?: string | string[]; //兼容groupedColumn和stackedColumn类型
@@ -100,7 +101,14 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
         options.lineConfig.lineSize = 3;
       }
       if (!initialOptions.lineConfig?.color) {
-        options.lineConfig.color = ['#68d9ab', '#667896', '#f5bf3c'];
+        const { colors, colors_20 } = getGlobalTheme();
+        const seriesValue = this.getValueBySeriesField();
+        const colorSeries = seriesValue.length > colors.length ? colors_20 : colors;
+        const colorPlates = [];
+        each(seriesValue, (v, index) => {
+          colorPlates.push(colorSeries[index + 1]);
+        });
+        options.lineConfig.color = colorPlates;
       }
     }
   }

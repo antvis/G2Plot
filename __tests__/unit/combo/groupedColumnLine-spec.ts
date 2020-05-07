@@ -75,7 +75,7 @@ describe('columnLine', () => {
     });
     columnLine.render();
   });
-  it.only('series line', () => {
+  it('series line', () => {
     const transformData = [
       { time: '2019-03', count: 800, name: 'a' },
       { time: '2019-04', count: 600, name: 'a' },

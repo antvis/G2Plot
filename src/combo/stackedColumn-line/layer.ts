@@ -3,6 +3,7 @@ import { deepMix, each, contains } from '@antv/util';
 import { LayerConfig } from '../../base/layer';
 import ColumnLineLayer, { ColumnLineViewConfig } from '../column-line/layer';
 import StackedColumnLayer from '../../plots/stacked-column/layer';
+import { getGlobalTheme } from '../../theme';
 
 export interface StackedColumnLineViewConfig extends ColumnLineViewConfig {
   columnStackField?: string;
@@ -76,8 +77,25 @@ export default class StackedColumnLineLayer<
   protected requiredField: string[] = ['xField', 'yField', 'columnStackField'];
 
   public beforeInit() {
-    super.beforeInit();
     const stackedValue = this.getValueByStackField();
+    const { options, initialOptions } = this;
+    if (options.lineSeriesField) {
+      options.yAxis.rightConfig.colorMapping = false;
+      if (!initialOptions.lineConfig?.lineSize) {
+        options.lineConfig.lineSize = 3;
+      }
+      if (!initialOptions.lineConfig?.color) {
+        const { colors, colors_20 } = getGlobalTheme();
+        const seriesValue = this.getValueBySeriesField();
+        const colorSeries = seriesValue.length > colors.length ? colors_20 : colors;
+        const colorPlates = [];
+        const startIndex = stackedValue.length;
+        each(seriesValue, (v, index) => {
+          colorPlates.push(colorSeries[index + startIndex]);
+        });
+        options.lineConfig.color = colorPlates;
+      }
+    }
     const { color } = this.options.columnConfig;
     this.options.columnConfig.color = color.slice(0, stackedValue.length);
   }
@@ -136,7 +154,7 @@ export default class StackedColumnLineLayer<
       if (geom.options.seriesField) {
         this.multipleLegendFilter(index, geom.options.seriesField);
       } else if (geom.options.stackField) {
-        this.multipleLegendFilter(index, geom.options.groupField);
+        this.multipleLegendFilter(index, geom.options.stackField);
       } else {
         this.legendFilter(index);
       }

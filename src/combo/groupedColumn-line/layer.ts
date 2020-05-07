@@ -3,6 +3,7 @@ import { deepMix, each, contains } from '@antv/util';
 import { LayerConfig } from '../../base/layer';
 import ColumnLineLayer, { ColumnLineViewConfig } from '../column-line/layer';
 import GroupedColumnLayer from '../../plots/grouped-column/layer';
+import { getGlobalTheme } from '../../theme';
 
 export interface GroupedColumnLineViewConfig extends ColumnLineViewConfig {
   columnGroupField?: string;
@@ -76,8 +77,25 @@ export default class GroupedColumnLineLayer<
   protected requiredField: string[] = ['xField', 'yField', 'columnGroupField'];
 
   public beforeInit() {
-    super.beforeInit();
+    const { options, initialOptions } = this;
     const groupedValue = this.getValueByGroupField();
+    if (options.lineSeriesField) {
+      options.yAxis.rightConfig.colorMapping = false;
+      if (!initialOptions.lineConfig?.lineSize) {
+        options.lineConfig.lineSize = 3;
+      }
+      if (!initialOptions.lineConfig?.color) {
+        const { colors, colors_20 } = getGlobalTheme();
+        const seriesValue = this.getValueBySeriesField();
+        const colorSeries = seriesValue.length > colors.length ? colors_20 : colors;
+        const colorPlates = [];
+        const startIndex = groupedValue.length;
+        each(seriesValue, (v, index) => {
+          colorPlates.push(colorSeries[index + startIndex]);
+        });
+        options.lineConfig.color = colorPlates;
+      }
+    }
     const { color } = this.options.columnConfig;
     this.options.columnConfig.color = color.slice(0, groupedValue.length);
   }

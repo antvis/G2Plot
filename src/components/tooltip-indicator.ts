@@ -1,4 +1,4 @@
-import { clamp, each, deepMix } from '@antv/util';
+import { clamp, deepMix } from '@antv/util';
 import BaseComponent, { BaseComponentConfig } from './base';
 import { GM, Wheel, GestureEvent, IElement, IGroup, IShape, GraphicEvent } from '../dependents';
 import { TextStyle, GraphicStyle } from '../interface/config';
@@ -199,12 +199,13 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     this.selectedItemId = this.config.selectedItem;
   }
   protected renderInner(group: IGroup): void {
+    const { items } = this.config;
     const itemGroups: IGroup[] = [];
     this.renderTitle(group);
     this.bodyGroup = group.addGroup({
       name: ELEMENT_NAMES.TOOLTIP_INDICATOR_BODY,
     });
-    each(this.config.items, (item: IndicatorItem, index: number) => {
+    items?.forEach((item: IndicatorItem, index: number) => {
       itemGroups.push(this.renderItem(this.bodyGroup, item, index));
     });
     this.layoutItems(group);
@@ -330,7 +331,7 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
       name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_BODY,
     });
     const oldX = this.curX;
-    each(item.values, (value: IndicatorItemItemValue, valueIndex: number) => {
+    item.values?.forEach((value: IndicatorItemItemValue, valueIndex: number) => {
       const valueGroup = itemBodyGroup.addGroup({
         name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE_GROUP,
         delegateObject: {
@@ -415,7 +416,7 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     const valueShapeBBoxes = valueShapes.map((shape) => BBox.fromBBoxObject(shape.getBBox()));
     const maxX = Math.max(...valueShapeBBoxes.map((bbox) => bbox.maxX));
 
-    each(valueGroups, (valueGroup: IGroup, index: number) => {
+    valueGroups.forEach((valueGroup: IGroup, index: number) => {
       const bbox = valueGroupBBoxes[index];
       const nameShape = valueGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME)[0];
       const valueShape = valueGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE)[0];
@@ -458,21 +459,16 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     const group = this.getGroup();
     const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
     if (id !== this.selectedItemId) {
-      each(itemGroups, (itemGroup: IGroup) => {
+      itemGroups.forEach((itemGroup: IGroup) => {
         const curItemData = itemGroup.get('delegateObject') as IndicatorItemDelegateObject;
         if (curItemData) {
-          if (curItemData.item.id === id) {
-            // 选中
-            this.applyItemStyle(itemGroup, 'selected');
-          } else {
-            this.applyItemStyle(itemGroup, 'inactive');
-          }
+          this.applyItemStyle(itemGroup, curItemData.item.id === id ? 'selected' : 'inactive');
         }
       });
       this.selectedItemId = id;
     } else {
       // 取消选中
-      each(itemGroups, (itemGroup: IGroup) => {
+      itemGroups.forEach((itemGroup: IGroup) => {
         this.applyItemStyle(itemGroup);
       });
       this.selectedItemId = undefined;
@@ -496,11 +492,11 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
       titleShape.attr(itemTitle.style);
       titleShape.attr(itemTitle[styleName] || {});
     }
-    each(itemNameShapes, (itemNameShape) => {
+    itemNameShapes.forEach((itemNameShape) => {
       itemNameShape.attr(itemName.style);
       itemNameShape.attr(itemName[styleName] || {});
     });
-    each(itemValueShapes, (itemValueShape) => {
+    itemValueShapes.forEach((itemValueShape) => {
       itemValueShape.attr(itemValue.style);
       itemValueShape.attr(itemValue[styleName] || {});
     });

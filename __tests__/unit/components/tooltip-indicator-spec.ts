@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g-canvas';
-import { each } from '@antv/util';
+// import { each } from '@antv/util';
 import { createDiv } from '../../utils/dom';
 import TooltipIndicator, {
   TooltipIndicatorRawConfig,
@@ -107,10 +107,10 @@ const expectItemStyle = (inst: TooltipIndicator, itemGroup: IGroup, state?: 'sel
 
   const names = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME);
   const values = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
-  each(names, (name) => {
+  names.forEach((name) => {
     expect(name.attr()).toMatchObject(state ? { ...itemName.style, ...itemName[`${state}Style`] } : itemName.style);
   });
-  each(values, (value) => {
+  values.forEach((value) => {
     expect(value.attr()).toMatchObject(state ? { ...itemValue.style, ...itemValue[`${state}Style`] } : itemValue.style);
   });
 };
@@ -237,7 +237,7 @@ describe('TooltipIndicator Card 1', () => {
     // items rendered
     const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
     expect(itemGroups.length).toBe(items.length);
-    each(itemGroups, (itemGroup: IGroup, index: number) => {
+    itemGroups.forEach((itemGroup: IGroup, index: number) => {
       const valueShapes = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
       expect(valueShapes.length).toBe(1);
       expect(valueShapes[0].attr('text')).toBe(items[index].values[0].value);
@@ -250,41 +250,41 @@ describe('TooltipIndicator Card 1', () => {
     expect(title.attr()).toMatchObject(themeCfg.title.style);
     const lines = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_LINE);
     expect(lines.length).toBe(items.length);
-    each(lines, (line) => {
+    lines.forEach((line) => {
       expect(line.attr()).toMatchObject(themeCfg.line.style);
     });
     const values = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
     expect(values.length).toBe(items.length);
-    each(values, (value) => {
+    values.forEach((value) => {
       expect(value.attr()).toMatchObject(themeCfg.itemValue.style);
     });
   });
 
   it('event', (done) => {
     const group = inst.getGroup();
-    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
+    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP) as IGroup[];
     let itemGroup: IGroup;
     let cnt = 0;
 
     inst.on(EVENTS.ON_SELECT_ITEM, (id: string) => {
       if (cnt === 0) {
         expect(id).toBe(items[0].id);
-        each(itemGroups, (itemGroup, index) => {
+        itemGroups.forEach((itemGroup, index) => {
           expectItemStyle(inst, itemGroup, index === 0 ? 'selected' : 'inactive');
         });
       } else if (cnt === 1) {
         expect(id).toBe(items[1].id);
-        each(itemGroups, (itemGroup, index) => {
+        itemGroups.forEach((itemGroup, index) => {
           expectItemStyle(inst, itemGroup, index === 1 ? 'selected' : 'inactive');
         });
       } else if (cnt === 2) {
         expect(id).toBe(items[0].id);
-        each(itemGroups, (itemGroup, index) => {
+        itemGroups.forEach((itemGroup, index) => {
           expectItemStyle(inst, itemGroup, index === 0 ? 'selected' : 'inactive');
         });
       } else if (cnt === 3) {
         expect(id).toBeUndefined();
-        each(itemGroups, (itemGroup) => {
+        itemGroups.forEach((itemGroup) => {
           expectItemStyle(inst, itemGroup);
         });
         done();
@@ -310,23 +310,23 @@ describe('TooltipIndicator Card 1', () => {
 
   it('selectItem/resetSelect', () => {
     const group = inst.getGroup();
-    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
+    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP) as IGroup[];
 
     // 选中 4
     inst.selectItem(items[4].id);
-    each(itemGroups, (itemGroup, index) => {
+    itemGroups.forEach((itemGroup, index) => {
       expectItemStyle(inst, itemGroup, index === 4 ? 'selected' : 'inactive');
     });
 
     // 选中 1
     inst.selectItem(items[1].id);
-    each(itemGroups, (itemGroup, index) => {
+    itemGroups.forEach((itemGroup, index) => {
       expectItemStyle(inst, itemGroup, index === 1 ? 'selected' : 'inactive');
     });
 
     // reset
     inst.resetSelect();
-    each(itemGroups, (itemGroup) => {
+    itemGroups.forEach((itemGroup) => {
       expectItemStyle(inst, itemGroup);
     });
   });
@@ -464,15 +464,15 @@ describe('TooltipIndicator Card 2', () => {
     // items rendered
     const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
     expect(itemGroups.length).toBe(items.length);
-    each(itemGroups, (itemGroup: IGroup, index: number) => {
+    itemGroups.forEach((itemGroup: IGroup, index: number) => {
       const nameShapes = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME);
       expect(nameShapes).toHaveLength(items[index].values.length);
-      each(nameShapes, (nameShape, valueIndex) => {
+      nameShapes.forEach((nameShape, valueIndex) => {
         expect(nameShape.attr('text')).toBe(items[index].values[valueIndex].name);
       });
       const valueShapes = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
       expect(valueShapes.length).toBe(items[index].values.length);
-      each(valueShapes, (valueShape, valueIndex) => {
+      valueShapes.forEach((valueShape, valueIndex) => {
         expect(valueShape.attr('text')).toBe(items[index].values[valueIndex].value);
       });
     });
@@ -484,43 +484,43 @@ describe('TooltipIndicator Card 2', () => {
     expect(title.attr()).toMatchObject(themeCfg.title.style);
     const lines = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_LINE);
     expect(lines.length).toBe(items.length);
-    each(lines, (line) => {
+    lines.forEach((line) => {
       expect(line.attr()).toMatchObject(themeCfg.line.style);
     });
     const names = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME);
     expect(names).toHaveLength(items.length * 2);
     const values = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
     expect(values.length).toBe(items.length * 2);
-    each(values, (value) => {
+    values.forEach((value) => {
       expect(value.attr()).toMatchObject(themeCfg.itemValue.style);
     });
   });
 
   it('event', (done) => {
     const group = inst.getGroup();
-    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
+    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP) as IGroup[];
     let itemGroup: IGroup;
     let cnt = 0;
 
     inst.on(EVENTS.ON_SELECT_ITEM, (id: string) => {
       if (cnt === 0) {
         expect(id).toBe(items[0].id);
-        each(itemGroups, (itemGroup, index) => {
+        itemGroups.forEach((itemGroup, index) => {
           expectItemStyle(inst, itemGroup, index === 0 ? 'selected' : 'inactive');
         });
       } else if (cnt === 1) {
         expect(id).toBe(items[1].id);
-        each(itemGroups, (itemGroup, index) => {
+        itemGroups.forEach((itemGroup, index) => {
           expectItemStyle(inst, itemGroup, index === 1 ? 'selected' : 'inactive');
         });
       } else if (cnt === 2) {
         expect(id).toBe(items[0].id);
-        each(itemGroups, (itemGroup, index) => {
+        itemGroups.forEach((itemGroup, index) => {
           expectItemStyle(inst, itemGroup, index === 0 ? 'selected' : 'inactive');
         });
       } else if (cnt === 3) {
         expect(id).toBeUndefined();
-        each(itemGroups, (itemGroup) => {
+        itemGroups.forEach((itemGroup) => {
           expectItemStyle(inst, itemGroup);
         });
         done();
@@ -546,23 +546,23 @@ describe('TooltipIndicator Card 2', () => {
 
   it('selectItem/resetSelect', () => {
     const group = inst.getGroup();
-    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
+    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP) as IGroup[];
 
     // 选中 4
     inst.selectItem(items[4].id);
-    each(itemGroups, (itemGroup, index) => {
+    itemGroups.forEach((itemGroup, index) => {
       expectItemStyle(inst, itemGroup, index === 4 ? 'selected' : 'inactive');
     });
 
     // 选中 1
     inst.selectItem(items[1].id);
-    each(itemGroups, (itemGroup, index) => {
+    itemGroups.forEach((itemGroup, index) => {
       expectItemStyle(inst, itemGroup, index === 1 ? 'selected' : 'inactive');
     });
 
     // reset
     inst.resetSelect();
-    each(itemGroups, (itemGroup) => {
+    itemGroups.forEach((itemGroup) => {
       expectItemStyle(inst, itemGroup);
     });
   });

@@ -1,4 +1,4 @@
-import { getEllipsisText, measureTextWidth } from '../../../../src/plots/pie/component/label/utils/text';
+import { getEllipsisText, measureTextWidth } from '../../../src/util/text';
 
 const FONT = {
   fontSize: 10,

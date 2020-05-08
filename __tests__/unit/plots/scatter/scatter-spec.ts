@@ -85,7 +85,7 @@ describe('Scatter plot', () => {
     });
     expect(xAxisLineShapes[0].attr('stroke')).toBe('red');
     const xAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
-      return el.get('name') === 'axis-tickline';
+      return el.get('name') === 'axis-tickLine';
     });
     expect(xAxisTickLineShapes[0].attr('stroke')).toBe('red');
     expect(xAxisTickLineShapes[0].attr('length')).toBe(5);
@@ -143,7 +143,7 @@ describe('Scatter plot', () => {
     });
     expect(yAxisLineShapes[0].attr('stroke')).toBe('red');
     const yAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
-      return el.get('name') === 'axis-tickline';
+      return el.get('name') === 'axis-tickLine';
     });
     expect(yAxisTickLineShapes[0].attr('stroke')).toBe('red');
     expect(yAxisTickLineShapes[0].attr('length')).toBe(5);

@@ -115,7 +115,8 @@ describe('legend', () => {
     });
     columnPlot.render();
     const view = columnPlot.getLayers()[0].view;
-    const legendShapes = getLegendShapes(view)[0].get('children')[0].get('children');
+    const legendShapes = getLegendShapes(view)[0].get('children')[0].get('children')[0].get('children');
+    console.log(legendShapes);
     expect(legendShapes[1].attr('fill')).toBe('#5B8FF9');
     expect(legendShapes[2].attr('text')).toBe('test');
     columnPlot.destroy();
@@ -137,7 +138,7 @@ describe('legend', () => {
     });
     columnPlot.render();
     const view = columnPlot.getLayers()[0].view;
-    const legendShapes = getLegendShapes(view)[0].get('children')[0].get('children');
+    const legendShapes = getLegendShapes(view)[0].get('children')[0].get('children')[0].get('children');
     expect(legendShapes[1].attr('fill')).toBe('#5B8FF9');
     columnPlot.destroy();
   });

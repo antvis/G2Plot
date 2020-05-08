@@ -22,15 +22,14 @@ describe('columnLine', () => {
     { time: '2019-07', value: 362, type: 'bill' },
   ];
 
-  const transformData = [
-    { time: '2019-03', count: 800 },
-    { time: '2019-04', count: 600 },
-    { time: '2019-05', count: 400 },
-    { time: '2019-06', count: 380 },
-    { time: '2019-07', count: 220 },
-  ];
-
   it('init', () => {
+    const transformData = [
+      { time: '2019-03', count: 800 },
+      { time: '2019-04', count: 600 },
+      { time: '2019-05', count: 400 },
+      { time: '2019-06', count: 380 },
+      { time: '2019-07', count: 220 },
+    ];
     const columnLine = new StackedColumnLine(canvasDiv, {
       title: {
         visible: true,
@@ -45,7 +44,7 @@ describe('columnLine', () => {
       data: [uvBillData, transformData],
       xField: 'time',
       yField: ['value', 'count'],
-      stackField: 'type',
+      columnStackField: 'type',
       tooltip: {
         visible: true,
       },
@@ -72,6 +71,48 @@ describe('columnLine', () => {
         lineStyle: {
           lineDash: [2, 5],
         },
+      },
+    });
+    columnLine.render();
+  });
+
+  it('line series', () => {
+    const transformData = [
+      { time: '2019-03', count: 800, name: 'a' },
+      { time: '2019-04', count: 600, name: 'a' },
+      { time: '2019-05', count: 400, name: 'a' },
+      { time: '2019-06', count: 380, name: 'a' },
+      { time: '2019-07', count: 220, name: 'a' },
+      { time: '2019-03', count: 500, name: 'b' },
+      { time: '2019-04', count: 300, name: 'b' },
+      { time: '2019-05', count: 200, name: 'b' },
+      { time: '2019-06', count: 180, name: 'b' },
+      { time: '2019-07', count: 320, name: 'b' },
+      { time: '2019-03', count: 200, name: 'c' },
+      { time: '2019-04', count: 400, name: 'c' },
+      { time: '2019-05', count: 300, name: 'c' },
+      { time: '2019-06', count: 480, name: 'c' },
+      { time: '2019-07', count: 120, name: 'c' },
+    ];
+
+    const columnLine = new StackedColumnLine(canvasDiv, {
+      title: {
+        visible: true,
+        text: '分组柱折线混合图',
+        alignTo: 'left',
+      },
+      description: {
+        visible: true,
+        text: '分组柱折线混合图表',
+        alignTo: 'left',
+      },
+      data: [uvBillData, transformData],
+      xField: 'time',
+      yField: ['value', 'count'],
+      columnStackField: 'type',
+      lineSeriesField: 'name',
+      tooltip: {
+        visible: true,
       },
     });
     columnLine.render();

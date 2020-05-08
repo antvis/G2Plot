@@ -66,7 +66,7 @@ describe('Density plot', () => {
     { value: 23.4 },
   ];
 
-  it.only('binWidth', () => {
+  it('binWidth', () => {
     const density = new Density(canvasDiv, {
       width: 300,
       height: 300,

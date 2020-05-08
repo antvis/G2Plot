@@ -9,7 +9,7 @@ describe('progress', () => {
   canvasDiv.id = 'canvas';
   document.body.appendChild(canvasDiv);
 
-  it('initialize & destory', () => {
+  it.only('initialize & destory', () => {
     const progress = new RingProgress(canvasDiv, {
       width: 200,
       height: 100,

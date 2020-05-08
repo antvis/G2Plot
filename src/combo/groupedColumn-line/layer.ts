@@ -1,12 +1,12 @@
-import { Legend } from '@antv/component';
 import { registerPlotType } from '../../base/global';
-import { clone, deepMix, each, contains, pull } from '@antv/util';
+import { deepMix, each, contains } from '@antv/util';
 import { LayerConfig } from '../../base/layer';
 import ColumnLineLayer, { ColumnLineViewConfig } from '../column-line/layer';
 import GroupedColumnLayer from '../../plots/grouped-column/layer';
+import { getGlobalTheme } from '../../theme';
 
 export interface GroupedColumnLineViewConfig extends ColumnLineViewConfig {
-  groupField?: string;
+  columnGroupField?: string;
 }
 
 interface GroupedColumnLineLayerConfig extends GroupedColumnLineViewConfig, LayerConfig {}
@@ -74,20 +74,38 @@ export default class GroupedColumnLineLayer<
   }
 
   public type: string = 'groupedColumnLine';
-  protected requiredField: string[] = ['xField', 'yField', 'groupField'];
+  protected requiredField: string[] = ['xField', 'yField', 'columnGroupField'];
 
   public beforeInit() {
+    const { options, initialOptions } = this;
     const groupedValue = this.getValueByGroupField();
+    if (options.lineSeriesField) {
+      options.yAxis.rightConfig.colorMapping = false;
+      if (!initialOptions.lineConfig?.lineSize) {
+        options.lineConfig.lineSize = 3;
+      }
+      if (!initialOptions.lineConfig?.color) {
+        const { colors, colors_20 } = getGlobalTheme();
+        const seriesValue = this.getValueBySeriesField();
+        const colorSeries = seriesValue.length > colors.length ? colors_20 : colors;
+        const colorPlates = [];
+        const startIndex = groupedValue.length;
+        each(seriesValue, (v, index) => {
+          colorPlates.push(colorSeries[index + startIndex]);
+        });
+        options.lineConfig.color = colorPlates;
+      }
+    }
     const { color } = this.options.columnConfig;
     this.options.columnConfig.color = color.slice(0, groupedValue.length);
   }
 
   protected drawColumn() {
-    const { data, xField, yField, groupField, xAxis, tooltip, columnConfig, events } = this.options;
+    const { data, xField, yField, columnGroupField, xAxis, tooltip, columnConfig, events } = this.options;
     const column = this.createLayer(GroupedColumnLayer, data[0], {
       xField,
       yField: yField[0],
-      groupField,
+      groupField: columnGroupField,
       xAxis,
       yAxis: deepMix({}, this.yAxis(0), {
         grid: {
@@ -112,134 +130,43 @@ export default class GroupedColumnLineLayer<
     column.render();
   }
 
-  protected tooltip(dom, ev) {
-    const unCheckedValue = this.getUnCheckedValue();
-    // 如果legend全部是unchecked的状态，tooltip不显示
-    if (unCheckedValue.length === this.colors[0].length + 1) {
-      dom.style.display = 'none';
-      return;
-    } else {
-      dom.style.display = 'block';
-    }
-    const { yField } = this.options;
-    const originItem = clone(ev.items[0]);
-    const dataItemsA = this.getDataByXField(ev.title, 1)[0];
-    if (!contains(unCheckedValue, yField[1]) && dataItemsA) {
-      ev.items.push({
-        ...originItem,
-        mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
-        data: dataItemsA,
-        name: yField[1],
-        value: dataItemsA[yField[1]],
-        color: this.colors[1],
-      });
-    }
-    const uniqKeys = [];
-    const uniqItems = [];
-    each(ev.items, (item) => {
-      const { name } = item;
-      if (!contains(uniqKeys, name) && !contains(unCheckedValue, name)) {
-        uniqKeys.push(name);
-        uniqItems.push(item);
-      }
-    });
-    ev.items = uniqItems;
-  }
-
   protected customLegend() {
     const { yField, legend } = this.options;
+    const { colors } = this;
     const container = this.container.addGroup();
     const legendCfg = legend;
-    const groupeValues = this.getValueByGroupField();
-    const legendItems = [[], []];
-    each(groupeValues, (v, index) => {
-      legendItems[0].push({
-        name: v,
-        unchecked: false,
-        marker: {
-          symbol: 'square',
-          style: {
-            r: 5,
-            fill: this.colors[0][index],
-          },
-        },
-      });
-    });
-    legendItems[1].push({
-      name: yField[1],
-      unchecked: false,
-      marker: {
-        symbol: 'circle',
-        style: {
-          r: 5,
-          fill: this.colors[1],
-        },
-      },
-    });
+    const symbols = ['square', 'circle'];
     each(this.geomLayers, (geom, index) => {
-      const items = legendItems[index];
-      const legend = new Legend.Category({
-        id: this.type,
-        container,
-        x: 0,
-        y: 0,
-        items: items,
-        updateAutoRender: true,
-        itemBackground: null,
-        itemName: legendCfg.text,
-      });
-      legend.init();
-      legend.render();
+      let legend;
+      if (geom.options.seriesField) {
+        const values = this.getValueBySeriesField();
+        legend = this.createNormalLegend(values, symbols[index], colors[index], legendCfg, container);
+      } else if (geom.options.groupField) {
+        const values = this.getValueByGroupField();
+        legend = this.createNormalLegend(values, symbols[index], colors[index], legendCfg, container);
+      } else {
+        legend = this.createSingleLegend(yField[index], symbols[index], colors[index], legendCfg, container);
+      }
       this.legends.push(legend);
     });
-    this.seperateLegendFilter();
-  }
-
-  protected seperateLegendFilter() {
-    const { groupField } = this.options;
-    /* 分组柱状图legend筛选 */
-    const filteredValue = [];
-    const legend_group_a = this.legends[0].get('group');
-    let layerHide = false;
-    legend_group_a.on('click', (ev) => {
-      const view = this.geomLayers[0].view;
-      const item = ev.target.get('delegateObject').item;
-      if (item.unchecked) {
-        if (layerHide === true) {
-          this.showLayer(0);
-          layerHide = false;
-        }
-        pull(filteredValue, item.name);
-        view.filter(item.value, (f) => {
-          return !contains(filteredValue, f);
-        });
-        view.render();
-        this.legends[0].setItemState(item, 'unchecked', false);
+    // 使用legend做图层筛选
+    each(this.geomLayers, (geom, index) => {
+      if (geom.options.seriesField) {
+        this.multipleLegendFilter(index, geom.options.seriesField);
+      } else if (geom.options.groupField) {
+        this.multipleLegendFilter(index, geom.options.groupField);
       } else {
-        this.legends[0].setItemState(item, 'unchecked', true);
-        filteredValue.push(item.name);
-        if (filteredValue.length === this.legends[0].get('items').length) {
-          // 如果分组分类全部被uncheck了，直接隐藏图层，这样仍然可以trigger tooltip
-          this.hideLayer(0);
-          layerHide = true;
-        } else {
-          view.filter(groupField, (f) => {
-            return !contains(filteredValue, f);
-          });
-          view.render();
-        }
+        this.legendFilter(index);
       }
-      this.canvas.draw();
     });
-    this.legendFilter(1);
   }
 
   protected getValueByGroupField() {
-    const { groupField, data } = this.options;
+    const { columnGroupField, data } = this.options;
     const columnData = data[0];
     const values = [];
     each(columnData, (d) => {
-      const v = d[groupField];
+      const v = d[columnGroupField];
       if (!contains(values, v)) {
         values.push(v);
       }
@@ -248,15 +175,15 @@ export default class GroupedColumnLineLayer<
   }
 
   protected getMockData(index: number) {
-    const { xField, yField, groupField } = this.options as any;
+    const { xField, yField, columnGroupField } = this.options as any;
     const mockA = {};
     mockA[xField] = 'null_1';
     mockA[yField[index]] = 0;
-    mockA[groupField] = 'null_a';
+    mockA[columnGroupField] = 'null_a';
     const mockB = {};
     mockB[xField] = 'null_1';
     mockB[yField[index]] = 1;
-    mockB[groupField] = 'null_a';
+    mockB[columnGroupField] = 'null_a';
     return [mockA, mockB];
   }
 }

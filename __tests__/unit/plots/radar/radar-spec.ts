@@ -191,7 +191,7 @@ describe('Radar plot', () => {
     });
     expect(angleAxisLineShapes[0].attr('stroke')).toBe('red');
     const angleAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
-      return el.get('name') === 'axis-tickline';
+      return el.get('name') === 'axis-tickLine';
     });
     expect(angleAxisTickLineShapes[0].attr('stroke')).toBe('red');
     expect(angleAxisTickLineShapes[0].attr('length')).toBe(5);
@@ -256,7 +256,7 @@ describe('Radar plot', () => {
     });
     expect(angleAxisLineShapes[0].attr('stroke')).toBe('red');
     const angleAxisTickLineShapes = view.backgroundGroup.findAll((el) => {
-      return el.get('name') === 'axis-tickline';
+      return el.get('name') === 'axis-tickLine';
     });
     expect(angleAxisTickLineShapes[0].attr('stroke')).toBe('red');
     expect(angleAxisTickLineShapes[0].attr('length')).toBe(5);

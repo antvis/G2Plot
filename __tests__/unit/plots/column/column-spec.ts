@@ -51,7 +51,7 @@ describe('Column plot', () => {
     },
   ];
 
-  it.only('初始化以及销毁', () => {
+  it('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: [40, 40, 40, 40],
       data,
@@ -250,7 +250,7 @@ describe('Column plot', () => {
     expect(labels[0].attr('text')).toInclude('abc');
     // style
     const line = axisGroup.find((item) => item.get('name') === 'axis-line');
-    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickLine');
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
     expect(labels[0].attr('fill')).toBe('red');
@@ -357,7 +357,7 @@ describe('Column plot', () => {
     expect(labels[0].attr('text')).toInclude('abc');
     // style
     const line = axisGroup.find((item) => item.get('name') === 'axis-line');
-    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickLine');
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
     expect(labels[0].attr('fill')).toBe('red');

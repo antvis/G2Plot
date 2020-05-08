@@ -36,7 +36,7 @@ describe('#883', () => {
     linePlot.destroy();
   });
 
-  it.only('pie padding when legend hide', () => {
+  it('pie padding when legend hide', () => {
     const pie = new Pie(canvasDiv, {
       data: [
         {

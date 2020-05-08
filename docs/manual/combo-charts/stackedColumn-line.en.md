@@ -1,45 +1,43 @@
 ---
-title: DualLine - 双折线混合图表
-order: 0
+title: StackedColumnLine - 堆叠柱+折线线混合图表
+order: 3
 ---
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RGnzR75vjlMAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*S7V_SbjUSwsAAAAAAAAAAABkARQnAQ" width="600">
 
 # 快速上手
 
 ```js
-import { DualLine } from '@antv/g2plot';
+import { StackedColumnLine } from '@antv/g2plot';
 
-const data1 = [
-  { year: '1991', value: 3 },
-  { year: '1992', value: 4 },
-  { year: '1993', value: 3.5 },
-  { year: '1994', value: 5 },
-  { year: '1995', value: 4.9 },
-  { year: '1996', value: 6 },
-  { year: '1997', value: 7 },
-  { year: '1998', value: 9 },
-  { year: '1999', value: 13 },
+const uvBillData = [
+  { time: '2019-03', value: 350, type: 'uv' },
+  { time: '2019-04', value: 900, type: 'uv' },
+  { time: '2019-05', value: 300, type: 'uv' },
+  { time: '2019-06', value: 450, type: 'uv' },
+  { time: '2019-07', value: 470, type: 'uv' },
+  { time: '2019-03', value: 220, type: 'bill' },
+  { time: '2019-04', value: 300, type: 'bill' },
+  { time: '2019-05', value: 250, type: 'bill' },
+  { time: '2019-06', value: 220, type: 'bill' },
+  { time: '2019-07', value: 362, type: 'bill' },
 ];
 
-const data2 = [
-  { year: '1991', count: 10 },
-  { year: '1992', count: 4 },
-  { year: '1993', count: 5 },
-  { year: '1994', count: 5 },
-  { year: '1995', count: 4.9 },
-  { year: '1996', count: 35 },
-  { year: '1997', count: 7 },
-  { year: '1998', count: 1 },
-  { year: '1999', count: 20 },
+const transformData = [
+  { time: '2019-03', count: 800 },
+  { time: '2019-04', count: 600 },
+  { time: '2019-05', count: 400 },
+  { time: '2019-06', count: 380 },
+  { time: '2019-07', count: 220 },
 ];
 
-const dualLine = new DualLine(document.getElementById('container'), {
-  data: [data1, data2],
-  xField: 'year',
+const columnLine = new StackedColumnLine(document.getElementById('container'), {
+  data: [uvBillData, transformData],
+  xField: 'time',
   yField: ['value', 'count'],
+  stackField: 'type',
 });
-dualLine.render();
+columnLine.render();
 
 ```
 
@@ -99,7 +97,8 @@ dualLine.render();
 
 默认配置： 无
 
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`，在双轴图中，需要指定两份数据源用以渲染双折线。
+数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+在双轴图中，需要指定两份数据源用以渲染双折线。第一份为柱形图数据，第二份为折线数据。
 
 
 ### meta
@@ -120,7 +119,7 @@ dualLine.render();
 ### xField 📌
 **必选**, *string*
 
-功能描述： 图形在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。双折线的x字段必需一致，否则图表将不进行渲染。
+功能描述： 图形在 x 方向（横向延伸）对应的数据字段名，一般对应一个连续字段。柱线双轴图的x字段必需一致，否则图表将不进行渲染。
 
 默认配置： 无
 
@@ -128,22 +127,96 @@ dualLine.render();
 ### yField 📌
 **必选**, *string[]*
 
-功能描述： 图形在 y 方向对应的数据字段名，一般对应一个离散字段，双轴图需要对两根折线的y字段进行分别指定。
+功能描述： 图形在 y 方向对应的数据字段名，一般对应分类字段。
+
+柱线双轴图需要对的y字段进行分别指定，顺序为柱线图y字段、折线图y字段。
+
+默认配置： 无
+
+### columnStackField 📌
+**必选**, *string*
+
+数据集中的分组字段名，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
+
+默认配置： 无
+
+
+### lineSeriesField
+**可选**, *string*
+
+功能描述： 多折线必选。 数据集中的分组字段名，一般对应一个分类字段。通过该字段的值，折线将会被分为多个组，通过颜色进行区分，视觉上呈现为多条折线。
+
+注意： 在本图表内配置多折线会导致可视化指标过多，使图表失去可读性，该配置不推荐用户使用。
 
 默认配置： 无
 
 
 ## 图形样式
 
-### lineConfigs
-**可选**, *string[]*
+### columnConfig
+**可选**, *object*
 
-双折线图支持对每个折线的细节进行单独的配置。
+配置柱线混合图的柱形样式。
+
 
 #### color
-**可选**, *string*
+**可选**, *string[] | Function*
 
-功能描述： 指定折线颜色
+功能描述： 指定柱子颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
+
+默认配置：采用 theme 中的色板。
+
+
+#### columnSize
+**可选**, *number*
+
+功能描述： 设置柱形宽度。对于一般场景来说，柱形宽度会根据数据自行计算，不需特别指定。
+
+默认配置： 无
+
+#### columnStyle
+**可选**, *object*
+
+功能描述： 设置柱子样式。columnStyle中的`fill`会覆盖 `color` 的配置。columnStyle可以直接指定，也可以通过callback的方式，根据数据为每一根柱子指定单独的样式。
+
+默认配置： 无
+
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| fill | string | 填充颜色 |
+| stroke | string | 描边颜色 |
+| lineWidth | number | 描边宽度 |
+| lineDash | number | 虚线描边 |
+| opacity | number | 整体透明度 |
+| fillOpacity | number | 填充透明度 |
+| strokeOpacity | number | 描边透明度 |
+
+#### label
+
+功能描述： 柱形的标签文本
+
+| 细分配置 | 类型 | 功能描述 |
+| --- | --- | --- |
+| visible | boolean | 是否显示 |
+| position | string | label的位置<br />- top 位于柱子顶部<br />- middle 位于柱子垂直中心<br />- bottom 位于柱子底部<br /> |
+| formatter | function | 对文本标签内容进行格式化 |
+| offsetX | number | 在 label 位置的基础上再往 x 方向的偏移量 |
+| offsetY | number | 在 label 位置的基础上再往 y 方向的偏移量 |
+| style | object | 配置文本标签样式。 |
+| adjustColor | boolean | 文本标签颜色是否自动适应图形颜色，position为middle时有效。 |
+| adjustPosition | boolean | 是否根据显示区域自动调整文本标签位置，position为middle时有效。如图形区域容纳不下label，则label位置自动调整至图形上方。 |
+
+
+### lineConfig
+**可选**, *object*
+
+配置柱线混合图的折线样式。
+
+#### color
+**可选**, *string | string[]*
+
+功能描述： 指定折线颜色。不配置lineSeriesField时显示为单折线，此时color传入一个颜色值即可，而配置lineSeriesField时显示为多条折线，color需要传入一个数组。
 
 默认配置：采用 theme 中的色板。
 
@@ -190,7 +263,7 @@ style: {
 
 #### label
 
-功能描述： 标签文本
+功能描述： 折线的标签文本
 
 | 细分配置 | 类型 | 功能描述 |
 | --- | --- | --- |
@@ -244,7 +317,7 @@ style: {
 ### yAxis
 **可选**, *object*
 
-双折线图的Y轴是双轴，分别位于图表区域的左右两端。双Y轴有一些顶层配置，同时，也开放分别对两个轴进行配置。
+双折线图的Y轴是双轴，分别位于图表区域的左右两端，其中左侧的Y轴对应柱形，右侧的Y轴对应折线。双Y轴有一些顶层配置，同时，也开放分别对两个轴进行配置。
 
 #### min
 **可选**, *number*

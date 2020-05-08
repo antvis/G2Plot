@@ -1,5 +1,4 @@
 import { Canvas } from '@antv/g-canvas';
-// import { each } from '@antv/util';
 import { createDiv } from '../../utils/dom';
 import TooltipIndicator, {
   TooltipIndicatorRawConfig,

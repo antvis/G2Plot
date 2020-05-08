@@ -34,7 +34,7 @@ describe('responsive line label', () => {
     linePlot.render();
   });
 
-  it.only('多折线标签布局', () => {
+  it('多折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 400,
       height: 400,

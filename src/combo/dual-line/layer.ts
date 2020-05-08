@@ -81,7 +81,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       return;
     }
     const { data, meta, xField, yField, xAxis, tooltip, lineConfigs, legend, events } = this.options;
-    this.colors = [lineConfigs[0].color, lineConfigs[1].color];
+    this.colors = [lineConfigs[0].color as string, lineConfigs[1].color as string];
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
     //draw first line
     const leftLine = this.createLayer(LineLayer, data[0], {

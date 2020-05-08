@@ -43,7 +43,7 @@ export interface ComboLegendConfig {
 }
 
 export interface LineConfig {
-  color?: string;
+  color?: string | string[];
   lineSize?: number;
   smooth?: boolean;
   connectNull?: boolean;

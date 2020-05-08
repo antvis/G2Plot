@@ -256,12 +256,12 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     const rightPadding = this.geomLayers[1].options.padding;
     // 获取legendHeight并加入上部padding
     let legendHeight = 0;
-    let legendA_BBox;
-    let legendB_BBox;
+    let legendABBox;
+    let legendBBBox;
     if (this.options.legend?.visible) {
-      legendA_BBox = this.legends[0].getLayoutBBox();
-      legendB_BBox = this.legends[1].getLayoutBBox();
-      legendHeight = legendA_BBox.height + LEGEND_MARGIN * 2;
+      legendABBox = this.legends[0].getLayoutBBox();
+      legendBBBox = this.legends[1].getLayoutBBox();
+      legendHeight = legendABBox.height + LEGEND_MARGIN * 2;
     }
 
     // 同步左右padding
@@ -281,7 +281,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
         y: viewRange.minY + LEGEND_MARGIN,
       });
       this.legends[1].setLocation({
-        x: viewRange.maxX - bleeding[1] - legendB_BBox.width,
+        x: viewRange.maxX - bleeding[1] - legendBBBox.width,
         y: viewRange.minY + LEGEND_MARGIN,
       });
     }

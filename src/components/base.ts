@@ -27,6 +27,10 @@ export default abstract class BaseComponent<T extends BaseComponentConfig = Base
     return this.group;
   }
 
+  public getConfig(): T {
+    return this.config;
+  }
+
   public getBBox(): BBox {
     return this.getGroup().getBBox();
   }

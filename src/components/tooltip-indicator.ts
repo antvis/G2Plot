@@ -1,50 +1,77 @@
 import { clamp, each, deepMix } from '@antv/util';
-import { GM, Wheel, GestureEvent } from '@antv/g-gesture';
 import BaseComponent, { BaseComponentConfig } from './base';
-import { IGroup, IShape } from '../dependents';
+import { GM, Wheel, GestureEvent, IElement, IGroup, IShape, GraphicEvent } from '../dependents';
 import { TextStyle, GraphicStyle } from '../interface/config';
 import { translate } from '../util/g-util';
+import { getEllipsisText } from '../util/text';
+import BBox from '../util/bbox';
 
-export interface IndicatorItem {
-  id: string;
-  name: string;
-  value: any;
-  color: string;
+export interface IndicatorItemItemValue {
+  /** 数值项名称，可选 */
+  name?: string;
+  /** 数值项数值 */
+  value: string | number;
+  /** 数值项名称和数值是否换行，默认否 */
+  wrapLine?: boolean;
 }
 
-export interface TooltipIndicatorConfig extends BaseComponentConfig {
+/** 指标卡每一项数据 */
+export interface IndicatorItem {
+  /** 标识符 */
+  id: string;
+  /** Marker 颜色 */
+  color: string;
+  /** 标题 */
+  title: string;
+  /** 数值项配置：指标卡一项可以拥有多项数值配置项 */
+  values: IndicatorItemItemValue[];
+}
+
+/** 指标卡组件配置项 */
+export interface TooltipIndicatorRawConfig {
   /** 位置信息 */
-  readonly x: number;
-  readonly y: number;
+  readonly x?: number;
+  readonly y?: number;
   readonly width?: number;
   readonly height?: number;
   /** 数据项 */
-  readonly items: IndicatorItem[];
-  /** 选中的数据项 */
-  readonly selectedItems?: string[];
-  /** 标题 */
+  readonly items?: IndicatorItem[];
+  /** 选中的数据项 ID */
+  readonly selectedItem?: string;
+  /** 指标卡标题 */
   readonly title?: {
-    text: string;
-    spacing?: number;
+    text?: string;
+    spacingY?: number;
     style?: TextStyle;
     activeStyle?: TextStyle;
+    inactiveStyle?: TextStyle;
     selectedStyle?: TextStyle;
   };
   /** marker 配置 */
   readonly line?: {
-    spacing?: number;
+    spacingX?: number;
     width?: number;
     style?: GraphicStyle;
     activeStyle?: GraphicStyle;
+    inactiveStyle?: GraphicStyle;
     selectedStyle?: GraphicStyle;
   };
-  /** 名称配置 */
-  itemName?: {
-    wrapLine?: boolean;
+  /** 指标卡每一项的标题配置 */
+  itemTitle?: {
     spacingX?: number;
     spacingY?: number;
     style?: TextStyle;
     activeStyle?: TextStyle;
+    inactiveStyle?: TextStyle;
+    selectedStyle?: TextStyle;
+  };
+  /** 数值项名称配置 */
+  itemName?: {
+    spacingX?: number;
+    spacingY?: number;
+    style?: TextStyle;
+    activeStyle?: TextStyle;
+    inactiveStyle?: TextStyle;
     selectedStyle?: TextStyle;
   };
   /** 数值配置 */
@@ -53,10 +80,11 @@ export interface TooltipIndicatorConfig extends BaseComponentConfig {
     spacingY?: number;
     style?: TextStyle;
     activeStyle?: TextStyle;
+    inactiveStyle?: TextStyle;
     selectedStyle?: TextStyle;
   };
   itemBackground?: {
-    style: {};
+    style?: GraphicStyle;
   };
   /** 每一项间距 */
   itemSpacing?: number;
@@ -64,7 +92,11 @@ export interface TooltipIndicatorConfig extends BaseComponentConfig {
   minItemWidth?: number;
   /** 每一项最大宽度 */
   maxItemWidth?: number;
+  /** G2Plot 主题配置 */
+  theme?: any;
 }
+
+interface TooltipIndicatorConfig extends TooltipIndicatorRawConfig, BaseComponentConfig {}
 
 export enum ELEMENT_NAMES {
   TOOLTIP_INDICATOR_TITLE = 'tooltip_indicator-title',
@@ -72,10 +104,36 @@ export enum ELEMENT_NAMES {
   TOOLTIP_INDICATOR_ITEM_GROUP = 'tooltip_indicator-item-group',
   TOOLTIP_INDICATOR_ITEM_BACKGROUND = 'tooltip_indicator-item-background',
   TOOLTIP_INDICATOR_ITEM_LINE = 'tooltip_indicator-item-line',
+  TOOLTIP_INDICATOR_ITEM_TITLE = 'tooltip_indicator-item-title',
+  TOOLTIP_INDICATOR_ITEM_BODY = 'tooltip_indicator-item-body',
+  TOOLTIP_INDICATOR_ITEM_VALUE_GROUP = 'tooltip_indicator-item-value-group',
   TOOLTIP_INDICATOR_ITEM_NAME = 'tooltip_indicator-item-name',
   TOOLTIP_INDICATOR_ITEM_VALUE = 'tooltip_indicator-item-value',
 }
 
+export enum EVENTS {
+  ON_SELECT_ITEM = 'onSelectItem',
+}
+
+enum PADDING {
+  LARGE = 12,
+  NORMAL = 8,
+  SMALL = 4,
+}
+
+/** 挂在元素上的数据 */
+interface IndicatorItemDelegateObject {
+  /** 原始数据 */
+  item: IndicatorItem;
+  /** item index */
+  index: number;
+  /** 如果为某一项数值项，则含有 valueIndex */
+  valueIndex?: number;
+}
+
+const MAX_ITEM_TITLE_WIDTH = 160;
+
+/** 指标卡图例组件 */
 export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConfig> {
   private curX = 0;
   private curY = 0;
@@ -84,59 +142,61 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
   private bodyGroup: IGroup;
   private gm: GM;
   private wheel: Wheel;
-  private selectedItems: string[] = [];
+  private selectedItemId: string;
 
   public destroy() {
     this.offEvents();
     super.destroy();
   }
 
+  /** 选中某一项 */
+  public selectItem(id: string): void {
+    this.doSelectItem(id);
+  }
+
+  /** 重置选中状态 */
+  public resetSelect(): void {
+    this.doSelectItem(this.selectedItemId);
+  }
+
   protected init(config: TooltipIndicatorConfig): void {
-    this.config = deepMix(
-      {},
-      {
-        items: [],
-        x: 0,
-        y: 0,
-        title: {
-          spacing: 4,
-          style: {
-            fontSize: 12,
-            fill: '#000',
-          },
-        },
-        line: {
-          spacing: 8,
-          width: 2,
-          style: {},
-        },
-        itemName: {
-          wrapLine: true,
-          spacingX: 0,
-          spacingY: 4,
-          style: {
-            fill: '#ccc',
-            fontSize: 12,
-          },
-        },
-        itemValue: {
-          style: {
-            fill: '#000',
-            fontWeight: 'bold',
-            fontSize: 14,
-          },
-        },
-        itemBackground: {
-          style: {
-            fill: '#000',
-            fillOpacity: 0,
-          },
-        },
-        itemSpacing: 24,
+    const { theme = {} } = config;
+    const defaultCfg: TooltipIndicatorRawConfig = {
+      x: 0,
+      y: 0,
+      title: {
+        text: '',
+        spacingY: PADDING.NORMAL,
+        style: {},
       },
-      config
-    );
-    this.selectedItems = this.config.selectedItems || [];
+      line: {
+        spacingX: PADDING.SMALL,
+        width: 2,
+        style: {},
+      },
+      itemTitle: {
+        spacingX: 0,
+        spacingY: PADDING.SMALL,
+        style: {},
+      },
+      itemName: {
+        spacingX: PADDING.NORMAL,
+        spacingY: PADDING.SMALL,
+        style: {},
+      },
+      itemValue: {
+        style: {},
+      },
+      itemBackground: {
+        style: {
+          opacity: 0,
+          fill: '#000',
+        },
+      },
+      itemSpacing: PADDING.LARGE,
+    };
+    this.config = deepMix({}, theme?.components?.tooltipIndicator, defaultCfg, config);
+    this.selectedItemId = this.config.selectedItem;
   }
   protected renderInner(group: IGroup): void {
     const itemGroups: IGroup[] = [];
@@ -144,8 +204,8 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     this.bodyGroup = group.addGroup({
       name: ELEMENT_NAMES.TOOLTIP_INDICATOR_BODY,
     });
-    each(this.config.items, (item: IndicatorItem) => {
-      itemGroups.push(this.renderItem(this.bodyGroup, item));
+    each(this.config.items, (item: IndicatorItem, index: number) => {
+      itemGroups.push(this.renderItem(this.bodyGroup, item, index));
     });
     this.layoutItems(group);
     this.bindEvents(group);
@@ -167,15 +227,19 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
       });
       const bbox = shape.getBBox();
       this.curY += bbox.height;
-      this.curY += title.spacing || 0;
+      this.curY += title.spacingY || 0;
       return shape;
     }
   }
 
-  private renderItem(group: IGroup, item: IndicatorItem): IGroup {
+  private renderItem(group: IGroup, item: IndicatorItem, index: number): IGroup {
     const { itemBackground } = this.config;
     const itemGroup = group.addGroup({
       name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP,
+      delegateObject: {
+        item,
+        index,
+      },
     });
     const oldX = this.curX;
     const oldY = this.curY;
@@ -191,24 +255,22 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
       },
     });
     const line = this.renderLine(itemGroup, item);
-    const nameShape = this.renderItemName(itemGroup, item);
-    const valueShape = this.renderItemValue(itemGroup, item);
+    this.renderItemTitle(itemGroup, item);
+    this.renderItemValues(itemGroup, item);
     const itemGroupBBox = itemGroup.getBBox();
     // update line height
     line.attr({
-      y2: line.attr('y1') + itemGroupBBox.height - line.attr('lineWidth'),
+      y2: line.attr('y1') + itemGroupBBox.height,
     });
 
     // spacing
-    if (this.config.itemName.wrapLine) {
-      this.curX += Math.max(nameShape.getBBox().width, valueShape.getBBox().width);
-    }
+    this.curX = oldX + itemGroupBBox.width;
     this.curX += this.config.itemSpacing || 0;
 
     // update background
     background.attr({
-      width: this.curX - oldX,
-      height: this.curY - oldY,
+      width: this.curX - oldX - background.attr('lineWidth') * 2,
+      height: this.curY - oldY - background.attr('lineWidth') * 2,
     });
 
     // reset Y
@@ -236,39 +298,87 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     });
     const bbox = shape.getBBox();
     this.curX += bbox.width;
-    this.curX += line.spacing || 0;
+    this.curX += line.spacingX || 0;
 
     return shape;
   }
 
-  private renderItemName(group: IGroup, item: IndicatorItem): IShape {
-    const { itemName } = this.config;
+  private renderItemTitle(group: IGroup, item: IndicatorItem): IShape {
+    const { itemTitle } = this.config;
+    const text: string = getEllipsisText(item.title, MAX_ITEM_TITLE_WIDTH, itemTitle.style || {});
     const shape = group.addShape({
-      name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME,
+      name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_TITLE,
       type: 'text',
       attrs: {
         x: this.curX,
         y: this.curY,
         textAlign: 'left',
         textBaseline: 'top',
-        text: item.name,
-        ...(itemName.style || {}),
+        text,
+        ...(itemTitle.style || {}),
       },
     });
     const bbox = shape.getBBox();
-    if (itemName.wrapLine) {
-      this.curY += bbox.height;
-      this.curY += itemName.spacingY || 0;
-    } else {
-      this.curX += bbox.width;
-      this.curX += itemName.spacingX || 0;
-    }
+    this.curY += bbox.height;
+    this.curY += itemTitle.spacingY || 0;
 
     return shape;
   }
 
-  private renderItemValue(group: IGroup, item: IndicatorItem): IShape {
-    const { itemValue } = this.config;
+  private renderItemValues(group: IGroup, item: IndicatorItem): IGroup {
+    const itemBodyGroup = group.addGroup({
+      name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_BODY,
+    });
+    const oldX = this.curX;
+    each(item.values, (value: IndicatorItemItemValue, valueIndex: number) => {
+      const valueGroup = itemBodyGroup.addGroup({
+        name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE_GROUP,
+        delegateObject: {
+          item,
+          valueIndex,
+        },
+      });
+      // reset x
+      this.curX = oldX;
+      this.renderItemValueName(valueGroup, value);
+      this.renderItemValueValue(valueGroup, value);
+    });
+
+    this.layoutItemValues(itemBodyGroup);
+
+    return itemBodyGroup;
+  }
+
+  private renderItemValueName(group: IGroup, value: IndicatorItemItemValue): IShape | undefined {
+    const { itemName } = this.config;
+    if (value.name) {
+      const shape = group.addShape({
+        name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME,
+        type: 'text',
+        attrs: {
+          x: this.curX,
+          y: this.curY,
+          textAlign: 'left',
+          textBaseline: 'top',
+          text: value.name,
+          ...(itemName.style || {}),
+        },
+      });
+      const bbox = shape.getBBox();
+      if (value.wrapLine) {
+        this.curY += bbox.height;
+        this.curY += itemName.spacingY || 0;
+      } else {
+        this.curX += bbox.width;
+        this.curX += itemName.spacingX || 0;
+      }
+
+      return shape;
+    }
+  }
+
+  private renderItemValueValue(group: IGroup, value: IndicatorItemItemValue): IShape {
+    const { itemName, itemValue } = this.config;
     const shape = group.addShape({
       name: ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE,
       type: 'text',
@@ -277,19 +387,18 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
         y: this.curY,
         textAlign: 'left',
         textBaseline: 'top',
-        text: item.value,
+        text: value.value,
         ...(itemValue.style || {}),
       },
     });
     const bbox = shape.getBBox();
-
     this.curY += bbox.height;
+    this.curY += itemName.spacingY || 0;
 
     return shape;
   }
 
   private layoutItems(group: IGroup): void {
-    const { x, width } = this.config;
     const bodyGroup = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_BODY)[0];
     const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
     if (!bodyGroup || itemGroups.length === 0) {
@@ -297,13 +406,35 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     }
     const bodyGroupBBox = bodyGroup.getBBox();
     this.scrollWidth = bodyGroupBBox.width;
-    if (bodyGroupBBox.width < width) {
-      const avgWidth = width / itemGroups.length;
-      each(itemGroups, (itemGroup: IGroup, index: number) => {
-        const bbox = itemGroup.getBBox();
-        translate(itemGroup, x + avgWidth * index - bbox.x, 0);
-      });
-    }
+  }
+
+  private layoutItemValues(group: IGroup): void {
+    const valueGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE_GROUP);
+    const valueGroupBBoxes = valueGroups.map((item) => BBox.fromBBoxObject(item.getBBox()));
+    const valueShapes = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
+    const valueShapeBBoxes = valueShapes.map((shape) => BBox.fromBBoxObject(shape.getBBox()));
+    const maxX = Math.max(...valueShapeBBoxes.map((bbox) => bbox.maxX));
+
+    each(valueGroups, (valueGroup: IGroup, index: number) => {
+      const bbox = valueGroupBBoxes[index];
+      const nameShape = valueGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME)[0];
+      const valueShape = valueGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE)[0];
+      if (nameShape && valueShape) {
+        const nameShapeBBox = BBox.fromBBoxObject(nameShape.getBBox());
+        const valueShapeBBox = BBox.fromBBoxObject(valueShape.getBBox());
+        // horizontal align: name & value
+        if (nameShapeBBox.height < bbox.height) {
+          nameShape.attr('y', nameShape.attr('y') + (bbox.height - nameShapeBBox.height) / 2);
+        }
+        if (valueShapeBBox.height < bbox.height) {
+          valueShape.attr('y', valueShape.attr('y') + (bbox.height - valueShapeBBox.height) / 2);
+        }
+        // vertical align values
+        if (valueShapeBBox.maxX < maxX) {
+          valueShape.attr('x', valueShape.attr('x') + maxX - valueShapeBBox.maxX);
+        }
+      }
+    });
   }
 
   private applyClip(group: IGroup) {
@@ -323,10 +454,65 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     }
   }
 
+  private doSelectItem(id: string) {
+    const group = this.getGroup();
+    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
+    if (id !== this.selectedItemId) {
+      each(itemGroups, (itemGroup: IGroup) => {
+        const curItemData = itemGroup.get('delegateObject') as IndicatorItemDelegateObject;
+        if (curItemData) {
+          if (curItemData.item.id === id) {
+            // 选中
+            this.applyItemStyle(itemGroup, 'selected');
+          } else {
+            this.applyItemStyle(itemGroup, 'inactive');
+          }
+        }
+      });
+      this.selectedItemId = id;
+    } else {
+      // 取消选中
+      each(itemGroups, (itemGroup: IGroup) => {
+        this.applyItemStyle(itemGroup);
+      });
+      this.selectedItemId = undefined;
+    }
+    this.emit(EVENTS.ON_SELECT_ITEM, this.selectedItemId);
+  }
+
+  private applyItemStyle(itemGroup: IGroup, state?: 'selected' | 'active' | 'inactive') {
+    const { line, itemTitle, itemName, itemValue } = this.config;
+    const lineShape = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_LINE)[0];
+    const titleShape = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_TITLE)[0];
+    const itemNameShapes = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_NAME);
+    const itemValueShapes = itemGroup.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_VALUE);
+    const styleName = state && `${state}Style`;
+
+    if (lineShape) {
+      lineShape.attr(line.style);
+      lineShape.attr(line[styleName] || {});
+    }
+    if (titleShape) {
+      titleShape.attr(itemTitle.style);
+      titleShape.attr(itemTitle[styleName] || {});
+    }
+    each(itemNameShapes, (itemNameShape) => {
+      itemNameShape.attr(itemName.style);
+      itemNameShape.attr(itemName[styleName] || {});
+    });
+    each(itemValueShapes, (itemValueShape) => {
+      itemValueShape.attr(itemValue.style);
+      itemValueShape.attr(itemValue[styleName] || {});
+    });
+  }
+
   private bindEvents(group: IGroup) {
     this.offEvents();
     const bodyGroup = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_BODY)[0];
     bodyGroup.on('mousemove', this.onBodyGroupMousemove);
+    this.addDisposable(() => {
+      bodyGroup.off('mousemove', this.onBodyGroupMousemove);
+    });
     this.gm = new GM(bodyGroup);
     this.wheel = new Wheel(bodyGroup);
     this.wheel.on('wheel', this.onWheel);
@@ -341,8 +527,15 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     }
   }
 
-  private onBodyGroupMousemove = () => {
-    // TODO:
+  private onBodyGroupMousemove = (evt: GraphicEvent) => {
+    const itemGroup = findTargetAncestor(
+      evt.target as IElement,
+      (target: IElement) => target.get('name') === ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP
+    );
+    if (itemGroup) {
+      const itemData = itemGroup.get('delegateObject') as IndicatorItemDelegateObject;
+      this.doSelectItem(itemData.item.id);
+    }
   };
 
   private onWheel = (evt: GestureEvent) => {
@@ -354,4 +547,14 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
       translate(this.bodyGroup, -deltaX, 0);
     }
   };
+}
+
+function findTargetAncestor(element: IElement, predicate: (target: IElement) => boolean): IElement | undefined {
+  let cur = element;
+  while (cur) {
+    if (predicate(cur)) {
+      return cur;
+    }
+    cur = cur.getParent();
+  }
 }

@@ -1,7 +1,10 @@
 // G
-export { IElement, ICanvas, IGroup, IShape, BBox } from '@antv/g-base';
+export { IElement, ICanvas, IGroup, IShape, BBox, Event as GraphicEvent } from '@antv/g-base';
 export { Canvas } from '@antv/g-canvas';
 export { Canvas as SVG } from '@antv/g-svg';
+
+// G-Gesture
+export { GM, Wheel, GestureEvent } from '@antv/g-gesture';
 
 // G2
 export {

@@ -9,7 +9,7 @@ describe('progress', () => {
   canvasDiv.id = 'canvas';
   document.body.appendChild(canvasDiv);
 
-  it.only('initialize & destory', () => {
+  it('initialize & destory', () => {
     const progress = new Progress(canvasDiv, {
       width: 200,
       height: 100,

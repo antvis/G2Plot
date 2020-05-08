@@ -278,7 +278,7 @@ describe('Line plot', () => {
   canvasDiv.style.display = 'block';
   document.body.appendChild(canvasDiv);
 
-  it.only('初始化及销毁图表', () => {
+  it('初始化及销毁图表', () => {
     const linePlot = new Line(canvasDiv, {
       width: 400,
       height: 400,

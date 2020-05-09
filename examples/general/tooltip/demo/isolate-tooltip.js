@@ -47,9 +47,9 @@ fetch('../data/emissions.json')
       },
       tooltip: {
         follow: false,
-        customContent: {
+        custom: {
           container: tooltipContainer,
-          callback: (containerDom, cfg) => {
+          onChange: (containerDom, cfg) => {
             containerDom.innerHTML = '';
             const { items } = cfg;
             items.forEach((item) => {

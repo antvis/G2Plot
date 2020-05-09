@@ -59,7 +59,7 @@
     }
   },
   "dependencies": {
-    "@antv/component": "~0.5.0",
+    "@antv/component": "~0.5.6",
     "@antv/coord": "~0.2.4",
     "@antv/dom-util": "~2.0.2",
     "@antv/event-emitter": "~0.1.2",

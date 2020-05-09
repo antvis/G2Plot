@@ -118,8 +118,8 @@ export default class GroupedColumnLineLayer<
       },
       tooltip: deepMix({}, tooltip, {
         showMarkers: false,
-        customContent: {
-          callback: (containerDom, ev) => {
+        custom: {
+          onChange: (containerDom, ev) => {
             this.tooltip(containerDom, ev);
           },
         },

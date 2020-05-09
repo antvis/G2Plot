@@ -212,10 +212,11 @@ export interface Tooltip {
     'g2-tooltip-marker'?: any;
     'g2-tooltip-value'?: any;
   };
+  follow?: boolean;
   custom?: {
     container?: string | HTMLElement;
-    follow?: boolean;
-    onChange: (tooltipDom: HTMLElement, cfg: CustomTooltipConfig) => void;
+    customContent?: (title: string, data: any[]) => string | void;
+    onChange?: (tooltipDom: HTMLElement, cfg: CustomTooltipConfig) => void;
   };
 }
 

@@ -24,8 +24,8 @@ fetch('../data/emissions.json')
         },
       },
       tooltip: {
-        customContent: {
-          callback: (containerDom, cfg) => {
+        custom: {
+          onChange: (containerDom, cfg) => {
             const { items } = cfg;
             items.sort((a, b) => {
               return b.data.value - a.data.value;

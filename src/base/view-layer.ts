@@ -288,7 +288,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
     }
-    if (options.tooltip?.customContent?.callback && options.padding !== 'auto') {
+    if (options.tooltip?.custom?.onChange && options.padding !== 'auto') {
       this.customTooltip();
     }
   }
@@ -433,7 +433,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   protected customTooltip() {
-    const customContentCfg = this.options.tooltip.customContent;
+    const customContentCfg = this.options.tooltip.custom;
     let container;
     if (customContentCfg.container) {
       container = isString(customContentCfg.container)
@@ -448,7 +448,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.view.hideTooltip();
     this.view.on('tooltip:change', (ev: CustomTooltipConfig) => {
       if (container) {
-        customContentCfg.callback(container, ev);
+        customContentCfg.onChange(container, ev);
       }
     });
   }

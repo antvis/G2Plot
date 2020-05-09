@@ -134,7 +134,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     const coordConfig: any = {
       type: 'theta',
       cfg: {
-        radius: props.radius * 0.8,
+        radius: props.radius,
         // @ts-ignore 业务定制,不开放配置
         innerRadius: props.innerRadius || 0,
       },

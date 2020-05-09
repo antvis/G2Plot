@@ -1,3 +1,8 @@
+## <small>1.1.2 (2020-05-09)
+- 🌟feat: combo series line ([04aa6c7](https://github.com/antvis/G2Plot/commit/04aa6c7))
+- 🌟feat: update customize tooltip configration ([3b5a513](https://github.com/antvis/G2Plot/commit/3b5a513))
+- 🐞fix: pie default radius ([9854cda](https://github.com/antvis/G2Plot/commit/9854cda))
+
 ## <small>1.1.1 (2020-05-06)
 - 🐞fix: chart name typo ([7b2a0b](https://github.com/antvis/G2Plot/commit/7b2a0b0))
 - 🐞fix: dual line render error without legend config ([4675421](https://github.com/antvis/G2Plot/commit/4675421))

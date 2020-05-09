@@ -161,7 +161,8 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       each(this.legends, (legend, index) => {
         const item = legend.get('items')[0];
         if (item.unchecked) {
-          ev.items.splice(index, 1);
+          const spliceIndex = index === 0 ? 1 : 0;
+          ev.items.splice(spliceIndex, 1);
         }
       });
     }

@@ -44,7 +44,7 @@
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/combo/columnLine-spec.ts",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
     "ci": "run-s lint build coverage",
     "compare-live": "node scripts/compare.js",
@@ -59,7 +59,7 @@
     }
   },
   "dependencies": {
-    "@antv/component": "0.5.6",
+    "@antv/component": "~0.5.6",
     "@antv/coord": "~0.2.4",
     "@antv/dom-util": "~2.0.2",
     "@antv/event-emitter": "~0.1.2",

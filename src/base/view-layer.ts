@@ -424,8 +424,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
     const tooltipOptions = get(this.options, 'tooltip');
-    if (tooltipOptions.customContent && tooltipOptions.customContent.container) {
-      tooltipOptions.container = tooltipOptions.customContent.container;
+    if (tooltipOptions.custom?.container) {
+      tooltipOptions.container = tooltipOptions.custom.container;
+    }
+    if (tooltipOptions.custom?.customContent) {
+      tooltipOptions.customContent = tooltipOptions.custom.customContent;
     }
     this.setConfig('tooltip', deepMix({}, tooltipOptions));
 

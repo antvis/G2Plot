@@ -160,6 +160,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   }
 
   protected geometryTooltip() {
+    console.log(this.options.data);
     this.pie.tooltip = {};
     const tooltipOptions: any = this.options.tooltip;
     if (tooltipOptions.fields) {

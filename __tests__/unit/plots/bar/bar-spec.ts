@@ -50,7 +50,7 @@ describe('Bar plot', () => {
     },
   ];
 
-  it.only('初始化以及销毁', () => {
+  it('初始化以及销毁', () => {
     const barPlot = new Bar(canvasDiv, {
       width: 600,
       height: 600,

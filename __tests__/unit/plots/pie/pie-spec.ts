@@ -67,7 +67,7 @@ describe('Pie plot', () => {
     const plot = piePlot.getLayer().view;
     const coord = plot.getCoordinate();
     // @ts-ignore
-    expect(coord.getRadius() * 2).toBe((coord.getWidth() * 0.8) / 2);
+    expect(coord.getRadius() * 2).toBe(coord.getWidth() / 2);
     piePlot.destroy();
   });
 

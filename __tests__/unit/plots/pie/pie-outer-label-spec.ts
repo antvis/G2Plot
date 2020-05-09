@@ -51,7 +51,7 @@ describe('pie outer label', () => {
     // @ts-ignore
     const radius = pieElement.coordinate.getRadius();
     expect(center).toEqual({ x: 250, y: 300 });
-    expect(radius).toBe((500 * 0.8 * Radius) / 2);
+    expect(radius).toBe((500 * Radius) / 2);
     // @ts-ignore
     const labelShapes: IShape[] = pieElement.labelsContainer.getChildren().map((g) => g.getChildren()[0]);
     expect(some(labelShapes, (l) => !l.get('visible'))).toBe(false);
@@ -108,7 +108,7 @@ describe('pie outer label', () => {
     // @ts-ignore
     const radius = pieElement.coordinate.getRadius();
     expect(center).toEqual({ x: 250, y: 300 });
-    expect(radius).toBe((500 * 0.8 * Radius) / 2);
+    expect(radius).toBe((500 * Radius) / 2);
     const labelShapes = pieElement.labelsContainer.getChildren();
     // 算法增强后 所有label可见
     expect(every(labelShapes, (l) => l.get('visible'))).toBe(true);

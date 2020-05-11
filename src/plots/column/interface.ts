@@ -25,7 +25,7 @@ export interface IColumnAutoLabel extends Label {
 
 export type ColumnInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
-  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
+  | { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig };
 
 export interface ColumnViewConfig extends ViewConfig {
   colorField?: string;

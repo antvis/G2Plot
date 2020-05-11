@@ -35,7 +35,7 @@ const GEOM_MAP = {
 
 type LineInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
-  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
+  | { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig };
 
 export type PointShape = string | { fields?: []; callback: () => string };
 

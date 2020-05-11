@@ -23,7 +23,7 @@ export interface IBarAutoLabel extends Label {
   lightStyle?: TextStyle;
 }
 
-export type BarInteraction = { type: 'scrollBar'; cfg: IScrollbarInteractionConfig } | IInteractions;
+export type BarInteraction = { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig } | IInteractions;
 
 export interface BarViewConfig extends ViewConfig {
   colorField?: string;

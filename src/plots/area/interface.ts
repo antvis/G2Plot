@@ -27,7 +27,7 @@ export type IAreaLabel = IAreaPointLabel | IAreaPointAutoLabel | Label;
 
 export type AreaInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
-  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
+  | { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig };
 
 export interface AreaViewConfig extends ViewConfig {
   areaStyle?: GraphicStyle | ((...args: any) => GraphicStyle);

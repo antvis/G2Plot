@@ -2,9 +2,8 @@
  * @description path 计算、转换的辅助工具
  */
 
-import * as matrixUtil from '@antv/matrix-util';
+import { vec2 as vector2 } from '@antv/matrix-util';
 import { each } from '@antv/util';
-const vector2 = matrixUtil.vec2;
 
 interface PointObject {
   x: number;
@@ -122,11 +121,11 @@ export const smoothBezier = (
 
     for (let i = 0, l = points.length; i < l; i++) {
       const point = points[i];
-      min = vector2.min([], min, point);
-      max = vector2.max([], max, point);
+      min = vector2.min([0, 0], min, point) as [number, number];
+      max = vector2.max([0, 0], max, point) as [number, number];
     }
-    min = vector2.min([], min, constraint[0]);
-    max = vector2.max([], max, constraint[1]);
+    min = vector2.min([0, 0], min, constraint[0]) as [number, number];
+    max = vector2.max([0, 0], max, constraint[1]) as [number, number];
   }
 
   for (let i = 0, len = points.length; i < len; i++) {
@@ -143,9 +142,9 @@ export const smoothBezier = (
         nextPoint = points[i + 1];
       }
     }
-    let v = [];
-    v = vector2.sub(v, nextPoint, prevPoint);
-    v = vector2.scale(v, v, smooth);
+    let v: [number, number] = [0, 0];
+    v = vector2.sub(v, nextPoint, prevPoint) as [number, number];
+    v = vector2.scale(v, v, smooth) as [number, number];
 
     let d0 = vector2.distance(point, prevPoint);
     let d1 = vector2.distance(point, nextPoint);
@@ -156,17 +155,17 @@ export const smoothBezier = (
       d1 /= sum;
     }
 
-    const v1 = vector2.scale([], v, -d0);
-    const v2 = vector2.scale([], v, d1);
+    const v1 = vector2.scale([0, 0], v, -d0) as [number, number];
+    const v2 = vector2.scale([0, 0], v, d1) as [number, number];
 
-    let cp0 = vector2.add([], point, v1);
-    let cp1 = vector2.add([], point, v2);
+    let cp0 = vector2.add([0, 0], point, v1) as [number, number];
+    let cp1 = vector2.add([0, 0], point, v2) as [number, number];
 
     if (hasConstraint) {
-      cp0 = vector2.max([], cp0, min);
-      cp0 = vector2.min([], cp0, max);
-      cp1 = vector2.max([], cp1, min);
-      cp1 = vector2.min([], cp1, max);
+      cp0 = vector2.max([0, 0], cp0, min) as [number, number];
+      cp0 = vector2.min([0, 0], cp0, max) as [number, number];
+      cp1 = vector2.max([0, 0], cp1, min) as [number, number];
+      cp1 = vector2.min([0, 0], cp1, max) as [number, number];
     }
 
     cps.push(cp0);

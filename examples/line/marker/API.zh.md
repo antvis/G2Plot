@@ -55,8 +55,8 @@ title: API
 
 2. Function 类型，可以自定义 symbol 绘制，如下：
 
-```typwscript
-sumbol: (x: number, y: number, r: number) => {
+```typescript
+symbol: (x: number, y: number, r: number) => {
   return [
     ['M', x - r, y - r],
     ['L', x + r, y + r],
@@ -65,7 +65,7 @@ sumbol: (x: number, y: number, r: number) => {
     ['L', x - r, y - r],
     ['Z'],
   ];
-}
+};
 ```
 
 ## size

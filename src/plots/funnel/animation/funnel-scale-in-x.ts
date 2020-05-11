@@ -1,4 +1,4 @@
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { registerAnimation } from '@antv/g2';
 
 function funnelScaleInX(shape, animateCfg) {
@@ -21,7 +21,7 @@ function funnelScaleInX(shape, animateCfg) {
     matrix: [1, 0, 0, 0, 1, 0, 0, 0, 1],
   };
   clip.setMatrix(
-    transform(clip.getMatrix(), [
+    ext.transform(clip.getMatrix(), [
       ['t', -originX, -originY],
       ['s', 0, 1],
       ['t', originX, originY],

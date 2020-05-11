@@ -1,4 +1,4 @@
-import * as matrixUtil from '@antv/matrix-util';
+import { vec3 } from '@antv/matrix-util';
 import { each, clone } from '@antv/util';
 
 function magnitude(v) {
@@ -49,8 +49,8 @@ function sub2D(va, vb) {
 }
 
 function applyMatrix(point, matrix, tag = 1) {
-  const vector = [point.x, point.y, tag];
-  matrixUtil.vec3.transformMat3(vector, vector, matrix);
+  const vector: [number, number, number] = [point.x, point.y, tag];
+  vec3.transformMat3(vector, vector, matrix);
   return {
     x: vector[0],
     y: vector[1],

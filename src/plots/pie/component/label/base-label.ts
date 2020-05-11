@@ -1,5 +1,5 @@
 import { IGroup, IShape, BBox } from '../../../../dependents';
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 import { deepMix, isString } from '@antv/util';
 import { getEndPoint, getLabelRotate, getAngleByPoint, getOverlapArea, near } from './utils';
 import { Label, TextStyle } from '../../../../interface/config';
@@ -311,7 +311,7 @@ export default abstract class PieBaseLabel {
   private rotateLabel(label: IShape, angle): void {
     const x = label.attr('x');
     const y = label.attr('y');
-    const matrix = transform(label.getMatrix(), [
+    const matrix = ext.transform(label.getMatrix(), [
       ['t', -x, -y],
       ['r', angle],
       ['t', x, y],

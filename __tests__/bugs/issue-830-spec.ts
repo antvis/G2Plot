@@ -1,6 +1,6 @@
 import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
-import { transform } from '@antv/matrix-util';
+import { ext } from '@antv/matrix-util';
 
 describe('#830 饼图旋转角度不正确', () => {
   const div = createDiv('container');
@@ -42,7 +42,7 @@ describe('#830 饼图旋转角度不正确', () => {
     const x = label3.attr('x');
     const y = label3.attr('y');
     const angle = label3.attr('angle');
-    const matrix = transform(label3.getMatrix(), [
+    const matrix = ext.transform(label3.getMatrix(), [
       ['t', -x, -y],
       // 第三象限的角度要旋转多 180
       ['r', angle + Math.PI],

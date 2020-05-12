@@ -1,4 +1,5 @@
-import { Canvas, Group, Shape } from '@antv/g-canvas';
+import { Canvas } from '@antv/g-canvas';
+import { IGroup, IShape, IElement } from '../../../src/dependents';
 import { createDiv } from '../../utils/dom';
 import Breadcrumb from '../../../src/components/breadcrumb';
 
@@ -28,6 +29,7 @@ describe('Breadcrumb', () => {
       },
     ],
   });
+  inst.init();
 
   it('basic render', () => {
     inst.render();
@@ -40,21 +42,23 @@ describe('Breadcrumb', () => {
     expect(matrix[7]).toBe(40);
 
     // item group rendered
-    const itemGroup1: Group = group.findById('item-group-1');
-    const itemGroup2: Group = group.findById('item-group-2');
-    expect(itemGroup1).toBeInstanceOf(Group);
-    expect(itemGroup2).toBeInstanceOf(Group);
+    const itemGroup1: IElement = group.findById('item-group-1');
+    const itemGroup2: IElement = group.findById('item-group-2');
+    expect(itemGroup1).toBeDefined();
+    expect(itemGroup1.isGroup()).toBe(true);
+    expect(itemGroup2).toBeDefined();
+    expect(itemGroup2.isGroup()).toBe(true);
 
     // text rendered
-    const text1: Shape = itemGroup1.get('children').find((item) => item.get('id') === 'item-text-1');
+    const text1: IShape = itemGroup1.get('children').find((item) => item.get('id') === 'item-text-1');
     expect(text1).toBeDefined();
     expect(text1.attr('text')).toEqual('Global');
-    const text2: Shape = itemGroup2.get('children').find((item) => item.get('id') === 'item-text-2');
+    const text2: IShape = itemGroup2.get('children').find((item) => item.get('id') === 'item-text-2');
     expect(text2).toBeDefined();
     expect(text2.attr('text')).toEqual('China');
 
     // separator rendered
-    const seps: Shape[] = group.get('children').filter((item) => item.get('class') === 'separator');
+    const seps: IShape[] = group.get('children').filter((item) => item.get('class') === 'separator');
     expect(seps).toHaveLength(1);
     expect(seps[0].attr('text')).toEqual('/');
   });
@@ -78,6 +82,7 @@ describe('Breadcrumb', () => {
         },
       ],
     });
+    inst.render();
     const group = inst.getGroup();
 
     // x & y
@@ -87,26 +92,29 @@ describe('Breadcrumb', () => {
     expect(matrix[7]).toBe(100);
 
     // item group rendered
-    const itemGroup1: Group = group.findById('item-group-1');
-    const itemGroup2: Group = group.findById('item-group-2');
-    const itemGroup3: Group = group.findById('item-group-3');
-    expect(itemGroup1).toBeInstanceOf(Group);
-    expect(itemGroup2).toBeInstanceOf(Group);
-    expect(itemGroup3).toBeInstanceOf(Group);
+    const itemGroup1: IElement = group.findById('item-group-1');
+    const itemGroup2: IElement = group.findById('item-group-2');
+    const itemGroup3: IElement = group.findById('item-group-3');
+    expect(itemGroup1).toBeDefined();
+    expect(itemGroup1.isGroup()).toBe(true);
+    expect(itemGroup2).toBeDefined();
+    expect(itemGroup2.isGroup()).toBe(true);
+    expect(itemGroup3).toBeDefined();
+    expect(itemGroup3.isGroup()).toBe(true);
 
     // text rendered
-    const text1: Shape = itemGroup1.get('children').find((item) => item.get('id') === 'item-text-1');
+    const text1: IShape = itemGroup1.get('children').find((item) => item.get('id') === 'item-text-1');
     expect(text1).toBeDefined();
     expect(text1.attr('text')).toEqual('Global');
-    const text2: Shape = itemGroup2.get('children').find((item) => item.get('id') === 'item-text-2');
+    const text2: IShape = itemGroup2.get('children').find((item) => item.get('id') === 'item-text-2');
     expect(text2).toBeDefined();
     expect(text2.attr('text')).toEqual('China');
-    const text3: Shape = itemGroup3.get('children').find((item) => item.get('id') === 'item-text-3');
+    const text3: IShape = itemGroup3.get('children').find((item) => item.get('id') === 'item-text-3');
     expect(text3).toBeDefined();
     expect(text3.attr('text')).toEqual('Hangzhou');
 
     // separator rendered
-    const seps: Shape[] = group.get('children').filter((item) => item.get('class') === 'separator');
+    const seps: IShape[] = group.get('children').filter((item) => item.get('class') === 'separator');
     expect(seps).toHaveLength(2);
     expect(seps[0].attr('text')).toEqual('/');
     expect(seps[1].attr('text')).toEqual('/');
@@ -114,11 +122,11 @@ describe('Breadcrumb', () => {
 
   it.skip('event', (done) => {
     const group = inst.getGroup();
-    const itemGroup1: Group = group.findById('item-group-1');
-    const itemGroup2: Group = group.findById('item-group-2');
-    const itemGroup3: Group = group.findById('item-group-3');
-    const text2: Shape = itemGroup2.get('children').find((item) => item.get('id') === 'item-text-2');
-    const text3: Shape = itemGroup3.get('children').find((item) => item.get('id') === 'item-text-3');
+    const itemGroup1: IGroup = group.findById('item-group-1') as IGroup;
+    const itemGroup2: IGroup = group.findById('item-group-2') as IGroup;
+    const itemGroup3: IGroup = group.findById('item-group-3') as IGroup;
+    const text2: IShape = itemGroup2.get('children').find((item) => item.get('id') === 'item-text-2');
+    const text3: IShape = itemGroup3.get('children').find((item) => item.get('id') === 'item-text-3');
     let cnt = 0;
 
     inst.on('onItemClick', (evt) => {
@@ -162,6 +170,7 @@ describe('Breadcrumb', () => {
         opacity: 0.45,
       },
     });
+    inst.render();
   });
 
   it('destroy', () => {

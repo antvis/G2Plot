@@ -54,7 +54,7 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
     this.container.hide();
   }
 
-  protected init(config: LabelComponentConfig) {
+  protected initConfig(config: LabelComponentConfig) {
     this.layer = config.layer;
     const view = this.layer.view;
     this.view = view;

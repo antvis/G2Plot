@@ -14,6 +14,18 @@ export function getGeometryShapes(geometry: Geometry): (IShape | IGroup)[] {
   return map(geometry.elements, (element: Element) => element.shape);
 }
 
+export function forEachGeometry(view: View, callback: (geometry: Geometry) => void) {
+  view.geometries.forEach(callback);
+}
+
+export function forEachElement(view: View, callback: (element: Element) => void) {
+  view.geometries.forEach((geometry: Geometry) => {
+    geometry.elements.forEach((element) => {
+      callback(element);
+    });
+  });
+}
+
 /** 检测是否有和已存在的Shape数据`相等`的情况 */
 export function checkOriginEqual(
   cur: IElement,

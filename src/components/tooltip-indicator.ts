@@ -2,7 +2,7 @@ import { clamp, deepMix } from '@antv/util';
 import BaseComponent, { BaseComponentConfig } from './base';
 import { GM, Wheel, GestureEvent, IElement, IGroup, IShape, GraphicEvent } from '../dependents';
 import { TextStyle, GraphicStyle } from '../interface/config';
-import { translate } from '../util/g-util';
+import { translate, move } from '../util/g-util';
 import { getEllipsisText } from '../util/text';
 import BBox from '../util/bbox';
 
@@ -18,7 +18,7 @@ export interface IndicatorItemItemValue {
 /** 指标卡每一项数据 */
 export interface IndicatorItem {
   /** 标识符 */
-  id: string;
+  id: string | number;
   /** Marker 颜色 */
   color: string;
   /** 标题 */
@@ -99,6 +99,7 @@ export interface TooltipIndicatorRawConfig {
 interface TooltipIndicatorConfig extends TooltipIndicatorRawConfig, BaseComponentConfig {}
 
 export enum ELEMENT_NAMES {
+  TOOLTIP_INDICATOR_INNER = 'tooltip_indicator-inner',
   TOOLTIP_INDICATOR_TITLE = 'tooltip_indicator-title',
   TOOLTIP_INDICATOR_BODY = 'tooltip_indicator-body',
   TOOLTIP_INDICATOR_ITEM_GROUP = 'tooltip_indicator-item-group',
@@ -142,7 +143,7 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
   private bodyGroup: IGroup;
   private gm: GM;
   private wheel: Wheel;
-  private selectedItemId: string;
+  private selectedItemId: string | number;
 
   public destroy() {
     this.offEvents();
@@ -150,7 +151,7 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
   }
 
   /** 选中某一项 */
-  public selectItem(id: string): void {
+  public selectItem(id: string | number): void {
     this.doSelectItem(id);
   }
 
@@ -159,7 +160,7 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     this.doSelectItem(this.selectedItemId);
   }
 
-  protected init(config: TooltipIndicatorConfig): void {
+  protected initConfig(config: TooltipIndicatorConfig): void {
     const { theme = {} } = config;
     const defaultCfg: TooltipIndicatorRawConfig = {
       x: 0,
@@ -198,19 +199,25 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     this.config = deepMix({}, theme?.components?.tooltipIndicator, defaultCfg, config);
     this.selectedItemId = this.config.selectedItem;
   }
+
   protected renderInner(group: IGroup): void {
-    const { items } = this.config;
+    this.resetRender();
+    const { items, x, y } = this.config;
     const itemGroups: IGroup[] = [];
-    this.renderTitle(group);
-    this.bodyGroup = group.addGroup({
+    const innerGroup = group.addGroup({
+      name: ELEMENT_NAMES.TOOLTIP_INDICATOR_INNER,
+    });
+    this.renderTitle(innerGroup);
+    this.bodyGroup = innerGroup.addGroup({
       name: ELEMENT_NAMES.TOOLTIP_INDICATOR_BODY,
     });
     items?.forEach((item: IndicatorItem, index: number) => {
       itemGroups.push(this.renderItem(this.bodyGroup, item, index));
     });
-    this.layoutItems(group);
-    this.bindEvents(group);
+    this.layoutItems(innerGroup);
+    move(innerGroup, x, y);
     this.applyClip(group);
+    this.bindEvents(innerGroup);
   }
 
   private renderTitle(group: IGroup): IShape | undefined {
@@ -455,7 +462,7 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
     }
   }
 
-  private doSelectItem(id: string) {
+  private doSelectItem(id: string | number) {
     const group = this.getGroup();
     const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
     if (id !== this.selectedItemId) {
@@ -537,12 +544,23 @@ export default class TooltipIndicator extends BaseComponent<TooltipIndicatorConf
   private onWheel = (evt: GestureEvent) => {
     const { width = 0 } = this.config;
     const { deltaX } = evt;
-    const newOffsetX = clamp(this.offsetX + deltaX, -this.scrollWidth + width / 2, this.scrollWidth - width / 2);
+    const offsetMin =
+      Math.min(this.scrollWidth - width, 0) - (this.scrollWidth / 2 + Math.max(0, (this.scrollWidth - width) / 2));
+    const offsetMax =
+      Math.max(this.scrollWidth - width, 0) + this.scrollWidth / 2 + Math.max(0, (this.scrollWidth - width) / 2);
+    const newOffsetX = clamp(this.offsetX + deltaX, offsetMin, offsetMax);
+
     if (newOffsetX !== this.offsetX) {
+      translate(this.bodyGroup, this.offsetX - newOffsetX, 0);
       this.offsetX = newOffsetX;
-      translate(this.bodyGroup, -deltaX, 0);
     }
   };
+
+  private resetRender() {
+    this.curX = 0;
+    this.curY = 0;
+    this.offsetX = 0;
+  }
 }
 
 function findTargetAncestor(element: IElement, predicate: (target: IElement) => boolean): IElement | undefined {

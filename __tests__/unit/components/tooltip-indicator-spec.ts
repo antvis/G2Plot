@@ -219,6 +219,7 @@ describe('TooltipIndicator Card 1', () => {
     items,
   });
   insts.push(inst);
+  inst.init();
 
   it('init', () => {
     const config = inst.getConfig();
@@ -243,7 +244,31 @@ describe('TooltipIndicator Card 1', () => {
     });
   });
 
+  it('update', () => {
+    inst.update({
+      x: 20,
+      y: 10,
+      items: items.slice(0, 3),
+    });
+    inst.render();
+
+    // x & y
+    const group = inst.getGroup();
+    const bbox = group.getCanvasBBox();
+    expect(bbox.x).toBe(20);
+    expect(bbox.y).toBe(10);
+
+    const itemGroups = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_ITEM_GROUP);
+    expect(itemGroups).toHaveLength(3);
+  });
+
   it('style', () => {
+    inst.update({
+      x: 0,
+      y: 0,
+      items,
+    });
+    inst.render();
     const group = inst.getGroup();
     const title = group.findAllByName(ELEMENT_NAMES.TOOLTIP_INDICATOR_TITLE)[0];
     expect(title.attr()).toMatchObject(themeCfg.title.style);
@@ -446,6 +471,7 @@ describe('TooltipIndicator Card 2', () => {
     items,
   });
   insts.push(inst);
+  inst.init();
 
   it('init', () => {
     const config = inst.getConfig();

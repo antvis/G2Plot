@@ -13,7 +13,9 @@ export {
   registerGeometry,
   Geometry,
   Interaction,
+  InteractionAction,
   registerInteraction,
+  registerAction,
   registerShape,
   getTheme,
   Util,
@@ -37,6 +39,10 @@ export {
   LabelOption,
   MappingDatum,
 } from '@antv/g2/lib/interface';
+import GrammarInteraction from '@antv/g2/lib/interaction/grammar-interaction';
+export { GrammarInteraction };
+import * as InteractionUtils from '@antv/g2/lib/interaction/action/util';
+export { InteractionUtils };
 export { DEFAULT_ANIMATE_CFG, getDefaultAnimateCfg, doAnimate } from '@antv/g2/lib/animate';
 export { default as Element } from '@antv/g2/lib/geometry/element';
 

@@ -126,7 +126,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         title: {
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       yAxis: {
@@ -148,7 +148,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         title: {
           autoRotate: true,
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       label: {

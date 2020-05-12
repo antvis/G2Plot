@@ -74,7 +74,7 @@ export const DEFAULT_DARK_THEME = {
       },
       title: {
         visible: false,
-        offset: 12,
+        spacing: 12,
         style: {
           fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,
@@ -122,7 +122,7 @@ export const DEFAULT_DARK_THEME = {
       },
       title: {
         visible: false,
-        offset: 12,
+        spacing: 12,
         style: {
           fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,

@@ -165,7 +165,7 @@ export default class PaddingController {
         if (position === 'left') {
           bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
         } else if (position === 'bottom') {
-          bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
+          bboxes.push(new BBox(minX, globalBBox.maxY, width, height));
         } else if (position === 'right') {
           bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
         }

@@ -139,7 +139,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       title: {
         visible: false,
-        offset: 12,
+        spacing: 8,
         style: {
           fill: 'rgba(0, 0, 0, 0.65)',
           fontSize: 12,
@@ -188,7 +188,7 @@ export const DEFAULT_GLOBAL_THEME = {
       },
       title: {
         visible: false,
-        offset: 12,
+        spacing: 8,
         style: { fill: 'rgba(0, 0, 0, 0.65)', fontSize: 12 },
       },
     },

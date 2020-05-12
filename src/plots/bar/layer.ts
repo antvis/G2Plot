@@ -66,6 +66,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
         title: {
           visible: false,
+          spacing: 12,
         },
       },
       tooltip: {

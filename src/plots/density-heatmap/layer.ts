@@ -56,6 +56,7 @@ export default class DensityHeatmapLayer<
         },
         title: {
           visible: false,
+          spacing: 12,
         },
       },
       yAxis: {
@@ -77,6 +78,7 @@ export default class DensityHeatmapLayer<
         },
         title: {
           visible: false,
+          spacing: 12,
         },
       },
       tooltip: {

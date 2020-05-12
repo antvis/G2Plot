@@ -40,6 +40,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
           },
           title: {
             visible: true,
+            spacing: 12,
           },
         },
         yAxis: {
@@ -61,6 +62,7 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
           },
           title: {
             visible: false,
+            spacing: 12,
           },
         },
       },

@@ -3,8 +3,12 @@ import { Element, MappingDatum, _ORIGIN } from '../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../components/label/base';
 import { TextStyle, Label } from '../../interface/config';
 import { IShape, Geometry } from '../../dependents';
+import BBox from '../../util/bbox';
 
-/** 适用于展示面积图和折线图上数据点的label */
+/**
+ * 说明:
+ * 适用于展示面积图和折线图上数据点的label
+ * */
 
 export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
   protected getDefaultOptions() {
@@ -88,7 +92,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
   }
 
   /** 根据变化进行抽样，保留变化较大的点，类似于点简化算法 */
-  private labelResamplingByChange(label, labels, index, tolerance) {
+  private labelResamplingByChange(label: IShape, labels: IShape[], index: number, tolerance: number) {
     const previous = this.findPrevious(index, labels);
     const currentCenter = this.getCenter(label);
     const previousCenter = this.getCenter(previous);
@@ -100,7 +104,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     }
   }
 
-  private clearOverlapping(label, labels, index) {
+  private clearOverlapping(label: IShape, labels: IShape[], index: number) {
     // 找到所有与当前点overlap的node
     const overlapped = [];
     for (let i = 0; i < labels.length; i++) {
@@ -119,7 +123,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
         return b.minY - a.minY;
       });
       // 隐藏除最高点以外的label
-      each(overlapped, (label: any, index: number) => {
+      each(overlapped, (label: IShape, index: number) => {
         if (index > 0) {
           label.set('visible', false);
         }
@@ -127,8 +131,8 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     }
   }
 
-  /** 检测label之间是否重叠 **/
-  private isOverlapped(labels) {
+  /** 检测一组label中是否存在重叠 **/
+  private isOverlapped(labels: IShape[]) {
     for (let i = 0; i < labels.length; i++) {
       if (labels[i].get('visible')) {
         const labelABBox = labels[i].getBBox();
@@ -146,7 +150,8 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     return false;
   }
 
-  private isIntersect(bboxA, bboxB) {
+  /* 检测两个label包围盒是否重叠 */
+  private isIntersect(bboxA: BBox, bboxB: BBox) {
     if (bboxA.maxY < bboxB.minY || bboxB.maxY < bboxA.minY) {
       return false;
     }
@@ -155,7 +160,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     }
     return true;
   }
-  private getGlobalTolerance(labels) {
+  private getGlobalTolerance(labels: IShape[]) {
     const labelsClone = deepMix([], labels);
     labelsClone.sort((a, b) => {
       return b.getBBox().width - a.getBBox().width;
@@ -163,7 +168,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     return Math.round(labelsClone[0].getBBox().width);
   }
 
-  private findPrevious(index, labels) {
+  private findPrevious(index: number, labels: IShape[]) {
     for (let i = index - 1; i > 0; i--) {
       if (labels[i].get('visible')) {
         return labels[i];
@@ -171,7 +176,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     }
   }
 
-  private getCenter(label) {
+  private getCenter(label: IShape) {
     const { minX, maxX, minY, maxY } = label.getBBox();
     return { x: minX + (maxX - minX) / 2, y: minY + (maxY - minY) / 2 };
   }

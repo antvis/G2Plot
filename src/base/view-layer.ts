@@ -256,6 +256,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
+      limitInPlot: true,
       region,
     });
     this.applyInteractions();

@@ -66,6 +66,9 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
   }
 
   protected layoutLabels(geometry: Geometry, labels: IShape[]): void {
+    if (!this.options.adjustPosition) {
+      return;
+    }
     let overlap = this.isOverlapped(labels);
     // 规则1：先横向，优先显示横向上变化趋势大的label
     if (overlap) {

@@ -9,7 +9,7 @@ describe('#883', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it('guidline暂时只支持非转置坐标系', () => {
+  it.only('guidline暂时只支持非转置坐标系', () => {
     const data = [
       { year: '1991', value: 3 },
       { year: '1992', value: 4 },
@@ -24,8 +24,8 @@ describe('#883', () => {
 
     const linePlot = new Line(canvasDiv, {
       data,
-      xField: 'value',
-      yField: 'year',
+      xField: 'year',
+      yField: 'value',
       guideLine: [
         {
           type: 'mean',
@@ -33,7 +33,7 @@ describe('#883', () => {
       ],
     });
     linePlot.render();
-    linePlot.destroy();
+    //linePlot.destroy();
   });
 
   it('pie padding when legend hide', () => {

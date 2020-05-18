@@ -1,9 +1,9 @@
-import { get, map, isArray, last, deepMix, each } from '@antv/util';
+import { get, map, isArray, last, each } from '@antv/util';
 import { Element, MappingDatum, _ORIGIN } from '../../dependents';
 import BaseLabel, { registerLabelComponent } from '../../components/label/base';
 import { TextStyle, Label } from '../../interface/config';
 import { IShape, Geometry } from '../../dependents';
-import BBox from '../../util/bbox';
+import { isBBoxIntersect } from '../../util/common';
 
 /**
  * 说明:
@@ -113,7 +113,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     for (let i = 0; i < labels.length; i++) {
       const current = labels[i];
       if (i !== index && current.get('visible')) {
-        const isOverlap = this.isIntersect(label.getBBox(), current.getBBox());
+        const isOverlap = isBBoxIntersect(label.getBBox(), current.getBBox());
         if (isOverlap) {
           overlapped.push(current);
         }
@@ -142,7 +142,7 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
         for (let j = 0; j < labels.length; j++) {
           if (j !== i && labels[j].get('visible')) {
             const labelBBBox = labels[j].getBBox();
-            const intersection = this.isIntersect(labelABBox, labelBBBox);
+            const intersection = isBBoxIntersect(labelABBox, labelBBBox);
             if (intersection) {
               return true;
             }
@@ -153,18 +153,8 @@ export default class PointLabel<L extends Label = Label> extends BaseLabel<L> {
     return false;
   }
 
-  /* 检测两个label包围盒是否重叠 */
-  private isIntersect(bboxA: BBox, bboxB: BBox) {
-    if (bboxA.maxY < bboxB.minY || bboxB.maxY < bboxA.minY) {
-      return false;
-    }
-    if (bboxA.maxY < bboxB.minX || bboxB.maxX < bboxA.minX) {
-      return false;
-    }
-    return true;
-  }
   private getGlobalTolerance(labels: IShape[]) {
-    const labelsClone = deepMix([], labels);
+    const labelsClone = labels.slice();
     labelsClone.sort((a, b) => {
       return b.getBBox().width - a.getBBox().width;
     });

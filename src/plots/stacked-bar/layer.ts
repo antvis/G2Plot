@@ -38,7 +38,7 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
         },
         title: {
           visible: true,
-          offset: 12,
+          spacing: 12,
         },
       },
       yAxis: {
@@ -60,7 +60,7 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
         },
         title: {
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       legend: {

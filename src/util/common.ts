@@ -1,4 +1,4 @@
-import { View, Axis, Legend, COMPONENT_TYPE } from '../dependents';
+import { View, Axis, Legend, COMPONENT_TYPE, BBox } from '../dependents';
 
 /**
  * 判断text是否可用, title description
@@ -76,4 +76,15 @@ export function sortedLastIndex<T>(arr: T[], val: T): number {
     i -= 1;
   }
   return i;
+}
+
+/* 检测两个label包围盒是否重叠 */
+export function isBBoxIntersect(bboxA: BBox, bboxB: BBox) {
+  if (bboxA.maxY < bboxB.minY || bboxB.maxY < bboxA.minY) {
+    return false;
+  }
+  if (bboxA.maxX < bboxB.minX || bboxB.maxX < bboxA.minX) {
+    return false;
+  }
+  return true;
 }

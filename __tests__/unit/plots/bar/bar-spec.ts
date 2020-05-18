@@ -71,14 +71,18 @@ describe('Bar plot', () => {
     const positionFields = view.geometries[0].getAttribute('position').getFields();
     const isTransposed = view.getCoordinate().isTransposed;
     const axes = view.getController('axis').getComponents();
+    const [paddingTop, paddingRight, paddingBottom] = view.padding as number[];
 
+    expect(paddingTop).toBe(24); // bleeding
+    expect(paddingRight).toBe(24); // bleeding
+    expect(paddingBottom).toBe(48); // bleeding + axis title
     expect(barPlot).toBeInstanceOf(Bar);
     expect(positionFields[0]).toBe('year');
     expect(positionFields[1]).toBe('value');
     expect(isTransposed).toBe(true);
     expect(axes.length).toBe(2);
-    // barPlot.destroy();
-    // expect(view.destroyed).toBe(true);
+    barPlot.destroy();
+    expect(view.destroyed).toBe(true);
   });
 
   it('柱子样式配置', () => {

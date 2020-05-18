@@ -18,7 +18,7 @@ export default class Radar extends BasePlot<RadarConfig> {
   }
 
   public getAngleScale() {
-    const layer: any = this.layers[0];
+    const layer = this.layers[0] as RadarLayer;
     return layer.getAngleScale();
   }
 

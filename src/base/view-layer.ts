@@ -338,17 +338,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   public getShapes() {
     const geometries = this.view.geometries;
-    if (geometries.length === 1) {
-      return geometries[0].getShapes();
-    } else {
-      const shapes = {};
-      // todo: geometry 类型转译
-      each(geometries, (geom) => {
-        const { type } = geom;
-        shapes[type] = geom.getShapes();
-      });
-      return shapes;
-    }
+    const shapes = {};
+    // todo: geometry 类型转译
+    each(geometries, (geom) => {
+      const { type } = geom;
+      shapes[type] = geom.getShapes();
+    });
+    return shapes;
   }
 
   /** 销毁 */

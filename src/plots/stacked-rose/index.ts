@@ -12,4 +12,14 @@ export default class StackedRose extends BasePlot<StackedRoseConfig> {
     layerProps.type = 'stackedRose';
     super.createLayers(layerProps);
   }
+
+  public getRadiusScale() {
+    const layer: any = this.layers[0];
+    return layer.getRadiusScale();
+  }
+
+  public getAngleScale() {
+    const layer: any = this.layers[0];
+    return layer.getAngleScale();
+  }
 }

@@ -12,4 +12,9 @@ export default class Bubble extends BasePlot<BubbleConfig> {
     layerProps.type = 'bubble';
     super.createLayers(layerProps);
   }
+
+  public getSizeScale() {
+    const layer: any = this.layers[0];
+    return layer.getSizeScale();
+  }
 }

@@ -156,6 +156,13 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     }
   }
 
+  public getColorScale() {
+    const { xField } = this.options;
+    if (xField) {
+      return this.view.getScaleByField(xField);
+    }
+  }
+
   protected coord() {
     const props = this.options;
     const coordConfig = {

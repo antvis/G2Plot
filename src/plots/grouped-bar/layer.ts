@@ -60,6 +60,13 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
     });
   }
 
+  public getColorScale() {
+    const { groupField } = this.options;
+    if (groupField) {
+      return this.view.getScaleByField(groupField);
+    }
+  }
+
   protected scale() {
     const defaultMeta = {};
     defaultMeta[this.options.groupField] = {

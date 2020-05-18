@@ -64,6 +64,11 @@ export default class StackedColumnLayer<
     super.afterRender();
   }
 
+  public getColorScale() {
+    const { stackField } = this.options;
+    return this.view.getScaleByField(stackField);
+  }
+
   protected adjustColumn(column: ElementOption) {
     column.adjust = [
       {

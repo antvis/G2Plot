@@ -12,4 +12,9 @@ export default class Pie extends BasePlot<PieConfig, PieLayer> {
     layerProps.type = 'pie';
     super.createLayers(layerProps);
   }
+
+  public getAngleScale() {
+    const layer: any = this.layers[0];
+    return layer.getAngleScale();
+  }
 }

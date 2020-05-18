@@ -17,4 +17,14 @@ export default class Rose extends BasePlot<RoseConfig> {
     layerProps.type = 'rose';
     super.createLayers(layerProps);
   }
+
+  public getRadiusScale() {
+    const layer: any = this.layers[0];
+    return layer.getRadiusScale();
+  }
+
+  public getAngleScale() {
+    const layer: any = this.layers[0];
+    return layer.getAngleScale();
+  }
 }

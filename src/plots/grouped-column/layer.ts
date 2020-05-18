@@ -27,6 +27,13 @@ export default class GroupedColumnLayer extends BaseColumnLayer<GroupedColumnLay
     return this.themeController.getResponsiveTheme('column');
   }
 
+  public getColorScale() {
+    const { groupField } = this.options;
+    if (groupField) {
+      return this.view.getScaleByField(groupField);
+    }
+  }
+
   protected addGeometry() {
     super.addGeometry();
   }

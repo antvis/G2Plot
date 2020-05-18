@@ -40,6 +40,13 @@ export default class GroupedRoseLayer<T extends GroupedRoseLayerConfig = Grouped
 
   public type: string = 'groupedRose';
 
+  public getColorScale() {
+    const { groupField } = this.options;
+    if (groupField) {
+      return this.view.getScaleByField(groupField);
+    }
+  }
+
   protected adjustRoseAdjust() {
     return [
       {

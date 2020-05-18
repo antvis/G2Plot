@@ -18,7 +18,7 @@ const eventNames = [
 ];
 
 const mobileEventNames = [
-  'touchstart',
+  /*'touchstart',
   'touchmove',
   'touchend',
   'pressstart',
@@ -32,7 +32,7 @@ const mobileEventNames = [
   'pinchend',
   'panstart',
   'pan',
-  'panend',
+  'panend',*/
 ];
 
 const viewComponentMap = {

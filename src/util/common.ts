@@ -1,4 +1,4 @@
-import { View, Axis, COMPONENT_TYPE } from '../dependents';
+import { View, Axis, Legend, COMPONENT_TYPE, BBox } from '../dependents';
 
 /**
  * 判断text是否可用, title description
@@ -35,10 +35,17 @@ export function breakText(source: string[], breaks: number[]): string {
  * 获取 View 中所有的 Axis 组件
  */
 export function getAxisComponents(view: View): Axis.Base[] {
-  return view
+  return (view
     .getComponents()
     .filter((co) => co.type === COMPONENT_TYPE.AXIS)
-    .map((co) => co.component) as Axis.Base[];
+    .map((co) => co.component) as unknown) as Axis.Base[];
+}
+
+export function getLegendComponents(view: View): Legend.Base[] {
+  return (view
+    .getComponents()
+    .filter((co) => co.type === COMPONENT_TYPE.LEGEND)
+    .map((co) => co.component) as unknown) as Legend.Base[];
 }
 
 export function getAxisShapes(view) {
@@ -69,4 +76,15 @@ export function sortedLastIndex<T>(arr: T[], val: T): number {
     i -= 1;
   }
   return i;
+}
+
+/* 检测两个label包围盒是否重叠 */
+export function isBBoxIntersect(bboxA: BBox, bboxB: BBox) {
+  if (bboxA.maxY < bboxB.minY || bboxB.maxY < bboxA.minY) {
+    return false;
+  }
+  if (bboxA.maxX < bboxB.minX || bboxB.maxX < bboxA.minX) {
+    return false;
+  }
+  return true;
 }

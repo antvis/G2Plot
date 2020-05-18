@@ -18,8 +18,8 @@ export {
   registerComponentController,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';
-import Gestrue from '@antv/g2/lib/chart/controller/gesture';
-export { Gestrue };
+import Gesture from '@antv/g2/lib/chart/controller/gesture';
+export { Gesture };
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,
@@ -39,7 +39,7 @@ export { default as Element } from '@antv/g2/lib/geometry/element';
 // Component
 import HtmlTooltip from '@antv/component/lib/tooltip/html';
 import HtmlTooltipTheme from '@antv/component/lib/tooltip/html-theme';
-import TooltipCssConst from '@antv/component/lib/tooltip/css-const';
+import * as TooltipCssConst from '@antv/component/lib/tooltip/css-const';
 export { HtmlTooltip, HtmlTooltipTheme, TooltipCssConst };
 export { GroupComponent, Axis, Legend, Tooltip, Slider, Scrollbar } from '@antv/component';
 export { GroupComponentCfg, TooltipCfg } from '@antv/component/lib/types';
@@ -49,3 +49,4 @@ export { Coordinate } from '@antv/coord';
 
 // Common
 export const ORIGIN = 'origin';
+export const _ORIGIN = '_origin';

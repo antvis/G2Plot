@@ -11,3 +11,5 @@ export type MarginPadding = [number, number, number, number];
 export interface LooseMap<T = any> {
   [key: string]: T;
 }
+
+export type Maybe<T> = T | undefined | null;

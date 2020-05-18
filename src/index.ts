@@ -16,7 +16,10 @@ export { default as TinyArea, TinyAreaConfig } from './sparkline/tiny-area';
 export { default as TinyLine, TinyLineConfig } from './sparkline/tiny-line';
 
 // 混合图形
-export { default as OverlappedComboPlot, OverlappedComboPlotConfig } from './combo-plots/overlapped';
+export { default as DualLine, DualLineConfig } from './combo/dual-line';
+export { default as ColumnLine, ColumnLineConfig } from './combo/column-line';
+export { default as GroupedColumnLine, GroupedColumnLineConfig } from './combo/groupedColumn-line';
+export { default as StackedColumnLine, StackedColumnLineConfig } from './combo/stackedColumn-line';
 
 // 主题
 export { registerTheme, registerGlobalTheme } from './theme';

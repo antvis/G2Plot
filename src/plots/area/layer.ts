@@ -12,6 +12,7 @@ import * as EventParser from './event';
 import './theme';
 import { getGeometryByType } from '../../util/view';
 import { AreaViewConfig } from './interface';
+import { Maybe } from '../../interface/types';
 
 const GEOM_MAP = {
   area: 'area',
@@ -186,7 +187,7 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
       const geometry = getGeometryByType(this.view, 'area');
       this.doRenderLabel(geometry, {
         type: 'area-point',
-        formatter: scale.formatter,
+        formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
         ...this.options.label,
       });
     }

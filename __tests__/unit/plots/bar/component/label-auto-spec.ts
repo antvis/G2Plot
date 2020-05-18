@@ -240,11 +240,6 @@ describe('Grouped Bar Auto Label', () => {
       ...config,
       width: 460,
       height: 300,
-      xAxis: {
-        title: {
-          visible: false,
-        },
-      },
       yAxis: {
         title: {
           visible: false,

@@ -4,9 +4,7 @@ import PercentStackedColumnLayer, { PercentStackedColumnLayerConfig } from './la
 
 export interface PercentStackedColumnConfig extends PercentStackedColumnLayerConfig, PlotConfig {}
 
-export default class PercentStackedColumn<
-  T extends PercentStackedColumnConfig = PercentStackedColumnConfig
-> extends BasePlot<T> {
+export default class PercentStackedColumn extends BasePlot<PercentStackedColumnConfig> {
   public static getDefaultOptions: typeof PercentStackedColumnLayer.getDefaultOptions =
     PercentStackedColumnLayer.getDefaultOptions;
 

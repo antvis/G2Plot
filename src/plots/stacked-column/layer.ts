@@ -9,6 +9,7 @@ import './theme';
 import './component/label';
 import './component/label-auto';
 import { getGeometryByType } from '../../util/view';
+import { Maybe } from '../../interface/types';
 
 export interface StackedColumnViewConfig extends ColumnViewConfig {
   stackField: string;
@@ -84,7 +85,7 @@ export default class StackedColumnLayer<
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'stacked-column',
-        formatter: scale.formatter,
+        formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
         ...this.options.label,
       });
     }

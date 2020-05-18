@@ -39,6 +39,12 @@ describe('Donut plot', () => {
 
   it('创建 & 销毁图表', () => {
     const DonutPlot = new Donut(canvasDiv, {
+      title: {
+        visible: true,
+        text: 'aa',
+      },
+      width: 300,
+      height: 500,
       data,
       angleField: 'value',
       colorField: 'type',

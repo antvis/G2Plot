@@ -77,7 +77,7 @@ export default class BarAutoLabel extends BarLabel<IBarAutoLabel> {
       const curGroup = groupedLabels[label.get(ORIGIN)[FIELD_ORIGIN][xField]] || [];
       const element: Element = label.get('element');
       const { shape } = element;
-      const fillWhile = isContrastColorWhite(shape.attr('fill'));
+      const fillWhite = isContrastColorWhite(shape.attr('fill'));
       const shapeBBox = BBox.fromBBoxObject(shape.getBBox());
       const labelBBox = BBox.fromBBoxObject(label.getBBox());
 
@@ -106,8 +106,8 @@ export default class BarAutoLabel extends BarLabel<IBarAutoLabel> {
         } else {
           // 放置在柱形内部，颜色取反
           label.attr({
-            fill: fillWhile ? lightStyle?.fill : darkStyle?.fill,
-            fillOpacity: fillWhile ? lightStyle?.fillOpacity : darkStyle?.fillOpacity,
+            fill: fillWhite ? lightStyle?.fill : darkStyle?.fill,
+            fillOpacity: fillWhite ? lightStyle?.fillOpacity : darkStyle?.fillOpacity,
             stroke: undefined,
           });
         }

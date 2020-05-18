@@ -219,11 +219,19 @@ module.exports = {
         },
       },
       {
+        slug: 'combo',
+        icon: 'other',
+        title: {
+          zh: '混合图表',
+          en: 'Combo Charts',
+        },
+      },
+      {
         slug: 'general',
         icon: 'other',
         title: {
-          zh: '通用配置',
-          en: 'General Config',
+          zh: '图表通用配置',
+          en: 'General Configration of Charts',
         },
       },
       {
@@ -232,14 +240,6 @@ module.exports = {
         title: {
           zh: '高级功能尝鲜',
           en: 'advanced',
-        },
-      },
-      {
-        slug: 'combo',
-        icon: 'other',
-        title: {
-          zh: '混合图表（beta)',
-          en: 'Combo Chart',
         },
       },
     ],

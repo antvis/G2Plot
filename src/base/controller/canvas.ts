@@ -165,7 +165,7 @@ export default class CanvasController {
    */
   private initGCanvas() {
     /** 创建canvas */
-    const { renderer = 'canvas', pixelRatio, localRefresh } = this.plot;
+    const { renderer = 'canvas', pixelRatio, localRefresh = false } = this.plot;
     const { width, height } = this.getCanvasSize();
 
     const G: ICanvasCtor = renderer === 'canvas' ? Canvas : SVG;

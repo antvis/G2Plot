@@ -22,7 +22,7 @@ import * as EventParser from './event';
 import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';
 import './theme';
 import './apply-responsive/theme';
-import { LooseMap } from '../../interface/types';
+import { LooseMap, Maybe } from '../../interface/types';
 import { LineActive, LineSelect } from './interaction/index';
 import { getGeometryByType } from '../../util/view';
 
@@ -35,9 +35,9 @@ const GEOM_MAP = {
 
 type LineInteraction =
   | { type: 'slider'; cfg: ISliderInteractionConfig }
-  | { type: 'scrollBar'; cfg: IScrollbarInteractionConfig };
+  | { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig };
 
-type PointShape = string | { fields?: []; callback: () => string };
+export type PointShape = string | { fields?: []; callback: () => string };
 
 export interface LineViewConfig extends ViewConfig {
   /** 分组字段 */
@@ -230,7 +230,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
       } else {
         this.doRenderLabel(geometry, {
           type: 'point',
-          formatter: scale.formatter,
+          formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
           ...this.options.label,
         });
       }

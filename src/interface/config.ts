@@ -6,8 +6,17 @@
  * 3. 减少嵌套，尽量平铺配置
  */
 import { ShapeAttrs } from '@antv/g-base';
-import { Options, AttributeOption, AdjustOption, LabelOption, MappingDatum, Datum } from '../dependents';
-import { LooseMap } from './types';
+import {
+  Options,
+  AttributeOption,
+  AdjustOption,
+  LabelOption,
+  MappingDatum,
+  Element,
+  Datum,
+  _ORIGIN,
+} from '../dependents';
+import { LooseMap, Maybe } from './types';
 
 export interface Meta {
   alias?: string;
@@ -74,6 +83,7 @@ export interface IBaseAxis {
     text?: string;
     offset?: number;
     style?: TextStyle;
+    spacing?: number;
   };
   tickLine?: {
     visible?: boolean;
@@ -114,7 +124,18 @@ export type Axis = ICatAxis | IValueAxis | ITimeAxis;
 export interface Label {
   visible?: boolean;
   type?: string;
-  formatter?: (text: string | number | undefined | null, item: any, idx: number, ...extras: any[]) => string;
+  formatter?: (
+    text: Maybe<string | number>,
+    item: {
+      [_ORIGIN]: Datum;
+      mappingDatum: MappingDatum;
+      mappingDatumIndex: number;
+      element: Element;
+      elementIndex: number;
+    },
+    idx: number,
+    ...extras: any[]
+  ) => string;
   /** 精度配置，可通过自定义精度来固定数值类型 label 格式 */
   precision?: number;
   /** 添加后缀 */
@@ -146,20 +167,31 @@ export type LegendPosition =
   | 'bottom-center'
   | 'bottom-right';
 
+interface LegendMarkerStyle extends GraphicStyle {
+  r?: number;
+}
+
 export interface Legend {
   visible?: boolean;
   /** 位置 */
   position?: LegendPosition;
   /** 翻页 */
   flipPage?: boolean;
-  formatter?: (...args: any) => string;
   offsetX?: number;
   offsetY?: number;
   clickable?: boolean;
   title?: {
     visible?: boolean;
-    spacing?: number;
+    text?: string;
     style?: TextStyle;
+  };
+  marker?: {
+    symbol?: string;
+    style: LegendMarkerStyle;
+  };
+  text?: {
+    style?: TextStyle;
+    formatter?: (text: string, cfg: any) => string;
   };
 }
 
@@ -181,10 +213,11 @@ export interface Tooltip {
     'g2-tooltip-marker'?: any;
     'g2-tooltip-value'?: any;
   };
-  customContent?: {
+  follow?: boolean;
+  custom?: {
     container?: string | HTMLElement;
-    follow?: boolean;
-    callback: (tooltipDom: HTMLElement, cfg: CustomTooltipConfig) => void;
+    customContent?: (title: string, data: any[]) => string | void;
+    onChange?: (tooltipDom: HTMLElement, cfg: CustomTooltipConfig) => void;
   };
 }
 

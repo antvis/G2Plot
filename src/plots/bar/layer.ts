@@ -14,6 +14,7 @@ import './component/label-auto';
 import * as EventParser from './event';
 import { getGeometryByType } from '../../util/view';
 import { BarViewConfig } from './interface';
+import { Maybe } from '../../interface/types';
 
 const G2_GEOM_MAP = {
   bar: 'interval',
@@ -65,7 +66,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         },
         title: {
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       tooltip: {
@@ -244,7 +245,7 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'bar',
-        formatter: scale.formatter,
+        formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
         ...this.options.label,
       });
     }

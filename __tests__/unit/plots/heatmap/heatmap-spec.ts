@@ -186,8 +186,8 @@ describe('matrix plot', () => {
     heatmapPlot.render();
     const view = heatmapPlot.getView();
     const sizeValues = view.geometries[0].getAttribute('size').values;
-    expect(sizeValues[0].toFixed(2)).toBe((0.3525188866867905).toFixed(2));
-    expect(sizeValues[1].toFixed(2)).toBe((1.0465116279069768).toFixed(2));
+    expect(sizeValues[0].toFixed(2)).toBe((0.3519).toFixed(2));
+    expect(sizeValues[1].toFixed(2)).toBe((1.05).toFixed(2));
     heatmapPlot.destroy();
   });
 
@@ -376,7 +376,7 @@ describe('matrix plot', () => {
     expect(labels[0].attr('text')).toInclude('abc');
     // style
     const line = axisGroup.find((item) => item.get('name') === 'axis-line');
-    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickLine');
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
     expect(labels[0].attr('fill')).toBe('red');

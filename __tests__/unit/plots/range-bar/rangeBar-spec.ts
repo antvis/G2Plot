@@ -20,7 +20,7 @@ describe.skip('Radar plot', () => {
     { type: '分类八', values: [18, 34] },
   ];
 
-  it.only('initialize', () => {
+  it('initialize', () => {
     const barPlot = new RangeBar(canvasDiv, {
       title: {
         visible: true,

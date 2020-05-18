@@ -15,6 +15,7 @@ import './theme';
 import { DataItem } from '../../interface/config';
 import { getGeometryByType } from '../../util/view';
 import { ColumnViewConfig } from './interface';
+import { Maybe } from '../../interface/types';
 
 const G2_GEOM_MAP = {
   column: 'interval',
@@ -210,7 +211,7 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
       const geometry = getGeometryByType(this.view, 'interval');
       this.doRenderLabel(geometry, {
         type: 'column',
-        formatter: scale.formatter,
+        formatter: scale.formatter && ((value: Maybe<string | number>) => scale.formatter(value)),
         ...this.options.label,
       });
     }

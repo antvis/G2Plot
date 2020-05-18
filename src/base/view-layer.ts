@@ -3,7 +3,6 @@ import {
   isEmpty,
   mapValues,
   get,
-  isUndefined,
   each,
   assign,
   isFunction,
@@ -15,7 +14,7 @@ import {
   isString,
   contains,
 } from '@antv/util';
-import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gestrue } from '../dependents';
+import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gesture } from '../dependents';
 import TextDescription from '../components/description';
 import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/base';
 import { getComponent } from '../components/factory';
@@ -65,7 +64,7 @@ export interface ViewConfig {
   responsive?: boolean;
   title?: ITitle;
   description?: IDescription;
-  guideLine?: GuideLineConfig;
+  guideLine?: GuideLineConfig[];
   events?: {
     [k: string]: ((...args: any[]) => any) | boolean;
   };
@@ -80,7 +79,7 @@ export interface ViewConfig {
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
 
-registerComponentController('gesture', Gestrue);
+registerComponentController('gesture', Gesture);
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(): Partial<ViewConfig> {
@@ -128,7 +127,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         title: {
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       yAxis: {
@@ -150,7 +149,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         title: {
           autoRotate: true,
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       label: {
@@ -258,6 +257,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
+      limitInPlot: true,
       region,
     });
     this.applyInteractions();
@@ -290,7 +290,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
     }
-    if (options.tooltip && options.tooltip.customContent && options.padding !== 'auto') {
+    if (options.tooltip?.custom?.onChange && options.padding !== 'auto') {
       this.customTooltip();
     }
   }
@@ -473,8 +473,11 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return;
     }
     const tooltipOptions = get(this.options, 'tooltip');
-    if (tooltipOptions.customContent && tooltipOptions.customContent.container) {
-      tooltipOptions.container = tooltipOptions.customContent.container;
+    if (tooltipOptions.custom?.container) {
+      tooltipOptions.container = tooltipOptions.custom.container;
+    }
+    if (tooltipOptions.custom?.customContent) {
+      tooltipOptions.customContent = tooltipOptions.custom.customContent;
     }
     this.setConfig('tooltip', deepMix({}, tooltipOptions));
 
@@ -482,7 +485,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   protected customTooltip() {
-    const customContentCfg = this.options.tooltip.customContent;
+    const customContentCfg = this.options.tooltip.custom;
     let container;
     if (customContentCfg.container) {
       container = isString(customContentCfg.container)
@@ -491,13 +494,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     }
     this.view.on('tooltip:show', () => {
       if (!customContentCfg.container) {
-        container = document.getElementsByClassName('g2-tooltip')[0];
+        container = this.canvas.cfg.container.getElementsByClassName('g2-tooltip')[0];
       }
     });
     this.view.hideTooltip();
     this.view.on('tooltip:change', (ev: CustomTooltipConfig) => {
       if (container) {
-        customContentCfg.callback(container, ev);
+        customContentCfg.onChange(container, ev);
       }
     });
   }
@@ -516,19 +519,18 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       this.setConfig('legends', false);
       return;
     }
-    const flipOption = get(this.options, 'legend.flipPage');
-    const clickable = get(this.options, 'legend.clickable');
-    this.setConfig('legends', {
-      position: this.getLegendPosition(get(this.options, 'legend.position')),
-      formatter: get(this.options, 'legend.formatter'),
-      offsetX: get(this.options, 'legend.offsetX'),
-      offsetY: get(this.options, 'legend.offsetY'),
-      clickable: isUndefined(clickable) ? true : clickable,
-      // wordSpacing: get(this.options, 'legend.wordSpacing'),
-      flipPage: flipOption,
-      marker: get(this.options, 'legend.marker'),
-      title: get(this.options, 'legend.title'),
-    });
+    const options = deepMix({}, this.theme.legend, this.options.legend);
+    const legendConfig = {
+      position: this.getLegendPosition(get(options, 'position')),
+      offsetX: get(options, 'offsetX'),
+      offsetY: get(options, 'offsetY'),
+      flipPage: get(options, 'flipPage'),
+      marker: get(options, 'marker'),
+      title: options.title?.visible ? get(options, 'title') : null,
+      itemName: get(options, 'text'),
+    };
+
+    this.setConfig('legends', legendConfig);
   }
 
   protected annotation() {
@@ -782,13 +784,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   private viewRangeToRegion(viewRange) {
-    const { width, height } = this;
+    const { x, y, width, height } = this;
     const start = { x: 0, y: 0 },
       end = { x: 1, y: 1 };
-    start.x = viewRange.minX / width;
-    start.y = viewRange.minY / height;
-    end.x = viewRange.maxX / width;
-    end.y = viewRange.maxY / height;
+    start.x = viewRange.minX / (x + width);
+    start.y = viewRange.minY / (y + height);
+    end.x = viewRange.maxX / (x + width);
+    end.y = viewRange.maxY / (y + height);
 
     return {
       start,

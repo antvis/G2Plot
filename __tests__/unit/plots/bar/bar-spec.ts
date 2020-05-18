@@ -71,7 +71,11 @@ describe('Bar plot', () => {
     const positionFields = view.geometries[0].getAttribute('position').getFields();
     const isTransposed = view.getCoordinate().isTransposed;
     const axes = view.getController('axis').getComponents();
+    const [paddingTop, paddingRight, paddingBottom] = view.padding as number[];
 
+    expect(paddingTop).toBe(24); // bleeding
+    expect(paddingRight).toBe(24); // bleeding
+    expect(paddingBottom).toBe(48); // bleeding + axis title
     expect(barPlot).toBeInstanceOf(Bar);
     expect(positionFields[0]).toBe('year');
     expect(positionFields[1]).toBe('value');
@@ -215,7 +219,7 @@ describe('Bar plot', () => {
     expect(labels[0].attr('fill')).toBe('red');
     // style
     const line = axisGroup.find((item) => item.get('name') === 'axis-line');
-    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickLine');
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
 
@@ -258,7 +262,7 @@ describe('Bar plot', () => {
     const axisGroup: IGroup = axis.get('group');
     // style
     const line = axisGroup.findAllByName('axis-line')[0];
-    const tickLine = axisGroup.findAllByName('axis-tickline')[0];
+    const tickLine = axisGroup.findAllByName('axis-tickLine')[0];
     expect(line).toBeNil();
     expect(tickLine).toBeNil();
     barPlot.destroy();
@@ -324,7 +328,7 @@ describe('Bar plot', () => {
     expect(labels[0].attr('text')).toInclude('abc');
     // style
     const line = axisGroup.findAllByName('axis-line')[0];
-    const tickLine = axisGroup.findAllByName('axis-tickline')[0];
+    const tickLine = axisGroup.findAllByName('axis-tickLine')[0];
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
     expect(labels[0].attr('fill')).toBe('red');
@@ -366,7 +370,7 @@ describe('Bar plot', () => {
     const axisGroup: IGroup = axis.get('group');
     // style
     const line = axisGroup.findAllByName('axis-line')[0];
-    const tickLine = axisGroup.findAllByName('axis-tickline')[0];
+    const tickLine = axisGroup.findAllByName('axis-tickLine')[0];
     expect(line).toBeNil();
     expect(tickLine).toBeNil();
     barPlot.destroy();

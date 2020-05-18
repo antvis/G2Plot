@@ -51,7 +51,23 @@ describe('Column plot', () => {
     },
   ];
 
-  it.only('初始化以及销毁', () => {
+  it('auto padding', () => {
+    const columnPlot = new Column(canvasDiv, {
+      data,
+      xField: 'year',
+      yField: 'value',
+      yAxis: {
+        nice: true,
+      },
+    });
+    columnPlot.render();
+    const view = columnPlot.getView();
+    const [paddingTop, paddingRight] = view.padding as number[];
+    expect(paddingTop).toBe(24 + 6); // bleeding + yAxis
+    expect(paddingRight).toBe(24 + 0.5); // bleeding + xAxis
+  });
+
+  it('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: [40, 40, 40, 40],
       data,
@@ -250,7 +266,7 @@ describe('Column plot', () => {
     expect(labels[0].attr('text')).toInclude('abc');
     // style
     const line = axisGroup.find((item) => item.get('name') === 'axis-line');
-    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickLine');
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
     expect(labels[0].attr('fill')).toBe('red');
@@ -357,7 +373,7 @@ describe('Column plot', () => {
     expect(labels[0].attr('text')).toInclude('abc');
     // style
     const line = axisGroup.find((item) => item.get('name') === 'axis-line');
-    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickline');
+    const tickLine = axisGroup.find((item) => item.get('name') === 'axis-tickLine');
     expect(line.attr('stroke')).toBe('red');
     expect(tickLine.attr('stroke')).toBe('red');
     expect(labels[0].attr('fill')).toBe('red');

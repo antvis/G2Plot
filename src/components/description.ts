@@ -37,7 +37,7 @@ export default class TextDescription {
   private text: string;
   private style: any;
   private index: number;
-  private plot: ViewLayer;
+  private plot: ViewLayer | any;
 
   constructor(cfg: TextConfig) {
     assign(this as any, cfg);
@@ -59,7 +59,7 @@ export default class TextDescription {
           }
         });
       }
-      return new BBox(bbox.maxX, bbox.minY, bbox.width, bbox.height + padding[2]);
+      return new BBox(bbox.maxX, bbox.minY, bbox.width, bbox.height);
     }
     return null;
   }

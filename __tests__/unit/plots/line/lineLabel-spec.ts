@@ -9,7 +9,7 @@ describe('responsive line label', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it.skip('单折线标签布局', () => {
+  it('单折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 500,
       height: 500,
@@ -19,22 +19,14 @@ describe('responsive line label', () => {
       yField: 'rate',
       label: {
         visible: true,
+        type: 'point',
+        adjustPosition: true,
       },
-      xAxis: {
-        type: 'dateTime',
-        label: {
-          autoRotate: false,
-        },
-      },
-      tooltip: {
-        visible: false,
-      },
-      responsive: true,
     });
     linePlot.render();
   });
 
-  it.only('多折线标签布局', () => {
+  it('多折线标签布局', () => {
     const linePlot = new Line(canvasDiv, {
       width: 400,
       height: 400,
@@ -45,14 +37,14 @@ describe('responsive line label', () => {
       seriesField: 'type',
       label: {
         visible: true,
-        style: {
-          offset: 0,
-        },
+        type: 'point',
+        adjustPosition: true,
       },
       xAxis: {
         visible: false,
-        type: 'dateTime',
-        autoRotateLabel: false,
+        label: {
+          autoRotate: true,
+        },
       },
       legend: {
         position: 'right-center',

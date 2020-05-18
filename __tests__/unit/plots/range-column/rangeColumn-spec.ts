@@ -20,7 +20,7 @@ describe('rangeColumn plot', () => {
     { type: '分类八', values: [18, 34] },
   ];
 
-  it.only('initialize', () => {
+  it('initialize', () => {
     const columnPlot = new RangeColumn(canvasDiv, {
       title: {
         visible: true,

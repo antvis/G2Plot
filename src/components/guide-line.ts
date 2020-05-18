@@ -14,6 +14,11 @@ export default class GuideLine {
   }
 
   private _init() {
+    const { yField, data } = this.plot.options;
+    const plotData = this.plot.processData(data);
+    if (!isNumber(plotData[0][yField])) {
+      return;
+    }
     const defaultStyle = this.getDefaultStyle();
     const baseConfig: any = {
       type: 'line',
@@ -179,6 +184,7 @@ export default class GuideLine {
         },
       },
       text: {
+        content: '',
         offsetY: -5,
         style: {
           fontSize: 14,

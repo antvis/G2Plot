@@ -74,7 +74,7 @@ export const DEFAULT_DARK_THEME = {
       },
       title: {
         visible: false,
-        offset: 12,
+        spacing: 12,
         style: {
           fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,
@@ -122,7 +122,7 @@ export const DEFAULT_DARK_THEME = {
       },
       title: {
         visible: false,
-        offset: 12,
+        spacing: 12,
         style: {
           fill: 'rgba(255, 255, 255, 0.65)',
           fontSize: 12,
@@ -182,6 +182,17 @@ export const DEFAULT_DARK_THEME = {
     position: 'bottom',
     // 距离panelRange的距离
     innerPadding: [16, 16, 16, 16],
+    title: {
+      visible: false,
+      style: {
+        fill: '#bdc8d3',
+      },
+    },
+    text: {
+      style: {
+        fill: '#bdc8d3',
+      },
+    },
   },
   label: {
     offset: 12,

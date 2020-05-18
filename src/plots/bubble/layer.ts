@@ -36,6 +36,13 @@ export default class BubbleLayer<T extends BubbleLayerConfig = BubbleLayerConfig
     });
   }
 
+  public getSizeScale() {
+    const { sizeField } = this.options;
+    if (sizeField) {
+      this.view.getScaleByField(sizeField);
+    }
+  }
+
   public type: string = 'bubble';
 
   protected legend() {

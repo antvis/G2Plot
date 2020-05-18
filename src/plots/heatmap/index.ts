@@ -27,4 +27,9 @@ export default class Heatmap extends BasePlot<HeatmapConfig> {
     const layer: any = this.layers[0];
     layer.disableMappingSize();
   }
+
+  public getSizeScale() {
+    const layer: any = this.layers[0];
+    return layer.getSizeScale();
+  }
 }

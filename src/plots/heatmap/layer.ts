@@ -96,10 +96,10 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     }
     this.options.shapeType = type;
     if (type === 'rect') {
-      const shapes = this.getShapes();
+      const shapes = this.getShape();
       this.circleToRect(shapes);
     } else if (type === 'circle') {
-      const shapes = this.getShapes();
+      const shapes = this.getShape();
       this.rectToCircle(shapes);
     }
   }
@@ -118,7 +118,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
       min,
       max,
     });
-    const shapes = this.getShapes();
+    const shapes = this.getShape();
     if (this.options.shapeType === 'rect') {
       this.rectSizeMapping(shapes, scale, field);
     } else if (this.options.shapeType === 'circle') {
@@ -127,7 +127,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
   }
 
   public disableMappingSize() {
-    const shapes = this.getShapes();
+    const shapes = this.getShape();
     if (this.options.shapeType === 'rect') {
       this.rectDisableSizeMapping(shapes);
     } else if (this.options.shapeType === 'circle') {
@@ -140,6 +140,13 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
       component.destroy();
     });
     super.destroy();
+  }
+
+  public getSizeScale() {
+    const { sizeField } = this.options;
+    if (sizeField) {
+      this.view.getScaleByField(sizeField);
+    }
   }
 
   protected geometryParser() {
@@ -416,7 +423,7 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     });
   }
 
-  private getShapes() {
+  private getShape() {
     const elements = this.view.geometries[0].elements;
     const shapes = [];
     each(elements, (ele) => {

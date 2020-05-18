@@ -73,6 +73,11 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
 
   public type: string = 'stackedBar';
 
+  public getColorScale() {
+    const { stackField } = this.options;
+    return this.view.getScaleByField(stackField);
+  }
+
   protected adjustBar(bar: ElementOption) {
     bar.adjust = [
       {

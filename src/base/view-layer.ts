@@ -12,6 +12,7 @@ import {
   reduce,
   findIndex,
   isString,
+  contains,
 } from '@antv/util';
 import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gesture } from '../dependents';
 import TextDescription from '../components/description';
@@ -301,6 +302,49 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (!isEmpty(data)) {
       this.view.render();
     }
+  }
+
+  /** 画布重绘 */
+  public repaint(): void {
+    if (this.canvas) {
+      this.canvas.draw();
+    }
+  }
+
+  public getScaleByField(field: string) {
+    return this.view.getScaleByField(field);
+  }
+
+  public getXScale() {
+    const { xField } = this.options;
+    if (xField) {
+      return this.view.getScaleByField(xField);
+    }
+  }
+
+  public getYScale() {
+    const { yField } = this.options;
+    if (yField) {
+      return this.view.getScaleByField(yField);
+    }
+  }
+
+  public getColorScale() {
+    const options: any = this.options;
+    if (contains(options, 'colorField')) {
+      return this.view.getScaleByField(options);
+    }
+  }
+
+  public getShapes() {
+    const geometries = this.view.geometries;
+    const shapes = {};
+    // todo: geometry 类型转译
+    each(geometries, (geom) => {
+      const { type } = geom;
+      shapes[type] = geom.getShapes();
+    });
+    return shapes;
   }
 
   /** 销毁 */

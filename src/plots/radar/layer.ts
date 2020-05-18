@@ -182,6 +182,21 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     super.init();
   }
 
+  public getAngleScale() {
+    const { angleField } = this.options;
+    return this.view.getScaleByField(angleField);
+  }
+
+  public getRadiusScale() {
+    const { radiusField } = this.options;
+    return this.view.getScaleByField(radiusField);
+  }
+
+  public getColorScale() {
+    const { seriesField } = this.options;
+    return this.view.getScaleByField(seriesField);
+  }
+
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
   }

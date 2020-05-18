@@ -51,6 +51,22 @@ describe('Column plot', () => {
     },
   ];
 
+  it('auto padding', () => {
+    const columnPlot = new Column(canvasDiv, {
+      data,
+      xField: 'year',
+      yField: 'value',
+      yAxis: {
+        nice: true,
+      },
+    });
+    columnPlot.render();
+    const view = columnPlot.getView();
+    const [paddingTop, paddingRight] = view.padding as number[];
+    expect(paddingTop).toBe(24 + 6); // bleeding + yAxis
+    expect(paddingRight).toBe(24 + 0.5); // bleeding + xAxis
+  });
+
   it('初始化以及销毁', () => {
     const columnPlot = new Column(canvasDiv, {
       padding: [40, 40, 40, 40],

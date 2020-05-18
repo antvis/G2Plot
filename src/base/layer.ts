@@ -69,8 +69,8 @@ export default class Layer<T extends LayerConfig = LayerConfig> extends EventEmi
 
   public processOptions(options) {
     this.id = options.id;
-    this.x = options.x;
-    this.y = options.y;
+    this.x = options.x || 0;
+    this.y = options.y || 0;
     this.width = options.width;
     this.height = options.height;
     this.canvas = options.canvas;

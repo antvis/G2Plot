@@ -22,7 +22,7 @@ export const transformDataPercentage = (data: DataItem[], groupField: string, me
   // 覆盖measures字段的值为对于的百分比
   const newData = map(data, (item) => {
     // @ts-ignore
-    const rst = { ...item, _origin: item, total: groupTotals[item[groupField] as number] };
+    const rst = { ...item, _origin: item, total: groupTotals[item[groupField]] };
     each(measures, (field) => {
       // @ts-ignore
       rst[field] = item[field] / groupTotals[item[groupField]];

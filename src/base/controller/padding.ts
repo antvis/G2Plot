@@ -111,7 +111,7 @@ export default class PaddingController {
   private _getInnerAutoPadding() {
     const props = this.plot.options;
     const view = this.plot.view;
-    const viewRange: any = clone(view.coordinateBBox);
+    const viewRange = view.coordinateBBox;
     const { maxX, maxY, minY, minX } = viewRange;
     const bleeding = this.plot.config.theme.bleeding;
     if (isArray(bleeding)) {
@@ -165,7 +165,7 @@ export default class PaddingController {
         if (position === 'left') {
           bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
         } else if (position === 'bottom') {
-          bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
+          bboxes.push(new BBox(minX, globalBBox.maxY, width, height));
         } else if (position === 'right') {
           bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
         }
@@ -173,7 +173,7 @@ export default class PaddingController {
         if (position === 'bottom') {
           bboxes.push(new BBox(globalBBox.minX - width, minY, width, height));
         } else if (position === 'left') {
-          bboxes.push(new BBox(minX, globalBBox.maxY + height, width, height));
+          bboxes.push(new BBox(minX, globalBBox.maxY, width, height));
         } else if (position === 'top') {
           bboxes.push(new BBox(globalBBox.maxX, minY, width, height));
         }

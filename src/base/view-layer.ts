@@ -126,7 +126,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         },
         title: {
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       yAxis: {
@@ -148,7 +148,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         title: {
           autoRotate: true,
           visible: false,
-          offset: 12,
+          spacing: 12,
         },
       },
       label: {
@@ -256,6 +256,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
+      limitInPlot: true,
       region,
     });
     this.applyInteractions();
@@ -735,13 +736,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   private viewRangeToRegion(viewRange) {
-    const { width, height } = viewRange;
+    const { x, y, width, height } = this;
     const start = { x: 0, y: 0 },
       end = { x: 1, y: 1 };
-    start.x = viewRange.minX / width;
-    start.y = viewRange.minY / height;
-    end.x = viewRange.maxX / (viewRange.minX + width);
-    end.y = viewRange.maxY / (viewRange.minY + height);
+    start.x = viewRange.minX / (x + width);
+    start.y = viewRange.minY / (y + height);
+    end.x = viewRange.maxX / (x + width);
+    end.y = viewRange.maxY / (y + height);
 
     return {
       start,

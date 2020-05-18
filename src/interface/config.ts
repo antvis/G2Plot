@@ -83,6 +83,7 @@ export interface IBaseAxis {
     text?: string;
     offset?: number;
     style?: TextStyle;
+    spacing?: number;
   };
   tickLine?: {
     visible?: boolean;

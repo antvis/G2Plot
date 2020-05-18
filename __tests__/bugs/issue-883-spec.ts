@@ -9,7 +9,7 @@ describe('#883', () => {
   canvasDiv.id = 'canvas1';
   document.body.appendChild(canvasDiv);
 
-  it.only('guidline暂时只支持非转置坐标系', () => {
+  it('guidline暂时只支持非转置坐标系', () => {
     const data = [
       { year: '1991', value: 3 },
       { year: '1992', value: 4 },

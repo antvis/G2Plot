@@ -1,7 +1,13 @@
-## <small>1.1.2 (2020-05-09)
-- 🌟feat: combo series line ([04aa6c7](https://github.com/antvis/G2Plot/commit/04aa6c7))
-- 🌟feat: update customize tooltip configration ([3b5a513](https://github.com/antvis/G2Plot/commit/3b5a513))
-- 🐞fix: pie default radius ([9854cda](https://github.com/antvis/G2Plot/commit/9854cda))
+## <small>1.1.3 (2020-05-19)
+- 🌟feat: line plot label responsive ([3b20a94](https://github.com/antvis/G2Plot/commit/3b20a94))
+- 🌟feat: public method for chart ([b609738](https://github.com/antvis/G2Plot/commit/b609738))
+- 🐞fix: 轴标题配置及padding计算 ([7332d75](https://github.com/antvis/G2Plot/commit/7332d75))
+- 🐞fix: guideline display ([dc4e25a](https://github.com/antvis/G2Plot/commit/dc4e25a))
+
+## <small>1.1.2 (2020-05-09
+🌟feat: combo series line (04aa6c7)
+🌟feat: update customize tooltip configration (3b5a513)
+🐞fix: pie default radius (9854cda)
 
 ## <small>1.1.1 (2020-05-06)
 - 🐞fix: chart name typo ([7b2a0b](https://github.com/antvis/G2Plot/commit/7b2a0b0))

@@ -106,7 +106,7 @@
     "react-i18next": "^11.0.1",
     "resemblejs": "^3.2.3",
     "rimraf": "^3.0.0",
-    "ts-jest": "^25.4.0",
+    "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.0",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",

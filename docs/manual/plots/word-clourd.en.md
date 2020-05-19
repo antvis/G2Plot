@@ -1,5 +1,5 @@
 ---
-title: WordCloud - 词云
+title: WordCloud
 order: 29
 ---
 

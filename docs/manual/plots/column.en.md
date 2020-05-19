@@ -1,5 +1,5 @@
 ---
-title: Column - 柱状图
+title: Column
 order: 4
 ---
 

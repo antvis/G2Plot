@@ -1,5 +1,5 @@
 ---
-title: Donut - 环图
+title: Donut
 order: 15
 ---
 

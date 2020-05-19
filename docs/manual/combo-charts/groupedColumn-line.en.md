@@ -1,5 +1,5 @@
 ---
-title: GroupedColumnLine - 分组柱+折线线混合图表
+title: GroupedColumnLine
 order: 2
 ---
 

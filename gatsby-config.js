@@ -46,7 +46,15 @@ module.exports = {
           zh: '迷你图表',
           en: 'sparkline',
         },
-        order: 3,
+        order: 4,
+      },
+      {
+        slug: 'manual/combo-charts',
+        title: {
+          zh: '混合图表',
+          en: 'combo charts',
+        },
+        order: 5,
       },
       {
         slug: 'manual/advanced',
@@ -54,7 +62,7 @@ module.exports = {
           zh: '进阶',
           en: 'Advanced',
         },
-        order: 4,
+        order: 6,
       },
     ],
     examples: [

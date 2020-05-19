@@ -1,5 +1,5 @@
 ---
-title: Waterfall - 瀑布图
+title: Waterfall
 order: 9
 ---
 

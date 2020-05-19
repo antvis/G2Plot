@@ -1,5 +1,5 @@
 ---
-title: StackedColumnLine - 堆叠柱+折线线混合图表
+title: StackedColumnLine
 order: 3
 ---
 

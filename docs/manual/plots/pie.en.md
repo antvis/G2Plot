@@ -1,5 +1,5 @@
 ---
-title: Pie - 饼图
+title: Pie
 order: 14
 ---
 

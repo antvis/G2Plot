@@ -1,5 +1,5 @@
 ---
-title: StackedArea - 堆叠面积图
+title: StackedArea
 order: 3
 ---
 

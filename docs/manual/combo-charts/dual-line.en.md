@@ -1,5 +1,5 @@
 ---
-title: DualLine - 双折线混合图表
+title: DualLine
 order: 0
 ---
 

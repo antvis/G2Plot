@@ -39,6 +39,7 @@ describe('StackedBar Auto Label', () => {
         formatter: (v) => Math.round(Number(v) / 1000) + 'k',
       },
     },
+    animation: false,
   };
 
   it('InShape /wo stroke', () => {

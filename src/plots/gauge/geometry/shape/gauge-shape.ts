@@ -77,20 +77,20 @@ export class GaugeShape {
         switch (type) {
           case 'meterGauge':
             this.drawBarGauge(currentAngle);
-            if (this.gauge.axis.visible) {
+            if (this.gauge.axis.visible && this.gauge.axis.tickLine?.visible) {
               this.drawInSideAxis();
             }
             break;
           case 'fanGauge':
             this.drawGauge(currentAngle);
-            if (this.gauge.axis.visible) {
+            if (this.gauge.axis.visible && this.gauge.axis.tickLine?.visible) {
               this.drawOutSideAxis();
             }
             break;
           case 'standardGauge':
           default:
             this.drawGauge(currentAngle);
-            if (this.gauge.axis.visible) {
+            if (this.gauge.axis.visible && this.gauge.axis.tickLine?.visible) {
               this.drawAxis();
             }
             break;

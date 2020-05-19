@@ -21,6 +21,7 @@ import { getComponent } from '../components/factory';
 import Interaction from '../interaction/core';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
 import {
+  IValueAxis,
   Axis,
   IDescription,
   IInteractions,
@@ -257,7 +258,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
-      limitInPlot: true,
+      limitInPlot: this.isLimitInPlot(),
       region,
     });
     this.applyInteractions();
@@ -777,6 +778,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
     const viewRange = this.paddingController.processOuterPadding();
     return viewRange;
+  }
+
+  protected isLimitInPlot() {
+    const yAxisOptions = this.options.yAxis as IValueAxis;
+    if (yAxisOptions?.max || yAxisOptions?.min) {
+      return true;
+    }
+    return false;
   }
 
   private viewRangeToRegion(viewRange) {

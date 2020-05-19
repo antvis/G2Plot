@@ -384,6 +384,15 @@ export interface ITimeLineInteractionConfig {
   // width?: number;
 }
 
+export interface ITooltipIndicatorInteractionConfig {
+  /** 是否显示总计 */
+  showTotal?: boolean;
+  /** 是否显示百分比 */
+  showPercent?: boolean;
+  height?: number;
+  padding?: [number, number, number, number];
+}
+
 //export type IInteractionConfig = IScrollbarInteractionConfig | ISliderInteractionConfig;
 
 export type IInteractionConfig = {

@@ -4,7 +4,7 @@ import { deepMix, isString } from '@antv/util';
 import { getEndPoint, getLabelRotate, getAngleByPoint, getOverlapArea, near } from './utils';
 import { Label, TextStyle } from '../../../../interface/config';
 import PieLayer from '../../layer';
-import { getEllipsisText } from './utils/text';
+import { getEllipsisText } from '../../../../util/text';
 
 /** label text和line距离 4px */
 export const CROOK_DISTANCE = 4;

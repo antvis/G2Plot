@@ -78,7 +78,7 @@ export default class ScrollbarInteraction extends BaseInteraction {
     leading: true,
   }) as (evt: object) => void;
 
-  protected render(): void {
+  public render(): void {
     const view = this.view;
     this.ratio = 0;
     this.thumbOffset = 0;

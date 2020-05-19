@@ -94,6 +94,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         wordSpacing: 4,
       },
       tooltip: {
+        showContent: false,
         crosshairs: {
           line: {
             style: {

@@ -88,3 +88,10 @@ export function isBBoxIntersect(bboxA: BBox, bboxB: BBox) {
   }
   return true;
 }
+
+/**
+ * 判断是否移动端环境
+ */
+export function isMobile() {
+  return !!navigator.userAgent.match(/(Mobile)|(Android)|(WebOS)|(iPhone)|(iPad)/);
+}

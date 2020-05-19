@@ -109,12 +109,13 @@ export default class DrillDownInteraction extends BaseInteraction {
     this.render();
   }
 
-  protected render() {
+  public render() {
     if (this.breadcrumb) {
       const items = this.getItems();
       this.breadcrumb.update({
         items,
       });
+      this.breadcrumb.render();
       this.layout();
     } else {
       this.initGeometry();
@@ -141,6 +142,7 @@ export default class DrillDownInteraction extends BaseInteraction {
         y: this.y,
         items: this.getItems(),
       });
+      this.breadcrumb.init();
       this.breadcrumb.render();
       this.plot.canvas.draw();
       this.layout();
@@ -159,6 +161,7 @@ export default class DrillDownInteraction extends BaseInteraction {
       x,
       y: this.y,
     });
+    this.breadcrumb.render();
   }
 
   private getItems() {

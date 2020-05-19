@@ -88,6 +88,8 @@ export default class TimeLineInteraction extends BaseInteraction {
         container: this.container,
         ...timeLineConfig,
       });
+      this.timeline.init();
+      this.timeline.render();
       this.timeline.on('timelinestart', () => {
         this.originAnimation = this.view.getOptions().animate;
         this.setAnimate(true);
@@ -120,7 +122,7 @@ export default class TimeLineInteraction extends BaseInteraction {
   }
 
   /** 渲染 timeline */
-  protected render(): void {
+  public render(): void {
     this.firstRender = true;
     this.view.on(VIEW_LIFE_CIRCLE.BEFORE_RENDER, () => {
       this.renderTimeLine();

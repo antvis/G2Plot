@@ -30,21 +30,13 @@ export default class Button extends BaseComponent<ButtonCfg> {
     super(deepMix({}, cfg));
   }
 
-  protected renderInner() {
-    // 基类抽象方法，暂无实现
-  }
-
-  public update(cfg: Partial<ButtonCfg>) {
-    this.config = deepMix({}, this.config, cfg);
+  protected renderInner(group: IGroup) {
+    this.initElement(group);
     this.updateElement();
     this.renderMarker();
-  }
 
-  protected init() {
-    this.initElement();
-    this.renderMarker();
-
-    this.group.on('click', () => {
+    group.off('click');
+    group.on('click', () => {
       this.emit('click');
     });
   }
@@ -54,8 +46,8 @@ export default class Button extends BaseComponent<ButtonCfg> {
     super.destroy();
   }
 
-  private initElement() {
-    this.circle = this.group.addShape('circle', {
+  private initElement(group: IGroup) {
+    this.circle = group.addShape('circle', {
       attrs: {
         x: this.config.x,
         y: this.config.y,
@@ -64,14 +56,14 @@ export default class Button extends BaseComponent<ButtonCfg> {
       },
     });
 
-    this.startMarker = this.group.addShape('path', {
+    this.startMarker = group.addShape('path', {
       attrs: {
         path: this.getStartMarkerPath(),
         fill: '#ffffff',
       },
     });
 
-    this.pauseGroupMarker = this.group.addGroup();
+    this.pauseGroupMarker = group.addGroup();
     const width = (1 / 4) * this.config.r;
     const height = 0.5 * this.config.r * Math.sqrt(3);
     this.pauseLeftMarker = this.pauseGroupMarker.addShape('rect', {
@@ -92,8 +84,6 @@ export default class Button extends BaseComponent<ButtonCfg> {
         fill: '#ffffff',
       },
     });
-
-    this.group.add(this.pauseGroupMarker);
   }
 
   private updateElement() {

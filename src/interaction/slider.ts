@@ -85,7 +85,7 @@ export default class SliderInteraction extends BaseInteraction {
     range: [number, number]
   ) => void;
 
-  protected render(): void {
+  public render(): void {
     const layer = this.getViewLayer();
     const view = this.view;
     // 设置初始化的 start/end

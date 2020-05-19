@@ -3,7 +3,7 @@
  * @author blackganglion
  */
 
-import { IShape, Event } from '@antv/g-base';
+import { IShape, Event, IGroup } from '@antv/g-base';
 import { deepMix, findIndex, get } from '@antv/util';
 import Button from './button';
 import BaseComponent, { BaseComponentConfig } from '../base';
@@ -77,19 +77,21 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     );
   }
 
-  protected renderInner() {
-    // 基类抽象方法，暂无实现
+  protected renderInner(group: IGroup) {
+    const { ticks, defaultCurrentTick } = this.config;
+
+    if (ticks && ticks.length) {
+      this.currentTick = this.config.ticks.includes(defaultCurrentTick) ? defaultCurrentTick : ticks[0];
+      this.renderPlayButton(group);
+      this.renderTimeLine(group);
+      this.renderTimeSelect(group, this.currentTick);
+      this.initEvent();
+    }
   }
 
   // 更新配置
   public update(cfg: Partial<TimeLineCfg>) {
-    this.config = deepMix({}, this.config, cfg);
-
-    const { ticks } = this.config;
-    this.currentTick = ticks.includes(this.currentTick) ? this.currentTick : ticks[0];
-    this.renderPlayButton();
-    this.renderTimeLine();
-    this.renderTimeSelect(this.currentTick);
+    super.update(cfg);
     // 更新时需要触发一次，来过滤数据
     this.emit(TIMELINE_UPDATE, this.currentTick);
   }
@@ -104,19 +106,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     }
   }
 
-  protected init() {
-    const { ticks, defaultCurrentTick } = this.config;
-
-    if (ticks && ticks.length) {
-      this.currentTick = this.config.ticks.includes(defaultCurrentTick) ? defaultCurrentTick : ticks[0];
-      this.renderPlayButton();
-      this.renderTimeLine();
-      this.renderTimeSelect(this.currentTick);
-      this.initEvent();
-    }
-  }
-
-  private renderPlayButton() {
+  private renderPlayButton(group: IGroup) {
     const { height, x, y } = this.config;
     const ratio = 0.8;
     const r = (height / 2) * ratio;
@@ -128,13 +118,15 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
       });
     } else {
       this.timeLineButton = new Button({
-        container: this.group,
+        container: group,
         x: x + r,
         y: y + r + (height * (1 - ratio)) / 2,
         r,
         isPlay: this.isPlay,
       });
+      this.timeLineButton.init();
     }
+    this.timeLineButton.render();
   }
 
   private getTimeLinePath() {
@@ -154,7 +146,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     return [];
   }
 
-  private renderTimeLine() {
+  private renderTimeLine(group: IGroup) {
     const { width, height, ticks, x, y } = this.config;
 
     if (!this.timeLine) {
@@ -170,7 +162,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     if (this.timeLine && this.timeLine.shape) {
       this.timeLine.shape.attr('path', this.getTimeLinePath());
     } else {
-      this.timeLine.shape = this.group.addShape('path', {
+      this.timeLine.shape = group.addShape('path', {
         attrs: {
           path: this.getTimeLinePath(),
           fill: '#607889',
@@ -190,7 +182,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     this.timeLine.textList = ticks.map((tick, index) => {
       this.tickPosList.push(this.timeLine.x + index * interval);
 
-      const text = this.group.addShape('text', {
+      const text = group.addShape('text', {
         attrs: {
           x: this.timeLine.x + index * interval,
           y: this.timeLine.y + this.timeLine.height + 5,
@@ -216,7 +208,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
     });
   }
 
-  private renderTimeSelect(tickValue: string) {
+  private renderTimeSelect(group: IGroup, tickValue: string) {
     const { ticks, height } = this.config;
     const interval = this.timeLine.width / (ticks.length - 1);
     const index = findIndex(ticks, (tick) => tick === tickValue);
@@ -229,7 +221,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
       this.timeSelect.attr('y', y);
       this.timeSelect.attr('r', r);
     } else {
-      this.timeSelect = this.group.addShape('circle', {
+      this.timeSelect = group.addShape('circle', {
         attrs: {
           x,
           y,
@@ -244,7 +236,7 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
       this.timeSelectText.attr('y', y - height * 0.15 - 14);
       this.timeSelectText.attr('text', this.currentTick);
     } else {
-      this.timeSelectText = this.group.addShape('text', {
+      this.timeSelectText = group.addShape('text', {
         attrs: {
           x,
           y: y - height * 0.15 - 14,
@@ -414,12 +406,14 @@ export default class TimeLine extends BaseComponent<TimeLineCfg> {
 
   private initEvent() {
     /** 播放/暂停事件 */
+    this.timeLineButton.off('click');
     this.timeLineButton.on('click', () => {
       this.isPlay = !this.isPlay;
       this.changePlayStatus();
     });
 
     /** 播放轴上圆点滑动事件 */
+    this.timeSelect.off('mousedown');
     this.timeSelect.on('mousedown', (event) => {
       this.onTimeSelectMouseDown(event);
     });

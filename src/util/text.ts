@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 
 interface Font {
   fontFamily?: string;
-  fontWeight?: string;
+  fontWeight?: string | number;
   fontStyle?: string;
   fontVariant?: string;
   fontSize?: number;

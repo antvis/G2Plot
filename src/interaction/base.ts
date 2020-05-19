@@ -64,7 +64,6 @@ export default abstract class BaseInteraction extends Interaction {
     this.interactionRange = interactionRange;
     this.interactionConfig = interaction;
     this.disposables = [];
-    this.render();
   }
 
   public destroy(): void {
@@ -92,7 +91,12 @@ export default abstract class BaseInteraction extends Interaction {
     this.disposables.push(fn);
   }
 
-  protected render(): void {
+  public render(): void {
+    return;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected start(ev: any): void {
     return;
   }
 

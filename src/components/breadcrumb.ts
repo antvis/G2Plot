@@ -56,7 +56,7 @@ export default class Breadcrumb extends BaseComponent<BreadcrumbConfig> {
     super.destroy();
   }
 
-  protected init(config: BreadcrumbConfig) {
+  protected initConfig(config: BreadcrumbConfig) {
     this.x = config.x;
     this.y = config.y;
     this.items = config.items || [];

@@ -6,6 +6,18 @@ export interface BaseComponentConfig {
   container: IGroup;
 }
 
+/**
+ * 组件基类
+ *
+ *  创建和渲染
+ *  - 1. new Component()
+ *  - 2. init()
+ *  - 2. render()
+ *  更新
+ *  - 1. update()
+ *  - 2. render()
+ *
+ */
 export default abstract class BaseComponent<T extends BaseComponentConfig = BaseComponentConfig> extends EventEmitter {
   protected container: IGroup;
   protected group: IGroup;
@@ -17,14 +29,23 @@ export default abstract class BaseComponent<T extends BaseComponentConfig = Base
     super();
     this.container = config.container;
     this.destroyed = false;
-    this.group = this.container.addGroup();
     this.config = config;
     this.disposables = [];
-    this.init(config);
+  }
+
+  public init() {
+    if (!this.group) {
+      this.initGroup();
+    }
+    this.initConfig(this.config);
   }
 
   public getGroup(): IGroup {
     return this.group;
+  }
+
+  public getConfig(): T {
+    return this.config;
   }
 
   public getBBox(): BBox {
@@ -36,16 +57,14 @@ export default abstract class BaseComponent<T extends BaseComponentConfig = Base
   }
 
   public render(): void {
+    this.group.clear();
     this.renderInner(this.group);
     this.getCanvas().draw();
   }
 
   public update(config: Partial<T>): void {
     this.config = { ...this.config, ...config };
-    this.init({ ...this.config, config });
-    this.group.clear();
-    this.renderInner(this.group);
-    this.getCanvas().draw();
+    this.initConfig(this.config);
   }
 
   public destroy(): void {
@@ -57,6 +76,10 @@ export default abstract class BaseComponent<T extends BaseComponentConfig = Base
     this.destroyed = true;
   }
 
+  protected initGroup(): void {
+    this.group = this.container.addGroup();
+  }
+
   protected getCanvas(): Canvas {
     return this.container.get('canvas');
   }
@@ -65,7 +88,10 @@ export default abstract class BaseComponent<T extends BaseComponentConfig = Base
     this.disposables.push(fn);
   }
 
-  protected abstract init(config: T): void;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected initConfig(config: T): void {
+    return;
+  }
 
   protected abstract renderInner(group: IGroup): void;
 }

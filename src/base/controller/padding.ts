@@ -44,6 +44,10 @@ export default class PaddingController {
     }
   }
 
+  public getPaddingComponents(type: 'outer' | 'inner' = 'outer') {
+    return (type === 'outer' ? this.outerPaddingComponents : this.innerPaddingComponents) || [];
+  }
+
   /**
    * 清除已经注册的元素
    */

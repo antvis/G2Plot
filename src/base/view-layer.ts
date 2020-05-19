@@ -156,7 +156,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
-      animation: false,
+      animation: true,
     };
   }
   public type: string;

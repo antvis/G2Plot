@@ -126,6 +126,9 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       plot: this,
     });
     this.adjustLiquid(liquid);
+    const viewRange = this.getViewRange();
+    const defaultSize = Math.min(viewRange.width, viewRange.height) * 0.8;
+    liquid.size = { values: [defaultSize] };
     this.liquid = liquid;
     this.setConfig('geometry', liquid);
   }

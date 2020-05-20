@@ -65,7 +65,7 @@ describe('#1085', () => {
     },
   ];
 
-  it('padding erroe in polar coord', () => {
+  it('padding error in polar coord', () => {
     const rosePlot = new StackedRose(createDiv(), {
       radius: 0.8,
       data,

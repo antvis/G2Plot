@@ -1,5 +1,5 @@
 ---
-title: Histogram - 直方图
+title: Histogram
 order: 8
 ---
 

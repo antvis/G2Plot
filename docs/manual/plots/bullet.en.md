@@ -1,5 +1,5 @@
 ---
-title: Bullet - 子弹图
+title: Bullet
 order: 26
 ---
 

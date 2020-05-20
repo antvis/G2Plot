@@ -1,5 +1,5 @@
 ---
-title: StepLine - 阶梯折图
+title: StepLine
 order: 1
 ---
 

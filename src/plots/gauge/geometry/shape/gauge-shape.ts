@@ -77,20 +77,20 @@ export class GaugeShape {
         switch (type) {
           case 'meterGauge':
             this.drawBarGauge(currentAngle);
-            if (this.gauge.axis.visible) {
+            if (this.gauge.axis.visible && this.gauge.axis.tickLine?.visible) {
               this.drawInSideAxis();
             }
             break;
           case 'fanGauge':
             this.drawGauge(currentAngle);
-            if (this.gauge.axis.visible) {
+            if (this.gauge.axis.visible && this.gauge.axis.tickLine?.visible) {
               this.drawOutSideAxis();
             }
             break;
           case 'standardGauge':
           default:
             this.drawGauge(currentAngle);
-            if (this.gauge.axis.visible) {
+            if (this.gauge.axis.visible && this.gauge.axis.tickLine?.visible) {
               this.drawAxis();
             }
             break;
@@ -310,7 +310,7 @@ export class GaugeShape {
         const xB1 = (radius + length) * Math.cos(angle) + center.x;
         const yB1 = (radius + length) * Math.sin(angle) + center.y;
 
-        this.gauge.group.addShape('line', {
+        const line = this.gauge.group.addShape('line', {
           attrs: deepMix(
             {},
             {
@@ -322,6 +322,7 @@ export class GaugeShape {
             param.style
           ),
         });
+        line.set('name', 'axis-tickLine');
       },
 
       getPath(starAngle: number, endAngle: number) {

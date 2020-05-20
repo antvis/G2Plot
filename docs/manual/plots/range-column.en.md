@@ -1,5 +1,5 @@
 ---
-title: RangeColumn - 区间柱状图
+title: RangeColumn
 order: 7
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: RangeBar - 区间条形图
+title: RangeBar
 order: 13
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: DensityHeatmap - 密度热力图
+title: DensityHeatmap
 order: 23
 ---
 

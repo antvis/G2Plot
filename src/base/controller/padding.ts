@@ -129,7 +129,9 @@ export default class PaddingController {
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend label annotation
     const components_bbox = [new BBox(viewRange.minX, viewRange.minY, viewRange.width, viewRange.height)];
-    this._getAxis(view, components_bbox[0], components_bbox);
+    if (this.plot.config.coordinate?.type === 'cartesian') {
+      this._getCartesianAxis(view, components_bbox[0], components_bbox);
+    }
     let box = this._mergeBBox(components_bbox);
     this._getLegend(view, box, components_bbox);
     box = this._mergeBBox(components_bbox);
@@ -156,7 +158,7 @@ export default class PaddingController {
     return padding;
   }
 
-  private _getAxis(view: View, globalBBox, bboxes: BBox[]) {
+  private _getCartesianAxis(view: View, globalBBox, bboxes: BBox[]) {
     const axes = getAxisComponents(view);
     const { isTransposed } = view.getCoordinate();
     each(axes, (axis: Axis.Base) => {

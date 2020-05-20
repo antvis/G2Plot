@@ -1,5 +1,5 @@
 ---
-title: Area - 面积图
+title: Area
 order: 2
 ---
 

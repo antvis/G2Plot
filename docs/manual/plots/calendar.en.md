@@ -1,5 +1,5 @@
 ---
-title: Calendar - 日历图
+title: Calendar
 order: 25
 ---
 

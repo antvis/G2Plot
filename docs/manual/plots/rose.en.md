@@ -1,5 +1,5 @@
 ---
-title: Rose - 玫瑰图
+title: Rose
 order: 16
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: StackedRose - 堆叠玫瑰图
+title: StackedRose
 order: 17
 ---
 

@@ -28,6 +28,7 @@ export interface LiquidViewConfig extends Partial<ViewConfig> {
     formatter?: (value) => string;
     style?: TextStyle;
   };
+  liquidSize?: number;
   min: number;
   max: number;
   value: number;
@@ -126,6 +127,10 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       plot: this,
     });
     this.adjustLiquid(liquid);
+    const viewRange = this.getViewRange();
+    const defaultSize = Math.min(viewRange.width, viewRange.height) * 0.8;
+    const liquidSize = this.options.liquidSize ? this.options.liquidSize : defaultSize;
+    liquid.size = { values: [liquidSize] };
     this.liquid = liquid;
     this.setConfig('geometry', liquid);
   }

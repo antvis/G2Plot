@@ -159,7 +159,6 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
 
   protected axis() {
     const { axis } = this.options;
-
     const axesConfig: any = {
       value: {
         line: null,
@@ -186,8 +185,8 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
         },
       };
     }
-
     axesConfig['1'] = false;
+    axesConfig['value'] = axis.visible ? axesConfig['value'] : false;
     this.setConfig('axes', axesConfig);
   }
 

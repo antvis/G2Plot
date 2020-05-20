@@ -1,5 +1,5 @@
 ---
-title: GroupedBar - 分组条形图
+title: GroupedBar
 order: 12
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Line - 折线图
+title: Line
 order: 0
 ---
 

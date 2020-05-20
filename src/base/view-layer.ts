@@ -13,6 +13,7 @@ import {
   findIndex,
   isString,
   contains,
+  hasKey,
 } from '@antv/util';
 import { View, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gesture } from '../dependents';
 import TextDescription from '../components/description';
@@ -21,6 +22,7 @@ import { getComponent } from '../components/factory';
 import Interaction from '../interaction/core';
 import BaseInteraction, { InteractionCtor } from '../interaction/index';
 import {
+  IValueAxis,
   Axis,
   IDescription,
   IInteractions,
@@ -157,7 +159,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         visible: false,
       },
       interactions: [{ type: 'tooltip' }, { type: 'legend-active' }, { type: 'legend-filter' }],
-      animation: false,
+      animation: true,
     };
   }
   public type: string;
@@ -258,7 +260,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       padding: this.paddingController.getPadding(),
       theme: this.theme,
       options: this.config,
-      limitInPlot: true,
+      limitInPlot: this.isLimitInPlot(),
       region,
     });
     this.applyInteractions();
@@ -790,6 +792,14 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     });
     const viewRange = this.paddingController.processOuterPadding();
     return viewRange;
+  }
+
+  protected isLimitInPlot() {
+    const yAxisOptions = this.options.yAxis as IValueAxis;
+    if (hasKey(yAxisOptions, 'max') || hasKey(yAxisOptions, 'min')) {
+      return true;
+    }
+    return false;
   }
 
   private viewRangeToRegion(viewRange) {

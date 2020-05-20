@@ -13,6 +13,7 @@ import {
   findIndex,
   isString,
   contains,
+  hasKey,
 } from '@antv/util';
 import { View, BBox, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gesture } from '../dependents';
 import TextDescription from '../components/description';
@@ -782,7 +783,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected isLimitInPlot() {
     const yAxisOptions = this.options.yAxis as IValueAxis;
-    if (yAxisOptions?.max || yAxisOptions?.min) {
+    if (hasKey(yAxisOptions, 'max') || hasKey(yAxisOptions, 'min')) {
       return true;
     }
     return false;

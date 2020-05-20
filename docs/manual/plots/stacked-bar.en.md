@@ -1,5 +1,5 @@
 ---
-title: StackedBar - 堆叠条形图
+title: StackedBar
 order: 11
 ---
 

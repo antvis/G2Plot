@@ -1,5 +1,5 @@
 ---
-title: Bubble  - 气泡图
+title: Bubble
 order: 21
 ---
 

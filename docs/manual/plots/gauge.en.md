@@ -1,5 +1,5 @@
 ---
-title: Gauge - 仪表盘
+title: Gauge
 order: 27
 ---
 

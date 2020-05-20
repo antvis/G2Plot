@@ -1,5 +1,5 @@
 ---
-title: Bar - 基础条形图
+title: Bar
 order: 10
 ---
 

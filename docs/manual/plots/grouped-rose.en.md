@@ -1,5 +1,5 @@
 ---
-title: GroupedRose - 分组玫瑰图
+title: GroupedRose
 order: 18
 ---
 

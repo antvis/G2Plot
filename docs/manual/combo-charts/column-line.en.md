@@ -1,5 +1,5 @@
 ---
-title: ColumnLine - 柱线混合图表
+title: ColumnLine
 order: 1
 ---
 

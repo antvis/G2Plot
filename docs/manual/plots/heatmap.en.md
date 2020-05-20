@@ -1,5 +1,5 @@
 ---
-title: Heatmap - 热力图
+title: Heatmap
 order: 22
 ---
 

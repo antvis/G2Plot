@@ -1,5 +1,5 @@
 ---
-title: Radar - 雷达图
+title: Radar
 order: 19
 ---
 

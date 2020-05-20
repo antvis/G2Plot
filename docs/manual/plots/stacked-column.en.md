@@ -1,5 +1,5 @@
 ---
-title: StackedColumn - 堆叠柱状图
+title: StackedColumn
 order: 5
 ---
 

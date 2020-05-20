@@ -1,5 +1,5 @@
 ---
-title: GroupedColumn - 分组柱状图
+title: GroupedColumn
 order: 6
 ---
 

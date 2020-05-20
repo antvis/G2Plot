@@ -1,5 +1,5 @@
 ---
-title: Scatter - 散点图
+title: Scatter
 order: 20
 ---
 

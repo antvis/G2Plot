@@ -395,11 +395,10 @@ export default class SpiderLabel {
         const leftPoint = lastPoint[0] + ADJUSTOFFSET;
         const rightPoint = lastPoint[0] - ADJUSTOFFSET;
         const point2 = [label._side === 'left' ? leftPoint : rightPoint, _inflection[1]];
-        const point3 = [label._side === 'left' ? lastPoint[0] : lastPoint[0], lastPoint[1]];
 
-        points = [_anchor, point1, point2, point3, lastPoint];
+        points = [_anchor, point1, point2, lastPoint];
         if ((label._side === 'right' && point2[0] < point1[0]) || (label._side === 'left' && point2[0] > point1[0])) {
-          points = [_anchor, point1, point3, lastPoint];
+          points = [_anchor, point1, lastPoint];
         }
       } else {
         points = [_anchor, [_inflection[0], y], lastPoint];

@@ -1110,6 +1110,10 @@ var WordCloud = function WordCloud(elements, options) {
         for (let i = 0; i < interactionItems.length; i++) {
           const find = interactionItems[i];
           if (!twiceRender || (twiceRender && get(find, ['info', 'item', 'twiceRender']))) {
+            /**
+             * 词云图词量较少的时候，重新渲染一次词汇，放大词云图效果
+             * 这里先临时解决，后续还是需要优化词云图算法来解决
+             */
             drawText(
               find.gx,
               find.gy,

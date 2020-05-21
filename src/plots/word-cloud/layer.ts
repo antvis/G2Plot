@@ -9,6 +9,7 @@ import WordCloudTooltips from './word-cloud-tooltips';
 
 import WordCloud from './wordcloud2';
 import { WordCloudPlotConfig } from './index';
+import { TooltipCfg } from '../../dependents';
 
 export type CloudShape =
   | 'circle'
@@ -89,8 +90,10 @@ export interface WordCloudViewConfig extends WordCloudPlotConfig {
   selected?: number;
   tooltip?: {
     visible: boolean;
-  };
+  } & TooltipCfg;
   shape?: CloudShape | Function;
+
+  animatable?: boolean;
 
   onWordCloudHover?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent, start: InnerStartFunction) => {};
   onWordCloudClick?: (item: WordCloudData, dimension: Dimension, evt: MouseEvent) => {};

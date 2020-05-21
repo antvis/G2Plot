@@ -1,7 +1,7 @@
-import { Line } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import subsales from '../../../data/subsales.json';
-import { IGroup, GroupComponent, TooltipController } from '../../../../src/dependents';
+import { Line } from '../../../../../src';
+import { createDiv } from '../../../../utils/dom';
+import subsales from '../../../../data/subsales.json';
+import { IGroup, GroupComponent, TooltipController } from '../../../../../src/dependents';
 
 describe('selected-tooltip-interaction', () => {
   const plot = new Line(createDiv(), {

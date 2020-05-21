@@ -1,5 +1,5 @@
 import { isEqual, last } from '@antv/util';
-import { InteractionAction, View, TooltipController, Point, registerComponentController } from '../../dependents';
+import { InteractionAction, View, TooltipController, Point, registerComponentController } from '../../../dependents';
 
 // @ts-ignore
 export class SelectedTooltipController extends TooltipController {

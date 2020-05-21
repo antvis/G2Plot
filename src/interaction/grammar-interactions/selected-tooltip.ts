@@ -18,10 +18,6 @@ registerComponentController('selected-tooltip', SelectedTooltipController);
 export class SelectedTooltipAction extends InteractionAction {
   private location: Point;
 
-  public init() {
-    super.init();
-  }
-
   public show() {
     const curLocation = this.getPoint();
     if (!isEqual(curLocation, this.location)) {

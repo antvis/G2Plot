@@ -18,6 +18,8 @@
 
 'use strict';
 
+import * as _ from '@antv/util';
+
 // setImmediate
 if (!window.setImmediate) {
   window.setImmediate = (function setupSetImmediate() {
@@ -193,7 +195,6 @@ var WordCloud = function WordCloud(elements, options) {
     fontFamily: '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
     fontWeight: 'normal',
     color: 'random-dark',
-    animatable: true,
 
     minFontSize: minFontSize, // browser's min font size default
     maxFontSize: 60, // max font size default is 60
@@ -224,10 +225,11 @@ var WordCloud = function WordCloud(elements, options) {
     ellipticity: 1,
 
     active: true,
+    animatable: true,
     selected: -1,
     shadowColor: '#333',
     shadowBlur: 10,
-
+    fontScale: 1.2,
     classes: null,
 
     onWordCloudHover: null,
@@ -270,7 +272,14 @@ var WordCloud = function WordCloud(elements, options) {
   }
 
   var getRealFontSize = function getRealFontSize(weight) {
-    return Math.min(Math.max(settings.minFontSize, (settings.maxFontSize * weight) / maxWeight), settings.maxFontSize);
+    const fontSize = Math.min(
+      Math.max(settings.minFontSize, (settings.maxFontSize * weight) / maxWeight),
+      settings.maxFontSize
+    );
+    if (twiceRender) {
+      return fontSize * settings.fontScale;
+    }
+    return fontSize;
   };
 
   var isCardioid = false;
@@ -468,11 +477,13 @@ var WordCloud = function WordCloud(elements, options) {
 
   var wordcloudhover = function wordcloudhover(evt) {
     var info = getInfoGridFromMouseTouchEvent(evt);
-
     if (hovered === info) {
       return;
     }
 
+    if (twiceRender && info && info.item && !_.get(info, ['item', 'twiceRender'])) {
+      return;
+    }
     if (!info) {
       settings.onWordCloudHover(undefined, undefined, evt, start);
       if (settings.active) {
@@ -810,7 +821,6 @@ var WordCloud = function WordCloud(elements, options) {
         let transX = (gx + info.gw / 2) * g * mu;
         let transY = (gy + info.gh / 2) * g * mu;
         ctx.translate(transX, transY);
-
         if (rotateDeg !== 0) {
           ctx.rotate(-rotateDeg);
         }
@@ -998,7 +1008,7 @@ var WordCloud = function WordCloud(elements, options) {
       attributes = item.attributes;
       id = item.id;
     }
-    var rotateDeg = getRotateDeg();
+    var rotateDeg = _.isNil(item.rotateDeg) ? getRotateDeg() : item.rotateDeg;
 
     // get info needed to put the text onto the canvas
     var info = getTextInfo(word, weight, rotateDeg);
@@ -1028,7 +1038,6 @@ var WordCloud = function WordCloud(elements, options) {
     // Determine the position to put the text by
     // start looking for the nearest points
     var r = maxRadius + 1;
-
     while (r--) {
       var points = getPointsAtRadius(maxRadius - r);
 
@@ -1084,9 +1093,9 @@ var WordCloud = function WordCloud(elements, options) {
     }
     return undefined;
   };
-
+  var twiceRender;
   /* Start drawing on a canvas */
-  var start = function start(selected) {
+  var start = function start(selected?) {
     if (selected !== undefined) {
       // re-refresh canvas with selected
       // work in canvas only for now
@@ -1097,23 +1106,24 @@ var WordCloud = function WordCloud(elements, options) {
         ctx.fillStyle = settings.backgroundColor;
         ctx.clearRect(0, 0, elements[0].width, elements[0].height);
         ctx.fillRect(0, 0, elements[0].width, elements[0].height);
-
         // draw text
         for (let i = 0; i < interactionItems.length; i++) {
           const find = interactionItems[i];
-          drawText(
-            find.gx,
-            find.gy,
-            find.info,
-            find.word,
-            find.weight,
-            find.distance,
-            find.theta,
-            find.rotateDeg,
-            find.attributes,
-            find.id,
-            true
-          );
+          if (!twiceRender || (twiceRender && _.get(find, ['info', 'item', 'twiceRender']))) {
+            drawText(
+              find.gx,
+              find.gy,
+              find.info,
+              find.word,
+              find.weight,
+              find.distance,
+              find.theta,
+              find.rotateDeg,
+              find.attributes,
+              find.id,
+              true
+            );
+          }
         }
       }
       return;
@@ -1246,8 +1256,51 @@ var WordCloud = function WordCloud(elements, options) {
     }
 
     if (!settings.animatable) {
+      if (options.maskImage) {
+        /** 修复颜色透明，还留有 maskImage 的情况 */
+        elements.forEach(function (el) {
+          if (el.getContext) {
+            var ctx = el.getContext('2d');
+            ctx.fillStyle = settings.backgroundColor;
+            ctx.clearRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+            ctx.fillRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+          }
+        });
+      }
+      const renderedWords = [];
       for (let i = 0; i < settings.data.length; i++) {
-        putWord(settings.data[i]);
+        const response = putWord(settings.data[i]);
+        if (response) {
+          renderedWords.push(response);
+        }
+      }
+      if (renderedWords.length === settings.data.length) {
+        if (!twiceRender) {
+          elements.forEach(function (el) {
+            if (el.getContext) {
+              var ctx = el.getContext('2d');
+              ctx.fillStyle = settings.backgroundColor;
+              ctx.clearRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+              ctx.fillRect(0, 0, ngx * (g + 1), ngy * (g + 1));
+            }
+          });
+          /* fill the grid with empty state */
+          gx = ngx;
+          while (gx--) {
+            grid[gx] = [];
+            gy = ngy;
+            while (gy--) {
+              grid[gx][gy] = true;
+            }
+          }
+          twiceRender = true;
+          for (let i = 0; i < settings.data.length; i++) {
+            putWord({
+              ...settings.data[i],
+              twiceRender,
+            });
+          }
+        }
       }
     } else {
       i = 0;

@@ -18,7 +18,7 @@
 
 'use strict';
 
-import * as _ from '@antv/util';
+import { get, isNil } from '@antv/util';
 
 // setImmediate
 if (!window.setImmediate) {
@@ -481,7 +481,7 @@ var WordCloud = function WordCloud(elements, options) {
       return;
     }
 
-    if (twiceRender && info && info.item && !_.get(info, ['item', 'twiceRender'])) {
+    if (twiceRender && info && info.item && !get(info, ['item', 'twiceRender'])) {
       return;
     }
     if (!info) {
@@ -1008,7 +1008,7 @@ var WordCloud = function WordCloud(elements, options) {
       attributes = item.attributes;
       id = item.id;
     }
-    var rotateDeg = _.isNil(item.rotateDeg) ? getRotateDeg() : item.rotateDeg;
+    var rotateDeg = isNil(item.rotateDeg) ? getRotateDeg() : item.rotateDeg;
 
     // get info needed to put the text onto the canvas
     var info = getTextInfo(word, weight, rotateDeg);
@@ -1109,7 +1109,7 @@ var WordCloud = function WordCloud(elements, options) {
         // draw text
         for (let i = 0; i < interactionItems.length; i++) {
           const find = interactionItems[i];
-          if (!twiceRender || (twiceRender && _.get(find, ['info', 'item', 'twiceRender']))) {
+          if (!twiceRender || (twiceRender && get(find, ['info', 'item', 'twiceRender']))) {
             drawText(
               find.gx,
               find.gy,

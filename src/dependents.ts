@@ -24,8 +24,8 @@ export {
   registerComponentController,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';
-import Gesture from '@antv/g2/lib/chart/controller/gesture';
-export { Gesture };
+export { default as GestureController } from '@antv/g2/lib/chart/controller/gesture';
+export { default as TooltipController } from '@antv/g2/lib/chart/controller/tooltip';
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {
   Datum,

@@ -11,6 +11,7 @@ import {
   LineStyle,
   ISliderInteractionConfig,
   IScrollbarInteractionConfig,
+  IInteractions,
 } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
@@ -34,6 +35,7 @@ const GEOM_MAP = {
 };
 
 type LineInteraction =
+  | IInteractions
   | { type: 'slider'; cfg: ISliderInteractionConfig }
   | { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig };
 
@@ -94,7 +96,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         wordSpacing: 4,
       },
       tooltip: {
-        showContent: false,
+        showContent: true,
         crosshairs: {
           line: {
             style: {

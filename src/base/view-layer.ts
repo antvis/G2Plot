@@ -15,7 +15,7 @@ import {
   contains,
   hasKey,
 } from '@antv/util';
-import { View, Geometry, VIEW_LIFE_CIRCLE, registerComponentController, Gesture } from '../dependents';
+import { View, Geometry, VIEW_LIFE_CIRCLE } from '../dependents';
 import TextDescription from '../components/description';
 import BaseLabel, { LabelComponentConfig, getLabelComponent } from '../components/label/base';
 import { getComponent } from '../components/factory';
@@ -81,8 +81,6 @@ export interface ViewConfig {
 }
 
 export interface ViewLayerConfig extends ViewConfig, LayerConfig {}
-
-registerComponentController('gesture', Gesture);
 
 export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerConfig> extends Layer<T> {
   public static getDefaultOptions(): Partial<ViewConfig> {

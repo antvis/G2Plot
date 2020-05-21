@@ -1,3 +1,9 @@
+import { registerComponentController, GestureController } from './dependents';
+
+registerComponentController('gesture', GestureController);
+
+import './interaction/grammar-interactions';
+
 // 通用配置
 export * from './interface/config';
 export { default as Layer, LayerConfig } from './base/layer';

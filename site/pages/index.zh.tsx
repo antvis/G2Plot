@@ -52,9 +52,9 @@ const IndexPage = () => {
   const notifications = [
     {
       type: 'News',
-      title: 'G2Plot 1.0 正式发布！',
-      date: '2020.03.17',
-      link: 'https://www.yuque.com/antv/blog/igfe4h',
+      title: 'React 版 G2Plot 发布了',
+      date: '2020.05.21',
+      link: 'https://charts.ant.design/',
     },
   ];
 
@@ -62,8 +62,13 @@ const IndexPage = () => {
     <>
       <SEO title={t('G2Plot 开箱即用的图表库')} titleSuffix="AntV" lang={i18n.language} />
       <Banner
-        coverImage = {
-          <img width="100%" style={{ marginLeft: '125px', marginTop: '50px' }} src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ" /> }
+        coverImage={
+          <img
+            width="100%"
+            style={{ marginLeft: '125px', marginTop: '50px' }}
+            src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ"
+          />
+        }
         title={t('G2Plot 开箱即用的图表库')}
         description={t('G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。')}
         buttonText={t('继续了解')}

@@ -386,21 +386,19 @@ export default class SpiderLabel {
     let points = [_anchor, _inflection, lastPoint];
     if (_inflection[1] !== y) {
       // 展示全部文本文本位置做过调整
-      if (_inflection[1] < y) {
+      if (
+        (_inflection[1] < this.height / 2 && _inflection[1] < y) ||
+        (_inflection[1] >= this.height / 2 && _inflection[1] > y)
+      ) {
         // 文本被调整下去了，则添加拐点连接线
         const point1 = _inflection;
-        const leftPoint = lastPoint[0] + maxLabelWidth + ADJUSTOFFSET;
-        const rightPoint = lastPoint[0] - maxLabelWidth - ADJUSTOFFSET;
+        const leftPoint = lastPoint[0] + ADJUSTOFFSET;
+        const rightPoint = lastPoint[0] - ADJUSTOFFSET;
         const point2 = [label._side === 'left' ? leftPoint : rightPoint, _inflection[1]];
-        const point3 = [
-          label._side === 'left' ? lastPoint[0] + maxLabelWidth : lastPoint[0] - maxLabelWidth,
-          lastPoint[1],
-        ];
 
-        points = [_anchor, point1, point2, point3, lastPoint];
-
+        points = [_anchor, point1, point2, lastPoint];
         if ((label._side === 'right' && point2[0] < point1[0]) || (label._side === 'left' && point2[0] > point1[0])) {
-          points = [_anchor, point3, lastPoint];
+          points = [_anchor, point1, lastPoint];
         }
       } else {
         points = [_anchor, [_inflection[0], y], lastPoint];

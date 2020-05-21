@@ -36,6 +36,7 @@ const GEOM_MAP = {
 
 type LineInteraction =
   | IInteractions
+  | { type: 'selected-tooltip' }
   | { type: 'slider'; cfg: ISliderInteractionConfig }
   | { type: 'scrollbar'; cfg?: IScrollbarInteractionConfig };
 

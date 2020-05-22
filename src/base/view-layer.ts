@@ -365,8 +365,17 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   public changeData(data: DataItem[]): void {
+    const isEmptyBefore = isEmpty(this.options.data);
     this.options.data = this.processData(data);
-    this.view.changeData(this.options.data);
+
+    // 如果之前没有 data
+    if (isEmptyBefore) {
+      this.options.padding = this.initialOptions.padding || 'auto';
+      this.view.data(this.options.data);
+      this.view.render();
+    } else {
+      this.view.changeData(this.options.data);
+    }
   }
 
   // plot 不断销毁重建，需要一个api获取最新的plot

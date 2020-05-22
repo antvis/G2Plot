@@ -53,7 +53,7 @@ export default class PercentStackedColumnLayer extends StackedColumn<PercentStac
         return `${formattedValue}%`;
       },
     };
-    this.options.meta = metaConfig;
+    this.options.meta = deepMix({}, this.options.meta, metaConfig);
     super.scale();
   }
 }

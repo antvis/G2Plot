@@ -55,7 +55,7 @@ export default class PercentStackedBarLayer extends StackedBar<PercentStackedBar
         return `${formattedValue}%`;
       },
     };
-    this.options.meta = metaConfig;
+    this.options.meta = deepMix({}, this.options.meta, metaConfig);
     super.scale();
   }
 }

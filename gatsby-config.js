@@ -30,6 +30,13 @@ module.exports = {
           en: 'Examples',
         },
       },
+      {
+        slug: 'https://charts.ant.design/',
+        title: {
+          zh: 'React 版本',
+          en: 'React Version',
+        },
+      },
     ],
     docs: [
       {

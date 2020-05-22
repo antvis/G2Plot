@@ -77,7 +77,7 @@
     "warning": "^4.0.3"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.10.43",
+    "@antv/gatsby-theme-antv": "^0.10.63",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@commitlint/cli": "^8.2.0",

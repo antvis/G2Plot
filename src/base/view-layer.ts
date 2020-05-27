@@ -803,7 +803,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected isLimitInPlot() {
     const yAxisOptions = this.options.yAxis as IValueAxis;
-    if (hasKey(yAxisOptions, 'max') || hasKey(yAxisOptions, 'min')) {
+    if (
+      hasKey(yAxisOptions, 'max') ||
+      hasKey(yAxisOptions, 'min') ||
+      hasKey(yAxisOptions, 'maxLimit') ||
+      hasKey(yAxisOptions, 'minLimit')
+    ) {
       return true;
     }
     return false;

@@ -85,13 +85,14 @@ export default class ScrollbarInteraction extends BaseInteraction {
     view.on('afterrender', () => {
       const padding = this.view.padding;
       // if we're not in `auto padding` process
-      if (!isEqual([0, 0, 0, 0], padding)) {
-        if (!this.trackLen) {
-          this.measureScrollBar();
-          this.changeViewData(this.getScrollRange(), true);
-        } else {
-          this.renderScrollbar();
-        }
+      if (padding === 'auto' || isEqual(padding, [0, 0, 0, 1])) {
+        return;
+      }
+      if (!this.trackLen) {
+        this.measureScrollBar();
+        this.changeViewData(this.getScrollRange(), true);
+      } else {
+        this.renderScrollbar();
       }
     });
   }

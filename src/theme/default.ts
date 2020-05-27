@@ -268,6 +268,9 @@ export const DEFAULT_GLOBAL_THEME = {
 
   // G2Plot 组件主题配置
   components: {
+    legend: {
+      margin: [0, 24, 24, 24],
+    },
     tooltipIndicator: {
       title: {
         style: {

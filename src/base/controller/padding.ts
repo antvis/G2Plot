@@ -125,7 +125,6 @@ export default class PaddingController {
         }
       });
     }
-    this.plot.config.theme.legend.margin = bleeding;
     this.bleeding = clone(bleeding);
     // 参与auto padding的components: axis legend label annotation
     const components_bbox = [new BBox(viewRange.minX, viewRange.minY, viewRange.width, viewRange.height)];

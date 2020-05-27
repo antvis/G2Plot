@@ -162,7 +162,7 @@ export type LegendPosition =
   | 'right-bottom'
   | 'top-left'
   | 'top-center'
-  | 'top-bottom'
+  | 'top-right'
   | 'bottom-left'
   | 'bottom-center'
   | 'bottom-right';

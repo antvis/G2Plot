@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { each } from '@antv/util';
 
+const defaultColor = '#5B8FF9';
+
 const greyScale = {
-  1: '#FFFFFF',
+  0: '#FFFFFF',
   0.2: 'rgba(0, 0, 0, 0.15)',
   0.4: 'rgba(0, 0, 0, 0.45)',
   0.6: 'rgba(0, 0, 0, 0.65)',
   0.8: 'rgba(0, 0, 0, 0.85)',
-  0: '#000000',
+  1: '#000000',
 };
 
 const qualitative_10 = [
@@ -245,6 +249,7 @@ const diverging_classic = [
 ];
 
 const COLOR_PALETTE = {
+  default: defaultColor,
   qualitative: {
     '10': qualitative_10,
     '20': qualitative_20,
@@ -310,6 +315,15 @@ function sequentialResampling(colorPalette: string[], count: number) {
   return newPalette;
 }
 
+function sequentialExtend(colorPalette: string[], count: number) {
+  /**
+   * 连续色板扩充策略：
+   * 只扩充一个值： 补头，因为头部颜色比尾部颜色色相识别性更高
+   * 扩充两个值：分别补头补尾
+   * 扩充多个值：两个相邻色值之间的ColorDistance排序，从高到低进行插值
+   */
+}
+
 function divergingResampling(colorPalette: string[], count: number) {
   const centerIndex = Math.floor(colorPalette.length / 2);
   const paletteLength = (colorPalette.length - 1) / 2;
@@ -329,6 +343,8 @@ function divergingResampling(colorPalette: string[], count: number) {
   }
   return newPalette;
 }
+
+function divergingExtend(colorPalette: string[], count: number) {}
 
 function linearGradientParser(degree: number, colorPalette: string[]) {
   let gradientString = `l(${degree}) `;

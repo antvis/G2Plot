@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { each } from '@antv/util';
 
 export function rgb2arr(str: string) {
@@ -33,6 +35,20 @@ export function mappingColor(band, gray) {
   });
   return reflect;
 }
+
+/**
+ * deltaE
+ * calculate color euclidean distance of rgb
+ */
+export function colorDistance(a: string, b: string) {
+  const rgb_a = rgb2arr(a);
+  const rgb_b = rgb2arr(b);
+  return Math.sqrt(
+    Math.pow(rgb_b[0] - rgb_a[0], 2) + Math.pow(rgb_b[1] - rgb_a[1], 2) + Math.pow(rgb_b[2] - rgb_a[2], 2)
+  );
+}
+
+export function colorDistanceInRGBSpace(a: string, b: string) {}
 
 // 根据YIQ亮度判断指定颜色取反色是不是白色
 // http://24ways.org/2010/calculating-color-contrast

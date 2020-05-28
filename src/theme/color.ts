@@ -1,3 +1,5 @@
+import { each } from '@antv/util';
+
 const greyScale = {
   1: '#FFFFFF',
   0.2: 'rgba(0, 0, 0, 0.15)',
@@ -242,7 +244,7 @@ const diverging_classic = [
   '#001F7F',
 ];
 
-export const COLOR_PLATTE = {
+const COLOR_PALETTE = {
   qualitative: {
     '10': qualitative_10,
     '20': qualitative_20,
@@ -273,4 +275,86 @@ export const COLOR_PLATTE = {
     classic: diverging_classic,
   },
   greyScale,
+};
+
+function getColorPalette(type: string, name: string) {
+  if (COLOR_PALETTE[type]) {
+    return COLOR_PALETTE[type][name];
+  }
+}
+
+function registerColorPalette(type: string, name: string, platte: string[]) {
+  if (!COLOR_PALETTE[type]) {
+    COLOR_PALETTE[type] = {};
+  }
+  COLOR_PALETTE[type][name] = platte;
+}
+
+function colorResampling(type: string, colorPalette: string[], count: number) {
+  if (type === 'sequential') {
+    return sequentialResampling(colorPalette, count);
+  } else if (type === 'diverging') {
+    return divergingResampling(colorPalette, count);
+  }
+}
+
+function sequentialResampling(colorPalette: string[], count: number) {
+  const step = Math.floor(colorPalette.length / count);
+  const newPalette = [];
+
+  for (let i = 0; i < count; i++) {
+    const index = i * step;
+    newPalette.push(colorPalette[index]);
+  }
+
+  return newPalette;
+}
+
+function divergingResampling(colorPalette: string[], count: number) {
+  const centerIndex = Math.floor(colorPalette.length / 2);
+  const paletteLength = (colorPalette.length - 1) / 2;
+  const leftCount = Math.floor((count - 1) / 2);
+  const rightCount = count - leftCount - 1;
+  const leftStep = Math.floor(paletteLength / leftCount);
+  const rightStep = Math.floor(paletteLength / rightCount);
+  const newPalette = [];
+  for (let i = 0; i < leftCount; i++) {
+    const index = centerIndex - i * leftStep;
+    newPalette.push(colorPalette[index]);
+  }
+  newPalette.push(colorPalette[centerIndex]);
+  for (let j = 0; j < rightCount; j++) {
+    const index = centerIndex + j * rightStep;
+    newPalette.push(colorPalette[index]);
+  }
+  return newPalette;
+}
+
+function linearGradientParser(degree: number, colorPalette: string[]) {
+  let gradientString = `l(${degree}) `;
+  const step = 1 / colorPalette.length;
+  each(colorPalette, (c, index) => {
+    const ratio = step * index;
+    gradientString += `${ratio}:${c} `;
+  });
+  return gradientString;
+}
+
+function radialGradientParser(x: number, y: number, r: number, colorPalette: string[]) {
+  let gradientString = `r(${x},${y},${r}) `;
+  const step = 1 / colorPalette.length;
+  each(colorPalette, (c, index) => {
+    const ratio = step * index;
+    gradientString += `${ratio}:${c} `;
+  });
+  return gradientString;
+}
+
+export {
+  COLOR_PALETTE,
+  getColorPalette,
+  registerColorPalette,
+  colorResampling,
+  linearGradientParser,
+  radialGradientParser,
 };

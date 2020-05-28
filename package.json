@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -67,7 +67,7 @@
     "@antv/g-canvas": "~0.4.0",
     "@antv/g-gesture": "~1.0.0",
     "@antv/g-svg": "~0.4.0",
-    "@antv/g2": "~4.0.8",
+    "@antv/g2": "~4.0.9",
     "@antv/matrix-util": "~3.1.0-beta.1",
     "@antv/scale": "~0.3.1",
     "@antv/util": "~2.0.7",

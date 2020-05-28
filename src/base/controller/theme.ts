@@ -3,6 +3,7 @@ import { isString, deepMix } from '@antv/util';
 import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
 import { getResponsiveTheme } from '../../util/responsive/theme';
 import { ViewConfig } from '../view-layer';
+import { convertThemeToG2Theme } from '../../theme/theme';
 
 /**
  * 负责图表theme的管理
@@ -32,7 +33,7 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
     if (isString(theme)) {
       return deepMix({}, getGlobalTheme(theme), getTheme(type));
     }
-    return deepMix({}, getGlobalTheme(), getTheme(type), theme);
+    return deepMix({}, getGlobalTheme(), getTheme(type), convertThemeToG2Theme(type, theme));
   }
 
   /**

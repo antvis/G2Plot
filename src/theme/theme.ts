@@ -1,4 +1,4 @@
-import { each, set, has, isEmpty } from '@antv/util';
+import { each, set, has, isEmpty, deepMix } from '@antv/util';
 import { G2PlotTheme, G2Theme } from './interface';
 
 /**
@@ -16,7 +16,7 @@ export function convertThemeToG2Theme(type: string/** plot style */, theme: G2Pl
     columnStyle: 'interval.rect',
     pointStyle: 'point.circle', // point 可能是其他shape，如square等
   };
-  const g2Theme = {};
+  let g2Theme = {};
   if (type === 'area') {
     styleMapShape = {
       areaStyle: 'area.area',
@@ -32,11 +32,11 @@ export function convertThemeToG2Theme(type: string/** plot style */, theme: G2Pl
         set(geometryTheme, `${shapePath}.${[k === 'normal' ? 'default' : (k === 'disable' ? 'inactive' : k)]}.style`, v);
       });
     } else {
-      set(g2Theme, styleKey, style);
+      g2Theme = deepMix({}, g2Theme, { [styleKey]: style });
     }
   });
   if (!isEmpty(geometryTheme)) {
-    set(g2Theme, 'geometries', geometryTheme);
+    g2Theme = deepMix({}, g2Theme, { geometries: geometryTheme });
   }
   return g2Theme;
 }

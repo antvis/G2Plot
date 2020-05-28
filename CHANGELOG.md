@@ -258,3 +258,9 @@
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
+## <small>1.1.5 (2020-05-28)</small>
+
+* fix: 图例通过 margin 配置来对齐 (#1132) ([884fd8d](https://github.com/antvis/g2plot/commit/884fd8d)), closes [#1132](https://github.com/antvis/g2plot/issues/1132)
+
+
+

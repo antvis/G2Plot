@@ -37,6 +37,11 @@ const axis_label_text_style = {
   fontSize: 12,
 };
 
+const legend_text_style = {
+  fill: COLOR_PALETTE.greyScale['0.6'],
+  fontSize: 12,
+};
+
 const xAxis_value = {
   visible: true,
   position: 'bottom',
@@ -359,4 +364,74 @@ export const GLOBAL_LIGHT_THEME = {
   },
   angleAxis,
   radiusAxis,
+  legend: {
+    margin: [0, 0, 0, 0],
+    maxWidth: null,
+    maxHeight: null,
+    title: {
+      visible: false,
+      style: legend_text_style,
+      spacing: 12,
+    },
+    itemSpacing: 10,
+    itemWidth: null,
+    itemHeight: null,
+    itemName: {
+      visible: true,
+      spacing: 10,
+      style: legend_text_style,
+      autoEllipsis: false,
+      ellipsisPosition: 'tail',
+    },
+    itemValue: {
+      visible: false,
+      alignRight: true,
+      style: legend_text_style,
+      autoEllipsis: false,
+      ellipsisPosition: 'tail',
+      autoHide: false,
+    },
+    marker: {
+      symbole: 'circle',
+      spacing: 10,
+      style: {
+        r: 4,
+        fill: COLOR_PALETTE.default,
+      },
+    },
+    responsiveOrder: ['autoEllipsisValue', 'autoHideValue', 'autoEllipsisName'],
+  },
+  label: {
+    offset: 8,
+    style: {
+      fill: COLOR_PALETTE.greyScale[0.8],
+      stroke: '#ffffff',
+      lineWidth: 2,
+    },
+  },
+  /* 统计分析组件 */
+  guideLine: {
+    style: {
+      stroke: COLOR_PALETTE.greyScale[0.8],
+      lineWidth: 1,
+      lineDash: null,
+    },
+    text: {
+      visible: false,
+      position: 'start',
+      autoRotate: true,
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        fill: COLOR_PALETTE.greyScale[1],
+        fontSize: 12,
+        textAlign: 'left',
+      },
+    },
+  },
+  /* 交互组件 */
+  slider: {},
+  scrollbar: {},
+  breadcrumb: {},
+  timeline: {},
 };

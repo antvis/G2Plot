@@ -16,6 +16,11 @@ export class ActiveTooltipController extends TooltipController {
 registerComponentController('tooltip-active', ActiveTooltipController);
 
 class MarkerActiveAction extends InteractionAction {
+  public init() {
+    // 移除默认的tooltip交互
+    this.getView().removeInteraction('tooltip');
+  }
+
   public show() {
     const curLocation = this.getPoint();
     if (curLocation) {

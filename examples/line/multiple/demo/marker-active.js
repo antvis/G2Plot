@@ -108,6 +108,4 @@ fetch('../data/emissions.json')
     });
 
     linePlot.render();
-    // 移除默认 tooltip
-    linePlot.getLayer().view.removeInteraction('tooltip');
   });

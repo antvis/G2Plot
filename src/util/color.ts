@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { each } from '@antv/util';
+import { getMean } from './math';
 
 export function rgb2arr(str: string) {
   const colorStr: string = str.indexOf('#') === 0 ? str.substr(1) : str;
@@ -48,7 +49,52 @@ export function colorDistance(a: string, b: string) {
   );
 }
 
-export function colorDistanceInRGBSpace(a: string, b: string) {}
+export function colorDistanceInRGBSpace(a: string, b: string) {
+  const rgb_a = rgb2arr(a);
+  const rgb_b = rgb2arr(b);
+  return {
+    r: Math.abs(rgb_b[0] - rgb_a[0]),
+    g: Math.abs(rgb_b[1] - rgb_a[1]),
+    b: Math.abs(rgb_b[2] - rgb_a[2]),
+  };
+}
+
+export function getAverageColorDistanceInRGB(colorPalette: string[]) {
+  const r_dist = [];
+  const g_dist = [];
+  const b_dist = [];
+  for (let i = 0; i < colorPalette.length - 1; i++) {
+    const current = colorPalette[i];
+    const next = colorPalette[i + 1];
+    const d = colorDistanceInRGBSpace(current, next);
+    r_dist.push(d.r);
+    g_dist.push(d.g);
+    b_dist.push(d.b);
+  }
+
+  return {
+    r: getMean(r_dist),
+    g: getMean(g_dist),
+    b: getMean(b_dist),
+  };
+}
+
+export function extendColorByRGBDistance(originColor: string, dist: any, direction: number) {
+  const rgb = rgb2arr(originColor);
+  const r = rgb[0] + dist.r * direction;
+  const g = rgb[1] + dist.g * direction;
+  const b = rgb[2] + dist.b * direction;
+  return arr2rgb([r, g, b]);
+}
+
+export function intersectColor(a: string, b: string) {
+  const rgb_a = rgb2arr(a);
+  const rgb_b = rgb2arr(b);
+  const average_r = (rgb_a[0] + rgb_b[0]) / 2;
+  const average_g = (rgb_a[1] + rgb_b[1]) / 2;
+  const average_b = (rgb_a[2] + rgb_b[2]) / 2;
+  return arr2rgb([average_r, average_b, average_g]);
+}
 
 // 根据YIQ亮度判断指定颜色取反色是不是白色
 // http://24ways.org/2010/calculating-color-contrast

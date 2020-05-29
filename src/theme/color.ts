@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { each } from '@antv/util';
+import { each, clone } from '@antv/util';
+import { colorDistance, getAverageColorDistanceInRGB, extendColorByRGBDistance, intersectColor } from '../util/color';
 
 const defaultColor = '#5B8FF9';
 
@@ -321,12 +322,56 @@ function sequentialResampling(colorPalette: string[], count: number) {
 }
 
 function sequentialExtend(colorPalette: string[], count: number) {
+  const newPalette = clone(colorPalette);
   /**
    * 连续色板扩充策略：
    * 只扩充一个值： 补头，因为头部颜色比尾部颜色色相识别性更高
    * 扩充两个值：分别补头补尾
    * 扩充多个值：两个相邻色值之间的ColorDistance排序，从高到低进行插值
    */
+  const extendCount = count - colorPalette.length;
+  const rgb_average = getAverageColorDistanceInRGB(colorPalette);
+  if (extendCount === 1) {
+    const new_color = extendColorByRGBDistance(colorPalette[0], rgb_average, -1);
+    newPalette.unshift(new_color);
+  } else if (extendCount === 2) {
+    newPalette.unshift(extendColorByRGBDistance(colorPalette[0], rgb_average, -1));
+    newPalette.push(extendColorByRGBDistance(colorPalette[colorPalette.length - 1], rgb_average, 1));
+  } else if (extendCount > 2) {
+    return rearrangeColorPalette(colorPalette, newPalette, rgb_average, extendCount);
+  }
+  return newPalette;
+}
+
+function rearrangeColorPalette(colorPalette, newPalette, rgb_average, count) {
+  newPalette.unshift(extendColorByRGBDistance(colorPalette[0], rgb_average, -1));
+  newPalette.push(extendColorByRGBDistance(colorPalette[colorPalette.length - 1], rgb_average, 1));
+  const inersectCount = count - 2;
+  const distMap = [];
+  each(newPalette, (c, index) => {
+    if (index !== newPalette.length) {
+      const current = c;
+      const next = newPalette[index + 1];
+      const dist = colorDistance(current, next);
+      distMap.push({ id: `${index}-${index + 1}`, dist, start: index, end: index + 1 });
+    }
+  });
+  distMap.sort((a, b) => {
+    return b.dist - a.dist;
+  });
+  for (let i = 0; i < inersectCount; i++) {
+    const range = distMap[i];
+    const new_color = intersectColor(range.start, range.end);
+    range.new = new_color;
+  }
+  const outcome = [];
+  //根据distMap重新组织色板
+  each(distMap, (m) => {
+    outcome.push(m.start);
+    outcome.push(m.new);
+  });
+  outcome.push(newPalette[newPalette.length - 1]);
+  return outcome;
 }
 
 function divergingResampling(colorPalette: string[], count: number) {
@@ -376,6 +421,7 @@ export {
   getColorPalette,
   registerColorPalette,
   colorResampling,
+  sequentialExtend,
   linearGradientParser,
   radialGradientParser,
 };

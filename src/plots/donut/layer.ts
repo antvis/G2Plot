@@ -13,11 +13,11 @@ export interface DonutViewConfig extends PieViewConfig {
   statistic?: {
     visible: boolean;
     /** 指标卡 总计值 标签 */
-    totalLabel: string;
+    totalLabel?: string;
     /** 触发显示的事件 */
-    triggerOn: 'mouseenter';
+    triggerOn?: 'mouseenter';
     /** 触发隐藏的事件 */
-    triggerOff: 'mouseleave';
+    triggerOff?: 'mouseleave';
     content?: string;
     htmlContent?: (...args: any) => string;
   };

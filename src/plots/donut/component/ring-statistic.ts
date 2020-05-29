@@ -1,11 +1,11 @@
 import { View } from '../../../dependents';
-import StatisticHtml, { IStaticticHtml } from './statistic';
+import StatisticHtml, { IStatisticHtml } from './statistic';
 import * as statisticTemplate from './statistic-template';
 import { debounce, each, isString, isObject, isFunction, keys } from '@antv/util';
 import { LooseMap } from '../../../interface/types';
 import Ring, { DonutViewConfig } from '../layer';
 
-interface IRingStatictic extends IStaticticHtml {
+interface IRingStatistic extends IStatisticHtml {
   view: View;
   plot: any;
 }
@@ -16,7 +16,7 @@ export default class RingStatistic extends StatisticHtml {
   protected statisticClass: string;
   protected options: DonutViewConfig['statistic'];
 
-  constructor(cfg: IRingStatictic) {
+  constructor(cfg: IRingStatistic) {
     super(cfg);
     this.view = cfg.view;
     this.plot = cfg.plot;

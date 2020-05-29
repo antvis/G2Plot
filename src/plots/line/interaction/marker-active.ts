@@ -1,5 +1,12 @@
 import { filter, each, findIndex } from '@antv/util';
-import { InteractionAction, View, TooltipController, Point, registerComponentController, Geometry } from '../../../dependents';
+import {
+  InteractionAction,
+  View,
+  TooltipController,
+  Point,
+  registerComponentController,
+  Geometry,
+} from '../../../dependents';
 
 // @ts-ignore
 export class ActiveTooltipController extends TooltipController {
@@ -48,7 +55,7 @@ class MarkerActiveAction extends InteractionAction {
     const points: Geometry[] = filter(view.geometries, (geom) => geom.type == 'point');
     each(points, (point: Geometry) => {
       each(point.elements, (element) => {
-        element.setState('active', findIndex(items, item => item.data === element.data) !== -1);
+        element.setState('active', findIndex(items, (item) => item.data === element.data) !== -1);
       });
     });
   }

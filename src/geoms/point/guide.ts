@@ -95,7 +95,7 @@ export default class GuidePointParser extends ElementParser {
       config.fields = [props.xField, props.yField];
       config.callback = styleProps;
       if (field) {
-        config.fields.unshift(field)
+        config.fields.unshift(field);
       }
     } else {
       config.cfg = styleProps;

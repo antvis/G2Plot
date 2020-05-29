@@ -607,6 +607,25 @@ style:{
 
 ## theme
 
+**可选**, *object*，*Function*
+
+功能描述：自定义折线图不同交互状态的样式，具体可参照 [src/plots/line/theme.ts](https://github.com/antvis/G2Plot/blob/master/src/plots/line/theme.ts#L20)
+
+示例代码:
+```js
+{
+  theme: {
+    lineStyle: {
+      normal: { stroke: 'blue' },
+      // 或者 function 回调的方式, 参照 registerTheme 写法
+      active: { stroke: 'red', lineWidth: 1 },
+    }
+  },
+  // 主题，active 样式的激活需要配置 element-active 交互
+  interactions: [{ type: 'element-active' }]
+}
+```
+
 ## 交互
 
 ### slider ✨

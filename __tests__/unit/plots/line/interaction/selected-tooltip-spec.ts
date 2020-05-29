@@ -3,6 +3,9 @@ import { createDiv } from '../../../../utils/dom';
 import subsales from '../../../../data/subsales.json';
 import { IGroup, GroupComponent, TooltipController } from '../../../../../src/dependents';
 
+const TOOLTIP_INTERACTION = 'tooltip';
+const SELECTED_TOOLTIP_INTERACTION = 'selected-tooltip';
+
 describe('selected-tooltip-interaction', () => {
   const plot = new Line(createDiv(), {
     data: subsales,
@@ -11,14 +14,14 @@ describe('selected-tooltip-interaction', () => {
     xField: 'area',
     yField: 'sales',
     seriesField: 'series',
-    interactions: [{ type: 'selected-tooltip' }],
+    interactions: [{ type: SELECTED_TOOLTIP_INTERACTION }],
   });
   plot.render();
 
   it('init', () => {
     const view = plot.getView();
-    const interaction = view.interactions['selected-tooltip'];
-    const controller = view.getController('selected-tooltip');
+    const interaction = view.interactions[SELECTED_TOOLTIP_INTERACTION];
+    const controller = view.getController(SELECTED_TOOLTIP_INTERACTION);
     // interaction added
     expect(interaction).toBeDefined();
     // controller added
@@ -27,7 +30,7 @@ describe('selected-tooltip-interaction', () => {
 
   it('render', () => {
     const view = plot.getView();
-    const controller = view.getController('selected-tooltip') as TooltipController;
+    const controller = view.getController(SELECTED_TOOLTIP_INTERACTION) as TooltipController;
 
     // tooltip content not visible
     // @ts-ignore
@@ -42,5 +45,15 @@ describe('selected-tooltip-interaction', () => {
     // @ts-ignore
     const xCrosshair: GroupComponent = controller.xCrosshair;
     expect(xCrosshair.get('visible')).toBe(true);
+  });
+
+  it('delete', () => {
+    plot.updateConfig({
+      interactions: [],
+    });
+    plot.render();
+    const view = plot.getView();
+    expect(view.interactions[SELECTED_TOOLTIP_INTERACTION]).toBeUndefined();
+    expect(view.interactions[TOOLTIP_INTERACTION]).toBeDefined();
   });
 });

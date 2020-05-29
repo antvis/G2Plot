@@ -1,5 +1,5 @@
 import { each, set, has, isEmpty, deepMix } from '@antv/util';
-import { G2PlotTheme, G2Theme } from './interface';
+import { G2PlotTheme, G2Theme, Style } from './interface';
 
 /**
  * 所有的 plot theme object，每个图类型只会存在一个 theme
@@ -10,7 +10,7 @@ const PLOT_THEME_MAP: Record<string, G2Theme> = {};
  * 将 主题 转换为 G2 主题配置
  * @param type plotType
  */
-export function convertThemeToG2Theme(type: string/** plot style */, theme: G2PlotTheme): G2Theme {
+export function convertThemeToG2Theme(type: string /** plot style */, theme: G2PlotTheme | Style): G2Theme {
   let styleMapShape: object = {
     lineStyle: 'line.line',
     columnStyle: 'interval.rect',
@@ -29,9 +29,10 @@ export function convertThemeToG2Theme(type: string/** plot style */, theme: G2Pl
     if (has(styleMapShape, styleKey)) {
       const shapePath = styleMapShape[styleKey];
       each(style, (v, k) => {
-        set(geometryTheme, `${shapePath}.${[k === 'normal' ? 'default' : (k === 'disable' ? 'inactive' : k)]}.style`, v);
+        set(geometryTheme, `${shapePath}.${[k === 'normal' ? 'default' : k === 'disable' ? 'inactive' : k]}.style`, v);
       });
     } else {
+      /** styleMap 找不到，直接放入 G2 theme */
       g2Theme = deepMix({}, g2Theme, { [styleKey]: style });
     }
   });
@@ -46,7 +47,7 @@ export function convertThemeToG2Theme(type: string/** plot style */, theme: G2Pl
  * @param type
  * @param theme
  */
-export function registerTheme(type: string, theme: G2PlotTheme) {
+export function registerTheme(type: string, theme: G2PlotTheme | Style) {
   PLOT_THEME_MAP[type.toLowerCase()] = convertThemeToG2Theme(type, theme);
 }
 

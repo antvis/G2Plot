@@ -7,15 +7,17 @@ export interface Style {
 
 // example
 export interface G2PlotTheme {
-  [geometryStyle: string]: {
-    normal: Style | Function;
-    active: Style | Function;
-    selected: Style | Function;
-    disable: Style | Function;
-  };
+  [geometryStyle: string]:
+    | {
+        normal: Style | Function;
+        active: Style | Function;
+        selected: Style | Function;
+        disable: Style | Function;
+      }
+    | {
+        [styleName: string]: Style;
+      };
 }
-
-
 
 // 通过 convertThemeToG2Theme 转换为 G2Theme
 export interface G2Theme {

@@ -38,15 +38,13 @@ export default class RingStatistic extends StatisticHtml {
     this.view.on(
       `interval:${triggerOffEvent}`,
       debounce(() => {
-        const totalValue = this.getTotalValue();
-        const displayData = this.parseStatisticData(totalValue);
-        const htmlString = this.getStatisticHtmlString(displayData);
+        const htmlString = this.getTotalHtmlString();
         this.updateHtml(htmlString);
       }, 150)
     );
   }
 
-  protected adjustOptions() {
+  protected getTotalHtmlString(): string {
     let displayData;
     if (this.options.content) {
       displayData = this.options.content;
@@ -62,8 +60,11 @@ export default class RingStatistic extends StatisticHtml {
     } else {
       htmlString = this.getStatisticTemplate(displayData);
     }
+    return htmlString;
+  }
 
-    this.html = htmlString;
+  protected adjustOptions() {
+    this.html = this.getTotalHtmlString();
 
     const { minX, minY, width, height } = this.view.coordinateBBox;
     this.x = minX + width / 2;

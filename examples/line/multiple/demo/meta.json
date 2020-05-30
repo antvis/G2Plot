@@ -51,6 +51,14 @@
         "en": "setting line style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "marker-active.js",
+      "title": {
+        "zh": "指定 point marker 激活的样式",
+        "en": "setting point marker active style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MZvDRY7LH-sAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

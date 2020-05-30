@@ -91,9 +91,12 @@ export default class GuidePointParser extends ElementParser {
       cfg: null,
     };
     const field = this._getColorMappingField(props);
-    if (isFunction(styleProps) && field) {
-      config.fields = [field];
+    if (isFunction(styleProps)) {
+      config.fields = [props.xField, props.yField];
       config.callback = styleProps;
+      if (field) {
+        config.fields.unshift(field);
+      }
     } else {
       config.cfg = styleProps;
     }

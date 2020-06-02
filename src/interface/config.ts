@@ -306,7 +306,7 @@ export interface GuideLineConfig {
     position?: 'start' | 'center' | 'end';
     content: string;
     offsetX?: number;
-    offsetY: number;
+    offsetY?: number;
     style?: TextStyle;
   };
 }

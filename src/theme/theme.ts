@@ -9,13 +9,14 @@ const PLOT_THEME_MAP: Record<string, any> = {};
  * 将 主题 转换为 G2 主题配置
  * @param type plotType
  */
+// todo: 重复方法，只保留一个
 function convertThemeToG2Theme(type: string, theme: any) {
   let styleMapShape: object = {
     lineStyle: 'line.line',
     columnStyle: 'interval.rect',
     pointStyle: 'point.circle', // point 可能是其他shape，如square等
   };
-  const g2Theme = {};
+  const g2Theme = {} as any;
   if (type === 'area') {
     styleMapShape = {
       areaStyle: 'area.area',

@@ -44,7 +44,7 @@
     "lint-fix:examples": "prettier --write 'examples/**/*.{js,md}'",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/theme/theme-spec.ts",
     "coverage": "jest --coverage",
     "ci": "run-s lint build coverage",
     "compare-live": "node scripts/compare.js",

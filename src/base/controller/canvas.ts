@@ -1,10 +1,9 @@
 import { modifyCSS } from '@antv/dom-util';
 import { Canvas, SVG, ICanvas } from '../../dependents';
-import { debounce, get } from '@antv/util';
+import { debounce } from '@antv/util';
 import ResizeObserver from 'resize-observer-polyfill';
 import { getGlobalTheme } from '../../theme/global';
 import BasePlot from '../plot';
-import ThemeController from './theme';
 
 export interface CanvasControllerCfg {
   readonly containerDOM: HTMLElement;
@@ -93,20 +92,6 @@ export default class CanvasController {
   }
 
   /**
-   * 根据主题调整canvas样式
-   */
-  public updateCanvasTheme() {
-    const { theme } = this.plot;
-    const globalTheme = ThemeController.getGlobalTheme(theme);
-    const fill: string = get(globalTheme, 'backgroundStyle.fill');
-    if (fill) {
-      this.updateCanvasStyle({
-        backgroundColor: fill,
-      });
-    }
-  }
-
-  /**
    * update the canvas dom styles
    * @param styles
    */
@@ -179,6 +164,5 @@ export default class CanvasController {
     });
     this.width = width;
     this.height = height;
-    this.updateCanvasTheme();
   }
 }

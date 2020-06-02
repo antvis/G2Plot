@@ -174,25 +174,12 @@ export default class GuideLine {
 
   private getDefaultStyle() {
     this.getDefaultTextAlign();
+    const themeConfig = this.plot.theme.guideLine;
     return {
       line: {
-        style: {
-          lineWidth: 2,
-          stroke: '#333333',
-          opacity: 0.7,
-          lineDash: [0, 0],
-        },
+        style: themeConfig.line,
       },
-      text: {
-        content: '',
-        offsetY: -5,
-        style: {
-          fontSize: 14,
-          stroke: 'white',
-          lineWidth: 2,
-          textAlign: this.getDefaultTextAlign(),
-        },
-      },
+      text: themeConfig.text,
     };
   }
 

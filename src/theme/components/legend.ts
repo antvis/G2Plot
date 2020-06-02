@@ -43,7 +43,6 @@ export const legend = (mode: string) => {
       spacing: 10,
       style: {
         r: 4,
-        fill: COLOR_PALETTE.default,
       },
     },
     responsiveOrder: ['autoEllipsisValue', 'autoHideValue', 'autoEllipsisName'],

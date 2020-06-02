@@ -1,6 +1,7 @@
 import {
   deepMix,
   isEmpty,
+  isNil,
   mapValues,
   get,
   each,
@@ -248,6 +249,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     this.animation();
 
     this.viewRange = this.getViewRange();
+    this.backgroundStyle();
     const region = this.viewRangeToRegion(this.viewRange);
     this.view = new View({
       parent: null,
@@ -533,9 +535,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       flipPage: get(options, 'flipPage'),
       marker: get(options, 'marker'),
       title: options.title?.visible ? get(options, 'title') : null,
-      itemName: get(options, 'text'),
+      itemName: get(options, 'itemName'),
     };
-
     this.setConfig('legends', legendConfig);
   }
 
@@ -807,6 +808,22 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return true;
     }
     return false;
+  }
+
+  protected backgroundStyle() {
+    if (!isNil(this.theme.backgroundStyle)) {
+      const { width, height } = this;
+      this.container.addShape({
+        type: 'rect',
+        attrs: {
+          x: 0,
+          y: 0,
+          width,
+          height,
+          ...this.theme.backgroundStyle,
+        },
+      });
+    }
   }
 
   private viewRangeToRegion(viewRange) {

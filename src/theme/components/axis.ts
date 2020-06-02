@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { COLOR_PALETTE } from '../color';
 
 const axis_label_offset = 8;
@@ -9,7 +10,7 @@ const axis_title_style_light = {
 };
 
 const axis_title_style_dark = {
-  fill: COLOR_PALETTE.greyScale['0.2'],
+  fill: COLOR_PALETTE.greyScale['0.3'],
 };
 
 const axis_line_style_light = {
@@ -23,13 +24,13 @@ const axis_line_style_dark = {
 };
 
 const axis_grid_line_style_light = {
-  stroke: COLOR_PALETTE.greyScale['0.5'],
+  stroke: COLOR_PALETTE.greyScale['0.3'],
   lineWidth: 1,
   lineDash: null,
 };
 
 const axis_grid_line_style_dark = {
-  stroke: COLOR_PALETTE.greyScale['0.3'],
+  stroke: COLOR_PALETTE.greyScale['0.7'],
   lineWidth: 1,
   lineDash: null,
 };
@@ -54,6 +55,79 @@ const axis_label_text_style_light = {
 const axis_label_text_style_dark = {
   fill: COLOR_PALETTE.greyScale['0.3'],
   fontSize: 12,
+};
+
+export const xAxis_base = (mode: string) => {
+  return {
+    visible: true,
+    position: 'bottom',
+    title: {
+      visible: false,
+      spacing: axis_title_spacing,
+      style: mode === 'light' ? axis_title_style_light : axis_title_style_dark,
+    },
+    line: {
+      visible: true,
+      style: mode === 'light' ? axis_line_style_light : axis_line_style_dark,
+    },
+    grid: {
+      visible: false,
+      line: {
+        style: mode === 'light' ? axis_grid_line_style_light : axis_grid_line_style_dark,
+      },
+      alternateColor: null,
+    },
+    tickLine: {
+      visible: true,
+      style: mode === 'light' ? axis_tickLine_style_light : axis_tickLine_style_dark,
+    },
+    label: {
+      visible: true,
+      offset: axis_label_offset,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'top',
+      }),
+      autoEllipsis: false,
+      autoRotate: false,
+      autoHide: false,
+    },
+  };
+};
+
+export const yAxis_base = (mode: string) => {
+  return {
+    visible: true,
+    position: 'left',
+    title: {
+      visible: false,
+      spacing: axis_title_spacing,
+      style: mode === 'light' ? axis_title_style_light : axis_title_style_dark,
+    },
+    line: {
+      visible: false,
+      style: mode === 'light' ? axis_line_style_light : axis_line_style_dark,
+    },
+    grid: {
+      visible: true,
+      line: {
+        style: mode === 'light' ? axis_grid_line_style_light : axis_grid_line_style_dark,
+      },
+      alternateColor: null,
+    },
+    tickLine: {
+      visible: true,
+      style: mode === 'light' ? axis_tickLine_style_light : axis_tickLine_style_dark,
+    },
+    label: {
+      visible: true,
+      offset: axis_label_offset,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'middle',
+      }),
+      autoRotate: false,
+      autoHide: true,
+    },
+  };
 };
 
 export const xAxis_value = (mode: string) => {
@@ -83,7 +157,9 @@ export const xAxis_value = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'top',
+      }),
       autoFormat: false,
       autoFormatUnit: 1000,
       autoFormatSuffix: 'k',
@@ -121,7 +197,9 @@ export const yAxis_value = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'middle',
+      }),
       autoFormat: false,
       autoFormatUnit: 1000,
       autoFormatSuffix: 'k',
@@ -159,7 +237,9 @@ export const xAxis_category = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'top',
+      }),
       autoWrap: false,
       autoEllipsisPosition: 'tail',
       autoEllipsis: false,
@@ -196,7 +276,9 @@ export const yAxis_category = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'middle',
+      }),
       autoWrap: false,
       autoEllipsisPosition: 'tail',
       autoEllipsis: false,
@@ -233,7 +315,9 @@ export const xAxis_time = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'top',
+      }),
       autoEllipsis: false,
       autoRotate: false,
       autoHide: false,
@@ -269,7 +353,9 @@ export const yAxis_time = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: deepMix({}, mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark, {
+        textBaseline: 'middle',
+      }),
       autoEllipsis: false,
       autoRotate: false,
       autoHide: false,
@@ -298,7 +384,7 @@ export const radiusAxis = (mode: string) => {
     },
     label: {
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
       autoRotate: true,
       autoHide: true,
     },
@@ -327,7 +413,7 @@ export const angleAxis = (mode: string) => {
     label: {
       visible: true,
       offset: axis_label_offset,
-      textStyle: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
+      style: mode === 'light' ? axis_label_text_style_light : axis_label_text_style_dark,
     },
     tickLine: {
       visible: false,

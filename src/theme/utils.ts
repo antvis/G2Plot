@@ -40,9 +40,9 @@ import { clone } from '@antv/util';
  */
 export function convertToG2Theme(plotTheme: any): any {
   const g2Theme = clone(plotTheme);
-  /** tempo: legend margin设置为0 */
-  if (!g2Theme.legend) {
-    g2Theme.legend = {};
-  }
+  // color scheme
+  g2Theme.colors10 = plotTheme.colorPalette.colors[0];
+  g2Theme.colors20 = plotTheme.colorPalette.colors[1];
+  // todo: 使用连续色板或离散色板时,colors20要对颜色进行扩展
   return g2Theme;
 }

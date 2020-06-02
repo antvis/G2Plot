@@ -30,8 +30,7 @@ export default class AxisParser {
 
   private init() {
     this.config = false;
-    const theme = this.plot.getPlotTheme();
-    this.themeConfig = theme && theme.axis && theme.axis[this.dim];
+    this.themeConfig = this.getThemeConfig();
     if (this._needDraw()) {
       this._styleParser();
     }
@@ -146,6 +145,19 @@ export default class AxisParser {
 
   private applyThemeConfig(type: 'line' | 'grid' | 'tickLine') {
     this.config[type] = deepMix({}, get(this.themeConfig, `${type}.style`), this.config[type]);
+  }
+
+  private getThemeConfig() {
+    const theme = this.plot.getPlotTheme();
+    let axisConfig;
+    if (this.dim === 'x') {
+      const xAxisOption = this.plot.xAxis;
+      axisConfig = xAxisOption?.type ? theme.xAxis[xAxisOption.type] : theme.xAxis.base;
+    } else if (this.dim === 'y') {
+      const yAxisOption = this.plot.yAxis;
+      axisConfig = yAxisOption?.type ? theme.xAxis[yAxisOption.type] : theme.yAxis.base;
+    }
+    return axisConfig;
   }
 
   protected parseFormatter(labelConfig) {

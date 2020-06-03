@@ -1,7 +1,6 @@
 import { getTheme as g2GetTheme } from '../../dependents';
-import { isString, deepMix } from '@antv/util';
-import { convertToG2Theme, getGlobalTheme, getTheme } from '../../theme';
-import { getResponsiveTheme } from '../../util/responsive/theme';
+import { isString, deepMix, hasKey } from '@antv/util';
+import { convertToG2Theme, getGlobalTheme, getTheme, applyTemplate } from '../../theme';
 import { ViewConfig } from '../view-layer';
 
 /**
@@ -28,7 +27,12 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
    * @param type
    */
   public getPlotTheme(props: T, type: string) {
-    const { theme } = props;
+    let theme;
+    if (hasKey(props, 'template')) {
+      theme = applyTemplate(props.template, props);
+    } else {
+      theme = props.theme;
+    }
     if (isString(theme)) {
       return deepMix({}, getGlobalTheme(theme), getTheme(type));
     }
@@ -44,9 +48,5 @@ export default class ThemeController<T extends ViewConfig = ViewConfig> {
     const plotG2Theme = convertToG2Theme(this.getPlotTheme(props, type));
     const g2Theme = deepMix({}, G2DefaultTheme, plotG2Theme);
     return g2Theme;
-  }
-
-  public getResponsiveTheme(type: string) {
-    return getResponsiveTheme(type) || getResponsiveTheme('default');
   }
 }

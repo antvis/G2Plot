@@ -5,6 +5,9 @@
 //
 // export { Theme as default, defaultTheme };
 
+// template方法
+export { applyTemplate } from './template';
+
 // 全局主题的方法
 export { getGlobalTheme, registerGlobalTheme } from './global';
 // 图表主题的方法

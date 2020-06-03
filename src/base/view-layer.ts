@@ -37,6 +37,7 @@ import {
   Meta,
   GuideLineConfig,
   CustomTooltipConfig,
+  Template,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -63,6 +64,7 @@ export interface ViewConfig {
   legend?: Legend;
   animation?: Animation | boolean;
   theme?: LooseMap | string;
+  template?: Template;
   responsiveTheme?: {} | string;
   interactions?: IInteractions[];
   responsive?: boolean;
@@ -398,10 +400,6 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
       return this.themeController.getTheme(this.options, this.type);
     }
     return this.theme;
-  }
-
-  public getResponsiveTheme() {
-    return this.themeController.getResponsiveTheme(this.type);
   }
 
   // 获取对应的Plot Theme

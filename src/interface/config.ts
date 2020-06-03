@@ -477,3 +477,19 @@ export interface CustomTooltipConfig {
   y?: number;
   items?: TooltipDataItem[];
 }
+
+interface TemplateCondition {
+  maxWidth?: number;
+  minWidth?: number;
+  maxHeight?: number;
+  minHeight?: number;
+}
+
+export interface TemplateItem {
+  condition: (layerOptions: any) => boolean | TemplateCondition;
+  theme: {
+    [type: string]: any;
+  };
+}
+
+export type Template = TemplateItem[];

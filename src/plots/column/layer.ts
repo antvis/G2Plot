@@ -6,7 +6,6 @@ import { getGeom } from '../../geoms/factory';
 import { ElementOption } from '../../interface/config';
 import ConversionTag from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
-import './apply-responsive/theme';
 import './component/label';
 import './component/label-auto';
 import * as EventParser from './event';

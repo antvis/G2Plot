@@ -116,7 +116,6 @@ export default class BasePlot<
     }
 
     this.canvasController.updateCanvasSize();
-    this.canvasController.updateCanvasTheme();
   }
 
   public changeData(data: any[], all: boolean = false) {

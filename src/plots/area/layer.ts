@@ -1,4 +1,4 @@
-import { deepMix, has, each } from '@antv/util';
+import { deepMix, has } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer from '../../base/view-layer';
@@ -7,7 +7,6 @@ import { ElementOption } from '../../interface/config';
 import './component/label/area-point';
 import './component/label/area-point-auto';
 import { extractScale } from '../../util/scale';
-import responsiveMethods from './apply-responsive';
 import * as EventParser from './event';
 import './theme';
 import { getGeometryByType } from '../../util/view';
@@ -68,23 +67,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
   public point: any;
   public area: any;
   public type: string = 'area';
-
-  public beforeInit() {
-    super.beforeInit();
-    /** 响应式图形 */
-    if (this.options.responsive && this.options.padding !== 'auto') {
-      this.applyResponsive('preRender');
-    }
-  }
-
-  public afterRender() {
-    this.renderLabel();
-    /** 响应式 */
-    if (this.options.responsive && this.options.padding !== 'auto') {
-      this.applyResponsive('afterRender');
-    }
-    super.afterRender();
-  }
 
   protected geometryParser(dim, type) {
     return GEOM_MAP[type];
@@ -227,14 +209,6 @@ export default class AreaLayer<T extends AreaLayerConfig = AreaLayerConfig> exte
 
   protected parseEvents() {
     super.parseEvents(EventParser);
-  }
-
-  private applyResponsive(stage) {
-    const methods = responsiveMethods[stage];
-    each(methods, (r) => {
-      const responsive = r as any;
-      responsive.method(this);
-    });
   }
 }
 

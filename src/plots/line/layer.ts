@@ -15,7 +15,6 @@ import {
 } from '../../interface/config';
 import { extractScale, trySetScaleMinToZero } from '../../util/scale';
 import { getPlotOption } from './animation/clipIn-with-data';
-import responsiveMethods from './apply-responsive';
 import '../../components/label/point';
 import '../../components/label/point-auto';
 import LineLabel from './component/label/line-label';
@@ -131,10 +130,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
           this.markerPoints.push(markerPoint);
         }
       });
-    }
-    // 响应式
-    if (options.responsive && options.padding !== 'auto') {
-      this.applyResponsive('afterRender');
     }
     super.afterRender();
   }
@@ -290,14 +285,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
 
   protected parseEvents() {
     super.parseEvents(EventParser);
-  }
-
-  private applyResponsive(stage) {
-    const methods = responsiveMethods[stage];
-    each(methods, (r) => {
-      const responsive = r as IObject;
-      responsive.method(this);
-    });
   }
 
   private singleLineLabelCheck() {

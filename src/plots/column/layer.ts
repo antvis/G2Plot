@@ -6,7 +6,6 @@ import { getGeom } from '../../geoms/factory';
 import { ElementOption } from '../../interface/config';
 import ConversionTag from '../../components/conversion-tag';
 import { extractScale } from '../../util/scale';
-import responsiveMethods from './apply-responsive';
 import './apply-responsive/theme';
 import './component/label';
 import './component/label-auto';
@@ -81,21 +80,9 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
   public type: string = 'column';
   public conversionTag?: ConversionTag;
 
-  public beforeInit() {
-    super.beforeInit();
-    /** 响应式图形 */
-    if (this.options.responsive && this.options.padding !== 'auto') {
-      this.applyResponsive('preRender');
-    }
-  }
-
   public afterRender() {
     const props = this.options;
     this.renderLabel();
-    /** 响应式 */
-    if (this.options.responsive && this.options.padding !== 'auto') {
-      this.applyResponsive('afterRender');
-    }
     if (props.conversionTag.visible) {
       this.conversionTag = new ConversionTag({
         view: this.view,
@@ -215,14 +202,6 @@ export default class BaseColumnLayer<T extends ColumnLayerConfig = ColumnLayerCo
         ...this.options.label,
       });
     }
-  }
-
-  private applyResponsive(stage) {
-    const methods = responsiveMethods[stage];
-    each(methods, (r) => {
-      const responsive = r;
-      responsive.method(this);
-    });
   }
 }
 

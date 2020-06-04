@@ -7,7 +7,6 @@ import ConversionTag from '../../components/conversion-tag';
 import { getGeom } from '../../geoms/factory';
 import { ElementOption, DataItem } from '../../interface/config';
 import { extractScale } from '../../util/scale';
-import responsiveMethods from './apply-responsive';
 import './theme';
 import './component/label';
 import './component/label-auto';
@@ -101,22 +100,9 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
   public type: string = 'bar';
   public conversionTag?: ConversionTag;
 
-  public beforeInit() {
-    super.beforeInit();
-    const props = this.options;
-    /** 响应式图形 */
-    if (props.responsive && props.padding !== 'auto') {
-      this.applyResponsive('preRender');
-    }
-  }
-
   public afterRender() {
     const props = this.options;
     this.renderLabel();
-    /** 响应式 */
-    if (props.responsive && props.padding !== 'auto') {
-      this.applyResponsive('afterRender');
-    }
     if (props.conversionTag.visible) {
       this.conversionTag = new ConversionTag({
         view: this.view,
@@ -266,14 +252,6 @@ export default class BaseBarLayer<T extends BarLayerConfig = BarLayerConfig> ext
         }
       }
     }
-  }
-
-  private applyResponsive(stage) {
-    const methods = responsiveMethods[stage];
-    each(methods, (r) => {
-      const responsive = r;
-      responsive.method(this);
-    });
   }
 
   public getLabelOptionsByPosition(position: string) {

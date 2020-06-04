@@ -5,6 +5,7 @@ import { label as LabelTheme } from './components/label';
 import { guideLine as GuidelineThme } from './components/guideline';
 import { title as TitleTheme, description as DescriptionTheme } from './components/title';
 import { slider as SliderTheme } from './components/slider';
+import { tooltipIndicator as IndicatorTheme } from './components/tooltipIndicator';
 
 export const GLOBAL_DARK_THEME = {
   /* 图表级 */
@@ -48,4 +49,5 @@ export const GLOBAL_DARK_THEME = {
   scrollbar: {},
   breadcrumb: {},
   timeline: {},
+  tooltipIndicator: IndicatorTheme,
 };

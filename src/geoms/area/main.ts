@@ -1,5 +1,5 @@
 import { Datum } from '../../dependents';
-import { has, isString, isFunction, isArray, get } from '@antv/util';
+import { isFunction, get, deepMix } from '@antv/util';
 import ElementParser from '../base';
 
 export default class AreaParser extends ElementParser {
@@ -15,7 +15,7 @@ export default class AreaParser extends ElementParser {
     if (props.smooth) {
       this.config.shape = { values: ['smooth'] };
     }
-    if (this._getColorMappingField() || props.color) {
+    if (this.getColorMappingField(props) || props.color) {
       this.parseColor();
     }
 
@@ -25,13 +25,12 @@ export default class AreaParser extends ElementParser {
   }
 
   public parseColor() {
-    const props = this.plot.options;
     const config: Datum = {};
-    const colorMappingField = this._getColorMappingField();
+    const colorMappingField = this.getColorMappingField(this.plot.options);
     if (colorMappingField) {
       config.fields = colorMappingField;
     }
-    if (has(props, 'color')) {
+    /* if (has(props, 'color')) {
       const color = props.color;
       if (isString(color)) {
         config.values = [color];
@@ -46,8 +45,9 @@ export default class AreaParser extends ElementParser {
           }
         }
       }
-    }
-    this.config.color = config;
+    } */
+    const colorValues = this.getColorValues();
+    this.config.color = deepMix({}, config, colorValues);
   }
 
   public parseStyle() {
@@ -63,8 +63,7 @@ export default class AreaParser extends ElementParser {
     this.config.style = config;
   }
 
-  private _getColorMappingField() {
-    const props = this.plot.options;
+  protected getColorMappingField(props) {
     const colorMapper = ['stackField', 'seriesField'];
     for (const m of colorMapper) {
       if (get(props, m)) {

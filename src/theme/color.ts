@@ -377,17 +377,17 @@ function rearrangeColorPalette(colorPalette, newPalette, rgb_average, count) {
 function divergingResampling(colorPalette: string[], count: number) {
   const centerIndex = Math.floor(colorPalette.length / 2);
   const paletteLength = (colorPalette.length - 1) / 2;
-  const leftCount = Math.floor((count - 1) / 2);
+  const leftCount = Math.ceil((count - 1) / 2);
   const rightCount = count - leftCount - 1;
   const leftStep = Math.floor(paletteLength / leftCount);
   const rightStep = Math.floor(paletteLength / rightCount);
   const newPalette = [];
-  for (let i = 0; i < leftCount; i++) {
+  for (let i = 1; i <= leftCount; i++) {
     const index = centerIndex - i * leftStep;
     newPalette.push(colorPalette[index]);
   }
   newPalette.push(colorPalette[centerIndex]);
-  for (let j = 0; j < rightCount; j++) {
+  for (let j = 1; j <= rightCount; j++) {
     const index = centerIndex + j * rightStep;
     newPalette.push(colorPalette[index]);
   }

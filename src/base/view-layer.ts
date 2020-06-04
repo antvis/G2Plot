@@ -38,6 +38,7 @@ import {
   GuideLineConfig,
   CustomTooltipConfig,
   Template,
+  ColorPaletteConfig,
 } from '../interface/config';
 import { G2Config } from '../interface/config';
 import { EVENT_MAP, onEvent } from '../util/event';
@@ -56,7 +57,7 @@ export interface ViewConfig {
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
-  color?: string | string[] | {};
+  color?: string | string[] | ColorPaletteConfig;
   xAxis?: Axis;
   yAxis?: Axis;
   label?: Label;

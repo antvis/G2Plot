@@ -1,4 +1,4 @@
-import { isString, isFunction, isArray, isObject, get } from '@antv/util';
+import { isFunction, get, deepMix } from '@antv/util';
 import ElementParser from '../base';
 
 const COLOR_MAPPER = ['colorField', 'stackField', 'groupField'];
@@ -26,12 +26,12 @@ export default class IntervalParser extends ElementParser {
 
   public parseColor() {
     const props = this.plot.options;
-    const colorField = this._getColorMappingField(props);
+    const colorField = this.getColorMappingField(props);
     const config: any = {};
     if (colorField) {
       config.fields = colorField;
     }
-    if (props.color) {
+    /* if (props.color) {
       if (isString(props.color)) {
         config.values = [props.color];
       } else if (isFunction(props.color)) {
@@ -50,8 +50,9 @@ export default class IntervalParser extends ElementParser {
           return props.color[d];
         };
       }
-    }
-    this.config.color = config;
+    }*/
+    const colorValues = this.getColorValues();
+    this.config.color = deepMix({}, config, colorValues);
   }
 
   public parseSize(sizeProps) {
@@ -99,7 +100,7 @@ export default class IntervalParser extends ElementParser {
     }
   }
 
-  private _getColorMappingField(props) {
+  protected getColorMappingField(props) {
     /**如果有colorFiled或stackField配置项(后者为堆叠interval)，则参与colorMapping的字段为对应值
      * 如没有特别设定，则一般是callback中的传参，传入位置映射的字段
      */

@@ -12,7 +12,7 @@ const legend_text_style_dark = {
 
 export const legend = (mode: string) => {
   return {
-    margin: [0, 0, 0, 0],
+    margin: [12, 12, 12, 12],
     maxWidth: null,
     maxHeight: null,
     title: {

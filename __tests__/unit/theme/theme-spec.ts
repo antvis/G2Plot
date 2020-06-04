@@ -1,4 +1,4 @@
-import { GroupedColumn } from '../../../src';
+import { GroupedColumn, Line } from '../../../src';
 
 const data = [
   {
@@ -136,102 +136,12 @@ const data = [
     type: 'bill',
     value: 488,
   },
-  {
-    date: '2018/8/10',
-    type: 'download',
-    value: 3606,
-  },
-  {
-    date: '2018/8/10',
-    type: 'register',
-    value: 678,
-  },
-  {
-    date: '2018/8/10',
-    type: 'bill',
-    value: 507,
-  },
-  {
-    date: '2018/8/11',
-    type: 'download',
-    value: 4311,
-  },
-  {
-    date: '2018/8/11',
-    type: 'register',
-    value: 3188,
-  },
-  {
-    date: '2018/8/11',
-    type: 'bill',
-    value: 548,
-  },
-  {
-    date: '2018/8/12',
-    type: 'download',
-    value: 4116,
-  },
-  {
-    date: '2018/8/12',
-    type: 'register',
-    value: 3491,
-  },
-  {
-    date: '2018/8/12',
-    type: 'bill',
-    value: 456,
-  },
-  {
-    date: '2018/8/13',
-    type: 'download',
-    value: 6419,
-  },
-  {
-    date: '2018/8/13',
-    type: 'register',
-    value: 2852,
-  },
-  {
-    date: '2018/8/13',
-    type: 'bill',
-    value: 689,
-  },
-  {
-    date: '2018/8/14',
-    type: 'download',
-    value: 1643,
-  },
-  {
-    date: '2018/8/14',
-    type: 'register',
-    value: 4788,
-  },
-  {
-    date: '2018/8/14',
-    type: 'bill',
-    value: 280,
-  },
-  {
-    date: '2018/8/15',
-    type: 'download',
-    value: 445,
-  },
-  {
-    date: '2018/8/15',
-    type: 'register',
-    value: 4319,
-  },
-  {
-    date: '2018/8/15',
-    type: 'bill',
-    value: 176,
-  },
 ];
 
 describe('defalut light', () => {
   const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '400px';
-  canvasDiv.style.height = '400px';
+  canvasDiv.style.width = '600px';
+  canvasDiv.style.height = '600px';
   canvasDiv.style.left = '30px';
   canvasDiv.style.top = '30px';
   canvasDiv.style.top = '30px';
@@ -247,14 +157,42 @@ describe('defalut light', () => {
       xField: 'date',
       yField: 'value',
       groupField: 'type',
-      guideLine: [
+      color: {
+        type: 'diverging',
+        name: 'grow',
+      },
+      /*guideLine: [
         {
           type: 'mean',
           text: {
             content: 'test',
           },
         },
-      ],
+      ],*/
+    });
+    linePlot.render();
+  });
+
+  it('single color', () => {
+    const data = [
+      { year: '1991', value: 3 },
+      { year: '1992', value: 4 },
+      { year: '1993', value: 3.5 },
+      { year: '1994', value: 5 },
+      { year: '1995', value: 4.9 },
+      { year: '1996', value: 6 },
+      { year: '1997', value: 7 },
+      { year: '1998', value: 9 },
+      { year: '1999', value: 13 },
+    ];
+    const linePlot = new Line(canvasDiv, {
+      width: 600,
+      height: 600,
+      theme: 'default-dark',
+      data,
+      xField: 'year',
+      yField: 'value',
+      color: 'red',
     });
     linePlot.render();
   });

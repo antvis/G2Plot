@@ -493,3 +493,8 @@ export interface TemplateItem {
 }
 
 export type Template = TemplateItem[];
+
+export interface ColorPaletteConfig {
+  type: string;
+  name: string;
+}

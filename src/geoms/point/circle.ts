@@ -1,5 +1,5 @@
 import { LooseObject } from '../../dependents';
-import { isArray, isFunction, isString, isEmpty, isNil } from '@antv/util';
+import { isArray, isFunction, isEmpty, isNil, deepMix } from '@antv/util';
 import ElementParser from '../base';
 
 export default class CircleParser extends ElementParser {
@@ -34,7 +34,8 @@ export default class CircleParser extends ElementParser {
       config.fields = isArray(colorField) ? colorField : [colorField];
     }
     if (props.color) {
-      this._parseColor(props, config);
+      const colorValues = this.getColorValues();
+      this.config.color = deepMix({}, config, colorValues);
     }
     if (!isEmpty(config)) {
       this.config.color = config;
@@ -85,13 +86,7 @@ export default class CircleParser extends ElementParser {
     this.config.style = config;
   }
 
-  private _parseColor(props, config) {
-    if (isString(props.color)) {
-      config.values = [props.color];
-    } else if (isFunction(props.color)) {
-      config.callback = props.color;
-    } else if (isArray(props.color)) {
-      config.values = props.color;
-    }
+  protected getColorMappingField(props) {
+    return props.seriesField;
   }
 }

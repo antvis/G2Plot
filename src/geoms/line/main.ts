@@ -1,5 +1,5 @@
 import { LooseObject } from '../../dependents';
-import { isFunction, has, isString, isArray } from '@antv/util';
+import { isFunction, deepMix } from '@antv/util';
 import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
@@ -46,7 +46,7 @@ export default class LineParser extends ElementParser {
     if (props.seriesField) {
       config.fields = [props.seriesField];
     }
-    if (has(props, 'color')) {
+    /* if (has(props, 'color')) {
       const color = props.color;
       if (isString(color)) {
         config.values = [color];
@@ -61,9 +61,9 @@ export default class LineParser extends ElementParser {
           }
         }
       }
-    }
-
-    this.config.color = config;
+    }*/
+    const colorValues = this.getColorValues();
+    this.config.color = deepMix({}, config, colorValues);
   }
 
   public parseStyle() {
@@ -81,5 +81,10 @@ export default class LineParser extends ElementParser {
       config.cfg = styleProps;
     }
     this.config.style = config;
+  }
+
+  protected getColorMappingField() {
+    const { options } = this.plot;
+    return options.seriesField;
   }
 }

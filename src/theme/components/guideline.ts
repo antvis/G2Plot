@@ -1,7 +1,7 @@
 import { COLOR_PALETTE } from '../color';
 
 const guideLine_line_style_light = {
-  stroke: COLOR_PALETTE.greyScale[0.9],
+  stroke: COLOR_PALETTE.greyScale[0.6],
   lineWidth: 2,
   lineDash: null,
 };
@@ -13,7 +13,7 @@ const guideLine_line_style_dark = {
 };
 
 const guideLine_text_style_light = {
-  fill: COLOR_PALETTE.greyScale[1],
+  fill: COLOR_PALETTE.greyScale[0.7],
   fontSize: 14,
   textAlign: 'left',
 };
@@ -22,7 +22,7 @@ const guideLine_text_style_dark = {
   fill: COLOR_PALETTE.greyScale[0],
   fontSize: 14,
   textAlign: 'left',
-  stroke: null,
+  stroke: COLOR_PALETTE.greyScale[0.7],
 };
 
 export const guideLine = (mode: string) => {

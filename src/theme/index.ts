@@ -14,3 +14,5 @@ export { getGlobalTheme, registerGlobalTheme } from './global';
 export { getTheme, registerTheme } from './theme';
 // 工具函数
 export { convertToG2Theme } from './utils';
+// 色板方法
+export { getColorPalette, registerColorPalette } from './color';

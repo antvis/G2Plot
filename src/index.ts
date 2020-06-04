@@ -25,9 +25,6 @@ export { default as GroupedColumnLine, GroupedColumnLineConfig } from './combo/g
 export { default as StackedColumnLine, StackedColumnLineConfig } from './combo/stackedColumn-line';
 
 // 主题
-export { registerTheme, registerGlobalTheme } from './theme';
-export { registerResponsiveConstraint, IConstraint } from './util/responsive/constraints';
-export { registerResponsiveRule } from './util/responsive/rules';
-export { registerResponsiveTheme, getResponsiveTheme } from './util/responsive/theme';
+export { registerTheme, registerGlobalTheme, getColorPalette, registerColorPalette } from './theme';
 
 export { default as StateManager } from './util/state-manager';

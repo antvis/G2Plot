@@ -57,7 +57,7 @@ export interface ViewConfig {
   padding?: number | number[] | string;
   xField?: string;
   yField?: string;
-  color?: string | string[] | ColorPaletteConfig;
+  color?: string | string[] | ColorPaletteConfig | any;
   xAxis?: Axis;
   yAxis?: Axis;
   label?: Label;

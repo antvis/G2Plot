@@ -13,7 +13,7 @@ import { getComponent } from '../../components/factory';
 import * as EventParser from './event';
 import './component/label/waterfall-label';
 import DiffLabel, { DiffLabelcfg } from './component/label/diff-label';
-import { LineStyle, TextStyle, GraphicStyle } from '../../interface/config';
+import { LineStyle, TextStyle, GraphicStyle, ColorPaletteConfig } from '../../interface/config';
 import { getGeometryByType } from '../../util/view';
 
 const G2_GEOM_MAP = {
@@ -47,7 +47,7 @@ export interface WaterfallViewConfig extends ViewConfig {
     | string
     | { rising: string; falling: string; total?: string }
     | ((type: string, value: number | null, values: number | number[], index: number) => string);
-  waterfallStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle);
+  waterfallStyle?: GraphicStyle | ((...args: any[]) => GraphicStyle) | ColorPaletteConfig;
 }
 
 export interface WaterfallLayerConfig extends WaterfallViewConfig, LayerConfig {}

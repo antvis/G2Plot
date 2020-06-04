@@ -192,9 +192,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     const options = super.getOptions(props);
     // @ts-ignore
     const defaultOptions = this.constructor.getDefaultOptions(props);
-    // interactions 需要合并去重下
+    // interactions 需要合并去重下，如果有更新 interactions，需要去掉当前的 interactions 配置
     const interactions = reduce(
-      flatten(map([options, defaultOptions, curOptions, props], (src) => get(src, 'interactions', []))),
+      flatten(
+        map([options, defaultOptions, hasKey(props, 'interactions') ? props : curOptions], (src) =>
+          get(src, 'interactions', [])
+        )
+      ),
       (result, cur) => {
         const idx = findIndex(result, (item) => item.type === cur.type);
         if (idx >= 0) {
@@ -803,7 +807,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   protected isLimitInPlot() {
     const yAxisOptions = this.options.yAxis as IValueAxis;
-    if (hasKey(yAxisOptions, 'max') || hasKey(yAxisOptions, 'min')) {
+    if (
+      hasKey(yAxisOptions, 'max') ||
+      hasKey(yAxisOptions, 'min') ||
+      hasKey(yAxisOptions, 'maxLimit') ||
+      hasKey(yAxisOptions, 'minLimit')
+    ) {
       return true;
     }
     return false;

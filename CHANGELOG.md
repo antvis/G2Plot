@@ -1,3 +1,10 @@
+## <small>1.1.5 (2020-05-28)</small>
+- 🐞fix: 图例通过 margin 配置来对齐 (#1132) ([884fd8d](https://github.com/antvis/g2plot/commit/884fd8d)), closes [#1132](https://github.com/
+antvis/g2plot/issues/1132)
+
+## <small>1.1.4 (2020-05-25)
+- 🌟feat: 词云图禁用动画模式增加 ([13553f3](https://github.com/antvis/G2Plot/pull/1110/commits))
+
 ## <small>1.1.3 (2020-05-19)
 - 🌟feat: line plot label responsive ([3b20a94](https://github.com/antvis/G2Plot/commit/3b20a94))
 - 🌟feat: public method for chart ([b609738](https://github.com/antvis/G2Plot/commit/b609738))
@@ -255,3 +262,5 @@
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
+
+

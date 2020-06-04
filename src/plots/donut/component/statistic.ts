@@ -1,7 +1,7 @@
 import { deepMix, isElement } from '@antv/util';
 import { createDom, modifyCSS, getOuterWidth, getOuterHeight } from '@antv/dom-util';
 
-export interface IStaticticHtml {
+export interface IStatisticHtml {
   x?: number;
   y?: number;
   html?: string;
@@ -20,7 +20,7 @@ export default class StatisticHtml {
   protected container: any;
   protected options: any;
 
-  constructor(cfg: IStaticticHtml) {
+  constructor(cfg: IStatisticHtml) {
     const defaultOptions = this.getDefaultOptions();
     this.options = deepMix(defaultOptions, cfg, {});
     this.x = this.options.x;

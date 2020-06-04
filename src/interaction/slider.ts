@@ -1,7 +1,7 @@
 import { IGroup, Slider, VIEW_LIFE_CIRCLE } from '../dependents';
 import BBox from '../util/bbox';
 import { Scale } from '@antv/scale';
-import { clamp, head, last, map, size, throttle, isEmpty } from '@antv/util';
+import { clamp, head, last, map, size, throttle, isEmpty, isEqual } from '@antv/util';
 import { ISliderInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
 import { getDataByScaleRange } from './helper/data-range';
@@ -95,6 +95,10 @@ export default class SliderInteraction extends BaseInteraction {
     this.xScaleCfg = undefined;
     // 等待 view 每次 render 完成后更新 slider 组件
     const callback = () => {
+      const padding = this.view.padding;
+      if (padding === 'auto' || isEqual(padding, [0, 0, 0, 1])) {
+        return;
+      }
       if (isEmpty(layer.options.data)) {
         return;
       }

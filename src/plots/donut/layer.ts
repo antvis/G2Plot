@@ -7,18 +7,23 @@ import * as EventParser from './event';
 import { LooseMap } from '../../interface/types';
 import RingStatistic from './component/ring-statistic';
 
+interface DonutStatisticContent {
+  name?: string;
+  value?: string;
+}
+
 export interface DonutViewConfig extends PieViewConfig {
   innerRadius?: number;
   /** 指标卡用于显示总计值和各项数据 */
   statistic?: {
     visible: boolean;
     /** 指标卡 总计值 标签 */
-    totalLabel: string;
+    totalLabel?: string;
     /** 触发显示的事件 */
-    triggerOn: 'mouseenter';
+    triggerOn?: 'mouseenter';
     /** 触发隐藏的事件 */
-    triggerOff: 'mouseleave';
-    content?: string;
+    triggerOff?: 'mouseleave';
+    content?: string | DonutStatisticContent;
     htmlContent?: (...args: any) => string;
   };
 }

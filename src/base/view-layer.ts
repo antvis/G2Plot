@@ -57,7 +57,7 @@ export interface ViewConfig {
   color?: string | string[] | {};
   xAxis?: Axis;
   yAxis?: Axis;
-  label?: Label;
+  label?: Label | any;
   tooltip?: Tooltip;
   legend?: Legend;
   animation?: Animation | boolean;

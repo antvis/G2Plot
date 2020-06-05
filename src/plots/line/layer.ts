@@ -21,7 +21,6 @@ import LineLabel from './component/label/line-label';
 import * as EventParser from './event';
 import MarkerPoint, { MarkerPointCfg } from '../../components/marker-point';
 import './theme';
-import './apply-responsive/theme';
 import { LooseMap, Maybe } from '../../interface/types';
 import { LineActive, LineSelect } from './interaction/index';
 import { getGeometryByType } from '../../util/view';

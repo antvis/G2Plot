@@ -1,11 +1,9 @@
 import { Funnel } from '../../src';
+import { createDiv } from '../utils/dom';
 
 describe('#963', () => {
-  const div = document.createElement('div');
-  div.style.width = '600px';
-  div.style.height = '600px';
-  div.style.left = '30px';
-  div.style.top = '30px';
+  const div = createDiv('funnelPlot');
+  document.body.appendChild(div);
 
   it('funnel label 文本显示错误', () => {
     const data = [

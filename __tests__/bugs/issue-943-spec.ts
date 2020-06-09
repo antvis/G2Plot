@@ -1,11 +1,9 @@
 import { Liquid } from '../../src';
+import { createDiv } from '../utils/dom';
 
 describe('#943', () => {
-  const div = document.createElement('div');
-  div.style.width = '600px';
-  div.style.height = '600px';
-  div.style.left = '30px';
-  div.style.top = '30px';
+  const div = createDiv('canvas1');
+  document.body.appendChild(div);
 
   it('liquid statistic visible 控制失效', () => {
     const liquidPlot = new Liquid(div, {

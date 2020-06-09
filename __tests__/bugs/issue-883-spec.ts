@@ -1,12 +1,8 @@
 import { Line, Pie } from '../../src';
+import { createDiv } from '../utils/dom';
 
 describe('#883', () => {
-  const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '600px';
-  canvasDiv.style.height = '600px';
-  canvasDiv.style.left = '30px';
-  canvasDiv.style.top = '30px';
-  canvasDiv.id = 'canvas1';
+  const canvasDiv = createDiv('canvas1');
   document.body.appendChild(canvasDiv);
 
   it('guidline暂时只支持非转置坐标系', () => {

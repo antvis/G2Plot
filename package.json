@@ -45,6 +45,7 @@
     "lint-staged": "lint-staged",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
+    "bug:collect": "node scripts/generate-bug-collection.js && DEBUG_MODE=1 jest --watch ./__tests__/bugs/collection-spec.ts",
     "coverage": "jest --coverage",
     "ci": "run-s lint build coverage",
     "compare-live": "node scripts/compare.js",

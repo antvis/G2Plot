@@ -73,6 +73,7 @@ demos/assets/screenshots
 /lib
 /esm
 /dist
+__tests__/bugs/collection-spec.ts
 
 *.sw*
 *.un~

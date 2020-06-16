@@ -1,3 +1,10 @@
+
+## <small>1.1.7 (2020-06-16)</small>
+
+* Delete stale.yml ([48a9c55](https://github.com/antvis/g2plot/commit/48a9c55))
+* feat(pie&donut): label and statistic value can be affected by scale (#1189) ([15ac56f](https://github.com/antvis/g2plot/commit/15ac56f)), closes [#1189](https://github.com/antvis/g2plot/issues/1189)
+
+
 ## <small>1.1.6 (2020-06-05)</small>
 - 🐞fix: pieLabel类型不兼容 (#1132) ([583335e](https://github.com/antvis/g2plot/commit/583335e))
 
@@ -265,5 +272,3 @@ antvis/g2plot/issues/1132)
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
-
-

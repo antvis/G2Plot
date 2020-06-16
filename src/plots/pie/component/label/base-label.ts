@@ -347,7 +347,7 @@ export default abstract class PieBaseLabel {
       const angle = (startAngle + endAngle) / 2;
       const point = getEndPoint(center, angle, radius);
       startAngle = endAngle;
-      const name = `${originData[angleField]}`;
+      const name = scale.getText(originData[angleField]);
       const textAlign = point.x > center.x ? 'left' : 'right';
 
       return {

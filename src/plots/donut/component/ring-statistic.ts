@@ -88,8 +88,19 @@ export default class RingStatistic extends StatisticHtml {
   }
 
   private parseStatisticData(data) {
-    const { angleField, colorField } = this.plot.options;
-    return colorField ? { name: data[colorField], value: data[angleField] } : data[angleField];
+    const plot = this.plot;
+    const { angleField, colorField } = plot.options;
+    const angleScale = plot.getScaleByField(angleField);
+    const colorScale = plot.getScaleByField(colorField);
+
+    if (colorField) {
+      return {
+        name: colorScale.getText(data[colorField]),
+        value: angleScale.getText(data[angleField]),
+      };
+    }
+
+    return angleScale.getText(data[angleField]);
   }
 
   private getStatisticTemplate(data) {

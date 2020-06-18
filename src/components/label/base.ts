@@ -75,7 +75,6 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
   }
 
   protected renderInner(group: IGroup) {
-    console.log('label:renderInner');
     this.labels = [];
     this.labelsCfgMap = {};
 
@@ -148,7 +147,6 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
       }
     });
     this.lastLabelsCfgMap = this.labelsCfgMap;
-    console.log('label render: ', JSON.parse(JSON.stringify(this.lastLabelsCfgMap)));
   }
 
   protected drawLabelText(group: IGroup, attrs: TextStyle, extraCfgs: LooseMap = {}): IShape {

@@ -220,14 +220,12 @@ export default class ScrollbarInteraction extends BaseInteraction {
         max: cfg.max,
       });
     });
-    console.log('scrollbar:changeViewData:before');
     if (render) {
       this.view.data(newData);
       this.view.render();
     } else {
       this.view.changeData(newData);
     }
-    console.log('scrollbar:changeViewData:after');
   }
 
   private onChange({ ratio, thumbOffset }: { ratio: number; thumbOffset: number }): void {

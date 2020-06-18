@@ -6,6 +6,8 @@ import ViewLayer from '../base/view-layer';
 import { IScrollbarInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
 import { getDataByScaleRange } from './helper/data-range';
+import { VIEW_LIFE_CIRCLE } from '@antv/g2/lib/constant';
+import { VIEW_LAYER_LIFE_CYCLE } from '../base/constants';
 
 const DEFAULT_PADDING: number = 4;
 const DEFAULT_SIZE: number = 8;
@@ -79,10 +81,11 @@ export default class ScrollbarInteraction extends BaseInteraction {
   }) as (evt: object) => void;
 
   public render(): void {
+    const layer = this.getViewLayer();
     const view = this.view;
     this.ratio = 0;
     this.thumbOffset = 0;
-    view.on('afterrender', () => {
+    const callback = () => {
       const padding = this.view.padding;
       // if we're not in `auto padding` process
       if (padding === 'auto' || isEqual(padding, [0, 0, 0, 1])) {
@@ -94,7 +97,17 @@ export default class ScrollbarInteraction extends BaseInteraction {
       } else {
         this.renderScrollbar();
       }
-    });
+    };
+    const changeDataCallback = () => {
+      // reset
+      this.trackLen = 0;
+    };
+    view.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback);
+    this.addDisposable(() => view.off(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback));
+    view.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, callback);
+    this.addDisposable(() => view.off(VIEW_LIFE_CIRCLE.AFTER_RENDER, callback));
+    layer.on(VIEW_LAYER_LIFE_CYCLE.BEFORE_CHANGE_DATA, changeDataCallback);
+    this.addDisposable(() => layer.off(VIEW_LAYER_LIFE_CYCLE.BEFORE_CHANGE_DATA, changeDataCallback));
   }
 
   protected start() {
@@ -207,12 +220,14 @@ export default class ScrollbarInteraction extends BaseInteraction {
         max: cfg.max,
       });
     });
+    console.log('scrollbar:changeViewData:before');
     if (render) {
       this.view.data(newData);
       this.view.render();
     } else {
       this.view.changeData(newData);
     }
+    console.log('scrollbar:changeViewData:after');
   }
 
   private onChange({ ratio, thumbOffset }: { ratio: number; thumbOffset: number }): void {

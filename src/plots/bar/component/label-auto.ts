@@ -78,7 +78,7 @@ export default class BarAutoLabel extends BarLabel<IBarAutoLabel> {
       const element: Element = label.get('element');
       const { shape } = element;
       const fillWhite = isContrastColorWhite(shape.attr('fill'));
-      const shapeBBox = BBox.fromBBoxObject(shape.getBBox());
+      const shapeBBox = this.getElementShapeBBox(element);
       const labelBBox = BBox.fromBBoxObject(label.getBBox());
 
       // 如果 Column 本身就不可见，直接隐藏对应的 label

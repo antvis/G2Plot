@@ -35,6 +35,7 @@ export default class StatisticHtml {
       this.container.appendChild(this.wrapperNode);
       modifyCSS(this.wrapperNode, {
         position: 'absolute',
+        pointerEvents: 'none', // 阻止 dom 事件击穿
       });
       const htmlNode = createDom(this.html);
       this.wrapperNode.appendChild(htmlNode);

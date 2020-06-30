@@ -174,7 +174,7 @@ the result：
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sbL3QqAIJdQAAAAAAAAAAABkARQnAQ" width="500">
 
-## Stlylize your chart
+## Stylize your chart
 
 Till now, the visual style of our chart was defaultly applied by chart theme, not to mention the unformatted text content of labels. In this step, we'll stylize the chart through several steps: changing line color and point style, formatting the numbers on Y axis:
 
@@ -288,8 +288,6 @@ the result：
 
 In this chapter, we only briefly introduce the installation and basic usage of G2Plot. We hope you'll find more useful or funny features in our project.
 
-General configrations: [url](../manual/general-config)
-
-Charts configrations: [url](../manual/plots/line)
+Charts configurations: [url](../manual/plots/line)
 
 Advanced features: [url](../manual/advanced/responsive)

@@ -1,4 +1,8 @@
 
+## <small>1.1.8 (2020-06-30)</small>
+
+* fix: 百分比堆叠柱状图，同一维度的数据如果数据为0的时候，图表tooltip显示NAN  ([821](https://github.com/antvis/G2Plot/issues/821))
+
 ## <small>1.1.7 (2020-06-16)</small>
 
 * Delete stale.yml ([48a9c55](https://github.com/antvis/g2plot/commit/48a9c55))

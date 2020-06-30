@@ -83,9 +83,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         visible: false,
         size: 3,
         shape: 'circle',
-        style: {
-          stroke: '#fff',
-        },
       },
       label: {
         visible: false,

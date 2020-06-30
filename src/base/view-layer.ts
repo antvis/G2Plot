@@ -46,6 +46,7 @@ import Layer, { LayerConfig } from './layer';
 import { isTextUsable } from '../util/common';
 import { LooseMap } from '../interface/types';
 import BBox, { DIRECTION } from '../util/bbox';
+import { VIEW_LAYER_LIFE_CYCLE } from './constants';
 
 export interface ViewConfig {
   renderer?: string;
@@ -212,6 +213,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   public beforeInit() {
+    this.emit(VIEW_LAYER_LIFE_CYCLE.BEFORE_INIT);
     super.beforeInit();
   }
 
@@ -279,6 +281,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     if (this.options.padding !== 'auto') {
       this.parseEvents();
     }
+    this.emit(VIEW_LAYER_LIFE_CYCLE.AFTER_INIT);
   }
 
   public afterRender() {
@@ -302,11 +305,13 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
 
   /** 完整生命周期渲染 */
   public render(): void {
+    this.emit(VIEW_LAYER_LIFE_CYCLE.BEFORE_RENDER);
     super.render();
     const { data } = this.options;
     if (!isEmpty(data)) {
       this.view.render();
     }
+    this.emit(VIEW_LAYER_LIFE_CYCLE.AFTER_RENDER);
   }
 
   /** 画布重绘 */
@@ -369,6 +374,7 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
   }
 
   public changeData(data: DataItem[]): void {
+    this.emit(VIEW_LAYER_LIFE_CYCLE.BEFORE_CHANGE_DATA);
     const isEmptyBefore = isEmpty(this.options.data);
     this.options.data = this.processData(data);
 
@@ -380,6 +386,8 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     } else {
       this.view.changeData(this.options.data);
     }
+
+    this.emit(VIEW_LAYER_LIFE_CYCLE.AFTER_CHANGE_DATA);
   }
 
   // plot 不断销毁重建，需要一个api获取最新的plot

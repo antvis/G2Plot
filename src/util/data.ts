@@ -25,8 +25,9 @@ export const transformDataPercentage = (data: DataItem[], groupField: string, me
     const rst = { ...item, _origin: item, total: groupTotals[item[groupField]] };
     each(measures, (field) => {
       // @ts-ignore
-      rst[field] = item[field] / groupTotals[item[groupField]];
+      rst[field] = item[field] / (groupTotals[item[groupField]] || 1);
     });
+
     return rst;
   });
 
@@ -36,7 +37,7 @@ export const transformDataPercentage = (data: DataItem[], groupField: string, me
     each(items, (item: DataItem, itemIdx: number) => {
       each(measures, (field: string, fieldIdx: number) => {
         // @ts-ignore
-        if (sum + item[field] >= 1 || (itemIdx === items.length - 1 && fieldIdx === measures.length - 1)) {
+        if (sum + item[field] >= 1 || (itemIdx === items.length - 1 && fieldIdx === measures.length - 1 && sum > 0)) {
           item[field] = 1 - sum;
         }
         // @ts-ignore
@@ -44,7 +45,6 @@ export const transformDataPercentage = (data: DataItem[], groupField: string, me
       });
     });
   });
-
   // @ts-ignore
   return newData;
 };

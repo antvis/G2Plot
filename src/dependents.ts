@@ -1,3 +1,9 @@
+// dependents是基础依赖，以便按需使用plot
+import GestureController from '@antv/g2/lib/chart/controller/gesture';
+import { registerComponentController } from '@antv/g2';
+export { GestureController };
+registerComponentController('gesture', GestureController);
+
 // G
 export { IElement, ICanvas, IGroup, IShape, BBox, Event as GraphicEvent } from '@antv/g-base';
 export { Canvas } from '@antv/g-canvas';
@@ -24,7 +30,6 @@ export {
   registerComponentController,
 } from '@antv/g2';
 export { VIEW_LIFE_CIRCLE, COMPONENT_TYPE, FIELD_ORIGIN } from '@antv/g2/lib/constant';
-export { default as GestureController } from '@antv/g2/lib/chart/controller/gesture';
 export { default as TooltipController } from '@antv/g2/lib/chart/controller/tooltip';
 export { MarkerSymbols } from '@antv/g2/lib/util/marker';
 export {

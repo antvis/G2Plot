@@ -64,6 +64,8 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
 
     const callback = () => {
       this.clear();
+      this.labelsCfgMap = {};
+      this.lastLabelsCfgMap = {};
       this.render();
     };
     view.on(VIEW_LIFE_CIRCLE.AFTER_PAINT, callback);
@@ -103,6 +105,7 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
           // 图形发生更新
           const updateAnimateCfg = get(animateCfg, 'update');
           if (updateAnimateCfg) {
+            shape.stopAnimate();
             shape.attr(oldAttrs);
             doAnimate(shape, updateAnimateCfg, {
               toAttrs: {
@@ -115,6 +118,7 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
           // 新生成的 shape
           const appearAnimateCfg = get(animateCfg, 'appear');
           if (appearAnimateCfg) {
+            shape.stopAnimate();
             doAnimate(shape, appearAnimateCfg, {
               toAttrs: {
                 ...shape.attr(),
@@ -135,6 +139,7 @@ export default abstract class LabelComponent<L extends Label = Label> extends Ba
           id,
           name: 'label',
         });
+        tempShape.stopAnimate();
         doAnimate(tempShape, leaveAnimateCfg, {
           toAttrs: null,
           coordinate: this.coord,

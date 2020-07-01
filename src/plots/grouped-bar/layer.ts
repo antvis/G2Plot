@@ -1,4 +1,4 @@
-import { deepMix, valuesOfKey, clone } from '@antv/util';
+import { deepMix, valuesOfKey } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
@@ -44,19 +44,12 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
 
   public afterRender() {
     super.afterRender();
-    const names = valuesOfKey(this.options.data, this.options.groupField);
     this.view.on('tooltip:change', (e) => {
-      const { items } = e;
-      const origin_items = clone(items);
-      for (let i = 0; i < names.length; i++) {
-        const name = names[i];
-        for (let j = 0; j < origin_items.length; j++) {
-          const item = origin_items[j];
-          if (item.name === name) {
-            e.items[i] = item;
-          }
-        }
-      }
+      const { items = [] } = e;
+      const fixedItems = items.slice().reverse();
+      fixedItems.forEach((item, idx) => {
+        e.items[idx] = item;
+      });
     });
   }
 

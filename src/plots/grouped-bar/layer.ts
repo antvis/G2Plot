@@ -1,4 +1,4 @@
-import { deepMix, valuesOfKey } from '@antv/util';
+import { deepMix, valuesOfKey, sortBy } from '@antv/util';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import { ElementOption } from '../../interface/config';
@@ -44,9 +44,12 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
 
   public afterRender() {
     super.afterRender();
+    const names = valuesOfKey(this.options.data, this.options.groupField) || [];
     this.view.on('tooltip:change', (e) => {
       const { items = [] } = e;
-      const fixedItems = items.slice().reverse();
+      const fixedItems = sortBy(items.slice(), (item) => {
+        return names.indexOf(item.name);
+      }).reverse();
       fixedItems.forEach((item, idx) => {
         e.items[idx] = item;
       });

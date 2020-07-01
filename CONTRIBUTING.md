@@ -1,7 +1,7 @@
 # Contribution Guide
 
-If you have any comment or advice, please report your [issue](https:// github.com/antvis/g2plot/issues),
-or make any change as you wish and submit an [PR](https:// github.com/antvis/g2plot/pulls).
+If you have any comment or advice, please report your [issue](https://github.com/antvis/g2plot/issues),
+or make any change as you wish and submit an [PR](https://github.com/antvis/g2plot/pulls).
 
 ## Reporting New Issues
 
@@ -30,7 +30,7 @@ $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
 ```
 
-Then you can create a Pull Request at [g2plot](https:// github.com/antvis/g2plot/pulls).
+Then you can create a Pull Request at [g2plot](https://github.com/antvis/g2plot/pulls).
 
 No one can garantee how much will be remembered about certain PR after some time. To make sure we can easily recap what happened previously, please provide the following information in your PR.
 
@@ -45,7 +45,7 @@ Eslint can help to identify styling issues that may exist in your code. Your cod
 
 ### Commit Message Format
 
-You are encouraged to use [angular commit-message-format](https:// github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format) to write commit message. In this way, we could have a more trackable history and an automatically generated changelog.
+You are encouraged to use [angular commit-message-format](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format) to write commit message. In this way, we could have a more trackable history and an automatically generated changelog.
 
 ```xml
 <type>(<scope>): <subject>
@@ -104,7 +104,7 @@ BREAKING CHANGE:
   Breaks foo.bar api, foo.baz should be used instead
 ```
 
-Look at [these files](https:// docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) for more detials.
+Look at [these files](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) for more detials.
 
 ## Release
 
@@ -136,8 +136,7 @@ In the release of every stable version, there will be a PM who has the following
 
 - Nominate PM for next stable version.
 
-[semver] {: http:// semver.org/lang/zh-CN/
-[release proposal mr]
-}: https:// github.com/nodejs/node/pull/4181
-[node changelog]: https:// github.com/nodejs/node/blob/master/CHANGELOG.md
-[『我是如何发布一个 npm 包的』]: https:// fengmk2.com/blog/2016/how-i-publish-a-npm-package
+[semver]: http://semver.org/lang/zh-CN/
+[release proposal mr]: https://github.com/nodejs/node/pull/4181
+[node changelog]: https://github.com/nodejs/node/blob/master/CHANGELOG.md
+[『我是如何发布一个 npm 包的』]: https://fengmk2.com/blog/2016/how-i-publish-a-npm-package

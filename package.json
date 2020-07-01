@@ -1,0 +1,111 @@
+{
+  "name": "@antv/g2plot",
+  "version": "2.0.0",
+  "description": "An interactive and responsive charting library",
+  "keywords": [
+    "chart",
+    "plot",
+    "antv"
+  ],
+  "author": "https://github.com/orgs/antvis/people",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
+  "unpkg": "dist/g2plot.js",
+  "files": [
+    "lib",
+    "esm",
+    "dist"
+  ],
+  "homepage": "https://g2plot.antv.vision",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/g2plot"
+  },
+  "scripts": {
+    "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__",
+    "build": "run-s clean lib dist",
+    "clean": "rimraf lib esm dist",
+    "lib": "run-p lib:*",
+    "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
+    "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
+    "dist": "webpack --config webpack.config.js --mode production",
+    "lint": "eslint --ext .ts ./src ./__tests__",
+    "lint-staged": "lint-staged",
+    "test": "jest",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
+    "coverage": "jest --coverage",
+    "ci": "run-s lint build coverage",
+    "changelog": "conventional-changelog -i CHANGELOG.md -a -s",
+    "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "dependencies": {
+    "@antv/component": "~0.6.1",
+    "@antv/coord": "~0.3.0",
+    "@antv/dom-util": "~2.0.2",
+    "@antv/event-emitter": "~0.1.2",
+    "@antv/g-base": "~0.4.0",
+    "@antv/g-canvas": "~0.4.0",
+    "@antv/g-svg": "~0.4.0",
+    "@antv/g2": "~4.0.9",
+    "@antv/matrix-util": "~3.1.0-beta.1",
+    "@antv/scale": "~0.3.1",
+    "@antv/util": "~2.0.7",
+    "resize-observer-polyfill": "^1.5.1",
+    "tslib": "^1.11.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-angular": "^8.2.0",
+    "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "conventional-changelog-cli": "^2.0.28",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^4.2.3",
+    "jest": "^26.0.1",
+    "jest-electron": "^0.1.7",
+    "jest-extended": "^0.11.2",
+    "lint-staged": "^10.0.7",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.1",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^25.4.0",
+    "ts-loader": "^7.0.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-bundle-analyzer": "^3.4.1",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "jest": {
+    "runner": "jest-electron/runner",
+    "testEnvironment": "jest-electron/environment",
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ],
+    "preset": "ts-jest",
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "testRegex": "/__tests__/.*-spec\\.ts?$"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "license": "MIT"
+}

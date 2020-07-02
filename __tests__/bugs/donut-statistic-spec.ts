@@ -58,6 +58,15 @@ describe('Statistics scale format', () => {
       angleField: 'value',
       colorField: 'type',
       animation: false,
+      statistic: {
+        htmlContent: (data) => {
+          const { name, value, color } = data;
+          return `<div>
+            <h3 class="ring-guide-name" style="color: ${color}">${name}</h3>
+            <p class="ring-guide-value">${value}</p>
+            </div>`;
+        },
+      },
     });
     donutPlot.render();
     // @ts-ignore

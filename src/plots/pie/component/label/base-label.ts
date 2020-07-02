@@ -174,7 +174,11 @@ export default abstract class PieBaseLabel {
             idx
           )
         : shapeInfo.name;
-      const itemGroup = this.container.addGroup({ name: 'itemGroup', index: idx });
+      const itemGroup = this.container.addGroup({
+        name: 'itemGroup',
+        index: idx,
+        capture: false, // 不捕获事件，否则鼠标 hover 到图形会失焦
+      });
       const textShape = itemGroup.addShape('text', {
         attrs: deepMix({}, attrs, {
           x: shapeInfo.x + offsetX,

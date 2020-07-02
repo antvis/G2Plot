@@ -63,7 +63,7 @@ export default class RingStatistic extends StatisticHtml {
     /** 中心文本显示 */
     let htmlString;
     if (this.options.htmlContent) {
-      htmlString = this.options.htmlContent(displayData);
+      htmlString = this.options.htmlContent(displayData, this.getStatisticSize());
     } else {
       htmlString = this.getStatisticTemplate(displayData);
     }
@@ -133,7 +133,7 @@ export default class RingStatistic extends StatisticHtml {
     const htmlContent = this.options.htmlContent;
     let htmlString: string;
     if (htmlContent) {
-      htmlString = htmlContent(data);
+      htmlString = htmlContent(data, this.getStatisticSize());
     } else {
       htmlString = this.getStatisticTemplate(data);
     }

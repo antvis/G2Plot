@@ -3,10 +3,18 @@ import StatisticHtml, { IStatisticHtml } from './statistic';
 import { getTemplate } from './statistic-template';
 import { debounce, each } from '@antv/util';
 import Ring, { DonutViewConfig } from '../layer';
+import { LooseMap } from '../../../interface/types';
 
 interface IRingStatistic extends IStatisticHtml {
   view: View;
   plot: any;
+}
+
+interface StatisticData {
+  name: string;
+  value: string;
+  itemData?: LooseMap;
+  color?: string;
 }
 
 export default class RingStatistic extends StatisticHtml {
@@ -28,7 +36,7 @@ export default class RingStatistic extends StatisticHtml {
     this.view.on(
       `interval:${triggerOnEvent}`,
       debounce((e) => {
-        const displayData = this.parseStatisticData(e.data.data);
+        const displayData = this.parseStatisticData('item', e.data.data, e.data.color);
         const htmlString = this.getStatisticHtmlString(displayData);
         this.updateHtml(htmlString);
       }, 150)
@@ -50,7 +58,7 @@ export default class RingStatistic extends StatisticHtml {
     } else {
       /** 用户没有指定文本内容时，默认显示总计 */
       const data = this.getTotalValue();
-      displayData = this.parseStatisticData(data);
+      displayData = this.parseStatisticData('total', data);
     }
     /** 中心文本显示 */
     let htmlString;
@@ -86,16 +94,24 @@ export default class RingStatistic extends StatisticHtml {
     return data;
   }
 
-  private parseStatisticData(data) {
+  private parseStatisticData(type: string, data, color?: string) {
     const plot = this.plot;
     const { angleField, colorField } = plot.options;
     const angleScale = plot.getScaleByField(angleField);
     const colorScale = plot.getScaleByField(colorField);
 
-    return {
+    const statisticData: StatisticData = {
       name: colorScale ? colorScale.getText(data[colorField]) : null,
       value: angleScale.getText(data[angleField]),
     };
+
+    if (type === 'item') {
+      // 每一个扇形区域的数据
+      statisticData.itemData = data;
+      statisticData.color = color;
+    }
+
+    return statisticData;
   }
 
   private getStatisticTemplate(data) {

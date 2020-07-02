@@ -1,8 +1,7 @@
 import { View } from '../../../dependents';
 import StatisticHtml, { IStatisticHtml } from './statistic';
-import * as statisticTemplate from './statistic-template';
-import { debounce, each, isString, isObject, isFunction, keys } from '@antv/util';
-import { LooseMap } from '../../../interface/types';
+import { getTemplate } from './statistic-template';
+import { debounce, each } from '@antv/util';
 import Ring, { DonutViewConfig } from '../layer';
 
 interface IRingStatistic extends IStatisticHtml {
@@ -93,27 +92,15 @@ export default class RingStatistic extends StatisticHtml {
     const angleScale = plot.getScaleByField(angleField);
     const colorScale = plot.getScaleByField(colorField);
 
-    if (colorField) {
-      return {
-        name: colorScale.getText(data[colorField]),
-        value: angleScale.getText(data[angleField]),
-      };
-    }
-
-    return angleScale.getText(data[angleField]);
+    return {
+      name: colorScale ? colorScale.getText(data[colorField]) : null,
+      value: angleScale.getText(data[angleField]),
+    };
   }
 
   private getStatisticTemplate(data) {
     const size = this.getStatisticSize();
-    let htmlString;
-    /** 如果文本内容为string或单条数据 */
-    if (isString(data)) {
-      htmlString = statisticTemplate.getSingleDataTemplate(data, this.statisticClass, size);
-    } else if (isObject(data) && keys(data).length === 2) {
-      /** 如果文本内容为两条数据 */
-      const content = data as LooseMap;
-      htmlString = statisticTemplate.getTwoDataTemplate(content.name, content.value, this.statisticClass, size);
-    }
+    const htmlString = getTemplate(data.name, data.value, this.statisticClass, size);
     /** 更为复杂的文本要求用户自行制定html模板 */
     return htmlString;
   }
@@ -127,15 +114,14 @@ export default class RingStatistic extends StatisticHtml {
   }
 
   private getStatisticHtmlString(data): string {
-    const triggerOnConfig = this.options.triggerOn;
+    const htmlContent = this.options.htmlContent;
     let htmlString: string;
-    if (isString(triggerOnConfig)) {
+    if (htmlContent) {
+      htmlString = htmlContent(data);
+    } else {
       htmlString = this.getStatisticTemplate(data);
     }
-    if (isFunction(triggerOnConfig)) {
-      htmlString = triggerOnConfig(data);
-      htmlString = `<div class="ring-guide-html ${this.statisticClass}">${htmlString}</div>`;
-    }
+
     return htmlString;
   }
 }

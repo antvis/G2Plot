@@ -95,6 +95,9 @@ export default class PaddingController {
     let viewMaxY = this.plot.layerBBox.maxY;
     each(this.outerPaddingComponents, (component) => {
       const { position } = component;
+      if (component.destroyed) {
+        return;
+      }
       const { minX, maxX, minY, maxY } = component.getBBox();
       if (maxY >= viewMinY && maxY <= viewMaxY && position === 'top') {
         viewMinY = maxY;

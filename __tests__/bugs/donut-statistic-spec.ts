@@ -38,7 +38,9 @@ describe('Statistics scale format', () => {
     ];
 
     const donutPlot = new Donut(canvasDiv, {
-      forceFit: true,
+      forceFit: false,
+      width: 400,
+      height: 400,
       title: {
         visible: true,
         text: '环图',
@@ -59,9 +61,9 @@ describe('Statistics scale format', () => {
       colorField: 'type',
       animation: false,
       statistic: {
-        htmlContent: (data) => {
+        htmlContent: (data, size) => {
           const { name, value, color } = data;
-          return `<div>
+          return `<div class="statistic" style="width: ${size}px; text-align: center">
             <h3 class="ring-guide-name" style="color: ${color}">${name}</h3>
             <p class="ring-guide-value">${value}</p>
             </div>`;
@@ -72,5 +74,7 @@ describe('Statistics scale format', () => {
     // @ts-ignore
     expect(donutPlot.getLayers()[0].labelComponent.arcPoints[0].name).toBe('-27-');
     expect(canvasDiv.getElementsByClassName('ring-guide-value')[0].textContent).toBe('-100-');
+    // @ts-ignore
+    expect(canvasDiv.getElementsByClassName('statistic')[0].style.width).toBe('153.088px');
   });
 });

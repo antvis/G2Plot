@@ -40,7 +40,7 @@ describe('#1137', () => {
   }, 1000);
 
   it('test', async () => {
-    await wait(1500);
+    await wait(2000);
     const view = plot.getView();
     const label = plot.getLayer().getLabels()[0];
     const geometry = view.geometries[0];

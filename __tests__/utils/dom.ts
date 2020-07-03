@@ -1,10 +1,23 @@
-export const createDiv = (id?: string): HTMLDivElement => {
-  const canvasDiv = document.createElement('div');
-  canvasDiv.style.width = '600px';
-  canvasDiv.style.height = '600px';
-  canvasDiv.style.left = '30px';
-  canvasDiv.style.top = '30px';
-  canvasDiv.id = id;
-  document.body.appendChild(canvasDiv);
-  return canvasDiv;
-};
+/**
+ * 创建一个 div 节点，并放到 container，默认放到 body 上
+ * @param container
+ */
+export function createDiv(container: HTMLElement = document.body): HTMLElement {
+  const div = document.createElement('div');
+
+  container.appendChild(div);
+
+  return div;
+}
+
+/**
+ * 移除 dom 元素
+ * @param dom
+ */
+export function removeDom(dom: HTMLElement) {
+  const parent = dom.parentNode;
+
+  if (parent) {
+    parent.removeChild(dom);
+  }
+}

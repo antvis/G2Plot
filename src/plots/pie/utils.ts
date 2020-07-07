@@ -7,9 +7,9 @@ export function getOriginKey(key: string) {
 
 export function processEmpty(data: DataItem[], key: string, transformData?: (v: any) => any) {
   const originalData = [...data];
-  return map(originalData, d => {
+  return map(originalData, (d) => {
     const originalKey = getOriginKey(key);
     const originalValue = d[key];
     return { ...d, [key]: transformData ? transformData(originalValue) : 1, [originalKey]: originalValue };
-  })
+  });
 }

@@ -1,5 +1,5 @@
 import { Line } from '@antv/g2plot';
-import * as _ from '@antv/util';
+import { uniq, findIndex } from '@antv/util';
 
 fetch('../data/emissions.json')
   .then((res) => res.json())
@@ -19,7 +19,7 @@ fetch('../data/emissions.json')
 
     const container = document.getElementById('container');
     const containerBox = container.getBoundingClientRect();
-    const series = _.uniq(data.map((d) => d.category));
+    const series = uniq(data.map((d) => d.category));
     const markerSize = 6;
 
     const linePlot = new Line(container, {
@@ -74,7 +74,7 @@ fetch('../data/emissions.json')
             lineWidth,
             fill,
             r,
-            stroke: COLOR_PLATE_10[_.findIndex(series, (s) => s === seriesField)] || 'transparent',
+            stroke: COLOR_PLATE_10[findIndex(series, (s) => s === seriesField)] || 'transparent',
           };
         },
       },

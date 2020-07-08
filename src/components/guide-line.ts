@@ -1,5 +1,5 @@
 import { getScale } from '@antv/scale';
-import { assign, deepMix, mix, each, isArray, isString, isNumber, contains, toArray, clone } from '@antv/util';
+import { assign, deepMix, mix, each, isArray, isString, isNumber, contains, toArray, clone, isEmpty } from '@antv/util';
 import { getMean, getMedian } from '../util/math';
 
 export default class GuideLine {
@@ -16,7 +16,7 @@ export default class GuideLine {
   private _init() {
     const { yField, data } = this.plot.options;
     const plotData = this.plot.processData(data);
-    if (!isNumber(plotData[0][yField])) {
+    if (isEmpty(plotData) || !isNumber(plotData[0][yField])) {
       return;
     }
     const defaultStyle = this.getDefaultStyle();

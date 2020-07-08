@@ -141,7 +141,9 @@ export default class SpiderLabel {
         }
         texts = formatted;
       }
-      const textGroup = this.container.addGroup();
+      const textGroup = this.container.addGroup({
+        capture: false, // 不捕获事件，否则鼠标 hover 到图形会失焦
+      });
       const textAttrs: IAttrs = {
         x: 0,
         y: 0,

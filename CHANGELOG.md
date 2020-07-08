@@ -1,3 +1,26 @@
+## <small>1.1.10 (2020-07-02)</small>
+
+* feat: 环比 statistic.htmlContent 回调参数补充 size，容器宽度设置 (#1250) ([3d90e6b](https://github.com/antvis/g2plot/commit/3d90e6b)), closes [#1250](https://github.com/antvis/g2plot/issues/1250)
+
+
+## <small>1.1.9 (2020-07-02)</small>
+
+* 环图 Statistics 区域优化 (#1248) ([0e9ff68](https://github.com/antvis/g2plot/commit/0e9ff68)), closes [#1248](https://github.com/antvis/g2plot/issues/1248)
+* feat(pie&donut): label and statistic value can be affected by scale (#1189) ([15ac56f](https://github.com/antvis/g2plot/commit/15ac56f)), closes [#1189](https://github.com/antvis/g2plot/issues/1189)
+* Fix donut statistic (#1218) ([5db8197](https://github.com/antvis/g2plot/commit/5db8197)), closes [#1218](https://github.com/antvis/g2plot/issues/1218)
+* fix: fix guide line render error without plot data (#1242) ([c149ff2](https://github.com/antvis/g2plot/commit/c149ff2)), closes [#1242](https://github.com/antvis/g2plot/issues/1242)
+* fix: fix heatmap updateConfig error (#1246) ([ce28701](https://github.com/antvis/g2plot/commit/ce28701)), closes [#1246](https://github.com/antvis/g2plot/issues/1246)
+* fix: fix line renderer without data (#1229) ([938c9b6](https://github.com/antvis/g2plot/commit/938c9b6)), closes [#1229](https://github.com/antvis/g2plot/issues/1229)
+* fix: linechart 的point stroke不应该被写死 (#1176) ([cb9d927](https://github.com/antvis/g2plot/commit/cb9d927)), closes [#1176](https://github.com/antvis/g2plot/issues/1176)
+* fix: percent-stacked-column tooltip is not a number (#1233) ([70d1b86](https://github.com/antvis/g2plot/commit/70d1b86)), closes [#1233](https://github.com/antvis/g2plot/issues/1233)
+* fix: prevent js error when adjust tooltip (#1240) ([db6020c](https://github.com/antvis/g2plot/commit/db6020c)), closes [#1240](https://github.com/antvis/g2plot/issues/1240)
+* fix: update scrollbar and data label when changeData (#1202) ([a83a915](https://github.com/antvis/g2plot/commit/a83a915)), closes [#1202](https://github.com/antvis/g2plot/issues/1202)
+* fix(pie): 修复饼图数据全为 0 展示 (#1223) ([942f557](https://github.com/antvis/g2plot/commit/942f557)), closes [#1223](https://github.com/antvis/g2plot/issues/1223) [#1161](https://github.com/antvis/g2plot/issues/1161)
+
+
+## <small>1.1.8 (2020-06-30)</small>
+
+* fix: 百分比堆叠柱状图，同一维度的数据如果数据为0的时候，图表tooltip显示NAN  ([821](https://github.com/antvis/G2Plot/issues/821))
 
 ## <small>1.1.7 (2020-06-16)</small>
 
@@ -272,3 +295,5 @@ antvis/g2plot/issues/1132)
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
+
+

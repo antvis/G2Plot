@@ -83,9 +83,6 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
         visible: false,
         size: 3,
         shape: 'circle',
-        style: {
-          stroke: '#fff',
-        },
       },
       label: {
         visible: false,
@@ -166,7 +163,7 @@ export default class LineLayer<T extends LineLayerConfig = LineLayerConfig> exte
     this.setConfig('scales', scales);
     trySetScaleMinToZero(
       scales[props.yField],
-      map(props.data as any, (item) => item[props.yField])
+      map(props.data || [], (item) => item[props.yField])
     );
     super.scale();
   }

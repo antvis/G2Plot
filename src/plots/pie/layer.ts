@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isNil, map, some, every } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { DataItem, Label, GraphicStyle } from '../../interface/config';
@@ -126,10 +126,28 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
     const key = this.options.angleField;
-    return data.map((item) => ({
+    const originalData = data.map((item) => ({
       ...item,
       [key]: typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key],
     }));
+    const getValue = (d: DataItem) => d[key];
+    const notEqualZeroOrNil = (v: number) => v !== 0 && !isNil(v);
+    const allAngleValue = map(originalData, getValue);
+    const allNil = every(allAngleValue, isNil);
+    /** 数据全空处理，同时处理 meta */
+    if (!some(allAngleValue, notEqualZeroOrNil)) {
+      const meta = this.options.meta || {};
+      // 数据全为 null
+      if (allNil) {
+        this.options.meta = deepMix({}, meta, { [key]: { formatter: () => 'null' } });
+        return map(originalData, (d) => ({ ...d, [key]: allNil ? 1 : d[key] === 0 ? 1 : d[key] }));
+      } else {
+        // 数据不全为 null，部分 0 部分 null（null值不展示）
+        this.options.meta = deepMix({}, meta, { [key]: { formatter: () => '0' } });
+        return map(originalData, (d) => ({ ...d, [key]: d[key] === 0 ? 1 : d[key] }));
+      }
+    }
+    return originalData;
   }
 
   protected axis() {

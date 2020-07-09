@@ -1,6 +1,7 @@
 import { Chart } from '@antv/g2';
+import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options } from '../types';
+import { Options, Size } from '../types';
 
 /**
  * 所有 plot 的基类
@@ -14,6 +15,8 @@ export abstract class Plot<O extends Options> {
   public container: HTMLElement;
   /** G2 chart 实例 */
   public chart: Chart;
+  /** resizer unbind  */
+  private unbind: () => void;
 
   constructor(container: string | HTMLElement, options: O) {
     this.container = typeof container === 'string' ? document.querySelector(container) : container;
@@ -30,7 +33,7 @@ export abstract class Plot<O extends Options> {
 
     this.chart = new Chart({
       container: this.container,
-      autoFit: false, // G2Plot 使用 size sensor 进行 autoFit
+      autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
       height,
       width,
       padding,
@@ -52,9 +55,13 @@ export abstract class Plot<O extends Options> {
 
     const adaptor = this.getSchemaAdaptor();
 
+    // 转化成 G2 API
     adaptor.convent(this.chart, this.options);
 
     this.chart.render();
+
+    // 绑定
+    this.bindSizeSensor();
   }
 
   /**
@@ -63,6 +70,8 @@ export abstract class Plot<O extends Options> {
    */
   public update(options: O) {
     this.options = options;
+
+    this.render();
   }
 
   /**
@@ -78,6 +87,53 @@ export abstract class Plot<O extends Options> {
    * 销毁
    */
   public destroy() {
+    // 取消 size-sensor 的绑定
+    this.unbindSizeSensor();
+    // G2 的销毁
     this.chart.destroy();
+  }
+
+  /**
+   * 绑定 dom 容器大小变化的事件
+   */
+  private bindSizeSensor() {
+    this.unbindSizeSensor();
+
+    const { autoFit = true } = this.options;
+    if (autoFit) {
+      this.unbind = bind(this.container, () => {
+        const { width, height } = this.getContianerSize(this.container);
+        this.changeSize(width, height);
+      });
+    }
+  }
+
+  /**
+   * 取消绑定
+   */
+  private unbindSizeSensor() {
+    if (this.unbind) {
+      this.unbind();
+    }
+  }
+
+  /**
+   * get the element's bounding size
+   * @param ele dom element
+   * @returns the element width and height
+   */
+  private getContianerSize(ele: HTMLElement): Size {
+    const style = getComputedStyle(ele);
+
+    return {
+      width:
+        (ele.clientWidth || parseInt(style.width, 10)) -
+        parseInt(style.paddingLeft, 10) -
+        parseInt(style.paddingRight, 10),
+      height:
+        (ele.clientHeight || parseInt(style.height, 10)) -
+        parseInt(style.paddingTop, 10) -
+        parseInt(style.paddingBottom, 10),
+    };
   }
 }

@@ -1,1 +1,1 @@
-export { Options, Data, Datum, Meta, Point, Region, BBox } from './common';
+export { Options, Data, Datum, Meta, Point, Region, BBox, Size } from './common';

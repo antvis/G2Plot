@@ -49,6 +49,7 @@
     "@antv/event-emitter": "^0.1.2",
     "@antv/g2": "^4.0.12",
     "resize-observer-polyfill": "^1.5.1",
+    "size-sensor": "^1.0.1",
     "tslib": "^1.11.1"
   },
   "devDependencies": {

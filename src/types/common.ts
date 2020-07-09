@@ -27,10 +27,15 @@ export type Region = {
 
 /** 位置 */
 export type BBox = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+};
+
+export type Size = {
+  readonly width: number;
+  readonly height: number;
 };
 
 /** scale 元信息，取名为 meta */

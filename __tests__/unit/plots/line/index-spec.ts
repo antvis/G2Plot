@@ -8,8 +8,8 @@ describe('line', () => {
       width: 400,
       height: 300,
       data: partySupport.filter((o) => o.type === 'FF'),
-      x: 'date',
-      y: 'value',
+      xField: 'date',
+      yField: 'value',
     });
 
     line.render();
@@ -23,10 +23,11 @@ describe('line', () => {
     const line = new Line(createDiv(), {
       width: 400,
       height: 300,
-      data: partySupport,
-      x: 'date',
-      y: 'value',
-      color: 'type',
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      color: ['blue', 'red'],
     });
 
     line.render();

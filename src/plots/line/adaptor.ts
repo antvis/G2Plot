@@ -7,14 +7,14 @@ import { Chart } from '@antv/g2';
  */
 export class LineAdaptor extends Adaptor<LineOptions> {
   public convent(chart: Chart, options: LineOptions) {
-    const { data, x, y, color } = options;
+    const { data, xField, yField, seriesField, color } = options;
 
     // TODO 具体的折线图操作逻辑
     chart.data(data);
-    const geometry = chart.line().position(`${x}*${y}`);
+    const geometry = chart.line().position(`${xField}*${yField}`);
 
-    if (color) {
-      geometry.color(color);
+    if (seriesField) {
+      geometry.color(seriesField, color);
     }
   }
 }

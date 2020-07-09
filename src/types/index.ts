@@ -1,7 +1,1 @@
-export type Options = {
-  readonly width: number;
-  readonly height: number;
-  readonly autoFit?: boolean;
-  readonly padding?: number[] | 'auto';
-  readonly data: Record<string, any>[];
-};
+export { Options, Data, Datum, Meta, Point, Region, BBox } from './common';

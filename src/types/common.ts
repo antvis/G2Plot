@@ -52,7 +52,9 @@ export type Options = {
   /** 画布是否自动适配容器大小，默认为 true */
   readonly autoFit?: boolean;
   /** 画布的 padding 值，或者开启 'auto' */
-  readonly padding?: number[] | 'auto';
+  readonly padding?: number[] | number | 'auto';
+  /** 额外怎加的 padding 值 */
+  readonly appendPadding?: number[] | number;
 
   // 通用数据配置
   /** 具体的数据 */

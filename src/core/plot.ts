@@ -26,7 +26,7 @@ export abstract class Plot<O extends Options> {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding } = this.options;
+    const { width, height, padding, appendPadding } = this.options;
 
     this.chart = new Chart({
       container: this.container,
@@ -34,6 +34,7 @@ export abstract class Plot<O extends Options> {
       height,
       width,
       padding,
+      appendPadding,
     });
   }
 

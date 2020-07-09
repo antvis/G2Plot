@@ -1,12 +1,13 @@
-import { deepMix, isFunction, get, forIn, isNumber } from '@antv/util';
+import { deepMix, isFunction, get, isNumber } from '@antv/util';
+import { modifyCSS } from '@antv/dom-util';
 import BBox from '../../util/bbox';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
-import { DataItem, TextStyle } from '../../interface/config';
-import { rgb2arr } from '../../util/color';
+import { DataItem } from '../../interface/config';
+import LiquidStatistic from './component/liquid-statistic';
 import * as EventParser from './event';
 import './geometry/shape/liquid';
 import './animation/liquid-move-in';
@@ -21,13 +22,14 @@ const PLOT_GEOM_MAP = {
 
 export interface LiquidStyle {}
 
+interface LiquidStatisticStyle {
+  visible?: boolean;
+  formatter?: (value) => string;
+  htmlContent?: (...args: any) => string;
+}
+
 export interface LiquidViewConfig extends Partial<ViewConfig> {
-  statistic?: {
-    visible?: boolean;
-    adjustColor?: boolean;
-    formatter?: (value) => string;
-    style?: TextStyle;
-  };
+  statistic?: LiquidStatisticStyle;
   liquidSize?: number;
   min: number;
   max: number;
@@ -40,6 +42,8 @@ export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
 }
 
 export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig> extends ViewLayer<T> {
+  private statistic: any; // 保存指标卡实例用于响应交互
+
   public static getDefaultOptions(): Partial<LiquidViewConfig> {
     const cfg: Partial<LiquidViewConfig> = {
       padding: [0, 0, 0, 0],
@@ -62,7 +66,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
   public liquid: any;
   public type: string = 'liquid';
-  private shouldFadeInAnnotation: boolean = true;
+  // private shouldFadeInAnnotation: boolean = true;
 
   public beforeInit() {
     const { min, max, value } = this.options;
@@ -162,73 +166,11 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     return PLOT_GEOM_MAP[type];
   }
 
-  protected annotation() {
-    const annotationConfigs = [];
-
-    const statisticConfig = this.extractStatistic();
-    annotationConfigs.push(statisticConfig);
-
-    this.setConfig('annotations', annotationConfigs);
-  }
-
-  protected extractStatistic() {
-    const props = this.options;
-    const statistic: any = props.statistic || {};
-
-    let content;
-    if (isFunction(statistic.formatter)) {
-      content = statistic.formatter(props.value);
-    } else {
-      content = `${props.value}`;
-    }
-
-    let fontSize;
-    let shadowBlur;
-    if (content) {
-      const contentWidth = Math.min(this.width, this.height);
-      fontSize = (contentWidth / content.length) * 0.5;
-      shadowBlur = Math.max(1, Math.ceil(0.025 * fontSize));
-    }
-    let opacity;
-    if (statistic.visible === false) {
-      return;
-    }
-
-    const statisticConfig = deepMix(
-      {
-        style: {
-          fontSize,
-          shadowBlur,
-        },
-      },
-      statistic,
-      {
-        top: true,
-        content,
-        type: 'text',
-        position: ['50%', '50%'],
-        style: {
-          opacity,
-          fill: 'transparent',
-          shadowColor: 'transparent',
-          textAlign: 'center',
-        },
-      }
-    );
-    delete statisticConfig.visible;
-    delete statisticConfig.formatter;
-    delete statisticConfig.adjustColor;
-    return statisticConfig;
-  }
-
   protected parseEvents() {
     super.parseEvents(EventParser);
   }
 
   public afterRender() {
-    if (this.options.statistic?.visible) {
-      this.fadeInAnnotation();
-    }
     const { options } = this;
     const padding = options.padding ? options.padding : this.config.theme.padding;
     /** defaultState */
@@ -239,6 +181,24 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
     }
+
+    const container = this.canvas.get('container');
+    if (this.statistic) {
+      container.removeChild(this.statistic.wrapperNode);
+    }
+    /**图中心文本 */
+    if (this.options.statistic && this.options.statistic.visible) {
+      const container = this.canvas.get('container');
+      modifyCSS(container, { position: 'relative' });
+      this.statistic = new LiquidStatistic({
+        container,
+        view: this.view,
+        plot: this,
+        ...this.options.statistic,
+      });
+      this.statistic.render();
+    }
+    super.afterRender();
   }
 
   protected processData(): DataItem[] | undefined {
@@ -252,60 +212,8 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     this.changeData([]);
   }
 
-  protected fadeInAnnotation() {
-    const props = this.options;
-    const textShape = this.view.foregroundGroup.findAll((el) => {
-      return el.get('name') === 'annotation-text';
-    })[0];
-    const animation: any = props.animation || {};
-    const colorStyle = this.calcAnnotationColorStyle();
-    if (this.shouldFadeInAnnotation) {
-      textShape.animate(colorStyle, animation.duration * Math.min(1, 1.5 * animation.factor), null, () => {
-        this.shouldFadeInAnnotation = false;
-      });
-    } else {
-      forIn(colorStyle, (v, k) => textShape.attr(k, v));
-    }
-  }
-
-  protected calcAnnotationColorStyle() {
-    const { options: props } = this;
-
-    const lightColorStyle = { fill: '#f6f6f6', shadowColor: 'black' };
-    const darkColorStyle = { fill: '#303030', shadowColor: 'white' };
-
-    if (get(props, 'statistic.adjustColor') === false) {
-      return {
-        fill: get(props, 'statistic.style.fill', darkColorStyle.fill),
-        shadowColor: get(props, 'statistic.style.shadowColor', darkColorStyle.shadowColor),
-      };
-    }
-
-    let { min, max } = props;
-    const { value } = props;
-    min = Math.min(min, max);
-    max = Math.max(min, max);
-    let percent;
-    if (min == max) {
-      percent = 1;
-    } else {
-      percent = (value - min) / (max - min);
-    }
-
-    if (percent > 0.55) {
-      const waveColor = this.options.color as string;
-      const waveOpacity = 0.8;
-      const rgb = rgb2arr(waveColor);
-      const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / waveOpacity;
-      return gray < 156 ? lightColorStyle : darkColorStyle;
-    }
-
-    return darkColorStyle;
-  }
-
   public updateConfig(cfg: Partial<T>): void {
     super.updateConfig(cfg);
-    this.shouldFadeInAnnotation = true;
   }
 
   protected getViewRange() {

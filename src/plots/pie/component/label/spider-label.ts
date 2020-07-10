@@ -1,6 +1,7 @@
 import { View, IGroup, IShape } from '../../../../dependents';
 import { deepMix, clone, each, isString, mix } from '@antv/util';
 import { LooseMap } from '../../../../interface/types';
+import { getOriginKey } from '../../utils';
 
 const ANCHOR_OFFSET = 0; // 锚点偏移量
 const INFLECTION_OFFSET = 15; // 拐点偏移量
@@ -89,6 +90,7 @@ export default class SpiderLabel {
     });
     this.coord = this.view.geometries[0].coordinate;
     const angleField = this.options.fields[0];
+    const originAngleField = getOriginKey(angleField);
     const scale = this.view.getScalesByDim('y')[angleField];
     const center = this.coord.getCenter();
     const { startAngle } = this.coord;
@@ -132,10 +134,14 @@ export default class SpiderLabel {
       // 创建label文本
       let texts = [];
       each(this.options.fields, (f) => {
-        texts.push(d[f]);
+        if (f === angleField) {
+          texts.push(d[originAngleField]);
+        } else {
+          texts.push(d[f]);
+        }
       });
       if (this.options.formatter) {
-        let formatted: any = this.options.formatter(d[angleField], { _origin: d, color }, idx);
+        let formatted: any = this.options.formatter(d[originAngleField], { _origin: d, color }, idx);
         if (isString(formatted)) {
           formatted = [formatted];
         }
@@ -153,7 +159,7 @@ export default class SpiderLabel {
         fill: this.options.text.fill,
       };
       // label1:下部label
-      let lowerText = d[angleField];
+      let lowerText = d[originAngleField];
       if (this.options.formatter) {
         lowerText = texts[0];
       }

@@ -1,4 +1,4 @@
-## <small>1.1.11 (2020-07-10)</small>
+## <small>1.1.12 (2020-07-10)</small>
 
 * feat: 水波图新增 htmlContent 支持，支持修改数值大小。
 * feat: 新增折线图实现。[1272](https://github.com/antvis/G2Plot/pull/1272)

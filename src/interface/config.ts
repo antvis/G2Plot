@@ -207,7 +207,7 @@ export interface Tooltip {
   offset?: number;
   showMarkers?: boolean;
   domStyles?: {
-    'g2-tooltop'?: any;
+    'g2-tooltip'?: any;
     'g2-tooltip-title'?: any;
     'g2-tooltip-list'?: any;
     'g2-tooltip-marker'?: any;

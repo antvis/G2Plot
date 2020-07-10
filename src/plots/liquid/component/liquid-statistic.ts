@@ -28,15 +28,7 @@ export default class RingStatistic extends StatisticHtml {
       return '';
     }
     /** 中心文本显示 */
-    let htmlString;
-    if (this.options.htmlContent) {
-      htmlString = this.options.htmlContent(value);
-    } else if (this.options.formatter) {
-      htmlString = getTemplate(this.options.formatter(value), this.statisticClass);
-    } else {
-      htmlString = getTemplate(value, this.statisticClass);
-    }
-    return htmlString;
+    return getTemplate(this.options.htmlContent(value), this.statisticClass);
   }
 
   protected adjustOptions() {

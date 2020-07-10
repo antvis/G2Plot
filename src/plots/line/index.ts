@@ -3,6 +3,8 @@ import { LineOptions } from './types';
 import { LineAdaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
 
+export { LineOptions };
+
 export class Line extends Plot<LineOptions> {
   /** 图表类型 */
   public type: string = 'line';

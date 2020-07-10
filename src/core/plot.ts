@@ -1,7 +1,7 @@
 import { Chart } from '@antv/g2';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options, Size } from '../types';
+import { Options } from '../types';
 
 /**
  * 所有 plot 的基类
@@ -102,8 +102,7 @@ export abstract class Plot<O extends Options> {
     const { autoFit = true } = this.options;
     if (autoFit) {
       this.unbind = bind(this.container, () => {
-        const { width, height } = this.getContianerSize(this.container);
-        this.changeSize(width, height);
+        this.chart.forceFit();
       });
     }
   }
@@ -114,26 +113,7 @@ export abstract class Plot<O extends Options> {
   private unbindSizeSensor() {
     if (this.unbind) {
       this.unbind();
+      this.unbind = undefined;
     }
-  }
-
-  /**
-   * get the element's bounding size
-   * @param ele dom element
-   * @returns the element width and height
-   */
-  private getContianerSize(ele: HTMLElement): Size {
-    const style = getComputedStyle(ele);
-
-    return {
-      width:
-        (ele.clientWidth || parseInt(style.width, 10)) -
-        parseInt(style.paddingLeft, 10) -
-        parseInt(style.paddingRight, 10),
-      height:
-        (ele.clientHeight || parseInt(style.height, 10)) -
-        parseInt(style.paddingTop, 10) -
-        parseInt(style.paddingBottom, 10),
-    };
   }
 }

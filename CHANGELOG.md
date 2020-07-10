@@ -7,10 +7,6 @@
 * fix: 修复饼、环 label 设置为 spider ，数据都为0时，展示为1。 [1265](https://github.com/antvis/G2Plot/pull/1265)
 
 
-
-* feat: 环比 statistic.htmlContent 回调参数补充 size，容器宽度设置 (#1250) ([3d90e6b](https://github.com/antvis/g2plot/commit/3d90e6b)), closes [#1250](https://github.com/antvis/g2plot/issues/1250)
-
-
 ## <small>1.1.9 (2020-07-02)</small>
 
 * 环图 Statistics 区域优化 (#1248) ([0e9ff68](https://github.com/antvis/g2plot/commit/0e9ff68)), closes [#1248](https://github.com/antvis/g2plot/issues/1248)

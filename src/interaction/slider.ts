@@ -228,7 +228,8 @@ export default class SliderInteraction extends BaseInteraction {
     this.slider.render();
     const origAnimate = view.getOptions().animate;
     view.animate(false);
-    view.changeData(data);
+    view.data(data);
+    view.render();
     view.animate(origAnimate);
   }
 }

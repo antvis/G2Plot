@@ -252,8 +252,9 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
       });
     }
     const viewRange = this.getViewRange();
-    const leftPadding = this.geomLayers[0].options.padding;
-    const rightPadding = this.geomLayers[1].options.padding;
+    const leftPadding: number[] = this.transfromPadding(this.geomLayers[0].options.padding);
+    const rightPadding: number[] = this.transfromPadding(this.geomLayers[1].options.padding);
+
     // 获取legendHeight并加入上部padding
     let legendHeight = 0;
     let legendABBox;
@@ -263,9 +264,16 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
       legendBBBox = this.legends[1].getLayoutBBox();
       legendHeight = legendABBox.height + LEGEND_MARGIN * 2;
     }
-
     // 同步左右padding
-    const uniquePadding = [leftPadding[0] + legendHeight, rightPadding[1], rightPadding[2], leftPadding[3]];
+    // const uniquePadding = [leftPadding[0] + legendHeight, rightPadding[1], rightPadding[2], leftPadding[3]];
+    const uniquePadding = leftPadding.map((item: number, index: number) => {
+      // 兼容老版本
+      if (index === 0) {
+        return Math.max.apply(null, [item + legendHeight, rightPadding[index]]);
+      }
+      return Math.max.apply(null, [item, rightPadding[index]]);
+    });
+
     this.geomLayers[0].updateConfig({
       padding: uniquePadding,
     });
@@ -285,6 +293,17 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
         y: viewRange.minY + LEGEND_MARGIN,
       });
     }
+  }
+
+  /**
+   * padding 预处理
+   * @param {string | number | number[]} padding
+   */
+  private transfromPadding(padding: string | number | number[]): number[] {
+    if (typeof padding === 'string' || typeof padding === 'number') {
+      return [Number(padding)];
+    }
+    return padding;
   }
 
   protected legendFilter(index) {

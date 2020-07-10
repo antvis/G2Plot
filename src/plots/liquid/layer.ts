@@ -1,4 +1,5 @@
 import { deepMix, isFunction, get, forIn, isNumber } from '@antv/util';
+import { modifyCSS } from '@antv/dom-util';
 import BBox from '../../util/bbox';
 import { registerPlotType } from '../../base/global';
 import { LayerConfig } from '../../base/layer';
@@ -7,6 +8,7 @@ import { getGeom } from '../../geoms/factory';
 import { extractScale } from '../../util/scale';
 import { DataItem, TextStyle } from '../../interface/config';
 import { rgb2arr } from '../../util/color';
+import LiquidStatistic from './component/liquid-statistic';
 import * as EventParser from './event';
 import './geometry/shape/liquid';
 import './animation/liquid-move-in';
@@ -21,13 +23,16 @@ const PLOT_GEOM_MAP = {
 
 export interface LiquidStyle {}
 
+interface LiquidStatisticStyle {
+  visible?: boolean;
+  formatter?: (value) => string;
+  style?: TextStyle;
+  adjustColor?: boolean;
+  htmlContent?: (...args: any) => string;
+}
+
 export interface LiquidViewConfig extends Partial<ViewConfig> {
-  statistic?: {
-    visible?: boolean;
-    adjustColor?: boolean;
-    formatter?: (value) => string;
-    style?: TextStyle;
-  };
+  statistic?: LiquidStatisticStyle;
   liquidSize?: number;
   min: number;
   max: number;
@@ -40,6 +45,8 @@ export interface LiquidLayerConfig extends LiquidViewConfig, LayerConfig {
 }
 
 export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig> extends ViewLayer<T> {
+  private statistic: any; // 保存指标卡实例用于响应交互
+
   public static getDefaultOptions(): Partial<LiquidViewConfig> {
     const cfg: Partial<LiquidViewConfig> = {
       padding: [0, 0, 0, 0],
@@ -167,11 +174,20 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
     const statisticConfig = this.extractStatistic();
     annotationConfigs.push(statisticConfig);
-
     this.setConfig('annotations', annotationConfigs);
   }
 
+  // 新增 htmlContent 支持，兼容旧功能
+  protected useHtmlContent(): boolean {
+    const props = this.options;
+    const statistic: any = props.statistic || {};
+    return isFunction(statistic.htmlContent);
+  }
+
   protected extractStatistic() {
+    if (this.useHtmlContent()) {
+      return;
+    }
     const props = this.options;
     const statistic: any = props.statistic || {};
 
@@ -201,7 +217,6 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
           shadowBlur,
         },
       },
-      statistic,
       {
         top: true,
         content,
@@ -213,7 +228,8 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
           shadowColor: 'transparent',
           textAlign: 'center',
         },
-      }
+      },
+      statistic
     );
     delete statisticConfig.visible;
     delete statisticConfig.formatter;
@@ -226,7 +242,7 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
   }
 
   public afterRender() {
-    if (this.options.statistic?.visible) {
+    if (this.options.statistic?.visible && !this.useHtmlContent()) {
       this.fadeInAnnotation();
     }
     const { options } = this;
@@ -238,6 +254,25 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     /** autopadding */
     if (padding === 'auto') {
       this.paddingController.processAutoPadding();
+    }
+    if (this.useHtmlContent()) {
+      const container = this.canvas.get('container');
+      if (this.statistic) {
+        container.removeChild(this.statistic.wrapperNode);
+      }
+      /**图中心文本 */
+      if (this.options.statistic && this.options.statistic.visible) {
+        const container = this.canvas.get('container');
+        modifyCSS(container, { position: 'relative' });
+        this.statistic = new LiquidStatistic({
+          container,
+          view: this.view,
+          plot: this,
+          ...this.options.statistic,
+        });
+        this.statistic.render();
+      }
+      super.afterRender();
     }
   }
 
@@ -251,7 +286,6 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
     props.value = value;
     this.changeData([]);
   }
-
   protected fadeInAnnotation() {
     const props = this.options;
     const textShape = this.view.foregroundGroup.findAll((el) => {
@@ -273,7 +307,6 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
 
     const lightColorStyle = { fill: '#f6f6f6', shadowColor: 'black' };
     const darkColorStyle = { fill: '#303030', shadowColor: 'white' };
-
     if (get(props, 'statistic.adjustColor') === false) {
       return {
         fill: get(props, 'statistic.style.fill', darkColorStyle.fill),
@@ -299,7 +332,6 @@ export default class LiquidLayer<T extends LiquidLayerConfig = LiquidLayerConfig
       const gray = Math.round(rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) / waveOpacity;
       return gray < 156 ? lightColorStyle : darkColorStyle;
     }
-
     return darkColorStyle;
   }
 

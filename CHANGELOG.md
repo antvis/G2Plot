@@ -6,6 +6,10 @@
 * fix: 解决条形区间图添加 scrollbar 时图表崩溃问题。 [1269](https://github.com/antvis/G2Plot/issues/1269)
 * fix: 修复饼、环 label 设置为 spider ，数据都为0时，展示为1。 [1265](https://github.com/antvis/G2Plot/pull/1265)
 
+## <small>1.1.10 (2020-07-02)</small>
+
+* feat: 环比 statistic.htmlContent 回调参数补充 size，容器宽度设置 (#1250) ([3d90e6b](https://github.com/antvis/g2plot/commit/3d90e6b)), closes [#1250](https://github.com/antvis/g2plot/issues/1250)
+
 
 ## <small>1.1.9 (2020-07-02)</small>
 

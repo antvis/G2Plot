@@ -23,6 +23,8 @@
     "url": "https://github.com/antvis/g2plot"
   },
   "scripts": {
+    "start": "tnpm run dev",
+    "dev": "dumi dev",
     "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
@@ -61,6 +63,7 @@
     "@typescript-eslint/parser": "^2.0.0",
     "babel-loader": "^8.1.0",
     "conventional-changelog-cli": "^2.0.28",
+    "dumi": "^1.0.33",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",

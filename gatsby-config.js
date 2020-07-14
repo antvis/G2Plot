@@ -20,13 +20,13 @@ module.exports = {
         slug: 'docs/manual',
         title: {
           zh: '使用文档',
-          en: 'docs',
+          en: 'Manual',
         },
       },
       {
         slug: 'examples',
         title: {
-          zh: '图表演示',
+          zh: '图表示例',
           en: 'Examples',
         },
       },

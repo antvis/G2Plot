@@ -1,22 +1,18 @@
 import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
 
 export interface ScatterOptions extends Options {
   /** x 轴字段 */
-  xField?: string;
+  readonly xField: string;
 
   /** y 轴字段 */
-  yField?: string;
+  readonly yField: string;
 
   /** 分组字段 */
-  seriesField?: string;
+  readonly seriesField?: string;
 
-  /** 折线数据点图形样式 */
-  point?: {
-    visible?: boolean;
-    shape?: ShapeStyle;
-    size?: number;
-    color?: string;
-    style?: ShapeStyle;
-  };
+  /** 散点图大小 */
+  readonly symbolSize?: number | [number, number] | ((value: number) => number);
+
+  /** 散点图形状 */
+  readonly shape?: string[] | ((item: any[]) => string | string[]);
 }

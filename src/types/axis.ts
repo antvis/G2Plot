@@ -4,95 +4,95 @@ export type Axis = {
   /**
    * 是否可见
    */
-  visible: boolean;
+  readonly visible?: boolean;
 
   /**
-   * 坐标轴刻度数量，非常量
+   * 期望的坐标轴刻度数量，非最终结果
    */
-  tickCount: number;
+  readonly tickCount?: number;
 
   /**
    * 坐标轴刻度间隔
    */
-  tickInterval: number;
+  readonly tickInterval?: number;
 
   /**
    * 坐标轴最小值
    */
-  min: number;
+  readonly min?: number;
 
   /**
    * 坐标轴最大值
    */
-  max: number;
+  readonly max?: number;
 
   /**
    * 网格线
    */
-  grid: {
+  readonly grid?: {
     /** 是否可见 */
-    visible: boolean;
+    readonly visible?: boolean;
     /** 网格线样式 */
-    style: TextStyle;
+    readonly style?: TextStyle;
   };
 
   /**
    * 坐标轴轴线
    */
-  line: {
+  readonly line?: {
     /** 是否可见 */
-    visible: boolean;
+    readonly visible?: boolean;
     /** 轴线样式 */
-    style: TextStyle;
+    readonly style?: TextStyle;
   };
 
   /**
    * 坐标轴刻度
    */
-  tickLine: {
+  readonly tickLine?: {
     /** 是否可见 */
-    visible: boolean;
+    readonly visible?: boolean;
     /** 刻度样式 */
-    style: TextStyle;
+    readonly style?: TextStyle;
   };
 
   /**
    * 坐标轴标签
    */
-  label: {
+  readonly label?: {
     /** 是否可见 */
-    visible: boolean;
+    readonly visible?: boolean;
     /** 标签格式化 */
-    formatter: (label: string) => string;
+    readonly formatter?: (label: string) => string;
     /** 后缀 */
-    suffix: string;
+    readonly suffix?: string;
     /** 前缀 */
-    prefix: string;
+    readonly prefix?: string;
     /** 标签精度 */
-    precision: number;
+    readonly precision?: number;
     /** 在 x 方向上的偏移量*/
-    offsetX: number;
+    readonly offsetX?: number;
     /** 在 y 方向上的偏移量 */
-    offsetY: number;
+    readonly offsetY?: number;
     /** 是否自动隐藏 */
-    autoHide: boolean;
+    readonly autoHide?: boolean;
     /** 是否自动旋转 */
-    autoRotate: boolean;
+    readonly autoRotate?: boolean;
     /** 标签样式 */
-    style: TextStyle;
+    readonly style?: TextStyle;
   };
 
   /**
    * 坐标轴标题
    */
-  title: {
+  readonly title?: {
     /** 是否可见 */
-    visible: boolean;
+    readonly visible?: boolean;
     /** 标题文字 */
-    text: string;
+    readonly text?: string;
     /** 偏移量 */
-    offset: number;
+    readonly offset?: number;
     /** 标题样式 */
-    style: TextStyle;
+    readonly style?: TextStyle;
   };
 };

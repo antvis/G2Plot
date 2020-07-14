@@ -23,8 +23,7 @@
     "url": "https://github.com/antvis/g2plot"
   },
   "scripts": {
-    "start": "tnpm run dev",
-    "dev": "dumi dev",
+    "start": "dumi dev",
     "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",

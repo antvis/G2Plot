@@ -8,69 +8,49 @@ order: 17
 ## Scatter
 
 ```tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Scatter } from '@antv/g2plot';
 
 const Page: React.FC = () => {
-  const data = [
-    {
-      x: 4,
-      y: 5.365,
-    },
-    {
-      x: 5,
-      y: 5.448,
-    },
-    {
-      x: 6,
-      y: 5.744,
-    },
-    {
-      x: 7,
-      y: 5.653,
-    },
-    {
-      x: 8,
-      y: 5.844,
-    },
-    {
-      x: 20,
-      y: 7.013,
-    },
-    {
-      x: 21,
-      y: 6.82,
-    },
-    {
-      x: 22,
-      y: 6.647,
-    },
-    {
-      x: 29,
-      y: 6.898,
-    },
-    {
-      x: 30,
-      y: 7.392,
-    },
-    {
-      x: 31,
-      y: 6.938,
-    },
-  ];
+  const [data, setData] = useState([]);
+  const chart = useRef();
+  const fetchData = () => {
+    fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => {
+        console.log('fetch data failed', error);
+      });
+  };
+
   useEffect(() => {
-    const scatter = new Scatter(document.getElementById('container'), {
+    chart.current = new Scatter('container', {
       width: 400,
       height: 300,
       appendPadding: 10,
       data,
-      xField: 'x',
-      yField: 'y',
-      pointSize: 5,
+      xField: 'weight',
+      yField: 'height',
+      seriesField: 'gender',
+      shape: ['circle', 'square'],
+      symbolSize: 5,
+      tooltip: {
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'xy',
+        },
+      },
     });
+    chart.current.render();
 
-    scatter.render();
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (data.length) {
+      chart.current.changeData(data);
+    }
+  }, [data]);
 
   return <div id="container" />;
 };

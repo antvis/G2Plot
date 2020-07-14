@@ -56,7 +56,10 @@ export abstract class Plot<O extends Options> {
     const adaptor = this.getSchemaAdaptor();
 
     // 转化成 G2 API
-    adaptor.convent(this.chart, this.options);
+    adaptor({
+      chart: this.chart,
+      options: this.options,
+    });
 
     this.chart.render();
 

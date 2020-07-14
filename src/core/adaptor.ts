@@ -2,13 +2,15 @@ import { Chart } from '@antv/g2';
 import { Options } from '../types';
 
 /**
- * schema 转 G2 的适配器基类
+ * adaptor flow 的参数
  */
-export abstract class Adaptor<O extends Options> {
-  /**
-   * 将 G2Plot 配置转换成 G2 的逻辑操作
-   * @param chart
-   * @param options
-   */
-  public abstract convent(chart: Chart, options: O);
-}
+export type Params<O extends Options> = {
+  readonly chart: Chart;
+  readonly options: O;
+};
+
+/**
+ * schema 转 G2 的适配器基类
+ * 使用 纯函数的方式，这里只是类型定义
+ */
+export type Adaptor<O extends Options> = (params: Params<O>) => void;

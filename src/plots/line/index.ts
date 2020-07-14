@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { LineOptions } from './types';
-import { LineAdaptor } from './adaptor';
+import { adaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
 
 export { LineOptions };
@@ -13,6 +13,6 @@ export class Line extends Plot<LineOptions> {
    * 获取 折线图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<LineOptions> {
-    return new LineAdaptor();
+    return adaptor;
   }
 }

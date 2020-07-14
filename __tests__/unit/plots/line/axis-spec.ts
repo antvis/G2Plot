@@ -3,22 +3,7 @@ import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
 describe('line', () => {
-  it('x*y', () => {
-    const line = new Line(createDiv(), {
-      width: 400,
-      height: 300,
-      appendPadding: 10,
-      data: partySupport.filter((o) => o.type === 'FF'),
-      xField: 'date',
-      yField: 'value',
-    });
-
-    line.render();
-
-    expect(line.chart.geometries[0].elements.length).toBe(1);
-  });
-
-  it('x*y with color', () => {
+  it('x*y*color and axis options', () => {
     const line = new Line(createDiv(), {
       width: 400,
       height: 300,
@@ -35,6 +20,17 @@ describe('line', () => {
           max: 5000,
         },
       },
+      xAxis: {
+        label: {
+          style: {
+            fill: 'red',
+          },
+        },
+      },
+      yAxis: {
+        tickCount: 3,
+        min: 500,
+      },
     });
 
     line.render();
@@ -47,7 +43,10 @@ describe('line', () => {
     expect(elements[0].getModel().color).toBe('blue');
     expect(elements[1].getModel().color).toBe('red');
 
-    expect(geometry.scales.value.min).toBe(0);
+    expect(geometry.scales.value.min).toBe(500);
     expect(geometry.scales.value.max).toBe(5000);
+
+    // @ts-ignore
+    expect(line.chart.options.axes.date.label.style.fill).toBe('red');
   });
 });

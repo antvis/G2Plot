@@ -1,5 +1,4 @@
 stats.json
 .cache
 dist
-public
-demos/assets
+.umi

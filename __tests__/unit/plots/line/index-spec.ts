@@ -29,6 +29,12 @@ describe('line', () => {
       color: ['blue', 'red'],
       appendPadding: 10,
       connectNulls: true,
+      meta: {
+        value: {
+          min: 0,
+          max: 5000,
+        },
+      },
     });
 
     line.render();
@@ -40,5 +46,8 @@ describe('line', () => {
     expect(elements.length).toBe(2);
     expect(elements[0].getModel().color).toBe('blue');
     expect(elements[1].getModel().color).toBe('red');
+
+    expect(geometry.scales.value.min).toBe(0);
+    expect(geometry.scales.value.max).toBe(5000);
   });
 });

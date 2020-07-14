@@ -10,7 +10,6 @@ function field(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { data, xField, yField, seriesField, color, connectNulls } = options;
 
-  // TODO 具体的折线图操作逻辑
   chart.data(data);
   const geometry = chart.line({ connectNulls }).position(`${xField}*${yField}`);
 
@@ -26,7 +25,12 @@ function field(params: Params<LineOptions>): Params<LineOptions> {
  * @param params
  */
 function meta(params: Params<LineOptions>): Params<LineOptions> {
-  // TODO
+  const { chart, options } = params;
+  const { meta } = options;
+
+  // meta 直接是 scale 的信息
+  chart.scale(meta);
+
   return params;
 }
 

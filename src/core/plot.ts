@@ -1,7 +1,7 @@
 import { Chart } from '@antv/g2';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options } from '../types';
+import { Options, Data } from '../types';
 
 /**
  * 所有 plot 的基类
@@ -19,7 +19,7 @@ export abstract class Plot<O extends Options> {
   private unbind: () => void;
 
   constructor(container: string | HTMLElement, options: O) {
-    this.container = typeof container === 'string' ? document.querySelector(container) : container;
+    this.container = typeof container === 'string' ? document.getElementById(container) : container;
     this.options = options;
 
     this.createG2();
@@ -75,6 +75,15 @@ export abstract class Plot<O extends Options> {
     this.options = options;
 
     this.render();
+  }
+
+  /**
+   * 更新数据
+   * @param options
+   */
+  public changeData(data: Data) {
+    this.chart.changeData(data);
+    this.chart.render();
   }
 
   /**

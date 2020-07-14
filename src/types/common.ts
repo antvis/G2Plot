@@ -33,6 +33,22 @@ export type BBox = {
   readonly height: number;
 };
 
+/** 文字 */
+export type TextStyle = {
+  /** 文本大小 */
+  readonly fontSize?: number;
+  /** 字体系列 */
+  readonly fontFamily?: string;
+  /** 文本粗细 */
+  readonly fontWeight?: number;
+  /** 文本行高 */
+  readonly lineHeight?: number;
+  /** 文本对齐方式 */
+  readonly textAlign?: 'center' | 'left' | 'right';
+  /** 文本基线 */
+  readonly textBaseline?: 'middle' | 'top' | 'bottom';
+};
+
 export type Size = {
   readonly width: number;
   readonly height: number;

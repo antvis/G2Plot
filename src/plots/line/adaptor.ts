@@ -29,7 +29,7 @@ function meta(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, yField } = options;
 
-  const KEYS = ['tickCount', 'tickInterval', 'min', 'max'];
+  const KEYS = ['tickCount', 'tickInterval', 'min', 'max', 'nice', 'minLimit', 'maxLimit', 'tickMethod'];
 
   // meta 直接是 scale 的信息
   const scales = deepMix({}, meta, {

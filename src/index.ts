@@ -28,3 +28,8 @@ export { registerResponsiveRule } from './util/responsive/rules';
 export { registerResponsiveTheme, getResponsiveTheme } from './util/responsive/theme';
 
 export { default as StateManager } from './util/state-manager';
+
+// 导出 g2 上层需要使用
+import * as G2 from '@antv/g2';
+
+export { G2 };

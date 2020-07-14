@@ -5,6 +5,8 @@ export * from './types';
 
 // 折线图及类型定义
 export { Line, LineOptions } from './plots/line';
+// 饼图及类型定义
+export { Pie, PieOptions } from './plots/pie';
 
 //散点图及类型定义
 export { Scatter, ScatterOptions } from './plots/scatter';

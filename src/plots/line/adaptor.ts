@@ -1,5 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { tooltip } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { LineOptions } from './types';
 
@@ -76,21 +77,6 @@ function legend(params: Params<LineOptions>): Params<LineOptions> {
 
   if (legend && seriesField) {
     chart.legend(seriesField, legend);
-  }
-
-  return params;
-}
-
-/**
- * tooltip 配置
- * @param params
- */
-function tooltip(params: Params<LineOptions>): Params<LineOptions> {
-  const { chart, options } = params;
-  const { tooltip } = options;
-
-  if (tooltip) {
-    chart.tooltip(tooltip);
   }
 
   return params;

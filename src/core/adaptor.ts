@@ -1,4 +1,4 @@
-import { Chart } from '@antv/g2';
+import { Chart, Geometry } from '@antv/g2';
 import { Options } from '../types';
 
 /**
@@ -7,6 +7,7 @@ import { Options } from '../types';
 export type Params<O extends Options> = {
   readonly chart: Chart;
   readonly options: O;
+  readonly geometry?: Geometry;
 };
 
 /**

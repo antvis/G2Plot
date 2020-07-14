@@ -8,7 +8,7 @@ import { Options } from '../types';
  * 通用 tooltip 配置
  * @param params
  */
-function tooltip<O extends Options>(params: Params<O>): Params<O> {
+export function tooltip<O extends Options>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { tooltip } = options;
 
@@ -18,6 +18,3 @@ function tooltip<O extends Options>(params: Params<O>): Params<O> {
 
   return params;
 }
-
-
-export { tooltip };

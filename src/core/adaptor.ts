@@ -7,7 +7,6 @@ import { Options } from '../types';
 export type Params<O extends Options> = {
   readonly chart: Chart;
   readonly options: O;
-  readonly geometry?: Geometry;
 };
 
 /**

@@ -3,11 +3,11 @@ import { ShapeStyle } from '../../types/style';
 
 export interface PieOptions extends Options {
   /** 角度映射字段 */
-  angleField: string;
-  colorField?: string;
-  radius: number;
-  innerRadius?: number;
+  readonly angleField: string;
+  readonly colorField?: string;
+  readonly radius?: number;
+  readonly innerRadius?: number;
 
   /** 饼图图形样式 */
-  pieStyle?: ShapeStyle | ((...args: string[]) => ShapeStyle);
+  readonly pieStyle?: ShapeStyle | ((...args: string[]) => ShapeStyle);
 }

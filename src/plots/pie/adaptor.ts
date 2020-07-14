@@ -20,7 +20,7 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
     geometry.color(colorField, color);
   }
 
-  return { ...params, geometry };
+  return params;
 }
 
 /**
@@ -46,7 +46,7 @@ function meta(params: Params<PieOptions>): Params<PieOptions> {
  */
 function coord(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius = 0 } = options;
+  const { radius, innerRadius } = options;
 
   chart.coordinate({
     type: 'theta',
@@ -79,10 +79,11 @@ function legend(params: Params<PieOptions>): Params<PieOptions> {
  * @param params
  */
 function style(params: Params<PieOptions>): Params<PieOptions> {
-  const { options, geometry } = params;
-  const { pieStyle = {}, angleField, colorField } = options;
+  const { chart, options } = params;
+  const { pieStyle, angleField, colorField } = options;
 
-  if (geometry) {
+  const geometry = chart.geometries[0];
+  if (pieStyle && geometry) {
     if (isFunction(pieStyle)) {
       // 为了兼容，colorField 放第一位
       geometry.style(colorField ? `${colorField}*${angleField}` : angleField, pieStyle);

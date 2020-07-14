@@ -1,5 +1,6 @@
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, pick } from '../../utils';
 import { LineOptions } from './types';
 
 /**
@@ -26,10 +27,17 @@ function field(params: Params<LineOptions>): Params<LineOptions> {
  */
 function meta(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { meta } = options;
+  const { meta, xAxis, yAxis, xField, yField } = options;
+
+  const KEYS = ['tickCount', 'tickInterval', 'min', 'max'];
 
   // meta 直接是 scale 的信息
-  chart.scale(meta);
+  const scales = deepMix({}, meta, {
+    [xField]: pick(xAxis, KEYS),
+    [yField]: pick(yAxis, KEYS),
+  });
+
+  chart.scale(scales);
 
   return params;
 }
@@ -39,7 +47,22 @@ function meta(params: Params<LineOptions>): Params<LineOptions> {
  * @param params
  */
 function axis(params: Params<LineOptions>): Params<LineOptions> {
-  // TODO
+  const { chart, options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
+
+  // 为 false 则是不显示轴
+  if (xAxis === false) {
+    chart.axis(xField, false);
+  } else {
+    chart.axis(xField, xAxis);
+  }
+
+  if (yAxis === false) {
+    chart.axis(xField, false);
+  } else {
+    chart.axis(yField, yAxis);
+  }
+
   return params;
 }
 
@@ -48,7 +71,13 @@ function axis(params: Params<LineOptions>): Params<LineOptions> {
  * @param params
  */
 function legend(params: Params<LineOptions>): Params<LineOptions> {
-  // TODO
+  const { chart, options } = params;
+  const { legend, seriesField } = options;
+
+  if (legend && seriesField) {
+    chart.legend(seriesField, legend);
+  }
+
   return params;
 }
 
@@ -57,7 +86,13 @@ function legend(params: Params<LineOptions>): Params<LineOptions> {
  * @param params
  */
 function tooltip(params: Params<LineOptions>): Params<LineOptions> {
-  // TODO
+  const { chart, options } = params;
+  const { tooltip } = options;
+
+  if (tooltip) {
+    chart.tooltip(tooltip);
+  }
+
   return params;
 }
 

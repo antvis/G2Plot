@@ -12,7 +12,7 @@ export function tooltip<O extends Options>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { tooltip } = options;
 
-  if (tooltip) {
+  if (tooltip !== undefined) {
     chart.tooltip(tooltip);
   }
 

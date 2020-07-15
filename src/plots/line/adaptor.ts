@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
@@ -83,11 +83,34 @@ function legend(params: Params<LineOptions>): Params<LineOptions> {
 }
 
 /**
+ * 样式
+ * @param params
+ */
+function style(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { seriesField, lineStyle } = options;
+
+  const geometry = chart.geometries[0];
+  if (lineStyle && geometry) {
+    if (isFunction(lineStyle)) {
+      geometry.style(seriesField ? seriesField : '', lineStyle);
+    } else {
+      geometry.style(lineStyle);
+    }
+  }
+  return params;
+}
+
+function label(params: Params<LineOptions>): Params<LineOptions> {
+  return params;
+}
+
+/**
  * 折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip)(params);
+  flow(field, meta, axis, legend, tooltip, style)(params);
 }

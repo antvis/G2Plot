@@ -3,20 +3,20 @@ import { ShapeStyle } from '../../types/style';
 
 export interface LineOptions extends Options {
   /** x 轴字段 */
-  xField?: string;
+  readonly xField?: string;
   /** y 轴字段 */
-  yField?: string;
+  readonly yField?: string;
   /** 分组字段 */
-  seriesField?: string;
+  readonly seriesField?: string;
 
   /** 是否平滑 */
-  smooth?: boolean;
+  readonly smooth?: boolean;
   /** 是否连接空数据 */
-  connectNulls?: boolean;
-  /** 折线extra图形样式 */
-  lineStyle?: ShapeStyle | (() => ShapeStyle);
+  readonly connectNulls?: boolean;
+  /** 折线 extra 图形样式 */
+  readonly lineStyle?: ShapeStyle | ((color: any) => ShapeStyle);
   /** 折线数据点图形样式 */
-  point?: {
+  readonly point?: {
     visible?: boolean;
     shape?: ShapeStyle;
     size?: number;

@@ -1,4 +1,4 @@
-import { Chart, Geometry } from '@antv/g2';
+import { Chart } from '@antv/g2';
 import { Options } from '../types';
 
 /**

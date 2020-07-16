@@ -24,7 +24,7 @@ describe('line', () => {
 
     line.update({
       ...line.options,
-      lineStyle: (color: string) => {
+      lineStyle: () => {
         return { lineDash: [4, 4] };
       },
     });

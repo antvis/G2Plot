@@ -103,6 +103,20 @@ function style(params: Params<LineOptions>): Params<LineOptions> {
 }
 
 /**
+ * shape 的配置处理
+ * @param params
+ */
+function shape(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { smooth } = options;
+
+  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+
+  lineGeometry.shape(smooth ? 'smooth' : 'line');
+  return params;
+}
+
+/**
  * 数据标签
  * @param params
  */
@@ -134,5 +148,5 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style, label)(params);
+  flow(field, meta, axis, legend, tooltip, style, shape, label)(params);
 }

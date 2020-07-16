@@ -3,7 +3,7 @@ import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
 describe('line', () => {
-  it('x*y and label', () => {
+  it('x*y and shape', () => {
     const line = new Line(createDiv(), {
       width: 400,
       height: 300,
@@ -11,30 +11,14 @@ describe('line', () => {
       xField: 'date',
       yField: 'value',
       appendPadding: 10,
-      label: {
-        layout: {
-          type: 'overlap',
-        },
-      },
+      smooth: false,
     });
 
     line.render();
-    // @ts-ignore
-    expect(line.chart.geometries[0].labelOption.cfg).toEqual({
-      layout: {
-        type: 'overlap',
-      },
-    });
-
-    line.update({
-      ...line.options,
-      label: false,
-    });
-    // @ts-ignore
-    expect(line.chart.geometries[0].labelOption).toBe(false);
+    expect(line.chart.geometries[0].attributes.shape.values).toEqual(['line']);
   });
 
-  it('x*y*color and label', () => {
+  it('x*y*color and shape', () => {
     const line = new Line(createDiv(), {
       width: 400,
       height: 300,
@@ -43,19 +27,10 @@ describe('line', () => {
       yField: 'value',
       seriesField: 'type',
       appendPadding: 10,
-      label: {
-        layout: {
-          type: 'overlap',
-        },
-      },
+      smooth: true,
     });
 
     line.render();
-    // @ts-ignore
-    expect(line.chart.geometries[0].labelOption.cfg).toEqual({
-      layout: {
-        type: 'overlap',
-      },
-    });
+    expect(line.chart.geometries[0].attributes.shape.values).toEqual(['smooth']);
   });
 });

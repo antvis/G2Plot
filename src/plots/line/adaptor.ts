@@ -1,3 +1,4 @@
+import { Geometry } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip } from '../../common/adaptor';
@@ -101,7 +102,28 @@ function style(params: Params<LineOptions>): Params<LineOptions> {
   return params;
 }
 
+/**
+ * 数据标签
+ * @param params
+ */
 function label(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { label, yField } = options;
+
+  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+
+  // label 为 false, 空 则不显示 label
+  if (!label) {
+    lineGeometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    lineGeometry.label({
+      fields: [yField],
+      callback,
+      cfg,
+    });
+  }
+
   return params;
 }
 
@@ -112,5 +134,5 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style)(params);
+  flow(field, meta, axis, legend, tooltip, style, label)(params);
 }

@@ -1,6 +1,7 @@
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { ScatterOptions } from './types';
+import { tooltip } from '../../common/adaptor';
 
 /**
  * 字段
@@ -52,22 +53,6 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   // TODO
-  return params;
-}
-
-/**
- * tooltip 配置
- * @param params
- */
-function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const {
-    chart,
-    options: { tooltip },
-  } = params;
-
-  if (tooltip) {
-    chart.tooltip({ ...tooltip });
-  }
   return params;
 }
 

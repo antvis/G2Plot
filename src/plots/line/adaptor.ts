@@ -1,4 +1,5 @@
-import { deepMix } from '@antv/util';
+import { Geometry } from '@antv/g2';
+import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
@@ -83,11 +84,69 @@ function legend(params: Params<LineOptions>): Params<LineOptions> {
 }
 
 /**
+ * 样式
+ * @param params
+ */
+function style(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { xField, yField, seriesField, lineStyle } = options;
+
+  const geometry = chart.geometries[0];
+  if (lineStyle && geometry) {
+    if (isFunction(lineStyle)) {
+      geometry.style(`${xField}*${yField}*${seriesField}`, lineStyle);
+    } else {
+      geometry.style(lineStyle);
+    }
+  }
+  return params;
+}
+
+/**
+ * shape 的配置处理
+ * @param params
+ */
+function shape(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { smooth } = options;
+
+  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+
+  lineGeometry.shape(smooth ? 'smooth' : 'line');
+  return params;
+}
+
+/**
+ * 数据标签
+ * @param params
+ */
+function label(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { label, yField } = options;
+
+  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+
+  // label 为 false, 空 则不显示 label
+  if (!label) {
+    lineGeometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    lineGeometry.label({
+      fields: [yField],
+      callback,
+      cfg,
+    });
+  }
+
+  return params;
+}
+
+/**
  * 折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip)(params);
+  flow(field, meta, axis, legend, tooltip, style, shape, label)(params);
 }

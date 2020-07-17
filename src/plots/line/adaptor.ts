@@ -89,12 +89,12 @@ function legend(params: Params<LineOptions>): Params<LineOptions> {
  */
 function style(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { seriesField, lineStyle } = options;
+  const { xField, yField, seriesField, lineStyle } = options;
 
   const geometry = chart.geometries[0];
   if (lineStyle && geometry) {
     if (isFunction(lineStyle)) {
-      geometry.style(seriesField ? seriesField : '', lineStyle);
+      geometry.style(`${xField}*${yField}*${seriesField}`, lineStyle);
     } else {
       geometry.style(lineStyle);
     }

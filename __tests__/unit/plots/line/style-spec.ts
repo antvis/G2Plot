@@ -53,7 +53,7 @@ describe('line', () => {
 
     line.update({
       ...line.options,
-      lineStyle: (color: string) => {
+      lineStyle: (x: string, y: number, color: string) => {
         if (color === 'FF') return { lineDash: [4, 4] };
       },
     });

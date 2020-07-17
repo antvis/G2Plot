@@ -14,7 +14,7 @@ export interface LineOptions extends Options {
   /** 是否连接空数据 */
   readonly connectNulls?: boolean;
   /** 折线 extra 图形样式 */
-  readonly lineStyle?: ShapeStyle | ((color: any) => ShapeStyle);
+  readonly lineStyle?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
   /** 折线数据点图形样式 */
   readonly point?: {
     visible?: boolean;

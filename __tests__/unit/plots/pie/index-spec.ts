@@ -62,9 +62,6 @@ describe('pie', () => {
     const polarRadius = coordinate.getRadius();
     expect(radius).toBeUndefined();
     expect(polarRadius).toBeGreaterThan(0);
-
-    const geometry = pie.chart.geometries[0];
-    const elements = geometry.elements;
   });
 
   it('innerRadius', () => {

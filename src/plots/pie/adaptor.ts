@@ -75,6 +75,29 @@ function legend(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
+ * label 配置
+ * @param params
+ */
+function label(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { label, colorField, angleField } = options;
+
+  const geometry = chart.geometries[0];
+  // label 为 false, 空 则不显示 label
+  if (!label) {
+    geometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    geometry.label({
+      fields: [angleField, colorField],
+      callback,
+      cfg,
+    });
+  }
+  return params;
+}
+
+/**
  * style 配置
  * @param params
  */
@@ -102,5 +125,5 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, coord, legend, tooltip, style)(params);
+  flow(field, meta, coord, legend, tooltip, label, style)(params);
 }

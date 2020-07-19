@@ -1,4 +1,6 @@
-import { getTotalValue } from '../../../../src/plots/pie/utils';
+import { Pie } from '../../../../src';
+import { getStatisticData, getTotalValue } from '../../../../src/plots/pie/utils';
+import { createDiv } from '../../../utils/dom';
 
 describe('utils of pie plot', () => {
   const data = [
@@ -45,5 +47,38 @@ describe('utils of pie plot', () => {
         'value'
       )
     ).toBe(null);
+  });
+
+  it('getStatisticData: 单色饼图', () => {
+    const pie = new Pie(createDiv(), {
+      width: 400,
+      height: 300,
+      data: [],
+      angleField: 'value',
+      radius: 0.8,
+    });
+
+    pie.render();
+    expect(getStatisticData(pie.chart, [])).toEqual({ title: '总计', value: null });
+    expect(getStatisticData(pie.chart, { value: 20 })).toEqual({ title: null, value: '20', color: undefined });
+  });
+
+  it('getStatisticData: 带 colorField', () => {
+    const pie = new Pie(createDiv(), {
+      width: 400,
+      height: 300,
+      data: [],
+      angleField: 'value',
+      colorField: 'type',
+      radius: 0.8,
+    });
+
+    pie.render();
+    expect(getStatisticData(pie.chart, [])).toEqual({ title: '总计', value: null });
+    expect(getStatisticData(pie.chart, { type: 'item1', value: 20 })).toEqual({
+      title: 'item1',
+      value: '20',
+      color: undefined,
+    });
   });
 });

@@ -1,6 +1,7 @@
 import { Chart } from '@antv/g2';
 import { Pie, PieOptions } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
+import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 
 describe('中心文本 - 指标卡', () => {
@@ -63,7 +64,7 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].component.get('content')).toBe('test\ntest');
   });
 
-  it.skip('自定义中心文本内容: update statistic title & content', () => {
+  it('自定义中心文本内容: update statistic title & content', () => {
     pie.update({
       ...pie.options,
       statistic: {
@@ -110,7 +111,8 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].component.get('content')).toBe('test\ntest');
   });
 
-  it.skip('自定义中心文本内容: update statistic title & content, 动态数据', () => {
+  it('自定义中心文本内容: update statistic title & content, 动态数据', async () => {
+    await delay(5000);
     pie.update({
       ...pie.options,
       statistic: {
@@ -158,7 +160,8 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
   });
 
-  it.skip('自定义中心文本样式: update statistic title style & content style', () => {
+  it('自定义中心文本样式: update statistic title style & content style', async () => {
+    await delay(5000);
     pie.update({
       ...pie.options,
       statistic: {
@@ -219,7 +222,7 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].extra.content).toBe('');
   });
 
-  it('关闭 stastic，自定义 annotation', () => {
+  it('关闭 stastic，自定义 annotation', async () => {
     const pie = new Pie(createDiv(), {
       ...config,
       innerRadius: 0.64,
@@ -244,6 +247,27 @@ describe('中心文本 - 指标卡', () => {
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(1);
     expect(annotations[0].component.get('type')).toBe('image');
+
+    await delay(5000);
+    pie.update({
+      ...pie.options,
+      annotations: [
+        {
+          type: 'text',
+          position: ['50%', '50%'],
+          content: '自定义标注文本',
+          style: {
+            textAlign: 'center',
+          },
+        },
+      ],
+    });
+    pie.render();
+
+    const newAnnotations = getAnnotations(pie.chart);
+    expect(newAnnotations.length).toBe(1);
+    expect(newAnnotations[0].component.get('type')).toBe('text');
+    expect(newAnnotations[0].component.get('content')).toBe('自定义标注文本');
   });
 
   it('总计值为空', () => {

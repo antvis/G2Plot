@@ -130,6 +130,10 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { innerRadius, statistic, annotations = [] } = options;
 
+  const annotationController = chart.getController('annotation');
+  // @ts-ignore
+  annotationController.clear(true);
+
   const annotationOptions = [...annotations];
 
   /** 中心文本 指标卡 */
@@ -191,8 +195,8 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
   }
 
   /** 自定义 annotation */
-  const annotationController: any = chart.getController('annotation');
   each(annotationOptions, (annotationOption) => {
+    // @ts-ignore
     annotationController.annotation(annotationOption);
   });
 

@@ -44,7 +44,6 @@ describe('register interaction', () => {
 
     delay(5000);
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
-    console.log('annotations', annotations);
     expect(annotations[0].extra.content).toBe('item3');
     expect(annotations[1].extra.content).toBe(13);
   });

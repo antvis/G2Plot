@@ -36,9 +36,8 @@ export class StatisticAction extends Action {
       const annotationController = view.getController('annotation');
       // @ts-ignore
       annotationController.clear(true);
-      const [__, angleField] = view.geometries[0].getXYFields();
-      const colorScale = view.geometries[0].getAttribute('color').scales[0];
-      const colorField = colorScale && colorScale.field;
+      // @ts-ignore
+      const [, angleField, colorField] = view.getScaleFields();
 
       const annotationOptions = annotations.filter((a) => get(a, 'extra.key') !== 'statistic').map((a) => a.extra);
       const statisticOptions = annotations.filter((a) => get(a, 'extra.key') === 'statistic').map((a) => a.extra || {});

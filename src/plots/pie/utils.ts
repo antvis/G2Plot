@@ -14,7 +14,7 @@ export function getTotalValue(data: object[], field: string) {
 
 export function getStatisticData(chart: View, data: object[] | object, color?: string): StatisticData {
   // @ts-ignore
-  const [__, angleField, colorField] = chart.getScaleFields();
+  const [, angleField, colorField] = chart.getScaleFields();
   const angleScale = chart.getScaleByField(angleField);
   const colorScale = chart.getScaleByField(colorField);
 

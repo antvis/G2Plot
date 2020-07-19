@@ -1,8 +1,11 @@
-import { deepMix, isFunction } from '@antv/util';
+import { deepMix, each, get, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip } from '../../common/adaptor';
 import { flow } from '../../utils';
+import { Interaction } from '../../types/interaction';
+import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
+import { getStatisticData } from './utils';
 
 /**
  * 字段
@@ -119,11 +122,104 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
+ * annotation 配置
+ * 1. 中心文本
+ * @param params
+ */
+function annotation(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { innerRadius, statistic, annotations = [] } = options;
+
+  const annotationOptions = [...annotations];
+
+  /** 中心文本 指标卡 */
+  if (innerRadius && statistic) {
+    const { title, content } = statistic;
+
+    let titleLineHeight = get(title, 'style.lineHeight');
+    if (!titleLineHeight) {
+      titleLineHeight = get(title, 'style.fontSize', 20);
+    }
+
+    let valueLineHeight = get(content, 'style.lineHeight');
+    if (!valueLineHeight) {
+      valueLineHeight = get(content, 'style.fontSize', 20);
+    }
+
+    // @ts-ignore
+    const filterData = chart.filteredData;
+    const statisticData = getStatisticData(chart, filterData);
+    const titleFormatter = get(title, 'formatter');
+    const contentFormatter = get(content, 'formatter');
+
+    annotationOptions.push(
+      {
+        type: 'text',
+        position: ['50%', '50%'],
+        content: titleFormatter ? titleFormatter('total', statisticData) : statisticData.title,
+        ...deepMix(
+          {},
+          {
+            // default config
+            style: StatisticTitleStyle,
+            offsetY: -titleLineHeight,
+            // append-info
+            key: 'statistic',
+          },
+          title
+        ),
+      },
+      {
+        type: 'text',
+        position: ['50%', '50%'],
+        content: contentFormatter ? contentFormatter('total', statisticData) : statisticData.value,
+        ...deepMix(
+          {},
+          {
+            // default config
+            style: StatisticContentStyle,
+            offsetY: valueLineHeight,
+            // append-info
+            key: 'statistic',
+          },
+          content
+        ),
+      }
+    );
+
+    chart.render();
+  }
+
+  /** 自定义 annotation */
+  const annotationController: any = chart.getController('annotation');
+  each(annotationOptions, (annotationOption) => {
+    annotationController.annotation(annotationOption);
+  });
+
+  return params;
+}
+
+/**
+ * Interaction 配置
+ * @param params
+ */
+export function interaction(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { interactions } = options;
+
+  each(interactions, (i: Interaction) => {
+    chart.interaction(i.name, i.cfg || {});
+  });
+
+  return params;
+}
+
+/**
  * 折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, coord, legend, tooltip, label, style)(params);
+  flow(field, meta, coord, legend, tooltip, label, style, annotation, interaction)(params);
 }

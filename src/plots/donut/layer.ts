@@ -71,6 +71,7 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     const container = this.canvas.get('container');
     if (this.statistic) {
       container.removeChild(this.statistic.wrapperNode);
+      this.statistic = null;
     }
     /**环图中心文本 */
     if (this.options.statistic && this.options.statistic.visible) {

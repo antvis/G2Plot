@@ -92,11 +92,11 @@ describe('中心文本 - 指标卡', () => {
       innerRadius: 0.64,
       statistic: {
         title: {
-          formatter: (type, data) => (type !== 'item' ? '总计' : data['type']),
+          formatter: (item, data) => (Array.isArray(data) ? '总计' : data['type']),
         },
         content: {
-          formatter: (type, data) => {
-            return type !== 'item' ? 'test\ntest' : typeof data.value === 'number' ? `${data.value}` : '';
+          formatter: (item, data) => {
+            return Array.isArray(data) ? 'test\ntest' : typeof data.value === 'number' ? `${data.value}` : '';
           },
           rotate: (30 / 180) * Math.PI,
         },
@@ -117,11 +117,11 @@ describe('中心文本 - 指标卡', () => {
       ...pie.options,
       statistic: {
         title: {
-          formatter: (type, data) => (type !== 'item' ? '总计' : data['type']),
+          formatter: (item, data) => (Array.isArray(data) ? '总计' : data['type']),
         },
         content: {
-          formatter: (type, data) => {
-            return type !== 'item' ? 'test\ntest' : typeof data.value === 'number' ? `${data.value}` : '';
+          formatter: (item, data) => {
+            return Array.isArray(data) ? 'test\ntest' : typeof data.value === 'number' ? `${data.value}` : '';
           },
           rotate: (30 / 180) * Math.PI,
         },

@@ -2,6 +2,7 @@ import { registerAction, registerInteraction } from '@antv/g2';
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { each, get } from '@antv/util';
+import { getStatisticData } from './utils';
 
 /**
  * Pie 中心文本事件的 Action
@@ -35,17 +36,19 @@ export class StatisticAction extends Action {
       const annotationController = view.getController('annotation');
       // @ts-ignore
       annotationController.clear(true);
-      const [__, yField] = view.geometries[0].getXYFields();
+      const [__, angleField] = view.geometries[0].getXYFields();
       const colorScale = view.geometries[0].getAttribute('color').scales[0];
       const colorField = colorScale && colorScale.field;
 
       const annotationOptions = annotations.filter((a) => get(a, 'extra.key') !== 'statistic').map((a) => a.extra);
       const statisticOptions = annotations.filter((a) => get(a, 'extra.key') === 'statistic').map((a) => a.extra || {});
+      const statisticData = getStatisticData(view, data);
+
       each(statisticOptions, (options, idx) => {
-        const value = data[idx === 0 ? colorField : yField];
+        const value = data[idx === 0 ? colorField : angleField];
         annotationOptions.push({
           ...options,
-          content: options.formatter ? options.formatter('item', data) : value,
+          content: options.formatter ? options.formatter(statisticData, data) : value,
         });
       });
       annotationOptions.forEach((opt) => {

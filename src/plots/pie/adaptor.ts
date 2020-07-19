@@ -160,7 +160,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       {
         type: 'text',
         position: ['50%', '50%'],
-        content: titleFormatter ? titleFormatter('total', statisticData) : statisticData.title,
+        content: titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title,
         ...deepMix(
           {},
           {
@@ -176,7 +176,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       {
         type: 'text',
         position: ['50%', '50%'],
-        content: contentFormatter ? contentFormatter('total', statisticData) : statisticData.value,
+        content: contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value,
         ...deepMix(
           {},
           {

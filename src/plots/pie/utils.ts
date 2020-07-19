@@ -1,4 +1,4 @@
-import { Chart } from '@antv/g2';
+import { View } from '@antv/g2';
 import { each, isArray } from '@antv/util';
 import { StatisticData } from './types';
 
@@ -12,8 +12,9 @@ export function getTotalValue(data: object[], field: string) {
   return total;
 }
 
-export function getStatisticData(chart: Chart, data: object[] | object, color?: string): StatisticData {
-  const { angleField, colorField } = chart.getOptions();
+export function getStatisticData(chart: View, data: object[], color?: string): StatisticData {
+  // @ts-ignore
+  const [__, angleField, colorField] = chart.getScaleFields();
   const angleScale = chart.getScaleByField(angleField);
   const colorScale = chart.getScaleByField(colorField);
 
@@ -28,7 +29,7 @@ export function getStatisticData(chart: Chart, data: object[] | object, color?: 
 
   return {
     title: colorScale ? colorScale.getText(data[colorField]) : null,
-    value: angleScale.getText(data[angleField]),
+    value: angleScale ? angleScale.getText(data[angleField]) : data[angleField],
     color,
   };
 }

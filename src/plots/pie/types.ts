@@ -1,3 +1,4 @@
+import { LooseObject } from '@antv/g2/lib/interface';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
@@ -13,7 +14,7 @@ export type StatisticData = {
 type Statistic = Readonly<{
   /** 自定义 title 标签 */
   title?: {
-    formatter?: (type: string, data: StatisticData) => string;
+    formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
     rotate?: number;
     offsetX?: number;
     offsetY?: number;
@@ -21,7 +22,7 @@ type Statistic = Readonly<{
   };
   /** 自定义 content 内容 */
   content?: {
-    formatter?: (type: string, data: StatisticData) => string;
+    formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
     rotate?: number;
     offsetX?: number;
     offsetY?: number;

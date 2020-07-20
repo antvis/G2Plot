@@ -3,7 +3,6 @@ import { Label } from './label';
 import { Tooltip } from './tooltip';
 import { Legend } from './legend';
 import { Interaction } from './interaction';
-import { Annotation } from './annotation';
 import { Animation } from './animation';
 
 /** 一条数据记录 */
@@ -104,7 +103,6 @@ export type Options = {
   readonly legend?: Legend;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
-  readonly annotations?: Annotation[];
   // readonly guideLine?: GuideLineConfig[];
   // readonly markerPoints?: (Omit<MarkerPointCfg, 'view'> & {
   //   visible?: boolean;

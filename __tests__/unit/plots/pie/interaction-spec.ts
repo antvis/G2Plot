@@ -6,14 +6,14 @@ import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interaction';
 
 describe('register interaction', () => {
-  it('创建 "statistic" action', () => {
-    const action = getActionClass('statistic');
+  it('创建 "pie-statistic" action', () => {
+    const action = getActionClass('pie-statistic');
     expect(action).toBe(StatisticAction);
     expect(action.name).toBe('StatisticAction');
   });
 
-  it('注册 "statistic-active" 交互', () => {
-    const statisticInteraction = getInteraction('statistic-active');
+  it('注册 "pie-statistic-active" 交互', () => {
+    const statisticInteraction = getInteraction('pie-statistic-active');
     expect(statisticInteraction).toBeDefined();
   });
 
@@ -38,7 +38,7 @@ describe('register interaction', () => {
   const context = new InteractionContext(pie.chart);
   const action = new StatisticAction(context);
 
-  it('触发 statistic:change', async () => {
+  it('触发 pie-statistic:change', async () => {
     context.event = { data: { data: { type: 'item3', value: 13 } } };
     action.change();
 
@@ -48,7 +48,7 @@ describe('register interaction', () => {
     expect(annotations[1].extra.content).toBe(13);
   });
 
-  it('触发 statistic:reset', async () => {
+  it('触发 pie-statistic:reset', async () => {
     action.reset();
 
     delay(5000);

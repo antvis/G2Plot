@@ -184,91 +184,92 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
   });
 
-  it('append annotation', () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
-      innerRadius: 0.64,
-      statistic: {
-        title: {
-          formatter: () => '',
-        },
-        content: {
-          formatter: () => '无数据',
-        },
-      },
-      annotations: [
-        {
-          type: 'text',
-          top: true,
-          position: ['50%', '20%'],
-          content: '达标区间',
-          style: {
-            fill: '#aaaaaa',
-            textAlign: 'end',
-            textBaseline: 'top',
-            fontWeight: 300,
-          },
-          offsetX: -10,
-          offsetY: 6,
-        },
-      ],
-    });
+  // 暂时不提供 annotations 配置
+  // it('append annotation', () => {
+  //   const pie = new Pie(createDiv(), {
+  //     ...config,
+  //     innerRadius: 0.64,
+  //     statistic: {
+  //       title: {
+  //         formatter: () => '',
+  //       },
+  //       content: {
+  //         formatter: () => '无数据',
+  //       },
+  //     },
+  //     annotations: [
+  //       {
+  //         type: 'text',
+  //         top: true,
+  //         position: ['50%', '20%'],
+  //         content: '达标区间',
+  //         style: {
+  //           fill: '#aaaaaa',
+  //           textAlign: 'end',
+  //           textBaseline: 'top',
+  //           fontWeight: 300,
+  //         },
+  //         offsetX: -10,
+  //         offsetY: 6,
+  //       },
+  //     ],
+  //   });
 
-    pie.render();
-    const annotations = getAnnotations(pie.chart);
-    expect(annotations.length).toBe(3);
-    expect(annotations[0].component.get('type')).toBe('text');
-    expect(annotations[0].extra.content).toBe('达标区间');
-    expect(annotations[1].extra.content).toBe('');
-  });
+  //   pie.render();
+  //   const annotations = getAnnotations(pie.chart);
+  //   expect(annotations.length).toBe(3);
+  //   expect(annotations[0].component.get('type')).toBe('text');
+  //   expect(annotations[0].extra.content).toBe('达标区间');
+  //   expect(annotations[1].extra.content).toBe('');
+  // });
 
-  it('关闭 stastic，自定义 annotation', async () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
-      innerRadius: 0.64,
-      statistic: null,
-      annotations: [
-        {
-          type: 'image',
-          position: ['50%', '50%'],
-          src: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
-          offsetX: -28,
-          offsetY: 30,
-          style: {
-            width: 56,
-            height: 56,
-          },
-        },
-      ],
-    });
+  // it('关闭 stastic，自定义 annotation', async () => {
+  //   const pie = new Pie(createDiv(), {
+  //     ...config,
+  //     innerRadius: 0.64,
+  //     statistic: null,
+  //     annotations: [
+  //       {
+  //         type: 'image',
+  //         position: ['50%', '50%'],
+  //         src: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
+  //         offsetX: -28,
+  //         offsetY: 30,
+  //         style: {
+  //           width: 56,
+  //           height: 56,
+  //         },
+  //       },
+  //     ],
+  //   });
 
-    pie.render();
+  //   pie.render();
 
-    const annotations = getAnnotations(pie.chart);
-    expect(annotations.length).toBe(1);
-    expect(annotations[0].component.get('type')).toBe('image');
+  //   const annotations = getAnnotations(pie.chart);
+  //   expect(annotations.length).toBe(1);
+  //   expect(annotations[0].component.get('type')).toBe('image');
 
-    await delay(5000);
-    pie.update({
-      ...pie.options,
-      annotations: [
-        {
-          type: 'text',
-          position: ['50%', '50%'],
-          content: '自定义标注文本',
-          style: {
-            textAlign: 'center',
-          },
-        },
-      ],
-    });
-    pie.render();
+  //   await delay(5000);
+  //   pie.update({
+  //     ...pie.options,
+  //     annotations: [
+  //       {
+  //         type: 'text',
+  //         position: ['50%', '50%'],
+  //         content: '自定义标注文本',
+  //         style: {
+  //           textAlign: 'center',
+  //         },
+  //       },
+  //     ],
+  //   });
+  //   pie.render();
 
-    const newAnnotations = getAnnotations(pie.chart);
-    expect(newAnnotations.length).toBe(1);
-    expect(newAnnotations[0].component.get('type')).toBe('text');
-    expect(newAnnotations[0].component.get('content')).toBe('自定义标注文本');
-  });
+  //   const newAnnotations = getAnnotations(pie.chart);
+  //   expect(newAnnotations.length).toBe(1);
+  //   expect(newAnnotations[0].component.get('type')).toBe('text');
+  //   expect(newAnnotations[0].component.get('content')).toBe('自定义标注文本');
+  // });
 
   it('总计值为空', () => {
     const pie = new Pie(createDiv(), {
@@ -288,7 +289,7 @@ describe('中心文本 - 指标卡', () => {
       ...config,
       innerRadius: 0.64,
       interactions: [
-        { name: 'statistic-active' },
+        { name: 'pie-statistic-active' },
         { name: 'legend-filter', cfg: { start: [{ trigger: 'none' /** 通过此方式可以关闭交互 */ }] } },
       ],
     });
@@ -296,26 +297,29 @@ describe('中心文本 - 指标卡', () => {
     pie.render();
 
     const interactions = pie.chart.interactions;
-    expect(interactions['statistic-active']).toBeDefined();
+    expect(interactions['pie-statistic-active']).toBeDefined();
     const legendInteraction = interactions['legend-filter'];
     expect(legendInteraction).toBeDefined();
     // @ts-ignore
     expect(legendInteraction.steps['start'][0].trigger).toEqual('none');
   });
 
-  it('自定义 statistic-active 交互的 trigger 事件', () => {
+  it('自定义 pie-statistic-active 交互的 trigger 事件', () => {
     const pie = new Pie(createDiv(), {
       ...config,
       innerRadius: 0.64,
       interactions: [
-        { name: 'statistic-active', cfg: { start: [{ trigger: 'element:click', action: 'statistic:change' }] } },
+        {
+          name: 'pie-statistic-active',
+          cfg: { start: [{ trigger: 'element:click', action: 'pie-statistic:change' }] },
+        },
       ],
     });
 
     pie.render();
 
     const interactions = pie.chart.interactions;
-    const statisticInteraction = interactions['statistic-active'];
+    const statisticInteraction = interactions['pie-statistic-active'];
     // @ts-ignore
     expect(statisticInteraction.steps['start'][0].trigger).toEqual('element:click');
   });

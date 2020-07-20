@@ -128,13 +128,14 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
  */
 function annotation(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, annotations = [] } = options;
+  const { innerRadius, statistic, angleField, colorField } = options;
 
   const annotationController = chart.getController('annotation');
+  // todo remove ignore
   // @ts-ignore
   annotationController.clear(true);
 
-  const annotationOptions = [...annotations];
+  const annotationOptions = [];
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
@@ -152,7 +153,10 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
 
     // @ts-ignore
     const filterData = chart.filteredData;
-    const statisticData = getStatisticData(chart, filterData);
+
+    const angleScale = chart.getScaleByField(angleField);
+    const colorScale = chart.getScaleByField(colorField);
+    const statisticData = getStatisticData(filterData, angleScale, colorScale);
     const titleFormatter = get(title, 'formatter');
     const contentFormatter = get(content, 'formatter');
 

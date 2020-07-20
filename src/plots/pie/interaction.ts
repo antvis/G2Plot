@@ -34,14 +34,17 @@ export class StatisticAction extends Action {
     const { data } = event.data;
     if (data) {
       const annotationController = view.getController('annotation');
+      // todo remove ignore
       // @ts-ignore
       annotationController.clear(true);
       // @ts-ignore
       const [, angleField, colorField] = view.getScaleFields();
+      const angleScale = view.getScaleByField(angleField);
+      const colorScale = view.getScaleByField(colorField);
 
       const annotationOptions = annotations.filter((a) => get(a, 'extra.key') !== 'statistic').map((a) => a.extra);
       const statisticOptions = annotations.filter((a) => get(a, 'extra.key') === 'statistic').map((a) => a.extra || {});
-      const statisticData = getStatisticData(view, data);
+      const statisticData = getStatisticData(data, angleScale, colorScale);
 
       each(statisticOptions, (options, idx) => {
         const value = data[idx === 0 ? colorField : angleField];
@@ -51,6 +54,7 @@ export class StatisticAction extends Action {
         });
       });
       annotationOptions.forEach((opt) => {
+        // todo remove ignore
         // @ts-ignore
         annotationController.annotation(opt);
       });
@@ -60,8 +64,8 @@ export class StatisticAction extends Action {
 
   public reset() {
     const { view } = this.context;
-    // @ts-ignore
     const annotationController = view.getController('annotation');
+    // todo remove ignore
     // @ts-ignore
     annotationController.clear(true);
     const initialStatistic = this.getInitialAnnotation();
@@ -72,9 +76,9 @@ export class StatisticAction extends Action {
   }
 }
 
-registerAction('statistic', StatisticAction);
+registerAction('pie-statistic', StatisticAction);
 
-registerInteraction('statistic-active', {
-  start: [{ trigger: 'element:mouseenter', action: 'statistic:change' }],
-  end: [{ trigger: 'element:mouseleave', action: 'statistic:reset' }],
+registerInteraction('pie-statistic-active', {
+  start: [{ trigger: 'element:mouseenter', action: 'pie-statistic:change' }],
+  end: [{ trigger: 'element:mouseleave', action: 'pie-statistic:reset' }],
 });

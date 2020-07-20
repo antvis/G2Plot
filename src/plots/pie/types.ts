@@ -5,7 +5,6 @@ import { ShapeStyle } from '../../types/style';
 export type StatisticData = {
   title: string;
   value: string | number | null;
-  color?: string;
 };
 
 /**

@@ -1,7 +1,13 @@
-import { View } from '@antv/g2';
+import { Scale } from '@antv/g2/lib/dependents';
+import { Data, Datum } from '@antv/g2/lib/interface';
 import { each, isArray } from '@antv/util';
 import { StatisticData } from './types';
 
+/**
+ * 获取总计值
+ * @param data
+ * @param field
+ */
 export function getTotalValue(data: object[], field: string) {
   let total = null;
   each(data, (item) => {
@@ -12,11 +18,15 @@ export function getTotalValue(data: object[], field: string) {
   return total;
 }
 
-export function getStatisticData(chart: View, data: object[] | object, color?: string): StatisticData {
-  // @ts-ignore
-  const [, angleField, colorField] = chart.getScaleFields();
-  const angleScale = chart.getScaleByField(angleField);
-  const colorScale = chart.getScaleByField(colorField);
+/**
+ * 获取指标卡统计值
+ * @param data
+ * @param angleScale
+ * @param colorScale
+ */
+export function getStatisticData(data: Data | Datum, angleScale?: Scale, colorScale?: Scale): StatisticData {
+  const angleField = angleScale ? angleScale.field : null;
+  const colorField = colorScale ? colorScale.field : null;
 
   if (isArray(data)) {
     const value = getTotalValue(data, angleField);
@@ -30,6 +40,5 @@ export function getStatisticData(chart: View, data: object[] | object, color?: s
   return {
     title: colorScale ? colorScale.getText(data[colorField]) : null,
     value: angleScale ? angleScale.getText(data[angleField]) : data[angleField],
-    color,
   };
 }

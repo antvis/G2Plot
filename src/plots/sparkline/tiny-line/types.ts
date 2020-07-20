@@ -1,8 +1,8 @@
 import { Options } from '../../../types';
 import { ShapeStyle } from '../../../types/style';
 
-// @ts-ignore
 export interface TinyLineOptions extends Options {
+  /** 具体的数据 */
   data: any[];
   /** 是否平滑 */
   smooth?: boolean;

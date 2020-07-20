@@ -8,7 +8,6 @@ export interface LineOptions extends Options {
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-
   /** 是否平滑 */
   readonly smooth?: boolean;
   /** 是否连接空数据 */

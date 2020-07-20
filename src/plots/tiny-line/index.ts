@@ -1,7 +1,7 @@
-import { Plot } from '../../../core/plot';
+import { Plot } from '../../core/plot';
 import { TinyLineOptions } from './types';
 import { adaptor } from './adaptor';
-import { Adaptor } from '../../../core/adaptor';
+import { Adaptor } from '../../core/adaptor';
 
 export { TinyLineOptions };
 

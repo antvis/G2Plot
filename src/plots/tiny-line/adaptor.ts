@@ -1,6 +1,6 @@
 import { Geometry } from '@antv/g2';
-import { Params } from '../../../core/adaptor';
-import { flow } from '../../../utils';
+import { Params } from '../../core/adaptor';
+import { flow } from '../../utils';
 import { TinyLineOptions } from './types';
 import { isFunction } from '@antv/util';
 
@@ -12,13 +12,13 @@ function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
   const { data, connectNulls } = options;
 
-  const seriesData = data.map((item: number, index: number) => {
-    return { index, value: item };
+  const seriesData = data.map((y: number, x: number) => {
+    return { x, y };
   });
 
   chart.data(seriesData);
 
-  chart.line({ connectNulls }).position('index*value');
+  chart.line({ connectNulls }).position('x*y');
 
   return params;
 }
@@ -83,7 +83,7 @@ function style(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const geometry = chart.geometries[0];
   if (lineStyle && geometry) {
     if (isFunction(lineStyle)) {
-      geometry.style('index*value', lineStyle);
+      geometry.style('x*y', lineStyle);
     } else {
       geometry.style(lineStyle);
     }

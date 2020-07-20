@@ -2,6 +2,7 @@ import { Plot } from '../../core/plot';
 import { PieOptions } from './types';
 import { adaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
+import './interaction';
 
 export { PieOptions };
 

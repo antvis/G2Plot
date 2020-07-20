@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
+import { Params } from '../../../core/adaptor';
+import { flow } from '../../../utils';
 import { TinyLineOptions } from './types';
 
 /**
@@ -9,14 +9,15 @@ import { TinyLineOptions } from './types';
  */
 function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, seriesField, color, connectNulls } = options;
+  const { data, connectNulls } = options;
 
-  chart.data(data);
-  const geometry = chart.line({ connectNulls }).position(`${xField}*${yField}`);
+  const seriesData = data.map((item: number, index: number) => {
+    return { index, value: item };
+  });
 
-  if (seriesField) {
-    geometry.color(seriesField, color);
-  }
+  chart.data(seriesData);
+
+  chart.line({ connectNulls }).position('index*value');
 
   return params;
 }
@@ -27,15 +28,9 @@ function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  */
 function meta(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField, yField } = options;
+  const { meta } = options;
 
-  const KEYS = ['tickCount', 'tickInterval', 'min', 'max', 'nice', 'minLimit', 'maxLimit', 'tickMethod'];
-
-  // meta 直接是 scale 的信息
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, KEYS),
-    [yField]: pick(yAxis, KEYS),
-  });
+  const scales = deepMix({}, meta);
 
   chart.scale(scales);
 

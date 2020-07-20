@@ -11,4 +11,4 @@ export { Pie, PieOptions } from './plots/pie';
 //散点图及类型定义
 export { Scatter, ScatterOptions } from './plots/scatter';
 
-export { TinyLine, TinyLineOptions } from './sparkline/tinyLine';
+export { TinyLine, TinyLineOptions } from './plots/sparkline/tiny-line';

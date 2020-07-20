@@ -1,13 +1,13 @@
-import { Plot } from '../../core/plot';
+import { Plot } from '../../../core/plot';
 import { TinyLineOptions } from './types';
 import { adaptor } from './adaptor';
-import { Adaptor } from '../../core/adaptor';
+import { Adaptor } from '../../../core/adaptor';
 
 export { TinyLineOptions };
 
 export class TinyLine extends Plot<TinyLineOptions> {
   /** 图表类型 */
-  public type: string = 'tinyLine';
+  public type: string = 'tiny-line';
 
   /**
    * 获取 折线图 的适配器

@@ -151,8 +151,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       valueLineHeight = get(content, 'style.fontSize', 20);
     }
 
-    // @ts-ignore
-    const filterData = chart.filteredData;
+    const filterData = chart.getData();
 
     const angleScale = chart.getScaleByField(angleField);
     const colorScale = chart.getScaleByField(colorField);

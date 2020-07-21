@@ -33,7 +33,21 @@ const Page: React.FC = () => {
       yField: 'height',
       seriesField: 'gender',
       shape: ['circle', 'square'],
-      symbolSize: 5,
+      pointStyle: {
+        field: 'gender',
+        formatter: (type: string) => {
+          if (type === 'male') {
+            return {
+              stroke: 'red',
+              lineWidth: 1,
+            };
+          }
+          return {
+            stroke: 'yellow',
+            lineWidth: 1,
+          };
+        },
+      },
       tooltip: {
         showCrosshairs: true,
         crosshairs: {

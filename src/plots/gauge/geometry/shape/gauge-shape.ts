@@ -144,9 +144,9 @@ export class GaugeShape {
 
       drawCurrentRing(current: number) {
         const { starAngle } = this.getAngleRange();
-        const { color } = this.gauge.ringStyle;
+        const rangeStyle = this.gauge.rangeStyle;
         const path3 = this.getPath(starAngle, current);
-        this.drawRing(path3, color);
+        this.drawRing(path3, rangeStyle);
       },
 
       drawInSideAxis() {

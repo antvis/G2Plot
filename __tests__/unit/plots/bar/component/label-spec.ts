@@ -263,7 +263,7 @@ describe('Bar Label', () => {
     });
   });
 
-  it('label with scrollbar', () => {
+  xit('label with scrollbar', () => {
     const plot = new Bar(createDiv(), {
       ...config,
       data: cityData,

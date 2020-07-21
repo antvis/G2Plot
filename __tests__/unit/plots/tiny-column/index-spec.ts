@@ -57,10 +57,20 @@ describe('tiny-column', () => {
 
     tinyColumn.update({
       ...tinyColumn.options,
-      columnStyle: () => {
-        return { lineDash: [4, 4] };
+      columnStyle: (x, y) => {
+        return x > 10 ? { fill: '#222222' } : { fill: '#444444' };
       },
     });
-    expect(tinyColumn.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
+    expect(tinyColumn.chart.geometries[0].elements[0].shape.attr('fill')).toEqual('#444444');
+    expect(tinyColumn.chart.geometries[0].elements[11].shape.attr('fill')).toEqual('#222222');
+
+    tinyColumn.update({
+      ...tinyColumn.options,
+      columnStyle: (x, y) => {
+        return y > 4000 ? { fill: '#222222' } : { fill: '#444444' };
+      },
+    });
+    expect(tinyColumn.chart.geometries[0].elements[0].shape.attr('fill')).toEqual('#444444');
+    expect(tinyColumn.chart.geometries[0].elements[1].shape.attr('fill')).toEqual('#222222');
   });
 });

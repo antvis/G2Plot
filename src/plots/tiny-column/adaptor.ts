@@ -1,7 +1,7 @@
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyColumnOptions } from './types';
-import { isFunction } from '@antv/util';
 
 /**
  * 字段

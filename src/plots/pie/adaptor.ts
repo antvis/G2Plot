@@ -1,8 +1,7 @@
 import { deepMix, each, get, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip } from '../../common/adaptor';
+import { tooltip, interaction } from '../../common/adaptor';
 import { flow } from '../../utils';
-import { Interaction } from '../../types/interaction';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
@@ -15,7 +14,6 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { data, angleField, colorField, color } = options;
 
-  // TODO 饼图数据非法处理
   chart.data(data);
   const geometry = chart.interval().position(`1*${angleField}`).adjust({ type: 'stack' });
 
@@ -201,21 +199,6 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
   each(annotationOptions, (annotationOption) => {
     // @ts-ignore
     annotationController.annotation(annotationOption);
-  });
-
-  return params;
-}
-
-/**
- * Interaction 配置
- * @param params
- */
-export function interaction(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
-  const { interactions } = options;
-
-  each(interactions, (i: Interaction) => {
-    chart.interaction(i.name, i.cfg || {});
   });
 
   return params;

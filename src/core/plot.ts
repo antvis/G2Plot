@@ -1,12 +1,12 @@
 import { Chart } from '@antv/g2';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options, Data } from '../types';
+import { ChartOptions, Data } from '../types';
 
 /**
  * 所有 plot 的基类
  */
-export abstract class Plot<O extends Options> {
+export abstract class Plot<O extends ChartOptions> {
   /** plot 类型名称 */
   public abstract type: string = 'base';
   /** plot 的 schema 配置 */
@@ -29,7 +29,7 @@ export abstract class Plot<O extends Options> {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding } = this.options;
+    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
 
     this.chart = new Chart({
       container: this.container,
@@ -38,6 +38,9 @@ export abstract class Plot<O extends Options> {
       width,
       padding,
       appendPadding,
+      renderer,
+      pixelRatio,
+      localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
     });
   }
 

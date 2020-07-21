@@ -2,7 +2,7 @@ import { TinyArea } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
-describe('tiny-line', () => {
+describe('tiny-area', () => {
   it('data', () => {
     const tinyArea = new TinyArea(createDiv(), {
       width: 200,
@@ -45,7 +45,6 @@ describe('tiny-line', () => {
     });
 
     tinyArea.render();
-    console.log(tinyArea);
     expect(tinyArea.chart.geometries[0].elements[0].getModel().style.fill).toEqual('red');
   });
 

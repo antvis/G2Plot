@@ -34,7 +34,7 @@
     "lint": "eslint --ext .ts ./src ./__tests__",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/plots/tiny-area/",
+    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
     "ci": "run-s lint build coverage",
     "changelog": "conventional-changelog -i CHANGELOG.md -a -s",

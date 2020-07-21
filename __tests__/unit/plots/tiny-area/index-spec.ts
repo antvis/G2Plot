@@ -7,12 +7,6 @@ describe('tiny-area', () => {
     const tinyArea = new TinyArea(createDiv(), {
       width: 200,
       height: 100,
-      meta: {
-        value: {
-          min: 0,
-          max: 5000,
-        },
-      },
       data: partySupport
         .filter((o) => o.type === 'FF')
         .map((item) => {
@@ -22,20 +16,18 @@ describe('tiny-area', () => {
     });
 
     tinyArea.render();
-    expect(tinyArea.chart.geometries[0].elements.length).toBe(1);
+    expect(tinyArea.chart.geometries.length).toBe(2);
+    expect(tinyArea.chart.geometries[0].shapeType).toEqual('area');
+    expect(tinyArea.chart.geometries[1].shapeType).toEqual('line');
   });
 
-  it('data with color', () => {
+  it('data with area style', () => {
     const tinyArea = new TinyArea(createDiv(), {
       width: 200,
       height: 100,
-      meta: {
-        value: {
-          min: 0,
-          max: 5000,
-        },
+      areaStyle: {
+        fill: '#123456',
       },
-      color: 'red',
       data: partySupport
         .filter((o) => o.type === 'FF')
         .map((item) => {
@@ -45,19 +37,13 @@ describe('tiny-area', () => {
     });
 
     tinyArea.render();
-    expect(tinyArea.chart.geometries[0].elements[0].getModel().style.fill).toEqual('red');
+    expect(tinyArea.chart.geometries[0].elements[0].shape.attr('fill')).toEqual('#123456');
   });
 
   it('data with smooth', () => {
     const tinyArea = new TinyArea(createDiv(), {
       width: 200,
       height: 100,
-      meta: {
-        value: {
-          min: 0,
-          max: 5000,
-        },
-      },
       data: partySupport
         .filter((o) => o.type === 'FF')
         .map((item) => {
@@ -72,7 +58,7 @@ describe('tiny-area', () => {
     expect(tinyArea.chart.geometries[0].elements.length).toBe(1);
   });
 
-  it('data with style', () => {
+  it('data with line style', () => {
     const tinyArea = new TinyArea(createDiv(), {
       width: 200,
       height: 100,
@@ -83,7 +69,7 @@ describe('tiny-area', () => {
           return item.value;
         }),
       lineStyle: {
-        stroke: 'red',
+        stroke: '#123456',
         lineDash: [2, 2],
         lineWidth: 2,
       },
@@ -96,14 +82,14 @@ describe('tiny-area', () => {
     const geometry = tinyArea.chart.geometries[1];
     const elements = geometry.elements;
     expect(elements[0].shape.attr('lineDash')).toEqual([2, 2]);
-    expect(elements[0].shape.attr('stroke')).toEqual('red');
+    expect(elements[0].shape.attr('stroke')).toEqual('#123456');
     expect(elements[0].shape.attr('lineWidth')).toEqual(2);
 
     tinyArea.update({
       ...tinyArea.options,
       lineStyle: () => {
         return {
-          stroke: 'red',
+          stroke: '#123456',
           lineDash: [4, 4],
           lineWidth: 2,
         };
@@ -111,7 +97,7 @@ describe('tiny-area', () => {
     });
 
     expect(tinyArea.chart.geometries[1].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
-    expect(tinyArea.chart.geometries[1].elements[0].shape.attr('stroke')).toEqual('red');
+    expect(tinyArea.chart.geometries[1].elements[0].shape.attr('stroke')).toEqual('#123456');
     expect(tinyArea.chart.geometries[1].elements[0].shape.attr('lineWidth')).toEqual(2);
   });
 });

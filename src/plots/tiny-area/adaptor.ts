@@ -1,7 +1,7 @@
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyAreaOptions } from './types';
-import { isFunction } from '@antv/util';
 
 /**
  * 字段
@@ -78,20 +78,23 @@ function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  */
 function style(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { lineStyle, color } = options;
+  const { lineStyle, areaStyle } = options;
 
-  if (color) {
-    chart.geometries[0].style({
-      fill: color,
-    });
+  const areaGeometry = chart.geometries[0];
+  if (areaStyle && areaGeometry) {
+    if (isFunction(areaStyle)) {
+      areaGeometry.style('x*y', areaStyle);
+    } else {
+      areaGeometry.style(areaStyle);
+    }
   }
 
-  const geometry = chart.geometries[1];
-  if (lineStyle && geometry) {
+  const lineGeometry = chart.geometries[1];
+  if (lineStyle && lineGeometry) {
     if (isFunction(lineStyle)) {
-      geometry.style('x*y', lineStyle);
+      lineGeometry.style('x*y', lineStyle);
     } else {
-      geometry.style(lineStyle);
+      lineGeometry.style(lineStyle);
     }
   }
   return params;

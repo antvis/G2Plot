@@ -22,7 +22,6 @@ describe('tiny-column', () => {
     });
 
     tinyColumn.render();
-    console.log(tinyColumn);
     expect(tinyColumn.chart.geometries[0].elements.length).toBe(52);
   });
 

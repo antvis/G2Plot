@@ -11,5 +11,5 @@ export interface ProgressOptions extends ChartOptions {
   /** 数据字段元信息 */
   readonly meta?: Record<string, any>;
   /** 进度条样式 */
-  readonly progressStyle?: ShapeStyle | ((type?: string, percent?: number) => ShapeStyle);
+  readonly progressStyle?: ShapeStyle | ((x?: any, percent?: number, type?: string) => ShapeStyle);
 }

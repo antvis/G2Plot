@@ -52,3 +52,18 @@ export function animation<O extends Options>(params: Params<O>): Params<O> {
 
   return params;
 }
+
+/**
+ * 设置全局主题配置
+ * @param params
+ */
+export function theme<O extends Options>(params: Params<O>): Params<O> {
+  const { chart, options } = params;
+  const { theme } = options;
+
+  // 存在主题才设置主题
+  if (theme) {
+    chart.theme(theme);
+  }
+  return params;
+}

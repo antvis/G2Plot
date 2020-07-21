@@ -1,5 +1,8 @@
 export const version = '2.0.0';
 
+// G2 自定义能力透出
+export { registerTheme } from '@antv/g2';
+
 // 类型定义导出
 export * from './types';
 

@@ -56,3 +56,36 @@ describe('register interaction', () => {
     expect(annotations[0].extra.content).toBe('Total');
   });
 });
+
+describe('G2 内置interactions', () => {
+  const pie = new Pie(createDiv(), {
+    width: 400,
+    height: 300,
+    data: [
+      { type: 'item1', value: 10 },
+      { type: 'item2', value: 13 },
+    ],
+    angleField: 'value',
+    colorField: 'type',
+    radius: 0.8,
+    innerRadius: 0.64,
+    statistic: {
+      title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
+    },
+  });
+
+  pie.render();
+  it('交互: element-single-selected', () => {
+    pie.update({
+      ...pie.options,
+      interactions: [{ name: 'element-single-selected' }],
+    });
+  });
+
+  it('交互: pie-legend-active', () => {
+    pie.update({
+      ...pie.options,
+      interactions: [{ name: 'pie-legend-active' }],
+    });
+  });
+});

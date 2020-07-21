@@ -10,7 +10,7 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
   public type: string = 'tiny-column';
 
   /**
-   * 获取 迷你折线图 的适配器
+   * 获取 迷你柱形图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<TinyColumnOptions> {
     return adaptor;

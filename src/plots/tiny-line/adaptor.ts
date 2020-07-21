@@ -99,7 +99,7 @@ function shape(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
   const { smooth } = options;
 
-  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+  const lineGeometry = chart.geometries[0];
 
   lineGeometry.shape(smooth ? 'smooth' : 'line');
   return params;
@@ -111,6 +111,5 @@ function shape(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyLineOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
   flow(field, meta, axis, legend, tooltip, style, shape)(params);
 }

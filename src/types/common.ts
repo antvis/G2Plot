@@ -63,8 +63,8 @@ export type Meta = {
   readonly formatter?: (v: any) => string;
 };
 
-/** 基础的 Options 配置 */
-export type Options = {
+/** 画布的基本配置 */
+export type ChartOptions = {
   // 画布基本配置
   /** 画布宽度 */
   readonly width: number;
@@ -77,12 +77,6 @@ export type Options = {
   /** 额外怎加的 padding 值 */
   readonly appendPadding?: number[] | number;
 
-  // 通用数据配置
-  /** 具体的数据 */
-  readonly data: Record<string, any>[];
-  /** 数据字段元信息 */
-  readonly meta?: Record<string, any>;
-
   // G 相关
   /** 渲染引擎 */
   readonly renderer?: 'svg' | 'canvas';
@@ -90,6 +84,15 @@ export type Options = {
   readonly pixelRatio?: number;
   /** 是否开启局部渲染，默认为 true */
   readonly localRefresh?: boolean;
+};
+
+/** 基础的 Options 配置 */
+export type Options = ChartOptions & {
+  // 通用数据配置
+  /** 具体的数据 */
+  readonly data: Record<string, any>[];
+  /** 数据字段元信息 */
+  readonly meta?: Record<string, any>;
 
   // G2 相关
   /** 主题，G2 主题，字符串或者 theme object */
@@ -103,8 +106,4 @@ export type Options = {
   readonly legend?: Legend;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
-  // readonly guideLine?: GuideLineConfig[];
-  // readonly markerPoints?: (Omit<MarkerPointCfg, 'view'> & {
-  //   visible?: boolean;
-  // })[];
 };

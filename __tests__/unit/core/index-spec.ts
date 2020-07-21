@@ -31,4 +31,19 @@ describe('core', () => {
     // expect(line.container.getAttribute('size-sensor-id')).toBeNull();
     expect(line.chart.width).toBe(400);
   });
+
+  it('localRefresh', () => {
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    });
+
+    line.render();
+
+    expect(line.chart.localRefresh).toBe(false);
+  });
 });

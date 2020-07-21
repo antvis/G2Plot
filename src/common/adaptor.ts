@@ -1,6 +1,7 @@
 /**
  * @file 通用的一些 adaptor
  */
+import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
@@ -31,6 +32,22 @@ export function interaction<O extends Options>(params: Params<O>): Params<O> {
 
   each(interactions, (i: Interaction) => {
     chart.interaction(i.name, i.cfg || {});
+  });
+
+  return params;
+}
+
+/**
+ * 动画
+ * @param params
+ */
+export function animation<O extends Options>(params: Params<O>): Params<O> {
+  const { chart, options } = params;
+  const { animation } = options;
+
+  // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
+  each(chart.geometries, (g: Geometry) => {
+    g.animate(animation);
   });
 
   return params;

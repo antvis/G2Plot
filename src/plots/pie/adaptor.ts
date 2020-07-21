@@ -1,6 +1,6 @@
 import { deepMix, each, get, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction } from '../../common/adaptor';
+import { tooltip, interaction, animation } from '../../common/adaptor';
 import { flow } from '../../utils';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
@@ -211,5 +211,5 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, coord, legend, tooltip, label, style, annotation, interaction)(params);
+  flow(field, meta, coord, legend, tooltip, label, style, annotation, interaction, animation)(params);
 }

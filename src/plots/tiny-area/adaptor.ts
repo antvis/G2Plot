@@ -1,16 +1,15 @@
-import { Geometry } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { TinyLineOptions } from './types';
+import { TinyAreaOptions } from './types';
 import { isFunction } from '@antv/util';
 
 /**
  * 字段
  * @param params
  */
-function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function field(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data, connectNulls } = options;
+  const { data } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -18,7 +17,8 @@ function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
 
   chart.data(seriesData);
 
-  chart.line({ connectNulls }).position('x*y');
+  chart.area().position('x*y');
+  chart.line().position('x*y');
 
   return params;
 }
@@ -27,7 +27,7 @@ function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function meta(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
   const { meta } = options;
 
@@ -40,7 +40,7 @@ function meta(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * axis 配置
  * @param params
  */
-function axis(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function axis(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart } = params;
 
   chart.axis(false);
@@ -52,7 +52,7 @@ function axis(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * legend 配置
  * @param params
  */
-function legend(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function legend(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart } = params;
 
   chart.legend(false);
@@ -64,7 +64,7 @@ function legend(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * tooltip 配置
  * @param params
  */
-function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart } = params;
 
   chart.tooltip(false);
@@ -76,11 +76,17 @@ function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * 样式
  * @param params
  */
-function style(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function style(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { lineStyle } = options;
+  const { lineStyle, color } = options;
 
-  const geometry = chart.geometries[0];
+  if (color) {
+    chart.geometries[0].style({
+      fill: color,
+    });
+  }
+
+  const geometry = chart.geometries[1];
   if (lineStyle && geometry) {
     if (isFunction(lineStyle)) {
       geometry.style('x*y', lineStyle);
@@ -95,21 +101,24 @@ function style(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * shape 的配置处理
  * @param params
  */
-function shape(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function shape(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
   const { smooth } = options;
 
-  const lineGeometry = chart.geometries[0];
+  const areaGeometry = chart.geometries[0];
+  areaGeometry.shape(smooth ? 'smooth' : 'area');
 
+  const lineGeometry = chart.geometries[1];
   lineGeometry.shape(smooth ? 'smooth' : 'line');
+
   return params;
 }
 
 /**
- * 迷你折线图适配器
+ * 迷你面积图适配器
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<TinyLineOptions>) {
+export function adaptor(params: Params<TinyAreaOptions>) {
   flow(field, meta, axis, legend, tooltip, style, shape)(params);
 }

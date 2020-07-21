@@ -8,10 +8,12 @@ export interface TinyAreaOptions extends ChartOptions {
   readonly data: number[];
   /** 数据字段元信息 */
   readonly meta?: Record<string, any>;
+  /** 面积图颜色 */
+  readonly color?: string;
   /** 是否平滑 */
   readonly smooth?: boolean;
   /** 是否连接空数据 */
   readonly connectNulls?: boolean;
-  /** 折线extra图形样式 */
+  /** 面积extra图形样式 */
   readonly lineStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
 }

@@ -39,8 +39,8 @@ export abstract class Plot<O extends ChartOptions> {
       padding,
       appendPadding,
       renderer,
-      localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
       pixelRatio,
+      localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
     });
   }
 

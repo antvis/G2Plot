@@ -96,7 +96,7 @@ describe('scatter', () => {
       xField: 'weight',
       yField: 'height',
       shapeField: 'gender',
-      size: 'weight',
+      size: 10,
       shape: (gender: string) => {
         if (gender === 'female') {
           return 'square';

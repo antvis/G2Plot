@@ -31,24 +31,9 @@ const Page: React.FC = () => {
       data: data.slice(0, 50),
       xField: 'weight',
       yField: 'height',
-      // shape: 'circle',
-      // shape: ['circle', 'square'],
-      shape: ['image', 'https://gw.alipayobjects.com/zos/rmsportal/dWJWRLWfpOEbwCyxmZwu.png'],
-      // shape: (v) => {
-      //   return 'circle';
-      // },
-      // colorField: 'gender',
-      // color: 'red',
-      // color: ['green', 'red'],
-      // color: (v, d) => {
-      //   return 'red';
-      // },
-      // sizeField: 'weight',
+      shape: ['circle', 'square'],
+      color: ['green', 'red'],
       pointSize: 'weight',
-      // pointSize: [10, 20],
-      // pointSize: (v, d) => {
-      //   return [10, 29];
-      // },
       tooltip: {
         showCrosshairs: true,
         crosshairs: {

@@ -19,7 +19,7 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   chart.data(data);
   const geometry = chart.point().position(`${xField}*${yField}`);
 
-  // 统一处理 color 、 pointSize  、 shape
+  // 统一处理 color、 pointSize、 shape
   const reflectKeys = Object.keys(REFLECTS);
   reflectKeys.forEach((key: string) => {
     if (options[key]) {

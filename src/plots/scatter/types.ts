@@ -19,16 +19,10 @@ interface PointStyle {
   readonly opacity?: number;
 
   /** 填充透明度  */
-  readonly fillOpacity?: string;
+  readonly fillOpacity?: number;
 
   /** 描边透明度  */
   readonly strokeOpacity?: number;
-
-  /** 映射字段 */
-  readonly field?: string;
-
-  /** 根据 field 进行映射 */
-  readonly formatter?: (value: string) => PointStyle;
 }
 
 interface Quadrant {

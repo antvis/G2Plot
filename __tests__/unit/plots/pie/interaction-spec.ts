@@ -3,7 +3,8 @@ import InteractionContext from '@antv/g2/lib/interaction/context';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
-import { StatisticAction } from '../../../../src/plots/pie/interaction';
+import { StatisticAction } from '../../../../src/plots/pie/interaction/pie-statistic-action';
+import { PieLegendAction } from '../../../../src/plots/pie/interaction/pie-legend-action';
 
 describe('register interaction', () => {
   it('创建 "pie-statistic" action', () => {
@@ -80,6 +81,8 @@ describe('G2 内置interactions', () => {
       ...pie.options,
       interactions: [{ name: 'element-single-selected' }],
     });
+
+    expect(pie.chart.interactions['element-single-selected']).toBeDefined();
   });
 
   it('交互: pie-legend-active', () => {
@@ -87,5 +90,8 @@ describe('G2 内置interactions', () => {
       ...pie.options,
       interactions: [{ name: 'pie-legend-active' }],
     });
+
+    expect(pie.chart.interactions['pie-legend-active']).toBeDefined();
+    expect(pie.chart.interactions['legend-active']).toBeDefined();
   });
 });

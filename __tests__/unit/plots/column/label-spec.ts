@@ -24,10 +24,15 @@ describe('column label', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({
       position: 'top',
+    });
+    expect(labelGroups).toHaveLength(salesByArea.length);
+    labelGroups.forEach((label, index) => {
+      expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(salesByArea[index].sales / 10000)}万`);
     });
   });
 

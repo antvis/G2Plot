@@ -108,9 +108,13 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
   const { chart, options } = params;
   const { innerRadius, radius } = options;
 
+  // 默认为radius为1，innerRadius为radius的一半
+  const radiusTheta = radius && radius > 0 ? radius : 1;
+  const innerRadiusTheta = innerRadius && innerRadius > 0 && innerRadius < radius ? innerRadius : radiusTheta / 2;
+
   chart.coordinate('theta', {
-    innerRadius,
-    radius,
+    innerRadius: innerRadiusTheta,
+    radius: radiusTheta,
   });
 
   return params;

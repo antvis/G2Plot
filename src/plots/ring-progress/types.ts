@@ -7,9 +7,9 @@ export interface RingProgressOptions extends ChartOptions {
   /** 进度百分比 */
   readonly percent: number;
   /** 外环的半径 */
-  readonly radius: number;
+  readonly radius?: number;
   /** 内环的半径 */
-  readonly innerRadius: number;
+  readonly innerRadius?: number;
   /** 进度条颜色 */
   readonly color?: string[] | ((percent: number) => string[]);
   /** 数据字段元信息 */

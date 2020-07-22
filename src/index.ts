@@ -26,3 +26,9 @@ export { TinyColumn, TinyColumnOptions } from './plots/tiny-column';
 
 // 迷你面积图及类型定义
 export { TinyArea, TinyAreaOptions } from './plots/tiny-area';
+
+// 进度图及类型定义
+export { Progress, ProgressOptions } from './plots/progress';
+
+// 环形进度图及类型定义
+export { RingProgress, RingProgressOptions } from './plots/ring-progress';

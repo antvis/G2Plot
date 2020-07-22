@@ -1,13 +1,10 @@
 import { Geometry, Chart } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { findGeometry } from '../../common/helper';
 import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-
-function findGeometry(chart: Chart): Geometry | undefined {
-  return chart.geometries.find((g: Geometry) => g.type === 'interval');
-}
 
 /**
  * 字段
@@ -61,7 +58,7 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
   }
 
   if (yAxis === false) {
-    chart.axis(xField, false);
+    chart.axis(yField, false);
   } else {
     chart.axis(yField, yAxis);
   }
@@ -92,7 +89,7 @@ function style(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
   const { xField, yField, colorField, columnStyle } = options;
 
-  const geometry = findGeometry(chart);
+  const geometry = findGeometry(chart, 'interval');
   if (columnStyle && geometry) {
     if (isFunction(columnStyle)) {
       geometry.style(colorField ? `${xField}*${yField}*${colorField}` : `${xField}*${yField}`, columnStyle);
@@ -111,7 +108,7 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
   const { label, yField } = options;
 
-  const geometry = findGeometry(chart);
+  const geometry = findGeometry(chart, 'interval');
 
   if (!label) {
     geometry.label(false);

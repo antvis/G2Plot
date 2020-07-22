@@ -59,7 +59,7 @@ function axis(params: Params<LineOptions>): Params<LineOptions> {
   }
 
   if (yAxis === false) {
-    chart.axis(xField, false);
+    chart.axis(yField, false);
   } else {
     chart.axis(yField, yAxis);
   }

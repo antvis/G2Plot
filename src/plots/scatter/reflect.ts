@@ -1,10 +1,19 @@
+import { isArray, isFunction } from '@antv/util';
+
 export const REFLECTS = {
-  pointStyle: {
-    action: 'style',
-    required: ['formatter', 'field'],
+  shape: {
+    action: 'shape',
+    field: 'shapeField',
+    rules: [isArray, isFunction],
   },
   pointSize: {
     action: 'size',
-    required: '',
+    field: 'sizeField',
+    rules: [isArray, isFunction],
+  },
+  color: {
+    action: 'color',
+    field: 'colorField',
+    rules: [isArray, isFunction],
   },
 };

@@ -1,7 +1,7 @@
-import { deepMix, isString } from '@antv/util';
+import { deepMix, isFunction } from '@antv/util';
 import { Geometry } from '@antv/g2';
 import { Params } from '../../core/adaptor';
-import { flow, pick, includeKeys } from '../../utils';
+import { flow, pick } from '../../utils';
 import { ScatterOptions } from './types';
 import { tooltip } from '../../common/adaptor';
 import { KEYS } from '../../constants';
@@ -13,35 +13,31 @@ import { REFLECTS } from './reflect';
  */
 function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, pointSize, seriesField, color, shape } = options;
+  const { data, xField, yField } = options;
 
   // 散点图操作逻辑
   chart.data(data);
   const geometry = chart.point().position(`${xField}*${yField}`);
 
-  // 颜色映射
-  if (seriesField) {
-    geometry.color(seriesField, color);
-    geometry.shape(seriesField, shape);
-  }
-
-  // 单一样式映射
+  // 统一处理 color 、 pointSize  、 shape
   const reflectKeys = Object.keys(REFLECTS);
   reflectKeys.forEach((key: string) => {
     if (options[key]) {
-      if (includeKeys(options[key], REFLECTS[key].required)) {
-        geometry[REFLECTS[key].action](options[key].field, options[key].formatter);
+      let validateRules = false;
+      (REFLECTS[key].rules || []).forEach((fn: Function) => {
+        // 满足任一规则即可
+        if (fn && fn(options[key])) {
+          validateRules = true;
+        }
+      });
+      if (validateRules) {
+        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
       } else {
         geometry[REFLECTS[key].action](options[key]);
       }
     }
   });
 
-  // 大小映射
-  if (pointSize) {
-    const size = typeof pointSize === 'number' ? ([pointSize, pointSize] as [number, number]) : pointSize;
-    geometry.size(yField, size);
-  }
   return params;
 }
 
@@ -99,22 +95,18 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function style(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { xField, yField, seriesField } = options;
+  const { xField, yField, pointStyle } = options;
 
-  return params;
-}
+  const geometry = chart.geometries[0];
 
-/**
- * shape 的配置处理
- * @param params
- */
-function shape(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
-  const { shape } = options;
+  if (pointStyle && geometry) {
+    if (isFunction(pointStyle)) {
+      geometry.style(`${xField}*${yField}`, pointStyle);
+    } else {
+      geometry.style(pointStyle);
+    }
+  }
 
-  const scatterGeometry = chart.geometries.find((g: Geometry) => g.type === 'point');
-
-  // chart.geometries.shape(shape);
   return params;
 }
 
@@ -150,5 +142,5 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style, shape, label)(params);
+  flow(field, meta, axis, legend, tooltip, style, label)(params);
 }

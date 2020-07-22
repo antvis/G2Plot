@@ -6,6 +6,9 @@ import { isString, isObject } from '@antv/util';
  * @param keys
  */
 export function includeKeys(obj: any, keys: string | string[]): boolean {
+  if (!keys) {
+    return true;
+  }
   if (!isObject(obj)) {
     return false;
   }

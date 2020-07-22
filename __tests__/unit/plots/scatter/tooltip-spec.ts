@@ -20,6 +20,7 @@ describe('scatter', () => {
     });
 
     scatter.render();
+
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
@@ -27,7 +28,6 @@ describe('scatter', () => {
     // 正常渲染
     scatter.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(document.getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe('scatter');
-
     // @ts-ignore
     expect(scatter.chart.options.tooltip.title).toBe('scatter');
   });
@@ -56,6 +56,7 @@ describe('scatter', () => {
     });
 
     scatter.render();
+
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();

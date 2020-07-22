@@ -10,19 +10,19 @@ interface PointStyle {
   readonly stroke?: string;
 
   /** 线宽  */
-  readonly lineWidth?: string;
+  readonly lineWidth?: number;
 
   /** 虚线显示  */
-  readonly lineDash?: string;
+  readonly lineDash?: number[];
 
   /** 透明度  */
-  readonly opacity?: string;
+  readonly opacity?: number;
 
   /** 填充透明度  */
   readonly fillOpacity?: string;
 
   /** 描边透明度  */
-  readonly strokeOpacity?: string;
+  readonly strokeOpacity?: number;
 
   /** 映射字段 */
   readonly field?: string;
@@ -86,14 +86,17 @@ export interface ScatterOptions extends Options {
   /** 分组字段 */
   readonly seriesField?: string;
 
+  /** 点大小映射对应的数据字段名 */
+  readonly sizeField?: string;
+
   /** 散点图大小 */
-  readonly pointSize?: number | [number, number] | ((value: number) => number);
+  readonly pointSize?: string | number | [number, number] | ((value: number) => number);
 
   /** 散点图形状 */
-  readonly shape?: string[] | ((item: any[]) => string | string[]);
+  readonly shape?: string | string[] | ((item: any[]) => string);
 
   /** 散点图样式 */
-  readonly pointStyle?: PointStyle;
+  readonly pointStyle?: PointStyle | ((...args: string[]) => ShapeStyle);
 
   /** 点颜色映射对应的数据字段名 */
   readonly colorField?: string;

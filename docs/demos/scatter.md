@@ -28,26 +28,27 @@ const Page: React.FC = () => {
       width: 400,
       height: 300,
       appendPadding: 10,
-      data,
+      data: data.slice(0, 50),
       xField: 'weight',
       yField: 'height',
-      seriesField: 'gender',
-      shape: ['circle', 'square'],
-      pointStyle: {
-        field: 'gender',
-        formatter: (type: string) => {
-          if (type === 'male') {
-            return {
-              stroke: 'red',
-              lineWidth: 1,
-            };
-          }
-          return {
-            stroke: 'yellow',
-            lineWidth: 1,
-          };
-        },
-      },
+      // shape: 'circle',
+      // shape: ['circle', 'square'],
+      shape: ['image', 'https://gw.alipayobjects.com/zos/rmsportal/dWJWRLWfpOEbwCyxmZwu.png'],
+      // shape: (v) => {
+      //   return 'circle';
+      // },
+      // colorField: 'gender',
+      // color: 'red',
+      // color: ['green', 'red'],
+      // color: (v, d) => {
+      //   return 'red';
+      // },
+      // sizeField: 'weight',
+      pointSize: 'weight',
+      // pointSize: [10, 20],
+      // pointSize: (v, d) => {
+      //   return [10, 29];
+      // },
       tooltip: {
         showCrosshairs: true,
         crosshairs: {

@@ -4,6 +4,7 @@ import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { LineOptions } from './types';
+import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * 字段
@@ -31,12 +32,10 @@ function meta(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, yField } = options;
 
-  const KEYS = ['tickCount', 'tickInterval', 'min', 'max', 'nice', 'minLimit', 'maxLimit', 'tickMethod'];
-
   // meta 直接是 scale 的信息
   const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, KEYS),
-    [yField]: pick(yAxis, KEYS),
+    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
+    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
   });
 
   chart.scale(scales);
@@ -60,7 +59,7 @@ function axis(params: Params<LineOptions>): Params<LineOptions> {
   }
 
   if (yAxis === false) {
-    chart.axis(xField, false);
+    chart.axis(yField, false);
   } else {
     chart.axis(yField, yAxis);
   }

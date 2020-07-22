@@ -8,11 +8,11 @@ import { ChartOptions, Data } from '../types';
  */
 export abstract class Plot<O extends ChartOptions> {
   /** plot 类型名称 */
-  public abstract type: string = 'base';
+  public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
   public options: O;
   /** plot 绘制的 dom */
-  public container: HTMLElement;
+  public readonly container: HTMLElement;
   /** G2 chart 实例 */
   public chart: Chart;
   /** resizer unbind  */

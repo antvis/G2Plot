@@ -98,7 +98,7 @@ export type Options = ChartOptions & {
   /** 主题，G2 主题，字符串或者 theme object */
   readonly theme?: string | object;
   /** 颜色色板 */
-  readonly color?: string | string[];
+  readonly color?: string | string[] | ((...args: any[]) => string);
   readonly xAxis?: Axis;
   readonly yAxis?: Axis;
   readonly label?: Label;

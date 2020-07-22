@@ -1,7 +1,7 @@
 import { Geometry } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { LineOptions } from './types';
 
@@ -142,11 +142,40 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
 }
 
 /**
+ * point 辅助点的配置处理
+ * @param params
+ */
+function point(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { point, seriesField, xField, yField } = options;
+
+  if (point) {
+    const { shape, size, style } = point;
+    const pointGeometry = chart.point().position(`${xField}*${yField}`).size(size);
+
+    // shape
+    if (isFunction(shape)) {
+      pointGeometry.shape(`${xField}*${yField}*${seriesField}`, shape);
+    } else {
+      pointGeometry.shape(shape);
+    }
+
+    // style
+    if (isFunction(style)) {
+      pointGeometry.style(`${xField}*${yField}*${seriesField}`, style);
+    } else {
+      pointGeometry.style(style);
+    }
+  }
+  return params;
+}
+
+/**
  * 折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style, shape, label)(params);
+  flow(field, meta, point, theme, axis, legend, tooltip, style, shape, label, interaction, animation)(params);
 }

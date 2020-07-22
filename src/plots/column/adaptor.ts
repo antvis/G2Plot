@@ -92,7 +92,7 @@ function style(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const geometry = findGeometry(chart, 'interval');
   if (columnStyle && geometry) {
     if (isFunction(columnStyle)) {
-      geometry.style(colorField ? `${xField}*${yField}*${colorField}` : `${xField}*${yField}`, columnStyle);
+      geometry.style(`${xField}*${yField}*${colorField}`, columnStyle);
     } else {
       geometry.style(columnStyle);
     }

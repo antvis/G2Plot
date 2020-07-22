@@ -3,30 +3,6 @@ import { data } from '../../../data/gender';
 import { createDiv } from '../../../utils/dom';
 
 describe('scatter', () => {
-  it('size: string options', () => {
-    const scatter = new Scatter(createDiv(), {
-      width: 400,
-      height: 300,
-      appendPadding: 10,
-      data,
-      xField: 'weight',
-      yField: 'height',
-      size: 'weight',
-      xAxis: {
-        nice: true,
-      },
-    });
-
-    scatter.render();
-
-    const geometry = scatter.chart.geometries[0];
-    const elements = geometry.elements;
-
-    expect(elements.length).toBe(507);
-    expect(elements[0].getModel().size).not.toBe(0);
-    expect(elements[0].getModel().size).not.toBe(elements[elements.length - 1].getModel().size);
-  });
-
   it('size: number options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
@@ -35,7 +11,8 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      size: 5,
+      sizeField: 'weight',
+      size: [5, 10],
       xAxis: {
         nice: true,
       },

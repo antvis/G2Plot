@@ -64,7 +64,7 @@ export interface ScatterOptions extends Options {
   /** 点大小映射对应的数据字段名 */
   readonly sizeField?: string;
   /** 散点图大小 */
-  readonly size?: string | number | [number, number] | ((value: number) => number);
+  readonly size?: number | [number, number] | ((value: number) => number);
   /** 点形状映射对应的数据字段名 */
   readonly shapeField?: string;
   /** 散点图形状 */

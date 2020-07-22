@@ -29,11 +29,9 @@ describe('scatter', () => {
     scatter.render();
 
     const geometry = scatter.chart.geometries[0];
-
     const elements = geometry.elements;
 
     expect(elements.length).not.toBe(0);
-
     // @ts-ignore
     expect(scatter.chart.options.axes.weight.label.style.fill).toBe('green');
     // @ts-ignore

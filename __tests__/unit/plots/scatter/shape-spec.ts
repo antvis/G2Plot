@@ -20,21 +20,17 @@ describe('scatter', () => {
     scatter.render();
 
     const geometry = scatter.chart.geometries[0];
-
     const elements = geometry.elements;
 
     expect(elements.length).not.toBe(0);
 
     const shapeArr = [];
-
     elements.forEach((ele) => {
       shapeArr.push(ele.getModel().shape);
     });
-
-    expect(shapeArr).toContain('circle');
-
     const set = new Set(shapeArr);
 
+    expect(shapeArr).toContain('circle');
     expect(set.size > 2).toBeTruthy();
   });
 
@@ -55,12 +51,11 @@ describe('scatter', () => {
     scatter.render();
 
     const geometry = scatter.chart.geometries[0];
-
     const elements = geometry.elements;
 
     expect(elements.length).not.toBe(0);
-
-    expect(elements[~~Math.random() * (elements.length - 1)].getModel().shape).toBe('hollow-diamond');
+    expect(elements[0].getModel().shape).toBe('hollow-diamond');
+    expect(elements[elements.length - 1].getModel().shape).toBe('hollow-diamond');
   });
 
   it('shape: number array options', () => {
@@ -78,24 +73,17 @@ describe('scatter', () => {
     });
 
     scatter.render();
-
     const geometry = scatter.chart.geometries[0];
-
-    // @ts-ignore
-    expect(geometry.attributeOption.shape.values.length).toBe(2);
-
     const elements = geometry.elements;
-
-    expect(elements.length).not.toBe(0);
-
     const shapeArr = [];
-
     elements.forEach((ele) => {
       shapeArr.push(ele.getModel().shape);
     });
-
     const set = new Set(shapeArr);
 
+    // @ts-ignore
+    expect(geometry.attributeOption.shape.values.length).toBe(2);
+    expect(elements.length).not.toBe(0);
     expect(set.size).toBe(2);
   });
 
@@ -116,16 +104,12 @@ describe('scatter', () => {
     });
 
     scatter.render();
-
     const geometry = scatter.chart.geometries[0];
+    const elements = geometry.elements;
 
     // @ts-ignore
     expect(geometry.attributeOption.shape.callback).toBeFunction();
-
-    const elements = geometry.elements;
-
     expect(elements.length).not.toBe(0);
-
     expect(elements[0].getModel().shape).toBe('circle');
   });
 });

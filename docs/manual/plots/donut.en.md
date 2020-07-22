@@ -49,7 +49,7 @@ order: 15
 # 快速上手
 
 ```js
-import { Ring } from '@antv/g2plot';
+import { Donut } from '@antv/g2plot';
 
 const data = [
   {
@@ -78,7 +78,7 @@ const data = [
   },
 ];
 
-const ringPlot = new Ring(document.getElementById('container'), {
+const donutPlot = new Donut(document.getElementById('container'), {
   forceFit: true,
   radius: 0.8,
   data,
@@ -86,7 +86,7 @@ const ringPlot = new Ring(document.getElementById('container'), {
   colorField: 'type',
 });
 
-ringPlot.render();
+donutPlot.render();
 
 ```
 
@@ -244,10 +244,10 @@ color:(d)=>{
 }
 ```
 
-### ringStyle ✨
+### pieStyle ✨
 **可选**, *object*
 
-功能描述： 设置扇形样式。ringStyle中的`fill`会覆盖 `color` 的配置。ringStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
+功能描述： 设置扇形样式。pieStyle中的`fill`会覆盖 `color` 的配置。pieStyle可以直接指定，也可以通过callback的方式，根据数据为每个扇形切片指定单独的样式。
 
 默认配置： 无
 

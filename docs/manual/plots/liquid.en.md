@@ -141,7 +141,7 @@ liquidPlot.render();
 
 默认配置： 使用默认色板的颜色
 
-### liqiudStyle ✨
+### liquidStyle ✨
 **可选**, *object*
 
 功能描述： 配置水波图的样式
@@ -226,7 +226,7 @@ style:{
 | style | object | 样式：<br />- fontSize: number 文字大小<br />- fill: string 文字颜色<br />- stroke: string  描边颜色<br />- lineWidth: number 描边粗细<br />- lineDash: number 虚线描边<br />- opacity: number 透明度<br />- fillOpacity: number 填充透明度<br />- strokeOpacity: number 描边透明度<br /> |
 
 
-### statictic ✨
+### statistic ✨
 **可选**, *object*
 
 功能描述： 指标卡组件，用于显示位于位于水波图中心的文本
@@ -243,6 +243,7 @@ adjustColor: true
 | adjustColor | boolean | 是否根据水波图颜色自动调整颜色 |
 | formatter | function | 对指标卡文本进行格式化，默认值为value |
 | style | object | 配置指标卡文字样式 |
+| htmlContent | function | 配置指标卡html字符串  |
 
 
 ## 事件

@@ -52,7 +52,6 @@ describe('scatter', () => {
 
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
-    console.log(elements);
 
     expect(elements.length).toBe(507);
     expect(elements[0].getModel().shape).toBe('hollow-diamond');
@@ -96,7 +95,12 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      shape: () => {
+      shapeField: 'gender',
+      size: 'weight',
+      shape: (gender: string) => {
+        if (gender === 'female') {
+          return 'square';
+        }
         return 'circle';
       },
       xAxis: {
@@ -107,10 +111,15 @@ describe('scatter', () => {
     scatter.render();
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
+    const shapeArr = [];
+    elements.forEach((ele) => {
+      shapeArr.push(ele.getModel().shape);
+    });
 
     // @ts-ignore
     expect(geometry.attributeOption.shape.callback).toBeFunction();
     expect(elements.length).toBe(507);
-    expect(elements[0].getModel().shape).toBe('circle');
+    expect(shapeArr).toContain('circle');
+    expect(shapeArr).toContain('square');
   });
 });

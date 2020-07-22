@@ -11,7 +11,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: 'weight',
+      size: 'weight',
       xAxis: {
         nice: true,
       },
@@ -40,23 +40,38 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: 'weight',
+      size: 'weight',
+      colorField: 'gender',
       xAxis: {
         nice: true,
       },
-      pointStyle: () => ({
-        fill: 'red',
-        stroke: 'yellow',
-        opacity: 0.8,
-      }),
+      pointStyle: (x: number, y: number, colorField: string) => {
+        if (colorField === 'male') {
+          return {
+            fill: 'green',
+            stroke: 'yellow',
+            opacity: 0.8,
+          };
+        }
+        return {
+          fill: 'red',
+          stroke: 'yellow',
+          opacity: 0.8,
+        };
+      },
     });
 
     scatter.render();
 
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
+    const colorArr = [];
+    elements.forEach((ele) => {
+      colorArr.push(ele.shape.attr('fill'));
+    });
 
-    expect(elements[0].shape.attr('fill')).toBe('red');
+    expect(colorArr).toContain('red');
+    expect(colorArr).toContain('green');
     expect(elements[0].shape.attr('stroke')).toBe('yellow');
     expect(elements[0].shape.attr('opacity')).toBe(0.8);
   });

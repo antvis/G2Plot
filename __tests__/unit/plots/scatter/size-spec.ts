@@ -11,7 +11,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: 'weight',
+      size: 'weight',
       xAxis: {
         nice: true,
       },
@@ -35,7 +35,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: 5,
+      size: 5,
       xAxis: {
         nice: true,
       },
@@ -59,7 +59,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: [5, 10],
+      size: [5, 10],
       xAxis: {
         nice: true,
       },
@@ -84,8 +84,8 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: () => {
-        return 6;
+      size: (value: number) => {
+        return Math.ceil(value / 10);
       },
       xAxis: {
         nice: true,
@@ -96,10 +96,16 @@ describe('scatter', () => {
 
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
+    const sizeArr = [];
+    elements.forEach((ele) => {
+      sizeArr.push(ele.getModel().size);
+    });
+    sizeArr.sort((a, b) => a - b);
 
     // @ts-ignore
     expect(geometry.attributeOption.size.callback).toBeFunction();
     expect(elements.length).toBe(507);
-    expect(elements[0].getModel().size).toBe(6);
+    expect(sizeArr[0] > 0).toBeTruthy();
+    expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
   });
 });

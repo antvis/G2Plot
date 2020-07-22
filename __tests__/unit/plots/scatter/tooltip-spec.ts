@@ -10,7 +10,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: 10,
+      size: 10,
       xAxis: {
         nice: true,
       },
@@ -39,7 +39,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      pointSize: 10,
+      size: 10,
       xAxis: {
         nice: true,
       },

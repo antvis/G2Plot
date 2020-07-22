@@ -109,8 +109,7 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
   const geometry = chart.geometries[0];
   if (pieStyle && geometry) {
     if (isFunction(pieStyle)) {
-      // 为了兼容，colorField 放第一位
-      geometry.style(colorField ? `${colorField}*${angleField}` : angleField, pieStyle);
+      geometry.style(`${angleField}*${colorField}`, pieStyle);
     } else {
       geometry.style(pieStyle);
     }

@@ -3,7 +3,8 @@ import InteractionContext from '@antv/g2/lib/interaction/context';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
-import { StatisticAction } from '../../../../src/plots/pie/interaction';
+import { StatisticAction } from '../../../../src/plots/pie/interaction/pie-statistic-action';
+import { PieLegendAction } from '../../../../src/plots/pie/interaction/pie-legend-action';
 
 describe('register interaction', () => {
   it('创建 "pie-statistic" action', () => {
@@ -54,5 +55,43 @@ describe('register interaction', () => {
     delay(5000);
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].extra.content).toBe('Total');
+  });
+});
+
+describe('G2 内置interactions', () => {
+  const pie = new Pie(createDiv(), {
+    width: 400,
+    height: 300,
+    data: [
+      { type: 'item1', value: 10 },
+      { type: 'item2', value: 13 },
+    ],
+    angleField: 'value',
+    colorField: 'type',
+    radius: 0.8,
+    innerRadius: 0.64,
+    statistic: {
+      title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
+    },
+  });
+
+  pie.render();
+  it('交互: element-single-selected', () => {
+    pie.update({
+      ...pie.options,
+      interactions: [{ name: 'element-single-selected' }],
+    });
+
+    expect(pie.chart.interactions['element-single-selected']).toBeDefined();
+  });
+
+  it('交互: pie-legend-active', () => {
+    pie.update({
+      ...pie.options,
+      interactions: [{ name: 'pie-legend-active' }],
+    });
+
+    expect(pie.chart.interactions['pie-legend-active']).toBeDefined();
+    expect(pie.chart.interactions['legend-active']).toBeDefined();
   });
 });

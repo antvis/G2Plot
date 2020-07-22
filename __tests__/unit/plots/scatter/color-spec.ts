@@ -22,7 +22,7 @@ describe('scatter', () => {
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
 
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().color).toBe('red');
   });
 
@@ -47,7 +47,7 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(geometry.attributeOption.color.values.length).toBe(2);
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().color).not.toBe('red');
   });
 });

@@ -22,7 +22,7 @@ describe('scatter', () => {
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
 
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().size).not.toBe(0);
     expect(elements[0].getModel().size).not.toBe(elements[elements.length - 1].getModel().size);
   });
@@ -46,7 +46,7 @@ describe('scatter', () => {
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
 
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().size).toBe(5);
     expect(elements[0].getModel().size).toBe(elements[elements.length - 1].getModel().size);
   });
@@ -72,7 +72,7 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(geometry.attributeOption.size.values.length).toBe(2);
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().size).not.toBe(elements[elements.length - 1].getModel().size);
   });
 
@@ -99,7 +99,7 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(geometry.attributeOption.size.callback).toBeFunction();
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().size).toBe(6);
   });
 });

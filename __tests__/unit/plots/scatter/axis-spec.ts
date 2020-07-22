@@ -31,7 +31,7 @@ describe('scatter', () => {
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
 
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     // @ts-ignore
     expect(scatter.chart.options.axes.weight.label.style.fill).toBe('green');
     // @ts-ignore

@@ -22,7 +22,7 @@ describe('scatter', () => {
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
 
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
 
     const shapeArr = [];
     elements.forEach((ele) => {
@@ -52,8 +52,9 @@ describe('scatter', () => {
 
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
+    console.log(elements);
 
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().shape).toBe('hollow-diamond');
     expect(elements[elements.length - 1].getModel().shape).toBe('hollow-diamond');
   });
@@ -83,7 +84,7 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(geometry.attributeOption.shape.values.length).toBe(2);
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(set.size).toBe(2);
   });
 
@@ -109,7 +110,7 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(geometry.attributeOption.shape.callback).toBeFunction();
-    expect(elements.length).not.toBe(0);
+    expect(elements.length).toBe(507);
     expect(elements[0].getModel().shape).toBe('circle');
   });
 });

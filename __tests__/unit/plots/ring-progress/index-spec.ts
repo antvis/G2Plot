@@ -192,63 +192,12 @@ describe('ring-progress', () => {
     ringGrogress.render();
     expect(ringGrogress.chart.geometries[0].coordinate.type).toBe('theta');
     expect(ringGrogress.chart.geometries[0].coordinate.radius).toBe(1);
-    expect(ringGrogress.chart.geometries[0].coordinate.innerRadius).toBe(0.5);
+    expect(ringGrogress.chart.geometries[0].coordinate.innerRadius).toBe(0.8);
     expect(ringGrogress.chart.geometries[0].elements[0].getData().type).toBe('current');
     expect(ringGrogress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(ringGrogress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
     expect(ringGrogress.chart.geometries[0].elements[1].getData().type).toBe('target');
     expect(ringGrogress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
-    expect(ringGrogress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
-
-    ringGrogress.update({
-      innerRadius: 1.2,
-      width: 200,
-      height: 100,
-      percent: 0.5,
-      autoFit: false,
-    });
-    expect(ringGrogress.chart.geometries[0].coordinate.type).toBe('theta');
-    expect(ringGrogress.chart.geometries[0].coordinate.radius).toBe(1);
-    expect(ringGrogress.chart.geometries[0].coordinate.innerRadius).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[0].getData().type).toBe('current');
-    expect(ringGrogress.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
-    expect(ringGrogress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringGrogress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
-
-    ringGrogress.update({
-      radius: -1,
-      width: 200,
-      height: 100,
-      percent: 0.5,
-      autoFit: false,
-    });
-    expect(ringGrogress.chart.geometries[0].coordinate.type).toBe('theta');
-    expect(ringGrogress.chart.geometries[0].coordinate.radius).toBe(1);
-    expect(ringGrogress.chart.geometries[0].coordinate.innerRadius).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[0].getData().type).toBe('current');
-    expect(ringGrogress.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
-    expect(ringGrogress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringGrogress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
-
-    ringGrogress.update({
-      radius: 2,
-      width: 200,
-      height: 100,
-      percent: 0.5,
-      autoFit: false,
-    });
-    expect(ringGrogress.chart.geometries[0].coordinate.type).toBe('theta');
-    expect(ringGrogress.chart.geometries[0].coordinate.radius).toBe(2);
-    expect(ringGrogress.chart.geometries[0].coordinate.innerRadius).toBe(1);
-    expect(ringGrogress.chart.geometries[0].elements[0].getData().type).toBe('current');
-    expect(ringGrogress.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
-    expect(ringGrogress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
-    expect(ringGrogress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringGrogress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
     expect(ringGrogress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
   });
 });

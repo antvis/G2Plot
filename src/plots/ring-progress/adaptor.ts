@@ -106,15 +106,11 @@ function style(params: Params<RingProgressOptions>): Params<RingProgressOptions>
  */
 function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
   const { chart, options } = params;
-  const { innerRadius, radius } = options;
-
-  // 默认为radius为1，innerRadius为radius的一半
-  const radiusTheta = radius && radius > 0 ? radius : 1;
-  const innerRadiusTheta = innerRadius && innerRadius > 0 && innerRadius < radius ? innerRadius : radiusTheta / 2;
+  const { innerRadius = 0.8, radius = 1 } = options;
 
   chart.coordinate('theta', {
-    innerRadius: innerRadiusTheta,
-    radius: radiusTheta,
+    innerRadius,
+    radius,
   });
 
   return params;

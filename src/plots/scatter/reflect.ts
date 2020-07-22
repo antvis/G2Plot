@@ -12,7 +12,7 @@ export const REFLECTS = {
      */
     rules: [isArray, isFunction],
   },
-  pointSize: {
+  size: {
     action: 'size',
     field: 'sizeField',
     rules: [isArray, isFunction],

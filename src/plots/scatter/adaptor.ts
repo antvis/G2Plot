@@ -13,25 +13,25 @@ import { REFLECTS } from './reflect';
  */
 function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField } = options;
+  const { data, xField, yField, seriesField } = options;
 
   // 散点图操作逻辑
   chart.data(data);
   const geometry = chart.point().position(`${xField}*${yField}`);
 
-  // 统一处理 color、 pointSize、 shape
+  // 统一处理 color、 size、 shape
   const reflectKeys = Object.keys(REFLECTS);
   reflectKeys.forEach((key: string) => {
     if (options[key]) {
       let validateRules = false;
-      (REFLECTS[key].rules || []).forEach((fn: Function) => {
+      (REFLECTS[key].rules || []).forEach((fn: (arg: any) => boolean) => {
         // 满足任一规则即可
         if (fn && fn(options[key])) {
           validateRules = true;
         }
       });
       if (validateRules) {
-        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
+        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || seriesField || xField, options[key]);
       } else {
         geometry[REFLECTS[key].action](options[key]);
       }
@@ -95,13 +95,13 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function style(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { xField, yField, pointStyle } = options;
+  const { xField, yField, pointStyle, colorField } = options;
 
   const geometry = chart.geometries[0];
 
   if (pointStyle && geometry) {
     if (isFunction(pointStyle)) {
-      geometry.style(`${xField}*${yField}`, pointStyle);
+      geometry.style(`${xField}*${yField}*${colorField}`, pointStyle);
     } else {
       geometry.style(pointStyle);
     }

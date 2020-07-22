@@ -33,7 +33,7 @@ const Page: React.FC = () => {
       yField: 'height',
       shape: ['circle', 'square'],
       color: ['green', 'red'],
-      pointSize: 'weight',
+      size: 'weight',
       tooltip: {
         showCrosshairs: true,
         crosshairs: {

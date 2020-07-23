@@ -27,14 +27,14 @@ describe('bar axis', () => {
     expect(geometry.scales.sales.formatter).toBe(formatter);
   });
 
-  it('xAxis', () => {
+  it('yAxis', () => {
     const bar = new Bar(createDiv(), {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'sales',
-      yField: 'area',
-      xAxis: {
+      xField: 'area',
+      yField: 'sales',
+      yAxis: {
         minLimit: 10000,
         nice: true,
       },
@@ -57,9 +57,9 @@ describe('bar axis', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'sales',
-      yField: 'area',
-      yAxis: {
+      xField: 'area',
+      yField: 'sales',
+      xAxis: {
         label: {
           rotate: -Math.PI / 6,
         },

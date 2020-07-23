@@ -15,8 +15,12 @@ function field(params: Params<BarOptions>): Params<BarOptions> {
   const { data, xField, yField, colorField, color } = options;
 
   chart.data(data);
+
+  // transpose column to bar
   chart.coordinate().transpose();
-  const geometry = chart.interval().position(`${yField}*${xField}`);
+
+  // category as xField
+  const geometry = chart.interval().position(`${xField}*${yField}`);
 
   if (colorField) {
     geometry.color(colorField, color);
@@ -107,7 +111,7 @@ function style(params: Params<BarOptions>): Params<BarOptions> {
  */
 function label(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
-  const { label, xField } = options;
+  const { label, yField } = options;
 
   const geometry = findGeometry(chart, 'interval');
 
@@ -116,7 +120,7 @@ function label(params: Params<BarOptions>): Params<BarOptions> {
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: [xField],
+      fields: [yField],
       callback,
       cfg,
     });

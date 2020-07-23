@@ -20,3 +20,6 @@ export { TinyColumn, TinyColumnOptions } from './plots/tiny-column';
 
 // 迷你面积图及类型定义
 export { TinyArea, TinyAreaOptions } from './plots/tiny-area';
+
+// 直方图及类型定义
+export { Histogram, HistogramOptions } from './plots/histogram';

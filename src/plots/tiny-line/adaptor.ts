@@ -1,4 +1,3 @@
-import { Geometry } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyLineOptions } from './types';
@@ -106,10 +105,25 @@ function shape(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
 }
 
 /**
+ * 设置全局主题配置
+ * @param params
+ */
+export function theme(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+  const { chart, options } = params;
+  const { theme } = options;
+
+  // 存在主题才设置主题
+  if (theme) {
+    chart.theme(theme);
+  }
+  return params;
+}
+
+/**
  * 迷你折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<TinyLineOptions>) {
-  flow(field, meta, axis, legend, tooltip, style, shape)(params);
+  flow(field, meta, theme, axis, legend, tooltip, style, shape)(params);
 }

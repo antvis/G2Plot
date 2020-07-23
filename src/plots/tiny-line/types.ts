@@ -8,6 +8,8 @@ export interface TinyLineOptions extends ChartOptions {
   readonly data: number[];
   /** 数据字段元信息 */
   readonly meta?: Record<string, any>;
+  /** 主题，G2 主题，字符串或者 theme object */
+  readonly theme?: string | object;
   /** 是否平滑 */
   readonly smooth?: boolean;
   /** 是否连接空数据 */

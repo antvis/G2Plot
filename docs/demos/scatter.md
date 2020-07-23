@@ -28,12 +28,12 @@ const Page: React.FC = () => {
       width: 400,
       height: 300,
       appendPadding: 10,
-      data,
+      data: data.slice(0, 50),
       xField: 'weight',
       yField: 'height',
-      seriesField: 'gender',
       shape: ['circle', 'square'],
-      symbolSize: 5,
+      color: ['green', 'red'],
+      size: 'weight',
       tooltip: {
         showCrosshairs: true,
         crosshairs: {

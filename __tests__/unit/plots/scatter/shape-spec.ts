@@ -3,38 +3,7 @@ import { data } from '../../../data/gender';
 import { createDiv } from '../../../utils/dom';
 
 describe('scatter', () => {
-  it('shape: string options', () => {
-    const scatter = new Scatter(createDiv(), {
-      width: 400,
-      height: 300,
-      appendPadding: 10,
-      data,
-      xField: 'weight',
-      yField: 'height',
-      shape: 'weight',
-      xAxis: {
-        nice: true,
-      },
-    });
-
-    scatter.render();
-
-    const geometry = scatter.chart.geometries[0];
-    const elements = geometry.elements;
-
-    expect(elements.length).toBe(507);
-
-    const shapeArr = [];
-    elements.forEach((ele) => {
-      shapeArr.push(ele.getModel().shape);
-    });
-    const set = new Set(shapeArr);
-
-    expect(shapeArr).toContain('circle');
-    expect(set.size > 2).toBeTruthy();
-  });
-
-  it('shpae: number options', () => {
+  it('shpae: string options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
       height: 300,
@@ -58,7 +27,7 @@ describe('scatter', () => {
     expect(elements[elements.length - 1].getModel().shape).toBe('hollow-diamond');
   });
 
-  it('shape: number array options', () => {
+  it('shape: string array options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
       height: 300,

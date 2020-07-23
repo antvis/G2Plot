@@ -1,8 +1,7 @@
 import { deepMix, each, get, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow } from '../../utils';
-import { Interaction } from '../../types/interaction';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
@@ -15,7 +14,6 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { data, angleField, colorField, color } = options;
 
-  // TODO 饼图数据非法处理
   chart.data(data);
   const geometry = chart.interval().position(`1*${angleField}`).adjust({ type: 'stack' });
 
@@ -111,8 +109,7 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
   const geometry = chart.geometries[0];
   if (pieStyle && geometry) {
     if (isFunction(pieStyle)) {
-      // 为了兼容，colorField 放第一位
-      geometry.style(colorField ? `${colorField}*${angleField}` : angleField, pieStyle);
+      geometry.style(`${angleField}*${colorField}`, pieStyle);
     } else {
       geometry.style(pieStyle);
     }
@@ -207,26 +204,11 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * Interaction 配置
- * @param params
- */
-export function interaction(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
-  const { interactions } = options;
-
-  each(interactions, (i: Interaction) => {
-    chart.interaction(i.name, i.cfg || {});
-  });
-
-  return params;
-}
-
-/**
  * 折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, coord, legend, tooltip, label, style, annotation, interaction)(params);
+  flow(field, meta, theme, coord, legend, tooltip, label, style, annotation, interaction, animation)(params);
 }

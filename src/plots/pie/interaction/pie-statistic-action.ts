@@ -1,8 +1,7 @@
-import { registerAction, registerInteraction } from '@antv/g2';
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { each, get } from '@antv/util';
-import { getStatisticData } from './utils';
+import { getStatisticData } from '../utils';
 
 /**
  * Pie 中心文本事件的 Action
@@ -75,10 +74,3 @@ export class StatisticAction extends Action {
     view.render(true);
   }
 }
-
-registerAction('pie-statistic', StatisticAction);
-
-registerInteraction('pie-statistic-active', {
-  start: [{ trigger: 'element:mouseenter', action: 'pie-statistic:change' }],
-  end: [{ trigger: 'element:mouseleave', action: 'pie-statistic:reset' }],
-});

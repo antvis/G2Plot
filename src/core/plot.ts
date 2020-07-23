@@ -1,12 +1,14 @@
 import { Chart } from '@antv/g2';
+import EventEmitter from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
 import { ChartOptions, Data } from '../types';
+import { CHART_LIFE_CYCLE } from '../constant';
 
 /**
  * 所有 plot 的基类
  */
-export abstract class Plot<O extends ChartOptions> {
+export abstract class Plot<O extends ChartOptions> extends EventEmitter {
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -19,6 +21,7 @@ export abstract class Plot<O extends ChartOptions> {
   private unbind: () => void;
 
   constructor(container: string | HTMLElement, options: O) {
+    super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
     this.options = options;
 
@@ -41,6 +44,10 @@ export abstract class Plot<O extends ChartOptions> {
       renderer,
       pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
+    });
+
+    this.chart.on(CHART_LIFE_CYCLE.AFTER_RENDER, () => {
+      this.afterRender();
     });
   }
 
@@ -66,6 +73,8 @@ export abstract class Plot<O extends ChartOptions> {
 
     this.chart.render();
 
+    this.emit(CHART_LIFE_CYCLE.AFTER_RENDER);
+
     // 绑定
     this.bindSizeSensor();
   }
@@ -76,7 +85,6 @@ export abstract class Plot<O extends ChartOptions> {
    */
   public update(options: O) {
     this.options = options;
-
     this.render();
   }
 
@@ -96,6 +104,16 @@ export abstract class Plot<O extends ChartOptions> {
    */
   public changeSize(width: number, height: number) {
     this.chart.changeSize(width, height);
+  }
+
+  /**
+   * 渲染结束
+   */
+  public afterRender() {
+    if (!this.chart || this.chart.destroyed) {
+      return;
+    }
+    // todo
   }
 
   /**

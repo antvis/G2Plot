@@ -8,8 +8,8 @@ describe('bar', () => {
       width: 300,
       height: 400,
       data: salesByArea,
-      xField: 'sales',
-      yField: 'area',
+      xField: 'area',
+      yField: 'sales',
     });
 
     bar.render();
@@ -32,8 +32,8 @@ describe('bar', () => {
       width: 300,
       height: 400,
       data: salesByArea,
-      xField: 'sales',
-      yField: 'area',
+      xField: 'area',
+      yField: 'sales',
       colorField: 'area',
     });
 
@@ -52,8 +52,8 @@ describe('bar', () => {
       width: 300,
       height: 400,
       data: salesByArea,
-      xField: 'sales',
-      yField: 'area',
+      xField: 'area',
+      yField: 'sales',
       colorField: 'area',
       color: palette,
     });

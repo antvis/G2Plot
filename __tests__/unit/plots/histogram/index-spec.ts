@@ -3,39 +3,25 @@ import { histogramData } from '../../../data/histogram-data';
 import { createDiv } from '../../../utils/dom';
 
 describe('histogram', () => {
-  it('binField', () => {
+  it('binWidth', () => {
     const histogram = new Histogram(createDiv(), {
       width: 400,
       height: 300,
       appendPadding: 10,
       data: histogramData,
       binField: 'value',
-    });
-
-    histogram.render();
-
-    const geometry = histogram.chart.geometries[0];
-    const elements = geometry.elements;
-    expect(elements.length);
-  });
-
-  it('binField with binWidth', () => {
-    const histogram = new Histogram(createDiv(), {
-      width: 400,
-      height: 300,
-      appendPadding: 10,
-      data: histogramData,
       binWidth: 2,
-      binField: 'value',
     });
 
     histogram.render();
 
     const geometry = histogram.chart.geometries[0];
-    const elements = geometry.elements;
-    expect(elements.length);
+    const shapeOrigin = geometry.getShapes()[0].get('origin').data;
+
+    expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(2);
   });
-  it('binField with binNumber', () => {
+
+  it('binNumber', () => {
     const histogram = new Histogram(createDiv(), {
       width: 400,
       height: 300,
@@ -48,11 +34,29 @@ describe('histogram', () => {
     histogram.render();
 
     const geometry = histogram.chart.geometries[0];
-    const elements = geometry.elements;
-    expect(elements.length);
+    const shapes = geometry.getShapes();
+
+    expect(shapes.length - 1).toBe(4);
   });
 
-  it('binField with color，binWidth', () => {
+  it('automatic calculate binNumber', () => {
+    const histogram = new Histogram(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: histogramData,
+      binField: 'value',
+    });
+
+    histogram.render();
+
+    const geometry = histogram.chart.geometries[0];
+    const shapes = geometry.getShapes();
+
+    expect(shapes.length).toBe(8);
+  });
+
+  it('color with binWidth', () => {
     const histogram = new Histogram(createDiv(), {
       width: 400,
       height: 300,
@@ -67,25 +71,9 @@ describe('histogram', () => {
 
     const geometry = histogram.chart.geometries[0];
     const elements = geometry.elements;
-    // @ts-ignore
+    const shapeOrigin = geometry.getShapes()[0].get('origin').data;
+
+    expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(2);
     expect(elements[0].getModel().color).toBe('red');
-  });
-  it('binField with interaction', () => {
-    const histogram = new Histogram(createDiv(), {
-      width: 400,
-      height: 300,
-      appendPadding: 10,
-      data: histogramData,
-      binField: 'value',
-      binWidth: 2,
-      interaction: 'element-highlight',
-    });
-
-    histogram.render();
-
-    const geometry = histogram.chart.geometries[0];
-    const elements = geometry.elements;
-    // @ts-ignore
-    expect(elements.length);
   });
 });

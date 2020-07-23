@@ -1,11 +1,11 @@
+import { clone, sortBy, valuesOfKey, getRange, each, hasKey } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { StatisticBin, StatisticData, HistogramOptions } from './types';
-import { clone, sortBy, valuesOfKey, getRange, each, hasKey } from '@antv/util';
 import { getBinKey, sturges } from './util';
 
-export /**
- * 字段
+/**
+ * field字段
  * @param params
  */
 function field(params: Params<HistogramOptions>): Params<HistogramOptions> {

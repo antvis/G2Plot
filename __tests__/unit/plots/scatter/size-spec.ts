@@ -22,10 +22,15 @@ describe('scatter', () => {
 
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
+    const sizeArr = [];
+    elements.forEach((ele) => {
+      sizeArr.push(ele.getModel().size);
+    });
+    sizeArr.sort((a, b) => a - b);
 
     expect(elements.length).toBe(507);
-    expect(elements[0].getModel().size).toBe(5);
-    expect(elements[0].getModel().size).toBe(elements[elements.length - 1].getModel().size);
+    expect(Math.floor(sizeArr[0])).toBe(5);
+    expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
   });
 
   it('size: number array options', () => {

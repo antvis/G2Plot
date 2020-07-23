@@ -19,6 +19,8 @@ export abstract class Plot<O extends ChartOptions> extends EventEmitter {
   public chart: Chart;
   /** resizer unbind  */
   private unbind: () => void;
+  /** 事件 */
+  private eventHandlers: Array<{ name: string; handle: () => void }> = [];
 
   constructor(container: string | HTMLElement, options: O) {
     super();
@@ -48,6 +50,12 @@ export abstract class Plot<O extends ChartOptions> extends EventEmitter {
 
     this.chart.on(CHART_LIFE_CYCLE.AFTER_RENDER, () => {
       this.afterRender();
+    });
+    this.eventHandlers.push({
+      name: CHART_LIFE_CYCLE.AFTER_RENDER,
+      handle: () => {
+        this.afterRender();
+      },
     });
   }
 
@@ -122,6 +130,8 @@ export abstract class Plot<O extends ChartOptions> extends EventEmitter {
   public destroy() {
     // 取消 size-sensor 的绑定
     this.unbindSizeSensor();
+    // 取消事件绑定
+    this.unbindEvent();
     // G2 的销毁
     this.chart.destroy();
   }
@@ -148,5 +158,15 @@ export abstract class Plot<O extends ChartOptions> extends EventEmitter {
       this.unbind();
       this.unbind = undefined;
     }
+  }
+
+  /**
+   * 取消事件绑定
+   */
+  private unbindEvent() {
+    const { eventHandlers } = this;
+    eventHandlers.forEach((item) => {
+      this.chart.off(item.name, item.handle);
+    });
   }
 }

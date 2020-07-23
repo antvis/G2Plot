@@ -113,7 +113,7 @@ export abstract class Plot<O extends ChartOptions> extends EventEmitter {
     if (!this.chart || this.chart.destroyed) {
       return;
     }
-    // todo
+    // TODO
   }
 
   /**

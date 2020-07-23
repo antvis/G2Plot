@@ -1,10 +1,10 @@
 import { deepMix, isFunction } from '@antv/util';
-import { Geometry } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
 import { ScatterOptions } from './types';
 import { tooltip } from '../../common/adaptor';
-import { KEYS } from '../../constants';
+import { findGeometry } from '../../common/helper';
+import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { REFLECTS } from './reflect';
 
 /**
@@ -51,8 +51,8 @@ function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   // meta 直接是 scale 的信息
   const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, KEYS),
-    [yField]: pick(yAxis, KEYS),
+    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
+    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
   });
 
   chart.scale(scales);
@@ -118,7 +118,7 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
   const { label, yField } = options;
 
-  const scatterGeometry = chart.geometries.find((g: Geometry) => g.type === 'point');
+  const scatterGeometry = findGeometry(chart, 'point');
 
   // label 为 false, 空 则不显示 label
   if (!label) {

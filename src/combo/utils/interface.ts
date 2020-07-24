@@ -5,7 +5,7 @@ import { Options } from '../../types';
 export interface PointConfig {
   readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
   readonly size?: number;
-  readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle); 
+  readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
 }
 
 export interface LineConfig {

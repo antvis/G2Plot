@@ -4,7 +4,7 @@ import { tooltip } from '../../common/adaptor';
 import { flow } from '../../utils';
 import { DualLineOption } from './types';
 import { meta, axis, legend, getDefaultOptions, drawLine, drawPoint } from '../common/adaptor';
-import { DEFAULT_LINE_CONFIG } from './constant'; 
+import { DEFAULT_LINE_CONFIG } from './constant';
 
 /**
  * 获取默认参数设置
@@ -49,7 +49,7 @@ function field(params: Params<DualLineOption>): Params<DualLineOption> {
 
 /**
  * 绘制图形
- * @param params 
+ * @param params
  */
 function geometry(params: Params<DualLineOption>): Params<DualLineOption> {
   const { chart, options } = params;
@@ -59,21 +59,19 @@ function geometry(params: Params<DualLineOption>): Params<DualLineOption> {
   const [leftLineConfig, rightLineConfig] = lineConfigs;
 
   // 绘制第一条线
-  drawLine(chart, { x: xField, y: yField[0]}, leftLineConfig);
+  drawLine(chart, { x: xField, y: yField[0] }, leftLineConfig);
   // 绘制第二条线
-  drawLine(chart, { x: xField, y: yField[1]}, rightLineConfig);
+  drawLine(chart, { x: xField, y: yField[1] }, rightLineConfig);
 
   if (leftLineConfig.point) {
-    drawPoint(chart, { x: xField, y: yField[0]}, leftLineConfig.point);
+    drawPoint(chart, { x: xField, y: yField[0] }, leftLineConfig.point);
   }
 
   if (rightLineConfig.point) {
-    drawPoint(chart, { x: xField, y: yField[1]}, rightLineConfig.point);
+    drawPoint(chart, { x: xField, y: yField[1] }, rightLineConfig.point);
   }
   return params;
 }
-
-
 
 /**
  * 双折线图适配器

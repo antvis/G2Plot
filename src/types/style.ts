@@ -7,4 +7,8 @@ export type ShapeStyle = Readonly<{
   opacity?: number;
   fillOpacity?: number;
   strokeOpacity?: number;
+  fontSize?: number;
+  fontWeight?: number | string;
+  textAlign?: string;
+  verticalAlign?: string;
 }>;

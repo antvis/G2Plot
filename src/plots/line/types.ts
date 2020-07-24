@@ -3,24 +3,24 @@ import { ShapeStyle } from '../../types/style';
 
 export interface LineOptions extends Options {
   /** x 轴字段 */
-  xField?: string;
+  readonly xField?: string;
   /** y 轴字段 */
-  yField?: string;
+  readonly yField?: string;
   /** 分组字段 */
-  seriesField?: string;
-
+  readonly seriesField?: string;
   /** 是否平滑 */
-  smooth?: boolean;
+  readonly smooth?: boolean;
   /** 是否连接空数据 */
-  connectNulls?: boolean;
-  /** 折线extra图形样式 */
-  lineStyle?: ShapeStyle | (() => ShapeStyle);
+  readonly connectNulls?: boolean;
+  /** 折线图形样式 */
+  readonly lineStyle?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
   /** 折线数据点图形样式 */
-  point?: {
-    visible?: boolean;
-    shape?: ShapeStyle;
-    size?: number;
-    color?: string;
-    style?: ShapeStyle;
+  readonly point?: {
+    /** point shape 映射 */
+    readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
+    /** 大小映射，先简化处理为确定值 */
+    readonly size?: number;
+    /** 样式映射 */
+    readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
   };
 }

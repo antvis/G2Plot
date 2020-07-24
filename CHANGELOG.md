@@ -1,3 +1,7 @@
+## <small>1.1.14 (2020-07-21)</small>
+
+fix: rangeStyle not ringStyle (#1310)
+
 ## <small>1.1.13 (2020-07-20)</small>
 
 *  fix: 指标区域移除后需要置空 (#1303)。

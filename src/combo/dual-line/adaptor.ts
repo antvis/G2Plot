@@ -22,30 +22,6 @@ export const DEFAULT_LINE_CONFIG = {
   },
 };
 
-export const defaultYAxisConfig = {
-  visible: true,
-  colorMapping: true,
-  grid: {
-    visible: true,
-  },
-  line: {
-    visible: false,
-  },
-  tickLine: {
-    visible: false,
-  },
-  label: {
-    visible: true,
-    autoHide: true,
-    autoRotate: false,
-  },
-  title: {
-    autoRotate: true,
-    visible: false,
-    offset: 12,
-  },
-};
-
 /**
  * 获取默认参数设置
  * 因 deepMix 对数组类型无效，为防止出现lineConfigs: [{ color: 1}, {}] 类似的情况，加一个判断

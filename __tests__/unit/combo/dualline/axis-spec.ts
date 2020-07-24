@@ -45,7 +45,6 @@ describe('dualline meta', () => {
     dualline.render();
 
     const axes = dualline.chart.getComponents().filter((co) => co.type === 'axis');
-    console.log('axes', axes);
     expect(axes.length).toBe(2);
     expect(axes[0].direction).toBe('top');
     expect(axes[1].direction).toBe('right');
@@ -118,7 +117,6 @@ describe('dualline meta', () => {
     dualline.render();
 
     const axes = dualline.chart.getComponents().filter((co) => co.type === 'axis');
-    console.log('axes', axes);
     expect(axes.length).toBe(3);
     // position
     expect(axes[0].direction).toBe('bottom');

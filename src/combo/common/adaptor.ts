@@ -4,7 +4,6 @@ import { pick } from '../../utils';
 import { ComboOption } from '../utils/interface';
 
 export const DEFAULT_YAXIS_CONFIG = {
-  visible: true,
   colorMapping: true,
   grid: {
     visible: true,

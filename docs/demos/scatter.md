@@ -31,9 +31,20 @@ const Page: React.FC = () => {
       data: data.slice(0, 50),
       xField: 'weight',
       yField: 'height',
+      shapeField: 'gender',
       shape: ['circle', 'square'],
+      colorField: 'gender',
       color: ['green', 'red'],
-      size: 'weight',
+      sizeField: 'weight',
+      label: {
+        offsetX: 6,
+        offsetY: 6,
+        style: {
+          fill: 'rgba(0, 0, 0, 0.65)',
+          stroke: '#ffffff',
+          lineWidth: 2,
+        },
+      },
       tooltip: {
         showCrosshairs: true,
         crosshairs: {

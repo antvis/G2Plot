@@ -2,19 +2,19 @@ import { ShapeStyle } from '../../types/style';
 import { Axis } from '../../types/axis';
 import { Options } from '../../types';
 
+export interface PointConfig {
+  readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
+  readonly size?: number;
+  readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle); 
+}
+
 export interface LineConfig {
   color?: string;
   lineSize?: number;
   lineStyle?: ShapeStyle | (() => ShapeStyle);
   smooth?: boolean; // 是否平滑
   connectNulls?: boolean; // 是否连接空数据
-  point?: {
-    visible?: boolean;
-    shape?: string;
-    size?: number;
-    color?: string;
-    style?: ShapeStyle;
-  };
+  point?: PointConfig;
   label?: any;
 }
 

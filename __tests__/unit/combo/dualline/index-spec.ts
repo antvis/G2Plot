@@ -28,6 +28,6 @@ describe('dualline data', () => {
       expect(geometry.scales[yField[index]].min).toBe(Math.min(...lineData));
     });
 
-    dualline.destroy();
+    // dualline.destroy();
   });
 });

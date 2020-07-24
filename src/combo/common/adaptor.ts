@@ -1,30 +1,9 @@
 import { deepMix } from '@antv/util';
+import { Chart } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { pick } from '../../utils';
-import { ComboOption } from '../utils/interface';
-
-export const DEFAULT_YAXIS_CONFIG = {
-  colorMapping: true,
-  grid: {
-    visible: true,
-  },
-  line: {
-    visible: false,
-  },
-  tickLine: {
-    visible: false,
-  },
-  label: {
-    visible: true,
-    autoHide: true,
-    autoRotate: false,
-  },
-  title: {
-    autoRotate: true,
-    visible: false,
-    offset: 12,
-  },
-};
+import { ComboOption, LineConfig, PointConfig } from '../utils/interface';
+import { DEFAULT_YAXIS_CONFIG } from './constant';
 
 /**
  * getDefaultOptions 获取默认Option，
@@ -43,6 +22,38 @@ export function getDefaultOptions(): ComboOption {
       shared: true,
     },
   };
+}
+
+/**
+ * drawLine
+ * 绘制折线
+ * @param chart 图表
+ * @param field 折线位置，eg {x: 'date', y: 'pv' }
+ * @param lineConfig 折线视觉通道配置
+ * @return chart
+ */
+export function drawLine(chart: Chart, field: { x: string, y: string}, lineConfig: LineConfig): Chart {
+  const { x: xField, y: yField } = field;
+  chart
+    .line({ connectNulls: lineConfig.connectNulls })
+    .position(`${xField}*${yField}`)
+    .color(lineConfig.color)
+    .size(Number(lineConfig.lineSize))
+    .shape(lineConfig.smooth ? 'smooth' : 'line');
+  return chart; 
+}
+
+
+export function drawPoint(chart: Chart, field: { x: string, y: string}, pointConfig: PointConfig) : Chart {
+  const { x: xField, y: yField } = field;
+  chart
+    .point()
+    .position(`${xField}*${yField}`)
+    .size(pointConfig.size)
+    // TODO 待处理
+    // @ts-ignore 
+    .shape(pointConfig.shape);
+  return chart;
 }
 
 /**

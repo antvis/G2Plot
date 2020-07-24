@@ -3,24 +3,8 @@ import { Params } from '../../core/adaptor';
 import { tooltip } from '../../common/adaptor';
 import { flow } from '../../utils';
 import { DualLineOption } from './types';
-import { meta, axis, legend, getDefaultOptions } from '../common/adaptor';
-
-export const DEFAULT_LINE_CONFIG = {
-  lineSize: 2,
-  connectNulls: true,
-  smooth: false,
-  point: {
-    visible: false,
-    size: 3,
-    shape: 'circle',
-    style: {
-      stroke: '#fff',
-    },
-  },
-  label: {
-    visible: false,
-  },
-};
+import { meta, axis, legend, getDefaultOptions, drawLine, drawPoint } from '../common/adaptor';
+import { DEFAULT_LINE_CONFIG } from './constant'; 
 
 /**
  * 获取默认参数设置
@@ -58,40 +42,38 @@ export function getOptions(params: Params<DualLineOption>): Params<DualLineOptio
  */
 function field(params: Params<DualLineOption>): Params<DualLineOption> {
   const { chart, options } = params;
+  const { data } = options;
+  chart.data(data);
+  return params;
+}
+
+/**
+ * 绘制图形
+ * @param params 
+ */
+function geometry(params: Params<DualLineOption>): Params<DualLineOption> {
+  const { chart, options } = params;
   const { data, xField, yField, lineConfigs } = options;
 
   chart.data(data);
   const [leftLineConfig, rightLineConfig] = lineConfigs;
 
   // 绘制第一条线
-  chart
-    .line({ connectNulls: leftLineConfig.connectNulls })
-    .position(`${xField}*${yField[0]}`)
-    .color(leftLineConfig.color)
-    .size(Number(leftLineConfig.lineSize))
-    .shape(leftLineConfig.smooth ? 'smooth' : 'line');
+  drawLine(chart, { x: xField, y: yField[0]}, leftLineConfig);
+  // 绘制第二条线
+  drawLine(chart, { x: xField, y: yField[1]}, rightLineConfig);
 
-  if (leftLineConfig.point && leftLineConfig.point.visible) {
-    chart.point().size(leftLineConfig.point.size).position(`${xField}*${yField[0]}`).shape(leftLineConfig.point.shape);
+  if (leftLineConfig.point) {
+    drawPoint(chart, { x: xField, y: yField[0]}, leftLineConfig.point);
   }
 
-  // 绘制第二条线
-  chart
-    .line({ connectNulls: rightLineConfig.connectNulls })
-    .position(`${xField}*${yField[1]}`)
-    .color(rightLineConfig.color)
-    .size(Number(rightLineConfig.lineSize))
-    .shape(rightLineConfig.smooth ? 'smooth' : 'line');
-
-  if (rightLineConfig.point && rightLineConfig.point.visible) {
-    chart
-      .point()
-      .size(rightLineConfig.point.size)
-      .position(`${xField}*${yField[0]}`)
-      .shape(rightLineConfig.point.shape);
+  if (rightLineConfig.point) {
+    drawPoint(chart, { x: xField, y: yField[1]}, rightLineConfig.point);
   }
   return params;
 }
+
+
 
 /**
  * 双折线图适配器
@@ -100,5 +82,5 @@ function field(params: Params<DualLineOption>): Params<DualLineOption> {
  */
 export function adaptor(params: Params<DualLineOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(getOptions, field, meta, axis, legend, tooltip)(params);
+  flow(getOptions, field, geometry, meta, axis, legend, tooltip)(params);
 }

@@ -51,6 +51,6 @@ describe('dualline lineConfig', () => {
     expect(pointGeometrys[0].attributes.size.values).toEqual([3]);
     expect(pointGeometrys[0].attributes.shape.values).toEqual(['circle']);
 
-    dualline.destroy();
+    // dualline.destroy();
   });
 });

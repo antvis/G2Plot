@@ -20,7 +20,7 @@ describe('dualline meta', () => {
     const axes = dualline.chart.getComponents().filter((co) => co.type === 'axis');
     expect(axes.length).toBe(0);
 
-    dualline.destroy();
+    // dualline.destroy();
   });
 
   it('position', () => {
@@ -49,10 +49,10 @@ describe('dualline meta', () => {
     expect(axes[0].direction).toBe('top');
     expect(axes[1].direction).toBe('right');
 
-    dualline.destroy();
+    // dualline.destroy();
   });
 
-  it('axis', () => {
+  it('axis style', () => {
     document.body.append('axis');
     const dualline = new DualLine(createDiv(), {
       width: 400,

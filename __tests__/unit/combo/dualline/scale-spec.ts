@@ -36,6 +36,6 @@ describe('dualline meta', () => {
     // @ts-ignore
     expect(yScales[1].nice).toBe(false);
 
-    dualline.destroy();
+    // dualline.destroy();
   });
 });

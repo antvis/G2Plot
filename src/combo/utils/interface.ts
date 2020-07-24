@@ -19,13 +19,13 @@ export interface LineConfig {
 }
 
 export type ComboOptionType = {
-  readonly xField: string; 
+  readonly xField: string;
   readonly yField: string[];
   /**增加 Y 轴的 leftConfig and rightConfig */
   readonly yAxis?: Axis[];
   /**图形样式 */
-  readonly lineConfigs?: LineConfig[]
-}
+  readonly lineConfigs?: LineConfig[];
+};
 
 /*
  艾因: 这里理论上来说应该应该直接继承 Options, 但因为 Option 里声明了 yAxis, 双轴图的 YAxis 有所不同。接口继承非函数类属性时无法重写

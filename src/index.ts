@@ -11,6 +11,5 @@ export { Pie, PieOptions } from './plots/pie';
 //散点图及类型定义
 export { Scatter, ScatterOptions } from './plots/scatter';
 
-
 // 混合图形
 export { DualLine, DualLineOption } from './combo/dual-line';

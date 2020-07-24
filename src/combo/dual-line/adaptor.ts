@@ -8,7 +8,7 @@ import { meta, axis, legend, getDefaultOptions } from '../common/adaptor';
 export const DEFAULT_LINE_CONFIG = {
   lineSize: 2,
   connectNulls: true,
-  smooth: false, 
+  smooth: false,
   point: {
     visible: false,
     size: 3,
@@ -50,7 +50,7 @@ export const defaultYAxisConfig = {
  * 获取默认参数设置
  * 因 deepMix 对数组类型无效，为防止出现lineConfigs: [{ color: 1}, {}] 类似的情况，加一个判断
  * TODO 这里最好还是在再封装一个函数吧，因为 YAxis 也可能有这种情况
- * @param params 
+ * @param params
  */
 export function getOptions(params: Params<DualLineOption>): Params<DualLineOption> {
   const mixOption = {
@@ -72,9 +72,7 @@ export function getOptions(params: Params<DualLineOption>): Params<DualLineOptio
     },
   };
 
-  return deepMix({}, {
-    options: getDefaultOptions()
-  }, params, mixOption);
+  return deepMix({}, { options: getDefaultOptions() }, params, mixOption);
 }
 
 /**
@@ -84,10 +82,10 @@ export function getOptions(params: Params<DualLineOption>): Params<DualLineOptio
  */
 function field(params: Params<DualLineOption>): Params<DualLineOption> {
   const { chart, options } = params;
-  const { data, xField, yField, lineConfigs  } = options;
+  const { data, xField, yField, lineConfigs } = options;
 
   chart.data(data);
-  const [leftLineConfig, rightLineConfig ] = lineConfigs;
+  const [leftLineConfig, rightLineConfig] = lineConfigs;
 
   // 绘制第一条线
   chart
@@ -95,32 +93,26 @@ function field(params: Params<DualLineOption>): Params<DualLineOption> {
     .position(`${xField}*${yField[0]}`)
     .color(leftLineConfig.color)
     .size(Number(leftLineConfig.lineSize))
-    .shape(leftLineConfig.smooth ? 'smooth' : 'line')
-    ;
+    .shape(leftLineConfig.smooth ? 'smooth' : 'line');
 
-  if(leftLineConfig.point && leftLineConfig.point.visible) {
-    chart.point()
-    .size(leftLineConfig.point.size)
-    .position(`${xField}*${yField[0]}`)
-    .shape(leftLineConfig.point.shape)
-    ; 
+  if (leftLineConfig.point && leftLineConfig.point.visible) {
+    chart.point().size(leftLineConfig.point.size).position(`${xField}*${yField[0]}`).shape(leftLineConfig.point.shape);
   }
 
   // 绘制第二条线
   chart
-    .line({ connectNulls: rightLineConfig.connectNulls})
+    .line({ connectNulls: rightLineConfig.connectNulls })
     .position(`${xField}*${yField[1]}`)
     .color(rightLineConfig.color)
     .size(Number(rightLineConfig.lineSize))
-    .shape(rightLineConfig.smooth ? 'smooth' : 'line')
-    ;
+    .shape(rightLineConfig.smooth ? 'smooth' : 'line');
 
-  if(rightLineConfig.point && rightLineConfig.point.visible) {
-    chart.point()
-    .size(rightLineConfig.point.size)
-    .position(`${xField}*${yField[0]}`)
-    .shape(rightLineConfig.point.shape)
-    ; 
+  if (rightLineConfig.point && rightLineConfig.point.visible) {
+    chart
+      .point()
+      .size(rightLineConfig.point.size)
+      .position(`${xField}*${yField[0]}`)
+      .shape(rightLineConfig.point.shape);
   }
   return params;
 }

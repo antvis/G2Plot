@@ -54,7 +54,7 @@ export function meta(params: Params<ComboOption>): Params<ComboOption> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, yField } = options;
 
-  // 组装双 Y 轴度量  
+  // 组装双 Y 轴度量
   const KEYS = ['type', 'tickCount', 'tickInterval', 'nice', 'max', 'min'];
 
   const scales = deepMix({}, meta, {
@@ -87,7 +87,6 @@ export function axis(params: Params<ComboOption>): Params<ComboOption> {
 export function legend(params: Params<ComboOption>): Params<ComboOption> {
   const { chart, options } = params;
   const { legend, yField } = options;
-  console.log(legend);
   if (legend) {
     chart.legend(yField[0], legend);
     chart.legend(yField[1], legend);

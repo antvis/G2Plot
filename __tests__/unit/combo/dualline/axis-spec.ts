@@ -3,9 +3,8 @@ import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
 describe('dualline meta', () => {
-
   it('hide axis', () => {
-    document.body.append('hide axis')
+    document.body.append('hide axis');
     const dualline = new DualLine(createDiv(), {
       width: 400,
       height: 500,
@@ -13,7 +12,7 @@ describe('dualline meta', () => {
       xField: 'Country',
       yField: ['GDP', 'Population'],
       xAxis: false,
-      yAxis: [false, false], 
+      yAxis: [false, false],
     });
 
     dualline.render();
@@ -24,9 +23,8 @@ describe('dualline meta', () => {
     dualline.destroy();
   });
 
-
   it('position', () => {
-    document.body.append('axis')
+    document.body.append('axis');
     const dualline = new DualLine(createDiv(), {
       width: 400,
       height: 500,
@@ -34,11 +32,14 @@ describe('dualline meta', () => {
       xField: 'Country',
       yField: ['GDP', 'Population'],
       xAxis: {
-        position: 'top'
+        position: 'top',
       },
-      yAxis: [{
-        position: 'right'
-      }, false], 
+      yAxis: [
+        {
+          position: 'right',
+        },
+        false,
+      ],
     });
 
     dualline.render();
@@ -53,7 +54,7 @@ describe('dualline meta', () => {
   });
 
   it('axis', () => {
-    document.body.append('axis')
+    document.body.append('axis');
     const dualline = new DualLine(createDiv(), {
       width: 400,
       height: 500,
@@ -67,51 +68,52 @@ describe('dualline meta', () => {
           style: {
             color: '#333',
             autoRotate: true,
-          }
+          },
         },
       },
-      yAxis: [{
-        position: 'left',
-        line: {
-          style: {
-            lineWidth: 2,
-          }
-        },
-        tickLine: {
-          style: {
-            lineWidth: 2,
+      yAxis: [
+        {
+          position: 'left',
+          line: {
+            style: {
+              lineWidth: 2,
+            },
           },
-          alignTick: true
-        },
-        subTickLine: {
-          style: {
-            lineWidth: 1,
-            count: 4,
-          }
-        },
-      }, {
-        position: 'right',
-        line: {
-          style: {
-            lineWidth: 2,
-          }
-        },
-        tickLine: {
-          style: {
-            lineWidth: 2,
+          tickLine: {
+            style: {
+              lineWidth: 2,
+            },
+            alignTick: true,
           },
-          alignTick: true
+          subTickLine: {
+            style: {
+              lineWidth: 1,
+              count: 4,
+            },
+          },
         },
-        subTickLine: {
-          style: {
-            lineWidth: 1,
-            count: 4,
-          }
-        }
-      }], 
+        {
+          position: 'right',
+          line: {
+            style: {
+              lineWidth: 2,
+            },
+          },
+          tickLine: {
+            style: {
+              lineWidth: 2,
+            },
+            alignTick: true,
+          },
+          subTickLine: {
+            style: {
+              lineWidth: 1,
+              count: 4,
+            },
+          },
+        },
+      ],
     });
-
-    
 
     dualline.render();
 
@@ -124,6 +126,4 @@ describe('dualline meta', () => {
     expect(axes[2].direction).toBe('right');
     // line
   });
-
-
 });

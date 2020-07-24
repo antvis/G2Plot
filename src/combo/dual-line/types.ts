@@ -1,5 +1,3 @@
 import { ComboOption } from '../utils/interface';
 
-export interface DualLineOption extends ComboOption {
-
-}
+export interface DualLineOption extends ComboOption {}

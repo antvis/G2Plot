@@ -10,5 +10,5 @@ export type ShapeStyle = Readonly<{
   fontSize?: number;
   fontWeight?: number | string;
   textAlign?: string;
-  vertialAlign?: string;
+  verticalAlign?: string;
 }>;

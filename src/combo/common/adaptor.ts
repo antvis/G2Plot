@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
+import { pick } from '../../utils';
 import { ComboOption } from '../utils/interface';
 
 export const DEFAULT_YAXIS_CONFIG = {
@@ -42,7 +42,7 @@ export function getDefaultOptions(): ComboOption {
     tooltip: {
       showCrosshairs: true,
       shared: true,
-    }
+    },
   };
 }
 
@@ -55,7 +55,7 @@ export function meta(params: Params<ComboOption>): Params<ComboOption> {
   const { meta, xAxis, yAxis, xField, yField } = options;
 
   // 组装双 Y 轴度量  
-  const KEYS = ['type', 'tickCount', 'tickInterval', 'nice', 'max', 'min']
+  const KEYS = ['type', 'tickCount', 'tickInterval', 'nice', 'max', 'min'];
 
   const scales = deepMix({}, meta, {
     [xField]: pick(xAxis, KEYS),
@@ -92,7 +92,5 @@ export function legend(params: Params<ComboOption>): Params<ComboOption> {
     chart.legend(yField[0], legend);
     chart.legend(yField[1], legend);
   }
-
   return params;
 }
-

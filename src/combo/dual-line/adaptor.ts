@@ -1,13 +1,9 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip } from '../../common/adaptor';
-import { flow, pick } from '../../utils';
+import { flow } from '../../utils';
 import { DualLineOption } from './types';
 import { meta, axis, legend, getDefaultOptions } from '../common/adaptor';
-
-
-// @ts-ignore
-window.deepMix = deepMix;
 
 export const DEFAULT_LINE_CONFIG = {
   lineSize: 2,
@@ -60,17 +56,21 @@ export function getOptions(params: Params<DualLineOption>): Params<DualLineOptio
   const mixOption = {
     options: {
       lineConfigs: [
-        deepMix({}, DEFAULT_LINE_CONFIG, { color: '#5B8FF9' }, params.options.lineConfigs && params.options.lineConfigs[0]),
-        deepMix({}, DEFAULT_LINE_CONFIG, { color: '#e76c5e' }, params.options.lineConfigs && params.options.lineConfigs[1]),
+        deepMix(
+          {},
+          DEFAULT_LINE_CONFIG,
+          { color: '#5B8FF9' },
+          params.options.lineConfigs && params.options.lineConfigs[0]
+        ),
+        deepMix(
+          {},
+          DEFAULT_LINE_CONFIG,
+          { color: '#e76c5e' },
+          params.options.lineConfigs && params.options.lineConfigs[1]
+        ),
       ],
     },
   };
-
-  console.log(getDefaultOptions(), params, deepMix({}, {
-    options: getDefaultOptions()
-  }, params, mixOption))
-
-
 
   return deepMix({}, {
     options: getDefaultOptions()

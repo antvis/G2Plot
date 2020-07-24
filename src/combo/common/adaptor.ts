@@ -32,7 +32,7 @@ export function getDefaultOptions(): ComboOption {
  * @param lineConfig 折线视觉通道配置
  * @return chart
  */
-export function drawLine(chart: Chart, field: { x: string, y: string}, lineConfig: LineConfig): Chart {
+export function drawLine(chart: Chart, field: { x: string; y: string }, lineConfig: LineConfig): Chart {
   const { x: xField, y: yField } = field;
   chart
     .line({ connectNulls: lineConfig.connectNulls })
@@ -40,18 +40,17 @@ export function drawLine(chart: Chart, field: { x: string, y: string}, lineConfi
     .color(lineConfig.color)
     .size(Number(lineConfig.lineSize))
     .shape(lineConfig.smooth ? 'smooth' : 'line');
-  return chart; 
+  return chart;
 }
 
-
-export function drawPoint(chart: Chart, field: { x: string, y: string}, pointConfig: PointConfig) : Chart {
+export function drawPoint(chart: Chart, field: { x: string; y: string }, pointConfig: PointConfig): Chart {
   const { x: xField, y: yField } = field;
   chart
     .point()
     .position(`${xField}*${yField}`)
     .size(pointConfig.size)
     // TODO 待处理
-    // @ts-ignore 
+    // @ts-ignore
     .shape(pointConfig.shape);
   return chart;
 }

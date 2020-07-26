@@ -342,15 +342,19 @@ export default abstract class PieBaseLabel {
     const coord = this.getCoordinate();
     const { center, radius } = coord;
     let { startAngle } = this.getCoordinate();
-    const scale = this.getGeometry().scales[angleField];
+    // 位置信息使用 positionScale
+    const positionScales = this.getGeometry().attributes.position.scales;
+    const scale = positionScales[1];
+    const scaleField = scale.field;
     const anchors = elements.map((ele) => {
       const origin = ele.shape.get('origin');
       const color = origin.color;
       const originData = origin.data[0] || origin.data;
-      const endAngle = startAngle + Math.PI * 2 * scale.scale(originData[angleField]);
+      const endAngle = startAngle + Math.PI * 2 * scale.scale(originData[scaleField]);
       const angle = (startAngle + endAngle) / 2;
       const point = getEndPoint(center, angle, radius);
       startAngle = endAngle;
+      // 标签名 使用 angleField
       const name = scale.getText(originData[angleField]);
       const textAlign = point.x > center.x ? 'left' : 'right';
 

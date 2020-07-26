@@ -96,4 +96,47 @@ describe('radar, 自定义 tooltip', () => {
     expect(radar.chart.geometries.length).toBe(1);
     expect(radar.chart.geometries[0].elements.length).toBe(2);
   });
+
+  it('"xy" crosshairs', () => {
+    const radar = new Radar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: SERIES_DATA,
+      xField: 'name',
+      yField: 'value',
+      seriesField: 'type',
+      radius: 0.8,
+      tooltip: {
+        shared: true,
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'xy',
+          line: {
+            style: {
+              stroke: '#565656',
+              lineDash: [4],
+            },
+          },
+          follow: true,
+        },
+      },
+      interactions: [
+        {
+          name: 'radar-tooltip',
+          cfg: {
+            start: [{ trigger: 'plot:mousemove', action: 'radar-tooltip:show' }],
+            end: [{ trigger: 'plot:mouseleave', action: 'radar-tooltip:hide' }],
+          },
+        },
+      ],
+    });
+
+    radar.render();
+    const tooltipController = radar.chart.getController('radar-tooltip');
+    // @ts-ignore
+    const tooltipCfg = tooltipController.getTooltipCfg();
+    expect(tooltipCfg.shared).toBe(true);
+    expect(tooltipCfg.showCrosshairs).toBe(true);
+    expect(tooltipCfg.crosshairs.type).toBe('xy');
+  });
 });

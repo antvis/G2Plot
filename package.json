@@ -126,7 +126,8 @@
     "runner": "jest-electron/runner",
     "testEnvironment": "jest-electron/environment",
     "setupFilesAfterEnv": [
-      "jest-extended"
+      "jest-extended",
+      "./jest.setup.js"
     ],
     "preset": "ts-jest",
     "collectCoverage": false,

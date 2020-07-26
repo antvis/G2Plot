@@ -90,7 +90,7 @@ describe('饼图 数据全空', () => {
     let elements = pie.chart.geometries[0].elements;
     expect(elements.length).toBe(0);
 
-    await delay(5000);
+    await delay(500);
     pie.update({
       ...pie.options,
       data,
@@ -100,7 +100,7 @@ describe('饼图 数据全空', () => {
     expect(every(elements, (ele) => ele.getBBox().width > 0)).toBe(true);
     expect(elements.length).toBe(data.length);
 
-    await delay(3000);
+    await delay(300);
     pie.update({
       ...pie.options,
       data: [{ type: '类型1', value: 1 }],

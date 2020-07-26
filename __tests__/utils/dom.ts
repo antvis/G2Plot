@@ -1,9 +1,15 @@
 /**
  * 创建一个 div 节点，并放到 container，默认放到 body 上
+ * @param title
  * @param container
  */
-export function createDiv(container: HTMLElement = document.body): HTMLElement {
+export function createDiv(title: string = '', container: HTMLElement = document.body): HTMLElement {
   const div = document.createElement('div');
+
+  if (title) {
+    const titleDiv = document.createElement('div').appendChild(document.createTextNode(title));
+    container.appendChild(titleDiv);
+  }
 
   container.appendChild(div);
 

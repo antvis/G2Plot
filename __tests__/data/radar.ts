@@ -1,45 +1,12 @@
-export const dataWithoutSplit = [
-  {
-    shipping_cost: 1186.4,
-    price: 443.99,
-    order_amt: 19360.2165,
-    order_amt1: 19360.2165,
-  },
-];
-export const dataWithSplit = [
-  {
-    shipping_cost: 94.91,
-    price: 443.99,
-    order_amt: 19360.2165,
-    order_amt1: 19360.2165,
-    area: '东北',
-  },
-  {
-    shipping_cost: 157.33,
-    price: 1194,
-    order_amt: 23674.218,
-    order_amt1: 23674.218,
-    area: '华东',
-  },
-  {
-    shipping_cost: 34.68,
-    price: 457.23,
-    order_amt: 15569.79,
-    order_amt1: 15569.79,
-    area: '华北',
-  },
-  {
-    shipping_cost: 320.23,
-    price: 5122.29,
-    order_amt: 47408.387,
-    order_amt1: 47408.387,
-    area: '华南',
-  },
-  {
-    shipping_cost: 31.2,
-    price: 207.77,
-    order_amt: 8914.22,
-    order_amt1: 8914.22,
-    area: '西南',
-  },
-];
+const categories = ['销售', '市场营销', '发展', '客户支持', '信息技术', '行政管理'];
+/** 预算支出 */
+const data1 = [43000, 19000, 60000, 35000, 17000, 10000];
+/** 实际支出 */
+const data2 = [50000, 39000, 42000, 31000, 26000, 14000];
+
+export const SINGLE_DATA = categories.map((d, idx) => ({ name: d, value: data1[idx] }));
+export const SERIES_DATA = [];
+categories.forEach((d, idx) => {
+  SERIES_DATA.push({ name: d, value: data1[idx], type: '预算支出' });
+  SERIES_DATA.push({ name: d, value: data2[idx], type: '实际支出' });
+});

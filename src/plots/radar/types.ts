@@ -2,7 +2,9 @@ import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
 export interface RadarOptions extends Options {
+  /** x 字段 */
   readonly xField: string;
+  /** y 字段，映射雷达图的射线长度 */
   readonly yField: string;
   /** 分组字段 */
   readonly seriesField?: string;

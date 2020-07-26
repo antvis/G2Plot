@@ -58,9 +58,15 @@ describe('饼图 数据全空', () => {
 
     const elements = pie.chart.geometries[0].elements;
     expect(elements.length).toBe(5);
+    // @ts-ignore
     expect(every(elements, (ele) => ele.getBBox().width > 0)).toBe(true);
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(every(labels, (label) => (label as IGroup).getChildren()[0].attr('text') === '0 个')).toBe(true);
+
+    const positionFields = pie.chart.geometries[0].getAttribute('position').getFields();
+    const point = pie.chart.getXY({ 1: data[0].type, [positionFields[1]]: 1 / data.length });
+    const tooltipItems = pie.chart.getTooltipItems(point);
+    expect(tooltipItems[1].value).toBe('0 个');
   });
 
   it('数据为 [], 延迟 3s 加载数据全为 0, 延迟 3s 加载数据正常', async () => {
@@ -105,5 +111,8 @@ describe('饼图 数据全空', () => {
     expect(elements.length).toBe(1);
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(every(labels, (label) => (label as IGroup).getChildren()[0].attr('text') === 1)).toBe(true);
+    const point = pie.chart.getXY({ 1: '类型 1', value: 1 });
+    const tooltipItems = pie.chart.getTooltipItems(point);
+    expect(tooltipItems[0].value).toBe('1');
   });
 });

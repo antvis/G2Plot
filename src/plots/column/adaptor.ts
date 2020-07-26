@@ -2,6 +2,7 @@ import { Geometry, Chart } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
+import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -12,13 +13,17 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  */
 function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color } = options;
+  const { data, xField, yField, colorField, color, isStack } = options;
 
   chart.data(data);
   const geometry = chart.interval().position(`${xField}*${yField}`);
 
   if (colorField) {
     geometry.color(colorField, color);
+  }
+
+  if (colorField && ![xField, yField].includes(colorField)) {
+    geometry.adjust(isStack ? 'stack' : 'dodge');
   }
 
   return params;
@@ -129,5 +134,5 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(field, meta, axis, legend, style, label)(params);
+  return flow(field, meta, axis, legend, tooltip, theme, style, label, interaction, animation)(params);
 }

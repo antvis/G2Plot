@@ -1,4 +1,4 @@
-import { deepMix, isNil, map, some, every } from '@antv/util';
+import { deepMix, every } from '@antv/util';
 import * as EventParser from './event';
 import ViewLayer, { ViewConfig } from '../../base/view-layer';
 import { DataItem, Label, GraphicStyle } from '../../interface/config';
@@ -8,8 +8,9 @@ import { getPieLabel, PieLabelConfig } from './component/label';
 import SpiderLabel from './component/label/spider-label';
 import { registerPlotType } from '../../base/global';
 import PieBaseLabel from './component/label/base-label';
-import { processEmpty, getOriginKey } from './utils';
 import './theme';
+
+const percentageField = '$$percentage$$';
 
 export interface PieViewConfig extends ViewConfig {
   angleField: string;
@@ -76,6 +77,15 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   public type: string = 'pie';
   public labelComponent: SpiderLabel | PieBaseLabel;
 
+  public afterInit() {
+    const { angleField, colorField, data } = this.options;
+    const allZero = every(data, (d) => d[angleField] === 0);
+    if (allZero) {
+      const pieGeom = this.view.geometries[0];
+      pieGeom.tooltip(`${colorField}*${angleField}`);
+    }
+  }
+
   public afterRender() {
     super.afterRender();
     const options = this.options;
@@ -127,34 +137,18 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected processData(data?: DataItem[]): DataItem[] | undefined {
     const key = this.options.angleField;
-    const originalKey = getOriginKey(key);
-    const originalData = data.map((item) => {
-      const originalValue = typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key];
-      return {
+    const allZero = every(data, (d) => d[key] === 0);
+    if (allZero) {
+      return data.map((item) => ({
         ...item,
-        [key]: originalValue,
-        [originalKey]: originalValue,
-      };
-    });
-
-    const getValue = (d: DataItem) => d[key];
-    const notEqualZeroOrNil = (v: number) => v !== 0 && !isNil(v);
-    const allAngleValue = map(originalData, getValue);
-    const allNil = every(allAngleValue, isNil);
-    /** 数据全空处理，同时处理 meta */
-    if (!some(allAngleValue, notEqualZeroOrNil)) {
-      const meta = this.options.meta || {};
-      // 数据全为 null
-      if (allNil) {
-        this.options.meta = deepMix({}, meta, { [key]: { formatter: () => 'null' } });
-        return processEmpty(originalData, key);
-      } else {
-        // 数据不全为 null，部分 0 部分 null（null值不展示）
-        this.options.meta = deepMix({}, meta, { [key]: { formatter: () => '0' } });
-        return processEmpty(originalData, key, (v) => (v === 0 ? 1 : v));
-      }
+        [key]: typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key],
+        [percentageField]: 1 / data.length,
+      }));
     }
-    return originalData;
+    return data.map((item) => ({
+      ...item,
+      [key]: typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key],
+    }));
   }
 
   protected axis() {
@@ -176,10 +170,20 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
 
   protected addGeometry() {
     const props = this.options;
-    const pie = getGeom('interval', 'main', {
-      plot: this,
-      positionFields: [1, props.angleField],
-    });
+    const { data, angleField } = props;
+    let pie;
+    const allZero = every(data, (d) => d[angleField] === 0);
+    if (allZero) {
+      pie = getGeom('interval', 'main', {
+        plot: this,
+        positionFields: [1, percentageField],
+      });
+    } else {
+      pie = getGeom('interval', 'main', {
+        plot: this,
+        positionFields: [1, props.angleField],
+      });
+    }
     pie.adjust = [{ type: 'stack' }];
     this.pie = pie;
     if (props.label) {
@@ -196,6 +200,8 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
     const tooltipOptions: any = this.options.tooltip;
     if (tooltipOptions.fields) {
       this.pie.tooltip.fields = tooltipOptions.fields;
+    } else {
+      this.pie.tooltip.fields = [this.options.angleField, this.options.colorField];
     }
     if (tooltipOptions.formatter) {
       this.pie.tooltip.callback = tooltipOptions.formatter;

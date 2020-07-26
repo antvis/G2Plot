@@ -10,10 +10,6 @@ export class RadarTooltipController extends TooltipController {
     return 'radar-tooltip';
   }
 
-  public getTooltipCfg() {
-    return super.getTooltipCfg();
-  }
-
   public getTooltipItems(point: Point) {
     const { shared, title: cfgTitle } = this.getTooltipCfg();
     const hintItems = super.getTooltipItems(point);
@@ -40,10 +36,6 @@ export class RadarTooltipController extends TooltipController {
       return result;
     }
     return [];
-  }
-
-  public showTooltip(point: Point) {
-    super.showTooltip(point);
   }
 }
 registerComponentController('radar-tooltip', RadarTooltipController);

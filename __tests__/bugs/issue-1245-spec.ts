@@ -1,6 +1,5 @@
 import { Pie } from '../../src';
 import { createDiv } from '.././utils/dom';
-import { delay } from '.././utils/delay';
 
 describe('donut plot', () => {
   test('angleField & colorField 配置交换, 不会触发 out-of-memory, 但是坐标为 NaN', () => {
@@ -90,12 +89,10 @@ describe('donut plot', () => {
     expect(piePlot).toBeDefined();
     expect(piePlot.chart.geometries[0].elements.length).toBe(data.length - 1);
 
-    delay(3000).then(() => {
-      piePlot.update({
-        ...piePlot.options,
-        data: data.map((d, idx) => (idx !== 0 ? { ...d, value: null } : d)),
-      });
-      expect(piePlot.chart.geometries[0].elements.length).toBe(data.length);
+    piePlot.update({
+      ...piePlot.options,
+      data: data.map((d, idx) => (idx !== 0 ? { ...d, value: null } : d)),
     });
+    expect(piePlot.chart.geometries[0].elements.length).toBe(data.length);
   });
 });

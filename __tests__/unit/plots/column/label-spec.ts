@@ -1,10 +1,10 @@
 import { Column } from '../../../../src';
-import { salesByArea } from '../../../data/sales';
+import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('column label', () => {
-  it('position: top', () => {
-    const column = new Column(createDiv(), {
+  it('position top', () => {
+    const column = new Column(createDiv('position top'), {
       width: 400,
       height: 300,
       data: salesByArea,
@@ -36,8 +36,8 @@ describe('column label', () => {
     });
   });
 
-  it('label position middle', () => {
-    const column = new Column(createDiv(), {
+  it('position middle', () => {
+    const column = new Column(createDiv('position middle'), {
       width: 400,
       height: 300,
       data: salesByArea,
@@ -62,8 +62,8 @@ describe('column label', () => {
     expect(geometry.labelOption.cfg).toEqual({ position: 'middle' });
   });
 
-  it('label position bottom', () => {
-    const column = new Column(createDiv(), {
+  it('position bottom', () => {
+    const column = new Column(createDiv('position bottom'), {
       width: 400,
       height: 300,
       data: salesByArea,
@@ -86,5 +86,110 @@ describe('column label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'bottom' });
+  });
+
+  it('group column position top', () => {
+    const column = new Column(createDiv('group column position top'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      colorField: 'series',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+      label: {
+        position: 'top',
+      },
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    const labelGroups = geometry.labelsContainer.getChildren();
+
+    // @ts-ignore
+    expect(geometry.labelOption.cfg).toEqual({
+      position: 'top',
+    });
+    expect(labelGroups).toHaveLength(subSalesByArea.length);
+    labelGroups.forEach((label) => {
+      const origin = label.get('origin')._origin;
+      expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
+    });
+  });
+
+  it('group column position middle', () => {
+    const column = new Column(createDiv('group column position middle'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      colorField: 'series',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+      label: {
+        position: 'middle',
+      },
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    const labelGroups = geometry.labelsContainer.getChildren();
+
+    // @ts-ignore
+    expect(geometry.labelOption.cfg).toEqual({
+      position: 'middle',
+    });
+    expect(labelGroups).toHaveLength(subSalesByArea.length);
+    labelGroups.forEach((label) => {
+      const origin = label.get('origin')._origin;
+      expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
+    });
+  });
+
+  it('group column position bottom', () => {
+    const column = new Column(createDiv('group column position bottom'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      colorField: 'series',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+      label: {
+        position: 'bottom',
+      },
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    const labelGroups = geometry.labelsContainer.getChildren();
+
+    // @ts-ignore
+    expect(geometry.labelOption.cfg).toEqual({
+      position: 'bottom',
+    });
+    expect(labelGroups).toHaveLength(subSalesByArea.length);
+    labelGroups.forEach((label) => {
+      const origin = label.get('origin')._origin;
+      expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
+    });
   });
 });

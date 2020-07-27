@@ -1,8 +1,8 @@
+import { TooltipCfg } from '@antv/g2/lib/interface';
+import { GeometryTooltipOption } from '@antv/g2/lib/interface';
 import { TinyColumn } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
-import { TooltipCfg } from '@antv/g2/lib/interface';
-import { GeometryTooltipOption } from '@antv/g2/lib/interface';
 
 describe('tiny-column', () => {
   it('data', () => {

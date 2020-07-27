@@ -1,5 +1,6 @@
 import { ChartOptions } from '../../types';
 import { ShapeStyle } from '../../types/style';
+import { TinyTooltipOption } from '../../types/tooltip';
 
 /** mini 图的配置继承自 ChartOptions，因为很多的 G2 图形配置都不需要 */
 export interface TinyAreaOptions extends ChartOptions {
@@ -15,13 +16,5 @@ export interface TinyAreaOptions extends ChartOptions {
   /** 面积填充图形样式 */
   readonly areaStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
   /** tooltip配置 */
-  readonly tooltip?:
-    | boolean
-    | {
-        formatter?: (x, y) => string;
-        domStyles?: object;
-        position?: 'top' | 'bottom' | 'left' | 'right';
-        offset?: number;
-        showCrosshairs?: boolean;
-      };
+  readonly tooltip?: boolean | TinyTooltipOption;
 }

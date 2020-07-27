@@ -68,7 +68,7 @@ export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions
   const { chart, options } = params;
   const { tooltip = false } = options;
 
-  const defaultTooltipOption = {
+  const DEFAULT_TOOLTIP_OPTIONS = {
     showTitle: false,
     shared: true,
     showMarkers: false,
@@ -86,7 +86,7 @@ export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions
     if (typeof tooltip === 'object') {
       const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
       chart.tooltip({
-        ...defaultTooltipOption,
+        ...DEFAULT_TOOLTIP_OPTIONS,
         showCrosshairs,
         domStyles,
         position,
@@ -100,7 +100,7 @@ export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions
         });
       });
     } else {
-      chart.tooltip(defaultTooltipOption);
+      chart.tooltip(DEFAULT_TOOLTIP_OPTIONS);
     }
   } else {
     chart.tooltip(false);

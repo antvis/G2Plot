@@ -2,6 +2,7 @@ import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyAreaOptions } from './types';
+import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
 
 /**
  * 字段
@@ -67,20 +68,6 @@ function legend(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
   const { tooltip = false } = options;
-
-  const DEFAULT_TOOLTIP_OPTIONS = {
-    showTitle: false,
-    shared: true,
-    showMarkers: false,
-    containerTpl: '<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>',
-    itemTpl: '<span>{value}</span>',
-    domStyles: {
-      'g2-tooltip': {
-        padding: '2px',
-        fontSize: '10px',
-      },
-    },
-  };
 
   if (tooltip) {
     if (typeof tooltip === 'object') {

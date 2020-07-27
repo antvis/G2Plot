@@ -17,12 +17,6 @@ describe('#1059', () => {
     { type: '分类十二', values: [58, 155] },
     { type: '分类十三', values: [45, 120] },
     { type: '分类十四', values: [23, 99] },
-    { type: '分类十五', values: [56, 108] },
-    { type: '分类十六', values: [38, 129] },
-    { type: '分类十七', values: [58, 155] },
-    { type: '分类十八', values: [45, 120] },
-    { type: '分类十九', values: [23, 99] },
-    { type: '分类二十', values: [23, 99] },
   ];
   const plot = new RangeBar(createDiv(), {
     title: {

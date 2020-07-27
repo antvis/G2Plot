@@ -1,45 +1,22 @@
-export const dataWithoutSplit = [
-  {
-    shipping_cost: 1186.4,
-    price: 443.99,
-    order_amt: 19360.2165,
-    order_amt1: 19360.2165,
-  },
+export const SINGLE_DATA = [
+  { name: '销售', value: 43000 },
+  { name: '市场营销', value: 19000 },
+  { name: '发展', value: 60000 },
+  { name: '客户支持', value: 35000 },
+  { name: '信息技术', value: 17000 },
+  { name: '行政管理', value: 10000 },
 ];
-export const dataWithSplit = [
-  {
-    shipping_cost: 94.91,
-    price: 443.99,
-    order_amt: 19360.2165,
-    order_amt1: 19360.2165,
-    area: '东北',
-  },
-  {
-    shipping_cost: 157.33,
-    price: 1194,
-    order_amt: 23674.218,
-    order_amt1: 23674.218,
-    area: '华东',
-  },
-  {
-    shipping_cost: 34.68,
-    price: 457.23,
-    order_amt: 15569.79,
-    order_amt1: 15569.79,
-    area: '华北',
-  },
-  {
-    shipping_cost: 320.23,
-    price: 5122.29,
-    order_amt: 47408.387,
-    order_amt1: 47408.387,
-    area: '华南',
-  },
-  {
-    shipping_cost: 31.2,
-    price: 207.77,
-    order_amt: 8914.22,
-    order_amt1: 8914.22,
-    area: '西南',
-  },
+export const SERIES_DATA = [
+  { name: '销售', value: 43000, type: '预算支出' },
+  { name: '销售', value: 50000, type: '实际支出' },
+  { name: '市场营销', value: 19000, type: '预算支出' },
+  { name: '市场营销', value: 39000, type: '实际支出' },
+  { name: '发展', value: 60000, type: '预算支出' },
+  { name: '发展', value: 42000, type: '实际支出' },
+  { name: '客户支持', value: 35000, type: '预算支出' },
+  { name: '客户支持', value: 31000, type: '实际支出' },
+  { name: '信息技术', value: 17000, type: '预算支出' },
+  { name: '信息技术', value: 26000, type: '实际支出' },
+  { name: '行政管理', value: 10000, type: '预算支出' },
+  { name: '行政管理', value: 14000, type: '实际支出' },
 ];

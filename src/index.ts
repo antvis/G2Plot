@@ -35,3 +35,9 @@ export { Progress, ProgressOptions } from './plots/progress';
 
 // 环形进度图及类型定义
 export { RingProgress, RingProgressOptions } from './plots/ring-progress';
+
+// 条形图及类型定义
+export { Bar, BarOptions } from './plots/bar';
+
+// 雷达图及类型定义
+export { Radar, RadarOptions } from './plots/radar';

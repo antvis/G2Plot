@@ -112,7 +112,7 @@ describe('中心文本 - 指标卡', () => {
   });
 
   it('自定义中心文本内容: update statistic title & content, 动态数据', async () => {
-    await delay(5000);
+    await delay(500);
     pie.update({
       ...pie.options,
       statistic: {
@@ -161,7 +161,7 @@ describe('中心文本 - 指标卡', () => {
   });
 
   it('自定义中心文本样式: update statistic title style & content style', async () => {
-    await delay(5000);
+    await delay(500);
     pie.update({
       ...pie.options,
       statistic: {
@@ -249,7 +249,7 @@ describe('中心文本 - 指标卡', () => {
   //   expect(annotations.length).toBe(1);
   //   expect(annotations[0].component.get('type')).toBe('image');
 
-  //   await delay(5000);
+  //   await delay(500);
   //   pie.update({
   //     ...pie.options,
   //     annotations: [

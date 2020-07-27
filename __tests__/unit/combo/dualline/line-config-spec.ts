@@ -18,7 +18,7 @@ describe('dualline lineConfig', () => {
           connectNulls: false,
           smooth: true,
           point: {
-            visible: true,
+            // visible: true,
             size: 3,
             shape: 'circle',
           },

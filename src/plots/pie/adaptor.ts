@@ -19,8 +19,8 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   // 处理不合法的数据
   const processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
 
-  // 打印语句
-  log(LEVEL.WARN, processData.length !== data.length, 'exists illegal data existed in chart data.');
+  // 打印异常数据情况
+  log(LEVEL.WARN, processData.length !== data.length, 'illegal data existed in chart data.');
 
   const allZero = every(processData, (d) => d[angleField] === 0);
   if (allZero) {

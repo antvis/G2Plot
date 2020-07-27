@@ -1,3 +1,7 @@
+## <small>1.1.15 (2020-07-27)</small>
+
+fix: Bar scrollbar 默认样式错误，不应该是全量数据。
+
 ## <small>1.1.14 (2020-07-21)</small>
 
 fix: rangeStyle not ringStyle (#1310)

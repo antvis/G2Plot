@@ -16,4 +16,14 @@ export interface TinyLineOptions extends ChartOptions {
   readonly connectNulls?: boolean;
   /** 折线extra图形样式 */
   readonly lineStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
+  /** tooltip配置 */
+  readonly tooltip?:
+    | boolean
+    | {
+        formatter?: (x, y) => string;
+        domStyles?: object;
+        position?: 'top' | 'bottom' | 'left' | 'right';
+        offset?: number;
+        showCrosshairs?: boolean;
+      };
 }

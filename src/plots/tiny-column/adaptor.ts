@@ -63,10 +63,46 @@ function legend(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
  * tooltip 配置
  * @param params
  */
-function tooltip(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
-  const { chart } = params;
+export function tooltip(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
+  const { chart, options } = params;
+  const { tooltip = false } = options;
 
-  chart.tooltip(false);
+  const defaultTooltipOption = {
+    showTitle: false,
+    shared: true,
+    showMarkers: false,
+    containerTpl: '<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>',
+    itemTpl: '<span>{value}</span>',
+    domStyles: {
+      'g2-tooltip': {
+        padding: '2px',
+        fontSize: '10px',
+      },
+    },
+  };
+
+  if (tooltip) {
+    if (typeof tooltip === 'object') {
+      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
+      chart.tooltip({
+        ...defaultTooltipOption,
+        showCrosshairs,
+        domStyles,
+        position,
+        offset,
+      });
+      const geometry = chart.geometries[0];
+      geometry.tooltip('x*y', (x, y) => {
+        return {
+          value: formatter(x, y),
+        };
+      });
+    } else {
+      chart.tooltip(defaultTooltipOption);
+    }
+  } else {
+    chart.tooltip(false);
+  }
 
   return params;
 }

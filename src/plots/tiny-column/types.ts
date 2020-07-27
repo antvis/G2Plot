@@ -10,4 +10,14 @@ export interface TinyColumnOptions extends ChartOptions {
   readonly meta?: Record<string, any>;
   /** 迷你柱形图形样式 */
   readonly columnStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
+  /** tooltip配置 */
+  readonly tooltip?:
+    | boolean
+    | {
+        formatter?: (x, y) => string;
+        domStyles?: object;
+        position?: 'top' | 'bottom' | 'left' | 'right';
+        offset?: number;
+        showCrosshairs?: boolean;
+      };
 }

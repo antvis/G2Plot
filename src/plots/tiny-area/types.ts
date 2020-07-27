@@ -14,4 +14,14 @@ export interface TinyAreaOptions extends ChartOptions {
   readonly lineStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
   /** 面积填充图形样式 */
   readonly areaStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
+  /** tooltip配置 */
+  readonly tooltip?:
+    | boolean
+    | {
+        formatter?: (x, y) => string;
+        domStyles?: object;
+        position?: 'top' | 'bottom' | 'left' | 'right';
+        offset?: number;
+        showCrosshairs?: boolean;
+      };
 }

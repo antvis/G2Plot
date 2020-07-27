@@ -1,7 +1,7 @@
 import { deepMix, each, every, get, isFunction, filter, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
-import { flow } from '../../utils';
+import { flow, LEVEL, log } from '../../utils';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
@@ -18,9 +18,9 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
 
   // 处理不合法的数据
   const processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
-  if (processData.length !== data.length) {
-    console.error('Please check whether there exists illegal data');
-  }
+
+  // 打印语句
+  log(LEVEL.WARN, processData.length !== data.length, 'exists illegal data existed in chart data.');
 
   const allZero = every(processData, (d) => d[angleField] === 0);
   if (allZero) {

@@ -1,8 +1,7 @@
-import { clone, sortBy, valuesOfKey, getRange, each, hasKey } from '@antv/util';
+import DataSet from '@antv/data-set';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { StatisticBin, StatisticData, HistogramOptions } from './types';
-import { getBinKey, sturges } from './util';
+import { HistogramOptions } from './types';
 
 /**
  * field字段
@@ -12,58 +11,32 @@ function field(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
   const { data, binField, binNumber, binWidth, color } = options;
 
-  // 直方图操作逻辑
-  const originData_copy = clone(data);
-  // 根据binField value对源数据进行排序
-  sortBy(originData_copy, binField);
+  const ds = new DataSet();
+  const dv = ds.createView().source(data);
 
-  // 获取源数据binField values的range
-  const values = valuesOfKey(originData_copy, binField);
-  const range = getRange(values);
-  const rangeWidth = range.max - range.min;
-
-  // 计算分箱，直方图分箱的计算基于binWidth，如配置了binNumber则将其转为binWidth进行计算
-  let _binWidth = binWidth;
-  if (!binWidth && binNumber) {
-    _binWidth = rangeWidth / binNumber;
-  }
-  // 当binWidth和binNumber都没有指定的情况，采用Sturges formula自动生成binWidth
-  if (!binWidth && !binNumber) {
-    const _defaultBinNumber = sturges(values);
-    _binWidth = rangeWidth / _defaultBinNumber;
-  }
-  // 构建key - StatisticData 结构
-  const bins: StatisticBin = {};
-
-  each(originData_copy, (data: any) => {
-    const value = data[binField];
-    const bin = getBinKey(value, _binWidth);
-    const binKey = `${bin[0]}-${bin[1]}`;
-    if (!hasKey(bins, binKey)) {
-      bins[binKey] = { name: binKey, range: bin, count: 0, data: [] };
-    }
-    bins[binKey].data.push(data);
-    bins[binKey].count += 1;
+  // dataset处理数据
+  dv.transform({
+    type: 'bin.histogram',
+    field: binField,
+    bins: binNumber,
+    binWidth: binWidth,
+    as: ['range', 'count'],
   });
 
-  // 将分箱数据转换为plotData才是图表所需要的
-  const plotData: Array<StatisticData> = [];
-  each(bins, (bin: StatisticData) => {
-    plotData.push(bin);
-  });
-
-  chart.data(plotData);
+  chart.data(dv.rows);
 
   const geometry = chart.interval().position('range*count');
 
   if (color) {
     geometry.color(color);
   }
-  chart.scale({
+  // 默认nice y轴
+  const scale = {
     count: {
       nice: true,
     },
-  });
+  };
+  chart.scale(scale);
 
   return params;
 }
@@ -91,30 +64,29 @@ function legend(params: Params<HistogramOptions>): Params<HistogramOptions> {
  * @param params
  */
 function tooltip(params: Params<HistogramOptions>): Params<HistogramOptions> {
-  const { chart } = params;
-
-  chart.tooltip({
-    showMarkers: false,
-  });
-
+  // TODO
   return params;
 }
 
 /**
- * tooltip 配置
+ * interaction 配置用
+ * interaction 配合tooltip更友好
  * @param params
  */
 function interaction(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
   const { interaction = 'active-region' } = options;
 
+  chart.tooltip({
+    showMarkers: false,
+  });
   chart.interaction(interaction);
 
   return params;
 }
 
 /**
- * 散点图适配器
+ * 直方图适配器
  * @param chart
  * @param options
  */

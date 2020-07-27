@@ -1,22 +1,13 @@
 import { Options } from '../../types';
 
-export type StatisticData = {
-  name: string;
-  range: Array<number>;
-  count: number;
-  data: Array<number>;
-};
-export type StatisticBin = {
-  [key: string]: StatisticData;
-};
-
 export interface HistogramOptions extends Options {
   /** 设置直方图绘制 (进行分箱) 的字段 */
   readonly binField: string;
 
-  /** 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱,
-   * 不能与binNumber一起使用
-   * */
+  /**
+   *  设置直方图的分箱宽度，binWidth 影响直方图分成多少箱,
+   *  不能与binNumber一起使用
+   */
   readonly binWidth?: number;
 
   /** 设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度 */
@@ -25,6 +16,6 @@ export interface HistogramOptions extends Options {
   /** 指定直方图柱形颜色 */
   readonly color?: string;
 
-  /** 指定交互形式 ，目前支持2种*/
-  readonly interaction?: 'active-region' | 'element-highlight';
+  /** 指定交互形式 ，目前支持这3种比较友好 */
+  readonly interaction?: 'active-region' | 'element-highlight' | 'element-active';
 }

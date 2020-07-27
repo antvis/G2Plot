@@ -2,6 +2,7 @@ import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyAreaOptions } from './types';
+import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
 
 /**
  * 字段
@@ -64,10 +65,33 @@ function legend(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * tooltip 配置
  * @param params
  */
-function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart } = params;
+export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
+  const { chart, options } = params;
+  const { tooltip = false } = options;
 
-  chart.tooltip(false);
+  if (tooltip) {
+    if (typeof tooltip === 'object') {
+      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
+      chart.tooltip({
+        ...DEFAULT_TOOLTIP_OPTIONS,
+        showCrosshairs,
+        domStyles,
+        position,
+        offset,
+      });
+      chart.geometries.map((geometry) => {
+        geometry.tooltip('x*y', (x, y) => {
+          return {
+            value: formatter(x, y),
+          };
+        });
+      });
+    } else {
+      chart.tooltip(DEFAULT_TOOLTIP_OPTIONS);
+    }
+  } else {
+    chart.tooltip(false);
+  }
 
   return params;
 }

@@ -1,3 +1,5 @@
+import { TooltipCfg } from '@antv/g2/lib/interface';
+import { GeometryTooltipOption } from '@antv/g2/lib/interface';
 import { TinyColumn } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -72,5 +74,80 @@ describe('tiny-column', () => {
     });
     expect(tinyColumn.chart.geometries[0].elements[0].shape.attr('fill')).toEqual('#444444');
     expect(tinyColumn.chart.geometries[0].elements[1].shape.attr('fill')).toEqual('#222222');
+  });
+
+  it('data with tooltip', () => {
+    const tinyColumn = new TinyColumn(createDiv(), {
+      width: 80,
+      height: 40,
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      tooltip: true,
+    });
+
+    tinyColumn.render();
+
+    const chart = tinyColumn.chart;
+    const tooltipOption = chart.getOptions().tooltip as TooltipCfg;
+    expect(tooltipOption.showTitle).toBe(false);
+    expect(tooltipOption.shared).toBe(true);
+    expect(tooltipOption.showMarkers).toBe(false);
+    expect(tooltipOption.itemTpl).toBe('<span>{value}</span>');
+    expect(tooltipOption.containerTpl).toBe('<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>');
+    expect(tooltipOption.domStyles).toEqual({
+      'g2-tooltip': {
+        padding: '2px',
+        fontSize: '10px',
+      },
+    });
+  });
+
+  it('data with custom tooltip', () => {
+    const tinyColumn = new TinyColumn(createDiv(), {
+      width: 80,
+      height: 40,
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      tooltip: {
+        showCrosshairs: true,
+        formatter: (x, y) => {
+          return `有${y / 1000}千`;
+        },
+        position: 'bottom',
+        offset: 0,
+        domStyles: {
+          'g2-tooltip': {
+            padding: '5px',
+            fontSize: '12px',
+          },
+        },
+      },
+    });
+
+    tinyColumn.render();
+
+    const chart = tinyColumn.chart;
+    const tooltipOption = chart.getOptions().tooltip as TooltipCfg;
+    expect(tooltipOption.showCrosshairs).toBe(true);
+    expect(tooltipOption.position).toBe('bottom');
+    expect(tooltipOption.offset).toBe(0);
+    expect(tooltipOption.domStyles).toEqual({
+      'g2-tooltip': {
+        padding: '5px',
+        fontSize: '12px',
+      },
+    });
+    const geometry = tinyColumn.chart.geometries[0];
+    const geometryTooltipOption = geometry.tooltipOption as GeometryTooltipOption;
+    expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
+    expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
   });
 });

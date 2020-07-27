@@ -1,7 +1,8 @@
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyLineOptions } from './types';
-import { isFunction } from '@antv/util';
+import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
 
 /**
  * 字段
@@ -48,6 +49,40 @@ function axis(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
 }
 
 /**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+  const { chart, options } = params;
+  const { tooltip = false } = options;
+
+  if (tooltip) {
+    if (typeof tooltip === 'object') {
+      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
+      chart.tooltip({
+        ...DEFAULT_TOOLTIP_OPTIONS,
+        showCrosshairs,
+        domStyles,
+        position,
+        offset,
+      });
+      const geometry = chart.geometries[0];
+      geometry.tooltip('x*y', (x, y) => {
+        return {
+          value: formatter(x, y),
+        };
+      });
+    } else {
+      chart.tooltip(DEFAULT_TOOLTIP_OPTIONS);
+    }
+  } else {
+    chart.tooltip(false);
+  }
+
+  return params;
+}
+
+/**
  * legend 配置
  * @param params
  */
@@ -55,18 +90,6 @@ function legend(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart } = params;
 
   chart.legend(false);
-
-  return params;
-}
-
-/**
- * tooltip 配置
- * @param params
- */
-function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart } = params;
-
-  chart.tooltip(false);
 
   return params;
 }

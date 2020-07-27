@@ -1,4 +1,4 @@
-import { deepMix, each, get, isFunction } from '@antv/util';
+import { deepMix, each, every, get, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow } from '../../utils';
@@ -14,8 +14,18 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { data, angleField, colorField, color } = options;
 
-  chart.data(data);
-  const geometry = chart.interval().position(`1*${angleField}`).adjust({ type: 'stack' });
+  const geometry = chart.interval();
+
+  const allZero = every(data, (d) => d[angleField] === 0);
+  if (allZero) {
+    // 数据全 0 处理，调整 position 映射
+    const percentageField = '$$percentage$$';
+    chart.data(data.map((d) => ({ ...d, [percentageField]: 1 / data.length })));
+    geometry.position(`1*${percentageField}`).adjust({ type: 'stack' }).tooltip(`${colorField}*${angleField}`);
+  } else {
+    chart.data(data);
+    geometry.position(`1*${angleField}`).adjust({ type: 'stack' });
+  }
 
   if (colorField) {
     geometry.color(colorField, color);

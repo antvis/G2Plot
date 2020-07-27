@@ -100,6 +100,16 @@ export default class RangeBarLayer extends BaseBarLayer<RangeBarLayerConfig> {
 
   protected animation() {
     super.animation();
+    this.bar.animate = {
+      appear: {
+        animation: 'clipInFromCenter',
+        duration: 600,
+      },
+      update: {
+        animation: 'updateFromCenter',
+        duration: 600,
+      },
+    };
   }
 }
 

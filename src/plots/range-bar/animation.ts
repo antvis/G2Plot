@@ -40,18 +40,16 @@ export function setShapeCache(shapes) {
 function updateFromCenter(shape, animateCfg) {
   const fromPath = getShapeFromCache(shape).attr('path');
   const toPath = clone(shape.attr('path'));
-  if (fromPath) {
-    shape.attr('path', fromPath);
-    shape.animate(
-      {
-        path: toPath,
-      },
-      animateCfg.duration,
-      animateCfg.easing,
-      animateCfg.callback,
-      100
-    );
-  }
+  shape.attr('path', fromPath);
+  shape.animate(
+    {
+      path: toPath,
+    },
+    animateCfg.duration,
+    animateCfg.easing,
+    animateCfg.callback,
+    100
+  );
 }
 
 function getShapeFromCache(shape) {

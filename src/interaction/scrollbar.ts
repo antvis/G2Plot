@@ -191,7 +191,7 @@ export default class ScrollbarInteraction extends BaseInteraction {
 
   private getScrollRange(): [number, number] {
     const startIdx: number = Math.floor((this.cnt - this.step) * clamp(this.ratio, 0, 1));
-    const endIdx: number = Math.min(startIdx + this.step, this.cnt);
+    const endIdx: number = Math.max(startIdx + this.step, this.cnt);
     return [startIdx, endIdx];
   }
 

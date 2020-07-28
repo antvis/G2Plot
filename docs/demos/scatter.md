@@ -36,6 +36,11 @@ const Page: React.FC = () => {
       colorField: 'gender',
       color: ['green', 'red'],
       sizeField: 'weight',
+      interactions: [
+        {
+          name: 'drag-move',
+        },
+      ],
       label: {
         offsetX: 6,
         offsetY: 6,

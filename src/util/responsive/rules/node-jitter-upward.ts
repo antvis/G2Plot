@@ -12,7 +12,7 @@ export default function nodeJitterUpward(shape: IShape, option, index, cfg) {
   const current = nodes[index];
   const previous = nodes[index - 1];
   if (isNodeOverlap(current, previous)) {
-    const element = cfg.plot.plot.get('elements')[0];
+    const element = cfg.plot.view.geometries[0].elements[0];
     const y = previous.top - current.height / 2;
     const offset = 10;
     if (y - offset > cfg.region.top) {

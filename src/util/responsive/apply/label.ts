@@ -13,9 +13,9 @@ export default class ApplyResponsiveLabel extends ApplyResponsive {
 
   protected apply() {
     const labelShapesContainer = this.plot.view.geometries[0].labelsContainer.get('children');
-    const labelShapes = [];
+    let labelShapes = [];
     each(labelShapesContainer, (c) => {
-      labelShapes.push(c.get('children')[0]);
+      labelShapes = labelShapes.concat(c.findAllByName('label'));
     });
     const nodes = new ShapeNodes({
       shapes: labelShapes,

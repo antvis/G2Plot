@@ -1,5 +1,5 @@
 import { IShape } from '@antv/g-base';
-import { each, clone } from '@antv/util';
+import { each, clone, get } from '@antv/util';
 import textHide from './text-hide';
 
 export default function nodesResamplingByState(shape: IShape, option, index, cfg) {
@@ -9,8 +9,12 @@ export default function nodesResamplingByState(shape: IShape, option, index, cfg
     current.line.remove();
   }
 
-  const data = cfg.plot.initialProps.data;
-  const field = cfg.plot[cfg.plot.type].label.fields[0];
+  const data = cfg.plot.initialOptions.data;
+  const field = get(
+    cfg.plot[cfg.plot.type],
+    ['label', 'fields', 0],
+    get(cfg.plot[cfg.plot.type], ['position', 'fields', 1])
+  );
   const stateNodes = getStateNodes(data, field, nodes);
 
   let isState = false;
@@ -66,7 +70,7 @@ function getMedian(array) {
 
 function getNodeByNumber(nodes, field, num) {
   for (const node of nodes) {
-    const d = node.shape.get('origin');
+    const d = node.shape.get('origin')['_origin'];
     if (d[field] === num) {
       return node;
     }

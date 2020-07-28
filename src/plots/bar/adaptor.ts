@@ -2,28 +2,28 @@ import { Geometry, Chart } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
-import { ColumnOptions } from './types';
+import { BarOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * 字段
  * @param params
  */
-function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function field(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color, isStack } = options;
+  const { data, xField, yField, colorField, color } = options;
 
   chart.data(data);
+
+  // transpose column to bar
+  chart.coordinate().transpose();
+
+  // category as xField
   const geometry = chart.interval().position(`${xField}*${yField}`);
 
   if (colorField) {
     geometry.color(colorField, color);
-  }
-
-  if (colorField && ![xField, yField].includes(colorField)) {
-    geometry.adjust(isStack ? 'stack' : 'dodge');
   }
 
   return params;
@@ -33,7 +33,7 @@ function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function meta(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, yField } = options;
 
@@ -51,7 +51,7 @@ function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * axis 配置
  * @param params
  */
-function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function axis(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
@@ -75,7 +75,7 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * legend 配置
  * @param params
  */
-function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function legend(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
   const { legend, colorField } = options;
 
@@ -90,16 +90,16 @@ function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * 样式
  * @param params
  */
-function style(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function style(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
-  const { xField, yField, colorField, columnStyle } = options;
+  const { xField, yField, colorField, barStyle } = options;
 
   const geometry = findGeometry(chart, 'interval');
-  if (columnStyle && geometry) {
-    if (isFunction(columnStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}`, columnStyle);
+  if (barStyle && geometry) {
+    if (isFunction(barStyle)) {
+      geometry.style(`${xField}*${yField}*${colorField}`, barStyle);
     } else {
-      geometry.style(columnStyle);
+      geometry.style(barStyle);
     }
   }
   return params;
@@ -109,7 +109,7 @@ function style(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * 数据标签
  * @param params
  */
-function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function label(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
   const { label, yField } = options;
 
@@ -133,6 +133,6 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * 柱形图适配器
  * @param params
  */
-export function adaptor(params: Params<ColumnOptions>) {
-  return flow(field, meta, axis, legend, tooltip, theme, style, label, interaction, animation)(params);
+export function adaptor(params: Params<BarOptions>) {
+  return flow(field, meta, axis, legend, style, label)(params);
 }

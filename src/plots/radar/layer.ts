@@ -258,7 +258,7 @@ export default class RadarLayer extends ViewLayer<RadarLayerConfig> {
     }
     /** 配置线 */
     if (props.line && props.line.visible) {
-      const line = getGeom('line', 'guide', {
+      const line = getGeom('line', 'main', {
         plot: this,
       });
       this.setConfig('geometry', line);

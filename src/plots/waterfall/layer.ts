@@ -238,9 +238,9 @@ export default class WaterfallLayer extends ViewLayer<WaterfallLayerConfig> {
       plot: this,
       dim: 'y',
     });
-    const axesConfig = { fields: {} };
-    axesConfig.fields[this.options.xField] = xAxis_parser;
-    axesConfig.fields[VALUE_FIELD] = yAxis_parser;
+    const axesConfig = {};
+    axesConfig[this.options.xField] = xAxis_parser;
+    axesConfig[VALUE_FIELD] = yAxis_parser;
     /** 存储坐标轴配置项到config */
     this.setConfig('axes', axesConfig);
   }

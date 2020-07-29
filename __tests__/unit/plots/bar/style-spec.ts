@@ -8,8 +8,8 @@ describe('bar style', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,
@@ -35,8 +35,8 @@ describe('bar style', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,

@@ -1,11 +1,11 @@
-import { DualLine } from '../../../../src';
+import { Biax } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
-describe('dualline meta', () => {
+describe('Biax meta', () => {
   it('hide axis', () => {
     document.body.append('hide axis');
-    const dualline = new DualLine(createDiv(), {
+    const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
       data: CountryEconomy,
@@ -15,17 +15,17 @@ describe('dualline meta', () => {
       yAxis: [false, false],
     });
 
-    dualline.render();
+    biax.render();
 
-    const axes = dualline.chart.getComponents().filter((co) => co.type === 'axis');
+    const axes = biax.chart.getComponents().filter((co) => co.type === 'axis');
     expect(axes.length).toBe(0);
 
-    // dualline.destroy();
+    // Biax.destroy();
   });
 
   it('position', () => {
     document.body.append('axis');
-    const dualline = new DualLine(createDiv(), {
+    const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
       data: CountryEconomy,
@@ -42,19 +42,19 @@ describe('dualline meta', () => {
       ],
     });
 
-    dualline.render();
+    biax.render();
 
-    const axes = dualline.chart.getComponents().filter((co) => co.type === 'axis');
+    const axes = biax.chart.getComponents().filter((co) => co.type === 'axis');
     expect(axes.length).toBe(2);
     expect(axes[0].direction).toBe('top');
     expect(axes[1].direction).toBe('right');
 
-    // dualline.destroy();
+    // Biax.destroy();
   });
 
   it('axis style', () => {
     document.body.append('axis');
-    const dualline = new DualLine(createDiv(), {
+    const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
       data: CountryEconomy,
@@ -114,9 +114,9 @@ describe('dualline meta', () => {
       ],
     });
 
-    dualline.render();
+    biax.render();
 
-    const axes = dualline.chart.getComponents().filter((co) => co.type === 'axis');
+    const axes = biax.chart.getComponents().filter((co) => co.type === 'axis');
     expect(axes.length).toBe(3);
     // position
     expect(axes[0].direction).toBe('bottom');

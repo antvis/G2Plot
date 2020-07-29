@@ -46,6 +46,7 @@ describe('scatter', () => {
     const elements = geometry.elements;
     const shapeArr = [];
     elements.forEach((ele) => {
+      // @ts-ignore
       shapeArr.push(ele.getModel().shape);
     });
     const set = new Set(shapeArr);
@@ -82,6 +83,7 @@ describe('scatter', () => {
     const elements = geometry.elements;
     const shapeArr = [];
     elements.forEach((ele) => {
+      // @ts-ignore
       shapeArr.push(ele.getModel().shape);
     });
 

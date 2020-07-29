@@ -1,18 +1,19 @@
-import { DualLine } from '../../../../src';
+import { Biax } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
-describe('dualline lineConfig', () => {
-  it('lineConfig', () => {
-    document.body.append('test dualline lineConfig');
-    const dualline = new DualLine(createDiv(), {
+describe('Biax dualline', () => {
+  it('Doubal Line', () => {
+    document.body.append('test Biax doubal line');
+    const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
       data: CountryEconomy,
       xField: 'Country',
       yField: ['GDP', 'Population'],
-      lineConfigs: [
+      geometryConfigs: [
         {
+          geometry: 'Line',
           color: '#180',
           lineSize: 5,
           connectNulls: false,
@@ -26,10 +27,10 @@ describe('dualline lineConfig', () => {
       ],
     });
 
-    dualline.render();
+    biax.render();
 
     // line
-    const lineGeometrys = dualline.chart.geometries.filter((g) => g.type === 'line');
+    const lineGeometrys = biax.chart.geometries.filter((g) => g.type === 'line');
 
     expect(lineGeometrys.length).toBe(2);
 
@@ -46,11 +47,11 @@ describe('dualline lineConfig', () => {
     expect(lineGeometrys[1].attributes.shape.values).toEqual(['line']);
 
     // point
-    const pointGeometrys = dualline.chart.geometries.filter((g) => g.type === 'point');
+    const pointGeometrys = biax.chart.geometries.filter((g) => g.type === 'point');
     expect(pointGeometrys.length).toBe(1);
     expect(pointGeometrys[0].attributes.size.values).toEqual([3]);
     expect(pointGeometrys[0].attributes.shape.values).toEqual(['circle']);
 
-    // dualline.destroy();
+    // Biax.destroy();
   });
 });

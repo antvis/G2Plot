@@ -1,13 +1,12 @@
-import { DualLine } from '../../../../src';
+import { Biax } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
-describe('dualline data', () => {
+describe('Biax data', () => {
   it('data', () => {
-    document.body.append('test dualline data');
-
+    document.body.append('test Biax data');
     const yField = ['GDP', 'Population'];
-    const dualline = new DualLine(createDiv(), {
+    const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
       data: CountryEconomy,
@@ -15,9 +14,9 @@ describe('dualline data', () => {
       yField,
     });
 
-    dualline.render();
+    biax.render();
 
-    const lineGeometrys = dualline.chart.geometries.filter((g) => g.type === 'line');
+    const lineGeometrys = biax.chart.geometries.filter((g) => g.type === 'line');
     expect(lineGeometrys.length).toBe(2);
 
     lineGeometrys.forEach((geometry, index) => {
@@ -27,7 +26,5 @@ describe('dualline data', () => {
       expect(geometry.scales[yField[index]].max).toBe(Math.max(...lineData));
       expect(geometry.scales[yField[index]].min).toBe(Math.min(...lineData));
     });
-
-    // dualline.destroy();
   });
 });

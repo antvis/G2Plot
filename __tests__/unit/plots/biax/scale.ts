@@ -1,11 +1,11 @@
-import { DualLine } from '../../../../src';
+import { Biax } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
-describe('dualline meta', () => {
+describe('Biax meta', () => {
   it('meta(include some axis attribute)', () => {
     document.body.append('meta(include some axis attribute)');
-    const dualline = new DualLine(createDiv(), {
+    const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
       data: CountryEconomy,
@@ -24,9 +24,9 @@ describe('dualline meta', () => {
       ],
     });
 
-    dualline.render();
+    biax.render();
 
-    const yScales = dualline.chart.getYScales();
+    const yScales = biax.chart.getYScales();
     expect(yScales[0].min).toBe(0);
     expect(yScales[0].max).toBe(50000);
     // @ts-ignore
@@ -36,6 +36,6 @@ describe('dualline meta', () => {
     // @ts-ignore
     expect(yScales[1].nice).toBe(false);
 
-    // dualline.destroy();
+    // biax.destroy();
   });
 });

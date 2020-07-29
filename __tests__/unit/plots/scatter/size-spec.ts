@@ -24,6 +24,7 @@ describe('scatter', () => {
     const elements = geometry.elements;
     const sizeArr = [];
     elements.forEach((ele) => {
+      // @ts-ignore
       sizeArr.push(ele.getModel().size);
     });
     sizeArr.sort((a, b) => a - b);
@@ -80,6 +81,7 @@ describe('scatter', () => {
     const elements = geometry.elements;
     const sizeArr = [];
     elements.forEach((ele) => {
+      // @ts-ignore
       sizeArr.push(ele.getModel().size);
     });
     sizeArr.sort((a, b) => a - b);

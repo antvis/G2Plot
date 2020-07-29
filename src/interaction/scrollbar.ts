@@ -1,7 +1,7 @@
 import { IGroup, Scrollbar } from '../dependents';
 import BBox from '../util/bbox';
 import { Scale } from '@antv/scale';
-import { clamp, get, isEqual, map, throttle } from '@antv/util';
+import { clamp, get, isEqual, throttle } from '@antv/util';
 import ViewLayer from '../base/view-layer';
 import { IScrollbarInteractionConfig } from '../interface/config';
 import BaseInteraction from './base';
@@ -64,14 +64,7 @@ export default class ScrollbarInteraction extends BaseInteraction {
     field: string;
     values: string[];
   };
-  private yScalesCfg: Array<{
-    field: string;
-    type: string;
-    min: number;
-    max: number;
-    ticks: number[];
-    formatter: any;
-  }>;
+  private yScalesCfg: Scale[];
   private ratio: number;
   private thumbOffset: number;
   private trackLen: number;
@@ -170,18 +163,11 @@ export default class ScrollbarInteraction extends BaseInteraction {
     const isHorizontal: boolean = config.type !== 'vertical';
     const panelRange = this.view.coordinateBBox;
     const xScale: Scale = this.view.getXScale();
-    const yScales: Scale[] = this.view.getYScales();
+    const yScales: Scale[] = this.view.getYScales().filter(Boolean);
 
     this.cnt = xScale.values.length;
     this.xScaleCfg = { field: xScale.field, values: xScale.values || [] };
-    this.yScalesCfg = map(yScales, (item) => ({
-      field: item.field,
-      type: item.type,
-      min: item.min,
-      max: item.max,
-      ticks: item.ticks,
-      formatter: item.formatter,
-    }));
+    this.yScalesCfg = yScales;
     this.step = Math.floor((isHorizontal ? panelRange.width : panelRange.height) / config.categorySize);
     this.trackLen = isHorizontal
       ? panelRange.width - paddingLeft - paddingRight

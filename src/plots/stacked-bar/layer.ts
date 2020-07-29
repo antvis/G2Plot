@@ -72,6 +72,7 @@ export default class StackedBarLayer<T extends StackedBarLayerConfig = StackedBa
   }
 
   public type: string = 'stackedBar';
+  public baseType: string = 'bar';
 
   public getColorScale() {
     const { stackField } = this.options;

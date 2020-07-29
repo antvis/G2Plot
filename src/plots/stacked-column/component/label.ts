@@ -8,7 +8,7 @@ export default class StackedColumnLabel extends ColumnLabel {
     if (adjustPosition) {
       const labelRange = label.getBBox();
       const shapeRange = this.getElementShapeBBox(element);
-      if (shapeRange.height < labelRange.height) {
+      if (shapeRange.width < labelRange.width) {
         label.hide();
       }
     }

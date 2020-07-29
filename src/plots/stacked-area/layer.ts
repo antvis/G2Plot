@@ -24,6 +24,7 @@ export default class StackedAreaLayer<T extends StackedAreaLayerConfig = Stacked
   }
 
   public type: string = 'stackedArea';
+  public baseType: string = 'area';
 
   public beforeInit() {
     const visible = get(this.options, ['label', 'visible']);

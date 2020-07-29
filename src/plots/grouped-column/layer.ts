@@ -13,6 +13,8 @@ export interface GroupedColumnViewConfig extends ColumnViewConfig {
 export interface GroupedColumnLayerConfig extends GroupedColumnViewConfig, LayerConfig {}
 
 export default class GroupedColumnLayer extends BaseColumnLayer<GroupedColumnLayerConfig> {
+  public baseType: string = 'column';
+
   public static getDefaultOptions(): Partial<GroupedColumnViewConfig> {
     return deepMix({}, super.getDefaultOptions(), {
       yAxis: {

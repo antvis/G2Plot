@@ -42,6 +42,8 @@ export default class GroupedBarLayer extends BaseBarLayer<GroupedBarLayerConfig>
 
   public type: string = 'groupedBar';
 
+  public baseType: string = 'bar';
+
   public afterRender() {
     super.afterRender();
     const names = valuesOfKey(this.options.data, this.options.groupField) || [];

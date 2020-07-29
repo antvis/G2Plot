@@ -41,6 +41,8 @@ export default class StackedColumnLayer<
   }
 
   public type: string = 'stackedColumn';
+  public baseType: string = 'column';
+
   public connectedArea: any;
 
   public init() {

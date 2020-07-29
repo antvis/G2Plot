@@ -10,11 +10,8 @@ export default function nodesResamplingByState(shape: IShape, option, index, cfg
   }
 
   const data = cfg.plot.initialOptions.data;
-  const field = get(
-    cfg.plot[cfg.plot.type],
-    ['label', 'fields', 0],
-    get(cfg.plot[cfg.plot.type], ['position', 'fields', 1])
-  );
+  const plotCfg = cfg.plot[cfg.plot.type] || cfg.plot[cfg.plot.baseType];
+  const field = get(plotCfg, ['label', 'fields', 0], get(plotCfg, ['position', 'fields', 1]));
   const stateNodes = getStateNodes(data, field, nodes);
 
   let isState = false;

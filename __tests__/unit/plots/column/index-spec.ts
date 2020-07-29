@@ -112,4 +112,49 @@ describe('column', () => {
       yField: 'sales',
     });
   });
+
+  it('grouped column columnWidthRatio/marginRatio', () => {
+    const column = new Column(createDiv('grouped column columnWidthRatio'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      colorField: 'series',
+      columnWidthRatio: 0.7,
+      marginRatio: 0.1,
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+      marginRatio: 0.1,
+      dodgeRatio: 0.7,
+    });
+  });
+
+  it('stacked column columnWidthRatio/marginRatio', () => {
+    const column = new Column(createDiv('stacked column columnWidthRatio'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      colorField: 'series',
+      isStack: true,
+      columnWidthRatio: 0.7,
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.theme.columnWidthRatio).toBe(0.7);
+  });
 });

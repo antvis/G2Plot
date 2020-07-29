@@ -1,6 +1,6 @@
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
+import { flow, pick, log, LEVEL } from '../../utils';
 import { ScatterOptions } from './types';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { findGeometry } from '../../common/helper';
@@ -37,7 +37,7 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
       });
       if (validateRules) {
         if (!options[REFLECTS[key].field]) {
-          console.warn(`***\n  为了准确映射，请指定 ${REFLECTS[key].field} \n  ***`);
+          log(LEVEL.WARN, false, '***  为了准确映射，请指定 %s  ***', REFLECTS[key].field);
         }
         geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
       } else {

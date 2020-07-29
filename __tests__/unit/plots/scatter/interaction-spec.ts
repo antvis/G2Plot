@@ -1,5 +1,5 @@
-import { Scatter } from '../../../../src';
 import { getInteraction } from '@antv/g2';
+import { Scatter } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { data } from '../../../data/gender';
 
@@ -26,7 +26,7 @@ describe('scatter: register interaction', () => {
 
   scatter.render();
 
-  it('define:  drag-move', () => {
+  it('define: drag-move', () => {
     const statisticInteraction = getInteraction('drag-move');
     expect(statisticInteraction).toBeDefined();
   });

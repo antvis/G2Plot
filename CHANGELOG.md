@@ -1,3 +1,8 @@
+## <small>1.1.16 (2020-07-29)</small>
+
+* Fix responsive not work (#1351) ([61e40c5](https://github.com/antvis/g2plot/commit/61e40c5)), closes [#1351](https://github.com/antvis/g2plot/issues/1351)
+
+
 ## <small>1.1.15 (2020-07-27)</small>
 
 fix: Bar scrollbar 默认样式错误，不应该是全量数据。
@@ -315,3 +320,4 @@ antvis/g2plot/issues/1132)
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
+

@@ -37,7 +37,7 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
       });
       if (validateRules) {
         if (!options[REFLECTS[key].field]) {
-          log(LEVEL.WARN, false, '***  为了准确映射，请指定 %s  ***', REFLECTS[key].field);
+          log(LEVEL.WARN, false, '***  For accurate mapping, specify %s please.  ***', REFLECTS[key].field);
         }
         geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
       } else {

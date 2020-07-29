@@ -73,7 +73,7 @@ describe('histogram', () => {
       data: histogramData,
       binField: 'value',
       binWidth: 2,
-      color: 'red',
+      color: () => 'red',
     });
 
     histogram.render();
@@ -102,7 +102,10 @@ describe('histogram', () => {
     const geometry = histogram.chart.geometries[0];
 
     // 如果没有 stackField 是没有adjustNames这个数组
-    expect(geometry.getAdjust('stack').adjustNames.length);
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'range',
+      yField: 'count',
+    });
   });
 
   it('stackField with color', () => {
@@ -124,6 +127,9 @@ describe('histogram', () => {
     const colorAttribute = geometry.getAttribute('color');
 
     expect(colorAttribute.values).toEqual(colors);
-    expect(geometry.getAdjust('stack').adjustNames.length);
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'range',
+      yField: 'count',
+    });
   });
 });

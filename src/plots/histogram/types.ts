@@ -1,4 +1,5 @@
 import { Options } from '../../types';
+import { ShapeStyle } from '../../types/style';
 
 export interface HistogramOptions extends Options {
   /** 设置直方图绘制 (进行分箱) 的字段 */
@@ -13,12 +14,9 @@ export interface HistogramOptions extends Options {
   /** 设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度 */
   readonly binNumber?: number;
 
-  /** 指定直方图柱形颜色，基础直方图为 string ，层叠直方图时为 string[] */
-  readonly color?: string | string[];
-
   /** 指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分 */
   readonly stackField?: string;
 
-  /** 指定交互形式，目前支持这3种比较友好 */
-  readonly interaction?: 'active-region' | 'element-highlight' | 'element-active';
+  /** 柱子样式配置，可选 */
+  readonly columnStyle?: ShapeStyle | ((x: any, y: any, color?: any) => ShapeStyle);
 }

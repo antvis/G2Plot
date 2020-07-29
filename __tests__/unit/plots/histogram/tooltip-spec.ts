@@ -20,5 +20,12 @@ describe('Histogram:tooltip', () => {
   it('tooltip', () => {
     // @ts-ignore
     expect(histogram.chart.options.tooltip.title).toBe('hello wold!');
+    histogram.update({
+      ...histogram.options,
+      tooltip: false,
+    });
+    // @ts-ignore
+    expect(histogram.chart.options.tooltip).toBe(false);
+    expect(histogram.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
   });
 });

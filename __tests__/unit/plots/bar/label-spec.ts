@@ -8,8 +8,8 @@ describe('bar label', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,
@@ -41,8 +41,8 @@ describe('bar label', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,
@@ -67,8 +67,8 @@ describe('bar label', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,

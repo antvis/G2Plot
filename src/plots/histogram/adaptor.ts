@@ -1,36 +1,50 @@
 import DataSet from '@antv/data-set';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { HistogramOptions } from './types';
 
 /**
- * field字段
+ * field 字段
  * @param params
  */
 function field(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
-  const { data, binField, binNumber, binWidth, color } = options;
+  const { data, binField, binNumber, binWidth, color, stackField } = options;
 
   const ds = new DataSet();
   const dv = ds.createView().source(data);
 
-  // dataset处理数据
+  // dataset 处理数据
   dv.transform({
     type: 'bin.histogram',
     field: binField,
     bins: binNumber,
     binWidth: binWidth,
+    groupBy: stackField ? [stackField] : undefined,
     as: ['range', 'count'],
   });
-
   chart.data(dv.rows);
 
   const geometry = chart.interval().position('range*count');
 
-  if (color) {
+  // 基本直方图 color: string
+  if (color && !Array.isArray(color) && !stackField) {
     geometry.color(color);
   }
-  // 默认nice y轴
+  // 层叠直方图需要 color: string[]
+  if (stackField) {
+    if (color) {
+      // 容错处理 color 为 string 的时候
+      const _color = Array.isArray(color) ? color : [color];
+      geometry.color(stackField, _color);
+    } else {
+      // 用 g2 自带颜色
+      geometry.color(stackField);
+    }
+    geometry.adjust('stack');
+  }
+  // 默认 nice y 轴
   const scale = {
     count: {
       nice: true,
@@ -64,22 +78,28 @@ function legend(params: Params<HistogramOptions>): Params<HistogramOptions> {
  * @param params
  */
 function tooltip(params: Params<HistogramOptions>): Params<HistogramOptions> {
-  // TODO
+  const { chart, options } = params;
+  const { tooltip } = options;
+
+  const cfg = deepMix({}, tooltip, {
+    showMarkers: false,
+    shared: true,
+  });
+
+  chart.tooltip(cfg);
+
   return params;
 }
 
 /**
  * interaction 配置用
- * interaction 配合tooltip更友好
+ * interaction 配合 tooltip 更友好
  * @param params
  */
 function interaction(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
   const { interaction = 'active-region' } = options;
 
-  chart.tooltip({
-    showMarkers: false,
-  });
   chart.interaction(interaction);
 
   return params;

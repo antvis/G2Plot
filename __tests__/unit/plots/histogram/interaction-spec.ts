@@ -23,7 +23,7 @@ describe('Histogram - G2内置interaction', () => {
     expect(histogram.chart.interactions['active-region']).toBeDefined();
   });
 
-  it('交互:element-highlight', () => {
+  it('交互: element-highlight', () => {
     histogram.update({
       ...histogram.options,
       interaction: 'element-highlight',
@@ -32,7 +32,7 @@ describe('Histogram - G2内置interaction', () => {
     expect(histogram.chart.interactions['element-highlight']).toBeDefined();
   });
 
-  it('交互:element-active', () => {
+  it('交互: element-active', () => {
     histogram.update({
       ...histogram.options,
       interaction: 'element-active',

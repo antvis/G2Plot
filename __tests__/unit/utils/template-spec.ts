@@ -8,7 +8,7 @@ describe('template', () => {
     expect(template('{name {value}', data)).toBe('{name {value}');
     expect(template('{name} value}', data)).toBe('item1 value}');
     expect(template('{name}: {value}({percentage})', data)).toBe('item1: 1(0.23)');
-    // 没有 match 的data 原路返回
+    // 没有 match 的 data 原路返回
     expect(template('{name}: {value}({percentage1})', data)).toBe('item1: 1({percentage1})');
   });
 });

@@ -1,7 +1,7 @@
+import { IGroup } from '@antv/g2/lib/dependents';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
-import { IGroup } from '@antv/g2/lib/dependents';
 
 describe('pie label', () => {
   const data = POSITIVE_NEGATIVE_DATA.filter((o) => o.value > 0).map((d, idx) =>

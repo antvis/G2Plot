@@ -5,7 +5,6 @@ import { flow, LEVEL, log, template } from '../../utils';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
-import { MappingDatum } from '@antv/g2/lib/interface';
 
 /**
  * 字段
@@ -109,7 +108,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     const labelCfg = cfg;
     if (cfg.content) {
       const { content } = cfg;
-      labelCfg.content = (data: object, dataum: MappingDatum, index: number) => {
+      labelCfg.content = (data: object, dataum: any, index: number) => {
         const name = data[colorField];
         const value = data[angleField];
         // dymatic get scale, scale is ready this time

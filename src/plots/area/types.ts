@@ -1,3 +1,4 @@
+import { PointGeometryOptions } from '../../geometries';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
@@ -21,12 +22,5 @@ export interface AreaOptions extends Options {
     readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
   };
   /** 面积图数据点图形样式 */
-  readonly point?: {
-    /** point shape 映射 */
-    readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
-    /** 大小映射，先简化处理为确定值 */
-    readonly size?: number;
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
-  };
+  readonly point?: PointGeometryOptions['point'];
 }

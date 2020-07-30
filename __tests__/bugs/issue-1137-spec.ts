@@ -24,7 +24,7 @@ describe('#1137', () => {
       visible: true,
       type: 'bar-auto',
     },
-    animation: true,
+    animation: false,
     interactions: [
       {
         type: 'scrollbar',

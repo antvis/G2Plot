@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "基础散点图",
+        "en": "basic Scatter chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Cu0wSYK_U6YAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color.js",
+      "title": {
+        "zh": "多色散点图",
+        "en": "color Scatter chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Cu0wSYK_U6YAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

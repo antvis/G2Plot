@@ -5,6 +5,7 @@ import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { meta, legend, point, axis } from '../line/adaptor';
 import { flow } from '../../utils';
 import { AreaOptions } from './types';
+import { findGeometry } from '../../common/helper';
 
 /**
  * 字段
@@ -32,7 +33,7 @@ function style(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
   const { xField, yField, seriesField, areaStyle } = options;
 
-  const geometry = chart.geometries.find((g: Geometry) => g.type === 'area');
+  const geometry = findGeometry(chart, 'area');
   if (areaStyle && geometry) {
     if (isFunction(areaStyle)) {
       geometry.style(`${xField}*${yField}*${seriesField}`, areaStyle);
@@ -51,7 +52,7 @@ function shape(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
   const { smooth } = options;
 
-  const areaGeometry = chart.geometries.find((g: Geometry) => g.type === 'area');
+  const areaGeometry = findGeometry(chart, 'area');
 
   areaGeometry.shape(smooth ? 'smooth' : 'area');
   return params;
@@ -65,7 +66,7 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
   const { label, yField } = options;
 
-  const areaGeometry = chart.geometries.find((g: Geometry) => g.type === 'area');
+  const areaGeometry = findGeometry(chart, 'area');
 
   // label 为 false, 空 则不显示 label
   if (!label) {

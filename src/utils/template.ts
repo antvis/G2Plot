@@ -4,15 +4,6 @@
  * @param options
  */
 export function template(source: string, data: object): string {
-  let result = '';
-  let index = 0;
-  source.replace(/{([\s\S]+?)}/g, (match: string, escapeValue: string, offset: number) => {
-    result += source.slice(index, offset);
-    result += data[escapeValue] || match;
-    index = offset + match.length;
-
-    return source;
-  });
-
-  return result + source.slice(index);
+  // `(?<=y)x` 匹配'x'仅当'x'前面是'y'.这种叫做后行断言; `x(?=y)` 匹配'x'仅仅当'x'后面跟着'y'.这种叫做先行断言。
+  return source.replace(/{((?<={)[^{}]+(?=}))}/g, (match, key) => data[key.trim()] || match);
 }

@@ -1,4 +1,4 @@
-import { IGroup } from '@antv/g2/lib/dependents';
+import { IGroup } from '@antv/g-base';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';

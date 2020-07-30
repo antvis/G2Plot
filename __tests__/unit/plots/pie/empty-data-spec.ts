@@ -1,4 +1,4 @@
-import { IGroup } from '@antv/g2/lib/dependents';
+import { IGroup } from '@antv/g-base';
 import { every } from '@antv/util';
 import { Pie } from '../../../../src';
 import { createDiv } from '../../../utils/dom';

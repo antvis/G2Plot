@@ -362,6 +362,7 @@ export default class SpiderLabel {
         label._side === 'left'
           ? center.x - radius - this.options.sidePadding
           : center.x + radius + this.options.sidePadding,
+      ...this.options.style,
     };
 
     if (this.options.offsetX) {

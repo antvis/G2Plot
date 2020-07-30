@@ -44,3 +44,6 @@ export { Bar, BarOptions } from './plots/bar';
 
 // 雷达图及类型定义
 export { Radar, RadarOptions } from './plots/radar';
+
+// 热力图及类型定义
+export { Heatmap, HeatmapOptions } from './plots/heatmap';

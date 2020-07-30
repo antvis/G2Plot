@@ -1,5 +1,5 @@
 import { Bar } from '../../../../src';
-import { salesByArea } from '../../../data/sales';
+import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('bar', () => {
@@ -8,8 +8,8 @@ describe('bar', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
     });
 
     bar.render();
@@ -32,8 +32,8 @@ describe('bar', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       colorField: 'area',
     });
 
@@ -52,8 +52,8 @@ describe('bar', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       colorField: 'area',
       color: palette,
     });
@@ -69,6 +69,47 @@ describe('bar', () => {
     geometry.elements.forEach((element, index) => {
       const color = element.getModel().color;
       expect(color).toBe(palette[index % palette.length]);
+    });
+  });
+
+  it('grouped bar', () => {
+    const bar = new Bar(createDiv('grouped column'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      colorField: 'series',
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAdjust('stack')).toBeUndefined();
+  });
+
+  it('stacked bar', () => {
+    const bar = new Bar(createDiv('stacked column'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      colorField: 'series',
+      isStack: true,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toBeUndefined();
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
     });
   });
 });

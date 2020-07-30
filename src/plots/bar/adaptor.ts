@@ -1,7 +1,7 @@
-import { Geometry, Chart } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
+import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { BarOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -12,18 +12,21 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  */
 function field(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color } = options;
+  const { data, xField, yField, colorField, color, isStack } = options;
 
   chart.data(data);
 
   // transpose column to bar
   chart.coordinate().transpose();
 
-  // category as xField
-  const geometry = chart.interval().position(`${xField}*${yField}`);
+  const geometry = chart.interval().position(`${yField}*${xField}`);
 
   if (colorField) {
     geometry.color(colorField, color);
+  }
+
+  if (colorField && ![xField, yField].includes(colorField)) {
+    geometry.adjust(isStack ? 'stack' : 'dodge');
   }
 
   return params;
@@ -56,16 +59,17 @@ function axis(params: Params<BarOptions>): Params<BarOptions> {
   const { xAxis, yAxis, xField, yField } = options;
 
   // 为 false 则是不显示轴
+  // xField -> yAxis
   if (xAxis === false) {
-    chart.axis(xField, false);
-  } else {
-    chart.axis(xField, xAxis);
-  }
-
-  if (yAxis === false) {
     chart.axis(yField, false);
   } else {
     chart.axis(yField, yAxis);
+  }
+
+  if (yAxis === false) {
+    chart.axis(xField, false);
+  } else {
+    chart.axis(xField, xAxis);
   }
 
   return params;
@@ -111,7 +115,7 @@ function style(params: Params<BarOptions>): Params<BarOptions> {
  */
 function label(params: Params<BarOptions>): Params<BarOptions> {
   const { chart, options } = params;
-  const { label, yField } = options;
+  const { label, xField } = options;
 
   const geometry = findGeometry(chart, 'interval');
 
@@ -120,7 +124,7 @@ function label(params: Params<BarOptions>): Params<BarOptions> {
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: [yField],
+      fields: [xField],
       callback,
       cfg,
     });
@@ -134,5 +138,5 @@ function label(params: Params<BarOptions>): Params<BarOptions> {
  * @param params
  */
 export function adaptor(params: Params<BarOptions>) {
-  return flow(field, meta, axis, legend, style, label)(params);
+  return flow(field, meta, axis, legend, tooltip, theme, style, label, interaction, animation)(params);
 }

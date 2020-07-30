@@ -114,8 +114,10 @@ export default class SpiderLabel {
         const colorField = this.options.fields[1];
         const colorScale = this.view.geometries[0].scales[colorField];
         const colorIndex = colorScale.scale(d[colorField]);
-        const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
-        color = shapes[shapeIndex].attr('fill');
+        if (colorIndex) {
+          const shapeIndex = Math.floor(colorIndex * (shapes.length - 1));
+          color = shapes[shapeIndex].attr('fill');
+        }
       }
       // 组装label数据
       const label: LabelData = {

@@ -4,7 +4,7 @@ import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { findGeometry } from '../../common/helper';
 import { Params } from '../../core/adaptor';
 import { area as areaGeometryParse, point, line } from '../../geometries';
-import { flow } from '../../utils';
+import { flow, omit } from '../../utils';
 import { meta, legend, axis } from '../line/adaptor';
 import { AreaOptions } from './types';
 
@@ -20,7 +20,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   // area geometry 处理
   areaGeometryParse(deepMix(params, { options: { area: { color, smooth, style: areaStyle } } }));
 
-  return params;
+  return { ...params, options: omit(options, ['area']) };
 }
 
 /**

@@ -3,7 +3,7 @@
  * @param obj
  * @param keys
  */
-export function omit(obj: any, keys: string[]): object {
+export function omit<O extends object>(obj: O, keys: string[]): O {
   if (obj !== null && typeof obj === 'object') {
     const r = obj;
     keys.forEach((key: string) => {
@@ -14,5 +14,5 @@ export function omit(obj: any, keys: string[]): object {
     });
     return r;
   }
-  return {};
+  return {} as O;
 }

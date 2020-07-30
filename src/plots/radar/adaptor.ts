@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { area, point, line as lineGeometryParse } from '../../geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { flow, pick } from '../../utils';
+import { flow, omit, pick } from '../../utils';
 import { X_AXIS_OPTIONS, Y_AXIS_OPTIONS } from './constants';
 import { RadarOptions } from './types';
 
@@ -19,7 +19,7 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   // line geometry 处理
   lineGeometryParse(deepMix(params, { options: { line: { smooth, color, style: lineStyle } } }));
 
-  return params;
+  return { ...params, options: omit(options, ['line']) };
 }
 
 /**

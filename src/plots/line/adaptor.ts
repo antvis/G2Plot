@@ -4,7 +4,7 @@ import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { findGeometry } from '../../common/helper';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { point, line as lineGeometryParse } from '../../geometries';
-import { flow, pick } from '../../utils';
+import { flow, omit, pick } from '../../utils';
 import { LineOptions } from './types';
 
 /**
@@ -19,7 +19,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
   // line geometry 处理
   lineGeometryParse(deepMix(params, { options: { line: { connectNulls, smooth, color, style: lineStyle } } }));
 
-  return params;
+  return { ...params, options: omit(options, ['line']) };
 }
 
 /**

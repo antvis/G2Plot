@@ -1,3 +1,8 @@
+## <small>1.1.18 (2020-07-30)</small>
+
+* fix: 当饼图数据有可能为 null, 会导致计算结果 NaN (#1371) ([1ccfda5](https://github.com/antvis/g2plot/commit/1ccfda5)), closes [#1371](https://github.com/antvis/g2plot/issues/1371)
+
+
 ## <small>1.1.17 (2020-07-30)</small>
 
 * Daily 0730 fix (#1364) ([8716cd1](https://github.com/antvis/g2plot/commit/8716cd1)), closes [#1364](https://github.com/antvis/g2plot/issues/1364)
@@ -327,3 +332,4 @@ antvis/g2plot/issues/1132)
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
+

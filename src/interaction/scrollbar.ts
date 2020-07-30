@@ -163,7 +163,7 @@ export default class ScrollbarInteraction extends BaseInteraction {
     const isHorizontal: boolean = config.type !== 'vertical';
     const panelRange = this.view.coordinateBBox;
     const xScale: Scale = this.view.getXScale();
-    const yScales: Scale[] = this.view.getYScales().filter(Boolean);
+    const yScales: Scale[] = this.view.getYScales().filter((scale) => scale);
 
     this.cnt = xScale.values.length;
     this.xScaleCfg = { field: xScale.field, values: xScale.values || [] };

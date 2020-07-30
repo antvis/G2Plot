@@ -1,9 +1,9 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
-import { area, point, line as lineGeometryParse } from '../../geometries';
+import { area, point, line } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { flow, omit, pick } from '../../utils';
+import { flow, pick } from '../../utils';
 import { X_AXIS_OPTIONS, Y_AXIS_OPTIONS } from './constants';
 import { RadarOptions } from './types';
 
@@ -13,13 +13,13 @@ import { RadarOptions } from './types';
  */
 function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
-  const { data, lineStyle, color, smooth } = options;
+  const { data, lineStyle, smooth } = options;
 
   chart.data(data);
   // line geometry 处理
-  lineGeometryParse(deepMix(params, { options: { line: { smooth, color, style: lineStyle } } }));
+  flow(line)(deepMix({}, params, { options: { line: { smooth, style: lineStyle } } }));
 
-  return { ...params, options: omit(options, ['line']) };
+  return params;
 }
 
 /**

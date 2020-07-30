@@ -1,4 +1,4 @@
-import { PointGeometryOptions, AreaGeometryOptions } from '../../geometries';
+import { PointGeometryOptions, AreaGeometryOptions } from '../../adaptor/geometries';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 

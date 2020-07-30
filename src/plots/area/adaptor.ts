@@ -3,8 +3,8 @@ import { deepMix, each } from '@antv/util';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { findGeometry } from '../../common/helper';
 import { Params } from '../../core/adaptor';
-import { area as areaGeometryParse, point, line } from '../../geometries';
-import { flow, omit } from '../../utils';
+import { area, point, line } from '../../adaptor/geometries';
+import { flow } from '../../utils';
 import { meta, legend, axis } from '../line/adaptor';
 import { AreaOptions } from './types';
 
@@ -14,13 +14,13 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, color, smooth } = options;
+  const { data, areaStyle, smooth } = options;
 
   chart.data(data);
   // area geometry 处理
-  areaGeometryParse(deepMix(params, { options: { area: { color, smooth, style: areaStyle } } }));
+  flow(area)(deepMix({}, params, { options: { area: { smooth, style: areaStyle } } }));
 
-  return { ...params, options: omit(options, ['area']) };
+  return params;
 }
 
 /**

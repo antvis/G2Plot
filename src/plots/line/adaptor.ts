@@ -1,10 +1,10 @@
-import { Geometry } from '@antv/g2';
-import { deepMix, isFunction } from '@antv/util';
+import { deepMix, isFunction, isString, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { LineOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import { findGeometry } from '../../common/helper';
 
 /**
  * 字段
@@ -28,7 +28,7 @@ function field(params: Params<LineOptions>): Params<LineOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<LineOptions>): Params<LineOptions> {
+export function meta(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, yField } = options;
 
@@ -47,7 +47,7 @@ function meta(params: Params<LineOptions>): Params<LineOptions> {
  * axis 配置
  * @param params
  */
-function axis(params: Params<LineOptions>): Params<LineOptions> {
+export function axis(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
@@ -71,7 +71,7 @@ function axis(params: Params<LineOptions>): Params<LineOptions> {
  * legend 配置
  * @param params
  */
-function legend(params: Params<LineOptions>): Params<LineOptions> {
+export function legend(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { legend, seriesField } = options;
 
@@ -94,7 +94,7 @@ function style(params: Params<LineOptions>): Params<LineOptions> {
   if (lineStyle && geometry) {
     if (isFunction(lineStyle)) {
       geometry.style(`${xField}*${yField}*${seriesField}`, lineStyle);
-    } else {
+    } else if (isObject(lineStyle)) {
       geometry.style(lineStyle);
     }
   }
@@ -109,7 +109,7 @@ function shape(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { smooth } = options;
 
-  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+  const lineGeometry = findGeometry(chart, 'line');
 
   lineGeometry.shape(smooth ? 'smooth' : 'line');
   return params;
@@ -123,7 +123,7 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { label, yField } = options;
 
-  const lineGeometry = chart.geometries.find((g: Geometry) => g.type === 'line');
+  const lineGeometry = findGeometry(chart, 'line');
 
   // label 为 false, 空 则不显示 label
   if (!label) {
@@ -144,25 +144,29 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
  * point 辅助点的配置处理
  * @param params
  */
-function point(params: Params<LineOptions>): Params<LineOptions> {
+export function point(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { point, seriesField, xField, yField } = options;
+  const { point, seriesField, xField, yField, color } = options;
 
   if (point) {
     const { shape, size, style } = point;
     const pointGeometry = chart.point().position(`${xField}*${yField}`).size(size);
 
+    if (seriesField) {
+      pointGeometry.color(seriesField, color);
+    }
+
     // shape
     if (isFunction(shape)) {
       pointGeometry.shape(`${xField}*${yField}*${seriesField}`, shape);
-    } else {
+    } else if (isString(shape)) {
       pointGeometry.shape(shape);
     }
 
     // style
     if (isFunction(style)) {
       pointGeometry.style(`${xField}*${yField}*${seriesField}`, style);
-    } else {
+    } else if (isObject(style)) {
       pointGeometry.style(style);
     }
   }

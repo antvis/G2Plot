@@ -1,4 +1,3 @@
-import { Geometry } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
@@ -98,7 +97,7 @@ function shape(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
   const { point, xField, yField, seriesField } = options;
 
-  const pointGeom = chart.geometries.find((g: Geometry) => g.type === 'point');
+  const pointGeom = findGeometry(chart, 'point');
   if (pointGeom && point) {
     const shape = point.shape || 'circle';
     if (isFunction(shape)) {

@@ -1,5 +1,5 @@
 import { Geometry, Chart } from '@antv/g2';
-import { deepMix, isFunction } from '@antv/util';
+import { deepMix, isFunction, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
@@ -13,7 +13,7 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  */
 function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color, isStack } = options;
+  const { data, xField, yField, colorField, color, isStack, marginRatio } = options;
 
   chart.data(data);
   const geometry = chart.interval().position(`${xField}*${yField}`);
@@ -23,7 +23,10 @@ function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
   }
 
   if (colorField && ![xField, yField].includes(colorField)) {
-    geometry.adjust(isStack ? 'stack' : 'dodge');
+    geometry.adjust({
+      type: isStack ? 'stack' : 'dodge',
+      marginRatio,
+    });
   }
 
   return params;
@@ -130,9 +133,26 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
 }
 
 /**
+ * 柱形图额外的主题设置
+ * @param params
+ */
+function columnTheme(params: Params<ColumnOptions>): Params<ColumnOptions> {
+  const { chart, options } = params;
+  const { columnWidthRatio } = options;
+
+  if (!isNil(columnWidthRatio)) {
+    chart.theme({
+      columnWidthRatio,
+    });
+  }
+
+  return params;
+}
+
+/**
  * 柱形图适配器
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(field, meta, axis, legend, tooltip, theme, style, label, interaction, animation)(params);
+  return flow(field, meta, axis, legend, tooltip, theme, columnTheme, style, label, interaction, animation)(params);
 }

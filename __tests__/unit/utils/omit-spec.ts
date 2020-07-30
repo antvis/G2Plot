@@ -4,7 +4,6 @@ describe('omit', () => {
   it('omit', () => {
     expect(omit(null, [])).toEqual({});
     expect(omit(undefined, [])).toEqual({});
-    expect(omit(1, [])).toEqual({});
 
     expect(omit({ a: 1, b: 2, c: undefined }, ['a'])).toEqual({ b: 2, c: undefined });
     expect(omit({ a: 1, b: 2, c: undefined }, ['a', 'd'])).toEqual({ b: 2, c: undefined });

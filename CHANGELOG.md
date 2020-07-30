@@ -1,3 +1,10 @@
+## <small>1.1.17 (2020-07-30)</small>
+
+* Daily 0730 fix (#1364) ([8716cd1](https://github.com/antvis/g2plot/commit/8716cd1)), closes [#1364](https://github.com/antvis/g2plot/issues/1364)
+* Fix responsive not work (#1351) ([61e40c5](https://github.com/antvis/g2plot/commit/61e40c5)), closes [#1351](https://github.com/antvis/g2plot/issues/1351)
+* feat(gauge): 调整仪表盘坐标轴文本距离刻度线的间距，增加 offset 属性 (#1363) ([17e14f1](https://github.com/antvis/g2plot/commit/17e14f1)), closes [#1363](https://github.com/antvis/g2plot/issues/1363)
+
+
 ## <small>1.1.16 (2020-07-29)</small>
 
 * Fix responsive not work (#1351) ([61e40c5](https://github.com/antvis/g2plot/commit/61e40c5)), closes [#1351](https://github.com/antvis/g2plot/issues/1351)
@@ -320,4 +327,3 @@ antvis/g2plot/issues/1132)
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
-

@@ -54,3 +54,24 @@ export const histogramData = [
   { value: 21 },
   { value: 23.4 },
 ];
+
+export const histogramStackData = [
+  { value: 50, type: '数学' },
+  { value: 50.1, type: '数学' },
+  { value: 50.1, type: '语文' },
+  { value: 51.2, type: '语文' },
+  { value: 61.3, type: '数学' },
+  { value: 61.4, type: '语文' },
+  { value: 74, type: '语文' },
+  { value: 74, type: '数学' },
+  { value: 78, type: '数学' },
+  { value: 81.5, type: '数学' },
+  { value: 82.3, type: '语文' },
+  { value: 85.3, type: '语文' },
+  { value: 84.3, type: '数学' },
+  { value: 86.3, type: '数学' },
+  { value: 90.3, type: '数学' },
+  { value: 93.3, type: '语文' },
+  { value: 94.3, type: '语文' },
+  { value: 94.3, type: '数学' },
+];

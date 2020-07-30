@@ -1,5 +1,7 @@
+import { PointGeometryOptions } from '../../adaptor/geometries';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
+import { LineGeometryOptions } from '../../adaptor/geometries';
 
 /** 面积图的配置类型定义 */
 export interface AreaOptions extends Options {
@@ -14,19 +16,7 @@ export interface AreaOptions extends Options {
   /** 面积图形样式 */
   readonly areaStyle?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
   /** 面积中折线的样式 */
-  readonly line?: {
-    /** 折线宽度 */
-    readonly size?: number;
-    /** 折线样式 */
-    readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
-  };
+  readonly line?: LineGeometryOptions['line'];
   /** 面积图数据点图形样式 */
-  readonly point?: {
-    /** point shape 映射 */
-    readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
-    /** 大小映射，先简化处理为确定值 */
-    readonly size?: number;
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
-  };
+  readonly point?: PointGeometryOptions['point'];
 }

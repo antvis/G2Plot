@@ -1,5 +1,5 @@
 import { LooseObject } from '../../dependents';
-import { isFunction, has, isString, isArray } from '@antv/util';
+import { get, isFunction, has, isString, isArray } from '@antv/util';
 import ElementParser from '../base';
 
 export default class LineParser extends ElementParser {
@@ -24,7 +24,7 @@ export default class LineParser extends ElementParser {
     if (props.seriesField || props.color) {
       this.parseColor();
     }
-    if (props.lineStyle) {
+    if (props.lineStyle || get(props, ['line', 'style'])) {
       this.parseStyle();
     }
   }
@@ -68,7 +68,7 @@ export default class LineParser extends ElementParser {
 
   public parseStyle() {
     const props = this.plot.options;
-    const styleProps = props.lineStyle;
+    const styleProps = props.lineStyle || get(props, ['line', 'style']);
     const config = {
       fields: null,
       callback: null,

@@ -145,10 +145,16 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
         [percentageField]: 1 / data.length,
       }));
     }
-    return data.map((item) => ({
-      ...item,
-      [key]: typeof item[key] === 'string' ? Number.parseFloat(item[key] as 'string') : item[key],
-    }));
+    return data.map((item) => {
+      const value = item[key];
+
+      return {
+        ...item,
+        // @ts-ignore 如果 value 是数字或者数字字符串： 0, '23', '3.33'，转换为数字
+        // 如果直接 Number.parseFloat(item[key] as 'string') 会出现 NaN，导致浏览器崩溃
+        [key]: value && !isNaN(value) ? +value : value,
+      };
+    });
   }
 
   protected axis() {

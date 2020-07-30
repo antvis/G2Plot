@@ -48,8 +48,10 @@ describe('StackedColumn Label', () => {
     // adjust
     each(labelShapes, (shape: IShape, idx) => {
       const intervalRange = intervals[idx].getBBox();
-      const shapeRange = shape.getBBox();
-      expect(shape.get('visible')).toBe(shapeRange.height <= intervalRange.height);
+      const labelShapeRange = shape.getBBox();
+      expect(shape.get('visible')).toBe(
+        labelShapeRange.height < intervalRange.height && labelShapeRange.width < intervalRange.width
+      );
     });
   });
 });

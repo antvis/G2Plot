@@ -15,7 +15,7 @@ describe('scatter', () => {
       xAxis: {
         nice: true,
         label: {
-          formatter: (text: string, item: any, index: number) => {
+          formatter: (text: string) => {
             return text;
           },
           style: {

@@ -1,4 +1,3 @@
-import { Geometry, Chart } from '@antv/g2';
 import { deepMix, isFunction, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';

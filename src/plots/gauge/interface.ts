@@ -13,6 +13,7 @@ export interface GaugeAxis {
   };
   label?: {
     visible?: boolean;
+    offset?: number;
     style?: TextStyle;
     formatter?: () => string;
   };

@@ -51,6 +51,7 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
         },
         label: {
           visible: true,
+          offset: 8,
           style: {
             fill: '#aaa',
             fontSize: 16,
@@ -168,9 +169,9 @@ export default class GaugeLayer<T extends GaugeLayerConfig = GaugeLayerConfig> e
     };
     let offsetValue;
     if (axis.offset < 0) {
-      offsetValue = axis.offset - this.options.rangeSize - axis.tickLine.length;
+      offsetValue = axis.offset - this.options.rangeSize - axis.tickLine.length - axis.label.offset;
     } else {
-      offsetValue = axis.offset + axis.tickLine.length;
+      offsetValue = axis.offset + axis.tickLine.length + axis.label.offset;
     }
     if (axis.label.visible) {
       axesConfig.value.label = {

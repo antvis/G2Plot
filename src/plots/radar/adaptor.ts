@@ -1,10 +1,10 @@
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { RADAR_XAXIS_OPTIONS, RADAR_YAXIS_OPTIONS } from '../../common/constants';
 import { findGeometry } from '../../common/helper';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { flow, pick } from '../../utils';
-import { X_AXIS_OPTIONS, Y_AXIS_OPTIONS } from './constants';
 import { RadarOptions } from './types';
 
 /**
@@ -75,8 +75,8 @@ function axis(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
   const { xField, xAxis, yField, yAxis } = options;
 
-  chart.axis(xField, deepMix({}, xAxis, X_AXIS_OPTIONS));
-  chart.axis(yField, deepMix({}, yAxis, Y_AXIS_OPTIONS));
+  chart.axis(xField, deepMix({}, xAxis, RADAR_XAXIS_OPTIONS));
+  chart.axis(yField, deepMix({}, yAxis, RADAR_YAXIS_OPTIONS));
 
   return params;
 }

@@ -1,8 +1,8 @@
 import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { STATISTIC_TITLE_STYLE, STATISTIC_CONTENT_STYLE } from '../../common/constants';
 import { flow, LEVEL, log, template } from '../../utils';
-import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
 
@@ -203,7 +203,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
           {},
           {
             // default config
-            style: StatisticTitleStyle,
+            style: STATISTIC_TITLE_STYLE,
             offsetY: -titleLineHeight,
             // append-info
             key: 'statistic',
@@ -219,7 +219,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
           {},
           {
             // default config
-            style: StatisticContentStyle,
+            style: STATISTIC_CONTENT_STYLE,
             offsetY: valueLineHeight,
             // append-info
             key: 'statistic',

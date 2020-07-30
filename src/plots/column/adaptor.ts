@@ -2,7 +2,7 @@ import { Geometry, Chart } from '@antv/g2';
 import { deepMix, isFunction, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';

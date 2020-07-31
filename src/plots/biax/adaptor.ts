@@ -64,7 +64,7 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
 function singleGeometry<O extends { xField: string; yField: string; geometryConfig: GeometryConfig }>(
   params: Params<O>
 ): Params<O> {
-  const { chart, options } = params;
+  const { options } = params;
   const { geometryConfig } = options;
   const FIELD_KEY = ['xField', 'yField'];
 

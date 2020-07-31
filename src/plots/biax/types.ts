@@ -1,5 +1,4 @@
 import { ShapeStyle } from '../../types/style';
-import { Axis } from '../../types/axis';
 import { ChartOptions, Options } from '../../types';
 import { PointGeometryOptions, LineGeometryOptions } from '../../adaptor/geometries';
 

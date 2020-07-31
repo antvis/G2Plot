@@ -1,6 +1,5 @@
 import { BiaxGeometry, LineConfig } from './types';
 import { Axis } from '../../types/axis';
-import { deepMix } from '@antv/util';
 import { BiaxOption, AxisType } from './types';
 
 export const DEFAULT_LINE_COLOR = {

@@ -1,6 +1,5 @@
-import { Chart } from '@antv/g2';
 import { deepMix } from '@antv/util';
-import { BiaxOption, PointConfig, GeometryConfig, BiaxGeometry, LineConfig, AxisType } from './types';
+import { BiaxOption, GeometryConfig, BiaxGeometry, LineConfig, AxisType } from './types';
 import { DEFAULT_LINE_CONFIG, DEFAULT_YAXIS_CONFIG, DEFAULT_OPTION, DEFAULT_LINE_COLOR } from './constant';
 
 /**

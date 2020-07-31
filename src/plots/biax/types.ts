@@ -1,6 +1,7 @@
 import { ShapeStyle } from '../../types/style';
 import { Axis } from '../../types/axis';
-import { Options } from '../../types';
+import { ChartOptions, Options } from '../../types';
+import { PointGeometryOptions, LineGeometryOptions } from '../../adaptor/geometries';
 
 export enum AxisType {
   Left = 'Left',
@@ -21,29 +22,14 @@ export interface PointConfig {
 }
 
 // 折线设置接口
-export type LineConfig = {
+export type LineConfig = LineGeometryOptions['line'] & {
+  // 图形类型
   readonly geometry: string;
-  // TODO Review
-  readonly color?: string;
-  readonly lineSize?: number;
+  // 分类字段
   readonly seriesField?: string;
-  readonly label?: any;
-
-  /** 是否平滑 */
-  readonly smooth?: boolean;
-  /** 是否连接空数据 */
-  readonly connectNulls?: boolean;
-  /** 折线图形样式 */
-  readonly lineStyle?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
-  /** 折线数据点图形样式 */
-  readonly point?: {
-    /** point shape 映射 */
-    readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
-    /** 大小映射，先简化处理为确定值 */
-    readonly size?: number;
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
-  };
+  // ...lineOption: LineGeometryOptions['line']
+  // pointOption
+  readonly point?: PointGeometryOptions['point'];
 };
 
 // 柱设置接口
@@ -53,17 +39,21 @@ export type ColumnConfig = {
 
 export type GeometryConfig = LineConfig | ColumnConfig;
 
-export type BiaxOptionType = {
+export type BiaxOption = ChartOptions & {
+  // 通用数据配置
+  /** 具体的数据 */
+  readonly data: Array<Record<string, any>[]>;
+  /** 数据字段元信息 */
+  readonly meta?: Record<string, any>;
+
   readonly xField: string;
   readonly yField: string[];
 
-  /**增加 Y 轴的 leftConfig and rightConfig */
-  readonly yAxis?: Axis[];
-
-  /** 图形样式 */
   readonly geometryConfigs?: GeometryConfig[];
+
+  readonly xAxis?: Options['xAxis'];
+  readonly yAxis?: Options['yAxis'][];
+  readonly label?: Options['label'];
+  readonly tooltip?: Options['tooltip'];
+  readonly legend?: Options['legend'];
 };
-
-type BiaxCommonOptionType = Options & BiaxOptionType;
-
-export interface BiaxOption extends BiaxCommonOptionType {}

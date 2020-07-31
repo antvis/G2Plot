@@ -3,6 +3,14 @@ import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
+type AreaOption = {
+  /** 是否平滑 */
+  readonly smooth?: boolean;
+  /** point color 映射, 提供回调的方式, 不开放 field 映射配置 */
+  readonly color?: string | string[] | ((series: any) => string);
+  /** 样式映射 */
+  readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
+};
 export interface AreaGeometryOptions extends Options {
   /** x 轴字段 */
   readonly xField?: string;
@@ -10,14 +18,7 @@ export interface AreaGeometryOptions extends Options {
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-  readonly area?: {
-    /** 是否平滑 */
-    readonly smooth?: boolean;
-    /** point color 映射, 提供回调的方式, 不开放 field 映射配置 */
-    readonly color?: string | string[] | ((series: any) => string);
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
-  };
+  readonly area?: AreaOption;
 }
 
 /**

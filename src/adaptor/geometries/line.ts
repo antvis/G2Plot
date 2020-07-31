@@ -3,6 +3,18 @@ import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
+type lineOption = {
+  /** line color 映射, 提供回调的方式, 不开放 field 映射配置 */
+  readonly color?: string | string[] | ((series: any) => string);
+  /** 是否平滑 */
+  readonly smooth?: boolean;
+  /** 是否连接空数据 */
+  readonly connectNulls?: boolean;
+  /** 样式映射 */
+  readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
+  /** 折线宽度 */
+  readonly size?: number;
+};
 export interface LineGeometryOptions extends Options {
   /** x 轴字段 */
   readonly xField?: string;
@@ -10,18 +22,7 @@ export interface LineGeometryOptions extends Options {
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-  readonly line?: {
-    /** line color 映射, 提供回调的方式, 不开放 field 映射配置 */
-    readonly color?: string | string[] | ((series: any) => string);
-    /** 是否平滑 */
-    readonly smooth?: boolean;
-    /** 是否连接空数据 */
-    readonly connectNulls?: boolean;
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
-    /** 折线宽度 */
-    readonly size?: number;
-  };
+  readonly line?: lineOption;
 }
 
 /**

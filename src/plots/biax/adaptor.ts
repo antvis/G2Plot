@@ -1,8 +1,9 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip } from '../../common/adaptor';
+import { tooltip } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
-import { drawGeometry, getOption } from './util';
+import { getOption, isLine } from './util';
+import { point, line } from '../../adaptor/geometries';
 import { BiaxOption, PointConfig, GeometryConfig, BiaxGeometry } from './types';
 
 /**
@@ -15,6 +16,79 @@ export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption>
     ...params,
     options: getOption(params.options),
   };
+}
+
+/**
+ * 字段
+ * @param params
+ */
+function field(params: Params<BiaxOption>): Params<BiaxOption> {
+  const { chart, options } = params;
+  const { data } = options;
+  // 绘制左轴对应数据
+  chart.data(data[0]);
+  // 绘制右轴对应数据
+  chart.createView().source(data[1]);
+  return params;
+}
+
+/**
+ * 绘制图形
+ * @param params
+ */
+function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
+  const { chart, options } = params;
+  const { xField, yField, geometryConfigs } = options;
+
+  // 左轴图形
+  singleGeometry({
+    chart,
+    options: {
+      xField,
+      yField: yField[0],
+      geometryConfig: geometryConfigs[0],
+    },
+  });
+
+  // 右轴图形
+  singleGeometry({
+    chart: chart.views[0],
+    options: {
+      xField,
+      yField: yField[1],
+      geometryConfig: geometryConfigs[1],
+    },
+  });
+  return params;
+}
+
+function singleGeometry<O extends { xField: string; yField: string; geometryConfig: GeometryConfig }>(
+  params: Params<O>
+): Params<O> {
+  const { chart, options } = params;
+  const { geometryConfig } = options;
+  const FIELD_KEY = ['xField', 'yField'];
+
+  if (isLine(geometryConfig)) {
+    const LINE_KEY = ['color', 'smooth', 'connectNulls', 'style', 'size'];
+    line(
+      deepMix({}, params, {
+        options: {
+          ...pick(options, FIELD_KEY),
+          line: pick(geometryConfig, LINE_KEY),
+        },
+      })
+    );
+    point(
+      deepMix({}, params, {
+        options: {
+          ...pick(options, FIELD_KEY),
+          point: geometryConfig.point,
+        },
+      })
+    );
+  }
+  return params;
 }
 
 /**
@@ -44,10 +118,20 @@ export function meta(params: Params<BiaxOption>): Params<BiaxOption> {
  */
 export function axis(params: Params<BiaxOption>): Params<BiaxOption> {
   const { chart, options } = params;
+  const view = chart.views[0];
   const { xAxis, yAxis, xField, yField } = options;
+  // x 轴
   chart.axis(xField, xAxis);
+  view.axis(xField, false);
+  // 左轴
   chart.axis(yField[0], yAxis[0]);
-  chart.axis(yField[1], yAxis[1]);
+  // 右轴
+  view.axis(
+    yField[1],
+    deepMix({}, yAxis[1], {
+      position: 'right',
+    })
+  );
   return params;
 }
 
@@ -66,35 +150,11 @@ export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
 }
 
 /**
- * 字段
- * @param params
- */
-function field(params: Params<BiaxOption>): Params<BiaxOption> {
-  const { chart, options } = params;
-  const { data } = options;
-  chart.data(data);
-  return params;
-}
-
-/**
- * 绘制图形
- * @param params
- */
-function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
-  const { chart, options } = params;
-  const { xField, yField, geometryConfigs } = options;
-  const [leftGeometryConfig, rightGeometryConfig] = geometryConfigs;
-  drawGeometry(chart, { x: xField, y: yField[0] }, leftGeometryConfig);
-  drawGeometry(chart, { x: xField, y: yField[1] }, rightGeometryConfig);
-  return params;
-}
-
-/**
  * 双折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<BiaxOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(transformOptions, field, geometry, meta, axis, legend, tooltip)(params);
+  flow(transformOptions, field, geometry, meta, axis, legend)(params);
 }

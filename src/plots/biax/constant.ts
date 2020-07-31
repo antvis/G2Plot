@@ -33,7 +33,6 @@ export const DEFAULT_YAXIS_CONFIG: Axis = {
 
 export const DEFAULT_LINE_CONFIG: LineConfig = {
   geometry: BiaxGeometry.Line,
-  lineSize: 2,
   connectNulls: true,
   smooth: false,
   point: {

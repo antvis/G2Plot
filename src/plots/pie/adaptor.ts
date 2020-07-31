@@ -1,7 +1,7 @@
-import { deepMix, each, get, isFunction } from '@antv/util';
+import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
-import { flow } from '../../utils';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { flow, LEVEL, log, template } from '../../utils';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
@@ -14,8 +14,24 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { data, angleField, colorField, color } = options;
 
-  chart.data(data);
-  const geometry = chart.interval().position(`1*${angleField}`).adjust({ type: 'stack' });
+  const geometry = chart.interval();
+
+  // 处理不合法的数据
+  const processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
+
+  // 打印异常数据情况
+  log(LEVEL.WARN, processData.length !== data.length, 'illegal data existed in chart data.');
+
+  const allZero = every(processData, (d) => d[angleField] === 0);
+  if (allZero) {
+    // 数据全 0 处理，调整 position 映射
+    const percentageField = '$$percentage$$';
+    chart.data(processData.map((d) => ({ ...d, [percentageField]: 1 / processData.length })));
+    geometry.position(`1*${percentageField}`).adjust({ type: 'stack' }).tooltip(`${colorField}*${angleField}`);
+  } else {
+    chart.data(processData);
+    geometry.position(`1*${angleField}`).adjust({ type: 'stack' });
+  }
 
   if (colorField) {
     geometry.color(colorField, color);
@@ -89,10 +105,32 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     geometry.label(false);
   } else {
     const { callback, ...cfg } = label;
+    const labelCfg = cfg;
+    if (cfg.content) {
+      const { content } = cfg;
+      labelCfg.content = (data: object, dataum: any, index: number) => {
+        const name = data[colorField];
+        const value = data[angleField];
+        // dymatic get scale, scale is ready this time
+        const angleScale = chart.getScaleByField(angleField);
+        const percent = angleScale?.scale(value);
+        return isFunction(content)
+          ? // append pecent (number) to data, users can get origin data from `dataum._origin`
+            content({ ...data, percent }, dataum, index)
+          : isString(content)
+          ? template(content as string, {
+              value,
+              name,
+              // percentage (string), default keep 2
+              percentage: percent ? `${(percent * 100).toFixed(2)}%` : null,
+            })
+          : content;
+      };
+    }
     geometry.label({
       fields: [angleField, colorField],
       callback,
-      cfg,
+      cfg: labelCfg,
     });
   }
   return params;

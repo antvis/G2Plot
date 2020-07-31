@@ -4,7 +4,6 @@ import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interaction/pie-statistic-action';
-import { PieLegendAction } from '../../../../src/plots/pie/interaction/pie-legend-action';
 
 describe('register interaction', () => {
   it('创建 "pie-statistic" action', () => {
@@ -43,7 +42,7 @@ describe('register interaction', () => {
     context.event = { data: { data: { type: 'item3', value: 13 } } };
     action.change();
 
-    delay(5000);
+    delay(500);
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].extra.content).toBe('item3');
     expect(annotations[1].extra.content).toBe(13);
@@ -52,7 +51,7 @@ describe('register interaction', () => {
   it('触发 pie-statistic:reset', async () => {
     action.reset();
 
-    delay(5000);
+    delay(500);
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].extra.content).toBe('Total');
   });

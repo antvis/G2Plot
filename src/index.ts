@@ -9,6 +9,9 @@ export * from './types';
 // 折线图及类型定义
 export { Line, LineOptions } from './plots/line';
 
+// 面积图及类型定义
+export { Area, AreaOptions } from './plots/area';
+
 // 柱形图及类型定义
 export { Column, ColumnOptions } from './plots/column';
 
@@ -30,6 +33,9 @@ export { TinyColumn, TinyColumnOptions } from './plots/tiny-column';
 // 迷你面积图及类型定义
 export { TinyArea, TinyAreaOptions } from './plots/tiny-area';
 
+// 直方图及类型定义
+export { Histogram, HistogramOptions } from './plots/histogram';
+
 // 进度图及类型定义
 export { Progress, ProgressOptions } from './plots/progress';
 
@@ -38,3 +44,6 @@ export { RingProgress, RingProgressOptions } from './plots/ring-progress';
 
 // 条形图及类型定义
 export { Bar, BarOptions } from './plots/bar';
+
+// 雷达图及类型定义
+export { Radar, RadarOptions } from './plots/radar';

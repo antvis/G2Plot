@@ -8,8 +8,8 @@ describe('bar style', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,
@@ -35,15 +35,15 @@ describe('bar style', () => {
       width: 400,
       height: 300,
       data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
+      xField: 'sales',
+      yField: 'area',
       meta: {
         sales: {
           nice: true,
           formatter: (v) => `${Math.floor(v / 10000)}万`,
         },
       },
-      barStyle: (x, y) => {
+      barStyle: () => {
         return {
           stroke: 'black',
           lineWidth: 2,

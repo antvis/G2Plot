@@ -5,6 +5,7 @@ import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow, pick } from '../../utils';
 import { LineOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import renderPoint from '../../geoms/point/render';
 
 /**
  * 字段
@@ -149,22 +150,12 @@ function point(params: Params<LineOptions>): Params<LineOptions> {
   const { point, seriesField, xField, yField } = options;
 
   if (point) {
-    const { shape, size, style } = point;
-    const pointGeometry = chart.point().position(`${xField}*${yField}`).size(size);
-
-    // shape
-    if (isFunction(shape)) {
-      pointGeometry.shape(`${xField}*${yField}*${seriesField}`, shape);
-    } else {
-      pointGeometry.shape(shape);
-    }
-
-    // style
-    if (isFunction(style)) {
-      pointGeometry.style(`${xField}*${yField}*${seriesField}`, style);
-    } else {
-      pointGeometry.style(style);
-    }
+    renderPoint(chart, {
+      xField,
+      yField,
+      seriesField,
+      ...point
+    });
   }
   return params;
 }

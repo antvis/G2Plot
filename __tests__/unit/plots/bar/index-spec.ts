@@ -67,6 +67,7 @@ describe('bar', () => {
     expect(colorFields).toHaveLength(1);
     expect(colorFields[0]).toBe('area');
     geometry.elements.forEach((element, index) => {
+      // @ts-ignore
       const color = element.getModel().color;
       expect(color).toBe(palette[index % palette.length]);
     });

@@ -34,10 +34,11 @@
     "lint": "eslint --ext .ts ./src ./__tests__",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch ./__tests__/unit/plots/line",
+    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
     "ci": "run-s lint build coverage",
-    "changelog": "conventional-changelog -i CHANGELOG.md -a -s",
+    "changelog": "generate-changelog",
+    "prepublishOnly": "run-s lint test build",
     "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
   },
   "husky": {

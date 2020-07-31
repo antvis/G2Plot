@@ -34,7 +34,6 @@ export class PieLegendAction extends Action {
     elements.forEach((element) => {
       const coordinate = element.geometry.coordinate;
       if (coordinate.isPolar && coordinate.isTransposed) {
-        // @ts-ignore
         const { startAngle, endAngle } = Util.getAngle(element.getModel(), coordinate);
         const middleAngle = (startAngle + endAngle) / 2;
         /** offset 偏移 */

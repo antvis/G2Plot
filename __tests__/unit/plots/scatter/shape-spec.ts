@@ -50,6 +50,7 @@ describe('scatter', () => {
     });
     const set = new Set(shapeArr);
 
+    // @ts-ignore
     expect(geometry.attributeOption.shape.values.length).toBe(2);
     expect(elements.length).toBe(507);
     expect(set.size).toBe(2);

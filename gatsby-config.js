@@ -45,25 +45,8 @@ module.exports = {
         },
       },
     ],
-    docs: [
-      {
-        slug: 'manual/general',
-        title: {
-          zh: '基础教程',
-          en: 'Tutorials',
-        },
-        order: 3,
-      },
-    ],
+    docs: [],
     examples: [
-      {
-        slug: 'line',
-        icon: 'line', // 图表名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
-        title: {
-          zh: '折线图',
-          en: 'Line Charts',
-        },
-      },
       {
         slug: 'scatter',
         icon: 'point',
@@ -73,14 +56,6 @@ module.exports = {
         },
       },
       // OTHERS
-      {
-        slug: 'general',
-        icon: 'other',
-        title: {
-          zh: '图表通用配置',
-          en: 'General Configration of Charts',
-        },
-      },
     ],
     docsearchOptions: {
       apiKey: '200ec461f4aa0bb4f0e761566f1a1336',

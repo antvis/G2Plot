@@ -286,7 +286,7 @@ pointStyle: (x, y, colorField) => {
 
 ## 事件
 
-[通用 events](../../general/events/API)
+[通用 events]()
 
 ### 点图形事件
 

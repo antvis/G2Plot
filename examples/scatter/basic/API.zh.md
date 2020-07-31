@@ -40,7 +40,7 @@ title: API
 
 **可选**, number[] | number
 
-功能描述： 额外怎加的 `appendPadding` 值
+功能描述： 额外增加的 `appendPadding` 值
 
 ### renderer
 
@@ -133,7 +133,7 @@ scatterPlot.render();
 
 ### type
 
-**可选**, `jitter` | `stack` | `symmetric` | `dodge`;
+**可选**, _jitter | stack | symmetric | dodge_;
 
 功能描述： 数据调整类型，不建议修改。
 
@@ -182,8 +182,9 @@ color: (type) => {
 
 ### size ✨
 
-_
-**可选**, \_number | [number, number] | Function_
+[**DEMO1**](../../scatter/basic#color-mapping)
+
+**可选**, \_number | [number, number] | Function\_
 
 功能描述： 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -209,8 +210,9 @@ size: (weight) => {
 
 ### shape ✨
 
-_
-**可选**, \_string | string[] | Function_
+[**DEMO2**](../../scatter/basic#shape-mapping)
+
+**可选**, \_string | string[] | Function\_
 
 功能描述： 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 

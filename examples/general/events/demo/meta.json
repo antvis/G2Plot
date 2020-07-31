@@ -7,8 +7,8 @@
     {
       "filename": "basic.js",
       "title": {
-        "zh": "不显示图例",
-        "en": "disable legend"
+        "zh": "图形事件",
+        "en": "chart events"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Cu0wSYK_U6YAAAAAAAAAAABkARQnAQ"
     }

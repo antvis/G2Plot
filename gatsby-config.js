@@ -47,11 +47,12 @@ module.exports = {
     ],
     docs: [
       {
-        slug: 'manual/plots',
+        slug: 'manual/general',
         title: {
-          zh: '图表',
-          en: 'Charts',
+          zh: '基础教程',
+          en: 'Tutorials',
         },
+        order: 3,
       },
     ],
     examples: [

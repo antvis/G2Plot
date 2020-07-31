@@ -1,6 +1,6 @@
 import { Scatter } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
   .then((res) => res.json())
   .then((data) => {
     const scatterPlot = new Scatter(document.getElementById('container'), {
@@ -8,21 +8,17 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
       height: 300,
       appendPadding: 10,
       data,
-      xField: 'weight',
-      yField: 'height',
-      sizeField: 'weight',
-      size: [5, 10],
+      xField: 'Revenue (Millions)',
+      yField: 'Rating',
+      shape: 'circle',
+      colorField: 'Genre',
+      sizeField: 'Rating',
+      size: [2, 6],
       xAxis: {
         nice: true,
       },
       pointStyle: {
-        fill: 'red',
-        stroke: 'yellow',
-        lineWidth: 4,
-        lineDash: [2, 2],
-        opacity: 0.5,
-        fillOpacity: 0.5,
-        strokeOpacity: 0.5,
+        stroke: '#777',
       },
     });
     scatterPlot.render();

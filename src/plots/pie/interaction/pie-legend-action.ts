@@ -23,7 +23,6 @@ export class PieLegendAction extends Action {
       const field = component.get('field');
       if (field) {
         const elements = view.geometries[0].elements;
-        // @ts-ignore
         return elements.filter((ele) => ele.getModel().data[field] === item.value);
       }
     }

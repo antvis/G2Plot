@@ -1,3 +1,7 @@
+## <small>1.1.19 (2020-07-31)</small>
+
+* fix: 从完备的角度看,不应该限制用户自由配置 tooltip 的权利 (#1375) ([bcd35de](https://github.com/antvis/g2plot/commit/bcd35de)), closes [#1375](https://github.com/antvis/g2plot/issues/1375)
+
 ## <small>1.1.18 (2020-07-30)</small>
 
 * fix: 当饼图数据有可能为 null, 会导致计算结果 NaN (#1371) ([1ccfda5](https://github.com/antvis/g2plot/commit/1ccfda5)), closes [#1371](https://github.com/antvis/g2plot/issues/1371)
@@ -332,4 +336,3 @@ antvis/g2plot/issues/1132)
 ## 0.11.0 (2019-11-22)
 
 - 🌟G2Plot 0.11.0
-

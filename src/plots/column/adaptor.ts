@@ -6,26 +6,47 @@ import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
+function getGroupField(params: Params<ColumnOptions>): string {
+  const { options } = params;
+  const { groupField, seriesField, colorField } = options;
+
+  return groupField || seriesField || colorField;
+}
+
+function getStackField(params: Params<ColumnOptions>): string {
+  const { options } = params;
+  const { stackField, seriesField, colorField } = options;
+
+  return stackField || seriesField || colorField;
+}
+
 /**
  * 字段
  * @param params
  */
 function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color, isStack, marginRatio } = options;
+  const { data, xField, yField, colorField, color, isGroup, isStack, marginRatio } = options;
 
   chart.data(data);
   const geometry = chart.interval().position(`${xField}*${yField}`);
 
-  if (colorField) {
-    geometry.color(colorField, color);
-  }
-
-  if (colorField && ![xField, yField].includes(colorField)) {
+  if (isGroup) {
+    geometry.color(getGroupField(params), color);
     geometry.adjust({
-      type: isStack ? 'stack' : 'dodge',
+      type: 'dodge',
       marginRatio,
     });
+  } else if (isStack) {
+    geometry.color(getStackField(params), color);
+    geometry.adjust({
+      type: 'stack',
+      marginRatio,
+    });
+  } else {
+    if (colorField) {
+      geometry.color(colorField, color);
+    }
   }
 
   return params;

@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { flow, pick } from '../../utils';

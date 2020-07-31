@@ -1,10 +1,9 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
 import { getOption, isLine } from './util';
 import { point, line } from '../../adaptor/geometries';
-import { BiaxOption, PointConfig, GeometryConfig, BiaxGeometry } from './types';
+import { BiaxOption, GeometryConfig } from './types';
 
 /**
  * 获取默认参数设置
@@ -120,18 +119,24 @@ export function axis(params: Params<BiaxOption>): Params<BiaxOption> {
   const { chart, options } = params;
   const view = chart.views[0];
   const { xAxis, yAxis, xField, yField } = options;
+
   // x 轴
   chart.axis(xField, xAxis);
   view.axis(xField, false);
   // 左轴
   chart.axis(yField[0], yAxis[0]);
   // 右轴
-  view.axis(
-    yField[1],
-    deepMix({}, yAxis[1], {
-      position: 'right',
-    })
-  );
+  if (yAxis[1]) {
+    view.axis(
+      yField[1],
+      deepMix({}, yAxis[1], {
+        position: 'right',
+      })
+    );
+  } else {
+    view.axis(yField[1], false);
+  }
+
   return params;
 }
 

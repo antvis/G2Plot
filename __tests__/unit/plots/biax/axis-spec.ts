@@ -1,5 +1,5 @@
 import { Biax } from '../../../../src';
-import { CountryEconomy } from '../../../data/country-economy';
+import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
 describe('Biax meta', () => {
@@ -8,46 +8,18 @@ describe('Biax meta', () => {
     const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
-      data: CountryEconomy,
-      xField: 'Country',
-      yField: ['GDP', 'Population'],
+      data: [PV_DATA, UV_DATA],
+      xField: 'date',
+      yField: ['pv', 'uv'],
       xAxis: false,
       yAxis: [false, false],
     });
 
     biax.render();
 
-    const axes = biax.chart.getComponents().filter((co) => co.type === 'axis');
-    expect(axes.length).toBe(0);
-
-    // Biax.destroy();
-  });
-
-  it('position', () => {
-    document.body.append('axis');
-    const biax = new Biax(createDiv(), {
-      width: 400,
-      height: 500,
-      data: CountryEconomy,
-      xField: 'Country',
-      yField: ['GDP', 'Population'],
-      xAxis: {
-        position: 'top',
-      },
-      yAxis: [
-        {
-          position: 'right',
-        },
-        false,
-      ],
-    });
-
-    biax.render();
-
-    const axes = biax.chart.getComponents().filter((co) => co.type === 'axis');
-    expect(axes.length).toBe(2);
-    expect(axes[0].direction).toBe('top');
-    expect(axes[1].direction).toBe('right');
+    const leftAxes = biax.chart.getComponents().filter((co) => co.type === 'axis');
+    const rightAxes = biax.chart.views[0].getComponents().filter((co) => co.type === 'axis');
+    expect(leftAxes.length + rightAxes.length).toBe(0);
 
     // Biax.destroy();
   });
@@ -57,9 +29,9 @@ describe('Biax meta', () => {
     const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
-      data: CountryEconomy,
-      xField: 'Country',
-      yField: ['GDP', 'Population'],
+      data: [PV_DATA, UV_DATA],
+      xField: 'date',
+      yField: ['pv', 'uv'],
       xAxis: {
         position: 'bottom',
         title: {
@@ -116,12 +88,6 @@ describe('Biax meta', () => {
 
     biax.render();
 
-    const axes = biax.chart.getComponents().filter((co) => co.type === 'axis');
-    expect(axes.length).toBe(3);
-    // position
-    expect(axes[0].direction).toBe('bottom');
-    expect(axes[1].direction).toBe('left');
-    expect(axes[2].direction).toBe('right');
-    // line
+    // TODO 补充用例
   });
 });

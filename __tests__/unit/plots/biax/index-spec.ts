@@ -15,16 +15,19 @@ describe('Biax data', () => {
     });
 
     biax.render();
+    const leftChart = biax.chart;
+    const rightView = biax.chart.views[0];
 
-    const lineGeometrys = biax.chart.geometries.filter((g) => g.type === 'line');
-    // expect(lineGeometrys.length).toBe(2);
+    expect(leftChart.geometries[0].data.length).toBe(PV_DATA.length);
+    expect(rightView.geometries[0].data.length).toBe(UV_DATA.length);
 
-    lineGeometrys.forEach((geometry, index) => {
-      // 数据
-      // expect(geometry.data.length).toBe(PV_DATA.length);
-      // const lineData = PV_DATA.map((item) => item[yField[index]]);
-      // expect(geometry.scales[yField[index]].max).toBe(Math.max(...lineData));
-      // expect(geometry.scales[yField[index]].min).toBe(Math.min(...lineData));
-    });
+    const pvData = PV_DATA.map((item) => item.pv);
+
+    expect(leftChart.geometries[0].scales[yField[0]].max).toBe(Math.max(...pvData));
+    expect(leftChart.geometries[0].scales[yField[0]].min).toBe(Math.min(...pvData));
+
+    const uvData = UV_DATA.map((item) => item.uv);
+    expect(rightView.geometries[0].scales[yField[1]].max).toBe(Math.max(...uvData));
+    expect(rightView.geometries[0].scales[yField[1]].min).toBe(Math.min(...uvData));
   });
 });

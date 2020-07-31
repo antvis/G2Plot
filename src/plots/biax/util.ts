@@ -9,16 +9,15 @@ import { DEFAULT_LINE_CONFIG, DEFAULT_YAXIS_CONFIG, DEFAULT_OPTION, DEFAULT_LINE
  * @param axis
  */
 export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType): GeometryConfig {
+  const defaultStyle = {
+    style: {
+      stroke: DEFAULT_LINE_COLOR[axis],
+    },
+  };
   if (isLine(geometryConfig)) {
-    return deepMix(
-      {
-        color: DEFAULT_LINE_COLOR[axis],
-      },
-      DEFAULT_LINE_CONFIG,
-      geometryConfig || {}
-    );
+    return deepMix(defaultStyle, DEFAULT_LINE_CONFIG, geometryConfig || {});
   }
-  return Object.assign({ color: DEFAULT_LINE_COLOR[axis] }, DEFAULT_LINE_CONFIG);
+  return Object.assign({}, defaultStyle, DEFAULT_LINE_CONFIG);
 }
 
 /**
@@ -27,9 +26,10 @@ export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType
  */
 export function getOption(options: BiaxOption): BiaxOption {
   const { yAxis = [], geometryConfigs = [] } = options;
+  // TODO 做些优化
   const mixYAxis = [
-    deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0] || {}),
-    deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1] || {}),
+    yAxis[0] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
+    yAxis[1] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
   ];
   return deepMix({}, DEFAULT_OPTION, options, {
     yAxis: mixYAxis,

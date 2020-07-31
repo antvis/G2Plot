@@ -151,52 +151,54 @@ export default class MarkerPoint {
 
   private _renderPoints(dataArray: MappingDatum[][]) {
     each(this.config.data, (dataItem, dataItemIdx) => {
-      const origin = find(dataArray[0], (d) => isMatch(d._origin, dataItem));
-      if (origin) {
-        const pointAttrs = this.config.style.normal;
-        const group = this.container.addGroup({ name: this.name });
-        let { x, y } = origin;
-        if (isArray(x)) {
-          x = x[0];
+      each(dataArray, (dataum: MappingDatum[]) => {
+        const origin = find(dataum, (d) => isMatch(d._origin, dataItem));
+        if (origin) {
+          const pointAttrs = this.config.style.normal;
+          const group = this.container.addGroup({ name: this.name });
+          let { x, y } = origin;
+          if (isArray(x)) {
+            x = x[0];
+          }
+          if (isArray(y)) {
+            y = y[0];
+          }
+          let symbol = this.config.symbol;
+          const { offsetX, offsetY } = this.config;
+          let point;
+          if (isString(symbol) && symbol.startsWith('image://')) {
+            const imageUrl = symbol.substr(8);
+            point = group.addShape('image', {
+              attrs: {
+                x: x - this.size / 2 + offsetX,
+                y: y - this.size / 2 + offsetY,
+                img: imageUrl,
+                width: this.size,
+                height: this.size,
+              },
+            });
+          } else {
+            symbol = isString(symbol) ? MarkerSymbols[symbol] : symbol;
+            point = group.addShape({
+              type: 'marker',
+              name: 'marker-point',
+              id: `point-${dataItemIdx}`,
+              attrs: {
+                x: x + offsetX,
+                y: y + offsetY,
+                r: this.size / 2,
+                ...pointAttrs,
+                symbol,
+              },
+            });
+          }
+          this.points.push(point);
+          this._animatePoint(point);
+          this._renderLabel(group, origin, dataItemIdx);
+          group.set('data', dataItem);
+          group.set('origin', origin);
         }
-        if (isArray(y)) {
-          y = y[0];
-        }
-        let symbol = this.config.symbol;
-        const { offsetX, offsetY } = this.config;
-        let point;
-        if (isString(symbol) && symbol.startsWith('image://')) {
-          const imageUrl = symbol.substr(8);
-          point = group.addShape('image', {
-            attrs: {
-              x: x - this.size / 2 + offsetX,
-              y: y - this.size / 2 + offsetY,
-              img: imageUrl,
-              width: this.size,
-              height: this.size,
-            },
-          });
-        } else {
-          symbol = isString(symbol) ? MarkerSymbols[symbol] : symbol;
-          point = group.addShape({
-            type: 'marker',
-            name: 'marker-point',
-            id: `point-${dataItemIdx}`,
-            attrs: {
-              x: x + offsetX,
-              y: y + offsetY,
-              r: this.size / 2,
-              ...pointAttrs,
-              symbol,
-            },
-          });
-        }
-        this.points.push(point);
-        this._animatePoint(point);
-        this._renderLabel(group, origin, dataItemIdx);
-        group.set('data', dataItem);
-        group.set('origin', origin);
-      }
+      });
     });
   }
 

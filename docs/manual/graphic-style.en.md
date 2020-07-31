@@ -42,7 +42,7 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
   }
 ```
 
-效果： <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oMQhTbC8-g8AAAAAAAAAAABkARQnAQ" width="400">
+效果： <img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oMQhTbC8-g8AAAAAAAAAAABkARQnAQ" width="400">
 
 # 配置线的样式
 
@@ -74,7 +74,7 @@ lineStyle: {
 }
 ```
 
-效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
+效果：<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
 
 # 配置文字样式
 
@@ -114,7 +114,7 @@ statistic: {
 }
 ```
 
-效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
+效果：<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
 
 # 配置渐变色
 
@@ -122,7 +122,7 @@ statistic: {
 
 ## 线性渐变
 
-<img src="https://gw.alipayobjects.com/zos/rmsportal/ieWkhtoHOijxweuNFWdz.png" width="600">
+<img alt="图片加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/ieWkhtoHOijxweuNFWdz.png" width="600">
 
 > 说明：`l`  表示使用线性渐变，绿色的字体为可变量，由用户自己填写。
 
@@ -139,7 +139,7 @@ areaStyle: {
 }
 ```
 
-效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vXe9TIKLHSIAAAAAAAAAAABkARQnAQ" width="400">
+效果：<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vXe9TIKLHSIAAAAAAAAAAABkARQnAQ" width="400">
 
 示例代码（2)，通过 Bar (条形图) 的 `barStyle`, 配置带渐变色的条形图。
 
@@ -149,11 +149,11 @@ barStyle: {
 }
 ```
 
-效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PLbxT69_RUwAAAAAAAAAAABkARQnAQ" width="400">
+效果：<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PLbxT69_RUwAAAAAAAAAAABkARQnAQ" width="400">
 
 ## 环形渐变
 
-<img src="https://gw.alipayobjects.com/zos/rmsportal/qnvmbtSBGxQlcuVOWkdu.png" width="600">
+<img alt="图片加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/qnvmbtSBGxQlcuVOWkdu.png" width="600">
 
 > 说明：`r`  表示使用放射状渐变，绿色的字体为可变量，由用户自己填写，开始圆的 x y r 值均为相对值，0 至 1 范围。
 
@@ -167,7 +167,7 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 
 用特定的纹理填充图形。纹理内容可以直接是图片或者  Data URLs。
 
-<img src="https://gw.alipayobjects.com/zos/rmsportal/NjtjUimlJtmvXljsETAJ.png" width="600">
+<img alt="图片加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/NjtjUimlJtmvXljsETAJ.png" width="600">
 
 > 说明：`p`  表示使用纹理，绿色的字体为可变量，由用户自己填写。
 
@@ -184,4 +184,4 @@ columnStyle: {
 }
 ```
 
-效果：<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Q5M1Ro3_GLsAAAAAAAAAAABkARQnAQ" width="400">
+效果：<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Q5M1Ro3_GLsAAAAAAAAAAABkARQnAQ" width="400">

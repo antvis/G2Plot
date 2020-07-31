@@ -17,7 +17,7 @@ g2plot 是一套简单、易用、并具备一定扩展能力和组合能力的�
 
 - 🔳 图层化设计方法：在 g2plot 体系下，图表不仅仅只是各不相关的实例，图层概念的引入提供了多图表组合叠联动，共同讲述一个数据故事的可能性
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
+<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
 
 ## 安装
 
@@ -27,7 +27,7 @@ $ npm install @antv/g2plot
 
 ## 使用
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450">
+<img alt="图片加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450">
 
 ```html
 <div id="c1"></div>

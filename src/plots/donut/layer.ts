@@ -48,6 +48,9 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     return deepMix({}, super.getDefaultOptions(), {
       radius: 0.8,
       innerRadius: 0.64,
+      tooltip: {
+        visible: false,
+      },
       statistic: {
         visible: true,
         totalLabel: '总计',
@@ -62,9 +65,9 @@ export default class DonutLayer<T extends DonutLayerConfig = DonutLayerConfig> e
     DonutLayer.centralId++;
     this.statisticClass = `statisticClassId${DonutLayer.centralId}`;
     this.adjustLabelDefaultOptions();
-    if (this.options.statistic.visible && this.options.statistic.triggerOn) {
-      this.options.tooltip.visible = false;
-    }
+    // if (this.options.statistic.visible && this.options.statistic.triggerOn) {
+    //   this.options.tooltip.visible = false;
+    // }
   }
 
   public afterRender() {

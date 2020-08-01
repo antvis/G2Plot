@@ -1,3 +1,4 @@
+import { Geometry, View } from '@antv/g2';
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
@@ -12,10 +13,17 @@ import { HeatmapOptions } from './types';
  */
 function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, sizeField, color } = options;
+  const { data, xField, yField, colorField, sizeField, shape, color } = options;
 
   chart.data(data);
-  const geometry = chart.polygon().position(`${xField}*${yField}`);
+
+  let geometry: Geometry;
+  if (shape) {
+    geometry = chart.point().position(`${xField}*${yField}`);
+    geometry.shape(shape);
+  } else {
+    geometry = chart.polygon().position(`${xField}*${yField}`);
+  }
 
   if (colorField) {
     geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
@@ -41,6 +49,7 @@ function meta(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
     [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
     [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
   });
+
   chart.scale(scales);
 
   return params;
@@ -54,18 +63,45 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
-  // 为 false 则是不显示轴
-  if (xAxis === false) {
-    chart.axis(xField, false);
-  } else {
-    chart.axis(xField, xAxis);
-  }
+  chart.axis(
+    xField,
+    Object.assign(
+      {
+        tickLine: null,
+        line: null,
+        grid: {
+          alignTick: false,
+          line: {
+            style: {
+              lineWidth: 1,
+              lineDash: null,
+              stroke: '#f0f0f0',
+            },
+          },
+        },
+      },
+      xAxis
+    )
+  );
 
-  if (yAxis === false) {
-    chart.axis(yField, false);
-  } else {
-    chart.axis(yField, yAxis);
-  }
+  chart.axis(
+    yField,
+    Object.assign(
+      {
+        grid: {
+          alignTick: false,
+          line: {
+            style: {
+              lineWidth: 1,
+              lineDash: null,
+              stroke: '#f0f0f0',
+            },
+          },
+        },
+      },
+      yAxis
+    )
+  );
 
   return params;
 }
@@ -100,9 +136,10 @@ function style(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { label, colorField } = options;
+  const { label, colorField, shape } = options;
 
-  const geometry = findGeometry(chart, 'polygon');
+  const geometryType = shape ? 'point' : 'polygon';
+  const geometry = findGeometry(chart, geometryType);
 
   if (!label) {
     geometry.label(false);

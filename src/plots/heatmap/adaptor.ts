@@ -1,4 +1,3 @@
-import { Geometry, View } from '@antv/g2';
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
@@ -17,20 +16,43 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 
   chart.data(data);
 
-  let geometry: Geometry;
-  if (shape) {
-    geometry = chart.point().position(`${xField}*${yField}`);
-    geometry.shape(shape);
-  } else {
-    geometry = chart.polygon().position(`${xField}*${yField}`);
-  }
+  const geometry = chart.polygon().position(`${xField}*${yField}`);
 
   if (colorField) {
     geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
   }
 
-  if (sizeField) {
-    // TODO
+  // just to change shape in cell
+  if (shape && !sizeField) {
+    if (shape === 'circle') {
+      geometry.shape('heatmap-circle');
+    } else if (shape === 'square') {
+      geometry.shape('heatmap-square');
+    }
+  }
+
+  // square (default) in different size
+  if (!shape && sizeField) {
+    const field = data.map((row) => row[sizeField]);
+    const min = Math.min(...field);
+    const max = Math.max(...field);
+
+    geometry.shape(sizeField, (v) => {
+      return ['heatmap-square-size', (v - min) / (max - min)];
+    });
+  }
+
+  // specific shape in different size
+  if (shape && sizeField) {
+    if (shape === 'circle') {
+      const field = data.map((row) => row[sizeField]);
+      const min = Math.min(...field);
+      const max = Math.max(...field);
+
+      geometry.shape(sizeField, (v) => {
+        return ['heatmap-circle-size', (v - min) / (max - min)];
+      });
+    }
   }
 
   return params;
@@ -136,10 +158,9 @@ function style(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { label, colorField, shape } = options;
+  const { label, colorField } = options;
 
-  const geometryType = shape ? 'point' : 'polygon';
-  const geometry = findGeometry(chart, geometryType);
+  const geometry = findGeometry(chart, 'polygon');
 
   if (!label) {
     geometry.label(false);

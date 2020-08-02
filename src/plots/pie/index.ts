@@ -3,6 +3,7 @@ import { PieOptions } from './types';
 import { adaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
 import './interaction';
+import './label-layout';
 
 export { PieOptions };
 

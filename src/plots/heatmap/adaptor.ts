@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isFunction, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
 import { flow, pick } from '../../utils';
@@ -148,7 +148,17 @@ function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  * @param params
  */
 function style(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
-  // TODO
+  const { chart, options } = params;
+  const { xField, yField, colorField, heatmapStyle } = options;
+
+  const geometry = chart.geometries[0];
+  if (heatmapStyle && geometry) {
+    if (isFunction(heatmapStyle)) {
+      geometry.style(`${xField}*${yField}*${colorField}`, heatmapStyle);
+    } else if (isObject(heatmapStyle)) {
+      geometry.style(heatmapStyle);
+    }
+  }
   return params;
 }
 

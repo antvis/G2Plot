@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS, DEFAULT_COLORS } from '../../constant';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { HeatmapOptions } from './types';
 
 /**

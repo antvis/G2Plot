@@ -1,11 +1,24 @@
-import { Geometry, Chart } from '@antv/g2';
-import { deepMix, isFunction } from '@antv/util';
+import { deepMix, isFunction, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
+
+function getGroupField(params: Params<ColumnOptions>): string {
+  const { options } = params;
+  const { groupField, seriesField, colorField } = options;
+
+  return groupField || seriesField || colorField;
+}
+
+function getStackField(params: Params<ColumnOptions>): string {
+  const { options } = params;
+  const { stackField, seriesField, colorField } = options;
+
+  return stackField || seriesField || colorField;
+}
 
 /**
  * 字段
@@ -13,17 +26,27 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  */
 function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color, isStack } = options;
+  const { data, xField, yField, colorField, color, isGroup, isStack, marginRatio } = options;
 
   chart.data(data);
   const geometry = chart.interval().position(`${xField}*${yField}`);
 
-  if (colorField) {
-    geometry.color(colorField, color);
-  }
-
-  if (colorField && ![xField, yField].includes(colorField)) {
-    geometry.adjust(isStack ? 'stack' : 'dodge');
+  if (isGroup) {
+    geometry.color(getGroupField(params), color);
+    geometry.adjust({
+      type: 'dodge',
+      marginRatio,
+    });
+  } else if (isStack) {
+    geometry.color(getStackField(params), color);
+    geometry.adjust({
+      type: 'stack',
+      marginRatio,
+    });
+  } else {
+    if (colorField) {
+      geometry.color(colorField, color);
+    }
   }
 
   return params;
@@ -130,9 +153,26 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
 }
 
 /**
+ * 柱形图额外的主题设置
+ * @param params
+ */
+function columnTheme(params: Params<ColumnOptions>): Params<ColumnOptions> {
+  const { chart, options } = params;
+  const { columnWidthRatio } = options;
+
+  if (!isNil(columnWidthRatio)) {
+    chart.theme({
+      columnWidthRatio,
+    });
+  }
+
+  return params;
+}
+
+/**
  * 柱形图适配器
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(field, meta, axis, legend, tooltip, theme, style, label, interaction, animation)(params);
+  return flow(field, meta, axis, legend, tooltip, theme, columnTheme, style, label, interaction, animation)(params);
 }

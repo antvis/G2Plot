@@ -43,7 +43,7 @@ describe('column style', () => {
           formatter: (v) => `${Math.floor(v / 10000)}万`,
         },
       },
-      columnStyle: (x, y) => {
+      columnStyle: () => {
         return {
           stroke: 'black',
           lineWidth: 2,

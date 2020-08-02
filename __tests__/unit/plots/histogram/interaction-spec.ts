@@ -17,25 +17,25 @@ describe('Histogram - G2内置interaction', () => {
   it('交互: active-region', () => {
     histogram.update({
       ...histogram.options,
-      interaction: 'active-region',
+      interactions: [{ name: 'active-region' }],
     });
 
     expect(histogram.chart.interactions['active-region']).toBeDefined();
   });
 
-  it('交互:element-highlight', () => {
+  it('交互: element-highlight', () => {
     histogram.update({
       ...histogram.options,
-      interaction: 'element-highlight',
+      interactions: [{ name: 'element-highlight' }],
     });
 
     expect(histogram.chart.interactions['element-highlight']).toBeDefined();
   });
 
-  it('交互:element-active', () => {
+  it('交互: element-active', () => {
     histogram.update({
       ...histogram.options,
-      interaction: 'element-active',
+      interactions: [{ name: 'element-active' }],
     });
 
     expect(histogram.chart.interactions['element-active']).toBeDefined();

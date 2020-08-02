@@ -59,8 +59,8 @@ export interface ScatterOptions extends Options {
   readonly xField: string;
   /** y 轴字段 */
   readonly yField: string;
-  /** 分组字段 */
-  readonly seriesField?: string;
+  /** 数据调整类型 */
+  readonly type?: 'jitter' | 'stack' | 'symmetric' | 'dodge';
   /** 点大小映射对应的数据字段名 */
   readonly sizeField?: string;
   /** 散点图大小 */

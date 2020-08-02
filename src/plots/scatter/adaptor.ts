@@ -1,8 +1,8 @@
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
+import { flow, pick, log, LEVEL } from '../../utils';
 import { ScatterOptions } from './types';
-import { tooltip } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../common/helper';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { REFLECTS } from './reflect';
@@ -13,16 +13,21 @@ import { REFLECTS } from './reflect';
  */
 function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, seriesField } = options;
+  const { data, xField, yField, type } = options;
 
   // 散点图操作逻辑
   chart.data(data);
   const geometry = chart.point().position(`${xField}*${yField}`);
 
+  // 数据调整
+  if (type) {
+    geometry.adjust(type);
+  }
+
   // 统一处理 color、 size、 shape
   const reflectKeys = Object.keys(REFLECTS);
   reflectKeys.forEach((key: string) => {
-    if (options[key]) {
+    if (options[key] || options[REFLECTS[key].field]) {
       let validateRules = false;
       (REFLECTS[key].rules || []).forEach((fn: (arg: any) => boolean) => {
         // 满足任一规则即可
@@ -31,9 +36,12 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
         }
       });
       if (validateRules) {
-        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || seriesField || xField, options[key]);
+        if (!options[REFLECTS[key].field]) {
+          log(LEVEL.WARN, false, '***  For accurate mapping, specify %s please.  ***', REFLECTS[key].field);
+        }
+        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
       } else {
-        geometry[REFLECTS[key].action](options[key]);
+        geometry[REFLECTS[key].action](options[key] || options[REFLECTS[key].field]);
       }
     }
   });
@@ -80,10 +88,10 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, seriesField } = options;
+  const { legend, colorField } = options;
 
-  if (legend && seriesField) {
-    chart.legend(seriesField, legend);
+  if (legend && colorField) {
+    chart.legend(colorField, legend);
   }
 
   return params;
@@ -142,5 +150,5 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style, label)(params);
+  flow(field, meta, axis, legend, tooltip, style, label, interaction, animation, theme)(params);
 }

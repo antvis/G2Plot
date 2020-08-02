@@ -4,7 +4,6 @@ import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interaction/pie-statistic-action';
-import { PieLegendAction } from '../../../../src/plots/pie/interaction/pie-legend-action';
 
 describe('register interaction', () => {
   it('创建 "pie-statistic" action', () => {

@@ -2,6 +2,7 @@ import { Plot } from '../../core/plot';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
+import './interaction';
 
 export { ScatterOptions };
 

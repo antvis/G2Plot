@@ -20,7 +20,7 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
 
   // 打印异常数据情况
-  log(LEVEL.WARN, processData.length !== data.length, 'illegal data existed in chart data.');
+  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
 
   const allZero = every(processData, (d) => d[angleField] === 0);
   if (allZero) {

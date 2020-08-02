@@ -24,6 +24,7 @@ describe('pie-outer label', () => {
         },
         layout: { type: '' },
       },
+      interactions: [{ name: 'element-active' }],
     });
     pie.render();
 
@@ -68,6 +69,7 @@ describe('pie-outer label', () => {
         content: '{name}: {percentage}',
         layout: { type: 'pie-outer' },
       },
+      interactions: [{ name: 'element-active' }],
     });
     pie.render();
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
@@ -102,6 +104,7 @@ describe('pie-outer label', () => {
         // @ts-ignore
         labelHeight: 18,
         labelLine: {
+          // @ts-ignore
           smooth,
         },
       },
@@ -162,6 +165,7 @@ describe('pie-outer label', () => {
         // @ts-ignore
         labelHeight: 18,
         labelLine: {
+          // @ts-ignore
           smooth,
         },
       },
@@ -215,6 +219,7 @@ describe('pie-outer label', () => {
         // @ts-ignore
         labelHeight: 18,
         labelLine: {
+          // @ts-ignore
           smooth,
         },
       },
@@ -233,6 +238,7 @@ describe('pie-outer label', () => {
       smooth = !smooth;
       pie.update(
         deepMix({}, pie.options, {
+          // @ts-ignore
           label: { labelLine: { smooth } },
         })
       );
@@ -268,6 +274,7 @@ describe('pie-outer label', () => {
         // @ts-ignore
         labelHeight: 18,
         labelLine: {
+          // @ts-ignore
           smooth,
         },
       },
@@ -286,6 +293,7 @@ describe('pie-outer label', () => {
       smooth = !smooth;
       pie.update(
         deepMix({}, pie.options, {
+          // @ts-ignore
           label: { labelLine: { smooth } },
         })
       );
@@ -328,6 +336,7 @@ describe('pie-outer label', () => {
         // @ts-ignore
         labelHeight: 18,
         labelLine: {
+          // @ts-ignore
           smooth,
         },
       },
@@ -346,6 +355,7 @@ describe('pie-outer label', () => {
       smooth = !smooth;
       pie.update(
         deepMix({}, pie.options, {
+          // @ts-ignore
           label: { labelLine: { smooth } },
         })
       );

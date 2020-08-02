@@ -5,8 +5,8 @@ import { createDiv } from '../../../utils/dom';
 describe('bar', () => {
   it('x*y', () => {
     const bar = new Bar(createDiv(), {
-      width: 400,
-      height: 300,
+      width: 300,
+      height: 400,
       data: salesByArea,
       xField: 'sales',
       yField: 'area',
@@ -29,8 +29,8 @@ describe('bar', () => {
 
   it('x*y*color', () => {
     const bar = new Bar(createDiv(), {
-      width: 400,
-      height: 300,
+      width: 300,
+      height: 400,
       data: salesByArea,
       xField: 'sales',
       yField: 'area',
@@ -49,8 +49,8 @@ describe('bar', () => {
   it('x*y*color with color', () => {
     const palette = ['red', 'yellow', 'green'];
     const bar = new Bar(createDiv(), {
-      width: 400,
-      height: 300,
+      width: 300,
+      height: 400,
       data: salesByArea,
       xField: 'sales',
       yField: 'area',
@@ -73,13 +73,56 @@ describe('bar', () => {
   });
 
   it('grouped bar', () => {
-    const bar = new Bar(createDiv('grouped column'), {
-      width: 400,
-      height: 300,
+    const bar = new Bar(createDiv('grouped bar'), {
+      width: 300,
+      height: 400,
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
       colorField: 'series',
+      isGroup: true,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAdjust('stack')).toBeUndefined();
+  });
+
+  it('grouped bar /w groupField', () => {
+    const bar = new Bar(createDiv('grouped bar /w groupField'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      groupField: 'series',
+      isGroup: true,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAdjust('stack')).toBeUndefined();
+  });
+
+  it('grouped bar /w seriesField', () => {
+    const bar = new Bar(createDiv('grouped bar /w seriesField'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      seriesField: 'series',
+      isGroup: true,
     });
 
     bar.render();
@@ -93,9 +136,9 @@ describe('bar', () => {
   });
 
   it('stacked bar', () => {
-    const bar = new Bar(createDiv('stacked column'), {
-      width: 400,
-      height: 300,
+    const bar = new Bar(createDiv('stacked bar'), {
+      width: 300,
+      height: 400,
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
@@ -111,5 +154,93 @@ describe('bar', () => {
       xField: 'area',
       yField: 'sales',
     });
+  });
+
+  it('stacked bar /w stackField', () => {
+    const bar = new Bar(createDiv('stacked bar /w stackField'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      stackField: 'series',
+      isStack: true,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toBeUndefined();
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+  });
+
+  it('stacked bar /w seriesField', () => {
+    const bar = new Bar(createDiv('stacked bar /w seriesField'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      seriesField: 'series',
+      isStack: true,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toBeUndefined();
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+  });
+
+  it('grouped bar barWidthRatio/marginRatio', () => {
+    const bar = new Bar(createDiv('grouped bar barWidthRatio'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      isGroup: true,
+      colorField: 'series',
+      barWidthRatio: 0.7,
+      marginRatio: 0.3,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+      marginRatio: 0.3,
+      dodgeRatio: 0.7,
+    });
+  });
+
+  it('stacked bar barWidthRatio/marginRatio', () => {
+    const bar = new Bar(createDiv('stacked bar barWidthRatio'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+      colorField: 'series',
+      isStack: true,
+      barWidthRatio: 0.5,
+    });
+
+    bar.render();
+
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.theme.columnWidthRatio).toBe(0.5);
   });
 });

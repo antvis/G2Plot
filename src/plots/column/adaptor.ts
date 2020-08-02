@@ -6,14 +6,14 @@ import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
-function getGroupField(params: Params<ColumnOptions>): string {
+export function getGroupField(params: Params<ColumnOptions>): string {
   const { options } = params;
   const { groupField, seriesField, colorField } = options;
 
   return groupField || seriesField || colorField;
 }
 
-function getStackField(params: Params<ColumnOptions>): string {
+export function getStackField(params: Params<ColumnOptions>): string {
   const { options } = params;
   const { stackField, seriesField, colorField } = options;
 

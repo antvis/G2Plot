@@ -1,3 +1,4 @@
+import { IGroup } from '@antv/g-base';
 import { deepMix } from '@antv/util';
 import { Pie } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
@@ -21,12 +22,35 @@ describe('pie-outer label', () => {
           // @ts-ignore
           smooth: false,
         },
-        layout: { type: 'pie-outer' },
+        layout: { type: '' },
       },
     });
     pie.render();
-    const labels = pie.chart.geometries[0].labelsContainer.getChildren();
+
+    const coordinate = pie.chart.getCoordinate();
+    const center = coordinate.getCenter();
+
+    let labels = pie.chart.geometries[0].labelsContainer.getChildren();
+    let leftLabels = labels.filter((label) => label.attr('x') < center.x);
+    if (leftLabels.length) {
+      const minY = Math.min(...leftLabels.map((label) => label.getBBox().minY));
+      const maxY = Math.max(...leftLabels.map((label) => label.getBBox().maxY));
+      const labelHeight = (leftLabels[0] as IGroup).getChildren()[0].getBBox().height;
+      // 未设置标签布局算法，标签总高度(labels.length * labelHeight) > 标签容器的总高度，发生遮挡
+      expect(maxY - minY).not.toBeGreaterThanOrEqual(leftLabels.length * labelHeight);
+    }
+
+    pie.update({ ...pie.options, label: { layout: { type: 'pie-outer' } } });
+    labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(labels.length).toBeLessThan(CountryEconomy.length);
+    leftLabels = labels.filter((label) => label.attr('x') < center.x);
+    if (leftLabels.length) {
+      const minY = Math.min(...leftLabels.map((label) => label.getBBox().minY));
+      const maxY = Math.max(...leftLabels.map((label) => label.getBBox().maxY));
+      const labelHeight = (leftLabels[0] as IGroup).getChildren()[0].getBBox().height;
+      // 设置标签布局算法，可见的标签总高度(labels.length * labelHeight) <= 标签容器的总高度
+      expect(maxY - minY).toBeGreaterThanOrEqual(leftLabels.length * labelHeight);
+    }
   });
 
   it('50+ 标签: 平滑拉线', () => {
@@ -102,7 +126,6 @@ describe('pie-outer label', () => {
     });
   });
 
-  // todo fixme
   it('标签: 第二象限密集', () => {
     let smooth = true;
     const pie = new Pie(createDiv(), {
@@ -163,7 +186,6 @@ describe('pie-outer label', () => {
     });
   });
 
-  // todo-fixme 标签
   it('标签: 第三象限密集 ①', () => {
     let smooth = false;
     const pie = new Pie(createDiv(), {

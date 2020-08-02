@@ -43,7 +43,7 @@ describe('bar style', () => {
           formatter: (v) => `${Math.floor(v / 10000)}万`,
         },
       },
-      barStyle: (x, y) => {
+      barStyle: () => {
         return {
           stroke: 'black',
           lineWidth: 2,

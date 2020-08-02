@@ -96,6 +96,7 @@ describe('column label', () => {
       xField: 'area',
       yField: 'sales',
       colorField: 'series',
+      isGroup: true,
       meta: {
         sales: {
           nice: true,
@@ -131,6 +132,7 @@ describe('column label', () => {
       xField: 'area',
       yField: 'sales',
       colorField: 'series',
+      isGroup: true,
       meta: {
         sales: {
           nice: true,
@@ -166,6 +168,7 @@ describe('column label', () => {
       xField: 'area',
       yField: 'sales',
       colorField: 'series',
+      isGroup: true,
       meta: {
         sales: {
           nice: true,

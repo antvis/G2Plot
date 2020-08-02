@@ -1,60 +1,25 @@
 import { Geometry } from '@antv/g2';
-import { isFunction, each, isObject } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
-import { meta, legend, point, axis } from '../line/adaptor';
-import { flow } from '../../utils';
-import { AreaOptions } from './types';
+import { deepMix, each } from '@antv/util';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../common/helper';
+import { Params } from '../../core/adaptor';
+import { area, point, line } from '../../adaptor/geometries';
+import { flow } from '../../utils';
+import { meta, legend, axis } from '../line/adaptor';
+import { AreaOptions } from './types';
 
 /**
- * 字段
+ * geometry 处理
  * @param params
  */
-function field(params: Params<AreaOptions>): Params<AreaOptions> {
+function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, seriesField, color } = options;
+  const { data, areaStyle, smooth } = options;
 
   chart.data(data);
-  const geometry = chart.area().position(`${xField}*${yField}`);
+  // area geometry 处理
+  flow(area)(deepMix({}, params, { options: { area: { smooth, style: areaStyle } } }));
 
-  if (seriesField) {
-    geometry.color(seriesField, color);
-  }
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<AreaOptions>): Params<AreaOptions> {
-  const { chart, options } = params;
-  const { xField, yField, seriesField, areaStyle } = options;
-
-  const geometry = findGeometry(chart, 'area');
-  if (areaStyle && geometry) {
-    if (isFunction(areaStyle)) {
-      geometry.style(`${xField}*${yField}*${seriesField}`, areaStyle);
-    } else if (isObject(areaStyle)) {
-      geometry.style(areaStyle);
-    }
-  }
-  return params;
-}
-
-/**
- * shape 的配置处理
- * @param params
- */
-function shape(params: Params<AreaOptions>): Params<AreaOptions> {
-  const { chart, options } = params;
-  const { smooth } = options;
-
-  const areaGeometry = findGeometry(chart, 'area');
-
-  areaGeometry.shape(smooth ? 'smooth' : 'area');
   return params;
 }
 
@@ -84,36 +49,6 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
 }
 
 /**
- * line 面积线的配置处理
- * @param params
- */
-function line(params: Params<AreaOptions>): Params<AreaOptions> {
-  const { chart, options } = params;
-  const { line, seriesField, xField, yField, smooth, color } = options;
-
-  if (line) {
-    const { size, style } = line;
-    const lineGeometry = chart
-      .line()
-      .position(`${xField}*${yField}`)
-      .size(size)
-      .shape(smooth ? 'smooth' : 'line');
-
-    if (seriesField) {
-      lineGeometry.color(seriesField, color);
-    }
-
-    // style
-    if (isFunction(style)) {
-      lineGeometry.style(`${xField}*${yField}*${seriesField}`, style);
-    } else if (isObject(style)) {
-      lineGeometry.style(style);
-    }
-  }
-  return params;
-}
-
-/**
  * 统一处理 adjust
  * @param params
  */
@@ -134,8 +69,9 @@ function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
 export function adaptor(params: Params<AreaOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   flow(
-    field,
+    geometry,
     meta,
+    // line 面积线的配置处理
     line,
     point,
     adjust,
@@ -143,8 +79,6 @@ export function adaptor(params: Params<AreaOptions>) {
     axis,
     legend,
     tooltip,
-    style,
-    shape,
     label,
     interaction,
     animation

@@ -91,6 +91,5 @@ describe('G2 内置interactions', () => {
     });
 
     expect(pie.chart.interactions['pie-legend-active']).toBeDefined();
-    expect(pie.chart.interactions['legend-active']).toBeDefined();
   });
 });

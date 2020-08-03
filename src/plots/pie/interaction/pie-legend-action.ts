@@ -1,7 +1,9 @@
+import { IElement, IGroup } from '@antv/g-base';
 import { Util } from '@antv/g2';
 import Element from '@antv/g2/lib/geometry/element';
 import { Action } from '@antv/g2/lib/interaction';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
+import { isEqual } from '@antv/util';
 import { groupTransform } from '../../../utils/g-util';
 
 /**
@@ -10,7 +12,6 @@ import { groupTransform } from '../../../utils/g-util';
 export class PieLegendAction extends Action {
   init() {
     const { view } = this.context;
-    view.interaction('legend-active');
   }
   /**
    * 获取激活的图形元素
@@ -29,19 +30,42 @@ export class PieLegendAction extends Action {
     return [];
   }
 
-  public active() {
+  /**
+   * 获取激活的标签
+   */
+  private getActiveElementLabels(): (IElement | IGroup)[] {
+    const view = this.context.view;
     const elements = this.getActiveElements();
-    elements.forEach((element) => {
+    const labels = view.geometries[0].labelsContainer.getChildren();
+    return labels.filter((label) => elements.find((ele) => isEqual(ele.getData(), label.get('data'))));
+  }
+
+  protected transfrom(offset: number = 7.5) {
+    const elements = this.getActiveElements();
+    const elementLabels = this.getActiveElementLabels();
+    elements.forEach((element, idx) => {
+      const labelShape = elementLabels[idx];
       const coordinate = element.geometry.coordinate;
       if (coordinate.isPolar && coordinate.isTransposed) {
         const { startAngle, endAngle } = Util.getAngle(element.getModel(), coordinate);
         const middleAngle = (startAngle + endAngle) / 2;
-        /** offset 偏移 */
-        const r = 7.5;
+        const r = offset;
         const x = r * Math.cos(middleAngle);
         const y = r * Math.sin(middleAngle);
         groupTransform(element.shape, [['t', x, y]]);
+        groupTransform(labelShape as IGroup, [['t', x, y]]);
       }
     });
+  }
+
+  public active() {
+    this.transfrom();
+  }
+
+  /**
+   * 激活态还原
+   */
+  public reset() {
+    this.transfrom(0);
   }
 }

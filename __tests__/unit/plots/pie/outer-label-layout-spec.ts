@@ -24,7 +24,7 @@ describe('pie-outer label', () => {
         },
         layout: { type: '' },
       },
-      interactions: [{ name: 'element-active' }],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
 
@@ -41,7 +41,7 @@ describe('pie-outer label', () => {
       expect(maxY - minY).not.toBeGreaterThanOrEqual(leftLabels.length * labelHeight);
     }
 
-    pie.update({ ...pie.options, label: { layout: { type: 'pie-outer' } } });
+    pie.update(deepMix({}, pie.options, { label: { layout: { type: 'pie-outer' } } }));
     labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(labels.length).toBeLessThan(CountryEconomy.length);
     leftLabels = labels.filter((label) => label.attr('x') < center.x);
@@ -69,7 +69,7 @@ describe('pie-outer label', () => {
         content: '{name}: {percentage}',
         layout: { type: 'pie-outer' },
       },
-      interactions: [{ name: 'element-active' }],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
@@ -108,11 +108,7 @@ describe('pie-outer label', () => {
           smooth,
         },
       },
-      interactions: [
-        {
-          name: 'element-active',
-        },
-      ],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
 
@@ -169,11 +165,7 @@ describe('pie-outer label', () => {
           smooth,
         },
       },
-      interactions: [
-        {
-          name: 'element-active',
-        },
-      ],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
 
@@ -223,11 +215,7 @@ describe('pie-outer label', () => {
           smooth,
         },
       },
-      interactions: [
-        {
-          name: 'element-active',
-        },
-      ],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
 
@@ -278,11 +266,7 @@ describe('pie-outer label', () => {
           smooth,
         },
       },
-      interactions: [
-        {
-          name: 'element-active',
-        },
-      ],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
 
@@ -340,11 +324,7 @@ describe('pie-outer label', () => {
           smooth,
         },
       },
-      interactions: [
-        {
-          name: 'element-active',
-        },
-      ],
+      interactions: [{ name: 'element-active' }, { name: 'pie-legend-active' }],
     });
     pie.render();
 

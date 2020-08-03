@@ -11,5 +11,5 @@ registerInteraction('pie-statistic-active', {
 registerAction('pie-legend', PieLegendAction);
 registerInteraction('pie-legend-active', {
   start: [{ trigger: 'legend-item:mouseenter', action: 'pie-legend:active' }],
-  end: [{ trigger: 'legend-item:mouseleave', action: [] }],
+  end: [{ trigger: 'legend-item:mouseleave', action: 'pie-legend:reset' }],
 });

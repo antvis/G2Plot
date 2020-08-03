@@ -1,5 +1,6 @@
 import { getInteraction, getActionClass } from '@antv/g2';
 import InteractionContext from '@antv/g2/lib/interaction/context';
+import { deepMix } from '@antv/util';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
@@ -38,11 +39,10 @@ describe('register interaction', () => {
   const context = new InteractionContext(pie.chart);
   const action = new StatisticAction(context);
 
-  it('触发 pie-statistic:change', async () => {
+  it('触发 pie-statistic:change', () => {
     context.event = { data: { data: { type: 'item3', value: 13 } } };
     action.change();
 
-    delay(500);
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].extra.content).toBe('item3');
     expect(annotations[1].extra.content).toBe(13);
@@ -72,25 +72,28 @@ describe('G2 内置interactions', () => {
     statistic: {
       title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
     },
+    interactions: [{ name: 'pie-statistic-active' }],
   });
 
   pie.render();
   it('交互: element-single-selected', () => {
-    pie.update({
-      ...pie.options,
-      interactions: [{ name: 'element-single-selected' }],
-    });
+    pie.update(
+      deepMix({}, pie.options, {
+        interactions: [{ name: 'element-single-selected' }],
+      })
+    );
 
     expect(pie.chart.interactions['element-single-selected']).toBeDefined();
   });
 
   it('交互: pie-legend-active', () => {
-    pie.update({
-      ...pie.options,
-      interactions: [{ name: 'pie-legend-active' }],
-    });
+    pie.update(
+      deepMix({}, pie.options, {
+        label: { content: '{name}: {percentage}' },
+        interactions: [{ name: 'pie-legend-active' }],
+      })
+    );
 
     expect(pie.chart.interactions['pie-legend-active']).toBeDefined();
-    expect(pie.chart.interactions['legend-active']).toBeDefined();
   });
 });

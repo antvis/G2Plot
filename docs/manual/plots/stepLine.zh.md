@@ -435,7 +435,7 @@ flipPage: true
 | position | string | 位置，支持12方位布局<br />top-left, top-center,top-right<br />bottom-left,bottom-center,bottom-right<br />left-top,left-center,left-bottom<br />right-top,right-center,right-bottom |
 | formatter | function | 对图例显示信息进行格式化 |
 | offsetX | number | 图例在 position 的基础上再往 x 方向偏移量，单位 px |
-| offestY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
+| offsetY | number | 图例在 position 的基础上再往 y 方向偏移量，单位 px |
 | title | object | 图例标题<br />- visible: boolean 是否显示<br />- text: string 图例文本，如不配置则自动取对应字段名<br />- style: object 标题样式<br /> |
 | marker | object | 图例 marker<br />- symbol: string marker符号，默认为 'circle'。可选类型：circle,square,diamond,triangle,triangleDown,hexagon,bowtie,cross,tick,plus,hyphen,line,hollowCircle,hollowSquare,hollowDiamond<br />- style: object marker样式，其中 `r` 配置marker的大小，其余样式参数参考绘图属性文档。<br /> |
 | text | object | 图例文本<br />- style: object 配置图例文本样式<br />- formatter:(text,cfg)=>string 格式化图例文本<br /> |

@@ -19,5 +19,5 @@ flipPage: true
 | formatter | function | 对图例显示信息进行格式化                                                                                                                                                                                 |
 | flipPage  | boolean  | 图例过多时是否翻页显示                                                                                                                                                                                   |
 | offsetX   | number   | 图例在 position 的基础上再往 x 方向偏移量，单位 px                                                                                                                                                       |
-| offestY   | number   | 图例在 position 的基础上再往 y 方向偏移量，单位 px                                                                                                                                                       |
+| offsetY   | number   | 图例在 position 的基础上再往 y 方向偏移量，单位 px                                                                                                                                                       |
 | marker    | string   | 图例 marker，默认为 'circle'<br />可选类型：`circle`,`square`,`diamond`,`triangle`,`triangleDown`,`hexagon`,`bowtie`,`cross`,`tick`,`plus`,`hyphen`,`line`,`hollowCircle`,`hollowSquare`,`hollowDiamond` |

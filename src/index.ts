@@ -47,3 +47,6 @@ export { Bar, BarOptions } from './plots/bar';
 
 // 雷达图及类型定义
 export { Radar, RadarOptions } from './plots/radar';
+
+// 瀑布图及类型定义
+export { Waterfall, WaterfallOptions } from './plots/waterfall';

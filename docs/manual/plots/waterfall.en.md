@@ -69,7 +69,6 @@ const waterfallPlot = new Waterfall(document.getElementById('container'), {
   forceFit: true,
   data,
   padding: 'auto',
-  data,
   xField: 'type',
   yField: 'money',
   meta: {
@@ -361,7 +360,7 @@ title: {
 
 功能描述： y方向上的坐标轴，用于展示yField对应的映射信息
 
-默认配置： 
+默认配置：
 ```js
 visible: true,
 grid: {

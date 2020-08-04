@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
-type lineOption = {
+type LineOption = {
   /** line color 映射, 提供回调的方式, 不开放 field 映射配置 */
   readonly color?: string | string[] | ((series: any) => string);
   /** 是否平滑 */
@@ -15,6 +15,7 @@ type lineOption = {
   /** 折线宽度 */
   readonly size?: number;
 };
+
 export interface LineGeometryOptions extends Options {
   /** x 轴字段 */
   readonly xField?: string;
@@ -22,7 +23,7 @@ export interface LineGeometryOptions extends Options {
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-  readonly line?: lineOption;
+  readonly line?: LineOption;
 }
 
 /**

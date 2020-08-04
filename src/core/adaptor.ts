@@ -1,10 +1,10 @@
-import { Chart, View } from '@antv/g2';
+import { View } from '@antv/g2';
 
 /**
  * adaptor flow 的参数
  */
 export type Params<O> = {
-  readonly chart: Chart | View;
+  readonly chart: View;
   readonly options: O;
 };
 

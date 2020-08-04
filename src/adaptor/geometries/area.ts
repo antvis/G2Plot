@@ -11,6 +11,7 @@ type AreaOption = {
   /** 样式映射 */
   readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
 };
+
 export interface AreaGeometryOptions extends Options {
   /** x 轴字段 */
   readonly xField?: string;

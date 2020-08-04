@@ -31,14 +31,14 @@ export interface IntervalGeometryOptions extends Options {
   };
 }
 
-export function getGroupField(params: Params<IntervalGeometryOptions>): string {
+function getGroupField(params: Params<IntervalGeometryOptions>): string {
   const { options } = params;
   const { groupField, seriesField, colorField } = options;
 
   return groupField || seriesField || colorField;
 }
 
-export function getStackField(params: Params<IntervalGeometryOptions>): string {
+function getStackField(params: Params<IntervalGeometryOptions>): string {
   const { options } = params;
   const { stackField, seriesField, colorField } = options;
 

@@ -145,6 +145,7 @@ export default class SpiderLabel {
       }
       const textGroup = this.container.addGroup({
         capture: false, // 不捕获事件，否则鼠标 hover 到图形会失焦
+        visible: false, // 因为后续会将部分 label 删除，所以这里需要先隐藏，避免调整完后不该绘制的 label 显示在画布上
       });
       const textAttrs: IAttrs = {
         x: 0,
@@ -378,6 +379,7 @@ export default class SpiderLabel {
       child.attr('y', yPosition);
     });
 
+    textGroup.show();
     return textGroup;
   }
 

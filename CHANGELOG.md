@@ -1,4 +1,4 @@
-## <small>1.1.19 (2020-08-05)</small>
+## <small>1.1.20 (2020-08-05)</small>
 
 * fix: 修改蜘蛛网布局中被剔除 label 仍出现在画布（左上角） (#1395) ([bde691e](https://github.com/antvis/g2plot/commit/bde691e)), closes [#1395](https://github.com/antvis/g2plot/issues/1395)
 * fix(issue-1378): 修复多折线图设置 marker point 时，只对一条线生效 (#1379) ([c019603](https://github.com/antvis/g2plot/commit/c019603)), closes [#1379](https://github.com/antvis/g2plot/issues/1379)

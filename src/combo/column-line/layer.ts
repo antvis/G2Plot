@@ -5,7 +5,7 @@ import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
 import ColumnLayer from '../../plots/column/layer';
 import { IColumnLabel } from '../../plots/column/interface';
-import { deepMix, clone, each, contains, pull, isArray } from '@antv/util';
+import { deepMix, clone, each, contains, pull, isArray, get } from '@antv/util';
 import { ICatAxis, GraphicStyle } from '../../interface/config';
 import { ComboViewConfig, LineConfig } from '../util/interface';
 import { getGlobalTheme } from '../../theme';
@@ -184,19 +184,28 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
   }
 
   protected tooltip(dom, ev) {
-    const { yField } = this.options;
+    const { xField, yField, tooltip } = this.options;
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 1);
+    const formatter = get(tooltip, 'formatter');
     if (dataItemsA) {
       each(dataItemsA, (d, index) => {
         const { seriesField } = this.geomLayers[1].options as any;
         const name = seriesField ? d[seriesField] : yField[1];
+
+        // 如果有 formatter 就执行 formatter，否则不处理
+        const item = formatter
+          ? formatter(d[xField], d[yField[1]], d[seriesField])
+          : {
+              name,
+              value: d[yField[1]],
+            };
+
         ev.items.push({
           ...originItem,
           mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
           data: d,
-          name,
-          value: d[yField[1]],
+          ...item,
           color: isArray(this.colors[1]) ? this.colors[1][index] : this.colors[1],
         });
       });

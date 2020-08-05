@@ -6,8 +6,6 @@ const PADDING_FACTOR = 0.96;
 
 registerShape('polygon', 'heatmap-circle-size', {
   draw(cfg: ShapeInfo, group: IGroup) {
-    const value = Number(cfg.shape[1]);
-
     const cx = cfg.x as number;
     const cy = cfg.y as number;
 
@@ -16,11 +14,14 @@ registerShape('polygon', 'heatmap-circle-size', {
     const height = Math.abs(points[1].y - points[0].y);
     const maxRadius = Math.min(width, height) / 2;
 
+    const value = Number(cfg.shape[1]);
+    const radius = maxRadius * PADDING_FACTOR * Math.sqrt(value);
+
     const polygon = group.addShape('circle', {
       attrs: {
         x: cx,
         y: cy,
-        r: maxRadius * value * PADDING_FACTOR,
+        r: radius,
         fill: cfg.color,
         ...cfg.defaultStyle,
       },

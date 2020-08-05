@@ -15,7 +15,7 @@ registerShape('polygon', 'heatmap-square-size', {
     const maxSideLength = Math.min(width, height);
 
     const value = Number(cfg.shape[1]);
-    const sideLength = maxSideLength * value * PADDING_FACTOR;
+    const sideLength = maxSideLength * PADDING_FACTOR * Math.sqrt(value);
 
     const polygon = group.addShape('rect', {
       attrs: {

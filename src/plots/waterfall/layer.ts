@@ -26,7 +26,7 @@ const PLOT_GEOM_MAP = {
 
 export const VALUE_FIELD = '$$value$$';
 export const IS_TOTAL = '$$total$$';
-const INDEX_FIELD = '$$index$$';
+export const INDEX_FIELD = '$$index$$';
 
 export interface WaterfallViewConfig extends ViewConfig {
   showTotal?: {

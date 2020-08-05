@@ -6,8 +6,9 @@ import { isArray } from '@antv/util';
 
 import ColumnLabel from '../../../column/component/label';
 import { IShape, Element } from '../../../../dependents';
-import { VALUE_FIELD } from '../../layer';
+import { VALUE_FIELD, INDEX_FIELD } from '../../layer';
 import { registerLabelComponent } from '../../../../components/label/base';
+import { MappingDatum, _ORIGIN } from '../../../../dependents';
 
 const MARGIN = 2;
 
@@ -19,6 +20,22 @@ export default class WaterfallLabel extends ColumnLabel {
     const values = data[VALUE_FIELD];
     const diff = data[this.layer.options.yField];
     const value = isArray(values) ? values[1] : values;
+    const { formatter } = this.options;
+    const mappingData: MappingDatum[] = [].concat(element.getModel().mappingData);
+    const elementIndex = formatter ? mappingData[0] && mappingData[0]['_origin'][INDEX_FIELD] : 0;
+    const formatterValue = formatter
+      ? formatter(
+          value,
+          {
+            [_ORIGIN]: mappingData[0]?._origin,
+            mappingDatum: mappingData[0],
+            mappingDatumIndex: 0,
+            element,
+            elementIndex,
+          },
+          elementIndex
+        )
+      : value;
     let yPos = (shapeBox.minY + shapeBox.maxY) / 2;
     let textBaseline = 'bottom';
 
@@ -30,7 +47,7 @@ export default class WaterfallLabel extends ColumnLabel {
     }
 
     label.attr('y', yPos);
-    label.attr('text', value);
+    label.attr('text', formatterValue);
     label.attr('textBaseline', textBaseline);
   }
 }

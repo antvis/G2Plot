@@ -20,7 +20,6 @@ describe('waterfall plot', () => {
     forceFit: true,
     data,
     padding: 'auto',
-    data,
     xField: 'type',
     yField: 'money',
     meta: {
@@ -126,6 +125,26 @@ describe('waterfall plot', () => {
     const labelShapes = diffLabel.container.get('children')[0];
     expect(labelShapes.attr('text')).toBe('涨 120');
     expect(labelShapes.attr('fill')).toBe('red');
+  });
+
+  it('label.formatter', () => {
+    waterfallPlot.updateConfig({
+      data,
+      xField: 'type',
+      yField: 'money',
+      label: {
+        visible: true,
+        formatter: (text) => {
+          return text + '__abc';
+        },
+      },
+    });
+
+    waterfallPlot.render();
+    // @ts-ignore
+    const view = waterfallPlot.getView();
+    const labels = view.geometries[0].labelsContainer.getChildByIndex(0).getChildren();
+    expect(labels[0].attr('text')).toInclude('__abc');
   });
 
   it('hidden diff-label', () => {

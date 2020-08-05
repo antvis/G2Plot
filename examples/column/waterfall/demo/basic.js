@@ -18,7 +18,6 @@ const waterfallPlot = new Waterfall(document.getElementById('container'), {
   forceFit: true,
   data,
   padding: 'auto',
-  data,
   xField: 'type',
   yField: 'money',
   meta: {

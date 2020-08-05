@@ -1,7 +1,7 @@
 import { Donut } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 
-describe('HTMLDivElement', () => {
+describe('htmlConent string', () => {
   const data = [
     {
       type: '分类一',
@@ -40,11 +40,8 @@ describe('HTMLDivElement', () => {
     colorField: 'type',
     statistic: {
       visible: true,
-      htmlContent: (item: any) => {
-        const div = document.createElement('div');
-        div.className = 'donut-statistic';
-        div.innerHTML = item.value;
-        return div;
+      htmlContent: () => {
+        return '<div class="donut-statistic">100</div>';
       },
     },
   });

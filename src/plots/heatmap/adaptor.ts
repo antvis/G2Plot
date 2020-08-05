@@ -149,12 +149,12 @@ function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 function style(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { xField, yField, colorField, heatmapStyle } = options;
+  const { xField, yField, colorField, sizeField, heatmapStyle } = options;
 
   const geometry = chart.geometries[0];
   if (heatmapStyle && geometry) {
     if (isFunction(heatmapStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}`, heatmapStyle);
+      geometry.style(`${xField}*${yField}*${colorField}*${sizeField}`, heatmapStyle);
     } else if (isObject(heatmapStyle)) {
       geometry.style(heatmapStyle);
     }

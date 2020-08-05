@@ -50,3 +50,14 @@ export const basicHeatmapData = [
   { name: 9, day: 3, sales: 48 },
   { name: 9, day: 4, sales: 91 },
 ];
+
+const NAMES = ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura'];
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+export const semanticBasicHeatmapData = basicHeatmapData.map((row) => {
+  return {
+    name: NAMES[row.name],
+    day: DAYS[row.day],
+    sales: row.sales,
+  };
+});

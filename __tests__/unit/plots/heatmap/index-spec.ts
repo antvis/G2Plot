@@ -1,14 +1,48 @@
 import { Heatmap } from '../../../../src';
-import { basicHeatmapData } from '../../../data/basic-heatmap';
+import { basicHeatmapData, semanticBasicHeatmapData } from '../../../data/basic-heatmap';
 import { createDiv } from '../../../utils/dom';
 import { DEFAULT_COLORS } from '../../../../src/constant';
 
 describe('heatmap', () => {
   it('x*y with color', () => {
+    const heatmap = new Heatmap(createDiv('basic heatmap'), {
+      width: 400,
+      height: 300,
+      data: semanticBasicHeatmapData,
+      xField: 'name',
+      yField: 'day',
+      colorField: 'sales',
+    });
+
+    heatmap.render();
+
+    const geometry = heatmap.chart.geometries[0];
+
+    const { elements } = geometry;
+
+    let maxElementIndex = 0;
+    let minElementIndex = 0;
+
+    elements.forEach((e, i) => {
+      const value = e.getData().sales;
+      if (elements[maxElementIndex].getData().sales < value) {
+        maxElementIndex = i;
+      }
+      if (elements[minElementIndex].getData().sales > value) {
+        minElementIndex = i;
+      }
+    });
+
+    const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
+    expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
+    expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
+  });
+
+  it('x*y with color and meta', () => {
     const NAMES = ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura'];
     const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
-    const heatmap = new Heatmap(createDiv('basic heatmap'), {
+    const heatmap = new Heatmap(createDiv('basic heatmap by meta'), {
       width: 400,
       height: 300,
       data: basicHeatmapData,

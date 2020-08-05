@@ -56,16 +56,3 @@ registerShape('polygon', 'heatmap-square', {
     return polygon;
   },
 });
-
-// TODO
-
-//   getMarker(markerCfg: ShapeMarkerCfg) {
-//     const { color } = markerCfg;
-//     return {
-//       symbol: 'square',
-//       style: {
-//         r: 4,
-//         fill: color,
-//       },
-//     };
-//   },

@@ -1,8 +1,8 @@
 import { Plot } from '../../core/plot';
-import { adaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
 import { WaterfallOptions } from './types';
-import './shape/shape';
+import { adaptor } from './adaptor';
+import './shape';
 
 export { WaterfallOptions };
 

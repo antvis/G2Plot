@@ -1,3 +1,7 @@
+## <small>1.1.21 (2020-08-05)</small>
+
+* feat: Liquid and Donut options statistic supported HTMLDivElement 
+
 ## <small>1.1.20 (2020-08-05)</small>
 
 * fix: 修改蜘蛛网布局中被剔除 label 仍出现在画布（左上角） (#1395) ([bde691e](https://github.com/antvis/g2plot/commit/bde691e)), closes [#1395](https://github.com/antvis/g2plot/issues/1395)

@@ -3,6 +3,17 @@ import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
+type PointOption = {
+  /** point color 映射, 提供回调的方式, 不开放 field 映射配置 */
+  readonly color?: string | string[] | ((series: any) => string);
+  /** point shape 映射, 提供回调的方式, 不开放 field 映射配置 */
+  readonly shape?: string | ((x: any, y: any, series?: any) => string);
+  /** 大小映射, 提供回调的方式, 不开放 field 映射配置 */
+  readonly size?: number | ((x: any, y: any, series?: any) => number);
+  /** 样式映射 */
+  readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
+};
+
 export interface PointGeometryOptions extends Options {
   /** x 轴字段 */
   readonly xField?: string;
@@ -10,16 +21,7 @@ export interface PointGeometryOptions extends Options {
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-  readonly point?: {
-    /** point color 映射, 提供回调的方式, 不开放 field 映射配置 */
-    readonly color?: string | string[] | ((series: any) => string);
-    /** point shape 映射, 提供回调的方式, 不开放 field 映射配置 */
-    readonly shape?: string | ((x: any, y: any, series?: any) => string);
-    /** 大小映射, 提供回调的方式, 不开放 field 映射配置 */
-    readonly size?: number | ((x: any, y: any, series?: any) => number);
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
-  };
+  readonly point?: PointOption;
 }
 
 /**

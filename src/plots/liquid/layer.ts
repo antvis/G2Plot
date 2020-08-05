@@ -28,7 +28,7 @@ interface LiquidStatisticStyle {
   formatter?: (value) => string;
   style?: TextStyle;
   adjustColor?: boolean;
-  htmlContent?: (...args: any) => string;
+  htmlContent?: (...args: any) => HTMLDivElement | string;
 }
 
 export interface LiquidViewConfig extends Partial<ViewConfig> {

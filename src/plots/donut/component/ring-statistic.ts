@@ -1,5 +1,6 @@
+import { isType } from '@antv/util';
 import { View } from '../../../dependents';
-import StatisticHtml, { IStatisticHtml } from './statistic';
+import StatisticHtml, { IStatisticHtml } from '../../../components/statistic';
 import { getTemplate } from './statistic-template';
 import { debounce, each } from '@antv/util';
 import Ring, { DonutViewConfig } from '../layer';
@@ -51,7 +52,7 @@ export default class RingStatistic extends StatisticHtml {
     );
   }
 
-  protected getTotalHtmlString(): string {
+  protected getTotalHtmlString(): HTMLDivElement {
     let displayData;
     if (this.options.content) {
       displayData = this.options.content;
@@ -61,18 +62,24 @@ export default class RingStatistic extends StatisticHtml {
       displayData = this.parseStatisticData('total', data);
     }
     /** 中心文本显示 */
-    let htmlString;
+    let htmlContent;
     if (this.options.htmlContent) {
-      htmlString = this.options.htmlContent(displayData, this.getStatisticSize());
+      htmlContent = this.options.htmlContent(displayData, this.getStatisticSize());
     } else {
-      htmlString = this.getStatisticTemplate(displayData);
+      htmlContent = this.getStatisticTemplate(displayData);
     }
-    return htmlString;
+    const statisticContainer = document.createElement('div');
+    if (isType(htmlContent, 'HTMLDivElement')) {
+      // @ts-ignore
+      statisticContainer.appendChild(htmlContent);
+    } else {
+      statisticContainer.innerHTML = htmlContent;
+    }
+    return statisticContainer;
   }
 
   protected adjustOptions() {
     this.html = this.getTotalHtmlString();
-
     const { minX, minY, width, height } = this.view.coordinateBBox;
     this.x = minX + width / 2;
     this.y = minY + height / 2;
@@ -129,9 +136,9 @@ export default class RingStatistic extends StatisticHtml {
     return size;
   }
 
-  private getStatisticHtmlString(data): string {
+  private getStatisticHtmlString(data): string | HTMLDivElement {
     const htmlContent = this.options.htmlContent;
-    let htmlString: string;
+    let htmlString: string | HTMLDivElement;
     if (htmlContent) {
       htmlString = htmlContent(data, this.getStatisticSize());
     } else {

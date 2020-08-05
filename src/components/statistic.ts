@@ -1,4 +1,4 @@
-import { deepMix, isElement } from '@antv/util';
+import { deepMix, isElement, isType } from '@antv/util';
 import { createDom, modifyCSS, getOuterWidth, getOuterHeight } from '@antv/dom-util';
 
 export interface IStatisticHtml {
@@ -16,7 +16,7 @@ export default class StatisticHtml {
   public wrapperNode: HTMLElement;
   protected x: number;
   protected y: number;
-  protected html: string;
+  protected html: HTMLDivElement;
   protected container: any;
   protected options: any;
 
@@ -37,14 +37,20 @@ export default class StatisticHtml {
         position: 'absolute',
         pointerEvents: 'none', // 阻止 dom 事件击穿
       });
-      const htmlNode = createDom(this.html);
+      const htmlNode = this.html;
       this.wrapperNode.appendChild(htmlNode);
       this.setDomPosition(this.x, this.y);
     }
   }
 
-  public updateHtml(content: string) {
-    this.wrapperNode.innerHTML = content;
+  public updateHtml(content: HTMLDivElement | string) {
+    if (isType(content, 'HTMLDivElement')) {
+      this.wrapperNode.innerHTML = '';
+      this.wrapperNode.appendChild(content as HTMLDivElement);
+    } else {
+      this.wrapperNode.innerHTML = content as string;
+    }
+    this.setDomPosition(this.x, this.y);
   }
 
   public updatePosition(x, y) {
@@ -84,6 +90,11 @@ export default class StatisticHtml {
     modifyCSS(this.wrapperNode, {
       top: `${Math.round(yPosition)}px`,
       left: `${Math.round(xPosition)}px`,
+      /**
+       * 支持Ant Design Charts
+       * render是异步的操作，获取到的 width 为 0
+       */
+      transform: width > 0 ? 'none' : 'translate(-50%, -50%)',
     });
   }
 }

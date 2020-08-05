@@ -1,3 +1,4 @@
+import { isType } from '@antv/util';
 import { View } from '../../../dependents';
 import StatisticHtml, { IStatisticHtml } from '../../../components/statistic';
 import Liquid, { LiquidViewConfig } from '../layer';
@@ -22,13 +23,21 @@ export default class RingStatistic extends StatisticHtml {
     this.adjustOptions();
   }
 
-  protected getTotalHtmlString(): string {
+  /** 中心文本显示 */
+  protected getTotalHtmlString(): HTMLDivElement {
+    const statisticContainer = document.createElement('div');
     const { value = 0, statistic } = this.plot.options;
     if (statistic && !statistic.visible) {
-      return '';
+      return statisticContainer;
     }
-    /** 中心文本显示 */
-    return getTemplate(this.options.htmlContent(value), this.statisticClass);
+    const htmlContent = this.options.htmlContent(value);
+    if (isType(htmlContent, 'HTMLDivElement')) {
+      statisticContainer.appendChild(htmlContent as HTMLDivElement);
+    } else {
+      statisticContainer.innerHTML = getTemplate(htmlContent as string, this.statisticClass);
+    }
+
+    return statisticContainer;
   }
 
   protected adjustOptions() {

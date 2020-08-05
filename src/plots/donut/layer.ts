@@ -24,7 +24,7 @@ export interface DonutViewConfig extends PieViewConfig {
     /** 触发隐藏的事件 */
     triggerOff?: 'mouseleave';
     content?: string | DonutStatisticContent;
-    htmlContent?: (...args: any) => string;
+    htmlContent?: (...args: any) => HTMLDivElement | string;
   };
 }
 

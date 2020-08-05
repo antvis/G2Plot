@@ -1,31 +1,15 @@
+import { isFunction } from 'lodash';
 import { Params } from '../../core/adaptor';
-import { WaterfallOptions } from './types';
 import { flow, pick, log, LEVEL } from '../../utils';
+import { processData } from './utils';
+import { WaterfallOptions } from './types';
 
 /** 数据处理 */
 function dataHandler(params: Params<WaterfallOptions>) {
   const { chart, options } = params;
-  const { data = [], xField, yField, showTotal } = options;
-  let preSum = 0;
-  const processData = data.map((item, index) => {
-    /**
-     * @todo 对每个数据判断，如果不是数字抛出异常
-     */
-    if (index > 0) {
-      const newYFieldValue = [preSum, preSum + item[yField]];
-      preSum = preSum + item[yField];
-      return { ...item, [yField]: newYFieldValue };
-    }
-    preSum = preSum + item[yField];
-    return item;
-  });
-  if (showTotal && showTotal.visible) {
-    processData.push({
-      [xField]: showTotal.label,
-      [yField]: preSum,
-    });
-  }
-  chart.data(processData);
+  const { data = [], xField, yField, showTotal, totalLabel } = options;
+  const newData = processData(data, xField, yField, showTotal, totalLabel);
+  chart.data(newData);
   return params;
 }
 
@@ -35,13 +19,14 @@ function field(params: Params<WaterfallOptions>) {
   const { xField, yField, color } = options;
 
   const geometry = chart.interval().position(`${xField}*${yField}`);
-  geometry.color(xField, color as string);
+  // geometry.color(xField, (type) => isFunction(color) ? color(type) : color);
+  geometry.color(xField, (type) => {console.log(type);return isFunction(color) ? color(type) : color});
   geometry.shape('waterfall');
   return params;
 }
 
 /** 连接线样式处理 */
-function LeaderLineStyle(params: Params<WaterfallOptions>) {
+function leaderLineStyle(params: Params<WaterfallOptions>) {
   /**
    * @todo 链接线样式
    */
@@ -49,5 +34,5 @@ function LeaderLineStyle(params: Params<WaterfallOptions>) {
 }
 
 export function adaptor(param: Params<WaterfallOptions>) {
-  return flow(dataHandler, field, LeaderLineStyle)(param);
+  return flow(dataHandler, field, leaderLineStyle)(param);
 }

@@ -4,7 +4,7 @@ import { findGeometry } from '../../common/helper';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS, DEFAULT_COLORS } from '../../constant';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
-import { HeatmapOptions } from './types';
+import { HeatmapOptions, ShapeType, SHAPE_TYPES } from './types';
 
 /**
  * 数据字段映射
@@ -12,7 +12,7 @@ import { HeatmapOptions } from './types';
  */
 function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, sizeField, shape, color } = options;
+  const { data, xField, yField, colorField, sizeField, sizeRatio, shapeType, color } = options;
 
   chart.data(data);
 
@@ -22,35 +22,62 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
     geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
   }
 
-  // just to change shape in cell
-  if (shape && !sizeField) {
-    if (shape === 'circle') {
-      geometry.shape('heatmap-circle');
-    } else if (shape === 'square') {
-      geometry.shape('heatmap-square');
+  /**
+   * The ratio between the actual size and the max available size, must be in range `[0,1]`.
+   *
+   * If the `sizeRatio` attribute is undefined or it exceeds the range,
+   * `checkedSizeRatio` would be set to 1 as default.
+   */
+  let checkedSizeRatio = 1;
+  if (sizeRatio || sizeRatio === 0) {
+    if (!shapeType && !sizeField) {
+      console.warn('sizeRatio is not in effect: Must define shapeType or sizeField first');
+    } else if (sizeRatio < 0 || sizeRatio > 1) {
+      console.warn('sizeRatio is not in effect: It must be a number in [0,1]');
+    } else {
+      checkedSizeRatio = sizeRatio;
     }
   }
 
-  // square (default) in different size
-  if (!shape && sizeField) {
-    const field = data.map((row) => row[sizeField]);
-    const min = Math.min(...field);
-    const max = Math.max(...field);
-
-    geometry.shape(sizeField, (v) => {
-      return ['heatmap-square-size', (v - min) / (max - min)];
-    });
+  /**
+   * The type of shape in each cell of heatmap.
+   *
+   * If a valid type is specified with `shapeType` attribute, the shape would be that type.
+   * If `shapeType` specifies an invalid type, the type would be set to `square` as default.
+   *
+   * If the `shapeType` is undefined but the `sizeField` attribute is specified,
+   * the type would be set to `square` as default since the original shape 'rectangle' can hardly
+   * be mapped with size.
+   */
+  let checkedShapeType: ShapeType;
+  if (shapeType) {
+    if (!(SHAPE_TYPES as string[]).includes(shapeType)) {
+      console.warn(`Invalid shapeType: Must be one of ${SHAPE_TYPES}, new set to default 'square'`);
+      checkedShapeType = 'square';
+    } else {
+      checkedShapeType = shapeType as ShapeType;
+    }
+  } else if (sizeField) {
+    checkedShapeType = 'square';
   }
 
-  // specific shape in different size
-  if (shape && sizeField) {
-    if (shape === 'circle') {
+  // when it has to change shape from original rect
+  if (checkedShapeType) {
+    // just to change shape in cell
+    if (!sizeField) {
+      geometry.shape('', () => {
+        return [`heatmap-${checkedShapeType}-size`, 1, checkedSizeRatio];
+      });
+    }
+
+    // specific shape in different size
+    if (sizeField) {
       const field = data.map((row) => row[sizeField]);
       const min = Math.min(...field);
       const max = Math.max(...field);
 
       geometry.shape(sizeField, (v) => {
-        return ['heatmap-circle-size', (v - min) / (max - min)];
+        return [`heatmap-${checkedShapeType}-size`, (v - min) / (max - min), checkedSizeRatio];
       });
     }
   }

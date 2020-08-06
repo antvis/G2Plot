@@ -24,7 +24,7 @@ describe('heatmap', () => {
         },
       },
       colorField: 'sales',
-      shape: 'square',
+      shapeType: 'square',
       label: {
         offset: -2,
         style: {
@@ -100,7 +100,7 @@ describe('heatmap', () => {
         },
       },
       colorField: 'sales',
-      shape: 'circle',
+      shapeType: 'circle',
       sizeField: 'sales',
       label: {
         offset: -2,

@@ -1,30 +1,17 @@
 import { Heatmap } from '../../../../src';
-import { basicHeatmapData } from '../../../data/basic-heatmap';
+import { semanticBasicHeatmapData } from '../../../data/basic-heatmap';
 import { createDiv } from '../../../utils/dom';
 
 describe('heatmap', () => {
-  const NAMES = ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura'];
-  const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
   it('x*y*color and default axis', () => {
     const heatmap = new Heatmap(createDiv('default axis'), {
       width: 400,
       height: 300,
-      data: basicHeatmapData,
+      data: semanticBasicHeatmapData,
       xField: 'name',
       yField: 'day',
-      meta: {
-        name: {
-          type: 'cat',
-          values: NAMES,
-        },
-        day: {
-          type: 'cat',
-          values: DAYS,
-        },
-      },
       colorField: 'sales',
-      shape: 'circle',
+      shapeType: 'circle',
       label: {
         offset: -2,
         style: {
@@ -47,21 +34,11 @@ describe('heatmap', () => {
     const heatmap = new Heatmap(createDiv('custom axis'), {
       width: 400,
       height: 300,
-      data: basicHeatmapData,
+      data: semanticBasicHeatmapData,
       xField: 'name',
       yField: 'day',
-      meta: {
-        name: {
-          type: 'cat',
-          values: NAMES,
-        },
-        day: {
-          type: 'cat',
-          values: DAYS,
-        },
-      },
       colorField: 'sales',
-      shape: 'circle',
+      shapeType: 'circle',
       label: {
         offset: -2,
         style: {

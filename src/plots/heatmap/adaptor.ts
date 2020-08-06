@@ -160,12 +160,19 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  * @param params
  */
 function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
-  const { chart, options } = params;
-  const { legend, colorField } = options;
+  const { chart } = params;
 
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
-  }
+  // TODO: chart legend
+  // legends overrided with color and size mapped with the same field,
+  // requre support from G2
+
+  // const { legend, colorField, sizeField } = params.options;
+
+  // if (legend && colorField) {
+  //   chart.legend(colorField, legend);
+  // }
+
+  chart.legend(false);
 
   return params;
 }

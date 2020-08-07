@@ -1,6 +1,10 @@
+## <small>1.1.22 (2020-08-07)</small>
+
+* fix: 修复饼图事件不生效的问题 (#1406) ([0ce6696](https://github.com/antvis/g2plot/commit/0ce6696)), closes [#1406](https://github.com/antvis/g2plot/issues/1406)
+
 ## <small>1.1.21 (2020-08-05)</small>
 
-* feat: Liquid and Donut options statistic supported HTMLDivElement 
+* feat: Liquid and Donut options statistic supported HTMLDivElement
 
 ## <small>1.1.20 (2020-08-05)</small>
 

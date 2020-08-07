@@ -78,6 +78,7 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
   public labelComponent: SpiderLabel | PieBaseLabel;
 
   public afterInit() {
+    super.afterInit();
     const { angleField, colorField, data } = this.options;
     const allZero = every(data, (d) => d[angleField] === 0);
     if (allZero) {

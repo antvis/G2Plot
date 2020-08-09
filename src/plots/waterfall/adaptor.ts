@@ -1,6 +1,9 @@
-import { isFunction } from 'lodash';
+import { isFunction } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick, log, LEVEL } from '../../utils';
+import { interval } from '../../adaptor/geometries';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { flow } from '../../utils';
 import { processData } from './utils';
 import { WaterfallOptions } from './types';
 
@@ -19,8 +22,7 @@ function field(params: Params<WaterfallOptions>) {
   const { xField, yField, color } = options;
 
   const geometry = chart.interval().position(`${xField}*${yField}`);
-  // geometry.color(xField, (type) => isFunction(color) ? color(type) : color);
-  geometry.color(xField, (type) => {console.log(type);return isFunction(color) ? color(type) : color});
+  geometry.color(xField, isFunction(color) ? color() : color);
   geometry.shape('waterfall');
   return params;
 }
@@ -33,6 +35,50 @@ function leaderLineStyle(params: Params<WaterfallOptions>) {
   return params;
 }
 
+/** 瀑布图样式处理 */
+function waterfallStyle(params: Params<WaterfallOptions>) {
+  const { options } = params;
+  const { waterfallStyle } = options;
+
+  if (waterfallStyle) {
+    flow(interval)(
+      deepMix({}, params, {
+        options: {
+          interval: {
+            style: waterfallStyle,
+          },
+        },
+      })
+    );
+  }
+  return params;
+}
+
+/**
+ * @desc legend 配置
+ * @param params
+ */
+function legend(params: Params<WaterfallOptions>) {
+  const { chart, options } = params;
+  const { legend } = options;
+
+  // 存在主题才设置主题
+  if (legend) {
+    chart.legend(legend);
+  }
+  return params;
+}
+
 export function adaptor(param: Params<WaterfallOptions>) {
-  return flow(dataHandler, field, leaderLineStyle)(param);
+  return flow(
+    dataHandler,
+    field,
+    leaderLineStyle,
+    tooltip,
+    interaction,
+    animation,
+    theme,
+    legend,
+    waterfallStyle
+  )(param);
 }

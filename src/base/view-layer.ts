@@ -502,6 +502,12 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
     deepMix(this.config.theme.tooltip, this.options.tooltip.domStyles);
   }
 
+  private createTooltipContainer() {
+    const container = document.createElement('div');
+    container.className = 'g2-tooltip';
+    return container;
+  }
+
   protected customTooltip() {
     const customContentCfg = this.options.tooltip.custom;
     let container;
@@ -510,16 +516,17 @@ export default abstract class ViewLayer<T extends ViewLayerConfig = ViewLayerCon
         ? document.getElementById(customContentCfg.container)
         : customContentCfg.container;
     }
-    this.view.on('tooltip:show', () => {
-      if (!customContentCfg.container) {
-        container = this.canvas.cfg.container.getElementsByClassName('g2-tooltip')[0];
+    if (!container) {
+      container = this.createTooltipContainer();
+    }
+    this.view.on('tooltip:show', (ev: CustomTooltipConfig) => {
+      if (customContentCfg?.onChange) {
+        customContentCfg.onChange(container, ev);
       }
     });
     this.view.hideTooltip();
     this.view.on('tooltip:change', (ev: CustomTooltipConfig) => {
-      if (container) {
-        customContentCfg.onChange(container, ev);
-      }
+      customContentCfg.onChange(container, ev);
     });
   }
 

@@ -1,4 +1,5 @@
 import { IGroup } from '@antv/g-base';
+import { getGeometryLabel } from '@antv/g2';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
@@ -132,4 +133,10 @@ describe('support template string formatter', () => {
   // todo 暂时没有提供精度配置，直接粗暴返回
   expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(20.00%)');
   // todo 补充图例点击后，百分比计算依然准确的 case
+});
+
+describe('inner label', () => {
+  it('自定义注册饼图 inner label', () => {
+    expect(getGeometryLabel('pie-inner')).toBeDefined();
+  });
 });

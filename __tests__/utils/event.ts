@@ -1,4 +1,4 @@
-import { IElement } from '../../src/dependents';
+import { IElement } from '@antv/g2/lib/dependents';
 
 // 触发 Canvas 上元素的鼠标事件
 export const simulateMouseEvent = (element: IElement, event: string, cfg = {}) => {

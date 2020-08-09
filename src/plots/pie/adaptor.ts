@@ -1,6 +1,6 @@
 import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { flow, LEVEL, log, template } from '../../utils';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
@@ -72,21 +72,6 @@ function coord(params: Params<PieOptions>): Params<PieOptions> {
       innerRadius,
     },
   });
-
-  return params;
-}
-
-/**
- * legend 配置
- * @param params
- */
-function legend(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
-  const { legend, colorField } = options;
-
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
-  }
 
   return params;
 }

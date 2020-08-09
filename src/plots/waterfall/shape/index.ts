@@ -1,7 +1,4 @@
-import { get } from '@antv/util';
-import { IGroup } from '@antv/g-base';
 import { registerShape } from '@antv/g2';
-import { Point, ShapeInfo } from '@antv/g2/lib/interface';
 
 function getRectPath(points) {
   const path = [];
@@ -19,6 +16,10 @@ function getRectPath(points) {
   return path;
 }
 
+/**
+ * @desc 连接线参数
+ * @param cfg
+ */
 function getFillAttrs(cfg) {
   const defaultAttrs = {
     lineWidth: 5,
@@ -28,10 +29,10 @@ function getFillAttrs(cfg) {
 
   return {
     ...defaultAttrs,
-    // ...cfg.style,
-    // fill: cfg.color,
-    // stroke: cfg.color,
-    // fillOpacity: cfg.opacity,
+    ...cfg.style,
+    fill: cfg.color,
+    stroke: cfg.color,
+    fillOpacity: cfg.opacity,
   };
 }
 
@@ -58,10 +59,10 @@ function drawLeadLine(cfg, group) {
 }
 
 /** 绘制差值label */
-function drawDiffLabel(cfg, group) {
-  const { data } = cfg;
-  const value = Array.isArray(data) ? data[1] - data[0] : data;
-}
+// function drawDiffLabel(cfg, group) {
+//   const { data } = cfg;
+//   const value = Array.isArray(data) ? data[1] - data[0] : data;
+// }
 
 registerShape('interval', 'waterfall', {
   draw(cfg, container) {
@@ -69,6 +70,7 @@ registerShape('interval', 'waterfall', {
     let rectPath = getRectPath(cfg.points);
     rectPath = this.parsePath(rectPath);
 
+    // 绘制柱体
     const group = container.addGroup();
     group.addShape('path', {
       attrs: {

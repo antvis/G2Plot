@@ -1,5 +1,4 @@
 import { Options } from '../../types';
-import { TextStyle } from '../../types/common';
 import { ShapeStyle } from '../../types/style';
 
 export interface WaterfallOptions extends Options {

@@ -16,7 +16,6 @@ export class Pie extends Plot<PieOptions> {
    */
   protected getDefaultOptions(): Partial<PieOptions> {
     return {
-      radius: 0.8,
       tooltip: {
         showTitle: false,
         showMarkers: false,

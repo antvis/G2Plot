@@ -91,8 +91,10 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
   } else {
     const { callback, ...cfg } = label;
     const labelCfg = cfg;
-    if (cfg.content) {
-      const { content } = cfg;
+
+    // ① 提供模板字符串的 label content 配置
+    if (labelCfg.content) {
+      const { content } = labelCfg;
       labelCfg.content = (data: object, dataum: any, index: number) => {
         const name = data[colorField];
         const value = data[angleField];
@@ -112,8 +114,24 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
           : content;
       };
     }
+
+    // ② 转换 label type 和 layout type
+    const LABEL_TYPE_MAP = {
+      inner: 'pie-inner',
+      outer: 'pie',
+    };
+    const LABEL_LAYOUT_TYPE_MAP = {
+      inner: '',
+      outer: 'pie-outer',
+    };
+    const labelType = LABEL_TYPE_MAP[labelCfg.type] || 'pie';
+    const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
+    labelCfg.type = labelType;
+    labelCfg.layout = deepMix({}, labelCfg.layout, { type: labelLayoutType });
+
     geometry.label({
-      fields: [angleField, colorField],
+      // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）
+      fields: colorField ? [angleField, colorField] : [angleField],
       callback,
       cfg: labelCfg,
     });
@@ -161,26 +179,29 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
   if (innerRadius && statistic) {
     const { title, content } = statistic;
 
-    let titleLineHeight = get(title, 'style.lineHeight');
-    if (!titleLineHeight) {
-      titleLineHeight = get(title, 'style.fontSize', 20);
-    }
-
-    let valueLineHeight = get(content, 'style.lineHeight');
-    if (!valueLineHeight) {
-      valueLineHeight = get(content, 'style.fontSize', 20);
-    }
-
+    let statisticTitle = {
+      type: 'text',
+      content: '',
+    };
+    let statisticContent = {
+      type: 'text',
+      content: '',
+    };
     const filterData = chart.getData();
 
     const angleScale = chart.getScaleByField(angleField);
     const colorScale = chart.getScaleByField(colorField);
     const statisticData = getStatisticData(filterData, angleScale, colorScale);
-    const titleFormatter = get(title, 'formatter');
     const contentFormatter = get(content, 'formatter');
 
-    annotationOptions.push(
-      {
+    if (title !== false) {
+      let titleLineHeight = get(title, 'style.lineHeight');
+      if (!titleLineHeight) {
+        titleLineHeight = get(title, 'style.fontSize', 20);
+      }
+      const titleFormatter = get(title, 'formatter');
+
+      statisticTitle = {
         type: 'text',
         position: ['50%', '50%'],
         content: titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title,
@@ -189,14 +210,21 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
           {
             // default config
             style: StatisticTitleStyle,
-            offsetY: -titleLineHeight,
+            offsetY: content === false ? 0 : -titleLineHeight,
             // append-info
             key: 'statistic',
           },
           title
         ),
-      },
-      {
+      };
+    }
+
+    if (content !== false) {
+      let valueLineHeight = get(content, 'style.lineHeight');
+      if (!valueLineHeight) {
+        valueLineHeight = get(content, 'style.fontSize', 20);
+      }
+      statisticContent = {
         type: 'text',
         position: ['50%', '50%'],
         content: contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value,
@@ -205,14 +233,17 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
           {
             // default config
             style: StatisticContentStyle,
-            offsetY: valueLineHeight,
+            // 居中
+            offsetY: title === false ? 0 : valueLineHeight,
             // append-info
             key: 'statistic',
           },
           content
         ),
-      }
-    );
+      };
+    }
+
+    annotationOptions.push(statisticTitle, statisticContent);
 
     chart.render();
   }
@@ -227,7 +258,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * 折线图适配器
+ * 饼图适配器
  * @param chart
  * @param options
  */

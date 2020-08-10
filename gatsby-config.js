@@ -48,6 +48,14 @@ module.exports = {
     docs: [],
     examples: [
       {
+        slug: 'pie',
+        icon: 'pie',
+        title: {
+          zh: '饼图',
+          en: 'Pie Charts',
+        },
+      },
+      {
         slug: 'scatter',
         icon: 'point',
         title: {

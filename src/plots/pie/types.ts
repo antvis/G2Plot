@@ -33,8 +33,11 @@ type Statistic = Readonly<{
 export interface PieOptions extends Options {
   /** 角度映射字段 */
   readonly angleField: string;
+  /** 颜色映射字段 */
   readonly colorField?: string;
+  /** 饼图半径 */
   readonly radius?: number;
+  /** 饼图内半径 */
   readonly innerRadius?: number;
 
   /** 饼图图形样式 */

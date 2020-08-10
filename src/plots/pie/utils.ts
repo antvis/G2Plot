@@ -1,6 +1,6 @@
 import { Scale } from '@antv/g2/lib/dependents';
 import { Data, Datum } from '@antv/g2/lib/interface';
-import { each, isArray } from '@antv/util';
+import { each, isArray, isString } from '@antv/util';
 import { StatisticData } from './types';
 
 /**
@@ -41,4 +41,17 @@ export function getStatisticData(data: Data | Datum, angleScale?: Scale, colorSc
     title: colorScale ? colorScale.getText(data[colorField]) : null,
     value: angleScale ? angleScale.getText(data[angleField]) : data[angleField],
   };
+}
+
+/**
+ * 将 字符串的百分比 转换为 数值百分比
+ */
+export function parsePercentageToNumber(percentage: string): number {
+  if (!isString(percentage)) {
+    return percentage;
+  }
+  if (percentage.endsWith('%')) {
+    return Number(percentage.slice(0, -1)) * 0.01;
+  }
+  return Number(percentage);
 }

@@ -1,4 +1,5 @@
 import { Chart } from '@antv/g2';
+import { deepMix } from '@antv/util';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
 import { ChartOptions, Data } from '../types';
@@ -20,7 +21,8 @@ export abstract class Plot<O extends ChartOptions> {
 
   constructor(container: string | HTMLElement, options: O) {
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
-    this.options = options;
+    const defaultOptions = this.getDefaultOptions();
+    this.options = deepMix({}, defaultOptions, options);
 
     this.createG2();
   }
@@ -42,6 +44,14 @@ export abstract class Plot<O extends ChartOptions> {
       pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
     });
+  }
+
+  /**
+   * 获取默认的 options 配置项
+   * 每个组件都可以复写
+   */
+  protected getDefaultOptions(): Partial<O> {
+    return {};
   }
 
   /**

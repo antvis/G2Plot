@@ -49,7 +49,7 @@ export abstract class Plot<O extends ChartOptions> extends EE {
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
     });
   }
-  
+
   /**
    * 绑定代理所有 G2 的事件
    */

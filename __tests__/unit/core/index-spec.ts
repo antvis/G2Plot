@@ -77,4 +77,42 @@ describe('core', () => {
 
     expect(line.chart.getTheme().colors10).toEqual(['green']);
   });
+
+  it('event', async () => {
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      theme: {
+        colors10: ['red'],
+      },
+    });
+
+    line.render();
+
+    function click(): Promise<Event> {
+      return new Promise((resolve, reject) => {
+        line.on('element:click', (e) => {
+          resolve(e);
+        });
+
+        line.chart.emit('element:click', {
+          _data: 1,
+          type: 'element:click',
+        });
+      });
+    }
+
+    const e = await click();
+
+    // 直接接受 G2 透传的事件
+    expect(e).toEqual({
+      type: 'element:click',
+      _data: 1,
+    });
+  });
 });

@@ -1,4 +1,4 @@
-import { Chart } from '@antv/g2';
+import { Chart, Event } from '@antv/g2';
 import { deepMix } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
@@ -55,7 +55,7 @@ export abstract class Plot<O extends ChartOptions> extends EE {
    */
   private bindEvents() {
     if (this.chart) {
-      this.chart.on('*', (e) => {
+      this.chart.on('*', (e: Event) => {
         if (e?.type) {
           this.emit(e.type, e);
         }

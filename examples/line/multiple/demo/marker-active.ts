@@ -42,26 +42,8 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
           return category === 'Gas fuel' ? 'square' : 'circle';
         },
         style: (x, y, category) => {
-          let r = markerSize / 2;
-          // 自定义规则
-          const maxCount = containerBox.width / (r * 4);
-          const interval = Math.floor(data.length / maxCount);
-          const fieldIdx = data.findIndex((d) => d['year'] === x);
-          if (fieldIdx && interval > 1 && fieldIdx % interval !== 0) {
-            r = 0;
-          }
-          let fill = '';
-          let lineWidth = 0;
-          if (category === 'Gas fuel') {
-            fill = 'transparent';
-            lineWidth = 1;
-          }
-
           return {
-            lineWidth,
-            fill,
-            r,
-            stroke: COLOR_PLATE_10[findIndex(series, (s) => s === category)] || 'transparent',
+            r: Number(x) % 4 ? 0 : 3, // 4 个数据示一个点标记
           };
         },
       },

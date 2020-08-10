@@ -11,7 +11,7 @@ maxDiv.setAttribute('style', 'display: inline-block; width: 500px; height: 500px
 describe('util dom', () => {
   it('getChartSize', () => {
     expect(getContainerSize(minDiv)).toEqual({ width: 30, height: 30 });
-
     expect(getContainerSize(maxDiv)).toEqual({ width: 500, height: 500 });
+    expect(getContainerSize(null)).toEqual({ width: 0, height: 0 });
   });
 });

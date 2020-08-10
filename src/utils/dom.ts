@@ -6,6 +6,9 @@ import { Size } from '../types';
  * @returns the element width and height
  */
 export function getContainerSize(ele: HTMLElement): Size {
+  if (!ele) {
+    return { width: 0, height: 0 };
+  }
   const style = getComputedStyle(ele);
 
   return {

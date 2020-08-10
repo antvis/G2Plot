@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "line-multiple.js",
+      "filename": "line-multiple.ts",
       "title": {
         "zh": "多折线图",
         "en": "multiple Line chart"
@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vlFFSqrmsUkAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "line-label.js",
+      "filename": "line-label.ts",
       "title": {
         "zh": "多折线动画",
         "en": "multiple Line chart animation"
@@ -21,7 +21,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3HyPSaIxw0gAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "line-large-data.js",
+      "filename": "line-large-data.ts",
       "title": {
         "zh": "The causes of CO2 emissions",
         "en": "The causes of CO2 emissions"
@@ -29,7 +29,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "line-color.js",
+      "filename": "line-color.ts",
       "title": {
         "zh": "指定折线颜色",
         "en": "set line color"
@@ -37,7 +37,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "color-callback.js",
+      "filename": "color-callback.ts",
       "title": {
         "zh": "通过回调函数指定折线颜色",
         "en": "set line color through callback function"
@@ -45,7 +45,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "line-style.js",
+      "filename": "line-style.ts",
       "title": {
         "zh": "指定折线样式",
         "en": "setting line style"
@@ -53,7 +53,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "marker-active.js",
+      "filename": "marker-active.ts",
       "title": {
         "zh": "指定 point marker 激活的样式",
         "en": "setting point marker active style"

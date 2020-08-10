@@ -4,6 +4,7 @@ import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
 import { ChartOptions, Data } from '../types';
+import { getContainerSize } from '../utils';
 
 /**
  * 所有 plot 的基类
@@ -35,13 +36,14 @@ export abstract class Plot<O extends ChartOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
+    const { width, height, padding, appendPadding, renderer, pixelRatio, autoFit = true } = this.options;
+    // autoFit 开启的时候，计算默认的大小
+    const size = autoFit ? getContainerSize(this.container) : { width, height };
 
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
-      height,
-      width,
+      ...size,
       padding,
       appendPadding,
       renderer,

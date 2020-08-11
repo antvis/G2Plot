@@ -1,3 +1,7 @@
+## <small>1.1.23 (2020-08-11)</small>
+
+* fix: 修复全 0 数据饼图 spider 布局 label 报错的问题 (#1416) ([c3fc10c](https://github.com/antvis/g2plot/commit/c3fc10c)), closes [#1416](https://github.com/antvis/g2plot/issues/1416)
+
 ## <small>1.1.22 (2020-08-07)</small>
 
 * fix: 修复饼图事件不生效的问题 (#1406) ([0ce6696](https://github.com/antvis/g2plot/commit/0ce6696)), closes [#1406](https://github.com/antvis/g2plot/issues/1406)

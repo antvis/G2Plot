@@ -3,7 +3,8 @@ import { deepMix } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { ChartOptions, Data, Size } from '../types';
+import { DEFAULT_CONFIG } from '../config';
+import { ChartOptions, Options, Data, Size } from '../types';
 import { getContainerSize } from '../utils';
 
 /**
@@ -81,8 +82,8 @@ export abstract class Plot<O extends ChartOptions> extends EE {
    * 获取默认的 options 配置项
    * 每个组件都可以复写
    */
-  protected getDefaultOptions(): Partial<O> {
-    return {};
+  protected getDefaultOptions(): Partial<Options> {
+    return DEFAULT_CONFIG;
   }
 
   /**

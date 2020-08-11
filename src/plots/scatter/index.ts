@@ -1,6 +1,8 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_CONFIG } from '../../config';
 import { Adaptor } from '../../core/adaptor';
 import './interaction';
 
@@ -15,5 +17,46 @@ export class Scatter extends Plot<ScatterOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<ScatterOptions> {
     return adaptor;
+  }
+
+  protected getDefaultOptions() {
+    return deepMix({}, DEFAULT_CONFIG, {
+      size: 4,
+      pointStyle: {
+        lineWidth: 1,
+        strokeOpacity: 1,
+        fillOpacity: 0.95,
+        stroke: '#fff',
+      },
+      xAxis: {
+        nice: true,
+        grid: {
+          visible: true,
+        },
+        line: {
+          visible: true,
+        },
+      },
+      yAxis: {
+        nice: true,
+        grid: {
+          visible: true,
+        },
+        line: {
+          visible: true,
+        },
+      },
+      tooltip: {
+        visible: true,
+        shared: null,
+        showTitle: false,
+        showMarkers: false,
+        showCrosshairs: false,
+      },
+      label: {
+        visible: false,
+      },
+      shape: 'circle',
+    });
   }
 }

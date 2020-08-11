@@ -10,14 +10,26 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
       data,
       xField: 'Revenue (Millions)',
       yField: 'Rating',
-      shapeField: 'Genre',
-      shape: ['circle', 'square', 'bowtie', 'diamond', 'hexagon', 'triangle', 'hyphen', 'line', 'cross'],
+      shape: 'circle',
       colorField: 'Genre',
-      xAxis: {
+      sizeField: 'Rating',
+      size: [2, 5],
+      yAxis: {
         nice: true,
       },
+      xAxis: {
+        visible: false,
+        min: -100,
+        grid: {
+          line: {
+            style: {
+              stroke: '#eee',
+            },
+          },
+        },
+      },
       pointStyle: {
-        stroke: '#777',
+        stroke: '#fff',
       },
     });
     scatterPlot.render();

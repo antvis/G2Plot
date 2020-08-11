@@ -56,6 +56,14 @@ module.exports = {
         },
       },
       {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {

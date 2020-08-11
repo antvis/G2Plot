@@ -43,7 +43,7 @@ const data = [
   { country: 'Europe', year: '1800', value: 203,},
 ];
 
-const piePlot = new Pie(document.getElementById('container'), {
+const piePlot = new Pie('container', {
   data,
   // highlight-start
   meta: {

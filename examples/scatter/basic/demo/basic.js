@@ -3,7 +3,7 @@ import { Scatter } from '@antv/g2plot';
 fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
   .then((res) => res.json())
   .then((data) => {
-    const scatterPlot = new Scatter(document.getElementById('container'), {
+    const scatterPlot = new Scatter('container', {
       width: 400,
       height: 300,
       appendPadding: 10,

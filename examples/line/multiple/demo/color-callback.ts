@@ -3,7 +3,7 @@ import { Line } from '@antv/g2plot';
 fetch('https://gw.alipayobjects.com/os/bmw-prod/c48dbbb1-fccf-4a46-b68f-a3ddb4908b68.json')
   .then((res) => res.json())
   .then((data) => {
-    const line = new Line(document.getElementById('container'), {
+    const line = new Line('container', {
       data,
       xField: 'date',
       yField: 'value',

@@ -1,12 +1,15 @@
-import { Chart } from '@antv/g2';
+import { Chart, Event } from '@antv/g2';
+import { deepMix } from '@antv/util';
+import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { ChartOptions, Data } from '../types';
+import { ChartOptions, Data, Size } from '../types';
+import { getContainerSize } from '../utils';
 
 /**
  * 所有 plot 的基类
  */
-export abstract class Plot<O extends ChartOptions> {
+export abstract class Plot<O extends ChartOptions> extends EE {
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -19,29 +22,67 @@ export abstract class Plot<O extends ChartOptions> {
   private unbind: () => void;
 
   constructor(container: string | HTMLElement, options: O) {
+    super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
-    this.options = options;
+
+    this.options = deepMix({}, this.getDefaultOptions(), options);
 
     this.createG2();
+
+    this.bindEvents();
   }
 
   /**
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
+    const { width, height, padding, appendPadding, renderer, pixelRatio, autoFit = true } = this.options;
 
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
-      height,
-      width,
+      ...this.getChartSize(width, height, autoFit),
       padding,
       appendPadding,
       renderer,
       pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
     });
+  }
+
+  /**
+   * 计算默认的 chart 大小。逻辑简化：如果存在 width height，则直接使用，否则使用容器大小
+   * @param width
+   * @param height
+   * @param autoFit
+   */
+  private getChartSize(width: number, height: number, autoFit: boolean): Size {
+    if (width && height) {
+      return { width, height };
+    }
+
+    return { width, height, ...getContainerSize(this.container) };
+  }
+
+  /**
+   * 绑定代理所有 G2 的事件
+   */
+  private bindEvents() {
+    if (this.chart) {
+      this.chart.on('*', (e: Event) => {
+        if (e?.type) {
+          this.emit(e.type, e);
+        }
+      });
+    }
+  }
+
+  /**
+   * 获取默认的 options 配置项
+   * 每个组件都可以复写
+   */
+  protected getDefaultOptions(): Partial<O> {
+    return {};
   }
 
   /**
@@ -106,6 +147,8 @@ export abstract class Plot<O extends ChartOptions> {
     this.unbindSizeSensor();
     // G2 的销毁
     this.chart.destroy();
+    // 清空已经绑定的事件
+    this.off();
   }
 
   /**

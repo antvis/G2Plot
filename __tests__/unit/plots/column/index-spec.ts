@@ -80,6 +80,7 @@ describe('column', () => {
       xField: 'area',
       yField: 'sales',
       colorField: 'series',
+      isGroup: true,
     });
 
     column.render();
@@ -90,6 +91,51 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+  });
+
+  it('grouped column /w groupField', () => {
+    const column = new Column(createDiv('grouped column /w groupField'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      groupField: 'series',
+      isGroup: true,
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAdjust('stack')).toBeUndefined();
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+  });
+
+  it('grouped column /w seriesField', () => {
+    const column = new Column(createDiv('grouped column /w seriesField'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      seriesField: 'series',
+      isGroup: true,
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAdjust('stack')).toBeUndefined();
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('stacked column', () => {
@@ -111,6 +157,51 @@ describe('column', () => {
       xField: 'area',
       yField: 'sales',
     });
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+  });
+
+  it('stacked column /w stackField', () => {
+    const column = new Column(createDiv('stacked column /w stackField'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      stackField: 'series',
+      isStack: true,
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toBeUndefined();
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+  });
+
+  it('stacked column /w seriesField', () => {
+    const column = new Column(createDiv('stacked column /w seriesField'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      seriesField: 'series',
+      isStack: true,
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+    expect(geometry.getAdjust('dodge')).toBeUndefined();
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'area',
+      yField: 'sales',
+    });
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('grouped column columnWidthRatio/marginRatio', () => {
@@ -120,6 +211,7 @@ describe('column', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
+      isGroup: true,
       colorField: 'series',
       columnWidthRatio: 0.7,
       marginRatio: 0.1,

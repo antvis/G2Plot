@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "饼图",
+        "en": "basic Pie chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wmldRZZj9lIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "outer-label.ts",
+      "title": {
+        "zh": "饼图-外部图形标签",
+        "en": "Pie chart - outter label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "spider-label.ts",
+      "title": {
+        "zh": "饼图-图形标签蜘蛛布局",
+        "en": "Pie chart - spider-layout label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ahB1Qp7T-C8AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-label.ts",
+      "title": {
+        "en": "customize pie chart",
+        "zh": "个性化标签饼图"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*sqwJRIEzdQ0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "pie-texture.ts",
+      "title": {
+        "en": "pie chart fill with texture",
+        "zh": "饼图-带纹理"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6DhLR77aZloAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

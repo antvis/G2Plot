@@ -1,8 +1,8 @@
-import { Geometry, Chart } from '@antv/g2';
-import { deepMix, isFunction, isNil } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../common/helper';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
+import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { interval } from '../../adaptor/geometries';
 import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -11,23 +11,23 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  * 字段
  * @param params
  */
-function field(params: Params<ColumnOptions>): Params<ColumnOptions> {
+function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, color, isStack, marginRatio } = options;
+  const { data, columnStyle, columnWidthRatio, marginRatio } = options;
 
   chart.data(data);
-  const geometry = chart.interval().position(`${xField}*${yField}`);
 
-  if (colorField) {
-    geometry.color(colorField, color);
-  }
-
-  if (colorField && ![xField, yField].includes(colorField)) {
-    geometry.adjust({
-      type: isStack ? 'stack' : 'dodge',
-      marginRatio,
-    });
-  }
+  flow(interval)(
+    deepMix({}, params, {
+      options: {
+        interval: {
+          marginRatio,
+          widthRatio: columnWidthRatio,
+          style: columnStyle,
+        },
+      },
+    })
+  );
 
   return params;
 }
@@ -80,31 +80,17 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { legend, colorField } = options;
-
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
-  }
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<ColumnOptions>): Params<ColumnOptions> {
-  const { chart, options } = params;
-  const { xField, yField, colorField, columnStyle } = options;
-
+  const { legend } = options;
   const geometry = findGeometry(chart, 'interval');
-  if (columnStyle && geometry) {
-    if (isFunction(columnStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}`, columnStyle);
-    } else {
-      geometry.style(columnStyle);
+  const colorAttribute = geometry.getAttribute('color');
+
+  if (legend && colorAttribute) {
+    const colorFields = colorAttribute.getFields();
+    if (colorFields.length > 0) {
+      chart.legend(colorFields[0], legend);
     }
   }
+
   return params;
 }
 
@@ -133,26 +119,9 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
 }
 
 /**
- * 柱形图额外的主题设置
- * @param params
- */
-function columnTheme(params: Params<ColumnOptions>): Params<ColumnOptions> {
-  const { chart, options } = params;
-  const { columnWidthRatio } = options;
-
-  if (!isNil(columnWidthRatio)) {
-    chart.theme({
-      columnWidthRatio,
-    });
-  }
-
-  return params;
-}
-
-/**
  * 柱形图适配器
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(field, meta, axis, legend, tooltip, theme, columnTheme, style, label, interaction, animation)(params);
+  return flow(geometry, meta, axis, legend, tooltip, theme, label, interaction, animation)(params);
 }

@@ -32,7 +32,7 @@ describe('Histogram: style', () => {
       data: histogramData,
       binField: 'value',
       binWidth: 2,
-      columnStyle: (x, y) => {
+      columnStyle: () => {
         return {
           stroke: 'black',
           lineWidth: 2,

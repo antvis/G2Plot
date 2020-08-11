@@ -1,3 +1,4 @@
+import { PointGeometryOptions } from '../../adaptor/geometries';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
@@ -15,12 +16,5 @@ export interface LineOptions extends Options {
   /** 折线图形样式 */
   readonly lineStyle?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
   /** 折线数据点图形样式 */
-  readonly point?: {
-    /** point shape 映射 */
-    readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
-    /** 大小映射，先简化处理为确定值 */
-    readonly size?: number;
-    /** 样式映射 */
-    readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
-  };
+  readonly point?: PointGeometryOptions['point'];
 }

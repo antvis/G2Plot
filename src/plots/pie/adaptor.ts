@@ -1,7 +1,7 @@
-import { deepMix, each, every, get, isFunction, filter, isNil } from '@antv/util';
+import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../common/adaptor';
-import { flow, LEVEL, log } from '../../utils';
+import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { flow, LEVEL, log, template } from '../../utils';
 import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
@@ -20,7 +20,7 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
 
   // 打印异常数据情况
-  log(LEVEL.WARN, processData.length !== data.length, 'illegal data existed in chart data.');
+  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
 
   const allZero = every(processData, (d) => d[angleField] === 0);
   if (allZero) {
@@ -77,21 +77,6 @@ function coord(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * legend 配置
- * @param params
- */
-function legend(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
-  const { legend, colorField } = options;
-
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
-  }
-
-  return params;
-}
-
-/**
  * label 配置
  * @param params
  */
@@ -105,10 +90,50 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     geometry.label(false);
   } else {
     const { callback, ...cfg } = label;
+    const labelCfg = cfg;
+
+    // ① 提供模板字符串的 label content 配置
+    if (labelCfg.content) {
+      const { content } = labelCfg;
+      labelCfg.content = (data: object, dataum: any, index: number) => {
+        const name = data[colorField];
+        const value = data[angleField];
+        // dymatic get scale, scale is ready this time
+        const angleScale = chart.getScaleByField(angleField);
+        const percent = angleScale?.scale(value);
+        return isFunction(content)
+          ? // append pecent (number) to data, users can get origin data from `dataum._origin`
+            content({ ...data, percent }, dataum, index)
+          : isString(content)
+          ? template(content as string, {
+              value,
+              name,
+              // percentage (string), default keep 2
+              percentage: percent ? `${(percent * 100).toFixed(2)}%` : null,
+            })
+          : content;
+      };
+    }
+
+    // ② 转换 label type 和 layout type
+    const LABEL_TYPE_MAP = {
+      inner: 'pie-inner',
+      outer: 'pie',
+    };
+    const LABEL_LAYOUT_TYPE_MAP = {
+      inner: '',
+      outer: 'pie-outer',
+    };
+    const labelType = LABEL_TYPE_MAP[labelCfg.type] || 'pie';
+    const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
+    labelCfg.type = labelType;
+    labelCfg.layout = deepMix({}, labelCfg.layout, { type: labelLayoutType });
+
     geometry.label({
-      fields: [angleField, colorField],
+      // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）
+      fields: colorField ? [angleField, colorField] : [angleField],
       callback,
-      cfg,
+      cfg: labelCfg,
     });
   }
   return params;
@@ -154,26 +179,29 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
   if (innerRadius && statistic) {
     const { title, content } = statistic;
 
-    let titleLineHeight = get(title, 'style.lineHeight');
-    if (!titleLineHeight) {
-      titleLineHeight = get(title, 'style.fontSize', 20);
-    }
-
-    let valueLineHeight = get(content, 'style.lineHeight');
-    if (!valueLineHeight) {
-      valueLineHeight = get(content, 'style.fontSize', 20);
-    }
-
+    let statisticTitle = {
+      type: 'text',
+      content: '',
+    };
+    let statisticContent = {
+      type: 'text',
+      content: '',
+    };
     const filterData = chart.getData();
 
     const angleScale = chart.getScaleByField(angleField);
     const colorScale = chart.getScaleByField(colorField);
     const statisticData = getStatisticData(filterData, angleScale, colorScale);
-    const titleFormatter = get(title, 'formatter');
     const contentFormatter = get(content, 'formatter');
 
-    annotationOptions.push(
-      {
+    if (title !== false) {
+      let titleLineHeight = get(title, 'style.lineHeight');
+      if (!titleLineHeight) {
+        titleLineHeight = get(title, 'style.fontSize', 20);
+      }
+      const titleFormatter = get(title, 'formatter');
+
+      statisticTitle = {
         type: 'text',
         position: ['50%', '50%'],
         content: titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title,
@@ -182,14 +210,21 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
           {
             // default config
             style: StatisticTitleStyle,
-            offsetY: -titleLineHeight,
+            offsetY: content === false ? 0 : -titleLineHeight,
             // append-info
             key: 'statistic',
           },
           title
         ),
-      },
-      {
+      };
+    }
+
+    if (content !== false) {
+      let valueLineHeight = get(content, 'style.lineHeight');
+      if (!valueLineHeight) {
+        valueLineHeight = get(content, 'style.fontSize', 20);
+      }
+      statisticContent = {
         type: 'text',
         position: ['50%', '50%'],
         content: contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value,
@@ -198,14 +233,17 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
           {
             // default config
             style: StatisticContentStyle,
-            offsetY: valueLineHeight,
+            // 居中
+            offsetY: title === false ? 0 : valueLineHeight,
             // append-info
             key: 'statistic',
           },
           content
         ),
-      }
-    );
+      };
+    }
+
+    annotationOptions.push(statisticTitle, statisticContent);
 
     chart.render();
   }
@@ -220,7 +258,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * 折线图适配器
+ * 饼图适配器
  * @param chart
  * @param options
  */

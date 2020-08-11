@@ -19,7 +19,7 @@ fetch('../data/contributions.json')
       valueField: 'commits',
       dateRange: ['2017-05-01', '2017-10-31'],
       colors: '#BAE7FF-#1890FF-#0050B3',
-      padding: 'auto',
+      padding: '0',
       xAxis: {
         title: {
           text: '月份',

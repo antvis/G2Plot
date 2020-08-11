@@ -28,6 +28,7 @@ describe('line', () => {
         },
       },
       yAxis: {
+        nice: false,
         tickCount: 3,
         min: 500,
       },

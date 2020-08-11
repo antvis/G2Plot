@@ -4,8 +4,6 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
   .then((res) => res.json())
   .then((data) => {
     const scatterPlot = new Scatter('container', {
-      width: 400,
-      height: 300,
       appendPadding: 10,
       data,
       xField: 'Revenue (Millions)',
@@ -18,7 +16,6 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
         nice: true,
       },
       xAxis: {
-        visible: false,
         min: -100,
         grid: {
           line: {

@@ -2,10 +2,6 @@ import { Options } from '../types';
 
 export const DEFAULT_CONFIG: Partial<Options> = {
   renderer: 'canvas',
-  legend: {
-    visible: true,
-    position: 'bottom-center',
-  },
   tooltip: {
     shared: true,
     showCrosshairs: true,
@@ -15,22 +11,17 @@ export const DEFAULT_CONFIG: Partial<Options> = {
     offset: 20,
   },
   xAxis: {
+    nice: true,
     label: {
       autoRotate: true,
       autoHide: true,
-    },
-    title: {
-      spacing: 12,
     },
   },
   yAxis: {
+    nice: true,
     label: {
       autoHide: true,
       autoRotate: false,
-    },
-    title: {
-      autoRotate: true,
-      spacing: 12,
     },
   },
 };

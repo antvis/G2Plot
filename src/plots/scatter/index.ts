@@ -28,33 +28,12 @@ export class Scatter extends Plot<ScatterOptions> {
         fillOpacity: 0.95,
         stroke: '#fff',
       },
-      xAxis: {
-        nice: true,
-        grid: {
-          visible: true,
-        },
-        line: {
-          visible: true,
-        },
-      },
-      yAxis: {
-        nice: true,
-        grid: {
-          visible: true,
-        },
-        line: {
-          visible: true,
-        },
-      },
+
       tooltip: {
-        visible: true,
         shared: null,
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
-      },
-      label: {
-        visible: false,
       },
       shape: 'circle',
     });

@@ -10,7 +10,7 @@ import { registerPlotType } from '../../base/global';
 import PieBaseLabel from './component/label/base-label';
 import './theme';
 
-const percentageField = '$$percentage$$';
+export const percentageField = '$$percentage$$';
 
 export interface PieViewConfig extends ViewConfig {
   angleField: string;
@@ -98,9 +98,14 @@ export default class PieLayer<T extends PieLayerConfig = PieLayerConfig> extends
       }
       const labelConfig = options.label as Label;
       if (labelConfig.type === 'spider') {
+        const { data, colorField, angleField } = options;
+        const allZero = every(data, (d) => d[angleField] === 0);
+        const valueField = allZero ? percentageField : angleField;
         this.labelComponent = new SpiderLabel({
           view: this.view,
-          fields: options.colorField ? [options.angleField, options.colorField] : [options.angleField],
+          fields: colorField ? [valueField, colorField] : [valueField],
+          angleField,
+          allZero,
           ...this.options.label,
         });
         this.labelComponent.render();

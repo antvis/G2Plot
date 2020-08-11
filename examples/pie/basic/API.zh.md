@@ -133,7 +133,7 @@ color:(d)=>{
 
 ### legend、tooltip、theme
 
-`legend` 、`tooltip`、`theme` 等通用组件请参考图表通用配置
+`legend`、`tooltip`、`theme` 等通用组件请参考图表通用配置
 
 ### label ✨
 

@@ -66,8 +66,8 @@ function axis(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
   const { xField, xAxis, yField, yAxis } = options;
 
-  chart.axis(xField, deepMix({}, xAxis, X_AXIS_OPTIONS));
-  chart.axis(yField, deepMix({}, yAxis, Y_AXIS_OPTIONS));
+  chart.axis(xField, deepMix({}, X_AXIS_OPTIONS, xAxis));
+  chart.axis(yField, deepMix({}, Y_AXIS_OPTIONS, yAxis));
 
   return params;
 }

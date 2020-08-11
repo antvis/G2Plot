@@ -83,4 +83,27 @@ describe('radar axis 设置', () => {
     expect(yAxes.component.get('ticks').length).toBe(3);
     expect(yAxes.component.get('tickCount')).toBe(4);
   });
+
+  it('xAxis line 设置', () => {
+    const radar = new Radar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: SERIES_DATA,
+      xField: 'name',
+      yField: 'value',
+      seriesField: 'type',
+      xAxis: {
+        line: {
+          style: {
+            lineWidth: 0,
+          },
+        },
+      },
+      radius: 0.8,
+    });
+
+    radar.render();
+    const xAxes = getAxes(radar.chart)[0];
+    expect(xAxes.component.get('line').style.lineWidth).toBe(0);
+  });
 });

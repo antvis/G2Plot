@@ -67,9 +67,9 @@ export type Meta = {
 export type ChartOptions = {
   // 画布基本配置
   /** 画布宽度 */
-  readonly width: number;
+  readonly width?: number;
   /** 画布高度 */
-  readonly height: number;
+  readonly height?: number;
   /** 画布是否自动适配容器大小，默认为 true */
   readonly autoFit?: boolean;
   /** 画布的 padding 值，或者开启 'auto' */

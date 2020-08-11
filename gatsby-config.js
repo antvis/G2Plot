@@ -79,6 +79,14 @@ module.exports = {
           en: 'Scatter Charts',
         },
       },
+      {
+        slug: 'radar',
+        icon: 'radar',
+        title: {
+          zh: '雷达图',
+          en: 'Radar Charts',
+        },
+      },
       // OTHERS
     ],
     docsearchOptions: {

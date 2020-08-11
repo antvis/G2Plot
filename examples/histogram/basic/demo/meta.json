@@ -1,0 +1,33 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础直方图",
+        "en": "basic Histogram chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EHpuTqn-M2cAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "binWidth.ts",
+      "title": {
+        "zh": "直方图范围刻度",
+        "en": "bin Histogram chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gF1PSq6H2GQAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stack.ts",
+      "title": {
+        "zh": "层叠直方图",
+        "en": "stack Histogram chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*0S7fQI2CHHoAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
+

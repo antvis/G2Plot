@@ -71,6 +71,14 @@ module.exports = {
           en: 'Scatter Charts',
         },
       },
+      {
+        slug: 'histogram',
+        icon: 'histogram',
+        title: {
+          zh: '直方图',
+          en: 'Histogram Charts',
+        },
+      },
       // OTHERS
     ],
     docsearchOptions: {

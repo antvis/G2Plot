@@ -1,6 +1,6 @@
 import { Radar } from '@antv/g2plot';
 
-fetch('../data/radar.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/a104a693-2dd0-4a71-a190-39ec88f7307c.json')
   .then((data) => data.json())
   .then((data) => {
     const radarPlot = new Radar('container', {

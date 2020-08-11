@@ -1,6 +1,6 @@
 import { Radar } from '@antv/g2plot';
 
-fetch('../data/series-radar.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/5c41aa9b-9c8a-425f-9f4d-934b889bb75d.json')
   .then((data) => data.json())
   .then((data) => {
     const radarPlot = new Radar('container', {
@@ -27,7 +27,6 @@ fetch('../data/series-radar.json')
       // 开启面积
       area: {},
       legend: {
-        visible: true,
         position: 'bottom-center',
       },
     });

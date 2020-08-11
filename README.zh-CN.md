@@ -95,6 +95,13 @@ bar.render();
 
 提交代码请遵循 [贡献指引](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md)。
 
+```bash
+cd g2plot
+npm install // or yarn
+```
+
+中国用户如果安装不上，可以运行 `export SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass` 后重试。
+
 ## 许可证
 
 MIT

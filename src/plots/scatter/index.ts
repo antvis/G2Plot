@@ -27,7 +27,6 @@ export class Scatter extends Plot<ScatterOptions> {
         fillOpacity: 0.95,
         stroke: '#fff',
       },
-
       tooltip: {
         shared: null,
         showTitle: false,

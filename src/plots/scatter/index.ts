@@ -2,7 +2,6 @@ import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
-import { DEFAULT_CONFIG } from '../../config';
 import { Adaptor } from '../../core/adaptor';
 import './interaction';
 
@@ -20,7 +19,7 @@ export class Scatter extends Plot<ScatterOptions> {
   }
 
   protected getDefaultOptions() {
-    return deepMix({}, DEFAULT_CONFIG, {
+    return deepMix({}, super.getDefaultOptions(), {
       size: 4,
       pointStyle: {
         lineWidth: 1,

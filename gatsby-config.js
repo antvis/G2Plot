@@ -80,6 +80,14 @@ module.exports = {
         },
       },
       {
+        slug: 'histogram',
+        icon: 'histogram',
+        title: {
+          zh: '直方图',
+          en: 'Histogram Charts',
+        },
+      },
+      {
         slug: 'radar',
         icon: 'radar',
         title: {

@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString } from '@antv/util';
+import { isFunction, isObject, isString, uniq } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
@@ -62,6 +62,13 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
     } else if (isObject(style)) {
       pointGeometry.style(style);
     }
+
+    // 防止因为 x y 字段做了通道映射，导致生成图例
+    [xField, yField]
+      .filter((f: string) => f !== seriesField)
+      .forEach((f: string) => {
+        chart.legend(f, false);
+      });
   }
   return params;
 }

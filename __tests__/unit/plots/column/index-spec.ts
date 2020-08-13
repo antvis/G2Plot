@@ -91,6 +91,7 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('grouped column /w groupField', () => {
@@ -112,6 +113,7 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('grouped column /w seriesField', () => {
@@ -133,6 +135,7 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('stacked column', () => {
@@ -154,6 +157,7 @@ describe('column', () => {
       xField: 'area',
       yField: 'sales',
     });
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('stacked column /w stackField', () => {
@@ -175,6 +179,7 @@ describe('column', () => {
       xField: 'area',
       yField: 'sales',
     });
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('stacked column /w seriesField', () => {
@@ -196,6 +201,7 @@ describe('column', () => {
       xField: 'area',
       yField: 'sales',
     });
+    expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
   });
 
   it('grouped column columnWidthRatio/marginRatio', () => {

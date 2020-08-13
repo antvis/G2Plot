@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "基础折线图",
+        "en": "basic Line chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-smooth.ts",
+      "title": {
+        "zh": "曲线折线图",
+        "en": "smooth Line chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-with-point.ts",
+      "title": {
+        "zh": "带数据点的折线图",
+        "en": "Line chart with data point"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lSOiS4lGCaIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-point-style.ts",
+      "title": {
+        "zh": "配置折线数据点样式",
+        "en": "Line chart data point style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

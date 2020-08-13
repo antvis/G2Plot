@@ -12,13 +12,13 @@ describe('line', () => {
       yField: 'value',
       appendPadding: 10,
       tooltip: {
-        title: 'hello wold',
+        title: 'hello world',
       },
     });
 
     line.render();
     // @ts-ignore
-    expect(line.chart.options.tooltip.title).toBe('hello wold');
+    expect(line.chart.options.tooltip.title).toBe('hello world');
 
     line.update({
       ...line.options,

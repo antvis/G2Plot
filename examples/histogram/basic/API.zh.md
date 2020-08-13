@@ -36,12 +36,7 @@ title: API
 | range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
 
 ```js
-const data = [
-  { value: 20 },
-  { value: 34 },
-  { value: 56 },
-  { value: 67 }
-];
+const data = [{ value: 20 }, { value: 34 }, { value: 56 }, { value: 67 }];
 
 const HistogramPlot = new Histogram(document.getElementById('container'), {
   data,
@@ -55,8 +50,10 @@ const HistogramPlot = new Histogram(document.getElementById('container'), {
       max: 20,
       nice: true,
       alias: '数量',
-      formatter:(v)=>{return `${v}个`}
-    }
+      formatter: (v) => {
+        return `${v}个`;
+      },
+    },
   },
   // highlight-end
   binField: 'value',
@@ -96,7 +93,6 @@ columnStyle ✨
 
 功能描述： 设置直方图柱子样式。
 
-
 | 细分配置      | 类型   | 功能描述   |
 | ------------- | ------ | ---------- |
 | fill          | string | 填充颜色   |
@@ -106,5 +102,3 @@ columnStyle ✨
 | opacity       | number | 整体透明度 |
 | fillOpacity   | number | 填充透明度 |
 | strokeOpacity | number | 描边透明度 |
-
-

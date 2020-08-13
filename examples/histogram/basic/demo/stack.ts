@@ -4,8 +4,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
   .then((res) => res.json())
   .then((data) => {
     const histogramPlot = new Histogram('container', {
-      padding: 'auto',
-      data: data,
+      data,
       binField: 'depth',
       binWidth: 2,
       stackField: 'cut',

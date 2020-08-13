@@ -58,8 +58,7 @@ const data = [
 ];
 
 const histogramPlot = new Histogram('container', {
-  padding: 'auto',
-  data: data,
+  data,
   binField: 'value',
   binWidth: 4,
   tooltip: {

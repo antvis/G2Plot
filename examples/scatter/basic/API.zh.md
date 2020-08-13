@@ -93,7 +93,7 @@ const data = [
   { country: 'Europe', year: '1800', value: 203,},
 ];
 
-const scatterPlot = new Scatter(document.getElementById('container'), {
+const scatterPlot = new Scatter('container', {
   data,
   // highlight-start
   meta: {

@@ -56,6 +56,14 @@ module.exports = {
         },
       },
       {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {
@@ -77,6 +85,14 @@ module.exports = {
         title: {
           zh: '直方图',
           en: 'Histogram Charts',
+        },
+      },
+      {
+        slug: 'radar',
+        icon: 'radar',
+        title: {
+          zh: '雷达图',
+          en: 'Radar Charts',
         },
       },
       // OTHERS

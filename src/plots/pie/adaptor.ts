@@ -244,8 +244,6 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
     }
 
     annotationOptions.push(statisticTitle, statisticContent);
-
-    chart.render();
   }
 
   /** 自定义 annotation */

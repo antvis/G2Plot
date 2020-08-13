@@ -6,8 +6,6 @@ const data = [
 ];
 
 const piePlot = new Pie('container', {
-  width: 400,
-  height: 300,
   appendPadding: 10,
   data,
   angleField: 'sold',

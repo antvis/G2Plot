@@ -16,9 +16,17 @@ export class Pie extends Plot<PieOptions> {
    */
   protected getDefaultOptions(): Partial<PieOptions> {
     return {
+      legend: {
+        position: 'right',
+      },
       tooltip: {
+        shared: false,
         showTitle: false,
         showMarkers: false,
+      },
+      pieStyle: {
+        stroke: 'white',
+        lineWidth: 1,
       },
     };
   }

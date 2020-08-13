@@ -10,8 +10,6 @@ const data = [
 ];
 
 const piePlot = new Pie('container', {
-  width: 400,
-  height: 300,
   appendPadding: 10,
   data,
   angleField: 'value',
@@ -19,12 +17,19 @@ const piePlot = new Pie('container', {
   radius: 0.8,
   innerRadius: 0.64,
   label: {
-    type: 'outer',
-    content: '{name} {percentage}',
+    type: 'inner',
+    offset: -35,
+    autoRotate: false,
+    content: '{value}',
+    style: {
+      fill: '#333',
+      stroke: '#fff',
+      strokeWidth: 1,
+    },
   },
   statistic: {
     title: {
-      formatter: () => 'Total',
+      formatter: () => '总计',
     },
   },
   // 添加 中心统计文本 交互

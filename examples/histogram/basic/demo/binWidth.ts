@@ -57,10 +57,8 @@ const data = [
   { value: 23.4 },
 ];
 
-const histogramPlot = new Histogram(document.getElementById('container'), {
-  width: 400,
-  height: 300,
-  appendPadding: 10,
+const histogramPlot = new Histogram('container', {
+  padding: 'auto',
   data: data,
   binField: 'value',
   binWidth: 4,

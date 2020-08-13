@@ -3,10 +3,8 @@ import { Histogram } from '@antv/g2plot';
 fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
   .then((res) => res.json())
   .then((data) => {
-    const histogramPlot = new Histogram(document.getElementById('container'), {
-      width: 400,
-      height: 300,
-      appendPadding: 10,
+    const histogramPlot = new Histogram('container', {
+      padding: 'auto',
       data: data,
       binField: 'depth',
       binWidth: 2,

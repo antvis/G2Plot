@@ -11,6 +11,37 @@ export class Radar extends Plot<RadarOptions> {
   public type: string = 'radar';
 
   /**
+   * 获取 雷达图 默认配置
+   */
+  protected getDefaultOptions(): Partial<RadarOptions> {
+    return {
+      xAxis: {
+        line: null,
+        tickLine: null,
+        grid: {
+          line: {
+            style: {
+              lineDash: null,
+            },
+          },
+        },
+      },
+      yAxis: {
+        line: null,
+        tickLine: null,
+        grid: {
+          line: {
+            type: 'line',
+            style: {
+              lineDash: null,
+            },
+          },
+        },
+      },
+    };
+  }
+
+  /**
    * 获取 雷达图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<RadarOptions> {

@@ -12,7 +12,7 @@ const data = [
   { year: '1999', value: 13 },
 ];
 
-const line = new Line(document.getElementById('container'), {
+const line = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',

@@ -1,18 +1,17 @@
-import { Line } from '@antv/g2plot';
+import { Area } from '@antv/g2plot';
 
 fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac5698.json')
   .then((res) => res.json())
   .then((data) => {
-    const line = new Line('container', {
+    const area = new Area('container', {
       data,
       xField: 'year',
       yField: 'value',
       seriesField: 'category',
+      color: ['#6897a7', '#8bc0d6', '#60d7a7', '#dedede', '#fedca9', '#fab36f', '#d96d6f'],
       xAxis: {
         type: 'time',
-      },
-      legend: {
-        position: 'top',
+        mask: 'YYYY',
       },
       yAxis: {
         label: {
@@ -22,5 +21,5 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
       },
     });
 
-    line.render();
+    area.render();
   });

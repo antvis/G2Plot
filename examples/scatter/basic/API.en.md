@@ -232,16 +232,18 @@ pointStyle: (x, y, colorField) => {
 
 ### 图表组件
 
-`markdown:common/tooltip.en.md`
+<!-- `markdown:common/tooltip.en.md`
 `markdown:common/xAxis.en.md`
 `markdown:common/yAxis.en.md`
 `markdown:common/xAxis.en.md`
 `markdown:common/legend.en.md`
-`markdown:common/theme.en.md`
+`markdown:common/theme.en.md` -->
 
 ### 事件
 
-`markdown:common/events.en.md`
+#### 通用事件
+
+<!-- `markdown:common/events.en.md` -->
 
 #### 点图形事件
 

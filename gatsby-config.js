@@ -72,6 +72,7 @@ module.exports = {
         },
       },
       {
+<<<<<<< HEAD
         slug: 'bar',
         icon: 'bar',
         title: {
@@ -80,6 +81,8 @@ module.exports = {
         },
       },
       {
+=======
+>>>>>>> e950f57b... feat(v2/column): add demos for column plot (#1435)
         slug: 'pie',
         icon: 'pie',
         title: {

@@ -154,7 +154,7 @@ describe('中心文本 - 指标卡', () => {
     pie.render();
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(2);
-    expect(annotations[0].extra.content).toBe('');
+    expect(annotations[0].component.get('content')).toBe('');
     expect(annotations[0].extra.key).toBe('statistic');
     expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
@@ -178,7 +178,7 @@ describe('中心文本 - 指标卡', () => {
     pie.render();
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(2);
-    expect(annotations[0].extra.content).toBe('');
+    expect(annotations[0].component.get('content')).toBe('');
     expect(annotations[0].extra.key).toBe('statistic');
     expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });

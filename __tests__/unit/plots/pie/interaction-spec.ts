@@ -53,7 +53,7 @@ describe('register interaction', () => {
 
     delay(500);
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
-    expect(annotations[0].extra.content).toBe('Total');
+    expect(annotations[0].component.get('content')).toBe('Total');
   });
 });
 

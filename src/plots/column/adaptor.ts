@@ -89,6 +89,8 @@ function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
     if (colorFields.length > 0) {
       chart.legend(colorFields[0], legend);
     }
+  } else {
+    chart.legend(false);
   }
 
   return params;

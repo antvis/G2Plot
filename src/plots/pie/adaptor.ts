@@ -2,7 +2,6 @@ import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { flow, LEVEL, log, template } from '../../utils';
-import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
 import { getStatisticData } from './utils';
 
@@ -208,8 +207,6 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
         ...deepMix(
           {},
           {
-            // default config
-            style: StatisticTitleStyle,
             offsetY: content === false ? 0 : -titleLineHeight,
             // append-info
             key: 'statistic',
@@ -231,8 +228,6 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
         ...deepMix(
           {},
           {
-            // default config
-            style: StatisticContentStyle,
             // 居中
             offsetY: title === false ? 0 : valueLineHeight,
             // append-info
@@ -244,8 +239,6 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
     }
 
     annotationOptions.push(statisticTitle, statisticContent);
-
-    chart.render();
   }
 
   /** 自定义 annotation */

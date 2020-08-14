@@ -61,7 +61,6 @@ describe('utils of pie plot', () => {
     pie.render();
     const angleScale = pie.chart.getScaleByField('value');
     const colorScale = pie.chart.getScaleByField('');
-    expect(getStatisticData([], angleScale, colorScale)).toEqual({ title: '总计', value: null });
     expect(getStatisticData({ value: 20 }, angleScale, colorScale)).toEqual({ title: null, value: '20' });
   });
 
@@ -81,7 +80,6 @@ describe('utils of pie plot', () => {
     pie.render();
     const angleScale = pie.chart.getScaleByField('value');
     const colorScale = pie.chart.getScaleByField('type');
-    expect(getStatisticData([], angleScale, colorScale)).toEqual({ title: '总计', value: null });
     expect(getStatisticData({ type: 'item1', value: 20 }, angleScale, colorScale)).toEqual({
       title: 'item1',
       value: '20',

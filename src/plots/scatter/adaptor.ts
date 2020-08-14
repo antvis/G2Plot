@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow, pick, log, LEVEL } from '../../utils';
 import { ScatterOptions } from './types';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
-import { findGeometry } from '../../common/helper';
+import { findGeometry } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { REFLECTS } from './reflect';
 

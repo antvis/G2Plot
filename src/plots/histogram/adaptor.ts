@@ -2,7 +2,7 @@ import DataSet from '@antv/data-set';
 import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
-import { findGeometry } from '../../common/helper';
+import { findGeometry } from '../../utils';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { HistogramOptions } from './types';

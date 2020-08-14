@@ -77,7 +77,7 @@ const data = [
   { year: '1958 年', sales: 48 },
 ];
 
-const bar = new Bar(document.getElementById('container'), {
+const bar = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'year',
@@ -95,10 +95,10 @@ bar.render();
 
 提交代码请遵循 [贡献指引](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md)。
 
-## 许可证
-
-MIT
-
 ## 相关链接
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - 基于 G2Plot 的在线图表制作工具，交互简单，一键导出图表代码！
+
+## 许可证
+
+MIT

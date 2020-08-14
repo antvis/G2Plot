@@ -1,7 +1,8 @@
 import { version } from '../../src';
+import pkg from '../../package.json';
 
 describe('index', () => {
   it('version', () => {
-    expect(version).toBe('2.0.0');
+    expect(version).toBe(pkg.version);
   });
 });

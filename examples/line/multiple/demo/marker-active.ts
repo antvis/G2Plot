@@ -17,7 +17,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
       '#FF99C3',
     ];
 
-    const container = 'container';
+    const container = document.getElementById('container');
     const containerBox = container.getBoundingClientRect();
     const series = uniq(data.map((d) => d.category));
     const markerSize = 6;

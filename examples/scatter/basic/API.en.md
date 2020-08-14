@@ -172,9 +172,16 @@ scatterPlot.render();
 
 #### shape ✨
 
+<<<<<<< HEAD
+
 [**DEMO2**](../../scatter/basic#shape-mapping)
 
-**可选**, \_string | string[] | Function\_
+=======
+
+[**DEMO2**](../../scatter/basic#shape-mapping)
+
+> > > > > > > a6bca564... docs: 添加图表通用配置 (#1439)
+> > > > > > > **可选**, \_string | string[] | Function\_
 
 功能描述： 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -252,6 +259,8 @@ scatterPlot.render();
 }
 ```
 
+<<<<<<< HEAD
+
 ### tooltip
 
 `markdown:common/tooltip.en.md`
@@ -303,5 +312,24 @@ scatterPlot.on('element:click', (...args) => {
 ```
 
 #### 图表方法
+
+=======
+
+### 图表组件
+
+`markdown:common/tooltip.en.md`
+`markdown:common/xAxis.en.md`
+`markdown:common/yAxis.en.md`
+`markdown:common/xAxis.en.md`
+`markdown:common/legend.en.md`
+`markdown:common/theme.en.md`
+
+### 事件
+
+`markdown:common/events.en.md`
+
+#### 点图形事件
+
+> > > > > > > a6bca564... docs: 添加图表通用配置 (#1439)
 
 `markdown:common/chart-methods.en.md`

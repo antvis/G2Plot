@@ -2,65 +2,15 @@
 title: API
 ---
 
-# 配置属性
+## 配置属性
 
-## 图表容器
+### 图表容器
 
-### width
+`markdown:common/chart-options.en.md`
 
-**可选**, _number_
+### 数据映射
 
-功能描述： 设置图表宽度。
-
-默认配置： `400`
-
-### height
-
-**可选**, _number_
-
-功能描述： 设置图表高度。
-
-默认配置： `400`
-
-### autoFit
-
-**可选**, _boolean_
-
-功能描述： 画布是否自动适配容器大小，当 `autoFit` 设置为 true 时，`width` 和 `height` 的设置将失效。
-
-默认配置： `true`
-
-### padding
-
-**可选**, number[] | number | 'auto'
-
-功能描述： 画布的 `padding` 值，或者开启 `auto`
-
-### appendPadding
-
-**可选**, number[] | number
-
-功能描述： 额外怎加的 `appendPadding` 值
-
-### renderer
-
-**可选**, _string_
-
-功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
-
-默认配置： `canvas`
-
-### pixelRatio
-
-**可选**, number
-
-功能描述: 设置图表渲染的像素比
-
-默认配置： `window.devicePixelRatio`
-
-## 数据映射
-
-### data 📌
+#### data 📌
 
 **必选**, _array object_
 
@@ -70,7 +20,7 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-### meta
+#### meta
 
 **可选**, _object_
 
@@ -115,7 +65,7 @@ scatterPlot.render();
 
 ```
 
-### xField 📌
+#### xField 📌
 
 **必选**, _string_
 
@@ -123,7 +73,7 @@ scatterPlot.render();
 
 默认配置： 无
 
-### yField 📌
+#### yField 📌
 
 **必选**, _string_
 
@@ -131,23 +81,23 @@ scatterPlot.render();
 
 默认配置： 无
 
-### type
+#### type
 
-**可选**, `jitter` | `stack` | `symmetric` | `dodge`;
+**可选**, _jitter | stack | symmetric | dodge_;
 
 功能描述： 数据调整类型，不建议修改。
 
 默认配置： `jitter`
 
-### colorField
+#### colorField
 
 **可选**, _string_
 
 功能描述: 点颜色映射对应的数据字段名。
 
-## 图形样式
+### 图形样式
 
-### color
+#### color
 
 **可选**, _string | string[] | Function_
 
@@ -174,16 +124,17 @@ color: (type) => {
 },
 ```
 
-### sizeField
+#### sizeField
 
 **可选**, _string_
 
 功能描述: 点大小映射对应的数据字段名。
 
-### size ✨
+#### size ✨
 
-_
-**可选**, \_number | [number, number] | Function_
+[**DEMO1**](../../scatter/basic#color-mapping)
+
+**可选**, \_number | [number, number] | Function\_
 
 功能描述： 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -201,16 +152,17 @@ size: (weight) => {
 },
 ```
 
-### shapeField
+#### shapeField
 
 **可选**, _string_
 
 功能描述: 点形状映射对应的数据字段名。
 
-### shape ✨
+#### shape ✨
 
-_
-**可选**, \_string | string[] | Function_
+[**DEMO2**](../../scatter/basic#shape-mapping)
+
+**可选**, \_string | string[] | Function\_
 
 功能描述： 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -233,7 +185,7 @@ shape: (gender) => {
 },
 ```
 
-### pointStyle ✨
+#### pointStyle ✨
 
 **可选**, _object_
 
@@ -278,15 +230,20 @@ pointStyle: (x, y, colorField) => {
 };
 ```
 
-## 图表组件
+### 图表组件
 
-`xAxis`、`yAxis` 、`legend` 、`tooltip` 、`label`、`theme` 等通用组件请参考图表通用配置
+`markdown:common/tooltip.en.md`
+`markdown:common/xAxis.en.md`
+`markdown:common/yAxis.en.md`
+`markdown:common/xAxis.en.md`
+`markdown:common/legend.en.md`
+`markdown:common/theme.en.md`
 
-## 事件
+### 事件
 
-[通用 events](../../general/events/API)
+`markdown:common/events.en.md`
 
-### 点图形事件
+#### 点图形事件
 
 | onPointClick<br />点点击事件         | onPointDblClick<br />点双击事件     | onPointDblClick<br />点双击事件    | onPointMouseleave<br />点鼠标离开事件 |
 | ------------------------------------ | ----------------------------------- | ---------------------------------- | ------------------------------------- |

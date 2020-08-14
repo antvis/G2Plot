@@ -59,7 +59,7 @@
     "tslib": "^1.13.0"
   },
   "devDependencies": {
-    "@antv/gatsby-theme-antv": "^0.10.69",
+    "@antv/gatsby-theme-antv": "^1.0.0-beta.0",
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@commitlint/cli": "^8.2.0",

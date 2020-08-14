@@ -24,9 +24,19 @@ export class Pie extends Plot<PieOptions> {
         showTitle: false,
         showMarkers: false,
       },
+      /** 饼图样式 */
       pieStyle: {
         stroke: 'white',
         lineWidth: 1,
+      },
+      /** 饼图中心文本默认样式 */
+      statistic: {
+        title: {
+          style: { fontSize: 14, fontWeight: 300, fill: '#4D4D4D', textAlign: 'center' },
+        },
+        content: {
+          style: { fontSize: 21, fontWeight: 'bold', fill: '#4D4D4D', textAlign: 'center' },
+        },
       },
     };
   }

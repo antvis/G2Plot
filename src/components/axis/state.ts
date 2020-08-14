@@ -35,7 +35,7 @@ function onDisable(plot, condition) {
 function getAllAxisLabels(plot) {
   labels = [];
   originAttrs = [];
-  const axes = plot.view.getController('axis').getComponents();
+  const axes = plot.view.getController('axis')?.getComponents();
   each(axes, (axisComponentOption) => {
     const axis = axisComponentOption.component;
     const labelArr = [];

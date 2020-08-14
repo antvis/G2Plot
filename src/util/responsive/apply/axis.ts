@@ -79,8 +79,10 @@ export default class ApplyResponsiveAxis extends ApplyResponsive {
 
   private getAxisInstance() {
     const axisIndex = this.dim === 'x' ? 0 : 1;
-    const axis = this.plot.view.getController('axis').getComponents()[axisIndex].component;
-    return axis;
+    const components = this.plot.view.getController('axis')?.getComponents();
+    if (components) {
+      return components[axisIndex]?.component;
+    }
   }
 
   private updateTicks(nodes) {

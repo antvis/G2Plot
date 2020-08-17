@@ -2,7 +2,7 @@ import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyColumnOptions } from './types';
-import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
+import { DEFAULT_TOOLTIP_OPTIONS, defaultTooltipFormatter } from '../tiny-line/constants';
 
 /**
  * 字段
@@ -70,7 +70,7 @@ export function tooltip(params: Params<TinyColumnOptions>): Params<TinyColumnOpt
 
   if (tooltip) {
     if (typeof tooltip === 'object') {
-      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
+      const { formatter = defaultTooltipFormatter, domStyles, position, offset, showCrosshairs } = tooltip;
       chart.tooltip({
         ...DEFAULT_TOOLTIP_OPTIONS,
         showCrosshairs,

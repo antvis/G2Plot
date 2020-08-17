@@ -52,7 +52,7 @@
     }
   },
   "dependencies": {
-    "@antv/data-set": "^0.11.4",
+    "@antv/data-set": "^0.11.5",
     "@antv/event-emitter": "^0.1.2",
     "@antv/g2": "^4.0.15",
     "size-sensor": "^1.0.1",

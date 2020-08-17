@@ -38,10 +38,6 @@ describe('histogram', () => {
     expect(shapes.length - 1).toBe(4);
   });
 
-  /**
-   * 这个测试 dataset 处理方式有问题
-   * issue已经提过去了 https://github.com/antvis/data-set/issues/90
-   */
   it('automatic calculate binNumber', () => {
     const histogram = new Histogram(createDiv(), {
       width: 400,
@@ -56,11 +52,10 @@ describe('histogram', () => {
     const geometry = histogram.chart.geometries[0];
     const shapeOrigin = geometry.getShapes()[0].get('origin').data;
 
-    /**
-     * 结合 dataset 的写法是 binWidth = histogramData（最大值-最小值）/ 默认值30
-     * https://github.com/antvis/data-set/blob/master/src/transform/bin/histogram.ts#L45
-     */
-    const binWidth = (23.4 - 1.2) / 30;
+    // 最大值 - 最小值
+    const width = 23.4 - 1.2;
+    const binNumber = Math.ceil(Math.log(histogramData.length) / Math.LN2) + 1;
+    const binWidth = width / binNumber;
 
     expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(binWidth);
   });

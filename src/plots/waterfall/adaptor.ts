@@ -11,15 +11,18 @@ import { WaterfallOptions } from './types';
 function dataHandler(params: Params<WaterfallOptions>) {
   const { chart, options } = params;
   const { data = [], xField, yField, showTotal, totalLabel } = options;
-  const newData = processData(data, xField, yField, showTotal, totalLabel);
-  chart.data(newData);
+
   return params;
 }
 
 /** 字段处理 */
 function field(params: Params<WaterfallOptions>) {
   const { chart, options } = params;
-  const { xField, yField, color } = options;
+  const { xField, yField, color, data = [], showTotal, totalLabel } = options;
+
+  // 数据处理
+  const newData = processData(data, xField, yField, showTotal, totalLabel);
+  chart.data(newData);
 
   const geometry = chart.interval().position(`${xField}*${yField}`);
   geometry.color(xField, isFunction(color) ? color() : color);
@@ -27,19 +30,13 @@ function field(params: Params<WaterfallOptions>) {
   return params;
 }
 
-/** 连接线样式处理 */
-function leaderLineStyle(params: Params<WaterfallOptions>) {
-  /**
-   * @todo 链接线样式
-   */
-  return params;
-}
-
-/** 瀑布图样式处理 */
-function waterfallStyle(params: Params<WaterfallOptions>) {
+/** 样式处理 */
+function style(params: Params<WaterfallOptions>) {
   const { options } = params;
   const { waterfallStyle } = options;
-
+  /*******************/
+  /**@todo 连接线样式 */
+  /*******************/
   if (waterfallStyle) {
     flow(interval)(
       deepMix({}, params, {
@@ -51,6 +48,7 @@ function waterfallStyle(params: Params<WaterfallOptions>) {
       })
     );
   }
+
   return params;
 }
 
@@ -70,15 +68,5 @@ function legend(params: Params<WaterfallOptions>) {
 }
 
 export function adaptor(param: Params<WaterfallOptions>) {
-  return flow(
-    dataHandler,
-    field,
-    leaderLineStyle,
-    tooltip,
-    interaction,
-    animation,
-    theme,
-    legend,
-    waterfallStyle
-  )(param);
+  return flow(field, tooltip, interaction, animation, theme, legend, style)(param);
 }

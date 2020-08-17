@@ -25,8 +25,6 @@ describe('waterfall plot', () => {
     waterfall.render();
     const geometry = waterfall.chart.geometries[0];
     expect(geometry.elements.length).toBe(data.length);
-
-    console.log(geometry);
   });
 
   it('shape:waterfall showTotal', () => {

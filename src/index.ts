@@ -4,7 +4,7 @@ export const version = '2.0.0-beta.1';
 import * as G2 from '@antv/g2';
 export { G2 };
 
-export { Plot as Base } from './core/plot';
+export { Plot } from './core/plot';
 
 // 类型定义导出
 export * from './types';

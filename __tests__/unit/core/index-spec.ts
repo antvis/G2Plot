@@ -1,8 +1,8 @@
-import { Line, registerTheme } from '../../../src';
+import { Line, G2 } from '../../../src';
 import { partySupport } from '../../data/party-support';
 import { createDiv } from '../../utils/dom';
 
-registerTheme('new-theme', {
+G2.registerTheme('new-theme', {
   colors10: ['green'],
 });
 

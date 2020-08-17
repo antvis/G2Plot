@@ -1,5 +1,3 @@
-<tag color="#87d068" text="我是引用"></tag>
-
 #### width
 
 <description>**可选** _number_</description>

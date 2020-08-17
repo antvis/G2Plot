@@ -230,10 +230,11 @@ pointStyle: (x, y, colorField) => {
 };
 ```
 
-### 图表组件
+### tooltip
 
-<!-- `markdown:common/tooltip.zh.md`
-`markdown:common/xAxis.zh.md`
+`markdown:common/tooltip.zh.md`
+
+<!-- `markdown:common/xAxis.zh.md`
 `markdown:common/yAxis.zh.md`
 `markdown:common/xAxis.zh.md`
 `markdown:common/legend.zh.md`

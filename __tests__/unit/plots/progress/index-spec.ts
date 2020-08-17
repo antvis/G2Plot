@@ -160,4 +160,24 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([4, 4]);
   });
+
+  it('data with size', () => {
+    const progress = new Progress(createDiv(), {
+      width: 200,
+      height: 100,
+      size: 20,
+      percent: 0.6,
+      autoFit: false,
+    });
+
+    progress.render();
+
+    expect(progress.chart.geometries[0].elements[0].getData().type).toBe('current');
+    expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
+    expect(progress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
+    expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
+    expect(progress.chart.geometries[0].attributes.size.values[0]).toBe(20);
+  });
 });

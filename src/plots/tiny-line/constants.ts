@@ -11,3 +11,7 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
     },
   },
 };
+
+export const defaultTooltipFormatter = (x: number, y: number) => {
+  return y;
+};

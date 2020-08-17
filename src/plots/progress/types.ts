@@ -10,6 +10,8 @@ export interface ProgressOptions extends ChartOptions {
   readonly color?: string[] | ((percent: number) => string[]);
   /** 数据字段元信息 */
   readonly meta?: Record<string, any>;
+  /** 进度条高度大小 */
+  readonly size?: number;
   /** 进度条样式 */
   readonly progressStyle?: ShapeStyle | ((x?: any, percent?: number, type?: string) => ShapeStyle);
 }

@@ -2,6 +2,7 @@ import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { ProgressOptions } from './types';
+import { defaultBarHeight } from './constants';
 
 /**
  * 字段
@@ -87,9 +88,10 @@ function tooltip(params: Params<ProgressOptions>): Params<ProgressOptions> {
  */
 function style(params: Params<ProgressOptions>): Params<ProgressOptions> {
   const { chart, options } = params;
-  const { progressStyle } = options;
+  const { progressStyle, size = defaultBarHeight } = options;
 
   const geometry = chart.geometries[0];
+  geometry.size(size);
   if (progressStyle && geometry) {
     if (isFunction(progressStyle)) {
       geometry.style('1*percent*type', progressStyle);

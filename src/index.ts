@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 export const version = '2.0.0-beta.2';
-=======
-export const version = '2.0.0-beta.1';
->>>>>>> 51d0e5a9... chore: v2.0.0-beta.1 (#1437)
 
 // G2 自定义能力透出
 export * as G2 from '@antv/g2';
@@ -63,6 +59,3 @@ export { Heatmap, HeatmapOptions } from './plots/heatmap';
 
 // 箱线图及类型定义
 export { Box, BoxOptions } from './plots/box';
-
-// 热力图及类型定义
-export { Heatmap, HeatmapOptions } from './plots/heatmap';

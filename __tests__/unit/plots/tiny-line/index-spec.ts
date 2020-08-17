@@ -7,8 +7,8 @@ import { createDiv } from '../../../utils/dom';
 describe('tiny-line', () => {
   it('data', () => {
     const tinyLine = new TinyLine(createDiv(), {
-      width: 200,
-      height: 100,
+      width: 80,
+      height: 40,
       meta: {
         value: {
           min: 0,
@@ -114,8 +114,8 @@ describe('tiny-line', () => {
 
   it('data with custom tooltip', () => {
     const tinyLine = new TinyLine(createDiv(), {
-      width: 200,
-      height: 100,
+      width: 80,
+      height: 40,
       data: partySupport
         .filter((o) => o.type === 'FF')
         .map((item) => {

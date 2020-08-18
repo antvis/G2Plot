@@ -4,7 +4,7 @@
 import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
 import { Params } from '../core/adaptor';
-import { Options, ChartOptions } from '../types';
+import { Options } from '../types';
 import { Interaction } from '../types/interaction';
 
 /**
@@ -74,7 +74,7 @@ export function animation<O extends Options>(params: Params<O>): Params<O> {
  * 设置全局主题配置
  * @param params
  */
-export function theme<O extends ChartOptions>(params: Params<O>): Params<O> {
+export function theme<O extends Pick<Options, 'theme'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { theme } = options;
 

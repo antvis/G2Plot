@@ -21,12 +21,7 @@ export class Scatter extends Plot<ScatterOptions> {
   protected getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
       size: 4,
-      pointStyle: {
-        lineWidth: 1,
-        strokeOpacity: 1,
-        fillOpacity: 0.95,
-        stroke: '#fff',
-      },
+      /** pointStyle 跟随主题默认样式 */
       tooltip: {
         shared: null,
         showTitle: false,

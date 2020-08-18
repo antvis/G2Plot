@@ -1,4 +1,5 @@
 import { isFunction } from '@antv/util';
+import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyAreaOptions } from './types';
@@ -147,5 +148,5 @@ function shape(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  flow(field, meta, axis, legend, tooltip, style, shape)(params);
+  flow(field, meta, axis, legend, tooltip, style, shape, theme)(params);
 }

@@ -2,8 +2,12 @@
 export type ShapeStyle = Readonly<{
   fill?: string;
   stroke?: string;
+  // 线相关样式
   lineWidth?: number;
   lineDash?: number[];
+  lineJoin?: string;
+  lineCap?: string;
+
   opacity?: number;
   fillOpacity?: number;
   strokeOpacity?: number;

@@ -25,23 +25,6 @@ export function legend<O extends Pick<Options, 'legend'> & { colorField?: string
 }
 
 /**
- * 通用 legend 配置, 适用于带 colorField 的图表
- * @param params
- */
-export function legend<O extends Options & { colorField?: string }>(params: Params<O>): Params<O> {
-  const { chart, options } = params;
-  const { legend, colorField } = options;
-
-  if (legend === false) {
-    chart.legend(false);
-  } else if (colorField) {
-    chart.legend(colorField, legend);
-  }
-
-  return params;
-}
-
-/**
  * 通用 tooltip 配置
  * @param params
  */

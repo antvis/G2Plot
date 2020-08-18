@@ -1,4 +1,5 @@
 import { deepMix } from '@antv/util';
+import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
 import { getOption, isLine } from './util';
@@ -161,5 +162,5 @@ export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
  */
 export function adaptor(params: Params<BiaxOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(transformOptions, field, geometry, meta, axis, legend)(params);
+  flow(transformOptions, field, geometry, meta, axis, legend, theme)(params);
 }

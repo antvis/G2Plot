@@ -1,11 +1,10 @@
-import { deepMix, isFunction } from '@antv/util';
+import { deepMix, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick, log, LEVEL } from '../../utils';
+import { flow, pick } from '../../utils';
 import { ScatterOptions } from './types';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { REFLECTS } from './reflect';
 
 /**
  * 字段
@@ -13,7 +12,7 @@ import { REFLECTS } from './reflect';
  */
 function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, type } = options;
+  const { data, xField, yField, type, color, colorField, shape, shapeField, size, sizeField } = options;
 
   // 散点图操作逻辑
   chart.data(data);
@@ -24,27 +23,32 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
     geometry.adjust(type);
   }
 
-  // 统一处理 color、 size、 shape
-  const reflectKeys = Object.keys(REFLECTS);
-  reflectKeys.forEach((key: string) => {
-    if (options[key] || options[REFLECTS[key].field]) {
-      let validateRules = false;
-      (REFLECTS[key].rules || []).forEach((fn: (arg: any) => boolean) => {
-        // 满足任一规则即可
-        if (fn && fn(options[key])) {
-          validateRules = true;
-        }
-      });
-      if (validateRules) {
-        if (!options[REFLECTS[key].field]) {
-          log(LEVEL.WARN, false, '***  For accurate mapping, specify %s please.  ***', REFLECTS[key].field);
-        }
-        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
-      } else {
-        geometry[REFLECTS[key].action](options[key] || options[REFLECTS[key].field]);
-      }
+  // shape
+  if (shape) {
+    if (isString(shape)) {
+      geometry.shape(shape);
+    } else {
+      geometry.shape(shapeField || xField, shape);
     }
-  });
+  }
+
+  // color
+  if (color) {
+    if (isString(color)) {
+      geometry.color(color);
+    } else {
+      geometry.color(colorField || xField, color);
+    }
+  }
+
+  // size
+  if (size) {
+    if (isNumber(size)) {
+      geometry.size(size);
+    } else {
+      geometry.size(sizeField || xField, size);
+    }
+  }
 
   return params;
 }

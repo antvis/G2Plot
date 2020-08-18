@@ -71,6 +71,14 @@ module.exports = {
           en: 'Scatter Charts',
         },
       },
+      {
+        slug: 'Biax',
+        icon: 'line',
+        title: {
+          zh: '双轴图',
+          en: 'Biax Charts',
+        },
+      },
       // OTHERS
     ],
     docsearchOptions: {

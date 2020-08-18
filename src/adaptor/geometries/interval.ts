@@ -3,6 +3,15 @@ import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
 
+type IntervalOption = {
+  /** 柱状图宽度占比 [0-1] */
+  readonly widthRatio?: number;
+  /** 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用 */
+  readonly marginRatio?: number;
+  /** 柱子样式配置，可选 */
+  readonly style?: ShapeStyle | ((x: any, y: any, color?: any) => ShapeStyle);
+};
+
 export interface IntervalGeometryOptions extends Options {
   /** x 轴字段 */
   readonly xField: string;
@@ -21,14 +30,7 @@ export interface IntervalGeometryOptions extends Options {
   /** 堆积拆分字段 */
   readonly stackField?: string;
   /** 柱子样式配置 */
-  readonly interval?: {
-    /** 柱状图宽度占比 [0-1] */
-    readonly widthRatio?: number;
-    /** 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用 */
-    readonly marginRatio?: number;
-    /** 柱子样式配置，可选 */
-    readonly style?: ShapeStyle | ((x: any, y: any, color?: any) => ShapeStyle);
-  };
+  readonly interval?: IntervalOption;
 }
 
 function getGroupField(params: Params<IntervalGeometryOptions>): string {

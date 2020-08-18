@@ -1,4 +1,5 @@
 import { isFunction } from '@antv/util';
+import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyColumnOptions } from './types';
@@ -119,5 +120,5 @@ function style(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyColumnOptions>) {
-  flow(field, meta, axis, legend, tooltip, style)(params);
+  flow(field, meta, axis, legend, tooltip, style, theme)(params);
 }

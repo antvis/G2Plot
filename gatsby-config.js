@@ -104,6 +104,14 @@ module.exports = {
         },
       },
       // OTHERS
+      {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '图表通用配置',
+          en: 'General Configration',
+        },
+      },
     ],
     docsearchOptions: {
       apiKey: '200ec461f4aa0bb4f0e761566f1a1336',

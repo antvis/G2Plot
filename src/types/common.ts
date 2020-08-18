@@ -84,6 +84,10 @@ export type ChartOptions = {
   readonly pixelRatio?: number;
   /** 是否开启局部渲染，默认为 true */
   readonly localRefresh?: boolean;
+
+  // G2 相关
+  /** 主题，G2 主题，字符串或者 theme object */
+  readonly theme?: string | object;
 };
 
 /** 基础的 Options 配置 */
@@ -95,8 +99,6 @@ export type Options = ChartOptions & {
   readonly meta?: Record<string, any>;
 
   // G2 相关
-  /** 主题，G2 主题，字符串或者 theme object */
-  readonly theme?: string | object;
   /** 颜色色板 */
   readonly color?: string | string[] | ((...args: any[]) => string);
   readonly xAxis?: Axis;

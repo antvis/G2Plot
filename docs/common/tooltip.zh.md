@@ -44,7 +44,7 @@
 
 功能描述：true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
 
-默认配置：`无`
+默认配置：`true`
 
 #### showCrosshairs
 
@@ -52,13 +52,15 @@
 
 功能描述：是否展示 crosshairs。
 
-默认配置：`false`
+默认配置：`true`
 
 #### crosshairs
 
 <description>**可选** _object_</description>
 
 功能描述：配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
+
+默认配置：`type: x`
 
 | 细分配置项名称 | 类型                   | 功能描述                                                            |
 | -------------- | ---------------------- | ------------------------------------------------------------------- |
@@ -144,19 +146,15 @@
 默认配置： `无`
 
 ```js
-/** 通用对象 */
-export interface LooseObject {
-  [key: string]: any;
-}
 /** Tooltip 内容框的 css 样式定义 */
 export interface TooltipDomStyles {
-  'g2-tooltip'?: LooseObject;
-  'g2-tooltip-title'?: LooseObject;
-  'g2-tooltip-list'?: LooseObject;
-  'g2-tooltip-list-item'?: LooseObject;
-  'g2-tooltip-marker'?: LooseObject;
-  'g2-tooltip-value'?: LooseObject;
-  'g2-tooltip-name'?: LooseObject;
+  'g2-tooltip'?: object;
+  'g2-tooltip-title'?: object;
+  'g2-tooltip-list'?: object;
+  'g2-tooltip-list-item'?: object;
+  'g2-tooltip-marker'?: object;
+  'g2-tooltip-value'?: object;
+  'g2-tooltip-name'?: object;
 }
 ```
 

@@ -21,7 +21,7 @@ xAxis: {
       style: {
         stroke: 'black',
         lineWidth: 2,
-        lineDash: [4,5],
+        lineDash: [4, 5],
         strokeOpacity: 0.7,
         shadowColor: 'black',
         shadowBlur: 10,

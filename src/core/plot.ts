@@ -10,32 +10,6 @@ import { getContainerSize } from '../utils';
  * 所有 plot 的基类
  */
 export abstract class Plot<O extends ChartOptions> extends EE {
-  /** 默认配置 */
-  private defaultOptions: Partial<Options> = {
-    renderer: 'canvas',
-    tooltip: {
-      shared: true,
-      showCrosshairs: true,
-      crosshairs: {
-        type: 'x',
-      },
-      offset: 20,
-    },
-    xAxis: {
-      nice: true,
-      label: {
-        autoRotate: true,
-        autoHide: true,
-      },
-    },
-    yAxis: {
-      nice: true,
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    },
-  };
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -108,7 +82,31 @@ export abstract class Plot<O extends ChartOptions> extends EE {
    * 每个组件都可以复写
    */
   protected getDefaultOptions(): Partial<Options> {
-    return this.defaultOptions;
+    return {
+      renderer: 'canvas',
+      tooltip: {
+        shared: true,
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'x',
+        },
+        offset: 20,
+      },
+      xAxis: {
+        nice: true,
+        label: {
+          autoRotate: true,
+          autoHide: true,
+        },
+      },
+      yAxis: {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
+        },
+      },
+    };
   }
 
   /**

@@ -11,4 +11,4 @@ export type StateName = 'active' | 'inactive' | 'selected';
 export type StateCondition = (data: Datum | Data) => boolean;
 
 /** 状态对象, 可通过 `plot.getStates()` 获取 */
-export type StateObject = { data: Datum; state: string; geometry: Geometry; element: Element };
+export type StateObject = { data: Datum | Data; state: string; geometry: Geometry; element: Element };

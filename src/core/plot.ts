@@ -1,11 +1,11 @@
-import { Chart, Event, Geometry } from '@antv/g2';
+import { Chart, Event } from '@antv/g2';
 import Element from '@antv/g2/lib/geometry/element';
-import { deepMix, each, isFunction, reduce } from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
 import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
-import { getContainerSize } from '../utils';
+import { getContainerSize, getAllElements } from '../utils';
 
 /** 单独 pick 出来的用于基类的类型定义 */
 type PickOptions = Pick<
@@ -159,10 +159,10 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param status 是否激活，默认 true
    */
   public setState(type: StateName, condition: StateCondition, status: boolean = true) {
-    const elements = this.getAllElements();
+    const elements = getAllElements(this.chart);
 
     each(elements, (ele: Element) => {
-      if (isFunction(condition) && condition(ele.getData())) {
+      if (condition(ele.getData())) {
         ele.setState(type, status);
       }
     });
@@ -172,17 +172,18 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 获取状态
    */
   public getStates(): StateObject[] {
-    const elements = this.getAllElements();
+    const elements = getAllElements(this.chart);
 
-    const states: StateObject[] = [];
+    const stateObjects: StateObject[] = [];
     each(elements, (element: Element) => {
       const data = element.getData();
-      each(element.getStates(), (state) => {
-        states.push({ data, state, geometry: element.geometry, element });
+      const states = element.getStates();
+      each(states, (state) => {
+        stateObjects.push({ data, state, geometry: element.geometry, element });
       });
     });
 
-    return states;
+    return stateObjects;
   }
 
   /**
@@ -237,18 +238,5 @@ export abstract class Plot<O extends PickOptions> extends EE {
       this.unbind();
       this.unbind = undefined;
     }
-  }
-
-  /**
-   * 获取 elements
-   */
-  private getAllElements(): Element[] {
-    return reduce(
-      this.chart.geometries,
-      (r: Element[], geometry: Geometry) => {
-        return r.concat(geometry.elements);
-      },
-      []
-    );
   }
 }

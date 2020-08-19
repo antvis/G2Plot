@@ -4,7 +4,7 @@ import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
+import { Options, StateName, StateCondition, Size, StateObject } from '../types';
 import { getContainerSize, getAllElements } from '../utils';
 
 /** 单独 pick 出来的用于基类的类型定义 */

@@ -28,7 +28,7 @@ function field(params: Params<BiaxOption>): Params<BiaxOption> {
   // 绘制左轴对应数据
   chart.data(data[0]);
   // 绘制右轴对应数据
-  chart.createView().source(data[1]);
+  chart.createView().data(data[1]);
   return params;
 }
 

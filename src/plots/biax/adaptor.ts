@@ -128,12 +128,6 @@ export function meta(params: Params<BiaxOption>): Params<BiaxOption> {
   // 组装双 Y 轴度量
   const KEYS = ['type', 'tickCount', 'tickInterval', 'nice', 'max', 'min'];
 
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, KEYS),
-    [yField[0]]: pick(yAxis[0], KEYS),
-    [yField[1]]: pick(yAxis[1], KEYS),
-  });
-
   const xFieldScales = deepMix({}, meta[xField] || {}, pick(xAxis, AXIS_META_CONFIG_KEYS));
   const leftYFieldScales = deepMix({}, meta[yField[0]] || {}, pick(yAxis[0], AXIS_META_CONFIG_KEYS));
   const rightYFieldScales = deepMix({}, meta[yField[1]] || {}, pick(yAxis[1], AXIS_META_CONFIG_KEYS));

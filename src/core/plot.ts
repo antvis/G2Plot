@@ -1,10 +1,10 @@
-import { Chart, Event } from '@antv/g2';
+import { Chart, Event, Geometry } from '@antv/g2';
 import Element from '@antv/g2/lib/geometry/element';
-import { deepMix, each, get, isFunction } from '@antv/util';
+import { deepMix, each, isFunction, reduce } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options, Data, StateCondition, Size } from '../types';
+import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
 import { getContainerSize } from '../utils';
 
 /** 单独 pick 出来的用于基类的类型定义 */
@@ -153,6 +153,39 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /**
+   * 设置状态
+   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
+   * @param conditions 条件，支持数组
+   * @param status 是否激活，默认 true
+   */
+  public setState(type: StateName, condition: StateCondition, status: boolean = true) {
+    const elements = this.getAllElements();
+
+    each(elements, (ele: Element) => {
+      if (isFunction(condition) && condition(ele.getData())) {
+        ele.setState(type, status);
+      }
+    });
+  }
+
+  /**
+   * 获取状态
+   */
+  public getStates(): StateObject[] {
+    const elements = this.getAllElements();
+
+    const states: StateObject[] = [];
+    each(elements, (element: Element) => {
+      const data = element.getData();
+      each(element.getStates(), (state) => {
+        states.push({ data, state, geometry: element.geometry, element });
+      });
+    });
+
+    return states;
+  }
+
+  /**
    * 更新数据
    * @param options
    */
@@ -183,47 +216,6 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /**
-   * 设置状态
-   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
-   * @param conditions 条件，支持数组
-   * @param status 是否激活，默认 true
-   */
-  public setState(type: 'active' | 'inactive' | 'selected', conditions: StateCondition[], status: boolean = true) {
-    const elements = [];
-    each(this.chart.geometries, (geom) => {
-      elements.push(...geom.elements);
-    });
-
-    each(conditions, (condition) => {
-      elements.forEach((ele) => {
-        const origin = ele.getData();
-        const { name, exp } = condition;
-        if (!isFunction(exp) ? get(origin, name) === exp : exp(origin)) {
-          ele.setState(type, status);
-        }
-      });
-    });
-  }
-
-  /**
-   * 获取状态
-   */
-  public getStates() {
-    const states = [];
-    each(this.chart.geometries, (geom) => {
-      each(geom.elements, (ele: Element, elementIndex) => {
-        const data = ele.getData();
-        const model = ele.getModel();
-        each(ele.getStates(), (stateName) => {
-          states.push({ data, model, stateName, elementIndex });
-        });
-      });
-    });
-
-    return states;
-  }
-
-  /**
    * 绑定 dom 容器大小变化的事件
    */
   private bindSizeSensor() {
@@ -245,5 +237,18 @@ export abstract class Plot<O extends PickOptions> extends EE {
       this.unbind();
       this.unbind = undefined;
     }
+  }
+
+  /**
+   * 获取 elements
+   */
+  private getAllElements(): Element[] {
+    return reduce(
+      this.chart.geometries,
+      (r: Element[], geometry: Geometry) => {
+        return r.concat(geometry.elements);
+      },
+      []
+    );
   }
 }

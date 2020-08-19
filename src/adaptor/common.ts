@@ -94,7 +94,9 @@ export function state(params: Params<Options>): Params<Options> {
   const { state } = options;
 
   if (state) {
-    chart.geometries[0].state(state);
+    each(chart.geometries, (geometry: Geometry) => {
+      geometry.state(state);
+    });
   }
 
   return params;

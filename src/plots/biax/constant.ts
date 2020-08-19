@@ -1,6 +1,5 @@
-import { BiaxGeometry, LineConfig, ColumnConfig } from './types';
+import { BiaxGeometry, LineConfig, ColumnConfig, BiaxOption, AxisType } from './types';
 import { Axis } from '../../types/axis';
-import { BiaxOption, AxisType } from './types';
 
 export const DEFAULT_LINE_COLOR = {
   [AxisType.Left]: '#5B8FF9',

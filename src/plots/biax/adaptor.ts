@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { theme } from '../../adaptor/common';
+import { theme, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
 import { getOption, isLine, isColumn } from './util';
@@ -35,14 +35,14 @@ function field(params: Params<BiaxOption>): Params<BiaxOption> {
     .createView({
       padding: PADDING,
     })
-    .source(data[0]);
+    .data(data[0]);
 
   // 绘制右轴对应数据
   chart
     .createView({
       padding: PADDING,
     })
-    .source(data[1]);
+    .data(data[1]);
   return params;
 }
 
@@ -85,14 +85,15 @@ function singleGeometry<O extends { xField: string; yField: string; geometryConf
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryConfig)) {
     const LINE_KEY = ['color', 'smooth', 'connectNulls', 'style', 'size'];
-    const lineOption = deepMix({}, params, {
-      options: {
-        ...pick(options, FIELD_KEY),
-        seriesField: geometryConfig.seriesField,
-        line: pick(geometryConfig, LINE_KEY),
-      },
-    });
-    line(lineOption);
+    line(
+      deepMix({}, params, {
+        options: {
+          ...pick(options, FIELD_KEY),
+          seriesField: geometryConfig.seriesField,
+          line: pick(geometryConfig, LINE_KEY),
+        },
+      })
+    );
     point(
       deepMix({}, params, {
         options: {
@@ -105,13 +106,14 @@ function singleGeometry<O extends { xField: string; yField: string; geometryConf
 
   if (isColumn(geometryConfig)) {
     const COLUMN_KEY = ['colorField', 'seriesField', 'isGroup', 'groupField', 'isStack', 'stackField', 'interval'];
-    const columnOption = deepMix({}, params, {
-      options: {
-        ...pick(options, FIELD_KEY),
-        ...pick(geometryConfig, COLUMN_KEY),
-      },
-    });
-    interval(columnOption);
+    interval(
+      deepMix({}, params, {
+        options: {
+          ...pick(options, FIELD_KEY),
+          ...pick(geometryConfig, COLUMN_KEY),
+        },
+      })
+    );
   }
 
   return params;
@@ -124,9 +126,6 @@ function singleGeometry<O extends { xField: string; yField: string; geometryConf
 export function meta(params: Params<BiaxOption>): Params<BiaxOption> {
   const { chart, options } = params;
   const { meta = {}, xAxis, yAxis, xField, yField } = options;
-
-  // 组装双 Y 轴度量
-  const KEYS = ['type', 'tickCount', 'tickInterval', 'nice', 'max', 'min'];
 
   const xFieldScales = deepMix({}, meta[xField] || {}, pick(xAxis, AXIS_META_CONFIG_KEYS));
   const leftYFieldScales = deepMix({}, meta[yField[0]] || {}, pick(yAxis[0], AXIS_META_CONFIG_KEYS));
@@ -168,19 +167,18 @@ export function axis(params: Params<BiaxOption>): Params<BiaxOption> {
     yAxis[1] = deepMix({}, yAxis[1], { position: 'right', grid: null });
   }
 
-  // x 轴
-  chart.axis(xField, xAxis);
-  leftView.axis(xField, xAxis);
-  rightView.axis(xField, false);
-
-  // 左 Y 轴
+  chart.axis(xField, false);
   chart.axis(yField[0], false);
+  chart.axis(yField[1], false);
+
+  // 左 View
+  leftView.axis(xField, xAxis);
   leftView.axis(yField[0], yAxis[0]);
-  rightView.axis(yField[0], false);
+  leftView.axis(yField[1], false);
 
   // 右 Y 轴
-  chart.axis(yField[1], false);
-  leftView.axis(yField[1], false);
+  rightView.axis(xField, false);
+  rightView.axis(yField[0], false);
   rightView.axis(yField[1], yAxis[1]);
 
   return params;
@@ -201,31 +199,11 @@ export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
 }
 
 /**
- * tooltip 配置
- * @param params
- */
-export function tooltip(params: Params<BiaxOption>): Params<BiaxOption> {
-  const { chart, options } = params;
-  const { tooltip } = options;
-
-  if (tooltip !== undefined) {
-    chart.tooltip(
-      deepMix({}, tooltip, {
-        showCrosshairs: true, // 展示 Tooltip 辅助线
-        shared: true,
-      })
-    );
-  }
-  return params;
-}
-
-/**
  * 双折线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<BiaxOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  // @ts-ignore
   flow(transformOptions, field, geometry, meta, axis, legend, tooltip, theme)(params);
 }

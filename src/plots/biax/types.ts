@@ -31,7 +31,7 @@ export type LineConfig = LineGeometryOptions['line'] & {
 
 // 柱设置接口
 export type ColumnConfig = {
-  readonly geometry: BiaxGeometry.Column;
+  readonly geometry: string;
   /** 颜色字段，可选 */
   readonly colorField?: string;
   /** 拆分字段，在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField  */
@@ -47,14 +47,12 @@ export type ColumnConfig = {
   readonly interval?: IntervalGeometryOptions['interval'];
 };
 
-export type GeometryConfig = LineConfig | ColumnConfig;
+export type GeometryConfig = ColumnConfig | LineConfig;
 
 export type BiaxOption = Omit<Options, 'data' | 'yAxis'> & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Array<Record<string, any>[]>;
-  /** 数据字段元信息 */
-  readonly meta?: Record<string, any>;
 
   readonly xField: string;
   readonly yField: string[];

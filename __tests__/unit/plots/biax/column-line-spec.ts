@@ -18,7 +18,6 @@ describe('Biax dualline', () => {
         },
         {
           geometry: 'column',
-          // @ts-ignore
           interval: {
             widthRatio: 0.5,
           },

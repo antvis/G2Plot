@@ -21,12 +21,12 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "spider-label.ts",
+      "filename": "pie-state.ts",
       "title": {
-        "zh": "饼图-图形标签蜘蛛布局",
-        "en": "Pie chart - spider-layout label"
+        "zh": "饼图-设置条件状态",
+        "en": "Pie chart - set condition state"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ahB1Qp7T-C8AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y8zjS5DZib8AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "pie-texture.ts",

@@ -1,10 +1,11 @@
 import { Chart, Event } from '@antv/g2';
-import { deepMix } from '@antv/util';
+import Element from '@antv/g2/lib/geometry/element';
+import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options, Data, Size } from '../types';
-import { getContainerSize } from '../utils';
+import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
+import { getContainerSize, getAllElements } from '../utils';
 
 /** 单独 pick 出来的用于基类的类型定义 */
 type PickOptions = Pick<
@@ -149,6 +150,40 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.options = options;
 
     this.render();
+  }
+
+  /**
+   * 设置状态
+   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
+   * @param conditions 条件，支持数组
+   * @param status 是否激活，默认 true
+   */
+  public setState(type: StateName, condition: StateCondition, status: boolean = true) {
+    const elements = getAllElements(this.chart);
+
+    each(elements, (ele: Element) => {
+      if (condition(ele.getData())) {
+        ele.setState(type, status);
+      }
+    });
+  }
+
+  /**
+   * 获取状态
+   */
+  public getStates(): StateObject[] {
+    const elements = getAllElements(this.chart);
+
+    const stateObjects: StateObject[] = [];
+    each(elements, (element: Element) => {
+      const data = element.getData();
+      const states = element.getStates();
+      each(states, (state) => {
+        stateObjects.push({ data, state, geometry: element.geometry, element });
+      });
+    });
+
+    return stateObjects;
   }
 
   /**

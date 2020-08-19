@@ -84,3 +84,18 @@ export function theme<O extends Pick<Options, 'theme'>>(params: Params<O>): Para
   }
   return params;
 }
+
+/**
+ * 状态 state 配置
+ * @param params
+ */
+export function state(params: Params<Options>): Params<Options> {
+  const { chart, options } = params;
+  const { state } = options;
+
+  if (state) {
+    chart.geometries[0].state(state);
+  }
+
+  return params;
+}

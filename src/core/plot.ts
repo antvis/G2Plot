@@ -1,9 +1,9 @@
 import { Chart, Event } from '@antv/g2';
-import { deepMix } from '@antv/util';
+import { deepMix, each, get, isFunction } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { Options, Data, Size } from '../types';
+import { Options, Data, StateCondition, Size } from '../types';
 import { getContainerSize } from '../utils';
 
 /** 单独 pick 出来的用于基类的类型定义 */
@@ -179,6 +179,29 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart.destroy();
     // 清空已经绑定的事件
     this.off();
+  }
+
+  /**
+   * 设置状态
+   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
+   * @param conditions 条件，支持数组
+   * @param status 是否激活，默认 true
+   */
+  public setState(type: 'active' | 'inactive' | 'selected', conditions: StateCondition[], status: boolean = true) {
+    const elements = [];
+    this.chart.geometries.forEach((geom) => {
+      elements.push(...geom.elements);
+    });
+
+    each(conditions, (condition) => {
+      elements.forEach((ele) => {
+        const origin = ele.getData();
+        const { name, exp } = condition;
+        if (!isFunction(exp) ? get(origin, name) === exp : exp(origin)) {
+          ele.setState(type, status);
+        }
+      });
+    });
   }
 
   /**

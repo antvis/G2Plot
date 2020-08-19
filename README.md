@@ -67,7 +67,7 @@ const data = [
   { year: '1958 年', sales: 48 },
 ];
 
-const bar = new Bar(document.getElementById('container'), {
+const bar = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'year',
@@ -83,10 +83,10 @@ Your contributions are always welcome! Please Do have a look at the [issues](htt
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
 
-## License
-
-MIT
-
 ## Links
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - Online chart making tool based on G2Plot.
+
+## License
+
+MIT

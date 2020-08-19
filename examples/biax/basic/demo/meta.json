@@ -10,7 +10,7 @@
         "zh": "双折线混合图表",
         "en": "Dual line"
       },
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Omr4SK6froAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "dual-multi-line.js",
@@ -26,7 +26,7 @@
         "zh": "柱线混合图表",
         "en": "column-line"
       },
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OjMdQamxTvsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "stack-column-line.js",
@@ -34,7 +34,7 @@
         "zh": "堆叠柱线混合图表",
         "en": "stack-column-line"
       },
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*S7V_SbjUSwsAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "group-column-line.js",
@@ -42,7 +42,7 @@
         "zh": "分组柱线混合图表",
         "en": "stack-column-line"
       },
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RdF2Q6tngWYAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

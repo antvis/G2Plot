@@ -1,10 +1,10 @@
 import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { Data } from '../../types';
 import { flow, LEVEL, log, template } from '../../utils';
-import { StatisticContentStyle, StatisticTitleStyle } from './constants';
 import { PieOptions } from './types';
-import { getStatisticData } from './utils';
+import { getTotalValue } from './utils';
 
 /**
  * 字段
@@ -187,11 +187,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       type: 'text',
       content: '',
     };
-    const filterData = chart.getData();
 
-    const angleScale = chart.getScaleByField(angleField);
-    const colorScale = chart.getScaleByField(colorField);
-    const statisticData = getStatisticData(filterData, angleScale, colorScale);
     const contentFormatter = get(content, 'formatter');
 
     if (title !== false) {
@@ -204,12 +200,16 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       statisticTitle = {
         type: 'text',
         position: ['50%', '50%'],
-        content: titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title,
+        content: (filterData: Data) => {
+          const statisticData = {
+            title: '总计',
+            value: getTotalValue(filterData, angleField),
+          };
+          return titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title;
+        },
         ...deepMix(
           {},
           {
-            // default config
-            style: StatisticTitleStyle,
             offsetY: content === false ? 0 : -titleLineHeight,
             // append-info
             key: 'statistic',
@@ -227,12 +227,16 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       statisticContent = {
         type: 'text',
         position: ['50%', '50%'],
-        content: contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value,
+        content: (filterData: Data) => {
+          const statisticData = {
+            title: '总计',
+            value: getTotalValue(filterData, angleField),
+          };
+          return contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value;
+        },
         ...deepMix(
           {},
           {
-            // default config
-            style: StatisticContentStyle,
             // 居中
             offsetY: title === false ? 0 : valueLineHeight,
             // append-info
@@ -244,8 +248,6 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
     }
 
     annotationOptions.push(statisticTitle, statisticContent);
-
-    chart.render();
   }
 
   /** 自定义 annotation */

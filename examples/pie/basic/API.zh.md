@@ -43,7 +43,7 @@ const data = [
   { country: 'Europe', year: '1800', value: 203,},
 ];
 
-const piePlot = new Pie(document.getElementById('container'), {
+const piePlot = new Pie('container', {
   data,
   // highlight-start
   meta: {
@@ -133,7 +133,7 @@ color:(d)=>{
 
 ### legend、tooltip、theme
 
-`legend` 、`tooltip`、`theme` 等通用组件请参考图表通用配置
+`legend`、`tooltip`、`theme` 等通用组件请参考图表通用配置
 
 ### label ✨
 

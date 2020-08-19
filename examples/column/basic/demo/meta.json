@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础柱状图",
+        "en": "Basic Column chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "基础柱状图-图形标签",
+        "en": "Column chart label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*6xAoRa0kaxEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-position.ts",
+      "title": {
+        "zh": "基础柱状图-图形标签位置",
+        "en": "Column chart label position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color.ts",
+      "title": {
+        "zh": "基础柱状图 - 自定义颜色",
+        "en": "Column chart color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "width.ts",
+      "title": {
+        "zh": "基础柱状图 - 柱子宽度",
+        "en": "Column chart column width"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

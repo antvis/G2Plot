@@ -3,13 +3,19 @@ import { deepMix } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Adaptor } from './adaptor';
-import { ChartOptions, Data, Size } from '../types';
+import { Options, Data, Size } from '../types';
 import { getContainerSize } from '../utils';
+
+/** 单独 pick 出来的用于基类的类型定义 */
+type PickOptions = Pick<
+  Options,
+  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
+>;
 
 /**
  * 所有 plot 的基类
  */
-export abstract class Plot<O extends ChartOptions> extends EE {
+export abstract class Plot<O extends PickOptions> extends EE {
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -81,8 +87,32 @@ export abstract class Plot<O extends ChartOptions> extends EE {
    * 获取默认的 options 配置项
    * 每个组件都可以复写
    */
-  protected getDefaultOptions(): Partial<O> {
-    return {};
+  protected getDefaultOptions(): Partial<Options> {
+    return {
+      renderer: 'canvas',
+      tooltip: {
+        shared: true,
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'x',
+        },
+        offset: 20,
+      },
+      xAxis: {
+        nice: true,
+        label: {
+          autoRotate: true,
+          autoHide: true,
+        },
+      },
+      yAxis: {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
+        },
+      },
+    };
   }
 
   /**

@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../common/helper';
+import { findGeometry } from '../../utils';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, pick } from '../../utils';
@@ -89,6 +89,8 @@ function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
     if (colorFields.length > 0) {
       chart.legend(colorFields[0], legend);
     }
+  } else {
+    chart.legend(false);
   }
 
   return params;

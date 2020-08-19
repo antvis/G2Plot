@@ -1,4 +1,4 @@
 ---
-title: 散点图
+title: Scatter
 order: 0
 ---

@@ -1,5 +1,5 @@
 import { ShapeStyle } from '../../types/style';
-import { ChartOptions, Options } from '../../types';
+import { Options } from '../../types';
 import { PointGeometryOptions, LineGeometryOptions, IntervalGeometryOptions } from '../../adaptor/geometries';
 
 export enum AxisType {
@@ -49,7 +49,7 @@ export type ColumnConfig = {
 
 export type GeometryConfig = LineConfig | ColumnConfig;
 
-export type BiaxOption = ChartOptions & {
+export type BiaxOption = Omit<Options, 'data' | 'yAxis'> & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Array<Record<string, any>[]>;
@@ -61,9 +61,5 @@ export type BiaxOption = ChartOptions & {
 
   readonly geometryConfigs?: GeometryConfig[];
 
-  readonly xAxis?: Options['xAxis'];
   readonly yAxis?: Options['yAxis'][];
-  readonly label?: Options['label'];
-  readonly tooltip?: Options['tooltip'];
-  readonly legend?: Options['legend'];
 };

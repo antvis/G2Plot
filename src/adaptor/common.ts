@@ -74,7 +74,7 @@ export function animation<O extends Options>(params: Params<O>): Params<O> {
  * 设置全局主题配置
  * @param params
  */
-export function theme<O extends Options>(params: Params<O>): Params<O> {
+export function theme<O extends Pick<Options, 'theme'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { theme } = options;
 

@@ -14,11 +14,11 @@ module.exports = {
   siteMetadata: {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
-    siteUrl: 'https://g2plot.antv.vision',
+    siteUrl: 'https://g2plot-v2-beta.antv.vision/',
     githubUrl: repository.url,
     versions: {
-      '2.x': 'https://g2plot.antv.vision/',
-      '1.x': 'https://g2plot-v1.antv.vision/',
+      '2.x': 'https://g2plot-v2-beta.antv.vision/',
+      '1.x': 'https://g2plot.antv.vision/',
     },
     navs: [
       {
@@ -56,6 +56,22 @@ module.exports = {
         },
       },
       {
+        slug: 'area',
+        icon: 'area',
+        title: {
+          zh: '面积图',
+          en: 'Area Charts',
+        },
+      },
+      {
+        slug: 'column',
+        icon: 'column',
+        title: {
+          zh: '柱形图',
+          en: 'Column Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {
@@ -72,7 +88,23 @@ module.exports = {
         },
       },
       {
-        slug: 'Biax',
+        slug: 'histogram',
+        icon: 'histogram',
+        title: {
+          zh: '直方图',
+          en: 'Histogram Charts',
+        },
+      },
+      {
+        slug: 'radar',
+        icon: 'radar',
+        title: {
+          zh: '雷达图',
+          en: 'Radar Charts',
+        },
+      },
+      {
+        slug: 'biax',
         icon: 'line',
         title: {
           zh: '双轴图',
@@ -80,6 +112,14 @@ module.exports = {
         },
       },
       // OTHERS
+      {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '图表通用配置',
+          en: 'General Configration',
+        },
+      },
     ],
     docsearchOptions: {
       apiKey: '200ec461f4aa0bb4f0e761566f1a1336',

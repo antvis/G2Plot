@@ -63,13 +63,13 @@ export type Meta = {
   readonly formatter?: (v: any) => string;
 };
 
-/** 画布的基本配置 */
-export type ChartOptions = {
+/** 基础的 Options 配置 */
+export type Options = {
   // 画布基本配置
   /** 画布宽度 */
-  readonly width: number;
+  readonly width?: number;
   /** 画布高度 */
-  readonly height: number;
+  readonly height?: number;
   /** 画布是否自动适配容器大小，默认为 true */
   readonly autoFit?: boolean;
   /** 画布的 padding 值，或者开启 'auto' */
@@ -84,10 +84,7 @@ export type ChartOptions = {
   readonly pixelRatio?: number;
   /** 是否开启局部渲染，默认为 true */
   readonly localRefresh?: boolean;
-};
 
-/** 基础的 Options 配置 */
-export type Options = ChartOptions & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Record<string, any>[];

@@ -4,7 +4,6 @@ import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { flow, pick } from '../../utils';
-import { X_AXIS_OPTIONS, Y_AXIS_OPTIONS } from './constants';
 import { RadarOptions } from './types';
 
 /**
@@ -66,8 +65,8 @@ function axis(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
   const { xField, xAxis, yField, yAxis } = options;
 
-  chart.axis(xField, deepMix({}, xAxis, X_AXIS_OPTIONS));
-  chart.axis(yField, deepMix({}, yAxis, Y_AXIS_OPTIONS));
+  chart.axis(xField, xAxis);
+  chart.axis(yField, yAxis);
 
   return params;
 }

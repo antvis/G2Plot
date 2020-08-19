@@ -5,9 +5,7 @@ const data = [
   { sex: '女', sold: 0.55 },
 ];
 
-const piePlot = new Pie(document.getElementById('container'), {
-  width: 400,
-  height: 300,
+const piePlot = new Pie('container', {
   appendPadding: 10,
   data,
   angleField: 'sold',

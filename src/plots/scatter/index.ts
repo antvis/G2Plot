@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
@@ -15,5 +16,19 @@ export class Scatter extends Plot<ScatterOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<ScatterOptions> {
     return adaptor;
+  }
+
+  protected getDefaultOptions() {
+    return deepMix({}, super.getDefaultOptions(), {
+      size: 4,
+      /** pointStyle 跟随主题默认样式 */
+      tooltip: {
+        shared: null,
+        showTitle: false,
+        showMarkers: false,
+        showCrosshairs: false,
+      },
+      shape: 'circle',
+    });
   }
 }

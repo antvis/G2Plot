@@ -2,65 +2,15 @@
 title: API
 ---
 
-# 配置属性
+## 配置属性
 
-## 图表容器
+### 图表容器
 
-### width
+`markdown:common/chart-options.zh.md`
 
-**可选**, _number_
+### 数据映射
 
-功能描述： 设置图表宽度。
-
-默认配置： `400`
-
-### height
-
-**可选**, _number_
-
-功能描述： 设置图表高度。
-
-默认配置： `400`
-
-### autoFit
-
-**可选**, _boolean_
-
-功能描述： 画布是否自动适配容器大小，当 `autoFit` 设置为 true 时，`width` 和 `height` 的设置将失效。
-
-默认配置： `true`
-
-### padding
-
-**可选**, number[] | number | 'auto'
-
-功能描述： 画布的 `padding` 值，或者开启 `auto`
-
-### appendPadding
-
-**可选**, number[] | number
-
-功能描述： 额外增加的 `appendPadding` 值
-
-### renderer
-
-**可选**, _string_
-
-功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
-
-默认配置： `canvas`
-
-### pixelRatio
-
-**可选**, number
-
-功能描述: 设置图表渲染的像素比
-
-默认配置： `window.devicePixelRatio`
-
-## 数据映射
-
-### data 📌
+#### data 📌
 
 **必选**, _array object_
 
@@ -70,7 +20,7 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-### meta
+#### meta
 
 **可选**, _object_
 
@@ -93,7 +43,7 @@ const data = [
   { country: 'Europe', year: '1800', value: 203,},
 ];
 
-const scatterPlot = new Scatter(document.getElementById('container'), {
+const scatterPlot = new Scatter('container', {
   data,
   // highlight-start
   meta: {
@@ -115,7 +65,7 @@ scatterPlot.render();
 
 ```
 
-### xField 📌
+#### xField 📌
 
 **必选**, _string_
 
@@ -123,7 +73,7 @@ scatterPlot.render();
 
 默认配置： 无
 
-### yField 📌
+#### yField 📌
 
 **必选**, _string_
 
@@ -131,7 +81,7 @@ scatterPlot.render();
 
 默认配置： 无
 
-### type
+#### type
 
 **可选**, _jitter | stack | symmetric | dodge_;
 
@@ -139,15 +89,15 @@ scatterPlot.render();
 
 默认配置： `jitter`
 
-### colorField
+#### colorField
 
 **可选**, _string_
 
 功能描述: 点颜色映射对应的数据字段名。
 
-## 图形样式
+### 图形样式
 
-### color
+#### color
 
 **可选**, _string | string[] | Function_
 
@@ -174,13 +124,13 @@ color: (type) => {
 },
 ```
 
-### sizeField
+#### sizeField
 
 **可选**, _string_
 
 功能描述: 点大小映射对应的数据字段名。
 
-### size ✨
+#### size ✨
 
 [**DEMO1**](../../scatter/basic#color-mapping)
 
@@ -202,13 +152,13 @@ size: (weight) => {
 },
 ```
 
-### shapeField
+#### shapeField
 
 **可选**, _string_
 
 功能描述: 点形状映射对应的数据字段名。
 
-### shape ✨
+#### shape ✨
 
 [**DEMO2**](../../scatter/basic#shape-mapping)
 
@@ -235,7 +185,7 @@ shape: (gender) => {
 },
 ```
 
-### pointStyle ✨
+#### pointStyle ✨
 
 **可选**, _object_
 
@@ -280,15 +230,23 @@ pointStyle: (x, y, colorField) => {
 };
 ```
 
-## 图表组件
+### tooltip
 
-`xAxis`、`yAxis` 、`legend` 、`tooltip` 、`label`、`theme` 等通用组件请参考图表通用配置
+`markdown:common/tooltip.zh.md`
 
-## 事件
+<!-- `markdown:common/xAxis.zh.md`
+`markdown:common/yAxis.zh.md`
+`markdown:common/xAxis.zh.md`
+`markdown:common/legend.zh.md`
+`markdown:common/theme.zh.md` -->
 
-[通用 events]()
+### 事件
 
-### 点图形事件
+#### 通用事件
+
+<!-- `markdown:common/events.zh.md` -->
+
+#### 点图形事件
 
 | onPointClick<br />点点击事件         | onPointDblClick<br />点双击事件     | onPointDblClick<br />点双击事件    | onPointMouseleave<br />点鼠标离开事件 |
 | ------------------------------------ | ----------------------------------- | ---------------------------------- | ------------------------------------- |

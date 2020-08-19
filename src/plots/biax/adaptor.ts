@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
+import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-// import { interaction, animation, theme } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
 import { getOption, isLine, isColumn } from './util';
 import { point, line, interval } from '../../adaptor/geometries';
@@ -232,5 +232,6 @@ export function tooltip(params: Params<BiaxOption>): Params<BiaxOption> {
  */
 export function adaptor(params: Params<BiaxOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(transformOptions, field, geometry, meta, axis, legend, tooltip)(params);
+  // @ts-ignore
+  flow(transformOptions, field, geometry, meta, axis, legend, tooltip, theme)(params);
 }

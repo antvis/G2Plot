@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "分组柱状图",
+        "en": "Grouped Column chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "分组柱状图 - 数据标签",
+        "en": "Grouped Column chart label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-position.ts",
+      "title": {
+        "zh": "分组柱状图 - 数据标签位置",
+        "en": "Grouped Column chart label position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "margin.ts",
+      "title": {
+        "zh": "分组柱状图 - 分组间距",
+        "en": "Grouped Column chart column margin"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

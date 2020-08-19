@@ -4,8 +4,6 @@ import { createDiv } from '../../../utils/dom';
 
 describe('Biax dualline', () => {
   it('Doubal Line', () => {
-    document.body.append('test Biax doubal line');
-
     const biax = new Biax(createDiv(), {
       width: 400,
       height: 500,
@@ -19,9 +17,10 @@ describe('Biax dualline', () => {
           smooth: true,
         },
         {
-          geometry: 'line',
-          connectNulls: true,
-          smooth: false,
+          geometry: 'column',
+          interval: {
+            widthRatio: 0.5,
+          },
         },
       ],
     });
@@ -31,14 +30,12 @@ describe('Biax dualline', () => {
     // line
     const leftLineGeometry = biax.chart.views[0].geometries.find((g) => g.type === 'line');
 
-    const rightLineGeometry = biax.chart.views[1].geometries.find((g) => g.type === 'line');
+    const rightLineGeometry = biax.chart.views[1].geometries.find((g) => g.type === 'interval');
 
     // @ts-ignore
     expect(leftLineGeometry.connectNulls).toBe(false);
     expect(leftLineGeometry.attributes.shape.values).toEqual(['smooth']);
 
-    // @ts-ignore
-    expect(rightLineGeometry.connectNulls).toBe(true);
-    expect(rightLineGeometry.attributes.shape.values).toEqual(['line']);
+    expect(rightLineGeometry.shapeType).toBe('interval');
   });
 });

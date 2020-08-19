@@ -4,10 +4,9 @@ import { createDiv } from '../../../utils/dom';
 
 describe('Biax meta', () => {
   it('hide axis', () => {
-    document.body.append('hide axis');
     const biax = new Biax(createDiv(), {
-      width: 400,
-      height: 500,
+      width: 300,
+      height: 400,
       data: [PV_DATA, UV_DATA],
       xField: 'date',
       yField: ['pv', 'uv'],
@@ -17,77 +16,53 @@ describe('Biax meta', () => {
 
     biax.render();
 
-    const leftAxes = biax.chart.getComponents().filter((co) => co.type === 'axis');
-    const rightAxes = biax.chart.views[0].getComponents().filter((co) => co.type === 'axis');
+    const leftAxes = biax.chart.views[0].getComponents().filter((co) => co.type === 'axis');
+    const rightAxes = biax.chart.views[1].getComponents().filter((co) => co.type === 'axis');
     expect(leftAxes.length + rightAxes.length).toBe(0);
-
     // Biax.destroy();
   });
 
   it('axis style', () => {
-    document.body.append('axis');
     const biax = new Biax(createDiv(), {
-      width: 400,
-      height: 500,
+      width: 300,
+      height: 400,
       data: [PV_DATA, UV_DATA],
       xField: 'date',
       yField: ['pv', 'uv'],
+      // TO FIX PADDING
+      padding: [30, 30],
       xAxis: {
-        position: 'bottom',
-        title: {
-          offset: 10,
+        label: {
           style: {
-            color: '#333',
-            autoRotate: true,
+            fill: 'red',
           },
+          formatter: (val) => `_${val}_`,
         },
       },
       yAxis: [
         {
-          position: 'left',
-          line: {
-            style: {
-              lineWidth: 2,
-            },
-          },
-          tickLine: {
-            style: {
-              lineWidth: 2,
-            },
-            alignTick: true,
-          },
-          subTickLine: {
-            style: {
-              lineWidth: 1,
-              count: 4,
-            },
-          },
+          tickCount: 5,
         },
         {
-          position: 'right',
-          line: {
-            style: {
-              lineWidth: 2,
-            },
-          },
-          tickLine: {
-            style: {
-              lineWidth: 2,
-            },
-            alignTick: true,
-          },
-          subTickLine: {
-            style: {
-              lineWidth: 1,
-              count: 4,
-            },
-          },
+          tickCount: 5,
         },
       ],
     });
 
     biax.render();
+    const leftOptions = biax.chart.views[0].getOptions();
+    const rightOptions = biax.chart.views[1].getOptions();
 
-    // TODO 补充用例
+    // @ts-ignore
+    const xAxes = leftOptions.axes.date;
+    expect(xAxes.label.style.fill).toBe('red');
+
+    // @ts-ignore
+    const leftYAxes = leftOptions.axes.pv;
+    expect(leftYAxes.tickCount).toBe(5);
+
+    // @ts-ignore
+    const rightYAxes = rightOptions.axes.uv;
+    expect(rightYAxes.tickCount).toBe(5);
   });
 });

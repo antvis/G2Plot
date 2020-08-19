@@ -1,6 +1,12 @@
 import { deepMix } from '@antv/util';
 import { BiaxOption, GeometryConfig, BiaxGeometry, LineConfig, AxisType } from './types';
-import { DEFAULT_LINE_CONFIG, DEFAULT_YAXIS_CONFIG, DEFAULT_OPTION, DEFAULT_LINE_COLOR } from './constant';
+import {
+  DEFAULT_LINE_CONFIG,
+  DEFAULT_COLUMN_CONFIG,
+  DEFAULT_YAXIS_CONFIG,
+  DEFAULT_OPTION,
+  DEFAULT_LINE_COLOR,
+} from './constant';
 
 /**
  * 获取 GeometryConfig
@@ -16,6 +22,10 @@ export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType
   if (isLine(geometryConfig)) {
     return deepMix(defaultStyle, DEFAULT_LINE_CONFIG, geometryConfig || {});
   }
+  if (isColumn(geometryConfig)) {
+    return deepMix(defaultStyle, DEFAULT_COLUMN_CONFIG, geometryConfig || {});
+  }
+
   return Object.assign({}, defaultStyle, DEFAULT_LINE_CONFIG);
 }
 

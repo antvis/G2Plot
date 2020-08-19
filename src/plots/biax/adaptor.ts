@@ -81,6 +81,7 @@ function singleGeometry<O extends { xField: string; yField: string; geometryConf
 ): Params<O> {
   const { options } = params;
   const { geometryConfig } = options;
+
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryConfig)) {
     const LINE_KEY = ['color', 'smooth', 'connectNulls', 'style', 'size'];

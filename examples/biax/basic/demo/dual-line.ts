@@ -19,23 +19,13 @@ const data2 = [
   { year: '1995', count: 4.9 },
   { year: '1996', count: 35 },
   { year: '1997', count: 7 },
-  { year: '1998', count: 4 },
+  { year: '1998', count: 0 },
 ];
 
-const biaxChart = new Biax(document.getElementById('container'), {
-  width: 400,
-  height: 300,
+const biaxChart = new Biax('container', {
   data: [data1, data2],
   xField: 'year',
   yField: ['value', 'count'],
-  geometryConfigs: [
-    {
-      geometry: 'line',
-    },
-    {
-      geometry: 'column',
-    },
-  ],
 });
 
 biaxChart.render();

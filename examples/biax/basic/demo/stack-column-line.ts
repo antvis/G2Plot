@@ -21,9 +21,7 @@ const transformData = [
   { time: '2019-07', count: 220 },
 ];
 
-const biaxChart = new Biax(document.getElementById('container'), {
-  width: 400,
-  height: 300,
+const biaxChart = new Biax('container', {
   data: [uvBillData, transformData],
   xField: 'time',
   yField: ['value', 'count'],

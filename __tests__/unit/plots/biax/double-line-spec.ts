@@ -29,16 +29,16 @@ describe('Biax dualline', () => {
     biax.render();
 
     // line
-    const leftLineGeometrys = biax.chart.views[0].geometries.find((g) => g.type === 'line');
+    const leftLineGeometry = biax.chart.views[0].geometries.find((g) => g.type === 'line');
 
-    const rightLineGeometrys = biax.chart.views[1].geometries.find((g) => g.type === 'line');
-
-    // @ts-ignore
-    expect(leftLineGeometrys.connectNulls).toBe(false);
-    expect(leftLineGeometrys.attributes.shape.values).toEqual(['smooth']);
+    const rightLineGeometry = biax.chart.views[1].geometries.find((g) => g.type === 'line');
 
     // @ts-ignore
-    expect(rightLineGeometrys.connectNulls).toBe(true);
-    expect(rightLineGeometrys.attributes.shape.values).toEqual(['line']);
+    expect(leftLineGeometry.connectNulls).toBe(false);
+    expect(leftLineGeometry.attributes.shape.values).toEqual(['smooth']);
+
+    // @ts-ignore
+    expect(rightLineGeometry.connectNulls).toBe(true);
+    expect(rightLineGeometry.attributes.shape.values).toEqual(['line']);
   });
 });

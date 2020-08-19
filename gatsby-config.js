@@ -80,6 +80,14 @@ module.exports = {
         },
       },
       {
+        slug: 'biax',
+        icon: 'line',
+        title: {
+          zh: '双轴图',
+          en: 'Biax Charts',
+        },
+      },
+      {
         slug: 'scatter',
         icon: 'point',
         title: {
@@ -103,14 +111,7 @@ module.exports = {
           en: 'Radar Charts',
         },
       },
-      {
-        slug: 'biax',
-        icon: 'line',
-        title: {
-          zh: '双轴图',
-          en: 'Biax Charts',
-        },
-      },
+      
       // OTHERS
       {
         slug: 'general',

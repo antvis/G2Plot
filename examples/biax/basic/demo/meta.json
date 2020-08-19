@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "dual-line.ts",
+      "title": {
+        "zh": "双折线混合图表",
+        "en": "Dual line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Omr4SK6froAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "dual-multi-line.ts",
+      "title": {
+        "zh": "多折线混合图表",
+        "en": "dual-multi-line"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "column-line.ts",
+      "title": {
+        "zh": "柱线混合图表",
+        "en": "column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OjMdQamxTvsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stack-column-line.ts",
+      "title": {
+        "zh": "堆叠柱线混合图表",
+        "en": "stack-column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*S7V_SbjUSwsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "group-column-line.ts",
+      "title": {
+        "zh": "分组柱线混合图表",
+        "en": "stack-column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RdF2Q6tngWYAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ import { Interaction } from '../types/interaction';
  * 通用 legend 配置, 适用于带 colorField 的图表
  * @param params
  */
-export function legend<O extends Options & { colorField?: string }>(params: Params<O>): Params<O> {
+export function legend<O extends Pick<Options, 'legend'> & { colorField?: string }>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { legend, colorField } = options;
 
@@ -28,7 +28,7 @@ export function legend<O extends Options & { colorField?: string }>(params: Para
  * 通用 tooltip 配置
  * @param params
  */
-export function tooltip<O extends Options>(params: Params<O>): Params<O> {
+export function tooltip<O extends Pick<Options, 'tooltip'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { tooltip } = options;
 
@@ -43,7 +43,7 @@ export function tooltip<O extends Options>(params: Params<O>): Params<O> {
  * Interaction 配置
  * @param params
  */
-export function interaction<O extends Options>(params: Params<O>): Params<O> {
+export function interaction<O extends Pick<Options, 'interactions'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { interactions } = options;
 
@@ -58,7 +58,7 @@ export function interaction<O extends Options>(params: Params<O>): Params<O> {
  * 动画
  * @param params
  */
-export function animation<O extends Options>(params: Params<O>): Params<O> {
+export function animation<O extends Pick<Options, 'animation'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { animation } = options;
 

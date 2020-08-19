@@ -129,6 +129,14 @@ module.exports = {
         },
       },
       {
+        slug: 'waterfall',
+        icon: 'waterfall',
+        title: {
+          zh: '瀑布图',
+          en: 'Waterfall Charts',
+        },
+      },
+      {
         slug: 'histogram',
         icon: 'histogram',
         title: {

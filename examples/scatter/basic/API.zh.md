@@ -234,9 +234,14 @@ pointStyle: (x, y, colorField) => {
 
 `markdown:common/tooltip.zh.md`
 
+### axis
+
+xAxis、yAxis 配置相同。
+
+`markdown:common/axis.zh.md`
+
 <!-- `markdown:common/xAxis.zh.md`
 `markdown:common/yAxis.zh.md`
-`markdown:common/xAxis.zh.md`
 `markdown:common/legend.zh.md`
 `markdown:common/theme.zh.md` -->
 

@@ -189,7 +189,10 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       content: '',
     };
 
-    const contentFormatter = get(content, 'formatter');
+    const getStatisticData = (data: Data) => ({
+      title: '总计',
+      value: getTotalValue(data, angleField),
+    });
 
     if (title !== false) {
       let titleLineHeight = get(title, 'style.lineHeight');
@@ -202,10 +205,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
         type: 'text',
         position: ['50%', '50%'],
         content: (filterData: Data) => {
-          const statisticData = {
-            title: '总计',
-            value: getTotalValue(filterData, angleField),
-          };
+          const statisticData = getStatisticData(filterData);
           return titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title;
         },
         ...deepMix(
@@ -214,6 +214,9 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
             offsetY: content === false ? 0 : -titleLineHeight,
             // append-info
             key: 'statistic',
+            style: {
+              textAlign: 'center',
+            },
           },
           title
         ),
@@ -225,14 +228,13 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       if (!valueLineHeight) {
         valueLineHeight = get(content, 'style.fontSize', 20);
       }
+      const contentFormatter = get(content, 'formatter');
+
       statisticContent = {
         type: 'text',
         position: ['50%', '50%'],
         content: (filterData: Data) => {
-          const statisticData = {
-            title: '总计',
-            value: getTotalValue(filterData, angleField),
-          };
+          const statisticData = getStatisticData(filterData);
           return contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value;
         },
         ...deepMix(
@@ -242,6 +244,9 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
             offsetY: title === false ? 0 : valueLineHeight,
             // append-info
             key: 'statistic',
+            style: {
+              textAlign: 'center',
+            },
           },
           content
         ),

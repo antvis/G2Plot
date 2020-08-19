@@ -1,4 +1,5 @@
 import { Chart, Event } from '@antv/g2';
+import Element from '@antv/g2/lib/geometry/element';
 import { deepMix, each, get, isFunction } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
@@ -189,7 +190,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    */
   public setState(type: 'active' | 'inactive' | 'selected', conditions: StateCondition[], status: boolean = true) {
     const elements = [];
-    this.chart.geometries.forEach((geom) => {
+    each(this.chart.geometries, (geom) => {
       elements.push(...geom.elements);
     });
 
@@ -202,6 +203,24 @@ export abstract class Plot<O extends PickOptions> extends EE {
         }
       });
     });
+  }
+
+  /**
+   * 获取状态
+   */
+  public getStates() {
+    const states = [];
+    each(this.chart.geometries, (geom) => {
+      each(geom.elements, (ele: Element, elementIndex) => {
+        const data = ele.getData();
+        const model = ele.getModel();
+        each(ele.getStates(), (stateName) => {
+          states.push({ data, model, stateName, elementIndex });
+        });
+      });
+    });
+
+    return states;
   }
 
   /**

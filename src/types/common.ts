@@ -4,6 +4,7 @@ import { Tooltip } from './tooltip';
 import { Legend } from './legend';
 import { Interaction } from './interaction';
 import { Animation } from './animation';
+import { State } from './state';
 
 /** 一条数据记录 */
 export type Datum = Record<string, any>;
@@ -103,4 +104,6 @@ export type Options = {
   readonly legend?: Legend;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
+  // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
+  readonly state?: State;
 };

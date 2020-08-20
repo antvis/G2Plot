@@ -28,14 +28,14 @@
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
     "site:deploy": "npm run site:build && gh-pages -d public",
-    "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__",
+    "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__ && lint-md --fix ./examples",
     "build": "run-s clean lib dist",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "dist": "webpack --config webpack.config.js --mode production",
-    "lint": "eslint --ext .ts ./src ./__tests__",
+    "lint": "eslint --ext .ts ./src ./__tests__ && prettier --check ./src ./__tests__ && lint-md ./examples",
     "lint-staged": "lint-staged",
     "test": "jest",
     "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
@@ -80,6 +80,7 @@
     "jest": "^26.0.1",
     "jest-electron": "^0.1.7",
     "jest-extended": "^0.11.2",
+    "lint-md-cli": "^0.1.2",
     "lint-staged": "^10.0.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.1",
@@ -112,6 +113,9 @@
     "*.ts": [
       "eslint --fix",
       "prettier --write"
+    ],
+    "*.md": [
+      "lint-md --fix"
     ]
   },
   "license": "MIT"

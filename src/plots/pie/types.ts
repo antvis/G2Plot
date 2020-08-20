@@ -12,22 +12,25 @@ export type StatisticData = {
  */
 type Statistic = Readonly<{
   /** 自定义 title 标签 */
-  title?: {
-    formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
-    rotate?: number;
-    offsetX?: number;
-    offsetY?: number;
-    style?: ShapeStyle;
-  };
+  title?:
+    | boolean
+    | {
+        formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
+        rotate?: number;
+        offsetX?: number;
+        offsetY?: number;
+        style?: ShapeStyle;
+      };
   /** 自定义 content 内容 */
-  content?: {
-    formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
-    rotate?: number;
-    offsetX?: number;
-    offsetY?: number;
-    style?: ShapeStyle;
-  };
-  // todo 提供 htmlContent 的方式，自由定制中心文本
+  content?:
+    | boolean
+    | {
+        formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
+        rotate?: number;
+        offsetX?: number;
+        offsetY?: number;
+        style?: ShapeStyle;
+      };
 }>;
 
 export interface PieOptions extends Options {

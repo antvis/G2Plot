@@ -1,7 +1,7 @@
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { RoseOptions } from './types';
 import { flow, LEVEL, log } from '../../utils';
-import { isFunction } from '@antv/util';
 import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
 
 /**

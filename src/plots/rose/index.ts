@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { RoseOptions } from './types';
 import { adaptor } from './adaptor';
@@ -13,12 +14,10 @@ export class Rose extends Plot<RoseOptions> {
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<RoseOptions> {
-    return {
-      renderer: 'canvas',
+    return deepMix({}, super.getDefaultOptions(), {
       tooltip: {
         showMarkers: false,
         showCrosshairs: false,
-        offset: 20,
       },
       xAxis: false,
       yAxis: false,
@@ -26,7 +25,7 @@ export class Rose extends Plot<RoseOptions> {
         position: 'right',
         offsetX: -20,
       },
-    };
+    });
   }
 
   /**

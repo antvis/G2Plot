@@ -190,9 +190,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 更新数据
    * @param options
    */
-  public changeData(data: Data) {
+  public changeData(data: any) {
     this.chart.changeData(data);
-    this.chart.render();
   }
 
   /**

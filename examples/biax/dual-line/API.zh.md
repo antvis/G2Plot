@@ -120,7 +120,7 @@ TODO
 | size | _number_ | 宽度，同折线图 | 
 | point | _PointConfig | 点，同折线图 |
 | color |  | 折线图所用色板 |
-| labe |  | 折线图所用label, 同折线图 label |
+| labe |  | 折线图所用 label, 同折线图 label |
  
 默认配置：采用 theme 中的色板。
 
@@ -270,7 +270,7 @@ pointStyle: (x, y, colorField) => {
 
 ## 事件
 
-[通用 events]()
+[通用 events](.)
 
 ### 点图形事件
 

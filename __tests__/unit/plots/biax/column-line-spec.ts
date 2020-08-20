@@ -18,9 +18,7 @@ describe('Biax dualline', () => {
         },
         {
           geometry: 'column',
-          interval: {
-            widthRatio: 0.5,
-          },
+          columnWidthRatio: 0.5,
         },
       ],
     });

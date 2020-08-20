@@ -1,6 +1,5 @@
 import { ShapeStyle } from '../../types/style';
 import { Options } from '../../types';
-import { PointGeometryOptions, LineGeometryOptions, IntervalGeometryOptions } from '../../adaptor/geometries';
 import { LineOptions, ColumnOptions } from '../../index';
 
 export enum AxisType {
@@ -21,11 +20,11 @@ export interface PointConfig {
 
 type CommonGeometryConfig = {
   // 图形类型
-  readonly geometry: string;
+  readonly geometry?: string;
   // label
-  readonly label: Options['label'];
+  readonly label?: Options['label'];
   // 色板
-  readonly color: Options['color'];
+  readonly color?: Options['color'];
 };
 
 // 折线设置接口, 直接用 LineOption 吧

@@ -14,19 +14,20 @@ describe('Biax data', () => {
     });
 
     biax.render();
-    const leftChart = biax.chart.views[0];
-    const rightChart = biax.chart.views[1];
+    const leftLine = biax.chart.views[0].geometries[0];
+    const rightLine = biax.chart.views[1].geometries[0];
 
-    expect(leftChart.geometries[0].data.length).toBe(PV_DATA.length);
-    expect(rightChart.geometries[0].data.length).toBe(UV_DATA.length);
+    expect(leftLine.data.length).toBe(PV_DATA.length);
+    expect(rightLine.data.length).toBe(UV_DATA.length);
 
     const pvData = PV_DATA.map((item) => item.pv);
 
-    expect(leftChart.geometries[0].scales[yField[0]].max).toBe(Math.max(...pvData));
-    expect(leftChart.geometries[0].scales[yField[0]].min).toBe(Math.min(...pvData));
+    expect(Math.max(...leftLine.scales[yField[0]].values)).toBe(Math.max(...pvData));
+
+    expect(Math.min(...leftLine.scales[yField[0]].values)).toBe(Math.min(...pvData));
 
     const uvData = UV_DATA.map((item) => item.uv);
-    expect(rightChart.geometries[0].scales[yField[1]].max).toBe(Math.max(...uvData));
-    expect(rightChart.geometries[0].scales[yField[1]].min).toBe(Math.min(...uvData));
+    expect(Math.max(...rightLine.scales[yField[1]].values)).toBe(Math.max(...uvData));
+    expect(Math.min(...rightLine.scales[yField[1]].values)).toBe(Math.min(...uvData));
   });
 });

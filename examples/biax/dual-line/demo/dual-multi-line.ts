@@ -50,7 +50,6 @@ const biaxChart = new Biax('container', {
       geometry: 'line',
       seriesField: 'name',
       color: (name) => {
-        console.log(name);
         if (name === 'a') {
           return '#93D072';
         }

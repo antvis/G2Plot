@@ -192,7 +192,6 @@ export abstract class Plot<O extends PickOptions> extends EE {
    */
   public changeData(data: Data) {
     this.chart.changeData(data);
-    this.chart.render();
   }
 
   /**

@@ -1,12 +1,11 @@
-import { deepMix, isFunction, isNil } from '@antv/util';
-import DataSet from '@antv/data-set';
+import { deepMix, isFunction, map } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../common/helper';
+import { findGeometry } from '../../utils';
 import { BoxOptions } from './types';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
-const RANGE = '@@__range';
+const RANGE = '$$range$$';
 
 /**
  * 字段
@@ -17,20 +16,13 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { xField, yField, data } = options;
   const [low, q1, median, q3, high] = yField;
 
-  const ds = new DataSet();
-  const dv = ds.createView().source(data);
-
-  // dataset 处理数据
-  dv.transform({
-    type: 'map',
-    callback: (obj) => {
-      obj[RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
-      return obj;
-    },
+  const dv = map(data, (obj) => {
+    obj[RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
+    return obj;
   });
 
   chart.schema().position(`${xField}*${RANGE}`).shape('box');
-  chart.data(dv.rows);
+  chart.data(dv);
 
   return params;
 }
@@ -110,7 +102,7 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
   const geometry = findGeometry(chart, 'schema');
   if (boxStyle && geometry) {
     if (isFunction(boxStyle)) {
-      // geometry.style(`${xField}*${yField}*${colorField}`, columnStyle);
+      geometry.style(`${xField}*${yField.join('*')}`, boxStyle);
     } else {
       geometry.style(boxStyle);
     }

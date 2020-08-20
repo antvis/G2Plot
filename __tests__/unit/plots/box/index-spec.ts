@@ -2,7 +2,7 @@ import { Box } from '../../../../src';
 import { boxData } from '../../../data/box';
 import { createDiv } from '../../../utils/dom';
 
-const default_range_field = '@@__range';
+const default_range_field = '$$range$$';
 
 describe('column', () => {
   it('x*range range.min default as 0', () => {

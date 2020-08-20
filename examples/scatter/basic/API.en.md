@@ -317,10 +317,22 @@ scatterPlot.on('element:click', (...args) => {
 
 ### 图表组件
 
-<!-- `markdown:common/tooltip.en.md`
-`markdown:common/xAxis.en.md`
+=======
+
+### tooltip
+
+> > > > > > > 3aa0cb2c... docs: 添加 axis (#1465)
+
+`markdown:common/tooltip.en.md`
+
+### axis
+
+xAxis、yAxis 配置相同。
+
+`markdown:common/axis.en.md`
+
+<!-- `markdown:common/xAxis.en.md`
 `markdown:common/yAxis.en.md`
-`markdown:common/xAxis.en.md`
 `markdown:common/legend.en.md`
 `markdown:common/theme.en.md` -->
 

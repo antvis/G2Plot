@@ -6,6 +6,8 @@ import { deepMix } from '@antv/util';
 
 export { BoxOptions };
 
+const RANGE = '$$range$$';
+
 export class Box extends Plot<BoxOptions> {
   /** 图表类型 */
   public type: string = 'box';

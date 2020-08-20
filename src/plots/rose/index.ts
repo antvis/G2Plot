@@ -25,6 +25,10 @@ export class Rose extends Plot<RoseOptions> {
         position: 'right',
         offsetX: -20,
       },
+      sectorStyle: {
+        stroke: '#fff',
+        lineWidth: 1,
+      },
     });
   }
 

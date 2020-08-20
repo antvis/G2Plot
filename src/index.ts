@@ -27,6 +27,7 @@ export { Bar, BarOptions } from './plots/bar';
 // 饼图及类型定义
 export { Pie, PieOptions } from './plots/pie';
 
+// 玫瑰图及类型定义
 export { Rose, RoseOptions } from './plots/rose';
 
 // 散点图及类型定义

@@ -127,7 +127,7 @@
 
 默认配置：`无`
 
-`markdown:common/label-style.zh.md`
+`markdown:common/label.zh.md`
 
 #### grid
 
@@ -174,13 +174,11 @@ interface ComponentAnimateCfg {
   readonly delay?: number;
 }
 // 配置参考
-{
-  animateOption: {
-    appear: ComponentAnimateCfg;
-    update: ComponentAnimateCfg;
-    enter: ComponentAnimateCfg;
-    leave: ComponentAnimateCfg;
-  }
+animateOption: {
+  appear: ComponentAnimateCfg;
+  update: ComponentAnimateCfg;
+  enter: ComponentAnimateCfg;
+  leave: ComponentAnimateCfg;
 }
 ```
 

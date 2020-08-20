@@ -34,6 +34,7 @@ const biaxChart = new Biax('container', {
         lineWidth: 4,
         opacity: 0.5,
       },
+      label: {},
       point: {
         shape: 'circle',
         size: 4,

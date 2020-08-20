@@ -1,18 +1,23 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../../core/adaptor';
 import { point, line, interval } from '../../../adaptor/geometries';
-import { pick } from '../../../utils';
+import { pick, findGeometry } from '../../../utils';
 import { GeometryConfig } from '../types';
 import { isLine, isColumn } from './option';
 
-export function singleGeometry<O extends { xField: string; yField: string; geometryConfig: GeometryConfig }>(
+/**
+ * 绘制单个图形
+ * @param params
+ */
+export function drawSingleGeometry<O extends { xField: string; yField: string; geometryConfig: GeometryConfig }>(
   params: Params<O>
 ): Params<O> {
-  const { options } = params;
-  const { geometryConfig } = options;
+  const { options, chart } = params;
+  const { geometryConfig, yField } = options;
 
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryConfig)) {
+    // 绘制线
     line(
       deepMix({}, params, {
         options: {
@@ -26,6 +31,7 @@ export function singleGeometry<O extends { xField: string; yField: string; geome
         },
       })
     );
+    // 绘制点
     point(
       deepMix({}, params, {
         options: {
@@ -50,6 +56,19 @@ export function singleGeometry<O extends { xField: string; yField: string; geome
         },
       })
     );
+  }
+
+  // 绘制 label
+  const mainGeometry = findGeometry(chart, 'line') || findGeometry(chart, 'interval');
+  if (!geometryConfig.label) {
+    mainGeometry.label(false);
+  } else {
+    const { callback, ...cfg } = geometryConfig.label;
+    mainGeometry.label({
+      fields: [yField],
+      callback,
+      cfg,
+    });
   }
 
   return params;

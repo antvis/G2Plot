@@ -19,13 +19,18 @@ export interface PointConfig {
   readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
 }
 
-// 折线设置接口, 直接用 LineOption 吧
-export type LineConfig = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point'> & {
+type CommonGeometryConfig = {
   // 图形类型
   readonly geometry: string;
+  // label
+  readonly label: Options['label'];
   // 色板
   readonly color: Options['color'];
 };
+
+// 折线设置接口, 直接用 LineOption 吧
+export type LineConfig = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point'> &
+  CommonGeometryConfig;
 
 // 柱设置接口
 export type ColumnConfig = Pick<
@@ -38,12 +43,8 @@ export type ColumnConfig = Pick<
   | 'columnWidthRatio'
   | 'marginRatio'
   | 'columnStyle'
-> & {
-  // 图形类型
-  readonly geometry: string;
-  // 色板
-  readonly color: Options['color'];
-};
+> &
+  CommonGeometryConfig;
 
 export type GeometryConfig = ColumnConfig | LineConfig;
 

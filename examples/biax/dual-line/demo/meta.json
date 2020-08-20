@@ -13,7 +13,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Omr4SK6froAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "dual-line-complex.ts",
+      "filename": "custom-dual-line.ts",
       "title": {
         "zh": "双折线图 - 自定义折线样式",
         "en": "Dual line with style"

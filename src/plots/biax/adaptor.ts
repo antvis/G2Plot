@@ -3,7 +3,7 @@ import { theme, tooltip, interaction, animation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
 import { getOption } from './util/option';
-import { singleGeometry } from './util/geometry';
+import { drawSingleGeometry } from './util/geometry';
 import { BiaxOption } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
@@ -55,7 +55,7 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
   const { xField, yField, geometryConfigs } = options;
 
   // 左轴图形
-  singleGeometry({
+  drawSingleGeometry({
     chart: chart.views[0],
     options: {
       xField,
@@ -65,7 +65,7 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
   });
 
   // 右轴图形
-  singleGeometry({
+  drawSingleGeometry({
     chart: chart.views[1],
     options: {
       xField,

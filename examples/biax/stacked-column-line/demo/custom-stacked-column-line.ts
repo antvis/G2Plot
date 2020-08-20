@@ -31,6 +31,7 @@ const biaxChart = new Biax('container', {
       isStack: true,
       stackField: 'type',
       columnWidthRatio: 0.4,
+      label: {},
     },
     {
       geometry: 'line',

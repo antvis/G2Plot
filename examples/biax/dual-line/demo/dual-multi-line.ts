@@ -39,10 +39,23 @@ const biaxChart = new Biax('container', {
     {
       geometry: 'line',
       seriesField: 'type',
+      color: '#29cae4',
+      lineStyle: {
+        lineWidth: 3,
+        lineDash: [5, 5],
+      },
+      smooth: true,
     },
     {
       geometry: 'line',
       seriesField: 'name',
+      color: (name) => {
+        console.log(name);
+        if (name === 'a') {
+          return '#93D072';
+        }
+        return '#FAA219';
+      },
     },
   ],
 });

@@ -13,7 +13,7 @@ export class Box extends Plot<BoxOptions> {
   public type: string = 'box';
 
   /**
-   * 获取 箱线图 默认配置项
+   * 获取 箱型图 默认配置项
    */
   protected getDefaultOptions(): Partial<BoxOptions> {
     return deepMix({}, super.getDefaultOptions(), {
@@ -24,7 +24,7 @@ export class Box extends Plot<BoxOptions> {
   }
 
   /**
-   * 获取 箱线图 的适配器
+   * 获取 箱型图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<BoxOptions> {
     return adaptor;

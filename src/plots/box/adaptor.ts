@@ -37,7 +37,7 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
 
   const scales = deepMix(
     {
-      // 箱线图默认 range 从0 开始
+      // 箱型图默认 range 从0 开始
       [RANGE]: { min: 0 },
     },
     meta,
@@ -111,7 +111,7 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
 }
 
 /**
- * 箱线图适配器
+ * 箱型图适配器
  * @param params
  */
 export function adaptor(params: Params<BoxOptions>) {

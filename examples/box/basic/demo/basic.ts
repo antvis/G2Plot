@@ -17,6 +17,11 @@ const boxPlot = new Box('container', {
   data: data,
   xField: 'x',
   yField: ['low', 'q1', 'median', 'q3', 'high'],
+  boxStyle: {
+    stroke: '#545454',
+    fill: '#1890FF',
+    fillOpacity: 0.3,
+  },
 });
 
 boxPlot.render();

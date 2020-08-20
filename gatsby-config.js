@@ -119,7 +119,14 @@ module.exports = {
           en: 'Radar Charts',
         },
       },
-
+      {
+        slug: 'box',
+        icon: 'box',
+        title: {
+          zh: '箱型图',
+          en: 'Box Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

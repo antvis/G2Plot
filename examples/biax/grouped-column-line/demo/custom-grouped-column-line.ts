@@ -28,12 +28,13 @@ const biaxChart = new Biax('container', {
   geometryConfigs: [
     {
       geometry: 'column',
-      isStack: true,
-      stackField: 'type',
+      isGroup: true,
+      groupField: 'type',
+      columnWidthRatio: 0.4,
     },
     {
       geometry: 'line',
-      seriesField: 'name',
+      color: '#FAA219',
     },
   ],
 });

@@ -1,22 +1,22 @@
 import { deepMix } from '@antv/util';
-import { theme, tooltip } from '../../adaptor/common';
+import { theme, tooltip, interaction, animation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
-import { getOption, isLine, isColumn } from './util';
-import { point, line, interval } from '../../adaptor/geometries';
-import { BiaxOption, GeometryConfig } from './types';
+import { getOption } from './util/option';
+import { singleGeometry } from './util/geometry';
+import { BiaxOption } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * 获取默认参数设置
- * 因 deepMix 对数组类型无效，为防止出现geometryConfigs: [{ color: 1}, {}] 类似的情况，加一个判断
+ * 双轴图无法使用公共的 getDefaultOption, 因为双轴图存在[lineConfig, lineConfig] 这样的数据，需要根据传入的 option，生成不同的 defaultOption
+ * 主要针对 yAxis 和 geometryConfigs
  * @param params
  */
 export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption> {
-  return {
-    ...params,
+  return deepMix({}, params, {
     options: getOption(params.options),
-  };
+  });
 }
 
 /**
@@ -73,49 +73,6 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
       geometryConfig: geometryConfigs[1],
     },
   });
-  return params;
-}
-
-function singleGeometry<O extends { xField: string; yField: string; geometryConfig: GeometryConfig }>(
-  params: Params<O>
-): Params<O> {
-  const { options } = params;
-  const { geometryConfig } = options;
-
-  const FIELD_KEY = ['xField', 'yField'];
-  if (isLine(geometryConfig)) {
-    const LINE_KEY = ['color', 'smooth', 'connectNulls', 'style', 'size'];
-    line(
-      deepMix({}, params, {
-        options: {
-          ...pick(options, FIELD_KEY),
-          seriesField: geometryConfig.seriesField,
-          line: pick(geometryConfig, LINE_KEY),
-        },
-      })
-    );
-    point(
-      deepMix({}, params, {
-        options: {
-          ...pick(options, FIELD_KEY),
-          point: geometryConfig.point,
-        },
-      })
-    );
-  }
-
-  if (isColumn(geometryConfig)) {
-    const COLUMN_KEY = ['colorField', 'seriesField', 'isGroup', 'groupField', 'isStack', 'stackField', 'interval'];
-    interval(
-      deepMix({}, params, {
-        options: {
-          ...pick(options, FIELD_KEY),
-          ...pick(geometryConfig, COLUMN_KEY),
-        },
-      })
-    );
-  }
-
   return params;
 }
 
@@ -205,5 +162,5 @@ export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
  */
 export function adaptor(params: Params<BiaxOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(transformOptions, field, geometry, meta, axis, legend, tooltip, theme)(params);
+  flow(transformOptions, field, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
 }

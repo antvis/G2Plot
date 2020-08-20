@@ -1,6 +1,7 @@
 import { ShapeStyle } from '../../types/style';
 import { Options } from '../../types';
 import { PointGeometryOptions, LineGeometryOptions, IntervalGeometryOptions } from '../../adaptor/geometries';
+import { LineOptions, ColumnOptions } from '../../index';
 
 export enum AxisType {
   Left = 'Left',
@@ -18,38 +19,35 @@ export interface PointConfig {
   readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
 }
 
-// 折线设置接口
-export type LineConfig = LineGeometryOptions['line'] & {
+// 折线设置接口, 直接用 LineOption 吧
+export type LineConfig = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point'> & {
   // 图形类型
   readonly geometry: string;
-  // 分类字段
-  readonly seriesField?: string;
-  // ...lineOption: LineGeometryOptions['line']
-  // pointOption
-  readonly point?: PointGeometryOptions['point'];
+  // 色板
+  readonly color: Options['color'];
 };
 
 // 柱设置接口
-export type ColumnConfig = {
+export type ColumnConfig = Pick<
+  ColumnOptions,
+  | 'colorField'
+  | 'isGroup'
+  | 'groupField'
+  | 'isStack'
+  | 'stackField'
+  | 'columnWidthRatio'
+  | 'marginRatio'
+  | 'columnStyle'
+> & {
+  // 图形类型
   readonly geometry: string;
-  /** 颜色字段，可选 */
-  readonly colorField?: string;
-  /** 拆分字段，在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField  */
-  readonly seriesField?: string;
-  /** 是否分组柱形图 */
-  readonly isGroup?: boolean;
-  /** 分组拆分字段 */
-  readonly groupField?: string;
-  /** 是否堆积柱状图 */
-  readonly isStack?: boolean;
-  /** 堆积拆分字段 */
-  readonly stackField?: string;
-  readonly interval?: IntervalGeometryOptions['interval'];
+  // 色板
+  readonly color: Options['color'];
 };
 
 export type GeometryConfig = ColumnConfig | LineConfig;
 
-export type BiaxOption = Omit<Options, 'data' | 'yAxis'> & {
+export type BiaxOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Array<Record<string, any>[]>;

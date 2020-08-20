@@ -1,4 +1,4 @@
 ---
-title: 双轴图
+title: dual-line
 order: 0
 ---

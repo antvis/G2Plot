@@ -1,16 +1,11 @@
 import { Biax } from '@antv/g2plot';
 
-const uvBillData = [
-  { time: '2019-03', value: 350, type: 'uv' },
-  { time: '2019-04', value: 900, type: 'uv' },
-  { time: '2019-05', value: 300, type: 'uv' },
-  { time: '2019-06', value: 450, type: 'uv' },
-  { time: '2019-07', value: 470, type: 'uv' },
-  { time: '2019-03', value: 220, type: 'bill' },
-  { time: '2019-04', value: 300, type: 'bill' },
-  { time: '2019-05', value: 250, type: 'bill' },
-  { time: '2019-06', value: 220, type: 'bill' },
-  { time: '2019-07', value: 362, type: 'bill' },
+const uvData = [
+  { time: '2019-03', value: 350 },
+  { time: '2019-04', value: 900 },
+  { time: '2019-05', value: 300 },
+  { time: '2019-06', value: 450 },
+  { time: '2019-07', value: 470 },
 ];
 
 const transformData = [
@@ -32,19 +27,33 @@ const transformData = [
 ];
 
 const biaxChart = new Biax('container', {
-  data: [uvBillData, transformData],
+  data: [uvData, transformData],
   xField: 'time',
   yField: ['value', 'count'],
   geometryConfigs: [
     {
-      geometry: 'line',
-      seriesField: 'type',
-      color: 'red',
+      geometry: 'column',
+      color: '#586bce',
+      columnWidthRatio: 0.4,
+      columnStyle: {
+        opacity: 0.4,
+      },
     },
     {
       geometry: 'line',
       seriesField: 'name',
-      color: 'blue',
+      color: ['#93D072', '#D62A0D', '#FAA219'],
+      lineStyle: (x, y, type) => {
+        if (type === 'a') {
+          return {
+            lineDash: [2, 2],
+            opacity: 1,
+          };
+        }
+        return {
+          opacity: 0.5,
+        };
+      },
     },
   ],
 });

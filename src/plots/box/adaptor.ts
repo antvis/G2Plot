@@ -80,6 +80,7 @@ function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
  */
 function meta(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
+<<<<<<< HEAD
   const { meta, xAxis, yAxis, xField, yField, outliersField } = options;
   const yFieldName = Array.isArray(yField) ? Box.RANGE : yField;
 
@@ -98,6 +99,21 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
     [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
     [yFieldName]: pick(yAxis, AXIS_META_CONFIG_KEYS),
   });
+=======
+  const { meta, xAxis, yAxis, xField } = options;
+
+  const scales = deepMix(
+    {
+      // 箱型图默认 range 从0 开始
+      [RANGE]: { min: 0 },
+    },
+    meta,
+    {
+      [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
+      [RANGE]: pick(yAxis, AXIS_META_CONFIG_KEYS),
+    }
+  );
+>>>>>>> 82b5e3ae... feat: 增加基础 demo
 
   chart.scale(scales);
 

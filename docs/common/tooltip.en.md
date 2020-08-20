@@ -143,20 +143,18 @@
 
 默认配置： `无`
 
-```js
-/** 通用对象 */
-export interface LooseObject {
-  [key: string]: any;
-}
+```ts
 /** Tooltip 内容框的 css 样式定义 */
-export interface TooltipDomStyles {
-  'g2-tooltip'?: LooseObject;
-  'g2-tooltip-title'?: LooseObject;
-  'g2-tooltip-list'?: LooseObject;
-  'g2-tooltip-list-item'?: LooseObject;
-  'g2-tooltip-marker'?: LooseObject;
-  'g2-tooltip-value'?: LooseObject;
-  'g2-tooltip-name'?: LooseObject;
+{
+  domStyles: {
+    'g2-tooltip'?: object;
+    'g2-tooltip-title'?: object;
+    'g2-tooltip-list'?: object;
+    'g2-tooltip-list-item'?: object;
+    'g2-tooltip-marker'?: object;
+    'g2-tooltip-value'?: object;
+    'g2-tooltip-name'?: object;
+  }
 }
 ```
 
@@ -176,13 +174,12 @@ export interface TooltipDomStyles {
 
 默认配置：`无`
 
-```js
- const config = {
-   tooltip: {
-     customContent: (title, data) => {
-       return `<div>${title}</div>`
-     };
-   }
- }
-
+```ts
+{
+  tooltip: {
+    customContent: (title, data) => {
+      return `<div>${title}</div>`;
+    };
+  }
+}
 ```

@@ -17,7 +17,8 @@
 
 示例代码：
 
-```js
+```ts
+{
   pointStyle: {
     fill: 'red',
     fillOpacity: 0.5,
@@ -31,4 +32,5 @@
     shadowOffsetY: 5,
     cursor: 'pointer'
   }
+}
 ```

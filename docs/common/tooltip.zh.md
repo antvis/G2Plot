@@ -139,22 +139,24 @@
 
 #### domStyles
 
-<description>**可选** _TooltipDomStyles_</description>
+<description>**可选** _object_</description>
 
 功能描述：传入各个 dom 的样式。
 
 默认配置： `无`
 
-```js
+```ts
 /** Tooltip 内容框的 css 样式定义 */
-export interface TooltipDomStyles {
-  'g2-tooltip'?: object;
-  'g2-tooltip-title'?: object;
-  'g2-tooltip-list'?: object;
-  'g2-tooltip-list-item'?: object;
-  'g2-tooltip-marker'?: object;
-  'g2-tooltip-value'?: object;
-  'g2-tooltip-name'?: object;
+{
+  domStyles: {
+    'g2-tooltip'?: object;
+    'g2-tooltip-title'?: object;
+    'g2-tooltip-list'?: object;
+    'g2-tooltip-list-item'?: object;
+    'g2-tooltip-marker'?: object;
+    'g2-tooltip-value'?: object;
+    'g2-tooltip-name'?: object;
+  }
 }
 ```
 
@@ -174,13 +176,12 @@ export interface TooltipDomStyles {
 
 默认配置：`无`
 
-```js
- const config = {
-   tooltip: {
-     customContent: (title, data) => {
-       return `<div>${title}</div>`
-     };
-   }
- }
-
+```ts
+{
+  tooltip: {
+    customContent: (title, data) => {
+      return `<div>${title}</div>`;
+    };
+  }
+}
 ```

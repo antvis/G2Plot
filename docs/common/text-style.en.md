@@ -22,15 +22,17 @@
 
 示例代码，以 label.style 配置为例：
 
-```js
-label: {
-  style:{
-    fontSize: 80,
-    fontWeight: 300,
-    textAlign: 'center',
-    textBaseline: 'middle',
-    shadowColor: 'white',
-    shadowBlur: 10,
+```ts
+{
+  label: {
+    style:{
+      fontSize: 80,
+      fontWeight: 300,
+      textAlign: 'center',
+      textBaseline: 'middle',
+      shadowColor: 'white',
+      shadowBlur: 10,
+    }
   }
 }
 ```

@@ -12,13 +12,15 @@
 
 示例代码：
 
-```js
-label: {
-  style: {
-    fill: 'red',
-    opacity: 0.6,
-    fontSize: 24
-  },
-  rotate: true
+```ts
+{
+  label: {
+    style: {
+      fill: 'red',
+      opacity: 0.6,
+      fontSize: 24
+    },
+    rotate: true
+  }
 }
 ```

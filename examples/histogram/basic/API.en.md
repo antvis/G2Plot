@@ -1,5 +1,5 @@
 ---
-title: API
+title: API 
 ---
 
 # 配置属性
@@ -76,7 +76,7 @@ HistogramPlot.render();
 
 **可选**, _string_
 
-功能描述： 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与binNumber一起使用。
+功能描述： 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与 binNumber 一起使用。
 
 默认配置： Sturges formula 计算得到
 

@@ -265,13 +265,3 @@ pointStyle: (x, y, colorField) => {
 ## 图表组件
 
 `xAxis`、`yAxis` 、`legend` 、`tooltip` 、`label`、`theme` 等通用组件请参考图表通用配置
-
-## 事件
-
-[通用 events]()
-
-### 点图形事件
-
-| onPointClick<br />点点击事件         | onPointDblClick<br />点双击事件     | onPointDblClick<br />点双击事件    | onPointMouseleave<br />点鼠标离开事件 |
-| ------------------------------------ | ----------------------------------- | ---------------------------------- | ------------------------------------- |
-| onPointMousemove<br />点鼠标移动事件 | onPlotMousedown<br />点鼠标按下事件 | onPointMouseup<br />点鼠标松开事件 | onPointMouseenter<br />点鼠标进入事件 |

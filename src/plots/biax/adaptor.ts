@@ -20,12 +20,12 @@ export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption>
 }
 
 /**
- * 字段
+ * 绘制图形
  * @param params
  */
-function field(params: Params<BiaxOption>): Params<BiaxOption> {
+function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
   const { chart, options } = params;
-  const { data } = options;
+  const { xField, yField, geometryConfigs, data } = options;
 
   // TOFIX: 动态适配坐标轴宽度
   const PADDING = [20, 40];
@@ -43,16 +43,6 @@ function field(params: Params<BiaxOption>): Params<BiaxOption> {
       padding: PADDING,
     })
     .data(data[1]);
-  return params;
-}
-
-/**
- * 绘制图形
- * @param params
- */
-function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
-  const { chart, options } = params;
-  const { xField, yField, geometryConfigs } = options;
 
   // 左轴图形
   drawSingleGeometry({
@@ -162,5 +152,5 @@ export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
  */
 export function adaptor(params: Params<BiaxOption>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(transformOptions, field, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
+  flow(transformOptions, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
 }

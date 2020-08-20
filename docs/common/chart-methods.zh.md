@@ -10,7 +10,7 @@
 
 <description>**可选** </description>
 
-功能描述：更新图表配置项。
+功能描述：更新图表配置项，配置覆盖，不会做差异比对。
 
 默认配置：`无`
 
@@ -18,6 +18,7 @@
 
 ```ts
 plot.update({
+  ...currentConfig,
   legend: false,
 });
 ```

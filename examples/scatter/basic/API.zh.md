@@ -108,13 +108,17 @@ scatterPlot.render();
 默认配置：采用 theme 中的色板。
 
 ```ts
+// 设置单一颜色
 {
-  // 设置单一颜色
   color: '#a8ddb5'
-  // 设置多色
+}
+// 设置多色
+{
   colorField: 'type',
   color: ['#d62728', '#2ca02c', '#000000'],
-  // Function
+}
+// Function
+{
   colorField: 'type',
   color: (type) => {
     if(type === 'male'){
@@ -141,13 +145,17 @@ scatterPlot.render();
 功能描述： 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
 ```ts
+// 设置单一大小
 {
-  // 设置单一大小
   size: 10
-  // 大小区间
+}
+// 大小区间
+{
   sizeField: 'weight',
   size: [2, 10],
-  // Function
+}
+// Function
+{
   sizeField: 'weight',
   size: (weight) => {
     // TODO
@@ -173,13 +181,17 @@ scatterPlot.render();
 内置图形：circle, square, bowtie, diamond, hexagon, triangle,triangle-down, hollow-circle, hollow-square, hollow-bowtie,hollow-diamond, hollow-hexagon, hollow-triangle, hollow-triangle-down, cross, tick, plus, hyphen, line.
 
 ```ts
+// 设置单一大小
 {
-  // 设置单一大小
   shape: 'square'
-  // 大小区间
+}
+// 大小区间
+{
   shapeField: 'gender',
   shape: ['circle', 'square'],
-  // Function
+}
+// Function
+{
   shapeField: 'gender',
   shape: (gender) => {
     if(type === 'male'){
@@ -212,14 +224,16 @@ scatterPlot.render();
 | strokeOpacity | number | 描边透明度 |
 
 ```ts
+// 直接指定
 {
-  // 直接指定
   pointStyle: {
     fill: 'red',
     stroke: 'yellow',
     opacity: 0.8
   },
-  // 回调
+}
+// Function
+{
   pointStyle: (x, y, colorField) => {
     if (colorField === 'male') {
       return {
@@ -248,9 +262,7 @@ xAxis、yAxis 配置相同。
 
 `markdown:common/axis.zh.md`
 
-<!-- `markdown:common/xAxis.zh.md`
-`markdown:common/yAxis.zh.md`
-`markdown:common/legend.zh.md`
+<!-- `markdown:common/legend.zh.md`
 `markdown:common/theme.zh.md` -->
 
 ### 事件
@@ -259,7 +271,7 @@ xAxis、yAxis 配置相同。
 
 <!-- `markdown:common/events.zh.md` -->
 
-#### 图形事件
+#### 图表事件
 
 ```ts
 const data = [
@@ -289,3 +301,7 @@ scatterPlot.on('element:click', (...args) => {
   console.log(...args);
 });
 ```
+
+#### 图表方法
+
+`markdown:common/chart-methods.zh.md`

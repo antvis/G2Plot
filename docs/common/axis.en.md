@@ -174,13 +174,11 @@ interface ComponentAnimateCfg {
   readonly delay?: number;
 }
 // 配置参考
-{
-  animateOption: {
-    appear: ComponentAnimateCfg;
-    update: ComponentAnimateCfg;
-    enter: ComponentAnimateCfg;
-    leave: ComponentAnimateCfg;
-  }
+animateOption: {
+  appear: ComponentAnimateCfg;
+  update: ComponentAnimateCfg;
+  enter: ComponentAnimateCfg;
+  leave: ComponentAnimateCfg;
 }
 ```
 

@@ -80,7 +80,7 @@ module.exports = {
         },
       },
       {
-        slug: 'dualAxes',
+        slug: 'dual-axes',
         icon: 'line',
         title: {
           zh: '双轴图',

@@ -172,16 +172,16 @@ export default class HeatmapLayer<T extends HeatmapLayerConfig = HeatmapLayerCon
     }
     if (this.options.shapeStyle) {
       const styleConfig: any = {};
-      if (isObject(this.options.shapeStyle)) {
-        styleConfig.cfg = this.options.shapeStyle;
-      } else if (isFunction(this.options.shapeType)) {
+      if (isFunction(this.options.shapeStyle)) {
         styleConfig.fields = [
           this.options.colorField,
           this.options.xField,
           this.options.yField,
           this.options.sizeField,
         ];
-        styleConfig.callback = this.options.shapeType;
+        styleConfig.callback = this.options.shapeStyle;
+      } else if (isObject(this.options.shapeStyle)) {
+        styleConfig.cfg = this.options.shapeStyle;
       }
       geomConfig.style = styleConfig;
     }

@@ -25,7 +25,7 @@ export { Pie, PieOptions } from './plots/pie';
 export { Scatter, ScatterOptions } from './plots/scatter';
 
 // 混合图形
-export { Biax, BiaxOption } from './plots/biax';
+export { DualAxes, DualAxesOption } from './plots/dual-axes';
 
 // 迷你折线图及类型定义
 export { TinyLine, TinyLineOptions } from './plots/tiny-line';

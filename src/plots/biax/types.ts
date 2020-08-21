@@ -1,6 +1,7 @@
 import { ShapeStyle } from '../../types/style';
 import { Options } from '../../types';
-import { LineOptions, ColumnOptions } from '../../index';
+import { LineOptions } from '../line/types';
+import { ColumnOptions } from '../column/types';
 
 export enum AxisType {
   Left = 'Left',
@@ -55,7 +56,7 @@ export type BiaxOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   readonly xField: string;
   readonly yField: string[];
 
-  readonly geometryConfigs?: GeometryConfig[];
+  readonly geometryOptions?: GeometryConfig[];
 
   readonly yAxis?: Options['yAxis'][];
 };

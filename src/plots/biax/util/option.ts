@@ -52,7 +52,7 @@ export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType
  * @param options
  */
 export function getOption(options: BiaxOption): BiaxOption {
-  const { yAxis = [], geometryConfigs = [] } = options;
+  const { yAxis = [], geometryOptions = [] } = options;
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,
     label: {
@@ -67,9 +67,9 @@ export function getOption(options: BiaxOption): BiaxOption {
   ];
   return deepMix({}, options, {
     yAxis: mixYAxis,
-    geometryConfigs: [
-      getGeometryConfig(geometryConfigs[0], AxisType.Left),
-      getGeometryConfig(geometryConfigs[1], AxisType.Right),
+    geometryOptions: [
+      getGeometryConfig(geometryOptions[0], AxisType.Left),
+      getGeometryConfig(geometryOptions[1], AxisType.Right),
     ],
   });
 }

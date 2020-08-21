@@ -10,7 +10,7 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
 /**
  * 获取默认参数设置
  * 双轴图无法使用公共的 getDefaultOption, 因为双轴图存在[lineConfig, lineConfig] 这样的数据，需要根据传入的 option，生成不同的 defaultOption
- * 主要针对 yAxis 和 geometryConfigs
+ * 主要针对 yAxis 和 geometryOptions
  * @param params
  */
 export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption> {
@@ -25,7 +25,7 @@ export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption>
  */
 function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
   const { chart, options } = params;
-  const { xField, yField, geometryConfigs, data } = options;
+  const { xField, yField, geometryOptions, data } = options;
 
   // TOFIX: 动态适配坐标轴宽度
   const PADDING = [20, 40];
@@ -50,7 +50,7 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
     options: {
       xField,
       yField: yField[0],
-      geometryConfig: geometryConfigs[0],
+      geometryConfig: geometryOptions[0],
     },
   });
 
@@ -60,7 +60,7 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
     options: {
       xField,
       yField: yField[1],
-      geometryConfig: geometryConfigs[1],
+      geometryConfig: geometryOptions[1],
     },
   });
   return params;

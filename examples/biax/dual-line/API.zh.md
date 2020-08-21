@@ -99,7 +99,7 @@ TODO
 
 ## 图形样式
 
-### geometryConfigs
+### geometryOptions
 
 **可选**, _array object_
 

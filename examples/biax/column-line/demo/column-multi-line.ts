@@ -30,7 +30,7 @@ const biaxChart = new Biax('container', {
   data: [uvData, transformData],
   xField: 'time',
   yField: ['value', 'count'],
-  geometryConfigs: [
+  geometryOptions: [
     {
       geometry: 'column',
       color: '#586bce',

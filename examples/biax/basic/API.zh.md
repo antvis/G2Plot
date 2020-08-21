@@ -4,59 +4,9 @@ title: API
 
 # 配置属性
 
-## 图表容器
+### 图表容器
 
-### width
-
-**可选**, _number_
-
-功能描述： 设置图表宽度。
-
-默认配置： `400`
-
-### height
-
-**可选**, _number_
-
-功能描述： 设置图表高度。
-
-默认配置： `400`
-
-### autoFit
-
-**可选**, _boolean_
-
-功能描述： 画布是否自动适配容器大小，当 `autoFit` 设置为 true 时，`width` 和 `height` 的设置将失效。
-
-默认配置： `true`
-
-### padding
-
-**可选**, number[] | number | 'auto'
-
-功能描述： 画布的 `padding` 值，或者开启 `auto`
-
-### appendPadding
-
-**可选**, number[] | number
-
-功能描述： 额外增加的 `appendPadding` 值
-
-### renderer
-
-**可选**, _string_
-
-功能描述: 设置图表渲染方式为 `canvas` 或 `svg`
-
-默认配置： `canvas`
-
-### pixelRatio
-
-**可选**, number
-
-功能描述: 设置图表渲染的像素比
-
-默认配置： `window.devicePixelRatio`
+`markdown:common/chart-options.zh.md`
 
 ## 数据映射
 
@@ -99,7 +49,7 @@ TODO
 
 ## 图形样式
 
-### geometryConfigs
+### geometryOptions
 
 **可选**, _array object_
 

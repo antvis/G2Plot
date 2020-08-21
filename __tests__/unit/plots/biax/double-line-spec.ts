@@ -12,7 +12,7 @@ describe('Biax dualline', () => {
       data: [PV_DATA, UV_DATA],
       xField: 'date',
       yField: ['pv', 'uv'],
-      geometryConfigs: [
+      geometryOptions: [
         {
           geometry: 'line',
           connectNulls: false,

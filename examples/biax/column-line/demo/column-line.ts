@@ -12,7 +12,7 @@ const biaxChart = new Biax('container', {
   data: [data, data],
   xField: 'time',
   yField: ['value', 'count'],
-  geometryConfigs: [
+  geometryOptions: [
     {
       geometry: 'column',
     },

@@ -28,7 +28,7 @@ const biaxChart = new Biax('container', {
       formatter: (val) => `${val / 100}%`,
     },
   },
-  geometryConfigs: [
+  geometryOptions: [
     {
       geometry: 'column',
       color: '#586bce',

@@ -16,7 +16,7 @@ const biaxChart = new Biax('container', {
   data: [data, data],
   xField: 'year',
   yField: ['value', 'count'],
-  geometryConfigs: [
+  geometryOptions: [
     {
       geometry: 'line',
       smooth: false,

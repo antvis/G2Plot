@@ -35,7 +35,7 @@ const biaxChart = new Biax('container', {
   data: [uvBillData, transformData],
   xField: 'time',
   yField: ['value', 'count'],
-  geometryConfigs: [
+  geometryOptions: [
     {
       geometry: 'line',
       seriesField: 'type',

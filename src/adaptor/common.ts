@@ -110,9 +110,7 @@ export function slider(params: Params<Options>): Params<Options> {
   const { chart, options } = params;
   const { slider } = options;
 
-  if (slider) {
-    chart.option('slider', slider);
-  }
+  chart.option('slider', slider);
 
   return params;
 }

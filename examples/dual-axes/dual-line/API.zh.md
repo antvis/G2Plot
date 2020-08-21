@@ -264,9 +264,15 @@ pointStyle: (x, y, colorField) => {
 };
 ```
 
-## 图表组件
+### tooltip
 
-`xAxis`、`yAxis` 、`legend` 、`tooltip` 、`label`、`theme` 等通用组件请参考图表通用配置
+`markdown:common/tooltip.zh.md`
+
+### axis
+
+xAxis、yAxis 请参考图表通用配置, 不同之处在于 yAxis 为数组，第一项为左 Y 轴，第二项为右 Y 轴
+
+`markdown:common/axis.zh.md`
 
 ## 事件
 

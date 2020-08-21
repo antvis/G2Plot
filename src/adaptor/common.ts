@@ -48,7 +48,7 @@ export function interaction<O extends Pick<Options, 'interactions'>>(params: Par
   const { interactions } = options;
 
   each(interactions, (i: Interaction) => {
-    chart.interaction(i.name, i.cfg || {});
+    chart.interaction(i.type, i.cfg || {});
   });
 
   return params;
@@ -98,6 +98,19 @@ export function state(params: Params<Options>): Params<Options> {
       geometry.state(state);
     });
   }
+
+  return params;
+}
+
+/**
+ * 处理缩略轴的 adaptor
+ * @param params
+ */
+export function slider(params: Params<Options>): Params<Options> {
+  const { chart, options } = params;
+  const { slider } = options;
+
+  chart.option('slider', slider);
 
   return params;
 }

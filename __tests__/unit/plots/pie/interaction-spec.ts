@@ -72,14 +72,14 @@ describe('G2 内置interactions', () => {
     statistic: {
       title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
     },
-    interactions: [{ name: 'pie-statistic-active' }],
+    interactions: [{ type: 'pie-statistic-active' }],
   });
 
   pie.render();
   it('交互: element-single-selected', () => {
     pie.update(
       deepMix({}, pie.options, {
-        interactions: [{ name: 'element-single-selected' }],
+        interactions: [{ type: 'element-single-selected' }],
       })
     );
 
@@ -90,7 +90,7 @@ describe('G2 内置interactions', () => {
     pie.update(
       deepMix({}, pie.options, {
         label: { content: '{name}: {percentage}' },
-        interactions: [{ name: 'pie-legend-active' }],
+        interactions: [{ type: 'pie-legend-active' }],
       })
     );
 

@@ -1,4 +1,4 @@
 export type Interaction = {
-  name: string;
-  cfg?: { start?: any; end?: any };
+  readonly type: string;
+  readonly cfg?: Record<string, any>;
 };

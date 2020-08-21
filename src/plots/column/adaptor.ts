@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, pick } from '../../utils';
 import { ColumnOptions } from './types';
@@ -125,5 +125,5 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(geometry, meta, axis, legend, tooltip, theme, label, interaction, animation)(params);
+  return flow(geometry, meta, axis, legend, tooltip, slider, theme, label, interaction, animation)(params);
 }

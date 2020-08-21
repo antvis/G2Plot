@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { point, line } from '../../adaptor/geometries';
@@ -112,5 +112,5 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(geometry, meta, point, theme, axis, legend, tooltip, label, interaction, animation)(params);
+  flow(geometry, meta, point, theme, axis, legend, tooltip, label, slider, interaction, animation)(params);
 }

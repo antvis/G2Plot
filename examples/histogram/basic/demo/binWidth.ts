@@ -67,7 +67,7 @@ const histogramPlot = new Histogram('container', {
   },
   interactions: [
     {
-      name: 'element-highlight',
+      type: 'element-highlight',
     },
   ],
   /** range 为 x 轴代表字段，count 为 y 轴统计个数字段 */

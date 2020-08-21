@@ -16,7 +16,7 @@ const piePlot = new Pie('container', {
   colorField: 'type',
   radius: 0.8,
   label: {},
-  interactions: [{ name: 'element-active' }],
+  interactions: [{ type: 'element-active' }],
   theme: {
     // for piePlot, geometry is interval, shape is rect, so we can set activeStyle like this
     geometries: {

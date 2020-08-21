@@ -33,7 +33,7 @@ const piePlot = new Pie('container', {
     },
   },
   // 添加 element 选中和激活交互
-  interactions: [{ name: 'element-selected' }, { name: 'element-active' }],
+  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
 });
 
 piePlot.render();

@@ -66,7 +66,7 @@ const histogramPlot = new Histogram('container', {
   },
   interactions: [
     {
-      name: 'element-highlight',
+      type: 'element-highlight',
     },
   ],
 });

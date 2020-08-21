@@ -19,7 +19,7 @@ describe('scatter: register interaction', () => {
     },
     interactions: [
       {
-        name: 'drag-move',
+        type: 'drag-move',
       },
     ],
   });

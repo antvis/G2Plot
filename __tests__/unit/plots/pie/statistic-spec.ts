@@ -289,8 +289,8 @@ describe('中心文本 - 指标卡', () => {
       ...config,
       innerRadius: 0.64,
       interactions: [
-        { name: 'pie-statistic-active' },
-        { name: 'legend-filter', cfg: { start: [{ trigger: 'none' /** 通过此方式可以关闭交互 */ }] } },
+        { type: 'pie-statistic-active' },
+        { type: 'legend-filter', cfg: { start: [{ trigger: 'none' /** 通过此方式可以关闭交互 */ }] } },
       ],
     });
 
@@ -310,7 +310,7 @@ describe('中心文本 - 指标卡', () => {
       innerRadius: 0.64,
       interactions: [
         {
-          name: 'pie-statistic-active',
+          type: 'pie-statistic-active',
           cfg: { start: [{ trigger: 'element:click', action: 'pie-statistic:change' }] },
         },
       ],

@@ -126,7 +126,7 @@ describe('core', () => {
       colorField: 'area',
       radius: 0.8,
       autoFit: false,
-      interactions: [{ name: 'element-selected' }],
+      interactions: [{ type: 'element-selected' }],
     });
 
     pie.render();

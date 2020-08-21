@@ -36,7 +36,7 @@ title: API
     },
   },
   // 同时 可添加 中心统计文本 交互
-  interactions: [{ name: 'pie-statistic-active' }]
+  interactions: [{ type: 'pie-statistic-active' }]
 }
 ```
 

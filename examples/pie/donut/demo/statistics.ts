@@ -33,7 +33,7 @@ const piePlot = new Pie('container', {
     },
   },
   // 添加 中心统计文本 交互
-  interactions: [{ name: 'pie-statistic-active' }],
+  interactions: [{ type: 'pie-statistic-active' }],
 });
 
 piePlot.render();

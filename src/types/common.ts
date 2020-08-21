@@ -5,6 +5,7 @@ import { Legend } from './legend';
 import { Interaction } from './interaction';
 import { Animation } from './animation';
 import { State } from './state';
+import { Slider } from './slider';
 
 /** 一条数据记录 */
 export type Datum = Record<string, any>;
@@ -97,11 +98,18 @@ export type Options = {
   readonly theme?: string | object;
   /** 颜色色板 */
   readonly color?: string | string[] | ((...args: any[]) => string);
+  /** xAxis 的配置项 */
   readonly xAxis?: Axis;
+  /** yAxis 的配置项 */
   readonly yAxis?: Axis;
+  /** 数据标签的配置 */
   readonly label?: Label;
+  /** tooltip 的配置项 */
   readonly tooltip?: Tooltip;
+  /** 图例 legend 的配置项 */
   readonly legend?: Legend;
+  /** 缩略轴 slider 的配置项 */
+  readonly slider?: Slider;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
   // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置

@@ -35,7 +35,7 @@ title: API
 | values         | _string[]_ | 枚举该字段下所有值                          |
 | range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
 
-```js
+```ts
 const data = [
   { country: 'Asia', year: '1750', value: 502,},
   { country: 'Asia', year: '1800', value: 635,},
@@ -107,21 +107,27 @@ scatterPlot.render();
 
 默认配置：采用 theme 中的色板。
 
-```js
+```ts
 // 设置单一颜色
-color: '#a8ddb5'
+{
+  color: '#a8ddb5'
+}
 // 设置多色
-colorField: 'type',
-color: ['#d62728', '#2ca02c', '#000000'],
-// Function
-colorField: 'type',
-color: (type) => {
-  if(type === 'male'){
-    return 'red';
+{
+  colorField: 'type',
+  color: ['#d62728', '#2ca02c', '#000000'],
+}
+ // Function
+{
+  colorField: 'type',
+  color: (type) => {
+    if(type === 'male'){
+      return 'red';
+    }
+    // TODO
+    return 'yellow';
   }
-  // TODO
-  return 'yellow';
-},
+}
 ```
 
 #### sizeField
@@ -138,18 +144,24 @@ color: (type) => {
 
 功能描述： 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
-```js
+```ts
 // 设置单一大小
-size: 10
+{
+  size: 10
+}
 // 大小区间
-sizeField: 'weight',
-size: [2, 10],
+{
+  sizeField: 'weight',
+  size: [2, 10],
+}
 // Function
-sizeField: 'weight',
-size: (weight) => {
-  // TODO
-  return Math.floor(weight / 100);
-},
+{
+  sizeField: 'weight',
+  size: (weight) => {
+    // TODO
+    return Math.floor(weight / 100);
+  }
+}
 ```
 
 #### shapeField
@@ -168,21 +180,27 @@ size: (weight) => {
 
 内置图形：circle, square, bowtie, diamond, hexagon, triangle,triangle-down, hollow-circle, hollow-square, hollow-bowtie,hollow-diamond, hollow-hexagon, hollow-triangle, hollow-triangle-down, cross, tick, plus, hyphen, line.
 
-```js
+```ts
 // 设置单一大小
-shape: 'square'
+{
+  shape: 'square'
+}
 // 大小区间
-shapeField: 'gender',
-shape: ['circle', 'square'],
+{
+  shapeField: 'gender',
+  shape: ['circle', 'square'],
+}
 // Function
-shapeField: 'gender',
-shape: (gender) => {
-   if(type === 'male'){
-    return 'circle';
-  }
-  // TODO
-  return 'square';
-},
+{
+  shapeField: 'gender',
+  shape: (gender) => {
+    if(type === 'male'){
+      return 'circle';
+    }
+    // TODO
+    return 'square';
+  },
+}
 ```
 
 #### pointStyle ✨
@@ -205,29 +223,33 @@ shape: (gender) => {
 | fillOpacity   | number | 填充透明度 |
 | strokeOpacity | number | 描边透明度 |
 
-```js
+```ts
 // 直接指定
-pointStyle: {
-  fill: 'red',
-  stroke: 'yellow',
-  opacity: 0.8
+{
+  pointStyle: {
+    fill: 'red',
+    stroke: 'yellow',
+    opacity: 0.8
+  },
 }
-// 回调
-pointStyle: (x, y, colorField) => {
-  if (colorField === 'male') {
+// Function
+{
+  pointStyle: (x, y, colorField) => {
+    if (colorField === 'male') {
+      return {
+        fill: 'green',
+        stroke: 'yellow',
+        opacity: 0.8,
+      }
+    }
+    // TODO
     return {
-      fill: 'green',
+      fill: 'red',
       stroke: 'yellow',
       opacity: 0.8,
     }
   }
-  // TODO
-  return {
-    fill: 'red',
-    stroke: 'yellow',
-    opacity: 0.8,
-  };
-};
+}
 ```
 
 ### tooltip
@@ -240,9 +262,7 @@ xAxis、yAxis 配置相同。
 
 `markdown:common/axis.en.md`
 
-<!-- `markdown:common/xAxis.en.md`
-`markdown:common/yAxis.en.md`
-`markdown:common/legend.en.md`
+<!--`markdown:common/legend.en.md`
 `markdown:common/theme.en.md` -->
 
 ### 事件
@@ -251,8 +271,37 @@ xAxis、yAxis 配置相同。
 
 <!-- `markdown:common/events.en.md` -->
 
-#### 点图形事件
+#### 图表事件
 
-| onPointClick<br />点点击事件         | onPointDblClick<br />点双击事件     | onPointDblClick<br />点双击事件    | onPointMouseleave<br />点鼠标离开事件 |
-| ------------------------------------ | ----------------------------------- | ---------------------------------- | ------------------------------------- |
-| onPointMousemove<br />点鼠标移动事件 | onPlotMousedown<br />点鼠标按下事件 | onPointMouseup<br />点鼠标松开事件 | onPointMouseenter<br />点鼠标进入事件 |
+```ts
+const data = [
+  {
+    Title: 'Guardians of the Galaxy',
+    Genre: 'Action',
+    'Revenue (Millions)': 333.13,
+    Rating: 8.1,
+  },
+  {
+    Title: 'Prometheus',
+    Genre: 'Adventure',
+    'Revenue (Millions)': 126.46,
+    Rating: 7,
+  },
+];
+const scatterPlot = new Scatter('container', {
+  appendPadding: 10,
+  data: [],
+  xField: 'Revenue (Millions)',
+  yField: 'Rating',
+  shape: 'circle',
+});
+scatterPlot.render();
+// 添加点击事件
+scatterPlot.on('element:click', (...args) => {
+  console.log(...args);
+});
+```
+
+#### 图表方法
+
+`markdown:common/chart-methods.en.md`

@@ -32,8 +32,4 @@
     shadowOffsetY: 5,
     cursor: 'pointer'
   }
-<<<<<<< HEAD
-}
-=======
->>>>>>> 1c9d53ee... docs: 添加 tooltip (#1452)
 ```

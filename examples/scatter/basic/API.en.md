@@ -272,6 +272,7 @@ xAxis、yAxis 配置相同。
 `markdown:common/axis.en.md`
 
 <!--`markdown:common/legend.en.md`
+<<<<<<< HEAD
 `markdown:common/theme.en.md` -->
 
 ### 事件
@@ -334,6 +335,8 @@ xAxis、yAxis 配置相同。
 <!-- `markdown:common/xAxis.en.md`
 `markdown:common/yAxis.en.md`
 `markdown:common/legend.en.md`
+=======
+>>>>>>> 2b1c85cd... docs: 统一通用文档样式 (#1470)
 `markdown:common/theme.en.md` -->
 
 ### 事件
@@ -342,8 +345,37 @@ xAxis、yAxis 配置相同。
 
 <!-- `markdown:common/events.en.md` -->
 
-#### 点图形事件
+#### 图表事件
 
-> > > > > > > a6bca564... docs: 添加图表通用配置 (#1439)
+```ts
+const data = [
+  {
+    Title: 'Guardians of the Galaxy',
+    Genre: 'Action',
+    'Revenue (Millions)': 333.13,
+    Rating: 8.1,
+  },
+  {
+    Title: 'Prometheus',
+    Genre: 'Adventure',
+    'Revenue (Millions)': 126.46,
+    Rating: 7,
+  },
+];
+const scatterPlot = new Scatter('container', {
+  appendPadding: 10,
+  data: [],
+  xField: 'Revenue (Millions)',
+  yField: 'Rating',
+  shape: 'circle',
+});
+scatterPlot.render();
+// 添加点击事件
+scatterPlot.on('element:click', (...args) => {
+  console.log(...args);
+});
+```
+
+#### 图表方法
 
 `markdown:common/chart-methods.en.md`

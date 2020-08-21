@@ -33,6 +33,10 @@ const bulletPlot = new Bullet(document.getElementById('container'), {
     visible: true,
     text: '当data数组由多个值时，可以展示多条子弹图进行进度对比',
   },
+  legend: {
+    position: 'bottom',
+    offsetY: -5,
+  },
 });
 
 bulletPlot.render();

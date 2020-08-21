@@ -21,6 +21,8 @@ const bulletPlot = new Bullet(document.getElementById('container'), {
   rangeColors: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
   legend: {
     custom: true,
+    position: 'bottom',
+    offsetY: -20,
     items: [
       {
         name: '实际进度', // 图例项的文本内容

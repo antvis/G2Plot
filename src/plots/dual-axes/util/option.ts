@@ -1,18 +1,18 @@
 import { deepMix } from '@antv/util';
-import { BiaxOption, GeometryConfig, BiaxGeometry, LineConfig, AxisType, ColumnConfig } from '../types';
+import { DualAxesOption, GeometryConfig, DualAxesGeometry, LineConfig, AxisType, ColumnConfig } from '../types';
 
 /**
  * 根据 GeometryConfig 判断 geometry 是否为 line
  */
 export function isLine(geometryConfig: GeometryConfig): geometryConfig is LineConfig {
-  return geometryConfig && geometryConfig.geometry && geometryConfig.geometry === BiaxGeometry.Line;
+  return geometryConfig && geometryConfig.geometry && geometryConfig.geometry === DualAxesGeometry.Line;
 }
 
 /**
  * 根据 GeometryConfig 判断 geometry 是否为 Column
  */
 export function isColumn(geometryConfig: GeometryConfig): geometryConfig is ColumnConfig {
-  return geometryConfig && geometryConfig.geometry && geometryConfig.geometry === BiaxGeometry.Column;
+  return geometryConfig && geometryConfig.geometry && geometryConfig.geometry === DualAxesGeometry.Column;
 }
 
 /**
@@ -26,7 +26,7 @@ export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType
     return deepMix(
       {},
       {
-        geometry: BiaxGeometry.Column,
+        geometry: DualAxesGeometry.Column,
         columnWidthRatio: 0.5,
       },
       geometryConfig
@@ -39,7 +39,7 @@ export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType
       color: axis === AxisType.Left ? '#5B8FF9' : '#E76C5E',
     },
     {
-      geometry: BiaxGeometry.Line,
+      geometry: DualAxesGeometry.Line,
       connectNulls: true,
       smooth: false,
     },
@@ -51,7 +51,7 @@ export function getGeometryConfig(geometryConfig: GeometryConfig, axis: AxisType
  * 获取 Option
  * @param options
  */
-export function getOption(options: BiaxOption): BiaxOption {
+export function getOption(options: DualAxesOption): DualAxesOption {
   const { yAxis = [], geometryOptions = [] } = options;
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,

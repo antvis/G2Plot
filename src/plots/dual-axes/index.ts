@@ -1,18 +1,18 @@
 import { Plot } from '../../core/plot';
-import { BiaxOption } from './types';
+import { DualAxesOption } from './types';
 import { adaptor } from './adaptor';
 import { Adaptor } from '../../core/adaptor';
 
-export { BiaxOption };
+export { DualAxesOption };
 
-export class Biax extends Plot<BiaxOption> {
+export class DualAxes extends Plot<DualAxesOption> {
   /** 图表类型: 双轴图 */
-  public type: string = 'biax';
+  public type: string = 'dualAxes';
 
   /**
    * 获取双轴图的适配器
    */
-  protected getSchemaAdaptor(): Adaptor<BiaxOption> {
+  protected getSchemaAdaptor(): Adaptor<DualAxesOption> {
     return adaptor;
   }
 }

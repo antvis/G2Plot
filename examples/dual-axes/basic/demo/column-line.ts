@@ -1,4 +1,4 @@
-import { Biax } from '@antv/g2plot';
+import { DualAxes } from '@antv/g2plot';
 
 const data1 = [
   { year: '1991', value: 0 },
@@ -22,7 +22,7 @@ const data2 = [
   { year: '1998', count: 4 },
 ];
 
-const biaxChart = new Biax('container', {
+const dualAxesChart = new DualAxes('container', {
   data: [data1, data2],
   xField: 'year',
   yField: ['value', 'count'],
@@ -36,4 +36,4 @@ const biaxChart = new Biax('container', {
   ],
 });
 
-biaxChart.render();
+dualAxesChart.render();

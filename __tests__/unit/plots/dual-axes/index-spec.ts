@@ -1,11 +1,11 @@
-import { Biax } from '../../../../src';
+import { DualAxes } from '../../../../src';
 import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
-describe('Biax data', () => {
+describe('DualAxes data', () => {
   it('data', () => {
     const yField = ['pv', 'uv'];
-    const biax = new Biax(createDiv(), {
+    const dualAxes = new DualAxes(createDiv(), {
       width: 400,
       height: 500,
       data: [PV_DATA, UV_DATA],
@@ -13,9 +13,9 @@ describe('Biax data', () => {
       yField,
     });
 
-    biax.render();
-    const leftLine = biax.chart.views[0].geometries[0];
-    const rightLine = biax.chart.views[1].geometries[0];
+    dualAxes.render();
+    const leftLine = dualAxes.chart.views[0].geometries[0];
+    const rightLine = dualAxes.chart.views[1].geometries[0];
 
     expect(leftLine.data.length).toBe(PV_DATA.length);
     expect(rightLine.data.length).toBe(UV_DATA.length);

@@ -1,4 +1,4 @@
 ---
-title: biax
+title: dualAxes
 order: 0
 ---

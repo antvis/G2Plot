@@ -8,7 +8,7 @@ export enum AxisType {
   Right = 'Right',
 }
 
-export enum BiaxGeometry {
+export enum DualAxesGeometry {
   Line = 'line',
   Column = 'column',
 }
@@ -48,7 +48,7 @@ export type ColumnConfig = Pick<
 
 export type GeometryConfig = ColumnConfig | LineConfig;
 
-export type BiaxOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
+export type DualAxesOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Array<Record<string, any>[]>;

@@ -1,10 +1,10 @@
-import { Biax } from '../../../../src';
+import { DualAxes } from '../../../../src';
 import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
-describe('Biax meta', () => {
+describe('DualAxes meta', () => {
   it('hide axis', () => {
-    const biax = new Biax(createDiv(), {
+    const dualAxes = new DualAxes(createDiv(), {
       width: 300,
       height: 400,
       data: [PV_DATA, UV_DATA],
@@ -14,16 +14,16 @@ describe('Biax meta', () => {
       yAxis: [false, false],
     });
 
-    biax.render();
+    dualAxes.render();
 
-    const leftAxes = biax.chart.views[0].getComponents().filter((co) => co.type === 'axis');
-    const rightAxes = biax.chart.views[1].getComponents().filter((co) => co.type === 'axis');
+    const leftAxes = dualAxes.chart.views[0].getComponents().filter((co) => co.type === 'axis');
+    const rightAxes = dualAxes.chart.views[1].getComponents().filter((co) => co.type === 'axis');
     expect(leftAxes.length + rightAxes.length).toBe(0);
-    // Biax.destroy();
+    // DualAxes.destroy();
   });
 
   it('axis style', () => {
-    const biax = new Biax(createDiv(), {
+    const dualAxes = new DualAxes(createDiv(), {
       width: 300,
       height: 400,
       data: [PV_DATA, UV_DATA],
@@ -49,9 +49,9 @@ describe('Biax meta', () => {
       ],
     });
 
-    biax.render();
-    const leftOptions = biax.chart.views[0].getOptions();
-    const rightOptions = biax.chart.views[1].getOptions();
+    dualAxes.render();
+    const leftOptions = dualAxes.chart.views[0].getOptions();
+    const rightOptions = dualAxes.chart.views[1].getOptions();
 
     // @ts-ignore
     const xAxes = leftOptions.axes.date;

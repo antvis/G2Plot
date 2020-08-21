@@ -4,7 +4,7 @@ import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
 import { getOption } from './util/option';
 import { drawSingleGeometry } from './util/geometry';
-import { BiaxOption } from './types';
+import { DualAxesOption } from './types';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
@@ -13,7 +13,7 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  * 主要针对 yAxis 和 geometryOptions
  * @param params
  */
-export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption> {
+export function transformOptions(params: Params<DualAxesOption>): Params<DualAxesOption> {
   return deepMix({}, params, {
     options: getOption(params.options),
   });
@@ -23,7 +23,7 @@ export function transformOptions(params: Params<BiaxOption>): Params<BiaxOption>
  * 绘制图形
  * @param params
  */
-function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
+function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
 
@@ -70,7 +70,7 @@ function geometry(params: Params<BiaxOption>): Params<BiaxOption> {
  * meta 配置
  * @param params
  */
-export function meta(params: Params<BiaxOption>): Params<BiaxOption> {
+export function meta(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { meta = {}, xAxis, yAxis, xField, yField } = options;
 
@@ -94,7 +94,7 @@ export function meta(params: Params<BiaxOption>): Params<BiaxOption> {
  * axis 配置
  * @param params
  */
-export function axis(params: Params<BiaxOption>): Params<BiaxOption> {
+export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const [leftView, rightView] = chart.views;
   const { xField, yField, yAxis } = options;
@@ -135,7 +135,7 @@ export function axis(params: Params<BiaxOption>): Params<BiaxOption> {
  * legend 配置
  * @param params
  */
-export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
+export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { legend, yField } = options;
   if (legend) {
@@ -150,7 +150,7 @@ export function legend(params: Params<BiaxOption>): Params<BiaxOption> {
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<BiaxOption>) {
+export function adaptor(params: Params<DualAxesOption>) {
   // flow 的方式处理所有的配置到 G2 API
   flow(transformOptions, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
 }

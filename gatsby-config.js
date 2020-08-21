@@ -80,11 +80,11 @@ module.exports = {
         },
       },
       {
-        slug: 'biax',
+        slug: 'dualAxes',
         icon: 'line',
         title: {
           zh: '双轴图',
-          en: 'Biax Charts',
+          en: 'DualAxes Charts',
         },
       },
       {

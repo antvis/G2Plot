@@ -1,12 +1,12 @@
-import { Biax } from '../../../../src';
+import { DualAxes } from '../../../../src';
 import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
-describe('Biax dualline', () => {
+describe('DualAxes dualline', () => {
   it('Doubal Line', () => {
-    document.body.append('test Biax doubal line');
+    document.body.append('test DualAxes doubal line');
 
-    const biax = new Biax(createDiv(), {
+    const dualAxes = new DualAxes(createDiv(), {
       width: 400,
       height: 500,
       data: [PV_DATA, UV_DATA],
@@ -26,12 +26,12 @@ describe('Biax dualline', () => {
       ],
     });
 
-    biax.render();
+    dualAxes.render();
 
     // line
-    const leftLineGeometry = biax.chart.views[0].geometries.find((g) => g.type === 'line');
+    const leftLineGeometry = dualAxes.chart.views[0].geometries.find((g) => g.type === 'line');
 
-    const rightLineGeometry = biax.chart.views[1].geometries.find((g) => g.type === 'line');
+    const rightLineGeometry = dualAxes.chart.views[1].geometries.find((g) => g.type === 'line');
 
     // @ts-ignore
     expect(leftLineGeometry.connectNulls).toBe(false);

@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { BarOptions } from './types';
 import { adaptor } from './adaptor';
@@ -17,5 +18,13 @@ export class Bar extends Plot<BarOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<BarOptions> {
     return adaptor;
+  }
+
+  protected getDefaultOptions() {
+    return deepMix({}, super.getDefaultOptions(), {
+      // label: {
+      //   position: 'left', // 默认 label 在左侧
+      // },
+    });
   }
 }

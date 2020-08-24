@@ -1,11 +1,11 @@
 import { deepMix, isFunction, map } from '@antv/util';
+import { Box } from './';
 import { Params } from '../../core/adaptor';
+import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { BoxOptions } from './types';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-
-const RANGE = '$$range$$';
 
 /**
  * 字段
@@ -16,13 +16,13 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { xField, yField, data } = options;
   const [low, q1, median, q3, high] = yField;
 
-  const dv = map(data, (obj) => {
-    obj[RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
+  const dataset = map(data, (obj) => {
+    obj[Box.RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
     return obj;
   });
 
-  chart.schema().position(`${xField}*${RANGE}`).shape('box');
-  chart.data(dv);
+  chart.schema().position(`${xField}*${Box.RANGE}`).shape('box');
+  chart.data(dataset);
 
   return params;
 }
@@ -38,12 +38,12 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
   const scales = deepMix(
     {
       // 箱型图默认 range 从0 开始
-      [RANGE]: { min: 0 },
+      [Box.RANGE]: { min: 0 },
     },
     meta,
     {
       [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-      [RANGE]: pick(yAxis, AXIS_META_CONFIG_KEYS),
+      [Box.RANGE]: pick(yAxis, AXIS_META_CONFIG_KEYS),
     }
   );
 
@@ -68,9 +68,9 @@ function axis(params: Params<BoxOptions>): Params<BoxOptions> {
   }
 
   if (yAxis === false) {
-    chart.axis(RANGE, false);
+    chart.axis(Box.RANGE, false);
   } else {
-    chart.axis(RANGE, yAxis);
+    chart.axis(Box.RANGE, yAxis);
   }
 
   return params;
@@ -80,16 +80,16 @@ function axis(params: Params<BoxOptions>): Params<BoxOptions> {
  * legend 配置
  * @param params
  */
-// function legend(params: Params<BoxOptions>): Params<BoxOptions> {
-//   const { chart, options } = params;
-//   const { legend, colorField } = options;
+export function legend(params: Params<BoxOptions>): Params<BoxOptions> {
+  // const { chart, options } = params;
+  // const { legend, seriesField } = options;
 
-//   if (legend && colorField) {
-//     chart.legend(colorField, legend);
-//   }
+  // if (legend && seriesField) {
+  //   chart.legend(seriesField, legend);
+  // }
 
-//   return params;
-// }
+  return params;
+}
 
 /**
  * 样式
@@ -111,9 +111,25 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
 }
 
 /**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<BoxOptions>): Params<BoxOptions> {
+  const { chart, options } = params;
+  const { tooltip } = options;
+  console.log('tooltip: ', tooltip);
+
+  if (tooltip !== undefined) {
+    chart.tooltip(tooltip);
+  }
+
+  return params;
+}
+
+/**
  * 箱型图适配器
  * @param params
  */
 export function adaptor(params: Params<BoxOptions>) {
-  return flow(field, meta, axis, style)(params);
+  return flow(field, meta, axis, style, tooltip, interaction, animation, theme)(params);
 }

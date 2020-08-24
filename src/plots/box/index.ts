@@ -6,11 +6,10 @@ import { deepMix } from '@antv/util';
 
 export { BoxOptions };
 
-const RANGE = '$$range$$';
-
 export class Box extends Plot<BoxOptions> {
   /** 图表类型 */
   public type: string = 'box';
+  static RANGE = '$$range$$';
 
   /**
    * 获取 箱型图 默认配置项
@@ -18,7 +17,7 @@ export class Box extends Plot<BoxOptions> {
   protected getDefaultOptions(): Partial<BoxOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       meta: {
-        [RANGE]: { min: 0 },
+        [Box.RANGE]: { min: 0 },
       },
     });
   }

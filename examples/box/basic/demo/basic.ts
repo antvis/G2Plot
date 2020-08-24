@@ -22,6 +22,7 @@ const boxPlot = new Box('container', {
     fill: '#1890FF',
     fillOpacity: 0.3,
   },
+  animation: false,
 });
 
 boxPlot.render();

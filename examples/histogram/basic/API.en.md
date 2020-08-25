@@ -1,5 +1,5 @@
 ---
-title: API 
+title: API
 ---
 
 # 配置属性
@@ -36,7 +36,12 @@ title: API
 | range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
 
 ```js
-const data = [{ value: 20 }, { value: 34 }, { value: 56 }, { value: 67 }];
+const data = [
+  { value: 20 }, 
+  { value: 34 }, 
+  { value: 56 }, 
+  { value: 67 }
+];
 
 const HistogramPlot = new Histogram(document.getElementById('container'), {
   data,

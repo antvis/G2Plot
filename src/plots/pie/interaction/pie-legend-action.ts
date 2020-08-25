@@ -59,8 +59,6 @@ export class PieLegendAction extends Action {
   }
 
   public active() {
-    console.log('active', this.context);
-
     this.transfrom();
   }
 

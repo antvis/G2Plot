@@ -8,7 +8,12 @@ import { adaptor as columnAdaptor } from '../column/adaptor';
  */
 export function adaptor(params: Params<BarOptions>) {
   const { chart, options } = params;
-  const { xField, yField, xAxis, yAxis, barStyle, barWidthRatio } = options;
+  const { xField, yField, xAxis, yAxis, barStyle, barWidthRatio, label } = options;
+
+  // label of bar charts default position is left, if plot has label
+  if (label && !label.position) {
+    label.position = 'left';
+  }
 
   // transpose column to bar
   chart.coordinate().transpose();
@@ -17,6 +22,7 @@ export function adaptor(params: Params<BarOptions>) {
     chart,
     options: {
       ...options,
+      label,
       // switch xField and yField
       xField: yField,
       yField: xField,

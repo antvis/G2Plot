@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "分组条形图",
+        "en": "Grouped Bar chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*a5SmRYq1wmcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "分组条形图 - 数据标签",
+        "en": "Grouped Bar chart label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*a5SmRYq1wmcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-position.ts",
+      "title": {
+        "zh": "分组条形图 - 数据标签位置",
+        "en": "Grouped Bar chart label position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*a5SmRYq1wmcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "margin.ts",
+      "title": {
+        "zh": "分组条形图 - 分组间距",
+        "en": "Grouped Bar chart Bar margin"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*a5SmRYq1wmcAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

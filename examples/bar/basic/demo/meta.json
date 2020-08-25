@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础条形图",
+        "en": "Basic Bar chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "基础条形图-图形标签",
+        "en": "Bar chart label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "label-position.ts",
+      "title": {
+        "zh": "基础条形图-图形标签位置",
+        "en": "Bar chart label position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color.ts",
+      "title": {
+        "zh": "基础条形图 - 自定义颜色",
+        "en": "Bar chart color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "width.ts",
+      "title": {
+        "zh": "基础条形图 - 柱子宽度",
+        "en": "Bar chart Bar width"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

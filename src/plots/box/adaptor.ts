@@ -5,7 +5,7 @@ import { findGeometry } from '../../utils';
 import { BoxOptions } from './types';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import * as constant from './const';
+import { BOX_RANGE, BOX_SYNC_NAME } from './constant';
 
 function getGroupField(params: Params<BoxOptions>): string {
   const { options } = params;
@@ -22,7 +22,7 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
   const { xField, yField, isGroup, colorField, color } = options;
 
-  const yFieldName = Array.isArray(yField) ? constant.BOX_RANGE : yField;
+  const yFieldName = Array.isArray(yField) ? BOX_RANGE : yField;
 
   const geometry = chart.schema().position(`${xField}*${yFieldName}`).shape('box');
 
@@ -42,7 +42,7 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
   if (Array.isArray(yField)) {
     const [low, q1, median, q3, high] = yField;
     data = map(data, (obj) => {
-      obj[constant.BOX_RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
+      obj[BOX_RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
       return obj;
     });
   }
@@ -81,13 +81,13 @@ function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
 function meta(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, yField, outliersField } = options;
-  const yFieldName = Array.isArray(yField) ? constant.BOX_RANGE : yField;
+  const yFieldName = Array.isArray(yField) ? BOX_RANGE : yField;
 
   let baseMeta = {};
 
   // make yField and outliersField share y mate
   if (outliersField) {
-    const syncName = '$$y_outliers$$';
+    const syncName = BOX_SYNC_NAME;
     baseMeta = {
       [outliersField]: { sync: syncName },
       [yFieldName]: { sync: syncName },
@@ -111,7 +111,7 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
 function axis(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
-  const yFieldName = Array.isArray(yField) ? constant.BOX_RANGE : yField;
+  const yFieldName = Array.isArray(yField) ? BOX_RANGE : yField;
 
   // 为 false 则是不显示轴
   if (xAxis === false) {
@@ -121,7 +121,7 @@ function axis(params: Params<BoxOptions>): Params<BoxOptions> {
   }
 
   if (yAxis === false) {
-    chart.axis(constant.BOX_RANGE, false);
+    chart.axis(BOX_RANGE, false);
   } else {
     chart.axis(yFieldName, yAxis);
   }
@@ -162,7 +162,7 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
   const { xField, yField, boxStyle } = options;
 
   const geometry = findGeometry(chart, 'schema');
-  const yFieldName = Array.isArray(yField) ? constant.BOX_RANGE : yField;
+  const yFieldName = Array.isArray(yField) ? BOX_RANGE : yField;
   if (boxStyle && geometry) {
     if (isFunction(boxStyle)) {
       geometry.style(`${xField}*${yFieldName}`, boxStyle);

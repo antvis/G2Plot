@@ -3,7 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { BoxOptions } from './types';
 import { adaptor } from './adaptor';
 import { deepMix } from '@antv/util';
-import * as constant from './const';
+import { BOX_RANGE, BOX_RANGE_ALIAS } from './constant';
 export { BoxOptions };
 
 export class Box extends Plot<BoxOptions> {
@@ -16,7 +16,7 @@ export class Box extends Plot<BoxOptions> {
   protected getDefaultOptions(): Partial<BoxOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       meta: {
-        [constant.BOX_RANGE]: { min: 0, alias: constant.BOX_RANGE_ALIAS },
+        [BOX_RANGE]: { min: 0, alias: BOX_RANGE_ALIAS },
       },
 
       // 默认区域交互

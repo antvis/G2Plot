@@ -15,9 +15,11 @@ import {
   Element,
   Datum,
   _ORIGIN,
+  TooltipCfg,
 } from '../dependents';
 import { LooseMap, Maybe } from './types';
 
+export { TooltipCfg };
 export interface Meta {
   alias?: string;
   formatter?: (v: any) => string;

@@ -11,7 +11,7 @@ const data = [
   { x: '职业 H', low: 67000, q1: 72000, median: 84000, q3: 95000, high: 110000, outliers: [57000, 54000] },
 ];
 
-const groupBoxPlot = new Box('container', {
+const outliersBoxPlot = new Box('container', {
   data,
   xField: 'x',
   yField: ['low', 'q1', 'median', 'q3', 'high'],
@@ -21,4 +21,4 @@ const groupBoxPlot = new Box('container', {
   },
 });
 
-groupBoxPlot.render();
+outliersBoxPlot.render();

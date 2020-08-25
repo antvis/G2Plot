@@ -174,6 +174,8 @@ scatterPlot.render();
 
 [**DEMO2**](../../scatter/basic#shape-mapping)
 
+**可选**, \_string | string[] | Function\_
+
 功能描述： 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 
 内置图形：circle, square, bowtie, diamond, hexagon, triangle,triangle-down, hollow-circle, hollow-square, hollow-bowtie,hollow-diamond, hollow-hexagon, hollow-triangle, hollow-triangle-down, cross, tick, plus, hyphen, line.
@@ -261,47 +263,6 @@ xAxis、yAxis 配置相同。
 `markdown:common/axis.en.md`
 
 <!--`markdown:common/legend.en.md`
-`markdown:common/theme.en.md` -->
-
-### 事件
-
-#### 通用事件
-
-<!-- `markdown:common/events.en.md` -->
-
-#### 图表事件
-
-```ts
-const data = [
-  {
-    Title: 'Guardians of the Galaxy',
-    Genre: 'Action',
-    'Revenue (Millions)': 333.13,
-    Rating: 8.1,
-  },
-  {
-    Title: 'Prometheus',
-    Genre: 'Adventure',
-    'Revenue (Millions)': 126.46,
-    Rating: 7,
-  },
-];
-const scatterPlot = new Scatter('container', {
-  appendPadding: 10,
-  data: [],
-  xField: 'Revenue (Millions)',
-  yField: 'Rating',
-  shape: 'circle',
-});
-scatterPlot.render();
-// 添加点击事件
-scatterPlot.on('element:click', (...args) => {
-  console.log(...args);
-});
-```
-
-#### 图表方法
-
 `markdown:common/theme.en.md` -->
 
 ### 事件

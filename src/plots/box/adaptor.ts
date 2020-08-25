@@ -7,34 +7,21 @@ import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { BOX_RANGE, BOX_SYNC_NAME } from './constant';
 
-function getGroupField(params: Params<BoxOptions>): string {
-  const { options } = params;
-  const { groupField, seriesField, colorField } = options;
-
-  return groupField || seriesField || colorField;
-}
-
 /**
  * 字段
  * @param params
  */
 function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { xField, yField, isGroup, colorField, color } = options;
+  const { xField, yField, groupField, color } = options;
 
   const yFieldName = Array.isArray(yField) ? BOX_RANGE : yField;
 
   const geometry = chart.schema().position(`${xField}*${yFieldName}`).shape('box');
 
   // set group field as color channel
-  let realColorField = colorField;
-  if (isGroup) {
-    realColorField = getGroupField(params);
-    geometry.color(realColorField, color).adjust('dodge');
-  } else {
-    if (colorField) {
-      geometry.color(colorField, color);
-    }
+  if (groupField) {
+    geometry.color(groupField, color).adjust('dodge');
   }
 
   // formate data when `yField` is Array
@@ -135,16 +122,14 @@ function axis(params: Params<BoxOptions>): Params<BoxOptions> {
  */
 export function legend(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { legend } = options;
+  const { legend, groupField } = options;
 
-  const realColorField = getGroupField(params);
-
-  if (realColorField) {
+  if (groupField) {
     if (legend) {
-      chart.legend(realColorField, legend);
+      chart.legend(groupField, legend);
     } else {
       // Grouped Box Chart default has legend, and it's position is `bottom`
-      chart.legend(realColorField, { position: 'bottom' });
+      chart.legend(groupField, { position: 'bottom' });
     }
   } else {
     chart.legend(false);

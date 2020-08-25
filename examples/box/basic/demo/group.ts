@@ -19,8 +19,7 @@ const groupBoxPlot = new Box('container', {
   data,
   xField: 'type',
   yField: '_bin',
-  colorField: 'Species',
-  isGroup: true,
+  groupField: 'Species',
 });
 
 groupBoxPlot.render();

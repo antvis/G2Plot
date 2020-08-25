@@ -35,8 +35,7 @@ describe('box tooltip', () => {
       data: groupBoxData,
       xField: 'type',
       yField: '_bin',
-      colorField: 'Species',
-      isGroup: true,
+      groupField: 'Species',
     });
 
     box.render();

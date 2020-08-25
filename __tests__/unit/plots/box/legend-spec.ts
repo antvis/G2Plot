@@ -10,8 +10,7 @@ describe('box legend', () => {
       data: groupBoxData,
       xField: 'type',
       yField: '_bin',
-      colorField: 'Species',
-      isGroup: true,
+      groupField: 'Species',
     });
 
     box.render();

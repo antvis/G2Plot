@@ -32,4 +32,5 @@
     shadowOffsetY: 5,
     cursor: 'pointer'
   }
+}
 ```

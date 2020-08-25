@@ -21,21 +21,13 @@ function getGroupField(params: Params<BoxOptions>): string {
 function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
   const { xField, yField, isGroup, colorField, color } = options;
-  let { data } = options;
 
   const yFieldName = Array.isArray(yField) ? Box.RANGE : yField;
-  if (Array.isArray(yField)) {
-    const [low, q1, median, q3, high] = yField;
-    data = map(data, (obj) => {
-      obj[Box.RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
-      return obj;
-    });
-  }
 
   const geometry = chart.schema().position(`${xField}*${yFieldName}`).shape('box');
 
+  // set group field as color channel
   let realColorField = colorField;
-  // 设置分组信息
   if (isGroup) {
     realColorField = getGroupField(params);
     geometry.color(realColorField, color).adjust('dodge');
@@ -45,7 +37,39 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
     }
   }
 
+  // formate data when `yField` is Array
+  let data = options.data;
+  if (Array.isArray(yField)) {
+    const [low, q1, median, q3, high] = yField;
+    data = map(data, (obj) => {
+      obj[Box.RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
+      return obj;
+    });
+  }
+
   chart.data(data);
+
+  return params;
+}
+
+function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
+  const { chart, options } = params;
+  const { xField, data, outliersField, outliersStyle, padding } = options;
+
+  if (!outliersField) return params;
+
+  const outliersView = chart.createView({ padding });
+  outliersView.data(data);
+  outliersView.axis(false);
+  const outliersGeom = outliersView.point().position(`${xField}*${outliersField}`).shape('circle');
+
+  if (outliersStyle) {
+    if (isFunction(outliersStyle)) {
+      outliersGeom.style(`${xField}*${outliersField}`, outliersStyle);
+    } else {
+      outliersGeom.style(outliersStyle);
+    }
+  }
 
   return params;
 }
@@ -56,11 +80,23 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
  */
 function meta(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField } = options;
+  const { meta, xAxis, yAxis, xField, yField, outliersField } = options;
+  const yFieldName = Array.isArray(yField) ? Box.RANGE : yField;
 
-  const scales = deepMix({}, meta, {
+  let baseMeta = {};
+
+  // make yField and outliersField share y mate
+  if (outliersField) {
+    const syncName = '$$y_outliers$$';
+    baseMeta = {
+      [outliersField]: { sync: syncName },
+      [yFieldName]: { sync: syncName },
+    };
+  }
+
+  const scales = deepMix(baseMeta, meta, {
     [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    [Box.RANGE]: pick(yAxis, AXIS_META_CONFIG_KEYS),
+    [yFieldName]: pick(yAxis, AXIS_META_CONFIG_KEYS),
   });
 
   chart.scale(scales);
@@ -156,5 +192,5 @@ export function tooltip(params: Params<BoxOptions>): Params<BoxOptions> {
  * @param params
  */
 export function adaptor(params: Params<BoxOptions>) {
-  return flow(field, meta, axis, style, legend, tooltip, interaction, animation, theme)(params);
+  return flow(field, outliersPoint, meta, axis, style, legend, tooltip, interaction, animation, theme)(params);
 }

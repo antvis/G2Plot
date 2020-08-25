@@ -13,16 +13,32 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
  */
 function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { xField, yField, data } = options;
-  const [low, q1, median, q3, high] = yField;
+  const { xField, yField, isGroup, groupField, colorField, seriesField, color } = options;
+  let { data } = options;
 
-  const dataset = map(data, (obj) => {
-    obj[Box.RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
-    return obj;
-  });
+  const yFieldName = Array.isArray(yField) ? Box.RANGE : yField;
+  if (Array.isArray(yField)) {
+    const [low, q1, median, q3, high] = yField;
+    data = map(data, (obj) => {
+      obj[Box.RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
+      return obj;
+    });
+  }
 
-  chart.schema().position(`${xField}*${Box.RANGE}`).shape('box');
-  chart.data(dataset);
+  const geometry = chart.schema().position(`${xField}*${yFieldName}`).shape('box');
+
+  let realColorField = colorField;
+  // 设置分组信息
+  if (isGroup) {
+    realColorField = groupField || seriesField || colorField;
+    geometry.color(realColorField, color).adjust('dodge');
+  } else {
+    if (colorField) {
+      geometry.color(colorField, color);
+    }
+  }
+
+  chart.data(data);
 
   return params;
 }
@@ -81,12 +97,12 @@ function axis(params: Params<BoxOptions>): Params<BoxOptions> {
  * @param params
  */
 export function legend(params: Params<BoxOptions>): Params<BoxOptions> {
-  // const { chart, options } = params;
-  // const { legend, seriesField } = options;
+  const { chart, options } = params;
+  const { legend, seriesField } = options;
 
-  // if (legend && seriesField) {
-  //   chart.legend(seriesField, legend);
-  // }
+  if (legend && seriesField) {
+    chart.legend(seriesField, legend);
+  }
 
   return params;
 }
@@ -100,9 +116,10 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
   const { xField, yField, boxStyle } = options;
 
   const geometry = findGeometry(chart, 'schema');
+  const yFieldName = Array.isArray(yField) ? Box.RANGE : yField;
   if (boxStyle && geometry) {
     if (isFunction(boxStyle)) {
-      geometry.style(`${xField}*${yField.join('*')}`, boxStyle);
+      geometry.style(`${xField}*${yFieldName}`, boxStyle);
     } else {
       geometry.style(boxStyle);
     }
@@ -117,7 +134,6 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
 export function tooltip(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
   const { tooltip } = options;
-  console.log('tooltip: ', tooltip);
 
   if (tooltip !== undefined) {
     chart.tooltip(tooltip);
@@ -131,5 +147,5 @@ export function tooltip(params: Params<BoxOptions>): Params<BoxOptions> {
  * @param params
  */
 export function adaptor(params: Params<BoxOptions>) {
-  return flow(field, meta, axis, style, tooltip, interaction, animation, theme)(params);
+  return flow(field, meta, axis, style, legend, tooltip, interaction, animation, theme)(params);
 }

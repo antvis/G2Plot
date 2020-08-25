@@ -10,6 +10,7 @@ export class Box extends Plot<BoxOptions> {
   /** 图表类型 */
   public type: string = 'box';
   static RANGE = '$$range$$';
+  static RANGE_ALIAS = '区间信息';
 
   /**
    * 获取 箱型图 默认配置项
@@ -17,7 +18,7 @@ export class Box extends Plot<BoxOptions> {
   protected getDefaultOptions(): Partial<BoxOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       meta: {
-        [Box.RANGE]: { min: 0 },
+        [Box.RANGE]: { min: 0, alias: Box.RANGE_ALIAS },
       },
     });
   }

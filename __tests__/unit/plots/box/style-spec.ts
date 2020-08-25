@@ -45,10 +45,8 @@ describe('box style', () => {
           formatter: (v) => `${Math.floor(v / 10000)}万`,
         },
       },
-      boxStyle: (...args) => {
-        const median = args[3];
+      boxStyle: () => {
         return {
-          // stroke: median > 10 ? 'black' : 'red',
           stroke: 'black',
           lineWidth: 2,
           fill: '#1890FF',
@@ -61,7 +59,6 @@ describe('box style', () => {
     const geometry = box.chart.geometries[0];
     const elements = geometry.elements;
     expect(elements[0].shape.attr('stroke')).toBe('black');
-    // expect(elements[1].shape.attr('stroke')).toBe('red');
     expect(elements[0].shape.attr('fill')).toBe('#1890FF');
   });
 });

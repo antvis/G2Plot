@@ -167,7 +167,7 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
  */
 function annotation(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField, colorField } = options;
+  const { innerRadius, statistic, angleField } = options;
 
   const annotationController = chart.getController('annotation');
   // todo remove ignore
@@ -272,5 +272,18 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, theme, coord, legend, tooltip, label, state, style, annotation, interaction, animation)(params);
+  return flow(
+    field,
+    meta,
+    theme,
+    coord,
+    legend,
+    tooltip,
+    label,
+    state,
+    style,
+    annotation,
+    interaction,
+    animation
+  )(params);
 }

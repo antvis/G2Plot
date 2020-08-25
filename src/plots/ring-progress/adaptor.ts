@@ -2,6 +2,7 @@ import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { RingProgressOptions } from './types';
+import { scale } from '../../adaptor/common';
 
 /**
  * 字段
@@ -28,19 +29,6 @@ function field(params: Params<RingProgressOptions>): Params<RingProgressOptions>
   const values = isFunction(color) ? color(percent) : color || ['#FAAD14', '#E8EDF3'];
 
   geometry.color('type', values);
-
-  return params;
-}
-
-/**
- * meta 配置
- * @param params
- */
-function meta(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
-
-  chart.scale(meta);
 
   return params;
 }
@@ -122,5 +110,5 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
  * @param options
  */
 export function adaptor(params: Params<RingProgressOptions>) {
-  flow(field, meta, axis, legend, tooltip, style, coordinate)(params);
+  return flow(field, scale({}), axis, legend, tooltip, style, coordinate)(params);
 }

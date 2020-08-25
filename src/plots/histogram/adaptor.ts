@@ -1,10 +1,9 @@
 import DataSet from '@antv/data-set';
-import { deepMix, isFunction } from '@antv/util';
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { flow, pick } from '../../utils';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import { flow } from '../../utils';
 import { HistogramOptions } from './types';
 
 /**
@@ -48,18 +47,15 @@ function field(params: Params<HistogramOptions>): Params<HistogramOptions> {
  * @param params
  */
 function meta(params: Params<HistogramOptions>): Params<HistogramOptions> {
-  const { chart, options } = params;
-  const { meta, xAxis, yAxis } = options;
+  const { options } = params;
+  const { xAxis, yAxis } = options;
 
-  // 上面默认 x 轴 为 range 字段, y 轴字段为 count 字段
-  const scales = deepMix({}, meta, {
-    range: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    count: pick(yAxis, AXIS_META_CONFIG_KEYS),
-  });
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      range: xAxis,
+      count: yAxis,
+    })
+  )(params);
 }
 
 /**
@@ -151,5 +147,5 @@ function style(params: Params<HistogramOptions>): Params<HistogramOptions> {
  */
 export function adaptor(params: Params<HistogramOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, theme, label, style, tooltip, interaction, animation)(params);
+  return flow(field, meta, axis, legend, theme, label, style, tooltip, interaction, animation)(params);
 }

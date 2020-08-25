@@ -1,11 +1,11 @@
-/**
- * @file 通用的一些 adaptor
- */
 import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
+import { each, deepMix } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
+import { Axis } from '../types/axis';
+import { AXIS_META_CONFIG_KEYS } from '../constant';
+import { pick } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 的图表
@@ -113,4 +113,28 @@ export function slider(params: Params<Options>): Params<Options> {
   chart.option('slider', slider);
 
   return params;
+}
+
+/**
+ * scale 的 adaptor
+ * @param axes
+ */
+export function scale(axes: Record<string, Axis>) {
+  return function <O extends Pick<Options, 'meta'>>(params: Params<O>): Params<O> {
+    const { chart, options } = params;
+    const { meta } = options;
+
+    // 1. 轴配置中的 scale 信息
+    let scales: Record<string, any> = {};
+    each(axes, (axis: Axis, field: string) => {
+      scales[field] = pick(axis, AXIS_META_CONFIG_KEYS);
+    });
+
+    // 2. meta 直接是 scale 的信息
+    scales = deepMix({}, meta, scales);
+
+    chart.scale(scales);
+
+    return params;
+  };
 }

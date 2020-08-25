@@ -3,6 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyLineOptions } from './types';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
+import { scale } from '../../adaptor/common';
 
 /**
  * 字段
@@ -19,19 +20,6 @@ function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   chart.data(seriesData);
 
   chart.line({ connectNulls }).position('x*y');
-
-  return params;
-}
-
-/**
- * meta 配置
- * @param params
- */
-function meta(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
-
-  chart.scale(meta);
 
   return params;
 }
@@ -148,5 +136,5 @@ export function theme(params: Params<TinyLineOptions>): Params<TinyLineOptions> 
  * @param options
  */
 export function adaptor(params: Params<TinyLineOptions>) {
-  flow(field, meta, theme, axis, legend, tooltip, style, shape)(params);
+  return flow(field, scale({}), theme, axis, legend, tooltip, style, shape)(params);
 }

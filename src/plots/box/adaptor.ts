@@ -7,13 +7,20 @@ import { BoxOptions } from './types';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
+function getGroupField(params: Params<BoxOptions>): string {
+  const { options } = params;
+  const { groupField, seriesField, colorField } = options;
+
+  return groupField || seriesField || colorField;
+}
+
 /**
  * 字段
  * @param params
  */
 function field(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { xField, yField, isGroup, groupField, colorField, seriesField, color } = options;
+  const { xField, yField, isGroup, colorField, color } = options;
   let { data } = options;
 
   const yFieldName = Array.isArray(yField) ? Box.RANGE : yField;
@@ -30,7 +37,7 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
   let realColorField = colorField;
   // 设置分组信息
   if (isGroup) {
-    realColorField = groupField || seriesField || colorField;
+    realColorField = getGroupField(params);
     geometry.color(realColorField, color).adjust('dodge');
   } else {
     if (colorField) {
@@ -51,17 +58,10 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField } = options;
 
-  const scales = deepMix(
-    {
-      // 箱型图默认 range 从0 开始
-      [Box.RANGE]: { min: 0 },
-    },
-    meta,
-    {
-      [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-      [Box.RANGE]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-    }
-  );
+  const scales = deepMix({}, meta, {
+    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
+    [Box.RANGE]: pick(yAxis, AXIS_META_CONFIG_KEYS),
+  });
 
   chart.scale(scales);
 
@@ -98,10 +98,19 @@ function axis(params: Params<BoxOptions>): Params<BoxOptions> {
  */
 export function legend(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { legend, seriesField } = options;
+  const { legend } = options;
 
-  if (legend && seriesField) {
-    chart.legend(seriesField, legend);
+  const realColorField = getGroupField(params);
+
+  if (realColorField) {
+    if (legend) {
+      chart.legend(realColorField, legend);
+    } else {
+      // Grouped Box Chart default has legend, and it's position is `bottom`
+      chart.legend(realColorField, { position: 'bottom' });
+    }
+  } else {
+    chart.legend(false);
   }
 
   return params;

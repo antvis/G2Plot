@@ -20,6 +20,15 @@ export class Box extends Plot<BoxOptions> {
       meta: {
         [Box.RANGE]: { min: 0, alias: Box.RANGE_ALIAS },
       },
+
+      // 默认区域交互
+      interactions: [{ type: 'active-region' }],
+
+      // 默认 tooltips 共享，不显示 makers
+      tooltip: {
+        showMarkers: false,
+        shared: true,
+      },
     });
   }
 

@@ -21,10 +21,6 @@ const groupBoxPlot = new Box('container', {
   yField: '_bin',
   colorField: 'Species',
   isGroup: true,
-  tooltip: {
-    showMarkers: false,
-    shared: true,
-  },
 });
 
 groupBoxPlot.render();

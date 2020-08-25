@@ -40,10 +40,6 @@ describe('box', () => {
       yField: '_bin',
       colorField: 'Species',
       isGroup: true,
-      tooltip: {
-        showMarkers: false,
-        shared: true,
-      },
     });
 
     box.render();
@@ -66,10 +62,6 @@ describe('box', () => {
       yField: '_bin',
       groupField: 'Species',
       isGroup: true,
-      tooltip: {
-        showMarkers: false,
-        shared: true,
-      },
     });
 
     box.render();
@@ -92,10 +84,6 @@ describe('box', () => {
       yField: '_bin',
       seriesField: 'Species',
       isGroup: true,
-      tooltip: {
-        showMarkers: false,
-        shared: true,
-      },
     });
 
     box.render();

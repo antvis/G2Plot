@@ -1,4 +1,5 @@
 import { Box } from '../../../../src';
+import * as constant from '../../../../src/plots/box/const';
 import { boxData } from '../../../data/box';
 import { createDiv } from '../../../utils/dom';
 
@@ -26,6 +27,6 @@ describe('box', () => {
 
     // range meta default min = 0
     // @ts-ignore
-    expect(geometry.scales[Box.RANGE].min).toBe(0);
+    expect(geometry.scales[constant.BOX_RANGE].min).toBe(0);
   });
 });

@@ -1,4 +1,5 @@
 import { Box } from '../../../../src';
+import * as constant from '../../../../src/plots/box/const';
 import { boxData } from '../../../data/box';
 import { createDiv } from '../../../utils/dom';
 
@@ -11,7 +12,7 @@ describe('box axis', () => {
       xField: 'x',
       yField: ['low', 'q1', 'median', 'q3', 'high'],
       meta: {
-        [Box.RANGE]: {
+        [constant.BOX_RANGE]: {
           nice: true,
         },
       },
@@ -21,7 +22,7 @@ describe('box axis', () => {
 
     const geometry = box.chart.geometries[0];
     // @ts-ignore
-    expect(geometry.scales[Box.RANGE].nice).toBe(true);
+    expect(geometry.scales[constant.BOX_RANGE].nice).toBe(true);
   });
 
   it('xAxis', () => {
@@ -65,10 +66,10 @@ describe('box axis', () => {
     const axisOptions = box.chart.getOptions().axes;
 
     // @ts-ignore
-    expect(axisOptions[Box.RANGE].minLimit).toBe(0);
-    expect(geometry.scales[Box.RANGE].minLimit).toBe(0);
-    expect(geometry.scales[Box.RANGE].maxLimit).toBe(50);
+    expect(axisOptions[constant.BOX_RANGE].minLimit).toBe(0);
+    expect(geometry.scales[constant.BOX_RANGE].minLimit).toBe(0);
+    expect(geometry.scales[constant.BOX_RANGE].maxLimit).toBe(50);
     // @ts-ignore
-    expect(geometry.scales[Box.RANGE].nice).toBe(true);
+    expect(geometry.scales[constant.BOX_RANGE].nice).toBe(true);
   });
 });

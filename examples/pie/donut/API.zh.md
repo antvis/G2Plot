@@ -40,11 +40,11 @@ title: API
 }
 ```
 
-| 细分配置      | 类型   | 功能描述   |
-| ------------- | ------ | ---------- |
-| title  | _boolean_, _object_ | 指标卡标题  |
-| &nbsp;&nbsp;&nbsp; formatter | _function_ | 通过回调的方式，设置指标卡标题  |
-| &nbsp;&nbsp;&nbsp; style | _object_ | 指标卡标题样式  |
-| content | _boolean_, _object_ | 指标卡内容 |
-| &nbsp;&nbsp;&nbsp; formatter | _function_ | 通过回调的方式，设置指标卡内容  |
-| &nbsp;&nbsp;&nbsp; style | _object_ | 指标卡内容样式  |
+| 细分配置                     | 类型                | 功能描述                       |
+| ---------------------------- | ------------------- | ------------------------------ |
+| title                        | _boolean_, _object_ | 指标卡标题                     |
+| &nbsp;&nbsp;&nbsp; formatter | _function_          | 通过回调的方式，设置指标卡标题 |
+| &nbsp;&nbsp;&nbsp; style     | _object_            | 指标卡标题样式                 |
+| content                      | _boolean_, _object_ | 指标卡内容                     |
+| &nbsp;&nbsp;&nbsp; formatter | _function_          | 通过回调的方式，设置指标卡内容 |
+| &nbsp;&nbsp;&nbsp; style     | _object_            | 指标卡内容样式                 |

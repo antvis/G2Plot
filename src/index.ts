@@ -56,3 +56,6 @@ export { RingProgress, RingProgressOptions } from './plots/ring-progress';
 
 // 热力图及类型定义
 export { Heatmap, HeatmapOptions } from './plots/heatmap';
+
+// 箱线图及类型定义
+export { Box, BoxOptions } from './plots/box';

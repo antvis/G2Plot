@@ -1,11 +1,10 @@
 import { deepMix } from '@antv/util';
-import { theme, tooltip, interaction, animation } from '../../adaptor/common';
+import { theme, tooltip, interaction, animation, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
+import { flow } from '../../utils';
 import { getOption } from './util/option';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOption } from './types';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * 获取默认参数设置
@@ -71,23 +70,16 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * @param params
  */
 export function meta(params: Params<DualAxesOption>): Params<DualAxesOption> {
-  const { chart, options } = params;
-  const { meta = {}, xAxis, yAxis, xField, yField } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  const xFieldScales = deepMix({}, meta[xField] || {}, pick(xAxis, AXIS_META_CONFIG_KEYS));
-  const leftYFieldScales = deepMix({}, meta[yField[0]] || {}, pick(yAxis[0], AXIS_META_CONFIG_KEYS));
-  const rightYFieldScales = deepMix({}, meta[yField[1]] || {}, pick(yAxis[1], AXIS_META_CONFIG_KEYS));
-
-  chart.views[0].scale({
-    [xField]: xFieldScales,
-    [yField[0]]: leftYFieldScales,
-  });
-
-  chart.views[1].scale({
-    [xField]: xFieldScales,
-    [yField[1]]: rightYFieldScales,
-  });
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField[0]]: yAxis[0],
+      [yField[1]]: yAxis[1],
+    })
+  )(params);
 }
 
 /**
@@ -150,7 +142,7 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<DualAxesOption>) {
+export function adaptor(params: Params<DualAxesOption>): Params<DualAxesOption> {
   // flow 的方式处理所有的配置到 G2 API
-  flow(transformOptions, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
+  return flow(transformOptions, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
 }

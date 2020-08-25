@@ -1,10 +1,9 @@
-import { deepMix, isFunction, isNumber, isString } from '@antv/util';
+import { isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
+import { flow } from '../../utils';
 import { ScatterOptions } from './types';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * 字段
@@ -58,18 +57,15 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
  * @param params
  */
 function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField, yField } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  // meta 直接是 scale 的信息
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-  });
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
 }
 
 /**
@@ -154,5 +150,5 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style, label, interaction, animation, theme)(params);
+  return flow(field, meta, axis, legend, tooltip, style, label, interaction, animation, theme)(params);
 }

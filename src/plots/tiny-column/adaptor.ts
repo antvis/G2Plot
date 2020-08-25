@@ -1,5 +1,5 @@
 import { isFunction } from '@antv/util';
-import { theme } from '../../adaptor/common';
+import { theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyColumnOptions } from './types';
@@ -20,19 +20,6 @@ function field(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
   chart.data(seriesData);
 
   chart.interval().position('x*y');
-
-  return params;
-}
-
-/**
- * meta 配置
- * @param params
- */
-function meta(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
-
-  chart.scale(meta);
 
   return params;
 }
@@ -120,5 +107,5 @@ function style(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyColumnOptions>) {
-  flow(field, meta, axis, legend, tooltip, style, theme)(params);
+  return flow(field, scale({}), axis, legend, tooltip, style, theme)(params);
 }

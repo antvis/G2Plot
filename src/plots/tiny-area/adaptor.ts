@@ -1,5 +1,5 @@
 import { isFunction } from '@antv/util';
-import { theme } from '../../adaptor/common';
+import { theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyAreaOptions } from './types';
@@ -21,19 +21,6 @@ function field(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   chart.area().position('x*y');
   chart.line().position('x*y');
-
-  return params;
-}
-
-/**
- * meta 配置
- * @param params
- */
-function meta(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
-
-  chart.scale(meta);
 
   return params;
 }
@@ -148,5 +135,5 @@ function shape(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  flow(field, meta, axis, legend, tooltip, style, shape, theme)(params);
+  return flow(field, scale({}), axis, legend, tooltip, style, shape, theme)(params);
 }

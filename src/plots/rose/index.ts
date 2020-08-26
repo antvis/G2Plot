@@ -23,7 +23,7 @@ export class Rose extends Plot<RoseOptions> {
       yAxis: false,
       legend: {
         position: 'right',
-        offsetX: -20,
+        offsetX: -10,
       },
       sectorStyle: {
         stroke: '#fff',

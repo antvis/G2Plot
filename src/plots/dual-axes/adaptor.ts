@@ -30,14 +30,14 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const PADDING = [20, 40];
 
   // 绘制左轴对应数据
-  chart
+  const leftView = chart
     .createView({
       padding: PADDING,
     })
     .data(data[0]);
 
   // 绘制右轴对应数据
-  chart
+  const rightView = chart
     .createView({
       padding: PADDING,
     })
@@ -45,7 +45,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
 
   // 左轴图形
   drawSingleGeometry({
-    chart: chart.views[0],
+    chart: leftView,
     options: {
       xField,
       yField: yField[0],
@@ -55,7 +55,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
 
   // 右轴图形
   drawSingleGeometry({
-    chart: chart.views[1],
+    chart: rightView,
     options: {
       xField,
       yField: yField[1],

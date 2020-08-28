@@ -14,7 +14,7 @@ export class Liquid extends Plot<LiquidOptions> {
   /** 图表类型 */
   public type: string = 'liquid';
 
-  protected getDefaultOptions(): Parital<LiquidOptions> {
+  protected getDefaultOptions(): Partial<LiquidOptions> {
     return {
       color: '#6a99f9',
       statistic: {

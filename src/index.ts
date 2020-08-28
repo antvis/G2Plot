@@ -50,3 +50,6 @@ export { Radar, RadarOptions } from './plots/radar';
 
 // 热力图及类型定义
 export { Heatmap, HeatmapOptions } from './plots/heatmap';
+
+// 水波图
+export { Liquid } from './plots/liquid';

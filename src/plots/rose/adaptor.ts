@@ -21,6 +21,7 @@ function geometry(params: Params<RoseOptions>): Params<RoseOptions> {
     deepMix({}, params, {
       options: {
         interval: {
+          marginRatio: 1,
           style: sectorStyle,
         },
       },

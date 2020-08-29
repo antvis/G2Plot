@@ -70,7 +70,7 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
 }
 
 /**
- * 折线图适配器
+ * 水波图适配器
  * @param chart
  * @param options
  */

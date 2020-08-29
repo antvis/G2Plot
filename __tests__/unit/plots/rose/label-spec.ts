@@ -96,7 +96,7 @@ describe('rose label', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
       meta: {
         sales: {
@@ -133,7 +133,7 @@ describe('rose label', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
       meta: {
         sales: {
@@ -170,7 +170,7 @@ describe('rose label', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
       meta: {
         sales: {

@@ -3,7 +3,7 @@ import { salesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('rose', () => {
-  it('x*y with animation', () => {
+  it('animation', () => {
     const rose = new Rose(createDiv(), {
       width: 400,
       height: 300,

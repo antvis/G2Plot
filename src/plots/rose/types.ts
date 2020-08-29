@@ -6,21 +6,12 @@ export interface RoseOptions extends Options {
   readonly xField?: string;
   /** 扇形切片半径长度所对应的数据字段名 */
   readonly yField: string;
-  /** 扇形切片颜色所对应的数据字段名 */
-  readonly colorField?: string;
-  /**
-   * 拆分字段，在分组玫瑰图下同 groupField、colorField，
-   * 在堆积玫瑰图下同 stackField、colorField
-   */
+  /** 拆分字段 */
   readonly seriesField?: string;
   /** 是否分组玫瑰图 */
   readonly isGroup?: boolean;
-  /** 分组拆分字段 */
-  readonly groupField?: string;
   /** 是否堆积玫瑰图 */
   readonly isStack?: boolean;
-  /** 堆积拆分字段 */
-  readonly stackField?: string;
   /**
    * 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]
    * 0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域

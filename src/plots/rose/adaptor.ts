@@ -51,8 +51,7 @@ function label(params: Params<RoseOptions>): Params<RoseOptions> {
       cfg,
     });
   } else {
-    // label == null 表示 label 可能是 undefined 或者 null
-    log(LEVEL.WARN, label == null, 'the label option must be an Object.');
+    log(LEVEL.WARN, label === null || label === undefined, 'the label option must be an Object.');
     geometry.label({ fields: [xField] });
   }
 

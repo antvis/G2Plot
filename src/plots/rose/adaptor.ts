@@ -2,9 +2,8 @@ import { deepMix, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { RoseOptions } from './types';
 import { flow, findGeometry, log, LEVEL, pick } from '../../utils';
-import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { legend, tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * geometry 配置处理
@@ -82,17 +81,15 @@ function coord(params: Params<RoseOptions>): Params<RoseOptions> {
  * @param params
  */
 function meta(params: Params<RoseOptions>): Params<RoseOptions> {
-  const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField, yField } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-  });
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
 }
 
 /**

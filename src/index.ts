@@ -62,3 +62,6 @@ export { Heatmap, HeatmapOptions } from './plots/heatmap';
 
 // 箱线图及类型定义 | author by [BBSQQ](https://github.com/BBSQQ)
 export { Box, BoxOptions } from './plots/box';
+
+// K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong)
+export { Candle, CandleOptions } from './plots/stock';

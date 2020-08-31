@@ -188,7 +188,12 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public changeData(data: any) {
-    this.chart.changeData(data);
+    // 临时方案，会在 G2 做处理
+    this.update({
+      ...this.options,
+      data,
+    });
+    // this.chart.changeData(data);
   }
 
   /**

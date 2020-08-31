@@ -297,6 +297,23 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
     this.adjustFunnel(funnel);
     this.funnel = funnel;
     this.setConfig('geometry', funnel);
+    if (!props.compareField) {
+      this.geometryTooltip();
+    }
+  }
+
+  protected geometryTooltip() {
+    this.funnel.tooltip = {};
+    const tooltipOptions = this.options.tooltip;
+    if (tooltipOptions.fields) {
+      this.funnel.tooltip.fields = tooltipOptions.fields;
+    }
+    if (tooltipOptions.formatter) {
+      this.funnel.tooltip.callback = tooltipOptions.formatter;
+      if (!tooltipOptions.fields) {
+        this.funnel.tooltip.fields = [this.options.xField, this.options.yField];
+      }
+    }
   }
 
   protected animation() {

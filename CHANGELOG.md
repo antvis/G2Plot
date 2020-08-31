@@ -1,3 +1,9 @@
+## <small>1.1.25 (2020-08-31)</small>
+
+* docs(waterfall): 修复瀑布图文档, 更新 tooltip 使用方式 (#1492) ([7dbe86a](https://github.com/antvis/g2plot/commit/7dbe86a)), closes [#1492](https://github.com/antvis/g2plot/issues/1492)
+* fix: fix groupedColumn-line axis title overlap bug ([096ee6a](https://github.com/antvis/g2plot/commit/096ee6a))
+* fix: support tooltip formatter for funnel ([8505483](https://github.com/antvis/g2plot/commit/8505483))
+
 ## <small>1.1.23 (2020-08-11)</small>
 
 * fix: 修复全 0 数据饼图 spider 布局 label 报错的问题 (#1416) ([c3fc10c](https://github.com/antvis/g2plot/commit/c3fc10c)), closes [#1416](https://github.com/antvis/g2plot/issues/1416)

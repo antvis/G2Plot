@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { PieOptions } from './types';
 import { adaptor } from './adaptor';
@@ -15,7 +16,7 @@ export class Pie extends Plot<PieOptions> {
    * 获取 饼图 默认配置项
    */
   protected getDefaultOptions(): Partial<PieOptions> {
-    return {
+    return deepMix({}, super.getDefaultOptions(), {
       legend: {
         position: 'right',
       },
@@ -38,7 +39,7 @@ export class Pie extends Plot<PieOptions> {
           style: { fontSize: 21, fontWeight: 'bold', fill: '#4D4D4D', textAlign: 'center' },
         },
       },
-    };
+    });
   }
 
   /**

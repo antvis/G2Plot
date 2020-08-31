@@ -59,3 +59,6 @@ export { Heatmap, HeatmapOptions } from './plots/heatmap';
 
 // 箱线图及类型定义
 export { Box, BoxOptions } from './plots/box';
+
+// 漏斗图及类型定义
+export { Funnel, FunnelOptions } from './plots/funnel';

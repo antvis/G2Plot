@@ -32,7 +32,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
     super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
 
-    this.options = deepMix({}, this.getDefaultOptions(), options);
+    this.options = deepMix({}, this.getDefaultOptions(options), options);
 
     this.createG2();
 
@@ -85,7 +85,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 获取默认的 options 配置项
    * 每个组件都可以复写
    */
-  protected getDefaultOptions(): Partial<Options> {
+  protected getDefaultOptions(options?: O): Partial<Options> {
     return {
       renderer: 'canvas',
       tooltip: {

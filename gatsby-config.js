@@ -127,6 +127,14 @@ module.exports = {
           en: 'Box Charts',
         },
       },
+      {
+        slug: 'funnel',
+        icon: 'funnel',
+        title: {
+          zh: '漏斗图',
+          en: 'Funnel Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

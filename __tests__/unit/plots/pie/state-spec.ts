@@ -21,6 +21,7 @@ describe('pie', () => {
   it('set statesStyle', () => {
     const pie = new Pie(createDiv(), {
       ...options,
+      animation: false,
       state: {
         selected: {
           style: {
@@ -54,6 +55,7 @@ describe('pie', () => {
   it('set statesStyle by theme', () => {
     const pie = new Pie(createDiv(), {
       ...options,
+      animation: false,
       theme: {
         geometries: {
           interval: {

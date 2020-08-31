@@ -110,6 +110,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
           autoRotate: false,
         },
       },
+      animation: true,
     };
   }
 

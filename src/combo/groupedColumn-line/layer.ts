@@ -52,7 +52,7 @@ const defaultYAxisConfig = {
   title: {
     autoRotate: true,
     visible: false,
-    offset: 12,
+    spacing: 12,
   },
 };
 

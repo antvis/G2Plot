@@ -6,6 +6,7 @@ import { flow, findGeometry } from '../../utils';
 import { FunnelAdaptorOptions } from './types';
 import basicFunnel from './geometries/basic';
 import compareFunnel from './geometries/compare';
+import dynamicHeightFunnel from './geometries/dynamic-height';
 
 /**
  *
@@ -21,10 +22,14 @@ import compareFunnel from './geometries/compare';
  */
 function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { options } = params;
-  const { compareField } = options;
+  const { compareField, dynamicHeight } = options;
   if (compareField) {
     return compareFunnel(params);
   }
+  if (dynamicHeight) {
+    return dynamicHeightFunnel(params);
+  }
+
   return basicFunnel(params);
 }
 

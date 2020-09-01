@@ -1,0 +1,143 @@
+import { deepMix } from '@antv/util';
+import DataSet from '@antv/data-set';
+import { isFunction } from '@antv/util';
+import { flow, findGeometry } from '../../../utils';
+import { Params } from '../../../core/adaptor';
+import { FunnelAdaptorOptions } from '../types';
+
+const { DataView } = DataSet;
+
+/**
+ * 动态高度漏斗图
+ * @param params
+ * 需求: 每个漏斗项的高度根据 yfield 等比生成。漏斗上下宽度比为2，即斜率为 2。
+ * 实现方式: 使用 g2 多边形，data -> 点坐标 -> 绘制
+ * 以漏斗底部中心点为坐标轴原点，漏斗在 -0.5 <= x <= 0.5, 0 <= y <= 1 的正方形中绘制
+ * 先计算第一象限的点, 第二象限的点即为镜像 x 轴取反。
+ * 第一象限共需计算 data.length + 1 个点，在 y = 4x - 1 上。首尾分别是[0.5, 1], [0.25, 0]。根据 data 计算出 y 值，从而得到 y 值
+ */
+
+/**
+ * 处理数据
+ * @param params
+ */
+function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { options } = params;
+  const { data = [], yField, xField } = options;
+  const dv = new DataView().source(data);
+
+  // 计算各数据项所占高度
+  dv.transform({
+    type: 'percent',
+    field: yField,
+    dimension: xField,
+    as: '_total_percent',
+  });
+
+  // 计算每一项的加工每项数据
+  dv.transform({
+    type: 'map',
+    callback(row, index, arr) {
+      // 储存四个点 x，y 坐标，方向为顺时针，即 [左上, 右上，右下，左下]
+      const x = [];
+      const y = [];
+
+      // 获取左上角，右上角坐标
+      if (index) {
+        const { _x: preItemX, _y: preItemY } = arr[index - 1];
+        x[0] = preItemX[3];
+        y[0] = preItemY[3];
+        x[1] = preItemX[2];
+        y[1] = preItemY[2];
+      } else {
+        x[0] = -0.5;
+        y[0] = 1;
+        x[1] = 0.5;
+        y[1] = 1;
+      }
+
+      // 获取右下角坐标
+      y[2] = y[1] - row._total_percent;
+      x[2] = (y[2] + 1) / 4;
+      y[3] = y[2];
+      x[3] = -x[2];
+
+      // 赋值
+      row._x = x;
+      row._y = y;
+      row._percent = row[yField] / data[0][yField];
+      return row;
+    },
+  });
+
+  return deepMix({}, params, {
+    options: {
+      formatData: dv.rows,
+    },
+  });
+}
+
+/**
+ * geometry处理
+ * @param params
+ */
+function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { chart, options } = params;
+  const { formatData = [], xField, color } = options;
+
+  // 绘制漏斗图
+  chart.data(formatData).polygon().position('_x*_y').color(xField, color);
+
+  return params;
+}
+
+function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { chart, options } = params;
+  const { label, yField, xField } = options;
+
+  const geometry = findGeometry(chart, 'polygon');
+
+  if (!label) {
+    geometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    geometry.label({
+      fields: [xField, yField, '_percent'],
+      callback,
+      cfg,
+    });
+  }
+
+  return params;
+}
+
+function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { chart, options } = params;
+  const { formatData = [], xField, yField, annotation } = options;
+
+  if (annotation !== false) {
+    formatData.forEach((obj) => {
+      chart.annotation().text({
+        top: true,
+        position: [obj[xField], 'median'],
+        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj._percent, obj) : annotation,
+        style: {
+          stroke: null,
+          fill: '#fff',
+          textAlign: 'center',
+        },
+      });
+    });
+  }
+  return params;
+}
+
+/**
+ * 对比漏斗
+ * @param chart
+ * @param options
+ */
+export default function dynamicHeightFunnel(params: Params<FunnelAdaptorOptions>) {
+  // flow 的方式处理所有的配置到 G2 API
+  return flow(format, geometry, label, annotation)(params);
+}

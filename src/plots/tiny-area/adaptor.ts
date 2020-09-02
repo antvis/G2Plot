@@ -2,8 +2,8 @@ import { isFunction } from '@antv/util';
 import { theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { TinyAreaOptions } from './types';
 import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
+import { TinyAreaOptions } from './types';
 
 /**
  * 字段

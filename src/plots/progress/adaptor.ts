@@ -1,8 +1,8 @@
 import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { ProgressOptions } from './types';
 import { scale } from '../../adaptor/common';
+import { ProgressOptions } from './types';
 
 /**
  * 字段

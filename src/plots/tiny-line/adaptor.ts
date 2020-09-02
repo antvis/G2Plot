@@ -1,9 +1,9 @@
 import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { scale } from '../../adaptor/common';
 import { TinyLineOptions } from './types';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
-import { scale } from '../../adaptor/common';
 
 /**
  * 字段

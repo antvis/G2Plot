@@ -1,9 +1,9 @@
 import { isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { ScatterOptions } from './types';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
+import { ScatterOptions } from './types';
 
 /**
  * 字段

@@ -1,3 +1,8 @@
+## <small>1.1.26 (2020-09-02)</small>
+
+* fix: 修复双折线中tooltip重复的问题 ([08ec94e](https://github.com/antvis/g2plot/commit/08ec94e))
+* fix: 修复双轴图在一侧数据为空时不渲染问题 ([0963377](https://github.com/antvis/g2plot/commit/0963377))
+
 ## <small>1.1.25 (2020-08-31)</small>
 
 * docs(waterfall): 修复瀑布图文档, 更新 tooltip 使用方式 (#1492) ([7dbe86a](https://github.com/antvis/g2plot/commit/7dbe86a)), closes [#1492](https://github.com/antvis/g2plot/issues/1492)

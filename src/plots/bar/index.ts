@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { Adaptor } from '../../core/adaptor';
 import { BarOptions } from './types';
 import { adaptor } from './adaptor';
-import { Adaptor } from '../../core/adaptor';
 
 export { BarOptions };
 

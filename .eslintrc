@@ -6,7 +6,7 @@
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint", "import"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -31,6 +31,7 @@
     "@typescript-eslint/type-annotation-spacing": 0,
     "@typescript-eslint/no-empty-function": 1,
     "no-undef": 0,
-    "@typescript-eslint/no-var-requires": 0
+    "@typescript-eslint/no-var-requires": 0,
+    "import/order": 2
   }
 }

@@ -1,9 +1,9 @@
 import { deepMix, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { RoseOptions } from './types';
 import { flow, findGeometry, log, LEVEL, pick } from '../../utils';
 import { legend, tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
+import { RoseOptions } from './types';
 
 /**
  * geometry 配置处理

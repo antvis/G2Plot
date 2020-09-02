@@ -3,7 +3,7 @@ import { registerPlotType } from '../../base/global';
 import ComboViewLayer from '../base';
 import { LayerConfig } from '../../base/layer';
 import LineLayer from '../../plots/line/layer';
-import { clone, deepMix, each } from '@antv/util';
+import { clone, deepMix, each, findIndex } from '@antv/util';
 import { IValueAxis, ICatAxis, ITimeAxis } from '../../interface/config';
 import { ComboViewConfig, LineConfig } from '../util/interface';
 
@@ -148,14 +148,16 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const originItem = clone(ev.items[0]);
     const dataItemsA = this.getDataByXField(ev.title, 0)[0];
     if (dataItemsA) {
-      ev.items.push({
-        ...originItem,
-        mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
-        data: dataItemsA,
-        name: yField[0],
-        value: dataItemsA[yField[0]],
-        color: this.colors[0],
-      });
+      if (findIndex(ev.items, (item: any) => item.name === yField[0]) < 0) {
+        ev.items.push({
+          ...originItem,
+          mappingData: deepMix({}, originItem.mappingData, { _origin: dataItemsA }),
+          data: dataItemsA,
+          name: yField[0],
+          value: dataItemsA[yField[0]],
+          color: this.colors[0],
+        });
+      }
     }
     if (legend.visible) {
       each(this.legends, (legend, index) => {

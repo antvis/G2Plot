@@ -149,7 +149,16 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     return layer;
   }
 
+  // 临时修复 v1 双轴图在左侧数据为0的时候右侧scale处理错误的问题
+  protected getLeftYAxisMax() {
+    const leftScaleData = this.getScaleData(0);
+    const rightScaleData = this.getScaleData(1);
+
+    return leftScaleData.min == 0 && leftScaleData.max === 0 ? Math.max(rightScaleData.max, 0) : leftScaleData.max;
+  }
+
   protected yAxis(index: number) {
+    const leftScaleData = this.getScaleData(0);
     const { yAxis } = this.options;
     const config = index === 0 ? yAxis.leftConfig : yAxis.rightConfig;
     const colorValue = this.colors[index];
@@ -180,6 +189,10 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
     }
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
 
+    if (index === 0 && leftScaleData.max === 0 && leftScaleData.min === 0) {
+      yAxisConfig.max = this.getLeftYAxisMax();
+    }
+
     return deepMix({}, yAxisGlobalConfig, yAxisConfig);
   }
 
@@ -193,7 +206,7 @@ export default abstract class ComboViewLayer<T extends IComboViewLayer = IComboV
         {},
         {
           min: 0,
-          max: leftScaleData.max,
+          max: this.getLeftYAxisMax(),
           nice: true,
           values: leftScaleData.values,
         },

@@ -1,5 +1,3 @@
-import { deepMix } from '@antv/util';
-import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { flow, findGeometry } from '../../utils';

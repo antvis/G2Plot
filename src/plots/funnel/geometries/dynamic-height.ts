@@ -1,11 +1,9 @@
-import { deepMix } from '@antv/util';
-import DataSet from '@antv/data-set';
+import { deepMix, map, reduce } from '@antv/util';
 import { isFunction } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FunnelAdaptorOptions } from '../types';
-
-const { DataView } = DataSet;
+import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
 
 /**
  * 动态高度漏斗图
@@ -23,56 +21,54 @@ const { DataView } = DataSet;
  */
 function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { options } = params;
-  const { data = [], yField, xField } = options;
-  const dv = new DataView().source(data);
+  const { data = [], yField } = options;
 
   // 计算各数据项所占高度
-  dv.transform({
-    type: 'percent',
-    field: yField,
-    dimension: xField,
-    as: '_total_percent',
-  });
-
-  // 计算每一项的加工每项数据
-  dv.transform({
-    type: 'map',
-    callback(row, index, arr) {
-      // 储存四个点 x，y 坐标，方向为顺时针，即 [左上, 右上，右下，左下]
-      const x = [];
-      const y = [];
-
-      // 获取左上角，右上角坐标
-      if (index) {
-        const { _x: preItemX, _y: preItemY } = arr[index - 1];
-        x[0] = preItemX[3];
-        y[0] = preItemY[3];
-        x[1] = preItemX[2];
-        y[1] = preItemY[2];
-      } else {
-        x[0] = -0.5;
-        y[0] = 1;
-        x[1] = 0.5;
-        y[1] = 1;
-      }
-
-      // 获取右下角坐标
-      y[2] = y[1] - row._total_percent;
-      x[2] = (y[2] + 1) / 4;
-      y[3] = y[2];
-      x[3] = -x[2];
-
-      // 赋值
-      row._x = x;
-      row._y = y;
-      row._percent = row[yField] / data[0][yField];
-      return row;
+  const sum = reduce(
+    data,
+    (total, item) => {
+      return total + item[yField];
     },
+    0
+  );
+
+  const formatData = map(data, (row, index) => {
+    // 储存四个点 x，y 坐标，方向为顺时针，即 [左上, 右上，右下，左下]
+    const x = [];
+    const y = [];
+
+    row[FUNNEL_TOTAL_PERCENT] = row[yField] / sum;
+
+    // 获取左上角，右上角坐标
+    if (index) {
+      const { _x: preItemX, _y: preItemY } = data[index - 1];
+      x[0] = preItemX[3];
+      y[0] = preItemY[3];
+      x[1] = preItemX[2];
+      y[1] = preItemY[2];
+    } else {
+      x[0] = -0.5;
+      y[0] = 1;
+      x[1] = 0.5;
+      y[1] = 1;
+    }
+
+    // 获取右下角坐标
+    y[2] = y[1] - row[FUNNEL_TOTAL_PERCENT];
+    x[2] = (y[2] + 1) / 4;
+    y[3] = y[2];
+    x[3] = -x[2];
+
+    // 赋值
+    row._x = x;
+    row._y = y;
+    row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+    return row;
   });
 
   return deepMix({}, params, {
     options: {
-      formatData: dv.rows,
+      formatData,
     },
   });
 }
@@ -102,7 +98,7 @@ function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: [xField, yField, '_percent'],
+      fields: [xField, yField, FUNNEL_PERCENT],
       callback,
       cfg,
     });
@@ -120,7 +116,7 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
       chart.annotation().text({
         top: true,
         position: [obj[xField], 'median'],
-        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj._percent, obj) : annotation,
+        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj[FUNNEL_PERCENT], obj) : annotation,
         style: {
           stroke: null,
           fill: '#fff',

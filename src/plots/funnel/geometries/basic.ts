@@ -1,12 +1,10 @@
-import { deepMix } from '@antv/util';
-import DataSet from '@antv/data-set';
+import { deepMix, map } from '@antv/util';
 import { isFunction } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FunnelAdaptorOptions } from '../types';
 import { transpose } from './util';
-
-const { DataView } = DataSet;
+import { FUNNEL_PERCENT } from '../constant';
 
 /**
  * 处理数据
@@ -15,24 +13,20 @@ const { DataView } = DataSet;
 function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { options } = params;
   const { data = [], yField } = options;
-  const dv = new DataView().source(data);
-
+  let formatData = [];
   // format 数据
   if (data[0][yField]) {
-    dv.transform({
-      type: 'map',
-      callback(row) {
-        if (row[yField] !== undefined) {
-          row._percent = row[yField] / data[0][yField];
-        }
-        return row;
-      },
+    formatData = map(data, (row) => {
+      if (row[yField] !== undefined) {
+        row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+      }
+      return row;
     });
   }
 
   return deepMix({}, params, {
     options: {
-      formatData: dv.rows,
+      formatData,
     },
   });
 }
@@ -50,7 +44,7 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
     .data(formatData)
     .interval()
     .adjust('symmetric')
-    .position(`${xField}*${yField}*_percent`)
+    .position(`${xField}*${yField}*${FUNNEL_PERCENT}`)
     .shape('funnel')
     .color(xField, color);
 
@@ -72,7 +66,7 @@ function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: [xField, yField, '_percent'],
+      fields: [xField, yField, FUNNEL_PERCENT],
       callback,
       cfg,
     });
@@ -94,7 +88,7 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
       chart.annotation().text({
         top: true,
         position: [obj[xField], 'median'],
-        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj._percent, obj) : annotation,
+        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj[FUNNEL_PERCENT], obj) : annotation,
         style: {
           stroke: null,
           fill: '#fff',

@@ -40,4 +40,4 @@ piePlot.render();
 
 //  初始化设置默认状态；状态可叠加，可通过回调设置
 piePlot.setState('active', (data) => (data as any).type === '分类一');
-piePlot.setState('selected', (d) => (data as any).type === '分类一' || (data as any).type === '分类二');
+piePlot.setState('selected', (data) => (data as any).type === '分类一' || (data as any).type === '分类二');

@@ -40,8 +40,8 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
   const { formatData = [], xField, yField, color } = options;
 
   // 绘制漏斗图
+  chart.data(formatData);
   chart
-    .data(formatData)
     .interval()
     .adjust('symmetric')
     .position(`${xField}*${yField}*${FUNNEL_PERCENT}`)

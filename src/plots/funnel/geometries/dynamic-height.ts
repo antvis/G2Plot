@@ -82,7 +82,8 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
   const { formatData = [], xField, color } = options;
 
   // 绘制漏斗图
-  chart.data(formatData).polygon().position('_x*_y').color(xField, color);
+  chart.data(formatData);
+  chart.polygon().position('_x*_y').color(xField, color);
 
   return params;
 }

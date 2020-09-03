@@ -191,7 +191,8 @@ function getWaterWavePath(
    */
   path.push(['L', waveRight + left, cy + radius]);
   path.push(['L', left, cy + radius]);
-  path.push(['L', left, waterLevel]);
+  path.push(['Z']);
+  // path.push(['L', left, waterLevel]);
   return path;
 }
 
@@ -221,24 +222,20 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
         opacity: lerp(0.6, 0.3, factor),
       },
     });
-    /*wave.setClip({
-      type:'circle',
-      attrs: clip.attrs
-    })*/
-    // FIXME wave animation error in svg
-    // if (Global.renderer === 'canvas') {
 
-    const matrix = transform([['t', width / 2, 0]]);
-    // TODO offscreen canvas 中动画会找不到 canvas
-    wave.animate(
-      { matrix },
-      {
-        duration: lerp(duration, 0.7 * duration, factor),
-        repeat: true,
-      }
-    );
-
-    //}
+    try {
+      const matrix = transform([['t', width / 2, 0]]);
+      wave.animate(
+        { matrix },
+        {
+          duration: lerp(duration, 0.7 * duration, factor),
+          repeat: true,
+        }
+      );
+    } catch (e) {
+      // TODO offscreen canvas 中动画会找不到 canvas
+      console.error('offescreen group animate error!');
+    }
   }
 }
 
@@ -265,10 +262,6 @@ registerShape('interval', 'liquid-fill-gauge', {
 
     const waves = container.addGroup({
       name: 'waves',
-      attrs: {
-        x: cp.x,
-        y: cp.y,
-      },
     });
 
     waves.setClip({
@@ -290,6 +283,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       clipCircle,
       radius * 4
     );
+
     container.addShape('circle', {
       name: 'wrap',
       attrs: mix(getLineAttrs(cfg), {

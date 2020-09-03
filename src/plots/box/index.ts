@@ -25,6 +25,7 @@ export class Box extends Plot<BoxOptions> {
       // 默认 tooltips 共享，不显示 makers
       tooltip: {
         showMarkers: false,
+        showCrosshairs: true,
         shared: true,
       },
     });

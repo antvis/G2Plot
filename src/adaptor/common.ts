@@ -48,7 +48,11 @@ export function interaction<O extends Pick<Options, 'interactions'>>(params: Par
   const { interactions } = options;
 
   each(interactions, (i: Interaction) => {
-    chart.interaction(i.type, i.cfg || {});
+    if (i.enable === false) {
+      chart.removeInteraction(i.type);
+    } else {
+      chart.interaction(i.type, i.cfg || {});
+    }
   });
 
   return params;

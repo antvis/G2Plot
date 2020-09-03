@@ -1,11 +1,11 @@
-import { AnyPlot } from '../../../src';
+import { G2Plot } from '../../../src';
 import { createDiv } from '../../utils/dom';
 import { partySupport } from '../../data/party-support';
 import { StepLineAdaptor, StepLineOption } from './step-line';
 
-describe('plugin - AnyPlot', () => {
+describe('plugin - G2Plot', () => {
   it('StepLine', () => {
-    const plot = new AnyPlot<StepLineOption>(
+    const plot = new G2Plot<StepLineOption>(
       createDiv(),
       {
         width: 400,
@@ -21,7 +21,7 @@ describe('plugin - AnyPlot', () => {
 
     plot.render();
 
-    expect(plot.type).toBe('any-plot');
+    expect(plot.type).toBe('g2-plot');
     expect(plot.chart.geometries[0].type).toBe('line');
   });
 });

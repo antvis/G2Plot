@@ -8,7 +8,7 @@ import { getContainerSize, getAllElements } from '../utils';
 import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
-type PickOptions = Pick<
+export type PickOptions = Pick<
   Options,
   'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
 >;

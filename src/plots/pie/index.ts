@@ -23,7 +23,6 @@ export class Pie extends Plot<PieOptions> {
       tooltip: {
         shared: false,
         showTitle: false,
-        showMarkers: false,
       },
       /** 饼图样式, 不影响暗黑主题 */
       pieStyle: {

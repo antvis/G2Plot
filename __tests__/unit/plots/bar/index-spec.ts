@@ -243,4 +243,18 @@ describe('bar', () => {
     });
     expect(geometry.theme.columnWidthRatio).toBe(0.5);
   });
+
+  it('default interaction', () => {
+    const bar = new Bar(createDiv('default with active-region'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+    });
+
+    bar.render();
+
+    expect(bar.chart.interactions['active-region']).toBeDefined();
+  });
 });

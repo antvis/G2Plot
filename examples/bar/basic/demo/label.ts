@@ -39,7 +39,13 @@ const barPlot = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'type',
-  label: {},
+  label: {
+    position: 'left',
+    offsetX: 10,
+    style: {
+      fill: '#fff',
+    },
+  },
   meta: {
     type: {
       alias: '类别',

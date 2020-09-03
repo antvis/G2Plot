@@ -39,6 +39,19 @@ export class Radar extends Plot<RadarOptions> {
           },
         },
       },
+      tooltip: {
+        shared: true,
+        showMarkers: true,
+        showCrosshairs: true,
+        crosshairs: {
+          line: {
+            style: {
+              lineDash: [4, 4],
+              stroke: '#333',
+            },
+          },
+        },
+      },
     });
   }
 

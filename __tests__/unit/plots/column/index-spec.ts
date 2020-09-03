@@ -249,4 +249,18 @@ describe('column', () => {
     });
     expect(geometry.theme.columnWidthRatio).toBe(0.7);
   });
+
+  it('default interaction', () => {
+    const column = new Column(createDiv('default with active-region'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+    });
+
+    column.render();
+
+    expect(column.chart.interactions['active-region']).toBeDefined();
+  });
 });

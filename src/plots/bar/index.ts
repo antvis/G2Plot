@@ -14,17 +14,18 @@ export class Bar extends Plot<BarOptions> {
   public readonly type: string = 'bar';
 
   /**
-   * 获取 柱形图 的适配器
+   * 获取 条形图 默认配置
+   */
+  protected getDefaultOptions() {
+    return deepMix({}, super.getDefaultOptions(), {
+      interactions: [{ type: 'active-region' }],
+    });
+  }
+
+  /**
+   * 获取 条形图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<BarOptions> {
     return adaptor;
-  }
-
-  protected getDefaultOptions() {
-    return deepMix({}, super.getDefaultOptions(), {
-      // label: {
-      //   position: 'left', // 默认 label 在左侧
-      // },
-    });
   }
 }

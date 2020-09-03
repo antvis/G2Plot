@@ -15,10 +15,6 @@ export class Rose extends Plot<RoseOptions> {
    */
   protected getDefaultOptions(): Partial<RoseOptions> {
     return deepMix({}, super.getDefaultOptions(), {
-      tooltip: {
-        showMarkers: false,
-        showCrosshairs: false,
-      },
       xAxis: false,
       yAxis: false,
       legend: {

@@ -25,8 +25,6 @@ export class Scatter extends Plot<ScatterOptions> {
       tooltip: {
         shared: null,
         showTitle: false,
-        showMarkers: false,
-        showCrosshairs: false,
       },
       shape: 'circle',
     });

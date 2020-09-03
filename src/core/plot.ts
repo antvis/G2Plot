@@ -90,10 +90,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       renderer: 'canvas',
       tooltip: {
         shared: true,
-        showCrosshairs: true,
-        crosshairs: {
-          type: 'x',
-        },
+        showMarkers: false,
         offset: 20,
       },
       xAxis: {

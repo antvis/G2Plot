@@ -62,3 +62,11 @@ export { Heatmap, HeatmapOptions } from './plots/heatmap';
 
 // 箱线图及类型定义 | author by [BBSQQ](https://github.com/BBSQQ)
 export { Box, BoxOptions } from './plots/box';
+
+// 以下开放自定义图表开发的能力（目前仅仅是孵化中）
+
+/** 所有开放图表都使用 G2Plot 作为入口开发，理论上官方的所有图表都可以走 G2Plot 的入口（暂时不处理） */
+export { G2Plot } from './plugin';
+
+/** 开发 adaptor 可能会用到 flow 方法，不强制使用 */
+export { flow } from './utils';

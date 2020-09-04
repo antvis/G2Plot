@@ -1,10 +1,9 @@
 import { registerShape } from '@antv/g2';
+import { IGroup } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/g-util';
 import { Point } from '../../../types';
 import { ShapeStyle } from '../../../types/style';
-import { IGroup } from '@antv/g2/lib/dependents';
-import { ShapeInfo } from '@antv/g2/lib/interface';
 
 function addFillAttrs(attrs: ShapeStyle, cfg: any) {
   if (cfg.color && !attrs.fill) {
@@ -235,7 +234,7 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
 }
 
 registerShape('interval', 'liquid-fill-gauge', {
-  draw(cfg: ShapeInfo, container: IGroup) {
+  draw(cfg: any, container: IGroup) {
     const cx = 0.5;
     const cy = 0.5;
 

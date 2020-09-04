@@ -18,9 +18,6 @@ describe('liquid', () => {
     liquid.render();
 
     // @ts-ignore
-    window.liquid = liquid;
-
-    // @ts-ignore
     expect(liquid.chart.middleGroup.getChildren()[0].getChildren()[1].attr('stroke')).toBe('blue'); // circle
     // @ts-ignore
     expect(liquid.chart.middleGroup.getChildren()[0].getChildren()[0].getChildren()[0].attr('fill')).toBe('green'); // wave path

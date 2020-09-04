@@ -236,7 +236,6 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
 
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: ShapeInfo, container: IGroup) {
-    console.log(cfg);
     const cx = 0.5;
     const cy = 0.5;
 

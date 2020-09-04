@@ -1,6 +1,6 @@
 import { Params } from '../../core/adaptor';
-import { BarOptions } from './types';
 import { adaptor as columnAdaptor } from '../column/adaptor';
+import { BarOptions } from './types';
 
 /**
  * 柱形图适配器

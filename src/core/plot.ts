@@ -3,12 +3,12 @@ import Element from '@antv/g2/lib/geometry/element';
 import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
-import { Adaptor } from './adaptor';
 import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
 import { getContainerSize, getAllElements } from '../utils';
+import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
-type PickOptions = Pick<
+export type PickOptions = Pick<
   Options,
   'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
 >;
@@ -90,10 +90,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       renderer: 'canvas',
       tooltip: {
         shared: true,
-        showCrosshairs: true,
-        crosshairs: {
-          type: 'x',
-        },
+        showMarkers: false,
         offset: 20,
       },
       xAxis: {
@@ -110,6 +107,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
           autoRotate: false,
         },
       },
+      animation: true,
     };
   }
 
@@ -188,7 +186,12 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public changeData(data: any) {
-    this.chart.changeData(data);
+    // 临时方案，会在 G2 做处理
+    this.update({
+      ...this.options,
+      data,
+    });
+    // this.chart.changeData(data);
   }
 
   /**

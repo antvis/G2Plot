@@ -50,6 +50,7 @@ describe('饼图 数据全空', () => {
           formatter: (v) => `${v} 个`,
         },
       },
+      animation: false,
       label: {},
       tooltip: {},
     });
@@ -84,6 +85,7 @@ describe('饼图 数据全空', () => {
         },
       },
       tooltip: {},
+      animation: false,
     });
     pie.render();
 

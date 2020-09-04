@@ -41,6 +41,9 @@ const barPlot = new Bar('container', {
   yField: 'type',
   label: {
     position: 'middle',
+    style: {
+      fill: '#fff',
+    },
   },
   meta: {
     type: {

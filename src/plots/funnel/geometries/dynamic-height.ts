@@ -134,7 +134,7 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
  * @param chart
  * @param options
  */
-export default function dynamicHeightFunnel(params: Params<FunnelAdaptorOptions>) {
+export function dynamicHeightFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(format, geometry, label, annotation)(params);
 }

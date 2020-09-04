@@ -2,9 +2,9 @@ import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
 import { flow } from '../../utils';
 import { FunnelAdaptorOptions } from './types';
-import basicFunnel from './geometries/basic';
-import compareFunnel from './geometries/compare';
-import dynamicHeightFunnel from './geometries/dynamic-height';
+import { basicFunnel } from './geometries/basic';
+import { compareFunnel } from './geometries/compare';
+import { dynamicHeightFunnel } from './geometries/dynamic-height';
 
 /**
  *

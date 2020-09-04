@@ -3,8 +3,8 @@ import { isFunction } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FunnelAdaptorOptions } from '../types';
-import { transpose } from './util';
 import { FUNNEL_PERCENT } from '../constant';
+import { transpose } from './util';
 
 /**
  * 处理数据
@@ -105,7 +105,7 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
  * @param chart
  * @param options
  */
-export default function basicFunnel(params: Params<FunnelAdaptorOptions>) {
+export function basicFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(format, geometry, transpose, label, annotation)(params);
 }

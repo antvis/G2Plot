@@ -118,7 +118,7 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
  * @param chart
  * @param options
  */
-export default function compareFunnel(params: Params<FunnelAdaptorOptions>) {
+export function compareFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(format, geometry)(params);
 }

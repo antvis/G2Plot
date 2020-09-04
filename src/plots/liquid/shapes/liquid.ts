@@ -1,7 +1,3 @@
-/**
- * code from v1 g2plot
- */
-
 import { registerShape } from '@antv/g2';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/g-util';
@@ -49,7 +45,6 @@ const getFillAttrs = (cfg) => {
 const getLineAttrs = (cfg) => {
   const defaultAttrs = {
     fill: '#fff',
-    // stroke: 'red', // todo
     fillOpacity: 0,
     lineWidth: 2,
   };
@@ -241,8 +236,12 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
 
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: ShapeInfo, container: IGroup) {
+    console.log(cfg);
     const cx = 0.5;
     const cy = 0.5;
+
+    // 需要更好的传参方式
+    const radio = isNumber(cfg.style.liquidRadius) ? cfg.style.liquidRadius : 0.9;
 
     // 获取最小 minX
     const minX = reduce(
@@ -253,11 +252,12 @@ registerShape('interval', 'liquid-fill-gauge', {
       Infinity
     );
 
-    const cp = this.parsePoint({ x: cx, y: cy });
-    const minP = this.parsePoint({ x: minX, y: 0.5 });
+    const center = this.parsePoint({ x: cx, y: cy });
+    const minXPoint = this.parsePoint({ x: minX, y: cy });
+    const halfWidth = center.x - minXPoint.x;
 
-    const xWidth = cp.x - minP.x;
-    const radius = Math.min(xWidth, minP.y);
+    // 保证半径是 画布宽高最小值的 radius 值
+    const radius = Math.min(halfWidth, minXPoint.y * radio);
     const { fill } = getFillAttrs(cfg);
 
     const waves = container.addGroup({
@@ -267,15 +267,15 @@ registerShape('interval', 'liquid-fill-gauge', {
     waves.setClip({
       type: 'circle',
       attrs: {
-        x: cp.x,
-        y: cp.y,
+        x: center.x,
+        y: center.y,
         r: radius,
       },
     });
     const clipCircle = waves.get('clipShape');
     addWaterWave(
-      cp.x,
-      cp.y,
+      center.x,
+      center.y,
       1 - (cfg.points[1] as Point).y, // cfg.y / (2 * cp.y),
       3,
       fill,
@@ -287,8 +287,8 @@ registerShape('interval', 'liquid-fill-gauge', {
     container.addShape('circle', {
       name: 'wrap',
       attrs: mix(getLineAttrs(cfg), {
-        x: cp.x,
-        y: cp.y,
+        x: center.x,
+        y: center.y,
         r: radius,
         fill: 'transparent',
       }),

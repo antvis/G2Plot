@@ -17,6 +17,7 @@ export class Liquid extends Plot<LiquidOptions> {
   protected getDefaultOptions(): Partial<LiquidOptions> {
     return {
       color: '#6a99f9',
+      radius: 0.9,
       statistic: {
         formatter: (v: number) => `${(v * 100).toFixed(2)}%`,
         style: {

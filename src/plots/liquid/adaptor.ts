@@ -12,7 +12,7 @@ const CAT_VALUE = 'liquid';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle } = options;
+  const { percent, color, liquidStyle, radius } = options;
 
   const data = [{ percent, type: CAT_VALUE }];
 
@@ -25,7 +25,19 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
     },
   });
 
+  // @ts-ignore
   const geometry = chart.interval().position('type*percent').shape('liquid-fill-gauge');
+
+  // 只能通过这样的方式，将 radius 传入到自定义 shape 中，最好是 Geometry 提供传入自定义数据的能力
+  geometry.style({
+    liquidRadius: radius,
+  });
+
+  // radius 放到 columnWidthRatio 中。
+  // 保证横向的大小是根据  redius 生成的
+  chart.theme({
+    columnWidthRatio: radius,
+  });
 
   if (color) {
     geometry.color('percent', color);

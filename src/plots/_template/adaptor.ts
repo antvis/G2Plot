@@ -34,7 +34,7 @@ export function meta(params: Params<TemplateOptions>): Params<TemplateOptions> {
   )(params);
 }
 /**
- * 折线图适配器
+ * 图适配器
  * @param chart
  * @param options
  */

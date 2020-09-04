@@ -63,6 +63,8 @@ export { Heatmap, HeatmapOptions } from './plots/heatmap';
 // 箱线图及类型定义 | author by [BBSQQ](https://github.com/BBSQQ)
 export { Box, BoxOptions } from './plots/box';
 
+// 漏斗图及类型定义
+export { Funnel, FunnelOptions } from './plots/funnel';
 // 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc)
 export { Liquid, LiquidOptions } from './plots/liquid';
 

@@ -93,7 +93,7 @@ const data = [
   { country: 'Europe', year: '1800', value: 203,},
 ];
 
-const scatterPlot = new Scatter(document.getElementById('container'), {
+const scatterPlot = new Bar(document.getElementById('container'), {
   data,
   // highlight-start
   meta: {
@@ -109,7 +109,7 @@ const scatterPlot = new Scatter(document.getElementById('container'), {
   // highlight-end
   xField: 'year',
   yField: 'value',
-  colorField: 'country',
+  seriesField: 'country',
 });
 scatterPlot.render();
 
@@ -139,11 +139,6 @@ scatterPlot.render();
 
 默认配置： `jitter`
 
-### colorField
-
-**可选**, _string_
-
-功能描述: 点颜色映射对应的数据字段名。
 
 ## 图形样式
 
@@ -161,10 +156,10 @@ scatterPlot.render();
 // 设置单一颜色
 color: '#a8ddb5'
 // 设置多色
-colorField: 'type',
+seriesField: 'type',
 color: ['#d62728', '#2ca02c', '#000000'],
 // Function
-colorField: 'type',
+seriesField: 'type',
 color: (type) => {
   if(type === 'male'){
     return 'red';
@@ -261,8 +256,8 @@ pointStyle: {
   opacity: 0.8
 }
 // 回调
-pointStyle: (x, y, colorField) => {
-  if (colorField === 'male') {
+pointStyle: (x, y, color) => {
+  if (color === 'male') {
     return {
       fill: 'green',
       stroke: 'yellow',

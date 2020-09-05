@@ -35,14 +35,7 @@ export type LineConfig = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNu
 // 柱设置接口
 export type ColumnConfig = Pick<
   ColumnOptions,
-  | 'colorField'
-  | 'isGroup'
-  | 'groupField'
-  | 'isStack'
-  | 'stackField'
-  | 'columnWidthRatio'
-  | 'marginRatio'
-  | 'columnStyle'
+  'seriesField' | 'isGroup' | 'isStack' | 'columnWidthRatio' | 'marginRatio' | 'columnStyle'
 > &
   CommonGeometryConfig;
 

@@ -29,7 +29,7 @@ const dualAxesChart = new DualAxes('container', {
     {
       geometry: 'column',
       isGroup: true,
-      groupField: 'type',
+      seriesField: 'type',
       columnWidthRatio: 0.4,
       label: {},
     },

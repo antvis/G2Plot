@@ -39,7 +39,7 @@ const columnPlot = new Column('container', {
   data,
   xField: 'type',
   yField: 'sales',
-  colorField: 'type',
+  seriesField: 'type',
   color: (val) => {
     return val === '美容洗护' ? 'red' : 'green';
   },

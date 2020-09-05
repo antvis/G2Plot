@@ -34,7 +34,7 @@ describe('bar', () => {
       data: salesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'area',
+      seriesField: 'area',
     });
 
     bar.render();
@@ -54,7 +54,7 @@ describe('bar', () => {
       data: salesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'area',
+      seriesField: 'area',
       color: palette,
     });
 
@@ -79,7 +79,7 @@ describe('bar', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
     });
 
@@ -100,7 +100,7 @@ describe('bar', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      groupField: 'series',
+      seriesField: 'series',
       isGroup: true,
     });
 
@@ -142,7 +142,7 @@ describe('bar', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'series',
+      seriesField: 'series',
       isStack: true,
     });
 
@@ -163,7 +163,7 @@ describe('bar', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      stackField: 'series',
+      seriesField: 'series',
       isStack: true,
     });
 
@@ -206,7 +206,7 @@ describe('bar', () => {
       xField: 'sales',
       yField: 'area',
       isGroup: true,
-      colorField: 'series',
+      seriesField: 'series',
       barWidthRatio: 0.7,
       marginRatio: 0.3,
     });
@@ -229,7 +229,7 @@ describe('bar', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'series',
+      seriesField: 'series',
       isStack: true,
       barWidthRatio: 0.5,
     });

@@ -98,7 +98,7 @@ const stackedBarPlot = new Bar('container', {
   isStack: true,
   xField: 'value',
   yField: 'year',
-  stackField: 'type',
+  seriesField: 'type',
 });
 
 stackedBarPlot.render();

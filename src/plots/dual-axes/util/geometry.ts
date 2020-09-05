@@ -47,7 +47,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryConfig, ['color', 'colorField', 'isGroup', 'groupField', 'isStack', 'stackField']),
+          ...pick(geometryConfig, ['color', 'seriesField', 'isGroup', 'isStack']),
           interval: {
             marginRatio: geometryConfig.marginRatio,
             widthRatio: geometryConfig.columnWidthRatio,

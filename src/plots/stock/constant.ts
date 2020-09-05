@@ -1,4 +1,4 @@
-export const Y_FIELD = '$$candle-range$$';
+export const Y_FIELD = '$$stock-range$$';
 
 export const TREND_FIELD = 'trend';
 export const TREND_UP = 'up';

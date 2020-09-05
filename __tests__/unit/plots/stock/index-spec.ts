@@ -1,10 +1,10 @@
-import { Candle } from '../../../../src';
+import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 
-describe('Candle', () => {
+describe('Stock', () => {
   it('x*y', () => {
-    const k = new Candle(createDiv('x*y'), {
+    const k = new Stock(createDiv('x*y'), {
       width: 400,
       height: 500,
       data: kdata,

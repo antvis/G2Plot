@@ -1,11 +1,11 @@
-import { Candle } from '../../../../src';
+import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 import { Y_FIELD } from '../../../../src/plots/stock/constant';
 
-describe('Candle axis', () => {
+describe('Stock axis', () => {
   it('axis: options', () => {
-    const k = new Candle(createDiv(), {
+    const k = new Stock(createDiv(), {
       width: 400,
       height: 500,
       data: kdata,
@@ -26,7 +26,7 @@ describe('Candle axis', () => {
   });
 
   it('axis: alias', () => {
-    const k = new Candle(createDiv(), {
+    const k = new Stock(createDiv(), {
       width: 400,
       height: 500,
       data: kdata,
@@ -54,35 +54,4 @@ describe('Candle axis', () => {
     // @ts-ignore
     expect(geometry.scales['min'].alias).toBe('最低价');
   });
-
-  // TODO: 图表绘制错误
-  // it('axis: yAxis', () => {
-  //   const k = new Candle(createDiv(), {
-  //     width: 400,
-  //     height: 500,
-  //     isConnectNulls: true,
-  //     data: kdata,
-  //     xField: 'x',
-  //     yField: ['start', 'end', 'max', 'min'],
-  //     xAxis: {
-  //       tickCount: 4,
-  //     },
-  //     yAxis: {
-  //       min: 7,
-  //       nice: true,
-  //     },
-  //   });
-  //
-  //   k.render();
-  //
-  //   const geometry = k.chart.geometries[0];
-  //   const axisOptions = k.chart.getOptions().axes;
-  //
-  //   // @ts-ignore
-  //   expect(axisOptions[YFIELD].minLimit).toBe(7);
-  //   expect(geometry.scales[YFIELD].minLimit).toBe(7);
-  //   expect(geometry.scales[YFIELD].maxLimit).toBe(8);
-  //   // @ts-ignore
-  //   expect(geometry.scales[YFIELD].nice).toBe(true);
-  // });
 });

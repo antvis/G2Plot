@@ -5,14 +5,14 @@ import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry, flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
-import { CandleOptions } from './types';
+import { StockOptions } from './types';
 import { Y_FIELD, TREND_FIELD, TREND_UP, TREND_DOWN, TREND_COLOR } from './constant';
 
 /**
  * 图表配置处理
  * @param params
  */
-function field(params: Params<CandleOptions>): Params<CandleOptions> {
+function field(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { xField, yField } = options;
 
@@ -44,7 +44,7 @@ function field(params: Params<CandleOptions>): Params<CandleOptions> {
  * meta 配置
  * @param params
  */
-export function meta(params: Params<CandleOptions>): Params<CandleOptions> {
+export function meta(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField } = options;
 
@@ -72,7 +72,7 @@ export function meta(params: Params<CandleOptions>): Params<CandleOptions> {
  * axis 配置
  * @param params
  */
-export function axis(params: Params<CandleOptions>): Params<CandleOptions> {
+export function axis(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField } = options;
 
@@ -96,7 +96,7 @@ export function axis(params: Params<CandleOptions>): Params<CandleOptions> {
  * tooltip 配置
  * @param params
  */
-export function tooltip(params: Params<CandleOptions>): Params<CandleOptions> {
+export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { xField, yField, meta = {}, tooltip = false } = options;
   const geometry = findGeometry(chart, 'schema');
@@ -109,7 +109,6 @@ export function tooltip(params: Params<CandleOptions>): Params<CandleOptions> {
   const lowAlias = meta[low] ? meta[low].alias || low : low;
 
   const baseGeomTooltipOptions = {
-    // TODO: 动态字段
     fields: [xField, open, close, high, low],
     callback: (xFieldVal, openVal, closeVal, highVal, lowVal) => {
       const tpl = {
@@ -142,7 +141,7 @@ export function tooltip(params: Params<CandleOptions>): Params<CandleOptions> {
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<CandleOptions>) {
+export function adaptor(params: Params<StockOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   flow(field, meta, theme, axis, tooltip, interaction, animation)(params);
 }

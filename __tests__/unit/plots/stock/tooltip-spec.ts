@@ -1,13 +1,13 @@
-import { Candle } from '../../../../src';
+import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 
 import { DEFAULT_TOOLTIP_OPTIONS } from '../../../../src/plots/stock/constant';
 import { pick } from '../../../../src/utils';
 
-describe('Candle tooltip', () => {
+describe('Stock tooltip', () => {
   it('tooltip: default options', () => {
-    const k = new Candle(createDiv('default tooltip'), {
+    const k = new Stock(createDiv('default tooltip'), {
       width: 400,
       height: 500,
       data: kdata,
@@ -29,7 +29,7 @@ describe('Candle tooltip', () => {
   });
 
   it('tooltip: options', () => {
-    const k = new Candle(createDiv('Candle tooltip'), {
+    const k = new Stock(createDiv('Stock tooltip'), {
       width: 400,
       height: 500,
       data: kdata,
@@ -58,7 +58,7 @@ describe('Candle tooltip', () => {
   });
 
   it('tooltip: itemTpl options', () => {
-    const k = new Candle(createDiv('itemTpl options'), {
+    const k = new Stock(createDiv('itemTpl options'), {
       width: 400,
       height: 500,
       data: kdata,

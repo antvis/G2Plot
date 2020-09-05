@@ -64,7 +64,7 @@ export { Heatmap, HeatmapOptions } from './plots/heatmap';
 export { Box, BoxOptions } from './plots/box';
 
 // K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong)
-export { Candle, CandleOptions } from './plots/stock';
+export { Stock, StockOptions } from './plots/stock';
 
 // 漏斗图及类型定义
 export { Funnel, FunnelOptions } from './plots/funnel';

@@ -13,4 +13,6 @@ export type TinyTooltipOption = {
   readonly offset?: number;
   /** 是否显示交叉线 */
   readonly showCrosshairs?: boolean;
+  /** 是否显示 tooltip 数据点 marker */
+  readonly showMarkers?: boolean;
 };

@@ -135,6 +135,14 @@ module.exports = {
           en: 'Funnel Charts',
         },
       },
+      {
+        slug: 'tiny-line',
+        icon: 'line',
+        title: {
+          zh: '迷你折线图',
+          en: 'Tiny Line',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

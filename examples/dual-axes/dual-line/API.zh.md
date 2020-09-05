@@ -139,12 +139,9 @@ TODO
 | 细分配置项名称 | 类型 | 功能描述 | 默认值 | 
 | ----- | ----- | ----- | ----- |
 | geometry | _string_ | 图形类型，`'column'`|
-| colorField | _string_ | 颜色字段，同柱状图|
 | seriesField | _string_ | 拆分字段，同柱状图 |
 | isGroup | _boolean_ | 是否分组柱形图，同柱状图 | 
-| groupField | _string_ | 分组拆分字段，同柱状图 |
 | isStack | _boolean_ | 是否堆积柱状图，同柱状图 | 
-| stackField | _boolean_ | 是否堆积柱状图，同柱状图 | 
 | size | _number_ | 宽度，同柱状图 | 
 | interval | _IntervalConfig | 柱子样式设置，同柱状图 |
  
@@ -247,8 +244,8 @@ pointStyle: {
   opacity: 0.8
 }
 // 回调
-pointStyle: (x, y, colorField) => {
-  if (colorField === 'male') {
+pointStyle: (x, y, color) => {
+  if (color === 'male') {
     return {
       fill: 'green',
       stroke: 'yellow',

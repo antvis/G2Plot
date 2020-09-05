@@ -39,7 +39,7 @@ const barPlot = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'type',
-  colorField: 'type',
+  seriesField: 'type',
   color: (val) => {
     return val === '美容洗护' ? 'red' : 'green';
   },

@@ -98,7 +98,7 @@ const stackedColumnPlot = new Column('container', {
   isGroup: true,
   xField: 'year',
   yField: 'value',
-  groupField: 'type',
+  seriesField: 'type',
   label: {},
 });
 

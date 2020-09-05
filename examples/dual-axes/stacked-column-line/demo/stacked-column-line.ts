@@ -29,7 +29,7 @@ const dualAxesChart = new DualAxes('container', {
     {
       geometry: 'column',
       isStack: true,
-      stackField: 'type',
+      seriesField: 'type',
     },
     {
       geometry: 'line',

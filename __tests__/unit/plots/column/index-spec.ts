@@ -34,16 +34,16 @@ describe('column', () => {
       data: salesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'area',
+      seriesField: 'area',
     });
 
     column.render();
 
     const geometry = column.chart.geometries[0];
-    const colorFields = geometry.getAttribute('color').getFields();
+    const seriesFields = geometry.getAttribute('color').getFields();
 
-    expect(colorFields).toHaveLength(1);
-    expect(colorFields[0]).toBe('area');
+    expect(seriesFields).toHaveLength(1);
+    expect(seriesFields[0]).toBe('area');
   });
 
   it('x*y*color with color', () => {
@@ -54,7 +54,7 @@ describe('column', () => {
       data: salesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'area',
+      seriesField: 'area',
       color: palette,
     });
 
@@ -62,10 +62,10 @@ describe('column', () => {
 
     const geometry = column.chart.geometries[0];
     const colorAttribute = geometry.getAttribute('color');
-    const colorFields = colorAttribute.getFields();
+    const seriesFields = colorAttribute.getFields();
 
-    expect(colorFields).toHaveLength(1);
-    expect(colorFields[0]).toBe('area');
+    expect(seriesFields).toHaveLength(1);
+    expect(seriesFields[0]).toBe('area');
     geometry.elements.forEach((element, index) => {
       const color = element.getModel().color;
       expect(color).toBe(palette[index % palette.length]);
@@ -79,7 +79,7 @@ describe('column', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
     });
 
@@ -101,7 +101,7 @@ describe('column', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      groupField: 'series',
+      seriesField: 'series',
       isGroup: true,
     });
 
@@ -145,7 +145,7 @@ describe('column', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'series',
+      seriesField: 'series',
       isStack: true,
     });
 
@@ -167,7 +167,7 @@ describe('column', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      stackField: 'series',
+      seriesField: 'series',
       isStack: true,
     });
 
@@ -212,7 +212,7 @@ describe('column', () => {
       xField: 'area',
       yField: 'sales',
       isGroup: true,
-      colorField: 'series',
+      seriesField: 'series',
       columnWidthRatio: 0.7,
       marginRatio: 0.1,
     });
@@ -235,7 +235,7 @@ describe('column', () => {
       data: subSalesByArea,
       xField: 'area',
       yField: 'sales',
-      colorField: 'series',
+      seriesField: 'series',
       isStack: true,
       columnWidthRatio: 0.7,
     });

@@ -95,7 +95,7 @@ describe('bar label', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
       meta: {
         sales: {
@@ -131,7 +131,7 @@ describe('bar label', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
       meta: {
         sales: {
@@ -167,7 +167,7 @@ describe('bar label', () => {
       data: subSalesByArea,
       xField: 'sales',
       yField: 'area',
-      colorField: 'series',
+      seriesField: 'series',
       isGroup: true,
       meta: {
         sales: {

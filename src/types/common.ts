@@ -1,3 +1,4 @@
+import { AnnotationPosition, RegionPositionBaseOption, TextOption } from '@antv/g2/lib/interface';
 import { Axis } from './axis';
 import { Label } from './label';
 import { Tooltip } from './tooltip';
@@ -6,6 +7,9 @@ import { Interaction } from './interaction';
 import { Animation } from './animation';
 import { State } from './state';
 import { Slider } from './slider';
+
+/** annotation position */
+export { AnnotationPosition, RegionPositionBaseOption, TextOption };
 
 /** 一条数据记录 */
 export type Datum = Record<string, any>;

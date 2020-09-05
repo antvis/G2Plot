@@ -1,8 +1,9 @@
-import { isFunction, isNumber, isString } from '@antv/util';
+import { isFunction, isNumber, isString, deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
+import { getQuadrantDefaultConfig } from './util';
 import { ScatterOptions } from './types';
 
 /**
@@ -144,11 +145,53 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
 }
 
 /**
+ * 四象限
+ * @param params
+ */
+function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { chart, options } = params;
+  const { quadrant } = options;
+
+  if (quadrant) {
+    const { xBaseline = 0, yBaseline = 0, labels, regionStyle, lineStyle } = quadrant;
+    const defaultConfig = getQuadrantDefaultConfig(xBaseline, yBaseline);
+    // 仅支持四象限
+    const quadrants = new Array(4).join(',').split(',');
+    quadrants.forEach((_: string, index: number) => {
+      chart.annotation().region({
+        top: false,
+        ...defaultConfig.regionStyle[index].position,
+        style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+      });
+      chart.annotation().text({
+        top: true,
+        ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+      });
+    });
+    // 生成坐标轴
+    chart.annotation().line({
+      top: false,
+      start: ['min', yBaseline],
+      end: ['max', yBaseline],
+      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+    });
+    chart.annotation().line({
+      top: false,
+      start: [xBaseline, 'min'],
+      end: [xBaseline, 'max'],
+      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+    });
+  }
+
+  return params;
+}
+
+/**
  * 散点图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, axis, legend, tooltip, style, label, interaction, animation, theme)(params);
+  return flow(field, meta, axis, legend, tooltip, style, label, interaction, quadrant, animation, theme)(params);
 }

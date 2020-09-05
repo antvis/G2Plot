@@ -17,8 +17,6 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].coordinate.radius).toBe(1);
     expect(ringProgress.chart.geometries[0].coordinate.innerRadius).toBe(0.5);
 
-    console.log(ringProgress.options.color);
-
     expect(ringProgress.chart.geometries[0].elements[0].getData().type).toBe('current');
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');

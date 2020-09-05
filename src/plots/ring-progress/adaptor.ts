@@ -5,12 +5,12 @@ import { scale, animation, theme } from '../../adaptor/common';
 import { RingProgressOptions } from './types';
 
 /**
- * 字段
+ * 图形
  * @param params
  */
-function field(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
+export function geometry(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
   const { chart, options } = params;
-  const { percent, color, progressStyle, innerRadius, radius } = options;
+  const { percent, color, progressStyle } = options;
 
   const data = [
     {
@@ -24,12 +24,6 @@ function field(params: Params<RingProgressOptions>): Params<RingProgressOptions>
   ];
 
   chart.data(data);
-
-  // coordinate
-  chart.coordinate('theta', {
-    innerRadius,
-    radius,
-  });
 
   // geometry
   const geometry = chart.interval().position('1*percent').adjust('stack');
@@ -60,10 +54,27 @@ function field(params: Params<RingProgressOptions>): Params<RingProgressOptions>
 }
 
 /**
+ * coordinate 配置
+ * @param params
+ */
+function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
+  const { chart, options } = params;
+  const { innerRadius, radius } = options;
+
+  // coordinate
+  chart.coordinate('theta', {
+    innerRadius,
+    radius,
+  });
+
+  return params;
+}
+
+/**
  * 环形进度图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<RingProgressOptions>) {
-  return flow(field, scale({}), animation, theme)(params);
+  return flow(geometry, scale({}), coordinate, animation, theme)(params);
 }

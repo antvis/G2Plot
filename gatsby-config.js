@@ -161,10 +161,18 @@ module.exports = {
       },
       {
         slug: 'ring-progress',
-        icon: 'ring',
+        icon: 'other',
         title: {
           zh: '进度环图',
           en: 'Ring Progress',
+        },
+      },
+      {
+        slug: 'progress',
+        icon: 'other',
+        title: {
+          zh: '进度条图',
+          en: 'Tiny Progress',
         },
       },
       // OTHERS

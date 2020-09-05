@@ -5,34 +5,34 @@
   },
   "demos": [
     {
-      "filename": "ring-progress.ts",
+      "filename": "progress.ts",
       "title": {
-        "zh": "迷你进度环图",
-        "en": "basic Ring chart"
+        "zh": "迷你进度条图",
+        "en": "basic Progress chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "ring-progress-style.ts",
+      "filename": "progress-style.ts",
       "title": {
-        "zh": "迷你进度环图样式",
-        "en": "Tiny Ring style"
+        "zh": "迷你进度条图样式",
+        "en": "Tiny Progress style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "ring-progress-style-callback.ts",
+      "filename": "progress-style-callback.ts",
       "title": {
-        "zh": "迷你进度环图回调样式",
-        "en": "Tiny Ring style callback"
+        "zh": "迷你进度条图回调样式",
+        "en": "Tiny Progress style callback"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lSOiS4lGCaIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "ring-progress-radius.ts",
+      "filename": "progress-width.ts",
       "title": {
-        "zh": "迷你进度环图半径大小",
-        "en": "Tiny Ring radius"
+        "zh": "迷你进度条图大小",
+        "en": "Tiny Progress width"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
     }

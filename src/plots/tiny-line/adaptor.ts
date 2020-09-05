@@ -26,8 +26,8 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
 
   // line style
   if (lineStyle) {
-    geometry.style('x*y', (x: number, y: number) => {
-      return isFunction(lineStyle) ? lineStyle(x, y) : lineStyle;
+    geometry.style('x*y', () => {
+      return isFunction(lineStyle) ? lineStyle() : lineStyle;
     });
   }
 

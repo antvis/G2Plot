@@ -7,7 +7,7 @@ module.exports = {
     g2plot: './src/index.ts',
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].min.js',
     library: 'G2Plot',
     libraryTarget: 'umd',
     path: resolve(__dirname, 'dist/'),

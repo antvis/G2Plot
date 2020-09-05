@@ -143,6 +143,14 @@ module.exports = {
           en: 'Tiny Line',
         },
       },
+      {
+        slug: 'tiny-area',
+        icon: 'area',
+        title: {
+          zh: '迷你面积图',
+          en: 'Tiny Area',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

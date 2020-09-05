@@ -2,16 +2,16 @@ import { isFunction } from '@antv/util';
 import { theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
+import { TinyTooltipOption } from '../../types';
 import { TinyAreaOptions } from './types';
 
 /**
  * 字段
  * @param params
  */
-function field(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
+function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data } = options;
+  const { data, lineStyle, areaStyle, smooth } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -19,31 +19,31 @@ function field(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   chart.data(seriesData);
 
-  chart.area().position('x*y');
-  chart.line().position('x*y');
+  const areaGeometry = chart
+    .area()
+    .position('x*y')
+    .shape(smooth ? 'smooth' : 'area');
 
-  return params;
-}
+  // area style
+  if (areaStyle) {
+    areaGeometry.style('x*y', () => {
+      return isFunction(areaStyle) ? areaStyle() : areaStyle;
+    });
+  }
 
-/**
- * axis 配置
- * @param params
- */
-function axis(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart } = params;
+  const lineGeometry = chart
+    .line()
+    .position('x*y')
+    .shape(smooth ? 'smooth' : 'line');
+
+  // line style
+  if (lineStyle) {
+    lineGeometry.style('x*y', () => {
+      return isFunction(lineStyle) ? lineStyle() : lineStyle;
+    });
+  }
 
   chart.axis(false);
-
-  return params;
-}
-
-/**
- * legend 配置
- * @param params
- */
-function legend(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart } = params;
-
   chart.legend(false);
 
   return params;
@@ -55,76 +55,23 @@ function legend(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  */
 export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { tooltip = false } = options;
+  const { tooltip } = options;
 
-  if (tooltip) {
-    if (typeof tooltip === 'object') {
-      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
-      chart.tooltip({
-        ...DEFAULT_TOOLTIP_OPTIONS,
-        showCrosshairs,
-        domStyles,
-        position,
-        offset,
-      });
-      chart.geometries.map((geometry) => {
-        geometry.tooltip('x*y', (x, y) => {
-          return {
-            value: formatter(x, y),
-          };
-        });
-      });
-    } else {
-      chart.tooltip(DEFAULT_TOOLTIP_OPTIONS);
-    }
-  } else {
+  // false 则关闭
+  if (tooltip === false) {
     chart.tooltip(false);
+  } else {
+    // 是如果 object，那么传入
+    const { formatter, ...otherTooltip } = tooltip as TinyTooltipOption;
+
+    chart.tooltip(otherTooltip);
+
+    chart.geometries.map((g) => {
+      g.tooltip('x*y', (x, y) => ({
+        value: formatter(x, y),
+      }));
+    });
   }
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart, options } = params;
-  const { lineStyle, areaStyle } = options;
-
-  const areaGeometry = chart.geometries[0];
-  if (areaStyle && areaGeometry) {
-    if (isFunction(areaStyle)) {
-      areaGeometry.style('x*y', areaStyle);
-    } else {
-      areaGeometry.style(areaStyle);
-    }
-  }
-
-  const lineGeometry = chart.geometries[1];
-  if (lineStyle && lineGeometry) {
-    if (isFunction(lineStyle)) {
-      lineGeometry.style('x*y', lineStyle);
-    } else {
-      lineGeometry.style(lineStyle);
-    }
-  }
-  return params;
-}
-
-/**
- * shape 的配置处理
- * @param params
- */
-function shape(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart, options } = params;
-  const { smooth } = options;
-
-  const areaGeometry = chart.geometries[0];
-  areaGeometry.shape(smooth ? 'smooth' : 'area');
-
-  const lineGeometry = chart.geometries[1];
-  lineGeometry.shape(smooth ? 'smooth' : 'line');
 
   return params;
 }
@@ -135,5 +82,5 @@ function shape(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  return flow(field, scale({}), axis, legend, tooltip, style, shape, theme)(params);
+  return flow(geometry, scale({}), tooltip, theme)(params);
 }

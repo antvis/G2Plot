@@ -151,6 +151,14 @@ module.exports = {
           en: 'Tiny Area',
         },
       },
+      {
+        slug: 'tiny-column',
+        icon: 'column',
+        title: {
+          zh: '迷你柱形图',
+          en: 'Tiny Column',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

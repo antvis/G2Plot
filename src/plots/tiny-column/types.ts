@@ -6,8 +6,10 @@ import { TinyTooltipOption } from '../../types/tooltip';
 export interface TinyColumnOptions extends Omit<Options, 'data'> {
   /** 具体的数据 */
   readonly data: number[];
+  /** 柱状图宽度占比 [0-1] */
+  readonly columnWidthRatio?: number;
   /** 迷你柱形图形样式 */
-  readonly columnStyle?: ShapeStyle | ((x?: number, y?: number) => ShapeStyle);
+  readonly columnStyle?: ShapeStyle | ((x: number, y: number) => ShapeStyle);
   /** tooltip配置 */
   readonly tooltip?: boolean | TinyTooltipOption;
 }

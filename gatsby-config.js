@@ -159,6 +159,14 @@ module.exports = {
           en: 'Tiny Column',
         },
       },
+      {
+        slug: 'ring-progress',
+        icon: 'ring',
+        title: {
+          zh: '进度环图',
+          en: 'Ring Progress',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

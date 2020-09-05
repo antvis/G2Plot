@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "ring-progress.ts",
+      "title": {
+        "zh": "迷你进度环图",
+        "en": "basic Ring chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "ring-progress-style.ts",
+      "title": {
+        "zh": "迷你进度环图样式",
+        "en": "Tiny Ring style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "ring-progress-style-callback.ts",
+      "title": {
+        "zh": "迷你进度环图回调样式",
+        "en": "Tiny Ring style callback"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lSOiS4lGCaIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "ring-progress-radius.ts",
+      "title": {
+        "zh": "迷你进度环图半径大小",
+        "en": "Tiny Ring scale"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

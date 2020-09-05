@@ -1,5 +1,5 @@
 import { isFunction } from '@antv/util';
-import { theme, scale } from '../../adaptor/common';
+import { theme, scale, animation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyTooltipOption } from '../../types';
@@ -82,5 +82,5 @@ export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  return flow(geometry, scale({}), tooltip, theme)(params);
+  return flow(geometry, scale({}), tooltip, theme, animation)(params);
 }

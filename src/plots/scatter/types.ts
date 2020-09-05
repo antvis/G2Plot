@@ -1,7 +1,5 @@
-import { Options, AnnotationPosition, RegionPositionBaseOption, TextOption } from '../../types';
+import { Options, RegionPositionBaseOption, TextOption, AnnotationPosition } from '../../types';
 import { ShapeStyle } from '../../types/style';
-
-export { AnnotationPosition, TextOption };
 
 interface PointStyle {
   /** 填充色 会覆盖 color 配置  */
@@ -20,6 +18,10 @@ interface PointStyle {
   readonly strokeOpacity?: number;
 }
 
+interface Labels extends Omit<TextOption, 'position'> {
+  position?: AnnotationPosition;
+}
+
 interface Quadrant {
   /** x 方向上的象限分割基准线，默认为 0  */
   readonly xBaseline?: number;
@@ -30,7 +32,7 @@ interface Quadrant {
   /** 象限样式 */
   readonly regionStyle?: RegionPositionBaseOption[];
   /** 象限文本配置  */
-  readonly labels?: TextOption[];
+  readonly labels?: Labels[];
 }
 
 interface TrendLine {

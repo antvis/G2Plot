@@ -2,7 +2,7 @@ import { registerShape, Util } from '@antv/g2';
 import { ShapeInfo } from '@antv/g2/lib/interface';
 import { IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
 
-registerShape('point', 'cloud', {
+registerShape('point', 'word-cloud', {
   draw(cfg: ShapeInfo, group: IGroup) {
     const cx = cfg.x as number;
     const cy = cfg.y as number;
@@ -23,6 +23,7 @@ registerShape('point', 'cloud', {
   },
 });
 
+// TODO: 去掉 any
 function getTextAttrs(cfg: ShapeInfo): ShapeAttrs {
   return {
     ...cfg.defaultStyle,
@@ -31,7 +32,8 @@ function getTextAttrs(cfg: ShapeInfo): ShapeAttrs {
     text: (cfg.data as any).text,
     textAlign: 'center',
     fontFamily: (cfg.data as any).font,
-    fill: cfg.color || cfg.defaultStyle.stroke,
+    fontWeight: (cfg.data as any).fontWeight,
+    fill: cfg.color || cfg.defaultStyle?.stroke,
     textBaseline: 'alphabetic',
   };
 }

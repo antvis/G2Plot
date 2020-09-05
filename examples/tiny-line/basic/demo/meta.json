@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "基础迷你折线图",
+        "en": "basic Line chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-style.ts",
+      "title": {
+        "zh": "迷你折线图样式",
+        "en": "Tiny Line style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-style-callback.ts",
+      "title": {
+        "zh": "迷你折线图回调样式",
+        "en": "Tiny Line style callback"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lSOiS4lGCaIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-with-scale.ts",
+      "title": {
+        "zh": "迷你折线图比例尺",
+        "en": "Tiny Line scale"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

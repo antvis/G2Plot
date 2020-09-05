@@ -135,6 +135,46 @@ module.exports = {
           en: 'Funnel Charts',
         },
       },
+      {
+        slug: 'tiny-line',
+        icon: 'line',
+        title: {
+          zh: '迷你折线图',
+          en: 'Tiny Line',
+        },
+      },
+      {
+        slug: 'tiny-area',
+        icon: 'area',
+        title: {
+          zh: '迷你面积图',
+          en: 'Tiny Area',
+        },
+      },
+      {
+        slug: 'tiny-column',
+        icon: 'column',
+        title: {
+          zh: '迷你柱形图',
+          en: 'Tiny Column',
+        },
+      },
+      {
+        slug: 'ring-progress',
+        icon: 'other',
+        title: {
+          zh: '进度环图',
+          en: 'Ring Progress',
+        },
+      },
+      {
+        slug: 'progress',
+        icon: 'other',
+        title: {
+          zh: '进度条图',
+          en: 'Tiny Progress',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

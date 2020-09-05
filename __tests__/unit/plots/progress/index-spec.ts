@@ -19,10 +19,8 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
 
     progress.update({
-      width: 200,
-      height: 100,
+      ...progress.options,
       percent: 0.5,
-      autoFit: false,
     });
     expect(progress.chart.geometries[0].elements[0].getData().type).toBe('current');
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
@@ -50,11 +48,8 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#654321');
 
     progress.update({
-      width: 200,
-      height: 100,
-      percent: 0.6,
-      color: () => ['#654321', '#123456'],
-      autoFit: false,
+      ...progress.options,
+      color: ['#654321', '#123456'],
     });
     expect(progress.chart.geometries[0].elements[0].getData().type).toBe('current');
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
@@ -91,7 +86,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(2);
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([2, 2]);
 
-    const progressStyle = (x, percent, type) => {
+    const progressStyle = (percent, type) => {
       if (type === 'current') {
         return percent > 0.5
           ? {
@@ -120,11 +115,8 @@ describe('progress', () => {
     };
 
     progress.update({
-      width: 200,
-      height: 100,
-      percent: 0.6,
+      ...progress.options,
       progressStyle,
-      autoFit: false,
     });
     expect(progress.chart.geometries[0].elements[0].getData().type).toBe('current');
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
@@ -140,11 +132,8 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([4, 4]);
 
     progress.update({
-      width: 200,
-      height: 100,
+      ...progress.options,
       percent: 0.4,
-      progressStyle,
-      autoFit: false,
     });
 
     expect(progress.chart.geometries[0].elements[0].getData().type).toBe('current');
@@ -159,5 +148,19 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#654321');
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([4, 4]);
+  });
+
+  it('barWidthRatio', () => {
+    const progress = new Progress(createDiv(), {
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      barWidthRatio: 0.1,
+      autoFit: false,
+    });
+
+    progress.render();
+
+    expect(progress.chart.getTheme().columnWidthRatio).toBe(0.1);
   });
 });

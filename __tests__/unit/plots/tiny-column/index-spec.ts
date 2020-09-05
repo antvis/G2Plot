@@ -10,7 +10,7 @@ describe('tiny-column', () => {
       width: 200,
       height: 100,
       meta: {
-        value: {
+        y: {
           min: 0,
           max: 5000,
         },
@@ -86,7 +86,6 @@ describe('tiny-column', () => {
           return item.value;
         }),
       autoFit: false,
-      tooltip: true,
     });
 
     tinyColumn.render();
@@ -100,7 +99,7 @@ describe('tiny-column', () => {
     expect(tooltipOption.containerTpl).toBe('<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>');
     expect(tooltipOption.domStyles).toEqual({
       'g2-tooltip': {
-        padding: '2px',
+        padding: '2px 4px',
         fontSize: '10px',
       },
     });
@@ -149,5 +148,28 @@ describe('tiny-column', () => {
     const geometryTooltipOption = geometry.tooltipOption as GeometryTooltipOption;
     expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
     expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
+  });
+
+  it('columnWidthRatio', () => {
+    const tinyColumn = new TinyColumn(createDiv(), {
+      width: 400,
+      height: 100,
+      meta: {
+        y: {
+          min: 0,
+          max: 5000,
+        },
+      },
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      columnWidthRatio: 0.9,
+    });
+
+    tinyColumn.render();
+    expect(tinyColumn.chart.getTheme().columnWidthRatio).toBe(0.9);
   });
 });

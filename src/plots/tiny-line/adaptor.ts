@@ -1,17 +1,17 @@
 import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { scale } from '../../adaptor/common';
+import { scale, theme, animation } from '../../adaptor/common';
+import { TinyTooltipOption } from '../../types';
 import { TinyLineOptions } from './types';
-import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
 
 /**
  * 字段
  * @param params
  */
-function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
+function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
-  const { data, connectNulls } = options;
+  const { data, connectNulls, lineStyle, smooth } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -19,19 +19,20 @@ function field(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
 
   chart.data(seriesData);
 
-  chart.line({ connectNulls }).position('x*y');
+  const geometry = chart
+    .line({ connectNulls })
+    .position('x*y')
+    .shape(smooth ? 'smooth' : 'line');
 
-  return params;
-}
-
-/**
- * axis 配置
- * @param params
- */
-function axis(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart } = params;
+  // line style
+  if (lineStyle) {
+    geometry.style('x*y', () => {
+      return isFunction(lineStyle) ? lineStyle() : lineStyle;
+    });
+  }
 
   chart.axis(false);
+  chart.legend(false);
 
   return params;
 }
@@ -42,91 +43,22 @@ function axis(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  */
 export function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
-  const { tooltip = false } = options;
+  const { tooltip } = options;
 
-  if (tooltip) {
-    if (typeof tooltip === 'object') {
-      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
-      chart.tooltip({
-        ...DEFAULT_TOOLTIP_OPTIONS,
-        showCrosshairs,
-        domStyles,
-        position,
-        offset,
-      });
-      const geometry = chart.geometries[0];
-      geometry.tooltip('x*y', (x, y) => {
-        return {
-          value: formatter(x, y),
-        };
-      });
-    } else {
-      chart.tooltip(DEFAULT_TOOLTIP_OPTIONS);
-    }
-  } else {
+  // false 则关闭
+  if (tooltip === false) {
     chart.tooltip(false);
+  } else {
+    // 是如果 object，那么传入
+    const { formatter, ...otherTooltip } = tooltip as TinyTooltipOption;
+
+    chart.tooltip(otherTooltip);
+
+    chart.geometries[0].tooltip('x*y', (x, y) => ({
+      value: formatter(x, y),
+    }));
   }
 
-  return params;
-}
-
-/**
- * legend 配置
- * @param params
- */
-function legend(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart } = params;
-
-  chart.legend(false);
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart, options } = params;
-  const { lineStyle } = options;
-
-  const geometry = chart.geometries[0];
-  if (lineStyle && geometry) {
-    if (isFunction(lineStyle)) {
-      geometry.style('x*y', lineStyle);
-    } else {
-      geometry.style(lineStyle);
-    }
-  }
-  return params;
-}
-
-/**
- * shape 的配置处理
- * @param params
- */
-function shape(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart, options } = params;
-  const { smooth } = options;
-
-  const lineGeometry = chart.geometries[0];
-
-  lineGeometry.shape(smooth ? 'smooth' : 'line');
-  return params;
-}
-
-/**
- * 设置全局主题配置
- * @param params
- */
-export function theme(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { chart, options } = params;
-  const { theme } = options;
-
-  // 存在主题才设置主题
-  if (theme) {
-    chart.theme(theme);
-  }
   return params;
 }
 
@@ -136,5 +68,5 @@ export function theme(params: Params<TinyLineOptions>): Params<TinyLineOptions> 
  * @param options
  */
 export function adaptor(params: Params<TinyLineOptions>) {
-  return flow(field, scale({}), theme, axis, legend, tooltip, style, shape)(params);
+  return flow(geometry, scale({}), theme, tooltip, animation)(params);
 }

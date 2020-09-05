@@ -5,8 +5,10 @@ import { ShapeStyle } from '../../types/style';
 export interface ProgressOptions extends Omit<Options, 'data' | 'color'> {
   /** 进度百分比 */
   readonly percent: number;
+  /** 条图宽度占比 [0-1] */
+  readonly barWidthRatio?: number;
   /** 进度条颜色 */
-  readonly color?: string[] | ((percent: number) => string[]);
+  readonly color?: string | string[] | ((percent: number, type: string) => string);
   /** 进度条样式 */
-  readonly progressStyle?: ShapeStyle | ((x?: any, percent?: number, type?: string) => ShapeStyle);
+  readonly progressStyle?: ShapeStyle | ((percent: number, type: string) => ShapeStyle);
 }

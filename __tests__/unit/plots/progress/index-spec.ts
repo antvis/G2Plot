@@ -155,7 +155,7 @@ describe('progress', () => {
       width: 200,
       height: 100,
       percent: 0.6,
-      barWidthRatio: 0.2,
+      barWidthRatio: 0.1,
       autoFit: false,
     });
 

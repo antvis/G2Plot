@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Plot, PickOptions } from '../core/plot';
 import { Adaptor } from '../core/adaptor';
 /**
@@ -30,13 +31,14 @@ export class G2Plot<O extends PickOptions> extends Plot<O> {
   private adaptor: Adaptor<O>;
 
   /**
-   * 相比普通图表增加 adaptor 参数。后续还可以考虑增加 defaultOptions
+   * 相比普通图表增加 adaptor 参数。
    * @param container
    * @param options
    * @param adaptor
+   * @param defaultOptions
    */
-  constructor(container: string | HTMLElement, options: O, adaptor: Adaptor<O>) {
-    super(container, options);
+  constructor(container: string | HTMLElement, options: O, adaptor: Adaptor<O>, defaultOptions?: Partial<O>) {
+    super(container, deepMix({}, defaultOptions, options));
 
     this.adaptor = adaptor;
   }

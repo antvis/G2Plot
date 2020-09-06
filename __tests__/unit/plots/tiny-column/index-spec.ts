@@ -172,4 +172,27 @@ describe('tiny-column', () => {
     tinyColumn.render();
     expect(tinyColumn.chart.getTheme().columnWidthRatio).toBe(0.9);
   });
+
+  it('annotation', () => {
+    const tinyColumn = new TinyColumn(createDiv(), {
+      width: 200,
+      height: 100,
+      meta: {
+        y: {
+          min: 0,
+          max: 5000,
+        },
+      },
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      annotations: [{ type: 'line', start: ['min', 'median'], end: ['max', 'median'], text: { content: '中位线' } }],
+    });
+
+    tinyColumn.render();
+    expect(tinyColumn.chart.getController('annotation').getComponents.length).toBe(1);
+  });
 });

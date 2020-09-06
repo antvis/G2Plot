@@ -176,4 +176,21 @@ describe('tiny-area', () => {
     expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
     expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
   });
+
+  it('annotation', () => {
+    const tinyArea = new TinyArea(createDiv(), {
+      width: 200,
+      height: 100,
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      annotations: [{ type: 'line', start: ['min', 'median'], end: ['max', 'median'], text: { content: '中位线' } }],
+    });
+
+    tinyArea.render();
+    expect(tinyArea.chart.getController('annotation').getComponents.length).toBe(1);
+  });
 });

@@ -42,6 +42,9 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
     if (seriesField) {
       const lineColor = isFunction(line.color) ? line.color : line.color || color;
       lineGeometry.color(seriesField, lineColor);
+    } else if (typeof color === 'string') {
+      // 单折线图的颜色赋值
+      lineGeometry.color(color);
     }
 
     // size

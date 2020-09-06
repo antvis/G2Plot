@@ -25,7 +25,7 @@ describe('tiny-column', () => {
     });
 
     tinyColumn.render();
-    const elements = tinyColumn.chart.geometries[0].elements;
+    // const elements = tinyColumn.chart.geometries[0].elements;
     expect(tinyColumn.chart.getTheme().colors10).toEqual(['blue', 'red', 'yellow', 'lightgreen', 'lightblue', 'pink']);
   });
 });

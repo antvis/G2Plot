@@ -59,7 +59,7 @@ describe('tiny-column', () => {
 
     tinyColumn.update({
       ...tinyColumn.options,
-      columnStyle: (x, y) => {
+      columnStyle: (x) => {
         return x > 10 ? { fill: '#222222' } : { fill: '#444444' };
       },
     });

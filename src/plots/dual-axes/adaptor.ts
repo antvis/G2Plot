@@ -64,7 +64,6 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
       geometryConfig: geometryOptions[1],
     },
   });
-
   return params;
 }
 
@@ -108,15 +107,6 @@ export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
   if (yAxis[1]) {
     yAxis[1] = deepMix({}, yAxis[1], { position: 'right', grid: null });
   }
-
-  chart.scale({
-    [yField[0]]: {
-      sync: 'value',
-    },
-    [yField[1]]: {
-      sync: 'value',
-    },
-  });
 
   chart.axis(xField, false);
   chart.axis(yField[0], false);

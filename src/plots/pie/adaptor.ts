@@ -1,8 +1,9 @@
-import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
+import { deepMix, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { legend, tooltip, interaction, animation, theme, state } from '../../adaptor/common';
+import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { Data } from '../../types';
 import { flow, LEVEL, log, template } from '../../utils';
+import { Annotation } from '../../types/annotation';
 import { PieOptions } from './types';
 import { getTotalValue } from './utils';
 
@@ -165,28 +166,25 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
  *   1. 中心文本
  * @param params
  */
-function annotation(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
-  const { innerRadius, statistic, angleField } = options;
+function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
+  const { options } = params;
+  const { innerRadius, statistic, angleField, annotations } = options;
 
-  const annotationController = chart.getController('annotation');
-  // todo remove ignore
-  // @ts-ignore
-  annotationController.clear(true);
-
-  const annotationOptions = [];
+  const annotationOptions = annotations ? annotations : [];
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
     const { title, content } = statistic;
 
-    let statisticTitle = {
+    let statisticTitle: Annotation = {
       type: 'text',
       content: '',
+      position: ['50%', '50%'],
     };
-    let statisticContent = {
+    let statisticContent: Annotation = {
       type: 'text',
       content: '',
+      position: ['50%', '50%'],
     };
 
     const getStatisticData = (data: Data) => ({
@@ -256,13 +254,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
     annotationOptions.push(statisticTitle, statisticContent);
   }
 
-  /** 自定义 annotation */
-  each(annotationOptions, (annotationOption) => {
-    // @ts-ignore
-    annotationController.annotation(annotationOption);
-  });
-
-  return params;
+  return flow(annotation(annotationOptions))(params);
 }
 
 /**
@@ -282,7 +274,7 @@ export function adaptor(params: Params<PieOptions>) {
     label,
     state,
     style,
-    annotation,
+    pieAnnotation,
     interaction,
     animation
   )(params);

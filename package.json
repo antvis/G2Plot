@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -11,7 +11,7 @@
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
-  "unpkg": "dist/g2plot.js",
+  "unpkg": "dist/g2plot.min.js",
   "files": [
     "lib",
     "esm",

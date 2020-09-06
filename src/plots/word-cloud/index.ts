@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { Adaptor } from '../../core/adaptor';
 import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
-import { Adaptor } from '../../core/adaptor';
 // 注册的shape
 import './shapes/word-cloud';
 
@@ -21,6 +21,12 @@ export class WordCloud extends Plot<WordCloudOptions> {
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
+      },
+      wordStyle: {
+        fontSize: [10, 60],
+        rotation: [0, 90],
+        rotationSteps: 2,
+        rotateRatio: 0.5,
       },
     });
   }

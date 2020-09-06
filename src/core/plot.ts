@@ -125,6 +125,10 @@ export abstract class Plot<O extends PickOptions> extends EE {
 
     const adaptor = this.getSchemaAdaptor();
 
+    const { padding } = this.options;
+    // 更新 padding
+    this.chart.padding = padding;
+
     // 转化成 G2 API
     adaptor({
       chart: this.chart,

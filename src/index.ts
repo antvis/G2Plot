@@ -71,6 +71,9 @@ export { Funnel, FunnelOptions } from './plots/funnel';
 // 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc)
 export { Liquid, LiquidOptions } from './plots/liquid';
 
+// 子弹图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
+export { Bullet, BulletOptions } from './plots/bullet';
+
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 
 /** 所有开放图表都使用 G2Plot 作为入口开发，理论上官方的所有图表都可以走 G2Plot 的入口（暂时不处理） */

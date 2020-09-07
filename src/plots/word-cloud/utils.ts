@@ -11,24 +11,25 @@ import { WordCloudOptions } from './types';
 export function transform(params: Params<WordCloudOptions>) {
   const { chart, options } = params;
   const { data, imageMask, wordField, weightField, wordStyle, timeInterval, spiral } = options;
-  const { fontFamily, padding } = wordStyle;
+  const { fontFamily, fontWeight, padding } = wordStyle;
   const dv = new DataSet.View().source(data);
   const range = dv.range(weightField);
 
-  // TODO: g2 需添加 fontWeight 选项
-  // TODO: 去掉 any , 需 g2 修改类型信息
+  // TODO: 去掉 any , 需 DataSet 修改类型信息
   dv.transform({
     type: 'tag-cloud',
     fields: [wordField, weightField],
     imageMask: getImageMask(imageMask),
-    font: fontFamily as any,
-    fontSize: getFontSize(options, range) as any,
-    size: [(chart as any).width, (chart as any).height],
-    padding: padding as any,
+    font: fontFamily,
+    fontSize: getFontSize(options, range),
+    fontWeight: fontWeight,
+    // 图表宽高减去 padding 之后的宽高
+    size: [chart.coordinateBBox.width, chart.coordinateBBox.height],
+    padding: padding,
     timeInterval,
     spiral,
-    rotate: getRotate(options) as any,
-  });
+    rotate: getRotate(options),
+  } as any);
 
   return dv.rows;
 }

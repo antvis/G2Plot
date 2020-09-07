@@ -1,9 +1,12 @@
 import { registerShape, Util } from '@antv/g2';
 import { ShapeInfo } from '@antv/g2/lib/interface';
 import { IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
+import { DataItem } from '../types';
+
+type Config = ShapeInfo & { data: DataItem };
 
 registerShape('point', 'word-cloud', {
-  draw(cfg: ShapeInfo, group: IGroup) {
+  draw(cfg: Config, group: IGroup) {
     const cx = cfg.x as number;
     const cy = cfg.y as number;
 
@@ -14,7 +17,7 @@ registerShape('point', 'word-cloud', {
         y: cy,
       },
     });
-    const rotate = (cfg.data as any).rotate;
+    const rotate = cfg.data.rotate;
     if (rotate) {
       Util.rotate(shape, (rotate * Math.PI) / 180);
     }
@@ -23,16 +26,15 @@ registerShape('point', 'word-cloud', {
   },
 });
 
-// TODO: 去掉 any
-function getTextAttrs(cfg: ShapeInfo): ShapeAttrs {
+function getTextAttrs(cfg: Config): ShapeAttrs {
   return {
     ...cfg.defaultStyle,
     ...cfg.style,
-    fontSize: (cfg.data as any).size,
-    text: (cfg.data as any).text,
+    fontSize: cfg.data.size,
+    text: cfg.data.text,
     textAlign: 'center',
-    fontFamily: (cfg.data as any).font,
-    fontWeight: (cfg.data as any).fontWeight,
+    fontFamily: cfg.data.font,
+    fontWeight: cfg.data.weight,
     fill: cfg.color || cfg.defaultStyle?.stroke,
     textBaseline: 'alphabetic',
   };

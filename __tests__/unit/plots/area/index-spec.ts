@@ -18,6 +18,40 @@ describe('area', () => {
     expect(area.chart.geometries[0].elements.length).toBe(1);
   });
 
+  it('x cat scale', () => {
+    const data = [
+      { x: 1, y: 1 },
+      { x: 2, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 2 },
+    ];
+    const area = new Area(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: data,
+      xField: 'x',
+      yField: 'y',
+    });
+
+    area.render();
+
+    expect(area.options.meta.x.type).toBe('cat');
+    expect(area.chart.getScaleByField('x').range).toEqual([0, 1]);
+    area.update({
+      ...area.options,
+      meta: {
+        x: {
+          type: 'linear',
+          range: [0.1, 0.9],
+        },
+      },
+    });
+
+    expect(area.options.meta.x.type).toBe('linear');
+    expect(area.chart.getScaleByField('x').range).toEqual([0.1, 0.9]);
+  });
+
   it('x*y with color', () => {
     const area = new Area(createDiv(), {
       width: 400,

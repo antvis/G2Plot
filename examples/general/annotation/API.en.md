@@ -6,11 +6,12 @@ title: API
 
 图形标注，Annotation，作为图表的辅助元素，主要用于在图表上标识额外的标记注解
 
-G2Plot 继承了 G2 的图形标注配置，[详细介绍](http://localhost:8000/en/docs/manual/tutorial/annotation)
+G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.vision/en/docs/manual/tutorial/annotation)
 
 通用配置属性：
 ```javascript
 {
+  /** annotation 类型，支持类型详细见下文介绍 */
   type: 'xxx',
   /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
   top: false,
@@ -24,6 +25,20 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](http://localhost:8000
   offsetX: 0,
   /** y 方向的偏移量 */
   offsetY: 0,
+}
+```
+
+### Arc Annotaion
+
+使用示例:
+
+```javascript
+{
+  type: 'arc',
+  /** 起始位置 */
+  start: ['20%', 0],
+  /** 结束位置 */
+  end: ['20%', 0],
 }
 ```
 
@@ -52,7 +67,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](http://localhost:8000
 
 ### Line Annotaion
 
-使用示例: *绘制中位线*, [Demo](../line-annotation)
+使用示例: *绘制中位线*
 
 ```javascript
 {
@@ -80,13 +95,9 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](http://localhost:8000
 }
 ```
 
-
-
-
-
 ### Region Annotaion
 
-使用示例: [Demo](../../../column/basic#region-annotation)
+使用示例
 
 ```javascript
 {
@@ -95,19 +106,5 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](http://localhost:8000
   start: ['min','median'],
   /** 结束位置 */
   end: ['max','median'],
-}
-```
-
-### Arc Annotaion
-
-使用示例:
-
-```javascript
-{
-  type: 'arc',
-  /** 起始位置 */
-  start: ['20%', 0],
-  /** 结束位置 */
-  end: ['20%', 0],
 }
 ```

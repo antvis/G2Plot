@@ -51,6 +51,8 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
           marginRatio,
         });
       }
+    } else if (typeof color === 'string') {
+      geometry.color(color);
     }
 
     // widthRatio

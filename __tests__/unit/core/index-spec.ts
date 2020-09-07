@@ -96,7 +96,7 @@ describe('core', () => {
     line.render();
 
     function click(): Promise<Event> {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         line.on('element:click', (e) => {
           resolve(e);
         });

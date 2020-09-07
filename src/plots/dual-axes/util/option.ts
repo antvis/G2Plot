@@ -61,12 +61,11 @@ export function getOption(options: DualAxesOption): DualAxesOption {
     },
   };
 
-  const mixYAxis = [
-    yAxis[0] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
-    yAxis[1] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
-  ];
   return deepMix({}, options, {
-    yAxis: mixYAxis,
+    yAxis: [
+      yAxis[0] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
+      yAxis[1] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
+    ],
     geometryOptions: [
       getGeometryConfig(geometryOptions[0], AxisType.Left),
       getGeometryConfig(geometryOptions[1], AxisType.Right),

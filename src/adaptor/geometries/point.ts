@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString, uniq } from '@antv/util';
+import { isFunction, isObject, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { Options } from '../../types';
 import { ShapeStyle } from '../../types/style';
@@ -40,6 +40,8 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
     if (seriesField) {
       const pointColor = isFunction(point.color) ? point.color : point.color || color;
       pointGeometry.color(seriesField, pointColor);
+    } else if (typeof color === 'string') {
+      pointGeometry.color(color);
     }
 
     // size

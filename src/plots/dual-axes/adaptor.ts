@@ -1,5 +1,6 @@
-import { deepMix } from '@antv/util';
-import { theme, tooltip, interaction, animation, scale } from '../../adaptor/common';
+import { each, deepMix } from '@antv/util';
+import { theme, animation, scale } from '../../adaptor/common';
+import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { getOption } from './util/option';
@@ -8,8 +9,9 @@ import { DualAxesOption } from './types';
 
 /**
  * 获取默认参数设置
- * 双轴图无法使用公共的 getDefaultOption, 因为双轴图存在[lineConfig, lineConfig] 这样的数据，需要根据传入的 option，生成不同的 defaultOption
- * 主要针对 yAxis 和 geometryOptions
+ * 双轴图无法使用公共的 getDefaultOption, 因为双轴图存在[lineConfig, lineConfig] 这样的数据，需要根据传入的 option，生成不同的 defaultOption,
+ * 并且 deepmix 无法 mix 数组类型数据，因此需要做一次参数的后转换
+ * 这个函数针对 yAxis 和 geometryOptions
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOption>): Params<DualAxesOption> {
@@ -124,15 +126,67 @@ export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
 }
 
 /**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<DualAxesOption>): Params<DualAxesOption> {
+  const { chart, options } = params;
+  const { tooltip } = options;
+  const [leftView, rightView] = chart.views;
+  if (tooltip !== undefined) {
+    chart.tooltip(tooltip);
+    // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
+    // view 应该继承 chart 里的 shared，但是从表现看来，继承有点问题
+    leftView.tooltip({
+      shared: true,
+    });
+    rightView.tooltip({
+      shared: true,
+    });
+  }
+  return params;
+}
+
+/**
+ * interaction 配置
+ * @param params
+ */
+export function interaction(params: Params<DualAxesOption>): Params<DualAxesOption> {
+  const { chart, options } = params;
+  const { interactions } = options;
+  const [leftView, rightView] = chart.views;
+  each(interactions, (i: Interaction) => {
+    if (i.enable === false) {
+      leftView.removeInteraction(i.type);
+      rightView.removeInteraction(i.type);
+    } else {
+      leftView.interaction(i.type, i.cfg || {});
+      rightView.interaction(i.type, i.cfg || {});
+    }
+  });
+  return params;
+}
+
+/**
  * legend 配置
  * @param params
  */
 export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
-  const { legend, yField } = options;
+  const { legend, geometryOptions } = options;
+  const [leftGeometryOption, rightGeometryOption] = geometryOptions;
   if (legend) {
-    chart.legend(yField[0], legend);
-    chart.legend(yField[1], legend);
+    if (leftGeometryOption.seriesField) {
+      // TOFIX: G2 中图例无法绑定在子 view 中，但绑定在 chart 上回换行。暂时先放在下方
+      chart.legend(leftGeometryOption.seriesField, {
+        position: 'bottom',
+      });
+    }
+    if (rightGeometryOption.seriesField) {
+      chart.legend(rightGeometryOption.seriesField, {
+        position: 'bottom',
+      });
+    }
   }
   return params;
 }
@@ -144,5 +198,5 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
  */
 export function adaptor(params: Params<DualAxesOption>): Params<DualAxesOption> {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(transformOptions, geometry, meta, axis, legend, tooltip, theme, interaction, animation)(params);
+  return flow(transformOptions, geometry, meta, axis, tooltip, interaction, theme, animation, legend)(params);
 }

@@ -3,7 +3,7 @@ import Element from '@antv/g2/lib/geometry/element';
 import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
-import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
+import { Options, StateName, StateCondition, Size, StateObject } from '../types';
 import { getContainerSize, getAllElements } from '../utils';
 import { Adaptor } from './adaptor';
 

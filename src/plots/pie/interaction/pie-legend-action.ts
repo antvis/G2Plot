@@ -11,7 +11,7 @@ import { groupTransform } from '../../../utils/g-util';
  */
 export class PieLegendAction extends Action {
   init() {
-    const { view } = this.context;
+    // const { view } = this.context;
   }
   /**
    * 获取激活的图形元素

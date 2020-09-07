@@ -1,6 +1,6 @@
 import { isFunction, deepMix, isString, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, LEVEL, log } from '../../utils';
+import { flow } from '../../utils';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { getQuadrantDefaultConfig } from './util';

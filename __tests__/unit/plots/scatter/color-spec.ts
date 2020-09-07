@@ -34,6 +34,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
+      colorField: 'gender',
       color: ['#e764ff', '#2b0033'],
       xAxis: {
         nice: true,

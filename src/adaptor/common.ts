@@ -134,7 +134,7 @@ export function scale(axes: Record<string, Axis>, meta?: Options['meta']) {
     });
 
     // 2. meta 直接是 scale 的信息
-    scales = deepMix({}, meta || options.meta, scales);
+    scales = deepMix({}, meta, options.meta, scales);
 
     chart.scale(scales);
 
@@ -151,12 +151,9 @@ export function annotation(annotationOptions?: Options['annotations']) {
     const { chart, options } = params;
 
     const annotationController = chart.getController('annotation');
-    // todo remove ignore
-    // @ts-ignore
-    annotationController.clear(true);
 
     /** 自定义 annotation */
-    each(annotationOptions || options.annotations, (annotationOption) => {
+    each([...(options.annotations || []), ...(annotationOptions || [])], (annotationOption) => {
       // @ts-ignore
       annotationController.annotation(annotationOption);
     });

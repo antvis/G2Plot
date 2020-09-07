@@ -193,6 +193,6 @@ describe('tiny-column', () => {
     });
 
     tinyColumn.render();
-    expect(tinyColumn.chart.getController('annotation').getComponents.length).toBe(1);
+    expect(tinyColumn.chart.getController('annotation').getComponents().length).toBe(1);
   });
 });

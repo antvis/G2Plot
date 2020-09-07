@@ -191,6 +191,6 @@ describe('tiny-area', () => {
     });
 
     tinyArea.render();
-    expect(tinyArea.chart.getController('annotation').getComponents.length).toBe(1);
+    expect(tinyArea.chart.getController('annotation').getComponents().length).toBe(1);
   });
 });

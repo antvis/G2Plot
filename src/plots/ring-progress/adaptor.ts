@@ -1,7 +1,7 @@
 import { isFunction, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { scale, animation, theme } from '../../adaptor/common';
+import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { RingProgressOptions } from './types';
 
 /**
@@ -76,5 +76,5 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
  * @param options
  */
 export function adaptor(params: Params<RingProgressOptions>) {
-  return flow(geometry, scale({}), coordinate, animation, theme)(params);
+  return flow(geometry, scale({}), coordinate, animation, theme, annotation())(params);
 }

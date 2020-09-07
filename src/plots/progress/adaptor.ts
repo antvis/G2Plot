@@ -1,7 +1,7 @@
 import { isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { scale, animation, theme } from '../../adaptor/common';
+import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { geometry } from '../ring-progress/adaptor';
 import { ProgressOptions } from './types';
 
@@ -40,5 +40,5 @@ function widthRatio(params: Params<ProgressOptions>): Params<ProgressOptions> {
  * @param options
  */
 export function adaptor(params: Params<ProgressOptions>) {
-  return flow(geometry, scale({}), coordinate, widthRatio, animation, theme)(params);
+  return flow(geometry, scale({}), coordinate, widthRatio, animation, theme, annotation())(params);
 }

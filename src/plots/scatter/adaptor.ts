@@ -159,9 +159,9 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { options } = params;
-  const { annotations, quadrant } = options;
+  const { quadrant } = options;
 
-  const annotationOptions = annotations ? annotations : [];
+  const annotationOptions = [];
 
   if (quadrant) {
     const { xBaseline = 0, yBaseline = 0, labels, regionStyle, lineStyle } = quadrant;

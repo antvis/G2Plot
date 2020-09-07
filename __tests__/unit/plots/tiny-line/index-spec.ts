@@ -168,6 +168,6 @@ describe('tiny-line', () => {
     });
 
     tinyLine.render();
-    expect(tinyLine.chart.getController('annotation').getComponents.length).toBe(1);
+    expect(tinyLine.chart.getController('annotation').getComponents().length).toBe(1);
   });
 });

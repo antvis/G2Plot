@@ -168,9 +168,9 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
  */
 function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
   const { options } = params;
-  const { innerRadius, statistic, angleField, annotations } = options;
+  const { innerRadius, statistic, angleField } = options;
 
-  const annotationOptions = annotations ? annotations : [];
+  const annotationOptions = [];
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {

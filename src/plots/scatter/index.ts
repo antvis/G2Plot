@@ -27,6 +27,9 @@ export class Scatter extends Plot<ScatterOptions> {
         shared: null,
         showTitle: false,
       },
+      /**
+       * legend 没有指定时根据 shapeField 和 colorField 来设置默认值
+       */
       legend: isBoolean(legend) ? legend : legend || !!(shapeField || colorField),
     });
   }

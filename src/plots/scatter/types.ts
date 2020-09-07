@@ -58,13 +58,13 @@ export interface ScatterOptions extends Options {
   /** 点大小映射对应的数据字段名 */
   readonly sizeField?: string;
   /** 散点图大小 */
-  readonly size?: number | [number, number] | ((value: number) => number);
+  readonly size?: number | [number, number] | ((x: any, y: any, color?: any, size?: any, shape?: any) => number);
   /** 点形状映射对应的数据字段名 */
   readonly shapeField?: string;
   /** 散点图形状 */
-  readonly shape?: string | string[] | ((shape: string) => string);
+  readonly shape?: string | string[] | ((x: any, y: any, color?: any, size?: any, shape?: any) => string);
   /** 散点图样式 */
-  readonly pointStyle?: PointStyle | ((x: number, y: number, colorfield?: string) => ShapeStyle);
+  readonly pointStyle?: PointStyle | ((x: any, y: any, color?: any, size?: any, shape?: any) => ShapeStyle);
   /** 点颜色映射对应的数据字段名 */
   readonly colorField?: string;
   /** 四象限组件 */

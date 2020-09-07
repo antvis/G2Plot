@@ -24,7 +24,7 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   }
 
   // shape
-  if (shape) {
+  if (shape || shapeField) {
     if (isString(shape)) {
       geometry.shape(shape);
     } else {
@@ -33,7 +33,7 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   }
 
   // color
-  if (color) {
+  if (color || colorField) {
     if (isString(color)) {
       geometry.color(color);
     } else {
@@ -42,7 +42,7 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   }
 
   // size
-  if (size) {
+  if (size || sizeField) {
     if (isNumber(size)) {
       geometry.size(size);
     } else {
@@ -89,10 +89,18 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField } = options;
+  const { legend, colorField, shapeField, sizeField } = options;
 
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
+  if (legend) {
+    chart.legend(shapeField || colorField, legend);
+  } else {
+    chart.legend(false);
+    chart.legend(colorField, false);
+  }
+
+  // 隐藏连续图例
+  if (sizeField) {
+    chart.legend(sizeField, false);
   }
 
   return params;

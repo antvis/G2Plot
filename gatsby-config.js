@@ -72,11 +72,27 @@ module.exports = {
         },
       },
       {
+        slug: 'bar',
+        icon: 'bar',
+        title: {
+          zh: '条形图',
+          en: 'Bar Charts',
+        },
+      },
+      {
         slug: 'pie',
         icon: 'pie',
         title: {
           zh: '饼图',
           en: 'Pie Charts',
+        },
+      },
+      {
+        slug: 'dual-axes',
+        icon: 'line',
+        title: {
+          zh: '双轴图',
+          en: 'DualAxes Charts',
         },
       },
       {
@@ -103,7 +119,71 @@ module.exports = {
           en: 'Radar Charts',
         },
       },
+      {
+        slug: 'box',
+        icon: 'box',
+        title: {
+          zh: '箱型图',
+          en: 'Box Charts',
+        },
+      },
+      {
+        slug: 'funnel',
+        icon: 'funnel',
+        title: {
+          zh: '漏斗图',
+          en: 'Funnel Charts',
+        },
+      },
+      {
+        slug: 'tiny-line',
+        icon: 'line',
+        title: {
+          zh: '迷你折线图',
+          en: 'Tiny Line',
+        },
+      },
+      {
+        slug: 'tiny-area',
+        icon: 'area',
+        title: {
+          zh: '迷你面积图',
+          en: 'Tiny Area',
+        },
+      },
+      {
+        slug: 'tiny-column',
+        icon: 'column',
+        title: {
+          zh: '迷你柱形图',
+          en: 'Tiny Column',
+        },
+      },
+      {
+        slug: 'ring-progress',
+        icon: 'other',
+        title: {
+          zh: '进度环图',
+          en: 'Ring Progress',
+        },
+      },
+      {
+        slug: 'progress',
+        icon: 'other',
+        title: {
+          zh: '进度条图',
+          en: 'Tiny Progress',
+        },
+      },
       // OTHERS
+      {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '图表通用配置',
+          en: 'General Configration',
+        },
+      },
     ],
     docsearchOptions: {
       apiKey: '200ec461f4aa0bb4f0e761566f1a1336',

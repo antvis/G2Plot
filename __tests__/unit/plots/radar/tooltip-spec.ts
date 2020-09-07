@@ -38,7 +38,7 @@ describe('radar, 自定义 tooltip', () => {
       tooltip: {
         title: '开销',
       },
-      interactions: [{ name: 'radar-tooltip' }],
+      interactions: [{ type: 'radar-tooltip' }],
     });
 
     radar.render();
@@ -59,7 +59,7 @@ describe('radar, 自定义 tooltip', () => {
       tooltip: {
         shared: false,
       },
-      interactions: [{ name: 'radar-tooltip' }],
+      interactions: [{ type: 'radar-tooltip' }],
     });
 
     radar.render();
@@ -88,7 +88,7 @@ describe('radar, 自定义 tooltip', () => {
            </span>
         </li>`,
       },
-      interactions: [{ name: 'radar-tooltip' }],
+      interactions: [{ type: 'radar-tooltip' }],
     });
 
     radar.render();
@@ -122,7 +122,7 @@ describe('radar, 自定义 tooltip', () => {
       },
       interactions: [
         {
-          name: 'radar-tooltip',
+          type: 'radar-tooltip',
           cfg: {
             start: [{ trigger: 'plot:mousemove', action: 'radar-tooltip:show' }],
             end: [{ trigger: 'plot:mouseleave', action: 'radar-tooltip:hide' }],

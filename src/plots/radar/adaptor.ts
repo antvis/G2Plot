@@ -1,9 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { flow, pick } from '../../utils';
+import { flow } from '../../utils';
 import { RadarOptions } from './types';
 
 /**
@@ -15,10 +14,9 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   const { data, lineStyle, smooth } = options;
 
   chart.data(data);
-  // line geometry 处理
-  flow(line)(deepMix({}, params, { options: { line: { smooth, style: lineStyle } } }));
 
-  return params;
+  // line geometry 处理
+  return flow(line)(deepMix({}, params, { options: { line: { smooth, style: lineStyle } } }));
 }
 
 /**
@@ -26,21 +24,15 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
  * @param params
  */
 function meta(params: Params<RadarOptions>): Params<RadarOptions> {
-  const { chart, options } = params;
-  const { meta, xField, yField, xAxis, yAxis } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  // meta 直接是 scale 的信息
-  const scales = deepMix(
-    {
-      [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-      [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-    },
-    meta
-  );
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
 }
 
 /**
@@ -94,7 +86,7 @@ function label(params: Params<RadarOptions>): Params<RadarOptions> {
  */
 export function adaptor(params: Params<RadarOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(
+  return flow(
     geometry,
     meta,
     // 雷达图 point geometry 处理

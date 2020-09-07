@@ -1,16 +1,16 @@
-import { isFunction } from '@antv/util';
+import { isFunction, isNil } from '@antv/util';
+import { theme, scale, animation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { TinyTooltipOption } from '../../types';
 import { TinyColumnOptions } from './types';
-import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
-
 /**
  * 字段
  * @param params
  */
-function field(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
+function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
   const { chart, options } = params;
-  const { data } = options;
+  const { data, columnStyle, columnWidthRatio } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -18,43 +18,22 @@ function field(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
 
   chart.data(seriesData);
 
-  chart.interval().position('x*y');
+  const geometry = chart.interval().position('x*y');
 
-  return params;
-}
+  // line style
+  if (columnStyle) {
+    geometry.style('x*y', (x: number, y: number) => {
+      return isFunction(columnStyle) ? columnStyle(x, y) : columnStyle;
+    });
+  }
 
-/**
- * meta 配置
- * @param params
- */
-function meta(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
-
-  chart.scale(meta);
-
-  return params;
-}
-
-/**
- * axis 配置
- * @param params
- */
-function axis(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
-  const { chart } = params;
+  if (!isNil(columnWidthRatio)) {
+    chart.theme({
+      columnWidthRatio,
+    });
+  }
 
   chart.axis(false);
-
-  return params;
-}
-
-/**
- * legend 配置
- * @param params
- */
-function legend(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
-  const { chart } = params;
-
   chart.legend(false);
 
   return params;
@@ -66,50 +45,22 @@ function legend(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
  */
 export function tooltip(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
   const { chart, options } = params;
-  const { tooltip = false } = options;
+  const { tooltip } = options;
 
-  if (tooltip) {
-    if (typeof tooltip === 'object') {
-      const { formatter, domStyles, position, offset, showCrosshairs } = tooltip;
-      chart.tooltip({
-        ...DEFAULT_TOOLTIP_OPTIONS,
-        showCrosshairs,
-        domStyles,
-        position,
-        offset,
-      });
-      const geometry = chart.geometries[0];
-      geometry.tooltip('x*y', (x, y) => {
-        return {
-          value: formatter(x, y),
-        };
-      });
-    } else {
-      chart.tooltip(DEFAULT_TOOLTIP_OPTIONS);
-    }
-  } else {
+  // false 则关闭
+  if (tooltip === false) {
     chart.tooltip(false);
+  } else {
+    // 是如果 object，那么传入
+    const { formatter, ...otherTooltip } = tooltip as TinyTooltipOption;
+
+    chart.tooltip(otherTooltip);
+
+    chart.geometries[0].tooltip('x*y', (x, y) => ({
+      value: formatter(x, y),
+    }));
   }
 
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
-  const { chart, options } = params;
-  const { columnStyle } = options;
-
-  const geometry = chart.geometries[0];
-  if (columnStyle && geometry) {
-    if (isFunction(columnStyle)) {
-      geometry.style('x*y', columnStyle);
-    } else {
-      geometry.style(columnStyle);
-    }
-  }
   return params;
 }
 
@@ -119,5 +70,5 @@ function style(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyColumnOptions>) {
-  flow(field, meta, axis, legend, tooltip, style)(params);
+  return flow(geometry, scale({}), tooltip, theme, animation)(params);
 }

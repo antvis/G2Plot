@@ -9,18 +9,12 @@ describe('tiny-line', () => {
     const tinyLine = new TinyLine(createDiv(), {
       width: 80,
       height: 40,
-      meta: {
-        value: {
-          min: 0,
-          max: 5000,
-        },
-      },
       data: partySupport
         .filter((o) => o.type === 'FF')
         .map((item) => {
           return item.value;
         }),
-      autoFit: false,
+      autoFit: true,
     });
 
     tinyLine.render();
@@ -32,7 +26,7 @@ describe('tiny-line', () => {
       width: 80,
       height: 40,
       meta: {
-        value: {
+        y: {
           min: 0,
           max: 5000,
         },
@@ -42,7 +36,7 @@ describe('tiny-line', () => {
         .map((item) => {
           return item.value;
         }),
-      autoFit: false,
+      autoFit: true,
       smooth: true,
     });
 
@@ -63,7 +57,11 @@ describe('tiny-line', () => {
       lineStyle: {
         lineDash: [2, 2],
       },
-      autoFit: false,
+      tooltip: {
+        showCrosshairs: true,
+        showMarkers: true,
+      },
+      autoFit: true,
       appendPadding: 10,
     });
 
@@ -91,8 +89,7 @@ describe('tiny-line', () => {
         .map((item) => {
           return item.value;
         }),
-      autoFit: false,
-      tooltip: true,
+      autoFit: true,
     });
 
     tinyLine.render();
@@ -106,7 +103,7 @@ describe('tiny-line', () => {
     expect(tooltipOption.containerTpl).toBe('<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>');
     expect(tooltipOption.domStyles).toEqual({
       'g2-tooltip': {
-        padding: '2px',
+        padding: '2px 4px',
         fontSize: '10px',
       },
     });

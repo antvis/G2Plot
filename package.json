@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.4",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -11,7 +11,7 @@
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
-  "unpkg": "dist/g2plot.js",
+  "unpkg": "dist/g2plot.min.js",
   "files": [
     "lib",
     "esm",
@@ -27,20 +27,21 @@
     "site:develop": "cross-env PORT=8080 gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
-    "site:deploy": "npm run doc && npm run site:build && gh-pages -d public",
-    "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__",
-    "build": "run-s clean lib dist",
+    "site:deploy": "npm run site:build && gh-pages -d public",
+    "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__ && lint-md --fix ./examples",
+    "build": "run-s clean lib dist size",
+    "size": "limit-size",
     "clean": "rimraf lib esm dist",
     "lib": "run-p lib:*",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",
     "dist": "webpack --config webpack.config.js --mode production",
-    "lint": "eslint --ext .ts ./src ./__tests__",
+    "lint": "eslint --ext .ts ./src ./__tests__ && prettier --check ./src ./__tests__ && lint-md ./examples",
     "lint-staged": "lint-staged",
     "test": "jest",
     "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
-    "ci": "run-s lint build coverage",
+    "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",
     "prepublishOnly": "run-s lint test build",
     "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
@@ -55,6 +56,7 @@
     "@antv/data-set": "^0.11.5",
     "@antv/event-emitter": "^0.1.2",
     "@antv/g2": "^4.0.15",
+    "dayjs": "^1.8.34",
     "size-sensor": "^1.0.1",
     "tslib": "^1.13.0"
   },
@@ -72,6 +74,7 @@
     "cross-env": "^7.0.2",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.0",
     "gatsby": "^2.20.22",
     "generate-changelog": "^1.8.0",
@@ -80,6 +83,8 @@
     "jest": "^26.0.1",
     "jest-electron": "^0.1.7",
     "jest-extended": "^0.11.2",
+    "limit-size": "^0.1.1",
+    "lint-md-cli": "^0.1.2",
     "lint-staged": "^10.0.7",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.1",
@@ -112,7 +117,21 @@
     "*.ts": [
       "eslint --fix",
       "prettier --write"
+    ],
+    "*.md": [
+      "lint-md --fix"
     ]
   },
+  "limit-size": [
+    {
+      "path": "dist/g2plot.min.js",
+      "limit": "1.2 Mb"
+    },
+    {
+      "path": "dist/g2plot.min.js",
+      "limit": "400 Kb",
+      "gzip": true
+    }
+  ],
   "license": "MIT"
 }

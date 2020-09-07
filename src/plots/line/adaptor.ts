@@ -1,10 +1,9 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { point, line } from '../../adaptor/geometries';
-import { flow, pick } from '../../utils';
+import { flow } from '../../utils';
 import { LineOptions } from './types';
 
 /**
@@ -16,10 +15,9 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { data, color, lineStyle, connectNulls, smooth } = options;
 
   chart.data(data);
-  // line geometry 处理
-  flow(line)(deepMix({}, params, { options: { line: { connectNulls, smooth, color, style: lineStyle } } }));
 
-  return params;
+  // line geometry 处理
+  return flow(line)(deepMix({}, params, { options: { line: { connectNulls, smooth, color, style: lineStyle } } }));
 }
 
 /**
@@ -27,18 +25,15 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
  * @param params
  */
 export function meta(params: Params<LineOptions>): Params<LineOptions> {
-  const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField, yField } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  // meta 直接是 scale 的信息
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-  });
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
 }
 
 /**
@@ -112,5 +107,5 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(geometry, meta, point, theme, axis, legend, tooltip, label, interaction, animation)(params);
+  return flow(geometry, meta, point, theme, axis, legend, tooltip, label, slider, interaction, animation)(params);
 }

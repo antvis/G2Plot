@@ -4,7 +4,7 @@ import { parsePercentageToNumber } from '../utils';
 
 const PieLabel = getGeometryLabel('pie');
 
-export default class PieInnerLabel extends PieLabel {
+export class PieInnerLabel extends PieLabel {
   public defaultLayout = 'pie-inner';
 
   /**

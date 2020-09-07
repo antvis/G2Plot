@@ -37,9 +37,9 @@ title: API
 
 ```js
 const data = [
-  { value: 20 },
-  { value: 34 },
-  { value: 56 },
+  { value: 20 }, 
+  { value: 34 }, 
+  { value: 56 }, 
   { value: 67 }
 ];
 
@@ -55,8 +55,10 @@ const HistogramPlot = new Histogram(document.getElementById('container'), {
       max: 20,
       nice: true,
       alias: '数量',
-      formatter:(v)=>{return `${v}个`}
-    }
+      formatter: (v) => {
+        return `${v}个`;
+      },
+    },
   },
   // highlight-end
   binField: 'value',
@@ -76,7 +78,7 @@ HistogramPlot.render();
 
 **可选**, _string_
 
-功能描述： 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与binNumber一起使用。
+功能描述： 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与 binNumber 一起使用。
 
 默认配置： Sturges formula 计算得到
 
@@ -96,7 +98,6 @@ columnStyle ✨
 
 功能描述： 设置直方图柱子样式。
 
-
 | 细分配置      | 类型   | 功能描述   |
 | ------------- | ------ | ---------- |
 | fill          | string | 填充颜色   |
@@ -106,5 +107,3 @@ columnStyle ✨
 | opacity       | number | 整体透明度 |
 | fillOpacity   | number | 填充透明度 |
 | strokeOpacity | number | 描边透明度 |
-
-

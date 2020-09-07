@@ -1,9 +1,15 @@
+import { AnnotationPosition, RegionPositionBaseOption, TextOption } from '@antv/g2/lib/interface';
 import { Axis } from './axis';
 import { Label } from './label';
 import { Tooltip } from './tooltip';
 import { Legend } from './legend';
 import { Interaction } from './interaction';
 import { Animation } from './animation';
+import { State } from './state';
+import { Slider } from './slider';
+
+/** annotation position */
+export { AnnotationPosition, RegionPositionBaseOption, TextOption };
 
 /** 一条数据记录 */
 export type Datum = Record<string, any>;
@@ -63,8 +69,8 @@ export type Meta = {
   readonly formatter?: (v: any) => string;
 };
 
-/** 画布的基本配置 */
-export type ChartOptions = {
+/** 基础的 Options 配置 */
+export type Options = {
   // 画布基本配置
   /** 画布宽度 */
   readonly width?: number;
@@ -84,10 +90,7 @@ export type ChartOptions = {
   readonly pixelRatio?: number;
   /** 是否开启局部渲染，默认为 true */
   readonly localRefresh?: boolean;
-};
 
-/** 基础的 Options 配置 */
-export type Options = ChartOptions & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Record<string, any>[];
@@ -99,11 +102,20 @@ export type Options = ChartOptions & {
   readonly theme?: string | object;
   /** 颜色色板 */
   readonly color?: string | string[] | ((...args: any[]) => string);
+  /** xAxis 的配置项 */
   readonly xAxis?: Axis;
+  /** yAxis 的配置项 */
   readonly yAxis?: Axis;
+  /** 数据标签的配置 */
   readonly label?: Label;
+  /** tooltip 的配置项 */
   readonly tooltip?: Tooltip;
+  /** 图例 legend 的配置项 */
   readonly legend?: Legend;
+  /** 缩略轴 slider 的配置项 */
+  readonly slider?: Slider;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
+  // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
+  readonly state?: State;
 };

@@ -1,3 +1,32 @@
+#### 2.0.0-beta.2 (2020-08-24)
+
+##### Documentation Changes
+
+*  统一通用文档样式 ([#1470](https://github.com/antvis/g2plot/pull/1470)) ([bdafeb0e](https://github.com/antvis/g2plot/commit/bdafeb0eb5d117a66198b1c48cdee03d89fc1e32))
+*  添加 axis ([#1465](https://github.com/antvis/g2plot/pull/1465)) ([ce8acafd](https://github.com/antvis/g2plot/commit/ce8acafd8a3ad5d0c8ed47b3753d6fe73bf9d793))
+*  添加 tooltip ([#1452](https://github.com/antvis/g2plot/pull/1452)) ([0dda5279](https://github.com/antvis/g2plot/commit/0dda52790446c75922065cad655c605dbf44d961))
+*  添加图表通用配置 ([#1439](https://github.com/antvis/g2plot/pull/1439)) ([a26dc3d8](https://github.com/antvis/g2plot/commit/a26dc3d80aafec1e563af737c3ac4eef2a9adc12))
+
+##### New Features
+
+* **slider:**  add slider common adaptor, apply to line,area,column ([#1480](https://github.com/antvis/g2plot/pull/1480)) ([b1dc58a7](https://github.com/antvis/g2plot/commit/b1dc58a7b31a86ecd048257dc5ffea45e5f7d818))
+* **lint-md:**  add markdown lint & fix markdown error ([#1466](https://github.com/antvis/g2plot/pull/1466)) ([61b8c30b](https://github.com/antvis/g2plot/commit/61b8c30b473fc1f4092d5d3c16b6d9cfed8c7de0))
+* **state:**  添加 setState 方法，通过条件设置三种状态的激活与否 ([#1460](https://github.com/antvis/g2plot/pull/1460)) ([5ba9e0a5](https://github.com/antvis/g2plot/commit/5ba9e0a5368b647bf996b770ea58ac70aa5c4071))
+* **theme:**  增加主题 examples & 调整 options 定义 & 补全 theme 通道 ([#1457](https://github.com/antvis/g2plot/pull/1457)) ([32ab2840](https://github.com/antvis/g2plot/commit/32ab2840740806c9318d65e3b9c448e76e4d3705))
+*  导出 G2 和 Tooltip 类型定义 ([#1446](https://github.com/antvis/g2plot/pull/1446)) ([076c7583](https://github.com/antvis/g2plot/commit/076c75839f1b802351db66cb821c047c9828d1b5))
+
+##### Bug Fixes
+
+*  修改 changeData ([#1471](https://github.com/antvis/g2plot/pull/1471)) ([3c10eb56](https://github.com/antvis/g2plot/commit/3c10eb56d625a68b4093b2e823515e4c2ad74bc5))
+*  文档路径错误 ([#1467](https://github.com/antvis/g2plot/pull/1467)) ([2d76e7a0](https://github.com/antvis/g2plot/commit/2d76e7a0ac2e2a57432a56c0e70753b15a4c8518))
+*  修改 scatter 写法 ([#1456](https://github.com/antvis/g2plot/pull/1456)) ([ae12f6e0](https://github.com/antvis/g2plot/commit/ae12f6e02a3caea01b2215223a4f012ebb116105))
+*  解决空路径 demos 不可用问题 ([#1440](https://github.com/antvis/g2plot/pull/1440)) ([3b68173e](https://github.com/antvis/g2plot/commit/3b68173eb526d0135577d64efd9d82184cca9cb0))
+* **pie:**  修复 chart 初始化获取不到 filteredData，使用 text content 回调替代 获取 ([#1441](https://github.com/antvis/g2plot/pull/1441)) ([06485c07](https://github.com/antvis/g2plot/commit/06485c07ac7dc31e82dcda2f14a435bfaa7edb6e))
+
+##### Tests
+
+*  修改histogram直方图的测试用例 ([#1447](https://github.com/antvis/g2plot/pull/1447)) ([1cd064bf](https://github.com/antvis/g2plot/commit/1cd064bfe08ab0809a6145da4583666fc2b2b4a3))
+
 #### 2.0.0-beta.1 (2020-08-14)
 
 ##### Chores

@@ -15,7 +15,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
       },
       interactions: [
         {
-          name: 'element-highlight',
+          type: 'element-highlight',
         },
       ],
     });

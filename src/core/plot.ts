@@ -1,41 +1,22 @@
 import { Chart, Event } from '@antv/g2';
-import { deepMix } from '@antv/util';
+import Element from '@antv/g2/lib/geometry/element';
+import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
+import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
+import { getContainerSize, getAllElements } from '../utils';
 import { Adaptor } from './adaptor';
-import { ChartOptions, Options, Data, Size } from '../types';
-import { getContainerSize } from '../utils';
+
+/** 单独 pick 出来的用于基类的类型定义 */
+export type PickOptions = Pick<
+  Options,
+  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
+>;
 
 /**
  * 所有 plot 的基类
  */
-export abstract class Plot<O extends ChartOptions> extends EE {
-  /** 默认配置 */
-  private defaultOptions: Partial<Options> = {
-    renderer: 'canvas',
-    tooltip: {
-      shared: true,
-      showCrosshairs: true,
-      crosshairs: {
-        type: 'x',
-      },
-      offset: 20,
-    },
-    xAxis: {
-      nice: true,
-      label: {
-        autoRotate: true,
-        autoHide: true,
-      },
-    },
-    yAxis: {
-      nice: true,
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    },
-  };
+export abstract class Plot<O extends PickOptions> extends EE {
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -51,7 +32,7 @@ export abstract class Plot<O extends ChartOptions> extends EE {
     super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
 
-    this.options = deepMix({}, this.getDefaultOptions(), options);
+    this.options = deepMix({}, this.getDefaultOptions(options), options);
 
     this.createG2();
 
@@ -77,17 +58,14 @@ export abstract class Plot<O extends ChartOptions> extends EE {
   }
 
   /**
-   * 计算默认的 chart 大小。逻辑简化：如果存在 width height，则直接使用，否则使用容器大小
+   * 计算默认的 chart 大小。逻辑简化：如果存在 width 或 height，则直接使用，否则使用容器大小
    * @param width
    * @param height
    * @param autoFit
    */
   private getChartSize(width: number, height: number, autoFit: boolean): Size {
-    if (width && height) {
-      return { width, height };
-    }
-
-    return { width, height, ...getContainerSize(this.container) };
+    const chartSize = getContainerSize(this.container);
+    return { width: width || chartSize.width, height: height || chartSize.height };
   }
 
   /**
@@ -107,8 +85,30 @@ export abstract class Plot<O extends ChartOptions> extends EE {
    * 获取默认的 options 配置项
    * 每个组件都可以复写
    */
-  protected getDefaultOptions(): Partial<Options> {
-    return this.defaultOptions;
+  protected getDefaultOptions(options?: O): Partial<Options> {
+    return {
+      renderer: 'canvas',
+      tooltip: {
+        shared: true,
+        showMarkers: false,
+        offset: 20,
+      },
+      xAxis: {
+        nice: true,
+        label: {
+          autoRotate: true,
+          autoHide: true,
+        },
+      },
+      yAxis: {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
+        },
+      },
+      animation: true,
+    };
   }
 
   /**
@@ -124,6 +124,10 @@ export abstract class Plot<O extends ChartOptions> extends EE {
     this.chart.clear();
 
     const adaptor = this.getSchemaAdaptor();
+
+    const { padding } = this.options;
+    // 更新 padding
+    this.chart.padding = padding;
 
     // 转化成 G2 API
     adaptor({
@@ -148,12 +152,50 @@ export abstract class Plot<O extends ChartOptions> extends EE {
   }
 
   /**
+   * 设置状态
+   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
+   * @param conditions 条件，支持数组
+   * @param status 是否激活，默认 true
+   */
+  public setState(type: StateName, condition: StateCondition, status: boolean = true) {
+    const elements = getAllElements(this.chart);
+
+    each(elements, (ele: Element) => {
+      if (condition(ele.getData())) {
+        ele.setState(type, status);
+      }
+    });
+  }
+
+  /**
+   * 获取状态
+   */
+  public getStates(): StateObject[] {
+    const elements = getAllElements(this.chart);
+
+    const stateObjects: StateObject[] = [];
+    each(elements, (element: Element) => {
+      const data = element.getData();
+      const states = element.getStates();
+      each(states, (state) => {
+        stateObjects.push({ data, state, geometry: element.geometry, element });
+      });
+    });
+
+    return stateObjects;
+  }
+
+  /**
    * 更新数据
    * @param options
    */
-  public changeData(data: Data) {
-    this.chart.changeData(data);
-    this.chart.render();
+  public changeData(data: any) {
+    // 临时方案，会在 G2 做处理
+    this.update({
+      ...this.options,
+      data,
+    });
+    // this.chart.changeData(data);
   }
 
   /**

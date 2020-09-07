@@ -1,11 +1,10 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, pick } from '../../utils';
+import { flow } from '../../utils';
 import { ColumnOptions } from './types';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 /**
  * 字段
@@ -17,7 +16,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
 
   chart.data(data);
 
-  flow(interval)(
+  return flow(interval)(
     deepMix({}, params, {
       options: {
         interval: {
@@ -28,8 +27,6 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
       },
     })
   );
-
-  return params;
 }
 
 /**
@@ -37,17 +34,15 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * @param params
  */
 function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
-  const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField, yField } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-  });
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
 }
 
 /**
@@ -125,5 +120,5 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(geometry, meta, axis, legend, tooltip, theme, label, interaction, animation)(params);
+  return flow(geometry, meta, axis, legend, tooltip, slider, theme, label, interaction, animation)(params);
 }

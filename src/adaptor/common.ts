@@ -1,17 +1,17 @@
-/**
- * @file 通用的一些 adaptor
- */
 import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
+import { each, deepMix } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
+import { Axis } from '../types/axis';
+import { AXIS_META_CONFIG_KEYS } from '../constant';
+import { pick } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 的图表
  * @param params
  */
-export function legend<O extends Options & { colorField?: string }>(params: Params<O>): Params<O> {
+export function legend<O extends Pick<Options, 'legend'> & { colorField?: string }>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { legend, colorField } = options;
 
@@ -28,7 +28,7 @@ export function legend<O extends Options & { colorField?: string }>(params: Para
  * 通用 tooltip 配置
  * @param params
  */
-export function tooltip<O extends Options>(params: Params<O>): Params<O> {
+export function tooltip<O extends Pick<Options, 'tooltip'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { tooltip } = options;
 
@@ -43,12 +43,16 @@ export function tooltip<O extends Options>(params: Params<O>): Params<O> {
  * Interaction 配置
  * @param params
  */
-export function interaction<O extends Options>(params: Params<O>): Params<O> {
+export function interaction<O extends Pick<Options, 'interactions'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { interactions } = options;
 
   each(interactions, (i: Interaction) => {
-    chart.interaction(i.name, i.cfg || {});
+    if (i.enable === false) {
+      chart.removeInteraction(i.type);
+    } else {
+      chart.interaction(i.type, i.cfg || {});
+    }
   });
 
   return params;
@@ -58,7 +62,7 @@ export function interaction<O extends Options>(params: Params<O>): Params<O> {
  * 动画
  * @param params
  */
-export function animation<O extends Options>(params: Params<O>): Params<O> {
+export function animation<O extends Pick<Options, 'animation'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { animation } = options;
 
@@ -74,7 +78,7 @@ export function animation<O extends Options>(params: Params<O>): Params<O> {
  * 设置全局主题配置
  * @param params
  */
-export function theme<O extends Options>(params: Params<O>): Params<O> {
+export function theme<O extends Pick<Options, 'theme'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   const { theme } = options;
 
@@ -83,4 +87,58 @@ export function theme<O extends Options>(params: Params<O>): Params<O> {
     chart.theme(theme);
   }
   return params;
+}
+
+/**
+ * 状态 state 配置
+ * @param params
+ */
+export function state(params: Params<Options>): Params<Options> {
+  const { chart, options } = params;
+  const { state } = options;
+
+  if (state) {
+    each(chart.geometries, (geometry: Geometry) => {
+      geometry.state(state);
+    });
+  }
+
+  return params;
+}
+
+/**
+ * 处理缩略轴的 adaptor
+ * @param params
+ */
+export function slider(params: Params<Options>): Params<Options> {
+  const { chart, options } = params;
+  const { slider } = options;
+
+  chart.option('slider', slider);
+
+  return params;
+}
+
+/**
+ * scale 的 adaptor
+ * @param axes
+ */
+export function scale(axes: Record<string, Axis>) {
+  return function <O extends Pick<Options, 'meta'>>(params: Params<O>): Params<O> {
+    const { chart, options } = params;
+    const { meta } = options;
+
+    // 1. 轴配置中的 scale 信息
+    let scales: Record<string, any> = {};
+    each(axes, (axis: Axis, field: string) => {
+      scales[field] = pick(axis, AXIS_META_CONFIG_KEYS);
+    });
+
+    // 2. meta 直接是 scale 的信息
+    scales = deepMix({}, meta, scales);
+
+    chart.scale(scales);
+
+    return params;
+  };
 }

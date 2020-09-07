@@ -1,104 +1,9 @@
-import { isFunction } from '@antv/util';
+import { isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { scale, animation, theme } from '../../adaptor/common';
+import { geometry } from '../ring-progress/adaptor';
 import { ProgressOptions } from './types';
-
-/**
- * 字段
- * @param params
- */
-function field(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart, options } = params;
-  const { percent, color } = options;
-
-  const data = [
-    {
-      type: 'current',
-      percent: percent,
-    },
-    {
-      type: 'target',
-      percent: 1 - percent,
-    },
-  ];
-
-  chart.data(data);
-
-  const geometry = chart.interval().position('1*percent').adjust('stack');
-  const values = isFunction(color) ? color(percent) : color || ['#FAAD14', '#E8EDF3'];
-
-  geometry.color('type', values);
-
-  return params;
-}
-
-/**
- * meta 配置
- * @param params
- */
-function meta(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
-
-  chart.scale(meta);
-
-  return params;
-}
-
-/**
- * axis 配置
- * @param params
- */
-function axis(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart } = params;
-
-  chart.axis(false);
-
-  return params;
-}
-
-/**
- * legend 配置
- * @param params
- */
-function legend(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart } = params;
-
-  chart.legend(false);
-
-  return params;
-}
-
-/**
- * tooltip 配置
- * @param params
- */
-function tooltip(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart } = params;
-
-  chart.tooltip(false);
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart, options } = params;
-  const { progressStyle } = options;
-
-  const geometry = chart.geometries[0];
-  if (progressStyle && geometry) {
-    if (isFunction(progressStyle)) {
-      geometry.style('1*percent*type', progressStyle);
-    } else {
-      geometry.style(progressStyle);
-    }
-  }
-  return params;
-}
 
 /**
  * coordinate 配置
@@ -113,10 +18,27 @@ function coordinate(params: Params<ProgressOptions>): Params<ProgressOptions> {
 }
 
 /**
+ * widthRatio 配置
+ * @param params
+ */
+function widthRatio(params: Params<ProgressOptions>): Params<ProgressOptions> {
+  const { chart, options } = params;
+  const { barWidthRatio } = options;
+
+  if (!isNil(widthRatio)) {
+    chart.theme({
+      columnWidthRatio: barWidthRatio,
+    });
+  }
+
+  return params;
+}
+
+/**
  * 进度图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<ProgressOptions>) {
-  flow(field, meta, axis, legend, tooltip, style, coordinate)(params);
+  return flow(geometry, scale({}), coordinate, widthRatio, animation, theme)(params);
 }

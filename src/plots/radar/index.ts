@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { RadarOptions } from './types';
@@ -14,7 +15,7 @@ export class Radar extends Plot<RadarOptions> {
    * 获取 雷达图 默认配置
    */
   protected getDefaultOptions(): Partial<RadarOptions> {
-    return {
+    return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
         line: null,
         tickLine: null,
@@ -38,7 +39,20 @@ export class Radar extends Plot<RadarOptions> {
           },
         },
       },
-    };
+      tooltip: {
+        shared: true,
+        showMarkers: true,
+        showCrosshairs: true,
+        crosshairs: {
+          line: {
+            style: {
+              lineDash: [4, 4],
+              stroke: '#333',
+            },
+          },
+        },
+      },
+    });
   }
 
   /**

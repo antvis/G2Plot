@@ -113,7 +113,6 @@ describe('tiny-area', () => {
           return item.value;
         }),
       autoFit: false,
-      tooltip: true,
     });
 
     tinyArea.render();
@@ -127,7 +126,7 @@ describe('tiny-area', () => {
     expect(tooltipOption.containerTpl).toBe('<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>');
     expect(tooltipOption.domStyles).toEqual({
       'g2-tooltip': {
-        padding: '2px',
+        padding: '2px 4px',
         fontSize: '10px',
       },
     });

@@ -6,8 +6,9 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
   itemTpl: '<span>{value}</span>',
   domStyles: {
     'g2-tooltip': {
-      padding: '2px',
+      padding: '2px 4px',
       fontSize: '10px',
     },
   },
+  formatter: (x: number, y: number) => y.toFixed(1),
 };

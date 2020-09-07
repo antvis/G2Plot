@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "column-line.ts",
+      "title": {
+        "zh": "柱线混合图表",
+        "en": "column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OjMdQamxTvsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-column-line.ts",
+      "title": {
+        "zh": "柱线混合图表-自定义样式",
+        "en": "custom-column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e9DmR451GDwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column-multi-line.ts",
+      "title": {
+        "zh": "柱线混合图表-显示多折线",
+        "en": "custom-column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ldsOR4yQZnAAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

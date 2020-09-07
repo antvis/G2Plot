@@ -1,6 +1,6 @@
 import { deepMix, each, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { legend, tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { legend, tooltip, interaction, animation, theme, state } from '../../adaptor/common';
 import { Data } from '../../types';
 import { flow, LEVEL, log, template } from '../../utils';
 import { PieOptions } from './types';
@@ -161,12 +161,13 @@ function style(params: Params<PieOptions>): Params<PieOptions> {
 
 /**
  * annotation 配置
- * 1. 中心文本
+ * 内置标注：
+ *   1. 中心文本
  * @param params
  */
 function annotation(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField, colorField } = options;
+  const { innerRadius, statistic, angleField } = options;
 
   const annotationController = chart.getController('annotation');
   // todo remove ignore
@@ -188,7 +189,10 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       content: '',
     };
 
-    const contentFormatter = get(content, 'formatter');
+    const getStatisticData = (data: Data) => ({
+      title: '总计',
+      value: getTotalValue(data, angleField),
+    });
 
     if (title !== false) {
       let titleLineHeight = get(title, 'style.lineHeight');
@@ -201,10 +205,7 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
         type: 'text',
         position: ['50%', '50%'],
         content: (filterData: Data) => {
-          const statisticData = {
-            title: '总计',
-            value: getTotalValue(filterData, angleField),
-          };
+          const statisticData = getStatisticData(filterData);
           return titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title;
         },
         ...deepMix(
@@ -213,6 +214,9 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
             offsetY: content === false ? 0 : -titleLineHeight,
             // append-info
             key: 'statistic',
+            style: {
+              textAlign: 'center',
+            },
           },
           title
         ),
@@ -224,14 +228,13 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
       if (!valueLineHeight) {
         valueLineHeight = get(content, 'style.fontSize', 20);
       }
+      const contentFormatter = get(content, 'formatter');
+
       statisticContent = {
         type: 'text',
         position: ['50%', '50%'],
         content: (filterData: Data) => {
-          const statisticData = {
-            title: '总计',
-            value: getTotalValue(filterData, angleField),
-          };
+          const statisticData = getStatisticData(filterData);
           return contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value;
         },
         ...deepMix(
@@ -241,6 +244,9 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
             offsetY: title === false ? 0 : valueLineHeight,
             // append-info
             key: 'statistic',
+            style: {
+              textAlign: 'center',
+            },
           },
           content
         ),
@@ -266,5 +272,18 @@ function annotation(params: Params<PieOptions>): Params<PieOptions> {
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, theme, coord, legend, tooltip, label, style, annotation, interaction, animation)(params);
+  return flow(
+    field,
+    meta,
+    theme,
+    coord,
+    legend,
+    tooltip,
+    label,
+    state,
+    style,
+    annotation,
+    interaction,
+    animation
+  )(params);
 }

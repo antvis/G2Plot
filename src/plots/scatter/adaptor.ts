@@ -1,11 +1,10 @@
-import { deepMix, isFunction } from '@antv/util';
+import { isFunction, isNumber, isString, deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, pick, log, LEVEL } from '../../utils';
-import { ScatterOptions } from './types';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { flow } from '../../utils';
+import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { REFLECTS } from './reflect';
+import { getQuadrantDefaultConfig } from './util';
+import { ScatterOptions } from './types';
 
 /**
  * 字段
@@ -13,7 +12,7 @@ import { REFLECTS } from './reflect';
  */
 function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, type } = options;
+  const { data, xField, yField, type, color, colorField, shape, shapeField, size, sizeField } = options;
 
   // 散点图操作逻辑
   chart.data(data);
@@ -24,27 +23,32 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
     geometry.adjust(type);
   }
 
-  // 统一处理 color、 size、 shape
-  const reflectKeys = Object.keys(REFLECTS);
-  reflectKeys.forEach((key: string) => {
-    if (options[key] || options[REFLECTS[key].field]) {
-      let validateRules = false;
-      (REFLECTS[key].rules || []).forEach((fn: (arg: any) => boolean) => {
-        // 满足任一规则即可
-        if (fn && fn(options[key])) {
-          validateRules = true;
-        }
-      });
-      if (validateRules) {
-        if (!options[REFLECTS[key].field]) {
-          log(LEVEL.WARN, false, '***  For accurate mapping, specify %s please.  ***', REFLECTS[key].field);
-        }
-        geometry[REFLECTS[key].action](options[REFLECTS[key].field] || xField, options[key]);
-      } else {
-        geometry[REFLECTS[key].action](options[key] || options[REFLECTS[key].field]);
-      }
+  // shape
+  if (shape) {
+    if (isString(shape)) {
+      geometry.shape(shape);
+    } else {
+      geometry.shape(shapeField || xField, shape);
     }
-  });
+  }
+
+  // color
+  if (color) {
+    if (isString(color)) {
+      geometry.color(color);
+    } else {
+      geometry.color(colorField || xField, color);
+    }
+  }
+
+  // size
+  if (size) {
+    if (isNumber(size)) {
+      geometry.size(size);
+    } else {
+      geometry.size(sizeField || xField, size);
+    }
+  }
 
   return params;
 }
@@ -54,18 +58,15 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
  * @param params
  */
 function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
-  const { meta, xAxis, yAxis, xField, yField } = options;
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  // meta 直接是 scale 的信息
-  const scales = deepMix({}, meta, {
-    [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-    [yField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-  });
-
-  chart.scale(scales);
-
-  return params;
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
 }
 
 /**
@@ -144,11 +145,53 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
 }
 
 /**
+ * 四象限
+ * @param params
+ */
+function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { chart, options } = params;
+  const { quadrant } = options;
+
+  if (quadrant) {
+    const { xBaseline = 0, yBaseline = 0, labels, regionStyle, lineStyle } = quadrant;
+    const defaultConfig = getQuadrantDefaultConfig(xBaseline, yBaseline);
+    // 仅支持四象限
+    const quadrants = new Array(4).join(',').split(',');
+    quadrants.forEach((_: string, index: number) => {
+      chart.annotation().region({
+        top: false,
+        ...defaultConfig.regionStyle[index].position,
+        style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+      });
+      chart.annotation().text({
+        top: true,
+        ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+      });
+    });
+    // 生成坐标轴
+    chart.annotation().line({
+      top: false,
+      start: ['min', yBaseline],
+      end: ['max', yBaseline],
+      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+    });
+    chart.annotation().line({
+      top: false,
+      start: [xBaseline, 'min'],
+      end: [xBaseline, 'max'],
+      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+    });
+  }
+
+  return params;
+}
+
+/**
  * 散点图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, tooltip, style, label, interaction, animation, theme)(params);
+  return flow(field, meta, axis, legend, tooltip, style, label, interaction, quadrant, animation, theme)(params);
 }

@@ -1,4 +1,4 @@
-import { isFunction, isNumber, isString, deepMix } from '@antv/util';
+import { isFunction, deepMix, isString, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
@@ -24,30 +24,30 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   }
 
   // shape
-  if (shape) {
-    if (isString(shape)) {
-      geometry.shape(shape);
-    } else {
-      geometry.shape(shapeField || xField, shape);
-    }
+  if (isFunction(shape)) {
+    geometry.shape(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, shape);
+  } else if (isArray(shape) && shapeField) {
+    geometry.shape(shapeField, shape);
+  } else if (isString(shape) || isString(shapeField)) {
+    geometry.shape((shape || shapeField) as string);
   }
 
   // color
-  if (color) {
-    if (isString(color)) {
-      geometry.color(color);
-    } else {
-      geometry.color(colorField || xField, color);
-    }
+  if (isFunction(color)) {
+    geometry.color(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, color);
+  } else if (isArray(color) && colorField) {
+    geometry.color(colorField, color);
+  } else if (isString(color) || isString(colorField)) {
+    geometry.color((color || colorField) as string);
   }
 
   // size
-  if (size) {
-    if (isNumber(size)) {
-      geometry.size(size);
-    } else {
-      geometry.size(sizeField || xField, size);
-    }
+  if (isFunction(size)) {
+    geometry.size(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, size);
+  } else if (isArray(size) && sizeField) {
+    geometry.size(sizeField, size);
+  } else if (isString(size) || isString(sizeField)) {
+    geometry.size((size || sizeField) as string);
   }
 
   return params;
@@ -89,10 +89,18 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField } = options;
+  const { legend, colorField, shapeField, sizeField } = options;
 
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
+  if (legend) {
+    chart.legend(shapeField || colorField, legend);
+  } else {
+    chart.legend(false);
+    chart.legend(colorField, false);
+  }
+
+  // 隐藏连续图例
+  if (sizeField) {
+    chart.legend(sizeField, false);
   }
 
   return params;
@@ -104,13 +112,13 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function style(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { xField, yField, pointStyle, colorField } = options;
+  const { xField, yField, pointStyle, colorField, sizeField, shapeField } = options;
 
   const geometry = chart.geometries[0];
 
   if (pointStyle && geometry) {
     if (isFunction(pointStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}`, pointStyle);
+      geometry.style(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, pointStyle);
     } else {
       geometry.style(pointStyle);
     }

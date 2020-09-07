@@ -41,6 +41,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
+      sizeField: 'gender',
       size: [5, 10],
       xAxis: {
         nice: true,

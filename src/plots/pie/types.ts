@@ -44,7 +44,7 @@ export interface PieOptions extends Options {
   readonly innerRadius?: number;
 
   /** 饼图图形样式 */
-  readonly pieStyle?: ShapeStyle | ((...args: string[]) => ShapeStyle);
+  readonly pieStyle?: ShapeStyle | ((angle: string, color: string) => ShapeStyle);
 
   /**
    * 指标卡组件: 显示在环图中心，可以代替tooltip，显示环图数据的总计值和各项数据

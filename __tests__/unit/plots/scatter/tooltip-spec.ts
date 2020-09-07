@@ -43,6 +43,7 @@ describe('scatter', () => {
       xAxis: {
         nice: true,
       },
+      animation: false,
       tooltip: {
         title: 'scatter',
         showTitle: false,

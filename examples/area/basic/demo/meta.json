@@ -19,6 +19,14 @@
         "en": "gradients Area chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aARCQbtAl4AAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "basic-slider.ts",
+      "title": {
+        "zh": "缩略轴面积图",
+        "en": "slider Area chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aARCQbtAl4AAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

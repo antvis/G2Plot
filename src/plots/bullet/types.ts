@@ -1,11 +1,10 @@
 import { GeometryLabelCfg } from '@antv/g2/lib/interface';
-import { ShapeAttrs } from '@antv/g2/lib/dependents';
-import { Options } from '../../types';
+import { Options, ColorAttr, SizeAttr, StyleAttr } from '../../types';
 
 type BasicStyle = {
-  color?: string | string[] | ((...args: any[]) => string);
-  style?: ShapeAttrs;
-  size?: number;
+  color?: ColorAttr;
+  style?: StyleAttr;
+  size?: SizeAttr;
 };
 
 export interface BulletOptions extends Options {

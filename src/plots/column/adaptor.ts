@@ -12,17 +12,17 @@ import { ColumnOptions } from './types';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, columnWidthRatio, marginRatio } = options;
+  const { data, columnStyle, color, columnWidthRatio } = options;
 
   chart.data(data);
 
   return flow(interval)(
     deepMix({}, params, {
       options: {
+        widthRatio: columnWidthRatio,
         interval: {
-          marginRatio,
-          widthRatio: columnWidthRatio,
           style: columnStyle,
+          color,
         },
       },
     })

@@ -14,12 +14,24 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, smooth } = options;
+  const { data, areaStyle, smooth, point: pointOptions, line: lineOptions } = options;
 
   chart.data(data);
 
   // area geometry 处理
-  return flow(area)(deepMix({}, params, { options: { area: { smooth, style: areaStyle } } }));
+  return flow(
+    area,
+    line,
+    point
+  )(
+    deepMix({}, params, {
+      options: {
+        area: { smooth, style: areaStyle },
+        point: pointOptions,
+        line: lineOptions,
+      },
+    })
+  );
 }
 
 /**
@@ -70,9 +82,6 @@ export function adaptor(params: Params<AreaOptions>) {
   return flow(
     geometry,
     meta,
-    // line 面积线的配置处理
-    line,
-    point,
     adjust,
     theme,
     axis,

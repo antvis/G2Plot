@@ -1,6 +1,7 @@
-import { isFunction, deepMix, isString, isArray } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { point as pointAdaptor } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { getQuadrantDefaultConfig } from './util';
@@ -10,44 +11,32 @@ import { ScatterOptions } from './types';
  * 字段
  * @param params
  */
-function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
+function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, type, color, colorField, shape, shapeField, size, sizeField } = options;
+  const { data, type, color, shape, size, pointStyle } = options;
 
-  // 散点图操作逻辑
+  // 数据
   chart.data(data);
-  const geometry = chart.point().position(`${xField}*${yField}`);
+
+  // geometry
+  pointAdaptor(
+    deepMix({}, params, {
+      options: {
+        point: {
+          color,
+          shape,
+          size,
+          style: pointStyle,
+        },
+      },
+    })
+  );
+
+  const geometry = findGeometry(chart, 'point');
 
   // 数据调整
   if (type) {
     geometry.adjust(type);
-  }
-
-  // shape
-  if (isFunction(shape)) {
-    geometry.shape(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, shape);
-  } else if (isArray(shape) && shapeField) {
-    geometry.shape(shapeField, shape);
-  } else if (isString(shape) || isString(shapeField)) {
-    geometry.shape((shape || shapeField) as string);
-  }
-
-  // color
-  if (isFunction(color)) {
-    geometry.color(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, color);
-  } else if (isArray(color) && colorField) {
-    geometry.color(colorField, color);
-  } else if (isString(color) || isString(colorField)) {
-    geometry.color((color || colorField) as string);
-  }
-
-  // size
-  if (isFunction(size)) {
-    geometry.size(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, size);
-  } else if (isArray(size) && sizeField) {
-    geometry.size(sizeField, size);
-  } else if (isString(size) || isString(sizeField)) {
-    geometry.size((size || sizeField) as string);
   }
 
   return params;
@@ -92,36 +81,14 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { legend, colorField, shapeField, sizeField } = options;
 
   if (legend) {
-    chart.legend(shapeField || colorField, legend);
+    chart.legend(colorField || shapeField, legend);
   } else {
     chart.legend(false);
-    chart.legend(colorField, false);
   }
 
   // 隐藏连续图例
   if (sizeField) {
     chart.legend(sizeField, false);
-  }
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
-  const { xField, yField, pointStyle, colorField, sizeField, shapeField } = options;
-
-  const geometry = chart.geometries[0];
-
-  if (pointStyle && geometry) {
-    if (isFunction(pointStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, pointStyle);
-    } else {
-      geometry.style(pointStyle);
-    }
   }
 
   return params;
@@ -212,17 +179,5 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(
-    field,
-    meta,
-    axis,
-    legend,
-    tooltip,
-    style,
-    label,
-    interaction,
-    scatterAnnotation,
-    animation,
-    theme
-  )(params);
+  return flow(geometry, meta, axis, legend, tooltip, label, interaction, scatterAnnotation, animation, theme)(params);
 }

@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
@@ -35,36 +35,31 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
   chart.axis(`${rangeField}`, false);
   chart.axis(`${targetField}`, false);
 
-  const rangeGeometry = chart
-    .interval()
-    .position(`${xField}*${rangeField}`)
-    .adjust('stack')
-    .size(range.size)
-    .color('index')
-    .tooltip(false);
+  const rangeGeometry = chart.interval().position('title*range').adjust('stack').color('index').tooltip(false);
+
+  if (isNumber(range.size)) {
+    rangeGeometry.size(range.size);
+  }
 
   if (range.color) {
     rangeGeometry.color('index', range.color);
   }
 
-  const measureGeometry = chart
-    .interval()
-    .position(`${xField}*${measureField}`)
-    .size(measure.size)
-    .label(`${measureField}`)
-    .adjust('stack')
-    .color('index');
+  const measureGeometry = chart.interval().position('title*measure').label('measure').adjust('stack').color('index');
+
+  if (isNumber(measure.size)) {
+    measureGeometry.size(measure.size);
+  }
 
   if (measure.color) {
     measureGeometry.color('index', measure.color);
   }
 
-  const targetGeometry = chart
-    .point()
-    .position(`${xField}*${targetField}`)
-    .shape('line')
-    .size(target.size / 2); // 是半径
+  const targetGeometry = chart.point().position('title*target').shape('line');
 
+  if (isNumber(target.size)) {
+    targetGeometry.size(target.size / 2); // 是半径
+  }
   if (target.color) {
     targetGeometry.color('index', target.color);
   }

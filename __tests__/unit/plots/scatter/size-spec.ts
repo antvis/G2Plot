@@ -67,8 +67,8 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
-      size: (value: number) => {
-        return Math.ceil(value / 10);
+      size: ({ weight, height }) => {
+        return Math.ceil(height / 10);
       },
       xAxis: {
         nice: true,

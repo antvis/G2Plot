@@ -47,8 +47,8 @@ describe('scatter', () => {
       xAxis: {
         nice: true,
       },
-      pointStyle: (x: number, y: number, colorField: string) => {
-        if (colorField === 'male') {
+      pointStyle: ({ gender }) => {
+        if (gender === 'male') {
           return {
             fill: 'green',
             stroke: 'yellow',

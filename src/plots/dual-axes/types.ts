@@ -1,5 +1,4 @@
-import { ShapeStyle } from '../../types/style';
-import { Options } from '../../types';
+import { Options, ShapeAttr, SizeAttr, StyleAttr } from '../../types';
 import { LineOptions } from '../line/types';
 import { ColumnOptions } from '../column/types';
 
@@ -14,9 +13,9 @@ export enum DualAxesGeometry {
 }
 
 export interface PointConfig {
-  readonly shape?: string | ((x?: any, y?: any, color?: any) => string);
-  readonly size?: number;
-  readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
+  readonly shape?: ShapeAttr;
+  readonly size?: SizeAttr;
+  readonly style?: StyleAttr;
 }
 
 type CommonGeometryConfig = {

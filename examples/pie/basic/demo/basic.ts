@@ -17,7 +17,7 @@ const piePlot = new Pie('container', {
   radius: 0.8,
   label: {
     type: 'inner',
-    // @ts-ignore
+    // @ts-ignore 偏移 50% TODO 后续支持直接配置 -50%
     offset: '-0.5',
     content: '{name} {percentage}',
     style: {

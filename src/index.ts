@@ -30,6 +30,9 @@ export { Pie, PieOptions } from './plots/pie';
 // 玫瑰图及类型定义 | author by [zhangzhonghe](https://github.com/zhangzhonghe)
 export { Rose, RoseOptions } from './plots/rose';
 
+// 词云图及类型定义 | author by [zhangzhonghe](https://github.com/zhangzhonghe)
+export { WordCloud, WordCloudOptions } from './plots/word-cloud';
+
 // 散点图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
 export { Scatter, ScatterOptions } from './plots/scatter';
 

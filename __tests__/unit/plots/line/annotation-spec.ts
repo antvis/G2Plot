@@ -7,8 +7,8 @@ describe('annotation', () => {
     width: 300,
     height: 400,
     data: salesByArea,
-    xField: 'sales',
-    yField: 'area',
+    xField: 'area',
+    yField: 'sales',
   });
 
   line.render();
@@ -34,22 +34,26 @@ describe('annotation', () => {
       annotations: [
         {
           type: 'text',
-          position: ['median', 'median'],
+          position: ['min', 'median'],
           content: '辅助文本',
+          offsetY: -4,
+          style: {
+            textBaseline: 'bottom',
+          },
         },
         {
           type: 'line',
           start: ['min', 'median'],
           end: ['max', 'median'],
+          style: {
+            stroke: 'red',
+            lineDash: [2, 2],
+          },
         },
       ],
     });
     expect(line.chart.getController('annotation').getComponents().length).toBe(2);
     expect(line.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
     expect(line.chart.getController('annotation').getComponents()[1].component.get('type')).toBe('line');
-  });
-
-  afterAll(() => {
-    line.destroy();
   });
 });

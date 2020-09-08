@@ -1,5 +1,6 @@
+import { View } from '@antv/g2';
 import DataSet from '@antv/data-set';
-import { isArray, isFunction } from '@antv/util';
+import { isArray, isFunction, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { log, LEVEL } from '../../utils';
 import { WordCloudOptions } from './types';
@@ -24,7 +25,7 @@ export function transform(params: Params<WordCloudOptions>) {
     fontSize: getFontSize(options, range),
     fontWeight: fontWeight,
     // 图表宽高减去 padding 之后的宽高
-    size: [chart.coordinateBBox.width, chart.coordinateBBox.height],
+    size: getSize(chart),
     padding: padding,
     timeInterval,
     spiral,
@@ -32,6 +33,61 @@ export function transform(params: Params<WordCloudOptions>) {
   } as any);
 
   return dv.rows;
+}
+
+/**
+ * 获取最终的实际绘图尺寸：[width, height]
+ * @param chart
+ */
+function getSize(chart: View) {
+  const { width, height } = chart.viewBBox;
+  const [top, right, bottom, left] = resolvePadding(chart);
+  const result = [width - (left + right), height - (top + bottom)];
+
+  return result;
+}
+
+/**
+ * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
+ * @param chart
+ */
+function resolvePadding(chart: View) {
+  const padding = normalPadding(chart.padding);
+  const appendPadding = normalPadding(chart.appendPadding);
+  const top = padding[0] + appendPadding[0];
+  const right = padding[1] + appendPadding[1];
+  const bottom = padding[2] + appendPadding[2];
+  const left = padding[3] + appendPadding[3];
+
+  return [top, right, bottom, left];
+}
+
+/**
+ * 把 padding 转换成统一的数组写法
+ * @param padding
+ */
+function normalPadding(padding: number | number[] | 'auto'): [number, number, number, number] {
+  if (isNumber(padding)) {
+    return [padding, padding, padding, padding];
+  }
+  if (isArray(padding)) {
+    const length = padding.length;
+
+    if (length === 1) {
+      return [padding[0], padding[0], padding[0], padding[0]];
+    }
+    if (length === 2) {
+      return [padding[0], padding[1], padding[0], padding[1]];
+    }
+    if (length === 3) {
+      return [padding[0], padding[1], padding[2], padding[1]];
+    }
+    if (length === 4) {
+      return padding as [number, number, number, number];
+    }
+  }
+
+  return [0, 0, 0, 0];
 }
 
 function getImageMask(img: HTMLImageElement) {

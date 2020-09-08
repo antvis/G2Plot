@@ -7,16 +7,23 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
       data,
       xField: 'Date',
       yField: 'scales',
-      xAxis: {
-        tickCount: 5,
-      },
       annotations: [
         {
           type: 'text',
-          position: ['median', 'median'],
-          content: '趋势面积图',
+          position: ['min', 'median'],
+          content: '中位数',
+          offsetY: -4,
           style: {
-            textAlign: 'center',
+            textBaseline: 'bottom',
+          },
+        },
+        {
+          type: 'line',
+          start: ['min', 'median'],
+          end: ['max', 'median'],
+          style: {
+            stroke: 'red',
+            lineDash: [2, 2],
           },
         },
       ],

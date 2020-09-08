@@ -13,13 +13,19 @@ export class Line extends Plot<LineOptions> {
   /**
    * 获取 折线图 默认配置
    */
-  protected getDefaultOptions() {
+  protected getDefaultOptions(options: LineOptions) {
+    const { xField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       tooltip: {
         showMarkers: true,
         showCrosshairs: true,
         crosshairs: {
           type: 'x',
+        },
+      },
+      meta: {
+        [xField]: {
+          range: [0, 1],
         },
       },
     });

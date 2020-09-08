@@ -14,7 +14,7 @@ describe('axis bullet', () => {
       targetField: 'target',
       xField: 'title',
       meta: {
-        measure: {
+        measures: {
           min: 0,
           max: 120,
         },
@@ -31,12 +31,12 @@ describe('axis bullet', () => {
     const rangeGeometry = bullet.chart.geometries[0];
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'range',
+      yField: 'ranges',
     });
     expect(rangeGeometry.getAttribute('color').values).toEqual(rangeColors);
 
     const measureGeometry = bullet.chart.geometries[1];
-    expect(measureGeometry.scales.measure.min).toBe(0);
-    expect(measureGeometry.scales.measure.max).toBe(120);
+    expect(measureGeometry.scales.measures.min).toBe(0);
+    expect(measureGeometry.scales.measures.max).toBe(120);
   });
 });

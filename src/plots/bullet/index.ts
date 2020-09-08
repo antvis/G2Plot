@@ -26,14 +26,13 @@ export class Bullet extends Plot<BulletOptions> {
       bulletStyle: {
         target: {
           size: 20,
-          color: '#223273',
           style: {
             lineWidth: 2,
           },
         },
         range: {
           size: 30,
-          style: { fillOpacity: 0.65 },
+          style: { fillOpacity: 0.5 },
         },
         measure: {
           size: 20,

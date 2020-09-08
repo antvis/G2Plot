@@ -12,37 +12,32 @@ import { transformData } from './utils';
  */
 function field(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletStyle } = options;
+  const { bulletStyle, targetField, rangeField, measureField, xField } = options;
   const { range, measure, target } = bulletStyle;
   // 处理数据
   const { min, max, ds } = transformData(options);
 
   // 需要统一比列尺
   chart.scale({
-    measure: {
+    [measureField]: {
       min,
       max,
-      sync: true,
     },
-    range: {
-      min,
-      max,
-      sync: true,
+    [rangeField]: {
+      sync: `${measureField}`,
     },
-    target: {
-      min,
-      max,
-      sync: true,
+    [targetField]: {
+      sync: `${measureField}`,
     },
   });
   chart.data(ds);
   chart.coordinate().transpose();
-  chart.axis('range', false);
-  chart.axis('target', false);
+  chart.axis(`${rangeField}`, false);
+  chart.axis(`${targetField}`, false);
 
   const rangeGeometry = chart
     .interval()
-    .position('title*range')
+    .position(`${xField}*${rangeField}`)
     .adjust('stack')
     .size(range.size)
     .color('index')
@@ -54,9 +49,9 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
 
   const measureGeometry = chart
     .interval()
-    .position('title*measure')
+    .position(`${xField}*${measureField}`)
     .size(measure.size)
-    .label('measure')
+    .label(`${measureField}`)
     .adjust('stack')
     .color('index');
 
@@ -66,12 +61,12 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
 
   const targetGeometry = chart
     .point()
-    .position('title*target')
+    .position(`${xField}*${targetField}`)
     .shape('line')
     .size(target.size / 2); // 是半径
 
   if (target.color) {
-    targetGeometry.color('target', target.color);
+    targetGeometry.color('index', target.color);
   }
 
   return params;
@@ -83,17 +78,19 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
  */
 function meta(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { xAxis, yAxis, meta } = options;
+  const { xAxis, yAxis, meta, targetField, rangeField, measureField, xField } = options;
 
   if (meta) {
     const scales = deepMix({}, meta, {
-      title: pick(xAxis, AXIS_META_CONFIG_KEYS),
-      measure: pick(yAxis, AXIS_META_CONFIG_KEYS),
+      [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
+      [measureField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
+      [targetField]: {
+        sync: `${measureField}`,
+      },
+      [rangeField]: {
+        sync: `${measureField}`,
+      },
     });
-
-    // 为了保证比例尺统一
-    scales['target'] = scales.measure;
-    scales['range'] = scales.measure;
     chart.scale(scales);
   }
 
@@ -105,19 +102,19 @@ function meta(params: Params<BulletOptions>): Params<BulletOptions> {
  */
 function axis(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { xAxis, yAxis } = options;
+  const { xAxis, yAxis, xField, measureField } = options;
 
   // 为 false 则是不显示轴
   if (xAxis === false) {
-    chart.axis('title', false);
+    chart.axis(`${xField}`, false);
   } else {
-    chart.axis('title', xAxis);
+    chart.axis(`${xField}`, xAxis);
   }
 
   if (yAxis === false) {
-    chart.axis('measure', false);
+    chart.axis(`${measureField}`, false);
   } else {
-    chart.axis('measure', yAxis);
+    chart.axis(`${measureField}`, yAxis);
   }
 
   return params;
@@ -142,9 +139,9 @@ function legend(params: Params<BulletOptions>): Params<BulletOptions> {
  */
 function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletLabel } = options;
+  const { bulletLabel, measureField } = options;
   const measureGeometry = chart.geometries[1];
-  measureGeometry.label('measure', bulletLabel);
+  measureGeometry.label(`${measureField}`, bulletLabel);
 
   return params;
 }

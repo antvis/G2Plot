@@ -18,7 +18,7 @@ export interface DataItem {
   rotate: number;
   /** 字体大小 */
   size: number;
-  /** 个单词所占的盒子的内边距，越大单词之间的间隔越大 */
+  /** 一个单词所占的盒子的内边距，值越大单词之间的间隔越大 */
   padding: number;
   hasText?: boolean;
   width?: number;

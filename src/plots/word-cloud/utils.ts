@@ -125,7 +125,7 @@ function getRotate(options: WordCloudOptions) {
   // 等于 1 时不旋转，所以把每份大小设为 0
   const perSize = rotationSteps === 1 ? 0 : (max - min) / (rotationSteps - 1);
   return function rotate() {
-    return Math.floor(Math.random() * rotationSteps) * perSize * isHappen(rotateRatio);
+    return Math.ceil(Math.random() * (rotationSteps - 1)) * perSize * isHappen(rotateRatio);
   };
 }
 

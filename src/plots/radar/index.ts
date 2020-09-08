@@ -17,39 +17,35 @@ export class Radar extends Plot<RadarOptions> {
   protected getDefaultOptions(): Partial<RadarOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       xAxis: {
-        line: null,
-        tickLine: null,
+        label: {
+          offset: 15,
+        },
         grid: {
           line: {
-            style: {
-              lineDash: null,
-            },
+            type: 'line',
           },
         },
       },
       yAxis: {
-        line: null,
-        tickLine: null,
         grid: {
           line: {
-            type: 'line',
-            style: {
-              lineDash: null,
-            },
+            type: 'circle',
           },
         },
       },
       tooltip: {
         shared: true,
-        showMarkers: true,
         showCrosshairs: true,
+        showMarkers: true,
         crosshairs: {
+          type: 'xy',
           line: {
             style: {
-              lineDash: [4, 4],
-              stroke: '#333',
+              stroke: '#565656',
+              lineDash: [4],
             },
           },
+          follow: true,
         },
       },
     });

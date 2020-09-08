@@ -18,10 +18,13 @@ const piePlot = new Pie('container', {
   innerRadius: 0.6,
   label: {
     type: 'inner',
+    // @ts-ignore 偏移 50%
+    offset: '-0.5',
     content: '{percentage}',
     style: {
       fill: '#fff',
       fontSize: 14,
+      textAlign: 'center',
     },
   },
   statistic: {

@@ -1,4 +1,4 @@
-import { deepMix, map, some } from '@antv/util';
+import { deepMix, each, map, some } from '@antv/util';
 import { theme, animation, scale } from '../../adaptor/common';
 import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';

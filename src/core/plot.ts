@@ -48,7 +48,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
-      ...this.getChartSize(width, height, autoFit),
+      ...this.getChartSize(width, height),
       padding,
       appendPadding,
       renderer,
@@ -61,9 +61,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 计算默认的 chart 大小。逻辑简化：如果存在 width 或 height，则直接使用，否则使用容器大小
    * @param width
    * @param height
-   * @param autoFit
    */
-  private getChartSize(width: number, height: number, autoFit: boolean): Size {
+  private getChartSize(width: number, height: number): Size {
     const chartSize = getContainerSize(this.container);
     return { width: width || chartSize.width, height: height || chartSize.height };
   }

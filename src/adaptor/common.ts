@@ -123,10 +123,9 @@ export function slider(params: Params<Options>): Params<Options> {
  * scale 的 adaptor
  * @param axes
  */
-export function scale(axes: Record<string, Axis>) {
+export function scale(axes: Record<string, Axis>, meta?: Options['meta']) {
   return function <O extends Pick<Options, 'meta'>>(params: Params<O>): Params<O> {
     const { chart, options } = params;
-    const { meta } = options;
 
     // 1. 轴配置中的 scale 信息
     let scales: Record<string, any> = {};
@@ -135,9 +134,29 @@ export function scale(axes: Record<string, Axis>) {
     });
 
     // 2. meta 直接是 scale 的信息
-    scales = deepMix({}, meta, scales);
+    scales = deepMix({}, meta, options.meta, scales);
 
     chart.scale(scales);
+
+    return params;
+  };
+}
+
+/**
+ * annotation 配置
+ * @param params
+ */
+export function annotation(annotationOptions?: Options['annotations']) {
+  return function <O extends Pick<Options, 'annotations'>>(params: Params<O>): Params<O> {
+    const { chart, options } = params;
+
+    const annotationController = chart.getController('annotation');
+
+    /** 自定义 annotation */
+    each([...(options.annotations || []), ...(annotationOptions || [])], (annotationOption) => {
+      // @ts-ignore
+      annotationController.annotation(annotationOption);
+    });
 
     return params;
   };

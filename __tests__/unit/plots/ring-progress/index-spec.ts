@@ -184,4 +184,23 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
   });
+
+  it('annotation', () => {
+    const ringProgress = new RingProgress(createDiv(), {
+      height: 100,
+      width: 100,
+      autoFit: false,
+      percent: 0.7,
+      annotations: [
+        {
+          type: 'text',
+          position: ['50%', '50%'],
+          content: '辅助文本',
+        },
+      ],
+    });
+
+    ringProgress.render();
+    expect(ringProgress.chart.getController('annotation').getComponents().length).toBe(1);
+  });
 });

@@ -18,5 +18,5 @@ export interface HistogramOptions extends Options {
   readonly stackField?: string;
 
   /** 柱子样式配置，可选 */
-  readonly columnStyle?: ShapeStyle | ((x: any, y: any, color?: any) => ShapeStyle);
+  readonly columnStyle?: ShapeStyle | ((range: any, count?: any) => ShapeStyle);
 }

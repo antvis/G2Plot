@@ -163,4 +163,24 @@ describe('progress', () => {
 
     expect(progress.chart.getTheme().columnWidthRatio).toBe(0.1);
   });
+
+  it('annotation', () => {
+    const progress = new Progress(createDiv(), {
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      barWidthRatio: 0.1,
+      autoFit: false,
+      annotations: [
+        {
+          type: 'text',
+          position: ['50%', '50%'],
+          content: '辅助文本',
+        },
+      ],
+    });
+
+    progress.render();
+    expect(progress.chart.getController('annotation').getComponents().length).toBe(1);
+  });
 });

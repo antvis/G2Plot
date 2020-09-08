@@ -1,11 +1,11 @@
-import { each, deepMix } from '@antv/util';
+import { deepMix, each, map, some } from '@antv/util';
 import { theme, animation, scale } from '../../adaptor/common';
 import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { getOption } from './util/option';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOption } from './types';
+import { DualAxesOption, GeometryConfig } from './types';
 
 /**
  * 获取默认参数设置
@@ -173,21 +173,48 @@ export function interaction(params: Params<DualAxesOption>): Params<DualAxesOpti
  */
 export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
-  const { legend, geometryOptions } = options;
-  const [leftGeometryOption, rightGeometryOption] = geometryOptions;
-  if (legend) {
-    if (leftGeometryOption.seriesField) {
-      // TOFIX: G2 中图例无法绑定在子 view 中，但绑定在 chart 上回换行。暂时先放在下方
-      chart.legend(leftGeometryOption.seriesField, {
-        position: 'bottom',
-      });
-    }
-    if (rightGeometryOption.seriesField) {
-      chart.legend(rightGeometryOption.seriesField, {
-        position: 'bottom',
-      });
-    }
+  const { legend, geometryOptions, yField } = options;
+
+  if (legend === false) {
+    chart.legend(false);
+  } else if (!legend && !some(geometryOptions, (opt) => !!opt.seriesField)) {
+    // 没有任何分类字段的时候，内置自定义图例
+    chart.legend({
+      custom: true,
+      // todo 修改类型定义
+      // @ts-ignore
+      items: map(geometryOptions, (opt: GeometryConfig, idx: number) => {
+        const defaultColor = chart.getTheme().defaultColor;
+        const geometryType = opt.geometry;
+        const marker =
+          geometryType === 'line'
+            ? { symbol: 'line', style: { stroke: defaultColor, lineWidth: 2 } }
+            : { symbol: 'square' };
+        return {
+          value: yField[idx],
+          name: geometryType,
+          marker,
+        };
+      }),
+    });
+
+    // 自定义图例交互
+    chart.on('legend-item:click', (evt) => {
+      const delegateObject = evt.gEvent.delegateObject;
+      if (delegateObject && delegateObject.item) {
+        const idx = delegateObject.index;
+        const view = chart.views[idx];
+        const field = yField[idx];
+        if (view.getScaleByField(field)) {
+          view.filter(field, () => !delegateObject.item.unchecked);
+        }
+        view.render(true);
+      }
+    });
+  } else if (legend) {
+    chart.legend(legend);
   }
+
   return params;
 }
 

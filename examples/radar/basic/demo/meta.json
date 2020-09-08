@@ -10,6 +10,14 @@
         "zh": "基础雷达图",
         "en": "Rardar chart"
       },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*r46-T43zmzwAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "grid-axis.ts",
+      "title": {
+        "zh": "雷达图-自定义 axis grid",
+        "en": "Rardar chart with custom axis grid"
+      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WOFpTJUAWssAAAAAAAAAAABkARQnAQ"
     },
     {
@@ -19,14 +27,6 @@
         "en": "multiple Rardar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NKROSYNo6IAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "crosshairs.ts",
-      "title": {
-        "zh": "雷达图-tooltip 添加辅助线",
-        "en": "Rardar chart with tooltip crosshairs"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*r46-T43zmzwAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

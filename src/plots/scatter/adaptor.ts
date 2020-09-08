@@ -1,7 +1,7 @@
-import { isFunction, isNumber, isString, deepMix } from '@antv/util';
+import { isFunction, deepMix, isString, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { getQuadrantDefaultConfig } from './util';
 import { ScatterOptions } from './types';
@@ -24,30 +24,30 @@ function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
   }
 
   // shape
-  if (shape) {
-    if (isString(shape)) {
-      geometry.shape(shape);
-    } else {
-      geometry.shape(shapeField || xField, shape);
-    }
+  if (isFunction(shape)) {
+    geometry.shape(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, shape);
+  } else if (isArray(shape) && shapeField) {
+    geometry.shape(shapeField, shape);
+  } else if (isString(shape) || isString(shapeField)) {
+    geometry.shape((shape || shapeField) as string);
   }
 
   // color
-  if (color) {
-    if (isString(color)) {
-      geometry.color(color);
-    } else {
-      geometry.color(colorField || xField, color);
-    }
+  if (isFunction(color)) {
+    geometry.color(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, color);
+  } else if (isArray(color) && colorField) {
+    geometry.color(colorField, color);
+  } else if (isString(color) || isString(colorField)) {
+    geometry.color((color || colorField) as string);
   }
 
   // size
-  if (size) {
-    if (isNumber(size)) {
-      geometry.size(size);
-    } else {
-      geometry.size(sizeField || xField, size);
-    }
+  if (isFunction(size)) {
+    geometry.size(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, size);
+  } else if (isArray(size) && sizeField) {
+    geometry.size(sizeField, size);
+  } else if (isString(size) || isString(sizeField)) {
+    geometry.size((size || sizeField) as string);
   }
 
   return params;
@@ -89,10 +89,18 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField } = options;
+  const { legend, colorField, shapeField, sizeField } = options;
 
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
+  if (legend) {
+    chart.legend(shapeField || colorField, legend);
+  } else {
+    chart.legend(false);
+    chart.legend(colorField, false);
+  }
+
+  // 隐藏连续图例
+  if (sizeField) {
+    chart.legend(sizeField, false);
   }
 
   return params;
@@ -104,13 +112,13 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function style(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { xField, yField, pointStyle, colorField } = options;
+  const { xField, yField, pointStyle, colorField, sizeField, shapeField } = options;
 
   const geometry = chart.geometries[0];
 
   if (pointStyle && geometry) {
     if (isFunction(pointStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}`, pointStyle);
+      geometry.style(`${xField}*${yField}*${colorField}*${sizeField}*${shapeField}`, pointStyle);
     } else {
       geometry.style(pointStyle);
     }
@@ -145,12 +153,15 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
 }
 
 /**
- * 四象限
+ * annotation 配置
+ * - 特殊 annotation: quadrant(四象限)
  * @param params
  */
-function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
+function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options } = params;
   const { quadrant } = options;
+
+  const annotationOptions = [];
 
   if (quadrant) {
     const { xBaseline = 0, yBaseline = 0, labels, regionStyle, lineStyle } = quadrant;
@@ -158,32 +169,40 @@ function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
     // 仅支持四象限
     const quadrants = new Array(4).join(',').split(',');
     quadrants.forEach((_: string, index: number) => {
-      chart.annotation().region({
-        top: false,
-        ...defaultConfig.regionStyle[index].position,
-        style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
-      });
-      chart.annotation().text({
-        top: true,
-        ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
-      });
+      annotationOptions.push(
+        {
+          type: 'region',
+          top: false,
+          ...defaultConfig.regionStyle[index].position,
+          style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+        },
+        {
+          type: 'text',
+          top: true,
+          ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+        }
+      );
     });
     // 生成坐标轴
-    chart.annotation().line({
-      top: false,
-      start: ['min', yBaseline],
-      end: ['max', yBaseline],
-      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
-    });
-    chart.annotation().line({
-      top: false,
-      start: [xBaseline, 'min'],
-      end: [xBaseline, 'max'],
-      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
-    });
+    annotationOptions.push(
+      {
+        type: 'line',
+        top: false,
+        start: ['min', yBaseline],
+        end: ['max', yBaseline],
+        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+      },
+      {
+        type: 'line',
+        top: false,
+        start: [xBaseline, 'min'],
+        end: [xBaseline, 'max'],
+        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+      }
+    );
   }
 
-  return params;
+  return flow(annotation(annotationOptions))(params);
 }
 
 /**
@@ -193,5 +212,17 @@ function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, axis, legend, tooltip, style, label, interaction, quadrant, animation, theme)(params);
+  return flow(
+    field,
+    meta,
+    axis,
+    legend,
+    tooltip,
+    style,
+    label,
+    interaction,
+    scatterAnnotation,
+    animation,
+    theme
+  )(params);
 }

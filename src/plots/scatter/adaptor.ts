@@ -1,7 +1,7 @@
 import { isFunction, deepMix, isString, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { getQuadrantDefaultConfig } from './util';
 import { ScatterOptions } from './types';
@@ -153,12 +153,15 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
 }
 
 /**
- * 四象限
+ * annotation 配置
+ * - 特殊 annotation: quadrant(四象限)
  * @param params
  */
-function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
+function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options } = params;
   const { quadrant } = options;
+
+  const annotationOptions = [];
 
   if (quadrant) {
     const { xBaseline = 0, yBaseline = 0, labels, regionStyle, lineStyle } = quadrant;
@@ -166,32 +169,40 @@ function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
     // 仅支持四象限
     const quadrants = new Array(4).join(',').split(',');
     quadrants.forEach((_: string, index: number) => {
-      chart.annotation().region({
-        top: false,
-        ...defaultConfig.regionStyle[index].position,
-        style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
-      });
-      chart.annotation().text({
-        top: true,
-        ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
-      });
+      annotationOptions.push(
+        {
+          type: 'region',
+          top: false,
+          ...defaultConfig.regionStyle[index].position,
+          style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+        },
+        {
+          type: 'text',
+          top: true,
+          ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+        }
+      );
     });
     // 生成坐标轴
-    chart.annotation().line({
-      top: false,
-      start: ['min', yBaseline],
-      end: ['max', yBaseline],
-      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
-    });
-    chart.annotation().line({
-      top: false,
-      start: [xBaseline, 'min'],
-      end: [xBaseline, 'max'],
-      style: deepMix({}, defaultConfig.lineStyle, lineStyle),
-    });
+    annotationOptions.push(
+      {
+        type: 'line',
+        top: false,
+        start: ['min', yBaseline],
+        end: ['max', yBaseline],
+        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+      },
+      {
+        type: 'line',
+        top: false,
+        start: [xBaseline, 'min'],
+        end: [xBaseline, 'max'],
+        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+      }
+    );
   }
 
-  return params;
+  return flow(annotation(annotationOptions))(params);
 }
 
 /**
@@ -201,5 +212,17 @@ function quadrant(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, axis, legend, tooltip, style, label, interaction, quadrant, animation, theme)(params);
+  return flow(
+    field,
+    meta,
+    axis,
+    legend,
+    tooltip,
+    style,
+    label,
+    interaction,
+    scatterAnnotation,
+    animation,
+    theme
+  )(params);
 }

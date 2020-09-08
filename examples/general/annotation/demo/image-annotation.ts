@@ -15,17 +15,33 @@ const piePlot = new Pie('container', {
   angleField: 'value',
   colorField: 'type',
   radius: 0.8,
+  innerRadius: 0.64,
   label: {
     type: 'inner',
-    // @ts-ignore
-    offset: '-0.5',
-    content: '{name} {percentage}',
+    content: '{percentage}',
     style: {
       fill: '#fff',
       fontSize: 14,
-      textAlign: 'center',
     },
   },
+  statistic: false,
+  annotations: [
+    {
+      type: 'image',
+      src: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ELYbTIVCgPoAAAAAAAAAAABkARQnAQ',
+      /** 位置 */
+      position: ['50%', '50%'],
+      /** 图形样式属性 */
+      style: {
+        width: 100,
+        height: 100,
+      },
+      /** x 方向的偏移量 */
+      offsetX: -50,
+      /** y 方向的偏移量 */
+      offsetY: 70,
+    },
+  ],
 });
 
 piePlot.render();

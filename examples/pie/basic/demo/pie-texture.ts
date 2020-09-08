@@ -14,9 +14,12 @@ const piePlot = new Pie('container', {
   legend: false,
   label: {
     type: 'inner',
+    // @ts-ignore
+    offset: '-0.5',
     style: {
       fill: '#fff',
       fontSize: 18,
+      textAlign: 'center',
     },
   },
   pieStyle: (solid, sex) => {

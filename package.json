@@ -109,7 +109,8 @@
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!**/node_modules/**",
-      "!**/vendor/**"
+      "!**/vendor/**",
+      "!**/_template/**"
     ],
     "testRegex": "/__tests__/.*-spec\\.ts?$"
   },

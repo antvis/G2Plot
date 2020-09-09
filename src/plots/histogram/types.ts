@@ -1,4 +1,4 @@
-import { Options, ShapeStyle, StyleAttr } from '../../types';
+import { Options, StyleAttr } from '../../types';
 
 export interface HistogramOptions extends Options {
   /** 设置直方图绘制 (进行分箱) 的字段 */

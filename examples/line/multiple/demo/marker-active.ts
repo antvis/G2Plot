@@ -38,12 +38,12 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
       },
       color: COLOR_PLATE_10,
       point: {
-        shape: (x, y, category) => {
+        shape: ({ category }) => {
           return category === 'Gas fuel' ? 'square' : 'circle';
         },
-        style: (x, y, category) => {
+        style: ({ year }) => {
           return {
-            r: Number(x) % 4 ? 0 : 3, // 4 个数据示一个点标记
+            r: Number(year) % 4 ? 0 : 3, // 4 个数据示一个点标记
           };
         },
       },

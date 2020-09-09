@@ -40,5 +40,6 @@ function widthRatio(params: Params<ProgressOptions>): Params<ProgressOptions> {
  * @param options
  */
 export function adaptor(params: Params<ProgressOptions>) {
+  // @ts-ignore
   return flow(geometry, scale({}), coordinate, widthRatio, animation, theme, annotation())(params);
 }

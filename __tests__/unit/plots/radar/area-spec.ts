@@ -64,10 +64,10 @@ describe('radar with area', () => {
       radius: 0.8,
       color: ['red', 'orange'],
       area: {
-        style: (x, y, series) => {
+        style: ({ type }) => {
           return {
             fill: 'rgb(0, 0, 0)',
-            fillOpacity: series === '实际支出' ? 0.1 : 0.3,
+            fillOpacity: type === '实际支出' ? 0.1 : 0.3,
           };
         },
       },

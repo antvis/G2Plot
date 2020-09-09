@@ -26,7 +26,7 @@ describe('bullet*label', () => {
     const measureGeometry = chart.geometries[1];
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'measures',
+      yField: 'measure',
     });
     // @ts-ignore
     expect(measureGeometry.labelOption.cfg.position).toEqual('middle');

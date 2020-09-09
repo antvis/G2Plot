@@ -16,9 +16,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/e00d52f4-2fa6-47ee-a0d7-105dd95b
       legend: {
         position: 'top',
       },
-      // label: {
-      //   // TODO line label
-      // },
       smooth: true,
     });
 

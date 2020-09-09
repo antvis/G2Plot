@@ -68,8 +68,8 @@ describe('scatter', () => {
       yField: 'height',
       shapeField: 'gender',
       size: 10,
-      shape: (...args) => {
-        if (args[args.length - 1] === 'female') {
+      shape: ({ gender }) => {
+        if (gender === 'female') {
           return 'square';
         }
         return 'circle';

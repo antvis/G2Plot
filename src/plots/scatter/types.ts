@@ -1,5 +1,13 @@
-import { Options, RegionPositionBaseOption, TextOption, AnnotationPosition } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import {
+  Options,
+  RegionPositionBaseOption,
+  TextOption,
+  AnnotationPosition,
+  ShapeStyle,
+  StyleAttr,
+  ShapeAttr,
+  SizeAttr,
+} from '../../types';
 
 interface PointStyle {
   /** 填充色 会覆盖 color 配置  */
@@ -58,13 +66,13 @@ export interface ScatterOptions extends Options {
   /** 点大小映射对应的数据字段名 */
   readonly sizeField?: string;
   /** 散点图大小 */
-  readonly size?: number | [number, number] | ((x: any, y: any, color?: any, size?: any, shape?: any) => number);
+  readonly size?: SizeAttr;
   /** 点形状映射对应的数据字段名 */
   readonly shapeField?: string;
   /** 散点图形状 */
-  readonly shape?: string | string[] | ((x: any, y: any, color?: any, size?: any, shape?: any) => string);
+  readonly shape?: ShapeAttr;
   /** 散点图样式 */
-  readonly pointStyle?: PointStyle | ((x: any, y: any, color?: any, size?: any, shape?: any) => ShapeStyle);
+  readonly pointStyle?: StyleAttr;
   /** 点颜色映射对应的数据字段名 */
   readonly colorField?: string;
   /** 四象限组件 */

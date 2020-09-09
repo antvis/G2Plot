@@ -22,10 +22,11 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryConfig, ['seriesField', 'color']),
+          ...pick(geometryConfig, ['seriesField']),
+          connectNulls: geometryConfig.connectNulls,
+          smooth: geometryConfig.smooth,
           line: {
-            connectNulls: geometryConfig.connectNulls,
-            smooth: geometryConfig.smooth,
+            ...pick(geometryConfig, ['color']),
             style: geometryConfig.lineStyle,
           },
         },
@@ -47,10 +48,11 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryConfig, ['color', 'seriesField', 'isGroup', 'isStack']),
+          ...pick(geometryConfig, ['seriesField', 'isGroup', 'isStack']),
+          marginRatio: geometryConfig.marginRatio,
+          widthRatio: geometryConfig.columnWidthRatio,
           interval: {
-            marginRatio: geometryConfig.marginRatio,
-            widthRatio: geometryConfig.columnWidthRatio,
+            ...pick(geometryConfig, ['color']),
             style: geometryConfig.columnStyle,
           },
         },

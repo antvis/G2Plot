@@ -1,9 +1,8 @@
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, ShapeStyle, StyleAttr } from '../../types';
 
 type Statistic = {
   /** 统计文本的样式 */
-  readonly style?: ShapeStyle | ((v: number) => ShapeStyle);
+  readonly style?: ShapeStyle | ((...args: any[]) => ShapeStyle);
   /** 文本的格式化 */
   readonly formatter?: (v: number) => string;
 };
@@ -15,7 +14,7 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
   /** 配置水波图的颜色，使用默认色板的颜色 */
   readonly color?: string | ((v: number) => string);
   /** 配置水波图的样式 */
-  readonly liquidStyle?: ShapeStyle | ((v: number) => ShapeStyle);
+  readonly liquidStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
   /** 水波的外半径， 0 ~ 1，默认为 0.9 */
   readonly radius?: number;
   /** 指标文本组件 */

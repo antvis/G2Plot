@@ -1,8 +1,9 @@
-import { isFunction } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { theme, scale, animation, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { TinyTooltipOption } from '../../types';
+import { area, line, point } from '../../adaptor/geometries';
 import { TinyAreaOptions } from './types';
 
 /**
@@ -11,7 +12,7 @@ import { TinyAreaOptions } from './types';
  */
 function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data, lineStyle, areaStyle, smooth } = options;
+  const { data, color, areaStyle, point: pointOptions, line: lineOptions } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -19,29 +20,19 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   chart.data(seriesData);
 
-  const areaGeometry = chart
-    .area()
-    .position('x*y')
-    .shape(smooth ? 'smooth' : 'area');
-
-  // area style
-  if (areaStyle) {
-    areaGeometry.style('x*y', () => {
-      return isFunction(areaStyle) ? areaStyle() : areaStyle;
-    });
-  }
-
-  const lineGeometry = chart
-    .line()
-    .position('x*y')
-    .shape(smooth ? 'smooth' : 'line');
-
-  // line style
-  if (lineStyle) {
-    lineGeometry.style('x*y', () => {
-      return isFunction(lineStyle) ? lineStyle() : lineStyle;
-    });
-  }
+  const p = deepMix({}, params, {
+    options: {
+      xField: 'x',
+      yField: 'y',
+      area: { color, style: areaStyle },
+      line: lineOptions,
+      point: pointOptions,
+    },
+  });
+  // area geometry 处理
+  area(p);
+  line(p);
+  point(p);
 
   chart.axis(false);
   chart.legend(false);

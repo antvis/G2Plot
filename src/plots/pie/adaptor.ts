@@ -4,6 +4,7 @@ import { legend, tooltip, interaction, animation, theme, state, annotation } fro
 import { Data } from '../../types';
 import { flow, LEVEL, log, template } from '../../utils';
 import { Annotation } from '../../types/annotation';
+import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
 import { getTotalValue } from './utils';
 
@@ -11,14 +12,12 @@ import { getTotalValue } from './utils';
  * 字段
  * @param params
  */
-function field(params: Params<PieOptions>): Params<PieOptions> {
+function geometry(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { data, angleField, colorField, color } = options;
-
-  const geometry = chart.interval();
+  const { data, angleField, colorField, color, pieStyle } = options;
 
   // 处理不合法的数据
-  const processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
+  let processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
 
   // 打印异常数据情况
   log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
@@ -27,15 +26,43 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   if (allZero) {
     // 数据全 0 处理，调整 position 映射
     const percentageField = '$$percentage$$';
-    chart.data(processData.map((d) => ({ ...d, [percentageField]: 1 / processData.length })));
-    geometry.position(`1*${percentageField}`).adjust({ type: 'stack' }).tooltip(`${colorField}*${angleField}`);
+    processData = processData.map((d) => ({ ...d, [percentageField]: 1 / processData.length }));
+    chart.data(processData);
+
+    const p = deepMix({}, params, {
+      options: {
+        xField: '1',
+        yField: percentageField,
+        seriesField: colorField,
+        isStack: true,
+        interval: {
+          color,
+          style: pieStyle,
+        },
+      },
+    });
+
+    interval(p);
+
+    // all zero 额外处理
+    chart.geometries[0].tooltip(`${colorField}*${angleField}`);
   } else {
     chart.data(processData);
-    geometry.position(`1*${angleField}`).adjust({ type: 'stack' });
-  }
 
-  if (colorField) {
-    geometry.color(colorField, color);
+    const p = deepMix({}, params, {
+      options: {
+        xField: '1',
+        yField: angleField,
+        seriesField: colorField,
+        isStack: true,
+        interval: {
+          color,
+          style: pieStyle,
+        },
+      },
+    });
+
+    interval(p);
   }
 
   return params;
@@ -62,7 +89,7 @@ function meta(params: Params<PieOptions>): Params<PieOptions> {
  * coord 配置
  * @param params
  */
-function coord(params: Params<PieOptions>): Params<PieOptions> {
+function coordinate(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { radius, innerRadius } = options;
 
@@ -137,26 +164,6 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
       cfg: labelCfg,
     });
   }
-  return params;
-}
-
-/**
- * style 配置
- * @param params
- */
-function style(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
-  const { pieStyle, angleField, colorField } = options;
-
-  const geometry = chart.geometries[0];
-  if (pieStyle && geometry) {
-    if (isFunction(pieStyle)) {
-      geometry.style(`${angleField}*${colorField}`, pieStyle);
-    } else {
-      geometry.style(pieStyle);
-    }
-  }
-
   return params;
 }
 
@@ -265,15 +272,14 @@ function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
-    field,
+    geometry,
     meta,
     theme,
-    coord,
+    coordinate,
     legend,
     tooltip,
     label,
     state,
-    style,
     pieAnnotation,
     interaction,
     animation

@@ -183,6 +183,14 @@ module.exports = {
           en: 'Bullet Charts',
         },
       },
+      {
+        slug: 'rose',
+        icon: 'other',
+        title: {
+          zh: '玫瑰图',
+          en: 'Rose Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

@@ -10,7 +10,7 @@ export interface TinyLineOptions extends Omit<Options, 'data' | 'tooltip' | 'leg
   /** 是否连接空数据 */
   readonly connectNulls?: boolean;
   /** 折线extra图形样式 */
-  readonly lineStyle?: (...args: any[]) => ShapeStyle;
+  readonly lineStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
   /** tooltip配置 */
   readonly tooltip?: boolean | TinyTooltipOption;
 }

@@ -8,9 +8,9 @@ export interface TinyAreaOptions extends Omit<Options, 'data' | 'tooltip' | 'leg
   /** 是否平滑 */
   readonly smooth?: boolean;
   /** 面积折线图形样式 */
-  readonly lineStyle?: (...args: any[]) => ShapeStyle;
+  readonly lineStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
   /** 面积填充图形样式 */
-  readonly areaStyle?: (...args: any[]) => ShapeStyle;
+  readonly areaStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
   /** tooltip配置 */
   readonly tooltip?: boolean | TinyTooltipOption;
 }

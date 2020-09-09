@@ -31,7 +31,7 @@ describe('axis bullet', () => {
     const rangeGeometry = bullet.chart.geometries[0];
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'ranges',
+      yField: 'range',
     });
     expect(rangeGeometry.getAttribute('color').values).toEqual(rangeColors);
 

@@ -11,5 +11,5 @@ export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 
   /** 进度条颜色 */
   readonly color?: string | string[] | ((...args: any[]) => string);
   /** 进度条样式 */
-  readonly progressStyle?: (...args: any[]) => ShapeStyle;
+  readonly progressStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
 }

@@ -1,4 +1,4 @@
-import { Options, ShapeStyle } from '../../types';
+import { Options, StyleAttr } from '../../types';
 import { TinyTooltipOption } from '../../types/tooltip';
 import { MappingOptions } from '../../adaptor/geometries/base';
 
@@ -9,7 +9,7 @@ export interface TinyAreaOptions extends Omit<Options, 'data' | 'tooltip' | 'leg
   /** 是否平滑 */
   readonly smooth?: boolean;
   /** 面积折线图形样式 */
-  readonly areaStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
+  readonly areaStyle?: StyleAttr;
   /** 面积折线图形样式 */
   readonly line?: MappingOptions;
   /** 面积点图形样式 */

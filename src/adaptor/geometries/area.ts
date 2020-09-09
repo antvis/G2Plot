@@ -23,16 +23,19 @@ export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O
   const { options } = params;
   const { area, seriesField, smooth } = options;
 
-  return geometry(
-    deepMix({}, params, {
-      options: {
-        type: 'area',
-        colorField: seriesField,
-        mapping: {
-          shape: smooth ? 'smooth' : 'area',
-          ...area,
-        },
-      },
-    })
-  );
+  // 如果存在才处理
+  return area
+    ? geometry(
+        deepMix({}, params, {
+          options: {
+            type: 'area',
+            colorField: seriesField,
+            mapping: {
+              shape: smooth ? 'smooth' : 'area',
+              ...area,
+            },
+          },
+        })
+      )
+    : params;
 }

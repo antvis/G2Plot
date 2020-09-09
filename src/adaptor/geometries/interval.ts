@@ -65,15 +65,18 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
   const { options } = params;
   const { interval, seriesField } = options;
 
-  geometry(
-    deepMix({}, params, {
-      options: {
-        type: 'interval',
-        colorField: seriesField,
-        mapping: interval,
-      },
-    })
-  );
+  // 如果存在映射才处理
+  if (interval) {
+    geometry(
+      deepMix({}, params, {
+        options: {
+          type: 'interval',
+          colorField: seriesField,
+          mapping: interval,
+        },
+      })
+    );
+  }
 
   return otherAdaptor(params);
 }

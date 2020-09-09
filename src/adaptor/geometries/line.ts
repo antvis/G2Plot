@@ -35,17 +35,20 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
   const { options } = params;
   const { line, seriesField, smooth, connectNulls } = options;
 
-  return geometry(
-    deepMix({}, params, {
-      options: {
-        type: 'line',
-        colorField: seriesField,
-        mapping: {
-          shape: smooth ? 'smooth' : 'line',
-          ...line,
-        },
-        args: { connectNulls },
-      },
-    })
-  );
+  // 如果存在才处理
+  return line
+    ? geometry(
+        deepMix({}, params, {
+          options: {
+            type: 'line',
+            colorField: seriesField,
+            mapping: {
+              shape: smooth ? 'smooth' : 'line',
+              ...line,
+            },
+            args: { connectNulls },
+          },
+        })
+      )
+    : params;
 }

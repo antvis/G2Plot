@@ -16,7 +16,7 @@ describe('line', () => {
 
     line.render();
 
-    expect(line.chart.geometries.length).toBe(2);
+    expect(line.chart.geometries.length).toBe(1);
 
     let xValue;
     let yValue;

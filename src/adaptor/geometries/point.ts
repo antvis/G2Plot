@@ -25,12 +25,14 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
   const { options } = params;
   const { point } = options;
 
-  return geometry(
-    deepMix({}, params, {
-      options: {
-        type: 'point',
-        mapping: point,
-      },
-    })
-  );
+  return point
+    ? geometry(
+        deepMix({}, params, {
+          options: {
+            type: 'point',
+            mapping: point,
+          },
+        })
+      )
+    : params;
 }

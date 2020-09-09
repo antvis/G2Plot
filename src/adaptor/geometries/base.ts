@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString, isArray, isNumber } from '@antv/util';
+import { isUndefined, isFunction, isObject, isString, isArray, isNumber } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, Options } from '../../types';
@@ -123,11 +123,11 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    */
   if (isString(shape)) {
     geometry.shape(shape);
-  } else if (shapeField) {
-    geometry.shape(shapeField, isArray(shape) ? shape : undefined);
   } else if (isFunction(shape)) {
     const mappingFields = getMappingField(options, 'shape');
     geometry.shape(mappingFields.join('*'), getMappingFunction(mappingFields, shape));
+  } else if (shapeField) {
+    geometry.shape(shapeField, shape ? shape : undefined);
   }
 
   /**

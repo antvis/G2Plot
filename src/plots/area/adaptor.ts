@@ -14,7 +14,7 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, smooth, point: pointOptions, line: lineOptions } = options;
+  const { data, areaStyle, smooth, color, point: pointOptions, line: lineOptions } = options;
 
   chart.data(data);
 
@@ -26,9 +26,9 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   )(
     deepMix({}, params, {
       options: {
-        area: { smooth, style: areaStyle },
-        point: pointOptions,
+        area: { smooth, color, style: areaStyle },
         line: lineOptions,
+        point: pointOptions,
       },
     })
   );

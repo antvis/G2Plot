@@ -53,8 +53,8 @@ describe('area', () => {
 
     area.update({
       ...area.options,
-      areaStyle: (x: string, y: number, color: string) => {
-        if (color === 'FF') return { fillOpacity: 0.3 };
+      areaStyle: ({ type }) => {
+        if (type === 'FF') return { fillOpacity: 0.3 };
       },
     });
     expect(area.chart.geometries[0].elements[0].shape.attr('fillOpacity')).toBe(0.3);

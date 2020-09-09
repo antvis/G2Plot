@@ -80,7 +80,7 @@ bulletPlot.render();
 
 默认配置： 无
 
-### bulletLabel
+### label
 
 **可选**, _object_
 

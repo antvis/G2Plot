@@ -1,6 +1,6 @@
 import { BulletOptions } from './types';
 
-type TransFormData = {
+type TransformData = {
   min: number;
   max: number;
   ds: any[];
@@ -9,7 +9,7 @@ type TransFormData = {
  * bullet 处理数据
  * @param options
  */
-export function transformData(options: BulletOptions): TransFormData {
+export function transformData(options: BulletOptions): TransformData {
   const { data, xField, measureField, rangeField, targetField } = options;
   const ds: any[] = [];
   const scales: number[] = [];

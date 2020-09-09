@@ -139,9 +139,9 @@ function legend(params: Params<BulletOptions>): Params<BulletOptions> {
  */
 function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletLabel, measureField } = options;
+  const { label, measureField } = options;
   const measureGeometry = chart.geometries[1];
-  measureGeometry.label(`${measureField}`, bulletLabel);
+  measureGeometry.label(`${measureField}`, label);
 
   return params;
 }

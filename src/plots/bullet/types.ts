@@ -21,8 +21,8 @@ export interface BulletOptions extends Options {
   /** 使用测量标记的刻度轴位置，表示目标值,所表示值为数值 */
   readonly targetField: string;
 
-  /** bulletLabel 设置 */
-  readonly bulletLabel?: GeometryLabelCfg;
+  /** label 设置 */
+  readonly label?: GeometryLabelCfg;
 
   /** bulletStyle 包含了 measure,target,range */
   readonly bulletStyle?: {

@@ -38,7 +38,7 @@ const bulletPlot = new Bullet('container', {
       color: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
     },
   },
-  bulletLabel: {
+  label: {
     position: 'middle',
     style: {
       fill: '#fff',

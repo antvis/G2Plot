@@ -1,4 +1,4 @@
-import { Options, ShapeStyle, StyleAttr } from '../../types';
+import { Options, StyleAttr } from '../../types';
 
 export interface RoseOptions extends Options {
   /** 扇形切片分类所对应的数据字段名（每个扇形的弧度相等） */

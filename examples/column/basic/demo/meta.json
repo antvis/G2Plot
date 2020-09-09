@@ -43,6 +43,14 @@
         "en": "Column chart column width"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "region-annotation.ts",
+      "title": {
+        "zh": "带辅助框标注的基础柱状图",
+        "en": "Basic Column chart with region annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

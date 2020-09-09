@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { RadarOptions } from './types';
@@ -100,6 +100,7 @@ export function adaptor(params: Params<RadarOptions>) {
     tooltip,
     label,
     interaction,
-    animation
+    animation,
+    annotation()
   )(params);
 }

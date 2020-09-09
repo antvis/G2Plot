@@ -5,6 +5,7 @@ import { Tooltip } from './tooltip';
 import { Legend } from './legend';
 import { Interaction } from './interaction';
 import { Animation } from './animation';
+import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
 
@@ -116,6 +117,7 @@ export type Options = {
   readonly slider?: Slider;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
+  readonly annotations?: Annotation[];
   // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
   readonly state?: State;
 };

@@ -153,4 +153,21 @@ describe('tiny-line', () => {
     expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
     expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
   });
+
+  it('annotation', () => {
+    const tinyLine = new TinyLine(createDiv(), {
+      width: 80,
+      height: 40,
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: true,
+      annotations: [{ type: 'line', start: ['min', 'median'], end: ['max', 'median'], text: { content: '中位线' } }],
+    });
+
+    tinyLine.render();
+    expect(tinyLine.chart.getController('annotation').getComponents().length).toBe(1);
+  });
 });

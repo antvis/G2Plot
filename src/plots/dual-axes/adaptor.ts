@@ -5,7 +5,7 @@ import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { getOption } from './util/option';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOption, GeometryConfig } from './types';
+import { DualAxesOption, GeometryOption } from './types';
 
 /**
  * 获取默认参数设置
@@ -51,7 +51,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     options: {
       xField,
       yField: yField[0],
-      geometryConfig: geometryOptions[0],
+      geometryOption: geometryOptions[0],
     },
   });
 
@@ -61,7 +61,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     options: {
       xField,
       yField: yField[1],
-      geometryConfig: geometryOptions[1],
+      geometryOption: geometryOptions[1],
     },
   });
   return params;
@@ -183,7 +183,7 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
       custom: true,
       // todo 修改类型定义
       // @ts-ignore
-      items: map(geometryOptions, (opt: GeometryConfig, idx: number) => {
+      items: map(geometryOptions, (opt: GeometryOption, idx: number) => {
         const defaultColor = chart.getTheme().defaultColor;
         const geometryType = opt.geometry;
         const marker =

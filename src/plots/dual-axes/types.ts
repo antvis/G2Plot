@@ -19,7 +19,7 @@ export interface PointConfig {
   readonly style?: ShapeStyle | ((x?: any, y?: any, color?: any) => ShapeStyle);
 }
 
-type CommonGeometryConfig = {
+type CommonGeometryOption = {
   // 图形类型
   readonly geometry?: string;
   // label
@@ -29,17 +29,17 @@ type CommonGeometryConfig = {
 };
 
 // 折线设置接口, 直接用 LineOption 吧
-export type LineConfig = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point'> &
-  CommonGeometryConfig;
+export type GeometryLineOption = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point'> &
+  CommonGeometryOption;
 
 // 柱设置接口
-export type ColumnConfig = Pick<
+export type GeometryColumnOption = Pick<
   ColumnOptions,
   'seriesField' | 'isGroup' | 'isStack' | 'columnWidthRatio' | 'marginRatio' | 'columnStyle'
 > &
-  CommonGeometryConfig;
+  CommonGeometryOption;
 
-export type GeometryConfig = ColumnConfig | LineConfig;
+export type GeometryOption = GeometryColumnOption | GeometryLineOption;
 
 export type DualAxesOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   // 通用数据配置
@@ -49,7 +49,7 @@ export type DualAxesOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   readonly xField: string;
   readonly yField: string[];
 
-  readonly geometryOptions?: GeometryConfig[];
+  readonly geometryOptions?: GeometryOption[];
 
   readonly yAxis?: Options['yAxis'][];
 };

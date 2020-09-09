@@ -1,7 +1,7 @@
 import { deepMix, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, findGeometry, log, LEVEL } from '../../utils';
-import { legend, tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { RoseOptions } from './types';
 
@@ -53,6 +53,23 @@ function label(params: Params<RoseOptions>): Params<RoseOptions> {
   } else {
     log(LEVEL.WARN, label === null || label === undefined, 'the label option must be an Object.');
     geometry.label({ fields: [xField] });
+  }
+
+  return params;
+}
+
+/**
+ * legend 配置
+ * @param params
+ */
+export function legend(params: Params<RoseOptions>): Params<RoseOptions> {
+  const { chart, options } = params;
+  const { legend, seriesField } = options;
+
+  if (legend === false) {
+    chart.legend(false);
+  } else if (seriesField) {
+    chart.legend(seriesField, legend);
   }
 
   return params;

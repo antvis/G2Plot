@@ -7,9 +7,9 @@ describe('liquid', () => {
       width: 600,
       height: 300,
       percent: 0.25,
-      liquidStyle: (v: number) => {
+      liquidStyle: ({ percent }) => {
         return {
-          fill: v > 0.75 ? 'red' : 'green',
+          fill: percent > 0.75 ? 'red' : 'green',
         };
       },
       color: () => 'blue',

@@ -8,7 +8,7 @@ import { Animation } from './animation';
 import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
-import { StyleAttr } from './attr';
+import { StyleAttr, ColorAttr } from './attr';
 
 /** annotation position */
 export { AnnotationPosition, RegionPositionBaseOption, TextOption };
@@ -103,7 +103,7 @@ export type Options = {
   /** 主题，G2 主题，字符串或者 theme object */
   readonly theme?: string | object;
   /** 颜色色板 */
-  readonly color?: StyleAttr;
+  readonly color?: ColorAttr;
   /** xAxis 的配置项 */
   readonly xAxis?: Axis;
   /** yAxis 的配置项 */

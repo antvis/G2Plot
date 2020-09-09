@@ -1,7 +1,8 @@
-import { isFunction } from '@antv/util';
+import { deepMix, isFunction } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { interval } from '../../adaptor/geometries';
 import { LiquidOptions } from './types';
 
 const CAT_VALUE = 'liquid';
@@ -16,8 +17,6 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
 
   const data = [{ percent, type: CAT_VALUE }];
 
-  chart.data(data);
-
   chart.scale({
     percent: {
       min: 0,
@@ -25,29 +24,27 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
     },
   });
 
-  // @ts-ignore
-  const geometry = chart.interval().position('type*percent').shape('liquid-fill-gauge');
+  chart.data(data);
 
-  // 只能通过这样的方式，将 radius 传入到自定义 shape 中，最好是 Geometry 提供传入自定义数据的能力
-  geometry.style({
-    liquidRadius: radius,
+  const p = deepMix({}, params, {
+    options: {
+      xField: 'type',
+      yField: 'percent',
+      // radius 放到 columnWidthRatio 中。
+      // 保证横向的大小是根据  redius 生成的
+      widthRatio: radius,
+      interval: {
+        color,
+        style: liquidStyle
+          ? liquidStyle
+          : {
+              liquidRadius: radius, // 只能通过这样的方式，将 radius 传入到自定义 shape 中，TODO 最好是 Geometry 提供传入自定义数据的能力
+            },
+        shape: 'liquid-fill-gauge',
+      },
+    },
   });
-
-  // radius 放到 columnWidthRatio 中。
-  // 保证横向的大小是根据  redius 生成的
-  chart.theme({
-    columnWidthRatio: radius,
-  });
-
-  if (color) {
-    geometry.color('percent', color);
-  }
-
-  if (liquidStyle) {
-    geometry.style('percent', (v: number) => {
-      return isFunction(liquidStyle) ? liquidStyle(v) : liquidStyle;
-    });
-  }
+  interval(p);
 
   // 关闭组件
   chart.legend(false);
@@ -74,8 +71,8 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
       type: CAT_VALUE,
       percent: 0.5,
     },
-    content: isFunction(formatter) ? formatter(percent) : `${percent}`,
-    style: isFunction(style) ? style(percent) : style,
+    content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
+    style: isFunction(style) ? style({ percent }) : style,
   });
 
   return params;

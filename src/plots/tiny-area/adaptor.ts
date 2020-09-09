@@ -59,7 +59,7 @@ export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions
 
     chart.geometries.map((g) => {
       g.tooltip('x*y', (x, y) => ({
-        value: formatter(x, y),
+        value: formatter({ x, y }),
       }));
     });
   }

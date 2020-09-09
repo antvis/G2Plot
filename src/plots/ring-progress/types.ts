@@ -9,7 +9,7 @@ export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 
   /** 内环的半径 */
   readonly innerRadius?: number;
   /** 进度条颜色 */
-  readonly color?: ColorAttr;
+  readonly color?: string | string[] | ((...args: any[]) => string);
   /** 进度条样式 */
-  readonly progressStyle?: StyleAttr;
+  readonly progressStyle?: (...args: any[]) => ShapeStyle;
 }

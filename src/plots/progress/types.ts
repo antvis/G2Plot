@@ -7,7 +7,7 @@ export interface ProgressOptions extends Omit<Options, 'data' | 'color'> {
   /** 条图宽度占比 [0-1] */
   readonly barWidthRatio?: number;
   /** 进度条颜色 */
-  readonly color?: ColorAttr;
+  readonly color?: string | string[] | ((...args: any[]) => string);
   /** 进度条样式 */
-  readonly progressStyle?: StyleAttr;
+  readonly progressStyle?: (...args: any[]) => ShapeStyle;
 }

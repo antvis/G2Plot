@@ -35,6 +35,22 @@
         "en": "Line chart data point style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-slider.ts",
+      "title": {
+        "zh": "带缩略轴的折线",
+        "en": "Line chart with slider"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-annotation.ts",
+      "title": {
+        "zh": "折线图辅助线",
+        "en": "Line chart with guide line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

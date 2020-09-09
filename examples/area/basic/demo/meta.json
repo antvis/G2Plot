@@ -29,10 +29,10 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aARCQbtAl4AAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "text-annotation.ts",
+      "filename": "basic-annotation.ts",
       "title": {
-        "zh": "带 text 标注的基础面积图",
-        "en": "basic Area chart with Text Annotation"
+        "zh": "带中位线标注的基础面积图",
+        "en": "basic Area chart with Line Annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aARCQbtAl4AAAAAAAAAAAABkARQnAQ"
     }

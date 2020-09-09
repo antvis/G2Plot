@@ -12,7 +12,7 @@ describe('bullet*label', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletLabel: {
+      label: {
         position: 'middle',
         style: {
           fill: '#fff',
@@ -26,7 +26,7 @@ describe('bullet*label', () => {
     const measureGeometry = chart.geometries[1];
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'measure',
+      yField: 'measures',
     });
     // @ts-ignore
     expect(measureGeometry.labelOption.cfg.position).toEqual('middle');

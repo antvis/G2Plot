@@ -1,0 +1,41 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础子弹图",
+        "en": "basic Bullet chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vk43S5pvUJcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color.ts",
+      "title": {
+        "zh": "基础子弹图-带多颜色范围区间",
+        "en": "color Bullet chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dL-9TKrcJcEAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "stacked.ts",
+      "title": {
+        "zh": "堆叠子弹图",
+        "en": "stacked Bullet chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qdtlRpVAwlMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "grouped.ts",
+      "title": {
+        "zh": "分组子弹图",
+        "en": "grouped Bullet chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N-DoQbx-WMwAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}
+

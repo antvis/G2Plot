@@ -86,7 +86,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(2);
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([2, 2]);
 
-    const progressStyle = (percent, type) => {
+    const progressStyle = ({ percent, type }) => {
       if (type === 'current') {
         return percent > 0.5
           ? {

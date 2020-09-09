@@ -60,7 +60,7 @@ export function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions
     chart.tooltip(otherTooltip);
 
     chart.geometries[0].tooltip('x*y', (x, y) => ({
-      value: formatter(x, y),
+      value: formatter({ x, y }),
     }));
   }
 

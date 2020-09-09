@@ -14,24 +14,23 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, smooth, color, point: pointOptions, line: lineOptions } = options;
+  const { data, areaStyle, color, point: pointOptions, line: lineOptions } = options;
 
   chart.data(data);
 
+  const p = deepMix({}, params, {
+    options: {
+      area: { color, style: areaStyle },
+      line: lineOptions,
+      point: pointOptions,
+    },
+  });
   // area geometry 处理
-  return flow(
-    area,
-    line,
-    point
-  )(
-    deepMix({}, params, {
-      options: {
-        area: { smooth, color, style: areaStyle },
-        line: lineOptions,
-        point: pointOptions,
-      },
-    })
-  );
+  area(p);
+  line(p);
+  point(p);
+
+  return params;
 }
 
 /**

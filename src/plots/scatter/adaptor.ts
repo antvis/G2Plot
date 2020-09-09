@@ -13,7 +13,7 @@ import { ScatterOptions } from './types';
  */
 function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, type, color, shape, size, pointStyle } = options;
+  const { data, type, color, shape, size, pointStyle, colorField } = options;
 
   // 数据
   chart.data(data);
@@ -21,6 +21,7 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   // geometry
   pointAdaptor(
     deepMix({}, params, {
+      seriesField: colorField,
       options: {
         point: {
           color,

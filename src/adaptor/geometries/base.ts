@@ -107,11 +107,11 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    */
   if (isString(color)) {
     geometry.color(color);
-  } else if (colorField) {
-    geometry.color(colorField, isArray(color) ? color : undefined);
   } else if (isFunction(color)) {
     const mappingFields = getMappingField(options, 'color');
     geometry.color(mappingFields.join('*'), getMappingFunction(mappingFields, color));
+  } else if (colorField) {
+    geometry.color(colorField, isArray(color) ? color : undefined);
   }
 
   /**
@@ -139,11 +139,11 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    */
   if (isNumber(size)) {
     geometry.size(size);
-  } else if (sizeField) {
-    geometry.size(sizeField, isArray(shape) ? size : undefined);
   } else if (isFunction(size)) {
     const mappingFields = getMappingField(options, 'size');
     geometry.size(mappingFields.join('*'), getMappingFunction(mappingFields, size));
+  } else if (sizeField) {
+    geometry.size(sizeField, isArray(size) ? size : undefined);
   }
 
   /**

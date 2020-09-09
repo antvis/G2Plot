@@ -17,20 +17,19 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
   chart.data(data);
 
   // line geometry 处理
-  return flow(
-    line,
-    point
-  )(
-    deepMix({}, params, {
-      options: {
-        line: {
-          color,
-          style: lineStyle,
-        },
-        point: pointMapping,
+  const p = deepMix({}, params, {
+    options: {
+      line: {
+        color,
+        style: lineStyle,
       },
-    })
-  );
+      point: pointMapping,
+    },
+  });
+
+  line(p);
+  point(p);
+  return params;
 }
 
 /**

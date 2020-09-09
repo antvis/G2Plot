@@ -16,17 +16,18 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
 
   chart.data(data);
 
-  return flow(interval)(
-    deepMix({}, params, {
-      options: {
-        widthRatio: columnWidthRatio,
-        interval: {
-          style: columnStyle,
-          color,
-        },
+  const p = deepMix({}, params, {
+    options: {
+      widthRatio: columnWidthRatio,
+      interval: {
+        style: columnStyle,
+        color,
       },
-    })
-  );
+    },
+  });
+  interval(p);
+
+  return params;
 }
 
 /**

@@ -8,7 +8,7 @@ export interface PointGeometryOptions extends GeometryOptions {
   /** y 轴字段 */
   readonly yField?: string;
   /** 分组字段 */
-  readonly colorField?: string;
+  readonly seriesField?: string;
   /** size 映射字段 */
   readonly sizeField?: string;
   /** shape 的映射字段 */
@@ -23,12 +23,13 @@ export interface PointGeometryOptions extends GeometryOptions {
  */
 export function point<O extends PointGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { point } = options;
+  const { point, seriesField } = options;
 
   return point
     ? geometry(
         deepMix({}, params, {
           options: {
+            colorField: seriesField,
             type: 'point',
             mapping: point,
           },

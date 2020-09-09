@@ -127,7 +127,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     const mappingFields = getMappingField(options, 'shape');
     geometry.shape(mappingFields.join('*'), getMappingFunction(mappingFields, shape));
   } else if (shapeField) {
-    geometry.shape(shapeField, shape ? shape : undefined);
+    geometry.shape(shapeField, isArray(shape) ? shape : undefined);
   }
 
   /**

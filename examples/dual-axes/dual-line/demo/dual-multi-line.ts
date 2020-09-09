@@ -49,7 +49,7 @@ const dualAxesChart = new DualAxes('container', {
     {
       geometry: 'line',
       seriesField: 'name',
-      color: (name) => {
+      color: ({ name }) => {
         if (name === 'a') {
           return '#93D072';
         }

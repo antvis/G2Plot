@@ -1,9 +1,10 @@
 import DataSet from '@antv/data-set';
-import { isFunction } from '@antv/util';
+import { deepMix, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { flow } from '../../utils';
+import { interval } from '../../adaptor/geometries';
 import { HistogramOptions } from './types';
 
 /**
@@ -12,7 +13,7 @@ import { HistogramOptions } from './types';
  */
 function field(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
-  const { data, binField, binNumber, binWidth, color, stackField } = options;
+  const { data, binField, binNumber, binWidth, color, stackField, legend, columnStyle } = options;
 
   const ds = new DataSet();
   const dv = ds.createView().source(data);
@@ -26,17 +27,27 @@ function field(params: Params<HistogramOptions>): Params<HistogramOptions> {
     groupBy: stackField ? [stackField] : undefined,
     as: ['range', 'count'],
   });
+
   chart.data(dv.rows);
 
-  const geometry = chart.interval().position('range*count');
+  const p = deepMix({}, params, {
+    options: {
+      xField: 'range',
+      yField: 'count',
+      seriesField: stackField,
+      isStack: true,
+      interval: {
+        color,
+        style: columnStyle,
+      },
+    },
+  });
 
-  if (color && !stackField) {
-    geometry.color('count', color);
-  }
+  interval(p);
 
-  if (stackField) {
-    geometry.color(stackField, color);
-    geometry.adjust('stack');
+  // 图例
+  if (legend && stackField) {
+    chart.legend(stackField, legend);
   }
 
   return params;
@@ -83,21 +94,6 @@ function axis(params: Params<HistogramOptions>): Params<HistogramOptions> {
 }
 
 /**
- * legend 配置
- * @param params
- */
-function legend(params: Params<HistogramOptions>): Params<HistogramOptions> {
-  const { chart, options } = params;
-  const { legend, stackField } = options;
-
-  if (legend && stackField) {
-    chart.legend(stackField, legend);
-  }
-
-  return params;
-}
-
-/**
  * label 配置
  * @param params
  */
@@ -122,30 +118,11 @@ function label(params: Params<HistogramOptions>): Params<HistogramOptions> {
 }
 
 /**
- * style 配置
- * @param params
- */
-function style(params: Params<HistogramOptions>): Params<HistogramOptions> {
-  const { chart, options } = params;
-  const { columnStyle } = options;
-
-  const geometry = findGeometry(chart, 'interval');
-  if (columnStyle && geometry) {
-    if (isFunction(columnStyle)) {
-      geometry.style('range*count', columnStyle);
-    } else {
-      geometry.style(columnStyle);
-    }
-  }
-  return params;
-}
-
-/**
  * 直方图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<HistogramOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, axis, legend, theme, label, style, tooltip, interaction, animation)(params);
+  return flow(field, meta, axis, theme, label, tooltip, interaction, animation)(params);
 }

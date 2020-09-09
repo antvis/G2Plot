@@ -7,7 +7,7 @@ const tinyLine = new TinyLine('container', {
   data: new Array(100).fill(0).map(() => Math.random() * 100),
   smooth: true,
   tooltip: {
-    formatter: (x, y) => `NO.${x}: ${y.toFixed(2)}`,
+    formatter: ({ x, y }) => `NO.${x}: ${y.toFixed(2)}`,
   },
 });
 

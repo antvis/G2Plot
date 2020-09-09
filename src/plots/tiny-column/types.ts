@@ -8,7 +8,7 @@ export interface TinyColumnOptions extends Omit<Options, 'data' | 'tooltip' | 'l
   /** 柱状图宽度占比 [0-1] */
   readonly columnWidthRatio?: number;
   /** 迷你柱形图形样式 */
-  readonly columnStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
+  readonly columnStyle?: StyleAttr;
   /** tooltip配置 */
   readonly tooltip?: boolean | TinyTooltipOption;
 }

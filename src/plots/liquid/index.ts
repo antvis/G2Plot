@@ -19,7 +19,7 @@ export class Liquid extends Plot<LiquidOptions> {
       color: '#6a99f9',
       radius: 0.9,
       statistic: {
-        formatter: (v: number) => `${(v * 100).toFixed(2)}%`,
+        formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
         style: {
           opacity: 0.75,
           fontSize: 30,

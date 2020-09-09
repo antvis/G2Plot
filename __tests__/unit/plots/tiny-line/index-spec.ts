@@ -121,7 +121,7 @@ describe('tiny-line', () => {
       autoFit: false,
       tooltip: {
         showCrosshairs: true,
-        formatter: (x, y) => {
+        formatter: ({ y }) => {
           return `有${y / 1000}千`;
         },
         position: 'bottom',

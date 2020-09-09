@@ -1,57 +1,8 @@
-import { isFunction, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
+import { geometry } from '../progress/adaptor';
 import { RingProgressOptions } from './types';
-
-/**
- * 图形
- * @param params
- */
-export function geometry(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
-  const { chart, options } = params;
-  const { percent, color, progressStyle } = options;
-
-  const data = [
-    {
-      type: 'current',
-      percent: percent,
-    },
-    {
-      type: 'target',
-      percent: 1 - percent,
-    },
-  ];
-
-  chart.data(data);
-
-  // geometry
-  const geometry = chart.interval().position('1*percent').adjust('stack');
-
-  // color
-  if (color) {
-    if (isArray(color)) {
-      geometry.color('type', color);
-    } else {
-      geometry.color('type', (type: string): string => {
-        return isFunction(color) ? color(percent, type) : color;
-      });
-    }
-  }
-
-  // style
-  if (progressStyle) {
-    geometry.style('percent*type', (percent: number, type: string) => {
-      return isFunction(progressStyle) ? progressStyle(percent, type) : progressStyle;
-    });
-  }
-
-  chart.tooltip(false);
-  chart.axis(false);
-  chart.legend(false);
-
-  return params;
-}
 
 /**
  * coordinate 配置

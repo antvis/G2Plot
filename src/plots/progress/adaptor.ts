@@ -9,7 +9,7 @@ import { ProgressOptions } from './types';
  * 字段
  * @param params
  */
-function geometry(params: Params<ProgressOptions>): Params<ProgressOptions> {
+export function geometry(params: Params<ProgressOptions>): Params<ProgressOptions> {
   const { chart, options } = params;
   const { percent, progressStyle, color, barWidthRatio } = options;
 

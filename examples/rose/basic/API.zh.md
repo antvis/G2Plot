@@ -63,6 +63,8 @@ const data = [
 
 const rosePlot = new Rose('container', {
   data,
+  xField: 'year',
+  yField: 'population',
   meta: {
     year: {
       alias: '年份',
@@ -119,8 +121,10 @@ color: ['blue','yellow','green']
 // 配合颜色映射，使用回调函数指定色值
 // 玫瑰图中的 seriesField 类似于其它图的 colorField
 seriesField: 'type',
-color: (d) => {
-    if (d === 'a') return 'red';
+// 回调的参数是一个对象，该对象的 key
+// 是 xField，yField 和 seriesField 所指定的字段值
+color: ({ year }) => {
+    if (year === '2001') return 'red';
     return 'blue';
 }
 ```
@@ -158,7 +162,6 @@ color: (d) => {
 
 | 细分配置 | 类型                 | 功能描述                                                                                                                   |
 | -------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| type     | `inner`, `outer`     | 标签类型                                                                                                                   |
 | content  | _string_, _Fucntion_ | 标签内容，可通过回调的方式，也支持模板字符串配置：内置标签名（`{name}`）、百分比（`{percentage}`）、数值（`{value}`） 三种 |
 | style    | _object, \_Fucntion_ | 标签样式，可通过回调的方式                                                                                                 |
 | 其他     | any                  | 其他，请参考图表 label 通用配置                                                                                            |

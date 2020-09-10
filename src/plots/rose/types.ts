@@ -2,7 +2,7 @@ import { Options, StyleAttr } from '../../types';
 
 export interface RoseOptions extends Options {
   /** 扇形切片分类所对应的数据字段名（每个扇形的弧度相等） */
-  readonly xField?: string;
+  readonly xField: string;
   /** 扇形切片半径长度所对应的数据字段名 */
   readonly yField: string;
   /** 拆分字段 */

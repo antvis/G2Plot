@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "股票图",
+    "en": "Stock Charts"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础蜡烛图",
+        "en": "basic Candlestick chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*M9Q4Rrq3V0gAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

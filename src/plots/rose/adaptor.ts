@@ -1,7 +1,7 @@
 import { deepMix, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, findGeometry, log, LEVEL } from '../../utils';
-import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { RoseOptions } from './types';
 
@@ -141,5 +141,18 @@ function axis(params: Params<RoseOptions>): Params<RoseOptions> {
  */
 export function adaptor(params: Params<RoseOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(geometry, meta, label, coordinate, axis, legend, tooltip, interaction, animation, theme, annotation())(params);
+  flow(
+    geometry,
+    meta,
+    label,
+    coordinate,
+    axis,
+    legend,
+    tooltip,
+    interaction,
+    animation,
+    theme,
+    annotation(),
+    state
+  )(params);
 }

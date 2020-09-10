@@ -19,7 +19,7 @@ export class Bullet extends Plot<BulletOptions> {
 
   protected getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
-      bulletLabel: {
+      label: {
         position: 'right',
       },
       legend: false,

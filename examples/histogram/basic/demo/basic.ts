@@ -60,15 +60,7 @@ const data = [
 const histogramPlot = new Histogram('container', {
   data,
   binField: 'value',
-  tooltip: {
-    showMarkers: false,
-    position: 'top',
-  },
-  interactions: [
-    {
-      type: 'element-highlight',
-    },
-  ],
+  binWidth: 2,
 });
 
 histogramPlot.render();

@@ -2,19 +2,19 @@
 title: API
 ---
 
-# 配置属性
+## 配置属性
 
-## 图表容器
+### 图表容器
 
-- 见 [通用配置](TODO)
+`markdown:common/chart-options.zh.md`
 
-## 基础配置
+### 基础配置
 
-- 见 [饼图配置](TODO)
+- 见 [玫瑰图配置](../../rose/basic/API.zh.md)
 
-## 特殊配置
+### 特殊配置
 
-### isGroup ✨
+#### isGroup ✨
 
 **可选**, _boolean_
 

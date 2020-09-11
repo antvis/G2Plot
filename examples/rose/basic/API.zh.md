@@ -2,15 +2,15 @@
 title: API
 ---
 
-# 配置属性
+## 配置属性
 
-## 图表容器
+### 图表容器
 
-- 见 [通用配置](TODO)
+`markdown:common/chart-options.zh.md`
 
-## 数据映射
+### 数据映射
 
-### data 📌
+#### data 📌
 
 **必选**, _array object_
 
@@ -36,7 +36,7 @@ title: API
 ];
 ```
 
-### meta
+#### meta
 
 **可选**, _object_
 
@@ -51,7 +51,7 @@ title: API
 | values         | _string[]_ | 枚举该字段下所有值                          |
 | range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
 
-```js
+```ts
 const data = [
   { year: '2001', population: 41.8 },
   { year: '2002', population: 38 },
@@ -80,7 +80,7 @@ const rosePlot = new Rose('container', {
 piePlot.render();
 ```
 
-### seriesField 📌
+#### seriesField 📌
 
 **可选**, _string_
 
@@ -88,21 +88,21 @@ piePlot.render();
 
 默认配置： 无
 
-## 图形样式
+### 图形样式
 
-### radius ✨
+#### radius ✨
 
 **可选**, _number_
 
 功能描述： 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。
 
-### innerRadius ✨
+#### innerRadius ✨
 
 **可选**, _number_
 
 功能描述： 玫瑰图内部空心圆的半径，规则与 radius 一致。
 
-### color
+#### color
 
 **可选**, _string | string[] | Function_
 
@@ -112,7 +112,7 @@ piePlot.render();
 
 用法示例：
 
-```js
+```ts
 // 配合颜色映射，指定多值
 // 玫瑰图中的 seriesField 类似于其它图的 colorField
 seriesField: 'type',
@@ -129,7 +129,7 @@ color: ({ year }) => {
 }
 ```
 
-### sectorStyle ✨
+#### sectorStyle ✨
 
 **可选**, _object | Function_
 
@@ -147,56 +147,39 @@ color: ({ year }) => {
 | fillOpacity   | _number_ | 填充透明度 |
 | strokeOpacity | _number_ | 描边透明度 |
 
-## 图表组件
+### 图表组件
 
-### legend、tooltip、theme
+#### tooltip
 
-`legend`、`tooltip`、`theme` 等通用组件请参考图表通用配置
+`markdown:common/tooltip.zh.md`
 
-### label ✨
+#### legend
+
+`markdown:common/legend.zh.md`
+
+#### theme
+
+`markdown:common/theme.zh.md`
+
+#### axis
+
+xAxis、yAxis 配置相同，玫瑰图是基于极坐标的。
+
+`markdown:common/axis.zh.md`
+
+#### label ✨
 
 功能描述： 标签文本
 
 [DEMO1](../../rose/basic#basic)
 [DEMO2](../../rose/basic#inner-label)
 
-| 细分配置 | 类型                 | 功能描述                                                                                                                   |
-| -------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| content  | _string_, _Fucntion_ | 标签内容，可通过回调的方式，也支持模板字符串配置：内置标签名（`{name}`）、百分比（`{percentage}`）、数值（`{value}`） 三种 |
-| style    | _object, \_Fucntion_ | 标签样式，可通过回调的方式                                                                                                 |
-| 其他     | any                  | 其他，请参考图表 label 通用配置                                                                                            |
+`markdown:common/label.zh.md`
 
-## 事件
+### 事件
 
 [通用 events](../../general/events/API)
 
-# 图表方法
+## 图表方法
 
-## render() 📌
-
-**必选**
-
-渲染图表。
-
-## update()
-
-**可选**
-
-更新图表配置项。
-
-```js
-rosePlot.update({
-  ...rosePlot.options,
-  legend: false,
-});
-```
-
-## changeData()
-
-**可选**
-
-更新图表数据。`update()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
-
-```js
-rosePlot.changeData(newData);
-```
+`markdown:common/chart-methods.zh.md`

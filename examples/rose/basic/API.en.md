@@ -6,7 +6,7 @@ title: API
 
 ### 图表容器
 
-`markdown:common/chart-options.zh.md`
+`markdown:common/chart-options.en.md`
 
 ### 数据映射
 
@@ -19,6 +19,7 @@ title: API
 默认配置： 无
 
 数据源为对象集合，例如：
+
 ```ts
 [
   { year: '2001', population: 41.8 },
@@ -71,8 +72,10 @@ const rosePlot = new Rose('container', {
       // 只显示 2001、2002、2003 年份的信息
       values: ['2001', '2002', '2003'],
       // 转换结果类似于 “2001年”
-      formatter:(v) => { return `${v}年` },
-    }
+      formatter: (v) => {
+        return `${v}年`;
+      },
+    },
   },
   seriesField: 'year',
 });
@@ -137,35 +140,35 @@ color: ({ year }) => {
 
 默认配置： 无
 
-| 细分配置      | 类型     | 功能描述   |
-| ------------- | -------- | ---------- |
-| fill          | _string_ | 填充颜色   |
-| stroke        | _string_ | 描边颜色   |
-| lineWidth     | _number_ | 描边宽度   |
-| lineDash      | _number_ | 虚线描边   |
-| opacity       | _number_ | 整体透明度 |
-| fillOpacity   | _number_ | 填充透明度 |
-| strokeOpacity | _number_ | 描边透明度 |
+| 细分配置      | 类型       | 功能描述   |
+| ------------- | ---------- | ---------- |
+| fill          | _string_   | 填充颜色   |
+| stroke        | _string_   | 描边颜色   |
+| lineWidth     | _number_   | 描边宽度   |
+| lineDash      | _number[]_ | 虚线描边   |
+| opacity       | _number_   | 整体透明度 |
+| fillOpacity   | _number_   | 填充透明度 |
+| strokeOpacity | _number_   | 描边透明度 |
 
 ## 图表组件
 
 ### tooltip
 
-`markdown:common/tooltip.zh.md`
+`markdown:common/tooltip.en.md`
 
 ### legend
 
-`markdown:common/legend.zh.md`
+`markdown:common/legend.en.md`
 
 ### theme
 
-`markdown:common/theme.zh.md`
+`markdown:common/theme.en.md`
 
 ### axis
 
 xAxis、yAxis 配置相同，玫瑰图是基于极坐标的。
 
-`markdown:common/axis.zh.md`
+`markdown:common/axis.en.md`
 
 ### label ✨
 
@@ -174,12 +177,12 @@ xAxis、yAxis 配置相同，玫瑰图是基于极坐标的。
 [DEMO1](../../rose/basic#basic)
 [DEMO2](../../rose/basic#inner-label)
 
-`markdown:common/label.zh.md`
+`markdown:common/label.en.md`
 
 ## 事件
 
-[通用 events](../../general/events/API)
+`markdown:common/events.en.md`
 
 ## 图表方法
 
-`markdown:common/chart-methods.zh.md`
+`markdown:common/chart-methods.en.md`

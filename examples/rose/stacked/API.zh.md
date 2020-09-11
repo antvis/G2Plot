@@ -4,10 +4,6 @@ title: API
 
 ## 配置属性
 
-### 图表容器
-
-`markdown:common/chart-options.zh.md`
-
 ### 基础配置
 
 - 见 [玫瑰图配置](../../rose/basic/API.zh.md)

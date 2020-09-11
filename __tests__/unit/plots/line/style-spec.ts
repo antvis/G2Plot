@@ -53,8 +53,8 @@ describe('line', () => {
 
     line.update({
       ...line.options,
-      lineStyle: (x: string, y: number, color: string) => {
-        if (color === 'FF') return { lineDash: [4, 4] };
+      lineStyle: ({ type }) => {
+        if (type === 'FF') return { lineDash: [4, 4] };
       },
     });
     expect(line.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);

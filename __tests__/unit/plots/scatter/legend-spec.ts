@@ -22,7 +22,7 @@ describe('scatter', () => {
     const legendController = scatter.chart.getController('legend');
     // @ts-ignore
     const { option } = legendController;
-    expect(option).toBeUndefined();
+    expect(option).toBe(false);
   });
 
   it('legend: true', () => {

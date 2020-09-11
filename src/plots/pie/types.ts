@@ -1,6 +1,4 @@
-import { LooseObject } from '@antv/g2/lib/interface';
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, ShapeStyle, StyleAttr, Datum } from '../../types';
 
 export type StatisticData = {
   title: string;
@@ -15,7 +13,7 @@ type Statistic = Readonly<{
   title?:
     | boolean
     | {
-        formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
+        formatter?: (item: StatisticData, data: Datum | Datum[]) => string;
         rotate?: number;
         offsetX?: number;
         offsetY?: number;
@@ -25,7 +23,7 @@ type Statistic = Readonly<{
   content?:
     | boolean
     | {
-        formatter?: (item: StatisticData, data: LooseObject | LooseObject[]) => string;
+        formatter?: (item: StatisticData, data: Datum | Datum[]) => string;
         rotate?: number;
         offsetX?: number;
         offsetY?: number;
@@ -42,10 +40,8 @@ export interface PieOptions extends Options {
   readonly radius?: number;
   /** 饼图内半径 */
   readonly innerRadius?: number;
-
   /** 饼图图形样式 */
-  readonly pieStyle?: ShapeStyle | ((angle: string, color: string) => ShapeStyle);
-
+  readonly pieStyle?: StyleAttr;
   /**
    * 指标卡组件: 显示在环图中心，可以代替tooltip，显示环图数据的总计值和各项数据
    * 启用 statistic 组件的同时将自动关闭tooltip

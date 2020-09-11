@@ -3,7 +3,7 @@ import { IGroup } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/g-util';
 import { Point } from '../../../types';
-import { ShapeStyle } from '../../../types/style';
+import { ShapeStyle } from '../../../types';
 
 function addFillAttrs(attrs: ShapeStyle, cfg: any) {
   if (cfg.color && !attrs.fill) {

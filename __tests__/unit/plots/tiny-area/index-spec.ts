@@ -14,6 +14,7 @@ describe('tiny-area', () => {
         .map((item) => {
           return item.value;
         }),
+      line: {},
       autoFit: false,
     });
 
@@ -70,10 +71,12 @@ describe('tiny-area', () => {
         .map((item) => {
           return item.value;
         }),
-      lineStyle: {
-        stroke: '#123456',
-        lineDash: [2, 2],
-        lineWidth: 2,
+      line: {
+        style: {
+          stroke: '#123456',
+          lineDash: [2, 2],
+          lineWidth: 2,
+        },
       },
       autoFit: false,
       appendPadding: 10,
@@ -89,12 +92,14 @@ describe('tiny-area', () => {
 
     tinyArea.update({
       ...tinyArea.options,
-      lineStyle: () => {
-        return {
-          stroke: '#123456',
-          lineDash: [4, 4],
-          lineWidth: 2,
-        };
+      line: {
+        style: () => {
+          return {
+            stroke: '#123456',
+            lineDash: [4, 4],
+            lineWidth: 2,
+          };
+        },
       },
     });
 
@@ -144,7 +149,7 @@ describe('tiny-area', () => {
       autoFit: false,
       tooltip: {
         showCrosshairs: true,
-        formatter: (x, y) => {
+        formatter: ({ y }) => {
           return `有${y / 1000}千`;
         },
         position: 'bottom',

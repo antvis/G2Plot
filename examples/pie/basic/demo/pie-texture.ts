@@ -22,7 +22,7 @@ const piePlot = new Pie('container', {
       textAlign: 'center',
     },
   },
-  pieStyle: (solid, sex) => {
+  pieStyle: ({ sex }) => {
     if (sex === '男') {
       return {
         fill: 'p(a)https://gw.alipayobjects.com/zos/rmsportal/nASTPWDPJDMgkDRlAUmw.jpeg',

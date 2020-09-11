@@ -1,10 +1,11 @@
 import { TooltipOption } from '@antv/g2/lib/interface';
+import { Datum } from './common';
 
 export type Tooltip = TooltipOption;
 
 export type TinyTooltipOption = {
   /** tootip body模版语言 */
-  readonly formatter?: (x: number, y: number) => string;
+  readonly formatter?: (datum: Datum) => string;
   /** 获取tooltip内部dom节点覆写样式 */
   readonly domStyles?: object;
   /** tooltip定位位置 */

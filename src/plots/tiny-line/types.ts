@@ -1,6 +1,6 @@
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, StyleAttr, ShapeStyle } from '../../types';
 import { TinyTooltipOption } from '../../types/tooltip';
+import { MappingOptions } from '../../adaptor/geometries/base';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */
 export interface TinyLineOptions extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'label'> {
@@ -10,8 +10,10 @@ export interface TinyLineOptions extends Omit<Options, 'data' | 'tooltip' | 'leg
   readonly smooth?: boolean;
   /** 是否连接空数据 */
   readonly connectNulls?: boolean;
-  /** 折线extra图形样式 */
-  readonly lineStyle?: ShapeStyle | (() => ShapeStyle);
+  /** 折线图形样式 */
+  readonly lineStyle?: StyleAttr;
+  /** 折线点图形样式 */
+  readonly point?: MappingOptions;
   /** tooltip配置 */
   readonly tooltip?: boolean | TinyTooltipOption;
 }

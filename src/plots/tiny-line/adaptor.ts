@@ -1,8 +1,9 @@
-import { isFunction } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { scale, theme, animation, annotation } from '../../adaptor/common';
 import { TinyTooltipOption } from '../../types';
+import { line, point } from '../../adaptor/geometries';
 import { TinyLineOptions } from './types';
 
 /**
@@ -11,7 +12,7 @@ import { TinyLineOptions } from './types';
  */
 function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
-  const { data, connectNulls, lineStyle, smooth } = options;
+  const { data, color, lineStyle, point: pointMapping } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -19,17 +20,21 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
 
   chart.data(seriesData);
 
-  const geometry = chart
-    .line({ connectNulls })
-    .position('x*y')
-    .shape(smooth ? 'smooth' : 'line');
+  // line geometry 处理
+  const p = deepMix({}, params, {
+    options: {
+      xField: 'x',
+      yField: 'y',
+      line: {
+        color,
+        style: lineStyle,
+      },
+      point: pointMapping,
+    },
+  });
 
-  // line style
-  if (lineStyle) {
-    geometry.style('x*y', () => {
-      return isFunction(lineStyle) ? lineStyle() : lineStyle;
-    });
-  }
+  line(p);
+  point(p);
 
   chart.axis(false);
   chart.legend(false);
@@ -55,7 +60,7 @@ export function tooltip(params: Params<TinyLineOptions>): Params<TinyLineOptions
     chart.tooltip(otherTooltip);
 
     chart.geometries[0].tooltip('x*y', (x, y) => ({
-      value: formatter(x, y),
+      value: formatter({ x, y }),
     }));
   }
 

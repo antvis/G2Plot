@@ -5,7 +5,7 @@ const ringProgress = new RingProgress('container', {
   width: 100,
   autoFit: false,
   percent: 0.7,
-  progressStyle: (percent: number, type: string) => {
+  progressStyle: ({ percent, type }) => {
     if (type === 'current') {
       return { fill: 'green' };
     }

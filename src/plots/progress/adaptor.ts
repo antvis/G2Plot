@@ -1,12 +1,57 @@
-import { isNil } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
-import { geometry } from '../ring-progress/adaptor';
+import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';
 
 /**
- * coordinate 配置
+ * 字段
+ * @param params
+ */
+export function geometry(params: Params<ProgressOptions>): Params<ProgressOptions> {
+  const { chart, options } = params;
+  const { percent, progressStyle, color, barWidthRatio } = options;
+
+  const data = [
+    {
+      type: 'current',
+      percent: percent,
+    },
+    {
+      type: 'target',
+      percent: 1 - percent,
+    },
+  ];
+
+  chart.data(data);
+
+  const p = deepMix({}, params, {
+    options: {
+      xField: '1',
+      yField: 'percent',
+      seriesField: 'type',
+      isStack: true,
+      widthRatio: barWidthRatio,
+      interval: {
+        style: progressStyle,
+        color,
+      },
+    },
+  });
+
+  interval(p);
+
+  // 关闭组件
+  chart.tooltip(false);
+  chart.axis(false);
+  chart.legend(false);
+
+  return params;
+}
+
+/**
+ * other 配置
  * @param params
  */
 function coordinate(params: Params<ProgressOptions>): Params<ProgressOptions> {
@@ -18,27 +63,11 @@ function coordinate(params: Params<ProgressOptions>): Params<ProgressOptions> {
 }
 
 /**
- * widthRatio 配置
- * @param params
- */
-function widthRatio(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart, options } = params;
-  const { barWidthRatio } = options;
-
-  if (!isNil(widthRatio)) {
-    chart.theme({
-      columnWidthRatio: barWidthRatio,
-    });
-  }
-
-  return params;
-}
-
-/**
  * 进度图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<ProgressOptions>) {
-  return flow(geometry, scale({}), coordinate, widthRatio, animation, theme, annotation())(params);
+  // @ts-ignore
+  return flow(geometry, scale({}), coordinate, animation, theme, annotation())(params);
 }

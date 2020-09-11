@@ -9,6 +9,7 @@ const tinyLine = new TinyLine('container', {
   lineStyle: {
     lineDash: [2, 2],
   },
+  point: {},
 });
 
 tinyLine.render();

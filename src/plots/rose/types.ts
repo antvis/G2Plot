@@ -1,5 +1,4 @@
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, StyleAttr } from '../../types';
 
 export interface RoseOptions extends Options {
   /** 扇形切片分类所对应的数据字段名（每个扇形的弧度相等） */
@@ -23,5 +22,5 @@ export interface RoseOptions extends Options {
    * 设置扇形样式。sectorStyle 中的fill会覆盖 color 的配置
    * sectorStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式
    */
-  readonly sectorStyle?: ShapeStyle | ((x: string, y: string, color?: string) => ShapeStyle);
+  readonly sectorStyle?: StyleAttr;
 }

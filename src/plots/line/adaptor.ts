@@ -12,12 +12,24 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, connectNulls, smooth } = options;
+  const { data, color, lineStyle, point: pointMapping } = options;
 
   chart.data(data);
 
   // line geometry 处理
-  return flow(line)(deepMix({}, params, { options: { line: { connectNulls, smooth, color, style: lineStyle } } }));
+  const p = deepMix({}, params, {
+    options: {
+      line: {
+        color,
+        style: lineStyle,
+      },
+      point: pointMapping,
+    },
+  });
+
+  line(p);
+  point(p);
+  return params;
 }
 
 /**
@@ -110,7 +122,6 @@ export function adaptor(params: Params<LineOptions>) {
   return flow(
     geometry,
     meta,
-    point,
     theme,
     axis,
     legend,

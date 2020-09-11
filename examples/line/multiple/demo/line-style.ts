@@ -18,7 +18,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/c48dbbb1-fccf-4a46-b68f-a3ddb490
       },
       seriesField: 'type',
       color: ['#1979C9', '#D62A0D', '#FAA219'],
-      lineStyle: (x, y, type) => {
+      lineStyle: ({ type }) => {
         if (type === 'register') {
           return {
             lineDash: [2, 2],

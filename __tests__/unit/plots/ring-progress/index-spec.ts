@@ -101,7 +101,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(2);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([2, 2]);
 
-    const progressStyle = (percent, type) => {
+    const progressStyle = ({ percent, type }) => {
       if (type === 'current') {
         return percent > 0.5
           ? {
@@ -196,6 +196,10 @@ describe('ring-progress', () => {
           type: 'text',
           position: ['50%', '50%'],
           content: '辅助文本',
+          style: {
+            textBaseline: 'middle',
+            textAlign: 'center',
+          },
         },
       ],
     });

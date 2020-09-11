@@ -26,12 +26,12 @@ describe('area', () => {
       point: {
         size: 2,
         shape: 'circle',
-        style: (x: string, y: number, color: string) => {
-          xValue = x;
-          yValue = y;
-          colorValue = color;
+        style: ({ date, value, type }) => {
+          xValue = date;
+          yValue = value;
+          colorValue = type;
           return {
-            fill: color === 'FF' ? 'red' : 'blue',
+            fill: type === 'FF' ? 'red' : 'blue',
           };
         },
       },

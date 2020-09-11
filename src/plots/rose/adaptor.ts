@@ -11,7 +11,7 @@ import { RoseOptions } from './types';
  */
 function geometry(params: Params<RoseOptions>): Params<RoseOptions> {
   const { chart, options } = params;
-  const { data, sectorStyle } = options;
+  const { data, sectorStyle, color } = options;
 
   // 装载数据
   chart.data(data);
@@ -19,9 +19,10 @@ function geometry(params: Params<RoseOptions>): Params<RoseOptions> {
   flow(interval)(
     deepMix({}, params, {
       options: {
+        marginRatio: 1,
         interval: {
-          marginRatio: 1,
           style: sectorStyle,
+          color,
         },
       },
     })
@@ -61,7 +62,7 @@ function label(params: Params<RoseOptions>): Params<RoseOptions> {
  * coord 配置
  * @param params
  */
-function coord(params: Params<RoseOptions>): Params<RoseOptions> {
+function coordinate(params: Params<RoseOptions>): Params<RoseOptions> {
   const { chart, options } = params;
   const { radius, innerRadius } = options;
 
@@ -123,5 +124,5 @@ function axis(params: Params<RoseOptions>): Params<RoseOptions> {
  */
 export function adaptor(params: Params<RoseOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(geometry, meta, label, coord, axis, legend, tooltip, interaction, animation, theme, annotation())(params);
+  flow(geometry, meta, label, coordinate, axis, legend, tooltip, interaction, animation, theme, annotation())(params);
 }

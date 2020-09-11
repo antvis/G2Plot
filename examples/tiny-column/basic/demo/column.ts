@@ -6,7 +6,7 @@ const tinyColumn = new TinyColumn('container', {
   autoFit: false,
   data: new Array(100).fill(0).map(() => Math.random() * 100),
   tooltip: {
-    formatter: (x, y) => `NO.${x}: ${y.toFixed(2)}`,
+    formatter: ({ x, y }) => `NO.${x}: ${y.toFixed(2)}`,
   },
 });
 

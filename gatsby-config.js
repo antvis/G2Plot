@@ -175,6 +175,14 @@ module.exports = {
           en: 'Tiny Progress',
         },
       },
+      {
+        slug: 'bullet',
+        icon: 'other',
+        title: {
+          zh: '子弹图',
+          en: 'Bullet Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

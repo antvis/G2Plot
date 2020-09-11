@@ -1,5 +1,4 @@
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, ShapeStyle, StyleAttr, ColorAttr } from '../../types';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */
 export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'label' | 'color'> {
@@ -10,7 +9,7 @@ export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 
   /** 内环的半径 */
   readonly innerRadius?: number;
   /** 进度条颜色 */
-  readonly color?: string | string[] | ((percent: number, type: string) => string);
+  readonly color?: string | string[] | ((...args: any[]) => string);
   /** 进度条样式 */
-  readonly progressStyle?: ShapeStyle | ((percent: number, type: string) => ShapeStyle);
+  readonly progressStyle?: ShapeStyle | ((...args: any[]) => ShapeStyle);
 }

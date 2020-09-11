@@ -77,10 +77,10 @@ describe('radar', () => {
       seriesField: 'type',
       radius: 0.8,
       color: ['red', 'orange'],
-      lineStyle: (x, y, series) => {
+      lineStyle: ({ type }) => {
         return {
           stroke: 'rgb(0, 0, 0)',
-          strokeOpacity: series === '实际支出' ? 0.45 : 0.3,
+          strokeOpacity: type === '实际支出' ? 0.45 : 0.3,
         };
       },
     });

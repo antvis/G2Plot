@@ -142,7 +142,7 @@ color: ({ year }) => {
 | fill          | _string_ | 填充颜色   |
 | stroke        | _string_ | 描边颜色   |
 | lineWidth     | _number_ | 描边宽度   |
-| lineDash      | _number_ | 虚线描边   |
+| lineDash      | _number[]_ | 虚线描边   |
 | opacity       | _number_ | 整体透明度 |
 | fillOpacity   | _number_ | 填充透明度 |
 | strokeOpacity | _number_ | 描边透明度 |

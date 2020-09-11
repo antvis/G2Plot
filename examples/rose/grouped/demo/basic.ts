@@ -75,7 +75,7 @@ const rosePlot = new Rose('container', {
   xAxis: {
     line: {
       style: {
-        lineWidth: 1,
+        lineWidth: 0,
       },
     },
   },

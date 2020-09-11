@@ -147,27 +147,33 @@ color: ({ year }) => {
 | fillOpacity   | _number_ | 填充透明度 |
 | strokeOpacity | _number_ | 描边透明度 |
 
-### 图表组件
+## 图表组件
 
-#### tooltip
+### tooltip
+
+`tooltip`的配置选项。
 
 `markdown:common/tooltip.zh.md`
 
-#### legend
+### legend
+
+图例的配置选项。
 
 `markdown:common/legend.zh.md`
 
-#### theme
+### theme
+
+主题的配置选项。
 
 `markdown:common/theme.zh.md`
 
-#### axis
+### axis
 
 xAxis、yAxis 配置相同，玫瑰图是基于极坐标的。
 
 `markdown:common/axis.zh.md`
 
-#### label ✨
+### label ✨
 
 功能描述： 标签文本
 
@@ -176,7 +182,7 @@ xAxis、yAxis 配置相同，玫瑰图是基于极坐标的。
 
 `markdown:common/label.zh.md`
 
-### 事件
+## 事件
 
 [通用 events](../../general/events/API)
 

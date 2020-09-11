@@ -6,7 +6,7 @@ title: API
 
 ### 图表容器
 
-`markdown:common/chart-options.en.md`
+`markdown:common/chart-options.zh.md`
 
 ### 数据映射
 
@@ -147,39 +147,39 @@ color: ({ year }) => {
 | fillOpacity   | _number_ | 填充透明度 |
 | strokeOpacity | _number_ | 描边透明度 |
 
-### 图表组件
+## 图表组件
 
-#### tooltip
+### tooltip
 
-`markdown:common/tooltip.en.md`
+`markdown:common/tooltip.zh.md`
 
-#### legend
+### legend
 
-`markdown:common/legend.en.md`
+`markdown:common/legend.zh.md`
 
-#### theme
+### theme
 
-`markdown:common/theme.en.md`
+`markdown:common/theme.zh.md`
 
-#### axis
+### axis
 
 xAxis、yAxis 配置相同，玫瑰图是基于极坐标的。
 
-`markdown:common/axis.en.md`
+`markdown:common/axis.zh.md`
 
-#### label ✨
+### label ✨
 
 功能描述： 标签文本
 
 [DEMO1](../../rose/basic#basic)
 [DEMO2](../../rose/basic#inner-label)
 
-`markdown:common/label.en.md`
+`markdown:common/label.zh.md`
 
-### 事件
+## 事件
 
 [通用 events](../../general/events/API)
 
 ## 图表方法
 
-`markdown:common/chart-methods.en.md`
+`markdown:common/chart-methods.zh.md`

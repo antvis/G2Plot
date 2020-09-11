@@ -3,7 +3,7 @@ import { theme, animation, scale } from '../../adaptor/common';
 import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { getOption } from './util/option';
+import { getOption, isLine } from './util/option';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOption, GeometryOption } from './types';
 
@@ -28,7 +28,6 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
 
-  // TOFIX: 动态适配坐标轴宽度
   const PADDING = [20, 40];
 
   // 绘制左轴对应数据
@@ -44,6 +43,26 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
       padding: PADDING,
     })
     .data(data[1]);
+
+  // TOFIX: g2 更新 updateOptions 未重新渲染，待 g2 修复后验证, 暂时先写死 PADDING
+  // chart.on('afterpaint', ()=>{
+  //   const { autoPadding: leftAutoPadding } = leftView;
+  //   const { autoPadding: rightAutoPadding } = rightView;
+
+  //   const maxPaddingX = Math.max(leftAutoPadding[1], leftAutoPadding[3], rightAutoPadding[1], rightAutoPadding[3]);
+  //   const maxPaddingY = Math.max(leftAutoPadding[0], leftAutoPadding[2], rightAutoPadding[0], rightAutoPadding[2]);
+
+  //   const padding = [maxPaddingY, maxPaddingX];
+
+  //   chart.updateOptions({
+  //     views: [{
+  //       padding,
+  //     }, {
+  //       padding,
+  //     }]
+  //   })
+
+  // });
 
   // 左轴图形
   drawSingleGeometry({
@@ -183,16 +202,27 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
       custom: true,
       // todo 修改类型定义
       // @ts-ignore
-      items: map(geometryOptions, (opt: GeometryOption, idx: number) => {
-        const defaultColor = chart.getTheme().defaultColor;
-        const geometryType = opt.geometry;
-        const marker =
-          geometryType === 'line'
-            ? { symbol: 'line', style: { stroke: defaultColor, lineWidth: 2 } }
-            : { symbol: 'square' };
+      items: map(geometryOptions, (geometryOption: GeometryOption, idx: number) => {
+        // 使用 geometryOptions 中的 color, 以及 yField 中的字段作为 name
+        const { color } = geometryOption;
+        const marker = isLine(geometryOption)
+          ? {
+              symbol: (x: number, y: number, r: number) => {
+                return [
+                  ['M', x - r, y],
+                  ['L', x + r, y],
+                ];
+              },
+              style: {
+                lineWidth: 2,
+                r: 6,
+                stroke: color,
+              },
+            }
+          : { symbol: 'square' };
         return {
           value: yField[idx],
-          name: geometryType,
+          name: yField[idx],
           marker,
         };
       }),

@@ -13,15 +13,15 @@ const dualAxesChart = new DualAxes('container', {
   xField: 'time',
   yField: ['value', 'count'],
   yAxis: [
-    {
-      min: 0,
-    },
+    // 格式化左坐标轴
     {
       min: 0,
       label: {
         formatter: (val) => `${val}个`,
       },
     },
+    // 隐藏右坐标轴
+    false,
   ],
   meta: {
     value: {
@@ -45,9 +45,13 @@ const dualAxesChart = new DualAxes('container', {
       color: '#29cae4',
     },
   ],
+  // 更改柱线交互，默认为 [{type: 'active-region'}]
   interactions: [
     {
-      name: 'element-highlight',
+      type: 'element-highlight',
+    },
+    {
+      type: 'active-region',
     },
   ],
 });

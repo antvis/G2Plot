@@ -32,6 +32,14 @@
       "filename": "region-and-data-marker.ts",
       "title": {
         "zh": "辅助框标注 和 数据点标记",
+        "en": "DataMarker annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sHEVT7y_JZgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "region-annotation.ts",
+      "title": {
+        "zh": "辅助框标注",
         "en": "Region annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sHEVT7y_JZgAAAAAAAAAAAAAARQnAQ"

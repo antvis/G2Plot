@@ -15,6 +15,18 @@ export class RingProgress extends Plot<RingProgressOptions> {
       innerRadius: 0.8,
       radius: 0.98,
       color: ['#FAAD14', '#E8EDF3'],
+      statistic: {
+        content: {
+          style: {
+            fontSize: 14,
+            fontWeight: 300,
+            fill: '#4D4D4D',
+            textAlign: 'center',
+            textBaseline: 'middle',
+          },
+          formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
+        },
+      },
     };
   }
 

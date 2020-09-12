@@ -22,10 +22,32 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
 }
 
 /**
+ * statistic 配置
+ * @param params
+ */
+function statistic(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
+  const { chart, options } = params;
+  const { statistic, percent } = options;
+
+  const { content } = statistic;
+
+  if (content) {
+    const { style, formatter } = content;
+    chart.annotation().text({
+      position: ['50%', '50%'],
+      content: formatter ? formatter({ percent }) : percent,
+      style,
+    });
+  }
+
+  return params;
+}
+
+/**
  * 环形进度图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<RingProgressOptions>) {
-  return flow(geometry, scale({}), coordinate, animation, theme, annotation())(params);
+  return flow(geometry, scale({}), coordinate, statistic, animation, theme, annotation())(params);
 }

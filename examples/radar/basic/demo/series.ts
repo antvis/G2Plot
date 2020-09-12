@@ -18,8 +18,12 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/5c41aa9b-9c8a-425f-9f4d-934b889b
           },
         },
       },
-      tooltip: {
-        shared: true,
+      yAxis: {
+        grid: {
+          line: {
+            type: 'circle',
+          },
+        },
       },
       point: {
         shape: 'circle',

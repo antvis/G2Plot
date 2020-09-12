@@ -207,4 +207,18 @@ describe('ring-progress', () => {
     ringProgress.render();
     expect(ringProgress.chart.getController('annotation').getComponents().length).toBe(1);
   });
+
+  it('color string', () => {
+    const ring = new RingProgress(createDiv(), {
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      autoFit: false,
+      color: 'green',
+    });
+
+    ring.render();
+
+    expect(ring.chart.geometries[0].getAttribute('color').values).toEqual(['green', '#E8EDF3']);
+  });
 });

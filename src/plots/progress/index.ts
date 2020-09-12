@@ -2,6 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { ProgressOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_COLOR } from './constant';
 
 export { ProgressOptions };
 
@@ -12,7 +13,7 @@ export class Progress extends Plot<ProgressOptions> {
   protected getDefaultOptions() {
     return {
       percent: 0.2,
-      color: ['#FAAD14', '#E8EDF3'],
+      color: DEFAULT_COLOR,
     };
   }
 

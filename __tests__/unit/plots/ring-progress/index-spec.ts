@@ -205,7 +205,7 @@ describe('ring-progress', () => {
     });
 
     ringProgress.render();
-    expect(ringProgress.chart.getController('annotation').getComponents().length).toBe(1);
+    expect(ringProgress.chart.getController('annotation').getComponents().length).toBe(2);
   });
 
   it('color string', () => {

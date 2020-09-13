@@ -88,6 +88,14 @@ bulletPlot.render();
 
 默认配置： 无
 
+### layout
+
+**可选**, 'horizontal' | 'vertical'
+
+功能描述： 表示子弹图方向。
+
+默认配置： 'horizontal'
+
 ## 图形样式
 
 bulletStyle ✨

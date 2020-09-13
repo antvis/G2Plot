@@ -29,4 +29,7 @@ export interface BulletOptions extends Options {
     target?: BasicStyle;
     range?: BasicStyle;
   };
+
+  /** layout 方向选择*/
+  layout?: 'horizontal' | 'vertical';
 }

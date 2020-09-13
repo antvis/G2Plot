@@ -1,3 +1,7 @@
+## <small>1.1.27 (2020-09-13)</small>
+
+* fix: fix error when set funnel label visible false ([f132056](https://github.com/antvis/g2plot/commit/f132056))
+
 ## <small>1.1.26 (2020-09-02)</small>
 
 * fix: 修复双折线中tooltip重复的问题 ([08ec94e](https://github.com/antvis/g2plot/commit/08ec94e))

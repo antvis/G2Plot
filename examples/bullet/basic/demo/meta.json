@@ -7,7 +7,15 @@
     {
       "filename": "basic.ts",
       "title": {
-        "zh": "基础子弹图",
+        "zh": "基础水平方向子弹图",
+        "en": "basic Bullet chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vk43S5pvUJcAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "layout.ts",
+      "title": {
+        "zh": "基础垂直方向子弹图",
         "en": "basic Bullet chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Vk43S5pvUJcAAAAAAAAAAABkARQnAQ"

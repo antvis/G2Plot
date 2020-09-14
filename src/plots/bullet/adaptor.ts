@@ -12,7 +12,7 @@ import { transformData } from './utils';
  */
 function field(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletStyle, targetField, rangeField, measureField, xField } = options;
+  const { bulletStyle, targetField, rangeField, measureField, xField, layout } = options;
   const { range, measure, target } = bulletStyle;
   // 处理数据
   const { min, max, ds } = transformData(options);
@@ -31,11 +31,15 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
     },
   });
   chart.data(ds);
-  chart.coordinate().transpose();
   chart.axis(`${rangeField}`, false);
   chart.axis(`${targetField}`, false);
 
-  const rangeGeometry = chart.interval().position('title*range').adjust('stack').color('index').tooltip(false);
+  const rangeGeometry = chart
+    .interval()
+    .position(`${xField}*${rangeField}`)
+    .adjust('stack')
+    .color('index')
+    .tooltip(false);
 
   if (isNumber(range.size)) {
     rangeGeometry.size(range.size);
@@ -45,7 +49,12 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
     rangeGeometry.color('index', range.color);
   }
 
-  const measureGeometry = chart.interval().position('title*measure').label('measure').adjust('stack').color('index');
+  const measureGeometry = chart
+    .interval()
+    .position(`${xField}*${measureField}`)
+    .label('measure')
+    .adjust('stack')
+    .color('index');
 
   if (isNumber(measure.size)) {
     measureGeometry.size(measure.size);
@@ -55,13 +64,18 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
     measureGeometry.color('index', measure.color);
   }
 
-  const targetGeometry = chart.point().position('title*target').shape('line');
-
+  const targetGeometry = chart.point().position(`${xField}*${targetField}`).shape('hyphen');
   if (isNumber(target.size)) {
     targetGeometry.size(target.size / 2); // 是半径
   }
   if (target.color) {
     targetGeometry.color('index', target.color);
+  }
+
+  // 水平的时候，要转换坐标轴和换图形为 line
+  if (layout === 'horizontal') {
+    chart.coordinate().transpose();
+    targetGeometry.shape('line');
   }
 
   return params;

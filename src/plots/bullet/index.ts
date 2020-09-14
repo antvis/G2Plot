@@ -22,6 +22,7 @@ export class Bullet extends Plot<BulletOptions> {
       label: {
         position: 'right',
       },
+      layout: 'horizontal',
       legend: false,
       bulletStyle: {
         target: {

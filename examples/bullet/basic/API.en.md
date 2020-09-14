@@ -18,7 +18,7 @@ title: API
 
 默认配置： 无
 
-数据源为对象集合，例如：`[{title: '满意度', ranges: [100], measures: [80], target: 85}]`。
+数据源为对象集合，例如：`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
 
 ### meta
 
@@ -88,6 +88,14 @@ bulletPlot.render();
 
 默认配置： 无
 
+### layout
+
+**可选**, 'horizontal' | 'vertical'
+
+功能描述： 表示子弹图方向。
+
+默认配置： 'horizontal'
+
 ## 图形样式
 
 bulletStyle ✨
@@ -96,8 +104,8 @@ bulletStyle ✨
 
 功能描述： 设置子弹图样式。
 
-| 细分配置 | 类型       | 功能描述     |
-| -------- | ---------- | ------------ |
+| 细分配置 | 类型         | 功能描述     |
+| -------- | ------------ | ------------ |
 | range    | _BasicStyle_ | 区间背景样式 |
 | measure  | _BasicStyle_ | 实际值样式   |
 | target   | _BasicStyle_ | 目标值样式   |

@@ -207,6 +207,14 @@ module.exports = {
           en: 'Stock Charts',
         },
       },
+      {
+        slug: 'word-cloud',
+        icon: 'other',
+        title: {
+          zh: '词云图',
+          en: 'Word Cloud Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

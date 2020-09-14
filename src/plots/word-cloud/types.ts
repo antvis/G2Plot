@@ -20,8 +20,11 @@ export interface DataItem {
   size: number;
   /** 一个单词所占的盒子的内边距，值越大单词之间的间隔越大 */
   padding: number;
+  /** 是否包含文本 */
   hasText?: boolean;
+  /** 单词所占盒子的宽度 */
   width?: number;
+  /** 单词所占盒子的高度 */
   height?: number;
   /** x 轴坐标 */
   x?: number;

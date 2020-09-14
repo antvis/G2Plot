@@ -17,13 +17,17 @@ export class WordCloud extends Plot<WordCloudOptions> {
    */
   protected getDefaultOptions(): Partial<WordCloudOptions> {
     return deepMix({}, super.getDefaultOptions(), {
+      timeInterval: 2000,
       tooltip: {
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
       },
       wordStyle: {
-        fontSize: [10, 60],
+        fontFamily: 'Verdana',
+        fontWeight: 'normal',
+        padding: 1,
+        fontSize: [20, 60],
         rotation: [0, 90],
         rotationSteps: 2,
         rotateRatio: 0.5,

@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.js",
+      "title": {
+        "zh": "水波图",
+        "en": "Liquid chart"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1peOutYr1gK0jSZFDXXb9yVXa-484-468.png"
+    },
+    {
+      "filename": "percent.js",
+      "title": {
+        "zh": "水波图 - 百分比",
+        "en": "Liquid chart - show percent"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1IICyt4D1gK0jSZFyXXciOVXa-517-474.png"
+    }
+  ]
+}

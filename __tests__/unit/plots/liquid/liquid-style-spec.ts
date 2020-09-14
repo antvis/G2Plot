@@ -12,7 +12,7 @@ describe('liquid', () => {
           fill: v > 0.75 ? 'red' : 'green',
         };
       },
-      color: () => 'blue',
+      color: () => '#3b78e7',
     });
 
     liquid.render();

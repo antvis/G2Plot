@@ -15,7 +15,7 @@ const data = [
   { month: '12', value: 597 },
 ];
 
-const line = new Column('container', {
+const columnPlot = new Column('container', {
   data,
   padding: 'auto',
   xField: 'month',
@@ -48,4 +48,4 @@ const line = new Column('container', {
   ],
 });
 
-line.render();
+columnPlot.render();

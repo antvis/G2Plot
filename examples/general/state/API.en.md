@@ -10,17 +10,17 @@ title: API
 
 使用示例:
 
-```json
+```javascript
 {
   state: {
-  selected: {
-    animate: { duration: 100, easing: 'easeLinear' },
-    style: {
-      lineWidth: 2,
-      stroke: '#000',
+    selected: {
+      animate: { duration: 100, easing: 'easeLinear' },
+      style: {
+        lineWidth: 2,
+        stroke: '#000',
+      },
     },
-  },
-}
+  }
 }
 ```
 

@@ -1,4 +1,4 @@
-import { Options, StyleAttr, ShapeStyle } from '../../types';
+import { Options, StyleAttr } from '../../types';
 import { TinyTooltipOption } from '../../types/tooltip';
 import { MappingOptions } from '../../adaptor/geometries/base';
 

@@ -1,5 +1,5 @@
 import DataSet from '@antv/data-set';
-import { deepMix, isFunction } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';

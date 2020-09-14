@@ -43,7 +43,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding, renderer, pixelRatio, autoFit = true } = this.options;
+    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
 
     this.chart = new Chart({
       container: this.container,

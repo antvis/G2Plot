@@ -1,7 +1,6 @@
-import { deepMix, isNil, isFunction, isString, isArray, isObject } from '@antv/util';
+import { deepMix, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { Options, StyleAttr } from '../../types';
-import { findGeometry, flow } from '../../utils';
+import { findGeometry } from '../../utils';
 import { GeometryOptions, MappingOptions, geometry } from './base';
 
 export interface IntervalGeometryOptions extends GeometryOptions {

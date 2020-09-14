@@ -1,4 +1,4 @@
-import { uniq, isFunction, isObject, isString, isArray, isNumber } from '@antv/util';
+import { uniq, isFunction, isObject, isString, isNumber } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, Options } from '../../types';
@@ -86,7 +86,7 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, styleField } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {

@@ -1,4 +1,4 @@
-import { Options, StyleAttr, ShapeStyle } from '../../types';
+import { Options, StyleAttr } from '../../types';
 import { TinyTooltipOption } from '../../types/tooltip';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */

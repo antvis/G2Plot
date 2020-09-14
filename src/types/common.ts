@@ -8,7 +8,7 @@ import { Animation } from './animation';
 import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
-import { StyleAttr, ColorAttr } from './attr';
+import { ColorAttr } from './attr';
 
 /** annotation position */
 export { AnnotationPosition, RegionPositionBaseOption, TextOption };

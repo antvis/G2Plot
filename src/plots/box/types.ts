@@ -1,4 +1,4 @@
-import { Options, ShapeStyle, StyleAttr } from '../../types';
+import { Options, StyleAttr } from '../../types';
 
 export interface BoxOptions extends Options {
   /** x 轴字段 */

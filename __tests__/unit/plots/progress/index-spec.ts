@@ -183,4 +183,19 @@ describe('progress', () => {
     progress.render();
     expect(progress.chart.getController('annotation').getComponents().length).toBe(1);
   });
+
+  it('color string', () => {
+    const progress = new Progress(createDiv(), {
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      barWidthRatio: 0.1,
+      autoFit: false,
+      color: 'green',
+    });
+
+    progress.render();
+
+    expect(progress.chart.geometries[0].getAttribute('color').values).toEqual(['green', '#E8EDF3']);
+  });
 });

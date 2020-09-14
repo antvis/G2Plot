@@ -13,7 +13,7 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
   color: () => '#3b78e775',
   statistic: {
     formatter: (v) => {
-      return `${v * 10}%`;
+      return `占比${v * 100}%`;
     },
   },
 });

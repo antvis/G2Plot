@@ -1,38 +1,29 @@
 import { Radar } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/5c41aa9b-9c8a-425f-9f4d-934b889bb75d.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/a104a693-2dd0-4a71-a190-39ec88f7307c.json')
   .then((data) => data.json())
   .then((data) => {
     const radarPlot = new Radar('container', {
       data,
       xField: 'item',
       yField: 'score',
-      seriesField: 'user',
+      meta: {
+        score: {
+          alias: '分数',
+        },
+      },
       xAxis: {
-        label: {
-          offset: 15,
-        },
+        line: null,
+        tickLine: null,
         grid: {
           line: {
-            type: 'line',
+            style: {
+              lineDash: null,
+            },
           },
         },
       },
-      yAxis: {
-        grid: {
-          line: {
-            type: 'circle',
-          },
-        },
-      },
-      point: {
-        shape: 'circle',
-      },
-      // 开启面积
-      area: {},
-      legend: {
-        position: 'bottom',
-      },
+      point: {},
     });
     radarPlot.render();
   });

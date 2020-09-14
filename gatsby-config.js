@@ -191,6 +191,14 @@ module.exports = {
           en: 'Rose Charts',
         },
       },
+      {
+        slug: 'stock',
+        icon: 'candlestick',
+        title: {
+          zh: '股票图',
+          en: 'Stock Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

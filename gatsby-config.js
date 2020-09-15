@@ -152,6 +152,14 @@ module.exports = {
         },
       },
       {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
         slug: 'tiny-column',
         icon: 'column',
         title: {

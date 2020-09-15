@@ -10,5 +10,4 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
       fontSize: '10px',
     },
   },
-  formatter: (x: number, y: number) => y.toFixed(1),
 };

@@ -12,7 +12,7 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
   },
   liquidStyle: (v) => {
     return {
-      fill: v > 0.75 ? 'red' : '#3b78e775',
+      fill: v > 0.75 ? 'red' : '#acc9ff',
     };
   },
   color: () => '#acc9ff',

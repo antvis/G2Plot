@@ -1,6 +1,6 @@
+import { Geometry } from '@antv/g2';
 import { deepMix, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../utils';
 import { GeometryOptions, MappingOptions, geometry } from './base';
 
 export interface IntervalGeometryOptions extends GeometryOptions {
@@ -27,10 +27,10 @@ export interface IntervalGeometryOptions extends GeometryOptions {
  * @param params
  */
 function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Params<O> {
-  const { chart, options } = params;
+  const { chart, options, ext } = params;
   const { seriesField, isGroup, isStack, marginRatio, widthRatio } = options;
 
-  const g = findGeometry(chart, 'interval');
+  const g = ext.geometry as Geometry;
   /**
    * adjust
    */
@@ -64,18 +64,21 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
   const { options } = params;
   const { interval, seriesField } = options;
 
-  // 如果存在映射才处理
-  if (interval) {
-    geometry(
-      deepMix({}, params, {
-        options: {
-          type: 'interval',
-          colorField: seriesField,
-          mapping: interval,
-        },
-      })
-    );
-  }
+  // 保障一定要存在 interval 映射
+  const { ext } = interval
+    ? geometry(
+        deepMix({}, params, {
+          options: {
+            type: 'interval',
+            colorField: seriesField,
+            mapping: interval,
+          },
+        })
+      )
+    : params;
 
-  return otherAdaptor(params);
+  return otherAdaptor({
+    ...params,
+    ext,
+  });
 }

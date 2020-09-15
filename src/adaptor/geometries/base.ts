@@ -164,5 +164,9 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     .forEach((f: string) => {
       chart.legend(f, false);
     });
-  return params;
+  return {
+    ...params,
+    // geometry adaptor 额外需要做的事情，就是将创建好的 geometry 返回到下一层 adaptor，防止通过 type 查询的时候容易误判
+    ext: { geometry },
+  };
 }

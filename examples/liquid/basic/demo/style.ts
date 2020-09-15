@@ -15,6 +15,6 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
       fill: v > 0.75 ? 'red' : '#3b78e775',
     };
   },
-  color: () => '#3b78e775',
+  color: () => '#acc9ff',
 });
 liquidPlot.render();

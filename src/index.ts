@@ -1,7 +1,8 @@
 export const version = '2.0.0-beta.4';
 
 // G2 自定义能力透出
-export * as G2 from '@antv/g2';
+import * as G2 from '@antv/g2';
+export { G2 };
 
 /** G2Plot 的 Plot 基类 */
 export { Plot } from './core/plot';

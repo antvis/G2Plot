@@ -9,12 +9,11 @@ imageMask.onload = () => {
   fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json')
     .then((res) => res.json())
     .then((data) => {
-      const wordCloudPlot = new WordCloud('container', {
+      const wordCloud = new WordCloud('container', {
         data,
         // 宽高设置最好根据 imageMask 做调整
         width: 600,
         height: 400,
-        autoFit: false,
         wordField: 'name',
         weightField: 'value',
         imageMask,
@@ -24,6 +23,6 @@ imageMask.onload = () => {
         },
       });
 
-      wordCloudPlot.render();
+      wordCloud.render();
     });
 };

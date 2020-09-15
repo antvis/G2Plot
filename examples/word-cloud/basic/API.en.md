@@ -6,7 +6,7 @@ title: API
 
 ### 图表容器
 
-`markdown:common/chart-options.zh.md`
+`markdown:common/chart-options.en.md`
 
 ### 数据映射
 
@@ -88,34 +88,34 @@ title: API
 | x         | _number_                                | x 轴坐标                                               |
 | y         | _number_                                | y 轴坐标                                               |
 
-`markdown:common/meta.zh.md`
+`markdown:common/meta.en.md`
 
 ### 图形样式
 
-`markdown:common/color.zh.md`
+`markdown:common/color.en.md`
 
 ### tooltip
 
-`markdown:common/tooltip.zh.md`
+`markdown:common/tooltip.en.md`
 
 ### axis
 
 xAxis、yAxis 配置相同。
 
-`markdown:common/axis.zh.md`
+`markdown:common/axis.en.md`
 
 ### legend
 
-`markdown:common/legend.zh.md`
+`markdown:common/legend.en.md`
 
 ### theme
 
-`markdown:common/theme.zh.md`
+`markdown:common/theme.en.md`
 
 ### 事件
 
-`markdown:common/events.zh.md`
+`markdown:common/events.en.md`
 
 #### 图表方法
 
-`markdown:common/chart-methods.zh.md`
+`markdown:common/chart-methods.en.md`

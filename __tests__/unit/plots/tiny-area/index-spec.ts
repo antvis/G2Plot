@@ -1,5 +1,4 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
-import { GeometryTooltipOption } from '@antv/g2/lib/interface';
 import { TinyArea } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -149,8 +148,8 @@ describe('tiny-area', () => {
       autoFit: false,
       tooltip: {
         showCrosshairs: true,
-        formatter: ({ y }) => {
-          return `有${y / 1000}千`;
+        customContent: (...arg) => {
+          return `<div class="g2-tooltip">有${arg[1][0]?.value / 1000}千</div>`;
         },
         position: 'bottom',
         offset: 0,
@@ -177,9 +176,9 @@ describe('tiny-area', () => {
       },
     });
     const geometry = tinyArea.chart.geometries[0];
-    const geometryTooltipOption = geometry.tooltipOption as GeometryTooltipOption;
-    expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
-    expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
+    // @ts-ignore
+    const { position } = geometry.attributeOption;
+    expect(position.fields).toEqual(['x', 'y']);
   });
 
   it('annotation', () => {

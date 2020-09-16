@@ -8,7 +8,7 @@ import { interval } from '../../adaptor/geometries';
 import { HistogramOptions } from './types';
 
 /**
- * field 字段
+ * geometry 处理
  * @param params
  */
 function geometry(params: Params<HistogramOptions>): Params<HistogramOptions> {

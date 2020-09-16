@@ -8,7 +8,7 @@ import { BulletOptions } from './types';
 import { transformData } from './utils';
 
 /**
- * field 字段
+ * geometry 处理
  * @param params
  */
 function geometry(params: Params<BulletOptions>): Params<BulletOptions> {

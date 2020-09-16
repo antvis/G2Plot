@@ -132,14 +132,14 @@ statistic: {
 
 > 说明：`l`  表示使用线性渐变，绿色的字体为可变量，由用户自己填写。
 
-```js
+```ts
 // 使用渐变色描边，渐变角度为 0，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
 stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff';
 ```
 
 示例代码(1)，通过 Area（面积图) 的 `areaStyle`，配置带渐变色的面积图。
 
-```js
+```ts
 areaStyle: {
   fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
 }
@@ -151,7 +151,7 @@ areaStyle: {
 
 示例代码（2)，通过 Bar (条形图) 的 `barStyle`, 配置带渐变色的条形图。
 
-```js
+```ts
 barStyle: {
   fill: 'l(0) 0:#3e5bdb 1:#dd3121',
 }
@@ -167,7 +167,7 @@ barStyle: {
 
 > 说明：`r`  表示使用放射状渐变，绿色的字体为可变量，由用户自己填写，开始圆的 x y r 值均为相对值，0 至 1 范围。
 
-```js
+```ts
 // example
 // 使用渐变色填充，渐变起始圆的圆心坐标为被填充物体的包围盒中心点，半径为(包围盒对角线长度 / 2) 的 0.1 倍，渐变的起始点颜色 #ffffff，中点的渐变色为 #7ec2f3，结束的渐变色为 #1890ff
 fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
@@ -188,7 +188,7 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 
 示例代码，以 Column（柱状图) 的 `columnStyle` 为例：
 
-```js
+```ts
 columnStyle: {
   fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ',
 }

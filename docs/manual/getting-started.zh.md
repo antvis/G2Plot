@@ -13,7 +13,7 @@ order: 1
 <!-- 引入在线资源 -->
 <script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
 <script>
-  const plot = new G2Plot.Line(document.getElementById('app'), {
+  const plot = new G2Plot.Line('container', {
     // ...
   });
   plot.render();
@@ -27,7 +27,7 @@ order: 1
 
 ### 通过 npm 安装
 
-我们提供了 g2plot npm 包，通过下面的命令即可完成安装：
+我们提供了 G2Plot npm 包，通过下面的命令即可完成安装：
 
 ```bash
 // 推荐用法
@@ -36,22 +36,23 @@ npm install @antv/g2plot --save
 
 成功安装完成之后，即可使用 `import` 或 `require` 进行引用：
 
-```plain
+```ts
 import { Line } from '@antv/g2plot';
 ```
 
-## 快速试用
+## 快速使用
 
 在 G2Plot 引入页面后，我们就已经做好了创建第一个图表的准备了。下面是以一个基础折线图为例开始我们的第一个图表创建。
+
 **step1**: 创建图表容器
 
 ```html
-<div id="canvas"></div>
+<div id="container"></div>
 ```
 
 **step2**: 引入数据。G2Plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
 
-```javascript
+```ts
 const data = [
   { year: '1991', value: 3 },
   { year: '1992', value: 4 },
@@ -67,8 +68,8 @@ const data = [
 
 **step3**: 创建并渲染图表
 
-```javascript
-const linePlot = new Line('canvas', {
+```ts
+const linePlot = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
@@ -85,8 +86,8 @@ linePlot.render();
 
 图表各元素的视觉样式采用的是图表默认主题的样式，还没有经过特别定制。图表主体中的文本元素也没有进行格式化，我们可以根据需求对图表进行各种个性化设置，给多配置请参考图表 API：\*\*
 
-```javascript
-const linePlot = new Line('canvas', {
+```ts
+const linePlot = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
@@ -141,18 +142,18 @@ const linePlot = new Line('canvas', {
 });
 
 // element 添加点击事件
-linePlot.on('element:click', (...args) => {
-  console.log(...args);
+linePlot.on('element:click', (e) => {
+  console.log(e);
 });
 
 // annotation 添加点击事件
-linePlot.on('annotation:click', (...args) => {
-  console.log(...args);
+linePlot.on('annotation:click', (e) => {
+  console.log(e);
 });
 
 // axis-label 添加点击事件
-linePlot.on('axis-label:click', (...args) => {
-  console.log(...args);
+linePlot.on('axis-label:click', (e) => {
+  console.log(e);
 });
 
 linePlot.render();
@@ -162,4 +163,4 @@ linePlot.render();
 
 <img alt="示例" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Y-4xSprUCV0AAAAAAAAAAAAAARQnAQ" width="800">
 
-经过上面由浅至深的三步教程，你应该已经基本了解 g2plot 的使用方法了，不过这远远不是终点，g2plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](https://www.yuque.com/antv/manual/plots/line)。
+经过上面由浅至深的三步教程，你应该已经基本了解 G2Plot 的使用方法了，不过这远远不是终点，G2Plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](../../examples/gallery)。

@@ -7,7 +7,7 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
 
 为了方便用户使用，在这里对 G2Plot 常用的绘图属性进行简单的介绍：
 
-# 配置图形样式
+## 配置图形样式
 
 | 属性名        | 类型            | 介绍                                                                                                         |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -46,7 +46,7 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
 
 <img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PKH0QoRSb0QAAAAAAAAAAAAAARQnAQ" width="400">
 
-# 配置线的样式
+## 配置线的样式
 
 | 属性名        | 类型            | 介绍                                                                                                   |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
@@ -80,7 +80,7 @@ lineStyle: {
 
 <img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
 
-# 配置文字样式
+## 配置文字样式
 
 | 属性名        | 类型            | 介绍                                                                                                         |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -122,11 +122,11 @@ statistic: {
 
 <img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
 
-# 配置渐变色
+## 配置渐变色
 
 提供线性渐变，环形渐变两种形式。
 
-## 线性渐变
+### 线性渐变
 
 <img alt="加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/ieWkhtoHOijxweuNFWdz.png" width="600">
 
@@ -161,7 +161,7 @@ barStyle: {
 
 <img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MexsR7O4GPwAAAAAAAAAAAAAARQnAQ" width="400">
 
-## 环形渐变
+### 环形渐变
 
 <img alt="加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/qnvmbtSBGxQlcuVOWkdu.png" width="600">
 
@@ -173,7 +173,7 @@ barStyle: {
 fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 ```
 
-# 纹理
+## 纹理
 
 用特定的纹理填充图形。纹理内容可以直接是图片或者  Data URLs。
 

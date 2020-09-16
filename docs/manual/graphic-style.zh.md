@@ -42,7 +42,9 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
   }
 ```
 
-效果： <img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oMQhTbC8-g8AAAAAAAAAAABkARQnAQ" width="400">
+效果：
+
+<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PKH0QoRSb0QAAAAAAAAAAAAAARQnAQ" width="400">
 
 # 配置线的样式
 
@@ -74,7 +76,9 @@ lineStyle: {
 }
 ```
 
-效果：<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
+效果：
+
+<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
 
 # 配置文字样式
 
@@ -114,7 +118,9 @@ statistic: {
 }
 ```
 
-效果：<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
+效果：
+
+<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
 
 # 配置渐变色
 
@@ -135,11 +141,13 @@ stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff';
 
 ```js
 areaStyle: {
-  fill: 'l(90) 0:#5B8FF9 1:#ffffff',
+  fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
 }
 ```
 
-效果：<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vXe9TIKLHSIAAAAAAAAAAABkARQnAQ" width="400">
+效果：
+
+<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f0EOS5Ay8noAAAAAAAAAAAAAARQnAQ" width="400">
 
 示例代码（2)，通过 Bar (条形图) 的 `barStyle`, 配置带渐变色的条形图。
 
@@ -149,7 +157,9 @@ barStyle: {
 }
 ```
 
-效果：<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PLbxT69_RUwAAAAAAAAAAABkARQnAQ" width="400">
+效果：
+
+<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MexsR7O4GPwAAAAAAAAAAAAAARQnAQ" width="400">
 
 ## 环形渐变
 
@@ -180,8 +190,10 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 
 ```js
 columnStyle: {
-  fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ';
+  fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ',
 }
 ```
 
-效果：<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Q5M1Ro3_GLsAAAAAAAAAAABkARQnAQ" width="400">
+效果：
+
+<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CKQ7R4F8ClEAAAAAAAAAAAAAARQnAQ" width="400">

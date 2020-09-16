@@ -1,3 +1,4 @@
+import { Geometry } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
@@ -35,16 +36,18 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
       widthRatio: radius,
       interval: {
         color,
-        style: liquidStyle
-          ? liquidStyle
-          : {
-              liquidRadius: radius, // 只能通过这样的方式，将 radius 传入到自定义 shape 中，TODO 最好是 Geometry 提供传入自定义数据的能力
-            },
+        style: liquidStyle,
         shape: 'liquid-fill-gauge',
       },
     },
   });
-  interval(p);
+  const { ext } = interval(p);
+  const geometry = ext.geometry as Geometry;
+
+  // 将 radius 传入到自定义 shape 中
+  geometry.customInfo({
+    radius,
+  });
 
   // 关闭组件
   chart.legend(false);

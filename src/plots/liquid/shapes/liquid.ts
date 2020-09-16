@@ -239,7 +239,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
 
     // 需要更好的传参方式
-    const radio = isNumber(cfg.style.liquidRadius) ? cfg.style.liquidRadius : 0.9;
+    const radio = isNumber(cfg.customInfo.radius) ? cfg.customInfo.radius : 0.9;
 
     // 获取最小 minX
     const minX = reduce(

@@ -50,4 +50,9 @@ chart.on('mask:click', (...args) => {
 chart.on('axis-label:click', (...args) => {
   console.log(...args);
 });
+
+// 给 annotation 添加点击事件
+chart.on('annotation:click', (...args) => {
+  console.log(...args);
+});
 ```

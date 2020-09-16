@@ -22,27 +22,27 @@ describe('bullet*data*transfrom', () => {
       {
         title: '数学',
         ranges: 30,
-        index: '0',
+        index: 'ranges_0',
       },
       {
         title: '数学',
         ranges: 20,
-        index: '1',
+        index: 'ranges_1',
       },
       {
         title: '数学',
         ranges: 50,
-        index: '2',
+        index: 'ranges_2',
       },
       {
         title: '数学',
         measures: 20,
-        index: '0',
+        index: 'measures', // 只有一个数据
       },
       {
         title: '数学',
         target: 85,
-        index: '0',
+        index: 'target',
       },
     ];
     expect(ds).toEqual(transDS);
@@ -69,37 +69,37 @@ describe('bullet*data*transfrom', () => {
       {
         subTitle: 'g2',
         count: 30,
-        index: '0',
+        index: 'count_0',
       },
       {
         subTitle: 'g2',
         count: 20,
-        index: '1',
+        index: 'count_1',
       },
       {
         subTitle: 'g2',
         count: 50,
-        index: '2',
+        index: 'count_2',
       },
       {
         subTitle: 'g2',
         count: 50,
-        index: '3',
+        index: 'count_3',
       },
       {
         subTitle: 'g2',
         measures: 20,
-        index: '0',
+        index: 'measures_0', // 多个数据
       },
       {
         subTitle: 'g2',
         measures: 30,
-        index: '1',
+        index: 'measures_1',
       },
       {
         subTitle: 'g2',
         target: 85,
-        index: '0',
+        index: 'target',
       },
     ];
     expect(ds).toEqual(transDS);

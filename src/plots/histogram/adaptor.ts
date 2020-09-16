@@ -8,10 +8,10 @@ import { interval } from '../../adaptor/geometries';
 import { HistogramOptions } from './types';
 
 /**
- * field 字段
+ * geometry 处理
  * @param params
  */
-function field(params: Params<HistogramOptions>): Params<HistogramOptions> {
+function geometry(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
   const { data, binField, binNumber, binWidth, color, stackField, legend, columnStyle } = options;
 
@@ -124,5 +124,5 @@ function label(params: Params<HistogramOptions>): Params<HistogramOptions> {
  */
 export function adaptor(params: Params<HistogramOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, axis, theme, label, tooltip, interaction, animation)(params);
+  return flow(geometry, meta, axis, theme, label, tooltip, interaction, animation)(params);
 }

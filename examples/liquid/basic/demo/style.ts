@@ -6,13 +6,15 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
   autoFit: false,
   percent: 0.75,
   statistic: {
-    formatter: (v) => {
-      return `占比${v * 100}%`;
+    content: {
+      formatter: ({ percent }) => {
+        return `占比${percent * 100}%`;
+      },
     },
   },
-  liquidStyle: (v) => {
+  liquidStyle: ({ percent }) => {
     return {
-      fill: v > 0.75 ? 'red' : '#acc9ff',
+      fill: percent > 0.75 ? 'red' : '#acc9ff',
     };
   },
   color: () => '#acc9ff',

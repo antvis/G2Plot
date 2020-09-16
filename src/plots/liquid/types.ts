@@ -1,12 +1,4 @@
-import { Datum } from '@antv/g2/lib/interface';
-import { Options, StyleAttr, ColorAttr } from '../../types';
-
-type Statistic = {
-  /** 统计文本的样式 */
-  readonly style?: StyleAttr;
-  /** 文本的格式化 */
-  readonly formatter?: (datum: Datum) => string;
-};
+import { Options, StyleAttr, ColorAttr, Statistic } from '../../types';
 
 /** 配置类型定义 */
 export interface LiquidOptions extends Omit<Options, 'data'> {

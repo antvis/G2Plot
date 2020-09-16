@@ -65,17 +65,25 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
   const { statistic, percent } = options;
 
-  const { style, formatter } = statistic;
+  const { title, content } = statistic;
 
-  // annotation
-  chart.annotation().text({
-    top: true,
-    position: {
-      type: CAT_VALUE,
-      percent: 0.5,
-    },
-    content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
-    style: isFunction(style) ? style({ percent }) : style,
+  // annotation title 和 content 分别使用一个 text
+  [title, content].forEach((annotation) => {
+    if (annotation) {
+      const { formatter, style, offsetX, offsetY, rotate } = annotation;
+      chart.annotation().text({
+        top: true,
+        position: {
+          type: CAT_VALUE,
+          percent: 0.5,
+        },
+        content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
+        style: isFunction(style) ? style({ percent }) : style,
+        offsetX,
+        offsetY,
+        rotate,
+      });
+    }
   });
 
   return params;

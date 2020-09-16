@@ -14,6 +14,7 @@ imageMask.onload = () => {
         // 宽高设置最好根据 imageMask 做调整
         width: 600,
         height: 400,
+        autoFit: false,
         wordField: 'name',
         weightField: 'value',
         imageMask,

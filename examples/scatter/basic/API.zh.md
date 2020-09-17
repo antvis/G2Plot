@@ -1,12 +1,8 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.zh.md`
+`markdown:docs/common/chart-options.zh.md`
 
 ### 数据映射
 
@@ -20,9 +16,9 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:common/xy-field.zh.md`
+`markdown:docs/common/xy-field.zh.md`
 
-`markdown:common/meta.zh.md`
+`markdown:docs/common/meta.zh.md`
 
 ```ts
 const data = [
@@ -70,7 +66,7 @@ scatterPlot.render();
 
 ### 图形样式
 
-`markdown:common/color.zh.md`
+`markdown:docs/common/color.zh.md`
 
 #### sizeField
 
@@ -194,27 +190,35 @@ scatterPlot.render();
 }
 ```
 
-### tooltip
+## 图表组件
 
-`markdown:common/tooltip.zh.md`
+### 图表组件
 
-### axis
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### axis
 
 xAxis、yAxis 配置相同。
 
-`markdown:common/axis.zh.md`
+`markdown:docs/common/axis.zh.md`
 
-### legend
+#### legend
 
-`markdown:common/legend.zh.md`
+`markdown:docs/common/legend.zh.md`
 
-### theme
+#### theme
 
-`markdown:common/theme.zh.md`
+`markdown:docs/common/theme.zh.md`
 
 ### 事件
 
-`markdown:common/events.zh.md`
+`markdown:docs/common/events.zh.md`
 
 ##### 实例
 
@@ -247,6 +251,6 @@ scatterPlot.on('element:click', (...args) => {
 });
 ```
 
-#### 图表方法
+### 图表方法
 
-`markdown:common/chart-methods.zh.md`
+`markdown:docs/common/chart-methods.zh.md`

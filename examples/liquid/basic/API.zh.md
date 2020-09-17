@@ -10,25 +10,25 @@
 
 **必选**, _number_
 
-功能描述： 设置图表数据源
+功能描述： 指标比例
 
 默认配置： 无
 
-### 图形样式
-
-#### barWidthRatio
+#### radius
 
 **可选**, _number_
 
-功能描述： 条形图宽度占比 [0-1] 。
+功能描述： 水波的外半径， 0 ~ 1 。
 
-默认配置： 无
+默认配置： `0.9`
 
-#### progressStyle
+### 图形样式
+
+#### liquidStyle
 
 **可选**, _StyleAttr | Function_
 
-功能描述： 柱子样式配置 。
+功能描述： 水波图的样式 。
 
 默认配置： 无
 
@@ -36,11 +36,29 @@
 
 `markdown:docs/common/color.zh.md`
 
+#### statistic
+
+**可选**, _object_
+
+功能描述： 指标文本组件 。
+
+默认配置： 无
+
+`markdown:docs/common/statistic.zh.md`
+
 ### 图表组件
 
 #### tooltip
 
 `markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### legend
+
+`markdown:docs/common/legend.zh.md`
 
 #### theme
 

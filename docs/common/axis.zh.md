@@ -78,7 +78,7 @@
 
 默认配置：`无`
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
 #### tickLine
 
@@ -88,7 +88,7 @@
 
 默认配置：`无`
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
 #### subTickLine
 
@@ -98,7 +98,7 @@
 
 默认配置：`无`
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
 #### title
 
@@ -117,9 +117,9 @@
 
 ##### shapeStyle
 
-`markdown:common/shape-style.zh.md`
+`markdown:docs/common/shape-style.zh.md`
 
-#### label
+##### label
 
 <description>**可选** _object_</description>
 
@@ -127,7 +127,7 @@
 
 默认配置：`无`
 
-`markdown:common/label.zh.md`
+`markdown:docs/common/label.zh.md`
 
 #### grid
 
@@ -146,7 +146,7 @@
 
 ##### lineStyle
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
 #### animate
 

@@ -16,11 +16,19 @@
 
 ### 图形样式
 
-#### barWidthRatio
+#### radius
 
 **可选**, _number_
 
-功能描述： 条形图宽度占比 [0-1] 。
+功能描述： 外环的半径 。
+
+默认配置： 无
+
+#### innerRadius
+
+**可选**, _number_
+
+功能描述： 内环的半径 。
 
 默认配置： 无
 
@@ -35,6 +43,16 @@
 `markdown:docs/common/shape-style.zh.md`
 
 `markdown:docs/common/color.zh.md`
+
+#### statistic
+
+**可选**, _number_
+
+功能描述： 统计内容组件 。
+
+默认配置： 无
+
+`markdown:docs/common/statistic.zh.md`
 
 ### 图表组件
 

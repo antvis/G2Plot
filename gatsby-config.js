@@ -193,7 +193,7 @@ module.exports = {
       },
       {
         slug: 'rose',
-        icon: 'other',
+        icon: 'rose',
         title: {
           zh: '玫瑰图',
           en: 'Rose Charts',

@@ -10,6 +10,7 @@
 | lineOpacity   | number          | 描边透明度                                                                                                   |
 | opacity       | number          | 图形的整体透明度                                                                                             |
 | shadowColor   | string          | 图形阴影颜色                                                                                                 |
+| strokeOpacity | number          | 图形边框透明度                                                                                               |
 | shadowBlur    | number          | 图形阴影的高斯模糊系数                                                                                       |
 | shadowOffsetX | number          | 设置阴影距图形的水平距离                                                                                     |
 | shadowOffsetY | number          | 设置阴影距图形的垂直距离                                                                                     |

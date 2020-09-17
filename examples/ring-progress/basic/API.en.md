@@ -6,31 +6,37 @@
 
 ### 数据映射
 
-#### data 📌
+#### percent 📌
 
-**必选**, _number[]_
+**必选**, _number_
 
 功能描述： 设置图表数据源
 
 默认配置： 无
 
-`markdown:docs/common/meta.en.md`
-
 ### 图形样式
 
-#### columnWidthRatio
+#### radius
 
 **可选**, _number_
 
-功能描述： 柱状图宽度占比 [0-1]
+功能描述： 外环的半径 。
 
 默认配置： 无
 
-#### columnStyle
+#### innerRadius
+
+**可选**, _number_
+
+功能描述： 内环的半径 。
+
+默认配置： 无
+
+#### progressStyle
 
 **可选**, _StyleAttr | Function_
 
-功能描述： 面积图形样式
+功能描述： 柱子样式配置 。
 
 默认配置： 无
 
@@ -38,17 +44,21 @@
 
 `markdown:docs/common/color.en.md`
 
+#### statistic
+
+**可选**, _number_
+
+功能描述： 统计内容组件 。
+
+默认配置： 无
+
+`markdown:docs/common/statistic.en.md`
+
 ### 图表组件
 
 #### tooltip
 
 `markdown:docs/common/tooltip.en.md`
-
-#### axis
-
-xAxis、yAxis 配置相同。
-
-`markdown:docs/common/axis.en.md`
 
 #### theme
 

@@ -107,7 +107,7 @@ lengend: {
 
 功能描述：动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
 
-##### label
+#### label
 
 <description>**可选** _ContinueLegendLabelCfg_ </description>
 

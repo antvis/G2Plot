@@ -92,7 +92,7 @@ piePlot.render();
 
 `markdown:docs/common/tooltip.en.md`
 
-##### label ✨
+#### label ✨
 
 功能描述： 标签文本
 

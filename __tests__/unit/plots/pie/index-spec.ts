@@ -120,7 +120,7 @@ describe('pie', () => {
       color: ['blue', 'red', 'yellow', 'lightgreen', 'lightblue', 'pink'],
       radius: 0.8,
       innerRadius: 0.5,
-      pieStyle: (value, type) => ({
+      pieStyle: ({ type }) => ({
         fill: type === 'item1' ? 'blue' : 'red',
         lineWidth: 3,
         stroke: 'yellow',

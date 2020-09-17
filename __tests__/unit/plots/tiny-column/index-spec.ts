@@ -1,5 +1,4 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
-import { GeometryTooltipOption } from '@antv/g2/lib/interface';
 import { TinyColumn } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -10,7 +9,7 @@ describe('tiny-column', () => {
       width: 200,
       height: 100,
       meta: {
-        value: {
+        y: {
           min: 0,
           max: 5000,
         },
@@ -59,7 +58,7 @@ describe('tiny-column', () => {
 
     tinyColumn.update({
       ...tinyColumn.options,
-      columnStyle: (x, y) => {
+      columnStyle: ({ x }) => {
         return x > 10 ? { fill: '#222222' } : { fill: '#444444' };
       },
     });
@@ -68,7 +67,7 @@ describe('tiny-column', () => {
 
     tinyColumn.update({
       ...tinyColumn.options,
-      columnStyle: (x, y) => {
+      columnStyle: ({ y }) => {
         return y > 4000 ? { fill: '#222222' } : { fill: '#444444' };
       },
     });
@@ -86,7 +85,6 @@ describe('tiny-column', () => {
           return item.value;
         }),
       autoFit: false,
-      tooltip: true,
     });
 
     tinyColumn.render();
@@ -100,7 +98,7 @@ describe('tiny-column', () => {
     expect(tooltipOption.containerTpl).toBe('<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>');
     expect(tooltipOption.domStyles).toEqual({
       'g2-tooltip': {
-        padding: '2px',
+        padding: '2px 4px',
         fontSize: '10px',
       },
     });
@@ -118,8 +116,8 @@ describe('tiny-column', () => {
       autoFit: false,
       tooltip: {
         showCrosshairs: true,
-        formatter: (x, y) => {
-          return `有${y / 1000}千`;
+        customContent: (...arg) => {
+          return `<div class="g2-tooltip">有${arg[1][0]?.value / 1000}千</div>`;
         },
         position: 'bottom',
         offset: 0,
@@ -146,8 +144,54 @@ describe('tiny-column', () => {
       },
     });
     const geometry = tinyColumn.chart.geometries[0];
-    const geometryTooltipOption = geometry.tooltipOption as GeometryTooltipOption;
-    expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
-    expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
+    // @ts-ignore
+    const { position } = geometry.attributeOption;
+    expect(position.fields).toEqual(['x', 'y']);
+  });
+
+  it('columnWidthRatio', () => {
+    const tinyColumn = new TinyColumn(createDiv(), {
+      width: 400,
+      height: 100,
+      meta: {
+        y: {
+          min: 0,
+          max: 5000,
+        },
+      },
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      columnWidthRatio: 0.9,
+    });
+
+    tinyColumn.render();
+    expect(tinyColumn.chart.getTheme().columnWidthRatio).toBe(0.9);
+  });
+
+  it('annotation', () => {
+    const tinyColumn = new TinyColumn(createDiv(), {
+      width: 200,
+      height: 100,
+      meta: {
+        y: {
+          min: 0,
+          max: 5000,
+        },
+      },
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      annotations: [{ type: 'line', start: ['min', 'median'], end: ['max', 'median'], text: { content: '中位线' } }],
+    });
+
+    tinyColumn.render();
+    expect(tinyColumn.chart.getController('annotation').getComponents().length).toBe(1);
   });
 });

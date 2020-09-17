@@ -39,9 +39,9 @@ const barPlot = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'type',
-  colorField: 'type',
-  color: (val) => {
-    return val === '美容洗护' ? 'red' : 'green';
+  seriesField: 'type',
+  color: ({ type }) => {
+    return type === '美容洗护' ? 'red' : 'green';
   },
   legend: false,
   meta: {

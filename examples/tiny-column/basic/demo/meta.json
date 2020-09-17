@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "column.ts",
+      "title": {
+        "zh": "基础迷你柱形图",
+        "en": "basic Column chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column-style.ts",
+      "title": {
+        "zh": "迷你柱形图样式",
+        "en": "Tiny Column style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column-style-callback.ts",
+      "title": {
+        "zh": "迷你柱形图回调样式",
+        "en": "Tiny Column style callback"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lSOiS4lGCaIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line-width-ratio.ts",
+      "title": {
+        "zh": "迷你柱形图比例尺",
+        "en": "Tiny Column scale"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

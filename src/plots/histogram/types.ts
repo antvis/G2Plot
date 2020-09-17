@@ -1,5 +1,4 @@
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, StyleAttr } from '../../types';
 
 export interface HistogramOptions extends Options {
   /** 设置直方图绘制 (进行分箱) 的字段 */
@@ -18,5 +17,5 @@ export interface HistogramOptions extends Options {
   readonly stackField?: string;
 
   /** 柱子样式配置，可选 */
-  readonly columnStyle?: ShapeStyle | ((x: any, y: any, color?: any) => ShapeStyle);
+  readonly columnStyle?: StyleAttr;
 }

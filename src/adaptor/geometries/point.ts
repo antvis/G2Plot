@@ -1,27 +1,20 @@
-import { isFunction, isObject, isString, uniq } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { geometry, MappingOptions, GeometryOptions } from './base';
 
-type PointOption = {
-  /** point color 映射, 提供回调的方式, 不开放 field 映射配置 */
-  readonly color?: string | string[] | ((series: any) => string);
-  /** point shape 映射, 提供回调的方式, 不开放 field 映射配置 */
-  readonly shape?: string | ((x: any, y: any, series?: any) => string);
-  /** 大小映射, 提供回调的方式, 不开放 field 映射配置 */
-  readonly size?: number | ((x: any, y: any, series?: any) => number);
-  /** 样式映射 */
-  readonly style?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
-};
-
-export interface PointGeometryOptions extends Options {
+export interface PointGeometryOptions extends GeometryOptions {
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-  readonly point?: PointOption;
+  /** size 映射字段 */
+  readonly sizeField?: string;
+  /** shape 的映射字段 */
+  readonly shapeField?: string;
+  /** point 图形映射规则 */
+  readonly point?: MappingOptions;
 }
 
 /**
@@ -29,46 +22,18 @@ export interface PointGeometryOptions extends Options {
  * @param params
  */
 export function point<O extends PointGeometryOptions>(params: Params<O>): Params<O> {
-  const { chart, options } = params;
-  const { point, seriesField, xField, yField, color } = options;
+  const { options } = params;
+  const { point, seriesField } = options;
 
-  if (point) {
-    const { size, shape, style } = point;
-    const pointGeometry = chart.point().position(`${xField}*${yField}`);
-
-    // color
-    if (seriesField) {
-      const pointColor = isFunction(point.color) ? point.color : point.color || color;
-      pointGeometry.color(seriesField, pointColor);
-    }
-
-    // size
-    if (isFunction(size)) {
-      pointGeometry.size(`${xField}*${yField}*${seriesField}`, size);
-    } else if (size) {
-      pointGeometry.size(size);
-    }
-
-    // shape
-    if (isFunction(shape)) {
-      pointGeometry.shape(`${xField}*${yField}*${seriesField}`, shape);
-    } else if (isString(shape)) {
-      pointGeometry.shape(shape);
-    }
-
-    // style
-    if (isFunction(style)) {
-      pointGeometry.style(`${xField}*${yField}*${seriesField}`, style);
-    } else if (isObject(style)) {
-      pointGeometry.style(style);
-    }
-
-    // 防止因为 x y 字段做了通道映射，导致生成图例
-    [xField, yField]
-      .filter((f: string) => f !== seriesField)
-      .forEach((f: string) => {
-        chart.legend(f, false);
-      });
-  }
-  return params;
+  return point
+    ? geometry(
+        deepMix({}, params, {
+          options: {
+            colorField: seriesField,
+            type: 'point',
+            mapping: point,
+          },
+        })
+      )
+    : params;
 }

@@ -43,6 +43,14 @@
         "en": "Bubble chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_lGkQrhj53gAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "quadrant.ts",
+      "title": {
+        "zh": "散点图-气泡四象限",
+        "en": "Bubble chart quadrant"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

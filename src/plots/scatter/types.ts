@@ -1,6 +1,13 @@
-import { Options } from '../../types';
-import { ShapeStyle } from '../../types/style';
-import { Label } from '../../types/label';
+import {
+  Options,
+  RegionPositionBaseOption,
+  TextOption,
+  AnnotationPosition,
+  ShapeStyle,
+  StyleAttr,
+  ShapeAttr,
+  SizeAttr,
+} from '../../types';
 
 interface PointStyle {
   /** 填充色 会覆盖 color 配置  */
@@ -19,26 +26,21 @@ interface PointStyle {
   readonly strokeOpacity?: number;
 }
 
+interface Labels extends Omit<TextOption, 'position'> {
+  position?: AnnotationPosition;
+}
+
 interface Quadrant {
-  /** 是否显示  */
-  readonly visible?: boolean;
   /** x 方向上的象限分割基准线，默认为 0  */
   readonly xBaseline?: number;
   /** y 方向上的象限分割基准线，默认为 0  */
   readonly yBaseline?: number;
   /** 配置象限分割线的样式  */
-  readonly lineStyle?: ShapeStyle;
+  readonly lineStyle?: RegionPositionBaseOption;
   /** 象限样式 */
-  readonly regionStyle?: RegionStyle[];
+  readonly regionStyle?: RegionPositionBaseOption[];
   /** 象限文本配置  */
-  readonly label?: Label;
-}
-
-interface RegionStyle {
-  /** 填充色  */
-  readonly fill?: string;
-  /** 不透明度  */
-  readonly opacity?: number;
+  readonly labels?: Labels[];
 }
 
 interface TrendLine {
@@ -64,13 +66,13 @@ export interface ScatterOptions extends Options {
   /** 点大小映射对应的数据字段名 */
   readonly sizeField?: string;
   /** 散点图大小 */
-  readonly size?: number | [number, number] | ((value: number) => number);
+  readonly size?: SizeAttr;
   /** 点形状映射对应的数据字段名 */
   readonly shapeField?: string;
   /** 散点图形状 */
-  readonly shape?: string | string[] | ((shape: string) => string);
+  readonly shape?: ShapeAttr;
   /** 散点图样式 */
-  readonly pointStyle?: PointStyle | ((x: number, y: number, colorfield?: string) => ShapeStyle);
+  readonly pointStyle?: StyleAttr;
   /** 点颜色映射对应的数据字段名 */
   readonly colorField?: string;
   /** 四象限组件 */

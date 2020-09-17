@@ -1,11 +1,17 @@
+import { AnnotationPosition, RegionPositionBaseOption, TextOption } from '@antv/g2/lib/interface';
 import { Axis } from './axis';
 import { Label } from './label';
 import { Tooltip } from './tooltip';
 import { Legend } from './legend';
 import { Interaction } from './interaction';
 import { Animation } from './animation';
+import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
+import { ColorAttr } from './attr';
+
+/** annotation position */
+export { AnnotationPosition, RegionPositionBaseOption, TextOption };
 
 /** 一条数据记录 */
 export type Datum = Record<string, any>;
@@ -97,7 +103,7 @@ export type Options = {
   /** 主题，G2 主题，字符串或者 theme object */
   readonly theme?: string | object;
   /** 颜色色板 */
-  readonly color?: string | string[] | ((...args: any[]) => string);
+  readonly color?: ColorAttr;
   /** xAxis 的配置项 */
   readonly xAxis?: Axis;
   /** yAxis 的配置项 */
@@ -112,6 +118,7 @@ export type Options = {
   readonly slider?: Slider;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
+  readonly annotations?: Annotation[];
   // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
   readonly state?: State;
 };

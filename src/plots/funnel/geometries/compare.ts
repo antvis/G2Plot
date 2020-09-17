@@ -1,10 +1,8 @@
-import { deepMix } from '@antv/util';
-import DataSet from '@antv/data-set';
+import { deepMix, map } from '@antv/util';
 import { flow } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FunnelAdaptorOptions } from '../types';
-
-const { DataView } = DataSet;
+import { FUNNEL_PERCENT } from '../constant';
 
 /**
  * 处理数据
@@ -13,28 +11,25 @@ const { DataView } = DataSet;
 function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { options } = params;
   const { data = [], yField, compareField } = options;
-  const dv = new DataView().source(data);
 
-  // format 数据
-  const firstRecord = {};
-
+  let formatData = [];
   if (data[0][yField]) {
-    dv.transform({
-      type: 'map',
-      callback(row) {
-        if (row[yField] !== undefined && row[compareField]) {
-          if (!firstRecord[row[compareField]]) {
-            firstRecord[row[compareField]] = row[yField];
-          }
-          row._percent = row[yField] / firstRecord[row[compareField]];
+    // format 数据
+    const firstRecord = {};
+    formatData = map(data, (row) => {
+      if (row[yField] !== undefined && row[compareField]) {
+        if (!firstRecord[row[compareField]]) {
+          firstRecord[row[compareField]] = row[yField];
         }
-        return row;
-      },
+        row[FUNNEL_PERCENT] = row[yField] / firstRecord[row[compareField]];
+      }
+      return row;
     });
   }
+
   return deepMix({}, params, {
     options: {
-      formatData: dv.rows,
+      formatData,
     },
   });
 }
@@ -72,7 +67,7 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
       // 绘制图形
       const funnelGeometry = view
         .interval()
-        .position(`${xField}*${yField}*_percent`)
+        .position(`${xField}*${yField}*${FUNNEL_PERCENT}`)
         .shape('funnel')
         .color(xField, color)
         .style({
@@ -88,7 +83,7 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
       } else {
         const { callback, ...cfg } = label;
         funnelGeometry.label({
-          fields: [xField, yField, '_percent'],
+          fields: [xField, yField, FUNNEL_PERCENT],
           callback,
           cfg,
         });
@@ -123,7 +118,7 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
  * @param chart
  * @param options
  */
-export default function compareFunnel(params: Params<FunnelAdaptorOptions>) {
+export function compareFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(format, geometry)(params);
 }

@@ -1,5 +1,4 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
-import { GeometryTooltipOption } from '@antv/g2/lib/interface';
 import { TinyArea } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -14,6 +13,7 @@ describe('tiny-area', () => {
         .map((item) => {
           return item.value;
         }),
+      line: {},
       autoFit: false,
     });
 
@@ -70,10 +70,12 @@ describe('tiny-area', () => {
         .map((item) => {
           return item.value;
         }),
-      lineStyle: {
-        stroke: '#123456',
-        lineDash: [2, 2],
-        lineWidth: 2,
+      line: {
+        style: {
+          stroke: '#123456',
+          lineDash: [2, 2],
+          lineWidth: 2,
+        },
       },
       autoFit: false,
       appendPadding: 10,
@@ -89,12 +91,14 @@ describe('tiny-area', () => {
 
     tinyArea.update({
       ...tinyArea.options,
-      lineStyle: () => {
-        return {
-          stroke: '#123456',
-          lineDash: [4, 4],
-          lineWidth: 2,
-        };
+      line: {
+        style: () => {
+          return {
+            stroke: '#123456',
+            lineDash: [4, 4],
+            lineWidth: 2,
+          };
+        },
       },
     });
 
@@ -113,7 +117,6 @@ describe('tiny-area', () => {
           return item.value;
         }),
       autoFit: false,
-      tooltip: true,
     });
 
     tinyArea.render();
@@ -127,7 +130,7 @@ describe('tiny-area', () => {
     expect(tooltipOption.containerTpl).toBe('<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>');
     expect(tooltipOption.domStyles).toEqual({
       'g2-tooltip': {
-        padding: '2px',
+        padding: '2px 4px',
         fontSize: '10px',
       },
     });
@@ -145,8 +148,8 @@ describe('tiny-area', () => {
       autoFit: false,
       tooltip: {
         showCrosshairs: true,
-        formatter: (x, y) => {
-          return `有${y / 1000}千`;
+        customContent: (...arg) => {
+          return `<div class="g2-tooltip">有${arg[1][0]?.value / 1000}千</div>`;
         },
         position: 'bottom',
         offset: 0,
@@ -173,8 +176,25 @@ describe('tiny-area', () => {
       },
     });
     const geometry = tinyArea.chart.geometries[0];
-    const geometryTooltipOption = geometry.tooltipOption as GeometryTooltipOption;
-    expect(geometryTooltipOption.fields).toEqual(['x', 'y']);
-    expect(geometryTooltipOption.callback(1, '3000')).toEqual({ value: '有3千' });
+    // @ts-ignore
+    const { position } = geometry.attributeOption;
+    expect(position.fields).toEqual(['x', 'y']);
+  });
+
+  it('annotation', () => {
+    const tinyArea = new TinyArea(createDiv(), {
+      width: 200,
+      height: 100,
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+      annotations: [{ type: 'line', start: ['min', 'median'], end: ['max', 'median'], text: { content: '中位线' } }],
+    });
+
+    tinyArea.render();
+    expect(tinyArea.chart.getController('annotation').getComponents().length).toBe(1);
   });
 });

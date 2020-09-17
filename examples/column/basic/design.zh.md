@@ -16,11 +16,11 @@ title: 设计规范
 
 ## 用法建议
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ay53Q59BfbkAAAAAAAAAAABkARQnAQ' width='1000'>
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ay53Q59BfbkAAAAAAAAAAABkARQnAQ' width='1000'>
 
 ## 元素
 
-<img src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O4GCSZuzPJ0AAAAAAAAAAABkARQnAQ' width='800'>
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O4GCSZuzPJ0AAAAAAAAAAABkARQnAQ' width='800'>
 
 - X 轴：通常对应分类数据，值为文本，调用连续数据 X 轴。
 - Y 轴：通常对应连续数据，值为数字，调用连续数据 Y 轴。

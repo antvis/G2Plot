@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "水波图",
+        "en": "Liquid chart"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1peOutYr1gK0jSZFDXXb9yVXa-484-468.png"
+    },
+    {
+      "filename": "style.ts",
+      "title": {
+        "zh": "样式自定义的水波图",
+        "en": "Liquid chart - custom style"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1IICyt4D1gK0jSZFyXXciOVXa-517-474.png"
+    }
+  ]
+}

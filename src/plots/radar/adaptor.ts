@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { RadarOptions } from './types';
@@ -11,12 +11,37 @@ import { RadarOptions } from './types';
  */
 function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
-  const { data, lineStyle, smooth } = options;
+  const { data, lineStyle, color, point: pointOptions, area: areaOptions } = options;
 
   chart.data(data);
 
-  // line geometry 处理
-  return flow(line)(deepMix({}, params, { options: { line: { smooth, style: lineStyle } } }));
+  // 雷达图 geometry
+  const p = deepMix({}, params, {
+    options: {
+      line: {
+        style: lineStyle,
+        color,
+      },
+      point: pointOptions
+        ? {
+            color,
+            ...pointOptions,
+          }
+        : pointOptions,
+      area: areaOptions
+        ? {
+            color,
+            ...areaOptions,
+          }
+        : areaOptions,
+    },
+  });
+
+  line(p);
+  point(p);
+  area(p);
+
+  return params;
 }
 
 /**
@@ -86,20 +111,5 @@ function label(params: Params<RadarOptions>): Params<RadarOptions> {
  */
 export function adaptor(params: Params<RadarOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(
-    geometry,
-    meta,
-    // 雷达图 point geometry 处理
-    point,
-    // 雷达图 area geometry 处理
-    area,
-    theme,
-    coord,
-    axis,
-    legend,
-    tooltip,
-    label,
-    interaction,
-    animation
-  )(params);
+  return flow(geometry, meta, theme, coord, axis, legend, tooltip, label, interaction, animation, annotation())(params);
 }

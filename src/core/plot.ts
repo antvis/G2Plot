@@ -3,12 +3,12 @@ import Element from '@antv/g2/lib/geometry/element';
 import { deepMix, each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
-import { Adaptor } from './adaptor';
-import { Options, Data, StateName, StateCondition, Size, StateObject } from '../types';
+import { Options, StateName, StateCondition, Size, StateObject } from '../types';
 import { getContainerSize, getAllElements } from '../utils';
+import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
-type PickOptions = Pick<
+export type PickOptions = Pick<
   Options,
   'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
 >;
@@ -43,12 +43,12 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding, renderer, pixelRatio, autoFit = true } = this.options;
+    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
 
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
-      ...this.getChartSize(width, height, autoFit),
+      ...this.getChartSize(width, height),
       padding,
       appendPadding,
       renderer,
@@ -61,9 +61,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 计算默认的 chart 大小。逻辑简化：如果存在 width 或 height，则直接使用，否则使用容器大小
    * @param width
    * @param height
-   * @param autoFit
    */
-  private getChartSize(width: number, height: number, autoFit: boolean): Size {
+  private getChartSize(width: number, height: number): Size {
     const chartSize = getContainerSize(this.container);
     return { width: width || chartSize.width, height: height || chartSize.height };
   }
@@ -90,10 +89,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       renderer: 'canvas',
       tooltip: {
         shared: true,
-        showCrosshairs: true,
-        crosshairs: {
-          type: 'x',
-        },
+        showMarkers: false,
         offset: 20,
       },
       xAxis: {
@@ -110,6 +106,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
           autoRotate: false,
         },
       },
+      animation: true,
     };
   }
 
@@ -126,6 +123,10 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart.clear();
 
     const adaptor = this.getSchemaAdaptor();
+
+    const { padding } = this.options;
+    // 更新 padding
+    this.chart.padding = padding;
 
     // 转化成 G2 API
     adaptor({
@@ -188,7 +189,12 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public changeData(data: any) {
-    this.chart.changeData(data);
+    // 临时方案，会在 G2 做处理
+    this.update({
+      ...this.options,
+      data,
+    });
+    // this.chart.changeData(data);
   }
 
   /**

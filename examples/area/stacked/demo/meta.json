@@ -19,6 +19,14 @@
         "en": "The causes of CO2 emissions"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u6u1RqMG9coAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "basic-slider.ts",
+      "title": {
+        "zh": "带缩略轴堆叠面积图",
+        "en": "StackedArea with slider"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*u6u1RqMG9coAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

@@ -1,12 +1,10 @@
-import { deepMix } from '@antv/util';
-import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../adaptor/common';
-import { flow, findGeometry } from '../../utils';
+import { flow } from '../../utils';
 import { FunnelAdaptorOptions } from './types';
-import basicFunnel from './geometries/basic';
-import compareFunnel from './geometries/compare';
-import dynamicHeightFunnel from './geometries/dynamic-height';
+import { basicFunnel } from './geometries/basic';
+import { compareFunnel } from './geometries/compare';
+import { dynamicHeightFunnel } from './geometries/dynamic-height';
 
 /**
  *

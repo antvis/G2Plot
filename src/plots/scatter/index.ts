@@ -1,8 +1,8 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isBoolean } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { Adaptor } from '../../core/adaptor';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
-import { Adaptor } from '../../core/adaptor';
 import './interaction';
 
 export { ScatterOptions };
@@ -18,17 +18,19 @@ export class Scatter extends Plot<ScatterOptions> {
     return adaptor;
   }
 
-  protected getDefaultOptions() {
+  protected getDefaultOptions(options: ScatterOptions) {
+    const { shapeField, colorField, legend } = options;
     return deepMix({}, super.getDefaultOptions(), {
       size: 4,
       /** pointStyle 跟随主题默认样式 */
       tooltip: {
         shared: null,
         showTitle: false,
-        showMarkers: false,
-        showCrosshairs: false,
       },
-      shape: 'circle',
+      /**
+       * legend 没有指定时根据 shapeField 和 colorField 来设置默认值
+       */
+      legend: isBoolean(legend) ? legend : legend || !!(shapeField || colorField),
     });
   }
 }

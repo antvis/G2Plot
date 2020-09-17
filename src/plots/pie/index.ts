@@ -1,7 +1,8 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { Adaptor } from '../../core/adaptor';
 import { PieOptions } from './types';
 import { adaptor } from './adaptor';
-import { Adaptor } from '../../core/adaptor';
 import './interaction';
 import './label';
 
@@ -15,14 +16,13 @@ export class Pie extends Plot<PieOptions> {
    * 获取 饼图 默认配置项
    */
   protected getDefaultOptions(): Partial<PieOptions> {
-    return {
+    return deepMix({}, super.getDefaultOptions(), {
       legend: {
         position: 'right',
       },
       tooltip: {
         shared: false,
         showTitle: false,
-        showMarkers: false,
       },
       /** 饼图样式, 不影响暗黑主题 */
       pieStyle: {
@@ -38,7 +38,7 @@ export class Pie extends Plot<PieOptions> {
           style: { fontSize: 21, fontWeight: 'bold', fill: '#4D4D4D', textAlign: 'center' },
         },
       },
-    };
+    });
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Geometry } from '@antv/g2';
 import { deepMix, each } from '@antv/util';
-import { tooltip, slider, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
@@ -14,12 +14,23 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, smooth } = options;
+  const { data, areaStyle, color, point: pointOptions, line: lineOptions } = options;
 
   chart.data(data);
 
+  const p = deepMix({}, params, {
+    options: {
+      area: { color, style: areaStyle },
+      line: lineOptions,
+      point: pointOptions,
+    },
+  });
   // area geometry 处理
-  return flow(area)(deepMix({}, params, { options: { area: { smooth, style: areaStyle } } }));
+  area(p);
+  line(p);
+  point(p);
+
+  return params;
 }
 
 /**
@@ -70,9 +81,6 @@ export function adaptor(params: Params<AreaOptions>) {
   return flow(
     geometry,
     meta,
-    // line 面积线的配置处理
-    line,
-    point,
     adjust,
     theme,
     axis,
@@ -80,6 +88,7 @@ export function adaptor(params: Params<AreaOptions>) {
     tooltip,
     label,
     slider,
+    annotation(),
     interaction,
     animation
   )(params);

@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, slider, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
@@ -12,12 +12,24 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, connectNulls, smooth } = options;
+  const { data, color, lineStyle, point: pointMapping } = options;
 
   chart.data(data);
 
   // line geometry 处理
-  return flow(line)(deepMix({}, params, { options: { line: { connectNulls, smooth, color, style: lineStyle } } }));
+  const p = deepMix({}, params, {
+    options: {
+      line: {
+        color,
+        style: lineStyle,
+      },
+      point: pointMapping,
+    },
+  });
+
+  line(p);
+  point(p);
+  return params;
 }
 
 /**
@@ -107,5 +119,17 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function adaptor(params: Params<LineOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, meta, point, theme, axis, legend, tooltip, label, slider, interaction, animation)(params);
+  return flow(
+    geometry,
+    meta,
+    theme,
+    axis,
+    legend,
+    tooltip,
+    label,
+    slider,
+    interaction,
+    animation,
+    annotation()
+  )(params);
 }

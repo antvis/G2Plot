@@ -39,15 +39,15 @@ const dualAxesChart = new DualAxes('container', {
     {
       geometry: 'column',
       isStack: true,
-      stackField: 'type',
+      seriesField: 'type',
       columnWidthRatio: 0.4,
     },
     {
       geometry: 'line',
       seriesField: 'name',
       color: ['#93D072', '#D62A0D', '#FAA219'],
-      lineStyle: (x, y, type) => {
-        if (type === 'a') {
+      lineStyle: ({ name }) => {
+        if (name === 'a') {
           return {
             lineDash: [2, 2],
             opacity: 1,

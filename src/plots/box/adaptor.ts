@@ -1,10 +1,10 @@
-import { deepMix, isFunction, map } from '@antv/util';
+import { deepMix, isFunction, map, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { BoxOptions } from './types';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import { BoxOptions } from './types';
 import { BOX_RANGE, BOX_SYNC_NAME } from './constant';
 
 /**
@@ -48,14 +48,22 @@ function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
   const outliersView = chart.createView({ padding });
   outliersView.data(data);
   outliersView.axis(false);
-  const outliersGeom = outliersView.point().position(`${xField}*${outliersField}`).shape('circle');
+  const geometry = outliersView.point().position(`${xField}*${outliersField}`).shape('circle');
 
-  if (outliersStyle) {
-    if (isFunction(outliersStyle)) {
-      outliersGeom.style(`${xField}*${outliersField}`, outliersStyle);
-    } else {
-      outliersGeom.style(outliersStyle);
-    }
+  /**
+   * style 的几种情况
+   * g.style({ fill: 'red' });
+   * g.style('x*y*color', (x, y, color) => ({ fill: 'red' }));
+   */
+  if (isFunction(outliersStyle)) {
+    geometry.style(`${xField}*${outliersField}`, (_x: string, _outliers: number) => {
+      return outliersStyle({
+        [xField]: _x,
+        [outliersField]: _outliers,
+      });
+    });
+  } else if (isObject(outliersStyle)) {
+    geometry.style(outliersStyle);
   }
 
   return params;
@@ -148,13 +156,23 @@ function style(params: Params<BoxOptions>): Params<BoxOptions> {
 
   const geometry = findGeometry(chart, 'schema');
   const yFieldName = Array.isArray(yField) ? BOX_RANGE : yField;
-  if (boxStyle && geometry) {
-    if (isFunction(boxStyle)) {
-      geometry.style(`${xField}*${yFieldName}`, boxStyle);
-    } else {
-      geometry.style(boxStyle);
-    }
+
+  /**
+   * style 的几种情况
+   * g.style({ fill: 'red' });
+   * g.style('x*y*color', (x, y, color) => ({ fill: 'red' }));
+   */
+  if (isFunction(boxStyle)) {
+    geometry.style(`${xField}*${yFieldName}`, (_x: string, _y: number) => {
+      return boxStyle({
+        [xField]: _x,
+        [yFieldName]: _y,
+      });
+    });
+  } else if (isObject(boxStyle)) {
+    geometry.style(boxStyle);
   }
+
   return params;
 }
 

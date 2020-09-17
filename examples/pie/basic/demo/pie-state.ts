@@ -17,10 +17,13 @@ const piePlot = new Pie('container', {
   radius: 0.8,
   label: {
     type: 'inner',
+    // @ts-ignore 偏移 50% TODO 后续支持直接配置 -50%
+    offset: '-0.5',
     content: '{name} {percentage}',
     style: {
       fill: '#fff',
       fontSize: 14,
+      textAlign: 'center',
     },
   },
   // 设置 状态样式
@@ -40,4 +43,4 @@ piePlot.render();
 
 //  初始化设置默认状态；状态可叠加，可通过回调设置
 piePlot.setState('active', (data) => (data as any).type === '分类一');
-piePlot.setState('selected', (d) => (data as any).type === '分类一' || (data as any).type === '分类二');
+piePlot.setState('selected', (data) => (data as any).type === '分类一' || (data as any).type === '分类二');

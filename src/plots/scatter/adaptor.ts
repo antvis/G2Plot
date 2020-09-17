@@ -1,52 +1,43 @@
-import { isFunction, isNumber, isString } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { ScatterOptions } from './types';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { point as pointAdaptor } from '../../adaptor/geometries';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
+import { getQuadrantDefaultConfig } from './util';
+import { ScatterOptions } from './types';
 
 /**
  * 字段
  * @param params
  */
-function field(params: Params<ScatterOptions>): Params<ScatterOptions> {
+function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, type, color, colorField, shape, shapeField, size, sizeField } = options;
+  const { data, type, color, shape, size, pointStyle, colorField } = options;
 
-  // 散点图操作逻辑
+  // 数据
   chart.data(data);
-  const geometry = chart.point().position(`${xField}*${yField}`);
+
+  // geometry
+  pointAdaptor(
+    deepMix({}, params, {
+      seriesField: colorField,
+      options: {
+        point: {
+          color,
+          shape,
+          size,
+          style: pointStyle,
+        },
+      },
+    })
+  );
+
+  const geometry = findGeometry(chart, 'point');
 
   // 数据调整
   if (type) {
     geometry.adjust(type);
-  }
-
-  // shape
-  if (shape) {
-    if (isString(shape)) {
-      geometry.shape(shape);
-    } else {
-      geometry.shape(shapeField || xField, shape);
-    }
-  }
-
-  // color
-  if (color) {
-    if (isString(color)) {
-      geometry.color(color);
-    } else {
-      geometry.color(colorField || xField, color);
-    }
-  }
-
-  // size
-  if (size) {
-    if (isNumber(size)) {
-      geometry.size(size);
-    } else {
-      geometry.size(sizeField || xField, size);
-    }
   }
 
   return params;
@@ -88,31 +79,17 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField } = options;
+  const { legend, colorField, shapeField, sizeField } = options;
 
-  if (legend && colorField) {
-    chart.legend(colorField, legend);
+  if (legend) {
+    chart.legend(colorField || shapeField, legend);
+  } else {
+    chart.legend(false);
   }
 
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { chart, options } = params;
-  const { xField, yField, pointStyle, colorField } = options;
-
-  const geometry = chart.geometries[0];
-
-  if (pointStyle && geometry) {
-    if (isFunction(pointStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}`, pointStyle);
-    } else {
-      geometry.style(pointStyle);
-    }
+  // 隐藏连续图例
+  if (sizeField) {
+    chart.legend(sizeField, false);
   }
 
   return params;
@@ -144,11 +121,64 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
 }
 
 /**
+ * annotation 配置
+ * - 特殊 annotation: quadrant(四象限)
+ * @param params
+ */
+function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options } = params;
+  const { quadrant } = options;
+
+  const annotationOptions = [];
+
+  if (quadrant) {
+    const { xBaseline = 0, yBaseline = 0, labels, regionStyle, lineStyle } = quadrant;
+    const defaultConfig = getQuadrantDefaultConfig(xBaseline, yBaseline);
+    // 仅支持四象限
+    const quadrants = new Array(4).join(',').split(',');
+    quadrants.forEach((_: string, index: number) => {
+      annotationOptions.push(
+        {
+          type: 'region',
+          top: false,
+          ...defaultConfig.regionStyle[index].position,
+          style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+        },
+        {
+          type: 'text',
+          top: true,
+          ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+        }
+      );
+    });
+    // 生成坐标轴
+    annotationOptions.push(
+      {
+        type: 'line',
+        top: false,
+        start: ['min', yBaseline],
+        end: ['max', yBaseline],
+        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+      },
+      {
+        type: 'line',
+        top: false,
+        start: [xBaseline, 'min'],
+        end: [xBaseline, 'max'],
+        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+      }
+    );
+  }
+
+  return flow(annotation(annotationOptions))(params);
+}
+
+/**
  * 散点图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, axis, legend, tooltip, style, label, interaction, animation, theme)(params);
+  return flow(geometry, meta, axis, legend, tooltip, label, interaction, scatterAnnotation, animation, theme)(params);
 }

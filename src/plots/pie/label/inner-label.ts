@@ -4,7 +4,7 @@ import { parsePercentageToNumber } from '../utils';
 
 const PieLabel = getGeometryLabel('pie');
 
-export default class PieInnerLabel extends PieLabel {
+export class PieInnerLabel extends PieLabel {
   public defaultLayout = 'pie-inner';
 
   /**
@@ -25,13 +25,18 @@ export default class PieInnerLabel extends PieLabel {
     const coordinate = this.getCoordinate();
     const radius = coordinate.getRadius();
     let innerRadius = 0;
-    if (coordinate.innerRadius && coordinate.radius) {
-      innerRadius = radius * (coordinate.innerRadius / coordinate.radius);
-    }
     let actualOffset = offset;
+
     if (isString(actualOffset)) {
-      actualOffset = (radius - innerRadius) * parsePercentageToNumber(actualOffset);
+      // 存在 innerRadius
+      if (coordinate.innerRadius) {
+        innerRadius = radius * (coordinate.innerRadius / coordinate.radius);
+        actualOffset = (radius - innerRadius) * (parsePercentageToNumber(actualOffset) + (coordinate.radius - 1));
+      } else {
+        actualOffset = radius * parsePercentageToNumber(actualOffset);
+      }
     }
+
     return isNil(actualOffset) || actualOffset > 0 ? -(radius - innerRadius) * 0.3 : actualOffset;
   }
 }

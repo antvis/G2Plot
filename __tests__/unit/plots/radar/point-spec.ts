@@ -58,8 +58,8 @@ describe('radar with point', () => {
       ...radar.options,
       point: {
         shape: 'triangle',
-        size: (x) => {
-          return x === SINGLE_DATA[0].name ? 6 : 4;
+        size: ({ name }) => {
+          return name === SINGLE_DATA[0].name ? 6 : 4;
         },
       },
     });
@@ -131,21 +131,21 @@ describe('radar with point', () => {
     radar.update({
       ...radar.options,
       point: {
-        color: (series: string) => {
-          if (series === '实际支出') {
+        color: ({ type }) => {
+          if (type === '实际支出') {
             return 'red';
           }
           return 'pink';
         },
-        style: (x) => {
+        style: ({ name }) => {
           return {
-            stroke: x === SINGLE_DATA[0].name ? 'red' : 'rgba(0, 0, 0, 0.85)',
+            stroke: name === SINGLE_DATA[0].name ? 'red' : 'rgba(0, 0, 0, 0.85)',
           };
         },
       },
     });
     expect(radar.chart.geometries[1].elements[0].getModel().color).toBe('pink');
     expect(radar.chart.geometries[1].elements[0].getModel().style.stroke).toBe('red');
-    expect(radar.chart.geometries[1].elements[1].getModel().style.stroke).toBe('rgba(0, 0, 0, 0.85)');
+    expect(radar.chart.geometries[1].elements[2].getModel().style.stroke).toBe('rgba(0, 0, 0, 0.85)');
   });
 });

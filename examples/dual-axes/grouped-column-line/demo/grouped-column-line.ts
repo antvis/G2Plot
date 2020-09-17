@@ -29,10 +29,14 @@ const dualAxesChart = new DualAxes('container', {
     {
       geometry: 'column',
       isGroup: true,
-      groupField: 'type',
+      seriesField: 'type',
     },
     {
       geometry: 'line',
+      lineStyle: {
+        lineWidth: 2,
+        stroke: '#FAA219',
+      },
     },
   ],
 });

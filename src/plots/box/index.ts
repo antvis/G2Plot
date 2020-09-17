@@ -1,8 +1,8 @@
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { BoxOptions } from './types';
 import { adaptor } from './adaptor';
-import { deepMix } from '@antv/util';
 import { BOX_RANGE, BOX_RANGE_ALIAS } from './constant';
 export { BoxOptions };
 
@@ -25,6 +25,7 @@ export class Box extends Plot<BoxOptions> {
       // 默认 tooltips 共享，不显示 makers
       tooltip: {
         showMarkers: false,
+        showCrosshairs: true,
         shared: true,
       },
     });

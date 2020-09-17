@@ -1,5 +1,4 @@
-import { Options, tuple } from '../../types';
-import { ShapeStyle } from '../../types/style';
+import { Options, tuple, StyleAttr } from '../../types';
 
 export interface HeatmapOptions extends Options {
   /** x 轴字段 */
@@ -15,7 +14,7 @@ export interface HeatmapOptions extends Options {
   /** 热力格子中图形的尺寸比例，可选，只有当 shapeType 和 sizeField 至少指定一项后才生效 */
   readonly sizeRatio?: number;
   /** 热力图形样式 */
-  readonly heatmapStyle?: ShapeStyle | ((x: any, y: any, color: any) => ShapeStyle);
+  readonly heatmapStyle?: StyleAttr;
 }
 
 export const SHAPE_TYPES = tuple('circle', 'square');

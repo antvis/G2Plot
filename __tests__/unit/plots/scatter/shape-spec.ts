@@ -11,6 +11,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
+      shapeField: 'gender',
       shape: 'hollow-diamond',
       xAxis: {
         nice: true,
@@ -35,6 +36,7 @@ describe('scatter', () => {
       data,
       xField: 'weight',
       yField: 'height',
+      shapeField: 'gender',
       shape: ['circle', 'square'],
       xAxis: {
         nice: true,
@@ -66,7 +68,7 @@ describe('scatter', () => {
       yField: 'height',
       shapeField: 'gender',
       size: 10,
-      shape: (gender: string) => {
+      shape: ({ gender }) => {
         if (gender === 'female') {
           return 'square';
         }

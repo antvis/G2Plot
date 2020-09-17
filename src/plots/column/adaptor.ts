@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { tooltip, slider, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { ColumnOptions } from './types';
@@ -12,21 +12,22 @@ import { ColumnOptions } from './types';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, columnWidthRatio, marginRatio } = options;
+  const { data, columnStyle, color, columnWidthRatio } = options;
 
   chart.data(data);
 
-  return flow(interval)(
-    deepMix({}, params, {
-      options: {
-        interval: {
-          marginRatio,
-          widthRatio: columnWidthRatio,
-          style: columnStyle,
-        },
+  const p = deepMix({}, params, {
+    options: {
+      widthRatio: columnWidthRatio,
+      interval: {
+        style: columnStyle,
+        color,
       },
-    })
-  );
+    },
+  });
+  interval(p);
+
+  return params;
 }
 
 /**
@@ -120,5 +121,17 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * @param params
  */
 export function adaptor(params: Params<ColumnOptions>) {
-  return flow(geometry, meta, axis, legend, tooltip, slider, theme, label, interaction, animation)(params);
+  return flow(
+    geometry,
+    meta,
+    axis,
+    legend,
+    tooltip,
+    slider,
+    theme,
+    label,
+    interaction,
+    animation,
+    annotation()
+  )(params);
 }

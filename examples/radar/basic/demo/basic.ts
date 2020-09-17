@@ -13,13 +13,14 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/a104a693-2dd0-4a71-a190-39ec88f7
         },
       },
       xAxis: {
-        label: {
-          offset: 15,
-        },
-      },
-      yAxis: {
+        line: null,
+        tickLine: null,
         grid: {
-          alternateColor: ['rgba(0, 0, 0, 0.04)', null],
+          line: {
+            style: {
+              lineDash: null,
+            },
+          },
         },
       },
       point: {},

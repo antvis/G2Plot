@@ -14,12 +14,15 @@ const piePlot = new Pie('container', {
   legend: false,
   label: {
     type: 'inner',
+    // @ts-ignore 偏移 50% TODO 后续支持直接配置 -50%
+    offset: '-0.5',
     style: {
       fill: '#fff',
       fontSize: 18,
+      textAlign: 'center',
     },
   },
-  pieStyle: (solid, sex) => {
+  pieStyle: ({ sex }) => {
     if (sex === '男') {
       return {
         fill: 'p(a)https://gw.alipayobjects.com/zos/rmsportal/nASTPWDPJDMgkDRlAUmw.jpeg',

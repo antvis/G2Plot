@@ -6,6 +6,8 @@ import { View } from '@antv/g2';
 export type Params<O> = {
   readonly chart: View;
   readonly options: O;
+  /** 一些存储一些扩展信息，用户上游 adaptor 向下游传递临时数据 */
+  readonly ext?: Record<string, any>;
 };
 
 /**

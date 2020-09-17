@@ -1,16 +1,18 @@
-import { isFunction } from '@antv/util';
+import { deepMix, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { scale, animation, theme, annotation } from '../../adaptor/common';
+import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';
-import { scale } from '../../adaptor/common';
+import { DEFAULT_COLOR } from './constant';
 
 /**
  * 字段
  * @param params
  */
-function field(params: Params<ProgressOptions>): Params<ProgressOptions> {
+export function geometry(params: Params<ProgressOptions>): Params<ProgressOptions> {
   const { chart, options } = params;
-  const { percent, color } = options;
+  const { percent, progressStyle, color, barWidthRatio } = options;
 
   const data = [
     {
@@ -25,71 +27,32 @@ function field(params: Params<ProgressOptions>): Params<ProgressOptions> {
 
   chart.data(data);
 
-  const geometry = chart.interval().position('1*percent').adjust('stack');
-  const values = isFunction(color) ? color(percent) : color || ['#FAAD14', '#E8EDF3'];
+  const p = deepMix({}, params, {
+    options: {
+      xField: '1',
+      yField: 'percent',
+      seriesField: 'type',
+      isStack: true,
+      widthRatio: barWidthRatio,
+      interval: {
+        style: progressStyle,
+        color: isString(color) ? [color, DEFAULT_COLOR[1]] : color,
+      },
+    },
+  });
 
-  geometry.color('type', values);
+  interval(p);
 
-  return params;
-}
-
-/**
- * axis 配置
- * @param params
- */
-function axis(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart } = params;
-
+  // 关闭组件
+  chart.tooltip(false);
   chart.axis(false);
-
-  return params;
-}
-
-/**
- * legend 配置
- * @param params
- */
-function legend(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart } = params;
-
   chart.legend(false);
 
   return params;
 }
 
 /**
- * tooltip 配置
- * @param params
- */
-function tooltip(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart } = params;
-
-  chart.tooltip(false);
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<ProgressOptions>): Params<ProgressOptions> {
-  const { chart, options } = params;
-  const { progressStyle } = options;
-
-  const geometry = chart.geometries[0];
-  if (progressStyle && geometry) {
-    if (isFunction(progressStyle)) {
-      geometry.style('1*percent*type', progressStyle);
-    } else {
-      geometry.style(progressStyle);
-    }
-  }
-  return params;
-}
-
-/**
- * coordinate 配置
+ * other 配置
  * @param params
  */
 function coordinate(params: Params<ProgressOptions>): Params<ProgressOptions> {
@@ -106,5 +69,6 @@ function coordinate(params: Params<ProgressOptions>): Params<ProgressOptions> {
  * @param options
  */
 export function adaptor(params: Params<ProgressOptions>) {
-  return flow(field, scale({}), axis, legend, tooltip, style, coordinate)(params);
+  // @ts-ignore
+  return flow(geometry, scale({}), coordinate, animation, theme, annotation())(params);
 }

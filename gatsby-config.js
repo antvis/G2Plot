@@ -135,6 +135,78 @@ module.exports = {
           en: 'Funnel Charts',
         },
       },
+      {
+        slug: 'tiny-line',
+        icon: 'line',
+        title: {
+          zh: '迷你折线图',
+          en: 'Tiny Line',
+        },
+      },
+      {
+        slug: 'tiny-area',
+        icon: 'area',
+        title: {
+          zh: '迷你面积图',
+          en: 'Tiny Area',
+        },
+      },
+      {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
+        slug: 'tiny-column',
+        icon: 'column',
+        title: {
+          zh: '迷你柱形图',
+          en: 'Tiny Column',
+        },
+      },
+      {
+        slug: 'ring-progress',
+        icon: 'other',
+        title: {
+          zh: '进度环图',
+          en: 'Ring Progress',
+        },
+      },
+      {
+        slug: 'progress',
+        icon: 'other',
+        title: {
+          zh: '进度条图',
+          en: 'Tiny Progress',
+        },
+      },
+      {
+        slug: 'bullet',
+        icon: 'other',
+        title: {
+          zh: '子弹图',
+          en: 'Bullet Charts',
+        },
+      },
+      {
+        slug: 'rose',
+        icon: 'other',
+        title: {
+          zh: '玫瑰图',
+          en: 'Rose Charts',
+        },
+      },
+      {
+        slug: 'stock',
+        icon: 'candlestick',
+        title: {
+          zh: '股票图',
+          en: 'Stock Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

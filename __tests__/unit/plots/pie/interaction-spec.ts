@@ -45,7 +45,7 @@ describe('register interaction', () => {
 
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].extra.content).toBe('item3');
-    expect(annotations[1].extra.content).toBe(13);
+    expect(annotations[1].extra.content).toBe('13');
   });
 
   it('触发 pie-statistic:reset', async () => {

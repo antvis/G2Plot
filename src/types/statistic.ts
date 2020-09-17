@@ -1,11 +1,11 @@
 import { StyleAttr } from './attr';
-import { Datum } from './common';
+import { Data, Datum } from './common';
 
 type StatisticText = {
   /** 统计文本的样式 */
   readonly style?: StyleAttr;
   /** 文本的格式化 */
-  readonly formatter?: (datum: Datum) => string;
+  readonly formatter?: (datum?: Datum, data?: Data /** filterData */) => string;
   readonly rotate?: number;
   readonly offsetX?: number;
   readonly offsetY?: number;

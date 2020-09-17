@@ -190,9 +190,7 @@ export function interaction(params: Params<DualAxesOption>): Params<DualAxesOpti
 
 /**
  * legend 配置
- * 左右图都存在分组字段，使用 chart 渲染
- * 否则使用 custom legend，获取 legendItem || geometryType
- * eg: 堆积柱状图-单折线图，获取堆积柱状图原有的 legendItem，和 “Line” 组装成 custom items 渲染
+ * 使用 custom，便于和类似于分组柱状图-单折线图的逻辑统一
  * @param params
  */
 export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {

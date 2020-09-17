@@ -6,31 +6,29 @@
 
 ### 数据映射
 
-#### data 📌
+#### percent 📌
 
-**必选**, _number[]_
+**必选**, _number_
 
-功能描述： 设置图表数据源
+功能描述： 指标比例
 
 默认配置： 无
 
-`markdown:docs/common/meta.en.md`
-
-### 图形样式
-
-#### columnWidthRatio
+#### radius
 
 **可选**, _number_
 
-功能描述： 柱状图宽度占比 [0-1]
+功能描述： 水波的外半径， 0 ~ 1 。
 
-默认配置： 无
+默认配置： `0.9`
 
-#### columnStyle
+### 图形样式
+
+#### liquidStyle
 
 **可选**, _StyleAttr | Function_
 
-功能描述： 面积图形样式
+功能描述： 水波图的样式 。
 
 默认配置： 无
 
@@ -38,17 +36,29 @@
 
 `markdown:docs/common/color.en.md`
 
+#### statistic
+
+**可选**, _object_
+
+功能描述： 指标文本组件 。
+
+默认配置： 无
+
+`markdown:docs/common/statistic.en.md`
+
 ### 图表组件
 
 #### tooltip
 
 `markdown:docs/common/tooltip.en.md`
 
-#### axis
+#### label
 
-xAxis、yAxis 配置相同。
+`markdown:docs/common/label.en.md`
 
-`markdown:docs/common/axis.en.md`
+#### legend
+
+`markdown:docs/common/legend.en.md`
 
 #### theme
 

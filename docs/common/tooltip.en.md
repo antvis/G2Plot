@@ -70,11 +70,11 @@
 
 ##### lineStyle
 
-`markdown:common/line-style.en.md`
+`markdown:docs/common/line-style.en.md`
 
 ##### textStyle
 
-`markdown:common/text-style.en.md`
+`markdown:docs/common/text-style.en.md`
 
 ##### textBackgroundStyle
 
@@ -85,7 +85,7 @@
 
 ##### shapeStyle
 
-`markdown:common/shape-style.en.md`
+`markdown:docs/common/shape-style.en.md`
 
 #### showMarkers
 

@@ -9,7 +9,8 @@ title: API
 G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.vision/en/docs/manual/tutorial/annotation)
 
 通用配置属性：
-```javascript
+
+```ts
 {
   /** annotation 类型，支持类型详细见下文介绍 */
   type: 'xxx',
@@ -67,7 +68,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 
 ### Line Annotaion
 
-使用示例: *绘制中位线*
+使用示例: _绘制中位线_
 
 ```javascript
 {
@@ -81,7 +82,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 
 ### Text Annotaion
 
-使用示例: 
+使用示例:
 
 ```javascript
 {

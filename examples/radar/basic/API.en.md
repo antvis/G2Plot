@@ -1,16 +1,12 @@
----
-title: API
----
+## 配置属性
 
-# 配置属性
+### 图表容器
 
-## 图表容器
+`markdown:docs/common/chart-options.en.md`
 
-- 见 [通用配置](TODO)
+### 数据映射
 
-## 数据映射
-
-### data 📌
+#### data 📌
 
 **必选**, _array object_
 
@@ -20,22 +16,9 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-### meta
+`markdown:docs/common/meta.en.md`
 
-**可选**, _object_
-
-功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
-
-默认配置： 无
-
-| 细分配置项名称 | 类型       | 功能描述                                    |
-| -------------- | ---------- | ------------------------------------------- |
-| alias          | _string_   | 字段的别名                                  |
-| formatter      | _function_ | callback 方法，对该字段所有值进行格式化处理 |
-| values         | _string[]_ | 枚举该字段下所有值                          |
-| range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
-
-```js
+```ts
 const data = [
   { item: 'Design', score: 70 },
   { item: 'Development', score: 60 },
@@ -49,8 +32,8 @@ const radarPlot = new Radar('container', {
   yField: 'score',
   meta: {
     score: {
-      alias: '分数'
-    }
+      alias: '分数',
+    },
   },
   yAxis: {
     grid: {
@@ -62,7 +45,7 @@ const radarPlot = new Radar('container', {
 radarPlot.render();
 ```
 
-### xField 📌
+#### xField 📌
 
 **必选**, _string_
 
@@ -70,7 +53,7 @@ radarPlot.render();
 
 默认配置： 无
 
-### yField 📌
+#### yField 📌
 
 **必选**, _string_
 
@@ -78,7 +61,7 @@ radarPlot.render();
 
 默认配置： 无
 
-### seriesField 📌
+#### seriesField 📌
 
 **必选**, _string_
 
@@ -88,17 +71,11 @@ radarPlot.render();
 
 默认配置： 无
 
-## 图形样式
+### 图形样式
 
-### color
+`markdown:docs/common/color.en.md`
 
-**可选**, _string[] | Function_
-
-功能描述： 指定颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
-
-默认配置：采用 theme 中的色板。
-
-### smooth ✨
+#### smooth ✨
 
 **可选**, _boolean_
 
@@ -106,53 +83,50 @@ radarPlot.render();
 
 默认配置: `false`
 
-### lineStyle ✨
+#### lineStyle ✨
 
 **可选**, _object ｜ Function_
 
-功能描述：配置雷达图上的折线样式，也可以通过回调函数的方法根据对应的数据进行设置，返回参数是通用的`[ShapeStyle](TODO 补充通用类型定义)` 对象
+功能描述：配置雷达图上的折线样式，也可以通过回调函数的方法根据对应的数据进行设置，返回参数是通用的 ShapeStyle 对象
+
+`markdown:docs/common/shape-style.en.md`
 
 使用示例：
 
-```js
+```ts
 {
   lineStyle: (x, y, series) => {
     return {
       stroke: series === 'a' ? 'red' : 'yellow',
-      lineWidth: 3
+      lineWidth: 3,
     };
-  }
+  };
 }
 ```
 
-### point ✨
+#### point ✨
 
 **可选**, _object_
 
 功能描述： 配置雷达图上的点
 
-| 细分配置 | 类型    | 功能描述          |
-| -------- | ------- |------------- |
-| color    | _string, string[], Function_  | 数据点颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| shape    | _string, Function_   | 数据点形状，也可以支持回调的方式设置，回调参数为 `shape: (x, y, series) => string`       |
-| size     | _number, Function_  | 数据点大小，也可以支持回调的方式设置，回调参数为 `size: (x, y, series) => number`    |
-| style    | _object, Function_  | 数据点样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
+`markdown:docs/common/point.en.md`
 
-### area ✨
+#### area ✨
 
 **可选**, _object_
 
 功能描述： 配置雷达图上的面积填充
 
-| 细分配置 | 类型    | 功能描述          |
-| -------- | ------- |------------- |
-| smooth    | _boolean_  | 是否平滑 |
-| color    | _string, string[], Function_  | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| style    | _object, Function_  | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
+| 细分配置 | 类型      | 功能描述   |
+| -------- | --------- | ---------- |
+| smooth   | _boolean_ | 是否平滑   |
+| color    | \_string  | string[]   | Function\_ | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
+| style    | \_object  | Function\_ | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
 
 使用示例：
 
-```js
+```ts
 {
   area: {
     style: (x, y, series) => {
@@ -164,65 +138,38 @@ radarPlot.render();
 }
 ```
 
-## 图表组件
+### 图表组件
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oiTPQLqYUvIAAAAAAAAAAABkARQnAQ" alt="雷达图 图表组件" width="600">
 
-### xAxis ✨
+### 图表组件
 
-**可选**, _object_
+#### tooltip
 
-功能描述： x 轴（或分类轴）。在雷达图中，对应的是分类轴的配置
+`markdown:docs/common/tooltip.en.md`
 
-- 见 [通用 xAxis 配置](TODO)
+#### label
 
-### yAxis ✨
+`markdown:docs/common/label.en.md`
 
-**可选**, _object_
+#### axis
 
-功能描述： y 轴（或值轴）。雷达图 y 轴配置
+xAxis、yAxis 配置相同。
 
-- 见 [通用 yAxis 配置](TODO)
+`markdown:docs/common/axis.en.md`
 
-### legend、tooltip、label、theme
+#### legend
 
-`legend`、`tooltip`、`label`、`theme` 等通用组件请参考图表通用配置
+`markdown:docs/common/legend.en.md`
 
-## 事件
+#### theme
 
-[通用 events](../../general/events/API)
+`markdown:docs/common/theme.en.md`
 
-# 图表方法
+### 事件
 
-## render() 📌
+`markdown:docs/common/events.en.md`
 
-**必选**
+### 图表方法
 
-渲染图表。
-
-## update()
-
-**可选**
-
-更新图表配置项。
-
-使用示例：
-
-```js
-radarPlot.update({
-  ...radarPlot.options,
-  legend: false,
-});
-```
-
-## changeData()
-
-**可选**
-
-更新图表数据。`update()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
-
-使用示例：
-
-```js
-radarPlot.changeData(newData);
-```
+`markdown:docs/common/chart-methods.en.md`

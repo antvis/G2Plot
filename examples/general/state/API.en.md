@@ -10,7 +10,7 @@ title: API
 
 使用示例:
 
-```javascript
+```ts
 {
   state: {
     selected: {
@@ -30,15 +30,15 @@ title: API
 
 - 参数：
 
-|属性名	|类型	| 描述|
-| -------------- | -------------- | -------------- | 
-|stateName|_string_|状态名（`active`, `selected`, `inactive`）|
-|callback| _(data: Data or Datum) => boolean_|回调返回参数，决定是否开启 stateStatus 状态|
-|stateStatus|_boolean_|是否开启状态,默认 true（可选）|
+| 属性名      | 类型                               | 描述                                        |
+| ----------- | ---------------------------------- | ------------------------------------------- |
+| stateName   | _string_                           | 状态名（`active`, `selected`, `inactive`）  |
+| callback    | _(data: Data or Datum) => boolean_ | 回调返回参数，决定是否开启 stateStatus 状态 |
+| stateStatus | _boolean_                          | 是否开启状态,默认 true（可选）              |
 
 使用示例:
 
-```javascript
+```ts
 // 激活 “分类一” 的切片
 piePlot.setState('active', (data) => date.type === '分类一');
 ```
@@ -49,16 +49,16 @@ piePlot.setState('active', (data) => date.type === '分类一');
 
 ```typescript
 type StateObject = {
-  data: Data|Datum;
+  data: Data | Datum;
   state: string;
   geometry: Geometry;
   element: Element;
-}
+};
 ```
 
 使用示例:
 
-```javascript
+```ts
 // 激活 “分类一” 的切片
 piePlot.getStates();
 ```

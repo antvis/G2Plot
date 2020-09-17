@@ -107,7 +107,7 @@ lengend: {
 
 功能描述：动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
 
-#### label
+##### label
 
 <description>**可选** _ContinueLegendLabelCfg_ </description>
 
@@ -125,7 +125,7 @@ lengend: {
 
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
 
-`markdown:common/marker.en.md`
+`markdown:docs/common/marker.en.md`
 
 #### min
 
@@ -228,4 +228,4 @@ lengend: {
 | value  | any         | required | -      | 值                       |
 | marker | _MarkerCfg_ |          | -      | 图形标记                 |
 
-`markdown:common/marker.en.md`
+`markdown:docs/common/marker.en.md`

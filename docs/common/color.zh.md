@@ -13,12 +13,12 @@
 }
 // 设置多色
 {
-  colorField: 'type',
+  colorField: 'type', // 部分图表使用 seriesField
   color: ['#d62728', '#2ca02c', '#000000'],
 }
 // Function
 {
-  colorField: 'type',
+  colorField: 'type', // 部分图表使用 seriesField
   color: (type) => {
     if(type === 'male'){
       return 'red';

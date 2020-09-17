@@ -90,7 +90,7 @@ bulletPlot.render();
 ```ts
 type BasicStyle = {
   color?: string | string[] | ((...args: any[]) => string);
-  style?: ShapeAttrs;
+  style?: StyleAttr;
   size?: number;
 };
 ```

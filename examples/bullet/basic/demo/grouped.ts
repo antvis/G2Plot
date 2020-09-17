@@ -4,25 +4,25 @@ const data = [
   {
     title: '重庆',
     ranges: [30, 90, 120],
-    measures: [50, 40],
+    measures: [65],
     target: 80,
   },
   {
     title: '杭州',
     ranges: [30, 90, 120],
-    measures: [50, 60],
+    measures: [50],
     target: 100,
   },
   {
     title: '广州',
     ranges: [30, 90, 120],
-    measures: [40, 40],
+    measures: [40],
     target: 85,
   },
   {
     title: '深圳',
     ranges: [30, 90, 120],
-    measures: [50, 60],
+    measures: [50],
     target: 100,
   },
 ];
@@ -36,6 +36,12 @@ const bulletPlot = new Bullet('container', {
   bulletStyle: {
     range: {
       color: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
+    },
+    measure: {
+      color: ['#5B8FF9'],
+    },
+    target: {
+      color: '#5B8FF9',
     },
   },
   label: {
@@ -69,14 +75,9 @@ const bulletPlot = new Bullet('container', {
         marker: { symbol: 'square', style: { fill: '#B4EBBF', r: 5 } },
       },
       {
-        value: '第一季度',
-        name: '第一季度',
+        value: '实际值',
+        name: '实际值',
         marker: { symbol: 'square', style: { fill: '#5B8FF9', r: 5 } },
-      },
-      {
-        value: '第二季度',
-        name: '第二季度',
-        marker: { symbol: 'square', style: { fill: ' #5AD8A6', r: 5 } },
       },
       {
         value: '目标值',

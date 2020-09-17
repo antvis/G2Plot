@@ -34,7 +34,7 @@ export function transformData(options: BulletOptions): TransformData {
     });
     // 构建 title * target
     ds.push({
-      index: 'target',
+      index: `${targetField}`,
       [xField]: xField ? item[xField] : String(index),
       [targetField]: item[targetField],
     });

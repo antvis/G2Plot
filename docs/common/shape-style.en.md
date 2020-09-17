@@ -20,7 +20,7 @@
 
 ```ts
 {
-  pointStyle: {
+  style: {
     fill: 'red',
     fillOpacity: 0.5,
     stroke: 'black',

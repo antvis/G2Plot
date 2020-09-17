@@ -12,6 +12,9 @@ import { WordCloudOptions } from './types';
 export function transform(params: Params<WordCloudOptions>) {
   const { chart, options } = params;
   const { data, imageMask, wordField, weightField, wordStyle, timeInterval, spiral } = options;
+  if (!data || !data.length) {
+    return [];
+  }
   const { fontFamily, fontWeight, padding } = wordStyle;
   const dv = new DataSet.View().source(data);
   const range = dv.range(weightField);

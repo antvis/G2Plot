@@ -23,7 +23,7 @@ plot.update({
 });
 ```
 
-#### changeData()
+<!-- #### changeData()
 
 <description>**可选** </description>
 
@@ -35,4 +35,4 @@ plot.update({
 
 ```ts
 plot.changeData(newData);
-```
+``` -->

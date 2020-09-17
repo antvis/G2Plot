@@ -38,6 +38,13 @@ const dualAxesChart = new DualAxes('container', {
       color: '#FAA219',
     },
   ],
+  legend: {
+    marker: {
+      symbol: 'circle',
+    },
+    layout: 'vertical',
+    position: 'right',
+  },
 });
 
 dualAxesChart.render();

@@ -1,11 +1,13 @@
-import { deepMix, each, map, some } from '@antv/util';
+import { deepMix, each, findIndex } from '@antv/util';
+import { Scale } from '@antv/g2/lib/dependents';
 import { theme, animation, scale } from '../../adaptor/common';
 import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { getOption, isLine } from './util/option';
+import { getOption } from './util/option';
+import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOption, GeometryOption } from './types';
+import { DualAxesOption } from './types';
 
 /**
  * 获取默认参数设置
@@ -188,61 +190,74 @@ export function interaction(params: Params<DualAxesOption>): Params<DualAxesOpti
 
 /**
  * legend 配置
+ * 左右图都存在分组字段，使用 chart 渲染
+ * 否则使用 custom legend，获取 legendItem || geometryType
+ * eg: 堆积柱状图-单折线图，获取堆积柱状图原有的 legendItem，和 “Line” 组装成 custom items 渲染
  * @param params
  */
 export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { legend, geometryOptions, yField } = options;
+  const [leftView, rightView] = chart.views;
+  console.log(leftView, rightView);
 
   if (legend === false) {
     chart.legend(false);
-  } else if (!legend && !some(geometryOptions, (opt) => !!opt.seriesField)) {
-    // 没有任何分类字段的时候，内置自定义图例
-    chart.legend({
-      custom: true,
-      // todo 修改类型定义
-      // @ts-ignore
-      items: map(geometryOptions, (geometryOption: GeometryOption, idx: number) => {
-        // 使用 geometryOptions 中的 color, 以及 yField 中的字段作为 name
-        const { color } = geometryOption;
-        const marker = isLine(geometryOption)
-          ? {
-              symbol: (x: number, y: number, r: number) => {
-                return [
-                  ['M', x - r, y],
-                  ['L', x + r, y],
-                ];
-              },
-              style: {
-                lineWidth: 2,
-                r: 6,
-                stroke: color,
-              },
-            }
-          : { symbol: 'square' };
-        return {
-          value: yField[idx],
-          name: yField[idx],
-          marker,
-        };
-      }),
+  } else {
+    // 存在单折线图或多折线图时，使用自定义图例
+    // let customItem = getLegendItems(chart, );
+
+    chart.on('beforepaint', () => {
+      const leftItems = getViewLegendItems({
+        view: leftView,
+        geometryOption: geometryOptions[0],
+        yField: yField[0],
+        legend,
+      });
+
+      const rightItems = getViewLegendItems({
+        view: rightView,
+        geometryOption: geometryOptions[1],
+        yField: yField[1],
+        legend,
+      });
+
+      chart.legend(
+        deepMix({}, legend, {
+          custom: true,
+          // todo 修改类型定义
+          // @ts-ignore
+          items: leftItems.concat(rightItems),
+        })
+      );
     });
 
-    // 自定义图例交互
+    // // 自定义图例交互
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {
-        const idx = delegateObject.index;
-        const view = chart.views[idx];
-        const field = yField[idx];
-        if (view.getScaleByField(field)) {
-          view.filter(field, () => !delegateObject.item.unchecked);
+        const field = delegateObject.item.value;
+        const idx = findIndex(yField, (yF) => yF === field);
+        if (idx > -1) {
+          // 单折柱图
+          chart.views[idx].filter(field, () => !delegateObject.item.unchecked);
+          chart.views[idx].render(true);
+          return;
         }
-        view.render(true);
+
+        // 分组柱线图
+        each(chart.views, (view) => {
+          // 单折柱图
+          const groupScale = view.getGroupScales();
+          each(groupScale, (scale: Scale) => {
+            if (scale.values && scale.values.indexOf(field) > -1) {
+              view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
+              view.render(true);
+            }
+          });
+        });
       }
     });
-  } else if (legend) {
-    chart.legend(legend);
   }
 
   return params;

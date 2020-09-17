@@ -120,6 +120,19 @@ export function slider(params: Params<Options>): Params<Options> {
 }
 
 /**
+ * 处理缩略轴的 adaptor
+ * @param params
+ */
+export function scrollbar(params: Params<Options>): Params<Options> {
+  const { chart, options } = params;
+  const { scrollbar } = options;
+
+  chart.option('scrollbar', scrollbar);
+
+  return params;
+}
+
+/**
  * scale 的 adaptor
  * @param axes
  */

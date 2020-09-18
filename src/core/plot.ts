@@ -10,7 +10,7 @@ import { Adaptor } from './adaptor';
 /** 单独 pick 出来的用于基类的类型定义 */
 export type PickOptions = Pick<
   Options,
-  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
+  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit' | 'syncViewPadding'
 >;
 
 /**
@@ -43,7 +43,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
+    const { width, height, padding, appendPadding, renderer, pixelRatio, syncViewPadding } = this.options;
 
     this.chart = new Chart({
       container: this.container,
@@ -54,6 +54,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       renderer,
       pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
+      syncViewPadding,
     });
   }
 

@@ -85,6 +85,8 @@ export type Options = {
   readonly padding?: number[] | number | 'auto';
   /** 额外怎加的 padding 值 */
   readonly appendPadding?: number[] | number;
+  /** 是否同步子 view 的 padding */
+  readonly syncViewPadding?: boolean;
 
   // G 相关
   /** 渲染引擎 */

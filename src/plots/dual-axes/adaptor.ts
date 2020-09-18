@@ -197,7 +197,6 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { legend, geometryOptions, yField } = options;
   const [leftView, rightView] = chart.views;
-  console.log(leftView, rightView);
 
   if (legend === false) {
     chart.legend(false);

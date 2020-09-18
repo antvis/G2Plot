@@ -40,7 +40,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     options: {
       xField: xField,
       yField: rangeField,
-      seriesField: 'index',
+      seriesField: 'rKey',
       isStack: true,
       interval: {
         color: range.color,
@@ -58,7 +58,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     options: {
       xField: xField,
       yField: measureField,
-      seriesField: 'index',
+      seriesField: 'mKey',
       isStack: true,
       interval: {
         color: measure.color,
@@ -74,7 +74,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     options: {
       xField: xField,
       yField: targetField,
-      seriesField: targetField,
+      seriesField: 'tKey',
       point: {
         color: target.color,
         style: target.style,

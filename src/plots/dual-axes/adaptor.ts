@@ -46,26 +46,6 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     })
     .data(data[1]);
 
-  // TOFIX: g2 更新 updateOptions 未重新渲染，待 g2 修复后验证, 暂时先写死 PADDING
-  // chart.on('afterpaint', ()=>{
-  //   const { autoPadding: leftAutoPadding } = leftView;
-  //   const { autoPadding: rightAutoPadding } = rightView;
-
-  //   const maxPaddingX = Math.max(leftAutoPadding[1], leftAutoPadding[3], rightAutoPadding[1], rightAutoPadding[3]);
-  //   const maxPaddingY = Math.max(leftAutoPadding[0], leftAutoPadding[2], rightAutoPadding[0], rightAutoPadding[2]);
-
-  //   const padding = [maxPaddingY, maxPaddingX];
-
-  //   chart.updateOptions({
-  //     views: [{
-  //       padding,
-  //     }, {
-  //       padding,
-  //     }]
-  //   })
-
-  // });
-
   // 左轴图形
   drawSingleGeometry({
     chart: leftView,

@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "玫瑰图",
+        "en": "basic Rose chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "inner-label.ts",
+      "title": {
+        "zh": "玫瑰图-内部图形标签",
+        "en": "Rose chart - inner label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rose-state.ts",
+      "title": {
+        "zh": "玫瑰图-设置条件状态",
+        "en": "Rose chart - set condition state"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "interaction.ts",
+      "title": {
+        "zh": "玫瑰图-元素交互",
+        "en": "Rose interaction - with element action"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

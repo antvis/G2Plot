@@ -1,4 +1,4 @@
-import { deepMix, isFunction, isObject, isString, isArray, isNumber } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 

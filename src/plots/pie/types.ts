@@ -1,35 +1,9 @@
-import { Options, ShapeStyle, StyleAttr, Datum } from '../../types';
+import { Options, Statistic, StyleAttr } from '../../types';
 
 export type StatisticData = {
   title: string;
   value: string | number | null;
 };
-
-/**
- * 中心文本
- */
-type Statistic = Readonly<{
-  /** 自定义 title 标签 */
-  title?:
-    | boolean
-    | {
-        formatter?: (item: StatisticData, data: Datum | Datum[]) => string;
-        rotate?: number;
-        offsetX?: number;
-        offsetY?: number;
-        style?: ShapeStyle;
-      };
-  /** 自定义 content 内容 */
-  content?:
-    | boolean
-    | {
-        formatter?: (item: StatisticData, data: Datum | Datum[]) => string;
-        rotate?: number;
-        offsetX?: number;
-        offsetY?: number;
-        style?: ShapeStyle;
-      };
-}>;
 
 export interface PieOptions extends Options {
   /** 角度映射字段 */

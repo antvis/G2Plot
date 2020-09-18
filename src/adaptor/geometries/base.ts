@@ -1,4 +1,4 @@
-import { isUndefined, isFunction, isObject, isString, isArray, isNumber } from '@antv/util';
+import { uniq, isFunction, isObject, isString, isNumber } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, Options } from '../../types';
@@ -56,7 +56,7 @@ export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | '
   // 插入到第一个
   fields.unshift(f);
 
-  return fields;
+  return uniq(fields.filter((f) => !!f));
 }
 
 /**
@@ -86,7 +86,7 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, styleField } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -106,12 +106,12 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.color('color*x*y', (color, x, y) => 'red');
    */
   if (isString(color)) {
-    geometry.color(color);
+    colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
     const mappingFields = getMappingField(options, 'color');
     geometry.color(mappingFields.join('*'), getMappingFunction(mappingFields, color));
-  } else if (colorField) {
-    geometry.color(colorField, isArray(color) ? color : undefined);
+  } else {
+    colorField && geometry.color(colorField, color);
   }
 
   /**
@@ -122,12 +122,12 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.shape('shape*x*y', (shape, x, y) => 'rect');
    */
   if (isString(shape)) {
-    geometry.shape(shape);
+    shapeField ? geometry.shape(shapeField, [shape]) : geometry.shape(shape); // [shape] 需要在 G2 做掉
   } else if (isFunction(shape)) {
     const mappingFields = getMappingField(options, 'shape');
     geometry.shape(mappingFields.join('*'), getMappingFunction(mappingFields, shape));
-  } else if (shapeField) {
-    geometry.shape(shapeField, isArray(shape) ? shape : undefined);
+  } else {
+    shapeField && geometry.shape(shapeField, shape);
   }
 
   /**
@@ -138,12 +138,12 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.color('size*x*y', (size, x, y) => 1-);
    */
   if (isNumber(size)) {
-    geometry.size(size);
+    sizeField ? geometry.size(sizeField, size) : geometry.size(size);
   } else if (isFunction(size)) {
     const mappingFields = getMappingField(options, 'size');
     geometry.size(mappingFields.join('*'), getMappingFunction(mappingFields, size));
-  } else if (sizeField) {
-    geometry.size(sizeField, isArray(size) ? size : undefined);
+  } else {
+    sizeField && geometry.size(sizeField, size);
   }
 
   /**
@@ -164,5 +164,9 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     .forEach((f: string) => {
       chart.legend(f, false);
     });
-  return params;
+  return {
+    ...params,
+    // geometry adaptor 额外需要做的事情，就是将创建好的 geometry 返回到下一层 adaptor，防止通过 type 查询的时候容易误判
+    ext: { geometry },
+  };
 }

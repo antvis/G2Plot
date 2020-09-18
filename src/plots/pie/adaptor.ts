@@ -168,13 +168,11 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * annotation 配置
- * 内置标注：
- *   1. 中心文本
+ * statistic 中心文本配置
  * @param params
  */
-function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
-  const { options } = params;
+function statistic(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
   const { innerRadius, statistic, angleField } = options;
 
   const annotationOptions = [];
@@ -183,82 +181,41 @@ function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
   if (innerRadius && statistic) {
     const { title, content } = statistic;
 
-    let statisticTitle: Annotation = {
-      type: 'text',
-      content: '',
-      position: ['50%', '50%'],
-    };
-    let statisticContent: Annotation = {
-      type: 'text',
-      content: '',
-      position: ['50%', '50%'],
-    };
+    [title, content].forEach((option, index) => {
+      if (option === false) {
+        return;
+      }
+      const { style, formatter, offsetX, offsetY, rotate } = option;
 
-    const getStatisticData = (data: Data) => ({
-      title: '总计',
-      value: getTotalValue(data, angleField),
+      const lineHeight = get(option, 'style.fontSize', 20);
+      chart.annotation().text(
+        deepMix(
+          {},
+          {
+            style: {
+              textAlign: 'center',
+            },
+            offsetY: index === 0 ? (content === false ? 0 : -lineHeight) : title === false ? 0 : lineHeight,
+          },
+          {
+            position: ['50%', '50%'],
+            content: (filterData: Data) => {
+              return formatter
+                ? formatter(null, filterData)
+                : index === 0
+                ? '总计'
+                : getTotalValue(filterData, angleField);
+            },
+            style,
+            offsetX,
+            offsetY,
+            rotate,
+            // append-info
+            key: 'statistic',
+          }
+        )
+      );
     });
-
-    if (title !== false) {
-      let titleLineHeight = get(title, 'style.lineHeight');
-      if (!titleLineHeight) {
-        titleLineHeight = get(title, 'style.fontSize', 20);
-      }
-      const titleFormatter = get(title, 'formatter');
-
-      statisticTitle = {
-        type: 'text',
-        position: ['50%', '50%'],
-        content: (filterData: Data) => {
-          const statisticData = getStatisticData(filterData);
-          return titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title;
-        },
-        ...deepMix(
-          {},
-          {
-            offsetY: content === false ? 0 : -titleLineHeight,
-            // append-info
-            key: 'statistic',
-            style: {
-              textAlign: 'center',
-            },
-          },
-          title
-        ),
-      };
-    }
-
-    if (content !== false) {
-      let valueLineHeight = get(content, 'style.lineHeight');
-      if (!valueLineHeight) {
-        valueLineHeight = get(content, 'style.fontSize', 20);
-      }
-      const contentFormatter = get(content, 'formatter');
-
-      statisticContent = {
-        type: 'text',
-        position: ['50%', '50%'],
-        content: (filterData: Data) => {
-          const statisticData = getStatisticData(filterData);
-          return contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value;
-        },
-        ...deepMix(
-          {},
-          {
-            // 居中
-            offsetY: title === false ? 0 : valueLineHeight,
-            // append-info
-            key: 'statistic',
-            style: {
-              textAlign: 'center',
-            },
-          },
-          content
-        ),
-      };
-    }
-
-    annotationOptions.push(statisticTitle, statisticContent);
   }
 
   return flow(annotation(annotationOptions))(params);
@@ -280,7 +237,9 @@ export function adaptor(params: Params<PieOptions>) {
     tooltip,
     label,
     state,
-    pieAnnotation,
+    annotation(),
+    /** 指标卡中心文本 放在下层 */
+    statistic,
     interaction,
     animation
   )(params);

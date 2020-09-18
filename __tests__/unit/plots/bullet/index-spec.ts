@@ -2,7 +2,7 @@ import { Bullet } from '../../../../src';
 import { bulletData, bulletDatas } from '../../../data/bullet';
 import { createDiv } from '../../../utils/dom';
 
-describe.skip('bullet', () => {
+describe('bullet', () => {
   it('default', () => {
     const bullet = new Bullet(createDiv('basic bullet'), {
       width: 400,
@@ -23,7 +23,7 @@ describe.skip('bullet', () => {
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(30);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'range',
+      yField: 'ranges',
     });
     expect(rangeGeometry.getYScale().max).toEqual(100);
     expect(rangeGeometry.getYScale().min).toEqual(0);
@@ -61,11 +61,11 @@ describe.skip('bullet', () => {
 
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(30);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
-      yField: 'range',
+      yField: 'ranges',
     });
 
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
-      yField: 'measure',
+      yField: 'measures',
     });
     expect(measureGeometry.getYScale().max).toEqual(100);
     expect(measureGeometry.getYScale().min).toEqual(0);
@@ -94,7 +94,7 @@ describe.skip('bullet', () => {
     expect(measureGeometry.getAttribute('size').values[0]).toEqual(20);
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'measure',
+      yField: 'measures',
     });
     expect(measureGeometry.getAttribute('color').values).toEqual('#ff0000');
   });
@@ -148,7 +148,7 @@ describe.skip('bullet', () => {
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(30);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'range',
+      yField: 'ranges',
     });
     expect(rangeGeometry.getAttribute('color').values).toEqual(rangeColors);
   });
@@ -176,7 +176,7 @@ describe.skip('bullet', () => {
     const measureGeometry = chart.geometries[1];
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'measure',
+      yField: 'measures',
     });
     expect(measureGeometry.getAttribute('color').values).toEqual(measureColors);
   });
@@ -208,14 +208,14 @@ describe.skip('bullet', () => {
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(rangeSize);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'range',
+      yField: 'ranges',
     });
 
     const measureGeometry = chart.geometries[1];
     expect(measureGeometry.getAttribute('size').values[0]).toEqual(measureSize);
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'measure',
+      yField: 'measures',
     });
   });
 
@@ -250,14 +250,14 @@ describe.skip('bullet', () => {
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(rangeSize);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'range',
+      yField: 'ranges',
     });
 
     const measureGeometry = chart.geometries[1];
     expect(measureGeometry.getAttribute('size').values[0]).toEqual(measureSize);
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
-      yField: 'measure',
+      yField: 'measures',
     });
 
     const targetGeometry = chart.geometries[2];

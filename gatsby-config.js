@@ -152,6 +152,14 @@ module.exports = {
         },
       },
       {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
         slug: 'tiny-column',
         icon: 'column',
         title: {
@@ -181,6 +189,30 @@ module.exports = {
         title: {
           zh: '子弹图',
           en: 'Bullet Charts',
+        },
+      },
+      {
+        slug: 'rose',
+        icon: 'rose',
+        title: {
+          zh: '玫瑰图',
+          en: 'Rose Charts',
+        },
+      },
+      {
+        slug: 'stock',
+        icon: 'candlestick',
+        title: {
+          zh: '股票图',
+          en: 'Stock Charts',
+        },
+      },
+      {
+        slug: 'word-cloud',
+        icon: 'other',
+        title: {
+          zh: '词云图',
+          en: 'Word Cloud Charts',
         },
       },
       // OTHERS

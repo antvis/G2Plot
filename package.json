@@ -27,7 +27,7 @@
     "site:develop": "cross-env PORT=8080 gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
-    "site:deploy": "npm run site:build && gh-pages -d public",
+    "site:deploy": "npm run build && npm run site:build && gh-pages -d public",
     "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__ && lint-md --fix ./examples",
     "build": "run-s clean lib dist size",
     "size": "limit-size",
@@ -55,7 +55,7 @@
   "dependencies": {
     "@antv/data-set": "^0.11.5",
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g2": "^4.1.0-beta.2",
+    "@antv/g2": "^4.1.0-beta.6",
     "dayjs": "^1.8.34",
     "size-sensor": "^1.0.1",
     "tslib": "^1.13.0"

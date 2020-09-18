@@ -1,16 +1,12 @@
----
-title: API
----
+## 配置属性
 
-# 配置属性
+### 图表容器
 
-## 图表容器
+`markdown:docs/common/chart-options.zh.md`
 
-- 见 [通用配置](TODO)
+### 数据映射
 
-## 数据映射
-
-### data 📌
+#### data 📌
 
 **必选**, _array object_
 
@@ -20,22 +16,9 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-### meta
+`markdown:docs/common/meta.zh.md`
 
-**可选**, _object_
-
-功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
-
-默认配置： 无
-
-| 细分配置项名称 | 类型       | 功能描述                                    |
-| -------------- | ---------- | ------------------------------------------- |
-| alias          | _string_   | 字段的别名                                  |
-| formatter      | _function_ | callback 方法，对该字段所有值进行格式化处理 |
-| values         | _string[]_ | 枚举该字段下所有值                          |
-| range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
-
-```js
+```ts
 const data = [
   { country: 'Asia', year: '1750', value: 502,},
   { country: 'Asia', year: '1800', value: 635,},
@@ -63,7 +46,7 @@ const piePlot = new Pie('container', {
 piePlot.render();
 ```
 
-### angleField 📌
+#### angleField 📌
 
 **必选**, _string_
 
@@ -71,7 +54,7 @@ piePlot.render();
 
 默认配置： 无
 
-### colorField 📌
+#### colorField 📌
 
 **可选**, _string_
 
@@ -79,37 +62,17 @@ piePlot.render();
 
 默认配置： 无
 
-## 图形样式
+### 图形样式
 
-### radius ✨
+#### radius ✨
 
 **可选**, _number_
 
 功能描述： 饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
 
-### color
+`markdown:docs/common/color.zh.md`
 
-**可选**, _string | string[] | Function_
-
-功能描述： 指定扇形颜色，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
-
-默认配置：采用 theme 中的色板。
-
-用法示例：
-
-```js
-// 配合颜色映射，指定多值
-colorField:'type',
-color:['blue','yellow','green']
-//配合颜色映射，使用回调函数指定色值
-colorField:'type',
-color:(d)=>{
-    if(d==='a') return 'red';
-    return 'blue';
-}
-```
-
-### pieStyle ✨
+#### pieStyle ✨
 
 **可选**, _object_
 
@@ -117,69 +80,39 @@ color:(d)=>{
 
 默认配置： 无
 
-| 细分配置      | 类型     | 功能描述   |
-| ------------- | -------- | ---------- |
-| fill          | _string_ | 填充颜色   |
-| stroke        | _string_ | 描边颜色   |
-| lineWidth     | _number_ | 描边宽度   |
-| lineDash      | _number_ | 虚线描边   |
-| opacity       | _number_ | 整体透明度 |
-| fillOpacity   | _number_ | 填充透明度 |
-| strokeOpacity | _number_ | 描边透明度 |
+`markdown:docs/common/shape-style.zh.md`
 
-## 图表组件
+### 图表组件
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" width="600">
 
-### legend、tooltip、theme
+### 图表组件
 
-`legend`、`tooltip`、`theme` 等通用组件请参考图表通用配置
+#### tooltip
 
-### label ✨
+`markdown:docs/common/tooltip.zh.md`
+
+#### label ✨
 
 功能描述： 标签文本
 
 [DEMO1](../../pie/basic#basic)
 [DEMO2](../../pie/basic#outer-label)
 
-| 细分配置 | 类型                 | 功能描述                                                                                                                   |
-| -------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| type     | `inner`, `outer`     | 标签类型                                                                                                                   |
-| content  | _string_, _Fucntion_ | 标签内容，可通过回调的方式，也支持模板字符串配置：内置标签名（`{name}`）、百分比（`{percentage}`）、数值（`{value}`） 三种 |
-| style    | _object, \_Fucntion_ | 标签样式，可通过回调的方式                                                                                                 |
-| 其他     | any                  | 其他，请参考图表 label 通用配置                                                                                            |
+`markdown:docs/common/label.zh.md`
 
-## 事件
+#### legend
 
-[通用 events](../../general/events/API)
+`markdown:docs/common/legend.zh.md`
 
-# 图表方法
+#### theme
 
-## render() 📌
+`markdown:docs/common/theme.zh.md`
 
-**必选**
+### 事件
 
-渲染图表。
+`markdown:docs/common/events.zh.md`
 
-## update()
+### 图表方法
 
-**可选**
-
-更新图表配置项。
-
-```js
-piePlot.update({
-  ...piePlot.options,
-  legend: false,
-});
-```
-
-## changeData()
-
-**可选**
-
-更新图表数据。`update()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。
-
-```js
-piePlot.changeData(newData);
-```
+`markdown:docs/common/chart-methods.zh.md`

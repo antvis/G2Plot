@@ -3,16 +3,17 @@ import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
 import { flow, pick } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import { interval, point } from '../../adaptor/geometries';
 import { BulletOptions } from './types';
 import { transformData } from './utils';
 
 /**
- * field 字段
+ * geometry 处理
  * @param params
  */
-function field(params: Params<BulletOptions>): Params<BulletOptions> {
+function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletStyle, targetField, rangeField, measureField, xField } = options;
+  const { bulletStyle, targetField, rangeField, measureField, xField, layout } = options;
   const { range, measure, target } = bulletStyle;
   // 处理数据
   const { min, max, ds } = transformData(options);
@@ -31,37 +32,62 @@ function field(params: Params<BulletOptions>): Params<BulletOptions> {
     },
   });
   chart.data(ds);
-  chart.coordinate().transpose();
   chart.axis(`${rangeField}`, false);
   chart.axis(`${targetField}`, false);
 
-  const rangeGeometry = chart.interval().position('title*range').adjust('stack').color('index').tooltip(false);
+  // rangeGeometry
+  const r = deepMix({}, params, {
+    options: {
+      xField: xField,
+      yField: rangeField,
+      seriesField: 'index',
+      isStack: true,
+      interval: {
+        color: range.color,
+        style: range.style,
+        size: range.size,
+      },
+    },
+  });
+  interval(r);
+  // 范围值的 tooltip 隐藏掉
+  chart.geometries[0].tooltip(false);
 
-  if (isNumber(range.size)) {
-    rangeGeometry.size(range.size);
-  }
+  // measureGeometry
+  const m = deepMix({}, params, {
+    options: {
+      xField: xField,
+      yField: measureField,
+      seriesField: 'index',
+      isStack: true,
+      interval: {
+        color: measure.color,
+        style: measure.style,
+        size: measure.size,
+      },
+    },
+  });
+  interval(m);
 
-  if (range.color) {
-    rangeGeometry.color('index', range.color);
-  }
+  // targetGeometry
+  const t = deepMix({}, params, {
+    options: {
+      xField: xField,
+      yField: targetField,
+      seriesField: targetField,
+      point: {
+        color: target.color,
+        style: target.style,
+        size: isNumber(target.size) ? Number(target.size) / 2 : target.size,
+        shape: layout === 'horizontal' ? 'line' : 'hyphen',
+      },
+    },
+  });
+  point(t);
 
-  const measureGeometry = chart.interval().position('title*measure').label('measure').adjust('stack').color('index');
-
-  if (isNumber(measure.size)) {
-    measureGeometry.size(measure.size);
-  }
-
-  if (measure.color) {
-    measureGeometry.color('index', measure.color);
-  }
-
-  const targetGeometry = chart.point().position('title*target').shape('line');
-
-  if (isNumber(target.size)) {
-    targetGeometry.size(target.size / 2); // 是半径
-  }
-  if (target.color) {
-    targetGeometry.color('index', target.color);
+  // 水平的时候，要转换坐标轴
+  if (layout === 'horizontal') {
+    chart.coordinate().transpose();
   }
 
   return params;
@@ -142,33 +168,11 @@ function label(params: Params<BulletOptions>): Params<BulletOptions> {
 }
 
 /**
- * style 配置
- * @param params
- */
-function style(params: Params<BulletOptions>): Params<BulletOptions> {
-  const { chart, options } = params;
-  const { bulletStyle } = options;
-  const { range, measure, target } = bulletStyle;
-  // 按绘图顺序
-  const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
-
-  if (range.style) {
-    rangeGeometry.style(range.style);
-  }
-  if (measure.style) {
-    measureGeometry.style(measure.style);
-  }
-  if (target.style) {
-    targetGeometry.style(target.style);
-  }
-  return params;
-}
-/**
  * 子弹图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<BulletOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, axis, legend, theme, label, style, tooltip, interaction, animation)(params);
+  flow(geometry, meta, axis, legend, theme, label, tooltip, interaction, animation)(params);
 }

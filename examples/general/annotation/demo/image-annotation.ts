@@ -18,13 +18,16 @@ const piePlot = new Pie('container', {
   innerRadius: 0.64,
   label: {
     type: 'inner',
+    // @ts-ignore todo 后续修复为可配置 -68%
+    offset: '-0.68',
     content: '{percentage}',
     style: {
       fill: '#fff',
       fontSize: 14,
+      textAlign: 'center',
     },
   },
-  statistic: false,
+  statistic: null,
   annotations: [
     {
       type: 'image',

@@ -19,6 +19,12 @@ const bulletPlot = new Bullet('container', {
     range: {
       color: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
     },
+    measure: {
+      color: ['#5B8FF9', '#5AD8A6'],
+    },
+    target: {
+      color: '#5B8FF9',
+    },
   },
   label: {
     position: 'middle',

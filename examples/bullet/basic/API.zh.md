@@ -1,16 +1,12 @@
----
-title: API
----
+## 配置属性
 
-# 配置属性
+### 图表容器
 
-## 图表容器
+`markdown:docs/common/chart-options.zh.md`
 
-- 见 [通用配置](TODO)
+### 数据映射
 
-## 数据映射
-
-### data 📌
+#### data 📌
 
 **必选**, _array object_
 
@@ -20,22 +16,9 @@ title: API
 
 数据源为对象集合，例如：`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
 
-### meta
+`markdown:docs/common/meta.zh.md`
 
-**可选**, _object_
-
-功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
-
-默认配置： 无
-
-| 细分配置项名称 | 类型       | 功能描述                                    |
-| -------------- | ---------- | ------------------------------------------- |
-| alias          | _string_   | 字段的别名                                  |
-| formatter      | _function_ | callback 方法，对该字段所有值进行格式化处理 |
-| values         | _string[]_ | 枚举该字段下所有值                          |
-| range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
-
-```js
+```ts
 const data = [
   {
     title: '满意度',
@@ -56,7 +39,7 @@ const bulletPlot = new Bullet('container', {
 bulletPlot.render();
 ```
 
-### measureField 📌
+#### measureField 📌
 
 **必选**, _number[]_
 
@@ -64,7 +47,7 @@ bulletPlot.render();
 
 默认配置： 无
 
-### rangeField 📌
+#### rangeField 📌
 
 **必选**, _number[]_
 
@@ -72,7 +55,7 @@ bulletPlot.render();
 
 默认配置： 无
 
-### targetField 📌
+#### targetField 📌
 
 **必选**, _number_
 
@@ -80,21 +63,23 @@ bulletPlot.render();
 
 默认配置： 无
 
-### label
+#### layout
 
-**可选**, _object_
+**可选**, _'horizontal' | 'vertical'_
 
-功能描述： 表示显示实际数值的 label。
+功能描述： 表示子弹图方向。
 
-默认配置： 无
+默认配置： 'horizontal'
 
-## 图形样式
+### 图形样式
 
-bulletStyle ✨
+#### bulletStyle ✨
 
 **可选**, _object_
 
 功能描述： 设置子弹图样式。
+
+默认配置： 无
 
 | 细分配置 | 类型         | 功能描述     |
 | -------- | ------------ | ------------ |
@@ -102,10 +87,44 @@ bulletStyle ✨
 | measure  | _BasicStyle_ | 实际值样式   |
 | target   | _BasicStyle_ | 目标值样式   |
 
-```js
+```ts
 type BasicStyle = {
-  color?: string | string[] | ((...args: any[]) => string),
-  style?: ShapeAttrs,
-  size?: number,
+  color?: string | string[] | ((...args: any[]) => string);
+  style?: ShapeAttrs;
+  size?: number;
 };
 ```
+
+`markdown:docs/common/shape-style.zh.md`
+
+### 图表组件
+
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### axis
+
+xAxis、yAxis 配置相同。
+
+`markdown:docs/common/axis.zh.md`
+
+#### legend
+
+`markdown:docs/common/legend.zh.md`
+
+#### theme
+
+`markdown:docs/common/theme.zh.md`
+
+### 事件
+
+`markdown:docs/common/events.zh.md`
+
+### 图表方法
+
+`markdown:docs/common/chart-methods.zh.md`

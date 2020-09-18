@@ -1,8 +1,7 @@
 import { deepMix } from '@antv/util';
-import { theme, scale, animation, annotation } from '../../adaptor/common';
+import { theme, scale, animation, annotation, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { TinyTooltipOption } from '../../types';
 import { area, line, point } from '../../adaptor/geometries';
 import { TinyAreaOptions } from './types';
 
@@ -36,33 +35,6 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   chart.axis(false);
   chart.legend(false);
-
-  return params;
-}
-
-/**
- * tooltip 配置
- * @param params
- */
-export function tooltip(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
-  const { chart, options } = params;
-  const { tooltip } = options;
-
-  // false 则关闭
-  if (tooltip === false) {
-    chart.tooltip(false);
-  } else {
-    // 是如果 object，那么传入
-    const { formatter, ...otherTooltip } = tooltip as TinyTooltipOption;
-
-    chart.tooltip(otherTooltip);
-
-    chart.geometries.map((g) => {
-      g.tooltip('x*y', (x, y) => ({
-        value: formatter({ x, y }),
-      }));
-    });
-  }
 
   return params;
 }

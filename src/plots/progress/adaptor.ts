@@ -1,9 +1,10 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';
+import { DEFAULT_COLOR } from './constant';
 
 /**
  * 字段
@@ -35,7 +36,7 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
       widthRatio: barWidthRatio,
       interval: {
         style: progressStyle,
-        color,
+        color: isString(color) ? [color, DEFAULT_COLOR[1]] : color,
       },
     },
   });

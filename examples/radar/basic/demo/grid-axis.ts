@@ -33,6 +33,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/a104a693-2dd0-4a71-a190-39ec88f7
               lineDash: null,
             },
           },
+          alternateColor: 'rgba(0, 0, 0, 0.04)',
         },
       },
       point: {},

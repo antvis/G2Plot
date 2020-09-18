@@ -8,7 +8,8 @@ import { Animation } from './animation';
 import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
-import { StyleAttr, ColorAttr } from './attr';
+import { Scrollbar } from './scrollbar';
+import { ColorAttr } from './attr';
 
 /** annotation position */
 export { AnnotationPosition, RegionPositionBaseOption, TextOption };
@@ -116,6 +117,8 @@ export type Options = {
   readonly legend?: Legend;
   /** 缩略轴 slider 的配置项 */
   readonly slider?: Slider;
+  /** 缩略轴 scrollbar 的配置项 */
+  readonly scrollbar?: Scrollbar;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
   readonly annotations?: Annotation[];

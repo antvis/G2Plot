@@ -1,12 +1,8 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.zh.md`
+`markdown:docs/common/chart-options.zh.md`
 
 ### 数据映射
 
@@ -20,20 +16,9 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-#### meta
+`markdown:docs/common/xy-field.zh.md`
 
-**可选**, _object_
-
-功能描述： 全局化配置图表数据元信息，以字段为单位进行配置。在 meta 上的配置将同时影响所有组件的文本信息。
-
-默认配置： 无
-
-| 细分配置项名称 | 类型       | 功能描述                                    |
-| -------------- | ---------- | ------------------------------------------- |
-| alias          | _string_   | 字段的别名                                  |
-| formatter      | _function_ | callback 方法，对该字段所有值进行格式化处理 |
-| values         | _string[]_ | 枚举该字段下所有值                          |
-| range          | _number[]_ | 字段的数据映射区间，默认为[0,1]             |
+`markdown:docs/common/meta.zh.md`
 
 ```ts
 const data = [
@@ -65,22 +50,6 @@ scatterPlot.render();
 
 ```
 
-#### xField 📌
-
-**必选**, _string_
-
-功能描述： 点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
-
-默认配置： 无
-
-#### yField 📌
-
-**必选**, _string_
-
-功能描述： 点形状在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。
-
-默认配置： 无
-
 #### type
 
 **可选**, _jitter | stack | symmetric | dodge_;
@@ -97,38 +66,7 @@ scatterPlot.render();
 
 ### 图形样式
 
-#### color
-
-**可选**, _string | string[] | Function_
-
-[**DEMO1**](../../scatter/basic#color-mapping)
-
-功能描述： 指定点的颜色。如没有配置 colorField，指定一个单值即可。对 colorFiled 进行了配置的情况下，即可以指定一系列色值，也可以通过回调函数的方法根据对应数值进行设置。
-
-默认配置：采用 theme 中的色板。
-
-```ts
-// 设置单一颜色
-{
-  color: '#a8ddb5'
-}
-// 设置多色
-{
-  colorField: 'type',
-  color: ['#d62728', '#2ca02c', '#000000'],
-}
-// Function
-{
-  colorField: 'type',
-  color: (type) => {
-    if(type === 'male'){
-      return 'red';
-    }
-    // TODO
-    return 'yellow';
-  }
-}
-```
+`markdown:docs/common/color.zh.md`
 
 #### sizeField
 
@@ -252,26 +190,37 @@ scatterPlot.render();
 }
 ```
 
-### tooltip
+## 图表组件
 
-`markdown:common/tooltip.zh.md`
+### 图表组件
 
-### axis
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### axis
 
 xAxis、yAxis 配置相同。
 
-`markdown:common/axis.zh.md`
+`markdown:docs/common/axis.zh.md`
 
-<!-- `markdown:common/legend.zh.md`
-`markdown:common/theme.zh.md` -->
+#### legend
+
+`markdown:docs/common/legend.zh.md`
+
+#### theme
+
+`markdown:docs/common/theme.zh.md`
 
 ### 事件
 
-#### 通用事件
+`markdown:docs/common/events.zh.md`
 
-<!-- `markdown:common/events.zh.md` -->
-
-#### 图表事件
+##### 实例
 
 ```ts
 const data = [
@@ -302,6 +251,6 @@ scatterPlot.on('element:click', (...args) => {
 });
 ```
 
-#### 图表方法
+### 图表方法
 
-`markdown:common/chart-methods.zh.md`
+`markdown:docs/common/chart-methods.zh.md`

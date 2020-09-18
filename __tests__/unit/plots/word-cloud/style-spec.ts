@@ -24,7 +24,7 @@ describe('word-cloud', () => {
 
     data.forEach((item: DataItem) => {
       // DataSet 处理之后会多出两个无用的数据
-      if (!item.text) return;
+      if (!item.hasText) return;
 
       // 字体
       expect(item.font).toBe('Impact');

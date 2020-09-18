@@ -1,3 +1,4 @@
+import { Geometry } from '@antv/g2';
 import { deepMix, isFunction } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
@@ -35,16 +36,18 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
       widthRatio: radius,
       interval: {
         color,
-        style: liquidStyle
-          ? liquidStyle
-          : {
-              liquidRadius: radius, // 只能通过这样的方式，将 radius 传入到自定义 shape 中，TODO 最好是 Geometry 提供传入自定义数据的能力
-            },
+        style: liquidStyle,
         shape: 'liquid-fill-gauge',
       },
     },
   });
-  interval(p);
+  const { ext } = interval(p);
+  const geometry = ext.geometry as Geometry;
+
+  // 将 radius 传入到自定义 shape 中
+  geometry.customInfo({
+    radius,
+  });
 
   // 关闭组件
   chart.legend(false);
@@ -62,17 +65,25 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
   const { statistic, percent } = options;
 
-  const { style, formatter } = statistic;
+  const { title, content } = statistic;
 
-  // annotation
-  chart.annotation().text({
-    top: true,
-    position: {
-      type: CAT_VALUE,
-      percent: 0.5,
-    },
-    content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
-    style: isFunction(style) ? style({ percent }) : style,
+  // annotation title 和 content 分别使用一个 text
+  [title, content].forEach((annotation) => {
+    if (annotation) {
+      const { formatter, style, offsetX, offsetY, rotate } = annotation;
+      chart.annotation().text({
+        top: true,
+        position: {
+          type: CAT_VALUE,
+          percent: 0.5,
+        },
+        content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
+        style: isFunction(style) ? style({ percent }) : style,
+        offsetX,
+        offsetY,
+        rotate,
+      });
+    }
   });
 
   return params;

@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "custom-state-style.ts",
+      "title": {
+        "zh": "自定义设置状态样式",
+        "en": "Custom state style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*D-ThTo5H-1kAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "set-state.ts",
+      "title": {
+        "zh": "设置状态",
+        "en": "Set state"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YPRMRI-lcIwAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

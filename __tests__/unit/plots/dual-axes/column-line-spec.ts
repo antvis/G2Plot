@@ -26,14 +26,14 @@ describe('DualAxes dualline', () => {
     dualAxes.render();
 
     // line
-    const leftLineGeometry = dualAxes.chart.views[0].geometries.find((g) => g.type === 'line');
+    const lineGeometry = dualAxes.chart.views[1].geometries.find((g) => g.type === 'line');
 
-    const rightLineGeometry = dualAxes.chart.views[1].geometries.find((g) => g.type === 'interval');
+    const columnGeometry = dualAxes.chart.views[0].geometries.find((g) => g.type === 'interval');
 
     // @ts-ignore
-    expect(leftLineGeometry.connectNulls).toBe(false);
-    expect(leftLineGeometry.attributes.shape.values).toEqual(['smooth']);
+    expect(lineGeometry.connectNulls).toBe(false);
+    expect(lineGeometry.attributes.shape.values).toEqual(['smooth']);
 
-    expect(rightLineGeometry.shapeType).toBe('interval');
+    expect(columnGeometry.shapeType).toBe('interval');
   });
 });

@@ -1,11 +1,13 @@
-import { deepMix, each, map, some } from '@antv/util';
+import { deepMix, each, findIndex } from '@antv/util';
+import { Scale } from '@antv/g2/lib/dependents';
 import { theme, animation, scale } from '../../adaptor/common';
 import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { getOption } from './util/option';
+import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOption, GeometryConfig } from './types';
+import { DualAxesOption } from './types';
 
 /**
  * 获取默认参数设置
@@ -28,22 +30,11 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
 
-  // TOFIX: 动态适配坐标轴宽度
-  const PADDING = [20, 40];
-
   // 绘制左轴对应数据
-  const leftView = chart
-    .createView({
-      padding: PADDING,
-    })
-    .data(data[0]);
+  const leftView = chart.createView().data(data[0]);
 
   // 绘制右轴对应数据
-  const rightView = chart
-    .createView({
-      padding: PADDING,
-    })
-    .data(data[1]);
+  const rightView = chart.createView().data(data[1]);
 
   // 左轴图形
   drawSingleGeometry({
@@ -51,7 +42,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     options: {
       xField,
       yField: yField[0],
-      geometryConfig: geometryOptions[0],
+      geometryOption: geometryOptions[0],
     },
   });
 
@@ -61,7 +52,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     options: {
       xField,
       yField: yField[1],
-      geometryConfig: geometryOptions[1],
+      geometryOption: geometryOptions[1],
     },
   });
   return params;
@@ -169,50 +160,71 @@ export function interaction(params: Params<DualAxesOption>): Params<DualAxesOpti
 
 /**
  * legend 配置
+ * 使用 custom，便于和类似于分组柱状图-单折线图的逻辑统一
  * @param params
  */
 export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { legend, geometryOptions, yField } = options;
+  const [leftView, rightView] = chart.views;
 
   if (legend === false) {
     chart.legend(false);
-  } else if (!legend && !some(geometryOptions, (opt) => !!opt.seriesField)) {
-    // 没有任何分类字段的时候，内置自定义图例
-    chart.legend({
-      custom: true,
-      // todo 修改类型定义
-      // @ts-ignore
-      items: map(geometryOptions, (opt: GeometryConfig, idx: number) => {
-        const defaultColor = chart.getTheme().defaultColor;
-        const geometryType = opt.geometry;
-        const marker =
-          geometryType === 'line'
-            ? { symbol: 'line', style: { stroke: defaultColor, lineWidth: 2 } }
-            : { symbol: 'square' };
-        return {
-          value: yField[idx],
-          name: geometryType,
-          marker,
-        };
-      }),
+  } else {
+    // 存在单折线图或多折线图时，使用自定义图例
+    // let customItem = getLegendItems(chart, );
+
+    chart.on('beforepaint', () => {
+      const leftItems = getViewLegendItems({
+        view: leftView,
+        geometryOption: geometryOptions[0],
+        yField: yField[0],
+        legend,
+      });
+
+      const rightItems = getViewLegendItems({
+        view: rightView,
+        geometryOption: geometryOptions[1],
+        yField: yField[1],
+        legend,
+      });
+
+      chart.legend(
+        deepMix({}, legend, {
+          custom: true,
+          // todo 修改类型定义
+          // @ts-ignore
+          items: leftItems.concat(rightItems),
+        })
+      );
     });
 
-    // 自定义图例交互
+    // // 自定义图例交互
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {
-        const idx = delegateObject.index;
-        const view = chart.views[idx];
-        const field = yField[idx];
-        if (view.getScaleByField(field)) {
-          view.filter(field, () => !delegateObject.item.unchecked);
+        const field = delegateObject.item.value;
+        const idx = findIndex(yField, (yF) => yF === field);
+        if (idx > -1) {
+          // 单折柱图
+          chart.views[idx].filter(field, () => !delegateObject.item.unchecked);
+          chart.views[idx].render(true);
+          return;
         }
-        view.render(true);
+
+        // 分组柱线图
+        each(chart.views, (view) => {
+          // 单折柱图
+          const groupScale = view.getGroupScales();
+          each(groupScale, (scale: Scale) => {
+            if (scale.values && scale.values.indexOf(field) > -1) {
+              view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
+              view.render(true);
+            }
+          });
+        });
       }
     });
-  } else if (legend) {
-    chart.legend(legend);
   }
 
   return params;

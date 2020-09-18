@@ -10,7 +10,7 @@ import { Adaptor } from './adaptor';
 /** 单独 pick 出来的用于基类的类型定义 */
 export type PickOptions = Pick<
   Options,
-  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
+  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit' | 'syncViewPadding'
 >;
 
 /**

@@ -30,19 +30,19 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
 
-  const PADDING = [20, 40];
-
   // 绘制左轴对应数据
   const leftView = chart
     .createView({
-      padding: PADDING,
+      // @ts-ignore
+      syncViewPadding: true,
     })
     .data(data[0]);
 
   // 绘制右轴对应数据
   const rightView = chart
     .createView({
-      padding: PADDING,
+      // @ts-ignore
+      syncViewPadding: true,
     })
     .data(data[1]);
 

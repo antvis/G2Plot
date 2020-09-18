@@ -30,6 +30,7 @@ export class DualAxes extends Plot<DualAxesOption> {
         },
       },
       interactions: hasColumn ? defaultInteraction.concat({ type: 'active-region' }) : defaultInteraction,
+      syncViewPadding: true,
     });
   }
 

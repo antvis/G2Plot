@@ -31,20 +31,10 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { xField, yField, geometryOptions, data } = options;
 
   // 绘制左轴对应数据
-  const leftView = chart
-    .createView({
-      // @ts-ignore
-      syncViewPadding: true,
-    })
-    .data(data[0]);
+  const leftView = chart.createView().data(data[0]);
 
   // 绘制右轴对应数据
-  const rightView = chart
-    .createView({
-      // @ts-ignore
-      syncViewPadding: true,
-    })
-    .data(data[1]);
+  const rightView = chart.createView().data(data[1]);
 
   // 左轴图形
   drawSingleGeometry({

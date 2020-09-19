@@ -9,17 +9,17 @@ export interface DataItem {
   /** 该文本所占权重 */
   value: number;
   /** 字体 */
-  font: string;
+  font?: string;
   /** 字体样式 */
-  style: ShapeAttrs['fontStyle'];
+  style?: ShapeAttrs['fontStyle'];
   /** 文本粗细 */
-  weight: FontWeight;
+  weight?: FontWeight;
   /** 旋转角度 */
-  rotate: number;
+  rotate?: number;
   /** 字体大小 */
-  size: number;
+  size?: number;
   /** 一个单词所占的盒子的内边距，值越大单词之间的间隔越大 */
-  padding: number;
+  padding?: number;
   /** 是否包含文本 */
   hasText?: boolean;
   /** 单词所占盒子的宽度 */
@@ -30,12 +30,6 @@ export interface DataItem {
   x?: number;
   /** y 轴坐标 */
   y?: number;
-  x0?: number;
-  y0?: number;
-  x1?: number;
-  y1?: number;
-  xoff?: number;
-  yoff?: number;
 }
 
 /** 词云字体样式 */

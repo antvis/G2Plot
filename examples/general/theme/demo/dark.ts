@@ -1,51 +1,20 @@
 import { Line } from '@antv/g2plot';
 
-const data = [
-  {
-    year: '1991',
-    value: 31,
-  },
-  {
-    year: '1992',
-    value: 41,
-  },
-  {
-    year: '1993',
-    value: 35,
-  },
-  {
-    year: '1994',
-    value: 55,
-  },
-  {
-    year: '1995',
-    value: 49,
-  },
-  {
-    year: '1996',
-    value: 15,
-  },
-  {
-    year: '1997',
-    value: 17,
-  },
-  {
-    year: '1998',
-    value: 29,
-  },
-  {
-    year: '1999',
-    value: 33,
-  },
-];
+fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
+  .then((res) => res.json())
+  .then((data) => {
+    const line = new Line('container', {
+      data,
+      padding: 'auto',
+      appendPadding: [10, 10, 5, 10],
+      theme: 'dark',
+      xField: 'Date',
+      yField: 'scales',
+      xAxis: {
+        type: 'dateTime',
+        tickCount: 5,
+      },
+    });
 
-const linePlot = new Line('container', {
-  data,
-  xField: 'year',
-  yField: 'value',
-  appendPadding: [10, 10, 10, 0],
-  /** 设置暗黑主题 */
-  theme: 'dark',
-});
-
-linePlot.render();
+    line.render();
+  });

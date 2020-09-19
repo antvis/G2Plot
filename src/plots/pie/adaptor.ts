@@ -3,7 +3,6 @@ import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { Data } from '../../types';
 import { flow, LEVEL, log, template } from '../../utils';
-import { Annotation } from '../../types/annotation';
 import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
 import { getTotalValue } from './utils';
@@ -147,10 +146,12 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     const LABEL_TYPE_MAP = {
       inner: 'pie-inner',
       outer: 'pie',
+      spider: 'pie',
     };
     const LABEL_LAYOUT_TYPE_MAP = {
       inner: '',
       outer: 'pie-outer',
+      spider: 'pie-spider',
     };
     const labelType = LABEL_TYPE_MAP[labelCfg.type] || 'pie';
     const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';

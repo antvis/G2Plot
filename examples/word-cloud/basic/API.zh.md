@@ -76,17 +76,6 @@
 | -------- | ----------------------------------- | ---------------------------------------------------- |
 | text     | _string_                            | 文本内容                                             |
 | value    | _number_                            | 该文本所占权重                                       |
-| font     | _string_                            | 字体                                                 |
-| style    | _"normal" \| "italic" \| "oblique"_ | 字体样式                                             |
-| weight   | _number \| string_                  | 文本粗细                                             |
-| rotate   | _number_                            | 旋转角度                                             |
-| size     | _number_                            | 字体大小                                             |
-| padding  | _number_                            | 一个单词所占的盒子的内边距，值越大单词之间的间隔越大 |
-| hasText  | _boolean_                           | 是否包含文本                                         |
-| width    | _number_                            | 单词所占盒子的宽度                                   |
-| height   | _number_                            | 单词所占盒子的高度                                   |
-| x        | _number_                            | x 轴坐标                                             |
-| y        | _number_                            | y 轴坐标                                             |
 
 `markdown:docs/common/color.zh.md`
 

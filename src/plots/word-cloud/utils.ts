@@ -11,7 +11,7 @@ import { WordCloudOptions } from './types';
  */
 export function transform(params: Params<WordCloudOptions>) {
   const { options } = params;
-  const { data, imageMask, wordField, weightField, wordStyle, timeInterval, spiral } = options;
+  const { data, imageMask, wordField, weightField, wordStyle, timeInterval } = options;
   if (!data || !data.length) {
     return [];
   }
@@ -31,7 +31,6 @@ export function transform(params: Params<WordCloudOptions>) {
     size: getSize(params as any),
     padding: padding,
     timeInterval,
-    spiral,
     rotate: getRotate(options),
   } as any);
 

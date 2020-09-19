@@ -62,8 +62,6 @@ export interface WordCloudOptions extends Options {
   readonly imageMask?: HTMLImageElement;
   /** 最大执行时间 */
   readonly timeInterval?: number;
-  /** https://github.com/jasondavies/d3-cloud#spiral */
-  readonly spiral?: 'archimedean' | 'rectangular' | ((size: any) => (t: any) => number[]);
   /** 文字样式配置 */
   readonly wordStyle?: WordStyle;
 }

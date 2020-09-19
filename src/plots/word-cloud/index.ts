@@ -18,6 +18,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
   protected getDefaultOptions(): Partial<WordCloudOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       timeInterval: 2000,
+      autoFit: true,
       tooltip: {
         showTitle: false,
         showMarkers: false,
@@ -46,7 +47,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
    * 覆写父类的方法，因为词云图使用 data-set 进行布局，原理上有些不一样
    */
   protected triggerResize() {
-    // 重新做一遍 data-set 的处理逻辑，这个适和其他图形不一样的地阿芳
+    // 重新做一遍 data-set 的处理逻辑，这个是和其他图形不一样的地方
     this.execAdaptor();
     // 执行父类的方法
     super.triggerResize();

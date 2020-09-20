@@ -45,7 +45,16 @@ module.exports = {
         },
       },
     ],
-    docs: [],
+    docs: [
+      {
+        slug: 'manual/plots',
+        title: {
+          zh: '图表',
+          en: 'Charts',
+        },
+        order: 3,
+      },
+    ],
     examples: [
       {
         slug: 'line',

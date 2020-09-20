@@ -84,35 +84,8 @@ piePlot.render();
 
 ### 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" alt="加载失败" width="600">
 
 ### 图表组件
 
-#### tooltip
-
-`markdown:docs/common/tooltip.en.md`
-
-#### label ✨
-
-功能描述： 标签文本
-
-[DEMO1](../../pie/basic#basic)
-[DEMO2](../../pie/basic#outer-label)
-
-`markdown:docs/common/label.en.md`
-
-#### legend
-
-`markdown:docs/common/legend.en.md`
-
-#### theme
-
-`markdown:docs/common/theme.en.md`
-
-### 事件
-
-`markdown:docs/common/events.en.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.en.md`
+`markdown:docs/common/component-no-axis.en.md`

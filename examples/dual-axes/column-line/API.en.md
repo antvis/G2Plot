@@ -60,28 +60,4 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992'，value: 20 }]];
 
 ### 图表组件
 
-#### tooltip
-
-`markdown:docs/common/tooltip.en.md`
-
-#### axis
-
-xAxis、yAxis 配置项相同，由于是双轴 yAxis 类型是数组类型。
-
-`markdown:docs/common/axis.en.md`
-
-#### legend
-
-`markdown:docs/common/legend.en.md`
-
-#### theme
-
-`markdown:docs/common/theme.en.md`
-
-### 事件
-
-`markdown:docs/common/events.en.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.en.md`
+`markdown:docs/common/component.en.md`

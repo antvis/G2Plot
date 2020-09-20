@@ -48,26 +48,4 @@
 
 ### 图表组件
 
-#### tooltip
-
-`markdown:docs/common/tooltip.en.md`
-
-#### label
-
-`markdown:docs/common/label.en.md`
-
-#### legend
-
-`markdown:docs/common/legend.en.md`
-
-#### theme
-
-`markdown:docs/common/theme.en.md`
-
-### 事件
-
-`markdown:docs/common/events.en.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.en.md`
+`markdown:docs/common/component-no-axis.en.md`

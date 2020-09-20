@@ -52,8 +52,8 @@ function getSize(params: Params<WordCloudOptions> & { chart: Chart }) {
   // 宽高信息与最终显示的宽高信息相同，避免显示错乱。
   if (autoFit) {
     const containerSize = getContainerSize(chart.ele);
-    width = containerSize.width;
-    height = containerSize.height;
+    width = containerSize.width || 0;
+    height = containerSize.height || 0;
   }
 
   const [top, right, bottom, left] = resolvePadding(chart);

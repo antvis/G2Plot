@@ -41,4 +41,14 @@ export class WordCloud extends Plot<WordCloudOptions> {
   protected getSchemaAdaptor(): Adaptor<WordCloudOptions> {
     return adaptor;
   }
+
+  /**
+   * 覆写父类的方法，因为词云图使用 data-set 进行布局，原理上有些不一样
+   */
+  protected triggerResize() {
+    // 重新做一遍 data-set 的处理逻辑，这个适和其他图形不一样的地阿芳
+    this.execAdaptor();
+    // 执行父类的方法
+    super.triggerResize();
+  }
 }

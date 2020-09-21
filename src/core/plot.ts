@@ -122,21 +122,10 @@ export abstract class Plot<O extends PickOptions> extends EE {
   public render() {
     // 暴力处理，先清空再渲染，需要 G2 层自行做好更新渲染
     this.chart.clear();
-
-    const adaptor = this.getSchemaAdaptor();
-
-    const { padding } = this.options;
-    // 更新 padding
-    this.chart.padding = padding;
-
-    // 转化成 G2 API
-    adaptor({
-      chart: this.chart,
-      options: this.options,
-    });
-
+    // 执行 adaptor
+    this.execAdaptor();
+    // 渲染
     this.chart.render();
-
     // 绑定
     this.bindSizeSensor();
   }
@@ -220,15 +209,41 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /**
+   * 执行 adaptor 操作
+   */
+  protected execAdaptor() {
+    const adaptor = this.getSchemaAdaptor();
+
+    const { padding } = this.options;
+    // 更新 padding
+    this.chart.padding = padding;
+
+    // 转化成 G2 API
+    adaptor({
+      chart: this.chart,
+      options: this.options,
+    });
+  }
+
+  /**
+   * 当图表容器大小变化的时候，执行的函数
+   */
+  protected triggerResize() {
+    this.chart.forceFit();
+  }
+
+  /**
    * 绑定 dom 容器大小变化的事件
    */
   private bindSizeSensor() {
-    this.unbindSizeSensor();
+    if (this.unbind) {
+      return;
+    }
 
     const { autoFit = true } = this.options;
     if (autoFit) {
       this.unbind = bind(this.container, () => {
-        this.chart.forceFit();
+        this.triggerResize();
       });
     }
   }

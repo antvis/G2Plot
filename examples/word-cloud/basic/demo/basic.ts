@@ -7,7 +7,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.jso
       data,
       width: 600,
       height: 500,
-      autoFit: false,
       wordField: 'x',
       weightField: 'value',
       color: '#6262ff',

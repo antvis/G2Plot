@@ -18,14 +18,6 @@
         "zh": "散点图颜色映射",
         "en": "the color mapping of Scatter chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Mds9Q7-zeHMAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "shape-mapping.ts",
-      "title": {
-        "zh": "散点形状色映射",
-        "en": "the shape mapping of Scatter chart"
-      },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/kRFIJ2OlFs/FE726B54-2352-47F5-AAF9-B17D281CE513.png"
     },
     {

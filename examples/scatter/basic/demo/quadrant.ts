@@ -15,6 +15,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747
       shape: 'circle',
       pointStyle: {
         fillOpacity: 0.8,
+        stroke: '#bbb',
       },
       xAxis: {
         min: -25,
@@ -24,6 +25,18 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747
             style: {
               stroke: '#eee',
             },
+          },
+        },
+        line: {
+          style: {
+            stroke: '#aaa',
+          },
+        },
+      },
+      yAxis: {
+        line: {
+          style: {
+            stroke: '#aaa',
           },
         },
       },

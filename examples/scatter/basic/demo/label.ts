@@ -15,12 +15,25 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/3e4db10a-9da1-4b44-80d8-c128f427
       pointStyle: {
         fillOpacity: 1,
       },
+      yAxis: {
+        nice: true,
+        line: {
+          style: {
+            stroke: '#aaa',
+          },
+        },
+      },
       xAxis: {
         grid: {
           line: {
             style: {
               stroke: '#eee',
             },
+          },
+        },
+        line: {
+          style: {
+            stroke: '#aaa',
           },
         },
       },

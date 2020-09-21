@@ -10,7 +10,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
       yField: 'Rating',
       shape: 'circle',
       yAxis: {
-        grid: {},
+        line: {
+          style: {
+            stroke: '#aaa',
+          },
+        },
       },
       xAxis: {
         min: -100,
@@ -20,6 +24,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
             style: {
               stroke: '#eee',
             },
+          },
+        },
+        line: {
+          style: {
+            stroke: '#aaa',
           },
         },
       },

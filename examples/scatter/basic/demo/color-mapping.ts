@@ -10,10 +10,15 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
       yField: 'Rating',
       shape: 'circle',
       colorField: 'Genre',
-      sizeField: 'Rating',
-      size: [2, 5],
+      color: ['#d62728', '#2ca02c', '#000000', '#9467bd', '#ffd500', '#1f77b4', '#00518a', '#ffbc69', '#9bd646'],
+      size: 4,
       yAxis: {
         nice: true,
+        line: {
+          style: {
+            stroke: '#aaa',
+          },
+        },
       },
       xAxis: {
         min: -100,
@@ -22,6 +27,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/aao6XnO5pW/IMDB.json')
             style: {
               stroke: '#eee',
             },
+          },
+        },
+        line: {
+          style: {
+            stroke: '#aaa',
           },
         },
       },

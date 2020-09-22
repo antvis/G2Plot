@@ -6,7 +6,6 @@ import {
   scale,
   interaction as commonInteraction,
 } from '../../adaptor/common';
-import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { getOption } from './util/option';

@@ -118,15 +118,15 @@ describe('columnLine', () => {
     });
     columnLine.render();
   });
-  const uvData = [
-    { time: '2019-03', value: 350 },
-    { time: '2019-04', value: 900 },
-    { time: '2019-05', value: 300 },
-    { time: '2019-06', value: 450 },
-    { time: '2019-07', value: 470 },
-  ];
 
   it('custom meta', () => {
+    const uvData = [
+      { time: '2019-03', value: 350 },
+      { time: '2019-04', value: 900 },
+      { time: '2019-05', value: 300 },
+      { time: '2019-06', value: 450 },
+      { time: '2019-07', value: 470 },
+    ];
     const transformData = [
       { time: '2019-03', count: 800 },
       { time: '2019-04', count: 600 },

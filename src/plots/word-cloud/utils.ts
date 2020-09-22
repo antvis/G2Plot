@@ -107,12 +107,12 @@ function normalPadding(padding: number | number[] | 'auto'): [number, number, nu
 
 /**
  * 处理 imageMask 可能为 url 字符串的情况
- * @param img 可以是图片元素实例，url 地址，或者 bese64
- * @param cb 最终的图片对象通过回调函数传出
+ * @param img
+ * @param callback
  */
-export function processImageMask(img: HTMLImageElement | string, cb?: (img?: HTMLImageElement) => void) {
+export function processImageMask(img: HTMLImageElement | string, callback?: (img?: HTMLImageElement) => void) {
   if (img instanceof HTMLImageElement) {
-    cb(img);
+    callback(img);
     return;
   }
   if (isString(img)) {
@@ -120,16 +120,16 @@ export function processImageMask(img: HTMLImageElement | string, cb?: (img?: HTM
     image.crossOrigin = 'anonymous';
     image.src = img;
     image.onload = () => {
-      cb(image);
+      callback(image);
     };
     image.onerror = () => {
       log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
-      cb();
+      callback();
     };
     return;
   }
-  log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or Object.');
-  cb();
+  log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or HTMLImageElement.');
+  callback();
 }
 
 /**

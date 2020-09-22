@@ -41,7 +41,15 @@ export class WordCloud extends Plot<WordCloudOptions> {
    * 覆写父类方法，词云图需要加载图片资源，所以需要异步渲染
    */
   public render() {
-    processImageMask(this.options.imageMask, (img) => {
+    const { imageMask } = this.options;
+
+    if (!imageMask) {
+      // 调用父类渲染函数
+      super.render();
+      return;
+    }
+
+    processImageMask(imageMask, (img) => {
       this.options = {
         ...this.options,
         imageMask: img || null,

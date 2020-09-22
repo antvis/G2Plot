@@ -1,6 +1,6 @@
 import { Chart, View } from '@antv/g2';
 import DataSet from '@antv/data-set';
-import { isArray, isFunction, isNumber } from '@antv/util';
+import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { log, LEVEL, getContainerSize } from '../../utils';
 import { WordCloudOptions } from './types';
@@ -23,7 +23,7 @@ export function transform(params: Params<WordCloudOptions>) {
   dv.transform({
     type: 'tag-cloud',
     fields: [wordField, weightField],
-    imageMask: getImageMask(imageMask),
+    imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
     fontSize: getFontSize(options, range),
     fontWeight: fontWeight,
@@ -105,8 +105,31 @@ function normalPadding(padding: number | number[] | 'auto'): [number, number, nu
   return [0, 0, 0, 0];
 }
 
-function getImageMask(img: HTMLImageElement) {
-  return img;
+/**
+ * 处理 imageMask 可能为 url 字符串的情况
+ * @param img 可以是图片元素实例，url 地址，或者 bese64
+ * @param cb 最终的图片对象通过回调函数传出
+ */
+export function processImageMask(img: HTMLImageElement | string, cb?: (img?: HTMLImageElement) => void) {
+  if (img instanceof HTMLImageElement) {
+    cb(img);
+    return;
+  }
+  if (isString(img)) {
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.src = img;
+    image.onload = () => {
+      cb(image);
+    };
+    image.onerror = () => {
+      log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
+      cb();
+    };
+    return;
+  }
+  log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or Object.');
+  cb();
 }
 
 /**

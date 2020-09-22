@@ -1,9 +1,12 @@
-## <small>1.1.27 (2020-09-22)</small>
+## <small>1.1.28 (2020-09-22)</small>
 
 * fix: 混合图表中右 Y 轴最大值最小值设置无效 closes [#1610](https://github.com/antvis/G2Plot/issues/1610)
 * fix: DualLine 的 tooltip 不支持自定义的 onChange 事件 closes [#1583](https://github.com/antvis/G2Plot/issues/1583)
 * fix: 双轴图 tooltip.custom.onChange 不执行 closes [#1550](https://github.com/antvis/G2Plot/issues/1550)
 
+## <small>1.1.27 (2020-09-13)</small>
+
+* fix: fix error when set funnel label visible false ([f132056](https://github.com/antvis/g2plot/commit/f132056))
 
 ## <small>1.1.26 (2020-09-02)</small>
 

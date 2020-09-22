@@ -303,12 +303,17 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
   }
 
   protected geometryTooltip() {
-    this.funnel.tooltip = {};
     const tooltipOptions = this.options.tooltip;
     if (tooltipOptions.fields) {
+      if (!this.funnel.tooltip) {
+        this.funnel.tooltip = {};
+      }
       this.funnel.tooltip.fields = tooltipOptions.fields;
     }
     if (tooltipOptions.formatter) {
+      if (!this.funnel.tooltip) {
+        this.funnel.tooltip = {};
+      }
       this.funnel.tooltip.callback = tooltipOptions.formatter;
       if (!tooltipOptions.fields) {
         this.funnel.tooltip.fields = [this.options.xField, this.options.yField];
@@ -844,14 +849,16 @@ export default class FunnelLayer<T extends FunnelLayerConfig = FunnelLayerConfig
       }
       const label = this._findLabelInContainerByIndex(labelsContainer, index, true);
       const ratio = compare ? compare.yValues[0] / (compare.yValues[0] + compare.yValues[1]) : 0.5;
-      label.attr({
-        ...labelStyle,
-        x: lerp(minX, maxX, !props.transpose ? ratio : 0.5),
-        y: lerp(minY, maxY, props.transpose ? ratio : 0.5),
-        text: content,
-      });
+      if (label) {
+        label.attr({
+          ...labelStyle,
+          x: lerp(minX, maxX, !props.transpose ? ratio : 0.5),
+          y: lerp(minY, maxY, props.transpose ? ratio : 0.5),
+          text: content,
+        });
 
-      label.set('adjustTimestamp', adjustTimestamp);
+        label.set('adjustTimestamp', adjustTimestamp);
+      }
     });
 
     labelsContainer.get('children').forEach((label) => {

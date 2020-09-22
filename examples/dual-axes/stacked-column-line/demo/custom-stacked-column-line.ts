@@ -1,4 +1,12 @@
-import { DualAxes } from '@antv/g2plot';
+import { DualAxes, G2 } from '@antv/g2plot';
+
+const { registerTheme } = G2;
+
+registerTheme('custom-theme', {
+  colors10: ['#FACDAA', '#F4A49E', '#EE7B91', '#E85285', '#BE408C', '#BE408C'],
+  /** 20色板 */
+  colors20: ['#FACDAA', '#F4A49E', '#EE7B91', '#E85285', '#BE408C', '#BE408C', '#942D93'],
+});
 
 const uvBillData = [
   { time: '2019-03', value: 350, type: 'uv' },
@@ -41,10 +49,26 @@ const dualAxesChart = new DualAxes('container', {
   legend: {
     marker: {
       symbol: 'circle',
+      style: {
+        lineWidth: 2,
+        r: 6,
+        stroke: '#FAA219',
+        fill: '#fff',
+      },
     },
     layout: 'vertical',
     position: 'right',
   },
+  interactions: [
+    {
+      type: 'element-highlight',
+    },
+    {
+      type: 'active-region',
+    },
+  ],
+  animation: false,
+  theme: 'custom-theme',
 });
 
 dualAxesChart.render();

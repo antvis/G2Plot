@@ -1,6 +1,11 @@
 import { deepMix, each, findIndex } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
-import { theme, animation, scale } from '../../adaptor/common';
+import {
+  theme as commonTheme,
+  animation as commonAnimation,
+  scale,
+  interaction as commonInteraction,
+} from '../../adaptor/common';
 import { Interaction } from '../../types/interaction';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
@@ -143,18 +148,36 @@ export function tooltip(params: Params<DualAxesOption>): Params<DualAxesOption> 
  * @param params
  */
 export function interaction(params: Params<DualAxesOption>): Params<DualAxesOption> {
-  const { chart, options } = params;
-  const { interactions } = options;
+  const { chart } = params;
   const [leftView, rightView] = chart.views;
-  each(interactions, (i: Interaction) => {
-    if (i.enable === false) {
-      leftView.removeInteraction(i.type);
-      rightView.removeInteraction(i.type);
-    } else {
-      leftView.interaction(i.type, i.cfg || {});
-      rightView.interaction(i.type, i.cfg || {});
-    }
-  });
+
+  commonInteraction(deepMix({}, params, { chart: leftView }));
+  commonInteraction(deepMix({}, params, { chart: rightView }));
+
+  return params;
+}
+
+/**
+ * theme
+ * @param params
+ */
+export function theme(params: Params<DualAxesOption>): Params<DualAxesOption> {
+  const { chart } = params;
+  const [leftView, rightView] = chart.views;
+
+  commonTheme(deepMix({}, params, { chart: leftView }));
+  commonTheme(deepMix({}, params, { chart: rightView }));
+
+  return params;
+}
+
+export function animation(params: Params<DualAxesOption>): Params<DualAxesOption> {
+  const { chart } = params;
+  const [leftView, rightView] = chart.views;
+
+  commonAnimation(deepMix({}, params, { chart: leftView }));
+  commonAnimation(deepMix({}, params, { chart: rightView }));
+
   return params;
 }
 

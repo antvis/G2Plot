@@ -191,14 +191,18 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
         },
         this.yAxis(0)
       ),
-      tooltip: deepMix({}, tooltip, {
-        showMarkers: false,
-        custom: {
-          onChange: (containerDom, ev) => {
-            this.tooltip(containerDom, ev);
+      tooltip: deepMix(
+        {},
+        {
+          showMarkers: false,
+          custom: {
+            onChange: (containerDom, ev) => {
+              this.tooltip(containerDom, ev);
+            },
           },
         },
-      }),
+        tooltip
+      ),
       events,
       ...columnConfig,
     });

@@ -19,7 +19,6 @@ export class WordCloud extends Plot<WordCloudOptions> {
   protected getDefaultOptions(): Partial<WordCloudOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       timeInterval: 2000,
-      autoFit: true,
       tooltip: {
         showTitle: false,
         showMarkers: false,

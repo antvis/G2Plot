@@ -43,7 +43,7 @@ export function transform(params: Params<WordCloudOptions>) {
  */
 function getSize(params: Params<WordCloudOptions> & { chart: Chart }) {
   const { chart, options } = params;
-  const { autoFit } = options;
+  const { autoFit = true } = options;
   let { width, height } = chart;
 
   // 由于词云图每个词语的坐标都是先通过 DataSet 根据图表宽高计算出来的，

@@ -11,6 +11,8 @@ export interface DualLineViewConfig extends ComboViewConfig {
   xAxis?: IValueAxis | ICatAxis | ITimeAxis;
   tooltip?: any;
   lineConfigs?: LineConfig[];
+  /** 用户自定义 meta */
+  customMeta?: boolean;
 }
 
 const defaultLineConfig = {
@@ -80,7 +82,7 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     if (!this.checkData()) {
       return;
     }
-    const { data, meta, xField, yField, xAxis, tooltip, lineConfigs, legend, events } = this.options;
+    const { data, meta, xField, yField, xAxis, tooltip, lineConfigs, legend, events, customMeta } = this.options;
     this.colors = [lineConfigs[0].color as string, lineConfigs[1].color as string];
     const yAxisGlobalConfig = this.getYAxisGlobalConfig();
     //draw first line
@@ -91,12 +93,17 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
       xAxis: {
         visible: false,
       },
-      yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(0), {
-        grid: {
-          visible: false,
+      yAxis: deepMix(
+        {},
+        yAxisGlobalConfig,
+        {
+          grid: {
+            visible: false,
+          },
+          nice: true,
         },
-        nice: true,
-      }),
+        this.yAxis(0)
+      ),
       tooltip: {
         visible: false,
       },
@@ -110,21 +117,30 @@ export default class DualLineLayer<T extends DualLineLayerConfig = DualLineLayer
     const rightLine = this.createLayer(LineLayer, data[1], {
       xField,
       yField: yField[1],
-      meta: deepMix({}, meta, metaInfo),
+      meta: !customMeta ? deepMix({}, meta, metaInfo) : meta,
       serieField: yField[1],
       xAxis,
-      yAxis: deepMix({}, yAxisGlobalConfig, this.yAxis(1), {
-        position: 'right',
-        nice: false,
-      }),
-      tooltip: deepMix({}, tooltip, {
-        showMarkers: false,
-        custom: {
-          onChange: (containerDom, ev) => {
-            this.tooltip(containerDom, ev);
+      yAxis: deepMix(
+        {},
+        yAxisGlobalConfig,
+        {
+          position: 'right',
+          nice: false,
+        },
+        this.yAxis(1)
+      ),
+      tooltip: deepMix(
+        {},
+        {
+          showMarkers: false,
+          custom: {
+            onChange: (containerDom, ev) => {
+              this.tooltip(containerDom, ev);
+            },
           },
         },
-      }),
+        tooltip
+      ),
       events,
       ...lineConfigs[1],
     });

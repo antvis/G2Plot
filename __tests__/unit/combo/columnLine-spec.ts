@@ -118,4 +118,65 @@ describe('columnLine', () => {
     });
     columnLine.render();
   });
+
+  it('custom meta', () => {
+    const uvData = [
+      { time: '2019-03', value: 350 },
+      { time: '2019-04', value: 900 },
+      { time: '2019-05', value: 300 },
+      { time: '2019-06', value: 450 },
+      { time: '2019-07', value: 470 },
+    ];
+    const transformData = [
+      { time: '2019-03', count: 800 },
+      { time: '2019-04', count: 600 },
+      { time: '2019-05', count: 400 },
+      { time: '2019-06', count: 380 },
+      { time: '2019-07', count: 220 },
+    ];
+    const columnLine = new ColumnLine(canvasDiv, {
+      title: {
+        visible: true,
+        text: '柱线混合图',
+        alignTo: 'left',
+      },
+      description: {
+        visible: true,
+        text: '柱线混合图表',
+        alignTo: 'left',
+      },
+      data: [uvData, transformData],
+      xField: 'time',
+      yField: ['value', 'count'],
+      tooltip: {
+        visible: true,
+      },
+      legend: {
+        visible: true,
+      },
+      customMeta: true,
+      yAxis: {
+        leftConfig: {
+          visible: true,
+          min: 800,
+          max: 1200,
+        },
+        rightConfig: {
+          visible: true,
+          min: 400,
+          max: 2000,
+          grid: {
+            visible: false,
+          },
+        },
+      },
+      lineConfig: {},
+    });
+    columnLine.render();
+    // @ts-ignore
+    const colunmLineLayers = columnLine.getLayers()[0];
+    // @ts-ignore
+    const lineLayer = colunmLineLayers.geomLayers[1];
+    expect(lineLayer.options.meta).toBeUndefined();
+  });
 });

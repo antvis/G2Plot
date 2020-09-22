@@ -70,7 +70,10 @@ const defaultYAxisConfig = {
   },
 };
 
-interface ColumnLineLayerConfig extends ColumnLineViewConfig, LayerConfig {}
+interface ColumnLineLayerConfig extends ColumnLineViewConfig, LayerConfig {
+  /** 用户自定义 meta */
+  customMeta?: boolean;
+}
 
 export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLineLayerConfig> extends ComboViewLayer<
   T
@@ -118,7 +121,18 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
     if (!this.checkData()) {
       return;
     }
-    const { data, meta, xField, yField, lineSeriesField, legend, lineConfig, columnConfig, events } = this.options;
+    const {
+      data,
+      meta,
+      xField,
+      yField,
+      lineSeriesField,
+      legend,
+      lineConfig,
+      columnConfig,
+      events,
+      customMeta,
+    } = this.options;
     this.colors = [columnConfig.color as string, lineConfig.color as any];
     // draw column
     this.drawColumn();
@@ -129,17 +143,21 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       xField,
       yField: yField[1],
       seriesField: lineSeriesField,
-      meta: deepMix({}, meta, metaInfo),
+      meta: !customMeta ? deepMix({}, meta, metaInfo) : meta,
       xAxis: {
         visible: false,
       },
-      yAxis: deepMix({}, this.yAxis(1), {
-        position: 'right',
-        grid: {
-          visible: false,
+      yAxis: deepMix(
+        {},
+        {
+          position: 'right',
+          grid: {
+            visible: false,
+          },
+          nice: true,
         },
-        nice: true,
-      }),
+        this.yAxis(1)
+      ),
       tooltip: {
         visible: false,
       },
@@ -163,12 +181,16 @@ export default class ColumnLineLayer<T extends ColumnLineLayerConfig = ColumnLin
       yField: yField[0],
       meta,
       xAxis,
-      yAxis: deepMix({}, this.yAxis(0), {
-        grid: {
-          visible: true,
+      yAxis: deepMix(
+        {},
+        {
+          grid: {
+            visible: true,
+          },
+          nice: true,
         },
-        nice: true,
-      }),
+        this.yAxis(0)
+      ),
       tooltip: deepMix({}, tooltip, {
         showMarkers: false,
         custom: {

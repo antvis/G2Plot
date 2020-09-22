@@ -1,8 +1,8 @@
-import { View } from '@antv/g2';
+import { Chart, View } from '@antv/g2';
 import DataSet from '@antv/data-set';
 import { isArray, isFunction, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { log, LEVEL } from '../../utils';
+import { log, LEVEL, getContainerSize } from '../../utils';
 import { WordCloudOptions } from './types';
 
 /**
@@ -10,8 +10,8 @@ import { WordCloudOptions } from './types';
  * @param params
  */
 export function transform(params: Params<WordCloudOptions>) {
-  const { chart, options } = params;
-  const { data, imageMask, wordField, weightField, wordStyle, timeInterval, spiral } = options;
+  const { options } = params;
+  const { data, imageMask, wordField, weightField, wordStyle, timeInterval } = options;
   if (!data || !data.length) {
     return [];
   }
@@ -28,10 +28,9 @@ export function transform(params: Params<WordCloudOptions>) {
     fontSize: getFontSize(options, range),
     fontWeight: fontWeight,
     // 图表宽高减去 padding 之后的宽高
-    size: getSize(chart),
+    size: getSize(params as any),
     padding: padding,
     timeInterval,
-    spiral,
     rotate: getRotate(options),
   } as any);
 
@@ -42,8 +41,21 @@ export function transform(params: Params<WordCloudOptions>) {
  * 获取最终的实际绘图尺寸：[width, height]
  * @param chart
  */
-function getSize(chart: View) {
-  const { width, height } = chart.viewBBox;
+function getSize(params: Params<WordCloudOptions> & { chart: Chart }) {
+  const { chart, options } = params;
+  const { autoFit } = options;
+  let { width, height } = chart;
+
+  // 由于词云图每个词语的坐标都是先通过 DataSet 根据图表宽高计算出来的，
+  // 也就是说，如果一开始提供给 DataSet 的宽高信息和最终显示的宽高不相同，
+  // 那么就会出现布局错乱的情况，所以这里处理的目的就是让一开始提供给 DataSet 的
+  // 宽高信息与最终显示的宽高信息相同，避免显示错乱。
+  if (autoFit) {
+    const containerSize = getContainerSize(chart.ele);
+    width = containerSize.width || 0;
+    height = containerSize.height || 0;
+  }
+
   const [top, right, bottom, left] = resolvePadding(chart);
   const result = [width - (left + right), height - (top + bottom)];
 

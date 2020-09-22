@@ -14,6 +14,16 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.jso
         fontFamily: 'Verdana',
         fontSize: [24, 80],
       },
+      // 设置交互类型
+      interactions: [{ type: 'element-active' }],
+      state: {
+        active: {
+          // 这里可以设置 active 时的样式
+          style: {
+            lineWidth: 3,
+          },
+        },
+      },
     });
 
     wordCloud.render();

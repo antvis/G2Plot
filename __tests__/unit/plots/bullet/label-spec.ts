@@ -12,10 +12,24 @@ describe('bullet*label', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      label: {
-        position: 'middle',
-        style: {
-          fill: '#fff',
+      bulletLabel: {
+        range: {
+          position: 'middle',
+          style: {
+            fill: '#fff',
+          },
+        },
+        measure: {
+          position: 'middle',
+          style: {
+            fill: '#fff',
+          },
+        },
+        target: {
+          position: 'right',
+          style: {
+            fill: '#fff',
+          },
         },
       },
     });
@@ -23,14 +37,26 @@ describe('bullet*label', () => {
     bullet.render();
 
     const chart = bullet.chart;
-    const measureGeometry = chart.geometries[1];
+    const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
+
+    // @ts-ignore
+    expect(rangeGeometry.labelOption.cfg.position).toEqual('middle');
+    // @ts-ignore
+    expect(rangeGeometry.labelOption.cfg.style.fill).toEqual('#fff');
+
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
       yField: 'measures',
     });
+
     // @ts-ignore
     expect(measureGeometry.labelOption.cfg.position).toEqual('middle');
     // @ts-ignore
     expect(measureGeometry.labelOption.cfg.style.fill).toEqual('#fff');
+
+    // @ts-ignore
+    expect(targetGeometry.labelOption.cfg.position).toEqual('right');
+    // @ts-ignore
+    expect(targetGeometry.labelOption.cfg.style.fill).toEqual('#fff');
   });
 });

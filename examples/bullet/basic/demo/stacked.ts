@@ -15,21 +15,17 @@ const bulletPlot = new Bullet('container', {
   rangeField: 'ranges',
   targetField: 'target',
   xField: 'title',
-  bulletStyle: {
-    range: {
-      color: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
-    },
-    measure: {
-      color: ['#5B8FF9', '#5AD8A6'],
-    },
-    target: {
-      color: '#5B8FF9',
-    },
+  bulletColor: {
+    range: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
+    measure: ['#5B8FF9', '#5AD8A6'],
+    target: '#5B8FF9',
   },
-  label: {
-    position: 'middle',
-    style: {
-      fill: '#fff',
+  bulletLabel: {
+    measure: {
+      position: 'middle',
+      style: {
+        fill: '#fff',
+      },
     },
   },
   xAxis: {

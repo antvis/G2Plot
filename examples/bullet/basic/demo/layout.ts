@@ -16,26 +16,22 @@ const bulletPlot = new Bullet('container', {
   rangeField: 'ranges',
   targetField: 'target',
   xField: 'title',
-  bulletStyle: {
-    range: {
-      color: '#5B8FF9',
-    },
-    measure: {
-      color: '#5B8FF9',
-    },
-    target: {
-      color: '#5B8FF9',
-    },
+  bulletColor: {
+    range: '#5B8FF9',
+    measure: '#5B8FF9',
+    target: '#5B8FF9',
   },
   xAxis: {
     line: null,
   },
   yAxis: false,
   layout: 'vertical',
-  label: {
-    position: 'middle',
-    style: {
-      fill: '#fff',
+  bulletLabel: {
+    measure: {
+      position: 'middle',
+      style: {
+        fill: '#fff',
+      },
     },
   },
   // 自定义 legend

@@ -80,10 +80,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          color: '#ff0000',
-        },
+      bulletColor: {
+        measure: '#ff0000',
       },
     });
 
@@ -108,10 +106,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        target: {
-          color: 'red',
-        },
+      bulletColor: {
+        target: 'red',
       },
     });
 
@@ -132,10 +128,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        range: {
-          color: rangeColors,
-        },
+      bulletColor: {
+        range: rangeColors,
       },
     });
 
@@ -163,10 +157,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          color: measureColors,
-        },
+      bulletColor: {
+        measure: measureColors,
       },
     });
 
@@ -192,13 +184,9 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          size: measureSize,
-        },
-        range: {
-          size: rangeSize,
-        },
+      bulletSize: {
+        measure: measureSize,
+        range: rangeSize,
       },
     });
 
@@ -231,16 +219,10 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          size: measureSize,
-        },
-        range: {
-          size: rangeSize,
-        },
-        target: {
-          size: targetSize,
-        },
+      bulletSize: {
+        measure: measureSize,
+        range: rangeSize,
+        target: targetSize,
       },
     });
 

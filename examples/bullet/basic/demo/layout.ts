@@ -16,7 +16,7 @@ const bulletPlot = new Bullet('container', {
   rangeField: 'ranges',
   targetField: 'target',
   xField: 'title',
-  bulletColor: {
+  color: {
     range: '#5B8FF9',
     measure: '#5B8FF9',
     target: '#5B8FF9',

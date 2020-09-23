@@ -13,7 +13,7 @@ describe('bullet*legend', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletColor: {
+      color: {
         range: rangeColors,
         measure: ['red', 'green'],
         target: 'blue',
@@ -77,7 +77,7 @@ describe('bullet*legend', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletColor: {
+      color: {
         range: rangeColors,
         measure: ['red', 'green'],
         target: 'blue',

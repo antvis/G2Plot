@@ -12,7 +12,7 @@ describe('tooltip bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletLabel: {
+      label: {
         measure: {
           position: 'middle',
           style: {

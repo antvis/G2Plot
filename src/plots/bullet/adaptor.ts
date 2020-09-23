@@ -13,7 +13,7 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletStyle, targetField, rangeField, measureField, xField, bulletColor, layout, bulletSize } = options;
+  const { style, targetField, rangeField, measureField, xField, color, layout, size } = options;
   // 处理数据
   const { min, max, ds } = transformData(options);
 
@@ -42,9 +42,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       seriesField: 'rKey',
       isStack: true,
       interval: {
-        color: bulletColor?.range,
-        style: bulletStyle?.range,
-        size: bulletSize?.range,
+        color: color?.range,
+        style: style?.range,
+        size: size?.range,
       },
     },
   });
@@ -60,9 +60,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       seriesField: 'mKey',
       isStack: true,
       interval: {
-        color: bulletColor?.measure,
-        style: bulletStyle?.measure,
-        size: bulletSize?.measure,
+        color: color?.measure,
+        style: style?.measure,
+        size: size?.measure,
       },
     },
   });
@@ -75,9 +75,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       yField: targetField,
       seriesField: 'tKey',
       point: {
-        color: bulletColor?.target,
-        style: bulletStyle?.target,
-        size: isNumber(bulletSize?.target) ? Number(bulletSize.target) / 2 : bulletSize.target,
+        color: color?.target,
+        style: style?.target,
+        size: isNumber(size?.target) ? Number(size.target) / 2 : size.target,
         shape: layout === 'horizontal' ? 'line' : 'hyphen',
       },
     },
@@ -159,17 +159,17 @@ function legend(params: Params<BulletOptions>): Params<BulletOptions> {
  */
 function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletLabel, measureField, targetField, rangeField } = options;
+  const { label, measureField, targetField, rangeField } = options;
   const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
 
-  if (bulletLabel?.range) {
-    rangeGeometry.label(`${rangeField}`, bulletLabel.range);
+  if (label?.range) {
+    rangeGeometry.label(`${rangeField}`, label.range);
   }
-  if (bulletLabel?.measure) {
-    measureGeometry.label(`${measureField}`, bulletLabel.measure);
+  if (label?.measure) {
+    measureGeometry.label(`${measureField}`, label.measure);
   }
-  if (bulletLabel?.target) {
-    targetGeometry.label(`${targetField}`, bulletLabel.target);
+  if (label?.target) {
+    targetGeometry.label(`${targetField}`, label.target);
   }
 
   return params;

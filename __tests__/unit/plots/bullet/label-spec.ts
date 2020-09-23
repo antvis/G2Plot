@@ -12,7 +12,7 @@ describe('bullet*label', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletLabel: {
+      label: {
         range: {
           position: 'middle',
           style: {

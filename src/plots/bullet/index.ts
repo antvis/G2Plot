@@ -20,18 +20,18 @@ export class Bullet extends Plot<BulletOptions> {
   protected getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
       layout: 'horizontal',
-      legend: false,
-      bulletSize: {
+      legend: false, // 默认关掉
+      size: {
         range: 30,
         measure: 20,
         target: 20,
       },
-      bulletStyle: {
+      style: {
         range: {
           fillOpacity: 0.5,
         },
       },
-      bulletLabel: {
+      label: {
         measure: {
           position: 'right',
         },

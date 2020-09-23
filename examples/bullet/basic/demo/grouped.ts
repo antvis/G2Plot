@@ -33,12 +33,12 @@ const bulletPlot = new Bullet('container', {
   rangeField: 'ranges',
   targetField: 'target',
   xField: 'title',
-  bulletColor: {
+  color: {
     range: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
     measure: '#5B8FF9',
     target: '#5B8FF9',
   },
-  bulletLabel: {
+  label: {
     measure: {
       position: 'middle',
       style: {

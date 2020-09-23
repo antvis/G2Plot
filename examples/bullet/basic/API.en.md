@@ -73,7 +73,7 @@ bulletPlot.render();
 
 ### 图形样式
 
-#### bulletStyle ✨
+#### style ✨
 
 **可选**, _object_
 
@@ -89,7 +89,7 @@ bulletPlot.render();
 
 `markdown:docs/common/shape-style.zh.md`
 
-### bulletColor ✨
+### color ✨
 
 **可选**, _object_
 
@@ -105,7 +105,7 @@ bulletPlot.render();
 
 `markdown:docs/common/color.zh.md`
 
-### bulletSize ✨
+### size ✨
 
 **可选**, _object_
 

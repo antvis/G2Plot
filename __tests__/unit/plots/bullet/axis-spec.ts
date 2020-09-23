@@ -19,7 +19,7 @@ describe('axis bullet', () => {
           max: 120,
         },
       },
-      bulletColor: {
+      color: {
         range: rangeColors,
       },
     });

@@ -39,7 +39,7 @@
     "lint": "eslint --ext .ts ./src ./__tests__ && prettier --check ./src ./__tests__ && lint-md ./examples",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__/unit/plots/bullet/",
+    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
     "coverage": "jest --coverage",
     "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",

@@ -55,20 +55,6 @@ export function getGeometryOption(geometryOption: GeometryOption, axis: AxisType
 }
 
 /**
- * 交换 option 中 data，yaxis，geometryOptions 位置
- * @param options
- */
-function swapOption(options: DualAxesOption): DualAxesOption {
-  const { data, yAxis, geometryOptions, yField } = options;
-  return deepMix({}, options, {
-    data: [data[1], data[0]],
-    yAxis: [yAxis[1], yAxis[0]],
-    yField: [yField[1], yField[0]],
-    geometryOptions: [geometryOptions[1], geometryOptions[0]],
-  });
-}
-
-/**
  * 获取 Option
  * @param options
  */
@@ -94,10 +80,5 @@ export function getOption(options: DualAxesOption): DualAxesOption {
     ],
   });
 
-  // if geometryOptions 为 [line, column], 交换所有设置顺序，修改为 [column, line]，防止造成图片重叠
-  const [leftGeometryOptions, rightGeometryOptions] = geometryOptions;
-  if (isLine(leftGeometryOptions) && isColumn(rightGeometryOptions)) {
-    return swapOption(formatOptions);
-  }
   return formatOptions;
 }

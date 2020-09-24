@@ -1,11 +1,11 @@
 import { DualAxes } from '@antv/g2plot';
 
 const uvData = [
-  { time: '2019-03', value: 350 },
-  { time: '2019-04', value: 900 },
-  { time: '2019-05', value: 300 },
-  { time: '2019-06', value: 450 },
-  { time: '2019-07', value: 470 },
+  { time: '2019-03', value: 35 },
+  { time: '2019-04', value: 90 },
+  { time: '2019-05', value: 30 },
+  { time: '2019-06', value: 45 },
+  { time: '2019-07', value: 47 },
 ];
 
 const transformData = [
@@ -27,18 +27,10 @@ const transformData = [
 ];
 
 const dualAxesChart = new DualAxes('container', {
-  data: [uvData, transformData],
+  data: [transformData, uvData],
   xField: 'time',
-  yField: ['value', 'count'],
+  yField: ['count', 'value'],
   geometryOptions: [
-    {
-      geometry: 'column',
-      color: '#586bce',
-      columnWidthRatio: 0.4,
-      columnStyle: {
-        opacity: 0.4,
-      },
-    },
     {
       geometry: 'line',
       seriesField: 'name',
@@ -53,6 +45,14 @@ const dualAxesChart = new DualAxes('container', {
         return {
           opacity: 0.5,
         };
+      },
+    },
+    {
+      geometry: 'column',
+      color: '#586bce',
+      columnWidthRatio: 0.4,
+      columnStyle: {
+        opacity: 0.4,
       },
     },
   ],

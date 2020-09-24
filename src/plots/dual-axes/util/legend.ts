@@ -42,7 +42,7 @@ export function getViewLegendItems(params: {
     return [
       {
         value: yField,
-        name: yField,
+        name: get(view, `options.scales.${yField}.alias`) || yField,
         marker,
       },
     ];

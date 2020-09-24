@@ -38,6 +38,14 @@
 
 默认配置： `false`
 
+#### type
+
+**可选**, _hv | vh | hvh | vhv_
+
+功能描述： 图表类型，配置后 smooth 无效，一般用在阶梯图中。
+
+默认配置： 无
+
 #### connectNulls
 
 **可选**, _boolean_

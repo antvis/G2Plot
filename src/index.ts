@@ -37,6 +37,9 @@ export { WordCloud, WordCloudOptions } from './plots/word-cloud';
 // 散点图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
 export { Scatter, ScatterOptions } from './plots/scatter';
 
+// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
+export { SunBurst, SunBurstOptions } from './plots/sun-burst';
+
 // 雷达图及类型定义 | author by [Me-Momo](https://github.com/Me-Momo)
 export { Radar, RadarOptions } from './plots/radar';
 

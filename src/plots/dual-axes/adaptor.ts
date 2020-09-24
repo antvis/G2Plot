@@ -225,12 +225,13 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {
-        const field = delegateObject.item.value;
-        const idx = findIndex(yField, (yF) => yF === field);
-        if (idx > -1) {
-          // 单折柱图
-          chart.views[idx].filter(field, () => !delegateObject.item.unchecked);
-          chart.views[idx].render(true);
+        const { value: field, isGeometry } = delegateObject.item;
+        // geometry 的时候，直接使用 view.changeVisible
+        if (isGeometry) {
+          const idx = findIndex(yField, (yF: string) => yF === field);
+          if (idx > -1) {
+            chart.views[idx].changeVisible(!delegateObject.item.unchecked);
+          }
           return;
         }
 
@@ -241,9 +242,9 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
           each(groupScale, (scale: Scale) => {
             if (scale.values && scale.values.indexOf(field) > -1) {
               view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
-              view.render(true);
             }
           });
+          chart.render(true);
         });
       }
     });

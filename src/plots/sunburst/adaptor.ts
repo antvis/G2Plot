@@ -4,15 +4,15 @@ import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, annotation } from '../../adaptor/common';
 import { flow, findGeometry } from '../../utils';
 import { transformData } from './utils';
-import { SunBurstOptions } from './types';
+import { SunburstOptions } from './types';
 
 /**
  * geometry 配置处理
  * @param params
  */
-function geometry(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
+function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { color, colorField, sunBurstStyle } = options;
+  const { color, colorField, sunburstStyle } = options;
   const data = transformData(options);
   chart.data(data);
 
@@ -25,7 +25,7 @@ function geometry(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
         seriesField: colorField,
         polygon: {
           color,
-          style: sunBurstStyle,
+          style: sunburstStyle,
         },
       },
     })
@@ -38,7 +38,7 @@ function geometry(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
  * axis 配置
  * @param params
  */
-export function axis(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
+export function axis(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart } = params;
   chart.axis(false);
   return params;
@@ -48,7 +48,7 @@ export function axis(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
  * legend 配置
  * @param params
  */
-export function legend(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
+export function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart } = params;
   chart.legend(false);
   return params;
@@ -58,7 +58,7 @@ export function legend(params: Params<SunBurstOptions>): Params<SunBurstOptions>
  * 数据标签
  * @param params
  */
-function label(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
+function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
   const { label, seriesField } = options;
 
@@ -83,7 +83,7 @@ function label(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
  * coord 配置
  * @param params
  */
-function coordinate(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
+function coordinate(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
   const { innerRadius, reflect } = options;
 
@@ -104,7 +104,7 @@ function coordinate(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
  * scale 配置
  * @param params
  */
-function scale(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
+function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
   const { meta } = options;
 
@@ -120,7 +120,7 @@ function scale(params: Params<SunBurstOptions>): Params<SunBurstOptions> {
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<SunBurstOptions>) {
+export function adaptor(params: Params<SunburstOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
     geometry,

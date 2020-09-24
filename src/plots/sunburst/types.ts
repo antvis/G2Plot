@@ -1,6 +1,6 @@
 import { Options, StyleAttr } from '../../types';
 
-export interface SunBurstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
+export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
   /** 旭日图数据 */
   readonly data: any;
   /** 布局类型 */
@@ -11,8 +11,10 @@ export interface SunBurstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   readonly reflect?: 'x' | 'y';
   /** 内径 */
   readonly innerRadius?: number;
+  /** 半经 */
+  readonly radius?: number;
   /** 颜色映射 */
   readonly colorField?: string;
   /** 旭日图形样式 */
-  readonly sunBurstStyle?: StyleAttr | (() => StyleAttr);
+  readonly sunburstStyle?: StyleAttr;
 }

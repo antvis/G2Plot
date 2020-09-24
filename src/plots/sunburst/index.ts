@@ -1,14 +1,14 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { SunBurstOptions } from './types';
+import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { SunBurstOptions };
+export { SunburstOptions };
 
-export class SunBurst extends Plot<SunBurstOptions> {
+export class Sunburst extends Plot<SunburstOptions> {
   /** 图表类型 */
-  public type: string = 'sun-burst';
+  public type: string = 'sunburst';
 
   /**
    * 获取旭日图默认配置
@@ -28,7 +28,7 @@ export class SunBurst extends Plot<SunBurstOptions> {
   /**
    * 获取旭日图的适配器
    */
-  protected getSchemaAdaptor(): Adaptor<SunBurstOptions> {
+  protected getSchemaAdaptor(): Adaptor<SunburstOptions> {
     return adaptor;
   }
 }

@@ -1,11 +1,11 @@
 import DataSet from '@antv/data-set';
-import { SunBurstOptions } from './types';
+import { SunburstOptions } from './types';
 
 /**
- * sun burst 处理数据
+ * sunburst 处理数据
  * @param options
  */
-export function transformData(options: SunBurstOptions) {
+export function transformData(options: SunburstOptions) {
   const { data, type, seriesField, colorField } = options;
   const { DataView } = DataSet;
   const dv = new DataView();

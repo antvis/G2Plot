@@ -25,6 +25,8 @@ export interface LineGeometryOptions extends GeometryOptions {
   readonly connectNulls?: boolean;
   /** line 映射配置 */
   readonly line?: LineOption;
+  /** 阶梯折线图类型 */
+  readonly stepType?: string;
 }
 
 /**
@@ -33,7 +35,7 @@ export interface LineGeometryOptions extends GeometryOptions {
  */
 export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { line, type, seriesField, smooth, connectNulls } = options;
+  const { line, stepType, seriesField, smooth, connectNulls } = options;
 
   // 如果存在才处理
   return line
@@ -43,7 +45,7 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
             type: 'line',
             colorField: seriesField,
             mapping: {
-              shape: type || (smooth ? 'smooth' : 'line'),
+              shape: stepType || (smooth ? 'smooth' : 'line'),
               ...line,
             },
             args: { connectNulls },

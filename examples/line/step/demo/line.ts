@@ -16,7 +16,7 @@ const linePlot = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
-  type: 'vh',
+  stepType: 'vh',
 });
 
 linePlot.render();

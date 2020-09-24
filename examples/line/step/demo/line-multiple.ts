@@ -32,7 +32,7 @@ const line = new Line('container', {
   yField: 'value',
   legend: false,
   seriesField: 'key',
-  type: 'hvh',
+  stepType: 'hvh',
 });
 
 line.render();

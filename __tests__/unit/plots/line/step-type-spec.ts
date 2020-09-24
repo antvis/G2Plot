@@ -14,7 +14,7 @@ describe('line', () => {
       color: ['blue', 'red'],
       appendPadding: 10,
       connectNulls: true,
-      type: 'hv',
+      stepType: 'hv',
     });
 
     line.render();

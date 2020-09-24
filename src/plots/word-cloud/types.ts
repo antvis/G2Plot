@@ -58,8 +58,8 @@ export interface WordCloudOptions extends Options {
   readonly wordField: string;
   /** 词条权重字段 */
   readonly weightField: string;
-  /** 遮罩图片实例 */
-  readonly imageMask?: HTMLImageElement;
+  /** 遮罩图片实例，可以是图片 URL 或者 base64 */
+  readonly imageMask?: HTMLImageElement | string;
   /** 最大执行时间 */
   readonly timeInterval?: number;
   /** 文字样式配置 */

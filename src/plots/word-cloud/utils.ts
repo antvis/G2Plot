@@ -1,6 +1,6 @@
 import { Chart, View } from '@antv/g2';
 import DataSet from '@antv/data-set';
-import { isArray, isFunction, isNumber } from '@antv/util';
+import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { log, LEVEL, getContainerSize } from '../../utils';
 import { WordCloudOptions } from './types';
@@ -23,7 +23,7 @@ export function transform(params: Params<WordCloudOptions>) {
   dv.transform({
     type: 'tag-cloud',
     fields: [wordField, weightField],
-    imageMask: getImageMask(imageMask),
+    imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
     fontSize: getFontSize(options, range),
     fontWeight: fontWeight,
@@ -43,7 +43,7 @@ export function transform(params: Params<WordCloudOptions>) {
  */
 function getSize(params: Params<WordCloudOptions> & { chart: Chart }) {
   const { chart, options } = params;
-  const { autoFit } = options;
+  const { autoFit = true } = options;
   let { width, height } = chart;
 
   // 由于词云图每个词语的坐标都是先通过 DataSet 根据图表宽高计算出来的，
@@ -105,8 +105,31 @@ function normalPadding(padding: number | number[] | 'auto'): [number, number, nu
   return [0, 0, 0, 0];
 }
 
-function getImageMask(img: HTMLImageElement) {
-  return img;
+/**
+ * 处理 imageMask 可能为 url 字符串的情况
+ * @param img
+ * @param callback
+ */
+export function processImageMask(img: HTMLImageElement | string, callback?: (img?: HTMLImageElement) => void) {
+  if (img instanceof HTMLImageElement) {
+    callback(img);
+    return;
+  }
+  if (isString(img)) {
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.src = img;
+    image.onload = () => {
+      callback(image);
+    };
+    image.onerror = () => {
+      log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
+      callback();
+    };
+    return;
+  }
+  log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or HTMLImageElement.');
+  callback();
 }
 
 /**

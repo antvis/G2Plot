@@ -46,9 +46,11 @@
 
 #### imageMask
 
-**可选**, _HTMLImageElement_
+**可选**, _HTMLImageElement \| string_
 
-功能描述： 设置一张图片，然后图表就可以根据该图片的形状进行渲染，必须是已加载完成的图片对象
+功能描述： 设置一张图片，然后图表就可以根据该图片的形状进行渲染，可以是图片元素实例或者 url 地址和 base64
+
+注意： 词语只渲染在图片的深色部位，浅色的部位（如白色）不渲染词语。当使用图片的 url 地址时，图片的大小不宜过大，不然图片加载时间过长
 
 默认配置： 无
 
@@ -76,17 +78,6 @@
 | -------- | ----------------------------------- | ---------------------------------------------------- |
 | text     | _string_                            | 文本内容                                             |
 | value    | _number_                            | 该文本所占权重                                       |
-| font     | _string_                            | 字体                                                 |
-| style    | _"normal" \| "italic" \| "oblique"_ | 字体样式                                             |
-| weight   | _number \| string_                  | 文本粗细                                             |
-| rotate   | _number_                            | 旋转角度                                             |
-| size     | _number_                            | 字体大小                                             |
-| padding  | _number_                            | 一个单词所占的盒子的内边距，值越大单词之间的间隔越大 |
-| hasText  | _boolean_                           | 是否包含文本                                         |
-| width    | _number_                            | 单词所占盒子的宽度                                   |
-| height   | _number_                            | 单词所占盒子的高度                                   |
-| x        | _number_                            | x 轴坐标                                             |
-| y        | _number_                            | y 轴坐标                                             |
 
 `markdown:docs/common/color.en.md`
 

@@ -3,6 +3,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
+import { processImageMask } from './utils';
 // 注册的shape
 import './shapes/word-cloud';
 
@@ -18,7 +19,6 @@ export class WordCloud extends Plot<WordCloudOptions> {
   protected getDefaultOptions(): Partial<WordCloudOptions> {
     return deepMix({}, super.getDefaultOptions(), {
       timeInterval: 2000,
-      autoFit: true,
       tooltip: {
         showTitle: false,
         showMarkers: false,
@@ -33,6 +33,29 @@ export class WordCloud extends Plot<WordCloudOptions> {
         rotationSteps: 2,
         rotateRatio: 0.5,
       },
+    });
+  }
+
+  /**
+   * 覆写父类方法，词云图需要加载图片资源，所以需要异步渲染
+   */
+  public render() {
+    const { imageMask } = this.options;
+
+    if (!imageMask) {
+      // 调用父类渲染函数
+      super.render();
+      return;
+    }
+
+    processImageMask(imageMask, (img) => {
+      this.options = {
+        ...this.options,
+        imageMask: img || null,
+      };
+
+      // 调用父类渲染函数
+      super.render();
     });
   }
 

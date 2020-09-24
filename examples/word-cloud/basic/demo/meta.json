@@ -27,6 +27,14 @@
         "en": "Word Cloud chart - image mask"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "image-mask-base64.ts",
+      "title": {
+        "zh": "词云图-图片遮罩-base64",
+        "en": "Word Cloud chart - image mask base64"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

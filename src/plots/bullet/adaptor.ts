@@ -148,7 +148,13 @@ function legend(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
   const { legend } = options;
   chart.removeInteraction('legend-filter');
+  // @TODO 后续看是否内部自定义一个 legend
   chart.legend(legend);
+
+  // 默认关闭掉所在 color 字段的 legend, 从而不影响自定义的legend
+  chart.legend('rKey', false);
+  chart.legend('mKey', false);
+  chart.legend('tKey', false);
 
   return params;
 }

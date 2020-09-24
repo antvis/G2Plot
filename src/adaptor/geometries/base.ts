@@ -108,7 +108,8 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   if (isString(color)) {
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
-    const mappingFields = getMappingField(options, 'color');
+    // 对于单折线图的特殊处理，如果 x 轴是分类 scale，会导致映射错误
+    const mappingFields = getMappingField(options, 'color').filter((f: string) => f !== xField);
     geometry.color(mappingFields.join('*'), getMappingFunction(mappingFields, color));
   } else {
     colorField && geometry.color(colorField, color);

@@ -74,13 +74,12 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['date', 'value']);
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['value']);
 
     expect(plot.chart.geometries[0].getAttribute('color').values).toEqual([]);
     expect(plot.chart.geometries[0].getAttribute('color').callback).toBeDefined();
 
     expect(p).toEqual({
-      date: '25/01/2018',
       value: 1800,
     });
   });
@@ -124,13 +123,12 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'date', 'value']);
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'value']);
 
     expect(plot.chart.geometries[0].getAttribute('color').values).toEqual([]);
     expect(plot.chart.geometries[0].getAttribute('color').callback).toBeDefined();
 
     expect(p).toEqual({
-      date: '25/01/2018',
       type: 'Ind/Oth',
       value: 1800,
     });

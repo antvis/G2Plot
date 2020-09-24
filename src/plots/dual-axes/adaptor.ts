@@ -7,11 +7,13 @@ import {
   interaction as commonInteraction,
 } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
-import { getOption } from './util/option';
+import { flow } from '../../utils/flow';
+import { findViewById } from '../../utils/view';
+import { getOption, isLine, isColumn } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOption } from './types';
+import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
  * 获取默认参数设置
@@ -33,12 +35,17 @@ export function transformOptions(params: Params<DualAxesOption>): Params<DualAxe
 function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
+  const [leftGeometryOptions, rightGeometryOptions] = geometryOptions;
+  let leftView, rightView;
 
-  // 绘制左轴对应数据
-  const leftView = chart.createView().data(data[0]);
-
-  // 绘制右轴对应数据
-  const rightView = chart.createView().data(data[1]);
+  // 对于左线右柱的，将线的 view 放置在更上一层，防止线柱遮挡
+  if (isLine(leftGeometryOptions) && isColumn(rightGeometryOptions)) {
+    rightView = chart.createView({ id: RIGHT_AXES_VIEW }).data(data[1]);
+    leftView = chart.createView({ id: LEFT_AXES_VIEW }).data(data[0]);
+  } else {
+    leftView = chart.createView({ id: LEFT_AXES_VIEW }).data(data[0]);
+    rightView = chart.createView({ id: RIGHT_AXES_VIEW }).data(data[1]);
+  }
 
   // 左轴图形
   drawSingleGeometry({
@@ -46,7 +53,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     options: {
       xField,
       yField: yField[0],
-      geometryOption: geometryOptions[0],
+      geometryOption: leftGeometryOptions,
     },
   });
 
@@ -56,7 +63,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
     options: {
       xField,
       yField: yField[1],
-      geometryOption: geometryOptions[1],
+      geometryOption: rightGeometryOptions,
     },
   });
   return params;
@@ -67,16 +74,20 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * @param params
  */
 export function meta(params: Params<DualAxesOption>): Params<DualAxesOption> {
-  const { options } = params;
+  const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
-  return flow(
-    scale({
-      [xField]: xAxis,
-      [yField[0]]: yAxis[0],
-      [yField[1]]: yAxis[1],
-    })
-  )(params);
+  scale({
+    [xField]: xAxis,
+    [yField[0]]: yAxis[0],
+  })(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+
+  scale({
+    [xField]: xAxis,
+    [yField[1]]: yAxis[1],
+  })(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+
+  return params;
 }
 
 /**
@@ -85,7 +96,8 @@ export function meta(params: Params<DualAxesOption>): Params<DualAxesOption> {
  */
 export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
-  const [leftView, rightView] = chart.views;
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
   const { xField, yField, yAxis } = options;
 
   let { xAxis } = options;
@@ -127,7 +139,8 @@ export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
 export function tooltip(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { tooltip } = options;
-  const [leftView, rightView] = chart.views;
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
   if (tooltip !== undefined) {
     chart.tooltip(tooltip);
     // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
@@ -148,10 +161,9 @@ export function tooltip(params: Params<DualAxesOption>): Params<DualAxesOption> 
  */
 export function interaction(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart } = params;
-  const [leftView, rightView] = chart.views;
 
-  commonInteraction(deepMix({}, params, { chart: leftView }));
-  commonInteraction(deepMix({}, params, { chart: rightView }));
+  commonInteraction(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonInteraction(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
@@ -162,20 +174,18 @@ export function interaction(params: Params<DualAxesOption>): Params<DualAxesOpti
  */
 export function theme(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart } = params;
-  const [leftView, rightView] = chart.views;
 
-  commonTheme(deepMix({}, params, { chart: leftView }));
-  commonTheme(deepMix({}, params, { chart: rightView }));
+  commonTheme(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonTheme(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
 
 export function animation(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart } = params;
-  const [leftView, rightView] = chart.views;
 
-  commonAnimation(deepMix({}, params, { chart: leftView }));
-  commonAnimation(deepMix({}, params, { chart: rightView }));
+  commonAnimation(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonAnimation(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
@@ -188,7 +198,8 @@ export function animation(params: Params<DualAxesOption>): Params<DualAxesOption
 export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
   const { chart, options } = params;
   const { legend, geometryOptions, yField } = options;
-  const [leftView, rightView] = chart.views;
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
 
   if (legend === false) {
     chart.legend(false);

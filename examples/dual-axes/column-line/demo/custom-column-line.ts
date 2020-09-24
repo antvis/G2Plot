@@ -23,11 +23,6 @@ const dualAxesChart = new DualAxes('container', {
     // 隐藏右坐标轴
     false,
   ],
-  meta: {
-    value: {
-      formatter: (val) => `${val / 100}%`,
-    },
-  },
   geometryOptions: [
     {
       geometry: 'column',

@@ -14,22 +14,35 @@ export class DualAxes extends Plot<DualAxesOption> {
    * 获取 双轴图 默认配置
    */
   protected getDefaultOptions(options) {
-    const { geometryOptions = [] } = options;
-    const hasColumn = geometryOptions.find(
+    const { geometryOptions = [], xField, data } = options;
+    const columnIndex = geometryOptions.findIndex(
       (geometryOption) => geometryOption && geometryOption.geometry === DualAxesGeometry.Column
     );
+
+    let defaultXFieldMeta = {};
+    if (columnIndex > -1) {
+      const columnData = data[columnIndex];
+      defaultXFieldMeta = {
+        range: [1 / columnData.length / 2, 1 - 1 / columnData.length / 2],
+      };
+    }
+
     const defaultInteraction = [{ type: 'legend-visible-filter' }];
+
     return deepMix({}, super.getDefaultOptions(), {
+      meta: {
+        [xField]: defaultXFieldMeta,
+      },
       tooltip: {
         showMarkers: false,
         // 存在柱状图，不显示 crosshairs
-        showCrosshairs: !hasColumn,
+        showCrosshairs: columnIndex > -1,
         shared: true,
         crosshairs: {
           type: 'x',
         },
       },
-      interactions: hasColumn ? defaultInteraction.concat({ type: 'active-region' }) : defaultInteraction,
+      interactions: columnIndex > -1 ? defaultInteraction.concat({ type: 'active-region' }) : defaultInteraction,
       syncViewPadding: true,
     });
   }

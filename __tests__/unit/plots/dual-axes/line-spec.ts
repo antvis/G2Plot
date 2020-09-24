@@ -1,5 +1,4 @@
 import { DualAxes } from '../../../../src';
-import { line } from '../../../../src/adaptor/geometries';
 import { PV_DATA, UV_DATA_MULTI } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 

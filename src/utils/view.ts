@@ -1,6 +1,4 @@
-import { Chart, Geometry, View } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
-import { reduce } from '@antv/util';
+import { View } from '@antv/g2';
 
 /**
  * 在 Chart 中查找特定 id 的子 View

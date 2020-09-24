@@ -19,6 +19,8 @@ describe('bullet', () => {
     const chart = bullet.chart;
 
     const rangeGeometry = chart.geometries[0];
+    const rangeElements = rangeGeometry.elements[0];
+    expect(rangeElements.shape.attr('fillOpacity')).toBe(0.5);
 
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(30);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
@@ -36,6 +38,8 @@ describe('bullet', () => {
     });
     expect(measureGeometry.getYScale().max).toEqual(100);
     expect(measureGeometry.getYScale().min).toEqual(0);
+    //@ts-ignore
+    expect(measureGeometry.labelOption.cfg.position).toEqual('right');
 
     const targetGeometry = chart.geometries[2];
     expect(targetGeometry.getAttribute('size').values[0]).toEqual(20 / 2);
@@ -80,10 +84,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          color: '#ff0000',
-        },
+      color: {
+        measure: '#ff0000',
       },
     });
 
@@ -108,10 +110,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        target: {
-          color: 'red',
-        },
+      color: {
+        target: 'red',
       },
     });
 
@@ -132,10 +132,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        range: {
-          color: rangeColors,
-        },
+      color: {
+        range: rangeColors,
       },
     });
 
@@ -163,10 +161,8 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          color: measureColors,
-        },
+      color: {
+        measure: measureColors,
       },
     });
 
@@ -192,13 +188,9 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          size: measureSize,
-        },
-        range: {
-          size: rangeSize,
-        },
+      size: {
+        measure: measureSize,
+        range: rangeSize,
       },
     });
 
@@ -231,16 +223,10 @@ describe('bullet', () => {
       rangeField: 'ranges',
       targetField: 'target',
       xField: 'title',
-      bulletStyle: {
-        measure: {
-          size: measureSize,
-        },
-        range: {
-          size: rangeSize,
-        },
-        target: {
-          size: targetSize,
-        },
+      size: {
+        measure: measureSize,
+        range: rangeSize,
+        target: targetSize,
       },
     });
 

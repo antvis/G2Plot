@@ -20,7 +20,6 @@ export class Bullet extends Plot<BulletOptions> {
   protected getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
       layout: 'horizontal',
-      legend: false, // 默认关掉
       size: {
         range: 30,
         measure: 20,

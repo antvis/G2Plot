@@ -44,6 +44,7 @@ export function getViewLegendItems(params: {
         value: yField,
         name: yField,
         marker,
+        isGeometry: true,
       },
     ];
   }

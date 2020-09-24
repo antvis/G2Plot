@@ -1,4 +1,4 @@
-import { deepMix, each, findIndex } from '@antv/util';
+import { deepMix, each, findIndex, get } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -225,12 +225,16 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {
-        const field = delegateObject.item.value;
-        const idx = findIndex(yField, (yF) => yF === field);
-        if (idx > -1) {
-          // 单折柱图
-          chart.views[idx].filter(field, () => !delegateObject.item.unchecked);
-          chart.views[idx].render(true);
+        const { value: field, isGeometry } = delegateObject.item;
+        // geometry 的时候，直接使用 view.changeVisible
+        if (isGeometry) {
+          const idx = findIndex(yField, (yF: string) => yF === field);
+          if (idx > -1) {
+            const geometries = get(chart.views, [idx, 'geometries']);
+            each(geometries, (g) => {
+              g.changeVisible(!delegateObject.item.unchecked);
+            });
+          }
           return;
         }
 
@@ -241,9 +245,9 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
           each(groupScale, (scale: Scale) => {
             if (scale.values && scale.values.indexOf(field) > -1) {
               view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
-              view.render(true);
             }
           });
+          chart.render(true);
         });
       }
     });

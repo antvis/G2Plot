@@ -68,8 +68,6 @@ const data2 = [
 
 const dualAxesChart = new DualAxes('container', {
   data: [data1, data2],
-  autoFit: false,
-  height: 300,
   xField: 'time',
   yField: ['consumeTime', 'completeTime'],
   meta: {

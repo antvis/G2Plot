@@ -37,9 +37,6 @@ export { WordCloud, WordCloudOptions } from './plots/word-cloud';
 // 散点图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
 export { Scatter, ScatterOptions } from './plots/scatter';
 
-// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
-export { Sunburst, SunburstOptions } from './plots/sunburst';
-
 // 雷达图及类型定义 | author by [Me-Momo](https://github.com/Me-Momo)
 export { Radar, RadarOptions } from './plots/radar';
 
@@ -80,6 +77,9 @@ export { Liquid, LiquidOptions } from './plots/liquid';
 
 // 子弹图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
 export { Bullet, BulletOptions } from './plots/bullet';
+
+// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
+export { Sunburst, SunburstOptions } from './plots/sunburst';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 

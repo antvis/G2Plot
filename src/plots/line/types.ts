@@ -2,6 +2,8 @@ import { PointGeometryOptions } from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
 
 export interface LineOptions extends Options {
+  /** 折线图类型 */
+  readonly type?: string;
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */

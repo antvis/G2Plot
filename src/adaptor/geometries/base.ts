@@ -20,6 +20,8 @@ export type MappingOptions = {
 export interface GeometryOptions extends Options {
   /** geometry 类型 */
   readonly type: string;
+  /** geometry 子类私有类型 */
+  readonly shapeType?: string;
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -86,7 +88,7 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField } = options;
+  const { type, shapeType, args, mapping, xField, yField, colorField, shapeField, sizeField } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -156,6 +158,10 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     geometry.style(mappingFields.join('*'), getMappingFunction(mappingFields, style));
   } else if (isObject(style)) {
     geometry.style(style);
+  }
+
+  if (shapeType) {
+    geometry.shape(shapeType);
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

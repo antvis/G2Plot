@@ -33,7 +33,7 @@ export interface LineGeometryOptions extends GeometryOptions {
  */
 export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { line, seriesField, smooth, connectNulls } = options;
+  const { line, seriesField, smooth, connectNulls, type } = options;
 
   // 如果存在才处理
   return line
@@ -41,6 +41,7 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
         deepMix({}, params, {
           options: {
             type: 'line',
+            shapeType: type,
             colorField: seriesField,
             mapping: {
               shape: smooth ? 'smooth' : 'line',

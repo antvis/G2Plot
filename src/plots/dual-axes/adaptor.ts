@@ -1,4 +1,4 @@
-import { deepMix, each, findIndex } from '@antv/util';
+import { deepMix, each, findIndex, get } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -230,7 +230,10 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
         if (isGeometry) {
           const idx = findIndex(yField, (yF: string) => yF === field);
           if (idx > -1) {
-            chart.views[idx].changeVisible(!delegateObject.item.unchecked);
+            const geometries = get(chart.views, [idx, 'geometries']);
+            each(geometries, (g) => {
+              g.changeVisible(!delegateObject.item.unchecked);
+            });
           }
           return;
         }

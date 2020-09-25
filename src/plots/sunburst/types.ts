@@ -1,3 +1,4 @@
+import { TransformsParams } from '@antv/data-set/lib/transform-params';
 import { Options, StyleAttr } from '../../types';
 
 export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
@@ -18,5 +19,5 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   /** 旭日图形样式 */
   readonly sunburstStyle?: StyleAttr;
   /** 层级布局配置 */
-  readonly hierarchyConfig?: object;
+  readonly hierarchyConfig?: Omit<TransformsParams['treemap'], 'as' | 'type' | 'field'>;
 }

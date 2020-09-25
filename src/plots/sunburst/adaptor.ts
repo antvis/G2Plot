@@ -85,12 +85,13 @@ function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
  */
 function coordinate(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { innerRadius, reflect } = options;
+  const { innerRadius, radius, reflect } = options;
 
   const coord = chart.coordinate({
     type: 'polar',
     cfg: {
       innerRadius,
+      radius,
     },
   });
   if (reflect) {

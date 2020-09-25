@@ -44,7 +44,7 @@
 
 **可选**, _object_;
 
-功能描述： 层级布局配置。
+功能描述： 层级布局配置，例如 `size`、`padding` 等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
 
 默认配置： 无
 

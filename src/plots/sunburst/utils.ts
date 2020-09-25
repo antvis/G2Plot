@@ -29,6 +29,7 @@ export function transformData(options: SunburstOptions) {
       [colorField]: node.data?.[colorField],
       ...node,
     };
+    nodeInfo.ext = hierarchyConfig;
     if (!node.data.brand && node.parent) {
       nodeInfo.brand = node.parent.data.brand;
     } else {

@@ -1,3 +1,89 @@
+#### 2.0.0-beta.6 (2020-09-25)
+
+##### Chores
+
+*  area 走查优化 ([#1541](https://github.com/antvis/g2plot/pull/1541)) ([8834fb53](https://github.com/antvis/g2plot/commit/8834fb5389e0acc54c7e678d69ae79ddc2159810))
+*  upgrade to latest g2 ([#1538](https://github.com/antvis/g2plot/pull/1538)) ([0f025262](https://github.com/antvis/g2plot/commit/0f025262aa2996ecd05027181e9d61fa94bfeed8))
+*  2.0.0-beta.3 ([#1531](https://github.com/antvis/g2plot/pull/1531)) ([da3b36ba](https://github.com/antvis/g2plot/commit/da3b36babbf9094bff54064e890e07c33de45fe2))
+*  迷你图走查 + demo ([#1528](https://github.com/antvis/g2plot/pull/1528)) ([d022fd46](https://github.com/antvis/g2plot/commit/d022fd46fcb92bec1141f0af18c24e0c6d3187b4))
+*  add limit-size ([#1527](https://github.com/antvis/g2plot/pull/1527)) ([ff063585](https://github.com/antvis/g2plot/commit/ff0635858505fb26289cd4d8a43c0b09455a2440))
+* **template:**  add plot template ([#1497](https://github.com/antvis/g2plot/pull/1497)) ([0ca26519](https://github.com/antvis/g2plot/commit/0ca26519624713285f9740bde92aeb2193735fd3))
+
+##### Documentation Changes
+
+*  新增旭日图 demos 和 API ([#1633](https://github.com/antvis/g2plot/pull/1633)) ([b1ab3f05](https://github.com/antvis/g2plot/commit/b1ab3f057a65f5ebc24f94e78723f9be4198e6fb))
+*  提取图表组件,提取 plots api ([#1604](https://github.com/antvis/g2plot/pull/1604)) ([f7a17ed7](https://github.com/antvis/g2plot/commit/f7a17ed7bdbf9cf51f27a6af382cee0d12b06a77))
+*  修改 word cloud 套娃路径 ([#1593](https://github.com/antvis/g2plot/pull/1593)) ([3fe1b096](https://github.com/antvis/g2plot/commit/3fe1b096ff346159dd3f29f3af921aeac8fd6e6c))
+*  修改文档和优化 demo ([#1592](https://github.com/antvis/g2plot/pull/1592)) ([f5556064](https://github.com/antvis/g2plot/commit/f5556064cb7e501fcec3b867539ff44350242892))
+*  文档走查 ([#1591](https://github.com/antvis/g2plot/pull/1591)) ([a3ed5f47](https://github.com/antvis/g2plot/commit/a3ed5f47b6b680047d78b8559e06158697e447ad))
+*  补充使用文档 ([#1582](https://github.com/antvis/g2plot/pull/1582)) ([067f3c5e](https://github.com/antvis/g2plot/commit/067f3c5e7ef5aebcfa75b01443123cf5336f2626))
+*  统一补充通用 API 和设计规范 ([#1569](https://github.com/antvis/g2plot/pull/1569)) ([2ec33713](https://github.com/antvis/g2plot/commit/2ec33713e9ae71e526ce4aac3e08a12bfa377f68))
+*  通用文档补充 ([#1561](https://github.com/antvis/g2plot/pull/1561)) ([b8e6a4b7](https://github.com/antvis/g2plot/commit/b8e6a4b74442a8c86cc62999f71b6297b61af0cf))
+*  添加玫瑰图文档及 demo ([#1552](https://github.com/antvis/g2plot/pull/1552)) ([79606f7f](https://github.com/antvis/g2plot/commit/79606f7f42694342d02bf142e5894a8eadb92447))
+* **word-cloud:**  添加词云图文档和 demo ([#1571](https://github.com/antvis/g2plot/pull/1571)) ([c9245eef](https://github.com/antvis/g2plot/commit/c9245eef2adebd845a91f88c2b5f6a2685c88f3a))
+
+##### New Features
+
+*  旭日图类型定义和实现 ([#1630](https://github.com/antvis/g2plot/pull/1630)) ([24b3515a](https://github.com/antvis/g2plot/commit/24b3515a290ae95e975735380a0767d087fa2104))
+*  line support type ([#1623](https://github.com/antvis/g2plot/pull/1623)) ([2fb8628a](https://github.com/antvis/g2plot/commit/2fb8628a6ca0ec2d6c014d2b71f612353877083c))
+*  增加显示目标值 label [#1599](https://github.com/antvis/g2plot/pull/1599) ([#1605](https://github.com/antvis/g2plot/pull/1605)) ([0d5e4dc6](https://github.com/antvis/g2plot/commit/0d5e4dc6f1e308aeacc2a994149da36f8011a715))
+*  发布新版本 ([#1596](https://github.com/antvis/g2plot/pull/1596)) ([73dc0b6f](https://github.com/antvis/g2plot/commit/73dc0b6fa57277b03cc7450b6d42191339aaebc0))
+*  v2 增强子弹图 ([#1566](https://github.com/antvis/g2plot/pull/1566)) ([37e0c314](https://github.com/antvis/g2plot/commit/37e0c314925ff1d018380baa9a96f415c20a5433))
+*  新改动子弹图和新增 docs ([#1545](https://github.com/antvis/g2plot/pull/1545)) ([cbfe4960](https://github.com/antvis/g2plot/commit/cbfe4960e21e4bbce1cf74483a82273afd095e1d))
+*  demo upgrade ([#1543](https://github.com/antvis/g2plot/pull/1543)) ([27507368](https://github.com/antvis/g2plot/commit/2750736856ac7175ca957873b244c163bdf06195))
+*  annotation(搭车一些 demo 走查) ([#1532](https://github.com/antvis/g2plot/pull/1532)) ([cbfce8f3](https://github.com/antvis/g2plot/commit/cbfce8f39d6e28b88006154d78433b244081a443))
+*  v2 版子弹图 bullet 初稿 ([#1427](https://github.com/antvis/g2plot/pull/1427)) ([1210ff4b](https://github.com/antvis/g2plot/commit/1210ff4b5fe4217701dd0768b6490496fb9b5fcd))
+*  scatter chart supported quadrant ([#1522](https://github.com/antvis/g2plot/pull/1522)) ([471a7dd9](https://github.com/antvis/g2plot/commit/471a7dd98af482e4ab1b27d0cc1282b857adc00b))
+*  增加交互关闭配置 & demo 走查 ([#1518](https://github.com/antvis/g2plot/pull/1518)) ([471379bb](https://github.com/antvis/g2plot/commit/471379bb5edc4fa60366d31a8c806cab541e8949))
+*  a new chart type - Box Chart ([#1382](https://github.com/antvis/g2plot/pull/1382)) ([c660d8f6](https://github.com/antvis/g2plot/commit/c660d8f6ea8b2a488fce12ffafca9fbfb37ea1be))
+*  add bar demos ([#1486](https://github.com/antvis/g2plot/pull/1486)) ([f696e66d](https://github.com/antvis/g2plot/commit/f696e66dc7d457b8cd857533f8c6c50f494dfd1d))
+* **word-cloud:**
+  *  imageMask 选项支持 url 字符串格式 ([#1617](https://github.com/antvis/g2plot/pull/1617)) ([5f99d952](https://github.com/antvis/g2plot/commit/5f99d95226fcd6ab8d42d881abeef6a447924935))
+  *  主要是添加图表尺寸变化时自动重渲染 ([#1603](https://github.com/antvis/g2plot/pull/1603)) ([666426f1](https://github.com/antvis/g2plot/commit/666426f1f13914f69b926b2bf886da8716ef1867))
+* **pie:**  support spider-label ([#1601](https://github.com/antvis/g2plot/pull/1601)) ([d29d00fa](https://github.com/antvis/g2plot/commit/d29d00fad78bab554ea5158de38c99b94643b433))
+* **v2/word-cloud:**  新增词云图 ([#1530](https://github.com/antvis/g2plot/pull/1530)) ([4cfeb78c](https://github.com/antvis/g2plot/commit/4cfeb78cc04a894914f120e28a06e316c423a1c2))
+* **legend:**  add legend to dual-axes ([#1533](https://github.com/antvis/g2plot/pull/1533)) ([f75cbf08](https://github.com/antvis/g2plot/commit/f75cbf08f751ec9aebd9e06d985cdb8b0869b027))
+* **v2/candle:**  add candle plot ([#1502](https://github.com/antvis/g2plot/pull/1502)) ([46389c74](https://github.com/antvis/g2plot/commit/46389c7496efdb2c3f44648d44d25b866c1d8556))
+* **liquid:**  add new plot liquid ([#1499](https://github.com/antvis/g2plot/pull/1499)) ([32a1aa21](https://github.com/antvis/g2plot/commit/32a1aa2196fbe1d2811ee2f5dc62a90129bd08ef))
+* **plugin:**  add plugin plot for customize ([#1519](https://github.com/antvis/g2plot/pull/1519)) ([6346fcdc](https://github.com/antvis/g2plot/commit/6346fcdc70f91e14afb08bc0721349da38be79b4))
+* **v2:**  添加玫瑰图配置项 ([#1454](https://github.com/antvis/g2plot/pull/1454)) ([a9cbbd28](https://github.com/antvis/g2plot/commit/a9cbbd28fc7ba8a090f9ac7b6e7174df8cc86e00))
+
+##### Bug Fixes
+
+*  修复 legend 错误 ([#1627](https://github.com/antvis/g2plot/pull/1627)) ([578610c6](https://github.com/antvis/g2plot/commit/578610c6471ad8c9daa73c38b729478f302f259a))
+*  优化散点图 demos ([#1608](https://github.com/antvis/g2plot/pull/1608)) ([cf4927a0](https://github.com/antvis/g2plot/commit/cf4927a0a53633a413897fb64dcdb91571b7015d))
+*  默默修复颜色问题，定义不同映射颜色的 key ([#1598](https://github.com/antvis/g2plot/pull/1598)) ([f147ffa5](https://github.com/antvis/g2plot/commit/f147ffa59aad59175c9559ae597f6ebfaeeed190))
+*  修复 slider demos, 新增 scrollbar ([#1594](https://github.com/antvis/g2plot/pull/1594)) ([3130dc3b](https://github.com/antvis/g2plot/commit/3130dc3b3c7c051a16d8cf276f0b3c571d55005f))
+*  修复迷你图 tooltip 不统一 ([#1578](https://github.com/antvis/g2plot/pull/1578)) ([09b30d30](https://github.com/antvis/g2plot/commit/09b30d30fa3df9cc6851b183839164f93adba304))
+*  fix api-extractor does not support the export * as syntax ([#1577](https://github.com/antvis/g2plot/pull/1577)) ([ca78f988](https://github.com/antvis/g2plot/commit/ca78f9880aef66ce81b70692adefac5214829200))
+*  解决走查问题和修复遗漏问题 ([#1553](https://github.com/antvis/g2plot/pull/1553)) ([391b0035](https://github.com/antvis/g2plot/commit/391b0035004ecb0f50436adafbad1b6fa6f40c7e))
+*  代码走查 ([#1539](https://github.com/antvis/g2plot/pull/1539)) ([5f67f6fe](https://github.com/antvis/g2plot/commit/5f67f6fe23b975ee72a95d25371c464558380c67))
+*  修复散点图单测问题 ([#1535](https://github.com/antvis/g2plot/pull/1535)) ([f0d0c2f7](https://github.com/antvis/g2plot/commit/f0d0c2f7fe84de62d49dddd1a138b50a75579128))
+*  临时解决 changeData 无效问题 ([#1504](https://github.com/antvis/g2plot/pull/1504)) ([58032dd7](https://github.com/antvis/g2plot/commit/58032dd7abbb3738b360f9289e417bdb0a2207bf))
+*  解决 width 、height 单一设置无效问题 ([#1490](https://github.com/antvis/g2plot/pull/1490)) ([263caf55](https://github.com/antvis/g2plot/commit/263caf55aeee4c61211025047841153ecb2bddbe))
+* **line:**  fix error when color field is cat ([#1625](https://github.com/antvis/g2plot/pull/1625)) ([157f9ceb](https://github.com/antvis/g2plot/commit/157f9cebdc1f8639e3fc0a129ba6ce1b29c47580))
+* **word-cloud:**  word cloud should exec data-set transform when resize ([#1607](https://github.com/antvis/g2plot/pull/1607)) ([c26ec955](https://github.com/antvis/g2plot/commit/c26ec9557557c5f46db108eb17d6bbdd3f502bf6))
+* **sync-view-padding:**  add syncViewPadding in core plot ([#1600](https://github.com/antvis/g2plot/pull/1600)) ([c7f98b40](https://github.com/antvis/g2plot/commit/c7f98b403a29f612a8b4b401ba0d5532cfc74932))
+* **liquid:**  升级 G2,使用正确的方式向自定义 shape 传参 ([#1584](https://github.com/antvis/g2plot/pull/1584)) ([868a26f1](https://github.com/antvis/g2plot/commit/868a26f193d9582f95659676fb71b137dc70fdad))
+* **geometry:**  修改 geometry/base 中存在多个相同的时候,导致索引出错 ([#1575](https://github.com/antvis/g2plot/pull/1575)) ([d0884b00](https://github.com/antvis/g2plot/commit/d0884b00d391369d3e79f6ed2edf3117cae55211))
+
+##### Performance Improvements
+
+*  新增 animation 并更正其它图表 getDefaultOptions ([#1507](https://github.com/antvis/g2plot/pull/1507)) ([3d45caf9](https://github.com/antvis/g2plot/commit/3d45caf9cc19fb8d4fd6b5fa738306a549feeaa5))
+
+##### Refactors
+
+* **example:**  主题、状态量、标注等 demo 和截图走查 ([#1602](https://github.com/antvis/g2plot/pull/1602)) ([61b40b5f](https://github.com/antvis/g2plot/commit/61b40b5ffe132dd16f5a08f9207bffff5bd5a561))
+* **ring:**  环图中心文本统一结构 ([#1590](https://github.com/antvis/g2plot/pull/1590)) ([b15334dd](https://github.com/antvis/g2plot/commit/b15334ddd3d8a7440dd15b601681b3c63dcc981c))
+* **statistic:**  统一中心文本结构 ([#1587](https://github.com/antvis/g2plot/pull/1587)) ([4663b95a](https://github.com/antvis/g2plot/commit/4663b95a753b4b3bff99144533e1091d62832a05))
+*  改造 v2 子弹图为统一风格方式 ([#1579](https://github.com/antvis/g2plot/pull/1579)) ([afc6e584](https://github.com/antvis/g2plot/commit/afc6e584611853aba65cc876b7debc43ce4e8127))
+*  attribute mapping ([#1547](https://github.com/antvis/g2plot/pull/1547)) ([82c2b0cd](https://github.com/antvis/g2plot/commit/82c2b0cd456321a9bf8f0c7a24ce2ea1727bbef6))
+*  remove groupField, colorField, stackField in bar and column ([#1529](https://github.com/antvis/g2plot/pull/1529)) ([5d050b4d](https://github.com/antvis/g2plot/commit/5d050b4d83b52755083ec1013a3dba25c309de1b))
+
+##### Tests
+
+* **eslint:**  add import-order rules for eslint ([#1513](https://github.com/antvis/g2plot/pull/1513)) ([2f221888](https://github.com/antvis/g2plot/commit/2f221888d14ecce1eeb99a3193ebac37daa50168))
+
 #### 2.0.0-beta.4 (2020-09-18)
 
 ##### Chores

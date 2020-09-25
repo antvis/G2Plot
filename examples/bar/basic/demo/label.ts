@@ -40,10 +40,12 @@ const barPlot = new Bar('container', {
   xField: 'sales',
   yField: 'type',
   label: {
-    position: 'left',
-    offsetX: 10,
+    // 可手动配置 label 数据标签位置
+    position: 'left', // 'left', 'right', 'middle'
+    // 配置样式
     style: {
-      fill: '#fff',
+      fill: '#0D0E68',
+      opacity: 0.6,
     },
   },
   meta: {

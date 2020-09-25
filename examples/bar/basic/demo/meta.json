@@ -21,14 +21,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-position.ts",
-      "title": {
-        "zh": "基础条形图-图形标签位置",
-        "en": "Bar chart label position"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "color.ts",
       "title": {
         "zh": "基础条形图 - 自定义颜色",

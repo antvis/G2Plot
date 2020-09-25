@@ -7,7 +7,7 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   readonly type?: string;
   /** 分组字段 */
   readonly seriesField?: string;
-  /** 排序类型 */
+  /** 径向类型 */
   readonly reflect?: 'x' | 'y';
   /** 内径 */
   readonly innerRadius?: number;
@@ -17,4 +17,6 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   readonly colorField?: string;
   /** 旭日图形样式 */
   readonly sunburstStyle?: StyleAttr;
+  /** 层级布局配置 */
+  readonly hierarchyConfig?: object;
 }

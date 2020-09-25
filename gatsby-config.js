@@ -224,6 +224,14 @@ module.exports = {
           en: 'Word Cloud Charts',
         },
       },
+      {
+        slug: 'sunburst',
+        icon: 'other',
+        title: {
+          zh: '旭日图',
+          en: 'Sunburst Charts',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

@@ -6,12 +6,13 @@ import { SunburstOptions } from './types';
  * @param options
  */
 export function transformData(options: SunburstOptions) {
-  const { data, type, seriesField, colorField } = options;
+  const { data, type, seriesField, colorField, hierarchyConfig } = options;
   const { DataView } = DataSet;
   const dv = new DataView();
   dv.source(data, {
     type: 'hierarchy',
   }).transform({
+    ...hierarchyConfig,
     // @ts-ignore
     type: `hierarchy.${type}`,
     field: seriesField,
@@ -28,6 +29,7 @@ export function transformData(options: SunburstOptions) {
       [colorField]: node.data?.[colorField],
       ...node,
     };
+    nodeInfo.ext = hierarchyConfig;
     if (!node.data.brand && node.parent) {
       nodeInfo.brand = node.parent.data.brand;
     } else {

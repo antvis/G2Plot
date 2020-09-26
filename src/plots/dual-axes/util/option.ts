@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import {
-  DualAxesOption,
+  DualAxesOptions,
   GeometryOption,
   DualAxesGeometry,
   GeometryLineOption,
@@ -58,7 +58,7 @@ export function getGeometryOption(geometryOption: GeometryOption, axis: AxisType
  * 获取 Option
  * @param options
  */
-export function getOption(options: DualAxesOption): DualAxesOption {
+export function getOption(options: DualAxesOptions): DualAxesOptions {
   const { yAxis = [], geometryOptions = [] } = options;
 
   const DEFAULT_YAXIS_CONFIG = {

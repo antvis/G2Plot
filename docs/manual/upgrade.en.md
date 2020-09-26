@@ -1,6 +1,6 @@
 ---
 title: G2Plot 2.0 Upgrade Guide
-order: 6
+order: 7
 ---
 
 ## 概述

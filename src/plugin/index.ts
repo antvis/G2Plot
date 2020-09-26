@@ -11,10 +11,10 @@ import { Adaptor } from '../core/adaptor';
  * 如果使用？
  *
  * ```ts
- * import { V } from '@antv/g2plot';
+ * import { P } from '@antv/g2plot';
  * import { GeoWorldMap, GeoWorldMapOptions } from 'g2plot-geo-world-map';
  *
- * const plot = new V('container', {
+ * const plot = new P('container', {
  *   geoJson: '',
  *   longitude: '',
  *   latitude: '',
@@ -23,7 +23,7 @@ import { Adaptor } from '../core/adaptor';
  * plot.render();
  * ```
  */
-export class V<O extends PickOptions> extends Plot<O> {
+export class P<O extends PickOptions> extends Plot<O> {
   /** 统一为 any plot */
   public readonly type = 'g2-plot';
 

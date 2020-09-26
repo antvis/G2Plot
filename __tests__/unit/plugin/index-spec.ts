@@ -1,11 +1,11 @@
-import { V } from '../../../src';
+import { P } from '../../../src';
 import { createDiv } from '../../utils/dom';
 import { partySupport } from '../../data/party-support';
 import { adaptor, defaultOptions, StepLineOption } from './step-line';
 
-describe('plugin - V', () => {
+describe('plugin - P', () => {
   it('StepLine', () => {
-    const plot = new V<StepLineOption>(
+    const plot = new P<StepLineOption>(
       createDiv(),
       {
         width: 400,

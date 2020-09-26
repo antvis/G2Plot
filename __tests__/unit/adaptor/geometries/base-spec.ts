@@ -1,4 +1,4 @@
-import { V, Params } from '../../../../src';
+import { P, Params } from '../../../../src';
 import { geometry, GeometryOptions } from '../../../../src/adaptor/geometries/base';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -16,7 +16,7 @@ function adaptor(params: Params<GeometryOptions>): Params<GeometryOptions> {
 }
 
 function getPlot(type: string, opts: Partial<GeometryOptions>) {
-  const plot = new V(
+  const plot = new P(
     createDiv(),
     {
       width: 400,

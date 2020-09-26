@@ -87,7 +87,7 @@ export { Gauge, GaugeOptions } from './plots/gauge';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.V 作为入口开发，理论上官方的所有图表都可以走 G2Plot.V 的入口（暂时不处理） */
-export { V } from './plugin';
+export { P } from './plugin';
 /** 开发 adaptor 可能会用到 flow 方法，不强制使用 */
 export { flow } from './utils';
 /** 各个 geometry 的 adaptor，可以让开发者更快的构造图形 */

@@ -1,12 +1,12 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { DualAxesOption, DualAxesGeometry } from './types';
+import { DualAxesOptions, DualAxesGeometry } from './types';
 import { adaptor } from './adaptor';
 
-export { DualAxesOption };
+export { DualAxesOptions };
 
-export class DualAxes extends Plot<DualAxesOption> {
+export class DualAxes extends Plot<DualAxesOptions> {
   /** 图表类型: 双轴图 */
   public type: string = 'dual-axes';
 
@@ -50,7 +50,7 @@ export class DualAxes extends Plot<DualAxesOption> {
   /**
    * 获取双轴图的适配器
    */
-  protected getSchemaAdaptor(): Adaptor<DualAxesOption> {
+  protected getSchemaAdaptor(): Adaptor<DualAxesOptions> {
     return adaptor;
   }
 }

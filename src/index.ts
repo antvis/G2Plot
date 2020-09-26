@@ -41,7 +41,7 @@ export { Scatter, ScatterOptions } from './plots/scatter';
 export { Radar, RadarOptions } from './plots/radar';
 
 // 混合图形 | author by [liuzhenying](https://github.com/liuzhenying)
-export { DualAxes, DualAxesOption } from './plots/dual-axes';
+export { DualAxes, DualAxesOptions } from './plots/dual-axes';
 
 // 迷你折线图及类型定义 | author by [connono](https://github.com/connono)
 export { TinyLine, TinyLineOptions } from './plots/tiny-line';

@@ -12,7 +12,7 @@ import { findViewById } from '../../utils/view';
 import { getOption, isLine, isColumn } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOption } from './types';
+import { DualAxesOptions } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
@@ -22,7 +22,7 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  * 这个函数针对 yAxis 和 geometryOptions
  * @param params
  */
-export function transformOptions(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   return deepMix({}, params, {
     options: getOption(params.options),
   });
@@ -32,7 +32,7 @@ export function transformOptions(params: Params<DualAxesOption>): Params<DualAxe
  * 绘制图形
  * @param params
  */
-function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
+function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
   const [leftGeometryOptions, rightGeometryOptions] = geometryOptions;
@@ -73,7 +73,7 @@ function geometry(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * meta 配置
  * @param params
  */
-export function meta(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function meta(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
@@ -94,7 +94,7 @@ export function meta(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * axis 配置
  * @param params
  */
-export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
@@ -136,7 +136,7 @@ export function axis(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * tooltip 配置
  * @param params
  */
-export function tooltip(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function tooltip(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { tooltip } = options;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
@@ -159,7 +159,7 @@ export function tooltip(params: Params<DualAxesOption>): Params<DualAxesOption> 
  * interaction 配置
  * @param params
  */
-export function interaction(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
   commonInteraction(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
@@ -172,7 +172,7 @@ export function interaction(params: Params<DualAxesOption>): Params<DualAxesOpti
  * theme
  * @param params
  */
-export function theme(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function theme(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
   commonTheme(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
@@ -181,7 +181,7 @@ export function theme(params: Params<DualAxesOption>): Params<DualAxesOption> {
   return params;
 }
 
-export function animation(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
   commonAnimation(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
@@ -195,7 +195,7 @@ export function animation(params: Params<DualAxesOption>): Params<DualAxesOption
  * 使用 custom，便于和类似于分组柱状图-单折线图的逻辑统一
  * @param params
  */
-export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { legend, geometryOptions, yField } = options;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
@@ -272,7 +272,7 @@ export function legend(params: Params<DualAxesOption>): Params<DualAxesOption> {
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<DualAxesOption>): Params<DualAxesOption> {
+export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   // flow 的方式处理所有的配置到 G2 API
   return flow(transformOptions, geometry, meta, axis, tooltip, interaction, theme, animation, legend)(params);
 }

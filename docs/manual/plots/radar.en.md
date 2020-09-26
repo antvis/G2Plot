@@ -115,7 +115,7 @@ radarPlot.render();
 
 功能描述： 配置雷达图上的点
 
-`markdown:docs/common/point.en.md`
+`markdown:docs/common/point-style.en.md`
 
 #### area ✨
 

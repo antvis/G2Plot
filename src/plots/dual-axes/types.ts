@@ -40,7 +40,7 @@ export type GeometryColumnOption = Pick<
 
 export type GeometryOption = GeometryColumnOption | GeometryLineOption;
 
-export type DualAxesOption = Omit<Options, 'data' | 'yAxis' | 'color'> & {
+export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   // 通用数据配置
   /** 具体的数据 */
   readonly data: Array<Record<string, any>[]>;

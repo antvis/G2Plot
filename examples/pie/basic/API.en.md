@@ -20,10 +20,10 @@
 
 ```ts
 const data = [
-  { country: 'Asia', year: '1750', value: 502,},
-  { country: 'Asia', year: '1800', value: 635,},
-  { country: 'Europe', year: '1750', value: 163,},
-  { country: 'Europe', year: '1800', value: 203,},
+  { country: 'Asia', year: '1750', value: 502 },
+  { country: 'Asia', year: '1800', value: 635 },
+  { country: 'Europe', year: '1750', value: 163 },
+  { country: 'Europe', year: '1800', value: 203 },
 ];
 
 const piePlot = new Pie('container', {
@@ -31,13 +31,15 @@ const piePlot = new Pie('container', {
   // highlight-start
   meta: {
     country: {
-      alias:'国家'
+      alias: '国家',
       range: [0, 1],
     },
     value: {
       alias: '数量',
-      formatter:(v)=>{return `${v}个`}
-    }
+      formatter: (v) => {
+        return `${v}个`;
+      },
+    },
   },
   // highlight-end
   angleField: 'value',

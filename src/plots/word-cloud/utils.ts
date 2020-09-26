@@ -19,7 +19,6 @@ export function transform(params: Params<WordCloudOptions>) {
   const dv = new DataSet.View().source(data);
   const range = dv.range(weightField);
 
-  // TODO: 去掉 any , 需 DataSet 修改类型信息
   dv.transform({
     type: 'tag-cloud',
     fields: [wordField, weightField],
@@ -32,7 +31,7 @@ export function transform(params: Params<WordCloudOptions>) {
     padding: padding,
     timeInterval,
     rotate: getRotate(options),
-  } as any);
+  });
 
   return dv.rows;
 }
@@ -41,7 +40,7 @@ export function transform(params: Params<WordCloudOptions>) {
  * 获取最终的实际绘图尺寸：[width, height]
  * @param chart
  */
-function getSize(params: Params<WordCloudOptions> & { chart: Chart }) {
+function getSize(params: Params<WordCloudOptions> & { chart: Chart }): [number, number] {
   const { chart, options } = params;
   const { autoFit = true } = options;
   let { width, height } = chart;
@@ -59,7 +58,7 @@ function getSize(params: Params<WordCloudOptions> & { chart: Chart }) {
   const [top, right, bottom, left] = resolvePadding(chart);
   const result = [width - (left + right), height - (top + bottom)];
 
-  return result;
+  return result as [number, number];
 }
 
 /**

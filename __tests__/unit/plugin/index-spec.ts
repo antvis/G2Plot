@@ -1,11 +1,11 @@
-import { G2Plot } from '../../../src';
+import { V } from '../../../src';
 import { createDiv } from '../../utils/dom';
 import { partySupport } from '../../data/party-support';
 import { adaptor, defaultOptions, StepLineOption } from './step-line';
 
-describe('plugin - G2Plot', () => {
+describe('plugin - V', () => {
   it('StepLine', () => {
-    const plot = new G2Plot<StepLineOption>(
+    const plot = new V<StepLineOption>(
       createDiv(),
       {
         width: 400,

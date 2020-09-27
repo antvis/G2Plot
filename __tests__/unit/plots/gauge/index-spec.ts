@@ -34,6 +34,11 @@ describe('gauge', () => {
           count: 3,
         },
       },
+      statistic: {
+        content: {
+          formatter: ({ percent }) => `分数：${percent * 100}`,
+        },
+      },
     });
 
     gauge.render();
@@ -78,6 +83,12 @@ describe('gauge', () => {
     expect(v2.getCoordinate().endAngle).toEqual(gauge.options.endAngle);
     expect(v2.getCoordinate().radius).toEqual(gauge.options.radius);
     expect(v2.getCoordinate().innerRadius).toEqual(gauge.options.innerRadius);
+
+    // statistic
+    const annotations = gauge.chart.getComponents();
+    expect(annotations.length).toBe(1);
+    expect(annotations[0].extra.position).toEqual(['50%', '100%']);
+    expect(annotations[0].extra.content).toBe('分数：75');
 
     // @ts-ignore
     expect(v2.options.axes).toEqual(undefined);

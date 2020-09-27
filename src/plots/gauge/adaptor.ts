@@ -1,4 +1,4 @@
-import { isString, isArray } from '@antv/util';
+import { isString, isArray, isFunction } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -75,6 +75,35 @@ function meta(params: Params<GaugeOptions>): Params<GaugeOptions> {
 }
 
 /**
+ * 统计指标文档
+ * @param params
+ */
+function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
+  const { chart, options } = params;
+  const { statistic, percent } = options;
+
+  const { title, content } = statistic;
+
+  // annotation title 和 content 分别使用一个 text
+  [title, content].forEach((annotation) => {
+    if (annotation) {
+      const { formatter, style, offsetX, offsetY, rotate } = annotation;
+      chart.annotation().text({
+        top: true,
+        position: ['50%', '100%'],
+        content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
+        style: isFunction(style) ? style({ percent }) : style,
+        offsetX,
+        offsetY,
+        rotate,
+      });
+    }
+  });
+
+  return params;
+}
+
+/**
  * other 配置
  * @param params
  */
@@ -97,6 +126,7 @@ export function adaptor(params: Params<GaugeOptions>) {
   return flow(
     geometry,
     meta,
+    statistic,
     interaction,
     animation,
     theme,

@@ -112,6 +112,14 @@ module.exports = {
         },
       },
       {
+        slug: 'gauge',
+        icon: 'gauge',
+        title: {
+          zh: '仪表盘',
+          en: 'Gauge Charts',
+        },
+      },
+      {
         slug: 'histogram',
         icon: 'histogram',
         title: {

@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -15,7 +15,8 @@
   "files": [
     "lib",
     "esm",
-    "dist"
+    "dist",
+    "src"
   ],
   "homepage": "https://g2plot.antv.vision",
   "repository": {

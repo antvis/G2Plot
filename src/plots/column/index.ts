@@ -18,8 +18,6 @@ export class Column extends Plot<ColumnOptions> {
    * 获取 柱形图 默认配置
    */
   protected getDefaultOptions(options: ColumnOptions) {
-    console.log(this.type);
-
     const { isPercent, isRange, label, yField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       label:

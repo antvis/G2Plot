@@ -27,10 +27,10 @@ order: 0
 
 ```ts
 const data = [
-  { country: 'Asia', year: '1750', value: 502,},
-  { country: 'Asia', year: '1800', value: 635,},
-  { country: 'Europe', year: '1750', value: 163,},
-  { country: 'Europe', year: '1800', value: 203,},
+  { country: 'Asia', year: '1750', value: 502 },
+  { country: 'Asia', year: '1800', value: 635 },
+  { country: 'Europe', year: '1750', value: 163 },
+  { country: 'Europe', year: '1800', value: 203 },
 ];
 
 const scatterPlot = new Scatter('container', {
@@ -38,13 +38,15 @@ const scatterPlot = new Scatter('container', {
   // highlight-start
   meta: {
     year: {
-      alias:'年份'
+      alias: '年份',
       range: [0, 1],
     },
     value: {
       alias: '数量',
-      formatter:(v)=>{return `${v}个`}
-    }
+      formatter: (v) => {
+        return `${v}个`;
+      },
+    },
   },
   // highlight-end
   xField: 'year',
@@ -52,7 +54,6 @@ const scatterPlot = new Scatter('container', {
   colorField: 'country',
 });
 scatterPlot.render();
-
 ```
 
 #### type

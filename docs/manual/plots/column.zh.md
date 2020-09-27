@@ -49,6 +49,22 @@ order: 0
 
 默认配置： 无
 
+#### isRange
+
+**可选**, _boolean_
+
+功能描述： 是否区间柱状图 。
+
+默认配置： 无
+
+#### isPercent
+
+**可选**, _boolean_
+
+功能描述： 是否百分百柱状图，isPercent 为 true 时，isStack 也需要为 true 。
+
+默认配置： 无
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式

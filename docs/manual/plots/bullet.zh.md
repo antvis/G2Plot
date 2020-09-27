@@ -78,29 +78,56 @@ bulletPlot.render();
 
 ### 图形样式
 
-#### bulletStyle ✨
+#### style ✨
 
 **可选**, _object_
 
-功能描述： 设置子弹图样式。
+功能描述： 设置子弹图各图形 style 属性。
 
 默认配置： 无
 
-| 细分配置 | 类型         | 功能描述     |
-| -------- | ------------ | ------------ |
-| range    | _BasicStyle_ | 区间背景样式 |
-| measure  | _BasicStyle_ | 实际值样式   |
-| target   | _BasicStyle_ | 目标值样式   |
-
-```ts
-type BasicStyle = {
-  color?: string | string[] | ((...args: any[]) => string);
-  style?: ShapeAttrs;
-  size?: number;
-};
-```
+| 细分配置 | 类型        | 功能描述     | 默认配置             |
+| -------- | ----------- | ------------ | -------------------- |
+| range    | _StyleAttr_ | 区间背景样式 | { fillOpacity: 0.5 } |
+| measure  | _StyleAttr_ | 实际值样式   | 无                   |
+| target   | _StyleAttr_ | 目标值样式   | 无                   |
 
 `markdown:docs/common/shape-style.zh.md`
+
+### color ✨
+
+**可选**, _object_
+
+功能描述： 设置子弹图各图形 color 属性。
+
+默认配置： 无
+
+| 细分配置 | 类型        | 功能描述     | 默认配置 |
+| -------- | ----------- | ------------ | -------- |
+| range    | _colorAttr_ | 区间背景颜色 | 无       |
+| measure  | _colorAttr_ | 实际值颜色   | 无       |
+| target   | _colorAttr_ | 目标值颜色   | 无       |
+
+`markdown:docs/common/color.zh.md`
+
+### size ✨
+
+**可选**, _object_
+
+功能描述： 设置子弹图各图形 size 属性。
+
+默认配置： 无
+
+| 细分配置 | 类型       | 功能描述     | 默认配置 |
+| -------- | ---------- | ------------ | -------- |
+| range    | _SizeAttr_ | 区间背景样式 | 30       |
+| measure  | _SizeAttr_ | 实际值样式   | 20       |
+| target   | _SizeAttr_ | 目标值样式   | 20       |
+
+```plain
+type SizeAttr = number | [number, number] | ((datum: Datum) => number);
+
+```
 
 ### 图表组件
 

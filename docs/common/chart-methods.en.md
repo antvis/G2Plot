@@ -1,20 +1,20 @@
 #### render() 📌
 
-<description>**必选** </description>
+<description>**required** </description>
 
-功能描述：渲染图表。
+Description: Render the chart.
 
-默认配置：`无`
+Default: `none`
 
 #### update()
 
-<description>**可选** </description>
+<description>**optional** </description>
 
-功能描述：更新图表配置项，配置覆盖，不会做差异比对。
+Description: Update chart configuration and overwrite it without comparing difference.
 
-默认配置：`无`
+Default: `none`
 
-使用示例：
+Example：
 
 ```ts
 plot.update({

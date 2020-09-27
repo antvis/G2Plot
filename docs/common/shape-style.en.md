@@ -1,22 +1,22 @@
-<!--图形样式-->
+<!--shape style-->
 
-| 属性名        | 类型            | 介绍                                                                                                         |
+| Attr        | Type            | Description                                                                                                         |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
-| fill          | string          | 图形的填充色                                                                                                 |
-| fillOpacity   | number          | 图形的填充透明度                                                                                             |
-| stroke        | string          | 图形的描边                                                                                                   |
-| lineWidth     | number          | 图形描边的宽度                                                                                               |
-| lineDash      | [number,number] | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| lineOpacity   | number          | 描边透明度                                                                                                   |
-| opacity       | number          | 图形的整体透明度                                                                                             |
-| shadowColor   | string          | 图形阴影颜色                                                                                                 |
-| strokeOpacity | number          | 图形边框透明度                                                                                               |
-| shadowBlur    | number          | 图形阴影的高斯模糊系数                                                                                       |
-| shadowOffsetX | number          | 设置阴影距图形的水平距离                                                                                     |
-| shadowOffsetY | number          | 设置阴影距图形的垂直距离                                                                                     |
-| cursor        | string          | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                |
+| fill          | string          | Fill color of the shape                                                                                                 |
+| fillOpacity   | number          | Fill opacity of the shape                                                                                             |
+| stroke        | string          | Stroke color of the shape                                                                                                   |
+| lineWidth     | number          | The width of the stroke of the shape                                                                                               |
+| lineDash      | [number,number] | Configure dashed line stroke. The first parameter is the length of each segment, and the second parameter is the gap between segment. When lineDash is set to [0,0], there is no effect. |
+| lineOpacity   | number          | Opacity of the stroke                                                                                                   |
+| opacity       | number          | Opacity of the shape                                                                                             |
+| shadowColor   | string          | Shadow color of the shape                                                                                                 |
+| strokeOpacity | number          | Stroke opacity of the shape                                                                                               |
+| shadowBlur    | number          | Gaussian blur coefficient of the shadow                                                                                       |
+| shadowOffsetX | number          | Configure horizontal distance between shadow and shape                                                                                     |
+| shadowOffsetY | number          | Configure vertical distance between shadow and shape                                                                                     |
+| cursor        | string          | Mouse style, same as the mouse style of CSS, default value : 'default'                                                                |
 
-示例代码：
+Example：
 
 ```ts
 {

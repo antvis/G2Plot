@@ -3,13 +3,13 @@ import DataSet from '@antv/data-set';
 import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { log, LEVEL, getContainerSize } from '../../utils';
-import { WordCloudOptions } from './types';
+import { DataItem, WordCloudOptions } from './types';
 
 /**
  * 用 DataSet 转换词云图数据
  * @param params
  */
-export function transform(params: Params<WordCloudOptions>) {
+export function transform(params: Params<WordCloudOptions>): DataItem[] {
   const { options } = params;
   const { data, imageMask, wordField, weightField, wordStyle, timeInterval } = options;
   if (!data || !data.length) {

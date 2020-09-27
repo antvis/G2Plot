@@ -18,19 +18,27 @@ describe('bullet', () => {
 
     const chart = bullet.chart;
 
-    const rangeGeometry = chart.geometries[0];
+    expect(chart.getController('legend').getComponents().length).toEqual(0);
+    // @ts-ignore
+    expect(chart.options.axes.ranges).toEqual(false);
+    // @ts-ignore
+    expect(chart.options.axes.target).toEqual(false);
+    const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
+
     const rangeElements = rangeGeometry.elements[0];
     expect(rangeElements.shape.attr('fillOpacity')).toBe(0.5);
-
     expect(rangeGeometry.getAttribute('size').values[0]).toEqual(30);
     expect(rangeGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
       yField: 'ranges',
     });
+    expect(rangeGeometry.tooltipOption).toEqual(false);
     expect(rangeGeometry.getYScale().max).toEqual(100);
     expect(rangeGeometry.getYScale().min).toEqual(0);
+    expect(rangeGeometry.getAttribute('color').getFields()[0]).toEqual('rKey');
+    const rColor = rangeGeometry.theme.colors10;
+    expect(rangeGeometry.getAttribute('color').values).toEqual(rColor);
 
-    const measureGeometry = chart.geometries[1];
     expect(measureGeometry.getAttribute('size').values[0]).toEqual(20);
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
@@ -38,13 +46,29 @@ describe('bullet', () => {
     });
     expect(measureGeometry.getYScale().max).toEqual(100);
     expect(measureGeometry.getYScale().min).toEqual(0);
+
+    expect(measureGeometry.getAttribute('color').getFields()[0]).toEqual('mKey');
+    const mColor = measureGeometry.theme.colors10;
+    expect(measureGeometry.getAttribute('color').values).toEqual(mColor);
+
     //@ts-ignore
     expect(measureGeometry.labelOption.cfg.position).toEqual('right');
 
-    const targetGeometry = chart.geometries[2];
     expect(targetGeometry.getAttribute('size').values[0]).toEqual(20 / 2);
     expect(targetGeometry.getYScale().max).toEqual(100);
     expect(targetGeometry.getYScale().min).toEqual(0);
+    expect(targetGeometry.getAttribute('color').getFields()[0]).toEqual('tKey');
+    const tColor = targetGeometry.theme.colors10;
+    expect(targetGeometry.getAttribute('color').values).toEqual(tColor);
+
+    // @ts-ignore 默认水平的时候会转换坐标轴
+    expect(chart.getCoordinate().isTransposed).toBe(true);
+    const shapeArr = [];
+    const elements = targetGeometry.elements;
+    elements.forEach((ele) => {
+      shapeArr.push(ele.getModel().shape);
+    });
+    expect(shapeArr).toContain('line');
   });
 
   it('no title', () => {

@@ -5,6 +5,7 @@ import { tooltip, slider, interaction, animation, theme, scale, annotation, scro
 import { interval } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { ColumnOptions } from './types';
+import { transformData } from './utils';
 
 /**
  * 字段
@@ -12,9 +13,12 @@ import { ColumnOptions } from './types';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, color, columnWidthRatio } = options;
-
-  chart.data(data);
+  const { data, columnStyle, color, columnWidthRatio, isPercent } = options;
+  let chartData = data;
+  if (isPercent) {
+    chartData = transformData(options);
+  }
+  chart.data(chartData);
 
   const p = deepMix({}, params, {
     options: {

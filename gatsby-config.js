@@ -14,11 +14,10 @@ module.exports = {
   siteMetadata: {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
-    siteUrl: 'https://g2plot-v2-beta.antv.vision/',
+    siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
     versions: {
-      '2.x': 'https://g2plot-v2-beta.antv.vision/',
-      '1.x': 'https://g2plot.antv.vision/',
+      '1.x': 'https://g2plot-v1.antv.vision',
     },
     navs: [
       {

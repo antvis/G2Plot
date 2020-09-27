@@ -12,7 +12,7 @@ const data = [
 ];
 
 const barPlot = new Bar('container', {
-  data,
+  data: data.reverse(),
   xField: 'values',
   yField: 'type',
   color: 'l(0) 0:#3e5bdb 1:#dd3121',

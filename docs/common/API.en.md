@@ -1,29 +1,29 @@
-## 配置属性
+## Chart Attributes
 
-### 图表容器
+### Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data
 
 #### data 📌
 
-**必选**, _array object_
+**required**, _array object_
 
-功能描述： 设置图表数据源
+Description： Set data source.
 
-默认配置： 无
+Default: `none`
 
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Data source should be an array of JSON objects, for example: `[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`.
 
 `markdown:docs/common/xy-field.en.md`
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Shape Style
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Conmponent
 
 `markdown:docs/common/component.en.md`

@@ -2,9 +2,9 @@
 
 `markdown:docs/common/tooltip.en.md`
 
-#### label ✨
+#### label
 
-功能描述： 标签文本
+Description: Configure label style.
 
 `markdown:docs/common/label.en.md`
 
@@ -16,10 +16,10 @@
 
 `markdown:docs/common/theme.en.md`
 
-### 事件
+### Event
 
 `markdown:docs/common/events.en.md`
 
-### 图表方法
+### Chart Method
 
 `markdown:docs/common/chart-methods.en.md`

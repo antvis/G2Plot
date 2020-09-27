@@ -6,10 +6,10 @@
 
 `markdown:docs/common/theme.en.md`
 
-### 事件
+### Event
 
 `markdown:docs/common/events.en.md`
 
-### 图表方法
+### Chart Method
 
 `markdown:docs/common/chart-methods.en.md`

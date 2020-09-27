@@ -1,18 +1,17 @@
-<!--线条样式-->
+<!--line style-->
 
-| 属性名        | 类型            | 介绍                                                                                                   |
+| Attr        | Type            | Desctiption                                                                                                   |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
-| stroke        | string          | 线的颜色                                                                                               |
-| lineWidth     | number          | 线宽                                                                                                   |
-| lineDash      | [number,number] | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| opacity       | number          | 透明度                                                                                                 |
-| shadowColor   | string          | 阴影颜色                                                                                               |
-| shadowBlur    | number          | 高斯模糊系数                                                                                           |
-| shadowOffsetX | number          | 设置阴影距图形的水平距离                                                                               |
-| shadowOffsetY | number          | 设置阴影距图形的垂直距离                                                                               |
-| cursor        | string          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                           |
-
-示例代码：
+| stroke        | string          | color of the line                                                                                               |
+| lineWidth     | number          | width of the line                                                                                                   |
+| lineDash      | [number,number] | configure dashed line, the first parameter is the length of each segment, the second parameter is the gap between segment. When lineDash is set to [0,0], there is no effect. |
+| opacity       | number          | opacity                                                                                                 |
+| shadowColor   | string          | shadow color                                                                                               |
+| shadowBlur    | number          | Gaussian blur coefficient                                                                                           |
+| shadowOffsetX | number          | configure horizontal distance between shadow and line                                                                               |
+| shadowOffsetY | number          | configure vertical distance between shadow and line                                                                               |
+| cursor        | string          | mouse style, same as the mouse style of CSS, default value : 'default'                                                           |
+Example：
 
 ```ts
 {

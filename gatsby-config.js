@@ -17,6 +17,7 @@ module.exports = {
     siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
     versions: {
+      'latest v2': 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
     navs: [

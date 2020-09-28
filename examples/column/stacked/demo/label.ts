@@ -99,6 +99,7 @@ const stackedColumnPlot = new Column('container', {
   xField: 'year',
   yField: 'value',
   seriesField: 'type',
+  color: ['#ae331b', '#1a6179'],
   label: {
     // 可手动配置 label 数据标签位置
     position: 'middle', // 'top', 'bottom', 'middle'

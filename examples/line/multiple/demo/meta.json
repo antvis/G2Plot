@@ -5,12 +5,12 @@
   },
   "demos": [
     {
-      "filename": "line-multiple.ts",
+      "filename": "line-large-data.ts",
       "title": {
-        "zh": "多折线图",
-        "en": "multiple Line chart"
+        "zh": "二氧化碳排放量来源",
+        "en": "The causes of CO2 emissions"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vlFFSqrmsUkAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-label.ts",
@@ -19,14 +19,6 @@
         "en": "multiple Line chart animation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3HyPSaIxw0gAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "line-large-data.ts",
-      "title": {
-        "zh": "二氧化碳排放量来源",
-        "en": "The causes of CO2 emissions"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "line-color.ts",
@@ -42,7 +34,7 @@
         "zh": "通过回调函数指定折线颜色",
         "en": "set line color through callback function"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*iHQDSZ9g2fQAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "line-style.ts",
@@ -50,7 +42,7 @@
         "zh": "指定折线样式",
         "en": "setting line style"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*bY-vQZy9eBkAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "marker-active.ts",

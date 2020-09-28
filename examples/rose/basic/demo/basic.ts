@@ -15,6 +15,9 @@ const rosePlot = new Rose('container', {
   yField: 'value',
   seriesField: 'type',
   radius: 0.9,
+  legend: {
+    position: 'bottom',
+  },
 });
 
 rosePlot.render();

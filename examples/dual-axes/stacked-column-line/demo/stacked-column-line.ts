@@ -33,6 +33,7 @@ const dualAxesChart = new DualAxes('container', {
     },
     {
       geometry: 'line',
+      color: '#FAA219',
     },
   ],
 });

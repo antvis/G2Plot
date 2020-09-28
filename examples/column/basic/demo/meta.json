@@ -26,7 +26,7 @@
         "zh": "基础柱状图 - 自定义颜色",
         "en": "Column chart color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*j-JZQYbuNS8AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "width.ts",
@@ -34,7 +34,7 @@
         "zh": "基础柱状图 - 柱子宽度",
         "en": "Column chart column width"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
     },
     {
       "filename": "region-annotation.ts",
@@ -42,7 +42,7 @@
         "zh": "带辅助框标注的基础柱状图",
         "en": "Basic Column chart with region annotation"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FOmATLFeuxkAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

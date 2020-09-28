@@ -20,7 +20,7 @@ const dualAxesChart = new DualAxes('container', {
       geometry: 'line',
       lineStyle: {
         lineWidth: 2,
-        stroke: '#29cae4',
+        stroke: '#FAA219',
       },
     },
   ],

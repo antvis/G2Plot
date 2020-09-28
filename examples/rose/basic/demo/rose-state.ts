@@ -24,6 +24,9 @@ const rosePlot = new Rose('container', {
       },
     },
   },
+  legend: {
+    position: 'bottom',
+  },
   interactions: [{ type: 'element-active' }],
 });
 

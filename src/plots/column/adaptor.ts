@@ -80,17 +80,10 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { legend } = options;
-  const geometry = findGeometry(chart, 'interval');
-  const colorAttribute = geometry.getAttribute('color');
+  const { legend, seriesField } = options;
 
-  if (legend && colorAttribute) {
-    const colorFields = colorAttribute.getFields();
-    if (colorFields.length > 0) {
-      chart.legend(colorFields[0], legend);
-    }
-  } else {
-    chart.legend(false);
+  if (legend && seriesField) {
+    chart.legend(seriesField, legend);
   }
 
   return params;

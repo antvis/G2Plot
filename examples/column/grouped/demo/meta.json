@@ -21,14 +21,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-position.ts",
-      "title": {
-        "zh": "分组柱状图 - 数据标签位置",
-        "en": "Grouped Column chart label position"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AKPAToru0A4AAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "margin.ts",
       "title": {
         "zh": "分组柱状图 - 分组间距",

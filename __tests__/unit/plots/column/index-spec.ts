@@ -86,6 +86,8 @@ describe('column', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    const legend = column.chart.getComponents().filter((co) => co.type === 'legend')[0];
+    expect(legend).toBeDefined();
     expect(geometry.getAdjust('dodge')).toMatchObject({
       xField: 'area',
       yField: 'sales',
@@ -152,6 +154,8 @@ describe('column', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    const legend = column.chart.getComponents().filter((co) => co.type === 'legend')[0];
+    expect(legend).toBeDefined();
     expect(geometry.getAdjust('dodge')).toBeUndefined();
     expect(geometry.getAdjust('stack')).toMatchObject({
       xField: 'area',

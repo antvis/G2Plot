@@ -21,14 +21,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*6xAoRa0kaxEAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "label-position.ts",
-      "title": {
-        "zh": "基础柱状图-图形标签位置",
-        "en": "Column chart label position"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ydTeQY3N8GkAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "color.ts",
       "title": {
         "zh": "基础柱状图 - 自定义颜色",

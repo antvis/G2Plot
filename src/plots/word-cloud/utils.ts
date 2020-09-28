@@ -106,29 +106,31 @@ function normalPadding(padding: number | number[] | 'auto'): [number, number, nu
 
 /**
  * 处理 imageMask 可能为 url 字符串的情况
- * @param img
- * @param callback
+ * @param  {HTMLImageElement | string} img
+ * @return {Promise}
  */
-export function processImageMask(img: HTMLImageElement | string, callback?: (img?: HTMLImageElement) => void) {
-  if (img instanceof HTMLImageElement) {
-    callback(img);
-    return;
-  }
-  if (isString(img)) {
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.src = img;
-    image.onload = () => {
-      callback(image);
-    };
-    image.onerror = () => {
-      log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
-      callback();
-    };
-    return;
-  }
-  log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or HTMLImageElement.');
-  callback();
+export function processImageMask(img: HTMLImageElement | string): Promise<HTMLImageElement> {
+  return new Promise((res, rej) => {
+    if (img instanceof HTMLImageElement) {
+      res(img);
+      return;
+    }
+    if (isString(img)) {
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.src = img;
+      image.onload = () => {
+        res(image);
+      };
+      image.onerror = () => {
+        log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
+        rej();
+      };
+      return;
+    }
+    log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or HTMLImageElement.');
+    rej();
+  });
 }
 
 /**

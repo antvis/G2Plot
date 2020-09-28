@@ -42,7 +42,7 @@ import { Line } from '@antv/g2plot';
 
 ## 快速使用
 
-在 G2Plot 引入页面后，我们就已经做好了创建第一个图表的准备了。下面是以一个基础折线图为例开始我们的第一个图表创建。
+在 G2Plot 引入页面后，我们就已经做好了创建第一个图表的准备了。下面以一个基础折线图为例开始我们第一个图表的创建。
 
 **step1**: 创建图表容器
 
@@ -50,7 +50,7 @@ import { Line } from '@antv/g2plot';
 <div id="container"></div>
 ```
 
-**step2**: 引入数据。G2Plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+**step2**: 引入数据。G2Plot 的数据源格式是 JSON 数组，数组的每个元素是一个标准 JSON 对象，部分图表除外。
 
 ```ts
 const data = [
@@ -84,7 +84,7 @@ linePlot.render();
 
 ## 个性化设置
 
-图表各元素的视觉样式采用的是图表默认主题的样式，还没有经过特别定制。图表主体中的文本元素也没有进行格式化，我们可以根据需求对图表进行各种个性化设置，给多配置请参考图表 API：\*\*
+图表元素的视觉样式采用默认主题的样式，还没有经过特别定制，图表主体中的文本元素也没有进行格式化，我们可以根据需求对图表进行各种个性化设置，更多多配置请参考图表 API。
 
 ```ts
 const linePlot = new Line('container', {
@@ -163,4 +163,4 @@ linePlot.render();
 
 <img alt="示例" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Y-4xSprUCV0AAAAAAAAAAAAAARQnAQ" width="800">
 
-经过上面由浅至深的三步教程，你应该已经基本了解 G2Plot 的使用方法了，不过这远远不是终点，G2Plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](../../examples/gallery)。
+通过上面由浅入深的教程，你应该已经基本了解 G2Plot 的使用方法了，不过这远远不是终点，G2Plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](../../examples/gallery)。

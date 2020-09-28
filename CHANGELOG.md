@@ -1,3 +1,43 @@
+#### 2.0.1 (2020-09-28)
+
+##### Documentation Changes
+
+*  修改文档描述 ([#1658](https://github.com/antvis/g2plot/pull/1658)) ([f6a3a181](https://github.com/antvis/g2plot/commit/f6a3a181fb1c38b13a86cd51b80cf8fc6a83294a))
+*  更新 common 英文文档 ([#1655](https://github.com/antvis/g2plot/pull/1655)) ([8952cc71](https://github.com/antvis/g2plot/commit/8952cc71248e9e986ef3942bea3b1278279df5de))
+*  更新 common 文档中的英文标题 ([#1654](https://github.com/antvis/g2plot/pull/1654)) ([13e2a65d](https://github.com/antvis/g2plot/commit/13e2a65d68edb2b9f89ee7054dd3831e45f7061b))
+* **xyfield:**  更新 xyfield 英文文档 ([#1652](https://github.com/antvis/g2plot/pull/1652)) ([1d9de2cb](https://github.com/antvis/g2plot/commit/1d9de2cbbaafed0264830fb831d47c13cbc52af9))
+* **meta:**  更新 meta 英文文档 ([#1651](https://github.com/antvis/g2plot/pull/1651)) ([e346c359](https://github.com/antvis/g2plot/commit/e346c359e9522f1f532ba70f2b0ab9fcb88003fc))
+* **linestyle:**  更新 line-style 英文文档 ([#1648](https://github.com/antvis/g2plot/pull/1648)) ([d98befed](https://github.com/antvis/g2plot/commit/d98befedbc3d111f584e3cf18b38622e3bc9beb1))
+
+##### New Features
+
+* **gauge:**  add statistic, demo, docs ([#1653](https://github.com/antvis/g2plot/pull/1653)) ([e779cfd0](https://github.com/antvis/g2plot/commit/e779cfd0a2c39dc4ef725532c79bd7649d826854))
+
+##### Bug Fixes
+
+*  修复 column/bar 图例设置 & demo 更新 ([#1636](https://github.com/antvis/g2plot/pull/1636)) ([b2dfd35f](https://github.com/antvis/g2plot/commit/b2dfd35fd6cfb6db5b969bccba502b8c2bf10b47))
+* **website:**  直接显示 1.x 给人感觉是当前是 1.x 版本 ([#1656](https://github.com/antvis/g2plot/pull/1656)) ([79337091](https://github.com/antvis/g2plot/commit/7933709148bc2f4e6d0b591b61f09de094cb9084))
+
+#### 2.0.0 (2020-09-28)
+
+##### Documentation Changes
+
+*  修改文档描述 ([#1658](https://github.com/antvis/g2plot/pull/1658)) ([f6a3a181](https://github.com/antvis/g2plot/commit/f6a3a181fb1c38b13a86cd51b80cf8fc6a83294a))
+*  更新 common 英文文档 ([#1655](https://github.com/antvis/g2plot/pull/1655)) ([8952cc71](https://github.com/antvis/g2plot/commit/8952cc71248e9e986ef3942bea3b1278279df5de))
+*  更新 common 文档中的英文标题 ([#1654](https://github.com/antvis/g2plot/pull/1654)) ([13e2a65d](https://github.com/antvis/g2plot/commit/13e2a65d68edb2b9f89ee7054dd3831e45f7061b))
+* **xyfield:**  更新 xyfield 英文文档 ([#1652](https://github.com/antvis/g2plot/pull/1652)) ([1d9de2cb](https://github.com/antvis/g2plot/commit/1d9de2cbbaafed0264830fb831d47c13cbc52af9))
+* **meta:**  更新 meta 英文文档 ([#1651](https://github.com/antvis/g2plot/pull/1651)) ([e346c359](https://github.com/antvis/g2plot/commit/e346c359e9522f1f532ba70f2b0ab9fcb88003fc))
+* **linestyle:**  更新 line-style 英文文档 ([#1648](https://github.com/antvis/g2plot/pull/1648)) ([d98befed](https://github.com/antvis/g2plot/commit/d98befedbc3d111f584e3cf18b38622e3bc9beb1))
+
+##### New Features
+
+* **gauge:**  add statistic, demo, docs ([#1653](https://github.com/antvis/g2plot/pull/1653)) ([e779cfd0](https://github.com/antvis/g2plot/commit/e779cfd0a2c39dc4ef725532c79bd7649d826854))
+
+##### Bug Fixes
+
+*  修复 column/bar 图例设置 & demo 更新 ([#1636](https://github.com/antvis/g2plot/pull/1636)) ([b2dfd35f](https://github.com/antvis/g2plot/commit/b2dfd35fd6cfb6db5b969bccba502b8c2bf10b47))
+* **website:**  直接显示 1.x 给人感觉是当前是 1.x 版本 ([#1656](https://github.com/antvis/g2plot/pull/1656)) ([79337091](https://github.com/antvis/g2plot/commit/7933709148bc2f4e6d0b591b61f09de094cb9084))
+
 #### 2.0.0-beta.6 (2020-09-25)
 
 ##### Chores

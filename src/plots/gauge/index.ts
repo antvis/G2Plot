@@ -61,6 +61,19 @@ export class Gauge extends Plot<GaugeOptions> {
           },
         },
       },
+      statistic: {
+        title: false,
+        content: {
+          formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
+          style: {
+            opacity: 0.75,
+            fontSize: 30,
+            textAlign: 'center',
+            textBaseline: 'bottom',
+          },
+          offsetY: -16,
+        },
+      },
       meta: {
         // 两个 view 的 scale 同步到 v 上
         [RANGE_VALUE]: {

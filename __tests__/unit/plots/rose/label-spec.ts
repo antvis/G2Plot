@@ -1,26 +1,48 @@
+import { deepMix } from '@antv/util';
 import { Rose } from '../../../../src';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('rose label', () => {
+  const options = {
+    width: 400,
+    height: 300,
+    data: salesByArea,
+    xField: 'area',
+    yField: 'sales',
+    meta: {
+      sales: {
+        nice: true,
+        formatter: (v) => `${Math.floor(v / 10000)}万`,
+      },
+    },
+  };
+
+  it('false', () => {
+    const rose = new Rose(
+      createDiv('false'),
+      deepMix({}, options, {
+        label: false,
+      })
+    );
+
+    rose.render();
+    const geometry = rose.chart.geometries[0];
+
+    // @ts-ignore
+    expect(geometry.labelOption.cfg).toBeUndefined();
+  });
+
   it('position top', () => {
-    const rose = new Rose(createDiv('position top'), {
-      width: 400,
-      height: 300,
-      data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
-      meta: {
-        sales: {
-          nice: true,
-          formatter: (v) => `${Math.floor(v / 10000)}万`,
+    const rose = new Rose(
+      createDiv('position top'),
+      deepMix({}, options, {
+        label: {
+          fields: ['sales'],
+          position: 'top',
         },
-      },
-      label: {
-        fields: ['sales'],
-        position: 'top',
-      },
-    });
+      })
+    );
 
     rose.render();
 
@@ -38,25 +60,16 @@ describe('rose label', () => {
   });
 
   it('position middle', () => {
-    const rose = new Rose(createDiv('position middle'), {
-      width: 400,
-      height: 300,
-      data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
-      meta: {
-        sales: {
-          nice: true,
-          formatter: (v) => `${Math.floor(v / 10000)}万`,
+    const rose = new Rose(
+      createDiv('position middle'),
+      deepMix({}, options, {
+        label: {
+          position: 'middle',
         },
-      },
-      label: {
-        position: 'middle',
-      },
-    });
+      })
+    );
 
     rose.render();
-
     const geometry = rose.chart.geometries[0];
 
     // @ts-ignore
@@ -64,25 +77,16 @@ describe('rose label', () => {
   });
 
   it('position bottom', () => {
-    const rose = new Rose(createDiv('position bottom'), {
-      width: 400,
-      height: 300,
-      data: salesByArea,
-      xField: 'area',
-      yField: 'sales',
-      meta: {
-        sales: {
-          nice: true,
-          formatter: (v) => `${Math.floor(v / 10000)}万`,
+    const rose = new Rose(
+      createDiv('position bottom'),
+      deepMix({}, options, {
+        label: {
+          position: 'bottom',
         },
-      },
-      label: {
-        position: 'bottom',
-      },
-    });
+      })
+    );
 
     rose.render();
-
     const geometry = rose.chart.geometries[0];
 
     // @ts-ignore
@@ -90,25 +94,18 @@ describe('rose label', () => {
   });
 
   it('group rose position top', () => {
-    const rose = new Rose(createDiv('group rose position top'), {
-      width: 400,
-      height: 300,
-      data: subSalesByArea,
-      xField: 'area',
-      yField: 'sales',
-      seriesField: 'series',
-      isGroup: true,
-      meta: {
-        sales: {
-          nice: true,
-          formatter: (v) => `${Math.floor(v / 10000)}万`,
+    const rose = new Rose(
+      createDiv('group rose position top'),
+      deepMix({}, options, {
+        data: subSalesByArea,
+        seriesField: 'series',
+        isGroup: true,
+        label: {
+          fields: ['sales'],
+          position: 'top',
         },
-      },
-      label: {
-        fields: ['sales'],
-        position: 'top',
-      },
-    });
+      })
+    );
 
     rose.render();
 
@@ -127,25 +124,18 @@ describe('rose label', () => {
   });
 
   it('group rose position middle', () => {
-    const rose = new Rose(createDiv('group rose position middle'), {
-      width: 400,
-      height: 300,
-      data: subSalesByArea,
-      xField: 'area',
-      yField: 'sales',
-      seriesField: 'series',
-      isGroup: true,
-      meta: {
-        sales: {
-          nice: true,
-          formatter: (v) => `${Math.floor(v / 10000)}万`,
+    const rose = new Rose(
+      createDiv('group rose position middle'),
+      deepMix({}, options, {
+        data: subSalesByArea,
+        seriesField: 'series',
+        isGroup: true,
+        label: {
+          fields: ['sales'],
+          position: 'middle',
         },
-      },
-      label: {
-        fields: ['sales'],
-        position: 'middle',
-      },
-    });
+      })
+    );
 
     rose.render();
 
@@ -164,25 +154,18 @@ describe('rose label', () => {
   });
 
   it('group rose position bottom', () => {
-    const rose = new Rose(createDiv('group rose position bottom'), {
-      width: 400,
-      height: 300,
-      data: subSalesByArea,
-      xField: 'area',
-      yField: 'sales',
-      seriesField: 'series',
-      isGroup: true,
-      meta: {
-        sales: {
-          nice: true,
-          formatter: (v) => `${Math.floor(v / 10000)}万`,
+    const rose = new Rose(
+      createDiv('group rose position bottom'),
+      deepMix({}, options, {
+        data: subSalesByArea,
+        seriesField: 'series',
+        isGroup: true,
+        label: {
+          fields: ['sales'],
+          position: 'bottom',
         },
-      },
-      label: {
-        fields: ['sales'],
-        position: 'bottom',
-      },
-    });
+      })
+    );
 
     rose.render();
 

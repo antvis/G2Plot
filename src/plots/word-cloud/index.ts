@@ -48,15 +48,17 @@ export class WordCloud extends Plot<WordCloudOptions> {
       return;
     }
 
-    processImageMask(imageMask, (img) => {
-      this.options = {
-        ...this.options,
-        imageMask: img || null,
-      };
+    processImageMask(imageMask)
+      .then((img) => {
+        this.options = {
+          ...this.options,
+          imageMask: img || null,
+        };
 
-      // 调用父类渲染函数
-      super.render();
-    });
+        // 调用父类渲染函数
+        super.render();
+      })
+      .catch(super.render);
   }
 
   /**

@@ -82,6 +82,8 @@ export function legend(params: Params<LineOptions>): Params<LineOptions> {
 
   if (legend && seriesField) {
     chart.legend(seriesField, legend);
+  } else if (legend === false) {
+    chart.legend(false);
   }
 
   return params;

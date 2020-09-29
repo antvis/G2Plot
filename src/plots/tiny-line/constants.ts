@@ -1,5 +1,4 @@
 import { get } from '@antv/util';
-import { Data } from '../../types';
 
 export const DEFAULT_TOOLTIP_OPTIONS = {
   showTitle: false,

@@ -1,4 +1,4 @@
-import { Datum, P, Params } from '../../../../src';
+import { P, Params } from '../../../../src';
 import { geometry, GeometryOptions } from '../../../../src/adaptor/geometries/base';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';

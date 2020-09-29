@@ -1,4 +1,4 @@
-import { isString, isArray, isFunction } from '@antv/util';
+import { isString, isArray, isFunction, clamp } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -17,7 +17,9 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { ticks, color } = range;
 
   // 指标 & 指针
-  const indicatorData = [{ [PERCENT]: percent }];
+  const indicatorData = [{ [PERCENT]: clamp(percent, 0, 1) }];
+  console.log(indicatorData, percent, clamp(percent, 0, 1));
+
   const v1 = chart.createView();
   v1.data(indicatorData);
 

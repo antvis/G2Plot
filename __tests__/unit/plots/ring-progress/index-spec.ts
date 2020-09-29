@@ -221,4 +221,42 @@ describe('ring-progress', () => {
 
     expect(ring.chart.geometries[0].getAttribute('color').values).toEqual(['green', '#E8EDF3']);
   });
+
+  it('> 1, < 0', () => {
+    const ring = new RingProgress(createDiv(), {
+      width: 600,
+      height: 300,
+      autoFit: false,
+      percent: 1.65,
+    });
+
+    ring.render();
+
+    expect(ring.chart.getData()).toEqual([
+      {
+        type: 'current',
+        percent: 1,
+      },
+      {
+        type: 'target',
+        percent: 0,
+      },
+    ]);
+
+    ring.update({
+      ...ring.options,
+      percent: -1.65,
+    });
+
+    expect(ring.chart.getData()).toEqual([
+      {
+        type: 'current',
+        percent: 0,
+      },
+      {
+        type: 'target',
+        percent: 1,
+      },
+    ]);
+  });
 });

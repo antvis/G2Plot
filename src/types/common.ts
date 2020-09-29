@@ -95,6 +95,8 @@ export type Options = {
   readonly pixelRatio?: number;
   /** 是否开启局部渲染，默认为 true */
   readonly localRefresh?: boolean;
+  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  readonly supportCSSTransform?: boolean;
 
   // 通用数据配置
   /** 具体的数据 */

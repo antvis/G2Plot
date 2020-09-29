@@ -140,6 +140,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
   public render() {
     // 暴力处理，先清空再渲染，需要 G2 层自行做好更新渲染
     this.chart.clear();
+    this.chart.views = []; // 删除已有的 views
     // 执行 adaptor
     this.execAdaptor();
     // 渲染

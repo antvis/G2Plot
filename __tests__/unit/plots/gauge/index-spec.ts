@@ -113,4 +113,32 @@ describe('gauge', () => {
 
     expect(gauge.options.range.ticks).toEqual([0, 0.65, 1]);
   });
+
+  it('> 1, < 0', () => {
+    const gauge = new Gauge(createDiv(), {
+      width: 600,
+      height: 300,
+      autoFit: false,
+      percent: 1.65,
+      range: {
+        color: ['l(0) 0:#5d7cef 1:#e35767'],
+      },
+    });
+
+    gauge.render();
+    // @ts-ignore
+    window.gauge = gauge;
+
+    expect(gauge.chart.views[0].getData()).toEqual([{ percent: 1 }]);
+
+    gauge.update({
+      ...gauge.options,
+      percent: -1.65,
+    });
+
+    expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0 }]);
+
+    // 多 view 的时候，防止 update 的时候 view 泄露
+    expect(gauge.chart.views.length).toBe(2);
+  });
 });

@@ -1,3 +1,4 @@
+import { clamp } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { GaugeOptions } from './types';
@@ -20,7 +21,7 @@ export class Gauge extends Plot<GaugeOptions> {
     return {
       percent: 0, // 当前指标值
       range: {
-        ticks: [0, percent, 1],
+        ticks: [0, clamp(percent, 0, 1), 1],
       }, // 默认的刻度
       innerRadius: 0.9,
       radius: 0.95,

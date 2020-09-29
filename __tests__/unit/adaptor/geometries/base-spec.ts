@@ -1,4 +1,4 @@
-import { P, Params } from '../../../../src';
+import { Datum, P, Params } from '../../../../src';
 import { geometry, GeometryOptions } from '../../../../src/adaptor/geometries/base';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -132,6 +132,22 @@ describe('adaptor - geometry', () => {
       type: 'Ind/Oth',
       value: 1800,
     });
+  });
+
+  it('color with colorField and interval', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type',
+      mapping: {
+        color: function () {
+          return 'red';
+        },
+      },
+    });
+
+    expect(plot.chart.geometries[0].type).toBe('interval');
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'date', 'value']);
   });
 
   it('size without sizeField', () => {

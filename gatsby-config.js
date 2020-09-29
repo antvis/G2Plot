@@ -153,6 +153,14 @@ module.exports = {
         },
       },
       {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
         slug: 'tiny-line',
         icon: 'line',
         title: {
@@ -166,14 +174,6 @@ module.exports = {
         title: {
           zh: '迷你面积图',
           en: 'Tiny Area',
-        },
-      },
-      {
-        slug: 'liquid',
-        icon: 'other',
-        title: {
-          zh: '水波图',
-          en: 'Liquid Charts',
         },
       },
       {

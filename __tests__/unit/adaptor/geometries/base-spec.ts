@@ -134,6 +134,22 @@ describe('adaptor - geometry', () => {
     });
   });
 
+  it('color with colorField and interval', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type',
+      mapping: {
+        color: function () {
+          return 'red';
+        },
+      },
+    });
+
+    expect(plot.chart.geometries[0].type).toBe('interval');
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'date', 'value']);
+  });
+
   it('size without sizeField', () => {
     let p;
     const plot = getPlot('interval', {

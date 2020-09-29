@@ -57,6 +57,14 @@ module.exports = {
     ],
     examples: [
       {
+        slug: 'gallery',
+        icon: 'gallery',
+        title: {
+          zh: '官方精品库',
+          en: 'Featured',
+        },
+      },
+      {
         slug: 'line',
         icon: 'line', // 图表名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {

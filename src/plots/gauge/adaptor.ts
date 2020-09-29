@@ -18,7 +18,6 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   // 指标 & 指针
   const indicatorData = [{ [PERCENT]: clamp(percent, 0, 1) }];
-  console.log(indicatorData, percent, clamp(percent, 0, 1));
 
   const v1 = chart.createView();
   v1.data(indicatorData);

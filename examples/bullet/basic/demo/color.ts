@@ -24,6 +24,9 @@ const bulletPlot = new Bullet('container', {
     line: null,
   },
   yAxis: false,
+  label: {
+    target: true,
+  },
   // 自定义 legend
   legend: {
     custom: true,

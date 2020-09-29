@@ -26,7 +26,7 @@ const bulletPlot = new Bullet('container', {
   },
   yAxis: false,
   layout: 'vertical',
-  bulletLabel: {
+  label: {
     measure: {
       position: 'middle',
       style: {

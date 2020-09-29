@@ -123,6 +123,23 @@ bulletPlot.render();
 type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 
 ```
+
+### label ✨
+
+**可选**, _object_
+
+功能描述： 设置子弹图各图形 label 属性。
+
+默认配置： 无
+
+| 细分配置 | 类型       | 功能描述     | 默认配置 |
+| -------- | ---------- | ------------ | -------- |
+| range    | _GeometryLabelAttr_ | 区间的 label 属性 | 无      |
+| measure  | _GeometryLabelAttr_ | 实际值的 label 属性   |   true     |
+| target   | _GeometryLabelAttr_ | 目标值的 label 属性  | 无       |
+
+`markdown:docs/common/label.en.md`
+
 ### 图表组件
 
 `markdown:docs/common/component.en.md`

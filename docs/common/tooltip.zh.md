@@ -1,4 +1,4 @@
-#### follow
+##### follow
 
 <description>**可选** _boolean_</description>
 
@@ -6,7 +6,7 @@
 
 默认配置：`true`
 
-#### enterable
+##### enterable
 
 <description>**可选** _boolean_</description>
 
@@ -14,7 +14,7 @@
 
 默认配置：`false`
 
-#### showTitle
+##### showTitle
 
 <description>**可选** _boolean_</description>
 
@@ -22,7 +22,7 @@
 
 默认配置：`false`
 
-#### title
+##### title
 
 <description>**可选** _string_</description>
 
@@ -30,7 +30,7 @@
 
 默认配置：`无`
 
-#### position
+##### position
 
 <description>**可选** _`top` | `bottom` | `left` | `right`_</description>
 
@@ -38,29 +38,27 @@
 
 默认配置：`无`
 
-#### shared
+##### shared
 
 <description>**可选** _boolean_</description>
 
 功能描述：true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
 
-默认配置：`true`
+默认配置：`无`
 
-#### showCrosshairs
+##### showCrosshairs
 
 <description>**可选** _boolean_</description>
 
 功能描述：是否展示 crosshairs。
 
-默认配置：`true`
+默认配置：`false`
 
-#### crosshairs
+##### crosshairs
 
 <description>**可选** _object_</description>
 
 功能描述：配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
-
-默认配置：`type: x`
 
 | 细分配置项名称 | 类型                   | 功能描述                                                            |
 | -------------- | ---------------------- | ------------------------------------------------------------------- |
@@ -70,26 +68,26 @@
 | textBackground | _textBackgroundStyle_  | 辅助线文本背景配置                                                  |
 | follow         | _boolean_              | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
 
-##### lineStyle
+**_lineStyle_**
 
 `markdown:docs/common/line-style.zh.md`
 
-##### textStyle
+**_*textStyle*_**
 
 `markdown:docs/common/text-style.zh.md`
 
-##### textBackgroundStyle
+**_textBackgroundStyle_**
 
 | 细分配置项名称 | 类型               | 功能描述           |
 | -------------- | ------------------ | ------------------ |
 | padding        | number \| number[] | 文本背景周围的留白 |
 | style          | _shapeStyle_       | 线的配置项         |
 
-##### shapeStyle
+**_shapeStyle_**
 
 `markdown:docs/common/shape-style.zh.md`
 
-#### showMarkers
+##### showMarkers
 
 <description>**可选** _boolean_</description>
 
@@ -97,7 +95,7 @@
 
 默认配置：`true`
 
-#### marker
+##### marker
 
 <description>**可选** _object_</description>
 
@@ -105,7 +103,7 @@
 
 默认配置：`无`
 
-#### showContent
+##### showContent
 
 <description>**可选** _boolean_</description>
 
@@ -113,7 +111,7 @@
 
 默认配置：`false`
 
-#### container
+##### container
 
 <description>**可选** _string|HTMLElement_</description>
 
@@ -121,7 +119,7 @@
 
 默认配置：`无`
 
-#### containerTpl
+##### containerTpl
 
 <description>**可选** _string_</description>
 
@@ -129,7 +127,7 @@
 
 默认配置：`无`
 
-#### itemTpl
+##### itemTpl
 
 <description>**可选** _string_</description>
 
@@ -137,9 +135,9 @@
 
 默认配置：`无`
 
-#### domStyles
+##### domStyles
 
-<description>**可选** _object_</description>
+<description>**可选** _TooltipDomStyles_</description>
 
 功能描述：传入各个 dom 的样式。
 
@@ -160,7 +158,7 @@
 }
 ```
 
-#### offset
+##### offset
 
 <description>**可选** _number_</description>
 
@@ -168,7 +166,7 @@
 
 默认配置：`无`
 
-#### customContent
+##### customContent
 
 <description>**可选** _Function_</description>
 

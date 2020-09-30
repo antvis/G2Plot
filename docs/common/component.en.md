@@ -16,6 +16,10 @@ Same for xAxis and yAxis.
 
 `markdown:docs/common/legend.en.md`
 
+#### slider
+
+`markdown:docs/common/slider.en.md`
+
 #### theme
 
 `markdown:docs/common/theme.en.md`

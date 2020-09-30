@@ -14,19 +14,19 @@ lengend: {
 }
 ```
 
-#### layout
+##### layout
 
 <description>**可选** _horizontal | vertical_ </description>
 
 功能描述：布局方式
 
-#### position
+##### position
 
 <description>**可选** _top | top-left | top-right | right | right-top | right-bottom | left | left-top | left-bottom | bottom | bottom-left | bottom-right_ </description>
 
 功能描述：图例的位置。
 
-#### background
+##### background
 
 <description>**可选** _LegendBackgroundCfg_ </description>
 
@@ -37,13 +37,13 @@ lengend: {
 | padding | number \| number[]  |          | -      | 背景的留白     |
 | style   | object 参考绘图属性 |          | -      | 背景样式配置项 |
 
-#### flipPage
+##### flipPage
 
 <description>**可选** _boolean_ </description>
 
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
 
-#### handler
+##### handler
 
 <description>**可选** _ContinueLegendHandlerCfg_ </description>
 功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。_ContinueLegendHandlerCfg_ 配置如下：
@@ -53,19 +53,19 @@ lengend: {
 | size   | number              |          | -      | 滑块的大小     |
 | style  | object 参考绘图属性 |          | -      | 滑块的样式设置 |
 
-#### itemHeight
+##### itemHeight
 
 <description>**可选** _number_ </description>
 
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例的高度，默认为 null。
 
-#### itemWidth
+##### itemWidth
 
 <description>**可选** _number_ </description>
 
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的宽度, 默认为 null，自动计算。
 
-#### itemName
+##### itemName
 
 <description>**可选** _LegendItemNameCfg_ </description>
 
@@ -77,13 +77,13 @@ lengend: {
 | spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
 | formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
 
-#### itemSpacing
+##### itemSpacing
 
 <description>**可选** _number_ </description>
 
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，控制图例项水平方向的间距。
 
-#### itemValue
+##### itemValue
 
 <description>**可选** _LegendItemValueCfg_ </description>
 
@@ -95,19 +95,19 @@ lengend: {
 | alignRight | boolean                                                 |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
 | formatter  | `(text: string, item: ListItem, index: number) => any;` |          |         | 格式化函数                                         |
 
-#### animate
+##### animate
 
 <description>**可选** _boolean_ </description>
 
 功能描述：是否开启动画开关。
 
-#### animateOption
+##### animateOption
 
 <description>**可选** _ComponentAnimateOption_ </description>
 
 功能描述：动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
 
-#### label
+##### label
 
 <description>**可选** _ContinueLegendLabelCfg_ </description>
 
@@ -119,7 +119,7 @@ lengend: {
 | style   | object 参考绘图属性 |          | -      | 文本样式配置项                                                                                                                                |
 | spacing | number              |          | -      | 文本同滑轨的距离                                                                                                                              |
 
-#### maker
+##### maker
 
 <description>**可选** _MarkerCfg_ </description>
 
@@ -127,43 +127,43 @@ lengend: {
 
 `markdown:docs/common/marker.en.md`
 
-#### min
+##### min
 
 <description>**可选** _number_ </description>
 
 功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最小值。
 
-#### max
+##### max
 
 <description>**可选** _number_ </description>
 
 功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最大值。
 
-#### maxWidth
+##### maxWidth
 
 <description>**可选** _number_ </description>
 功能描述：
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
 
-#### maxHeight
+##### maxHeight
 
 <description>**可选** _number_ </description>
 功能描述：
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。
 
-#### offsetX
+##### offsetX
 
 <description>**可选** _number_ </description>
 
 功能描述：图例 x 方向的偏移。
 
-#### offsetY
+##### offsetY
 
 <description>**可选** _number_ </description>
 
 功能描述：图例 y 方向的偏移。
 
-#### rail
+##### rail
 
 <description>**可选** _ContinueLegendRailCfg_ </description>
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例滑轨（背景）的样式配置项。_ContinueLegendRailCfg_ 配置如下：
@@ -175,17 +175,17 @@ lengend: {
 | defaultLength | number              |          | -      | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
 | style         | object 参考绘图属性 |          | -      | 滑轨的样式                                                                       |
 
-#### reversed
+##### reversed
 
 <description>**可选** _boolean_ </description>
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，是否将图例项逆序展示。
 
-#### slidable
+##### slidable
 
 <description>**可选** _boolean_ </description>
 功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块是否可以滑动。
 
-#### title
+##### title
 
 <description>**可选** _G2LegendTitleCfg_ </description>
 
@@ -196,7 +196,7 @@ lengend: {
 | spacing | number              |          | -      | 标题同图例项的间距 |
 | style   | object 参考绘图属性 |          | -      | 文本样式配置项     |
 
-#### track
+##### track
 
 <description>**可选** _ContinueLegendTrackCfg_ </description>
 功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的色块样式配置项。_ContinueLegendTrackCfg_ 配置如下：
@@ -205,18 +205,18 @@ lengend: {
 | ------ | ------------------- | -------- | ------ | -------------- |
 | style  | object 参考绘图属性 |          | -      | 选定范围的样式 |
 
-#### values
+##### values
 
 <description>**可选** _number[]_ </description>
 功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择的值。
 
-#### custom
+##### custom
 
 <description>**可选** _boolean_ </description>
 
 是否为自定义图例，当该属性为 true 时，需要声明 items 属性。
 
-#### items
+##### items
 
 <description>**可选** _LegendItem[]_ </description>
 功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，用户自己配置图例项的内容。_LegendItem_ 配置如下：

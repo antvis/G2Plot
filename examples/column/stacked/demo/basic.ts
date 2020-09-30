@@ -99,7 +99,7 @@ const stackedColumnPlot = new Column('container', {
   xField: 'year',
   yField: 'value',
   seriesField: 'type',
-  color: ['#1ca9e6', '#f88c24'],
+  color: ['#ae331b', '#1a6179'],
 });
 
 stackedColumnPlot.render();

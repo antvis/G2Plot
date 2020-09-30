@@ -2,12 +2,12 @@
 
 ```ts
 // 绑定事件
-chart.on('eName', callback);
+chart.on('eventName', callback);
 // 移除事件
-chart.off('eName', callback);
+chart.off('eventName', callback);
 ```
 
-#### eName
+#### eventName
 
 组成方式：element + ':' + es 。
 

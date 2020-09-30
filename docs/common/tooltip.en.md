@@ -1,4 +1,4 @@
-#### follow
+##### follow
 
 <description>**可选** _boolean_</description>
 
@@ -6,7 +6,7 @@
 
 默认配置：`true`
 
-#### enterable
+##### enterable
 
 <description>**可选** _boolean_</description>
 
@@ -14,7 +14,7 @@
 
 默认配置：`false`
 
-#### showTitle
+##### showTitle
 
 <description>**可选** _boolean_</description>
 
@@ -22,7 +22,7 @@
 
 默认配置：`false`
 
-#### title
+##### title
 
 <description>**可选** _string_</description>
 
@@ -30,7 +30,7 @@
 
 默认配置：`无`
 
-#### position
+##### position
 
 <description>**可选** _`top` | `bottom` | `left` | `right`_</description>
 
@@ -38,7 +38,7 @@
 
 默认配置：`无`
 
-#### shared
+##### shared
 
 <description>**可选** _boolean_</description>
 
@@ -46,7 +46,7 @@
 
 默认配置：`无`
 
-#### showCrosshairs
+##### showCrosshairs
 
 <description>**可选** _boolean_</description>
 
@@ -54,7 +54,7 @@
 
 默认配置：`false`
 
-#### crosshairs
+##### crosshairs
 
 <description>**可选** _object_</description>
 
@@ -68,26 +68,26 @@
 | textBackground | _textBackgroundStyle_  | 辅助线文本背景配置                                                  |
 | follow         | _boolean_              | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
 
-##### lineStyle
+**_lineStyle_**
 
 `markdown:docs/common/line-style.en.md`
 
-##### textStyle
+**_*textStyle*_**
 
 `markdown:docs/common/text-style.en.md`
 
-##### textBackgroundStyle
+**_textBackgroundStyle_**
 
 | 细分配置项名称 | 类型               | 功能描述           |
 | -------------- | ------------------ | ------------------ |
 | padding        | number \| number[] | 文本背景周围的留白 |
 | style          | _shapeStyle_       | 线的配置项         |
 
-##### shapeStyle
+**_shapeStyle_**
 
 `markdown:docs/common/shape-style.en.md`
 
-#### showMarkers
+##### showMarkers
 
 <description>**可选** _boolean_</description>
 
@@ -95,7 +95,7 @@
 
 默认配置：`true`
 
-#### marker
+##### marker
 
 <description>**可选** _object_</description>
 
@@ -103,7 +103,7 @@
 
 默认配置：`无`
 
-#### showContent
+##### showContent
 
 <description>**可选** _boolean_</description>
 
@@ -111,7 +111,7 @@
 
 默认配置：`false`
 
-#### container
+##### container
 
 <description>**可选** _string|HTMLElement_</description>
 
@@ -119,7 +119,7 @@
 
 默认配置：`无`
 
-#### containerTpl
+##### containerTpl
 
 <description>**可选** _string_</description>
 
@@ -127,7 +127,7 @@
 
 默认配置：`无`
 
-#### itemTpl
+##### itemTpl
 
 <description>**可选** _string_</description>
 
@@ -135,7 +135,7 @@
 
 默认配置：`无`
 
-#### domStyles
+##### domStyles
 
 <description>**可选** _TooltipDomStyles_</description>
 
@@ -158,7 +158,7 @@
 }
 ```
 
-#### offset
+##### offset
 
 <description>**可选** _number_</description>
 
@@ -166,7 +166,7 @@
 
 默认配置：`无`
 
-#### customContent
+##### customContent
 
 <description>**可选** _Function_</description>
 

@@ -16,6 +16,10 @@ xAxis、yAxis 配置相同（由于 DualAxes 是双轴， yAxis 类型是数组�
 
 `markdown:docs/common/legend.zh.md`
 
+#### slider
+
+`markdown:docs/common/slider.zh.md`
+
 #### theme
 
 `markdown:docs/common/theme.zh.md`

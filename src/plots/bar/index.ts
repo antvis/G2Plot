@@ -18,7 +18,7 @@ export class Bar extends Plot<BarOptions> {
    * 获取 条形图 默认配置
    */
   protected getDefaultOptions(options: BarOptions) {
-    const { isPercent, isRange, label, xField } = options;
+    const { isPercent, isRange, label, xField, yField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       label:
         label && isRange
@@ -40,6 +40,11 @@ export class Bar extends Plot<BarOptions> {
           : '',
       },
       interactions: [{ type: 'active-region' }],
+      meta: {
+        [yField]: {
+          type: 'cat',
+        },
+      },
     });
   }
 

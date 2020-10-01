@@ -18,7 +18,7 @@ export class Column extends Plot<ColumnOptions> {
    * 获取 柱形图 默认配置
    */
   protected getDefaultOptions(options: ColumnOptions) {
-    const { isPercent, isRange, label, yField } = options;
+    const { isPercent, isRange, label, yField, xField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       label:
         label && isRange
@@ -40,6 +40,11 @@ export class Column extends Plot<ColumnOptions> {
           : '',
       },
       interactions: [{ type: 'active-region' }],
+      meta: {
+        [xField]: {
+          type: 'cat',
+        },
+      },
     });
   }
 

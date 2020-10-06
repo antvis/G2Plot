@@ -2,6 +2,10 @@ import { AxisOption } from '@antv/g2/lib/interface';
 
 export type Axis = AxisOption & {
   /**
+   * 坐标轴类型
+   */
+  readonly type?: string;
+  /**
    * 是否美化
    */
   readonly nice?: boolean;

@@ -241,12 +241,12 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {
-        const { value: field, isGeometry } = delegateObject.item;
+        const { value: field, isGeometry, viewId } = delegateObject.item;
         // geometry 的时候，直接使用 view.changeVisible
         if (isGeometry) {
           const idx = findIndex(yField, (yF: string) => yF === field);
           if (idx > -1) {
-            const geometries = get(chart.views, [idx, 'geometries']);
+            const geometries = get(findViewById(chart, viewId), 'geometries');
             each(geometries, (g) => {
               g.changeVisible(!delegateObject.item.unchecked);
             });

@@ -33,7 +33,7 @@ const data = [
   { time: '2020-09-18', consumeTime: 10424, completeTime: 753.583 },
 ];
 
-const dualAxesChart = new DualAxes('container', {
+const dualAxes = new DualAxes('container', {
   data: [data, data],
   xField: 'time',
   yField: ['consumeTime', 'completeTime'],
@@ -94,4 +94,4 @@ const dualAxesChart = new DualAxes('container', {
   },
 });
 
-dualAxesChart.render();
+dualAxes.render();

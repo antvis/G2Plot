@@ -49,7 +49,7 @@ export function getGeometryOption(geometryOption: GeometryOption, axis: AxisType
  */
 export function getOption(options: DualAxesOptions): DualAxesOptions {
   // TODO antvis util 中 map 没有办法处理 undefined！！！
-  const { yAxis, geometryOptions } = options;
+  const { yAxis = [], geometryOptions = [] } = options;
 
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,

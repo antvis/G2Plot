@@ -38,48 +38,42 @@ describe('DualAxes option', () => {
     });
 
     // @ts-ignore
-    expect(getOption({ yAxis: [false, false], geometryOptions: [] }).yAxis).toEqual({
-      yAxis: [false, false],
-    });
+    expect(getOption({ yAxis: [false, false], geometryOptions: [] }).yAxis).toEqual([false, false]);
 
     // @ts-ignore
-    expect(getOption({ yAxis: [], geometryOptions: [] }).yAxis).toEqual({
-      yAxis: [
-        {
-          nice: true,
-          label: {
-            autoHide: true,
-            autoRotate: false,
-          },
+    expect(getOption({ yAxis: [], geometryOptions: [] }).yAxis).toEqual([
+      {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
         },
-        {
-          nice: true,
-          label: {
-            autoHide: true,
-            autoRotate: false,
-          },
+      },
+      {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
         },
-      ],
-    });
+      },
+    ]);
 
     // @ts-ignore
-    expect(getOption({ geometryOptions: [] }).yAxis).toEqual({
-      yAxis: [
-        {
-          nice: true,
-          label: {
-            autoHide: true,
-            autoRotate: false,
-          },
+    expect(getOption({ geometryOptions: [] }).yAxis).toEqual([
+      {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
         },
-        {
-          nice: true,
-          label: {
-            autoHide: true,
-            autoRotate: false,
-          },
+      },
+      {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
         },
-      ],
-    });
+      },
+    ]);
   });
 });

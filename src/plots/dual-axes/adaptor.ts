@@ -23,7 +23,6 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  console.log(getOption(params.options));
   return deepMix({}, params, {
     options: getOption(params.options),
   });
@@ -36,17 +35,24 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
 function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
-  const [leftGeometryOptions, rightGeometryOptions] = geometryOptions;
-  let leftView, rightView;
 
-  // 对于左线右柱的，将线的 view 放置在更上一层，防止线柱遮挡
-  if (isLine(leftGeometryOptions) && isColumn(rightGeometryOptions)) {
-    rightView = chart.createView({ id: RIGHT_AXES_VIEW }).data(data[1]);
-    leftView = chart.createView({ id: LEFT_AXES_VIEW }).data(data[0]);
-  } else {
-    leftView = chart.createView({ id: LEFT_AXES_VIEW }).data(data[0]);
-    rightView = chart.createView({ id: RIGHT_AXES_VIEW }).data(data[1]);
-  }
+  const SORT_MAP = { line: 0, column: 1 };
+
+  // 包含配置，id，数据的结构
+  const geometries = [
+    { ...geometryOptions[0], id: LEFT_AXES_VIEW, data: data[0] },
+    { ...geometryOptions[1], id: RIGHT_AXES_VIEW, data: data[1] },
+  ];
+
+  // 将线的 view 放置在更上一层，防止线柱遮挡。先柱后先
+  geometries
+    .sort((a, b) => -SORT_MAP[a.geometry] + SORT_MAP[b.geometry])
+    .forEach(({ id, data }) => {
+      chart.createView({ id }).data(data);
+    });
+
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
 
   // 左轴图形
   drawSingleGeometry({
@@ -54,7 +60,7 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
     options: {
       xField,
       yField: yField[0],
-      geometryOption: leftGeometryOptions,
+      geometryOption: geometryOptions[0],
     },
   });
 
@@ -64,9 +70,10 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
     options: {
       xField,
       yField: yField[1],
-      geometryOption: rightGeometryOptions,
+      geometryOption: geometryOptions[1],
     },
   });
+
   return params;
 }
 

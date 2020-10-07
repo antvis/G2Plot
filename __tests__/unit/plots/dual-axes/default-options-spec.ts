@@ -21,7 +21,7 @@ describe('default options', () => {
     expect(dualAxes.options.tooltip.showMarkers).toEqual(true);
   });
 
-  it('default options', () => {
+  it('line column', () => {
     const dualAxes = new DualAxes(createDiv(), {
       height: 500,
       data: [PV_DATA, UV_DATA_MULTI],

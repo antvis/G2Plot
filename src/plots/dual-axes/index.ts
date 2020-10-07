@@ -22,6 +22,8 @@ export class DualAxes extends Plot<DualAxesOptions> {
     );
 
     return deepMix({}, super.getDefaultOptions(options), {
+      yAxis: [],
+      geometryOptions: [],
       meta: {
         [xField]: {
           // x 轴一定是同步 scale 的

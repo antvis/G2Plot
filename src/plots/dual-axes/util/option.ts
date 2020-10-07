@@ -1,25 +1,25 @@
-import { deepMix } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import {
   DualAxesOptions,
   GeometryOption,
   DualAxesGeometry,
   GeometryLineOption,
-  AxisType,
   GeometryColumnOption,
+  AxisType,
 } from '../types';
 
 /**
  * 根据 GeometryOption 判断 geometry 是否为 line
  */
 export function isLine(geometryOption: GeometryOption): geometryOption is GeometryLineOption {
-  return geometryOption && geometryOption.geometry && geometryOption.geometry === DualAxesGeometry.Line;
+  return get(geometryOption, 'geometry') === DualAxesGeometry.Line;
 }
 
 /**
  * 根据 GeometryOption 判断 geometry 是否为 Column
  */
 export function isColumn(geometryOption: GeometryOption): geometryOption is GeometryColumnOption {
-  return geometryOption && geometryOption.geometry && geometryOption.geometry === DualAxesGeometry.Column;
+  return get(geometryOption, 'geometry') === DualAxesGeometry.Column;
 }
 
 /**
@@ -28,38 +28,28 @@ export function isColumn(geometryOption: GeometryOption): geometryOption is Geom
  * @param axis
  */
 export function getGeometryOption(geometryOption: GeometryOption, axis: AxisType): GeometryOption {
-  // 柱子默认设置，柱子颜色使用 g2 设置
-  if (isColumn(geometryOption)) {
-    return deepMix(
-      {},
-      {
+  // 空默认为线
+  return isColumn(geometryOption)
+    ? {
         geometry: DualAxesGeometry.Column,
-        columnWidthRatio: 0.5,
-      },
-      geometryOption
-    );
-  }
-
-  // 线默认设置，默认为线，线颜色默认左蓝右红
-  return deepMix(
-    {
-      color: axis === AxisType.Left ? '#5B8FF9' : '#E76C5E',
-    },
-    {
-      geometry: DualAxesGeometry.Line,
-      connectNulls: true,
-      smooth: false,
-    },
-    geometryOption || {}
-  );
+        ...geometryOption,
+      }
+    : {
+        geometry: DualAxesGeometry.Line,
+        color: axis === AxisType.Left ? '#5B8FF9' : '#E76C5E',
+        ...geometryOption,
+      };
 }
 
 /**
- * 获取 Option
+ * 主要因为双轴图的 yAxis 和 geometryOptions 是数组，所以需要额外分别进行设置默认值
+ * 1. yAxis
+ * 2. geometryOptions
  * @param options
  */
 export function getOption(options: DualAxesOptions): DualAxesOptions {
-  const { yAxis = [], geometryOptions = [] } = options;
+  // TODO antvis util 中 map 没有办法处理 undefined！！！
+  const { yAxis, geometryOptions } = options;
 
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,
@@ -70,10 +60,12 @@ export function getOption(options: DualAxesOptions): DualAxesOptions {
   };
 
   const formatOptions = deepMix({}, options, {
+    // yAxis
     yAxis: [
       yAxis[0] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
       yAxis[1] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
     ],
+    // geometryOptions
     geometryOptions: [
       getGeometryOption(geometryOptions[0], AxisType.Left),
       getGeometryOption(geometryOptions[1], AxisType.Right),

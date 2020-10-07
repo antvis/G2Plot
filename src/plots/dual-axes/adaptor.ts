@@ -23,6 +23,7 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  console.log(getOption(params.options));
   return deepMix({}, params, {
     options: getOption(params.options),
   });
@@ -98,14 +99,13 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-  const { xField, yField, yAxis } = options;
-
-  let { xAxis } = options;
+  const { xField, yField, xAxis, yAxis } = options;
 
   // 固定位置
   if (xAxis) {
-    xAxis = deepMix({}, xAxis, { position: 'bottom' });
+    deepMix(xAxis, { position: 'bottom' }); // 直接修改到 xAxis 中
   }
+
   if (yAxis[0]) {
     yAxis[0] = deepMix({}, yAxis[0], { position: 'left' });
   }
@@ -122,11 +122,9 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   // 左 View
   leftView.axis(xField, xAxis);
   leftView.axis(yField[0], yAxis[0]);
-  leftView.axis(yField[1], false);
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[0], false);
   rightView.axis(yField[1], yAxis[1]);
 
   return params;
@@ -273,6 +271,6 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
  * @param options
  */
 export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  // flow 的方式处理所有的配置到 G2 API
+  // transformOptions 一定在最前面处理
   return flow(transformOptions, geometry, meta, axis, tooltip, interaction, theme, animation, legend)(params);
 }

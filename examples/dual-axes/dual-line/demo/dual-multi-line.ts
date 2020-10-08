@@ -31,7 +31,7 @@ const transformData = [
   { time: '2019-07', count: 200, name: 'c' },
 ];
 
-const dualAxesChart = new DualAxes('container', {
+const dualAxes = new DualAxes('container', {
   data: [uvBillData, transformData],
   xField: 'time',
   yField: ['value', 'count'],
@@ -59,4 +59,4 @@ const dualAxesChart = new DualAxes('container', {
   ],
 });
 
-dualAxesChart.render();
+dualAxes.render();

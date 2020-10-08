@@ -45,6 +45,7 @@ export function getViewLegendItems(params: {
         name: get(view, `options.scales.${yField}.alias`) || yField,
         marker,
         isGeometry: true,
+        viewId: view.id,
       },
     ];
   }

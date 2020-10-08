@@ -26,7 +26,7 @@ const uvData = [
   { time: '2019-07', value: 47 },
 ];
 
-const dualAxesChart = new DualAxes('container', {
+const dualAxes = new DualAxes('container', {
   data: [transformData, uvData],
   xField: 'time',
   yField: ['count', 'value'],
@@ -58,4 +58,4 @@ const dualAxesChart = new DualAxes('container', {
   ],
 });
 
-dualAxesChart.render();
+dualAxes.render();

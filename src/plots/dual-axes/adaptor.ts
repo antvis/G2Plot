@@ -35,17 +35,24 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
 function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data } = options;
-  const [leftGeometryOptions, rightGeometryOptions] = geometryOptions;
-  let leftView, rightView;
 
-  // 对于左线右柱的，将线的 view 放置在更上一层，防止线柱遮挡
-  if (isLine(leftGeometryOptions) && isColumn(rightGeometryOptions)) {
-    rightView = chart.createView({ id: RIGHT_AXES_VIEW }).data(data[1]);
-    leftView = chart.createView({ id: LEFT_AXES_VIEW }).data(data[0]);
-  } else {
-    leftView = chart.createView({ id: LEFT_AXES_VIEW }).data(data[0]);
-    rightView = chart.createView({ id: RIGHT_AXES_VIEW }).data(data[1]);
-  }
+  const SORT_MAP = { line: 0, column: 1 };
+
+  // 包含配置，id，数据的结构
+  const geometries = [
+    { ...geometryOptions[0], id: LEFT_AXES_VIEW, data: data[0] },
+    { ...geometryOptions[1], id: RIGHT_AXES_VIEW, data: data[1] },
+  ];
+
+  // 将线的 view 放置在更上一层，防止线柱遮挡。先柱后先
+  geometries
+    .sort((a, b) => -SORT_MAP[a.geometry] + SORT_MAP[b.geometry])
+    .forEach(({ id, data }) => {
+      chart.createView({ id }).data(data);
+    });
+
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
 
   // 左轴图形
   drawSingleGeometry({
@@ -53,7 +60,7 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
     options: {
       xField,
       yField: yField[0],
-      geometryOption: leftGeometryOptions,
+      geometryOption: geometryOptions[0],
     },
   });
 
@@ -63,9 +70,10 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
     options: {
       xField,
       yField: yField[1],
-      geometryOption: rightGeometryOptions,
+      geometryOption: geometryOptions[1],
     },
   });
+
   return params;
 }
 
@@ -98,14 +106,13 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-  const { xField, yField, yAxis } = options;
-
-  let { xAxis } = options;
+  const { xField, yField, xAxis, yAxis } = options;
 
   // 固定位置
   if (xAxis) {
-    xAxis = deepMix({}, xAxis, { position: 'bottom' });
+    deepMix(xAxis, { position: 'bottom' }); // 直接修改到 xAxis 中
   }
+
   if (yAxis[0]) {
     yAxis[0] = deepMix({}, yAxis[0], { position: 'left' });
   }
@@ -122,11 +129,9 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   // 左 View
   leftView.axis(xField, xAxis);
   leftView.axis(yField[0], yAxis[0]);
-  leftView.axis(yField[1], false);
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[0], false);
   rightView.axis(yField[1], yAxis[1]);
 
   return params;
@@ -236,12 +241,12 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {
-        const { value: field, isGeometry } = delegateObject.item;
+        const { value: field, isGeometry, viewId } = delegateObject.item;
         // geometry 的时候，直接使用 view.changeVisible
         if (isGeometry) {
           const idx = findIndex(yField, (yF: string) => yF === field);
           if (idx > -1) {
-            const geometries = get(chart.views, [idx, 'geometries']);
+            const geometries = get(findViewById(chart, viewId), 'geometries');
             each(geometries, (g) => {
               g.changeVisible(!delegateObject.item.unchecked);
             });
@@ -273,6 +278,6 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
  * @param options
  */
 export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  // flow 的方式处理所有的配置到 G2 API
+  // transformOptions 一定在最前面处理
   return flow(transformOptions, geometry, meta, axis, tooltip, interaction, theme, animation, legend)(params);
 }

@@ -5,7 +5,7 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from '../../../../src/plots/dual-axes
 import { findViewById } from '../../../../src/utils/view';
 
 describe('Line-Column', () => {
-  it('Line-Colomun', () => {
+  it('Line-Colomn', () => {
     const dualAxes = new DualAxes(createDiv(), {
       height: 500,
       data: [PV_DATA, UV_DATA],
@@ -40,7 +40,7 @@ describe('Line-Column', () => {
     expect(rightGeometry.shapeType).toBe('interval');
     dualAxes.destroy();
   });
-  it('Colomun-Line', () => {
+  it('Colomn-Line', () => {
     const dualAxes = new DualAxes(createDiv(), {
       height: 500,
       data: [PV_DATA, UV_DATA],
@@ -73,7 +73,7 @@ describe('Line-Column', () => {
     expect(rightGeometry.shapeType).toBe('line');
     dualAxes.destroy();
   });
-  it('Colomun-Style', () => {
+  it('Colomn-Style', () => {
     const dualAxes = new DualAxes(createDiv(), {
       height: 500,
       data: [PV_DATA, UV_DATA],

@@ -108,7 +108,7 @@ const data = [
   },
 ];
 
-const ColumnPlot = new Column('container', {
+const columnPlot = new Column('container', {
   data,
   xField: 'year',
   yField: 'value',
@@ -127,4 +127,4 @@ const ColumnPlot = new Column('container', {
   },
 });
 
-ColumnPlot.render();
+columnPlot.render();

@@ -12,10 +12,10 @@ const data = [
   { year: '1999', value: 13, count: 20 },
 ];
 
-const dualAxesChart = new DualAxes('container', {
+const dualAxes = new DualAxes('container', {
   data: [data, data],
   xField: 'year',
   yField: ['value', 'count'],
 });
 
-dualAxesChart.render();
+dualAxes.render();

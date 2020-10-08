@@ -9,7 +9,7 @@ export function template(source: string, data: object): string {
   return reduce(
     // @ts-ignore
     data,
-    (r: string, v: string, k: string) => r.replace(new RegExp(`{s*${k}s*}`, 'g'), v),
+    (r: string, v: string, k: string) => r.replace(new RegExp(`{\\s*${k}\\s*}`, 'g'), v),
     source
   );
 }

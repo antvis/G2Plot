@@ -1,9 +1,15 @@
+import { reduce } from '@antv/util';
 /**
- * 模板分割符, 默认 { }
+ * 简单的模板引擎，使用方式如下（空格自动忽略）：
+ * template('hello, {name}', { name: 'AntV' }); // hello, AntV
  * @param string
  * @param options
  */
 export function template(source: string, data: object): string {
-  // `(?<=y)x` 匹配'x'仅当'x'前面是'y'.这种叫做后行断言; `x(?=y)` 匹配'x'仅仅当'x'后面跟着'y'.这种叫做先行断言。
-  return source.replace(/{((?<={)[^{}]+(?=}))}/g, (match, key) => data[key.trim()] || match);
+  return reduce(
+    // @ts-ignore
+    data,
+    (r: string, v: string, k: string) => r.replace(new RegExp(`{s*${k}s*}`, 'g'), v),
+    source
+  );
 }

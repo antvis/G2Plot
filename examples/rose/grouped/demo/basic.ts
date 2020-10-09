@@ -80,9 +80,6 @@ const rosePlot = new Rose('container', {
     },
   },
   label: {
-    layout: {
-      type: 'limit-in-shape',
-    },
     offset: -15,
   },
   interactions: [

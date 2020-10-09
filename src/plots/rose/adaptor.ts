@@ -1,4 +1,5 @@
-import { deepMix, isObject } from '@antv/util';
+import { GeometryLabelLayoutCfg } from '@antv/g2/lib/interface';
+import { deepMix, each, isObject, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, findGeometry, log, LEVEL } from '../../utils';
 import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
@@ -45,6 +46,22 @@ function label(params: Params<RoseOptions>): Params<RoseOptions> {
     geometry.label(false);
   } else if (isObject(label)) {
     const { callback, fields, ...cfg } = label;
+    const { offset, layout } = cfg;
+    // 当 label 在 shape 外部显示时，设置 'limit-in-shape' 会
+    // 造成 label 不显示。
+    if (offset === undefined || offset >= 0) {
+      if (isArray(layout)) {
+        each(layout, (value: GeometryLabelLayoutCfg) => {
+          if (value.type === 'limit-in-shape') {
+            delete value.type;
+          }
+        });
+      } else if (isObject(layout)) {
+        if (layout.type === 'limit-in-shape') {
+          delete layout.type;
+        }
+      }
+    }
     geometry.label({
       fields: fields || [xField],
       callback,

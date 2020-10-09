@@ -15,11 +15,6 @@ const rosePlot = new Rose('container', {
   yField: 'value',
   seriesField: 'type',
   radius: 0.9,
-  label: {
-    layout: {
-      type: 'limit-in-shape',
-    },
-  },
   // 设置 active 状态样式
   state: {
     active: {

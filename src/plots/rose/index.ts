@@ -25,6 +25,11 @@ export class Rose extends Plot<RoseOptions> {
         stroke: '#fff',
         lineWidth: 1,
       },
+      label: {
+        layout: {
+          type: 'limit-in-shape',
+        },
+      },
     });
   }
 

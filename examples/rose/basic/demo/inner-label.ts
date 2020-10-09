@@ -16,11 +16,6 @@ const rosePlot = new Rose('container', {
   seriesField: 'type',
   radius: 0.9,
   label: {
-    layout: {
-      type: 'limit-in-shape',
-    },
-  },
-  label: {
     offset: -15,
   },
 });

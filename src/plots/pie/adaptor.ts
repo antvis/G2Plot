@@ -1,3 +1,4 @@
+import { Datum } from '@antv/g2/lib/interface';
 import { deepMix, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
@@ -189,6 +190,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
       const { style, formatter, offsetX, offsetY, rotate } = option;
 
       const lineHeight = get(option, 'style.fontSize', 20);
+      const getDefaultContent = (data: Data) => (index === 0 ? '总计' : getTotalValue(data, angleField));
       chart.annotation().text(
         deepMix(
           {},
@@ -200,12 +202,12 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
           },
           {
             position: ['50%', '50%'],
-            content: (filterData: Data) => {
+            content: (filterData: Data, datum?: Datum) => {
               return formatter
-                ? formatter(null, filterData)
-                : index === 0
-                ? '总计'
-                : getTotalValue(filterData, angleField);
+                ? formatter(datum, filterData)
+                : datum
+                ? datum[angleField]
+                : getDefaultContent(filterData);
             },
             style,
             offsetX,

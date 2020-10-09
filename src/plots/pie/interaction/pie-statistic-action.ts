@@ -1,6 +1,6 @@
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
-import { each, get } from '@antv/util';
+import { each, get, isFunction } from '@antv/util';
 
 /**
  * Pie 中心文本事件的 Action
@@ -32,8 +32,6 @@ export class StatisticAction extends Action {
     const { data } = event.data;
     if (data) {
       const annotationController = view.getController('annotation');
-      // todo remove ignore
-      // @ts-ignore
       annotationController.clear(true);
       // @ts-ignore
       const [, angleField, colorField] = view.getScaleFields();
@@ -54,7 +52,7 @@ export class StatisticAction extends Action {
 
         annotationOptions.push({
           ...options,
-          content: options.formatter ? options.formatter(data, view.getData()) : value,
+          content: isFunction(options.content) ? options.content(view.getData(), data) : value,
         });
       });
       annotationOptions.forEach((opt) => {
@@ -69,8 +67,6 @@ export class StatisticAction extends Action {
   public reset() {
     const { view } = this.context;
     const annotationController = view.getController('annotation');
-    // todo remove ignore
-    // @ts-ignore
     annotationController.clear(true);
     const initialStatistic = this.getInitialAnnotation();
     each(initialStatistic, (a) => {

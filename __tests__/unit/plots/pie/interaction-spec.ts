@@ -30,7 +30,7 @@ describe('register interaction', () => {
     radius: 0.8,
     innerRadius: 0.64,
     statistic: {
-      title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
+      title: { formatter: (item) => (item ? item.type : 'Total') },
     },
   });
 
@@ -45,7 +45,7 @@ describe('register interaction', () => {
 
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].extra.content).toBe('item3');
-    expect(annotations[1].extra.content).toBe('13');
+    expect(annotations[1].extra.content).toBe(13);
   });
 
   it('触发 pie-statistic:reset', async () => {
@@ -70,7 +70,7 @@ describe('G2 内置interactions', () => {
     radius: 0.8,
     innerRadius: 0.64,
     statistic: {
-      title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
+      title: { formatter: (item) => (item ? item.type : 'Total') },
     },
     interactions: [{ type: 'pie-statistic-active' }],
   });

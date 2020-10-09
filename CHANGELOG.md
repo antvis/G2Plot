@@ -1,3 +1,34 @@
+#### 2.0.2 (2020-10-09)
+
+##### Chores
+
+*  run PR preview on pull_request ([#1677](https://github.com/antvis/g2plot/pull/1677)) ([2ae88954](https://github.com/antvis/g2plot/commit/2ae88954a1a61f47d68ec74d38c4670251a1feac))
+*  完善词云图和玫瑰图的单测用例 ([#1664](https://github.com/antvis/g2plot/pull/1664)) ([53b53202](https://github.com/antvis/g2plot/commit/53b53202eb4335d12de5bc6229dbff43109db39c))
+
+##### Documentation Changes
+
+*  文档修复 ([#1678](https://github.com/antvis/g2plot/pull/1678)) ([78ee8413](https://github.com/antvis/g2plot/commit/78ee8413098d48a8307662f2bdd7c7fabbf35c06))
+*  修复缩略图 demo 不一致, 删除重复 demo ([#1661](https://github.com/antvis/g2plot/pull/1661)) ([8309761b](https://github.com/antvis/g2plot/commit/8309761b494cce1d4e385d185f8a586047746b58))
+
+##### New Features
+
+* **axis:**  add type config axis, it will picked into scale config ([#1686](https://github.com/antvis/g2plot/pull/1686)) ([c2c50a38](https://github.com/antvis/g2plot/commit/c2c50a38d17b313698eb8806341c810f36ca7d8f))
+* **demo:**  trend demo ([#1663](https://github.com/antvis/g2plot/pull/1663)) ([5a7eac3f](https://github.com/antvis/g2plot/commit/5a7eac3fea947159564b7bd651d80378307a43eb))
+* **website:**  add css for demo container ([#1675](https://github.com/antvis/g2plot/pull/1675)) ([5c81f9e3](https://github.com/antvis/g2plot/commit/5c81f9e37e67d8ace7644257df1e2a71b884f087))
+* **transform:**  add supportCSSTransform option ([#1674](https://github.com/antvis/g2plot/pull/1674)) ([79fcdc97](https://github.com/antvis/g2plot/commit/79fcdc979d4b7a7ca6d8804db42bafaa70d0d8a6))
+
+##### Bug Fixes
+
+* **template:**  remove regex usage of lookbehind assertions ([#1689](https://github.com/antvis/g2plot/pull/1689)) ([92133d05](https://github.com/antvis/g2plot/commit/92133d059b97f763f19bf44752b0137581ea699b))
+* **dual-axes:**  双轴图问题走查 ([#1688](https://github.com/antvis/g2plot/pull/1688)) ([baa20f45](https://github.com/antvis/g2plot/commit/baa20f45b8451a21c36ca9b0aa7dfe99754f9872))
+*  column 和 bar 默认 type 为 cat ([#1682](https://github.com/antvis/g2plot/pull/1682)) ([78f3a0cf](https://github.com/antvis/g2plot/commit/78f3a0cf1b929d86c4eb59b3ebbc584af566e7dd))
+*  修复一些 demo 的小问题 ([#1676](https://github.com/antvis/g2plot/pull/1676)) ([b9bb57dd](https://github.com/antvis/g2plot/commit/b9bb57ddce2a6862943e8dde1cd950ab6d8152ab))
+* **indicator:**  when indicator > 1 or < 0 in gauge, progress, ring ([#1673](https://github.com/antvis/g2plot/pull/1673)) ([86f110b9](https://github.com/antvis/g2plot/commit/86f110b966eaca186cafba5d4e743e4b48a30a88))
+* **geometry:**  line, area color field ignore xField ([#1672](https://github.com/antvis/g2plot/pull/1672)) ([e9ae75f3](https://github.com/antvis/g2plot/commit/e9ae75f3f3c574717ae90b010bc74ee7055f362d))
+* **bullet:**  修复文档和 demo 的问题 ([#1670](https://github.com/antvis/g2plot/pull/1670)) ([53882cdc](https://github.com/antvis/g2plot/commit/53882cdc3a797202a68b11c5b86176887e8c1de1))
+* **tiny:**  tiny 图的 tooltip 默认给一个格式化,修改 demo 和单测 ([#1666](https://github.com/antvis/g2plot/pull/1666)) ([119ed5f3](https://github.com/antvis/g2plot/commit/119ed5f31e062aeb40161877802723c3f4b34cd9))
+* **word-cloud:**  修复 this 指向问题 ([#1668](https://github.com/antvis/g2plot/pull/1668)) ([71714388](https://github.com/antvis/g2plot/commit/717143889dc9a8441993da55c830d1de16dab44f))
+
 #### 2.0.1 (2020-09-28)
 
 ##### Documentation Changes

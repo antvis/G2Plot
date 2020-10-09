@@ -175,7 +175,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField } = options;
+  const { innerRadius, statistic, angleField, colorField } = options;
 
   const annotationOptions = [];
 
@@ -190,7 +190,12 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
       const { style, formatter, offsetX, offsetY, rotate } = option;
 
       const lineHeight = get(option, 'style.fontSize', 20);
-      const getDefaultContent = (data: Data) => (index === 0 ? '总计' : getTotalValue(data, angleField));
+      const getDefaultContent = (data: Data, datum?: Datum) => {
+        if (index === 0) {
+          return datum ? datum[colorField] : '总计';
+        }
+        return datum ? datum[angleField] : getTotalValue(data, angleField);
+      };
       chart.annotation().text(
         deepMix(
           {},
@@ -203,11 +208,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
           {
             position: ['50%', '50%'],
             content: (filterData: Data, datum?: Datum) => {
-              return formatter
-                ? formatter(datum, filterData)
-                : datum
-                ? datum[angleField]
-                : getDefaultContent(filterData);
+              return formatter ? formatter(datum, filterData) : getDefaultContent(filterData, datum);
             },
             style,
             offsetX,

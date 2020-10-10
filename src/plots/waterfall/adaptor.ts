@@ -7,7 +7,7 @@ import { interval } from '../../adaptor/geometries';
 import { DEFAULT_COLORS } from '../../constant';
 import { flow } from '../../utils';
 import { WaterOptions } from './types';
-import { processData } from './util';
+import { processData } from './utils';
 import './shape';
 
 /**
@@ -28,7 +28,7 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
   } = options;
 
   // 数据处理
-  const newData = processData(data, xField, yField, total && get(total, 'label', '总计'), !!total);
+  const newData = processData(data, xField, yField, !!total && get(total, 'label', '总计'));
   chart.data(newData);
 
   const p = deepMix({}, params, {

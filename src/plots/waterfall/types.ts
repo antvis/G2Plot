@@ -5,6 +5,8 @@ export interface WaterOptions extends Options {
   readonly xField: string;
   /** y 轴字段 */
   readonly yField: string;
+  /** label 数据模式, default: difference */
+  readonly labelDataMode?: 'absolute' | 'difference';
   /** 是否展示 总计 */
   readonly total?:
     | boolean

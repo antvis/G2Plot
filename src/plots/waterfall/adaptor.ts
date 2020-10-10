@@ -1,14 +1,17 @@
 import { Geometry } from '@antv/g2';
 import { deepMix, get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../utils';
+import { findGeometry, flow } from '../../utils';
 import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { DEFAULT_COLORS } from '../../constant';
-import { flow } from '../../utils';
 import { WaterOptions } from './types';
 import { processData } from './utils';
 import './shape';
+
+const Y_FIELD = '$$yField$$';
+const DIFF_FIELD = '$$diffField$$';
+const ABSOLUTE_FIELD = '$$absoluteField$$';
 
 /**
  * 字段
@@ -28,13 +31,16 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
   } = options;
 
   // 数据处理
-  const newData = processData(data, xField, yField, !!total && get(total, 'label', '总计'));
-  chart.data(newData);
+  const newData = processData(data, xField, yField, Y_FIELD, !!total && get(total, 'label', '总计'));
+  chart.data(
+    newData.map((d) => ({ ...d, [ABSOLUTE_FIELD]: d[Y_FIELD][1], [DIFF_FIELD]: d[Y_FIELD][1] - d[Y_FIELD][0] }))
+  );
 
   const p = deepMix({}, params, {
     options: {
-      widthRatio: columnWidthRatio,
+      yField: Y_FIELD,
       seriesField: xField,
+      widthRatio: columnWidthRatio,
       interval: {
         style: waterfallStyle,
         shape: 'waterfall',
@@ -45,11 +51,13 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
   const { ext } = interval(p);
   const geometry = ext.geometry as Geometry;
 
-  // 将 radius 传入到自定义 shape 中
+  // 将 waterfall totalCfg & leaderLineCfg 传入到自定义 shape 中
   geometry.customInfo({
     total,
     leaderLine,
   });
+  // tooltip 默认展示 difference
+  geometry.tooltip(yField);
 
   return params;
 }
@@ -60,13 +68,19 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
  */
 function meta(params: Params<WaterOptions>): Params<WaterOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField, meta } = options;
+
+  const Y_FIELD_META = deepMix({}, { alias: yField }, meta && meta[yField]);
 
   return flow(
-    scale({
-      [xField]: xAxis,
-      [yField]: yAxis,
-    })
+    scale(
+      {
+        [xField]: xAxis,
+        [yField]: yAxis,
+        [Y_FIELD]: yAxis,
+      },
+      deepMix({}, meta, { [Y_FIELD]: Y_FIELD_META, [DIFF_FIELD]: Y_FIELD_META, [ABSOLUTE_FIELD]: Y_FIELD_META })
+    )
   )(params);
 }
 
@@ -122,7 +136,7 @@ function legend(params: Params<WaterOptions>): Params<WaterOptions> {
  */
 function label(params: Params<WaterOptions>): Params<WaterOptions> {
   const { chart, options } = params;
-  const { label, yField } = options;
+  const { label, labelDataMode } = options;
 
   const geometry = findGeometry(chart, 'interval');
 
@@ -131,7 +145,7 @@ function label(params: Params<WaterOptions>): Params<WaterOptions> {
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: [yField],
+      fields: labelDataMode === 'absolute' ? [ABSOLUTE_FIELD] : [DIFF_FIELD],
       callback,
       cfg,
     });

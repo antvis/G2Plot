@@ -26,6 +26,10 @@ function getRectPath(points: Point[]) {
     }
   }
 
+  const first = points[0];
+  path.push(['L', first.x, first.y]);
+  path.push(['z']);
+
   return path;
 }
 
@@ -72,7 +76,6 @@ registerShape('interval', 'waterfall', {
 
     // ② 绘制连接线
     const leaderLineCfg = get(cfg.customInfo, 'leaderLine');
-    // if (get(cfg.customInfo, 'showLeaderLine') && cfg.nextPoints) {
     if (leaderLineCfg && cfg.nextPoints) {
       const nextPoints = cfg.nextPoints as Point[];
       let linkPath = [
@@ -83,6 +86,11 @@ registerShape('interval', 'waterfall', {
       if (nextPoints[0].y === 0) {
         linkPath[1] = ['L', nextPoints[1].x, nextPoints[1].y];
       }
+
+      if (points[2].y === nextPoints[1].y) {
+        linkPath[1] = ['L', nextPoints[1].x, nextPoints[1].y];
+      }
+
       linkPath = this.parsePath(linkPath);
       group.addShape('path', {
         attrs: {
@@ -91,8 +99,6 @@ registerShape('interval', 'waterfall', {
         },
       });
     }
-
-    // ③ todo 绘制差值标签
 
     return group;
   },

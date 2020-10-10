@@ -83,10 +83,6 @@ registerShape('interval', 'waterfall', {
         ['L', nextPoints[0].x, nextPoints[0].y],
       ];
 
-      if (nextPoints[0].y === 0) {
-        linkPath[1] = ['L', nextPoints[1].x, nextPoints[1].y];
-      }
-
       if (points[2].y === nextPoints[1].y) {
         linkPath[1] = ['L', nextPoints[1].x, nextPoints[1].y];
       }

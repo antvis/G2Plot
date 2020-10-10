@@ -27,7 +27,10 @@ export class Waterfall extends Plot<WaterOptions> {
       tooltip: {
         showCrosshairs: false,
         showMarkers: false,
+        shared: true,
       },
+      label: {},
+      interactions: [{ type: 'element-active' }],
       waterfallStyle: {},
     };
   }

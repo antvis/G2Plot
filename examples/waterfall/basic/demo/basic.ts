@@ -45,7 +45,12 @@ const waterfallPlot = new Waterfall('container', {
     },
     sales: {
       alias: '销售额',
+      formatter: (v) => `${v} 万`,
     },
+  },
+  label: {
+    style: { fill: '#fff' },
+    layout: [{ type: 'interval-adjust-position' }],
   },
 });
 

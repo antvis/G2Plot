@@ -27,7 +27,7 @@ const data = [
   },
   {
     type: '食品饮料',
-    sales: 38,
+    sales: 8,
   },
   {
     type: '家庭清洁',
@@ -47,13 +47,10 @@ const waterfallPlot = new Waterfall('container', {
       alias: '销售额',
     },
   },
-  /** 展示牵引线 */
-  leaderLine: {
-    style: {
-      lineWidth: 1,
-      stroke: '#8c8c8c',
-      lineDash: [4, 2],
-    },
+  leaderLine: true,
+  label: {
+    style: { fill: '#fff' },
+    layout: [{ type: 'interval-adjust-position' }, { type: 'limit-in-shape' }],
   },
 });
 

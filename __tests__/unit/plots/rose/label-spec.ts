@@ -87,7 +87,7 @@ describe('rose label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({
-      layout: { type: 'other' },
+      layout: [{ type: 'other' }],
     });
   });
 
@@ -113,16 +113,11 @@ describe('rose label', () => {
     rose.render();
 
     const geometry = rose.chart.geometries[0];
-    const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({
       position: 'top',
       layout: [{ type: 'other' }],
-    });
-    expect(labelGroups).toHaveLength(salesByArea.length);
-    labelGroups.forEach((label, index) => {
-      expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(salesByArea[index].sales / 10000)}万`);
     });
   });
 
@@ -142,9 +137,7 @@ describe('rose label', () => {
     const geometry = rose.chart.geometries[0];
 
     // @ts-ignore
-    expect(geometry.labelOption.cfg).toEqual({
-      layout: null,
-    });
+    expect(geometry.labelOption.cfg).toEqual({});
   });
 
   it('position top', () => {

@@ -34,7 +34,7 @@ describe('waterfall plot', () => {
       xField: 'type',
       yField: 'money',
       data: data,
-      showTotal: true,
+      total: true,
     });
 
     waterfall.render();

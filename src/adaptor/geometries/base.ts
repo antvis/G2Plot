@@ -1,4 +1,4 @@
-import { uniq, isFunction, isObject, isString, isNumber, flatten } from '@antv/util';
+import { uniq, isFunction, isObject, isString, isNumber, flatten, isArray } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, Options } from '../../types';
@@ -24,7 +24,7 @@ export interface GeometryOptions extends Options {
   readonly xField?: string;
   /** y 轴字段 */
   readonly yField?: string;
-  /** 分组字段 */
+  /** color 的映射字段 (通常作为分组字段，使用 * 连接来支持多字段) */
   readonly colorField?: string;
   /** shape 的映射字段 */
   readonly shapeField?: string;
@@ -106,7 +106,9 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.color('color*x*y', (color, x, y) => 'red');
    */
   if (isString(color)) {
-    colorField ? geometry.color(colorField, color) : geometry.color(color);
+    colorField ? geometry.color(colorField.split('*')[0], color) : geometry.color(color);
+  } else if (isArray(color)) {
+    colorField && geometry.color(colorField.split('*')[0], color);
   } else if (isFunction(color)) {
     // 对于单折线图、单面积图的特殊处理，如果 x 轴是分类 scale，会导致映射错误
     let mappingFields = getMappingField(options, 'color');

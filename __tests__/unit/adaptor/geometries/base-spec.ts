@@ -1,3 +1,4 @@
+import { uniq } from '@antv/util';
 import { P, Params } from '../../../../src';
 import { geometry, GeometryOptions } from '../../../../src/adaptor/geometries/base';
 import { partySupport } from '../../../data/party-support';
@@ -167,6 +168,54 @@ describe('adaptor - geometry', () => {
 
     expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'country', 'date', 'value']);
     expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('yellow');
+  });
+
+  it('color with colorField and colorField has "*" and color is string', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type*t',
+      mapping: {
+        color: 'red',
+      },
+    });
+
+    expect(plot.chart.geometries[0].getAttribute('color').values).toEqual('red');
+    // fixme
+    // expect(plot.chart.geometries[0].getAttribute('color').values).toEqual(['red']);
+    // expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
+  });
+
+  it('color with colorField and color is array', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type',
+      mapping: {
+        color: ['red', 'yellow'],
+      },
+    });
+
+    expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
+    expect(plot.chart.geometries[0].elements[uniq(partySupport.map((d) => d.date)).length].getModel().color).toBe(
+      'yellow'
+    );
+  });
+
+  it('color with colorFieldand colorField has "*"  and color is array', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type*t',
+      mapping: {
+        color: ['red', 'yellow'],
+      },
+    });
+
+    expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
+    expect(plot.chart.geometries[0].elements[uniq(partySupport.map((d) => d.date)).length].getModel().color).toBe(
+      'yellow'
+    );
   });
 
   it('size without sizeField', () => {

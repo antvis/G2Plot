@@ -62,7 +62,8 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
   const p = deepMix({}, params, {
     options: {
       yField: Y_FIELD,
-      seriesField: `${xField}*${yField}*${DIFF_FIELD}*${IS_TOTAL}`,
+      seriesField: xField,
+      rawFields: [yField, DIFF_FIELD, IS_TOTAL],
       widthRatio: columnWidthRatio,
       interval: {
         style: waterfallStyle,

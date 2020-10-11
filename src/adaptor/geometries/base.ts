@@ -32,6 +32,8 @@ export interface GeometryOptions extends Options {
   readonly sizeField?: string;
   /** style 的映射字段 */
   readonly styleField?: string;
+  /** 其他原始字段, 用于 mapping 回调参数 */
+  readonly rawFields?: string[];
   /** 图形映射规则 */
   readonly mapping: MappingOptions;
   /** geometry params */
@@ -44,8 +46,8 @@ export interface GeometryOptions extends Options {
  * @param field
  */
 export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | 'size' | 'style'): string[] {
-  const { xField, yField, colorField, shapeField, sizeField, styleField } = o;
-  const fields = [xField, yField, colorField, shapeField, sizeField, styleField];
+  const { xField, yField, colorField, shapeField, sizeField, styleField, rawFields = [] } = o;
+  const fields = [...rawFields, xField, yField, colorField, shapeField, sizeField, styleField];
 
   // 一定能找到的！
   const idx = ['x', 'y', 'color', 'shape', 'size', 'style'].indexOf(field);

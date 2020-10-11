@@ -150,6 +150,25 @@ describe('adaptor - geometry', () => {
     expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'date', 'value']);
   });
 
+  it('color with colorField and colorField has "*"', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type*country',
+      mapping: {
+        color: function ({ date, value }) {
+          if (date === '19/05/2006' && value === 3600) {
+            return 'yellow';
+          }
+          return 'red';
+        },
+      },
+    });
+
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'country', 'date', 'value']);
+    expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('yellow');
+  });
+
   it('size without sizeField', () => {
     let p;
     const plot = getPlot('interval', {

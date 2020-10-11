@@ -1,4 +1,4 @@
-import { uniq, isFunction, isObject, isString, isNumber } from '@antv/util';
+import { uniq, isFunction, isObject, isString, isNumber, flatten } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, Options } from '../../types';
@@ -56,7 +56,7 @@ export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | '
   // 插入到第一个
   fields.unshift(f);
 
-  return uniq(fields.filter((f) => !!f));
+  return uniq(flatten(fields.filter((f) => !!f).map((f) => (isString(f) ? f.split('*') : f))));
 }
 
 /**

@@ -1,16 +1,8 @@
+import { IGroup } from '@antv/g-base';
 import { registerShape } from '@antv/g2';
 import { deepMix, get } from '@antv/util';
-import { DEFAULT_COLORS } from '../../constant';
+import { ShapeInfo } from '../../../../g2/src/interface';
 import { Point } from '../../types';
-
-/**
- * 牵引线 默认样式
- */
-const DEFAULT_LEADER_LINE_STYLE = {
-  lineWidth: 1,
-  stroke: '#8c8c8c',
-  lineDash: [4, 2],
-};
 
 /**
  * 获取柱子 path
@@ -35,49 +27,32 @@ function getRectPath(points: Point[]) {
 
 /**
  * 获取填充属性
- * @param cfg
+ * @param cfg 图形绘制数据
  */
-function getFillAttrs(cfg) {
-  const defaultAttrs = {
-    lineWidth: 0,
-    fill: DEFAULT_COLORS.BRAND_COLOR,
-    fillOpacity: 0.85,
-  };
-
-  return deepMix({}, defaultAttrs, {
-    ...cfg.style,
-    fill: cfg.color,
-    stroke: cfg.color,
-    fillOpacity: cfg.opacity,
-  });
+function getFillAttrs(cfg: ShapeInfo) {
+  return deepMix({}, cfg.defaultStyle, cfg.style, { fill: cfg.color });
 }
 
 registerShape('interval', 'waterfall', {
-  draw(cfg, container) {
-    const group = container.addGroup();
+  draw(cfg: ShapeInfo & { points: Point[]; nextPoints: Point[] }, container: IGroup) {
+    const { customInfo, points, nextPoints } = cfg;
 
-    const points = cfg.points as Point[];
-    let attrs = getFillAttrs(cfg);
+    const group = container.addGroup();
 
     // ① 绘制柱体
     const rectPath = this.parsePath(getRectPath(points));
-    const totalRectCfg = get(cfg.customInfo, 'total');
-    /** 最后一个柱子 */
-    if (!cfg.nextPoints && !!totalRectCfg) {
-      attrs = deepMix({}, attrs, get(totalRectCfg, 'style'));
-    }
+    const fillAttrs = getFillAttrs(cfg);
 
     group.addShape('path', {
       attrs: {
-        ...attrs,
+        ...fillAttrs,
         path: rectPath,
       },
     });
 
     // ② 绘制连接线
-    const leaderLineCfg = get(cfg.customInfo, 'leaderLine');
-    if (leaderLineCfg && cfg.nextPoints) {
-      const nextPoints = cfg.nextPoints as Point[];
+    const leaderLineCfg = get(customInfo, 'leaderLine');
+    if (leaderLineCfg && nextPoints) {
       let linkPath = [
         ['M', points[2].x, points[2].y],
         ['L', nextPoints[0].x, nextPoints[0].y],
@@ -91,7 +66,7 @@ registerShape('interval', 'waterfall', {
       group.addShape('path', {
         attrs: {
           path: linkPath,
-          ...deepMix({}, DEFAULT_LEADER_LINE_STYLE, leaderLineCfg.style),
+          ...(leaderLineCfg.style || {}),
         },
       });
     }

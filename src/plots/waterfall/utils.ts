@@ -1,4 +1,4 @@
-import { isUndefined, isNumber, last, reduce } from '@antv/util';
+import { isUndefined, isNumber, get, reduce } from '@antv/util';
 import { Options } from '../../types';
 import { LEVEL, log } from '../../utils';
 
@@ -14,7 +14,7 @@ export function processData(
   xField: string,
   yField: string,
   newYField: string,
-  totalLabel?: string
+  total?: false | { label?: string }
 ) {
   const newData = [];
   reduce(
@@ -30,10 +30,10 @@ export function processData(
     0
   );
   // 如果需要展示总和
-  if (newData.length && totalLabel) {
-    const sum = last(newData)[newYField][1];
+  if (newData.length && total) {
+    const sum = get(newData, [[data.length - 1], newYField, [1]]);
     newData.push({
-      [xField]: totalLabel,
+      [xField]: total.label,
       [yField]: sum,
       [newYField]: [0, sum],
     });

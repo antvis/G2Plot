@@ -19,6 +19,10 @@ export const AXIS_META_CONFIG_KEYS = [
 export const DEFAULT_COLORS = {
   /** 主题色 */
   BRAND_COLOR: '#5B8FF9',
+  /** 上涨色 */
+  RISING_FILL: '#f4664a',
+  /** 下跌色 */
+  FALLING_FILL: '#30bf78',
   GRADIENT: {
     CONTINUOUS: '#BAE7FF-#1890FF-#0050B3',
   },

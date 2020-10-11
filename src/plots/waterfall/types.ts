@@ -1,4 +1,4 @@
-import { Options, StyleAttr } from '../../types';
+import { Options, ShapeStyle, StyleAttr } from '../../types';
 
 export interface WaterOptions extends Options {
   /** x 轴字段 */
@@ -9,22 +9,24 @@ export interface WaterOptions extends Options {
   readonly labelDataMode?: 'absolute' | 'difference';
   /** 是否展示 总计 */
   readonly total?:
-    | boolean
+    | false
     | {
         /** 总计的标签 */
-        label: string;
-        style: StyleAttr;
+        label?: string;
+        style?: ShapeStyle;
       };
-  /** 柱子间牵引线 */
+  /** 是否展示 柱子间牵引线 */
   readonly leaderLine?:
-    | boolean
+    | false
     | {
-        style: StyleAttr;
+        style?: ShapeStyle;
       };
+  /** 上涨色 */
+  readonly risingFill?: string;
+  /** 下跌色 */
+  readonly fallingFill?: string;
+  /** 柱子样式配置; 注意: fill 不再生效，直接使用 risingFill, fallingFill 或 color */
+  readonly waterfallStyle?: StyleAttr;
   /** 柱状图宽度占比 [0-1] */
   readonly columnWidthRatio?: number;
-  /** 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用 */
-  readonly marginRatio?: number;
-  /** 柱子样式配置，可选 */
-  readonly waterfallStyle?: StyleAttr;
 }

@@ -10,7 +10,7 @@ describe('utils of waterfall', () => {
       { type: '1', value: 10, $$value$$: [0, 10] },
       { type: '2', value: 5, $$value$$: [10, 15] },
     ]);
-    expect(processData(data, 'type', 'value', 'value', '累计值')).toEqual([
+    expect(processData(data, 'type', 'value', 'value', { label: '累计值' })).toEqual([
       { type: '1', value: [0, 10] },
       { type: '2', value: [10, 15] },
       { type: '累计值', value: [0, 15] },

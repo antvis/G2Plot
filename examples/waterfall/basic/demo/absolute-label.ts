@@ -1,19 +1,18 @@
 import { Waterfall } from '@antv/g2plot';
 
 const data = [
-  { month: 'Start', value: 23000000 },
-  { month: 'Jan', value: 2200000 },
-  { month: 'Feb', value: -4600000 },
-  { month: 'Mar', value: -9100000 },
-  { month: 'Apr', value: 3700000 },
-  { month: 'May', value: -2100000 },
-  { month: 'Jun', value: 5300000 },
-  { month: 'Jul', value: 3100000 },
-  { month: 'Aug', value: -1500000 },
-  { month: 'Sep', value: 4200000 },
-  { month: 'Oct', value: 5300000 },
-  { month: 'Nov', value: -1500000 },
-  { month: 'Dec', value: 5100000 },
+  { month: '一月', value: 6200000 },
+  { month: '二月', value: -600000 },
+  { month: '三月', value: -4100000 },
+  { month: '四月', value: 3700000 },
+  { month: '五月', value: -2100000 },
+  { month: '六月', value: 5300000 },
+  { month: '七月', value: 3100000 },
+  { month: '八月', value: -500000 },
+  { month: '九月', value: 4200000 },
+  { month: '十月', value: 5300000 },
+  { month: '十一月', value: -500000 },
+  { month: '十二月', value: 5100000 },
 ];
 
 const waterfallPlot = new Waterfall('container', {
@@ -31,15 +30,14 @@ const waterfallPlot = new Waterfall('container', {
       formatter: (v) => `${v / 10000000} 亿`,
     },
   },
-  /** 展示牵引线 */
-  leaderLine: true,
   /** 展示总计 */
   total: {
-    label: 'Accumalte',
+    label: '总计',
     style: {
-      fill: '#5AD8A6',
+      fill: '#96a6a6',
     },
   },
+  /** 数据标签展示模式：绝对值 */
   labelDataMode: 'absolute',
   label: {
     style: {

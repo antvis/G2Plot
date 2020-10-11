@@ -1,10 +1,10 @@
 import { Geometry } from '@antv/g2';
-import { deepMix, get } from '@antv/util';
+import { deepMix, get, isObject } from '@antv/util';
+import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
-import { findGeometry, flow } from '../../utils';
 import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { DEFAULT_COLORS } from '../../constant';
+import { findGeometry, flow } from '../../utils';
 import { WaterOptions } from './types';
 import { processData } from './utils';
 import './shape';
@@ -12,6 +12,7 @@ import './shape';
 const Y_FIELD = '$$yField$$';
 const DIFF_FIELD = '$$diffField$$';
 const ABSOLUTE_FIELD = '$$absoluteField$$';
+const IS_TOTAL = '$$isTotal$$';
 
 /**
  * 字段
@@ -27,37 +28,57 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
     leaderLine,
     columnWidthRatio,
     waterfallStyle,
-    color = DEFAULT_COLORS.BRAND_COLOR,
+    risingFill,
+    fallingFill,
+    color,
   } = options;
 
   // 数据处理
-  const newData = processData(data, xField, yField, Y_FIELD, !!total && get(total, 'label', '总计'));
-  chart.data(
-    newData.map((d) => ({ ...d, [ABSOLUTE_FIELD]: d[Y_FIELD][1], [DIFF_FIELD]: d[Y_FIELD][1] - d[Y_FIELD][0] }))
-  );
+  let newData = processData(data, xField, yField, Y_FIELD, total);
+  newData = newData.map((d, dIdx) => {
+    if (!isObject(d)) {
+      return d;
+    }
+    return {
+      ...d,
+      [ABSOLUTE_FIELD]: d[Y_FIELD][1],
+      [DIFF_FIELD]: d[Y_FIELD][1] - d[Y_FIELD][0],
+      [IS_TOTAL]: dIdx === data.length,
+    };
+  });
+  chart.data(newData);
+
+  // 瀑布图自带的 colorMapping
+  let colorMapping = color;
+  if (!color) {
+    colorMapping = (datum: Datum) => {
+      if (get(datum, [IS_TOTAL])) {
+        return get(total, ['style', 'fill']);
+      }
+      return get(datum, [Y_FIELD, 1]) - get(datum, [Y_FIELD, 0]) > 0 ? risingFill : fallingFill;
+    };
+  }
 
   const p = deepMix({}, params, {
     options: {
       yField: Y_FIELD,
-      seriesField: xField,
+      seriesField: `${xField}*${yField}*${DIFF_FIELD}*${IS_TOTAL}`,
       widthRatio: columnWidthRatio,
       interval: {
         style: waterfallStyle,
         shape: 'waterfall',
-        color,
+        color: colorMapping,
       },
     },
   });
   const { ext } = interval(p);
   const geometry = ext.geometry as Geometry;
 
-  // 将 waterfall totalCfg & leaderLineCfg 传入到自定义 shape 中
-  geometry.customInfo({
-    total,
-    leaderLine,
-  });
   // tooltip 默认展示 difference
   geometry.tooltip(yField);
+
+  // 将 waterfall leaderLineCfg 传入到自定义 shape 中
+  geometry.customInfo({ leaderLine });
 
   return params;
 }
@@ -109,22 +130,50 @@ function axis(params: Params<WaterOptions>): Params<WaterOptions> {
 }
 
 /**
- * legend 配置 todo
+ * legend 配置 todo 添加 hover 交互
  * @param params
  */
 function legend(params: Params<WaterOptions>): Params<WaterOptions> {
   const { chart, options } = params;
-  const { legend } = options;
-  const geometry = findGeometry(chart, 'interval');
-  const colorAttribute = geometry.getAttribute('color');
+  const { legend, total, risingFill, fallingFill } = options;
 
-  if (legend && colorAttribute) {
-    const colorFields = colorAttribute.getFields();
-    if (colorFields.length > 0) {
-      chart.legend(colorFields[0], legend);
-    }
-  } else {
+  if (legend === false) {
     chart.legend(false);
+  } else {
+    const items = [
+      {
+        name: '增加',
+        value: 'increase',
+        marker: { symbol: 'square', style: { r: 5, fill: risingFill } },
+      },
+      {
+        name: '减少',
+        value: 'decrease',
+        marker: { symbol: 'square', style: { r: 5, fill: fallingFill } },
+      },
+    ];
+    if (total) {
+      items.push({
+        name: total.label || '',
+        value: 'total',
+        marker: {
+          symbol: 'square',
+          style: deepMix({}, { r: 5 }, get(total, 'style')),
+        },
+      });
+    }
+    chart.legend(
+      deepMix(
+        {},
+        {
+          custom: true,
+          position: 'top',
+          items,
+        },
+        legend
+      )
+    );
+    chart.removeInteraction('legend-filter');
   }
 
   return params;

@@ -1,56 +1,38 @@
 import { Waterfall } from '@antv/g2plot';
 
 const data = [
-  {
-    type: '家具家电',
-    sales: 38,
-  },
-  {
-    type: '粮油副食',
-    sales: 52,
-  },
-  {
-    type: '生鲜水果',
-    sales: 61,
-  },
-  {
-    type: '美容洗护',
-    sales: 145,
-  },
-  {
-    type: '母婴用品',
-    sales: 48,
-  },
-  {
-    type: '进口食品',
-    sales: 38,
-  },
-  {
-    type: '食品饮料',
-    sales: 38,
-  },
-  {
-    type: '家庭清洁',
-    sales: 38,
-  },
+  { type: '日用品', money: 120 },
+  { type: '伙食费', money: 900 },
+  { type: '交通费', money: 200 },
+  { type: '水电费', money: 300 },
+  { type: '房租', money: 1200 },
+  { type: '商场消费', money: 1000 },
+  { type: '红包收入', money: -2000 },
 ];
 
 const waterfallPlot = new Waterfall('container', {
   data,
   xField: 'type',
-  yField: 'sales',
+  yField: 'money',
+  appendPadding: [15, 0, 0, 0],
   meta: {
     type: {
       alias: '类别',
     },
-    sales: {
-      alias: '销售额',
-      formatter: (v) => `${v} 万`,
+    money: {
+      alias: '收支',
+      formatter: (v) => `${v} 元`,
     },
   },
   label: {
-    style: { fill: '#fff' },
+    style: { fontSize: 10, fill: 'rgba(0,0,0,0.65)' },
     layout: [{ type: 'interval-adjust-position' }],
+  },
+  total: {
+    label: '总支出',
+    style: {
+      fill: '#96a6a6',
+    },
   },
 });
 

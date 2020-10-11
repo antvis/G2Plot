@@ -33,9 +33,7 @@ describe('waterfall plot', () => {
   });
 
   it('total: label', () => {
-    // fixme
-    // waterfall.update({ ...waterfall.options, total: { label: 'test' } });
-    waterfall.update({ ...waterfall.options, total: { label: 'test', style: { fill: 'red' } } });
+    waterfall.update({ ...waterfall.options, total: { label: 'test' } });
 
     const xScale = waterfall.chart.getScaleByField('type');
     expect(xScale.values.slice(-1)[0]).toBe('test');

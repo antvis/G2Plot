@@ -1,7 +1,7 @@
 import { IGroup } from '@antv/g-base';
 import { registerShape } from '@antv/g2';
+import { ShapeInfo } from '@antv/g2/lib/interface';
 import { deepMix, get } from '@antv/util';
-import { ShapeInfo } from '../../../../g2/src/interface';
 import { Point } from '../../types';
 
 /**

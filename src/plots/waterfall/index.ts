@@ -1,6 +1,5 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { DEFAULT_COLORS } from '../../constant';
 import { WaterOptions } from './types';
 import { adaptor } from './adaptor';
 
@@ -48,8 +47,8 @@ export class Waterfall extends Plot<WaterOptions> {
         },
       },
       interactions: [{ type: 'element-active' }],
-      risingFill: DEFAULT_COLORS.RISING_FILL,
-      fallingFill: DEFAULT_COLORS.FALLING_FILL,
+      risingFill: '#f4664a',
+      fallingFill: '#30bf78',
       waterfallStyle: {
         fill: 'rgba(0, 0, 0, 0.25)',
       },

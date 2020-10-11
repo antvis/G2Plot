@@ -53,7 +53,7 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
   if (!color) {
     colorMapping = (datum: Datum) => {
       if (get(datum, [IS_TOTAL])) {
-        return get(total, ['style', 'fill']);
+        return get(total, ['style', 'fill'], '');
       }
       return get(datum, [Y_FIELD, 1]) - get(datum, [Y_FIELD, 0]) > 0 ? risingFill : fallingFill;
     };
@@ -61,6 +61,7 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
 
   const p = deepMix({}, params, {
     options: {
+      xField: xField,
       yField: Y_FIELD,
       seriesField: xField,
       rawFields: [yField, DIFF_FIELD, IS_TOTAL],
@@ -92,7 +93,7 @@ function meta(params: Params<WaterOptions>): Params<WaterOptions> {
   const { options } = params;
   const { xAxis, yAxis, xField, yField, meta } = options;
 
-  const Y_FIELD_META = deepMix({}, { alias: yField }, meta && meta[yField]);
+  const Y_FIELD_META = deepMix({}, { alias: yField }, get(meta, yField));
 
   return flow(
     scale(

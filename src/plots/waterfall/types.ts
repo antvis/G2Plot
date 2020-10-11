@@ -1,5 +1,17 @@
 import { Options, ShapeStyle, StyleAttr } from '../../types';
 
+/** totalCfg of waterfall */
+type TotalCfg = {
+  /** 总计的标签 */
+  label?: string;
+  style?: ShapeStyle;
+};
+
+/** leaderLineCfg of waterfall */
+type LeaderLineCfg = {
+  style?: ShapeStyle;
+};
+
 export interface WaterOptions extends Options {
   /** x 轴字段 */
   readonly xField: string;
@@ -8,19 +20,9 @@ export interface WaterOptions extends Options {
   /** label 数据模式, default: difference */
   readonly labelDataMode?: 'absolute' | 'difference';
   /** 是否展示 总计 */
-  readonly total?:
-    | false
-    | {
-        /** 总计的标签 */
-        label?: string;
-        style?: ShapeStyle;
-      };
+  readonly total?: false | TotalCfg;
   /** 是否展示 柱子间牵引线 */
-  readonly leaderLine?:
-    | false
-    | {
-        style?: ShapeStyle;
-      };
+  readonly leaderLine?: false | LeaderLineCfg;
   /** 上涨色 */
   readonly risingFill?: string;
   /** 下跌色 */

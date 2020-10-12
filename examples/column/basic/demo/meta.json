@@ -43,6 +43,22 @@
         "en": "Basic Column chart with region annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FOmATLFeuxkAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "slider.ts",
+      "title": {
+        "zh": "基础柱状图 - 缩略轴",
+        "en": "Column chart slider"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7yF2SruPvM0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "scrollbar.ts",
+      "title": {
+        "zh": "基础柱状图 - 滚动条",
+        "en": "Column chart scrollbar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

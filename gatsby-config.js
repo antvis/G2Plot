@@ -130,7 +130,7 @@ module.exports = {
       },
       {
         slug: 'waterfall',
-        icon: 'waterfall',
+        icon: 'column',
         title: {
           zh: '瀑布图',
           en: 'Waterfall Charts',

@@ -38,7 +38,7 @@ const waterfallPlot = new Waterfall('container', {
     },
   },
   /** 数据标签展示模式：绝对值 */
-  labelDataMode: 'absolute',
+  labelMode: 'absolute',
   label: {
     style: {
       fontSize: 10,

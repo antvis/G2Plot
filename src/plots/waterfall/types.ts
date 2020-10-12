@@ -18,7 +18,7 @@ export interface WaterOptions extends Options {
   /** y 轴字段 */
   readonly yField: string;
   /** label 数据模式, default: difference */
-  readonly labelDataMode?: 'absolute' | 'difference';
+  readonly labelMode?: 'absolute' | 'difference';
   /** 是否展示 总计 */
   readonly total?: false | TotalCfg;
   /** 是否展示 柱子间牵引线 */

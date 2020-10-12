@@ -47,7 +47,7 @@ export interface GeometryOptions extends Options {
  */
 export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | 'size' | 'style'): string[] {
   const { xField, yField, colorField, shapeField, sizeField, styleField, rawFields = [] } = o;
-  const fields = [...rawFields, xField, yField, colorField, shapeField, sizeField, styleField];
+  const fields = [xField, yField, colorField, shapeField, sizeField, styleField, ...rawFields];
 
   // 一定能找到的！
   const idx = ['x', 'y', 'color', 'shape', 'size', 'style'].indexOf(field);

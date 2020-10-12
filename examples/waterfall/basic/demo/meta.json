@@ -1,0 +1,36 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础瀑布图 - 每月收支情况",
+        "en": "Basic Waterfall chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*mjApRblunm4AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom-color.ts",
+      "title": {
+        "zh": "变化瀑布图 - 销售量一年的变化情况",
+        "en": "Waterfall chart with custom-color"
+      },
+      "description": {
+        "zh": "自定义颜色",
+        "en": "Custom color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vRbXTpFGp0QAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "absolute-label.ts",
+      "title": {
+        "zh": "瀑布图 - 数值标签展示绝对值",
+        "en": "Waterfall chart with absolute-label-dataMode"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uKKQQ4Xc3GMAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

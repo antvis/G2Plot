@@ -43,6 +43,14 @@ order: 0
 
 默认配置： `false`
 
+#### isStack
+
+**可选**, _boolean_
+
+功能描述： 是否堆积面积图
+
+默认配置： `true`
+
 #### areaStyle
 
 **可选**, _StyleAttr | Function_

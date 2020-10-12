@@ -59,6 +59,14 @@ order: 0
 
 默认配置： `true`
 
+#### isStack
+
+**可选**, _boolean_
+
+功能描述： 是否堆积折线
+
+默认配置： `false`
+
 #### lineStyle
 
 **可选**, _StyleAttr | Function_

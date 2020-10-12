@@ -1,4 +1,5 @@
-import { deepMix } from '@antv/util';
+import { Geometry } from '@antv/g2';
+import { deepMix, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
@@ -115,6 +116,23 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
 }
 
 /**
+ * 统一处理 adjust
+ * @param params
+ */
+export function adjust(params: Params<Pick<LineOptions, 'isStack'>>): Params<any> {
+  const { chart, options } = params;
+  const { isStack } = options;
+
+  if (isStack) {
+    each(chart.geometries, (g: Geometry) => {
+      g.adjust('stack');
+    });
+  }
+
+  return params;
+}
+
+/**
  * 折线图适配器
  * @param chart
  * @param options
@@ -124,6 +142,7 @@ export function adaptor(params: Params<LineOptions>) {
   return flow(
     geometry,
     meta,
+    adjust,
     theme,
     axis,
     legend,

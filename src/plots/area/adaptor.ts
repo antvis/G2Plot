@@ -1,11 +1,10 @@
-import { Geometry } from '@antv/g2';
-import { deepMix, each } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { tooltip, slider, interaction, animation, theme, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
-import { meta, legend, axis } from '../line/adaptor';
+import { meta, legend, axis, adjust } from '../line/adaptor';
 import { AreaOptions } from './types';
 
 /**
@@ -54,19 +53,6 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
       cfg,
     });
   }
-
-  return params;
-}
-
-/**
- * 统一处理 adjust
- * @param params
- */
-function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
-  const { chart } = params;
-  each(chart.geometries, (g: Geometry) => {
-    g.adjust('stack');
-  });
 
   return params;
 }

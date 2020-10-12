@@ -29,6 +29,7 @@ export class Area extends Plot<AreaOptions> {
           range: [0, 1],
         },
       },
+      isStack: true,
     });
   }
 

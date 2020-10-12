@@ -1,18 +1,14 @@
 import { Geometry } from '@antv/g2';
-import { deepMix, get, isObject } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { findGeometry, flow } from '../../utils';
+import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
 import { WaterOptions } from './types';
-import { processData } from './utils';
+import { transformData } from './utils';
 import './shape';
-
-const Y_FIELD = '$$yField$$';
-const DIFF_FIELD = '$$diffField$$';
-const ABSOLUTE_FIELD = '$$absoluteField$$';
-const IS_TOTAL = '$$isTotal$$';
 
 /**
  * 字段
@@ -34,19 +30,7 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
   } = options;
 
   // 数据处理
-  let newData = processData(data, xField, yField, Y_FIELD, total);
-  newData = newData.map((d, dIdx) => {
-    if (!isObject(d)) {
-      return d;
-    }
-    return {
-      ...d,
-      [ABSOLUTE_FIELD]: d[Y_FIELD][1],
-      [DIFF_FIELD]: d[Y_FIELD][1] - d[Y_FIELD][0],
-      [IS_TOTAL]: dIdx === data.length,
-    };
-  });
-  chart.data(newData);
+  chart.data(transformData(data, xField, yField, total));
 
   // 瀑布图自带的 colorMapping
   let colorMapping = color;

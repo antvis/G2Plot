@@ -1,4 +1,5 @@
-import { processData } from '../../../../src/plots/waterfall/utils';
+import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from '../../../../src/plots/waterfall/constants';
+import { processData, transformData } from '../../../../src/plots/waterfall/utils';
 
 describe('utils of waterfall', () => {
   it('processData: normal', () => {
@@ -42,6 +43,29 @@ describe('utils of waterfall', () => {
       { type: '1', value: [0, 10] },
       { type: '2', value: [10, 15] },
       { type: '3', value: [15, 15] },
+    ]);
+  });
+
+  it('transformData: without total', () => {
+    const data = [
+      { type: '1', value: 10 },
+      { type: '2', value: 5 },
+    ];
+    expect(transformData(data, 'type', 'value')).toEqual([
+      { type: '1', value: 10, [Y_FIELD]: [0, 10], [ABSOLUTE_FIELD]: 10, [DIFF_FIELD]: 10, [IS_TOTAL]: false },
+      { type: '2', value: 5, [Y_FIELD]: [10, 15], [ABSOLUTE_FIELD]: 15, [DIFF_FIELD]: 5, [IS_TOTAL]: false },
+    ]);
+  });
+
+  it('transformData: with total', () => {
+    const data = [
+      { type: '1', value: 10 },
+      { type: '2', value: 5 },
+    ];
+    expect(transformData(data, 'type', 'value', { label: 'sum' })).toEqual([
+      { type: '1', value: 10, [Y_FIELD]: [0, 10], [ABSOLUTE_FIELD]: 10, [DIFF_FIELD]: 10, [IS_TOTAL]: false },
+      { type: '2', value: 5, [Y_FIELD]: [10, 15], [ABSOLUTE_FIELD]: 15, [DIFF_FIELD]: 5, [IS_TOTAL]: false },
+      { type: 'sum', value: 15, [Y_FIELD]: [0, 15], [ABSOLUTE_FIELD]: 15, [DIFF_FIELD]: 15, [IS_TOTAL]: true },
     ]);
   });
 });

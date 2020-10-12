@@ -1,6 +1,7 @@
-import { isUndefined, isNumber, get, reduce } from '@antv/util';
+import { isUndefined, isNumber, get, reduce, isObject } from '@antv/util';
 import { Options } from '../../types';
 import { LEVEL, log } from '../../utils';
+import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from './constants';
 
 /**
  * @desc 数据处理函数，统一将数据处理成[start, end]
@@ -39,4 +40,27 @@ export function processData(
     });
   }
   return newData;
+}
+
+/**
+ * 处理为 瀑布图 数据
+ */
+export function transformData(
+  data: Options['data'],
+  xField: string,
+  yField: string,
+  total?: false | { label?: string }
+) {
+  const processed = processData(data, xField, yField, Y_FIELD, total);
+  return processed.map((d, dIdx) => {
+    if (!isObject(d)) {
+      return d;
+    }
+    return {
+      ...d,
+      [ABSOLUTE_FIELD]: d[Y_FIELD][1],
+      [DIFF_FIELD]: d[Y_FIELD][1] - d[Y_FIELD][0],
+      [IS_TOTAL]: dIdx === data.length,
+    };
+  });
 }

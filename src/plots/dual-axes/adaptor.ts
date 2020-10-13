@@ -210,9 +210,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
     chart.legend(false);
   } else {
     // 存在单折线图或多折线图时，使用自定义图例
-    // let customItem = getLegendItems(chart, );
-
-    chart.on('beforepaint', () => {
+    chart.once('beforepaint', () => {
       const leftItems = getViewLegendItems({
         view: leftView,
         geometryOption: geometryOptions[0],

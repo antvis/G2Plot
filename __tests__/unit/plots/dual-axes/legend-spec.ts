@@ -4,8 +4,7 @@ import { createDiv } from '../../../utils/dom';
 
 describe('Legend', () => {
   it('Legend default', () => {
-    document.body.append('test DualAxes doubal line');
-    const dualAxes = new DualAxes(createDiv(), {
+    const dualAxes = new DualAxes(createDiv('test DualAxes doubal line'), {
       width: 400,
       height: 500,
       data: [PV_DATA, UV_DATA_MULTI],

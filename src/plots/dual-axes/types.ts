@@ -28,7 +28,10 @@ type CommonGeometryOption = {
 };
 
 // 折线设置接口, 直接用 LineOption 吧
-export type GeometryLineOption = Pick<LineOptions, 'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point'> &
+export type GeometryLineOption = Pick<
+  LineOptions,
+  'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point' | 'isStack'
+> &
   CommonGeometryOption;
 
 // 柱设置接口

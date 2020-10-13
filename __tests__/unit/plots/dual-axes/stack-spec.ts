@@ -1,5 +1,5 @@
 import { DualAxes } from '../../../../src';
-import { PV_DATA, UV_DATA_MULTI } from '../../../data/pv-uv';
+import { UV_DATA_MULTI } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
 describe('stack', () => {

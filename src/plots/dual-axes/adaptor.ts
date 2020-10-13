@@ -9,7 +9,7 @@ import {
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils/flow';
 import { findViewById } from '../../utils/view';
-import { getOption, isLine, isColumn } from './util/option';
+import { getOption } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOptions } from './types';

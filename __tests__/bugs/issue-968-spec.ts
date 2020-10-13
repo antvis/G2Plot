@@ -1,4 +1,3 @@
-import { COMPONENT_TYPE } from '@antv/g2/lib/constant';
 import { Line } from '../../src';
 import { createDiv } from '.././utils/dom';
 

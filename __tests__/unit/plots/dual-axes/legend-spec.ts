@@ -4,8 +4,7 @@ import { createDiv } from '../../../utils/dom';
 
 describe('Legend', () => {
   it('Legend default', () => {
-    document.body.append('test DualAxes doubal line');
-    const dualAxes = new DualAxes(createDiv(), {
+    const dualAxes = new DualAxes(createDiv('test DualAxes doubal line'), {
       width: 400,
       height: 500,
       data: [PV_DATA, UV_DATA_MULTI],
@@ -38,9 +37,8 @@ describe('Legend', () => {
     dualAxes.destroy();
   });
 
-  it('Legend default with option', () => {
-    document.body.append('test DualAxes doubal line');
-    const dualAxes = new DualAxes(createDiv(), {
+  it.only('Legend default with option', () => {
+    const dualAxes = new DualAxes(createDiv('test DualAxes doubal line'), {
       width: 400,
       height: 500,
       data: [PV_DATA, UV_DATA_MULTI],
@@ -78,6 +76,17 @@ describe('Legend', () => {
     expect(cfg.items[1].name).toBe('a');
     expect(cfg.items[2].name).toBe('b');
     expect(cfg.items[3].name).toBe('c');
+
+    dualAxes.update({
+      ...dualAxes.options,
+      legend: false,
+    });
+
+    // 隐藏就没有图例了
+    expect(dualAxes.chart.views[0].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
+    expect(dualAxes.chart.views[1].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
+
+    expect(dualAxes.chart.getEvents().beforepaint).toBeUndefined();
 
     dualAxes.destroy();
   });

@@ -28,6 +28,7 @@ export class Line extends Plot<LineOptions> {
           range: [0, 1],
         },
       },
+      isStack: false,
     });
   }
 

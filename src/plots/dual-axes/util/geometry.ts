@@ -1,4 +1,5 @@
-import { deepMix } from '@antv/util';
+import { deepMix, each } from '@antv/util';
+import { Geometry } from '@antv/g2';
 import { Params } from '../../../core/adaptor';
 import { point, line, interval } from '../../../adaptor/geometries';
 import { pick, findGeometry } from '../../../utils';
@@ -14,6 +15,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 ): Params<O> {
   const { options, chart } = params;
   const { geometryOption, yField } = options;
+  const { isStack } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryOption)) {
@@ -22,11 +24,9 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryOption, ['seriesField']),
-          connectNulls: geometryOption.connectNulls,
-          smooth: geometryOption.smooth,
+          ...pick(geometryOption, ['seriesField', 'connectNulls', 'smooth']),
           line: {
-            ...pick(geometryOption, ['color']),
+            color: geometryOption.color,
             style: geometryOption.lineStyle,
           },
         },
@@ -41,6 +41,13 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
         },
       })
     );
+
+    // 处理 isStack
+    if (isStack) {
+      each(chart.geometries, (g: Geometry) => {
+        g.adjust('stack');
+      });
+    }
   }
 
   if (isColumn(geometryOption)) {

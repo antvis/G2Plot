@@ -7,11 +7,11 @@ import { FUNNEL_PERCENT } from '../constant';
 import { transpose } from './util';
 
 /**
- * 处理数据
+ * 处理字段数据
  * @param params
  */
-function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { options } = params;
+function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { chart, options } = params;
   const { data = [], yField } = options;
   let formatData = [];
   // format 数据
@@ -24,11 +24,9 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
     });
   }
 
-  return deepMix({}, params, {
-    options: {
-      formatData,
-    },
-  });
+  // 绘制漏斗图
+  chart.data(formatData);
+  return params;
 }
 
 /**
@@ -37,10 +35,8 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
  */
 function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, yField, color } = options;
+  const { xField, yField, color } = options;
 
-  // 绘制漏斗图
-  chart.data(formatData);
   chart
     .interval()
     .adjust('symmetric')
@@ -81,7 +77,9 @@ function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
  */
 function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, yField, annotation } = options;
+  const { xField, yField, annotation } = options;
+
+  const { data: formatData } = chart.getOptions();
 
   if (annotation !== false) {
     formatData.forEach((obj) => {
@@ -107,5 +105,5 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
  */
 export function basicFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(format, geometry, transpose, label, annotation)(params);
+  return flow(field, geometry, transpose, label, annotation)(params);
 }

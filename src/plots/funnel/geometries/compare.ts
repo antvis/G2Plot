@@ -1,17 +1,17 @@
-import { deepMix, map } from '@antv/util';
+import { map } from '@antv/util';
 import { flow } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FunnelAdaptorOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
 
 /**
- * 处理数据
+ * 处理字段数据
  * @param params
  */
-function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { options } = params;
+function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { chart, options } = params;
   const { data = [], yField, compareField } = options;
-
+  // 处理数据
   let formatData = [];
   if (data[0][yField]) {
     // format 数据
@@ -27,11 +27,9 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
     });
   }
 
-  return deepMix({}, params, {
-    options: {
-      formatData,
-    },
-  });
+  // 绘制漏斗图
+  chart.data(formatData);
+  return params;
 }
 
 /**
@@ -40,10 +38,9 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
  */
 function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, yField, color, compareField, label, transpose } = options;
+  const { xField, yField, color, compareField, label, transpose } = options;
 
-  // 绘制漏斗图
-  chart.data(formatData);
+  const { data: formatData } = chart.getOptions();
 
   chart.scale({
     [yField]: {
@@ -120,5 +117,5 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
  */
 export function compareFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(format, geometry)(params);
+  return flow(field, geometry)(params);
 }

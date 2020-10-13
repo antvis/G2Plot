@@ -7,33 +7,111 @@ order: 7
 
 G2Plot 2.0 持续开发中，截止目前，我们已经完成了 P0 、P1 级图表的开发，其它图表的开发也会如期进行，详情请参考[开发计划](https://www.yuque.com/antv/g2plot/ffgrfy#U9F3)。
 
-## 图表变更
+## 删除图表
 
-### 类型变更
+**Bubble**:
 
-- 去掉 Bubble，合并到 Scatter 中，通过配置实现，参考图表示例-[Scatter](../../examples/scatter/basic)。
+- 改用 Scatter 实现， 修改图表名称即可， 详细参考 [Scatter](../../examples/scatter/basic)。
 
-- 去掉 StackedArea、PercentStackedArea，合并到 Area 中，通过配置实现，参考图表示例-[Area](../../examples/area/basic)。
+**StackedColumn**:
 
-- 去掉 StackedColumn、RangeColumn、GroupedColumn、PercentStackedColumn，合并到 Column 中，通过配置实现，参考图表示例-[Column](../../examples/column/basic)。
+- 改用 Column 实现。
+- 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true` ， 详细参考 [Column](../../examples/column/stacked)。
 
-- 去掉 StackedBar、GroupedBar、PercentStackedBar、RangeBar，合并到 Bar 中，通过配置实现，参考图表示例-[Bar](../../examples/bar/basic)。
+**GroupedColumn**:
 
-- 去掉 Donut，合并到 Pie 中，通过配置实现，参考图表示例-[Pie](../../examples/pie/basic)。
+- 改用 Column 实现。
+- 删除 groupField 配置，改为 seriesField，需要指定 `isGroup: true` ， 详细参考 [Column](../../examples/column/grouped)。
 
-- 去掉 DualLine、ColumnLine、StackedColumnLine、GroupedColumnLine，统一到 DualAxes 中，通过配置实现，参考图表示例-[DualAxes](../../examples/dual-axes/dual-line)。
+**PercentStackedColumn**:
 
-### 配置变更
+- 改用 Column 实现。
+- 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true`、`isGroup: true` ， 详细参考 [Column](../../examples/column/percent)。
+
+**RangeColumn**:
+
+- 改用 Column 实现。
+- 删除 stackField 配置，改为 seriesField，需要指定 `isRange: true` ， 详细参考 [Column](../../examples/column/range)。
+- label 不再支持 topStyle、bottomStyle，详细配置请参考 [API](../../examples/column/range/API#label) 文档。
+
+**StackedBar**:
+
+- 改用 Bar 实现。
+- 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true` ， 详细参考 [Bar](../../examples/bar/stacked)。
+
+**GroupedBar**:
+
+- 改用 Bar 实现。
+- 删除 groupField 配置，改为 seriesField，需要指定 `isGroup: true` ， 详细参考 [Bar](../../examples/bar/stacked)。
+
+**PercentStackedBar**:
+
+- 改用 Bar 实现。
+- 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true`、`isGroup: true` ， 详细参考 [Bar](../../examples/bar/stacked)。
+
+**RangeBar**:
+
+- 改用 Bar 实现。
+- 删除 stackField 配置，改为 seriesField，需要指定 `isRange: true` ， 详细参考 [Bar](../../examples/bar/stacked)。
+- label 不再支持 topStyle、bottomStyle，详细配置请参考 [API](../../examples/bar/range/API#label) 文档
+
+**Donut**:
+
+- 改用 Pie 实现，修改图表名称即可 ， 详细参考 [Pie](../../examples/pie/basic)。
+
+**DualLine**:
+
+- 改用 DualAxes 实现，详细参考 [Demos](../../examples/dual-axes/dual-line) 。
+
+**ColumnLine**:
+
+- 改用 DualAxes 实现，详细参考 [Demos](../../examples/dual-axes/column-line) 。
+
+**StackedColumnLine**:
+
+- 改用 DualAxes 实现，详细参考 [Demos](../../examples/dual-axes/stacked-column-line) 。
+
+**GroupedColumnLine**:
+
+- 改用 DualAxes 实现，详细参考 [Demos](../../examples/dual-axes/grouped-column-line) 。
+
+**StackedArea**:
+
+- 改用 Area 实现。
+- 去掉 stackField ，改用 seriesField 。
+
+**PercentStackedArea**:
+
+- 改用 Area 实现。
+- 去掉 stackField ，改用 seriesField ，需要指定 `isStack: true` 。
+
+**StepLine**:
+
+- 改用 Line 实现，需要指定 stepType，详细参考 [Line](../../examples/line/step)。
+
+```ts
+// 变更前
+step: 'hvh', // 可以选择 hv, vh, hvh, vhv
+
+// 变更后
+stepType: 'hvh', // 可以选择 hv, vh, hvh, vhv
+```
+
+## 配置变更
 
 G2Plot 2.0 兼容大部分的 1.x 版本图表功能和配置项，详情如下：
 
-#### 通用配置
+### 通用配置
 
 **title**: 不再支持
 
 **description**: 不再支持
 
 **forceFit**: 不再支持，改用 autoFit
+
+**responsive**：不再支持，内置。
+
+**guideLine**：不再支持，改用 [anniotations](../../examples/general/annotation) 实现。
 
 **slider**:
 
@@ -115,11 +193,12 @@ animation: {
 }
 ```
 
-#### 私有配置
+### 私有配置
 
 **Scatter**:
 
 - pointSize: 不再支持，改用 size 。
+- shape: 去掉默认类型 circle，需要显性设置。
 
 **Rose**:
 
@@ -129,19 +208,62 @@ animation: {
 
 **Bullet**:
 
-```ts
-// 变更前
-range: [0, 0.5, 1],
-
-...
-// 变更后采用实际数值
-range: [20, 50, 100],
-```
+- 改动较大，详细参考 [Bullet](../../examples/bullet/basic)
 
 **WordCloud**:
 
 - maskImage: 不再支持， 改用 imageMask。
 - wordStyle 选项中的 gridSize 改为 padding。
+
+**TinyArea、 TinyColumn、 TinyLine**:
+
+- 删除 xField 、yField。
+- data 类型由 object[] 变为 number[]。
+
+**Gauge**:
+
+- 删除 color 、 min 、 max。
+- 删除 value , 改用 percent 。
+- 删除 pivot 改用 indicator。
+- 更新 range ，详细参考[Gauge](../../examples/gauge/basic#complex)
+
+```ts
+// 变更前
+range: [0, 25, 50, 75, 100],
+color: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
+// 变更后
+range: {
+  ticks: [0, 0.25, 0.5, 0.75, 1],
+  color: ['#39B8FF', '#52619B', '#43E089', '#C0EDF3'],
+}
+```
+
+**Radar**:
+
+- 删除 radiusAxis ，改用 yAxis。
+- 删除 angleField ， 改用 xField 。
+- 删除 radiusField ， 改用 yField 。
+
+**Liquid**:
+
+- 删除 min 、max。
+- 删除 value ，改用 percent。
+- 更新 statistic 。
+
+```ts
+// 变更前
+statistic: {
+  formatter: (value) => 'xx',
+},
+// 变更后
+statistic: {
+  content: {
+    formatter: ({ percent }) => {
+      return `xxx`;
+    },
+  },
+},
+```
 
 ## 遇到问题
 

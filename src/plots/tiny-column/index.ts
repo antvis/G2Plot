@@ -12,6 +12,7 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
 
   protected getDefaultOptions() {
     return {
+      appendPadding: 2,
       tooltip: {
         ...DEFAULT_TOOLTIP_OPTIONS,
       },

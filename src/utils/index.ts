@@ -5,3 +5,4 @@ export { log, invariant, LEVEL } from './invariant';
 export { getContainerSize } from './dom';
 export { findGeometry, getAllElements } from './geometry';
 export { findViewById } from './view';
+export { transformLabel } from './label';

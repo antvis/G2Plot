@@ -11,7 +11,7 @@ You can import by CDN in browser or you can import local source.
 
 ```html
 <!-- import CDN source -->
-<script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"></script>
 <script>
   const plot = new G2Plot.Line('container', {
     // ...
@@ -22,7 +22,7 @@ You can import by CDN in browser or you can import local source.
 
 ```html
 <!-- import local source -->
-<script src="./g2plot.js"></script>
+<script src="./g2plot.min.js"></script>
 ```
 
 ### Import via NPM

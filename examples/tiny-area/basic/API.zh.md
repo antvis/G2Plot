@@ -1,55 +1,67 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.zh.md`
+`markdown:docs/common/chart-options.zh.md`
 
 ### 数据映射
 
 #### data 📌
 
-**必选**, _array object_
+**必选**, _number[]_
 
 功能描述： 设置图表数据源
 
 默认配置： 无
 
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
-
-`markdown:common/xy-field.zh.md`
-
-`markdown:common/meta.zh.md`
+`markdown:docs/common/meta.zh.md`
 
 ### 图形样式
 
-`markdown:common/color.zh.md`
+#### smooth
 
-### tooltip
+**可选**, _boolean_
 
-`markdown:common/tooltip.zh.md`
+功能描述： 是否平滑
 
-### axis
+默认配置： `false`
 
-xAxis、yAxis 配置相同。
+#### areaStyle
 
-`markdown:common/axis.zh.md`
+**可选**, _StyleAttr | Function_
 
-### legend
+功能描述： 面积图形样式
 
-`markdown:common/legend.zh.md`
+默认配置： 无
 
-### theme
+`markdown:docs/common/shape-style.zh.md`
 
-`markdown:common/theme.zh.md`
+#### line
 
-### 事件
+**可选**, _lineStyle_
 
-`markdown:common/events.zh.md`
+功能描述： 面积中折线的样式
 
-#### 图表方法
+默认配置： 无
 
-`markdown:common/chart-methods.zh.md`
+| 细分配置项名称 | 类型                                     | 功能描述 |
+| -------------- | ---------------------------------------- | -------- |
+| color          | _string \| string[] \| Function_         | 颜色映射 |
+| style          | _ShapeStyle \| Function_                 | 样式映射 |
+| size           | _number \| [number, number] \| Function_ | 折线宽度 |
+
+#### point
+
+**可选**, _pointStyle_
+
+功能描述： 面积图数据点图形样式
+
+默认配置： 无
+
+`markdown:docs/common/point-style.zh.md`
+
+`markdown:docs/common/color.zh.md`
+
+### 图表组件
+
+`markdown:docs/common/component-tiny.zh.md`

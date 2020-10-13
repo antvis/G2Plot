@@ -1,4 +1,4 @@
-#### nice
+##### nice
 
 <description>**可选** _boolean_</description>
 
@@ -6,15 +6,15 @@
 
 默认配置：`true`
 
-#### min
+##### min
 
 <description>**可选** _number_</description>
 
 功能描述：坐标轴最小值。
 
-默认配置：`无`
+默认配置：`0`
 
-#### max
+##### max
 
 <description>**可选** _number_</description>
 
@@ -22,7 +22,7 @@
 
 默认配置：`无`
 
-#### minLimit
+##### minLimit
 
 <description>**可选** _number_</description>
 
@@ -30,7 +30,7 @@
 
 默认配置：`无`
 
-#### maxLimit
+##### maxLimit
 
 <description>**可选** _number_</description>
 
@@ -38,15 +38,15 @@
 
 默认配置：`无`
 
-#### tickCount
+##### tickCount
 
 <description>**可选** _number_</description>
 
 功能描述：期望的坐标轴刻度数量，非最终结果。
 
-默认配置：`无`
+默认配置：`无
 
-#### tickInterval
+##### tickInterval
 
 <description>**可选** _number_</description>
 
@@ -54,15 +54,15 @@
 
 默认配置：`无`
 
-#### tickMethod
+##### tickMethod
 
 <description>**可选** _Function_</description>
 
 功能描述：自定义计算 tick 的方法。
 
-默认配置：`无`
+默认配置：`false`
 
-#### position
+##### position
 
 <description>**可选** _`top` | `bottom` | `left` | `right`_</description>
 
@@ -70,7 +70,7 @@
 
 默认配置：`无`
 
-#### line
+##### line
 
 <description>**可选** _object_</description>
 
@@ -78,9 +78,9 @@
 
 默认配置：`无`
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
-#### tickLine
+##### tickLine
 
 <description>**可选** _object_</description>
 
@@ -88,9 +88,9 @@
 
 默认配置：`无`
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
-#### subTickLine
+##### subTickLine
 
 <description>**可选** _object_</description>
 
@@ -98,9 +98,9 @@
 
 默认配置：`无`
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
-#### title
+##### title
 
 <description>**可选** _object_</description>
 
@@ -115,11 +115,11 @@
 | style          | _shapeStyle_ | 标题文本配置项           |
 | autoRotate     | _boolean_    | 是否自动旋转             |
 
-##### shapeStyle
+**_shapeStyle_**
 
-`markdown:common/shape-style.zh.md`
+`markdown:docs/common/shape-style.zh.md`
 
-#### label
+**_label_**
 
 <description>**可选** _object_</description>
 
@@ -127,9 +127,9 @@
 
 默认配置：`无`
 
-`markdown:common/label.zh.md`
+`markdown:docs/common/label.zh.md`
 
-#### grid
+##### grid
 
 <description>**可选** _object_</description>
 
@@ -144,11 +144,11 @@
 | closed         | _boolean_          | 对于 circle 是否关闭 grid                                |
 | alignTick      | _boolean_          | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间 |
 
-##### lineStyle
+**_lineStyle_**
 
-`markdown:common/line-style.zh.md`
+`markdown:docs/common/line-style.zh.md`
 
-#### animate
+##### animate
 
 <description>**可选** _boolean_</description>
 
@@ -156,7 +156,7 @@
 
 默认配置：`true`
 
-#### animateOption
+##### animateOption
 
 <description>**可选** _object_</description>
 
@@ -184,7 +184,7 @@ interface ComponentAnimateCfg {
 }
 ```
 
-#### verticalFactor
+##### verticalFactor
 
 <description>**可选** _number_</description>
 
@@ -192,7 +192,7 @@ interface ComponentAnimateCfg {
 
 默认配置：`无`
 
-#### verticalLimitLength
+##### verticalLimitLength
 
 <description>**可选** _number_</description>
 

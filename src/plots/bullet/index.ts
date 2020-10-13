@@ -19,24 +19,20 @@ export class Bullet extends Plot<BulletOptions> {
 
   protected getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
-      label: {
-        position: 'right',
-      },
       layout: 'horizontal',
-      legend: false,
-      bulletStyle: {
-        target: {
-          size: 20,
-          style: {
-            lineWidth: 2,
-          },
-        },
+      size: {
+        range: 30,
+        measure: 20,
+        target: 20,
+      },
+      style: {
         range: {
-          size: 30,
-          style: { fillOpacity: 0.5 },
+          fillOpacity: 0.5,
         },
+      },
+      label: {
         measure: {
-          size: 20,
+          position: 'right',
         },
       },
     });

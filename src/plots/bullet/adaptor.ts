@@ -13,8 +13,7 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletStyle, targetField, rangeField, measureField, xField, layout } = options;
-  const { range, measure, target } = bulletStyle;
+  const { style, targetField, rangeField, measureField, xField, color, layout, size } = options;
   // 处理数据
   const { min, max, ds } = transformData(options);
 
@@ -40,12 +39,12 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     options: {
       xField: xField,
       yField: rangeField,
-      seriesField: 'index',
+      seriesField: 'rKey',
       isStack: true,
       interval: {
-        color: range.color,
-        style: range.style,
-        size: range.size,
+        color: color?.range,
+        style: style?.range,
+        size: size?.range,
       },
     },
   });
@@ -58,12 +57,12 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     options: {
       xField: xField,
       yField: measureField,
-      seriesField: 'index',
+      seriesField: 'mKey',
       isStack: true,
       interval: {
-        color: measure.color,
-        style: measure.style,
-        size: measure.size,
+        color: color?.measure,
+        style: style?.measure,
+        size: size?.measure,
       },
     },
   });
@@ -74,11 +73,11 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     options: {
       xField: xField,
       yField: targetField,
-      seriesField: targetField,
+      seriesField: 'tKey',
       point: {
-        color: target.color,
-        style: target.style,
-        size: isNumber(target.size) ? Number(target.size) / 2 : target.size,
+        color: color?.target,
+        style: style?.target,
+        size: isNumber(size?.target) ? Number(size.target) / 2 : size.target,
         shape: layout === 'horizontal' ? 'line' : 'hyphen',
       },
     },
@@ -149,7 +148,13 @@ function legend(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
   const { legend } = options;
   chart.removeInteraction('legend-filter');
+  // @TODO 后续看是否内部自定义一个 legend
   chart.legend(legend);
+
+  // 默认关闭掉所在 color 字段的 legend, 从而不影响自定义的legend
+  chart.legend('rKey', false);
+  chart.legend('mKey', false);
+  chart.legend('tKey', false);
 
   return params;
 }
@@ -160,9 +165,18 @@ function legend(params: Params<BulletOptions>): Params<BulletOptions> {
  */
 function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { label, measureField } = options;
-  const measureGeometry = chart.geometries[1];
-  measureGeometry.label(`${measureField}`, label);
+  const { label, measureField, targetField, rangeField } = options;
+  const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
+
+  if (label?.range) {
+    rangeGeometry.label(`${rangeField}`, label.range);
+  }
+  if (label?.measure) {
+    measureGeometry.label(`${measureField}`, label.measure);
+  }
+  if (label?.target) {
+    targetGeometry.label(`${targetField}`, label.target);
+  }
 
   return params;
 }

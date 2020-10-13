@@ -9,8 +9,8 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/b21e7336-0b3e-486c-9070-612ede49
       yField: 'value',
       seriesField: 'country',
       slider: {
-        min: 0.1,
-        max: 0.9,
+        start: 0.1,
+        end: 0.9,
       },
     });
     area.render();

@@ -1,12 +1,8 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.en.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### 数据映射
 
@@ -20,9 +16,9 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:common/xy-field.en.md`
+`markdown:docs/common/xy-field.en.md`
 
-`markdown:common/meta.en.md`
+`markdown:docs/common/meta.en.md`
 
 ```ts
 const data = [
@@ -70,7 +66,7 @@ scatterPlot.render();
 
 ### 图形样式
 
-`markdown:common/color.en.md`
+`markdown:docs/common/color.en.md`
 
 #### sizeField
 
@@ -194,59 +190,6 @@ scatterPlot.render();
 }
 ```
 
-### tooltip
+## 图表组件
 
-`markdown:common/tooltip.en.md`
-
-### axis
-
-xAxis、yAxis 配置相同。
-
-`markdown:common/axis.en.md`
-
-### legend
-
-`markdown:common/legend.en.md`
-
-### theme
-
-`markdown:common/theme.en.md`
-
-### 事件
-
-`markdown:common/events.en.md`
-
-##### 实例
-
-```ts
-const data = [
-  {
-    Title: 'Guardians of the Galaxy',
-    Genre: 'Action',
-    'Revenue (Millions)': 333.13,
-    Rating: 8.1,
-  },
-  {
-    Title: 'Prometheus',
-    Genre: 'Adventure',
-    'Revenue (Millions)': 126.46,
-    Rating: 7,
-  },
-];
-const scatterPlot = new Scatter('container', {
-  appendPadding: 10,
-  data: [],
-  xField: 'Revenue (Millions)',
-  yField: 'Rating',
-  shape: 'circle',
-});
-scatterPlot.render();
-// 添加点击事件
-scatterPlot.on('element:click', (...args) => {
-  console.log(...args);
-});
-```
-
-#### 图表方法
-
-`markdown:common/chart-methods.en.md`
+`markdown:docs/common/component.zh.md`

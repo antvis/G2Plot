@@ -99,3 +99,56 @@ export const subSalesByArea = [
     sales: 469341.684,
   },
 ];
+
+export const timeColumnData = [
+  {
+    year: '1991-1-1',
+    value: 3,
+    type: 'Lon',
+  },
+  {
+    year: '1991-1-2',
+    value: 4,
+    type: 'Lon',
+  },
+  {
+    year: '1991-1-3',
+    value: 3.5,
+    type: 'Lon',
+  },
+  {
+    year: '1991-1-4',
+    value: 5,
+    type: 'Lon',
+  },
+  {
+    year: '1991-1-5',
+    value: 4.9,
+    type: 'Lon',
+  },
+  {
+    year: '1991-1-1',
+    value: 3,
+    type: 'Bor',
+  },
+  {
+    year: '1991-1-2',
+    value: 4,
+    type: 'Bor',
+  },
+  {
+    year: '1991-1-3',
+    value: 3.5,
+    type: 'Bor',
+  },
+  {
+    year: '1991-1-4',
+    value: 5,
+    type: 'Bor',
+  },
+  {
+    year: '1991-1-5',
+    value: 4.9,
+    type: 'Bor',
+  },
+];

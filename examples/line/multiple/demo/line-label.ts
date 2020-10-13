@@ -17,6 +17,13 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/e00d52f4-2fa6-47ee-a0d7-105dd95b
         position: 'top',
       },
       smooth: true,
+      // @TODO 后续会换一种动画方式
+      animation: {
+        appear: {
+          animation: 'path-in',
+          duration: 5000,
+        },
+      },
     });
 
     linePlot.render();

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
 import Cases from '@antv/gatsby-theme-antv/site/components/Cases';
+import './index.less';
 
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
@@ -53,8 +54,8 @@ const IndexPage = () => {
     {
       type: 'News',
       title: 'G2Plot 2.0 发布了',
-      date: '2020.08.18',
-      link: 'https://charts.ant.design/',
+      date: '2020.09.28',
+      link: 'https://github.com/antvis/G2Plot/releases/tag/2.0.0',
     },
   ];
 

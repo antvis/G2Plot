@@ -19,10 +19,8 @@ describe('axis bullet', () => {
           max: 120,
         },
       },
-      bulletStyle: {
-        range: {
-          color: rangeColors,
-        },
+      color: {
+        range: rangeColors,
       },
     });
 
@@ -38,5 +36,47 @@ describe('axis bullet', () => {
     const measureGeometry = bullet.chart.geometries[1];
     expect(measureGeometry.scales.measures.min).toBe(0);
     expect(measureGeometry.scales.measures.max).toBe(120);
+  });
+  it('axis*xAxis*false', () => {
+    const bullet = new Bullet(createDiv('axis*xAxis*false bullet'), {
+      width: 400,
+      height: 100,
+      data: bulletData,
+      measureField: 'measures',
+      rangeField: 'ranges',
+      targetField: 'target',
+      xField: 'title',
+      xAxis: false,
+    });
+
+    bullet.render();
+    // @ts-ignore
+    expect(bullet.chart.options.axes.title).toEqual(false);
+    // @ts-ignore
+    expect(bullet.chart.options.axes.ranges).toEqual(false);
+    // @ts-ignore
+    expect(bullet.chart.options.axes.target).toEqual(false);
+    // expect(bullet.chart.options.axes.title).toBe('red');
+  });
+
+  it('axis*yAxis*false', () => {
+    const bullet = new Bullet(createDiv('axis*yAxis*false bullet'), {
+      width: 400,
+      height: 100,
+      data: bulletData,
+      measureField: 'measures',
+      rangeField: 'ranges',
+      targetField: 'target',
+      xField: 'title',
+      yAxis: false,
+    });
+
+    bullet.render();
+    // @ts-ignore
+    expect(bullet.chart.options.axes.ranges).toEqual(false);
+    // @ts-ignore
+    expect(bullet.chart.options.axes.target).toEqual(false);
+    // @ts-ignore
+    expect(bullet.chart.options.axes.measures).toEqual(false);
   });
 });

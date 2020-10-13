@@ -1,10 +1,11 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { ColumnOptions } from './types';
+import { transformData } from './utils';
 
 /**
  * 字段
@@ -12,9 +13,12 @@ import { ColumnOptions } from './types';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, color, columnWidthRatio } = options;
-
-  chart.data(data);
+  const { data, columnStyle, color, columnWidthRatio, isPercent } = options;
+  let chartData = data;
+  if (isPercent) {
+    chartData = transformData(options);
+  }
+  chart.data(chartData);
 
   const p = deepMix({}, params, {
     options: {
@@ -76,17 +80,10 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { legend } = options;
-  const geometry = findGeometry(chart, 'interval');
-  const colorAttribute = geometry.getAttribute('color');
+  const { legend, seriesField } = options;
 
-  if (legend && colorAttribute) {
-    const colorFields = colorAttribute.getFields();
-    if (colorFields.length > 0) {
-      chart.legend(colorFields[0], legend);
-    }
-  } else {
-    chart.legend(false);
+  if (legend && seriesField) {
+    chart.legend(seriesField, legend);
   }
 
   return params;
@@ -128,6 +125,7 @@ export function adaptor(params: Params<ColumnOptions>) {
     legend,
     tooltip,
     slider,
+    scrollbar,
     theme,
     label,
     interaction,

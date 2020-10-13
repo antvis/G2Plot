@@ -19,7 +19,7 @@ describe('DualAxes meta', () => {
     const leftAxes = dualAxes.chart.views[0].getComponents().filter((co) => co.type === 'axis');
     const rightAxes = dualAxes.chart.views[1].getComponents().filter((co) => co.type === 'axis');
     expect(leftAxes.length + rightAxes.length).toBe(0);
-    // DualAxes.destroy();
+    dualAxes.destroy();
   });
 
   it('axis style', () => {
@@ -64,5 +64,6 @@ describe('DualAxes meta', () => {
     // @ts-ignore
     const rightYAxes = rightOptions.axes.uv;
     expect(rightYAxes.tickCount).toBe(5);
+    dualAxes.destroy();
   });
 });

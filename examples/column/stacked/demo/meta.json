@@ -19,14 +19,6 @@
         "en": "StackedColumn chart label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*b7StTaZVdmAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "label-position.ts",
-      "title": {
-        "zh": "堆叠柱状图 - 数据标签",
-        "en": "StackedColumn chart label position"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*b7StTaZVdmAAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

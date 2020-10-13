@@ -6,9 +6,12 @@ const tinyArea = new TinyArea('container', {
   autoFit: false,
   data: new Array(100).fill(0).map(() => Math.random() * 100),
   smooth: true,
-  lineStyle: {
-    lineDash: [2, 2],
-    stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+  line: {
+    size: 1,
+    style: {
+      lineDash: [2, 2],
+      stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+    },
   },
   areaStyle: {
     fill: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',

@@ -8,7 +8,7 @@ const data = [
   { time: '2019-07', value: 470, count: 220 },
 ];
 
-const dualAxesChart = new DualAxes('container', {
+const dualAxes = new DualAxes('container', {
   data: [data, data],
   xField: 'time',
   yField: ['value', 'count'],
@@ -20,10 +20,10 @@ const dualAxesChart = new DualAxes('container', {
       geometry: 'line',
       lineStyle: {
         lineWidth: 2,
-        stroke: '#29cae4',
+        stroke: '#FAA219',
       },
     },
   ],
 });
 
-dualAxesChart.render();
+dualAxes.render();

@@ -1,4 +1,5 @@
 import { deepMix } from '@antv/util';
+import { getPercentTooltipTemplate } from '../../utils/percent-tooltip';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { ColumnOptions } from './types';
@@ -16,9 +17,34 @@ export class Column extends Plot<ColumnOptions> {
   /**
    * 获取 柱形图 默认配置
    */
-  protected getDefaultOptions() {
+  protected getDefaultOptions(options: ColumnOptions) {
+    const { isPercent, isRange, label, yField, xField } = options;
     return deepMix({}, super.getDefaultOptions(), {
+      label:
+        label && isRange
+          ? {
+              content: (item: object) => {
+                return item[yField]?.join('-');
+              },
+              ...label,
+            }
+          : label,
+      tooltip: {
+        shared: true,
+        showMarkers: false,
+        offset: 20,
+        customContent: isPercent
+          ? (value: string, items: any[]) => {
+              return getPercentTooltipTemplate(value, items);
+            }
+          : '',
+      },
       interactions: [{ type: 'active-region' }],
+      meta: {
+        [xField]: {
+          type: 'cat',
+        },
+      },
     });
   }
 

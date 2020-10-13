@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
 import { flow, findGeometry } from '../../utils';
 import { WordCloudOptions } from './types';
 import { transform } from './utils';
@@ -104,17 +104,5 @@ function legend(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
  */
 export function adaptor(params: Params<WordCloudOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow<Params<WordCloudOptions>>(
-    geometry,
-    meta,
-    coord,
-    axis,
-    label,
-    color,
-    legend,
-    tooltip,
-    interaction,
-    animation,
-    theme
-  )(params);
+  flow(geometry, meta, coord, axis, label, color, legend, tooltip, interaction, animation, theme, state)(params);
 }

@@ -66,7 +66,7 @@ $ npm install @antv/g2plot
 <div id="container"></div>
 ```
 
-```js
+```ts
 import { Bar } from '@antv/g2plot';
 
 const data = [
@@ -81,7 +81,7 @@ const bar = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'year',
-  colorField: 'year',
+  seriesField: 'year',
 });
 
 bar.render();

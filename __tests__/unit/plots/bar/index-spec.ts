@@ -1,5 +1,5 @@
 import { Bar } from '../../../../src';
-import { salesByArea, subSalesByArea } from '../../../data/sales';
+import { salesByArea, subSalesByArea, timeColumnData } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('bar', () => {
@@ -25,6 +25,10 @@ describe('bar', () => {
     expect(positionFields).toHaveLength(2);
     expect(positionFields[0]).toBe('area');
     expect(positionFields[1]).toBe('sales');
+
+    // 默认 yField 为 cat 类型
+    // @ts-ignore
+    expect(geometry.scales.area.type).toBe('cat');
   });
 
   it('x*y*color', () => {
@@ -256,5 +260,27 @@ describe('bar', () => {
     bar.render();
 
     expect(bar.chart.interactions['active-region']).toBeDefined();
+  });
+
+  it('x*y*cat', () => {
+    const bar = new Bar(createDiv('x*y*cat'), {
+      width: 300,
+      height: 400,
+      data: timeColumnData,
+      isStack: true,
+      xField: 'value',
+      yField: 'year',
+      seriesField: 'type',
+    });
+
+    bar.render();
+    const geometry = bar.chart.geometries[0];
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'year',
+      yField: 'value',
+    });
+    // 默认 yField 为 cat 类型
+    // @ts-ignore
+    expect(geometry.scales.year.type).toBe('cat');
   });
 });

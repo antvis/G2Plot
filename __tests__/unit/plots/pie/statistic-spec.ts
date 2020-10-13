@@ -87,16 +87,17 @@ describe('中心文本 - 指标卡', () => {
   });
 
   it('自定义中心文本内容: title & content, 动态数据', () => {
+    const totalValue = config.data.reduce((a, b) => a + b.value, 0);
     const pie = new Pie(createDiv(), {
       ...config,
       innerRadius: 0.64,
       statistic: {
         title: {
-          formatter: (item, data) => (Array.isArray(data) ? '总计' : data['type']),
+          formatter: (datum) => (!datum ? '总计' : datum['type']),
         },
         content: {
-          formatter: (item, data) => {
-            return Array.isArray(data) ? 'test\ntest' : typeof data.value === 'number' ? `${data.value}` : '';
+          formatter: (datum, data) => {
+            return !datum ? `test\ntest ${data.reduce((a, b) => a + b.value, 0)}` : `${datum.value}`;
           },
           rotate: (30 / 180) * Math.PI,
         },
@@ -108,7 +109,7 @@ describe('中心文本 - 指标卡', () => {
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
     expect(annotations[0].component.get('content')).toBe('总计');
-    expect(annotations[1].component.get('content')).toBe('test\ntest');
+    expect(annotations[1].component.get('content')).toBe(`test\ntest ${totalValue}`);
   });
 
   it('自定义中心文本内容: update statistic title & content, 动态数据', async () => {
@@ -117,11 +118,11 @@ describe('中心文本 - 指标卡', () => {
       ...pie.options,
       statistic: {
         title: {
-          formatter: (item, data) => (Array.isArray(data) ? '总计' : data['type']),
+          formatter: (datum) => (!datum ? '总计' : datum['type']),
         },
         content: {
-          formatter: (item, data) => {
-            return Array.isArray(data) ? 'test\ntest' : typeof data.value === 'number' ? `${data.value}` : '';
+          formatter: (datum) => {
+            return !datum ? 'test\ntest' : `${datum.value}`;
           },
           rotate: (30 / 180) * Math.PI,
         },
@@ -184,92 +185,29 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
   });
 
-  // 暂时不提供 annotations 配置
-  // it('append annotation', () => {
-  //   const pie = new Pie(createDiv(), {
-  //     ...config,
-  //     innerRadius: 0.64,
-  //     statistic: {
-  //       title: {
-  //         formatter: () => '',
-  //       },
-  //       content: {
-  //         formatter: () => '无数据',
-  //       },
-  //     },
-  //     annotations: [
-  //       {
-  //         type: 'text',
-  //         top: true,
-  //         position: ['50%', '20%'],
-  //         content: '达标区间',
-  //         style: {
-  //           fill: '#aaaaaa',
-  //           textAlign: 'end',
-  //           textBaseline: 'top',
-  //           fontWeight: 300,
-  //         },
-  //         offsetX: -10,
-  //         offsetY: 6,
-  //       },
-  //     ],
-  //   });
+  it('自定义中心文本样式: with callback', async () => {
+    await delay(500);
+    pie.update({
+      ...pie.options,
+      statistic: {
+        title: {
+          formatter: () => '',
+          style: { fill: 'red' },
+        },
+        content: {
+          style: { fill: 'pink' },
+        },
+      },
+    });
 
-  //   pie.render();
-  //   const annotations = getAnnotations(pie.chart);
-  //   expect(annotations.length).toBe(3);
-  //   expect(annotations[0].component.get('type')).toBe('text');
-  //   expect(annotations[0].extra.content).toBe('达标区间');
-  //   expect(annotations[1].extra.content).toBe('');
-  // });
-
-  // it('关闭 stastic，自定义 annotation', async () => {
-  //   const pie = new Pie(createDiv(), {
-  //     ...config,
-  //     innerRadius: 0.64,
-  //     statistic: null,
-  //     annotations: [
-  //       {
-  //         type: 'image',
-  //         position: ['50%', '50%'],
-  //         src: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
-  //         offsetX: -28,
-  //         offsetY: 30,
-  //         style: {
-  //           width: 56,
-  //           height: 56,
-  //         },
-  //       },
-  //     ],
-  //   });
-
-  //   pie.render();
-
-  //   const annotations = getAnnotations(pie.chart);
-  //   expect(annotations.length).toBe(1);
-  //   expect(annotations[0].component.get('type')).toBe('image');
-
-  //   await delay(500);
-  //   pie.update({
-  //     ...pie.options,
-  //     annotations: [
-  //       {
-  //         type: 'text',
-  //         position: ['50%', '50%'],
-  //         content: '自定义标注文本',
-  //         style: {
-  //           textAlign: 'center',
-  //         },
-  //       },
-  //     ],
-  //   });
-  //   pie.render();
-
-  //   const newAnnotations = getAnnotations(pie.chart);
-  //   expect(newAnnotations.length).toBe(1);
-  //   expect(newAnnotations[0].component.get('type')).toBe('text');
-  //   expect(newAnnotations[0].component.get('content')).toBe('自定义标注文本');
-  // });
+    pie.render();
+    const annotations = getAnnotations(pie.chart);
+    expect(annotations.length).toBe(2);
+    expect(annotations[0].component.get('content')).toBe('');
+    expect(annotations[0].extra.key).toBe('statistic');
+    expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
+    expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
+  });
 
   it('总计值为空', () => {
     const pie = new Pie(createDiv(), {

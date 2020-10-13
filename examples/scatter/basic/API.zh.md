@@ -1,12 +1,8 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.zh.md`
+`markdown:docs/common/chart-options.zh.md`
 
 ### 数据映射
 
@@ -20,16 +16,16 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:common/xy-field.zh.md`
+`markdown:docs/common/xy-field.zh.md`
 
-`markdown:common/meta.zh.md`
+`markdown:docs/common/meta.zh.md`
 
 ```ts
 const data = [
-  { country: 'Asia', year: '1750', value: 502,},
-  { country: 'Asia', year: '1800', value: 635,},
-  { country: 'Europe', year: '1750', value: 163,},
-  { country: 'Europe', year: '1800', value: 203,},
+  { country: 'Asia', year: '1750', value: 502 },
+  { country: 'Asia', year: '1800', value: 635 },
+  { country: 'Europe', year: '1750', value: 163 },
+  { country: 'Europe', year: '1800', value: 203 },
 ];
 
 const scatterPlot = new Scatter('container', {
@@ -37,13 +33,15 @@ const scatterPlot = new Scatter('container', {
   // highlight-start
   meta: {
     year: {
-      alias:'年份'
+      alias: '年份',
       range: [0, 1],
     },
     value: {
       alias: '数量',
-      formatter:(v)=>{return `${v}个`}
-    }
+      formatter: (v) => {
+        return `${v}个`;
+      },
+    },
   },
   // highlight-end
   xField: 'year',
@@ -51,7 +49,6 @@ const scatterPlot = new Scatter('container', {
   colorField: 'country',
 });
 scatterPlot.render();
-
 ```
 
 #### type
@@ -70,7 +67,7 @@ scatterPlot.render();
 
 ### 图形样式
 
-`markdown:common/color.zh.md`
+`markdown:docs/common/color.zh.md`
 
 #### sizeField
 
@@ -194,59 +191,8 @@ scatterPlot.render();
 }
 ```
 
-### tooltip
+## 图表组件
 
-`markdown:common/tooltip.zh.md`
+### 图表组件
 
-### axis
-
-xAxis、yAxis 配置相同。
-
-`markdown:common/axis.zh.md`
-
-### legend
-
-`markdown:common/legend.zh.md`
-
-### theme
-
-`markdown:common/theme.zh.md`
-
-### 事件
-
-`markdown:common/events.zh.md`
-
-##### 实例
-
-```ts
-const data = [
-  {
-    Title: 'Guardians of the Galaxy',
-    Genre: 'Action',
-    'Revenue (Millions)': 333.13,
-    Rating: 8.1,
-  },
-  {
-    Title: 'Prometheus',
-    Genre: 'Adventure',
-    'Revenue (Millions)': 126.46,
-    Rating: 7,
-  },
-];
-const scatterPlot = new Scatter('container', {
-  appendPadding: 10,
-  data: [],
-  xField: 'Revenue (Millions)',
-  yField: 'Rating',
-  shape: 'circle',
-});
-scatterPlot.render();
-// 添加点击事件
-scatterPlot.on('element:click', (...args) => {
-  console.log(...args);
-});
-```
-
-#### 图表方法
-
-`markdown:common/chart-methods.zh.md`
+`markdown:docs/common/component.zh.md`

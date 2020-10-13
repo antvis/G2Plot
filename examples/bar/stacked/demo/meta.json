@@ -11,22 +11,6 @@
         "en": "StackedBar chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N8smQYy45fAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "label.ts",
-      "title": {
-        "zh": "堆叠条形图 - 数据标签",
-        "en": "StackedBar chart label"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N8smQYy45fAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "label-position.ts",
-      "title": {
-        "zh": "堆叠条形图 - 数据标签",
-        "en": "StackedBar chart label position"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*N8smQYy45fAAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

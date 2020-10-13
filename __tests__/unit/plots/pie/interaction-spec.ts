@@ -30,7 +30,7 @@ describe('register interaction', () => {
     radius: 0.8,
     innerRadius: 0.64,
     statistic: {
-      title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
+      title: { formatter: (item) => (item ? item.type : 'Total') },
     },
   });
 
@@ -70,7 +70,7 @@ describe('G2 内置interactions', () => {
     radius: 0.8,
     innerRadius: 0.64,
     statistic: {
-      title: { formatter: (item, data) => (!Array.isArray(data) ? item.title : 'Total') },
+      title: { formatter: (item) => (item ? item.type : 'Total') },
     },
     interactions: [{ type: 'pie-statistic-active' }],
   });

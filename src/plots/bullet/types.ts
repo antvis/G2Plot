@@ -1,13 +1,14 @@
 import { GeometryLabelCfg } from '@antv/g2/lib/interface';
-import { Options, ColorAttr, SizeAttr, StyleAttr } from '../../types';
+import { Options, ColorAttr, SizeAttr, StyleAttr, Datum } from '../../types';
 
-type BasicStyle = {
-  color?: ColorAttr;
-  style?: StyleAttr;
-  size?: SizeAttr;
+type GeometryLabelAttr = GeometryLabelCfg | ((datum: Datum) => GeometryLabelCfg);
+
+type BulletAttr<T> = {
+  measure?: T;
+  target?: T;
+  range?: T;
 };
-
-export interface BulletOptions extends Options {
+export interface BulletOptions extends Omit<Options, 'color' | 'label' | 'style'> {
   /** 弹图标题，用于区分不同的类型 */
   readonly xField?: string;
 
@@ -20,15 +21,17 @@ export interface BulletOptions extends Options {
   /** 使用测量标记的刻度轴位置，表示目标值,所表示值为数值 */
   readonly targetField: string;
 
-  /** label 设置 */
-  readonly label?: GeometryLabelCfg;
+  /** label 包含了 measure,target,range */
+  readonly label?: BulletAttr<GeometryLabelAttr>;
 
-  /** bulletStyle 包含了 measure,target,range */
-  readonly bulletStyle?: {
-    measure?: BasicStyle;
-    target?: BasicStyle;
-    range?: BasicStyle;
-  };
+  /** size 包含了 measure,target,range */
+  readonly size?: BulletAttr<SizeAttr>;
+
+  /** color 包含了 measure,target,range */
+  readonly color?: BulletAttr<ColorAttr>;
+
+  /** style 包含了 measure,target,range */
+  readonly style?: BulletAttr<StyleAttr>;
 
   /** layout 方向选择*/
   layout?: 'horizontal' | 'vertical';

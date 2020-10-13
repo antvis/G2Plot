@@ -1,4 +1,4 @@
-export const version = '2.0.0-beta.4';
+export const version = '2.0.2';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -41,7 +41,7 @@ export { Scatter, ScatterOptions } from './plots/scatter';
 export { Radar, RadarOptions } from './plots/radar';
 
 // 混合图形 | author by [liuzhenying](https://github.com/liuzhenying)
-export { DualAxes, DualAxesOption } from './plots/dual-axes';
+export { DualAxes, DualAxesOptions } from './plots/dual-axes';
 
 // 迷你折线图及类型定义 | author by [connono](https://github.com/connono)
 export { TinyLine, TinyLineOptions } from './plots/tiny-line';
@@ -72,16 +72,26 @@ export { Stock, StockOptions } from './plots/stock';
 
 // 漏斗图及类型定义
 export { Funnel, FunnelOptions } from './plots/funnel';
+
 // 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc)
 export { Liquid, LiquidOptions } from './plots/liquid';
 
 // 子弹图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
 export { Bullet, BulletOptions } from './plots/bullet';
 
+// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
+export { Sunburst, SunburstOptions } from './plots/sunburst';
+
+// 仪表盘及类型定义 | author by [hustcc](https://github.com/hustcc)
+export { Gauge, GaugeOptions } from './plots/gauge';
+
+// 瀑布图 | author by [hustcc](https://github.com/me-momo)
+export { Waterfall, WaterOptions } from './plots/waterfall';
+
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
-
-/** 所有开放图表都使用 G2Plot 作为入口开发，理论上官方的所有图表都可以走 G2Plot 的入口（暂时不处理） */
-export { G2Plot } from './plugin';
-
+/** 所有开放图表都使用 G2Plot.V 作为入口开发，理论上官方的所有图表都可以走 G2Plot.V 的入口（暂时不处理） */
+export { P } from './plugin';
 /** 开发 adaptor 可能会用到 flow 方法，不强制使用 */
 export { flow } from './utils';
+/** 各个 geometry 的 adaptor，可以让开发者更快的构造图形 */
+export { line, interval, area, point, polygon } from './adaptor/geometries';

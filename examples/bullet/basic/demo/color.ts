@@ -15,15 +15,18 @@ const bulletPlot = new Bullet('container', {
   rangeField: 'ranges',
   targetField: 'target',
   xField: 'title',
-  bulletStyle: {
-    range: {
-      color: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
-    },
+  color: {
+    range: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
+    measure: '#5B8FF9',
+    target: '#5B8FF9',
   },
   xAxis: {
     line: null,
   },
   yAxis: false,
+  label: {
+    target: true,
+  },
   // 自定义 legend
   legend: {
     custom: true,

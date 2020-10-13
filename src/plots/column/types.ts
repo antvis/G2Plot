@@ -5,10 +5,14 @@ export interface ColumnOptions extends Options {
   readonly xField: string;
   /** y 轴字段 */
   readonly yField: string;
-  /** 拆分字段，在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField  */
+  /** 拆分字段 */
   readonly seriesField?: string;
   /** 是否分组柱形图 */
   readonly isGroup?: boolean;
+  /** 是否是区间柱状图 */
+  readonly isRange?: boolean;
+  /** 是否是百分比柱状图 */
+  readonly isPercent?: boolean;
   /** 是否堆积柱状图 */
   readonly isStack?: boolean;
   /** 柱状图宽度占比 [0-1] */

@@ -1,6 +1,4 @@
-import { Pie } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { getStatisticData, getTotalValue, parsePercentageToNumber } from '../../../../src/plots/pie/utils';
+import { getTotalValue, parsePercentageToNumber } from '../../../../src/plots/pie/utils';
 
 describe('utils of pie plot', () => {
   const data = [
@@ -47,43 +45,6 @@ describe('utils of pie plot', () => {
         'value'
       )
     ).toBe(null);
-  });
-
-  it('getStatisticData: 单色饼图', () => {
-    const pie = new Pie(createDiv(), {
-      width: 400,
-      height: 300,
-      data: [],
-      angleField: 'value',
-      radius: 0.8,
-    });
-
-    pie.render();
-    const angleScale = pie.chart.getScaleByField('value');
-    const colorScale = pie.chart.getScaleByField('');
-    expect(getStatisticData({ value: 20 }, angleScale, colorScale)).toEqual({ title: null, value: '20' });
-  });
-
-  it('getStatisticData: 带 colorField', () => {
-    const pie = new Pie(createDiv(), {
-      width: 400,
-      height: 300,
-      data: [
-        { type: 'item1', value: 20 },
-        { type: 'item2', value: 20 },
-      ],
-      angleField: 'value',
-      colorField: 'type',
-      radius: 0.8,
-    });
-
-    pie.render();
-    const angleScale = pie.chart.getScaleByField('value');
-    const colorScale = pie.chart.getScaleByField('type');
-    expect(getStatisticData({ type: 'item1', value: 20 }, angleScale, colorScale)).toEqual({
-      title: 'item1',
-      value: '20',
-    });
   });
 
   it('将 字符串百分比 转换为 数值型百分比', () => {

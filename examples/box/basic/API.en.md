@@ -1,12 +1,8 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.en.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### 数据映射
 
@@ -20,36 +16,48 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:common/xy-field.en.md`
+`markdown:docs/common/xy-field.en.md`
 
-`markdown:common/meta.en.md`
+#### groupField
+
+**可选**, _string_
+
+功能描述： 分组拆分字段，默认是分组情况，颜色作为视觉通道 。
+
+默认配置： 无
+
+#### outliersField
+
+**可选**, _string_
+
+功能描述： 异常值字段 。
+
+默认配置： 无
+
+`markdown:docs/common/meta.en.md`
 
 ### 图形样式
 
-`markdown:common/color.en.md`
+#### boxStyle
 
-### tooltip
+**可选**, _StyleAttr | Function_
 
-`markdown:common/tooltip.en.md`
+功能描述： 柱子样式配置 。
 
-### axis
+默认配置： 无
 
-xAxis、yAxis 配置相同。
+`markdown:docs/common/shape-style.en.md`
 
-`markdown:common/axis.en.md`
+#### outliersStyle
 
-### legend
+**可选**, _StyleAttr | Function_
 
-`markdown:common/legend.en.md`
+功能描述： 柱子样式配置，配置同 boxStyle。
 
-### theme
+默认配置： 无
 
-`markdown:common/theme.en.md`
+`markdown:docs/common/color.en.md`
 
-### 事件
+### 图表组件
 
-`markdown:common/events.en.md`
-
-#### 图表方法
-
-`markdown:common/chart-methods.en.md`
+`markdown:docs/common/component.en.md`

@@ -198,4 +198,42 @@ describe('progress', () => {
 
     expect(progress.chart.geometries[0].getAttribute('color').values).toEqual(['green', '#E8EDF3']);
   });
+
+  it('> 1, < 0', () => {
+    const progress = new Progress(createDiv(), {
+      width: 600,
+      height: 300,
+      autoFit: false,
+      percent: 1.65,
+    });
+
+    progress.render();
+
+    expect(progress.chart.getData()).toEqual([
+      {
+        type: 'current',
+        percent: 1,
+      },
+      {
+        type: 'target',
+        percent: 0,
+      },
+    ]);
+
+    progress.update({
+      ...progress.options,
+      percent: -1.65,
+    });
+
+    expect(progress.chart.getData()).toEqual([
+      {
+        type: 'current',
+        percent: 0,
+      },
+      {
+        type: 'target',
+        percent: 1,
+      },
+    ]);
+  });
 });

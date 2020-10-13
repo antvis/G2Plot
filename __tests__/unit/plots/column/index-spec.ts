@@ -1,5 +1,5 @@
 import { Column } from '../../../../src';
-import { salesByArea, subSalesByArea } from '../../../data/sales';
+import { salesByArea, subSalesByArea, timeColumnData } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('column', () => {
@@ -25,6 +25,10 @@ describe('column', () => {
     expect(positionFields).toHaveLength(2);
     expect(positionFields[0]).toBe('area');
     expect(positionFields[1]).toBe('sales');
+
+    // 柱状图 xField 默认为 cat 类型
+    // @ts-ignore
+    expect(geometry.scales.area.type).toBe('cat');
   });
 
   it('x*y*color', () => {
@@ -86,6 +90,8 @@ describe('column', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    const legend = column.chart.getComponents().filter((co) => co.type === 'legend')[0];
+    expect(legend).toBeDefined();
     expect(geometry.getAdjust('dodge')).toMatchObject({
       xField: 'area',
       yField: 'sales',
@@ -152,6 +158,8 @@ describe('column', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    const legend = column.chart.getComponents().filter((co) => co.type === 'legend')[0];
+    expect(legend).toBeDefined();
     expect(geometry.getAdjust('dodge')).toBeUndefined();
     expect(geometry.getAdjust('stack')).toMatchObject({
       xField: 'area',
@@ -262,5 +270,27 @@ describe('column', () => {
     column.render();
 
     expect(column.chart.interactions['active-region']).toBeDefined();
+  });
+  it('x*y*cat', () => {
+    const column = new Column(createDiv('x*y*cat'), {
+      width: 300,
+      height: 400,
+      isStack: true,
+      data: timeColumnData,
+      xField: 'year',
+      yField: 'value',
+      seriesField: 'type',
+    });
+
+    column.render();
+    const geometry = column.chart.geometries[0];
+
+    expect(geometry.getAdjust('stack')).toMatchObject({
+      xField: 'year',
+      yField: 'value',
+    });
+    // 柱状图 xField 默认为 cat 类型
+    // @ts-ignore
+    expect(geometry.scales.year.type).toBe('cat');
   });
 });

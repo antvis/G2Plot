@@ -10,6 +10,8 @@ export interface AreaOptions extends Options {
   readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
+  /** 是否堆积 */
+  readonly isStack?: boolean;
   /** 是否平滑 */
   readonly smooth?: boolean;
   /** 面积图形样式 */

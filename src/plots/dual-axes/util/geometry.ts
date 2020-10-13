@@ -1,33 +1,33 @@
-import { deepMix } from '@antv/util';
+import { deepMix, each } from '@antv/util';
+import { Geometry } from '@antv/g2';
 import { Params } from '../../../core/adaptor';
 import { point, line, interval } from '../../../adaptor/geometries';
 import { pick, findGeometry } from '../../../utils';
-import { GeometryConfig } from '../types';
+import { GeometryOption } from '../types';
 import { isLine, isColumn } from './option';
 
 /**
  * 绘制单个图形
  * @param params
  */
-export function drawSingleGeometry<O extends { xField: string; yField: string; geometryConfig: GeometryConfig }>(
+export function drawSingleGeometry<O extends { xField: string; yField: string; geometryOption: GeometryOption }>(
   params: Params<O>
 ): Params<O> {
   const { options, chart } = params;
-  const { geometryConfig, yField } = options;
+  const { geometryOption, yField } = options;
+  const { isStack } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
-  if (isLine(geometryConfig)) {
+  if (isLine(geometryOption)) {
     // 绘制线
     line(
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryConfig, ['seriesField']),
-          connectNulls: geometryConfig.connectNulls,
-          smooth: geometryConfig.smooth,
+          ...pick(geometryOption, ['seriesField', 'connectNulls', 'smooth']),
           line: {
-            ...pick(geometryConfig, ['color']),
-            style: geometryConfig.lineStyle,
+            color: geometryOption.color,
+            style: geometryOption.lineStyle,
           },
         },
       })
@@ -37,23 +37,30 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          point: geometryConfig.point,
+          point: geometryOption.point,
         },
       })
     );
+
+    // 处理 isStack
+    if (isStack) {
+      each(chart.geometries, (g: Geometry) => {
+        g.adjust('stack');
+      });
+    }
   }
 
-  if (isColumn(geometryConfig)) {
+  if (isColumn(geometryOption)) {
     interval(
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryConfig, ['seriesField', 'isGroup', 'isStack']),
-          marginRatio: geometryConfig.marginRatio,
-          widthRatio: geometryConfig.columnWidthRatio,
+          ...pick(geometryOption, ['seriesField', 'isGroup', 'isStack']),
+          marginRatio: geometryOption.marginRatio,
+          widthRatio: geometryOption.columnWidthRatio,
           interval: {
-            ...pick(geometryConfig, ['color']),
-            style: geometryConfig.columnStyle,
+            ...pick(geometryOption, ['color']),
+            style: geometryOption.columnStyle,
           },
         },
       })
@@ -62,10 +69,10 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 
   // 绘制 label
   const mainGeometry = findGeometry(chart, 'line') || findGeometry(chart, 'interval');
-  if (!geometryConfig.label) {
+  if (!geometryOption.label) {
     mainGeometry.label(false);
   } else {
-    const { callback, ...cfg } = geometryConfig.label;
+    const { callback, ...cfg } = geometryOption.label;
     mainGeometry.label({
       fields: [yField],
       callback,

@@ -1,12 +1,8 @@
----
-title: API
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:common/chart-options.en.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### 数据映射
 
@@ -20,36 +16,66 @@ title: API
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:common/xy-field.en.md`
+`markdown:docs/common/xy-field.en.md`
 
-`markdown:common/meta.en.md`
+#### seriesField
+
+**可选**, _string_
+
+功能描述： 分组字段 。
+
+默认配置： 无
+
+`markdown:docs/common/meta.en.md`
 
 ### 图形样式
 
-`markdown:common/color.en.md`
+#### smooth
 
-### tooltip
+**可选**, _boolean_
 
-`markdown:common/tooltip.en.md`
+功能描述： 是否平滑 。
 
-### axis
+默认配置： `false`
 
-xAxis、yAxis 配置相同。
+#### stepType
 
-`markdown:common/axis.en.md`
+**可选**, _hv | vh | hvh | vhv_
 
-### legend
+功能描述： 阶梯折线图类型，配置后 smooth 无效，一般用在阶梯图中。
 
-`markdown:common/legend.en.md`
+默认配置： 无
 
-### theme
+#### connectNulls
 
-`markdown:common/theme.en.md`
+**可选**, _boolean_
 
-### 事件
+功能描述： 是否连接空数据 。
 
-`markdown:common/events.en.md`
+默认配置： `true`
 
-#### 图表方法
+#### lineStyle
 
-`markdown:common/chart-methods.en.md`
+**可选**, _StyleAttr | Function_
+
+功能描述： 折线图形样式 。
+
+默认配置： 无
+
+`markdown:docs/common/shape-style.en.md`
+
+#### point
+
+**可选**, _pointStyle_
+
+功能描述： 折线数据点图形样式
+
+默认配置： 无
+
+`markdown:docs/common/point-style.en.md`
+
+`markdown:docs/common/color.en.md`
+
+### 图表组件
+
+`markdown:docs/common/component.en.md`

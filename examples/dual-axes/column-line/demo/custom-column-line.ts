@@ -8,26 +8,21 @@ const data = [
   { time: '2019-07', value: 470, count: 220 },
 ];
 
-const dualAxesChart = new DualAxes('container', {
+const dualAxes = new DualAxes('container', {
   data: [data, data],
   xField: 'time',
   yField: ['value', 'count'],
   yAxis: [
-    {
-      min: 0,
-    },
+    // 格式化左坐标轴
     {
       min: 0,
       label: {
         formatter: (val) => `${val}个`,
       },
     },
+    // 隐藏右坐标轴
+    false,
   ],
-  meta: {
-    value: {
-      formatter: (val) => `${val / 100}%`,
-    },
-  },
   geometryOptions: [
     {
       geometry: 'column',
@@ -45,11 +40,15 @@ const dualAxesChart = new DualAxes('container', {
       color: '#29cae4',
     },
   ],
+  // 更改柱线交互，默认为 [{type: 'active-region'}]
   interactions: [
     {
-      name: 'element-highlight',
+      type: 'element-highlight',
+    },
+    {
+      type: 'active-region',
     },
   ],
 });
 
-dualAxesChart.render();
+dualAxes.render();

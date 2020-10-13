@@ -1,4 +1,4 @@
-import { deepMix, isString } from '@antv/util';
+import { deepMix, isString, clamp } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
@@ -14,14 +14,15 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
   const { chart, options } = params;
   const { percent, progressStyle, color, barWidthRatio } = options;
 
+  const clampPercent = clamp(percent, 0, 1);
   const data = [
     {
       type: 'current',
-      percent: percent,
+      percent: clampPercent,
     },
     {
       type: 'target',
-      percent: 1 - percent,
+      percent: 1 - clampPercent,
     },
   ];
 

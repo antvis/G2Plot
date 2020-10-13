@@ -29,7 +29,10 @@ const piePlot = new Pie('container', {
   },
   statistic: {
     title: {
-      formatter: () => '总计',
+      formatter: (datum) => (datum ? datum.type : '总计'),
+    },
+    content: {
+      formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
     },
   },
   // 添加 中心统计文本 交互

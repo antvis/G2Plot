@@ -39,7 +39,15 @@ const columnPlot = new Column('container', {
   data,
   xField: 'type',
   yField: 'sales',
-  label: {},
+  label: {
+    // 可手动配置 label 数据标签位置
+    position: 'middle', // 'top', 'bottom', 'middle',
+    // 配置样式
+    style: {
+      fill: '#0D0E68',
+      opacity: 0.6,
+    },
+  },
   meta: {
     type: {
       alias: '类别',

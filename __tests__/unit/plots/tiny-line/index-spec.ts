@@ -121,7 +121,7 @@ describe('tiny-line', () => {
       tooltip: {
         showCrosshairs: true,
         customContent: (...arg) => {
-          return `<div class="g2-tooltip">有${arg[1][0]?.value / 1000}千</div>`;
+          return `有${arg[1][0]?.value / 1000}千`;
         },
         position: 'bottom',
         offset: 0,

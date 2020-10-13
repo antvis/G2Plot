@@ -2,6 +2,26 @@ const webpack = require('webpack');
 const resolve = require('path').resolve;
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const BABEL_OPTIONS = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: '> 0.25%, not dead',
+      },
+    ],
+  ],
+  plugins: [
+    [
+      '@babel/transform-runtime',
+      {
+        helpers: false,
+        regenerator: true,
+      },
+    ],
+  ],
+};
+
 module.exports = {
   entry: {
     g2plot: './src/index.ts',
@@ -20,12 +40,18 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: {
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: BABEL_OPTIONS,
           },
-        },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ]
       },
       {
         test: /\.js$/,
@@ -33,24 +59,8 @@ module.exports = {
         include: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
+          options: BABEL_OPTIONS,
         },
-      },
-      {
-        test: /\.less$/,
-        use: [
-          {
-            loader: 'style-loader', // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-          },
-          {
-            loader: 'less-loader', // compiles Less to CSS
-          },
-        ],
       },
     ],
   },

@@ -19,7 +19,7 @@ export function transformData(options: BulletOptions): TransformData {
     item[rangeField].forEach((d: number, i: number) => {
       const range = i === 0 ? d : item[rangeField][i] - item[rangeField][i - 1];
       ds.push({
-        index: `${rangeField}_${i}`,
+        rKey: `${rangeField}_${i}`,
         [xField]: xField ? item[xField] : String(index), // 没有xField就用索引
         [rangeField]: range,
       });
@@ -27,14 +27,14 @@ export function transformData(options: BulletOptions): TransformData {
     // 构建 title * measure
     item[measureField].forEach((d: number, i: number) => {
       ds.push({
-        index: item[measureField].length > 1 ? `${measureField}_${i}` : `${measureField}`, // 一个数据就不带索引了
+        mKey: item[measureField].length > 1 ? `${measureField}_${i}` : `${measureField}`, // 一个数据就不带索引了
         [xField]: xField ? item[xField] : String(index),
         [measureField]: d,
       });
     });
     // 构建 title * target
     ds.push({
-      index: 'target',
+      tKey: `${targetField}`,
       [xField]: xField ? item[xField] : String(index),
       [targetField]: item[targetField],
     });

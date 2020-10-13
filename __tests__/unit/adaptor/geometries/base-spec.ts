@@ -1,4 +1,4 @@
-import { G2Plot, Params } from '../../../../src';
+import { P, Params } from '../../../../src';
 import { geometry, GeometryOptions } from '../../../../src/adaptor/geometries/base';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -16,7 +16,7 @@ function adaptor(params: Params<GeometryOptions>): Params<GeometryOptions> {
 }
 
 function getPlot(type: string, opts: Partial<GeometryOptions>) {
-  const plot = new G2Plot(
+  const plot = new P(
     createDiv(),
     {
       width: 400,
@@ -74,13 +74,12 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['date', 'value']);
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['value']);
 
     expect(plot.chart.geometries[0].getAttribute('color').values).toEqual([]);
     expect(plot.chart.geometries[0].getAttribute('color').callback).toBeDefined();
 
     expect(p).toEqual({
-      date: '25/01/2018',
       value: 1800,
     });
   });
@@ -124,16 +123,31 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'date', 'value']);
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'value']);
 
     expect(plot.chart.geometries[0].getAttribute('color').values).toEqual([]);
     expect(plot.chart.geometries[0].getAttribute('color').callback).toBeDefined();
 
     expect(p).toEqual({
-      date: '25/01/2018',
       type: 'Ind/Oth',
       value: 1800,
     });
+  });
+
+  it('color with colorField and interval', () => {
+    const plot = getPlot('interval', {
+      xField: 'date',
+      yField: 'value',
+      colorField: 'type',
+      mapping: {
+        color: function () {
+          return 'red';
+        },
+      },
+    });
+
+    expect(plot.chart.geometries[0].type).toBe('interval');
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type', 'date', 'value']);
   });
 
   it('size without sizeField', () => {

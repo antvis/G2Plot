@@ -1,9 +1,9 @@
+import { Datum } from '@antv/g2/lib/interface';
 import { deepMix, every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { Data } from '../../types';
 import { flow, LEVEL, log, template } from '../../utils';
-import { Annotation } from '../../types/annotation';
 import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
 import { getTotalValue } from './utils';
@@ -147,10 +147,12 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     const LABEL_TYPE_MAP = {
       inner: 'pie-inner',
       outer: 'pie',
+      spider: 'pie',
     };
     const LABEL_LAYOUT_TYPE_MAP = {
       inner: '',
       outer: 'pie-outer',
+      spider: 'pie-spider',
     };
     const labelType = LABEL_TYPE_MAP[labelCfg.type] || 'pie';
     const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
@@ -168,14 +170,12 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * annotation 配置
- * 内置标注：
- *   1. 中心文本
+ * statistic 中心文本配置
  * @param params
  */
-function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
-  const { options } = params;
-  const { innerRadius, statistic, angleField } = options;
+function statistic(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { innerRadius, statistic, angleField, colorField } = options;
 
   const annotationOptions = [];
 
@@ -183,82 +183,43 @@ function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
   if (innerRadius && statistic) {
     const { title, content } = statistic;
 
-    let statisticTitle: Annotation = {
-      type: 'text',
-      content: '',
-      position: ['50%', '50%'],
-    };
-    let statisticContent: Annotation = {
-      type: 'text',
-      content: '',
-      position: ['50%', '50%'],
-    };
+    [title, content].forEach((option, index) => {
+      if (option === false) {
+        return;
+      }
+      const { style, formatter, offsetX, offsetY, rotate } = option;
 
-    const getStatisticData = (data: Data) => ({
-      title: '总计',
-      value: getTotalValue(data, angleField),
+      const lineHeight = get(option, 'style.fontSize', 20);
+      const getDefaultContent = (data: Data, datum?: Datum) => {
+        if (index === 0) {
+          return datum ? datum[colorField] : '总计';
+        }
+        return datum ? datum[angleField] : getTotalValue(data, angleField);
+      };
+      chart.annotation().text(
+        deepMix(
+          {},
+          {
+            style: {
+              textAlign: 'center',
+            },
+            offsetY: index === 0 ? (content === false ? 0 : -lineHeight) : title === false ? 0 : lineHeight,
+          },
+          {
+            position: ['50%', '50%'],
+            content: (filterData: Data, datum?: Datum) => {
+              return formatter ? formatter(datum, filterData) : getDefaultContent(filterData, datum);
+            },
+            style,
+            offsetX,
+            offsetY,
+            rotate,
+            // append-info
+            key: 'statistic',
+          }
+        )
+      );
     });
-
-    if (title !== false) {
-      let titleLineHeight = get(title, 'style.lineHeight');
-      if (!titleLineHeight) {
-        titleLineHeight = get(title, 'style.fontSize', 20);
-      }
-      const titleFormatter = get(title, 'formatter');
-
-      statisticTitle = {
-        type: 'text',
-        position: ['50%', '50%'],
-        content: (filterData: Data) => {
-          const statisticData = getStatisticData(filterData);
-          return titleFormatter ? titleFormatter(statisticData, filterData) : statisticData.title;
-        },
-        ...deepMix(
-          {},
-          {
-            offsetY: content === false ? 0 : -titleLineHeight,
-            // append-info
-            key: 'statistic',
-            style: {
-              textAlign: 'center',
-            },
-          },
-          title
-        ),
-      };
-    }
-
-    if (content !== false) {
-      let valueLineHeight = get(content, 'style.lineHeight');
-      if (!valueLineHeight) {
-        valueLineHeight = get(content, 'style.fontSize', 20);
-      }
-      const contentFormatter = get(content, 'formatter');
-
-      statisticContent = {
-        type: 'text',
-        position: ['50%', '50%'],
-        content: (filterData: Data) => {
-          const statisticData = getStatisticData(filterData);
-          return contentFormatter ? contentFormatter(statisticData, filterData) : statisticData.value;
-        },
-        ...deepMix(
-          {},
-          {
-            // 居中
-            offsetY: title === false ? 0 : valueLineHeight,
-            // append-info
-            key: 'statistic',
-            style: {
-              textAlign: 'center',
-            },
-          },
-          content
-        ),
-      };
-    }
-
-    annotationOptions.push(statisticTitle, statisticContent);
   }
 
   return flow(annotation(annotationOptions))(params);
@@ -280,7 +241,9 @@ export function adaptor(params: Params<PieOptions>) {
     tooltip,
     label,
     state,
-    pieAnnotation,
+    annotation(),
+    /** 指标卡中心文本 放在下层 */
+    statistic,
     interaction,
     animation
   )(params);

@@ -1,36 +1,37 @@
-import { View } from '@antv/g2';
+import { Chart, View } from '@antv/g2';
 import DataSet from '@antv/data-set';
-import { isArray, isFunction, isNumber } from '@antv/util';
+import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { log, LEVEL } from '../../utils';
-import { WordCloudOptions } from './types';
+import { log, LEVEL, getContainerSize } from '../../utils';
+import { DataItem, WordCloudOptions } from './types';
 
 /**
  * 用 DataSet 转换词云图数据
  * @param params
  */
-export function transform(params: Params<WordCloudOptions>) {
-  const { chart, options } = params;
-  const { data, imageMask, wordField, weightField, wordStyle, timeInterval, spiral } = options;
+export function transform(params: Params<WordCloudOptions>): DataItem[] {
+  const { options } = params;
+  const { data, imageMask, wordField, weightField, wordStyle, timeInterval } = options;
+  if (!data || !data.length) {
+    return [];
+  }
   const { fontFamily, fontWeight, padding } = wordStyle;
   const dv = new DataSet.View().source(data);
   const range = dv.range(weightField);
 
-  // TODO: 去掉 any , 需 DataSet 修改类型信息
   dv.transform({
     type: 'tag-cloud',
     fields: [wordField, weightField],
-    imageMask: getImageMask(imageMask),
+    imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
     fontSize: getFontSize(options, range),
     fontWeight: fontWeight,
     // 图表宽高减去 padding 之后的宽高
-    size: getSize(chart),
+    size: getSize(params as any),
     padding: padding,
     timeInterval,
-    spiral,
     rotate: getRotate(options),
-  } as any);
+  });
 
   return dv.rows;
 }
@@ -39,12 +40,25 @@ export function transform(params: Params<WordCloudOptions>) {
  * 获取最终的实际绘图尺寸：[width, height]
  * @param chart
  */
-function getSize(chart: View) {
-  const { width, height } = chart.viewBBox;
+function getSize(params: Params<WordCloudOptions> & { chart: Chart }): [number, number] {
+  const { chart, options } = params;
+  const { autoFit = true } = options;
+  let { width, height } = chart;
+
+  // 由于词云图每个词语的坐标都是先通过 DataSet 根据图表宽高计算出来的，
+  // 也就是说，如果一开始提供给 DataSet 的宽高信息和最终显示的宽高不相同，
+  // 那么就会出现布局错乱的情况，所以这里处理的目的就是让一开始提供给 DataSet 的
+  // 宽高信息与最终显示的宽高信息相同，避免显示错乱。
+  if (autoFit) {
+    const containerSize = getContainerSize(chart.ele);
+    width = containerSize.width || 0;
+    height = containerSize.height || 0;
+  }
+
   const [top, right, bottom, left] = resolvePadding(chart);
   const result = [width - (left + right), height - (top + bottom)];
 
-  return result;
+  return result as [number, number];
 }
 
 /**
@@ -90,8 +104,33 @@ function normalPadding(padding: number | number[] | 'auto'): [number, number, nu
   return [0, 0, 0, 0];
 }
 
-function getImageMask(img: HTMLImageElement) {
-  return img;
+/**
+ * 处理 imageMask 可能为 url 字符串的情况
+ * @param  {HTMLImageElement | string} img
+ * @return {Promise}
+ */
+export function processImageMask(img: HTMLImageElement | string): Promise<HTMLImageElement> {
+  return new Promise((res, rej) => {
+    if (img instanceof HTMLImageElement) {
+      res(img);
+      return;
+    }
+    if (isString(img)) {
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.src = img;
+      image.onload = () => {
+        res(image);
+      };
+      image.onerror = () => {
+        log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
+        rej();
+      };
+      return;
+    }
+    log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or HTMLImageElement.');
+    rej();
+  });
 }
 
 /**

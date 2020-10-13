@@ -14,11 +14,11 @@ module.exports = {
   siteMetadata: {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
-    siteUrl: 'https://g2plot-v2-beta.antv.vision/',
+    siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
     versions: {
-      '2.x': 'https://g2plot-v2-beta.antv.vision/',
-      '1.x': 'https://g2plot.antv.vision/',
+      'latest v2': 'https://g2plot.antv.vision',
+      '1.x': 'https://g2plot-v1.antv.vision',
     },
     navs: [
       {
@@ -45,8 +45,25 @@ module.exports = {
         },
       },
     ],
-    docs: [],
+    docs: [
+      {
+        slug: 'manual/plots',
+        title: {
+          zh: '图表',
+          en: 'Charts',
+        },
+        order: 3,
+      },
+    ],
     examples: [
+      {
+        slug: 'gallery',
+        icon: 'gallery',
+        title: {
+          zh: '官方精品库',
+          en: 'Featured',
+        },
+      },
       {
         slug: 'line',
         icon: 'line', // 图表名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
@@ -104,6 +121,22 @@ module.exports = {
         },
       },
       {
+        slug: 'gauge',
+        icon: 'gauge',
+        title: {
+          zh: '仪表盘',
+          en: 'Gauge Charts',
+        },
+      },
+      {
+        slug: 'waterfall',
+        icon: 'column',
+        title: {
+          zh: '瀑布图',
+          en: 'Waterfall Charts',
+        },
+      },
+      {
         slug: 'histogram',
         icon: 'histogram',
         title: {
@@ -136,6 +169,14 @@ module.exports = {
         },
       },
       {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid Charts',
+        },
+      },
+      {
         slug: 'tiny-line',
         icon: 'line',
         title: {
@@ -149,14 +190,6 @@ module.exports = {
         title: {
           zh: '迷你面积图',
           en: 'Tiny Area',
-        },
-      },
-      {
-        slug: 'liquid',
-        icon: 'other',
-        title: {
-          zh: '水波图',
-          en: 'Liquid Charts',
         },
       },
       {
@@ -193,7 +226,7 @@ module.exports = {
       },
       {
         slug: 'rose',
-        icon: 'other',
+        icon: 'rose',
         title: {
           zh: '玫瑰图',
           en: 'Rose Charts',
@@ -205,6 +238,22 @@ module.exports = {
         title: {
           zh: '股票图',
           en: 'Stock Charts',
+        },
+      },
+      {
+        slug: 'word-cloud',
+        icon: 'other',
+        title: {
+          zh: '词云图',
+          en: 'Word Cloud Charts',
+        },
+      },
+      {
+        slug: 'sunburst',
+        icon: 'other',
+        title: {
+          zh: '旭日图',
+          en: 'Sunburst Charts',
         },
       },
       // OTHERS

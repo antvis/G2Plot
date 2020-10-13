@@ -8,6 +8,7 @@ import { Animation } from './animation';
 import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
+import { Scrollbar } from './scrollbar';
 import { ColorAttr } from './attr';
 
 /** annotation position */
@@ -84,6 +85,8 @@ export type Options = {
   readonly padding?: number[] | number | 'auto';
   /** 额外怎加的 padding 值 */
   readonly appendPadding?: number[] | number;
+  /** 是否同步子 view 的 padding */
+  readonly syncViewPadding?: boolean;
 
   // G 相关
   /** 渲染引擎 */
@@ -92,6 +95,8 @@ export type Options = {
   readonly pixelRatio?: number;
   /** 是否开启局部渲染，默认为 true */
   readonly localRefresh?: boolean;
+  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  readonly supportCSSTransform?: boolean;
 
   // 通用数据配置
   /** 具体的数据 */
@@ -116,6 +121,8 @@ export type Options = {
   readonly legend?: Legend;
   /** 缩略轴 slider 的配置项 */
   readonly slider?: Slider;
+  /** 缩略轴 scrollbar 的配置项 */
+  readonly scrollbar?: Scrollbar;
   readonly animation?: Animation;
   readonly interactions?: Interaction[];
   readonly annotations?: Annotation[];

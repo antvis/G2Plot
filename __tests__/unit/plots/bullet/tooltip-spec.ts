@@ -13,9 +13,11 @@ describe('tooltip bullet', () => {
       targetField: 'target',
       xField: 'title',
       label: {
-        position: 'middle',
-        style: {
-          fill: '#fff',
+        measure: {
+          position: 'middle',
+          style: {
+            fill: '#fff',
+          },
         },
       },
       tooltip: {

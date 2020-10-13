@@ -32,6 +32,8 @@ export interface GeometryOptions extends Options {
   readonly sizeField?: string;
   /** style 的映射字段 */
   readonly styleField?: string;
+  /** 其他原始字段, 用于 mapping 回调参数 */
+  readonly rawFields?: string[];
   /** 图形映射规则 */
   readonly mapping: MappingOptions;
   /** geometry params */
@@ -44,8 +46,8 @@ export interface GeometryOptions extends Options {
  * @param field
  */
 export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | 'size' | 'style'): string[] {
-  const { xField, yField, colorField, shapeField, sizeField, styleField } = o;
-  const fields = [xField, yField, colorField, shapeField, sizeField, styleField];
+  const { xField, yField, colorField, shapeField, sizeField, styleField, rawFields = [] } = o;
+  const fields = [xField, yField, colorField, shapeField, sizeField, styleField, ...rawFields];
 
   // 一定能找到的！
   const idx = ['x', 'y', 'color', 'shape', 'size', 'style'].indexOf(field);
@@ -108,7 +110,9 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   if (isString(color)) {
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
-    const mappingFields = getMappingField(options, 'color');
+    // 对于单折线图、单面积图的特殊处理，如果 x 轴是分类 scale，会导致映射错误
+    let mappingFields = getMappingField(options, 'color');
+    mappingFields = ['line', 'area'].includes(type) ? mappingFields.filter((f: string) => f !== xField) : mappingFields;
     geometry.color(mappingFields.join('*'), getMappingFunction(mappingFields, color));
   } else {
     colorField && geometry.color(colorField, color);

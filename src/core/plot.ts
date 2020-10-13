@@ -10,7 +10,15 @@ import { Adaptor } from './adaptor';
 /** 单独 pick 出来的用于基类的类型定义 */
 export type PickOptions = Pick<
   Options,
-  'width' | 'height' | 'padding' | 'appendPadding' | 'renderer' | 'pixelRatio' | 'autoFit'
+  | 'width'
+  | 'height'
+  | 'padding'
+  | 'appendPadding'
+  | 'renderer'
+  | 'pixelRatio'
+  | 'autoFit'
+  | 'syncViewPadding'
+  | 'supportCSSTransform'
 >;
 
 /**
@@ -43,7 +51,16 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, padding, appendPadding, renderer, pixelRatio } = this.options;
+    const {
+      width,
+      height,
+      padding,
+      appendPadding,
+      renderer,
+      pixelRatio,
+      syncViewPadding,
+      supportCSSTransform,
+    } = this.options;
 
     this.chart = new Chart({
       container: this.container,
@@ -54,6 +71,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
       renderer,
       pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
+      syncViewPadding,
+      supportCSSTransform,
     });
   }
 
@@ -84,7 +103,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 获取默认的 options 配置项
    * 每个组件都可以复写
    */
-  protected getDefaultOptions(options?: O): Partial<Options> {
+  protected getDefaultOptions(options?: O): any {
     return {
       renderer: 'canvas',
       tooltip: {
@@ -121,21 +140,20 @@ export abstract class Plot<O extends PickOptions> extends EE {
   public render() {
     // 暴力处理，先清空再渲染，需要 G2 层自行做好更新渲染
     this.chart.clear();
-
-    const adaptor = this.getSchemaAdaptor();
-
-    const { padding } = this.options;
-    // 更新 padding
-    this.chart.padding = padding;
-
-    // 转化成 G2 API
-    adaptor({
-      chart: this.chart,
-      options: this.options,
-    });
-
+    // 因为子 view 会继承父 view 的 options 配置（包括 legend，所以会导致 legend 重复创建）
+    // 所以这里给 chart 实例的 options 配置清空
+    // 最好的解法是在 G2 view.clear 方法的时候，重置 options 配置。或者提供方法去 resetOptions
+    // #1684 理论上在多 view 图形上，只要存在 custom legend，都存在类似问题（子弹图、双轴图）
+    // @ts-ignore
+    this.chart.options = {
+      data: [],
+      animate: true,
+    };
+    this.chart.views = []; // 删除已有的 views
+    // 执行 adaptor
+    this.execAdaptor();
+    // 渲染
     this.chart.render();
-
     // 绑定
     this.bindSizeSensor();
   }
@@ -219,15 +237,41 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /**
+   * 执行 adaptor 操作
+   */
+  protected execAdaptor() {
+    const adaptor = this.getSchemaAdaptor();
+
+    const { padding } = this.options;
+    // 更新 padding
+    this.chart.padding = padding;
+
+    // 转化成 G2 API
+    adaptor({
+      chart: this.chart,
+      options: this.options,
+    });
+  }
+
+  /**
+   * 当图表容器大小变化的时候，执行的函数
+   */
+  protected triggerResize() {
+    this.chart.forceFit();
+  }
+
+  /**
    * 绑定 dom 容器大小变化的事件
    */
   private bindSizeSensor() {
-    this.unbindSizeSensor();
+    if (this.unbind) {
+      return;
+    }
 
     const { autoFit = true } = this.options;
     if (autoFit) {
       this.unbind = bind(this.container, () => {
-        this.chart.forceFit();
+        this.triggerResize();
       });
     }
   }

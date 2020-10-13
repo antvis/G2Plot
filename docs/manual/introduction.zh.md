@@ -33,7 +33,7 @@ $ npm install @antv/g2plot
 <div id="container"></div>
 ```
 
-```js
+```ts
 import { Bar } from '@antv/g2plot';
 
 const data = [
@@ -44,14 +44,14 @@ const data = [
   { year: '1958 年', value: 48 },
 ];
 
-const barPlot = new Bar('container', {
+const bar = new Bar('container', {
   data,
   xField: 'value',
   yField: 'year',
-  colorField: 'year',
+  seriesField: 'year',
 });
 
-barPlot.render();
+bar.render();
 ```
 
 ## 开发

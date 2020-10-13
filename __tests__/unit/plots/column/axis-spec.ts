@@ -25,6 +25,10 @@ describe('column axis', () => {
     // @ts-ignore
     expect(geometry.scales.sales.nice).toBe(true);
     expect(geometry.scales.sales.formatter).toBe(formatter);
+
+    // 柱状图默认为 cat 类型
+    // @ts-ignore
+    expect(geometry.scales.area.type).toBe('cat');
   });
 
   it('xAxis', () => {

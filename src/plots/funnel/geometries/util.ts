@@ -6,10 +6,19 @@ import { FunnelAdaptorOptions } from '../types';
  * @param params
  */
 export function transpose(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  // debugger;
   const { chart, options } = params;
   const { transpose } = options;
   if (!transpose) {
-    chart.coordinate('rect').transpose().scale(1, -1);
+    chart.coordinate({
+      type: 'rect',
+      actions: [['transpose'], ['scale', 1, -1]],
+    });
+  } else {
+    chart.coordinate({
+      type: 'rect',
+      actions: [],
+    });
   }
   return params;
 }

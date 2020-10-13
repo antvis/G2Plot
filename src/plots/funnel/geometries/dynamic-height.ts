@@ -19,8 +19,8 @@ import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
  * 处理数据
  * @param params
  */
-function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { options } = params;
+function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+  const { chart, options } = params;
   const { data = [], yField } = options;
 
   // 计算各数据项所占高度
@@ -66,11 +66,9 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
     return row;
   });
 
-  return deepMix({}, params, {
-    options: {
-      formatData,
-    },
-  });
+  chart.data(formatData);
+
+  return params;
 }
 
 /**
@@ -79,10 +77,9 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
  */
 function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, color } = options;
+  const { xField, color } = options;
 
   // 绘制漏斗图
-  chart.data(formatData);
   chart.polygon().position('_x*_y').color(xField, color);
 
   return params;
@@ -110,7 +107,8 @@ function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
 
 function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, yField, annotation } = options;
+  const { xField, yField, annotation } = options;
+  const { data: formatData } = chart.getOptions();
 
   if (annotation !== false) {
     formatData.forEach((obj) => {
@@ -136,5 +134,5 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
  */
 export function dynamicHeightFunnel(params: Params<FunnelAdaptorOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(format, geometry, label, annotation)(params);
+  return flow(field, geometry, label, annotation)(params);
 }

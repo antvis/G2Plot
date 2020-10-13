@@ -1,4 +1,4 @@
-import { deepMix, map } from '@antv/util';
+import { map } from '@antv/util';
 import { isFunction } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
@@ -56,7 +56,7 @@ function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
   const { label, yField, xField } = options;
 
   const geometry = findGeometry(chart, 'interval');
-
+  console.log(geometry, label);
   if (!label) {
     geometry.label(false);
   } else {

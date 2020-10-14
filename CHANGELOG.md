@@ -1,3 +1,34 @@
+#### 2.0.3 (2020-10-14)
+
+##### Build System / Dependencies
+
+* **webpack:**  update webpack loader configure ([#1695](https://github.com/antvis/g2plot/pull/1695)) ([9c10ebe6](https://github.com/antvis/g2plot/commit/9c10ebe66f4634aa5ea49c5fe3cef9a4b6308e82))
+
+##### Documentation Changes
+
+*  优化升级文档 ([#1711](https://github.com/antvis/g2plot/pull/1711)) ([89c89e88](https://github.com/antvis/g2plot/commit/89c89e88da9e4c9eb6c8486fabb042e65845cbfc))
+*  add column slider scrollbar demo ([#1704](https://github.com/antvis/g2plot/pull/1704)) ([e7dea701](https://github.com/antvis/g2plot/commit/e7dea7018be8661a89955cd901669bb282c72c83))
+* **rose:**  设置玫瑰图 label 的 layout 类型为 limit-in-shape ([#1680](https://github.com/antvis/g2plot/pull/1680)) ([bf0c70ab](https://github.com/antvis/g2plot/commit/bf0c70ab7f3bca2c446f8ee8acde8de24f0a0f31))
+
+##### New Features
+
+* **mapping:**  color shape size 字段只去对应的字段即可 ([#1720](https://github.com/antvis/g2plot/pull/1720)) ([328fec73](https://github.com/antvis/g2plot/commit/328fec73e4bf55b364c118065fc9f78ca984b660))
+* **tiny-area:**  update tiny area default color ([#1707](https://github.com/antvis/g2plot/pull/1707)) ([48951c38](https://github.com/antvis/g2plot/commit/48951c38df0625499f07e4a2708d44e2b7f1b343))
+* **line:**  line area support isStack options ([#1705](https://github.com/antvis/g2plot/pull/1705)) ([7d80cc23](https://github.com/antvis/g2plot/commit/7d80cc2352211a3986e6f19706370100aa98f26a))
+* **waterfall:**  瀑布图 ([#1697](https://github.com/antvis/g2plot/pull/1697)) ([91568619](https://github.com/antvis/g2plot/commit/915686193df320563f3755a7dd86ae1b828fa52c))
+
+##### Bug Fixes
+
+* **types:**  修复 瀑布图 类型定义命名问题 ([#1719](https://github.com/antvis/g2plot/pull/1719)) ([4f682222](https://github.com/antvis/g2plot/commit/4f68222257a10a35bb8dce7cf77a1c2c273d7624))
+*  v1 label formatter 无效 ([#1713](https://github.com/antvis/g2plot/pull/1713)) ([be94eb9c](https://github.com/antvis/g2plot/commit/be94eb9cc6c3a8d5e7a08fa0a57c14ce0e567734))
+*  update axis tickMethod type ([#1715](https://github.com/antvis/g2plot/pull/1715)) ([aa3dbcc9](https://github.com/antvis/g2plot/commit/aa3dbcc9fcc4066a8eff4456bd119c8371bd4203))
+* **issue-1174:**  pie statistics content formatter does not work ([#1693](https://github.com/antvis/g2plot/pull/1693)) ([0b3ed76d](https://github.com/antvis/g2plot/commit/0b3ed76d78b1b8a1641ca6c71159ce5b50a7717e))
+* **website:**  style for bk image ([#1694](https://github.com/antvis/g2plot/pull/1694)) ([978ab376](https://github.com/antvis/g2plot/commit/978ab376ad1867de9320d8d0cd3e951c69b1417d))
+
+##### Other Changes
+
+*  bugfix 走查 ([#1714](https://github.com/antvis/g2plot/pull/1714)) ([e03be5f9](https://github.com/antvis/g2plot/commit/e03be5f95ad814713759e5156769d9aa9f5be4fe))
+
 #### 2.0.2 (2020-10-09)
 
 ##### Chores

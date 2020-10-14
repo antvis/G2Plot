@@ -12,6 +12,7 @@ export class TinyLine extends Plot<TinyLineOptions> {
 
   protected getDefaultOptions() {
     return {
+      appendPadding: 2,
       tooltip: {
         ...DEFAULT_TOOLTIP_OPTIONS,
       },

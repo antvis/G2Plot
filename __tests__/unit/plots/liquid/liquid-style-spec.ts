@@ -12,7 +12,7 @@ describe('liquid', () => {
           fill: percent > 0.75 ? 'red' : 'green',
         };
       },
-      color: () => 'blue',
+      color: 'blue',
     });
 
     liquid.render();

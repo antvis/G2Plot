@@ -12,7 +12,7 @@ type LeaderLineCfg = {
   style?: ShapeStyle;
 };
 
-export interface WaterOptions extends Options {
+export interface WaterfallOptions extends Options {
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴字段 */

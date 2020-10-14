@@ -6,7 +6,7 @@ import { tooltip, interaction, animation, theme, state, scale, annotation } from
 import { interval } from '../../adaptor/geometries';
 import { findGeometry, flow, transformLabel } from '../../utils';
 import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
-import { WaterOptions } from './types';
+import { WaterfallOptions } from './types';
 import { transformData } from './utils';
 import './shape';
 
@@ -14,7 +14,7 @@ import './shape';
  * 字段
  * @param params
  */
-function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
+function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
   const {
     data,
@@ -73,7 +73,7 @@ function geometry(params: Params<WaterOptions>): Params<WaterOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<WaterOptions>): Params<WaterOptions> {
+function meta(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { options } = params;
   const { xAxis, yAxis, xField, yField, meta } = options;
 
@@ -95,7 +95,7 @@ function meta(params: Params<WaterOptions>): Params<WaterOptions> {
  * axis 配置
  * @param params
  */
-function axis(params: Params<WaterOptions>): Params<WaterOptions> {
+function axis(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
@@ -119,7 +119,7 @@ function axis(params: Params<WaterOptions>): Params<WaterOptions> {
  * legend 配置 todo 添加 hover 交互
  * @param params
  */
-function legend(params: Params<WaterOptions>): Params<WaterOptions> {
+function legend(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
   const { legend, total, risingFill, fallingFill } = options;
 
@@ -169,7 +169,7 @@ function legend(params: Params<WaterOptions>): Params<WaterOptions> {
  * 数据标签
  * @param params
  */
-function label(params: Params<WaterOptions>): Params<WaterOptions> {
+function label(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
   const { label, labelMode } = options;
 
@@ -193,6 +193,6 @@ function label(params: Params<WaterOptions>): Params<WaterOptions> {
  * 瀑布图适配器
  * @param params
  */
-export function adaptor(params: Params<WaterOptions>) {
+export function adaptor(params: Params<WaterfallOptions>) {
   return flow(geometry, meta, axis, legend, tooltip, label, state, theme, interaction, animation, annotation())(params);
 }

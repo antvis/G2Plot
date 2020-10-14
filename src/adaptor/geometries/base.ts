@@ -52,8 +52,13 @@ export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | '
 
   // 因为 color 会影响到数据分组，以及最后的图形映射。所以导致 bar 图中的 widthRatio 设置不生效
   // 所以对于 color 字段，仅仅保留 colorField 好了！ + rawFields
+  // shape, size 同理
   if (field === 'color') {
     fields = [colorField || xField, ...rawFields];
+  } else if (field === 'shape') {
+    fields = [shapeField || xField, ...rawFields];
+  } else if (field === 'size') {
+    fields = [sizeField || xField, ...rawFields];
   } else {
     fields = [xField, yField, colorField, shapeField, sizeField, styleField, ...rawFields];
 

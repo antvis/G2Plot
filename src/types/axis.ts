@@ -41,7 +41,7 @@ export type Axis = AxisOption & {
   readonly tickInterval?: number;
 
   /**
-   * 自定义计算 tick 的方法
+   * 指定 tick 计算方法或自定义计算 tick 的方法
    */
-  readonly tickMethod?: (scale: any) => any[];
+  readonly tickMethod?: string | ((scale: any) => any[]);
 };

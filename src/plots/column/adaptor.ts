@@ -78,12 +78,14 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * legend 配置
  * @param params
  */
-function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
+export function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
   const { legend, seriesField } = options;
 
   if (legend && seriesField) {
     chart.legend(seriesField, legend);
+  } else if (legend === false) {
+    chart.legend(false);
   }
 
   return params;

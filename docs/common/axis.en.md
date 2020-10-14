@@ -56,9 +56,9 @@
 
 ##### tickMethod
 
-<description>**可选** _Function_</description>
+<description>**可选** _string | Function_</description>
 
-功能描述：自定义计算 tick 的方法。
+功能描述：指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`
 
 默认配置：`false`
 

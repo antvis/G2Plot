@@ -2,7 +2,7 @@ import { deepMix, isFunction, map, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { flow, pick } from '../../utils';
+import { flow, pick, transformTooltip } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { BoxOptions } from './types';
 import { BOX_RANGE, BOX_SYNC_NAME } from './constant';
@@ -185,7 +185,7 @@ export function tooltip(params: Params<BoxOptions>): Params<BoxOptions> {
   const { tooltip } = options;
 
   if (tooltip !== undefined) {
-    chart.tooltip(tooltip);
+    chart.tooltip(transformTooltip(tooltip));
   }
 
   return params;

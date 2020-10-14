@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow } from '../../utils';
+import { flow, transformLabel } from '../../utils';
 import { ColumnOptions } from './types';
 import { transformData } from './utils';
 
@@ -106,7 +106,7 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
     geometry.label({
       fields: [yField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

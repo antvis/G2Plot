@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { point as pointAdaptor } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
-import { findGeometry } from '../../utils';
+import { findGeometry, transformLabel } from '../../utils';
 import { getQuadrantDefaultConfig } from './util';
 import { ScatterOptions } from './types';
 
@@ -113,7 +113,7 @@ function label(params: Params<ScatterOptions>): Params<ScatterOptions> {
     scatterGeometry.label({
       fields: [yField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

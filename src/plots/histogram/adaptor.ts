@@ -3,7 +3,7 @@ import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { flow } from '../../utils';
+import { flow, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { HistogramOptions } from './types';
 
@@ -110,7 +110,7 @@ function label(params: Params<HistogramOptions>): Params<HistogramOptions> {
     geometry.label({
       fields: ['count'],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

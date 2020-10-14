@@ -2,7 +2,7 @@ import { Geometry } from '@antv/g2';
 import { deepMix, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
-import { findGeometry } from '../../utils';
+import { findGeometry, transformLabel } from '../../utils';
 import { point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { LineOptions } from './types';
@@ -108,7 +108,7 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
     lineGeometry.label({
       fields: [yField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

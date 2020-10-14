@@ -33,22 +33,21 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   chart.data(transformData(data, xField, yField, total));
 
   // 瀑布图自带的 colorMapping
-  let colorMapping = color;
-  if (!color) {
-    colorMapping = (datum: Datum) => {
+  const colorMapping =
+    color ||
+    function (datum: Datum) {
       if (get(datum, [IS_TOTAL])) {
         return get(total, ['style', 'fill'], '');
       }
       return get(datum, [Y_FIELD, 1]) - get(datum, [Y_FIELD, 0]) > 0 ? risingFill : fallingFill;
     };
-  }
 
   const p = deepMix({}, params, {
     options: {
       xField: xField,
       yField: Y_FIELD,
       seriesField: xField,
-      rawFields: [yField, DIFF_FIELD, IS_TOTAL],
+      rawFields: [yField, DIFF_FIELD, IS_TOTAL, Y_FIELD],
       widthRatio: columnWidthRatio,
       interval: {
         style: waterfallStyle,

@@ -72,6 +72,10 @@ describe('waterfall plot', () => {
 
   it('color: risingFill & fallingFill', () => {
     waterfall.update({ ...waterfall.options, risingFill: 'pink', fallingFill: '#000' });
+
+    // @ts-ignore
+    window.waterfall = waterfall;
+
     expect(waterfall.chart.geometries[0].elements[0].shape.get('children')[0].attr('fill')).toBe('pink');
     expect(waterfall.chart.geometries[0].elements[2].shape.get('children')[0].attr('fill')).toBe('#000');
   });

@@ -86,7 +86,7 @@ export { Sunburst, SunburstOptions } from './plots/sunburst';
 export { Gauge, GaugeOptions } from './plots/gauge';
 
 // 瀑布图 | author by [hustcc](https://github.com/me-momo)
-export { Waterfall, WaterOptions } from './plots/waterfall';
+export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.V 作为入口开发，理论上官方的所有图表都可以走 G2Plot.V 的入口（暂时不处理） */

@@ -21,11 +21,12 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
     options: {
       area: { color, style: areaStyle },
       // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
-      line: {
+      // 如果存在，才设置，否则为空
+      line: lineOptions && {
         color,
         ...lineOptions,
       },
-      point: {
+      point: pointOptions && {
         color,
         ...pointOptions,
       },

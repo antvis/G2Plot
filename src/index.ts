@@ -1,4 +1,4 @@
-export const version = '2.0.2';
+export const version = '2.0.3';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -89,7 +89,7 @@ export { Gauge, GaugeOptions } from './plots/gauge';
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
-/** 所有开放图表都使用 G2Plot.V 作为入口开发，理论上官方的所有图表都可以走 G2Plot.V 的入口（暂时不处理） */
+/** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
 /** 开发 adaptor 可能会用到 flow 方法，不强制使用 */
 export { flow } from './utils';

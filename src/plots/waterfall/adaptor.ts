@@ -4,7 +4,7 @@ import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { findGeometry, flow } from '../../utils';
+import { findGeometry, flow, transformLabel } from '../../utils';
 import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
 import { WaterOptions } from './types';
 import { transformData } from './utils';
@@ -182,7 +182,7 @@ function label(params: Params<WaterOptions>): Params<WaterOptions> {
     geometry.label({
       fields: labelMode === 'absolute' ? [ABSOLUTE_FIELD] : [DIFF_FIELD],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

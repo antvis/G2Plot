@@ -1,7 +1,7 @@
 import { deepMix, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
-import { flow, pick } from '../../utils';
+import { flow, pick, transformLabel } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { interval, point } from '../../adaptor/geometries';
 import { BulletOptions } from './types';
@@ -169,13 +169,13 @@ function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
 
   if (label?.range) {
-    rangeGeometry.label(`${rangeField}`, label.range);
+    rangeGeometry.label(`${rangeField}`, transformLabel(label.range));
   }
   if (label?.measure) {
-    measureGeometry.label(`${measureField}`, label.measure);
+    measureGeometry.label(`${measureField}`, transformLabel(label.measure));
   }
   if (label?.target) {
-    targetGeometry.label(`${targetField}`, label.target);
+    targetGeometry.label(`${targetField}`, transformLabel(label.target));
   }
 
   return params;

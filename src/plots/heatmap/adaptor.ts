@@ -1,7 +1,7 @@
 import { isFunction, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { flow } from '../../utils';
+import { flow, transformLabel } from '../../utils';
 import { DEFAULT_COLORS } from '../../constant';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { HeatmapOptions, ShapeType, SHAPE_TYPES } from './types';
@@ -210,7 +210,7 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
     geometry.label({
       fields: [colorField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

@@ -3,7 +3,7 @@ import { tooltip, slider, interaction, animation, theme, annotation } from '../.
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
-import { flow } from '../../utils';
+import { flow, transformLabel } from '../../utils';
 import { meta, legend, axis, adjust } from '../line/adaptor';
 import { AreaOptions } from './types';
 
@@ -50,7 +50,7 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
     areaGeometry.label({
       fields: [yField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

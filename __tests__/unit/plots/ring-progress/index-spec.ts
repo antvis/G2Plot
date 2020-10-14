@@ -259,4 +259,29 @@ describe('ring-progress', () => {
       },
     ]);
   });
+
+  it('style callback', () => {
+    const ring = new RingProgress(createDiv(), {
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      autoFit: false,
+      color: 'green',
+      statistic: {
+        content: {
+          style: ({ percent }) => {
+            return {
+              fontSize: 20 * percent,
+              textAlign: 'center',
+              textBaseline: 'middle',
+            };
+          },
+        },
+      },
+    });
+
+    ring.render();
+
+    expect(ring.chart.getController('annotation').getComponents()[0].component.get('style').fontSize).toBe(20 * 0.6);
+  });
 });

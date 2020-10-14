@@ -20,8 +20,16 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const p = deepMix({}, params, {
     options: {
       area: { color, style: areaStyle },
-      line: lineOptions,
-      point: pointOptions,
+      // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
+      // 如果存在，才设置，否则为空
+      line: lineOptions && {
+        color,
+        ...lineOptions,
+      },
+      point: pointOptions && {
+        color,
+        ...pointOptions,
+      },
     },
   });
   // area geometry 处理

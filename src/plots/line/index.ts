@@ -3,6 +3,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { LineOptions } from './types';
 import { adaptor } from './adaptor';
+import './interactions';
 
 export { LineOptions };
 

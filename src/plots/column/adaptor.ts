@@ -4,8 +4,8 @@ import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel } from '../../utils';
+import { percent } from '../../utils/transform/percent';
 import { ColumnOptions } from './types';
-import { transformData } from './utils';
 
 /**
  * 字段
@@ -13,10 +13,10 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, color, columnWidthRatio, isPercent } = options;
+  const { data, columnStyle, color, columnWidthRatio, isPercent, xField, yField } = options;
   let chartData = data;
   if (isPercent) {
-    chartData = transformData(options);
+    chartData = percent(data, yField, xField, yField);
   }
   chart.data(chartData);
 

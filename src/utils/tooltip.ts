@@ -48,9 +48,9 @@ export function getTooltipTemplate(params: {
       return formatter(item);
     }
     if (isPercent) {
-      return (item.value * 100).toFixed(2) + '%';
+      return (item?.value * 100).toFixed(2) + '%';
     }
-    return item;
+    return item?.value;
   };
   items.forEach((item) => {
     listItem += `<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;display:flex;">

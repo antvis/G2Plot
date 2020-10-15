@@ -1,6 +1,6 @@
 import { Line } from '@antv/g2plot';
 import DataSet from '@antv/data-set';
-import * as _ from '@antv/util';
+import { last } from '@antv/util';
 
 fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a54d45.json')
   .then((res) => res.json())
@@ -170,4 +170,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
     });
 
     line.render();
+    // 初始化，默认激活最后一条数据
+    const point = line.chart.getXY(last(dv.rows));
+    line.chart.showTooltip(point);
   });

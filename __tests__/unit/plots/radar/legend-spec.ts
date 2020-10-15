@@ -1,7 +1,7 @@
-import { Radar } from '../../src';
-import { createDiv } from '../utils/dom';
+import { Radar } from '../../../../src';
+import { createDiv } from '../../../utils/dom';
 
-describe('#1727', () => {
+describe('radar', () => {
   it('radar legend', () => {
     const data = [
       {
@@ -105,7 +105,7 @@ describe('#1727', () => {
         score: 60,
       },
     ];
-    const radar = new Radar(createDiv('area tooltip 重复'), {
+    const radar = new Radar(createDiv('radar'), {
       data,
       height: 300,
       xField: 'item',
@@ -131,7 +131,6 @@ describe('#1727', () => {
       point: {
         shape: 'circle',
       },
-      // 开启面积
       area: {},
       legend: {
         position: 'top',

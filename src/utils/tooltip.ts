@@ -2,15 +2,15 @@ import { isType } from '@antv/util';
 
 /**
  * tooltip formatter
- * @param {any} tooltipConfig
+ * @param {any} tooltipOptions
  * @param {boolean} isPercent
  */
-export function transformTooltip(tooltipConfig: any, isPercent?: boolean) {
+export function transformTooltip(tooltipOptions: any, isPercent?: boolean) {
   // customContent 优先级高于 formatter
-  if (!isType(tooltipConfig, 'Object') || tooltipConfig?.customContent) {
-    return tooltipConfig;
+  if (!isType(tooltipOptions, 'Object') || tooltipOptions?.customContent) {
+    return tooltipOptions;
   }
-  const tooltip = { ...tooltipConfig };
+  const tooltip = { ...tooltipOptions };
   if (tooltip.formatter || isPercent) {
     tooltip.customContent = (value: string, items: any[]) => {
       return getTooltipTemplate({

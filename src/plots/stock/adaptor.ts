@@ -1,5 +1,4 @@
 import { deepMix, isArray, isObject, map } from '@antv/util';
-import DataSet from '@antv/data-set';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry, flow, pick, transformTooltip } from '../../utils';
@@ -28,10 +27,7 @@ function field(params: Params<StockOptions>): Params<StockOptions> {
     return obj;
   });
 
-  const ds = new DataSet();
-  const dv = ds.createView().source(data);
-
-  chart.data(dv.rows);
+  chart.data(data);
 
   const geometry = chart.schema().position(`${xField}*${Y_FIELD}`).shape('candle');
 

@@ -42,10 +42,12 @@ export function conversionTagCom(getLineCoordinate: (datum: Datum, datumIndex: n
             top: true,
             text: {
               content: isFunction(formatter) ? formatter(obj, data) : formatter,
-              offsetX: 10,
+              offsetX: conversionTag.offsetX,
+              offsetY: conversionTag.offsetY,
               position: 'end',
               autoRotate: false,
               style: {
+                ...conversionTag.style,
                 textAlign: 'start',
                 textBaseline: 'middle',
               },

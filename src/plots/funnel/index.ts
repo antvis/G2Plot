@@ -58,6 +58,9 @@ export class Funnel extends Plot<FunnelOptions> {
           shared: false,
         },
         conversionTag: {
+          offsetX: 10,
+          offsetY: 0,
+          style: {},
           formatter: (datum) => `转化率${datum.$$percentage$$ * 100}%`,
         },
       },

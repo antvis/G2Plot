@@ -73,7 +73,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 
 function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { label, transpose } = options;
+  const { label } = options;
 
   chart.once('beforepaint', () => {
     chart.views.forEach((view, index) => {
@@ -100,17 +100,18 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
 
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { yField } = options;
+  const { yField, conversionTag } = options;
 
   chart.once('beforepaint', () => {
     chart.views.forEach((view, viewIndex) => {
       const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+        const ratio = viewIndex === 0 ? -1 : 1;
         return {
           start: [datumIndex - 0.5, data[0][yField] * datum[FUNNEL_PERCENT]],
           end: [datumIndex - 0.5, data[0][yField] * (datum[FUNNEL_PERCENT] + 0.05)],
           text: {
             content: undefined,
-            offsetX: viewIndex === 0 ? -10 : 10,
+            offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
             style: {
               textAlign: viewIndex === 0 ? 'end' : 'start',
             },

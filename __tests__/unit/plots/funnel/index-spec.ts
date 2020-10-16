@@ -51,15 +51,37 @@ describe('basic funnel', () => {
     expect(coordinate.isTransposed).toBe(true);
   });
 
-  test('transpose', () => {
+  test('geometry label', () => {
+    const geometry = funnel.chart.geometries[0];
+    const { labelOption, labelsContainer } = geometry;
+
+    expect(labelOption.fields).toEqual(['action', 'pv', FUNNEL_PERCENT]);
+    expect(labelsContainer.cfg.children.length).toEqual(5);
+
+    PV_DATA.forEach((pvItem, index) => {
+      const tmp = labelsContainer.cfg.children[index].cfg.data;
+      expect(tmp.action).toBe(pvItem.action);
+      expect(tmp.pv).toBe(pvItem.pv);
+      expect(tmp[FUNNEL_PERCENT]).toBe(Math.round((pvItem.pv / PV_DATA[0].pv) * 100) / 100);
+    });
+    console.log(funnel);
+
     funnel.update({
       ...funnelOption,
-      transpose: true,
+      label: false,
     });
-
-    // transpose
-    const coordinate = funnel.chart.getCoordinate();
-    expect(coordinate.isRect).toBe(true);
-    expect(coordinate.isTransposed).toBe(false);
+    expect(labelsContainer.cfg.children.length).toEqual(0);
   });
+
+  // test('transpose', () => {
+  //   funnel.update({
+  //     ...funnelOption,
+  //     transpose: true,
+  //   });
+
+  //   // transpose
+  //   const coordinate = funnel.chart.getCoordinate();
+  //   expect(coordinate.isRect).toBe(true);
+  //   expect(coordinate.isTransposed).toBe(false);
+  // });
 });

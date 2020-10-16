@@ -1,16 +1,17 @@
 import { map } from '@antv/util';
-import { isFunction } from '@antv/util';
+import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FunnelAdaptorOptions } from '../types';
+import { Datum, Data } from '../../../types/common';
+import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
-import { transpose } from './util';
+import { transpose, geometryLabel, conversionTagCom } from './common';
 
 /**
  * 处理字段数据
  * @param params
  */
-function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { data = [], yField } = options;
   let formatData = [];
@@ -18,7 +19,7 @@ function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
   if (data[0][yField]) {
     formatData = map(data, (row) => {
       if (row[yField] !== undefined) {
-        row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+        row[FUNNEL_PERCENT] = Math.round((row[yField] / data[0][yField]) * 100) / 100;
       }
       return row;
     });
@@ -33,7 +34,7 @@ function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
  * geometry处理
  * @param params
  */
-function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color } = options;
 
@@ -51,50 +52,32 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
  * label 处理
  * @param params
  */
-function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { label, yField, xField } = options;
+function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart } = params;
 
-  const geometry = findGeometry(chart, 'interval');
-  console.log(geometry, label);
-  if (!label) {
-    geometry.label(false);
-  } else {
-    const { callback, ...cfg } = label;
-    geometry.label({
-      fields: [xField, yField, FUNNEL_PERCENT],
-      callback,
-      cfg,
-    });
-  }
+  geometryLabel(findGeometry(chart, 'interval'))(params);
 
   return params;
 }
 
 /**
- * annotation 处理
+ * 转化率组件
  * @param params
  */
-function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { xField, yField, annotation } = options;
+function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { options } = params;
+  const { yField } = options;
 
-  const { data: formatData } = chart.getOptions();
+  const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+    const percent = 1 - (1 - datum[FUNNEL_PERCENT]) / 2;
+    return {
+      start: [datumIndex - 0.5, data[0][yField] * percent],
+      end: [datumIndex - 0.5, data[0][yField] * (percent + 0.05)],
+    };
+  };
 
-  if (annotation !== false) {
-    formatData.forEach((obj) => {
-      chart.annotation().text({
-        top: true,
-        position: [obj[xField], 'median'],
-        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj[FUNNEL_PERCENT], obj) : annotation,
-        style: {
-          stroke: null,
-          fill: '#fff',
-          textAlign: 'center',
-        },
-      });
-    });
-  }
+  conversionTagCom(getLineCoordinate)(params);
+
   return params;
 }
 
@@ -103,7 +86,7 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
  * @param chart
  * @param options
  */
-export function basicFunnel(params: Params<FunnelAdaptorOptions>) {
+export function basicFunnel(params: Params<FunnelOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, geometry, transpose, label, annotation)(params);
+  return flow(field, geometry, transpose, conversionTag, label)(params);
 }

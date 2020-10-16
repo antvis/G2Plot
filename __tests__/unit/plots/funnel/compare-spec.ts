@@ -28,7 +28,7 @@ describe('compare funnel', () => {
 
     funnelViews.forEach((funnelView) => {
       const geometry = funnelView.geometries[0];
-      console.log(geometry);
+      // console.log(geometry);
       // 数据量
       expect(geometry.elements.length).toBe(5);
 

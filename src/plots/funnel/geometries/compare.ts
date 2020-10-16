@@ -1,14 +1,17 @@
-import { map } from '@antv/util';
-import { flow } from '../../../utils';
+import { deepMix, map } from '@antv/util';
+import { LineOption } from '@antv/g2/lib/interface';
+import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FunnelAdaptorOptions } from '../types';
+import { Datum, Data } from '../../../types/common';
+import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
+import { geometryLabel, conversionTagCom } from './common';
 
 /**
  * 处理字段数据
  * @param params
  */
-function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { data = [], yField, compareField } = options;
   // 处理数据
@@ -36,11 +39,9 @@ function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
  * geometry处理
  * @param params
  */
-function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, compareField, label, transpose } = options;
-
-  const { data: formatData } = chart.getOptions();
+  const { xField, yField, color, compareField, transpose } = options;
 
   chart.scale({
     [yField]: {
@@ -62,51 +63,74 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
           .scale(facet.columnIndex === 0 ? -1 : 1, -1);
       }
       // 绘制图形
-      const funnelGeometry = view
-        .interval()
-        .position(`${xField}*${yField}*${FUNNEL_PERCENT}`)
-        .shape('funnel')
-        .color(xField, color)
-        .style({
-          lineWidth: 1,
-          stroke: '#fff',
-        });
-
-      // 对比漏斗图中，使用分面无法同步获取到 chart.views，因此 label 和 annotation 不做拆分，逻辑直接写在下方
-
-      // 绘制 label
-      if (!label) {
-        funnelGeometry.label(false);
-      } else {
-        const { callback, ...cfg } = label;
-        funnelGeometry.label({
-          fields: [xField, yField, FUNNEL_PERCENT],
-          callback,
-          cfg,
-        });
-      }
-
-      // 绘制 annotation
-      formatData.map((obj) => {
-        if (obj[compareField] === facet.columnValue) {
-          view.annotation().text({
-            top: true,
-            position: [obj[xField], 'min'],
-            content: obj[yField],
-            style: {
-              fill: '#fff',
-              stroke: null,
-              fontSize: 12,
-              textAlign: facet.columnIndex ? 'start' : 'end',
-            },
-            offsetX: facet.columnIndex ? 10 : -10,
-          });
-        }
-        return null;
+      view.interval().position(`${xField}*${yField}*${FUNNEL_PERCENT}`).shape('funnel').color(xField, color).style({
+        lineWidth: 1,
+        stroke: '#fff',
       });
     },
   });
 
+  return params;
+}
+
+function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { label } = options;
+
+  chart.once('beforepaint', () => {
+    chart.views.forEach((view, index) => {
+      const geometry = findGeometry(view, 'interval');
+      geometryLabel(geometry)(
+        label
+          ? deepMix({}, params, {
+              options: {
+                label: {
+                  offset: 10,
+                  position: 'left',
+                  style: {
+                    textAlign: index === 0 ? 'end' : 'start',
+                  },
+                },
+              },
+            })
+          : params
+      );
+    });
+  });
+  return params;
+}
+
+function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { yField } = options;
+
+  chart.once('beforepaint', () => {
+    chart.views.forEach((view, viewIndex) => {
+      const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+        return {
+          start: [datumIndex - 0.5, data[0][yField] * datum[FUNNEL_PERCENT]],
+          end: [datumIndex - 0.5, data[0][yField] * (datum[FUNNEL_PERCENT] + 0.05)],
+          text: {
+            content: undefined,
+            offsetX: viewIndex === 0 ? -10 : 10,
+            style: {
+              textAlign: viewIndex === 0 ? 'end' : 'start',
+            },
+          },
+        };
+      };
+
+      conversionTagCom(getLineCoordinate)(
+        deepMix(
+          {},
+          {
+            chart: view,
+            options,
+          }
+        )
+      );
+    });
+  });
   return params;
 }
 
@@ -115,7 +139,7 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
  * @param chart
  * @param options
  */
-export function compareFunnel(params: Params<FunnelAdaptorOptions>) {
+export function compareFunnel(params: Params<FunnelOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, geometry)(params);
+  return flow(field, geometry, label, conversionTag)(params);
 }

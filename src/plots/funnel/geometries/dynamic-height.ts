@@ -1,9 +1,11 @@
-import { deepMix, map, reduce } from '@antv/util';
-import { isFunction } from '@antv/util';
+import { map, reduce } from '@antv/util';
+import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FunnelAdaptorOptions } from '../types';
 import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
+import { Datum } from '../../../types/common';
+import { FunnelOptions } from '../types';
+import { geometryLabel, conversionTagCom } from './common';
 
 /**
  * 动态高度漏斗图
@@ -19,7 +21,7 @@ import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
  * 处理数据
  * @param params
  */
-function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { data = [], yField } = options;
 
@@ -75,7 +77,7 @@ function field(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOption
  * geometry处理
  * @param params
  */
-function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, color } = options;
 
@@ -85,54 +87,32 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
   return params;
 }
 
-function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { label, yField, xField } = options;
+function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart } = params;
 
-  const geometry = findGeometry(chart, 'polygon');
-
-  if (!label) {
-    geometry.label(false);
-  } else {
-    const { callback, ...cfg } = label;
-    geometry.label({
-      fields: [xField, yField, FUNNEL_PERCENT],
-      callback,
-      cfg,
-    });
-  }
+  geometryLabel(findGeometry(chart, 'polygon'))(params);
 
   return params;
 }
 
-function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { xField, yField, annotation } = options;
-  const { data: formatData } = chart.getOptions();
+function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const getLineCoordinate = (datum: Datum): LineOption => {
+    return {
+      start: [datum._x[1], datum._y[1]],
+      end: [datum._x[1] + 0.05, datum._y[1]],
+    };
+  };
 
-  if (annotation !== false) {
-    formatData.forEach((obj) => {
-      chart.annotation().text({
-        top: true,
-        position: [obj[xField], 'median'],
-        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj[FUNNEL_PERCENT], obj) : annotation,
-        style: {
-          stroke: null,
-          fill: '#fff',
-          textAlign: 'center',
-        },
-      });
-    });
-  }
+  conversionTagCom(getLineCoordinate)(params);
+
   return params;
 }
 
 /**
- * 对比漏斗
+ * 动态高度漏斗
  * @param chart
  * @param options
  */
-export function dynamicHeightFunnel(params: Params<FunnelAdaptorOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(field, geometry, label, annotation)(params);
+export function dynamicHeightFunnel(params: Params<FunnelOptions>) {
+  return flow(field, geometry, label, conversionTag)(params);
 }

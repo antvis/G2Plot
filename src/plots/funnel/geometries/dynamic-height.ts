@@ -2,7 +2,7 @@ import { map, reduce } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
+import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { Datum } from '../../../types/common';
 import { FunnelOptions } from '../types';
 import { geometryLabel, conversionTagCom } from './common';
@@ -43,7 +43,8 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
 
     // 获取左上角，右上角坐标
     if (index) {
-      const { _x: preItemX, _y: preItemY } = data[index - 1];
+      const preItemX = data[index - 1][PLOYGON_X];
+      const preItemY = data[index - 1][PLOYGON_Y];
       x[0] = preItemX[3];
       y[0] = preItemY[3];
       x[1] = preItemX[2];
@@ -62,8 +63,8 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     x[3] = -x[2];
 
     // 赋值
-    row._x = x;
-    row._y = y;
+    row[PLOYGON_X] = x;
+    row[PLOYGON_Y] = y;
     row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
     return row;
   });
@@ -79,11 +80,34 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, color } = options;
+  const { xField, yField, color } = options;
 
   // 绘制漏斗图
-  chart.polygon().position('_x*_y').color(xField, color);
+  chart
+    .polygon()
+    .position(`${PLOYGON_X}*${PLOYGON_Y}`)
+    .color(xField, color)
+    .tooltip(`${xField}*${yField}`, (xFieldValue, yFieldValue) => ({
+      [xField]: xFieldValue,
+      [yField]: yFieldValue,
+    }));
+  return params;
+}
 
+export function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { transpose } = options;
+  if (!transpose) {
+    chart.coordinate({
+      type: 'rect',
+    });
+  } else {
+    chart.coordinate({
+      type: 'rect',
+
+      actions: [['transpose'], ['reflect', 'x']],
+    });
+  }
   return params;
 }
 
@@ -98,8 +122,8 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const getLineCoordinate = (datum: Datum): LineOption => {
     return {
-      start: [datum._x[1], datum._y[1]],
-      end: [datum._x[1] + 0.05, datum._y[1]],
+      start: [datum[PLOYGON_X][1], datum[PLOYGON_Y][1]],
+      end: [datum[PLOYGON_X][1] + 0.05, datum[PLOYGON_Y][1]],
     };
   };
 
@@ -114,5 +138,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function dynamicHeightFunnel(params: Params<FunnelOptions>) {
-  return flow(field, geometry, label, conversionTag)(params);
+  return flow(field, geometry, transpose, label, conversionTag)(params);
 }

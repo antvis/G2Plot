@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { flow } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
@@ -32,6 +32,22 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
+ * meta 配置
+ * @param params
+ */
+export function meta(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { options } = params;
+  const { xAxis, yAxis, xField, yField } = options;
+
+  return flow(
+    scale({
+      [xField]: xAxis,
+      [yField]: yAxis,
+    })
+  )(params);
+}
+
+/**
  * 坐标轴
  * @param params
  */
@@ -42,11 +58,29 @@ function axis(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
+ * legend 配置
+ * @param params
+ */
+function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { legend } = options;
+
+  if (legend === false) {
+    chart.legend(false);
+  } else {
+    chart.legend(legend);
+    // TODO FIX: legend-click 时间和转化率组件之间的关联
+  }
+
+  return params;
+}
+
+/**
  * 漏斗图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<FunnelOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, axis, tooltip, interaction, animation, theme)(params);
+  return flow(geometry, meta, axis, tooltip, interaction, legend, animation, theme)(params);
 }

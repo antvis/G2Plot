@@ -18,5 +18,14 @@ const funnelPlot = new Funnel('container', {
   xField: 'action',
   yField: 'pv',
   compareField: 'quarter',
+  meta: {
+    action: {
+      alias: '用户行为',
+    },
+    pv: {
+      alias: '访问量',
+      formatter: (v) => `${v}次`,
+    },
+  },
 });
 funnelPlot.render();

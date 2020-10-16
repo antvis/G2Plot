@@ -32,6 +32,11 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
 
   // 绘制漏斗图
   chart.data(formatData);
+  chart.scale({
+    [yField]: {
+      sync: true,
+    },
+  });
   return params;
 }
 
@@ -43,24 +48,17 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color, compareField, transpose } = options;
 
-  chart.scale({
-    [yField]: {
-      sync: true,
-    },
-  });
-
   chart.facet('mirror', {
-    fields: [compareField, null],
+    fields: [compareField],
     // 漏斗图的转置规则与分面相反，默认是垂直布局
     transpose: !transpose,
     padding: 0,
     eachView(view, facet) {
       if (!transpose) {
-        // 垂直布局
-        view
-          .coordinate('rect')
-          .transpose()
-          .scale(facet.columnIndex === 0 ? -1 : 1, -1);
+        view.coordinate({
+          type: 'rect',
+          actions: [['transpose'], ['scale', facet.columnIndex === 0 ? -1 : 1, -1]],
+        });
       }
       // 绘制图形
       view.interval().position(`${xField}*${yField}*${FUNNEL_PERCENT}`).shape('funnel').color(xField, color).style({
@@ -75,7 +73,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 
 function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { label } = options;
+  const { label, transpose } = options;
 
   chart.once('beforepaint', () => {
     chart.views.forEach((view, index) => {

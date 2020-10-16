@@ -61,11 +61,10 @@ export function conversionTagCom(getLineCoordinate: (datum: Datum, datumIndex: n
 }
 
 /**
- * 转置处理, 适用于普通折线图，动态高度折线图
+ * 转置处理, 适用于普通折线图
  * @param params
  */
 export function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  // debugger;
   const { chart, options } = params;
   const { transpose } = options;
   if (!transpose) {

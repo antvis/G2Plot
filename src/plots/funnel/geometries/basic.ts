@@ -5,7 +5,7 @@ import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
-import { transpose, geometryLabel, conversionTagCom } from './common';
+import { geometryLabel, conversionTagCom } from './common';
 
 /**
  * 处理字段数据
@@ -45,6 +45,27 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     .shape('funnel')
     .color(xField, color);
 
+  return params;
+}
+
+/**
+ * 转置
+ * @param params
+ */
+export function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { transpose } = options;
+  if (!transpose) {
+    chart.coordinate({
+      type: 'rect',
+      actions: [['transpose'], ['scale', 1, -1]],
+    });
+  } else {
+    chart.coordinate({
+      type: 'rect',
+      actions: [],
+    });
+  }
   return params;
 }
 

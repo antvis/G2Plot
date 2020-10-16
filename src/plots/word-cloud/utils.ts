@@ -1,5 +1,5 @@
 import { Chart, View } from '@antv/g2';
-import { deepMix, isArray, isFunction, isNumber, isString } from '@antv/util';
+import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { log, LEVEL, getContainerSize } from '../../utils';
 import { wordCloud } from '../../utils/transform/word-cloud';
@@ -11,12 +11,10 @@ import { DataItem, WordCloudOptions } from './types';
  */
 export function transform(params: Params<WordCloudOptions>): DataItem[] {
   const { options } = params;
-  let { data } = options;
+  const { data, imageMask, wordField, weightField, wordStyle, timeInterval } = options;
   if (!data || !data.length) {
     return [];
   }
-  data = deepMix([], data);
-  const { imageMask, wordField, weightField, wordStyle, timeInterval } = options;
   const { fontFamily, fontWeight, padding } = wordStyle;
   const arr = data.map((v) => v[weightField]) as number[];
   const range = [min(arr), max(arr)] as [number, number];

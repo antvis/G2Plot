@@ -1,4 +1,4 @@
-import { assign, isString } from '@antv/util';
+import { deepMix, assign, isString } from '@antv/util';
 import { Data } from '../../types';
 
 type FontWeight = number | 'normal' | 'bold' | 'bolder' | 'lighter';
@@ -30,7 +30,7 @@ const DEFAULT_OPTIONS: Options = {
   size: [500, 500],
   spiral: 'archimedean', // 'archimedean' || 'rectangular' || {function}
   // timeInterval: Infinity // max execute time
-  timeInterval: 500, // max execute time
+  timeInterval: 3000, // max execute time
   // imageMask: '', // instance of Image, must be loaded
 };
 
@@ -40,11 +40,13 @@ const DEFAULT_OPTIONS: Options = {
  * 计算后的数据对象
  * @param options
  */
-export function wordCloud(data: Data, options: Options) {
+export function wordCloud(data: Data, options?: Options) {
   return transform(data, options);
 }
 
-function transform(data: Data, options: Options) {
+function transform(data: Data, options?: Options) {
+  // 深拷贝
+  data = deepMix([], data);
   options = assign({} as Options, DEFAULT_OPTIONS, options);
   const layout = tagCloud();
   ['font', 'fontSize', 'fontWeight', 'padding', 'rotate', 'size', 'spiral', 'timeInterval'].forEach((key) => {

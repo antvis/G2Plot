@@ -7,7 +7,6 @@ export class MarkerActiveAction extends InteractionAction {
     const evt = this.context.event;
     if (evt.data) {
       // items: 数组对象，当前 tooltip 显示的每条内容
-      // title: tooltip 标题
       const { items } = evt.data;
       const points = view.geometries.filter((geom) => geom.type === 'point');
       each(points, (point: Geometry) => {

@@ -1,3 +1,15 @@
+##### formatter
+
+<description>**可选** _Function_</description>
+
+功能描述：格式化 tooltip value。
+
+```ts
+tooltip: {
+  formatter: (item) => item.value + '%';
+}
+```
+
 ##### follow
 
 <description>**可选** _boolean_</description>

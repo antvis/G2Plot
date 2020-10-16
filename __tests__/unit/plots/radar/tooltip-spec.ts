@@ -139,4 +139,27 @@ describe('radar, 自定义 tooltip', () => {
     expect(tooltipCfg.showCrosshairs).toBe(true);
     expect(tooltipCfg.crosshairs.type).toBe('xy');
   });
+  it('tooltip formatter', () => {
+    const radar = new Radar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: SERIES_DATA,
+      xField: 'name',
+      yField: 'value',
+      seriesField: 'type',
+      radius: 0.8,
+      tooltip: {
+        shared: true,
+        showCrosshairs: true,
+        formatter: (item) => item?.value + '%',
+      },
+    });
+
+    radar.render();
+    const tooltipController = radar.chart.getController('radar-tooltip');
+    // @ts-ignore
+    const tooltipCfg = tooltipController.getTooltipCfg();
+    expect(tooltipCfg.showCrosshairs).toBe(true);
+    expect(tooltipCfg.customContent).toBeTruthy();
+  });
 });

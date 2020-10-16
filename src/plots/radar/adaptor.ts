@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation, legend } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
-import { flow } from '../../utils';
+import { findGeometry, flow, transformLabel } from '../../utils';
 import { RadarOptions } from './types';
 
 /**
@@ -89,18 +89,26 @@ function axis(params: Params<RadarOptions>): Params<RadarOptions> {
 }
 
 /**
- * legend 配置
- * @param params
- */
-function legend(params: Params<RadarOptions>): Params<RadarOptions> {
-  return params;
-}
-
-/**
  * label 配置
  * @param params
  */
 function label(params: Params<RadarOptions>): Params<RadarOptions> {
+  const { chart, options } = params;
+  const { label, yField } = options;
+
+  const geometry = findGeometry(chart, 'line');
+
+  if (!label) {
+    geometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    geometry.label({
+      fields: [yField],
+      callback,
+      cfg: transformLabel(cfg),
+    });
+  }
+
   return params;
 }
 

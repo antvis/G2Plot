@@ -1,13 +1,13 @@
 import { isType } from '@antv/util';
 /**
  * 兼容 v1 label formatter
- * @param labelConfig
+ * @param labelOptions
  */
-export function transformLabel(labelConfig: any) {
-  if (!isType(labelConfig, 'Object')) {
-    return labelConfig;
+export function transformLabel(labelOptions: any) {
+  if (!isType(labelOptions, 'Object')) {
+    return labelOptions;
   }
-  const label = { ...labelConfig };
+  const label = { ...labelOptions };
   if (label.formatter && !label.content) {
     label.content = label.formatter;
   }

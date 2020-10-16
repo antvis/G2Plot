@@ -8,17 +8,19 @@ import { AXIS_META_CONFIG_KEYS } from '../constant';
 import { pick, transformTooltip } from '../utils';
 
 /**
- * 通用 legend 配置, 适用于带 colorField 的图表
+ * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表
  * @param params
  */
-export function legend<O extends Pick<Options, 'legend'> & { colorField?: string }>(params: Params<O>): Params<O> {
+export function legend<O extends Pick<Options, 'legend'> & { colorField?: string; seriesField?: string }>(
+  params: Params<O>
+): Params<O> {
   const { chart, options } = params;
-  const { legend, colorField } = options;
+  const { legend, colorField, seriesField } = options;
 
   if (legend === false) {
     chart.legend(false);
-  } else if (colorField) {
-    chart.legend(colorField, legend);
+  } else if (colorField || seriesField) {
+    chart.legend(colorField || seriesField, legend);
   }
 
   return params;
@@ -28,12 +30,12 @@ export function legend<O extends Pick<Options, 'legend'> & { colorField?: string
  * 通用 tooltip 配置
  * @param params
  */
-export function tooltip<O extends Pick<Options, 'tooltip'>>(params: Params<O>): Params<O> {
+export function tooltip<O extends Pick<Options, 'tooltip'> & { isPercent?: boolean }>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { tooltip } = options;
+  const { tooltip, isPercent } = options;
 
   if (tooltip !== undefined) {
-    chart.tooltip(transformTooltip(tooltip));
+    chart.tooltip(transformTooltip(tooltip, isPercent));
   }
 
   return params;

@@ -1,9 +1,10 @@
 import { deepMix, assign, isString } from '@antv/util';
+import { DataItem } from '../../plots/word-cloud/types';
 import { Data } from '../../types';
 
 type FontWeight = number | 'normal' | 'bold' | 'bolder' | 'lighter';
 
-export interface DataItem {
+interface Row {
   /** 文本内容 */
   text: string;
   /** 该文本所占权重 */
@@ -11,13 +12,13 @@ export interface DataItem {
 }
 
 export interface Options {
-  fields?: [string, string];
-  font?: string | ((row: DataItem) => string);
-  fontSize?: number | ((row: DataItem) => number);
-  fontWeight?: FontWeight | ((row: DataItem) => FontWeight);
-  rotate?: number | ((row: DataItem) => number);
-  padding?: number | ((row: DataItem) => number);
-  size?: [number, number];
+  fields: [string, string];
+  size: [number, number];
+  font?: string | ((row: Row) => string);
+  fontSize?: number | ((row: Row) => number);
+  fontWeight?: FontWeight | ((row: Row) => FontWeight);
+  rotate?: number | ((row: Row) => number);
+  padding?: number | ((row: Row) => number);
   spiral?: 'archimedean' | 'rectangular' | ((size: [number, number]) => (t: number) => number[]);
   timeInterval?: number;
   imageMask?: HTMLImageElement;
@@ -40,19 +41,18 @@ const DEFAULT_OPTIONS: Options = {
  * 计算后的数据对象
  * @param options
  */
-export function wordCloud(data: Data, options?: Options) {
-  return transform(data, options);
+export function wordCloud(data: Data, options?: Partial<Options>) {
+  // 混入默认配置
+  options = assign({} as Options, DEFAULT_OPTIONS, options);
+  return transform(data, options as Options);
 }
 
-function transform(data: Data, options?: Options) {
+export function transform(data: Data, options: Options) {
   // 深拷贝
   data = deepMix([], data);
-  options = assign({} as Options, DEFAULT_OPTIONS, options);
   const layout = tagCloud();
   ['font', 'fontSize', 'fontWeight', 'padding', 'rotate', 'size', 'spiral', 'timeInterval'].forEach((key) => {
-    // @ts-ignore
-    if (options[key]) {
-      // @ts-ignore
+    if (options[key] !== undefined && options[key] !== null) {
       layout[key](options[key]);
     }
   });
@@ -96,7 +96,7 @@ function transform(data: Data, options?: Options) {
     opacity: 0,
   });
 
-  return tags;
+  return tags as DataItem[];
 }
 
 /*
@@ -326,23 +326,19 @@ const spirals = {
 
 function tagCloud() {
   let size = [256, 256],
-    text = cloudText,
     font = cloudFont,
     fontSize = cloudFontSize,
-    fontStyle = cloudFontNormal,
     fontWeight = cloudFontNormal,
     rotate = cloudRotate,
     padding = cloudPadding,
     spiral = archimedeanSpiral,
     words: any = [],
-    timeInterval = Infinity,
-    random = Math.random,
-    canvas = cloudCanvas;
+    timeInterval = Infinity;
+  const random = Math.random;
+  const text = cloudText;
+  const fontStyle = cloudFontNormal;
+  const canvas = cloudCanvas;
   const cloud: any = {};
-
-  cloud.canvas = function (_) {
-    return arguments.length ? ((canvas = functor(_)), cloud) : canvas;
-  };
 
   cloud.start = function () {
     const [width, height] = size;
@@ -502,51 +498,39 @@ function tagCloud() {
   };
 
   cloud.timeInterval = function (_) {
-    return arguments.length ? ((timeInterval = _ == null ? Infinity : _), cloud) : timeInterval;
+    timeInterval = _ == null ? Infinity : _;
   };
 
   cloud.words = function (_) {
-    return arguments.length ? ((words = _), cloud) : words;
+    words = _;
   };
 
   cloud.size = function (_) {
-    return arguments.length ? ((size = [+_[0], +_[1]]), cloud) : size;
+    size = [+_[0], +_[1]];
   };
 
   cloud.font = function (_) {
-    return arguments.length ? ((font = functor(_)), cloud) : font;
-  };
-
-  cloud.fontStyle = function (_) {
-    return arguments.length ? ((fontStyle = functor(_)), cloud) : fontStyle;
+    font = functor(_);
   };
 
   cloud.fontWeight = function (_) {
-    return arguments.length ? ((fontWeight = functor(_)), cloud) : fontWeight;
+    fontWeight = functor(_);
   };
 
   cloud.rotate = function (_) {
-    return arguments.length ? ((rotate = functor(_)), cloud) : rotate;
-  };
-
-  cloud.text = function (_) {
-    return arguments.length ? ((text = functor(_)), cloud) : text;
+    rotate = functor(_);
   };
 
   cloud.spiral = function (_) {
-    return arguments.length ? ((spiral = spirals[_] || _), cloud) : spiral;
+    spiral = spirals[_] || _;
   };
 
   cloud.fontSize = function (_) {
-    return arguments.length ? ((fontSize = functor(_)), cloud) : fontSize;
+    fontSize = functor(_);
   };
 
   cloud.padding = function (_) {
-    return arguments.length ? ((padding = functor(_)), cloud) : padding;
-  };
-
-  cloud.random = function (_) {
-    return arguments.length ? ((random = _), cloud) : random;
+    padding = functor(_);
   };
 
   return cloud;

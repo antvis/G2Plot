@@ -10,9 +10,6 @@ import { groupTransform } from '../../../utils/g-util';
  * 饼图 图例激活 action
  */
 export class PieLegendAction extends Action {
-  init() {
-    // const { view } = this.context;
-  }
   /**
    * 获取激活的图形元素
    */

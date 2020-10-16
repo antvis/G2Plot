@@ -1,6 +1,29 @@
-import { TransformsParams } from '@antv/data-set/lib/transform-params';
 import { Options, StyleAttr } from '../../types';
 
+export interface HierarchyOption {
+  /**
+   * 字段名 默认为 value
+   */
+  field?: string;
+  tile?:
+    | 'treemapBinary'
+    | 'treemapDice'
+    | 'treemapSlice'
+    | 'treemapSliceDice'
+    | 'treemapSquarify'
+    | 'treemapResquarify';
+  size?: [number, number];
+  round?: boolean;
+  ratio?: number;
+  padding?: number;
+  paddingInner?: number;
+  paddingOuter?: number;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
+  as: [string, string];
+}
 export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
   /** 旭日图数据 */
   readonly data: any;
@@ -19,5 +42,5 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   /** 旭日图形样式 */
   readonly sunburstStyle?: StyleAttr;
   /** 层级布局配置 */
-  readonly hierarchyConfig?: Omit<TransformsParams['treemap'], 'as' | 'type' | 'field'>;
+  readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type' | 'field'>;
 }

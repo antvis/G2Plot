@@ -2,15 +2,15 @@
 第一种，传入 `boolean` 设置是否显示图例。
 
 ```ts
-lengend: false; // 关闭图例
+legend: false; // 关闭图例
 ```
 
 第二种，传入 _LegendCfg_ 对图例进行整体配置。
 
 ```ts
-lengend: {
+legend: {
   layout: 'horizontal',
-  position: 'right';
+  position: 'right'
 }
 ```
 

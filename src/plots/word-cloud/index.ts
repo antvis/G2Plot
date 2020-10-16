@@ -69,12 +69,12 @@ export class WordCloud extends Plot<WordCloudOptions> {
   }
 
   /**
-   * 覆写父类的方法，因为词云图使用 data-set 进行布局，原理上有些不一样
+   * 覆写父类的方法，因为词云图使用 单独的函数 进行布局，原理上有些不一样
    */
   protected triggerResize() {
     if (!this.chart.destroyed) {
       // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标需要重新
-      // 交给 data-set 进行计算，不然会出现布局错乱，如相邻词语重叠的情况。
+      // 需要重新执行 adaptor，执行词云图的布局函数，不然会出现布局错乱，如相邻词语重叠的情况。
       this.execAdaptor();
       // 执行父类的方法
       super.triggerResize();

@@ -3,19 +3,20 @@ import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
 describe('line', () => {
+  const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
+  const line = new Line(createDiv(), {
+    width: 400,
+    height: 300,
+    data,
+    xField: 'date',
+    yField: 'value',
+    seriesField: 'type',
+    appendPadding: 10,
+  });
+
+  line.render();
+
   it('x*y*color point', () => {
-    const line = new Line(createDiv(), {
-      width: 400,
-      height: 300,
-      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
-      xField: 'date',
-      yField: 'value',
-      seriesField: 'type',
-      appendPadding: 10,
-    });
-
-    line.render();
-
     expect(line.chart.geometries.length).toBe(1);
 
     let xValue;
@@ -46,6 +47,23 @@ describe('line', () => {
     // @ts-ignore
     expect(point.attributeOption.size.values).toEqual([2]);
     // @ts-ignore
-    // expect(point.attributeOption.shape.values).toEqual(['circle']);
+    expect(point.attributeOption.shape.values).toEqual(['circle']);
+  });
+
+  it('point shape', () => {
+    line.update({
+      ...line.options,
+      point: {
+        ...line.options.point,
+        shape: ({ type }) => {
+          return type === data[0].type ? 'square' : 'circe';
+        },
+      },
+    });
+    const point = line.chart.geometries[1];
+    // @ts-ignore 回调的情况下，为 undefined
+    expect(point.attributeOption.shape.values).toBeUndefined();
+    // @ts-ignore
+    expect(point.elements[0].shapeType).toEqual('square');
   });
 });

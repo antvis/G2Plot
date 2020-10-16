@@ -3,7 +3,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { PieOptions } from './types';
 import { adaptor } from './adaptor';
-import './interaction';
+import './interactions';
 import './label';
 
 export { PieOptions };

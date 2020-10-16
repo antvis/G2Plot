@@ -1,5 +1,6 @@
-import DataSet from '@antv/data-set';
 import { SunburstOptions } from './types';
+import { partition } from './hierarchy/partition';
+import { treemap } from './hierarchy/treemap';
 
 /**
  * sunburst 处理数据
@@ -7,18 +8,18 @@ import { SunburstOptions } from './types';
  */
 export function transformData(options: SunburstOptions) {
   const { data, type, seriesField, colorField, hierarchyConfig } = options;
-  const { DataView } = DataSet;
-  const dv = new DataView();
-  dv.source(data, {
-    type: 'hierarchy',
-  }).transform({
+  const transform = {
+    partition: partition,
+    treemap: treemap,
+  };
+  const nodes = transform[type](data, {
     ...hierarchyConfig,
     // @ts-ignore
     type: `hierarchy.${type}`,
     field: seriesField,
     as: ['x', 'y'],
   });
-  const nodes = dv.getAllNodes();
+
   const result = [];
   nodes.forEach((node) => {
     if (node.depth === 0) {

@@ -208,10 +208,6 @@ function resolveRotate(options: WordCloudOptions) {
  * @param numbers
  */
 function min(numbers: number[]) {
-  if (numbers.length === 0) {
-    throw new Error('min requires at least one data point');
-  }
-
   return Math.min(...numbers);
 }
 
@@ -221,9 +217,5 @@ function min(numbers: number[]) {
  * @param numbers
  */
 function max(numbers: number[]) {
-  if (numbers.length === 0) {
-    throw new Error('min requires at least one data point');
-  }
-
   return Math.max(...numbers);
 }

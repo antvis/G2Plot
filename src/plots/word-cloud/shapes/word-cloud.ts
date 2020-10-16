@@ -18,7 +18,7 @@ registerShape('point', 'word-cloud', {
       },
     });
     const rotate = cfg.data.rotate;
-    if (rotate) {
+    if (typeof rotate === 'number') {
       Util.rotate(shape, (rotate * Math.PI) / 180);
     }
 
@@ -35,7 +35,7 @@ function getTextAttrs(cfg: Config): ShapeAttrs {
     textAlign: 'center',
     fontFamily: cfg.data.font,
     fontWeight: cfg.data.weight,
-    fill: cfg.color || cfg.defaultStyle?.stroke,
+    fill: cfg.color,
     textBaseline: 'alphabetic',
   };
 }

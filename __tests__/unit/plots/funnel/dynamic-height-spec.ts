@@ -1,9 +1,9 @@
 import { Funnel } from '../../../../src';
 import { PV_DATA } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
-import { FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
+import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../../../../src/plots/funnel/constant';
 
-describe('basic funnel', () => {
+describe('dynamicHeight funnel', () => {
   let funnel;
 
   const funnelOption = {
@@ -12,10 +12,11 @@ describe('basic funnel', () => {
     data: PV_DATA,
     xField: 'action',
     yField: 'pv',
+    dynamicHeight: true,
   };
 
   beforeAll(() => {
-    funnel = new Funnel(createDiv('basic funnel'), funnelOption);
+    funnel = new Funnel(createDiv('dynamicHeight funnel'), funnelOption);
     funnel.render();
   });
 
@@ -26,29 +27,23 @@ describe('basic funnel', () => {
       expect(geometry.elements.length).toBe(PV_DATA.length);
 
       // geometry
-      expect(geometry.type).toBe('interval');
-      // @ts-ignore
-      expect(geometry.adjustOption[0].type).toBe('symmetric');
+      expect(geometry.type).toBe('polygon');
 
       // position
       const positionFields = geometry.getAttribute('position').getFields();
-      expect(positionFields).toHaveLength(3);
-      expect(positionFields[0]).toBe('action');
-      expect(positionFields[1]).toBe('pv');
-      expect(positionFields[2]).toBe(FUNNEL_PERCENT);
+      expect(positionFields).toHaveLength(2);
+      expect(positionFields[0]).toBe(PLOYGON_X);
+      expect(positionFields[1]).toBe(PLOYGON_Y);
 
-      // shape
-      const shapeFields = geometry.getAttribute('shape').getFields();
-      expect(shapeFields[0]).toBe('funnel');
+      // ratio
+      const { data } = funnel.chart.getOptions();
+      data.forEach((item) => {
+        expect(item[PLOYGON_Y][0] - item[PLOYGON_Y][2]).toEqual(item[FUNNEL_TOTAL_PERCENT]);
+      });
 
       // color
       const colorFields = geometry.getAttribute('color').getFields();
       expect(colorFields[0]).toBe('action');
-
-      // transpose
-      const coordinate = funnel.chart.getCoordinate();
-      expect(coordinate.isRect).toBe(true);
-      expect(coordinate.isTransposed).toBe(true);
     });
   });
 
@@ -155,7 +150,7 @@ describe('basic funnel', () => {
       // transpose
       const coordinate = funnel.chart.getCoordinate();
       expect(coordinate.isRect).toBe(true);
-      expect(coordinate.isTransposed).toBe(false);
+      expect(coordinate.isReflectX).toBe(true);
     });
   });
 });

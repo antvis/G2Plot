@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g2": "^4.1.0-beta.11",
+    "@antv/g2": "^4.1.0-beta.13",
     "d3-hierarchy": "^2.0.0",
     "dayjs": "^1.8.36",
     "size-sensor": "^1.0.1",
@@ -130,11 +130,11 @@
   "limit-size": [
     {
       "path": "dist/g2plot.min.js",
-      "limit": "1.2 Mb"
+      "limit": "850 Kb"
     },
     {
       "path": "dist/g2plot.min.js",
-      "limit": "400 Kb",
+      "limit": "250 Kb",
       "gzip": true
     }
   ],

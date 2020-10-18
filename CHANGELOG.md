@@ -1,3 +1,28 @@
+#### 2.0.4 (2020-10-18)
+
+##### Chores
+
+* **word-cloud:**  主要完善词云图的测试用例 ([#1745](https://github.com/antvis/g2plot/pull/1745)) ([f7febd69](https://github.com/antvis/g2plot/commit/f7febd69c28a52fdeda777a2802abd7f13f9b525))
+*  correct apiKey for search ([#1735](https://github.com/antvis/g2plot/pull/1735)) ([f20fd2ea](https://github.com/antvis/g2plot/commit/f20fd2ea14c7d0f223716829f4b90306ae8f7a2b))
+
+##### Documentation Changes
+
+*  legend -> lengend , Unexpected semicolon ([#1741](https://github.com/antvis/g2plot/pull/1741)) ([2c86ddd3](https://github.com/antvis/g2plot/commit/2c86ddd3d65fa7e736cf0607894f11e5320d223d))
+*  升级指南表格化 ([#1733](https://github.com/antvis/g2plot/pull/1733)) ([2cc432d6](https://github.com/antvis/g2plot/commit/2cc432d6275c50f790922168048bc677ff490e83))
+
+##### New Features
+
+*  tooltip, label 增加 formatter 能力 ([#1730](https://github.com/antvis/g2plot/pull/1730)) ([58f363c5](https://github.com/antvis/g2plot/commit/58f363c5faa66abb4ca33a2e31a777c5545144d1))
+* **demo:**  瀑布图添加标注 demo ([#1725](https://github.com/antvis/g2plot/pull/1725)) ([61752a0b](https://github.com/antvis/g2plot/commit/61752a0bcc4bfa2accedd3efd2fa427ba4c42339))
+
+##### Bug Fixes
+
+* **404:**  link 404 on index page ([#1734](https://github.com/antvis/g2plot/pull/1734)) ([cb9bba7a](https://github.com/antvis/g2plot/commit/cb9bba7a60afa64ca3c254ee9027d51f7c5427ef))
+
+##### Refactors
+
+*  remove data-set dependence ([#1728](https://github.com/antvis/g2plot/pull/1728)) ([b5df7c93](https://github.com/antvis/g2plot/commit/b5df7c934ed35fe1c2d3724163b48fdea11d2702))
+
 #### 2.0.3 (2020-10-14)
 
 ##### Build System / Dependencies

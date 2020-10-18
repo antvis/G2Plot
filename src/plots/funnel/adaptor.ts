@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { flow } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
@@ -82,5 +82,5 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 export function adaptor(params: Params<FunnelOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, meta, axis, tooltip, interaction, legend, animation, theme)(params);
+  return flow(geometry, meta, axis, tooltip, interaction, legend, animation, theme, annotation())(params);
 }

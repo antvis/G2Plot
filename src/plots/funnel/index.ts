@@ -31,6 +31,11 @@ export class Funnel extends Plot<FunnelOptions> {
     } else if (compareField) {
       additionalOption = {
         appendPadding: [50, 50, 0, 50],
+        label: {
+          callback: (xField, yField) => ({
+            content: `${yField}`,
+          }),
+        },
       };
     }
 
@@ -50,7 +55,9 @@ export class Funnel extends Plot<FunnelOptions> {
             fill: '#fff',
             fontSize: 12,
           },
-          callback: (xField, yField) => `${yField}`,
+          callback: (xField, yField) => ({
+            content: `${xField} ${yField}`,
+          }),
         },
         tooltip: {
           showTitle: false,

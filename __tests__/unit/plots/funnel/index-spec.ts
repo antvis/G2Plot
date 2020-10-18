@@ -57,6 +57,9 @@ describe('basic funnel', () => {
 
     expect(labelOption.fields).toEqual(['action', 'pv', FUNNEL_PERCENT]);
     expect(labelsContainer.cfg.children.length).toBe(5);
+    expect(labelOption.cfg.position).toBe('middle');
+    expect(labelOption.cfg.style.fill).toBe('#fff');
+    expect(labelOption.cfg.style.fontSize).toBe(12);
 
     PV_DATA.forEach((pvItem, index) => {
       const tmp = labelsContainer.cfg.children[index].cfg.data;
@@ -65,6 +68,24 @@ describe('basic funnel', () => {
       expect(tmp[FUNNEL_PERCENT]).toBe(Math.round((pvItem.pv / PV_DATA[0].pv) * 100) / 100);
     });
 
+    // 自定义 label
+    funnel.update({
+      ...funnelOption,
+      label: {
+        style: {
+          fill: '#f00',
+          fontSize: 14,
+        },
+        callback: (xField, yField) => ({
+          content: `${yField}`,
+        }),
+      },
+    });
+
+    expect(funnel.chart.geometries[0].labelOption.cfg.style.fill).toBe('#f00');
+    expect(funnel.chart.geometries[0].labelOption.cfg.style.fontSize).toBe(14);
+
+    // 关闭 label
     funnel.update({
       ...funnelOption,
       label: false,
@@ -113,15 +134,15 @@ describe('basic funnel', () => {
     });
   });
 
-  // test('transpose', () => {
-  //   funnel.update({
-  //     ...funnelOption,
-  //     transpose: true,
-  //   });
+  test('transpose', () => {
+    funnel.update({
+      ...funnelOption,
+      transpose: true,
+    });
 
-  //   // transpose
-  //   const coordinate = funnel.chart.getCoordinate();
-  //   expect(coordinate.isRect).toBe(true);
-  //   expect(coordinate.isTransposed).toBe(false);
-  // });
+    // transpose
+    const coordinate = funnel.chart.getCoordinate();
+    expect(coordinate.isRect).toBe(true);
+    expect(coordinate.isTransposed).toBe(false);
+  });
 });

@@ -2,9 +2,9 @@ import { deepMix, groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel } from '../../utils';
+import { flow } from '../../utils';
 
-import { BiDirectionalOptions } from './types';
+import { BidirectionalOptions } from './types';
 
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
@@ -12,7 +12,7 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  * geometry 处理
  * @param params
  */
-function geometry(params: Params<BiDirectionalOptions>): Params<BiDirectionalOptions> {
+function geometry(params: Params<BidirectionalOptions>): Params<BidirectionalOptions> {
   const { chart, options } = params;
   const { data, seriesField, xField, yField, color, columnStyle, columnWidthRatio } = options;
 
@@ -91,7 +91,7 @@ function geometry(params: Params<BiDirectionalOptions>): Params<BiDirectionalOpt
  * meta 配置
  * @param params
  */
-function meta(params: Params<BiDirectionalOptions>): Params<BiDirectionalOptions> {
+function meta(params: Params<BidirectionalOptions>): Params<BidirectionalOptions> {
   const { options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
@@ -107,7 +107,7 @@ function meta(params: Params<BiDirectionalOptions>): Params<BiDirectionalOptions
  * axis 配置
  * @param params
  */
-function axis(params: Params<BiDirectionalOptions>): Params<BiDirectionalOptions> {
+function axis(params: Params<BidirectionalOptions>): Params<BidirectionalOptions> {
   // Todo
   return params;
 }
@@ -116,17 +116,17 @@ function axis(params: Params<BiDirectionalOptions>): Params<BiDirectionalOptions
  * label 配置
  * @param params
  */
-function label(params: Params<BiDirectionalOptions>): Params<BiDirectionalOptions> {
+function label(params: Params<BidirectionalOptions>): Params<BidirectionalOptions> {
   // Todo
   return params;
 }
 
 /**
- * 直方图适配器
+ * 对称条形图适配器
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<BiDirectionalOptions>) {
+export function adaptor(params: Params<BidirectionalOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(geometry, meta, axis, theme, label, tooltip, interaction, animation)(params);
 }

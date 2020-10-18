@@ -1,18 +1,18 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { BiDirectionalOptions } from './types';
+import { BidirectionalOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { BiDirectionalOptions };
+export { BidirectionalOptions };
 
-export class BiDirectional extends Plot<BiDirectionalOptions> {
+export class Bidirectional extends Plot<BidirectionalOptions> {
   /** 图表类型 */
-  public type: string = 'BiDirectional';
+  public type: string = 'Bidirectional';
 
   /**
-   * 获取直方图的适配器
+   * 获取对称条形图的适配器
    */
-  protected getSchemaAdaptor(): Adaptor<BiDirectionalOptions> {
+  protected getSchemaAdaptor(): Adaptor<BidirectionalOptions> {
     return adaptor;
   }
 }

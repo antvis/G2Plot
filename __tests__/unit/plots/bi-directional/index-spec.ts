@@ -1,10 +1,10 @@
-import { BiDirectional } from '../../../../src';
+import { Bidirectional } from '../../../../src';
 import { data } from '../../../data/bi-directional';
 import { createDiv } from '../../../utils/dom';
 
-describe('BiDirectional', () => {
+describe('Bidirectional', () => {
   it('default', () => {
-    const biDirectional = new BiDirectional(createDiv(), {
+    const bidirectional = new Bidirectional(createDiv(), {
       width: 400,
       height: 300,
       data,
@@ -13,6 +13,6 @@ describe('BiDirectional', () => {
       seriesField: 'type',
     });
 
-    biDirectional.render();
+    bidirectional.render();
   });
 });

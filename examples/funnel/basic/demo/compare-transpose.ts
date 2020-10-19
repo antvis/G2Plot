@@ -18,6 +18,6 @@ const funnelPlot = new Funnel('container', {
   xField: 'action',
   yField: 'pv',
   compareField: 'quarter',
-  transpose: true,
+  isTransposed: true,
 });
 funnelPlot.render();

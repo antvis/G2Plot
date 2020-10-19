@@ -5,7 +5,7 @@ import { Params } from '../../../core/adaptor';
 import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { Datum } from '../../../types/common';
 import { FunnelOptions } from '../types';
-import { geometryLabel, conversionTagCom } from './common';
+import { geometryLabel, conversionTagComponent } from './common';
 
 /**
  * 动态高度漏斗图
@@ -94,23 +94,24 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   return params;
 }
 
-export function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
+/**
+ * 转置处理
+ * @param params
+ */
+function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { transpose } = options;
-  if (!transpose) {
-    chart.coordinate({
-      type: 'rect',
-    });
-  } else {
-    chart.coordinate({
-      type: 'rect',
-
-      actions: [['transpose'], ['reflect', 'x']],
-    });
-  }
+  const { isTransposed } = options;
+  chart.coordinate({
+    type: 'rect',
+    actions: isTransposed ? [['transpose'], ['reflect', 'x']] : [],
+  });
   return params;
 }
 
+/**
+ * label 处理
+ * @param params
+ */
 function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart } = params;
 
@@ -119,6 +120,10 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   return params;
 }
 
+/**
+ * 转化率组件
+ * @param params
+ */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const getLineCoordinate = (datum: Datum): LineOption => {
     return {
@@ -127,7 +132,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     };
   };
 
-  conversionTagCom(getLineCoordinate)(params);
+  conversionTagComponent(getLineCoordinate)(params);
 
   return params;
 }

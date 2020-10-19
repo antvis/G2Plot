@@ -81,6 +81,5 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function adaptor(params: Params<FunnelOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
   return flow(geometry, meta, axis, tooltip, interaction, legend, animation, theme, annotation())(params);
 }

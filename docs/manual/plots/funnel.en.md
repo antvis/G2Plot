@@ -31,13 +31,13 @@ order: 0
 
 默认配置： 无
 
-#### transpose
+#### isTransposed
 
 **可选**, _boolean_
 
 功能描述： 是否转置 。
 
-默认配置： 无
+默认配置： `false`
 
 `markdown:docs/common/meta.en.md`
 

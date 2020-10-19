@@ -163,7 +163,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public update(options: O) {
-    this.options = deepMix({}, this.getDefaultOptions(options), options);
+    this.options = options;
 
     this.render();
   }

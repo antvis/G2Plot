@@ -5,7 +5,7 @@ import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
-import { geometryLabel, conversionTagCom } from './common';
+import { geometryLabel, conversionTagComponent } from './common';
 
 /**
  * 处理字段数据
@@ -46,15 +46,15 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, compareField, transpose } = options;
+  const { xField, yField, color, compareField, isTransposed } = options;
 
   chart.facet('mirror', {
     fields: [compareField],
     // 漏斗图的转置规则与分面相反，默认是垂直布局
-    transpose: !transpose,
+    transpose: !isTransposed,
     padding: 0,
     eachView(view, facet) {
-      if (!transpose) {
+      if (!isTransposed) {
         view.coordinate({
           type: 'rect',
           actions: [['transpose'], ['scale', facet.columnIndex === 0 ? -1 : 1, -1]],
@@ -71,6 +71,10 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   return params;
 }
 
+/**
+ * label 处理
+ * @param params
+ */
 function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { label } = options;
@@ -98,6 +102,10 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   return params;
 }
 
+/**
+ * 转化率组件
+ * @param params
+ */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { yField, conversionTag } = options;
@@ -119,7 +127,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
         };
       };
 
-      conversionTagCom(getLineCoordinate)(
+      conversionTagComponent(getLineCoordinate)(
         deepMix(
           {},
           {
@@ -139,6 +147,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function compareFunnel(params: Params<FunnelOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
   return flow(field, geometry, label, conversionTag)(params);
 }

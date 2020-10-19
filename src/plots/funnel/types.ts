@@ -13,7 +13,7 @@ export interface FunnelOptions extends Options {
   /** 对比字段 */
   readonly compareField?: string;
   /** 是否转置 */
-  readonly transpose?: boolean;
+  readonly isTransposed?: boolean;
   /** 是否是动态高度 */
   readonly dynamicHeight?: boolean;
   /** 转化率信息 */

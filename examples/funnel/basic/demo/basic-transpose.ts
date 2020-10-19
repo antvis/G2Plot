@@ -12,7 +12,7 @@ const funnelPlot = new Funnel('container', {
   data: data,
   xField: 'action',
   yField: 'pv',
-  transpose: true,
+  isTransposed: true,
 });
 
 funnelPlot.render();

@@ -5,7 +5,7 @@ import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
-import { geometryLabel, conversionTagCom } from './common';
+import { geometryLabel, conversionTagComponent } from './common';
 
 /**
  * 处理字段数据
@@ -49,23 +49,16 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
- * 转置
+ * 转置处理
  * @param params
  */
-export function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
+function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { transpose } = options;
-  if (!transpose) {
-    chart.coordinate({
-      type: 'rect',
-      actions: [['transpose'], ['scale', 1, -1]],
-    });
-  } else {
-    chart.coordinate({
-      type: 'rect',
-      actions: [],
-    });
-  }
+  const { isTransposed } = options;
+  chart.coordinate({
+    type: 'rect',
+    actions: !isTransposed ? [['transpose'], ['scale', 1, -1]] : [],
+  });
   return params;
 }
 
@@ -97,7 +90,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     };
   };
 
-  conversionTagCom(getLineCoordinate)(params);
+  conversionTagComponent(getLineCoordinate)(params);
 
   return params;
 }
@@ -108,6 +101,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function basicFunnel(params: Params<FunnelOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
   return flow(field, geometry, transpose, conversionTag, label)(params);
 }

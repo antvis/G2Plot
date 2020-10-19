@@ -6,6 +6,10 @@ import { FUNNEL_PERCENT } from '../constant';
 import { Params } from '../../../core/adaptor';
 import { FunnelOptions } from '../types';
 
+/**
+ * 漏斗图通用geometry label
+ * @param geometry 对应的 chart geometry
+ */
 export function geometryLabel(geometry: Geometry) {
   return function (params: Params<FunnelOptions>): Params<FunnelOptions> {
     const { options } = params;
@@ -24,14 +28,20 @@ export function geometryLabel(geometry: Geometry) {
   };
 }
 
-export function conversionTagCom(getLineCoordinate: (datum: Datum, datumIndex: number, data: Data) => LineOption) {
+/**
+ * 漏斗图通用转化率组件
+ * @param getLineCoordinate 用于获取特定的 line 的位置及配置
+ */
+export function conversionTagComponent(
+  getLineCoordinate: (datum: Datum, datumIndex: number, data: Data) => LineOption
+) {
   return function (params: Params<FunnelOptions>): Params<FunnelOptions> {
     const { chart, options } = params;
     const { conversionTag } = options;
 
     const { data } = chart.getOptions();
 
-    if (conversionTag !== false) {
+    if (conversionTag) {
       const { formatter } = conversionTag;
       data.forEach((obj, index) => {
         if (index <= 0) return;
@@ -60,25 +70,4 @@ export function conversionTagCom(getLineCoordinate: (datum: Datum, datumIndex: n
     }
     return params;
   };
-}
-
-/**
- * 转置处理, 适用于普通折线图
- * @param params
- */
-export function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart, options } = params;
-  const { transpose } = options;
-  if (!transpose) {
-    chart.coordinate({
-      type: 'rect',
-      actions: [['transpose'], ['scale', 1, -1]],
-    });
-  } else {
-    chart.coordinate({
-      type: 'rect',
-      actions: [],
-    });
-  }
-  return params;
 }

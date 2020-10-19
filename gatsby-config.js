@@ -267,7 +267,7 @@ module.exports = {
       },
     ],
     docsearchOptions: {
-      apiKey: '200ec461f4aa0bb4f0e761566f1a1336',
+      apiKey: '0d19588d7661a81faa8b75f6ade80321',
       indexName: 'antv_g2plot',
     },
   },

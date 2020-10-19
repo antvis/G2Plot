@@ -10,10 +10,22 @@ export class TinyArea extends Plot<TinyAreaOptions> {
   /** 图表类型 */
   public type: string = 'tiny-area';
 
-  protected getDefaultOptions() {
+  protected getDefaultOptions(options: TinyAreaOptions) {
     return {
+      appendPadding: 2,
       tooltip: {
         ...DEFAULT_TOOLTIP_OPTIONS,
+      },
+      // 默认样式
+      color: 'l(90) 0:#5B8FF9 1:#ffffff',
+      areaStyle: {
+        fillOpacity: 0.6,
+      },
+      line: {
+        size: 1,
+        style: {
+          stroke: '#5B8FF9',
+        },
       },
     };
   }

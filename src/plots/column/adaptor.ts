@@ -3,9 +3,9 @@ import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow } from '../../utils';
+import { flow, transformLabel } from '../../utils';
+import { percent } from '../../utils/transform/percent';
 import { ColumnOptions } from './types';
-import { transformData } from './utils';
 
 /**
  * 字段
@@ -13,10 +13,10 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, color, columnWidthRatio, isPercent } = options;
+  const { data, columnStyle, color, columnWidthRatio, isPercent, xField, yField } = options;
   let chartData = data;
   if (isPercent) {
-    chartData = transformData(options);
+    chartData = percent(data, yField, xField, yField);
   }
   chart.data(chartData);
 
@@ -78,12 +78,14 @@ function axis(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * legend 配置
  * @param params
  */
-function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
+export function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
   const { legend, seriesField } = options;
 
   if (legend && seriesField) {
     chart.legend(seriesField, legend);
+  } else if (legend === false) {
+    chart.legend(false);
   }
 
   return params;
@@ -106,7 +108,7 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
     geometry.label({
       fields: [yField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

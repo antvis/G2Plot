@@ -1,3 +1,4 @@
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
@@ -29,20 +30,21 @@ function statistic(params: Params<RingProgressOptions>): Params<RingProgressOpti
   const { chart, options } = params;
   const { statistic, percent } = options;
 
-  // 先不处理 title 了，mini 应该没有 title 的需求了。
-  const { content } = statistic;
+  const { title, content } = statistic;
 
-  if (content) {
-    const { style, formatter, offsetX, offsetY, rotate } = content;
-    chart.annotation().text({
-      position: ['50%', '50%'],
-      content: formatter ? formatter({ percent }) : percent,
-      style,
-      offsetX,
-      offsetY,
-      rotate,
-    });
-  }
+  [title, content].forEach((annotation) => {
+    if (annotation) {
+      const { style, formatter, offsetX, offsetY, rotate } = annotation;
+      chart.annotation().text({
+        position: ['50%', '50%'],
+        content: formatter ? formatter({ percent }) : percent,
+        style: isFunction(style) ? style({ percent }) : style,
+        offsetX,
+        offsetY,
+        rotate,
+      });
+    }
+  });
 
   return params;
 }

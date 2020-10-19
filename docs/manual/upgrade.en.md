@@ -1,5 +1,5 @@
 ---
-title: G2Plot 2.0 升级指南
+title: G2Plot 2.0 Upgrade guide
 order: 7
 ---
 
@@ -7,141 +7,59 @@ order: 7
 
 G2Plot 2.0 持续开发中，截止目前，我们已经完成了 P0 、P1 级图表的开发，其它图表的开发也会如期进行，详情请参考[开发计划](https://www.yuque.com/antv/g2plot/ffgrfy#U9F3)。
 
-## 图表变更
+## 删除图表
 
-### 类型变更
+| 图表名称             | 描述                                                                                                                                                                                                        | 示例                                                  |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Bubble               | 改用 Scatter 实现， 修改图表名称即可。                                                                                                                                                                      | [Scatter](../../examples/scatter/basic)               |
+| StackedColumn        | 改用 Column 实现。<br/> 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true` 。                                                                                                                 | [Column](../../examples/column/stacked)               |
+| GroupedColumn        | 改用 Column 实现。<br/>删除 groupField 配置，改为 seriesField，需要指定 `isGroup: true` 。                                                                                                                  | [Column](../../examples/column/grouped)               |
+| PercentStackedColumn | 改用 Column 实现。<br/> 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true`、`isGroup: true` 。                                                                                                | [Column](../../examples/column/percent)               |
+| RangeColumn          | 改用 Column 实现。 <br/> 删除 stackField 配置，改为 seriesField，需要指定 `isRange: true` 。 <br/> label 不再支持 topStyle、bottomStyle，详细配置请参考 [API](../../examples/column/range/API#label) 文档。 | [Column](../../examples/column/range)                 |
+| StackedBar           | 改用 Bar 实现。<br/>删除 groupField 配置，改为 seriesField，需要指定 `isGroup: true` 。                                                                                                                     | [Bar](../../examples/bar/stacked)                     |
+| PercentStackedBar    | 改用 Bar 实现。<br/> 删除 stackField 配置，改为 seriesField，需要指定 `isStack: true`、`isGroup: true` 。                                                                                                   | [Bar](../../examples/bar/percent)                     |
+| RangeBar             | 改用 Bar 实现。 <br/>删除 stackField 配置，改为 seriesField，需要指定 `isRange: true` 。 <br/> label 不再支持 topStyle、bottomStyle，详细配置请参考 [API](../../examples/bar/range/API#label) 文档          | [Bar](../../examples/bar/stacked)                     |
+| Donut                | 改用 Pie 实现，修改图表名称即可 。                                                                                                                                                                          | [Pie](../../examples/pie/donut)                       |
+| DualLine             | 改用 DualAxes 实现。                                                                                                                                                                                        | [Demos](../../examples/dual-axes/dual-line)           |
+| ColumnLine           | 改用 DualAxes 实现。                                                                                                                                                                                        | [Demos](../../examples/dual-axes/column-line)         |
+| StackedColumnLine    | 改用 DualAxes 实现。                                                                                                                                                                                        | [Demos](../../examples/dual-axes/stacked-column-line) |
+| GroupedColumnLine    | 改用 DualAxes 实现 。                                                                                                                                                                                       | [Demos](../../examples/dual-axes/grouped-column-line) |
+| StackedArea          | 改用 Area 实现。 <br/>去掉 stackField ，改用 seriesField 。                                                                                                                                                 | [Area](../../examples/area/stacked)                   |
+| PercentStackedArea   | 改用 Area 实现。去掉 stackField ，改用 seriesField ，需要指定 `isStack: true` 。                                                                                                                            | -                                                     |
+| StepLine             | 改用 Line 实现，需要指定 stepType。<br/>1.0 版版本可以使用默认 step ，2.0 版本必须手动指定 stepType（hv, vh, hvh, vhv），                                                                                   | [Line](../../examples/line/step)                      |
 
-- 去掉 Bubble，合并到 Scatter 中，通过配置实现，参考图表示例-[Scatter](../../examples/scatter/basic)。
-
-- 去掉 StackedArea、PercentStackedArea，合并到 Area 中，通过配置实现，参考图表示例-[Area](../../examples/area/basic)。
-
-- 去掉 StackedColumn、RangeColumn、GroupedColumn、PercentStackedColumn，合并到 Column 中，通过配置实现，参考图表示例-[Column](../../examples/column/basic)。
-
-- 去掉 StackedBar、GroupedBar、PercentStackedBar、RangeBar，合并到 Bar 中，通过配置实现，参考图表示例-[Bar](../../examples/bar/basic)。
-
-- 去掉 Donut，合并到 Pie 中，通过配置实现，参考图表示例-[Pie](../../examples/pie/basic)。
-
-- 去掉 DualLine、ColumnLine、StackedColumnLine、GroupedColumnLine，统一到 DualAxes 中，通过配置实现，参考图表示例-[DualAxes](../../examples/dual-axes/dual-line)。
-
-### 配置变更
+## 配置变更
 
 G2Plot 2.0 兼容大部分的 1.x 版本图表功能和配置项，详情如下：
 
-#### 通用配置
+### 通用配置
 
-**title**: 不再支持
+| 属性名      | 描述                                                                    | 示例                                                                                                           |
+| ----------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| title       | 不再支持                                                                | -                                                                                                              |
+| description | 不再支持                                                                | -                                                                                                              |
+| forceFit    | 不再支持，改用 autoFit                                                  | -                                                                                                              |
+| responsive  | 不再支持，内置                                                          | -                                                                                                              |
+| guideLine   | 不再支持，改用 [anniotations](../../examples/general/annotation) 实现。 | -                                                                                                              |
+| label       | label.type 会有兼容性问题，如果报错修改 type 配置或者去掉               | -                                                                                                              |
+| slider      | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZmLQaZ8ANMAAAAAAAAAAAAAARQnAQ" alt="示例" /> |
+| scrollbar   | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zq3NSpae7NEAAAAAAAAAAAAAARQnAQ" alt="示例" /> |
+| events      | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NW8VTp2JPm0AAAAAAAAAAAAAARQnAQ" alt="示例" /> |
+| visible     | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WRVJR6jRJ5AAAAAAAAAAAAAAARQnAQ" alt="示例" /> |
+| animation   | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CE30TZLMIL4AAAAAAAAAAAAAARQnAQ" alt="示例" /> |
 
-**description**: 不再支持
+### 私有配置
 
-**forceFit**: 不再支持，改用 autoFit
-
-**slider**:
-
-```ts
-// 变更前
-interactions: [
-  {
-    type: 'slider',
-    start: 0.1,
-    end: 0.8
-  },
-],
-// 变更后
-slider: {
-  start: 0.1,
-  end: 0.8
-},
-```
-
-**scrollbar**:
-
-```ts
-// 变更前
-interactions: [
-  {
-    type: 'scrollbar',
-  },
-],
-// 变更后
-scrollbar: {},
-```
-
-**events**:
-
-```ts
-// 变更前
-events: {
-  'plot:click': callback
-}
-// 变更后
-chart.on('element:click', callback)
-```
-
-**visible**:
-
-```ts
-// 变更前
-label: {
-  visible: false
-}
-label: {
-  visible: true,
-  fill: 'red'
-}
-// 变更后
-label: false
-label: {
-  fill: 'red'
-}
-```
-
-**animation**:
-
-```ts
-// 变更前
-...
-// 变更后
-默认为 true，也可以自己设定。
-
-animation: {
-  appear: {
-    duration: 300,
-    easing: 'linear',
-    delay: 100
-  },
-  enter: ..., // 同appear，下同
-  update: ...,
-  delay: ....
-}
-```
-
-#### 私有配置
-
-**Scatter**:
-
-- pointSize: 不再支持，改用 size 。
-
-**Rose**:
-
-- categoryField: 不再支持，改用 xField 。
-- radiusField: 不再支持，改用 yField 。
-- colorField: 不再支持，改用 seriesField 。
-
-**Bullet**:
-
-```ts
-// 变更前
-range: [0, 0.5, 1],
-
-...
-// 变更后采用实际数值
-range: [20, 50, 100],
-```
-
-**WordCloud**:
-
-- maskImage: 不再支持， 改用 imageMask。
-- wordStyle 选项中的 gridSize 改为 padding。
+| 图表名称                        | 描述                                                                                                                                                                   | 示例                                                                                                           |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Scatter                         | pointSize: 不再支持，改用 size 。<br /> shape: 去掉默认类型 circle，需要显性设置。                                                                                     | -                                                                                                              |
+| Rose                            | categoryField: 不再支持，改用 xField 。<br /> radiusField: 不再支持，改用 yField 。<br /> colorField: 不再支持，改用 seriesField 。                                    | -                                                                                                              |
+| Bullet                          | 改动较大，详细参考 [Bullet](../../examples/bullet/basic)                                                                                                               | -                                                                                                              |
+| WordCloud                       | maskImage: 不再支持， 改用 imageMask。<br /> wordStyle 选项中的 gridSize 改为 padding。                                                                                | -                                                                                                              |
+| TinyArea、TinyColumn、 TinyLine | 删除 xField 、yField。<br /> data 类型由 object[] 变为 number[]。                                                                                                      | -                                                                                                              |
+| Gauge                           | 删除 color 、 min 、 max。<br />删除 value , 改用 percent 。 <br />删除 pivot 改用 indicator。 <br /> 更新 range ，详细参考[Gauge](../../examples/gauge/basic#complex) | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*icQqR71EdikAAAAAAAAAAAAAARQnAQ" alt="示例" /> |
+| Radar                           | 删除 radiusAxis ，改用 yAxis 。<br /> 删除 angleField ， 改用 xField 。<br /> 删除 radiusField ， 改用 yField 。                                                       | -                                                                                                              |
+| Liquid                          | 删除 min 、max。<br /> 删除 value ，改用 percent。<br /> 更新 statistic 。                                                                                             | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_CeWQbi4jlsAAAAAAAAAAAAAARQnAQ" alt="示例" /> |
 
 ## 遇到问题
 

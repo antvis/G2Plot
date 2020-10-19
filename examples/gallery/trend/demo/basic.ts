@@ -18,6 +18,15 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
       code_上月同期: 'square',
       code_上周同期: 'triangle',
     };
+    const markerStyle = {
+      active: {
+        style: {
+          r: 2,
+          stroke: '#000',
+          lineWidth: 1,
+        },
+      },
+    };
     const dv = new DataSet().createView().source(originalData);
     dv.transform({
       type: 'fold',
@@ -89,9 +98,19 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
       },
       interactions: [
         {
-          type: 'element-active',
+          type: 'marker-active',
         },
       ],
+      theme: {
+        geometries: {
+          point: {
+            circle: markerStyle,
+            square: markerStyle,
+            triangle: markerStyle,
+            'hollow-circle': markerStyle,
+          },
+        },
+      },
     });
 
     line.render();

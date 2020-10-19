@@ -1,6 +1,6 @@
 import { deepMix, filter, isObject, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, findGeometry, log, LEVEL } from '../../utils';
+import { flow, findGeometry, log, LEVEL, transformLabel } from '../../utils';
 import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { RoseOptions } from './types';
@@ -59,7 +59,7 @@ function label(params: Params<RoseOptions>): Params<RoseOptions> {
     geometry.label({
       fields: fields || [xField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   } else {
     log(LEVEL.WARN, label === null, 'the label option must be an Object.');

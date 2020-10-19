@@ -1,28 +1,28 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { WaterOptions } from './types';
+import { WaterfallOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { WaterOptions };
+export { WaterfallOptions };
 
 /**
  * 瀑布图
  */
-export class Waterfall extends Plot<WaterOptions> {
+export class Waterfall extends Plot<WaterfallOptions> {
   /** 图表类型 */
   public readonly type: string = 'waterfall';
 
   /**
    * 获取 瀑布图 的适配器
    */
-  protected getSchemaAdaptor(): Adaptor<WaterOptions> {
+  protected getSchemaAdaptor(): Adaptor<WaterfallOptions> {
     return adaptor;
   }
 
   /**
    * 获取 瀑布图 的默认配置
    */
-  protected getDefaultOptions(): Partial<WaterOptions> {
+  protected getDefaultOptions(): Partial<WaterfallOptions> {
     return {
       tooltip: {
         showCrosshairs: false,

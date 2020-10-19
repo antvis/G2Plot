@@ -2,7 +2,7 @@ import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, annotation } from '../../adaptor/common';
-import { flow, findGeometry } from '../../utils';
+import { flow, findGeometry, transformLabel } from '../../utils';
 import { transformData } from './utils';
 import { SunburstOptions } from './types';
 
@@ -72,7 +72,7 @@ function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
     geometry.label({
       fields: [seriesField],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

@@ -3,7 +3,7 @@ import { deepMix, every, filter, get, isFunction, isString, isNil } from '@antv/
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { Data } from '../../types';
-import { flow, LEVEL, log, template } from '../../utils';
+import { flow, LEVEL, log, template, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
 import { getTotalValue } from './utils';
@@ -118,7 +118,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     geometry.label(false);
   } else {
     const { callback, ...cfg } = label;
-    const labelCfg = cfg;
+    const labelCfg = transformLabel(cfg);
 
     // ① 提供模板字符串的 label content 配置
     if (labelCfg.content) {

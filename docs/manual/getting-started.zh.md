@@ -11,7 +11,7 @@ order: 1
 
 ```html
 <!-- 引入在线资源 -->
-<script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"></script>
 <script>
   const plot = new G2Plot.Line('container', {
     // ...
@@ -22,7 +22,7 @@ order: 1
 
 ```html
 <!-- 下载到本地 引入本地脚本 -->
-<script src="./g2plot.js"></script>
+<script src="./g2plot.min.js"></script>
 ```
 
 ### 通过 npm 安装

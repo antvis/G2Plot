@@ -1,8 +1,8 @@
 import { Chart, View } from '@antv/g2';
-import DataSet from '@antv/data-set';
 import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { log, LEVEL, getContainerSize } from '../../utils';
+import { wordCloud } from '../../utils/transform/word-cloud';
 import { DataItem, WordCloudOptions } from './types';
 
 /**
@@ -16,11 +16,10 @@ export function transform(params: Params<WordCloudOptions>): DataItem[] {
     return [];
   }
   const { fontFamily, fontWeight, padding } = wordStyle;
-  const dv = new DataSet.View().source(data);
-  const range = dv.range(weightField);
+  const arr = data.map((v) => v[weightField]) as number[];
+  const range = [min(arr), max(arr)] as [number, number];
 
-  dv.transform({
-    type: 'tag-cloud',
+  return wordCloud(data, {
     fields: [wordField, weightField],
     imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
@@ -32,8 +31,6 @@ export function transform(params: Params<WordCloudOptions>): DataItem[] {
     timeInterval,
     rotate: getRotate(options),
   });
-
-  return dv.rows;
 }
 
 /**
@@ -203,4 +200,22 @@ function resolveRotate(options: WordCloudOptions) {
     rotationSteps,
     rotateRatio,
   };
+}
+
+/**
+ * 传入一个元素为数字的数组，
+ * 返回该数组中值最小的数字。
+ * @param numbers
+ */
+function min(numbers: number[]) {
+  return Math.min(...numbers);
+}
+
+/**
+ * 传入一个元素为数字的数组，
+ * 返回该数组中值最大的数字。
+ * @param numbers
+ */
+function max(numbers: number[]) {
+  return Math.max(...numbers);
 }

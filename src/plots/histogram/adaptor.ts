@@ -1,10 +1,10 @@
-import DataSet from '@antv/data-set';
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { flow } from '../../utils';
+import { flow, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
+import { binHistogram } from '../../utils/transform/histogram';
 import { HistogramOptions } from './types';
 
 /**
@@ -15,20 +15,10 @@ function geometry(params: Params<HistogramOptions>): Params<HistogramOptions> {
   const { chart, options } = params;
   const { data, binField, binNumber, binWidth, color, stackField, legend, columnStyle } = options;
 
-  const ds = new DataSet();
-  const dv = ds.createView().source(data);
+  // 处理数据
+  const plotData = binHistogram(data, binField, binWidth, binNumber, stackField);
 
-  // dataset 处理数据
-  dv.transform({
-    type: 'bin.histogram',
-    field: binField,
-    bins: binNumber,
-    binWidth: binWidth,
-    groupBy: stackField ? [stackField] : undefined,
-    as: ['range', 'count'],
-  });
-
-  chart.data(dv.rows);
+  chart.data(plotData);
 
   const p = deepMix({}, params, {
     options: {
@@ -110,7 +100,7 @@ function label(params: Params<HistogramOptions>): Params<HistogramOptions> {
     geometry.label({
       fields: ['count'],
       callback,
-      cfg,
+      cfg: transformLabel(cfg),
     });
   }
 

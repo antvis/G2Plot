@@ -1,5 +1,4 @@
 import { deepMix } from '@antv/util';
-import { getPercentTooltipTemplate } from '../../utils/percent-tooltip';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { BarOptions } from './types';
@@ -18,7 +17,7 @@ export class Bar extends Plot<BarOptions> {
    * 获取 条形图 默认配置
    */
   protected getDefaultOptions(options: BarOptions) {
-    const { isPercent, isRange, label, xField, yField } = options;
+    const { isRange, label, xField, yField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       label:
         label && isRange
@@ -33,11 +32,6 @@ export class Bar extends Plot<BarOptions> {
         shared: true,
         showMarkers: false,
         offset: 20,
-        customContent: isPercent
-          ? (value: string, items: any[]) => {
-              return getPercentTooltipTemplate(value, items);
-            }
-          : '',
       },
       interactions: [{ type: 'active-region' }],
       meta: {

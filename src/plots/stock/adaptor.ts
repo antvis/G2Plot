@@ -1,8 +1,7 @@
 import { deepMix, isArray, isObject, map } from '@antv/util';
-import DataSet from '@antv/data-set';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
-import { findGeometry, flow, pick } from '../../utils';
+import { findGeometry, flow, pick, transformTooltip } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 import { StockOptions } from './types';
@@ -28,10 +27,7 @@ function field(params: Params<StockOptions>): Params<StockOptions> {
     return obj;
   });
 
-  const ds = new DataSet();
-  const dv = ds.createView().source(data);
-
-  chart.data(dv.rows);
+  chart.data(data);
 
   const geometry = chart.schema().position(`${xField}*${Y_FIELD}`).shape('candle');
 
@@ -126,7 +122,7 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
 
   if (tooltip) {
     if (isObject(tooltip)) {
-      chart.tooltip(tooltip);
+      chart.tooltip(transformTooltip(tooltip));
       geometry.tooltip(baseGeomTooltipOptions);
     }
   } else {

@@ -47,16 +47,30 @@ export interface GeometryOptions extends Options {
  */
 export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | 'size' | 'style'): string[] {
   const { xField, yField, colorField, shapeField, sizeField, styleField, rawFields = [] } = o;
-  const fields = [xField, yField, colorField, shapeField, sizeField, styleField, ...rawFields];
 
-  // 一定能找到的！
-  const idx = ['x', 'y', 'color', 'shape', 'size', 'style'].indexOf(field);
+  let fields = [];
 
-  const f = fields[idx];
-  // 删除当前字段
-  fields.splice(idx, 1);
-  // 插入到第一个
-  fields.unshift(f);
+  // 因为 color 会影响到数据分组，以及最后的图形映射。所以导致 bar 图中的 widthRatio 设置不生效
+  // 所以对于 color 字段，仅仅保留 colorField 好了！ + rawFields
+  // shape, size 同理
+  if (field === 'color') {
+    fields = [colorField || xField, ...rawFields];
+  } else if (field === 'shape') {
+    fields = [shapeField || xField, ...rawFields];
+  } else if (field === 'size') {
+    fields = [sizeField || xField, ...rawFields];
+  } else {
+    fields = [xField, yField, colorField, shapeField, sizeField, styleField, ...rawFields];
+
+    // 一定能找到的！
+    const idx = ['x', 'y', 'color', 'shape', 'size', 'style'].indexOf(field);
+
+    const f = fields[idx];
+    // 删除当前字段
+    fields.splice(idx, 1);
+    // 插入到第一个
+    fields.unshift(f);
+  }
 
   return uniq(fields.filter((f) => !!f));
 }
@@ -88,7 +102,7 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, rawFields } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -104,15 +118,13 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * color 的几种情况
    * g.color('red');
    * g.color('color', ['red', 'blue']);
-   * g.color('x*y', (x, y) => 'red');
-   * g.color('color*x*y', (color, x, y) => 'red');
+   * g.color('x', (x, y) => 'red');
+   * g.color('color', (color, x, y) => 'red');
    */
   if (isString(color)) {
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
-    // 对于单折线图、单面积图的特殊处理，如果 x 轴是分类 scale，会导致映射错误
-    let mappingFields = getMappingField(options, 'color');
-    mappingFields = ['line', 'area'].includes(type) ? mappingFields.filter((f: string) => f !== xField) : mappingFields;
+    const mappingFields = getMappingField(options, 'color');
     geometry.color(mappingFields.join('*'), getMappingFunction(mappingFields, color));
   } else {
     colorField && geometry.color(colorField, color);

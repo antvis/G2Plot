@@ -9,7 +9,6 @@ const data = [
 ];
 
 const funnelPlot = new Funnel('container', {
-  padding: [30, 60],
   data: data,
   xField: 'action',
   yField: 'pv',

@@ -1,17 +1,20 @@
 import { deepMix, map } from '@antv/util';
-import { flow } from '../../../utils';
+import { LineOption } from '@antv/g2/lib/interface';
+import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FunnelAdaptorOptions } from '../types';
+import { Datum, Data } from '../../../types/common';
+import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
+import { geometryLabel, conversionTagComponent } from './common';
 
 /**
- * 处理数据
+ * 处理字段数据
  * @param params
  */
-function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { options } = params;
+function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
   const { data = [], yField, compareField } = options;
-
+  // 处理数据
   let formatData = [];
   if (data[0][yField]) {
     // format 数据
@@ -27,85 +30,40 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
     });
   }
 
-  return deepMix({}, params, {
-    options: {
-      formatData,
+  // 绘制漏斗图
+  chart.data(formatData);
+  chart.scale({
+    [yField]: {
+      sync: true,
     },
   });
+  return params;
 }
 
 /**
  * geometry处理
  * @param params
  */
-function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, yField, color, compareField, label, transpose } = options;
-
-  // 绘制漏斗图
-  chart.data(formatData);
-
-  chart.scale({
-    [yField]: {
-      sync: true,
-    },
-  });
+  const { xField, yField, color, compareField, isTransposed } = options;
 
   chart.facet('mirror', {
-    fields: [compareField, null],
+    fields: [compareField],
     // 漏斗图的转置规则与分面相反，默认是垂直布局
-    transpose: !transpose,
+    transpose: !isTransposed,
     padding: 0,
     eachView(view, facet) {
-      if (!transpose) {
-        // 垂直布局
-        view
-          .coordinate('rect')
-          .transpose()
-          .scale(facet.columnIndex === 0 ? -1 : 1, -1);
+      if (!isTransposed) {
+        view.coordinate({
+          type: 'rect',
+          actions: [['transpose'], ['scale', facet.columnIndex === 0 ? -1 : 1, -1]],
+        });
       }
       // 绘制图形
-      const funnelGeometry = view
-        .interval()
-        .position(`${xField}*${yField}*${FUNNEL_PERCENT}`)
-        .shape('funnel')
-        .color(xField, color)
-        .style({
-          lineWidth: 1,
-          stroke: '#fff',
-        });
-
-      // 对比漏斗图中，使用分面无法同步获取到 chart.views，因此 label 和 annotation 不做拆分，逻辑直接写在下方
-
-      // 绘制 label
-      if (!label) {
-        funnelGeometry.label(false);
-      } else {
-        const { callback, ...cfg } = label;
-        funnelGeometry.label({
-          fields: [xField, yField, FUNNEL_PERCENT],
-          callback,
-          cfg,
-        });
-      }
-
-      // 绘制 annotation
-      formatData.map((obj) => {
-        if (obj[compareField] === facet.columnValue) {
-          view.annotation().text({
-            top: true,
-            position: [obj[xField], 'min'],
-            content: obj[yField],
-            style: {
-              fill: '#fff',
-              stroke: null,
-              fontSize: 12,
-              textAlign: facet.columnIndex ? 'start' : 'end',
-            },
-            offsetX: facet.columnIndex ? 10 : -10,
-          });
-        }
-        return null;
+      view.interval().position(`${xField}*${yField}*${FUNNEL_PERCENT}`).shape('funnel').color(xField, color).style({
+        lineWidth: 1,
+        stroke: '#fff',
       });
     },
   });
@@ -114,11 +72,80 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
 }
 
 /**
+ * label 处理
+ * @param params
+ */
+function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { label } = options;
+
+  chart.once('beforepaint', () => {
+    chart.views.forEach((view, index) => {
+      const geometry = findGeometry(view, 'interval');
+      geometryLabel(geometry)(
+        label
+          ? deepMix({}, params, {
+              options: {
+                label: {
+                  offset: 10,
+                  position: 'left',
+                  style: {
+                    textAlign: index === 0 ? 'end' : 'start',
+                  },
+                },
+              },
+            })
+          : params
+      );
+    });
+  });
+  return params;
+}
+
+/**
+ * 转化率组件
+ * @param params
+ */
+function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { yField, conversionTag } = options;
+
+  chart.once('beforepaint', () => {
+    chart.views.forEach((view, viewIndex) => {
+      const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+        const ratio = viewIndex === 0 ? -1 : 1;
+        return {
+          start: [datumIndex - 0.5, data[0][yField] * datum[FUNNEL_PERCENT]],
+          end: [datumIndex - 0.5, data[0][yField] * (datum[FUNNEL_PERCENT] + 0.05)],
+          text: {
+            content: undefined,
+            offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
+            style: {
+              textAlign: viewIndex === 0 ? 'end' : 'start',
+            },
+          },
+        };
+      };
+
+      conversionTagComponent(getLineCoordinate)(
+        deepMix(
+          {},
+          {
+            chart: view,
+            options,
+          }
+        )
+      );
+    });
+  });
+  return params;
+}
+
+/**
  * 对比漏斗
  * @param chart
  * @param options
  */
-export function compareFunnel(params: Params<FunnelAdaptorOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(format, geometry)(params);
+export function compareFunnel(params: Params<FunnelOptions>) {
+  return flow(field, geometry, label, conversionTag)(params);
 }

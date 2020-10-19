@@ -14,10 +14,27 @@ const data = [
 ];
 
 const funnelPlot = new Funnel('container', {
-  padding: [30, 60],
   data,
   xField: 'action',
   yField: 'pv',
   compareField: 'quarter',
+  meta: {
+    action: {
+      alias: '用户行为',
+    },
+    pv: {
+      alias: '访问量',
+      formatter: (v) => `${v}次`,
+    },
+  },
+  conversionTag: {
+    offsetX: 10,
+    offsetY: 0,
+    style: {
+      fill: '#666',
+      fontSize: 12,
+    },
+    formatter: (data) => `转化${data.$$percentage$$.toFixed(2)}`,
+  },
 });
 funnelPlot.render();

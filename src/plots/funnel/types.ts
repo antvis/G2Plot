@@ -1,10 +1,9 @@
-import { Options } from '../../types';
+import { TextStyle, Datum, Data, AnnotationPosition, Options } from '../../types/common';
 
-// adaptor 内部使用
-export interface FunnelAdaptorOptions extends FunnelOptions {
-  // formatData，较 data 多出百分比属性
-  formatData?: Record<string, any>[];
-}
+export type ConversionPosition = {
+  start: AnnotationPosition;
+  end: AnnotationPosition;
+};
 
 export interface FunnelOptions extends Options {
   /** x 轴字段 */
@@ -14,9 +13,16 @@ export interface FunnelOptions extends Options {
   /** 对比字段 */
   readonly compareField?: string;
   /** 是否转置 */
-  readonly transpose?: boolean;
+  readonly isTransposed?: boolean;
   /** 是否是动态高度 */
   readonly dynamicHeight?: boolean;
-  /** annotation 文本 */
-  readonly annotation?: false | string | ((...args: any[]) => string);
+  /** 转化率信息 */
+  readonly conversionTag?:
+    | false
+    | {
+        readonly offsetX: number;
+        readonly offsetY: number;
+        readonly style: TextStyle;
+        readonly formatter: string | ((datum?: Datum, data?: Data) => string);
+      };
 }

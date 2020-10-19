@@ -31,13 +31,13 @@ order: 0
 
 默认配置： 无
 
-#### transpose
+#### isTransposed
 
 **可选**, _boolean_
 
 功能描述： 是否转置 。
 
-默认配置： 无
+默认配置： `false`
 
 `markdown:docs/common/meta.zh.md`
 
@@ -49,15 +49,16 @@ order: 0
 
 功能描述： 是否是动态高度 。
 
-默认配置：`true`
+默认配置：`false`
 
-#### annotation
 
-**可选**, _boolean | string | Function_
+#### conversionTag
 
-功能描述： annotation 文本 。
+**可选**, _false | object_
 
-默认配置：`true`
+功能描述： 配置转化率组件 。
+
+默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
 
 `markdown:docs/common/color.zh.md`
 

@@ -1,9 +1,11 @@
-import { deepMix, map, reduce } from '@antv/util';
-import { isFunction } from '@antv/util';
+import { map, reduce } from '@antv/util';
+import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FunnelAdaptorOptions } from '../types';
-import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
+import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
+import { Datum } from '../../../types/common';
+import { FunnelOptions } from '../types';
+import { geometryLabel, conversionTagComponent } from './common';
 
 /**
  * 动态高度漏斗图
@@ -19,8 +21,8 @@ import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT } from '../constant';
  * 处理数据
  * @param params
  */
-function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { options } = params;
+function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
   const { data = [], yField } = options;
 
   // 计算各数据项所占高度
@@ -41,7 +43,8 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
 
     // 获取左上角，右上角坐标
     if (index) {
-      const { _x: preItemX, _y: preItemY } = data[index - 1];
+      const preItemX = data[index - 1][PLOYGON_X];
+      const preItemY = data[index - 1][PLOYGON_Y];
       x[0] = preItemX[3];
       y[0] = preItemY[3];
       x[1] = preItemX[2];
@@ -60,81 +63,85 @@ function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptio
     x[3] = -x[2];
 
     // 赋值
-    row._x = x;
-    row._y = y;
+    row[PLOYGON_X] = x;
+    row[PLOYGON_Y] = y;
     row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
     return row;
   });
 
-  return deepMix({}, params, {
-    options: {
-      formatData,
-    },
-  });
+  chart.data(formatData);
+
+  return params;
 }
 
 /**
  * geometry处理
  * @param params
  */
-function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, color } = options;
+  const { xField, yField, color } = options;
 
   // 绘制漏斗图
-  chart.data(formatData);
-  chart.polygon().position('_x*_y').color(xField, color);
-
-  return params;
-}
-
-function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { label, yField, xField } = options;
-
-  const geometry = findGeometry(chart, 'polygon');
-
-  if (!label) {
-    geometry.label(false);
-  } else {
-    const { callback, ...cfg } = label;
-    geometry.label({
-      fields: [xField, yField, FUNNEL_PERCENT],
-      callback,
-      cfg,
-    });
-  }
-
-  return params;
-}
-
-function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { formatData = [], xField, yField, annotation } = options;
-
-  if (annotation !== false) {
-    formatData.forEach((obj) => {
-      chart.annotation().text({
-        top: true,
-        position: [obj[xField], 'median'],
-        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj[FUNNEL_PERCENT], obj) : annotation,
-        style: {
-          stroke: null,
-          fill: '#fff',
-          textAlign: 'center',
-        },
-      });
-    });
-  }
+  chart
+    .polygon()
+    .position(`${PLOYGON_X}*${PLOYGON_Y}`)
+    .color(xField, color)
+    .tooltip(`${xField}*${yField}`, (xFieldValue, yFieldValue) => ({
+      [xField]: xFieldValue,
+      [yField]: yFieldValue,
+    }));
   return params;
 }
 
 /**
- * 对比漏斗
+ * 转置处理
+ * @param params
+ */
+function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { isTransposed } = options;
+  chart.coordinate({
+    type: 'rect',
+    actions: isTransposed ? [['transpose'], ['reflect', 'x']] : [],
+  });
+  return params;
+}
+
+/**
+ * label 处理
+ * @param params
+ */
+function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart } = params;
+
+  geometryLabel(findGeometry(chart, 'polygon'))(params);
+
+  return params;
+}
+
+/**
+ * 转化率组件
+ * @param params
+ */
+function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const getLineCoordinate = (datum: Datum): LineOption => {
+    return {
+      start: [datum[PLOYGON_X][1], datum[PLOYGON_Y][1]],
+      end: [datum[PLOYGON_X][1] + 0.05, datum[PLOYGON_Y][1]],
+    };
+  };
+
+  conversionTagComponent(getLineCoordinate)(params);
+
+  return params;
+}
+
+/**
+ * 动态高度漏斗
  * @param chart
  * @param options
  */
-export function dynamicHeightFunnel(params: Params<FunnelAdaptorOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(format, geometry, label, annotation)(params);
+export function dynamicHeightFunnel(params: Params<FunnelOptions>) {
+  return flow(field, geometry, transpose, label, conversionTag)(params);
 }

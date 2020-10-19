@@ -1,46 +1,43 @@
-import { deepMix, map } from '@antv/util';
-import { isFunction } from '@antv/util';
+import { map } from '@antv/util';
+import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FunnelAdaptorOptions } from '../types';
+import { Datum, Data } from '../../../types/common';
+import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
-import { transpose } from './util';
+import { geometryLabel, conversionTagComponent } from './common';
 
 /**
- * 处理数据
+ * 处理字段数据
  * @param params
  */
-function format(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { options } = params;
+function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
   const { data = [], yField } = options;
   let formatData = [];
   // format 数据
   if (data[0][yField]) {
     formatData = map(data, (row) => {
       if (row[yField] !== undefined) {
-        row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+        row[FUNNEL_PERCENT] = Math.round((row[yField] / data[0][yField]) * 100) / 100;
       }
       return row;
     });
   }
 
-  return deepMix({}, params, {
-    options: {
-      formatData,
-    },
-  });
+  // 绘制漏斗图
+  chart.data(formatData);
+  return params;
 }
 
 /**
  * geometry处理
  * @param params
  */
-function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
+function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { formatData = [], xField, yField, color } = options;
+  const { xField, yField, color } = options;
 
-  // 绘制漏斗图
-  chart.data(formatData);
   chart
     .interval()
     .adjust('symmetric')
@@ -52,51 +49,49 @@ function geometry(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOpt
 }
 
 /**
+ * 转置处理
+ * @param params
+ */
+function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { isTransposed } = options;
+  chart.coordinate({
+    type: 'rect',
+    actions: !isTransposed ? [['transpose'], ['scale', 1, -1]] : [],
+  });
+  return params;
+}
+
+/**
  * label 处理
  * @param params
  */
-function label(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { label, yField, xField } = options;
+function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart } = params;
 
-  const geometry = findGeometry(chart, 'interval');
-
-  if (!label) {
-    geometry.label(false);
-  } else {
-    const { callback, ...cfg } = label;
-    geometry.label({
-      fields: [xField, yField, FUNNEL_PERCENT],
-      callback,
-      cfg,
-    });
-  }
+  geometryLabel(findGeometry(chart, 'interval'))(params);
 
   return params;
 }
 
 /**
- * annotation 处理
+ * 转化率组件
  * @param params
  */
-function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorOptions> {
-  const { chart, options } = params;
-  const { formatData = [], xField, yField, annotation } = options;
+function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { options } = params;
+  const { yField } = options;
 
-  if (annotation !== false) {
-    formatData.forEach((obj) => {
-      chart.annotation().text({
-        top: true,
-        position: [obj[xField], 'median'],
-        content: isFunction(annotation) ? annotation(obj[xField], obj[yField], obj[FUNNEL_PERCENT], obj) : annotation,
-        style: {
-          stroke: null,
-          fill: '#fff',
-          textAlign: 'center',
-        },
-      });
-    });
-  }
+  const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+    const percent = 1 - (1 - datum[FUNNEL_PERCENT]) / 2;
+    return {
+      start: [datumIndex - 0.5, data[0][yField] * percent],
+      end: [datumIndex - 0.5, data[0][yField] * (percent + 0.05)],
+    };
+  };
+
+  conversionTagComponent(getLineCoordinate)(params);
+
   return params;
 }
 
@@ -105,7 +100,6 @@ function annotation(params: Params<FunnelAdaptorOptions>): Params<FunnelAdaptorO
  * @param chart
  * @param options
  */
-export function basicFunnel(params: Params<FunnelAdaptorOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(format, geometry, transpose, label, annotation)(params);
+export function basicFunnel(params: Params<FunnelOptions>) {
+  return flow(field, geometry, transpose, conversionTag, label)(params);
 }

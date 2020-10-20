@@ -1,4 +1,15 @@
-import { Column } from '@antv/g2plot';
+import { Column, G2 } from '@antv/g2plot';
+
+/**
+ * 堆叠柱状图区域连通
+ * 
+ * 注册action可参考 https://github.com/antvis/G2Plot/blob/master/src/plots/scatter/interaction/index.ts
+ * G2 Plot interactions定义：https://github.com/antvis/G2Plot/blob/master/src/types/interaction.ts
+ */
+G2.registerInteraction('element-link', {
+  start: [{ trigger: 'interval:mouseenter', action: 'element-link-by-color:link' }],
+  end: [{ trigger: 'interval:mouseleave', action: 'element-link-by-color:unlink' }],
+});
 
 const data = [
   {
@@ -100,6 +111,14 @@ const stackedColumnPlot = new Column('container', {
   yField: 'value',
   seriesField: 'type',
   color: ['#ae331b', '#1a6179'],
+  interactions: [
+    {
+      type: 'element-link',
+    },
+    {
+      type: 'element-highlight-by-color',
+    },
+  ],
 });
 
 stackedColumnPlot.render();

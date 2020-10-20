@@ -14,15 +14,15 @@ describe('heatmap', () => {
       console.warn = warn;
     });
 
-    it('work with both shapeType&sizeField', () => {
-      const heatmap = new Heatmap(createDiv('shapeType&sizeField and sizeRatio'), {
+    it('work with both shape&sizeField', () => {
+      const heatmap = new Heatmap(createDiv('shape&sizeField and sizeRatio'), {
         width: 400,
         height: 300,
         data: semanticBasicHeatmapData,
         xField: 'name',
         yField: 'day',
         colorField: 'sales',
-        shapeType: 'circle',
+        shape: 'circle',
         sizeField: 'sales',
       });
 
@@ -69,15 +69,15 @@ describe('heatmap', () => {
       expect(beforeRadius0 / afterRadius0).toBeCloseTo(Math.sqrt(1 / 0.2), 5);
     });
 
-    it('work with shapeType', () => {
-      const heatmap = new Heatmap(createDiv('shapeType and sizeRatio'), {
+    it('work with shape', () => {
+      const heatmap = new Heatmap(createDiv('shape and sizeRatio'), {
         width: 400,
         height: 300,
         data: semanticBasicHeatmapData,
         xField: 'name',
         yField: 'day',
         colorField: 'sales',
-        shapeType: 'circle',
+        shape: 'circle',
         sizeRatio: 0.5,
       });
 
@@ -97,21 +97,21 @@ describe('heatmap', () => {
       expect(beforeRadius0 / afterRadius0).toBeCloseTo(Math.sqrt(0.5 / 0.8), 5);
     });
 
-    it('not take effect while shapeType and sizeField are both missing', () => {
-      const heatmap = new Heatmap(createDiv('sizeRatio without shapeType and sizeField'), {
+    it('not take effect while shape and sizeField are both missing', () => {
+      const heatmap = new Heatmap(createDiv('sizeRatio without shape and sizeField'), {
         width: 400,
         height: 300,
         data: semanticBasicHeatmapData,
         xField: 'name',
         yField: 'day',
         colorField: 'sales',
-        // both shapeType and sizeField missing
+        // both shape and sizeField missing
         sizeRatio: 0.5,
       });
 
       heatmap.render();
 
-      expect(console.warn).toHaveBeenCalledWith('sizeRatio is not in effect: Must define shapeType or sizeField first');
+      expect(console.warn).toHaveBeenCalledWith('sizeRatio is not in effect: Must define shape or sizeField first');
     });
 
     it('not take effect if exceeds range [0,1]', () => {

@@ -1,8 +1,10 @@
+import { deepMix, isBoolean } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { HeatmapOptions } from './types';
 import { adaptor } from './adaptor';
 // registered shapes
+import './shapes/boundary-polygon';
 import './shapes/circle';
 import './shapes/square';
 
@@ -17,5 +19,37 @@ export class Heatmap extends Plot<HeatmapOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<HeatmapOptions> {
     return adaptor;
+  }
+
+  protected getDefaultOptions(options: HeatmapOptions) {
+    return deepMix({}, super.getDefaultOptions(), {
+      type: 'ploygon',
+      xAxis: {
+        tickLine: null,
+        line: null,
+        grid: {
+          alignTick: false,
+          line: {
+            style: {
+              lineWidth: 1,
+              lineDash: null,
+              stroke: '#f0f0f0',
+            },
+          },
+        },
+      },
+      yAxis: {
+        grid: {
+          alignTick: false,
+          line: {
+            style: {
+              lineWidth: 1,
+              lineDash: null,
+              stroke: '#f0f0f0',
+            },
+          },
+        },
+      },
+    });
   }
 }

@@ -23,7 +23,7 @@ export class Heatmap extends Plot<HeatmapOptions> {
 
   protected getDefaultOptions(options: HeatmapOptions) {
     return deepMix({}, super.getDefaultOptions(), {
-      type: 'ploygon',
+      type: 'polygon',
       xAxis: {
         tickLine: null,
         line: null,

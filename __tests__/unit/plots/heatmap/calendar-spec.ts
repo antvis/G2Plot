@@ -79,7 +79,7 @@ describe('heatmap', () => {
     const model = element.getModel();
     // @ts-ignore
     const { attributeOption } = geometry;
-    expect(heatmap.options.type).toBe('ploygon');
+    expect(heatmap.options.type).toBe('polygon');
     expect(geometry.type).toBe('polygon');
     expect(attributeOption.position.fields).toEqual(['week', 'day']);
     expect(attributeOption.color.fields).toEqual(['commits']);

@@ -3,7 +3,7 @@ import { PointGeometryOptions } from '../../adaptor/geometries';
 
 export interface HeatmapOptions extends Options {
   /** 热力图类型 */
-  readonly type?: 'ploygon' | 'gaussian';
+  readonly type?: 'polygon' | 'gaussian';
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴字段 */

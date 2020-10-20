@@ -20,8 +20,6 @@ export interface HeatmapOptions extends Options {
   readonly heatmapStyle?: StyleAttr;
   /** 坐标轴映射 */
   readonly reflect?: 'x' | 'y';
-  /** 数据点图形样式 */
-  readonly point?: PointGeometryOptions['point'];
 }
 
 export const SHAPES = tuple('circle', 'square', 'polygon');

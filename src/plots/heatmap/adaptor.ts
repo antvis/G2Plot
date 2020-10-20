@@ -1,10 +1,11 @@
 import { isFunction, isObject } from '@antv/util';
+import { Geometry } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
 import { DEFAULT_COLORS } from '../../constant';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
-import { HeatmapOptions, ShapeType, SHAPE_TYPES } from './types';
+import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { HeatmapOptions, Shape, SHAPES } from './types';
 
 /**
  * 数据字段映射
@@ -12,14 +13,23 @@ import { HeatmapOptions, ShapeType, SHAPE_TYPES } from './types';
  */
 function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, colorField, sizeField, sizeRatio, shapeType, color } = options;
+  const { data, type, reflect, xField, yField, colorField, sizeField, sizeRatio, shape, color } = options;
 
   chart.data(data);
+  let geometry: Geometry;
 
-  const geometry = chart.polygon().position(`${xField}*${yField}`);
+  if (type === 'gaussian') {
+    geometry = chart.heatmap().position(`${xField}*${yField}`);
+  } else {
+    geometry = chart.polygon().position(`${xField}*${yField}`);
+  }
 
   if (colorField) {
     geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
+  }
+
+  if (reflect) {
+    chart.coordinate().reflect(reflect);
   }
 
   /**
@@ -30,8 +40,8 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
    */
   let checkedSizeRatio = 1;
   if (sizeRatio || sizeRatio === 0) {
-    if (!shapeType && !sizeField) {
-      console.warn('sizeRatio is not in effect: Must define shapeType or sizeField first');
+    if (!shape && !sizeField) {
+      console.warn('sizeRatio is not in effect: Must define shape or sizeField first');
     } else if (sizeRatio < 0 || sizeRatio > 1) {
       console.warn('sizeRatio is not in effect: It must be a number in [0,1]');
     } else {
@@ -42,20 +52,20 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   /**
    * The type of shape in each cell of heatmap.
    *
-   * If a valid type is specified with `shapeType` attribute, the shape would be that type.
-   * If `shapeType` specifies an invalid type, the type would be set to `square` as default.
+   * If a valid type is specified with `shape` attribute, the shape would be that type.
+   * If `shape` specifies an invalid type, the type would be set to `square` as default.
    *
-   * If the `shapeType` is undefined but the `sizeField` attribute is specified,
+   * If the `shape` is undefined but the `sizeField` attribute is specified,
    * the type would be set to `square` as default since the original shape 'rectangle' can hardly
    * be mapped with size.
    */
-  let checkedShapeType: ShapeType;
-  if (shapeType) {
-    if (!(SHAPE_TYPES as string[]).includes(shapeType)) {
-      console.warn(`Invalid shapeType: Must be one of ${SHAPE_TYPES}, new set to default 'square'`);
+  let checkedShapeType: Shape;
+  if (shape) {
+    if (!(SHAPES as string[]).includes(shape)) {
+      console.warn(`Invalid shape: Must be one of ${SHAPES}, new set to default 'square'`);
       checkedShapeType = 'square';
     } else {
-      checkedShapeType = shapeType as ShapeType;
+      checkedShapeType = shape as Shape;
     }
   } else if (sizeField) {
     checkedShapeType = 'square';
@@ -109,45 +119,18 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
-  chart.axis(
-    xField,
-    Object.assign(
-      {
-        tickLine: null,
-        line: null,
-        grid: {
-          alignTick: false,
-          line: {
-            style: {
-              lineWidth: 1,
-              lineDash: null,
-              stroke: '#f0f0f0',
-            },
-          },
-        },
-      },
-      xAxis
-    )
-  );
+  // 为 false 则是不显示轴
+  if (xAxis === false) {
+    chart.axis(xField, false);
+  } else {
+    chart.axis(xField, xAxis);
+  }
 
-  chart.axis(
-    yField,
-    Object.assign(
-      {
-        grid: {
-          alignTick: false,
-          line: {
-            style: {
-              lineWidth: 1,
-              lineDash: null,
-              stroke: '#f0f0f0',
-            },
-          },
-        },
-      },
-      yAxis
-    )
-  );
+  if (yAxis === false) {
+    chart.axis(yField, false);
+  } else {
+    chart.axis(yField, yAxis);
+  }
 
   return params;
 }
@@ -158,17 +141,8 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart } = params;
-
-  // TODO: chart legend
   // legends overrided with color and size mapped with the same field,
   // requre support from G2
-
-  // const { legend, colorField, sizeField } = params.options;
-
-  // if (legend && colorField) {
-  //   chart.legend(colorField, legend);
-  // }
-
   chart.legend(false);
 
   return params;
@@ -199,9 +173,9 @@ function style(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { label, colorField } = options;
+  const { label, colorField, type } = options;
 
-  const geometry = findGeometry(chart, 'polygon');
+  const geometry = findGeometry(chart, type === 'gaussian' ? 'heatmap' : 'polygon');
 
   if (!label) {
     geometry.label(false);
@@ -224,5 +198,5 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 export function adaptor(params: Params<HeatmapOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, theme, axis, legend, tooltip, style, label, interaction, animation)(params);
+  return flow(field, meta, theme, axis, legend, tooltip, style, label, annotation(), interaction, animation)(params);
 }

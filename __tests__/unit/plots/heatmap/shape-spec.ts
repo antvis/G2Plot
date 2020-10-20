@@ -11,7 +11,7 @@ describe('heatmap', () => {
       xField: 'name',
       yField: 'day',
       colorField: 'sales',
-      shapeType: 'square',
+      shape: 'square',
       label: {
         offset: -2,
         style: {
@@ -67,7 +67,7 @@ describe('heatmap', () => {
       xField: 'name',
       yField: 'day',
       colorField: 'sales',
-      shapeType: 'circle',
+      shape: 'circle',
       sizeField: 'sales',
       label: {
         offset: -2,

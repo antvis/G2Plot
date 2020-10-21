@@ -5,7 +5,7 @@ import { findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
 import { DEFAULT_COLORS } from '../../constant';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
-import { HeatmapOptions, Shape, SHAPES } from './types';
+import { HeatmapOptions } from './types';
 
 /**
  * 数据字段映射
@@ -18,7 +18,7 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   chart.data(data);
   let geometry: Geometry;
 
-  if (type === 'gaussian') {
+  if (type === 'density') {
     geometry = chart.heatmap().position(`${xField}*${yField}`);
   } else {
     geometry = chart.polygon().position(`${xField}*${yField}`);
@@ -49,34 +49,12 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
     }
   }
 
-  /**
-   * The type of shape in each cell of heatmap.
-   *
-   * If a valid type is specified with `shape` attribute, the shape would be that type.
-   * If `shape` specifies an invalid type, the type would be set to `square` as default.
-   *
-   * If the `shape` is undefined but the `sizeField` attribute is specified,
-   * the type would be set to `square` as default since the original shape 'rectangle' can hardly
-   * be mapped with size.
-   */
-  let checkedShapeType: Shape;
-  if (shape) {
-    if (!(SHAPES as string[]).includes(shape)) {
-      console.warn(`Invalid shape: Must be one of ${SHAPES}, new set to default 'square'`);
-      checkedShapeType = 'square';
-    } else {
-      checkedShapeType = shape as Shape;
-    }
-  } else if (sizeField) {
-    checkedShapeType = 'square';
-  }
-
   // when it has to change shape from original rect
-  if (checkedShapeType) {
+  if (shape) {
     // just to change shape in cell
     if (!sizeField) {
       geometry.shape('', () => {
-        return [`heatmap-${checkedShapeType}-size`, 1, checkedSizeRatio];
+        return [shape, 1, checkedSizeRatio];
       });
     }
 
@@ -87,7 +65,7 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
       const max = Math.max(...field);
 
       geometry.shape(sizeField, (v) => {
-        return [`heatmap-${checkedShapeType}-size`, (v - min) / (max - min), checkedSizeRatio];
+        return [shape, (v - min) / (max - min), checkedSizeRatio];
       });
     }
   }
@@ -140,10 +118,14 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  * @param params
  */
 function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
-  const { chart } = params;
-  // legends overrided with color and size mapped with the same field,
-  // requre support from G2
-  chart.legend(false);
+  const { chart, options } = params;
+  const { legend, colorField } = options;
+
+  if (legend) {
+    chart.legend(colorField, legend);
+  } else {
+    chart.legend(false);
+  }
 
   return params;
 }
@@ -175,7 +157,7 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { label, colorField, type } = options;
 
-  const geometry = findGeometry(chart, type === 'gaussian' ? 'heatmap' : 'polygon');
+  const geometry = findGeometry(chart, type === 'density' ? 'heatmap' : 'polygon');
 
   if (!label) {
     geometry.label(false);

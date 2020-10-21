@@ -38,6 +38,7 @@ describe('heatmap', () => {
       yField: 'day',
       colorField: 'sales',
       sizeField: 'sales',
+      shape: 'square',
       label: {
         offset: -2,
         style: {

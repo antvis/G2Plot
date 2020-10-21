@@ -76,23 +76,23 @@ export function transform(data: Data, options: Options) {
     { x: options.size[0], y: options.size[1] },
   ];
   tags.forEach((tag) => {
-    tag.x += options.size[0] / 2;
-    tag.y += options.size[1] / 2;
+    tag._x += options.size[0] / 2;
+    tag._y += options.size[1] / 2;
   });
   const [w, h] = options.size;
   const hasImage = result.hasImage;
   tags.push({
     text: '',
     value: 0,
-    x: hasImage ? 0 : bounds[0].x,
-    y: hasImage ? 0 : bounds[0].y,
+    _x: hasImage ? 0 : bounds[0].x,
+    _y: hasImage ? 0 : bounds[0].y,
     opacity: 0,
   });
   tags.push({
     text: '',
     value: 0,
-    x: hasImage ? w : bounds[1].x,
-    y: hasImage ? h : bounds[1].y,
+    _x: hasImage ? w : bounds[1].x,
+    _y: hasImage ? h : bounds[1].y,
     opacity: 0,
   });
 
@@ -237,11 +237,11 @@ function cloudCollide(tag, board, sw) {
   sw >>= 5;
   const sprite = tag.sprite,
     w = tag.width >> 5,
-    lx = tag.x - (w << 4),
+    lx = tag._x - (w << 4),
     sx = lx & 0x7f,
     msx = 32 - sx,
     h = tag.y1 - tag.y0;
-  let x = (tag.y + tag.y0) * sw + (lx >> 5),
+  let x = (tag._y + tag.y0) * sw + (lx >> 5),
     last;
   for (let j = 0; j < h; j++) {
     last = 0;
@@ -256,14 +256,14 @@ function cloudCollide(tag, board, sw) {
 function cloudBounds(bounds, d) {
   const b0 = bounds[0],
     b1 = bounds[1];
-  if (d.x + d.x0 < b0.x) b0.x = d.x + d.x0;
-  if (d.y + d.y0 < b0.y) b0.y = d.y + d.y0;
-  if (d.x + d.x1 > b1.x) b1.x = d.x + d.x1;
-  if (d.y + d.y1 > b1.y) b1.y = d.y + d.y1;
+  if (d._x + d.x0 < b0.x) b0.x = d._x + d.x0;
+  if (d._y + d.y0 < b0.y) b0.y = d._y + d.y0;
+  if (d._x + d.x1 > b1.x) b1.x = d._x + d.x1;
+  if (d._y + d.y1 > b1.y) b1.y = d._y + d.y1;
 }
 
 function collideRects(a, b) {
-  return a.x + a.x1 > b[0].x && a.x + a.x0 < b[1].x && a.y + a.y1 > b[0].y && a.y + a.y0 < b[1].y;
+  return a._x + a.x1 > b[0].x && a._x + a.x0 < b[1].x && a._y + a.y1 > b[0].y && a._y + a.y0 < b[1].y;
 }
 
 function archimedeanSpiral(size) {
@@ -380,8 +380,8 @@ function tagCloud() {
       const start = Date.now();
       while (Date.now() - start < timeInterval && ++i < n) {
         const d = data[i];
-        d.x = (width * (random() + 0.5)) >> 1;
-        d.y = (height * (random() + 0.5)) >> 1;
+        d._x = (width * (random() + 0.5)) >> 1;
+        d._y = (height * (random() + 0.5)) >> 1;
         cloudSprite(contextAndRatio, d, data, i);
         if (d.hasText && place(board, d, bounds)) {
           tags.push(d);
@@ -392,13 +392,13 @@ function tagCloud() {
             }
           } else {
             bounds = [
-              { x: d.x + d.x0, y: d.y + d.y0 },
-              { x: d.x + d.x1, y: d.y + d.y1 },
+              { x: d._x + d.x0, y: d._y + d.y0 },
+              { x: d._x + d.x1, y: d._y + d.y1 },
             ];
           }
           // Temporary hack
-          d.x -= size[0] >> 1;
-          d.y -= size[1] >> 1;
+          d._x -= size[0] >> 1;
+          d._y -= size[1] >> 1;
         }
       }
       cloud._tags = tags;
@@ -422,8 +422,8 @@ function tagCloud() {
 
   function place(board, tag, bounds) {
     // const perimeter = [{ x: 0, y: 0 }, { x: size[0], y: size[1] }],
-    const startX = tag.x,
-      startY = tag.y,
+    const startX = tag._x,
+      startY = tag._y,
       maxDelta = Math.sqrt(size[0] * size[0] + size[1] * size[1]),
       s = spiral(size),
       dt = random() < 0.5 ? 1 : -1;
@@ -438,22 +438,23 @@ function tagCloud() {
 
       if (Math.min(Math.abs(dx), Math.abs(dy)) >= maxDelta) break;
 
-      tag.x = startX + dx;
-      tag.y = startY + dy;
+      tag._x = startX + dx;
+      tag._y = startY + dy;
 
-      if (tag.x + tag.x0 < 0 || tag.y + tag.y0 < 0 || tag.x + tag.x1 > size[0] || tag.y + tag.y1 > size[1]) continue;
+      if (tag._x + tag.x0 < 0 || tag._y + tag.y0 < 0 || tag._x + tag.x1 > size[0] || tag._y + tag.y1 > size[1])
+        continue;
       // TODO only check for collisions within current bounds.
       if (!bounds || !cloudCollide(tag, board, size[0])) {
         if (!bounds || collideRects(tag, bounds)) {
           const sprite = tag.sprite,
             w = tag.width >> 5,
             sw = size[0] >> 5,
-            lx = tag.x - (w << 4),
+            lx = tag._x - (w << 4),
             sx = lx & 0x7f,
             msx = 32 - sx,
             h = tag.y1 - tag.y0;
           let last,
-            x = (tag.y + tag.y0) * sw + (lx >> 5);
+            x = (tag._y + tag.y0) * sw + (lx >> 5);
           for (let j = 0; j < h; j++) {
             last = 0;
             for (let i = 0; i <= w; i++) {

@@ -24,8 +24,8 @@ describe('word-cloud', () => {
     // x & y
     expect(positionFields).toHaveLength(2);
     // 数据经过 DataSet 处理过，这里是处理之后的数据中的 x 和 y 字段
-    expect(positionFields[0]).toBe('x');
-    expect(positionFields[1]).toBe('y');
+    expect(positionFields[0]).toBe('_x');
+    expect(positionFields[1]).toBe('_y');
   });
 
   it('imageMask', () => {

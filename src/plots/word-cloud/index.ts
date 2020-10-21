@@ -73,8 +73,11 @@ export class WordCloud extends Plot<WordCloudOptions> {
    */
   protected triggerResize() {
     if (!this.chart.destroyed) {
-      // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标需要重新
-      // 需要重新执行 adaptor，执行词云图的布局函数，不然会出现布局错乱，如相邻词语重叠的情况。
+      // 这里解决了重渲染时字体变的透明的问题
+      this.chart.clear();
+      // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标
+      // 需要重新执行 adaptor，执行词云图的布局函数，不然会出现布局错乱，
+      // 如相邻词语重叠的情况。
       this.execAdaptor();
       // 执行父类的方法
       super.triggerResize();

@@ -22,7 +22,6 @@ const data = ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'tha
   return {
     text: d,
     value: 5 + Math.random() * 10,
-    test: 'haha',
   };
 });
 
@@ -38,8 +37,8 @@ function basicCommon(v: DataItem) {
   expect(typeof v.padding).toBe('number');
   expect(typeof v.width).toBe('number');
   expect(typeof v.height).toBe('number');
-  expect(typeof v._x).toBe('number');
-  expect(typeof v._y).toBe('number');
+  expect(typeof v.x).toBe('number');
+  expect(typeof v.y).toBe('number');
 }
 
 describe('word-cloud', () => {
@@ -51,8 +50,6 @@ describe('word-cloud', () => {
     function removeXY(v) {
       delete v.x;
       delete v.y;
-      delete v._x;
-      delete v._y;
     }
     const result1 = wordCloud(data, options as any);
     const result2 = dv.rows;

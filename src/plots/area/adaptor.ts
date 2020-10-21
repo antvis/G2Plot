@@ -13,7 +13,7 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, color, point: pointOptions, line: lineOptions } = options;
+  const { data, areaStyle, color, point: pointMapping, line: lineMapping } = options;
 
   chart.data(data);
 
@@ -22,13 +22,13 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
       area: { color, style: areaStyle },
       // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
       // 如果存在，才设置，否则为空
-      line: lineOptions && {
+      line: lineMapping && {
         color,
-        ...lineOptions,
+        ...lineMapping,
       },
-      point: pointOptions && {
+      point: pointMapping && {
         color,
-        ...pointOptions,
+        ...pointMapping,
       },
     },
   });

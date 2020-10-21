@@ -28,8 +28,6 @@ registerShape('point', 'word-cloud', {
 
 function getTextAttrs(cfg: Config): ShapeAttrs {
   return {
-    ...cfg.defaultStyle,
-    ...cfg.style,
     fontSize: cfg.data.size,
     text: cfg.data.text,
     textAlign: 'center',

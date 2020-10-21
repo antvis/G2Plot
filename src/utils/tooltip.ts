@@ -41,7 +41,7 @@ export function getTooltipTemplate(params: {
   const { value, items, formatter, isPercent } = params;
   const container = document.createElement('div');
   container.className = 'g2-tooltip';
-  const title = `<h4>${value}</h4>`;
+  const title = `<div class="g2-tooltip-title" style="margin-top: 12px;margin-bottom: 12px;">${value}</div>`;
   let listItem = '';
   const formatterItem = (item) => {
     if (formatter) {
@@ -53,8 +53,8 @@ export function getTooltipTemplate(params: {
     return item?.value;
   };
   items.forEach((item) => {
-    listItem += `<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;display:flex;">
-        <span style="background-color:${item.mappingData?.color};" class="g2-tooltip-marker"></span>
+    listItem += `<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;display:flex;align-items: center;">
+        <span style="background-color:${item.mappingData?.color || item.color};" class="g2-tooltip-marker"></span>
         <span style="display:inline-flex;flex:1;justify-content:space-between">
         <span style="margin-right: 16px;">${item.name}:</span><span>${formatterItem(item)}</span>
         </span>

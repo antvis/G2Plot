@@ -24,7 +24,7 @@
 
 **可选**, _polygon | density_;
 
-功能描述： 密度热力图需要制定为 density 。
+功能描述： 密度热力图需要指定为 density 。
 
 默认配置： `polygon`
 

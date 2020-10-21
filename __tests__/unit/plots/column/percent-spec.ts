@@ -47,7 +47,7 @@ describe('column percent', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByTagName('h4')[0].innerHTML).toBe('2100');
+    expect(document.getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe('2100');
     const {
       // @ts-ignore
       labelOption: { cfg },
@@ -90,7 +90,7 @@ describe('column percent', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByTagName('h4')[1]).toBeUndefined();
+    expect(document.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
     expect(document.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
   });
 });

@@ -2,7 +2,7 @@ import { registerShape } from '@antv/g2';
 import { ShapeInfo } from '@antv/g2/lib/interface';
 import { IGroup } from '@antv/g2/lib/dependents';
 
-registerShape('polygon', 'heatmap-square-size', {
+registerShape('polygon', 'square', {
   draw(cfg: ShapeInfo, group: IGroup) {
     const cx = cfg.x as number;
     const cy = cfg.y as number;
@@ -25,6 +25,7 @@ registerShape('polygon', 'heatmap-square-size', {
         height: sideLength,
         fill: cfg.color,
         ...cfg.defaultStyle,
+        ...cfg.style,
       },
     });
     return polygon;

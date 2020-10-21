@@ -2,7 +2,7 @@ import { registerShape } from '@antv/g2';
 import { ShapeInfo } from '@antv/g2/lib/interface';
 import { IGroup } from '@antv/g2/lib/dependents';
 
-registerShape('polygon', 'heatmap-circle-size', {
+registerShape('polygon', 'circle', {
   draw(cfg: ShapeInfo, group: IGroup) {
     const cx = cfg.x as number;
     const cy = cfg.y as number;

@@ -177,6 +177,14 @@ module.exports = {
         },
       },
       {
+        slug: 'heatmap',
+        icon: 'heatmap',
+        title: {
+          zh: '热力图',
+          en: 'heatmap',
+        },
+      },
+      {
         slug: 'tiny-line',
         icon: 'line',
         title: {

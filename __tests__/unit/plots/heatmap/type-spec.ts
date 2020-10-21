@@ -6,12 +6,12 @@ describe('heatmap', () => {
     const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/heatmap.json').then((res) =>
       res.json()
     );
-    const heatmap = new Heatmap(createDiv('type gaussian'), {
+    const heatmap = new Heatmap(createDiv('type density'), {
       width: 600,
       height: 500,
       data,
       autoFit: false,
-      type: 'gaussian',
+      type: 'density',
       xField: 'g',
       yField: 'l',
       colorField: 'tmp',
@@ -30,7 +30,7 @@ describe('heatmap', () => {
     const geometry = heatmap.chart.geometries[0];
     // @ts-ignore
     const { attributeOption } = geometry;
-    expect(heatmap.options.type).toBe('gaussian');
+    expect(heatmap.options.type).toBe('density');
     expect(geometry.type).toBe('heatmap');
     expect(attributeOption.position.fields).toEqual(['g', 'l']);
     expect(attributeOption.color.fields).toEqual(['tmp']);

@@ -4,7 +4,6 @@ import { Adaptor } from '../../core/adaptor';
 import { HeatmapOptions } from './types';
 import { adaptor } from './adaptor';
 // registered shapes
-import './shapes/boundary-polygon';
 import './shapes/circle';
 import './shapes/square';
 
@@ -22,8 +21,10 @@ export class Heatmap extends Plot<HeatmapOptions> {
   }
 
   protected getDefaultOptions(options: HeatmapOptions) {
+    const { type } = options;
     return deepMix({}, super.getDefaultOptions(), {
       type: 'polygon',
+      legend: false,
       xAxis: {
         tickLine: null,
         line: null,

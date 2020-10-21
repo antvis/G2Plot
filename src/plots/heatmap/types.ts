@@ -1,9 +1,8 @@
-import { Options, tuple, StyleAttr } from '../../types';
-import { PointGeometryOptions } from '../../adaptor/geometries';
+import { Options, StyleAttr } from '../../types';
 
 export interface HeatmapOptions extends Options {
   /** 热力图类型 */
-  readonly type?: 'polygon' | 'gaussian';
+  readonly type?: 'polygon' | 'density';
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴字段 */
@@ -21,6 +20,3 @@ export interface HeatmapOptions extends Options {
   /** 坐标轴映射 */
   readonly reflect?: 'x' | 'y';
 }
-
-export const SHAPES = tuple('circle', 'square', 'polygon');
-export type Shape = typeof SHAPES[number];

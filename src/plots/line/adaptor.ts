@@ -24,7 +24,12 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
         color,
         style: lineStyle,
       },
-      point: pointMapping,
+      // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
+      // 如果存在，才设置，否则为空
+      point: pointMapping && {
+        color,
+        ...pointMapping,
+      },
     },
   });
 

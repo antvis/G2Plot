@@ -2,7 +2,7 @@ import { TinyArea } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#1758', () => {
-  it('area line.color', () => {
+  it('tiny-area line.color', () => {
     const tinyArea = new TinyArea(createDiv('mini 面积图 color 配置不生效'), {
       height: 60,
       width: 300,

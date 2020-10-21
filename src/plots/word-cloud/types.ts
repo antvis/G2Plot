@@ -30,9 +30,9 @@ export type DataItem = Row & {
   /** 单词所占盒子的高度 */
   height?: number;
   /** x 轴坐标 */
-  _x?: number;
+  x?: number;
   /** y 轴坐标 */
-  _y?: number;
+  y?: number;
 };
 
 /** 词云字体样式 */

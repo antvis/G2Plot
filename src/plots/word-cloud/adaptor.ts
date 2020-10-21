@@ -13,7 +13,7 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
   const data = transform(params);
 
   chart.data(data);
-  chart.point().position('_x*_y').shape('word-cloud');
+  chart.point().position('x*y').shape('word-cloud');
 
   return params;
 }
@@ -24,10 +24,10 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
  */
 function color(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
   const { chart, options } = params;
-  const { wordField, color } = options;
+  const { color } = options;
   const geometry = findGeometry(chart, 'point');
 
-  geometry.color(wordField, color);
+  geometry.color('text', color);
 
   return params;
 }

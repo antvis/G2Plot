@@ -23,9 +23,7 @@ export class TinyArea extends Plot<TinyAreaOptions> {
       },
       line: {
         size: 1,
-        style: {
-          stroke: '#5B8FF9',
-        },
+        color: '#5B8FF9',
       },
     };
   }

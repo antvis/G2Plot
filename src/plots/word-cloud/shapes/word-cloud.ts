@@ -33,7 +33,7 @@ function getTextAttrs(cfg: Config): ShapeAttrs {
     textAlign: 'center',
     fontFamily: cfg.data.font,
     fontWeight: cfg.data.weight,
-    fill: cfg.color,
+    fill: cfg.color || cfg.defaultStyle.stroke,
     textBaseline: 'alphabetic',
   };
 }

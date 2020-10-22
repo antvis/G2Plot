@@ -14,8 +14,8 @@ describe('word-cloud color option', () => {
 
     cloud.render();
 
-    const field = cloud.chart.geometries[0].getGroupFields()[0];
-    expect(field).toBe('text');
+    const fields = cloud.chart.geometries[0].getGroupFields();
+    expect(fields.length).toBe(1);
   });
 
   it('wordField', () => {

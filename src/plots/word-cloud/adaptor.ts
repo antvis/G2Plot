@@ -21,9 +21,7 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
     options: {
       xField: 'x',
       yField: 'y',
-      // 给 seriesField 一个默认值，否则它为空时
-      // 每个词语的颜色会显示成白色。
-      seriesField: colorField ? 'color' : 'text',
+      seriesField: colorField && 'color',
       point: {
         color,
         shape: 'word-cloud',

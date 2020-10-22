@@ -43,7 +43,7 @@ order: 0
 
 功能描述： 根据该字段进行颜色映射
 
-默认配置： wordField 字段的值
+默认配置： 无
 
 #### timeInterval
 

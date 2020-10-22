@@ -1,17 +1,18 @@
 import { Chart, View } from '@antv/g2';
 import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { Datum } from '../../types';
 import { log, LEVEL, getContainerSize } from '../../utils';
 import { wordCloud } from '../../utils/transform/word-cloud';
-import { DataItem, WordCloudOptions } from './types';
+import { Tag, Word, WordCloudOptions } from './types';
 
 /**
  * 用 DataSet 转换词云图数据
  * @param params
  */
-export function transform(params: Params<WordCloudOptions>): DataItem[] {
+export function transform(params: Params<WordCloudOptions>): Tag[] {
   const { options } = params;
-  const { data, imageMask, wordField, weightField, wordStyle, timeInterval } = options;
+  const { data, imageMask, wordField, weightField, colorField, wordStyle, timeInterval } = options;
   if (!data || !data.length) {
     return [];
   }
@@ -19,8 +20,23 @@ export function transform(params: Params<WordCloudOptions>): DataItem[] {
   const arr = data.map((v) => v[weightField]) as number[];
   const range = [min(arr), max(arr)] as [number, number];
 
-  return wordCloud(data, {
-    fields: [wordField, weightField],
+  // 校验
+  if (!isString(wordField) || !isString(weightField)) {
+    throw new TypeError('Invalid fields: must be an array with 2 strings (e.g. [ "text", "value" ])!');
+  }
+
+  // 变换出 text 和 value 字段
+  const words = data.map(
+    (datum: Datum): Word => ({
+      text: datum[wordField],
+      value: datum[weightField],
+      color: datum[colorField],
+      datum, // 存一下原始数据
+    })
+  );
+
+  // 数据准备在外部做，wordCloud 单纯就是做布局
+  return wordCloud(words, {
     imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
     fontSize: getFontSize(options, range),

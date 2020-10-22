@@ -1,16 +1,22 @@
 import { ShapeAttrs } from '@antv/g2/lib/dependents';
-import { Options } from '../../types';
+import { Datum, Options } from '../../types';
 
 type FontWeight = ShapeAttrs['fontWeight'];
 
-interface Row {
+/** 一个文本信息，wordCloud 内部 */
+export type Word = {
   /** 文本内容 */
   text: string;
   /** 该文本所占权重 */
   value: number;
-}
+  /** 用于指定颜色字段 */
+  color: string | number;
+  /** 原始数据 */
+  datum: Datum;
+};
 
-export type DataItem = Row & {
+/** 一个文本的映射信息 */
+export type Tag = Word & {
   /** 字体 */
   font?: string;
   /** 字体样式 */
@@ -38,16 +44,16 @@ export type DataItem = Row & {
 /** 词云字体样式 */
 interface WordStyle {
   /** 词云的字体, 当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontFamily?: string | ((row: Row) => string);
+  readonly fontFamily?: string | ((word: Word) => string);
   /** 设置字体的粗细, 当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontWeight?: FontWeight | ((row: Row) => FontWeight);
+  readonly fontWeight?: FontWeight | ((word: Word) => FontWeight);
   /**
    * 每个单词所占的盒子的内边距，默认为 1。 越大单词之间的间隔越大。
    * 当为函数时，其参数是一个经过处理之后的数据元素的值
    */
-  readonly padding?: number | ((row: Row) => number);
+  readonly padding?: number | ((word: Word) => number);
   /** 字体的大小范围,当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontSize?: [number, number] | ((row: Row) => number);
+  readonly fontSize?: [number, number] | ((word: Word) => number);
   /** 旋转的最小角度和最大角度 默认 [0, 90] */
   readonly rotation?: [number, number];
   /** 旋转实际的步数,越大可能旋转角度越小, 默认是 2 */

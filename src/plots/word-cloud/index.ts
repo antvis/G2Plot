@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { DataItem, WordCloudOptions } from './types';
+import { Tag, WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
 import { processImageMask } from './utils';
 // 注册的shape
@@ -23,7 +23,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
-        customContent(_, data: { data: DataItem; mappingData: { color: string } }[]) {
+        customContent(_, data: { data: Tag; mappingData: { color: string } }[]) {
           if (!data.length) return;
           // 不完全采用模板字符串，是为了去掉换行符和部分空格，
           // 便于测试。

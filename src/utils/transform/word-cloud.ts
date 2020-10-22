@@ -1,31 +1,21 @@
-import { deepMix, assign, isString } from '@antv/util';
-import { DataItem } from '../../plots/word-cloud/types';
-import { Data } from '../../types';
+import { isNil, assign } from '@antv/util';
+import { Tag, Word } from '../../plots/word-cloud/types';
 
 type FontWeight = number | 'normal' | 'bold' | 'bolder' | 'lighter';
 
-interface Row {
-  /** 文本内容 */
-  text: string;
-  /** 该文本所占权重 */
-  value: number;
-}
-
 export interface Options {
-  fields: [string, string];
   size: [number, number];
-  font?: string | ((row: Row) => string);
-  fontSize?: number | ((row: Row) => number);
-  fontWeight?: FontWeight | ((row: Row) => FontWeight);
-  rotate?: number | ((row: Row) => number);
-  padding?: number | ((row: Row) => number);
+  font?: string | ((row: Word) => string);
+  fontSize?: number | ((row: Word) => number);
+  fontWeight?: FontWeight | ((row: Word) => FontWeight);
+  rotate?: number | ((row: Word) => number);
+  padding?: number | ((row: Word) => number);
   spiral?: 'archimedean' | 'rectangular' | ((size: [number, number]) => (t: number) => number[]);
   timeInterval?: number;
   imageMask?: HTMLImageElement;
 }
 
 const DEFAULT_OPTIONS: Options = {
-  fields: ['text', 'value'], // fields to keep
   font: () => 'serif',
   padding: 1,
   size: [500, 500],
@@ -39,45 +29,47 @@ const DEFAULT_OPTIONS: Options = {
  * 根据对应的数据对象，计算每个
  * 词语在画布中的渲染位置，并返回
  * 计算后的数据对象
+ * @param words
  * @param options
  */
-export function wordCloud(data: Data, options?: Partial<Options>) {
+export function wordCloud(words: Word[], options?: Partial<Options>): Tag[] {
   // 混入默认配置
   options = assign({} as Options, DEFAULT_OPTIONS, options);
-  return transform(data, options as Options);
+  return transform(words, options as Options);
 }
 
-export function transform(data: Data, options: Options) {
-  // 深拷贝
-  data = deepMix([], data);
+/**
+ * 抛出没有混入默认配置的方法，用于测试。
+ * @param words
+ * @param options
+ */
+export function transform(words: Word[], options: Options) {
+  // 布局对象
   const layout = tagCloud();
-  ['font', 'fontSize', 'fontWeight', 'padding', 'rotate', 'size', 'spiral', 'timeInterval'].forEach((key) => {
-    if (options[key] !== undefined && options[key] !== null) {
+  ['font', 'fontSize', 'fontWeight', 'padding', 'rotate', 'size', 'spiral', 'timeInterval'].forEach((key: string) => {
+    if (!isNil(options[key])) {
       layout[key](options[key]);
     }
   });
-  const [text, value] = options.fields;
-  if (!isString(text) || !isString(value)) {
-    throw new TypeError('Invalid fields: must be an array with 2 strings (e.g. [ "text", "value" ])!');
-  }
-  const words = data.map((row) => ({
-    text: row[text],
-    value: row[value],
-  }));
+
   layout.words(words);
   if (options.imageMask) {
     layout.createMask(options.imageMask);
   }
+
   const result = layout.start();
   const tags: any[] = result._tags;
+
   const bounds = result._bounds || [
     { x: 0, y: 0 },
     { x: options.size[0], y: options.size[1] },
   ];
+
   tags.forEach((tag) => {
     tag.x += options.size[0] / 2;
     tag.y += options.size[1] / 2;
   });
+
   const [w, h] = options.size;
   const hasImage = result.hasImage;
   tags.push({
@@ -95,7 +87,7 @@ export function transform(data: Data, options: Options) {
     opacity: 0,
   });
 
-  return tags as DataItem[];
+  return tags;
 }
 
 /*

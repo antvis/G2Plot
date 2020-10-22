@@ -1,6 +1,8 @@
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
-import { flow, findGeometry } from '../../utils';
+import { flow } from '../../utils';
+import { point } from '../../adaptor/geometries';
 import { WordCloudOptions } from './types';
 import { transform } from './utils';
 
@@ -9,31 +11,32 @@ import { transform } from './utils';
  * @param params
  */
 function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
-  const { chart } = params;
+  const { chart, options } = params;
+  const { colorField, color } = options;
   const data = transform(params);
 
   chart.data(data);
-  chart.point().position('x*y').shape('word-cloud');
 
-  return params;
-}
+  const p = deepMix({}, params, {
+    options: {
+      xField: 'x',
+      yField: 'y',
+      // 给 seriesField 一个默认值，否则它为空时
+      // 每个词语的颜色会显示成白色。
+      seriesField: colorField ? 'color' : 'text',
+      point: {
+        color,
+        shape: 'word-cloud',
+      },
+    },
+  });
 
-/**
- * color 配置处理
- * @param params
- */
-function color(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
-  const { chart, options } = params;
-  const { color, colorField, wordField, weightField } = options;
-  const geometry = findGeometry(chart, 'point');
-  // 最终的数据中 wordField 和 weightField 对应的字段值
-  // 会转换成 'text' 和 'value'
-  const fieldMap = {
-    [wordField]: 'text',
-    [weightField]: 'value',
-  };
+  const { ext } = point(p);
+  ext.geometry.label(false);
 
-  geometry.color(colorField ? fieldMap[colorField] || colorField : 'text', color);
+  chart.coordinate().reflect('y');
+  chart.axis(false);
+  chart.legend(false);
 
   return params;
 }
@@ -52,63 +55,11 @@ function meta(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
 }
 
 /**
- * coord 配置
- * @param params
- */
-function coord(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
-  const { chart } = params;
-
-  chart.coordinate().reflect('y');
-
-  return params;
-}
-
-/**
- * axis 配置
- * 词云图不显示轴信息
- * @param params
- */
-function axis(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
-  const { chart } = params;
-
-  chart.axis(false);
-
-  return params;
-}
-
-/**
- * label 配置
- * 词云图不显示 label 信息
- * @param params
- */
-function label(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
-  const { chart } = params;
-  const geometry = findGeometry(chart, 'point');
-
-  geometry.label(false);
-
-  return params;
-}
-
-/**
- * legend 配置
- * 词云图不显示 legend 信息
- * @param params
- */
-function legend(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
-  const { chart } = params;
-
-  chart.legend(false);
-
-  return params;
-}
-
-/**
  * 词云图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<WordCloudOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(geometry, meta, coord, axis, label, color, legend, tooltip, interaction, animation, theme, state)(params);
+  flow(geometry, meta, tooltip, interaction, animation, theme, state)(params);
 }

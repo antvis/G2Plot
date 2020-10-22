@@ -26,14 +26,6 @@
 
 默认配置： 无
 
-#### transpose
-
-**可选**, _boolean_
-
-功能描述： 是否转置 。
-
-默认配置： 无
-
 `markdown:docs/common/meta.en.md`
 
 ### 图形样式
@@ -45,6 +37,14 @@
 功能描述： 是否是动态高度 。
 
 默认配置：`true`
+
+#### transpose
+
+**可选**, _boolean_
+
+功能描述： 是否转置 。
+
+默认配置： 无
 
 #### annotation
 

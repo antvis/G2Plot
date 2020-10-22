@@ -31,7 +31,7 @@ describe('word-cloud color option', () => {
     cloud.render();
 
     const field = cloud.chart.geometries[0].getGroupFields()[0];
-    expect(field).toBe('text');
+    expect(field).toBe('color');
   });
 
   it('weightField', () => {
@@ -47,7 +47,7 @@ describe('word-cloud color option', () => {
     cloud.render();
 
     const field = cloud.chart.geometries[0].getGroupFields()[0];
-    expect(field).toBe('value');
+    expect(field).toBe('color');
   });
 
   it('x', () => {
@@ -63,6 +63,6 @@ describe('word-cloud color option', () => {
     cloud.render();
 
     const field = cloud.chart.geometries[0].getGroupFields()[0];
-    expect(field).toBe('x');
+    expect(field).toBe('color');
   });
 });

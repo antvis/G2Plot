@@ -20,11 +20,6 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
   const arr = data.map((v) => v[weightField]) as number[];
   const range = [min(arr), max(arr)] as [number, number];
 
-  // 校验
-  if (!isString(wordField) || !isString(weightField)) {
-    throw new TypeError('Invalid fields: must be an array with 2 strings (e.g. [ "text", "value" ])!');
-  }
-
   // 变换出 text 和 value 字段
   const words = data.map(
     (datum: Datum): Word => ({

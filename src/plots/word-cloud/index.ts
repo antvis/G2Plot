@@ -23,14 +23,18 @@ export class WordCloud extends Plot<WordCloudOptions> {
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
-        customContent(_, data: { data: DataItem; mappingData: any }[]) {
+        customContent(_, data: { data: DataItem; mappingData: { color: string } }[]) {
           if (!data.length) return;
-          return `<li class="g2-tooltip-list-item" style="margin-bottom:4px;display:flex;align-items:center;">
-            <span style="background-color:${data[0]?.mappingData?.color};" class="g2-tooltip-marker"></span>
-            <span style="display:inline-flex;flex:1;justify-content:space-between">
-            <span style="margin-right: 16px;">${data[0]?.data.text}:</span><span>${data[0]?.data.value}</span>
-            </span>
-          </li>`;
+          // 不完全采用模板字符串，是为了去掉换行符和部分空格，
+          // 便于测试。
+          return (
+            '<li class="g2-tooltip-list-item" style="margin-bottom:4px;display:flex;align-items:center;">' +
+            `<span style="background-color:${data[0]?.mappingData?.color};" class="g2-tooltip-marker"></span>` +
+            '<span style="display:inline-flex;flex:1;justify-content:space-between">' +
+            `<span style="margin-right: 16px;">${data[0]?.data.text}:</span><span>${data[0]?.data.value}</span>` +
+            '</span>' +
+            '</li>'
+          );
         },
       },
       wordStyle: {

@@ -97,4 +97,4 @@ export { flow } from './utils';
 export { line, interval, area, point, polygon } from './adaptor/geometries';
 
 /** 对于没有开发完成的图表，可以暂时先放到 Lab 下面，先做体验，稳定后放到根 export */
-export const Lab = {};
+export { Lab } from './lab';

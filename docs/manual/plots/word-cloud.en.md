@@ -37,6 +37,14 @@ order: 0
 
 默认配置： 无
 
+#### colorField
+
+**可选**, _string_
+
+功能描述： 根据该字段进行颜色映射
+
+默认配置： wordField 字段的值
+
 #### timeInterval
 
 **可选**, _number_

@@ -61,6 +61,8 @@ export interface WordCloudOptions extends Options {
   readonly wordField: string;
   /** 词条权重字段 */
   readonly weightField: string;
+  /** 根据该字段进行颜色映射 */
+  readonly colorField?: string;
   /** 遮罩图片实例，可以是图片 URL 或者 base64 */
   readonly imageMask?: HTMLImageElement | string;
   /** 最大执行时间 */

@@ -24,10 +24,16 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
  */
 function color(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
   const { chart, options } = params;
-  const { color } = options;
+  const { color, colorField, wordField, weightField } = options;
   const geometry = findGeometry(chart, 'point');
+  // 最终的数据中 wordField 和 weightField 对应的字段值
+  // 会转换成 'text' 和 'value'
+  const fieldMap = {
+    [wordField]: 'text',
+    [weightField]: 'value',
+  };
 
-  geometry.color('text', color);
+  geometry.color(colorField ? fieldMap[colorField] || colorField : 'text', color);
 
   return params;
 }

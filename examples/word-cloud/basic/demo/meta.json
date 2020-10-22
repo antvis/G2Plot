@@ -43,6 +43,14 @@
         "en": "Word Cloud chart - custom tooltip"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color-field.ts",
+      "title": {
+        "zh": "词云图-colorField",
+        "en": "Word Cloud chart - colorField"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

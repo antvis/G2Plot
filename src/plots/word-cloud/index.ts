@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { WordCloudOptions } from './types';
+import { Tag, WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
 import { processImageMask } from './utils';
 // 注册的shape
@@ -23,6 +23,19 @@ export class WordCloud extends Plot<WordCloudOptions> {
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
+        customContent(_, data: { data: Tag; mappingData: { color: string } }[]) {
+          if (!data.length) return;
+          // 不完全采用模板字符串，是为了去掉换行符和部分空格，
+          // 便于测试。
+          return (
+            '<li class="g2-tooltip-list-item" style="margin-bottom:4px;display:flex;align-items:center;">' +
+            `<span style="background-color:${data[0]?.mappingData?.color};" class="g2-tooltip-marker"></span>` +
+            '<span style="display:inline-flex;flex:1;justify-content:space-between">' +
+            `<span style="margin-right: 16px;">${data[0]?.data.text}:</span><span>${data[0]?.data.value}</span>` +
+            '</span>' +
+            '</li>'
+          );
+        },
       },
       wordStyle: {
         fontFamily: 'Verdana',
@@ -73,8 +86,11 @@ export class WordCloud extends Plot<WordCloudOptions> {
    */
   protected triggerResize() {
     if (!this.chart.destroyed) {
-      // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标需要重新
-      // 需要重新执行 adaptor，执行词云图的布局函数，不然会出现布局错乱，如相邻词语重叠的情况。
+      // 这里解决了重渲染时字体变的透明的问题
+      this.chart.clear();
+      // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标
+      // 需要重新执行 adaptor，执行词云图的布局函数，不然会出现布局错乱，
+      // 如相邻词语重叠的情况。
       this.execAdaptor();
       // 执行父类的方法
       super.triggerResize();

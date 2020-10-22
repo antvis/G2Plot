@@ -1,7 +1,7 @@
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
-import { DataItem } from '../../../../src/plots/word-cloud/types';
+import { Tag } from '../../../../src/plots/word-cloud/types';
 
 describe('word-cloud', () => {
   it('style', () => {
@@ -22,7 +22,7 @@ describe('word-cloud', () => {
 
     const { data } = cloud.chart.getOptions();
 
-    data.forEach((item: DataItem) => {
+    data.forEach((item: Tag) => {
       // DataSet 处理之后会多出两个无用的数据
       if (!item.hasText) return;
 

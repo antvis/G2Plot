@@ -1,9 +1,9 @@
 import { registerShape, Util } from '@antv/g2';
 import { ShapeInfo } from '@antv/g2/lib/interface';
 import { IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
-import { DataItem } from '../types';
+import { Tag } from '../types';
 
-type Config = ShapeInfo & { data: DataItem };
+type Config = ShapeInfo & { data: Tag };
 
 registerShape('point', 'word-cloud', {
   draw(cfg: Config, group: IGroup) {
@@ -28,14 +28,12 @@ registerShape('point', 'word-cloud', {
 
 function getTextAttrs(cfg: Config): ShapeAttrs {
   return {
-    ...cfg.defaultStyle,
-    ...cfg.style,
     fontSize: cfg.data.size,
     text: cfg.data.text,
     textAlign: 'center',
     fontFamily: cfg.data.font,
     fontWeight: cfg.data.weight,
-    fill: cfg.color,
+    fill: cfg.color || cfg.defaultStyle.stroke,
     textBaseline: 'alphabetic',
   };
 }

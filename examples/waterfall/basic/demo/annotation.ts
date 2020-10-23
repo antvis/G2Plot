@@ -69,8 +69,7 @@ const waterfallPlot = new Waterfall('container', {
     background: {
       style: {
         fill: '#f6f6f6',
-        stroke: '#e6e6e6',
-        radius: 2,
+        radius: 1,
       },
       padding: 1.5,
     },

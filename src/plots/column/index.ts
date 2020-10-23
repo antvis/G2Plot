@@ -33,6 +33,7 @@ export class Column extends Plot<ColumnOptions> {
         showMarkers: false,
         offset: 20,
       },
+      columnWidthRatio: 0.6,
       interactions: [{ type: 'active-region' }],
       meta: {
         [xField]: {

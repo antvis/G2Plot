@@ -118,7 +118,6 @@ describe('Legend', () => {
     });
 
     const columnLineLegendComponentCfg = dualAxes.chart.getController('legend').getComponents()[0].component.cfg;
-    console.log(columnLineLegendComponentCfg);
 
     expect(columnLineLegendComponentCfg.items.length).toBe(5);
     expect(columnLineLegendComponentCfg.items[0].name).toBe('a');

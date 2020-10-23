@@ -38,6 +38,27 @@ const dualAxes = new DualAxes('container', {
       color: '#FAA219',
     },
   ],
+  legend: {
+    custom: true,
+    position: 'bottom',
+    items: [
+      {
+        value: 'uv',
+        name: 'uv',
+        marker: { symbol: 'square', style: { fill: '#B4EBBF', r: 5 } },
+      },
+      {
+        value: 'bill',
+        name: '账单',
+        marker: { symbol: 'square', style: { fill: '#FFB1AC', r: 5 } },
+      },
+      {
+        value: 'count',
+        name: '数值',
+        marker: { symbol: 'square', style: { fill: '#FFDBA2', r: 5 } },
+      },
+    ],
+  },
 });
 
 dualAxes.render();

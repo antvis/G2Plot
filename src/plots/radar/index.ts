@@ -3,7 +3,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { RadarOptions } from './types';
 import { adaptor } from './adaptor';
-import './interaction';
+import './interactions';
 
 export { RadarOptions };
 

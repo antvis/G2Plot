@@ -114,7 +114,8 @@
       "src/**/*.ts",
       "!**/node_modules/**",
       "!**/vendor/**",
-      "!**/_template/**"
+      "!**/_template/**",
+      "!**/(pie|radar)interactions/**"
     ],
     "testRegex": "/__tests__/.*-spec\\.ts?$"
   },

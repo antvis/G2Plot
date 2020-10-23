@@ -115,7 +115,7 @@
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/_template/**",
-      "!**/(pie|radar)interactions/**"
+      "!**/(pie|radar)/interactions/**"
     ],
     "testRegex": "/__tests__/.*-spec\\.ts?$"
   },

@@ -76,7 +76,7 @@ describe('gauge', () => {
     expect(v2.geometries.length).toBe(1);
     expect(v2.geometries[0].type).toBe('interval');
     // @ts-ignore
-    expect(v2.geometries[0].attributeOption.color.values).toEqual(['red', 'yellow', 'green', '#f0f0f0']);
+    expect(v2.geometries[0].attributeOption.color.values).toEqual(['red', 'yellow', 'green']);
     // @ts-ignore
     expect(v2.getCoordinate().circleCenter).toEqual({ x: 300, y: 200 });
     expect(v2.getCoordinate().startAngle).toEqual(gauge.options.startAngle);

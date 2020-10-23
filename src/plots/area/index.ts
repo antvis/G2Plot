@@ -30,6 +30,11 @@ export class Area extends Plot<AreaOptions> {
         },
       },
       isStack: true,
+      // 默认开启
+      line: {},
+      legend: {
+        position: 'top-left',
+      },
     });
   }
 

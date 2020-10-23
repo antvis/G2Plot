@@ -24,6 +24,9 @@ export class Line extends Plot<LineOptions> {
           type: 'x',
         },
       },
+      legend: {
+        position: 'top-left',
+      },
       meta: {
         [xField]: {
           range: [0, 1],

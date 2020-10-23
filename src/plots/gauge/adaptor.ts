@@ -44,7 +44,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const v2 = chart.createView();
   v2.data(rangeData);
 
-  const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : isArray(color) ? color.concat(DEFAULT_COLOR) : color;
+  const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : color;
 
   v2.interval().position(`1*${RANGE_VALUE}`).color(RANGE_TYPE, rangeColor).adjust('stack');
 

@@ -1,12 +1,26 @@
+##### fields
+
+<description>**可选** _string[]_</description>
+
+功能描述：指定 tooltip 中显示的字段，默认不同图表有不同的默认字段列表。配合 `formatter` 配置一起使用，效果更加。
+
+```ts
+tooltip: {
+  fields: ['x', 'y'],
+}
+```
+
 ##### formatter
 
 <description>**可选** _Function_</description>
 
-功能描述：格式化 tooltip value。
+功能描述：格式化 tooltip item 内容。
 
 ```ts
 tooltip: {
-  formatter: (item) => item.value + '%';
+  formatter: (datum: Datum) => {
+    return { name: datum.x, value: datum.y + '% };
+  },
 }
 ```
 

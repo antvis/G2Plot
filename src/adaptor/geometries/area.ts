@@ -1,5 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { getTooltipMapping } from '../../utils/tooltip';
 import { GeometryOptions, geometry, MappingOptions } from './base';
 
 export interface AreaGeometryOptions extends GeometryOptions {
@@ -21,7 +22,9 @@ export interface AreaGeometryOptions extends GeometryOptions {
  */
 export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { area, seriesField, smooth } = options;
+  const { area, xField, yField, seriesField, smooth, tooltip } = options;
+
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
   // 如果存在才处理
   return area
@@ -30,8 +33,10 @@ export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O
           options: {
             type: 'area',
             colorField: seriesField,
+            tooltipFields: fields,
             mapping: {
               shape: smooth ? 'smooth' : 'area',
+              tooltip: formatter,
               ...area,
             },
           },

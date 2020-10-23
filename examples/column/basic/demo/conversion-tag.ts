@@ -12,6 +12,7 @@ const columnPlot = new Column('container', {
   data,
   xField: 'action',
   yField: 'pv',
+  columnWidthRatio: 1 / 3,
   conversionTag: {},
 });
 

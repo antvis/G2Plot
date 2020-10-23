@@ -16,7 +16,7 @@ describe('issue 1754', () => {
     const data = [
       {
         data: { text: 'name', value: 'weight' },
-        mappingData: { color: 'red' },
+        color: 'red',
       },
     ];
     const result =

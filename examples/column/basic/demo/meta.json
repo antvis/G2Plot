@@ -59,6 +59,14 @@
         "en": "Column chart scrollbar"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "conversion-tag.ts",
+      "title": {
+        "zh": "基础柱状图 - 转化率",
+        "en": "Column chart conversion tag"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1u3.cvUY1gK0jSZFMXXaWcVXa-1638-1228.png"
     }
   ]
 }

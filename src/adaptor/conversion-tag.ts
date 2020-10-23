@@ -211,6 +211,11 @@ export function conversionTag<O extends OptionWithConversionTag>(field: string, 
     const { conversionTag } = options;
 
     if (conversionTag) {
+      // 有转化率组件时，柱子宽度占比自动为 1/3
+      chart.theme({
+        columnWidthRatio: 1 / 3,
+      });
+      // 使用  shape annotation 绘制转化率组件
       chart.annotation().shape({
         render: (container, view) => {
           const group = container.addGroup({

@@ -9,13 +9,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
       colorField: 'value',
       color: ['#BAE7FF', '#1890FF', '#0050B3'],
       innerRadius: 0.3,
-      tooltip: {
-        customContent: (_, item) => {
-          const mappingData = item?.[0]?.mappingData;
-          const originData = mappingData?._origin?.data;
-          return `<div>${originData?.label} - ${originData?.sum}</div>`;
-        },
-      },
       interactions: [{ type: 'element-active' }],
     });
     sunburstPlot.render();

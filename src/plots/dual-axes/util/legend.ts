@@ -38,7 +38,12 @@ export function getViewLegendItems(params: {
               stroke: color,
             },
           }
-        : { symbol: 'square' });
+        : {
+            symbol: 'square',
+            style: {
+              fill: color,
+            },
+          });
     return [
       {
         value: yField,

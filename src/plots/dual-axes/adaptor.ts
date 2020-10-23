@@ -1,4 +1,4 @@
-import { deepMix, each, findIndex, get } from '@antv/util';
+import { deepMix, each, findIndex, get, isObject } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -208,8 +208,10 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
 
   if (legend === false) {
     chart.legend(false);
+  } else if (isObject(legend) && legend.custom === true) {
+    chart.legend(legend);
   } else {
-    // 存在单折线图或多折线图时，使用自定义图例
+    // 均使用自定义图例
     chart.once('beforepaint', () => {
       const leftItems = getViewLegendItems({
         view: leftView,
@@ -235,7 +237,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
       );
     });
 
-    // // 自定义图例交互
+    // 自定义图例交互
     chart.on('legend-item:click', (evt) => {
       const delegateObject = evt.gEvent.delegateObject;
       if (delegateObject && delegateObject.item) {

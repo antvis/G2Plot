@@ -23,14 +23,14 @@ export interface PointGeometryOptions extends GeometryOptions {
  */
 export function point<O extends PointGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { point, seriesField } = options;
+  const { point, seriesField, shapeField } = options;
 
   return point
     ? geometry(
         deepMix({}, params, {
           options: {
             colorField: seriesField,
-            shapeField: seriesField,
+            shapeField: shapeField,
             type: 'point',
             mapping: point,
           },

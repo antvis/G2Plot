@@ -13,13 +13,14 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, point: pointMapping } = options;
+  const { data, color, lineStyle, point: pointMapping, seriesField } = options;
 
   chart.data(data);
 
   // line geometry 处理
   const p = deepMix({}, params, {
     options: {
+      shapeField: seriesField,
       line: {
         color,
         style: lineStyle,
@@ -28,6 +29,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
       // 如果存在，才设置，否则为空
       point: pointMapping && {
         color,
+        shape: 'circle',
         ...pointMapping,
       },
     },

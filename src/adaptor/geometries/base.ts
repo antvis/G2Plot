@@ -1,7 +1,6 @@
 import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
-import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options } from '../../types';
+import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
 
 /**
  * 图形映射属性，按照优先级来的
@@ -171,6 +170,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.style({ fill: 'red' });
    * g.style('x*y*color', (x, y, color) => ({ fill: 'red' }));
    */
+  console.log(111, style);
   if (isFunction(style)) {
     const mappingFields = getMappingField(options, 'style');
     geometry.style(mappingFields.join('*'), getMappingFunction(mappingFields, style));

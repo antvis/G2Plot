@@ -6,4 +6,3 @@ export { getContainerSize } from './dom';
 export { findGeometry, getAllElements } from './geometry';
 export { findViewById } from './view';
 export { transformLabel } from './label';
-export { transformTooltip } from './tooltip';

@@ -5,7 +5,7 @@ import { Options } from '../types';
 import { Interaction } from '../types/interaction';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
-import { pick, transformTooltip } from '../utils';
+import { pick } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表

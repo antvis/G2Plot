@@ -6,6 +6,7 @@ import { conversionTag } from '../../adaptor/conversion-tag';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel } from '../../utils';
 import { percent } from '../../utils/transform/percent';
+import { Datum } from '../../types';
 import { ColumnOptions } from './types';
 
 /**
@@ -14,16 +15,26 @@ import { ColumnOptions } from './types';
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, color, columnWidthRatio, isPercent, xField, yField } = options;
-  let chartData = data;
-  if (isPercent) {
-    chartData = percent(data, yField, xField, yField);
-  }
+  const { data, columnStyle, color, columnWidthRatio, isPercent, xField, yField, seriesField, tooltip } = options;
+  const chartData = isPercent ? percent(data, yField, xField, yField) : data;
+
   chart.data(chartData);
+
+  // 百分比堆积图，默认会给一个 % 格式化逻辑
+  const tooltipOptions = isPercent
+    ? {
+        ...tooltip,
+        formatter: (datum: Datum) => ({
+          name: datum[seriesField] || datum[xField],
+          value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+        }),
+      }
+    : tooltip;
 
   const p = deepMix({}, params, {
     options: {
       widthRatio: columnWidthRatio,
+      tooltip: tooltipOptions,
       interval: {
         style: columnStyle,
         color,

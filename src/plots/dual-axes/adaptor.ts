@@ -7,7 +7,7 @@ import {
   interaction as commonInteraction,
 } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, transformTooltip } from '../../utils';
+import { flow } from '../../utils';
 import { findViewById } from '../../utils/view';
 import { getOption } from './util/option';
 import { getViewLegendItems } from './util/legend';
@@ -147,7 +147,7 @@ export function tooltip(params: Params<DualAxesOptions>): Params<DualAxesOptions
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
   if (tooltip !== undefined) {
-    chart.tooltip(transformTooltip(tooltip));
+    chart.tooltip(tooltip);
     // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
     // view 应该继承 chart 里的 shared，但是从表现看来，继承有点问题
     leftView.tooltip({

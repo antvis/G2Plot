@@ -65,7 +65,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     // 赋值
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
-    row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+    row[FUNNEL_PERCENT] = Math.round(((row[yField] / data[0][yField]) * 100) / 100);
     return row;
   });
 

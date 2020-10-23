@@ -30,12 +30,12 @@ export function legend<O extends Pick<Options, 'legend'> & { colorField?: string
  * 通用 tooltip 配置
  * @param params
  */
-export function tooltip<O extends Pick<Options, 'tooltip'> & { isPercent?: boolean }>(params: Params<O>): Params<O> {
+export function tooltip<O extends Pick<Options, 'tooltip'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { tooltip, isPercent } = options;
+  const { tooltip } = options;
 
   if (tooltip !== undefined) {
-    chart.tooltip(transformTooltip(tooltip, isPercent));
+    chart.tooltip(tooltip);
   }
 
   return params;

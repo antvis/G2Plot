@@ -12,3 +12,5 @@ export type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 export type ShapeAttr = string | string[] | ((datum: Datum) => string);
 /** 图形样式 style 映射 */
 export type StyleAttr = ShapeStyle | ((datum: Datum) => ShapeStyle);
+/** tooltip 的回调 */
+export type TooltipAttr = (datum: Datum) => { name: string; value: string | number };

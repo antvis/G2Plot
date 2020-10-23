@@ -1,6 +1,7 @@
-import { deepMix } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, StyleAttr, SizeAttr } from '../../types';
+import { getTooltipMapping } from '../../utils/tooltip';
 import { GeometryOptions, geometry } from './base';
 
 type LineOption = {
@@ -35,7 +36,9 @@ export interface LineGeometryOptions extends GeometryOptions {
  */
 export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { line, stepType, seriesField, smooth, connectNulls } = options;
+  const { line, stepType, xField, yField, seriesField, smooth, connectNulls, tooltip } = options;
+
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
   // 如果存在才处理
   return line
@@ -44,8 +47,10 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
           options: {
             type: 'line',
             colorField: seriesField,
+            tooltipFields: fields,
             mapping: {
               shape: stepType || (smooth ? 'smooth' : 'line'),
+              tooltip: formatter,
               ...line,
             },
             args: { connectNulls },

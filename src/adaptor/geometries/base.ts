@@ -1,7 +1,7 @@
-import { uniq, isFunction, isObject, isString, isNumber } from '@antv/util';
+import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, Options } from '../../types';
+import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options } from '../../types';
 
 /**
  * 图形映射属性，按照优先级来的
@@ -15,6 +15,8 @@ export type MappingOptions = {
   readonly size?: SizeAttr;
   /** 样式映射 */
   readonly style?: StyleAttr;
+  /** tooltip 映射 */
+  readonly tooltip?: TooltipAttr;
 };
 
 export interface GeometryOptions extends Options {
@@ -32,6 +34,8 @@ export interface GeometryOptions extends Options {
   readonly sizeField?: string;
   /** style 的映射字段 */
   readonly styleField?: string;
+  /** tooltip 的映射字段 */
+  readonly tooltipFields?: string[] | false;
   /** 其他原始字段, 用于 mapping 回调参数 */
   readonly rawFields?: string[];
   /** 图形映射规则 */
@@ -102,14 +106,14 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, rawFields } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
     return params;
   }
 
-  const { color, shape, size, style } = mapping;
+  const { color, shape, size, style, tooltip } = mapping;
 
   // 创建 geometry
   const geometry = chart[type](args).position(`${xField}*${yField}`);
@@ -172,6 +176,17 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     geometry.style(mappingFields.join('*'), getMappingFunction(mappingFields, style));
   } else if (isObject(style)) {
     geometry.style(style);
+  }
+
+  /**
+   * tooltip 的 APi
+   * g.tooltip('x*y*color', (x, y, color) => ({ name, value }));
+   * g.tooltip(false);
+   */
+  if (tooltipFields === false) {
+    geometry.tooltip(false);
+  } else if (!isEmpty(tooltipFields)) {
+    geometry.tooltip(tooltipFields.join('*'), getMappingFunction(tooltipFields, tooltip));
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

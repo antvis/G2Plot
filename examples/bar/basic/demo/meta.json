@@ -35,6 +35,14 @@
         "en": "Bar chart Bar width"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "conversion-tag.ts",
+      "title": {
+        "zh": "基础条形图 - 转化率",
+        "en": "Bar chart conversion tag"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB107ZbvKT2gK0jSZFvXXXnFXXa-1344-828.png"
     }
   ]
 }

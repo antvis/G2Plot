@@ -7,6 +7,8 @@ import {
   RegionOption,
   DataMarkerOption,
   DataRegionOption,
+  ShapeAnnotationOption,
+  HtmlAnnotationOption,
 } from '@antv/g2/lib/interface';
 
 export type Annotation =
@@ -17,4 +19,6 @@ export type Annotation =
   | RegionOption
   | RegionFilterOption
   | DataMarkerOption
-  | DataRegionOption;
+  | DataRegionOption
+  | ShapeAnnotationOption
+  | HtmlAnnotationOption;

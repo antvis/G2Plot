@@ -1,4 +1,6 @@
-import { Line, G2, Pie } from '../../../src';
+import LineAnnotation from '@antv/component/lib/annotation/line';
+import { deepMix, isEqual, clone } from '@antv/util';
+import { Line, G2, Pie, line } from '../../../src';
 import { partySupport } from '../../data/party-support';
 import { salesByArea } from '../../data/sales';
 import { createDiv } from '../../utils/dom';
@@ -35,6 +37,26 @@ describe('core', () => {
 
     // expect(line.container.getAttribute('size-sensor-id')).toBeNull();
     expect(line.chart.width).toBe(400);
+  });
+
+  it('update mix with default options', () => {
+    const options = {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    };
+    const line = new Line(createDiv(), options);
+
+    line.render();
+    const curOptions = clone(line.options);
+
+    line.update({ ...options, width: 500 });
+
+    line.render();
+
+    expect(isEqual(line.options, deepMix(curOptions, { ...options, width: 500 }))).toBeTruthy();
   });
 
   it('localRefresh', () => {

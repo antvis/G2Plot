@@ -68,6 +68,13 @@ export function animation<O extends Pick<Options, 'animation'>>(params: Params<O
   const { chart, options } = params;
   const { animation } = options;
 
+  // 同时设置整个 view 动画选项
+  if (typeof animation === 'boolean') {
+    chart.animate(animation);
+  } else {
+    chart.animate(true);
+  }
+
   // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
   each(chart.geometries, (g: Geometry) => {
     g.animate(animation);

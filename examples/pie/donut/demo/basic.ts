@@ -27,9 +27,13 @@ const piePlot = new Pie('container', {
       textAlign: 'center',
     },
   },
+  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
   statistic: {
     title: false,
     content: {
+      style: {
+        fontSize: 44,
+      },
       formatter: () => 'AntV\nG2Plot',
     },
   },

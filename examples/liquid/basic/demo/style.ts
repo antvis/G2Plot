@@ -1,19 +1,23 @@
 import { Liquid } from '@antv/g2plot';
 
 const liquidPlot = new Liquid(document.getElementById('container'), {
-  percent: 0.75,
+  percent: 0.76,
   statistic: {
     content: {
       formatter: ({ percent }) => {
-        return `占比${percent * 100}%`;
+        return `占比 ${percent * 100}%`;
+      },
+      style: {
+        fontSize: 60,
+        fill: 'white',
       },
     },
   },
   liquidStyle: ({ percent }) => {
     return {
-      fill: percent > 0.75 ? 'red' : '#acc9ff',
+      fill: percent > 0.75 ? '#5B8FF9' : '#FAAD14',
     };
   },
-  color: () => '#acc9ff',
+  color: () => '#5B8FF9',
 });
 liquidPlot.render();

@@ -14,9 +14,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
           formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
         },
       },
-      legend: {
-        position: 'right-top',
-      },
       color: ['#1979C9', '#D62A0D', '#FAA219'],
     });
 

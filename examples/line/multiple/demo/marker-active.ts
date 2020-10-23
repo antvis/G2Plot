@@ -18,9 +18,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
     ];
 
     const container = document.getElementById('container');
-    const containerBox = container.getBoundingClientRect();
-    const series = uniq(data.map((d) => d.category));
-    const markerSize = 6;
 
     const line = new Line(container, {
       data,
@@ -32,9 +29,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
           // 数值格式化为千分位
           formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
         },
-      },
-      legend: {
-        position: 'right-top',
       },
       color: COLOR_PLATE_10,
       point: {

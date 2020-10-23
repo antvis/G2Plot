@@ -170,7 +170,6 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.style({ fill: 'red' });
    * g.style('x*y*color', (x, y, color) => ({ fill: 'red' }));
    */
-  console.log(111, style);
   if (isFunction(style)) {
     const mappingFields = getMappingField(options, 'style');
     geometry.style(mappingFields.join('*'), getMappingFunction(mappingFields, style));

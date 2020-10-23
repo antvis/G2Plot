@@ -76,10 +76,9 @@ const waterfallPlot = new Waterfall('container', {
       padding: 1.5,
     },
   },
-  waterfallStyle: ({ month, value }) => {
+  waterfallStyle: () => {
     return {
       fillOpacity: 0.85,
-      stroke: month === '2019' || month === '2020' ? '#697474' : value < 0 ? '#0ba156' : '#f84825',
     };
   },
 });

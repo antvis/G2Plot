@@ -19,6 +19,7 @@ const piePlot = new Pie('container', {
     type: 'spider',
     content: '{name}\n{percentage}',
   },
+  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
 });
 
 piePlot.render();

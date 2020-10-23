@@ -19,7 +19,7 @@ const piePlot = new Pie('container', {
     type: 'outer',
     content: '{name} {percentage}',
   },
-  interactions: [{ type: 'pie-legend-active' }],
+  interactions: [{ type: 'pie-legend-active' }, { type: 'element-active' }],
 });
 
 piePlot.render();

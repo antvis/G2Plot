@@ -27,11 +27,20 @@ const piePlot = new Pie('container', {
       strokeWidth: 1,
     },
   },
+  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
   statistic: {
     title: {
+      offsetY: -20,
+      style: {
+        fontSize: 44,
+      },
       formatter: (datum) => (datum ? datum.type : '总计'),
     },
     content: {
+      offsetY: 30,
+      style: {
+        fontSize: 44,
+      },
       formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
     },
   },

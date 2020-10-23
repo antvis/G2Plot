@@ -58,6 +58,12 @@ const dualAxes = new DualAxes('container', {
     },
     layout: 'vertical',
     position: 'right',
+    itemName: {
+      formatter: (val) => `@${val}`,
+      style: {
+        fill: '#FAA219',
+      },
+    },
   },
   interactions: [
     {

@@ -5,7 +5,7 @@ import { Options } from '../types';
 import { Interaction } from '../types/interaction';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
-import { pick, transformTooltip } from '../utils';
+import { pick } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表
@@ -30,12 +30,12 @@ export function legend<O extends Pick<Options, 'legend'> & { colorField?: string
  * 通用 tooltip 配置
  * @param params
  */
-export function tooltip<O extends Pick<Options, 'tooltip'> & { isPercent?: boolean }>(params: Params<O>): Params<O> {
+export function tooltip<O extends Pick<Options, 'tooltip'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { tooltip, isPercent } = options;
+  const { tooltip } = options;
 
   if (tooltip !== undefined) {
-    chart.tooltip(transformTooltip(tooltip, isPercent));
+    chart.tooltip(tooltip);
   }
 
   return params;

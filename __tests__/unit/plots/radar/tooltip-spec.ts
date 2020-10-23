@@ -151,7 +151,9 @@ describe('radar, 自定义 tooltip', () => {
       tooltip: {
         shared: true,
         showCrosshairs: true,
-        formatter: (item) => item?.value + '%',
+        formatter: (datum) => {
+          return { name: datum.name, value: datum.value + '%' };
+        },
       },
     });
 
@@ -160,6 +162,5 @@ describe('radar, 自定义 tooltip', () => {
     // @ts-ignore
     const tooltipCfg = tooltipController.getTooltipCfg();
     expect(tooltipCfg.showCrosshairs).toBe(true);
-    expect(tooltipCfg.customContent).toBeTruthy();
   });
 });

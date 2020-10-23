@@ -1,8 +1,13 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { getTooltipMapping } from '../../utils/tooltip';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 
 export interface PolygonGeometryOptions extends GeometryOptions {
+  /** x 轴字段 */
+  readonly xField?: string;
+  /** y 轴字段 */
+  readonly yField?: string;
   /** 分组字段 */
   readonly seriesField?: string;
   /** point 图形映射规则 */
@@ -15,15 +20,21 @@ export interface PolygonGeometryOptions extends GeometryOptions {
  */
 export function polygon<O extends PolygonGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { polygon, seriesField } = options;
+  const { polygon, xField, yField, seriesField, tooltip } = options;
+
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
   return polygon
     ? geometry(
         deepMix({}, params, {
           options: {
-            colorField: seriesField,
             type: 'polygon',
-            mapping: polygon,
+            colorField: seriesField,
+            tooltipFields: fields,
+            mapping: {
+              tooltip: formatter,
+              ...polygon,
+            },
           },
         })
       )

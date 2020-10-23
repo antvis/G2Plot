@@ -1,6 +1,7 @@
 import { Geometry } from '@antv/g2';
 import { deepMix, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { getTooltipMapping } from '../../utils/tooltip';
 import { GeometryOptions, MappingOptions, geometry } from './base';
 
 export interface IntervalGeometryOptions extends GeometryOptions {
@@ -62,7 +63,9 @@ function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Par
 
 export function interval<O extends IntervalGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { interval, seriesField } = options;
+  const { xField, yField, interval, seriesField, tooltip } = options;
+
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
   // 保障一定要存在 interval 映射
   const { ext } = interval
@@ -71,7 +74,11 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
           options: {
             type: 'interval',
             colorField: seriesField,
-            mapping: interval,
+            tooltipFields: fields,
+            mapping: {
+              tooltip: formatter,
+              ...interval,
+            },
           },
         })
       )

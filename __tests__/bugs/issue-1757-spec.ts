@@ -31,7 +31,7 @@ describe('#1757', () => {
         },
       },
       tooltip: {
-        formatter: () => '123',
+        formatter: (datum) => ({ name: datum.year, value: '123' }),
       },
     });
 

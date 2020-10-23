@@ -1,5 +1,6 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { getTooltipMapping } from '../../utils/tooltip';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 
 export interface PointGeometryOptions extends GeometryOptions {
@@ -23,7 +24,9 @@ export interface PointGeometryOptions extends GeometryOptions {
  */
 export function point<O extends PointGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { point, seriesField, shapeField } = options;
+  const { point, xField, yField, seriesField, sizeField, shapeField, tooltip } = options;
+
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField, sizeField, shapeField]);
 
   return point
     ? geometry(
@@ -31,8 +34,12 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
           options: {
             colorField: seriesField,
             shapeField: shapeField,
+            tootip: fields,
             type: 'point',
-            mapping: point,
+            mapping: {
+              tooltip: formatter,
+              ...point,
+            },
           },
         })
       )

@@ -5,28 +5,52 @@
   },
   "demos": [
     {
-      "filename": "basic.ts",
+      "filename": "line.ts",
       "title": {
         "zh": "基础雷达图",
-        "en": "Rardar chart"
+        "en": "Basic Radar chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3550RoixKpEAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*exgfQbvqKlMAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "grid-axis.ts",
+      "filename": "line-grid.ts",
       "title": {
-        "zh": "雷达图-自定义 axis grid",
-        "en": "Rardar chart with custom axis grid"
+        "zh": "基础雷达图(带网格)",
+        "en": "Basic Radar chart (with grid)"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WOFpTJUAWssAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E70qQpBJ2kMAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "series.ts",
+      "filename": "line-alternate-grid.ts",
       "title": {
-        "zh": "多组雷达图",
-        "en": "multiple Rardar chart"
+        "zh": "基础雷达图(带底色)",
+        "en": "Basic Radar chart (with alternate grid)"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NKROSYNo6IAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gexzT7Y8X0oAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "area.ts",
+      "title": {
+        "zh": "雷达图(面)",
+        "en": "Area Radar chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O0wxQawDULkAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "area-grid.ts",
+      "title": {
+        "zh": "雷达图(带网格)",
+        "en": "Area Radar chart (with grid)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AJOVQaiILQoAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "area-alternate-grid.ts",
+      "title": {
+        "zh": "雷达图(面-带底色)",
+        "en": "Area Radar chart (with alternate grid)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XL8YQJmbIEIAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

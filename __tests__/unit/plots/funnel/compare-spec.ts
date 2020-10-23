@@ -66,7 +66,7 @@ describe('compare funnel', () => {
       });
     });
 
-    test('geometry label custome', () => {
+    test('geometry label custom', () => {
       funnel.update({
         ...funnelOption,
         label: {

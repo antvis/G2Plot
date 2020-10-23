@@ -33,6 +33,9 @@ export class Radar extends Plot<RadarOptions> {
           },
         },
       },
+      legend: {
+        position: 'top',
+      },
       tooltip: {
         shared: true,
         showCrosshairs: true,

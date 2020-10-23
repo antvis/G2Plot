@@ -18,19 +18,22 @@ export function adaptor(params: Params<BarOptions>) {
   // transpose column to bar
   chart.coordinate().transpose();
 
-  return columnAdaptor({
-    chart,
-    options: {
-      ...options,
-      label,
-      // switch xField and yField
-      xField: yField,
-      yField: xField,
-      xAxis: yAxis,
-      yAxis: xAxis,
-      // rename attrs as column
-      columnStyle: barStyle,
-      columnWidthRatio: barWidthRatio,
+  return columnAdaptor(
+    {
+      chart,
+      options: {
+        ...options,
+        label,
+        // switch xField and yField
+        xField: yField,
+        yField: xField,
+        xAxis: yAxis,
+        yAxis: xAxis,
+        // rename attrs as column
+        columnStyle: barStyle,
+        columnWidthRatio: barWidthRatio,
+      },
     },
-  });
+    true
+  );
 }

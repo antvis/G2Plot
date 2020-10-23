@@ -2,6 +2,7 @@ import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
+import { conversionTag } from '../../adaptor/conversion-tag';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel } from '../../utils';
 import { percent } from '../../utils/transform/percent';
@@ -119,7 +120,8 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * 柱形图适配器
  * @param params
  */
-export function adaptor(params: Params<ColumnOptions>) {
+export function adaptor(params: Params<ColumnOptions>, isBar = false) {
+  const { options } = params;
   return flow(
     geometry,
     meta,
@@ -132,6 +134,7 @@ export function adaptor(params: Params<ColumnOptions>) {
     label,
     interaction,
     animation,
-    annotation()
+    annotation(),
+    conversionTag<ColumnOptions>(options.yField, !isBar)
   )(params);
 }

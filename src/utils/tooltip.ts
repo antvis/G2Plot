@@ -14,7 +14,9 @@ export function getTooltipMapping(tooltip: Tooltip, defaultFields: string[]): To
   let fields = get(tooltip, 'fields');
   const formatter = get(tooltip, 'formatter');
 
-  fields = formatter ? fields || defaultFields : undefined;
+  if (formatter && !fields) {
+    fields = defaultFields;
+  }
 
   return {
     fields,

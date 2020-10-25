@@ -1,7 +1,6 @@
-import { ShapeAttrs } from '@antv/g2/lib/dependents';
-import { Datum, Options } from '../../types';
+import { Datum, Options, ShapeStyle } from '../../types';
 
-type FontWeight = ShapeAttrs['fontWeight'];
+type FontWeight = ShapeStyle['fontWeight'];
 
 /** 一个文本信息，wordCloud 内部 */
 export interface Word {
@@ -19,7 +18,7 @@ export type Tag = Word & {
   /** 字体 */
   font?: string;
   /** 字体样式 */
-  style?: ShapeAttrs['fontStyle'];
+  style?: ShapeStyle['fontStyle'];
   /** 文本粗细 */
   weight?: FontWeight;
   /** 旋转角度 */

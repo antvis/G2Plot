@@ -1,5 +1,5 @@
 import { DualAxes } from '../../../../src';
-import { UV_DATA_MULTI } from '../../../data/pv-uv';
+import { PV_DATA_MULTI, UV_DATA_MULTI } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
 describe('stack', () => {
@@ -7,7 +7,7 @@ describe('stack', () => {
     const dualAxes = new DualAxes(createDiv('test DualAxes doubal line'), {
       width: 400,
       height: 500,
-      data: [UV_DATA_MULTI, UV_DATA_MULTI],
+      data: [PV_DATA_MULTI, UV_DATA_MULTI],
       xField: 'date',
       yField: ['pv', 'uv'],
       geometryOptions: [

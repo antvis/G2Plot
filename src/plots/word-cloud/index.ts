@@ -1,7 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { Tag, WordCloudOptions } from './types';
+import { Datum } from '../../types';
+import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
 import { processImageMask } from './utils';
 // 注册的shape
@@ -23,18 +24,9 @@ export class WordCloud extends Plot<WordCloudOptions> {
         showTitle: false,
         showMarkers: false,
         showCrosshairs: false,
-        customContent(_, data: { data: Tag; color: string }[]) {
-          if (!data.length) return;
-          // 不完全采用模板字符串，是为了去掉换行符和部分空格，
-          // 便于测试。
-          return (
-            '<li class="g2-tooltip-list-item" style="margin-bottom:4px;display:flex;align-items:center;">' +
-            `<span style="background-color:${data[0]?.color};" class="g2-tooltip-marker"></span>` +
-            '<span style="display:inline-flex;flex:1;justify-content:space-between">' +
-            `<span style="margin-right: 16px;">${data[0]?.data.text}:</span><span>${data[0]?.data.value}</span>` +
-            '</span>' +
-            '</li>'
-          );
+        fields: ['text', 'value', 'color'],
+        formatter: (datum: Datum) => {
+          return { name: datum.text, value: datum.value };
         },
       },
       wordStyle: {

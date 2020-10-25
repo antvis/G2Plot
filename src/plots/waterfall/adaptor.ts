@@ -59,9 +59,6 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { ext } = interval(p);
   const geometry = ext.geometry as Geometry;
 
-  // tooltip 默认展示 difference
-  geometry.tooltip(yField);
-
   // 将 waterfall leaderLineCfg 传入到自定义 shape 中
   geometry.customInfo({ leaderLine });
 

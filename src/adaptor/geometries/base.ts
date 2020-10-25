@@ -84,6 +84,7 @@ export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | '
  * @param func
  */
 export function getMappingFunction(mappingFields: string[], func: (datum: Datum) => any) {
+  if (!func) return undefined;
   // 返回函数
   return (...args: any[]) => {
     const params: Datum = {};

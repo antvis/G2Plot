@@ -1,3 +1,36 @@
+#### 2.0.5 (2020-10-25)
+
+##### Chores
+
+*  test coverage ([#1780](https://github.com/antvis/g2plot/pull/1780)) ([4ed03c3c](https://github.com/antvis/g2plot/commit/4ed03c3c84f1907f5870a71b0c6ba5f556a33385))
+
+##### Documentation Changes
+
+*  补充热力图 demos ([#1760](https://github.com/antvis/g2plot/pull/1760)) ([a9efd4cd](https://github.com/antvis/g2plot/commit/a9efd4cdcea75a7235cb49306dbaee3d9e197cbb))
+
+##### New Features
+
+* **tooltip:**  add tooltip fields, formatter ([#1774](https://github.com/antvis/g2plot/pull/1774)) ([c1fab4e1](https://github.com/antvis/g2plot/commit/c1fab4e15d3b90e62391996dd90adb0b09dccf9e))
+*  迁移转化率组件 ([#1772](https://github.com/antvis/g2plot/pull/1772)) ([2c0f56d3](https://github.com/antvis/g2plot/commit/2c0f56d3bb6f281feefc53eb7e348924ab060ae1))
+*  add lab domain ([#1765](https://github.com/antvis/g2plot/pull/1765)) ([cc69ff0a](https://github.com/antvis/g2plot/commit/cc69ff0a49186570dd467abc27ece4a50a3d6d14))
+*  heatmap ([#1752](https://github.com/antvis/g2plot/pull/1752)) ([72e10eb7](https://github.com/antvis/g2plot/commit/72e10eb799862c280bc9b521a328fc278d339fd2))
+
+##### Bug Fixes
+
+* **1758:**  面积图 line.color 设置不生效的问题 ([#1759](https://github.com/antvis/g2plot/pull/1759)) ([da311cca](https://github.com/antvis/g2plot/commit/da311cca2fdbb8ed2e08f17d9e567c81be063ca7))
+* **1761:**  辅助 geometry 的 color 样式跟随主元素的 color 配置 ([#1764](https://github.com/antvis/g2plot/pull/1764)) ([e066f887](https://github.com/antvis/g2plot/commit/e066f8876488215a07b369cf704564eaeae92f05))
+* **tooltip:**  走查 tooltip 实现逻辑 ([#1785](https://github.com/antvis/g2plot/pull/1785)) ([61797929](https://github.com/antvis/g2plot/commit/61797929bab026cb990c56d740c3cff6b8093dbd))
+*  adjust default column width ratio ([#1779](https://github.com/antvis/g2plot/pull/1779)) ([8acf2981](https://github.com/antvis/g2plot/commit/8acf2981d7f654239a6a046a5e219ae3a810c45c))
+*  demo style ([#1784](https://github.com/antvis/g2plot/pull/1784)) ([70a32ee5](https://github.com/antvis/g2plot/commit/70a32ee5db7be1d4c0e54366e2fc15ead52f1012))
+*  修复 bullet 的 demo 写错问题 ([#1783](https://github.com/antvis/g2plot/pull/1783)) ([e2f0255c](https://github.com/antvis/g2plot/commit/e2f0255c1a9b9ed18f93a9276c556d67fbfcd384))
+*  line-column legend color & custom legend ([#1776](https://github.com/antvis/g2plot/pull/1776)) ([bc53417c](https://github.com/antvis/g2plot/commit/bc53417c2126be62e327103760300d02194ed19c))
+*  订正双轴图&漏斗图文档 ([#1766](https://github.com/antvis/g2plot/pull/1766)) ([57392a6f](https://github.com/antvis/g2plot/commit/57392a6f6db7b00e5945d23019124f476570016e))
+*  formatter 样式丢失 ([#1763](https://github.com/antvis/g2plot/pull/1763)) ([cb99aa97](https://github.com/antvis/g2plot/commit/cb99aa97ac4d47201d0da3b4d647370f6c8c685f))
+* **word-cloud:**
+  *  修复 tooltip 小圆点的颜色不显示 ([#1782](https://github.com/antvis/g2plot/pull/1782)) ([829a8be2](https://github.com/antvis/g2plot/commit/829a8be25f372be88fdba0d94f6718e1214a66aa))
+  *  fix tooltip and add demo for custom tooltip ([#1762](https://github.com/antvis/g2plot/pull/1762)) ([187a8d7b](https://github.com/antvis/g2plot/commit/187a8d7b76114af76800a19943c99a0d2221d78b))
+* **point-shape:**  修复 point 的 shape 映射 ([#1771](https://github.com/antvis/g2plot/pull/1771)) ([8d4b7290](https://github.com/antvis/g2plot/commit/8d4b72907e34507a7cb4f045db2f00330b147999))
+
 #### 2.0.4 (2020-10-18)
 
 ##### Chores

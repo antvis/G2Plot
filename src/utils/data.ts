@@ -1,5 +1,4 @@
-import { get, size } from '@antv/util';
-import sizeSensor from 'size-sensor';
+import { get } from '@antv/util';
 import { Data, Datum, Meta } from '../types';
 
 /**

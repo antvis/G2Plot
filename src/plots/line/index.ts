@@ -1,4 +1,4 @@
-import { deepMix, size, reduce, get } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { adjustYMetaByZero } from '../../utils/data';

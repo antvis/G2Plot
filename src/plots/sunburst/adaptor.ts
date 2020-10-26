@@ -110,6 +110,7 @@ function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { meta } = options;
 
   if (meta) {
+    // @ts-ignore
     chart.scale(meta);
   }
 

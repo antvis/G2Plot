@@ -1,55 +1,18 @@
+import { ScaleConfig } from '@antv/g2/lib/dependents';
+
 /** scale 元信息，取名为 meta */
-export type Meta = {
+export type Meta = ScaleConfig & {
   /**
-   * 坐标轴类型
+   * scale 的 type 类型
+   * 对于连续的，一般是 linear，对于分类一般为 cat。
+   * 当然也有 log, pow, time 等类型，或者通过 tickMethod 自定义自己的 scale
    */
   readonly type?: string;
   /**
-   * 是否美化
+   * 是否进行 scale 的同步。
+   * - 设置为 false 则不同步
+   * - 设置为 true 则以 field 为 key 进行同步
+   * - 设置为 string，则以这个 string 为 key 进行同步
    */
-  readonly nice?: boolean;
-  /**
-   * 坐标轴最小值
-   */
-  readonly min?: number;
-  /**
-   * 坐标轴最大值
-   */
-  readonly max?: number;
-  /**
-   * min limit
-   */
-  readonly minLimit?: number;
-  /**
-   * max limit
-   */
-  readonly maxLimit?: number;
-  /**
-   * 期望的坐标轴刻度数量，非最终结果
-   */
-  readonly tickCount?: number;
-  /**
-   * 坐标轴刻度间隔
-   */
-  readonly tickInterval?: number;
-  /**
-   * 指定 tick 计算方法或自定义计算 tick 的方法
-   */
-  readonly tickMethod?: string | ((scale: any) => any[]);
-  /**
-   * 字段别名
-   */
-  readonly alias?: string;
-  /**
-   * 指定 scale 中的 values 信息
-   */
-  readonly values?: string[];
-  /**
-   * scale 转换的范围，0 ~ 1 的数组，表示开始和结束的位置
-   */
-  readonly range?: number[];
-  /**
-   * 格式化 tick 值
-   */
-  readonly formatter?: (v: any) => string;
+  readonly sync?: boolean | string;
 };

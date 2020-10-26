@@ -1,4 +1,4 @@
-import { deepMix, isBoolean } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { HeatmapOptions } from './types';
@@ -20,8 +20,7 @@ export class Heatmap extends Plot<HeatmapOptions> {
     return adaptor;
   }
 
-  protected getDefaultOptions(options: HeatmapOptions) {
-    const { type } = options;
+  protected getDefaultOptions() {
     return deepMix({}, super.getDefaultOptions(), {
       type: 'polygon',
       legend: false,

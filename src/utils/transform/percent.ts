@@ -1,4 +1,3 @@
-import { Datum } from '@antv/g2/lib/interface';
 import { groupBy, map, reduce, each } from '@antv/util';
 import { Data } from '../../types';
 

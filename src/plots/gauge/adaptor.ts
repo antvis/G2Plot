@@ -1,4 +1,4 @@
-import { isString, isArray, isFunction, clamp } from '@antv/util';
+import { isString, isFunction, clamp } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';

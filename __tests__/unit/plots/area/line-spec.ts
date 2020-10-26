@@ -16,7 +16,7 @@ describe('area', () => {
     });
 
     area.render();
-    expect(area.chart.geometries.length).toBe(1);
+    expect(area.chart.geometries.length).toBe(2);
 
     let xValue;
     let yValue;

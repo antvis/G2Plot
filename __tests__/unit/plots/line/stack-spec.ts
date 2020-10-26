@@ -33,5 +33,8 @@ describe('line', () => {
 
     expect(line.chart.geometries[1].type).toBe('point');
     expect(line.chart.geometries[1].getAdjust('stack')).toBeDefined();
+
+    // @ts-ignore
+    expect(line.chart.getOptions().legends.type.position).toBe('top-left');
   });
 });

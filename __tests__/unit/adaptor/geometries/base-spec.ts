@@ -373,6 +373,59 @@ describe('adaptor - geometry', () => {
     });
   });
 
+  it('tooltip', () => {
+    const plot = getPlot('point', {
+      xField: 'date',
+      yField: 'value',
+      mapping: {
+        style: { fill: 'red' },
+      },
+    });
+
+    expect(plot.chart.geometries[0].type).toBe('point');
+
+    expect(plot.chart.geometries[0].getAttribute('position').getFields()).toEqual(['date', 'value']);
+
+    expect(plot.chart.geometries[0].tooltipOption).toBe(undefined);
+
+    const fn = jest.fn();
+    plot.update({
+      ...plot.options,
+      mapping: {
+        tooltip: fn,
+      },
+    });
+
+    // @ts-ignore
+    expect(plot.chart.geometries[0].tooltipOption).toBeUndefined();
+
+    plot.update({
+      ...plot.options,
+      tooltipFields: ['date'],
+      mapping: {
+        tooltip: fn,
+      },
+    });
+
+    // @ts-ignore
+    expect(plot.chart.geometries[0].tooltipOption.fields).toEqual(['date']);
+    // @ts-ignore
+    expect(plot.chart.geometries[0].tooltipOption.callback).toBeDefined();
+
+    plot.update({
+      ...plot.options,
+      tooltipFields: ['date'],
+      mapping: {
+        tooltip: null,
+      },
+    });
+
+    // @ts-ignore
+    expect(plot.chart.geometries[0].tooltipOption.fields).toEqual(['date']);
+    // @ts-ignore
+    expect(plot.chart.geometries[0].tooltipOption.callback).toBeUndefined();
+  });
+
   it('no mapping', () => {
     const plot = getPlot('point', {
       xField: 'date',

@@ -1,4 +1,5 @@
 import { Gauge } from '../../../../src';
+import { pick } from '../../../../src/utils';
 import { createDiv } from '../../../utils/dom';
 
 describe('gauge', () => {
@@ -76,7 +77,7 @@ describe('gauge', () => {
     expect(v2.geometries.length).toBe(1);
     expect(v2.geometries[0].type).toBe('interval');
     // @ts-ignore
-    expect(v2.geometries[0].attributeOption.color.values).toEqual(['red', 'yellow', 'green', '#f0f0f0']);
+    expect(v2.geometries[0].attributeOption.color.values).toEqual(['red', 'yellow', 'green']);
     // @ts-ignore
     expect(v2.getCoordinate().circleCenter).toEqual({ x: 300, y: 200 });
     expect(v2.getCoordinate().startAngle).toEqual(gauge.options.startAngle);
@@ -105,13 +106,38 @@ describe('gauge', () => {
       autoFit: false,
       percent: 0.65,
       range: {
-        color: ['l(0) 0:#5d7cef 1:#e35767'],
+        color: 'l(0) 0:#5d7cef 1:#e35767',
       },
     });
 
     gauge.render();
 
     expect(gauge.options.range.ticks).toEqual([0, 0.65, 1]);
+    expect(gauge.chart.views.length).toBe(2);
+    expect(pick(gauge.chart.views[1].getYScales()[0], ['min', 'max', 'minLimit', 'maxLimit'])).toEqual({
+      min: 0,
+      max: 1,
+      minLimit: 0,
+      maxLimit: 1,
+    });
+  });
+
+  it('no indicator', () => {
+    const gauge = new Gauge(createDiv(), {
+      width: 600,
+      height: 300,
+      autoFit: false,
+      percent: 0.65,
+      range: {
+        color: ['l(0) 0:#5d7cef 1:#e35767'],
+      },
+      indicator: false,
+    });
+
+    gauge.render();
+
+    expect(gauge.chart.views.length).toBe(1);
+    expect(gauge.chart.views[0].geometries[0].type).toBe('interval');
   });
 
   it('> 1, < 0', () => {
@@ -126,8 +152,6 @@ describe('gauge', () => {
     });
 
     gauge.render();
-    // @ts-ignore
-    window.gauge = gauge;
 
     expect(gauge.chart.views[0].getData()).toEqual([{ percent: 1 }]);
 

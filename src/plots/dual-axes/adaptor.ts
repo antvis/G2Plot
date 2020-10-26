@@ -34,7 +34,7 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
  */
 function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
-  const { xField, yField, geometryOptions, data } = options;
+  const { xField, yField, geometryOptions, data, tooltip } = options;
 
   const SORT_MAP = { line: 0, column: 1 };
 
@@ -60,6 +60,7 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
     options: {
       xField,
       yField: yField[0],
+      tooltip,
       geometryOption: geometryOptions[0],
     },
   });
@@ -70,6 +71,7 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
     options: {
       xField,
       yField: yField[1],
+      tooltip,
       geometryOption: geometryOptions[1],
     },
   });

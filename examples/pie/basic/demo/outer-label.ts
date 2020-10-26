@@ -18,6 +18,7 @@ const piePlot = new Pie('container', {
   label: {
     type: 'outer',
   },
+  interactions: [{ type: 'element-active' }],
 });
 
 piePlot.render();

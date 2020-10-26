@@ -73,7 +73,7 @@ bulletPlot.render();
 
 ### 图形样式
 
-#### style ✨
+#### bulletStyle ✨
 
 **可选**, _object_
 

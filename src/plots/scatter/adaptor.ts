@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { point as pointAdaptor } from '../../adaptor/geometries';
+import { point } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
 import { getQuadrantDefaultConfig } from './util';
@@ -19,10 +19,10 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   chart.data(data);
 
   // geometry
-  pointAdaptor(
+  point(
     deepMix({}, params, {
-      seriesField: colorField,
       options: {
+        seriesField: colorField,
         point: {
           color,
           shape,

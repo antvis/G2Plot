@@ -2,8 +2,6 @@ import DataSet from '@antv/data-set';
 import { binHistogram } from '../../../../src/utils/transform/histogram';
 import { histogramData, histogramStackData } from '../../../data/histogram-data';
 
-const { DataView } = DataSet;
-
 const ds = new DataSet();
 const dv = ds.createView().source(histogramData);
 

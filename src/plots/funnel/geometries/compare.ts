@@ -24,7 +24,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
         if (!firstRecord[row[compareField]]) {
           firstRecord[row[compareField]] = row[yField];
         }
-        row[FUNNEL_PERCENT] = Math.round((row[yField] / firstRecord[row[compareField]]) * 100) / 100;
+        row[FUNNEL_PERCENT] = row[yField] / firstRecord[row[compareField]];
       }
       return row;
     });

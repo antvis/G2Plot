@@ -34,7 +34,7 @@ const funnelPlot = new Funnel('container', {
       fill: '#666',
       fontSize: 12,
     },
-    formatter: (data) => `转化${data.$$percentage$$.toFixed(2)}`,
+    formatter: (data) => `转化率${(data.$$percentage$$ * 100).toFixed(2)}%`,
   },
   legend: false,
 });

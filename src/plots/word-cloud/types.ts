@@ -52,12 +52,20 @@ interface WordStyle {
   readonly padding?: number | ((word: Word) => number);
   /** 字体的大小范围,当为函数时，其参数是一个经过处理之后的数据元素的值 */
   readonly fontSize?: [number, number] | ((word: Word) => number);
-  /** 旋转的最小角度和最大角度 默认 [0, 90] */
-  readonly rotation?: [number, number];
-  /** 旋转实际的步数,越大可能旋转角度越小, 默认是 2 */
+  /**
+   * 旋转的最小角度和最大角度 默认 [0, 90]。
+   *
+   * 注意：如果值是 number 或者 callback ，则
+   * `rotationSteps` 选项将失效。
+   */
+  readonly rotation?: [number, number] | number | ((word: Word) => number);
+  /**
+   * 旋转实际的步数,越大可能旋转角度越小, 默认是 2。
+   *
+   * 例如：如果 `rotation` 的值是 [0, 90]，该值是 3，
+   * 则最终可能旋转的角度有三种，分别是 0 度、45度和 90 度。
+   */
   readonly rotationSteps?: number;
-  /** 旋转的比率[0,1] 默认是 0.5 也就是 50%可能发生旋转 */
-  readonly rotateRatio?: number;
 }
 
 export interface WordCloudOptions extends Options {
@@ -71,6 +79,20 @@ export interface WordCloudOptions extends Options {
   readonly imageMask?: HTMLImageElement | string;
   /** 最大执行时间 */
   readonly timeInterval?: number;
+  /**
+   * 自定义所使用的随机函数，其值可以是一个 [0, 1) 区间中的值，
+   * 也可以是一个返回该值的函数，当该值是一个固定的值时，每次渲染
+   * 相同数据的词云图时，其对应的每个单词的布局坐标一致。
+   *
+   * 默认使用的是浏览器内置的 Math.random，也就是每次渲染，单词的位置都不一样。
+   */
+  readonly random?: number | (() => number);
+  /**
+   * 1，当设置为 `archimedean` 时，整个词云图接近于`椭圆`的形状。
+   * 2，当设置为 `rectangular` 时，整个词云图接近于`矩形`的形状。
+   * 默认是 `archimedean`。
+   */
+  readonly spiral?: 'archimedean' | 'rectangular';
   /** 文字样式配置 */
   readonly wordStyle?: WordStyle;
 }

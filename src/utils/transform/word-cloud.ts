@@ -11,6 +11,7 @@ export interface Options {
   rotate?: number | ((row: Word) => number);
   padding?: number | ((row: Word) => number);
   spiral?: 'archimedean' | 'rectangular' | ((size: [number, number]) => (t: number) => number[]);
+  random?: number | (() => number);
   timeInterval?: number;
   imageMask?: HTMLImageElement;
 }
@@ -46,11 +47,13 @@ export function wordCloud(words: Word[], options?: Partial<Options>): Tag[] {
 export function transform(words: Word[], options: Options) {
   // 布局对象
   const layout = tagCloud();
-  ['font', 'fontSize', 'fontWeight', 'padding', 'rotate', 'size', 'spiral', 'timeInterval'].forEach((key: string) => {
-    if (!isNil(options[key])) {
-      layout[key](options[key]);
+  ['font', 'fontSize', 'fontWeight', 'padding', 'rotate', 'size', 'spiral', 'timeInterval', 'random'].forEach(
+    (key: string) => {
+      if (!isNil(options[key])) {
+        layout[key](options[key]);
+      }
     }
-  });
+  );
 
   layout.words(words);
   if (options.imageMask) {
@@ -323,9 +326,10 @@ function tagCloud() {
     rotate = cloudRotate,
     padding = cloudPadding,
     spiral = archimedeanSpiral,
+    random = Math.random,
     words: any = [],
     timeInterval = Infinity;
-  const random = Math.random;
+
   const text = cloudText;
   const fontStyle = cloudFontNormal;
   const canvas = cloudCanvas;
@@ -522,6 +526,10 @@ function tagCloud() {
 
   cloud.padding = function (_) {
     padding = functor(_);
+  };
+
+  cloud.random = function (_) {
+    random = functor(_);
   };
 
   return cloud;

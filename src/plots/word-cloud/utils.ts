@@ -12,11 +12,11 @@ import { Tag, Word, WordCloudOptions } from './types';
  */
 export function transform(params: Params<WordCloudOptions>): Tag[] {
   const { options } = params;
-  const { data, imageMask, wordField, weightField, colorField, wordStyle, timeInterval } = options;
+  const { data, imageMask, wordField, weightField, colorField, wordStyle, timeInterval, random, spiral } = options;
   if (!data || !data.length) {
     return [];
   }
-  const { fontFamily, fontWeight, padding } = wordStyle;
+  const { fontFamily, fontWeight, padding, rotation } = wordStyle;
   const arr = data.map((v) => v[weightField]) as number[];
   const range = [min(arr), max(arr)] as [number, number];
 
@@ -40,7 +40,9 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     size: getSize(params as any),
     padding: padding,
     timeInterval,
-    rotate: getRotate(options),
+    random,
+    spiral,
+    rotate: isArray(rotation) ? getRotate(options) : rotation,
   });
 }
 
@@ -166,22 +168,15 @@ function getFontSize(options: WordCloudOptions, range: [number, number]) {
  * @param options
  */
 function getRotate(options: WordCloudOptions) {
-  const { rotateRatio, rotation, rotationSteps } = resolveRotate(options);
+  const { rotation, rotationSteps } = resolveRotate(options);
   const min = rotation[0];
   const max = rotation[1];
   // 等于 1 时不旋转，所以把每份大小设为 0
   const perSize = rotationSteps === 1 ? 0 : (max - min) / (rotationSteps - 1);
   return function rotate() {
-    return Math.ceil(Math.random() * (rotationSteps - 1)) * perSize * isHappen(rotateRatio);
+    if (max === min) return max;
+    return Math.floor(Math.random() * rotationSteps) * perSize;
   };
-}
-
-/**
- * 根据传入的数字推断是否发生，返回 1 表示发生，0 表示未发生
- * @param n 概率值，可以是从 0 到 1 的数字
- */
-function isHappen(n: number): 1 | 0 {
-  return Math.random() < n ? 1 : 0;
 }
 
 /**
@@ -189,27 +184,14 @@ function isHappen(n: number): 1 | 0 {
  * @param options
  */
 function resolveRotate(options: WordCloudOptions) {
-  let { rotation, rotationSteps, rotateRatio } = options.wordStyle;
-  if (!isArray(rotation)) {
-    log(LEVEL.WARN, false, 'the rotation option must be an Array in wordStyle option.');
-    rotation = [0, 90];
-  }
-  if (rotationSteps === 0) {
+  let { rotationSteps } = options.wordStyle;
+  if (rotationSteps < 1) {
     log(LEVEL.WARN, false, 'the rotationSteps option must be greater than or equal to 1.');
     rotationSteps = 1;
   }
-  if (rotateRatio < 0) {
-    log(LEVEL.WARN, false, 'the rotateRatio option must be greater than or equal to 0 and less than or equal to 1.');
-    rotateRatio = 0;
-  }
-  if (rotateRatio > 1) {
-    log(LEVEL.WARN, false, 'the rotateRatio option must be greater than or equal to 0 and less than or equal to 1.');
-    rotateRatio = 1;
-  }
   return {
-    rotation,
+    rotation: options.wordStyle.rotation as [number, number],
     rotationSteps,
-    rotateRatio,
   };
 }
 

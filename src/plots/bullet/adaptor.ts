@@ -13,7 +13,7 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { style, targetField, rangeField, measureField, xField, color, layout, size } = options;
+  const { bulletStyle, targetField, rangeField, measureField, xField, color, layout, size } = options;
   // 处理数据
   const { min, max, ds } = transformData(options);
 
@@ -43,7 +43,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       isStack: true,
       interval: {
         color: color?.range,
-        style: style?.range,
+        style: bulletStyle?.range,
         size: size?.range,
       },
     },
@@ -61,7 +61,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       isStack: true,
       interval: {
         color: color?.measure,
-        style: style?.measure,
+        style: bulletStyle?.measure,
         size: size?.measure,
       },
     },
@@ -76,7 +76,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       seriesField: 'tKey',
       point: {
         color: color?.target,
-        style: style?.target,
+        style: bulletStyle?.target,
         size: isNumber(size?.target) ? Number(size.target) / 2 : size.target,
         shape: layout === 'horizontal' ? 'line' : 'hyphen',
       },

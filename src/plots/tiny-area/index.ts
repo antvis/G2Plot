@@ -10,7 +10,7 @@ export class TinyArea extends Plot<TinyAreaOptions> {
   /** 图表类型 */
   public type: string = 'tiny-area';
 
-  protected getDefaultOptions(options: TinyAreaOptions) {
+  protected getDefaultOptions() {
     return {
       appendPadding: 2,
       tooltip: {

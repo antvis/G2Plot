@@ -3,6 +3,7 @@
  */
 export const AXIS_META_CONFIG_KEYS = [
   'type',
+  'alias',
   'tickCount',
   'tickInterval',
   'min',

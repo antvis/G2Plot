@@ -1,4 +1,4 @@
-import { deepMix, get } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, StyleAttr, SizeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';

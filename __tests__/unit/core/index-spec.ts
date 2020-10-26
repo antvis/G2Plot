@@ -1,6 +1,5 @@
-import LineAnnotation from '@antv/component/lib/annotation/line';
 import { deepMix, isEqual, clone } from '@antv/util';
-import { Line, G2, Pie, line } from '../../../src';
+import { Line, G2, Pie } from '../../../src';
 import { partySupport } from '../../data/party-support';
 import { salesByArea } from '../../data/sales';
 import { createDiv } from '../../utils/dom';

@@ -1,4 +1,3 @@
-import { TooltipCfg } from '@antv/g2/lib/interface';
 import { WordCloud } from '../../src';
 import { CountryEconomy } from '../data/country-economy';
 import { createDiv } from '../utils/dom';

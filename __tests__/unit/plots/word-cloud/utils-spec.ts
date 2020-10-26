@@ -26,7 +26,6 @@ describe('word-cloud utils', () => {
         fontSize: [20, 60],
         rotation: [0, 90],
         rotationSteps: 2,
-        rotateRatio: 0.5,
       },
     },
   };
@@ -144,17 +143,43 @@ describe('word-cloud utils', () => {
     expect(rows.every((row) => row.size === 20)).toBe(true);
   });
 
-  it('utils: rotation is not a Array', () => {
+  it('utils: rotation is number', () => {
     const p1 = deepMix({}, params, {
       options: {
         wordStyle: {
-          rotation: 10, // 非数组时，自动转换成默认值 [0, 90]
+          rotation: 10,
         },
       },
     });
 
     const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 0 || row.rotate === 90)).toBe(true);
+    expect(rows.every((row) => row.rotate === 10)).toBe(true);
+  });
+
+  it('utils: rotation is function', () => {
+    const p1 = deepMix({}, params, {
+      options: {
+        wordStyle: {
+          rotation: () => 10,
+        },
+      },
+    });
+
+    const rows = transform(p1).filter((v) => v.hasText);
+    expect(rows.every((row) => row.rotate === 10)).toBe(true);
+  });
+
+  it('utils: rotation is array', () => {
+    const p1 = deepMix({}, params, {
+      options: {
+        wordStyle: {
+          rotation: [10, 10],
+        },
+      },
+    });
+
+    const rows = transform(p1).filter((v) => v.hasText);
+    expect(rows.every((row) => row.rotate === 10)).toBe(true);
   });
 
   it('utils: rotationSteps is 0', () => {
@@ -168,29 +193,6 @@ describe('word-cloud utils', () => {
 
     const rows = transform(p1).filter((v) => v.hasText);
     expect(rows.every((row) => row.rotate === 0)).toBe(true);
-  });
-
-  it('utils: rotateRatio', () => {
-    const p1 = deepMix({}, params, {
-      options: {
-        wordStyle: {
-          rotateRatio: -1, // 小于 0 时，自动转换成 0
-        },
-      },
-    });
-    const p2 = deepMix({}, params, {
-      options: {
-        wordStyle: {
-          rotateRatio: 2, // 大于 2 时，自动转换成 1
-        },
-      },
-    });
-
-    const rows1 = transform(p1).filter((v) => v.hasText);
-    const rows2 = transform(p2).filter((v) => v.hasText);
-
-    expect(rows1.every((row) => row.rotate === 0)).toBe(true);
-    expect(rows2.every((row) => row.rotate === 90)).toBe(true);
   });
 
   it('utils: processImageMask, HTMLImageElement', async () => {

@@ -55,14 +55,14 @@ interface WordStyle {
   /**
    * 旋转的最小角度和最大角度 默认 [0, 90]。
    *
-   * 注意：如果值是 number 或者 callback ，则
+   * 注意：如果值是 number 或者 function ，则
    * `rotationSteps` 选项将失效。
    */
   readonly rotation?: [number, number] | number | ((word: Word) => number);
   /**
    * 旋转实际的步数,越大可能旋转角度越小, 默认是 2。
    *
-   * 例如：如果 `rotation` 的值是 [0, 90]，该值是 3，
+   * 例如：如果 `rotation` 的值是 [0, 90]，`rotationSteps` 的值是 3，
    * 则最终可能旋转的角度有三种，分别是 0 度、45度和 90 度。
    */
   readonly rotationSteps?: number;

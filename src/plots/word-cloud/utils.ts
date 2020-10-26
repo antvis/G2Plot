@@ -16,7 +16,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
   if (!data || !data.length) {
     return [];
   }
-  const { fontFamily, fontWeight, padding, rotation } = wordStyle;
+  const { fontFamily, fontWeight, padding } = wordStyle;
   const arr = data.map((v) => v[weightField]) as number[];
   const range = [min(arr), max(arr)] as [number, number];
 
@@ -42,7 +42,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     timeInterval,
     random,
     spiral,
-    rotate: isArray(rotation) ? getRotate(options) : rotation,
+    rotate: getRotate(options),
   });
 }
 
@@ -169,6 +169,7 @@ function getFontSize(options: WordCloudOptions, range: [number, number]) {
  */
 function getRotate(options: WordCloudOptions) {
   const { rotation, rotationSteps } = resolveRotate(options);
+  if (!isArray(rotation)) return rotation;
   const min = rotation[0];
   const max = rotation[1];
   // 等于 1 时不旋转，所以把每份大小设为 0
@@ -190,7 +191,7 @@ function resolveRotate(options: WordCloudOptions) {
     rotationSteps = 1;
   }
   return {
-    rotation: options.wordStyle.rotation as [number, number],
+    rotation: options.wordStyle.rotation,
     rotationSteps,
   };
 }

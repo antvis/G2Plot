@@ -17,12 +17,14 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
     return adaptor;
   }
 
-  protected getDefaultOptions() {
+  protected getDefaultOptions(options: BidirectionalBarOptions) {
+    const { layout = 'horizontal' } = options;
     return deepMix({}, super.getDefaultOptions(), {
-      // 给 leftView 默认
       xAxis: {
-        position: 'top',
+        // 不同布局 firstView 的坐标轴显示位置
+        position: layout === 'vertical' ? 'bottom' : 'top',
       },
+      layout,
     });
   }
 }

@@ -4,13 +4,12 @@ import { createDiv } from '../../../utils/dom';
 
 describe('Bidirectional', () => {
   it('default', () => {
-    const bidirectional = new BidirectionalBar(createDiv(), {
+    const bidirectional = new BidirectionalBar(createDiv('default'), {
       width: 400,
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
     });
     bidirectional.render();
 
@@ -35,11 +34,11 @@ describe('Bidirectional', () => {
     const RpositionFields = rightG.getAttribute('position').getFields();
     expect(LpositionFields).toHaveLength(2);
     expect(LpositionFields[0]).toBe('country');
-    expect(LpositionFields[1]).toBe('value');
+    expect(LpositionFields[1]).toBe('2016年耕地总面积');
 
     expect(RpositionFields).toHaveLength(2);
     expect(RpositionFields[0]).toBe('country');
-    expect(RpositionFields[1]).toBe('value');
+    expect(RpositionFields[1]).toBe('2016年转基因种植面积');
 
     const LcolorAttribute = leftG.getAttribute('color');
     const LseriesFields = LcolorAttribute.getFields();
@@ -60,13 +59,12 @@ describe('Bidirectional', () => {
     expect(bidirectional.chart.getController('legend').getComponents()[0].extra.scale.field).toEqual('type');
   });
   it('x*y*color', () => {
-    const bidirectional = new BidirectionalBar(createDiv(), {
+    const bidirectional = new BidirectionalBar(createDiv('x*y*color'), {
       width: 400,
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
     });
     bidirectional.render();
 
@@ -83,13 +81,12 @@ describe('Bidirectional', () => {
 
   it('x*y*color with color', () => {
     const palette = ['red', 'green'];
-    const bidirectional = new BidirectionalBar(createDiv(), {
+    const bidirectional = new BidirectionalBar(createDiv('x*y*color with color'), {
       width: 400,
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
       color: palette,
     });
     bidirectional.render();
@@ -110,15 +107,14 @@ describe('Bidirectional', () => {
     });
   });
 
-  it('barWidthRatio', () => {
-    const bidirectional = new BidirectionalBar(createDiv(), {
+  it('widthRatio', () => {
+    const bidirectional = new BidirectionalBar(createDiv('widthRatio'), {
       width: 400,
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
-      barWidthRatio: 0.7,
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
+      widthRatio: 0.7,
     });
     bidirectional.render();
 

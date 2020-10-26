@@ -1,10 +1,12 @@
+import { View } from '@antv/g2';
 import { deepMix, groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, findViewById, findGeometry, transformLabel } from '../../utils';
 import { BidirectionalBarOptions } from './types';
-import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
+import { FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
+import { transformData } from './utils';
 
 /**
  * geometry 处理
@@ -12,40 +14,79 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  */
 function geometry(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
   const { chart, options } = params;
-  const { data, seriesField, xField, yField, color, barStyle, barWidthRatio, legend } = options;
+  const { data, xField, yField, color, barStyle, widthRatio, legend, layout } = options;
 
-  // 处理数据，通过 seriesField 分成左右数据
-  const groupData = Object.values(groupBy(data, seriesField));
-
+  // 处理数据
+  const ds = transformData(xField, yField, data);
+  // 再次处理数据，通过 type 字段分成左右数据
+  const groupData: any[] = Object.values(groupBy(ds, 'type'));
   chart.scale({
-    [seriesField]: {
+    type: {
       sync: true,
     },
   });
-  // 在创建子 view 执行后不行，需要在前面
-  if (legend && seriesField) {
-    chart.legend(seriesField, legend);
+  // 在创建子 view 执行后不行，需要在前面处理 legend
+  if (legend) {
+    chart.legend('type', legend);
   } else if (legend === false) {
     chart.legend(false);
   }
-  // 创建左边子 view
-  const leftView = chart.createView({
-    region: {
-      start: { x: 0, y: 0 },
-      end: { x: 0.5, y: 1 },
-    },
-    id: LEFT_AXES_VIEW,
-  });
-  // 转轴
-  leftView.coordinate().transpose().reflect('x');
-  leftView.data(groupData[0]);
+  // 创建 view
+  let firstView: View;
+  let secondView: View;
+
+  // 横向
+  if (layout === 'horizontal') {
+    firstView = chart.createView({
+      region: {
+        start: { x: 0, y: 0 },
+        end: { x: 0.5, y: 1 },
+      },
+      id: FIRST_AXES_VIEW,
+    });
+
+    firstView.coordinate().transpose().reflect('x');
+    secondView = chart.createView({
+      region: {
+        start: { x: 0.5, y: 0 },
+        end: { x: 1, y: 1 },
+      },
+      id: SECOND_AXES_VIEW,
+    });
+    secondView.coordinate().transpose();
+  }
+
+  // 纵向
+  if (layout === 'vertical') {
+    firstView = chart.createView({
+      region: {
+        start: { x: 0, y: 0 },
+        end: { x: 1, y: 0.5 },
+      },
+      id: FIRST_AXES_VIEW,
+    });
+    secondView = chart.createView({
+      region: {
+        start: { x: 0, y: 0.5 },
+        end: { x: 1, y: 1 },
+      },
+      id: SECOND_AXES_VIEW,
+    });
+
+    secondView
+      .coordinate()
+      .reflect('y')
+      .rotate(Math.PI * 0); // 旋转
+  }
+
+  firstView.data(groupData[0]);
   const left = deepMix({}, params, {
-    chart: leftView,
+    chart: firstView,
     options: {
-      widthRatio: barWidthRatio,
+      widthRatio,
       xField,
-      yField,
-      seriesField,
+      yField: yField[0],
+      seriesField: 'type',
       interval: {
         color,
         style: barStyle,
@@ -54,25 +95,14 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   });
   interval(left);
 
-  // 创建右边子 view
-  const rightView = chart.createView({
-    region: {
-      start: { x: 0.5, y: 0 },
-      end: { x: 1, y: 1 },
-    },
-    id: RIGHT_AXES_VIEW,
-  });
-  rightView.coordinate().transpose();
-  // 右边的 y 轴默认就要隐藏掉
-  rightView.axis(xField, false);
-  rightView.data(groupData[1]);
+  secondView.data(groupData[1]);
   const right = deepMix({}, params, {
-    chart: rightView,
+    chart: secondView,
     options: {
       xField,
-      yField,
-      seriesField,
-      widthRatio: barWidthRatio,
+      yField: yField[1],
+      seriesField: 'type',
+      widthRatio,
       interval: {
         color,
         style: barStyle,
@@ -89,15 +119,22 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
  * @param params
  */
 function meta(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
-  const { options } = params;
+  const { options, chart } = params;
   const { xAxis, yAxis, xField, yField } = options;
+  const firstView = findViewById(chart, FIRST_AXES_VIEW);
+  const secondView = findViewById(chart, SECOND_AXES_VIEW);
 
-  return flow(
-    scale({
-      [xField]: xAxis,
-      [yField]: yAxis,
-    })
-  )(params);
+  scale({
+    [xField]: xAxis,
+    [yField[0]]: yAxis[yField[0]],
+  })(deepMix({}, params, { chart: firstView }));
+
+  scale({
+    [xField]: xAxis,
+    [yField[1]]: yAxis[yField[1]],
+  })(deepMix({}, params, { chart: secondView }));
+
+  return params;
 }
 
 /**
@@ -108,21 +145,24 @@ function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
   const { chart, options } = params;
   const { xAxis, yAxis, xField, yField } = options;
 
-  const leftView = findViewById(chart, LEFT_AXES_VIEW);
-  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-  // 为 false 则是不显示轴
+  const firstView = findViewById(chart, FIRST_AXES_VIEW);
+  const secondView = findViewById(chart, SECOND_AXES_VIEW);
+  // 第二个 view axis 始终隐藏
+  secondView.axis(xField, false);
+
+  // 为 false 则是不显示 firstView 轴
   if (xAxis === false) {
-    leftView.axis(xField, false);
+    firstView.axis(xField, false);
   } else {
-    leftView.axis(xField, xAxis);
+    firstView.axis(xField, xAxis);
   }
 
   if (yAxis === false) {
-    leftView.axis(yField, false);
-    rightView.axis(yField, false);
+    firstView.axis(yField[0], false);
+    secondView.axis(yField[1], false);
   } else {
-    leftView.axis(yField, yAxis);
-    rightView.axis(yField, yAxis);
+    firstView.axis(yField[0], yAxis[yField[0]]);
+    secondView.axis(yField[1], yAxis[yField[1]]);
   }
   return params;
 }
@@ -135,10 +175,10 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
   const { chart, options } = params;
   const { label, yField } = options;
 
-  const leftView = findViewById(chart, LEFT_AXES_VIEW);
-  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-  const leftGeometry = findGeometry(leftView, 'interval');
-  const rightGeometry = findGeometry(rightView, 'interval');
+  const firstView = findViewById(chart, FIRST_AXES_VIEW);
+  const secondView = findViewById(chart, SECOND_AXES_VIEW);
+  const leftGeometry = findGeometry(firstView, 'interval');
+  const rightGeometry = findGeometry(secondView, 'interval');
 
   if (!label) {
     leftGeometry.label(false);
@@ -146,12 +186,12 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
   } else {
     const { callback, ...cfg } = label;
     leftGeometry.label({
-      fields: [yField],
+      fields: [yField[0]],
       callback,
       cfg: transformLabel(cfg),
     });
     rightGeometry.label({
-      fields: [yField],
+      fields: [yField[1]],
       callback,
       cfg: transformLabel(cfg),
     });

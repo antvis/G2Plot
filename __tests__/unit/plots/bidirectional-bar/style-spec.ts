@@ -4,13 +4,12 @@ import { createDiv } from '../../../utils/dom';
 
 describe('Bidirectional style', () => {
   it('x*y*barStyle', () => {
-    const bidirectional = new BidirectionalBar(createDiv(), {
+    const bidirectional = new BidirectionalBar(createDiv('barStyle'), {
       width: 400,
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
       barStyle: {
         stroke: 'black',
         lineWidth: 2,
@@ -27,13 +26,12 @@ describe('Bidirectional style', () => {
     expect(rightG.elements[0].shape.attr('lineWidth')).toBe(2);
   });
   it('x*y*barStyle*callback', () => {
-    const bidirectional = new BidirectionalBar(createDiv(), {
+    const bidirectional = new BidirectionalBar(createDiv('barStyle*callback'), {
       width: 400,
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
       barStyle: () => {
         return {
           stroke: 'black',

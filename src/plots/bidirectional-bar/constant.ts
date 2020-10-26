@@ -1,2 +1,2 @@
-export const LEFT_AXES_VIEW = 'left-axes-view';
-export const RIGHT_AXES_VIEW = 'right-axes-view';
+export const FIRST_AXES_VIEW = 'first-axes-view';
+export const SECOND_AXES_VIEW = 'second-axes-view';

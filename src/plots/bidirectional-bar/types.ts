@@ -1,14 +1,21 @@
+import { Axis } from '../../types/axis';
 import { Options, StyleAttr } from '../../types';
 
-export interface BidirectionalBarOptions extends Options {
+export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField' | 'meta'> {
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴映射字段 */
-  readonly yField: string;
-  /** seriesField 比较字段 */
-  readonly seriesField: string;
+  readonly yField: [string, string];
+  /** yAxis 为多个 key 为 yField 里面的 2 个字段 */
+  readonly yAxis?:
+    | false
+    | {
+        [key: string]: Axis;
+      };
   /** 柱状图宽度占比 [0-1] */
-  readonly barWidthRatio?: number;
+  readonly widthRatio?: number;
   /** 柱子样式配置，可选 */
   readonly barStyle?: StyleAttr;
+  /** layout 方向选择*/
+  layout?: 'horizontal' | 'vertical';
 }

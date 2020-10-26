@@ -9,8 +9,7 @@ describe('Bidirectional legend', () => {
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
       legend: {
         position: 'top',
       },
@@ -24,8 +23,7 @@ describe('Bidirectional legend', () => {
       height: 400,
       data,
       xField: 'country',
-      yField: 'value',
-      seriesField: 'type',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
       legend: false,
     });
     bidirectional.render();

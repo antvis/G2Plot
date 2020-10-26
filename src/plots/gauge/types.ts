@@ -17,7 +17,7 @@ type Range = {
   /** 辅助的刻度值 0 ~ 1 的数字 */
   readonly ticks?: number[];
   /** 辅助刻度的颜色配置 */
-  readonly color?: string[];
+  readonly color?: string | string[];
 };
 
 /** 仪表盘配置类型定义 */
@@ -38,7 +38,7 @@ export interface GaugeOptions
   /** 坐标轴配置 */
   readonly axis?: Axis;
   /** 指针的配置 */
-  readonly indicator?: Indicator;
+  readonly indicator?: false | Indicator;
   /** 统计文本 */
   readonly statistic?: Statistic;
 }

@@ -42,23 +42,23 @@ export type Tag = Word & {
 /** 词云字体样式 */
 interface WordStyle {
   /** 词云的字体, 当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontFamily?: string | ((word: Word) => string);
+  readonly fontFamily?: string | ((word: Word, index?: number, words?: Word[]) => string);
   /** 设置字体的粗细, 当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontWeight?: FontWeight | ((word: Word) => FontWeight);
+  readonly fontWeight?: FontWeight | ((word: Word, index?: number, words?: Word[]) => FontWeight);
   /**
    * 每个单词所占的盒子的内边距，默认为 1。 越大单词之间的间隔越大。
    * 当为函数时，其参数是一个经过处理之后的数据元素的值
    */
-  readonly padding?: number | ((word: Word) => number);
+  readonly padding?: number | ((word: Word, index?: number, words?: Word[]) => number);
   /** 字体的大小范围,当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontSize?: [number, number] | ((word: Word) => number);
+  readonly fontSize?: [number, number] | ((word: Word, index?: number, words?: Word[]) => number);
   /**
    * 旋转的最小角度和最大角度 默认 [0, 90]。
    *
    * 注意：如果值是 number 或者 function ，则
    * `rotationSteps` 选项将失效。
    */
-  readonly rotation?: [number, number] | number | ((word: Word) => number);
+  readonly rotation?: [number, number] | number | ((word: Word, index?: number, words?: Word[]) => number);
   /**
    * 旋转实际的步数,越大可能旋转角度越小, 默认是 2。
    *
@@ -93,6 +93,10 @@ export interface WordCloudOptions extends Options {
    * 默认是 `archimedean`。
    */
   readonly spiral?: 'archimedean' | 'rectangular';
-  /** 文字样式配置 */
+  /**
+   * 自定义每个词语的坐标。
+   * 注意：使用该选项时，应配合 `wordStyle` 中的其它选项同时使用。
+   */
+  readonly customPlacement?: (word: Word, index?: number, words?: Word[]) => { x: number; y: number };
   readonly wordStyle?: WordStyle;
 }

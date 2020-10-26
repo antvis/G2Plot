@@ -1,15 +1,15 @@
-import { isNil, assign } from '@antv/util';
+import { isNil, isFunction, assign } from '@antv/util';
 import { Tag, Word } from '../../plots/word-cloud/types';
 
 type FontWeight = number | 'normal' | 'bold' | 'bolder' | 'lighter';
 
 export interface Options {
   size: [number, number];
-  font?: string | ((row: Word) => string);
-  fontSize?: number | ((row: Word) => number);
-  fontWeight?: FontWeight | ((row: Word) => FontWeight);
-  rotate?: number | ((row: Word) => number);
-  padding?: number | ((row: Word) => number);
+  font?: string | ((row: Word, index?: number, words?: Word[]) => string);
+  fontSize?: number | ((row: Word, index?: number, words?: Word[]) => number);
+  fontWeight?: FontWeight | ((row: Word, index?: number, words?: Word[]) => FontWeight);
+  rotate?: number | ((row: Word, index?: number, words?: Word[]) => number);
+  padding?: number | ((row: Word, index?: number, words?: Word[]) => number);
   spiral?: 'archimedean' | 'rectangular' | ((size: [number, number]) => (t: number) => number[]);
   random?: number | (() => number);
   timeInterval?: number;
@@ -305,8 +305,8 @@ function cloudCanvas() {
   return document.createElement('canvas');
 }
 
-function functor(d) {
-  return typeof d === 'function'
+export function functor(d) {
+  return isFunction(d)
     ? d
     : function () {
         return d;
@@ -327,7 +327,7 @@ function tagCloud() {
     padding = cloudPadding,
     spiral = archimedeanSpiral,
     random = Math.random,
-    words: any = [],
+    words = [],
     timeInterval = Infinity;
 
   const text = cloudText;
@@ -342,14 +342,14 @@ function tagCloud() {
       n = words.length,
       tags = [],
       data = words
-        .map(function (d, i) {
-          d.text = text.call(this, d, i);
-          d.font = font.call(this, d, i);
-          d.style = fontStyle.call(this, d, i);
-          d.weight = fontWeight.call(this, d, i);
-          d.rotate = rotate.call(this, d, i);
-          d.size = ~~fontSize.call(this, d, i);
-          d.padding = padding.call(this, d, i);
+        .map(function (d, i, data) {
+          d.text = text.call(this, d, i, data);
+          d.font = font.call(this, d, i, data);
+          d.style = fontStyle.call(this, d, i, data);
+          d.weight = fontWeight.call(this, d, i, data);
+          d.rotate = rotate.call(this, d, i, data);
+          d.size = ~~fontSize.call(this, d, i, data);
+          d.padding = padding.call(this, d, i, data);
           return d;
         })
         .sort(function (a, b) {

@@ -3,7 +3,7 @@ import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { log, LEVEL, getContainerSize } from '../../utils';
-import { wordCloud } from '../../utils/transform/word-cloud';
+import { functor, wordCloud } from '../../utils/transform/word-cloud';
 import { Tag, Word, WordCloudOptions } from './types';
 
 /**
@@ -11,8 +11,19 @@ import { Tag, Word, WordCloudOptions } from './types';
  * @param params
  */
 export function transform(params: Params<WordCloudOptions>): Tag[] {
-  const { options } = params;
-  const { data, imageMask, wordField, weightField, colorField, wordStyle, timeInterval, random, spiral } = options;
+  const { options: rawOptions } = params;
+  const {
+    data,
+    imageMask,
+    wordField,
+    weightField,
+    colorField,
+    wordStyle,
+    timeInterval,
+    random,
+    spiral,
+    customPlacement,
+  } = rawOptions;
   if (!data || !data.length) {
     return [];
   }
@@ -30,11 +41,10 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     })
   );
 
-  // 数据准备在外部做，wordCloud 单纯就是做布局
-  return wordCloud(words, {
+  const options = {
     imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
-    fontSize: getFontSize(options, range),
+    fontSize: getFontSize(rawOptions, range),
     fontWeight: fontWeight,
     // 图表宽高减去 padding 之后的宽高
     size: getSize(params as any),
@@ -42,8 +52,25 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     timeInterval,
     random,
     spiral,
-    rotate: getRotate(options),
-  });
+    rotate: getRotate(rawOptions),
+  };
+
+  // 自定义布局函数
+  if (isFunction(customPlacement)) {
+    return words.map((word: Word, index: number, words: Word[]) => ({
+      hasText: !!word.text,
+      font: functor(options.font)(word, index, words),
+      weight: functor(options.fontWeight)(word, index, words),
+      rotate: functor(options.rotate)(word, index, words),
+      size: functor(options.fontSize)(word, index, words),
+      style: 'normal',
+      ...word,
+      ...customPlacement(word, index, words),
+    }));
+  }
+
+  // 数据准备在外部做，wordCloud 单纯就是做布局
+  return wordCloud(words, options);
 }
 
 /**

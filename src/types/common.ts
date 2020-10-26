@@ -10,6 +10,7 @@ import { State } from './state';
 import { Slider } from './slider';
 import { Scrollbar } from './scrollbar';
 import { ColorAttr } from './attr';
+import { Meta } from './meta';
 
 /** annotation position */
 export { AnnotationPosition, RegionPositionBaseOption, TextOption };
@@ -63,15 +64,6 @@ export type Size = {
   readonly height: number;
 };
 
-/** scale 元信息，取名为 meta */
-export type Meta = {
-  readonly type?: string;
-  readonly alias?: string;
-  readonly values?: string[];
-  readonly range?: number[];
-  readonly formatter?: (v: any) => string;
-};
-
 /** 基础的 Options 配置 */
 export type Options = {
   // 画布基本配置
@@ -102,7 +94,7 @@ export type Options = {
   /** 具体的数据 */
   readonly data: Record<string, any>[];
   /** 数据字段元信息 */
-  readonly meta?: Record<string, any>;
+  readonly meta?: Record<string, Meta>;
 
   // G2 相关
   /** 主题，G2 主题，字符串或者 theme object */

@@ -5,14 +5,6 @@
   },
   "demos": [
     {
-      "filename": "basic.ts",
-      "title": {
-        "zh": "基础散点图",
-        "en": "basic Scatter chart"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Cu0wSYK_U6YAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "color-mapping.ts",
       "title": {
         "zh": "散点图颜色映射",
@@ -29,20 +21,20 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XlOeS4YAHbYAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "size.ts",
-      "title": {
-        "zh": "散点图-气泡",
-        "en": "Bubble chart"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_lGkQrhj53gAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "quadrant.ts",
       "title": {
         "zh": "散点图-气泡四象限",
         "en": "Bubble chart quadrant"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "axis-right.ts",
+      "title": {
+        "zh": "散点图-右侧坐标轴",
+        "en": "Bubble chart yAxis on the right"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0luHTJODdMUAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

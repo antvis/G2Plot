@@ -9,23 +9,6 @@ import {
   SizeAttr,
 } from '../../types';
 
-interface PointStyle {
-  /** 填充色 会覆盖 color 配置  */
-  readonly fill?: string;
-  /** 描边颜色  */
-  readonly stroke?: string;
-  /** 线宽  */
-  readonly lineWidth?: number;
-  /** 虚线显示  */
-  readonly lineDash?: number[];
-  /** 透明度  */
-  readonly opacity?: number;
-  /** 填充透明度  */
-  readonly fillOpacity?: number;
-  /** 描边透明度  */
-  readonly strokeOpacity?: number;
-}
-
 interface Labels extends Omit<TextOption, 'position'> {
   position?: AnnotationPosition;
 }

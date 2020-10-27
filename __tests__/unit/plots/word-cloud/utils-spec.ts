@@ -31,15 +31,15 @@ describe('word-cloud utils', () => {
   };
 
   it('utils: transform', () => {
-    const rows = transform(params).filter((v) => v.hasText);
+    const result = transform(params).filter((v) => v.hasText);
 
-    expect(CountryEconomy.some((v) => v.Country === rows[0].text)).toBe(true);
-    expect(CountryEconomy.some((v) => v.GDP === rows[0].value)).toBe(true);
-    expect(rows[0].font).toBe('Verdana');
-    expect(rows[0].style).toBe('normal');
-    expect(rows[0].weight).toBe('normal');
-    expect(rows.every((row) => row.size >= 20 && row.size <= 60)).toBe(true);
-    expect(rows.every((row) => row.rotate === 0 || row.rotate === 90)).toBe(true);
+    expect(CountryEconomy.some((v) => v.Country === result[0].text)).toBe(true);
+    expect(CountryEconomy.some((v) => v.GDP === result[0].value)).toBe(true);
+    expect(result[0].font).toBe('Verdana');
+    expect(result[0].style).toBe('normal');
+    expect(result[0].weight).toBe('normal');
+    expect(result.every((row) => row.size >= 20 && row.size <= 60)).toBe(true);
+    expect(result.every((row) => row.rotate === 0 || row.rotate === 90)).toBe(true);
   });
 
   it('utils: transform, no data', () => {
@@ -71,8 +71,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p).filter((v) => v.hasText);
-    expect(rows.length).toBe(0);
+    const result = transform(p).filter((v) => v.hasText);
+    expect(result.length).toBe(0);
   });
 
   it('utils: padding is Array', () => {
@@ -101,11 +101,18 @@ describe('word-cloud utils', () => {
         padding: [],
       },
     });
-    expect(transform(p1).length > 0).toBe(true);
-    expect(transform(p2).length > 0).toBe(true);
-    expect(transform(p3).length > 0).toBe(true);
-    expect(transform(p4).length > 0).toBe(true);
-    expect(transform(p5).length > 0).toBe(true);
+
+    const r1 = transform(p1).filter((v) => v.hasText);
+    const r2 = transform(p2).filter((v) => v.hasText);
+    const r3 = transform(p3).filter((v) => v.hasText);
+    const r4 = transform(p4).filter((v) => v.hasText);
+    const r5 = transform(p5).filter((v) => v.hasText);
+
+    expect(r1.length > 0).toBe(true);
+    expect(r2.length > 0).toBe(true);
+    expect(r3.length > 0).toBe(true);
+    expect(r4.length > 0).toBe(true);
+    expect(r5.length > 0).toBe(true);
   });
 
   it('utils: padding is String', () => {
@@ -126,8 +133,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.size === 20)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.size === 20)).toBe(true);
   });
 
   it('utils: fontSize is a number', () => {
@@ -139,8 +146,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.size === 20)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.size === 20)).toBe(true);
   });
 
   it('utils: rotation is number', () => {
@@ -152,8 +159,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 10)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 10)).toBe(true);
   });
 
   it('utils: rotation is function', () => {
@@ -165,8 +172,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 10)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 10)).toBe(true);
   });
 
   it('utils: rotation is array', () => {
@@ -178,8 +185,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 10)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 10)).toBe(true);
   });
 
   it('utils: rotationSteps is 0', () => {
@@ -191,8 +198,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 0)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 0)).toBe(true);
   });
 
   it('utils: processImageMask, HTMLImageElement', async () => {
@@ -234,5 +241,30 @@ describe('word-cloud utils', () => {
 
     const img = await processImageMask(base64);
     expect(img instanceof HTMLImageElement).toBe(true);
+  });
+
+  it('option: customPlacement', () => {
+    const p = deepMix({}, params, {
+      options: {
+        customPlacement: () => ({ x: 100, y: 100 }),
+        wordStyle: {
+          fontFamily: '字体',
+          fontWeight: '字重',
+          fontSize: 66,
+          rotation: 99,
+        },
+      },
+    });
+
+    const result = transform(p);
+    expect(result.length).toBe(CountryEconomy.length);
+    result.forEach((item) => {
+      expect(item.font).toBe('字体');
+      expect(item.weight).toBe('字重');
+      expect(item.size).toBe(66);
+      expect(item.rotate).toBe(99);
+      expect(item.x).toBe(100);
+      expect(item.y).toBe(100);
+    });
   });
 });

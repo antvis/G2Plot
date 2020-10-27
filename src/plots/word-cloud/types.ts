@@ -51,7 +51,7 @@ interface WordStyle {
    */
   readonly padding?: number | ((word: Word, index?: number, words?: Word[]) => number);
   /** 字体的大小范围,当为函数时，其参数是一个经过处理之后的数据元素的值 */
-  readonly fontSize?: [number, number] | ((word: Word, index?: number, words?: Word[]) => number);
+  readonly fontSize?: [number, number] | number | ((word: Word, index?: number, words?: Word[]) => number);
   /**
    * 旋转的最小角度和最大角度 默认 [0, 90]。
    *

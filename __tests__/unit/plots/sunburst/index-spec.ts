@@ -213,10 +213,7 @@ describe('sunburst', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     sunburstPlot.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-list-item-value')[1].innerHTML).toEqual({
-      name: 'name',
-      value: '123',
-    });
+    expect(document.getElementsByClassName('g2-tooltip-list-item-value')[2].innerHTML).toBe('123');
     sunburstPlot.chart.hideTooltip();
   });
 });

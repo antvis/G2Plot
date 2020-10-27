@@ -52,10 +52,8 @@ export function getTooltipTemplate(params: {
   fields?: string[];
 }): HTMLElement {
   const { items, formatter, fields } = params;
-  console.log(items);
-
   const { color, mappingData, data } = items[0] || {}; // 不会有分组情况
-  const container = document.createElement('div');
+  const container = document.createElement('ul');
   container.className = 'g2-tooltip';
   let listItem = '';
   const formatterItem = (item, field) => {

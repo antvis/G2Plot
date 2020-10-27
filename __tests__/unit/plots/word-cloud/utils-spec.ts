@@ -243,10 +243,10 @@ describe('word-cloud utils', () => {
     expect(img instanceof HTMLImageElement).toBe(true);
   });
 
-  it('option: customPlacement', () => {
+  it('option: placementStrategy', () => {
     const p = deepMix({}, params, {
       options: {
-        customPlacement: () => ({ x: 100, y: 100 }),
+        placementStrategy: () => ({ x: 100, y: 100 }),
         wordStyle: {
           fontFamily: '字体',
           fontWeight: '字重',

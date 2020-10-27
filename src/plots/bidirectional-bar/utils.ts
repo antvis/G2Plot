@@ -1,6 +1,6 @@
 import { Datum } from '../../types';
 
-type FormatData = {
+type TransformData = {
   type: string;
   [key: string]: string | number;
 }[];
@@ -11,8 +11,8 @@ type FormatData = {
  * @param yField
  * @param data
  */
-export function transformData(xField: string, yField: string[], data: Datum): FormatData {
-  const hopeData: FormatData = [];
+export function transformData(xField: string, yField: string[], data: Datum): TransformData {
+  const hopeData: TransformData = [];
   yField.forEach((d: string) => {
     data.forEach((k: any) => {
       const obj = {

@@ -16,6 +16,6 @@ export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField
   readonly widthRatio?: number;
   /** 柱子样式配置，可选 */
   readonly barStyle?: StyleAttr;
-  /** layout 方向选择*/
-  layout?: 'horizontal' | 'vertical';
+  /** layout 方向选择，默认水平 horizontal*/
+  readonly layout?: 'horizontal' | 'vertical';
 }

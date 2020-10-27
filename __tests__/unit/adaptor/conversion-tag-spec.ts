@@ -33,6 +33,7 @@ describe('column conversion tag', () => {
       nice: true,
     },
     conversionTag: {},
+    animation: false,
   };
   const plot = new Column(container, options);
 

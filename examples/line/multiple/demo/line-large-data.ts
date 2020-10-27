@@ -11,9 +11,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
       xAxis: {
         type: 'time',
       },
-      legend: {
-        position: 'top',
-      },
       yAxis: {
         label: {
           // 数值格式化为千分位

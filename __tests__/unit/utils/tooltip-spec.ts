@@ -25,7 +25,7 @@ describe('util tooltip', () => {
         },
         ['b']
       )
-    ).toEqual({ fields: undefined, formatter: undefined });
+    ).toEqual({ fields: ['x', 'y', 'z'], formatter: undefined });
 
     // 使用默认的 fields
     expect(

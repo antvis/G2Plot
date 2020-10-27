@@ -12,7 +12,6 @@ const barPlot = new Bar('container', {
   data,
   xField: 'pv',
   yField: 'action',
-  barWidthRatio: 1 / 3,
   conversionTag: {},
 });
 

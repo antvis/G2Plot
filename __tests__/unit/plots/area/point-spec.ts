@@ -16,7 +16,7 @@ describe('area', () => {
     });
 
     area.render();
-    expect(area.chart.geometries.length).toBe(1);
+    expect(area.chart.geometries.length).toBe(2);
 
     let xValue;
     let yValue;
@@ -36,7 +36,7 @@ describe('area', () => {
         },
       },
     });
-    expect(area.chart.geometries.length).toBe(2);
+    expect(area.chart.geometries.length).toBe(3);
     expect(xValue).toBe('25/01/2018');
     expect(yValue).toBe(400);
     expect(colorValue).toBe('Lab');

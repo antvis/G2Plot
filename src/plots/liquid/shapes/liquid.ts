@@ -227,8 +227,8 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
         }
       );
     } catch (e) {
-      // TODO offscreen canvas 中动画会找不到 canvas
-      console.error('offescreen group animate error!');
+      // TODO off-screen canvas 中动画会找不到 canvas
+      console.error('off-screen group animate error!');
     }
   }
 }

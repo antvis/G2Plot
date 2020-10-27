@@ -33,6 +33,7 @@ export class Bar extends Plot<BarOptions> {
         showMarkers: false,
         offset: 20,
       },
+      barWidthRatio: 0.6,
       interactions: [{ type: 'active-region' }],
       meta: {
         [yField]: {

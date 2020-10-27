@@ -14,7 +14,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
           type: 'regionFilter',
           start: ['min', 'median'],
           end: ['max', '0'],
-          color: 'red',
+          color: '#F4664A',
         },
         {
           type: 'text',
@@ -30,7 +30,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
           start: ['min', 'median'],
           end: ['max', 'median'],
           style: {
-            stroke: 'red',
+            stroke: '#F4664A',
             lineDash: [2, 2],
           },
         },

@@ -1,4 +1,4 @@
-import { isString, isArray, isFunction, clamp } from '@antv/util';
+import { isString, isFunction, clamp } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -17,26 +17,29 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { ticks, color } = range;
 
   // 指标 & 指针
-  const indicatorData = [{ [PERCENT]: clamp(percent, 0, 1) }];
+  // 如果开启在应用
+  if (indicator) {
+    const indicatorData = [{ [PERCENT]: clamp(percent, 0, 1) }];
 
-  const v1 = chart.createView();
-  v1.data(indicatorData);
+    const v1 = chart.createView();
+    v1.data(indicatorData);
 
-  v1.point()
-    .position(`${PERCENT}*1`)
-    .shape('gauge-indicator')
-    // 传入指针的样式到自定义 shape 中
-    .customInfo({
-      indicator,
+    v1.point()
+      .position(`${PERCENT}*1`)
+      .shape('gauge-indicator')
+      // 传入指针的样式到自定义 shape 中
+      .customInfo({
+        indicator,
+      });
+
+    v1.coordinate('polar', {
+      startAngle,
+      endAngle,
+      radius: innerRadius * radius, // 外部的 innerRadius * radius = 这里的 radius
     });
 
-  v1.coordinate('polar', {
-    startAngle,
-    endAngle,
-    radius: innerRadius * radius, // 外部的 innerRadius * radius = 这里的 radius
-  });
-
-  v1.axis(PERCENT, axis);
+    v1.axis(PERCENT, axis);
+  }
 
   // 辅助 range
   // [{ range: 1, type: '0' }]
@@ -44,7 +47,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const v2 = chart.createView();
   v2.data(rangeData);
 
-  const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : isArray(color) ? color.concat(DEFAULT_COLOR) : color;
+  const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : color;
 
   v2.interval().position(`1*${RANGE_VALUE}`).color(RANGE_TYPE, rangeColor).adjust('stack');
 

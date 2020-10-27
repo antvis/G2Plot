@@ -1,18 +1,10 @@
 import { Waterfall } from '@antv/g2plot';
 
 const data = [
-  { month: '一月', value: 6200000 },
-  { month: '二月', value: -600000 },
-  { month: '三月', value: -4100000 },
-  { month: '四月', value: 3700000 },
-  { month: '五月', value: -2100000 },
-  { month: '六月', value: 5300000 },
-  { month: '七月', value: 3100000 },
-  { month: '八月', value: -500000 },
-  { month: '九月', value: 4200000 },
-  { month: '十月', value: 5300000 },
-  { month: '十一月', value: -500000 },
-  { month: '十二月', value: 5100000 },
+  { quarter: '第一季度', value: 6200000 },
+  { quarter: '第二季度', value: -2600000 },
+  { quarter: '第三季度', value: 4100000 },
+  { quarter: '第四季度', value: 3700000 },
 ];
 
 const formatter = (v) => `${v / 10000000} 亿`;
@@ -23,11 +15,18 @@ data.reduce((v, d) => {
     type: 'text',
     position: () => {
       const y = v + d.value / 2;
-      return [d.month, y];
+      return [d.quarter, y];
     },
     content: formatter(d.value),
+    background: {
+      style: {
+        fill: '#fff',
+        radius: 1,
+      },
+      padding: 1,
+    },
     style: {
-      fontSize: 10,
+      fontSize: 14,
       stroke: '#fff',
       fill: '#666',
       lineWidth: 1,
@@ -42,14 +41,16 @@ const waterfallPlot = new Waterfall('container', {
   data,
   padding: 'auto',
   appendPadding: [20, 0, 0, 0],
-  xField: 'month',
+  xField: 'quarter',
   yField: 'value',
   meta: {
-    month: {
+    quarter: {
       alias: '月份',
     },
     value: {
       alias: '销售量',
+      min: 0,
+      max: Math.pow(10, 9) * 9,
       formatter,
     },
   },
@@ -64,16 +65,10 @@ const waterfallPlot = new Waterfall('container', {
   labelMode: 'absolute',
   label: {
     style: {
-      fontSize: 10,
-    },
-    background: {
-      style: {
-        fill: '#f6f6f6',
-        radius: 1,
-      },
-      padding: 1.5,
+      fontSize: 12,
     },
   },
+
   annotations,
 });
 

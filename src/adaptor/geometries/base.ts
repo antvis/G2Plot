@@ -1,7 +1,6 @@
 import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
-import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options } from '../../types';
+import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
 
 /**
  * 图形映射属性，按照优先级来的
@@ -85,6 +84,7 @@ export function getMappingField(o: GeometryOptions, field: 'color' | 'shape' | '
  * @param func
  */
 export function getMappingFunction(mappingFields: string[], func: (datum: Datum) => any) {
+  if (!func) return undefined;
   // 返回函数
   return (...args: any[]) => {
     const params: Datum = {};

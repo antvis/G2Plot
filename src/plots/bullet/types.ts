@@ -30,8 +30,8 @@ export interface BulletOptions extends Omit<Options, 'color' | 'label' | 'style'
   /** color 包含了 measure,target,range */
   readonly color?: BulletAttr<ColorAttr>;
 
-  /** style 包含了 measure,target,range */
-  readonly style?: BulletAttr<StyleAttr>;
+  /** bulletStyle 包含了 measure,target,range */
+  readonly bulletStyle?: BulletAttr<StyleAttr>;
 
   /** layout 方向选择*/
   layout?: 'horizontal' | 'vertical';

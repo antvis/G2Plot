@@ -26,6 +26,7 @@ const piePlot = new Pie('container', {
       textAlign: 'center',
     },
   },
+  interactions: [{ type: 'element-active' }],
 });
 
 piePlot.render();

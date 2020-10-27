@@ -39,6 +39,7 @@ describe('column percent', () => {
           fill: '#fff',
         },
       },
+      animation: false,
     });
 
     column.render();

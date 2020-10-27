@@ -25,7 +25,7 @@ export class Bullet extends Plot<BulletOptions> {
         measure: 20,
         target: 20,
       },
-      style: {
+      bulletStyle: {
         range: {
           fillOpacity: 0.5,
         },

@@ -28,5 +28,8 @@ describe('area', () => {
 
     expect(area.chart.geometries[0].type).toBe('area');
     expect(area.chart.geometries[0].getAdjust('stack')).toBeUndefined();
+
+    // @ts-ignore
+    expect(area.chart.getOptions().legends.type.position).toBe('top-left');
   });
 });

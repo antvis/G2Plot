@@ -54,7 +54,7 @@ describe('#1761', () => {
 
     area.render();
 
-    expect(area.chart.geometries.length).toBe(1);
+    expect(area.chart.geometries.length).toBe(2);
 
     area.update({
       ...area.options,

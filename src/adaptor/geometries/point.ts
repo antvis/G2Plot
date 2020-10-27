@@ -32,10 +32,10 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
     ? geometry(
         deepMix({}, params, {
           options: {
+            type: 'point',
             colorField: seriesField,
             shapeField: shapeField,
-            tootip: fields,
-            type: 'point',
+            tooltipFields: fields,
             mapping: {
               tooltip: formatter,
               ...point,

@@ -29,6 +29,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "line.ts",
+      "title": {
+        "zh": "散点图-趋势线",
+        "en": "Bubble chart trend line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWiDQIYm09AAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "axis-right.ts",
       "title": {
         "zh": "散点图-右侧坐标轴",

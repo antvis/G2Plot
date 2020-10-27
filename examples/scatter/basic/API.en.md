@@ -141,6 +141,42 @@ scatterPlot.render();
 }
 ```
 
+#### trendline
+
+**可选**, _object_
+
+功能描述： 设置趋势线。
+
+| 细分配置   | 类型                                                | 功能描述                 |
+| ---------- | --------------------------------------------------- | ------------------------ |
+| type       | linear \| exp \| loess \| log\| poly \| pow \| quad | 趋势线类型               |
+| style      | object                                              | 趋势线样式，参考绘图属性 |
+| customPath | [][] \| (view, group) => [][]                       | 自定义 path              |
+
+```ts
+trendline: {
+  customPath: [
+    ['M', 0, 0],
+    ['L', 200, 200],
+  ];
+}
+```
+
+#### quadrant
+
+**可选**, _object_
+
+功能描述： 四象限组件。
+
+| 细分配置    | 类型    | 功能描述                           |
+| ----------- | ------- | ---------------------------------- |
+| xBaseline   | number  | x 方向上的象限分割基准线，默认为 0 |
+| yBaseline   | number  | y 方向上的象限分割基准线，默认为 0 |
+| lineStyle   | object  | 配置象限分割线的样式，参考绘图属性 |
+| regionStyle | object  | 象限样式，参考绘图属性             |
+| lineStyle   | object  | 趋势线样式，参考绘图属性           |
+| labels      | label[] | 象限文本配置，参考绘图属性         |
+
 #### pointStyle ✨
 
 **可选**, _object_

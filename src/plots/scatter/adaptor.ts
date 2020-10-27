@@ -4,6 +4,7 @@ import { flow } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
+import { trendline } from './annotations/path';
 import { getQuadrantDefaultConfig } from './util';
 import { ScatterOptions } from './types';
 
@@ -180,5 +181,17 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
  */
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, meta, axis, legend, tooltip, label, interaction, scatterAnnotation, animation, theme)(params);
+  return flow(
+    geometry,
+    meta,
+    axis,
+    legend,
+    tooltip,
+    label,
+    interaction,
+    scatterAnnotation,
+    animation,
+    theme,
+    trendline
+  )(params);
 }

@@ -20,6 +20,10 @@ Same for xAxis and yAxis.
 
 `markdown:docs/common/slider.en.md`
 
+#### annotations
+
+`markdown:docs/common/annotations.en.md`
+
 #### theme
 
 `markdown:docs/common/theme.en.md`

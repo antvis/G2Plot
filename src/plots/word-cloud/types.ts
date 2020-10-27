@@ -95,7 +95,8 @@ export interface WordCloudOptions extends Options {
   readonly spiral?: 'archimedean' | 'rectangular';
   /**
    * 自定义每个词语的坐标。
-   * 注意：使用该选项时，应配合 `wordStyle` 中的其它选项同时使用。
+   * 返回值必须包含 x 和 y 属性，其余的可选。也可以在 `wordStyle` 中的
+   * 选项中设置。
    */
   readonly placementStrategy?: (word: Word, index?: number, words?: Word[]) => Partial<Tag> & { x: number; y: number };
   readonly wordStyle?: WordStyle;

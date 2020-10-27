@@ -56,7 +56,7 @@
 
 默认配置： _'archimedean'_
 
-#### customPlacement
+#### placementStrategy
 
 **可选**, _function_
 

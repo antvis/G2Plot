@@ -97,6 +97,6 @@ export interface WordCloudOptions extends Options {
    * 自定义每个词语的坐标。
    * 注意：使用该选项时，应配合 `wordStyle` 中的其它选项同时使用。
    */
-  readonly customPlacement?: (word: Word, index?: number, words?: Word[]) => { x: number; y: number };
+  readonly placementStrategy?: (word: Word, index?: number, words?: Word[]) => Partial<Tag> & { x: number; y: number };
   readonly wordStyle?: WordStyle;
 }

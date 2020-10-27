@@ -61,7 +61,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "custom-placement.ts",
+      "filename": "placement-strategy.ts",
       "title": {
         "zh": "词云图-自定义每个词语位置",
         "en": "Word Cloud chart - custom placement"

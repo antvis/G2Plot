@@ -14,7 +14,7 @@ const wordCloud = new WordCloud('container', {
     fontSize: 16,
     rotation: 0,
   },
-  customPlacement(word, index, words) {
+  placementStrategy(word, index, words) {
     const width = this.ele.clientWidth;
     const height = this.ele.clientHeight;
     const length = words.length;

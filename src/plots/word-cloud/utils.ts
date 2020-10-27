@@ -22,7 +22,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     timeInterval,
     random,
     spiral,
-    customPlacement,
+    placementStrategy,
   } = rawOptions;
   if (!data || !data.length) {
     return [];
@@ -56,7 +56,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
   };
 
   // 自定义布局函数
-  if (isFunction(customPlacement)) {
+  if (isFunction(placementStrategy)) {
     return words.map((word: Word, index: number, words: Word[]) => ({
       ...word,
       hasText: !!word.text,
@@ -65,7 +65,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
       rotate: functor(options.rotate)(word, index, words),
       size: functor(options.fontSize)(word, index, words),
       style: 'normal',
-      ...customPlacement.call(chart, word, index, words),
+      ...placementStrategy.call(chart, word, index, words),
     }));
   }
 

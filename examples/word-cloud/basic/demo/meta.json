@@ -51,6 +51,22 @@
         "en": "Word Cloud chart - colorField"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "same-place.ts",
+      "title": {
+        "zh": "词云图-每次渲染保持位置不变",
+        "en": "Word Cloud chart - keep the position unchanged"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "placement-strategy.ts",
+      "title": {
+        "zh": "词云图-自定义每个词语位置",
+        "en": "Word Cloud chart - custom placement"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

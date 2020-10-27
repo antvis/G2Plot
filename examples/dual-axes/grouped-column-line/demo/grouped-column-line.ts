@@ -30,13 +30,14 @@ const dualAxes = new DualAxes('container', {
       geometry: 'column',
       isGroup: true,
       seriesField: 'type',
+      color: ['#5B8FF9', '#5D7092'],
     },
     {
       geometry: 'line',
       lineStyle: {
         lineWidth: 2,
-        stroke: '#FAA219',
       },
+      color: '#5AD8A6',
     },
   ],
 });

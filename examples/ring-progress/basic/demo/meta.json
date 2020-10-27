@@ -19,22 +19,6 @@
         "en": "Tiny Ring style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HkhsTZBx334AAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "ring-progress-style-callback.ts",
-      "title": {
-        "zh": "迷你进度环图回调样式",
-        "en": "Tiny Ring style callback"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*BS8MSbFYjDEAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "ring-progress-radius.ts",
-      "title": {
-        "zh": "迷你进度环图半径大小",
-        "en": "Tiny Ring radius"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lK1kQYoNQysAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

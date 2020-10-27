@@ -1,23 +1,23 @@
 import { Funnel } from '@antv/g2plot';
 
 const data = [
-  { action: '浏览网站', pv: 50000, quarter: '2020Q1' },
-  { action: '放入购物车', pv: 35000, quarter: '2020Q1' },
-  { action: '生成订单', pv: 25000, quarter: '2020Q1' },
-  { action: '支付订单', pv: 15000, quarter: '2020Q1' },
-  { action: '完成交易', pv: 11500, quarter: '2020Q1' },
-  { action: '浏览网站', pv: 80000, quarter: '2020Q2' },
-  { action: '放入购物车', pv: 63000, quarter: '2020Q2' },
-  { action: '生成订单', pv: 47000, quarter: '2020Q2' },
-  { action: '支付订单', pv: 24000, quarter: '2020Q2' },
-  { action: '完成交易', pv: 17500, quarter: '2020Q2' },
+  { stage: '简历筛选', number: 253, company: 'A公司' },
+  { stage: '初试人数', number: 151, company: 'A公司' },
+  { stage: '复试人数', number: 113, company: 'A公司' },
+  { stage: '录取人数', number: 87, company: 'A公司' },
+  { stage: '入职人数', number: 59, company: 'A公司' },
+  { stage: '简历筛选', number: 303, company: 'B公司' },
+  { stage: '初试人数', number: 251, company: 'B公司' },
+  { stage: '复试人数', number: 153, company: 'B公司' },
+  { stage: '录取人数', number: 117, company: 'B公司' },
+  { stage: '入职人数', number: 79, company: 'B公司' },
 ];
 
 const funnelPlot = new Funnel('container', {
   data,
-  xField: 'action',
-  yField: 'pv',
-  compareField: 'quarter',
+  xField: 'stage',
+  yField: 'number',
+  compareField: 'company',
   isTransposed: true,
 });
 funnelPlot.render();

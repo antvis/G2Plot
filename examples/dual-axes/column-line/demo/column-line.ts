@@ -15,12 +15,14 @@ const dualAxes = new DualAxes('container', {
   geometryOptions: [
     {
       geometry: 'column',
+      color: '#5B8FF9',
     },
     {
       geometry: 'line',
+      color: '#5AD8A6',
       lineStyle: {
         lineWidth: 2,
-        stroke: '#FAA219',
+        stroke: '#5AD8A6',
       },
     },
   ],

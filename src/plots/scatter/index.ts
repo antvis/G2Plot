@@ -19,14 +19,14 @@ export class Scatter extends Plot<ScatterOptions> {
   }
 
   protected getDefaultOptions(options: ScatterOptions) {
-    const { shapeField, colorField, legend, xField, yField } = options;
+    const { shapeField, colorField, legend, xField, yField, sizeField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       size: 4,
       /** pointStyle 跟随主题默认样式 */
       tooltip: {
         shared: null,
         showTitle: false,
-        fields: [xField, yField],
+        fields: [xField, yField, colorField, sizeField, shapeField],
       },
       /**
        * legend 没有指定时根据 shapeField 和 colorField 来设置默认值

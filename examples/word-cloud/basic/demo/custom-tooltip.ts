@@ -9,6 +9,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json')
       height: 400,
       wordField: 'name',
       weightField: 'value',
+      colorField: 'name',
       imageMask: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       wordStyle: {
         fontFamily: 'Verdana',

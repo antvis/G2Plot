@@ -11,7 +11,7 @@ import { Tag, Word, WordCloudOptions } from './types';
  * @param params
  */
 export function transform(params: Params<WordCloudOptions>): Tag[] {
-  const { options: rawOptions } = params;
+  const { options: rawOptions, chart } = params;
   const {
     data,
     imageMask,
@@ -58,14 +58,14 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
   // 自定义布局函数
   if (isFunction(customPlacement)) {
     return words.map((word: Word, index: number, words: Word[]) => ({
+      ...word,
       hasText: !!word.text,
       font: functor(options.font)(word, index, words),
       weight: functor(options.fontWeight)(word, index, words),
       rotate: functor(options.rotate)(word, index, words),
       size: functor(options.fontSize)(word, index, words),
       style: 'normal',
-      ...word,
-      ...customPlacement(word, index, words),
+      ...customPlacement.call(chart, word, index, words),
     }));
   }
 

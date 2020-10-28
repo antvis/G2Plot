@@ -38,6 +38,16 @@ export class Pie extends Plot<PieOptions> {
           style: { fontSize: 21, fontWeight: 'bold', fill: '#4D4D4D', textAlign: 'center' },
         },
       },
+      /** 默认关闭 text-annotation 动画 */
+      theme: {
+        components: {
+          annotation: {
+            text: {
+              animate: false,
+            },
+          },
+        },
+      },
     });
   }
 

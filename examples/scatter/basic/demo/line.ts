@@ -43,7 +43,7 @@ const scatterPlot = new Scatter('container', {
     lineWidth: 1,
     fill: '#5B8FF9',
   },
-  trendline: {
+  regressionLine: {
     type: 'quad', // linear, exp, loess, log, poly, pow, quad
   },
 });

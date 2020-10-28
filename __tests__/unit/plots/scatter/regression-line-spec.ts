@@ -36,8 +36,8 @@ const data = [
 ];
 
 describe('scatter', () => {
-  it('trendline: type', () => {
-    const scatter = new Scatter(createDiv('trendline'), {
+  it('regressionLine: type', () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
       data,
       width: 400,
       height: 300,
@@ -50,7 +50,7 @@ describe('scatter', () => {
         lineWidth: 1,
         fill: '#5B8FF9',
       },
-      trendline: {
+      regressionLine: {
         type: 'quad', // linear, exp, loess, log, poly, pow, quad
         style: {
           stroke: 'red',
@@ -72,8 +72,8 @@ describe('scatter', () => {
     expect(elements[0].getModel().size).toBe(5);
   });
 
-  it('trendline: customPath', () => {
-    const scatter = new Scatter(createDiv('trendline*customPath'), {
+  it('regressionLine: algorithm', () => {
+    const scatter = new Scatter(createDiv('regressionLine*algorithm'), {
       data,
       width: 400,
       height: 300,
@@ -86,10 +86,10 @@ describe('scatter', () => {
         lineWidth: 1,
         fill: '#5B8FF9',
       },
-      trendline: {
-        customPath: [
-          ['M', 0, 0],
-          ['L', 200, 200],
+      regressionLine: {
+        algorithm: [
+          [0, 0],
+          [200, 200],
         ],
       },
     });

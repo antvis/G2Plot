@@ -83,25 +83,26 @@ function getPath(data: number[][], config: renderOptions) {
 }
 
 function renderPath(config: renderOptions) {
-  const { view, group, options } = config;
-  const { xField, yField, data, trendline } = options;
-  const { type = 'linear', style, customPath } = trendline;
-  let path;
-  if (customPath) {
-    path = isArray(customPath) ? customPath : customPath(view, group);
+  const { group, options } = config;
+  const { xField, yField, data, regressionLine } = options;
+  const { type = 'linear', style, algorithm } = regressionLine;
+  let pathData: Array<[number, number]>;
+  if (algorithm) {
+    pathData = isArray(algorithm) ? algorithm : algorithm(data);
   } else {
     const reg = REGRESSION_MAP[type]()
       .x((d) => d[xField])
       .y((d) => d[yField]);
-    path = getPath(reg(data), config);
+    pathData = reg(data);
   }
+  const path = getPath(pathData, config);
   const defaultStyle = {
     stroke: '#9ba29a',
     lineWidth: 2,
     opacity: 0.5,
   };
   group.addShape('path', {
-    name: 'trend-line',
+    name: 'regression-line',
     attrs: {
       path,
       ...defaultStyle,
@@ -110,17 +111,16 @@ function renderPath(config: renderOptions) {
   });
 }
 
-// 辅助标记线
-export function trendline<O extends ScatterOptions>(params: Params<O>) {
+// 使用 shape annotation 绘制回归线
+export function regressionLine<O extends ScatterOptions>(params: Params<O>) {
   const { options, chart } = params;
-  const { trendline } = options;
-  if (trendline) {
-    // 使用 shape annotation 绘制趋势线
+  const { regressionLine } = options;
+  if (regressionLine) {
     chart.annotation().shape({
       render: (container, view) => {
         const group = container.addGroup({
-          id: `${chart.id}-trend-line`,
-          name: 'trend-line',
+          id: `${chart.id}-regression-line`,
+          name: 'regression-line-group',
         });
         renderPath({
           view,

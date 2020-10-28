@@ -1,5 +1,3 @@
-import { IGroup } from '@antv/g2/lib/dependents';
-import { View } from '@antv/g2';
 import {
   Options,
   RegionPositionBaseOption,
@@ -28,15 +26,13 @@ interface QuadrantOptions {
   readonly labels?: Labels[];
 }
 
-export interface TrendlineOptions {
-  /** 趋势线类型  */
+export interface RegressionLineOptions {
+  /** 回归线类型  */
   readonly type?: string;
-  /** 配置趋势线样式  */
+  /** 配置回归线样式  */
   readonly style?: ShapeStyle;
-  /** 自定义 path  */
-  readonly customPath?:
-    | Array<[string, number, number]>
-    | ((view: View, group: IGroup) => Array<[string, number, number]>);
+  /** 自定义算法 [[0,0],[100,100]] */
+  readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
 }
 
 export interface ScatterOptions extends Options {
@@ -60,6 +56,6 @@ export interface ScatterOptions extends Options {
   readonly colorField?: string;
   /** 四象限组件 */
   readonly quadrant?: QuadrantOptions;
-  /** 趋势线组件，为图表添加回归曲线 */
-  readonly trendline?: TrendlineOptions;
+  /** 归曲线 */
+  readonly regressionLine?: RegressionLineOptions;
 }

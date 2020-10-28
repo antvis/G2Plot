@@ -4,7 +4,7 @@ import { flow } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
-import { trendline } from './annotations/path';
+import { regressionLine } from './annotations/path';
 import { getQuadrantDefaultConfig } from './util';
 import { ScatterOptions } from './types';
 
@@ -192,6 +192,6 @@ export function adaptor(params: Params<ScatterOptions>) {
     scatterAnnotation,
     animation,
     theme,
-    trendline
+    regressionLine
   )(params);
 }

@@ -142,23 +142,23 @@ scatterPlot.render();
 }
 ```
 
-#### trendline
+#### regressionLine
 
 **可选**, _object_
 
-功能描述： 设置趋势线。
+功能描述： 设置回归线。
 
-| 细分配置   | 类型                                                | 功能描述                 |
-| ---------- | --------------------------------------------------- | ------------------------ |
-| type       | linear \| exp \| loess \| log\| poly \| pow \| quad | 趋势线类型               |
-| style      | object                                              | 趋势线样式，参考绘图属性 |
-| customPath | [][] \| (view, group) => [][]                       | 自定义 path              |
+| 细分配置  | 类型                                                | 功能描述                 |
+| --------- | --------------------------------------------------- | ------------------------ |
+| type      | linear \| exp \| loess \| log\| poly \| pow \| quad | 回归线类型               |
+| style     | object                                              | 回归线样式，参考绘图属性 |
+| algorithm | [][] \| (data) => [][]                              | 自定义 path              |
 
 ```ts
-trendline: {
-  customPath: [
-    ['M', 0, 0],
-    ['L', 200, 200],
+regressionLine: {
+  algorithm: [
+    [0, 0],
+    [200, 200],
   ];
 }
 ```
@@ -175,7 +175,7 @@ trendline: {
 | yBaseline   | number  | y 方向上的象限分割基准线，默认为 0 |
 | lineStyle   | object  | 配置象限分割线的样式，参考绘图属性 |
 | regionStyle | object  | 象限样式，参考绘图属性             |
-| lineStyle   | object  | 趋势线样式，参考绘图属性           |
+| lineStyle   | object  | 回归线样式，参考绘图属性           |
 | labels      | label[] | 象限文本配置，参考绘图属性         |
 
 #### pointStyle ✨

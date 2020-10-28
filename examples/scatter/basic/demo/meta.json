@@ -31,8 +31,8 @@
     {
       "filename": "line.ts",
       "title": {
-        "zh": "散点图-趋势线",
-        "en": "Bubble chart trend line"
+        "zh": "散点图-回归线",
+        "en": "Bubble chart regression line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWiDQIYm09AAAAAAAAAAAAAAARQnAQ"
     },

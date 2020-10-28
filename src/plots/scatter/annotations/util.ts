@@ -1,7 +1,7 @@
 import { vec2 } from '@antv/matrix-util';
 import { Position, Point } from '@antv/g2/lib/interface';
 
-function _points2path(points: Point[], isInCircle: boolean) {
+function points2path(points: Point[], isInCircle: boolean) {
   const path = [];
   if (points.length) {
     path.push(['M', points[0].x, points[0].y]);
@@ -135,14 +135,6 @@ export function catmullRom2bezier(crp: number[], z: boolean, constraint: Positio
 
 /**
  * @ignore
- * 将点连接成路径 path
- */
-export function getLinePath(points: Point[], isInCircle?: boolean) {
-  return _points2path(points, isInCircle);
-}
-
-/**
- * @ignore
  * 根据关键点获取限定了范围的平滑线
  */
 export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Position[]) {
@@ -151,7 +143,7 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
   let prePoint = null;
   if (points.length <= 2) {
     // 两点以内直接绘制成路径
-    return getLinePath(points, isInCircle);
+    return points2path(points, isInCircle);
   }
   for (let i = 0, len = points.length; i < len; i++) {
     const point = points[i];

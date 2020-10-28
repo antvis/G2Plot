@@ -57,7 +57,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
 
   // 自定义布局函数
   if (isFunction(placementStrategy)) {
-    return words.map((word: Word, index: number, words: Word[]) => ({
+    const result = words.map((word: Word, index: number, words: Word[]) => ({
       ...word,
       hasText: !!word.text,
       font: functor(options.font)(word, index, words),
@@ -67,6 +67,24 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
       style: 'normal',
       ...placementStrategy.call(chart, word, index, words),
     }));
+
+    // 添加两个参照数据，分别表示左上角和右下角
+    result.push({
+      text: '',
+      value: 0,
+      x: 0,
+      y: 0,
+      opacity: 0,
+    });
+    result.push({
+      text: '',
+      value: 0,
+      x: options.size[0],
+      y: options.size[1],
+      opacity: 0,
+    });
+
+    return result;
   }
 
   // 数据准备在外部做，wordCloud 单纯就是做布局

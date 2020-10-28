@@ -256,7 +256,7 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const result = transform(p);
+    const result = transform(p).filter((v) => v.hasText);
     expect(result.length).toBe(CountryEconomy.length);
     result.forEach((item) => {
       expect(item.font).toBe('字体');

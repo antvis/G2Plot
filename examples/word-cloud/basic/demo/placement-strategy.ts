@@ -1,6 +1,6 @@
 import { WordCloud } from '@antv/g2plot';
 
-const data = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ '.split('').map((item) => ({ name: item, value: 1 }));
+const data = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((item) => ({ name: item, value: 1 }));
 
 const wordCloud = new WordCloud('container', {
   data,
@@ -18,8 +18,8 @@ const wordCloud = new WordCloud('container', {
     const length = words.length;
 
     return {
-      x: (width / length) * index,
-      y: (height / length) * index,
+      x: (width / (length + 1)) * (index + 1),
+      y: (height / (length + 1)) * (index + 1),
     };
   },
 });

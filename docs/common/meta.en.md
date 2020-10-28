@@ -11,4 +11,4 @@ Default: `none`
 | alias          | _string_   | alias of the data field                                  |
 | formatter      | _function_ | callback function to format all values of the data field |
 | values         | _string[]_ | enumerate all the values of the data field                          |
-| range          | _number[]_ | mapping range of the data field, defualt: [0,1]             |
+| range          | _number[]_ | mapping range of the data field, default: [0,1]             |

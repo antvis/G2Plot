@@ -11,9 +11,9 @@ import { IGroup, Scale } from '@antv/g2/lib/dependents';
 import { minBy, maxBy, isArray } from '@antv/util';
 import { getScale } from '@antv/scale';
 import { View } from '@antv/g2';
+import { getSplinePath } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { ScatterOptions } from '../types';
-import { getSplinePath } from './util';
 
 const REGRESSION_MAP = {
   exp: regressionExp,

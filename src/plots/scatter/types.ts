@@ -13,7 +13,7 @@ interface Labels extends Omit<TextOption, 'position'> {
   position?: AnnotationPosition;
 }
 
-interface Quadrant {
+interface QuadrantOptions {
   /** x 方向上的象限分割基准线，默认为 0  */
   readonly xBaseline?: number;
   /** y 方向上的象限分割基准线，默认为 0  */
@@ -26,17 +26,13 @@ interface Quadrant {
   readonly labels?: Labels[];
 }
 
-interface TrendLine {
-  /** 是否显示  */
-  readonly visible?: boolean;
-  /** 趋势线类型  */
+export interface RegressionLineOptions {
+  /** 回归线类型  */
   readonly type?: string;
-  /** 配置趋势线样式  */
+  /** 配置回归线样式  */
   readonly style?: ShapeStyle;
-  /** 是否绘制置信区间曲线  */
-  readonly showConfidence?: boolean;
-  /** 配置置信区间样式  */
-  readonly confidenceStyle?: ShapeStyle;
+  /** 自定义算法 [[0,0],[100,100]] */
+  readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
 }
 
 export interface ScatterOptions extends Options {
@@ -59,7 +55,7 @@ export interface ScatterOptions extends Options {
   /** 点颜色映射对应的数据字段名 */
   readonly colorField?: string;
   /** 四象限组件 */
-  readonly quadrant?: Quadrant;
-  /** 趋势线组件，为图表添加回归曲线 */
-  readonly trendLine?: TrendLine;
+  readonly quadrant?: QuadrantOptions;
+  /** 归曲线 */
+  readonly regressionLine?: RegressionLineOptions;
 }

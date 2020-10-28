@@ -29,7 +29,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 }
 ```
 
-### Arc Annotaion
+### Arc Annotation
 
 使用示例:
 
@@ -43,7 +43,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 }
 ```
 
-### Image Annotaion
+### Image Annotation
 
 使用示例:
 
@@ -66,7 +66,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 }
 ```
 
-### Line Annotaion
+### Line Annotation
 
 使用示例: _绘制中位线_
 
@@ -80,7 +80,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 }
 ```
 
-### Text Annotaion
+### Text Annotation
 
 使用示例:
 
@@ -96,7 +96,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
 }
 ```
 
-### Region Annotaion
+### Region Annotation
 
 使用示例
 

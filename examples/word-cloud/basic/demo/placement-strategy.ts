@@ -4,8 +4,6 @@ const data = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ '.split('').map((item) => ({ name: ite
 
 const wordCloud = new WordCloud('container', {
   data,
-  width: 600,
-  height: 400,
   wordField: 'name',
   weightField: 'value',
   colorField: 'name',

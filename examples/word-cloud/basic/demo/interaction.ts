@@ -5,8 +5,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.jso
   .then((data) => {
     const wordCloud = new WordCloud('container', {
       data,
-      width: 600,
-      height: 500,
       wordField: 'x',
       weightField: 'value',
       color: '#6262ff',

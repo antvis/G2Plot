@@ -58,7 +58,8 @@ const stackedBarPlot = new Bar('container', {
   isGroup: true,
   xField: 'value',
   yField: 'label',
-  color: ['#1383ab', '#c52125'],
+  /** 自定义颜色 */
+  // color: ['#1383ab', '#c52125'],
   seriesField: 'type',
   marginRatio: 0,
   label: {

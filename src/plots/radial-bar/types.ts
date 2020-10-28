@@ -1,4 +1,6 @@
+import { ShapeAttrs } from '@antv/g-base/lib/types';
 import { Options } from '../../types';
+// import { ColumnOptions } from '../column/types';
 
 /** 配置类型定义 */
 export interface RadialBarOptions extends Options {
@@ -6,4 +8,6 @@ export interface RadialBarOptions extends Options {
   readonly xField?: string;
   /** y 轴字段 */
   readonly yField?: string;
+  /** 样式 */
+  readonly barStyle?: ShapeAttrs;
 }

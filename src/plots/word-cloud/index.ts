@@ -15,11 +15,6 @@ export class WordCloud extends Plot<WordCloudOptions> {
   public type: string = 'word-cloud';
 
   /**
-   * 记录 `container` resize 的次数
-   */
-  private resizeCount = 0;
-
-  /**
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<WordCloudOptions> {
@@ -86,9 +81,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
       // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标
       // 需要重新执行 adaptor，不然会出现布局错乱，
       // 如相邻词语重叠的情况。
-      // 第一次不执行，不然动画会有卡顿
-      this.resizeCount && this.execAdaptor();
-      this.resizeCount++;
+      this.execAdaptor();
 
       // 延迟执行，有利于动画更流畅
       // TODO: 在多次更改画布尺寸时，动画会越来越卡顿，原因未知

@@ -81,7 +81,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param width
    * @param height
    */
-  private getChartSize(width: number, height: number): Size {
+  private getChartSize(width?: number, height?: number): Size {
     const chartSize = getContainerSize(this.container);
     return { width: width || chartSize.width, height: height || chartSize.height };
   }
@@ -272,7 +272,13 @@ export abstract class Plot<O extends PickOptions> extends EE {
     const { autoFit = true } = this.options;
     if (autoFit) {
       this.unbind = bind(this.container, () => {
-        this.triggerResize();
+        // 获取最新的宽高信息
+        const { width, height } = this.getChartSize();
+
+        // 主要是防止绑定的时候触发 resize 回调
+        if (width !== this.chart.width || height !== this.chart.height) {
+          this.triggerResize();
+        }
       });
     }
   }

@@ -88,10 +88,14 @@ export class WordCloud extends Plot<WordCloudOptions> {
       // 如相邻词语重叠的情况。
       // 第一次不执行，不然动画会有卡顿
       this.resizeCount && this.execAdaptor();
-
-      // 执行父类的方法
-      super.triggerResize();
       this.resizeCount++;
+
+      // 延迟执行，有利于动画更流畅
+      // TODO: 在多次更改画布尺寸时，动画会越来越卡顿，原因未知
+      window.setTimeout(() => {
+        // 执行父类的方法
+        super.triggerResize();
+      });
     }
   }
 }

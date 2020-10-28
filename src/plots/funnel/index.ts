@@ -68,7 +68,7 @@ export class Funnel extends Plot<FunnelOptions> {
           offsetX: 10,
           offsetY: 0,
           style: {},
-          formatter: (datum) => `转化率${datum.$$percentage$$ * 100}%`,
+          formatter: (datum) => `转化率${(datum.$$percentage$$ * 100).toFixed(2)}%`,
         },
       },
       additionalOption

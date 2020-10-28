@@ -4,12 +4,10 @@ const ringProgress = new RingProgress('container', {
   height: 100,
   width: 100,
   autoFit: false,
-  percent: 0.7,
-  progressStyle: {
-    stroke: 'grey',
-    lineDash: [4, 4],
-    lineWidth: 1,
-  },
+  percent: 0.6,
+  color: ['#F4664A', '#E8EDF3'],
+  innerRadius: 0.85,
+  radius: 0.98,
 });
 
 ringProgress.render();

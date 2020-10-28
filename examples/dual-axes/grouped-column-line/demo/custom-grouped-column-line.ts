@@ -32,10 +32,11 @@ const dualAxes = new DualAxes('container', {
       seriesField: 'type',
       columnWidthRatio: 0.4,
       label: {},
+      color: ['#5B8FF9', '#5D7092'],
     },
     {
       geometry: 'line',
-      color: '#FAA219',
+      color: '#5AD8A6',
     },
   ],
   legend: {
@@ -45,17 +46,17 @@ const dualAxes = new DualAxes('container', {
       {
         value: 'uv',
         name: 'uv',
-        marker: { symbol: 'square', style: { fill: '#B4EBBF', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#5B8FF9', r: 5 } },
       },
       {
         value: 'bill',
         name: '账单',
-        marker: { symbol: 'square', style: { fill: '#FFB1AC', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#5D7092', r: 5 } },
       },
       {
         value: 'count',
         name: '数值',
-        marker: { symbol: 'square', style: { fill: '#FFDBA2', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#5AD8A6', r: 5 } },
       },
     ],
   },

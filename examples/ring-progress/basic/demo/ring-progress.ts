@@ -5,6 +5,7 @@ const ringProgress = new RingProgress('container', {
   width: 100,
   autoFit: false,
   percent: 0.7,
+  color: ['#5B8FF9', '#E8EDF3'],
 });
 
 ringProgress.render();

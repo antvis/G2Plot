@@ -10,11 +10,14 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json')
       wordField: 'name',
       weightField: 'value',
       colorField: 'name',
-      imageMask: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ',
       wordStyle: {
         fontFamily: 'Verdana',
         fontSize: [8, 32],
+        rotation: 0,
       },
+      // 返回值设置成一个 [0, 1) 区间内的值，
+      // 可以让每次渲染的位置相同（前提是每次的宽高一致）。
+      random: () => 0.5,
     });
 
     wordCloud.render();

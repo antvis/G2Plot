@@ -135,4 +135,22 @@ describe('pie', () => {
     expect(elements[1].getModel().style?.fill).toBe('blue');
     expect(elements[2].getModel().style?.fill).toBe('red');
   });
+
+  it('pie: annotation animate default to false', () => {
+    const pie = new Pie(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+    });
+    pie.render();
+    expect(pie.chart.getTheme().components.annotation.text.animate).toBe(false);
+
+    pie.update({ ...pie.options, theme: { color: 'red' } });
+    expect(pie.chart.getTheme().components.annotation.text.animate).toBe(false);
+
+    pie.update({ ...pie.options, theme: { components: { annotation: { text: { animate: true } } } } });
+    expect(pie.chart.getTheme().components.annotation.text.animate).toBe(true);
+  });
 });

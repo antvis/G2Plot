@@ -1,5 +1,5 @@
 ---
-title: 漏斗图
+title: Funnel
 order: 0
 ---
 

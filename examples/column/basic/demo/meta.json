@@ -10,15 +10,7 @@
         "zh": "基础柱状图",
         "en": "Basic Column chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "label.ts",
-      "title": {
-        "zh": "基础柱状图-图形标签",
-        "en": "Column chart label"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*6xAoRa0kaxEAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KAg2TY-oYRUAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "color.ts",
@@ -26,7 +18,7 @@
         "zh": "基础柱状图 - 自定义颜色",
         "en": "Column chart color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wXaiTqWGOxYAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*H-4dQq86-t4AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "width.ts",

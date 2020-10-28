@@ -39,7 +39,7 @@ const columnPlot = new Column('container', {
   data,
   xField: 'type',
   yField: 'sales',
-  columnWidthRatio: 0.618,
+  columnWidthRatio: 0.8,
   meta: {
     type: {
       alias: '类别',

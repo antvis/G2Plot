@@ -89,7 +89,10 @@ const stackedColumnPlot = new Column('container', {
   xField: '月份',
   yField: '月均降雨量',
   seriesField: 'name',
-  color: ['#1ca9e6', '#f88c24'],
+  /** 设置颜色 */
+  //color: ['#1ca9e6', '#f88c24'],
+  /** 设置间距 */
+  // marginRatio: 0.1,
   label: {
     // 可手动配置 label 数据标签位置
     position: 'middle', // 'top', 'middle', 'bottom'

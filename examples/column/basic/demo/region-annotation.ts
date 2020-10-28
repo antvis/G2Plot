@@ -50,12 +50,12 @@ const columnPlot = new Column('container', {
   annotations: [
     {
       type: 'region',
-      start: (xScale: any) => {
+      start: (xScale) => {
         const ratio = xScale.ticks ? 1 / xScale.ticks.length : 1;
         const x = xScale.scale('美容洗护') - ratio / 2;
         return [`${x * 100}%`, '0%'];
       },
-      end: (xScale: any) => {
+      end: (xScale) => {
         const ratio = xScale.ticks ? 1 / xScale.ticks.length : 1;
         const x = xScale.scale('美容洗护') + ratio / 2;
         return [`${x * 100}%`, '100%'];
@@ -77,3 +77,4 @@ const columnPlot = new Column('container', {
 });
 
 columnPlot.render();
+columnPlot.setState('selected', (datum) => datum.type === '美容洗护');

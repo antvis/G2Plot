@@ -1,6 +1,5 @@
 import { ShapeAttrs } from '@antv/g-base/lib/types';
 import { Options } from '../../types';
-// import { ColumnOptions } from '../column/types';
 
 /** 配置类型定义 */
 export interface RadialBarOptions extends Options {

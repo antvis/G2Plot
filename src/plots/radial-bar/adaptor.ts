@@ -1,6 +1,8 @@
+import { deepMix } from '@antv/util';
 import { interaction, animation, theme, scale, tooltip, legend } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
+import { interval } from '../../adaptor/geometries';
 import { RadialBarOptions } from './types';
 
 /**
@@ -9,15 +11,35 @@ import { RadialBarOptions } from './types';
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, barStyle, color } = options;
+  const { data, xField, yField, barStyle: style, color, tooltip } = options;
   chart.data(data);
-  const interval = chart.interval().position(`${xField}*${yField}`);
-  if (barStyle) {
-    interval.style(barStyle);
-  }
-  if (color) {
-    interval.color(`${yField}`, color);
-  }
+
+  // const interval = chart.interval().position(`${xField}*${yField}`);
+
+  // interval.tooltip(yField,(val)=>{
+  //   return {
+  //     name: '占比',
+  //     value: val * 100 + '%',
+  //   };
+  // });
+
+  // if (barStyle) {
+  //   interval.style(barStyle);
+  // }
+  // if (color) {
+  //   interval.color(`${yField}`, color);
+  // }
+
+  const p = deepMix({}, params, {
+    options: {
+      tooltip,
+      interval: {
+        style,
+        color,
+      },
+    },
+  });
+  interval(p);
   return params;
 }
 
@@ -77,17 +99,5 @@ export function axis(params: Params<RadialBarOptions>): Params<RadialBarOptions>
  * @param options
  */
 export function adaptor(params: Params<RadialBarOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(
-    geometry,
-    meta,
-    axis,
-    coordinate,
-    interaction,
-    animation,
-    theme,
-    tooltip,
-    legend
-    // ... 其他的 adaptor flow
-  )(params);
+  return flow(geometry, meta, axis, coordinate, interaction, animation, theme, tooltip, legend)(params);
 }

@@ -35,25 +35,6 @@ order: 0
 
 默认配置： 240
 
-#### color
-
-**可选**, _string_
-
-功能描述： 图形颜色。
-
-默认配置： 无
-
-```ts
-// 设置单一颜色
-{
-  color: '#a8ddb5'
-}
-// 设置多色（渐变色）
-{
-  color: '#BAE7FF-#1890FF-#0050B3',
-}
-
-```
 
 #### barStyle
 
@@ -64,6 +45,8 @@ order: 0
 默认配置： 无
 
 `markdown:docs/common/shape-style.zh.md`
+
+`markdown:docs/common/color.en.md`
 
 ### 图表组件
 

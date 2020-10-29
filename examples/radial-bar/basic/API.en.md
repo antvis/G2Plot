@@ -1,13 +1,8 @@
----
-title: 玉珏图
-order: 0
----
-
 ## 配置属性
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### 数据映射
 
@@ -19,11 +14,18 @@ order: 0
 
 默认配置： 无
 
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 30 }]`。
+数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.zh.md`
+`markdown:docs/common/meta.en.md`
 
-`markdown:docs/common/meta.zh.md`
+
+#### colorField 📌
+
+**可选**, _string_
+
+功能描述： 颜色映射对应的数据字段名。
+
+默认配置： 无
 
 ### 图形样式
 
@@ -35,6 +37,7 @@ order: 0
 
 默认配置： 240
 
+`markdown:docs/common/color.en.md`
 
 #### barStyle
 
@@ -44,10 +47,9 @@ order: 0
 
 默认配置： 无
 
-`markdown:docs/common/shape-style.zh.md`
+`markdown:docs/common/shape-style.en.md`
 
-`markdown:docs/common/color.en.md`
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+`markdown:docs/common/component-no-axis.en.md`

@@ -9,6 +9,6 @@ export interface RadialBarOptions extends Options {
   readonly yField?: string;
   /** 样式 */
   readonly barStyle?: ShapeAttrs;
-  /** 最大弧度 */
+  /** 最大弧度 0~360 */
   readonly maxRadian?: number;
 }

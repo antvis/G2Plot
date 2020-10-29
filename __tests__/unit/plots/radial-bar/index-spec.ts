@@ -3,7 +3,7 @@ import { createDiv } from '../../../utils/dom';
 
 describe('radial-bar', () => {
   const data = [
-    { question: '问题 1', percent: 0.21 },
+    { question: '问题 1', percent: 0.2 },
     { question: '问题 2', percent: 0.4 },
     { question: '问题 3', percent: 0.49 },
     { question: '问题 4', percent: 0.52 },
@@ -19,6 +19,7 @@ describe('radial-bar', () => {
       data,
       xField: 'question',
       yField: 'percent',
+      maxRadian: 600,
     });
     bar.render();
     const geometry = bar.chart.geometries[0];

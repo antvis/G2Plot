@@ -4,6 +4,7 @@ import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { RadialBarOptions } from './types';
+import { getScaleMax } from './utils';
 
 /**
  * geometry 处理
@@ -11,25 +12,8 @@ import { RadialBarOptions } from './types';
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, barStyle: style, color, tooltip } = options;
+  const { data, barStyle: style, color, tooltip } = options;
   chart.data(data);
-
-  // const interval = chart.interval().position(`${xField}*${yField}`);
-
-  // interval.tooltip(yField,(val)=>{
-  //   return {
-  //     name: '占比',
-  //     value: val * 100 + '%',
-  //   };
-  // });
-
-  // if (barStyle) {
-  //   interval.style(barStyle);
-  // }
-  // if (color) {
-  //   interval.color(`${yField}`, color);
-  // }
-
   const p = deepMix({}, params, {
     options: {
       tooltip,
@@ -49,13 +33,15 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { options } = params;
-  const { xField, yField } = options;
+  const { xField, yField, data, maxRadian } = options;
+  console.log(getScaleMax(maxRadian, yField, data));
   return flow(
     scale({
       [xField]: false,
       [yField]: {
         min: 0,
-        max: 2,
+        // max:2,
+        max: getScaleMax(maxRadian, yField, data),
       },
     })
   )(params);

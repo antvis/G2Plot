@@ -17,7 +17,7 @@ export class RadialBar extends Plot<RadialBarOptions> {
    * 获取默认配置
    */
   protected getDefaultOptions(options: RadialBarOptions) {
-    const { xField, yField } = options;
+    const { xField } = options;
     return deepMix({}, super.getDefaultOptions(), {
       interactions: [{ type: 'element-active' }],
       legend: false,
@@ -25,7 +25,6 @@ export class RadialBar extends Plot<RadialBarOptions> {
         title: xField,
         showMarkers: false,
       },
-      // seriesField: yField,
     });
   }
 

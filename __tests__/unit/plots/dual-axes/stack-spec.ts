@@ -20,6 +20,7 @@ describe('stack', () => {
           geometry: 'line',
           seriesField: 'site',
           isStack: true,
+          point: {},
         },
       ],
     });

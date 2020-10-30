@@ -13,8 +13,4 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
       fontSize: '10px',
     },
   },
-  showCrosshairs: true,
-  crosshairs: {
-    type: 'x',
-  },
 };

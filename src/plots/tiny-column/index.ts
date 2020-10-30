@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
+import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
 import { TinyColumnOptions } from './types';
 import { adaptor } from './adaptor';
 

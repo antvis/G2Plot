@@ -15,7 +15,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 ): Params<O> {
   const { options, chart } = params;
   const { geometryOption, yField } = options;
-  const { isStack } = geometryOption;
+  const { isStack, color } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryOption)) {
@@ -37,7 +37,12 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
       deepMix({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          point: geometryOption.point,
+          ...geometryOption,
+          point: {
+            color,
+            shape: 'circle',
+            ...geometryOption?.point,
+          },
         },
       })
     );

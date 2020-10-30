@@ -34,5 +34,8 @@ describe('stack', () => {
     expect(dualAxes.chart.views[1].geometries[1].type).toBe('point');
     expect(dualAxes.chart.views[1].geometries[0].getAdjust('stack')).toBeDefined();
     expect(dualAxes.chart.views[1].geometries[1].getAdjust('stack')).toBeDefined();
+    const element = dualAxes.chart.views[1].geometries[1].elements[0];
+    expect(element.getModel().shape).toBe('circle');
+    expect(element.getData().site).toBeDefined();
   });
 });

@@ -50,7 +50,6 @@ const waterfallPlot = new Waterfall('container', {
     value: {
       alias: '销售量',
       min: 0,
-      max: Math.pow(10, 9) * 9,
       formatter,
     },
   },

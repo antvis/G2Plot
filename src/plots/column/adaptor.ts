@@ -21,18 +21,15 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   chart.data(chartData);
 
   // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
-  const tooltipOptions = deepMix(
-    {},
-    {
-      formatter: isPercent
-        ? (datum: Datum) => ({
-            name: datum[seriesField] || datum[xField],
-            value: (Number(datum[yField]) * 100).toFixed(2) + '%',
-          })
-        : undefined,
-    },
-    tooltip
-  );
+  const tooltipOptions = isPercent
+    ? {
+        formatter: (datum: Datum) => ({
+          name: datum[seriesField] || datum[xField],
+          value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+        }),
+        ...tooltip,
+      }
+    : tooltip;
 
   const p = deepMix({}, params, {
     options: {

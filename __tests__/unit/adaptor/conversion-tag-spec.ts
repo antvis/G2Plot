@@ -154,7 +154,6 @@ describe('bar conversion tag', () => {
     animation: false,
   };
   const plot = new Bar(container, options);
-  const DATA_REVERSED = DATA.slice().reverse();
 
   it('render', async () => {
     plot.render();
@@ -175,12 +174,10 @@ describe('bar conversion tag', () => {
     // 文本
     const texts = group.findAllByName('conversion-tag-text');
     expect(texts).toHaveLength(DATA.length - 1);
-    DATA_REVERSED.forEach((datum, idx) => {
+    DATA.forEach((datum, idx) => {
       if (idx > 0) {
         expect(texts[idx - 1].get('type')).toBe('text');
-        expect(texts[idx - 1].attr('text')).toBe(
-          ((DATA_REVERSED[idx].y / DATA_REVERSED[idx - 1].y) * 100).toFixed(2) + '%'
-        );
+        expect(texts[idx - 1].attr('text')).toBe(((DATA[idx].y / DATA[idx - 1].y) * 100).toFixed(2) + '%');
       }
     });
 
@@ -222,12 +219,10 @@ describe('bar conversion tag', () => {
     // 文本
     const texts = group.findAllByName('conversion-tag-text');
     expect(texts).toHaveLength(DATA.length - 1);
-    DATA_REVERSED.forEach((datum, idx) => {
+    DATA.forEach((datum, idx) => {
       if (idx > 0) {
         expect(texts[idx - 1].get('type')).toBe('text');
-        expect(texts[idx - 1].attr('text')).toBe(
-          ((DATA_REVERSED[idx].y / DATA_REVERSED[idx - 1].y) * 100).toFixed(2) + '%'
-        );
+        expect(texts[idx - 1].attr('text')).toBe(((DATA[idx].y / DATA[idx - 1].y) * 100).toFixed(2) + '%');
       }
     });
 
@@ -261,9 +256,8 @@ describe('bar conversion tag', () => {
 describe('zero data no NaN', () => {
   const container = createDiv();
 
-  const DATA_REVERSED = DATA_WITH_ZERO.slice().reverse();
   const plot = new Bar(container, {
-    data: DATA_REVERSED,
+    data: DATA_WITH_ZERO,
     autoFit: false,
     width: 600,
     height: 400,

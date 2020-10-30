@@ -27,6 +27,20 @@ order: 0
 
 ### 图形样式
 
+#### radius
+
+**可选**, _string_
+
+功能描述: 半径， 0 ~ 1。
+
+默认配置： `1`
+
+#### innerRadius
+
+**可选**, _number_;
+
+功能描述： 内径，0 ~ 1。
+
 #### maxRadian
 
 **可选**, _number_

@@ -7,7 +7,7 @@ order: 0
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### 数据映射
 
@@ -21,11 +21,25 @@ order: 0
 
 数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 30 }]`。
 
-`markdown:docs/common/xy-field.zh.md`
+`markdown:docs/common/xy-field.en.md`
 
-`markdown:docs/common/meta.zh.md`
+`markdown:docs/common/meta.en.md`
 
 ### 图形样式
+
+#### radius
+
+**可选**, _string_
+
+功能描述: 半径， 0 ~ 1。
+
+默认配置： `1`
+
+#### innerRadius
+
+**可选**, _number_;
+
+功能描述： 内径，0 ~ 1。
 
 #### maxRadian
 
@@ -44,10 +58,10 @@ order: 0
 
 默认配置： 无
 
-`markdown:docs/common/shape-style.zh.md`
+`markdown:docs/common/shape-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+`markdown:docs/common/component.en.md`

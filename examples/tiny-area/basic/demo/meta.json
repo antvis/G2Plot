@@ -5,28 +5,28 @@
   },
   "demos": [
     {
-      "filename": "area.ts",
+      "filename": "basic-area.ts",
       "title": {
         "zh": "基础迷你面积图",
-        "en": "basic Line chart"
+        "en": "basic area chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*8Qf7Q45ubMMAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "area-style.ts",
+      "filename": "area-annotation.ts",
       "title": {
-        "zh": "迷你面积图样式",
-        "en": "Tiny Line style"
+        "zh": "带辅助信息的迷你面积图",
+        "en": "Tiny area chart with annotations"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RVNgQ641-xoAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "area-with-scale.ts",
+      "filename": "filled-area.ts",
       "title": {
-        "zh": "迷你面积图比例尺",
-        "en": "Tiny Line scale"
+        "zh": "平铺填充迷你面积图",
+        "en": "Filled tiny area chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HXjfSIAueVMAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RVNgQ641-xoAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

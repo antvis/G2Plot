@@ -36,7 +36,6 @@ export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions>
   const { xField, yField, data, maxRadian } = options;
   return flow(
     scale({
-      [xField]: false,
       [yField]: {
         min: 0,
         // max:2,
@@ -51,12 +50,15 @@ export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions>
  * @param params
  */
 function coordinate(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
-  const { chart } = params;
+  const { chart, options } = params;
+  const { radius, innerRadius } = options;
+
   chart
     .coordinate({
       type: 'polar',
       cfg: {
-        innerRadius: 0.1,
+        radius,
+        innerRadius,
       },
     })
     .transpose();

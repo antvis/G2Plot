@@ -14,6 +14,8 @@ describe('radial-bar', () => {
       xField,
       yField,
       maxRadian: 600,
+      radius: 0.8,
+      innerRadius: 0.2,
     });
     bar.render();
     const geometry = bar.chart.geometries[0];

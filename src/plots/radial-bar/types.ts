@@ -11,4 +11,8 @@ export interface RadialBarOptions extends Options {
   readonly barStyle?: ShapeAttrs;
   /** 最大弧度 0~360 */
   readonly maxRadian?: number;
+  /** 圆半径 */
+  readonly radius?: number;
+  /** 圆内半径 */
+  readonly innerRadius?: number;
 }

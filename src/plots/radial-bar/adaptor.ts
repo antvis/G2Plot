@@ -33,7 +33,7 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { options } = params;
-  const { xField, yField, data, maxRadian } = options;
+  const { yField, data, maxRadian } = options;
   return flow(
     scale({
       [yField]: {
@@ -71,12 +71,8 @@ function coordinate(params: Params<RadialBarOptions>): Params<RadialBarOptions> 
  */
 export function axis(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { xField } = options;
-  chart.axis(xField, {
-    grid: null,
-    tickLine: null,
-    line: null,
-  });
+  const { xField, xAxis } = options;
+  chart.axis(xField, xAxis);
   return params;
 }
 

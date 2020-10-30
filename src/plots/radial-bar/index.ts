@@ -25,6 +25,11 @@ export class RadialBar extends Plot<RadialBarOptions> {
         title: xField,
         showMarkers: false,
       },
+      xAxis: {
+        grid: null,
+        tickLine: null,
+        line: null,
+      },
     });
   }
 

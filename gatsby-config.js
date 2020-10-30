@@ -232,6 +232,14 @@ module.exports = {
           en: 'Sunburst Charts',
         },
       },
+      {
+        slug: 'radial-bar',
+        icon: 'other',
+        title: {
+          zh: '玉珏图',
+          en: 'Radial Bar',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

@@ -88,6 +88,9 @@ export { Gauge, GaugeOptions } from './plots/gauge';
 // 瀑布图 | author by [hustcc](https://github.com/me-momo)
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
+// 玉珏图 | author by [yujs](https://github.com/yujs)
+export { RadialBar, RadialBarOptions } from './plots/radial-bar';
+
 // 对称条形图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
 export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional-bar';
 

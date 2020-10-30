@@ -13,6 +13,50 @@ export { Adaptor, Params } from './core/adaptor';
 // 类型定义导出
 export * from './types';
 
+let a = 1 + 2; 
+
+if (false) {
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2; 
+  a = 1 + 2;
+}
+
+export { a };
+
 // 折线图及类型定义 | author by [hustcc](https://github.com/hustcc)
 export { Line, LineOptions } from './plots/line';
 

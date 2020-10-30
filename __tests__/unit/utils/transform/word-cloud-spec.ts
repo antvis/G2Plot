@@ -132,6 +132,16 @@ describe('word-cloud', () => {
     const result = wordCloud(data as Word[], { spiral: 'rectangular' });
     basicCommon(result[0]);
   });
+
+  it('random is number', () => {
+    const result = wordCloud(data as Word[], { random: 0.5 });
+    basicCommon(result[0]);
+  });
+
+  it('random is function', () => {
+    const result = wordCloud(data as Word[], { random: () => 0.5 });
+    basicCommon(result[0]);
+  });
 });
 
 describe('transform', () => {

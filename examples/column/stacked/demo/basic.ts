@@ -99,7 +99,17 @@ const stackedColumnPlot = new Column('container', {
   xField: 'year',
   yField: 'value',
   seriesField: 'type',
-  color: ['#ae331b', '#1a6179'],
+  label: {
+    // 可手动配置 label 数据标签位置
+    position: 'middle', // 'top', 'bottom', 'middle'
+    // 可配置附加的布局方法
+    layout: [
+      // 柱形图数据标签位置自动调整
+      { type: 'interval-adjust-position' },
+      // 数据标签文颜色自动调整
+      { type: 'adjust-color' },
+    ],
+  },
 });
 
 stackedColumnPlot.render();

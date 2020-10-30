@@ -20,7 +20,7 @@ const dualAxes = new DualAxes('container', {
     {
       geometry: 'line',
       smooth: false,
-      color: '#29cae4',
+      color: '#5B8FF9',
       lineStyle: {
         lineWidth: 3,
         lineDash: [5, 5],
@@ -29,7 +29,7 @@ const dualAxes = new DualAxes('container', {
     {
       geometry: 'line',
       smooth: true,
-      color: '#586bce',
+      color: '#5AD8A6',
       lineStyle: {
         lineWidth: 4,
         opacity: 0.5,
@@ -40,7 +40,7 @@ const dualAxes = new DualAxes('container', {
         size: 4,
         style: {
           opacity: 0.5,
-          stroke: '#586bce',
+          stroke: '#5AD8A6',
           fill: '#fff',
         },
       },

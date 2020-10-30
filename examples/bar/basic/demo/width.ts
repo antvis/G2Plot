@@ -39,7 +39,7 @@ const barPlot = new Bar('container', {
   data,
   xField: 'sales',
   yField: 'type',
-  barWidthRatio: 0.618,
+  barWidthRatio: 0.8,
   meta: {
     type: {
       alias: '类别',

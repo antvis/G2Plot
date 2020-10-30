@@ -5,11 +5,7 @@ const progress = new Progress('container', {
   width: 300,
   autoFit: false,
   percent: 0.7,
-  progressStyle: {
-    stroke: 'grey',
-    lineDash: [4, 4],
-    lineWidth: 1,
-  },
+  color: ['#5B8FF9', '#E8EDF3'],
 });
 
 progress.render();

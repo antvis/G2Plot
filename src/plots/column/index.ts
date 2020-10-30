@@ -17,8 +17,10 @@ export class Column extends Plot<ColumnOptions> {
    * 获取 柱形图 默认配置
    */
   protected getDefaultOptions(options: ColumnOptions) {
-    const { isRange, label, yField, xField } = options;
+    const { isRange, label, yField, xField, isGroup, isStack } = options;
     return deepMix({}, super.getDefaultOptions(), {
+      columnWidthRatio: 0.6,
+      marginRatio: 1 / 32,
       label:
         label && isRange
           ? {
@@ -33,7 +35,12 @@ export class Column extends Plot<ColumnOptions> {
         showMarkers: false,
         offset: 20,
       },
-      columnWidthRatio: 0.6,
+      legend:
+        isGroup || isStack
+          ? {
+              position: isStack ? 'right-top' : 'top-left',
+            }
+          : false,
       interactions: [{ type: 'active-region' }],
       meta: {
         [xField]: {

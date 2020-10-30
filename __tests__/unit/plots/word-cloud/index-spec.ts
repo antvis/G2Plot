@@ -12,8 +12,8 @@ describe('word-cloud', () => {
     weightField: 'GDP',
   };
 
-  it('x*y', () => {
-    const cloud = new WordCloud(createDiv('x*y'), options);
+  it('basic', () => {
+    const cloud = new WordCloud(createDiv(), options);
     cloud.render();
 
     const geometry = cloud.chart.geometries[0];
@@ -35,8 +35,8 @@ describe('word-cloud', () => {
     const options2 = deepMix({}, options, {
       imageMask: 'ssss', // 无效值
     });
-    const cloud1 = new WordCloud(createDiv('x*y'), options1);
-    const cloud2 = new WordCloud(createDiv('x*y'), options2);
+    const cloud1 = new WordCloud(createDiv(), options1);
+    const cloud2 = new WordCloud(createDiv(), options2);
     expect(() => {
       cloud1.render();
       cloud2.render();

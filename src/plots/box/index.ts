@@ -22,7 +22,7 @@ export class Box extends Plot<BoxOptions> {
       // 默认区域交互
       interactions: [{ type: 'active-region' }],
 
-      // 默认 tooltips 共享，不显示 makers
+      // 默认 tooltips 共享，不显示 markers
       tooltip: {
         showMarkers: false,
         showCrosshairs: true,

@@ -91,6 +91,9 @@ export { Waterfall, WaterfallOptions } from './plots/waterfall';
 // 玉珏图 | author by [yujs](https://github.com/yujs)
 export { RadialBar, RadialBarOptions } from './plots/radial-bar';
 
+// 对称条形图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
+export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional-bar';
+
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';

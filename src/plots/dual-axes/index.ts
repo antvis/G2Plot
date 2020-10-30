@@ -45,6 +45,9 @@ export class DualAxes extends Plot<DualAxesOptions> {
         ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
         : [{ type: 'legend-visible-filter' }],
       syncViewPadding: true,
+      legend: {
+        position: 'top-left',
+      },
     });
   }
 

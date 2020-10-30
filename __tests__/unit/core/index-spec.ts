@@ -3,6 +3,7 @@ import { Line, G2, Pie } from '../../../src';
 import { partySupport } from '../../data/party-support';
 import { salesByArea } from '../../data/sales';
 import { createDiv } from '../../utils/dom';
+import { delay } from '../../utils/delay';
 
 G2.registerTheme('new-theme', {
   colors10: ['green'],
@@ -183,5 +184,30 @@ describe('core', () => {
 
   afterAll(() => {
     pie.destroy();
+  });
+
+  it('resize', async () => {
+    const container = createDiv();
+    container.style.width = '400px';
+    container.style.height = '400px';
+
+    const line = new Line(container, {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    });
+
+    // @ts-ignore
+    line.triggerResize = jest.fn();
+    line.render();
+
+    await delay(500);
+    // @ts-ignore
+    expect(line.triggerResize).toHaveBeenCalledTimes(0);
+
+    container.style.width = `${container.clientWidth + 10}px`;
+    await delay(500);
+    // @ts-ignore
+    expect(line.triggerResize).toHaveBeenCalledTimes(1);
   });
 });

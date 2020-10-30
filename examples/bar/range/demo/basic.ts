@@ -16,6 +16,10 @@ const barPlot = new Bar('container', {
   xField: 'values',
   yField: 'type',
   isRange: true,
+  label: {
+    position: 'middle',
+    layout: [{ type: 'adjust-color' }],
+  },
 });
 
 barPlot.render();

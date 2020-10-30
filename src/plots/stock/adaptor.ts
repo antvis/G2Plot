@@ -133,11 +133,28 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
 }
 
 /**
+ * legend 配置
+ * @param params
+ */
+export function legend(params: Params<StockOptions>): Params<StockOptions> {
+  const { chart, options } = params;
+  const { legend } = options;
+
+  if (legend) {
+    chart.legend(TREND_FIELD, legend);
+  } else if (legend === false) {
+    chart.legend(false);
+  }
+
+  return params;
+}
+
+/**
  * K线图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<StockOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, theme, axis, tooltip, interaction, animation)(params);
+  flow(field, meta, theme, axis, tooltip, legend, interaction, animation)(params);
 }

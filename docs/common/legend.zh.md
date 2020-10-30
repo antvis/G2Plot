@@ -119,7 +119,7 @@ legend: {
 | style   | object 参考绘图属性 |          | -      | 文本样式配置项                                                                                                                                |
 | spacing | number              |          | -      | 文本同滑轨的距离                                                                                                                              |
 
-##### maker
+##### marker
 
 <description>**可选** _MarkerCfg_ </description>
 

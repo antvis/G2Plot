@@ -22,7 +22,6 @@ export class RadialBar extends Plot<RadialBarOptions> {
       interactions: [{ type: 'element-active' }],
       legend: false,
       tooltip: {
-        title: xField,
         showMarkers: false,
       },
       xAxis: {

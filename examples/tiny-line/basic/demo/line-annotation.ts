@@ -25,9 +25,6 @@ const data = [
   192,
 ];
 
-const avg = data.reduce((pre, cur) => pre + cur, 0) / data.length;
-const targetVal = 800;
-
 const tinyLine = new TinyLine('container', {
   height: 60,
   width: 300,
@@ -39,8 +36,8 @@ const tinyLine = new TinyLine('container', {
     // 平均值
     {
       type: 'line',
-      start: ['min', avg],
-      end: ['max', avg],
+      start: ['min', 'mean'],
+      end: ['max', 'mean'],
       text: {
         content: '平均值',
         offsetY: -2,
@@ -57,8 +54,8 @@ const tinyLine = new TinyLine('container', {
     },
     {
       type: 'line',
-      start: ['min', targetVal],
-      end: ['max', targetVal],
+      start: ['min', 800],
+      end: ['max', 800],
       text: {
         content: '目标值',
         offsetY: -2,

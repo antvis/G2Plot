@@ -1,10 +1,12 @@
 import { TinyColumn } from '@antv/g2plot';
 
+const data = [274, 337, 81, 497, 666, 219, 269];
+
 const tinyColumn = new TinyColumn('container', {
-  height: 60,
-  width: 300,
+  height: 64,
+  width: 240,
   autoFit: false,
-  data: new Array(100).fill(0).map(() => Math.random() * 100),
+  data,
   tooltip: {
     customContent: function (x, data) {
       return `NO.${x}: ${data[0]?.data?.y.toFixed(2)}`;

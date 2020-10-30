@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "column.ts",
+      "filename": "basic-column.ts",
       "title": {
         "zh": "基础迷你柱形图",
         "en": "basic Column chart"
@@ -13,28 +13,12 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lJWoS5D2OC0AAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "column-style.ts",
+      "filename": "column-annotation.ts",
       "title": {
-        "zh": "迷你柱形图样式",
-        "en": "Tiny Column style"
+        "zh": "带辅助线的迷你柱形图",
+        "en": "Tiny column chart with annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xIFLRY4wT4EAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "column-style-callback.ts",
-      "title": {
-        "zh": "迷你柱形图回调样式",
-        "en": "Tiny Column style callback"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qWh-Rrc9FvIAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "line-width-ratio.ts",
-      "title": {
-        "zh": "迷你柱形图比例尺",
-        "en": "Tiny Column scale"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*vzqFRYuhUUsAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

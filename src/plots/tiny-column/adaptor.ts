@@ -13,7 +13,7 @@ function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> 
   const { data, color, columnStyle, columnWidthRatio } = options;
 
   const seriesData = data.map((y: number, x: number) => {
-    return { x, y };
+    return { x: `${x}`, y };
   });
 
   chart.data(seriesData);
@@ -33,6 +33,7 @@ function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> 
 
   chart.axis(false);
   chart.legend(false);
+  chart.interaction('element-active');
 
   return params;
 }

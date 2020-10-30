@@ -1,5 +1,6 @@
 import { Column } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 const data = [
   { country: 'Europe', year: '1750', value: 163 },
   { country: 'Europe', year: '1800', value: 203 },
@@ -20,7 +21,7 @@ const data = [
 ];
 
 describe('column percent', () => {
-  it('percent: render', () => {
+  it('percent: render', async () => {
     const column = new Column(createDiv('percent'), {
       width: 400,
       height: 300,
@@ -43,6 +44,7 @@ describe('column percent', () => {
     });
 
     column.render();
+    await delay(300);
     const geometry = column.chart.geometries[0];
     const labelGroups = geometry.labelsContainer.getChildren();
     const elements = geometry.elements;
@@ -60,7 +62,7 @@ describe('column percent', () => {
     expect(cfg.position).toBe('middle');
     expect(cfg.content).not.toBeUndefined();
   });
-  it('percent: custom content', () => {
+  it('percent: custom content', async () => {
     const column = new Column(createDiv('percent'), {
       width: 400,
       height: 300,
@@ -87,6 +89,7 @@ describe('column percent', () => {
     });
 
     column.render();
+    await delay(300);
     const geometry = column.chart.geometries[0];
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();

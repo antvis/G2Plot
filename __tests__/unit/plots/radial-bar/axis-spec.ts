@@ -13,14 +13,6 @@ describe('radial-bar axis', () => {
       data: antvStar,
       xField,
       yField,
-      xAxis: {
-        line: {
-          style: {
-            lineWidth: 1,
-            fill: 'red',
-          },
-        },
-      },
       yAxis: {
         line: {
           style: {

@@ -13,16 +13,16 @@ describe('radial-bar', () => {
       data: antvStar,
       xField,
       yField,
-      maxRadian: 600,
       radius: 0.8,
       innerRadius: 0.2,
+      xAxis: false,
     });
     bar.render();
     const geometry = bar.chart.geometries[0];
     const positionFields = geometry.getAttribute('position').getFields();
     expect(geometry.type).toBe('interval');
     expect(geometry.coordinate.type).toBe('polar');
-    expect(geometry.coordinate.innerRadius).toBe(0.1);
+    expect(geometry.coordinate.innerRadius).toBe(0.2);
     expect(geometry.coordinate.isTransposed).toBe(true);
     expect(bar.chart.geometries[0].elements.length).toBe(antvStar.length);
     expect(positionFields).toHaveLength(2);
@@ -39,6 +39,7 @@ describe('radial-bar', () => {
       xField,
       yField,
       color,
+      xAxis: false,
     });
 
     bar.render();

@@ -1,10 +1,11 @@
-export function getScaleMax(maxRadian: number, yField: string, data: Record<string, any>[]): number {
-  const defaultMaxRadian = 240; // 默认最大弧度240度
+import { Data } from '../../types';
+
+export function getScaleMax(maxAngle: number, yField: string, data: Data): number {
   const yData = data.map((item) => item[yField]);
   const maxValue = Math.max(...yData);
-  if (maxRadian) {
-    const formatRadian = Math.abs(maxRadian) % 360;
-    return (maxValue * 360) / formatRadian;
+  const formatRadian = Math.abs(maxAngle) % 360;
+  if (!formatRadian) {
+    return maxValue;
   }
-  return (maxValue * 360) / defaultMaxRadian;
+  return (maxValue * 360) / formatRadian;
 }

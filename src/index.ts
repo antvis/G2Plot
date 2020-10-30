@@ -89,7 +89,7 @@ export { Gauge, GaugeOptions } from './plots/gauge';
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
 // 玉珏图 | author by [yujs](https://github.com/yujs)
-export { RadialBar } from './plots/radial-bar';
+export { RadialBar, RadialBarOptions } from './plots/radial-bar';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */

@@ -33,13 +33,12 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { options } = params;
-  const { yField, data, maxRadian } = options;
+  const { yField, data, maxAngle } = options;
   return flow(
     scale({
       [yField]: {
         min: 0,
-        // max:2,
-        max: getScaleMax(maxRadian, yField, data),
+        max: getScaleMax(maxAngle, yField, data),
       },
     })
   )(params);

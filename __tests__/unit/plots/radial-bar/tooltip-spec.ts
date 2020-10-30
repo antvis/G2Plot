@@ -27,8 +27,6 @@ describe('radial-bar tooltip', () => {
     // @ts-ignore
     expect(tooltip.showMarkers).toBe(false);
     // @ts-ignore
-    expect(tooltip.title).toBe(xField);
-    // @ts-ignore
     expect(tooltip.formatter).toBe(formatter);
   });
 });

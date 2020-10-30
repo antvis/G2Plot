@@ -12,8 +12,12 @@ describe('DualAxes option', () => {
   });
 
   it('yAxis option', () => {
-    // @ts-ignore
-    expect(getOption({ yAxis: [{ a: 1 }, false], geometryOptions: [] })).toEqual({
+    expect(
+      // @ts-ignore
+      getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [{ a: 1 }, false], geometryOptions: [] })
+    ).toEqual({
+      xField: 'test',
+      yField: ['test1', 'test2'],
       yAxis: [
         {
           nice: true,
@@ -37,11 +41,13 @@ describe('DualAxes option', () => {
       ],
     });
 
-    // @ts-ignore
-    expect(getOption({ yAxis: [false, false], geometryOptions: [] }).yAxis).toEqual([false, false]);
+    expect(
+      // @ts-ignore
+      getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [false, false], geometryOptions: [] }).yAxis
+    ).toEqual([false, false]);
 
     // @ts-ignore
-    expect(getOption({ yAxis: [], geometryOptions: [] }).yAxis).toEqual([
+    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [], geometryOptions: [] }).yAxis).toEqual([
       {
         nice: true,
         label: {
@@ -59,7 +65,7 @@ describe('DualAxes option', () => {
     ]);
 
     // @ts-ignore
-    expect(getOption({ geometryOptions: [] }).yAxis).toEqual([
+    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], geometryOptions: [] }).yAxis).toEqual([
       {
         nice: true,
         label: {

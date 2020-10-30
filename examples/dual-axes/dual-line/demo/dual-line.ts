@@ -16,6 +16,16 @@ const dualAxes = new DualAxes('container', {
   data: [data, data],
   xField: 'year',
   yField: ['value', 'count'],
+  geometryOptions: [
+    {
+      geometry: 'line',
+      color: '#5B8FF9',
+    },
+    {
+      geometry: 'line',
+      color: '#5AD8A6',
+    },
+  ],
 });
 
 dualAxes.render();

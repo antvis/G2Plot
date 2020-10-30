@@ -78,14 +78,17 @@ export class WordCloud extends Plot<WordCloudOptions> {
    */
   protected triggerResize() {
     if (!this.chart.destroyed) {
-      // 这里解决了重渲染时字体变的透明的问题
-      this.chart.clear();
       // 当整个词云图图表的宽高信息发生变化时，每个词语的坐标
-      // 需要重新执行 adaptor，执行词云图的布局函数，不然会出现布局错乱，
+      // 需要重新执行 adaptor，不然会出现布局错乱，
       // 如相邻词语重叠的情况。
       this.execAdaptor();
-      // 执行父类的方法
-      super.triggerResize();
+
+      // 延迟执行，有利于动画更流畅
+      // TODO: 在多次更改画布尺寸时，动画会越来越卡顿，原因未知
+      window.setTimeout(() => {
+        // 执行父类的方法
+        super.triggerResize();
+      });
     }
   }
 }

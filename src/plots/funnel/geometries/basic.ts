@@ -19,7 +19,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   if (data[0][yField]) {
     formatData = map(data, (row) => {
       if (row[yField] !== undefined) {
-        row[FUNNEL_PERCENT] = Math.round((row[yField] / data[0][yField]) * 100) / 100;
+        row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
       }
       return row;
     });

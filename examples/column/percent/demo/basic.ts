@@ -115,7 +115,6 @@ const columnPlot = new Column('container', {
   seriesField: 'country',
   isPercent: true,
   isStack: true,
-  color: ['#0f759c', '#26a2cb', '#65d1fc'],
   label: {
     position: 'middle',
     content: (item) => {

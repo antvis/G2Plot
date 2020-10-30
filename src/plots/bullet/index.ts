@@ -25,6 +25,9 @@ export class Bullet extends Plot<BulletOptions> {
         measure: 20,
         target: 20,
       },
+      xAxis: {
+        tickLine: false,
+      },
       bulletStyle: {
         range: {
           fillOpacity: 0.5,

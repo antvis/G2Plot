@@ -30,10 +30,11 @@ const dualAxes = new DualAxes('container', {
       geometry: 'column',
       isStack: true,
       seriesField: 'type',
+      color: ['#5B8FF9', '#5D7092'],
     },
     {
       geometry: 'line',
-      color: '#FAA219',
+      color: '#5AD8A6',
     },
   ],
 });

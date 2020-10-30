@@ -39,11 +39,12 @@ const dualAxes = new DualAxes('container', {
       isStack: true,
       seriesField: 'type',
       columnWidthRatio: 0.4,
+      color: ['#5B8FF9', '#5D7092'],
       label: {},
     },
     {
       geometry: 'line',
-      color: '#FAA219',
+      color: '#5AD8A6',
     },
   ],
   legend: {
@@ -52,7 +53,7 @@ const dualAxes = new DualAxes('container', {
       style: {
         lineWidth: 2,
         r: 6,
-        stroke: '#FAA219',
+        stroke: '#5AD8A6',
         fill: '#fff',
       },
     },
@@ -61,7 +62,7 @@ const dualAxes = new DualAxes('container', {
     itemName: {
       formatter: (val) => `@${val}`,
       style: {
-        fill: '#FAA219',
+        fill: '#333',
       },
     },
   },

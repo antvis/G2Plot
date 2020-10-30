@@ -16,9 +16,15 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/mobile.json')
       seriesField: 'value',
       reflect: 'y',
       colorField: 'brand',
+      hierarchyConfig: {
+        size: [1, 0.1],
+      },
       sunburstStyle: {
         lineWidth: 1,
         stroke: '#fff',
+      },
+      tooltip: {
+        fields: ['name', 'value'],
       },
       interactions: [{ type: 'element-active' }],
     });

@@ -1,17 +1,17 @@
 import { Funnel } from '@antv/g2plot';
 
 const data = [
-  { action: '浏览网站', pv: 50000 },
-  { action: '放入购物车', pv: 35000 },
-  { action: '生成订单', pv: 25000 },
-  { action: '支付', pv: 15000 },
-  { action: '成交', pv: 8500 },
+  { stage: '简历筛选', number: 253 },
+  { stage: '初试人数', number: 151 },
+  { stage: '复试人数', number: 113 },
+  { stage: '录取人数', number: 87 },
+  { stage: '入职人数', number: 59 },
 ];
 
 const funnelPlot = new Funnel('container', {
   data: data,
-  xField: 'action',
-  yField: 'pv',
+  xField: 'stage',
+  yField: 'number',
   dynamicHeight: true,
   isTransposed: true,
 });

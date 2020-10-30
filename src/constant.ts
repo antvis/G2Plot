@@ -12,6 +12,10 @@ export const AXIS_META_CONFIG_KEYS = [
   'minLimit',
   'maxLimit',
   'tickMethod',
+  // type: 'log' 的底
+  'base',
+  // type: 'exp' 的指数
+  'exponent',
 ];
 
 /**

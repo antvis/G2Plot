@@ -26,21 +26,20 @@ describe('word-cloud utils', () => {
         fontSize: [20, 60],
         rotation: [0, 90],
         rotationSteps: 2,
-        rotateRatio: 0.5,
       },
     },
   };
 
   it('utils: transform', () => {
-    const rows = transform(params).filter((v) => v.hasText);
+    const result = transform(params).filter((v) => v.hasText);
 
-    expect(CountryEconomy.some((v) => v.Country === rows[0].text)).toBe(true);
-    expect(CountryEconomy.some((v) => v.GDP === rows[0].value)).toBe(true);
-    expect(rows[0].font).toBe('Verdana');
-    expect(rows[0].style).toBe('normal');
-    expect(rows[0].weight).toBe('normal');
-    expect(rows.every((row) => row.size >= 20 && row.size <= 60)).toBe(true);
-    expect(rows.every((row) => row.rotate === 0 || row.rotate === 90)).toBe(true);
+    expect(CountryEconomy.some((v) => v.Country === result[0].text)).toBe(true);
+    expect(CountryEconomy.some((v) => v.GDP === result[0].value)).toBe(true);
+    expect(result[0].font).toBe('Verdana');
+    expect(result[0].style).toBe('normal');
+    expect(result[0].weight).toBe('normal');
+    expect(result.every((row) => row.size >= 20 && row.size <= 60)).toBe(true);
+    expect(result.every((row) => row.rotate === 0 || row.rotate === 90)).toBe(true);
   });
 
   it('utils: transform, no data', () => {
@@ -72,8 +71,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p).filter((v) => v.hasText);
-    expect(rows.length).toBe(0);
+    const result = transform(p).filter((v) => v.hasText);
+    expect(result.length).toBe(0);
   });
 
   it('utils: padding is Array', () => {
@@ -102,11 +101,18 @@ describe('word-cloud utils', () => {
         padding: [],
       },
     });
-    expect(transform(p1).length > 0).toBe(true);
-    expect(transform(p2).length > 0).toBe(true);
-    expect(transform(p3).length > 0).toBe(true);
-    expect(transform(p4).length > 0).toBe(true);
-    expect(transform(p5).length > 0).toBe(true);
+
+    const r1 = transform(p1).filter((v) => v.hasText);
+    const r2 = transform(p2).filter((v) => v.hasText);
+    const r3 = transform(p3).filter((v) => v.hasText);
+    const r4 = transform(p4).filter((v) => v.hasText);
+    const r5 = transform(p5).filter((v) => v.hasText);
+
+    expect(r1.length > 0).toBe(true);
+    expect(r2.length > 0).toBe(true);
+    expect(r3.length > 0).toBe(true);
+    expect(r4.length > 0).toBe(true);
+    expect(r5.length > 0).toBe(true);
   });
 
   it('utils: padding is String', () => {
@@ -127,8 +133,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.size === 20)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.size === 20)).toBe(true);
   });
 
   it('utils: fontSize is a number', () => {
@@ -140,21 +146,47 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.size === 20)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.size === 20)).toBe(true);
   });
 
-  it('utils: rotation is not a Array', () => {
+  it('utils: rotation is number', () => {
     const p1 = deepMix({}, params, {
       options: {
         wordStyle: {
-          rotation: 10, // 非数组时，自动转换成默认值 [0, 90]
+          rotation: 10,
         },
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 0 || row.rotate === 90)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 10)).toBe(true);
+  });
+
+  it('utils: rotation is function', () => {
+    const p1 = deepMix({}, params, {
+      options: {
+        wordStyle: {
+          rotation: () => 10,
+        },
+      },
+    });
+
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 10)).toBe(true);
+  });
+
+  it('utils: rotation is array', () => {
+    const p1 = deepMix({}, params, {
+      options: {
+        wordStyle: {
+          rotation: [10, 10],
+        },
+      },
+    });
+
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 10)).toBe(true);
   });
 
   it('utils: rotationSteps is 0', () => {
@@ -166,31 +198,8 @@ describe('word-cloud utils', () => {
       },
     });
 
-    const rows = transform(p1).filter((v) => v.hasText);
-    expect(rows.every((row) => row.rotate === 0)).toBe(true);
-  });
-
-  it('utils: rotateRatio', () => {
-    const p1 = deepMix({}, params, {
-      options: {
-        wordStyle: {
-          rotateRatio: -1, // 小于 0 时，自动转换成 0
-        },
-      },
-    });
-    const p2 = deepMix({}, params, {
-      options: {
-        wordStyle: {
-          rotateRatio: 2, // 大于 2 时，自动转换成 1
-        },
-      },
-    });
-
-    const rows1 = transform(p1).filter((v) => v.hasText);
-    const rows2 = transform(p2).filter((v) => v.hasText);
-
-    expect(rows1.every((row) => row.rotate === 0)).toBe(true);
-    expect(rows2.every((row) => row.rotate === 90)).toBe(true);
+    const result = transform(p1).filter((v) => v.hasText);
+    expect(result.every((row) => row.rotate === 0)).toBe(true);
   });
 
   it('utils: processImageMask, HTMLImageElement', async () => {
@@ -232,5 +241,30 @@ describe('word-cloud utils', () => {
 
     const img = await processImageMask(base64);
     expect(img instanceof HTMLImageElement).toBe(true);
+  });
+
+  it('option: placementStrategy', () => {
+    const p = deepMix({}, params, {
+      options: {
+        placementStrategy: () => ({ x: 100, y: 100 }),
+        wordStyle: {
+          fontFamily: '字体',
+          fontWeight: '字重',
+          fontSize: 66,
+          rotation: 99,
+        },
+      },
+    });
+
+    const result = transform(p).filter((v) => v.hasText);
+    expect(result.length).toBe(CountryEconomy.length);
+    result.forEach((item) => {
+      expect(item.font).toBe('字体');
+      expect(item.weight).toBe('字重');
+      expect(item.size).toBe(66);
+      expect(item.rotate).toBe(99);
+      expect(item.x).toBe(100);
+      expect(item.y).toBe(100);
+    });
   });
 });

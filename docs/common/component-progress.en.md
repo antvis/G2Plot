@@ -2,6 +2,10 @@
 
 `markdown:docs/common/tooltip.en.md`
 
+#### annotations
+
+`markdown:docs/common/annotations.en.md`
+
 #### theme
 
 `markdown:docs/common/theme.en.md`

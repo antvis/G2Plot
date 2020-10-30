@@ -39,7 +39,7 @@ const dualAxes = new DualAxes('container', {
     {
       geometry: 'line',
       seriesField: 'type',
-      color: '#29cae4',
+      color: ['#5B8FF9', '#5AD8A6'],
       lineStyle: {
         lineWidth: 3,
         lineDash: [5, 5],
@@ -51,9 +51,11 @@ const dualAxes = new DualAxes('container', {
       seriesField: 'name',
       color: ({ name }) => {
         if (name === 'a') {
-          return '#93D072';
+          return '#CDDDFD';
+        } else if (name === 'b') {
+          return '#CDF3E4';
         }
-        return '#FAA219';
+        return '#CED4DE';
       },
     },
   ],

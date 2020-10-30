@@ -185,43 +185,11 @@ module.exports = {
         },
       },
       {
-        slug: 'tiny-line',
-        icon: 'line',
-        title: {
-          zh: '迷你折线图',
-          en: 'Tiny Line',
-        },
-      },
-      {
-        slug: 'tiny-area',
-        icon: 'area',
-        title: {
-          zh: '迷你面积图',
-          en: 'Tiny Area',
-        },
-      },
-      {
-        slug: 'tiny-column',
-        icon: 'column',
-        title: {
-          zh: '迷你柱形图',
-          en: 'Tiny Column',
-        },
-      },
-      {
-        slug: 'ring-progress',
+        slug: 'tiny',
         icon: 'other',
         title: {
-          zh: '进度环图',
-          en: 'Ring Progress',
-        },
-      },
-      {
-        slug: 'progress',
-        icon: 'other',
-        title: {
-          zh: '进度条图',
-          en: 'Tiny Progress',
+          zh: '迷你图',
+          en: 'Tiny Charts',
         },
       },
       {
@@ -262,6 +230,14 @@ module.exports = {
         title: {
           zh: '旭日图',
           en: 'Sunburst Charts',
+        },
+      },
+      {
+        slug: 'radial-bar',
+        icon: 'other',
+        title: {
+          zh: '玉珏图',
+          en: 'Radial Bar',
         },
       },
       // OTHERS

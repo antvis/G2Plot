@@ -41,7 +41,7 @@ const barPlot = new Bar('container', {
   yField: 'type',
   seriesField: 'type',
   color: ({ type }) => {
-    return type === '美容洗护' ? 'red' : 'green';
+    return type === '美容洗护' ? '#FAAD14' : '#5B8FF9';
   },
   legend: false,
   meta: {

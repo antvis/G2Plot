@@ -17,8 +17,10 @@ export class Bar extends Plot<BarOptions> {
    * 获取 条形图 默认配置
    */
   protected getDefaultOptions(options: BarOptions) {
-    const { isRange, label, xField, yField } = options;
+    const { isRange, label, xField, yField, isGroup, isStack } = options;
     return deepMix({}, super.getDefaultOptions(), {
+      barWidthRatio: 0.6,
+      marginRatio: 1 / 32,
       label:
         label && isRange
           ? {
@@ -33,7 +35,12 @@ export class Bar extends Plot<BarOptions> {
         showMarkers: false,
         offset: 20,
       },
-      barWidthRatio: 0.6,
+      legend:
+        isGroup || isStack
+          ? {
+              position: isStack ? 'top-left' : 'right-top',
+            }
+          : false,
       interactions: [{ type: 'active-region' }],
       meta: {
         [yField]: {

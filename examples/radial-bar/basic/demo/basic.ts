@@ -19,7 +19,7 @@ const bar = new RadialBar('container', {
   yField: 'star',
   // maxAngle: 90, //最大旋转角度,
   radius: 0.8,
-  innerRadius: 0.5,
+  innerRadius: 0.2,
   tooltip: {
     formatter: (datum) => {
       return { name: 'star数', value: datum.star };

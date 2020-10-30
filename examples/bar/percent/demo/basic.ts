@@ -115,7 +115,8 @@ const barPlot = new Bar('container', {
   seriesField: 'country',
   isPercent: true,
   isStack: true,
-  color: ['#2582a1', '#f88c24', '#c52125', '#87f4d0'],
+  /** 自定义颜色 */
+  // color: ['#2582a1', '#f88c24', '#c52125', '#87f4d0'],
   label: {
     position: 'middle',
     content: (item) => {

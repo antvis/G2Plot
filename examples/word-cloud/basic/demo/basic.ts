@@ -5,14 +5,22 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.jso
   .then((data) => {
     const wordCloud = new WordCloud('container', {
       data,
-      width: 600,
-      height: 500,
       wordField: 'x',
       weightField: 'value',
-      color: '#6262ff',
+      color: '#122c6a',
       wordStyle: {
         fontFamily: 'Verdana',
         fontSize: [24, 80],
+      },
+      // 设置交互类型
+      interactions: [{ type: 'element-active' }],
+      state: {
+        active: {
+          // 这里可以设置 active 时的样式
+          style: {
+            lineWidth: 3,
+          },
+        },
       },
     });
 

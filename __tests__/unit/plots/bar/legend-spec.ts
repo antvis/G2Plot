@@ -14,7 +14,7 @@ describe('bar legend', () => {
 
     bar.render();
 
-    expect(bar.chart.getOptions().legends).toEqual({ area: false, sales: false });
+    expect(bar.chart.getOptions().legends).toEqual(false);
   });
 
   it('legend config', () => {
@@ -30,7 +30,7 @@ describe('bar legend', () => {
 
     bar.render();
     // @ts-ignore
-    expect(bar.chart.getOptions().legends.series).toBeUndefined();
+    expect(bar.chart.getOptions().legends.series).toEqual({ position: 'right-top' });
     expect(bar.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(1);
 
     bar.update({
@@ -42,6 +42,7 @@ describe('bar legend', () => {
 
     // @ts-ignore
     expect(bar.chart.getOptions().legends.series).toEqual({
+      position: 'right-top',
       flipPage: true,
     });
     expect(bar.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(1);

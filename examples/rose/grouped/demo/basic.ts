@@ -72,13 +72,6 @@ const rosePlot = new Rose('container', {
   // 当 isGroup 为 true 时，该值为必填
   seriesField: 'user',
   radius: 0.9,
-  xAxis: {
-    line: {
-      style: {
-        lineWidth: 0,
-      },
-    },
-  },
   label: {
     offset: -15,
   },

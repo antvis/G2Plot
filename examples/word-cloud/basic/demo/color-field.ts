@@ -5,8 +5,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json')
   .then((data) => {
     const wordCloud = new WordCloud('container', {
       data,
-      width: 600,
-      height: 400,
       wordField: 'name',
       weightField: 'value',
       colorField: 'value',

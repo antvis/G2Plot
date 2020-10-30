@@ -1,4 +1,4 @@
 ---
 title: 进度条图
-order: 0
+order: 3
 ---

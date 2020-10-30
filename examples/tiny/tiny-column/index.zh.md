@@ -1,4 +1,4 @@
 ---
 title: 迷你柱形图
-order: 0
+order: 2
 ---

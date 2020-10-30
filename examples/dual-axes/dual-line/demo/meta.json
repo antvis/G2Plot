@@ -21,6 +21,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kAgfTZPPjAsAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "dual-step-line.ts",
+      "title": {
+        "zh": "双折线图 - 阶梯折线",
+        "en": "Dual Step Line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kAgfTZPPjAsAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "dual-multi-line.ts",
       "title": {
         "zh": "多折线混合图表",

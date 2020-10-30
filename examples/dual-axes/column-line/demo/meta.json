@@ -21,6 +21,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e9DmR451GDwAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "range-column-line.ts",
+      "title": {
+        "zh": "柱线混合图表-区间柱",
+        "en": "range-column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e9DmR451GDwAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "column-multi-line.ts",
       "title": {
         "zh": "柱线混合图表-显示多折线",

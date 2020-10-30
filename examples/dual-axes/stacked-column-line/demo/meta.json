@@ -21,6 +21,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9IptSKDIopIAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "stacked-percent-column-line.ts",
+      "title": {
+        "zh": "百分比堆叠柱线图表-显示多折线",
+        "en": "stacked-percent-column-line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*El_nTpXUXHMAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "stacked-column-multi-line.ts",
       "title": {
         "zh": "堆叠柱线图表-显示多折线",

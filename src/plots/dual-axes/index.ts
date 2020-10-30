@@ -15,7 +15,6 @@ export class DualAxes extends Plot<DualAxesOptions> {
    */
   protected getDefaultOptions(options: DualAxesOptions): Partial<DualAxesOptions> {
     const { geometryOptions = [], xField } = options;
-    const hasColumn = some(geometryOptions, ({ geometry }) => geometry === DualAxesGeometry.Column);
     const allLine = every(
       geometryOptions,
       ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
@@ -35,13 +34,13 @@ export class DualAxes extends Plot<DualAxesOptions> {
       tooltip: {
         showMarkers: allLine,
         // 存在柱状图，不显示 crosshairs
-        showCrosshairs: !hasColumn,
+        showCrosshairs: allLine,
         shared: true,
         crosshairs: {
           type: 'x',
         },
       },
-      interactions: hasColumn
+      interactions: !allLine
         ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
         : [{ type: 'legend-visible-filter' }],
       syncViewPadding: true,

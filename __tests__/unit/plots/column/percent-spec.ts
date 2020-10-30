@@ -97,4 +97,30 @@ describe('column percent', () => {
     expect(document.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
     expect(document.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
   });
+  it('percent: custom tooltip formatter', () => {
+    const column = new Column(createDiv('percent', undefined, 'percent'), {
+      width: 400,
+      height: 300,
+      data,
+      xField: 'year',
+      yField: 'value',
+      seriesField: 'country',
+      isStack: true,
+      isPercent: true,
+      tooltip: {
+        formatter: () => ({
+          name: 'test',
+          value: '123',
+        }),
+      },
+    });
+
+    column.render();
+    const geometry = column.chart.geometries[0];
+    const elements = geometry.elements;
+    const bbox = elements[elements.length - 1].getBBox();
+    column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
+    expect(document.querySelectorAll('#percent .g2-tooltip-list-item .g2-tooltip-name')[0].innerHTML).toBe('test');
+    expect(document.querySelectorAll('#percent .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML).toBe('123');
+  });
 });

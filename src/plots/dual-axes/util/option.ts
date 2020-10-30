@@ -27,13 +27,29 @@ export function isColumn(geometryOption: GeometryOption): geometryOption is Geom
  * @param geometryOption
  * @param axis
  */
-export function getGeometryOption(geometryOption: GeometryOption, axis: AxisType): GeometryOption {
+export function getGeometryOption(
+  xField: string,
+  yField: string,
+  geometryOption: GeometryOption,
+  axis: AxisType
+): GeometryOption {
   // 空默认为线
   return isColumn(geometryOption)
-    ? {
-        geometry: DualAxesGeometry.Column,
-        ...geometryOption,
-      }
+    ? deepMix(
+        {},
+        {
+          geometry: DualAxesGeometry.Column,
+          label:
+            geometryOption.label && geometryOption.isRange
+              ? {
+                  content: (item: object) => {
+                    return item[yField]?.join('-');
+                  },
+                }
+              : undefined,
+        },
+        geometryOption
+      )
     : {
         geometry: DualAxesGeometry.Line,
         color: axis === AxisType.Left ? '#5B8FF9' : '#E76C5E',
@@ -49,7 +65,7 @@ export function getGeometryOption(geometryOption: GeometryOption, axis: AxisType
  */
 export function getOption(options: DualAxesOptions): DualAxesOptions {
   // TODO antvis util 中 map 没有办法处理 undefined！！！
-  const { yAxis = [], geometryOptions = [] } = options;
+  const { yAxis = [], geometryOptions = [], xField, yField } = options;
 
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,
@@ -67,8 +83,8 @@ export function getOption(options: DualAxesOptions): DualAxesOptions {
     ],
     // geometryOptions
     geometryOptions: [
-      getGeometryOption(geometryOptions[0], AxisType.Left),
-      getGeometryOption(geometryOptions[1], AxisType.Right),
+      getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
+      getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
     ],
   });
 

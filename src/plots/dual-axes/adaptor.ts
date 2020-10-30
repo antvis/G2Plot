@@ -6,10 +6,12 @@ import {
   scale,
   interaction as commonInteraction,
 } from '../../adaptor/common';
+import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { findViewById } from '../../utils/view';
-import { getOption } from './util/option';
+import { Datum } from '../../types';
+import { getOption, isColumn } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOptions } from './types';
@@ -40,42 +42,44 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   // 包含配置，id，数据的结构
   const geometries = [
-    { ...geometryOptions[0], id: LEFT_AXES_VIEW, data: data[0] },
-    { ...geometryOptions[1], id: RIGHT_AXES_VIEW, data: data[1] },
+    { ...geometryOptions[0], id: LEFT_AXES_VIEW, data: data[0], yField: yField[0] },
+    { ...geometryOptions[1], id: RIGHT_AXES_VIEW, data: data[1], yField: yField[1] },
   ];
 
   // 将线的 view 放置在更上一层，防止线柱遮挡。先柱后先
   geometries
     .sort((a, b) => -SORT_MAP[a.geometry] + SORT_MAP[b.geometry])
-    .forEach(({ id, data }) => {
-      chart.createView({ id }).data(data);
+    .forEach((geometry) => {
+      const { id, data, yField } = geometry;
+      // 百分比柱状图需要额外处理一次数据
+      const isPercent = isColumn(geometry) && geometry.isPercent;
+      const formatData = isPercent ? percent(data, yField, xField, yField) : data;
+      const view = chart.createView({ id }).data(formatData);
+
+      const tooltipOptions = deepMix(
+        {},
+        {
+          formatter: isPercent
+            ? (datum: Datum) => ({
+                name: datum[geometry.seriesField] || datum[xField],
+                value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+              })
+            : undefined,
+        },
+        tooltip
+      );
+
+      // 绘制图形
+      drawSingleGeometry({
+        chart: view,
+        options: {
+          xField,
+          yField,
+          tooltip: tooltipOptions,
+          geometryOption: geometry,
+        },
+      });
     });
-
-  const leftView = findViewById(chart, LEFT_AXES_VIEW);
-  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-
-  // 左轴图形
-  drawSingleGeometry({
-    chart: leftView,
-    options: {
-      xField,
-      yField: yField[0],
-      tooltip,
-      geometryOption: geometryOptions[0],
-    },
-  });
-
-  // 右轴图形
-  drawSingleGeometry({
-    chart: rightView,
-    options: {
-      xField,
-      yField: yField[1],
-      tooltip,
-      geometryOption: geometryOptions[1],
-    },
-  });
-
   return params;
 }
 

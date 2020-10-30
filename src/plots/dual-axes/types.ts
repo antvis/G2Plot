@@ -30,14 +30,14 @@ type CommonGeometryOption = {
 // 折线设置接口, 直接用 LineOption 吧
 export type GeometryLineOption = Pick<
   LineOptions,
-  'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point' | 'isStack'
+  'seriesField' | 'smooth' | 'connectNulls' | 'lineStyle' | 'point' | 'isStack' | 'stepType'
 > &
   CommonGeometryOption;
 
 // 柱设置接口
 export type GeometryColumnOption = Pick<
   ColumnOptions,
-  'seriesField' | 'isGroup' | 'isStack' | 'columnWidthRatio' | 'marginRatio' | 'columnStyle'
+  'seriesField' | 'isGroup' | 'isStack' | 'isRange' | 'isPercent' | 'columnWidthRatio' | 'marginRatio' | 'columnStyle'
 > &
   CommonGeometryOption;
 

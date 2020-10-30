@@ -20,14 +20,14 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
 
   chart.data(chartData);
 
-  // 百分比堆积图，默认会给一个 % 格式化逻辑
+  // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent
     ? {
-        ...tooltip,
         formatter: (datum: Datum) => ({
           name: datum[seriesField] || datum[xField],
           value: (Number(datum[yField]) * 100).toFixed(2) + '%',
         }),
+        ...tooltip,
       }
     : tooltip;
 

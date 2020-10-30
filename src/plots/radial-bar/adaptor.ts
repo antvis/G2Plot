@@ -34,7 +34,6 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { options } = params;
   const { xField, yField, data, maxRadian } = options;
-  console.log(getScaleMax(maxRadian, yField, data));
   return flow(
     scale({
       [xField]: false,

@@ -88,6 +88,9 @@ export { Gauge, GaugeOptions } from './plots/gauge';
 // 瀑布图 | author by [hustcc](https://github.com/me-momo)
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
+// 玉珏图 | author by [yujs](https://github.com/yujs)
+export { RadialBar } from './plots/radial-bar';
+
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
@@ -98,6 +101,3 @@ export { line, interval, area, point, polygon } from './adaptor/geometries';
 
 /** 对于没有开发完成的图表，可以暂时先放到 Lab 下面，先做体验，稳定后放到根 export */
 export { Lab } from './lab';
-
-// 玉珏图
-export { RadialBar } from './plots/radial-bar';

@@ -1,6 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
+import { deepMix } from '../../utils';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 
 export interface PointGeometryOptions extends GeometryOptions {

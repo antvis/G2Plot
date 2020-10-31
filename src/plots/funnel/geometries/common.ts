@@ -1,7 +1,8 @@
 import { Geometry } from '@antv/g2';
 import { LineOption } from '@antv/g2/lib/interface';
-import { isFunction, deepMix } from '@antv/util';
+import { isFunction } from '@antv/util';
 import { Datum, Data } from '../../../types/common';
+import { deepMix } from '../../../utils';
 import { FUNNEL_PERCENT } from '../constant';
 import { Params } from '../../../core/adaptor';
 import { FunnelOptions } from '../types';
@@ -46,25 +47,22 @@ export function conversionTagComponent(
       data.forEach((obj, index) => {
         if (index <= 0) return;
         const lineCoordinateOption = getLineCoordinate(obj, index, data);
-        const lineOption = deepMix(
-          {},
-          {
-            top: true,
-            text: {
-              content: isFunction(formatter) ? formatter(obj, data) : formatter,
-              offsetX: conversionTag.offsetX,
-              offsetY: conversionTag.offsetY,
-              position: 'end',
-              autoRotate: false,
-              style: {
-                ...conversionTag.style,
-                textAlign: 'start',
-                textBaseline: 'middle',
-              },
+
+        const lineOption = deepMix({}, lineCoordinateOption, {
+          top: true,
+          text: {
+            content: isFunction(formatter) ? formatter(obj, data) : formatter,
+            offsetX: conversionTag.offsetX,
+            offsetY: conversionTag.offsetY,
+            position: 'end',
+            autoRotate: false,
+            style: {
+              ...conversionTag.style,
+              textAlign: 'start',
+              textBaseline: 'middle',
             },
           },
-          lineCoordinateOption
-        );
+        });
         chart.annotation().line(lineOption);
       });
     }

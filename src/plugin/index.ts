@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix } from '../utils';
 import { Plot, PickOptions } from '../core/plot';
 import { Adaptor } from '../core/adaptor';
 /**

@@ -1,6 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { deepMix } from '../../utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { LineOptions } from './types';
 import { adaptor } from './adaptor';

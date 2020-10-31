@@ -1,9 +1,8 @@
-import { deepMix } from '@antv/util';
 import { tooltip, slider, interaction, animation, theme, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
-import { flow, transformLabel } from '../../utils';
+import { flow, transformLabel, deepMix } from '../../utils';
 import { meta, legend, axis, adjust } from '../line/adaptor';
 import { AreaOptions } from './types';
 

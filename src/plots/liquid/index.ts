@@ -33,6 +33,16 @@ export class Liquid extends Plot<LiquidOptions> {
   }
 
   /**
+   * 更新数据
+   * @param percent
+   */
+  public changeData(percent: number) {
+    this.update({
+      percent,
+    });
+  }
+
+  /**
    * 获取适配器
    */
   protected getSchemaAdaptor(): Adaptor<LiquidOptions> {

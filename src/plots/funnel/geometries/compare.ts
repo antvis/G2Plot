@@ -1,6 +1,6 @@
-import { deepMix, map } from '@antv/util';
+import { map } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
-import { flow, findGeometry } from '../../../utils';
+import { flow, findGeometry, deepMix } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';

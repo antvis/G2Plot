@@ -1,6 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepMix } from '../../utils';
 import { scale, theme, animation, annotation, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
 import { TinyLineOptions } from './types';

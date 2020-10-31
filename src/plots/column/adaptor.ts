@@ -1,10 +1,9 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel } from '../../utils';
+import { flow, transformLabel, deepMix } from '../../utils';
 import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';

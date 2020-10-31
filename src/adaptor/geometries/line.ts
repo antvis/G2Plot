@@ -1,7 +1,7 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, StyleAttr, SizeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';
+import { deepMix } from '../../utils';
 import { GeometryOptions, geometry } from './base';
 
 type LineOption = {

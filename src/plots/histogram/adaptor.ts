@@ -1,7 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
-import { findGeometry } from '../../utils';
+import { findGeometry, deepMix } from '../../utils';
 import { flow, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { binHistogram } from '../../utils/transform/histogram';

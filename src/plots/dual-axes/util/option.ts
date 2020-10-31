@@ -1,4 +1,5 @@
-import { deepMix, get } from '@antv/util';
+import { get } from '@antv/util';
+import { deepMix } from '../../../utils';
 import {
   DualAxesOptions,
   GeometryOption,

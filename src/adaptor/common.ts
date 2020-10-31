@@ -1,11 +1,11 @@
 import { Geometry } from '@antv/g2';
-import { each, deepMix } from '@antv/util';
+import { each } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
-import { pick } from '../utils';
+import { pick, deepMix } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表

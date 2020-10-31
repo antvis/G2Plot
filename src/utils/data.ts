@@ -11,10 +11,10 @@ export function adjustYMetaByZero(data: Data, field: string): Meta {
   const ltZero = data.every((datum: Datum) => get(datum, [field]) < 0);
 
   if (gtZero) {
-    return { min: 0 };
+    return { min: 0, max: undefined };
   }
   if (ltZero) {
-    return { max: 0 };
+    return { max: 0, min: undefined };
   }
   return {};
 }

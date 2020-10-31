@@ -1,5 +1,6 @@
 import { getGeometryLabel } from '@antv/g2';
-import { deepMix, isNil, isString } from '@antv/util';
+import { isNil, isString } from '@antv/util';
+import { deepMix } from '../../../utils';
 import { parsePercentageToNumber } from '../utils';
 
 const PieLabel = getGeometryLabel('pie');

@@ -16,7 +16,7 @@
       "filename": "line-label.ts",
       "title": {
         "zh": "多折线动画",
-        "en": "multiple Line chart animation"
+        "en": "Multiple line chart animation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*3HyPSaIxw0gAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "line-color.ts",
       "title": {
         "zh": "指定折线颜色",
-        "en": "set line color"
+        "en": "Set line color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "color-callback.ts",
       "title": {
         "zh": "通过回调函数指定折线颜色",
-        "en": "set line color through callback function"
+        "en": "Set line color through callback function"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*iHQDSZ9g2fQAAAAAAAAAAAAAARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "line-style.ts",
       "title": {
         "zh": "指定折线样式",
-        "en": "setting line style"
+        "en": "Setting line style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*bY-vQZy9eBkAAAAAAAAAAAAAARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "marker-active.ts",
       "title": {
         "zh": "指定 point marker 激活的样式",
-        "en": "setting point marker active style"
+        "en": "Setting point marker active style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MZvDRY7LH-sAAAAAAAAAAABkARQnAQ"
     }

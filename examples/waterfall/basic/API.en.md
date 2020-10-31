@@ -1,1 +1,2 @@
-`markdown:examples/waterfall/basic/API.zh.md`
+`markdown:docs/manual/plots/waterfall.en.md`
+

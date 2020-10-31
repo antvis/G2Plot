@@ -1,4 +1,4 @@
 ---
-title: Range column Chart
+title: Range column
 order: 5
 ---

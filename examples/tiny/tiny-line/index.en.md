@@ -1,4 +1,4 @@
 ---
-title: Tiny Line Chart
+title: Tiny Line
 order: 0
 ---

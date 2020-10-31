@@ -1,18 +1,10 @@
-#### render() 📌
+#### render()
 
-<description>**必选** </description>
-
-功能描述：渲染图表。
-
-默认配置：`无`
+渲染图表。
 
 #### update()
 
-<description>**可选** </description>
-
-功能描述：更新图表配置项，配置覆盖，不会做差异比对。
-
-默认配置：`无`
+更新图表配置项，配置覆盖，不会做差异比对。
 
 使用示例：
 
@@ -25,9 +17,9 @@ plot.update({
 
 <!-- #### changeData()
 
-<description>**可选** </description>
+<description>**optional** </description>
 
-功能描述：更新图表数据。`update()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。。
+更新图表数据。`update()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。。
 
 默认配置：`无`
 

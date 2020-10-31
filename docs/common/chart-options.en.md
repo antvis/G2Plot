@@ -1,51 +1,41 @@
 #### width
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `400`</description>
 
-Description: Set the width of the chart.
-
-Default: `400`
+Set the width of the chart.
 
 #### height
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `400`</description>
 
-Description: Set the height of the chart.
-
-Default: `400`
+Set the height of the chart.
 
 #### autoFit
 
-<description>**optional** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-Description: Whether the chart automatically adjusts to fit the container. If it is set to `true`, `width` and `height` configuration would fail. 
-
-Default: `true`
+Whether the chart automatically adjusts to fit the container. If it is set to `true`, `width` and `height` configuration would fail. 
 
 #### padding
 
 <description>**optional** _number[] | number | 'auto'_</description>
 
-Description: Set `padding` value of the canvas. You can also use `auto`.
+Set `padding` value of the canvas. You can also use `auto`.
 
 #### appendPadding
 
 <description>**optional** _number[] | number_</description>
 
-Description: Extra `appendPadding` value.
+Extra `appendPadding` value.
 
 #### renderer
 
-<description>**optional** _string_</description>
+<description>**optional** _string_ _default:_ `canvas`</description>
 
-Description: Set the render way to `canvas` or `svg`.
-
-Default: `canvas`
+Set the render way to `canvas` or `svg`.
 
 #### pixelRatio
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `window.devicePixelRatio`</description>
 
-Description: Set the pixel ratio of the chart.
-
-Default: `window.devicePixelRatio`
+Set the pixel ratio of the chart.

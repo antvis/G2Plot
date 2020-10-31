@@ -1,6 +1,4 @@
 ---
-title: Stacked Column Chart
+title: Stacked Column
 order: 1
 ---
-
-Description about this component.

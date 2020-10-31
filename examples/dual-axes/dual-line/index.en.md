@@ -1,4 +1,4 @@
 ---
-title: dual-line
+title: Dual Line
 order: 0
 ---

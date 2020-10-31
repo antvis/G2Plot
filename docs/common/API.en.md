@@ -6,13 +6,11 @@
 
 ### Data
 
-#### data 📌
+#### data
 
-**required**, _array object_
+<description>**required** _array object_</description>
 
-Description： Set data source.
-
-Default: `none`
+Set data source.
 
 Data source should be an array of JSON objects, for example: `[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`.
 

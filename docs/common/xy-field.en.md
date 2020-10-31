@@ -1,15 +1,11 @@
-#### xField 📌
+#### xField
 
-**required**, _string_
+<description>**required** _string_</description>
 
-Description: Data field used when mapping the point shape on the xAxis, usually a continuous data field.
+Data field used when mapping the point shape on the xAxis, usually a continuous data field.
 
-Default: `none`
+#### yField
 
-#### yField 📌
+<description>**required** _string_</description>
 
-**required**, _string_
-
-Description: Data field used when mapping the point shape on the yAxis, usually a continuous data field.
-
-Default: `none`
+Data field used when mapping the point shape on the yAxis, usually a continuous data field.

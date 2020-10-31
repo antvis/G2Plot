@@ -4,7 +4,7 @@
 
 #### label
 
-Description: Configure label style.
+Configure label style.
 
 `markdown:docs/common/label.en.md`
 

@@ -20,6 +20,8 @@ module.exports = {
       'latest v2': 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
+    showChartResize: true, // 是否在demo页展示图表视图切换
+    showAPIDoc: true, // 是否在demo页展示API文档
     navs: [
       {
         slug: 'docs/manual',
@@ -60,8 +62,16 @@ module.exports = {
         slug: 'gallery',
         icon: 'gallery',
         title: {
-          zh: '官方精品库',
-          en: 'Featured',
+          zh: '',
+          en: '',
+        },
+      },
+      {
+        slug: 'case',
+        icon: 'gallery',
+        title: {
+          zh: '场景案例',
+          en: 'Show Case',
         },
       },
       {
@@ -69,7 +79,7 @@ module.exports = {
         icon: 'line', // 图表名可以去 https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html 打开控制台查看图标类名
         title: {
           zh: '折线图',
-          en: 'Line Charts',
+          en: 'Line',
         },
       },
       {
@@ -77,7 +87,7 @@ module.exports = {
         icon: 'area',
         title: {
           zh: '面积图',
-          en: 'Area Charts',
+          en: 'Area',
         },
       },
       {
@@ -85,7 +95,7 @@ module.exports = {
         icon: 'column',
         title: {
           zh: '柱形图',
-          en: 'Column Charts',
+          en: 'Column',
         },
       },
       {
@@ -93,7 +103,7 @@ module.exports = {
         icon: 'bar',
         title: {
           zh: '条形图',
-          en: 'Bar Charts',
+          en: 'Bar',
         },
       },
       {
@@ -101,15 +111,7 @@ module.exports = {
         icon: 'pie',
         title: {
           zh: '饼图',
-          en: 'Pie Charts',
-        },
-      },
-      {
-        slug: 'dual-axes',
-        icon: 'line',
-        title: {
-          zh: '双轴图',
-          en: 'DualAxes Charts',
+          en: 'Pie',
         },
       },
       {
@@ -121,27 +123,11 @@ module.exports = {
         },
       },
       {
-        slug: 'gauge',
-        icon: 'gauge',
+        slug: 'dual-axes',
+        icon: 'line',
         title: {
-          zh: '仪表盘',
-          en: 'Gauge Charts',
-        },
-      },
-      {
-        slug: 'waterfall',
-        icon: 'column',
-        title: {
-          zh: '瀑布图',
-          en: 'Waterfall Charts',
-        },
-      },
-      {
-        slug: 'histogram',
-        icon: 'histogram',
-        title: {
-          zh: '直方图',
-          en: 'Histogram Charts',
+          zh: '双轴图',
+          en: 'Dual Axes',
         },
       },
       {
@@ -149,15 +135,15 @@ module.exports = {
         icon: 'radar',
         title: {
           zh: '雷达图',
-          en: 'Radar Charts',
+          en: 'Radar',
         },
       },
       {
-        slug: 'box',
-        icon: 'box',
+        slug: 'word-cloud',
+        icon: 'other',
         title: {
-          zh: '箱型图',
-          en: 'Box Charts',
+          zh: '词云图',
+          en: 'Word Cloud',
         },
       },
       {
@@ -165,7 +151,23 @@ module.exports = {
         icon: 'funnel',
         title: {
           zh: '漏斗图',
-          en: 'Funnel Charts',
+          en: 'Funnel',
+        },
+      },
+      {
+        slug: 'bullet',
+        icon: 'other',
+        title: {
+          zh: '子弹图',
+          en: 'Bullet',
+        },
+      },
+      {
+        slug: 'histogram',
+        icon: 'histogram',
+        title: {
+          zh: '直方图',
+          en: 'Histogram',
         },
       },
       {
@@ -173,15 +175,15 @@ module.exports = {
         icon: 'other',
         title: {
           zh: '水波图',
-          en: 'Liquid Charts',
+          en: 'Liquid',
         },
       },
       {
-        slug: 'heatmap',
-        icon: 'heatmap',
+        slug: 'rose',
+        icon: 'rose',
         title: {
-          zh: '热力图',
-          en: 'heatmap',
+          zh: '玫瑰图',
+          en: 'Rose',
         },
       },
       {
@@ -193,19 +195,35 @@ module.exports = {
         },
       },
       {
-        slug: 'bullet',
-        icon: 'other',
+        slug: 'gauge',
+        icon: 'gauge',
         title: {
-          zh: '子弹图',
-          en: 'Bullet Charts',
+          zh: '仪表盘',
+          en: 'Gauge',
         },
       },
       {
-        slug: 'rose',
-        icon: 'rose',
+        slug: 'waterfall',
+        icon: 'column',
         title: {
-          zh: '玫瑰图',
-          en: 'Rose Charts',
+          zh: '瀑布图',
+          en: 'Waterfall Charts',
+        },
+      },
+      {
+        slug: 'box',
+        icon: 'box',
+        title: {
+          zh: '箱型图',
+          en: 'Box',
+        },
+      },
+      {
+        slug: 'heatmap',
+        icon: 'heatmap',
+        title: {
+          zh: '热力图',
+          en: 'heatmap',
         },
       },
       {
@@ -213,15 +231,7 @@ module.exports = {
         icon: 'candlestick',
         title: {
           zh: '股票图',
-          en: 'Stock Charts',
-        },
-      },
-      {
-        slug: 'word-cloud',
-        icon: 'other',
-        title: {
-          zh: '词云图',
-          en: 'Word Cloud Charts',
+          en: 'Stock',
         },
       },
       {
@@ -229,7 +239,7 @@ module.exports = {
         icon: 'other',
         title: {
           zh: '旭日图',
-          en: 'Sunburst Charts',
+          en: 'Sunburst',
         },
       },
       // OTHERS
@@ -238,7 +248,7 @@ module.exports = {
         icon: 'other',
         title: {
           zh: '图表通用配置',
-          en: 'General Configration',
+          en: 'General Configuration',
         },
       },
     ],

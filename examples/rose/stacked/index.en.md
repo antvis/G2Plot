@@ -1,4 +1,4 @@
 ---
-title: 堆叠玫瑰图
+title: Stacked Rose
 order: 2
 ---

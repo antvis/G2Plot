@@ -1,48 +1,40 @@
 ---
-title: 迷你柱形图
-order: 0
+title: Tiny Column
+order: 16
 ---
 
-## 配置属性
-
-### 图表容器
+### Chart Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _number[]_
+<description>**required** _number[]_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
+设置图表数据源。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### columnWidthRatio
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 柱状图宽度占比 [0-1]
-
-默认配置： 无
+柱状图宽度占比 [0-1]。
 
 #### columnStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 面积图形样式
-
-默认配置： 无
+面积图形样式。
 
 `markdown:docs/common/shape-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Chart Components
 
 `markdown:docs/common/component-tiny.en.md`

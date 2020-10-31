@@ -1,112 +1,86 @@
 ##### nice
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述：是否美化。
-
-默认配置：`true`
+是否美化。
 
 ##### min
 
-<description>**可选** _number_</description>
+<description>**optional** _number_ _default:_ `0`</description>
 
-功能描述：坐标轴最小值。
-
-默认配置：`0`
+坐标轴最小值。
 
 ##### max
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：坐标轴最大值。
-
-默认配置：`无`
+坐标轴最大值。
 
 ##### minLimit
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：最小值限定。
-
-默认配置：`无`
+最小值限定。
 
 ##### maxLimit
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：最大值限定。
-
-默认配置：`无`
+最大值限定。
 
 ##### tickCount
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：期望的坐标轴刻度数量，非最终结果。
-
-默认配置：`无
+期望的坐标轴刻度数量，非最终结果。
 
 ##### tickInterval
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：坐标轴刻度间隔。
-
-默认配置：`无`
+坐标轴刻度间隔。
 
 ##### tickMethod
 
-<description>**可选** _string | Function_</description>
+<description>**optional** _string | Function_ _default:_ `false`</description>
 
-功能描述：指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`
-
-默认配置：`false`
+指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
 
 ##### position
 
-<description>**可选** _`top` | `bottom` | `left` | `right`_</description>
+<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
 
-功能描述：适用于直角坐标系，设置坐标轴的位置。
-
-默认配置：`无`
+适用于直角坐标系，设置坐标轴的位置。
 
 ##### line
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：坐标轴线的配置项，null 表示不展示。
-
-默认配置：`无`
+坐标轴线的配置项，null 表示不展示。
 
 `markdown:docs/common/line-style.en.md`
 
 ##### tickLine
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：坐标轴刻度线线的配置项，null 表示不展示。
-
-默认配置：`无`
+坐标轴刻度线线的配置项，null 表示不展示。
 
 `markdown:docs/common/line-style.en.md`
 
 ##### subTickLine
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：坐标轴子刻度线的配置项，null 表示不展示。
-
-默认配置：`无`
+坐标轴子刻度线的配置项，null 表示不展示。
 
 `markdown:docs/common/line-style.en.md`
 
 ##### title
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：标题的配置项，null 表示不展示。
-
-默认配置：`无`
+标题的配置项，null 表示不展示。
 
 | 细分配置项名称 | 类型         | 功能描述                 |
 | -------------- | ------------ | ------------------------ |
@@ -121,21 +95,17 @@
 
 **_label_**
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：文本标签的配置项，null 表示不展示。
-
-默认配置：`无`
+文本标签的配置项，null 表示不展示。
 
 `markdown:docs/common/label.en.md`
 
 ##### grid
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：坐标轴网格线的配置项，null 表示不展示。
-
-默认配置：`无`
+坐标轴网格线的配置项，null 表示不展示。
 
 | 细分配置项名称 | 类型               | 功能描述                                                 |
 | -------------- | ------------------ | -------------------------------------------------------- |
@@ -150,19 +120,15 @@
 
 ##### animate
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述：动画开关，默认开启。
-
-默认配置：`true`
+动画开关，默认开启。
 
 ##### animateOption
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：动画参数配置。
-
-默认配置： `无`
+动画参数配置。
 
 ```ts
 interface ComponentAnimateCfg {
@@ -186,16 +152,12 @@ interface ComponentAnimateCfg {
 
 ##### verticalFactor
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：标记坐标轴 label 的方向，左侧为 1，右侧为 -1。
-
-默认配置：`无`
+标记坐标轴 label 的方向，左侧为 1，右侧为 -1。
 
 ##### verticalLimitLength
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。
-
-默认配置：`无`
+配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。

@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "热力图",
-        "en": "basic Heatmap chart"
+        "en": "Basic heatmap chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*55KOQI2EhVUAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "shape.ts",
       "title": {
         "zh": "热力形状图",
-        "en": "shape Heatmap chart"
+        "en": "Shape heatmap chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZG36SowgMVYAAAAAAAAAAAAAARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "calendar.ts",
       "title": {
         "zh": "日历热力图",
-        "en": "calendar Heatmap chart"
+        "en": "Calendar heatmap chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aLbWR5ioU2UAAAAAAAAAAAAAARQnAQ"
     }

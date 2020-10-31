@@ -8,7 +8,7 @@
       "filename": "line.ts",
       "title": {
         "zh": "基础折线图",
-        "en": "basic Line chart"
+        "en": "Basic line chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "line-smooth.ts",
       "title": {
         "zh": "曲线折线图",
-        "en": "smooth Line chart"
+        "en": "Smooth line chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
     },

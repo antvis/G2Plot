@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础柱状图",
-        "en": "Basic Column chart"
+        "en": "Basic column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KAg2TY-oYRUAAAAAAAAAAAAAARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "region-annotation.ts",
       "title": {
         "zh": "带辅助框标注的基础柱状图",
-        "en": "Basic Column chart with region annotation"
+        "en": "Basic column chart with region annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FOmATLFeuxkAAAAAAAAAAAAAARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "scrollbar.ts",
       "title": {
         "zh": "基础柱状图 - 滚动条",
-        "en": "Column chart scrollbar"
+        "en": "Column chart scroll bar"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
     },

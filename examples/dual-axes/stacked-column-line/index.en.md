@@ -1,4 +1,4 @@
 ---
-title: stacked-column-line
+title: Stacked Column + Line
 order: 2
 ---

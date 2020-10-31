@@ -1,4 +1,4 @@
 ---
-title: Annotation setting
+title: Annotation Setting
 order: 0
 ---

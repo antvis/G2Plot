@@ -1,4 +1,4 @@
 ---
-title: grouped-column-line
+title: Grouped Column Line
 order: 3
 ---

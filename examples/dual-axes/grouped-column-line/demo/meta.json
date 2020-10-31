@@ -8,7 +8,7 @@
       "filename": "grouped-column-line.ts",
       "title": {
         "zh": "分组柱线图表",
-        "en": "grouped-column-line"
+        "en": "Grouped column line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*p8vjTLdBwVMAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "custom-grouped-column-line.ts",
       "title": {
         "zh": "分组柱线图表-自定义样式",
-        "en": "custom-grouped-column-line"
+        "en": "Custom grouped column line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*p8vjTLdBwVMAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "grouped-column-multi-line.ts",
       "title": {
         "zh": "分组柱线图表-显示多折线",
-        "en": "grouped-column-multi-line"
+        "en": "Grouped column multi line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RdF2Q6tngWYAAAAAAAAAAABkARQnAQ"
     }

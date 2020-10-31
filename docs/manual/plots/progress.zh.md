@@ -1,9 +1,7 @@
 ---
 title: 进度条图
-order: 0
+order: 20
 ---
-
-## 配置属性
 
 ### 图表容器
 
@@ -11,31 +9,25 @@ order: 0
 
 ### 数据映射
 
-#### percent 📌
+#### percent 
 
-**必选**, _number_
+<description>**required** _number_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
+设置图表数据源。
 
 ### 图形样式
 
 #### barWidthRatio
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 条形图宽度占比 [0-1] 。
-
-默认配置： 无
+条形图宽度占比 [0-1]。
 
 #### progressStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 柱子样式配置 。
-
-默认配置： 无
+柱子样式配置。
 
 `markdown:docs/common/shape-style.zh.md`
 

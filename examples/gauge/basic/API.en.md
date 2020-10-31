@@ -1,1 +1,1 @@
-## 配置属性
+ `markdown:docs/manual/plots/gauge.en.md`

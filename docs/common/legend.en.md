@@ -16,21 +16,21 @@ legend: {
 
 ##### layout
 
-<description>**可选** _horizontal | vertical_ </description>
+<description>**optional** _horizontal | vertical_ </description>
 
-功能描述：布局方式
+布局方式
 
 ##### position
 
-<description>**可选** _top | top-left | top-right | right | right-top | right-bottom | left | left-top | left-bottom | bottom | bottom-left | bottom-right_ </description>
+<description>**optional** _top | top-left | top-right | right | right-top | right-bottom | left | left-top | left-bottom | bottom | bottom-left | bottom-right_ </description>
 
-功能描述：图例的位置。
+图例的位置。
 
 ##### background
 
-<description>**可选** _LegendBackgroundCfg_ </description>
+<description>**optional** _LegendBackgroundCfg_ </description>
 
-功能描述：背景框配置项。_LegendBackgroundCfg_ 配置如下：
+背景框配置项。_LegendBackgroundCfg_ 配置如下：
 
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述           |
 | ------- | ------------------- | -------- | ------ | -------------- |
@@ -39,14 +39,14 @@ legend: {
 
 ##### flipPage
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
 
 ##### handler
 
-<description>**可选** _ContinueLegendHandlerCfg_ </description>
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。_ContinueLegendHandlerCfg_ 配置如下：
+<description>**optional** _ContinueLegendHandlerCfg_ </description>
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。_ContinueLegendHandlerCfg_ 配置如下：
 
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述           |
 | ------ | ------------------- | -------- | ------ | -------------- |
@@ -55,21 +55,21 @@ legend: {
 
 ##### itemHeight
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ _default:_ `null`</description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例的高度，默认为 null。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例的高度, 默认为 null。
 
 ##### itemWidth
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ _default:_ `null`</description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的宽度, 默认为 null，自动计算。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的宽度, 默认为 null，自动计算。
 
 ##### itemName
 
-<description>**可选** _LegendItemNameCfg_ </description>
+<description>**optional** _LegendItemNameCfg_ </description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 name 文本的配置。_LegendItemNameCfg_ 配置如下：
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 name 文本的配置。_LegendItemNameCfg_ 配置如下：
 
 | 参数名    | 类型                                                    | 是否必选 | 默认值 | 描述                             |
 | --------- | ------------------------------------------------------- | -------- | ------ | -------------------------------- |
@@ -79,15 +79,15 @@ legend: {
 
 ##### itemSpacing
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，控制图例项水平方向的间距。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，控制图例项水平方向的间距。
 
 ##### itemValue
 
-<description>**可选** _LegendItemValueCfg_ </description>
+<description>**optional** _LegendItemValueCfg_ </description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 value 附加值的配置项。_LegendItemValueCfg_ 配置如下：
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 value 附加值的配置项。_LegendItemValueCfg_ 配置如下：
 
 | 参数名     | 类型                                                    | 是否必选 | 默认值  | 描述                                               |
 | ---------- | ------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
@@ -97,21 +97,21 @@ legend: {
 
 ##### animate
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
-功能描述：是否开启动画开关。
+是否开启动画开关。
 
 ##### animateOption
 
-<description>**可选** _ComponentAnimateOption_ </description>
+<description>**optional** _ComponentAnimateOption_ </description>
 
-功能描述：动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
+动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
 
 ##### label
 
-<description>**可选** _ContinueLegendLabelCfg_ </description>
+<description>**optional** _ContinueLegendLabelCfg_ </description>
 
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，文本的配置项。_ContinueLegendLabelCfg_ 配置如下：
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，文本的配置项。_ContinueLegendLabelCfg_ 配置如下：
 
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述                                                                                                                                          |
 | ------- | ------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -121,52 +121,52 @@ legend: {
 
 ##### marker
 
-<description>**可选** _MarkerCfg_ </description>
+<description>**optional** _MarkerCfg_ </description>
 
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
 
 `markdown:docs/common/marker.en.md`
 
 ##### min
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最小值。
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最小值。
 
 ##### max
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最大值。
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最大值。
 
 ##### maxWidth
 
-<description>**可选** _number_ </description>
-功能描述：
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+<description>**optional** _number_ </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
 
 ##### maxHeight
 
-<description>**可选** _number_ </description>
-功能描述：
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。
+<description>**optional** _number_ </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。
 
 ##### offsetX
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：图例 x 方向的偏移。
+图例 x 方向的偏移。
 
 ##### offsetY
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：图例 y 方向的偏移。
+图例 y 方向的偏移。
 
 ##### rail
 
-<description>**可选** _ContinueLegendRailCfg_ </description>
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，图例滑轨（背景）的样式配置项。_ContinueLegendRailCfg_ 配置如下：
+<description>**optional** _ContinueLegendRailCfg_ </description>
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例滑轨（背景）的样式配置项。_ContinueLegendRailCfg_ 配置如下：
 
 | 参数名        | 类型                | 是否必选 | 默认值 | 描述                                                                             |
 | ------------- | ------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
@@ -177,19 +177,19 @@ legend: {
 
 ##### reversed
 
-<description>**可选** _boolean_ </description>
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，是否将图例项逆序展示。
+<description>**optional** _boolean_ </description>
+适用于 <tag color="green" text="分类图例">分类图例</tag>，是否将图例项逆序展示。
 
 ##### slidable
 
-<description>**可选** _boolean_ </description>
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块是否可以滑动。
+<description>**optional** _boolean_ </description>
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块是否可以滑动。
 
 ##### title
 
-<description>**可选** _G2LegendTitleCfg_ </description>
+<description>**optional** _G2LegendTitleCfg_ </description>
 
-功能描述：图例标题配置，默认不展示。_G2LegendTitleCfg_ 配置如下：
+图例标题配置，默认不展示。_G2LegendTitleCfg_ 配置如下：
 
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
@@ -198,8 +198,8 @@ legend: {
 
 ##### track
 
-<description>**可选** _ContinueLegendTrackCfg_ </description>
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的色块样式配置项。_ContinueLegendTrackCfg_ 配置如下：
+<description>**optional** _ContinueLegendTrackCfg_ </description>
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的色块样式配置项。_ContinueLegendTrackCfg_ 配置如下：
 
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述           |
 | ------ | ------------------- | -------- | ------ | -------------- |
@@ -207,19 +207,19 @@ legend: {
 
 ##### values
 
-<description>**可选** _number[]_ </description>
-功能描述：适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择的值。
+<description>**optional** _number[]_ </description>
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择的值。
 
 ##### custom
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
 是否为自定义图例，当该属性为 true 时，需要声明 items 属性。
 
 ##### items
 
-<description>**可选** _LegendItem[]_ </description>
-功能描述：适用于 <tag color="green" text="分类图例">分类图例</tag>，用户自己配置图例项的内容。_LegendItem_ 配置如下：
+<description>**optional** _LegendItem[]_ </description>
+适用于 <tag color="green" text="分类图例">分类图例</tag>，用户自己配置图例项的内容。_LegendItem_ 配置如下：
 
 | 参数名 | 类型        | 是否必选 | 默认值 | 描述                     |
 | ------ | ----------- | -------- | ------ | ------------------------ |

@@ -1,94 +1,74 @@
 ---
-title: 基础折线图
+title: Line
 order: 0
 ---
 
-## 配置属性
-
-### 图表容器
+### Chart Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
 #### seriesField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述： 分组字段 。
-
-默认配置： 无
+分组字段。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### smooth
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述： 是否平滑 。
-
-默认配置： `false`
+是否平滑。
 
 #### stepType
 
-**可选**, _hv | vh | hvh | vhv_
+<description>**optional** _hv | vh | hvh | vhv_</description>
 
-功能描述： 阶梯折线图类型，配置后 smooth 无效，一般用在阶梯图中。
-
-默认配置： 无
+阶梯折线图类型，配置后 smooth 无效，一般用在阶梯图中。
 
 #### connectNulls
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述： 是否连接空数据 。
-
-默认配置： `true`
+是否连接空数据。
 
 #### isStack
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述： 是否堆积折线
-
-默认配置： `false`
+是否堆积折线。
 
 #### lineStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 折线图形样式 。
-
-默认配置： 无
+折线图形样式。
 
 `markdown:docs/common/shape-style.en.md`
 
 #### point
 
-**可选**, _pointStyle_
+<description>**optional** _pointStyle_</description>
 
-功能描述： 折线数据点图形样式
-
-默认配置： 无
+折线数据点图形样式。
 
 `markdown:docs/common/point-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Chart Components
 
 `markdown:docs/common/component.en.md`

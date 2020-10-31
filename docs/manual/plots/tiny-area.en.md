@@ -1,53 +1,43 @@
 ---
-title: 迷你面积图
-order: 0
+title: Tiny Area
+order: 15
 ---
 
-## 配置属性
-
-### 图表容器
+### Chart Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _number[]_
+<description>**required** _number[]_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
+设置图表数据源。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### smooth
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述： 是否平滑
-
-默认配置： `false`
+是否平滑。
 
 #### areaStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 面积图形样式
-
-默认配置： 无
+面积图形样式。
 
 `markdown:docs/common/shape-style.en.md`
 
 #### line
 
-**可选**, _lineStyle_
+<description>**optional** _lineStyle_</description>
 
-功能描述： 面积中折线的样式
-
-默认配置： 无
+面积中折线的样式。
 
 | 细分配置项名称 | 类型                                     | 功能描述 |
 | -------------- | ---------------------------------------- | -------- |
@@ -57,16 +47,14 @@ order: 0
 
 #### point
 
-**可选**, _pointStyle_
+<description>**optional** _pointStyle_</description>
 
-功能描述： 面积图数据点图形样式
-
-默认配置： 无
+面积图数据点图形样式。
 
 `markdown:docs/common/point-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Chart Components
 
 `markdown:docs/common/component-tiny.en.md`

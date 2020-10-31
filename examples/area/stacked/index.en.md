@@ -1,4 +1,4 @@
 ---
-title: 堆积面积图
+title: Stacked Area
 order: 1
 ---

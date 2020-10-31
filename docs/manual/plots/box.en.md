@@ -1,68 +1,54 @@
 ---
 title: Box
-order: 0
+order: 21
 ---
 
-## 配置属性
-
-### 图表容器
+### Chart Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
 #### groupField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述： 分组拆分字段，默认是分组情况，颜色作为视觉通道 。
-
-默认配置： 无
+分组拆分字段，默认是分组情况，颜色作为视觉通道。
 
 #### outliersField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述： 异常值字段 。
-
-默认配置： 无
+异常值字段。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### boxStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 柱子样式配置 。
-
-默认配置： 无
+柱子样式配置。
 
 `markdown:docs/common/shape-style.en.md`
 
 #### outliersStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 柱子样式配置，配置同 boxStyle。
-
-默认配置： 无
+柱子样式配置，配置同 boxStyle。
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Chart Components
 
 `markdown:docs/common/component.en.md`

@@ -1,91 +1,73 @@
 ---
 title: Sunburst
-order: 0
+order: 17
 ---
 
-## 配置属性
-
-### 图表容器
+### Chart Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _object_
+<description>**required** _object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
+设置图表数据源。
 
 `markdown:docs/common/meta.en.md`
 
 #### type
 
-**可选**, _partition | treemap_;
+<description>**optional** _partition | treemap_ _default:_ `partition`</description>
 
-功能描述： 布局类型，更多类型探索中。
-
-默认配置： `partition`
+布局类型，更多类型探索中。
 
 #### seriesField
 
-**可选**, _string_;
+<description>**optional** _string_</description>
 
-功能描述： 分组字段，即要映射的数值字段。
-
-默认配置： 无
+分组字段，即要映射的数值字段。
 
 #### reflect
 
-**可选**, _x | y_;
+<description>**optional** _x | y_</description>
 
-功能描述： 径向类型，非特殊情况不建议使用。
-
-默认配置： 无
+径向类型，非特殊情况不建议使用。
 
 #### hierarchyConfig
 
-**可选**, _object_;
+<description>**optional** _object_</description>
 
-功能描述： 层级布局配置，例如 `size`、`padding` 等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
+层级布局配置，例如 `size`、`padding` 等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
 
-默认配置： 无
-
-### 图形样式
+### Geometry Style
 
 #### radius
 
-**可选**, _string_
+<description>**optional** _string_ _default:_ `1`</description>
 
-功能描述: 半径， 0 ~ 1。
-
-默认配置： `1`
+半径，0 ~ 1。
 
 #### innerRadius
 
-**可选**, _number_;
+<description>**optional** _number_ _default:_ `0`</description>
 
-功能描述： 内径，0 ~ 1。
-
-默认配置： `0`
+内径，0 ~ 1。
 
 #### colorField
 
-**可选**, _string_;
+<description>**optional** _string_</description>
 
-功能描述： 颜色映射字段。
-
-默认配置： 无
+颜色映射字段。
 
 `markdown:docs/common/color.en.md`
 
-#### sunburstStyle ✨
+#### sunburstStyle 
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 旭日图形样式。pointStyle 中的`fill`会覆盖 `color` 的配置。sunburstStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+旭日图形样式。pointStyle 中的`fill`会覆盖 `color` 的配置。sunburstStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
 
 默认配置：
 
@@ -128,8 +110,6 @@ order: 0
 }
 ```
 
-## 图表组件
-
-### 图表组件
+### Chart Components
 
 `markdown:docs/common/component-polygon.en.md`

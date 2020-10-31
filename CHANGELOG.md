@@ -1,3 +1,46 @@
+#### 2.0.5 (2020-10-31)
+
+##### Documentation Changes
+
+*  删除重复 demos ([#1811](https://github.com/antvis/g2plot/pull/1811)) ([7a744e6f](https://github.com/antvis/g2plot/commit/7a744e6f16f4a753b2e7f520070700376b95214b))
+*  补充 annotations api ([#1798](https://github.com/antvis/g2plot/pull/1798)) ([6bdd5dd0](https://github.com/antvis/g2plot/commit/6bdd5dd012ce6230376f0a73d391eb0ce23f08aa))
+*  去除重复图表 ([#1794](https://github.com/antvis/g2plot/pull/1794)) ([d17e6be9](https://github.com/antvis/g2plot/commit/d17e6be9278b3c1f66587393d5b8db6121db45f7))
+
+##### New Features
+
+*  radial-bar chart ([#1818](https://github.com/antvis/g2plot/pull/1818)) ([07ae1d06](https://github.com/antvis/g2plot/commit/07ae1d06b5181a4f69fb816da5dfb55e84146101))
+*  improve tiny chart based on UI ([#1821](https://github.com/antvis/g2plot/pull/1821)) ([8f1e479b](https://github.com/antvis/g2plot/commit/8f1e479b47107cd06323f432600156a6f58c20da))
+*  add new axis option to scale ([#1816](https://github.com/antvis/g2plot/pull/1816)) ([4194424b](https://github.com/antvis/g2plot/commit/4194424b08ae41ccb72c2e980aa43b2b19e84944))
+*  对称条形图（Bi-directional） ([#1746](https://github.com/antvis/g2plot/pull/1746)) ([e4207617](https://github.com/antvis/g2plot/commit/e420761723c583c193b2ca85785d798c89ed5eb6))
+*  基于 annotation shape 实现 regression line ([#1803](https://github.com/antvis/g2plot/pull/1803)) ([7dbc224a](https://github.com/antvis/g2plot/commit/7dbc224aca52ca85ffb6aa37205b0b6122be5630))
+* **word-cloud:**  支持自定义 random ([#1791](https://github.com/antvis/g2plot/pull/1791)) ([d9af79d6](https://github.com/antvis/g2plot/commit/d9af79d66416e8f92b47524202a4fb6c83f08abe))
+* **gauge:**  add indicator = false, to hide the indicator ([#1792](https://github.com/antvis/g2plot/pull/1792)) ([1779c582](https://github.com/antvis/g2plot/commit/1779c582cdab683d316a431c5d50a1e5a9e66999))
+
+##### Bug Fixes
+
+*  changeData ([#1819](https://github.com/antvis/g2plot/pull/1819)) ([ba3c00e7](https://github.com/antvis/g2plot/commit/ba3c00e7ed6dd73de56f3b151d85015216891179))
+*  coveralls ci not working ([#1829](https://github.com/antvis/g2plot/pull/1829)) ([f2bef058](https://github.com/antvis/g2plot/commit/f2bef05878adf124f8d27dce487b9ce246080058))
+*  调整 bar 默认的柱子顺序 ([#1828](https://github.com/antvis/g2plot/pull/1828)) ([5e134042](https://github.com/antvis/g2plot/commit/5e13404233882da6a6848b710f7194f457801ccc))
+*  双轴图 point 颜色映射错误和参数丢失 ([#1823](https://github.com/antvis/g2plot/pull/1823)) ([a1c7d520](https://github.com/antvis/g2plot/commit/a1c7d52019e623301b8fd08603095bcbb4f42a8a))
+*  correct spelling for Configuration ([#1812](https://github.com/antvis/g2plot/pull/1812)) ([ef7d201b](https://github.com/antvis/g2plot/commit/ef7d201bdb098bce4c4acd7e0385d7d2e0cc7ae0))
+*  pie annotation 默认关闭 text 的动画 ([#1810](https://github.com/antvis/g2plot/pull/1810)) ([bef2c4f9](https://github.com/antvis/g2plot/commit/bef2c4f9a282715d794bfddb2b33e078241b808f))
+*  column/bar/histogram/stock demo 修复" ([#1808](https://github.com/antvis/g2plot/pull/1808)) ([ed54d31e](https://github.com/antvis/g2plot/commit/ed54d31e7182fbe6be5c7dfcb96a49083a7d5845))
+*  correct spelling for "default" ([#1809](https://github.com/antvis/g2plot/pull/1809)) ([ae442c34](https://github.com/antvis/g2plot/commit/ae442c3457e442db9aeca11d176857791938d8dc))
+*  修复 sunburst tooltip ([#1796](https://github.com/antvis/g2plot/pull/1796)) ([76a4a25b](https://github.com/antvis/g2plot/commit/76a4a25bbe4e2d1f5e71f8cfdbf606e8dc1e8867))
+*  correct spelling ([#1802](https://github.com/antvis/g2plot/pull/1802)) ([1f9e6075](https://github.com/antvis/g2plot/commit/1f9e607514942d9fa0eb7216e7a52f740fe809d3))
+*  spell typos ([#1795](https://github.com/antvis/g2plot/pull/1795)) ([303a8be5](https://github.com/antvis/g2plot/commit/303a8be5e7e7c4324a91ef4e385fe76c54f88f0d))
+* **word-cloud:**  修复重复渲染动画卡顿 ([#1805](https://github.com/antvis/g2plot/pull/1805)) ([0297eb1b](https://github.com/antvis/g2plot/commit/0297eb1b1f9fb448d5b9605f5288980a536f144f))
+* **line:**  when data all gt 0, or lt 0, set the default min/max ([#1788](https://github.com/antvis/g2plot/pull/1788)) ([76236d24](https://github.com/antvis/g2plot/commit/76236d24e08f8e91eedd1fb46f565481e239fb70))
+
+##### Refactors
+
+*  demo 走查 ([#1824](https://github.com/antvis/g2plot/pull/1824)) ([37b28ff7](https://github.com/antvis/g2plot/commit/37b28ff70edab7ece83fc29e13dfc57dbeeb0f12))
+* **bullet:**  调整 bullet 的 style api ([#1790](https://github.com/antvis/g2plot/pull/1790)) ([448ee0dd](https://github.com/antvis/g2plot/commit/448ee0ddde2b6b15c6599c9e11b24110a6ab3494))
+
+##### Tests
+
+*  use pull_request_target ([#1825](https://github.com/antvis/g2plot/pull/1825)) ([4b2f21c5](https://github.com/antvis/g2plot/commit/4b2f21c5ece5c9e3e8027cd7f9d352eb31fc68fe))
+
 #### 2.0.5 (2020-10-25)
 
 ##### Chores

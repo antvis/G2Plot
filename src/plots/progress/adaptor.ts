@@ -1,6 +1,6 @@
-import { deepMix, isString, clamp } from '@antv/util';
+import { isString, clamp } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepMix } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';

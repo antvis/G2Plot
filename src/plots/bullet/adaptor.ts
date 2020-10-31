@@ -1,7 +1,7 @@
-import { deepMix, isNumber } from '@antv/util';
+import { isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
-import { flow, pick, transformLabel } from '../../utils';
+import { flow, pick, transformLabel, deepMix } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { interval, point } from '../../adaptor/geometries';
 import { BulletOptions } from './types';

@@ -1,4 +1,4 @@
-import { deepMix, each, findIndex, get, isObject } from '@antv/util';
+import { each, findIndex, get, isObject } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -8,7 +8,7 @@ import {
 } from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepMix } from '../../utils';
 import { findViewById } from '../../utils/view';
 import { Datum } from '../../types';
 import { getOption, isColumn } from './util/option';

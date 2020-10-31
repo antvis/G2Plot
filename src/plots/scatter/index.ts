@@ -1,6 +1,7 @@
-import { deepMix, isBoolean } from '@antv/util';
+import { isBoolean } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { deepMix } from '../../utils';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
 import './interaction';

@@ -165,4 +165,22 @@ describe('gauge', () => {
     // 多 view 的时候，防止 update 的时候 view 泄露
     expect(gauge.chart.views.length).toBe(2);
   });
+
+  it('change data', () => {
+    const gauge = new Gauge(createDiv(), {
+      width: 600,
+      height: 300,
+      autoFit: false,
+      percent: 0.75,
+      range: {
+        color: ['l(0) 0:#5d7cef 1:#e35767'],
+      },
+    });
+
+    gauge.render();
+
+    expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.75 }]);
+    gauge.changeData(0.2);
+    expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.2 }]);
+  });
 });

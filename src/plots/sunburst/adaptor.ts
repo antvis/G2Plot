@@ -1,8 +1,7 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, annotation } from '../../adaptor/common';
-import { flow, findGeometry, transformLabel } from '../../utils';
+import { flow, findGeometry, transformLabel, deepMix } from '../../utils';
 import { transformData } from './utils';
 import { SunburstOptions } from './types';
 

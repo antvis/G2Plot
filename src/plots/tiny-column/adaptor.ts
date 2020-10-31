@@ -1,7 +1,6 @@
-import { deepMix } from '@antv/util';
 import { theme, scale, animation, annotation, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepMix } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { TinyColumnOptions } from './types';
 /**

@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepMix } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RoseOptions } from './types';
 import { adaptor } from './adaptor';

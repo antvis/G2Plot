@@ -1,7 +1,7 @@
-import { deepMix, isArray, isObject, map } from '@antv/util';
+import { isArray, isObject, map } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
-import { findGeometry, flow, pick } from '../../utils';
+import { findGeometry, flow, pick, deepMix } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 import { StockOptions } from './types';

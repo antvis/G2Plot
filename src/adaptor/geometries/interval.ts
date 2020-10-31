@@ -1,6 +1,7 @@
 import { Geometry } from '@antv/g2';
-import { deepMix, isNil } from '@antv/util';
+import { isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
+import { deepMix } from '../../utils';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { GeometryOptions, MappingOptions, geometry } from './base';
 

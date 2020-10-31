@@ -45,5 +45,6 @@ describe('#1757', () => {
     // @ts-ignore
     expect(document.getElementsByClassName('g2-tooltip-title')[0].style['margin-top']).toBe('12px');
     expect(line.chart.geometries[1].elements[0].container.getChildByIndex(0).attr('stroke')).toBe('#2593fc');
+    line.destroy();
   });
 });

@@ -1,6 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { deepMix } from '../../utils';
 import { HeatmapOptions } from './types';
 import { adaptor } from './adaptor';
 // registered shapes

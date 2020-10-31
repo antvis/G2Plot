@@ -1,7 +1,7 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { Datum } from '../../types';
+import { deepMix } from '../../utils';
 import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
 import { processImageMask } from './utils';

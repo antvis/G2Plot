@@ -1,8 +1,8 @@
-import { deepMix, each } from '@antv/util';
+import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
 import { Params } from '../../../core/adaptor';
 import { point, line, interval } from '../../../adaptor/geometries';
-import { pick, findGeometry } from '../../../utils';
+import { pick, findGeometry, deepMix } from '../../../utils';
 import { GeometryOption } from '../types';
 import { isLine, isColumn } from './option';
 

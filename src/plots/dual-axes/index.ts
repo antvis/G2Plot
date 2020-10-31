@@ -1,6 +1,7 @@
-import { deepMix, every, some } from '@antv/util';
+import { every, some } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { deepMix } from '../../utils';
 import { DualAxesOptions, DualAxesGeometry } from './types';
 import { adaptor } from './adaptor';
 

@@ -1,9 +1,9 @@
 import { View } from '@antv/g2';
-import { deepMix, groupBy } from '@antv/util';
+import { groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, findViewById, findGeometry, transformLabel } from '../../utils';
+import { flow, findViewById, findGeometry, transformLabel, deepMix } from '../../utils';
 import { BidirectionalBarOptions } from './types';
 import { FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
 import { transformData } from './utils';

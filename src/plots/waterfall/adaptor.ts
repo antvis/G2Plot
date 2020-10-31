@@ -1,10 +1,10 @@
 import { Geometry } from '@antv/g2';
-import { deepMix, get } from '@antv/util';
+import { get } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { findGeometry, flow, transformLabel } from '../../utils';
+import { findGeometry, flow, transformLabel, deepMix } from '../../utils';
 import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
 import { WaterfallOptions } from './types';
 import { transformData } from './utils';

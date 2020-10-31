@@ -21,7 +21,7 @@ const data = [
 ];
 
 describe('column percent', () => {
-  it('percent: render', () => {
+  it('percent: render', async () => {
     const column = new Column(createDiv('percent', document.body, 'culumn-percent-render'), {
       width: 400,
       height: 300,
@@ -64,7 +64,7 @@ describe('column percent', () => {
     expect(cfg.content).not.toBeUndefined();
     column.destroy();
   });
-  it('percent: custom content', () => {
+  it('percent: custom content', async () => {
     const column = new Column(createDiv('percent', document.body, 'culumn-percent'), {
       width: 400,
       height: 300,

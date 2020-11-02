@@ -20,7 +20,7 @@ describe('tiny-line', () => {
     expect(tinyLine.chart.geometries[0].elements.length).toBe(1);
 
     tinyLine.chart.showTooltip({ x: 10, y: 10 });
-    expect(tinyLine.container.querySelector('.g2-tooltip').innerHTML).toBe(4100.0);
+    expect(tinyLine.container.querySelector('.g2-tooltip').innerHTML).toBe('4100.0');
   });
 
   it('data with smooth', () => {

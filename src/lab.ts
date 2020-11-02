@@ -1,5 +1,3 @@
-import { RadialBar } from './plots/radial-bar';
-
 /** 实验室图表所处的阶段 */
 export enum Stage {
   DEV = 'DEV',

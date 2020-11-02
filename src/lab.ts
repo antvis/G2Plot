@@ -26,10 +26,4 @@ export function notice(stage: Stage, plotType: string) {
 /**
  * 实验室图表，实验室中的图表分成不同的阶段。
  */
-export class Lab {
-  /** 玉珏图 */
-  static get RadialBar() {
-    notice(Stage.DEV, 'RadialBar');
-    return RadialBar;
-  }
-}
+export class Lab {}

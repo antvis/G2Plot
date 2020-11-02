@@ -200,5 +200,100 @@ describe('deepAssign', () => {
         ],
       },
     });
+    // MAX_MIX_LEVEL
+    expect(
+      deepAssign(
+        {},
+        {
+          value: null,
+          callback: fn,
+          data: {
+            list: [
+              {
+                age: 19,
+                name: 'xiaoming',
+              },
+            ],
+          },
+        },
+        {
+          value: undefined,
+          callback: fn,
+          data: {
+            list: [
+              {
+                age: 18,
+                name: 'xiaoming',
+              },
+            ],
+          },
+        }
+      )
+    ).toEqual({
+      value: undefined,
+      callback: fn,
+      data: {
+        list: [
+          {
+            age: 18,
+            name: 'xiaoming',
+          },
+        ],
+      },
+    });
+
+    expect(
+      deepAssign(
+        {},
+        {
+          value: null,
+          deep1: {
+            deep2: {
+              deep3: {
+                deep4: {
+                  deep5: {
+                    deep6: {
+                      name: 'kevin',
+                      age: 18,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        {
+          value: undefined,
+          deep1: {
+            deep2: {
+              deep3: {
+                deep4: {
+                  deep5: {
+                    deep6: {
+                      age: 19,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+      )
+    ).toEqual({
+      value: undefined,
+      deep1: {
+        deep2: {
+          deep3: {
+            deep4: {
+              deep5: {
+                deep6: {
+                  age: 19,
+                },
+              },
+            },
+          },
+        },
+      },
+    });
   });
 });

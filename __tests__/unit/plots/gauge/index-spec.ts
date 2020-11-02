@@ -180,7 +180,9 @@ describe('gauge', () => {
     gauge.render();
 
     expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.75 }]);
+    expect(gauge.options.range.ticks).toEqual([0, 0.75, 1]);
     gauge.changeData(0.2);
     expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.2 }]);
+    expect(gauge.options.range.ticks).toEqual([0, 0.2, 1]);
   });
 });

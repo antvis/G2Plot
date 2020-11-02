@@ -1,9 +1,8 @@
 import { Lab, notice, Stage } from '../../src/lab';
-import { RadialBar } from '../../src/plots/radial-bar';
 
 describe('lab', () => {
   it('lab', () => {
-    expect(Lab.RadialBar).toBe(RadialBar);
+    expect(Lab).toBeDefined();
   });
 
   it('notice', () => {

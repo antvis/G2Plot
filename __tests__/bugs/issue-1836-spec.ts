@@ -1,5 +1,4 @@
 import { Gauge } from '../../src';
-import { pick } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 
 describe('#1836', () => {

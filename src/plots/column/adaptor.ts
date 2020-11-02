@@ -1,10 +1,9 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel } from '../../utils';
+import { flow, transformLabel, deepAssign } from '../../utils';
 import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
@@ -31,7 +30,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
       }
     : tooltip;
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       widthRatio: columnWidthRatio,
       tooltip: tooltipOptions,

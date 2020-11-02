@@ -1,7 +1,6 @@
-import { deepMix } from '@antv/util';
 import { theme, scale, animation, annotation, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { TinyColumnOptions } from './types';
 /**
@@ -18,7 +17,7 @@ function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> 
 
   chart.data(seriesData);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: 'x',
       yField: 'y',

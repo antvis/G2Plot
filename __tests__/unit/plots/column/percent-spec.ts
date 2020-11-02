@@ -22,7 +22,7 @@ const data = [
 
 describe('column percent', () => {
   it('percent: render', async () => {
-    const column = new Column(createDiv('percent'), {
+    const column = new Column(createDiv('percent', document.body, 'culumn-percent-render'), {
       width: 400,
       height: 300,
       data,
@@ -50,7 +50,8 @@ describe('column percent', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe('2100');
+    const box = document.getElementById('culumn-percent-render');
+    expect(box.getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe('2100');
     const {
       // @ts-ignore
       labelOption: { cfg },
@@ -61,9 +62,10 @@ describe('column percent', () => {
     });
     expect(cfg.position).toBe('middle');
     expect(cfg.content).not.toBeUndefined();
+    column.destroy();
   });
   it('percent: custom content', async () => {
-    const column = new Column(createDiv('percent'), {
+    const column = new Column(createDiv('percent', document.body, 'culumn-percent'), {
       width: 400,
       height: 300,
       data,
@@ -94,8 +96,10 @@ describe('column percent', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
-    expect(document.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
+    const box = document.getElementById('culumn-percent');
+    expect(box.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
+    expect(box.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
+    column.destroy();
   });
   it('percent: custom tooltip formatter', () => {
     const column = new Column(createDiv('percent', undefined, 'percent'), {

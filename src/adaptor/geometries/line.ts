@@ -1,7 +1,7 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, StyleAttr, SizeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';
+import { deepAssign } from '../../utils';
 import { GeometryOptions, geometry } from './base';
 
 type LineOption = {
@@ -43,7 +43,7 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
   // 如果存在才处理
   return line
     ? geometry(
-        deepMix({}, params, {
+        deepAssign({}, params, {
           options: {
             type: 'line',
             colorField: seriesField,

@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepAssign } from '../../utils';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { SunburstOptions } from './types';
@@ -16,7 +16,7 @@ export class Sunburst extends Plot<SunburstOptions> {
    */
   protected getDefaultOptions(options: SunburstOptions) {
     const { tooltip, seriesField, colorField } = options;
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       type: 'partition',
       innerRadius: 0,
       seriesField: 'value',

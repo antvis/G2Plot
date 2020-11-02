@@ -1,6 +1,6 @@
-import { deepMix, map } from '@antv/util';
+import { map } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
-import { flow, findGeometry } from '../../../utils';
+import { flow, findGeometry, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
@@ -84,7 +84,7 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
       const geometry = findGeometry(view, 'interval');
       geometryLabel(geometry)(
         label
-          ? deepMix({}, params, {
+          ? deepAssign({}, params, {
               options: {
                 label: {
                   offset: 10,
@@ -128,7 +128,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
       };
 
       conversionTagComponent(getLineCoordinate)(
-        deepMix(
+        deepAssign(
           {},
           {
             chart: view,

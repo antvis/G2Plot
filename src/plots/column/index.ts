@@ -1,6 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { deepAssign } from '../../utils';
 import { ColumnOptions } from './types';
 import { adaptor } from './adaptor';
 
@@ -18,7 +18,7 @@ export class Column extends Plot<ColumnOptions> {
    */
   protected getDefaultOptions(options: ColumnOptions) {
     const { isRange, label, yField, xField, isGroup, isStack } = options;
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       columnWidthRatio: 0.6,
       marginRatio: 1 / 32,
       label:

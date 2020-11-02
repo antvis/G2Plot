@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BoxOptions } from './types';
 import { adaptor } from './adaptor';
@@ -14,7 +14,7 @@ export class Box extends Plot<BoxOptions> {
    * 获取 箱型图 默认配置项
    */
   protected getDefaultOptions(): Partial<BoxOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       meta: {
         [BOX_RANGE]: { min: 0, alias: BOX_RANGE_ALIAS },
       },

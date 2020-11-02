@@ -1,8 +1,7 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, annotation } from '../../adaptor/common';
-import { flow, findGeometry, transformLabel } from '../../utils';
+import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { transformData } from './utils';
 import { SunburstOptions } from './types';
 
@@ -18,7 +17,7 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
 
   // geometry
   polygonAdaptor(
-    deepMix({}, params, {
+    deepAssign({}, params, {
       options: {
         xField: 'x',
         yField: 'y',

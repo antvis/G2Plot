@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RoseOptions } from './types';
 import { adaptor } from './adaptor';
@@ -14,7 +14,7 @@ export class Rose extends Plot<RoseOptions> {
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<RoseOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       xAxis: false,
       yAxis: false,
       legend: {

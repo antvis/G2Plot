@@ -18,6 +18,16 @@ export class Progress extends Plot<ProgressOptions> {
   }
 
   /**
+   * 更新数据
+   * @param percent
+   */
+  public changeData(percent: number) {
+    this.update({
+      percent,
+    });
+  }
+
+  /**
    * 获取 进度图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<ProgressOptions> {

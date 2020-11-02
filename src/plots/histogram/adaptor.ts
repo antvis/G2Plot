@@ -1,7 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
-import { findGeometry } from '../../utils';
+import { findGeometry, deepAssign } from '../../utils';
 import { flow, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { binHistogram } from '../../utils/transform/histogram';
@@ -20,7 +19,7 @@ function geometry(params: Params<HistogramOptions>): Params<HistogramOptions> {
 
   chart.data(plotData);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: 'range',
       yField: 'count',

@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BarOptions } from './types';
 import { adaptor } from './adaptor';
@@ -18,7 +18,7 @@ export class Bar extends Plot<BarOptions> {
    */
   protected getDefaultOptions(options: BarOptions) {
     const { isRange, label, xField, yField, isGroup, isStack } = options;
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       barWidthRatio: 0.6,
       marginRatio: 1 / 32,
       label:

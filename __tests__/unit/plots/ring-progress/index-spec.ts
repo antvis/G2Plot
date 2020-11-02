@@ -284,4 +284,19 @@ describe('ring-progress', () => {
 
     expect(ring.chart.getController('annotation').getComponents()[0].component.get('style').fontSize).toBe(20 * 0.6);
   });
+  it('change data', () => {
+    const ringProgress = new RingProgress(createDiv(), {
+      radius: 1,
+      innerRadius: 0.5,
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      autoFit: false,
+    });
+
+    ringProgress.render();
+    expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
+    ringProgress.changeData(0.7);
+    expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.7);
+  });
 });

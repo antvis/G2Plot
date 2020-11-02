@@ -1,4 +1,4 @@
-import { deepMix, get } from '@antv/util';
+import { deepMix, get, isArray } from '@antv/util';
 import {
   DualAxesOptions,
   GeometryOption,
@@ -57,15 +57,8 @@ export function getGeometryOption(
       };
 }
 
-/**
- * 主要因为双轴图的 yAxis 和 geometryOptions 是数组，所以需要额外分别进行设置默认值
- * 1. yAxis
- * 2. geometryOptions
- * @param options
- */
-export function getOption(options: DualAxesOptions): DualAxesOptions {
-  // TODO antvis util 中 map 没有办法处理 undefined！！！
-  const { yAxis = [], geometryOptions = [], xField, yField } = options;
+export function getDefaultYAxis(options: DualAxesOptions): Pick<DualAxesOptions, 'yAxis'> {
+  const { yAxis, yField } = options;
 
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,
@@ -75,12 +68,48 @@ export function getOption(options: DualAxesOptions): DualAxesOptions {
     },
   };
 
+  const DEFAULT_LEFT_YAXIS_CONFIG = {
+    ...DEFAULT_YAXIS_CONFIG,
+    position: 'left',
+  };
+
+  const DEFAULT_RIGHT_YAXIS_CONFIG = {
+    ...DEFAULT_YAXIS_CONFIG,
+    position: 'right',
+    grid: null,
+  };
+
+  if (isArray(yAxis)) {
+    console.warn('yAxis should be object');
+    return {
+      [yField[0]]: yAxis[0] !== false ? deepMix({}, DEFAULT_LEFT_YAXIS_CONFIG, yAxis[0]) : false,
+      [yField[1]]: yAxis[1] !== false ? deepMix({}, DEFAULT_RIGHT_YAXIS_CONFIG, yAxis[1]) : false,
+    };
+  }
+
+  return deepMix(
+    {},
+    {
+      [yField[0]]: DEFAULT_LEFT_YAXIS_CONFIG,
+      [yField[1]]: DEFAULT_RIGHT_YAXIS_CONFIG,
+    },
+    yAxis
+  );
+}
+
+/**
+ * 主要因为双轴图的 yAxis 和 geometryOptions 是数组，所以需要额外分别进行设置默认值
+ * 1. yAxis
+ * 2. geometryOptions
+ * @param options
+ */
+export function getOption(options: DualAxesOptions): DualAxesOptions {
+  // TODO antvis util 中 map 没有办法处理 undefined！！！
+  const { geometryOptions = [], xField, yField } = options;
+
   const formatOptions = deepMix({}, options, {
     // yAxis
-    yAxis: [
-      yAxis[0] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
-      yAxis[1] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
-    ],
+    yAxis: getDefaultYAxis(options),
     // geometryOptions
     geometryOptions: [
       getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),

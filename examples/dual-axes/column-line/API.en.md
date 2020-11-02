@@ -85,7 +85,23 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 #### axis
 
-xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是数组类型，形式为[左轴配置，右轴配置]。
+xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是数组类型，形式为 { 左轴字段: 左轴配置，右轴字段: 右轴配置}。
+
+例如
+```ts
+{
+  yField: [pv, uv],
+  yAxis: {
+    pv: {
+      tickCount: 5,
+    },
+    uv: {
+      tickCount: 10,
+    }
+  }
+}
+```
+
 
 `markdown:docs/common/axis.en.md`
 

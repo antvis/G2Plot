@@ -13,13 +13,18 @@ describe('DualAxes option', () => {
 
   it('yAxis option', () => {
     expect(
-      // @ts-ignore
-      getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [{ a: 1 }, false], geometryOptions: [] })
+      getOption({
+        xField: 'test',
+        yField: ['test1', 'test2'],
+        // @ts-ignore
+        yAxis: { test1: { a: 1 }, test2: false },
+        geometryOptions: [],
+      })
     ).toEqual({
       xField: 'test',
       yField: ['test1', 'test2'],
-      yAxis: [
-        {
+      yAxis: {
+        test1: {
           nice: true,
           label: {
             autoHide: true,
@@ -27,8 +32,8 @@ describe('DualAxes option', () => {
           },
           a: 1,
         },
-        false,
-      ],
+        test2: false,
+      },
       geometryOptions: [
         {
           geometry: 'line',
@@ -44,42 +49,42 @@ describe('DualAxes option', () => {
     expect(
       // @ts-ignore
       getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [false, false], geometryOptions: [] }).yAxis
-    ).toEqual([false, false]);
+    ).toEqual({ test1: false, test2: false });
 
     // @ts-ignore
-    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [], geometryOptions: [] }).yAxis).toEqual([
-      {
+    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: {}, geometryOptions: [] }).yAxis).toEqual({
+      test1: {
         nice: true,
         label: {
           autoHide: true,
           autoRotate: false,
         },
       },
-      {
+      test2: {
         nice: true,
         label: {
           autoHide: true,
           autoRotate: false,
         },
       },
-    ]);
+    });
 
     // @ts-ignore
-    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], geometryOptions: [] }).yAxis).toEqual([
-      {
+    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], geometryOptions: [] }).yAxis).toEqual({
+      test1: {
         nice: true,
         label: {
           autoHide: true,
           autoRotate: false,
         },
       },
-      {
+      test2: {
         nice: true,
         label: {
           autoHide: true,
           autoRotate: false,
         },
       },
-    ]);
+    });
   });
 });

@@ -69,22 +69,22 @@ const dualAxes = new DualAxes('container', {
     },
     tickCount: data.length / 2,
   },
-  yAxis: [
-    {
+  yAxis: {
+    consumeTime: {
       label: {
         formatter: (v) => {
           return `${v}分`;
         },
       },
     },
-    {
+    completeTime: {
       label: {
         formatter: (v) => {
           return `${v}`;
         },
       },
     },
-  ],
+  },
   legend: {
     itemName: {
       formatter: (text, item) => {

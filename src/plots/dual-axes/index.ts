@@ -1,4 +1,4 @@
-import { deepMix, every, some } from '@antv/util';
+import { deepMix, every } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { DualAxesOptions, DualAxesGeometry } from './types';
@@ -23,6 +23,9 @@ export class DualAxes extends Plot<DualAxesOptions> {
     return deepMix({}, super.getDefaultOptions(options), {
       yAxis: [],
       geometryOptions: [],
+      xAxis: {
+        position: 'bottom',
+      },
       meta: {
         [xField]: {
           // x 轴一定是同步 scale 的

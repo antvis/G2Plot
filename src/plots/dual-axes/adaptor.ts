@@ -18,10 +18,11 @@ import { DualAxesOptions } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
- * 获取默认参数设置
- * 双轴图无法使用公共的 getDefaultOption, 因为双轴图存在[lineConfig, lineConfig] 这样的数据，需要根据传入的 option，生成不同的 defaultOption,
- * 并且 deepmix 无法 mix 数组类型数据，因此需要做一次参数的后转换
- * 这个函数针对 yAxis 和 geometryOptions
+ * transformOptions，双轴图整体的取参逻辑如下
+ * 1. 获取 defaultOption（dual-axes/index) : deepMix({}, super.getDefaultOptions(options), dualDefaultOptions)
+ * 2. 获取 options (core/plot): deepMix({}, defaultOption, options);
+ * 3. transformOptions: 这是因为第二步无法使得 geometryOptions 被有效 deepmix, 因此最后新增一步 transform
+ *
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
@@ -93,12 +94,12 @@ export function meta(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   scale({
     [xField]: xAxis,
-    [yField[0]]: yAxis[0],
+    [yField[0]]: yAxis[yField[0]],
   })(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
 
   scale({
     [xField]: xAxis,
-    [yField[1]]: yAxis[1],
+    [yField[1]]: yAxis[yField[1]],
   })(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
@@ -114,31 +115,17 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
   const { xField, yField, xAxis, yAxis } = options;
 
-  // 固定位置
-  if (xAxis) {
-    deepMix(xAxis, { position: 'bottom' }); // 直接修改到 xAxis 中
-  }
-
-  if (yAxis[0]) {
-    yAxis[0] = deepMix({}, yAxis[0], { position: 'left' });
-  }
-
-  // 隐藏右轴 grid，留到 g2 解决
-  if (yAxis[1]) {
-    yAxis[1] = deepMix({}, yAxis[1], { position: 'right', grid: null });
-  }
-
   chart.axis(xField, false);
   chart.axis(yField[0], false);
   chart.axis(yField[1], false);
 
   // 左 View
   leftView.axis(xField, xAxis);
-  leftView.axis(yField[0], yAxis[0]);
+  leftView.axis(yField[0], yAxis[yField[0]]);
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[1], yAxis[1]);
+  rightView.axis(yField[1], yAxis[yField[1]]);
 
   return params;
 }

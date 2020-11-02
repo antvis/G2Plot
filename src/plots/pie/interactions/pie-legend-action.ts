@@ -4,7 +4,7 @@ import Element from '@antv/g2/lib/geometry/element';
 import { Action } from '@antv/g2/lib/interaction';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
 import { isEqual } from '@antv/util';
-import { transform } from '../../../utils/g-util';
+import { transform } from '../../../utils/matrix';
 
 /**
  * 饼图 图例激活 action

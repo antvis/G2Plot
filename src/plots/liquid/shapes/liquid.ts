@@ -1,7 +1,7 @@
 import { registerShape } from '@antv/g2';
 import { IGroup } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
-import { transform } from '../../../utils/g-util';
+import { transform } from '../../../utils/matrix';
 import { Point } from '../../../types';
 import { ShapeStyle } from '../../../types';
 

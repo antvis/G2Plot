@@ -1,6 +1,6 @@
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 
 export interface PolygonGeometryOptions extends GeometryOptions {
@@ -26,7 +26,7 @@ export function polygon<O extends PolygonGeometryOptions>(params: Params<O>): Pa
 
   return polygon
     ? geometry(
-        deepMix({}, params, {
+        deepAssign({}, params, {
           options: {
             type: 'polygon',
             colorField: seriesField,

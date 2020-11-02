@@ -1,5 +1,6 @@
-import { deepMix, isNil } from '@antv/util';
+import { isNil } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { HistogramOptions } from './types';
 import { adaptor } from './adaptor';
@@ -15,7 +16,7 @@ export class Histogram extends Plot<HistogramOptions> {
    * @param options
    */
   protected getDefaultOptions(options: HistogramOptions) {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       // @ts-ignore
       columnStyle: isNil(options.columnStyle?.stroke)
         ? {

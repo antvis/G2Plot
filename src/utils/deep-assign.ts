@@ -68,7 +68,7 @@ const deep = (dist, src, level?, maxLevel?) => {
 };
 
 // todo 重写
-export const deepMix = (rst: any, ...args: any[]) => {
+export const deepAssign = (rst: any, ...args: any[]) => {
   for (let i = 0; i < args.length; i += 1) {
     deep(rst, args[i]);
   }

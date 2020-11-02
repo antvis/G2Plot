@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RadialBarOptions } from './types';
 import { adaptor } from './adaptor';
@@ -17,7 +17,7 @@ export class RadialBar extends Plot<RadialBarOptions> {
    * 获取默认配置
    */
   protected getDefaultOptions(): Partial<RadialBarOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       interactions: [{ type: 'element-active' }],
       legend: false,
       tooltip: {

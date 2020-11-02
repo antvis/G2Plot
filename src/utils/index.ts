@@ -7,4 +7,4 @@ export { findGeometry, getAllElements } from './geometry';
 export { findViewById } from './view';
 export { transformLabel } from './label';
 export { getSplinePath } from './path';
-export { deepMix } from './deep-mix';
+export { deepAssign } from './deep-assign';

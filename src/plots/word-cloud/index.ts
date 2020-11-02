@@ -1,7 +1,7 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { Datum } from '../../types';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
 import { processImageMask } from './utils';
@@ -18,7 +18,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<WordCloudOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       timeInterval: 2000,
       tooltip: {
         showTitle: false,

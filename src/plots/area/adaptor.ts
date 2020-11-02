@@ -2,7 +2,7 @@ import { tooltip, slider, interaction, animation, theme, annotation } from '../.
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
-import { flow, transformLabel, deepMix } from '../../utils';
+import { flow, transformLabel, deepAssign } from '../../utils';
 import { meta, legend, axis, adjust } from '../line/adaptor';
 import { AreaOptions } from './types';
 
@@ -16,7 +16,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
 
   chart.data(data);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       area: { color, style: areaStyle },
       // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。

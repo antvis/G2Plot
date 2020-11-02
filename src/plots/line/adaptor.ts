@@ -2,7 +2,7 @@ import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
-import { findGeometry, transformLabel, deepMix } from '../../utils';
+import { findGeometry, transformLabel, deepAssign } from '../../utils';
 import { point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { LineOptions } from './types';
@@ -18,7 +18,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
   chart.data(data);
 
   // line geometry 处理
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       shapeField: seriesField,
       line: {

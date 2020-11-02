@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { flow, deepMix } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { scale, theme, animation, annotation, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
 import { TinyLineOptions } from './types';
@@ -19,7 +19,7 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   chart.data(seriesData);
 
   // line geometry 处理
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: 'x',
       yField: 'y',

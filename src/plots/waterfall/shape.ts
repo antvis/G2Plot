@@ -2,7 +2,7 @@ import { IGroup } from '@antv/g-base';
 import { registerShape } from '@antv/g2';
 import { ShapeInfo } from '@antv/g2/lib/interface';
 import { get } from '@antv/util';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { Point } from '../../types';
 
 /**
@@ -31,7 +31,7 @@ function getRectPath(points: Point[]) {
  * @param cfg 图形绘制数据
  */
 function getFillAttrs(cfg: ShapeInfo) {
-  return deepMix({}, cfg.defaultStyle, cfg.style, { fill: cfg.color });
+  return deepAssign({}, cfg.defaultStyle, cfg.style, { fill: cfg.color });
 }
 
 registerShape('interval', 'waterfall', {

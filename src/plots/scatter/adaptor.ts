@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { flow, deepMix } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
@@ -20,7 +20,7 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   // geometry
   point(
-    deepMix({}, params, {
+    deepAssign({}, params, {
       options: {
         seriesField: colorField,
         point: {
@@ -142,12 +142,12 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
           type: 'region',
           top: false,
           ...defaultConfig.regionStyle[index].position,
-          style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+          style: deepAssign({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
         },
         {
           type: 'text',
           top: true,
-          ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+          ...deepAssign({}, defaultConfig.labelStyle[index], labels?.[index]),
         }
       );
     });
@@ -158,14 +158,14 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
         top: false,
         start: ['min', yBaseline],
         end: ['max', yBaseline],
-        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+        style: deepAssign({}, defaultConfig.lineStyle, lineStyle),
       },
       {
         type: 'line',
         top: false,
         start: [xBaseline, 'min'],
         end: [xBaseline, 'max'],
-        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+        style: deepAssign({}, defaultConfig.lineStyle, lineStyle),
       }
     );
   }

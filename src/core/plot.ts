@@ -4,7 +4,7 @@ import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Options, StateName, StateCondition, Size, StateObject } from '../types';
-import { getContainerSize, getAllElements, deepMix } from '../utils';
+import { getContainerSize, getAllElements, deepAssign } from '../utils';
 import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
@@ -40,7 +40,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
     super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
 
-    this.options = deepMix({}, this.getDefaultOptions(options), options);
+    this.options = deepAssign({}, this.getDefaultOptions(options), options);
 
     this.createG2();
 
@@ -162,9 +162,9 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 更新配置
    * @param options
    */
-  public update(options: any) {
+  public update(options: O) {
     // options 更新是全量更新，这里和构造函数中一会加上图表的默认选项
-    this.options = deepMix({}, this.options, this.getDefaultOptions({ ...this.options, ...options }), options);
+    this.options = deepAssign({}, this.options, this.getDefaultOptions({ ...this.options, ...options }), options);
     this.render();
   }
 
@@ -208,6 +208,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    */
   public changeData(data: any) {
     // 临时方案，会在 G2 做处理
+    // @ts-ignore
     this.update({
       data,
     });

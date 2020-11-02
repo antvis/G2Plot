@@ -1,6 +1,6 @@
 import { filter, isObject, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, findGeometry, log, LEVEL, transformLabel, deepMix } from '../../utils';
+import { flow, findGeometry, log, LEVEL, transformLabel, deepAssign } from '../../utils';
 import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { RoseOptions } from './types';
@@ -17,7 +17,7 @@ function geometry(params: Params<RoseOptions>): Params<RoseOptions> {
   chart.data(data);
 
   flow(interval)(
-    deepMix({}, params, {
+    deepAssign({}, params, {
       options: {
         marginRatio: 1,
         interval: {

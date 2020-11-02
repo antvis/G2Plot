@@ -1,5 +1,5 @@
 import { Plot } from '../../core/plot';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { PieOptions } from './types';
 import { adaptor } from './adaptor';
@@ -16,7 +16,7 @@ export class Pie extends Plot<PieOptions> {
    * 获取 饼图 默认配置项
    */
   protected getDefaultOptions(): Partial<PieOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       legend: {
         position: 'right',
       },

@@ -1,5 +1,5 @@
 import { Plot } from '../../core/plot';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RadarOptions } from './types';
 import { adaptor } from './adaptor';
@@ -15,7 +15,7 @@ export class Radar extends Plot<RadarOptions> {
    * 获取 雷达图 默认配置
    */
   protected getDefaultOptions(): Partial<RadarOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       xAxis: {
         label: {
           offset: 15,

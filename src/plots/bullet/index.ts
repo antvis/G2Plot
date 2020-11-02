@@ -1,5 +1,5 @@
 import { Plot } from '../../core/plot';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BulletOptions } from './types';
 import { adaptor } from './adaptor';
@@ -18,7 +18,7 @@ export class Bullet extends Plot<BulletOptions> {
   }
 
   protected getDefaultOptions() {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       layout: 'horizontal',
       size: {
         range: 30,

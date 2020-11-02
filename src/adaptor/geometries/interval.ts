@@ -1,7 +1,7 @@
 import { Geometry } from '@antv/g2';
 import { isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { GeometryOptions, MappingOptions, geometry } from './base';
 
@@ -71,7 +71,7 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
   // 保障一定要存在 interval 映射
   const { ext } = interval
     ? geometry(
-        deepMix({}, params, {
+        deepAssign({}, params, {
           options: {
             type: 'interval',
             colorField: seriesField,

@@ -1,4 +1,4 @@
-import { deepMix } from '../utils';
+import { deepAssign } from '../utils';
 import { Plot, PickOptions } from '../core/plot';
 import { Adaptor } from '../core/adaptor';
 /**
@@ -38,7 +38,7 @@ export class P<O extends PickOptions> extends Plot<O> {
    * @param defaultOptions
    */
   constructor(container: string | HTMLElement, options: O, adaptor: Adaptor<O>, defaultOptions?: Partial<O>) {
-    super(container, deepMix({}, defaultOptions, options));
+    super(container, deepAssign({}, defaultOptions, options));
 
     this.adaptor = adaptor;
   }

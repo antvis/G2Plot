@@ -5,7 +5,7 @@ import { Options } from '../types';
 import { Interaction } from '../types/interaction';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
-import { pick, deepMix } from '../utils';
+import { pick, deepAssign } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表
@@ -156,7 +156,7 @@ export function scale(axes: Record<string, Axis>, meta?: Options['meta']) {
     });
 
     // 2. meta 直接是 scale 的信息
-    scales = deepMix({}, meta, options.meta, scales);
+    scales = deepAssign({}, meta, options.meta, scales);
 
     chart.scale(scales);
 

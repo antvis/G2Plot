@@ -1,6 +1,6 @@
 import { theme, scale, animation, annotation, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, deepMix } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { area, line, point } from '../../adaptor/geometries';
 import { TinyAreaOptions } from './types';
 
@@ -18,7 +18,7 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   chart.data(seriesData);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: 'x',
       yField: 'y',

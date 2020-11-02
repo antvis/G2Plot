@@ -1,66 +1,94 @@
-import { deepMix } from '../../../src/utils';
+import { deepAssign } from '../../../src/utils';
 
-describe('deepMix', () => {
-  it('deepMix', () => {
+describe('deepAssign', () => {
+  it('deepAssign', () => {
     const fn = jest.fn();
     // undefined -> number
-    expect(deepMix({}, { value: 0 }, { value: undefined })).toEqual({ value: undefined });
-    expect(deepMix({}, { value: undefined }, { value: 0 })).toEqual({ value: 0 });
+    expect(deepAssign({}, { value: 0 }, { value: undefined })).toEqual({ value: undefined });
+    expect(deepAssign({}, { value: undefined }, { value: 0 })).toEqual({ value: 0 });
     // boolean -> boolean
-    expect(deepMix({}, { value: false }, { value: true })).toEqual({
+    expect(deepAssign({}, { value: false }, { value: true })).toEqual({
       value: true,
     });
-    expect(deepMix({}, { value: true }, { value: false })).toEqual({
+    expect(deepAssign({}, { value: true }, { value: false })).toEqual({
       value: false,
     });
     // null -> boolean
-    expect(deepMix({}, { value: true }, { value: null })).toEqual({
+    expect(deepAssign({}, { value: true }, { value: null })).toEqual({
       value: null,
     });
-    expect(deepMix({}, { value: false }, { value: null })).toEqual({
+    expect(deepAssign({}, { value: false }, { value: null })).toEqual({
       value: null,
     });
     // boolean => ''
-    expect(deepMix({}, { value: true }, { value: '' })).toEqual({
+    expect(deepAssign({}, { value: true }, { value: '' })).toEqual({
       value: '',
     });
-    expect(deepMix({}, { value: '' }, { value: false })).toEqual({
+    expect(deepAssign({}, { value: '' }, { value: false })).toEqual({
       value: false,
     });
-    expect(deepMix({}, { value: '' }, { value: true })).toEqual({
+    expect(deepAssign({}, { value: '' }, { value: true })).toEqual({
       value: true,
     });
     // string => string
-    expect(deepMix({}, { value: 'a' }, { value: 'b' })).toEqual({
+    expect(deepAssign({}, { value: 'a' }, { value: 'b' })).toEqual({
       value: 'b',
     });
     // string => NaN
-    expect(deepMix({}, { value: NaN }, { value: 'NaN' })).toEqual({
+    expect(deepAssign({}, { value: NaN }, { value: 'NaN' })).toEqual({
       value: 'NaN',
     });
     // boolean => NaN
-    expect(deepMix({}, { value: true }, { value: NaN })).toEqual({
+    expect(deepAssign({}, { value: true }, { value: NaN })).toEqual({
       value: NaN,
     });
     // fn
-    expect(deepMix({}, { value: 0 }, { value: undefined, callback: fn })).toEqual({
+    expect(deepAssign({}, { value: 0 }, { value: undefined, callback: fn })).toEqual({
       value: undefined,
       callback: fn,
     });
     // Array
-    expect(deepMix({}, { value: 0, callback: fn }, { value: 1, callback: fn, list: [0, 2, 1] })).toEqual({
+    expect(deepAssign({}, { value: 0, callback: fn }, { value: 1, callback: fn, list: [0, 2, 1] })).toEqual({
       value: 1,
       callback: fn,
       list: [0, 2, 1],
     });
-    expect(deepMix({}, { value: 0, callback: fn, list: [1] }, { value: 1, callback: fn, list: [0, 2, 1] })).toEqual({
+    expect(deepAssign({}, { value: 0, callback: fn, list: [1] }, { value: 1, callback: fn, list: [0, 2, 1] })).toEqual({
+      value: 1,
+      callback: fn,
+      list: [0, 2, 1],
+    });
+    // Date
+    const targetDate = new Date();
+    expect(deepAssign({}, { value: 1, callback: fn }, { value: targetDate, callback: fn, list: [0, 2, 1] })).toEqual({
+      value: targetDate,
+      callback: fn,
+      list: [0, 2, 1],
+    });
+    const sourceDate = new Date();
+    expect(deepAssign({}, { value: sourceDate, callback: fn }, { value: 1, callback: fn, list: [0, 2, 1] })).toEqual({
+      value: 1,
+      callback: fn,
+      list: [0, 2, 1],
+    });
+    // RegExp
+    expect(
+      deepAssign({}, { value: 1, callback: fn }, { value: new RegExp('a', 'g'), callback: fn, list: [0, 2, 1] })
+    ).toEqual({
+      value: new RegExp('a', 'g'),
+      callback: fn,
+      list: [0, 2, 1],
+    });
+    expect(
+      deepAssign({}, { value: new RegExp('a', 'g'), callback: fn }, { value: 1, callback: fn, list: [0, 2, 1] })
+    ).toEqual({
       value: 1,
       callback: fn,
       list: [0, 2, 1],
     });
     // object
     expect(
-      deepMix(
+      deepAssign(
         {},
         {
           value: null,
@@ -90,7 +118,7 @@ describe('deepMix', () => {
     });
 
     expect(
-      deepMix(
+      deepAssign(
         {},
         {
           value: null,
@@ -131,7 +159,7 @@ describe('deepMix', () => {
     });
 
     expect(
-      deepMix(
+      deepAssign(
         {},
         {
           value: null,

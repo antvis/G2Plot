@@ -1,5 +1,5 @@
 import { Plot } from '../../core/plot';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { FunnelOptions } from './types';
 import { adaptor } from './adaptor';
@@ -39,7 +39,7 @@ export class Funnel extends Plot<FunnelOptions> {
       };
     }
 
-    return deepMix(
+    return deepAssign(
       {},
       super.getDefaultOptions(),
       {

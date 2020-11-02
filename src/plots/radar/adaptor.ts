@@ -1,7 +1,7 @@
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale, annotation, legend } from '../../adaptor/common';
 import { area, point, line } from '../../adaptor/geometries';
-import { findGeometry, flow, transformLabel, deepMix } from '../../utils';
+import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
 import { RadarOptions } from './types';
 
 /**
@@ -15,7 +15,7 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   chart.data(data);
 
   // 雷达图 geometry
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       line: {
         style: lineStyle,

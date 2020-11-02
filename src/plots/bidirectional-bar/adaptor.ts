@@ -3,7 +3,7 @@ import { groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, findViewById, findGeometry, transformLabel, deepMix } from '../../utils';
+import { flow, findViewById, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { BidirectionalBarOptions } from './types';
 import { FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
 import { transformData } from './utils';
@@ -80,7 +80,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   }
 
   firstView.data(groupData[0]);
-  const left = deepMix({}, params, {
+  const left = deepAssign({}, params, {
     chart: firstView,
     options: {
       widthRatio,
@@ -96,7 +96,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   interval(left);
 
   secondView.data(groupData[1]);
-  const right = deepMix({}, params, {
+  const right = deepAssign({}, params, {
     chart: secondView,
     options: {
       xField,
@@ -127,12 +127,12 @@ function meta(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
   scale({
     [xField]: xAxis,
     [yField[0]]: yAxis[yField[0]],
-  })(deepMix({}, params, { chart: firstView }));
+  })(deepAssign({}, params, { chart: firstView }));
 
   scale({
     [xField]: xAxis,
     [yField[1]]: yAxis[yField[1]],
-  })(deepMix({}, params, { chart: secondView }));
+  })(deepAssign({}, params, { chart: secondView }));
 
   return params;
 }

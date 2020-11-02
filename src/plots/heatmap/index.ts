@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { HeatmapOptions } from './types';
 import { adaptor } from './adaptor';
 // registered shapes
@@ -21,7 +21,7 @@ export class Heatmap extends Plot<HeatmapOptions> {
   }
 
   protected getDefaultOptions() {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       type: 'polygon',
       legend: false,
       xAxis: {

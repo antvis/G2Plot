@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { LineOptions } from './types';
 import { adaptor } from './adaptor';
@@ -19,7 +19,7 @@ export class Line extends Plot<LineOptions> {
   protected getDefaultOptions(options: LineOptions) {
     const { xField, yField, data } = options;
 
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       tooltip: {
         showMarkers: true,
         showCrosshairs: true,

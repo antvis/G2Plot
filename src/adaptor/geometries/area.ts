@@ -1,6 +1,6 @@
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { GeometryOptions, geometry, MappingOptions } from './base';
 
 export interface AreaGeometryOptions extends GeometryOptions {
@@ -29,7 +29,7 @@ export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O
   // 如果存在才处理
   return area
     ? geometry(
-        deepMix({}, params, {
+        deepAssign({}, params, {
           options: {
             type: 'area',
             colorField: seriesField,

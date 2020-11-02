@@ -1,7 +1,7 @@
-import { every, some } from '@antv/util';
+import { every } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { DualAxesOptions, DualAxesGeometry } from './types';
 import { adaptor } from './adaptor';
 
@@ -21,7 +21,7 @@ export class DualAxes extends Plot<DualAxesOptions> {
       ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
     );
 
-    return deepMix({}, super.getDefaultOptions(options), {
+    return deepAssign({}, super.getDefaultOptions(options), {
       yAxis: [],
       geometryOptions: [],
       meta: {

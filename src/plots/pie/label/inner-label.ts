@@ -1,6 +1,6 @@
 import { getGeometryLabel } from '@antv/g2';
 import { isNil, isString } from '@antv/util';
-import { deepMix } from '../../../utils';
+import { deepAssign } from '../../../utils';
 import { parsePercentageToNumber } from '../utils';
 
 const PieLabel = getGeometryLabel('pie');
@@ -14,7 +14,7 @@ export class PieInnerLabel extends PieLabel {
    */
   protected getDefaultLabelCfg() {
     const cfg = super.getDefaultLabelCfg();
-    return deepMix({}, cfg, { labelLine: false });
+    return deepAssign({}, cfg, { labelLine: false });
   }
 
   /**

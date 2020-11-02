@@ -1,7 +1,7 @@
 import { isBoolean } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
 import './interaction';
@@ -21,7 +21,7 @@ export class Scatter extends Plot<ScatterOptions> {
 
   protected getDefaultOptions(options: ScatterOptions) {
     const { shapeField, colorField, legend, xField, yField, sizeField } = options;
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       size: 4,
       /** pointStyle 跟随主题默认样式 */
       tooltip: {

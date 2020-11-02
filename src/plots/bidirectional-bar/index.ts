@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepMix } from '../../utils';
+import { deepAssign } from '../../utils';
 import { BidirectionalBarOptions } from './types';
 import { adaptor } from './adaptor';
 
@@ -19,7 +19,7 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
 
   protected getDefaultOptions(options: BidirectionalBarOptions) {
     const { layout = 'horizontal' } = options;
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       xAxis: {
         // 不同布局 firstView 的坐标轴显示位置
         position: layout === 'vertical' ? 'bottom' : 'top',

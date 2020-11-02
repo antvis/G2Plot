@@ -2,7 +2,7 @@ import { Geometry } from '@antv/g2';
 import { isFunction } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, deepMix } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { LiquidOptions } from './types';
 
@@ -27,7 +27,7 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
 
   chart.data(data);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: 'type',
       yField: 'percent',

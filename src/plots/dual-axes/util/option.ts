@@ -1,5 +1,5 @@
 import { get } from '@antv/util';
-import { deepMix } from '../../../utils';
+import { deepAssign } from '../../../utils';
 import {
   DualAxesOptions,
   GeometryOption,
@@ -36,7 +36,7 @@ export function getGeometryOption(
 ): GeometryOption {
   // 空默认为线
   return isColumn(geometryOption)
-    ? deepMix(
+    ? deepAssign(
         {},
         {
           geometry: DualAxesGeometry.Column,
@@ -76,11 +76,11 @@ export function getOption(options: DualAxesOptions): DualAxesOptions {
     },
   };
 
-  const formatOptions = deepMix({}, options, {
+  const formatOptions = deepAssign({}, options, {
     // yAxis
     yAxis: [
-      yAxis[0] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
-      yAxis[1] !== false ? deepMix({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
+      yAxis[0] !== false ? deepAssign({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
+      yAxis[1] !== false ? deepAssign({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
     ],
     // geometryOptions
     geometryOptions: [

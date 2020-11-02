@@ -76,7 +76,11 @@ const deep = (dist, src, level?, maxLevel?) => {
   }
 };
 
-// todo 重写
+/**
+ * deepAssign 功能类似 deepMix
+ * 不同点在于 deepAssign 会将 null undefined 等类型直接覆盖给 source
+ * 详细参考： __tests__/unit/utils/deep-assign-spec.ts
+ */
 export const deepAssign = (rst: any, ...args: any[]) => {
   for (let i = 0; i < args.length; i += 1) {
     deep(rst, args[i]);

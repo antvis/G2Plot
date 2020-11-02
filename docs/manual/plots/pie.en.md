@@ -3,7 +3,7 @@ title: Pie
 order: 4
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -77,10 +77,10 @@ piePlot.render();
 
 `markdown:docs/common/shape-style.en.md`
 
-### Chart Components
+### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" alt="加载失败" width="600">
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component-no-axis.en.md`

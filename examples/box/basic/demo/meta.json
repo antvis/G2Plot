@@ -1,14 +1,14 @@
 {
   "title": {
     "zh": "箱型图",
-    "en": "Box Charts"
+    "en": "Box"
   },
   "demos": [
     {
       "filename": "basic.ts",
       "title": {
         "zh": "基础箱型图",
-        "en": "Basic box chart"
+        "en": "Basic box plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hL2WSrRh9K0AAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "group.ts",
       "title": {
         "zh": "分组箱型图",
-        "en": "Grouped box chart"
+        "en": "Grouped box plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bZZ8SLkfTZUAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "outliers.ts",
       "title": {
         "zh": "基础箱型图（有异常值）",
-        "en": "Box chart with error"
+        "en": "Box plot with error"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cE6vR461omUAAAAAAAAAAAAAARQnAQ"
     }

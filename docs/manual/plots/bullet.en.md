@@ -3,7 +3,7 @@ title: Bullet
 order: 10
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -122,6 +122,6 @@ type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 
 `markdown:docs/common/label.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

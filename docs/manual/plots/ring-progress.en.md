@@ -3,7 +3,7 @@ title: Ring Progress
 order: 19
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -47,6 +47,6 @@ order: 19
 
 `markdown:docs/common/statistic.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component-progress.en.md`

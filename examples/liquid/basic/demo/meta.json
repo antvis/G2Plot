@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "水波图",
-        "en": "Liquid chart"
+        "en": "Liquid plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IDi-RoqQ6YkAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "style.ts",
       "title": {
         "zh": "样式自定义的水波图",
-        "en": "Liquid chart - custom style"
+        "en": "Liquid plot - custom style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rEHnS449gAwAAAAAAAAAAAAAARQnAQ"
     }

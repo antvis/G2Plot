@@ -3,7 +3,7 @@ title: Tiny Column
 order: 16
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -35,6 +35,6 @@ order: 16
 
 `markdown:docs/common/color.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component-tiny.en.md`

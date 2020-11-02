@@ -3,7 +3,7 @@ title: Tiny Area
 order: 15
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -55,6 +55,6 @@ order: 15
 
 `markdown:docs/common/color.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component-tiny.en.md`

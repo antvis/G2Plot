@@ -3,7 +3,7 @@ title: Dual Axes
 order: 6
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -72,7 +72,7 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 | label        | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱线图 label](./column#label) |
 | color        | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./column#color) |
 
-### Chart Components
+### Plot Components
 
 #### tooltip
 

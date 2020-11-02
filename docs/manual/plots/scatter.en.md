@@ -3,7 +3,7 @@ title: Scatter
 order: 5
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -188,6 +188,6 @@ scatterPlot.render();
 }
 ```
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

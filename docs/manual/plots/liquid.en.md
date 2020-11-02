@@ -3,7 +3,7 @@ title: Liquid
 order: 12
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -41,6 +41,6 @@ order: 12
 
 `markdown:docs/common/statistic.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component-no-axis.en.md`

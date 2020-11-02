@@ -3,7 +3,7 @@ title: Word Cloud
 order: 8
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -116,6 +116,6 @@ order: 8
 
 `markdown:docs/common/color.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

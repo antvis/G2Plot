@@ -3,7 +3,7 @@ title: Gauge
 order: 22
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 

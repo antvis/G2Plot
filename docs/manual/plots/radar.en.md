@@ -3,7 +3,7 @@ title: Radar
 order: 7
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -129,10 +129,8 @@ radarPlot.render();
 }
 ```
 
-### Chart Components
+### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oiTPQLqYUvIAAAAAAAAAAABkARQnAQ" alt="雷达图 图表组件" width="600">
-
-### Chart Components
 
 `markdown:docs/common/component.en.md`

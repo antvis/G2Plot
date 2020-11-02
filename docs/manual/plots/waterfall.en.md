@@ -3,7 +3,7 @@ title: Waterfall
 order: 24
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -81,6 +81,6 @@ label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(�
 
 `markdown:docs/common/color.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

@@ -3,7 +3,7 @@ title: Rose
 order: 13
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -109,6 +109,6 @@ piePlot.render();
 
 `markdown:docs/common/shape-style.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

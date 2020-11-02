@@ -52,7 +52,7 @@ module.exports = {
         slug: 'manual/plots',
         title: {
           zh: '图表',
-          en: 'Charts',
+          en: 'Plots',
         },
         order: 3,
       },
@@ -119,7 +119,7 @@ module.exports = {
         icon: 'point',
         title: {
           zh: '散点图',
-          en: 'Scatter Charts',
+          en: 'Scatter',
         },
       },
       {

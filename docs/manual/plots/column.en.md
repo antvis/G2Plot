@@ -3,7 +3,7 @@ title: Column
 order: 2
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -73,6 +73,6 @@ order: 2
 
 `markdown:docs/common/color.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

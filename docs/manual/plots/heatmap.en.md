@@ -3,7 +3,7 @@ title: Heatmap
 order: 23
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -92,6 +92,6 @@ order: 23
 }
 ```
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

@@ -3,7 +3,7 @@ title: Area
 order: 1
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -69,6 +69,6 @@ order: 1
 
 `markdown:docs/common/color.en.md`
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component.en.md`

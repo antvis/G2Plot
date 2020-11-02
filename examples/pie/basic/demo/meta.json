@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "饼图",
-        "en": "Basic pie chart"
+        "en": "Basic pie plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wmldRZZj9lIAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "outer-label.ts",
       "title": {
         "zh": "饼图-外部图形标签",
-        "en": "Pie chart - outer label"
+        "en": "Pie plot - outer label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "outer-label.ts",
       "title": {
         "zh": "饼图-外部图形标签",
-        "en": "Pie chart - outer label"
+        "en": "Pie plot - outer label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "spider-label.ts",
       "title": {
         "zh": "饼图-蜘蛛布局标签",
-        "en": "Pie chart - spider label"
+        "en": "Pie plot - spider label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QyXPRK-URmUAAAAAAAAAAAAAARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "pie-state.ts",
       "title": {
         "zh": "饼图-设置条件状态",
-        "en": "Pie chart - set condition state"
+        "en": "Pie plot - set condition state"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y8zjS5DZib8AAAAAAAAAAAAAARQnAQ"
     },
@@ -55,7 +55,7 @@
     {
       "filename": "pie-texture.ts",
       "title": {
-        "en": "Pie chart fill with texture",
+        "en": "Pie plot fill with texture",
         "zh": "饼图-带纹理"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*6DhLR77aZloAAAAAAAAAAABkARQnAQ"

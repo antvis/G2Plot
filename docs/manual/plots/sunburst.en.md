@@ -3,7 +3,7 @@ title: Sunburst
 order: 17
 ---
 
-### Chart Container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
@@ -110,6 +110,6 @@ order: 17
 }
 ```
 
-### Chart Components
+### Plot Components
 
 `markdown:docs/common/component-polygon.en.md`

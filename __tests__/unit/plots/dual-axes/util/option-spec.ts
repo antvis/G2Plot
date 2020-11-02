@@ -30,6 +30,7 @@ describe('DualAxes option', () => {
             autoHide: true,
             autoRotate: false,
           },
+          position: 'left',
           a: 1,
         },
         test2: false,
@@ -59,6 +60,7 @@ describe('DualAxes option', () => {
           autoHide: true,
           autoRotate: false,
         },
+        position: 'left',
       },
       test2: {
         nice: true,
@@ -66,6 +68,8 @@ describe('DualAxes option', () => {
           autoHide: true,
           autoRotate: false,
         },
+        position: 'right',
+        grid: null,
       },
     });
 
@@ -77,6 +81,7 @@ describe('DualAxes option', () => {
           autoHide: true,
           autoRotate: false,
         },
+        position: 'left',
       },
       test2: {
         nice: true,
@@ -84,6 +89,8 @@ describe('DualAxes option', () => {
           autoHide: true,
           autoRotate: false,
         },
+        position: 'right',
+        grid: null,
       },
     });
   });

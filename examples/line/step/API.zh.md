@@ -1,1 +1,1 @@
-`markdown:examples/line/basic/API.zh.md`
+`markdown:docs/manual/plots/line.zh.md`

@@ -15,15 +15,15 @@ annotations: [
 
 ##### type
 
-<description>**必选** _string_ </description>
+<description>**required** _string_ </description>
 
-功能描述： 标注类型, text | line | image | region | dataMarker | dataRegion | regionFilter | shape | html.
+标注类型, text | line | image | region | dataMarker | dataRegion | regionFilter | shape | html.
 
 ##### position
 
-<description>**必选** _object_ </description>
+<description>**required** _object_ </description>
 
-功能描述：标注位置。
+标注位置。
 
 - 第一种，object 使用图表 x, y 对应的原始数据例如：{ time: '2010-01-01', value: 200 };
 - 第二种，数组来配置位置 [ x, y ]，根据数组中的值的存在以下几种形式：
@@ -35,41 +35,39 @@ annotations: [
 
 ##### top
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述：是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层。
-
-默认值： false
+是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层。
 
 ##### animate
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
-功能描述：是否进行动画。
+是否进行动画。
 
 ##### offsetX
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：x 方向的偏移量。
+x 方向的偏移量。
 
 ##### offsetY
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：y 方向的偏移量。
+y 方向的偏移量。
 
 ##### start
 
-<description>**可选** _Array_ </description>
+<description>**optional** _Array_ </description>
 
-功能描述：起始位置，一般用于 line、region 等。
+起始位置，一般用于 line、region 等。
 
 ##### end
 
-<description>**可选** _Array_ </description>
+<description>**optional** _Array_ </description>
 
-功能描述：结束位置，一般用于 line、region 等。
+结束位置，一般用于 line、region 等。
 
 ```ts
 {
@@ -81,57 +79,57 @@ annotations: [
 
 ##### style
 
-<description>**可选** _object_ </description>
+<description>**optional** _object_ </description>
 
-功能描述：图形样式属性，参考绘图属性。
+图形样式属性，参考绘图属性。
 
 ##### src
 
-<description>**可选** _string_ </description>
+<description>**optional** _string_ </description>
 
-功能描述：图片路径，用于 image 中。
+图片路径，用于 image 中。
 
 ##### content
 
-<description>**可选** _string_ </description>
+<description>**optional** _string_ </description>
 
-功能描述：文本内容，用于 text 中。
+文本内容，用于 text 中。
 
 ##### rotate
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：文本的旋转角度，弧度制。
+文本的旋转角度，弧度制。
 
 ##### maxLength
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：文文本的最大长度。
+文文本的最大长度。
 
 ##### autoEllipsis
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
-功能描述：超出 maxLength 是否自动省略。
+超出 maxLength 是否自动省略。
 
 ##### ellipsisPosition
 
-<description>**可选** _head | middle | tail _ </description>
+<description>**optional** _head | middle | tail _ </description>
 
-功能描述：文本截断的位置。
+文本截断的位置。
 
 ##### isVertical
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
-功能描述：文本在二维坐标系的显示位置，是沿着 x 轴显示 还是沿着 y 轴显示。
+文本在二维坐标系的显示位置，是沿着 x 轴显示 还是沿着 y 轴显示。
 
 ##### background
 
-<description>**可选** _object_ </description>
+<description>**optional** _object_ </description>
 
-功能描述：文字包围盒样式设置。
+文字包围盒样式设置。
 
 | 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
@@ -140,60 +138,60 @@ annotations: [
 
 ##### color
 
-<description>**可选** _string_ </description>
+<description>**optional** _string_ </description>
 
-功能描述：染色色值，一般用于 regionFilter 。
+染色色值，一般用于 regionFilter。
 
 ##### apply
 
-<description>**可选** _string[]_ </description>
+<description>**optional** _string[]_ </description>
 
-功能描述：设定 regionFilter 只对特定 geometry 类型起作用，如 apply: ['area']，一般用于 regionFilter 。
+设定 regionFilter 只对特定 geometry 类型起作用，如 apply: ['area']，一般用于 regionFilter。
 
 ##### autoAdjust
 
-<description>**可选** _boolean_ </description>
+<description>**optional** _boolean_ </description>
 
-功能描述：文本超出绘制区域时，是否自动调节文本方向。
+文本超出绘制区域时，是否自动调节文本方向。
 
 ##### direction
 
-<description>**可选** _upward | downward_ </description>
+<description>**optional** _upward | downward_ </description>
 
-功能描述：朝向。
+朝向。
 
 ##### lineLength
 
-<description>**可选** _number_ </description>
+<description>**optional** _number_ </description>
 
-功能描述：line 长度，用于 dataRegion。
+line 长度，用于 dataRegion。
 
 ##### render
 
-<description>**可选** _string_ </description>
+<description>**optional** _string_ </description>
 
-功能描述：自定义标记的绘制 render 函数，其他 container 为标记绘制的父容器, view 为图形实例, helpers 为辅助函数，其他 parserPosition 可以用来计算数据点对应的坐标位置，用于 shape。
-
-##### container
-
-<description>**可选** _string | HTMLElement_ </description>
-
-功能描述：自定义 HTML 图形标记的容器元素，用于 html
+自定义标记的绘制 render 函数，其他 container 为标记绘制的父容器, view 为图形实例, helpers 为辅助函数，其他 parserPosition 可以用来计算数据点对应的坐标位置，用于 shape。
 
 ##### container
 
-<description>**可选** _string | HTMLElement_ </description>
+<description>**optional** _string | HTMLElement_ </description>
 
-功能描述：自定义的图形标记的 HTML 元素，可为 HTML DOM 字符串，或 HTML 元素，或 html 回调函数，用于 html
+自定义 HTML 图形标记的容器元素，用于 html
+
+##### container
+
+<description>**optional** _string | HTMLElement_ </description>
+
+自定义的图形标记的 HTML 元素，可为 HTML DOM 字符串，或 HTML 元素，或 html 回调函数，用于 html
 
 ##### alignX
 
-<description>**可选** _left' | 'middle' | 'right'_ </description>
+<description>**optional** _left' | 'middle' | 'right'_ </description>
 
-功能描述：DOM 元素在 X 方向的对齐方式，用于 html
+DOM 元素在 X 方向的对齐方式，用于 html
 
 ##### alignY
 
-<description>**可选** _left' | 'middle' | 'right'_ </description>
+<description>**optional** _left' | 'middle' | 'right'_ </description>
 
-功能描述：DOM 元素在 Y 方向的对齐方式，用于 html
+DOM 元素在 Y 方向的对齐方式，用于 html

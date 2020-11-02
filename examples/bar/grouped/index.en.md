@@ -1,6 +1,4 @@
 ---
-title: Grouped Bar Chart
+title: Grouped Bar
 order: 3
 ---
-
-Description about this component.

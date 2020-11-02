@@ -1,4 +1,4 @@
 ---
-title: column-line
+title: Column Line
 order: 1
 ---

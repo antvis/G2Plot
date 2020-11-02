@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础直方图",
-        "en": "basic Histogram chart"
+        "en": "Basic histogram plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cZELRpyp7N4AAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "binWidth.ts",
       "title": {
         "zh": "直方图范围刻度",
-        "en": "bin Histogram chart"
+        "en": "Bin histogram plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WTP6S6bzkpsAAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "stack.ts",
       "title": {
         "zh": "层叠直方图",
-        "en": "stack Histogram chart"
+        "en": "Stacked histogram plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*C4SlQ4FeJBkAAAAAAAAAAAAAARQnAQ"
     }

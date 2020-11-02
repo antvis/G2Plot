@@ -1,25 +1,19 @@
 ---
 title: Scatter
-order: 0
+order: 5
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
@@ -27,10 +21,10 @@ order: 0
 
 ```ts
 const data = [
-  { country: 'Asia', year: '1750', value: 502,},
-  { country: 'Asia', year: '1800', value: 635,},
-  { country: 'Europe', year: '1750', value: 163,},
-  { country: 'Europe', year: '1800', value: 203,},
+  { country: 'Asia', year: '1750', value: 502 },
+  { country: 'Asia', year: '1800', value: 635 },
+  { country: 'Europe', year: '1750', value: 163 },
+  { country: 'Europe', year: '1800', value: 203 },
 ];
 
 const scatterPlot = new Scatter('container', {
@@ -38,13 +32,15 @@ const scatterPlot = new Scatter('container', {
   // highlight-start
   meta: {
     year: {
-      alias:'年份'
+      alias: '年份',
       range: [0, 1],
     },
     value: {
       alias: '数量',
-      formatter:(v)=>{return `${v}个`}
-    }
+      formatter: (v) => {
+        return `${v}个`;
+      },
+    },
   },
   // highlight-end
   xField: 'year',
@@ -52,40 +48,37 @@ const scatterPlot = new Scatter('container', {
   colorField: 'country',
 });
 scatterPlot.render();
-
 ```
 
 #### type
 
-**可选**, _jitter | stack | symmetric | dodge_;
+<description>**optional** _jitter | stack | symmetric | dodge_ _default:_ `jitter`</description>
 
-功能描述： 数据调整类型，不建议修改。
-
-默认配置： `jitter`
+数据调整类型，不建议修改。
 
 #### colorField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述: 点颜色映射对应的数据字段名。
+点颜色映射对应的数据字段名。
 
-### 图形样式
+### Geometry Style
 
 `markdown:docs/common/color.en.md`
 
 #### sizeField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述: 点大小映射对应的数据字段名。
+点大小映射对应的数据字段名。
 
-#### size ✨
+#### size 
+
+<description>**optional** \_number | [number, number] | Function_</description>
 
 [**DEMO1**](../../scatter/basic#color-mapping)
 
-**可选**, \_number | [number, number] | Function\_
-
-功能描述： 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
+指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
 ```ts
 // 设置单一大小
@@ -109,17 +102,17 @@ scatterPlot.render();
 
 #### shapeField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述: 点形状映射对应的数据字段名。
+点形状映射对应的数据字段名。
 
-#### shape ✨
+#### shape 
+
+<description>**optional** \_string | string[] | Function\_</description>
 
 [**DEMO2**](../../scatter/basic#shape-mapping)
 
-**可选**, \_string | string[] | Function\_
-
-功能描述： 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
+指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 
 内置图形：circle, square, bowtie, diamond, hexagon, triangle,triangle-down, hollow-circle, hollow-square, hollow-bowtie,hollow-diamond, hollow-hexagon, hollow-triangle, hollow-triangle-down, cross, tick, plus, hyphen, line.
 
@@ -146,13 +139,13 @@ scatterPlot.render();
 }
 ```
 
-#### pointStyle ✨
+#### pointStyle 
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
 [**DEMO**](../../scatter/basic#color-mapping)
 
-功能描述： 设置折线样式。pointStyle 中的`fill`会覆盖 `color` 的配置。pointStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+设置折线样式。pointStyle 中的`fill`会覆盖 `color` 的配置。pointStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
 
 默认配置：
 
@@ -195,6 +188,6 @@ scatterPlot.render();
 }
 ```
 
-## 图表组件
+### Plot Components
 
-`markdown:docs/common/component.zh.md`
+`markdown:docs/common/component.en.md`

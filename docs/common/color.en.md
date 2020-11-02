@@ -1,8 +1,8 @@
 #### color
 
-**optional**, _string | string[] | Function_
+<description>**optional** _string | string[] | Function_</description>
 
-Description: Configure the color. If there is no colorField configured, set one single color. Otherwise you can set a series of colors, or you can use callback function.
+Configure the color. If there is no colorField configured, set one single color. Otherwise you can set a series of colors, or you can use callback function.
 
 Default: The color board of the theme.
 

@@ -1,8 +1,8 @@
 ##### fields
 
-<description>**可选** _string[]_</description>
+<description>**optional** _string[]_</description>
 
-功能描述：指定 tooltip 中显示的字段，默认不同图表有不同的默认字段列表。配合 `formatter` 配置一起使用，效果更加。
+指定 tooltip 中显示的字段，默认不同图表有不同的默认字段列表。配合 `formatter` 配置一起使用，效果更加。
 
 ```ts
 tooltip: {
@@ -12,9 +12,9 @@ tooltip: {
 
 ##### formatter
 
-<description>**可选** _Function_</description>
+<description>**optional** _Function_</description>
 
-功能描述：格式化 tooltip item 内容。
+格式化 tooltip item 内容。
 
 ```ts
 tooltip: {
@@ -26,65 +26,51 @@ tooltip: {
 
 ##### follow
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述：设置 tooltip 内容框是否跟随鼠标移动。
-
-默认配置：`true`
+设置 tooltip 内容框是否跟随鼠标移动。
 
 ##### enterable
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述：tooltip 是否允许鼠标滑入。
-
-默认配置：`false`
+tooltip 是否允许鼠标滑入。
 
 ##### showTitle
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述：是否展示 tooltip 标题。
-
-默认配置：`false`
+是否展示 tooltip 标题。
 
 ##### title
 
-<description>**可选** _string_</description>
+<description>**optional** _string_</description>
 
-功能描述：设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
-
-默认配置：`无`
+设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
 
 ##### position
 
-<description>**可选** _`top` | `bottom` | `left` | `right`_</description>
+<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
 
-功能描述：设置 tooltip 的固定展示位置，相对于数据点。
-
-默认配置：`无`
+设置 tooltip 的固定展示位置，相对于数据点。
 
 ##### shared
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_</description>
 
-功能描述：true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
-
-默认配置：`无`
+true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
 
 ##### showCrosshairs
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述：是否展示 crosshairs。
-
-默认配置：`false`
+是否展示 crosshairs。
 
 ##### crosshairs
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
+配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
 
 | 细分配置项名称 | 类型                   | 功能描述                                                            |
 | -------------- | ---------------------- | ------------------------------------------------------------------- |
@@ -115,59 +101,45 @@ tooltip: {
 
 ##### showMarkers
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述：是否渲染 tooltipMarkers。
-
-默认配置：`true`
+是否渲染 tooltipMarkers。
 
 ##### marker
 
-<description>**可选** _object_</description>
+<description>**optional** _object_</description>
 
-功能描述：tooltipMarker 的样式配置。
-
-默认配置：`无`
+tooltipMarker 的样式配置。
 
 ##### showContent
 
-<description>**可选** _boolean_</description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述：是否展示 tooltip 内容框。
-
-默认配置：`false`
+是否展示 tooltip 内容框。
 
 ##### container
 
-<description>**可选** _string|HTMLElement_</description>
+<description>**optional** _string|HTMLElement_</description>
 
-功能描述：自定义 tooltip 的容器。
-
-默认配置：`无`
+自定义 tooltip 的容器。
 
 ##### containerTpl
 
-<description>**可选** _string_</description>
+<description>**optional** _string_</description>
 
-功能描述：用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。
-
-默认配置：`无`
+用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。
 
 ##### itemTpl
 
-<description>**可选** _string_</description>
+<description>**optional** _string_</description>
 
-功能描述：每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。
-
-默认配置：`无`
+每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。
 
 ##### domStyles
 
-<description>**可选** _TooltipDomStyles_</description>
+<description>**optional** _TooltipDomStyles_</description>
 
-功能描述：传入各个 dom 的样式。
-
-默认配置： `无`
+传入各个 dom 的样式。
 
 ```ts
 /** Tooltip 内容框的 css 样式定义 */
@@ -186,19 +158,15 @@ tooltip: {
 
 ##### offset
 
-<description>**可选** _number_</description>
+<description>**optional** _number_</description>
 
-功能描述：tooltip 偏移量。
-
-默认配置：`无`
+tooltip 偏移量。
 
 ##### customContent
 
-<description>**可选** _Function_</description>
+<description>**optional** _Function_</description>
 
-功能描述：支持自定义模板。
-
-默认配置：`无`
+支持自定义模板。
 
 ```ts
 {

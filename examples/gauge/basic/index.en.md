@@ -1,4 +1,4 @@
 ---
-title: 仪表盘
+title: Gauge
 order: 1
 ---

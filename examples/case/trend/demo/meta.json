@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础趋势图",
-        "en": "Basic Trend Chart"
+        "en": "Basic trend plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*c69rSLoOAywAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "mobile.ts",
       "title": {
         "zh": "移动版趋势图",
-        "en": "Trend Chart for mobile"
+        "en": "Trend plot for mobile"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-dohRJrtaOkAAAAAAAAAAAAAARQnAQ"
     }

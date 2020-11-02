@@ -9,7 +9,7 @@ chart.off('eventName', callback);
 
 #### eventName
 
-组成方式：element + ':' + es 。
+组成方式：element + ':' + es。
 
 element 指要绑定的元素类型，例如 `element`、`legend-item`、`axis-label`、`mask`、`plot`、`legend-item-name`、`reset-button` 等。
 

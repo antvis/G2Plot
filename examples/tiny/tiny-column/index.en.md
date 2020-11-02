@@ -1,4 +1,4 @@
 ---
-title: Tiny Column Chart
+title: Tiny Column
 order: 2
 ---

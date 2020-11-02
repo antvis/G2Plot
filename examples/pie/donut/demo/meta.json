@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "环图",
-        "en": "basic Donut chart"
+        "en": "Basic donut plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*jbeVTpgzCVAAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "statistics.ts",
       "title": {
         "zh": "环图 - 带统计指标卡",
-        "en": "Donut chart with statistics"
+        "en": "Donut plot with statistics"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U9D_Sr55LEMAAAAAAAAAAABkARQnAQ"
     }

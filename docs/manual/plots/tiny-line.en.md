@@ -1,64 +1,54 @@
 ---
-title: 迷你折线图
-order: 0
+title: Tiny Line
+order: 14
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _number[]_
+<description>**required** _number[]_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
+设置图表数据源。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### smooth
 
-**可选**, _boolean_
+<description>**optional** _boolean_</description>
 
-功能描述： 是否平滑 。
+是否平滑。
 
 #### connectNulls
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述： 是否连接空数据 。
-
-默认配置： `true`
+是否连接空数据。
 
 #### lineStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 折线图形样式 。
-
-默认配置： 无
+折线图形样式。
 
 `markdown:docs/common/shape-style.en.md`
 
 #### point
 
-**可选**, _pointStyle_
+<description>**optional** _pointStyle_</description>
 
-功能描述： 折线数据点图形样式
-
-默认配置： 无
+折线数据点图形样式
 
 `markdown:docs/common/point-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component-tiny.en.md`

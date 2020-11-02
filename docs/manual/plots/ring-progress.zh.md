@@ -1,9 +1,7 @@
 ---
 title: 进度环图
-order: 0
+order: 19
 ---
-
-## 配置属性
 
 ### 图表容器
 
@@ -11,39 +9,31 @@ order: 0
 
 ### 数据映射
 
-#### percent 📌
+#### percent 
 
-**必选**, _number_
+<description>**required** _number_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
+设置图表数据源。
 
 ### 图形样式
 
 #### radius
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 外环的半径 。
-
-默认配置： 无
+外环的半径。
 
 #### innerRadius
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 内环的半径 。
-
-默认配置： 无
+内环的半径。
 
 #### progressStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 柱子样式配置 。
-
-默认配置： 无
+柱子样式配置。
 
 `markdown:docs/common/shape-style.zh.md`
 
@@ -51,11 +41,9 @@ order: 0
 
 #### statistic
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 统计内容组件 。
-
-默认配置： 无
+统计内容组件。
 
 `markdown:docs/common/statistic.zh.md`
 

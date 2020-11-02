@@ -1,41 +1,33 @@
 ---
-title: 水波图
-order: 1
+title: Liquid
+order: 12
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### percent 📌
+#### percent 
 
-**必选**, _number_
+<description>**required** _number_</description>
 
-功能描述： 指标比例
-
-默认配置： 无
+指标比例。
 
 #### radius
 
-**可选**, _number_
+<description>**optional** _number_ _default:_ `0.9`</description>
 
-功能描述： 水波的外半径， 0 ~ 1 。
+水波的外半径， 0 ~ 1。
 
-默认配置： `0.9`
-
-### 图形样式
+### Geometry Style
 
 #### liquidStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 水波图的样式 。
-
-默认配置： 无
+水波图的样式。
 
 `markdown:docs/common/shape-style.en.md`
 
@@ -43,14 +35,12 @@ order: 1
 
 #### statistic
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 指标文本组件 。
-
-默认配置： 无
+指标文本组件。
 
 `markdown:docs/common/statistic.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component-no-axis.en.md`

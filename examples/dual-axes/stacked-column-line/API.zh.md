@@ -1,1 +1,1 @@
-`markdown:examples/dual-axes/column-line/API.zh.md`
+`markdown:docs/manual/plots/dual-axes.zh.md`

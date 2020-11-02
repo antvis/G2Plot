@@ -1,4 +1,4 @@
 ---
-title: 面积图
+title: Basic Area
 order: 0
 ---

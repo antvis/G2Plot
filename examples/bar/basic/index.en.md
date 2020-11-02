@@ -1,6 +1,4 @@
 ---
-title: Bar Chart
+title: Basic Bar
 order: 0
 ---
-
-Description about this component.

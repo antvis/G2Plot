@@ -1,4 +1,4 @@
 ---
-title: 阶梯折线图
+title: Step Line
 order: 1
 ---

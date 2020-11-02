@@ -26,7 +26,7 @@ describe('tiny-column', () => {
     expect(tinyColumn.chart.geometries[0].elements.length).toBe(52);
 
     tinyColumn.chart.showTooltip({ x: 10, y: 10 });
-    expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe(4600.0);
+    expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe('4600.0');
   });
 
   it('data with style', () => {

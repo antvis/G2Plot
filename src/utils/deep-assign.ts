@@ -1,7 +1,8 @@
-const MAX_MIX_LEVEL = 5;
+const MAX_MIX_LEVEL = 5; // 最大比对层级
 
 const toString = {}.toString;
 
+// 类型检测
 const isType = (value: any, type: string): boolean => toString.call(value) === '[object ' + type + ']';
 
 const isArray = (value: any): value is Array<any> => {
@@ -38,6 +39,12 @@ const isPlainObject = (value: any): value is object => {
   return Object.getPrototypeOf(value) === proto;
 };
 
+/***
+ * @param {any} dist
+ * @param {any} src
+ * @param {number} level 当前层级
+ * @param {number} maxLevel 最大层级
+ */
 const deep = (dist, src, level?, maxLevel?) => {
   level = level || 0;
   maxLevel = maxLevel || MAX_MIX_LEVEL;
@@ -45,6 +52,7 @@ const deep = (dist, src, level?, maxLevel?) => {
     if (Object.prototype.hasOwnProperty.call(src, key)) {
       const value = src[key];
       if (!value) {
+        // null 、 undefined 等情况直接赋值
         dist[key] = value;
       } else {
         if (isPlainObject(value)) {
@@ -54,12 +62,13 @@ const deep = (dist, src, level?, maxLevel?) => {
           if (level < maxLevel) {
             deep(dist[key], value, level + 1, maxLevel);
           } else {
+            // 层级过深直接赋值，性能问题
             dist[key] = src[key];
           }
         } else if (isArray(value)) {
           dist[key] = [];
           dist[key] = dist[key].concat(value);
-        } else if (value !== undefined) {
+        } else {
           dist[key] = value;
         }
       }

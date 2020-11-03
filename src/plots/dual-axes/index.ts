@@ -20,10 +20,9 @@ export class DualAxes extends Plot<DualAxesOptions> {
       geometryOptions,
       ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
     );
-
     return deepAssign({}, super.getDefaultOptions(options), {
       yAxis: [],
-      geometryOptions: [],
+      geometryOptions,
       meta: {
         [xField]: {
           // x 轴一定是同步 scale 的

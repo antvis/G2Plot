@@ -83,13 +83,12 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   if (legend) {
     chart.legend(colorField || shapeField, legend);
+    // 隐藏连续图例
+    if (sizeField) {
+      chart.legend(sizeField, false);
+    }
   } else {
     chart.legend(false);
-  }
-
-  // 隐藏连续图例
-  if (sizeField) {
-    chart.legend(sizeField, false);
   }
 
   return params;

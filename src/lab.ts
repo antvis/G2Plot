@@ -1,3 +1,5 @@
+import { MultiLayer } from './plots/multi-layer';
+
 /** 实验室图表所处的阶段 */
 export enum Stage {
   DEV = 'DEV',
@@ -24,4 +26,9 @@ export function notice(stage: Stage, plotType: string) {
 /**
  * 实验室图表，实验室中的图表分成不同的阶段。
  */
-export class Lab {}
+export class Lab {
+  get MultiLayer() {
+    notice(Stage.DEV, 'multi-layer');
+    return MultiLayer;
+  }
+}

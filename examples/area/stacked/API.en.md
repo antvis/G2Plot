@@ -1,1 +1,1 @@
-`markdown:examples/area/basic/API.en.md`
+`markdown:docs/manual/plots/area.en.md`

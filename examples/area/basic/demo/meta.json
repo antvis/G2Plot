@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础面积图",
-        "en": "basic Area chart"
+        "en": "Basic area plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AE2CTr-Uz3QAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "basic-gradients.ts",
       "title": {
         "zh": "渐变色面积图",
-        "en": "gradients Area chart"
+        "en": "Gradients area plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4dnrSbNeOGQAAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "basic-slider.ts",
       "title": {
         "zh": "缩略轴面积图",
-        "en": "slider Area chart"
+        "en": "Slider area plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xXtxRLa2CHoAAAAAAAAAAAAAARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "basic-annotation.ts",
       "title": {
         "zh": "带中位线标注的基础面积图",
-        "en": "basic Area chart with Line Annotation"
+        "en": "Basic area plot with line annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7dkjRqqCukoAAAAAAAAAAAAAARQnAQ"
     }

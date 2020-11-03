@@ -1,4 +1,4 @@
 ---
-title: 多折线图
+title: Multi Line
 order: 1
 ---

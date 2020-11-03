@@ -4,7 +4,7 @@ import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
 describe('tiny-column', () => {
-  it('data', () => {
+  it.only('data', () => {
     const tinyColumn = new TinyColumn(createDiv(), {
       width: 200,
       height: 100,
@@ -24,6 +24,9 @@ describe('tiny-column', () => {
 
     tinyColumn.render();
     expect(tinyColumn.chart.geometries[0].elements.length).toBe(52);
+
+    tinyColumn.chart.showTooltip({ x: 10, y: 10 });
+    expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe('4600.0');
   });
 
   it('data with style', () => {

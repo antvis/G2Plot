@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { AreaOptions } from './types';
 import { adaptor } from './adaptor';
@@ -15,7 +15,7 @@ export class Area extends Plot<AreaOptions> {
    */
   protected getDefaultOptions(options: AreaOptions) {
     const { xField } = options;
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       tooltip: {
         showMarkers: true,
         showCrosshairs: true,

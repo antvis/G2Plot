@@ -5,7 +5,9 @@
  */
 export function createDiv(title: string = '', container: HTMLElement = document.body, id?: string): HTMLElement {
   const div = document.createElement('div');
-
+  if (id) {
+    div.id = id;
+  }
   if (title) {
     const titleDiv = document.createElement('div').appendChild(document.createTextNode(title));
     container.appendChild(titleDiv);

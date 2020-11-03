@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "仪表盘",
-        "en": "Gauge chart"
+        "en": "Gauge plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wjukQ4x3qfMAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "complex.ts",
       "title": {
         "zh": "自定义配置的仪表盘",
-        "en": "Gauge chart - custom style"
+        "en": "Gauge plot - custom style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*bbXcRqcMTsIAAAAAAAAAAAAAARQnAQ"
     }

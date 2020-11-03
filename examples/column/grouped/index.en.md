@@ -1,6 +1,4 @@
 ---
-title: Grouped Column Chart
+title: Grouped Column
 order: 3
 ---
-
-Description about this component.

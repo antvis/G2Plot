@@ -8,7 +8,7 @@
       "filename": "line.ts",
       "title": {
         "zh": "基础折线图",
-        "en": "basic Line chart"
+        "en": "Basic line plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "line-smooth.ts",
       "title": {
         "zh": "曲线折线图",
-        "en": "smooth Line chart"
+        "en": "Smooth line plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "line-point-style.ts",
       "title": {
         "zh": "配置折线数据点样式",
-        "en": "Line chart data point style"
+        "en": "Line plot data point style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*4NmuSaVRZ44AAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "line-slider.ts",
       "title": {
         "zh": "带缩略轴的折线",
-        "en": "Line chart with slider"
+        "en": "Line plot with slider"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*T0pISJhToPEAAAAAAAAAAAAAARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "line-annotation.ts",
       "title": {
         "zh": "折线图辅助线",
-        "en": "Line chart with guide line"
+        "en": "Line plot with guide line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YnkLRojc99wAAAAAAAAAAAAAARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "line-annotation-color.ts",
       "title": {
         "zh": "折线图线条颜色变化",
-        "en": "Line chart with guide line"
+        "en": "Line plot with guide line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ElDbQ4yz14kAAAAAAAAAAAAAARQnAQ"
     }

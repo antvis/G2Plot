@@ -2,9 +2,9 @@
 
 `markdown:docs/common/tooltip.zh.md`
 
-#### label ✨
+#### label
 
-功能描述： 标签文本
+标签文本
 
 `markdown:docs/common/label.zh.md`
 

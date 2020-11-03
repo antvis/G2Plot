@@ -1,4 +1,4 @@
 ---
-title: 词云图
+title: Word Cloud
 order: 0
 ---

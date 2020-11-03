@@ -1,66 +1,54 @@
 ---
-title: 漏斗图
-order: 0
+title: Funnel
+order: 9
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
 #### compareField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述： 对比字段 。
-
-默认配置： 无
+对比字段。
 
 #### isTransposed
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述： 是否转置 。
-
-默认配置： `false`
+是否转置。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### dynamicHeight
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述： 是否是动态高度 。
-
-默认配置： `false`
+是否是动态高度。
 
 #### conversionTag
 
-**可选**, _false | object_
+<description>**optional** _false | object_</description>
 
-功能描述： 配置转化率组件 。
+配置转化率组件。
 
 默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component.en.md`

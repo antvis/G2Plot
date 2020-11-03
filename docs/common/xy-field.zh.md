@@ -1,15 +1,11 @@
-#### xField 📌
+#### xField
 
-**必选**, _string_
+<description>**required** _string_</description>
 
-功能描述： 点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
+点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。
 
-默认配置： 无
+#### yField
 
-#### yField 📌
+<description>**required** _string_</description>
 
-**必选**, _string_
-
-功能描述： 点形状在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。
-
-默认配置： 无
+点形状在 y 方向位置映射所对应的数据字段名，一般对应一个连续字段。

@@ -1,4 +1,4 @@
 ---
-title: 基础折线图
+title: Basic Line
 order: 0
 ---

@@ -1,7 +1,7 @@
-import { deepMix, isNumber } from '@antv/util';
+import { isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
-import { flow, pick, transformLabel } from '../../utils';
+import { flow, pick, transformLabel, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { interval, point } from '../../adaptor/geometries';
 import { BulletOptions } from './types';
@@ -35,7 +35,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   chart.axis(`${targetField}`, false);
 
   // rangeGeometry
-  const r = deepMix({}, params, {
+  const r = deepAssign({}, params, {
     options: {
       xField: xField,
       yField: rangeField,
@@ -53,7 +53,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   chart.geometries[0].tooltip(false);
 
   // measureGeometry
-  const m = deepMix({}, params, {
+  const m = deepAssign({}, params, {
     options: {
       xField: xField,
       yField: measureField,
@@ -69,7 +69,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   interval(m);
 
   // targetGeometry
-  const t = deepMix({}, params, {
+  const t = deepAssign({}, params, {
     options: {
       xField: xField,
       yField: targetField,
@@ -101,7 +101,7 @@ function meta(params: Params<BulletOptions>): Params<BulletOptions> {
   const { xAxis, yAxis, meta, targetField, rangeField, measureField, xField } = options;
 
   if (meta) {
-    const scales = deepMix({}, meta, {
+    const scales = deepAssign({}, meta, {
       [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
       [measureField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
       [targetField]: {

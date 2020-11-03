@@ -1,6 +1,6 @@
-import { deepMix, isString, clamp } from '@antv/util';
+import { isString, clamp } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';
@@ -28,7 +28,7 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
 
   chart.data(data);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: '1',
       yField: 'percent',

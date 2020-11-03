@@ -8,7 +8,7 @@
       "filename": "ring-progress.ts",
       "title": {
         "zh": "迷你进度环图",
-        "en": "basic Ring chart"
+        "en": "Basic tiny ring progress"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dP0sQrvPsDsAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "ring-progress-style.ts",
       "title": {
         "zh": "迷你进度环图样式",
-        "en": "Tiny Ring style"
+        "en": "Tiny ring progress style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HkhsTZBx334AAAAAAAAAAAAAARQnAQ"
     }

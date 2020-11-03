@@ -1,25 +1,19 @@
 ---
 title: Pie
-order: 0
+order: 4
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/meta.en.md`
 
@@ -53,46 +47,40 @@ const piePlot = new Pie('container', {
 piePlot.render();
 ```
 
-#### angleField 📌
+#### angleField 
 
-**必选**, _string_
+<description>**required** _string_</description>
 
-功能描述： 扇形切片大小（弧度）所对应的数据字段名。。
+扇形切片大小（弧度）所对应的数据字段名。
 
-默认配置： 无
+#### colorField 
 
-#### colorField 📌
+<description>**optional** _string_</description>
 
-**可选**, _string_
+扇形颜色映射对应的数据字段名。
 
-功能描述： 扇形颜色映射对应的数据字段名。
+### Geometry Style
 
-默认配置： 无
+#### radius 
 
-### 图形样式
+<description>**optional** _number_</description>
 
-#### radius ✨
-
-**可选**, _number_
-
-功能描述： 饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
+饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
 
 `markdown:docs/common/color.en.md`
 
-#### pieStyle ✨
+#### pieStyle 
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 设置扇形样式。pieStyle 中的`fill`会覆盖 `color` 的配置。pieStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
-
-默认配置： 无
+设置扇形样式。pieStyle 中的`fill`会覆盖 `color` 的配置。pieStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
 
 `markdown:docs/common/shape-style.en.md`
 
-### 图表组件
+### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" alt="加载失败" width="600">
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component-no-axis.en.md`

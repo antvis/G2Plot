@@ -1,4 +1,4 @@
 ---
-title: Theme setting
+title: Theme Setting
 order: 0
 ---

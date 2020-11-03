@@ -1,4 +1,4 @@
 ---
-title: State setting
+title: State Setting
 order: 0
 ---

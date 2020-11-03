@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础雷达图",
-        "en": "Basic Radar chart"
+        "en": "Basic radar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*exgfQbvqKlMAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "line.ts",
       "title": {
         "zh": "基础雷达图",
-        "en": "Basic Radar chart"
+        "en": "Basic radar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*exgfQbvqKlMAAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "line-grid.ts",
       "title": {
         "zh": "基础雷达图(带网格)",
-        "en": "Basic Radar chart (with grid)"
+        "en": "Basic radar plot (with grid)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E70qQpBJ2kMAAAAAAAAAAAAAARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "line-alternate-grid.ts",
       "title": {
         "zh": "基础雷达图(带底色)",
-        "en": "Basic Radar chart (with alternate grid)"
+        "en": "Basic radar plot (with alternate grid)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gexzT7Y8X0oAAAAAAAAAAAAAARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "area.ts",
       "title": {
         "zh": "雷达图(面)",
-        "en": "Area Radar chart"
+        "en": "Area radar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O0wxQawDULkAAAAAAAAAAAAAARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "area-grid.ts",
       "title": {
         "zh": "雷达图(带网格)",
-        "en": "Area Radar chart (with grid)"
+        "en": "Area radar plot (with grid)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AJOVQaiILQoAAAAAAAAAAAAAARQnAQ"
     },
@@ -56,7 +56,7 @@
       "filename": "area-alternate-grid.ts",
       "title": {
         "zh": "雷达图(面-带底色)",
-        "en": "Area Radar chart (with alternate grid)"
+        "en": "Area radar plot (with alternate grid)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XL8YQJmbIEIAAAAAAAAAAAAAARQnAQ"
     }

@@ -1,4 +1,4 @@
-import { deepMix, each, findIndex, get, isObject } from '@antv/util';
+import { each, findIndex, get, isObject } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -8,7 +8,7 @@ import {
 } from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
 import { Datum } from '../../types';
 import { getOption, isColumn } from './util/option';
@@ -26,7 +26,7 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  return deepMix({}, params, {
+  return deepAssign({}, params, {
     options: getOption(params.options),
   });
 }
@@ -57,7 +57,7 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
       const formatData = isPercent ? percent(data, yField, xField, yField) : data;
       const view = chart.createView({ id }).data(formatData);
 
-      const tooltipOptions = deepMix(
+      const tooltipOptions = deepAssign(
         {},
         {
           formatter: isPercent
@@ -95,12 +95,12 @@ export function meta(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   scale({
     [xField]: xAxis,
     [yField[0]]: yAxis[yField[0]],
-  })(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  })(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
 
   scale({
     [xField]: xAxis,
     [yField[1]]: yAxis[yField[1]],
-  })(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+  })(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
@@ -160,8 +160,8 @@ export function tooltip(params: Params<DualAxesOptions>): Params<DualAxesOptions
 export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
-  commonInteraction(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
-  commonInteraction(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+  commonInteraction(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonInteraction(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
@@ -173,8 +173,8 @@ export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOpt
 export function theme(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
-  commonTheme(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
-  commonTheme(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+  commonTheme(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonTheme(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
@@ -182,8 +182,8 @@ export function theme(params: Params<DualAxesOptions>): Params<DualAxesOptions> 
 export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
-  commonAnimation(deepMix({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
-  commonAnimation(deepMix({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+  commonAnimation(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonAnimation(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
 }
@@ -221,7 +221,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
       });
 
       chart.legend(
-        deepMix({}, legend, {
+        deepAssign({}, legend, {
           custom: true,
           // todo 修改类型定义
           // @ts-ignore

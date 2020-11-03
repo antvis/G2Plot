@@ -1,10 +1,10 @@
 import { Geometry } from '@antv/g2';
-import { deepMix, get } from '@antv/util';
+import { get } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { findGeometry, flow, transformLabel } from '../../utils';
+import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
 import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
 import { WaterfallOptions } from './types';
 import { transformData } from './utils';
@@ -42,7 +42,7 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
       return get(datum, [Y_FIELD, 1]) - get(datum, [Y_FIELD, 0]) > 0 ? risingFill : fallingFill;
     };
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: xField,
       yField: Y_FIELD,
@@ -73,7 +73,7 @@ function meta(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { options } = params;
   const { xAxis, yAxis, xField, yField, meta } = options;
 
-  const Y_FIELD_META = deepMix({}, { alias: yField }, get(meta, yField));
+  const Y_FIELD_META = deepAssign({}, { alias: yField }, get(meta, yField));
 
   return flow(
     scale(
@@ -82,7 +82,7 @@ function meta(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
         [yField]: yAxis,
         [Y_FIELD]: yAxis,
       },
-      deepMix({}, meta, { [Y_FIELD]: Y_FIELD_META, [DIFF_FIELD]: Y_FIELD_META, [ABSOLUTE_FIELD]: Y_FIELD_META })
+      deepAssign({}, meta, { [Y_FIELD]: Y_FIELD_META, [DIFF_FIELD]: Y_FIELD_META, [ABSOLUTE_FIELD]: Y_FIELD_META })
     )
   )(params);
 }
@@ -140,12 +140,12 @@ function legend(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
         value: 'total',
         marker: {
           symbol: 'square',
-          style: deepMix({}, { r: 5 }, get(total, 'style')),
+          style: deepAssign({}, { r: 5 }, get(total, 'style')),
         },
       });
     }
     chart.legend(
-      deepMix(
+      deepAssign(
         {},
         {
           custom: true,

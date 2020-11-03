@@ -1,4 +1,5 @@
-import { deepMix, get, isArray } from '@antv/util';
+import { get, isArray } from '@antv/util';
+import { deepAssign } from '../../../utils';
 import {
   DualAxesOptions,
   GeometryOption,
@@ -35,7 +36,7 @@ export function getGeometryOption(
 ): GeometryOption {
   // 空默认为线
   return isColumn(geometryOption)
-    ? deepMix(
+    ? deepAssign(
         {},
         {
           geometry: DualAxesGeometry.Column,
@@ -82,12 +83,12 @@ export function getDefaultYAxis(options: DualAxesOptions): Pick<DualAxesOptions,
   if (isArray(yAxis)) {
     console.warn('yAxis should be object');
     return {
-      [yField[0]]: yAxis[0] !== false ? deepMix({}, DEFAULT_LEFT_YAXIS_CONFIG, yAxis[0]) : false,
-      [yField[1]]: yAxis[1] !== false ? deepMix({}, DEFAULT_RIGHT_YAXIS_CONFIG, yAxis[1]) : false,
+      [yField[0]]: yAxis[0] !== false ? deepAssign({}, DEFAULT_LEFT_YAXIS_CONFIG, yAxis[0]) : false,
+      [yField[1]]: yAxis[1] !== false ? deepAssign({}, DEFAULT_RIGHT_YAXIS_CONFIG, yAxis[1]) : false,
     };
   }
 
-  return deepMix(
+  return deepAssign(
     {},
     {
       [yField[0]]: DEFAULT_LEFT_YAXIS_CONFIG,
@@ -107,7 +108,7 @@ export function getOption(options: DualAxesOptions): DualAxesOptions {
   // TODO antvis util 中 map 没有办法处理 undefined！！！
   const { geometryOptions = [], xField, yField } = options;
 
-  const formatOptions = deepMix({}, options, {
+  const formatOptions = deepAssign({}, options, {
     // yAxis
     yAxis: getDefaultYAxis(options),
     // geometryOptions

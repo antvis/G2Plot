@@ -1,7 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { WordCloudOptions } from './types';
 import { transform } from './utils';
@@ -17,7 +16,7 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
 
   chart.data(data);
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       xField: 'x',
       yField: 'y',

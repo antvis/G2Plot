@@ -1,7 +1,6 @@
-import { deepMix } from '@antv/util';
 import { interaction, animation, theme, scale, tooltip, legend } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
@@ -14,7 +13,7 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
   const { data, barStyle: style, color, tooltip } = options;
   chart.data(data);
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       tooltip,
       interval: {

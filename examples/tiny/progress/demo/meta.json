@@ -8,7 +8,7 @@
       "filename": "progress-style.ts",
       "title": {
         "zh": "迷你进度条图样式",
-        "en": "Tiny Progress style"
+        "en": "Tiny progress style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xjbxRJTD2wUAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "progress-style-callback.ts",
       "title": {
         "zh": "迷你进度条图回调样式",
-        "en": "Tiny Progress style callback"
+        "en": "Tiny progress style callback"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wKUaS7xLrYgAAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "progress-width.ts",
       "title": {
         "zh": "迷你进度条图大小",
-        "en": "Tiny Progress width"
+        "en": "Tiny progress width"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qseORomBj9sAAAAAAAAAAAAAARQnAQ"
     }

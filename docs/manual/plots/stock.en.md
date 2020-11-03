@@ -1,25 +1,19 @@
 ---
 title: Stock
-order: 0
+order: 18
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：
+设置图表数据源。数据源为对象集合，例如：
 
 ```ts
 [
@@ -46,35 +40,31 @@ order: 0
 ];
 ```
 
-#### xField 📌
+#### xField 
 
-**必选**, _string_
+<description>**required** _string_</description>
 
-功能描述： 图形标记在 y 方向位置映射所对应的数据字段名，一般对应一个日期或者日期时间格式的字段(交易日)。
+图形标记在 y 方向位置映射所对应的数据字段名，一般对应一个日期或者日期时间格式的字段(交易日)。
 
 目前`xField`会自动识别如下形式的时间格式，当用户需要生成 time 类型的度量时，建议将原始时间数据转换为如下形式：
 
 - 时间戳，如 1436237115500；
 - 时间字符串： '2015-03-01'，'2015-03-01 12:01:40'，'2015/01/05'，'2015-03-01T16:00:00.000Z'。
 
-默认配置： 无
+#### yField 
 
-#### yField 📌
+<description>**required** _array string_</description>
 
-**必选**, _array string_
-
-功能描述： 该项为二维数组, 对应的是`[开盘价,收盘价,最高价,最低价]`字段的数组
-
-默认配置： 无
+该项为二维数组, 对应的是`[开盘价,收盘价,最高价,最低价]`字段的数组。
 
 例如: `['open', 'close', 'high', 'low']`
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component.en.md`

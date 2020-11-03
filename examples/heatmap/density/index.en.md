@@ -1,4 +1,4 @@
 ---
-title: Heatmap
+title: Density Heatmap
 order: 1
 ---

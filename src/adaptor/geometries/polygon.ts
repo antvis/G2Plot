@@ -1,10 +1,9 @@
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
-import { Options } from '../../types';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 
-export type PolygonGeometryOptions = GeometryOptions & {
+export interface PolygonGeometryOptions extends GeometryOptions {
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -13,7 +12,7 @@ export type PolygonGeometryOptions = GeometryOptions & {
   readonly seriesField?: string;
   /** point 图形映射规则 */
   readonly polygon?: MappingOptions;
-} & Options;
+}
 
 /**
  * polygon 的配置处理

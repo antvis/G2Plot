@@ -50,7 +50,7 @@ export type Geometry = {
 /**
  * geometry options
  */
-export type GeometryOptions = Geometry;
+export type GeometryOptions = Geometry & Partial<Options>;
 
 /**
  * 获得映射的字段列表

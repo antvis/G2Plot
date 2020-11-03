@@ -3,8 +3,7 @@ import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
-import { regressionLine } from './annotations/path';
-import { getQuadrantDefaultConfig } from './util';
+import { getQuadrantDefaultConfig, getPath } from './util';
 import { ScatterOptions } from './types';
 
 /**
@@ -83,13 +82,12 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   if (legend) {
     chart.legend(colorField || shapeField, legend);
+    // 隐藏连续图例
+    if (sizeField) {
+      chart.legend(sizeField, false);
+    }
   } else {
     chart.legend(false);
-  }
-
-  // 隐藏连续图例
-  if (sizeField) {
-    chart.legend(sizeField, false);
   }
 
   return params;
@@ -171,6 +169,42 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
   }
 
   return flow(annotation(annotationOptions))(params);
+}
+
+// 趋势线
+function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options, chart } = params;
+  const { regressionLine } = options;
+  if (regressionLine) {
+    const { style } = regressionLine;
+    const defaultStyle = {
+      stroke: '#9ba29a',
+      lineWidth: 2,
+      opacity: 0.5,
+    };
+    chart.annotation().shape({
+      render: (container, view) => {
+        const group = container.addGroup({
+          id: `${chart.id}-regression-line`,
+          name: 'regression-line-group',
+        });
+        const path = getPath({
+          view,
+          options,
+        });
+        group.addShape('path', {
+          name: 'regression-line',
+          attrs: {
+            path,
+            ...defaultStyle,
+            ...style,
+          },
+        });
+      },
+    });
+  }
+
+  return params;
 }
 
 /**

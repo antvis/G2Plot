@@ -39,7 +39,7 @@ describe('scatter', () => {
       xAxis: {
         nice: true,
       },
-      legend: true,
+      legend: {},
     });
 
     scatter.render();

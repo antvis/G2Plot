@@ -11,11 +11,12 @@ import { getScaleMax } from './utils';
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { data, barStyle: style, color, tooltip } = options;
+  const { data, barStyle: style, color, tooltip, colorField } = options;
   chart.data(data);
   const p = deepAssign({}, params, {
     options: {
       tooltip,
+      seriesField: colorField,
       interval: {
         style,
         color,

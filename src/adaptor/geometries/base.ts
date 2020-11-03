@@ -18,7 +18,10 @@ export type MappingOptions = {
   readonly tooltip?: TooltipAttr;
 };
 
-export interface GeometryOptions extends Options {
+/**
+ * 一个图形映射的逻辑，纯粹的图形语法
+ */
+export type Geometry = {
   /** geometry 类型 */
   readonly type: string;
   /** x 轴字段 */
@@ -41,7 +44,12 @@ export interface GeometryOptions extends Options {
   readonly mapping: MappingOptions;
   /** geometry params */
   readonly args?: any;
-}
+};
+
+/**
+ * geometry options
+ */
+export type GeometryOptions = Geometry & Options;
 
 /**
  * 获得映射的字段列表

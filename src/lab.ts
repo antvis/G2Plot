@@ -1,4 +1,4 @@
-import { MultiLayer } from './plots/multi-layer';
+import { MultiView } from './plots/multi-layer';
 
 /** 实验室图表所处的阶段 */
 export enum Stage {
@@ -28,7 +28,7 @@ export function notice(stage: Stage, plotType: string) {
  */
 export class Lab {
   get MultiLayer() {
-    notice(Stage.DEV, 'multi-layer');
-    return MultiLayer;
+    notice(Stage.DEV, 'multi-view');
+    return MultiView;
   }
 }

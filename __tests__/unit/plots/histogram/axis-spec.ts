@@ -36,6 +36,31 @@ describe('Histogram: axis', () => {
     expect(histogram.chart.options.axes.range.label.style.fill).toBe('red');
   });
 
+  it('xAxis*false', () => {
+    const histogram = new Histogram(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: histogramData,
+      binField: 'value',
+      binWidth: 2,
+      xAxis: false,
+    });
+
+    histogram.render();
+
+    // @ts-ignore
+    expect(histogram.chart.options.axes.count).toEqual({
+      nice: true,
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    });
+    // @ts-ignore
+    expect(histogram.chart.options.axes.range).toEqual(false);
+  });
+
   it('yAxis', () => {
     const histogram = new Histogram(createDiv(), {
       width: 400,
@@ -60,5 +85,30 @@ describe('Histogram: axis', () => {
     expect(histogram.chart.options.axes.count.nice).toBe(true);
     // @ts-ignore
     expect(histogram.chart.options.axes.count.label.style.fill).toBe('red');
+  });
+
+  it('yAxis*false', () => {
+    const histogram = new Histogram(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: histogramData,
+      binField: 'value',
+      binWidth: 2,
+      yAxis: false,
+    });
+
+    histogram.render();
+
+    // @ts-ignore
+    expect(histogram.chart.options.axes.count).toEqual(false);
+    // @ts-ignore
+    expect(histogram.chart.options.axes.range).toEqual({
+      nice: true,
+      label: {
+        autoHide: true,
+        autoRotate: true,
+      },
+    });
   });
 });

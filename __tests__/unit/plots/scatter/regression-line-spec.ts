@@ -118,4 +118,41 @@ describe('scatter', () => {
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
   });
+  it('regressionLine: algorithm callback', async () => {
+    const scatter = new Scatter(createDiv('regressionLine*algorithm'), {
+      data,
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      xField: 'x',
+      yField: 'y',
+      size: 5,
+      pointStyle: {
+        stroke: '#777777',
+        lineWidth: 1,
+        fill: '#5B8FF9',
+      },
+      animation: false,
+      regressionLine: {
+        algorithm: (data) => {
+          return [
+            [8, 6],
+            [16, 7],
+            [24, 7],
+          ];
+        },
+      },
+    });
+
+    scatter.render();
+    await delay(500);
+    const { width } = scatter.chart;
+    const pathGroup = scatter.chart
+      .getComponents()
+      .find((item) => item.type === 'annotation')
+      .component.cfg.group.cfg.children[0].getChildren();
+    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    expect(path.length).toBe(3);
+    expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
+  });
 });

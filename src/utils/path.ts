@@ -9,12 +9,10 @@ function points2path(points: Point[], isInCircle: boolean) {
       const item = points[i];
       path.push(['L', item.x, item.y]);
     }
-
     if (isInCircle) {
       path.push(['Z']);
     }
   }
-
   return path;
 }
 
@@ -29,7 +27,6 @@ export const smoothBezier = (
   constraint: Position[]
 ): Position[] => {
   const cps = [];
-
   let prevPoint: Position;
   let nextPoint: Position;
   const hasConstraint = !!constraint;

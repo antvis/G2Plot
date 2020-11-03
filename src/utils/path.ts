@@ -1,7 +1,7 @@
 import { vec2 } from '@antv/matrix-util';
 import { Position, Point } from '@antv/g2/lib/interface';
 
-function points2path(points: Point[], isInCircle: boolean) {
+export function points2Path(points: Point[], isInCircle: boolean) {
   const path = [];
   if (points.length) {
     path.push(['M', points[0].x, points[0].y]);
@@ -140,7 +140,7 @@ export function getSplinePath(points: Point[], isInCircle?: boolean, constaint?:
   let prePoint = null;
   if (points.length <= 2) {
     // 两点以内直接绘制成路径
-    return points2path(points, isInCircle);
+    return points2Path(points, isInCircle);
   }
   for (let i = 0, len = points.length; i < len; i++) {
     const point = points[i];

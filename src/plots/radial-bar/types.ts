@@ -15,4 +15,6 @@ export interface RadialBarOptions extends Options {
   readonly radius?: number;
   /** 圆内半径 */
   readonly innerRadius?: number;
+  /** 颜色字段 */
+  readonly colorField?: string;
 }

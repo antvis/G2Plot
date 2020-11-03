@@ -1,4 +1,4 @@
-import { isNumber } from '@antv/util';
+import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
 import { flow, pick, transformLabel, deepAssign } from '../../utils';
@@ -42,9 +42,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       seriesField: 'rKey',
       isStack: true,
       interval: {
-        color: color?.range,
-        style: bulletStyle?.range,
-        size: size?.range,
+        color: get(color, 'range'),
+        style: get(bulletStyle, 'range'),
+        size: get(size, 'range'),
       },
     },
   });
@@ -60,9 +60,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       seriesField: 'mKey',
       isStack: true,
       interval: {
-        color: color?.measure,
-        style: bulletStyle?.measure,
-        size: size?.measure,
+        color: get(color, 'measure'),
+        style: get(bulletStyle, 'measure'),
+        size: get(size, 'measure'),
       },
     },
   });
@@ -75,9 +75,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       yField: targetField,
       seriesField: 'tKey',
       point: {
-        color: color?.target,
-        style: bulletStyle?.target,
-        size: isNumber(size?.target) ? Number(size.target) / 2 : size.target,
+        color: get(color, 'target'),
+        style: get(bulletStyle, 'target'),
+        size: get(size, 'target') / 2,
         shape: layout === 'horizontal' ? 'line' : 'hyphen',
       },
     },
@@ -168,13 +168,13 @@ function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const { label, measureField, targetField, rangeField } = options;
   const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
 
-  if (label?.range) {
+  if (get(label, 'range')) {
     rangeGeometry.label(`${rangeField}`, transformLabel(label.range));
   }
-  if (label?.measure) {
+  if (get(label, 'measure')) {
     measureGeometry.label(`${measureField}`, transformLabel(label.measure));
   }
-  if (label?.target) {
+  if (get(label, 'target')) {
     targetGeometry.label(`${targetField}`, transformLabel(label.target));
   }
 

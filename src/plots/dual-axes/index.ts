@@ -22,11 +22,11 @@ export class DualAxes extends Plot<DualAxesOptions> {
     );
 
     return deepAssign({}, super.getDefaultOptions(options), {
-      yAxis: [],
       geometryOptions: [],
       xAxis: {
         position: 'bottom',
       },
+      yAxis: {},
       meta: {
         [xField]: {
           // x 轴一定是同步 scale 的

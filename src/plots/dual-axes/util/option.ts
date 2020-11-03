@@ -58,9 +58,10 @@ export function getGeometryOption(
       };
 }
 
-export function getDefaultYAxis(options: DualAxesOptions): Pick<DualAxesOptions, 'yAxis'> {
-  const { yAxis, yField } = options;
-
+export function getDefaultYAxis(
+  yField: DualAxesOptions['yField'],
+  yAxis: DualAxesOptions['yAxis']
+): DualAxesOptions['yAxis'] {
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,
     label: {
@@ -81,7 +82,7 @@ export function getDefaultYAxis(options: DualAxesOptions): Pick<DualAxesOptions,
   };
 
   if (isArray(yAxis)) {
-    console.warn('yAxis should be object');
+    console.warn('yAxis should be object.');
     return {
       [yField[0]]: yAxis[0] !== false ? deepAssign({}, DEFAULT_LEFT_YAXIS_CONFIG, yAxis[0]) : false,
       [yField[1]]: yAxis[1] !== false ? deepAssign({}, DEFAULT_RIGHT_YAXIS_CONFIG, yAxis[1]) : false,
@@ -96,27 +97,4 @@ export function getDefaultYAxis(options: DualAxesOptions): Pick<DualAxesOptions,
     },
     yAxis
   );
-}
-
-/**
- * 主要因为双轴图的 yAxis 和 geometryOptions 是数组，所以需要额外分别进行设置默认值
- * 1. yAxis
- * 2. geometryOptions
- * @param options
- */
-export function getOption(options: DualAxesOptions): DualAxesOptions {
-  // TODO antvis util 中 map 没有办法处理 undefined！！！
-  const { geometryOptions = [], xField, yField } = options;
-
-  const formatOptions = deepAssign({}, options, {
-    // yAxis
-    yAxis: getDefaultYAxis(options),
-    // geometryOptions
-    geometryOptions: [
-      getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
-      getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
-    ],
-  });
-
-  return formatOptions;
 }

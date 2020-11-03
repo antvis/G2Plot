@@ -1,4 +1,25 @@
-import { isLine, isColumn, getOption } from '../../../../../src/plots/dual-axes/util/option';
+import { isLine, isColumn, getGeometryOption, getDefaultYAxis } from '../../../../../src/plots/dual-axes/util/option';
+
+import { AxisType } from '../../../../../src/plots/dual-axes/types';
+
+const DEFAULT_LEFT_YAXIS_CONFIG = {
+  nice: true,
+  label: {
+    autoHide: true,
+    autoRotate: false,
+  },
+  position: 'left',
+};
+
+const DEFAULT_RIGHT_YAXIS_CONFIG = {
+  nice: true,
+  label: {
+    autoHide: true,
+    autoRotate: false,
+  },
+  position: 'right',
+  grid: null,
+};
 
 describe('DualAxes option', () => {
   it('isLine, isColumn', () => {
@@ -11,87 +32,63 @@ describe('DualAxes option', () => {
     expect(isColumn({ geometry: 'column' })).toBe(true);
   });
 
-  it('yAxis option', () => {
-    expect(
-      getOption({
-        xField: 'test',
-        yField: ['test1', 'test2'],
-        // @ts-ignore
-        yAxis: { test1: { a: 1 }, test2: false },
-        geometryOptions: [],
-      })
-    ).toEqual({
-      xField: 'test',
-      yField: ['test1', 'test2'],
-      yAxis: {
-        test1: {
-          nice: true,
-          label: {
-            autoHide: true,
-            autoRotate: false,
-          },
-          position: 'left',
-          a: 1,
-        },
-        test2: false,
-      },
-      geometryOptions: [
-        {
-          geometry: 'line',
-          color: '#5B8FF9',
-        },
-        {
-          geometry: 'line',
-          color: '#E76C5E',
-        },
-      ],
+  it('getDefaultYAxis', () => {
+    expect(getDefaultYAxis(['yField1', 'yField2'], undefined)).toEqual({
+      yField1: DEFAULT_LEFT_YAXIS_CONFIG,
+      yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
     });
 
-    expect(
-      // @ts-ignore
-      getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: [false, false], geometryOptions: [] }).yAxis
-    ).toEqual({ test1: false, test2: false });
-
-    // @ts-ignore
-    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], yAxis: {}, geometryOptions: [] }).yAxis).toEqual({
-      test1: {
-        nice: true,
-        label: {
-          autoHide: true,
-          autoRotate: false,
-        },
-        position: 'left',
-      },
-      test2: {
-        nice: true,
-        label: {
-          autoHide: true,
-          autoRotate: false,
-        },
-        position: 'right',
-        grid: null,
-      },
+    expect(getDefaultYAxis(['yField1', 'yField2'], {})).toEqual({
+      yField1: DEFAULT_LEFT_YAXIS_CONFIG,
+      yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
     });
 
     // @ts-ignore
-    expect(getOption({ xField: 'test', yField: ['test1', 'test2'], geometryOptions: [] }).yAxis).toEqual({
-      test1: {
-        nice: true,
-        label: {
-          autoHide: true,
-          autoRotate: false,
-        },
-        position: 'left',
+    expect(getDefaultYAxis(['yField1', 'yField2'], { yField1: { a: 1 }, yField2: false })).toEqual({
+      yField1: {
+        ...DEFAULT_LEFT_YAXIS_CONFIG,
+        a: 1,
       },
-      test2: {
-        nice: true,
-        label: {
-          autoHide: true,
-          autoRotate: false,
-        },
-        position: 'right',
-        grid: null,
-      },
+      yField2: false,
     });
+
+    expect(getDefaultYAxis(['yField1', 'yField2'], [])).toEqual({
+      yField1: DEFAULT_LEFT_YAXIS_CONFIG,
+      yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
+    });
+
+    // @ts-ignore
+    expect(getDefaultYAxis(['yField1', 'yField2'], [{ a: 1 }, false])).toEqual({
+      yField1: {
+        ...DEFAULT_LEFT_YAXIS_CONFIG,
+        a: 1,
+      },
+      yField2: false,
+    });
+  });
+
+  it('getGeometryOption', () => {
+    expect(getGeometryOption('test', 'yField1', undefined, AxisType.Left)).toEqual({
+      geometry: 'line',
+      color: '#5B8FF9',
+    });
+
+    // @ts-ignore
+    expect(getGeometryOption('test', 'yField1', { a: 1 }, AxisType.Left)).toEqual({
+      geometry: 'line',
+      color: '#5B8FF9',
+      a: 1,
+    });
+
+    expect(getGeometryOption('test', 'yField1', { geometry: 'column' }, AxisType.Left)).toEqual({
+      geometry: 'column',
+    });
+
+    const label = getGeometryOption('test', 'yField1', { geometry: 'column', isRange: true, label: {} }, AxisType.Left)
+      .label;
+
+    expect(
+      label && typeof label.content === 'function' && label.content({ yField1: [40, 50] }, { _origin: [40, 50] }, 1)
+    ).toEqual('40-50');
   });
 });

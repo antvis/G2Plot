@@ -11,10 +11,10 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
 import { Datum } from '../../types';
-import { getOption, isColumn } from './util/option';
+import { isColumn, getDefaultYAxis, getGeometryOption } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOptions } from './types';
+import { DualAxesOptions, AxisType } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
@@ -26,8 +26,19 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { options } = params;
+  const { geometryOptions = [], xField, yField } = options;
+
   return deepAssign({}, params, {
-    options: getOption(params.options),
+    options: {
+      // yAxis
+      yAxis: getDefaultYAxis(options.yField, options.yAxis),
+      // geometryOptions
+      geometryOptions: [
+        getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
+        getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
+      ],
+    },
   });
 }
 

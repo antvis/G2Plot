@@ -195,18 +195,19 @@ describe('core', () => {
       data: partySupport.filter((o) => o.type === 'FF'),
       xField: 'date',
       yField: 'value',
+      animation: false,
     });
 
     // @ts-ignore
     line.triggerResize = jest.fn();
     line.render();
 
-    await delay(500);
+    await delay(200);
     // @ts-ignore
     expect(line.triggerResize).toHaveBeenCalledTimes(0);
 
     container.style.width = `${container.clientWidth + 10}px`;
-    await delay(500);
+    await delay(200);
     // @ts-ignore
     expect(line.triggerResize).toHaveBeenCalledTimes(1);
   });

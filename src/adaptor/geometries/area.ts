@@ -1,9 +1,10 @@
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
+import { Options } from '../../types';
 import { GeometryOptions, geometry, MappingOptions } from './base';
 
-export interface AreaGeometryOptions extends GeometryOptions {
+export type AreaGeometryOptions = GeometryOptions & {
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -14,7 +15,7 @@ export interface AreaGeometryOptions extends GeometryOptions {
   readonly smooth?: boolean;
   /** area 图形的样式设置 */
   readonly area?: MappingOptions;
-}
+} & Options;
 
 /**
  * area geometry 的配置处理

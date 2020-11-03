@@ -3,9 +3,10 @@ import { isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { getTooltipMapping } from '../../utils/tooltip';
+import { Options } from '../../types';
 import { GeometryOptions, MappingOptions, geometry } from './base';
 
-export interface IntervalGeometryOptions extends GeometryOptions {
+export type IntervalGeometryOptions = GeometryOptions & {
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴字段 */
@@ -22,7 +23,7 @@ export interface IntervalGeometryOptions extends GeometryOptions {
   readonly marginRatio?: number;
   /** 柱子样式配置 */
   readonly interval?: MappingOptions;
-}
+} & Options;
 
 /**
  * 柱形图其他的 adaptor

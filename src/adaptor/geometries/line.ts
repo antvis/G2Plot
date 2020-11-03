@@ -2,6 +2,7 @@ import { Params } from '../../core/adaptor';
 import { ColorAttr, StyleAttr, SizeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
+import { Options } from '../../types';
 import { GeometryOptions, geometry } from './base';
 
 type LineOption = {
@@ -13,7 +14,7 @@ type LineOption = {
   readonly size?: SizeAttr;
 };
 
-export interface LineGeometryOptions extends GeometryOptions {
+export type LineGeometryOptions = GeometryOptions & {
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -28,7 +29,7 @@ export interface LineGeometryOptions extends GeometryOptions {
   readonly line?: LineOption;
   /** 阶梯折线图类型 */
   readonly stepType?: string;
-}
+} & Options;
 
 /**
  * line 辅助点的配置处理

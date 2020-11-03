@@ -20,6 +20,7 @@ export type MappingOptions = {
 
 /**
  * 一个图形映射的逻辑，纯粹的图形语法
+ * // TODO 后续需要处理 adjust 的配置，然后通过 field 信息。比如 styleField，labelField 等一定是一个数组形式
  */
 export type Geometry = {
   /** geometry 类型 */
@@ -49,7 +50,7 @@ export type Geometry = {
 /**
  * geometry options
  */
-export type GeometryOptions = Geometry & Options;
+export type GeometryOptions = Geometry;
 
 /**
  * 获得映射的字段列表

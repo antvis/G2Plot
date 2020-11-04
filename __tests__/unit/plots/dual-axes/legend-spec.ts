@@ -244,6 +244,43 @@ describe('Legend', () => {
       });
 
       expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
+
+      dualAxes.chart.emit('legend-item:click', {});
+
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
+
+      dualAxes.chart.emit('legend-item:click', {
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'test',
+              name: 'test',
+              value: 'test',
+              isGeometry: true,
+              viewId: LEFT_AXES_VIEW,
+              unchecked: true,
+            },
+          },
+        },
+      });
+
+      expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(true);
+
+      dualAxes.chart.emit('legend-item:click', {
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'test',
+              name: 'test',
+              value: 'test',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: true,
+            },
+          },
+        },
+      });
+
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
     });
   });
 

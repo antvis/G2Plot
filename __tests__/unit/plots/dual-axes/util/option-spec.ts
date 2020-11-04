@@ -90,5 +90,9 @@ describe('DualAxes option', () => {
     expect(
       label && typeof label.content === 'function' && label.content({ yField1: [40, 50] }, { _origin: [40, 50] }, 1)
     ).toEqual('40-50');
+
+    expect(
+      label && typeof label.content === 'function' && label.content({ yField: [40, 50] }, { _origin: [40, 50] }, 1)
+    ).toBeUndefined();
   });
 });

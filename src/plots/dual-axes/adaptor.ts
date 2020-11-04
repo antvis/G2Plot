@@ -27,12 +27,12 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { options } = params;
-  const { geometryOptions = [], xField, yField } = options;
+  const { geometryOptions, xField, yField } = options;
 
   return deepAssign({}, params, {
     options: {
       // yAxis
-      yAxis: getDefaultYAxis(options.yField, options.yAxis),
+      yAxis: getDefaultYAxis(yField, options.yAxis),
       // geometryOptions
       geometryOptions: [
         getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
@@ -68,18 +68,15 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
       const formatData = isPercent ? percent(data, yField, xField, yField) : data;
       const view = chart.createView({ id }).data(formatData);
 
-      const tooltipOptions = deepAssign(
-        {},
-        {
-          formatter: isPercent
-            ? (datum: Datum) => ({
-                name: datum[geometry.seriesField] || datum[xField],
-                value: (Number(datum[yField]) * 100).toFixed(2) + '%',
-              })
-            : undefined,
-        },
-        tooltip
-      );
+      const tooltipOptions = isPercent
+        ? {
+            formatter: (datum: Datum) => ({
+              name: datum[geometry.seriesField] || yField,
+              value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+            }),
+            ...tooltip,
+          }
+        : tooltip;
 
       // 绘制图形
       drawSingleGeometry({
@@ -150,17 +147,16 @@ export function tooltip(params: Params<DualAxesOptions>): Params<DualAxesOptions
   const { tooltip } = options;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-  if (tooltip !== undefined) {
-    chart.tooltip(tooltip);
-    // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
-    // view 应该继承 chart 里的 shared，但是从表现看来，继承有点问题
-    leftView.tooltip({
-      shared: true,
-    });
-    rightView.tooltip({
-      shared: true,
-    });
-  }
+  // tooltip 经过 getDefaultOption 处理后，一定不为 undefined
+  chart.tooltip(tooltip);
+  // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
+  // view 应该继承 chart 里的 shared，但是从表现看来，继承有点问题
+  leftView.tooltip({
+    shared: true,
+  });
+  rightView.tooltip({
+    shared: true,
+  });
   return params;
 }
 
@@ -243,7 +239,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
 
     // 自定义图例交互
     chart.on('legend-item:click', (evt) => {
-      const delegateObject = evt.gEvent.delegateObject;
+      const delegateObject = get(evt, 'gEvent.delegateObject', {});
       if (delegateObject && delegateObject.item) {
         const { value: field, isGeometry, viewId } = delegateObject.item;
         // geometry 的时候，直接使用 view.changeVisible
@@ -255,20 +251,19 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
               g.changeVisible(!delegateObject.item.unchecked);
             });
           }
-          return;
-        }
-
-        // 分组柱线图
-        each(chart.views, (view) => {
-          // 单折柱图
-          const groupScale = view.getGroupScales();
-          each(groupScale, (scale: Scale) => {
-            if (scale.values && scale.values.indexOf(field) > -1) {
-              view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
-            }
+        } else {
+          // 分组柱线图
+          each(chart.views, (view) => {
+            // 单折柱图
+            const groupScale = view.getGroupScales();
+            each(groupScale, (scale: Scale) => {
+              if (scale.values && scale.values.indexOf(field) > -1) {
+                view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
+              }
+            });
+            chart.render(true);
           });
-          chart.render(true);
-        });
+        }
       }
     });
   }

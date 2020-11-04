@@ -13,66 +13,36 @@ export class Funnel extends Plot<FunnelOptions> {
   /**
    * 获取 漏斗图 默认配置项
    */
-  protected getDefaultOptions(options: FunnelOptions): Partial<FunnelOptions> {
-    const { xField, yField, dynamicHeight, compareField } = options;
-
-    let additionalOption = {};
-
-    if (dynamicHeight) {
-      additionalOption = {
-        tooltip: {
-          itemTpl:
-            '<li class="g2-tooltip-list-item" data-index={index}>' +
-            '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-            `<span class="g2-tooltip-name">{${xField}}</span>` +
-            `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
+  protected getDefaultOptions(): Partial<FunnelOptions> {
+    return deepAssign({}, super.getDefaultOptions(), {
+      // annotation 无法自适应 chart，先用 appendPadding hack, 随后看看如何自适应
+      appendPadding: [0, 50],
+      label: {
+        offset: 0,
+        position: 'middle',
+        // layout: {
+        //   type: 'limit-in-shape',
+        // },
+        style: {
+          fill: '#fff',
+          fontSize: 12,
         },
-      };
-    } else if (compareField) {
-      additionalOption = {
-        appendPadding: [50, 50, 0, 50],
-        label: {
-          callback: (xField, yField) => ({
-            content: `${yField}`,
-          }),
-        },
-      };
-    }
-
-    return deepAssign(
-      {},
-      super.getDefaultOptions(),
-      {
-        // annotation 无法自适应 chart，先用 appendPadding hack, 随后看看如何自适应
-        appendPadding: [0, 50],
-        label: {
-          offset: 0,
-          position: 'middle',
-          // layout: {
-          //   type: 'limit-in-shape',
-          // },
-          style: {
-            fill: '#fff',
-            fontSize: 12,
-          },
-          callback: (xField, yField) => ({
-            content: `${xField} ${yField}`,
-          }),
-        },
-        tooltip: {
-          showTitle: false,
-          showMarkers: false,
-          shared: false,
-        },
-        conversionTag: {
-          offsetX: 10,
-          offsetY: 0,
-          style: {},
-          formatter: (datum) => `转化率${(datum.$$percentage$$ * 100).toFixed(2)}%`,
-        },
+        callback: (xField, yField) => ({
+          content: `${xField} ${yField}`,
+        }),
       },
-      additionalOption
-    );
+      tooltip: {
+        showTitle: false,
+        showMarkers: false,
+        shared: false,
+      },
+      conversionTag: {
+        offsetX: 10,
+        offsetY: 0,
+        style: {},
+        formatter: (datum) => `转化率${(datum.$$percentage$$ * 100).toFixed(2)}%`,
+      },
+    });
   }
 
   /**

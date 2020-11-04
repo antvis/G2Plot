@@ -12,13 +12,13 @@ describe('default options', () => {
     });
 
     dualAxes.render();
-
-    expect(dualAxes.options.meta.date.sync).toBe(true);
-    expect(dualAxes.options.meta.date.range).toEqual([0, 1]);
     // @ts-ignore
-    expect(dualAxes.options.tooltip.showCrosshairs).toEqual(true);
+    expect(dualAxes.chart.getScaleByField('date').sync).toBeTruthy();
+    expect(dualAxes.chart.getScaleByField('date').range).toEqual([0, 1]);
     // @ts-ignore
-    expect(dualAxes.options.tooltip.showMarkers).toEqual(true);
+    expect(dualAxes.chart.options.tooltip.showCrosshairs).toEqual(true);
+    // @ts-ignore
+    expect(dualAxes.chart.options.tooltip.showMarkers).toEqual(true);
   });
 
   it('line column', () => {
@@ -40,14 +40,13 @@ describe('default options', () => {
     });
 
     dualAxes.render();
-
-    expect(dualAxes.options.meta.date.sync).toBe(true);
-    expect(dualAxes.options.meta.date.range).toEqual(undefined);
+    console.log(dualAxes.chart.getComponents());
     // @ts-ignore
-    expect(dualAxes.options.tooltip.showCrosshairs).toEqual(false);
+    expect(dualAxes.chart.getScaleByField('date').sync).toBeTruthy();
+    expect(dualAxes.chart.getScaleByField('date').range.length).toBe(2);
     // @ts-ignore
-    expect(dualAxes.options.tooltip.showMarkers).toEqual(false);
-
-    expect(dualAxes.options.interactions.some((i) => i.type === 'active-region'));
+    expect(dualAxes.chart.getOptions().tooltip.showCrosshairs).toEqual(false);
+    // @ts-ignore
+    expect(dualAxes.chart.getOptions().tooltip.showMarkers).toEqual(false);
   });
 });

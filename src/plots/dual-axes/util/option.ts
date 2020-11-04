@@ -1,4 +1,4 @@
-import { get } from '@antv/util';
+import { get, every } from '@antv/util';
 import { deepAssign } from '../../../utils';
 import {
   DualAxesOptions,
@@ -67,6 +67,10 @@ export function getGeometryOption(
 export function getOption(options: DualAxesOptions): DualAxesOptions {
   // TODO antvis util 中 map 没有办法处理 undefined！！！
   const { yAxis = [], geometryOptions = [], xField, yField } = options;
+  const allLine = every(
+    geometryOptions,
+    ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
+  );
 
   const DEFAULT_YAXIS_CONFIG = {
     nice: true,
@@ -76,18 +80,44 @@ export function getOption(options: DualAxesOptions): DualAxesOptions {
     },
   };
 
-  const formatOptions = deepAssign({}, options, {
-    // yAxis
-    yAxis: [
-      yAxis[0] !== false ? deepAssign({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
-      yAxis[1] !== false ? deepAssign({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
-    ],
-    // geometryOptions
-    geometryOptions: [
-      getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
-      getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
-    ],
-  });
+  const formatOptions = deepAssign(
+    {},
+    {
+      meta: {
+        [xField]: {
+          // x 轴一定是同步 scale 的
+          sync: true,
+          // 如果有没有柱子，则
+          range: allLine ? [0, 1] : undefined,
+        },
+      },
+      tooltip: {
+        showMarkers: allLine,
+        // 存在柱状图，不显示 crosshairs
+        showCrosshairs: allLine,
+        shared: true,
+        crosshairs: {
+          type: 'x',
+        },
+      },
+      interactions: !allLine
+        ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
+        : [{ type: 'legend-visible-filter' }],
+    },
+    options,
+    {
+      // yAxis
+      yAxis: [
+        yAxis[0] !== false ? deepAssign({}, DEFAULT_YAXIS_CONFIG, yAxis[0]) : false,
+        yAxis[1] !== false ? deepAssign({}, DEFAULT_YAXIS_CONFIG, yAxis[1]) : false,
+      ],
+      // geometryOptions
+      geometryOptions: [
+        getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
+        getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
+      ],
+    }
+  );
 
   return formatOptions;
 }

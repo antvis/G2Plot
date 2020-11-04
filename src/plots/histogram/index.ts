@@ -1,4 +1,3 @@
-import { isNil } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
@@ -11,18 +10,12 @@ export class Histogram extends Plot<HistogramOptions> {
   /** 图表类型 */
   public type: string = 'histogram';
 
-  /**
-   * 获取
-   * @param options
-   */
-  protected getDefaultOptions(options: HistogramOptions) {
+  protected getDefaultOptions() {
     return deepAssign({}, super.getDefaultOptions(), {
       // @ts-ignore
-      columnStyle: isNil(options.columnStyle?.stroke)
-        ? {
-            stroke: '#FFFFFF',
-          }
-        : {},
+      columnStyle: {
+        stroke: '#FFFFFF',
+      },
     });
   }
 

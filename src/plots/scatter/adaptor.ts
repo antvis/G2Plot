@@ -1,7 +1,8 @@
+import { isBoolean } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
-import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
 import { getQuadrantDefaultConfig, getPath } from './util';
 import { ScatterOptions } from './types';
@@ -79,8 +80,9 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
   const { legend, colorField, shapeField, sizeField } = options;
-
-  if (legend) {
+  // legend 没有指定时根据 shapeField 和 colorField 来设置默认值
+  const showLegend = isBoolean(legend) ? legend : legend || !!(shapeField || colorField);
+  if (showLegend) {
     chart.legend(colorField || shapeField, legend);
     // 隐藏连续图例
     if (sizeField) {
@@ -201,6 +203,24 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
           },
         });
       },
+    });
+  }
+
+  return params;
+}
+
+/**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { chart, options } = params;
+  const { tooltip, shapeField, colorField, xField, yField, sizeField } = options;
+
+  if (tooltip) {
+    chart.tooltip({
+      fields: [xField, yField, colorField, sizeField, shapeField],
+      ...tooltip,
     });
   }
 

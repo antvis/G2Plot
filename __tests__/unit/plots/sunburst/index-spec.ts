@@ -102,7 +102,7 @@ describe('sunburst', () => {
       name: 'root',
       children: fetchData,
     };
-    const sunburstPlot = new Sunburst(createDiv(), {
+    const sunburstPlot = new Sunburst(createDiv('sunburst*config', document.body, 'sunburst-id-one'), {
       width: 400,
       height: 400,
       data,
@@ -147,7 +147,9 @@ describe('sunburst', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     sunburstPlot.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML).toBe('0.0153');
+    expect(
+      document.getElementById('sunburst-id-one').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
+    ).toBe('0.0153');
     sunburstPlot.chart.hideTooltip();
   });
 });
@@ -164,7 +166,7 @@ describe('sunburst', () => {
       name: 'root',
       children: fetchData,
     };
-    const sunburstPlot = new Sunburst(createDiv(), {
+    const sunburstPlot = new Sunburst(createDiv('sunburset', document.body, 'sunburset-id'), {
       width: 400,
       height: 400,
       data,
@@ -213,7 +215,9 @@ describe('sunburst', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     sunburstPlot.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-list-item-value')[2].innerHTML).toBe('123');
+    expect(
+      document.getElementById('sunburset-id').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
+    ).toBe('123');
     sunburstPlot.chart.hideTooltip();
   });
 });

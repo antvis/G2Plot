@@ -9,6 +9,7 @@ import { Data, Datum, Meta } from '../types';
 export function adjustYMetaByZero(data: Data, field: string): Meta {
   const gtZero = data.every((datum: Datum) => get(datum, [field]) > 0);
   const ltZero = data.every((datum: Datum) => get(datum, [field]) < 0);
+  console.log(gtZero);
 
   // 目前是增量更新，对 { min: 0, max: undefined } 进行 update({ max: 0 }) 会得到 { min: 0, max: 0 }
   // 需要添加 undefined 进行覆盖

@@ -1,4 +1,4 @@
-import { each, findIndex, get, isObject } from '@antv/util';
+import { each, findIndex, get, isObject, every } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -11,22 +11,57 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
 import { Datum } from '../../types';
-import { getOption, isColumn } from './util/option';
+import { isColumn, getDefaultYAxis, getGeometryOption } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOptions } from './types';
+import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
- * 获取默认参数设置
- * 双轴图无法使用公共的 getDefaultOption, 因为双轴图存在[lineConfig, lineConfig] 这样的数据，需要根据传入的 option，生成不同的 defaultOption,
- * 并且 deepAssign 无法 mix 数组类型数据，因此需要做一次参数的后转换
- * 这个函数针对 yAxis 和 geometryOptions
+ * transformOptions，双轴图整体的取参逻辑如下
+ * 1. 获取 defaultOption（dual-axes/index) : deepMix({}, super.getDefaultOptions(options), dualDefaultOptions)
+ * 2. 获取 options (core/plot): deepMix({}, defaultOption, options);
+ * 3. transformOptions: 这是因为第二步无法使得 geometryOptions 被有效 deepmix, 因此最后新增一步 transform
+ *
  * @param params
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { options } = params;
+  const { geometryOptions = [], xField, yField } = options;
+  const allLine = every(
+    geometryOptions,
+    ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
+  );
   return deepAssign({}, params, {
-    options: getOption(params.options),
+    options: {
+      meta: {
+        [xField]: {
+          // x 轴一定是同步 scale 的
+          sync: true,
+          // 如果有没有柱子，则
+          range: allLine ? [0, 1] : undefined,
+        },
+      },
+      tooltip: {
+        showMarkers: allLine,
+        // 存在柱状图，不显示 crosshairs
+        showCrosshairs: allLine,
+        shared: true,
+        crosshairs: {
+          type: 'x',
+        },
+      },
+      interactions: !allLine
+        ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
+        : [{ type: 'legend-visible-filter' }],
+      // yAxis
+      yAxis: getDefaultYAxis(yField, options.yAxis),
+      // geometryOptions
+      geometryOptions: [
+        getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
+        getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
+      ],
+    },
   });
 }
 
@@ -56,18 +91,15 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
       const formatData = isPercent ? percent(data, yField, xField, yField) : data;
       const view = chart.createView({ id }).data(formatData);
 
-      const tooltipOptions = deepAssign(
-        {},
-        {
-          formatter: isPercent
-            ? (datum: Datum) => ({
-                name: datum[geometry.seriesField] || datum[xField],
-                value: (Number(datum[yField]) * 100).toFixed(2) + '%',
-              })
-            : undefined,
-        },
-        tooltip
-      );
+      const tooltipOptions = isPercent
+        ? {
+            formatter: (datum: Datum) => ({
+              name: datum[geometry.seriesField] || yField,
+              value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+            }),
+            ...tooltip,
+          }
+        : tooltip;
 
       // 绘制图形
       drawSingleGeometry({
@@ -93,12 +125,12 @@ export function meta(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   scale({
     [xField]: xAxis,
-    [yField[0]]: yAxis[0],
+    [yField[0]]: yAxis[yField[0]],
   })(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
 
   scale({
     [xField]: xAxis,
-    [yField[1]]: yAxis[1],
+    [yField[1]]: yAxis[yField[1]],
   })(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
@@ -114,31 +146,17 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
   const { xField, yField, xAxis, yAxis } = options;
 
-  // 固定位置
-  if (xAxis) {
-    deepAssign(xAxis, { position: 'bottom' }); // 直接修改到 xAxis 中
-  }
-
-  if (yAxis[0]) {
-    yAxis[0] = deepAssign({}, yAxis[0], { position: 'left' });
-  }
-
-  // 隐藏右轴 grid，留到 g2 解决
-  if (yAxis[1]) {
-    yAxis[1] = deepAssign({}, yAxis[1], { position: 'right', grid: null });
-  }
-
   chart.axis(xField, false);
   chart.axis(yField[0], false);
   chart.axis(yField[1], false);
 
   // 左 View
   leftView.axis(xField, xAxis);
-  leftView.axis(yField[0], yAxis[0]);
+  leftView.axis(yField[0], yAxis[yField[0]]);
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[1], yAxis[1]);
+  rightView.axis(yField[1], yAxis[yField[1]]);
 
   return params;
 }
@@ -152,17 +170,16 @@ export function tooltip(params: Params<DualAxesOptions>): Params<DualAxesOptions
   const { tooltip } = options;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
-  if (tooltip !== undefined) {
-    chart.tooltip(tooltip);
-    // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
-    // view 应该继承 chart 里的 shared，但是从表现看来，继承有点问题
-    leftView.tooltip({
-      shared: true,
-    });
-    rightView.tooltip({
-      shared: true,
-    });
-  }
+  // tooltip 经过 getDefaultOption 处理后，一定不为 undefined
+  chart.tooltip(tooltip);
+  // 在 view 上添加 tooltip，使得 shared 和 interaction active-region 起作用
+  // view 应该继承 chart 里的 shared，但是从表现看来，继承有点问题
+  leftView.tooltip({
+    shared: true,
+  });
+  rightView.tooltip({
+    shared: true,
+  });
   return params;
 }
 
@@ -245,7 +262,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
 
     // 自定义图例交互
     chart.on('legend-item:click', (evt) => {
-      const delegateObject = evt.gEvent.delegateObject;
+      const delegateObject = get(evt, 'gEvent.delegateObject', {});
       if (delegateObject && delegateObject.item) {
         const { value: field, isGeometry, viewId } = delegateObject.item;
         // geometry 的时候，直接使用 view.changeVisible
@@ -257,20 +274,19 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
               g.changeVisible(!delegateObject.item.unchecked);
             });
           }
-          return;
-        }
-
-        // 分组柱线图
-        each(chart.views, (view) => {
-          // 单折柱图
-          const groupScale = view.getGroupScales();
-          each(groupScale, (scale: Scale) => {
-            if (scale.values && scale.values.indexOf(field) > -1) {
-              view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
-            }
+        } else {
+          // 分组柱线图
+          each(chart.views, (view) => {
+            // 单折柱图
+            const groupScale = view.getGroupScales();
+            each(groupScale, (scale: Scale) => {
+              if (scale.values && scale.values.indexOf(field) > -1) {
+                view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
+              }
+            });
+            chart.render(true);
           });
-          chart.render(true);
-        });
+        }
       }
     });
   }

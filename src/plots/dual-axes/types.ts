@@ -53,5 +53,5 @@ export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color'> & {
 
   readonly geometryOptions?: GeometryOption[];
 
-  readonly yAxis?: Options['yAxis'][];
+  readonly yAxis?: Record<string, Options['yAxis']> | Options['yAxis'][];
 };

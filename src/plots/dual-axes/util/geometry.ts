@@ -38,10 +38,10 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
         options: {
           ...pick(options, FIELD_KEY),
           ...geometryOption,
-          point: geometryOption?.point && {
+          point: geometryOption.point && {
             color,
             shape: 'circle',
-            ...geometryOption?.point,
+            ...geometryOption.point,
           },
         },
       })

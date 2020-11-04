@@ -12,17 +12,17 @@ const dualAxes = new DualAxes('container', {
   data: [data, data],
   xField: 'time',
   yField: ['value', 'count'],
-  yAxis: [
+  yAxis: {
     // 格式化左坐标轴
-    {
+    value: {
       min: 0,
       label: {
         formatter: (val) => `${val}个`,
       },
     },
     // 隐藏右坐标轴
-    false,
-  ],
+    count: false,
+  },
   geometryOptions: [
     {
       geometry: 'column',

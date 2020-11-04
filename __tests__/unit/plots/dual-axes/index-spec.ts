@@ -1,4 +1,4 @@
-import { DualAxes } from '../../../../src';
+import { DualAxes, Plot } from '../../../../src';
 import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
@@ -14,6 +14,8 @@ describe('DualAxes data', () => {
     });
 
     dualAxes.render();
+    expect(dualAxes instanceof Plot).toBe(true);
+    expect(dualAxes.type).toBe('dual-axes');
     const leftLine = dualAxes.chart.views[0].geometries[0];
     const rightLine = dualAxes.chart.views[1].geometries[0];
 

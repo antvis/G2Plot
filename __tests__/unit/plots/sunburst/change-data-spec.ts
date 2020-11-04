@@ -22,7 +22,7 @@ describe('sunburst', () => {
       interactions: [{ type: 'element-active' }],
     });
     sunburstPlot.render();
-    await delay(500);
+    await delay(200);
     sunburstPlot.changeData(data);
     const geometry = sunburstPlot.chart.geometries[0];
     expect(geometry.type).toBe('polygon');

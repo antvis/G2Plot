@@ -22,14 +22,13 @@ describe('DualAxes meta', () => {
     dualAxes.destroy();
   });
 
-  it('axis style', () => {
+  it('xaxis style and yaxis', () => {
     const dualAxes = new DualAxes(createDiv(), {
       width: 300,
       height: 400,
       data: [PV_DATA, UV_DATA],
       xField: 'date',
       yField: ['pv', 'uv'],
-      // TO FIX PADDING
       padding: [30, 30],
       xAxis: {
         label: {
@@ -39,14 +38,14 @@ describe('DualAxes meta', () => {
           formatter: (val) => `_${val}_`,
         },
       },
-      yAxis: [
-        {
+      yAxis: {
+        pv: {
           tickCount: 5,
         },
-        {
+        uv: {
           tickCount: 5,
         },
-      ],
+      },
     });
 
     dualAxes.render();
@@ -65,5 +64,34 @@ describe('DualAxes meta', () => {
     const rightYAxes = rightOptions.axes.uv;
     expect(rightYAxes.tickCount).toBe(5);
     dualAxes.destroy();
+  });
+
+  it('yaixs: array', () => {
+    const dualAxes = new DualAxes(createDiv(), {
+      width: 300,
+      height: 400,
+      data: [PV_DATA, UV_DATA],
+      xField: 'date',
+      yField: ['pv', 'uv'],
+      yAxis: [
+        {
+          tickCount: 5,
+          grid: {},
+        },
+        {
+          tickCount: 5,
+        },
+      ],
+    });
+
+    dualAxes.render();
+
+    // @ts-ignore
+    const leftYAxes = dualAxes.chart.views[0].getOptions().axes.pv;
+    expect(leftYAxes.tickCount).toBe(5);
+
+    // @ts-ignore
+    const rightYAxes = dualAxes.chart.views[1].getOptions().axes.uv;
+    expect(rightYAxes.tickCount).toBe(5);
   });
 });

@@ -1,5 +1,5 @@
-import { Liquid } from '../../../../../src';
-import { createDiv } from '../../../../utils/dom';
+import { Liquid } from '../../../../src';
+import { createDiv } from '../../../utils/dom';
 
 describe('liquid', () => {
   it('liquid', () => {

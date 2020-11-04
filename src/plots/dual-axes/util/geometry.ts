@@ -1,8 +1,8 @@
-import { deepMix, each } from '@antv/util';
+import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
 import { Params } from '../../../core/adaptor';
 import { point, line, interval } from '../../../adaptor/geometries';
-import { pick, findGeometry } from '../../../utils';
+import { pick, findGeometry, deepAssign } from '../../../utils';
 import { GeometryOption } from '../types';
 import { isLine, isColumn } from './option';
 
@@ -15,16 +15,16 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 ): Params<O> {
   const { options, chart } = params;
   const { geometryOption, yField } = options;
-  const { isStack } = geometryOption;
+  const { isStack, color } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryOption)) {
     // 绘制线
     line(
-      deepMix({}, params, {
+      deepAssign({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryOption, ['seriesField', 'connectNulls', 'smooth']),
+          ...geometryOption,
           line: {
             color: geometryOption.color,
             style: geometryOption.lineStyle,
@@ -34,10 +34,15 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
     );
     // 绘制点
     point(
-      deepMix({}, params, {
+      deepAssign({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          point: geometryOption.point,
+          ...geometryOption,
+          point: geometryOption?.point && {
+            color,
+            shape: 'circle',
+            ...geometryOption?.point,
+          },
         },
       })
     );
@@ -52,11 +57,10 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 
   if (isColumn(geometryOption)) {
     interval(
-      deepMix({}, params, {
+      deepAssign({}, params, {
         options: {
           ...pick(options, FIELD_KEY),
-          ...pick(geometryOption, ['seriesField', 'isGroup', 'isStack']),
-          marginRatio: geometryOption.marginRatio,
+          ...geometryOption,
           widthRatio: geometryOption.columnWidthRatio,
           interval: {
             ...pick(geometryOption, ['color']),

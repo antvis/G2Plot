@@ -8,7 +8,7 @@
       "filename": "color-mapping.ts",
       "title": {
         "zh": "散点图颜色映射",
-        "en": "the color mapping of Scatter chart"
+        "en": "The color mapping of scatter plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/kRFIJ2OlFs/FE726B54-2352-47F5-AAF9-B17D281CE513.png"
     },
@@ -16,7 +16,7 @@
       "filename": "label.ts",
       "title": {
         "zh": "散点图图形标签",
-        "en": "Scatter chart label"
+        "en": "Scatter plot label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XlOeS4YAHbYAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "quadrant.ts",
       "title": {
         "zh": "散点图-气泡四象限",
-        "en": "Bubble chart quadrant"
+        "en": "Bubble plot quadrant"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "line.ts",
       "title": {
         "zh": "散点图-回归线",
-        "en": "Bubble chart regression line"
+        "en": "Bubble plot regression line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWiDQIYm09AAAAAAAAAAAAAAARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "axis-right.ts",
       "title": {
         "zh": "散点图-右侧坐标轴",
-        "en": "Bubble chart yAxis on the right"
+        "en": "Bubble plot yAxis on the right"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0luHTJODdMUAAAAAAAAAAAAAARQnAQ"
     }

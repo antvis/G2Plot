@@ -20,6 +20,6 @@ Same for xAxis and yAxis.
 
 `markdown:docs/common/events.en.md`
 
-### Chart Method
+### Plot Method
 
 `markdown:docs/common/chart-methods.en.md`

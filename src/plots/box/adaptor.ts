@@ -1,8 +1,8 @@
-import { deepMix, isFunction, map, isObject } from '@antv/util';
+import { isFunction, map, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
-import { flow, pick } from '../../utils';
+import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { BoxOptions } from './types';
 import { BOX_RANGE, BOX_SYNC_NAME } from './constant';
@@ -89,7 +89,7 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
     };
   }
 
-  const scales = deepMix(baseMeta, meta, {
+  const scales = deepAssign(baseMeta, meta, {
     [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
     [yFieldName]: pick(yAxis, AXIS_META_CONFIG_KEYS),
   });

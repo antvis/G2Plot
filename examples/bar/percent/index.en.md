@@ -1,4 +1,4 @@
 ---
-title: Percent Bar Chart
+title: Percent Bar
 order: 4
 ---

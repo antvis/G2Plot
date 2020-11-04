@@ -4,7 +4,7 @@
 
 #### label
 
-Description: Configure label style.
+Configure label style.
 
 `markdown:docs/common/label.en.md`
 
@@ -24,6 +24,6 @@ Description: Configure label style.
 
 `markdown:docs/common/events.en.md`
 
-### Chart Method
+### Plot Method
 
 `markdown:docs/common/chart-methods.en.md`

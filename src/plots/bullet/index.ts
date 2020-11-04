@@ -1,5 +1,5 @@
-import { deepMix } from '@antv/util';
 import { Plot } from '../../core/plot';
+import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BulletOptions } from './types';
 import { adaptor } from './adaptor';
@@ -18,12 +18,15 @@ export class Bullet extends Plot<BulletOptions> {
   }
 
   protected getDefaultOptions() {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       layout: 'horizontal',
       size: {
         range: 30,
         measure: 20,
         target: 20,
+      },
+      xAxis: {
+        tickLine: false,
       },
       bulletStyle: {
         range: {

@@ -50,9 +50,11 @@ describe('bullet', () => {
     expect(measureGeometry.getAttribute('color').getFields()[0]).toEqual('mKey');
     const mColor = measureGeometry.theme.colors10;
     expect(measureGeometry.getAttribute('color').values).toEqual(mColor);
-
     //@ts-ignore
     expect(measureGeometry.labelOption.cfg.position).toEqual('right');
+
+    //@ts-ignore
+    expect(measureGeometry.labelOption.fields[0]).toEqual('measures');
 
     expect(targetGeometry.getAttribute('size').values[0]).toEqual(20 / 2);
     expect(targetGeometry.getYScale().max).toEqual(100);

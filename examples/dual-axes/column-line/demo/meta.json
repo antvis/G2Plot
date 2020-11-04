@@ -8,7 +8,7 @@
       "filename": "column-line.ts",
       "title": {
         "zh": "柱线混合图表",
-        "en": "column-line"
+        "en": "Column line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OjMdQamxTvsAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,15 @@
       "filename": "custom-column-line.ts",
       "title": {
         "zh": "柱线混合图表-自定义样式",
-        "en": "custom-column-line"
+        "en": "Custom column line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e9DmR451GDwAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "range-column-line.ts",
+      "title": {
+        "zh": "柱线混合图表-区间柱",
+        "en": "range-column-line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*e9DmR451GDwAAAAAAAAAAABkARQnAQ"
     },
@@ -24,7 +32,7 @@
       "filename": "column-multi-line.ts",
       "title": {
         "zh": "柱线混合图表-显示多折线",
-        "en": "custom-column-line"
+        "en": "Column multi line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ldsOR4yQZnAAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +40,7 @@
       "filename": "demo-more-1.ts",
       "title": {
         "zh": "柱线混合图表-更多示例",
-        "en": "custom-column-line"
+        "en": "Other column line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aiU7SpgRN48AAAAAAAAAAAAAARQnAQ"
     }

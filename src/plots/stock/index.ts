@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepAssign } from '../../utils';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { StockOptions } from './types';
@@ -16,7 +16,7 @@ export class Stock extends Plot<StockOptions> {
    *  g2/g2plot默 认 配 置 -->  图 表 默 认 配 置  --> 开 发 者 自 定 义 配 置  --> 最 终 绘 图 配 置
    */
   protected getDefaultOptions(): Partial<StockOptions> {
-    return deepMix({}, super.getDefaultOptions(), {
+    return deepAssign({}, super.getDefaultOptions(), {
       // 设置默认图表 tooltips
       tooltip: DEFAULT_TOOLTIP_OPTIONS,
       interactions: [{ type: 'tooltip' }],

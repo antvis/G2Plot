@@ -1,46 +1,38 @@
 ---
-title: 进度条图
-order: 0
+title: Progress
+order: 20
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### percent 📌
+#### percent 
 
-**必选**, _number_
+<description>**required** _number_</description>
 
-功能描述： 设置图表数据源
+设置图表数据源。
 
-默认配置： 无
-
-### 图形样式
+### Geometry Style
 
 #### barWidthRatio
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 条形图宽度占比 [0-1] 。
-
-默认配置： 无
+条形图宽度占比 [0-1]。
 
 #### progressStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 柱子样式配置 。
-
-默认配置： 无
+柱子样式配置。
 
 `markdown:docs/common/shape-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component-progress.en.md`

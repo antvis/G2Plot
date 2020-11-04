@@ -1,9 +1,7 @@
 ---
 title: 面积图
-order: 0
+order: 1
 ---
-
-## 配置属性
 
 ### 图表容器
 
@@ -11,25 +9,19 @@ order: 0
 
 ### 数据映射
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.zh.md`
 
 #### seriesField
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述： 分组字段
-
-默认配置： 无
+分组字段。
 
 `markdown:docs/common/meta.zh.md`
 
@@ -37,37 +29,29 @@ order: 0
 
 #### smooth
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `false`</description>
 
-功能描述： 是否平滑
-
-默认配置： `false`
+是否平滑。
 
 #### isStack
 
-**可选**, _boolean_
+<description>**optional** _boolean_ _default:_ `true`</description>
 
-功能描述： 是否堆积面积图
-
-默认配置： `true`
+是否堆积面积图。
 
 #### areaStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 面积图形样式
-
-默认配置： 无
+面积图形样式。
 
 `markdown:docs/common/shape-style.zh.md`
 
 #### line
 
-**可选**, _lineStyle_
+<description>**optional** _lineStyle_</description>
 
-功能描述： 面积中折线的样式
-
-默认配置： 无
+面积中折线的样式。
 
 | 细分配置项名称 | 类型                                     | 功能描述 |
 | -------------- | ---------------------------------------- | -------- |
@@ -77,11 +61,9 @@ order: 0
 
 #### point
 
-**可选**, _pointStyle_
+<description>**optional** _pointStyle_</description>
 
-功能描述： 面积图数据点图形样式
-
-默认配置： 无
+面积图数据点图形样式。
 
 `markdown:docs/common/point-style.zh.md`
 

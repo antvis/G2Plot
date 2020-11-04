@@ -1,6 +1,7 @@
-import { deepMix, every, some } from '@antv/util';
+import { every } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { deepAssign } from '../../utils';
 import { DualAxesOptions, DualAxesGeometry } from './types';
 import { adaptor } from './adaptor';
 
@@ -15,15 +16,13 @@ export class DualAxes extends Plot<DualAxesOptions> {
    */
   protected getDefaultOptions(options: DualAxesOptions): Partial<DualAxesOptions> {
     const { geometryOptions = [], xField } = options;
-    const hasColumn = some(geometryOptions, ({ geometry }) => geometry === DualAxesGeometry.Column);
     const allLine = every(
       geometryOptions,
       ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
     );
-
-    return deepMix({}, super.getDefaultOptions(options), {
+    return deepAssign({}, super.getDefaultOptions(options), {
       yAxis: [],
-      geometryOptions: [],
+      geometryOptions,
       meta: {
         [xField]: {
           // x 轴一定是同步 scale 的
@@ -35,13 +34,13 @@ export class DualAxes extends Plot<DualAxesOptions> {
       tooltip: {
         showMarkers: allLine,
         // 存在柱状图，不显示 crosshairs
-        showCrosshairs: !hasColumn,
+        showCrosshairs: allLine,
         shared: true,
         crosshairs: {
           type: 'x',
         },
       },
-      interactions: hasColumn
+      interactions: !allLine
         ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
         : [{ type: 'legend-visible-filter' }],
       syncViewPadding: true,

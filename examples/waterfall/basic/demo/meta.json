@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础瀑布图 - 每月收支情况",
-        "en": "Basic Waterfall chart"
+        "en": "Basic waterfall plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*mjApRblunm4AAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "custom-color.ts",
       "title": {
         "zh": "变化瀑布图 - 销售量一年的变化情况",
-        "en": "Waterfall chart with custom-color"
+        "en": "Waterfall plot with custom-color"
       },
       "description": {
         "zh": "自定义颜色",
@@ -28,7 +28,7 @@
       "filename": "absolute-label.ts",
       "title": {
         "zh": "瀑布图 - 数值标签展示绝对值",
-        "en": "Waterfall chart with absolute-label-dataMode"
+        "en": "Waterfall plot with absolute-label-dataMode"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uKKQQ4Xc3GMAAAAAAAAAAAAAARQnAQ"
     },
@@ -36,7 +36,7 @@
       "filename": "annotation.ts",
       "title": {
         "zh": "瀑布图 - 添加标注",
-        "en": "Waterfall chart with annotation"
+        "en": "Waterfall plot with annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xOfKT5qr9R4AAAAAAAAAAAAAARQnAQ"
     }

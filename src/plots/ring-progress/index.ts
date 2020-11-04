@@ -31,6 +31,16 @@ export class RingProgress extends Plot<RingProgressOptions> {
   }
 
   /**
+   * 更新数据
+   * @param percent
+   */
+  public changeData(percent: number) {
+    this.update({
+      percent,
+    });
+  }
+
+  /**
    * 获取 环形进度图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<RingProgressOptions> {

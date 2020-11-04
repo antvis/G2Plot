@@ -4,7 +4,7 @@ import Element from '@antv/g2/lib/geometry/element';
 import { Action } from '@antv/g2/lib/interaction';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
 import { isEqual } from '@antv/util';
-import { groupTransform } from '../../../utils/g-util';
+import { transform } from '../../../utils/matrix';
 
 /**
  * 饼图 图例激活 action
@@ -49,8 +49,8 @@ export class PieLegendAction extends Action {
         const r = offset;
         const x = r * Math.cos(middleAngle);
         const y = r * Math.sin(middleAngle);
-        groupTransform(element.shape, [['t', x, y]]);
-        groupTransform(labelShape as IGroup, [['t', x, y]]);
+        element.shape.setMatrix(transform([['t', x, y]]));
+        labelShape.setMatrix(transform([['t', x, y]]));
       }
     });
   }

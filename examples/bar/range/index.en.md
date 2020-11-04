@@ -1,4 +1,4 @@
 ---
-title: Range Bar Chart
+title: Range Bar
 order: 5
 ---

@@ -17,7 +17,7 @@ export class TinyArea extends Plot<TinyAreaOptions> {
         ...DEFAULT_TOOLTIP_OPTIONS,
       },
       // 默认样式
-      color: 'l(90) 0:#5B8FF9 1:#ffffff',
+      color: 'l(90) 0:#E5EDFE 1:#ffffff',
       areaStyle: {
         fillOpacity: 0.6,
       },

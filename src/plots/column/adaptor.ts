@@ -1,10 +1,10 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
+import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel } from '../../utils';
+import { flow, transformLabel, deepAssign } from '../../utils';
 import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
@@ -20,18 +20,18 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
 
   chart.data(chartData);
 
-  // 百分比堆积图，默认会给一个 % 格式化逻辑
+  // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent
     ? {
-        ...tooltip,
         formatter: (datum: Datum) => ({
           name: datum[seriesField] || datum[xField],
           value: (Number(datum[yField]) * 100).toFixed(2) + '%',
         }),
+        ...tooltip,
       }
     : tooltip;
 
-  const p = deepMix({}, params, {
+  const p = deepAssign({}, params, {
     options: {
       widthRatio: columnWidthRatio,
       tooltip: tooltipOptions,
@@ -146,6 +146,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     interaction,
     animation,
     annotation(),
-    conversionTag<ColumnOptions>(options.yField, !isBar)
+    conversionTag<ColumnOptions>(options.yField, !isBar),
+    connectedArea<ColumnOptions>(!options.isStack)
   )(params);
 }

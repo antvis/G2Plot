@@ -1,6 +1,6 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
+import { deepAssign } from '../../utils';
 import { geometry, MappingOptions, GeometryOptions } from './base';
 
 export interface PointGeometryOptions extends GeometryOptions {
@@ -30,7 +30,7 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
 
   return point
     ? geometry(
-        deepMix({}, params, {
+        deepAssign({}, params, {
           options: {
             type: 'point',
             colorField: seriesField,

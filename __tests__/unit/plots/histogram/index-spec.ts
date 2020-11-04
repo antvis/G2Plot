@@ -18,6 +18,28 @@ describe('histogram', () => {
     const geometry = histogram.chart.geometries[0];
     const shapeOrigin = geometry.getShapes()[0].get('origin').data;
     expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(2);
+
+    const elements = geometry.elements;
+    expect(elements[0].shape.attr('stroke')).toBe('#FFFFFF');
+    expect(histogram.chart.getController('legend').visible).toEqual(true);
+    // @ts-ignore
+    expect(histogram.chart.getController('legend').components.length).toEqual(0);
+    // @ts-ignore
+    expect(histogram.chart.options.axes.count).toEqual({
+      nice: true,
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    });
+    // @ts-ignore
+    expect(histogram.chart.options.axes.range).toEqual({
+      nice: true,
+      label: {
+        autoHide: true,
+        autoRotate: true,
+      },
+    });
   });
 
   it('binNumber', () => {
@@ -82,13 +104,14 @@ describe('histogram', () => {
   });
 
   it('stackField: 层叠直方图', () => {
-    const histogram = new Histogram(createDiv(), {
+    const histogram = new Histogram(createDiv('legend * true * stackField'), {
       width: 400,
       height: 300,
       appendPadding: 10,
       data: histogramStackData,
       binField: 'value',
       binWidth: 4,
+      legend: {},
       stackField: 'type',
     });
 
@@ -101,6 +124,10 @@ describe('histogram', () => {
       xField: 'range',
       yField: 'count',
     });
+    //@ts-ignore
+    expect(histogram.chart.getController('legend').components[0].extra.scale.field).toEqual('type');
+    //@ts-ignore
+    expect(histogram.chart.getController('legend').components.length).toEqual(1);
   });
 
   it('stackField with color', () => {

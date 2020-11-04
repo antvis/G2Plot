@@ -1,10 +1,8 @@
 #### meta
 
-**optional**, _object_
+<description>**optional** _object_</description>
 
-Description: Configure the meta of each data field of the chart in global. Configuration of the meta will affect the text content of all components.
-
-Default: `none`
+Configure the meta of each data field of the chart in global. Configuration of the meta will affect the text content of all components.
 
 | Attr | Type       | Description                                    |
 | -------------- | ---------- | ------------------------------------------- |

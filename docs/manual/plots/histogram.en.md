@@ -1,74 +1,58 @@
 ---
 title: Histogram
-order: 0
+order: 11
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
+设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-默认配置： 无
+#### binField 
 
-数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+<description>**required** _string_</description>
 
-#### binField 📌
-
-**必须选**, _string_
-
-功能描述： 设置直方图绘制 (进行分箱) 的字段 。
-
-默认配置： 无
+设置直方图绘制 (进行分箱) 的字段。
 
 #### binWidth
 
-**可选**, _string_
+<description>**optional** _string_</description>
 
-功能描述： 设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与 binNumber 一起使用 。
-
-默认配置： 无
+设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与 binNumber 一起使用。
 
 #### binNumber
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度 。
-
-默认配置： 无
+设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度。
 
 #### stackField
 
-**可选**, _number_
+<description>**optional** _number_</description>
 
-功能描述： 指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分 。
-
-默认配置： 无
+指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
 
 `markdown:docs/common/meta.en.md`
 
-### 图形样式
+### Geometry Style
 
 #### columnStyle
 
-**可选**, _StyleAttr | Function_
+<description>**optional** _StyleAttr | Function_</description>
 
-功能描述： 柱子样式配置 。
-
-默认配置： 无
+柱子样式配置。
 
 `markdown:docs/common/shape-style.en.md`
 
 `markdown:docs/common/color.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component.en.md`

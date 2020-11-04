@@ -1,1 +1,1 @@
-`markdown:examples/rose/basic/API.zh.md`
+`markdown:docs/manual/plots/rose.zh.md`

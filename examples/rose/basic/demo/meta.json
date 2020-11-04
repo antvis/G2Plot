@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "玫瑰图",
-        "en": "basic Rose chart"
+        "en": "Basic rose plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "inner-label.ts",
       "title": {
         "zh": "玫瑰图-内部图形标签",
-        "en": "Rose chart - inner label"
+        "en": "Rose plot - inner label"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nCcjT7v3dbYAAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "rose-state.ts",
       "title": {
         "zh": "玫瑰图-设置条件状态",
-        "en": "Rose chart - set condition state"
+        "en": "Rose plot - set condition state"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
     },

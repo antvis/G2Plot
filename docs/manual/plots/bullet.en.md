@@ -1,25 +1,19 @@
 ---
 title: Bullet
-order: 0
+order: 10
 ---
 
-## 配置属性
-
-### 图表容器
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
-#### data 📌
+#### data
 
-**必选**, _array object_
+<description>**required** _array object_</description>
 
-功能描述： 设置图表数据源
-
-默认配置： 无
-
-数据源为对象集合，例如：`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
+设置图表数据源。数据源为对象集合，例如：`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
 
 `markdown:docs/common/meta.en.md`
 
@@ -44,47 +38,37 @@ const bulletPlot = new Bullet('container', {
 bulletPlot.render();
 ```
 
-#### measureField 📌
+#### measureField 
 
-**必选**, _number[]_
+<description>**required** _number[]_</description>
 
-功能描述： 使用数据条的长度，实际数值的设置字段，表示实际数值。
+使用数据条的长度，实际数值的设置字段，表示实际数值。
 
-默认配置： 无
+#### rangeField 
 
-#### rangeField 📌
+<description>**required** _number[]_</description>
 
-**必选**, _number[]_
+使用背景色条的长度的设置字段，表示区间范围。
 
-功能描述： 使用背景色条的长度的设置字段，表示区间范围。
+#### targetField 
 
-默认配置： 无
+<description>**required** _number_</description>
 
-#### targetField 📌
-
-**必选**, _number_
-
-功能描述： 使用测量标记的刻度轴位置的设置字段，表示目标值。
-
-默认配置： 无
+使用测量标记的刻度轴位置的设置字段，表示目标值。
 
 #### layout
 
-**可选**, _'horizontal' | 'vertical'_
+<description>**optional** _'horizontal' | 'vertical'_ _default:_ 'horizontal'</description>
 
-功能描述： 表示子弹图方向。
+表示子弹图方向。
 
-默认配置： 'horizontal'
+### Geometry Style
 
-### 图形样式
+#### style 
 
-#### style ✨
+<description>**optional** _object_</description>
 
-**可选**, _object_
-
-功能描述： 设置子弹图各图形 style 属性。
-
-默认配置： 无
+设置子弹图各图形 style 属性。
 
 | 细分配置 | 类型        | 功能描述     | 默认配置             |
 | -------- | ----------- | ------------ | -------------------- |
@@ -92,15 +76,13 @@ bulletPlot.render();
 | measure  | _StyleAttr_ | 实际值样式   | 无                   |
 | target   | _StyleAttr_ | 目标值样式   | 无                   |
 
-`markdown:docs/common/shape-style.zh.md`
+`markdown:docs/common/shape-style.en.md`
 
-### color ✨
+### color 
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 设置子弹图各图形 color 属性。
-
-默认配置： 无
+设置子弹图各图形 color 属性。
 
 | 细分配置 | 类型        | 功能描述     | 默认配置 |
 | -------- | ----------- | ------------ | -------- |
@@ -108,15 +90,13 @@ bulletPlot.render();
 | measure  | _colorAttr_ | 实际值颜色   | 无       |
 | target   | _colorAttr_ | 目标值颜色   | 无       |
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/color.en.md`
 
-### size ✨
+### size 
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 设置子弹图各图形 size 属性。
-
-默认配置： 无
+设置子弹图各图形 size 属性。
 
 | 细分配置 | 类型       | 功能描述     | 默认配置 |
 | -------- | ---------- | ------------ | -------- |
@@ -126,16 +106,13 @@ bulletPlot.render();
 
 ```plain
 type SizeAttr = number | [number, number] | ((datum: Datum) => number);
-
 ```
 
-### label ✨
+### label 
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 设置子弹图各图形 label 属性。
-
-默认配置： 无
+设置子弹图各图形 label 属性。
 
 | 细分配置 | 类型                | 功能描述            | 默认配置 |
 | -------- | ------------------- | ------------------- | -------- |
@@ -145,6 +122,6 @@ type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 
 `markdown:docs/common/label.en.md`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component.en.md`

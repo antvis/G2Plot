@@ -1,5 +1,6 @@
 import { Column } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 const data = [
   { country: 'Europe', year: '1750', value: 163 },
   { country: 'Europe', year: '1800', value: 203 },
@@ -20,8 +21,8 @@ const data = [
 ];
 
 describe('column percent', () => {
-  it('percent: render', () => {
-    const column = new Column(createDiv('percent'), {
+  it('percent: render', async () => {
+    const column = new Column(createDiv('percent', document.body, 'culumn-percent-render'), {
       width: 400,
       height: 300,
       data,
@@ -43,12 +44,14 @@ describe('column percent', () => {
     });
 
     column.render();
+    await delay(300);
     const geometry = column.chart.geometries[0];
     const labelGroups = geometry.labelsContainer.getChildren();
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe('2100');
+    const box = document.getElementById('culumn-percent-render');
+    expect(box.getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe('2100');
     const {
       // @ts-ignore
       labelOption: { cfg },
@@ -59,9 +62,10 @@ describe('column percent', () => {
     });
     expect(cfg.position).toBe('middle');
     expect(cfg.content).not.toBeUndefined();
+    column.destroy();
   });
-  it('percent: custom content', () => {
-    const column = new Column(createDiv('percent'), {
+  it('percent: custom content', async () => {
+    const column = new Column(createDiv('percent', document.body, 'culumn-percent'), {
       width: 400,
       height: 300,
       data,
@@ -87,11 +91,40 @@ describe('column percent', () => {
     });
 
     column.render();
+    await delay(300);
     const geometry = column.chart.geometries[0];
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
-    expect(document.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
+    const box = document.getElementById('culumn-percent');
+    expect(box.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
+    expect(box.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
+    column.destroy();
+  });
+  it('percent: custom tooltip formatter', () => {
+    const column = new Column(createDiv('percent', undefined, 'percent'), {
+      width: 400,
+      height: 300,
+      data,
+      xField: 'year',
+      yField: 'value',
+      seriesField: 'country',
+      isStack: true,
+      isPercent: true,
+      tooltip: {
+        formatter: () => ({
+          name: 'test',
+          value: '123',
+        }),
+      },
+    });
+
+    column.render();
+    const geometry = column.chart.geometries[0];
+    const elements = geometry.elements;
+    const bbox = elements[elements.length - 1].getBBox();
+    column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
+    expect(document.querySelectorAll('#percent .g2-tooltip-list-item .g2-tooltip-name')[0].innerHTML).toBe('test');
+    expect(document.querySelectorAll('#percent .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML).toBe('123');
   });
 });

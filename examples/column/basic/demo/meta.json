@@ -8,7 +8,7 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础柱状图",
-        "en": "Basic Column chart"
+        "en": "Basic column plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KAg2TY-oYRUAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "color.ts",
       "title": {
         "zh": "基础柱状图 - 自定义颜色",
-        "en": "Column chart color"
+        "en": "Column plot color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*H-4dQq86-t4AAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "width.ts",
       "title": {
         "zh": "基础柱状图 - 柱子宽度",
-        "en": "Column chart column width"
+        "en": "Column plot column width"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "region-annotation.ts",
       "title": {
         "zh": "带辅助框标注的基础柱状图",
-        "en": "Basic Column chart with region annotation"
+        "en": "Basic column plot with region annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FOmATLFeuxkAAAAAAAAAAAAAARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "slider.ts",
       "title": {
         "zh": "基础柱状图 - 缩略轴",
-        "en": "Column chart slider"
+        "en": "Column plot slider"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7yF2SruPvM0AAAAAAAAAAABkARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "scrollbar.ts",
       "title": {
         "zh": "基础柱状图 - 滚动条",
-        "en": "Column chart scrollbar"
+        "en": "Column plot scroll bar"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
     },
@@ -56,7 +56,7 @@
       "filename": "conversion-tag.ts",
       "title": {
         "zh": "基础柱状图 - 转化率",
-        "en": "Column chart conversion tag"
+        "en": "Column plot conversion tag"
       },
       "screenshot": "https://gw.alicdn.com/tfs/TB1u3.cvUY1gK0jSZFMXXaWcVXa-1638-1228.png"
     }

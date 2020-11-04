@@ -1,11 +1,9 @@
-import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
-import { regressionLine } from './annotations/path';
-import { getQuadrantDefaultConfig } from './util';
+import { getQuadrantDefaultConfig, getPath } from './util';
 import { ScatterOptions } from './types';
 
 /**
@@ -21,7 +19,7 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   // geometry
   point(
-    deepMix({}, params, {
+    deepAssign({}, params, {
       options: {
         seriesField: colorField,
         point: {
@@ -84,13 +82,12 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   if (legend) {
     chart.legend(colorField || shapeField, legend);
+    // 隐藏连续图例
+    if (sizeField) {
+      chart.legend(sizeField, false);
+    }
   } else {
     chart.legend(false);
-  }
-
-  // 隐藏连续图例
-  if (sizeField) {
-    chart.legend(sizeField, false);
   }
 
   return params;
@@ -143,12 +140,12 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
           type: 'region',
           top: false,
           ...defaultConfig.regionStyle[index].position,
-          style: deepMix({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
+          style: deepAssign({}, defaultConfig.regionStyle[index].style, regionStyle?.[index]),
         },
         {
           type: 'text',
           top: true,
-          ...deepMix({}, defaultConfig.labelStyle[index], labels?.[index]),
+          ...deepAssign({}, defaultConfig.labelStyle[index], labels?.[index]),
         }
       );
     });
@@ -159,19 +156,55 @@ function scatterAnnotation(params: Params<ScatterOptions>): Params<ScatterOption
         top: false,
         start: ['min', yBaseline],
         end: ['max', yBaseline],
-        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+        style: deepAssign({}, defaultConfig.lineStyle, lineStyle),
       },
       {
         type: 'line',
         top: false,
         start: [xBaseline, 'min'],
         end: [xBaseline, 'max'],
-        style: deepMix({}, defaultConfig.lineStyle, lineStyle),
+        style: deepAssign({}, defaultConfig.lineStyle, lineStyle),
       }
     );
   }
 
   return flow(annotation(annotationOptions))(params);
+}
+
+// 趋势线
+function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options, chart } = params;
+  const { regressionLine } = options;
+  if (regressionLine) {
+    const { style } = regressionLine;
+    const defaultStyle = {
+      stroke: '#9ba29a',
+      lineWidth: 2,
+      opacity: 0.5,
+    };
+    chart.annotation().shape({
+      render: (container, view) => {
+        const group = container.addGroup({
+          id: `${chart.id}-regression-line`,
+          name: 'regression-line-group',
+        });
+        const path = getPath({
+          view,
+          options,
+        });
+        group.addShape('path', {
+          name: 'regression-line',
+          attrs: {
+            path,
+            ...defaultStyle,
+            ...style,
+          },
+        });
+      },
+    });
+  }
+
+  return params;
 }
 
 /**

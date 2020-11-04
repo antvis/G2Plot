@@ -8,7 +8,7 @@
       "filename": "line.ts",
       "title": {
         "zh": "阶梯折线图",
-        "en": "step Line chart"
+        "en": "Step line plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lOdVRrYL7UIAAAAAAAAAAAAAARQnAQ"
     },
@@ -16,7 +16,7 @@
       "filename": "line-multiple.ts",
       "title": {
         "zh": "多阶梯折线图",
-        "en": "step Line multiple chart"
+        "en": "Step line multiple plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*qpizTrPVB-IAAAAAAAAAAABkARQnAQ"
     }

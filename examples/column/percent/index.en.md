@@ -1,4 +1,4 @@
 ---
-title: Percent Column Chart
+title: Percent Column
 order: 4
 ---

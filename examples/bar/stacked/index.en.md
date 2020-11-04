@@ -1,6 +1,4 @@
 ---
-title: Stacked Bar Chart
+title: Stacked Bar
 order: 1
 ---
-
-Description about this component.

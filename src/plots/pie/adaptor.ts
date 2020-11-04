@@ -1,9 +1,9 @@
 import { Datum } from '@antv/g2/lib/interface';
-import { deepMix, every, filter, get, isFunction, isString, isNil } from '@antv/util';
+import { every, filter, get, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { Data } from '../../types';
-import { flow, LEVEL, log, template, transformLabel } from '../../utils';
+import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
 import { getTotalValue } from './utils';
@@ -29,7 +29,7 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
     processData = processData.map((d) => ({ ...d, [percentageField]: 1 / processData.length }));
     chart.data(processData);
 
-    const p = deepMix({}, params, {
+    const p = deepAssign({}, params, {
       options: {
         xField: '1',
         yField: percentageField,
@@ -49,7 +49,7 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
   } else {
     chart.data(processData);
 
-    const p = deepMix({}, params, {
+    const p = deepAssign({}, params, {
       options: {
         xField: '1',
         yField: angleField,
@@ -77,7 +77,7 @@ function meta(params: Params<PieOptions>): Params<PieOptions> {
   const { meta, colorField } = options;
 
   // meta 直接是 scale 的信息
-  const scales = deepMix({}, meta);
+  const scales = deepAssign({}, meta);
   chart.scale(scales, {
     [colorField]: { type: 'cat' },
   });
@@ -157,7 +157,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
     const labelType = LABEL_TYPE_MAP[labelCfg.type] || 'pie';
     const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
     labelCfg.type = labelType;
-    labelCfg.layout = deepMix({}, labelCfg.layout, { type: labelLayoutType });
+    labelCfg.layout = deepAssign({}, labelCfg.layout, { type: labelLayoutType });
 
     geometry.label({
       // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）
@@ -197,7 +197,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
         return datum ? datum[angleField] : getTotalValue(data, angleField);
       };
       chart.annotation().text(
-        deepMix(
+        deepAssign(
           {},
           {
             style: {

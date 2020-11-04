@@ -1,4 +1,4 @@
-export const version = '2.0.5';
+export const version = '2.0.6';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -87,6 +87,9 @@ export { Gauge, GaugeOptions } from './plots/gauge';
 
 // 瀑布图 | author by [hustcc](https://github.com/me-momo)
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
+
+// 玉珏图 | author by [yujs](https://github.com/yujs)
+export { RadialBar, RadialBarOptions } from './plots/radial-bar';
 
 // 对称条形图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
 export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional-bar';

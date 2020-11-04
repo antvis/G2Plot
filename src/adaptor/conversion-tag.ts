@@ -1,8 +1,9 @@
-import { map, find, each, deepMix } from '@antv/util';
+import { map, find, each } from '@antv/util';
 import { Coordinate, IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
 import { Geometry, View } from '@antv/g2';
 import Element from '@antv/g2/lib/geometry/element';
 import { Params } from '../core/adaptor';
+import { deepAssign } from '../utils';
 
 /** 转化率组件配置选项 */
 export interface ConversionTagOptions {
@@ -53,7 +54,7 @@ type TagRenderConfig = {
 };
 
 function getConversionTagOptionsWithDefaults(options: ConversionTagOptions, horizontal: boolean): ConversionTagOptions {
-  return deepMix(
+  return deepAssign(
     {
       size: horizontal ? 32 : 80,
       spacing: horizontal ? 8 : 12,

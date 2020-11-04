@@ -8,33 +8,41 @@
       "filename": "basic.ts",
       "title": {
         "zh": "基础条形图",
-        "en": "Basic Bar chart"
+        "en": "Basic bar plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uSKqQo2lCPoAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cnRsQo-Yqg0AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "color.ts",
       "title": {
         "zh": "基础条形图 - 自定义颜色",
-        "en": "Bar chart color"
+        "en": "Bar plot color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZQIiR6SyS9oAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U-D1S4w5HNsAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "width.ts",
       "title": {
         "zh": "基础条形图 - 柱子宽度",
-        "en": "Bar chart Bar width"
+        "en": "Bar plot bar width"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7rbzT5Fx5H8AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uqtcQJ-N-qUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "scrollbar.ts",
+      "title": {
+        "zh": "基础条形图 - 滚动条",
+        "en": "Bar chart with scrollbar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*01-mRqASP78AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "conversion-tag.ts",
       "title": {
         "zh": "基础条形图 - 转化率",
-        "en": "Bar chart conversion tag"
+        "en": "Bar plot conversion tag"
       },
-      "screenshot": "https://gw.alicdn.com/tfs/TB107ZbvKT2gK0jSZFvXXXnFXXa-1344-828.png"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-9CLRItZrPMAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

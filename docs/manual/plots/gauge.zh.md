@@ -1,9 +1,7 @@
 ---
 title: 仪表盘
-order: 1
+order: 22
 ---
-
-## 配置属性
 
 ### 图表容器
 
@@ -11,53 +9,43 @@ order: 1
 
 ### 数据映射
 
-#### percent 📌
+#### percent 
 
-**必选**, _number_
+<description>**required** _number_</description>
 
-功能描述： 指标比例
-
-默认配置： 无
+指标比例。
 
 #### radius
 
-**可选**, _number_
+<description>**optional** _number_ _default:_ `0.95`</description>
 
-功能描述： 圆盘的外半径， 0 ~ 1 。
-
-默认配置： `0.95`
+圆盘的外半径，0 ~ 1。 
 
 #### innerRadius
 
-**可选**, _number_
+<description>**optional** _number_ _default:_ `0.9`</description>
 
-功能描述： 圆盘的内半径， 0 ~ 1 。
-
-默认配置： `0.9`
+圆盘的内半径，0 ~ 1。
 
 #### startAngle
 
-**可选**, _number_
+<description>**optional** _number_ _default:_ `(-7 / 6) * Math.PI`</description>
 
-功能描述： 圆盘的起始角度。
-
-默认配置： `(-7 / 6) * Math.PI`
+圆盘的起始角度。
 
 #### endAngle
 
-**可选**, _number_
+<description>**optional** _number_ _default:_ `(1 / 6) * Math.PI`</description>
 
-功能描述： 圆盘的终止角度。
-
-默认配置： `(1 / 6) * Math.PI`
+圆盘的终止角度。
 
 ### 图形样式
 
 #### range
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 仪表盘辅助圆弧的样式。
+仪表盘辅助圆弧的样式。
 
 | 配置项 | 类型     | 描述                                 |
 | ------ | -------- | ------------------------------------ |
@@ -66,9 +54,9 @@ order: 1
 
 #### indicator
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 仪表盘指示器样式配置。按照组件分成为：
+仪表盘指示器样式配置。按照组件分成为：
 
 - `pointer`：指示器中的指针样式配置
 - `pin`：指示器中的圆盘样式配置
@@ -79,20 +67,16 @@ order: 1
 
 #### statistic
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 指标文本组件 。
-
-默认配置： 无
+指标文本组件。
 
 `markdown:docs/common/statistic.zh.md`
 
 #### axis
 
-**可选**, _object_
+<description>**optional** _object_</description>
 
-功能描述： 指标辅助轴样式 。
-
-默认配置： 无
+指标辅助轴样式。
 
 `markdown:docs/common/axis.zh.md`

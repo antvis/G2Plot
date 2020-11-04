@@ -26,6 +26,7 @@ describe('sunburst', () => {
     sunburstPlot.changeData(data);
     const geometry = sunburstPlot.chart.geometries[0];
     expect(geometry.type).toBe('polygon');
+    expect(sunburstPlot.options.color).toEqual(['#BAE7FF', '#1890FF', '#0050B3']);
     const {
       // @ts-ignore
       labelOption: { fields, cfg },

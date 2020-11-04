@@ -2,6 +2,7 @@ import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
+import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
 import { percent } from '../../utils/transform/percent';
@@ -145,6 +146,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     interaction,
     animation,
     annotation(),
-    conversionTag<ColumnOptions>(options.yField, !isBar)
+    conversionTag<ColumnOptions>(options.yField, !isBar),
+    connectedArea<ColumnOptions>(!options.isStack)
   )(params);
 }

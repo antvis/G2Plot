@@ -1,6 +1,7 @@
 import { DualAxes } from '../../../../src';
 import { PV_DATA, UV_DATA, PV_DATA_MULTI, UV_DATA_MULTI } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
+import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from '../../../../src/plots/dual-axes/constant';
 
 describe('Legend', () => {
   it('Legend: single line and column', () => {
@@ -63,6 +64,16 @@ describe('Legend', () => {
     expect(columnLineLegendComponentCfg.items[1].name).toBe('uv');
     expect(typeof columnLineLegendComponentCfg.items[1].marker.symbol).toBe('function');
     expect(columnLineLegendComponentCfg.items[1].marker.style.stroke).toBe('#0f0');
+
+    dualAxes.update({
+      ...dualAxes.options,
+      legend: false,
+    });
+
+    // 隐藏就没有图例了
+    expect(dualAxes.chart.views[0].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
+    expect(dualAxes.chart.views[1].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
+    expect(dualAxes.chart.getEvents().beforepaint).toBeUndefined();
   });
 
   it('Legend: multi line and column', () => {
@@ -144,10 +155,12 @@ describe('Legend', () => {
       geometryOptions: [
         {
           geometry: 'line',
+          color: '#f00',
         },
         {
           geometry: 'line',
           seriesField: 'site',
+          color: ['#5B8FF9', '#5AD8A6', '#5D7092'],
         },
       ],
       legend: {
@@ -169,15 +182,69 @@ describe('Legend', () => {
     expect(cfg.items[2].name).toBe('b');
     expect(cfg.items[3].name).toBe('c');
 
-    dualAxes.update({
-      ...dualAxes.options,
-      legend: false,
-    });
+    dualAxes.chart.once('afterrender', () => {
+      dualAxes.chart.emit('legend-item:click', {
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: '页面访问量',
+              value: 'pv',
+              isGeometry: true,
+              viewId: LEFT_AXES_VIEW,
+              unchecked: true,
+            },
+          },
+        },
+      });
+      expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(false);
 
-    // 隐藏就没有图例了
-    expect(dualAxes.chart.views[0].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
-    expect(dualAxes.chart.views[1].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
-    expect(dualAxes.chart.getEvents().beforepaint).toBeUndefined();
+      dualAxes.chart.emit('legend-item:click', {
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: '页面访问量',
+              value: 'pv',
+              isGeometry: true,
+              viewId: LEFT_AXES_VIEW,
+              unchecked: false,
+            },
+          },
+        },
+      });
+      expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(true);
+
+      dualAxes.chart.emit('legend-item:click', {
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'a',
+              name: 'a',
+              value: 'a',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: true,
+            },
+          },
+        },
+      });
+
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length === 0).toEqual(true);
+
+      dualAxes.chart.emit('legend-item:click', {
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'a',
+              name: 'a',
+              value: 'a',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: false,
+            },
+          },
+        },
+      });
+
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
+    });
   });
 
   it('Legend custom', () => {

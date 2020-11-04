@@ -18,7 +18,11 @@ export type MappingOptions = {
   readonly tooltip?: TooltipAttr;
 };
 
-export interface GeometryOptions extends Options {
+/**
+ * 一个图形映射的逻辑，纯粹的图形语法
+ * // TODO 后续需要处理 adjust 的配置，然后通过 field 信息。比如 styleField，labelField 等一定是一个数组形式
+ */
+export type Geometry = {
   /** geometry 类型 */
   readonly type: string;
   /** x 轴字段 */
@@ -41,7 +45,12 @@ export interface GeometryOptions extends Options {
   readonly mapping: MappingOptions;
   /** geometry params */
   readonly args?: any;
-}
+};
+
+/**
+ * geometry options
+ */
+export type GeometryOptions = Geometry & Partial<Options>;
 
 /**
  * 获得映射的字段列表

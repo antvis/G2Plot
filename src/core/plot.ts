@@ -163,8 +163,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public update(options: O) {
-    // options 更新是全量更新，这里和构造函数中一会加上图表的默认选项
-    this.options = deepAssign({}, this.options, this.getDefaultOptions({ ...this.options, ...options }), options);
+    this.options = deepAssign({}, this.options, options);
     this.render();
   }
 

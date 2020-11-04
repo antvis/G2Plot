@@ -111,8 +111,9 @@ describe('gauge', () => {
     });
 
     gauge.render();
-
-    expect(gauge.options.range.ticks).toEqual([0, 0.65, 1]);
+    console.log(gauge.chart.views[1].getYScales());
+    // @ts-ignore
+    expect(gauge.chart.views[1].getYScales()[0].ticks).toEqual([0, 0.25, 0.5, 0.75, 1]);
     expect(gauge.chart.views.length).toBe(2);
     expect(pick(gauge.chart.views[1].getYScales()[0], ['min', 'max', 'minLimit', 'maxLimit'])).toEqual({
       min: 0,
@@ -172,17 +173,13 @@ describe('gauge', () => {
       height: 300,
       autoFit: false,
       percent: 0.75,
-      range: {
-        color: ['l(0) 0:#5d7cef 1:#e35767'],
-      },
     });
 
     gauge.render();
-
     expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.75 }]);
-    expect(gauge.options.range.ticks).toEqual([0, 0.75, 1]);
+    expect(gauge.chart.views[1].getYScales()[0].values).toEqual([0.75, 0.25]);
     gauge.changeData(0.2);
     expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.2 }]);
-    expect(gauge.options.range.ticks).toEqual([0, 0.2, 1]);
+    expect(gauge.chart.views[1].getYScales()[0].values).toEqual([0.2, 0.8]);
   });
 });

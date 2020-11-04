@@ -9,12 +9,27 @@ import { BarOptions } from './types';
  */
 export function adaptor(params: Params<BarOptions>) {
   const { chart, options } = params;
-  const { xField, yField, xAxis, yAxis, barStyle, barWidthRatio, label, data } = options;
+  const { xField, yField, xAxis, yAxis, barStyle, barWidthRatio, label, data, seriesField, isStack } = options;
 
   // label of bar charts default position is left, if plot has label
   if (label && !label.position) {
     label.position = 'left';
   }
+
+  // 默认 legend 位置
+  let { legend } = options;
+  if (seriesField) {
+    if (legend !== false) {
+      legend = {
+        position: isStack ? 'top-left' : 'right-top',
+        ...legend,
+      };
+    }
+  } else {
+    legend = false;
+  }
+  // @ts-ignore 直接改值
+  params.options.legend = legend;
 
   // transpose column to bar
   chart.coordinate().transpose();

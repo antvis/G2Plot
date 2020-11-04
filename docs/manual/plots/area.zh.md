@@ -72,3 +72,15 @@ order: 1
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`
+
+### 事件
+
+`markdown:docs/common/events.zh.md`
+
+### 图表方法
+
+`markdown:docs/common/chart-methods.zh.md`
+
+### 图表主题
+
+`markdown:docs/common/theme.zh.md`

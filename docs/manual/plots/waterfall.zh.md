@@ -30,7 +30,7 @@ label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(�
 
 #### total
 
-<description>**optional** _false|object_</description>
+<description>**optional** _false | object_</description>
 
 是否展示总计值（自动进行统计，新增一根总计值的柱子）。
 
@@ -84,3 +84,15 @@ label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(�
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`
+
+### 事件
+
+`markdown:docs/common/events.zh.md`
+
+### 图表方法
+
+`markdown:docs/common/chart-methods.zh.md`
+
+### 图表主题
+
+`markdown:docs/common/theme.zh.md`

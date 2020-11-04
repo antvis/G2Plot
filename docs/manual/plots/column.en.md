@@ -76,3 +76,19 @@ order: 2
 ### Plot Components
 
 `markdown:docs/common/component.en.md`
+
+#### slider
+
+`markdown:docs/common/slider.en.md`
+
+### Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
+### Plot Theme
+
+`markdown:docs/common/theme.en.md`

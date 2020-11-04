@@ -1,3 +1,32 @@
+import {
+  regressionLinear,
+  regressionExp,
+  regressionLoess,
+  regressionLog,
+  regressionPoly,
+  regressionPow,
+  regressionQuad,
+} from 'd3-regression';
+import { isArray } from '@antv/util';
+import { View } from '@antv/g2';
+import { getSplinePath } from '../../utils';
+import { ScatterOptions } from './types';
+
+const REGRESSION_MAP = {
+  exp: regressionExp,
+  linear: regressionLinear,
+  loess: regressionLoess,
+  log: regressionLog,
+  poly: regressionPoly,
+  pow: regressionPow,
+  quad: regressionQuad,
+};
+
+type renderOptions = {
+  view: View;
+  options: ScatterOptions;
+};
+
 /**
  * 获取四象限默认配置
  * @param {number} xBaseline
@@ -103,3 +132,32 @@ export function getQuadrantDefaultConfig(xBaseline: number, yBaseline: number) {
   };
   return defaultConfig;
 }
+
+const splinePath = (data: number[][], config: renderOptions) => {
+  const {
+    view,
+    options: { xField, yField },
+  } = config;
+  const xScaleView = view.getScaleByField(xField);
+  const yScaleView = view.getScaleByField(yField);
+  const pathData = data.map((d: [number, number]) =>
+    view.getCoordinate().convert({ x: xScaleView.scale(d[0]), y: yScaleView.scale(d[1]) })
+  );
+  return getSplinePath(pathData, false);
+};
+
+export const getPath = (config: renderOptions) => {
+  const { options } = config;
+  const { xField, yField, data, regressionLine } = options;
+  const { type = 'linear', algorithm } = regressionLine;
+  let pathData: Array<[number, number]>;
+  if (algorithm) {
+    pathData = isArray(algorithm) ? algorithm : algorithm(data);
+  } else {
+    const reg = REGRESSION_MAP[type]()
+      .x((d) => d[xField])
+      .y((d) => d[yField]);
+    pathData = reg(data);
+  }
+  return splinePath(pathData, config);
+};

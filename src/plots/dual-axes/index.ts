@@ -20,7 +20,6 @@ export class DualAxes extends Plot<DualAxesOptions> {
       geometryOptions,
       ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
     );
-
     return deepAssign({}, super.getDefaultOptions(options), {
       geometryOptions: [],
       xAxis: {

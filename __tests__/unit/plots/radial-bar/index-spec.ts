@@ -38,14 +38,17 @@ describe('radial-bar', () => {
       data: antvStar,
       xField,
       yField,
+      colorField: yField,
       color,
       xAxis: false,
     });
-
     bar.render();
     const geometry = bar.chart.geometries[0];
     const colorFields = geometry.getAttribute('color').getFields();
     expect(colorFields).toHaveLength(1);
-    expect(colorFields[0]).toBe(color);
+    expect(colorFields[0]).toBe('star');
+    // @ts-ignore
+    const colorValue = geometry.getAttribute('color').values;
+    expect(colorValue).toBe(color);
   });
 });

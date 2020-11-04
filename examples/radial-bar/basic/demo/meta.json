@@ -10,7 +10,15 @@
         "zh": "玉珏图",
         "en": "basic Radial-Bar chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wmldRZZj9lIAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "color.ts",
+      "title": {
+        "zh": "玉珏图 - 自定义颜色",
+        "en": "basic Radial-Bar chart"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
     }
   ]
 }

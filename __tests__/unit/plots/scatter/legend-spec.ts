@@ -39,7 +39,7 @@ describe('scatter', () => {
       xAxis: {
         nice: true,
       },
-      legend: true,
+      legend: {},
     });
 
     scatter.render();
@@ -79,5 +79,62 @@ describe('scatter', () => {
     expect(legendController.getComponents().length).toBe(1);
     expect(legendController.getComponents()[0].id).toBe('legend-gender');
     expect(legendController.getComponents()[0].direction).toBe('top-right');
+  });
+
+  it('legend: legend * sizeField * false', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      shapeField: 'gender',
+      size: [2, 8],
+      sizeField: 'weight',
+      color: ['red', 'blue'],
+      colorField: 'gender',
+      xAxis: {
+        nice: true,
+      },
+      legend: false,
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    const { option } = legendController;
+    expect(option).toBe(false);
+  });
+
+  it('legend: legend * sizeField * true', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      shapeField: 'gender',
+      size: [2, 8],
+      sizeField: 'weight',
+      color: ['red', 'blue'],
+      colorField: 'gender',
+      xAxis: {
+        nice: true,
+      },
+      legend: {},
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    const {
+      // @ts-ignore
+      option: { weight, height, gender },
+    } = legendController;
+    expect(weight).toBe(false);
+    expect(height).toBe(false);
+    expect(gender).toBeTruthy();
   });
 });

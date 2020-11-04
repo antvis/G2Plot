@@ -1,7 +1,8 @@
 import { Options, StyleAttr } from '../../types';
 import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
+import { OptionWithConnectedArea } from '../../adaptor/connected-area';
 
-export interface ColumnOptions extends Options, OptionWithConversionTag {
+export interface ColumnOptions extends Options, OptionWithConversionTag, OptionWithConnectedArea {
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴字段 */

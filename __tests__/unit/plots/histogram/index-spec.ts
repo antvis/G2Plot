@@ -111,7 +111,7 @@ describe('histogram', () => {
       data: histogramStackData,
       binField: 'value',
       binWidth: 4,
-      legend: true,
+      legend: {},
       stackField: 'type',
     });
 

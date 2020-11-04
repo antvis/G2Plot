@@ -13,20 +13,13 @@ export class Area extends Plot<AreaOptions> {
   /**
    * 获取 折线图 默认配置
    */
-  protected getDefaultOptions(options: AreaOptions) {
-    const { xField } = options;
+  protected getDefaultOptions() {
     return deepAssign({}, super.getDefaultOptions(), {
       tooltip: {
         showMarkers: true,
         showCrosshairs: true,
         crosshairs: {
           type: 'x',
-        },
-      },
-      meta: {
-        [xField]: {
-          type: 'cat',
-          range: [0, 1],
         },
       },
       isStack: true,

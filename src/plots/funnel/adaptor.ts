@@ -1,6 +1,6 @@
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
-import { flow } from '../../utils';
+import { flow, deepAssign } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
@@ -19,13 +19,12 @@ import { dynamicHeightFunnel } from './geometries/dynamic-height';
  * @param params
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  let { options } = params;
+  const { options } = params;
   const { compareField, label } = options;
-
+  let compareOptions = {};
   if (compareField) {
-    options = {
+    compareOptions = {
       appendPadding: [50, 50, 0, 50],
-      ...options,
       label: label && {
         callback: (xField, yField) => ({
           content: `${yField}`,
@@ -34,7 +33,12 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
       },
     };
   }
-  return params;
+  return deepAssign({}, params, {
+    options: {
+      ...compareOptions,
+      ...options,
+    },
+  });
 }
 
 /**

@@ -112,3 +112,15 @@ piePlot.render();
 ### Plot Components
 
 `markdown:docs/common/component.en.md`
+
+### Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
+### Plot Theme
+
+`markdown:docs/common/theme.en.md`

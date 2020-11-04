@@ -134,3 +134,15 @@ radarPlot.render();
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oiTPQLqYUvIAAAAAAAAAAABkARQnAQ" alt="雷达图 图表组件" width="600">
 
 `markdown:docs/common/component.en.md`
+
+### Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
+### Plot Theme
+
+`markdown:docs/common/theme.en.md`

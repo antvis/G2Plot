@@ -37,7 +37,8 @@ describe('DualAxes option', () => {
       yField1: DEFAULT_LEFT_YAXIS_CONFIG,
       yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
     });
-
+  });
+  it('yAxis option', () => {
     expect(getDefaultYAxis(['yField1', 'yField2'], {})).toEqual({
       yField1: DEFAULT_LEFT_YAXIS_CONFIG,
       yField2: DEFAULT_RIGHT_YAXIS_CONFIG,

@@ -6,7 +6,7 @@ import { interval } from '../../adaptor/geometries';
 import { flow, findViewById, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { BidirectionalBarOptions } from './types';
 import { FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
-import { transformData } from './utils';
+import { isHorizontal, transformData } from './utils';
 
 /**
  * geometry 处理
@@ -36,7 +36,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   let secondView: View;
 
   // 横向
-  if (layout === 'horizontal') {
+  if (isHorizontal(layout)) {
     firstView = chart.createView({
       region: {
         start: { x: 0, y: 0 },
@@ -54,10 +54,8 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       id: SECOND_AXES_VIEW,
     });
     secondView.coordinate().transpose();
-  }
-
-  // 纵向
-  if (layout === 'vertical') {
+  } else {
+    // 纵向
     firstView = chart.createView({
       region: {
         start: { x: 0, y: 0 },
@@ -143,7 +141,7 @@ function meta(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
  */
 function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
   const { chart, options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField, layout } = options;
 
   const firstView = findViewById(chart, FIRST_AXES_VIEW);
   const secondView = findViewById(chart, SECOND_AXES_VIEW);
@@ -154,7 +152,11 @@ function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
   if (xAxis === false) {
     firstView.axis(xField, false);
   } else {
-    firstView.axis(xField, xAxis);
+    firstView.axis(xField, {
+      // 不同布局 firstView 的坐标轴显示位置
+      position: isHorizontal(layout) ? 'top' : 'bottom',
+      ...axis,
+    });
   }
 
   if (yAxis === false) {

@@ -1,5 +1,5 @@
-import { Column, ColumnOptions, Bar, BarOptions } from '@antv/g2plot/src';
-import { createDiv } from '@antv/g2plot/__tests__/utils/dom';
+import { Column, ColumnOptions, Bar, BarOptions } from '../../../src';
+import { createDiv } from '../../utils/dom';
 
 const DATA = [
   { year: '2014', type: 'Sales', sales: 1000 },

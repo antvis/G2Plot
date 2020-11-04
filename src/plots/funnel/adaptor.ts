@@ -1,6 +1,6 @@
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
-import { flow } from '../../utils';
+import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { flow, deepAssign } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
@@ -13,6 +13,33 @@ import { dynamicHeightFunnel } from './geometries/dynamic-height';
  * 2. 对比漏斗图：分面
  * 3. 动态高度漏斗图：polypon
 * /
+
+/**
+ * options 处理
+ * @param params
+ */
+function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { options } = params;
+  const { compareField, label } = options;
+  let compareOptions = {};
+  if (compareField) {
+    compareOptions = {
+      appendPadding: [50, 50, 0, 50],
+      label: label && {
+        callback: (xField, yField) => ({
+          content: `${yField}`,
+        }),
+        ...label,
+      },
+    };
+  }
+  return deepAssign({}, params, {
+    options: {
+      ...compareOptions,
+      ...options,
+    },
+  });
+}
 
 /**
  * geometry处理
@@ -76,10 +103,47 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { chart, options } = params;
+  const { tooltip, dynamicHeight, xField, yField } = options;
+  let tranformTooltip = tooltip;
+  if (tooltip && dynamicHeight) {
+    tranformTooltip = {
+      itemTpl:
+        '<li class="g2-tooltip-list-item" data-index={index}>' +
+        '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
+        `<span class="g2-tooltip-name">{${xField}}</span>` +
+        `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
+      ...tooltip,
+    };
+  }
+
+  if (tranformTooltip !== undefined) {
+    chart.tooltip(tranformTooltip);
+  }
+
+  return params;
+}
+
+/**
  * 漏斗图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<FunnelOptions>) {
-  return flow(geometry, meta, axis, tooltip, interaction, legend, animation, theme, annotation())(params);
+  return flow(
+    defaultOptions,
+    geometry,
+    meta,
+    axis,
+    tooltip,
+    interaction,
+    legend,
+    animation,
+    theme,
+    annotation()
+  )(params);
 }

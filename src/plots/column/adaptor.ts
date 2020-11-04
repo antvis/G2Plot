@@ -10,6 +10,32 @@ import { Datum } from '../../types';
 import { ColumnOptions } from './types';
 
 /**
+ * defaultOptions
+ * @param params
+ */
+function defaultOptions(params: Params<ColumnOptions>): Params<ColumnOptions> {
+  const { options } = params;
+  // 默认 legend 位置
+  let { legend } = options;
+  const { seriesField, isStack } = options;
+
+  if (seriesField) {
+    if (legend !== false) {
+      legend = {
+        position: isStack ? 'right-top' : 'top-left',
+        ...legend,
+      };
+    }
+  } else {
+    legend = false;
+  }
+
+  // @ts-ignore 直接改值
+  params.options.legend = legend;
+  return params;
+}
+
+/**
  * 字段
  * @param params
  */
@@ -55,10 +81,17 @@ function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { xAxis, yAxis, xField, yField } = options;
 
   return flow(
-    scale({
-      [xField]: xAxis,
-      [yField]: yAxis,
-    })
+    scale(
+      {
+        [xField]: xAxis,
+        [yField]: yAxis,
+      },
+      {
+        [xField]: {
+          type: 'cat',
+        },
+      }
+    )
   )(params);
 }
 
@@ -109,7 +142,7 @@ export function legend(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { label, yField } = options;
+  const { label, yField, isRange } = options;
 
   const geometry = findGeometry(chart, 'interval');
 
@@ -120,7 +153,16 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
     geometry.label({
       fields: [yField],
       callback,
-      cfg: transformLabel(cfg),
+      cfg: transformLabel(
+        isRange
+          ? {
+              content: (item: object) => {
+                return item[yField]?.join('-');
+              },
+              ...cfg,
+            }
+          : cfg
+      ),
     });
   }
 
@@ -134,6 +176,7 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
 export function adaptor(params: Params<ColumnOptions>, isBar = false) {
   const { options } = params;
   return flow(
+    defaultOptions, // 处理默认配置
     geometry,
     meta,
     axis,

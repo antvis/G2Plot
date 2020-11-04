@@ -1,4 +1,4 @@
-import { each, findIndex, get, isObject } from '@antv/util';
+import { each, findIndex, get, isObject, every } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import {
   theme as commonTheme,
@@ -14,7 +14,7 @@ import { Datum } from '../../types';
 import { isColumn, getDefaultYAxis, getGeometryOption } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { DualAxesOptions, AxisType } from './types';
+import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
@@ -27,10 +27,33 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
  */
 export function transformOptions(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { options } = params;
-  const { geometryOptions, xField, yField } = options;
-
+  const { geometryOptions = [], xField, yField } = options;
+  const allLine = every(
+    geometryOptions,
+    ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
+  );
   return deepAssign({}, params, {
     options: {
+      meta: {
+        [xField]: {
+          // x 轴一定是同步 scale 的
+          sync: true,
+          // 如果有没有柱子，则
+          range: allLine ? [0, 1] : undefined,
+        },
+      },
+      tooltip: {
+        showMarkers: allLine,
+        // 存在柱状图，不显示 crosshairs
+        showCrosshairs: allLine,
+        shared: true,
+        crosshairs: {
+          type: 'x',
+        },
+      },
+      interactions: !allLine
+        ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
+        : [{ type: 'legend-visible-filter' }],
       // yAxis
       yAxis: getDefaultYAxis(yField, options.yAxis),
       // geometryOptions

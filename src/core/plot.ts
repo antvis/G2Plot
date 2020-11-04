@@ -106,11 +106,6 @@ export abstract class Plot<O extends PickOptions> extends EE {
   protected getDefaultOptions(options?: O): any {
     return {
       renderer: 'canvas',
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-        offset: 20,
-      },
       xAxis: {
         nice: true,
         label: {
@@ -162,9 +157,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 更新配置
    * @param options
    */
-  public update(options: O) {
-    // options 更新是全量更新，这里和构造函数中一会加上图表的默认选项
-    this.options = deepAssign({}, this.options, this.getDefaultOptions({ ...this.options, ...options }), options);
+  public update(options: Partial<O>) {
+    this.options = deepAssign({}, this.options, options);
     this.render();
   }
 
@@ -207,11 +201,9 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public changeData(data: any) {
-    // 临时方案，会在 G2 做处理
     // @ts-ignore
-    this.update({
-      data,
-    });
+    this.update({ data });
+    // TODO: 临时方案，最好使用下面的方式去更新数据
     // this.chart.changeData(data);
   }
 

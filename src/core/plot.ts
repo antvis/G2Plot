@@ -106,11 +106,6 @@ export abstract class Plot<O extends PickOptions> extends EE {
   protected getDefaultOptions(options?: O): any {
     return {
       renderer: 'canvas',
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-        offset: 20,
-      },
       xAxis: {
         nice: true,
         label: {

@@ -27,8 +27,8 @@ describe('scatter', () => {
       ...scatter.options,
       tooltip: false,
     });
-    // @ts-ignore
-    expect(scatter.chart.options.tooltip).toBe(false);
+
+    expect(scatter.chart.getOptions().tooltip).toBe(undefined);
     expect(scatter.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
   });
 

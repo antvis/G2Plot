@@ -1,4 +1,3 @@
-import { clamp } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { GaugeOptions } from './types';
@@ -16,12 +15,11 @@ export class Gauge extends Plot<GaugeOptions> {
   /** 图表类型 */
   public type: string = 'gauge';
 
-  protected getDefaultOptions(options: GaugeOptions) {
-    const { percent } = options;
+  protected getDefaultOptions() {
     return {
       percent: 0, // 当前指标值
       range: {
-        ticks: [0, clamp(percent, 0, 1), 1],
+        ticks: [],
       }, // 默认的刻度
       innerRadius: 0.9,
       radius: 0.95,
@@ -64,16 +62,6 @@ export class Gauge extends Plot<GaugeOptions> {
       },
       statistic: {
         title: false,
-        content: {
-          formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
-          style: {
-            opacity: 0.75,
-            fontSize: 30,
-            textAlign: 'center',
-            textBaseline: 'bottom',
-          },
-          offsetY: -16,
-        },
       },
       meta: {
         // 两个 view 的 scale 同步到 v 上

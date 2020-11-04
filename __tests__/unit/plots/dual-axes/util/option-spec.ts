@@ -18,6 +18,20 @@ describe('DualAxes option', () => {
     ).toEqual({
       xField: 'test',
       yField: ['test1', 'test2'],
+      meta: {
+        test: {
+          sync: true,
+          range: [0, 1],
+        },
+      },
+      tooltip: {
+        showMarkers: true,
+        showCrosshairs: true,
+        shared: true,
+        crosshairs: {
+          type: 'x',
+        },
+      },
       yAxis: [
         {
           nice: true,
@@ -39,6 +53,7 @@ describe('DualAxes option', () => {
           color: '#E76C5E',
         },
       ],
+      interactions: [{ type: 'legend-visible-filter' }],
     });
 
     expect(

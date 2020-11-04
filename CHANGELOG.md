@@ -1,3 +1,24 @@
+#### 2.0.7 (2020-11-04)
+
+##### New Features
+
+*  add multi-view plot ([#1843](https://github.com/antvis/g2plot/pull/1843)) ([49785169](https://github.com/antvis/g2plot/commit/4978516975f652609c116d9a97815b4c0185e5a2))
+*  radial bar color demo ([#1845](https://github.com/antvis/g2plot/pull/1845)) ([a4340dc6](https://github.com/antvis/g2plot/commit/a4340dc60adddde0382c87cf0c9e7d79e25bc1ec))
+* **column/bar:**  migrate connected area interaction ([#1852](https://github.com/antvis/g2plot/pull/1852)) ([a59301f3](https://github.com/antvis/g2plot/commit/a59301f362d62a14d78f22dcfa341d77192d5607))
+
+##### Bug Fixes
+
+*  charts issue ([64477934](https://github.com/antvis/g2plot/commit/64477934800302093013b6cc5d7c7ec0a8011a17))
+*  update & getDefaultOptions bugs ([#1850](https://github.com/antvis/g2plot/pull/1850)) ([bc4f7c8a](https://github.com/antvis/g2plot/commit/bc4f7c8ade45162b005465e56fad2a6fa1669d00))
+*  Scatter regression line and Dual Axes change data ([#1848](https://github.com/antvis/g2plot/pull/1848)) ([654c8e10](https://github.com/antvis/g2plot/commit/654c8e10d1f0f1d7d68f6610bfcd0b28648ce314))
+*  type define of legend, axis ([#1842](https://github.com/antvis/g2plot/pull/1842)) ([8f035d87](https://github.com/antvis/g2plot/commit/8f035d87d90d6b7ee5ed008a570233e3d88cf11a))
+
+##### Tests
+
+*  coverage for util/path ([#1849](https://github.com/antvis/g2plot/pull/1849)) ([dd11880c](https://github.com/antvis/g2plot/commit/dd11880c69a166a88ebd8f3aec104a3ab42078e8))
+*  提升 bullet 的测试覆盖率以及优化代码 ([#1844](https://github.com/antvis/g2plot/pull/1844)) ([2ae9c9e6](https://github.com/antvis/g2plot/commit/2ae9c9e608cbd00bb8f9d66a40f47126b221ec04))
+*  提升 histogram 的测试覆盖率 ([#1841](https://github.com/antvis/g2plot/pull/1841)) ([0ad37a6b](https://github.com/antvis/g2plot/commit/0ad37a6b13d728af1217a067c29c1699e983f31e))
+
 #### 2.0.6 (2020-11-02)
 
 ##### Documentation Changes

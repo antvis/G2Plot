@@ -10,21 +10,14 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
   /** 图表类型 */
   public type: string = 'bidirectional-bar';
 
+  protected getDefaultOptions() {
+    return deepAssign({}, super.getDefaultOptions());
+  }
+
   /**
    * 获取对称条形图的适配器
    */
   protected getSchemaAdaptor(): Adaptor<BidirectionalBarOptions> {
     return adaptor;
-  }
-
-  protected getDefaultOptions(options: BidirectionalBarOptions) {
-    const { layout = 'horizontal' } = options;
-    return deepAssign({}, super.getDefaultOptions(), {
-      xAxis: {
-        // 不同布局 firstView 的坐标轴显示位置
-        position: layout === 'vertical' ? 'bottom' : 'top',
-      },
-      layout,
-    });
   }
 }

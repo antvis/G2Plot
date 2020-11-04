@@ -43,6 +43,8 @@ export interface OptionWithConversionTag {
 type TagRenderConfig = {
   /** 所在的 View */
   view: View;
+  /** 所属的 geometry */
+  geometry: Geometry;
   /** 转化率组件的 group */
   group: IGroup;
   /** 转化率配置 */
@@ -96,7 +98,7 @@ function parsePoints(coordinate: Coordinate, element: Element): { x: number; y: 
 }
 
 function renderArrowTag(config: TagRenderConfig, elemPrev: Element, elemNext: Element): void {
-  const { view, group, options, horizontal } = config;
+  const { view, geometry, group, options, horizontal } = config;
   const { offset, size, arrow } = options;
   const coordinate = view.getCoordinate();
   const pointPrev = parsePoints(coordinate, elemPrev)[horizontal ? 3 : 0];
@@ -152,7 +154,7 @@ function renderArrowTag(config: TagRenderConfig, elemPrev: Element, elemNext: El
   }
 
   group.addShape('polygon', {
-    id: `${view.id}-conversion-tag-arrow`,
+    id: `${view.id}-conversion-tag-arrow-${geometry.getElementId(elemPrev.getModel().mappingData)}`,
     name: 'conversion-tag-arrow',
     attrs: {
       ...(arrow.style || {}),
@@ -162,7 +164,7 @@ function renderArrowTag(config: TagRenderConfig, elemPrev: Element, elemNext: El
 }
 
 function renderTextTag(config: TagRenderConfig, elemPrev: Element, elemNext: Element): void {
-  const { view, group, options, field, horizontal } = config;
+  const { view, geometry, group, options, field, horizontal } = config;
   const { offset, size } = options;
   if (typeof options.text === 'boolean') {
     return;
@@ -174,7 +176,7 @@ function renderTextTag(config: TagRenderConfig, elemPrev: Element, elemNext: Ele
   const pointNext = parsePoints(coordinate, elemNext)[horizontal ? 0 : 3];
 
   const textShape = group.addShape('text', {
-    id: `${view.id}-conversion-tag-text`,
+    id: `${view.id}-conversion-tag-text-${geometry.getElementId(elemPrev.getModel().mappingData)}`,
     name: 'conversion-tag-text',
     attrs: {
       ...(options.text?.style || {}),
@@ -223,14 +225,15 @@ export function conversionTag<O extends OptionWithConversionTag>(field: string, 
             id: `${chart.id}-conversion-tag-group`,
             name: 'conversion-tag-group',
           });
+          const interval = find(chart.geometries, (geom: Geometry) => geom.type === 'interval');
           const config: TagRenderConfig = {
             view,
+            geometry: interval,
             group,
             field,
             horizontal,
             options: getConversionTagOptionsWithDefaults(conversionTag, horizontal),
           };
-          const interval = find(chart.geometries, (geom: Geometry) => geom.type === 'interval');
           const elements = horizontal ? interval.elements : interval.elements.slice().reverse();
           each(elements, (elem: Element, idx: number) => {
             if (idx > 0) {

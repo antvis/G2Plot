@@ -57,7 +57,6 @@ describe('column connected area', () => {
     });
   });
 
-  /*
   it('update', () => {
     plot.update({
       ...options,
@@ -101,7 +100,6 @@ describe('column connected area', () => {
     const interaction = plot.chart.interactions['__interval-connected-area-hover__'];
     expect(interaction).toBeUndefined();
   });
-  */
 });
 
 describe('bar connected area', () => {
@@ -145,7 +143,6 @@ describe('bar connected area', () => {
     });
   });
 
-  /*
   it('update', () => {
     plot.update({
       ...options,
@@ -189,5 +186,4 @@ describe('bar connected area', () => {
     const interaction = plot.chart.interactions['__interval-connected-area-hover__'];
     expect(interaction).toBeUndefined();
   });
-  */
 });

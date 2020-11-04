@@ -3,7 +3,6 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
-import { getTooltipTemplate } from './utils';
 
 export { SunburstOptions };
 
@@ -14,26 +13,16 @@ export class Sunburst extends Plot<SunburstOptions> {
   /**
    * 获取旭日图默认配置
    */
-  protected getDefaultOptions(options: SunburstOptions) {
-    const { tooltip, seriesField, colorField } = options;
+  protected getDefaultOptions() {
     return deepAssign({}, super.getDefaultOptions(), {
       type: 'partition',
       innerRadius: 0,
       seriesField: 'value',
       tooltip: {
-        showTitle: false,
+        shared: true,
         showMarkers: false,
-        customContent:
-          tooltip && tooltip.customContent
-            ? tooltip.customContent
-            : (value: string, items: any[]) => {
-                return getTooltipTemplate({
-                  value,
-                  items,
-                  formatter: tooltip && tooltip?.formatter,
-                  fields: (tooltip && tooltip.fields) || [seriesField, colorField],
-                });
-              },
+        offset: 20,
+        showTitle: false,
       },
     });
   }

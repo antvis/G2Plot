@@ -22,16 +22,8 @@ export class Waterfall extends Plot<WaterfallOptions> {
   /**
    * 获取 瀑布图 的默认配置
    */
-  protected getDefaultOptions(options: WaterfallOptions): Partial<WaterfallOptions> {
-    const { yField } = options;
+  protected getDefaultOptions(): Partial<WaterfallOptions> {
     return {
-      tooltip: {
-        showCrosshairs: false,
-        showMarkers: false,
-        shared: true,
-        // tooltip 默认展示 y 字段值
-        fields: [yField],
-      },
       /** default: show label */
       label: {},
       /** default: show leaderLine */

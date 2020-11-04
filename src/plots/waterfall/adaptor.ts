@@ -2,7 +2,7 @@ import { Geometry } from '@antv/g2';
 import { get } from '@antv/util';
 import { Datum } from '@antv/g2/lib/interface';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
 import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
@@ -179,6 +179,28 @@ function label(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
       fields: labelMode === 'absolute' ? [ABSOLUTE_FIELD] : [DIFF_FIELD],
       callback,
       cfg: transformLabel(cfg),
+    });
+  }
+
+  return params;
+}
+
+/**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
+  const { chart, options } = params;
+  const { tooltip, yField } = options;
+
+  if (tooltip) {
+    chart.tooltip({
+      showCrosshairs: false,
+      showMarkers: false,
+      shared: true,
+      // tooltip 默认展示 y 字段值
+      fields: [yField],
+      ...tooltip,
     });
   }
 

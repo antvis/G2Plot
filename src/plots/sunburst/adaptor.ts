@@ -1,8 +1,8 @@
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
-import { tooltip, interaction, animation, theme, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, annotation } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { transformData } from './utils';
+import { transformData, getTooltipTemplate } from './utils';
 import { SunburstOptions } from './types';
 
 /**
@@ -111,6 +111,34 @@ function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
   if (meta) {
     // @ts-ignore
     chart.scale(meta);
+  }
+
+  return params;
+}
+
+/**
+ * tooltip 配置
+ * @param params
+ */
+export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { chart, options } = params;
+  const { tooltip, seriesField, colorField } = options;
+
+  if (tooltip) {
+    chart.tooltip({
+      ...tooltip,
+      customContent:
+        tooltip && tooltip.customContent
+          ? tooltip.customContent
+          : (value: string, items: any[]) => {
+              return getTooltipTemplate({
+                value,
+                items,
+                formatter: tooltip && tooltip?.formatter,
+                fields: (tooltip && tooltip.fields) || [seriesField, colorField],
+              });
+            },
+    });
   }
 
   return params;

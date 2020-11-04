@@ -1,9 +1,9 @@
-import { Line } from '../../../../src';
+import { Area } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 
-describe('line', () => {
+describe('area', () => {
   it('y min, max meta', () => {
-    const line = new Line(createDiv(), {
+    const area = new Area(createDiv(), {
       width: 400,
       height: 300,
       xField: 'date',
@@ -14,11 +14,11 @@ describe('line', () => {
       ],
     });
 
-    line.render();
-    expect(line.chart.getScaleByField('value').min).toBe(0);
-    expect(line.chart.getScaleByField('value').max).toBe(20);
+    area.render();
+    expect(area.chart.getScaleByField('value').min).toBe(0);
+    expect(area.chart.getScaleByField('value').max).toBe(20);
 
-    line.update({
+    area.update({
       width: 400,
       height: 300,
       xField: 'date',
@@ -29,7 +29,7 @@ describe('line', () => {
       ],
     });
 
-    expect(line.chart.getScaleByField('value').min).toBe(-20);
-    expect(line.chart.getScaleByField('value').max).toBe(0);
+    expect(area.chart.getScaleByField('value').min).toBe(-20);
+    expect(area.chart.getScaleByField('value').max).toBe(0);
   });
 });

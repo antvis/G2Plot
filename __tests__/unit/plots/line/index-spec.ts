@@ -50,4 +50,37 @@ describe('line', () => {
     expect(geometry.scales.value.min).toBe(0);
     expect(geometry.scales.value.max).toBe(5000);
   });
+
+  it('x cat scale', () => {
+    const data = [
+      { x: 1, y: 1 },
+      { x: 2, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 2 },
+    ];
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: data,
+      xField: 'x',
+      yField: 'y',
+    });
+
+    line.render();
+
+    expect(line.chart.getScaleByField('x').type).toBe('cat');
+    expect(line.chart.getScaleByField('x').range).toEqual([0, 1]);
+    line.update({
+      meta: {
+        x: {
+          type: 'linear',
+          range: [0.1, 0.9],
+        },
+      },
+    });
+
+    expect(line.chart.getScaleByField('x').type).toBe('linear');
+    expect(line.chart.getScaleByField('x').range).toEqual([0.1, 0.9]);
+  });
 });

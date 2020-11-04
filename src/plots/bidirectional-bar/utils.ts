@@ -1,4 +1,5 @@
 import { Datum } from '../../types';
+import { BidirectionalBarOptions } from '.';
 
 type TransformData = {
   type: string;
@@ -24,4 +25,12 @@ export function transformData(xField: string, yField: string[], data: Datum): Tr
     });
   });
   return hopeData;
+}
+
+/**
+ * 是否横向，默认空为横向
+ * @param layout
+ */
+export function isHorizontal(layout: BidirectionalBarOptions['layout']) {
+  return layout !== 'vertical';
 }

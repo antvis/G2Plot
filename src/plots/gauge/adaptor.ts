@@ -15,6 +15,10 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
   const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator } = options;
   const { ticks, color } = range;
+  let clampTicks = ticks;
+  if (!clampTicks?.length) {
+    clampTicks = [0, clamp(percent, 0, 1), 1];
+  }
 
   // 指标 & 指针
   // 如果开启在应用
@@ -43,7 +47,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   // 辅助 range
   // [{ range: 1, type: '0' }]
-  const rangeData: Data = processRangeData(ticks as number[]);
+  const rangeData: Data = processRangeData(clampTicks as number[]);
   const v2 = chart.createView();
   v2.data(rangeData);
 
@@ -87,9 +91,22 @@ function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { statistic, percent } = options;
 
   const { title, content } = statistic;
-
+  let transformContent = content;
+  if (content) {
+    transformContent = {
+      formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
+      style: {
+        opacity: 0.75,
+        fontSize: 30,
+        textAlign: 'center',
+        textBaseline: 'bottom',
+      },
+      offsetY: -16,
+      ...content,
+    };
+  }
   // annotation title 和 content 分别使用一个 text
-  [title, content].forEach((annotation) => {
+  [title, transformContent].forEach((annotation) => {
     if (annotation) {
       const { formatter, style, offsetX, offsetY, rotate } = annotation;
       chart.annotation().text({

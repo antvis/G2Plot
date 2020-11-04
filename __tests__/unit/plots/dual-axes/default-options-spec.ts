@@ -40,7 +40,6 @@ describe('default options', () => {
     });
 
     dualAxes.render();
-    console.log(dualAxes.chart.getComponents());
     // @ts-ignore
     expect(dualAxes.chart.getScaleByField('date').sync).toBeTruthy();
     expect(dualAxes.chart.getScaleByField('date').range.length).toBe(2);

@@ -111,7 +111,6 @@ describe('gauge', () => {
     });
 
     gauge.render();
-    console.log(gauge.chart.views[1].getYScales());
     // @ts-ignore
     expect(gauge.chart.views[1].getYScales()[0].ticks).toEqual([0, 0.25, 0.5, 0.75, 1]);
     expect(gauge.chart.views.length).toBe(2);

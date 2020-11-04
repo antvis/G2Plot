@@ -11,7 +11,6 @@ const excludeFilesPath = ['gallery']; // 不处理的路径
 const includeFiles = ['API.zh.md', 'API.en.md'];
 
 const apiGenerator = (sourcePath, targetPath, titlePath) => {
-  console.log(sourcePath, targetPath);
   // 内容不多，同步读取即可
   const titleInfo = fs.readFileSync(titlePath, 'utf-8');
   fs.writeFileSync(targetPath, `${titleInfo}\n`, { encoding: 'utf-8' });

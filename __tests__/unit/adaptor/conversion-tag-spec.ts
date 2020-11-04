@@ -1,3 +1,4 @@
+import { uniq } from '@antv/util';
 import { IGroup } from '@antv/g2/lib/dependents';
 import { Column, ColumnOptions, Bar, BarOptions } from '../../../src';
 import { createDiv } from '../../utils/dom';
@@ -54,6 +55,9 @@ describe('column conversion tag', () => {
 
     // 文本
     const texts = group.findAllByName('conversion-tag-text');
+    const textIds = texts.map((text) => text.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(textIds)).toHaveLength(DATA.length - 1);
     expect(texts).toHaveLength(DATA.length - 1);
     DATA.forEach((datum, idx) => {
       if (idx > 0) {
@@ -64,6 +68,9 @@ describe('column conversion tag', () => {
 
     // 箭头
     const arrows = group.findAllByName('conversion-tag-arrow');
+    const arrowIds = arrows.map((arrow) => arrow.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(arrowIds)).toHaveLength(DATA.length - 1);
     expect(arrows).toHaveLength(DATA.length - 1);
     arrows.forEach((arrow) => {
       const bbox = arrow.getBBox();
@@ -99,6 +106,9 @@ describe('column conversion tag', () => {
 
     // 文本
     const texts = group.findAllByName('conversion-tag-text');
+    const textIds = texts.map((text) => text.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(textIds)).toHaveLength(DATA.length - 1);
     expect(texts).toHaveLength(DATA.length - 1);
     DATA.slice()
       .reverse()
@@ -111,6 +121,9 @@ describe('column conversion tag', () => {
 
     // 箭头
     const arrows = group.findAllByName('conversion-tag-arrow');
+    const arrowIds = arrows.map((arrow) => arrow.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(arrowIds)).toHaveLength(DATA.length - 1);
     expect(arrows).toHaveLength(DATA.length - 1);
     arrows.forEach((arrow) => {
       const bbox = arrow.getBBox();
@@ -173,6 +186,9 @@ describe('bar conversion tag', () => {
 
     // 文本
     const texts = group.findAllByName('conversion-tag-text');
+    const textIds = texts.map((text) => text.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(textIds)).toHaveLength(DATA.length - 1);
     expect(texts).toHaveLength(DATA.length - 1);
     DATA.forEach((datum, idx) => {
       if (idx > 0) {
@@ -183,6 +199,9 @@ describe('bar conversion tag', () => {
 
     // 箭头
     const arrows = group.findAllByName('conversion-tag-arrow');
+    const arrowIds = arrows.map((arrow) => arrow.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(arrowIds)).toHaveLength(DATA.length - 1);
     expect(arrows).toHaveLength(DATA.length - 1);
     arrows.forEach((arrow) => {
       const bbox = arrow.getBBox();
@@ -218,6 +237,9 @@ describe('bar conversion tag', () => {
 
     // 文本
     const texts = group.findAllByName('conversion-tag-text');
+    const textIds = texts.map((text) => text.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(textIds)).toHaveLength(DATA.length - 1);
     expect(texts).toHaveLength(DATA.length - 1);
     DATA.forEach((datum, idx) => {
       if (idx > 0) {
@@ -228,6 +250,9 @@ describe('bar conversion tag', () => {
 
     // 箭头
     const arrows = group.findAllByName('conversion-tag-arrow');
+    const arrowIds = arrows.map((arrow) => arrow.get('id')) as string[];
+    // 每一个都有唯一的 ID
+    expect(uniq(arrowIds)).toHaveLength(DATA.length - 1);
     expect(arrows).toHaveLength(DATA.length - 1);
     arrows.forEach((arrow) => {
       const bbox = arrow.getBBox();

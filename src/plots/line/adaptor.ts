@@ -5,6 +5,7 @@ import { tooltip, slider, interaction, animation, theme, scale, annotation } fro
 import { findGeometry, transformLabel, deepAssign } from '../../utils';
 import { point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
+import { adjustYMetaByZero } from '../../utils/data';
 import { LineOptions } from './types';
 
 /**
@@ -46,13 +47,22 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function meta(params: Params<LineOptions>): Params<LineOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField, data } = options;
 
   return flow(
-    scale({
-      [xField]: xAxis,
-      [yField]: yAxis,
-    })
+    scale(
+      {
+        [xField]: xAxis,
+        [yField]: yAxis,
+      },
+      {
+        [xField]: {
+          type: 'cat',
+          range: [0, 1],
+        },
+        [yField]: adjustYMetaByZero(data, yField),
+      }
+    )
   )(params);
 }
 

@@ -162,7 +162,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 更新配置
    * @param options
    */
-  public update(options: O) {
+  public update(options: Partial<O>) {
     this.options = deepAssign({}, this.options, options);
     this.render();
   }
@@ -206,11 +206,9 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public changeData(data: any) {
-    // 临时方案，会在 G2 做处理
     // @ts-ignore
-    this.update({
-      data,
-    });
+    this.update({ data });
+    // TODO: 临时方案，最好使用下面的方式去更新数据
     // this.chart.changeData(data);
   }
 

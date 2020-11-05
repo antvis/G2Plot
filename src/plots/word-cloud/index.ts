@@ -45,25 +45,29 @@ export class WordCloud extends Plot<WordCloudOptions> {
    * 覆写父类方法，词云图需要加载图片资源，所以需要异步渲染
    */
   public render() {
-    const { imageMask } = this.options;
+    return new Promise<void>((res) => {
+      const { imageMask } = this.options;
 
-    if (!imageMask) {
-      // 调用父类渲染函数
-      super.render();
-      return;
-    }
+      if (!imageMask) {
+        // 调用父类渲染函数
+        super.render();
+        res();
+        return;
+      }
 
-    const handler = (img: HTMLImageElement) => {
-      this.options = {
-        ...this.options,
-        imageMask: img || null,
+      const handler = (img: HTMLImageElement) => {
+        this.options = {
+          ...this.options,
+          imageMask: img || null,
+        };
+
+        // 调用父类渲染函数
+        super.render();
+        res();
       };
 
-      // 调用父类渲染函数
-      super.render();
-    };
-
-    processImageMask(imageMask).then(handler).catch(handler);
+      processImageMask(imageMask).then(handler).catch(handler);
+    });
   }
 
   /**

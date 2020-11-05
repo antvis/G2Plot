@@ -2,6 +2,7 @@ import { deepMix } from '@antv/util';
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('word-cloud', () => {
   const options = {
@@ -30,22 +31,26 @@ describe('word-cloud', () => {
     cloud.destroy();
   });
 
-  // TODO: 单测卡死
-  xit('imageMask', () => {
-    const options1 = deepMix({}, options, {
-      imageMask: new Image(),
-    });
-    const options2 = deepMix({}, options, {
+  it('imageMask', async () => {
+    const o = deepMix({}, options, {
       imageMask: 'ssss', // 无效值
     });
-    const cloud1 = new WordCloud(createDiv(), options1);
-    const cloud2 = new WordCloud(createDiv(), options2);
-    expect(() => {
-      cloud1.render();
-      cloud2.render();
-    }).not.toThrow();
+    const cloud = new WordCloud(createDiv(), o);
+    await cloud.render();
+    expect(cloud.options.imageMask).toBe(null);
+    cloud.destroy();
+  });
 
-    cloud1.destroy();
-    cloud2.destroy();
+  it('resize', async () => {
+    const o = deepMix({}, options);
+    const cloud = new WordCloud(createDiv(), o);
+    const chart = cloud.chart;
+    await cloud.render();
+    expect(chart.width).toBe(400);
+
+    chart.ele.style.width = `410px`;
+    await delay();
+    expect(chart.width).toBe(410);
+    cloud.destroy();
   });
 });

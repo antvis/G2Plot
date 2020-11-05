@@ -1,61 +1,21 @@
 import { Bar } from '@antv/g2plot';
 
 const data = [
-  {
-    type: '家具家电',
-    sales: 38,
-  },
-  {
-    type: '粮油副食',
-    sales: 52,
-  },
-  {
-    type: '生鲜水果',
-    sales: 61,
-  },
-  {
-    type: '美容洗护',
-    sales: 145,
-  },
-  {
-    type: '母婴用品',
-    sales: 48,
-  },
-  {
-    type: '进口食品',
-    sales: 38,
-  },
-  {
-    type: '食品饮料',
-    sales: 38,
-  },
-  {
-    type: '家庭清洁',
-    sales: 38,
-  },
+  { year: '1951 年', value: 38 },
+  { year: '1952 年', value: 52 },
+  { year: '1956 年', value: 61 },
+  { year: '1957 年', value: 145 },
+  { year: '1958 年', value: 48 },
 ];
 
-const barPlot = new Bar('container', {
+const bar = new Bar('container', {
   data,
-  xField: 'sales',
-  yField: 'type',
-  label: {
-    // 可手动配置 label 数据标签位置
-    position: 'left', // 'left', 'right', 'middle'
-    // 配置样式
-    style: {
-      fill: '#FFFFFF',
-      opacity: 0.6,
-    },
-  },
-  meta: {
-    type: {
-      alias: '类别',
-    },
-    sales: {
-      alias: '销售额',
-    },
+  xField: 'value',
+  yField: 'year',
+  seriesField: 'year',
+  legend: {
+    position: 'top-left',
   },
 });
 
-barPlot.render();
+bar.render();

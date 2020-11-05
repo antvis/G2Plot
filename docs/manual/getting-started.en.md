@@ -165,4 +165,4 @@ the result：
 
 <img alt="example" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Y-4xSprUCV0AAAAAAAAAAAAAARQnAQ" width="800">
 
-G2Plot has many fun configuration and features to explore. More information please reference [Configuration Options](../line)。
+G2Plot has many fun configuration and features to explore. More information please reference [Configuration Options](./plots/line)。

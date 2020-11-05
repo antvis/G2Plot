@@ -29,7 +29,7 @@ describe('DualAxes', () => {
       { time: '2019-06', count: 300, name: 'c' },
       { time: '2019-07', count: 200, name: 'c' },
     ];
-    const DualAxesPlot = new DualAxes(createDiv(), {
+    const aualAxes = new DualAxes(createDiv(), {
       width: 400,
       height: 400,
       data: [[], []],
@@ -49,11 +49,13 @@ describe('DualAxes', () => {
         },
       ],
     });
-    DualAxesPlot.render();
-    expect(DualAxesPlot.options.yField).toEqual(['value', 'count']);
+    aualAxes.render();
+    expect(aualAxes.options.yField).toEqual(['value', 'count']);
     await delay(500);
-    DualAxesPlot.changeData([uvData, transformData]);
-    expect(DualAxesPlot.options.geometryOptions[0].geometry).toBe('column');
-    expect(DualAxesPlot.chart.views[0].geometries[0].shapeType).toBe('interval');
+    aualAxes.changeData([uvData, transformData]);
+    expect(aualAxes.options.geometryOptions[0].geometry).toBe('column');
+    expect(aualAxes.chart.views[0].geometries[0].shapeType).toBe('interval');
+
+    aualAxes.destroy();
   });
 });

@@ -51,5 +51,7 @@ describe('#1684', () => {
       year: false,
       count: false,
     });
+
+    dualAxes.destroy();
   });
 });

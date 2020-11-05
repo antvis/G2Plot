@@ -17,5 +17,7 @@ describe('#1758', () => {
     tinyArea.render();
 
     expect(tinyArea.chart.geometries[1].elements[0].container.getChildByIndex(0).attr('stroke')).toBe('red');
+
+    tinyArea.destroy();
   });
 });

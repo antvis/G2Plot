@@ -2,9 +2,10 @@ import { reduce } from '@antv/util';
 import { Pie } from '../../src';
 import { createDiv } from '.././utils/dom';
 import { simulateMouseEvent } from '../utils/event';
+import { delay } from '../utils/delay';
 
 describe('donut plot', () => {
-  test('statistic content formatter', () => {
+  test('statistic content formatter', async () => {
     const data = [
       {
         type: '分类一',
@@ -49,17 +50,23 @@ describe('donut plot', () => {
           },
         },
       },
+      animation: false,
     });
 
     donutPlot.render();
 
-    const contentAnnotation = donutPlot.chart.getController('annotation').getComponents()[1];
-    expect(contentAnnotation.component.get('content')).toBe(`${reduce(data, (r, d) => r + d.value, 0)}万`);
+    expect(donutPlot.chart.getController('annotation').getComponents()[1].component.get('content')).toBe(
+      `${reduce(data, (r, d) => r + d.value, 0)}万`
+    );
 
-    setTimeout(() => {
-      const element = donutPlot.chart.geometries[0].elements[0];
-      simulateMouseEvent(element.shape, 'mouseenter');
-      expect(contentAnnotation.component.get('content')).toBe(`${data[0].value}万`);
-    }, 0);
+    const element = donutPlot.chart.geometries[0].elements[0];
+    simulateMouseEvent(element.shape, 'mouseenter');
+    await delay(100);
+
+    expect(donutPlot.chart.getController('annotation').getComponents()[1].component.get('content')).toBe(
+      `${data[0].value} 万`
+    );
+
+    donutPlot.destroy();
   });
 });

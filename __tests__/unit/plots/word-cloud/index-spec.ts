@@ -29,23 +29,4 @@ describe('word-cloud', () => {
 
     cloud.destroy();
   });
-
-  // TODO: 单测卡死
-  xit('imageMask', () => {
-    const options1 = deepMix({}, options, {
-      imageMask: new Image(),
-    });
-    const options2 = deepMix({}, options, {
-      imageMask: 'ssss', // 无效值
-    });
-    const cloud1 = new WordCloud(createDiv(), options1);
-    const cloud2 = new WordCloud(createDiv(), options2);
-    expect(() => {
-      cloud1.render();
-      cloud2.render();
-    }).not.toThrow();
-
-    cloud1.destroy();
-    cloud2.destroy();
-  });
 });

@@ -140,7 +140,7 @@ module.exports = {
       },
       {
         slug: 'word-cloud',
-        icon: 'other',
+        icon: 'word-cloud',
         title: {
           zh: '词云图',
           en: 'Word Cloud',
@@ -156,7 +156,7 @@ module.exports = {
       },
       {
         slug: 'bullet',
-        icon: 'other',
+        icon: 'bullet',
         title: {
           zh: '子弹图',
           en: 'Bullet',
@@ -244,7 +244,7 @@ module.exports = {
       },
       {
         slug: 'radial-bar',
-        icon: 'other',
+        icon: 'radial-bar',
         title: {
           zh: '玉珏图',
           en: 'Radial Bar',

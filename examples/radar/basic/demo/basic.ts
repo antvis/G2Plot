@@ -9,14 +9,15 @@ const data = [
   { name: 'AVA', star: 806 },
 ];
 const radarPlot = new Radar('container', {
-  data: data.map((d) => ({ ...d, star: Math.log(d.star).toFixed(2) })),
+  data: data.map((d) => ({ ...d, star: Math.log(d.star) })),
   xField: 'name',
   yField: 'star',
   meta: {
     star: {
-      alias: '分数',
+      alias: 'star 数量',
       min: 0,
       nice: true,
+      formatter: (v) => Number(v).toFixed(2),
     },
   },
   xAxis: {
@@ -30,7 +31,9 @@ const radarPlot = new Radar('container', {
     },
   },
   // 开启辅助点
-  point: {},
+  point: {
+    size: 2,
+  },
   area: {},
 });
 radarPlot.render();

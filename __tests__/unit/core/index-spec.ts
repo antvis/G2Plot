@@ -185,5 +185,7 @@ describe('core', () => {
 
     line.render();
     expect(line.chart.height).toBe(300);
+
+    line.destroy();
   });
 });

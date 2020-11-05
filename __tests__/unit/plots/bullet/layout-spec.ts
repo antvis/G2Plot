@@ -34,6 +34,8 @@ describe('bullet*label', () => {
       shapeArr.push(ele.getModel().shape);
     });
     expect(shapeArr).toContain('line');
+
+    bullet.destroy();
   });
 
   it('layout vertical', () => {
@@ -68,5 +70,7 @@ describe('bullet*label', () => {
       shapeArr.push(ele.getModel().shape);
     });
     expect(shapeArr).toContain('hyphen');
+
+    bullet.destroy();
   });
 });

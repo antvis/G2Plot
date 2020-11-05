@@ -28,6 +28,8 @@ describe('rose style', () => {
     const elements = geometry.elements;
     expect(elements[0].shape.attr('stroke')).toBe('black');
     expect(elements[0].shape.attr('lineWidth')).toBe(2);
+
+    rose.destroy();
   });
 
   it('style callback', () => {
@@ -57,5 +59,7 @@ describe('rose style', () => {
     const elements = geometry.elements;
     expect(elements[0].shape.attr('stroke')).toBe('black');
     expect(elements[0].shape.attr('lineWidth')).toBe(2);
+
+    rose.destroy();
   });
 });

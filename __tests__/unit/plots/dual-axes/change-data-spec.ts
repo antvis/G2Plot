@@ -38,6 +38,7 @@ describe('Line-Column', () => {
     // @ts-ignore
     expect(leftGeometry.shapeType).toBe('line');
     expect(rightGeometry.shapeType).toBe('interval');
+
     dualAxes.destroy();
   });
 
@@ -72,5 +73,7 @@ describe('Line-Column', () => {
     expect(element.getModel().shape).toBe('circle');
     expect(element.getData().site).toBeDefined();
     expect(element.getModel().style.fill).toBe('red');
+
+    dualAxes.destroy();
   });
 });

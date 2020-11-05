@@ -45,5 +45,7 @@ describe('line', () => {
         animation: 'fade-out',
       },
     });
+
+    line.destroy();
   });
 });

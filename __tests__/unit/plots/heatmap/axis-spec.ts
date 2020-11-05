@@ -28,6 +28,8 @@ describe('heatmap', () => {
     expect(heatmap.chart.options.axes.day.grid.alignTick).toBe(false);
     // @ts-ignore
     expect(heatmap.chart.options.axes.name.grid.alignTick).toBe(false);
+
+    heatmap.destroy();
   });
 
   it('x*y*color and custom axis', () => {
@@ -70,5 +72,7 @@ describe('heatmap', () => {
     expect(heatmap.chart.options.axes.name.line.style.lineWidth).toBe(2);
     // @ts-ignore
     expect(heatmap.chart.options.axes.day.label.style.fill).toBe('red');
+
+    heatmap.destroy();
   });
 });

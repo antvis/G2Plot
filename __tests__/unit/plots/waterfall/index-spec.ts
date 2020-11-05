@@ -21,6 +21,10 @@ describe('waterfall plot', () => {
     data: data,
   });
 
+  afterAll(() => {
+    waterfall.destroy();
+  });
+
   it('basic', () => {
     waterfall.render();
     const geometry = waterfall.chart.geometries[0];

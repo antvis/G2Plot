@@ -104,6 +104,7 @@ describe('bullet*data*transfrom', () => {
     ];
     expect(ds).toEqual(transDS);
   });
+
   it('data*transfrom*layout', () => {
     const bulletData = [{ title: '数学', ranges: [-30, 50, 100], measures: [20], target: 85 }];
     // 校验数据转换

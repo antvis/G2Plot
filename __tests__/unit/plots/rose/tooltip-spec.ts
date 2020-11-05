@@ -27,5 +27,7 @@ describe('rose', () => {
     // @ts-ignore
     expect(rose.chart.options.tooltip).toBe(false);
     expect(rose.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    rose.destroy();
   });
 });

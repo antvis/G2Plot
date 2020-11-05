@@ -34,6 +34,8 @@ describe('column label', () => {
     labelGroups.forEach((label, index) => {
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(salesByArea[index].sales / 10000)}万`);
     });
+
+    column.destroy();
   });
 
   it('position middle', () => {
@@ -60,6 +62,8 @@ describe('column label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'middle' });
+
+    column.destroy();
   });
 
   it('position bottom', () => {
@@ -86,6 +90,8 @@ describe('column label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'bottom' });
+
+    column.destroy();
   });
 
   it('group column position top', () => {
@@ -122,6 +128,8 @@ describe('column label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    column.destroy();
   });
 
   it('group column position middle', () => {
@@ -158,6 +166,8 @@ describe('column label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    column.destroy();
   });
 
   it('group column position bottom', () => {
@@ -194,5 +204,7 @@ describe('column label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    column.destroy();
   });
 });

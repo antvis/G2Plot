@@ -129,8 +129,6 @@ describe('multi-view', () => {
 
     pie.render();
 
-    // @ts-ignore
-    window.pie = pie;
     expect(pie.chart.getOptions().data).toEqual([]);
 
     expect(pie.chart.views.length).toBe(2);
@@ -164,5 +162,7 @@ describe('multi-view', () => {
       values: ['#BAE7FF', '#7FC9FE', '#71E3E3', '#ABF5F5', '#8EE0A1', '#BAF5C4'],
     });
     expect(attr2.position).toEqual({ fields: ['1', 'percent'] });
+
+    pie.destroy();
   });
 });

@@ -65,6 +65,8 @@ describe('bullet*legend', () => {
 
     // 是否小于 viewBox 的 最大 x 值
     expect(legendBBox.x < viewBBox.maxX).toBe(true);
+
+    bullet.destroy();
   });
 
   it('custom stack legend', () => {
@@ -120,5 +122,7 @@ describe('bullet*legend', () => {
 
     // 是否小于 viewBox 的 最大 x 值
     expect(legendBBox.x < viewBBox.maxX).toBe(true);
+
+    bullet.destroy();
   });
 });

@@ -10,6 +10,7 @@ describe('radial-bar tooltip', () => {
   const formatter = (datum: Datum) => {
     return { name: 'star', value: datum.percent * 100 + '%' };
   };
+
   it('tooltip default', () => {
     const bar = new RadialBar(createDiv(), {
       width: 400,
@@ -28,5 +29,7 @@ describe('radial-bar tooltip', () => {
     expect(tooltip.showMarkers).toBe(false);
     // @ts-ignore
     expect(tooltip.formatter).toBe(formatter);
+
+    bar.destroy();
   });
 });

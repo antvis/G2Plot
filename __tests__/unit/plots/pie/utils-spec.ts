@@ -6,6 +6,7 @@ describe('utils of pie plot', () => {
     { type: 'item2', value: 10 },
     { type: 'item3', value: 10 },
   ];
+
   it('getTotalValue: normal', () => {
     expect(getTotalValue(data, 'value')).toBe(30);
     expect(getTotalValue([...data, { type: 'item4', value: -1 }], 'value')).toBe(29);

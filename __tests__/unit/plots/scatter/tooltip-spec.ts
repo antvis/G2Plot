@@ -30,6 +30,8 @@ describe('scatter', () => {
 
     expect(scatter.chart.getOptions().tooltip).toBe(undefined);
     expect(scatter.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    scatter.destroy();
   });
 
   it('tooltip: itemTpl options', () => {
@@ -65,5 +67,7 @@ describe('scatter', () => {
     // 正常渲染
     scatter.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(document.getElementsByClassName('itemTpl')[0].innerHTML).not.toBeNull();
+
+    scatter.destroy();
   });
 });

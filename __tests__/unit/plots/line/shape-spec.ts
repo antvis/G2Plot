@@ -16,6 +16,8 @@ describe('line', () => {
 
     line.render();
     expect(line.chart.geometries[0].attributes.shape.values).toEqual(['line']);
+
+    line.destroy();
   });
 
   it('x*y*color and shape', () => {
@@ -32,5 +34,7 @@ describe('line', () => {
 
     line.render();
     expect(line.chart.geometries[0].attributes.shape.values).toEqual(['smooth']);
+
+    line.destroy();
   });
 });

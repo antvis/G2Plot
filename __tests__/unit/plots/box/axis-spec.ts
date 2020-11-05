@@ -23,6 +23,8 @@ describe('box axis', () => {
     const geometry = box.chart.geometries[0];
     // @ts-ignore
     expect(geometry.scales[BOX_RANGE].nice).toBe(true);
+
+    box.destroy();
   });
 
   it('xAxis', () => {
@@ -44,6 +46,8 @@ describe('box axis', () => {
 
     // @ts-ignore
     expect(axisOptions.x.label.rotate).toBe(-Math.PI / 2);
+
+    box.destroy();
   });
 
   it('yAxis', () => {
@@ -71,5 +75,7 @@ describe('box axis', () => {
     expect(geometry.scales[BOX_RANGE].maxLimit).toBe(50);
     // @ts-ignore
     expect(geometry.scales[BOX_RANGE].nice).toBe(true);
+
+    box.destroy();
   });
 });

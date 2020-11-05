@@ -97,6 +97,8 @@ describe('gauge', () => {
     // pointer
 
     // pin
+
+    gauge.destroy();
   });
 
   it('simple', () => {
@@ -120,6 +122,8 @@ describe('gauge', () => {
       minLimit: 0,
       maxLimit: 1,
     });
+
+    gauge.destroy();
   });
 
   it('no indicator', () => {
@@ -138,6 +142,8 @@ describe('gauge', () => {
 
     expect(gauge.chart.views.length).toBe(1);
     expect(gauge.chart.views[0].geometries[0].type).toBe('interval');
+
+    gauge.destroy();
   });
 
   it('> 1, < 0', () => {
@@ -164,6 +170,8 @@ describe('gauge', () => {
 
     // 多 view 的时候，防止 update 的时候 view 泄露
     expect(gauge.chart.views.length).toBe(2);
+
+    gauge.destroy();
   });
 
   it('change data', () => {
@@ -180,5 +188,7 @@ describe('gauge', () => {
     gauge.changeData(0.2);
     expect(gauge.chart.views[0].getData()).toEqual([{ percent: 0.2 }]);
     expect(gauge.chart.views[1].getYScales()[0].values).toEqual([0.2, 0.8]);
+
+    gauge.destroy();
   });
 });

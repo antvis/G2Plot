@@ -25,5 +25,7 @@ describe('line', () => {
     expect(geometry.connectNulls).toBe(true);
     expect(elements.length).toBe(2);
     expect(elements[0].getModel().shape).toBe('hv');
+
+    line.destroy();
   });
 });

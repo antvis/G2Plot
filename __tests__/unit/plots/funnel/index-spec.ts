@@ -19,6 +19,10 @@ describe('basic funnel', () => {
     funnel.render();
   });
 
+  afterAll(() => {
+    funnel.destroy();
+  });
+
   describe('geometry', () => {
     test('geometry test', () => {
       const geometry = funnel.chart.geometries[0];

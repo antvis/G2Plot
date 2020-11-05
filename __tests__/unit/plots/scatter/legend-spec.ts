@@ -23,6 +23,8 @@ describe('scatter', () => {
     // @ts-ignore
     const { option } = legendController;
     expect(option).toBe(false);
+
+    scatter.destroy();
   });
 
   it('legend: true', () => {
@@ -50,7 +52,10 @@ describe('scatter', () => {
     expect(option).not.toBeUndefined();
     expect(legendController.getComponents().length).toBe(1);
     expect(legendController.getComponents()[0].id).toBe('legend-gender');
+
+    scatter.destroy();
   });
+
   it('legend: postion options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
@@ -79,6 +84,8 @@ describe('scatter', () => {
     expect(legendController.getComponents().length).toBe(1);
     expect(legendController.getComponents()[0].id).toBe('legend-gender');
     expect(legendController.getComponents()[0].direction).toBe('top-right');
+
+    scatter.destroy();
   });
 
   it('legend: legend * sizeField * false', () => {
@@ -105,6 +112,8 @@ describe('scatter', () => {
     // @ts-ignore
     const { option } = legendController;
     expect(option).toBe(false);
+
+    scatter.destroy();
   });
 
   it('legend: legend * sizeField * true', () => {
@@ -136,5 +145,7 @@ describe('scatter', () => {
     expect(weight).toBe(false);
     expect(height).toBe(false);
     expect(gender).toBeTruthy();
+
+    scatter.destroy();
   });
 });

@@ -27,6 +27,8 @@ describe('area', () => {
     // @ts-ignore
     expect(area.chart.options.tooltip).toBe(false);
     expect(area.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    area.destroy();
   });
 
   it('x*y*color and toolip', () => {
@@ -49,5 +51,7 @@ describe('area', () => {
     expect(area.chart.options.tooltip.shared).toBe(true);
     // @ts-ignore
     expect(area.chart.options.tooltip.showCrosshairs).toBe(true);
+
+    area.destroy();
   });
 });

@@ -29,6 +29,8 @@ describe('bar axis', () => {
     // 默认 yField 为 cat 类型
     // @ts-ignore
     expect(geometry.scales.area.type).toBe('cat');
+
+    bar.destroy();
   });
 
   it('xAxis', () => {
@@ -54,6 +56,8 @@ describe('bar axis', () => {
     expect(geometry.scales.sales.minLimit).toBe(10000);
     // @ts-ignore
     expect(geometry.scales.sales.nice).toBe(true);
+
+    bar.destroy();
   });
 
   it('yAxis', () => {
@@ -75,5 +79,7 @@ describe('bar axis', () => {
 
     // @ts-ignore
     expect(axisOptions.area.label.rotate).toBe(-Math.PI / 6);
+
+    bar.destroy();
   });
 });

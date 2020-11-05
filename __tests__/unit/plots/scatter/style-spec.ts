@@ -31,6 +31,8 @@ describe('scatter', () => {
     expect(elements[0].shape.attr('fill')).toBe('red');
     expect(elements[0].shape.attr('stroke')).toBe('yellow');
     expect(elements[0].shape.attr('opacity')).toBe(0.8);
+
+    scatter.destroy();
   });
 
   it('style: callback options', () => {
@@ -76,7 +78,10 @@ describe('scatter', () => {
     expect(colorArr).toContain('green');
     expect(elements[0].shape.attr('stroke')).toBe('yellow');
     expect(elements[0].shape.attr('opacity')).toBe(0.8);
+
+    scatter.destroy();
   });
+
   it('style: all options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
@@ -113,5 +118,7 @@ describe('scatter', () => {
     expect(elements[0].shape.attr('opacity')).toBe(0.5);
     expect(elements[0].shape.attr('fillOpacity')).toBe(0.5);
     expect(elements[0].shape.attr('strokeOpacity')).toBe(0.5);
+
+    scatter.destroy();
   });
 });

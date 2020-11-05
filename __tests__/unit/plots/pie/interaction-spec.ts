@@ -55,6 +55,10 @@ describe('register interaction', () => {
     const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
     expect(annotations[0].component.get('content')).toBe('Total');
   });
+
+  afterAll(() => {
+    pie.destroy();
+  });
 });
 
 describe('G2 内置interactions', () => {
@@ -95,5 +99,9 @@ describe('G2 内置interactions', () => {
     );
 
     expect(pie.chart.interactions['pie-legend-active']).toBeDefined();
+  });
+
+  afterAll(() => {
+    pie.destroy();
   });
 });

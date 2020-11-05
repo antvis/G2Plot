@@ -31,5 +31,7 @@ describe('Bidirectional laebl', () => {
     expect(rightG.labelOption.cfg.position).toEqual('middle');
     // @ts-ignore
     expect(rightG.labelOption.cfg.style.fill).toEqual('#fff');
+
+    bidirectional.destroy();
   });
 });

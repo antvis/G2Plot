@@ -28,5 +28,7 @@ describe('word-cloud', () => {
     // @ts-ignore
     expect(cloud.chart.options.tooltip).toBe(false);
     expect(cloud.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    cloud.destroy();
   });
 });

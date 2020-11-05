@@ -105,6 +105,7 @@ describe('radar', () => {
         score: 60,
       },
     ];
+
     const radar = new Radar(createDiv('radar'), {
       data,
       height: 300,
@@ -145,5 +146,7 @@ describe('radar', () => {
       legend: false,
     });
     expect(chart.getOptions().legends).not.toBeTruthy();
+
+    radar.destroy();
   });
 });

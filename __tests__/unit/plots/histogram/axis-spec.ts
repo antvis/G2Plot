@@ -34,6 +34,8 @@ describe('Histogram: axis', () => {
 
     // @ts-ignore
     expect(histogram.chart.options.axes.range.label.style.fill).toBe('red');
+
+    histogram.destroy();
   });
 
   it('xAxis*false', () => {
@@ -59,6 +61,8 @@ describe('Histogram: axis', () => {
     });
     // @ts-ignore
     expect(histogram.chart.options.axes.range).toEqual(false);
+
+    histogram.destroy();
   });
 
   it('yAxis', () => {
@@ -85,6 +89,8 @@ describe('Histogram: axis', () => {
     expect(histogram.chart.options.axes.count.nice).toBe(true);
     // @ts-ignore
     expect(histogram.chart.options.axes.count.label.style.fill).toBe('red');
+
+    histogram.destroy();
   });
 
   it('yAxis*false', () => {
@@ -110,5 +116,7 @@ describe('Histogram: axis', () => {
         autoRotate: true,
       },
     });
+
+    histogram.destroy();
   });
 });

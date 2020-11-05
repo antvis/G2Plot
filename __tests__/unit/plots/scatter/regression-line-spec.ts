@@ -71,6 +71,8 @@ describe('scatter', () => {
     // @ts-ignore
     expect(elements[0].getModel().style.fill).toBe('#5B8FF9');
     expect(elements[0].getModel().size).toBe(5);
+
+    scatter.destroy();
   });
 
   it('regressionLine: algorithm', async () => {
@@ -117,7 +119,10 @@ describe('scatter', () => {
     const { path } = pathGroup?.[0]?.cfg?.attrs;
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
+
+    scatter.destroy();
   });
+
   it('regressionLine: algorithm callback', async () => {
     const scatter = new Scatter(createDiv('regressionLine*algorithm'), {
       data,
@@ -154,5 +159,7 @@ describe('scatter', () => {
     const { path } = pathGroup?.[0]?.cfg?.attrs;
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
+
+    scatter.destroy();
   });
 });

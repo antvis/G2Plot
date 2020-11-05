@@ -16,7 +16,10 @@ describe('Bidirectional legend', () => {
     });
     bidirectional.render();
     expect(bidirectional.chart.getController('legend').getComponents()[0].direction).toEqual('top');
+
+    bidirectional.destroy();
   });
+
   it('x*y*legend*false', () => {
     const bidirectional = new BidirectionalBar(createDiv(), {
       width: 400,
@@ -28,5 +31,7 @@ describe('Bidirectional legend', () => {
     });
     bidirectional.render();
     expect(bidirectional.chart.getController('legend').getComponents().length).toEqual(0);
+
+    bidirectional.destroy();
   });
 });

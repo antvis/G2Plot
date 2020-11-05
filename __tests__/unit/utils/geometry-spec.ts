@@ -21,5 +21,7 @@ describe('geometry', () => {
     expect(findGeometry(chart, 'line')).toBe(line);
     expect(findGeometry(chart, 'interval')).toBe(interval);
     expect(findGeometry(chart, 'point')).toBe(undefined);
+
+    chart.destroy();
   });
 });

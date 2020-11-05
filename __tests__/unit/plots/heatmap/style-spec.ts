@@ -31,5 +31,7 @@ describe('heatmap', () => {
       },
     });
     expect(heatmap.chart.geometries[0].elements[0].shape.attr('stroke')).toBe('#00ff00');
+
+    heatmap.destroy();
   });
 });

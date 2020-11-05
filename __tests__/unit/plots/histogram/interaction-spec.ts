@@ -40,4 +40,8 @@ describe('Histogram - G2内置interaction', () => {
 
     expect(histogram.chart.interactions['element-active']).toBeDefined();
   });
+
+  afterAll(() => {
+    histogram.destroy();
+  });
 });

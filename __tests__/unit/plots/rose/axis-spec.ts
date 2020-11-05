@@ -25,6 +25,8 @@ describe('rose axis', () => {
     // @ts-ignore
     expect(geometry.scales.sales.nice).toBe(true);
     expect(geometry.scales.sales.formatter).toBe(formatter);
+
+    rose.destroy();
   });
 
   it('xAxis', () => {
@@ -46,6 +48,8 @@ describe('rose axis', () => {
 
     // @ts-ignore
     expect(axisOptions.area.label.rotate).toBe(-Math.PI / 2);
+
+    rose.destroy();
   });
 
   it('yAxis', () => {
@@ -71,5 +75,7 @@ describe('rose axis', () => {
     expect(geometry.scales.sales.minLimit).toBe(10000);
     // @ts-ignore
     expect(geometry.scales.sales.nice).toBe(true);
+
+    rose.destroy();
   });
 });

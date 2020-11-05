@@ -36,6 +36,8 @@ describe('heatmap', () => {
     const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
     expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
     expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
+
+    heatmap.destroy();
   });
 
   it('x*y with color and meta', () => {
@@ -89,5 +91,7 @@ describe('heatmap', () => {
     const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
     expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
     expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
+
+    heatmap.destroy();
   });
 });

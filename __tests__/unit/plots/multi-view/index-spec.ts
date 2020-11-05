@@ -63,5 +63,7 @@ describe('multi-view', () => {
     expect(line.chart.views[0].getXScale().tickCount).toBe(5);
     expect(line.chart.views[0].getYScales()[0].type).toBe('log');
     expect(line.chart.views[0].getYScales()[0].tickCount).toBe(3);
+
+    line.destroy();
   });
 });

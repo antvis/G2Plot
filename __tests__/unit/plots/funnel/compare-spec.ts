@@ -20,6 +20,10 @@ describe('compare funnel', () => {
     funnel.render();
   });
 
+  afterAll(() => {
+    funnel.destroy();
+  });
+
   describe('geometry', () => {
     test('geometry test', () => {
       const funnelViews = funnel.chart.views;

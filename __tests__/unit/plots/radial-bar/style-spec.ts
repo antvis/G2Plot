@@ -26,5 +26,7 @@ describe('radial-bar style', () => {
       fillOpacity: 0.6,
       cursor: 'pointer',
     });
+
+    bar.destroy();
   });
 });

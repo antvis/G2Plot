@@ -28,5 +28,7 @@ describe('pie', () => {
     expect(elements[1].getModel().style?.fill || elements[1].getModel().color).toBe('red');
 
     expect(pie.chart.getTheme().colors10).toEqual(['blue', 'red', 'yellow', 'lightgreen', 'lightblue', 'pink']);
+
+    pie.destroy();
   });
 });

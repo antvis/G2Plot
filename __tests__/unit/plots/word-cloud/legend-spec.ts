@@ -18,5 +18,7 @@ describe('word-cloud', () => {
 
     // 不显示 legend 信息
     expect(options.legends).toBe(false);
+
+    cloud.destroy();
   });
 });

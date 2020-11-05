@@ -35,5 +35,7 @@ describe('Bidirectional layout', () => {
     expect(secondView.getCoordinate().isReflectY).toBe(true);
     //@ts-ignore
     expect(firstView.getOptions().axes.country.position).toBe('bottom');
+
+    bidirectional.destroy();
   });
 });

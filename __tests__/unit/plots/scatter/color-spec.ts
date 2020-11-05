@@ -24,6 +24,8 @@ describe('scatter', () => {
 
     expect(elements.length).toBe(507);
     expect(elements[0].getModel().color).toBe('red');
+
+    scatter.destroy();
   });
 
   it('color: string array options', () => {
@@ -50,5 +52,7 @@ describe('scatter', () => {
     expect(geometry.attributeOption.color.values.length).toBe(2);
     expect(elements.length).toBe(507);
     expect(elements[0].getModel().color).not.toBe('red');
+
+    scatter.destroy();
   });
 });

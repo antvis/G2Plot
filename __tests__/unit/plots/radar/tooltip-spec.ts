@@ -23,6 +23,8 @@ describe('radar tooltip', () => {
     expect(radar.chart.options.tooltip.shared).toBe(true);
     // @ts-ignore
     expect(radar.chart.options.tooltip.showCrosshairs).toBe(true);
+
+    radar.destroy();
   });
 });
 
@@ -45,6 +47,8 @@ describe('radar, 自定义 tooltip', () => {
     expect(radar.chart).toBeDefined();
     expect(radar.chart.geometries.length).toBe(1);
     expect(radar.chart.geometries[0].elements.length).toBe(1);
+
+    radar.destroy();
   });
 
   it('xField*yField*seriesField', () => {
@@ -67,6 +71,8 @@ describe('radar, 自定义 tooltip', () => {
     expect(radar.chart.geometries.length).toBe(1);
     expect(radar.chart.geometries[0].elements.length).toBe(2);
     expect(radar.chart.interactions['radar-tooltip']).toBeDefined();
+
+    radar.destroy();
   });
 
   it('xField*yField*seriesField, with sharedTooltip', () => {
@@ -95,6 +101,8 @@ describe('radar, 自定义 tooltip', () => {
     expect(radar.chart).toBeDefined();
     expect(radar.chart.geometries.length).toBe(1);
     expect(radar.chart.geometries[0].elements.length).toBe(2);
+
+    radar.destroy();
   });
 
   it('"xy" crosshairs', () => {
@@ -138,6 +146,8 @@ describe('radar, 自定义 tooltip', () => {
     expect(tooltipCfg.shared).toBe(true);
     expect(tooltipCfg.showCrosshairs).toBe(true);
     expect(tooltipCfg.crosshairs.type).toBe('xy');
+
+    radar.destroy();
   });
   it('tooltip formatter', () => {
     const radar = new Radar(createDiv(), {
@@ -162,5 +172,7 @@ describe('radar, 自定义 tooltip', () => {
     // @ts-ignore
     const tooltipCfg = tooltipController.getTooltipCfg();
     expect(tooltipCfg.showCrosshairs).toBe(true);
+
+    radar.destroy();
   });
 });

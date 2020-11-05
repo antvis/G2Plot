@@ -47,5 +47,7 @@ describe('area', () => {
     expect(point.attributeOption.size.values).toEqual([2]);
     // @ts-ignore
     // expect(point.attributeOption.shape.values).toEqual(['circle']);
+
+    area.destroy();
   });
 });

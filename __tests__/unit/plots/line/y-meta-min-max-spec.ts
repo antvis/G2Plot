@@ -31,5 +31,7 @@ describe('line', () => {
 
     expect(line.chart.getScaleByField('value').min).toBe(-20);
     expect(line.chart.getScaleByField('value').max).toBe(0);
+
+    line.destroy();
   });
 });

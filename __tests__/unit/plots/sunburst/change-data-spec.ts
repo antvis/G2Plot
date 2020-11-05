@@ -40,7 +40,10 @@ describe('sunburst', () => {
     expect(positionFields).toEqual(['x', 'y']);
     expect(coordinate.innerRadius).toBe(0.3);
     expect(coordinate.radius).toBe(1);
+
+    sunburstPlot.destroy();
   });
+
   it('init: update', async () => {
     const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json').then((res) =>
       res.json()
@@ -72,5 +75,7 @@ describe('sunburst', () => {
       innerRadius: 0.6,
     });
     expect(sunburstPlot.chart.geometries[0].coordinate.innerRadius).toBe(0.6);
+
+    sunburstPlot.destroy();
   });
 });

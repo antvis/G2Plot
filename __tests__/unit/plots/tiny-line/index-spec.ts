@@ -21,6 +21,8 @@ describe('tiny-line', () => {
 
     tinyLine.chart.showTooltip({ x: 10, y: 10 });
     expect(tinyLine.container.querySelector('.g2-tooltip').innerHTML).toBe('4100.0');
+
+    tinyLine.destroy();
   });
 
   it('data with smooth', () => {
@@ -45,6 +47,8 @@ describe('tiny-line', () => {
     tinyLine.render();
     expect(tinyLine.chart.geometries[0].attributes.shape.values).toEqual(['smooth']);
     expect(tinyLine.chart.geometries[0].elements.length).toBe(1);
+
+    tinyLine.destroy();
   });
 
   it('data with style', () => {
@@ -80,6 +84,8 @@ describe('tiny-line', () => {
       },
     });
     expect(tinyLine.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
+
+    tinyLine.destroy();
   });
 
   it('data with tooltip', () => {
@@ -109,6 +115,8 @@ describe('tiny-line', () => {
         fontSize: '10px',
       },
     });
+
+    tinyLine.destroy();
   });
 
   it('data with custom tooltip', () => {
@@ -154,6 +162,8 @@ describe('tiny-line', () => {
     // @ts-ignore
     const { position } = geometry.attributeOption;
     expect(position.fields).toEqual(['x', 'y']);
+
+    tinyLine.destroy();
   });
 
   it('annotation', () => {
@@ -171,5 +181,7 @@ describe('tiny-line', () => {
 
     tinyLine.render();
     expect(tinyLine.chart.getController('annotation').getComponents().length).toBe(1);
+
+    tinyLine.destroy();
   });
 });

@@ -15,6 +15,8 @@ describe('column legend', () => {
     column.render();
 
     expect(column.chart.getOptions().legends).toEqual(false);
+
+    column.destroy();
   });
 
   it('legend config', () => {
@@ -54,5 +56,7 @@ describe('column legend', () => {
 
     expect(column.chart.getOptions().legends).toEqual(false);
     expect(column.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(0);
+
+    column.destroy();
   });
 });

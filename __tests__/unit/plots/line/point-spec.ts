@@ -66,4 +66,8 @@ describe('line', () => {
     // @ts-ignore
     expect(point.elements[0].shapeType).toEqual('square');
   });
+
+  afterAll(() => {
+    line.destroy();
+  });
 });

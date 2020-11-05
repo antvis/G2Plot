@@ -71,6 +71,8 @@ describe('bullet', () => {
       shapeArr.push(ele.getModel().shape);
     });
     expect(shapeArr).toContain('line');
+
+    bullet.destroy();
   });
 
   it('no title', () => {
@@ -99,6 +101,8 @@ describe('bullet', () => {
     });
     expect(measureGeometry.getYScale().max).toEqual(100);
     expect(measureGeometry.getYScale().min).toEqual(0);
+
+    bullet.destroy();
   });
 
   it('measureColors', () => {
@@ -125,6 +129,8 @@ describe('bullet', () => {
       yField: 'measures',
     });
     expect(measureGeometry.getAttribute('color').values).toEqual('#ff0000');
+
+    bullet.destroy();
   });
 
   it('targetColor', () => {
@@ -146,6 +152,8 @@ describe('bullet', () => {
     const targetGeometry = chart.geometries[2];
     expect(targetGeometry.getAttribute('size').values[0]).toEqual(20 / 2);
     expect(targetGeometry.getAttribute('color').values).toEqual('red');
+
+    bullet.destroy();
   });
 
   it('rangesColor', () => {
@@ -175,6 +183,8 @@ describe('bullet', () => {
       yField: 'ranges',
     });
     expect(rangeGeometry.getAttribute('color').values).toEqual(rangeColors);
+
+    bullet.destroy();
   });
 
   it('stack*measure*measureColor', () => {
@@ -201,6 +211,8 @@ describe('bullet', () => {
       yField: 'measures',
     });
     expect(measureGeometry.getAttribute('color').values).toEqual(measureColors);
+
+    bullet.destroy();
   });
 
   it('measureSize*rangeSize', () => {
@@ -235,6 +247,8 @@ describe('bullet', () => {
       xField: 'title',
       yField: 'measures',
     });
+
+    bullet.destroy();
   });
 
   it('measureSize*rangeSize*targetSize', () => {
@@ -274,5 +288,7 @@ describe('bullet', () => {
 
     const targetGeometry = chart.geometries[2];
     expect(targetGeometry.getAttribute('size').values[0]).toEqual(25 / 2);
+
+    bullet.destroy();
   });
 });

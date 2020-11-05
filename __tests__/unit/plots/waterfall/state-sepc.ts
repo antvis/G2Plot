@@ -21,6 +21,10 @@ describe('waterfall', () => {
     data: data,
   });
 
+  afterAll(() => {
+    waterfall.destroy();
+  });
+
   it('set statesStyle', () => {
     waterfall.update({
       ...waterfall.options,

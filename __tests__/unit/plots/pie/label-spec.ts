@@ -30,6 +30,8 @@ describe('pie label', () => {
 
     expect(elements.length).toBe(data.length);
     expect(labelGroups.length).toBe(data.length);
+
+    pie.destroy();
   });
 
   it.skip('label: single color(todo-hustcc: 没有 color 字段，label 显示错误)', () => {
@@ -44,6 +46,8 @@ describe('pie label', () => {
     const labelGroups = geometry.labelsContainer.getChildren();
 
     expect(labelGroups.length).toBe(data.length);
+
+    pie.destroy();
   });
 
   it('label: custom content & support percent', () => {
@@ -76,6 +80,8 @@ describe('pie label', () => {
     expect(label1[0].attr('text')).toBe('hello');
     const label2 = (labelGroups[1] as IGroup).getChildren();
     expect(label2[0].attr('text')).toBe('item2: 2(40%)');
+
+    pie.destroy();
   });
 
   it('label: custom callback', () => {
@@ -100,6 +106,8 @@ describe('pie label', () => {
     const label3 = (labelGroups[2] as IGroup).getChildren();
     expect(label1[0].attr('text')).toBe(`${data[0].type}: ${data[0].value}`);
     expect(label3[0].attr('text')).toBe(`${data[2].type}: ${data[2].value}`);
+
+    pie.destroy();
   });
 });
 
@@ -133,6 +141,8 @@ describe('support template string formatter', () => {
   // todo 暂时没有提供精度配置，直接粗暴返回
   expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(20.00%)');
   // todo 补充图例点击后，百分比计算依然准确的 case
+
+  pie.destroy();
 });
 
 describe('inner label', () => {

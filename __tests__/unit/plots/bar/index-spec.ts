@@ -29,6 +29,8 @@ describe('bar', () => {
     // 默认 yField 为 cat 类型
     // @ts-ignore
     expect(geometry.scales.area.type).toBe('cat');
+
+    bar.destroy();
   });
 
   it('x*y*color', () => {
@@ -48,6 +50,8 @@ describe('bar', () => {
 
     expect(colorFields).toHaveLength(1);
     expect(colorFields[0]).toBe('area');
+
+    bar.destroy();
   });
 
   it('x*y*color with color', () => {
@@ -74,6 +78,8 @@ describe('bar', () => {
       const color = element.getModel().color;
       expect(color).toBe(palette[index % palette.length]);
     });
+
+    bar.destroy();
   });
 
   it('grouped bar', () => {
@@ -95,6 +101,8 @@ describe('bar', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+
+    bar.destroy();
   });
 
   it('grouped bar /w groupField', () => {
@@ -116,6 +124,8 @@ describe('bar', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+
+    bar.destroy();
   });
 
   it('grouped bar /w seriesField', () => {
@@ -137,6 +147,8 @@ describe('bar', () => {
       yField: 'sales',
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
+
+    bar.destroy();
   });
 
   it('stacked bar', () => {
@@ -158,6 +170,8 @@ describe('bar', () => {
       xField: 'area',
       yField: 'sales',
     });
+
+    bar.destroy();
   });
 
   it('stacked bar /w stackField', () => {
@@ -179,6 +193,8 @@ describe('bar', () => {
       xField: 'area',
       yField: 'sales',
     });
+
+    bar.destroy();
   });
 
   it('stacked bar /w seriesField', () => {
@@ -200,6 +216,8 @@ describe('bar', () => {
       xField: 'area',
       yField: 'sales',
     });
+
+    bar.destroy();
   });
 
   it('grouped bar barWidthRatio/marginRatio', () => {
@@ -224,6 +242,8 @@ describe('bar', () => {
       marginRatio: 0.3,
       dodgeRatio: 0.7,
     });
+
+    bar.destroy();
   });
 
   it('stacked bar barWidthRatio/marginRatio', () => {
@@ -246,6 +266,8 @@ describe('bar', () => {
       yField: 'sales',
     });
     expect(geometry.theme.columnWidthRatio).toBe(0.5);
+
+    bar.destroy();
   });
 
   it('default interaction', () => {
@@ -260,6 +282,8 @@ describe('bar', () => {
     bar.render();
 
     expect(bar.chart.interactions['active-region']).toBeDefined();
+
+    bar.destroy();
   });
 
   it('x*y*cat', () => {
@@ -282,5 +306,7 @@ describe('bar', () => {
     // 默认 yField 为 cat 类型
     // @ts-ignore
     expect(geometry.scales.year.type).toBe('cat');
+
+    bar.destroy();
   });
 });

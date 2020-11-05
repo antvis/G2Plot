@@ -22,6 +22,8 @@ describe('box outliers', () => {
     expect(geometry.type).toBe('point');
     // 图形元素个数
     expect(geometry.elements.length).toBe(outliersData.length);
+
+    box.destroy();
   });
 
   it('with outliersField style', () => {
@@ -44,5 +46,7 @@ describe('box outliers', () => {
 
     // 类型
     expect(elements[0].shape.cfg.children[0].attr('fill')).toBe('#f6f');
+
+    box.destroy();
   });
 });

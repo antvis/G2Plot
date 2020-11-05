@@ -44,5 +44,7 @@ describe('tooltip bullet', () => {
     expect(chart.options.tooltip.showMarkers).toBe(false);
     // @ts-ignore
     expect(chart.options.tooltip.showCrosshairs).toBe(false);
+
+    bullet.destroy();
   });
 });

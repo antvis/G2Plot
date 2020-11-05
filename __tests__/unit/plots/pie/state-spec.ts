@@ -50,6 +50,8 @@ describe('pie', () => {
     pie.setState('inactive', (d: any) => d.type === data[0].type);
     expect(shape.attr('fill')).toBe('blue');
     expect(pie.getStates()[0].state).toBe('inactive');
+
+    pie.destroy();
   });
 
   it('set statesStyle by theme', () => {
@@ -80,5 +82,7 @@ describe('pie', () => {
     expect(shape.attr('fill')).toBe('yellow');
     expect(shape.attr('fillOpacity')).toBe(0.65);
     expect(pie.getStates()[0].state).toBe('active');
+
+    pie.destroy();
   });
 });

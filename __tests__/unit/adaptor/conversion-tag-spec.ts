@@ -147,6 +147,10 @@ describe('column conversion tag', () => {
     const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
     expect(group).toBeUndefined();
   });
+
+  afterAll(() => {
+    plot.destroy();
+  });
 });
 
 describe('bar conversion tag', () => {
@@ -276,6 +280,10 @@ describe('bar conversion tag', () => {
     const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
     expect(group).toBeUndefined();
   });
+
+  afterAll(() => {
+    plot.destroy();
+  });
 });
 
 describe('zero data no NaN', () => {
@@ -322,5 +330,9 @@ describe('zero data no NaN', () => {
         expect(texts[idx - 1].attr('text')).toBe(v);
       }
     });
+  });
+
+  afterAll(() => {
+    plot.destroy();
   });
 });

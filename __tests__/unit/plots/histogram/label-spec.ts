@@ -58,4 +58,8 @@ describe('Histogram: label', () => {
       position: 'bottom',
     });
   });
+
+  afterAll(() => {
+    histogram.destroy();
+  });
 });

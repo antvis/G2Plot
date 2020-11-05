@@ -29,6 +29,8 @@ describe('line', () => {
       },
     });
     expect(line.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
+
+    line.destroy();
   });
 
   it('x*y*color and style', () => {
@@ -59,5 +61,7 @@ describe('line', () => {
     });
     expect(line.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
     expect(line.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual(undefined);
+
+    line.destroy();
   });
 });

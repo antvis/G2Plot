@@ -22,6 +22,8 @@ describe('pie', () => {
 
     expect(elements.length).toBe(data.length);
     expect(elements[0].getModel().color).toBe(elements[1].getModel().color);
+
+    pie.destroy();
   });
 
   it('angleField with colorField: multiple colors', () => {
@@ -44,6 +46,8 @@ describe('pie', () => {
     // 绘图数据
     expect(elements[0].getModel().style?.fill || elements[0].getModel().color).toBe('blue');
     expect(elements[1].getModel().style?.fill || elements[1].getModel().color).toBe('red');
+
+    pie.destroy();
   });
 
   it('no radius', () => {
@@ -62,6 +66,8 @@ describe('pie', () => {
     const polarRadius = coordinate.getRadius();
     expect(radius).toBeUndefined();
     expect(polarRadius).toBeGreaterThan(0);
+
+    pie.destroy();
   });
 
   it('innerRadius', () => {
@@ -81,6 +87,8 @@ describe('pie', () => {
     const coordinate = pie.chart.getCoordinate();
     const { innerRadius, radius } = coordinate;
     expect(innerRadius).toBe((radius / 0.8) * 0.5);
+
+    pie.destroy();
   });
 
   it('pieStyle: custom style of pie', () => {
@@ -108,6 +116,8 @@ describe('pie', () => {
     expect(elements[1].getModel().style?.fill).toBe('red');
     expect(elements[1].getModel().style?.lineWidth).toBe(3);
     expect(elements[1].getModel().style?.stroke).toBe('yellow');
+
+    pie.destroy();
   });
 
   it('pieStyle: with callback', () => {
@@ -134,6 +144,8 @@ describe('pie', () => {
     expect(elements[0].getModel().style?.fill).toBe('red');
     expect(elements[1].getModel().style?.fill).toBe('blue');
     expect(elements[2].getModel().style?.fill).toBe('red');
+
+    pie.destroy();
   });
 
   it('pie: annotation animate default to false', () => {
@@ -152,5 +164,7 @@ describe('pie', () => {
 
     pie.update({ ...pie.options, theme: { components: { annotation: { text: { animate: true } } } } });
     expect(pie.chart.getTheme().components.annotation.text.animate).toBe(true);
+
+    pie.destroy();
   });
 });

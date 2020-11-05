@@ -64,6 +64,8 @@ describe('bullet*label', () => {
     expect(targetGeometry.labelOption.cfg.position).toEqual('right');
     // @ts-ignore
     expect(targetGeometry.labelOption.cfg.style.fill).toEqual('#fff');
+
+    bullet.destroy();
   });
 
   it('lable*measure*null', () => {
@@ -105,5 +107,7 @@ describe('bullet*label', () => {
     expect(targetGeometry.labelOption.cfg.position).toEqual('right');
     // @ts-ignore
     expect(targetGeometry.labelOption.cfg.style.fill).toEqual('#fff');
+
+    bullet.destroy();
   });
 });

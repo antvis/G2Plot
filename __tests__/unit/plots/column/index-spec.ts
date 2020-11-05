@@ -29,6 +29,8 @@ describe('column', () => {
     // 柱状图 xField 默认为 cat 类型
     // @ts-ignore
     expect(geometry.scales.area.type).toBe('cat');
+
+    column.destroy();
   });
 
   it('x*y*color', () => {
@@ -48,6 +50,8 @@ describe('column', () => {
 
     expect(seriesFields).toHaveLength(1);
     expect(seriesFields[0]).toBe('area');
+
+    column.destroy();
   });
 
   it('x*y*color with color', () => {
@@ -74,6 +78,8 @@ describe('column', () => {
       const color = element.getModel().color;
       expect(color).toBe(palette[index % palette.length]);
     });
+
+    column.destroy();
   });
 
   it('grouped column', () => {
@@ -98,6 +104,8 @@ describe('column', () => {
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    column.destroy();
   });
 
   it('grouped column /w groupField', () => {
@@ -120,6 +128,8 @@ describe('column', () => {
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    column.destroy();
   });
 
   it('grouped column /w seriesField', () => {
@@ -142,6 +152,8 @@ describe('column', () => {
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    column.destroy();
   });
 
   it('stacked column', () => {
@@ -166,6 +178,8 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    column.destroy();
   });
 
   it('stacked column /w stackField', () => {
@@ -188,6 +202,8 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    column.destroy();
   });
 
   it('stacked column /w seriesField', () => {
@@ -210,6 +226,8 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    column.destroy();
   });
 
   it('grouped column columnWidthRatio/marginRatio', () => {
@@ -234,6 +252,8 @@ describe('column', () => {
       marginRatio: 0.1,
       dodgeRatio: 0.7,
     });
+
+    column.destroy();
   });
 
   it('stacked column columnWidthRatio/marginRatio', () => {
@@ -256,6 +276,8 @@ describe('column', () => {
       yField: 'sales',
     });
     expect(geometry.theme.columnWidthRatio).toBe(0.7);
+
+    column.destroy();
   });
 
   it('default interaction', () => {
@@ -270,7 +292,10 @@ describe('column', () => {
     column.render();
 
     expect(column.chart.interactions['active-region']).toBeDefined();
+
+    column.destroy();
   });
+
   it('x*y*cat', () => {
     const column = new Column(createDiv('x*y*cat'), {
       width: 300,
@@ -292,5 +317,7 @@ describe('column', () => {
     // 柱状图 xField 默认为 cat 类型
     // @ts-ignore
     expect(geometry.scales.year.type).toBe('cat');
+
+    column.destroy();
   });
 });

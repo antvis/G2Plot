@@ -27,6 +27,10 @@ describe('waterfall plot', () => {
 
   waterfall.render();
 
+  afterAll(() => {
+    waterfall.destroy();
+  });
+
   it('data: 不存在小于 0', () => {
     const elements = waterfall.chart.geometries[0].elements;
     elements.forEach((ele) => {

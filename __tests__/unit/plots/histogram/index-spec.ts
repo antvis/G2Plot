@@ -40,6 +40,8 @@ describe('histogram', () => {
         autoRotate: true,
       },
     });
+
+    histogram.destroy();
   });
 
   it('binNumber', () => {
@@ -58,6 +60,8 @@ describe('histogram', () => {
     const shapes = geometry.getShapes();
 
     expect(shapes.length - 1).toBe(4);
+
+    histogram.destroy();
   });
 
   it('automatic calculate binNumber', () => {
@@ -80,6 +84,8 @@ describe('histogram', () => {
     const binWidth = width / binNumber;
 
     expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(binWidth);
+
+    histogram.destroy();
   });
 
   it('color with binWidth', () => {
@@ -101,6 +107,8 @@ describe('histogram', () => {
 
     expect(shapeOrigin.range[1] - shapeOrigin.range[0]).toBe(2);
     expect(elements[0].getModel().color).toBe('red');
+
+    histogram.destroy();
   });
 
   it('stackField: 层叠直方图', () => {
@@ -128,6 +136,8 @@ describe('histogram', () => {
     expect(histogram.chart.getController('legend').components[0].extra.scale.field).toEqual('type');
     //@ts-ignore
     expect(histogram.chart.getController('legend').components.length).toEqual(1);
+
+    histogram.destroy();
   });
 
   it('stackField with color', () => {
@@ -153,5 +163,7 @@ describe('histogram', () => {
       xField: 'range',
       yField: 'count',
     });
+
+    histogram.destroy();
   });
 });

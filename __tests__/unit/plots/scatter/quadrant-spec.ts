@@ -58,5 +58,7 @@ describe('scatter', () => {
     expect(lines[0].style.lineWidth).toBe(1);
     // @ts-ignore
     expect(lines[0].end).toEqual(['max', 170]);
+
+    scatter.destroy();
   });
 });

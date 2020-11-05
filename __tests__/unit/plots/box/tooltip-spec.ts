@@ -26,6 +26,8 @@ describe('box tooltip', () => {
     // @ts-ignore
     expect(box.chart.options.tooltip).toBe(false);
     expect(box.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    box.destroy();
   });
 
   it('default toolip', () => {
@@ -43,5 +45,7 @@ describe('box tooltip', () => {
     expect(box.chart.options.tooltip.shared).toBe(true);
     // @ts-ignore
     expect(box.chart.options.tooltip.showCrosshairs).toBe(true);
+
+    box.destroy();
   });
 });

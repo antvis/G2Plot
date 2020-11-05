@@ -46,8 +46,10 @@ describe('Line-Column', () => {
     // @ts-ignore
     expect(leftGeometry.shapeType).toBe('line');
     expect(rightGeometry.shapeType).toBe('interval');
+
     dualAxes.destroy();
   });
+
   it('Colomn-Line', () => {
     const dualAxes = new DualAxes(createDiv(), {
       height: 500,
@@ -79,8 +81,10 @@ describe('Line-Column', () => {
     // @ts-ignore
     expect(leftGeometry.shapeType).toBe('interval');
     expect(rightGeometry.shapeType).toBe('line');
+
     dualAxes.destroy();
   });
+
   it('Colomn-Style', () => {
     const dualAxes = new DualAxes(createDiv(), {
       height: 500,
@@ -113,6 +117,7 @@ describe('Line-Column', () => {
     expect(leftGeometry.attributes.color.values[0]).toBe('#f00');
     expect(leftGeometry.theme.columnWidthRatio).toBe(0.5);
     expect(rightGeometry.shapeType).toBe('line');
+
     dualAxes.destroy();
   });
 
@@ -143,6 +148,7 @@ describe('Line-Column', () => {
     const cfg = leftGeometry.labelOption.cfg;
     expect(cfg.content(RANGE_DATA[0])).toBe('200-350');
     expect(cfg.position).toBe('top');
+
     dualAxes.destroy();
   });
 });

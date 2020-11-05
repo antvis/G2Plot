@@ -28,5 +28,7 @@ describe('box', () => {
     // range meta default min = 0
     // @ts-ignore
     expect(geometry.scales[BOX_RANGE].min).toBe(0);
+
+    box.destroy();
   });
 });

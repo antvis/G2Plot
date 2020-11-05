@@ -36,6 +36,8 @@ describe('bar label', () => {
         `${Math.floor(salesByArea[salesByArea.length - index - 1].sales / 10000)}万`
       );
     });
+
+    bar.destroy();
   });
 
   it('label position middle', () => {
@@ -62,6 +64,8 @@ describe('bar label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'middle' });
+
+    bar.destroy();
   });
 
   it('label position left', () => {
@@ -88,6 +92,8 @@ describe('bar label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'left' });
+
+    bar.destroy();
   });
 
   it('group bar position right', () => {
@@ -124,6 +130,8 @@ describe('bar label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    bar.destroy();
   });
 
   it('group column position middle', () => {
@@ -160,6 +168,8 @@ describe('bar label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    bar.destroy();
   });
 
   it('group bar position left', () => {
@@ -196,5 +206,7 @@ describe('bar label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    bar.destroy();
   });
 });

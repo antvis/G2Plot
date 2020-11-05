@@ -36,6 +36,8 @@ describe('stack', () => {
     expect(dualAxes.chart.views[1].geometries[1].type).toBe('point');
     expect(dualAxes.chart.views[1].geometries[0].getAdjust('stack')).toBeDefined();
     expect(dualAxes.chart.views[1].geometries[1].getAdjust('stack')).toBeDefined();
+
+    dualAxes.destroy();
   });
 
   it('stack percent column', () => {
@@ -92,5 +94,7 @@ describe('stack', () => {
     expect(
       document.querySelectorAll('#stack_percent_column .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML
     ).toBe('123');
+
+    dualAxes.destroy();
   });
 });

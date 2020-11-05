@@ -31,6 +31,8 @@ describe('waterfall style', () => {
     // fixme
     // expect(elements[0].shape.attr('stroke')).toBe('black');
     // expect(elements[0].shape.attr('lineWidth')).toBe(2);
+
+    waterfall.destroy();
   });
 
   it('style callback', () => {
@@ -63,5 +65,7 @@ describe('waterfall style', () => {
     // fixme
     // expect(elements[0].shape.attr('stroke')).toBe('black');
     // expect(elements[0].shape.attr('lineWidth')).toBe(2);
+
+    waterfall.destroy();
   });
 });

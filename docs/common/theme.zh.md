@@ -1,7 +1,9 @@
 主题支持 `light`、 `dark` 两种模式，当然也可以自己指定， 默认使用 `light`。
 
 ```ts
-theme: 'dark';
+{ 
+  theme: 'dark';
+}
 ```
 
 默认配置如下， `dark` 和 `light` 配置项没有区别，只是预设值不一样。

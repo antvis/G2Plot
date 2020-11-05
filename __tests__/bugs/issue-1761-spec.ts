@@ -37,6 +37,8 @@ describe('#1761', () => {
 
     // @ts-ignore
     expect(line.chart.geometries[1].attributeOption.color.values).toEqual(['blue', 'black']);
+
+    line.destroy();
   });
 
   it('Area: point, line color should be same with area color', () => {
@@ -81,5 +83,7 @@ describe('#1761', () => {
     expect(area.chart.geometries[1].attributeOption.color.values).toEqual(['yellow', 'grey']);
     // @ts-ignore
     expect(area.chart.geometries[2].attributeOption.color.values).toEqual(['blue', 'black']);
+
+    area.destroy();
   });
 });

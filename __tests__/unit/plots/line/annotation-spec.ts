@@ -56,4 +56,8 @@ describe('annotation', () => {
     expect(line.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
     expect(line.chart.getController('annotation').getComponents()[1].component.get('type')).toBe('line');
   });
+
+  afterAll(() => {
+    line.destroy();
+  });
 });

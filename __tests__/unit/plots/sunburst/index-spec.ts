@@ -36,6 +36,8 @@ describe('sunburst', () => {
     expect(positionFields).toEqual(['x', 'y']);
     expect(coordinate.innerRadius).toBe(0.3);
     expect(coordinate.radius).toBe(1);
+
+    sunburstPlot.destroy();
   });
 });
 
@@ -87,6 +89,8 @@ describe('sunburst', () => {
       lineWidth: 1,
       stroke: '#fff',
     });
+
+    sunburstPlot.destroy();
   });
 });
 
@@ -151,6 +155,8 @@ describe('sunburst', () => {
       document.getElementById('sunburst-id-one').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
     ).toBe('0.0153');
     sunburstPlot.chart.hideTooltip();
+
+    sunburstPlot.destroy();
   });
 });
 
@@ -219,5 +225,7 @@ describe('sunburst', () => {
       document.getElementById('sunburset-id').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
     ).toBe('123');
     sunburstPlot.chart.hideTooltip();
+
+    sunburstPlot.destroy();
   });
 });

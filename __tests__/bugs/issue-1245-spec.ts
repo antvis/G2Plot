@@ -45,6 +45,8 @@ describe('donut plot', () => {
 
     expect(donutPlot).toBeDefined();
     expect(donutPlot.chart.geometries[0].elements.length).toBe(0);
+
+    donutPlot.destroy();
   });
 
   test('value 数据出现字母或其他不合法情况，不会触发 out-of-memory', () => {
@@ -94,5 +96,7 @@ describe('donut plot', () => {
       data: data.map((d, idx) => (idx !== 0 ? { ...d, value: null } : d)),
     });
     expect(piePlot.chart.geometries[0].elements.length).toBe(data.length);
+
+    piePlot.destroy();
   });
 });

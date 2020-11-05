@@ -38,6 +38,8 @@ describe('column range', () => {
     });
     expect(cfg.position).toBe('middle');
     expect(cfg.content).not.toBeUndefined();
+
+    column.destroy();
   });
 
   it('range: custom content', () => {
@@ -68,6 +70,8 @@ describe('column range', () => {
     });
     expect(cfg.position).toBe('top');
     expect(cfg.content).toBe('min');
+
+    column.destroy();
   });
 
   it('range: no label', () => {
@@ -84,5 +88,7 @@ describe('column range', () => {
     const geometry = column.chart.geometries[0];
     const { labelOption } = geometry;
     expect(labelOption).not.toBeTruthy();
+
+    column.destroy();
   });
 });

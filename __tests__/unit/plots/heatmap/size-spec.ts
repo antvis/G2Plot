@@ -40,6 +40,8 @@ describe('heatmap', () => {
       const afterRadius0 = heatmap.chart.geometries[0].elements[0].shape.attrs.r;
 
       expect(beforeRadius0 / afterRadius0).toBeCloseTo(Math.sqrt(1 / 0.5), 5);
+
+      heatmap.destroy();
     });
 
     it('work with sizeField', () => {
@@ -68,6 +70,8 @@ describe('heatmap', () => {
       const afterRadius0 = heatmap.chart.geometries[0].elements[0].shape.attrs.width;
 
       expect(beforeRadius0 / afterRadius0).toBeCloseTo(Math.sqrt(1 / 0.2), 5);
+
+      heatmap.destroy();
     });
 
     it('work with shape', () => {
@@ -96,6 +100,8 @@ describe('heatmap', () => {
       const afterRadius0 = heatmap.chart.geometries[0].elements[0].shape.attrs.r;
 
       expect(beforeRadius0 / afterRadius0).toBeCloseTo(Math.sqrt(0.5 / 0.8), 5);
+
+      heatmap.destroy();
     });
 
     it('not take effect while shape and sizeField are both missing', () => {
@@ -113,6 +119,8 @@ describe('heatmap', () => {
       heatmap.render();
 
       expect(console.warn).toHaveBeenCalledWith('sizeRatio is not in effect: Must define shape or sizeField first');
+
+      heatmap.destroy();
     });
 
     it('not take effect if exceeds range [0,1]', () => {
@@ -146,6 +154,8 @@ describe('heatmap', () => {
       });
 
       expect(console.warn).toHaveBeenCalledTimes(2);
+
+      heatmap.destroy();
     });
   });
 });

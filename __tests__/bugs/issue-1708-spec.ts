@@ -33,5 +33,7 @@ describe('#1708', () => {
 
     // =2，没有重复元素
     expect(items.length).toBe(2);
+
+    area.destroy();
   });
 });

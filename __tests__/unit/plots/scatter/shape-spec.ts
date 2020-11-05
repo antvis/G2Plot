@@ -26,6 +26,8 @@ describe('scatter', () => {
     expect(elements.length).toBe(507);
     expect(elements[0].getModel().shape).toBe('hollow-diamond');
     expect(elements[elements.length - 1].getModel().shape).toBe('hollow-diamond');
+
+    scatter.destroy();
   });
 
   it('shape: string array options', () => {
@@ -56,6 +58,8 @@ describe('scatter', () => {
     expect(geometry.attributeOption.shape.values.length).toBe(2);
     expect(elements.length).toBe(507);
     expect(set.size).toBe(2);
+
+    scatter.destroy();
   });
 
   it('shape: callback options', () => {
@@ -92,5 +96,7 @@ describe('scatter', () => {
     expect(elements.length).toBe(507);
     expect(shapeArr).toContain('circle');
     expect(shapeArr).toContain('square');
+
+    scatter.destroy();
   });
 });

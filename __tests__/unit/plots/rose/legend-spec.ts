@@ -25,5 +25,7 @@ describe('rose label', () => {
     // @ts-ignore
     const { option } = legendController;
     expect(option).toBe(false);
+
+    rose.destroy();
   });
 });

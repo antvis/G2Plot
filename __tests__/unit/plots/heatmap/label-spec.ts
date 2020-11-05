@@ -32,5 +32,7 @@ describe('heatmap', () => {
         shadowColor: 'rgba(0, 0, 0, .45)',
       },
     });
+
+    heatmap.destroy();
   });
 });

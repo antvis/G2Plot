@@ -1,7 +1,7 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
-import { DualAxesOptions, DualAxesGeometry } from './types';
+import { DualAxesOptions } from './types';
 import { adaptor } from './adaptor';
 
 export { DualAxesOptions };

@@ -16,5 +16,7 @@ describe('issue 1754', () => {
 
     // @ts-ignore
     expect(cloud.chart.getOptions().tooltip.fields).toEqual(['text', 'value', 'color']);
+
+    cloud.destroy();
   });
 });

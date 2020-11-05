@@ -32,6 +32,8 @@ describe('line', () => {
     });
     // @ts-ignore
     expect(line.chart.geometries[0].labelOption).toBe(false);
+
+    line.destroy();
   });
 
   it('x*y*color and label', () => {
@@ -57,5 +59,7 @@ describe('line', () => {
         type: 'overlap',
       },
     });
+
+    line.destroy();
   });
 });

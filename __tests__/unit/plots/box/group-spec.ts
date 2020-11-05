@@ -22,5 +22,7 @@ describe('grouped box', () => {
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['Species']);
+
+    box.destroy();
   });
 });

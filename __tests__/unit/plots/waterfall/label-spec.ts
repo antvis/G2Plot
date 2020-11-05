@@ -36,6 +36,8 @@ describe('waterfall label', () => {
         expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(salesByArea[index].sales / 10000)}万`);
       }
     });
+
+    waterfall.destroy();
   });
 
   it('position middle', () => {
@@ -62,6 +64,8 @@ describe('waterfall label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'middle' });
+
+    waterfall.destroy();
   });
 
   it('position bottom', () => {
@@ -88,5 +92,7 @@ describe('waterfall label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'bottom' });
+
+    waterfall.destroy();
   });
 });

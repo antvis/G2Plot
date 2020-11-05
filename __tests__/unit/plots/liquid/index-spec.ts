@@ -23,6 +23,8 @@ describe('liquid', () => {
 
     // @ts-ignore
     expect(liquid.chart.middleGroup.getChildren()[0].getChildren()[1].attr('r')).toBe(135); // circle
+
+    liquid.destroy();
   });
   it('change data', () => {
     const liquid = new Liquid(createDiv(), {
@@ -36,5 +38,7 @@ describe('liquid', () => {
     expect(liquid.chart.geometries[0].elements[0].getData().percent).toBe(0.75);
     liquid.changeData(0.5);
     expect(liquid.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
+
+    liquid.destroy();
   });
 });

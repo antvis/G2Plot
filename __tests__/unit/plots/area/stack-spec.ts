@@ -31,5 +31,7 @@ describe('area', () => {
 
     // @ts-ignore
     expect(area.chart.getOptions().legends.type.position).toBe('top-left');
+
+    area.destroy();
   });
 });

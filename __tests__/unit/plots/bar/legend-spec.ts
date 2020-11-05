@@ -15,6 +15,8 @@ describe('bar legend', () => {
     bar.render();
 
     expect(bar.chart.getOptions().legends).toEqual(false);
+
+    bar.destroy();
   });
 
   it('legend config', () => {
@@ -54,5 +56,7 @@ describe('bar legend', () => {
 
     expect(bar.chart.getOptions().legends).toEqual(false);
     expect(bar.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(0);
+
+    bar.destroy();
   });
 });

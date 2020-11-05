@@ -17,6 +17,8 @@ describe('radar with point', () => {
     radar.render();
     expect(radar.chart).toBeDefined();
     expect(radar.chart.geometries.length).toBe(2);
+
+    radar.destroy();
   });
 
   it('point shape & size', () => {
@@ -37,6 +39,8 @@ describe('radar with point', () => {
     expect(radar.chart.geometries[1].type).toBe('point');
     expect(radar.chart.geometries[1].elements[0].getModel().shape).toBe('triangle');
     expect(radar.chart.geometries[1].elements[0].getModel().size).toBe(6);
+
+    radar.destroy();
   });
 
   it('point shape & size with callback', () => {
@@ -68,10 +72,12 @@ describe('radar with point', () => {
     expect(radar.chart.geometries[1].elements[0].getModel().shape).toBe('triangle');
     expect(radar.chart.geometries[1].elements[0].getModel().size).toBe(6);
     expect(radar.chart.geometries[1].elements[1].getModel().size).toBe(4);
+
+    radar.destroy();
   });
 
   it('point color & style', () => {
-    const radar2 = new Radar(createDiv(), {
+    const radar = new Radar(createDiv(), {
       width: 400,
       height: 300,
       data: SERIES_DATA,
@@ -83,31 +89,33 @@ describe('radar with point', () => {
       point: {},
     });
 
-    radar2.render();
-    let pointGeometry = radar2.chart.geometries[1];
+    radar.render();
+    let pointGeometry = radar.chart.geometries[1];
     expect(pointGeometry.elements[0].getModel().color).toBe('red');
     expect(pointGeometry.elements[SERIES_DATA.length / 2].getModel().color).toBe('orange');
 
-    radar2.update({
-      ...radar2.options,
+    radar.update({
+      ...radar.options,
       point: {
         color: '#008000',
       },
     });
-    pointGeometry = radar2.chart.geometries[1];
+    pointGeometry = radar.chart.geometries[1];
     expect(pointGeometry.elements[0].getModel().color).toBe('#008000');
     expect(pointGeometry.elements[SERIES_DATA.length / 2].getModel().color).toBe('#008000');
 
-    radar2.update({
-      ...radar2.options,
+    radar.update({
+      ...radar.options,
       point: {
         // 数组
         color: ['#008000', '#008990'],
       },
     });
-    pointGeometry = radar2.chart.geometries[1];
+    pointGeometry = radar.chart.geometries[1];
     expect(pointGeometry.elements[0].getModel().color).toBe('#008000');
     expect(pointGeometry.elements[SERIES_DATA.length / 2].getModel().color).toBe('#008990');
+
+    radar.destroy();
   });
 
   it('point color & style, with callback', () => {
@@ -147,5 +155,7 @@ describe('radar with point', () => {
     expect(radar.chart.geometries[1].elements[0].getModel().color).toBe('pink');
     expect(radar.chart.geometries[1].elements[0].getModel().style.stroke).toBe('red');
     expect(radar.chart.geometries[1].elements[2].getModel().style.stroke).toBe('rgba(0, 0, 0, 0.85)');
+
+    radar.destroy();
   });
 });

@@ -43,5 +43,7 @@ describe('heatmap', () => {
     });
     // @ts-ignore
     expect(heatmap.chart.geometries[0].attributeOption.color.values).toBe('#F51D27-#FA541C-#FF8C12');
+
+    heatmap.destroy();
   });
 });

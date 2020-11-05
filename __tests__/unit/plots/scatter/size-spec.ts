@@ -31,6 +31,8 @@ describe('scatter', () => {
     expect(elements.length).toBe(507);
     expect(Math.floor(sizeArr[0])).toBe(5);
     expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
+
+    scatter.destroy();
   });
 
   it('size: number array options', () => {
@@ -57,6 +59,8 @@ describe('scatter', () => {
     expect(geometry.attributeOption.size.values.length).toBe(2);
     expect(elements.length).toBe(507);
     expect(elements[0].getModel().size).not.toBe(elements[elements.length - 1].getModel().size);
+
+    scatter.destroy();
   });
 
   it('size: callback options', () => {
@@ -90,5 +94,7 @@ describe('scatter', () => {
     expect(elements.length).toBe(507);
     expect(sizeArr[0] > 0).toBeTruthy();
     expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
+
+    scatter.destroy();
   });
 });

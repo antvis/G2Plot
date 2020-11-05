@@ -34,5 +34,7 @@ describe('word-cloud', () => {
       // 旋转角度，默认配置
       expect(item.rotate === 0 || item.rotate === 90).toBe(true);
     });
+
+    cloud.destroy();
   });
 });

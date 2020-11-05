@@ -16,5 +16,7 @@ describe('word-cloud', () => {
 
     // 不显示轴信息
     expect(cloud.chart.getOptions().axes).toBe(false);
+
+    cloud.destroy();
   });
 });

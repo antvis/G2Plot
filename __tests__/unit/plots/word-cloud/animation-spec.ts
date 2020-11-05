@@ -45,5 +45,7 @@ describe('word-cloud', () => {
         animation: 'fade-out',
       },
     });
+
+    cloud.destroy();
   });
 });

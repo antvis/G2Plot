@@ -16,6 +16,8 @@ describe('line', () => {
     line.render();
 
     expect(line.chart.geometries[0].elements.length).toBe(1);
+
+    line.destroy();
   });
 
   it('x*y with color', () => {
@@ -49,6 +51,8 @@ describe('line', () => {
 
     expect(geometry.scales.value.min).toBe(0);
     expect(geometry.scales.value.max).toBe(5000);
+
+    line.destroy();
   });
 
   it('x cat scale', () => {
@@ -82,5 +86,7 @@ describe('line', () => {
 
     expect(line.chart.getScaleByField('x').type).toBe('linear');
     expect(line.chart.getScaleByField('x').range).toEqual([0.1, 0.9]);
+
+    line.destroy();
   });
 });

@@ -74,6 +74,8 @@ describe('Legend', () => {
     expect(dualAxes.chart.views[0].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
     expect(dualAxes.chart.views[1].getComponents().find((co) => co.type === 'legend')).toBeUndefined();
     expect(dualAxes.chart.getEvents().beforepaint).toBeUndefined();
+
+    dualAxes.destroy();
   });
 
   it('Legend: multi line and column', () => {
@@ -138,6 +140,8 @@ describe('Legend', () => {
     expect(columnLineLegendComponentCfg.items[2].name).toBe('a');
     expect(columnLineLegendComponentCfg.items[2].marker.symbol).toBe('square');
     expect(columnLineLegendComponentCfg.items[2].marker.style.fill).toBe('#0f0');
+
+    dualAxes.destroy();
   });
 
   it('Legend with option', () => {
@@ -281,6 +285,8 @@ describe('Legend', () => {
       });
 
       expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
+
+      dualAxes.destroy();
     });
   });
 
@@ -320,5 +326,7 @@ describe('Legend', () => {
     expect(cfg.items[0].marker.symbol).toBe('square');
     expect(cfg.items[1].name).toBe('测试2');
     expect(cfg.items[1].marker.symbol).toBe('square');
+
+    dualAxes.destroy();
   });
 });

@@ -24,6 +24,8 @@ describe('radar with area', () => {
     expect(areaGeometry.elements[1].getModel().color).toBe('orange');
     expect(areaGeometry.type).toBe('area');
     expect(areaGeometry.elements.length).toBe(2);
+
+    radar.destroy();
   });
 
   it('area style', () => {
@@ -51,6 +53,8 @@ describe('radar with area', () => {
     expect(areaGeometry.elements[1].getModel().color).toBe('orange');
     expect(areaGeometry.elements[0].getModel().style.fill).toBe('rgba(0, 0, 0, 0.10)');
     expect(areaGeometry.elements[0].getModel().style.fillOpacity).toBe(0.3);
+
+    radar.destroy();
   });
 
   it('area style, with callback', () => {
@@ -79,5 +83,7 @@ describe('radar with area', () => {
     expect(areaGeometry.elements[0].getModel().style.fill).toBe('rgb(0, 0, 0)');
     expect(areaGeometry.elements[0].getModel().style.fillOpacity).toBe(0.3);
     expect(areaGeometry.elements[1].getModel().style.fillOpacity).toBe(0.1);
+
+    radar.destroy();
   });
 });

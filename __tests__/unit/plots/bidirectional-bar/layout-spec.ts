@@ -19,6 +19,8 @@ describe('Bidirectional layout', () => {
     expect(secondView.getCoordinate().isTransposed).toBe(true);
     //@ts-ignore
     expect(firstView.getCoordinate().isReflectX).toBe(true);
+
+    bidirectional.destroy();
   });
   it('layout*default*vertical', () => {
     const bidirectional = new BidirectionalBar(createDiv('x*y*vertical'), {
@@ -54,5 +56,7 @@ describe('Bidirectional layout', () => {
     expect(secondView.options.axes['2016年转基因种植面积'].min).toEqual(0);
     //@ts-ignore
     expect(secondView.options.axes['2016年转基因种植面积'].max).toEqual(100);
+
+    bidirectional.destroy();
   });
 });

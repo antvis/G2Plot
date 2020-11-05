@@ -27,6 +27,8 @@ describe('line', () => {
     // @ts-ignore
     expect(line.chart.options.tooltip).toBe(false);
     expect(line.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    line.destroy();
   });
 
   it('x*y*color and toolip', () => {
@@ -49,5 +51,7 @@ describe('line', () => {
     expect(line.chart.options.tooltip.shared).toBe(true);
     // @ts-ignore
     expect(line.chart.options.tooltip.showCrosshairs).toBe(true);
+
+    line.destroy();
   });
 });

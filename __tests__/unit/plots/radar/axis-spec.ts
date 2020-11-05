@@ -38,6 +38,8 @@ describe('radar axis 设置', () => {
     const scaleTicks = geometry.scales.value.ticks;
     expect(ticks[0].name).toBe(`${scaleTicks[0]} 元`);
     expect(ticks[1].name).toBe(`${scaleTicks[1]} 元`);
+
+    radar.destroy();
   });
 
   it('xField*yField*seriesField & axis 设置', () => {
@@ -83,6 +85,8 @@ describe('radar axis 设置', () => {
     // scale 算法似乎是不稳定算法，后面处理下
     // expect(yAxes.component.get('ticks').length).toBe(4);
     expect(yAxes.component.get('tickCount')).toBe(4);
+
+    radar.destroy();
   });
 
   it('xAxis line 设置', () => {
@@ -106,5 +110,7 @@ describe('radar axis 设置', () => {
     radar.render();
     const xAxes = getAxes(radar.chart)[0];
     expect(xAxes.component.get('line').style.lineWidth).toBe(0);
+
+    radar.destroy();
   });
 });

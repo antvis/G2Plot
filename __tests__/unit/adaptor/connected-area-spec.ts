@@ -32,8 +32,6 @@ describe('column connected area', () => {
     connectedArea: {},
   };
   const plot = new Column(createDiv(), options);
-  // @ts-ignore
-  window.__column__ = plot;
 
   it('render', () => {
     plot.render();
@@ -99,6 +97,10 @@ describe('column connected area', () => {
     plot.render();
     const interaction = plot.chart.interactions['__interval-connected-area-hover__'];
     expect(interaction).toBeUndefined();
+  });
+
+  afterAll(() => {
+    plot.destroy();
   });
 });
 
@@ -118,8 +120,6 @@ describe('bar connected area', () => {
     connectedArea: {},
   };
   const plot = new Bar(createDiv(), options);
-  // @ts-ignore
-  window.__bar__ = plot;
 
   it('render', () => {
     plot.render();
@@ -185,5 +185,9 @@ describe('bar connected area', () => {
     plot.render();
     const interaction = plot.chart.interactions['__interval-connected-area-hover__'];
     expect(interaction).toBeUndefined();
+  });
+
+  afterAll(() => {
+    plot.destroy();
   });
 });

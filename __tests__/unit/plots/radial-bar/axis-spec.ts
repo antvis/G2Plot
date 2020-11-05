@@ -30,5 +30,7 @@ describe('radial-bar axis', () => {
       line: null,
       tickLine: null,
     });
+
+    bar.destroy();
   });
 });

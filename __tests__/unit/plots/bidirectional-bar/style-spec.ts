@@ -24,7 +24,10 @@ describe('Bidirectional style', () => {
     expect(leftG.elements[0].shape.attr('lineWidth')).toBe(2);
     expect(rightG.elements[0].shape.attr('stroke')).toBe('black');
     expect(rightG.elements[0].shape.attr('lineWidth')).toBe(2);
+
+    bidirectional.destroy();
   });
+
   it('x*y*barStyle*callback', () => {
     const bidirectional = new BidirectionalBar(createDiv('barStyle*callback'), {
       width: 400,
@@ -48,5 +51,7 @@ describe('Bidirectional style', () => {
     expect(leftG.elements[0].shape.attr('lineWidth')).toBe(2);
     expect(rightG.elements[0].shape.attr('stroke')).toBe('black');
     expect(rightG.elements[0].shape.attr('lineWidth')).toBe(2);
+
+    bidirectional.destroy();
   });
 });

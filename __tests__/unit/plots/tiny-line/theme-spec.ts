@@ -28,5 +28,7 @@ describe('tiny-line', () => {
     const elements = tinyLine.chart.geometries[0].elements;
     expect(elements.length).toBe(1);
     expect(tinyLine.chart.getTheme().colors10).toEqual(['blue', 'red', 'yellow', 'lightgreen', 'lightblue', 'pink']);
+
+    tinyLine.destroy();
   });
 });

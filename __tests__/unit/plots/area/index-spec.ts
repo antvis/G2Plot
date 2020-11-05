@@ -16,6 +16,8 @@ describe('area', () => {
     area.render();
 
     expect(area.chart.geometries[0].elements.length).toBe(1);
+
+    area.destroy();
   });
 
   it('x cat scale', () => {
@@ -50,6 +52,8 @@ describe('area', () => {
 
     expect(area.options.meta.x.type).toBe('linear');
     expect(area.chart.getScaleByField('x').range).toEqual([0.1, 0.9]);
+
+    area.destroy();
   });
 
   it('x*y with color', () => {
@@ -81,5 +85,7 @@ describe('area', () => {
 
     expect(geometry.scales.value.min).toBe(0);
     expect(geometry.scales.value.max).toBe(5000);
+
+    area.destroy();
   });
 });

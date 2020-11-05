@@ -39,6 +39,8 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
     expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
+
+    ringProgress.destroy();
   });
 
   it('data with color', () => {
@@ -70,6 +72,8 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
     expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#123456');
+
+    ringProgress.destroy();
   });
 
   it('data with progressStyle', () => {
@@ -163,6 +167,8 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#654321');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([4, 4]);
+
+    ringProgress.destroy();
   });
 
   it('data without radius', () => {
@@ -183,6 +189,8 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
     expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
+
+    ringProgress.destroy();
   });
 
   it('annotation', () => {
@@ -206,6 +214,8 @@ describe('ring-progress', () => {
 
     ringProgress.render();
     expect(ringProgress.chart.getController('annotation').getComponents().length).toBe(2);
+
+    ringProgress.destroy();
   });
 
   it('color string', () => {
@@ -220,6 +230,8 @@ describe('ring-progress', () => {
     ring.render();
 
     expect(ring.chart.geometries[0].getAttribute('color').values).toEqual(['green', '#E8EDF3']);
+
+    ring.destroy();
   });
 
   it('> 1, < 0', () => {
@@ -258,6 +270,8 @@ describe('ring-progress', () => {
         percent: 1,
       },
     ]);
+
+    ring.destroy();
   });
 
   it('style callback', () => {
@@ -283,7 +297,10 @@ describe('ring-progress', () => {
     ring.render();
 
     expect(ring.chart.getController('annotation').getComponents()[0].component.get('style').fontSize).toBe(20 * 0.6);
+
+    ring.destroy();
   });
+
   it('change data', () => {
     const ringProgress = new RingProgress(createDiv(), {
       radius: 1,
@@ -298,5 +315,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     ringProgress.changeData(0.7);
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.7);
+
+    ringProgress.destroy();
   });
 });

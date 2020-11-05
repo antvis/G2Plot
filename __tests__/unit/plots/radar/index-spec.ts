@@ -17,6 +17,8 @@ describe('radar', () => {
     expect(radar.chart).toBeDefined();
     expect(radar.chart.geometries.length).toBe(1);
     expect(radar.chart.geometries[0].elements.length).toBe(1);
+
+    radar.destroy();
   });
 
   it('多组雷达图: xField*yField*seriesField', () => {
@@ -37,5 +39,7 @@ describe('radar', () => {
     expect(radar.chart).toBeDefined();
     expect(radar.chart.geometries.length).toBe(1);
     expect(radar.chart.geometries[0].elements.length).toBe(2);
+
+    radar.destroy();
   });
 });

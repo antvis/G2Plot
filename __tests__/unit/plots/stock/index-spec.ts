@@ -31,5 +31,7 @@ describe('Stock', () => {
     expect(k.chart.geometries[0].elements.length).toBe(kdata.length);
     // x & range
     expect(positionFields).toHaveLength(2);
+
+    k.destroy();
   });
 });

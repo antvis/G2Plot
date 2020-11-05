@@ -26,6 +26,8 @@ describe('radar', () => {
     expect(lineGeometry.type).toBe('line');
     expect(radar.chart.geometries[1].type).toBe('point');
     expect(radar.chart.geometries[2].type).toBe('area');
+
+    radar.destroy();
   });
 
   it('lineStyle', () => {
@@ -65,6 +67,8 @@ describe('radar', () => {
     expect(radar.chart.geometries[1].elements[0].getModel().style.fillOpacity).toBe(0.8);
     expect(radar.chart.geometries[2].elements[0].getModel().style.fill).toBe('rgba(0, 0, 0, 0.10)');
     expect(radar.chart.geometries[2].elements[0].getModel().style.fillOpacity).toBe(0.3);
+
+    radar.destroy();
   });
 
   it('lineStyle, with callback', () => {
@@ -91,5 +95,7 @@ describe('radar', () => {
     expect(lineGeometry.elements[0].getModel().style.stroke).toBe('rgb(0, 0, 0)');
     expect(lineGeometry.elements[0].getModel().style.strokeOpacity).toBe(0.3);
     expect(lineGeometry.elements[1].getModel().style.strokeOpacity).toBe(0.45);
+
+    radar.destroy();
   });
 });

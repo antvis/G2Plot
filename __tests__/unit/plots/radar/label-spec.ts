@@ -44,6 +44,7 @@ describe('radar', () => {
       score: 50,
     },
   ];
+
   it('radar label', () => {
     const radar = new Radar(createDiv('radar'), {
       data,
@@ -77,6 +78,8 @@ describe('radar', () => {
     const { labelOption } = geometry[0];
     // @ts-ignore
     expect(labelOption.cfg.content).toBe('content');
+
+    radar.destroy();
   });
 
   it('radar label formatter', () => {
@@ -112,5 +115,7 @@ describe('radar', () => {
     const { labelOption } = geometry[0];
     // @ts-ignore
     expect(labelOption.cfg.content).toBe('content');
+
+    radar.destroy();
   });
 });

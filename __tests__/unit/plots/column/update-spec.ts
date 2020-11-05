@@ -38,6 +38,8 @@ describe('column update', () => {
       },
     });
     expect(column.chart.getXScale().type).toBe('cat');
+
+    column.destroy();
   });
 
   it('legend', () => {
@@ -85,5 +87,7 @@ describe('column update', () => {
     });
 
     expect(column.chart.getOptions().legends).toBe(false);
+
+    column.destroy();
   });
 });

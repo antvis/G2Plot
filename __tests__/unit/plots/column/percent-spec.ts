@@ -62,8 +62,10 @@ describe('column percent', () => {
     });
     expect(cfg.position).toBe('middle');
     expect(cfg.content).not.toBeUndefined();
+
     column.destroy();
   });
+
   it('percent: custom content', async () => {
     const column = new Column(createDiv('percent', document.body, 'culumn-percent'), {
       width: 400,
@@ -99,8 +101,10 @@ describe('column percent', () => {
     const box = document.getElementById('culumn-percent');
     expect(box.getElementsByClassName('g2-tooltip-title')[1]).toBeUndefined();
     expect(box.getElementsByClassName('tooltip-class')[0].innerHTML).toBe('123');
+
     column.destroy();
   });
+
   it('percent: custom tooltip formatter', () => {
     const column = new Column(createDiv('percent', undefined, 'percent'), {
       width: 400,
@@ -126,5 +130,7 @@ describe('column percent', () => {
     column.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(document.querySelectorAll('#percent .g2-tooltip-list-item .g2-tooltip-name')[0].innerHTML).toBe('test');
     expect(document.querySelectorAll('#percent .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML).toBe('123');
+
+    column.destroy();
   });
 });

@@ -28,4 +28,8 @@ describe('Histogram:tooltip', () => {
     expect(histogram.chart.options.tooltip).toBe(false);
     expect(histogram.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
   });
+
+  afterAll(() => {
+    histogram.destroy();
+  });
 });

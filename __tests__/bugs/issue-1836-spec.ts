@@ -25,5 +25,7 @@ describe('#1836', () => {
     expect(gauge.chart.getOptions().animate).toBe(false);
     // 子 view 都关闭动画
     expect(gauge.chart.views.every((v) => v.getOptions().animate === false)).toBe(true);
+
+    gauge.destroy();
   });
 });

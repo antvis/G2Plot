@@ -37,5 +37,7 @@ describe('bulletStyle*label', () => {
 
     const targetElements = targetGeometry.elements[0];
     expect(targetElements.shape.attr('stroke')).toBe('#ddd');
+
+    bullet.destroy();
   });
 });

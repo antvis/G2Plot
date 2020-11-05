@@ -27,6 +27,8 @@ describe('heatmap', () => {
     const geometry = heatmap.chart.geometries[0];
     const { elements } = geometry;
     expect(elements[0].shape.cfg.type).toEqual('rect');
+
+    heatmap.destroy();
   });
 
   it('x*y*color and size', () => {
@@ -58,6 +60,8 @@ describe('heatmap', () => {
 
     const { elements } = geometry;
     expect(elements[0].shape.cfg.type).toEqual('rect');
+
+    heatmap.destroy();
   });
 
   it('x*y*color and shape*size', () => {
@@ -89,5 +93,7 @@ describe('heatmap', () => {
 
     const { elements } = geometry;
     expect(elements[0].shape.cfg.type).toEqual('circle');
+
+    heatmap.destroy();
   });
 });

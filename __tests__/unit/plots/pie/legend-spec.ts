@@ -27,5 +27,7 @@ describe('pie legend', () => {
       legend: false,
     });
     expect(legendComponent.get('items')).toBeUndefined();
+
+    pie.destroy();
   });
 });

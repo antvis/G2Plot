@@ -31,5 +31,7 @@ describe('area', () => {
 
     expect(area.chart.getScaleByField('value').min).toBe(-20);
     expect(area.chart.getScaleByField('value').max).toBe(0);
+
+    area.destroy();
   });
 });

@@ -31,5 +31,7 @@ describe('funnel tooltip', () => {
     // @ts-ignore
     expect(funnel.chart.options.tooltip).toBe(false);
     expect(funnel.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    funnel.destroy();
   });
 });

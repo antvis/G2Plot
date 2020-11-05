@@ -20,6 +20,8 @@ describe('Stock Legend', () => {
     k.render();
 
     expect(k.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(1);
+
+    k.destroy();
   });
 
   it('legend position', () => {
@@ -44,6 +46,8 @@ describe('Stock Legend', () => {
     const legend = k.chart.getComponents().filter((co) => co.type === 'legend')[0];
     expect(legend).toBeDefined();
     expect(legend.component.get('position')).toBe('right');
+
+    k.destroy();
   });
 
   it('legend off', () => {
@@ -65,5 +69,7 @@ describe('Stock Legend', () => {
 
     const legend = k.chart.getComponents().filter((co) => co.type === 'legend')[0];
     expect(legend).toBeUndefined();
+
+    k.destroy();
   });
 });

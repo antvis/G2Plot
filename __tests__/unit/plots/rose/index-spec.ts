@@ -25,6 +25,8 @@ describe('rose', () => {
     expect(positionFields).toHaveLength(2);
     expect(positionFields[0]).toBe('area');
     expect(positionFields[1]).toBe('sales');
+
+    rose.destroy();
   });
 
   it('grouped rose', () => {
@@ -47,6 +49,8 @@ describe('rose', () => {
     });
     expect(geometry.getAdjust('stack')).toBeUndefined();
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    rose.destroy();
   });
 
   it('stacked rose', () => {
@@ -69,5 +73,7 @@ describe('rose', () => {
       yField: 'sales',
     });
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
+
+    rose.destroy();
   });
 });

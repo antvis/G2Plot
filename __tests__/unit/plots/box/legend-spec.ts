@@ -26,5 +26,7 @@ describe('box legend', () => {
     });
     // @ts-ignore
     expect(box.chart.options.legends['Species'].position).toBe('right');
+
+    box.destroy();
   });
 });

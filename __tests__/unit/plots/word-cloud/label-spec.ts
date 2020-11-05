@@ -19,5 +19,7 @@ describe('word-cloud', () => {
 
     // 不显示 label 信息
     expect(labelGroups.length).toBe(0);
+
+    cloud.destroy();
   });
 });

@@ -38,8 +38,9 @@ describe('heatmap', () => {
       '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2'
     );
     heatmap.changeData(data);
-    console.log(heatmap);
     expect(heatmap.chart.geometries[0].data.length).toBe(500);
     expect(heatmap.chart.getOptions().data.length).toBe(500);
+
+    heatmap.destroy();
   });
 });

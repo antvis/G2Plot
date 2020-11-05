@@ -28,5 +28,7 @@ describe('#968', () => {
     line.render();
 
     expect(line.chart.getYScales()[0].type).toBe('log');
+
+    line.destroy();
   });
 });

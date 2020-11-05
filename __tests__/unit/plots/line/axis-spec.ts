@@ -49,5 +49,7 @@ describe('line', () => {
 
     // @ts-ignore
     expect(line.chart.options.axes.date.label.style.fill).toBe('red');
+
+    line.destroy();
   });
 });

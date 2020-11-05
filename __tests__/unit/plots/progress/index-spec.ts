@@ -28,6 +28,8 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
     expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
+
+    progress.destroy();
   });
 
   it('data with color', () => {
@@ -57,6 +59,8 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
     expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#123456');
+
+    progress.destroy();
   });
 
   it('data with progressStyle', () => {
@@ -148,6 +152,8 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#654321');
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([4, 4]);
+
+    progress.destroy();
   });
 
   it('barWidthRatio', () => {
@@ -162,6 +168,8 @@ describe('progress', () => {
     progress.render();
 
     expect(progress.chart.getTheme().columnWidthRatio).toBe(0.1);
+
+    progress.destroy();
   });
 
   it('annotation', () => {
@@ -182,6 +190,8 @@ describe('progress', () => {
 
     progress.render();
     expect(progress.chart.getController('annotation').getComponents().length).toBe(1);
+
+    progress.destroy();
   });
 
   it('color string', () => {
@@ -197,6 +207,8 @@ describe('progress', () => {
     progress.render();
 
     expect(progress.chart.geometries[0].getAttribute('color').values).toEqual(['green', '#E8EDF3']);
+
+    progress.destroy();
   });
 
   it('> 1, < 0', () => {
@@ -235,7 +247,10 @@ describe('progress', () => {
         percent: 1,
       },
     ]);
+
+    progress.destroy();
   });
+
   it('change data', () => {
     const progress = new Progress(createDiv(), {
       width: 200,
@@ -248,5 +263,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     progress.changeData(0.8);
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.8);
+
+    progress.destroy();
   });
 });

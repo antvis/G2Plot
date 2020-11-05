@@ -29,6 +29,8 @@ describe('column axis', () => {
     // 柱状图默认为 cat 类型
     // @ts-ignore
     expect(geometry.scales.area.type).toBe('cat');
+
+    column.destroy();
   });
 
   it('xAxis', () => {
@@ -50,6 +52,8 @@ describe('column axis', () => {
 
     // @ts-ignore
     expect(axisOptions.area.label.rotate).toBe(-Math.PI / 2);
+
+    column.destroy();
   });
 
   it('yAxis', () => {
@@ -75,5 +79,7 @@ describe('column axis', () => {
     expect(geometry.scales.sales.minLimit).toBe(10000);
     // @ts-ignore
     expect(geometry.scales.sales.nice).toBe(true);
+
+    column.destroy();
   });
 });

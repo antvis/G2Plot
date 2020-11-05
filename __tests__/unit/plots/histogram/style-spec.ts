@@ -22,6 +22,8 @@ describe('Histogram: style', () => {
     const elements = geometry.elements;
     expect(elements[0].shape.attr('stroke')).toBe('black');
     expect(elements[0].shape.attr('lineWidth')).toBe(2);
+
+    histogram.destroy();
   });
 
   it('style callback', () => {
@@ -46,5 +48,7 @@ describe('Histogram: style', () => {
     const elements = geometry.elements;
     expect(elements[0].shape.attr('stroke')).toBe('black');
     expect(elements[0].shape.attr('lineWidth')).toBe(2);
+
+    histogram.destroy();
   });
 });

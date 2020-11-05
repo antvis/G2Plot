@@ -21,5 +21,7 @@ describe('tiny-area', () => {
     const elements = tinyArea.chart.geometries[0].elements;
     expect(elements.length).toBe(1);
     expect(tinyArea.chart.getTheme().colors10).toEqual(['blue', 'red', 'yellow', 'lightgreen', 'lightblue', 'pink']);
+
+    tinyArea.destroy();
   });
 });

@@ -28,6 +28,8 @@ describe('radial-bar', () => {
     expect(positionFields).toHaveLength(2);
     expect(positionFields[0]).toBe(xField);
     expect(positionFields[1]).toBe(yField);
+
+    bar.destroy();
   });
 
   it('xField*yField*color', () => {
@@ -50,5 +52,7 @@ describe('radial-bar', () => {
     // @ts-ignore
     const colorValue = geometry.getAttribute('color').values;
     expect(colorValue).toBe(color);
+
+    bar.destroy();
   });
 });

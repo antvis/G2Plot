@@ -57,7 +57,10 @@ describe('Bidirectional', () => {
     expect(bidirectional.chart.getController('legend').getComponents()[0].direction).toEqual('bottom');
 
     expect(bidirectional.chart.getController('legend').getComponents()[0].extra.scale.field).toEqual('type');
+
+    bidirectional.destroy();
   });
+
   it('x*y*color', () => {
     const bidirectional = new BidirectionalBar(createDiv('x*y*color'), {
       width: 400,
@@ -77,6 +80,8 @@ describe('Bidirectional', () => {
     expect(LseriesFields[0]).toBe('type');
     expect(RseriesFields).toHaveLength(1);
     expect(RseriesFields[0]).toBe('type');
+
+    bidirectional.destroy();
   });
 
   it('x*y*color with color', () => {
@@ -105,6 +110,8 @@ describe('Bidirectional', () => {
       const color = element.getModel().color;
       expect(color).toBe(palette[1]);
     });
+
+    bidirectional.destroy();
   });
 
   it('widthRatio', () => {
@@ -122,5 +129,7 @@ describe('Bidirectional', () => {
     const rightG = bidirectional.chart.views[1].geometries[0];
     expect(leftG.theme.columnWidthRatio).toBe(0.7);
     expect(rightG.theme.columnWidthRatio).toBe(0.7);
+
+    bidirectional.destroy();
   });
 });

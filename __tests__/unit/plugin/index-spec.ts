@@ -24,5 +24,7 @@ describe('plugin - P', () => {
     expect(plot.type).toBe('g2-plot');
     expect(plot.options.stepType).toBe('vh');
     expect(plot.chart.geometries[0].type).toBe('line');
+
+    plot.destroy();
   });
 });

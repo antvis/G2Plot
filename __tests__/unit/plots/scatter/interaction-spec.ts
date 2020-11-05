@@ -30,4 +30,8 @@ describe('scatter: register interaction', () => {
     const statisticInteraction = getInteraction('drag-move');
     expect(statisticInteraction).toBeDefined();
   });
+
+  afterAll(() => {
+    scatter.destroy();
+  });
 });

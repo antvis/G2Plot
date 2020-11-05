@@ -36,5 +36,7 @@ describe('scatter', () => {
     expect(scatter.chart.options.axes.weight.label.style.fill).toBe('green');
     // @ts-ignore
     expect(scatter.chart.options.axes.weight.label.style.fontSize).toBe(16);
+
+    scatter.destroy();
   });
 });

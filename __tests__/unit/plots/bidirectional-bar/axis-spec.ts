@@ -36,6 +36,8 @@ describe('Bidirectional axis', () => {
     expect(secondView.options.axes['2016年转基因种植面积'].max).toEqual(100);
     //@ts-ignore
     expect(secondView.options.axes.country).toEqual(false);
+
+    bidirectional.destroy();
   });
 
   it('x*y*xAxis*false', () => {
@@ -55,6 +57,8 @@ describe('Bidirectional axis', () => {
     expect(firstView.options.axes.country).toEqual(false);
     //@ts-ignore
     expect(secondView.options.axes.country).toEqual(false);
+
+    bidirectional.destroy();
   });
   it('x*y*yAxis*false', () => {
     const bidirectional = new BidirectionalBar(createDiv('x*y*yAxis*false'), {
@@ -73,5 +77,7 @@ describe('Bidirectional axis', () => {
     expect(firstView.options.axes['2016年耕地总面积']).toEqual(false);
     //@ts-ignore
     expect(secondView.options.axes['2016年转基因种植面积']).toEqual(false);
+
+    bidirectional.destroy();
   });
 });

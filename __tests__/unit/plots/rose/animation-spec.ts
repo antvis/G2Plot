@@ -45,5 +45,7 @@ describe('rose', () => {
         animation: 'fade-out',
       },
     });
+
+    rose.destroy();
   });
 });

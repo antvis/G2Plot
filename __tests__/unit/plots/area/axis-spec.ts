@@ -39,5 +39,7 @@ describe('area', () => {
 
     // @ts-ignore
     expect(area.chart.options.axes.date.label.style.fill).toBe('red');
+
+    area.destroy();
   });
 });

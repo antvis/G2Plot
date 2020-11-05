@@ -22,5 +22,7 @@ describe('Histogram: change data', () => {
     expect(histogram.chart.options.tooltip.title).toBe('hello wold!');
     histogram.changeData(histogramData);
     expect(histogram.chart.getData().length).toBe(12);
+
+    histogram.destroy();
   });
 });

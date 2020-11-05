@@ -1,7 +1,6 @@
 import { deepMix, isEqual, clone } from '@antv/util';
-import { Line, G2, Pie } from '../../../src';
+import { Line, G2 } from '../../../src';
 import { partySupport } from '../../data/party-support';
-import { salesByArea } from '../../data/sales';
 import { createDiv } from '../../utils/dom';
 import { delay } from '../../utils/delay';
 
@@ -37,6 +36,8 @@ describe('core', () => {
 
     // expect(line.container.getAttribute('size-sensor-id')).toBeNull();
     expect(line.chart.width).toBe(400);
+
+    line.destroy();
   });
 
   it('update mix with default options', () => {
@@ -57,6 +58,8 @@ describe('core', () => {
     line.render();
 
     expect(isEqual(line.options, deepMix(curOptions, { ...options, width: 500 }))).toBeTruthy();
+
+    line.destroy();
   });
 
   it('localRefresh', () => {
@@ -72,6 +75,8 @@ describe('core', () => {
     line.render();
 
     expect(line.chart.localRefresh).toBe(false);
+
+    line.destroy();
   });
 
   it('theme', () => {
@@ -99,6 +104,8 @@ describe('core', () => {
     });
 
     expect(line.chart.getTheme().colors10).toEqual(['green']);
+
+    line.destroy();
   });
 
   it('event', async () => {
@@ -137,53 +144,8 @@ describe('core', () => {
       type: 'element:click',
       _data: 1,
     });
-  });
 
-  const pie = new Pie(createDiv('饼图状态'), {
-    width: 400,
-    height: 400,
-    data: salesByArea,
-    angleField: 'sales',
-    colorField: 'area',
-    radius: 0.8,
-    autoFit: false,
-    interactions: [{ type: 'element-selected' }],
-  });
-
-  it('state', async () => {
-    pie.render();
-
-    // 注意，如果 autoFit 会触发一次 render，导致 setState 的状态又还原了（实际场景，自己处理一个时机即可）
-    pie.setState('selected', (data) => (data as any).area === salesByArea[0].area);
-    expect(pie.getStates().length).toBe(1);
-
-    pie.chart.geometries[0].elements[0].setState('selected', false);
-    expect(pie.getStates().length).toBe(0);
-
-    pie.setState('selected', (data) => (data as any).area === salesByArea[2].area);
-    expect(pie.getStates().length).toBe(1);
-    // 取消 selected
-    pie.setState('selected', (data) => (data as any).area === salesByArea[2].area, false);
-    expect(pie.getStates().length).toBe(0);
-  });
-
-  it('interaction', () => {
-    expect(pie.chart.interactions['legend-filter']).not.toBeUndefined();
-
-    pie.update({
-      ...pie.options,
-      interactions: [
-        { type: 'element-selected', enable: false },
-        { type: 'legend-filter', enable: false },
-      ],
-    });
-
-    expect(pie.chart.interactions['element-selected']).toBeUndefined();
-    expect(pie.chart.interactions['legend-filter']).toBeUndefined();
-  });
-
-  afterAll(() => {
-    pie.destroy();
+    line.destroy();
   });
 
   it('resize', async () => {
@@ -210,6 +172,8 @@ describe('core', () => {
     await delay(200);
     // @ts-ignore
     expect(line.triggerResize).toHaveBeenCalledTimes(1);
+
+    line.destroy();
   });
 
   it('getChartSize', () => {
@@ -221,5 +185,7 @@ describe('core', () => {
 
     line.render();
     expect(line.chart.height).toBe(300);
+
+    line.destroy();
   });
 });

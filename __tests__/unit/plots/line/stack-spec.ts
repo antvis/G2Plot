@@ -36,5 +36,7 @@ describe('line', () => {
 
     // @ts-ignore
     expect(line.chart.getOptions().legends.type.position).toBe('top-left');
+
+    line.destroy();
   });
 });

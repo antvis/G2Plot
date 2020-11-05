@@ -33,6 +33,8 @@ describe('tooltip', () => {
     const bbox = leftGeometry.elements[leftGeometry.elements.length - 1].getBBox();
     dualAxes.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(document.querySelectorAll('#percent_column .g2-tooltip-list-item .g2-tooltip-name').length).toBe(0);
+
+    dualAxes.destroy();
   });
 
   it('percent column', () => {
@@ -65,6 +67,8 @@ describe('tooltip', () => {
     expect(document.querySelectorAll('#percent_column .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML).toBe(
       '100.00%'
     );
+
+    dualAxes.destroy();
   });
 
   it('stack percent column', () => {
@@ -121,5 +125,7 @@ describe('tooltip', () => {
     expect(
       document.querySelectorAll('#stack_percent_column .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML
     ).toBe('123');
+
+    dualAxes.destroy();
   });
 });

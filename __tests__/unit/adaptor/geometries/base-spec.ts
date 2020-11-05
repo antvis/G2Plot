@@ -82,6 +82,8 @@ describe('adaptor - geometry', () => {
     expect(p).toEqual({
       date: '25/01/2018',
     });
+
+    plot.destroy();
   });
 
   it('color with colorField', () => {
@@ -131,6 +133,8 @@ describe('adaptor - geometry', () => {
     expect(p).toEqual({
       type: 'Ind/Oth',
     });
+
+    plot.destroy();
   });
 
   it('color with colorField and interval', () => {
@@ -147,6 +151,8 @@ describe('adaptor - geometry', () => {
 
     expect(plot.chart.geometries[0].type).toBe('interval');
     expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['type']);
+
+    plot.destroy();
   });
 
   it('size without sizeField', () => {
@@ -190,6 +196,8 @@ describe('adaptor - geometry', () => {
     expect(p).toEqual({
       date: '25/01/2018',
     });
+
+    plot.destroy();
   });
 
   it('size with sizeField', () => {
@@ -234,6 +242,8 @@ describe('adaptor - geometry', () => {
     expect(p).toEqual({
       value: 1800,
     });
+
+    plot.destroy();
   });
 
   it('shape without shapeField', () => {
@@ -276,6 +286,8 @@ describe('adaptor - geometry', () => {
     expect(p).toEqual({
       date: '25/01/2018',
     });
+
+    plot.destroy();
   });
 
   it('shape with shapeField', () => {
@@ -320,6 +332,8 @@ describe('adaptor - geometry', () => {
     expect(p).toEqual({
       type: 'Ind/Oth',
     });
+
+    plot.destroy();
   });
 
   it('style', () => {
@@ -371,6 +385,8 @@ describe('adaptor - geometry', () => {
       date: '25/01/2018',
       value: 1800,
     });
+
+    plot.destroy();
   });
 
   it('tooltip', () => {
@@ -424,6 +440,8 @@ describe('adaptor - geometry', () => {
     expect(plot.chart.geometries[0].tooltipOption.fields).toEqual(['date']);
     // @ts-ignore
     expect(plot.chart.geometries[0].tooltipOption.callback).toBeUndefined();
+
+    plot.destroy();
   });
 
   it('no mapping', () => {
@@ -435,5 +453,7 @@ describe('adaptor - geometry', () => {
 
     // 非法情况
     expect(plot.chart.geometries.length).toBe(0);
+
+    plot.destroy();
   });
 });

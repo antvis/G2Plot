@@ -16,6 +16,8 @@ describe('area', () => {
 
     area.render();
     expect(area.chart.geometries[0].attributes.shape.values).toEqual(['area']);
+
+    area.destroy();
   });
 
   it('x*y*color and shape', () => {
@@ -32,5 +34,7 @@ describe('area', () => {
 
     area.render();
     expect(area.chart.geometries[0].attributes.shape.values).toEqual(['smooth']);
+
+    area.destroy();
   });
 });

@@ -38,5 +38,7 @@ describe('funnel legend', () => {
     });
 
     expect(funnel.chart.getController('legend').getComponents().length).toBe(0);
+
+    funnel.destroy();
   });
 });

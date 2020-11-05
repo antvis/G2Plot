@@ -29,6 +29,8 @@ describe('area', () => {
       },
     });
     expect(area.chart.geometries[0].elements[0].shape.attr('fillOpacity')).toBe(0.3);
+
+    area.destroy();
   });
 
   it('x*y*color and style', () => {
@@ -59,5 +61,7 @@ describe('area', () => {
     });
     expect(area.chart.geometries[0].elements[0].shape.attr('fillOpacity')).toBe(0.3);
     expect(area.chart.geometries[0].elements[1].shape.attr('fillOpacity')).toBe(0.25);
+
+    area.destroy();
   });
 });

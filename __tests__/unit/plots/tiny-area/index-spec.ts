@@ -21,6 +21,8 @@ describe('tiny-area', () => {
     expect(tinyArea.chart.geometries.length).toBe(2);
     expect(tinyArea.chart.geometries[0].shapeType).toEqual('area');
     expect(tinyArea.chart.geometries[1].shapeType).toEqual('line');
+
+    tinyArea.destroy();
   });
 
   it('data with area style', () => {
@@ -40,6 +42,8 @@ describe('tiny-area', () => {
 
     tinyArea.render();
     expect(tinyArea.chart.geometries[0].elements[0].shape.attr('fill')).toEqual('#123456');
+
+    tinyArea.destroy();
   });
 
   it('data with smooth', () => {
@@ -58,6 +62,8 @@ describe('tiny-area', () => {
     tinyArea.render();
     expect(tinyArea.chart.geometries[0].attributes.shape.values).toEqual(['smooth']);
     expect(tinyArea.chart.geometries[0].elements.length).toBe(1);
+
+    tinyArea.destroy();
   });
 
   it('data with line style', () => {
@@ -105,6 +111,8 @@ describe('tiny-area', () => {
     expect(tinyArea.chart.geometries[1].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
     expect(tinyArea.chart.geometries[1].elements[0].shape.attr('stroke')).toEqual('#123456');
     expect(tinyArea.chart.geometries[1].elements[0].shape.attr('lineWidth')).toEqual(2);
+
+    tinyArea.destroy();
   });
 
   it('data with tooltip', () => {
@@ -134,6 +142,8 @@ describe('tiny-area', () => {
         fontSize: '10px',
       },
     });
+
+    tinyArea.destroy();
   });
 
   it('data with custom tooltip', () => {
@@ -179,6 +189,8 @@ describe('tiny-area', () => {
     // @ts-ignore
     const { position } = geometry.attributeOption;
     expect(position.fields).toEqual(['x', 'y']);
+
+    tinyArea.destroy();
   });
 
   it('annotation', () => {
@@ -196,5 +208,7 @@ describe('tiny-area', () => {
 
     tinyArea.render();
     expect(tinyArea.chart.getController('annotation').getComponents().length).toBe(1);
+
+    tinyArea.destroy();
   });
 });

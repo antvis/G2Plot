@@ -27,6 +27,8 @@ describe('tiny-column', () => {
 
     tinyColumn.chart.showTooltip({ x: 10, y: 10 });
     expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe('4600.0');
+
+    tinyColumn.destroy();
   });
 
   it('data with style', () => {
@@ -76,6 +78,8 @@ describe('tiny-column', () => {
     });
     expect(tinyColumn.chart.geometries[0].elements[0].shape.attr('fill')).toEqual('#444444');
     expect(tinyColumn.chart.geometries[0].elements[1].shape.attr('fill')).toEqual('#222222');
+
+    tinyColumn.destroy();
   });
 
   it('data with tooltip', () => {
@@ -105,6 +109,8 @@ describe('tiny-column', () => {
         fontSize: '10px',
       },
     });
+
+    tinyColumn.destroy();
   });
 
   it('data with custom tooltip', () => {
@@ -150,6 +156,8 @@ describe('tiny-column', () => {
     // @ts-ignore
     const { position } = geometry.attributeOption;
     expect(position.fields).toEqual(['x', 'y']);
+
+    tinyColumn.destroy();
   });
 
   it('columnWidthRatio', () => {
@@ -173,6 +181,8 @@ describe('tiny-column', () => {
 
     tinyColumn.render();
     expect(tinyColumn.chart.getTheme().columnWidthRatio).toBe(0.9);
+
+    tinyColumn.destroy();
   });
 
   it('annotation', () => {
@@ -196,5 +206,7 @@ describe('tiny-column', () => {
 
     tinyColumn.render();
     expect(tinyColumn.chart.getController('annotation').getComponents().length).toBe(1);
+
+    tinyColumn.destroy();
   });
 });

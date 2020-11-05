@@ -32,6 +32,8 @@ describe('area', () => {
     });
     // @ts-ignore
     expect(area.chart.geometries[0].labelOption).toBe(false);
+
+    area.destroy();
   });
 
   it('x*y*color and label', () => {
@@ -57,5 +59,7 @@ describe('area', () => {
         type: 'overlap',
       },
     });
+
+    area.destroy();
   });
 });

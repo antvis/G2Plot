@@ -26,6 +26,8 @@ describe('Stock tooltip', () => {
     expect(k.chart.options.tooltip.showTitle).toBe(false);
     // @ts-ignore
     expect(k.chart.options.tooltip.showMarkers).toBe(false);
+
+    k.destroy();
   });
 
   it('tooltip: options', () => {
@@ -55,6 +57,8 @@ describe('Stock tooltip', () => {
     // @ts-ignore
     expect(k.chart.options.tooltip).toBe(false);
     expect(k.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    k.destroy();
   });
 
   it('tooltip: itemTpl options', () => {
@@ -83,5 +87,7 @@ describe('Stock tooltip', () => {
     // 正常渲染
     k.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(document.getElementsByClassName('itemTpl')[0].innerHTML).not.toBeNull();
+
+    k.destroy();
   });
 });

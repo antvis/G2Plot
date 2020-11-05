@@ -33,7 +33,10 @@ describe('point', () => {
     expect(element.getModel().shape).toBe('circle');
     expect(element.getData().site).toBeDefined();
     expect(element.getModel().style.fill).toBe('red');
+
+    dualAxes.destroy();
   });
+
   it('point false', () => {
     const dualAxes = new DualAxes(createDiv('test DualAxes point false'), {
       width: 400,
@@ -59,6 +62,8 @@ describe('point', () => {
     dualAxes.render();
     const element = dualAxes.chart.views[1].geometries[1];
     expect(element).toBeUndefined();
+
+    dualAxes.destroy();
   });
 
   it('point undefined', () => {
@@ -85,5 +90,7 @@ describe('point', () => {
     dualAxes.render();
     const element = dualAxes.chart.views[1].geometries[1];
     expect(element).toBeUndefined();
+
+    dualAxes.destroy();
   });
 });

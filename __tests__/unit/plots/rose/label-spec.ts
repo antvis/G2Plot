@@ -31,6 +31,8 @@ describe('rose label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toBeUndefined();
+
+    rose.destroy();
   });
 
   it('null', () => {
@@ -46,6 +48,8 @@ describe('rose label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toBeUndefined();
+
+    rose.destroy();
   });
 
   it('offset less 0', () => {
@@ -66,6 +70,8 @@ describe('rose label', () => {
       offset: -1,
       layout: { type: 'limit-in-shape' }, // 默认配置
     });
+
+    rose.destroy();
   });
 
   it('layout is object', () => {
@@ -89,6 +95,8 @@ describe('rose label', () => {
     expect(geometry.labelOption.cfg).toEqual({
       layout: [{ type: 'other' }],
     });
+
+    rose.destroy();
   });
 
   it('layout is array', () => {
@@ -119,6 +127,8 @@ describe('rose label', () => {
       position: 'top',
       layout: [{ type: 'other' }],
     });
+
+    rose.destroy();
   });
 
   it('layout is null', () => {
@@ -138,6 +148,8 @@ describe('rose label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({});
+
+    rose.destroy();
   });
 
   it('position top', () => {
@@ -164,6 +176,8 @@ describe('rose label', () => {
     labelGroups.forEach((label, index) => {
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(salesByArea[index].sales / 10000)}万`);
     });
+
+    rose.destroy();
   });
 
   it('position middle', () => {
@@ -181,6 +195,8 @@ describe('rose label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'middle' });
+
+    rose.destroy();
   });
 
   it('position bottom', () => {
@@ -198,6 +214,8 @@ describe('rose label', () => {
 
     // @ts-ignore
     expect(geometry.labelOption.cfg).toEqual({ position: 'bottom' });
+
+    rose.destroy();
   });
 
   it('group rose position top', () => {
@@ -228,6 +246,8 @@ describe('rose label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    rose.destroy();
   });
 
   it('group rose position middle', () => {
@@ -258,6 +278,8 @@ describe('rose label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    rose.destroy();
   });
 
   it('group rose position bottom', () => {
@@ -288,5 +310,7 @@ describe('rose label', () => {
       const origin = label.get('origin')._origin;
       expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(origin.sales / 10000)}万`);
     });
+
+    rose.destroy();
   });
 });

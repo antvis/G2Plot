@@ -20,5 +20,7 @@ describe('scatter', () => {
     const { options } = scatter;
     // @ts-ignore
     expect(options.tooltip.offset).toBe(20);
+
+    scatter.destroy();
   });
 });

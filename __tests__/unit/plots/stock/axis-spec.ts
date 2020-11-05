@@ -23,6 +23,8 @@ describe('Stock axis', () => {
     const geometry = k.chart.geometries[0];
     // @ts-ignore
     expect(geometry.scales[Y_FIELD].nice).toBe(true);
+
+    k.destroy();
   });
 
   it('axis: alias', () => {
@@ -53,5 +55,7 @@ describe('Stock axis', () => {
     expect(geometry.scales['max'].alias).toBe('最高价');
     // @ts-ignore
     expect(geometry.scales['min'].alias).toBe('最低价');
+
+    k.destroy();
   });
 });

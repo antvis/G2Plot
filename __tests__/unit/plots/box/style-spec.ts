@@ -25,6 +25,8 @@ describe('box style', () => {
     expect(elements[0].shape.attr('stroke')).toBe('black');
     expect(elements[0].shape.attr('lineWidth')).toBe(2);
     expect(elements[0].shape.attr('fill')).toBe('#1890FF');
+
+    box.destroy();
   });
 
   it('style callback', () => {
@@ -49,5 +51,7 @@ describe('box style', () => {
     const elements = geometry.elements;
     expect(elements[0].shape.attr('stroke')).toBe('black');
     expect(elements[0].shape.attr('fill')).toBe('#1890FF');
+
+    box.destroy();
   });
 });

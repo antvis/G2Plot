@@ -16,6 +16,8 @@ describe('word-cloud color option', () => {
 
     const fields = cloud.chart.geometries[0].getGroupFields();
     expect(fields.length).toBe(1);
+
+    cloud.destroy();
   });
 
   it('wordField', () => {
@@ -32,6 +34,8 @@ describe('word-cloud color option', () => {
 
     const field = cloud.chart.geometries[0].getGroupFields()[0];
     expect(field).toBe('color');
+
+    cloud.destroy();
   });
 
   it('weightField', () => {
@@ -48,6 +52,8 @@ describe('word-cloud color option', () => {
 
     const field = cloud.chart.geometries[0].getGroupFields()[0];
     expect(field).toBe('color');
+
+    cloud.destroy();
   });
 
   it('x', () => {
@@ -64,5 +70,7 @@ describe('word-cloud color option', () => {
 
     const field = cloud.chart.geometries[0].getGroupFields()[0];
     expect(field).toBe('color');
+
+    cloud.destroy();
   });
 });

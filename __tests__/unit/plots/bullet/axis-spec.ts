@@ -36,7 +36,10 @@ describe('axis bullet', () => {
     const measureGeometry = bullet.chart.geometries[1];
     expect(measureGeometry.scales.measures.min).toBe(0);
     expect(measureGeometry.scales.measures.max).toBe(120);
+
+    bullet.destroy();
   });
+
   it('axis*xAxis*false', () => {
     const bullet = new Bullet(createDiv('axis*xAxis*false bullet'), {
       width: 400,
@@ -57,6 +60,8 @@ describe('axis bullet', () => {
     // @ts-ignore
     expect(bullet.chart.options.axes.target).toEqual(false);
     // expect(bullet.chart.options.axes.title).toBe('red');
+
+    bullet.destroy();
   });
 
   it('axis*yAxis*false', () => {
@@ -78,5 +83,7 @@ describe('axis bullet', () => {
     expect(bullet.chart.options.axes.target).toEqual(false);
     // @ts-ignore
     expect(bullet.chart.options.axes.measures).toEqual(false);
+
+    bullet.destroy();
   });
 });

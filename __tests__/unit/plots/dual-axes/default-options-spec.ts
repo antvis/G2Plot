@@ -19,6 +19,8 @@ describe('default options', () => {
     expect(dualAxes.chart.options.tooltip.showCrosshairs).toEqual(true);
     // @ts-ignore
     expect(dualAxes.chart.options.tooltip.showMarkers).toEqual(true);
+
+    dualAxes.destroy();
   });
 
   it('line column', () => {
@@ -47,5 +49,7 @@ describe('default options', () => {
     expect(dualAxes.chart.getOptions().tooltip.showCrosshairs).toEqual(false);
     // @ts-ignore
     expect(dualAxes.chart.getOptions().tooltip.showMarkers).toEqual(false);
+
+    dualAxes.destroy();
   });
 });

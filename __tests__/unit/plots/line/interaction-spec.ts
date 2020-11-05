@@ -29,5 +29,7 @@ describe('line', () => {
     action.active();
     expect(view.geometries[1].elements[0].getStates()).toEqual(['active']);
     expect(view.geometries[1].elements[1].getStates()).toEqual([]);
+
+    line.destroy();
   });
 });

@@ -28,6 +28,8 @@ describe('heatmap', () => {
 
     // @ts-ignore
     expect(heatmap.chart.options.tooltip.title).toBe('hello world');
+
+    heatmap.destroy();
   });
 
   it('x*y*color and no tooltip', () => {
@@ -54,5 +56,7 @@ describe('heatmap', () => {
     // @ts-ignore
     expect(heatmap.chart.options.tooltip).toBe(false);
     expect(heatmap.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
+    heatmap.destroy();
   });
 });

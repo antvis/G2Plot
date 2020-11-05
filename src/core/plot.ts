@@ -40,7 +40,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
     super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
 
-    this.options = deepAssign({}, this.getDefaultOptions(options), options);
+    this.options = deepAssign({}, this.getDefaultOptions(), options);
 
     this.createG2();
 
@@ -103,7 +103,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 获取默认的 options 配置项
    * 每个组件都可以复写
    */
-  protected getDefaultOptions(options?: O): any {
+  protected getDefaultOptions(): any {
     return {
       renderer: 'canvas',
       xAxis: {

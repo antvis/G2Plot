@@ -31,5 +31,7 @@ describe('DualAxes data', () => {
     const uvData = UV_DATA.map((item) => item.uv);
     expect(Math.max(...rightLine.scales[yField[1]].values)).toBe(Math.max(...uvData));
     expect(Math.min(...rightLine.scales[yField[1]].values)).toBe(Math.min(...uvData));
+
+    dualAxes.destroy();
   });
 });

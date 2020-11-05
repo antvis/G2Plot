@@ -211,4 +211,15 @@ describe('core', () => {
     // @ts-ignore
     expect(line.triggerResize).toHaveBeenCalledTimes(1);
   });
+
+  it('getChartSize', () => {
+    const line = new Line(createDiv(), {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    });
+
+    line.render();
+    expect(line.chart.height).toBe(300);
+  });
 });

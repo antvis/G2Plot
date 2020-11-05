@@ -2,6 +2,7 @@ import { deepMix } from '@antv/util';
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('word-cloud', () => {
   const options = {
@@ -27,6 +28,29 @@ describe('word-cloud', () => {
     expect(positionFields[0]).toBe('x');
     expect(positionFields[1]).toBe('y');
 
+    cloud.destroy();
+  });
+
+  it('imageMask', async () => {
+    const o = deepMix({}, options, {
+      imageMask: 'ssss', // 无效值
+    });
+    const cloud = new WordCloud(createDiv(), o);
+    await cloud.render();
+    expect(cloud.options.imageMask).toBe(null);
+    cloud.destroy();
+  });
+
+  it('resize', async () => {
+    const o = deepMix({}, options);
+    const cloud = new WordCloud(createDiv(), o);
+    const chart = cloud.chart;
+    await cloud.render();
+    expect(chart.width).toBe(400);
+
+    chart.ele.style.width = `410px`;
+    await delay();
+    expect(chart.width).toBe(410);
     cloud.destroy();
   });
 });

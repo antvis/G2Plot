@@ -13,16 +13,16 @@ You can import by CDN in browser or you can import local source.
 <!-- import CDN source -->
 <script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"></script>
 <script>
-  const plot = new G2Plot.Line('container', {
-    // ...
-  });
-  plot.render();
+  const { Line } = G2Plot;
 </script>
 ```
 
 ```html
 <!-- import local source -->
 <script src="./g2plot.min.js"></script>
+<script>
+  const { Line } = G2Plot;
+</script>
 ```
 
 ### Import via NPM
@@ -71,13 +71,13 @@ const data = [
 **step3**: create and render chart
 
 ```ts
-const linePlot = new Line('container', {
+const line = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
 });
 
-linePlot.render();
+line.render();
 ```
 
 the result：
@@ -89,7 +89,7 @@ the result：
 Till now, the visual style of our chart was defaultly applied by chart theme, not to mention the unformatted text content of labels. In this section, we'll stylize the chart through several steps. More information please reference API.
 
 ```ts
-const linePlot = new Line('container', {
+const line = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
@@ -144,25 +144,25 @@ const linePlot = new Line('container', {
 });
 
 // add click event on element
-linePlot.on('element:click', (e) => {
+line.on('element:click', (e) => {
   console.log(e);
 });
 
 // add click event on annotation
-linePlot.on('annotation:click', (e) => {
+line.on('annotation:click', (e) => {
   console.log(e);
 });
 
 // add click event on axis-label
-linePlot.on('axis-label:click', (e) => {
+line.on('axis-label:click', (e) => {
   console.log(e);
 });
 
-linePlot.render();
+line.render();
 ```
 
 the result：
 
 <img alt="example" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Y-4xSprUCV0AAAAAAAAAAAAAARQnAQ" width="800">
 
-G2Plot has many fun configuration and features to explore. More information please reference [Configuration Options](../../examples/gallery)。
+G2Plot has many fun configuration and features to explore. More information please reference [Configuration Options](../line)。

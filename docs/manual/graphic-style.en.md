@@ -3,16 +3,4 @@ title: Graphic Style
 order: 5
 ---
 
-## 配置图形样式
-
-## 配置线的样式
-
-## 配置文字样式
-
-## 配置渐变色
-
-### 线性渐变
-
-### 环形渐变
-
-## 纹理
+`markdown:docs/manual/graphic-style.zh.md`

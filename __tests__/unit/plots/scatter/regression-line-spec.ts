@@ -139,7 +139,7 @@ describe('scatter', () => {
       },
       animation: false,
       regressionLine: {
-        algorithm: (data) => {
+        algorithm: () => {
           return [
             [8, 6],
             [16, 7],

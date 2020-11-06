@@ -1,5 +1,5 @@
 ---
-title: Plugins for G2Plot
+title: Custom Plots
 order: 6
 ---
 

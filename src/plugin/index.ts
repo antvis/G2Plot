@@ -27,6 +27,9 @@ export class P<O extends PickOptions> extends Plot<O> {
   /** 统一为 any plot */
   public readonly type = 'g2-plot';
 
+  /** 外部传入的 defaultOptions */
+  private defaultOptions: Partial<O>;
+
   /** 外部传入的 adaptor 函数 */
   private adaptor: Adaptor<O>;
 
@@ -40,7 +43,15 @@ export class P<O extends PickOptions> extends Plot<O> {
   constructor(container: string | HTMLElement, options: O, adaptor: Adaptor<O>, defaultOptions?: Partial<O>) {
     super(container, deepAssign({}, defaultOptions, options));
 
+    this.defaultOptions = defaultOptions;
     this.adaptor = adaptor;
+  }
+
+  /**
+   * 实现父类方法，直接使用传入的
+   */
+  protected getDefaultOptions() {
+    return this.defaultOptions;
   }
 
   /**

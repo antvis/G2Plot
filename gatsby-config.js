@@ -259,6 +259,14 @@ module.exports = {
           en: 'General Configuration',
         },
       },
+      {
+        slug: 'plugin',
+        icon: 'other',
+        title: {
+          zh: '自定义扩展图表',
+          en: 'Custom Plots',
+        },
+      },
     ],
     docsearchOptions: {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',

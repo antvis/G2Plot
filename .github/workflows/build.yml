@@ -4,13 +4,13 @@ on: ["push", "pull_request"]
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12
+      - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: 12.10.0
+          node-version: 14
       - name: npm install
         run: |
           npm install

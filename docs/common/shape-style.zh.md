@@ -35,3 +35,5 @@
   }
 }
 ```
+
+关于 ShapeStyle 更加详细的文档参考 [绘图属性](../graphic-style)。

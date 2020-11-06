@@ -35,3 +35,5 @@ Example：
   }
 }
 ```
+
+More documents about `ShapeStyle`, see [Graphic Style](../graphic-style).

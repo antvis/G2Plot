@@ -13,21 +13,21 @@ order: 1
 <!-- 引入在线资源 -->
 <script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"></script>
 <script>
-  const plot = new G2Plot.Line('container', {
-    // ...
-  });
-  plot.render();
+  const { Line } = G2Plot;
 </script>
 ```
 
 ```html
 <!-- 下载到本地 引入本地脚本 -->
 <script src="./g2plot.min.js"></script>
+<script>
+  const { Line } = G2Plot;
+</script>
 ```
 
 ### 通过 npm 安装
 
-我们提供了 G2Plot npm 包，通过下面的命令即可完成安装：
+我们提供了 G2Plot 的 npm 包，通过下面的命令即可完成安装：
 
 ```bash
 // 推荐用法
@@ -69,13 +69,13 @@ const data = [
 **step3**: 创建并渲染图表
 
 ```ts
-const linePlot = new Line('container', {
+const line = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
 });
 
-linePlot.render();
+line.render();
 ```
 
 最终效果：
@@ -87,7 +87,7 @@ linePlot.render();
 图表元素的视觉样式采用默认主题的样式，还没有经过特别定制，图表主体中的文本元素也没有进行格式化，我们可以根据需求对图表进行各种个性化设置，更多多配置请参考图表 API。
 
 ```ts
-const linePlot = new Line('container', {
+const line = new Line('container', {
   data,
   xField: 'year',
   yField: 'value',
@@ -142,25 +142,25 @@ const linePlot = new Line('container', {
 });
 
 // element 添加点击事件
-linePlot.on('element:click', (e) => {
+line.on('element:click', (e) => {
   console.log(e);
 });
 
 // annotation 添加点击事件
-linePlot.on('annotation:click', (e) => {
+line.on('annotation:click', (e) => {
   console.log(e);
 });
 
 // axis-label 添加点击事件
-linePlot.on('axis-label:click', (e) => {
+line.on('axis-label:click', (e) => {
   console.log(e);
 });
 
-linePlot.render();
+line.render();
 ```
 
 最终效果：
 
 <img alt="示例" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Y-4xSprUCV0AAAAAAAAAAAAAARQnAQ" width="800">
 
-通过上面由浅入深的教程，你应该已经基本了解 G2Plot 的使用方法了，不过这远远不是终点，G2Plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](../../examples/gallery)。
+通过上面由浅入深的教程，你应该已经基本了解 G2Plot 的使用方法了，不过这远远不是终点，G2Plot 还有很多有趣的配置和特性等待你的尝试和探索。更多基础功能请参考[各图表配置项](./plots/line)。

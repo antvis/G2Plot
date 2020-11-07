@@ -82,6 +82,9 @@ describe('DualAxes option', () => {
       ...DEFAULT_RIGHT_YAXIS_CONFIG,
       nice: false,
     });
+
+    // @ts-ignore
+    expect(getYAxisWithDefault({ type: 'log' }, 'xxx')).toEqual({ type: 'log' });
   });
 
   it('getGeometryOption', () => {

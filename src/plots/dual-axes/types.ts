@@ -59,9 +59,9 @@ export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color'> & {
   readonly yField: string[];
 
   /**
-   * 左右两边的 yAxis 配置，使用 object 的方式，key 为 y 字段名
+   * 左右两边的 yAxis 配置，使用 object 的方式，key 为 y 字段名，或者数组分别表示左右
    */
-  readonly yAxis?: Record<string, Options['yAxis']>;
+  readonly yAxis?: Options['yAxis'][] | Record<string, Options['yAxis']>;
 
   /**
    * 左右两边的图形配置

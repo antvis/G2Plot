@@ -55,7 +55,7 @@ piePlot.render();
 
 #### colorField 
 
-<description>**optional** _string_</description>
+<description>**required** _string_</description>
 
 扇形颜色映射对应的数据字段名。
 

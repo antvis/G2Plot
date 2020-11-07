@@ -60,11 +60,15 @@ radarPlot.render();
 
 <description>**required** _string_</description>
 
-[DEMO](../../radar/basic#series)
-
 对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
 
 ### Geometry Style
+
+#### radius 
+
+<description>**optional** _number_</description>
+
+雷达图的半径，原点为绘图区域中心（不包含图表组件区域）。配置值域为 (0,1]，1 代表撑满绘图区域。
 
 `markdown:docs/common/color.en.md`
 
@@ -112,8 +116,8 @@ radarPlot.render();
 | 细分配置 | 类型      | 功能描述   |
 | -------- | --------- | ---------- |
 | smooth   | _boolean_ | 是否平滑   |
-| color    | \_string  | string[]   | Function\_ | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| style    | \_object  | Function\_ | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
+| color    | `_string  | string[]   | Function_` | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
+| style    | `\_object  | Function\_` | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
 
 使用示例：
 
@@ -129,9 +133,9 @@ radarPlot.render();
 }
 ```
 
-### Plot Components
+### About Plot Components
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oiTPQLqYUvIAAAAAAAAAAABkARQnAQ" alt="雷达图 图表组件" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
 
 `markdown:docs/common/component.en.md`
 

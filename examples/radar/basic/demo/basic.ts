@@ -21,7 +21,6 @@ const radarPlot = new Radar('container', {
     },
   },
   xAxis: {
-    line: null,
     tickLine: null,
   },
   yAxis: {

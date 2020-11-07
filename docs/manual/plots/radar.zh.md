@@ -60,11 +60,15 @@ radarPlot.render();
 
 <description>**required** _string_</description>
 
-[DEMO](../../radar/basic#series)
-
 对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
 
 ### 图形样式
+
+#### radius 
+
+<description>**optional** _number_</description>
+
+雷达图的半径，原点为绘图区域中心（不包含图表组件区域）。配置值域为 (0,1]，1 代表撑满绘图区域。
 
 `markdown:docs/common/color.zh.md`
 
@@ -129,9 +133,9 @@ radarPlot.render();
 }
 ```
 
-### 图表组件
+### 图表组件介绍
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*oiTPQLqYUvIAAAAAAAAAAABkARQnAQ" alt="雷达图 图表组件" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
 
 ### 图表组件
 

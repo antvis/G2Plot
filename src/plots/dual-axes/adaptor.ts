@@ -11,7 +11,7 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
 import { Datum } from '../../types';
-import { isColumn, getDefaultYAxis, getGeometryOption } from './util/option';
+import { isColumn, getYAxisWithDefault, getGeometryOption, getCompatibleYAxis } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
@@ -55,7 +55,7 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
         ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
         : [{ type: 'legend-visible-filter' }],
       // yAxis
-      yAxis: getDefaultYAxis(yField, options.yAxis),
+      yAxis: getCompatibleYAxis(yField, options.yAxis),
       // geometryOptions
       geometryOptions: [
         getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
@@ -152,11 +152,11 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   // 左 View
   leftView.axis(xField, xAxis);
-  leftView.axis(yField[0], yAxis[yField[0]]);
+  leftView.axis(yField[0], getYAxisWithDefault(yAxis[yField[0]], AxisType.Left));
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[1], yAxis[yField[1]]);
+  rightView.axis(yField[1], getYAxisWithDefault(yAxis[yField[1]], AxisType.Right));
 
   return params;
 }

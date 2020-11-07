@@ -1,5 +1,10 @@
-import { isLine, isColumn, getGeometryOption, getDefaultYAxis } from '../../../../../src/plots/dual-axes/util/option';
-
+import {
+  isLine,
+  isColumn,
+  getGeometryOption,
+  getCompatibleYAxis,
+  getYAxisWithDefault,
+} from '../../../../../src/plots/dual-axes/util/option';
 import { AxisType } from '../../../../../src/plots/dual-axes/types';
 
 const DEFAULT_LEFT_YAXIS_CONFIG = {
@@ -32,39 +37,50 @@ describe('DualAxes option', () => {
     expect(isColumn({ geometry: 'column' })).toBe(true);
   });
 
-  it('getDefaultYAxis', () => {
-    expect(getDefaultYAxis(['yField1', 'yField2'], undefined)).toEqual({
-      yField1: DEFAULT_LEFT_YAXIS_CONFIG,
-      yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
+  it('getCompatibleYAxis', () => {
+    expect(getCompatibleYAxis(['yField1', 'yField2'], undefined)).toEqual({
+      yField1: undefined,
+      yField2: undefined,
+    });
+
+    expect(getCompatibleYAxis(['yField1', 'yField2'], [{ nice: false }])).toEqual({
+      yField1: { nice: false },
+      yField2: undefined,
+    });
+
+    expect(getCompatibleYAxis(['yField1', 'yField2'], [false])).toEqual({
+      yField1: false,
+      yField2: undefined,
+    });
+
+    expect(getCompatibleYAxis(['yField1', 'yField2'], { yField1: { nice: true } })).toEqual({
+      yField1: { nice: true },
+      yField2: undefined,
+    });
+
+    expect(getCompatibleYAxis(['yField1', 'yField2'], { yField1: { nice: true }, yField2: false })).toEqual({
+      yField1: { nice: true },
+      yField2: false,
     });
   });
-  it('yAxis option', () => {
-    expect(getDefaultYAxis(['yField1', 'yField2'], {})).toEqual({
-      yField1: DEFAULT_LEFT_YAXIS_CONFIG,
-      yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
-    });
 
-    // @ts-ignore
-    expect(getDefaultYAxis(['yField1', 'yField2'], { yField1: { a: 1 }, yField2: false })).toEqual({
-      yField1: {
-        ...DEFAULT_LEFT_YAXIS_CONFIG,
-        a: 1,
-      },
-      yField2: false,
-    });
+  it('getDefaultYAxis', () => {
+    expect(getYAxisWithDefault(undefined, AxisType.Left)).toEqual(DEFAULT_LEFT_YAXIS_CONFIG);
+    expect(getYAxisWithDefault({}, AxisType.Left)).toEqual(DEFAULT_LEFT_YAXIS_CONFIG);
+    expect(getYAxisWithDefault(false, AxisType.Left)).toBe(false);
+    expect(getYAxisWithDefault({ type: 'cat' }, AxisType.Left)).toEqual({ ...DEFAULT_LEFT_YAXIS_CONFIG, type: 'cat' });
+    expect(getYAxisWithDefault({ nice: false }, AxisType.Left)).toEqual({ ...DEFAULT_LEFT_YAXIS_CONFIG, nice: false });
 
-    expect(getDefaultYAxis(['yField1', 'yField2'], [])).toEqual({
-      yField1: DEFAULT_LEFT_YAXIS_CONFIG,
-      yField2: DEFAULT_RIGHT_YAXIS_CONFIG,
+    expect(getYAxisWithDefault(undefined, AxisType.Right)).toEqual(DEFAULT_RIGHT_YAXIS_CONFIG);
+    expect(getYAxisWithDefault({}, AxisType.Right)).toEqual(DEFAULT_RIGHT_YAXIS_CONFIG);
+    expect(getYAxisWithDefault(false, AxisType.Right)).toBe(false);
+    expect(getYAxisWithDefault({ type: 'cat' }, AxisType.Right)).toEqual({
+      ...DEFAULT_RIGHT_YAXIS_CONFIG,
+      type: 'cat',
     });
-
-    // @ts-ignore
-    expect(getDefaultYAxis(['yField1', 'yField2'], [{ a: 1 }, false])).toEqual({
-      yField1: {
-        ...DEFAULT_LEFT_YAXIS_CONFIG,
-        a: 1,
-      },
-      yField2: false,
+    expect(getYAxisWithDefault({ nice: false }, AxisType.Right)).toEqual({
+      ...DEFAULT_RIGHT_YAXIS_CONFIG,
+      nice: false,
     });
   });
 

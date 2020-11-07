@@ -1,4 +1,5 @@
 import { get, isArray } from '@antv/util';
+import { Axis } from '../../../types/axis';
 import { deepAssign } from '../../../utils';
 import {
   DualAxesOptions,
@@ -8,6 +9,7 @@ import {
   GeometryColumnOption,
   AxisType,
 } from '../types';
+import { DEFAULT_LEFT_YAXIS_CONFIG, DEFAULT_RIGHT_YAXIS_CONFIG } from '../constant';
 
 /**
  * 根据 GeometryOption 判断 geometry 是否为 line
@@ -58,43 +60,35 @@ export function getGeometryOption(
       };
 }
 
-export function getDefaultYAxis(
+/**
+ * 兼容 yAxis 为 arr 和 obj 的两种情况
+ * @param yField
+ * @param yAxis
+ */
+export function getCompatibleYAxis(
   yField: DualAxesOptions['yField'],
-  yAxis: DualAxesOptions['yAxis']
+  yAxis: Record<string, Axis> | Axis[]
 ): DualAxesOptions['yAxis'] {
-  const DEFAULT_YAXIS_CONFIG = {
-    nice: true,
-    label: {
-      autoHide: true,
-      autoRotate: false,
-    },
-  };
-
-  const DEFAULT_LEFT_YAXIS_CONFIG = {
-    ...DEFAULT_YAXIS_CONFIG,
-    position: 'left',
-  };
-
-  const DEFAULT_RIGHT_YAXIS_CONFIG = {
-    ...DEFAULT_YAXIS_CONFIG,
-    position: 'right',
-    grid: null,
-  };
-
+  const [y1, y2] = yField;
   if (isArray(yAxis)) {
     console.warn('yAxis should be object.');
-    return {
-      [yField[0]]: yAxis[0] !== false ? deepAssign({}, DEFAULT_LEFT_YAXIS_CONFIG, yAxis[0]) : false,
-      [yField[1]]: yAxis[1] !== false ? deepAssign({}, DEFAULT_RIGHT_YAXIS_CONFIG, yAxis[1]) : false,
-    };
+    return { [y1]: yAxis[0], [y2]: yAxis[1] };
   }
 
-  return deepAssign(
-    {},
-    {
-      [yField[0]]: DEFAULT_LEFT_YAXIS_CONFIG,
-      [yField[1]]: DEFAULT_RIGHT_YAXIS_CONFIG,
-    },
-    yAxis
-  );
+  // 追加默认值
+  return deepAssign({ [y1]: undefined, [y2]: undefined }, yAxis);
+}
+
+/**
+ * 获取默认值
+ * @param yAxis
+ * @param axisType
+ */
+export function getYAxisWithDefault(yAxis: Axis, axisType: AxisType): Axis {
+  if (axisType === AxisType.Left) {
+    return yAxis === false ? false : deepAssign({}, DEFAULT_LEFT_YAXIS_CONFIG, yAxis);
+  } else if (axisType === AxisType.Right) {
+    return yAxis === false ? false : deepAssign({}, DEFAULT_RIGHT_YAXIS_CONFIG, yAxis);
+  }
+  return yAxis;
 }

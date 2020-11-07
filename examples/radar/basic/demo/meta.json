@@ -10,13 +10,13 @@
         "zh": "基础雷达图",
         "en": "Basic radar plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*exgfQbvqKlMAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*W-b2QoNhip0AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "line.ts",
       "title": {
         "zh": "基础雷达图",
-        "en": "Basic radar plot"
+        "en": "Radar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*exgfQbvqKlMAAAAAAAAAAAAAARQnAQ"
     },
@@ -24,7 +24,7 @@
       "filename": "line-grid.ts",
       "title": {
         "zh": "基础雷达图(带网格)",
-        "en": "Basic radar plot (with grid)"
+        "en": "Radar plot (with grid)"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*E70qQpBJ2kMAAAAAAAAAAAAAARQnAQ"
     },

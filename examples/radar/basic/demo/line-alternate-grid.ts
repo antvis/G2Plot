@@ -50,7 +50,9 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/bda695a8-cd9f-4b78-a423-3d6d547c
         },
       },
       // 开启辅助点
-      point: {},
+      point: {
+        size: 2,
+      },
     });
     radarPlot.render();
   });

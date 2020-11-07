@@ -50,15 +50,6 @@ const IndexPage = () => {
     },
   ];
 
-  const notifications = [
-    {
-      type: 'News',
-      title: 'G2Plot 2.0 发布了',
-      date: '2020.09.28',
-      link: 'https://github.com/antvis/G2Plot/releases/tag/2.0.0',
-    },
-  ];
-
   return (
     <>
       <SEO title={t('G2Plot 开箱即用的图表库')} titleSuffix="AntV" lang={i18n.language} />
@@ -74,7 +65,6 @@ const IndexPage = () => {
         description={t('G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。')}
         className="banner"
         buttons={bannerButtons}
-        notifications={notifications}
       />
       <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />

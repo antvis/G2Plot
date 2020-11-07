@@ -1,4 +1,4 @@
-import { getTotalValue, parsePercentageToNumber } from '../../../../src/plots/pie/utils';
+import { getTotalValue } from '../../../../src/plots/pie/utils';
 
 describe('utils of pie plot', () => {
   const data = [
@@ -46,15 +46,5 @@ describe('utils of pie plot', () => {
         'value'
       )
     ).toBe(null);
-  });
-
-  it('将 字符串百分比 转换为 数值型百分比', () => {
-    // @ts-ignore 不合法的入参
-    expect(parsePercentageToNumber(null)).toBe(null);
-    // @ts-ignore 不合法的入参
-    expect(parsePercentageToNumber(100)).toBe(100);
-    expect(parsePercentageToNumber('0.35')).toBe(0.35);
-    expect(parsePercentageToNumber('34%')).toBe(0.34);
-    expect(parsePercentageToNumber('0%')).toBe(0);
   });
 });

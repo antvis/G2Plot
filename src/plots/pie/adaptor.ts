@@ -143,27 +143,22 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
       };
     }
 
-    // ② 转换 label type 和 layout type
-    const LABEL_TYPE_MAP = {
-      inner: 'pie-inner',
-      outer: 'pie',
-      spider: 'pie',
-    };
     const LABEL_LAYOUT_TYPE_MAP = {
       inner: '',
       outer: 'pie-outer',
       spider: 'pie-spider',
     };
-    const labelType = LABEL_TYPE_MAP[labelCfg.type] || 'pie';
     const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
-    labelCfg.type = labelType;
     labelCfg.layout = deepAssign({}, labelCfg.layout, { type: labelLayoutType });
 
     geometry.label({
       // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）
       fields: colorField ? [angleField, colorField] : [angleField],
       callback,
-      cfg: labelCfg,
+      cfg: {
+        ...labelCfg,
+        type: 'pie',
+      },
     });
   }
   return params;

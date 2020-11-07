@@ -1,5 +1,4 @@
 import { IGroup } from '@antv/g-base';
-import { getGeometryLabel } from '@antv/g2';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
@@ -143,10 +142,4 @@ describe('support template string formatter', () => {
   // todo 补充图例点击后，百分比计算依然准确的 case
 
   pie.destroy();
-});
-
-describe('inner label', () => {
-  it('自定义注册饼图 inner label', () => {
-    expect(getGeometryLabel('pie-inner')).toBeDefined();
-  });
 });

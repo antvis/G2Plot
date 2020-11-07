@@ -4,7 +4,6 @@ import { Adaptor } from '../../core/adaptor';
 import { PieOptions } from './types';
 import { adaptor } from './adaptor';
 import './interactions';
-import './label';
 
 export { PieOptions };
 

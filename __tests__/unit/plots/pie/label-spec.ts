@@ -1,4 +1,5 @@
 import { IGroup } from '@antv/g-base';
+import { flatten } from '@antv/util';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
@@ -18,40 +19,20 @@ describe('pie label', () => {
     label: {},
   };
 
+  const pie = new Pie(createDiv(), config);
+  pie.render();
+
   it('label: visible', () => {
-    const pie = new Pie(createDiv(), config);
-
-    pie.render();
-
     const geometry = pie.chart.geometries[0];
     const elements = geometry.elements;
     const labelGroups = geometry.labelsContainer.getChildren();
 
     expect(elements.length).toBe(data.length);
     expect(labelGroups.length).toBe(data.length);
-
-    pie.destroy();
-  });
-
-  it.skip('label: single color(todo-hustcc: 没有 color 字段，label 显示错误)', () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
-      colorField: null,
-    });
-
-    pie.render();
-
-    const geometry = pie.chart.geometries[0];
-    const labelGroups = geometry.labelsContainer.getChildren();
-
-    expect(labelGroups.length).toBe(data.length);
-
-    pie.destroy();
   });
 
   it('label: custom content & support percent', () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
+    pie.update({
       data: [
         { type: 'item1', value: 1 },
         { type: 'item2', value: 2 },
@@ -68,8 +49,6 @@ describe('pie label', () => {
       },
     });
 
-    pie.render();
-
     const geometry = pie.chart.geometries[0];
     const labelGroups = geometry.labelsContainer.getChildren();
     expect(labelGroups.length).toBe(3);
@@ -79,13 +58,11 @@ describe('pie label', () => {
     expect(label1[0].attr('text')).toBe('hello');
     const label2 = (labelGroups[1] as IGroup).getChildren();
     expect(label2[0].attr('text')).toBe('item2: 2(40%)');
-
-    pie.destroy();
   });
 
   it('label: custom callback', () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
+    pie.update({
+      data,
       label: {
         callback: (value, type) => {
           return {
@@ -94,9 +71,6 @@ describe('pie label', () => {
         },
       },
     });
-
-    pie.render();
-
     const geometry = pie.chart.geometries[0];
     const labelGroups = geometry.labelsContainer.getChildren();
 
@@ -105,7 +79,29 @@ describe('pie label', () => {
     const label3 = (labelGroups[2] as IGroup).getChildren();
     expect(label1[0].attr('text')).toBe(`${data[0].type}: ${data[0].value}`);
     expect(label3[0].attr('text')).toBe(`${data[2].type}: ${data[2].value}`);
+  });
 
+  it('label: offset adaptor', () => {
+    pie.update({ label: { type: 'inner', offset: -10 } });
+    let geometry = pie.chart.geometries[0];
+    // @ts-ignore
+    let labelItems = geometry.geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(parseFloat(labelItems[0].offset)).toBeLessThan(0);
+
+    pie.update({ label: { type: 'outer' } });
+    geometry = pie.chart.geometries[0];
+    // @ts-ignore
+    labelItems = geometry.geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(parseFloat(labelItems[0].offset)).not.toBeLessThan(0);
+
+    pie.update({ label: { type: 'inner' } });
+    geometry = pie.chart.geometries[0];
+    // @ts-ignorelabelGroups
+    labelItems = geometry.geometryLabel.getLabelItems(flatten(geometry.dataArray));
+    expect(parseFloat(labelItems[0].offset)).toBe(-10);
+  });
+
+  afterAll(() => {
     pie.destroy();
   });
 });

@@ -1,4 +1,4 @@
-import { getTotalValue } from '../../../../src/plots/pie/utils';
+import { adaptOffset, getTotalValue } from '../../../../src/plots/pie/utils';
 
 describe('utils of pie plot', () => {
   const data = [
@@ -46,5 +46,16 @@ describe('utils of pie plot', () => {
         'value'
       )
     ).toBe(null);
+  });
+
+  it('offset adaptor', () => {
+    expect(adaptOffset('inner', '-30%')).toBe('-30%');
+    expect(parseFloat(adaptOffset('inner', '30%') as string)).toBeLessThan(0);
+    expect(adaptOffset('inner', NaN)).not.toBe(NaN);
+    expect(parseFloat(adaptOffset('inner', NaN) as string)).toBeLessThan(0);
+    expect(adaptOffset('outer', '-30%')).not.toBe('-30%');
+    expect(parseFloat(adaptOffset('outer', '-30%') as string)).not.toBeLessThan(0);
+    expect(adaptOffset('spider', '30%')).toBe('30%');
+    expect(adaptOffset('spider', NaN)).toBe(NaN);
   });
 });

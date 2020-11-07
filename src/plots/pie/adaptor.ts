@@ -6,7 +6,7 @@ import { Data } from '../../types';
 import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
-import { getTotalValue } from './utils';
+import { adaptOffset, getTotalValue } from './utils';
 
 /**
  * 字段
@@ -157,6 +157,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
       callback,
       cfg: {
         ...labelCfg,
+        offset: adaptOffset(labelCfg.type, labelCfg.offset),
         type: 'pie',
       },
     });

@@ -79,6 +79,6 @@ piePlot.render();
 
 ### Plot Components
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" alt="加载失败" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">
 
 `markdown:docs/common/component-no-axis.en.md`

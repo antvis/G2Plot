@@ -91,7 +91,7 @@ piePlot.render();
 
 <description>**optional** _number_</description>
 
-玫瑰图的半径，原点为画布中心。配置值域为 [0,1]，0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域。
+玫瑰图的半径，原点为画布中心。配置值域为 (0,1]，1 代表玫瑰图撑满绘图区域。
 
 #### innerRadius 
 

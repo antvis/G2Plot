@@ -65,7 +65,7 @@ piePlot.render();
 
 <description>**optional** _number_</description>
 
-饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
+饼图的半径，原点为画布中心。配置值域为 (0,1]，1 代表饼图撑满绘图区域。
 
 `markdown:docs/common/color.en.md`
 
@@ -80,7 +80,5 @@ piePlot.render();
 ### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" alt="加载失败" width="600">
-
-### Plot Components
 
 `markdown:docs/common/component-no-axis.en.md`

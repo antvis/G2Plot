@@ -65,6 +65,18 @@
 `markdown:docs/common/shape-style.en.md`
 
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component-no-axis.en.md`
+
+### Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
+### theme
+
+`markdown:docs/common/theme.en.md`

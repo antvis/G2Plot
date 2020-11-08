@@ -12,10 +12,10 @@ xAxis、yAxis 配置相同（由于 DualAxes 是双轴， yAxis 类型是数组�
 
 `markdown:docs/common/axis.zh.md`
 
-#### legend
+#### 图例
 
 `markdown:docs/common/legend.zh.md`
 
-#### annotations
+#### 图表标注
 
 `markdown:docs/common/annotations.zh.md`

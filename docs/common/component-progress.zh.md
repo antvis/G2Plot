@@ -2,7 +2,7 @@
 
 `markdown:docs/common/tooltip.zh.md`
 
-#### annotations
+#### 图表标注
 
 `markdown:docs/common/annotations.zh.md`
 

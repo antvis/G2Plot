@@ -82,3 +82,15 @@ piePlot.render();
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">
 
 `markdown:docs/common/component-no-axis.en.md`
+
+### Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
+### theme
+
+`markdown:docs/common/theme.en.md`

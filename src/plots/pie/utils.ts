@@ -2,7 +2,7 @@ import { View } from '@antv/g2';
 import { Data } from '@antv/g2/lib/interface';
 import { each, get, isString, memoize, values } from '@antv/util';
 import { deepAssign } from '../../utils';
-import { PieLabelType } from './types';
+import { PieLabelType, TextStyle } from './types';
 import { PieOptions } from '.';
 
 /**
@@ -56,13 +56,6 @@ export function kebabCase(word: string) {
       })
     : '';
 }
-
-type TextStyle = {
-  width: number;
-  fontSize: number;
-  lineHeight: number;
-  [k: string]: string | number;
-};
 
 /**
  * @desc 生成中心文本 html 的 style 字符串
@@ -161,5 +154,7 @@ export function createStatisticHTML(
   const textWidth = measureTextWidth(text, styles);
   const fontSize = `${Math.min((styles.width / textWidth) * 0.9 /** 魔法数字的比例 */, 1)}em`;
 
-  return `<div style="${textStyleStr};font-size:${fontSize};">${text}</div>`;
+  return `<div style="${textStyleStr};font-size:${fontSize};line-height:${
+    styles.width < textWidth ? 'initial' : 'inherit'
+  };">${text}</div>`;
 }

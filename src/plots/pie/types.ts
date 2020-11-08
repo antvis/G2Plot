@@ -27,3 +27,10 @@ export interface PieOptions extends Options {
    */
   readonly statistic?: Statistic<CSSStyleDeclaration>;
 }
+
+export type TextStyle = {
+  width: number;
+  fontSize: number;
+  lineHeight: number;
+  [k: string]: string | number;
+};

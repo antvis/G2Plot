@@ -5,7 +5,7 @@ import { legend, tooltip, interaction, animation, theme, state, annotation } fro
 import { interval } from '../../adaptor/geometries';
 import { flow, LEVEL, log, template, transformLabel, deepAssign, pick } from '../../utils';
 import { adaptOffset, adapteStatisticStyle, createStatisticHTML, getTextHeight } from './utils';
-import { PieOptions } from './types';
+import { PieOptions, TextStyle } from './types';
 
 const renderStatistic = (chart: View, options: PieOptions) => {
   const { innerRadius, angleField, colorField, statistic } = options;
@@ -15,7 +15,7 @@ const renderStatistic = (chart: View, options: PieOptions) => {
   if (title) {
     const textHeight = getTextHeight(title.style || {});
     const cfgOffsetY = title.offsetY || 0;
-    const topTextStyle = deepAssign(
+    const topTextStyle: TextStyle = deepAssign(
       {},
       {
         transform: content ? 'translate(-50%, -100%)' : 'translate(0, -50%)',
@@ -29,8 +29,9 @@ const renderStatistic = (chart: View, options: PieOptions) => {
       position: ['50%', '50%'],
       html: (container, view) => {
         container.style['pointer-events'] = 'none';
-        container.style.width = `${parseFloat(topTextStyle.width)}px`;
-        container.style['font-size'] = `${parseFloat(topTextStyle.fontSize)}px`;
+        container.style.width = `${topTextStyle.width}px`;
+        container.style['font-size'] = `${topTextStyle.fontSize}px`;
+        container.style['line-height'] = `${topTextStyle.lineHeight}px`;
         return createStatisticHTML(view, options, title, colorField, topTextStyle);
       },
       offsetX: title.offsetX,
@@ -46,7 +47,7 @@ const renderStatistic = (chart: View, options: PieOptions) => {
   if (content) {
     const textHeight = getTextHeight(content.style || {});
     const cfgOffsetY = content.offsetY || 0;
-    const bottomTextStyle = deepAssign(
+    const bottomTextStyle: TextStyle = deepAssign(
       {},
       {
         transform: title ? 'translate(-50%, 0)' : 'translate(-50%,-50%)',
@@ -60,8 +61,9 @@ const renderStatistic = (chart: View, options: PieOptions) => {
       position: ['50%', '50%'],
       html: (container, view) => {
         container.style['pointer-events'] = 'none';
-        container.style.width = `${parseFloat(bottomTextStyle.width)}px`;
-        container.style['font-size'] = `${parseFloat(bottomTextStyle.fontSize)}px`;
+        container.style.width = `${bottomTextStyle.width}px`;
+        container.style['font-size'] = `${bottomTextStyle.fontSize}px`;
+        container.style['line-height'] = `${bottomTextStyle.lineHeight}px`;
         return createStatisticHTML(view, options, content, angleField, bottomTextStyle);
       },
       offsetX: content.offsetX,

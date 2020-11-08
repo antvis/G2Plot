@@ -1,4 +1,3 @@
-import { View } from '@antv/g2';
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { each, get } from '@antv/util';
@@ -69,11 +68,14 @@ export class StatisticAction extends Action {
             container.style['pointer-events'] = 'none';
             container.style.width = `${parseFloat(styles.width)}px`;
             container.style['font-size'] = `${parseFloat(styles.fontSize)}px`;
+            container.style['line-height'] = `${parseFloat(styles.lineHeight)}px`;
             const textWidth = measureTextWidth(text, styles);
             const fontSize = `${Math.min((styles.width / textWidth) * 0.9 /** 魔法数字的比例 */, 1)}em`;
             const textStyleStr = `${generateStatisticStyle(styles)}`;
 
-            return `<div style="${textStyleStr};font-size:${fontSize};">${text}</div>`;
+            return `<div style="${textStyleStr};font-size:${fontSize};line-height:${
+              styles.width < textWidth ? 'initial' : 'inherit'
+            };">${text}</div>`;
           },
         });
         annotationOptions.forEach((opt) => {

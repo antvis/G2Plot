@@ -18,26 +18,29 @@ const piePlot = new Pie('container', {
   innerRadius: 0.64,
   meta: {
     value: {
-      formatter: (v) => `${v} ¥`,
+      formatter: (v) => `¥ ${v}`,
     },
   },
-  label: {
-    type: 'inner',
-    offset: '-50%',
-    autoRotate: false,
-    content: '{value}',
-    style: {
-      textAlign: 'center',
-    },
-  },
-  statistic: {
-    title: false,
-    content: {
-      formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
-    },
-  },
+  label: null,
+  statistic: {},
   // 添加 中心统计文本 交互
-  interactions: [{ type: 'element-selected' }, { type: 'element-active' }, { type: 'pie-statistic-active' }],
+  interactions: [
+    { type: 'element-selected' },
+    { type: 'element-active' },
+    {
+      type: 'pie-statistic-active',
+      cfg: {
+        start: [
+          { trigger: 'element:mouseenter', action: 'pie-statistic:change' },
+          { trigger: 'legend-item:mouseenter', action: 'pie-statistic:change' },
+        ],
+        end: [
+          { trigger: 'element:mouseleave', action: 'pie-statistic:reset' },
+          { trigger: 'legend-item:mouseleave', action: 'pie-statistic:reset' },
+        ],
+      },
+    },
+  ],
 });
 
 piePlot.render();

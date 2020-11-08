@@ -1,5 +1,6 @@
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
+import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
 import { each, get } from '@antv/util';
 import { generateStatisticStyle, measureTextWidth } from '../utils';
 
@@ -36,7 +37,16 @@ export class StatisticAction extends Action {
       this.initialAnnotation = annotations;
     }
 
-    const { data } = event.data;
+    let { data } = event?.data || {};
+    if (event.type.match('legend-item')) {
+      const delegateObject = getDelegationObject(this.context);
+      const colorField = view.getGroupedFields()[0];
+      if (delegateObject && colorField) {
+        const { item } = delegateObject;
+        data = view.getData().find((d) => d[colorField] === item.value);
+      }
+    }
+
     if (data) {
       const annotationController = view.getController('annotation');
       annotationController.clear(true);

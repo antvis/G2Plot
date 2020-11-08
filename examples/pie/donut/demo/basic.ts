@@ -29,9 +29,7 @@ const piePlot = new Pie('container', {
   statistic: {
     title: false,
     content: {
-      offsetY: -20,
       style: {
-        lineHeight: 40,
         whiteSpace: 'pre-wrap',
       },
       formatter: () => 'AntV\nG2Plot',

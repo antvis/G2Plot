@@ -32,10 +32,10 @@ export class Pie extends Plot<PieOptions> {
       /** 饼图中心文本默认样式 */
       statistic: {
         title: {
-          style: { fontWeight: 300, fill: '#4D4D4D', textAlign: 'center', fontSize: 28 },
+          style: { fontWeight: 300, color: '#4D4D4D', textAlign: 'center', fontSize: '28px', lineHeight: 1 },
         },
         content: {
-          style: { fontWeight: 'bold', fill: '#4D4D4D', textAlign: 'center', fontSize: 32 },
+          style: { fontWeight: 'bold', color: '#4D4D4D', textAlign: 'center', fontSize: '32px', lineHeight: 1 },
         },
       },
       /** 默认关闭 text-annotation 动画 */

@@ -101,6 +101,12 @@ export const measureTextWidth = memoize(
   (text: any, font) => [text, ...values(font)].join('')
 );
 
+export function getTextHeight(style: Partial<CSSStyleDeclaration>): number {
+  const fontSize = parseFloat(style.fontSize);
+  const lineHeight = get(style, 'lineHeight', fontSize);
+  return isString(lineHeight) ? parseFloat(lineHeight) : lineHeight * fontSize;
+}
+
 /**
  * @desc 中心文本 fontSze & lineHeight 自适应
  * @param style
@@ -113,11 +119,11 @@ export function adapteStatisticStyle(
 
   if (statisticOption !== false) {
     textStyle = deepAssign({}, statisticOption?.style);
-    const fontSize = textStyle.fontSize;
-    const textHeight = parseFloat(get(statisticOption, ['style', 'lineHeight']) || fontSize);
-    const dw = Math.pow(diameter / 2, 2) - Math.pow(statisticOption?.offsetY || 0, 2);
-    const width = Math.sqrt(dw >= 0 ? dw : 14 /** 默认一个最小宽度 */) * 2;
-    textStyle = deepAssign({}, textStyle, { width, lineHeight: textHeight });
+    const fontSize = parseFloat(textStyle.fontSize);
+    const textHeight = getTextHeight(textStyle);
+    const wPow = Math.pow(diameter / 2, 2) - Math.pow(statisticOption.offsetY || 0, 2);
+    const width = Math.sqrt(wPow >= 0 ? wPow : 14 /** 默认一个最小宽度 */) * 2;
+    textStyle = deepAssign({}, textStyle, { fontSize, width, lineHeight: textHeight });
   }
 
   return textStyle;
@@ -128,7 +134,7 @@ export function adapteStatisticStyle(
  */
 export function createStatisticHTML(
   view: View,
-  options: PieOptions,
+  options: Pick<PieOptions, 'meta' | 'angleField'>,
   statisticOption: PieOptions['statistic']['title' | 'content'],
   field: string,
   styles: TextStyle
@@ -155,5 +161,5 @@ export function createStatisticHTML(
   const textWidth = measureTextWidth(text, styles);
   const fontSize = `${Math.min((styles.width / textWidth) * 0.9 /** 魔法数字的比例 */, 1)}em`;
 
-  return `<div style="width:${styles.width};font-size:${styles.fontSize}px;"><div style="${textStyleStr};font-size:${fontSize};">${text}</div></div>`;
+  return `<div style="${textStyleStr};font-size:${fontSize};">${text}</div>`;
 }

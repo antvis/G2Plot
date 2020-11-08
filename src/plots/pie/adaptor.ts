@@ -4,28 +4,37 @@ import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, LEVEL, log, template, transformLabel, deepAssign, pick } from '../../utils';
+import { adaptOffset, adapteStatisticStyle, createStatisticHTML, getTextHeight } from './utils';
 import { PieOptions } from './types';
-import { adaptOffset, adapteStatisticStyle, createStatisticHTML } from './utils';
 
 const renderStatistic = (chart: View, options: PieOptions) => {
-  const { radius, innerRadius, angleField, colorField, statistic } = options;
+  const { innerRadius, angleField, colorField, statistic } = options;
   const { title, content } = statistic;
   const r = chart.geometries[0].coordinate.getRadius() || 0;
-  const diameter = (r / radius) * innerRadius * 2;
 
-  const topTextStyle = adapteStatisticStyle(diameter, statistic.title);
-
-  if (title !== false && topTextStyle) {
-    const offsetY = content === false ? -topTextStyle.lineHeight / 2 : -topTextStyle.lineHeight;
+  if (title) {
+    const textHeight = getTextHeight(title.style || {});
+    const cfgOffsetY = title.offsetY || 0;
+    const topTextStyle = deepAssign(
+      {},
+      {
+        transform: content ? 'translate(-50%, -100%)' : 'translate(0, -50%)',
+      },
+      adapteStatisticStyle(r * innerRadius * 2, {
+        ...title,
+        offsetY: content ? textHeight - cfgOffsetY : textHeight / 2 + Math.abs(cfgOffsetY),
+      })
+    );
     chart.annotation().html({
       position: ['50%', '50%'],
       html: (container, view) => {
+        container.style['pointer-events'] = 'none';
+        container.style.width = `${parseFloat(topTextStyle.width)}px`;
+        container.style['font-size'] = `${parseFloat(topTextStyle.fontSize)}px`;
         return createStatisticHTML(view, options, title, colorField, topTextStyle);
       },
-      // 默认根据容器大小调整，可以设置 offsetX 做一些偏移
-      offsetX: -topTextStyle.width / 2 + (title?.offsetX || 0),
-      // 默认根据字体调整，可以设置 offsetY 做一些偏移
-      offsetY: offsetY + (title?.offsetY || 0),
+      offsetX: title.offsetX,
+      offsetY: cfgOffsetY,
       // @ts-ignore
       key: 'top-statistic',
       style: topTextStyle,
@@ -34,18 +43,29 @@ const renderStatistic = (chart: View, options: PieOptions) => {
     });
   }
 
-  const bottomTextStyle = adapteStatisticStyle(diameter, statistic.content);
-  if (content !== false && bottomTextStyle) {
-    const offsetY = title === false ? -bottomTextStyle.lineHeight / 2 : 0;
+  if (content) {
+    const textHeight = getTextHeight(content.style || {});
+    const cfgOffsetY = content.offsetY || 0;
+    const bottomTextStyle = deepAssign(
+      {},
+      {
+        transform: title ? 'translate(-50%, 0)' : 'translate(-50%,-50%)',
+      },
+      adapteStatisticStyle(r * innerRadius * 2, {
+        ...content,
+        offsetY: title ? cfgOffsetY + textHeight : textHeight / 2 + Math.abs(cfgOffsetY),
+      })
+    );
     chart.annotation().html({
       position: ['50%', '50%'],
       html: (container, view) => {
+        container.style['pointer-events'] = 'none';
+        container.style.width = `${parseFloat(bottomTextStyle.width)}px`;
+        container.style['font-size'] = `${parseFloat(bottomTextStyle.fontSize)}px`;
         return createStatisticHTML(view, options, content, angleField, bottomTextStyle);
       },
-      // 默认根据容器大小调整，可以设置 offsetX 做一些偏移
-      offsetX: -bottomTextStyle.width / 2 + (content?.offsetX || 0),
-      // 默认根据字体调整，可以设置 offsetY 做一些偏移
-      offsetY: offsetY + (content?.offsetY || 0),
+      offsetX: content.offsetX,
+      offsetY: cfgOffsetY,
       // @ts-ignore
       key: 'bottom-statistic',
       style: bottomTextStyle,
@@ -229,8 +249,10 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
       renderStatistic(chart, options);
     });
     chart.on('afterchangesize', () => {
-      // @ts-ignore
-      chart.getController('annotation').clearHTMLContainer();
+      // todo 完善 G2 清楚局部 annotation 的方法
+      const controller = chart.getController('annotation');
+      controller.option = controller.option.filter((opt) => !`${opt.key || ''}`.match('statistic'));
+      controller.update();
       renderStatistic(chart, options);
     });
   }

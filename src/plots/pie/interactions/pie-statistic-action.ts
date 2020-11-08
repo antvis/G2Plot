@@ -2,7 +2,7 @@ import { View } from '@antv/g2';
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { each, get } from '@antv/util';
-import { generateStatisticStyle } from '../utils';
+import { generateStatisticStyle, measureTextWidth } from '../utils';
 
 /**
  * Pie 中心文本事件的 Action
@@ -23,6 +23,11 @@ export class StatisticAction extends Action {
   init() {
     const { view } = this.context;
     view.removeInteraction('tooltip');
+
+    view.on('afterchangesize', () => {
+      const annotations = this.getAnnotations();
+      this.initialAnnotation = annotations;
+    });
   }
 
   public change() {
@@ -45,19 +50,30 @@ export class StatisticAction extends Action {
       const statisticOptions = annotations.filter((a) => get(a, 'key', '').match('statistic'));
 
       each(statisticOptions, (option) => {
-        let value;
+        let text;
+        let field;
         if (option.key === 'top-statistic') {
           // title
-          value = colorScale ? colorScale.getText(data[colorField]) : null;
+          field = colorField;
+          text = colorScale ? colorScale.getText(data[colorField]) : null;
         } else {
-          value = angleScale ? angleScale.getText(data[angleField]) : data[angleField];
+          field = angleField;
+          text = angleScale ? angleScale.getText(data[angleField]) : data[angleField];
         }
 
         annotationOptions.push({
           ...option,
-          html: (container, view: View) => {
-          let text = option.formatter ? option.formatter(data, view.getData()) : value;
-            return `<div style="${generateStatisticStyle(option.style)}">${text}</div>`;
+          html: (container) => {
+            const styles = option.style;
+
+            container.style['pointer-events'] = 'none';
+            container.style.width = `${parseFloat(styles.width)}px`;
+            container.style['font-size'] = `${parseFloat(styles.fontSize)}px`;
+            const textWidth = measureTextWidth(text, styles);
+            const fontSize = `${Math.min((styles.width / textWidth) * 0.9 /** 魔法数字的比例 */, 1)}em`;
+            const textStyleStr = `${generateStatisticStyle(styles)}`;
+
+            return `<div style="${textStyleStr};font-size:${fontSize};">${text}</div>`;
           },
         });
         annotationOptions.forEach((opt) => {

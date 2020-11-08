@@ -1,12 +1,11 @@
-import { Datum } from '@antv/g2/lib/interface';
-import { every, filter, get, isFunction, isString, isNil } from '@antv/util';
+import { every, filter, get, isFunction, isString, isNil, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { Data } from '../../types';
-import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
+import { flow, LEVEL, log, template, transformLabel, deepAssign, pick } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { PieOptions } from './types';
-import { adaptOffset, getTotalValue } from './utils';
+import { adaptOffset, generateStatisticStyle, getTotalValue, kebabCase } from './utils';
 
 /**
  * 字段
@@ -171,50 +170,59 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField, colorField } = options;
+  const { radius, innerRadius, statistic, angleField } = options;
 
   const annotationOptions = [];
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
     const { title, content } = statistic;
+    chart.once('afterrender', () => {
+      const r = chart.geometries[0].coordinate.getRadius() || 0;
+      const width = Math.sqrt(Math.pow(((r * 2) / radius) * innerRadius, 2));
 
-    [title, content].forEach((option, index) => {
-      if (option === false) {
-        return;
-      }
-      const { style, formatter, offsetX, offsetY, rotate } = option;
+      const topTextHeight = get(title, ['style', 'lineHeight']) || get(title, ['style', 'fontSize']) || 14;
+      const bottomTextHeight = get(content, ['style', 'lineHeight']) || get(content, ['style', 'fontSize']) || 18;
 
-      const lineHeight = get(option, 'style.fontSize', 20);
-      const getDefaultContent = (data: Data, datum?: Datum) => {
-        if (index === 0) {
-          return datum ? datum[colorField] : '总计';
-        }
-        return datum ? datum[angleField] : getTotalValue(data, angleField);
-      };
-      chart.annotation().text(
-        deepAssign(
-          {},
-          {
-            style: {
-              textAlign: 'center',
-            },
-            offsetY: index === 0 ? (content === false ? 0 : -lineHeight) : title === false ? 0 : lineHeight,
+      const topTextOffsetY = content === false ? -topTextHeight / 2 : -topTextHeight;
+      const bottomTextOffsetY = title === false ? -bottomTextHeight / 2 : 0;
+
+      if (title !== false) {
+        let getTopText = (data: Data) => (title.formatter ? title.formatter(null, data) : '总计');
+        chart.annotation().html({
+          position: ['50%', '50%'],
+          html: (container, view) => {
+            const filteredData = view.getData();
+            return filteredData.length
+              ? `<div style="${generateStatisticStyle(width, title.style)}">${getTopText(filteredData)}</div>`
+              : null;
           },
-          {
-            position: ['50%', '50%'],
-            content: (filterData: Data, datum?: Datum) => {
-              return formatter ? formatter(datum, filterData) : getDefaultContent(filterData, datum);
-            },
-            style,
-            offsetX,
-            offsetY,
-            rotate,
-            // append-info
-            key: 'statistic',
-          }
-        )
-      );
+          offsetX: -width / 2,
+          offsetY: topTextOffsetY,
+          key: 'statistic',
+          // 透传配置
+          ...pick(title, ['style', 'formatter']),
+        });
+      }
+      if (content !== false) {
+        let getBottomText = (data: Data) =>
+          content.formatter ? content.formatter(null, data) : (data: Data) => getTotalValue(data, angleField);
+        chart.annotation().html({
+          position: ['50%', '50%'],
+          html: (container, view) => {
+            const filteredData = view.getData();
+            return filteredData.length
+              ? `<div style="${generateStatisticStyle(width, content.style)}">${getBottomText(filteredData)}</div>`
+              : null;
+          },
+          offsetX: -width / 2,
+          offsetY: bottomTextOffsetY,
+          key: 'statistic',
+          // 透传配置
+          ...pick(content, ['style', 'formatter']),
+        });
+      }
+      chart.render(true);
     });
   }
 

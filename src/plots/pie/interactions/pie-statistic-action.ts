@@ -1,6 +1,7 @@
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
-import { each, get, isFunction } from '@antv/util';
+import { each, get } from '@antv/util';
+import { generateStatisticStyle } from '../utils';
 
 /**
  * Pie 中心文本事件的 Action
@@ -10,7 +11,8 @@ export class StatisticAction extends Action {
 
   private getAnnotations() {
     const view = this.context.view;
-    return view.getComponents().filter((co) => co.type === 'annotation');
+    // @ts-ignore
+    return view.getController('annotation').option;
   }
 
   private getInitialAnnotation(): ComponentOption[] | null {
@@ -38,10 +40,10 @@ export class StatisticAction extends Action {
       const angleScale = view.getScaleByField(angleField);
       const colorScale = view.getScaleByField(colorField);
 
-      const annotationOptions = annotations.filter((a) => get(a, 'extra.key') !== 'statistic').map((a) => a.extra);
-      const statisticOptions = annotations.filter((a) => get(a, 'extra.key') === 'statistic').map((a) => a.extra || {});
+      const annotationOptions = annotations.filter((a) => get(a, 'key') !== 'statistic');
+      const statisticOptions = annotations.filter((a) => get(a, 'key') === 'statistic');
 
-      each(statisticOptions, (options, idx) => {
+      each(statisticOptions, (option, idx) => {
         let value;
         if (idx === 0) {
           // title
@@ -51,13 +53,15 @@ export class StatisticAction extends Action {
         }
 
         annotationOptions.push({
-          ...options,
-          content: isFunction(options.content) ? options.content(view.getData(), data) : value,
+          ...option,
+          html: (container, view) => {
+            const width = view?.geometries[0]?.coordinate?.getRadius() || 0;
+            let topText = option.formatter ? option.formatter(data, view.getData()) : '总计';
+            return `<div style="${generateStatisticStyle(width, option.style)}">${topText}</div>`;
+          },
         });
       });
       annotationOptions.forEach((opt) => {
-        // todo remove ignore
-        // @ts-ignore
         annotationController.annotation(opt);
       });
       view.render(true);
@@ -70,7 +74,7 @@ export class StatisticAction extends Action {
     annotationController.clear(true);
     const initialStatistic = this.getInitialAnnotation();
     each(initialStatistic, (a) => {
-      view.annotation().text(get(a, 'extra', {}));
+      view.annotation()[a.type](a);
     });
     view.render(true);
   }

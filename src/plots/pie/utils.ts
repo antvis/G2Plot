@@ -115,8 +115,8 @@ export function adapteStatisticStyle(
     textStyle = deepAssign({}, statisticOption?.style);
     const fontSize = textStyle.fontSize;
     const textHeight = parseFloat(get(statisticOption, ['style', 'lineHeight']) || fontSize);
-    let dw = Math.pow(diameter / 2, 2) - Math.pow(statisticOption?.offsetY || 0, 2);
-    const width = Math.sqrt(dw >= 0 ? dw : fontSize /** 默认一个最小宽度 */) * 2;
+    const dw = Math.pow(diameter / 2, 2) - Math.pow(statisticOption?.offsetY || 0, 2);
+    const width = Math.sqrt(dw >= 0 ? dw : 14 /** 默认一个最小宽度 */) * 2;
     textStyle = deepAssign({}, textStyle, { width, lineHeight: textHeight });
   }
 
@@ -153,6 +153,7 @@ export function createStatisticHTML(
 
   const text = getText(filteredData);
   const textWidth = measureTextWidth(text, styles);
-  const fontSize = `${Math.min(styles.width / textWidth, 1)}em`;
+  const fontSize = `${Math.min((styles.width / textWidth) * 0.9 /** 魔法数字的比例 */, 1)}em`;
+
   return `<div style="width:${styles.width};font-size:${styles.fontSize}px;"><div style="${textStyleStr};font-size:${fontSize};">${text}</div></div>`;
 }

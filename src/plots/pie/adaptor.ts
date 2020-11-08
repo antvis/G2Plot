@@ -1,3 +1,4 @@
+import { View } from '@antv/g2';
 import { every, filter, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
@@ -5,6 +6,55 @@ import { interval } from '../../adaptor/geometries';
 import { flow, LEVEL, log, template, transformLabel, deepAssign, pick } from '../../utils';
 import { PieOptions } from './types';
 import { adaptOffset, adapteStatisticStyle, createStatisticHTML } from './utils';
+
+const renderStatistic = (chart: View, options: PieOptions) => {
+  const { radius, innerRadius, angleField, colorField, statistic } = options;
+  const { title, content } = statistic;
+  const r = chart.geometries[0].coordinate.getRadius() || 0;
+  const diameter = (r / radius) * innerRadius * 2;
+
+  const topTextStyle = adapteStatisticStyle(diameter, statistic.title);
+
+  if (title !== false && topTextStyle) {
+    const offsetY = content === false ? -topTextStyle.lineHeight / 2 : -topTextStyle.lineHeight;
+    chart.annotation().html({
+      position: ['50%', '50%'],
+      html: (container, view) => {
+        return createStatisticHTML(view, options, title, colorField, topTextStyle);
+      },
+      // 默认根据容器大小调整，可以设置 offsetX 做一些偏移
+      offsetX: -topTextStyle.width / 2 + (title?.offsetX || 0),
+      // 默认根据字体调整，可以设置 offsetY 做一些偏移
+      offsetY: offsetY + (title?.offsetY || 0),
+      // @ts-ignore
+      key: 'top-statistic',
+      style: topTextStyle,
+      // 透传配置
+      ...pick(title, ['formatter']),
+    });
+  }
+
+  const bottomTextStyle = adapteStatisticStyle(diameter, statistic.content);
+  if (content !== false && bottomTextStyle) {
+    const offsetY = title === false ? -bottomTextStyle.lineHeight / 2 : 0;
+    chart.annotation().html({
+      position: ['50%', '50%'],
+      html: (container, view) => {
+        return createStatisticHTML(view, options, content, angleField, bottomTextStyle);
+      },
+      // 默认根据容器大小调整，可以设置 offsetX 做一些偏移
+      offsetX: -bottomTextStyle.width / 2 + (content?.offsetX || 0),
+      // 默认根据字体调整，可以设置 offsetY 做一些偏移
+      offsetY: offsetY + (content?.offsetY || 0),
+      // @ts-ignore
+      key: 'bottom-statistic',
+      style: bottomTextStyle,
+      // 透传配置
+      ...pick(content, ['formatter']),
+    });
+  }
+  chart.render(true);
+};
 
 /**
  * 字段
@@ -169,55 +219,19 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius, statistic, colorField, angleField } = options;
+  const { innerRadius, statistic } = options;
 
   const annotationOptions = [];
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    const { title, content } = statistic;
     chart.once('afterrender', () => {
-      const r = chart.geometries[0].coordinate.getRadius() || 0;
-      const diameter = Math.sqrt(Math.pow(((r * 2) / radius) * innerRadius, 2));
-
-      const topTextStyle = adapteStatisticStyle(diameter, statistic.title);
-      if (title !== false && topTextStyle) {
-        const offsetY = content === false ? -topTextStyle.lineHeight / 2 : -topTextStyle.lineHeight;
-        chart.annotation().html({
-          position: ['50%', '50%'],
-          html: (container, view) => {
-            return createStatisticHTML(view, options, title, colorField, topTextStyle);
-          },
-          // 默认根据容器大小调整，可以设置 offsetX 做一些偏移
-          offsetX: -topTextStyle.width / 2 + (title?.offsetX || 0),
-          // 默认根据字体调整，可以设置 offsetY 做一些偏移
-          offsetY: offsetY + (title?.offsetY || 0),
-          key: 'top-statistic',
-          style: topTextStyle,
-          // 透传配置
-          ...pick(title, ['formatter']),
-        });
-      }
-
-      const bottomTextStyle = adapteStatisticStyle(diameter, statistic.content);
-      if (content !== false && bottomTextStyle) {
-        const offsetY = title === false ? -bottomTextStyle.lineHeight / 2 : 0;
-        chart.annotation().html({
-          position: ['50%', '50%'],
-          html: (container, view) => {
-            return createStatisticHTML(view, options, content, angleField, bottomTextStyle);
-          },
-          // 默认根据容器大小调整，可以设置 offsetX 做一些偏移
-          offsetX: -bottomTextStyle.width / 2 + (content?.offsetX || 0),
-          // 默认根据字体调整，可以设置 offsetY 做一些偏移
-          offsetY: offsetY + (content?.offsetY || 0),
-          key: 'bottom-statistic',
-          style: bottomTextStyle,
-          // 透传配置
-          ...pick(content, ['formatter']),
-        });
-      }
-      chart.render(true);
+      renderStatistic(chart, options);
+    });
+    chart.on('afterchangesize', () => {
+      // @ts-ignore
+      chart.getController('annotation').clearHTMLContainer();
+      renderStatistic(chart, options);
     });
   }
 

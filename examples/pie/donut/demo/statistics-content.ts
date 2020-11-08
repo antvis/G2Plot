@@ -22,7 +22,14 @@ const piePlot = new Pie('container', {
     },
   },
   label: null,
-  statistic: {},
+  statistic: {
+    title: {
+      offsetY: -4,
+    },
+    content: {
+      offsetY: 4,
+    },
+  },
   // 添加 中心统计文本 交互
   interactions: [
     { type: 'element-selected' },

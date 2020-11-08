@@ -32,10 +32,11 @@ const piePlot = new Pie('container', {
   },
   statistic: {
     title: {
+      offsetY: -4,
       formatter: (datum) => (datum ? datum.type : '总计'),
     },
     content: {
-      offsetY: 8,
+      offsetY: 4,
       formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
     },
   },

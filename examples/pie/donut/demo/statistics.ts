@@ -16,36 +16,31 @@ const piePlot = new Pie('container', {
   colorField: 'type',
   radius: 0.8,
   innerRadius: 0.64,
+  meta: {
+    value: {
+      formatter: (v) => `${v} ¥`,
+    },
+  },
   label: {
     type: 'inner',
-    offset: -35,
+    offset: '-50%',
     autoRotate: false,
     content: '{value}',
     style: {
-      fill: '#333',
-      stroke: '#fff',
-      strokeWidth: 1,
+      textAlign: 'center',
     },
   },
-  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
   statistic: {
     title: {
-      offsetY: -20,
-      style: {
-        fontSize: 44,
-      },
       formatter: (datum) => (datum ? datum.type : '总计'),
     },
     content: {
-      offsetY: 30,
-      style: {
-        fontSize: 44,
-      },
+      offsetY: 8,
       formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
     },
   },
   // 添加 中心统计文本 交互
-  interactions: [{ type: 'pie-statistic-active' }],
+  interactions: [{ type: 'element-selected' }, { type: 'element-active' }, { type: 'pie-statistic-active' }],
 });
 
 piePlot.render();

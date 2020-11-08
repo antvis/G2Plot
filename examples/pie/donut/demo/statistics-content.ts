@@ -15,28 +15,29 @@ const piePlot = new Pie('container', {
   angleField: 'value',
   colorField: 'type',
   radius: 1,
-  innerRadius: 0.6,
+  innerRadius: 0.64,
+  meta: {
+    value: {
+      formatter: (v) => `${v} ¥`,
+    },
+  },
   label: {
     type: 'inner',
     offset: '-50%',
+    autoRotate: false,
     content: '{value}',
     style: {
-      fontSize: 14,
       textAlign: 'center',
     },
   },
-  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
   statistic: {
     title: false,
     content: {
-      offsetY: -20,
-      style: {
-        lineHeight: 40,
-        whiteSpace: 'pre-wrap',
-      },
-      formatter: () => 'AntV\nG2Plot',
+      formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
     },
   },
+  // 添加 中心统计文本 交互
+  interactions: [{ type: 'element-selected' }, { type: 'element-active' }, { type: 'pie-statistic-active' }],
 });
 
 piePlot.render();

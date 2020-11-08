@@ -1,3 +1,4 @@
+import { View } from '@antv/g2';
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { each, get } from '@antv/util';
@@ -40,12 +41,12 @@ export class StatisticAction extends Action {
       const angleScale = view.getScaleByField(angleField);
       const colorScale = view.getScaleByField(colorField);
 
-      const annotationOptions = annotations.filter((a) => get(a, 'key') !== 'statistic');
-      const statisticOptions = annotations.filter((a) => get(a, 'key') === 'statistic');
+      const annotationOptions = annotations.filter((a) => !get(a, 'key', '').match('statistic'));
+      const statisticOptions = annotations.filter((a) => get(a, 'key', '').match('statistic'));
 
-      each(statisticOptions, (option, idx) => {
+      each(statisticOptions, (option) => {
         let value;
-        if (idx === 0) {
+        if (option.key === 'top-statistic') {
           // title
           value = colorScale ? colorScale.getText(data[colorField]) : null;
         } else {
@@ -54,17 +55,16 @@ export class StatisticAction extends Action {
 
         annotationOptions.push({
           ...option,
-          html: (container, view) => {
-            const width = view?.geometries[0]?.coordinate?.getRadius() || 0;
-            let topText = option.formatter ? option.formatter(data, view.getData()) : '总计';
-            return `<div style="${generateStatisticStyle(width, option.style)}">${topText}</div>`;
+          html: (container, view: View) => {
+          let text = option.formatter ? option.formatter(data, view.getData()) : value;
+            return `<div style="${generateStatisticStyle(option.style)}">${text}</div>`;
           },
         });
+        annotationOptions.forEach((opt) => {
+          annotationController.annotation(opt);
+        });
+        view.render(true);
       });
-      annotationOptions.forEach((opt) => {
-        annotationController.annotation(opt);
-      });
-      view.render(true);
     }
   }
 

@@ -13,7 +13,7 @@ order: 15
 
 <description>**required** _number[]_</description>
 
-设置图表数据源。
+设置图表数据源。mini 面积图的数据直接采用一个数字数组，代表一个指标的变化趋势，无需设置 x 轴字段。
 
 `markdown:docs/common/meta.zh.md`
 

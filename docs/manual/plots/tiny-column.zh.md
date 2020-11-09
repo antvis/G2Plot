@@ -13,7 +13,7 @@ order: 16
 
 <description>**required** _number[]_</description>
 
-设置图表数据源。
+设置图表数据源。mini 柱形图的数据直接采用一个数字数组，代表一个指标的变化趋势，无需设置 x 轴字段。
 
 `markdown:docs/common/meta.zh.md`
 
@@ -21,7 +21,7 @@ order: 16
 
 #### columnWidthRatio
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `0.5`</description>
 
 柱状图宽度占比 [0-1]。
 
@@ -29,7 +29,7 @@ order: 16
 
 <description>**optional** _StyleAttr | Function_</description>
 
-面积图形样式。
+柱形图图形样式。
 
 `markdown:docs/common/shape-style.zh.md`
 

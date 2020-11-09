@@ -21,7 +21,7 @@ order: 1
 
 <description>**optional** _string_</description>
 
-分组字段。
+分组字段。比如：我们需要分析不同`省份`的交易额趋势，那么`省份字段`就是分组字段。
 
 `markdown:docs/common/meta.zh.md`
 
@@ -31,7 +31,7 @@ order: 1
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否平滑。
+曲线是否平滑。
 
 #### isStack
 
@@ -72,15 +72,3 @@ order: 1
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`
-
-### 事件
-
-`markdown:docs/common/events.zh.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.zh.md`
-
-### 图表主题
-
-`markdown:docs/common/theme.zh.md`

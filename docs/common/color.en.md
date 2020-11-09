@@ -19,7 +19,7 @@ Default: The color board of the theme.
 // Function
 {
   colorField: 'type', // or seriesField in some cases
-  color: (type) => {
+  color: ({ type }) => {
     if(type === 'male'){
       return 'red';
     }

@@ -20,13 +20,13 @@
 
 <description>**optional** _number[] | number | 'auto'_</description>
 
-画布的 `padding` 值，或者开启 `auto`。
+画布的 `padding` 值，代表图表在上右下左的间距，可以为单个数字 `16`，或者数组 `[16, 8, 16, 8]` 代表四个方向，或者开启 `auto`，有底层自动计算间距。
 
 #### appendPadding
 
 <description>**optional** _number[] | number_</description>
 
-额外增加的 `appendPadding` 值。
+额外增加的 `appendPadding` 值，在 `padding` 的基础上，设置额外的 padding 数值，可以是单个数字 `16`，或者数组 `[16, 8, 16, 8]` 代表四个方向。
 
 #### renderer
 
@@ -38,4 +38,4 @@
 
 <description>**optional** _number_ _default:_ `window.devicePixelRatio`</description>
 
-设置图表渲染的像素比。
+设置图表渲染的像素比，和底层的 devicePixelRatio 含义一致，一般不用设置，除非在页面有整体 scale 的情况下，可以自定义。

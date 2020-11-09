@@ -19,7 +19,7 @@
 // Function
 {
   colorField: 'type', // 部分图表使用 seriesField
-  color: (type) => {
+  color: ({ type }) => {
     if(type === 'male'){
       return 'red';
     }

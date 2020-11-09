@@ -72,9 +72,9 @@ scatterPlot.render();
 
 点大小映射对应的数据字段名。
 
-#### size 
+#### size
 
-<description>**optional** \_number | [number, number] | Function_</description>
+<description>**optional** \_number | [number, number] | Function\_</description>
 
 [**DEMO1**](../../scatter/basic#color-mapping)
 
@@ -106,7 +106,7 @@ scatterPlot.render();
 
 点形状映射对应的数据字段名。
 
-#### shape 
+#### shape
 
 <description>**optional** \_string | string[] | Function\_</description>
 
@@ -139,7 +139,7 @@ scatterPlot.render();
 }
 ```
 
-#### pointStyle 
+#### pointStyle
 
 <description>**optional** _object_</description>
 
@@ -191,6 +191,48 @@ scatterPlot.render();
 ### Plot Components
 
 `markdown:docs/common/component.en.md`
+
+#### quadrant
+
+[**DEMO**](../../scatter/basic#quadrant)
+
+<description>**optional** _object_</description>
+
+四象限组件。
+
+| 细分配置    | 类型     | 功能描述                                   |
+| ----------- | -------- | ------------------------------------------ |
+| xBaseline   | number   | x 方向上的象限分割基准线，默认为 0         |
+| yBaseline   | number   | y 方向上的象限分割基准线，默认为 0         |
+| lineStyle   | object   | 配置象限分割线的样式，详细配置参考绘图属性 |
+| regionStyle | object[] | 象限样式，详细配置参考绘图属性             |
+| labels      | object[] | 象限文本配置，详细配置参考绘图属性         |
+
+#### regressionLine
+
+[**DEMO**](../../scatter/basic#line)
+
+<description>**optional** _object_</description>
+
+回归线。
+
+| 细分配置  | 类型                                                                | 功能描述                                                         |
+| --------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| type      | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad |
+| style     | object                                                              | 配置回归线样式，详细配置参考绘图属性                             |
+| algorithm | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                      |
+
+```ts
+regressionLine: {
+  algorithm: () => {
+    return [
+      [8, 6],
+      [16, 7],
+      [24, 7],
+    ];
+  },
+}
+```
 
 ### Event
 

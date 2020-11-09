@@ -83,7 +83,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    */
   private getChartSize(width: number, height: number): Size {
     const chartSize = getContainerSize(this.container);
-    return { width: width || chartSize.width, height: height || chartSize.height || 300 };
+    return { width: width || chartSize.width || 400, height: height || chartSize.height || 400 };
   }
 
   /**

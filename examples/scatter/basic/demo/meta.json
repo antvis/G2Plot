@@ -43,6 +43,14 @@
         "en": "Bubble plot yAxis on the right"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0luHTJODdMUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom-shape.ts",
+      "title": {
+        "zh": "散点图-自定义图形",
+        "en": "Scatter plot custom shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*zfwOTZE7KwcAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

@@ -177,15 +177,17 @@ describe('core', () => {
   });
 
   it('getChartSize', () => {
-    const line = new Line(createDiv(), {
+    createDiv('', document.body, 'changeSize');
+    document.getElementById('changeSize').style.width = '0px';
+    const line = new Line('changeSize', {
       data: partySupport.filter((o) => o.type === 'FF'),
       xField: 'date',
       yField: 'value',
     });
 
     line.render();
-    expect(line.chart.height).toBe(300);
-
+    expect(line.chart.width).toBe(400);
+    expect(line.chart.height).toBe(400);
     line.destroy();
   });
 });

@@ -2,6 +2,7 @@
  * 创建一个 div 节点，并放到 container，默认放到 body 上
  * @param title
  * @param container
+ * @param id  容器 id
  */
 export function createDiv(title: string = '', container: HTMLElement = document.body, id?: string): HTMLElement {
   const div = document.createElement('div');
@@ -11,10 +12,6 @@ export function createDiv(title: string = '', container: HTMLElement = document.
   if (title) {
     const titleDiv = document.createElement('div').appendChild(document.createTextNode(title));
     container.appendChild(titleDiv);
-  }
-
-  if (id) {
-    div.setAttribute('id', id);
   }
 
   container.appendChild(div);

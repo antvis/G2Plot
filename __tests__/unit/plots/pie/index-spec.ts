@@ -6,25 +6,6 @@ describe('pie', () => {
   const data = POSITIVE_NEGATIVE_DATA.filter((o) => o.value > 0).map((d, idx) =>
     idx === 1 ? { ...d, type: 'item1' } : d
   );
-  it('angleField: single color', () => {
-    const pie = new Pie(createDiv(), {
-      width: 400,
-      height: 300,
-      data,
-      angleField: 'value',
-      radius: 0.8,
-    });
-
-    pie.render();
-
-    const geometry = pie.chart.geometries[0];
-    const elements = geometry.elements;
-
-    expect(elements.length).toBe(data.length);
-    expect(elements[0].getModel().color).toBe(elements[1].getModel().color);
-
-    pie.destroy();
-  });
 
   it('angleField with colorField: multiple colors', () => {
     const pie = new Pie(createDiv(), {

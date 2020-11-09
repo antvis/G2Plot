@@ -21,13 +21,13 @@ order: 19
 
 <description>**optional** _number_</description>
 
-外环的半径，相对于画布宽高的最小值来计算的。
+外环的半径 [0-1]，相对于画布宽高的最小值来计算的。
 
 #### innerRadius
 
 <description>**optional** _number_</description>
 
-内环的半径，相对于内半径 radius 来计算的。
+内环的半径 [0-1]，相对于内半径 radius 来计算的。
 
 #### progressStyle
 

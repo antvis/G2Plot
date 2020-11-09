@@ -13,19 +13,19 @@ order: 22
 
 <description>**required** _number_</description>
 
-指标比例。
+指标比例数据 [0-1]。
 
 #### radius
 
 <description>**optional** _number_ _default:_ `0.95`</description>
 
-圆盘的外半径，0 ~ 1。 
+外环的半径 [0-1]，相对于画布宽高的最小值来计算的。
 
 #### innerRadius
 
 <description>**optional** _number_ _default:_ `0.9`</description>
 
-圆盘的内半径，0 ~ 1。
+内环的半径 [0-1]，相对于内半径 radius 来计算的。
 
 #### startAngle
 
@@ -52,6 +52,14 @@ order: 22
 | ticks  | number[] | 辅助圆弧显示数字数组                 |
 | color  | string[] | 辅助圆弧的颜色色板，按照色板顺序取值 |
 
+#### axis
+
+<description>**optional** _object_</description>
+
+指标辅助轴样式。
+
+`markdown:docs/common/axis.zh.md`
+
 #### indicator
 
 <description>**optional** _object_</description>
@@ -61,22 +69,19 @@ order: 22
 - `pointer`：指示器中的指针样式配置
 - `pin`：指示器中的圆盘样式配置
 
+他们都有以下配置项：
+
 | 配置项 | 类型   | 描述         |
 | ------ | ------ | ------------ |
-| style  | object | 组件样式配置 |
+| style  | object | ShapeStyle |
+
+`markdown:docs/common/shape-style.zh.md`
 
 #### statistic
 
 <description>**optional** _object_</description>
 
-指标文本组件。
+指标中心文本组件。
 
 `markdown:docs/common/statistic.zh.md`
 
-#### axis
-
-<description>**optional** _object_</description>
-
-指标辅助轴样式。
-
-`markdown:docs/common/axis.zh.md`

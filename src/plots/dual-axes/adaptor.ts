@@ -8,9 +8,9 @@ import {
 } from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
+import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
-import { Datum } from '../../types';
 import { isColumn, getYAxisWithDefault, getGeometryOption, getCompatibleYAxis } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';

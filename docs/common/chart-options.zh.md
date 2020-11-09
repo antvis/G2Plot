@@ -20,7 +20,7 @@
 
 <description>**optional** _number[] | number | 'auto'_</description>
 
-画布的 `padding` 值，代表图表在上右下左的间距，可以为单个数字 `16`，或者数组 `[16, 8, 16, 8]` 代表四个方向，或者开启 `auto`，有底层自动计算间距。
+画布的 `padding` 值，代表图表在上右下左的间距，可以为单个数字 `16`，或者数组 `[16, 8, 16, 8]` 代表四个方向，或者开启 `auto`，由底层自动计算间距。
 
 #### appendPadding
 

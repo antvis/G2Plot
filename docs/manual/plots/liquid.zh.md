@@ -13,13 +13,13 @@ order: 12
 
 <description>**required** _number_</description>
 
-指标比例。
+指标比例数据 [0-1]。
 
 #### radius
 
 <description>**optional** _number_ _default:_ `0.9`</description>
 
-水波的外半径， 0 ~ 1。
+外环的半径 [0-1]，相对于画布宽高的最小值来计算的。
 
 ### 图形样式
 
@@ -37,22 +37,6 @@ order: 12
 
 <description>**optional** _object_</description>
 
-指标文本组件。
+指标中心文本组件。
 
 `markdown:docs/common/statistic.zh.md`
-
-### 图表组件
-
-`markdown:docs/common/component-no-axis.zh.md`
-
-### 事件
-
-`markdown:docs/common/events.zh.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.zh.md`
-
-#### 图表主题
-
-`markdown:docs/common/theme.zh.md`

@@ -6,11 +6,11 @@
 
 基于图形语法（the Grammar of Graphics）的图表库。
 
-[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
+[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
-![Latest commit](https://badgen.net/github/last-commit/antvis/g2plot)
+![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot)
 [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=master)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild)
-[![coverage](https://img.shields.io/coveralls/antvis/g2plot/master.svg)](https://coveralls.io/github/antvis/g2plot)
+[![coverage](https://img.shields.io/coveralls/antvis/G2Plot/master.svg)](https://coveralls.io/github/antvis/G2Plot)
 
 </div>
 

@@ -12,8 +12,8 @@ export interface RoseOptions extends Options {
   /** 是否堆积玫瑰图 */
   readonly isStack?: boolean;
   /**
-   * 玫瑰图的半径，原点为画布中心。配置值域为 [0,1]
-   * 0 代表玫瑰图大小为 0，即不显示，1 代表玫瑰图撑满绘图区域
+   * 玫瑰图的半径，原点为画布中心。配置值域为 (0,1]
+   * 1 代表玫瑰图大小为 1，即撑满绘图区域
    */
   readonly radius?: number;
   /** 内部空心圆的半径，规则与 radius 一致 */

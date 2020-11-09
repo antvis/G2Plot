@@ -17,6 +17,7 @@ const piePlot = new Pie('container', {
   radius: 0.8,
   label: {
     type: 'spider',
+    labelHeight: 28,
     content: '{name}\n{percentage}',
   },
   interactions: [{ type: 'element-selected' }, { type: 'element-active' }],

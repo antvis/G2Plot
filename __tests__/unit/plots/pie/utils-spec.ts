@@ -1,4 +1,4 @@
-import { getTotalValue, parsePercentageToNumber } from '../../../../src/plots/pie/utils';
+import { adaptOffset, getTotalValue } from '../../../../src/plots/pie/utils';
 
 describe('utils of pie plot', () => {
   const data = [
@@ -48,13 +48,14 @@ describe('utils of pie plot', () => {
     ).toBe(null);
   });
 
-  it('将 字符串百分比 转换为 数值型百分比', () => {
-    // @ts-ignore 不合法的入参
-    expect(parsePercentageToNumber(null)).toBe(null);
-    // @ts-ignore 不合法的入参
-    expect(parsePercentageToNumber(100)).toBe(100);
-    expect(parsePercentageToNumber('0.35')).toBe(0.35);
-    expect(parsePercentageToNumber('34%')).toBe(0.34);
-    expect(parsePercentageToNumber('0%')).toBe(0);
+  it('offset adaptor', () => {
+    expect(adaptOffset('inner', '-30%')).toBe('-30%');
+    expect(parseFloat(adaptOffset('inner', '30%') as string)).toBeLessThan(0);
+    expect(adaptOffset('inner', NaN)).not.toBe(NaN);
+    expect(parseFloat(adaptOffset('inner', NaN) as string)).toBeLessThan(0);
+    expect(adaptOffset('outer', '-30%')).not.toBe('-30%');
+    expect(parseFloat(adaptOffset('outer', '-30%') as string)).not.toBeLessThan(0);
+    expect(adaptOffset('spider', '30%')).toBe('30%');
+    expect(adaptOffset('spider', NaN)).toBe(NaN);
   });
 });

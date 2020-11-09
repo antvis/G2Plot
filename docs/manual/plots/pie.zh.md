@@ -55,7 +55,7 @@ piePlot.render();
 
 #### colorField 
 
-<description>**optional** _string_</description>
+<description>**required** _string_</description>
 
 扇形颜色映射对应的数据字段名。
 
@@ -65,7 +65,7 @@ piePlot.render();
 
 <description>**optional** _number_</description>
 
-饼图的半径，原点为画布中心。配置值域为 [0,1]，0 代表饼图大小为 0，即不显示，1 代表饼图撑满绘图区域。
+饼图的半径，原点为画布中心。配置值域为 (0,1]，1 代表饼图撑满绘图区域。
 
 `markdown:docs/common/color.zh.md`
 
@@ -79,8 +79,18 @@ piePlot.render();
 
 ### 图表组件
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*93XzToUe1OQAAAAAAAAAAABkARQnAQ" alt="加载失败" width="600">
-
-### 图表组件
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">
 
 `markdown:docs/common/component-no-axis.zh.md`
+
+### 事件
+
+`markdown:docs/common/events.zh.md`
+
+### 图表方法
+
+`markdown:docs/common/chart-methods.zh.md`
+
+### 图表主题
+
+`markdown:docs/common/theme.zh.md`

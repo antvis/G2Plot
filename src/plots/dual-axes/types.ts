@@ -44,14 +44,27 @@ export type GeometryColumnOption = Pick<
 export type GeometryOption = GeometryColumnOption | GeometryLineOption;
 
 export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color'> & {
-  // 通用数据配置
-  /** 具体的数据 */
+  /**
+   * 具体的数据，左右两边的数据
+   */
   readonly data: Array<Record<string, any>[]>;
 
+  /**
+   * 双轴图的 x 字段，x 字段名称需要保持一致
+   */
   readonly xField: string;
+  /**
+   * 双轴图左右 y 字段，需要不一致
+   */
   readonly yField: string[];
 
-  readonly geometryOptions?: GeometryOption[];
+  /**
+   * 左右两边的 yAxis 配置，使用 object 的方式，key 为 y 字段名，或者数组分别表示左右
+   */
+  readonly yAxis?: Options['yAxis'][] | Record<string, Options['yAxis']>;
 
-  readonly yAxis?: Record<string, Options['yAxis']> | Options['yAxis'][];
+  /**
+   * 左右两边的图形配置
+   */
+  readonly geometryOptions?: GeometryOption[];
 };

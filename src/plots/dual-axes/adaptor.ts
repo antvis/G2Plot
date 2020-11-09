@@ -1,5 +1,6 @@
-import { each, findIndex, get, isObject, every } from '@antv/util';
+import { each, findIndex, get, find, isObject, every } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
+import { LegendItem } from '@antv/g2/lib/interface';
 import {
   theme as commonTheme,
   animation as commonAnimation,
@@ -275,13 +276,18 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             });
           }
         } else {
+          const legendItem = get(chart.getController('legend'), 'option.items', []);
           // 分组柱线图
           each(chart.views, (view) => {
             // 单折柱图
             const groupScale = view.getGroupScales();
             each(groupScale, (scale: Scale) => {
               if (scale.values && scale.values.indexOf(field) > -1) {
-                view.filter(scale.field, (value) => !delegateObject.item.unchecked || value !== field);
+                view.filter(scale.field, (value) => {
+                  const curLegendItem: LegendItem = find(legendItem, (item: LegendItem) => item.value === value);
+                  // 使用 legend 中的 unchecked 来判断，使得支持关闭多个图例
+                  return !curLegendItem.unchecked;
+                });
               }
             });
             chart.render(true);

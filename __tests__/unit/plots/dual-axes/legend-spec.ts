@@ -144,8 +144,8 @@ describe('Legend', () => {
     dualAxes.destroy();
   });
 
-  it('Legend with option', () => {
-    const dualAxes = new DualAxes(createDiv('test DualAxes doubal line'), {
+  it('Legend with click', () => {
+    const dualAxes = new DualAxes(createDiv('test DualAxes doubal line', undefined, 'click_legend'), {
       width: 400,
       height: 500,
       data: [PV_DATA, UV_DATA_MULTI],
@@ -168,8 +168,9 @@ describe('Legend', () => {
         },
       ],
       legend: {
-        layout: 'vertical',
-        position: 'right',
+        itemName: {
+          formatter: (val) => `${val}_test`,
+        },
       },
     });
 
@@ -177,17 +178,18 @@ describe('Legend', () => {
 
     const legendController = dualAxes.chart.getController('legend');
     const legendComponent = legendController.getComponents()[0];
-    const cfg = legendComponent.component.cfg;
-
-    expect(legendComponent.direction).toEqual('right');
-    expect(cfg.items.length).toBe(4);
-    expect(cfg.items[0].name).toBe('页面访问量');
-    expect(cfg.items[1].name).toBe('a');
-    expect(cfg.items[2].name).toBe('b');
-    expect(cfg.items[3].name).toBe('c');
+    const legendContainer = legendComponent.component.get('container');
+    const cfgItems = legendComponent.component.cfg.items;
+    expect(cfgItems.length).toBe(4);
+    expect(cfgItems[0].name).toBe('页面访问量');
+    expect(cfgItems[1].name).toBe('a');
+    expect(cfgItems[2].name).toBe('b');
+    expect(cfgItems[3].name).toBe('c');
 
     dualAxes.chart.once('afterrender', () => {
+      // 点击页面访问量，期望单折线图 visible 隐藏, 图例 unchecked 为 true
       dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-页面访问量-name'),
         gEvent: {
           delegateObject: {
             item: {
@@ -200,24 +202,13 @@ describe('Legend', () => {
           },
         },
       });
+
       expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(false);
+      expect(cfgItems.find((item) => item.id === '页面访问量').unchecked).toEqual(true);
 
+      // 点击分类数据 A，期望多折线图 view 过滤掉数据 a
       dualAxes.chart.emit('legend-item:click', {
-        gEvent: {
-          delegateObject: {
-            item: {
-              id: '页面访问量',
-              value: 'pv',
-              isGeometry: true,
-              viewId: LEFT_AXES_VIEW,
-              unchecked: false,
-            },
-          },
-        },
-      });
-      expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(true);
-
-      dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-a-name'),
         gEvent: {
           delegateObject: {
             item: {
@@ -232,8 +223,69 @@ describe('Legend', () => {
       });
 
       expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length === 0).toEqual(true);
+      expect(cfgItems.find((item) => item.id === 'a').unchecked).toEqual(true);
 
+      // 点击分类数据 B，期望多折线图 view 过滤掉数据 b
       dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-b-name'),
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'b',
+              name: 'b',
+              value: 'b',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: true,
+            },
+          },
+        },
+      });
+
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'b').length === 0).toEqual(true);
+      expect(cfgItems.find((item) => item.id === 'b').unchecked).toEqual(true);
+
+      // 点击分类数据 C，期望多折线图 view 过滤掉数据 c, yaxis 右侧仅留 0 一个刻度
+      dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-c-name'),
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'c',
+              name: 'c',
+              value: 'c',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: true,
+            },
+          },
+        },
+      });
+
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'c').length === 0).toEqual(true);
+      expect(cfgItems.find((item) => item.id === 'c').unchecked).toEqual(true);
+      expect(dualAxes.chart.views[1].getController('axis').getComponents()[0].component.cfg.ticks.length).toBe(1);
+
+      // 再次点击页面访问量，期望单折线图 visible 出现, 图例 unchecked 为 false
+      dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-页面访问量-name'),
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: '页面访问量',
+              value: 'pv',
+              isGeometry: true,
+              viewId: LEFT_AXES_VIEW,
+              unchecked: false,
+            },
+          },
+        },
+      });
+      expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(true);
+      expect(cfgItems.find((item) => item.id === '页面访问量').unchecked).toEqual(false);
+      expect(dualAxes.chart.views[1].getController('axis').getComponents()[0].component.cfg.ticks.length).toBe(1);
+
+      // 再次点击分类数据 A，期望多折线图 view 重新包含数据 a，右轴出现多个刻度
+      dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-a-name'),
         gEvent: {
           delegateObject: {
             item: {
@@ -246,13 +298,53 @@ describe('Legend', () => {
           },
         },
       });
-
       expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
+      expect(cfgItems.find((item) => item.id === 'a').unchecked).toEqual(false);
+      expect(
+        dualAxes.chart.views[1].getController('axis').getComponents()[0].component.cfg.ticks.length > 1
+      ).toBeTruthy();
 
+      // 再次点击分类数据 B，期望多折线图 view 重新包含数据 B
+      dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-b-name'),
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'b',
+              name: 'b',
+              value: 'b',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: false,
+            },
+          },
+        },
+      });
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'b').length > 0).toEqual(true);
+      expect(cfgItems.find((item) => item.id === 'b').unchecked).toEqual(false);
+
+      // 再次点击分类数据 C，期望多折线图 view 重新包含数据 C
+      dualAxes.chart.emit('legend-item:click', {
+        target: legendContainer.findById('-legend-item-c-name'),
+        gEvent: {
+          delegateObject: {
+            item: {
+              id: 'c',
+              name: 'c',
+              value: 'c',
+              viewId: RIGHT_AXES_VIEW,
+              unchecked: false,
+            },
+          },
+        },
+      });
+      expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'c').length > 0).toEqual(true);
+      expect(cfgItems.find((item) => item.id === 'c').unchecked).toEqual(false);
+
+      // 提高if else 覆盖率，事件为空，不受影响
       dualAxes.chart.emit('legend-item:click', {});
-
       expect(dualAxes.chart.views[1].geometries[0].data.filter((item) => item.site === 'a').length > 0).toEqual(true);
 
+      // 提高if else 覆盖率，传入一个 id 错误的 item，不受影响
       dualAxes.chart.emit('legend-item:click', {
         gEvent: {
           delegateObject: {
@@ -270,6 +362,7 @@ describe('Legend', () => {
 
       expect(dualAxes.chart.views[0].geometries[0].visible).toEqual(true);
 
+      // 提高if else 覆盖率，传入一个 id 错误的 item，不受影响
       dualAxes.chart.emit('legend-item:click', {
         gEvent: {
           delegateObject: {
@@ -299,7 +392,8 @@ describe('Legend', () => {
       yField: ['pv', 'uv'],
       legend: {
         custom: true,
-        position: 'bottom',
+        layout: 'vertical',
+        position: 'right',
         items: [
           {
             value: 'test',
@@ -326,7 +420,9 @@ describe('Legend', () => {
     expect(cfg.items[0].marker.symbol).toBe('square');
     expect(cfg.items[1].name).toBe('测试2');
     expect(cfg.items[1].marker.symbol).toBe('square');
-
-    dualAxes.destroy();
+    expect(legendComponent.direction).toEqual('right');
+    console.log(dualAxes.chart);
+    // legend 暂不支持 click
+    // dualAxes.destroy();
   });
 });

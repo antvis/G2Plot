@@ -25,5 +25,5 @@ export interface PieOptions extends Options {
    * 指标卡组件: 显示在环图中心，可以代替tooltip，显示环图数据的总计值和各项数据
    * 启用 statistic 组件的同时将自动关闭tooltip
    */
-  readonly statistic?: Statistic;
+  readonly statistic?: Statistic<CSSStyleDeclaration>;
 }

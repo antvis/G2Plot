@@ -1,12 +1,11 @@
-import { Datum } from '@antv/g2/lib/interface';
-import { every, filter, get, isFunction, isString, isNil } from '@antv/util';
+import { every, filter, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
-import { Data } from '../../types';
-import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
+import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
+import { adaptOffset } from './utils';
 import { PieOptions } from './types';
-import { adaptOffset, getTotalValue } from './utils';
+import { renderStatistic } from './utils/statistic';
 
 /**
  * 字段
@@ -171,50 +170,22 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField, colorField } = options;
+  const { innerRadius, statistic } = options;
 
   const annotationOptions = [];
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    const { title, content } = statistic;
-
-    [title, content].forEach((option, index) => {
-      if (option === false) {
-        return;
-      }
-      const { style, formatter, offsetX, offsetY, rotate } = option;
-
-      const lineHeight = get(option, 'style.fontSize', 20);
-      const getDefaultContent = (data: Data, datum?: Datum) => {
-        if (index === 0) {
-          return datum ? datum[colorField] : '总计';
-        }
-        return datum ? datum[angleField] : getTotalValue(data, angleField);
-      };
-      chart.annotation().text(
-        deepAssign(
-          {},
-          {
-            style: {
-              textAlign: 'center',
-            },
-            offsetY: index === 0 ? (content === false ? 0 : -lineHeight) : title === false ? 0 : lineHeight,
-          },
-          {
-            position: ['50%', '50%'],
-            content: (filterData: Data, datum?: Datum) => {
-              return formatter ? formatter(datum, filterData) : getDefaultContent(filterData, datum);
-            },
-            style,
-            offsetX,
-            offsetY,
-            rotate,
-            // append-info
-            key: 'statistic',
-          }
-        )
-      );
+    chart.once('afterrender', () => {
+      renderStatistic(chart, options);
+    });
+    chart.on('afterchangesize', () => {
+      // todo 完善 G2 清除局部 annotation 的方法
+      const controller = chart.getController('annotation');
+      // @ts-ignore
+      controller.option = controller.option.filter((opt) => !`${opt.key || ''}`.match('statistic'));
+      controller.update();
+      renderStatistic(chart, options);
     });
   }
 

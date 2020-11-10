@@ -38,6 +38,45 @@ const color = [
 ];
 
 describe('column line', () => {
+  it('stacked grouped column and stacked grouped line', () => {
+    const dualAxes = new DualAxes(createDiv('stack column and stack line'), {
+      height: 500,
+      data: [MultipleData, MultipleData],
+      xField: 'month',
+      yField: ['value', 'value'],
+      geometryOptions: [
+        {
+          geometry: 'column',
+          isGroup: true,
+          isStack: true,
+          seriesField: 'type',
+          groupField: 'name',
+          color: color,
+        },
+        {
+          geometry: 'line',
+          seriesField: 'type',
+          smooth: true,
+          isGroup: true,
+          isStack: true,
+          groupField: 'name',
+          color: color.reverse(),
+        },
+      ],
+      tooltip: false,
+    });
+
+    dualAxes.render();
+    // @ts-ignore
+    const column = dualAxes.chart.views[0].geometries[0].adjusts;
+    // @ts-ignore
+    const line = dualAxes.chart.views[1].geometries[0].adjusts;
+    expect(column.dodge.dodgeBy).toBe('name');
+    expect(column.stack.xField).toBe('month');
+    expect(line.dodge.dodgeBy).toBe('name');
+    expect(line.stack.xField).toBe('month');
+    dualAxes.destroy();
+  });
   it('stack column and stack line', () => {
     const dualAxes = new DualAxes(createDiv('stack column and stack line'), {
       height: 500,
@@ -243,7 +282,7 @@ describe('column line', () => {
     const legendController = dualAxes.chart.getController('legend');
     const legendComponent = legendController.getComponents()[0];
     const cfgItems = legendComponent.component.cfg.items;
-    expect(cfgItems.length).toBe(8);
+    expect(cfgItems.length).toBe(6);
     // @ts-ignore
     const column = dualAxes.chart.views[0].geometries[0].adjusts;
     const lineGeometries = dualAxes.chart.views[1].geometries;

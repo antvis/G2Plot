@@ -15,7 +15,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 ): Params<O> {
   const { options, chart } = params;
   const { geometryOption, yField } = options;
-  const { isStack, color } = geometryOption;
+  const { isStack, color, seriesField, groupField, isGroup, data } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryOption)) {
@@ -46,11 +46,23 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
         },
       })
     );
-
-    // 处理 isStack
+    // adjust
+    const adjust = [];
+    if (isGroup) {
+      adjust.push({
+        type: 'dodge',
+        dodgeBy: groupField || seriesField,
+        customOffset: 0,
+      });
+    }
     if (isStack) {
+      adjust.push({
+        type: 'stack',
+      });
+    }
+    if (adjust.length && data?.length) {
       each(chart.geometries, (g: Geometry) => {
-        g.adjust('stack');
+        g.adjust(adjust);
       });
     }
   }

@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "stacked-grouped-column-line.ts",
+      "title": {
+        "zh": "堆叠分组柱状图-折线图",
+        "en": "Stacked and Grouped column line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9Pl8SrMreqkAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

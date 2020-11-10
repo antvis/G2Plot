@@ -11,6 +11,14 @@
         "en": "Grouped column plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cE7xSYYgqCcAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "stacked.ts",
+      "title": {
+        "zh": "堆叠分组柱状图",
+        "en": "Stacked grouped column plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x6zHR4G3ydsAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

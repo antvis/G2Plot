@@ -71,6 +71,7 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 | columnStyle | _StyleAttr \| Function_                        |  柱子样式配置，具体用法同[柱形图 columnStyle](./column#columnstyle)  |  |
 | label        | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱线图 label](./column#label) |
 | color        | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./column#color) |
+| groupField   | _string_                         | 拆分字段，用于堆叠+分组柱图，拆分优先级高于 seriesField。    | - |
 
 ### 图表组件
 

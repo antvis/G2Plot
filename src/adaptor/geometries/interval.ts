@@ -22,6 +22,8 @@ export interface IntervalGeometryOptions extends GeometryOptions {
   readonly marginRatio?: number;
   /** 柱子样式配置 */
   readonly interval?: MappingOptions;
+  /** 分组字段，优先级高于 seriesField  */
+  readonly groupField?: string;
 }
 
 /**
@@ -30,26 +32,33 @@ export interface IntervalGeometryOptions extends GeometryOptions {
  */
 function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options, ext } = params;
-  const { seriesField, isGroup, isStack, marginRatio, widthRatio } = options;
+  const { seriesField, isGroup, isStack, marginRatio, widthRatio, groupField, data } = options;
 
   const g = ext.geometry as Geometry;
   /**
    * adjust
    */
+  const adjust = [];
   if (seriesField) {
     // group
     if (isGroup) {
-      g.adjust({
+      adjust.push({
         type: 'dodge',
+        dodgeBy: groupField || seriesField,
         marginRatio,
       });
-    } else if (isStack) {
-      // stack
-      g.adjust({
+    }
+    // stack
+    if (isStack) {
+      adjust.push({
         type: 'stack',
         marginRatio,
       });
     }
+  }
+
+  if (adjust.length && data?.length) {
+    g.adjust(adjust);
   }
 
   // widthRatio

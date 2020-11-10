@@ -24,7 +24,7 @@ describe('column stacked grouped', () => {
     const adjusts = geometry.adjusts;
     expect(adjusts.dodge.dodgeBy).toBe('name');
     expect(adjusts.stack.xField).toBe('month');
-    expect(elements.length).toBe(19);
+    expect(elements.length).toBe(17);
     column.destroy();
   });
 });

@@ -1,9 +1,9 @@
 import { View } from '@antv/g2';
 import { each, get, isNumber } from '@antv/util';
-import { ShapeStyle } from '../../../types';
-import { pick, kebabCase } from '../../../utils';
-import { PieOptions } from '../types';
-import { getTotalValue } from '.';
+import { Datum, Meta, ShapeStyle, StatisticText } from '../types';
+import { PieOptions } from '../plots/pie/types';
+import { getTotalValue } from '../plots/pie/utils';
+import { pick, kebabCase } from '.';
 
 export type TextStyle = {
   fontSize?: number;
@@ -17,7 +17,7 @@ export type TextStyle = {
  * @param width
  * @param style
  */
-export function adapteStyle(style?: Partial<CSSStyleDeclaration>): object {
+export function adapteStyle(style?: StatisticText['style']): object {
   const styleObject = {
     overflow: 'hidden',
     'white-space': 'nowrap',
@@ -75,12 +75,16 @@ export function setStatisticContainerStyle(container: HTMLElement, style: Partia
  * 渲染 html-annotation
  * @param chart
  * @param options
+ * @param meta 字段元信息
+ * @param {optional} datum 当前的元数据
  */
 export const renderStatistic = (
   chart: View,
-  options: Pick<PieOptions, 'radius' | 'innerRadius' | 'angleField' | 'colorField' | 'statistic' | 'meta'>
+  options: Pick<PieOptions, 'radius' | 'innerRadius' | 'statistic'>,
+  meta: { content: Meta & { field: string } },
+  datum?: Datum
 ) => {
-  const { angleField, statistic, meta } = options;
+  const { statistic } = options;
   const { title: titleOpt, content: contentOpt } = statistic;
 
   if (titleOpt) {
@@ -100,11 +104,11 @@ export const renderStatistic = (
 
         const filteredData = view.getData();
         if (titleOpt.customHtml) {
-          return titleOpt.customHtml(container, view, null, filteredData);
+          return titleOpt.customHtml(container, view, datum, filteredData);
         }
         let text = '总计';
         if (titleOpt.formatter) {
-          text = titleOpt.formatter(null, filteredData);
+          text = titleOpt.formatter(datum, filteredData);
         }
         // todo G2 层修复可以返回空字符串
         return text ? text : '<div></div>';
@@ -136,17 +140,17 @@ export const renderStatistic = (
 
         const filteredData = view.getData();
         if (contentOpt.customHtml) {
-          return contentOpt.customHtml(container, view, null, filteredData);
+          return contentOpt.customHtml(container, view, datum, filteredData);
         }
 
         const formatter = get(contentOpt, 'formatter');
-        const metaFormatter = get(meta, [angleField, 'formatter']);
-        const totalValue = getTotalValue(filteredData, angleField);
+        const metaFormatter = get(meta, 'formatter');
+        const totalValue = getTotalValue(filteredData, meta.content.field);
 
         let text = metaFormatter ? metaFormatter(totalValue) : totalValue ? `${totalValue}` : '';
 
         if (formatter) {
-          text = formatter(null, filteredData);
+          text = formatter(datum, filteredData);
         }
 
         return text ? text : '<div></div>';

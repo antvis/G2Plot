@@ -1,10 +1,11 @@
 import { View } from '@antv/g2';
-import { StyleAttr } from './attr';
 import { Data, Datum } from './common';
 
-type StatisticText<S = StyleAttr> = {
+type CSSStyle = Partial<CSSStyleDeclaration>;
+
+export type StatisticText = {
   /** 统计文本的样式 */
-  readonly style?: S;
+  readonly style?: CSSStyle | ((datum: Datum) => CSSStyle);
   /** 文本的格式化 */
   readonly formatter?: (datum?: Datum, data?: Data /** filterData */) => string;
   readonly rotate?: number;
@@ -17,7 +18,7 @@ type StatisticText<S = StyleAttr> = {
 /**
  * 中心文本的统计信息，统一一个数据结构
  */
-export type Statistic<S = StyleAttr> = {
-  readonly title?: false | StatisticText<S>;
-  readonly content?: false | StatisticText<S>;
+export type Statistic = {
+  readonly title?: false | StatisticText;
+  readonly content?: false | StatisticText;
 };

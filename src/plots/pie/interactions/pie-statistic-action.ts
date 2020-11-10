@@ -2,7 +2,7 @@ import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
 import { each, get } from '@antv/util';
-import { adapteStyle, setStatisticContainerStyle } from '../utils/statistic';
+import { adapteStyle, setStatisticContainerStyle } from '../../../utils/statistic';
 
 /**
  * Pie 中心文本事件的 Action

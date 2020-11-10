@@ -2,10 +2,9 @@ import { every, filter, isFunction, isString, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
+import { flow, LEVEL, log, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
 import { adaptOffset } from './utils';
 import { PieOptions } from './types';
-import { renderStatistic } from './utils/statistic';
 
 /**
  * 字段
@@ -170,16 +169,14 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic } = options;
-
-  const annotationOptions = [];
+  const { innerRadius, statistic, angleField, meta } = options;
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    renderStatistic(chart, options);
+    renderStatistic(chart, options, { content: meta[angleField] });
   }
 
-  return flow(annotation(annotationOptions))(params);
+  return params;
 }
 
 /**

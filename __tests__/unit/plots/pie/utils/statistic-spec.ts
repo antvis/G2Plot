@@ -1,4 +1,4 @@
-import { adapteStyle, setStatisticContainerStyle } from '../../../../../src/plots/pie/utils/statistic';
+import { adapteStyle, setStatisticContainerStyle } from '../../../../../src/utils/statistic';
 import { ShapeStyle } from '../../../../../src/types';
 import { createDiv } from '../../../../utils/dom';
 

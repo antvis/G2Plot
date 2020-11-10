@@ -421,8 +421,6 @@ describe('Legend', () => {
     expect(cfg.items[1].name).toBe('测试2');
     expect(cfg.items[1].marker.symbol).toBe('square');
     expect(legendComponent.direction).toEqual('right');
-    console.log(dualAxes.chart);
-    // legend 暂不支持 click
-    // dualAxes.destroy();
+    dualAxes.destroy();
   });
 });

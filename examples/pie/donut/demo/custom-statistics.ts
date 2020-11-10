@@ -9,17 +9,17 @@ const measureTextWidth = memoize(
   (text, font) => {
     const { fontSize, fontFamily = 'sans-serif', fontWeight, fontStyle, fontVariant } = font;
     // @see https://developer.mozilla.org/zh-CN/docs/Web/CSS/font
-    ctx!.font = [fontStyle, fontWeight, fontVariant, `${fontSize}px`, fontFamily].join(' ');
-    const metrics = ctx!.measureText(isString(text) ? text : '');
+    ctx.font = [fontStyle, fontWeight, fontVariant, `${fontSize}px`, fontFamily].join(' ');
+    const metrics = ctx.measureText(isString(text) ? text : '');
     return {
       width: metrics.width,
       height: Math.abs(metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent),
     };
   },
-  (text: any, font) => [text, ...values(font)].join('')
+  (text, font) => [text, ...values(font)].join('')
 );
 
-function renderStatistic(containerWidth: number, text: string, style) {
+function renderStatistic(containerWidth, text, style) {
   const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
   const R = containerWidth / 2;
   // r^2 = (w / 2)^2 + (h - offsetY)^2

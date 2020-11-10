@@ -1,42 +1,30 @@
 #### 2.0.8 (2020-11-10)
 
-##### Chores
-
-* **word-cloud:**  完善测试 ([#1866](https://github.com/antvis/g2plot/pull/1866)) ([176959e3](https://github.com/antvis/g2plot/commit/176959e3c262af472e957521e28765d0d61ce48f))
-
 ##### Documentation Changes
 
-*  mini plots ([#1886](https://github.com/antvis/g2plot/pull/1886)) ([ffd745f6](https://github.com/antvis/g2plot/commit/ffd745f61948c10396e921970887fc8818693ddf))
-*  area ([#1884](https://github.com/antvis/g2plot/pull/1884)) ([76592b05](https://github.com/antvis/g2plot/commit/76592b055370a33d35afcd16b66a3145aa52a780))
-*  api 走查 ([#1880](https://github.com/antvis/g2plot/pull/1880)) ([6a12bc47](https://github.com/antvis/g2plot/commit/6a12bc47d8d0f98c51d11002d1ccf1872531509a))
-*  update banner notifications ([#1876](https://github.com/antvis/g2plot/pull/1876)) ([ffe95032](https://github.com/antvis/g2plot/commit/ffe95032b82d7f7ca58d514e10ce548c33701b44))
-*  for plugin dev ([#1871](https://github.com/antvis/g2plot/pull/1871)) ([beb3e4df](https://github.com/antvis/g2plot/commit/beb3e4dfa0cec62d6891db54cf57a389d162fccc))
-*  line plot ([#1868](https://github.com/antvis/g2plot/pull/1868)) ([0b23f0ce](https://github.com/antvis/g2plot/commit/0b23f0cea5be145a48bff49478221f2f6eb67908))
-
-##### New Features
-
-* **examples:**  更新 radar demo & icon ([#1859](https://github.com/antvis/g2plot/pull/1859)) ([4dda66e2](https://github.com/antvis/g2plot/commit/4dda66e2496e71c41d868a6703cf69066683f5c7))
+* mini plots ([#1886](https://github.com/antvis/g2plot/pull/1886)) ([ffd745f6](https://github.com/antvis/g2plot/commit/ffd745f61948c10396e921970887fc8818693ddf))
+* area ([#1884](https://github.com/antvis/g2plot/pull/1884)) ([76592b05](https://github.com/antvis/g2plot/commit/76592b055370a33d35afcd16b66a3145aa52a780))
+* api 走查 ([#1880](https://github.com/antvis/g2plot/pull/1880)) ([6a12bc47](https://github.com/antvis/g2plot/commit/6a12bc47d8d0f98c51d11002d1ccf1872531509a))
+* update banner notifications ([#1876](https://github.com/antvis/g2plot/pull/1876)) ([ffe95032](https://github.com/antvis/g2plot/commit/ffe95032b82d7f7ca58d514e10ce548c33701b44))
+* for plugin dev ([#1871](https://github.com/antvis/g2plot/pull/1871)) ([beb3e4df](https://github.com/antvis/g2plot/commit/beb3e4dfa0cec62d6891db54cf57a389d162fccc))
+* line plot ([#1868](https://github.com/antvis/g2plot/pull/1868)) ([0b23f0ce](https://github.com/antvis/g2plot/commit/0b23f0cea5be145a48bff49478221f2f6eb67908))
+* **examples:** 更新 radar demo & icon ([#1859](https://github.com/antvis/g2plot/pull/1859)) ([4dda66e2](https://github.com/antvis/g2plot/commit/4dda66e2496e71c41d868a6703cf69066683f5c7))
+* **docs-radar:** 更新雷达图文档 & api 走查功能是否具备 ([#1875](https://github.com/antvis/g2plot/pull/1875)) ([5454d867](https://github.com/antvis/g2plot/commit/5454d86786d96c9bd35afbe90d5e23539dc8c8a6))
 
 ##### Bug Fixes
 
-*  badge img ([#1887](https://github.com/antvis/g2plot/pull/1887)) ([825b7f44](https://github.com/antvis/g2plot/commit/825b7f4409f5fa84a5d918cb8c5ea4d18d6acc2e))
-*  ci ([#1863](https://github.com/antvis/g2plot/pull/1863)) ([db4ab5f7](https://github.com/antvis/g2plot/commit/db4ab5f7fe43e40f3a72baf02337864e9dd3fe4a))
-*  画布添加默认高度 ([#1857](https://github.com/antvis/g2plot/pull/1857)) ([456f76a7](https://github.com/antvis/g2plot/commit/456f76a7d4e20e145dc8e5ffefd1a253ba7e4022))
-* **#1882:**  add limitInPoit as default options ([#1885](https://github.com/antvis/g2plot/pull/1885)) ([a5fda051](https://github.com/antvis/g2plot/commit/a5fda0516e592000e4b08bfec85d582d4a7bb1fa))
-* **#1870:**  when y are same in dual-axes, axis position is wrong ([#1878](https://github.com/antvis/g2plot/pull/1878)) ([4e7e022b](https://github.com/antvis/g2plot/commit/4e7e022b4dfa71ca2d4d507d72feef9d2f628dfc))
-* **conversion-tag:**  set an uniqe id for every shape ([#1856](https://github.com/antvis/g2plot/pull/1856)) ([aca28ffb](https://github.com/antvis/g2plot/commit/aca28ffb8deb84a73aa95be371d47b7bf2ab6565))
-
-##### Other Changes
-
-*  关闭多个图例 ([#1888](https://github.com/antvis/g2plot/pull/1888)) ([e213ddc0](https://github.com/antvis/g2plot/commit/e213ddc0f2f6752068e339ab786d5c02a9e2faa9))
-
-##### Refactors
-
-* **docs-radar:**  更新雷达图文档 & api 走查功能是否具备 ([#1875](https://github.com/antvis/g2plot/pull/1875)) ([5454d867](https://github.com/antvis/g2plot/commit/5454d86786d96c9bd35afbe90d5e23539dc8c8a6))
+* 画布添加默认高度 ([#1857](https://github.com/antvis/g2plot/pull/1857)) ([456f76a7](https://github.com/antvis/g2plot/commit/456f76a7d4e20e145dc8e5ffefd1a253ba7e4022))
+* **#1882:** add limitInPoit as default options ([#1885](https://github.com/antvis/g2plot/pull/1885)) ([a5fda051](https://github.com/antvis/g2plot/commit/a5fda0516e592000e4b08bfec85d582d4a7bb1fa))
+* **#1870:** when y are same in dual-axes, axis position is wrong ([#1878](https://github.com/antvis/g2plot/pull/1878)) ([4e7e022b](https://github.com/antvis/g2plot/commit/4e7e022b4dfa71ca2d4d507d72feef9d2f628dfc))
+* **conversion-tag:** set an uniqe id for every shape ([#1856](https://github.com/antvis/g2plot/pull/1856)) ([aca28ffb](https://github.com/antvis/g2plot/commit/aca28ffb8deb84a73aa95be371d47b7bf2ab6565))
+* 关闭多个图例 ([#1888](https://github.com/antvis/g2plot/pull/1888)) ([e213ddc0](https://github.com/antvis/g2plot/commit/e213ddc0f2f6752068e339ab786d5c02a9e2faa9))
 
 ##### Tests
 
-*  coverage up ([#1889](https://github.com/antvis/g2plot/pull/1889)) ([2d33fbb9](https://github.com/antvis/g2plot/commit/2d33fbb970aaa49e82219d0ea29702d5d127861c))
+* coverage up ([#1889](https://github.com/antvis/g2plot/pull/1889)) ([2d33fbb9](https://github.com/antvis/g2plot/commit/2d33fbb970aaa49e82219d0ea29702d5d127861c))
+* badge img ([#1887](https://github.com/antvis/g2plot/pull/1887)) ([825b7f44](https://github.com/antvis/g2plot/commit/825b7f4409f5fa84a5d918cb8c5ea4d18d6acc2e))
+* ci ([#1863](https://github.com/antvis/g2plot/pull/1863)) ([db4ab5f7](https://github.com/antvis/g2plot/commit/db4ab5f7fe43e40f3a72baf02337864e9dd3fe4a))
+
 
 #### 2.0.7 (2020-11-04)
 

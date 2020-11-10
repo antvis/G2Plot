@@ -27,10 +27,10 @@ describe('#1882', () => {
 
     area.render();
 
-    expect(area.chart.limitInPlot).toBe(true);
-    expect(area.chart.middleGroup.get('clipShape')).toBeDefined();
+    expect(area.chart.limitInPlot).toBe(false);
+    expect(area.chart.middleGroup.get('clipShape')).not.toBeDefined();
     // 大于一个 xAxis 的高度
-    expect(area.chart.middleGroup.get('clipShape').getBBox().minY > 5).toBe(true);
+    // expect(area.chart.middleGroup.get('clipShape').getBBox().minY > 5).toBe(true);
 
     area.destroy();
   });

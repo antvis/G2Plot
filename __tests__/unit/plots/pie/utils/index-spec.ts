@@ -1,4 +1,4 @@
-import { adaptOffset, getTotalValue } from '../../../../src/plots/pie/utils';
+import { adaptOffset, getTotalValue } from '../../../../../src/plots/pie/utils';
 
 describe('utils of pie plot', () => {
   const data = [

@@ -2,7 +2,7 @@ import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
 import { each, get } from '@antv/util';
-import { adapteStyle } from '../utils/statistic';
+import { adapteStyle, setStatisticContainerStyle } from '../utils/statistic';
 
 /**
  * Pie 中心文本事件的 Action
@@ -78,14 +78,12 @@ export class StatisticAction extends Action {
             const coordinate = view.getCoordinate();
             const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
-            container.style['pointer-events'] = 'none';
-            container.style['width'] = `${containerWidth}px`;
-            container.style.transform = transform;
-            each(adapteStyle(option.style), (v, k) => {
-              container.style[k] = v;
+            setStatisticContainerStyle(container, {
+              ...adapteStyle(option.style),
+              width: `${containerWidth}px`,
+              transform,
             });
             const filteredData = view.getData();
-
             if (option.customHtml) {
               return option.customHtml(container, view, data, filteredData);
             }

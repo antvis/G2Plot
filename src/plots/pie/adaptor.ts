@@ -178,6 +178,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
   if (innerRadius && statistic) {
     chart.once('afterrender', () => {
       renderStatistic(chart, options);
+      chart.render(true);
     });
     chart.on('afterchangesize', () => {
       // todo 完善 G2 清除局部 annotation 的方法
@@ -186,6 +187,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
       controller.option = controller.option.filter((opt) => !`${opt.key || ''}`.match('statistic'));
       controller.update();
       renderStatistic(chart, options);
+      chart.render(true);
     });
   }
 

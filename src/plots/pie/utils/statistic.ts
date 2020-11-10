@@ -58,6 +58,20 @@ export function adapteStyle(style?: Partial<CSSStyleDeclaration>): object {
 }
 
 /**
+ * @desc 设置 html-statistic 容器的默认样式
+ *
+ * - 默认事件穿透
+ */
+export function setStatisticContainerStyle(container: HTMLElement, style: Partial<CSSStyleDeclaration>) {
+  container.style['pointer-events'] = 'none';
+  each(style, (v, k) => {
+    if (k && v) {
+      container.style[k] = v;
+    }
+  });
+}
+
+/**
  * 渲染 html-annotation
  * @param chart
  * @param options
@@ -77,12 +91,10 @@ export const renderStatistic = (
       html: (container, view) => {
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-
-        container.style['pointer-events'] = 'none';
-        container.style['width'] = `${containerWidth}px`;
-        container.style.transform = contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)';
-        each(adapteStyle(titleOpt.style), (v, k) => {
-          container.style[k] = v;
+        setStatisticContainerStyle(container, {
+          ...adapteStyle(titleOpt.style),
+          transform: contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)',
+          width: `${containerWidth}px`,
         });
 
         const filteredData = view.getData();
@@ -114,11 +126,10 @@ export const renderStatistic = (
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
-        container.style['pointer-events'] = 'none';
-        container.style['width'] = `${containerWidth}px`;
-        container.style.transform = titleOpt ? 'translate(-50%, 0)' : 'translate(-50%, -50%)';
-        each(adapteStyle(contentOpt.style), (v, k) => {
-          container.style[k] = v;
+        setStatisticContainerStyle(container, {
+          ...adapteStyle(contentOpt.style),
+          transform: titleOpt ? 'translate(-50%, 0)' : 'translate(-50%, -50%)',
+          width: `${containerWidth}px`,
         });
 
         const filteredData = view.getData();
@@ -146,5 +157,4 @@ export const renderStatistic = (
       ...pick(contentOpt, ['style', 'formatter']),
     });
   }
-  chart.render(true);
 };

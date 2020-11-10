@@ -17,7 +17,7 @@ export type TextStyle = {
  * @param width
  * @param style
  */
-export function adapteStyle(style?: CSSStyleDeclaration): object {
+export function adapteStyle(style?: Partial<CSSStyleDeclaration>): object {
   const styleObject = {
     overflow: 'hidden',
     'white-space': 'nowrap',
@@ -86,7 +86,12 @@ export const renderStatistic = (
         if (titleOpt.customHtml) {
           return titleOpt.customHtml(container, view, null, filteredData);
         }
-        return (titleOpt.formatter && titleOpt.formatter(null, filteredData)) || '总计';
+        let text = '总计';
+        if (titleOpt.formatter) {
+          text = titleOpt.formatter(null, filteredData);
+        }
+        // todo G2 层修复可以返回空字符串
+        return text ? text : '<div></div>';
       },
       offsetX: titleOpt.offsetX,
       offsetY: cfgOffsetY,
@@ -117,11 +122,13 @@ export const renderStatistic = (
         const metaFormatter = get(meta, [angleField, 'formatter']);
         const totalValue = getTotalValue(filteredData, angleField);
 
-        return (
-          (formatter && formatter(null, filteredData)) ||
-          (metaFormatter && metaFormatter(totalValue)) ||
-          `${totalValue}`
-        );
+        let text = metaFormatter ? metaFormatter(totalValue) : totalValue ? `${totalValue}` : '';
+
+        if (formatter) {
+          text = formatter(null, filteredData);
+        }
+
+        return text ? text : '<div></div>';
       },
       offsetX: contentOpt.offsetX,
       offsetY: cfgOffsetY,

@@ -100,7 +100,7 @@ describe('scatter', () => {
     });
 
     scatter.render();
-    await delay(500);
+    await delay(100);
     const geometry = scatter.chart.geometries[0];
     const annotation = scatter.chart.annotation();
     // @ts-ignore
@@ -150,7 +150,7 @@ describe('scatter', () => {
     });
 
     scatter.render();
-    await delay(500);
+    await delay(100);
     const { width } = scatter.chart;
     const pathGroup = scatter.chart
       .getComponents()
@@ -159,6 +159,31 @@ describe('scatter', () => {
     const { path } = pathGroup?.[0]?.cfg?.attrs;
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: nonealgorithm', async () => {
+    const scatter = new Scatter(createDiv('regressionLine*algorithm'), {
+      data,
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      xField: 'x',
+      yField: 'y',
+      size: 5,
+      animation: false,
+      regressionLine: {},
+    });
+
+    scatter.render();
+    await delay(100);
+    const pathGroup = scatter.chart
+      .getComponents()
+      .find((item) => item.type === 'annotation')
+      .component.cfg.group.cfg.children[0].getChildren();
+    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    expect(path.length).toBe(2); // linear
 
     scatter.destroy();
   });

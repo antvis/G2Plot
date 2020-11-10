@@ -22,7 +22,7 @@ const REGRESSION_MAP = {
   quad: regressionQuad,
 };
 
-type renderOptions = {
+type RenderOptions = {
   view: View;
   options: ScatterOptions;
 };
@@ -133,7 +133,7 @@ export function getQuadrantDefaultConfig(xBaseline: number, yBaseline: number) {
   return defaultConfig;
 }
 
-const splinePath = (data: number[][], config: renderOptions) => {
+const splinePath = (data: number[][], config: RenderOptions) => {
   const {
     view,
     options: { xField, yField },
@@ -146,7 +146,7 @@ const splinePath = (data: number[][], config: renderOptions) => {
   return getSplinePath(pathData, false);
 };
 
-export const getPath = (config: renderOptions) => {
+export const getPath = (config: RenderOptions) => {
   const { options } = config;
   const { xField, yField, data, regressionLine } = options;
   const { type = 'linear', algorithm } = regressionLine;

@@ -1,3 +1,14 @@
+#### 2.0.9 (2020-11-10)
+
+##### Reverts
+
+*  limitInPlot ([#1891](https://github.com/antvis/g2plot/pull/1891)) ([ee2c3b85](https://github.com/antvis/g2plot/commit/ee2c3b8542d4b5796657e5a1cecbfd421b1f7623))
+
+##### New Features
+
+*  add `syncViewPadding` function supported.
+
+
 #### 2.0.8 (2020-11-10)
 
 ##### Documentation Changes

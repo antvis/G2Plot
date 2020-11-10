@@ -14,38 +14,40 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.8,
+  radius: 1,
   innerRadius: 0.64,
-  label: {
-    type: 'inner',
-    offset: -35,
-    autoRotate: false,
-    content: '{value}',
-    style: {
-      fill: '#333',
-      stroke: '#fff',
-      strokeWidth: 1,
+  meta: {
+    value: {
+      formatter: (v) => `¥ ${v}`,
     },
   },
-  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
+  label: null,
   statistic: {
     title: {
-      offsetY: -20,
-      style: {
-        fontSize: 44,
-      },
-      formatter: (datum) => (datum ? datum.type : '总计'),
+      offsetY: -4,
     },
     content: {
-      offsetY: 30,
-      style: {
-        fontSize: 44,
-      },
-      formatter: (datum, data) => (datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`),
+      offsetY: 4,
     },
   },
   // 添加 中心统计文本 交互
-  interactions: [{ type: 'pie-statistic-active' }],
+  interactions: [
+    { type: 'element-selected' },
+    { type: 'element-active' },
+    {
+      type: 'pie-statistic-active',
+      cfg: {
+        start: [
+          { trigger: 'element:mouseenter', action: 'pie-statistic:change' },
+          { trigger: 'legend-item:mouseenter', action: 'pie-statistic:change' },
+        ],
+        end: [
+          { trigger: 'element:mouseleave', action: 'pie-statistic:reset' },
+          { trigger: 'legend-item:mouseleave', action: 'pie-statistic:reset' },
+        ],
+      },
+    },
+  ],
 });
 
 piePlot.render();

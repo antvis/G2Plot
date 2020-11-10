@@ -36,6 +36,7 @@ describe('html-statistics', () => {
     const annotation = document.body.querySelector('.g2-html-annotation');
     const box = annotation.getBoundingClientRect();
     const { top, left } = div.getBoundingClientRect();
+    expect(box.width).toBeCloseTo(geomCoordinate.getRadius() * pie.options.innerRadius * 2);
     expect(box.x + box.width / 2).toBeCloseTo(geomCoordinate.getCenter().x + left, 1);
     expect(box.y + box.height / 2).toBeCloseTo(geomCoordinate.getCenter().y + top + offsetY, 1);
   });
@@ -67,6 +68,7 @@ describe('html-statistics', () => {
   });
 
   it('custom html-statistic', () => {
+    const offsetY = 8;
     pie.update({
       statistic: {
         title: {
@@ -75,6 +77,7 @@ describe('html-statistics', () => {
           },
         },
         content: {
+          offsetY,
           customHtml: (container, view) => {
             const data = view.getData();
             return `${data.reduce((a, b) => a + b.value, 0)}`;
@@ -87,6 +90,11 @@ describe('html-statistics', () => {
     expect((annotations[1] as HTMLElement).innerText).toBe(
       `${POSITIVE_NEGATIVE_DATA.reduce((a, b) => a + b.value, 0)}`
     );
+    const box0 = annotations[0].getBoundingClientRect();
+    const box = annotations[1].getBoundingClientRect();
+    const geomCoordinate = pie.chart.geometries[0].coordinate;
+    expect(box0.width).toBeCloseTo(geomCoordinate.getRadius() * pie.options.innerRadius * 2);
+    expect(box.width).toBeCloseTo(geomCoordinate.getRadius() * pie.options.innerRadius * 2);
   });
 
   it('custom html-statistic, 设置 style', () => {

@@ -1,9 +1,8 @@
 import { View } from '@antv/g2';
 import { each, get, isNumber } from '@antv/util';
 import { ShapeStyle } from '../../../types';
-import { pick } from '../../../utils';
+import { pick, kebabCase } from '../../../utils';
 import { PieOptions } from '../types';
-import { kebabCase } from './kebab-case';
 import { getTotalValue } from '.';
 
 export type TextStyle = {

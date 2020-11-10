@@ -1,4 +1,4 @@
-import { every, filter, isFunction, isString, isNil } from '@antv/util';
+import { every, filter, isFunction, isString, isNil, get } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -173,7 +173,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    renderStatistic(chart, options, { content: meta[angleField] });
+    renderStatistic(chart, { statistic }, { content: { field: angleField, ...get(meta, angleField, {}) } });
   }
 
   return params;

@@ -1,6 +1,6 @@
 import { View } from '@antv/g2';
 import { each, get, isNumber } from '@antv/util';
-import { Datum, Meta, ShapeStyle, StatisticText } from '../types';
+import { Datum, Meta, ShapeStyle, Statistic, StatisticText } from '../types';
 import { PieOptions } from '../plots/pie/types';
 import { getTotalValue } from '../plots/pie/utils';
 import { pick, kebabCase } from '.';
@@ -80,7 +80,7 @@ export function setStatisticContainerStyle(container: HTMLElement, style: Partia
  */
 export const renderStatistic = (
   chart: View,
-  options: Pick<PieOptions, 'radius' | 'innerRadius' | 'statistic'>,
+  options: { statistic: Statistic },
   meta: { content: Meta & { field: string } },
   datum?: Datum
 ) => {
@@ -117,7 +117,7 @@ export const renderStatistic = (
       // @ts-ignore
       key: 'top-statistic',
       // 透传配置
-      ...pick(titleOpt, ['position', 'offsetX', 'rotate', 'style', 'formatter']),
+      ...pick(titleOpt, ['offsetX', 'rotate', 'style', 'formatter']),
     });
   }
 
@@ -143,7 +143,7 @@ export const renderStatistic = (
         }
 
         const formatter = get(contentOpt, 'formatter');
-        const metaFormatter = get(meta, 'formatter');
+        const metaFormatter = get(meta.content, 'formatter');
         const totalValue = getTotalValue(filteredData, meta.content.field);
 
         let text = metaFormatter ? metaFormatter(totalValue) : totalValue ? `${totalValue}` : '';
@@ -158,7 +158,7 @@ export const renderStatistic = (
       // @ts-ignore
       key: 'bottom-statistic',
       // 透传配置
-      ...pick(contentOpt, ['position', 'offsetX', 'rotate', 'style', 'formatter']),
+      ...pick(contentOpt, ['offsetX', 'rotate', 'style', 'formatter']),
     });
   }
 };
@@ -172,7 +172,8 @@ export const renderStatistic = (
  */
 export const renderGaugeStatistic = (
   chart: View,
-  options: Pick<PieOptions, 'radius' | 'innerRadius' | 'statistic'>,
+  options: { statistic: Statistic },
+  meta: { content: Meta & { field: string } },
   datum?: Datum
 ) => {
   const { statistic } = options;
@@ -230,13 +231,18 @@ export const renderGaugeStatistic = (
         });
 
         const filteredData = view.getData();
-        const formatter = get(contentOpt, 'formatter');
-        let text = '';
         if (contentOpt.customHtml) {
           return contentOpt.customHtml(container, view, datum, filteredData);
         }
+
+        const formatter = get(contentOpt, 'formatter');
+        const metaFormatter = get(meta.content, 'formatter');
+        const totalValue = getTotalValue(filteredData, meta.content.field);
+
+        let text = metaFormatter ? metaFormatter(totalValue) : totalValue ? `${totalValue}` : '';
+
         if (formatter) {
-          text = formatter(datum);
+          text = formatter(datum, filteredData);
         }
 
         return text ? text : '<div></div>';

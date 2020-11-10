@@ -65,12 +65,7 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
   const { statistic, percent, radius, meta } = options;
 
-  renderStatistic(
-    chart,
-    { radius, innerRadius: radius, statistic },
-    { content: get(meta, 'percent', { field: 'percent' }) },
-    { percent }
-  );
+  renderStatistic(chart, { statistic }, { content: { field: 'percent', ...get(meta, 'percent', {}) } }, { percent });
 
   return params;
 }

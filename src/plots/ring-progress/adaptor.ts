@@ -32,12 +32,7 @@ function statistic(params: Params<RingProgressOptions>): Params<RingProgressOpti
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    renderStatistic(
-      chart,
-      { innerRadius, radius, statistic },
-      { content: get(meta, 'percent', { field: 'percent' }) },
-      { percent }
-    );
+    renderStatistic(chart, { statistic }, { content: { field: 'percent', ...get(meta, 'percent', {}) } }, { percent });
   }
 
   return params;

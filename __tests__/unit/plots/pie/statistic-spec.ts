@@ -311,8 +311,8 @@ describe('statistic', () => {
       const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
       expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
       expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test\ntest ${totalValue}`);
-    }, 400);
+    }, 50);
 
-    // pie.destroy();
+    pie.destroy();
   });
 });

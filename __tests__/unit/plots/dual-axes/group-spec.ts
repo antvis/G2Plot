@@ -9,9 +9,9 @@ const columnData2 = [
   { name: 'London', month: 'Feb.', value: 2.9, type: 'type1' },
   { name: 'Berlin', month: 'Feb.', value: 32.4, type: 'type2' },
   { name: 'beijing', month: 'Feb.', value: 42.4, type: 'type3' },
-  { name: 'London', month: 'wed.', value: 2.9, type: 'type1' },
-  { name: 'Berlin', month: 'wed.', value: 32.4, type: 'type2' },
-  { name: 'beijing', month: 'wed.', value: 42.4, type: 'type3' },
+  { name: 'London', month: 'Mar.', value: 2.9, type: 'type1' },
+  { name: 'Berlin', month: 'Mar.', value: 32.4, type: 'type2' },
+  { name: 'beijing', month: 'Mar.', value: 42.4, type: 'type3' },
 ];
 
 const color = [

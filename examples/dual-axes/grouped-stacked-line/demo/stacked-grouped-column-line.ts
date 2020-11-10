@@ -13,11 +13,11 @@ const columnData = [
   { name: 'Berlin', month: 'Feb.', value: 22.4, type: '美术' },
   { name: 'Berlin', month: 'Feb.', value: 32.4, type: '线性代数' },
   { name: 'beijing', month: 'Feb.', value: 42.4, type: '高数' },
-  { name: 'London', month: 'wed.', value: 2.9, type: '语文' },
-  { name: 'London', month: 'wed.', value: 5.9, type: '数学' },
-  { name: 'Berlin', month: 'wed.', value: 22.4, type: '美术' },
-  { name: 'Berlin', month: 'wed.', value: 32.4, type: '线性代数' },
-  { name: 'beijing', month: 'wed.', value: 42.4, type: '高数' },
+  { name: 'London', month: 'Mar.', value: 2.9, type: '语文' },
+  { name: 'London', month: 'Mar.', value: 5.9, type: '数学' },
+  { name: 'Berlin', month: 'Mar.', value: 22.4, type: '美术' },
+  { name: 'Berlin', month: 'Mar.', value: 32.4, type: '线性代数' },
+  { name: 'beijing', month: 'Mar.', value: 42.4, type: '高数' },
 ];
 
 const lineData = [
@@ -27,9 +27,9 @@ const lineData = [
   { name: '福老师', month: 'Feb.', value: 18.9, type: '美术' },
   { name: '逍老师', month: 'Feb.', value: 13.4, type: '线性代数' },
   { name: '新老师', month: 'Feb.', value: 15.4, type: '高数' },
-  { name: '福老师', month: 'wed.', value: 8.9, type: '美术' },
-  { name: '逍老师', month: 'wed.', value: 6.4, type: '线性代数' },
-  { name: '新老师', month: 'wed.', value: 5.4, type: '高数' },
+  { name: '福老师', month: 'Mar.', value: 8.9, type: '美术' },
+  { name: '逍老师', month: 'Mar.', value: 6.4, type: '线性代数' },
+  { name: '新老师', month: 'Mar.', value: 5.4, type: '高数' },
 ];
 
 const dualAxes = new DualAxes('container', {

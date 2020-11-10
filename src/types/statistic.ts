@@ -1,7 +1,9 @@
 import { View } from '@antv/g2';
 import { Data, Datum } from './common';
 
-type CSSStyle = Partial<CSSStyleDeclaration>;
+type CSSStyle = Omit<Partial<CSSStyleDeclaration>, 'opacity'> & {
+  opacity?: number;
+};
 
 export type StatisticText = {
   /** 统计文本的样式 */

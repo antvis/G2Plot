@@ -113,12 +113,11 @@ export const renderStatistic = (
         // todo G2 层修复可以返回空字符串
         return text ? text : '<div></div>';
       },
-      offsetX: titleOpt.offsetX,
       offsetY: cfgOffsetY,
       // @ts-ignore
       key: 'top-statistic',
       // 透传配置
-      ...pick(titleOpt, ['style', 'formatter']),
+      ...pick(titleOpt, ['offsetX', 'rotate', 'style', 'formatter']),
     });
   }
 
@@ -155,12 +154,11 @@ export const renderStatistic = (
 
         return text ? text : '<div></div>';
       },
-      offsetX: contentOpt.offsetX,
       offsetY: cfgOffsetY,
       // @ts-ignore
       key: 'bottom-statistic',
       // 透传配置
-      ...pick(contentOpt, ['style', 'formatter']),
+      ...pick(contentOpt, ['offsetX', 'rotate', 'style', 'formatter']),
     });
   }
 

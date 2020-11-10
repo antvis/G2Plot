@@ -1,6 +1,6 @@
-import { isFunction } from '@antv/util';
+import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, renderStatistic } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { geometry } from '../progress/adaptor';
 import { RingProgressOptions } from './types';
@@ -28,23 +28,17 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
  */
 function statistic(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
   const { chart, options } = params;
-  const { statistic, percent } = options;
+  const { innerRadius, radius, statistic, percent, meta } = options;
 
-  const { title, content } = statistic;
-
-  [title, content].forEach((annotation) => {
-    if (annotation) {
-      const { style, formatter, offsetX, offsetY, rotate } = annotation;
-      chart.annotation().text({
-        position: ['50%', '50%'],
-        content: formatter ? formatter({ percent }) : percent,
-        style: isFunction(style) ? style({ percent }) : style,
-        offsetX,
-        offsetY,
-        rotate,
-      });
-    }
-  });
+  /** 中心文本 指标卡 */
+  if (innerRadius && statistic) {
+    renderStatistic(
+      chart,
+      { innerRadius, radius, statistic },
+      { content: get(meta, 'percent', { field: 'percent' }) },
+      { percent }
+    );
+  }
 
   return params;
 }

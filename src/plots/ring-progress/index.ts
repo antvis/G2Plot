@@ -18,7 +18,7 @@ export class RingProgress extends Plot<RingProgressOptions> {
       statistic: {
         content: {
           style: {
-            fontSize: 14,
+            fontSize: '14px',
             fontWeight: 300,
             fill: '#4D4D4D',
             textAlign: 'center',

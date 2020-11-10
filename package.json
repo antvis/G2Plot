@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g2": "^4.1.0-beta.16",
+    "@antv/g2": "^4.1.0-beta.17",
     "d3-hierarchy": "^2.0.0",
     "d3-regression": "^1.3.5",
     "dayjs": "^1.8.36",

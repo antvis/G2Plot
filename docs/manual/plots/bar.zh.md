@@ -27,7 +27,7 @@ order: 3
 
 <description>**optional** _string_</description>
 
-拆分字段，用于堆叠分组条形图，拆分优先级高于 seriesField。
+拆分字段，用于堆叠分组条形图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。
 
 #### isGroup
 

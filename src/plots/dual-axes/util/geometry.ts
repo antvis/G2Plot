@@ -15,7 +15,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
 ): Params<O> {
   const { options, chart } = params;
   const { geometryOption, yField } = options;
-  const { isStack, color, seriesField, groupField, isGroup, data } = geometryOption;
+  const { isStack, color, seriesField, groupField, isGroup } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
   if (isLine(geometryOption)) {
@@ -60,7 +60,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
         type: 'stack',
       });
     }
-    if (adjust.length && data?.length) {
+    if (adjust.length) {
       each(chart.geometries, (g: Geometry) => {
         g.adjust(adjust);
       });

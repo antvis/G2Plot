@@ -38,7 +38,6 @@ const dualAxes = new DualAxes('container', {
   data: [columnData, lineData],
   xField: 'month',
   yField: ['value', 'value'],
-  padding: [20],
   geometryOptions: [
     {
       geometry: 'column',

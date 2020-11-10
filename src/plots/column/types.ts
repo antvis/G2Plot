@@ -23,6 +23,6 @@ export interface ColumnOptions extends Options, OptionWithConversionTag, OptionW
   readonly marginRatio?: number;
   /** 柱子样式配置，可选 */
   readonly columnStyle?: StyleAttr;
-  /** 分组字段，优先级高于 seriesField */
+  /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/
   readonly groupField?: string;
 }

@@ -299,6 +299,11 @@ describe('column line', () => {
       data: [[], LineData],
       xField: 'month',
       yField: ['value', 'value'],
+      meta: {
+        month: {
+          type: 'cat',
+        },
+      },
       geometryOptions: [
         {
           geometry: 'column',

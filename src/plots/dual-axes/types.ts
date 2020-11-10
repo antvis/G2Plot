@@ -29,8 +29,6 @@ type CommonGeometryOption = {
   readonly isGroup?: boolean;
   // 分组字段，优先级高于 seriesField
   readonly groupField?: string;
-  // 数据
-  readonly data?: any[];
 };
 
 // 折线设置接口, 直接用 LineOption 吧

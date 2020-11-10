@@ -14,10 +14,10 @@ const gauge = new Gauge('container', {
   statistic: {
     content: {
       style: {
-        fontSize: 48,
+        fontSize: '48px',
+        lineHeight: '48px',
         textBaseline: 'bottom',
       },
-      offsetY: -60,
     },
   },
 });

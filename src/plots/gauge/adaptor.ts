@@ -1,8 +1,8 @@
-import { isString, isFunction, clamp } from '@antv/util';
+import { isString, get, clamp } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
-import { flow } from '../../utils';
+import { flow, renderGaugeStatistic } from '../../utils';
 import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR } from './constant';
 import { GaugeOptions } from './types';
 import { processRangeData } from './utils';
@@ -88,7 +88,7 @@ function meta(params: Params<GaugeOptions>): Params<GaugeOptions> {
  */
 function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
-  const { statistic, percent } = options;
+  const { statistic, percent, radius, innerRadius, meta } = options;
 
   const { title, content } = statistic;
   let transformContent = content;
@@ -97,29 +97,42 @@ function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
       formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
       style: {
         opacity: 0.75,
-        fontSize: 30,
+        fontSize: '30px',
         textAlign: 'center',
-        textBaseline: 'bottom',
+        // textBaseline: 'bottom',
       },
       offsetY: -16,
       ...content,
     };
   }
-  // annotation title 和 content 分别使用一个 text
-  [title, transformContent].forEach((annotation) => {
-    if (annotation) {
-      const { formatter, style, offsetX, offsetY, rotate } = annotation;
-      chart.annotation().text({
-        top: true,
-        position: ['50%', '100%'],
-        content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
-        style: isFunction(style) ? style({ percent }) : style,
-        offsetX,
-        offsetY,
-        rotate,
-      });
-    }
-  });
+  renderGaugeStatistic(
+    chart,
+    {
+      radius,
+      innerRadius,
+      statistic: {
+        title,
+        content: transformContent,
+      },
+    },
+    { percent }
+  );
+
+  // // annotation title 和 content 分别使用一个 text
+  // [title, transformContent].forEach((annotation) => {
+  //   if (annotation) {
+  //     const { formatter, style, offsetX, offsetY, rotate } = annotation;
+  //     chart.annotation().html({
+  //       top: true,
+  //       position: ['50%', '100%'],
+  //       html: () => isFunction(formatter) ? formatter({ percent }) : `${percent}`,
+  //       style: isFunction(style) ? style({ percent }) : style,
+  //       offsetX,
+  //       offsetY,
+  //       rotate,
+  //     });
+  //   }
+  // });
 
   return params;
 }

@@ -117,7 +117,7 @@ export const renderStatistic = (
       // @ts-ignore
       key: 'top-statistic',
       // 透传配置
-      ...pick(titleOpt, ['offsetX', 'rotate', 'style', 'formatter']),
+      ...pick(titleOpt, ['position', 'offsetX', 'rotate', 'style', 'formatter']),
     });
   }
 
@@ -158,9 +158,92 @@ export const renderStatistic = (
       // @ts-ignore
       key: 'bottom-statistic',
       // 透传配置
-      ...pick(contentOpt, ['offsetX', 'rotate', 'style', 'formatter']),
+      ...pick(contentOpt, ['position', 'offsetX', 'rotate', 'style', 'formatter']),
+    });
+  }
+};
+
+/**
+ * 渲染 html-annotation for gauge (等不规则 plot)
+ * @param chart
+ * @param options
+ * @param meta 字段元信息
+ * @param {optional} datum 当前的元数据
+ */
+export const renderGaugeStatistic = (
+  chart: View,
+  options: Pick<PieOptions, 'radius' | 'innerRadius' | 'statistic'>,
+  datum?: Datum
+) => {
+  const { statistic } = options;
+  const { title: titleOpt, content: contentOpt } = statistic;
+
+  if (titleOpt) {
+    const cfgOffsetY = titleOpt.offsetY || 0;
+    let transformY = '0';
+    // @ts-ignore 兼容 shapeStyle 设置
+    if (titleOpt.style?.textBaseline === 'bottom') {
+      transformY = '-100%';
+    }
+    chart.annotation().html({
+      position: ['50%', '100%'],
+      html: (container, view) => {
+        const coordinate = view.getCoordinate();
+        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
+        setStatisticContainerStyle(container, {
+          transform: contentOpt ? 'translate(-50%, -100%)' : `translate(-50%, ${transformY})`,
+          width: `${containerWidth}px`,
+          // user's style setting has high priority
+          ...adapteStyle(titleOpt.style),
+        });
+
+        const filteredData = view.getData();
+        if (titleOpt.customHtml) {
+          return titleOpt.customHtml(container, view, datum, filteredData);
+        }
+        let text = '';
+        if (titleOpt.formatter) {
+          text = titleOpt.formatter(datum);
+        }
+        return text ? text : '<div></div>';
+      },
+      offsetY: cfgOffsetY,
+      // 透传配置
+      ...pick(titleOpt, ['offsetX', 'rotate', 'style', 'formatter']),
     });
   }
 
-  chart.render(true);
+  if (contentOpt) {
+    const cfgOffsetY = contentOpt.offsetY || 0;
+
+    chart.annotation().html({
+      position: ['50%', '100%'],
+      html: (container, view) => {
+        const coordinate = view.getCoordinate();
+        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
+
+        setStatisticContainerStyle(container, {
+          transform: 'translate(-50%, -100%)',
+          width: `${containerWidth}px`,
+          // user's style setting has high priority
+          ...adapteStyle(contentOpt.style),
+        });
+
+        const filteredData = view.getData();
+        const formatter = get(contentOpt, 'formatter');
+        let text = '';
+        if (contentOpt.customHtml) {
+          return contentOpt.customHtml(container, view, datum, filteredData);
+        }
+        if (formatter) {
+          text = formatter(datum);
+        }
+
+        return text ? text : '<div></div>';
+      },
+      offsetY: cfgOffsetY,
+      // 透传配置
+      ...pick(contentOpt, ['offsetX', 'rotate', 'style', 'formatter']),
+    });
+  }
 };

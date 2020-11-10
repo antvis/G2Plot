@@ -75,13 +75,17 @@ export class StatisticAction extends Action {
         annotationOptions.push({
           ...option,
           html: (container, view) => {
-            const filteredData = view.getData();
+            const coordinate = view.getCoordinate();
+            const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
             container.style['pointer-events'] = 'none';
+            container.style['width'] = `${containerWidth}px`;
             container.style.transform = transform;
             each(adapteStyle(option.style), (v, k) => {
               container.style[k] = v;
             });
+            const filteredData = view.getData();
+
             if (option.customHtml) {
               return option.customHtml(container, view, data, filteredData);
             }

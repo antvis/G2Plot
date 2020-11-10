@@ -31,6 +31,8 @@ const piePlot = new Pie('container', {
     content: {
       style: {
         whiteSpace: 'pre-wrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       },
       formatter: () => 'AntV\nG2Plot',
     },

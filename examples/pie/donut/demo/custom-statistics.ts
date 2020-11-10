@@ -84,7 +84,6 @@ const piePlot = new Pie('container', {
       customHtml: (container, view, datum, data) => {
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-        container.style['width'] = `${containerWidth}px`;
 
         const text = datum ? `¥ ${datum.value}` : `¥ ${data.reduce((r, d) => r + d.value, 0)}`;
         return renderStatistic(containerWidth, text, { fontSize: 32 });

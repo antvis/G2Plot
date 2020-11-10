@@ -75,14 +75,17 @@ export const renderStatistic = (
     chart.annotation().html({
       position: ['50%', '50%'],
       html: (container, view) => {
-        const filteredData = view.getData();
+        const coordinate = view.getCoordinate();
+        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
         container.style['pointer-events'] = 'none';
+        container.style['width'] = `${containerWidth}px`;
         container.style.transform = contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)';
         each(adapteStyle(titleOpt.style), (v, k) => {
           container.style[k] = v;
         });
 
+        const filteredData = view.getData();
         if (titleOpt.customHtml) {
           return titleOpt.customHtml(container, view, null, filteredData);
         }
@@ -108,12 +111,17 @@ export const renderStatistic = (
     chart.annotation().html({
       position: ['50%', '50%'],
       html: (container, view) => {
-        const filteredData = view.getData();
+        const coordinate = view.getCoordinate();
+        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
+
         container.style['pointer-events'] = 'none';
+        container.style['width'] = `${containerWidth}px`;
         container.style.transform = titleOpt ? 'translate(-50%, 0)' : 'translate(-50%, -50%)';
         each(adapteStyle(contentOpt.style), (v, k) => {
           container.style[k] = v;
         });
+
+        const filteredData = view.getData();
         if (contentOpt.customHtml) {
           return contentOpt.customHtml(container, view, null, filteredData);
         }

@@ -92,9 +92,10 @@ export const renderStatistic = (
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
         setStatisticContainerStyle(container, {
-          ...adapteStyle(titleOpt.style),
           transform: contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)',
           width: `${containerWidth}px`,
+          // user's style setting has high priority
+          ...adapteStyle(titleOpt.style),
         });
 
         const filteredData = view.getData();
@@ -127,9 +128,10 @@ export const renderStatistic = (
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
         setStatisticContainerStyle(container, {
-          ...adapteStyle(contentOpt.style),
           transform: titleOpt ? 'translate(-50%, 0)' : 'translate(-50%, -50%)',
           width: `${containerWidth}px`,
+          // user's style setting has high priority
+          ...adapteStyle(contentOpt.style),
         });
 
         const filteredData = view.getData();
@@ -157,4 +159,6 @@ export const renderStatistic = (
       ...pick(contentOpt, ['style', 'formatter']),
     });
   }
+
+  chart.render(true);
 };

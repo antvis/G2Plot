@@ -79,9 +79,10 @@ export class StatisticAction extends Action {
             const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
             setStatisticContainerStyle(container, {
-              ...adapteStyle(option.style),
               width: `${containerWidth}px`,
               transform,
+              // user's style setting has high priority
+              ...adapteStyle(option.style),
             });
             const filteredData = view.getData();
             if (option.customHtml) {

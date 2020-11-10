@@ -226,7 +226,7 @@ export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptio
  */
 export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
-  const { legend, geometryOptions, yField } = options;
+  const { legend, geometryOptions, yField, data } = options;
   const leftView = findViewById(chart, LEFT_AXES_VIEW);
   const rightView = findViewById(chart, RIGHT_AXES_VIEW);
 
@@ -237,19 +237,23 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
   } else {
     // 均使用自定义图例
     chart.once('beforepaint', () => {
-      const leftItems = getViewLegendItems({
-        view: leftView,
-        geometryOption: geometryOptions[0],
-        yField: yField[0],
-        legend,
-      });
+      const leftItems = data[0].length
+        ? getViewLegendItems({
+            view: leftView,
+            geometryOption: geometryOptions[0],
+            yField: yField[0],
+            legend,
+          })
+        : [];
 
-      const rightItems = getViewLegendItems({
-        view: rightView,
-        geometryOption: geometryOptions[1],
-        yField: yField[1],
-        legend,
-      });
+      const rightItems = data[1].length
+        ? getViewLegendItems({
+            view: rightView,
+            geometryOption: geometryOptions[1],
+            yField: yField[1],
+            legend,
+          })
+        : [];
 
       chart.legend(
         deepAssign({}, legend, {

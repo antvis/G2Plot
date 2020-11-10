@@ -23,6 +23,12 @@ order: 2
 
 拆分字段，在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField。
 
+#### groupField
+
+<description>**optional** _string_</description>
+
+拆分字段，用于堆叠分组柱状图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。
+
 #### isGroup
 
 <description>**optional** _boolean_</description>

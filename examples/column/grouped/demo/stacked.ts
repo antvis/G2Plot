@@ -30,7 +30,6 @@ const dualAxes = new Column('container', {
   isStack: true,
   seriesField: 'type',
   groupField: 'name',
-  tooltip: false,
 });
 
 dualAxes.render();

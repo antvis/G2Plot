@@ -54,6 +54,7 @@ plot.render();
 | 项目名 | 演示 | 描述 | 版本 |
 |---|---|---|---|
 | [G2Plot-QRCode](https://github.com/hustcc/G2Plot-QRCode) | [前往](https://git.hust.cc/G2Plot-QRCode) | Draw a QRCode with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-qrcode.svg)](https://www.npmjs.com/package/g2plot-qrcode) |
+| [G2Plot-Column](https://github.com/yujs/G2Plot-Column) | [前往](https://yujs.github.io/G2Plot-Column/) | Customize Column with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-column.svg)](https://www.npmjs.com/package/g2plot-column) | 
 
 
 ## 技术栈封装

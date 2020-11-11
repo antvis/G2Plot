@@ -64,7 +64,7 @@ bulletPlot.render();
 
 ### 图形样式
 
-#### style 
+#### bulletStyle 
 
 <description>**optional** _object_</description>
 

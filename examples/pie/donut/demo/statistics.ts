@@ -14,20 +14,20 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 1,
+  radius: 0.8,
   innerRadius: 0.64,
   meta: {
     value: {
       formatter: (v) => `¥ ${v}`,
     },
   },
-  label: null,
+  label: { formatter: ({ percent }) => `${percent * 100} %` },
   statistic: {
     title: {
-      offsetY: -4,
+      offsetY: -8,
     },
     content: {
-      offsetY: 4,
+      offsetY: -4,
     },
   },
   // 添加 中心统计文本 交互

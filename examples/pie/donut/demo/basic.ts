@@ -14,7 +14,7 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 1,
+  radius: 0.8,
   innerRadius: 0.6,
   label: {
     type: 'inner',
@@ -22,7 +22,6 @@ const piePlot = new Pie('container', {
     content: '{value}',
     style: {
       fontSize: 14,
-      textAlign: 'center',
     },
   },
   interactions: [{ type: 'element-selected' }, { type: 'element-active' }],

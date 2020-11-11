@@ -45,7 +45,7 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.8,
+  radius: 1,
   innerRadius: 0.64,
   meta: {
     value: {
@@ -57,16 +57,10 @@ const piePlot = new Pie('container', {
     offset: '-50%',
     autoRotate: false,
     content: '{value}',
-    style: {
-      textAlign: 'center',
-    },
   },
   statistic: {
     title: {
       offsetY: -4,
-      style: {
-        fontSize: 28,
-      },
       customHtml: (container, view, datum) => {
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;

@@ -1,8 +1,9 @@
 import { View } from '@antv/g2';
 import { Data, Datum } from './common';
 
-type CSSStyle = Omit<Partial<CSSStyleDeclaration>, 'opacity'> & {
+type CSSStyle = Omit<Partial<CSSStyleDeclaration>, 'opacity' | 'lineHeight'> & {
   opacity?: number;
+  lineHeight?: string | number;
 };
 
 export type StatisticText = {

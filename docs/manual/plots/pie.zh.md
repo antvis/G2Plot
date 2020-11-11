@@ -75,7 +75,7 @@ piePlot.render();
 
 统计内容组件。
 
-![](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
+![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
 
 `markdown:docs/common/statistic.zh.md`
 

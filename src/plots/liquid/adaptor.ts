@@ -63,9 +63,9 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
  */
 function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { statistic, percent, radius, meta } = options;
+  const { statistic, percent } = options;
 
-  renderStatistic(chart, { statistic }, { content: { field: 'percent', ...get(meta, 'percent', {}) } }, { percent });
+  renderStatistic(chart, { statistic }, { percent });
 
   return params;
 }

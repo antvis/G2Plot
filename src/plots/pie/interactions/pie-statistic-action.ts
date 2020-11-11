@@ -1,7 +1,7 @@
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
-import { each, get } from '@antv/util';
+import { each, get, isFunction, isString } from '@antv/util';
 import { adapteStyle, setStatisticContainerStyle } from '../../../utils/statistic';
 
 /**
@@ -60,7 +60,7 @@ export class StatisticAction extends Action {
       const statisticOptions = annotations.filter((a) => get(a, 'key', '').match('statistic'));
 
       const titleOpt = statisticOptions.filter((opt: any) => opt.key === 'top-statistic');
-      const contentOpt = statisticOptions.filter((opt: any) => opt.key === 'top-statistic');
+      const contentOpt = statisticOptions.filter((opt: any) => opt.key === 'bottom-statistic');
       each(statisticOptions, (option) => {
         let text;
         let transform;
@@ -78,18 +78,22 @@ export class StatisticAction extends Action {
             const coordinate = view.getCoordinate();
             const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
 
+            const style = isFunction(option.style) ? option.style() : option.style;
             setStatisticContainerStyle(container, {
               width: `${containerWidth}px`,
               transform,
               // user's style setting has high priority
-              ...adapteStyle(option.style),
+              ...adapteStyle(style),
             });
             const filteredData = view.getData();
             if (option.customHtml) {
               return option.customHtml(container, view, data, filteredData);
             }
-
-            return (option.formatter && option.formatter(data, filteredData)) || `${text}`;
+            if (option.formatter) {
+              text = option.formatter(data, filteredData);
+            }
+            // todo G2 层修复可以返回空字符串 & G2 层修复允许返回非字符串的内容，比如数值 number
+            return text ? (isString(text) ? text : `${text}`) : '<div></div>';
           },
         });
         annotationOptions.forEach((opt) => {

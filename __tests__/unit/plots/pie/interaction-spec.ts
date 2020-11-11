@@ -39,9 +39,11 @@ describe('register interaction', () => {
   const context = new InteractionContext(pie.chart);
   const action = new StatisticAction(context);
 
-  it('触发 pie-statistic:change', () => {
+  it('触发 pie-statistic:change', async () => {
     context.event = { type: 'custom', data: { data: { type: 'item3', value: 13 } } };
     action.change();
+
+    await delay(50);
 
     const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
     expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('item3' /** 中心文本指标卡，默认title */);

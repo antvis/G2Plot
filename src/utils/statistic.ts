@@ -1,15 +1,7 @@
 import { View } from '@antv/g2';
-import { each, get, isNumber } from '@antv/util';
-import { Datum, Meta, ShapeStyle, Statistic, StatisticText } from '../types';
-import { PieOptions } from '../plots/pie/types';
-import { getTotalValue } from '../plots/pie/utils';
+import { each, get, isNumber, isFunction, isString } from '@antv/util';
+import { Datum, ShapeStyle, Statistic, StatisticText } from '../types';
 import { pick, kebabCase } from '.';
-
-export type TextStyle = {
-  fontSize?: number;
-  lineHeight?: number;
-  [k: string]: string | number;
-};
 
 /**
  * @desc 生成 html-statistic 的 style 字符串 (兼容 canvas 的 shapeStyle 到 css样式上)
@@ -32,27 +24,33 @@ export function adapteStyle(style?: StatisticText['style']): object {
     'shadowBlur',
     'shadowOffsetX',
     'shadowOffsetY',
+    'fill',
   ];
 
+  // 兼容 shapeStyle 设置 · start
+  if (get(style, 'fill')) {
+    styleObject['color'] = style['fill'];
+  }
+  const { shadowColor, shadowBlur = 0, shadowOffsetX = 0, shadowOffsetY = 0 } = pick(
+    style,
+    shapeStyleKeys
+  ) as ShapeStyle;
+  styleObject['text-shadow'] = `${[shadowColor, `${shadowOffsetX}px`, `${shadowOffsetY}px`, `${shadowBlur}px`].join(
+    ' '
+  )}`;
+
+  const { stroke, lineWidth = 0 } = pick(style, shapeStyleKeys) as ShapeStyle;
+  styleObject['-webkit-text-stroke'] = `${[`${lineWidth}px`, stroke].join(' ')}`;
+  // 兼容 shapeStyle 设置 · end
+
   each(style, (v, k) => {
-    if (['fontSize', 'width', 'height'].includes(k) && isNumber(v)) {
+    //  兼容 shapeStyle 的 fontSize 没有单位
+    if (['fontSize'].includes(k) && isNumber(v)) {
       styleObject[kebabCase(k)] = `${v}px`;
-    } else if (k === 'fill') {
-      styleObject['color'] = v;
     } else if (k && !shapeStyleKeys.includes(k)) {
       styleObject[kebabCase(k)] = `${v}`;
     }
   });
-
-  const { stroke, lineWidth = 0, shadowColor, shadowBlur = 0, shadowOffsetX = 0, shadowOffsetY = 0 } = pick(
-    style,
-    shapeStyleKeys
-  ) as ShapeStyle;
-
-  styleObject['text-shadow'] = `${[shadowColor, `${shadowOffsetX}px`, `${shadowOffsetY}px`, `${shadowBlur}px`].join(
-    ' '
-  )}`;
-  styleObject['-webkit-text-stroke'] = `${[`${lineWidth}px`, stroke].join(' ')}`;
 
   return styleObject;
 }
@@ -72,23 +70,28 @@ export function setStatisticContainerStyle(container: HTMLElement, style: Partia
 }
 
 /**
- * 渲染 html-annotation
+ * 渲染环图 html-annotation（默认 position 居中 [50%, 50%]）
  * @param chart
  * @param options
  * @param meta 字段元信息
  * @param {optional} datum 当前的元数据
  */
-export const renderStatistic = (
-  chart: View,
-  options: { statistic: Statistic },
-  meta: { content: Meta & { field: string } },
-  datum?: Datum
-) => {
+export const renderStatistic = (chart: View, options: { statistic: Statistic }, datum?: Datum) => {
   const { statistic } = options;
   const { title: titleOpt, content: contentOpt } = statistic;
 
-  if (titleOpt) {
-    const cfgOffsetY = titleOpt.offsetY || 0;
+  [titleOpt, contentOpt].forEach((option, idx) => {
+    if (!option) {
+      return;
+    }
+    let text = '';
+    let transform = '';
+    if (idx === 0) {
+      transform = contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)';
+    } else {
+      transform = titleOpt ? 'translate(-50%, 0)' : 'translate(-50%, -50%)';
+    }
+    const style = isFunction(option.style) ? option.style(datum) : option.style;
 
     chart.annotation().html({
       position: ['50%', '50%'],
@@ -96,160 +99,73 @@ export const renderStatistic = (
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
         setStatisticContainerStyle(container, {
-          transform: contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)',
           width: `${containerWidth}px`,
+          transform,
           // user's style setting has high priority
-          ...adapteStyle(titleOpt.style),
+          ...adapteStyle(style),
         });
 
         const filteredData = view.getData();
-        if (titleOpt.customHtml) {
-          return titleOpt.customHtml(container, view, datum, filteredData);
+        if (option.customHtml) {
+          return option.customHtml(container, view, datum, filteredData);
         }
-        let text = '总计';
-        if (titleOpt.formatter) {
-          text = titleOpt.formatter(datum, filteredData);
+        if (option.formatter) {
+          text = option.formatter(datum, filteredData);
         }
-        // todo G2 层修复可以返回空字符串
-        return text ? text : '<div></div>';
+
+        // todo G2 层修复可以返回空字符串 & G2 层修复允许返回非字符串的内容，比如数值 number
+        return text ? (isString(text) ? text : `${text}`) : '<div></div>';
       },
-      offsetY: cfgOffsetY,
       // @ts-ignore
-      key: 'top-statistic',
-      // 透传配置
-      ...pick(titleOpt, ['offsetX', 'rotate', 'style', 'formatter']),
+      key: `${idx === 0 ? 'top' : 'bottom'}-statistic`,
+      ...pick(option, ['offsetX', 'offsetY', 'rotate', 'style', 'formatter']) /** 透传配置 */,
     });
-  }
-
-  if (contentOpt) {
-    const cfgOffsetY = contentOpt.offsetY || 0;
-
-    chart.annotation().html({
-      position: ['50%', '50%'],
-      html: (container, view) => {
-        const coordinate = view.getCoordinate();
-        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-
-        setStatisticContainerStyle(container, {
-          transform: titleOpt ? 'translate(-50%, 0)' : 'translate(-50%, -50%)',
-          width: `${containerWidth}px`,
-          // user's style setting has high priority
-          ...adapteStyle(contentOpt.style),
-        });
-
-        const filteredData = view.getData();
-        if (contentOpt.customHtml) {
-          return contentOpt.customHtml(container, view, datum, filteredData);
-        }
-
-        const formatter = get(contentOpt, 'formatter');
-        const metaFormatter = get(meta.content, 'formatter');
-        const totalValue = getTotalValue(filteredData, meta.content.field);
-
-        let text = metaFormatter ? metaFormatter(totalValue) : totalValue ? `${totalValue}` : '';
-
-        if (formatter) {
-          text = formatter(datum, filteredData);
-        }
-
-        return text ? text : '<div></div>';
-      },
-      offsetY: cfgOffsetY,
-      // @ts-ignore
-      key: 'bottom-statistic',
-      // 透传配置
-      ...pick(contentOpt, ['offsetX', 'rotate', 'style', 'formatter']),
-    });
-  }
+  });
 };
 
 /**
- * 渲染 html-annotation for gauge (等不规则 plot)
+ * 渲染 html-annotation for gauge (等不规则 plot), 默认 position 居中居底 [50%, 1000%]）
  * @param chart
  * @param options
  * @param meta 字段元信息
  * @param {optional} datum 当前的元数据
  */
-export const renderGaugeStatistic = (
-  chart: View,
-  options: { statistic: Statistic },
-  meta: { content: Meta & { field: string } },
-  datum?: Datum
-) => {
+export const renderGaugeStatistic = (chart: View, options: { statistic: Statistic }, datum?: Datum) => {
   const { statistic } = options;
   const { title: titleOpt, content: contentOpt } = statistic;
 
-  if (titleOpt) {
-    const cfgOffsetY = titleOpt.offsetY || 0;
-    let transformY = '0';
-    // @ts-ignore 兼容 shapeStyle 设置
-    if (titleOpt.style?.textBaseline === 'bottom') {
-      transformY = '-100%';
+  [titleOpt, contentOpt].forEach((option) => {
+    if (!option) {
+      return;
     }
-    chart.annotation().html({
-      position: ['50%', '100%'],
-      html: (container, view) => {
-        const coordinate = view.getCoordinate();
-        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-        setStatisticContainerStyle(container, {
-          transform: contentOpt ? 'translate(-50%, -100%)' : `translate(-50%, ${transformY})`,
-          width: `${containerWidth}px`,
-          // user's style setting has high priority
-          ...adapteStyle(titleOpt.style),
-        });
-
-        const filteredData = view.getData();
-        if (titleOpt.customHtml) {
-          return titleOpt.customHtml(container, view, datum, filteredData);
-        }
-        let text = '';
-        if (titleOpt.formatter) {
-          text = titleOpt.formatter(datum);
-        }
-        return text ? text : '<div></div>';
-      },
-      offsetY: cfgOffsetY,
-      // 透传配置
-      ...pick(titleOpt, ['offsetX', 'rotate', 'style', 'formatter']),
-    });
-  }
-
-  if (contentOpt) {
-    const cfgOffsetY = contentOpt.offsetY || 0;
+    let text = '';
+    const transform = 'translate(-50%, -100%)';
+    const style = isFunction(option.style) ? option.style(datum) : option.style;
 
     chart.annotation().html({
       position: ['50%', '100%'],
       html: (container, view) => {
         const coordinate = view.getCoordinate();
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-
         setStatisticContainerStyle(container, {
-          transform: 'translate(-50%, -100%)',
           width: `${containerWidth}px`,
+          transform,
           // user's style setting has high priority
-          ...adapteStyle(contentOpt.style),
+          ...adapteStyle(style),
         });
 
         const filteredData = view.getData();
-        if (contentOpt.customHtml) {
-          return contentOpt.customHtml(container, view, datum, filteredData);
+        if (option.customHtml) {
+          return option.customHtml(container, view, datum, filteredData);
+        }
+        if (option.formatter) {
+          text = option.formatter(datum, filteredData);
         }
 
-        const formatter = get(contentOpt, 'formatter');
-        const metaFormatter = get(meta.content, 'formatter');
-        const totalValue = getTotalValue(filteredData, meta.content.field);
-
-        let text = metaFormatter ? metaFormatter(totalValue) : totalValue ? `${totalValue}` : '';
-
-        if (formatter) {
-          text = formatter(datum, filteredData);
-        }
-
-        return text ? text : '<div></div>';
+        // todo G2 层修复可以返回空字符串 & G2 层修复允许返回非字符串的内容，比如数值 number
+        return text ? (isString(text) ? text : `${text}`) : '<div></div>';
       },
-      offsetY: cfgOffsetY,
-      // 透传配置
-      ...pick(contentOpt, ['offsetX', 'rotate', 'style', 'formatter']),
+      ...pick(option, ['offsetX', 'offsetY', 'rotate', 'style', 'formatter']) /** 透传配置 */,
     });
-  }
+  });
 };

@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, LEVEL, log, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
-import { adaptOffset } from './utils';
+import { adaptOffset, getTotalValue } from './utils';
 import { PieOptions } from './types';
 
 /**
@@ -169,11 +169,24 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField, meta } = options;
+  const { innerRadius, statistic, angleField, colorField, meta } = options;
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    renderStatistic(chart, { statistic }, { content: { field: angleField, ...get(meta, angleField, {}) } });
+    const { title, content } = statistic;
+    if (title !== false && !get(title, 'formatter')) {
+      // @ts-ignore
+      title.formatter = (datum) => (datum ? datum[colorField] : '总计');
+    }
+    if (content !== false && !get(content, 'formatter')) {
+      // @ts-ignore
+      content.formatter = (datum, data) => {
+        const metaFormatter = get(meta, [angleField, 'formatter']);
+        const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
+        return metaFormatter ? metaFormatter(dataValue) : dataValue;
+      };
+    }
+    renderStatistic(chart, { statistic });
   }
 
   return params;

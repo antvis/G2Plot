@@ -21,6 +21,7 @@ const piePlot = new Pie('container', {
     offset: '-50%',
     content: '{value}',
     style: {
+      textAlign: 'center',
       fontSize: 14,
     },
   },

@@ -63,7 +63,14 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
  */
 function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { statistic, percent } = options;
+  const { statistic, percent, meta } = options;
+
+  if (statistic.content && !statistic.content.formatter) {
+    const metaFormatter = get(meta, ['percent', 'formatter']);
+    // @ts-ignore
+    statistic.content.formatter = ({ percent }) =>
+      metaFormatter ? metaFormatter(percent) : `${(percent * 100).toFixed(2)}%`;
+  }
 
   renderStatistic(chart, { statistic }, { percent });
 

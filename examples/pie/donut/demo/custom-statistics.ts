@@ -55,6 +55,9 @@ const piePlot = new Pie('container', {
   label: {
     type: 'inner',
     offset: '-50%',
+    style: {
+      textAlign: 'center',
+    },
     autoRotate: false,
     content: '{value}',
   },

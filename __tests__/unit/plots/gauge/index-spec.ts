@@ -1,6 +1,5 @@
 import { Gauge } from '../../../../src';
 import { pick } from '../../../../src/utils';
-import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 
 describe('gauge', () => {

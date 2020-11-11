@@ -21,7 +21,7 @@ describe('gauge statistic', () => {
     expect(annotations.length).toBe(0);
   });
 
-  it.skip('默认格式化：00.00%', () => {
+  it('默认格式化：00.00%', () => {
     gauge.update({ statistic: { content: {} } });
     const annotation = document.body.querySelector('.g2-html-annotation');
     expect((annotation as HTMLElement).innerText).toBe('65.00%');
@@ -37,7 +37,7 @@ describe('gauge statistic', () => {
     gauge.update({ statistic: { content: {}, title: {} } });
     let annotations = document.body.querySelectorAll('.g2-html-annotation');
     expect(annotations.length).toBe(2);
-    expect((annotations[0] as HTMLElement).innerText).toBe('65.00%');
+    expect((annotations[1] as HTMLElement).innerText).toBe('65.0%');
 
     gauge.update({ statistic: { content: {}, title: { formatter: () => '测试' } } });
     annotations = document.body.querySelectorAll('.g2-html-annotation');
@@ -45,6 +45,6 @@ describe('gauge statistic', () => {
   });
 
   afterAll(() => {
-    // gauge.destroy();
+    gauge.destroy();
   });
 });

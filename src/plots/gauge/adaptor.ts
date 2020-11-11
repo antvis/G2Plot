@@ -1,4 +1,4 @@
-import { isString, clamp, get } from '@antv/util';
+import { isString, clamp } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -89,7 +89,7 @@ function meta(params: Params<GaugeOptions>): Params<GaugeOptions> {
  */
 function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
-  const { statistic, percent, meta } = options;
+  const { statistic, percent } = options;
 
   if (statistic) {
     const { content } = statistic;

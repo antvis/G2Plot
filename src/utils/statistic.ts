@@ -139,17 +139,22 @@ export const renderGaugeStatistic = (chart: View, options: { statistic: Statisti
       return;
     }
     let text = '';
-    const transform = 'translate(-50%, -100%)';
     const style = isFunction(option.style) ? option.style(datum) : option.style;
-
     chart.annotation().html({
       position: ['50%', '100%'],
       html: (container, view) => {
         const coordinate = view.getCoordinate();
+        // 弧形的坐标
+        const polarCoord = view.views[0].getCoordinate();
+        const polarCenter = polarCoord.getCenter();
+        const polarRadius = polarCoord.getRadius();
+        const polarMaxY = Math.max(Math.sin(polarCoord.startAngle), Math.sin(polarCoord.endAngle)) * polarRadius;
+        const offsetY = polarCenter.y + polarMaxY - coordinate.y.start - (parseFloat(style.fontSize) || 0);
+
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
         setStatisticContainerStyle(container, {
           width: `${containerWidth}px`,
-          transform,
+          transform: `translate(-50%, ${offsetY}px)`,
           // user's style setting has high priority
           ...adapteStyle(style),
         });

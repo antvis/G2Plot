@@ -64,7 +64,7 @@ bulletPlot.render();
 
 ### Geometry Style
 
-#### style 
+#### bulletStyle 
 
 <description>**optional** _object_</description>
 

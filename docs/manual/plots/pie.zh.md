@@ -73,7 +73,7 @@ piePlot.render();
 
 <description>**optional** _object_</description>
 
-统计内容组件。
+统计内容组件。当内半径(`innerRadius`) 大于 0 时才生效，默认展示汇总值，可以通过 `formatter` 格式化展示内容，也可以通过 `customHtml` 自定义更多的内容。
 
 ![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
 

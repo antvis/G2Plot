@@ -1,16 +1,16 @@
 import { Liquid } from '@antv/g2plot';
 
 const liquidPlot = new Liquid(document.getElementById('container'), {
-  percent: 0.76,
+  percent: 0.26,
   statistic: {
     content: {
       formatter: ({ percent }) => {
         return `占比 ${percent * 100}%`;
       },
-      style: {
+      style: ({ percent }) => ({
         fontSize: 60,
-        fill: 'white',
-      },
+        fill: percent > 0.5 ? 'white' : 'rgba(44,53,66,0.85)',
+      }),
     },
   },
   liquidStyle: ({ percent }) => {

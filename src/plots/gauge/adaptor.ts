@@ -108,13 +108,12 @@ function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
   renderGaugeStatistic(
     chart,
     {
-      radius,
-      innerRadius,
       statistic: {
         title,
         content: transformContent,
       },
     },
+    { content: { field: 'percent', ...get(meta, 'percent', {}) } },
     { percent }
   );
 

@@ -149,7 +149,7 @@ export const renderGaugeStatistic = (chart: View, options: { statistic: Statisti
         const polarCenter = polarCoord.getCenter();
         const polarRadius = polarCoord.getRadius();
         const polarMaxY = Math.max(Math.sin(polarCoord.startAngle), Math.sin(polarCoord.endAngle)) * polarRadius;
-        const offsetY = polarCenter.y + polarMaxY - coordinate.y.start - (parseFloat(style.fontSize) || 0);
+        const offsetY = polarCenter.y + polarMaxY - coordinate.y.start - parseFloat(get(style, 'fontSize', 0));
 
         const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
         setStatisticContainerStyle(container, {

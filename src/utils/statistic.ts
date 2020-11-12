@@ -124,7 +124,7 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic }, 
 };
 
 /**
- * 渲染 html-annotation for gauge (等不规则 plot), 默认 position 居中居底 [50%, 1000%]）
+ * 渲染 html-annotation for gauge (等不规则 plot), 默认 position 居中居底 [50%, 100%]）
  * @param chart
  * @param options
  * @param meta 字段元信息

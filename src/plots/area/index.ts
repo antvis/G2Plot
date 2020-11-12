@@ -16,6 +16,7 @@ export class Area extends Plot<AreaOptions> {
   protected getDefaultOptions() {
     return deepAssign({}, super.getDefaultOptions(), {
       tooltip: {
+        shared: true,
         showMarkers: true,
         showCrosshairs: true,
         crosshairs: {

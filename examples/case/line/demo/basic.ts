@@ -1,22 +1,13 @@
 import { Line } from '@antv/g2plot';
-import DataSet from '@antv/data-set';
-import { last } from '@antv/util';
+import * as _ from '@antv/util';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a54d45.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/314fb8c6-e4ca-450d-8a80-0cab2e8a5a23.json')
   .then((res) => res.json())
-  .then((originalData) => {
-    const color = ['#5B8FF9', '#C2C8D5', '#BEDED1', '#EFE0B5', '#B5D7E5', '#F4DBC6'];
-    const colorMap = {
-      code: color[0],
-      code_去年同期: color[1],
-      code_上月同期: color[2],
-      code_上周同期: color[3],
-    };
+  .then((data) => {
+    const colors = ['#945FB9', '#DECFEA'];
     const markerMap = {
-      code: 'hollow-circle',
-      code_去年同期: 'circle',
-      code_上月同期: 'square',
-      code_上周同期: 'triangle',
+      price: 'circle',
+      "competitor's price": 'triangle',
     };
     const markerStyle = {
       active: {
@@ -27,45 +18,20 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
         },
       },
     };
-    const dv = new DataSet().createView().source(originalData);
-    dv.transform({
-      type: 'fold',
-      fields: ['code', 'code_去年同期', 'code_上月同期', 'code_上周同期'], // 展开字段集
-      key: 'type', // key字段
-      value: 'value', // value字段
-    });
     const line = new Line('container', {
-      data: dv.rows,
-      padding: 'auto',
-      width: 375,
+      data,
+      autoFit: true,
       height: 400,
-      autoFit: false,
-      xField: 'date',
+      xField: 'x',
       yField: 'value',
       seriesField: 'type',
-      appendPadding: [80, 0, 0, 0],
-      color,
-      meta: {
-        value: {
-          formatter: (v) => `${(v / 10000).toFixed(2)} 万`,
-        },
-        type: {
-          formatter: (type) => {
-            return type === 'code' ? 'xxx 指标' : type.slice(5);
-          },
-        },
-      },
       xAxis: {
         label: {
           autoRotate: false,
         },
       },
-      yAxis: {
-        tickCount: 5,
-        label: {
-          formatter: (v, item) => `${(Number(item.id) / 10000).toFixed(0)} 万`,
-        },
-      },
+      appendPadding: [40, 0, 0, 0],
+      color: colors,
       legend: false,
       tooltip: {
         showMarkers: false,
@@ -73,6 +39,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
         position: 'top',
         offsetY: -30,
         offsetX: 0,
+        shared: true,
         domStyles: {
           'g2-tooltip': {
             boxShadow: 'none',
@@ -105,12 +72,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
           'marker-circle': {
             borderRadius: '4px',
           },
-          'marker-triangle': {
-            transform: 'translateY(-2px)',
-            border: '4px solid rgba(0, 0, 0, 0)',
-            background: 'transparent',
-            borderBottom: `8px solid ${color[3]}`,
-          },
+
           'g2-tooltip-item-label': {
             fontWeight: 700,
             color: 'rgba(0, 0, 0, 0.65)',
@@ -125,13 +87,8 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
         customContent: (title, items) => {
           let htmlStr = `<div style="margin:10px 0;font-weight:700;">${title}</div><div class="g2-tooltip-items">`;
           items.forEach((item, idx) => {
-            if (idx >= 4) {
-              return;
-            }
             htmlStr += `<div class="g2-tooltip-item" style="margin-bottom:8px;display:flex;justify-content:space-between;">
-                <span class="g2-tooltip-item-marker marker-${markerMap[item.data.type]}" style="background:${
-              colorMap[item.data.type]
-            };border-color:${colorMap[item.data.type]}"></span>
+                <span class="g2-tooltip-item-marker" style="background:${item.color};border-color:${item.color}"></span>
                 <span class="g2-tooltip-item-label">${item.name}</span>
                 <span class="g2-tooltip-item-value">${item.value}</span>
               </div>`;
@@ -142,13 +99,13 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
       },
       point: {
         style: ({ date, value, type }) => {
-          const dataIndex = dv.rows.findIndex((r) => r.date === date);
+          const dataIndex = data.findIndex((r) => r.date === date);
           // every 30 dataPoints show a point, strategy depends by yourself
           if (dataIndex % 30 === 0) {
             return {
-              r: 2,
-              stroke: colorMap[type],
-              fill: type !== 'code' ? colorMap[type] : '#fff',
+              r: 3,
+              stroke: '#fff',
+              fill: type !== 'price' ? colors[0] : colors[1],
             };
           }
           return {
@@ -157,39 +114,33 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/49a2fe69-ae03-4799-88e2-55c096a5
             lineWidth: 0,
           };
         },
-        shape: ({ date, value, type }) => {
+        shape: ({ type }) => {
           return markerMap[type];
         },
       },
-      lineStyle: ({ date, value, type }) => {
-        if (type === 'code') {
-          return {
-            lineWidth: 2,
-          };
-        }
-        return {
-          lineWidth: 1,
-        };
+      lineStyle: {
+        lineWidth: 1.5,
       },
-      interactions: [
-        {
-          type: 'marker-active',
-        },
-      ],
+
       theme: {
         geometries: {
           point: {
             circle: markerStyle,
-            square: markerStyle,
             triangle: markerStyle,
-            'hollow-circle': markerStyle,
           },
         },
       },
+      interactions: [{ type: 'brush' }, { type: 'marker-active' }],
     });
 
     line.render();
-    // 初始化，默认激活最后一条数据
-    const point = line.chart.getXY(last(dv.rows));
+    // 初始化，默认激活
+    const point = line.chart.getXY({
+      x: '9/30',
+      value: 40,
+    });
     line.chart.showTooltip(point);
+    line.on('plot:mouseleave', () => {
+      line.chart.hideTooltip();
+    });
   });

@@ -3,8 +3,6 @@ title: 玉珏图
 order: 25
 ---
 
-## 配置属性
-
 ### 图表容器
 
 `markdown:docs/common/chart-options.zh.md`
@@ -60,7 +58,7 @@ order: 25
 
 `markdown:docs/common/shape-style.zh.md`
 
-`markdown:docs/common/color.en.md`
+`markdown:docs/common/color.zh.md`
 
 ### 图表组件
 

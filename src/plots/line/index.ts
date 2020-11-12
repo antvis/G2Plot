@@ -18,6 +18,7 @@ export class Line extends Plot<LineOptions> {
   protected getDefaultOptions() {
     return deepAssign({}, super.getDefaultOptions(), {
       tooltip: {
+        shared: true,
         showMarkers: true,
         showCrosshairs: true,
         crosshairs: {

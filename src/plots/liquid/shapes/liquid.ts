@@ -30,7 +30,6 @@ function lerp(a: number, b: number, factor: number) {
 const getFillAttrs = (cfg) => {
   const defaultAttrs = {
     lineWidth: 0,
-    // fill: 'red', // todo
     fillOpacity: 0.85,
   };
   const attrs = mix({}, defaultAttrs, cfg.style);

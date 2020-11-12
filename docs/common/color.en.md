@@ -23,7 +23,6 @@ Default: The color board of the theme.
     if(type === 'male'){
       return 'red';
     }
-    // TODO
     return 'yellow';
   }
 }

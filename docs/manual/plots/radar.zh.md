@@ -133,11 +133,9 @@ radarPlot.render();
 }
 ```
 
-### 图表组件介绍
+### 图表组件
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
-
-### 图表组件
 
 `markdown:docs/common/component.zh.md`
 

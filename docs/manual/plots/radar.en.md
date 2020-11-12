@@ -133,7 +133,7 @@ radarPlot.render();
 }
 ```
 
-### About Plot Components
+### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
 

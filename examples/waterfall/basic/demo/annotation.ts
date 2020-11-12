@@ -18,17 +18,10 @@ data.reduce((v, d) => {
       return [d.quarter, y];
     },
     content: formatter(d.value),
-    background: {
-      style: {
-        fill: '#fff',
-        radius: 1,
-      },
-      padding: 1,
-    },
     style: {
       fontSize: 14,
-      stroke: '#fff',
-      fill: '#666',
+      stroke: '#666',
+      fill: '#fff',
       lineWidth: 1,
       textAlign: 'center',
       verticalAlign: 'middle',

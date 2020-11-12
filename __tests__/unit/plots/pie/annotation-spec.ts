@@ -29,7 +29,7 @@ describe('annotation', () => {
     });
     expect(pie.chart.getController('annotation').getComponents().length).toBe(3);
     expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
-    expect(pie.chart.getController('annotation').getComponents()[1].component.get('key')).toBe('statistic');
+    expect(pie.chart.getController('annotation').getComponents()[1].component.get('key')).toBe('top-statistic');
   });
 
   it('text annotation and line annotation', () => {

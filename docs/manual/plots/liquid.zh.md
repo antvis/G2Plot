@@ -33,7 +33,9 @@ order: 12
 
 `markdown:docs/common/color.zh.md`
 
-#### statistic
+### 图表组件
+
+#### statistic ✨
 
 <description>**optional** _object_</description>
 

@@ -18,9 +18,8 @@ const piePlot = new Pie('container', {
   label: {
     type: 'inner',
     offset: '-30%',
-    content: '{percentage}',
+    content: ({ percent }) => `${percent * 100}%`,
     style: {
-      fill: '#fff',
       fontSize: 14,
       textAlign: 'center',
     },

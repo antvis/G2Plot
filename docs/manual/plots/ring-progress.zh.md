@@ -39,6 +39,10 @@ order: 19
 
 `markdown:docs/common/color.zh.md`
 
+### 图表组件
+
+`markdown:docs/common/component-progress.zh.md`
+
 #### statistic
 
 <description>**optional** _object_</description>
@@ -46,7 +50,3 @@ order: 19
 统计内容组件，主要包含 title、content 来部分内容。
 
 `markdown:docs/common/statistic.zh.md`
-
-### 图表组件
-
-`markdown:docs/common/component-progress.zh.md`

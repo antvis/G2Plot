@@ -8,3 +8,5 @@ export { findViewById } from './view';
 export { transformLabel } from './label';
 export { getSplinePath } from './path';
 export { deepAssign } from './deep-assign';
+export { kebabCase } from './kebab-case';
+export { renderStatistic, renderGaugeStatistic } from './statistic';

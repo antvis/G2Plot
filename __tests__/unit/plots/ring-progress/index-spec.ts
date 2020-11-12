@@ -275,7 +275,8 @@ describe('ring-progress', () => {
   });
 
   it('style callback', () => {
-    const ring = new RingProgress(createDiv(), {
+    const div = createDiv();
+    const ring = new RingProgress(div, {
       width: 200,
       height: 100,
       percent: 0.6,
@@ -285,7 +286,7 @@ describe('ring-progress', () => {
         content: {
           style: ({ percent }) => {
             return {
-              fontSize: 20 * percent,
+              fontSize: `${20 * percent}px`,
               textAlign: 'center',
               textBaseline: 'middle',
             };
@@ -296,7 +297,10 @@ describe('ring-progress', () => {
 
     ring.render();
 
-    expect(ring.chart.getController('annotation').getComponents()[0].component.get('style').fontSize).toBe(20 * 0.6);
+    setTimeout(() => {
+      const annotation = div.querySelector('.g2-html-annotation');
+      expect((annotation as HTMLElement).style['font-size']).toBe(`${20 * 0.6}px`);
+    }, 50);
 
     ring.destroy();
   });

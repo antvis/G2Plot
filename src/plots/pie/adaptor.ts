@@ -1,12 +1,10 @@
-import { Datum } from '@antv/g2/lib/interface';
-import { every, filter, get, isFunction, isString, isNil } from '@antv/util';
+import { every, filter, isFunction, isString, isNil, get } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
-import { Data } from '../../types';
-import { flow, LEVEL, log, template, transformLabel, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
-import { PieOptions } from './types';
+import { flow, LEVEL, log, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
 import { adaptOffset, getTotalValue } from './utils';
+import { PieOptions } from './types';
 
 /**
  * 字段
@@ -171,54 +169,27 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  */
 function statistic(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { innerRadius, statistic, angleField, colorField } = options;
-
-  const annotationOptions = [];
+  const { innerRadius, statistic, angleField, colorField, meta } = options;
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
     const { title, content } = statistic;
-
-    [title, content].forEach((option, index) => {
-      if (option === false) {
-        return;
-      }
-      const { style, formatter, offsetX, offsetY, rotate } = option;
-
-      const lineHeight = get(option, 'style.fontSize', 20);
-      const getDefaultContent = (data: Data, datum?: Datum) => {
-        if (index === 0) {
-          return datum ? datum[colorField] : '总计';
-        }
-        return datum ? datum[angleField] : getTotalValue(data, angleField);
+    if (title !== false && !get(title, 'formatter')) {
+      // @ts-ignore
+      title.formatter = (datum) => (datum ? datum[colorField] : '总计');
+    }
+    if (content !== false && !get(content, 'formatter')) {
+      // @ts-ignore
+      content.formatter = (datum, data) => {
+        const metaFormatter = get(meta, [angleField, 'formatter']);
+        const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
+        return metaFormatter ? metaFormatter(dataValue) : dataValue;
       };
-      chart.annotation().text(
-        deepAssign(
-          {},
-          {
-            style: {
-              textAlign: 'center',
-            },
-            offsetY: index === 0 ? (content === false ? 0 : -lineHeight) : title === false ? 0 : lineHeight,
-          },
-          {
-            position: ['50%', '50%'],
-            content: (filterData: Data, datum?: Datum) => {
-              return formatter ? formatter(datum, filterData) : getDefaultContent(filterData, datum);
-            },
-            style,
-            offsetX,
-            offsetY,
-            rotate,
-            // append-info
-            key: 'statistic',
-          }
-        )
-      );
-    });
+    }
+    renderStatistic(chart, { statistic });
   }
 
-  return flow(annotation(annotationOptions))(params);
+  return params;
 }
 
 /**

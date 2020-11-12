@@ -55,17 +55,15 @@ describe('donut plot', () => {
 
     donutPlot.render();
 
-    expect(donutPlot.chart.getController('annotation').getComponents()[1].component.get('content')).toBe(
-      `${reduce(data, (r, d) => r + d.value, 0)}万`
-    );
+    let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${reduce(data, (r, d) => r + d.value, 0)}万`);
 
     const element = donutPlot.chart.geometries[0].elements[0];
     simulateMouseEvent(element.shape, 'mouseenter');
-    await delay(100);
+    await delay(50);
 
-    expect(donutPlot.chart.getController('annotation').getComponents()[1].component.get('content')).toBe(
-      `${data[0].value} 万`
-    );
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${data[0].value} 万`);
 
     donutPlot.destroy();
   });

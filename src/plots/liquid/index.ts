@@ -24,7 +24,7 @@ export class Liquid extends Plot<LiquidOptions> {
           formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
           style: {
             opacity: 0.75,
-            fontSize: 30,
+            fontSize: '30px',
             textAlign: 'center',
           },
         },

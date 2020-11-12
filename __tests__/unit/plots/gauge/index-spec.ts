@@ -3,7 +3,7 @@ import { pick } from '../../../../src/utils';
 import { createDiv } from '../../../utils/dom';
 
 describe('gauge', () => {
-  it('gauge', () => {
+  it('gauge', async () => {
     const gauge = new Gauge(createDiv(), {
       width: 600,
       height: 300,
@@ -89,7 +89,8 @@ describe('gauge', () => {
     const annotations = gauge.chart.getComponents();
     expect(annotations.length).toBe(1);
     expect(annotations[0].extra.position).toEqual(['50%', '100%']);
-    expect(annotations[0].extra.content).toBe('分数：75');
+    const annotation = document.body.querySelector('.g2-html-annotation');
+    expect((annotation as HTMLElement).innerText).toBe('分数：75');
 
     // @ts-ignore
     expect(v2.options.axes).toEqual(undefined);

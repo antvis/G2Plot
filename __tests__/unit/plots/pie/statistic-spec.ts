@@ -26,10 +26,6 @@ describe('中心文本 - 指标卡', () => {
   const pie = new Pie(createDiv(), config);
   pie.render();
 
-  afterAll(() => {
-    pie.destroy();
-  });
-
   it('没有设置 inner radius，不展示中心文本指标卡', () => {
     expect(getAnnotations(pie.chart).length).toBe(0);
   });
@@ -43,7 +39,8 @@ describe('中心文本 - 指标卡', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    expect(annotations[0].component.get('content')).toBe('总计' /** 中心文本指标卡，默认title */);
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
   });
 
   it('自定义中心文本内容: update statistic title & content', () => {
@@ -64,8 +61,20 @@ describe('中心文本 - 指标卡', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    expect(annotations[0].component.get('content')).toBe('总计');
-    expect(annotations[1].component.get('content')).toBe('test\ntest');
+    let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('test test');
+
+    pie.update({
+      statistic: {
+        content: {
+          style: { whiteSpace: 'pre-wrap' },
+          formatter: () => 'test\ntest',
+        },
+      },
+    });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('test\ntest');
   });
 
   it('自定义中心文本内容: update statistic title & content, 动态数据', async () => {
@@ -77,6 +86,7 @@ describe('中心文本 - 指标卡', () => {
           formatter: (datum) => (!datum ? '总计' : datum['type']),
         },
         content: {
+          style: { whiteSpace: 'pre-wrap' },
           formatter: (datum) => {
             return !datum ? 'test\ntest' : `${datum.value}`;
           },
@@ -89,20 +99,24 @@ describe('中心文本 - 指标卡', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    expect(annotations[0].component.get('content')).toBe('总计');
-    expect(annotations[1].component.get('content')).toBe('test\ntest');
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('test\ntest');
+
+    pie.chart.clear();
   });
 
-  it('自定义中心文本样式: update statistic title style & content style', async () => {
-    await delay(300);
+  it('自定义中心文本样式: 兼容 shapeStyle', async () => {
     pie.update({
       ...pie.options,
       statistic: {
         title: {
           formatter: () => '',
+          // @ts-ignore
           style: { fill: 'red' },
         },
         content: {
+          // @ts-ignore
           style: { fill: 'pink' },
         },
       },
@@ -111,22 +125,25 @@ describe('中心文本 - 指标卡', () => {
     pie.render();
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(2);
-    expect(annotations[0].component.get('content')).toBe('');
-    expect(annotations[0].extra.key).toBe('statistic');
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('' /** 中心文本指标卡，默认title */);
+    expect(annotations[0].extra.key).toBe('top-statistic');
+    expect(annotations[1].extra.key).toBe('bottom-statistic');
     expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
   });
 
-  it('自定义中心文本样式: with callback', async () => {
-    await delay(500);
+  it('自定义中心文本样式: 兼容 ShapeStyle with callback', async () => {
     pie.update({
       ...pie.options,
       statistic: {
         title: {
           formatter: () => '',
+          // @ts-ignore
           style: { fill: 'red' },
         },
         content: {
+          // @ts-ignore
           style: { fill: 'pink' },
         },
       },
@@ -135,10 +152,19 @@ describe('中心文本 - 指标卡', () => {
     pie.render();
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(2);
-    expect(annotations[0].component.get('content')).toBe('');
-    expect(annotations[0].extra.key).toBe('statistic');
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('' /** 中心文本指标卡，默认title */);
+    expect(annotations[0].extra.key).toBe('top-statistic');
     expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
+  });
+
+  afterEach(() => {
+    pie.chart.clear();
+  });
+
+  afterAll(() => {
+    pie.destroy();
   });
 });
 
@@ -153,7 +179,9 @@ describe('statistic', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(2);
-    expect(annotations[1].component.get('content')).toBe(null);
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).not.toBe('null');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('');
 
     pie.destroy();
   });
@@ -221,22 +249,25 @@ describe('statistic', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    expect(annotations[0].component.get('content')).toBe('总计');
-    expect(annotations[1].component.get('content')).toBe('test\ntest');
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('test test');
 
     pie.destroy();
   });
 
-  it('自定义中心文本样式: title style & content style', () => {
+  it('自定义中心文本样式: 兼容 shapeStyle', () => {
     const pie = new Pie(createDiv(), {
       ...config,
       innerRadius: 0.64,
       statistic: {
         title: {
           formatter: () => '',
+          // @ts-ignore
           style: { fill: 'red' },
         },
         content: {
+          // @ts-ignore
           style: { fill: 'pink' },
         },
       },
@@ -245,8 +276,9 @@ describe('statistic', () => {
     pie.render();
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBe(2);
-    expect(annotations[0].component.get('content')).toBe('');
-    expect(annotations[0].extra.key).toBe('statistic');
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('' /** 中心文本指标卡，默认title */);
+    expect(annotations[0].extra.key).toBe('top-statistic');
     expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
 
@@ -275,8 +307,11 @@ describe('statistic', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    expect(annotations[0].component.get('content')).toBe('总计');
-    expect(annotations[1].component.get('content')).toBe(`test\ntest ${totalValue}`);
+    setTimeout(() => {
+      const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+      expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
+      expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test\ntest ${totalValue}`);
+    }, 50);
 
     pie.destroy();
   });

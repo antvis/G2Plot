@@ -22,6 +22,7 @@ export class Pie extends Plot<PieOptions> {
       tooltip: {
         shared: false,
         showTitle: false,
+        showMarkers: false,
       },
       /** 饼图样式, 不影响暗黑主题 */
       pieStyle: {
@@ -31,10 +32,16 @@ export class Pie extends Plot<PieOptions> {
       /** 饼图中心文本默认样式 */
       statistic: {
         title: {
-          style: { fontSize: 14, fontWeight: 300, fill: '#4D4D4D', textAlign: 'center' },
+          style: { fontWeight: 300, color: '#4B535E', textAlign: 'center', fontSize: '20px', lineHeight: 1 },
         },
         content: {
-          style: { fontSize: 21, fontWeight: 'bold', fill: '#4D4D4D', textAlign: 'center' },
+          style: {
+            fontWeight: 'bold',
+            color: 'rgba(44,53,66,0.85)',
+            textAlign: 'center',
+            fontSize: '32px',
+            lineHeight: 1,
+          },
         },
       },
       /** 默认关闭 text-annotation 动画 */

@@ -39,21 +39,23 @@ describe('register interaction', () => {
   const context = new InteractionContext(pie.chart);
   const action = new StatisticAction(context);
 
-  it('触发 pie-statistic:change', () => {
-    context.event = { data: { data: { type: 'item3', value: 13 } } };
+  it('触发 pie-statistic:change', async () => {
+    context.event = { type: 'custom', data: { data: { type: 'item3', value: 13 } } };
     action.change();
 
-    const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
-    expect(annotations[0].extra.content).toBe('item3');
-    expect(annotations[1].extra.content).toBe(13);
+    await delay(50);
+
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('item3' /** 中心文本指标卡，默认title */);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('13');
   });
 
   it('触发 pie-statistic:reset', async () => {
     action.reset();
 
     delay(500);
-    const annotations = context.view.getComponents().filter((co) => co.type === 'annotation');
-    expect(annotations[0].component.get('content')).toBe('Total');
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('Total' /** 中心文本指标卡，默认title */);
   });
 
   afterAll(() => {

@@ -1,6 +1,6 @@
 import { Data } from '@antv/g2/lib/interface';
 import { each, isString } from '@antv/util';
-import { PieLabelType } from './types';
+import { PieLabelType } from '../types';
 
 /**
  * 获取总计值

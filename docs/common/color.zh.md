@@ -23,7 +23,6 @@
     if(type === 'male'){
       return 'red';
     }
-    // TODO
     return 'yellow';
   }
 }

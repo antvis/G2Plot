@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "趋势图(自定义marker)",
+        "en": "Trend plot(custom marker)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*c69rSLoOAywAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

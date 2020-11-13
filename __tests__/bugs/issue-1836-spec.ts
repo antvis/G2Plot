@@ -16,14 +16,14 @@ describe('#1836', () => {
     gauge.render();
     expect(gauge.chart.getOptions().animate).toBe(false);
     // 子 view 继承父类
-    expect(gauge.chart.views.every((v) => v.getOptions().animate === true)).toBe(false);
+    expect(gauge.chart.views.every((v) => v.getOptions().animate === false)).toBe(true);
 
     gauge.update({
       animation: {},
     });
     expect(gauge.chart.getOptions().animate).toBe(true);
     // 子 view 都关闭动画
-    expect(gauge.chart.views.every((v) => v.getOptions().animate === false)).toBe(true);
+    expect(gauge.chart.views.every((v) => v.getOptions().animate === true)).toBe(true);
 
     gauge.destroy();
   });

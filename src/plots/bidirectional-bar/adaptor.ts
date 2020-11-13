@@ -1,7 +1,13 @@
 import { View } from '@antv/g2';
 import { groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale } from '../../adaptor/common';
+import {
+  tooltip,
+  interaction as commonInteraction,
+  animation as commonAnimation,
+  theme as commonTheme,
+  scale,
+} from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, findViewById, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { BidirectionalBarOptions } from './types';
@@ -46,6 +52,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
     });
 
     firstView.coordinate().transpose().reflect('x');
+
     secondView = chart.createView({
       region: {
         start: { x: 0.5, y: 0 },
@@ -70,7 +77,6 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       },
       id: SECOND_AXES_VIEW,
     });
-
     secondView
       .coordinate()
       .reflect('y')
@@ -121,7 +127,6 @@ function meta(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
   const { xAxis, yAxis, xField, yField } = options;
   const firstView = findViewById(chart, FIRST_AXES_VIEW);
   const secondView = findViewById(chart, SECOND_AXES_VIEW);
-
   scale({
     [xField]: xAxis,
     [yField[0]]: yAxis[yField[0]],
@@ -155,7 +160,7 @@ function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
     firstView.axis(xField, {
       // 不同布局 firstView 的坐标轴显示位置
       position: isHorizontal(layout) ? 'top' : 'bottom',
-      ...axis,
+      ...xAxis,
     });
   }
 
@@ -166,6 +171,50 @@ function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
     firstView.axis(yField[0], yAxis[yField[0]]);
     secondView.axis(yField[1], yAxis[yField[1]]);
   }
+  //@ts-ignore
+  chart.__axisPosition = {
+    position: firstView.getOptions().axes[xField].position,
+    layout,
+  };
+  return params;
+}
+
+/**
+ * interaction 配置
+ * @param params
+ */
+export function interaction(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
+  const { chart } = params;
+
+  commonInteraction(deepAssign({}, params, { chart: findViewById(chart, FIRST_AXES_VIEW) }));
+  commonInteraction(deepAssign({}, params, { chart: findViewById(chart, SECOND_AXES_VIEW) }));
+
+  return params;
+}
+
+/**
+ * theme
+ * @param params
+ */
+export function theme(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
+  const { chart } = params;
+
+  commonTheme(deepAssign({}, params, { chart: findViewById(chart, FIRST_AXES_VIEW) }));
+  commonTheme(deepAssign({}, params, { chart: findViewById(chart, SECOND_AXES_VIEW) }));
+
+  return params;
+}
+
+/**
+ * animation
+ * @param params
+ */
+export function animation(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
+  const { chart } = params;
+
+  commonAnimation(deepAssign({}, params, { chart: findViewById(chart, FIRST_AXES_VIEW) }));
+  commonAnimation(deepAssign({}, params, { chart: findViewById(chart, SECOND_AXES_VIEW) }));
+
   return params;
 }
 

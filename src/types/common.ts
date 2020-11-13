@@ -1,4 +1,4 @@
-import { AnnotationPosition, RegionPositionBaseOption, TextOption } from '@antv/g2/lib/interface';
+import { AnnotationPosition, RegionPositionBaseOption, SyncViewPaddingFn, TextOption } from '@antv/g2/lib/interface';
 import { Axis } from './axis';
 import { Label } from './label';
 import { Tooltip } from './tooltip';
@@ -78,7 +78,7 @@ export type Options = {
   /** 额外怎加的 padding 值 */
   readonly appendPadding?: number[] | number;
   /** 是否同步子 view 的 padding */
-  readonly syncViewPadding?: boolean;
+  readonly syncViewPadding?: boolean | SyncViewPaddingFn;
 
   // G 相关
   /** 渲染引擎 */

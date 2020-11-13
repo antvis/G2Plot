@@ -250,6 +250,14 @@ module.exports = {
           en: 'Radial Bar',
         },
       },
+      {
+        slug: 'bidirectional-bar',
+        icon: 'bi-directional-bar',
+        title: {
+          zh: '对称条形图',
+          en: 'Bidirectional Bar',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

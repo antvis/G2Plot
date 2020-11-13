@@ -1,50 +1,32 @@
 import { Column } from '@antv/g2plot';
 
 const data = [
-  {
-    type: '家具家电',
-    sales: 38,
-  },
-  {
-    type: '粮油副食',
-    sales: 52,
-  },
-  {
-    type: '生鲜水果',
-    sales: 61,
-  },
-  {
-    type: '美容洗护',
-    sales: 145,
-  },
-  {
-    type: '母婴用品',
-    sales: 48,
-  },
-  {
-    type: '进口食品',
-    sales: 38,
-  },
-  {
-    type: '食品饮料',
-    sales: 38,
-  },
-  {
-    type: '家庭清洁',
-    sales: 38,
-  },
+  { month: '1', value: 1078 },
+  { month: '2', value: 1216 },
+  { month: '3', value: 758 },
+  { month: '4', value: 623 },
+  { month: '5', value: 319 },
+  { month: '6', value: 422 },
+  { month: '7', value: -4 },
+  { month: '8', value: -217 },
+  { month: '9', value: -358 },
+  { month: '10', value: 1513 },
+  { month: '11', value: 1388 },
+  { month: '12', value: 597 },
 ];
 
 const columnPlot = new Column('container', {
   data,
-  xField: 'type',
-  yField: 'sales',
+  padding: 'auto',
+  xField: 'month',
+  yField: 'value',
   meta: {
-    type: {
-      alias: '类别',
+    value: {
+      max: 2000,
+      min: -1000,
     },
-    sales: {
-      alias: '销售额',
+    month: {
+      formatter: (val) => `${val} 月`,
     },
   },
   annotations: [
@@ -52,29 +34,16 @@ const columnPlot = new Column('container', {
       type: 'region',
       start: (xScale) => {
         const ratio = xScale.ticks ? 1 / xScale.ticks.length : 1;
-        const x = xScale.scale('美容洗护') - ratio / 2;
+        const x = xScale.scale('7') - ratio / 2;
         return [`${x * 100}%`, '0%'];
       },
       end: (xScale) => {
         const ratio = xScale.ticks ? 1 / xScale.ticks.length : 1;
-        const x = xScale.scale('美容洗护') + ratio / 2;
+        const x = xScale.scale('9') + ratio / 2;
         return [`${x * 100}%`, '100%'];
-      },
-      style: {
-        fill: 'rgb(255,0,0)',
-      },
-    },
-    {
-      type: 'text',
-      position: ['美容洗护', 'max'],
-      content: '最大销售量',
-      style: {
-        textAlign: 'center',
-        textBaseline: 'top',
       },
     },
   ],
 });
 
 columnPlot.render();
-columnPlot.setState('selected', (datum) => datum.type === '美容洗护');

@@ -19,5 +19,4 @@ export interface RadialBarOptions extends Options {
   readonly colorField?: string;
   /** 类型 */
   readonly type?: string;
-
 }

@@ -1,10 +1,12 @@
 import { Gauge } from '@antv/g2plot';
 
+const ticks = [0, 1 / 3, 2 / 3, 1];
+const color = ['#F4664A', '#FAAD14', '#30BF78'];
 const gauge = new Gauge('container', {
-  percent: 0.75,
+  percent: 0,
   range: {
-    ticks: [0, 0.2, 0.4, 0.75, 1],
-    color: ['#9EDCA6', '#BFE8C3', '#EFF3DE', '#FFE9B8', '#FFDE94'],
+    ticks,
+    color,
   },
   indicator: {
     pointer: {
@@ -18,24 +20,42 @@ const gauge = new Gauge('container', {
       },
     },
   },
-  axis: {
-    label: {
-      formatter(v) {
-        return Number(v) * 100;
+  statistic: {
+    title: {
+      formatter: ({ percent }) => {
+        if (percent < ticks[1]) {
+          return '差';
+        }
+        if (percent < ticks[2]) {
+          return '中';
+        }
+        return '优';
+      },
+      style: ({ percent }) => {
+        return {
+          fontSize: '36px',
+          lineHeight: 1,
+          color: percent < ticks[1] ? color[0] : percent < ticks[2] ? color[1] : color[2],
+        };
       },
     },
-    subTickLine: {
-      count: 3,
-    },
-  },
-  statistic: {
     content: {
-      formatter: ({ percent }) => `Rate: ${percent * 100}%`,
-    },
-    style: {
-      fontSize: 60,
+      offsetY: 36,
+      style: {
+        fontSize: '24px',
+        color: '#4B535E',
+      },
+      formatter: () => '系统表现',
     },
   },
 });
 
 gauge.render();
+let data = 0;
+const interval = setInterval(() => {
+  if (data >= 1) {
+    clearInterval(interval);
+  }
+  data += 0.1;
+  gauge.changeData(data);
+}, 1000);

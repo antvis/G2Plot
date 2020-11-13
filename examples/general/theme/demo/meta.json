@@ -13,9 +13,17 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*D-ThTo5H-1kAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "custom-theme.ts",
+      "title": {
+        "zh": "自定义主题",
+        "en": "Custom theme"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YPRMRI-lcIwAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "register-theme.ts",
       "title": {
-        "zh": "自定义样式",
+        "zh": "注册主题",
         "en": "Register theme"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YPRMRI-lcIwAAAAAAAAAAAAAARQnAQ"

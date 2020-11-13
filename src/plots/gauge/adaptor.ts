@@ -2,7 +2,7 @@ import { isString, clamp } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
-import { flow, renderGaugeStatistic } from '../../utils';
+import { deepAssign, flow, renderGaugeStatistic } from '../../utils';
 import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR } from './constant';
 import { GaugeOptions } from './types';
 import { processRangeData } from './utils';
@@ -33,6 +33,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
       .shape('gauge-indicator')
       // 传入指针的样式到自定义 shape 中
       .customInfo({
+        defaultColor: chart.getTheme().defaultColor,
         indicator,
       });
 
@@ -96,17 +97,20 @@ function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
     let transformContent;
     // 当设置 content 的时候，设置默认样式
     if (content) {
-      transformContent = {
-        formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
-        style: {
-          opacity: 0.75,
-          fontSize: '30px',
-          lineHeight: 1,
-          textAlign: 'center',
-          color: 'rgba(44,53,66,0.85)',
+      transformContent = deepAssign(
+        {},
+        {
+          formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
+          style: {
+            opacity: 0.75,
+            fontSize: '30px',
+            lineHeight: 1,
+            textAlign: 'center',
+            color: 'rgba(44,53,66,0.85)',
+          },
         },
-        ...content,
-      };
+        content
+      );
     }
     renderGaugeStatistic(chart, { statistic: { ...statistic, content: transformContent } }, { percent });
   }

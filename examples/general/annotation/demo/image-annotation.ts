@@ -18,9 +18,8 @@ const piePlot = new Pie('container', {
   innerRadius: 0.64,
   label: {
     type: 'inner',
-    // @ts-ignore todo 后续修复为可配置 -68%
-    offset: '-0.68',
-    content: '{percentage}',
+    offset: '-50%',
+    content: ({ percent }) => `${percent * 100}%`,
     style: {
       fill: '#fff',
       fontSize: 14,
@@ -36,13 +35,13 @@ const piePlot = new Pie('container', {
       position: ['50%', '50%'],
       /** 图形样式属性 */
       style: {
-        width: 100,
-        height: 100,
+        width: 50,
+        height: 50,
       },
       /** x 方向的偏移量 */
-      offsetX: -50,
+      offsetX: -25,
       /** y 方向的偏移量 */
-      offsetY: 70,
+      offsetY: 40,
     },
   ],
 });

@@ -30,6 +30,11 @@ export class Rose extends Plot<RoseOptions> {
           type: 'limit-in-shape',
         },
       },
+      tooltip: {
+        shared: true,
+        showMarkers: false,
+      },
+      interactions: [{ type: 'active-region' }],
     });
   }
 

@@ -16,6 +16,11 @@ export class Histogram extends Plot<HistogramOptions> {
       columnStyle: {
         stroke: '#FFFFFF',
       },
+      tooltip: {
+        shared: true,
+        showMarkers: false,
+      },
+      interactions: [{ type: 'active-region' }],
     });
   }
 

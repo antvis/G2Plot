@@ -1,4 +1,5 @@
-import { isHorizontal, transformData } from '../../../../src/plots/bidirectional-bar/utils';
+import { PaddingCal } from '@antv/g2/lib/chart/layout/padding-cal';
+import { isHorizontal, transformData, syncViewPadding } from '../../../../src/plots/bidirectional-bar/utils';
 
 describe('util', () => {
   it('isHorizontal', () => {
@@ -21,5 +22,18 @@ describe('util', () => {
       { type: 'y2', x: 'a', y2: 20 },
       { type: 'y2', x: 'b', y2: 21 },
     ]);
+  });
+
+  it('syncViewPadding', () => {
+    const chart = {
+      __axisPosition: {},
+    };
+
+    const v1: any = {};
+    const v2: any = {};
+
+    syncViewPadding(chart, [v1, v2], PaddingCal);
+
+    expect(v1.autoPadding).toEqual({});
   });
 });

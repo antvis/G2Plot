@@ -1,4 +1,4 @@
-import { interaction, animation, theme, scale, tooltip, legend } from '../../adaptor/common';
+import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
@@ -11,7 +11,7 @@ import { getScaleMax } from './utils';
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { data, barStyle: style, color, tooltip, colorField } = options;
+  const { data, barStyle: style, color, tooltip, colorField, type, xField, yField } = options;
   chart.data(data);
   const p = deepAssign({}, params, {
     options: {
@@ -20,10 +20,14 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
       interval: {
         style,
         color,
+        shape: type === 'line' ? 'line' : 'intervel',
       },
     },
   });
   interval(p);
+  if (type === 'line') {
+    chart.point().position(`${xField}*${yField}`).shape('circle');
+  }
   return params;
 }
 
@@ -81,5 +85,5 @@ export function axis(params: Params<RadialBarOptions>): Params<RadialBarOptions>
  * @param options
  */
 export function adaptor(params: Params<RadialBarOptions>) {
-  return flow(geometry, meta, axis, coordinate, interaction, animation, theme, tooltip, legend)(params);
+  return flow(geometry, meta, axis, coordinate, interaction, animation, theme, tooltip, legend, annotation())(params);
 }

@@ -23,6 +23,14 @@ order: 25
 
 `markdown:docs/common/meta.zh.md`
 
+#### type
+
+**可选**, _string_
+
+功能描述: 图表类型， 'line' 为线形图。
+
+默认配置： 无
+
 ### 图形样式
 
 #### radius
@@ -46,7 +54,6 @@ order: 25
 功能描述： 最大旋转角度，由 data 中最大的数值决定，最大值是 360 度。
 
 默认配置： 240
-
 
 #### barStyle
 

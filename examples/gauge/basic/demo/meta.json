@@ -10,7 +10,15 @@
         "zh": "仪表盘",
         "en": "Gauge plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wjukQ4x3qfMAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zb4XQa2-uHgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "gradient.ts",
+      "title": {
+        "zh": "仪表盘(渐变色)",
+        "en": "Gradient Gauge plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2pQHSJvYqwwAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "complex.ts",

@@ -33,6 +33,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
       .shape('gauge-indicator')
       // 传入指针的样式到自定义 shape 中
       .customInfo({
+        defaultColor: chart.getTheme().defaultColor,
         indicator,
       });
 

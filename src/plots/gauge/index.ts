@@ -70,7 +70,6 @@ export class Gauge extends Plot<GaugeOptions> {
           sync: 'v',
         },
       },
-      // 默认关闭，目前 update dta 会出现抖动
       animation: false,
     };
   }

@@ -35,7 +35,7 @@ order: 2
 
 <description>**optional** _boolean_</description>
 
-是否分组柱形图。
+是否分组柱状图。
 
 #### isStack
 
@@ -53,7 +53,7 @@ order: 2
 
 <description>**optional** _boolean_</description>
 
-是否百分百柱状图，isPercent 为 true 时，isStack 也需要为 true。
+是否堆积百分比柱状图，isPercent 为 true 时，isStack 也需要为 true。
 
 `markdown:docs/common/meta.zh.md`
 
@@ -88,6 +88,14 @@ order: 2
 #### 滚动条
 
 `markdown:docs/common/slider.zh.md`
+
+#### 转化率
+
+`markdown:docs/common/conversion-tag.zh.md`
+
+#### 联通区域对比
+
+`markdown:docs/common/connected-area.zh.md`
 
 ### 事件
 

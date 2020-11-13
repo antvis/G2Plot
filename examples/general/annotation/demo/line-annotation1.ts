@@ -22,6 +22,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/89729b32-1592-44ae-ba96-1e296638
       lineStyle: {
         lineCap: 'round',
       },
+      interactions: [{ type: 'brush' }],
     });
 
     line.render();

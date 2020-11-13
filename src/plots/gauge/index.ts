@@ -46,14 +46,12 @@ export class Gauge extends Plot<GaugeOptions> {
       indicator: {
         pointer: {
           style: {
-            stroke: '#1890FF', // TODO 应该取主题色
             lineWidth: 5,
             lineCap: 'round',
           },
         },
         pin: {
           style: {
-            stroke: '#1890FF',
             r: 9.75,
             lineWidth: 4.5,
             fill: '#fff',
@@ -72,6 +70,7 @@ export class Gauge extends Plot<GaugeOptions> {
           sync: 'v',
         },
       },
+      animation: false,
     };
   }
 

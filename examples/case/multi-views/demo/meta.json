@@ -5,12 +5,12 @@
   },
   "demos": [
     {
-      "filename": "donut.ts",
+      "filename": "nobel-prize.ts",
       "title": {
         "zh": "星空诺贝尔奖",
-        "en": "Trend plot(custom marker)"
+        "en": "Noble Prize Visual"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U2mPQLoxIR4AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*p7zKQpUrF98AAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

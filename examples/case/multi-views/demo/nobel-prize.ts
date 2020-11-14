@@ -203,7 +203,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
               label: {
                 labelEmit: true,
                 content: ({ year }) => {
-                  return year === '1901' || Number(year) % 10 === 0 ? year : '-';
+                  return year === 1901 || Number(year) % 10 === 0 ? year : year === 2015 ? '' : '-';
                 },
               },
               mapping: {

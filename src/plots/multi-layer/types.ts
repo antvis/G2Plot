@@ -3,6 +3,7 @@ import { Data, Meta, Options, Region, Tooltip } from '../../types';
 import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
 import { Geometry } from '../../adaptor/geometries/base';
+import { Annotation } from '../../types/annotation';
 
 /**
  * geometry 映射信息
@@ -44,6 +45,11 @@ export type IView = {
    * x,y  轴配置
    */
   readonly axes?: false | Record<string, Axis>;
+
+  /**
+   * annotation 配置
+   */
+  readonly annotations?: Annotation[];
 };
 
 /** 配置类型定义 */

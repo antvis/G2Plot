@@ -1,6 +1,7 @@
 import { Lab } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { partySupport } from '../../../data/party-support';
+import { annotation } from '../../../../src/adaptor/common';
 
 describe('multi-view', () => {
   it('simple line', () => {
@@ -63,6 +64,41 @@ describe('multi-view', () => {
     expect(line.chart.views[0].getXScale().tickCount).toBe(5);
     expect(line.chart.views[0].getYScales()[0].type).toBe('log');
     expect(line.chart.views[0].getYScales()[0].tickCount).toBe(3);
+
+    // [components] label
+    expect(line.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
+    const options = line.options;
+    // @ts-ignore
+    options.views[0].geometries[0].label = { content: () => 'hello' };
+    line.update(options);
+    expect(line.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(data.length);
+    // @ts-ignore
+    expect(line.chart.views[0].geometries[0].labelsContainer.getChildren()[0].getChildren()[0].attr('text')).toBe(
+      'hello'
+    );
+
+    // [components] annotations
+    // @ts-ignore
+    options.views[0].annotations = [{ type: 'text', content: 'G2Plot', position: ['50%', '50%'] }];
+    line.update(options);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(1);
+
+    // multi-views
+    options.views.push({
+      data,
+      geometries: [
+        {
+          type: 'interval',
+          xField: 'date',
+          yField: 'value',
+          colorField: 'type',
+          mapping: {},
+        },
+      ],
+      annotations: [{ type: 'text', content: 'view2', position: ['50%', '50%'] }],
+    });
+    line.update(options);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(2);
 
     line.destroy();
   });

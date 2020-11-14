@@ -17,4 +17,6 @@ export interface RadialBarOptions extends Options {
   readonly innerRadius?: number;
   /** 颜色字段 */
   readonly colorField?: string;
+  /** 类型 */
+  readonly type?: string;
 }

@@ -1,6 +1,8 @@
 import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
+import { Label } from '../../types/label';
+import { transformLabel } from '../../utils';
 
 /**
  * 图形映射属性，按照优先级来的
@@ -23,7 +25,7 @@ export type MappingOptions = {
  * // TODO 后续需要处理 adjust 的配置，然后通过 field 信息。比如 styleField，labelField 等一定是一个数组形式
  */
 export type Geometry = {
-  /** geometry 类型 */
+  /** geometry 类型, 'line' | 'interval' | 'point' | 'area' | 'polygon' */
   readonly type: string;
   /** x 轴字段 */
   readonly xField?: string;
@@ -44,6 +46,8 @@ export type Geometry = {
   /** 图形映射规则 */
   readonly mapping: MappingOptions;
   /** geometry params */
+  /** label 通道 */
+  readonly label?: Label;
   readonly args?: any;
 };
 
@@ -115,7 +119,7 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields, label } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -188,7 +192,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   }
 
   /**
-   * tooltip 的 APi
+   * tooltip 的 API
    * g.tooltip('x*y*color', (x, y, color) => ({ name, value }));
    * g.tooltip(false);
    */
@@ -196,6 +200,20 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     geometry.tooltip(false);
   } else if (!isEmpty(tooltipFields)) {
     geometry.tooltip(tooltipFields.join('*'), getMappingFunction(tooltipFields, tooltip));
+  }
+
+  /**
+   * label 的映射
+   */
+  if (label === false) {
+    geometry.label(false);
+  } else if (label) {
+    const { callback, fields, ...cfg } = label;
+    geometry.label({
+      fields: fields || [yField],
+      callback,
+      cfg: transformLabel(cfg),
+    });
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

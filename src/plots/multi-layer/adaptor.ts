@@ -17,7 +17,7 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
   const { views, legend, tooltip } = options;
 
   each(views, (v: IView) => {
-    const { region, data, meta, axes, coordinate, geometries } = v;
+    const { region, data, meta, axes, coordinate, annotations, geometries } = v;
 
     // 1. 创建 view
     const viewOfG2 = chart.createView({
@@ -62,6 +62,13 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
       if (adjust) {
         ext.geometry.adjust(adjust);
       }
+    });
+
+    // 7. annotations
+    each(annotations, (annotation) => {
+      chart.annotation()[annotation.type]({
+        ...annotation,
+      });
     });
   });
 

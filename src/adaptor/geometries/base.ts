@@ -1,6 +1,8 @@
 import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
+import { Label } from '../../types/label';
+import { transformLabel } from '../../utils';
 
 /**
  * 图形映射属性，按照优先级来的
@@ -24,7 +26,7 @@ export type MappingOptions = {
  */
 export type Geometry = {
   /** geometry 类型 */
-  readonly type: string;
+  readonly type: 'line' | 'interval' | 'point' | 'area' | 'polygon';
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -44,6 +46,8 @@ export type Geometry = {
   /** 图形映射规则 */
   readonly mapping: MappingOptions;
   /** geometry params */
+  /** label 通道 */
+  readonly label?: Label;
   readonly args?: any;
 };
 
@@ -115,7 +119,7 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields, label } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -167,7 +171,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.color('size*x*y', (size, x, y) => 1-);
    */
   if (isNumber(size)) {
-    sizeField ? geometry.size(sizeField, size) : geometry.size(size);
+    sizeField ? geometry.size(sizeField, () => size) : geometry.size(size);
   } else if (isFunction(size)) {
     const mappingFields = getMappingField(options, 'size');
     geometry.size(mappingFields.join('*'), getMappingFunction(mappingFields, size));
@@ -188,7 +192,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   }
 
   /**
-   * tooltip 的 APi
+   * tooltip 的 API
    * g.tooltip('x*y*color', (x, y, color) => ({ name, value }));
    * g.tooltip(false);
    */
@@ -196,6 +200,20 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     geometry.tooltip(false);
   } else if (!isEmpty(tooltipFields)) {
     geometry.tooltip(tooltipFields.join('*'), getMappingFunction(tooltipFields, tooltip));
+  }
+
+  /**
+   * label 的映射
+   */
+  if (!label) {
+    geometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    geometry.label({
+      fields: [xField, yField].filter((f) => f !== undefined),
+      callback,
+      cfg: transformLabel(cfg),
+    });
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

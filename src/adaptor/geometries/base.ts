@@ -208,9 +208,9 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   if (label === false) {
     geometry.label(false);
   } else if (label) {
-    const { callback, ...cfg } = label;
+    const { callback, fields, ...cfg } = label;
     geometry.label({
-      fields: [yField],
+      fields: fields || [yField],
       callback,
       cfg: transformLabel(cfg),
     });

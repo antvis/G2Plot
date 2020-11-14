@@ -171,7 +171,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.color('size*x*y', (size, x, y) => 1-);
    */
   if (isNumber(size)) {
-    sizeField ? geometry.size(sizeField, () => size) : geometry.size(size);
+    sizeField ? geometry.size(sizeField, size) : geometry.size(size);
   } else if (isFunction(size)) {
     const mappingFields = getMappingField(options, 'size');
     geometry.size(mappingFields.join('*'), getMappingFunction(mappingFields, size));

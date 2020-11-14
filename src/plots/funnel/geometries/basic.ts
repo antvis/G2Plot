@@ -1,8 +1,10 @@
 import { map } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
+import { getTooltipMapping } from '../../../utils/tooltip';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
+import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
 import { geometryLabel, conversionTagComponent } from './common';
@@ -36,14 +38,28 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color } = options;
+  const { xField, yField, color, tooltip } = options;
 
-  chart
-    .interval()
-    .adjust('symmetric')
-    .position(`${xField}*${yField}*${FUNNEL_PERCENT}`)
-    .shape('funnel')
-    .color(xField, color);
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT]);
+
+  baseGeometry({
+    chart,
+    options: {
+      type: 'interval',
+      xField: xField,
+      yField: yField,
+      colorField: xField,
+      tooltipFields: fields,
+      mapping: {
+        shape: 'funnel',
+        tooltip: formatter,
+        color,
+      },
+    },
+  });
+
+  const geo = findGeometry(params.chart, 'interval');
+  geo.adjust('symmetric');
 
   return params;
 }
@@ -67,9 +83,7 @@ function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param params
  */
 function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart } = params;
-
-  geometryLabel(findGeometry(chart, 'interval'))(params);
+  geometryLabel(findGeometry(params.chart, 'interval'))(params);
 
   return params;
 }

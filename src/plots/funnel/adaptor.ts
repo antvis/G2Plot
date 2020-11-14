@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, scale, annotation, tooltip as common } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
@@ -20,22 +20,32 @@ import { dynamicHeightFunnel } from './geometries/dynamic-height';
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, label } = options;
-  let compareOptions = {};
-  if (compareField) {
-    compareOptions = {
+  const { compareField, dynamicHeight, xField, yField } = options;
+  let additionalOption = {};
+  if (dynamicHeight) {
+    additionalOption = {
+      tooltip: {
+        itemTpl:
+          '<li class="g2-tooltip-list-item" data-index={index}>' +
+          '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
+          `<span class="g2-tooltip-name">{${xField}}</span>` +
+          `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
+      },
+    };
+  } else if (compareField) {
+    additionalOption = {
       appendPadding: [50, 50, 0, 50],
-      label: label && {
+      label: {
         callback: (xField, yField) => ({
           content: `${yField}`,
         }),
-        ...label,
       },
     };
   }
+
   return deepAssign({}, params, {
     options: {
-      ...compareOptions,
+      ...additionalOption,
       ...options,
     },
   });
@@ -103,26 +113,18 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
- * tooltip 配置
+ * tooltip
  * @param params
  */
-export function tooltip(params: Params<FunnelOptions>): Params<FunnelOptions> {
+function tooltip(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { tooltip, dynamicHeight, xField, yField } = options;
-  let tranformTooltip = tooltip;
-  if (tooltip && dynamicHeight) {
-    tranformTooltip = {
-      itemTpl:
-        '<li class="g2-tooltip-list-item" data-index={index}>' +
-        '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-        `<span class="g2-tooltip-name">{${xField}}</span>` +
-        `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
-      ...tooltip,
-    };
-  }
+  const { legend } = options;
 
-  if (tranformTooltip !== undefined) {
-    chart.tooltip(tranformTooltip);
+  if (legend === false) {
+    chart.legend(false);
+  } else {
+    chart.legend(legend);
+    // TODO FIX: legend-click 时间和转化率组件之间的关联
   }
 
   return params;

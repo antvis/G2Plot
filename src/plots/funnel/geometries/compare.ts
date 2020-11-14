@@ -3,6 +3,8 @@ import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
+import { getTooltipMapping } from '../../../utils/tooltip';
+import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT } from '../constant';
 import { geometryLabel, conversionTagComponent } from './common';
@@ -46,7 +48,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, compareField, isTransposed } = options;
+  const { xField, yField, color, compareField, isTransposed, tooltip } = options;
 
   chart.facet('mirror', {
     fields: [compareField],
@@ -61,9 +63,26 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
         });
       }
       // 绘制图形
-      view.interval().position(`${xField}*${yField}*${FUNNEL_PERCENT}`).shape('funnel').color(xField, color).style({
-        lineWidth: 1,
-        stroke: '#fff',
+      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT]);
+
+      baseGeometry({
+        chart: view,
+        options: {
+          type: 'interval',
+          xField: xField,
+          yField: yField,
+          colorField: xField,
+          tooltipFields: fields,
+          mapping: {
+            shape: 'funnel',
+            tooltip: formatter,
+            color,
+            style: {
+              lineWidth: 1,
+              stroke: '#fff',
+            },
+          },
+        },
       });
     },
   });

@@ -25,8 +25,8 @@ export type MappingOptions = {
  * // TODO 后续需要处理 adjust 的配置，然后通过 field 信息。比如 styleField，labelField 等一定是一个数组形式
  */
 export type Geometry = {
-  /** geometry 类型 */
-  readonly type: 'line' | 'interval' | 'point' | 'area' | 'polygon';
+  /** geometry 类型, 'line' | 'interval' | 'point' | 'area' | 'polygon' */
+  readonly type: string;
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -205,12 +205,12 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   /**
    * label 的映射
    */
-  if (!label) {
+  if (label === false) {
     geometry.label(false);
-  } else {
+  } else if (label) {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: [xField, yField].filter((f) => f !== undefined),
+      fields: [yField],
       callback,
       cfg: transformLabel(cfg),
     });

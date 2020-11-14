@@ -13,7 +13,7 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { bulletStyle, targetField, rangeField, measureField, xField, color, layout, size } = options;
+  const { bulletStyle, targetField, rangeField, measureField, xField, color, layout, size, label } = options;
   // 处理数据
   const { min, max, ds } = transformData(options);
 
@@ -41,6 +41,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       yField: rangeField,
       seriesField: 'rKey',
       isStack: true,
+      label: get(label, 'range'),
       interval: {
         color: get(color, 'range'),
         style: get(bulletStyle, 'range'),
@@ -59,6 +60,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       yField: measureField,
       seriesField: 'mKey',
       isStack: true,
+      label: get(label, 'measure'),
       interval: {
         color: get(color, 'measure'),
         style: get(bulletStyle, 'measure'),
@@ -74,6 +76,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       xField: xField,
       yField: targetField,
       seriesField: 'tKey',
+      label: get(label, 'target'),
       point: {
         color: get(color, 'target'),
         style: get(bulletStyle, 'target'),

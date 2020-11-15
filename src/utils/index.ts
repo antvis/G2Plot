@@ -10,3 +10,4 @@ export { getSplinePath } from './path';
 export { deepAssign } from './deep-assign';
 export { kebabCase } from './kebab-case';
 export { renderStatistic, renderGaugeStatistic } from './statistic';
+export { measureTextWidth } from './measure-text';

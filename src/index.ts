@@ -85,7 +85,7 @@ export { Sunburst, SunburstOptions } from './plots/sunburst';
 // 仪表盘及类型定义 | author by [hustcc](https://github.com/hustcc)
 export { Gauge, GaugeOptions } from './plots/gauge';
 
-// 瀑布图 | author by [hustcc](https://github.com/me-momo)
+// 瀑布图 | author by [Me-momo](https://github.com/me-momo)
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
 // 玉珏图 | author by [yujs](https://github.com/yujs)
@@ -97,8 +97,8 @@ export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
-/** 开发 adaptor 可能会用到 flow 方法，不强制使用 */
-export { flow } from './utils';
+/** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
+export { flow, measureTextWidth } from './utils';
 /** 各个 geometry 的 adaptor，可以让开发者更快的构造图形 */
 export { line, interval, area, point, polygon } from './adaptor/geometries';
 

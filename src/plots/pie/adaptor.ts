@@ -186,7 +186,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
         return metaFormatter ? metaFormatter(dataValue) : dataValue;
       };
     }
-    renderStatistic(chart, { statistic });
+    renderStatistic(chart, { statistic, plotType: 'pie' });
   }
 
   return params;

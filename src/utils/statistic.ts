@@ -1,4 +1,5 @@
 import { View } from '@antv/g2';
+import { IGroup } from '@antv/g2/lib/dependents';
 import { each, get, isNumber, isFunction, isString } from '@antv/util';
 import { Datum, ShapeStyle, Statistic, StatisticText } from '../types';
 import { pick, kebabCase } from '.';
@@ -14,6 +15,9 @@ export function adapteStyle(style?: StatisticText['style']): object {
     overflow: 'hidden',
     'white-space': 'nowrap',
     'text-overflow': 'ellipsis',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   const shapeStyleKeys = [
@@ -76,8 +80,8 @@ export function setStatisticContainerStyle(container: HTMLElement, style: Partia
  * @param meta 字段元信息
  * @param {optional} datum 当前的元数据
  */
-export const renderStatistic = (chart: View, options: { statistic: Statistic }, datum?: Datum) => {
-  const { statistic } = options;
+export const renderStatistic = (chart: View, options: { statistic: Statistic; plotType: string }, datum?: Datum) => {
+  const { statistic, plotType } = options;
   const { title: titleOpt, content: contentOpt } = statistic;
 
   [titleOpt, contentOpt].forEach((option, idx) => {
@@ -97,9 +101,22 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic }, 
       position: ['50%', '50%'],
       html: (container, view) => {
         const coordinate = view.getCoordinate();
-        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
+        let containerW = 0;
+        if (plotType === 'pie' || plotType === 'ring-progress') {
+          containerW = coordinate.getRadius() * coordinate.innerRadius * 2;
+        } else if (plotType === 'liquid') {
+          const liquidShape = get(view.geometries, [0, 'elements', 0, 'shape']);
+          if (liquidShape) {
+            const circle = (liquidShape as IGroup).find((t) => t.get('type') === 'circle');
+            const { width } = circle.getCanvasBBox();
+            containerW = width;
+          }
+        } else if (!containerW) {
+          // 保底方案
+          containerW = coordinate.getWidth();
+        }
         setStatisticContainerStyle(container, {
-          width: `${containerWidth}px`,
+          width: `${containerW}px`,
           transform,
           // user's style setting has high priority
           ...adapteStyle(style),

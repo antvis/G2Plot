@@ -72,7 +72,7 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
       metaFormatter ? metaFormatter(percent) : `${(percent * 100).toFixed(2)}%`;
   }
 
-  renderStatistic(chart, { statistic }, { percent });
+  renderStatistic(chart, { statistic, plotType: 'liquid' }, { percent });
 
   return params;
 }

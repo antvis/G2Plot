@@ -159,16 +159,6 @@ describe('中心文本 - 指标卡', () => {
     expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
   });
 
-  afterEach(() => {
-    pie.chart.clear();
-  });
-
-  afterAll(() => {
-    pie.destroy();
-  });
-});
-
-describe('statistic', () => {
   it('总计值为空', () => {
     const pie = new Pie(createDiv(), {
       ...config,
@@ -230,61 +220,6 @@ describe('statistic', () => {
     pie.destroy();
   });
 
-  it('自定义中心文本内容: title & content', () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
-      innerRadius: 0.64,
-      statistic: {
-        title: {
-          formatter: () => '总计',
-        },
-        content: {
-          formatter: () => 'test\ntest',
-          rotate: (30 / 180) * Math.PI,
-        },
-      },
-    });
-
-    pie.render();
-
-    const annotations = getAnnotations(pie.chart);
-    expect(annotations.length).toBeGreaterThan(0);
-    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
-    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
-    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('test test');
-
-    pie.destroy();
-  });
-
-  it('自定义中心文本样式: 兼容 shapeStyle', () => {
-    const pie = new Pie(createDiv(), {
-      ...config,
-      innerRadius: 0.64,
-      statistic: {
-        title: {
-          formatter: () => '',
-          // @ts-ignore
-          style: { fill: 'red' },
-        },
-        content: {
-          // @ts-ignore
-          style: { fill: 'pink' },
-        },
-      },
-    });
-
-    pie.render();
-    const annotations = getAnnotations(pie.chart);
-    expect(annotations.length).toBe(2);
-    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
-    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('' /** 中心文本指标卡，默认title */);
-    expect(annotations[0].extra.key).toBe('top-statistic');
-    expect(annotations[0].extra.style).toMatchObject({ fill: 'red' });
-    expect(annotations[1].extra.style).toMatchObject({ fill: 'pink' });
-
-    pie.destroy();
-  });
-
   it('自定义中心文本内容: title & content, 动态数据', () => {
     const totalValue = config.data.reduce((a, b) => a + b.value, 0);
     const pie = new Pie(createDiv(), {
@@ -313,6 +248,33 @@ describe('statistic', () => {
       expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test\ntest ${totalValue}`);
     }, 50);
 
+    pie.destroy();
+  });
+
+  it('customHtml 容器的宽度', () => {
+    pie.update({ innerRadius: 0.8 });
+    let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(pie.chart.getCoordinate().getRadius() * 0.8 * 2);
+    // @ts-ignore
+    expect(htmlAnnotations[0].style.width).toEqual(`${pie.chart.getCoordinate().getRadius() * 0.8 * 2}px`);
+
+    // 开发者可以覆盖
+    pie.update({ statistic: { title: { style: { width: '500px' } } } });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(500);
+
+    pie.update({ statistic: { title: { style: { minWidth: '600px' } } } });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    // @ts-ignore
+    expect(htmlAnnotations[0].style.width).toEqual('500px');
+    expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(600);
+  });
+
+  afterEach(() => {
+    pie.chart.clear();
+  });
+
+  afterAll(() => {
     pie.destroy();
   });
 });

@@ -44,7 +44,11 @@ function statistic(params: Params<RingProgressOptions>): Params<RingProgressOpti
         return percent;
       };
     }
-    renderStatistic(chart, { statistic: { ...statistic, content: transformContent } }, { percent });
+    renderStatistic(
+      chart,
+      { statistic: { ...statistic, content: transformContent }, plotType: 'ring-progress' },
+      { percent }
+    );
   }
 
   return params;

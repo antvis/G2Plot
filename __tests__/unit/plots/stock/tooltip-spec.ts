@@ -31,7 +31,7 @@ describe('Stock tooltip', () => {
   });
 
   it('tooltip: options', () => {
-    const k = new Stock(createDiv('Stock tooltip'), {
+    const k = new Stock(createDiv('tooltip: options'), {
       width: 400,
       height: 500,
       data: kdata,
@@ -61,8 +61,8 @@ describe('Stock tooltip', () => {
     k.destroy();
   });
 
-  it('tooltip: itemTpl options', () => {
-    const k = new Stock(createDiv('itemTpl options'), {
+  it('tooltip: custom itemTpl', () => {
+    const k = new Stock(createDiv('custom itemTpl'), {
       width: 400,
       height: 500,
       data: kdata,
@@ -70,7 +70,7 @@ describe('Stock tooltip', () => {
       yField: ['start', 'end', 'max', 'min'],
       tooltip: {
         itemTpl:
-          '<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;">' +
+          '<li class="g2-tooltip-list-item custom-item-tpl" data-index={index} style="margin-bottom:4px;">' +
           '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
           '<span class="itemTpl">{name}: </span>' +
           '{value}' +
@@ -84,10 +84,42 @@ describe('Stock tooltip', () => {
     const elements = geometry.elements;
     const bbox = elements[elements.length - 1].getBBox();
 
-    // 正常渲染
+    // 渲染自定义itemTpl
+    k.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
+    expect(document.getElementsByClassName('custom-item-tpl')[0].innerHTML).not.toBeNull();
+
+    k.destroy();
+  });
+
+  it('tooltip:  change the configuration && operation', () => {
+    const k = new Stock(createDiv('change the configuration && operation'), {
+      width: 400,
+      height: 500,
+      data: kdata,
+      xField: 'date',
+      yField: ['start', 'end', 'max', 'min'],
+    });
+
+    k.render();
+
+    const geometry = k.chart.geometries[0];
+    const elements = geometry.elements;
+    const bbox = elements[elements.length - 1].getBBox();
+
+    // 正常渲染某个元素tooltip
     k.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(document.getElementsByClassName('itemTpl')[0].innerHTML).not.toBeNull();
 
+    // 设置hide
+    k.update({
+      ...k.options,
+      tooltip: false,
+    });
+    // @ts-ignore
+    expect(k.chart.options.tooltip).toBe(false);
+    expect(k.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
+
     k.destroy();
+
   });
 });

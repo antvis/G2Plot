@@ -13,6 +13,7 @@ const gauge = new Gauge('container', {
       offsetY: -36,
       style: {
         fontSize: '36px',
+        color: '#4B535E',
       },
       formatter: () => '70%',
     },

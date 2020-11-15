@@ -8,6 +8,12 @@ const ringProgress = new RingProgress('container', {
   color: ['#F4664A', '#E8EDF3'],
   innerRadius: 0.85,
   radius: 0.98,
+  statistic: {
+    title: {
+      style: { color: '#363636', fontSize: '12px', lineHeight: '14px' },
+      formatter: () => '进度',
+    },
+  },
 });
 
 ringProgress.render();

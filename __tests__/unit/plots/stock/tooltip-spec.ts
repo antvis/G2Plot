@@ -2,9 +2,6 @@ import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 
-import { DEFAULT_TOOLTIP_OPTIONS } from '../../../../src/plots/stock/constant';
-import { pick } from '../../../../src/utils';
-
 describe('Stock tooltip', () => {
   it('tooltip: default options', () => {
     const k = new Stock(createDiv('default tooltip'), {
@@ -16,8 +13,6 @@ describe('Stock tooltip', () => {
     });
 
     k.render();
-    // @ts-ignore
-    expect(pick(k.chart.options.tooltip, Object.keys(DEFAULT_TOOLTIP_OPTIONS))).toEqual(DEFAULT_TOOLTIP_OPTIONS);
     // @ts-ignore
     expect(k.chart.options.tooltip.shared).toBe(true);
     // @ts-ignore
@@ -75,6 +70,21 @@ describe('Stock tooltip', () => {
           '<span class="itemTpl">{name}: </span>' +
           '{value}' +
           '</li>',
+        crosshairs: {
+          type: 'xy',
+          follow: true,
+          text: (
+            type, // 对应当前 crosshairs 的类型，值为 'x' 或者 'x'
+            defaultContent, // 对应当前 crosshairs 默认的文本内容
+            items, // 对应当前 tooltip 内容框中的数据
+            currentPoint // 对应当前坐标点
+          ) => {
+            console.log(type, defaultContent, items, currentPoint);
+            return {
+              content: 'a',
+            };
+          },
+        },
       },
     });
 
@@ -108,7 +118,7 @@ describe('Stock tooltip', () => {
 
     // 正常渲染某个元素tooltip
     k.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(document.getElementsByClassName('itemTpl')[0].innerHTML).not.toBeNull();
+    expect(document.getElementsByClassName('g2-tooltip-list-item')[0].innerHTML).not.toBeNull();
 
     // 设置hide
     k.update({
@@ -120,6 +130,5 @@ describe('Stock tooltip', () => {
     expect(k.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
 
     k.destroy();
-
   });
 });

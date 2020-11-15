@@ -40,7 +40,7 @@
     "lint": "eslint --ext .ts ./src ./__tests__ && prettier --check ./src ./__tests__ && lint-md ./examples ./docs",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
+    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__/unit/plots/stock",
     "coverage": "jest --coverage",
     "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",

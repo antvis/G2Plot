@@ -104,8 +104,10 @@ function axis(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
 
   if (yAxis === false) {
     chart.axis(yField, false);
+    chart.axis(Y_FIELD, false);
   } else {
     chart.axis(yField, yAxis);
+    chart.axis(Y_FIELD, yAxis);
   }
 
   return params;

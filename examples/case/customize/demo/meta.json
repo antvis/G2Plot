@@ -7,6 +7,14 @@
     {
       "filename": "basic.ts",
       "title": {
+        "zh": "趋势图(自定义marker)",
+        "en": "Trend plot(custom marker)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U2mPQLoxIR4AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "customize-tooltip.ts",
+      "title": {
         "zh": "自定义 Tooltip",
         "en": "Custom tooltip"
       },

@@ -1,23 +1,4 @@
-import { Pie } from '@antv/g2plot';
-import { isString, memoize, values } from '@antv/util';
-
-const ctx = document.createElement('canvas').getContext('2d');
-/**
- * 计算文本在画布中的宽度
- */
-const measureTextWidth = memoize(
-  (text, font) => {
-    const { fontSize, fontFamily = 'sans-serif', fontWeight, fontStyle, fontVariant } = font;
-    // @see https://developer.mozilla.org/zh-CN/docs/Web/CSS/font
-    ctx.font = [fontStyle, fontWeight, fontVariant, `${fontSize}px`, fontFamily].join(' ');
-    const metrics = ctx.measureText(isString(text) ? text : '');
-    return {
-      width: metrics.width,
-      height: Math.abs(metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent),
-    };
-  },
-  (text, font) => [text, ...values(font)].join('')
-);
+import { Pie, measureTextWidth } from '@antv/g2plot';
 
 function renderStatistic(containerWidth, text, style) {
   const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
@@ -65,12 +46,10 @@ const piePlot = new Pie('container', {
     title: {
       offsetY: -4,
       customHtml: (container, view, datum) => {
-        const coordinate = view.getCoordinate();
-        const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-        container.style['width'] = `${containerWidth}px`;
-
+        const { width, height } = container.getBoundingClientRect();
+        const d = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
         const text = datum ? datum.type : '总计';
-        return renderStatistic(containerWidth, text, { fontSize: 28 });
+        return renderStatistic(d, text, { fontSize: 28 });
       },
     },
     content: {

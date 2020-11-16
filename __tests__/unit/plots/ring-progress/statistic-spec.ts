@@ -52,6 +52,27 @@ describe('ringProgress statistic', () => {
     expect((annotations[0] as HTMLElement).innerText).toBe('测试');
   });
 
+  it('customHtml 容器的宽度', () => {
+    ringProgress.update({ innerRadius: 0.8 });
+    let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(
+      ringProgress.chart.getCoordinate().getRadius() * 0.8 * 2
+    );
+
+    // 开发者可以覆盖
+    ringProgress.update({ statistic: { title: { style: { width: '400px' } } } });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(400);
+    // @ts-ignore
+    expect(htmlAnnotations[0].style.width).toEqual('400px');
+
+    ringProgress.update({ statistic: { title: { style: { minWidth: '600px' } } } });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    // @ts-ignore
+    expect(htmlAnnotations[0].style.width).toEqual('400px');
+    expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(600);
+  });
+
   afterAll(() => {
     ringProgress.destroy();
   });

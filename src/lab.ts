@@ -1,4 +1,4 @@
-import { MultiView } from './plots/multi-layer';
+import { MultiView } from './plots/multi-view';
 
 /** 实验室图表所处的阶段 */
 export enum Stage {

@@ -28,12 +28,21 @@ describe('waterfall components', () => {
   });
 
   it('tooltip', () => {
+    const tooltipController = waterfall.chart.getController('tooltip');
+    // @ts-ignore
+    expect(tooltipController.getTooltipCfg().showMarkers).toBe(false);
     waterfall.update({
       tooltip: {
         title: 'hello world',
+        showMarkers: true,
       },
     });
-    // 默认不展示
+    // @ts-ignore
+    expect(tooltipController.getTooltipCfg().showMarkers).toBe(true);
+    // @ts-ignore
+    expect(waterfall.chart.geometries[0].tooltipOption.fields[0]).toBe(
+      'sales'
+    ) /** 默认使用用户定义 yField 展示 tooltip */;
     // @ts-ignore
     expect(waterfall.chart.options.tooltip.title).toBe('hello world');
     waterfall.update({

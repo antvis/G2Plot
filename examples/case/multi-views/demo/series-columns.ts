@@ -9,7 +9,7 @@ const data = [
   { area: 'West', value: 0.316 },
 ];
 
-const defaultGrey = '#A6A6A6';
+const defaultGrey = '#BFBFBF';
 const semanticGreen = '#30BF78'; /** 语义绿 */
 
 // Step 2: 创建图表
@@ -147,7 +147,7 @@ const labPlot = new Lab.MultiView('container', {
           label: {
             offsetX: -8,
             position: 'left',
-            style: { fill: '#fff', fontSize: 10 },
+            style: { fill: '#fff', fontSize: 12 },
             formatter: ({ area, value }) => {
               return `${area}\n${(value * 100).toFixed(1)}%`;
             },

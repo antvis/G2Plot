@@ -81,7 +81,7 @@ describe('multi-view', () => {
     // @ts-ignore
     options.views[0].annotations = [{ type: 'text', content: 'G2Plot', position: ['50%', '50%'] }];
     line.update(options);
-    expect(line.chart.getController('annotation').getComponents().length).toBe(1);
+    expect(line.chart.views[0].getController('annotation').getComponents().length).toBe(1);
 
     // multi-view
     options.views.push({
@@ -98,7 +98,7 @@ describe('multi-view', () => {
       annotations: [{ type: 'text', content: 'view2', position: ['50%', '50%'] }],
     });
     line.update(options);
-    expect(line.chart.getController('annotation').getComponents().length).toBe(2);
+    expect(line.chart.views[1].getController('annotation').getComponents().length).toBe(1);
 
     line.destroy();
   });

@@ -83,7 +83,7 @@ describe('multi-view', () => {
     line.update(options);
     expect(line.chart.getController('annotation').getComponents().length).toBe(1);
 
-    // multi-views
+    // multi-view
     options.views.push({
       data,
       geometries: [

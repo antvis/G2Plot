@@ -26,7 +26,7 @@ const piePlot = new Pie('container', {
     offset: '-50%',
     autoRotate: false,
     style: { textAlign: 'center' },
-    formatter: ({ percent }) => `${percent * 100}%`,
+    formatter: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
   },
   statistic: {
     title: {

@@ -47,6 +47,15 @@ export class Waterfall extends Plot<WaterfallOptions> {
       waterfallStyle: {
         fill: 'rgba(0, 0, 0, 0.25)',
       },
+      yAxis: {
+        grid: {
+          line: {
+            style: {
+              lineDash: [4, 2],
+            },
+          },
+        },
+      },
     };
   }
 }

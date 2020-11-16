@@ -66,7 +66,7 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
 
     // 7. annotations
     each(annotations, (annotation) => {
-      chart.annotation()[annotation.type]({
+      viewOfG2.annotation()[annotation.type]({
         ...annotation,
       });
     });

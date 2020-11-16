@@ -51,17 +51,9 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
     const labChart = new Lab.MultiView('container', {
       height: 500,
       padding: 'auto',
-      theme: 'dark',
       appendPadding: [20, 0, 20, 0],
       legend: {
         type: { position: 'bottom' },
-      },
-      tooltip: {
-        domStyles: {
-          'g2-tooltip-list-item': {
-            color: '#fff',
-          },
-        },
       },
       views: [
         {

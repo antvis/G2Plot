@@ -5,14 +5,18 @@ const colors = ['#5B8FF9', '#5AD8A6', '#5D7092'];
 
 fetch('https://gw.alipayobjects.com/os/bmw-prod/5a209bb2-ee85-412f-a689-cdb16159a459.json')
   .then((data) => data.json())
+  .then((data) =>
+    data.filter((d) => ['United States', 'France', 'Germany', 'Austria', 'Japan', 'Sweden'].includes(d.country))
+  )
   .then((data) => {
     const line = new Line('container', {
       padding: 'auto',
-      appendPadding: [60, 10, 0, 10],
+      appendPadding: [40, 10, 0, 10],
       data,
       xField: 'year',
       yField: 'value',
       seriesField: 'country',
+      smooth: true,
       lineStyle: ({ country }) => {
         const importantCountries = ['United States', 'France', 'Germany'];
         const idx = importantCountries.indexOf(country);

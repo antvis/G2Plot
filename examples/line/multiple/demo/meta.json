@@ -29,20 +29,12 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "color-callback.ts",
+      "filename": "style-callback.ts",
       "title": {
-        "zh": "通过回调函数指定折线颜色",
-        "en": "Set line color through callback function"
+        "zh": "通过回调函数指定折线样式",
+        "en": "Set line style through callback function"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*iHQDSZ9g2fQAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "line-style.ts",
-      "title": {
-        "zh": "指定折线样式",
-        "en": "Setting line style"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0etXTq2LGU0AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "marker-active.ts",

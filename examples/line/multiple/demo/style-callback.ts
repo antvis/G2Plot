@@ -15,7 +15,18 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/c48dbbb1-fccf-4a46-b68f-a3ddb490
       },
       seriesField: 'type',
       color: ({ type }) => {
-        return type === 'register' ? '#2498D1' : type === 'download' ? '#BBBDE6' : '#4045B2';
+        return type === 'register' ? '#F4664A' : type === 'download' ? '#30BF78' : '#FAAD14';
+      },
+      lineStyle: ({ type }) => {
+        if (type === 'register') {
+          return {
+            lineDash: [4, 4],
+            opacity: 1,
+          };
+        }
+        return {
+          opacity: 0.5,
+        };
       },
     });
 

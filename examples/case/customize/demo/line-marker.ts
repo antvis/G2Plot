@@ -130,7 +130,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/314fb8c6-e4ca-450d-8a80-0cab2e8a
           },
         },
       },
-      interactions: [{ type: 'brush' }, { type: 'marker-active' }],
+      interactions: [{ type: 'marker-active' }],
     });
 
     line.render();

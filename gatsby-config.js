@@ -99,6 +99,22 @@ module.exports = {
         },
       },
       {
+        slug: 'pie',
+        icon: 'pie',
+        title: {
+          zh: '饼图',
+          en: 'Pie',
+        },
+      },
+      {
+        slug: 'gauge',
+        icon: 'gauge',
+        title: {
+          zh: '仪表盘',
+          en: 'Gauge',
+        },
+      },
+      {
         slug: 'bar',
         icon: 'bar',
         title: {
@@ -107,11 +123,11 @@ module.exports = {
         },
       },
       {
-        slug: 'pie',
-        icon: 'pie',
+        slug: 'waterfall',
+        icon: 'column',
         title: {
-          zh: '饼图',
-          en: 'Pie',
+          zh: '瀑布图',
+          en: 'Waterfall Charts',
         },
       },
       {
@@ -136,6 +152,14 @@ module.exports = {
         title: {
           zh: '雷达图',
           en: 'Radar',
+        },
+      },
+      {
+        slug: 'liquid',
+        icon: 'other',
+        title: {
+          zh: '水波图',
+          en: 'Liquid',
         },
       },
       {
@@ -171,14 +195,6 @@ module.exports = {
         },
       },
       {
-        slug: 'liquid',
-        icon: 'other',
-        title: {
-          zh: '水波图',
-          en: 'Liquid',
-        },
-      },
-      {
         slug: 'rose',
         icon: 'rose',
         title: {
@@ -192,22 +208,6 @@ module.exports = {
         title: {
           zh: '迷你图',
           en: 'Tiny Charts',
-        },
-      },
-      {
-        slug: 'gauge',
-        icon: 'gauge',
-        title: {
-          zh: '仪表盘',
-          en: 'Gauge',
-        },
-      },
-      {
-        slug: 'waterfall',
-        icon: 'column',
-        title: {
-          zh: '瀑布图',
-          en: 'Waterfall Charts',
         },
       },
       {

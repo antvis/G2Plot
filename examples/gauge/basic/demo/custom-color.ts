@@ -3,8 +3,8 @@ import { Gauge } from '@antv/g2plot';
 const gauge = new Gauge('container', {
   percent: 0.75,
   range: {
-    ticks: [0, 1],
-    color: ['l(0) 0:#F4664A 0.5:#FAAD14 1:#30BF78'],
+    ticks: [0, 1 / 3, 2 / 3, 1],
+    color: ['#F4664A', '#FAAD14', '#30BF78'],
   },
   indicator: {
     pointer: {

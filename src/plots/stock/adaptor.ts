@@ -94,7 +94,7 @@ export function axis(params: Params<StockOptions>): Params<StockOptions> {
  */
 export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
-  const { xField, yField, meta = {}, tooltip = false } = options;
+  const { xField, yField, meta = {}, tooltip = {} } = options;
   const geometry = findGeometry(chart, 'schema');
 
   const [open, close, high, low] = yField;
@@ -104,6 +104,7 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
   const highAlias = meta[high] ? meta[high].alias || high : high;
   const lowAlias = meta[low] ? meta[low].alias || low : low;
 
+  // geom级别tooltip
   const baseGeomTooltipOptions = {
     fields: [xField, open, close, high, low],
     callback: (xFieldVal, openVal, closeVal, highVal, lowVal) => {
@@ -120,9 +121,26 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
     },
   };
 
+  // chart级别tooltip， text格式化显示内容
+  const baseTooltipOptions = {
+    crosshairs: {
+      text: (type, defaultContent, items) => {
+        const tooltipCrosshairsText = { position: 'end' };
+        if (type === 'x') {
+          const item = items[0];
+          tooltipCrosshairsText['content'] = item ? item.data[xField] : defaultContent;
+        } else {
+          tooltipCrosshairsText['content'] = defaultContent;
+        }
+        return tooltipCrosshairsText;
+      },
+    },
+  };
+
   if (tooltip) {
     if (isObject(tooltip)) {
-      chart.tooltip(tooltip);
+      const chartTooltip = deepAssign({}, baseTooltipOptions, tooltip);
+      chart.tooltip(chartTooltip);
       geometry.tooltip(baseGeomTooltipOptions);
     }
   } else {

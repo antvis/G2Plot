@@ -15,7 +15,6 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
   crosshairs: {
     type: 'xy',
     follow: true,
-    text: { position: 'end' },
   },
   itemTpl:
     '<li class="g2-tooltip-list-item" data-index={index}>' +

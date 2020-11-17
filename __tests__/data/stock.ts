@@ -1,7 +1,7 @@
 export const kdata = [
   { date: '2015-11-19', start: 8.18, max: 8.33, min: 7.98, end: 8.32, volumn: 1810, money: 14723.56 },
   { date: '2015-11-18', start: 8.37, max: 8.6, min: 8.03, end: 8.09, volumn: 2790.37, money: 23309.19 },
-  { date: '015-11-17', start: 8.7, max: 8.78, min: 8.32, end: 8.37, volumn: 3729.04, money: 31709.71 },
+  { date: '2015-11-17', start: 8.7, max: 8.78, min: 8.32, end: 8.37, volumn: 3729.04, money: 31709.71 },
   { date: '2015-11-16', start: 8.18, max: 8.69, min: 8.05, end: 8.62, volumn: 3095.44, money: 26100.69 },
   { date: '2015-11-13', start: 8.01, max: 8.75, min: 7.97, end: 8.41, volumn: 5815.58, money: 48562.37 },
   { date: '2015-11-12', start: 7.76, max: 8.18, min: 7.61, end: 8.15, volumn: 4742.6, money: 37565.36 },

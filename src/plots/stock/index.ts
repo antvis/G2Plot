@@ -5,6 +5,7 @@ import { StockOptions } from './types';
 import { adaptor } from './adaptor';
 
 import { DEFAULT_TOOLTIP_OPTIONS } from './constant';
+
 export { StockOptions };
 
 export class Stock extends Plot<StockOptions> {

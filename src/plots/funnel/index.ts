@@ -1,5 +1,4 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { FunnelOptions } from './types';
 import { adaptor } from './adaptor';
@@ -16,7 +15,7 @@ export class Funnel extends Plot<FunnelOptions> {
   protected getDefaultOptions(): Partial<FunnelOptions> {
     // 由于不同漏斗图 defaultOption 有部分逻辑不同，此处仅处理 core.getDefaultOptions 覆盖范围，funnel 的 defaulOption 为不分散逻辑统一写到 adaptor 的 defaultOption 中
     return {
-      appendPadding: [0, 50],
+      appendPadding: [0, 80],
     };
   }
 

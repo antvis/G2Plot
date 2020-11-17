@@ -27,15 +27,6 @@ const funnelPlot = new Funnel('container', {
       formatter: (v) => `${v}次`,
     },
   },
-  conversionTag: {
-    offsetX: 10,
-    offsetY: 0,
-    style: {
-      fill: '#666',
-      fontSize: 12,
-    },
-    formatter: (data) => `转化率${(data.$$percentage$$ * 100).toFixed(2)}%`,
-  },
   legend: false,
 });
 funnelPlot.render();

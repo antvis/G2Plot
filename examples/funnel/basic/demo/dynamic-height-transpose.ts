@@ -14,6 +14,7 @@ const funnelPlot = new Funnel('container', {
   yField: 'number',
   dynamicHeight: true,
   isTransposed: true,
+  legend: false,
 });
 
 funnelPlot.render();

@@ -61,6 +61,8 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
 
   // 将 waterfall leaderLineCfg 传入到自定义 shape 中
   geometry.customInfo({ leaderLine });
+  // 瀑布图默认以 yField 作为 tooltip 内容
+  geometry.tooltip(yField);
 
   return params;
 }
@@ -104,8 +106,10 @@ function axis(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
 
   if (yAxis === false) {
     chart.axis(yField, false);
+    chart.axis(Y_FIELD, false);
   } else {
     chart.axis(yField, yAxis);
+    chart.axis(Y_FIELD, yAxis);
   }
 
   return params;
@@ -193,7 +197,7 @@ export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptio
   const { chart, options } = params;
   const { tooltip, yField } = options;
 
-  if (tooltip) {
+  if (tooltip !== false) {
     chart.tooltip({
       showCrosshairs: false,
       showMarkers: false,

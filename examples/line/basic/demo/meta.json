@@ -10,15 +10,7 @@
         "zh": "基础折线图",
         "en": "Basic line plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nBhpT5HbGOAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "line-smooth.ts",
-      "title": {
-        "zh": "曲线折线图",
-        "en": "Smooth line plot"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fQihRrLMIWsAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ASuIQr9C7Q4AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "line-point-style.ts",
@@ -39,15 +31,7 @@
     {
       "filename": "line-annotation.ts",
       "title": {
-        "zh": "折线图辅助线",
-        "en": "Line plot with guide line"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*YnkLRojc99wAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "line-annotation-color.ts",
-      "title": {
-        "zh": "折线图线条颜色变化",
+        "zh": "折线图带图表标注",
         "en": "Line plot with guide line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ElDbQ4yz14kAAAAAAAAAAAAAARQnAQ"

@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "nobel-prize.ts",
+      "title": {
+        "zh": "星空诺贝尔奖",
+        "en": "Noble Prize Visual"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zi6cQJN9L7EAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "drinks.ts",
+      "title": {
+        "zh": "Drinks",
+        "en": "Drinks Visual"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*S4CuR5J89jsAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "series-columns.ts",
+      "title": {
+        "zh": "条形图的变种",
+        "en": "Series Columns"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Xr_fTpVCRv4AAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

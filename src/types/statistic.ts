@@ -1,14 +1,21 @@
-import { StyleAttr } from './attr';
+import { View } from '@antv/g2';
 import { Data, Datum } from './common';
 
-type StatisticText = {
+type CSSStyle = Omit<Partial<CSSStyleDeclaration>, 'opacity' | 'lineHeight'> & {
+  opacity?: number;
+  lineHeight?: string | number;
+};
+
+export type StatisticText = {
   /** 统计文本的样式 */
-  readonly style?: StyleAttr;
+  readonly style?: CSSStyle | ((datum: Datum) => CSSStyle);
   /** 文本的格式化 */
   readonly formatter?: (datum?: Datum, data?: Data /** filterData */) => string;
   readonly rotate?: number;
   readonly offsetX?: number;
   readonly offsetY?: number;
+  /** 自定义中心文本的 html */
+  readonly customHtml?: (container: HTMLElement, view: View, datum?: Datum, data?: Data /** filterData */) => string;
 };
 
 /**

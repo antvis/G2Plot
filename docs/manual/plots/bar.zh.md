@@ -83,6 +83,18 @@ order: 3
 
 `markdown:docs/common/component.zh.md`
 
+#### 滚动条
+
+`markdown:docs/common/slider.zh.md`
+
+#### 转化率
+
+`markdown:docs/common/conversion-tag.zh.md`
+
+#### 联通对比区域
+
+`markdown:docs/common/connected-area.zh.md`
+
 ### 事件
 
 `markdown:docs/common/events.zh.md`

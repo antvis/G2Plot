@@ -14,16 +14,15 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.8,
+  radius: 1,
   innerRadius: 0.6,
   label: {
     type: 'inner',
     offset: '-50%',
-    content: '{percentage}',
+    content: '{value}',
     style: {
-      fill: '#fff',
-      fontSize: 14,
       textAlign: 'center',
+      fontSize: 14,
     },
   },
   interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
@@ -31,7 +30,9 @@ const piePlot = new Pie('container', {
     title: false,
     content: {
       style: {
-        fontSize: 44,
+        whiteSpace: 'pre-wrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       },
       formatter: () => 'AntV\nG2Plot',
     },

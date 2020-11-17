@@ -1,8 +1,8 @@
 import { Geometry } from '@antv/g2';
-import { isFunction } from '@antv/util';
+import { get } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
+import { flow, deepAssign, renderStatistic } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { LiquidOptions } from './types';
 
@@ -63,28 +63,16 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
  */
 function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { statistic, percent } = options;
+  const { statistic, percent, meta } = options;
 
-  const { title, content } = statistic;
+  if (statistic.content && !statistic.content.formatter) {
+    const metaFormatter = get(meta, ['percent', 'formatter']);
+    // @ts-ignore
+    statistic.content.formatter = ({ percent }) =>
+      metaFormatter ? metaFormatter(percent) : `${(percent * 100).toFixed(2)}%`;
+  }
 
-  // annotation title 和 content 分别使用一个 text
-  [title, content].forEach((annotation) => {
-    if (annotation) {
-      const { formatter, style, offsetX, offsetY, rotate } = annotation;
-      chart.annotation().text({
-        top: true,
-        position: {
-          type: CAT_VALUE,
-          percent: 0.5,
-        },
-        content: isFunction(formatter) ? formatter({ percent }) : `${percent}`,
-        style: isFunction(style) ? style({ percent }) : style,
-        offsetX,
-        offsetY,
-        rotate,
-      });
-    }
-  });
+  renderStatistic(chart, { statistic, plotType: 'liquid' }, { percent });
 
   return params;
 }

@@ -3,8 +3,6 @@ title: 玉珏图
 order: 25
 ---
 
-## 配置属性
-
 ### 图表容器
 
 `markdown:docs/common/chart-options.zh.md`
@@ -24,6 +22,14 @@ order: 25
 `markdown:docs/common/xy-field.zh.md`
 
 `markdown:docs/common/meta.zh.md`
+
+#### type
+
+**可选**, _string_
+
+功能描述: 图表类型， 'line' 为线形图。
+
+默认配置： 无
 
 ### 图形样式
 
@@ -49,7 +55,6 @@ order: 25
 
 默认配置： 240
 
-
 #### barStyle
 
 **可选**, _StyleAttr | Function_
@@ -60,7 +65,7 @@ order: 25
 
 `markdown:docs/common/shape-style.zh.md`
 
-`markdown:docs/common/color.en.md`
+`markdown:docs/common/color.zh.md`
 
 ### 图表组件
 

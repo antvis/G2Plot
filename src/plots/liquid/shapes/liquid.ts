@@ -3,54 +3,46 @@ import { IGroup } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/matrix';
 import { Point } from '../../../types';
-import { ShapeStyle } from '../../../types';
-
-function addFillAttrs(attrs: ShapeStyle, cfg: any) {
-  if (cfg.color && !attrs.fill) {
-    attrs.fill = cfg.color;
-  }
-  if (isNumber(cfg.opacity)) {
-    attrs.opacity = attrs.fillOpacity = cfg.opacity;
-  }
-}
-
-function addStrokeAttrs(attrs: ShapeStyle, cfg: any) {
-  if (cfg.color && !attrs.stroke) {
-    attrs.stroke = cfg.color;
-  }
-  if (isNumber(cfg.opacity)) {
-    attrs.opacity = attrs.strokeOpacity = cfg.opacity;
-  }
-}
 
 function lerp(a: number, b: number, factor: number) {
   return (1 - factor) * a + factor * b;
 }
 
-const getFillAttrs = (cfg) => {
-  const defaultAttrs = {
-    lineWidth: 0,
-    // fill: 'red', // todo
-    fillOpacity: 0.85,
-  };
-  const attrs = mix({}, defaultAttrs, cfg.style);
-  addFillAttrs(attrs, cfg);
-  if (cfg.color && !attrs.stroke) {
-    attrs.stroke = attrs.stroke || cfg.color;
-  }
-  return attrs;
-};
+/**
+ * 波浪的 attrs
+ * @param cfg
+ */
+function getFillAttrs(cfg) {
+  const attrs = { opacity: 1, ...cfg.style };
 
-const getLineAttrs = (cfg) => {
+  if (cfg.color && !attrs.fill) {
+    attrs.fill = cfg.color;
+  }
+
+  return attrs;
+}
+
+/**
+ * 圆圈的 attrs
+ * @param cfg
+ */
+function getLineAttrs(cfg) {
   const defaultAttrs = {
     fill: '#fff',
     fillOpacity: 0,
     lineWidth: 2,
   };
   const attrs = mix({}, defaultAttrs, cfg.style);
-  addStrokeAttrs(attrs, cfg);
+
+  if (cfg.color && !attrs.stroke) {
+    attrs.stroke = cfg.color;
+  }
+  if (isNumber(cfg.opacity)) {
+    attrs.opacity = attrs.strokeOpacity = cfg.opacity;
+  }
+
   return attrs;
-};
+}
 
 /**
  * 用贝塞尔曲线模拟正弦波
@@ -66,11 +58,11 @@ const getLineAttrs = (cfg) => {
  *
  * whose positions are a: (0, 0), b: (0.5, 0.5), c: (1, 1), d: (PI / 2, 1)
  *
- * @param {number} x          x position of the left-most point (a)
- * @param {number} stage      0-3, stating which part of the wave it is
- * @param {number} waveLength wave length of the sine wave
- * @param {number} amplitude  wave amplitude
- * @return {Array} 正弦片段曲线
+ * @param x          x position of the left-most point (a)
+ * @param stage      0-3, stating which part of the wave it is
+ * @param waveLength wave length of the sine wave
+ * @param amplitude  wave amplitude
+ * @return 正弦片段曲线
  */
 function getWaterWavePositions(x: number, stage: number, waveLength: number, amplitude: number) {
   if (stage === 0) {
@@ -102,14 +94,14 @@ function getWaterWavePositions(x: number, stage: number, waveLength: number, amp
 }
 /**
  * 获取水波路径
- * @param  {number} radius          半径
- * @param  {number} waterLevel      水位
- * @param  {number} waveLength      波长
- * @param  {number} phase           相位
- * @param  {number} amplitude       震幅
- * @param  {number} cx              圆心x
- * @param  {number} cy              圆心y
- * @return {Array}  path            路径
+ * @param radius          半径
+ * @param waterLevel      水位
+ * @param waveLength      波长
+ * @param phase           相位
+ * @param amplitude       震幅
+ * @param cx              圆心x
+ * @param cy              圆心y
+ * @return path            路径
  * @reference http://gitlab.alipay-inc.com/datavis/g6/blob/1.2.0/src/graph/utils/path.js#L135
  */
 function getWaterWavePath(
@@ -192,16 +184,17 @@ function getWaterWavePath(
 
 /**
  * 添加水波
- * @param {number} x           中心x
- * @param {number} y           中心y
- * @param {number} level       水位等级 0～1
- * @param {number} waveCount   水波数
- * @param {number} colors      色值
- * @param {number} group       图组
- * @param {number} clip        用于剪切的图形
- * @param {number} radius      绘制图形的高度
+ * @param x           中心x
+ * @param y           中心y
+ * @param level       水位等级 0～1
+ * @param waveCount   水波数
+ * @param waveAttrs      色值
+ * @param group       图组
+ * @param clip        用于剪切的图形
+ * @param radius      绘制图形的高度
  */
-function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
+function addWaterWave(x, y, level, waveCount, waveAttrs, group, clip, radius) {
+  const { fill, opacity } = waveAttrs;
   const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
@@ -212,8 +205,8 @@ function addWaterWave(x, y, level, waveCount, color, group, clip, radius) {
       name: `wave-path-${i}`,
       attrs: {
         path: getWaterWavePath(radius, bbox.minY + height * level, width / 4, 0, width / lerp(56, 64, factor), x, y),
-        fill: color,
-        opacity: lerp(0.6, 0.3, factor),
+        fill,
+        opacity: lerp(0.6, 0.3, factor) * opacity,
       },
     });
 
@@ -256,7 +249,7 @@ registerShape('interval', 'liquid-fill-gauge', {
 
     // 保证半径是 画布宽高最小值的 radius 值
     const radius = Math.min(halfWidth, minXPoint.y * radio);
-    const { fill } = getFillAttrs(cfg);
+    const waveAttrs = getFillAttrs(cfg);
 
     const waves = container.addGroup({
       name: 'waves',
@@ -276,7 +269,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       center.y,
       1 - (cfg.points[1] as Point).y, // cfg.y / (2 * cp.y),
       3,
-      fill,
+      waveAttrs,
       waves,
       clipCircle,
       radius * 4

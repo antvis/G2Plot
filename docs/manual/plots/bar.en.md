@@ -83,6 +83,14 @@ order: 3
 
 `markdown:docs/common/component.en.md`
 
+#### Conversion Tag
+
+`markdown:docs/common/conversion-tag.en.md`
+
+#### Connected Area
+
+`markdown:docs/common/connected-area.en.md`
+
 ### Event
 
 `markdown:docs/common/events.en.md`

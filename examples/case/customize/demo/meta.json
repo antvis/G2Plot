@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line-marker.ts",
+      "title": {
+        "zh": "自定义折线图 marker",
+        "en": "Custom Line marker point"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U2mPQLoxIR4AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "line-style.ts",
+      "title": {
+        "zh": "自定义折线图样式",
+        "en": "Custom Line style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NSq2SJgS3lEAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "customize-tooltip.ts",
+      "title": {
+        "zh": "自定义 Tooltip",
+        "en": "Custom tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5bPrQK5F-toAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

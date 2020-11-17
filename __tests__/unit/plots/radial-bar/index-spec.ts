@@ -52,7 +52,36 @@ describe('radial-bar', () => {
     // @ts-ignore
     const colorValue = geometry.getAttribute('color').values;
     expect(colorValue).toBe(color);
+    bar.destroy();
+  });
 
+  it('xField*yField*type', () => {
+    const bar = new RadialBar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: antvStar,
+      xField,
+      yField,
+      type: 'line',
+      annotations: [
+        {
+          type: 'text',
+          position: ['50%', '50%'],
+          content: 'Music',
+          style: {
+            textAlign: 'center',
+            fontSize: 24,
+          },
+        },
+      ],
+    });
+    bar.render();
+    const geometry = bar.chart.geometries[0];
+    const point = bar.chart.geometries[1];
+    expect(geometry.attributes.shape.values[0]).toBe('line');
+    expect(point.type).toBe('point');
+    expect(bar.chart.getController('annotation').getComponents().length).toBe(1);
+    expect(bar.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('Music');
     bar.destroy();
   });
 });

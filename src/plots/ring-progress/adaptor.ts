@@ -1,8 +1,9 @@
-import { isFunction } from '@antv/util';
+import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, renderStatistic } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { geometry } from '../progress/adaptor';
+import { PERCENT } from '../gauge/constant';
 import { RingProgressOptions } from './types';
 
 /**
@@ -28,23 +29,27 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
  */
 function statistic(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
   const { chart, options } = params;
-  const { statistic, percent } = options;
+  const { innerRadius, statistic, percent, meta } = options;
 
-  const { title, content } = statistic;
-
-  [title, content].forEach((annotation) => {
-    if (annotation) {
-      const { style, formatter, offsetX, offsetY, rotate } = annotation;
-      chart.annotation().text({
-        position: ['50%', '50%'],
-        content: formatter ? formatter({ percent }) : percent,
-        style: isFunction(style) ? style({ percent }) : style,
-        offsetX,
-        offsetY,
-        rotate,
-      });
+  /** 中心文本 指标卡 */
+  if (innerRadius && statistic) {
+    const transformContent = statistic.content;
+    if (transformContent && !transformContent.formatter) {
+      // @ts-ignore
+      transformContent.formatter = ({ percent }) => {
+        const metaFormatter = get(meta, [PERCENT, 'formatter']);
+        if (metaFormatter) {
+          return metaFormatter(percent);
+        }
+        return percent;
+      };
     }
-  });
+    renderStatistic(
+      chart,
+      { statistic: { ...statistic, content: transformContent }, plotType: 'ring-progress' },
+      { percent }
+    );
+  }
 
   return params;
 }

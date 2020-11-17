@@ -96,9 +96,15 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
   const { yField } = options;
 
-  const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+  const getLineCoordinate = (
+    datum: Datum,
+    datumIndex: number,
+    data: Data,
+    initLineOption: Record<string, any>
+  ): LineOption => {
     const percent = 1 - (1 - datum[FUNNEL_PERCENT]) / 2;
     return {
+      ...initLineOption,
       start: [datumIndex - 0.5, data[0][yField] * percent],
       end: [datumIndex - 0.5, data[0][yField] * (percent + 0.05)],
     };

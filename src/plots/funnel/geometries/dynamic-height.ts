@@ -5,7 +5,7 @@ import { Params } from '../../../core/adaptor';
 import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { getTooltipMapping } from '../../../utils/tooltip';
-import { Datum } from '../../../types/common';
+import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
 import { geometryLabel, conversionTagComponent } from './common';
 
@@ -134,8 +134,14 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param params
  */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const getLineCoordinate = (datum: Datum): LineOption => {
+  const getLineCoordinate = (
+    datum: Datum,
+    datumIndex: number,
+    data: Data,
+    initLineOption: Record<string, any>
+  ): LineOption => {
     return {
+      ...initLineOption,
       start: [datum[PLOYGON_X][1], datum[PLOYGON_Y][1]],
       end: [datum[PLOYGON_X][1] + 0.05, datum[PLOYGON_Y][1]],
     };

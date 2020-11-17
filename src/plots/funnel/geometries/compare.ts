@@ -54,7 +54,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     fields: [compareField],
     // 漏斗图的转置规则与分面相反，默认是垂直布局
     transpose: !isTransposed,
-    padding: 0,
+    padding: isTransposed ? 0 : [32, 0, 0, 0],
     eachView(view, facet) {
       if (!isTransposed) {
         view.coordinate({
@@ -96,24 +96,28 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { label } = options;
+  const { label, isTransposed } = options;
 
   chart.once('beforepaint', () => {
     chart.views.forEach((view, index) => {
       const geometry = findGeometry(view, 'interval');
-      console.log(geometry);
       geometryLabel(geometry)(
         label
           ? deepAssign({}, params, {
               chart: view,
               options: {
-                label: {
-                  offset: 10,
-                  position: 'left',
-                  style: {
-                    textAlign: index === 0 ? 'end' : 'start',
-                  },
-                },
+                label: isTransposed
+                  ? {
+                      offset: index === 0 ? 10 : -23,
+                      position: index === 0 ? 'bottom' : 'top',
+                    }
+                  : {
+                      offset: 10,
+                      position: 'left',
+                      style: {
+                        textAlign: index === 0 ? 'end' : 'start',
+                      },
+                    },
               },
             })
           : params
@@ -129,24 +133,33 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { yField, conversionTag } = options;
+  const { yField, conversionTag, isTransposed } = options;
 
   chart.once('beforepaint', () => {
     chart.views.forEach((view, viewIndex) => {
-      const getLineCoordinate = (datum: Datum, datumIndex: number, data: Data): LineOption => {
+      const getLineCoordinate = (
+        datum: Datum,
+        datumIndex: number,
+        data: Data,
+        initLineOption: Record<string, any>
+      ): LineOption => {
         const ratio = viewIndex === 0 ? -1 : 1;
-        return {
+        return deepAssign({}, initLineOption, {
           start: [datumIndex - 0.5, data[0][yField] * datum[FUNNEL_PERCENT]],
           end: [datumIndex - 0.5, data[0][yField] * (datum[FUNNEL_PERCENT] + 0.05)],
-          // @ts-ignore
-          text: {
-            // content: undefined,
-            offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
-            style: {
-              textAlign: viewIndex === 0 ? 'end' : 'start',
-            },
-          },
-        };
+          text: isTransposed
+            ? {
+                style: {
+                  textAlign: 'start',
+                },
+              }
+            : {
+                offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
+                style: {
+                  textAlign: viewIndex === 0 ? 'end' : 'start',
+                },
+              },
+        });
       };
 
       conversionTagComponent(getLineCoordinate)(

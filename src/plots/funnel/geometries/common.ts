@@ -34,7 +34,7 @@ export function geometryLabel(geometry: Geometry) {
  * @param getLineCoordinate 用于获取特定的 line 的位置及配置
  */
 export function conversionTagComponent(
-  getLineCoordinate: (datum: Datum, datumIndex: number, data: Data) => LineOption
+  getLineCoordinate: (datum: Datum, datumIndex: number, data: Data, initLineOption: Record<string, any>) => LineOption
 ) {
   return function (params: Params<FunnelOptions>): Params<FunnelOptions> {
     const { chart, options } = params;
@@ -46,27 +46,22 @@ export function conversionTagComponent(
       const { formatter } = conversionTag;
       data.forEach((obj, index) => {
         if (index <= 0) return;
-        const lineCoordinateOption = getLineCoordinate(obj, index, data);
-
-        const lineOption = deepAssign(
-          {},
-          {
-            top: true,
-            text: {
-              content: isFunction(formatter) ? formatter(obj, data) : formatter,
-              offsetX: conversionTag.offsetX,
-              offsetY: conversionTag.offsetY,
-              position: 'end',
-              autoRotate: false,
-              style: {
-                ...conversionTag.style,
-                textAlign: 'start',
-                textBaseline: 'middle',
-              },
+        const lineOption = getLineCoordinate(obj, index, data, {
+          top: true,
+          text: {
+            content: isFunction(formatter) ? formatter(obj, data) : formatter,
+            offsetX: conversionTag.offsetX,
+            offsetY: conversionTag.offsetY,
+            position: 'end',
+            autoRotate: false,
+            style: {
+              textAlign: 'start',
+              textBaseline: 'middle',
+              ...conversionTag.style,
             },
           },
-          lineCoordinateOption
-        );
+        });
+
         chart.annotation().line(lineOption);
       });
     }

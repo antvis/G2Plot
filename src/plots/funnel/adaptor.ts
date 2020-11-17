@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, scale, annotation, tooltip as common } from '../../adaptor/common';
+import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
@@ -20,39 +20,46 @@ import { dynamicHeightFunnel } from './geometries/dynamic-height';
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, dynamicHeight, xField, yField } = options;
-  let additionalOption = {};
-  if (dynamicHeight) {
-    additionalOption = {
-      tooltip: {
-        // itemTpl:
-        //   '<li class="g2-tooltip-list-item" data-index={index}>' +
-        //   '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-        //   `<span class="g2-tooltip-name">{${xField}}</span>` +
-        //   `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
-        formatter: (datum) => {
-          console.log(datum);
-          return { name: 'abc', value: '123' };
-        },
+  const { compareField, xField, yField } = options;
+  const defaultOption = {
+    label: {
+      offset: 0,
+      position: 'middle',
+      style: {
+        fill: '#fff',
+        fontSize: 12,
       },
-    };
-  } else if (compareField) {
-    additionalOption = {
-      appendPadding: [50, 50, 0, 50],
-      label: {
-        callback: (xField, yField) => ({
-          content: `${yField}`,
-        }),
-      },
-    };
-  }
-
-  return deepAssign({}, params, {
-    options: {
-      ...additionalOption,
-      ...options,
+      callback: compareField
+        ? (xField, yField) => ({
+            content: `${yField}`,
+          })
+        : (xField, yField) => ({
+            content: `${xField} ${yField}`,
+          }),
     },
-  });
+    tooltip: {
+      showTitle: false,
+      showMarkers: false,
+      shared: false,
+      title: xField,
+      formatter: (datum) => {
+        return { name: datum[xField], value: datum[yField] };
+      },
+    },
+    conversionTag: {
+      offsetX: 10,
+      offsetY: 0,
+      style: {},
+      formatter: (datum) => `转化率${(datum.$$percentage$$ * 100).toFixed(2)}%`,
+    },
+  };
+
+  return deepAssign(
+    {
+      options: defaultOption,
+    },
+    params
+  );
 }
 
 /**
@@ -103,24 +110,6 @@ function axis(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param params
  */
 function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart, options } = params;
-  const { legend } = options;
-
-  if (legend === false) {
-    chart.legend(false);
-  } else {
-    chart.legend(legend);
-    // TODO FIX: legend-click 时间和转化率组件之间的关联
-  }
-
-  return params;
-}
-
-/**
- * tooltip
- * @param params
- */
-function tooltip(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { legend } = options;
 

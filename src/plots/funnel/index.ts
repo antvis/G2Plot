@@ -14,40 +14,10 @@ export class Funnel extends Plot<FunnelOptions> {
    * 获取 漏斗图 默认配置项
    */
   protected getDefaultOptions(): Partial<FunnelOptions> {
-    return deepAssign({}, super.getDefaultOptions(), {
-      // annotation 无法自适应 chart，先用 appendPadding hack, 随后看看如何自适应
+    // 由于不同漏斗图 defaultOption 有部分逻辑不同，此处仅处理 core.getDefaultOptions 覆盖范围，funnel 的 defaulOption 为不分散逻辑统一写到 adaptor 的 defaultOption 中
+    return {
       appendPadding: [0, 50],
-      label: {
-        offset: 0,
-        position: 'middle',
-        // layout: {
-        //   type: 'limit-in-shape',
-        // },
-        style: {
-          fill: '#fff',
-          fontSize: 12,
-        },
-        callback: (xField, yField, percent) => {
-          return {
-            content: `${xField} ${yField}`,
-          };
-        },
-      },
-      tooltip: {
-        showTitle: false,
-        showMarkers: false,
-        shared: false,
-        formatter: (datum) => {
-          return { name: 'abc', value: '123' };
-        },
-      },
-      conversionTag: {
-        offsetX: 10,
-        offsetY: 0,
-        style: {},
-        formatter: (datum) => `转化率${(datum.$$percentage$$ * 100).toFixed(2)}%`,
-      },
-    });
+    };
   }
 
   /**

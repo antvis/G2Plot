@@ -83,7 +83,7 @@ plot.on(event: string, callback: Function);
 plot.once(event: string, callback: Function);
 ```
 
-监听一次某一个图表事件，并触发一个回调函数，在触发一次之后，自动接触这个事件的监听。
+监听一次某一个图表事件，并触发一个回调函数，在触发一次之后，自动解除这个事件的监听。
 
 ### 9. off
 
@@ -91,7 +91,7 @@ plot.once(event: string, callback: Function);
 plot.off(event?: string, callback?: Function);
 ```
 
-接触事件的监听，可以针对某一个监听函数去解绑；也可以一次接触所有的事件；当然也可以什么参数都不传，解绑所有事件监听。
+解除事件的监听，可以针对某一个监听函数去解绑；也可以一次解除所有的事件；当然也可以什么参数都不传，解绑所有事件监听。
 
 ### 10. setState
 

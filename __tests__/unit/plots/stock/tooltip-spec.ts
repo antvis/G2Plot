@@ -2,6 +2,9 @@ import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 
+import { DEFAULT_TOOLTIP_OPTIONS } from '../../../../src/plots/stock/constant';
+import { pick } from '../../../../src/utils';
+
 describe('Stock tooltip', () => {
   it('tooltip: default options', () => {
     const k = new Stock(createDiv('default tooltip'), {
@@ -21,6 +24,9 @@ describe('Stock tooltip', () => {
     expect(k.chart.options.tooltip.showTitle).toBe(false);
     // @ts-ignore
     expect(k.chart.options.tooltip.showMarkers).toBe(false);
+
+    // @ts-ignore
+    // expect(pick(k.chart.options.tooltip, Object.keys(DEFAULT_TOOLTIP_OPTIONS))).toEqual(DEFAULT_TOOLTIP_OPTIONS);
 
     k.destroy();
   });
@@ -70,21 +76,6 @@ describe('Stock tooltip', () => {
           '<span class="itemTpl">{name}: </span>' +
           '{value}' +
           '</li>',
-        crosshairs: {
-          type: 'xy',
-          follow: true,
-          text: (
-            type, // 对应当前 crosshairs 的类型，值为 'x' 或者 'x'
-            defaultContent, // 对应当前 crosshairs 默认的文本内容
-            items, // 对应当前 tooltip 内容框中的数据
-            currentPoint // 对应当前坐标点
-          ) => {
-            console.log(type, defaultContent, items, currentPoint);
-            return {
-              content: 'a',
-            };
-          },
-        },
       },
     });
 
@@ -129,6 +120,41 @@ describe('Stock tooltip', () => {
     expect(k.chart.options.tooltip).toBe(false);
     expect(k.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
 
+    // k.destroy();
+  });
+
+  it('tooltip:  custom crosshairs', () => {
+    const k = new Stock(createDiv('custom crosshairs'), {
+      width: 400,
+      height: 500,
+      data: kdata,
+      xField: 'date',
+      yField: ['start', 'end', 'max', 'min'],
+      tooltip: {
+        crosshairs: {
+          type: 'xy',
+          follow: true,
+          text: (
+            type, // 对应当前 crosshairs 的类型，值为 'x' 或者 'y'
+            defaultContent, // 对应当前 crosshairs 默认的文本内容
+            items, // 对应当前 tooltip 内容框中的数据
+            currentPoint // 对应当前坐标点
+          ) => {
+            console.log(type, defaultContent, items, currentPoint);
+            return {
+              content: 'custom text',
+            };
+          },
+        },
+      },
+    });
+
+    k.render();
+
+    // @ts-ignore
+    expect(k.chart.options.tooltip.crosshairs.text()).not.toBeUndefined();
+    // @ts-ignore
+    expect(k.chart.options.tooltip.crosshairs.text().content).toBe('custom text');
     k.destroy();
   });
 });

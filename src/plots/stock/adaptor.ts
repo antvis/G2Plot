@@ -121,15 +121,9 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
     },
   };
 
-  // chart级别tooltip
+  // chart级别tooltip， text格式化显示内容
   const baseTooltipOptions = {
-    showTitle: false,
-    showMarkers: false,
-    showCrosshairs: true,
-    shared: true,
     crosshairs: {
-      type: 'xy',
-      follow: true,
       text: (type, defaultContent, items, currentPoint) => {
         const tooltipCrosshairsText = { position: 'end' };
         if (type === 'x') {
@@ -141,10 +135,6 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
         return tooltipCrosshairsText;
       },
     },
-    itemTpl:
-      '<li class="g2-tooltip-list-item" data-index={index}>' +
-      '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-      '{name}{value}</li>',
   };
 
   if (tooltip) {

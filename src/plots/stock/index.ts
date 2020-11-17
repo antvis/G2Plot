@@ -4,6 +4,8 @@ import { Adaptor } from '../../core/adaptor';
 import { StockOptions } from './types';
 import { adaptor } from './adaptor';
 
+import { DEFAULT_TOOLTIP_OPTIONS } from './constant';
+
 export { StockOptions };
 
 export class Stock extends Plot<StockOptions> {
@@ -16,6 +18,8 @@ export class Stock extends Plot<StockOptions> {
    */
   protected getDefaultOptions(): Partial<StockOptions> {
     return deepAssign({}, super.getDefaultOptions(), {
+      // 设置默认图表 tooltips
+      tooltip: DEFAULT_TOOLTIP_OPTIONS,
       interactions: [{ type: 'tooltip' }],
       legend: {
         position: 'top-left',

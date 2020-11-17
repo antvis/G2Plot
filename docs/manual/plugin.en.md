@@ -44,7 +44,7 @@ The main process is divided into the following steps:
 
 1. Define chart default configuration
 2. Custom adaptor to realize the transformation from configuration to G2 API
-3. Use it on G2Plot, or produce NPM package
+3. Use it on G2Plot, or publish NPM package
 
 
 ## Customized third-party charts

@@ -4,22 +4,22 @@ order: 2
 ---
 
 
-The core technology architecture of G2plot is very simple. All plot charts are inherited from a base class. The base class provides a common API method for all charts, and each specific visualization chart only processes its own configuration items. So all charts basically share the common API, except for some charts (such as Gauge and Liquid) that have subtle differences in the changedata API.
+The core technology architecture of G2plot is very simple. All plots are inherited from a base class. The base class provides a common API method for all plots, and each specific visualization plot only processes its own configuration items. So all plots basically share the common API, except for some plots (such as Gauge and Liquid) that have subtle differences in the changedata API.
 
 
-### 1. create a chart instance
+### 1. create a plot instance
 
-The creation of all charts is the same. First, import the corresponding plot class from G2Plot. Then create a chart  instance. The constructor has two parameters.
+The creation of all plots is the same. First, import the corresponding plot class from G2Plot. Then create a plot instance. The constructor has two parameters.
 
 ```ts
 import { Line } from '@antv/g2plot';
 
 const line = new Line(container', options);
-// 1. `container`: The DOM container ID or HtmlElement instance rendered by chart
-// 2. `options`: Chart configuration options
+// 1. `container`: The DOM container ID or HtmlElement instance rendered by plot
+// 2. `options`: Plot configuration options
 ```
 
-The created chart instance has two public properties:
+The created plot instance has two public properties:
 
  - container: HTMLElement
  - options: PlotOptions
@@ -32,7 +32,7 @@ For the API, list all the API methods of the diagram instance separately. If cla
 plot.render();
 ```
 
-After creating an instance through the chart constructor, this method can be called to render the chart to the specified DOM container.
+After creating an instance through the plot constructor, this method can be called to render the plot to the specified DOM container.
 
 ### 3. update
 
@@ -40,7 +40,7 @@ After creating an instance through the chart constructor, this method can be cal
 plot.update(options: Partial<PlotOptions>);
 ```
 
-With this method, the chart configuration can be updated incrementally. The method will automatically merge the incremental configuration into the current configuration item, and automatically call the 'render' method without manually calling it.
+With this method, the plot configuration can be updated incrementally. The method will automatically merge the incremental configuration into the current configuration item, and automatically call the 'render' method without manually calling it.
 
 ### 4. changeData
 
@@ -48,7 +48,7 @@ With this method, the chart configuration can be updated incrementally. The meth
 plot.changeData(data: object[] | number);
 ```
 
-Through this method, you can modify the data of the chart and re-render the chart automatically. Most of the chart data is a two-dimensional array, and some charts may have different data structures, such as:
+Through this method, you can modify the data of the plot and re-render the plot automatically. Most of the plot data is a two-dimensional array, and some plots may have different data structures, such as:
 
  - Gauge、Liquid, which accept the updated percent value
  - Dual Axes, which has its own data structure
@@ -59,7 +59,7 @@ Through this method, you can modify the data of the chart and re-render the char
 plot.changeSize(width: number, height: number);
 ```
 
-With this method, you can manually specify the size of the chart. If the chart is configured with `autofit` = true, the chart size will automatically adapt the size of the container. You only need to use CSS to specify the size of the outer DOM container, and the chart can automatically resize. If `autofit` = false, you can use the method `changeSize` to customize the width and height of the chart.
+With this method, you can manually specify the size of the plot. If the plot is configured with `autofit` = true, the plot size will automatically adapt the size of the container. You only need to use CSS to specify the size of the outer DOM container, and the plot can automatically resize. If `autofit` = false, you can use the method `changeSize` to customize the width and height of the plot.
 
 ### 6. destroy
 
@@ -67,7 +67,7 @@ With this method, you can manually specify the size of the chart. If the chart i
 plot.destroy();
 ```
 
-Destroy the entire canvas completely, recycle all resources, and keep only the DOM container. It is usually called when the component is destroyed. After the chart is destroyed, it cannot be used again.
+Destroy the entire canvas completely, recycle all resources, and keep only the DOM container. It is usually called when the component is destroyed. After the plot is destroyed, it cannot be used again.
 
 ### 7. on
 
@@ -75,7 +75,7 @@ Destroy the entire canvas completely, recycle all resources, and keep only the D
 plot.on(event: string, callback: Function);
 ```
 
-Keep listening to a chart event and trigger a callback function. The event mechanism is transimitted transparently through G2 events. See [G2 event mechanism](https://g2.antv.vision/zh/docs/manual/event) for all event lists and callback function parameters.
+Keep listening to a plot event and trigger a callback function. The event mechanism is transimitted transparently through G2 events. See [G2 event mechanism](https://g2.antv.vision/zh/docs/manual/event) for all event lists and callback function parameters.
 
 ### 8. once
 
@@ -83,7 +83,7 @@ Keep listening to a chart event and trigger a callback function. The event mecha
 plot.once(event: string, callback: Function);
 ```
 
-Listen to a chart event once and trigger a callback function. After triggering, it is automatically deactivated.
+Listen to a plot event once and trigger a callback function. After triggering, it is automatically deactivated.
 
 ### 9. off
 
@@ -113,4 +113,4 @@ Through this API, you can filter elements based on `condition` and set the curre
 plot.getStates();
 ```
 
-Get all status information of the current chart.
+Get all status information of the current plot.

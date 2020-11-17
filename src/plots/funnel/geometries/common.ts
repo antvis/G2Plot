@@ -2,8 +2,8 @@ import { Geometry } from '@antv/g2';
 import { LineOption } from '@antv/g2/lib/interface';
 import { isFunction } from '@antv/util';
 import { Datum, Data } from '../../../types/common';
-import { deepAssign } from '../../../utils';
-import { FUNNEL_PERCENT } from '../constant';
+import { transformLabel } from '../../../utils';
+import { FUNNEL_PERCENT, FUNNEL_CONVERSATION } from '../constant';
 import { Params } from '../../../core/adaptor';
 import { FunnelOptions } from '../types';
 
@@ -20,9 +20,9 @@ export function geometryLabel(geometry: Geometry) {
     } else {
       const { callback, ...cfg } = label;
       geometry.label({
-        fields: [xField, yField, FUNNEL_PERCENT],
+        fields: [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
         callback,
-        cfg,
+        cfg: transformLabel(cfg),
       });
     }
     return params;

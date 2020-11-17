@@ -13,6 +13,12 @@ describe('funnel tooltip', () => {
       yField: 'pv',
       tooltip: {
         title: 'funnel',
+        formatter: () => {
+          return {
+            name: 'abc',
+            value: '123',
+          };
+        },
       },
     };
 

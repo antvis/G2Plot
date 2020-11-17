@@ -6,7 +6,7 @@ import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
-import { FUNNEL_PERCENT } from '../constant';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from '../constant';
 import { geometryLabel, conversionTagComponent } from './common';
 
 /**
@@ -19,9 +19,10 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   let formatData = [];
   // format 数据
   if (data[0][yField]) {
-    formatData = map(data, (row) => {
+    formatData = map(data, (row, index) => {
       if (row[yField] !== undefined) {
         row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+        row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
       }
       return row;
     });
@@ -40,7 +41,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color, tooltip } = options;
 
-  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT]);
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
 
   baseGeometry({
     chart,

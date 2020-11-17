@@ -5,6 +5,7 @@ import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
 
 /**
  *
@@ -29,13 +30,7 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
         fill: '#fff',
         fontSize: 12,
       },
-      callback: compareField
-        ? (xField, yField) => ({
-            content: `${yField}`,
-          })
-        : (xField, yField) => ({
-            content: `${xField} ${yField}`,
-          }),
+      formatter: compareField ? (datum) => `${datum[yField]}` : (datum) => `${datum[xField]} ${datum[yField]}`,
     },
     tooltip: {
       showTitle: false,
@@ -50,7 +45,7 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
       offsetX: 10,
       offsetY: 0,
       style: {},
-      formatter: (datum) => `转化率${(datum.$$percentage$$ * 100).toFixed(2)}%`,
+      formatter: (datum) => `转化率${(datum[FUNNEL_CONVERSATION] * 100).toFixed(2)}%`,
     },
   };
 

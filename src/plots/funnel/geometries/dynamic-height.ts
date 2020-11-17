@@ -2,7 +2,7 @@ import { map, reduce } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
+import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Datum, Data } from '../../../types/common';
@@ -68,6 +68,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
     row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+    row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
     return row;
   });
 
@@ -84,7 +85,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color, tooltip } = options;
 
-  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT]);
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
   // 绘制漏斗图
   baseGeometry({
     chart,

@@ -6,7 +6,7 @@ import { Datum, Data } from '../../../types/common';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
-import { FUNNEL_PERCENT } from '../constant';
+import { FUNNEL_PERCENT, FUNNEL_CONVERSATION } from '../constant';
 import { geometryLabel, conversionTagComponent } from './common';
 
 /**
@@ -20,13 +20,15 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   let formatData = [];
   if (data[0][yField]) {
     // format 数据
-    const firstRecord = {};
+    const depRecord = {};
     formatData = map(data, (row) => {
       if (row[yField] !== undefined && row[compareField]) {
-        if (!firstRecord[row[compareField]]) {
-          firstRecord[row[compareField]] = row[yField];
-        }
-        row[FUNNEL_PERCENT] = row[yField] / firstRecord[row[compareField]];
+        if (!depRecord[row[compareField]]) depRecord[row[compareField]] = row[yField];
+        if (!depRecord[`last_${row[compareField]}`]) depRecord[`last_${row[compareField]}`] = row[yField];
+        row[FUNNEL_PERCENT] = row[yField] / depRecord[row[compareField]];
+        row[FUNNEL_CONVERSATION] = row[yField] / depRecord[`last_${row[compareField]}`];
+        // 更新 lastVersion
+        depRecord[`last_${row[compareField]}`] = row[yField];
       }
       return row;
     });
@@ -63,7 +65,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
         });
       }
       // 绘制图形
-      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT]);
+      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
 
       baseGeometry({
         chart: view,

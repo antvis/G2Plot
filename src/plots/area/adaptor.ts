@@ -1,9 +1,13 @@
+import { Geometry } from '@antv/g2';
+import { each } from '@antv/util';
 import { tooltip, slider, interaction, animation, theme, annotation } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
-import { meta, legend, axis, adjust } from '../line/adaptor';
+import { percent } from '../../utils/transform/percent';
+import { Datum } from '../../types';
+import { meta, legend, axis } from '../line/adaptor';
 import { AreaOptions } from './types';
 
 /**
@@ -12,10 +16,30 @@ import { AreaOptions } from './types';
  */
 function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { data, areaStyle, color, point: pointMapping, line: lineMapping } = options;
-
-  chart.data(data);
-
+  const {
+    data,
+    areaStyle,
+    color,
+    point: pointMapping,
+    line: lineMapping,
+    isPercent,
+    xField,
+    yField,
+    tooltip,
+    seriesField,
+  } = options;
+  const chartData = !isPercent ? data : percent(data, yField, xField, yField);
+  chart.data(chartData);
+  // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
+  const tooltipOptions = isPercent
+    ? {
+        formatter: (datum: Datum) => ({
+          name: datum[seriesField] || datum[xField],
+          value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+        }),
+        ...tooltip,
+      }
+    : tooltip;
   const p = deepAssign({}, params, {
     options: {
       area: { color, style: areaStyle },
@@ -29,6 +53,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
         color,
         ...pointMapping,
       },
+      tooltip: tooltipOptions,
     },
   });
   // area geometry 处理
@@ -58,6 +83,22 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
       fields: [yField],
       callback,
       cfg: transformLabel(cfg),
+    });
+  }
+
+  return params;
+}
+
+/**
+ * 处理 adjust
+ * @param params
+ */
+function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
+  const { chart, options } = params;
+  const { isStack, isPercent } = options;
+  if (isPercent || isStack) {
+    each(chart.geometries, (g: Geometry) => {
+      g.adjust('stack');
     });
   }
 

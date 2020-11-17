@@ -12,6 +12,7 @@ module.exports = {
   ],
   // Customize your site metadata:
   siteMetadata: {
+    isAntVSite: false,
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
     siteUrl: 'https://g2plot.antv.vision',

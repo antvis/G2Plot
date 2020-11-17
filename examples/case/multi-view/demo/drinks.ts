@@ -22,6 +22,7 @@ const yearData = [
 const labChart = new Lab.MultiView('container', {
   height: 500,
   padding: 'auto',
+  tooltip: { showMarkers: false },
   views: [
     {
       data: data.map((d) => ({ type: d[0], value: d[1] })),

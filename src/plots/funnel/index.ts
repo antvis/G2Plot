@@ -27,14 +27,19 @@ export class Funnel extends Plot<FunnelOptions> {
           fill: '#fff',
           fontSize: 12,
         },
-        callback: (xField, yField) => ({
-          content: `${xField} ${yField}`,
-        }),
+        callback: (xField, yField, percent) => {
+          return {
+            content: `${xField} ${yField}`,
+          };
+        },
       },
       tooltip: {
         showTitle: false,
         showMarkers: false,
         shared: false,
+        formatter: (datum) => {
+          return { name: 'abc', value: '123' };
+        },
       },
       conversionTag: {
         offsetX: 10,

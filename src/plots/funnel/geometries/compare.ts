@@ -101,9 +101,11 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
   chart.once('beforepaint', () => {
     chart.views.forEach((view, index) => {
       const geometry = findGeometry(view, 'interval');
+      console.log(geometry);
       geometryLabel(geometry)(
         label
           ? deepAssign({}, params, {
+              chart: view,
               options: {
                 label: {
                   offset: 10,
@@ -136,8 +138,9 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
         return {
           start: [datumIndex - 0.5, data[0][yField] * datum[FUNNEL_PERCENT]],
           end: [datumIndex - 0.5, data[0][yField] * (datum[FUNNEL_PERCENT] + 0.05)],
+          // @ts-ignore
           text: {
-            content: undefined,
+            // content: undefined,
             offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
             style: {
               textAlign: viewIndex === 0 ? 'end' : 'start',

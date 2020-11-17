@@ -48,21 +48,25 @@ export function conversionTagComponent(
         if (index <= 0) return;
         const lineCoordinateOption = getLineCoordinate(obj, index, data);
 
-        const lineOption = deepAssign({}, lineCoordinateOption, {
-          top: true,
-          text: {
-            content: isFunction(formatter) ? formatter(obj, data) : formatter,
-            offsetX: conversionTag.offsetX,
-            offsetY: conversionTag.offsetY,
-            position: 'end',
-            autoRotate: false,
-            style: {
-              ...conversionTag.style,
-              textAlign: 'start',
-              textBaseline: 'middle',
+        const lineOption = deepAssign(
+          {},
+          {
+            top: true,
+            text: {
+              content: isFunction(formatter) ? formatter(obj, data) : formatter,
+              offsetX: conversionTag.offsetX,
+              offsetY: conversionTag.offsetY,
+              position: 'end',
+              autoRotate: false,
+              style: {
+                ...conversionTag.style,
+                textAlign: 'start',
+                textBaseline: 'middle',
+              },
             },
           },
-        });
+          lineCoordinateOption
+        );
         chart.annotation().line(lineOption);
       });
     }

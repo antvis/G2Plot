@@ -25,11 +25,15 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   if (dynamicHeight) {
     additionalOption = {
       tooltip: {
-        itemTpl:
-          '<li class="g2-tooltip-list-item" data-index={index}>' +
-          '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-          `<span class="g2-tooltip-name">{${xField}}</span>` +
-          `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
+        // itemTpl:
+        //   '<li class="g2-tooltip-list-item" data-index={index}>' +
+        //   '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
+        //   `<span class="g2-tooltip-name">{${xField}}</span>` +
+        //   `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
+        formatter: (datum) => {
+          console.log(datum);
+          return { name: 'abc', value: '123' };
+        },
       },
     };
   } else if (compareField) {

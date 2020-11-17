@@ -15,7 +15,7 @@ order: 26
 
 设置图表数据源。数据源为对象集合，例如：
 
-```plain
+```js
 [
   { country: '乌拉圭', '2016年耕地总面积': 13.4, '2016年转基因种植面积': 12.3 },
   { country: '巴拉圭', '2016年耕地总面积': 14.4, '2016年转基因种植面积': 6.3 }
@@ -45,7 +45,7 @@ order: 26
 
 <description>**optional** _'horizontal' | 'vertical'_ _default:_ 'horizontal'</description>
 
-表示对称直方图方向。
+表示对称条形图方向。
 
 `markdown:docs/common/meta.zh.md`
 

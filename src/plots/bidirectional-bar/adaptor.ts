@@ -171,6 +171,11 @@ function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
     firstView.axis(yField[0], yAxis[yField[0]]);
     secondView.axis(yField[1], yAxis[yField[1]]);
   }
+  /**
+   *  这个注入，主要是在syncViewPadding时候拿到相对应的配置：布局和轴的位置
+   *  TODO 之后希望 g2 View 对象可以开放 setter 可以设置一些需要的东西
+   */
+
   //@ts-ignore
   chart.__axisPosition = {
     position: firstView.getOptions().axes[xField].position,

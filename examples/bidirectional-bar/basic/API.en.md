@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/bidirectional-bar.en.md`
+`markdown:docs/manual/plots/bidirectional-bar.zh.md`

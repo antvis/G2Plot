@@ -9,5 +9,7 @@ describe('kebabCase', () => {
     expect(kebabCase('fontSize')).toEqual('font-size');
     expect(kebabCase('aBBB')).toEqual('a-b-b-b');
     expect(kebabCase('aBcDeFggggHHH')).toEqual('a-bc-de-fgggg-h-h-h');
+
+    expect(kebabCase('520')).toEqual('5-2-0');
   });
 });

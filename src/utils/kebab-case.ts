@@ -8,9 +8,5 @@ export function kebabCase(word: string) {
     return word;
   }
   const result = word.match(/(([A-Z]{0,1}[a-z]*[^A-Z])|([A-Z]{1}))/g);
-  return result
-    ? result.reduce((a, b) => {
-        return `${a ? `${a.toLowerCase()}-` : ''}` + b.toLowerCase();
-      })
-    : '';
+  return result.map((s: string) => s.toLowerCase()).join('-');
 }

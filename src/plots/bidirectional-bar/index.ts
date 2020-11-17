@@ -3,6 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { BidirectionalBarOptions } from './types';
 import { adaptor } from './adaptor';
+import { syncViewPadding } from './utils';
 
 export { BidirectionalBarOptions };
 
@@ -11,7 +12,9 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
   public type: string = 'bidirectional-bar';
 
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions());
+    return deepAssign({}, super.getDefaultOptions(), {
+      syncViewPadding,
+    });
   }
 
   /**

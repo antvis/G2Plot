@@ -62,7 +62,7 @@ export function syncViewPadding(chart: any, views: any, p: any) {
      * + 5 是为了 让那个轴不要太贴近了，更好看
      */
     v1.autoPadding = p.instance(p1.top, p1.right / 2 + 5, p1.bottom, p1.left);
-    v2.autoPadding = p.instance(p2.top, 0, p2.bottom, p1.right / 2 + 5);
+    v2.autoPadding = p.instance(p2.top, p2.right, p2.bottom, p1.right / 2 + 5);
   }
   if (!isHorizontal(layout) && position === 'bottom') {
     /**

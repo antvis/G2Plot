@@ -38,6 +38,7 @@ order: 1
 <description>**optional** _boolean_ _default:_ `true`</description>
 
 是否堆积面积图。
+
 #### isPercent
 
 <description>**optional** _boolean_ _default:_ `true`</description>

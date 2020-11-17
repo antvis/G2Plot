@@ -39,6 +39,12 @@ order: 1
 
 是否堆积面积图。
 
+#### isPercent
+
+<description>**optional** _boolean_ _default:_ `true`</description>
+
+是否百分比面积图，百分比时默认开启 isStack。
+
 #### areaStyle
 
 <description>**optional** _StyleAttr | Function_</description>

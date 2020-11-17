@@ -1,0 +1,1 @@
+`markdown:docs/manual/plots/area.en.md`

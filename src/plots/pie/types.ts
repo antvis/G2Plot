@@ -6,8 +6,6 @@ export type StatisticData = {
   value: string | number | null;
 };
 
-export type PieLabelType = 'inner' | 'outer' | 'spider';
-
 export interface PieOptions extends Options {
   /** 角度映射字段 */
   readonly angleField: string;
@@ -17,8 +15,8 @@ export interface PieOptions extends Options {
   readonly radius?: number;
   /** 饼图内半径 */
   readonly innerRadius?: number;
-  /** 饼图标签 */
-  readonly label?: Label<PieLabelType>;
+  /** 饼图标签，type: 'inner' | 'outer' | 'spider' */
+  readonly label?: Label;
   /** 饼图图形样式 */
   readonly pieStyle?: StyleAttr;
   /**

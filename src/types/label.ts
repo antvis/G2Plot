@@ -1,6 +1,6 @@
 import { LabelCallback, GeometryLabelCfg } from '@antv/g2/lib/interface';
 
-export type Label<T = string> =
+export type Label =
   | false
   | ({
       /** 映射的字段。 */
@@ -9,4 +9,4 @@ export type Label<T = string> =
       readonly callback?: LabelCallback;
       /** 功能同 content ，兼容 v1 */
       readonly formatter?: GeometryLabelCfg['content'];
-    } & GeometryLabelCfg & { type?: T });
+    } & GeometryLabelCfg);

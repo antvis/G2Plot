@@ -27,6 +27,14 @@
         "en": "Custom tooltip"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5bPrQK5F-toAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "pie/basic/basic.ts",
+      "title": {
+        "zh": "自定义 Tooltip",
+        "en": "Custom tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5bPrQK5F-toAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

@@ -1,6 +1,5 @@
 import { Data } from '@antv/g2/lib/interface';
 import { each, isString } from '@antv/util';
-import { PieLabelType } from '../types';
 
 /**
  * 获取总计值
@@ -20,7 +19,7 @@ export function getTotalValue(data: Data, field: string) {
 /**
  * pie label offset adaptor
  */
-export function adaptOffset(type: PieLabelType, offset?: string | number): string | number {
+export function adaptOffset(type: string, offset?: string | number): string | number {
   let defaultOffset;
   switch (type) {
     case 'inner':

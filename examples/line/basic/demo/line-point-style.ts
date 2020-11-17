@@ -22,10 +22,38 @@ const line = new Line('container', {
     shape: 'diamond',
     style: {
       fill: 'white',
-      stroke: '#2593fc',
+      stroke: '#5B8FF9',
       lineWidth: 2,
     },
   },
+  tooltip: { showMarkers: false },
+  state: {
+    active: {
+      style: {
+        shadowColor: 'yellow',
+        shadowBlur: 4,
+        stroke: 'transparent',
+        fill: 'red',
+      },
+    },
+  },
+  theme: {
+    geometries: {
+      point: {
+        // 设置 point(geometry)-diamond(shape) 样式
+        diamond: {
+          active: {
+            style: {
+              shadowColor: '#FCEBB9',
+              shadowBlur: 2,
+              stroke: '#F6BD16',
+            },
+          },
+        },
+      },
+    },
+  },
+  interactions: [{ type: 'marker-active' }],
 });
 
 line.render();

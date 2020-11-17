@@ -1,4 +1,4 @@
 ---
 title: Custom Charts
-order: 1
+order: 2
 ---

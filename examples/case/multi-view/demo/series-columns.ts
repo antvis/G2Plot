@@ -15,6 +15,7 @@ const semanticGreen = '#30BF78'; /** 语义绿 */
 // Step 2: 创建图表
 const labPlot = new Lab.MultiView('container', {
   appendPadding: 8,
+  tooltip: { showMarkers: false },
   views: [
     {
       region: { start: { x: 0, y: 0 }, end: { x: 1 / 2, y: 2 / 5 } },
@@ -32,7 +33,11 @@ const labPlot = new Lab.MultiView('container', {
           xField: 'area',
           yField: 'value',
           mapping: {
-            style: ({ value }) => ({ fill: value > 0.3 ? semanticGreen : defaultGrey, lineWidth: 1 }),
+            color: ({ area }) => {
+              const value = data.find((d) => d.area === area).value;
+              return value > 0.3 ? semanticGreen : defaultGrey;
+            },
+            style: { lineWidth: 1 },
           },
           label: {
             position: 'left',
@@ -58,7 +63,11 @@ const labPlot = new Lab.MultiView('container', {
           xField: 'area',
           yField: 'value',
           mapping: {
-            style: ({ value }) => ({ fillOpacity: 0, stroke: value > 0.3 ? semanticGreen : defaultGrey, lineWidth: 1 }),
+            color: ({ area }) => {
+              const value = data.find((d) => d.area === area).value;
+              return value > 0.3 ? semanticGreen : defaultGrey;
+            },
+            style: { lineWidth: 1 },
           },
           label: { position: 'left', formatter: ({ value }) => `${(value * 100).toFixed(1)}%` },
         },
@@ -82,7 +91,11 @@ const labPlot = new Lab.MultiView('container', {
           xField: 'area',
           yField: 'value',
           mapping: {
-            style: ({ value }) => ({ fillOpacity: 0 }),
+            color: ({ area }) => {
+              const value = data.find((d) => d.area === area).value;
+              return value > 0.3 ? semanticGreen : defaultGrey;
+            },
+            style: { fillOpacity: 0 },
           },
           label: { position: 'right', formatter: ({ value }) => `${(value * 100).toFixed(1)}%` },
         },
@@ -153,7 +166,10 @@ const labPlot = new Lab.MultiView('container', {
             },
           },
           mapping: {
-            style: ({ value }) => ({ fill: value > 0.3 ? semanticGreen : defaultGrey }),
+            color: ({ area }) => {
+              const value = data.find((d) => d.area === area).value;
+              return value > 0.3 ? semanticGreen : defaultGrey;
+            },
           },
         },
       ],

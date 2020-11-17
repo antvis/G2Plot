@@ -18,14 +18,6 @@
         "zh": "环图统计指标卡",
         "en": "Donut plot with statistics"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OOnhQI4Sme4AAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "custom-statistics.ts",
-      "title": {
-        "zh": "自定义环图统计指标卡",
-        "en": "Donut plot with statistics"
-      },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5f9ESplug4IAAAAAAAAAAAAAARQnAQ"
     }
   ]

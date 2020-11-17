@@ -1,4 +1,4 @@
 ---
 title: Multi-View Charts
-order: 0
+order: 1
 ---

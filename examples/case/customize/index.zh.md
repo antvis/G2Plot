@@ -1,4 +1,4 @@
 ---
 title: 自定义图表
-order: 1
+order: 2
 ---

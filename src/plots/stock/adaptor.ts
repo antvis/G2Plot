@@ -124,7 +124,7 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
   // chart级别tooltip， text格式化显示内容
   const baseTooltipOptions = {
     crosshairs: {
-      text: (type, defaultContent, items, currentPoint) => {
+      text: (type, defaultContent, items) => {
         const tooltipCrosshairsText = { position: 'end' };
         if (type === 'x') {
           const item = items[0];

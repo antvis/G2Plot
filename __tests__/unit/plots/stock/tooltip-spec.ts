@@ -2,8 +2,8 @@ import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 
-import { DEFAULT_TOOLTIP_OPTIONS } from '../../../../src/plots/stock/constant';
-import { pick } from '../../../../src/utils';
+// import { DEFAULT_TOOLTIP_OPTIONS } from '../../../../src/plots/stock/constant';
+// import { pick } from '../../../../src/utils';
 
 describe('Stock tooltip', () => {
   it('tooltip: default options', () => {

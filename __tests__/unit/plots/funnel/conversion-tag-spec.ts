@@ -17,11 +17,9 @@ describe('conversition tag', () => {
 
     const annotation = funnel.chart.getController('annotation').getComponents();
     expect(annotation.length).toEqual(4);
-    console.log(annotation);
     PV_DATA.forEach((pvItem, index) => {
       if (index === 0) return;
       const content = annotation[index - 1].component.get('text').content;
-      console.log(content);
       expect(content).toBe(`转化率${(pvItem[FUNNEL_CONVERSATION] * 100).toFixed(2)}%`);
     });
 

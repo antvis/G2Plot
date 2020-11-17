@@ -13,6 +13,11 @@ const funnelPlot = new Funnel('container', {
   xField: 'stage',
   yField: 'number',
   isTransposed: true,
+  tooltip: {
+    formatter: (datum) => {
+      return { name: datum.stage, value: `${datum.number}个` };
+    },
+  },
 });
 
 funnelPlot.render();

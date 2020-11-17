@@ -5,7 +5,7 @@ import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
+import { FUNNEL_CONVERSATION } from './constant';
 
 /**
  *

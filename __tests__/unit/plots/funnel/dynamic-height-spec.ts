@@ -27,7 +27,7 @@ describe('dynamicHeight funnel', () => {
   });
 
   afterAll(() => {
-    // funnel.destroy();
+    funnel.destroy();
   });
 
   describe('geometry', () => {

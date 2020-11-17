@@ -13,13 +13,6 @@ const funnelPlot = new Funnel('container', {
   xField: 'stage',
   yField: 'number',
   legend: false,
-  tooltip: {
-    formatter: (datum) => {
-      return { name: 'abc', value: '123' };
-    },
-  },
 });
 
 funnelPlot.render();
-
-console.log(funnelPlot.chart);

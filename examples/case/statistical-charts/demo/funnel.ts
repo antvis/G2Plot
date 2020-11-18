@@ -2,18 +2,12 @@ import { Funnel } from '@antv/g2plot';
 
 const originData = [
   { stage: '触达次数', number: 789 },
-  { stage: '响应次数', number: 253 },
-  { stage: '分享次数', number: 163 },
+  { stage: '响应次数', number: 453 },
+  { stage: '分享次数', number: 193 },
 ];
 
 const data = originData.map((item, index, arr) => {
-  if (index === 0)
-    return {
-      ...item,
-      unConversation: undefined,
-      conversionPec: undefined,
-      unConversionPec: undefined,
-    };
+  if (index === 0) return item;
   return {
     ...item,
     unConversation: arr[index - 1].number - item.number,
@@ -38,12 +32,11 @@ const funnelPlot = new Funnel('container', {
     enterable: true,
     offset: 5,
     customContent: (value, items) => {
-      console.log(value, items);
       if (!items || items.length <= 0) return;
       const { data: itemData } = items[0];
 
       if (itemData.stage === '触达次数') {
-        return `<div style='${tooltipItemStyle} margin-bottom: 12px'><span>待转化人数</span><span>${itemData.number}</span></div>`;
+        return `<div style='${tooltipItemStyle} margin-bottom: 12px; padding: 0 8px;'><span>待转化人数</span><span>${itemData.number}</span></div>`;
       }
 
       return (

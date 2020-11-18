@@ -1,4 +1,4 @@
-import { isString, clamp } from '@antv/util';
+import { isString, clamp, size } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -15,10 +15,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
   const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator } = options;
   const { ticks, color } = range;
-  let clampTicks = ticks;
-  if (!clampTicks?.length) {
-    clampTicks = [0, clamp(percent, 0, 1), 1];
-  }
+  const clampTicks = size(ticks) ? ticks : [0, clamp(percent, 0, 1), 1];
 
   // 指标 & 指针
   // 如果开启在应用

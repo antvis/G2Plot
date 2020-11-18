@@ -16,6 +16,7 @@ registerShape('point', 'gauge-indicator', {
     if (pointer) {
       // pointer
       group.addShape('line', {
+        name: 'pointer',
         attrs: {
           x1: center.x,
           y1: center.y,
@@ -30,6 +31,7 @@ registerShape('point', 'gauge-indicator', {
     // pin
     if (pin) {
       group.addShape('circle', {
+        name: 'pin',
         attrs: {
           x: center.x,
           y: center.y,

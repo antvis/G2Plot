@@ -13,7 +13,7 @@ order: 9
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
@@ -21,31 +21,31 @@ order: 9
 
 <description>**optional** _string_</description>
 
-对比字段。
+Field for comparing.
 
 #### isTransposed
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否转置。
+Whether the plot is transposed.
 
 `markdown:docs/common/meta.en.md`
 
-### Geometry Style
+### Graphic Style
 
 #### dynamicHeight
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否是动态高度。
+Whether the height is dynamic.
 
 #### conversionTag
 
 <description>**optional** _false | object_</description>
 
-配置转化率组件。
+Configure the conversion rate component.
 
-默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
 
 `markdown:docs/common/color.en.md`
 

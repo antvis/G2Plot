@@ -19,5 +19,14 @@ const funnelPlot = new Funnel('container', {
   yField: 'number',
   compareField: 'company',
   isTransposed: true,
+  conversionTag: {
+    offsetX: 10,
+    style: {
+      fill: '#666',
+      fontSize: 12,
+    },
+    formatter: (data) => `占比${(data.$$percentage$$ * 100).toFixed(2)}%`,
+  },
+  legend: false,
 });
 funnelPlot.render();

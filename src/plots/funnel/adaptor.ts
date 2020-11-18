@@ -1,10 +1,11 @@
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
+import { FUNNEL_CONVERSATION } from './constant';
 
 /**
  *
@@ -20,25 +21,40 @@ import { dynamicHeightFunnel } from './geometries/dynamic-height';
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, label } = options;
-  let compareOptions = {};
-  if (compareField) {
-    compareOptions = {
-      appendPadding: [50, 50, 0, 50],
-      label: label && {
-        callback: (xField, yField) => ({
-          content: `${yField}`,
-        }),
-        ...label,
+  const { compareField, xField, yField } = options;
+  const defaultOption = {
+    label: {
+      offset: 0,
+      position: 'middle',
+      style: {
+        fill: '#fff',
+        fontSize: 12,
       },
-    };
-  }
-  return deepAssign({}, params, {
-    options: {
-      ...compareOptions,
-      ...options,
+      formatter: compareField ? (datum) => `${datum[yField]}` : (datum) => `${datum[xField]} ${datum[yField]}`,
     },
-  });
+    tooltip: {
+      showTitle: false,
+      showMarkers: false,
+      shared: false,
+      title: xField,
+      formatter: (datum) => {
+        return { name: datum[xField], value: datum[yField] };
+      },
+    },
+    conversionTag: {
+      offsetX: 10,
+      offsetY: 0,
+      style: {},
+      formatter: (datum) => `转化率${(datum[FUNNEL_CONVERSATION] * 100).toFixed(2)}%`,
+    },
+  };
+
+  return deepAssign(
+    {
+      options: defaultOption,
+    },
+    params
+  );
 }
 
 /**
@@ -97,32 +113,6 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
   } else {
     chart.legend(legend);
     // TODO FIX: legend-click 时间和转化率组件之间的关联
-  }
-
-  return params;
-}
-
-/**
- * tooltip 配置
- * @param params
- */
-export function tooltip(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart, options } = params;
-  const { tooltip, dynamicHeight, xField, yField } = options;
-  let tranformTooltip = tooltip;
-  if (tooltip && dynamicHeight) {
-    tranformTooltip = {
-      itemTpl:
-        '<li class="g2-tooltip-list-item" data-index={index}>' +
-        '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-        `<span class="g2-tooltip-name">{${xField}}</span>` +
-        `<span class="g2-tooltip-value" style="display: inline-block; float: right; margin-left: 30px;">{${yField}}</span></li>`,
-      ...tooltip,
-    };
-  }
-
-  if (tranformTooltip !== undefined) {
-    chart.tooltip(tranformTooltip);
   }
 
   return params;

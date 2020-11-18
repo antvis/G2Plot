@@ -2,8 +2,10 @@ import { map, reduce } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
-import { FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
-import { Datum } from '../../../types/common';
+import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
+import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
+import { getTooltipMapping } from '../../../utils/tooltip';
+import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
 import { geometryLabel, conversionTagComponent } from './common';
 
@@ -66,6 +68,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
     row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+    row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
     return row;
   });
 
@@ -80,17 +83,24 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color } = options;
+  const { xField, yField, color, tooltip } = options;
 
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
   // 绘制漏斗图
-  chart
-    .polygon()
-    .position(`${PLOYGON_X}*${PLOYGON_Y}`)
-    .color(xField, color)
-    .tooltip(`${xField}*${yField}`, (xFieldValue, yFieldValue) => ({
-      [xField]: xFieldValue,
-      [yField]: yFieldValue,
-    }));
+  baseGeometry({
+    chart,
+    options: {
+      type: 'polygon',
+      xField: PLOYGON_X,
+      yField: PLOYGON_Y,
+      colorField: xField,
+      tooltipFields: fields,
+      mapping: {
+        tooltip: formatter,
+        color,
+      },
+    },
+  });
   return params;
 }
 
@@ -125,8 +135,14 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param params
  */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const getLineCoordinate = (datum: Datum): LineOption => {
+  const getLineCoordinate = (
+    datum: Datum,
+    datumIndex: number,
+    data: Data,
+    initLineOption: Record<string, any>
+  ): LineOption => {
     return {
+      ...initLineOption,
       start: [datum[PLOYGON_X][1], datum[PLOYGON_Y][1]],
       end: [datum[PLOYGON_X][1] + 0.05, datum[PLOYGON_Y][1]],
     };

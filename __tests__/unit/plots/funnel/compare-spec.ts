@@ -1,7 +1,7 @@
 import { Funnel } from '../../../../src';
 import { PV_DATA_COMPARE } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
-import { FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
+import { FUNNEL_PERCENT, FUNNEL_CONVERSATION } from '../../../../src/plots/funnel/constant';
 
 describe('compare funnel', () => {
   let funnel;
@@ -44,113 +44,28 @@ describe('compare funnel', () => {
 
         // position
         const positionFields = geometry.getAttribute('position').getFields();
-        expect(positionFields).toHaveLength(3);
+        expect(positionFields).toHaveLength(2);
         expect(positionFields[0]).toBe('action');
         expect(positionFields[1]).toBe('pv');
-        expect(positionFields[2]).toBe(FUNNEL_PERCENT);
 
         const shapeFields = geometry.getAttribute('shape').getFields();
         expect(shapeFields[0]).toBe('funnel');
 
         const colorFields = geometry.getAttribute('color').getFields();
         expect(colorFields[0]).toBe('action');
-      });
-    });
-  });
 
-  describe('geometry label', () => {
-    test('geometry label default', () => {
-      funnel.chart.views.forEach((funnelView) => {
-        const geometry = funnelView.geometries[0];
-        const { labelOption, labelsContainer } = geometry;
-        expect(labelOption.fields).toEqual(['action', 'pv', FUNNEL_PERCENT]);
-        expect(labelsContainer.cfg.children.length).toBe(5);
-        expect(labelOption.cfg.style.fill).toBe('#fff');
-        expect(labelOption.cfg.style.fontSize).toBe(12);
-      });
-    });
+        const origin = {
+          '2020Q1': PV_DATA_COMPARE.filter((item) => item.quarter === '2020Q1'),
+          '2020Q2': PV_DATA_COMPARE.filter((item) => item.quarter === '2020Q2'),
+        };
 
-    test('geometry label custom', () => {
-      funnel.update({
-        ...funnelOption,
-        label: {
-          style: {
-            fill: '#f00',
-            fontSize: 14,
-          },
-          callback: (xField, yField) => ({
-            content: `${yField}`,
-          }),
-        },
-      });
-
-      funnel.chart.views.forEach((funnelView) => {
-        expect(funnelView.geometries[0].labelOption.cfg.style.fill).toBe('#f00');
-        expect(funnelView.geometries[0].labelOption.cfg.style.fontSize).toBe(14);
-      });
-    });
-
-    test('geometry label close', () => {
-      // 关闭 label
-      funnel.update({
-        ...funnelOption,
-        label: false,
-      });
-
-      funnel.chart.views.forEach((funnelView) => {
-        expect(funnelView.geometries[0].labelsContainer.cfg.children.length).toBe(0);
-      });
-    });
-  });
-
-  describe('conversionTag', () => {
-    // test('conversionTag default', () => {
-    //   funnel.chart.views.forEach((funnelView) => {
-    //     const { data } = funnelView.getOptions();
-    //     const annotation = funnelView.getController('annotation').getComponents();
-    //     expect(annotation.length).toEqual(5);
-    //     expect(annotation[0].component.cfg.content).toBe(data[0].quarter);
-    //     data.forEach((pvItem, index) => {
-    //       if (index === 0) return;
-    //       expect(annotation[index].component.get('text').content).toBe(`转化率${pvItem[FUNNEL_PERCENT] * 100}%`);
-    //     });
-    //   });
-    // });
-
-    test('conversionTag custom', () => {
-      // 自定义转化率组件
-      funnel.update({
-        ...funnelOption,
-        conversionTag: {
-          style: {
-            fill: '#f00',
-            fontSize: 18,
-          },
-          formatter: (datum) => `${datum.$$percentage$$}转化`,
-        },
-      });
-      funnel.chart.views.forEach((funnelView) => {
-        const { data } = funnelView.getOptions();
-        const customAnnotation = funnelView.getController('annotation').getComponents();
-        expect(customAnnotation.length).toEqual(5);
-        data.forEach((pvItem, index) => {
-          if (index === 0) return;
-          const text = customAnnotation[index].component.get('text');
-          expect(text.content).toBe(`${pvItem[FUNNEL_PERCENT]}转化`);
-          expect(text.style.fill).toBe('#f00');
-          expect(text.style.fontSize).toBe(18);
+        const { data } = funnel.chart.getOptions();
+        data.forEach((item, index) => {
+          const originData = origin[item.quarter];
+          const originIndex = originData.findIndex((jtem) => jtem.pv === item.pv);
+          expect(item[FUNNEL_PERCENT]).toEqual(item.pv / originData[0].pv);
+          expect(item[FUNNEL_CONVERSATION]).toEqual(originIndex === 0 ? 1 : item.pv / originData[originIndex - 1].pv);
         });
-      });
-    });
-
-    test('conversionTag close', () => {
-      funnel.update({
-        ...funnelOption,
-        conversionTag: false,
-      });
-
-      funnel.chart.views.forEach((funnelView) => {
-        expect(funnelView.getController('annotation').getComponents().length).toEqual(1);
       });
     });
   });

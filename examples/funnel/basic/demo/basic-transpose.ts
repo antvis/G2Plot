@@ -13,6 +13,23 @@ const funnelPlot = new Funnel('container', {
   xField: 'stage',
   yField: 'number',
   isTransposed: true,
+  label: {
+    formatter: (datum) => {
+      // 提供占比$$percentage$$，转化率$$conversion$$两种格式
+      return `${datum.stage}:${datum.number}`;
+    },
+  },
+  conversionTag: {
+    formatter: (datum) => {
+      // 提供占比$$percentage$$，转化率$$conversion$$两种格式
+      return datum.$$conversion$$.toFixed(2);
+    },
+  },
+  tooltip: {
+    formatter: (datum) => {
+      return { name: datum.stage, value: `${datum.number}个` };
+    },
+  },
 });
 
 funnelPlot.render();

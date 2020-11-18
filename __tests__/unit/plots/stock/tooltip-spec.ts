@@ -120,7 +120,7 @@ describe('Stock tooltip', () => {
     expect(k.chart.options.tooltip).toBe(false);
     expect(k.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
 
-    // k.destroy();
+    k.destroy();
   });
 
   it('tooltip:  custom crosshairs', () => {

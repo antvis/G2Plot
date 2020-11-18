@@ -1,7 +1,6 @@
 import { Lab } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { partySupport } from '../../../data/party-support';
-import { annotation } from '../../../../src/adaptor/common';
 
 describe('multi-view', () => {
   it('simple line', () => {

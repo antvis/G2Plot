@@ -16,6 +16,8 @@ export const AXIS_META_CONFIG_KEYS = [
   'base',
   // type: 'exp' 的指数
   'exponent',
+  // time 类型的格式化
+  'mask',
 ];
 
 /**

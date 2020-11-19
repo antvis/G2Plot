@@ -4,8 +4,9 @@ import { createDiv } from '../../../utils/dom';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
 import { mobile } from '../../../data/mobile';
 
-const MOBILE_DATA = clone(mobile).forEach((mobile) => {
-  mobile.value = null;
+const MOBILE_DATA = clone(mobile);
+MOBILE_DATA.forEach((m) => {
+  m.value = null;
 });
 
 describe('sunburst', () => {

@@ -4,6 +4,7 @@ import { Geometry, View } from '@antv/g2';
 import Element from '@antv/g2/lib/geometry/element';
 import { Params } from '../core/adaptor';
 import { deepAssign } from '../utils';
+import { conversionTagformatter } from '../utils/conversion';
 
 /** 转化率组件配置选项 */
 export interface ConversionTagOptions {
@@ -74,18 +75,7 @@ function getConversionTagOptionsWithDefaults(options: ConversionTagOptions, hori
           textAlign: 'center',
           textBaseline: 'middle',
         },
-        formatter: (prev: number, next: number) => {
-          if (prev === next) {
-            return `${(0).toFixed(2)}%`;
-          }
-          if (prev === 0) {
-            return '∞';
-          }
-          if (next === 0) {
-            return '-∞';
-          }
-          return `${((100 * next) / prev).toFixed(2)}%`;
-        },
+        formatter: conversionTagformatter,
       },
     },
     options

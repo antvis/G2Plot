@@ -15,9 +15,11 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
  * transformOptions，双轴图整体的取参逻辑如下
- * 1. 获取 defaultOption（dual-axes/index) : deepMix({}, super.getDefaultOptions(options), dualDefaultOptions)
- * 2. 获取 options (core/plot): deepMix({}, defaultOption, options);
- * 3. transformOptions: 这是因为第二步无法使得 geometryOptions 被有效 deepmix, 因此最后新增一步 transform
+ * 1. get index getOptions: 对应的是默认的图表参数，如 appendPadding，syncView 等
+ * 2. get adpator transformOption: 对应的是双轴图的默认参数，deepAssign 优先级从低到高如下
+ *    2.1 defaultoption，如 tooltip，legend
+ *    2.2 用户填写 options
+ *    2.3 根据用户填写的 options 补充的数组型 options，如 yaxis，GeometryOption，因为 deepAssign 无法 assign 数组
  *
  * @param params
  */

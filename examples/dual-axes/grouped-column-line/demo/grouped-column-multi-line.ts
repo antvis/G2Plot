@@ -41,12 +41,10 @@ const dualAxes = new DualAxes('container', {
       isGroup: true,
       seriesField: 'type',
       columnWidthRatio: 0.4,
-      color: ['#5B8FF9', '#5AD8A6'],
     },
     {
       geometry: 'line',
       seriesField: 'name',
-      color: ['#CDDDFD', '#CDF3E4', '#CED4DE'],
       lineStyle: ({ name }) => {
         if (name === 'a') {
           return {

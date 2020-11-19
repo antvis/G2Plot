@@ -49,7 +49,6 @@ const dualAxes = new DualAxes('container', {
       seriesField: 'name',
       isStack: true,
       smooth: true,
-      color: ['#BBDEDE', '#FF99C3', '#FFE0ED'],
     },
   ],
   tooltip: false,

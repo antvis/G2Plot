@@ -29,7 +29,9 @@ const dualAxes = new DualAxes('container', {
     {
       geometry: 'line',
       smooth: true,
-      color: '#5AD8A6',
+      color: ({ name }) => {
+        return '#5AD8A6';
+      },
       lineStyle: {
         lineWidth: 4,
         opacity: 0.5,

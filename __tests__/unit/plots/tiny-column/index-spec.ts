@@ -4,7 +4,7 @@ import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
 describe('tiny-column', () => {
-  it.only('data', () => {
+  it('data', () => {
     const tinyColumn = new TinyColumn(createDiv(), {
       width: 200,
       height: 100,
@@ -26,7 +26,7 @@ describe('tiny-column', () => {
     expect(tinyColumn.chart.geometries[0].elements.length).toBe(52);
 
     tinyColumn.chart.showTooltip({ x: 10, y: 10 });
-    expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe('4600.0');
+    expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe('4600');
 
     tinyColumn.destroy();
   });
@@ -156,6 +156,9 @@ describe('tiny-column', () => {
     // @ts-ignore
     const { position } = geometry.attributeOption;
     expect(position.fields).toEqual(['x', 'y']);
+
+    tinyColumn.chart.showTooltip({ x: 10, y: 10 });
+    expect(tinyColumn.container.querySelector('.g2-tooltip').innerHTML).toBe('有4.1千');
 
     tinyColumn.destroy();
   });

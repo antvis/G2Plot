@@ -88,24 +88,21 @@ describe('DualAxes option', () => {
   });
 
   it('getGeometryOption', () => {
-    expect(getGeometryOption('test', 'yField1', undefined, AxisType.Left)).toEqual({
+    expect(getGeometryOption('test', 'yField1', undefined)).toEqual({
       geometry: 'line',
-      color: '#5B8FF9',
     });
 
     // @ts-ignore
-    expect(getGeometryOption('test', 'yField1', { a: 1 }, AxisType.Left)).toEqual({
+    expect(getGeometryOption('test', 'yField1', { a: 1 })).toEqual({
       geometry: 'line',
-      color: '#5B8FF9',
       a: 1,
     });
 
-    expect(getGeometryOption('test', 'yField1', { geometry: 'column' }, AxisType.Left)).toEqual({
+    expect(getGeometryOption('test', 'yField1', { geometry: 'column' })).toEqual({
       geometry: 'column',
     });
 
-    const label = getGeometryOption('test', 'yField1', { geometry: 'column', isRange: true, label: {} }, AxisType.Left)
-      .label;
+    const label = getGeometryOption('test', 'yField1', { geometry: 'column', isRange: true, label: {} }).label;
 
     expect(
       label && typeof label.content === 'function' && label.content({ yField1: [40, 50] }, { _origin: [40, 50] }, 1)

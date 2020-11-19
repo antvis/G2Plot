@@ -34,7 +34,6 @@ const dualAxes = new DualAxes('container', {
     },
     {
       geometry: 'line',
-      color: '#FAA219',
     },
   ],
 });

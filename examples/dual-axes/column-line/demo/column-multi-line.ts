@@ -33,13 +33,11 @@ const dualAxes = new DualAxes('container', {
   geometryOptions: [
     {
       geometry: 'column',
-      color: '#5B8FF9',
       columnWidthRatio: 0.4,
     },
     {
       geometry: 'line',
       seriesField: 'name',
-      color: ['#CDDDFD', '#CDF3E4', '#CED4DE'],
     },
   ],
 });

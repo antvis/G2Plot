@@ -28,15 +28,13 @@ const dualAxes = new DualAxes('container', {
       geometry: 'column',
       color: '#5B8FF9',
       columnWidthRatio: 0.4,
-      columnStyle: {
-        opacity: 0.4,
-      },
       label: {
         position: 'middle',
       },
     },
     {
       geometry: 'line',
+      smooth: true,
       color: '#5AD8A6',
     },
   ],

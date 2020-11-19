@@ -16,11 +16,7 @@ export class DualAxes extends Plot<DualAxesOptions> {
   protected getDefaultOptions(): Partial<DualAxesOptions> {
     return deepAssign({}, super.getDefaultOptions(), {
       yAxis: [],
-      geometryOptions: [],
       syncViewPadding: true,
-      legend: {
-        position: 'top-left',
-      },
     });
   }
 

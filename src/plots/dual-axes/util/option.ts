@@ -30,12 +30,7 @@ export function isColumn(geometryOption: GeometryOption): geometryOption is Geom
  * @param geometryOption
  * @param axis
  */
-export function getGeometryOption(
-  xField: string,
-  yField: string,
-  geometryOption: GeometryOption,
-  axis: AxisType
-): GeometryOption {
+export function getGeometryOption(xField: string, yField: string, geometryOption: GeometryOption): GeometryOption {
   // 空默认为线
   return isColumn(geometryOption)
     ? deepAssign(
@@ -55,7 +50,6 @@ export function getGeometryOption(
       )
     : {
         geometry: DualAxesGeometry.Line,
-        color: axis === AxisType.Left ? '#5B8FF9' : '#E76C5E',
         ...geometryOption,
       };
 }

@@ -13,7 +13,7 @@ order: 3
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
@@ -21,59 +21,59 @@ order: 3
 
 <description>**optional** _string_</description>
 
-拆分字段，在分组条形图下同 groupField、colorField，在堆积条形图下同 stackField、colorField。
+Grouping field. It is the same meaning as groupField、colorField in Grouped Bar, and the same as stackField、colorField in Stacked Bar.
 
 #### groupField
 
 <description>**optional** _string_</description>
 
-拆分字段，用于堆叠分组条形图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。
+Grouping field for Stacked Bar and Grouped Bar. Its priority is higher than seriesField. When isGroup is `true`, the data will be grouped by `groupField`.
 
 #### isGroup
 
 <description>**optional** _boolean_</description>
 
-是否分组柱形图。
+Whether the plot is Grouped Bar.
 
 #### isStack
 
 <description>**optional** _boolean_</description>
 
-是否堆积条形图。
+Whether the plot is Stacked Bar.
 
 #### isRange
 
 <description>**optional** _boolean_</description>
 
-是否区间条形图。
+Whether the plot is Range Bar.
 
 #### isPercent
 
 <description>**optional** _boolean_</description>
 
-是否百分百条形图，isPercent 为 true 时，isStack 也需要为 true。
+Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true`.
 
 `markdown:docs/common/meta.en.md`
 
-### Geometry Style
+### Graphic Style
 
 #### barWidthRatio
 
 <description>**optional** _number_</description>
 
-条形图宽度占比 [0-1]。
+The ratio of bar width( Range:[0-1] ).
 
 #### marginRatio
 
 <description>**optional** _number_</description>
 
-分组中柱子之间的间距 [0-1]，仅对分组条形图适用。
+The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped Bar.
 
 #### barStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
-柱子样式配置。
+Bar graphic Style.
 
 `markdown:docs/common/shape-style.en.md`
 

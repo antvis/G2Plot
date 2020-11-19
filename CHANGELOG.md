@@ -1,3 +1,47 @@
+#### 2.0.10 (2020-11-19)
+
+##### Chores
+
+*  only sync gh-pages to Gitee Mirror ([#1938](https://github.com/antvis/g2plot/pull/1938)) ([e0a1e9d4](https://github.com/antvis/g2plot/commit/e0a1e9d447ce68d9b496bf05af3e862e30ce8777))
+
+##### Documentation Changes
+
+*  更新 manual/plots 英文文档 ([#1942](https://github.com/antvis/g2plot/pull/1942)) ([3f990c8d](https://github.com/antvis/g2plot/commit/3f990c8d3b059b43ff76ba73c85ece2e20f3ff63))
+*  更新升级文档 ([#1937](https://github.com/antvis/g2plot/pull/1937)) ([690c2aff](https://github.com/antvis/g2plot/commit/690c2affbe4e694de53a634ce3c11e34ed939ebc))
+*  更新 manual 英文文档 ([#1906](https://github.com/antvis/g2plot/pull/1906)) ([d8aea09d](https://github.com/antvis/g2plot/commit/d8aea09ddcda34cd3dfc211fe08216c73d515609))
+*  more document for column and bar plot ([#1911](https://github.com/antvis/g2plot/pull/1911)) ([b0d6b1b2](https://github.com/antvis/g2plot/commit/b0d6b1b26b100e2d245f9223fe1b7029a4a04aab))
+*  bullet document update ([#1896](https://github.com/antvis/g2plot/pull/1896)) ([b8ed05ff](https://github.com/antvis/g2plot/commit/b8ed05fff090e4391d9b910ab854e34d21a2ab9c))
+*  update gatsby-theme-antv version ([#1935](https://github.com/antvis/g2plot/pull/1935)) ([d6255e0f](https://github.com/antvis/g2plot/commit/d6255e0f7a80db273a9cd1f6fefedcbc3afed740))
+*  文档优优化 - pie radar waterfall ([#1908](https://github.com/antvis/g2plot/pull/1908)) ([cb808b2c](https://github.com/antvis/g2plot/commit/cb808b2c6bf3c67a6adb7e920e6cc57db9f559dd))
+
+##### New Features
+
+*  新增百分比面积图 ([#1932](https://github.com/antvis/g2plot/pull/1932)) ([c4ae3b50](https://github.com/antvis/g2plot/commit/c4ae3b50a3f6f87c0b0a6c9bb7472890334ca5e3))
+*  补充 example 中柱形图 column 缺失的设计指引 ([#1922](https://github.com/antvis/g2plot/pull/1922)) ([65a6d7e1](https://github.com/antvis/g2plot/commit/65a6d7e13ca1a110aa0d87bb27fcc811581c4760))
+*  add line type into radial-bar ([#1912](https://github.com/antvis/g2plot/pull/1912)) ([d9a9bc53](https://github.com/antvis/g2plot/commit/d9a9bc53e93334b8bb941362cd3002af66ccdafc))
+*  multi layer 支持配置 annotations & label ([#1913](https://github.com/antvis/g2plot/pull/1913)) ([41b7cff4](https://github.com/antvis/g2plot/commit/41b7cff49d507db30a87f0d148225205f050dd2f))
+*  review and modify radial-bar docs ([#1904](https://github.com/antvis/g2plot/pull/1904)) ([18bab577](https://github.com/antvis/g2plot/commit/18bab57716e21e152cdbd7600e787141e1e949ce))
+*  add g2plot-column plugin link ([#1900](https://github.com/antvis/g2plot/pull/1900)) ([4f85ed29](https://github.com/antvis/g2plot/commit/4f85ed29dd2c5098c1ee7b6253d8f958077d54c0))
+*  新增堆叠分组功能 ([#1893](https://github.com/antvis/g2plot/pull/1893)) ([fdd9fcf8](https://github.com/antvis/g2plot/commit/fdd9fcf82e43ef5997dbdf48c82d328e75f353f4))
+* **default-options:**  update default option for plots ([#1907](https://github.com/antvis/g2plot/pull/1907)) ([2b03b929](https://github.com/antvis/g2plot/commit/2b03b929eb48c15e9a7c8fb5acf48ba74a678c4b))
+
+##### Bug Fixes
+
+*  remove tiny default formatter & mask in axis not work ([#1947](https://github.com/antvis/g2plot/pull/1947)) ([15d97bdc](https://github.com/antvis/g2plot/commit/15d97bdcadd176cfb58205d3db7af237c9107b01))
+*  funnel ([#1916](https://github.com/antvis/g2plot/pull/1916)) ([9b7b189a](https://github.com/antvis/g2plot/commit/9b7b189a1132cc88e69d1d1bb866b2d30dc5d9ea))
+*  surge preview in wrong ref ([#1897](https://github.com/antvis/g2plot/pull/1897)) ([e1049207](https://github.com/antvis/g2plot/commit/e1049207a23fe1caccd13812d4aa0b1ab4ccf947))
+* **#1909:**  opacity 配置不生效 ([#1920](https://github.com/antvis/g2plot/pull/1920)) ([2af40c16](https://github.com/antvis/g2plot/commit/2af40c169c737f39ef3bf62bcd2618401feba2ac))
+
+##### Reverts
+
+*  limitInPlot ([#1891](https://github.com/antvis/g2plot/pull/1891)) ([ee2c3b85](https://github.com/antvis/g2plot/commit/ee2c3b8542d4b5796657e5a1cecbfd421b1f7623))
+
+##### Tests
+
+*  coverage for conversion-tag ([#1950](https://github.com/antvis/g2plot/pull/1950)) ([5e3dc37e](https://github.com/antvis/g2plot/commit/5e3dc37e1c84d73c8512dda7664351082ff8b825))
+*  coverage for util ([#1936](https://github.com/antvis/g2plot/pull/1936)) ([aeb93d91](https://github.com/antvis/g2plot/commit/aeb93d91cde7f9e1a019d9c39a69834f64333fb3))
+* **gauge:**  coverage increase ([#1939](https://github.com/antvis/g2plot/pull/1939)) ([fe08aa6d](https://github.com/antvis/g2plot/commit/fe08aa6d69c8668ee6887a1cefbee9d0cb2673c6))
+
 #### 2.0.9 (2020-11-10)
 
 ##### Reverts

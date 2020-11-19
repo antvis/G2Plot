@@ -7,10 +7,10 @@
     {
       "filename": "dual-line.ts",
       "title": {
-        "zh": "双折线混合图表",
+        "zh": "双折线图",
         "en": "Dual line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Omr4SK6froAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*HS5DT4j34XEAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "custom-dual-line.ts",
@@ -18,7 +18,7 @@
         "zh": "双折线图 - 自定义折线样式",
         "en": "Dual line with style"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kAgfTZPPjAsAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FtUXRLU3mUgAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "dual-step-line.ts",
@@ -26,15 +26,15 @@
         "zh": "双折线图 - 阶梯折线",
         "en": "Dual Step Line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kAgfTZPPjAsAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5qvZTIy44UIAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "dual-multi-line.ts",
       "title": {
-        "zh": "多折线混合图表",
+        "zh": "双折线图 - 多折线",
         "en": "Dual multi line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9kCzTIT2E94AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*BzyZQapC7ucAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

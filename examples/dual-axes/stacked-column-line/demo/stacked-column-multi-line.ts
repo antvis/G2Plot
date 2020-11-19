@@ -48,7 +48,7 @@ const dualAxes = new DualAxes('container', {
       lineStyle: ({ name }) => {
         if (name === 'a') {
           return {
-            lineDash: [2, 2],
+            lineDash: [1, 4],
             opacity: 1,
           };
         }

@@ -40,7 +40,7 @@ describe('column conversion tag', () => {
 
   it('render', async () => {
     plot.render();
-    await delay(500);
+    await delay(100);
 
     const shapes = plot.chart.geometries[0].getShapes();
     const shapeBBoxes = shapes.map((shape) => shape.getBBox());
@@ -89,9 +89,8 @@ describe('column conversion tag', () => {
         size: 40,
       },
     });
-    plot.render();
 
-    await delay(500);
+    await delay(100);
 
     const shapes = plot.chart.geometries[0].getShapes();
     const shapeBBoxes = shapes.map((shape) => shape.getBBox());
@@ -132,6 +131,24 @@ describe('column conversion tag', () => {
       // size: 40
       expect(near(bbox.height, 40)).toBeTruthy();
     });
+
+    plot.update({
+      conversionTag: {
+        arrow: false,
+      },
+    });
+    await delay(100);
+
+    expect(group.findAllByName('conversion-tag-arrow')).toEqual([]);
+
+    plot.update({
+      conversionTag: {
+        text: false,
+      },
+    });
+    await delay(100);
+
+    expect(group.findAllByName('conversion-tag-text')).toEqual([]);
   });
 
   it('clear', async () => {
@@ -141,7 +158,7 @@ describe('column conversion tag', () => {
     });
     plot.render();
 
-    await delay(500);
+    await delay(100);
 
     const foreground = plot.chart.foregroundGroup;
     const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
@@ -175,7 +192,7 @@ describe('bar conversion tag', () => {
   it('render', async () => {
     plot.render();
 
-    await delay(500);
+    await delay(100);
 
     const shapes = plot.chart.geometries[0].getShapes();
     const shapeBBoxes = shapes.map((shape) => shape.getBBox());
@@ -226,7 +243,7 @@ describe('bar conversion tag', () => {
     });
     plot.render();
 
-    await delay(500);
+    await delay(100);
 
     const shapes = plot.chart.geometries[0].getShapes();
     const shapeBBoxes = shapes.map((shape) => shape.getBBox());
@@ -274,7 +291,7 @@ describe('bar conversion tag', () => {
     });
     plot.render();
 
-    await delay(500);
+    await delay(100);
 
     const foreground = plot.chart.foregroundGroup;
     const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
@@ -301,6 +318,7 @@ describe('zero data no NaN', () => {
       nice: true,
     },
     conversionTag: {},
+    animation: false,
   });
   plot.render();
 
@@ -333,6 +351,74 @@ describe('zero data no NaN', () => {
   });
 
   afterAll(() => {
+    plot.destroy();
+  });
+});
+
+describe('totalWidth - headSize) / 2 < spacing', () => {
+  it('column', async () => {
+    const plot = new Column(createDiv(), {
+      data: DATA_WITH_ZERO,
+      autoFit: false,
+      width: 200,
+      height: 400,
+      xField: 'action',
+      yField: 'pv',
+      label: {},
+      yAxis: {
+        nice: true,
+      },
+      conversionTag: {},
+      animation: false,
+    });
+
+    plot.render();
+    await delay(50);
+
+    const foreground = plot.chart.foregroundGroup;
+    // 整体
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    // 文本
+    const texts = group.findAllByName('conversion-tag-text');
+
+    expect(texts).toHaveLength(DATA_WITH_ZERO.length - 1);
+    expect(texts[0].attr('text')).toBe('66...');
+
+    const arrows = group.findAllByName('conversion-tag-arrow');
+    expect(arrows[0].getBBox().width).toBe(12);
+    plot.destroy();
+  });
+
+  it('bar', async () => {
+    const plot = new Bar(createDiv(), {
+      data: DATA_WITH_ZERO,
+      autoFit: false,
+      width: 500,
+      height: 300,
+      xField: 'pv',
+      yField: 'action',
+      label: {},
+      yAxis: {
+        nice: true,
+      },
+      conversionTag: {},
+      animation: false,
+    });
+
+    plot.render();
+    await delay(50);
+
+    const foreground = plot.chart.foregroundGroup;
+    // 整体
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    // 文本
+    const texts = group.findAllByName('conversion-tag-text');
+
+    expect(texts).toHaveLength(DATA_WITH_ZERO.length - 1);
+    expect(texts[0].attr('text')).toBe('66.67%');
+
+    const arrows = group.findAllByName('conversion-tag-arrow');
+    expect(arrows[0].getBBox().width).toBe(80);
     plot.destroy();
   });
 });
